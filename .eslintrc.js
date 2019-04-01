@@ -5,7 +5,11 @@ module.exports = {
     es6: true,
     node: true
   },
-  extends: ['xo', 'xo-space'],
+  extends: [
+    'xo',
+    'xo-space',
+    'xo-react/space'
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
