@@ -82,32 +82,38 @@ module.exports = grunt => {
         ]
       },
       startDevelop: {
-        tasks: [
-          {
-            grunt: true,
-            stream: true,
-            args: ['watch']
-          },
-          {
-            // Run webpack dev server.
-            stream: true,
-            cmd: 'node',
-            args: [
-              path.join('node_modules', 'webpack-dev-server', 'bin', 'webpack-dev-server.js')
-            ]
-          },
-          {
-            // Run nodemon web server.
-            stream: true,
-            cmd: 'node',
-            args: [
-              path.join('node_modules', 'nodemon', 'bin', 'nodemon.js'),
-              path.join('backend', 'server.js'),
-              '--watch',
-              path.join('backend')
-            ]
+        tasks: (() => {
+          const result = [
+            {
+              grunt: true,
+              stream: true,
+              args: ['watch']
+            },
+            {
+              // Run webpack dev server.
+              stream: true,
+              cmd: 'node',
+              args: [
+                path.join('node_modules', 'webpack-dev-server', 'bin', 'webpack-dev-server.js')
+              ]
+            }
+          ];
+          if (!grunt.option('nobackend')) {
+            result.push({
+              // Run nodemon web server.
+              stream: true,
+              cmd: 'node',
+              args: [
+                path.join('node_modules', 'nodemon', 'bin', 'nodemon.js'),
+                path.join('backend', 'server.js'),
+                '--watch',
+                path.join('backend')
+              ]
+            });
           }
-        ]
+
+          return result;
+        })()
       }
     }
   });
