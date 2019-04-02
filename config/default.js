@@ -4,7 +4,7 @@ module.exports = {
     port: 8001
   },
   webpackDevServer: {
-    host: '0.0.0.0',
+    host: 'localhost',
     port: 8002
   }
 };
