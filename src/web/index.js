@@ -29,16 +29,17 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
   progress.start();
   const $user = store.get('$user');
   const $config = store.get('$config');
-  // if (!$user.id && ['web.login'].indexOf(toState.name) < 0) {
-  //   cancel();
-  //   Cookies.set($config.cookie.redirect, JSON.stringify(toState));
-  //   setTimeout(() => {
-  //     router.go({name: 'web.login'});
-  //   });
-  // }
+  const allowAnonymousRoutes = ['web.login'];
+  if (!$user.id && allowAnonymousRoutes.indexOf(toState.name) < 0) {
+    cancel();
+    Cookies.set($config.cookie.redirect, JSON.stringify(toState));
+    setTimeout(() => {
+      router.go({name: 'web.login'}, {replace: true});
+    });
+  }
 });
-router.listen('ChangeSuccess', () => progress.done());
-router.listen('ChangeError', () => progress.done());
+router.listen('ChangeSuccess', progress.done);
+router.listen('ChangeError', progress.done);
 router.start();
 
 ReactDOM.render((

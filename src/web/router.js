@@ -1,9 +1,5 @@
 const {Router} = require('capybara-router');
 const history = require('history');
-const Layout = require('./pages/layout');
-const Home = require('./pages/home');
-const NotFound = require('./pages/shared/not-found');
-const ErrorPage = require('./pages/shared/error');
 
 module.exports = new Router({
   history: history.createBrowserHistory(),
@@ -12,7 +8,7 @@ module.exports = new Router({
       name: 'web',
       uri: '/',
       isAbstract: true,
-      component: Layout
+      component: require('./pages/layout')
     },
     {
       name: 'web.home',
@@ -20,13 +16,21 @@ module.exports = new Router({
       onEnter: () => {
         document.title = 'Home';
       },
-      component: Home
+      component: require('./pages/home')
+    },
+    {
+      name: 'web.login',
+      uri: 'login',
+      onEnter: () => {
+        document.title = 'Login';
+      },
+      component: require('./pages/account/login')
     },
     {
       name: 'not-found',
       uri: '.*',
-      component: NotFound
+      component: require('./pages/shared/not-found')
     }
   ],
-  errorComponent: ErrorPage
+  errorComponent: require('./pages/shared/error')
 });

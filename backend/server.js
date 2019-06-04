@@ -14,6 +14,7 @@ const server = http.createServer(app);
 // Setup handlebars
 const hbs = expressHandlebars.create({
   extname: '.html',
+  defaultLayout: false,
   helpers: {
     archive: object =>
       new handlebars.SafeString((Buffer.from(JSON.stringify(object))).toString('base64'))
@@ -27,7 +28,10 @@ app.set('view engine', 'html');
 // Append config at locals
 app.locals.config = {
   languages: config.languages,
-  isDebug: config.isDebug
+  isDebug: config.isDebug,
+  cookie: {
+    redirect: 'redirect'
+  }
 };
 app.locals.languageCode = 'zh-tw';
 app.locals.user = {

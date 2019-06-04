@@ -8,17 +8,13 @@ module.exports = class Layout extends Base {
     const router = require('../router');
 
     this.state.currentRouteName = '';
-    this.listens = [
-      router.listen('ChangeSuccess', (action, toState, _) => {
+    this.$subscriptions.push(
+      router.listen('ChangeSuccess', (action, toState) => {
         this.setState({
           currentRouteName: toState.name
         });
       })
-    ];
-  }
-
-  componentWillUnmount() {
-    this.listens.forEach(x => x());
+    );
   }
 
   render() {

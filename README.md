@@ -1,7 +1,7 @@
 # webserver-frontend
 
 ## Setup the develop environment
-### 1. Clone repositories
+### 1. Clone repository
 ```bash
 # host
 $ git clone git@bitbucket.org:androvideo/webserver-frontend.git

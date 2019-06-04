@@ -1,15 +1,21 @@
 const PubSub = require('pubsub-js');
 const constants = require('./constants');
 
-const data = {};
+const _data = {};
 
 module.exports = {
-  unsubscribe: token => PubSub.unsubscribe(token),
-  subscribe: (key, func) =>
-    PubSub.subscribe(`${constants.TOPIC_PREFIX_STORE_CHANGE}${key}`, (msg, data) => func(msg, data)),
-  set: (key, value) => {
-    data[key] = value;
-    return PubSub.publish(`${constants.TOPIC_PREFIX_STORE_CHANGE}${key}`, value);
+  subscribe: (key, func) => {
+    /*
+    @param key {String}
+    @param func {Function} (msg, data) =>
+    @returns {Function} Unsubscribe.
+     */
+    const token = PubSub.subscribe(`${constants.STORE_CHANGE}${key}`, func);
+    return () => PubSub.unsubscribe(token);
   },
-  get: key => data[key]
+  set: (key, value) => {
+    _data[key] = value;
+    return PubSub.publish(`${constants.STORE_CHANGE}${key}`, value);
+  },
+  get: key => _data[key]
 };
