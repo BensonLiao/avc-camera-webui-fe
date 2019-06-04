@@ -3,7 +3,7 @@ require('@fortawesome/fontawesome-free/css/all.css');
 require('webserver-prototype/src/style/main.scss');
 
 // Dependence
-require('babel-polyfill');
+require('@babel/polyfill');
 require('jquery/dist/jquery');
 require('bootstrap/dist/js/bootstrap.bundle');
 
