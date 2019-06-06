@@ -6,8 +6,8 @@
   "scripts": {
     "start": "grunt",
     "build": "grunt build",
-    "eslint": "./node_modules/eslint/bin/eslint.js backend config src Gruntfile.js webpack.config.js",
-    "ncu": "./node_modules/npm-check-updates/bin/ncu",
+    "eslint": "node_modules/eslint/bin/eslint.js backend config src Gruntfile.js webpack.config.js",
+    "ncu": "node_modules/npm-check-updates/bin/ncu",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +22,7 @@
     "@babel/polyfill": "7.4.4",
     "@babel/preset-env": "7.4.5",
     "@babel/preset-react": "7.0.0",
+    "babel-eslint": "10.0.1",
     "babel-loader": "8.0.6",
     "capybara-router": "1.2.6",
     "compression-webpack-plugin": "2.0.0",

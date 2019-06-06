@@ -10,10 +10,8 @@ module.exports = {
     'xo-space',
     'xo-react/space'
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
-  },
+  globals: {},
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
       jsx: true
@@ -23,5 +21,8 @@ module.exports = {
   plugins: [
     'react'
   ],
-  rules: {}
+  rules: {
+    'no-eq-null': 0,
+    eqeqeq: ['error', 'allow-null']
+  }
 };
