@@ -41,10 +41,13 @@ module.exports = (env = {}) => {
           use: [
             {
               loader: 'babel-loader',
-              query: {
+              options: {
                 presets: [
-                  ['@babel/react'],
-                  ['@babel/preset-env', {}]
+                  '@babel/react',
+                  '@babel/preset-env'
+                ],
+                plugins: [
+                  '@babel/plugin-syntax-dynamic-import'
                 ]
               }
             }

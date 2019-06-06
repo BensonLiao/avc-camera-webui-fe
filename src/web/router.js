@@ -1,3 +1,4 @@
+/* eslint-disable capitalized-comments */
 const {Router} = require('capybara-router');
 const history = require('history');
 
@@ -24,7 +25,10 @@ module.exports = new Router({
       onEnter: () => {
         document.title = 'Login';
       },
-      component: require('./pages/account/login')
+      loadComponent: () => import(
+        /* webpackChunkName: "page-login" */
+        './pages/account/login'
+      )
     },
     {
       name: 'not-found',
