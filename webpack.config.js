@@ -6,11 +6,12 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = (env = {}) => {
+  const isDebug = (env.mode || 'development') === 'development';
   const buildFolder = env.buildFolder || 'dist';
 
   return {
     target: 'web',
-    mode: env.mode === 'production' ? env.mode : 'development',
+    mode: env.mode || 'development',
     entry: {
       web: path.join(__dirname, 'src', 'web', 'index.js'),
       error: path.join(__dirname, 'src', 'error', 'index.js')
@@ -30,7 +31,9 @@ module.exports = (env = {}) => {
     },
     output: {
       path: path.join(__dirname, buildFolder),
-      publicPath: '/',
+      publicPath: isDebug ?
+        `//${config.webpackDevServer.host}:${config.webpackDevServer.port}/` :
+        '/assets/',
       filename: '[name].js'
     },
     module: {
@@ -99,7 +102,7 @@ module.exports = (env = {}) => {
         }),
         new webpack.ProvidePlugin({$: 'jquery'})
       ];
-      if (env.mode === 'production') {
+      if (!isDebug) {
         result.push(new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
             discardComments: {removeAll: true}

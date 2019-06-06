@@ -50,16 +50,16 @@ module.exports = grunt => {
         },
         expand: true,
         flatten: false,
-        cwd: path.join('src', 'express-templates'),
+        cwd: path.join('src', 'express'),
         src: path.join('**', '*.html'),
-        dest: path.join('<%= config.buildFolder %>', 'express-templates'),
+        dest: path.join('<%= config.buildFolder %>', 'express'),
         ext: '.html'
       }
     },
     watch: {
       expressTemplates: {
         files: [
-          path.join('src', 'express-templates', '**', '*.html')
+          path.join('src', 'express', '**', '*.html')
         ],
         tasks: [
           'ect:express'

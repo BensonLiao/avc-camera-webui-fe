@@ -21,7 +21,7 @@ const hbs = expressHandlebars.create({
   }
 });
 // Setup template engine
-app.set('views', path.join(__dirname, '..', 'dist', 'express-templates'));
+app.set('views', path.join(__dirname, '..', 'dist', 'express'));
 app.engine('html', hbs.engine);
 app.set('view engine', 'html');
 
