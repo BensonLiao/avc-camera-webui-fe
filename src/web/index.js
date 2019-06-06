@@ -44,7 +44,7 @@ router.start();
 
 ReactDOM.render((
   <RouterView>
-    <p className="text-center text-muted h3" style={{padding: '20px 0'}}>
+    <p className="text-center text-muted pt-5 h3">
       <i className="fas fa-spinner fa-pulse fa-fw"/> Loading...
     </p>
   </RouterView>
