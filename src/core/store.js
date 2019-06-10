@@ -10,12 +10,12 @@ module.exports = {
     @param func {Function} (msg, data) =>
     @returns {Function} Unsubscribe.
      */
-    const token = PubSub.subscribe(`${constants.STORE_CHANGE}${key}`, func);
+    const token = PubSub.subscribe(`${constants.store.CHANGE}${key}`, func);
     return () => PubSub.unsubscribe(token);
   },
   set: (key, value) => {
     _data[key] = value;
-    return PubSub.publish(`${constants.STORE_CHANGE}${key}`, value);
+    return PubSub.publish(`${constants.store.CHANGE}${key}`, value);
   },
   get: key => _data[key]
 };

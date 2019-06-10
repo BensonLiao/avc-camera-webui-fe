@@ -1,3 +1,6 @@
 module.exports = {
-  STORE_CHANGE: 'STORE_CHANGE_'
+  store: {
+    CHANGE: 'STORE_CHANGE_',
+    IS_API_PROCESSING: '$isApiProcessing'
+  }
 };
