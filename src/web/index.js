@@ -21,18 +21,16 @@ progress.configure({
 });
 
 // Setup initial data
-store.set('$config', window.config);
 store.set('$user', window.user);
 
 // Setup routers
 router.listen('ChangeStart', (action, toState, fromState, cancel) => {
   progress.start();
   const $user = store.get('$user');
-  const $config = store.get('$config');
   const allowAnonymousRoutes = ['web.login'];
   if (!$user.id && allowAnonymousRoutes.indexOf(toState.name) < 0) {
     cancel();
-    Cookies.set($config.cookie.redirect, JSON.stringify(toState));
+    Cookies.set(window.config.cookie.redirect, JSON.stringify(toState));
     setTimeout(() => {
       router.go({name: 'web.login'}, {replace: true});
     });

@@ -7,7 +7,6 @@ module.exports = class Base extends React.Component {
     this.state = {
       $isApiProcessing: store.get('$isApiProcessing'),
       $user: store.get('$user'),
-      $config: store.get('$config')
     };
     this.$subscriptions = [
       store.subscribe('$isApiProcessing', (msg, data) => {
