@@ -51,7 +51,7 @@
     "webpack": "4.32.2",
     "webpack-cli": "3.3.2",
     "webpack-dev-server": "3.5.1",
-    "webserver-prototype": "git+ssh://git@bitbucket.org/androvideo/webserver-prototype.git#4bbbc1cfed2e913a975eab1c57996d87fe17bc8d"
+    "webserver-prototype": "git+ssh://git@bitbucket.org/androvideo/webserver-prototype.git#9da0998fc01812efe537b03b0d27e47400c54ddb"
   },
   "devDependencies": {
     "eslint": "5.16.0",

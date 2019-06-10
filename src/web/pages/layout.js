@@ -1,6 +1,7 @@
 const React = require('react');
 const {RouterView} = require('capybara-router');
 const Base = require('./shared/base');
+const Loading = require('../../core/components/loading');
 
 module.exports = class Layout extends Base {
   constructor(props) {
@@ -23,9 +24,7 @@ module.exports = class Layout extends Base {
         <div className="container">
           <div className="row">
             <div className="col-sm-12">
-              <p className="text-center text-muted pt-5 h3">
-                <i className="fas fa-spinner fa-pulse fa-fw"/> Loading...
-              </p>
+              <Loading/>
             </div>
           </div>
         </div>

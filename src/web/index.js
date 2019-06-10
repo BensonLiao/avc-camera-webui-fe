@@ -14,6 +14,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const router = require('./router');
 const store = require('../core/store');
+const Loading = require('../core/components/loading');
 
 // Setup nprogress
 progress.configure({
@@ -41,9 +42,5 @@ router.listen('ChangeError', progress.done);
 router.start();
 
 ReactDOM.render((
-  <RouterView>
-    <p className="text-center text-muted pt-5 h3">
-      <i className="fas fa-spinner fa-pulse fa-fw"/> Loading...
-    </p>
-  </RouterView>
+  <RouterView><Loading/></RouterView>
 ), document.getElementById('root'));
