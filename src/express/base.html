@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ htmlLang }}">
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -27,8 +27,10 @@
   </p>
 </div>
 <% if @isDebug : %>
+  <script type="text/javascript" src="//localhost:8002/{{ languageCode }}.js"></script>
   <script type="text/javascript" src="//localhost:8002/web.js"></script>
 <% else : %>
+  <script type="text/javascript" src="/assets/{{ languageCode }}.js"></script>
   <script type="text/javascript" src="/assets/web.js"></script>
 <% end %>
 </body>

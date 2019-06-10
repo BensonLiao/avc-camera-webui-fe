@@ -29,11 +29,11 @@ app.set('view engine', 'html');
 app.locals.config = {
   languages: config.languages,
   isDebug: config.isDebug,
-  cookie: {
-    redirect: 'redirect'
+  cookies: {
+    redirect: 'redirect',
+    language: 'lang'
   }
 };
-app.locals.languageCode = 'zh-tw';
 app.locals.user = {
   name: 'username'
 };

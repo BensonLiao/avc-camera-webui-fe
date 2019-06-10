@@ -13,6 +13,8 @@ module.exports = (env = {}) => {
     target: 'web',
     mode: env.mode || 'development',
     entry: {
+      'en-us': path.join(__dirname, 'src', 'languages', 'en-us.js'),
+      'zh-tw': path.join(__dirname, 'src', 'languages', 'zh-tw.js'),
       web: path.join(__dirname, 'src', 'web', 'index.js'),
       error: path.join(__dirname, 'src', 'error', 'index.js')
     },

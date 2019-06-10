@@ -30,9 +30,9 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
   progress.start();
   const $user = store.get('$user');
   const allowAnonymousRoutes = ['web.login'];
-  if (!$user.id && allowAnonymousRoutes.indexOf(toState.name) < 0) {
+  if (!$user && allowAnonymousRoutes.indexOf(toState.name) < 0) {
     cancel();
-    Cookies.set(window.config.cookie.redirect, JSON.stringify(toState));
+    Cookies.set(window.config.cookies.redirect, JSON.stringify(toState));
     setTimeout(() => {
       router.go({name: 'web.login'}, {replace: true});
     });

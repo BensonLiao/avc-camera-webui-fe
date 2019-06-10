@@ -21,13 +21,7 @@ module.exports = class Layout extends Base {
   render() {
     return (
       <RouterView>
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-12">
-              <Loading/>
-            </div>
-          </div>
-        </div>
+        <Loading/>
       </RouterView>
     );
   }
