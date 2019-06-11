@@ -96,6 +96,19 @@ module.exports = (env = {}) => {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        chunks: 'initial',
+        minSize: 16000,
+        maxSize: 0,
+        minChunks: 1,
+        maxAsyncRequests: 1,
+        maxInitialRequests: 1,
+        automaticNameDelimiter: '-',
+        name: true,
+        cacheGroups: {}
+      }
+    },
     plugins: (() => {
       const result = [
         new MiniCssExtractPlugin({
@@ -115,7 +128,8 @@ module.exports = (env = {}) => {
             filename: '[path]',
             algorithm: 'gzip',
             test: /\.(js|css|svg)$/,
-            threshold: 0
+            threshold: 0,
+            minRatio: 1
           }),
         );
       }
