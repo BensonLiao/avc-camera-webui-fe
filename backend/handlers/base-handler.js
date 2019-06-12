@@ -4,6 +4,10 @@ exports.baseView = (req, res) => {
    */
   res.render('base', {
     htmlLang: 'zh-Hant',
-    languageCode: 'zh-tw'
+    languageCode: 'zh-tw',
+    user: {
+      name: 'username'
+    },
+    error: res.error ? {status: res.error.status, message: `${res.error}`} : null
   });
 };

@@ -15,7 +15,7 @@ module.exports = new Router({
       name: 'web.home',
       uri: '',
       onEnter: () => {
-        document.title = 'Home';
+        document.title = 'Home - [Camera name] Web-Manager';
       },
       component: require('./pages/home')
     },
@@ -23,7 +23,7 @@ module.exports = new Router({
       name: 'web.login',
       uri: 'login',
       onEnter: () => {
-        document.title = 'Login';
+        document.title = 'Login - [Camera name] Web-Manager';
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login" */
@@ -36,5 +36,5 @@ module.exports = new Router({
       component: require('./pages/shared/not-found')
     }
   ],
-  errorComponent: require('./pages/shared/error')
+  errorComponent: require('./pages/shared/error-page')
 });

@@ -28,6 +28,16 @@ store.set('$user', window.user);
 // Setup routers
 router.listen('ChangeStart', (action, toState, fromState, cancel) => {
   progress.start();
+  if (window.error) {
+    // Backend need we render the error page.
+    cancel();
+    setTimeout(() => {
+      progress.done();
+      router.renderError(window.error);
+    });
+    return;
+  }
+
   const $user = store.get('$user');
   const allowAnonymousRoutes = ['web.login'];
   if (!$user && allowAnonymousRoutes.indexOf(toState.name) < 0) {

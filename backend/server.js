@@ -7,6 +7,7 @@ const leftPad = require('left-pad');
 const handlebars = require('handlebars');
 const errors = require('./models/errors');
 const webRouter = require('./routers/web-router');
+const baseHandler = require('./handlers/base-handler');
 
 const app = express();
 const server = http.createServer(app);
@@ -33,9 +34,6 @@ app.locals.config = {
     redirect: 'redirect',
     language: 'lang'
   }
-};
-app.locals.user = {
-  name: 'username'
 };
 
 app.use((req, res, next) => {
@@ -73,7 +71,7 @@ app.use((error, req, res, _) => {
       extra: error.extra
     });
   } else {
-    res.render('error', {error: error});
+    baseHandler.baseView(req, res);
   }
 });
 
