@@ -3,6 +3,7 @@ const http = require('http');
 const config = require('config');
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
+const bodyParser = require('body-parser');
 const leftPad = require('left-pad');
 const handlebars = require('handlebars');
 const errors = require('./models/errors');
@@ -54,6 +55,8 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.use(bodyParser.json());
 
 app.use(webRouter);
 
