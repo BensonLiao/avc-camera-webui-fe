@@ -15,8 +15,7 @@ module.exports = (env = {}) => {
     entry: {
       'en-us': path.join(__dirname, 'src', 'languages', 'en-us.js'),
       'zh-tw': path.join(__dirname, 'src', 'languages', 'zh-tw.js'),
-      web: path.join(__dirname, 'src', 'web', 'index.js'),
-      error: path.join(__dirname, 'src', 'error', 'index.js')
+      web: path.join(__dirname, 'src', 'web', 'index.js')
     },
     devServer: {
       host: config.webpackDevServer.host,
