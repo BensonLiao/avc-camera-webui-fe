@@ -81,7 +81,7 @@ module.exports = class Login extends Base {
             <div className="input-group-prepend">
               <span className={classTable.accountGroupText}><i className="fas fa-user"/></span>
             </div>
-            <Field autoFocus name="account" type="text" className={classTable.account}/>
+            <Field autoFocus name="account" maxLength="1024" type="text" className={classTable.account}/>
             {
               errors.account && touched.account && (
                 <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
@@ -94,7 +94,7 @@ module.exports = class Login extends Base {
             <div className="input-group-prepend">
               <span className={classTable.passwordGroupText}><i className="fas fa-lock"/></span>
             </div>
-            <Field name="password" type="password" className={classTable.password}/>
+            <Field name="password" maxLength="8" type="password" className={classTable.password}/>
             {
               ((errors.password && touched.password) || this.state.isIncorrectPassword) && (
                 <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
