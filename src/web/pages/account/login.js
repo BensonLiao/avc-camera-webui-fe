@@ -4,6 +4,8 @@ const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
+const logo = require('webserver-prototype/src/resource/logo-01.svg');
+const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
@@ -38,7 +40,10 @@ module.exports = class Login extends Base {
       .catch(error => {
         progress.done();
         if (error.response && error.response.status === 400) {
-          this.setState({isIncorrectPassword: true});
+          this.setState({
+            isIncorrectPassword: true,
+            loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1
+          });
           return;
         }
 
@@ -48,59 +53,87 @@ module.exports = class Login extends Base {
 
   loginFormRender({errors, touched}) {
     const classTable = {
-      account: classNames(['form-control', {'is-invalid': errors.account && touched.account}]),
-      password: classNames(['form-control', {'is-invalid': errors.password && touched.password}])
+      accountGroupText: classNames([
+        'input-group-text',
+        {'border-danger': errors.account && touched.account}
+      ]),
+      account: classNames([
+        'form-control rounded-circle-right',
+        {'is-invalid': errors.account && touched.account}
+      ]),
+      passwordGroupText: classNames([
+        'input-group-text',
+        {'border-danger': (errors.password && touched.password) || this.state.isIncorrectPassword}
+      ]),
+      password: classNames([
+        'form-control rounded-circle-right',
+        {'is-invalid': (errors.password && touched.password) || this.state.isIncorrectPassword}
+      ])
     };
 
     return (
-      <Form>
-        <div className="form-group">
-          <Once><label htmlFor="input-account">{_('Account')}</label></Once>
-          <Field autoFocus name="account" type="text" className={classTable.account} id="input-account"/>
-          {
-            errors.account && touched.account && (
-              <div className="invalid-feedback">{errors.account}</div>
-            )
-          }
+      <Form className="card shadow">
+        <div className="card-body">
+          <Once>
+            <h5 className="card-title text-primary">{_('Login')}</h5>
+          </Once>
+          <div className="input-group mb-4">
+            <div className="input-group-prepend">
+              <span className={classTable.accountGroupText}><i className="fas fa-user"/></span>
+            </div>
+            <Field autoFocus name="account" type="text" className={classTable.account}/>
+            {
+              errors.account && touched.account && (
+                <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
+                  {errors.account}
+                </div>
+              )
+            }
+          </div>
+          <div className="input-group mb-4 ">
+            <div className="input-group-prepend">
+              <span className={classTable.passwordGroupText}><i className="fas fa-lock"/></span>
+            </div>
+            <Field name="password" type="password" className={classTable.password}/>
+            {
+              ((errors.password && touched.password) || this.state.isIncorrectPassword) && (
+                <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
+                  {errors.password || _('Incorrect password x {0}', [this.state.loginFailedTimes])}
+                </div>
+              )
+            }
+          </div>
+          <div className="form-group form-check">
+            <input type="checkbox" className="form-check-input" id="input-autocomplete-password"/>
+            <label className="form-check-label" htmlFor="input-autocomplete-password">記住我的密碼</label>
+          </div>
+          <button type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+            <Once>{_('Login')}</Once>
+          </button>
         </div>
-        <div className="form-group">
-          <Once><label htmlFor="input-password">{_('Password')}</label></Once>
-          <Field name="password" type="password" className={classTable.password} id="input-password"/>
-          {
-            errors.password && touched.password && (
-              <div className="invalid-feedback">{errors.password}</div>
-            )
-          }
-        </div>
-        {
-          this.state.isIncorrectPassword && (
-            <Once><div className="alert alert-danger">{_('Incorrect account or password.')}</div></Once>
-          )
-        }
-        <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-outline-primary mr-3">
-          <Once>{_('Login')}</Once>
-        </button>
       </Form>
     );
   }
 
   render() {
     return (
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-12 col-md-8 col-lg-6">
-            <div className="card mt-5">
-              <div className="card-body">
-                {/* Title */}
-                <Once><h5 className="card-title text-center">{_('Login')}</h5></Once>
+      <div className="page-login">
+        <img src={logo} height="48" className="logo" alt="AndroVideo"/>
+        <img src={decoration} className="decoration"/>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-card">
+              <Once>
+                <p className="text-light text-center text-welcome">
+                  {_('Welcome to use AndroVideo system')}
+                </p>
+              </Once>
 
-                {/* Password login form */}
-                <Formik
-                  initialValues={{account: '', password: ''}}
-                  validationSchema={loginSchema}
-                  render={this.loginFormRender}
-                  onSubmit={this.onSubmitLoginForm}/>
-              </div>
+              <Formik
+                initialValues={{account: '', password: ''}}
+                validationSchema={loginSchema}
+                render={this.loginFormRender}
+                onSubmit={this.onSubmitLoginForm}/>
             </div>
           </div>
         </div>

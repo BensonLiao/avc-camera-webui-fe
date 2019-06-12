@@ -69,7 +69,8 @@ app.use((error, req, res, _) => {
   res.error = error;
   if (req.headers.accept && req.headers.accept.indexOf('application/json') >= 0) {
     res.json({
-      message: error.message
+      message: `${error}`,
+      extra: error.extra
     });
   } else {
     res.render('error', {error: error});

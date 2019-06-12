@@ -6,7 +6,8 @@ module.exports = Yup.object().shape({
     .max(1024, _('The limit of characters is 1024.'))
     .required(_('This field is required.')),
   password: Yup.string()
-    .min(6, _('Please enter more than 5 characters.'))
-    .max(1024, _('The limit of characters is 1024.'))
+    .max(8, _('The limit of characters is 8.'))
+    .matches(/[a-z]+/, _('The password must includes a lower-case letter.'))
+    .matches(/[A-Z]+/, _('The password must includes a upper-case letter.'))
     .required(_('This field is required.'))
 });
