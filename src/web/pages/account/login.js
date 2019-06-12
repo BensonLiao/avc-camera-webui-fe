@@ -107,7 +107,7 @@ module.exports = class Login extends Base {
             <input type="checkbox" className="form-check-input" id="input-autocomplete-password"/>
             <label className="form-check-label" htmlFor="input-autocomplete-password">記住我的密碼</label>
           </div>
-          <button type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             <Once>{_('Login')}</Once>
           </button>
         </div>
