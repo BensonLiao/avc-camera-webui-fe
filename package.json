@@ -30,7 +30,7 @@
     "classnames": "2.2.6",
     "compression-webpack-plugin": "2.0.0",
     "config": "3.1.0",
-    "css-loader": "2.1.1",
+    "css-loader": "3.0.0",
     "file-loader": "3.0.1",
     "formik": "1.5.7",
     "grunt": "1.0.4",
