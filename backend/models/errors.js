@@ -31,6 +31,14 @@ exports.Http404 = class Http404 extends Error {
   }
 };
 
+exports.Http429 = class Http429 extends Error {
+  constructor(message, extra) {
+    super(message || 'too many requests');
+    this.status = 429;
+    this.extra = extra;
+  }
+};
+
 exports.Http500 = class Http500 extends Error {
   constructor(message, extra) {
     super(message || 'server error');

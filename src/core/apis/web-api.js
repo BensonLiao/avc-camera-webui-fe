@@ -13,6 +13,9 @@ module.exports = {
       @response 400 {Object}
         extra: {Object}
           loginFailedTimes: {Number}
+      @response 429 {Object}
+        extra: {Object}
+          loginFailedTimes: {Number}
           isTooManyLoginFailed: {Boolean}
           loginLockExpiredTime: {Date}
        */

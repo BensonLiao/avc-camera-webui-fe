@@ -39,20 +39,24 @@ module.exports = class Login extends Base {
       })
       .catch(error => {
         progress.done();
-        if (error.response && error.response.status === 400) {
-          if (error.response.data && error.response.data.extra && error.response.data.extra && error.response.data.extra.isTooManyLoginFailed) {
-            getRouter().go({
-              name: 'login-lock',
-              params: {loginLockExpiredTime: error.response.data.extra.loginLockExpiredTime}
+        if (error.response) {
+          if (error.response.status === 429) {
+            if (error.response.data && error.response.data.extra && error.response.data.extra && error.response.data.extra.isTooManyLoginFailed) {
+              getRouter().go({
+                name: 'login-lock',
+                params: {loginLockExpiredTime: error.response.data.extra.loginLockExpiredTime}
+              });
+              return;
+            }
+          }
+
+          if (error.response.status === 400) {
+            this.setState({
+              isIncorrectPassword: true,
+              loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1
             });
             return;
           }
-
-          this.setState({
-            isIncorrectPassword: true,
-            loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1
-          });
-          return;
         }
 
         getRouter().renderError(error);
