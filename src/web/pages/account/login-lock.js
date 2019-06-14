@@ -65,8 +65,8 @@ module.exports = class LoginLock extends Base {
 
               <div className="card shadow">
                 <div className="card-body">
-                  <Once><h5 className="card-title text-oops">{_('Oops!')}</h5></Once>
                   <Once>
+                    <h5 className="card-title text-oops">{_('Oops!')}</h5>
                     <div className="text-center mb-4">
                       <img src={frownOpenSolid} className="mb-4" width="80" height="80"/>
                       <p className="text-gray-700">
