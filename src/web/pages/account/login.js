@@ -38,10 +38,12 @@ module.exports = class Login extends Base {
         }
       })
       .catch(error => {
-        progress.done();
         if (error.response) {
           if (error.response.status === 429) {
-            if (error.response.data && error.response.data.extra && error.response.data.extra && error.response.data.extra.isTooManyLoginFailed) {
+            if (
+              error.response.data && error.response.data.extra && error.response.data.extra &&
+              error.response.data.extra.isTooManyLoginFailed
+            ) {
               getRouter().go({
                 name: 'login-lock',
                 params: {loginLockExpiredTime: error.response.data.extra.loginLockExpiredTime}
@@ -51,6 +53,7 @@ module.exports = class Login extends Base {
           }
 
           if (error.response.status === 400) {
+            progress.done();
             this.setState({
               isIncorrectPassword: true,
               loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1
@@ -59,6 +62,7 @@ module.exports = class Login extends Base {
           }
         }
 
+        progress.done();
         getRouter().renderError(error);
       });
   }
