@@ -40,6 +40,14 @@ module.exports = class Login extends Base {
       .catch(error => {
         progress.done();
         if (error.response && error.response.status === 400) {
+          if (error.response.data && error.response.data.extra && error.response.data.extra && error.response.data.extra.isTooManyLoginFailed) {
+            getRouter().go({
+              name: 'login-lock',
+              params: {loginLockExpiredTime: error.response.data.extra.loginLockExpiredTime}
+            });
+            return;
+          }
+
           this.setState({
             isIncorrectPassword: true,
             loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1

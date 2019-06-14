@@ -7,27 +7,38 @@ module.exports = new Router({
   routes: [
     {
       name: 'web',
-      uri: '/',
+      uri: '',
       isAbstract: true,
       component: require('./pages/layout')
     },
     {
       name: 'web.home',
-      uri: '',
+      uri: '/',
       onEnter: () => {
         document.title = 'Home - [Camera name] Web-Manager';
       },
       component: require('./pages/home')
     },
     {
-      name: 'web.login',
-      uri: 'login',
+      name: 'login',
+      uri: '/login',
       onEnter: () => {
         document.title = 'Login - [Camera name] Web-Manager';
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login" */
         './pages/account/login'
+      )
+    },
+    {
+      name: 'login-lock',
+      uri: '/login-lock?loginLockExpiredTime',
+      onEnter: () => {
+        document.title = 'Login lock - [Camera name] Web-Manager';
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-login-lock" */
+        './pages/account/login-lock'
       )
     },
     {

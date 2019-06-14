@@ -11,5 +11,11 @@ window.languageResource = {
   // /login
   'Welcome to use AndroVideo system': '歡迎使用 AndroVideo 系統',
   Login: '登入',
-  'Incorrect password x {0}': '密碼錯誤 x {0}'
+  'Incorrect password x {0}': '密碼錯誤 x {0}',
+
+  // /login-lock
+  'Forgot password?': '忘記密碼？',
+  'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
+  '{0} left': '還剩 {0}',
+  'Log in again': '重新登入'
 };
