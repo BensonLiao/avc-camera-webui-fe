@@ -51,23 +51,24 @@ module.exports = class Login extends Base {
       });
   }
 
-  loginFormRender({errors, touched}) {
+  loginFormRender({errors, submitCount}) {
+    const isSubmitted = submitCount > 0;
     const classTable = {
       accountGroupText: classNames([
         'input-group-text',
-        {'border-danger': errors.account && touched.account}
+        {'border-danger': errors.account && isSubmitted}
       ]),
       account: classNames([
         'form-control rounded-circle-right',
-        {'is-invalid': errors.account && touched.account}
+        {'is-invalid': errors.account && isSubmitted}
       ]),
       passwordGroupText: classNames([
         'input-group-text',
-        {'border-danger': (errors.password && touched.password) || this.state.isIncorrectPassword}
+        {'border-danger': (errors.password && isSubmitted) || this.state.isIncorrectPassword}
       ]),
       password: classNames([
         'form-control rounded-circle-right',
-        {'is-invalid': (errors.password && touched.password) || this.state.isIncorrectPassword}
+        {'is-invalid': (errors.password && isSubmitted) || this.state.isIncorrectPassword}
       ])
     };
 
@@ -83,7 +84,7 @@ module.exports = class Login extends Base {
             </div>
             <Field autoFocus name="account" maxLength="1024" type="text" className={classTable.account}/>
             {
-              errors.account && touched.account && (
+              errors.account && isSubmitted && (
                 <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
                   {errors.account}
                 </div>
@@ -96,7 +97,7 @@ module.exports = class Login extends Base {
             </div>
             <Field name="password" maxLength="8" type="password" className={classTable.password}/>
             {
-              ((errors.password && touched.password) || this.state.isIncorrectPassword) && (
+              ((errors.password && isSubmitted) || this.state.isIncorrectPassword) && (
                 <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
                   {errors.password || _('Incorrect password x {0}', [this.state.loginFailedTimes])}
                 </div>
