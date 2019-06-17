@@ -48,7 +48,14 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
     });
   }
 });
-router.listen('ChangeSuccess', progress.done);
+router.listen('ChangeSuccess', action => {
+  progress.done();
+  if (action === 'PUSH') {
+    try {
+      window.scrollTo(0, 0);
+    } catch (e) {}
+  }
+});
 router.listen('ChangeError', progress.done);
 router.start();
 
