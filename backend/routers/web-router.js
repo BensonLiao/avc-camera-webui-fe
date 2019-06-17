@@ -92,6 +92,6 @@ router.post(
   accountHandler.login
 );
 router.post('/api/account/_change-password', accountHandler.changePasswordWithBirthday);
-router.post('/api/validations/_account-birthday', validationHandler.validateAccountBirthday);
+router.post('/api/_validate/account-birthday', validationHandler.validateAccountBirthday);
 
 router.get(/.*/, baseHandler.baseView);

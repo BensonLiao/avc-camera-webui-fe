@@ -11,7 +11,7 @@ module.exports = {
       @response 204
        */
       method: 'post',
-      url: '/api/validations/_account-birthday',
+      url: '/api/_validate/account-birthday',
       data: {account, birthday}
     })
   },
