@@ -6,7 +6,9 @@ exports.login = (req, res) => {
    */
   if (req.body.account === 'admin' && req.body.password === 'Admin') {
     res.json({
-      account: 'admin'
+      id: 'id',
+      account: 'admin',
+      permission: 'admin'
     });
   } else {
     const loginLockExpiredTime = new Date();
@@ -15,5 +17,20 @@ exports.login = (req, res) => {
       loginFailedTimes: 5,
       loginLockExpiredTime: loginLockExpiredTime
     });
+  }
+};
+
+exports.changePasswordWithBirthday = (req, res) => {
+  /*
+  POST /api/account/_change-password
+   */
+  if (req.body.account === 'admin' && req.body.birthday === '19910326') {
+    res.json({
+      id: 'id',
+      account: 'admin',
+      permission: 'admin'
+    });
+  } else {
+    throw new errors.Http400();
   }
 };
