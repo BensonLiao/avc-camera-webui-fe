@@ -59,6 +59,7 @@ router.listen('ChangeSuccess', action => {
 router.listen('ChangeError', progress.done);
 router.start();
 
-ReactDOM.render((
-  <RouterView><Loading/></RouterView>
-), document.getElementById('root'));
+ReactDOM.render(
+  <RouterView><Loading/></RouterView>,
+  document.getElementById('root')
+);
