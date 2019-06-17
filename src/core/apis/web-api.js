@@ -16,7 +16,6 @@ module.exports = {
       @response 429 {Object}
         extra: {Object}
           loginFailedTimes: {Number}
-          isTooManyLoginFailed: {Boolean}
           loginLockExpiredTime: {Date}
        */
       method: 'post',

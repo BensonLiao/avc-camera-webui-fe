@@ -13,7 +13,6 @@ exports.login = (req, res) => {
     loginLockExpiredTime.setMinutes(loginLockExpiredTime.getMinutes() + 2);
     throw new errors.Http429('Incorrect account or password.', {
       loginFailedTimes: 5,
-      isTooManyLoginFailed: true,
       loginLockExpiredTime: loginLockExpiredTime
     });
   }

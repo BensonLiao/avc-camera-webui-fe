@@ -42,7 +42,7 @@ module.exports = class Login extends Base {
           if (error.response.status === 429) {
             if (
               error.response.data && error.response.data.extra && error.response.data.extra &&
-              error.response.data.extra.isTooManyLoginFailed
+              error.response.data.extra.loginLockExpiredTime
             ) {
               getRouter().go({
                 name: 'login-lock',
