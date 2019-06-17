@@ -6,7 +6,9 @@ exports.baseView = (req, res) => {
     htmlLang: 'zh-Hant',
     languageCode: 'zh-tw',
     user: {
-      name: 'username'
+      id: 'id',
+      name: 'admin',
+      permission: 'admin'
     },
     error: res.error ? {status: res.error.status, message: `${res.error}`} : null
   });

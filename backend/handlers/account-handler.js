@@ -11,11 +11,8 @@ exports.login = (req, res) => {
       permission: 'admin'
     });
   } else {
-    const loginLockExpiredTime = new Date();
-    loginLockExpiredTime.setMinutes(loginLockExpiredTime.getMinutes() + 2);
-    throw new errors.Http429('Incorrect account or password.', {
-      loginFailedTimes: 5,
-      loginLockExpiredTime: loginLockExpiredTime
+    throw new errors.Http400('Incorrect account or password.', {
+      loginFailedTimes: req.rateLimit.current
     });
   }
 };

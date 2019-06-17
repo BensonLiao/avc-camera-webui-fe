@@ -69,6 +69,7 @@
     "eslint-plugin-react-hooks": "1.6.0",
     "express": "4.17.1",
     "express-handlebars": "3.1.0",
+    "express-rate-limit": "5.0.0",
     "handlebars": "4.1.2",
     "nodemon": "1.19.1",
     "npm-check-updates": "3.1.10"
