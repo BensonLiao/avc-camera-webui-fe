@@ -111,7 +111,7 @@ module.exports = class Login extends Base {
             <div className="input-group-prepend">
               <span className={classTable.passwordGroupText}><i className="fas fa-lock"/></span>
             </div>
-            <Field name="password" maxLength="8" type="password" className={classTable.password}/>
+            <Field name="password" maxLength="12" type="password" className={classTable.password}/>
             {
               ((errors.password && isSubmitted) || this.state.isIncorrectPassword) && (
                 <div className="invalid-feedback" style={{paddingLeft: '40px'}}>

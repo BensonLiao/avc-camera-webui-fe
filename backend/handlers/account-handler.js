@@ -4,7 +4,7 @@ exports.login = (req, res) => {
   /*
   POST /api/account/_login
    */
-  if (req.body.account === 'admin' && req.body.password === 'Admin') {
+  if (req.body.account === 'admin' && req.body.password === 'Admin123') {
     res.json({
       id: 'id',
       account: 'admin',
