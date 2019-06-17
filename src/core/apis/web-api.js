@@ -36,6 +36,14 @@ module.exports = {
       url: '/api/account/_login',
       data: {account, password}
     }),
+    logout: () => api({
+      /*
+      Logout.
+      @response 204 with set-cookie
+       */
+      method: 'post',
+      url: '/api/account/_logout'
+    }),
     changePasswordWithBirthday: ({account, birthday, password}) => api({
       /*
       Change the password with the birthday.

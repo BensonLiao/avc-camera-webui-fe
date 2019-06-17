@@ -17,6 +17,13 @@ exports.login = (req, res) => {
   }
 };
 
+exports.logout = (req, res) => {
+  /*
+  POST /api/account/_logout
+   */
+  res.status(204).send();
+};
+
 exports.changePasswordWithBirthday = (req, res) => {
   /*
   POST /api/account/_change-password
