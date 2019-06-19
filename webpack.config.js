@@ -1,6 +1,7 @@
 const path = require('path');
 const config = require('config');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
@@ -122,6 +123,12 @@ module.exports = (env = {}) => {
             discardComments: {removeAll: true}
           }
         }));
+        result.push(
+          new ImageminPlugin({
+            test: /\.png$/i,
+            pngquant: {quality: 100}
+          })
+        );
         result.push(
           new CompressionWebpackPlugin({
             filename: '[path]',
