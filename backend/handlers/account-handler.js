@@ -11,7 +11,7 @@ exports.login = (req, res) => {
       permission: 'admin'
     });
   } else {
-    throw new errors.Http400('Incorrect account or password.', {
+    throw new errors.Http400('incorrect account or password.', {
       loginFailedTimes: req.rateLimit.current
     });
   }
@@ -36,5 +36,20 @@ exports.changePasswordWithBirthday = (req, res) => {
     });
   } else {
     throw new errors.Http400();
+  }
+};
+
+exports.changeMyPassword = (req, res) => {
+  /*
+  PUT /api/me/password
+   */
+  if (req.body.password === 'Admin123') {
+    res.json({
+      id: 'id',
+      account: 'admin',
+      permission: 'admin'
+    });
+  } else {
+    throw new errors.Http400('incorrect password.');
   }
 };

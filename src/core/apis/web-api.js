@@ -56,6 +56,18 @@ module.exports = {
       method: 'post',
       url: '/api/account/_change-password',
       data: {account, birthday, password}
+    }),
+    changeMyPassword: ({password, newPassword}) => api({
+      /*
+      Change my password.
+      @param args {Object}
+        password: {String}
+        newPassword: {String}
+      @response 200 {UserModel}
+       */
+      method: 'put',
+      url: '/api/me/password',
+      data: {password, newPassword}
     })
   }
 };

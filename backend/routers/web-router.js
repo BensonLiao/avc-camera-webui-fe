@@ -74,6 +74,7 @@ class CustomRouter {
 module.exports = new express.Router();
 const router = new CustomRouter(module.exports);
 
+router.post('/api/_validate/account-birthday', validationHandler.validateAccountBirthday);
 router.post(
   '/api/account/_login',
   rateLimit({
@@ -93,6 +94,6 @@ router.post(
 );
 router.post('/api/account/_logout', accountHandler.logout);
 router.post('/api/account/_change-password', accountHandler.changePasswordWithBirthday);
-router.post('/api/_validate/account-birthday', validationHandler.validateAccountBirthday);
+router.put('/api/me/password', accountHandler.changeMyPassword);
 
 router.get(/.*/, baseHandler.baseView);
