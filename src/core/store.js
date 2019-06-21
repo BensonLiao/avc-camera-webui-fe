@@ -15,7 +15,7 @@ module.exports = {
   },
   set: (key, value) => {
     _data[key] = value;
-    return PubSub.publish(`${constants.store.CHANGE}${key}`, value);
+    return PubSub.publishSync(`${constants.store.CHANGE}${key}`, value);
   },
   get: key => _data[key]
 };
