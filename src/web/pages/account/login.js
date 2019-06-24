@@ -89,7 +89,7 @@ module.exports = class Login extends Base {
     };
 
     return (
-      <Form className="card shadow">
+      <Form className="card shadow mb-5">
         <div className="card-body">
           <Once>
             <h5 className="card-title text-primary">{_('Login')}</h5>

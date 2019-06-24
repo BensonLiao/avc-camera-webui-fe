@@ -63,7 +63,7 @@ module.exports = class LoginLock extends Base {
             <div className="col-card">
               <p className="text-light text-center text-welcome"/>
 
-              <div className="card shadow">
+              <div className="card shadow mb-5">
                 <div className="card-body">
                   <Once>
                     <h5 className="card-title text-oops">{_('Oops!')}</h5>
