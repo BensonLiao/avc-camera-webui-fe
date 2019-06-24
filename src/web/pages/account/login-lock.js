@@ -55,7 +55,7 @@ module.exports = class LoginLock extends Base {
 
   render() {
     return (
-      <div className="page-login">
+      <div className="page-login-lock">
         <img src={logo} height="48" className="logo" alt="AndroVideo"/>
         <img src={decoration} className="decoration"/>
         <div className="container">

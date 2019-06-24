@@ -94,31 +94,35 @@ module.exports = class Login extends Base {
           <Once>
             <h5 className="card-title text-primary">{_('Login')}</h5>
           </Once>
-          <div className="input-group mb-4">
-            <div className="input-group-prepend">
-              <span className={classTable.accountGroupText}><i className="fas fa-user"/></span>
+          <div className="form-group">
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className={classTable.accountGroupText}><i className="fas fa-user"/></span>
+              </div>
+              <Field autoFocus name="account" maxLength="1024" type="text" className={classTable.account}/>
+              {
+                errors.account && isSubmitted && (
+                  <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
+                    {errors.account}
+                  </div>
+                )
+              }
             </div>
-            <Field autoFocus name="account" maxLength="1024" type="text" className={classTable.account}/>
-            {
-              errors.account && isSubmitted && (
-                <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
-                  {errors.account}
-                </div>
-              )
-            }
           </div>
-          <div className="input-group mb-4 ">
-            <div className="input-group-prepend">
-              <span className={classTable.passwordGroupText}><i className="fas fa-lock"/></span>
+          <div className="form-group">
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className={classTable.passwordGroupText}><i className="fas fa-lock"/></span>
+              </div>
+              <Field name="password" maxLength="12" type="password" className={classTable.password}/>
+              {
+                ((errors.password && isSubmitted) || this.state.isIncorrectPassword) && (
+                  <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
+                    {errors.password || _('Incorrect password x {0}', [this.state.loginFailedTimes])}
+                  </div>
+                )
+              }
             </div>
-            <Field name="password" maxLength="12" type="password" className={classTable.password}/>
-            {
-              ((errors.password && isSubmitted) || this.state.isIncorrectPassword) && (
-                <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
-                  {errors.password || _('Incorrect password x {0}', [this.state.loginFailedTimes])}
-                </div>
-              )
-            }
           </div>
           <div className="form-group form-check">
             <input type="checkbox" className="form-check-input" id="input-autocomplete-password"/>
