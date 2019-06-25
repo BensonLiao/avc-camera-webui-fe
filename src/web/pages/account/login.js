@@ -15,7 +15,8 @@ const api = require('../../../core/apis/web-api');
 module.exports = class Login extends Base {
   constructor(props) {
     super(props);
-    this.state.isIncorrectPassword = false;
+    this.state.isIncorrectPassword = null;
+
     this.onSubmitLoginForm = this.onSubmitLoginForm.bind(this);
     this.loginFormRender = this.loginFormRender.bind(this);
   }
@@ -26,9 +27,9 @@ module.exports = class Login extends Base {
     @param values {Object}
      */
     progress.start();
+    this.setState({isIncorrectPassword: false});
     api.account.login(values)
       .then(() => {
-        this.setState({isIncorrectPassword: false});
         const redirectUri = Cookies.get(window.config.cookies.redirect);
         if (redirectUri && /^\/.*/.test(redirectUri)) {
           Cookies.set(window.config.cookies.redirect, null, {expires: -100});

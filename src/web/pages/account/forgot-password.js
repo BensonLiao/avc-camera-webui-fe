@@ -15,6 +15,7 @@ module.exports = class ForgotPassword extends Base {
   constructor(props) {
     super(props);
     this.state.isIncorrectBirthday = null;
+
     this.onSubmitForgotPasswordForm = this.onSubmitForgotPasswordForm.bind(this);
     this.forgotPasswordFormRender = this.forgotPasswordFormRender.bind(this);
   }
