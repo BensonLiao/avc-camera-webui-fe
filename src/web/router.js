@@ -42,6 +42,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'forgot-password',
+      uri: '/forgot-password',
+      onEnter: () => {
+        document.title = 'Forgot password - [Camera name] Web-Manager';
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-forgot-password" */
+        './pages/account/forgot-password'
+      )
+    },
+    {
       name: 'not-found',
       uri: '.*',
       component: require('./pages/shared/not-found')

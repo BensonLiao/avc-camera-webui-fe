@@ -9,6 +9,7 @@ window.languageResource = {
   'The password must includes a lower-case letter.': '密碼必須包含小寫字母。',
   'The password must includes a upper-case letter.': '密碼必須包含大寫字母。',
   'The password must includes a number.': '密碼必須包含數字。',
+  'Invalid birthday.': '生日格式錯誤。',
 
   // /login
   'Welcome to use AndroVideo system': '歡迎使用 AndroVideo 系統',
@@ -19,5 +20,13 @@ window.languageResource = {
   'Forgot password?': '忘記密碼？',
   'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
   '{0} left': '還剩 {0}',
-  'Log in again': '重新登入'
+  'Log in again': '重新登入',
+
+  // /forgot-password
+  'Forgot password': '忘記密碼',
+  Account: '帳號',
+  Birthday: '生日',
+  'Please enter you birthday': '請輸入您的生日',
+  'Incorrect birthday.': '生日錯誤。',
+  OK: '確定'
 };
