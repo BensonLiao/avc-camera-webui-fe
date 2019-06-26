@@ -24,12 +24,14 @@ module.exports = class ForgotPassword extends Base {
     /*
     The user submit the forgot password form.
     @param values {Object}
+      account: {String}
+      birthday: {String} "19910326"
      */
     progress.start();
     this.setState({isIncorrectBirthday: false});
     api.validation.accountBirthday(values)
       .then(() => {
-        getRouter().go('/change-password');
+        getRouter().go({name: 'reset-password', params: values});
       })
       .catch(error => {
         if (error.response) {

@@ -56,6 +56,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'reset-password',
+      uri: '/reset-password?account?birthday',
+      onEnter: () => {
+        document.title = `${_('Reset password')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-reset-password" */
+        './pages/account/reset-password'
+      )
+    },
+    {
       name: 'not-found',
       uri: '.*',
       component: require('./pages/shared/not-found')
