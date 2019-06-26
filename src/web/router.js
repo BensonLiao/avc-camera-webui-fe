@@ -1,6 +1,9 @@
 /* eslint-disable capitalized-comments */
 const {Router} = require('capybara-router');
 const history = require('history');
+const _ = require('../languages');
+
+const _title = `${window.cameraName} Web-Manager`;
 
 module.exports = new Router({
   history: history.createBrowserHistory(),
@@ -15,7 +18,7 @@ module.exports = new Router({
       name: 'web.home',
       uri: '/',
       onEnter: () => {
-        document.title = 'Home - [Camera name] Web-Manager';
+        document.title = `${_('Home')} - ${_title}`;
       },
       component: require('./pages/home')
     },
@@ -23,7 +26,7 @@ module.exports = new Router({
       name: 'login',
       uri: '/login',
       onEnter: () => {
-        document.title = 'Login - [Camera name] Web-Manager';
+        document.title = `${_('Login')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login" */
@@ -34,7 +37,7 @@ module.exports = new Router({
       name: 'login-lock',
       uri: '/login-lock?loginLockExpiredTime',
       onEnter: () => {
-        document.title = 'Login lock - [Camera name] Web-Manager';
+        document.title = `${_('Login lock')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login-lock" */
@@ -45,7 +48,7 @@ module.exports = new Router({
       name: 'forgot-password',
       uri: '/forgot-password',
       onEnter: () => {
-        document.title = 'Forgot password - [Camera name] Web-Manager';
+        document.title = `${_('Forgot password')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-forgot-password" */

@@ -10,6 +10,7 @@ exports.baseView = (req, res) => {
       name: 'admin',
       permission: 'admin'
     },
+    cameraName: 'IP Camera',
     error: res.error ? {status: res.error.status, message: `${res.error}`} : null
   });
 };

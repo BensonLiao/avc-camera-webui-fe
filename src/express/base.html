@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <title>[Camera name] Web-Manager</title>
+  <title>{{ cameraName }} Web-Manager</title>
 
   <% if @isDebug : %>
     <link type="text/css" rel="stylesheet" href="//localhost:8002/web.css"/>
@@ -20,6 +20,7 @@
     window.config = JSON.parse(base64DecodeUnicode('{{ archive config }}'));
     window.user = JSON.parse(base64DecodeUnicode('{{ archive user }}'));
     window.currentLanguageCode = '{{ languageCode }}';
+    window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));
     window.error = JSON.parse(base64DecodeUnicode('{{ archive error }}'));
   </script>
 </head>
