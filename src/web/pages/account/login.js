@@ -9,7 +9,7 @@ const decoration = require('webserver-prototype/src/resource/decoration-01.svg')
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
-const loginSchema = require('../../../core/validations/account/login-schema');
+const loginSchema = require('../../validations/account/login-schema');
 const api = require('../../../core/apis/web-api');
 
 module.exports = class Login extends Base {
