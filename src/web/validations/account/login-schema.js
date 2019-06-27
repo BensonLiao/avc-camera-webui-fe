@@ -1,15 +1,7 @@
 const Yup = require('yup');
-const _ = require('../../../languages');
+const UserSchema = require('../../../core/validations/user-schema');
 
 module.exports = Yup.object().shape({
-  account: Yup.string()
-    .max(1024, _('The limit of characters is 1024.'))
-    .required(_('This field is required.')),
-  password: Yup.string()
-    .min(8, _('Please enter more than 7 characters.'))
-    .max(12, _('The limit of characters is 12.'))
-    .matches(/[a-z]+/, _('The password must includes a lower-case letter.'))
-    .matches(/[A-Z]+/, _('The password must includes a upper-case letter.'))
-    .matches(/\d+/, _('The password must includes a number.'))
-    .required(_('This field is required.'))
+  account: UserSchema.account,
+  password: UserSchema.password
 });
