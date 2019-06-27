@@ -5,6 +5,6 @@ const UserSchema = require('../../../core/validations/user-schema');
 module.exports = Yup.object().shape({
   password: UserSchema.password,
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Incorrect confirm password.')
+    .oneOf([Yup.ref('password')], _('Incorrect confirm password.'))
     .required(_('This field is required.'))
 });
