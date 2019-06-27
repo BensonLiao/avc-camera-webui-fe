@@ -7,7 +7,7 @@ exports.baseView = (req, res) => {
     languageCode: 'zh-tw',
     user: {
       id: 'id',
-      name: 'admin',
+      account: 'admin',
       permission: 'admin'
     },
     cameraName: 'IP Camera',
