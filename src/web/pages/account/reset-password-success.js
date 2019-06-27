@@ -1,0 +1,38 @@
+const React = require('react');
+const {Link} = require('capybara-router');
+const logo = require('webserver-prototype/src/resource/logo-01.svg');
+const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
+const checkCircleSolid = require('webserver-prototype/src/resource/check-circle-solid.svg');
+const _ = require('../../../languages');
+const Base = require('../shared/base');
+
+module.exports = class ResetPasswordSuccess extends Base {
+  render() {
+    return (
+      <div className="page-login-lock">
+        <img src={logo} height="48" className="logo" alt="AndroVideo"/>
+        <img src={decoration} className="decoration"/>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-card">
+              <p className="text-light text-center text-welcome"/>
+
+              <div className="card shadow mb-5">
+                <div className="card-body">
+                  <div className="text-center mb-5">
+                    <img src={checkCircleSolid} className="mb-4" width="120" height="120"/>
+                    <h3 className="text-success" style={{fontSize: '30px'}}>
+                      {_('Reset password success')}
+                    </h3>
+                  </div>
+
+                  <Link to="/" className="btn btn-primary btn-block rounded-pill">{_('Done')}</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+};

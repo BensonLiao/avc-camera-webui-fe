@@ -36,5 +36,9 @@ window.languageResource = {
   'New password': '新密碼',
   'Confirm password': '確認新密碼',
   'Please enter your new password': '請輸入您的新密碼',
-  'Please enter your new password again': '請再次輸入您的新密碼'
+  'Please enter your new password again': '請再次輸入您的新密碼',
+
+  // /reset-password-success
+  'Reset password success': '重設密碼成功',
+  Done: '完成'
 };
