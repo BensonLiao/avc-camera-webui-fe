@@ -5,6 +5,7 @@ exports.baseView = (req, res) => {
   res.render('base', {
     htmlLang: 'zh-Hant',
     languageCode: 'zh-tw',
+    loadingText: '載入中',
     user: {
       id: 'id',
       account: 'admin',

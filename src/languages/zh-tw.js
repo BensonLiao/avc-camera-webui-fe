@@ -12,6 +12,9 @@ window.languageResource = {
   'Invalid birthday.': '生日格式錯誤。',
   'Incorrect confirm password.': '兩次密碼不一致。',
 
+  // The loading component.
+  Loading: '載入中',
+
   // The error pages.
   'Not found this page': '找不到此網頁',
   'Please click the button to go back to home!': '您可以從下面按鈕回首頁！',
