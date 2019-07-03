@@ -9,7 +9,7 @@ const Base = require('../shared/base');
 module.exports = class ResetPasswordSuccess extends Base {
   render() {
     return (
-      <div className="page-login-lock">
+      <div className="page-reset-password-success">
         <img src={logo} className="logo" alt="AndroVideo"/>
         <img src={decoration} className="decoration"/>
         <div className="container">
@@ -20,6 +20,7 @@ module.exports = class ResetPasswordSuccess extends Base {
             <div className="col-card">
               <div className="card shadow mb-5">
                 <div className="card-body">
+                  <h5 className="card-title"/>
                   <div className="text-center mb-5">
                     <img src={checkCircleSolid} className="mb-4" width="120" height="120"/>
                     <h3 className="text-success" style={{fontSize: '30px'}}>
