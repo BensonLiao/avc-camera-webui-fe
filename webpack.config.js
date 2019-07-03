@@ -81,7 +81,7 @@ module.exports = (env = {}) => {
           use: [
             {
               loader: 'file-loader',
-              options: {name: 'fonts/[name].[ext]'}
+              options: {name: 'resources/[name].[ext]'}
             }
           ]
         },
@@ -90,7 +90,7 @@ module.exports = (env = {}) => {
           use: [
             {
               loader: 'file-loader',
-              options: {name: 'images/[name].[ext]'}
+              options: {name: 'resources/[name].[ext]'}
             }
           ]
         }
