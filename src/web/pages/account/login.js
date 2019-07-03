@@ -3,7 +3,7 @@ const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const Cookies = require('js-cookie');
-const {getRouter} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const logo = require('webserver-prototype/src/resource/logo-01.svg');
 const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
 const _ = require('../../../languages');
@@ -125,10 +125,20 @@ module.exports = class Login extends Base {
               }
             </div>
           </div>
-          <div className="form-group form-check">
-            <input type="checkbox" className="form-check-input" id="input-autocomplete-password"/>
-            <label className="form-check-label" htmlFor="input-autocomplete-password">記住我的密碼</label>
+          <div className="form-group d-flex justify-content-between align-items-center">
+            <div className="select-wrapper border rounded-pill overflow-hidden px-2">
+              <Field component="select" name="maxAge" className="form-control border-0">
+                <option value="600000">{_('Expires in 10 minutes')}</option>
+                <option value="1800000">{_('Expires in 30 minutes')}</option>
+                <option value="3600000">{_('Expires in 1 hour')}</option>
+                <option value="43200000">{_('Expires in 12 hours')}</option>
+              </Field>
+            </div>
+            <div className="text-right">
+              <Link to="/forgot-password">{_('Forgot password?')}</Link>
+            </div>
           </div>
+
           <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             <Once>{_('Login')}</Once>
           </button>
@@ -140,19 +150,20 @@ module.exports = class Login extends Base {
   render() {
     return (
       <div className="page-login">
-        <img src={logo} height="48" className="logo" alt="AndroVideo"/>
+        <img src={logo} className="logo" alt="AndroVideo"/>
         <img src={decoration} className="decoration"/>
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-card">
-              <Once>
+            <Once>
+              <div className="col-12">
                 <p className="text-light text-center text-welcome">
                   {_('Welcome to use AndroVideo system')}
                 </p>
-              </Once>
-
+              </div>
+            </Once>
+            <div className="col-card">
               <Formik
-                initialValues={{account: '', password: ''}}
+                initialValues={{account: '', password: '', maxAge: '3600000'}}
                 validationSchema={loginSchema}
                 render={this.loginFormRender}
                 onSubmit={this.onSubmitLoginForm}/>

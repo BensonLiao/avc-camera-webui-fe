@@ -16,6 +16,10 @@ window.languageResource = {
   'Welcome to use AndroVideo system': '歡迎使用 AndroVideo 系統',
   Login: '登入',
   'Incorrect password x {0}': '密碼錯誤 x {0}',
+  'Expires in 10 minutes': '10 分鐘後過期',
+  'Expires in 30 minutes': '30 分鐘後過期',
+  'Expires in 1 hour': '1 小時後過期',
+  'Expires in 12 hours': '12 小時後過期',
 
   // /login-lock
   'Forgot password?': '忘記密碼？',

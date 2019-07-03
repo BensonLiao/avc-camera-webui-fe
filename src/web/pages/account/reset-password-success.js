@@ -10,13 +10,14 @@ module.exports = class ResetPasswordSuccess extends Base {
   render() {
     return (
       <div className="page-login-lock">
-        <img src={logo} height="48" className="logo" alt="AndroVideo"/>
+        <img src={logo} className="logo" alt="AndroVideo"/>
         <img src={decoration} className="decoration"/>
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-card">
+            <div className="col-12">
               <p className="text-light text-center text-welcome"/>
-
+            </div>
+            <div className="col-card">
               <div className="card shadow mb-5">
                 <div className="card-body">
                   <div className="text-center mb-5">

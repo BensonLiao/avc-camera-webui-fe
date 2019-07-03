@@ -16,12 +16,13 @@ module.exports = {
     })
   },
   account: {
-    login: ({account, password}) => api({
+    login: ({account, password, maxAge}) => api({
       /*
       Do authentication with account and password.
       @param args {Object}
         account: {String}
         password: {String}
+        maxAge: {String|Number} milliseconds
       @returns {Promise<Object>}
       @response 200 {UserModel} with set-cookie
       @response 400 {Object}
@@ -34,7 +35,7 @@ module.exports = {
        */
       method: 'post',
       url: '/api/account/_login',
-      data: {account, password}
+      data: {account, password, maxAge: Number(maxAge)}
     }),
     logout: () => api({
       /*
