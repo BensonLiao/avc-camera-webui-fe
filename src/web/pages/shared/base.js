@@ -2,13 +2,14 @@ const React = require('react');
 const store = require('../../../core/store');
 
 module.exports = class Base extends React.Component {
+  state = {
+    $isApiProcessing: store.get('$isApiProcessing'),
+    $user: store.get('$user')
+  };
+
   constructor(props) {
     super(props);
     this.$isMounted = false;
-    this.state = {
-      $isApiProcessing: store.get('$isApiProcessing'),
-      $user: store.get('$user')
-    };
     this.$subscriptions = [
       store.subscribe('$isApiProcessing', (msg, data) => {
         if (this.$isMounted) {
