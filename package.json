@@ -58,7 +58,7 @@
     "webpack": "4.39.2",
     "webpack-cli": "3.3.7",
     "webpack-dev-server": "3.8.0",
-    "webserver-prototype": "git+ssh://git@bitbucket.org/androvideo/webserver-prototype.git#0598b3ee8675afb623fe1493aa49f0645be70ab3",
+    "webserver-prototype": "git+ssh://git@bitbucket.org/androvideo/webserver-prototype.git#8da87805d823a6e28cbd85f012c40b1daa0feec4",
     "yup": "0.27.0"
   },
   "devDependencies": {
