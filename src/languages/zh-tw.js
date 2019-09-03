@@ -60,5 +60,11 @@ window.languageResource = {
   Welcome: '歡 迎',
   'For the good experience.': '為了使您有更好的體驗，',
   'Please press Continue to complete the simple three-step installation setup!': '請您先按下繼續來完成簡單三步驟的安裝設定！',
-  Continue: '繼續'
+  Continue: '繼續',
+
+  // /set/language
+  Language: '選擇語言',
+  'TITLE-Account': '帳號密碼',
+  HTTPS: '安全傳輸方式',
+  Next: '下一步'
 };
