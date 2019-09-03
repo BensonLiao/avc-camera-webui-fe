@@ -15,7 +15,10 @@ module.exports = (env = {}) => {
     mode: env.mode || 'development',
     entry: {
       'en-us': path.join(__dirname, 'src', 'languages', 'en-us.js'),
+      'es-es': path.join(__dirname, 'src', 'languages', 'es-es.js'),
+      'ja-jp': path.join(__dirname, 'src', 'languages', 'ja-jp.js'),
       'zh-tw': path.join(__dirname, 'src', 'languages', 'zh-tw.js'),
+      'zh-cn': path.join(__dirname, 'src', 'languages', 'zh-cn.js'),
       web: path.join(__dirname, 'src', 'web', 'index.js')
     },
     devServer: {
