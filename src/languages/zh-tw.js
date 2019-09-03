@@ -54,5 +54,11 @@ window.languageResource = {
 
   // /reset-password-success
   'Reset password success': '重設密碼成功',
-  Done: '完成'
+  Done: '完成',
+
+  // /setup
+  Welcome: '歡 迎',
+  'For the good experience.': '為了使您有更好的體驗，',
+  'Please press Continue to complete the simple three-step installation setup!': '請您先按下繼續來完成簡單三步驟的安裝設定！',
+  Continue: '繼續'
 };

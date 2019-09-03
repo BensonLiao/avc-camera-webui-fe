@@ -78,6 +78,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'setup-welcome',
+      uri: '/setup',
+      onEnter: () => {
+        document.title = `${_('Welcome')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-setup-welcome" */
+        './pages/setup/welcome'
+      )
+    },
+    {
       name: 'not-found',
       uri: '.*',
       component: require('./pages/shared/not-found')
