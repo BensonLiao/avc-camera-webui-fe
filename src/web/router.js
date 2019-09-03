@@ -89,6 +89,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'setup-language',
+      uri: '/setup/language',
+      onEnter: () => {
+        document.title = `${_('Setup language')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-setup-language" */
+        './pages/setup/language'
+      )
+    },
+    {
       name: 'not-found',
       uri: '.*',
       component: require('./pages/shared/not-found')

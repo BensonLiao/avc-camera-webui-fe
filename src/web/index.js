@@ -16,6 +16,7 @@ const ReactDOM = require('react-dom');
 const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
+const _ = require('../languages');
 
 // Setup nprogress
 progress.configure({
@@ -24,6 +25,9 @@ progress.configure({
 
 // Setup initial data
 store.set('$user', window.user);
+store.set('$setup', {
+  language: _('_code')
+});
 
 // Setup routers
 router.listen('ChangeStart', (action, toState, fromState, cancel) => {
