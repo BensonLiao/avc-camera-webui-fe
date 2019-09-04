@@ -3,7 +3,9 @@ window.languageResource = {
 
   // Validations
   'This field is required.': '此欄位必填。',
+  'Please enter less than 9 letters.': '8 字元以內的大寫或小寫',
   'Please enter more than 7 characters.': '請至少輸入 8 個字元。',
+  'The limit of characters is 8.': '最大長度為 8 個字元。',
   'The limit of characters is 12.': '最大長度為 12 個字元。',
   'The limit of characters is 1024.': '最大長度為 1024 個字元。',
   'The password must includes a lower-case letter.': '密碼必須包含小寫字母。',

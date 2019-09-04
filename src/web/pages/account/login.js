@@ -100,7 +100,7 @@ module.exports = class Login extends Base {
               <div className="input-group-prepend">
                 <span className={classTable.accountGroupText}><i className="fas fa-user"/></span>
               </div>
-              <Field autoFocus name="account" maxLength="1024" type="text" className={classTable.account}/>
+              <Field autoFocus name="account" maxLength="8" type="text" className={classTable.account}/>
               {
                 errors.account && isSubmitted && (
                   <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
