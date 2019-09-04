@@ -65,7 +65,7 @@ window.languageResource = {
 
   // /set/language
   Language: '選擇語言',
-  'TITLE-Account': '帳號密碼',
+  'SETUP-Account': '帳號密碼',
   HTTPS: '安全傳輸方式',
   Next: '下一步'
 };

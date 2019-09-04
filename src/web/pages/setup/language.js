@@ -44,7 +44,7 @@ module.exports = class SetupLanguage extends Base {
                   <div className="steps">
                     <div className="d-flex justify-content-between">
                       <p className="text-primary">{_('Language')}</p>
-                      <p>{_('TITLE-Account')}</p>
+                      <p>{_('SETUP-Account')}</p>
                       <p>{_('HTTPS')}</p>
                     </div>
                     <img src={setupStep01} srcSet={`${setupStep01x2} 2x`}/>
