@@ -3,8 +3,7 @@ const _ = require('../../languages');
 
 module.exports = {
   account: Yup.string()
-    .max(1024, _('The limit of characters is 1024.'))
-    .required(_('This field is required.')),
+    .max(1024, _('The limit of characters is 1024.')),
   birthday: Yup.string().matches(/^\d{4}[0-1]\d[0-3]\d$/, _('Invalid birthday.')),
   password: Yup.string()
     .min(8, _('Please enter more than 7 characters.'))
@@ -12,5 +11,4 @@ module.exports = {
     .matches(/[a-z]+/, _('The password must includes a lower-case letter.'))
     .matches(/[A-Z]+/, _('The password must includes a upper-case letter.'))
     .matches(/\d+/, _('The password must includes a number.'))
-    .required(_('This field is required.'))
 };
