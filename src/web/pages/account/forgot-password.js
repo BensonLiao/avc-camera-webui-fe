@@ -96,7 +96,7 @@ module.exports = class ForgotPassword extends Base {
               <div className="input-group-prepend">
                 <span className={classTable.birthdayGroupText}><i className="fas fa-birthday-cake"/></span>
               </div>
-              <Field name="birthday" maxLength="8" type="text" className={classTable.birthday} placeholder={_('Please enter you birthday')}/>
+              <Field name="birthday" maxLength="8" type="text" className={classTable.birthday} placeholder={_('Please enter your birthday')}/>
               {
                 ((errors.birthday && isSubmitted) || this.state.isIncorrectBirthday) && (
                   <div className="invalid-feedback" style={{paddingLeft: '40px'}}>

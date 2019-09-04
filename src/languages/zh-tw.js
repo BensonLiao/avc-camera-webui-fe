@@ -44,7 +44,7 @@ window.languageResource = {
   'Forgot password': '忘記密碼',
   Account: '帳號',
   Birthday: '生日',
-  'Please enter you birthday': '請輸入您的生日',
+  'Please enter your birthday': '請輸入您的生日',
   'Incorrect birthday.': '生日錯誤。',
   OK: '確定',
 
