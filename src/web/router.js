@@ -100,6 +100,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'setup-account',
+      uri: '/setup/account',
+      onEnter: () => {
+        document.title = `${_('Setup account')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-setup-account" */
+        './pages/setup/account'
+      )
+    },
+    {
       name: 'not-found',
       uri: '.*',
       component: require('./pages/shared/not-found')

@@ -1,4 +1,5 @@
 const React = require('react');
+const {getRouter} = require('capybara-router');
 const logo = require('webserver-prototype/src/resource/logo-01.svg');
 const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
 const setupStep01 = require('webserver-prototype/src/resource/setup-step-01.png');
@@ -28,7 +29,7 @@ module.exports = class SetupLanguage extends Base {
 
   onSubmit(event) {
     event.preventDefault();
-    console.log('submit', store.get('$setup'));
+    getRouter().go('/setup/account');
   }
 
   render() {

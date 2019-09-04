@@ -1,6 +1,9 @@
 window.languageResource = {
   _code: 'zh-tw',
 
+  // Constants
+  'permission-admin': '管理者',
+
   // Validations
   'This field is required.': '此欄位必填。',
   'Please enter less than 9 letters.': '8 字元以內的大寫或小寫',
@@ -51,7 +54,7 @@ window.languageResource = {
   // /reset-password
   'Reset password': '重設密碼',
   'New password': '新密碼',
-  'Confirm password': '確認新密碼',
+  'Confirm password': '確認密碼',
   'Please enter your new password': '請輸入您的新密碼',
   'Please enter your new password again': '請再次輸入您的新密碼',
 
@@ -65,9 +68,21 @@ window.languageResource = {
   'Please press Continue to complete the simple three-step installation setup!': '請您先按下繼續來完成簡單三步驟的安裝設定！',
   Continue: '繼續',
 
-  // /set/language
+  // /setup/language
+  'Setup language': '選擇語言',
   Language: '選擇語言',
   'SETUP-Account': '帳號密碼',
   HTTPS: '安全傳輸方式',
-  Next: '下一步'
+  Next: '下一步',
+
+  // /setup/account
+  'Setup account': '設定帳號密碼',
+  Permission: '權限',
+  'Please enter your account.': '請輸入您的帳號',
+  'Please enter your birthday.': '請輸入您的西元出生年月日',
+  'This value is for resetting password, such as 19910326.': 'Ex:19910326，此欄位是為了讓您忘記密碼可使用來重設密碼',
+  Password: '密碼',
+  'Please enter your password.': '請輸入您的密碼',
+  'Please enter letters between 8 and 12.': '8~12 字元的大寫或小寫',
+  'Please enter your password again.': '請再次輸入您的密碼'
 };

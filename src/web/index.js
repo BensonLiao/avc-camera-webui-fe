@@ -26,7 +26,14 @@ progress.configure({
 // Setup initial data
 store.set('$user', window.user);
 store.set('$setup', {
-  language: _('_code')
+  language: _('_code'),
+  account: {
+    permission: 'admin',
+    account: '',
+    birthday: '',
+    password: '',
+    confirmPassword: ''
+  }
 });
 
 // Setup routers
