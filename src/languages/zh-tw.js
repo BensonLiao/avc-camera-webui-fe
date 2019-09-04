@@ -32,6 +32,7 @@ window.languageResource = {
   'Expires in 12 hours': '12 小時後過期',
 
   // /login-lock
+  'Login lock': '登入鎖定',
   'Forgot password?': '忘記密碼？',
   'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
   '{0} left': '還剩 {0}',
