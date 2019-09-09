@@ -15,7 +15,7 @@ const generateCertificateSchema = require('../../validations/setup/https-generat
 module.exports = class SetupHTTPS extends Base {
   constructor(props) {
     super(props);
-    this.state.certificateType = store.get('$setup').https.type;
+    this.state.certificateType = store.get('$setup').https.certificateType;
 
     this.generateValidationSchema = this.generateValidationSchema.bind(this);
     this.generateChangeCertificateTypeHandler = this.generateChangeCertificateTypeHandler.bind(this);

@@ -35,7 +35,7 @@ store.set('$setup', {
     confirmPassword: ''
   },
   https: {
-    type: 'self-sign',
+    certificateType: 'self-sign',
     certificate: '',
     privateKey: '',
     country: '',
