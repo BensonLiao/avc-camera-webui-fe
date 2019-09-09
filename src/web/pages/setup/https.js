@@ -49,7 +49,7 @@ module.exports = class SetupHTTPS extends Base {
     store.set('$setup', $setup);
   }
 
-  setupHTTPSFormRender({errors, submitCount, values, handleChange}) {
+  setupHTTPSFormRender({errors, submitCount, values}) {
     const isSubmitted = submitCount > 0;
     const classTable = {
       certificate: classNames([
