@@ -24,18 +24,20 @@ module.exports = class SetupHTTPS extends Base {
   }
 
   generateValidationSchema() {
-    if (this.state.certificateType === 'upload-certificate') {
-      return uploadCertificateSchema;
+    switch (this.state.certificateType) {
+      case 'upload-certificate':
+        return uploadCertificateSchema;
+      case 'generate-certificate':
+        return generateCertificateSchema;
+      default:
+        return null;
     }
-
-    if (this.state.certificateType === 'generate-certificate') {
-      return generateCertificateSchema;
-    }
-
-    return null;
   }
 
   generateChangeCertificateTypeHandler(next) {
+    /*
+    @param next {Function}
+      */
     return event => {
       this.setState({certificateType: event.target.value});
       if (typeof next === 'function') {
@@ -45,6 +47,9 @@ module.exports = class SetupHTTPS extends Base {
   }
 
   onSubmitSetupHTTPSForm(values) {
+    /*
+    @param values {Object}
+      */
     console.log(values); // Debug
     const $setup = store.get('$setup');
     $setup.account = values;
