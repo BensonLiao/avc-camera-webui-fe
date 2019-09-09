@@ -9,6 +9,7 @@ const decoration = require('webserver-prototype/src/resource/decoration-01.svg')
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
+const Dropdown = require('../../../core/components/dropdown');
 const loginSchema = require('../../validations/account/login-schema');
 const api = require('../../../core/apis/web-api');
 
@@ -126,14 +127,15 @@ module.exports = class Login extends Base {
             </div>
           </div>
           <div className="form-group d-flex justify-content-between align-items-center">
-            <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-              <Field component="select" name="maxAge" className="form-control border-0">
-                <option value="600000">{_('Expires in 10 minutes')}</option>
-                <option value="1800000">{_('Expires in 30 minutes')}</option>
-                <option value="3600000">{_('Expires in 1 hour')}</option>
-                <option value="43200000">{_('Expires in 12 hours')}</option>
-              </Field>
-            </div>
+            <Field component={Dropdown} name="maxAge"
+              buttonClassName="rounded-pill"
+              items={[
+                {value: '600000', label: _('Expires in 10 minutes')},
+                {value: '1800000', label: _('Expires in 30 minutes')},
+                {value: '3600000', label: _('Expires in 1 hour')},
+                {value: '43200000', label: _('Expires in 12 hours')}
+              ]}
+            />
             <div className="text-right">
               <Link to="/forgot-password">{_('Forgot password?')}</Link>
             </div>
