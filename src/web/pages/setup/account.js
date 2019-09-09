@@ -98,7 +98,7 @@ module.exports = class SetupAccount extends Base {
           <div className="form-group has-feedback">
             <label>{_('Birthday')}</label>
             <Field name="birthday" type={this.state.fieldTypes.birthday} className={classTable.birthday} placeholder={_('Please enter your birthday.')}/>
-            <a href="#" className="form-control-feedback text-muted" onClick={this.generateTogglePasswordFieldHandler('birthday')}>
+            <a href="#" className="form-control-feedback text-muted" tabIndex="-1" onClick={this.generateTogglePasswordFieldHandler('birthday')}>
               {this.state.fieldTypes.birthday === 'password' ? <i className="fas fa-eye"/> : <i className="fas fa-eye-slash"/>}
             </a>
             {
@@ -111,7 +111,7 @@ module.exports = class SetupAccount extends Base {
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
             <Field name="password" type={this.state.fieldTypes.password} className={classTable.password} placeholder={_('Please enter your password.')}/>
-            <a href="#" className="form-control-feedback text-muted" onClick={this.generateTogglePasswordFieldHandler('password')}>
+            <a href="#" className="form-control-feedback text-muted" tabIndex="-1" onClick={this.generateTogglePasswordFieldHandler('password')}>
               {this.state.fieldTypes.password === 'password' ? <i className="fas fa-eye"/> : <i className="fas fa-eye-slash"/>}
             </a>
             {
@@ -124,7 +124,7 @@ module.exports = class SetupAccount extends Base {
           <div className="form-group has-feedback">
             <label>{_('Confirm password')}</label>
             <Field name="confirmPassword" type={this.state.fieldTypes.confirmPassword} className={classTable.confirmPassword} placeholder={_('Please enter your password again.')}/>
-            <a href="#" className="form-control-feedback text-muted" onClick={this.generateTogglePasswordFieldHandler('confirmPassword')}>
+            <a href="#" className="form-control-feedback text-muted" tabIndex="-1" onClick={this.generateTogglePasswordFieldHandler('confirmPassword')}>
               {this.state.fieldTypes.password === 'password' ? <i className="fas fa-eye"/> : <i className="fas fa-eye-slash"/>}
             </a>
             {
