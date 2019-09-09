@@ -84,7 +84,7 @@ module.exports = class ResetPassword extends Base {
               <div className="input-group-prepend">
                 <span className={classTable.passwordGroupText}><i className="fas fa-lock"/></span>
               </div>
-              <Field autoFocus name="password" maxLength="1024" type="password" className={classTable.password} placeholder={_('Please enter your new password')}/>
+              <Field autoFocus name="password" maxLength="1024" type="password" className={classTable.password} placeholder={_('Please enter your new password.')}/>
               {
                 errors.password && isSubmitted && (
                   <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
@@ -100,7 +100,7 @@ module.exports = class ResetPassword extends Base {
               <div className="input-group-prepend">
                 <span className={classTable.confirmPasswordGroupText}><i className="fas fa-lock"/></span>
               </div>
-              <Field name="confirmPassword" maxLength="12" type="password" className={classTable.confirmPassword} placeholder={_('Please enter your new password again')}/>
+              <Field name="confirmPassword" maxLength="12" type="password" className={classTable.confirmPassword} placeholder={_('Please enter your new password again.')}/>
               {
                 (errors.confirmPassword && isSubmitted) && (
                   <div className="invalid-feedback" style={{paddingLeft: '40px'}}>

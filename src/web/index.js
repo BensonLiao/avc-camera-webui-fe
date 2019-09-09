@@ -33,6 +33,18 @@ store.set('$setup', {
     birthday: '',
     password: '',
     confirmPassword: ''
+  },
+  https: {
+    type: 'self-sign',
+    certificate: '',
+    privateKey: '',
+    country: '',
+    state: '',
+    city: '',
+    organization: '',
+    organizationUnit: '',
+    email: '',
+    domain: ''
   }
 });
 

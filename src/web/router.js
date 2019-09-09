@@ -70,7 +70,7 @@ module.exports = new Router({
       name: 'reset-password-success',
       uri: '/reset-password-success',
       onEnter: () => {
-        document.title = `${_('Reset password success')} - ${_title}`;
+        document.title = `${_('Reset password success.')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-reset-password-success" */
@@ -108,6 +108,17 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-setup-account" */
         './pages/setup/account'
+      )
+    },
+    {
+      name: 'setup-https',
+      uri: '/setup/https',
+      onEnter: () => {
+        document.title = `${_('Setup HTTPS')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-setup-https" */
+        './pages/setup/https'
       )
     },
     {

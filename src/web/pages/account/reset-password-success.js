@@ -24,7 +24,7 @@ module.exports = class ResetPasswordSuccess extends Base {
                   <div className="text-center mb-5">
                     <img src={checkCircleSolid} className="mb-4" width="120" height="120"/>
                     <h3 className="text-success" style={{fontSize: '30px'}}>
-                      {_('Reset password success')}
+                      {_('Reset password success.')}
                     </h3>
                   </div>
 

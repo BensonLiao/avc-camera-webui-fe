@@ -1,6 +1,6 @@
 const classNames = require('classnames');
 const React = require('react');
-const {Link} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const logo = require('webserver-prototype/src/resource/logo-01.svg');
 const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
@@ -42,10 +42,10 @@ module.exports = class SetupAccount extends Base {
   }
 
   onSubmitSetupAccountForm(values) {
-    console.log(values); // Debug
     const $setup = store.get('$setup');
     $setup.account = values;
     store.set('$setup', $setup);
+    getRouter().go('/setup/https');
   }
 
   setupAccountFormRender({errors, submitCount}) {

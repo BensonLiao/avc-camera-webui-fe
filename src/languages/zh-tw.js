@@ -16,6 +16,7 @@ window.languageResource = {
   'The password must includes a number.': '密碼必須包含數字。',
   'Invalid birthday.': '生日格式錯誤。',
   'Incorrect confirm password.': '兩次密碼不一致。',
+  'Invalid country code.': '國家代碼錯誤。',
 
   // The loading component.
   Loading: '載入中',
@@ -55,11 +56,11 @@ window.languageResource = {
   'Reset password': '重設密碼',
   'New password': '新密碼',
   'Confirm password': '確認密碼',
-  'Please enter your new password': '請輸入您的新密碼',
-  'Please enter your new password again': '請再次輸入您的新密碼',
+  'Please enter your new password.': '請輸入您的新密碼',
+  'Please enter your new password again.': '請再次輸入您的新密碼',
 
   // /reset-password-success
-  'Reset password success': '重設密碼成功',
+  'Reset password success.': '重設密碼成功',
   Done: '完成',
 
   // /setup
@@ -84,5 +85,30 @@ window.languageResource = {
   Password: '密碼',
   'Please enter your password.': '請輸入您的密碼',
   'Please enter letters between 8 and 12.': '8~12 字元的大寫或小寫',
-  'Please enter your password again.': '請再次輸入您的密碼'
+  'Please enter your password again.': '請再次輸入您的密碼',
+
+  // /setup/https
+  'Certificate type': '憑證方式',
+  'AndroVideo self-signed': 'AndroVideo 自簽憑證',
+  'Upload certificate': '自行上傳您的憑證',
+  'Generate certificate on this device': '在此裝置上產生憑證',
+  'SSL certificate.': 'SSL 憑證方式',
+  Certificate: '憑證',
+  'Private key': '私鑰',
+  'Country name': '國家名稱',
+  'Please enter the country code.': '請輸入您的國家代碼',
+  'Two letters.': '2 位字母代碼',
+  'State or province name': '州或省名稱',
+  'Please enter the state or province name.': '請輸入您的州或省名稱',
+  'City name': '城市名稱',
+  'Please enter the city name.': '請輸入您的城市名稱',
+  'Organization name': '組織名稱',
+  'Please enter the organization name.': '請輸入您的組織名稱',
+  'The company.': '公司',
+  'Organization unit name': '組織部門名稱',
+  'Please enter the organization unit name.': '請輸入您的組織部門名稱',
+  'Email address': '電子信箱',
+  'Please enter the email address.': '請輸入電子信箱',
+  Domain: '域名',
+  'Please enter the domain.': '請輸入域名'
 };
