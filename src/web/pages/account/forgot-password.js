@@ -8,8 +8,9 @@ const decoration = require('webserver-prototype/src/resource/decoration-01.svg')
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
-const forgotPasswordSchema = require('../../validations/account/forgot-password-schema');
+const forgotPasswordValidator = require('../../validations/account/forgot-password-validator');
 const api = require('../../../core/apis/web-api');
+const utils = require('../../../core/utils');
 
 module.exports = class ForgotPassword extends Base {
   constructor(props) {
@@ -130,7 +131,7 @@ module.exports = class ForgotPassword extends Base {
             <div className="col-card">
               <Formik
                 initialValues={{account: '', birthday: ''}}
-                validationSchema={forgotPasswordSchema}
+                validate={utils.makeFormikValidator(forgotPasswordValidator)}
                 render={this.forgotPasswordFormRender}
                 onSubmit={this.onSubmitForgotPasswordForm}/>
             </div>

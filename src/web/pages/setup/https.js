@@ -10,26 +10,27 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const store = require('../../../core/store');
 const Dropdown = require('../../../core/components/dropdown');
-const uploadCertificateSchema = require('../../validations/setup/https-upload-certificate-schema');
-const generateCertificateSchema = require('../../validations/setup/https-generate-certificate-schema');
+const utils = require('../../../core/utils');
+const uploadCertificateValidator = require('../../validations/setup/https-upload-certificate-validator');
+const generateCertificateValidator = require('../../validations/setup/https-generate-certificate-validator');
 
 module.exports = class SetupHTTPS extends Base {
   constructor(props) {
     super(props);
     this.state.certificateType = store.get('$setup').https.certificateType;
 
-    this.generateValidationSchema = this.generateValidationSchema.bind(this);
+    this.generateValidator = this.generateValidator.bind(this);
     this.onChangeCertificateType = this.onChangeCertificateType.bind(this);
     this.setupHTTPSFormRender = this.setupHTTPSFormRender.bind(this);
     this.onSubmitSetupHTTPSForm = this.onSubmitSetupHTTPSForm.bind(this);
   }
 
-  generateValidationSchema() {
+  generateValidator() {
     switch (this.state.certificateType) {
       case 'upload-certificate':
-        return uploadCertificateSchema;
+        return utils.makeFormikValidator(uploadCertificateValidator);
       case 'generate-certificate':
-        return generateCertificateSchema;
+        return utils.makeFormikValidator(generateCertificateValidator);
       default:
         return null;
     }
@@ -226,7 +227,7 @@ module.exports = class SetupHTTPS extends Base {
             <div className="col-card">
               <Formik
                 initialValues={initialValue}
-                validationSchema={this.generateValidationSchema}
+                validate={this.generateValidator()}
                 render={this.setupHTTPSFormRender}
                 onSubmit={this.onSubmitSetupHTTPSForm}/>
             </div>

@@ -32,6 +32,7 @@
     "compression-webpack-plugin": "3.0.0",
     "config": "3.2.2",
     "css-loader": "3.2.0",
+    "fastest-validator": "0.6.17",
     "file-loader": "4.2.0",
     "formik": "1.5.8",
     "grunt": "1.0.4",
@@ -58,8 +59,8 @@
     "webpack": "4.39.2",
     "webpack-cli": "3.3.7",
     "webpack-dev-server": "3.8.0",
-    "webserver-prototype": "git+ssh://git@bitbucket.org/androvideo/webserver-prototype.git#93a2f049efe362e30d50856f3d62954b0b07bb5c",
-    "yup": "0.27.0"
+    "webserver-form-schema": "git+ssh://git@bitbucket.org/androvideo/webserver-form-schema.git#00f2777dd02daef9d38519d0dfcfbf10591a7137",
+    "webserver-prototype": "git+ssh://git@bitbucket.org/androvideo/webserver-prototype.git#93a2f049efe362e30d50856f3d62954b0b07bb5c"
   },
   "devDependencies": {
     "body-parser": "1.19.0",

@@ -10,8 +10,9 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
 const Dropdown = require('../../../core/components/dropdown');
-const loginSchema = require('../../validations/account/login-schema');
+const loginValidator = require('../../validations/account/login-validator');
 const api = require('../../../core/apis/web-api');
+const utils = require('../../../core/utils');
 
 module.exports = class Login extends Base {
   constructor(props) {
@@ -166,7 +167,7 @@ module.exports = class Login extends Base {
             <div className="col-card">
               <Formik
                 initialValues={{account: '', password: '', maxAge: '3600000'}}
-                validationSchema={loginSchema}
+                validate={utils.makeFormikValidator(loginValidator)}
                 render={this.loginFormRender}
                 onSubmit={this.onSubmitLoginForm}/>
             </div>

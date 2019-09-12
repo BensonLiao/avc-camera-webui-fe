@@ -10,7 +10,8 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const store = require('../../../core/store');
 const Dropdown = require('../../../core/components/dropdown');
-const setupAccountSchema = require('../../validations/setup/account-schema');
+const setupAccountValidator = require('../../validations/setup/account-validator');
+const utils = require('../../../core/utils');
 
 module.exports = class SetupAccount extends Base {
   constructor(props) {
@@ -154,7 +155,7 @@ module.exports = class SetupAccount extends Base {
             <div className="col-card">
               <Formik
                 initialValues={initialValue}
-                validationSchema={setupAccountSchema}
+                validate={utils.makeFormikValidator(setupAccountValidator, ['password', 'confirmPassword'])}
                 render={this.setupAccountFormRender}
                 onSubmit={this.onSubmitSetupAccountForm}/>
             </div>

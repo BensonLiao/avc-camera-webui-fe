@@ -9,8 +9,9 @@ const decoration = require('webserver-prototype/src/resource/decoration-01.svg')
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
-const resetPasswordSchema = require('../../validations/account/reset-password-schema');
+const resetPasswordValidator = require('../../validations/account/reset-password-validator');
 const api = require('../../../core/apis/web-api');
+const utils = require('../../../core/utils');
 
 module.exports = class ResetPassword extends Base {
   static get propTypes() {
@@ -131,7 +132,7 @@ module.exports = class ResetPassword extends Base {
             <div className="col-card">
               <Formik
                 initialValues={{password: '', confirmPassword: ''}}
-                validationSchema={resetPasswordSchema}
+                validate={utils.makeFormikValidator(resetPasswordValidator, ['password', 'confirmPassword'])}
                 render={this.resetPasswordFormRender}
                 onSubmit={this.onSubmitResetPasswordForm}/>
             </div>
