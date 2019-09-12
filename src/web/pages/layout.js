@@ -18,10 +18,11 @@ const iconDevelop = require('webserver-prototype/src/resource/left-navigation-de
 module.exports = class Layout extends Base {
   constructor(props) {
     super(props);
+    const router = getRouter();
 
-    this.state.currentRouteName = '';
-      getRouter().listen('ChangeSuccess', (action, toState) => {
+    this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
+      router.listen('ChangeStart', (action, toState) => {
         this.setState({
           currentRouteName: toState.name
         });
