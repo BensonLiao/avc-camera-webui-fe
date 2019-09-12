@@ -20,8 +20,8 @@ module.exports = class Layout extends Base {
     super(props);
 
     this.state.currentRouteName = '';
-    this.$subscriptions.push(
       getRouter().listen('ChangeSuccess', (action, toState) => {
+    this.$listens.push(
         this.setState({
           currentRouteName: toState.name
         });

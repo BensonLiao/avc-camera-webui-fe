@@ -10,7 +10,7 @@ module.exports = class Base extends React.Component {
   constructor(props) {
     super(props);
     this.$isMounted = false;
-    this.$subscriptions = [
+    this.$listens = [
       store.subscribe('$isApiProcessing', (msg, data) => {
         if (this.$isMounted) {
           this.setState({$isApiProcessing: data});
@@ -33,6 +33,6 @@ module.exports = class Base extends React.Component {
   }
 
   componentWillUnmount() {
-    this.$subscriptions.forEach(x => x());
+    this.$listens.forEach(x => x());
   }
 };
