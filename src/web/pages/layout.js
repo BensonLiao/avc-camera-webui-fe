@@ -1,5 +1,6 @@
 const classNames = require('classnames');
 const React = require('react');
+const progress = require('nprogress');
 const {RouterView} = require('capybara-router');
 const Base = require('./shared/base');
 const {Link, getRouter} = require('capybara-router');
@@ -14,11 +15,15 @@ const iconSystem = require('webserver-prototype/src/resource/left-navigation-sys
 const iconSecurity = require('webserver-prototype/src/resource/left-navigation-security.svg');
 const iconLicense = require('webserver-prototype/src/resource/left-navigation-license.svg');
 const iconDevelop = require('webserver-prototype/src/resource/left-navigation-develop.svg');
+const logo = require('webserver-prototype/src/resource/logo-02.svg');
+const api = require('../../core/apis/web-api');
 
 module.exports = class Layout extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
+
+    this.onClickLogout = this.onClickLogout.bind(this);
 
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
@@ -28,6 +33,19 @@ module.exports = class Layout extends Base {
         });
       })
     );
+  }
+
+  onClickLogout(event) {
+    event.preventDefault();
+    progress.start();
+    api.account.logout()
+      .then(() => {
+        location.href = '/';
+      })
+      .catch(error => {
+        progress.done();
+        getRouter().renderError(error);
+      });
   }
 
   render() {
@@ -99,6 +117,42 @@ module.exports = class Layout extends Base {
             <img src={iconDevelop}/>
           </Link>
         </div>
+
+        <nav className="navbar navbar-expand fixed-top shadow-sm">
+          <Link className="navbar-brand" to="/">
+            <img src={logo} height="24" className="logo"/>
+          </Link>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation">
+            <span className="navbar-toggler-icon"/>
+          </button>
+          <div className="collapse navbar-collapse" id="navigation">
+            <ul className="navbar-nav mr-auto"/>
+            <form className="form-row text-right">
+              <div className="col d-none d-sm-block">
+                <div className="dropdown">
+                  <button className="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i className="fas fa-globe fa-fw"/> 中文(繁體)
+                  </button>
+                  <div className="dropdown-menu dropdown-menu-right">
+                    <a className="dropdown-item" href="#">中文(繁體)</a>
+                    <a className="dropdown-item" href="#">English</a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col">
+                <div className="dropdown">
+                  <button className="btn text-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    {this.state.$user.account}
+                  </button>
+                  <div className="dropdown-menu dropdown-menu-right">
+                    <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>Sign out</a>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </nav>
 
         <RouterView>
           <Loading/>
