@@ -9,7 +9,6 @@ const setupStep03x2 = require('webserver-prototype/src/resource/setup-step-03@2x
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const store = require('../../../core/store');
-const Dropdown = require('../../../core/components/dropdown');
 const utils = require('../../../core/utils');
 const uploadCertificateValidator = require('../../validations/setup/https-upload-certificate-validator');
 const generateCertificateValidator = require('../../validations/setup/https-generate-certificate-validator');
@@ -20,7 +19,7 @@ module.exports = class SetupHTTPS extends Base {
     this.state.certificateType = store.get('$setup').https.certificateType;
 
     this.generateValidator = this.generateValidator.bind(this);
-    this.onChangeCertificateType = this.onChangeCertificateType.bind(this);
+    this.generateChangeCertificateTypeHandler = this.generateChangeCertificateTypeHandler.bind(this);
     this.setupHTTPSFormRender = this.setupHTTPSFormRender.bind(this);
     this.onSubmitSetupHTTPSForm = this.onSubmitSetupHTTPSForm.bind(this);
   }
@@ -36,8 +35,16 @@ module.exports = class SetupHTTPS extends Base {
     }
   }
 
-  onChangeCertificateType(event, value) {
-    this.setState({certificateType: value});
+  generateChangeCertificateTypeHandler(next) {
+    /*
+    @param next {Function}
+      */
+    return event => {
+      this.setState({certificateType: event.target.value});
+      if (typeof next === 'function') {
+        next(event);
+      }
+    };
   }
 
   onSubmitSetupHTTPSForm(values) {
@@ -50,7 +57,7 @@ module.exports = class SetupHTTPS extends Base {
     store.set('$setup', $setup);
   }
 
-  setupHTTPSFormRender({errors, submitCount, values}) {
+  setupHTTPSFormRender({errors, submitCount, values, handleChange}) {
     const isSubmitted = submitCount > 0;
     const classTable = {
       certificate: classNames([
@@ -96,15 +103,16 @@ module.exports = class SetupHTTPS extends Base {
           </div>
           <div className="form-group">
             <label>{_('Certificate type')}</label>
-            <Field component={Dropdown} name="certificateType"
-              buttonClassName="btn-block rounded-pill d-flex justify-content-between align-items-center"
-              items={[
-                {value: 'self-signed', label: _('AndroVideo self-signed')},
-                {value: 'upload-certificate', label: _('Upload certificate')},
-                {value: 'generate-certificate', label: _('Generate certificate on this device')}
-              ]}
-              onChange={this.onChangeCertificateType}
-            />
+            <div className="select-wrapper border rounded-pill overflow-hidden px-2">
+              <Field name="certificateType" component="select"
+                className="form-control border-0"
+                onChange={this.generateChangeCertificateTypeHandler(handleChange)}
+              >
+                <option value="self-signed">{_('AndroVideo self-signed')}</option>
+                <option value="upload-certificate">{_('Upload certificate')}</option>
+                <option value="generate-certificate">{_('Generate certificate on this device')}</option>
+              </Field>
+            </div>
             <small className="form-text text-muted">{_('SSL certificate.')}</small>
           </div>
 

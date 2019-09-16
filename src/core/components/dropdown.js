@@ -7,7 +7,6 @@ module.exports = class Dropdown extends React.Component {
     return {
       className: PropTypes.any,
       buttonClassName: PropTypes.any,
-      onChange: PropTypes.func,
       items: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.any.isRequired,
         label: PropTypes.string.isRequired
@@ -25,8 +24,7 @@ module.exports = class Dropdown extends React.Component {
   static get defaultProps() {
     return {
       className: null,
-      buttonClassName: null,
-      onChange: null
+      buttonClassName: null
     };
   }
 
@@ -55,9 +53,6 @@ module.exports = class Dropdown extends React.Component {
     return event => {
       event.preventDefault();
       this.props.form.setFieldValue(this.props.field.name, value);
-      if (this.props.onChange) {
-        this.props.onChange(event, value);
-      }
     };
   }
 

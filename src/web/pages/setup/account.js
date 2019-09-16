@@ -9,7 +9,6 @@ const setupStep02x2 = require('webserver-prototype/src/resource/setup-step-02@2x
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const store = require('../../../core/store');
-const Dropdown = require('../../../core/components/dropdown');
 const setupAccountValidator = require('../../validations/setup/account-validator');
 const utils = require('../../../core/utils');
 
@@ -81,10 +80,11 @@ module.exports = class SetupAccount extends Base {
           </div>
           <div className="form-group">
             <label>{_('Permission')}</label>
-            <Field component={Dropdown} name="permission"
-              buttonClassName="btn-block rounded-pill d-flex justify-content-between align-items-center"
-              items={[{value: 'admin', label: _('permission-admin')}]}
-            />
+            <div className="select-wrapper border rounded-pill overflow-hidden px-2">
+              <Field component="select" name="permission" className="form-control border-0">
+                <option value="admin">{_('permission-admin')}</option>
+              </Field>
+            </div>
           </div>
           <div className="form-group">
             <label>{_('Account')}</label>
