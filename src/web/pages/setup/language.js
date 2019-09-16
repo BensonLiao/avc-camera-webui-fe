@@ -15,17 +15,15 @@ module.exports = class SetupLanguage extends Base {
     super(props);
     this.state.languageCode = store.get('$setup').language;
 
-    this.generateChangeLanguageHandler = this.generateChangeLanguageHandler.bind(this);
+    this.onChangeLanguage = this.onChangeLanguage.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  generateChangeLanguageHandler(languageCode) {
-    return event => {
-      event.preventDefault();
-      progress.start();
-      utils.setCurrentLanguage(languageCode);
-      location.reload();
-    };
+  onChangeLanguage(event) {
+    event.preventDefault();
+    progress.start();
+    utils.setCurrentLanguage(event.target.value);
+    location.reload();
   }
 
   onSubmit(event) {
@@ -52,25 +50,16 @@ module.exports = class SetupLanguage extends Base {
                     <img src={setupStep01} srcSet={`${setupStep01x2} 2x`}/>
                   </div>
                   <div className="form-group">
-                    <div className="dropdown">
-                      <button
-                        className="btn btn-block rounded-pill dropdown-toggle d-flex justify-content-between align-items-center"
-                        type="button" data-toggle="dropdown"
-                      >
-                        <span><i className="fas fa-globe fa-fw"/> {window.config.languages[this.state.languageCode].title}</span>
-                      </button>
-                      <div className="dropdown-menu">
+                    <div className="select-wrapper border rounded-pill overflow-hidden px-2">
+                      <select name="language" value={window.currentLanguageCode} className="form-control border-0" onChange={this.onChangeLanguage}>
                         {
                           Object.keys(window.config.languages).map(languageCode => (
-                            <a key={languageCode} className="dropdown-item"
-                              href={`#${languageCode}`}
-                              onClick={this.generateChangeLanguageHandler(languageCode)}
-                            >
+                            <option key={languageCode} value={languageCode}>
                               {window.config.languages[languageCode].title}
-                            </a>
+                            </option>
                           ))
                         }
-                      </div>
+                      </select>
                     </div>
                   </div>
 
