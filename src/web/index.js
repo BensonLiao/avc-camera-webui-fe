@@ -16,7 +16,6 @@ const ReactDOM = require('react-dom');
 const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
-const _ = require('../languages');
 
 // Setup nprogress
 progress.configure({
