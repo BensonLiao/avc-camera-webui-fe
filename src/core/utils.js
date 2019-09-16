@@ -1,4 +1,12 @@
+const Cookies = require('js-cookie');
 const _ = require('../languages');
+
+exports.setCurrentLanguage = languageCode => {
+  /*
+  @param languageCode {String}
+   */
+  Cookies.set(window.config.cookies.language, languageCode, {expires: 30});
+};
 
 exports.makeFormikValidator = (validator, passwordFields) => values => {
   /*

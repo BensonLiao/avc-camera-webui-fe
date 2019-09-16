@@ -17,12 +17,14 @@ const iconLicense = require('webserver-prototype/src/resource/left-navigation-li
 const iconDevelop = require('webserver-prototype/src/resource/left-navigation-develop.svg');
 const logo = require('webserver-prototype/src/resource/logo-02.svg');
 const api = require('../../core/apis/web-api');
+const utils = require('../../core/utils');
 
 module.exports = class Layout extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
 
+    this.generateChangeLanguageHandler = this.generateChangeLanguageHandler.bind(this);
     this.onClickLogout = this.onClickLogout.bind(this);
 
     this.state.currentRouteName = router.currentRoute.name;
@@ -33,6 +35,15 @@ module.exports = class Layout extends Base {
         });
       })
     );
+  }
+
+  generateChangeLanguageHandler(languageCode) {
+    return event => {
+      event.preventDefault();
+      progress.start();
+      utils.setCurrentLanguage(languageCode);
+      location.reload();
+    };
   }
 
   onClickLogout(event) {
@@ -131,11 +142,19 @@ module.exports = class Layout extends Base {
               <div className="col d-none d-sm-block">
                 <div className="dropdown">
                   <button className="btn dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i className="fas fa-globe fa-fw"/> 中文(繁體)
+                    <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    <a className="dropdown-item" href="#">中文(繁體)</a>
-                    <a className="dropdown-item" href="#">English</a>
+                    {
+                      Object.keys(window.config.languages).map(languageCode => (
+                        <a key={languageCode} className="dropdown-item"
+                          href={`#${languageCode}`}
+                          onClick={this.generateChangeLanguageHandler(languageCode)}
+                        >
+                          {window.config.languages[languageCode].title}
+                        </a>
+                      ))
+                    }
                   </div>
                 </div>
               </div>
