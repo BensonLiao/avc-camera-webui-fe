@@ -1,5 +1,6 @@
 const React = require('react');
 const {getRouter} = require('capybara-router');
+const progress = require('nprogress');
 const logo = require('webserver-prototype/src/resource/logo-01.svg');
 const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
 const setupStep01 = require('webserver-prototype/src/resource/setup-step-01.png');
@@ -7,6 +8,7 @@ const setupStep01x2 = require('webserver-prototype/src/resource/setup-step-01@2x
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const store = require('../../../core/store');
+const utils = require('../../../core/utils');
 
 module.exports = class SetupLanguage extends Base {
   constructor(props) {
@@ -20,10 +22,9 @@ module.exports = class SetupLanguage extends Base {
   generateChangeLanguageHandler(languageCode) {
     return event => {
       event.preventDefault();
-      const $setup = store.get('$setup');
-      $setup.language = languageCode;
-      store.set('$setup', $setup);
-      this.setState({languageCode: languageCode});
+      progress.start();
+      utils.setCurrentLanguage(languageCode);
+      location.reload();
     };
   }
 
@@ -59,11 +60,16 @@ module.exports = class SetupLanguage extends Base {
                         <span><i className="fas fa-globe fa-fw"/> {window.config.languages[this.state.languageCode].title}</span>
                       </button>
                       <div className="dropdown-menu">
-                        <a className="dropdown-item" href="#" onClick={this.generateChangeLanguageHandler('zh-tw')}>{window.config.languages['zh-tw'].title}</a>
-                        <a className="dropdown-item" href="#" onClick={this.generateChangeLanguageHandler('zh-cn')}>{window.config.languages['zh-cn'].title}</a>
-                        <a className="dropdown-item" href="#" onClick={this.generateChangeLanguageHandler('ja-jp')}>{window.config.languages['ja-jp'].title}</a>
-                        <a className="dropdown-item" href="#" onClick={this.generateChangeLanguageHandler('es-es')}>{window.config.languages['es-es'].title}</a>
-                        <a className="dropdown-item" href="#" onClick={this.generateChangeLanguageHandler('en-us')}>{window.config.languages['en-us'].title}</a>
+                        {
+                          Object.keys(window.config.languages).map(languageCode => (
+                            <a key={languageCode} className="dropdown-item"
+                              href={`#${languageCode}`}
+                              onClick={this.generateChangeLanguageHandler(languageCode)}
+                            >
+                              {window.config.languages[languageCode].title}
+                            </a>
+                          ))
+                        }
                       </div>
                     </div>
                   </div>

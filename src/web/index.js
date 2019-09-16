@@ -26,7 +26,7 @@ progress.configure({
 // Setup initial data
 store.set('$user', window.user);
 store.set('$setup', {
-  language: _('_code'),
+  language: window.currentLanguageCode,
   account: {
     permission: 'admin',
     account: '',
