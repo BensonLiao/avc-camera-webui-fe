@@ -54,6 +54,20 @@ module.exports = class Home extends Base {
 
   render() {
     const usedDiskPercentage = Math.ceil((this.props.status.usedDiskSize / this.props.status.totalDiskSize) * 100);
+    const classTable = {
+      faceRecognitionState: classNames({
+        'text-success': this.props.status.faceRecognition === 'on',
+        'text-muted': this.props.status.faceRecognition === 'off'
+      }),
+      ageGenderState: classNames({
+        'text-success': this.props.status.faceRecognition === 'on',
+        'text-muted': this.props.status.faceRecognition === 'off'
+      }),
+      humanoidDetectionState: classNames({
+        'text-success': this.props.status.faceRecognition === 'on',
+        'text-muted': this.props.status.faceRecognition === 'off'
+      })
+    };
 
     return (
       <div className="main-content">
@@ -103,13 +117,19 @@ module.exports = class Home extends Base {
                         </td>
                         <td className="align-top">
                           <span>{_('Face recognition: ')}</span>
-                          <span className="text-success">{_(`state-${this.props.status.faceRecognition}`)}</span>
+                          <span className={classTable.faceRecognitionState}>
+                            {_(`state-${this.props.status.faceRecognition}`)}
+                          </span>
                           <br/>
                           <span>{_('Age gender: ')}</span>
-                          <span className="text-success">{_(`state-${this.props.status.ageGender}`)}</span>
+                          <span className={classTable.ageGenderState}>
+                            {_(`state-${this.props.status.ageGender}`)}
+                          </span>
                           <br/>
                           <span>{_('Humanoid detection: ')}</span>
-                          <span className="text-muted">{_(`state-${this.props.status.humanoidDetection}`)}</span>
+                          <span className={classTable.humanoidDetectionState}>
+                            {_(`state-${this.props.status.humanoidDetection}`)}
+                          </span>
                         </td>
                         <td className="align-top">
                           <span className="badge badge-pill badge-success">{_('Green')}</span>
