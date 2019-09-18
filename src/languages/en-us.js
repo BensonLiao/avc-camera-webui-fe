@@ -1,6 +1,12 @@
 window.languageResource = {
   _code: 'en-us',
 
+  // Constants
+  'permission-admin': 'Administrator',
+
+  'state-on': 'ON',
+  'state-off': 'OFF',
+
   // Validations
   'validation-required': 'This field is required.',
   'validation-string': 'This field must be a string.',

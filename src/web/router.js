@@ -2,6 +2,7 @@
 const {Router} = require('capybara-router');
 const history = require('history');
 const _ = require('../languages');
+const api = require('../core/apis/web-api');
 
 const _title = `${window.cameraName} Web-Manager`;
 
@@ -19,6 +20,9 @@ module.exports = new Router({
       uri: '/',
       onEnter: () => {
         document.title = `${_('Home')} - ${_title}`;
+      },
+      resolve: {
+        status: () => api.system.getStatus().then(response => response.data)
       },
       component: require('./pages/home')
     },

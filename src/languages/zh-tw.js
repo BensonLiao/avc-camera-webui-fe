@@ -4,6 +4,9 @@ window.languageResource = {
   // Constants
   'permission-admin': '管理者',
 
+  'state-on': '開啟',
+  'state-off': '關閉',
+
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
   'validation-required': '此欄位必填。',
@@ -136,5 +139,18 @@ window.languageResource = {
   'Email address': '電子信箱',
   'Please enter the email address.': '請輸入電子信箱',
   Domain: '域名',
-  'Please enter the domain.': '請輸入域名'
+  'Please enter the domain.': '請輸入域名',
+
+  // /
+  'Stream {0}': '串流 {0}',
+  'Device name': '裝置名稱',
+  'Smart functions': '智慧功能',
+  'Device status': '裝置狀態',
+  'SD card': 'SD 卡',
+  'Please enter letters between 1 and 32.': '請輸入1-32字元',
+  'Face recognition: ': '臉部辨識 : ',
+  'Age gender: ': '性別年齡 : ',
+  'Humanoid detection: ': '人形偵測 : ',
+  Green: '正常',
+  'Free: {0}, Total: {1}': '{0} 可用 (共 {1})'
 };

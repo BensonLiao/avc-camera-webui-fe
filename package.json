@@ -34,6 +34,7 @@
     "css-loader": "3.2.0",
     "fastest-validator": "0.6.17",
     "file-loader": "4.2.0",
+    "filesize": "4.2.0",
     "formik": "1.5.8",
     "grunt": "1.0.4",
     "grunt-contrib-clean": "2.0.0",

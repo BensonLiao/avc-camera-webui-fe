@@ -70,5 +70,11 @@ module.exports = {
       url: '/api/me/password',
       data: {password, newPassword}
     })
+  },
+  system: {
+    getStatus: () => api({
+      method: 'get',
+      url: '/api/system/status'
+    })
   }
 };
