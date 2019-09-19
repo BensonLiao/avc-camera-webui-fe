@@ -76,5 +76,11 @@ module.exports = {
       method: 'get',
       url: '/api/system/status'
     })
+  },
+  camera: {
+    getSettings: () => api({
+      method: 'get',
+      url: '/api/camera/settings'
+    })
   }
 };

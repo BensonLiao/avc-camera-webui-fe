@@ -3,6 +3,7 @@ const rateLimit = require('express-rate-limit');
 const errors = require('../models/errors');
 const accountHandler = require('../handlers/account-handler');
 const baseHandler = require('../handlers/base-handler');
+const cameraHandler = require('../handlers/camera-handler');
 const systemHandler = require('../handlers/system-handler');
 const validationHandler = require('../handlers/validation-handler');
 
@@ -97,5 +98,6 @@ router.post('/api/account/_logout', accountHandler.logout);
 router.post('/api/account/_change-password', accountHandler.changePasswordWithBirthday);
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.get('/api/system/status', systemHandler.getStatus);
+router.get('/api/camera/settings', cameraHandler.getSettings);
 
 router.get(/.*/, baseHandler.baseView);

@@ -22,7 +22,8 @@ module.exports = new Router({
         document.title = `${_('Home')} - ${_title}`;
       },
       resolve: {
-        status: () => api.system.getStatus().then(response => response.data)
+        status: () => api.system.getStatus().then(response => response.data),
+        cameraSettings: () => api.camera.getSettings().then(response => response.data)
       },
       component: require('./pages/home')
     },
