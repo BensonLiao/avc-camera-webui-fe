@@ -152,5 +152,8 @@ window.languageResource = {
   'Age gender: ': '性別年齡 : ',
   'Humanoid detection: ': '人形偵測 : ',
   Green: '正常',
-  'Free: {0}, Total: {1}': '{0} 可用 (共 {1})'
+  'Free: {0}, Total: {1}': '{0} 可用 (共 {1})',
+  'Video properties': '影像屬性',
+  Apply: '套用',
+  'Reset to defaults': '恢復預設'
 };

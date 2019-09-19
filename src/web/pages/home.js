@@ -6,6 +6,7 @@ const {Formik, Form, Field} = require('formik');
 const Base = require('./shared/base');
 const _ = require('../../languages');
 const utils = require('../../core/utils');
+const Slider = require('../../core/components/fields/slider');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 
 module.exports = class Home extends Base {
@@ -19,6 +20,12 @@ module.exports = class Home extends Base {
         state: PropTypes.string.isRequired,
         usedDiskSize: PropTypes.number.isRequired,
         totalDiskSize: PropTypes.number.isRequired
+      }).isRequired,
+      cameraSettings: PropTypes.shape({
+        defog: PropTypes.bool.isRequired, // 除霧
+        irLight: PropTypes.bool.isRequired, // 紅外線燈
+        bright: PropTypes.number.isRequired, // 亮度
+        contrast: PropTypes.number.isRequired // 對比
       }).isRequired
     };
   }
@@ -26,9 +33,17 @@ module.exports = class Home extends Base {
   constructor(props) {
     super(props);
     this.state.deviceName = props.status.deviceName;
+    this.state.cameraSettings = props.cameraSettings;
 
+    this.onSubmitVideoPropertiesForm = this.onSubmitVideoPropertiesForm.bind(this);
     this.onSubmitDeviceNameForm = this.onSubmitDeviceNameForm.bind(this);
+    this.videoPropertiesFormRender = this.videoPropertiesFormRender.bind(this);
     this.deviceNameFormRender = this.deviceNameFormRender.bind(this);
+  }
+
+  onSubmitVideoPropertiesForm(values) {
+    // Todo: not implementation
+    console.log(values);
   }
 
   onSubmitDeviceNameForm(values) {
@@ -36,9 +51,85 @@ module.exports = class Home extends Base {
     console.log(values);
   }
 
+  videoPropertiesFormRender({values}) {
+    return (
+      <Form className="card shadow">
+        <div className="card-header">{_('Video properties')}</div>
+        <div className="card-body">
+          <div className="form-row">
+            <div className="col-12 col-lg-6 my-1 d-flex align-items-center">
+              <span>除霧</span>
+              <div className="custom-control custom-switch d-inline-block ml-2">
+                <Field name="defog" type="checkbox" className="custom-control-input" id="switch-defogging"/>
+                <label className="custom-control-label" htmlFor="switch-defogging">
+                  <span>自動</span>
+                  <span>關</span>
+                </label>
+              </div>
+            </div>
+            <div className="col-12 col-lg-6 my-1 d-flex align-items-center justify-content-xl-end">
+              <span>紅外線燈</span>
+              <div className="custom-control custom-switch d-inline-block ml-2">
+                <Field name="irLight" type="checkbox" className="custom-control-input" id="switch-ir"/>
+                <label className="custom-control-label" htmlFor="switch-ir">
+                  <span>自動</span>
+                  <span>關</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="accordion" id="accordion-video-properties">
+          {/* 亮度 */}
+          <hr className="my-0"/>
+          <div className="card-body pb-0">
+            <h2>
+              <button className="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#lightness">
+                <i className="fas fa-chevron-up"/>亮度
+              </button>
+            </h2>
+
+            <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>亮度</label>
+                  <span className="text-primary text-size-14">{values.bright}</span>
+                </div>
+                <Field name="bright" component={Slider} min={0} max={100} step={10}/>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>對比</label>
+                  <span className="text-primary text-size-14">{values.contrast}</span>
+                </div>
+                <Field name="contrast" component={Slider} min={0} max={100} step={10}/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr className="my-0"/>
+        <div className="card-body actions">
+          <div className="form-group">
+            <button className="btn btn-primary btn-block rounded-pill" type="submit">
+              {_('Apply')}
+            </button>
+          </div>
+          <button className="btn btn-outline-primary btn-block rounded-pill" type="button">
+            {_('Reset to defaults')}
+          </button>
+        </div>
+      </Form>
+    );
+  }
+
   deviceNameFormRender({errors, touched}) {
     const classTable = {
-      deviceName: classNames(['form-control', {'is-invalid': errors.deviceName && touched.deviceName}])
+      deviceName: classNames([
+        'form-control',
+        {'is-invalid': errors.deviceName && touched.deviceName}
+      ])
     };
 
     return (
@@ -153,6 +244,13 @@ module.exports = class Home extends Base {
                     </tbody>
                   </table>
                 </div>
+              </div>
+
+              <div className="col-4 pl-24">
+                <Formik
+                  initialValues={this.state.cameraSettings}
+                  render={this.videoPropertiesFormRender}
+                  onSubmit={this.onSubmitVideoPropertiesForm}/>
               </div>
             </div>
           </div>
