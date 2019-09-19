@@ -1,5 +1,6 @@
 // Style
 require('@fortawesome/fontawesome-free/css/all.css');
+require('bootstrap-slider/dist/css/bootstrap-slider.css');
 require('webserver-prototype/src/style/main.scss');
 require('nprogress/nprogress.css');
 
