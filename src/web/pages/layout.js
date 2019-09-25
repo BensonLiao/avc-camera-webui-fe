@@ -16,8 +16,10 @@ const iconSecurity = require('webserver-prototype/src/resource/left-navigation-s
 const iconLicense = require('webserver-prototype/src/resource/left-navigation-license.svg');
 const iconDevelop = require('webserver-prototype/src/resource/left-navigation-develop.svg');
 const logo = require('webserver-prototype/src/resource/logo-02.svg');
+const Tooltip = require('../../core/components/tooltip');
 const api = require('../../core/apis/web-api');
 const utils = require('../../core/utils');
+const _ = require('../../languages');
 
 module.exports = class Layout extends Base {
   constructor(props) {
@@ -93,40 +95,65 @@ module.exports = class Layout extends Base {
         'btn d-flex justify-content-center align-items-center'
       ])
     };
+    const tooltipOptions = {
+      delay: {show: 1500, hide: 0},
+      offset: '0,-4',
+      boundary: 'viewport'
+    };
 
     return (
       <>
         <div className="left-navigation fixed-top">
-          <Link className={classTable.homeLink} to="/">
-            <img src={iconHome}/>
-          </Link>
-          <Link className={classTable.mediaLink} to="/media/stream.html">
-            <img src={iconMedia}/>
-          </Link>
-          <Link className={classTable.notification} to="/notification/app.html">
-            <img src={iconNotification}/>
-          </Link>
-          <Link className={classTable.users} to="/user/users.html">
-            <img src={iconUsers}/>
-          </Link>
-          <Link className={classTable.smart} to="/smart/face-recognition.html">
-            <img src={iconSmart}/>
-          </Link>
-          <Link className={classTable.historis} to="/history/face-recognition.html">
-            <img src={iconHistories}/>
-          </Link>
-          <Link className={classTable.system} to="/system/date.html">
-            <img src={iconSystem}/>
-          </Link>
-          <Link className={classTable.security} to="/security/account.html">
-            <img src={iconSecurity}/>
-          </Link>
-          <Link className={classTable.license} to="/license">
-            <img src={iconLicense}/>
-          </Link>
-          <Link className={classTable.develop} to="/develop">
-            <img src={iconDevelop}/>
-          </Link>
+          <Tooltip title={_('Home')} {...tooltipOptions}>
+            <Link className={classTable.homeLink} to="/">
+              <img src={iconHome}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Multimedia settings')} {...tooltipOptions}>
+            <Link className={classTable.mediaLink} to="/media/stream.html">
+              <img src={iconMedia}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Multimedia settings')} {...tooltipOptions}>
+            <Link className={classTable.notification} to="/notification/app.html">
+              <img src={iconNotification}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Members')} {...tooltipOptions}>
+            <Link className={classTable.users} to="/user/users.html">
+              <img src={iconUsers}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Smart function')} {...tooltipOptions}>
+            <Link className={classTable.smart} to="/smart/face-recognition.html">
+              <img src={iconSmart}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Smart search')} {...tooltipOptions}>
+            <Link className={classTable.historis} to="/history/face-recognition.html">
+              <img src={iconHistories}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('System')} {...tooltipOptions}>
+            <Link className={classTable.system} to="/system/date.html">
+              <img src={iconSystem}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Security')} {...tooltipOptions}>
+            <Link className={classTable.security} to="/security/account.html">
+              <img src={iconSecurity}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('License')} {...tooltipOptions}>
+            <Link className={classTable.license} to="/license">
+              <img src={iconLicense}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Develop')} {...tooltipOptions}>
+            <Link className={classTable.develop} to="/develop">
+              <img src={iconDevelop}/>
+            </Link>
+          </Tooltip>
         </div>
 
         <nav className="navbar navbar-expand fixed-top shadow-sm">
