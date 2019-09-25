@@ -38,7 +38,6 @@ module.exports = class Home extends Base {
     this.onSubmitVideoPropertiesForm = this.onSubmitVideoPropertiesForm.bind(this);
     this.onSubmitDeviceNameForm = this.onSubmitDeviceNameForm.bind(this);
     this.videoPropertiesFormRender = this.videoPropertiesFormRender.bind(this);
-    this.deviceNameFormRender = this.deviceNameFormRender.bind(this);
   }
 
   onSubmitVideoPropertiesForm(values) {
