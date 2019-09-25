@@ -32,7 +32,7 @@ module.exports = class Home extends Base {
 
   constructor(props) {
     super(props);
-    this.state.deviceName = props.status.deviceName;
+    this.state.deviceName = props.status.deviceName || '';
     this.state.cameraSettings = props.cameraSettings;
 
     this.onSubmitVideoPropertiesForm = this.onSubmitVideoPropertiesForm.bind(this);
