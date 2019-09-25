@@ -54,6 +54,18 @@ window.languageResource = {
   'The server error': '內部伺服器問題',
   'Sorry for your inconvenience, we are actively process with it!': '造成您的不便不好意思，我們正在積極處理中！',
 
+  // Navigation
+  Home: '首頁',
+  'Multimedia settings': '多媒體設定',
+  'Notification settings': '通知設定',
+  Members: '成員管理',
+  'Smart function': '智慧功能',
+  'Smart search': '智慧搜尋',
+  System: '系統',
+  Security: '安全性',
+  License: '智慧授權',
+  Develop: '工程模式',
+
   // /login
   'Welcome to use AndroVideo system': '歡迎使用 AndroVideo 系統',
   Login: '登入',
