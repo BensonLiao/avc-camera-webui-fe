@@ -114,7 +114,7 @@ module.exports = class Layout extends Base {
               <img src={iconMedia}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Multimedia settings')} {...tooltipOptions}>
+          <Tooltip title={_('Notification settings')} {...tooltipOptions}>
             <Link className={classTable.notification} to="/notification/app.html">
               <img src={iconNotification}/>
             </Link>
