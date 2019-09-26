@@ -57,22 +57,22 @@ module.exports = class Home extends Base {
         <div className="card-body">
           <div className="form-row">
             <div className="col-12 col-lg-6 my-1 d-flex align-items-center">
-              <span>除霧</span>
+              <span>{_('Defog')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
                 <Field name="defog" type="checkbox" className="custom-control-input" id="switch-defogging"/>
                 <label className="custom-control-label" htmlFor="switch-defogging">
-                  <span>自動</span>
-                  <span>關</span>
+                  <span>{_('Auto')}</span>
+                  <span>{_('Off')}</span>
                 </label>
               </div>
             </div>
             <div className="col-12 col-lg-6 my-1 d-flex align-items-center justify-content-xl-end">
-              <span>紅外線燈</span>
+              <span>{_('IR light')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
                 <Field name="irLight" type="checkbox" className="custom-control-input" id="switch-ir"/>
                 <label className="custom-control-label" htmlFor="switch-ir">
-                  <span>自動</span>
-                  <span>關</span>
+                  <span>{_('Auto')}</span>
+                  <span>{_('Off')}</span>
                 </label>
               </div>
             </div>
@@ -85,21 +85,21 @@ module.exports = class Home extends Base {
           <div className="card-body pb-0">
             <h2>
               <button className="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>亮度
+                <i className="fas fa-chevron-up"/>{_('Brightness')}
               </button>
             </h2>
 
             <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>亮度</label>
+                  <label>{_('Brightness')}</label>
                   <span className="text-primary text-size-14">{values.bright}</span>
                 </div>
                 <Field name="bright" component={Slider} min={0} max={100} step={10}/>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>對比</label>
+                  <label>{_('Contrast')}</label>
                   <span className="text-primary text-size-14">{values.contrast}</span>
                 </div>
                 <Field name="contrast" component={Slider} min={0} max={100} step={10}/>

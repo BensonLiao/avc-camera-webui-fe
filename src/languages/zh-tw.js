@@ -166,6 +166,12 @@ window.languageResource = {
   Green: '正常',
   'Free: {0}, Total: {1}': '{0} 可用 (共 {1})',
   'Video properties': '影像屬性',
+  Defog: '除霧',
+  'IR light': '紅外線燈',
+  Auto: '自動',
+  Off: '關',
   Apply: '套用',
+  Brightness: '亮度',
+  Contrast: '對比',
   'Reset to defaults': '恢復預設'
 };
