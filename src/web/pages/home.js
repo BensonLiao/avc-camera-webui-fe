@@ -23,12 +23,14 @@ module.exports = class Home extends Base {
         usedDiskSize: PropTypes.number.isRequired,
         totalDiskSize: PropTypes.number.isRequired
       }).isRequired,
-      cameraSettings: PropTypes.shape({
+      cameraProperties: PropTypes.shape({
         defog: PropTypes.bool.isRequired, // 除霧
         irLight: PropTypes.bool.isRequired, // 紅外線燈
         bright: PropTypes.number.isRequired, // 亮度
         contrast: PropTypes.number.isRequired, // 對比
-        wdr: PropTypes.oneOf(['auto', 'off']).isRequired // HDR
+        wdr: PropTypes.oneOf(cameraPropertiesSchema.wdr.enum).isRequired, // HDR
+        shutterSpeed: PropTypes.oneOf(cameraPropertiesSchema.shutterSpeed.enum).isRequired, // 快門速度
+        iris: PropTypes.oneOf(cameraPropertiesSchema.iris.enum).isRequired // 自動光圈
       }).isRequired
     };
   }
@@ -36,7 +38,7 @@ module.exports = class Home extends Base {
   constructor(props) {
     super(props);
     this.state.deviceName = props.status.deviceName || '';
-    this.state.cameraSettings = props.cameraSettings;
+    this.state.cameraProperties = props.cameraProperties;
 
     this.onSubmitVideoPropertiesForm = this.onSubmitVideoPropertiesForm.bind(this);
     this.onSubmitDeviceNameForm = this.onSubmitDeviceNameForm.bind(this);
@@ -281,7 +283,7 @@ module.exports = class Home extends Base {
 
               <div className="col-4 pl-24">
                 <Formik
-                  initialValues={this.state.cameraSettings}
+                  initialValues={this.state.cameraProperties}
                   render={this.videoPropertiesFormRender}
                   onSubmit={this.onSubmitVideoPropertiesForm}/>
               </div>

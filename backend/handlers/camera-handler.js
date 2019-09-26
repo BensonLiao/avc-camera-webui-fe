@@ -1,4 +1,4 @@
-exports.getSettings = (req, res) => {
+exports.getProperties = (req, res) => {
   res.json({
     defog: false,
     irLight: false,

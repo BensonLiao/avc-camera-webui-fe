@@ -78,9 +78,9 @@ module.exports = {
     })
   },
   camera: {
-    getSettings: () => api({
+    getProperties: () => api({
       method: 'get',
-      url: '/api/camera/settings'
+      url: '/api/camera/properties'
     })
   }
 };

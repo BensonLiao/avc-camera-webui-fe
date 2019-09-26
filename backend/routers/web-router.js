@@ -98,6 +98,6 @@ router.post('/api/account/_logout', accountHandler.logout);
 router.post('/api/account/_change-password', accountHandler.changePasswordWithBirthday);
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.get('/api/system/status', systemHandler.getStatus);
-router.get('/api/camera/settings', cameraHandler.getSettings);
+router.get('/api/camera/properties', cameraHandler.getProperties);
 
 router.get(/.*/, baseHandler.baseView);
