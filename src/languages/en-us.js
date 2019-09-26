@@ -4,6 +4,8 @@ window.languageResource = {
   // Constants
   'permission-admin': 'Administrator',
 
+  'state-on': 'ON',
+  'state-off': 'OFF',
   auto: 'Auto',
   off: 'Off',
   max: 'Max',

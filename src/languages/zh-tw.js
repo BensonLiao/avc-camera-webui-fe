@@ -4,6 +4,8 @@ window.languageResource = {
   // Constants
   'permission-admin': '管理者',
 
+  'state-on': '開啟',
+  'state-off': '關閉',
   auto: '自動',
   off: '關閉',
   max: '最大',
