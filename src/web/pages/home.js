@@ -3,10 +3,12 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
+const cameraPropertiesSchema = require('webserver-form-schema/camera-properties-schema');
 const Base = require('./shared/base');
 const _ = require('../../languages');
 const utils = require('../../core/utils');
 const Slider = require('../../core/components/fields/slider');
+const Dropdown = require('../../core/components/fields/dropdown');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 
 module.exports = class Home extends Base {
@@ -25,7 +27,8 @@ module.exports = class Home extends Base {
         defog: PropTypes.bool.isRequired, // 除霧
         irLight: PropTypes.bool.isRequired, // 紅外線燈
         bright: PropTypes.number.isRequired, // 亮度
-        contrast: PropTypes.number.isRequired // 對比
+        contrast: PropTypes.number.isRequired, // 對比
+        wdr: PropTypes.oneOf(['auto', 'off']).isRequired // HDR
       }).isRequired
     };
   }
@@ -95,14 +98,45 @@ module.exports = class Home extends Base {
                   <label>{_('Brightness')}</label>
                   <span className="text-primary text-size-14">{values.bright}</span>
                 </div>
-                <Field name="bright" component={Slider} min={0} max={100} step={10}/>
+                <Field name="bright" component={Slider} step={10}
+                  min={cameraPropertiesSchema.bright.min}
+                  max={cameraPropertiesSchema.bright.max}/>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Contrast')}</label>
                   <span className="text-primary text-size-14">{values.contrast}</span>
                 </div>
-                <Field name="contrast" component={Slider} min={0} max={100} step={10}/>
+                <Field name="contrast" component={Slider} step={10}
+                  min={cameraPropertiesSchema.contrast.min}
+                  max={cameraPropertiesSchema.contrast.max}/>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('HDR')}</label>
+                  <Field name="wdr" component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={cameraPropertiesSchema.wdr.enum.map(x => ({value: x, label: _(x)}))}/>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Shutter speed')}</label>
+                  <Field name="shutterSpeed" component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={cameraPropertiesSchema.shutterSpeed.enum.map(x => ({value: x, label: _(x)}))}/>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Auto Iris')}</label>
+                  <Field name="iris" component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={cameraPropertiesSchema.iris.enum.map(x => ({value: x, label: _(x)}))}/>
+                </div>
               </div>
             </div>
           </div>

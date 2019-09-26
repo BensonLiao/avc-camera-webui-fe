@@ -4,8 +4,9 @@ window.languageResource = {
   // Constants
   'permission-admin': '管理者',
 
-  'state-on': '開啟',
-  'state-off': '關閉',
+  auto: '自動',
+  off: '關閉',
+  max: '最大',
 
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
@@ -169,9 +170,12 @@ window.languageResource = {
   Defog: '除霧',
   'IR light': '紅外線燈',
   Auto: '自動',
-  Off: '關',
-  Apply: '套用',
+  Off: '關閉',
   Brightness: '亮度',
   Contrast: '對比',
+  HDR: 'HDR',
+  'Shutter speed': '快門速度',
+  'Auto Iris': '自動光圈',
+  Apply: '套用',
   'Reset to defaults': '恢復預設'
 };
