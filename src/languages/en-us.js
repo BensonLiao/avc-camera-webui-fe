@@ -9,6 +9,22 @@ window.languageResource = {
   auto: 'Auto',
   off: 'Off',
   max: 'Max',
+  outdoor: 'Outdoor',
+  fluorescent: 'Fluorescent',
+  incandescent: 'Incandescent',
+  manual: 'Nanual',
+
+  // D/N
+  'dn-auto': 'Auto',
+  'dn-day': 'Color',
+  'dn-night': 'Black and white',
+  'dn-manual': 'Manual',
+
+  // Orientation
+  'orientation-off': 'Normal',
+  'orientation-flip-v': 'Vertical flip',
+  'orientation-flip-h': 'Horizontal flip',
+  'orientation-flip-vh': '180 degree flip',
 
   // Validations
   'validation-required': 'This field is required.',

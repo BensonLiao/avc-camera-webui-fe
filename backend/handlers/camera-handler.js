@@ -13,6 +13,9 @@ exports.getProperties = (req, res) => {
     dn: 'auto',
     dnSensitivity: 3,
     dnStartHour: 4,
-    dnEndHour: 12.5
+    dnEndHour: 12.5,
+    sharpness: 50,
+    orientation: 'off',
+    flickerLess: 'auto'
   });
 };

@@ -37,7 +37,10 @@ module.exports = class Home extends Base {
         dn: PropTypes.oneOf(cameraPropertiesSchema.dn.enum).isRequired, // 黑白模式
         dnSensitivity: PropTypes.number.isRequired, // 黑白模式-自動-靈敏度
         dnStartHour: PropTypes.number.isRequired, // 黑白模式-指定時間
-        dnEndHour: PropTypes.number.isRequired // 黑白模式-指定時間
+        dnEndHour: PropTypes.number.isRequired, // 黑白模式-指定時間
+        sharpness: PropTypes.number.isRequired, // 銳利度
+        orientation: PropTypes.oneOf(cameraPropertiesSchema.orientation.enum).isRequired, // 影像方向
+        flickerLess: PropTypes.oneOf(cameraPropertiesSchema.flickerLess.enum).isRequired // 刷新頻率
       }).isRequired
     };
   }
@@ -235,6 +238,46 @@ module.exports = class Home extends Base {
                     </div>
                   )
                 }
+              </div>
+            </div>
+          </div>
+
+          {/* 影像 */}
+          <hr className="my-0"/>
+          <div className="card-body pb-0">
+            <h2>
+              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#video">
+                <i className="fas fa-chevron-up"/>{_('Video')}
+              </button>
+            </h2>
+
+            <div id="video" className="collapse" data-parent="#accordion-video-properties">
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Sharpness')}</label>
+                  <span className="text-primary text-size-14">{values.sharpness}</span>
+                </div>
+                <Field name="sharpness" component={Slider} step={10}
+                  min={cameraPropertiesSchema.sharpness.min}
+                  max={cameraPropertiesSchema.sharpness.max}/>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Orientation')}</label>
+                  <Field name="orientation" component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={cameraPropertiesSchema.orientation.enum.map(x => ({value: x, label: _(`orientation-${x}`)}))}/>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Flicker less')}</label>
+                  <Field name="flickerLess" component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={cameraPropertiesSchema.flickerLess.enum.map(x => ({value: x, label: _(x)}))}/>
+                </div>
               </div>
             </div>
           </div>

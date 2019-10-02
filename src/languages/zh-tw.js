@@ -20,6 +20,12 @@ window.languageResource = {
   'dn-night': '黑白',
   'dn-manual': '指定時段',
 
+  // Orientation
+  'orientation-off': '正常',
+  'orientation-flip-v': '垂直翻轉',
+  'orientation-flip-h': '水平翻轉',
+  'orientation-flip-vh': '180 度翻轉',
+
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
   'validation-required': '此欄位必填。',
@@ -196,5 +202,9 @@ window.languageResource = {
   'Color temperature': '色溫',
   'D/N': '黑白模式',
   'Duty time': '啟動時段',
-  Sensitivity: '靈敏度'
+  Sensitivity: '靈敏度',
+  Video: '影像',
+  Sharpness: '銳利度',
+  Orientation: '影像方向',
+  'Flicker less': '刷新頻率'
 };
