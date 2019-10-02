@@ -9,6 +9,16 @@ window.languageResource = {
   auto: '自動',
   off: '關閉',
   max: '最大',
+  outdoor: '戶外',
+  fluorescent: '日光燈',
+  incandescent: '白熱燈泡',
+  manual: '手動調整',
+
+  // D/N
+  'dn-auto': '自動',
+  'dn-day': '彩色',
+  'dn-night': '黑白',
+  'dn-manual': '指定時段',
 
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
@@ -179,5 +189,12 @@ window.languageResource = {
   'Shutter speed': '快門速度',
   'Auto Iris': '自動光圈',
   Apply: '套用',
-  'Reset to defaults': '恢復預設'
+  'Reset to defaults': '恢復預設',
+  Color: '顏色',
+  Saturation: '飽和度',
+  'White balance': '白平衡',
+  'Color temperature': '色溫',
+  'D/N': '黑白模式',
+  'Duty time': '啟動時段',
+  Sensitivity: '靈敏度'
 };

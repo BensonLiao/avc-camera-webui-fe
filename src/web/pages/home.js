@@ -30,7 +30,14 @@ module.exports = class Home extends Base {
         contrast: PropTypes.number.isRequired, // 對比
         wdr: PropTypes.oneOf(cameraPropertiesSchema.wdr.enum).isRequired, // HDR
         shutterSpeed: PropTypes.oneOf(cameraPropertiesSchema.shutterSpeed.enum).isRequired, // 快門速度
-        iris: PropTypes.oneOf(cameraPropertiesSchema.iris.enum).isRequired // 自動光圈
+        iris: PropTypes.oneOf(cameraPropertiesSchema.iris.enum).isRequired, // 自動光圈
+        saturation: PropTypes.number.isRequired, // 飽和度
+        whiteBalance: PropTypes.oneOf(cameraPropertiesSchema.whiteBalance.enum).isRequired, // 白平衡
+        whiteBalanceSensitivity: PropTypes.number.isRequired, // 白平衡-色溫
+        dn: PropTypes.oneOf(cameraPropertiesSchema.dn.enum).isRequired, // 黑白模式
+        dnSensitivity: PropTypes.number.isRequired, // 黑白模式-自動-靈敏度
+        dnStartHour: PropTypes.number.isRequired, // 黑白模式-指定時間
+        dnEndHour: PropTypes.number.isRequired // 黑白模式-指定時間
       }).isRequired
     };
   }
@@ -38,7 +45,13 @@ module.exports = class Home extends Base {
   constructor(props) {
     super(props);
     this.state.deviceName = props.status.deviceName || '';
-    this.state.cameraProperties = props.cameraProperties;
+    this.state.cameraProperties = {
+      ...props.cameraProperties,
+      dnDuty: [
+        props.cameraProperties.dnStartHour,
+        props.cameraProperties.dnEndHour
+      ]
+    };
 
     this.onSubmitVideoPropertiesForm = this.onSubmitVideoPropertiesForm.bind(this);
     this.onSubmitDeviceNameForm = this.onSubmitDeviceNameForm.bind(this);
@@ -139,6 +152,89 @@ module.exports = class Home extends Base {
                     menuClassName="dropdown-menu-right"
                     items={cameraPropertiesSchema.iris.enum.map(x => ({value: x, label: _(x)}))}/>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 顏色 */}
+          <hr className="my-0"/>
+          <div className="card-body pb-0">
+            <h2>
+              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
+                <i className="fas fa-chevron-up"/>{_('Color')}
+              </button>
+            </h2>
+
+            <div id="color" className="collapse" data-parent="#accordion-video-properties">
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Saturation')}</label>
+                  <span className="text-primary text-size-14">{values.saturation}</span>
+                </div>
+                <Field name="saturation" component={Slider} step={10}
+                  min={cameraPropertiesSchema.saturation.min}
+                  max={cameraPropertiesSchema.saturation.max}/>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center mb-1">
+                  <label>{_('White balance')}</label>
+                  <Field name="whiteBalance" component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={cameraPropertiesSchema.whiteBalance.enum.map(x => ({value: x, label: _(x)}))}/>
+                </div>
+                {
+                  values.whiteBalance === 'manual' && (
+                    <div className="well">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <label>{_('Color temperature')}</label>
+                        <span className="text-primary text-size-14">{values.whiteBalanceSensitivity}</span>
+                      </div>
+                      <Field name="whiteBalanceSensitivity" component={Slider} step={10}
+                        min={cameraPropertiesSchema.whiteBalanceSensitivity.min}
+                        max={cameraPropertiesSchema.whiteBalanceSensitivity.max}/>
+                    </div>
+                  )
+                }
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center mb-1">
+                  <label>{_('D/N')}</label>
+                  <Field name="dn" component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={cameraPropertiesSchema.dn.enum.map(x => ({value: x, label: _(`dn-${x}`)}))}/>
+                </div>
+                {
+                  values.dn === 'auto' && (
+                    <div className="well">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <label>{_('Sensitivity')}</label>
+                        <span className="text-primary text-size-14">{values.dnSensitivity}</span>
+                      </div>
+                      <Field name="dnSensitivity" component={Slider} step={1}
+                        min={cameraPropertiesSchema.dnSensitivity.min}
+                        max={cameraPropertiesSchema.dnSensitivity.max}/>
+                    </div>
+                  )
+                }
+                {
+                  values.dn === 'manual' && (
+                    <div className="well">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <label>{_('Duty time')}</label>
+                        <span className="text-primary text-size-14">
+                          {utils.formatTimeRange(values.dnDuty)}
+                        </span>
+                      </div>
+                      <Field name="dnDuty" component={Slider}
+                        mode="range"
+                        step={0.5}
+                        min={cameraPropertiesSchema.dnStartHour.min}
+                        max={cameraPropertiesSchema.dnEndHour.max}/>
+                    </div>
+                  )
+                }
               </div>
             </div>
           </div>

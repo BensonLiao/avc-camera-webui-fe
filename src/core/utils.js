@@ -1,6 +1,18 @@
 const Cookies = require('js-cookie');
 const _ = require('../languages');
 
+exports.formatTimeRange = timeRange => {
+  /*
+  @param timeRange {Array<Number>}
+  @returns {String}
+   */
+  const startHour = `${Math.floor(timeRange[0])}`.padStart(2, '0');
+  const startMinute = timeRange[0] % 1 === 0 ? '00' : '30';
+  const endHour = `${Math.floor(timeRange[1])}`.padStart(2, '0');
+  const endMinute = timeRange[1] % 1 === 0 ? '00' : '30';
+  return `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
+};
+
 exports.setCurrentLanguage = languageCode => {
   /*
   @param languageCode {String}

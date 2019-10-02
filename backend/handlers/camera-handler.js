@@ -6,6 +6,13 @@ exports.getProperties = (req, res) => {
     contrast: 50,
     wdr: 'auto',
     shutterSpeed: 'auto',
-    iris: 'auto'
+    iris: 'auto',
+    saturation: 50,
+    whiteBalance: 'manual',
+    whiteBalanceSensitivity: 50,
+    dn: 'auto',
+    dnSensitivity: 3,
+    dnStartHour: 4,
+    dnEndHour: 12.5
   });
 };

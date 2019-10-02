@@ -33,7 +33,7 @@ module.exports = class SliderField extends React.PureComponent {
     this.slider = new Slider(this.ref.current, {
       min: this.props.min,
       max: this.props.max,
-      value: this.props.mode === 'point' ? this.props.field.value : JSON.stringify(this.props.field.value),
+      value: this.props.field.value,
       step: this.props.step
     });
     this.slider.on('change', ({newValue}) => {
