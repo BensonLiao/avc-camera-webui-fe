@@ -12,15 +12,10 @@ module.exports = class SliderField extends React.PureComponent {
       form: PropTypes.shape({
         setFieldValue: PropTypes.func.isRequired
       }).isRequired,
-      mode: PropTypes.oneOf(['point', 'range']),
       min: PropTypes.number.isRequired,
       max: PropTypes.number.isRequired,
       step: PropTypes.number.isRequired
     };
-  }
-
-  static get defaultProps() {
-    return {mode: 'point'};
   }
 
   constructor(props) {
