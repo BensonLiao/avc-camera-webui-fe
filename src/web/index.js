@@ -86,9 +86,16 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
     });
   }
 });
-router.listen('ChangeSuccess', action => {
+router.listen('ChangeSuccess', (action, toState, fromState) => {
   progress.done();
   if (['PUSH', 'REPLACE', 'POP'].indexOf(action) >= 0) {
+    if (
+      toState.name === 'web.members.new-group' ||
+      (toState.name === 'web.members' && fromState.name === 'web.members.new-group')
+    ) {
+      return;
+    }
+
     if (typeof window.scrollTo === 'function') {
       window.scrollTo(0, 0);
     }
