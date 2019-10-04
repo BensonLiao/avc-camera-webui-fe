@@ -62,7 +62,18 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
   }
 
   const $user = store.get('$user');
-  const allowAnonymousRoutes = ['login', 'login-lock', 'not-found'];
+  const allowAnonymousRoutes = [
+    'login',
+    'login-lock',
+    'forgot-password',
+    'reset-password',
+    'reset-password-success',
+    'setup-welcome',
+    'setup-language',
+    'setup-account',
+    'setup-https',
+    'not-found'
+  ];
   if (!$user && allowAnonymousRoutes.indexOf(toState.name) < 0) {
     cancel();
     Cookies.set(window.config.cookies.redirect, JSON.stringify(toState));
