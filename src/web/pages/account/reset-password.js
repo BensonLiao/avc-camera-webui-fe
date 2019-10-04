@@ -55,22 +55,22 @@ module.exports = class ResetPassword extends Base {
   resetPasswordFormRender({errors, submitCount}) {
     const isSubmitted = submitCount > 0;
     const classTable = {
-      passwordGroupText: classNames([
+      passwordGroupText: classNames(
         'input-group-text',
         {'border-danger': errors.password && isSubmitted}
-      ]),
-      password: classNames([
+      ),
+      password: classNames(
         'form-control rounded-circle-right',
         {'is-invalid': errors.password && isSubmitted}
-      ]),
-      confirmPasswordGroupText: classNames([
+      ),
+      confirmPasswordGroupText: classNames(
         'input-group-text',
         {'border-danger': errors.confirmPassword && isSubmitted}
-      ]),
-      confirmPassword: classNames([
+      ),
+      confirmPassword: classNames(
         'form-control rounded-circle-right',
         {'is-invalid': errors.confirmPassword && isSubmitted}
-      ])
+      )
     };
 
     return (

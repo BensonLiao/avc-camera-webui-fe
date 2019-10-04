@@ -300,10 +300,10 @@ module.exports = class Home extends Base {
 
   deviceNameFormRender({errors, touched}) {
     const classTable = {
-      deviceName: classNames([
+      deviceName: classNames(
         'form-control',
         {'is-invalid': errors.deviceName && touched.deviceName}
-      ])
+      )
     };
 
     return (

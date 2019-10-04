@@ -51,22 +51,22 @@ module.exports = class ForgotPassword extends Base {
   forgotPasswordFormRender({errors, submitCount}) {
     const isSubmitted = submitCount > 0;
     const classTable = {
-      accountGroupText: classNames([
+      accountGroupText: classNames(
         'input-group-text',
         {'border-danger': errors.account && isSubmitted}
-      ]),
-      account: classNames([
+      ),
+      account: classNames(
         'form-control rounded-circle-right',
         {'is-invalid': errors.account && isSubmitted}
-      ]),
-      birthdayGroupText: classNames([
+      ),
+      birthdayGroupText: classNames(
         'input-group-text',
         {'border-danger': (errors.birthday && isSubmitted) || this.state.isIncorrectBirthday}
-      ]),
-      birthday: classNames([
+      ),
+      birthday: classNames(
         'form-control rounded-circle-right',
         {'is-invalid': (errors.birthday && isSubmitted) || this.state.isIncorrectBirthday}
-      ])
+      )
     };
 
     return (

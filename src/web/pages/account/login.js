@@ -72,22 +72,22 @@ module.exports = class Login extends Base {
   loginFormRender({errors, submitCount}) {
     const isSubmitted = submitCount > 0;
     const classTable = {
-      accountGroupText: classNames([
+      accountGroupText: classNames(
         'input-group-text',
         {'border-danger': errors.account && isSubmitted}
-      ]),
-      account: classNames([
+      ),
+      account: classNames(
         'form-control rounded-circle-right',
         {'is-invalid': errors.account && isSubmitted}
-      ]),
-      passwordGroupText: classNames([
+      ),
+      passwordGroupText: classNames(
         'input-group-text',
         {'border-danger': (errors.password && isSubmitted) || this.state.isIncorrectPassword}
-      ]),
-      password: classNames([
+      ),
+      password: classNames(
         'form-control rounded-circle-right',
         {'is-invalid': (errors.password && isSubmitted) || this.state.isIncorrectPassword}
-      ])
+      )
     };
 
     return (

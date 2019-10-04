@@ -60,33 +60,33 @@ module.exports = class SetupHTTPS extends Base {
   setupHTTPSFormRender({errors, submitCount, values, handleChange}) {
     const isSubmitted = submitCount > 0;
     const classTable = {
-      certificate: classNames([
+      certificate: classNames(
         'form-control', {'is-invalid': errors.certificate && isSubmitted}
-      ]),
-      privateKey: classNames([
+      ),
+      privateKey: classNames(
         'form-control', {'is-invalid': errors.privateKey && isSubmitted}
-      ]),
-      country: classNames([
+      ),
+      country: classNames(
         'form-control', {'is-invalid': errors.country && isSubmitted}
-      ]),
-      state: classNames([
+      ),
+      state: classNames(
         'form-control', {'is-invalid': errors.state && isSubmitted}
-      ]),
-      city: classNames([
+      ),
+      city: classNames(
         'form-control', {'is-invalid': errors.city && isSubmitted}
-      ]),
-      organization: classNames([
+      ),
+      organization: classNames(
         'form-control', {'is-invalid': errors.organization && isSubmitted}
-      ]),
-      organizationUnit: classNames([
+      ),
+      organizationUnit: classNames(
         'form-control', {'is-invalid': errors.organizationUnit && isSubmitted}
-      ]),
-      email: classNames([
+      ),
+      email: classNames(
         'form-control', {'is-invalid': errors.email && isSubmitted}
-      ]),
-      domain: classNames([
+      ),
+      domain: classNames(
         'form-control', {'is-invalid': errors.domain && isSubmitted}
-      ])
+      )
     };
 
     return (

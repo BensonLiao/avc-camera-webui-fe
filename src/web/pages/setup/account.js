@@ -52,18 +52,18 @@ module.exports = class SetupAccount extends Base {
   setupAccountFormRender({errors, submitCount}) {
     const isSubmitted = submitCount > 0;
     const classTable = {
-      account: classNames([
+      account: classNames(
         'form-control', {'is-invalid': errors.account && isSubmitted}
-      ]),
-      birthday: classNames([
+      ),
+      birthday: classNames(
         'form-control', {'is-invalid': errors.birthday && isSubmitted}
-      ]),
-      password: classNames([
+      ),
+      password: classNames(
         'form-control', {'is-invalid': errors.password && isSubmitted}
-      ]),
-      confirmPassword: classNames([
+      ),
+      confirmPassword: classNames(
         'form-control', {'is-invalid': errors.confirmPassword && isSubmitted}
-      ])
+      )
     };
 
     return (

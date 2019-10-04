@@ -63,38 +63,38 @@ module.exports = class Layout extends Base {
 
   render() {
     const classTable = {
-      homeLink: classNames([
+      homeLink: classNames(
         'btn d-flex justify-content-center align-items-center',
         {active: this.state.currentRouteName === 'web.home'}
-      ]),
-      mediaLink: classNames([
+      ),
+      mediaLink: classNames(
         'btn d-flex justify-content-center align-items-center'
-      ]),
-      notification: classNames([
+      ),
+      notification: classNames(
         'btn d-flex justify-content-center align-items-center'
-      ]),
-      members: classNames([
+      ),
+      members: classNames(
         'btn d-flex justify-content-center align-items-center',
         {active: this.state.currentRouteName === 'web.members'}
-      ]),
-      smart: classNames([
+      ),
+      smart: classNames(
         'btn d-flex justify-content-center align-items-center'
-      ]),
-      historis: classNames([
+      ),
+      historis: classNames(
         'btn d-flex justify-content-center align-items-center'
-      ]),
-      system: classNames([
+      ),
+      system: classNames(
         'btn d-flex justify-content-center align-items-center'
-      ]),
-      security: classNames([
+      ),
+      security: classNames(
         'btn d-flex justify-content-center align-items-center'
-      ]),
-      license: classNames([
+      ),
+      license: classNames(
         'btn d-flex justify-content-center align-items-center'
-      ]),
-      develop: classNames([
+      ),
+      develop: classNames(
         'btn d-flex justify-content-center align-items-center'
-      ])
+      )
     };
     const tooltipOptions = {
       delay: {show: 1500, hide: 0},
