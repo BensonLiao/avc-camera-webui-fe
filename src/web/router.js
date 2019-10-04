@@ -43,6 +43,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.members.new-group',
+      uri: '/new-group',
+      onEnter: () => {
+        document.title = `${_('Members')} - ${_title}`;
+      },
+      resolve: {
+        group: () => null
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-group" */
+        './pages/members/group'
+      )
+    },
+    {
       name: 'login',
       uri: '/login',
       onEnter: () => {
