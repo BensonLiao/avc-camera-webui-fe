@@ -8,7 +8,7 @@ const Loading = require('../../core/components/loading');
 const iconHome = require('webserver-prototype/src/resource/left-navigation-home.svg');
 const iconMedia = require('webserver-prototype/src/resource/left-navigation-media.svg');
 const iconNotification = require('webserver-prototype/src/resource/left-navigation-bell.svg');
-const iconUsers = require('webserver-prototype/src/resource/left-navigation-users.svg');
+const iconMembers = require('webserver-prototype/src/resource/left-navigation-users.svg');
 const iconSmart = require('webserver-prototype/src/resource/left-navigation-smart.svg');
 const iconHistories = require('webserver-prototype/src/resource/left-navigation-histories.svg');
 const iconSystem = require('webserver-prototype/src/resource/left-navigation-system.svg');
@@ -73,8 +73,9 @@ module.exports = class Layout extends Base {
       notification: classNames([
         'btn d-flex justify-content-center align-items-center'
       ]),
-      users: classNames([
-        'btn d-flex justify-content-center align-items-center'
+      members: classNames([
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName === 'web.members'}
       ]),
       smart: classNames([
         'btn d-flex justify-content-center align-items-center'
@@ -120,8 +121,8 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Members')} {...tooltipOptions}>
-            <Link className={classTable.users} to="/user/users.html">
-              <img src={iconUsers}/>
+            <Link className={classTable.members} to="/members">
+              <img src={iconMembers}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('Smart function')} {...tooltipOptions}>

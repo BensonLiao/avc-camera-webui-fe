@@ -82,5 +82,12 @@ module.exports = {
       method: 'get',
       url: '/api/camera/properties'
     })
+  },
+  member: {
+    getMembers: ({index}) => api({
+      method: 'get',
+      url: '/api/members',
+      params: {index}
+    })
   }
 };

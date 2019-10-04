@@ -28,6 +28,20 @@ module.exports = new Router({
       component: require('./pages/home')
     },
     {
+      name: 'web.members',
+      uri: '/members',
+      onEnter: () => {
+        document.title = `${_('Members')} - ${_title}`;
+      },
+      resolve: {
+        members: params => api.member.getMembers(params).then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-members" */
+        './pages/members/members'
+      )
+    },
+    {
       name: 'login',
       uri: '/login',
       onEnter: () => {
