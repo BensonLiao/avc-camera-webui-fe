@@ -83,6 +83,12 @@ module.exports = {
       url: '/api/camera/properties'
     })
   },
+  group: {
+    getGroups: () => api({
+      method: 'get',
+      url: '/api/groups'
+    })
+  },
   member: {
     getMembers: ({index}) => api({
       method: 'get',

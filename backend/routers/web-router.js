@@ -4,6 +4,7 @@ const errors = require('../models/errors');
 const accountHandler = require('../handlers/account-handler');
 const baseHandler = require('../handlers/base-handler');
 const cameraHandler = require('../handlers/camera-handler');
+const groupHandler = require('../handlers/group-handler');
 const systemHandler = require('../handlers/system-handler');
 const validationHandler = require('../handlers/validation-handler');
 
@@ -99,5 +100,6 @@ router.post('/api/account/_change-password', accountHandler.changePasswordWithBi
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.get('/api/system/status', systemHandler.getStatus);
 router.get('/api/camera/properties', cameraHandler.getProperties);
+router.get('/api/groups', groupHandler.getGroups);
 
 router.get(/.*/, baseHandler.baseView);

@@ -29,11 +29,12 @@ module.exports = new Router({
     },
     {
       name: 'web.members',
-      uri: '/members',
+      uri: '/members?group',
       onEnter: () => {
         document.title = `${_('Members')} - ${_title}`;
       },
       resolve: {
+        groups: () => api.group.getGroups().then(response => response.data),
         members: params => api.member.getMembers(params).then(response => response.data)
       },
       loadComponent: () => import(

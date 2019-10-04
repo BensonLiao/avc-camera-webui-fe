@@ -206,5 +206,12 @@ window.languageResource = {
   Video: '影像',
   Sharpness: '銳利度',
   Orientation: '影像方向',
-  'Flicker less': '刷新頻率'
+  'Flicker less': '刷新頻率',
+
+  // /members
+  'All members': '所有成員',
+  Groups: '群組',
+
+  // /members/new-group
+  'Create a group': '新增群組'
 };
