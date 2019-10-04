@@ -18,6 +18,10 @@ const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
 
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
 // Setup nprogress
 progress.configure({
   showSpinner: false
@@ -84,10 +88,14 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
 });
 router.listen('ChangeSuccess', action => {
   progress.done();
-  if (action === 'PUSH') {
-    try {
+  if (['PUSH', 'REPLACE', 'POP'].indexOf(action) >= 0) {
+    if (typeof window.scrollTo === 'function') {
       window.scrollTo(0, 0);
-    } catch (e) {}
+    }
+  } else if (action === 'RELOAD') {
+    if (typeof window.scrollTo === 'function') {
+      window.scrollTo(0, 0);
+    }
   }
 });
 router.listen('ChangeError', progress.done);
