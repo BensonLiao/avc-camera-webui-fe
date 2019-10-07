@@ -215,7 +215,7 @@ module.exports = class SetupHTTPS extends Base {
             )
           }
 
-          <button type="submit" className="btn btn-primary btn-block rounded-pill">
+          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
             {_('Done')}
           </button>
         </div>

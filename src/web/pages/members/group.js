@@ -76,9 +76,15 @@ module.exports = class Group extends Base {
         </div>
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
-            <button type="submit" className="btn btn-primary btn-block rounded-pill">{_('Create')}</button>
+            <button disabled={this.state.$isApiProcessing} type="submit"
+              className="btn btn-primary btn-block rounded-pill"
+            >
+              {_('Create')}
+            </button>
           </div>
-          <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideModal}>
+          <button disabled={this.state.$isApiProcessing} type="button"
+            className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideModal}
+          >
             {_('Close')}
           </button>
         </div>

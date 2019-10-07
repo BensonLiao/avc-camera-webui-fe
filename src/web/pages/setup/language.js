@@ -63,7 +63,7 @@ module.exports = class SetupLanguage extends Base {
                     </div>
                   </div>
 
-                  <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onSubmit}>
+                  <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onSubmit}>
                     {_('Next')}
                   </button>
                 </div>

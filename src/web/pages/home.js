@@ -58,7 +58,6 @@ module.exports = class Home extends Base {
 
     this.onSubmitVideoPropertiesForm = this.onSubmitVideoPropertiesForm.bind(this);
     this.onSubmitDeviceNameForm = this.onSubmitDeviceNameForm.bind(this);
-    this.videoPropertiesFormRender = this.videoPropertiesFormRender.bind(this);
   }
 
   onSubmitVideoPropertiesForm(values) {
@@ -71,7 +70,7 @@ module.exports = class Home extends Base {
     console.log(values);
   }
 
-  videoPropertiesFormRender({values}) {
+  videoPropertiesFormRender = ({values}) => {
     return (
       <Form className="card shadow">
         <div className="card-header">{_('Video properties')}</div>
@@ -286,19 +285,19 @@ module.exports = class Home extends Base {
         <hr className="my-0"/>
         <div className="card-body actions">
           <div className="form-group">
-            <button className="btn btn-primary btn-block rounded-pill" type="submit">
+            <button disabled={this.state.$isApiProcessing} className="btn btn-primary btn-block rounded-pill" type="submit">
               {_('Apply')}
             </button>
           </div>
-          <button className="btn btn-outline-primary btn-block rounded-pill" type="button">
+          <button disabled={this.state.$isApiProcessing} className="btn btn-outline-primary btn-block rounded-pill" type="button">
             {_('Reset to defaults')}
           </button>
         </div>
       </Form>
     );
-  }
+  };
 
-  deviceNameFormRender({errors, touched}) {
+  deviceNameFormRender = ({errors, touched}) => {
     const classTable = {
       deviceName: classNames(
         'form-control',
@@ -312,10 +311,10 @@ module.exports = class Home extends Base {
         <small className="form-text text-muted">
           {_('Please enter letters between 1 and 32.')}
         </small>
-        <button className="d-none" type="submit"/>
+        <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
     );
-  }
+  };
 
   render() {
     const usedDiskPercentage = Math.ceil((this.props.status.usedDiskSize / this.props.status.totalDiskSize) * 100);

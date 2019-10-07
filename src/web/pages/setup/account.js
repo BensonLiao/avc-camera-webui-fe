@@ -135,7 +135,7 @@ module.exports = class SetupAccount extends Base {
             }
           </div>
 
-          <button type="submit" className="btn btn-primary btn-block rounded-pill">
+          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
             {_('Next')}
           </button>
         </div>
