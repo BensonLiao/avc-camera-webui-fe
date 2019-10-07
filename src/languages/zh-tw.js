@@ -220,5 +220,7 @@ window.languageResource = {
   Note: '備註',
   'Please enter your note.': '請輸入您的備註',
   Create: '新增',
-  Close: '關閉'
+  Close: '關閉',
+  'Delete group': '刪除群組',
+  Delete: '刪除'
 };

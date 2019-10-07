@@ -1,7 +1,9 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
+const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
+const Modal = require('react-bootstrap/Modal').default;
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 
@@ -20,6 +22,33 @@ module.exports = class Members extends Base {
       }).isRequired
     };
   }
+
+  constructor(props) {
+    super(props);
+
+    this.state.isShowDeleteGroupModal = false;
+    this.state.deleteGroupTarget = null;
+  }
+
+  generateShowDeleteGroupModalHandler = group => {
+    return event => {
+      event.preventDefault();
+      this.setState({
+        isShowDeleteGroupModal: true,
+        deleteGroupTarget: group
+      });
+    };
+  };
+
+  confirmDeleteGroup = event => {
+    event.preventDefault();
+    progress.start();
+    this.hideDeleteGroupModal();
+  };
+
+  hideDeleteGroupModal = () => {
+    this.setState({isShowDeleteGroupModal: false});
+  };
 
   generateChangeFilterHandler = (paramKey, value) => {
     /*
@@ -81,7 +110,9 @@ module.exports = class Members extends Base {
                     <i className="far fa-folder fa-fw fa-lg"/>
                     <span className="text-truncate pl-4">{group.name}</span>
                   </a>
-                  <button className="btn btn-link btn-delete text-light" type="button" data-toggle="modal" data-target="#modal-delete-group">
+                  <button className="btn btn-link btn-delete text-light" type="button"
+                    onClick={this.generateShowDeleteGroupModalHandler(group)}
+                  >
                     <i className="far fa-trash-alt fa-fw fa-lg"/>
                   </button>
                 </div>
@@ -98,6 +129,38 @@ module.exports = class Members extends Base {
             <RouterView/>
           </div>
         </div>
+
+        <Modal
+          show={this.state.isShowDeleteGroupModal}
+          autoFocus={false}
+          onHide={this.hideDeleteGroupModal}
+        >
+          <form>
+            <div className="modal-header">
+              <h5 className="modal-title">{_('Delete group')}</h5>
+            </div>
+            <div className="modal-body">
+              <span className="text-muted en-us">
+                Are you sure to delete the group <strong>{this.state.deleteGroupTarget && this.state.deleteGroupTarget.name}</strong>?
+              </span>
+              <span className="text-muted zh-tw">
+                您即將刪除<strong>{this.state.deleteGroupTarget && this.state.deleteGroupTarget.name}</strong>群組，確認要刪除嗎？
+              </span>
+            </div>
+            <div className="modal-footer flex-column">
+              <div className="form-group w-100 mx-0">
+                <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill"
+                  onClick={this.confirmDeleteGroup}
+                >
+                  {_('Delete')}
+                </button>
+              </div>
+              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteGroupModal}>
+                {_('Close')}
+              </button>
+            </div>
+          </form>
+        </Modal>
       </>
     );
   }
