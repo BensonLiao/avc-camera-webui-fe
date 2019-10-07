@@ -2,8 +2,9 @@ exports.getGroups = (req, res) => {
   res.json({
     items: [
       {
-        id: 'a',
-        title: 'x'
+        id: 1,
+        name: '業務部',
+        note: ''
       }
     ]
   });

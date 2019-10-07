@@ -13,7 +13,9 @@ module.exports = class Members extends Base {
       }).isRequired,
       groups: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string
         }).isRequired).isRequired
       }).isRequired
     };
