@@ -213,5 +213,12 @@ window.languageResource = {
   Groups: '群組',
 
   // /members/new-group
-  'Create a group': '新增群組'
+  'Create a group': '新增群組',
+  Name: '名稱',
+  'Please enter your name.': '請輸入您的姓名',
+  'Letters within 16 characters.': '16 字元以內的中英文大寫或小寫',
+  Note: '備註',
+  'Please enter your note.': '請輸入您的備註',
+  Create: '新增',
+  Close: '關閉'
 };
