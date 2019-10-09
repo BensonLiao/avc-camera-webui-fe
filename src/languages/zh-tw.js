@@ -222,5 +222,8 @@ window.languageResource = {
   Create: '新增',
   Close: '關閉',
   'Delete group': '刪除群組',
-  Delete: '刪除'
+  Delete: '刪除',
+  'Database file': '資料庫檔案',
+  Export: '匯出',
+  Import: '匯入'
 };

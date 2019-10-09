@@ -118,6 +118,18 @@ module.exports = class Members extends Base {
                 </div>
               ))
             }
+
+            <h3 className="text-truncate mt-3 mb-4">{_('Database file')}</h3>
+            <div className="actions">
+              <div className="form-group">
+                <button className="btn btn-outline-light btn-block rounded-pill" type="button">
+                  {_('Export')}
+                </button>
+              </div>
+              <label className="btn btn-outline-light btn-block rounded-pill font-weight-bold">
+                <input type="file" className="d-none" accept=".zip"/>{_('Import')}
+              </label>
+            </div>
           </div>
         </div>
 
