@@ -1,6 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
+const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
@@ -73,6 +74,35 @@ module.exports = class Members extends Base {
     };
   };
 
+  onSubmitSearchForm = ({keyword}) => {
+    const router = getRouter();
+    router.go({
+      name: router.currentRoute.name,
+      params: {
+        ...this.props.params,
+        index: undefined,
+        keyword
+      }
+    });
+  };
+
+  searchFormRender = () => {
+    return (
+      <Form className="form-row">
+        <div className="col-auto my-1">
+          <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
+        </div>
+        <div className="col-auto my-1">
+          <button disabled={this.state.$isApiProcessing}
+            className="btn btn-outline-primary rounded-pill px-3" type="submit"
+          >
+            <i className="fas fa-search fa-fw"/> {_('Search')}
+          </button>
+        </div>
+      </Form>
+    );
+  };
+
   render() {
     const groups = this.props.groups.items;
 
@@ -136,7 +166,24 @@ module.exports = class Members extends Base {
         <div className="main-content left-menu-active">
           <div className="page-users bg-white">
             <div className="container-fluid">
-              <div className="row"/>
+              <div className="row">
+                <div className="col-12 d-flex justify-content-between mb-4">
+                  <Formik initialValues={{keyword: this.props.params.keyword || ''}}
+                    render={this.searchFormRender}
+                    onSubmit={this.onSubmitSearchForm}/>
+                  <div className="form-row">
+                    <div className="dropdown">
+                      <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
+                        <i className="fas fa-plus fa-fw text-primary"/>{_('New member')}
+                      </button>
+                      <div className="dropdown-menu dropdown-menu-right shadow">
+                        <a className="dropdown-item" href="#">{_('Add a new member')}</a>
+                        <Link className="dropdown-item" to="/histories">{_('Add a member from events')}</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <RouterView/>
           </div>

@@ -211,6 +211,11 @@ window.languageResource = {
   // /members
   'All members': '所有成員',
   Groups: '群組',
+  'Please enter the keyword.': '請輸入關鍵字',
+  Search: '搜尋',
+  'New member': '新增',
+  'Add a new member': '自行新增',
+  'Add a member from events': '從事件新增',
 
   // /members/new-group
   'Create a group': '新增群組',
