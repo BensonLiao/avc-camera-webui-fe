@@ -213,9 +213,18 @@ window.languageResource = {
   Groups: '群組',
   'Please enter the keyword.': '請輸入關鍵字',
   Search: '搜尋',
-  'New member': '新增',
+  New: '新增',
   'Add a new member': '自行新增',
   'Add a member from events': '從事件新增',
+
+  // /members/details
+  'New member': '新增成員',
+  'Please upload your face photo.': '請上傳正面照片',
+  Organization: '組織',
+  'Please enter the organization.': '請輸入您的組織',
+  'Letters within 32 characters.': '32 字元以內的中英文大寫或小寫',
+  Group: '群組',
+  None: '無',
 
   // /members/new-group
   'Create a group': '新增群組',

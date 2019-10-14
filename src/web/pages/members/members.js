@@ -174,10 +174,10 @@ module.exports = class Members extends Base {
                   <div className="form-row">
                     <div className="dropdown">
                       <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
-                        <i className="fas fa-plus fa-fw text-primary"/>{_('New member')}
+                        <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
                       </button>
                       <div className="dropdown-menu dropdown-menu-right shadow">
-                        <a className="dropdown-item" href="#">{_('Add a new member')}</a>
+                        <Link className="dropdown-item" to="/members/new">{_('Add a new member')}</Link>
                         <Link className="dropdown-item" to="/histories">{_('Add a member from events')}</Link>
                       </div>
                     </div>
