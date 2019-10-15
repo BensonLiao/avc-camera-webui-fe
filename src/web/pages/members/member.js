@@ -51,7 +51,7 @@ module.exports = class Member extends Base {
         <div className="modal-body">
           <div className="avatar-uploader">
             <label className="avatar-wrapper">
-              <div className="avatar-img" style={{'background-image': `url('${defaultAvatar}')`}}/>
+              <div className="avatar-img" style={{backgroundImage: `url('${defaultAvatar}')`}}/>
               <img className="avatar-mask" src={avatarMask} srcSet={`${avatarMask2x} 2x`}/>
               <input type="file" className="d-none" accept=".jpg,.png"/>
             </label>
