@@ -62,7 +62,7 @@
     "webpack-cli": "3.3.9",
     "webpack-dev-server": "3.8.2",
     "webserver-form-schema": "git+ssh://git@bitbucket.org/androvideo/webserver-form-schema.git#7d791b5e00ad110a54419750cb6462976792c5a9",
-    "webserver-prototype": "git+ssh://git@bitbucket.org/androvideo/webserver-prototype.git#45231e0a71f86cd65bc53150590e021440058aba"
+    "webserver-prototype": "git+ssh://git@bitbucket.org/androvideo/webserver-prototype.git#b5128662c8a523616b195e5ae808eb612abb3c26"
   },
   "devDependencies": {
     "body-parser": "1.19.0",
