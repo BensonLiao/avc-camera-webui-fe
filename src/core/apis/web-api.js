@@ -94,6 +94,17 @@ module.exports = {
       method: 'get',
       url: '/api/members',
       params: {index}
+    }),
+    addMember: ({name, organization, group, note, pictures}) => api({
+      method: 'post',
+      url: '/api/members',
+      data: {
+        name,
+        organization,
+        groupId: Number(group),
+        note,
+        pictures
+      }
     })
   }
 };

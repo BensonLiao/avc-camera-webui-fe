@@ -1,4 +1,5 @@
 const classNames = require('classnames');
+const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
 const {Formik, Form, Field} = require('formik');
@@ -10,10 +11,10 @@ const avatarMask2x = require('webserver-prototype/src/resource/avatar-mask@2x.pn
 const MemberSchema = require('webserver-form-schema/member-schema');
 const Base = require('../shared/base');
 const Slider = require('../../../core/components/fields/slider');
-const ImagePreview = require('../../../core/components/image-preview');
 const _ = require('../../../languages');
 const MemberValidator = require('../../validations/members/member-validator');
 const utils = require('../../../core/utils');
+const api = require('../../../core/apis/web-api');
 
 module.exports = class Member extends Base {
   static get propTypes() {
@@ -33,8 +34,10 @@ module.exports = class Member extends Base {
     super(props);
     const router = getRouter();
 
+    this.avatarWrapperRef = React.createRef();
+    this.avatarFile = null;
     this.state.isShowModal = true;
-    this.state.avatarFile = null;
+    this.state.avatarPreviewUrl = null;
     this.$listens.push(
       router.listen('ChangeSuccess', (action, toState) => {
         const isShowModal = [
@@ -55,27 +58,80 @@ module.exports = class Member extends Base {
   };
 
   onChangeAvatar = event => {
-    this.setState({avatarFile: event.target.files[0]});
+    const file = event.target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    this.avatarFile = file;
+    if (this.state.avatarPreviewUrl) {
+      window.URL.revokeObjectURL(this.state.avatarPreviewUrl);
+    }
+
+    this.setState({avatarPreviewUrl: window.URL.createObjectURL(this.avatarFile)});
   };
 
-  onSubmitForm(values) {
-    console.log(values);
-  }
+  onSubmitForm = values => {
+    const data = {...values};
 
-  avatarRender({imagePreviewUrl, url}) {
-    return (
-      <div className="avatar-img"
-        style={{backgroundImage: `url('${url || imagePreviewUrl || defaultAvatar}')`}}/>
-    );
-  }
+    progress.start();
+    if (this.avatarFile) {
+      const img = document.createElement('img');
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      const size = 400;
+      const offset = {x: 0, y: 0};
+      let rate;
 
-  formRender = ({errors, touched}) => {
+      img.src = this.state.avatarPreviewUrl;
+      rate = img.height / img.width;
+      if (img.width < img.height) {
+        img.width = size;
+        img.height = Math.round(img.width * rate);
+      } else {
+        img.height = size;
+        img.width = Math.round(img.height / rate);
+      }
+
+      img.width = Math.round(img.width * values.zoom * 0.01);
+      img.height = Math.round(img.height * values.zoom * 0.01);
+      offset.x = -Math.round((img.width - size) / 2);
+      offset.y = -Math.round((img.height - size) / 2);
+
+      canvas.width = size;
+      canvas.height = size;
+      context.drawImage(img, offset.x, offset.y, img.width, img.height);
+
+      data.pictures = [canvas.toDataURL('image/png').replace('data:image/png;base64,', '')];
+    }
+
+    api.member.addMember(data)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        getRouter().renderError(error);
+      })
+      .finally(progress.done);
+  };
+
+  formRender = ({errors, touched, values}) => {
+    const avatarPreviewStyle = {
+      transform: 'scale(1)',
+      backgroundImage: `url('${defaultAvatar}')`
+    };
+    if (this.state.avatarPreviewUrl) {
+      avatarPreviewStyle.transform = `scale(${values.zoom * 0.01})`;
+      avatarPreviewStyle.backgroundImage = `url('${this.state.avatarPreviewUrl}')`;
+    }
+
     return (
       <Form>
         <div className="modal-body">
           <div className="avatar-uploader">
-            <label className="avatar-wrapper">
-              <ImagePreview file={this.state.avatarFile} render={this.avatarRender}/>
+            <label ref={this.avatarWrapperRef} className="avatar-wrapper">
+              <div className="avatar-img" style={avatarPreviewStyle}/>
               <img className="avatar-mask" src={avatarMask} srcSet={`${avatarMask2x} 2x`}/>
               <input type="file" className="d-none" accept=".jpg,.png" onChange={this.onChangeAvatar}/>
             </label>
@@ -92,9 +148,9 @@ module.exports = class Member extends Base {
               <i className="far fa-image fa-fw fa-sm ml-3"/>
               <div className="form-group mb-0 ml-2">
                 <div className="none-selection">
-                  <Field name="zoom" component={Slider} step={10}
-                    min={0}
-                    max={100}/>
+                  <Field name="zoom" component={Slider} step={20}
+                    min={100}
+                    max={300}/>
                 </div>
               </div>
               <i className="far fa-image fa-fw fa-lg ml-2"/>
@@ -171,7 +227,7 @@ module.exports = class Member extends Base {
           <Modal.Title as="h5">{_('New member')}</Modal.Title>
         </Modal.Header>
         <Formik
-          initialValues={{name: '', zoom: 50}}
+          initialValues={{name: '', organization: '', group: '', note: '', zoom: 120}}
           validate={utils.makeFormikValidator(MemberValidator)}
           render={this.formRender}
           onSubmit={this.onSubmitForm}/>
