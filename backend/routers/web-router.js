@@ -104,5 +104,6 @@ router.get('/api/camera/properties', cameraHandler.getProperties);
 router.get('/api/groups', groupHandler.getGroups);
 router.get('/api/groups/:groupId(\\d+)', groupHandler.getGroup);
 router.post('/api/members', memberHandler.addMember);
+router.get('/api/members', memberHandler.getMembers);
 
 router.get(/.*/, baseHandler.baseView);

@@ -20,6 +20,16 @@ module.exports = class Members extends Base {
           name: PropTypes.string.isRequired,
           note: PropTypes.string
         }).isRequired).isRequired
+      }).isRequired,
+      members: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+          organization: PropTypes.string,
+          groupId: PropTypes.number,
+          note: PropTypes.string,
+          pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+        }).isRequired).isRequired
       }).isRequired
     };
   }
@@ -106,6 +116,7 @@ module.exports = class Members extends Base {
 
   render() {
     const groups = this.props.groups.items;
+    const members = this.props.members.items;
     const {selectedGroup} = this.state;
 
     return (
@@ -138,7 +149,7 @@ module.exports = class Members extends Base {
                   )}
                 >
                   <a className="w-100 text-truncate" href={`#${group.id}`}
-                    onClick={this.generateChangeFilterHandler('group', group.id)}
+                    onClick={this.generateChangeFilterHandler('group', `${group.id}`)}
                   >
                     <i className="far fa-folder fa-fw fa-lg"/>
                     <span className="text-truncate pl-4">{group.name}</span>
@@ -201,6 +212,56 @@ module.exports = class Members extends Base {
                   )
                 }
 
+                <div className="col-12 mb-5">
+                  <table className="table custom-style">
+                    <thead>
+                      <tr className="shadow">
+                        <th>#</th>
+                        <th>{_('Register picture')}</th>
+                        <th>
+                          <a href="#">{_('Name')}</a><i className="fas fa-caret-down fa-fw text-muted ml-3"/>
+                        </th>
+                        <th>
+                          <a href="#">{_('Organization')}</a>
+                        </th>
+                        <th>
+                          <a href="#">{_('Group')}</a>
+                        </th>
+                        <th>{_('Note')}</th>
+                        <th style={{width: '150px'}}>{_('Actions')}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        members.map((member, index) => {
+                          const tdClass = classNames({'border-bottom': index >= members.length - 1});
+
+                          return (
+                            <tr key={member.id}>
+                              <td className={tdClass}>{member.id}</td>
+                              <td className={tdClass}>
+                                <img className="rounded-circle" style={{height: '56px'}}
+                                  src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
+                              </td>
+                              <td className={tdClass}>{member.name}</td>
+                              <td className={tdClass}>{member.organization || _('None')}</td>
+                              <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('None')}</td>
+                              <td className={tdClass}>{member.note || _('None')}</td>
+                              <td className={classNames('text-right', tdClass)}>
+                                <button className="btn btn-link" type="button">
+                                  <i className="fas fa-pen fa-lg fa-fw"/>
+                                </button>
+                                <button className="btn btn-link" type="button">
+                                  <i className="far fa-trash-alt fa-lg fa-fw"/>
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      }
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
             <RouterView/>

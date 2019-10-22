@@ -216,6 +216,8 @@ window.languageResource = {
   New: '新增',
   'Add a new member': '自行新增',
   'Add a member from events': '從事件新增',
+  'Register picture': '註冊照片',
+  Actions: '操作',
 
   // /members/details
   'New member': '新增成員',
