@@ -82,7 +82,7 @@ module.exports = class LoginLock extends Base {
                   {
                     this.state.disableLoginLink ? (
                       <a href="#disabled" className="btn btn-primary btn-block rounded-pill mt-5 disabled">
-                        {_('{0} left', this.state.displayTime)}
+                        {_('{0} left', [this.state.displayTime])}
                       </a>
                     ) : (
                       <Once>
