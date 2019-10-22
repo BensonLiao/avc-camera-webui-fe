@@ -239,5 +239,9 @@ window.languageResource = {
   Delete: '刪除',
   'Database file': '資料庫檔案',
   Export: '匯出',
-  Import: '匯入'
+  Import: '匯入',
+
+  // /members/modify-group
+  'Modify group': '編輯群組',
+  Confirm: '確認'
 };

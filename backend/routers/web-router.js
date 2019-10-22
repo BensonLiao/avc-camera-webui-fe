@@ -102,6 +102,7 @@ router.put('/api/me/password', accountHandler.changeMyPassword);
 router.get('/api/system/status', systemHandler.getStatus);
 router.get('/api/camera/properties', cameraHandler.getProperties);
 router.get('/api/groups', groupHandler.getGroups);
+router.get('/api/groups/:groupId(\\d+)', groupHandler.getGroup);
 router.post('/api/members', memberHandler.addMember);
 
 router.get(/.*/, baseHandler.baseView);

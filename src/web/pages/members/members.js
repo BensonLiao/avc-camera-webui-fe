@@ -29,6 +29,7 @@ module.exports = class Members extends Base {
 
     this.state.isShowDeleteGroupModal = false;
     this.state.deleteGroupTarget = null;
+    this.state.selectedGroup = props.groups.items.find(x => `${x.id}` === props.params.group);
   }
 
   generateShowDeleteGroupModalHandler = group => {
@@ -105,9 +106,11 @@ module.exports = class Members extends Base {
 
   render() {
     const groups = this.props.groups.items;
+    const {selectedGroup} = this.state;
 
     return (
       <>
+        {/* Left menu */}
         <div className="left-menu fixed-top">
           <h2>{_('Members')}</h2>
           <nav className="nav flex-column">
@@ -163,6 +166,7 @@ module.exports = class Members extends Base {
           </div>
         </div>
 
+        {/* Main content */}
         <div className="main-content left-menu-active">
           <div className="page-users bg-white">
             <div className="container-fluid">
@@ -183,12 +187,27 @@ module.exports = class Members extends Base {
                     </div>
                   </div>
                 </div>
+
+                {
+                  selectedGroup && (
+                    <div className="col-12 mb-4">
+                      <i className="far fa-folder fa-fw fa-lg text-primary ml-3"/>
+                      <span className="text-size-16 text-muted ml-3">{selectedGroup.name}</span>
+                      <Link className="ml-5" to={{name: 'web.members.modify-group', params: this.props.params}}>
+                        <i className="fas fa-pen fa-fw"/>
+                      </Link>
+                      <span className="text-size-14 text-muted ml-5">{selectedGroup.note}</span>
+                    </div>
+                  )
+                }
+
               </div>
             </div>
             <RouterView/>
           </div>
         </div>
 
+        {/* Delete group modal */}
         <Modal
           show={this.state.isShowDeleteGroupModal}
           autoFocus={false}

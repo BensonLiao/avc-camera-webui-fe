@@ -75,7 +75,13 @@ module.exports = class Layout extends Base {
       ),
       members: classNames(
         'btn d-flex justify-content-center align-items-center',
-        {active: ['web.members', 'web.members.new-group'].indexOf(this.state.currentRouteName) >= 0}
+        {
+          active: [
+            'web.members',
+            'web.members.new-group',
+            'web.members.modify-group'
+          ].indexOf(this.state.currentRouteName) >= 0
+        }
       ),
       smart: classNames(
         'btn d-flex justify-content-center align-items-center'

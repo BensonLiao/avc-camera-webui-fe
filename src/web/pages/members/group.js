@@ -13,6 +13,7 @@ const Base = require('../shared/base');
 module.exports = class Group extends Base {
   static get propTypes() {
     return {
+      params: PropTypes.object.isRequired,
       group: PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
@@ -30,13 +31,12 @@ module.exports = class Group extends Base {
     this.setState({isShowModal: false});
   };
 
-  hiddenModal() {
-    const router = getRouter();
-    router.go({
+  hiddenModal = () => {
+    getRouter().go({
       name: 'web.members',
-      params: router.currentParams
+      params: this.props.params
     });
-  }
+  };
 
   onSubmitGroupForm(values) {
     // Todo: not implementation
@@ -44,10 +44,12 @@ module.exports = class Group extends Base {
   }
 
   groupFormRender = ({errors, touched}) => {
+    const {group} = this.props;
+
     return (
       <Form>
         <div className="modal-header">
-          <h5 className="modal-title">{_('Create a group')}</h5>
+          <h5 className="modal-title">{group ? _('Modify group') : _('Create a group')}</h5>
         </div>
         <div className="modal-body">
           <div className="form-group">
@@ -79,7 +81,7 @@ module.exports = class Group extends Base {
             <button disabled={this.state.$isApiProcessing} type="submit"
               className="btn btn-primary btn-block rounded-pill"
             >
-              {_('Create')}
+              {group ? _('Confirm') : _('Create')}
             </button>
           </div>
           <button disabled={this.state.$isApiProcessing} type="button"

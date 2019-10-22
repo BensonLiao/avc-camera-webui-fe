@@ -73,6 +73,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.members.modify-group',
+      uri: '/modify-group',
+      onEnter: () => {
+        document.title = `${_('Members')} - ${_title}`;
+      },
+      resolve: {
+        group: params => api.group.getGroup(params.group).then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-group" */
+        './pages/members/group'
+      )
+    },
+    {
       name: 'login',
       uri: '/login',
       onEnter: () => {

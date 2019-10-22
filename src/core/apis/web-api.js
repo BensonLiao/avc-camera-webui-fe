@@ -87,6 +87,10 @@ module.exports = {
     getGroups: () => api({
       method: 'get',
       url: '/api/groups'
+    }),
+    getGroup: groupId => api({
+      method: 'get',
+      url: `/api/groups/${groupId}`
     })
   },
   member: {
