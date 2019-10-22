@@ -26,6 +26,11 @@ module.exports = class Member extends Base {
           name: PropTypes.string.isRequired,
           note: PropTypes.string
         }).isRequired).isRequired
+      }),
+      member: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
       })
     };
   }
@@ -121,6 +126,10 @@ module.exports = class Member extends Base {
       transform: 'scale(1)',
       backgroundImage: `url('${defaultAvatar}')`
     };
+    if (this.props.member) {
+      avatarPreviewStyle.backgroundImage = `url("data:image/jpeg;base64,${this.props.member.pictures[0]}")`;
+    }
+
     if (this.state.avatarPreviewUrl) {
       avatarPreviewStyle.transform = `scale(${values.zoom * 0.01})`;
       avatarPreviewStyle.backgroundImage = `url('${this.state.avatarPreviewUrl}')`;
@@ -207,7 +216,7 @@ module.exports = class Member extends Base {
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
             <button type="submit" className="btn btn-primary btn-block rounded-pill">
-              {_('New')}
+              {this.props.member ? _('Confirm') : _('New')}
             </button>
           </div>
           <button className="btn btn-secondary btn-block m-0 rounded-pill"
@@ -221,13 +230,34 @@ module.exports = class Member extends Base {
   };
 
   render() {
+    const {member} = this.props;
+    let initialValues;
+    if (member) {
+      initialValues = {
+        id: member.id,
+        name: member.name,
+        organization: member.organization,
+        group: member.groupId,
+        note: member.note,
+        zoom: 120
+      };
+    } else {
+      initialValues = {
+        name: '',
+        organization: '',
+        group: '',
+        note: '',
+        zoom: 120
+      };
+    }
+
     return (
       <Modal autoFocus={false} show={this.state.isShowModal} onHide={this.hideModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{_('New member')}</Modal.Title>
+          <Modal.Title as="h5">{member ? _('Modify member') : _('New member')}</Modal.Title>
         </Modal.Header>
         <Formik
-          initialValues={{name: '', organization: '', group: '', note: '', zoom: 120}}
+          initialValues={initialValues}
           validate={utils.makeFormikValidator(MemberValidator)}
           render={this.formRender}
           onSubmit={this.onSubmitForm}/>

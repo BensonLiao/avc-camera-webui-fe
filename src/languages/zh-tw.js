@@ -246,6 +246,9 @@ window.languageResource = {
   Export: '匯出',
   Import: '匯入',
 
+  // /members/:memberId
+  'Modify member': '編輯成員',
+
   // /members/modify-group
   'Modify group': '編輯群組',
   Confirm: '確認'

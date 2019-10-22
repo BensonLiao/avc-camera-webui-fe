@@ -27,3 +27,16 @@ exports.getMembers = (req, res) => {
     ]
   });
 };
+
+exports.getMember = (req, res) => {
+  res.json({
+    id: 1,
+    name: 'abby2',
+    organization: 'SW',
+    groupId: 1,
+    note: 'note',
+    pictures: [
+      'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
+    ]
+  });
+};

@@ -105,5 +105,6 @@ router.get('/api/groups', groupHandler.getGroups);
 router.get('/api/groups/:groupId(\\d+)', groupHandler.getGroup);
 router.post('/api/members', memberHandler.addMember);
 router.get('/api/members', memberHandler.getMembers);
+router.get('/api/members/:memberId(\\d+)', memberHandler.getMember);
 
 router.get(/.*/, baseHandler.baseView);

@@ -109,6 +109,10 @@ module.exports = {
         note,
         pictures
       }
+    }),
+    getMember: memberId => api({
+      method: 'get',
+      url: `/api/members/${memberId}`
     })
   }
 };

@@ -43,6 +43,22 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.members.details',
+      uri: '/{memberId:\\d+}',
+      dismissalDelay: 300,
+      onEnter: () => {
+        document.title = `${_('Member')} - ${_title}`;
+      },
+      resolve: {
+        parentRouteName: () => 'web.members',
+        member: params => api.member.getMember(params.memberId).then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-member" */
+        './pages/members/member'
+      )
+    },
+    {
       name: 'web.members.new-member',
       uri: '/new',
       dismissalDelay: 300,

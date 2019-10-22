@@ -278,9 +278,9 @@ module.exports = class Members extends Base {
                               <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('None')}</td>
                               <td className={tdClass}>{member.note || _('None')}</td>
                               <td className={classNames('text-right', tdClass)}>
-                                <button className="btn btn-link" type="button">
+                                <Link className="btn btn-link" to={{name: 'web.members.details', params: {...this.props.params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
-                                </button>
+                                </Link>
                                 <button className="btn btn-link" type="button"
                                   onClick={this.generateShowDeleteMemberModalHandler(member)}
                                 >
