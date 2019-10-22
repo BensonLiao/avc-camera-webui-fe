@@ -10,6 +10,9 @@ exports.addMember = (req, res) => {
 
 exports.getMembers = (req, res) => {
   res.json({
+    index: 0,
+    size: 20,
+    total: 1,
     items: [
       {
         id: 1,

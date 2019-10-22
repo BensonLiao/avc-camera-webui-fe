@@ -6,6 +6,7 @@ const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const Base = require('../shared/base');
+const Pagination = require('../../../core/components/pagination');
 const _ = require('../../../languages');
 
 module.exports = class Members extends Base {
@@ -22,6 +23,9 @@ module.exports = class Members extends Base {
         }).isRequired).isRequired
       }).isRequired,
       members: PropTypes.shape({
+        index: PropTypes.number.isRequired,
+        size: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.number.isRequired,
           name: PropTypes.string.isRequired,
@@ -115,9 +119,11 @@ module.exports = class Members extends Base {
   };
 
   render() {
+    const router = getRouter();
     const groups = this.props.groups.items;
     const members = this.props.members.items;
     const {selectedGroup} = this.state;
+    const hrefTemplate = router.generateUri(router.getCurrentRoute(), {...this.props.params, index: undefined});
 
     return (
       <>
@@ -262,6 +268,12 @@ module.exports = class Members extends Base {
                     </tbody>
                   </table>
                 </div>
+
+                <Pagination index={this.props.members.index}
+                  size={this.props.members.size}
+                  total={this.props.members.total}
+                  itemQuantity={this.props.members.items.length}
+                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index={index}` : `${hrefTemplate}?index={index}`}/>
               </div>
             </div>
             <RouterView/>

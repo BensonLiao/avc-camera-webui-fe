@@ -218,6 +218,7 @@ window.languageResource = {
   'Add a member from events': '從事件新增',
   'Register picture': '註冊照片',
   Actions: '操作',
+  '{0}-{1} items. Total: {2}': '目前 {0}-{1} 筆，總筆數 {2} 筆',
 
   // /members/details
   'New member': '新增成員',
