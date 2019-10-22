@@ -44,6 +44,8 @@ module.exports = class Members extends Base {
     this.state.isShowDeleteGroupModal = false;
     this.state.deleteGroupTarget = null;
     this.state.selectedGroup = props.groups.items.find(x => `${x.id}` === props.params.group);
+    this.state.isShowDeleteMemberModal = false;
+    this.state.deleteMemberTarget = null;
   }
 
   generateShowDeleteGroupModalHandler = group => {
@@ -59,11 +61,33 @@ module.exports = class Members extends Base {
   confirmDeleteGroup = event => {
     event.preventDefault();
     progress.start();
+    // Todo: not implementation
     this.hideDeleteGroupModal();
   };
 
   hideDeleteGroupModal = () => {
     this.setState({isShowDeleteGroupModal: false});
+  };
+
+  generateShowDeleteMemberModalHandler = member => {
+    return event => {
+      event.preventDefault();
+      this.setState({
+        isShowDeleteMemberModal: true,
+        deleteMemberTarget: member
+      });
+    };
+  };
+
+  confirmDeleteMember = event => {
+    event.preventDefault();
+    progress.start();
+    // Todo: not implementation
+    this.hideDeleteMemberModal();
+  };
+
+  hideDeleteMemberModal = () => {
+    this.setState({isShowDeleteMemberModal: false});
   };
 
   generateChangeFilterHandler = (paramKey, value) => {
@@ -257,7 +281,9 @@ module.exports = class Members extends Base {
                                 <button className="btn btn-link" type="button">
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </button>
-                                <button className="btn btn-link" type="button">
+                                <button className="btn btn-link" type="button"
+                                  onClick={this.generateShowDeleteMemberModalHandler(member)}
+                                >
                                   <i className="far fa-trash-alt fa-lg fa-fw"/>
                                 </button>
                               </td>
@@ -307,6 +333,36 @@ module.exports = class Members extends Base {
                 </button>
               </div>
               <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteGroupModal}>
+                {_('Close')}
+              </button>
+            </div>
+          </form>
+        </Modal>
+
+        {/* Delete member modal */}
+        <Modal
+          show={this.state.isShowDeleteMemberModal}
+          autoFocus={false}
+          onHide={this.hideDeleteMemberModal}
+        >
+          <form>
+            <div className="modal-header">
+              <h5 className="modal-title">{_('Delete member')}</h5>
+            </div>
+            <div className="modal-body">
+              <span className="text-muted">
+                {_('Are you sure to delete the member {0}?', [this.state.deleteMemberTarget && this.state.deleteMemberTarget.name])}
+              </span>
+            </div>
+            <div className="modal-footer flex-column">
+              <div className="form-group w-100 mx-0">
+                <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill"
+                  onClick={this.confirmDeleteMember}
+                >
+                  {_('Delete')}
+                </button>
+              </div>
+              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteMemberModal}>
                 {_('Close')}
               </button>
             </div>

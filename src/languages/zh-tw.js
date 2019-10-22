@@ -219,6 +219,8 @@ window.languageResource = {
   'Register picture': '註冊照片',
   Actions: '操作',
   '{0}-{1} items. Total: {2}': '目前 {0}-{1} 筆，總筆數 {2} 筆',
+  'Delete member': '刪除成員',
+  'Are you sure to delete the member {0}?': '您即將刪除 {0} 成員，確認要刪除嗎？',
 
   // /members/details
   'New member': '新增成員',
