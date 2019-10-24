@@ -1,6 +1,6 @@
 const classNames = require('classnames');
 const React = require('react');
-const {Link} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const logo = require('webserver-prototype/src/resource/logo-01.svg');
 const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
@@ -17,14 +17,17 @@ module.exports = class SetupHTTPS extends Base {
   constructor(props) {
     super(props);
     this.state.certificateType = store.get('$setup').https.certificateType;
-
-    this.generateValidator = this.generateValidator.bind(this);
-    this.generateChangeCertificateTypeHandler = this.generateChangeCertificateTypeHandler.bind(this);
-    this.setupHTTPSFormRender = this.setupHTTPSFormRender.bind(this);
-    this.onSubmitSetupHTTPSForm = this.onSubmitSetupHTTPSForm.bind(this);
   }
 
-  generateValidator() {
+  componentDidMount() {
+    super.componentDidMount();
+    const $setup = store.get('$setup');
+    if (!$setup.account.account) {
+      getRouter().go('/setup/account', {replace: true});
+    }
+  }
+
+  generateValidator = () => {
     switch (this.state.certificateType) {
       case 'upload-certificate':
         return utils.makeFormikValidator(uploadCertificateValidator);
@@ -33,9 +36,9 @@ module.exports = class SetupHTTPS extends Base {
       default:
         return null;
     }
-  }
+  };
 
-  generateChangeCertificateTypeHandler(next) {
+  generateChangeCertificateTypeHandler = next => {
     /*
     @param next {Function}
       */
@@ -45,19 +48,17 @@ module.exports = class SetupHTTPS extends Base {
         next(event);
       }
     };
-  }
+  };
 
-  onSubmitSetupHTTPSForm(values) {
+  onSubmitSetupHTTPSForm = values => {
     /*
     @param values {Object}
       */
-    console.log(values); // Debug
     const $setup = store.get('$setup');
-    $setup.account = values;
-    store.set('$setup', $setup);
-  }
+    console.log(values, $setup); // Debug
+  };
 
-  setupHTTPSFormRender({errors, submitCount, values, handleChange}) {
+  setupHTTPSFormRender = ({errors, submitCount, values, handleChange}) => {
     const isSubmitted = submitCount > 0;
     const classTable = {
       certificate: classNames(
@@ -221,7 +222,7 @@ module.exports = class SetupHTTPS extends Base {
         </div>
       </Form>
     );
-  }
+  };
 
   render() {
     const initialValue = store.get('$setup').https;

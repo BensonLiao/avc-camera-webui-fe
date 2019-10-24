@@ -21,13 +21,9 @@ module.exports = class SetupAccount extends Base {
       password: 'password',
       confirmPassword: 'password'
     };
-
-    this.generateTogglePasswordFieldHandler = this.generateTogglePasswordFieldHandler.bind(this);
-    this.setupAccountFormRender = this.setupAccountFormRender.bind(this);
-    this.onSubmitSetupAccountForm = this.onSubmitSetupAccountForm.bind(this);
   }
 
-  generateTogglePasswordFieldHandler(field) {
+  generateTogglePasswordFieldHandler = field => {
     return event => {
       event.preventDefault();
       this.setState(previousState => {
@@ -40,16 +36,16 @@ module.exports = class SetupAccount extends Base {
         };
       });
     };
-  }
+  };
 
-  onSubmitSetupAccountForm(values) {
+  onSubmitSetupAccountForm = values => {
     const $setup = store.get('$setup');
     $setup.account = values;
     store.set('$setup', $setup);
     getRouter().go('/setup/https');
-  }
+  };
 
-  setupAccountFormRender({errors, submitCount}) {
+  setupAccountFormRender = ({errors, submitCount}) => {
     const isSubmitted = submitCount > 0;
     const classTable = {
       account: classNames(
@@ -141,7 +137,7 @@ module.exports = class SetupAccount extends Base {
         </div>
       </Form>
     );
-  }
+  };
 
   render() {
     const initialValue = store.get('$setup').account;

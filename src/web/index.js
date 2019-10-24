@@ -65,6 +65,14 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
     return;
   }
 
+  if (toState.name === 'setup-https' && !store.get('$setup').account.account) {
+    cancel();
+    setTimeout(() => {
+      router.go('/setup/account', {replace: true});
+    });
+    return;
+  }
+
   const $user = store.get('$user');
   const allowAnonymousRoutes = [
     'login',
