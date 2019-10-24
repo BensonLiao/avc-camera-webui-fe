@@ -144,6 +144,7 @@ window.languageResource = {
   'This value is for resetting password, such as 19910326.': 'Ex:19910326，此欄位是為了讓您忘記密碼可使用來重設密碼',
   Password: '密碼',
   'Please enter your password.': '請輸入您的密碼',
+  'Please enter less than 9 letters.': '8 字元以內的大寫或小寫',
   'Please enter letters between 8 and 12.': '8~12 字元的大寫或小寫',
   'Please enter your password again.': '請再次輸入您的密碼',
 
