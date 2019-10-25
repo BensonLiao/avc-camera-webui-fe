@@ -78,7 +78,7 @@ module.exports = {
     }),
     setup: ({language, account, https}) => api({
       method: 'post',
-      url: '/api/system/setup',
+      url: '/api/system/_setup',
       data: {
         language,
         account,
