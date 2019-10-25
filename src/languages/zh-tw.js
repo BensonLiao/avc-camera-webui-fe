@@ -2,7 +2,8 @@ window.languageResource = {
   _code: 'zh-tw',
 
   // Constants
-  'permission-admin': '管理者',
+  'permission-0': '管理者',
+  'permission-1': '訪客',
 
   'state-on': '開啟',
   'state-off': '關閉',

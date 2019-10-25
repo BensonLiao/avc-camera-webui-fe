@@ -2,6 +2,7 @@ const classNames = require('classnames');
 const React = require('react');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const logo = require('webserver-prototype/src/resource/logo-01.svg');
 const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
 const setupStep02 = require('webserver-prototype/src/resource/setup-step-02.png');
@@ -78,7 +79,7 @@ module.exports = class SetupAccount extends Base {
             <label>{_('Permission')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
               <Field component="select" name="permission" className="form-control border-0">
-                <option value="admin">{_('permission-admin')}</option>
+                <option value={UserPermission.root}>{_(`permission-${UserPermission.root}`)}</option>
               </Field>
             </div>
           </div>

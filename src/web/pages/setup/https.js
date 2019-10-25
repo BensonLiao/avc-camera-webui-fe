@@ -2,6 +2,7 @@ const classNames = require('classnames');
 const React = require('react');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
+const progress = require('nprogress');
 const logo = require('webserver-prototype/src/resource/logo-01.svg');
 const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
 const setupStep03 = require('webserver-prototype/src/resource/setup-step-03.png');
@@ -12,6 +13,7 @@ const store = require('../../../core/store');
 const utils = require('../../../core/utils');
 const uploadCertificateValidator = require('../../validations/setup/https-upload-certificate-validator');
 const generateCertificateValidator = require('../../validations/setup/https-generate-certificate-validator');
+const api = require('../../../core/apis/web-api');
 
 module.exports = class SetupHTTPS extends Base {
   constructor(props) {
@@ -54,8 +56,22 @@ module.exports = class SetupHTTPS extends Base {
     /*
     @param values {Object}
       */
+    const router = getRouter();
     const $setup = store.get('$setup');
-    console.log(values, $setup); // Debug
+
+    progress.start();
+    api.system.setup({
+      language: $setup.language,
+      account: $setup.account,
+      https: values
+    })
+      .then(() => {
+        location.href = '/';
+      })
+      .catch(error => {
+        progress.done();
+        router.renderError(error);
+      });
   };
 
   setupHTTPSFormRender = ({errors, submitCount, values, handleChange}) => {

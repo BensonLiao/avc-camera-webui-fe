@@ -14,6 +14,7 @@ const {RouterView} = require('capybara-router');
 const progress = require('nprogress');
 const React = require('react');
 const ReactDOM = require('react-dom');
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
@@ -32,7 +33,7 @@ store.set('$user', window.user);
 store.set('$setup', {
   language: window.currentLanguageCode,
   account: {
-    permission: 'admin',
+    permission: UserPermission.root,
     account: '',
     birthday: '',
     password: '',

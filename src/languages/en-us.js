@@ -2,7 +2,8 @@ window.languageResource = {
   _code: 'en-us',
 
   // Constants
-  'permission-admin': 'Administrator',
+  'permission-0': 'Administrator',
+  'permission-1': 'Guest',
 
   'state-on': 'ON',
   'state-off': 'OFF',

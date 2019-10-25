@@ -75,6 +75,15 @@ module.exports = {
     getStatus: () => api({
       method: 'get',
       url: '/api/system/status'
+    }),
+    setup: ({language, account, https}) => api({
+      method: 'post',
+      url: '/api/setup',
+      data: {
+        language,
+        account,
+        https
+      }
     })
   },
   camera: {
