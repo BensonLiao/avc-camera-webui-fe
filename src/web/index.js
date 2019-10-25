@@ -15,6 +15,7 @@ const progress = require('nprogress');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
+const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
@@ -33,14 +34,14 @@ store.set('$user', window.user);
 store.set('$setup', {
   language: window.currentLanguageCode,
   account: {
-    permission: UserPermission.root,
+    permission: `${UserPermission.root}`,
     account: '',
     birthday: '',
     password: '',
     confirmPassword: ''
   },
   https: {
-    certificateType: 'self-sign',
+    certificateType: `${CertificateType.selfSigned}`,
     certificate: '',
     privateKey: '',
     country: '',

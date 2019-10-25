@@ -11,9 +11,6 @@ exports.validator = new Validator({
     stringLength: _('validation-stringLength'),
     stringPattern: _('validation-stringPattern'),
     stringContains: _('validation-stringContains'),
-    stringContainsLowerCaseLatter: _('validation-stringContainsLowerCaseLatter'),
-    stringContainsUpperCaseLatter: _('validation-stringContainsUpperCaseLatter'),
-    stringContainsNumber: _('validation-stringContainsNumber'),
     stringEnum: _('validation-stringEnum'),
     number: _('validation-number'),
     numberMin: _('validation-numberMin'),
@@ -38,6 +35,10 @@ exports.validator = new Validator({
     forbidden: _('validation-forbidden'),
     email: _('validation-email'),
     url: _('validation-url'),
+
+    stringContainsLowerCaseLatter: _('validation-stringContainsLowerCaseLatter'),
+    stringContainsUpperCaseLatter: _('validation-stringContainsUpperCaseLatter'),
+    stringContainsNumber: _('validation-stringContainsNumber'),
     birthday: _('validation-birthday'),
     countryCode: _('validation-countryCode')
   }

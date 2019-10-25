@@ -5,6 +5,10 @@ window.languageResource = {
   'permission-0': '管理者',
   'permission-1': '訪客',
 
+  'certificate-type-0': 'AndroVideo 自簽憑證',
+  'certificate-type-1': '自行上傳您的憑證',
+  'certificate-type-2': '在此裝置上產生憑證',
+
   'state-on': '開啟',
   'state-off': '關閉',
   auto: '自動',
@@ -151,9 +155,6 @@ window.languageResource = {
 
   // /setup/https
   'Certificate type': '憑證方式',
-  'AndroVideo self-signed': 'AndroVideo 自簽憑證',
-  'Upload certificate': '自行上傳您的憑證',
-  'Generate certificate on this device': '在此裝置上產生憑證',
   'SSL certificate.': 'SSL 憑證方式',
   Certificate: '憑證',
   'Private key': '私鑰',

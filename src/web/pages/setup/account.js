@@ -79,7 +79,7 @@ module.exports = class SetupAccount extends Base {
             <label>{_('Permission')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
               <Field component="select" name="permission" className="form-control border-0">
-                <option value={UserPermission.root}>{_(`permission-${UserPermission.root}`)}</option>
+                <option value={`${UserPermission.root}`}>{_(`permission-${UserPermission.root}`)}</option>
               </Field>
             </div>
           </div>

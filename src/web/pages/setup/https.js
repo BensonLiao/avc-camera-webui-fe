@@ -3,6 +3,7 @@ const React = require('react');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
+const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const logo = require('webserver-prototype/src/resource/logo-01.svg');
 const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
 const setupStep03 = require('webserver-prototype/src/resource/setup-step-03.png');
@@ -31,9 +32,9 @@ module.exports = class SetupHTTPS extends Base {
 
   generateValidator = () => {
     switch (this.state.certificateType) {
-      case 'upload-certificate':
+      case `${CertificateType.uploadCertificate}`:
         return utils.makeFormikValidator(uploadCertificateValidator);
-      case 'generate-certificate':
+      case `${CertificateType.generateCertificate}`:
         return utils.makeFormikValidator(generateCertificateValidator);
       default:
         return null;
@@ -125,9 +126,9 @@ module.exports = class SetupHTTPS extends Base {
                 className="form-control border-0"
                 onChange={this.generateChangeCertificateTypeHandler(handleChange)}
               >
-                <option value="self-signed">{_('AndroVideo self-signed')}</option>
-                <option value="upload-certificate">{_('Upload certificate')}</option>
-                <option value="generate-certificate">{_('Generate certificate on this device')}</option>
+                <option value={`${CertificateType.selfSigned}`}>{_(`certificate-type-${CertificateType.selfSigned}`)}</option>
+                <option value={`${CertificateType.uploadCertificate}`}>{_(`certificate-type-${CertificateType.uploadCertificate}`)}</option>
+                <option value={`${CertificateType.generateCertificate}`}>{_(`certificate-type-${CertificateType.generateCertificate}`)}</option>
               </Field>
             </div>
             <small className="form-text text-muted">{_('SSL certificate.')}</small>
@@ -135,7 +136,7 @@ module.exports = class SetupHTTPS extends Base {
 
           {
             /* Upload your certificate. */
-            values.certificateType === 'upload-certificate' && (
+            values.certificateType === `${CertificateType.uploadCertificate}` && (
               <>
                 <div className="form-group">
                   <label>{_('Certificate')}</label>
@@ -161,7 +162,7 @@ module.exports = class SetupHTTPS extends Base {
 
           {
             /* Generate the certificate on this device. */
-            values.certificateType === 'generate-certificate' && (
+            values.certificateType === `${CertificateType.generateCertificate}` && (
               <>
                 <div className="form-group">
                   <label>{_('Country name')}</label>
