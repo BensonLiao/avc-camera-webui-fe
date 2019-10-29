@@ -140,7 +140,7 @@ module.exports = (env = {}) => {
             test: /\.(js|css|svg)$/,
             threshold: 0,
             minRatio: 1
-          }),
+          })
         );
       }
 
