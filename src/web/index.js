@@ -34,14 +34,14 @@ store.set('$user', window.user);
 store.set('$setup', {
   language: window.currentLanguageCode,
   account: {
-    permission: `${UserPermission.root}`,
+    permission: UserPermission.root,
     account: '',
     birthday: '',
     password: '',
     confirmPassword: ''
   },
   https: {
-    certificateType: `${CertificateType.selfSigned}`,
+    certificateType: CertificateType.selfSigned,
     certificate: '',
     privateKey: '',
     country: '',

@@ -32,9 +32,9 @@ module.exports = class SetupHTTPS extends Base {
 
   generateValidator = () => {
     switch (this.state.certificateType) {
-      case `${CertificateType.uploadCertificate}`:
+      case CertificateType.uploadCertificate:
         return utils.makeFormikValidator(uploadCertificateValidator);
-      case `${CertificateType.generateCertificate}`:
+      case CertificateType.generateCertificate:
         return utils.makeFormikValidator(generateCertificateValidator);
       default:
         return null;
@@ -126,9 +126,9 @@ module.exports = class SetupHTTPS extends Base {
                 className="form-control border-0"
                 onChange={this.generateChangeCertificateTypeHandler(handleChange)}
               >
-                <option value={`${CertificateType.selfSigned}`}>{_(`certificate-type-${CertificateType.selfSigned}`)}</option>
-                <option value={`${CertificateType.uploadCertificate}`}>{_(`certificate-type-${CertificateType.uploadCertificate}`)}</option>
-                <option value={`${CertificateType.generateCertificate}`}>{_(`certificate-type-${CertificateType.generateCertificate}`)}</option>
+                <option value={CertificateType.selfSigned}>{_(`certificate-type-${CertificateType.selfSigned}`)}</option>
+                <option value={CertificateType.uploadCertificate}>{_(`certificate-type-${CertificateType.uploadCertificate}`)}</option>
+                <option value={CertificateType.generateCertificate}>{_(`certificate-type-${CertificateType.generateCertificate}`)}</option>
               </Field>
             </div>
             <small className="form-text text-muted">{_('SSL certificate.')}</small>
@@ -136,7 +136,7 @@ module.exports = class SetupHTTPS extends Base {
 
           {
             /* Upload your certificate. */
-            values.certificateType === `${CertificateType.uploadCertificate}` && (
+            values.certificateType === CertificateType.uploadCertificate && (
               <>
                 <div className="form-group">
                   <label>{_('Certificate')}</label>
@@ -162,7 +162,7 @@ module.exports = class SetupHTTPS extends Base {
 
           {
             /* Generate the certificate on this device. */
-            values.certificateType === `${CertificateType.generateCertificate}` && (
+            values.certificateType === CertificateType.generateCertificate && (
               <>
                 <div className="form-group">
                   <label>{_('Country name')}</label>
