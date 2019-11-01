@@ -9,8 +9,6 @@ window.languageResource = {
   'certificate-type-1': '自行上傳您的憑證',
   'certificate-type-2': '在此裝置上產生憑證',
 
-  'state-on': '開啟',
-  'state-off': '關閉',
   auto: '自動',
   off: '關閉',
   max: '最大',
@@ -92,6 +90,8 @@ window.languageResource = {
   Security: '安全性',
   License: '智慧授權',
   Develop: '工程模式',
+  ON: '開啟',
+  OFF: '關閉',
 
   // /login
   'Welcome to use AndroVideo system': '歡迎使用 AndroVideo 系統',

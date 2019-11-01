@@ -9,8 +9,6 @@ window.languageResource = {
   'certificate-type-1': 'Upload certificate',
   'certificate-type-2': 'Generate certificate on this device',
 
-  'state-on': 'ON',
-  'state-off': 'OFF',
   auto: 'Auto',
   off: 'Off',
   max: 'Max',

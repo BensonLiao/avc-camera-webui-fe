@@ -72,9 +72,9 @@ module.exports = {
     })
   },
   system: {
-    getStatus: () => api({
+    getInformation: () => api({
       method: 'get',
-      url: '/api/system/status'
+      url: '/api/system/information'
     }),
     setup: ({language, account, https}) => api({
       method: 'post',

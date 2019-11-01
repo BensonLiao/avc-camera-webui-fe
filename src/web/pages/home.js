@@ -14,12 +14,13 @@ const deviceNameValidator = require('../validations/system/device-name-validator
 module.exports = class Home extends Base {
   static get propTypes() {
     return {
-      status: PropTypes.shape({
-        deviceName: PropTypes.string,
-        faceRecognition: PropTypes.oneOf(['on', 'off']).isRequired,
-        ageGender: PropTypes.oneOf(['on', 'off']).isRequired,
-        humanoidDetection: PropTypes.oneOf(['on', 'off']).isRequired,
-        state: PropTypes.string.isRequired,
+      systemInformation: PropTypes.shape({
+        languageCode: PropTypes.oneOf(['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es']).isRequired,
+        deviceName: PropTypes.string.isRequired,
+        isEnableFaceRecognition: PropTypes.bool.isRequired,
+        isEnableAgeGender: PropTypes.bool.isRequired,
+        isEnableHumanoidDetection: PropTypes.bool.isRequired,
+        deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         usedDiskSize: PropTypes.number.isRequired,
         totalDiskSize: PropTypes.number.isRequired
       }).isRequired,
@@ -47,7 +48,7 @@ module.exports = class Home extends Base {
 
   constructor(props) {
     super(props);
-    this.state.deviceName = props.status.deviceName || '';
+    this.state.deviceName = props.systemInformation.deviceName || '';
     this.state.cameraProperties = {
       ...props.cameraProperties,
       dnDuty: [
@@ -317,19 +318,20 @@ module.exports = class Home extends Base {
   };
 
   render() {
-    const usedDiskPercentage = Math.ceil((this.props.status.usedDiskSize / this.props.status.totalDiskSize) * 100);
+    const {systemInformation} = this.props;
+    const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
     const classTable = {
       faceRecognitionState: classNames({
-        'text-success': this.props.status.faceRecognition === 'on',
-        'text-muted': this.props.status.faceRecognition === 'off'
+        'text-success': systemInformation.isEnableFaceRecognition,
+        'text-muted': !systemInformation.isEnableFaceRecognition
       }),
       ageGenderState: classNames({
-        'text-success': this.props.status.faceRecognition === 'on',
-        'text-muted': this.props.status.faceRecognition === 'off'
+        'text-success': systemInformation.isEnableAgeGender,
+        'text-muted': !systemInformation.isEnableAgeGender
       }),
       humanoidDetectionState: classNames({
-        'text-success': this.props.status.faceRecognition === 'on',
-        'text-muted': this.props.status.faceRecognition === 'off'
+        'text-success': systemInformation.isEnableHumanoidDetection,
+        'text-muted': !systemInformation.isEnableHumanoidDetection
       })
     };
 
@@ -382,17 +384,17 @@ module.exports = class Home extends Base {
                         <td className="align-top">
                           <span>{_('Face recognition: ')}</span>
                           <span className={classTable.faceRecognitionState}>
-                            {_(`state-${this.props.status.faceRecognition}`)}
+                            {_(`${systemInformation.isEnableFaceRecognition ? 'ON' : 'OFF'}`)}
                           </span>
                           <br/>
                           <span>{_('Age gender: ')}</span>
                           <span className={classTable.ageGenderState}>
-                            {_(`state-${this.props.status.ageGender}`)}
+                            {_(`${systemInformation.isEnableAgeGender ? 'ON' : 'OFF'}`)}
                           </span>
                           <br/>
                           <span>{_('Humanoid detection: ')}</span>
                           <span className={classTable.humanoidDetectionState}>
-                            {_(`state-${this.props.status.humanoidDetection}`)}
+                            {_(`${systemInformation.isEnableHumanoidDetection ? 'ON' : 'OFF'}`)}
                           </span>
                         </td>
                         <td className="align-top">
@@ -407,8 +409,8 @@ module.exports = class Home extends Base {
                           <p>
                             {
                               _('Free: {0}, Total: {1}', [
-                                filesize(this.props.status.totalDiskSize - this.props.status.usedDiskSize),
-                                filesize(this.props.status.totalDiskSize)
+                                filesize(systemInformation.totalDiskSize - systemInformation.usedDiskSize),
+                                filesize(systemInformation.totalDiskSize)
                               ])
                             }
                           </p>
