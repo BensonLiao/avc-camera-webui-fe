@@ -40,7 +40,7 @@ module.exports = class Members extends Base {
 
   constructor(props) {
     super(props);
-
+    this.currentRoute = getRouter().currentRoute;
     this.state.isShowDeleteGroupModal = false;
     this.state.deleteGroupTarget = null;
     this.state.selectedGroup = props.groups.items.find(x => `${x.id}` === props.params.group);
@@ -114,9 +114,8 @@ module.exports = class Members extends Base {
   };
 
   onSubmitSearchForm = ({keyword}) => {
-    const router = getRouter();
-    router.go({
-      name: router.currentRoute.name,
+    getRouter().go({
+      name: this.currentRoute.name,
       params: {
         ...this.props.params,
         index: undefined,
@@ -143,11 +142,13 @@ module.exports = class Members extends Base {
   };
 
   render() {
-    const router = getRouter();
     const groups = this.props.groups.items;
     const members = this.props.members.items;
     const {selectedGroup} = this.state;
-    const hrefTemplate = router.generateUri(router.getCurrentRoute(), {...this.props.params, index: undefined});
+    const hrefTemplate = getRouter().generateUri(
+      this.currentRoute,
+      {...this.props.params, index: undefined}
+    );
 
     return (
       <>
