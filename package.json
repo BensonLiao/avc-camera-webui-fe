@@ -27,14 +27,14 @@
     "axios": "0.19.0",
     "babel-eslint": "10.0.3",
     "babel-loader": "8.0.6",
-    "capybara-router": "1.3.6",
+    "capybara-router": "1.3.7",
     "classnames": "2.2.6",
     "compression-webpack-plugin": "3.0.0",
     "config": "3.2.4",
     "css-loader": "3.2.0",
     "fastest-validator": "0.6.19",
     "file-loader": "4.2.0",
-    "filesize": "5.0.3",
+    "filesize": "6.0.0",
     "formik": "1.5.8",
     "grunt": "1.0.4",
     "grunt-contrib-clean": "2.0.0",
@@ -59,7 +59,7 @@
     "string-template": "1.0.0",
     "time-grunt": "2.0.0",
     "webpack": "4.41.2",
-    "webpack-cli": "3.3.9",
+    "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
     "webserver-form-schema": "git+ssh://git@bitbucket.org/androvideo/webserver-form-schema.git#653a83b1e5ede0d96eedd71d63a5bf1d7132ff47",
     "webserver-prototype": "git+ssh://git@bitbucket.org/androvideo/webserver-prototype.git#7433099ab56733d73c3f0cba4b9efbaa1d8b663d"
@@ -77,6 +77,6 @@
     "express-rate-limit": "5.0.0",
     "handlebars": "4.5.1",
     "nodemon": "1.19.4",
-    "npm-check-updates": "3.1.25"
+    "npm-check-updates": "3.2.0"
   }
 }
