@@ -3,7 +3,9 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
-const cameraPropertiesSchema = require('webserver-form-schema/camera-properties-schema');
+const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
+const DaynightType = require('webserver-form-schema/constants/daynight-type');
+const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const Base = require('./shared/base');
 const _ = require('../../languages');
 const utils = require('../../core/utils');
@@ -24,24 +26,24 @@ module.exports = class Home extends Base {
         usedDiskSize: PropTypes.number.isRequired,
         totalDiskSize: PropTypes.number.isRequired
       }).isRequired,
-      cameraProperties: PropTypes.shape({
-        defog: PropTypes.bool.isRequired, // 除霧
-        irLight: PropTypes.bool.isRequired, // 紅外線燈
-        bright: PropTypes.number.isRequired, // 亮度
+      videoSettings: PropTypes.shape({
+        defoggingEnabled: PropTypes.bool.isRequired, // 除霧
+        irEnabled: PropTypes.bool.isRequired, // 紅外線燈
+        brightness: PropTypes.number.isRequired, // 亮度
         contrast: PropTypes.number.isRequired, // 對比
-        wdr: PropTypes.oneOf(cameraPropertiesSchema.wdr.enum).isRequired, // HDR
-        shutterSpeed: PropTypes.oneOf(cameraPropertiesSchema.shutterSpeed.enum).isRequired, // 快門速度
-        iris: PropTypes.oneOf(cameraPropertiesSchema.iris.enum).isRequired, // 自動光圈
+        hdrEnabled: PropTypes.oneOf(videoSettingsSchema.hdrEnabled.enum).isRequired, // HDR
+        shutterSpeed: PropTypes.oneOf(videoSettingsSchema.shutterSpeed.enum).isRequired, // 快門速度
+        aperture: PropTypes.oneOf(videoSettingsSchema.aperture.enum).isRequired, // 自動光圈
         saturation: PropTypes.number.isRequired, // 飽和度
-        whiteBalance: PropTypes.oneOf(cameraPropertiesSchema.whiteBalance.enum).isRequired, // 白平衡
-        whiteBalanceSensitivity: PropTypes.number.isRequired, // 白平衡-色溫
-        dn: PropTypes.oneOf(cameraPropertiesSchema.dn.enum).isRequired, // 黑白模式
-        dnSensitivity: PropTypes.number.isRequired, // 黑白模式-自動-靈敏度
-        dnStartHour: PropTypes.number.isRequired, // 黑白模式-指定時間
-        dnEndHour: PropTypes.number.isRequired, // 黑白模式-指定時間
+        whiteblanceMode: PropTypes.oneOf(videoSettingsSchema.whiteblanceMode.enum).isRequired, // 白平衡
+        whiteblanceManual: PropTypes.number.isRequired, // 白平衡-色溫
+        daynightMode: PropTypes.oneOf(videoSettingsSchema.daynightMode.enum).isRequired, // 黑白模式
+        sensitivity: PropTypes.number.isRequired, // 黑白模式-自動-靈敏度
+        timePeriodStart: PropTypes.number.isRequired, // 黑白模式-指定時間
+        timePeriodEnd: PropTypes.number.isRequired, // 黑白模式-指定時間
         sharpness: PropTypes.number.isRequired, // 銳利度
-        orientation: PropTypes.oneOf(cameraPropertiesSchema.orientation.enum).isRequired, // 影像方向
-        flickerLess: PropTypes.oneOf(cameraPropertiesSchema.flickerLess.enum).isRequired // 刷新頻率
+        orientation: PropTypes.oneOf(videoSettingsSchema.orientation.enum).isRequired, // 影像方向
+        refreshRate: PropTypes.oneOf(videoSettingsSchema.refreshRate.enum).isRequired // 刷新頻率
       }).isRequired
     };
   }
@@ -49,11 +51,11 @@ module.exports = class Home extends Base {
   constructor(props) {
     super(props);
     this.state.deviceName = props.systemInformation.deviceName || '';
-    this.state.cameraProperties = {
-      ...props.cameraProperties,
+    this.state.videoSettings = {
+      ...props.videoSettings,
       dnDuty: [
-        props.cameraProperties.dnStartHour,
-        props.cameraProperties.dnEndHour
+        props.videoSettings.timePeriodStart,
+        props.videoSettings.timePeriodEnd
       ]
     };
 
@@ -80,7 +82,7 @@ module.exports = class Home extends Base {
             <div className="col-12 col-lg-6 my-1 d-flex align-items-center">
               <span>{_('Defog')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="defog" type="checkbox" className="custom-control-input" id="switch-defogging"/>
+                <Field name="defoggingEnabled" type="checkbox" className="custom-control-input" id="switch-defogging"/>
                 <label className="custom-control-label" htmlFor="switch-defogging">
                   <span>{_('Auto')}</span>
                   <span>{_('Off')}</span>
@@ -90,7 +92,7 @@ module.exports = class Home extends Base {
             <div className="col-12 col-lg-6 my-1 d-flex align-items-center justify-content-xl-end">
               <span>{_('IR light')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="irLight" type="checkbox" className="custom-control-input" id="switch-ir"/>
+                <Field name="irEnabled" type="checkbox" className="custom-control-input" id="switch-ir"/>
                 <label className="custom-control-label" htmlFor="switch-ir">
                   <span>{_('Auto')}</span>
                   <span>{_('Off')}</span>
@@ -114,28 +116,28 @@ module.exports = class Home extends Base {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Brightness')}</label>
-                  <span className="text-primary text-size-14">{values.bright}</span>
+                  <span className="text-primary text-size-14">{values.brightness}</span>
                 </div>
-                <Field name="bright" component={Slider} step={10}
-                  min={cameraPropertiesSchema.bright.min}
-                  max={cameraPropertiesSchema.bright.max}/>
+                <Field name="brightness" component={Slider} step={1}
+                  min={videoSettingsSchema.brightness.min}
+                  max={videoSettingsSchema.brightness.max}/>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Contrast')}</label>
                   <span className="text-primary text-size-14">{values.contrast}</span>
                 </div>
-                <Field name="contrast" component={Slider} step={10}
-                  min={cameraPropertiesSchema.contrast.min}
-                  max={cameraPropertiesSchema.contrast.max}/>
+                <Field name="contrast" component={Slider} step={1}
+                  min={videoSettingsSchema.contrast.min}
+                  max={videoSettingsSchema.contrast.max}/>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('HDR')}</label>
-                  <Field name="wdr" component={Dropdown}
+                  <Field name="hdrEnabled" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={cameraPropertiesSchema.wdr.enum.map(x => ({value: x, label: _(x)}))}/>
+                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}/>
                 </div>
               </div>
               <div className="form-group">
@@ -144,16 +146,16 @@ module.exports = class Home extends Base {
                   <Field name="shutterSpeed" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={cameraPropertiesSchema.shutterSpeed.enum.map(x => ({value: x, label: _(x)}))}/>
+                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({value: x, label: _(`shutter-speed-${x}`)}))}/>
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Auto Iris')}</label>
-                  <Field name="iris" component={Dropdown}
+                  <Field name="aperture" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={cameraPropertiesSchema.iris.enum.map(x => ({value: x, label: _(x)}))}/>
+                    items={videoSettingsSchema.aperture.enum.map(x => ({value: x, label: _(`aperture-${x}`)}))}/>
                 </div>
               </div>
             </div>
@@ -175,27 +177,27 @@ module.exports = class Home extends Base {
                   <span className="text-primary text-size-14">{values.saturation}</span>
                 </div>
                 <Field name="saturation" component={Slider} step={10}
-                  min={cameraPropertiesSchema.saturation.min}
-                  max={cameraPropertiesSchema.saturation.max}/>
+                  min={videoSettingsSchema.saturation.min}
+                  max={videoSettingsSchema.saturation.max}/>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
                   <label>{_('White balance')}</label>
-                  <Field name="whiteBalance" component={Dropdown}
+                  <Field name="whiteblanceMode" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={cameraPropertiesSchema.whiteBalance.enum.map(x => ({value: x, label: _(x)}))}/>
+                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({value: x, label: _(`white-balance-${x}`)}))}/>
                 </div>
                 {
-                  values.whiteBalance === 'manual' && (
+                  values.whiteblanceMode === WhiteBalanceType.manual && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
                         <label>{_('Color temperature')}</label>
-                        <span className="text-primary text-size-14">{values.whiteBalanceSensitivity}</span>
+                        <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
                       </div>
-                      <Field name="whiteBalanceSensitivity" component={Slider} step={10}
-                        min={cameraPropertiesSchema.whiteBalanceSensitivity.min}
-                        max={cameraPropertiesSchema.whiteBalanceSensitivity.max}/>
+                      <Field name="whiteblanceManual" component={Slider} step={10}
+                        min={videoSettingsSchema.whiteblanceManual.min}
+                        max={videoSettingsSchema.whiteblanceManual.max}/>
                     </div>
                   )
                 }
@@ -203,26 +205,26 @@ module.exports = class Home extends Base {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
                   <label>{_('D/N')}</label>
-                  <Field name="dn" component={Dropdown}
+                  <Field name="daynightMode" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={cameraPropertiesSchema.dn.enum.map(x => ({value: x, label: _(`dn-${x}`)}))}/>
+                    items={videoSettingsSchema.daynightMode.enum.map(x => ({value: x, label: _(`daynight-mode-${x}`)}))}/>
                 </div>
                 {
-                  values.dn === 'auto' && (
+                  values.daynightMode === DaynightType.auto && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
                         <label>{_('Sensitivity')}</label>
-                        <span className="text-primary text-size-14">{values.dnSensitivity}</span>
+                        <span className="text-primary text-size-14">{values.sensitivity}</span>
                       </div>
-                      <Field name="dnSensitivity" component={Slider} step={1}
-                        min={cameraPropertiesSchema.dnSensitivity.min}
-                        max={cameraPropertiesSchema.dnSensitivity.max}/>
+                      <Field name="sensitivity" component={Slider} step={1}
+                        min={videoSettingsSchema.sensitivity.min}
+                        max={videoSettingsSchema.sensitivity.max}/>
                     </div>
                   )
                 }
                 {
-                  values.dn === 'manual' && (
+                  values.daynightMode === DaynightType.manual && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
                         <label>{_('Duty time')}</label>
@@ -233,8 +235,8 @@ module.exports = class Home extends Base {
                       <Field name="dnDuty" component={Slider}
                         mode="range"
                         step={0.5}
-                        min={cameraPropertiesSchema.dnStartHour.min}
-                        max={cameraPropertiesSchema.dnEndHour.max}/>
+                        min={videoSettingsSchema.timePeriodStart.min}
+                        max={videoSettingsSchema.timePeriodEnd.max}/>
                     </div>
                   )
                 }
@@ -258,8 +260,8 @@ module.exports = class Home extends Base {
                   <span className="text-primary text-size-14">{values.sharpness}</span>
                 </div>
                 <Field name="sharpness" component={Slider} step={10}
-                  min={cameraPropertiesSchema.sharpness.min}
-                  max={cameraPropertiesSchema.sharpness.max}/>
+                  min={videoSettingsSchema.sharpness.min}
+                  max={videoSettingsSchema.sharpness.max}/>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
@@ -267,16 +269,16 @@ module.exports = class Home extends Base {
                   <Field name="orientation" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={cameraPropertiesSchema.orientation.enum.map(x => ({value: x, label: _(`orientation-${x}`)}))}/>
+                    items={videoSettingsSchema.orientation.enum.map(x => ({value: x, label: _(`orientation-${x}`)}))}/>
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Flicker less')}</label>
-                  <Field name="flickerLess" component={Dropdown}
+                  <Field name="refreshRate" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={cameraPropertiesSchema.flickerLess.enum.map(x => ({value: x, label: _(x)}))}/>
+                    items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
                 </div>
               </div>
             </div>
@@ -423,7 +425,7 @@ module.exports = class Home extends Base {
 
               <div className="col-4 pl-24">
                 <Formik
-                  initialValues={this.state.cameraProperties}
+                  initialValues={this.state.videoSettings}
                   render={this.videoPropertiesFormRender}
                   onSubmit={this.onSubmitVideoPropertiesForm}/>
               </div>

@@ -86,10 +86,10 @@ module.exports = {
       }
     })
   },
-  camera: {
-    getProperties: () => api({
+  video: {
+    getSettings: () => api({
       method: 'get',
-      url: '/api/camera/properties'
+      url: '/api/video/settings'
     })
   },
   group: {

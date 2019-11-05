@@ -23,7 +23,7 @@ module.exports = new Router({
       },
       resolve: {
         systemInformation: () => api.system.getInformation().then(response => response.data),
-        cameraProperties: () => api.camera.getProperties().then(response => response.data)
+        videoSettings: () => api.video.getSettings().then(response => response.data)
       },
       component: require('./pages/home')
     },

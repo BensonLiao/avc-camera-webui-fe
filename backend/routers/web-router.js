@@ -3,11 +3,11 @@ const rateLimit = require('express-rate-limit');
 const errors = require('../models/errors');
 const accountHandler = require('../handlers/account-handler');
 const baseHandler = require('../handlers/base-handler');
-const cameraHandler = require('../handlers/camera-handler');
 const groupHandler = require('../handlers/group-handler');
 const memberHandler = require('../handlers/member-handler');
 const systemHandler = require('../handlers/system-handler');
 const validationHandler = require('../handlers/validation-handler');
+const videoHandler = require('../handlers/video-handler');
 
 class CustomRouter {
   constructor(router) {
@@ -100,7 +100,7 @@ router.post('/api/account/_logout', accountHandler.logout);
 router.post('/api/account/_change-password', accountHandler.changePasswordWithBirthday);
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.get('/api/system/information', systemHandler.getSystemInformation);
-router.get('/api/camera/properties', cameraHandler.getProperties);
+router.get('/api/video/settings', videoHandler.getVideoSettings);
 router.get('/api/groups', groupHandler.getGroups);
 router.get('/api/groups/:groupId(\\d+)', groupHandler.getGroup);
 router.post('/api/members', memberHandler.addMember);

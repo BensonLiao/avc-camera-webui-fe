@@ -16,18 +16,49 @@ window.languageResource = {
   fluorescent: '日光燈',
   incandescent: '白熱燈泡',
   manual: '手動調整',
+  ON: '開啟',
+  OFF: '關閉',
+
+  // Shutter speed
+  'shutter-speed-0': '自動',
+  'shutter-speed-1': '1/30',
+  'shutter-speed-2': '1/50',
+  'shutter-speed-3': '1/60',
+  'shutter-speed-4': '1/100',
+  'shutter-speed-5': '1/125',
+  'shutter-speed-6': '1/500',
+  'shutter-speed-7': '1/1,000',
+  'shutter-speed-8': '1/2,000',
+  'shutter-speed-9': '1/4,000',
+  'shutter-speed-10': '1/8,000',
+
+  // Aperture
+  'aperture-0': '自動',
+  'aperture-1': '最大',
+
+  // White balance
+  'white-balance-0': '自動',
+  'white-balance-1': '戶外',
+  'white-balance-2': '日光燈',
+  'white-balance-3': '白熱燈泡',
+  'white-balance-4': '手動調整',
 
   // D/N
-  'dn-auto': '自動',
-  'dn-day': '彩色',
-  'dn-night': '黑白',
-  'dn-manual': '指定時段',
+  'daynight-mode-0': '自動',
+  'daynight-mode-1': '彩色',
+  'daynight-mode-2': '黑白',
+  'daynight-mode-3': '指定時段',
 
   // Orientation
-  'orientation-off': '正常',
-  'orientation-flip-v': '垂直翻轉',
-  'orientation-flip-h': '水平翻轉',
-  'orientation-flip-vh': '180 度翻轉',
+  'orientation-0': '正常',
+  'orientation-1': '垂直翻轉',
+  'orientation-2': '水平翻轉',
+  'orientation-3': '180 度翻轉',
+
+  // Refresh rate
+  'refresh-rate-0': '自動',
+  'refresh-rate-1': '50Hz',
+  'refresh-rate-2': '60Hz',
 
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
@@ -90,8 +121,6 @@ window.languageResource = {
   Security: '安全性',
   License: '智慧授權',
   Develop: '工程模式',
-  ON: '開啟',
-  OFF: '關閉',
 
   // /login
   'Welcome to use AndroVideo system': '歡迎使用 AndroVideo 系統',
