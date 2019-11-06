@@ -55,14 +55,15 @@ module.exports = class Home extends Base {
     super(props);
     this.submitPromise = Promise.resolve();
     this.state.deviceName = props.systemInformation.deviceName || '';
-    this.state.videoSettings = {
-      ...props.videoSettings,
-      dnDuty: [
-        props.videoSettings.timePeriodStart,
-        props.videoSettings.timePeriodEnd
-      ]
-    };
   }
+
+  generateInitialValues = videoSettings => ({
+    ...videoSettings,
+    dnDuty: [
+      videoSettings.timePeriodStart,
+      videoSettings.timePeriodEnd
+    ]
+  });
 
   onChangeVideoSettings = ({nextValues}) => {
     const values = {
@@ -73,7 +74,17 @@ module.exports = class Home extends Base {
 
     this.submitPromise = this.submitPromise
       .then(() => api.video.updateSettings(values))
-      .catch(error => utils.renderError(error));
+      .catch(utils.renderError);
+  };
+
+  generateClickResetButtonHandler = ({resetForm}) => event => {
+    event.preventDefault();
+    progress.start();
+    api.video.resetSettings()
+      .then(() => api.video.getSettings())
+      .then(response => resetForm(this.generateInitialValues(response.data)))
+      .catch(utils.renderError)
+      .finally(progress.done);
   };
 
   onSubmitDeviceNameForm = ({deviceName}, {resetForm}) => {
@@ -86,7 +97,9 @@ module.exports = class Home extends Base {
       .finally(progress.done);
   };
 
-  videoSettingsFormRender = ({values}) => {
+  videoSettingsFormRender = form => {
+    const {values} = form;
+
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
@@ -301,7 +314,10 @@ module.exports = class Home extends Base {
 
         <hr className="my-0"/>
         <div className="card-body actions">
-          <button disabled={this.state.$isApiProcessing} className="btn btn-outline-primary btn-block rounded-pill" type="button">
+          <button disabled={this.state.$isApiProcessing} type="button"
+            className="btn btn-outline-primary btn-block rounded-pill"
+            onClick={this.generateClickResetButtonHandler(form)}
+          >
             {_('Reset to defaults')}
           </button>
         </div>
@@ -429,7 +445,7 @@ module.exports = class Home extends Base {
               </div>
 
               <div className="col-4 pl-24">
-                <Formik initialValues={this.state.videoSettings}>
+                <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
                   {this.videoSettingsFormRender}
                 </Formik>
               </div>

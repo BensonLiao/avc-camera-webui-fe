@@ -30,6 +30,10 @@ exports.getVideoSettings = (req, res) => {
   });
 };
 
+exports.resetVideoSettings = (req, res) => {
+  res.status(204).send();
+};
+
 exports.updateVideoSettings = (req, res) => {
   res.json(req.body);
 };

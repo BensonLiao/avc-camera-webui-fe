@@ -103,6 +103,7 @@ router.get('/api/system/information', systemHandler.getSystemInformation);
 router.put('/api/system/device-name', systemHandler.updateDeviceName);
 router.get('/api/video/settings', videoHandler.getVideoSettings);
 router.put('/api/video/settings', videoHandler.updateVideoSettings);
+router.post('/api/video/settings/_reset', videoHandler.resetVideoSettings);
 router.get('/api/groups', groupHandler.getGroups);
 router.get('/api/groups/:groupId(\\d+)', groupHandler.getGroup);
 router.post('/api/members', memberHandler.addMember);

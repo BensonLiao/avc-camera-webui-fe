@@ -139,6 +139,10 @@ module.exports = {
         orientation,
         refreshRate
       }
+    }),
+    resetSettings: () => api({
+      method: 'post',
+      url: '/api/video/settings/_reset'
     })
   },
   group: {
