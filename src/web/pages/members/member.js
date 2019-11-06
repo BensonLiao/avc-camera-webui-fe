@@ -55,8 +55,7 @@ module.exports = class Member extends Base {
   }
 
   hideModal = () => {
-    const router = getRouter();
-    router.go({
+    getRouter().go({
       name: this.props.parentRouteName,
       params: this.props.params
     });
@@ -116,7 +115,7 @@ module.exports = class Member extends Base {
         console.log(response.data);
       })
       .catch(error => {
-        getRouter().renderError(error);
+        utils.renderError(error);
       })
       .finally(progress.done);
   };

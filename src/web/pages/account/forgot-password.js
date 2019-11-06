@@ -44,7 +44,7 @@ module.exports = class ForgotPassword extends Base {
         }
 
         progress.done();
-        getRouter().renderError(error);
+        utils.renderError(error);
       });
   }
 

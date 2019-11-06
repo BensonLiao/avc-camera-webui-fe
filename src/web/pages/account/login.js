@@ -65,7 +65,7 @@ module.exports = class Login extends Base {
         }
 
         progress.done();
-        getRouter().renderError(error);
+        utils.renderError(error);
       });
   }
 

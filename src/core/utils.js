@@ -1,4 +1,5 @@
 const Cookies = require('js-cookie');
+const {getRouter} = require('capybara-router');
 const _ = require('../languages');
 
 exports.formatTimeRange = timeRange => {
@@ -42,4 +43,11 @@ exports.makeFormikValidator = (validator, passwordFields) => values => {
     result[item.field] = item.message;
   });
   return result;
+};
+
+exports.renderError = error => {
+  getRouter().renderError(error);
+  try {
+    window.scrollTo(0, 0);
+  } catch (e) {}
 };

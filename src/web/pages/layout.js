@@ -57,7 +57,7 @@ module.exports = class Layout extends Base {
       })
       .catch(error => {
         progress.done();
-        getRouter().renderError(error);
+        utils.renderError(error);
       });
   }
 

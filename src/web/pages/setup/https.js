@@ -57,7 +57,6 @@ module.exports = class SetupHTTPS extends Base {
     /*
     @param values {Object}
       */
-    const router = getRouter();
     const $setup = store.get('$setup');
 
     progress.start();
@@ -71,7 +70,7 @@ module.exports = class SetupHTTPS extends Base {
       })
       .catch(error => {
         progress.done();
-        router.renderError(error);
+        utils.renderError(error);
       });
   };
 
