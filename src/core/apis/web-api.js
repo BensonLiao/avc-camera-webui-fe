@@ -90,6 +90,50 @@ module.exports = {
     getSettings: () => api({
       method: 'get',
       url: '/api/video/settings'
+    }),
+    updateSettings: ({
+      defoggingEnabled,
+      irEnabled,
+      brightness,
+      contrast,
+      hdrEnabled,
+      shutterSpeed,
+      aperture,
+      saturation,
+      whiteblanceMode,
+      whiteblanceManual,
+      daynightMode,
+      sensitivity,
+      timePeriodStart,
+      timePeriodEnd,
+      sharpness,
+      orientation,
+      refreshRate
+    }) => api({
+      method: 'put',
+      url: '/api/video/settings',
+      data: {
+        defoggingEnabled,
+        irEnabled,
+
+        brightness,
+        contrast,
+        hdrEnabled,
+        shutterSpeed,
+        aperture,
+
+        saturation,
+        whiteblanceMode,
+        whiteblanceManual,
+        daynightMode,
+        sensitivity,
+        timePeriodStart,
+        timePeriodEnd,
+
+        sharpness,
+        orientation,
+        refreshRate
+      }
     })
   },
   group: {

@@ -29,3 +29,7 @@ exports.getVideoSettings = (req, res) => {
     zoom: 1
   });
 };
+
+exports.updateVideoSettings = (req, res) => {
+  res.json(req.body);
+};

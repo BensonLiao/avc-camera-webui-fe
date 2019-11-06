@@ -9,6 +9,7 @@ const videoSettingsSchema = require('webserver-form-schema/video-settings-schema
 const Base = require('./shared/base');
 const _ = require('../../languages');
 const utils = require('../../core/utils');
+const api = require('../../core/apis/web-api');
 const Slider = require('../../core/components/fields/slider');
 const Dropdown = require('../../core/components/fields/dropdown');
 const FormikEffect = require('../../core/components/formik-effect');
@@ -51,6 +52,7 @@ module.exports = class Home extends Base {
 
   constructor(props) {
     super(props);
+    this.submitPromise = Promise.resolve();
     this.state.deviceName = props.systemInformation.deviceName || '';
     this.state.videoSettings = {
       ...props.videoSettings,
@@ -59,25 +61,26 @@ module.exports = class Home extends Base {
         props.videoSettings.timePeriodEnd
       ]
     };
-
-    this.onSubmitVideoPropertiesForm = this.onSubmitVideoPropertiesForm.bind(this);
-    this.onSubmitDeviceNameForm = this.onSubmitDeviceNameForm.bind(this);
   }
 
-  onSubmitVideoPropertiesForm(values) {
   onChangeVideoSettings = ({nextValues}) => {
-    // Todo: not implementation
-    console.log(values);
-  }
-    console.log(nextValues);
+    const values = {
+      ...nextValues,
+      timePeriodStart: nextValues.dnDuty[0],
+      timePeriodEnd: nextValues.dnDuty[1]
+    };
+
+    this.submitPromise = this.submitPromise
+      .then(() => api.video.updateSettings(values))
+      .catch(error => utils.renderError(error));
   };
 
-  onSubmitDeviceNameForm(values) {
+  onSubmitDeviceNameForm = values => {
     // Todo: not implementation
     console.log(values);
-  }
+  };
 
-  videoPropertiesFormRender = ({values}) => {
+  videoSettingsFormRender = ({values}) => {
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
@@ -292,11 +295,6 @@ module.exports = class Home extends Base {
 
         <hr className="my-0"/>
         <div className="card-body actions">
-          <div className="form-group">
-            <button disabled={this.state.$isApiProcessing} className="btn btn-primary btn-block rounded-pill" type="submit">
-              {_('Apply')}
-            </button>
-          </div>
           <button disabled={this.state.$isApiProcessing} className="btn btn-outline-primary btn-block rounded-pill" type="button">
             {_('Reset to defaults')}
           </button>
@@ -429,10 +427,9 @@ module.exports = class Home extends Base {
               </div>
 
               <div className="col-4 pl-24">
-                <Formik
-                  initialValues={this.state.videoSettings}
-                  render={this.videoPropertiesFormRender}
-                  onSubmit={this.onSubmitVideoPropertiesForm}/>
+                <Formik initialValues={this.state.videoSettings}>
+                  {this.videoSettingsFormRender}
+                </Formik>
               </div>
             </div>
           </div>

@@ -101,6 +101,7 @@ router.post('/api/account/_change-password', accountHandler.changePasswordWithBi
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.get('/api/system/information', systemHandler.getSystemInformation);
 router.get('/api/video/settings', videoHandler.getVideoSettings);
+router.put('/api/video/settings', videoHandler.updateVideoSettings);
 router.get('/api/groups', groupHandler.getGroups);
 router.get('/api/groups/:groupId(\\d+)', groupHandler.getGroup);
 router.post('/api/members', memberHandler.addMember);
