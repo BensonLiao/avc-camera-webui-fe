@@ -11,6 +11,7 @@ const _ = require('../../languages');
 const utils = require('../../core/utils');
 const Slider = require('../../core/components/fields/slider');
 const Dropdown = require('../../core/components/fields/dropdown');
+const FormikEffect = require('../../core/components/formik-effect');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 
 module.exports = class Home extends Base {
@@ -64,9 +65,12 @@ module.exports = class Home extends Base {
   }
 
   onSubmitVideoPropertiesForm(values) {
+  onChangeVideoSettings = ({nextValues}) => {
     // Todo: not implementation
     console.log(values);
   }
+    console.log(nextValues);
+  };
 
   onSubmitDeviceNameForm(values) {
     // Todo: not implementation
@@ -76,6 +80,7 @@ module.exports = class Home extends Base {
   videoPropertiesFormRender = ({values}) => {
     return (
       <Form className="card shadow">
+        <FormikEffect onChange={this.onChangeVideoSettings}/>
         <div className="card-header">{_('Video properties')}</div>
         <div className="card-body">
           <div className="form-row">
