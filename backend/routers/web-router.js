@@ -100,6 +100,7 @@ router.post('/api/account/_logout', accountHandler.logout);
 router.post('/api/account/_change-password', accountHandler.changePasswordWithBirthday);
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.get('/api/system/information', systemHandler.getSystemInformation);
+router.put('/api/system/device-name', systemHandler.updateDeviceName);
 router.get('/api/video/settings', videoHandler.getVideoSettings);
 router.put('/api/video/settings', videoHandler.updateVideoSettings);
 router.get('/api/groups', groupHandler.getGroups);

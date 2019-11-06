@@ -1,6 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
+const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
@@ -75,9 +76,14 @@ module.exports = class Home extends Base {
       .catch(error => utils.renderError(error));
   };
 
-  onSubmitDeviceNameForm = values => {
-    // Todo: not implementation
-    console.log(values);
+  onSubmitDeviceNameForm = ({deviceName}, {resetForm}) => {
+    progress.start();
+    api.system.updateDeviceName(deviceName)
+      .then(response => {
+        resetForm({deviceName: response.data.deviceName});
+      })
+      .catch(utils.renderError)
+      .finally(progress.done);
   };
 
   videoSettingsFormRender = ({values}) => {
@@ -304,16 +310,10 @@ module.exports = class Home extends Base {
   };
 
   deviceNameFormRender = ({errors, touched}) => {
-    const classTable = {
-      deviceName: classNames(
-        'form-control',
-        {'is-invalid': errors.deviceName && touched.deviceName}
-      )
-    };
-
     return (
       <Form className="form-group">
-        <Field name="deviceName" type="text" className={classTable.deviceName}/>
+        <Field name="deviceName" type="text"
+          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
         <small className="form-text text-muted">
           {_('Please enter letters between 1 and 32.')}
         </small>
@@ -383,8 +383,10 @@ module.exports = class Home extends Base {
                           <Formik
                             initialValues={{deviceName: this.state.deviceName}}
                             validate={utils.makeFormikValidator(deviceNameValidator)}
-                            render={this.deviceNameFormRender}
-                            onSubmit={this.onSubmitDeviceNameForm}/>
+                            onSubmit={this.onSubmitDeviceNameForm}
+                          >
+                            {this.deviceNameFormRender}
+                          </Formik>
                         </td>
                         <td className="align-top">
                           <span>{_('Face recognition: ')}</span>

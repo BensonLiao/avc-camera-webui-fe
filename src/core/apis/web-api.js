@@ -76,6 +76,11 @@ module.exports = {
       method: 'get',
       url: '/api/system/information'
     }),
+    updateDeviceName: deviceName => api({
+      method: 'put',
+      url: '/api/system/device-name',
+      data: {deviceName}
+    }),
     setup: ({language, account, https}) => api({
       method: 'post',
       url: '/api/system/_setup',

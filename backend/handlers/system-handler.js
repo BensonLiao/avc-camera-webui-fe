@@ -10,3 +10,7 @@ exports.getSystemInformation = (req, res) => {
     totalDiskSize: 7692 * 1024 * 1024
   });
 };
+
+exports.updateDeviceName = (req, res) => {
+  res.json(req.body);
+};
