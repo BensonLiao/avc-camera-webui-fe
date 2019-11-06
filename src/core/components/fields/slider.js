@@ -40,6 +40,12 @@ module.exports = class SliderField extends React.PureComponent {
     this.slider.destroy();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.field.value !== this.props.field.value) {
+      this.slider.setValue(this.props.field.value);
+    }
+  }
+
   render() {
     return (
       <div className="left-selection">
