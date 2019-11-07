@@ -153,6 +153,11 @@ module.exports = {
     getGroup: groupId => api({
       method: 'get',
       url: `/api/groups/${groupId}`
+    }),
+    addGroup: ({name, note}) => api({
+      method: 'post',
+      url: '/api/groups',
+      data: {name, note}
     })
   },
   member: {

@@ -1,3 +1,4 @@
+const progress = require('nprogress');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
@@ -6,6 +7,7 @@ const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const GroupSchema = require('webserver-form-schema/group-schema');
 const utils = require('../../../core/utils');
+const api = require('../../../core/apis/web-api');
 const _ = require('../../../languages');
 const groupValidator = require('../../validations/groups/group-validator');
 const Base = require('../shared/base');
@@ -38,10 +40,22 @@ module.exports = class Group extends Base {
     });
   };
 
-  onSubmitGroupForm(values) {
+  onSubmitGroupForm = values => {
     // Todo: not implementation
-    console.log(values);
-  }
+    progress.start();
+    if (this.props.group) {
+      // Update group;
+    } else {
+      api.group.addGroup(values)
+        .then(() => {
+          getRouter().go({name: 'web.members', params: this.props.params}, {reload: true});
+        })
+        .catch(error => {
+          progress.done();
+          utils.renderError(error);
+        });
+    }
+  };
 
   groupFormRender = ({errors, touched}) => {
     const {group} = this.props;
