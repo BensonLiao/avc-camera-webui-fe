@@ -66,7 +66,17 @@ module.exports = class Members extends Base {
     api.group.deleteGroup(this.state.deleteGroupTarget.id)
       .then(() => {
         this.hideDeleteGroupModal();
-        getRouter().reload();
+        if (`${this.state.deleteGroupTarget.id}` === this.props.params.group) {
+          getRouter().go(
+            {
+              name: 'web.members',
+              params: {...this.props.params, group: undefined, index: undefined}
+            },
+            {reload: true}
+          );
+        } else {
+          getRouter().reload();
+        }
       })
       .catch(error => {
         progress.done();
