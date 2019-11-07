@@ -40,7 +40,7 @@ module.exports = class Members extends Base {
 
   constructor(props) {
     super(props);
-    this.currentRoute = getRouter().currentRoute;
+    this.currentRoute = getRouter().findRouteByName('web.members');
     this.state.isShowDeleteGroupModal = false;
     this.state.deleteGroupTarget = null;
     this.state.selectedGroup = props.groups.items.find(x => `${x.id}` === props.params.group);
@@ -105,6 +105,7 @@ module.exports = class Members extends Base {
         name: router.currentRoute.name,
         params: {
           ...this.props.params,
+          index: undefined,
           [paramKey]: value === undefined ?
             event.target.value :
             (value == null ? undefined : value)
