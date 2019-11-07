@@ -84,7 +84,7 @@ module.exports = class Member extends Base {
       const img = document.createElement('img');
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
-      const size = 400;
+      const size = 300;
       const offset = {x: 0, y: 0};
       let rate;
 
@@ -107,7 +107,7 @@ module.exports = class Member extends Base {
       canvas.height = size;
       context.drawImage(img, offset.x, offset.y, img.width, img.height);
 
-      data.pictures = [canvas.toDataURL('image/png').replace('data:image/png;base64,', '')];
+      data.pictures = [canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', '')];
     }
 
     api.member.addMember(data)
