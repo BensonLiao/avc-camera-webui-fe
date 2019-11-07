@@ -163,6 +163,10 @@ module.exports = {
       method: 'put',
       url: `/api/groups/${id}`,
       data: {name, note}
+    }),
+    deleteGroup: groupId => api({
+      method: 'delete',
+      url: `/api/groups/${groupId}`
     })
   },
   member: {

@@ -8,6 +8,8 @@ const Modal = require('react-bootstrap/Modal').default;
 const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
 const _ = require('../../../languages');
+const utils = require('../../../core/utils');
+const api = require('../../../core/apis/web-api');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -61,8 +63,15 @@ module.exports = class Members extends Base {
   confirmDeleteGroup = event => {
     event.preventDefault();
     progress.start();
-    // Todo: not implementation
-    this.hideDeleteGroupModal();
+    api.group.deleteGroup(this.state.deleteGroupTarget.id)
+      .then(() => {
+        this.hideDeleteGroupModal();
+        getRouter().reload();
+      })
+      .catch(error => {
+        progress.done();
+        utils.renderError(error)
+      });
   };
 
   hideDeleteGroupModal = () => {

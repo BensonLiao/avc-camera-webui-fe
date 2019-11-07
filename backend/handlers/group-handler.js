@@ -33,3 +33,7 @@ exports.updateGroup = (req, res) => {
     note: '#主要執行AVC與AB的相關業務部門'
   });
 };
+
+exports.deleteGroup = (req, res) => {
+  res.status(204).send();
+};
