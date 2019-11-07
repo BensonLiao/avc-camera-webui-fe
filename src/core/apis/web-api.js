@@ -156,10 +156,10 @@ module.exports = {
     })
   },
   member: {
-    getMembers: ({index}) => api({
+    getMembers: ({index, keyword, group}) => api({
       method: 'get',
       url: '/api/members',
-      params: {index}
+      params: {index, keyword, group}
     }),
     addMember: ({name, organization, group, note, pictures}) => api({
       method: 'post',
