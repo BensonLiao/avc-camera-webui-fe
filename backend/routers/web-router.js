@@ -107,6 +107,7 @@ router.post('/api/video/settings/_reset', videoHandler.resetVideoSettings);
 router.get('/api/groups', groupHandler.getGroups);
 router.post('/api/groups', groupHandler.addGroup);
 router.get('/api/groups/:groupId(\\d+)', groupHandler.getGroup);
+router.put('/api/groups/:groupId(\\d+)', groupHandler.updateGroup);
 router.post('/api/members', memberHandler.addMember);
 router.get('/api/members', memberHandler.getMembers);
 router.get('/api/members/:memberId(\\d+)', memberHandler.getMember);

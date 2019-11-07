@@ -41,11 +41,19 @@ module.exports = class Group extends Base {
   };
 
   onSubmitGroupForm = values => {
-    // Todo: not implementation
     progress.start();
     if (this.props.group) {
-      // Update group;
+      // Update group.
+      api.group.updateGroup(values)
+        .then(() => {
+          getRouter().go({name: 'web.members', params: this.props.params}, {reload: true});
+        })
+        .catch(error => {
+          progress.done();
+          utils.renderError(error);
+        });
     } else {
+      // Add group.
       api.group.addGroup(values)
         .then(() => {
           getRouter().go({name: 'web.members', params: this.props.params}, {reload: true});
@@ -113,8 +121,8 @@ module.exports = class Group extends Base {
     if (this.props.group) {
       initialValues = {
         id: this.props.group.id,
-        name: this.props.group.name,
-        note: this.props.group.note
+        name: this.props.group.name || '',
+        note: this.props.group.note || ''
       };
     } else {
       initialValues = {
