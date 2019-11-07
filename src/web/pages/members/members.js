@@ -70,7 +70,7 @@ module.exports = class Members extends Base {
       })
       .catch(error => {
         progress.done();
-        utils.renderError(error)
+        utils.renderError(error);
       });
   };
 
