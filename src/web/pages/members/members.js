@@ -19,7 +19,7 @@ module.exports = class Members extends Base {
       }).isRequired,
       groups: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.number.isRequired,
+          id: PropTypes.string.isRequired,
           name: PropTypes.string.isRequired,
           note: PropTypes.string
         }).isRequired).isRequired
@@ -29,7 +29,7 @@ module.exports = class Members extends Base {
         size: PropTypes.number.isRequired,
         total: PropTypes.number.isRequired,
         items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.number.isRequired,
+          id: PropTypes.string.isRequired,
           name: PropTypes.string.isRequired,
           organization: PropTypes.string,
           groupId: PropTypes.number,
@@ -45,7 +45,7 @@ module.exports = class Members extends Base {
     this.currentRoute = getRouter().findRouteByName('web.members');
     this.state.isShowDeleteGroupModal = false;
     this.state.deleteGroupTarget = null;
-    this.state.selectedGroup = props.groups.items.find(x => `${x.id}` === props.params.group);
+    this.state.selectedGroup = props.groups.items.find(x => x.id === props.params.group);
     this.state.isShowDeleteMemberModal = false;
     this.state.deleteMemberTarget = null;
   }
@@ -66,7 +66,7 @@ module.exports = class Members extends Base {
     api.group.deleteGroup(this.state.deleteGroupTarget.id)
       .then(() => {
         this.hideDeleteGroupModal();
-        if (`${this.state.deleteGroupTarget.id}` === this.props.params.group) {
+        if (this.state.deleteGroupTarget.id === this.props.params.group) {
           getRouter().go(
             {
               name: 'web.members',
@@ -228,11 +228,11 @@ module.exports = class Members extends Base {
                 <div key={group.id}
                   className={classNames(
                     'group-item d-flex justify-content-between align-items-center',
-                    {active: this.props.params.group === `${group.id}`}
+                    {active: this.props.params.group === group.id}
                   )}
                 >
                   <a className="w-100 text-truncate" href={`#${group.id}`}
-                    onClick={this.generateChangeFilterHandler('group', `${group.id}`)}
+                    onClick={this.generateChangeFilterHandler('group', group.id)}
                   >
                     <i className="far fa-folder fa-fw fa-lg"/>
                     <span className="text-truncate pl-4">{group.name}</span>
