@@ -32,7 +32,7 @@ module.exports = class Members extends Base {
           id: PropTypes.string.isRequired,
           name: PropTypes.string.isRequired,
           organization: PropTypes.string,
-          groupId: PropTypes.number,
+          groupId: PropTypes.string,
           note: PropTypes.string,
           pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
         }).isRequired).isRequired

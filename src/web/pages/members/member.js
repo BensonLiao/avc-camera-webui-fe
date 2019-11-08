@@ -22,13 +22,13 @@ module.exports = class Member extends Base {
       parentRouteName: PropTypes.string.isRequired,
       groups: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.number.isRequired,
+          id: PropTypes.string.isRequired,
           name: PropTypes.string.isRequired,
           note: PropTypes.string
         }).isRequired).isRequired
       }),
       member: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
       })
