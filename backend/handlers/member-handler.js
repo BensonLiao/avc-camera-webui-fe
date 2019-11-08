@@ -8,6 +8,17 @@ exports.addMember = (req, res) => {
   });
 };
 
+exports.updateMember = (req, res) => {
+  res.json({
+    id: 1,
+    name: req.body.name,
+    organization: req.body.organization,
+    groupId: req.body.groupId,
+    note: req.body.note,
+    pictures: req.body.pictures
+  });
+};
+
 exports.getMembers = (req, res) => {
   res.json({
     index: 0,

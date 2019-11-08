@@ -54,6 +54,27 @@ module.exports = class Member extends Base {
     );
   }
 
+  generateInitialValue = member => {
+    if (member) {
+      return {
+        id: member.id,
+        name: member.name,
+        organization: member.organization || '',
+        group: member.groupId,
+        note: member.note || '',
+        zoom: 120
+      };
+    }
+
+    return {
+      name: '',
+      organization: '',
+      group: '',
+      note: '',
+      zoom: 120
+    };
+  };
+
   hideModal = () => {
     getRouter().go({
       name: this.props.parentRouteName,
@@ -110,14 +131,27 @@ module.exports = class Member extends Base {
       data.pictures = [canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', '')];
     }
 
-    api.member.addMember(data)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        utils.renderError(error);
-      })
-      .finally(progress.done);
+    if (this.props.member) {
+      // Update the member.
+      api.member.updateMember(data)
+        .then(() => {
+          getRouter().go({name: 'web.members', params: this.props.params}, {reload: true});
+        })
+        .catch(error => {
+          progress.done();
+          utils.renderError(error);
+        });
+    } else {
+      // Add a new member.
+      api.member.addMember(data)
+        .then(() => {
+          getRouter().go({name: 'web.members', params: {}}, {reload: true});
+        })
+        .catch(error => {
+          progress.done();
+          utils.renderError(error);
+        });
+    }
   };
 
   formRender = ({errors, touched, values}) => {
@@ -230,25 +264,6 @@ module.exports = class Member extends Base {
 
   render() {
     const {member} = this.props;
-    let initialValues;
-    if (member) {
-      initialValues = {
-        id: member.id,
-        name: member.name,
-        organization: member.organization,
-        group: member.groupId,
-        note: member.note,
-        zoom: 120
-      };
-    } else {
-      initialValues = {
-        name: '',
-        organization: '',
-        group: '',
-        note: '',
-        zoom: 120
-      };
-    }
 
     return (
       <Modal autoFocus={false} show={this.state.isShowModal} onHide={this.hideModal}>
@@ -256,7 +271,7 @@ module.exports = class Member extends Base {
           <Modal.Title as="h5">{member ? _('Modify member') : _('New member')}</Modal.Title>
         </Modal.Header>
         <Formik
-          initialValues={initialValues}
+          initialValues={this.generateInitialValue(member)}
           validate={utils.makeFormikValidator(MemberValidator)}
           render={this.formRender}
           onSubmit={this.onSubmitForm}/>

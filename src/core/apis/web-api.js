@@ -186,6 +186,17 @@ module.exports = {
         pictures
       }
     }),
+    updateMember: ({id, name, organization, group, note, pictures}) => api({
+      method: 'put',
+      url: `/api/members/${id}`,
+      data: {
+        name,
+        organization,
+        groupId: Number(group),
+        note,
+        pictures
+      }
+    }),
     getMember: memberId => api({
       method: 'get',
       url: `/api/members/${memberId}`

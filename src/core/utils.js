@@ -50,4 +50,6 @@ exports.renderError = error => {
   try {
     window.scrollTo(0, 0);
   } catch (e) {}
+
+  throw error;
 };

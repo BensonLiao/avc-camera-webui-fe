@@ -112,5 +112,6 @@ router.delete('/api/groups/:groupId(\\d+)', groupHandler.deleteGroup);
 router.post('/api/members', memberHandler.addMember);
 router.get('/api/members', memberHandler.getMembers);
 router.get('/api/members/:memberId(\\d+)', memberHandler.getMember);
+router.put('/api/members/:memberId(\\d+)', memberHandler.updateMember);
 
 router.get(/.*/, baseHandler.baseView);
