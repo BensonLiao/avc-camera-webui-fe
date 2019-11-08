@@ -29,7 +29,7 @@ module.exports = new Router({
     },
     {
       name: 'web.members',
-      uri: '/members?group?keyword?index',
+      uri: '/members?group?keyword?index?sort',
       onEnter: () => {
         document.title = `${_('Members')} - ${_title}`;
       },

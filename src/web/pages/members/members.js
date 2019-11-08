@@ -169,6 +169,38 @@ module.exports = class Members extends Base {
       this.currentRoute,
       {...this.props.params, index: undefined}
     );
+    const sort = {
+      name: {
+        handler: this.generateChangeFilterHandler(
+          'sort',
+          (this.props.params.sort || 'name') === 'name' ? '-name' : null
+        ),
+        icon: classNames({
+          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-name',
+          'fas fa-fw text-muted ml-3 fa-caret-up': (this.props.params.sort || 'name') === 'name'
+        })
+      },
+      organization: {
+        handler: this.generateChangeFilterHandler(
+          'sort',
+          this.props.params.sort === 'organization' ? '-organization' : 'organization'
+        ),
+        icon: classNames({
+          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-organization',
+          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'organization'
+        })
+      },
+      group: {
+        handler: this.generateChangeFilterHandler(
+          'sort',
+          this.props.params.sort === 'group' ? '-group' : 'group'
+        ),
+        icon: classNames({
+          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-group',
+          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'group'
+        })
+      }
+    };
 
     return (
       <>
@@ -270,13 +302,16 @@ module.exports = class Members extends Base {
                         <th>#</th>
                         <th>{_('Register picture')}</th>
                         <th>
-                          <a href="#">{_('Name')}</a><i className="fas fa-caret-down fa-fw text-muted ml-3"/>
+                          <a href="#name" onClick={sort.name.handler}>{_('Name')}</a>
+                          <i className={sort.name.icon}/>
                         </th>
                         <th>
-                          <a href="#">{_('Organization')}</a>
+                          <a href="#organization" onClick={sort.organization.handler}>{_('Organization')}</a>
+                          <i className={sort.organization.icon}/>
                         </th>
                         <th>
-                          <a href="#">{_('Group')}</a>
+                          <a href="#group" onClick={sort.group.handler}>{_('Group')}</a>
+                          <i className={sort.group.icon}/>
                         </th>
                         <th>{_('Note')}</th>
                         <th style={{width: '150px'}}>{_('Actions')}</th>
