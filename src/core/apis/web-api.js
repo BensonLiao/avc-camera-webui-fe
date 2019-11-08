@@ -181,7 +181,7 @@ module.exports = {
       data: {
         name,
         organization,
-        groupId: Number(group),
+        groupId: group,
         note,
         pictures
       }
@@ -192,7 +192,7 @@ module.exports = {
       data: {
         name,
         organization,
-        groupId: Number(group),
+        groupId: group,
         note,
         pictures
       }
