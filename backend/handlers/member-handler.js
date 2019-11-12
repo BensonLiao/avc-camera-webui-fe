@@ -10,7 +10,7 @@ exports.addMember = (req, res) => {
 
 exports.updateMember = (req, res) => {
   res.json({
-    id: 1,
+    id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
     name: req.body.name,
     organization: req.body.organization,
     groupId: req.body.groupId,
@@ -26,10 +26,10 @@ exports.getMembers = (req, res) => {
     total: 1,
     items: [
       {
-        id: 1,
+        id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
         name: 'abby2',
         organization: 'SW',
-        groupId: 0,
+        groupId: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060779',
         note: 'note',
         pictures: [
           'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
@@ -41,10 +41,10 @@ exports.getMembers = (req, res) => {
 
 exports.getMember = (req, res) => {
   res.json({
-    id: 1,
+    id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
     name: 'abby2',
     organization: 'SW',
-    groupId: 1,
+    groupId: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060779',
     note: 'note',
     pictures: [
       'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
