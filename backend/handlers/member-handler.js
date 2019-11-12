@@ -1,4 +1,7 @@
 exports.addMember = (req, res) => {
+  /*
+  POST /api/members
+   */
   res.json({
     name: req.body.name,
     organization: req.body.organization,
@@ -9,6 +12,9 @@ exports.addMember = (req, res) => {
 };
 
 exports.updateMember = (req, res) => {
+  /*
+  PUT /api/members/:memberId
+   */
   res.json({
     id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
     name: req.body.name,
@@ -20,6 +26,9 @@ exports.updateMember = (req, res) => {
 };
 
 exports.getMembers = (req, res) => {
+  /*
+  GET /api/members
+   */
   res.json({
     index: 0,
     size: 20,
@@ -40,6 +49,9 @@ exports.getMembers = (req, res) => {
 };
 
 exports.getMember = (req, res) => {
+  /*
+  GET /api/members/:memberId
+   */
   res.json({
     id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
     name: 'abby2',
