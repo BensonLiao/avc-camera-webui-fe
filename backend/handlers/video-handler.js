@@ -6,6 +6,9 @@ const OrientationType = require('webserver-form-schema/constants/orientation-typ
 const RefreshRate = require('webserver-form-schema/constants/refresh-rate');
 
 exports.getVideoSettings = (req, res) => {
+  /*
+  GET /api/video/settings
+   */
   res.json({
     defoggingEnabled: false,
     irEnabled: false,
@@ -31,9 +34,15 @@ exports.getVideoSettings = (req, res) => {
 };
 
 exports.resetVideoSettings = (req, res) => {
+  /*
+  POST /api/video/settings/_reset
+   */
   res.status(204).send();
 };
 
 exports.updateVideoSettings = (req, res) => {
+  /*
+  PUT /api/video/settings
+   */
   res.json(req.body);
 };
