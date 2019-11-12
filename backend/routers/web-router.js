@@ -106,13 +106,13 @@ router.put('/api/video/settings', videoHandler.updateVideoSettings);
 router.post('/api/video/settings/_reset', videoHandler.resetVideoSettings);
 router.get('/api/groups', groupHandler.getGroups);
 router.post('/api/groups', groupHandler.addGroup);
-router.get('/api/groups/:groupId(\\d+)', groupHandler.getGroup);
-router.put('/api/groups/:groupId(\\d+)', groupHandler.updateGroup);
-router.delete('/api/groups/:groupId(\\d+)', groupHandler.deleteGroup);
+router.get('/api/groups/:groupId([a-f0-9-]{36})', groupHandler.getGroup);
+router.put('/api/groups/:groupId([a-f0-9-]{36})', groupHandler.updateGroup);
+router.delete('/api/groups/:groupId([a-f0-9-]{36})', groupHandler.deleteGroup);
 router.post('/api/members', memberHandler.addMember);
 router.get('/api/members', memberHandler.getMembers);
-router.get('/api/members/:memberId(\\d+)', memberHandler.getMember);
-router.put('/api/members/:memberId(\\d+)', memberHandler.updateMember);
+router.get('/api/members/:memberId([a-f0-9-]{36})', memberHandler.getMember);
+router.put('/api/members/:memberId([a-f0-9-]{36})', memberHandler.updateMember);
 router.delete('/api/members/:memberId([a-f0-9-]{36})', memberHandler.deleteMember);
 
 router.get(/.*/, baseHandler.baseView);
