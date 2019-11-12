@@ -79,7 +79,9 @@ module.exports = class Layout extends Base {
           active: [
             'web.members',
             'web.members.new-group',
-            'web.members.modify-group'
+            'web.members.modify-group',
+            'web.members.new-member',
+            'web.members.details'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
