@@ -200,6 +200,10 @@ module.exports = {
     getMember: memberId => api({
       method: 'get',
       url: `/api/members/${memberId}`
+    }),
+    deleteMember: memberId => api({
+      method: 'delete',
+      url: `/api/members/${memberId}`
     })
   }
 };
