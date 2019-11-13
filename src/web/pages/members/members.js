@@ -101,8 +101,14 @@ module.exports = class Members extends Base {
   confirmDeleteMember = event => {
     event.preventDefault();
     progress.start();
-    // Todo: not implementation
-    this.hideDeleteMemberModal();
+    api.member.deleteMember(this.state.deleteMemberTarget.id)
+      .then(() => {
+        getRouter().reload();
+      })
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
   };
 
   hideDeleteMemberModal = () => {
@@ -394,7 +400,7 @@ module.exports = class Members extends Base {
             </div>
           </form>
         </Modal>
-
+        
         {/* Delete member modal */}
         <Modal
           show={this.state.isShowDeleteMemberModal}
