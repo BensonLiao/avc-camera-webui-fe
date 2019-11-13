@@ -3,6 +3,7 @@ exports.addMember = (req, res) => {
   POST /api/members
    */
   res.json({
+    id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
     name: req.body.name,
     organization: req.body.organization,
     groupId: req.body.groupId,
