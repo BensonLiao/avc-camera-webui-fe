@@ -63,3 +63,10 @@ exports.getMember = (req, res) => {
     ]
   });
 };
+
+exports.deleteMember = (req, res) => {
+  /*
+  DELETE /api/member/:memberId
+   */
+  res.status(204).send();
+};

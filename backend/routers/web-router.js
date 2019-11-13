@@ -113,5 +113,6 @@ router.post('/api/members', memberHandler.addMember);
 router.get('/api/members', memberHandler.getMembers);
 router.get('/api/members/:memberId([a-f0-9-]{36})', memberHandler.getMember);
 router.put('/api/members/:memberId([a-f0-9-]{36})', memberHandler.updateMember);
+router.delete('/api/members/:memberId([a-f0-9-]{36})', memberHandler.deleteMember);
 
 router.get(/.*/, baseHandler.baseView);
