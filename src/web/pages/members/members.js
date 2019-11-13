@@ -103,6 +103,7 @@ module.exports = class Members extends Base {
     progress.start();
     api.member.deleteMember(this.state.deleteMemberTarget.id)
       .then(() => {
+        this.hideDeleteMemberModal();
         getRouter().reload();
       })
       .catch(error => {
@@ -400,7 +401,7 @@ module.exports = class Members extends Base {
             </div>
           </form>
         </Modal>
-        
+
         {/* Delete member modal */}
         <Modal
           show={this.state.isShowDeleteMemberModal}
