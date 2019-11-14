@@ -146,6 +146,15 @@ module.exports = class Member extends Base {
       data.pictures = [
         convertPicture(this.state.avatarPreviewUrl, values.zoom, this.state.pictureRotateDegrees)
       ];
+    } else if (this.props.member && (this.state.pictureRotateDegrees || values.zoom !== 100)) {
+      // The user modify the exist picture.
+      data.pictures = [
+        convertPicture(
+          `data:image/jpeg;base64,${this.props.member.pictures[0]}`,
+          values.zoom,
+          this.state.pictureRotateDegrees
+        )
+      ];
     } else if (this.props.member) {
       // The user didn't modify the picture.
       data.pictures = this.props.member.pictures;
