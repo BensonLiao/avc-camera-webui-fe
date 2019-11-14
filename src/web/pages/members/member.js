@@ -63,7 +63,7 @@ module.exports = class Member extends Base {
         organization: member.organization || '',
         group: member.groupId,
         note: member.note || '',
-        zoom: 120
+        zoom: 100
       };
     }
 
@@ -72,7 +72,7 @@ module.exports = class Member extends Base {
       organization: '',
       group: '',
       note: '',
-      zoom: 120
+      zoom: 100
     };
   };
 
