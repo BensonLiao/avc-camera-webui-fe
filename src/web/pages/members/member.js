@@ -41,6 +41,7 @@ module.exports = class Member extends Base {
 
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
+    this.state.isIncorrectPicture = null;
     this.state.isShowModal = true;
     this.state.avatarPreviewUrl = null;
     this.$listens.push(
@@ -100,7 +101,6 @@ module.exports = class Member extends Base {
   onSubmitForm = values => {
     const data = {...values};
 
-    progress.start();
     if (this.avatarFile) {
       const img = document.createElement('img');
       const canvas = document.createElement('canvas');
@@ -133,6 +133,19 @@ module.exports = class Member extends Base {
       data.pictures = this.props.member.pictures;
     }
 
+    if (data.pictures && data.pictures.length) {
+      if (this.state.isIncorrectPicture) {
+        this.setState({isIncorrectPicture: null});
+      }
+    } else {
+      if (!this.state.isIncorrectPicture) {
+        this.setState({isIncorrectPicture: true});
+      }
+
+      return;
+    }
+
+    progress.start();
     if (this.props.member) {
       // Update the member.
       api.member.updateMember(data)
@@ -179,7 +192,7 @@ module.exports = class Member extends Base {
               <img className="avatar-mask" src={avatarMask} srcSet={`${avatarMask2x} 2x`}/>
               <input type="file" className="d-none" accept=".jpg,.png" onChange={this.onChangeAvatar}/>
             </label>
-            <p className="text-center text-muted text-size-14 mb-1">
+            <p className={classNames('text-center text-size-14 mb-1', this.state.isIncorrectPicture ? 'text-danger' : 'text-muted')}>
               {_('Please upload your face photo.')}
             </p>
             <div className="d-flex justify-content-center align-items-center">
