@@ -129,6 +129,8 @@ module.exports = class Member extends Base {
       context.drawImage(img, offset.x, offset.y, img.width, img.height);
 
       data.pictures = [canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', '')];
+    } else if (this.props.member) {
+      data.pictures = this.props.member.pictures;
     }
 
     if (this.props.member) {
