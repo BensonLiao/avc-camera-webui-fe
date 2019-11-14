@@ -126,7 +126,7 @@ module.exports = {
       method: 'put',
       url: '/api/system/language',
       data: {language}
-    }),
+    })
   },
   video: {
     getSettings: () => api({
