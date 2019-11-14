@@ -49,7 +49,7 @@ module.exports = class Member extends Base {
     this.state.isShowModal = true;
     this.state.avatarPreviewUrl = null;
     this.$listens.push(
-      router.listen('ChangeSuccess', (action, toState) => {
+      router.listen('ChangeStart', (action, toState) => {
         const isShowModal = [
           'web.members.new-member',
           'web.members.details'
