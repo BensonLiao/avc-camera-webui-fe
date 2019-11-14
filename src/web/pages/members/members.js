@@ -282,7 +282,11 @@ module.exports = class Members extends Base {
                         <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
                       </button>
                       <div className="dropdown-menu dropdown-menu-right shadow">
-                        <Link className="dropdown-item" to="/members/new">{_('Add a new member')}</Link>
+                        <Link className="dropdown-item"
+                          to={{name: 'web.members.new-member', params: this.props.params}}
+                        >
+                          {_('Add a new member')}
+                        </Link>
                         <Link className="dropdown-item" to="/histories">{_('Add a member from events')}</Link>
                       </div>
                     </div>
