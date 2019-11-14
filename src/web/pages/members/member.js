@@ -41,6 +41,7 @@ module.exports = class Member extends Base {
 
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
+    this.state.pictureRotateDegrees = 0;
     this.state.isIncorrectPicture = null;
     this.state.isShowModal = true;
     this.state.avatarPreviewUrl = null;
@@ -83,6 +84,14 @@ module.exports = class Member extends Base {
     });
   };
 
+  generateRotatePictureHandler = isClockwise => event => {
+    event.preventDefault();
+    const degrees = isClockwise ? 90 : -90;
+    this.setState(prevState => ({
+      pictureRotateDegrees: prevState.pictureRotateDegrees + degrees
+    }));
+  };
+
   onChangeAvatar = event => {
     const file = event.target.files[0];
 
@@ -100,16 +109,17 @@ module.exports = class Member extends Base {
 
   onSubmitForm = values => {
     const data = {...values};
-
-    if (this.avatarFile) {
+    const convertPicture = (imgSrc, zoomRate, pictureRotateDegrees) => {
+      /*
+      @returns {String} base64 jpeg string
+       */
       const img = document.createElement('img');
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
       const size = 300;
-      const offset = {x: 0, y: 0};
       let rate;
 
-      img.src = this.state.avatarPreviewUrl;
+      img.src = imgSrc;
       rate = img.height / img.width;
       if (img.width < img.height) {
         img.width = size;
@@ -119,17 +129,25 @@ module.exports = class Member extends Base {
         img.width = Math.round(img.height / rate);
       }
 
-      img.width = Math.round(img.width * values.zoom * 0.01);
-      img.height = Math.round(img.height * values.zoom * 0.01);
-      offset.x = -Math.round((img.width - size) / 2);
-      offset.y = -Math.round((img.height - size) / 2);
+      img.width = Math.round(img.width * zoomRate * 0.01);
+      img.height = Math.round(img.height * zoomRate * 0.01);
 
       canvas.width = size;
       canvas.height = size;
-      context.drawImage(img, offset.x, offset.y, img.width, img.height);
+      context.translate(canvas.width / 2, canvas.height / 2);
+      context.rotate(pictureRotateDegrees * Math.PI / 180);
+      context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
+      context.restore();
 
-      data.pictures = [canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', '')];
+      return canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', '');
+    };
+
+    if (this.avatarFile) {
+      data.pictures = [
+        convertPicture(this.state.avatarPreviewUrl, values.zoom, this.state.pictureRotateDegrees)
+      ];
     } else if (this.props.member) {
+      // The user didn't modify the picture.
       data.pictures = this.props.member.pictures;
     }
 
@@ -170,17 +188,19 @@ module.exports = class Member extends Base {
   };
 
   formRender = ({errors, touched, values}) => {
-    const avatarPreviewStyle = {
-      transform: 'scale(1)',
-      backgroundImage: `url('${defaultAvatar}')`
-    };
+    const avatarPreviewStyle = {backgroundImage: `url('${defaultAvatar}')`};
     if (this.props.member) {
       avatarPreviewStyle.backgroundImage = `url("data:image/jpeg;base64,${this.props.member.pictures[0]}")`;
     }
 
     if (this.state.avatarPreviewUrl) {
-      avatarPreviewStyle.transform = `scale(${values.zoom * 0.01})`;
+      // The user upload a new picture.
       avatarPreviewStyle.backgroundImage = `url('${this.state.avatarPreviewUrl}')`;
+    }
+
+    avatarPreviewStyle.transform = `scale(${values.zoom * 0.01})`;
+    if (this.state.pictureRotateDegrees) {
+      avatarPreviewStyle.transform += ` rotate(${this.state.pictureRotateDegrees}deg)`;
     }
 
     return (
@@ -196,10 +216,10 @@ module.exports = class Member extends Base {
               {_('Please upload your face photo.')}
             </p>
             <div className="d-flex justify-content-center align-items-center">
-              <button className="btn btn-link text-muted" type="button">
+              <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(false)}>
                 <i className="fas fa-undo fa-fw"/>
               </button>
-              <button className="btn btn-link text-muted" type="button">
+              <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(true)}>
                 <i className="fas fa-redo fa-fw"/>
               </button>
               <i className="far fa-image fa-fw fa-sm ml-3"/>
