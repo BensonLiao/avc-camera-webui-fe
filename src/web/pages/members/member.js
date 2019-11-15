@@ -320,8 +320,10 @@ module.exports = class Member extends Base {
         <Formik
           initialValues={this.generateInitialValue(member)}
           validate={utils.makeFormikValidator(MemberValidator)}
-          render={this.formRender}
-          onSubmit={this.onSubmitForm}/>
+          onSubmit={this.onSubmitForm}
+        >
+          {this.formRender}
+        </Formik>
       </Modal>
     );
   }
