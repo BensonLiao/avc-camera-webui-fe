@@ -44,7 +44,7 @@ module.exports = new Router({
     },
     {
       name: 'web.members.details',
-      uri: '/{memberId:\\d+}',
+      uri: '/{memberId:[a-f0-9-]{36}}',
       dismissalDelay: 300,
       onEnter: () => {
         document.title = `${_('Member')} - ${_title}`;

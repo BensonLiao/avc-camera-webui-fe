@@ -73,10 +73,26 @@ module.exports = {
   },
   system: {
     getInformation: () => api({
+      /*
+      @response 200
+        languageCode: {String}
+        deviceName: {String}
+        isEnableFaceRecognition: {Boolean}
+        isEnableAgeGender: {Boolean}
+        isEnableHumanoidDetection: {Boolean}
+        deviceStatus: {Number}
+        usedDiskSize: {Number}
+        totalDiskSize: {Number}
+       */
       method: 'get',
       url: '/api/system/information'
     }),
     updateDeviceName: deviceName => api({
+      /*
+      @param deviceName {String}
+      @response 200
+        deviceName: {String}
+       */
       method: 'put',
       url: '/api/system/device-name',
       data: {deviceName}
@@ -141,41 +157,118 @@ module.exports = {
       }
     }),
     resetSettings: () => api({
+      /*
+      @response 204
+       */
       method: 'post',
       url: '/api/video/settings/_reset'
     })
   },
   group: {
     getGroups: () => api({
+      /*
+      @response 200
+        items: {Array<Object>}
+          id: {String}
+          name: {String}
+          note: {String}
+       */
       method: 'get',
       url: '/api/groups'
     }),
     getGroup: groupId => api({
+      /*
+      @param groupId {Object}
+      @response 200
+        id: {String}
+        name: {String}
+        note: {String}
+       */
       method: 'get',
       url: `/api/groups/${groupId}`
     }),
     addGroup: ({name, note}) => api({
+      /*
+      @param args {Object}
+        id: {String}
+        name: {String}
+        note: {String}
+      @response 200
+        id: {String}
+        name: {String}
+        note: {String}
+       */
       method: 'post',
       url: '/api/groups',
       data: {name, note}
     }),
     updateGroup: ({id, name, note}) => api({
+      /*
+      @param args {Object}
+        id: {String}
+        name: {String}
+        note: {String}
+      @response 200
+        id: {String}
+        name: {String}
+        note: {String}
+       */
       method: 'put',
       url: `/api/groups/${id}`,
       data: {name, note}
     }),
     deleteGroup: groupId => api({
+      /*
+      @param groupId {String}
+      @response 204
+       */
       method: 'delete',
       url: `/api/groups/${groupId}`
     })
   },
   member: {
     getMembers: ({index, keyword, group, sort}) => api({
+      /*
+      Get members.
+      @param args {Object}
+        index: {Number}
+        keyword: {String}
+        group: {String} The group id.
+        sort: {String} "name", "-name", "organization", "-organization", "group", "-group"
+          name: Sorting by name with ASC.
+          -name: Sorting by name with DESC.
+      @response 200
+        index: {Number} The current page index.
+        size: {Number} The current page size.
+        total: {Number} The total item quantity.
+        items: {Array<Object>}
+          id: {String}
+          name: {String}
+          organization: {String}
+          groupId: {String} The group id.
+          note: {String}
+          pictures {Array<String>} The base64 string of jpeg images.
+       */
       method: 'get',
       url: '/api/members',
       params: {index, keyword, group, sort}
     }),
     addMember: ({name, organization, group, note, pictures}) => api({
+      /*
+      @param args {Object}
+        name: {String}
+        organization: {String}
+        group: {String} The group id.
+        note: {String}
+        pictures {Array<String>} The base64 string of jpeg images.
+      @response 200
+        id: {String}
+        name: {String}
+        organization: {String}
+        group: {String} The group id.
+        note: {String}
+        pictures {Array<String>} The base64 string of jpeg images.
+       */
       method: 'post',
       url: '/api/members',
       data: {
@@ -187,6 +280,22 @@ module.exports = {
       }
     }),
     updateMember: ({id, name, organization, group, note, pictures}) => api({
+      /*
+      @param args {Object}
+        id: {String}
+        name: {String}
+        organization: {String}
+        group: {String} The group id.
+        note: {String}
+        pictures {Array<String>} The base64 string of jpeg images.
+      @response 200
+        id: {String}
+        name: {String}
+        organization: {String}
+        group: {String} The group id.
+        note: {String}
+        pictures {Array<String>} The base64 string of jpeg images.
+       */
       method: 'put',
       url: `/api/members/${id}`,
       data: {
@@ -198,10 +307,24 @@ module.exports = {
       }
     }),
     getMember: memberId => api({
+      /*
+      @param memberId {String}
+      @response 200
+        id: {String}
+        name: {String}
+        organization: {String}
+        groupId: {String}
+        note: {String}
+        pictures: {Array<String>}
+       */
       method: 'get',
       url: `/api/members/${memberId}`
     }),
     deleteMember: memberId => api({
+      /*
+      @param memberId {String}
+      @response 204
+       */
       method: 'delete',
       url: `/api/members/${memberId}`
     })
