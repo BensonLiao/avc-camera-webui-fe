@@ -1,9 +1,4 @@
-let api;
-if (process.env.NODE_ENV === 'development') {
-  api = require('./index.dev.js');
-} else {
-  api = require('./index.js');
-}
+const api = require('./index.js');
 
 module.exports = {
   validation: {
