@@ -14,8 +14,10 @@ exports.formatTimeRange = timeRange => {
   return `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
 };
 
-exports.setCurrentLanguage = languageCode => {
+exports.setDefaultLanguage = languageCode => {
   /*
+  Set the default language via cookie.
+  This function isn't write to the camera.
   @param languageCode {String}
    */
   Cookies.set(window.config.cookies.language, languageCode, {expires: 30});

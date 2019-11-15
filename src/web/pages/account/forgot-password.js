@@ -132,8 +132,10 @@ module.exports = class ForgotPassword extends Base {
               <Formik
                 initialValues={{account: '', birthday: ''}}
                 validate={utils.makeFormikValidator(forgotPasswordValidator)}
-                render={this.forgotPasswordFormRender}
-                onSubmit={this.onSubmitForgotPasswordForm}/>
+                onSubmit={this.onSubmitForgotPasswordForm}
+              >
+                {this.forgotPasswordFormRender}
+              </Formik>
             </div>
           </div>
         </div>

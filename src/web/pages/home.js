@@ -82,7 +82,7 @@ module.exports = class Home extends Base {
     progress.start();
     api.video.resetSettings()
       .then(() => api.video.getSettings())
-      .then(response => resetForm(this.generateInitialValues(response.data)))
+      .then(response => resetForm({values: this.generateInitialValues(response.data)}))
       .catch(utils.renderError)
       .finally(progress.done);
   };
@@ -91,7 +91,7 @@ module.exports = class Home extends Base {
     progress.start();
     api.system.updateDeviceName(deviceName)
       .then(response => {
-        resetForm({deviceName: response.data.deviceName});
+        resetForm({values: {deviceName: response.data.deviceName}});
       })
       .catch(utils.renderError)
       .finally(progress.done);

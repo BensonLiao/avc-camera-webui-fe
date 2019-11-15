@@ -20,3 +20,10 @@ exports.updateDeviceName = (req, res) => {
    */
   res.json(req.body);
 };
+
+exports.updateLanguage = (req, res) => {
+  /*
+  PUT /api/system/language
+   */
+  res.json(req.body);
+};
