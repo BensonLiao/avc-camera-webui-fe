@@ -34,9 +34,10 @@ if (process.env.NODE_ENV === 'development') {
       delete newItem[newId];
       return [200, newItem];
     })
-    .onDelete('/api/members').reply(config => {
-      // WIP: not working for now, need to find a correct way to access the uri
+    .onDelete(/api\/members\/[a-f0-9-]{36}$/).reply(config => {
       console.log('config', config);
+      const itemId = config.url.replace('/api/members/', '');
+      db.get('members').remove({id: itemId}).write();
       return [204, {}];
     })
     .onAny().passThrough(); // Pass other request to normal axios
