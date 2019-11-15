@@ -22,7 +22,7 @@ module.exports = class SetupLanguage extends Base {
   onChangeLanguage(event) {
     event.preventDefault();
     progress.start();
-    utils.setCurrentLanguage(event.target.value);
+    utils.setDefaultLanguage(event.target.value);
     location.reload();
   }
 

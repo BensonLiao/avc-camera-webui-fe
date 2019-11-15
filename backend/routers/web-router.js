@@ -101,6 +101,7 @@ router.post('/api/account/_change-password', accountHandler.changePasswordWithBi
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.get('/api/system/information', systemHandler.getSystemInformation);
 router.put('/api/system/device-name', systemHandler.updateDeviceName);
+router.put('/api/system/language', systemHandler.updateLanguage);
 router.get('/api/video/settings', videoHandler.getVideoSettings);
 router.put('/api/video/settings', videoHandler.updateVideoSettings);
 router.post('/api/video/settings/_reset', videoHandler.resetVideoSettings);

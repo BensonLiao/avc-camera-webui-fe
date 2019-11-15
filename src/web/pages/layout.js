@@ -26,7 +26,6 @@ module.exports = class Layout extends Base {
     super(props);
     const router = getRouter();
 
-    this.generateChangeLanguageHandler = this.generateChangeLanguageHandler.bind(this);
     this.onClickLogout = this.onClickLogout.bind(this);
 
     this.state.currentRouteName = router.currentRoute.name;
@@ -39,14 +38,18 @@ module.exports = class Layout extends Base {
     );
   }
 
-  generateChangeLanguageHandler(languageCode) {
-    return event => {
-      event.preventDefault();
-      progress.start();
-      utils.setCurrentLanguage(languageCode);
-      location.reload();
-    };
-  }
+  generateChangeLanguageHandler = languageCode => event => {
+    event.preventDefault();
+    progress.start();
+    api.system.updateLanguage(languageCode)
+      .then(() => {
+        location.reload();
+      })
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
 
   onClickLogout(event) {
     event.preventDefault();

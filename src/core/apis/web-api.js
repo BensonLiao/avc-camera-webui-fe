@@ -98,6 +98,17 @@ module.exports = {
       data: {deviceName}
     }),
     setup: ({language, account, https}) => api({
+      /*
+      @param args {Object}
+        language: {String} "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
+        account: {Object}
+          permission: {String}
+          account: {String}
+          birthday: {String}
+          password: {String}
+      @response 200
+        account: {String}
+       */
       method: 'post',
       url: '/api/system/_setup',
       data: {
@@ -105,6 +116,16 @@ module.exports = {
         account,
         https
       }
+    }),
+    updateLanguage: language => api({
+      /*
+      @param language {String} "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
+      @response 200
+        language: {String}
+       */
+      method: 'put',
+      url: '/api/system/language',
+      data: {language}
     })
   },
   video: {
