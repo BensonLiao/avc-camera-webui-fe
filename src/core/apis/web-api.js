@@ -1,8 +1,8 @@
-const api = require('./index.js');
+let api;
 if (process.env.NODE_ENV === 'development') {
-  const mockDB = require('../db-mock');
-  const mockApi = require('./web-api-mock');
-  mockApi.create(mockDB.get());
+  api = require('./index.dev.js');
+} else {
+  api = require('./index.js');
 }
 
 module.exports = {
