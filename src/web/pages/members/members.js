@@ -274,8 +274,10 @@ module.exports = class Members extends Base {
               <div className="row">
                 <div className="col-12 d-flex justify-content-between mb-4">
                   <Formik initialValues={{keyword: this.props.params.keyword || ''}}
-                    render={this.searchFormRender}
-                    onSubmit={this.onSubmitSearchForm}/>
+                    onSubmit={this.onSubmitSearchForm}
+                  >
+                    {this.searchFormRender}
+                  </Formik>
                   <div className="form-row">
                     <div className="dropdown">
                       <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">

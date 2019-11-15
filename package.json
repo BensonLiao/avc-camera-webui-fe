@@ -35,7 +35,7 @@
     "fastest-validator": "0.6.19",
     "file-loader": "4.2.0",
     "filesize": "6.0.1",
-    "formik": "1.5.8",
+    "formik": "2.0.4",
     "grunt": "1.0.4",
     "grunt-contrib-clean": "2.0.0",
     "grunt-contrib-watch": "1.1.0",

@@ -153,8 +153,10 @@ module.exports = class SetupAccount extends Base {
               <Formik
                 initialValues={initialValue}
                 validate={utils.makeFormikValidator(setupAccountValidator, ['password', 'confirmPassword'])}
-                render={this.setupAccountFormRender}
-                onSubmit={this.onSubmitSetupAccountForm}/>
+                onSubmit={this.onSubmitSetupAccountForm}
+              >
+                {this.setupAccountFormRender}
+              </Formik>
             </div>
           </div>
         </div>

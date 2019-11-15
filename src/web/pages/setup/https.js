@@ -253,8 +253,10 @@ module.exports = class SetupHTTPS extends Base {
               <Formik
                 initialValues={initialValue}
                 validate={this.generateValidator()}
-                render={this.setupHTTPSFormRender}
-                onSubmit={this.onSubmitSetupHTTPSForm}/>
+                onSubmit={this.onSubmitSetupHTTPSForm}
+              >
+                {this.setupHTTPSFormRender}
+              </Formik>
             </div>
           </div>
         </div>

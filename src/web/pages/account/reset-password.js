@@ -133,8 +133,10 @@ module.exports = class ResetPassword extends Base {
               <Formik
                 initialValues={{password: '', confirmPassword: ''}}
                 validate={utils.makeFormikValidator(resetPasswordValidator, ['password', 'confirmPassword'])}
-                render={this.resetPasswordFormRender}
-                onSubmit={this.onSubmitResetPasswordForm}/>
+                onSubmit={this.onSubmitResetPasswordForm}
+              >
+                {this.resetPasswordFormRender}
+              </Formik>
             </div>
           </div>
         </div>
