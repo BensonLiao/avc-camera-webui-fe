@@ -1,6 +1,9 @@
 const axios = require('axios');
 const constants = require('../constants');
 const store = require('../store');
+if (process.env.NODE_ENV === 'development') {
+  require('./index.dev.js');
+}
 
 const _pool = {};
 const _updateApiStatus = () => {
