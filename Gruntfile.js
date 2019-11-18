@@ -93,9 +93,16 @@ module.exports = grunt => {
               // Run webpack dev server.
               stream: true,
               cmd: 'node',
-              args: [
-                path.join('node_modules', 'webpack-dev-server', 'bin', 'webpack-dev-server.js')
-              ]
+              args: (() => {
+                const result = [
+                  path.join('node_modules', 'webpack-dev-server', 'bin', 'webpack-dev-server.js')
+                ];
+                if (grunt.option('nobackend')) {
+                  result.push('--env.disablemockserver=true');
+                }
+
+                return result;
+              })()
             }
           ];
           if (!grunt.option('nobackend')) {

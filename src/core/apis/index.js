@@ -1,9 +1,11 @@
 const axios = require('axios');
 const constants = require('../constants');
 const store = require('../store');
-if (process.env.NODE_ENV === 'development') {
+try {
+  // This module will be ignored when `env.disablemockserver` is true.
+  // Go to webpack.config.js find "webpack.IgnorePlugin".
   require('./index.dev.js');
-}
+} catch (_) {}
 
 const _pool = {};
 const _updateApiStatus = () => {
