@@ -27,7 +27,7 @@ module.exports = class Layout extends Base {
     const router = getRouter();
 
     this.onClickLogout = this.onClickLogout.bind(this);
-
+    this.state.languageCode = props.systemInformation.languageCode || utils.getCookie('lang');
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
@@ -181,7 +181,7 @@ module.exports = class Layout extends Base {
               <div className="col d-none d-sm-block">
                 <div className="dropdown">
                   <button className="btn dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
+                    <i className="fas fa-globe fa-fw"/> {window.config.languages[this.state.languageCode].title}
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     {

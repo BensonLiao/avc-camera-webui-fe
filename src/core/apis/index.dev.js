@@ -5,11 +5,34 @@ const mockDB = require('../db-mock');
 mockDB.init();
 const db = mockDB.get();
 const mockAxios = new MockAdapter(axios);
-mockAxios.onGet('/api/groups').reply(() => {
-  return [200, {
-    items: db.get('groups').value()
-  }];
+mockAxios.onGet('/api/video/settings').reply(() => {
+  return [200, db.get('video').value()];
 })
+  .onPut('/api/video/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return [200, db.get('video').assign(newItem).write()];
+  })
+  .onPost('/api/video/settings/_reset').reply(() => {
+    const defaultItem = db.get('videoDefault').value();
+    return [204, db.get('video').assign(defaultItem).write()];
+  })
+  .onGet('/api/system/information').reply(() => {
+    return [200, db.get('system').value()];
+  })
+  .onPut('/api/system/device-name').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return [200, db.get('system').assign(newItem).write()];
+  })
+  .onPut('/api/system/language').reply(config => {
+    const newItem = JSON.parse(config.data);
+    console.log('newItem', newItem);
+    return [200, db.get('system').assign(newItem).write()];
+  })
+  .onGet('/api/groups').reply(() => {
+    return [200, {
+      items: db.get('groups').value()
+    }];
+  })
   .onGet(/api\/groups\/[a-f0-9-]{36}$/).reply(config => {
     const itemId = config.url.replace('/api/groups/', '');
     const data = db.get('groups').find({id: itemId}).value();

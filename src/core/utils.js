@@ -55,3 +55,7 @@ exports.renderError = error => {
 
   throw error;
 };
+
+exports.getCookie = cookieKey => {
+  return Cookies.get(cookieKey);
+};
