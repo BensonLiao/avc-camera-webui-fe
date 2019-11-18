@@ -102,7 +102,7 @@ module.exports = {
     updateUser: ({id, account, birthday, permission, password, newPassword}) => api({
       /*
       @param args {Object}
-        id: Number
+        id: {Number}
         account: {String}
         birthday: {String}
         permission: {String}
