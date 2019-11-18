@@ -142,7 +142,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Smart search')} {...tooltipOptions}>
-            <Link className={classTable.historis} to="/history/face-recognition.html">
+            <Link className={classTable.historis} to="/events">
               <img src={iconHistories}/>
             </Link>
           </Tooltip>
