@@ -23,11 +23,6 @@ mockAxios.onGet('/api/video/settings').reply(() => {
     const newItem = JSON.parse(config.data);
     return [200, db.get('system').assign(newItem).write()];
   })
-  .onPut('/api/system/language').reply(config => {
-    const newItem = JSON.parse(config.data);
-    console.log('newItem', newItem);
-    return [200, db.get('system').assign(newItem).write()];
-  })
   .onGet('/api/groups').reply(() => {
     return [200, {
       items: db.get('groups').value()

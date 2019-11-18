@@ -117,15 +117,15 @@ module.exports = {
         https
       }
     }),
-    updateLanguage: languageCode => api({
+    updateLanguage: language => api({
       /*
-      @param languageCode {String} "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
+      @param language {String} "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
       @response 200
-        languageCode: {String}
+        language: {String}
        */
       method: 'put',
       url: '/api/system/language',
-      data: {languageCode}
+      data: {language}
     })
   },
   video: {
