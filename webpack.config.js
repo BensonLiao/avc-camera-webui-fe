@@ -8,6 +8,7 @@ const webpack = require('webpack');
 
 module.exports = (env = {}) => {
   const isDebug = (env.mode || 'development') === 'development';
+  const isDisableMockServer = env.disablemockserver === 'true' || !isDebug;
   const buildFolder = env.buildFolder || 'dist';
 
   return {
@@ -121,6 +122,10 @@ module.exports = (env = {}) => {
         }),
         new webpack.ProvidePlugin({$: 'jquery'})
       ];
+      if (isDisableMockServer) {
+        result.push(new webpack.IgnorePlugin(/\.dev(?:\.js)+$/));
+      }
+
       if (!isDebug) {
         result.push(new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
