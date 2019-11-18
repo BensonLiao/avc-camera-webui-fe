@@ -14,7 +14,7 @@ module.exports = new Router({
       uri: '',
       isAbstract: true,
       resolve: {
-        systemInformation: () => api.system.getInformation().then(response => response.data),
+        systemInformation: () => api.system.getInformation().then(response => response.data)
       },
       component: require('./pages/layout')
     },
