@@ -1,4 +1,4 @@
-const api = require('./');
+const api = require('./index.js');
 
 module.exports = {
   validation: {

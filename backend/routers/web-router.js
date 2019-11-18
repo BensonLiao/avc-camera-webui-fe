@@ -3,11 +3,8 @@ const rateLimit = require('express-rate-limit');
 const errors = require('../models/errors');
 const accountHandler = require('../handlers/account-handler');
 const baseHandler = require('../handlers/base-handler');
-const groupHandler = require('../handlers/group-handler');
-const memberHandler = require('../handlers/member-handler');
 const systemHandler = require('../handlers/system-handler');
 const validationHandler = require('../handlers/validation-handler');
-const videoHandler = require('../handlers/video-handler');
 
 class CustomRouter {
   constructor(router) {
@@ -99,21 +96,6 @@ router.post(
 router.post('/api/account/_logout', accountHandler.logout);
 router.post('/api/account/_change-password', accountHandler.changePasswordWithBirthday);
 router.put('/api/me/password', accountHandler.changeMyPassword);
-router.get('/api/system/information', systemHandler.getSystemInformation);
-router.put('/api/system/device-name', systemHandler.updateDeviceName);
 router.put('/api/system/language', systemHandler.updateLanguage);
-router.get('/api/video/settings', videoHandler.getVideoSettings);
-router.put('/api/video/settings', videoHandler.updateVideoSettings);
-router.post('/api/video/settings/_reset', videoHandler.resetVideoSettings);
-router.get('/api/groups', groupHandler.getGroups);
-router.post('/api/groups', groupHandler.addGroup);
-router.get('/api/groups/:groupId([a-f0-9-]{36})', groupHandler.getGroup);
-router.put('/api/groups/:groupId([a-f0-9-]{36})', groupHandler.updateGroup);
-router.delete('/api/groups/:groupId([a-f0-9-]{36})', groupHandler.deleteGroup);
-router.post('/api/members', memberHandler.addMember);
-router.get('/api/members', memberHandler.getMembers);
-router.get('/api/members/:memberId([a-f0-9-]{36})', memberHandler.getMember);
-router.put('/api/members/:memberId([a-f0-9-]{36})', memberHandler.updateMember);
-router.delete('/api/members/:memberId([a-f0-9-]{36})', memberHandler.deleteMember);
 
 router.get(/.*/, baseHandler.baseView);

@@ -27,7 +27,6 @@ module.exports = class Layout extends Base {
     const router = getRouter();
 
     this.onClickLogout = this.onClickLogout.bind(this);
-
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
