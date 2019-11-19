@@ -4,6 +4,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 
 module.exports = (env = {}) => {
@@ -120,10 +121,11 @@ module.exports = (env = {}) => {
           filename: '[name].css',
           chunkFilename: '[id].css'
         }),
-        new webpack.ProvidePlugin({$: 'jquery'})
+        new webpack.ProvidePlugin({$: 'jquery'}),
+        new BundleAnalyzerPlugin()
       ];
       if (isDisableMockServer) {
-        result.push(new webpack.IgnorePlugin(/\.dev(?:\.js)+$/));
+        result.push(new webpack.IgnorePlugin(/.*dev\/.*$/));
       }
 
       if (!isDebug) {

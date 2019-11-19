@@ -4,7 +4,7 @@ const store = require('../store');
 try {
   // This module will be ignored when `env.disablemockserver` is true.
   // Go to webpack.config.js find "webpack.IgnorePlugin".
-  require('./index.dev.js');
+  require('../dev/index.js');
 } catch (_) {}
 
 const _pool = {};

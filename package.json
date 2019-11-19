@@ -81,6 +81,7 @@
     "lowdb": "1.0.0",
     "nodemon": "1.19.4",
     "npm-check-updates": "3.2.1",
-    "uuid": "3.3.3"
+    "uuid": "3.3.3",
+    "webpack-bundle-analyzer": "3.6.0"
   }
 }
