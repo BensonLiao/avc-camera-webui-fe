@@ -10,6 +10,7 @@ const webpack = require('webpack');
 module.exports = (env = {}) => {
   const isDebug = (env.mode || 'development') === 'development';
   const isDisableMockServer = env.disablemockserver === 'true' || !isDebug;
+  const isAnalyzeBuild = env.analyzeBuild === 'true' && !isDebug;
   const buildFolder = env.buildFolder || 'dist';
 
   return {
@@ -121,14 +122,17 @@ module.exports = (env = {}) => {
           filename: '[name].css',
           chunkFilename: '[id].css'
         }),
-        new webpack.ProvidePlugin({$: 'jquery'}),
-        new BundleAnalyzerPlugin()
+        new webpack.ProvidePlugin({$: 'jquery'})
       ];
       if (isDisableMockServer) {
         result.push(new webpack.IgnorePlugin(/.*dev\/.*$/));
       }
 
       if (!isDebug) {
+        if (isAnalyzeBuild) {
+          result.push(new BundleAnalyzerPlugin());
+        }
+
         result.push(new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
             discardComments: {removeAll: true}

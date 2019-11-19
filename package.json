@@ -6,6 +6,7 @@
   "scripts": {
     "start": "grunt",
     "build": "grunt build",
+    "analyze": "grunt build --analyze",
     "eslint": "node_modules/eslint/bin/eslint.js backend config src Gruntfile.js webpack.config.js",
     "ncu": "node_modules/npm-check-updates/bin/ncu",
     "test": "echo \"Error: no test specified\" && exit 1"

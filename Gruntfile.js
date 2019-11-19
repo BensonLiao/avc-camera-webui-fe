@@ -73,11 +73,18 @@ module.exports = grunt => {
             // Run webpack.
             stream: true,
             cmd: 'node',
-            args: [
-              path.join('node_modules', 'webpack', 'bin', 'webpack.js'),
-              '--env.mode=production',
-              '--env.buildFolder=<%= config.buildFolder %>'
-            ]
+            args: (() => {
+              const result = [
+                path.join('node_modules', 'webpack', 'bin', 'webpack.js'),
+                '--env.mode=production',
+                '--env.buildFolder=<%= config.buildFolder %>'
+              ];
+              if (grunt.option('analyze')) {
+                result.push('--env.analyzeBuild=true');
+              }
+
+              return result;
+            })()
           }
         ]
       },
