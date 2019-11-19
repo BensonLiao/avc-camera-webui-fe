@@ -2,8 +2,7 @@ const axios = require('axios');
 const MockAdapter = require('axios-mock-adapter');
 const uuidv4 = require('uuid/v4');
 const mockDB = require('./db');
-mockDB.init();
-const db = mockDB.get();
+const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);
 mockAxios.onGet('/api/video/settings').reply(() => {
   return [200, db.get('video').value()];
