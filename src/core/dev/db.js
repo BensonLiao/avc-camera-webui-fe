@@ -11,9 +11,6 @@ const adapter = new LocalStorage('db');
 const db = low(adapter);
 
 module.exports = {
-  get: () => {
-    return db;
-  },
   init: () => {
     db.defaults({
       videoDefault: {
@@ -96,5 +93,6 @@ module.exports = {
       ]
     })
       .write();
+    return db;
   }
 };
