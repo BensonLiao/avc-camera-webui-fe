@@ -8,7 +8,7 @@ const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
-module.exports = class Account extends Base {
+module.exports = class Users extends Base {
   constructor(props) {
     super(props);
     this.state.isShowDeleteUserModal = false;
@@ -90,7 +90,7 @@ module.exports = class Account extends Base {
                             </td>
                             <td className={tdClass}>{user.account}</td>
                             <td className={classNames('text-right', tdClass)}>
-                              <Link className="btn btn-link" to={{name: 'web.security.account.details', params: {...this.props.params, userId: user.id}}}>
+                              <Link className="btn btn-link" to={{name: 'web.security.users.details', params: {...this.props.params, userId: user.id}}}>
                                 <i className="fas fa-pen fa-lg fa-fw"/>
                               </Link>
                               <button className="btn btn-link" type="button"
@@ -109,11 +109,11 @@ module.exports = class Account extends Base {
             </div>
           </div>
 
-          {/* Delete account modal */}
+          {/* Delete user modal */}
           <Modal
-            show={this.state.isShowDeleteAccountModal}
+            show={this.state.isShowDeleteUserModal}
             autoFocus={false}
-            onHide={this.hideDeleteAccountModal}
+            onHide={this.hideDeleteUserModal}
           >
             <form>
               <div className="modal-header">

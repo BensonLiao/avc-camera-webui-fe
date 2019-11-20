@@ -114,7 +114,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.security.account',
+      name: 'web.security.users',
       uri: '/account',
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
@@ -124,8 +124,24 @@ module.exports = new Router({
         users: () => api.user.getUsers().then(response => response.data)
       },
       loadComponent: () => import(
-        /* webpackChunkName: "page-account" */
-        './pages/security/account'
+        /* webpackChunkName: "page-security" */
+        './pages/security/users'
+      )
+    },
+    {
+      name: 'web.security.users.details',
+      uri: '/account/{userId:[0-7]}',
+      dismissalDelay: 300,
+      onEnter: () => {
+        document.title = `${_('Security')} - ${_title}`;
+      },
+      resolve: {
+        parentRouteName: () => 'web.security',
+        user: params => api.user.getUser(params.userId).then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-security" */
+        './pages/members/member'
       )
     },
     {
@@ -139,24 +155,8 @@ module.exports = new Router({
         users: () => api.user.getUsers().then(response => response.data)
       },
       loadComponent: () => import(
-        /* webpackChunkName: "page-https" */
+        /* webpackChunkName: "page-security" */
         './pages/security/https'
-      )
-    },
-    {
-      name: 'web.security.account.details',
-      uri: '/{userId:[0-7]}',
-      dismissalDelay: 300,
-      onEnter: () => {
-        document.title = `${_('Security')} - ${_title}`;
-      },
-      resolve: {
-        parentRouteName: () => 'web.security',
-        user: params => api.user.getUser(params.userId).then(response => response.data)
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-user" */
-        './pages/members/member'
       )
     },
     {
