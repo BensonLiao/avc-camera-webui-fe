@@ -129,6 +129,21 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.security.https',
+      uri: '/https',
+      onEnter: () => {
+        document.title = `${_('Security')} - ${_title}`;
+      },
+      resolve: {
+        parentRouteName: () => 'web.security',
+        users: () => api.user.getUsers().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-https" */
+        './pages/security/https'
+      )
+    },
+    {
       name: 'web.security.account.details',
       uri: '/{userId:[0-7]}',
       dismissalDelay: 300,

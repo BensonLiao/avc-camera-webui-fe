@@ -8,7 +8,15 @@ module.exports = class Security extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
-    console.log('security.router', router);
+    this.state.currentRouteUri = router.currentRoute.uriTemplate;
+    this.$listens.push(
+      router.listen('ChangeStart', (action, toState) => {
+        const currentRouteUri = router.findRouteByName(toState.name).uriTemplate;
+        this.setState({
+          currentRouteUri: currentRouteUri
+        });
+      })
+    );
   }
 
   render() {
@@ -19,9 +27,14 @@ module.exports = class Security extends Base {
           <h2>{_('Security')}</h2>
           <nav className="nav flex-column">
             <Link to="/security/account" title={_('All members')}
-              className={classNames('nav-link', {active: true})}
+              className={classNames('nav-link', {active: this.state.currentRouteUri === '/security/account'})}
             >
               帳號設定
+            </Link>
+            <Link to="/security/https" title={_('All members')}
+              className={classNames('nav-link', {active: this.state.currentRouteUri === '/security/https'})}
+            >
+              HTTPS
             </Link>
           </nav>
         </div>
