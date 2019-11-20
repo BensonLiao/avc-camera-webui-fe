@@ -130,18 +130,18 @@ module.exports = new Router({
     },
     {
       name: 'web.security.users.details',
-      uri: '/account/{userId:[0-7]}',
+      uri: '/{userId:[0-7]}',
       dismissalDelay: 300,
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
       },
       resolve: {
-        parentRouteName: () => 'web.security',
+        parentRouteName: () => 'web.security.users',
         user: params => api.user.getUser(params.userId).then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
-        './pages/members/member'
+        './pages/security/user'
       )
     },
     {
