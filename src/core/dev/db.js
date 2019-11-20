@@ -90,6 +90,26 @@ module.exports = {
             'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
           ]
         }
+      ],
+      users: [
+        {
+          id: 1,
+          account: 'abby',
+          birthday: '19860221',
+          permission: 0
+        },
+        {
+          id: 2,
+          account: 'minchien',
+          birthday: '19860221',
+          permission: 0
+        },
+        {
+          id: 3,
+          account: 'barry1234',
+          birthday: '19860221',
+          permission: 1
+        }
       ]
     })
       .write();

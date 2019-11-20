@@ -103,6 +103,48 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.security',
+      uri: '/security',
+      onEnter: () => {
+        document.title = `${_('Security')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-security" */
+        './pages/security/index'
+      )
+    },
+    {
+      name: 'web.security.account',
+      uri: '/account',
+      onEnter: () => {
+        document.title = `${_('Security')} - ${_title}`;
+      },
+      resolve: {
+        parentRouteName: () => 'web.security',
+        users: () => api.user.getUsers().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-account" */
+        './pages/security/account'
+      )
+    },
+    {
+      name: 'web.security.account.details',
+      uri: '/{userId:[0-7]}',
+      dismissalDelay: 300,
+      onEnter: () => {
+        document.title = `${_('Security')} - ${_title}`;
+      },
+      resolve: {
+        parentRouteName: () => 'web.security',
+        user: params => api.user.getUser(params.userId).then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-user" */
+        './pages/members/member'
+      )
+    },
+    {
       name: 'login',
       uri: '/login',
       onEnter: () => {

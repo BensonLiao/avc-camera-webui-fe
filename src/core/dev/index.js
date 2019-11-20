@@ -82,4 +82,17 @@ mockAxios.onGet('/api/video/settings').reply(() => {
     db.get('members').remove({id: itemId}).write();
     return [204, {}];
   })
+  .onGet('/api/users').reply(() => {
+    const data = db.get('users').value();
+    delete data.birthday;
+    return [200, {
+      total: data.length,
+      items: data
+    }];
+  })
+  .onGet(/api\/users\/[0-7]$/).reply(config => {
+    const itemId = config.url.replace('/api/users/', '');
+    const data = db.get('users').find({id: itemId}).value();
+    return [200, data];
+  })
   .onAny().passThrough(); // Pass other request to normal axios

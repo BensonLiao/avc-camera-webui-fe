@@ -97,7 +97,15 @@ module.exports = class Layout extends Base {
         'btn d-flex justify-content-center align-items-center'
       ),
       security: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {
+          active: [
+            'web.security',
+            'web.security.account',
+            'web.security.https',
+            'web.security.off-line'
+          ].indexOf(this.state.currentRouteName) >= 0
+        }
       ),
       license: classNames(
         'btn d-flex justify-content-center align-items-center'
@@ -151,7 +159,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Security')} {...tooltipOptions}>
-            <Link className={classTable.security} to="/security/account.html">
+            <Link className={classTable.security} to="/security/account">
               <img src={iconSecurity}/>
             </Link>
           </Tooltip>
