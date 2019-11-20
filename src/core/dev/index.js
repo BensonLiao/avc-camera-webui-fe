@@ -79,6 +79,7 @@ mockAxios.onGet('/api/video/settings').reply(() => {
   })
   .onDelete(/api\/members\/[a-f0-9-]{36}$/).reply(config => {
     const itemId = config.url.replace('/api/members/', '');
+    console.log('onDelete members', itemId);
     db.get('members').remove({id: itemId}).write();
     return [204, {}];
   })
@@ -91,8 +92,13 @@ mockAxios.onGet('/api/video/settings').reply(() => {
     }];
   })
   .onGet(/api\/users\/[0-7]$/).reply(config => {
-    const itemId = config.url.replace('/api/users/', '');
+    const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
     const data = db.get('users').find({id: itemId}).value();
     return [200, data];
+  })
+  .onDelete(/api\/users\/[0-7]$/).reply(config => {
+    const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
+    db.get('users').remove({id: itemId}).write();
+    return [204, {}];
   })
   .onAny().passThrough(); // Pass other request to normal axios

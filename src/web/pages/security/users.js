@@ -120,13 +120,13 @@ module.exports = class Users extends Base {
                 <h5 className="modal-title">刪除帳號</h5>
               </div>
               <div className="modal-body">
-                <span className="text-muted">您即將刪除 Guest，確認要刪除這個帳號嗎？</span>
+                <span className="text-muted">您即將刪除 {this.state.deleteUserTarget && this.state.deleteUserTarget.account}，確認要刪除這個帳號嗎？</span>
               </div>
               <div className="modal-footer flex-column">
                 <div className="form-group w-100 mx-0">
-                  <button type="submit" className="btn btn-danger btn-block rounded-pill">刪除</button>
+                  <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill" onClick={this.confirmDeleteUser}>刪除</button>
                 </div>
-                <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill" data-dismiss="modal">關閉</button>
+                <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteUserModal}>關閉</button>
               </div>
             </form>
           </Modal>
