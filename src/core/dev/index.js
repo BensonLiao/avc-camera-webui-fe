@@ -96,6 +96,24 @@ mockAxios.onGet('/api/video/settings').reply(() => {
     const data = db.get('users').find({id: itemId}).value();
     return [200, data];
   })
+  .onPut(/api\/users\/[0-7]$/).reply(config => {
+    const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
+    const currentItem = db.get('users').find({id: itemId}).value();
+    const newItem = JSON.parse(config.data);
+    if (currentItem.password !== '' && currentItem.password !== newItem.password) {
+      console.groupCollapsed();
+      console.log('Your old password is incorrect.');
+      console.groupEnd();
+      return [204, {messsage: 'Your old password is incorrect.'}];
+    }
+
+    newItem.id = itemId;
+    newItem.permission = parseInt(newItem.permission, 10);
+    newItem.password = newItem.newPassword;
+    delete newItem.newPassword;
+    const data = db.get('users').find({id: itemId}).assign(newItem).write();
+    return [200, data];
+  })
   .onDelete(/api\/users\/[0-7]$/).reply(config => {
     const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
     db.get('users').remove({id: itemId}).write();

@@ -72,7 +72,7 @@ module.exports = class Users extends Base {
                       <th>#</th>
                       <th>權限</th>
                       <th>帳號</th>
-                      <th className="text-center">操作</th>
+                      <th style={{width: '150px'}}>操作</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -131,108 +131,6 @@ module.exports = class Users extends Base {
             </div>
           </form>
         </Modal>
-
-        {/* Add user modal */}
-        <div className="modal fade" id="modal-new-account" tabIndex="-1">
-          <div className="modal-dialog">
-            <form className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">新增帳號</h5>
-              </div>
-              <div className="modal-body">
-                <div className="form-group">
-                  <label>權限</label>
-                  <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-                    <select className="form-control border-0">
-                      <option>管理者</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label>帳號</label>
-                  <input type="text" className="form-control" placeholder="請輸入您的帳號"/>
-                  <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
-                </div>
-                <div className="form-group has-feedback">
-                  <label>生日</label>
-                  <input type="password" className="form-control" placeholder="請輸入您的西元出生年月日"/>
-                  <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
-                  <small className="form-text text-muted">Ex:19910326，此欄位是為了讓您忘記密碼可使用來重設密碼</small>
-                </div>
-                <div className="form-group has-feedback">
-                  <label>密碼</label>
-                  <input type="text" className="form-control" placeholder="請輸入您的密碼"/>
-                  <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye-slash"/></a>
-                  <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
-                </div>
-                <div className="form-group has-feedback">
-                  <label>確認密碼</label>
-                  <input type="password" className="form-control" placeholder="請再次輸入您的密碼"/>
-                  <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
-                </div>
-              </div>
-              <div className="modal-footer flex-column">
-                <div className="form-group w-100 mx-0">
-                  <button type="submit" className="btn btn-primary btn-block rounded-pill">新增</button>
-                </div>
-                <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill" data-dismiss="modal">關閉</button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <div className="modal fade" id="modal-update-account" tabIndex="-1">
-          <div className="modal-dialog">
-            <form className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">編輯帳號</h5>
-              </div>
-              <div className="modal-body">
-                <div className="form-group">
-                  <label>權限</label>
-                  <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-                    <select className="form-control border-0">
-                      <option>管理者</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label>帳號</label>
-                  <input type="text" className="form-control" placeholder="請輸入您的帳號"/>
-                  <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
-                </div>
-                <div className="form-group has-feedback">
-                  <label>生日</label>
-                  <input type="password" className="form-control" placeholder="請輸入您的西元出生年月日"/>
-                  <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
-                  <small className="form-text text-muted">Ex:19910326，此欄位是為了讓您忘記密碼可使用來重設密碼</small>
-                </div>
-                <div className="form-group has-feedback">
-                  <label>舊密碼</label>
-                  <input type="text" className="form-control" placeholder="請輸入您的密碼"/>
-                  <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye-slash"/></a>
-                </div>
-                <div className="form-group has-feedback">
-                  <label>密碼</label>
-                  <input type="text" className="form-control" placeholder="請輸入您的密碼"/>
-                  <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye-slash"/></a>
-                  <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
-                </div>
-                <div className="form-group has-feedback">
-                  <label>確認密碼</label>
-                  <input type="password" className="form-control" placeholder="請再次輸入您的密碼"/>
-                  <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
-                </div>
-              </div>
-              <div className="modal-footer flex-column">
-                <div className="form-group w-100 mx-0">
-                  <button type="submit" className="btn btn-primary btn-block rounded-pill">確認</button>
-                </div>
-                <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill" data-dismiss="modal">關閉</button>
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     );
   }

@@ -96,19 +96,22 @@ module.exports = {
           id: 1,
           account: 'abby',
           birthday: '19860221',
-          permission: 0
+          permission: 0,
+          password: 'aA12345678'
         },
         {
           id: 2,
           account: 'minchien',
           birthday: '19860221',
-          permission: 0
+          permission: 0,
+          password: 'bB12345678'
         },
         {
           id: 3,
-          account: 'barry1234',
+          account: 'barry123',
           birthday: '19860221',
-          permission: 1
+          permission: 1,
+          password: 'cC12345678'
         }
       ]
     })

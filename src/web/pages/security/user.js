@@ -5,6 +5,7 @@ const {Formik, Form, Field} = require('formik');
 const {getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const UserSchema = require('webserver-form-schema/user-schema');
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const UserValidator = require('../../validations/users/user-validator');
@@ -31,16 +32,22 @@ module.exports = class User extends Base {
     if (user) {
       return {
         id: user.id,
-        permission: user.permission,
+        permission: user.permission.toString(),
         account: user.account,
-        birthday: user.birthday
+        birthday: user.birthday,
+        password: '',
+        newPassword: '',
+        confirmPassword: ''
       };
     }
 
     return {
-      permission: 1,
+      permission: '0',
       account: '',
-      birthday: ''
+      birthday: '',
+      password: '',
+      newPassword: '',
+      confirmPassword: ''
     };
   };
 
@@ -53,7 +60,6 @@ module.exports = class User extends Base {
 
   onSubmitForm = values => {
     const data = {...values};
-
     progress.start();
     if (this.props.user) {
       // Update the user.
@@ -85,16 +91,19 @@ module.exports = class User extends Base {
           <div className="form-group">
             <label>權限</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-              <select className="form-control border-0">
-                <option>管理者</option>
-              </select>
+              <Field name="permission" component="select" className="form-control border-0">
+                <option value={UserPermission.root}>
+                  {_(`permission-${UserPermission.root}`)}
+                </option>
+                <option value={UserPermission.guest}>
+                  {_(`permission-${UserPermission.guest}`)}
+                </option>
+              </Field>
             </div>
           </div>
           <div className="form-group">
             <label>帳號</label>
-            {/* <input type="text" className="form-control" placeholder="請輸入您的帳號"/>
-            <small className="form-text text-muted">8 字元以內的大寫或小寫</small> */}
-            <Field name="account" type="text" placeholder={_('Please enter your account.')}
+            <Field name="account" type="text" placeholder="請輸入您的帳號"
               maxLength={UserSchema.account.max}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
             {
@@ -102,29 +111,52 @@ module.exports = class User extends Base {
                 <div className="invalid-feedback">{errors.account}</div>
               )
             }
-            <small className="form-text text-muted">{_('Letters within 8 characters.')}</small>
+            <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
           </div>
           <div className="form-group has-feedback">
             <label>生日</label>
-            <input type="password" className="form-control" placeholder="請輸入您的西元出生年月日"/>
-            <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
+            <Field name="birthday" type="text" placeholder="請輸入您的西元出生年月日"
+              className={classNames('form-control', {'is-invalid': errors.birthday && touched.birthday})}/>
+            {
+              errors.birthday && touched.birthday && (
+                <div className="invalid-feedback">{errors.birthday}</div>
+              )
+            }
             <small className="form-text text-muted">Ex:19910326，此欄位是為了讓您忘記密碼可使用來重設密碼</small>
           </div>
           <div className="form-group has-feedback">
             <label>舊密碼</label>
-            <input type="text" className="form-control" placeholder="請輸入您的密碼"/>
-            <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye-slash"/></a>
+            <Field name="password" type="text" placeholder="請輸入您的舊密碼"
+              className={classNames('form-control', {'is-invalid': errors.password && touched.password})}/>
+            {
+              errors.password && touched.password && (
+                <div className="invalid-feedback">{errors.password}</div>
+              )
+            }
+            <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
           </div>
           <div className="form-group has-feedback">
-            <label>密碼</label>
-            <input type="text" className="form-control" placeholder="請輸入您的密碼"/>
+            <label>新密碼</label>
+            <Field name="newPassword" type="password" placeholder="請輸入您的新密碼"
+              className={classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})}/>
+            {
+              errors.newPassword && touched.newPassword && (
+                <div className="invalid-feedback">{errors.newPassword}</div>
+              )
+            }
             <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye-slash"/></a>
             <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
           </div>
           <div className="form-group has-feedback">
-            <label>確認密碼</label>
-            <input type="password" className="form-control" placeholder="請再次輸入您的密碼"/>
-            <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
+            <label>確認新密碼</label>
+            <Field name="confirmPassword" type="password" placeholder="請再次輸入您的新密碼"
+              className={classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})}/>
+            {
+              errors.confirmPassword && touched.confirmPassword && (
+                <div className="invalid-feedback">{errors.confirmPassword}</div>
+              )
+            }
+            <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye-slash"/></a>
           </div>
         </div>
         <div className="modal-footer flex-column">
@@ -153,7 +185,7 @@ module.exports = class User extends Base {
         </Modal.Header>
         <Formik
           initialValues={this.generateInitialValue(user)}
-          validate={utils.makeFormikValidator(UserValidator)}
+          validate={utils.makeFormikValidator(UserValidator, ['newPassword', 'confirmPassword'])}
           onSubmit={this.onSubmitForm}
         >
           {this.formRender}
