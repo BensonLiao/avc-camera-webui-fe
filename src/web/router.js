@@ -106,7 +106,7 @@ module.exports = new Router({
     },
     {
       name: 'web.events',
-      uri: '/events?keyword?index?sort?type',
+      uri: '/events?keyword?index?sort?type?confidence?enrollStatus',
       onEnter: () => {
         document.title = `${_('Smart search')} - ${_title}`;
       },
