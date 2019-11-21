@@ -1,5 +1,6 @@
 # webserver-frontend
 
+
 ## Setup the develop environment
 ### 1. Clone the repository
 ```bash
@@ -14,7 +15,17 @@ $ npm install
 $ npm start
 ```
 
+
 ## Build
 ```bash
 $ npm run build
 ```
+
+
+## Branches
++ [master](http://192.168.100.137/cloud/webserver-frontend/tree/master)  
+  The main branch.  
+  How to push commits?
+  1. Create your new branch from `master`.
+  2. Push commits to your new branch.
+  3. Create a merge-request from your new branch to `master`.
