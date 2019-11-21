@@ -91,7 +91,10 @@ module.exports = class Layout extends Base {
         'btn d-flex justify-content-center align-items-center'
       ),
       historis: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {
+          active: ['web.events'].indexOf(this.state.currentRouteName) >= 0
+        }
       ),
       system: classNames(
         'btn d-flex justify-content-center align-items-center'
