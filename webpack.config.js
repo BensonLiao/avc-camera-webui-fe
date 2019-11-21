@@ -4,10 +4,13 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 
 module.exports = (env = {}) => {
   const isDebug = (env.mode || 'development') === 'development';
+  const isDisableMockServer = env.disablemockserver === 'true' || !isDebug;
+  const isAnalyzeBuild = env.analyzeBuild === 'true' && !isDebug;
   const buildFolder = env.buildFolder || 'dist';
 
   return {
@@ -121,7 +124,15 @@ module.exports = (env = {}) => {
         }),
         new webpack.ProvidePlugin({$: 'jquery'})
       ];
+      if (isDisableMockServer) {
+        result.push(new webpack.IgnorePlugin(/.*dev\/.*$/));
+      }
+
       if (!isDebug) {
+        if (isAnalyzeBuild) {
+          result.push(new BundleAnalyzerPlugin());
+        }
+
         result.push(new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
             discardComments: {removeAll: true}

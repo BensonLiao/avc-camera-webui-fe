@@ -71,6 +71,61 @@ module.exports = {
       data: {password, newPassword}
     })
   },
+  user: {
+    getUsers: () => api({
+      /*
+      @response 200
+        items: {Array<Object>}
+          id: {Number}
+          account: {String}
+          permission: {String}
+       */
+      method: 'get',
+      url: '/api/users'
+    }),
+    addUser: ({account, permission, birthday, password}) => api({
+      /*
+      @param args {Object}
+        account: {String}
+        permission: {String}
+        birthday: {String}
+        password: {String}
+      @response 200
+        id: {Number}
+        account: {String}
+        permission: {String}
+       */
+      method: 'post',
+      url: '/api/users',
+      data: {account, permission, birthday, password}
+    }),
+    updateUser: ({id, account, birthday, permission, password, newPassword}) => api({
+      /*
+      @param args {Object}
+        id: {Number}
+        account: {String}
+        birthday: {String}
+        permission: {String}
+        password: {String} The old password.
+        newPassword: {String}
+      @response 200
+        id: {Number}
+        account: {String}
+        permission: {String}
+       */
+      method: 'put',
+      url: `/api/users/${id}`,
+      data: {account, birthday, permission, password, newPassword}
+    }),
+    deleteUser: userId => api({
+      /*
+      @param userId {Number}
+      @response 204
+       */
+      method: 'delete',
+      url: `/api/users/${userId}`
+    })
+  },
   system: {
     getInformation: () => api({
       /*
