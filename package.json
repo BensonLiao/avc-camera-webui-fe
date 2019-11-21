@@ -13,11 +13,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/androvideo/webserver-frontend.git"
+    "url": "git+http://192.168.100.137/cloud/webserver-frontend.git"
   },
   "author": "",
   "private": true,
-  "homepage": "https://bitbucket.org/androvideo/webserver-frontend#readme",
+  "homepage": "http://192.168.100.137/cloud/webserver-frontend",
   "dependencies": {
     "@babel/core": "7.7.2",
     "@babel/plugin-proposal-class-properties": "7.7.0",
