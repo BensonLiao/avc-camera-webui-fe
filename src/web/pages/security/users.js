@@ -1,14 +1,45 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
+const UserSchema = require('webserver-form-schema/user-schema');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
 module.exports = class Users extends Base {
+  static get propTypes() {
+    return {
+      parentRouteName: PropTypes.string.isRequired,
+      users: PropTypes.shape({
+        total: PropTypes.number.isRequired,
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          permission: PropTypes.number.isRequired,
+          account: (props, propName, componentName) => {
+            if (!/.+/.test(props[propName])) {
+              return new Error(
+                'Invalid prop `' + propName + '` supplied to' +
+                ' `' + componentName + '`. Validation failed.'
+              );
+            }
+          },
+          birthday: (props, propName, componentName) => {
+            if (!UserSchema.birthday.pattern.test(props[propName])) {
+              return new Error(
+                'Invalid prop `' + propName + '` supplied to' +
+                ' `' + componentName + '`. Validation failed.'
+              );
+            }
+          }
+        })).isRequired
+      }).isRequired
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state.isShowDeleteUserModal = false;

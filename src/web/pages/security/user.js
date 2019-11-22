@@ -1,6 +1,7 @@
+const React = require('react');
+const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
-const React = require('react');
 const {Formik, Form, Field} = require('formik');
 const {getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
@@ -13,6 +14,32 @@ const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
 module.exports = class User extends Base {
+  static get propTypes() {
+    return {
+      parentRouteName: PropTypes.string.isRequired,
+      user: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        permission: PropTypes.number.isRequired,
+        account: (props, propName, componentName) => {
+          if (!/.+/.test(props[propName])) {
+            return new Error(
+              'Invalid prop `' + propName + '` supplied to' +
+              ' `' + componentName + '`. Validation failed.'
+            );
+          }
+        },
+        birthday: (props, propName, componentName) => {
+          if (!UserSchema.birthday.pattern.test(props[propName])) {
+            return new Error(
+              'Invalid prop `' + propName + '` supplied to' +
+              ' `' + componentName + '`. Validation failed.'
+            );
+          }
+        }
+      })
+    };
+  }
+
   constructor(props) {
     super(props);
     const router = getRouter();
