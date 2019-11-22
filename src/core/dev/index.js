@@ -90,12 +90,12 @@ mockAxios.onGet('/api/video/settings').reply(() => {
       items: data
     }];
   })
-  .onGet(/api\/users\/\d$/).reply(config => {
+  .onGet(/api\/users\/\d+$/).reply(config => {
     const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
     const data = db.get('users').find({id: itemId}).value();
     return [200, data];
   })
-  .onPut(/api\/users\/\d$/).reply(config => {
+  .onPut(/api\/users\/\d+$/).reply(config => {
     const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
     const currentItem = db.get('users').find({id: itemId}).value();
     const newItem = JSON.parse(config.data);
@@ -110,7 +110,7 @@ mockAxios.onGet('/api/video/settings').reply(() => {
     const data = db.get('users').find({id: itemId}).assign(newItem).write();
     return [200, data];
   })
-  .onDelete(/api\/users\/\d$/).reply(config => {
+  .onDelete(/api\/users\/\d+$/).reply(config => {
     const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
     db.get('users').remove({id: itemId}).write();
     return [204, {}];

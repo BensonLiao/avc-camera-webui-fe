@@ -132,7 +132,7 @@ module.exports = new Router({
     },
     {
       name: 'web.security.users.details',
-      uri: '/{userId:[0-7]}',
+      uri: '/{userId:\\d+}',
       dismissalDelay: 300,
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
@@ -187,7 +187,7 @@ module.exports = new Router({
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
-        './pages/security/offLine'
+        './pages/security/off-line'
       )
     },
     {
