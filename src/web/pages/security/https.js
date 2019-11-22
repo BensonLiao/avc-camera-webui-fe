@@ -3,8 +3,6 @@ const Base = require('../shared/base');
 
 module.exports = class Https extends Base {
   render() {
-    const users = this.props.users.items;
-    console.log('users', users);
     return (
       <div className="main-content left-menu-active">
         <div className="page-security">

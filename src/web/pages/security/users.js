@@ -60,9 +60,11 @@ module.exports = class Users extends Base {
               </div>
 
               <div className="col-12 actions">
-                <button type="button" className="btn btn-outline-primary rounded-pill px-3" data-toggle="modal" data-target="#modal-new-account">
+                <Link className="btn btn-outline-primary rounded-pill px-3"
+                  to={{name: 'web.security.users.new-user', params: this.props.params}}
+                >
                   <i className="fas fa-plus fa-fw"/> 新增帳號
-                </button>
+                </Link>
               </div>
 
               <div className="col-12">

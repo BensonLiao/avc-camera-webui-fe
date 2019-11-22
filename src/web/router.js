@@ -145,18 +145,47 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.security.users.new-user',
+      uri: '/new',
+      dismissalDelay: 300,
+      onEnter: () => {
+        document.title = `${_('New user')} - ${_title}`;
+      },
+      resolve: {
+        parentRouteName: () => 'web.security.users',
+        user: () => null
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-security" */
+        './pages/security/user'
+      )
+    },
+    {
       name: 'web.security.https',
       uri: '/https',
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
       },
       resolve: {
-        parentRouteName: () => 'web.security',
-        users: () => api.user.getUsers().then(response => response.data)
+        parentRouteName: () => 'web.security'
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
         './pages/security/https'
+      )
+    },
+    {
+      name: 'web.security.off-line',
+      uri: '/off-line',
+      onEnter: () => {
+        document.title = `${_('Security')} - ${_title}`;
+      },
+      resolve: {
+        parentRouteName: () => 'web.security'
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-security" */
+        './pages/security/offLine'
       )
     },
     {
