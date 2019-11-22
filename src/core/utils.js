@@ -55,3 +55,17 @@ exports.renderError = error => {
 
   throw error;
 };
+
+exports.mockResponseWithLog = (req, res) => {
+  /*
+  Log mock XHR like axios with console.groupCollapsed() and return mock response.
+  @param req {Object} XHR request instance, or if we use library like axios then `config` is the axios config and contains things like the url. ref: https://github.com/axios/axios#request-config
+  @param res {*} Accept any type of response, or if we use library like axios-mock-adapter then this will be an array in the form of [status, data, headers]. ref: https://github.com/ctimmerm/axios-mock-adapter
+  @returns {*} Same as @param res
+   */
+  console.groupCollapsed('mock axios xhr log:');
+  console.log('req config:', req);
+  console.log('res: [status, data, headers]', res);
+  console.groupEnd();
+  return res;
+};
