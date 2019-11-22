@@ -13,11 +13,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/androvideo/webserver-frontend.git"
+    "url": "git+http://192.168.100.137/cloud/webserver-frontend.git"
   },
   "author": "",
   "private": true,
-  "homepage": "https://bitbucket.org/androvideo/webserver-frontend#readme",
+  "homepage": "http://192.168.100.137/cloud/webserver-frontend",
   "dependencies": {
     "@babel/core": "7.7.2",
     "@babel/plugin-proposal-class-properties": "7.7.0",
@@ -63,7 +63,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#d02181e59615249a8e7b1927fc6129b67c8d1131",
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#ee57153b682aaecc50abfba572de6cacd280618b",
     "webserver-prototype": "git+http://gitlab+deploy-token-4:4T2Lsn6ZE__sh6ZoCsPN@192.168.100.137/cloud/webserver-prototype.git#8edb07e8b36e005e82c47ebcf0ab3e74106d3d66"
   },
   "devDependencies": {
@@ -78,7 +78,7 @@
     "express": "4.17.1",
     "express-handlebars": "3.1.0",
     "express-rate-limit": "5.0.0",
-    "handlebars": "4.5.2",
+    "handlebars": "4.5.3",
     "lowdb": "1.0.0",
     "nodemon": "1.19.4",
     "npm-check-updates": "3.2.1",

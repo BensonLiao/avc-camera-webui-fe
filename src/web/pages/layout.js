@@ -91,7 +91,10 @@ module.exports = class Layout extends Base {
         'btn d-flex justify-content-center align-items-center'
       ),
       historis: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {
+          active: ['web.events'].indexOf(this.state.currentRouteName) >= 0
+        }
       ),
       system: classNames(
         'btn d-flex justify-content-center align-items-center'
@@ -149,7 +152,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Smart search')} {...tooltipOptions}>
-            <Link className={classTable.historis} to="/history/face-recognition.html">
+            <Link className={classTable.historis} to="/events">
               <img src={iconHistories}/>
             </Link>
           </Tooltip>

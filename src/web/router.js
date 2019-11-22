@@ -13,6 +13,9 @@ module.exports = new Router({
       name: 'web',
       uri: '',
       isAbstract: true,
+      resolve: {
+        systemInformation: () => api.system.getInformation().then(response => response.data)
+      },
       component: require('./pages/layout')
     },
     {
@@ -22,7 +25,6 @@ module.exports = new Router({
         document.title = `${_('Home')} - ${_title}`;
       },
       resolve: {
-        systemInformation: () => api.system.getInformation().then(response => response.data),
         videoSettings: () => api.video.getSettings().then(response => response.data)
       },
       component: require('./pages/home')
@@ -186,6 +188,18 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
         './pages/security/offLine'
+      )
+    },
+    {
+      name: 'web.events',
+      uri: '/events?keyword?index?sort?type?confidence?enrollStatus',
+      onEnter: () => {
+        document.title = `${_('Smart search')} - ${_title}`;
+      },
+      resolve: {},
+      loadComponent: () => import(
+        /* webpackChunkName: "page-events" */
+        './pages/events/events'
       )
     },
     {

@@ -425,9 +425,13 @@ module.exports = class Home extends Base {
                         </td>
                         <td className="align-top">
                           <div className="progress">
-                            <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                              {`${usedDiskPercentage}%`}
-                            </div>
+                            {
+                              isNaN(usedDiskPercentage) ?
+                                <div className="progress-bar"/> :
+                                <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
+                                  {`${usedDiskPercentage}%`}
+                                </div>
+                            }
                           </div>
                           <p>
                             {
