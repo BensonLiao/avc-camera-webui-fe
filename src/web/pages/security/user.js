@@ -124,20 +124,22 @@ module.exports = class User extends Base {
             }
             <small className="form-text text-muted">Ex:19910326，此欄位是為了讓您忘記密碼可使用來重設密碼</small>
           </div>
+          {this.props.user && (
+            <div className="form-group has-feedback">
+              <label>舊密碼</label>
+              <Field name="password" type="text" placeholder="請輸入您的舊密碼"
+                className={classNames('form-control', {'is-invalid': errors.password && touched.password})}/>
+              {
+                errors.password && touched.password && (
+                  <div className="invalid-feedback">{errors.password}</div>
+                )
+              }
+              <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
+            </div>
+          )}
           <div className="form-group has-feedback">
-            <label>舊密碼</label>
-            <Field name="password" type="text" placeholder="請輸入您的舊密碼"
-              className={classNames('form-control', {'is-invalid': errors.password && touched.password})}/>
-            {
-              errors.password && touched.password && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )
-            }
-            <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
-          </div>
-          <div className="form-group has-feedback">
-            <label>新密碼</label>
-            <Field name="newPassword" type="password" placeholder="請輸入您的新密碼"
+            <label>{this.props.user ? '確認新密碼' : '確認密碼'}</label>
+            <Field name="newPassword" type="password" placeholder={this.props.user ? '請輸入您的新密碼' : '請輸入您的密碼'}
               className={classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})}/>
             {
               errors.newPassword && touched.newPassword && (
@@ -148,8 +150,8 @@ module.exports = class User extends Base {
             <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
           </div>
           <div className="form-group has-feedback">
-            <label>確認新密碼</label>
-            <Field name="confirmPassword" type="password" placeholder="請再次輸入您的新密碼"
+            <label>{this.props.user ? '確認新密碼' : '確認密碼'}</label>
+            <Field name="confirmPassword" type="password" placeholder={this.props.user ? '請再次輸入您的新密碼' : '請再次輸入您的密碼'}
               className={classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})}/>
             {
               errors.confirmPassword && touched.confirmPassword && (
