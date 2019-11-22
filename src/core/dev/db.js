@@ -60,7 +60,7 @@ module.exports = {
       system: {
         languageCode: 'en-us',
         deviceName: 'IP Camera',
-        isEnableFaceRecognition: false,
+        isEnableFaceRecognition: true,
         isEnableAgeGender: false,
         isEnableHumanoidDetection: false,
         deviceStatus: 1,

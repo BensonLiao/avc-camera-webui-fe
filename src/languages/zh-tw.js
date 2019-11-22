@@ -240,6 +240,21 @@ window.languageResource = {
   Orientation: '影像方向',
   'Flicker less': '刷新頻率',
 
+  // /events
+  'Filter condition': '篩選條件',
+  Clean: '清除條件',
+  'Face recognition': '臉部辨識',
+  'Age gender': '性別年齡',
+  'Not activated': '未啟用',
+  'Humanoid detection': '人形偵測',
+  Similarity: '相似度',
+  Low: '低',
+  Medium: '中',
+  High: '高',
+  'Recognition result': '辨識狀態',
+  Registered: '已註冊',
+  Unknown: '未註冊',
+
   // /members
   'All members': '所有成員',
   Groups: '群組',

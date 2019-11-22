@@ -116,28 +116,24 @@ module.exports = class Members extends Base {
     this.setState({isShowDeleteMemberModal: false});
   };
 
-  generateChangeFilterHandler = (paramKey, value) => {
+  generateChangeFilterHandler = (paramKey, value) => event => {
     /*
     @param paramKey {String}
     @param value {Any}
       The filter value. Pass null to remove the param.
     @returns {Function}
      */
-    return event => {
-      const router = getRouter();
-
-      event.preventDefault();
-      router.go({
-        name: router.currentRoute.name,
-        params: {
-          ...this.props.params,
-          index: undefined,
-          [paramKey]: value === undefined ?
-            event.target.value :
-            (value == null ? undefined : value)
-        }
-      });
-    };
+    event.preventDefault();
+    getRouter().go({
+      name: this.currentRoute.name,
+      params: {
+        ...this.props.params,
+        index: undefined,
+        [paramKey]: value === undefined ?
+          event.target.value :
+          (value == null ? undefined : value)
+      }
+    });
   };
 
   onSubmitSearchForm = ({keyword}) => {
