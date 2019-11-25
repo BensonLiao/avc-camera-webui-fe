@@ -85,11 +85,10 @@ module.exports = class User extends Base {
     };
   };
 
-  hideModal = () => {
+  hideModal = (reload = false) => {
     getRouter().go({
-      name: this.props.parentRouteName,
-      params: this.props.params
-    });
+      name: this.props.parentRouteName
+    }, {reload});
   };
 
   toggleFieldInputMask = field => event => {
@@ -104,12 +103,13 @@ module.exports = class User extends Base {
 
   onSubmitForm = values => {
     const data = {...values};
+    const reload = true;
     progress.start();
     if (this.props.user) {
       // Update the user.
       api.user.updateUser(data)
         .then(() => {
-          getRouter().go({name: 'web.security.users', params: this.props.params}, {reload: true});
+          this.hideModal(reload);
         })
         .catch(error => {
           progress.done();
@@ -119,7 +119,7 @@ module.exports = class User extends Base {
       // Add a new user.
       api.user.addUser(data)
         .then(() => {
-          getRouter().go({name: 'web.security.users', params: {}}, {reload: true});
+          this.hideModal(reload);
         })
         .catch(error => {
           progress.done();
