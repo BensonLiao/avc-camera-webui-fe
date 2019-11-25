@@ -47,7 +47,7 @@ module.exports = class User extends Base {
     this.state = {
       isShowModal: true,
       inputMask: {
-        password: false,
+        password: !this.props.user,
         newPassword: true,
         confirmPassword: true
       }
