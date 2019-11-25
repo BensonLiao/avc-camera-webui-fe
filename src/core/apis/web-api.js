@@ -83,6 +83,17 @@ module.exports = {
       method: 'get',
       url: '/api/users'
     }),
+    getUser: userId => api({
+      /*
+      @param userId {Object}
+      @response 200
+        id: {Number}
+        account: {String}
+        permission: {String}
+       */
+      method: 'get',
+      url: `/api/users/${userId}`
+    }),
     addUser: ({account, permission, birthday, password}) => api({
       /*
       @param args {Object}
