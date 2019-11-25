@@ -43,7 +43,14 @@ module.exports = class User extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
-    this.state.isShowModal = true;
+    this.state = {
+      isShowModal: true,
+      inputMask: {
+        password: false,
+        newPassword: true,
+        confirmPassword: true
+      }
+    };
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
         const isShowModal = [
@@ -85,6 +92,17 @@ module.exports = class User extends Base {
     });
   };
 
+  toggleFieldInputMask = field => event => {
+    event.preventDefault();
+    console.log('event', event.currentTarget);
+    this.setState(prevState => ({
+      inputMask: {
+        ...prevState.inputMask,
+        [field]: !prevState.inputMask[field]
+      }
+    }));
+  }
+
   onSubmitForm = values => {
     const data = {...values};
     progress.start();
@@ -112,6 +130,7 @@ module.exports = class User extends Base {
   };
 
   formRender = ({errors, touched}) => {
+    const {inputMask} = this.state;
     return (
       <Form>
         <div className="modal-body">
@@ -154,38 +173,40 @@ module.exports = class User extends Base {
           {this.props.user && (
             <div className="form-group has-feedback">
               <label>舊密碼</label>
-              <Field name="password" type="text" placeholder="請輸入您的舊密碼"
+              <Field name="password" type={inputMask.password ? 'password' : 'text'} placeholder="請輸入您的舊密碼"
                 className={classNames('form-control', {'is-invalid': errors.password && touched.password})}/>
               {
                 errors.password && touched.password && (
                   <div className="invalid-feedback">{errors.password}</div>
                 )
               }
-              <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye"/></a>
+              <a href="#" className="form-control-feedback text-muted" onClick={this.toggleFieldInputMask('password')}>
+                <i className={classNames('fas', inputMask.password ? 'fa-eye-slash' : 'fa-eye')}/>
+              </a>
             </div>
           )}
           <div className="form-group has-feedback">
             <label>{this.props.user ? '確認新密碼' : '確認密碼'}</label>
-            <Field name="newPassword" type="password" placeholder={this.props.user ? '請輸入您的新密碼' : '請輸入您的密碼'}
+            <Field name="newPassword" type={inputMask.newPassword ? 'password' : 'text'} placeholder={this.props.user ? '請輸入您的新密碼' : '請輸入您的密碼'}
               className={classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})}/>
             {
               errors.newPassword && touched.newPassword && (
                 <div className="invalid-feedback">{errors.newPassword}</div>
               )
             }
-            <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye-slash"/></a>
+            <a href="#" className="form-control-feedback text-muted" onClick={this.toggleFieldInputMask('newPassword')}><i className={classNames('fas', inputMask.newPassword ? 'fa-eye-slash' : 'fa-eye')}/></a>
             <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
           </div>
           <div className="form-group has-feedback">
             <label>{this.props.user ? '確認新密碼' : '確認密碼'}</label>
-            <Field name="confirmPassword" type="password" placeholder={this.props.user ? '請再次輸入您的新密碼' : '請再次輸入您的密碼'}
+            <Field name="confirmPassword" type={inputMask.confirmPassword ? 'password' : 'text'} placeholder={this.props.user ? '請再次輸入您的新密碼' : '請再次輸入您的密碼'}
               className={classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})}/>
             {
               errors.confirmPassword && touched.confirmPassword && (
                 <div className="invalid-feedback">{errors.confirmPassword}</div>
               )
             }
-            <a href="#" className="form-control-feedback text-muted"><i className="fas fa-eye-slash"/></a>
+            <a href="#" className="form-control-feedback text-muted" onClick={this.toggleFieldInputMask('confirmPassword')}><i className={classNames('fas', inputMask.confirmPassword ? 'fa-eye-slash' : 'fa-eye')}/></a>
           </div>
         </div>
         <div className="modal-footer flex-column">
