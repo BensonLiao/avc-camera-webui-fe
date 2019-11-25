@@ -10,6 +10,7 @@ const UserPermission = require('webserver-form-schema/constants/user-permission'
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const UserValidator = require('../../validations/users/user-validator');
+const UserNewValidator = require('../../validations/users/user-new-validator');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
@@ -80,7 +81,6 @@ module.exports = class User extends Base {
       account: '',
       birthday: '',
       password: '',
-      newPassword: '',
       confirmPassword: ''
     };
   };
@@ -94,7 +94,6 @@ module.exports = class User extends Base {
 
   toggleFieldInputMask = field => event => {
     event.preventDefault();
-    console.log('event', event.currentTarget);
     this.setState(prevState => ({
       inputMask: {
         ...prevState.inputMask,
@@ -170,33 +169,33 @@ module.exports = class User extends Base {
             }
             <small className="form-text text-muted">Ex:19910326，此欄位是為了讓您忘記密碼可使用來重設密碼</small>
           </div>
-          {this.props.user && (
-            <div className="form-group has-feedback">
-              <label>舊密碼</label>
-              <Field name="password" type={inputMask.password ? 'password' : 'text'} placeholder="請輸入您的舊密碼"
-                className={classNames('form-control', {'is-invalid': errors.password && touched.password})}/>
-              {
-                errors.password && touched.password && (
-                  <div className="invalid-feedback">{errors.password}</div>
-                )
-              }
-              <a href="#" className="form-control-feedback text-muted" onClick={this.toggleFieldInputMask('password')}>
-                <i className={classNames('fas', inputMask.password ? 'fa-eye-slash' : 'fa-eye')}/>
-              </a>
-            </div>
-          )}
           <div className="form-group has-feedback">
-            <label>{this.props.user ? '確認新密碼' : '確認密碼'}</label>
-            <Field name="newPassword" type={inputMask.newPassword ? 'password' : 'text'} placeholder={this.props.user ? '請輸入您的新密碼' : '請輸入您的密碼'}
-              className={classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})}/>
+            <label>{this.props.user ? '舊密碼' : '密碼'}</label>
+            <Field name="password" type={inputMask.password ? 'password' : 'text'} placeholder={this.props.user ? '請輸入您的舊密碼' : '請輸入您的密碼'}
+              className={classNames('form-control', {'is-invalid': errors.password && touched.password})}/>
             {
-              errors.newPassword && touched.newPassword && (
-                <div className="invalid-feedback">{errors.newPassword}</div>
+              errors.password && touched.password && (
+                <div className="invalid-feedback">{errors.password}</div>
               )
             }
-            <a href="#" className="form-control-feedback text-muted" onClick={this.toggleFieldInputMask('newPassword')}><i className={classNames('fas', inputMask.newPassword ? 'fa-eye-slash' : 'fa-eye')}/></a>
-            <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
+            <a href="#" className="form-control-feedback text-muted" onClick={this.toggleFieldInputMask('password')}>
+              <i className={classNames('fas', inputMask.password ? 'fa-eye-slash' : 'fa-eye')}/>
+            </a>
           </div>
+          {this.props.user && (
+            <div className="form-group has-feedback">
+              <label>確認新密碼</label>
+              <Field name="newPassword" type={inputMask.newPassword ? 'password' : 'text'} placeholder="請輸入您的新密碼"
+                className={classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})}/>
+              {
+                errors.newPassword && touched.newPassword && (
+                  <div className="invalid-feedback">{errors.newPassword}</div>
+                )
+              }
+              <a href="#" className="form-control-feedback text-muted" onClick={this.toggleFieldInputMask('newPassword')}><i className={classNames('fas', inputMask.newPassword ? 'fa-eye-slash' : 'fa-eye')}/></a>
+              <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
+            </div>
+          )}
           <div className="form-group has-feedback">
             <label>{this.props.user ? '確認新密碼' : '確認密碼'}</label>
             <Field name="confirmPassword" type={inputMask.confirmPassword ? 'password' : 'text'} placeholder={this.props.user ? '請再次輸入您的新密碼' : '請再次輸入您的密碼'}
@@ -227,6 +226,7 @@ module.exports = class User extends Base {
 
   render() {
     const {user} = this.props;
+    const validator = user ? UserValidator : UserNewValidator;
 
     return (
       <Modal autoFocus={false} show={this.state.isShowModal} onHide={this.hideModal}>
@@ -235,7 +235,10 @@ module.exports = class User extends Base {
         </Modal.Header>
         <Formik
           initialValues={this.generateInitialValue(user)}
-          validate={utils.makeFormikValidator(UserValidator, ['newPassword', 'confirmPassword'])}
+          validate={utils.makeFormikValidator(
+            validator,
+            [user ? 'newPassword' : 'password', 'confirmPassword']
+          )}
           onSubmit={this.onSubmitForm}
         >
           {this.formRender}

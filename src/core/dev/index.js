@@ -107,8 +107,16 @@ mockAxios.onGet('/api/video/settings').reply(() => {
     newItem.permission = parseInt(newItem.permission, 10);
     newItem.password = newItem.newPassword;
     delete newItem.newPassword;
-    const data = db.get('users').find({id: itemId}).assign(newItem).write();
-    return [200, data];
+    db.get('users').find({id: itemId}).assign(newItem).write();
+    return [200, newItem];
+  })
+  .onPost('/api/users').reply(config => {
+    const newItem = JSON.parse(config.data);
+    const maxId = db.get('users').sortBy('id').takeRight(1).value()[0].id;
+    newItem.id = maxId + 1;
+    newItem.permission = parseInt(newItem.permission, 10);
+    db.get('users').push(newItem).write();
+    return [200, newItem];
   })
   .onDelete(/api\/users\/\d+$/).reply(config => {
     const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
