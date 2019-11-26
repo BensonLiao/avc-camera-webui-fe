@@ -415,5 +415,42 @@ module.exports = {
       method: 'delete',
       url: `/api/members/${memberId}`
     })
+  },
+  event: {
+    getEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
+      /*
+      @param args {Object}
+        enrollStatus: {Array<String>|String} webserver-form-schema/constants/event-filters/enroll-status
+        confidence: {Array<String>|String} webserver-form-schema/constants/event-filters/confidence
+        index: {Number}
+        keyword: {String}
+        start: {Date|null} The start time.
+        end: {Date} The end time.
+        sort: {String} "time", "-time", "name", "-name", "organization", "-organization", "group", "-group"
+          time: Sorting by name with ASC.
+          -time: Sorting by name with DESC.
+      @response 200
+        index: {Number} The current page index.
+        size: {Number} The current page size.
+        total: {Number} The total item quantity.
+        items: {Array<Object>}
+          id: {String}
+          pictureThumbUrl: {String}
+          pictureLargeUrl: {String}
+          time: {String} ISO8601 "2019-10-02T02:00:00.000Z"
+          confidences: {Array<Object>}
+            score: {Number}
+            member: {Object}
+              id: {String}
+              name: {String}
+              organization: {String}
+              groupId: {String} The group id.
+              note: {String}
+              pictures {Array<String>} The base64 string of jpeg images.
+       */
+      method: 'get',
+      url: '/api/events',
+      params: {enrollStatus, confidence, index, keyword, start, end, sort}
+    })
   }
 };
