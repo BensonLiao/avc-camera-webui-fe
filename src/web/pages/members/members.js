@@ -237,8 +237,8 @@ module.exports = class Members extends Base {
                   <a className="w-100 text-truncate" href={`#${group.id}`}
                     onClick={this.generateChangeFilterHandler('group', group.id)}
                   >
-                    <i className="far fa-folder fa-fw fa-lg"/>
-                    <span className="text-truncate pl-4">{group.name}</span>
+                    <i className="far fa-folder fa-lg"/>
+                    <span className="text-truncate text-size-16 pl-4">{group.name}</span>
                   </a>
                   <button className="btn btn-link btn-delete text-light" type="button"
                     onClick={this.generateShowDeleteGroupModalHandler(group)}
