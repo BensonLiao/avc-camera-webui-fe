@@ -417,7 +417,7 @@ module.exports = {
     })
   },
   event: {
-    getEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
+    getFaceEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
       /*
       @param args {Object}
         enrollStatus: {Array<String>|String} webserver-form-schema/constants/event-filters/enroll-status
@@ -449,7 +449,7 @@ module.exports = {
               pictures {Array<String>} The base64 string of jpeg images.
        */
       method: 'get',
-      url: '/api/events',
+      url: '/api/face-events',
       params: {enrollStatus, confidence, index, keyword, start, end, sort}
     })
   }
