@@ -427,8 +427,8 @@ module.exports = {
         start: {Date|null} The start time.
         end: {Date} The end time.
         sort: {String} "time", "-time", "name", "-name", "organization", "-organization", "group", "-group"
-          time: Sorting by name with ASC.
-          -time: Sorting by name with DESC.
+          time: Sorting by time with ASC.
+          -time: Sorting by time with DESC.
       @response 200
         index: {Number} The current page index.
         size: {Number} The current page size.
