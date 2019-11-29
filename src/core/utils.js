@@ -14,6 +14,19 @@ exports.formatTimeRange = timeRange => {
   return `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
 };
 
+exports.formatNumber = value => {
+  /*
+  1000 -> 1,000
+  @param value {Number|String|null}
+  @returns {String}
+   */
+  if (value == null) {
+    return '';
+  }
+
+  return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
 exports.setDefaultLanguage = languageCode => {
   /*
   Set the default language via cookie.
