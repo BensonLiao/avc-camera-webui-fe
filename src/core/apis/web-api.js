@@ -417,7 +417,7 @@ module.exports = {
     })
   },
   event: {
-    getEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
+    getFaceEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
       /*
       @param args {Object}
         enrollStatus: {Array<String>|String} webserver-form-schema/constants/event-filters/enroll-status
@@ -427,8 +427,8 @@ module.exports = {
         start: {Date|null} The start time.
         end: {Date} The end time.
         sort: {String} "time", "-time", "name", "-name", "organization", "-organization", "group", "-group"
-          time: Sorting by name with ASC.
-          -time: Sorting by name with DESC.
+          time: Sorting by time with ASC.
+          -time: Sorting by time with DESC.
       @response 200
         index: {Number} The current page index.
         size: {Number} The current page size.
@@ -449,7 +449,7 @@ module.exports = {
               pictures {Array<String>} The base64 string of jpeg images.
        */
       method: 'get',
-      url: '/api/events',
+      url: '/api/face-events',
       params: {enrollStatus, confidence, index, keyword, start, end, sort}
     })
   }
