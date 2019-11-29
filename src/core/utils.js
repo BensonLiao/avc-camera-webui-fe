@@ -1,5 +1,6 @@
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
+const dayjs = require('dayjs');
 const _ = require('../languages');
 
 exports.formatTimeRange = timeRange => {
@@ -12,6 +13,33 @@ exports.formatTimeRange = timeRange => {
   const endHour = `${Math.floor(timeRange[1])}`.padStart(2, '0');
   const endMinute = timeRange[1] % 1 === 0 ? '00' : '30';
   return `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
+};
+
+exports.formatDate = (date, {withSecond, withoutTime, format} = {}) => {
+  /*
+  Format date.
+  @param date {String|Date}
+  @param options {Object}
+    withSecond: {Boolean}
+    withoutTime: {Boolean}
+    format {String}
+  @returns {String} eg: "2019/10/2 20:59"
+   */
+  if (!date) {
+    return '';
+  }
+
+  if (format) {
+    return dayjs(date).format(format);
+  }
+
+  const formats = ['l', withSecond ? 'LTS' : 'LT'];
+
+  if (withoutTime) {
+    return dayjs(date).format(formats[0]);
+  }
+
+  return `${dayjs(date).format(formats[0])} ${dayjs(date).format(formats[1])}`;
 };
 
 exports.formatNumber = value => {
