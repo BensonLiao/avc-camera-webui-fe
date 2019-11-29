@@ -100,9 +100,16 @@ router.listen('ChangeSuccess', (action, toState, fromState) => {
   progress.done();
   if (['PUSH', 'REPLACE', 'POP'].indexOf(action) >= 0) {
     if (
+      toState.name === 'web.members.details' ||
+      toState.name === 'web.members.new-member' ||
       toState.name === 'web.members.new-group' ||
       toState.name === 'web.members.modify-group' ||
-      (toState.name === 'web.members' && ['web.members.new-group', 'web.members.modify-group'].indexOf(fromState.name) >= 0)
+      (toState.name === 'web.members' && [
+        'web.members.details',
+        'web.members.new-member',
+        'web.members.new-group',
+        'web.members.modify-group'
+      ].indexOf(fromState.name) >= 0)
     ) {
       return;
     }
