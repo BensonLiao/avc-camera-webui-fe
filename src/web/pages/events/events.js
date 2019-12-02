@@ -7,6 +7,7 @@ const Confidence = require('webserver-form-schema/constants/event-filters/confid
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
+const MemberModal = require('../../../core/components/member-modal');
 const Pagination = require('../../../core/components/pagination');
 const utils = require('../../../core/utils');
 
@@ -66,6 +67,9 @@ module.exports = class Events extends Base {
     super(props);
     this.currentRoute = getRouter().findRouteByName('web.events');
     this.state.type = props.params.type || 'face-recognition';
+    this.state.isShowMemberModal = false;
+    this.state.currentMember = null;
+    this.state.defaultMemberPictureUrl = null;
   }
 
   convertArrayParams = param => {
@@ -151,6 +155,32 @@ module.exports = class Events extends Base {
     });
   };
 
+  generateMemberModifyHandler = (member, defaultPictureUrl) => event => {
+    event.preventDefault();
+    this.setState({
+      isShowMemberModal: true,
+      currentMember: member,
+      defaultMemberPictureUrl: defaultPictureUrl
+    });
+  };
+
+  onSubmittedMemberForm = () => {
+    this.setState({
+      isShowMemberModal: false,
+      currentMember: null,
+      defaultMemberPictureUrl: null
+    });
+    getRouter().go({name: this.currentRoute.name, params: this.props.params}, {reload: true});
+  };
+
+  onHideMemberModal = () => {
+    this.setState({
+      isShowMemberModal: false,
+      currentMember: null,
+      defaultMemberPictureUrl: null
+    });
+  };
+
   faceRecognitionFilterRender = () => {
     const confidence = this.convertArrayParams(this.props.params.confidence);
     const enrollStatus = this.convertArrayParams(this.props.params.enrollStatus);
@@ -228,7 +258,7 @@ module.exports = class Events extends Base {
             <div className="card-header text-truncate">
               {
                 isEnableFaceRecognition ?
-                  <Link to={{name: 'web.events', params: {}}}
+                  <Link to={{name: this.currentRoute.name, params: {}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
                     <span>{_('Face recognition')}</span> <i className="fas fa-chevron-up"/>
@@ -245,7 +275,7 @@ module.exports = class Events extends Base {
             <div className="card-header text-truncate">
               {
                 isEnableAgeGender ?
-                  <Link to={{name: 'web.events', params: {type: 'age-gender'}}}
+                  <Link to={{name: this.currentRoute.name, params: {type: 'age-gender'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
                     <span>{_('Age gender')}</span> <i className="fas fa-chevron-down"/>
@@ -261,7 +291,7 @@ module.exports = class Events extends Base {
             <div className="card-header text-truncate">
               {
                 isEnableHumanoidDetection ?
-                  <Link to={{name: 'web.events', params: {type: 'humanoid-detection'}}}
+                  <Link to={{name: this.currentRoute.name, params: {type: 'humanoid-detection'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
                     <span>{_('Humanoid detection')}</span> <i className="fas fa-chevron-down"/>
@@ -501,10 +531,10 @@ module.exports = class Events extends Base {
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                           {
                             event.confidences.length > 0 && event.confidences[0].enrollStatus === EnrollStatus.registered ?
-                              <button className="btn btn-link" type="button">
+                              <button className="btn btn-link" type="button" onClick={this.generateMemberModifyHandler(event.confidences[0].member)}>
                                 <i className="fas fa-pen fa-fw"/>
                               </button> :
-                              <button className="btn btn-link" type="button">
+                              <button className="btn btn-link" type="button" onClick={this.generateMemberModifyHandler(null, event.pictureThumbUrl)}>
                                 <i className="fas fa-plus fa-fw"/>
                               </button>
                           }
@@ -538,6 +568,13 @@ module.exports = class Events extends Base {
         {this.leftMenuRender()}
         <div className="main-content left-menu-active bg-white">
           {this.mainContentRender(events)}
+          <MemberModal
+            isShowModal={this.state.isShowMemberModal}
+            groups={this.props.groups}
+            member={this.state.currentMember}
+            defaultPictureUrl={this.state.defaultMemberPictureUrl}
+            onHide={this.onHideMemberModal}
+            onSubmitted={this.onSubmittedMemberForm}/>
         </div>
       </>
     );
