@@ -78,6 +78,15 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     db.get('members').remove({id: itemId}).write();
     return mockResponseWithLog(config, [204, {}]);
   })
+  .onGet('/api/face-events').reply(config => {
+    const data = db.get('faceEvents').value();
+    return mockResponseWithLog(config, [200, {
+      index: 0,
+      size: 20,
+      total: data.length,
+      items: data
+    }]);
+  })
   .onGet('/api/users').reply(config => {
     const data = db.get('users').value();
     delete data.birthday;

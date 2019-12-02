@@ -9,6 +9,13 @@ window.languageResource = {
   'certificate-type-1': '自行上傳您的憑證',
   'certificate-type-2': '在此裝置上產生憑證',
 
+  'confidence-1': '低',
+  'confidence-2': '中',
+  'confidence-3': '高',
+
+  'enroll-status-1': '已註冊',
+  'enroll-status-2': '未註冊',
+
   auto: '自動',
   off: '關閉',
   max: '最大',
@@ -248,12 +255,7 @@ window.languageResource = {
   'Not activated': '未啟用',
   'Humanoid detection': '人形偵測',
   Similarity: '相似度',
-  Low: '低',
-  Medium: '中',
-  High: '高',
   'Recognition result': '辨識狀態',
-  Registered: '已註冊',
-  Unknown: '未註冊',
 
   // /members
   'All members': '所有成員',
@@ -298,5 +300,13 @@ window.languageResource = {
 
   // /members/modify-group
   'Modify group': '編輯群組',
-  Confirm: '確認'
+  Confirm: '確認',
+
+  // /events
+  Total: '總筆數',
+  Time: '時間',
+  Snapshot: '辨識照片',
+  'Member picture': '註冊照片',
+  Confidence: '相似度',
+  'Can\'t find any data.': '查無相符資料，請重新搜尋。'
 };

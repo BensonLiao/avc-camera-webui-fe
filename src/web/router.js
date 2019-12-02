@@ -196,7 +196,22 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Smart search')} - ${_title}`;
       },
-      resolve: {},
+      resolve: {
+        groups: params => {
+          if ((params.type || 'face-recognition') !== 'face-recognition') {
+            return null;
+          }
+
+          return api.group.getGroups().then(response => response.data);
+        },
+        faceEvents: params => {
+          if ((params.type || 'face-recognition') !== 'face-recognition') {
+            return null;
+          }
+
+          return api.event.getFaceEvents(params).then(response => response.data);
+        }
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-events" */
         './pages/events/events'

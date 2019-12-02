@@ -91,6 +91,42 @@ module.exports = {
           ]
         }
       ],
+      faceEvents: [
+        {
+          id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
+          pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
+          time: '2019-10-02T12:00:00.000Z',
+          confidences: [
+            {
+              score: 50,
+              confidence: '2',
+              enrollStatus: '1',
+              member: {
+                id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
+                name: 'abby2',
+                organization: 'SW',
+                groupId: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060779',
+                note: 'note',
+                pictures: [
+                  'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
+                ]
+              }
+            }
+          ]
+        },
+        {
+          id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060779',
+          pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
+          time: '2019-10-02T12:00:00.000Z',
+          confidences: [
+            {
+              score: 49,
+              confidence: '2',
+              enrollStatus: '2'
+            }
+          ]
+        }
+      ],
       users: [
         {
           id: 1,

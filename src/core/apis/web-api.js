@@ -440,7 +440,9 @@ module.exports = {
           time: {String} ISO8601 "2019-10-02T02:00:00.000Z"
           confidences: {Array<Object>}
             score: {Number}
-            member: {Object}
+            confidence: {String}
+            enrollStatus: {String}
+            member: {Object|null}
               id: {String}
               name: {String}
               organization: {String}

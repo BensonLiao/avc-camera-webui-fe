@@ -2,10 +2,13 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const {Link, getRouter} = require('capybara-router');
+const {Formik, Form, Field} = require('formik');
 const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
+const Pagination = require('../../../core/components/pagination');
+const utils = require('../../../core/utils');
 
 module.exports = class Events extends Base {
   static get propTypes() {
@@ -25,7 +28,37 @@ module.exports = class Events extends Base {
         isEnableFaceRecognition: PropTypes.bool.isRequired,
         isEnableAgeGender: PropTypes.bool.isRequired,
         isEnableHumanoidDetection: PropTypes.bool.isRequired
-      }).isRequired
+      }).isRequired,
+      groups: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string
+        }).isRequired).isRequired
+      }),
+      faceEvents: PropTypes.shape({
+        index: PropTypes.number.isRequired,
+        size: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          pictureThumbUrl: PropTypes.string.isRequired,
+          time: PropTypes.string.isRequired,
+          confidences: PropTypes.arrayOf(PropTypes.shape({
+            score: PropTypes.number.isRequired,
+            confidence: PropTypes.oneOf(Confidence.all()).isRequired,
+            enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
+            member: PropTypes.shape({
+              id: PropTypes.string.isRequired,
+              name: PropTypes.string.isRequired,
+              organization: PropTypes.string,
+              groupId: PropTypes.string,
+              note: PropTypes.string,
+              pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+            })
+          }).isRequired).isRequired
+        }).isRequired).isRequired
+      })
     };
   }
 
@@ -51,11 +84,26 @@ module.exports = class Events extends Base {
     return result;
   };
 
+  findGroup = groupId => {
+    return this.props.groups.items.find(x => x.id === groupId);
+  };
+
   onClickCleanFilters = event => {
     event.preventDefault();
     getRouter().go({
       name: this.currentRoute.name,
       params: {type: this.state.type}
+    });
+  };
+
+  onSubmitSearchForm = ({keyword}) => {
+    getRouter().go({
+      name: this.currentRoute.name,
+      params: {
+        ...this.props.params,
+        index: undefined,
+        keyword
+      }
     });
   };
 
@@ -83,6 +131,26 @@ module.exports = class Events extends Base {
     });
   };
 
+  generateChangeFilterHandler = (paramKey, value) => event => {
+    /*
+    @param paramKey {String}
+    @param value {Any}
+      The filter value. Pass null to remove the param.
+    @returns {Function}
+     */
+    event.preventDefault();
+    getRouter().go({
+      name: this.currentRoute.name,
+      params: {
+        ...this.props.params,
+        index: undefined,
+        [paramKey]: value === undefined ?
+          event.target.value :
+          (value == null ? undefined : value)
+      }
+    });
+  };
+
   faceRecognitionFilterRender = () => {
     const confidence = this.convertArrayParams(this.props.params.confidence);
     const enrollStatus = this.convertArrayParams(this.props.params.enrollStatus);
@@ -95,19 +163,25 @@ module.exports = class Events extends Base {
             <input type="checkbox" className="form-check-input" id="input-checkbox-low-similar"
               checked={confidence.indexOf(Confidence.low) >= 0}
               onChange={this.generateToggleFilterHandler('confidence', Confidence.low)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-low-similar">{_('Low')}</label>
+            <label className="form-check-label" htmlFor="input-checkbox-low-similar">
+              {_(`confidence-${Confidence.low}`)}
+            </label>
           </div>
           <div className="form-check mb-3">
             <input type="checkbox" className="form-check-input" id="input-checkbox-medium-similar"
               checked={confidence.indexOf(Confidence.medium) >= 0}
               onChange={this.generateToggleFilterHandler('confidence', Confidence.medium)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-medium-similar">{_('Medium')}</label>
+            <label className="form-check-label" htmlFor="input-checkbox-medium-similar">
+              {_(`confidence-${Confidence.medium}`)}
+            </label>
           </div>
           <div className="form-check mb-3">
             <input type="checkbox" className="form-check-input" id="input-checkbox-high-similar"
               checked={confidence.indexOf(Confidence.high) >= 0}
               onChange={this.generateToggleFilterHandler('confidence', Confidence.high)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-high-similar">{_('High')}</label>
+            <label className="form-check-label" htmlFor="input-checkbox-high-similar">
+              {_(`confidence-${Confidence.high}`)}
+            </label>
           </div>
         </div>
 
@@ -117,20 +191,24 @@ module.exports = class Events extends Base {
             <input type="checkbox" className="form-check-input" id="input-checkbox-register"
               checked={enrollStatus.indexOf(EnrollStatus.registered) >= 0}
               onChange={this.generateToggleFilterHandler('enrollStatus', EnrollStatus.registered)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-register">{_('Registered')}</label>
+            <label className="form-check-label" htmlFor="input-checkbox-register">
+              {_(`enroll-status-${EnrollStatus.registered}`)}
+            </label>
           </div>
           <div className="form-check">
             <input type="checkbox" className="form-check-input" id="input-checkbox-anonymous"
               checked={enrollStatus.indexOf(EnrollStatus.unknown) >= 0}
               onChange={this.generateToggleFilterHandler('enrollStatus', EnrollStatus.unknown)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-anonymous">{_('Unknown')}</label>
+            <label className="form-check-label" htmlFor="input-checkbox-anonymous">
+              {_(`enroll-status-${EnrollStatus.unknown}`)}
+            </label>
           </div>
         </div>
       </div>
     );
   };
 
-  render() {
+  leftMenuRender = () => {
     const {
       isEnableFaceRecognition,
       isEnableAgeGender,
@@ -196,6 +274,272 @@ module.exports = class Events extends Base {
           </div>
         </div>
       </div>
+    );
+  };
+
+  searchFormRender = () => {
+    return (
+      <Form>
+        <div className="form-row">
+          <div className="col-auto">
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text"><i className="far fa-calendar-alt"/></span>
+              </div>
+              <input readOnly type="text" className="form-control" placeholder="開始日期時間 - 結束日期時間" style={{width: '270px'}}/>
+            </div>
+          </div>
+        </div>
+        <div className="form-row mt-3">
+          <div className="col-auto my-1">
+            <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
+          </div>
+          <div className="col-auto my-1">
+            <button className="btn btn-outline-primary rounded-pill px-3" type="submit">
+              <i className="fas fa-search fa-fw"/> {_('Search')}
+            </button>
+          </div>
+        </div>
+      </Form>
+    );
+  };
+
+  mainContentRender = events => {
+    const hrefTemplate = getRouter().generateUri(
+      this.currentRoute,
+      {...this.props.params, index: undefined}
+    );
+    const sort = {
+      time: {
+        handler: this.generateChangeFilterHandler(
+          'sort',
+          (this.props.params.sort || '-time') === '-time' ? 'time' : null
+        ),
+        icon: classNames({
+          'fas fa-fw text-muted ml-3 fa-caret-down': (this.props.params.sort || '-time') === '-time',
+          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'time'
+        })
+      },
+      name: {
+        handler: this.generateChangeFilterHandler(
+          'sort',
+          this.props.params.sort === 'name' ? '-name' : 'name'
+        ),
+        icon: classNames({
+          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-name',
+          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'name'
+        })
+      },
+      organization: {
+        handler: this.generateChangeFilterHandler(
+          'sort',
+          this.props.params.sort === 'organization' ? '-organization' : 'organization'
+        ),
+        icon: classNames({
+          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-organization',
+          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'organization'
+        })
+      },
+      group: {
+        handler: this.generateChangeFilterHandler(
+          'sort',
+          this.props.params.sort === 'group' ? '-group' : 'group'
+        ),
+        icon: classNames({
+          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-group',
+          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'group'
+        })
+      },
+      confidence: {
+        handler: this.generateChangeFilterHandler(
+          'sort',
+          this.props.params.sort === 'confidence' ? '-confidence' : 'confidence'
+        ),
+        icon: classNames({
+          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-confidence',
+          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'confidence'
+        })
+      },
+      recognitionResult: {
+        handler: this.generateChangeFilterHandler(
+          'sort',
+          this.props.params.sort === 'recognitionResult' ? '-recognitionResult' : 'recognitionResult'
+        ),
+        icon: classNames({
+          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-recognitionResult',
+          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'recognitionResult'
+        })
+      }
+    };
+
+    return (
+      <div className="page-histories">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12 mb-4">
+              <div className="card quantity-wrapper float-right">
+                <div className="card-body">
+                  <div className="quantity">{utils.formatNumber(events.total)}</div>
+                  <div className="description">{_('Total')}</div>
+                </div>
+              </div>
+
+              <Formik initialValues={{keyword: this.props.params.keyword || ''}}
+                onSubmit={this.onSubmitSearchForm}
+              >
+                {this.searchFormRender}
+              </Formik>
+            </div>
+
+            <div className="col-12 mb-5">
+              <table className="table custom-style">
+                <thead>
+                  <tr className="shadow">
+                    <th>#</th>
+                    <th>
+                      <a href="#time" onClick={sort.time.handler}>{_('Time')}</a>
+                      <i className={sort.time.icon}/>
+                    </th>
+                    <th>{_('Snapshot')}</th>
+                    <th>{_('Member picture')}</th>
+                    <th>
+                      <a href="#" onClick={sort.name.handler}>{_('Name')}</a>
+                      <i className={sort.name.icon}/>
+                    </th>
+                    <th>
+                      <a href="#" onClick={sort.group.handler}>{_('Group')}</a>
+                      <i className={sort.group.icon}/>
+                    </th>
+                    <th>
+                      <a href="#" onClick={sort.organization.handler}>{_('Organization')}</a>
+                      <i className={sort.organization.icon}/>
+                    </th>
+                    <th>
+                      <a href="#" onClick={sort.confidence.handler}>{_('Confidence')}</a>
+                      <i className={sort.confidence.icon}/>
+                    </th>
+                    <th>
+                      <a href="#" onClick={sort.recognitionResult.handler}>{_('Recognition result')}</a>
+                      <i className={sort.recognitionResult.icon}/>
+                    </th>
+                    <th>{_('Note')}</th>
+                    <th>{_('Actions')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    /* The empty view */
+                    !events.items.length && (
+                      <tr>
+                        <td className="text-size-20 text-center" colSpan="11">
+                          <i className="fas fa-frown-open fa-fw text-dark"/> {_('Can\'t find any data.')}
+                        </td>
+                      </tr>
+                    )
+                  }
+                  {
+                    events.items.map((event, index) => (
+                      <tr key={event.id}>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {event.id}
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {utils.formatDate(event.time)}
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          <img className="rounded-circle" src={event.pictureThumbUrl} style={{height: '56px'}}/>
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {
+                            event.confidences.length > 0 && event.confidences[0].member ?
+                              <img className="rounded-circle" src={`data:image/jpeg;base64,${event.confidences[0].member.pictures[0]}`} style={{height: '56px'}}/> :
+                              '-'
+                          }
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {
+                            event.confidences.length > 0 && event.confidences[0].member ?
+                              event.confidences[0].member.name :
+                              '-'
+                          }
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {
+                            event.confidences.length > 0 && event.confidences[0].member ?
+                              (this.findGroup(event.confidences[0].member.groupId) || {name: '-'}).name :
+                              '-'
+                          }
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {
+                            event.confidences.length > 0 && event.confidences[0].member ?
+                              event.confidences[0].member.organization || '-' :
+                              '-'
+                          }
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {
+                            event.confidences.length > 0 ?
+                              _(`confidence-${event.confidences[0].confidence}`) :
+                              '-'
+                          }
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {
+                            event.confidences.length > 0 && event.confidences[0].enrollStatus === EnrollStatus.registered ?
+                              <span className="badge badge-success badge-pill px-3">成功</span> :
+                              <span className="badge badge-danger badge-pill px-3">失敗</span>
+                          }
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {
+                            event.confidences.length > 0 && event.confidences[0].member ?
+                              event.confidences[0].member.note || '-' :
+                              '-'
+                          }
+                        </td>
+                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                          {
+                            event.confidences.length > 0 && event.confidences[0].enrollStatus === EnrollStatus.registered ?
+                              <button className="btn btn-link" type="button">
+                                <i className="fas fa-pen fa-fw"/>
+                              </button> :
+                              <button className="btn btn-link" type="button">
+                                <i className="fas fa-plus fa-fw"/>
+                              </button>
+                          }
+                        </td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <Pagination index={this.props.faceEvents.index}
+              size={this.props.faceEvents.size}
+              total={this.props.faceEvents.total}
+              itemQuantity={this.props.faceEvents.items.length}
+              hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index={index}` : `${hrefTemplate}?index={index}`}/>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  render() {
+    let events;
+    if (this.state.type === 'face-recognition') {
+      events = this.props.faceEvents;
+    }
+
+    return (
+      <>
+        {this.leftMenuRender()}
+        <div className="main-content left-menu-active bg-white">
+          {this.mainContentRender(events)}
+        </div>
+      </>
     );
   }
 };
