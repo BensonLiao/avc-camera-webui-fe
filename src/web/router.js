@@ -52,7 +52,6 @@ module.exports = new Router({
         document.title = `${_('Member')} - ${_title}`;
       },
       resolve: {
-        parentRouteName: () => 'web.members',
         member: params => api.member.getMember(params.memberId).then(response => response.data)
       },
       loadComponent: () => import(
@@ -68,7 +67,6 @@ module.exports = new Router({
         document.title = `${_('New member')} - ${_title}`;
       },
       resolve: {
-        parentRouteName: () => 'web.members',
         member: () => null
       },
       loadComponent: () => import(
