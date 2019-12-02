@@ -33,6 +33,7 @@
     "compression-webpack-plugin": "3.0.0",
     "config": "3.2.4",
     "css-loader": "3.2.0",
+    "dayjs": "1.8.17",
     "fastest-validator": "0.6.19",
     "file-loader": "4.2.0",
     "filesize": "6.0.1",

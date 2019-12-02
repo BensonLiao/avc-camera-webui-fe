@@ -12,6 +12,12 @@ require('bootstrap/dist/js/bootstrap.bundle');
 const Cookies = require('js-cookie');
 const {RouterView} = require('capybara-router');
 const progress = require('nprogress');
+const dayjs = require('dayjs');
+const LocalizedFormat = require('dayjs/plugin/localizedFormat');
+const dayjsZhTW = require('dayjs/locale/zh-tw');
+const dayjsZhCN = require('dayjs/locale/zh-cn');
+const dayjsEs = require('dayjs/locale/es');
+const dayjsJa = require('dayjs/locale/ja');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
@@ -28,6 +34,23 @@ if ('scrollRestoration' in history) {
 progress.configure({
   showSpinner: false
 });
+
+dayjs.extend(LocalizedFormat);
+switch (window.currentLanguageCode) {
+  case 'zh-tw':
+    dayjs.locale('zh-tw', dayjsZhTW);
+    break;
+  case 'zh-cn':
+    dayjs.locale('zh-cn', dayjsZhCN);
+    break;
+  case 'ja-jp':
+    dayjs.locale('ja', dayjsJa);
+    break;
+  case 'es-es':
+    dayjs.locale('es', dayjsEs);
+    break;
+  default:
+}
 
 // Setup initial data
 store.set('$user', window.user);

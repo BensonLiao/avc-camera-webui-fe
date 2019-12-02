@@ -52,7 +52,6 @@ module.exports = new Router({
         document.title = `${_('Member')} - ${_title}`;
       },
       resolve: {
-        parentRouteName: () => 'web.members',
         member: params => api.member.getMember(params.memberId).then(response => response.data)
       },
       loadComponent: () => import(
@@ -68,7 +67,6 @@ module.exports = new Router({
         document.title = `${_('New member')} - ${_title}`;
       },
       resolve: {
-        parentRouteName: () => 'web.members',
         member: () => null
       },
       loadComponent: () => import(
@@ -192,11 +190,26 @@ module.exports = new Router({
     },
     {
       name: 'web.events',
-      uri: '/events?keyword?index?sort?type?confidence?enrollStatus',
+      uri: '/events?keyword?index?sort?type?confidence?enrollStatus?start?end',
       onEnter: () => {
         document.title = `${_('Smart search')} - ${_title}`;
       },
-      resolve: {},
+      resolve: {
+        groups: params => {
+          if ((params.type || 'face-recognition') !== 'face-recognition') {
+            return null;
+          }
+
+          return api.group.getGroups().then(response => response.data);
+        },
+        faceEvents: params => {
+          if ((params.type || 'face-recognition') !== 'face-recognition') {
+            return null;
+          }
+
+          return api.event.getFaceEvents(params).then(response => response.data);
+        }
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-events" */
         './pages/events/events'
