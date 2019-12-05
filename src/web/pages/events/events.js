@@ -422,38 +422,37 @@ module.exports = class Events extends Base {
             </div>
 
             <div className="col-12 mb-5">
-              <table className="table custom-style">
+              <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
-                    <th>#</th>
-                    <th>
+                    <th style={{width: '16%'}}>
                       <a href="#time" onClick={sort.time.handler}>{_('Time')}</a>
                       <i className={sort.time.icon}/>
                     </th>
-                    <th>{_('Snapshot')}</th>
-                    <th>{_('Member picture')}</th>
-                    <th>
+                    <th style={{width: '10%'}}>{_('Snapshot')}</th>
+                    <th style={{width: '10%'}}>{_('Member picture')}</th>
+                    <th style={{width: '10%'}}>
                       <a href="#" onClick={sort.name.handler}>{_('Name')}</a>
                       <i className={sort.name.icon}/>
                     </th>
-                    <th>
+                    <th style={{width: '8%'}}>
                       <a href="#" onClick={sort.group.handler}>{_('Group')}</a>
                       <i className={sort.group.icon}/>
                     </th>
-                    <th>
+                    <th style={{width: '8%'}}>
                       <a href="#" onClick={sort.organization.handler}>{_('Organization')}</a>
                       <i className={sort.organization.icon}/>
                     </th>
-                    <th>
+                    <th style={{width: '10%'}}>
                       <a href="#" onClick={sort.confidence.handler}>{_('Confidence')}</a>
                       <i className={sort.confidence.icon}/>
                     </th>
-                    <th>
+                    <th style={{width: '8%'}}>
                       <a href="#" onClick={sort.recognitionResult.handler}>{_('Recognition result')}</a>
                       <i className={sort.recognitionResult.icon}/>
                     </th>
-                    <th>{_('Note')}</th>
-                    <th>{_('Actions')}</th>
+                    <th style={{width: '12%'}}>{_('Note')}</th>
+                    <th style={{width: '8%'}}>{_('Actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -461,7 +460,7 @@ module.exports = class Events extends Base {
                     /* The empty view */
                     !events.items.length && (
                       <tr>
-                        <td className="text-size-20 text-center" colSpan="11">
+                        <td className="text-size-20 text-center" colSpan="10">
                           <i className="fas fa-frown-open fa-fw text-dark"/> {_('Can\'t find any data.')}
                         </td>
                       </tr>
@@ -470,9 +469,6 @@ module.exports = class Events extends Base {
                   {
                     events.items.map((event, index) => (
                       <tr key={event.id}>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {event.id}
-                        </td>
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                           {utils.formatDate(event.time)}
                         </td>
