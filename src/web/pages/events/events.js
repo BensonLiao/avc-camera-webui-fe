@@ -9,6 +9,7 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
 const Pagination = require('../../../core/components/pagination');
+const DatePicker = require('../../../core/components/fields/date-picker');
 const utils = require('../../../core/utils');
 
 module.exports = class Events extends Base {
@@ -100,13 +101,15 @@ module.exports = class Events extends Base {
     });
   };
 
-  onSubmitSearchForm = ({keyword}) => {
+  onSubmitSearchForm = ({keyword, start, end}) => {
     getRouter().go({
       name: this.currentRoute.name,
       params: {
         ...this.props.params,
         index: undefined,
-        keyword
+        keyword,
+        start: start ? start.toJSON() : undefined,
+        end: end ? end.toJSON() : undefined
       }
     });
   };
@@ -316,7 +319,19 @@ module.exports = class Events extends Base {
               <div className="input-group-prepend">
                 <span className="input-group-text"><i className="far fa-calendar-alt"/></span>
               </div>
-              <input readOnly type="text" className="form-control" placeholder="開始日期時間 - 結束日期時間" style={{width: '270px'}}/>
+              <Field name="start" component={DatePicker}
+                dateTabText={_('Start date')} timeTabText={_('Start time')}
+                inputProps={{readOnly: true, className: 'form-control', placeholder: _('Start datetime'), style: {width: '270px'}}}/>
+            </div>
+          </div>
+          <div className="col-auto">
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text"><i className="far fa-calendar-alt"/></span>
+              </div>
+              <Field name="end" component={DatePicker}
+                dateTabText={_('End date')} timeTabText={_('End time')}
+                inputProps={{readOnly: true, className: 'form-control', placeholder: _('End datetime'), style: {width: '270px'}}}/>
             </div>
           </div>
         </div>
@@ -335,6 +350,11 @@ module.exports = class Events extends Base {
   };
 
   mainContentRender = events => {
+    const searchFromInitialValues = {
+      keyword: this.props.params.keyword || '',
+      start: this.props.params.start ? new Date(this.props.params.start) : null,
+      end: this.props.params.end ? new Date(this.props.params.end) : null
+    };
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
       {...this.props.params, index: undefined}
@@ -414,7 +434,7 @@ module.exports = class Events extends Base {
                 </div>
               </div>
 
-              <Formik initialValues={{keyword: this.props.params.keyword || ''}}
+              <Formik initialValues={searchFromInitialValues}
                 onSubmit={this.onSubmitSearchForm}
               >
                 {this.searchFormRender}
