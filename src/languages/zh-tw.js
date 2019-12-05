@@ -107,6 +107,15 @@ window.languageResource = {
   'validation-birthday': '請使用正確的生日格式。',
   'validation-countryCode': '國家代碼錯誤。',
 
+  // Date picker
+  Su: '日',
+  Mo: '一',
+  Tu: '二',
+  We: '三',
+  Th: '四',
+  Fr: '五',
+  Sa: '六',
+
   // The loading component.
   Loading: '載入中',
 
@@ -256,6 +265,12 @@ window.languageResource = {
   'Humanoid detection': '人形偵測',
   Similarity: '相似度',
   'Recognition result': '辨識狀態',
+  'Start date': '開始日期',
+  'Start time': '開始時間',
+  'Start datetime': '開始日期時間',
+  'End date': '結束日期',
+  'End time': '結束時間',
+  'End datetime': '結束日期時間',
 
   // /members
   'All members': '所有成員',
