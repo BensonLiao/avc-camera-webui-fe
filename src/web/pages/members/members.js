@@ -305,25 +305,24 @@ module.exports = class Members extends Base {
                 }
 
                 <div className="col-12 mb-5">
-                  <table className="table custom-style">
+                  <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                     <thead>
                       <tr className="shadow">
-                        <th>#</th>
-                        <th>{_('Register picture')}</th>
-                        <th>
+                        <th className="text-center" style={{width: '20%'}}>{_('Register picture')}</th>
+                        <th style={{width: '15%'}}>
                           <a href="#name" onClick={sort.name.handler}>{_('Name')}</a>
                           <i className={sort.name.icon}/>
                         </th>
-                        <th>
+                        <th style={{width: '15%'}}>
                           <a href="#organization" onClick={sort.organization.handler}>{_('Organization')}</a>
                           <i className={sort.organization.icon}/>
                         </th>
-                        <th>
+                        <th style={{width: '15%'}}>
                           <a href="#group" onClick={sort.group.handler}>{_('Group')}</a>
                           <i className={sort.group.icon}/>
                         </th>
-                        <th>{_('Note')}</th>
-                        <th style={{width: '150px'}}>{_('Actions')}</th>
+                        <th style={{width: '20%'}}>{_('Note')}</th>
+                        <th style={{width: '15%'}}>{_('Actions')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -333,8 +332,7 @@ module.exports = class Members extends Base {
 
                           return (
                             <tr key={member.id}>
-                              <td className={tdClass}>{member.id}</td>
-                              <td className={tdClass}>
+                              <td className={classNames('text-center', tdClass)}>
                                 <img className="rounded-circle" style={{height: '56px'}}
                                   src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
                               </td>
@@ -342,7 +340,7 @@ module.exports = class Members extends Base {
                               <td className={tdClass}>{member.organization || _('None')}</td>
                               <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('None')}</td>
                               <td className={tdClass}>{member.note || _('None')}</td>
-                              <td className={classNames('text-right', tdClass)}>
+                              <td className={tdClass}>
                                 <Link className="btn btn-link" to={{name: 'web.members.details', params: {...this.props.params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
