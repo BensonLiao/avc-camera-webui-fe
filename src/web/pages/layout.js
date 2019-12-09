@@ -111,7 +111,10 @@ module.exports = class Layout extends Base {
         }
       ),
       license: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {
+          active: ['web.license'].indexOf(this.state.currentRouteName) >= 0
+        }
       ),
       develop: classNames(
         'btn d-flex justify-content-center align-items-center'

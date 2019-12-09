@@ -216,6 +216,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.license',
+      uri: '/license',
+      onEnter: () => {
+        document.title = `${_('License')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-license" */
+        './pages/license/license'
+      )
+    },
+    {
       name: 'login',
       uri: '/login',
       onEnter: () => {
