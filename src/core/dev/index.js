@@ -125,4 +125,11 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     db.get('users').remove({id: itemId}).write();
     return mockResponseWithLog(config, [204, {}]);
   })
+  .onGet('/api/auth-keys').reply(config => {
+    const data = db.get('authKeys').value();
+    return mockResponseWithLog(config, [200, {
+      total: data.length,
+      items: data
+    }]);
+  })
   .onAny().passThrough(); // Pass other request to normal axios

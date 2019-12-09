@@ -2,6 +2,7 @@ const React = require('react');
 const {getRouter} = require('capybara-router');
 const classNames = require('classnames');
 const Base = require('../shared/base');
+const {formatDate} = require('../../../core/utils');
 
 const ACTIVATE = '已啟用';
 const DEACTIVATE = '未啟用';
@@ -13,7 +14,8 @@ module.exports = class License extends Base {
   }
 
   render() {
-    const {systemInformation} = this.props;
+    const {systemInformation, authKeys} = this.props;
+    console.log('authKeys', authKeys);
     return (
       <div className="main-content bg-white">
         <div className="page-license bg-gray" style={{height: '522px'}}>
@@ -160,31 +162,44 @@ module.exports = class License extends Base {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>2019/03/22 08:05</td>
-                      <td>ChiChi</td>
-                      <td>GVHBNJLKBHVYIUON:KJLBNK</td>
-                      <td>
-                        <span className="badge badge-primary badge-pill text-size-16 px-3">臉部辨識</span>
-                        <span className="badge badge-primary badge-pill text-size-16 px-3">性別年齡</span>
-                      </td>
-                      <td>
-                        <i className="fas fa-check-circle fa-lg fa-fw text-success"/>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>2019/03/22 08:06</td>
-                      <td>Ben</td>
-                      <td>VGHBJNKBIVHBKJLNK:MPOIBJ</td>
-                      <td>
-                        <span className="badge badge-primary badge-pill text-size-16 px-3">人形偵測</span>
-                      </td>
-                      <td>
-                        <i className="fas fa-check-circle fa-lg fa-fw text-success"/>
-                      </td>
-                    </tr>
+                    {authKeys.items.map((authKey, index) => (
+                      <tr key={authKey.id}>
+                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                          {authKey.id}
+                        </td>
+                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                          {formatDate(authKey.time)}
+                        </td>
+                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                          {authKey.userName}
+                        </td>
+                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                          {authKey.authKey}
+                        </td>
+                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                          {authKey.isEnableFaceRecognition && (
+                            <span className="badge badge-primary badge-pill text-size-16 px-3">
+                              臉部辨識
+                            </span>
+                          )}
+                          {authKey.isEnableAgeGender && (
+                            <span className="badge badge-primary badge-pill text-size-16 px-3">
+                              性別年齡
+                            </span>
+                          )}
+                          {authKey.isEnableHumanoidDetection && (
+                            <span className="badge badge-primary badge-pill text-size-16 px-3">
+                              人型偵測
+                            </span>
+                          )}
+                        </td>
+                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                          {Boolean(authKey.status) && (
+                            <i className="fas fa-check-circle fa-lg fa-fw text-success"/>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
