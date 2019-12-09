@@ -454,5 +454,36 @@ module.exports = {
       url: '/api/face-events',
       params: {enrollStatus, confidence, index, keyword, start, end, sort}
     })
+  },
+  authKey: {
+    getAuthKeys: () => api({
+      /*
+      @returns {Promise<Object>}
+        items: {Array<Object>}
+          authKey: {String}
+          isEnableFaceRecognition: {Boolean}
+          isEnableAgeGender: {Boolean}
+          isEnableHumanoidDetection: {Boolean}
+          isEnable: {Boolean}
+          time: {String} ISO8601 "2019-10-02T02:00:00.000Z"
+          user: {Object}
+            id: {Number}
+            name: {String}
+       */
+      method: 'get',
+      url: '/api/auth-keys'
+    }),
+    addAuthKey: authKey => api({
+      /*
+      @param authKey {String}
+      @returns {Promise<Object>}
+        isEnableFaceRecognition: {Boolean}
+        isEnableAgeGender: {Boolean}
+        isEnableHumanoidDetection: {Boolean}
+       */
+      method: 'post',
+      url: '/api/auth-keys',
+      data: {authKey}
+    })
   }
 };
