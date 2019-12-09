@@ -132,4 +132,27 @@ mockAxios.onGet('/api/video/settings').reply(config => {
       items: data
     }]);
   })
+  .onPost('/api/auth-keys').reply(config => {
+    const authKey = JSON.parse(config.data).authKey;
+    const enabledFunctions = {
+      isEnableFaceRecognition: true,
+      isEnableAgeGender: false,
+      isEnableHumanoidDetection: false
+    };
+    const activateStatus = 1;
+    const newItem = {
+      authKey,
+      userName: window.user.account,
+      status: activateStatus,
+      ...enabledFunctions
+    };
+    const maxId = db.get('authKeys').sortBy('id').takeRight(1).value()[0].id;
+    newItem.id = maxId + 1;
+    newItem.time = new Date();
+    db.get('authKeys').push(newItem).write();
+    return mockResponseWithLog(config, [200, {
+      success: activateStatus,
+      ...enabledFunctions
+    }]);
+  })
   .onAny().passThrough(); // Pass other request to normal axios

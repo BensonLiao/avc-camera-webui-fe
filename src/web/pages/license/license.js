@@ -1,21 +1,30 @@
 const React = require('react');
 const {getRouter} = require('capybara-router');
 const classNames = require('classnames');
+const {Formik, Form, Field} = require('formik');
+const progress = require('nprogress');
 const Base = require('../shared/base');
-const {formatDate} = require('../../../core/utils');
+const api = require('../../../core/apis/web-api');
+const {formatDate, renderError} = require('../../../core/utils');
 
 const ACTIVATE = '已啟用';
 const DEACTIVATE = '未啟用';
 
 module.exports = class License extends Base {
-  constructor(props) {
-    super(props);
-    this.currentRoute = getRouter().findRouteByName('web.license');
+  onSubmit = ({authKey}) => {
+    progress.start();
+    api.authKey.addAuthKey(authKey)
+      .then(() => {
+        getRouter().reload();
+      })
+      .catch(error => {
+        progress.done();
+        renderError(error);
+      });
   }
 
   render() {
     const {systemInformation, authKeys} = this.props;
-    console.log('authKeys', authKeys);
     return (
       <div className="main-content bg-white">
         <div className="page-license bg-gray" style={{height: '522px'}}>
@@ -23,14 +32,31 @@ module.exports = class License extends Base {
             <div className="row">
               <div className="col-12">
                 <h3 className="mb-4">智慧授權</h3>
-                <form className="form-row">
-                  <div className="col-auto my-1">
-                    <input autoFocus className="form-control" type="text" placeholder="請輸入授權碼" style={{width: '312px'}}/>
-                  </div>
-                  <div className="col-auto my-1">
-                    <button className="btn btn-primary rounded-pill px-4" type="submit">啟用</button>
-                  </div>
-                </form>
+                <Formik initialValues={{authKey: ''}} onSubmit={this.onSubmit}>
+                  <Form>
+                    <div className="form-row">
+                      <div className="col-auto my-1">
+                        <Field
+                          autoFocus
+                          className="form-control"
+                          name="authKey"
+                          type="text"
+                          placeholder="請輸入授權碼"
+                          style={{width: '312px'}}
+                        />
+                      </div>
+                      <div className="col-auto my-1">
+                        <button
+                          className="btn btn-primary rounded-pill px-4"
+                          type="submit"
+                          disabled={this.state.$isApiProcessing}
+                        >
+                          啟用
+                        </button>
+                      </div>
+                    </div>
+                  </Form>
+                </Formik>
               </div>
             </div>
           </div>
