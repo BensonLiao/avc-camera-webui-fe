@@ -1,6 +1,10 @@
 const React = require('react');
 const {getRouter} = require('capybara-router');
+const classNames = require('classnames');
 const Base = require('../shared/base');
+
+const ACTIVATE = '已啟用';
+const DEACTIVATE = '未啟用';
 
 module.exports = class License extends Base {
   constructor(props) {
@@ -9,6 +13,7 @@ module.exports = class License extends Base {
   }
 
   render() {
+    const {systemInformation} = this.props;
     return (
       <div className="main-content bg-white">
         <div className="page-license bg-gray" style={{height: '522px'}}>
@@ -34,41 +39,110 @@ module.exports = class License extends Base {
             <div className="row">
               <div className="col-12">
                 <div className="status d-flex">
-                  <div className="border border-success text-center bg-white active shadow">
+                  <div className={classNames(
+                    'border text-center bg-white',
+                    {'active shadow border-success': systemInformation.isEnableFaceRecognition}
+                  )}
+                  >
                     <div className="img-wrapper">
                       <img src="/resource/face-recognition-enable.svg"/>
                     </div>
-                    <h4 className="text-size-20 text-primary mt-3">臉部辨識</h4>
+                    <h4 className={classNames(
+                      'text-size-20 mt-3',
+                      systemInformation.isEnableFaceRecognition ?
+                        'text-primary' :
+                        'text-muted'
+                    )}
+                    >
+                      臉部辨識
+                    </h4>
                     <div className="bottom">
                       <hr/>
-                      <span className="border border-success rounded-pill text-success p-1 pr-2">
-                        <i className="fas fa-check-circle"/>未啟用
+                      <span className={classNames(
+                        'border rounded-pill p-1 pr-2',
+                        systemInformation.isEnableFaceRecognition ?
+                          'border-success text-success' :
+                          'border-danger text-danger'
+                      )}
+                      >
+                        <i className={classNames(
+                          'fas',
+                          systemInformation.isEnableFaceRecognition ?
+                            'fa-check-circle' :
+                            'fa-minus-circle'
+                        )}/>{systemInformation.isEnableFaceRecognition ? ACTIVATE : DEACTIVATE}
                       </span>
                     </div>
                   </div>
 
-                  <div className="border text-center bg-white">
+                  <div className={classNames(
+                    'border text-center bg-white',
+                    {'active shadow border-success': systemInformation.isEnableAgeGender}
+                  )}
+                  >
                     <div className="img-wrapper">
                       <img src="/resource/age-gender-disable.svg"/>
                     </div>
-                    <h4 className="text-size-20 text-muted mt-3">性別年齡</h4>
+                    <h4 className={classNames(
+                      'text-size-20 mt-3',
+                      systemInformation.isEnableAgeGender ?
+                        'text-primary' :
+                        'text-muted'
+                    )}
+                    >
+                      性別年齡
+                    </h4>
                     <div className="bottom">
                       <hr/>
-                      <span className="border border-danger rounded-pill text-danger p-1 pr-2">
-                        <i className="fas fa-minus-circle"/>未啟用
+                      <span className={classNames(
+                        'border rounded-pill p-1 pr-2',
+                        systemInformation.isEnableAgeGender ?
+                          'border-success text-success' :
+                          'border-danger text-danger'
+                      )}
+                      >
+                        <i className={classNames(
+                          'fas',
+                          systemInformation.isEnableAgeGender ?
+                            'fa-check-circle' :
+                            'fa-minus-circle'
+                        )}/>{systemInformation.isEnableAgeGender ? ACTIVATE : DEACTIVATE}
                       </span>
                     </div>
                   </div>
 
-                  <div className="border text-center bg-white">
+                  <div className={classNames(
+                    'border text-center bg-white',
+                    {'active shadow border-success': systemInformation.isEnableHumanoidDetection}
+                  )}
+                  >
                     <div className="img-wrapper">
                       <img src="/resource/humanoid-detection-disable.svg"/>
                     </div>
-                    <h4 className="text-size-20 text-muted mt-3">人型偵測</h4>
+                    <h4 className={classNames(
+                      'text-size-20 mt-3',
+                      systemInformation.isEnableHumanoidDetection ?
+                        'text-primary' :
+                        'text-muted'
+                    )}
+                    >
+                      人型偵測
+                    </h4>
                     <div className="bottom">
                       <hr/>
-                      <span className="border border-danger rounded-pill text-danger p-1 pr-2">
-                        <i className="fas fa-minus-circle"/>未啟用
+                      <span className={classNames(
+                        'border rounded-pill p-1 pr-2',
+                        systemInformation.isEnableHumanoidDetection ?
+                          'border-success text-success' :
+                          'border-danger text-danger'
+                      )}
+                      >
+                        <i className={classNames(
+                          'fas',
+                          systemInformation.isEnableHumanoidDetection ?
+                            'fa-check-circle' :
+                            'fa-minus-circle'
+                        )}/>{systemInformation.isEnableHumanoidDetection ? ACTIVATE : DEACTIVATE}
                       </span>
                     </div>
                   </div>
