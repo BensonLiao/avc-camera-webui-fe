@@ -152,9 +152,11 @@ module.exports = {
       ],
       authKeys: [
         {
-          id: 1,
           time: '2019-10-02T12:00:00.000Z',
-          userName: 'ChiChi',
+          user: {
+            id: 1,
+            name: 'ChiChi'
+          },
           authKey: 'GVHBNJLKBHVYIUON:KJLBNK',
           isEnableFaceRecognition: true,
           isEnableAgeGender: true,
@@ -162,9 +164,11 @@ module.exports = {
           isEnable: 1
         },
         {
-          id: 2,
           time: '2019-10-02T08:00:00.000Z',
-          userName: 'Ben',
+          user: {
+            id: 2,
+            name: 'Ben'
+          },
           authKey: 'VGHBJNKBIVHBKJLNK:MPOIBJ',
           isEnableFaceRecognition: false,
           isEnableAgeGender: false,

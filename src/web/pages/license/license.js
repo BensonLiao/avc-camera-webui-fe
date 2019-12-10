@@ -7,6 +7,18 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const {formatDate, renderError} = require('../../../core/utils');
+const iconFaceRecognitionEnable =
+  require('webserver-prototype/src/resource/face-recognition-enable.svg');
+const iconFaceRecognitionDisable =
+  require('webserver-prototype/src/resource/face-recognition-disable.svg');
+const iconAgeGenderEnable =
+  require('webserver-prototype/src/resource/age-gender-enable.svg');
+const iconAgeGenderDisable =
+  require('webserver-prototype/src/resource/age-gender-disable.svg');
+const iconHumanoidDetectionEnable =
+  require('webserver-prototype/src/resource/humanoid-detection-enable.svg');
+const iconHumanoidDetectionDisable =
+  require('webserver-prototype/src/resource/humanoid-detection-disable.svg');
 
 const ACTIVATED = _('Activated');
 const NOT_ACTIVATED = _('Not activated');
@@ -74,7 +86,8 @@ module.exports = class License extends Base {
                   )}
                   >
                     <div className="img-wrapper">
-                      <img src="/resource/face-recognition-enable.svg"/>
+                      <img src={systemInformation.isEnableFaceRecognition ? iconFaceRecognitionEnable :
+                        iconFaceRecognitionDisable}/>
                     </div>
                     <h4 className={classNames(
                       'text-size-20 mt-3',
@@ -110,7 +123,8 @@ module.exports = class License extends Base {
                   )}
                   >
                     <div className="img-wrapper">
-                      <img src="/resource/age-gender-disable.svg"/>
+                      <img src={systemInformation.isEnableAgeGender ? iconAgeGenderEnable :
+                        iconAgeGenderDisable}/>
                     </div>
                     <h4 className={classNames(
                       'text-size-20 mt-3',
@@ -146,7 +160,8 @@ module.exports = class License extends Base {
                   )}
                   >
                     <div className="img-wrapper">
-                      <img src="/resource/humanoid-detection-disable.svg"/>
+                      <img src={systemInformation.isEnableHumanoidDetection ? iconHumanoidDetectionEnable :
+                        iconHumanoidDetectionDisable}/>
                     </div>
                     <h4 className={classNames(
                       'text-size-20 mt-3',
@@ -190,20 +205,20 @@ module.exports = class License extends Base {
                   </thead>
                   <tbody>
                     {authKeys.items.map((authKey, index) => (
-                      <tr key={authKey.id}>
-                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
-                          {authKey.id}
+                      <tr key={authKey.time}>
+                        <td>
+                          {index + 1}
                         </td>
-                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                        <td>
                           {formatDate(authKey.time)}
                         </td>
-                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
-                          {authKey.userName}
+                        <td>
+                          {authKey.user.name}
                         </td>
-                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                        <td>
                           {authKey.authKey}
                         </td>
-                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                        <td>
                           {authKey.isEnableFaceRecognition && (
                             <span className="badge badge-primary badge-pill text-size-16 px-3">
                               {_('Face recognition')}
@@ -220,7 +235,7 @@ module.exports = class License extends Base {
                             </span>
                           )}
                         </td>
-                        <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
+                        <td>
                           {Boolean(authKey.isEnable) && (
                             <i className="fas fa-check-circle fa-lg fa-fw text-success"/>
                           )}
