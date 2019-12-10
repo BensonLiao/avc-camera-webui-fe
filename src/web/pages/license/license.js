@@ -32,18 +32,20 @@ module.exports = class License extends Base {
         isEnableAgeGender: PropTypes.bool.isRequired,
         isEnableHumanoidDetection: PropTypes.bool.isRequired
       }).isRequired,
-      authKeys: PropTypes.arrayOf(PropTypes.shape({
-        time: PropTypes.string.isRequired,
-        user: PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired
-        }).isRequired,
-        authKey: PropTypes.string.isRequired,
-        isEnableFaceRecognition: PropTypes.bool.isRequired,
-        isEnableAgeGender: PropTypes.bool.isRequired,
-        isEnableHumanoidDetection: PropTypes.bool.isRequired,
-        isEnable: PropTypes.bool.isRequired
-      }).isRequired).isRequired
+      authKeys: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          time: PropTypes.string.isRequired,
+          user: PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired
+          }).isRequired,
+          authKey: PropTypes.string.isRequired,
+          isEnableFaceRecognition: PropTypes.bool.isRequired,
+          isEnableAgeGender: PropTypes.bool.isRequired,
+          isEnableHumanoidDetection: PropTypes.bool.isRequired,
+          isEnable: PropTypes.bool.isRequired
+        }).isRequired).isRequired
+      }).isRequired
     };
   }
 
