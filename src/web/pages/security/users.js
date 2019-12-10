@@ -4,7 +4,6 @@ const classNames = require('classnames');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
-const UserSchema = require('webserver-form-schema/user-schema');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
@@ -13,28 +12,11 @@ const api = require('../../../core/apis/web-api');
 module.exports = class Users extends Base {
   static get propTypes() {
     return {
-      parentRouteName: PropTypes.string.isRequired,
       users: PropTypes.shape({
-        total: PropTypes.number.isRequired,
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.number.isRequired,
           permission: PropTypes.number.isRequired,
-          account: (props, propName, componentName) => {
-            if (!/.+/.test(props[propName])) {
-              return new Error(
-                'Invalid prop `' + propName + '` supplied to' +
-                ' `' + componentName + '`. Validation failed.'
-              );
-            }
-          },
-          birthday: (props, propName, componentName) => {
-            if (!UserSchema.birthday.pattern.test(props[propName])) {
-              return new Error(
-                'Invalid prop `' + propName + '` supplied to' +
-                ' `' + componentName + '`. Validation failed.'
-              );
-            }
-          }
+          account: PropTypes.string.isRequired
         })).isRequired
       }).isRequired
     };
@@ -84,8 +66,10 @@ module.exports = class Users extends Base {
               <div className="col-12">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active"><a href="/security/account.html">安全性</a></li>
-                    <li className="breadcrumb-item">帳號設定</li>
+                    <li className="breadcrumb-item active">
+                      <Link to="/security/account">{_('Security')}</Link>
+                    </li>
+                    <li className="breadcrumb-item">{_('Account settings')}</li>
                   </ol>
                 </nav>
               </div>
@@ -94,7 +78,7 @@ module.exports = class Users extends Base {
                 <Link className="btn btn-outline-primary rounded-pill px-3"
                   to={{name: 'web.security.users.new-user', params: this.props.params}}
                 >
-                  <i className="fas fa-plus fa-fw"/> 新增帳號
+                  <i className="fas fa-plus fa-fw"/> {_('New user')}
                 </Link>
               </div>
 
@@ -103,9 +87,9 @@ module.exports = class Users extends Base {
                   <thead>
                     <tr className="shadow">
                       <th>#</th>
-                      <th>權限</th>
-                      <th>帳號</th>
-                      <th style={{width: '150px'}}>操作</th>
+                      <th>{_('Permission')}</th>
+                      <th>{_('Account')}</th>
+                      <th style={{width: '150px'}}>{_('Actions')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -151,16 +135,18 @@ module.exports = class Users extends Base {
         >
           <form>
             <div className="modal-header">
-              <h5 className="modal-title">刪除帳號</h5>
+              <h5 className="modal-title">{_('Delete account')}</h5>
             </div>
             <div className="modal-body">
-              <span className="text-muted">您即將刪除 {this.state.deleteUserTarget && this.state.deleteUserTarget.account}，確認要刪除這個帳號嗎？</span>
+              <span className="text-muted">
+                {_('Are you sure to delete account {0}?', [this.state.deleteUserTarget && this.state.deleteUserTarget.account])}
+              </span>
             </div>
             <div className="modal-footer flex-column">
               <div className="form-group w-100 mx-0">
-                <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill" onClick={this.confirmDeleteUser}>刪除</button>
+                <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill" onClick={this.confirmDeleteUser}>{_('Delete')}</button>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteUserModal}>關閉</button>
+              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteUserModal}>{_('Close')}</button>
             </div>
           </form>
         </Modal>

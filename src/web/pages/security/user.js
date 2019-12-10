@@ -10,7 +10,7 @@ const UserPermission = require('webserver-form-schema/constants/user-permission'
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const UserValidator = require('../../validations/users/user-validator');
-const UserNewValidator = require('../../validations/users/user-new-validator');
+const NewUserValidator = require('../../validations/users/new-user-validator');
 const Password = require('../../../core/components/fields/password');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
@@ -18,26 +18,10 @@ const api = require('../../../core/apis/web-api');
 module.exports = class User extends Base {
   static get propTypes() {
     return {
-      parentRouteName: PropTypes.string.isRequired,
       user: PropTypes.shape({
         id: PropTypes.number.isRequired,
         permission: PropTypes.number.isRequired,
-        account: (props, propName, componentName) => {
-          if (!/.+/.test(props[propName])) {
-            return new Error(
-              'Invalid prop `' + propName + '` supplied to' +
-              ' `' + componentName + '`. Validation failed.'
-            );
-          }
-        },
-        birthday: (props, propName, componentName) => {
-          if (!UserSchema.birthday.pattern.test(props[propName])) {
-            return new Error(
-              'Invalid prop `' + propName + '` supplied to' +
-              ' `' + componentName + '`. Validation failed.'
-            );
-          }
-        }
+        account: PropTypes.string.isRequired
       })
     };
   }
@@ -81,19 +65,17 @@ module.exports = class User extends Base {
 
   hideModal = (reload = false) => {
     getRouter().go({
-      name: this.props.parentRouteName
+      name: 'web.security.users'
     }, {reload});
   };
 
   onSubmitForm = values => {
-    const data = {...values};
-    const reload = true;
     progress.start();
     if (this.props.user) {
       // Update the user.
-      api.user.updateUser(data)
+      api.user.updateUser(values)
         .then(() => {
-          this.hideModal(reload);
+          this.hideModal(true);
         })
         .catch(error => {
           progress.done();
@@ -101,9 +83,9 @@ module.exports = class User extends Base {
         });
     } else {
       // Add a new user.
-      api.user.addUser(data)
+      api.user.addUser(values)
         .then(() => {
-          this.hideModal(reload);
+          this.hideModal(true);
         })
         .catch(error => {
           progress.done();
@@ -117,21 +99,22 @@ module.exports = class User extends Base {
       <Form>
         <div className="modal-body">
           <div className="form-group">
-            <label>權限</label>
+            <label>{_('Permission')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
               <Field name="permission" component="select" className="form-control border-0">
-                <option value={UserPermission.root}>
-                  {_(`permission-${UserPermission.root}`)}
-                </option>
-                <option value={UserPermission.guest}>
-                  {_(`permission-${UserPermission.guest}`)}
-                </option>
+                {
+                  UserPermission.all().map(permission => (
+                    <option key={permission} value={permission}>
+                      {_(`permission-${permission}`)}
+                    </option>
+                  ))
+                }
               </Field>
             </div>
           </div>
           <div className="form-group">
-            <label>帳號</label>
-            <Field name="account" type="text" placeholder="請輸入您的帳號"
+            <label>{_('Account')}</label>
+            <Field name="account" type="text" placeholder={_('Please enter your account.')}
               maxLength={UserSchema.account.max}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
             {
@@ -139,23 +122,27 @@ module.exports = class User extends Base {
                 <div className="invalid-feedback">{errors.account}</div>
               )
             }
-            <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
+            <small className="form-text text-muted">{_('Please enter less than 9 letters.')}</small>
           </div>
           <div className="form-group has-feedback">
-            <label>生日</label>
-            <Field name="birthday" type="text" placeholder="請輸入您的西元出生年月日"
-              className={classNames('form-control', {'is-invalid': errors.birthday && touched.birthday})}/>
+            <label>{_('Birthday')}</label>
+            <Field name="birthday" component={Password} inputProps={{
+              placeholder: _('Please enter your birthday.'),
+              className: classNames('form-control', {'is-invalid': errors.birthday && touched.birthday})
+            }}/>
             {
               errors.birthday && touched.birthday && (
                 <div className="invalid-feedback">{errors.birthday}</div>
               )
             }
-            <small className="form-text text-muted">Ex:19910326，此欄位是為了讓您忘記密碼可使用來重設密碼</small>
+            <small className="form-text text-muted">
+              {_('This value is for resetting password, such as 19910326.')}
+            </small>
           </div>
           <div className="form-group has-feedback">
-            <label>{this.props.user ? '舊密碼' : '密碼'}</label>
+            <label>{_(this.props.user ? 'Old password' : 'Password')}</label>
             <Field name="password" component={Password} inputProps={{
-              placeholder: this.props.user ? '請輸入您的舊密碼' : '請輸入您的密碼',
+              placeholder: _(this.props.user ? 'Please enter your old password.' : 'Please enter your password.'),
               className: classNames('form-control', {'is-invalid': errors.password && touched.password})
             }}/>
             {
@@ -164,25 +151,27 @@ module.exports = class User extends Base {
               )
             }
           </div>
-          {this.props.user && (
-            <div className="form-group has-feedback">
-              <label>確認新密碼</label>
-              <Field name="newPassword" component={Password} inputProps={{
-                placeholder: '請輸入您的新密碼',
-                className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
-              }}/>
-              {
-                errors.newPassword && touched.newPassword && (
-                  <div className="invalid-feedback">{errors.newPassword}</div>
-                )
-              }
-              <small className="form-text text-muted">8 字元以內的大寫或小寫</small>
-            </div>
-          )}
+          {
+            this.props.user && (
+              <div className="form-group has-feedback">
+                <label>{_('Confirm new password')}</label>
+                <Field name="newPassword" component={Password} inputProps={{
+                  placeholder: _('Please enter your new password.'),
+                  className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
+                }}/>
+                {
+                  errors.newPassword && touched.newPassword && (
+                    <div className="invalid-feedback">{errors.newPassword}</div>
+                  )
+                }
+                <small className="form-text text-muted">{_('Please enter less than 9 letters.')}</small>
+              </div>
+            )
+          }
           <div className="form-group has-feedback">
-            <label>{this.props.user ? '確認新密碼' : '確認密碼'}</label>
+            <label>{_(this.props.user ? 'Confirm new password' : 'Confirm password')}</label>
             <Field name="confirmPassword" component={Password} inputProps={{
-              placeholder: this.props.user ? '請再次輸入您的新密碼' : '請再次輸入您的密碼',
+              placeholder: _(this.props.user ? 'Please confirm your new password.' : 'Please confirm your password.'),
               className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
             }}/>
             {
@@ -210,7 +199,7 @@ module.exports = class User extends Base {
 
   render() {
     const {user} = this.props;
-    const validator = user ? UserValidator : UserNewValidator;
+    const validator = user ? UserValidator : NewUserValidator;
 
     return (
       <Modal autoFocus={false} show={this.state.isShowModal} onHide={this.hideModal}>
