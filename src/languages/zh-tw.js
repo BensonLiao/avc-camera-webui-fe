@@ -331,6 +331,6 @@ window.languageResource = {
   Activated: '已啟用',
   'Activate User': '啟用者',
   'Authentication Key': '授權碼',
-  'Activated Functions': '啟用功能',
-  Status: '狀態'
+  'Enabled Functions': '啟用功能',
+  'Enable Status': '狀態'
 };

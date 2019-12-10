@@ -184,8 +184,8 @@ module.exports = class License extends Base {
                       <th>{_('Time')}</th>
                       <th>{_('Activate User')}</th>
                       <th>{_('Authentication Key')}</th>
-                      <th>{_('Activated Functions')}</th>
-                      <th>{_('Status')}</th>
+                      <th>{_('Enabled Functions')}</th>
+                      <th>{_('Enable Status')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -221,7 +221,7 @@ module.exports = class License extends Base {
                           )}
                         </td>
                         <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
-                          {Boolean(authKey.status) && (
+                          {Boolean(authKey.isEnable) && (
                             <i className="fas fa-check-circle fa-lg fa-fw text-success"/>
                           )}
                         </td>

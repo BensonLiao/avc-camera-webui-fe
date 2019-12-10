@@ -143,7 +143,7 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = {
       authKey,
       userName: window.user.account,
-      status: activateStatus,
+      isEnable: activateStatus,
       ...enabledFunctions
     };
     const maxId = db.get('authKeys').sortBy('id').takeRight(1).value()[0].id;

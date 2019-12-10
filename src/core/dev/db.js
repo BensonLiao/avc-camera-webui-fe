@@ -159,7 +159,7 @@ module.exports = {
           isEnableFaceRecognition: true,
           isEnableAgeGender: true,
           isEnableHumanoidDetection: false,
-          status: 1
+          isEnable: 1
         },
         {
           id: 2,
@@ -169,7 +169,7 @@ module.exports = {
           isEnableFaceRecognition: false,
           isEnableAgeGender: false,
           isEnableHumanoidDetection: true,
-          status: 1
+          isEnable: 1
         }
       ]
     })
