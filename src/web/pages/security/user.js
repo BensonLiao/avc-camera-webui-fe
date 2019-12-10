@@ -45,7 +45,7 @@ module.exports = class User extends Base {
     if (user) {
       return {
         id: user.id,
-        permission: user.permission.toString(),
+        permission: user.permission,
         account: user.account,
         birthday: '',
         password: '',
@@ -55,7 +55,7 @@ module.exports = class User extends Base {
     }
 
     return {
-      permission: '0',
+      permission: UserPermission.root,
       account: '',
       birthday: '',
       password: '',
