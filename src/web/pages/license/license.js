@@ -248,12 +248,12 @@ module.exports = class License extends Base {
                             </span>
                           )}
                           {authKey.isEnableAgeGender && (
-                            <span className="badge badge-primary badge-pill text-size-16 px-3">
+                            <span className="badge badge-primary badge-pill text-size-16 px-3 ml-1">
                               {_('Age gender')}
                             </span>
                           )}
                           {authKey.isEnableHumanoidDetection && (
-                            <span className="badge badge-primary badge-pill text-size-16 px-3">
+                            <span className="badge badge-primary badge-pill text-size-16 px-3 ml-1">
                               {_('Humanoid detection')}
                             </span>
                           )}
