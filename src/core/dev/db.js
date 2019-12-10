@@ -161,7 +161,7 @@ module.exports = {
           isEnableFaceRecognition: true,
           isEnableAgeGender: true,
           isEnableHumanoidDetection: false,
-          isEnable: 1
+          isEnable: true
         },
         {
           time: '2019-10-02T08:00:00.000Z',
@@ -173,7 +173,7 @@ module.exports = {
           isEnableFaceRecognition: false,
           isEnableAgeGender: false,
           isEnableHumanoidDetection: true,
-          isEnable: 1
+          isEnable: true
         }
       ]
     })

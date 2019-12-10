@@ -236,7 +236,7 @@ module.exports = class License extends Base {
                           )}
                         </td>
                         <td>
-                          {Boolean(authKey.isEnable) && (
+                          {authKey.isEnable && (
                             <i className="fas fa-check-circle fa-lg fa-fw text-success"/>
                           )}
                         </td>

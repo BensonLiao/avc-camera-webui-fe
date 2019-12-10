@@ -145,7 +145,7 @@ mockAxios.onGet('/api/video/settings').reply(config => {
         id: window.user.id,
         name: window.user.account
       },
-      isEnable: 1,
+      isEnable: true,
       ...enabledFunctions
     };
     newItem.time = new Date();
