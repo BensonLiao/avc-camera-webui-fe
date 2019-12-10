@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 const {getRouter} = require('capybara-router');
 const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
@@ -24,6 +25,28 @@ const ACTIVATED = _('Activated');
 const NOT_ACTIVATED = _('Not activated');
 
 module.exports = class License extends Base {
+  static get propTypes() {
+    return {
+      systemInformation: PropTypes.shape({
+        isEnableFaceRecognition: PropTypes.bool.isRequired,
+        isEnableAgeGender: PropTypes.bool.isRequired,
+        isEnableHumanoidDetection: PropTypes.bool.isRequired
+      }).isRequired,
+      authKeys: PropTypes.arrayOf(PropTypes.shape({
+        time: PropTypes.string.isRequired,
+        user: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired
+        }).isRequired,
+        authKey: PropTypes.string.isRequired,
+        isEnableFaceRecognition: PropTypes.bool.isRequired,
+        isEnableAgeGender: PropTypes.bool.isRequired,
+        isEnableHumanoidDetection: PropTypes.bool.isRequired,
+        isEnable: PropTypes.bool.isRequired
+      }).isRequired).isRequired
+    };
+  }
+
   onSubmit = ({authKey}) => {
     progress.start();
     api.authKey.addAuthKey(authKey)
