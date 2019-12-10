@@ -47,7 +47,7 @@ module.exports = class User extends Base {
         id: user.id,
         permission: user.permission.toString(),
         account: user.account,
-        birthday: user.birthday,
+        birthday: '',
         password: '',
         newPassword: '',
         confirmPassword: ''
