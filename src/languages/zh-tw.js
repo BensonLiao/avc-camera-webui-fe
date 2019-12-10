@@ -336,5 +336,14 @@ window.languageResource = {
   'Old password': '舊密碼',
   'Please enter your old password.': '請輸入您的舊密碼',
   'Delete account': '刪除帳號',
-  'Are you sure to delete account {0}?': '您即將刪除 {0}，確認要刪除這個帳號嗎？'
+  'Are you sure to delete account {0}?': '您即將刪除 {0}，確認要刪除這個帳號嗎？',
+
+  // /license
+  'Please enter the authentication key.': '請輸入授權碼',
+  Activate: '啟用',
+  Activated: '已啟用',
+  'Activate User': '啟用者',
+  'Authentication Key': '授權碼',
+  'Enabled Functions': '啟用功能',
+  'Enable Status': '狀態'
 };

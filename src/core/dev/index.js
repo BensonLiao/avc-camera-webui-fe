@@ -125,4 +125,31 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     db.get('users').remove({id: itemId}).write();
     return mockResponseWithLog(config, [204, {}]);
   })
+  .onGet('/api/auth-keys').reply(config => {
+    const data = db.get('authKeys').value();
+    return mockResponseWithLog(config, [200, {
+      total: data.length,
+      items: data
+    }]);
+  })
+  .onPost('/api/auth-keys').reply(config => {
+    const authKey = JSON.parse(config.data).authKey;
+    const enabledFunctions = {
+      isEnableFaceRecognition: true,
+      isEnableAgeGender: false,
+      isEnableHumanoidDetection: false
+    };
+    const newItem = {
+      authKey,
+      user: {
+        id: window.user.id,
+        name: window.user.account
+      },
+      isEnable: true,
+      ...enabledFunctions
+    };
+    newItem.time = new Date();
+    db.get('authKeys').push(newItem).write();
+    return mockResponseWithLog(config, [200, enabledFunctions]);
+  })
   .onAny().passThrough(); // Pass other request to normal axios

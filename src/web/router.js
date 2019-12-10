@@ -209,6 +209,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.license',
+      uri: '/license',
+      onEnter: () => {
+        document.title = `${_('License')} - ${_title}`;
+      },
+      resolve: {
+        authKeys: () => api.authKey.getAuthKeys().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-license" */
+        './pages/license/license'
+      )
+    },
+    {
       name: 'login',
       uri: '/login',
       onEnter: () => {
