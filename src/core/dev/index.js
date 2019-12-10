@@ -139,20 +139,16 @@ mockAxios.onGet('/api/video/settings').reply(config => {
       isEnableAgeGender: false,
       isEnableHumanoidDetection: false
     };
-    const activateStatus = 1;
     const newItem = {
       authKey,
       userName: window.user.account,
-      isEnable: activateStatus,
+      isEnable: 1,
       ...enabledFunctions
     };
     const maxId = db.get('authKeys').sortBy('id').takeRight(1).value()[0].id;
     newItem.id = maxId + 1;
     newItem.time = new Date();
     db.get('authKeys').push(newItem).write();
-    return mockResponseWithLog(config, [200, {
-      success: activateStatus,
-      ...enabledFunctions
-    }]);
+    return mockResponseWithLog(config, [200, enabledFunctions]);
   })
   .onAny().passThrough(); // Pass other request to normal axios
