@@ -416,6 +416,30 @@ module.exports = {
       url: `/api/members/${memberId}`
     })
   },
+  multimedia: {
+    getStreamSettings: () => api({
+      /*
+      @returns {Promise<Object>} webserver-form-schema/stream-settings-schema
+        channelA: {Object}
+          format: {String} webserver-form-schema/constants/stream-format
+          resolution: {String} webserver-form-schema/constants/stream-resolution
+          frameRate: {String}
+          bandwidthManagement: {String}
+          vbrBitRateLevel: {String}
+          vbrMaxBitRate: {String}
+          cbrBitRate: {String}
+          gop: {String}
+        channelB: {Object} It is same as channelA.
+       */
+      method: 'get',
+      url: '/api/multimedia/settings'
+    }),
+    updateStreamSettings: ({channelA, channelB}) => api({
+      method: 'put',
+      url: '/api/multimedia/settings',
+      data: {channelA, channelB}
+    })
+  },
   event: {
     getFaceEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
       /*
