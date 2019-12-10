@@ -149,6 +149,32 @@ module.exports = {
           permission: 1,
           password: 'cC12345678'
         }
+      ],
+      authKeys: [
+        {
+          time: '2019-10-02T12:00:00.000Z',
+          user: {
+            id: 1,
+            name: 'ChiChi'
+          },
+          authKey: 'GVHBNJLKBHVYIUON:KJLBNK',
+          isEnableFaceRecognition: true,
+          isEnableAgeGender: true,
+          isEnableHumanoidDetection: false,
+          isEnable: true
+        },
+        {
+          time: '2019-10-02T08:00:00.000Z',
+          user: {
+            id: 2,
+            name: 'Ben'
+          },
+          authKey: 'VGHBJNKBIVHBKJLNK:MPOIBJ',
+          isEnableFaceRecognition: false,
+          isEnableAgeGender: false,
+          isEnableHumanoidDetection: true,
+          isEnable: true
+        }
       ]
     })
       .write();
