@@ -323,5 +323,14 @@ window.languageResource = {
   Snapshot: '辨識照片',
   'Member picture': '註冊照片',
   Confidence: '相似度',
-  'Can\'t find any data.': '查無相符資料，請重新搜尋。'
+  'Can\'t find any data.': '查無相符資料，請重新搜尋。',
+
+  // /license
+  'Please enter the authentication key.': '請輸入授權碼',
+  Activate: '啟用',
+  Activated: '已啟用',
+  'Activate User': '啟用者',
+  'Authentication Key': '授權碼',
+  'Activated Functions': '啟用功能',
+  Status: '狀態'
 };

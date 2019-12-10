@@ -4,11 +4,12 @@ const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const Base = require('../shared/base');
+const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const {formatDate, renderError} = require('../../../core/utils');
 
-const ACTIVATE = '已啟用';
-const DEACTIVATE = '未啟用';
+const ACTIVATED = _('Activated');
+const NOT_ACTIVATED = _('Not activated');
 
 module.exports = class License extends Base {
   onSubmit = ({authKey}) => {
@@ -31,7 +32,7 @@ module.exports = class License extends Base {
           <div className="container-fluid">
             <div className="row">
               <div className="col-12">
-                <h3 className="mb-4">智慧授權</h3>
+                <h3 className="mb-4">{_('License')}</h3>
                 <Formik initialValues={{authKey: ''}} onSubmit={this.onSubmit}>
                   <Form>
                     <div className="form-row">
@@ -41,7 +42,7 @@ module.exports = class License extends Base {
                           className="form-control"
                           name="authKey"
                           type="text"
-                          placeholder="請輸入授權碼"
+                          placeholder={_('Please enter the authentication key.')}
                           style={{width: '312px'}}
                         />
                       </div>
@@ -51,7 +52,7 @@ module.exports = class License extends Base {
                           type="submit"
                           disabled={this.state.$isApiProcessing}
                         >
-                          啟用
+                          {_('Activate')}
                         </button>
                       </div>
                     </div>
@@ -82,7 +83,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      臉部辨識
+                      {_('Face recognition')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -98,7 +99,7 @@ module.exports = class License extends Base {
                           systemInformation.isEnableFaceRecognition ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableFaceRecognition ? ACTIVATE : DEACTIVATE}
+                        )}/>{systemInformation.isEnableFaceRecognition ? ACTIVATED : NOT_ACTIVATED}
                       </span>
                     </div>
                   </div>
@@ -118,7 +119,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      性別年齡
+                      {_('Age gender')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -134,7 +135,7 @@ module.exports = class License extends Base {
                           systemInformation.isEnableAgeGender ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableAgeGender ? ACTIVATE : DEACTIVATE}
+                        )}/>{systemInformation.isEnableAgeGender ? ACTIVATED : NOT_ACTIVATED}
                       </span>
                     </div>
                   </div>
@@ -154,7 +155,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      人型偵測
+                      {_('Humanoid detection')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -170,7 +171,7 @@ module.exports = class License extends Base {
                           systemInformation.isEnableHumanoidDetection ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableHumanoidDetection ? ACTIVATE : DEACTIVATE}
+                        )}/>{systemInformation.isEnableHumanoidDetection ? ACTIVATED : NOT_ACTIVATED}
                       </span>
                     </div>
                   </div>
@@ -180,11 +181,11 @@ module.exports = class License extends Base {
                   <thead>
                     <tr className="shadow">
                       <th/>
-                      <th>時間</th>
-                      <th>啟用者</th>
-                      <th>授權碼</th>
-                      <th>啟用功能</th>
-                      <th>狀態</th>
+                      <th>{_('Time')}</th>
+                      <th>{_('Activate User')}</th>
+                      <th>{_('Authentication Key')}</th>
+                      <th>{_('Activated Functions')}</th>
+                      <th>{_('Status')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -205,17 +206,17 @@ module.exports = class License extends Base {
                         <td className={classNames({'border-bottom': index < authKeys.items.length - 1})}>
                           {authKey.isEnableFaceRecognition && (
                             <span className="badge badge-primary badge-pill text-size-16 px-3">
-                              臉部辨識
+                              {_('Face recognition')}
                             </span>
                           )}
                           {authKey.isEnableAgeGender && (
                             <span className="badge badge-primary badge-pill text-size-16 px-3">
-                              性別年齡
+                              {_('Age gender')}
                             </span>
                           )}
                           {authKey.isEnableHumanoidDetection && (
                             <span className="badge badge-primary badge-pill text-size-16 px-3">
-                              人型偵測
+                              {_('Humanoid detection')}
                             </span>
                           )}
                         </td>
