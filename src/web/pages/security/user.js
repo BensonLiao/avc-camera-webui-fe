@@ -154,7 +154,7 @@ module.exports = class User extends Base {
           {
             this.props.user && (
               <div className="form-group has-feedback">
-                <label>{_('Confirm new password')}</label>
+                <label>{_('New password')}</label>
                 <Field name="newPassword" component={Password} inputProps={{
                   placeholder: _('Please enter your new password.'),
                   className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
