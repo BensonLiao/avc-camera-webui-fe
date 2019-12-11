@@ -7,7 +7,7 @@ exports.baseView = (req, res) => {
     languageCode: 'zh-tw',
     loadingText: '載入中',
     user: {
-      id: 'id',
+      id: 1,
       account: 'admin',
       permission: 'admin'
     },
