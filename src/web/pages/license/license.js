@@ -7,7 +7,8 @@ const progress = require('nprogress');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const {formatDate, renderError} = require('../../../core/utils');
+const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
+const {formatDate, renderError, makeFormikValidator} = require('../../../core/utils');
 const iconFaceRecognitionEnable =
   require('webserver-prototype/src/resource/face-recognition-enable.svg');
 const iconFaceRecognitionDisable =
@@ -59,7 +60,37 @@ module.exports = class License extends Base {
         progress.done();
         renderError(error);
       });
-  }
+  };
+
+  addLicenseFormRender = ({errors, submitCount}) => {
+    const isSubmitted = submitCount > 0;
+
+    return (
+      <Form>
+        <div className="form-row">
+          <div className="col-auto my-1">
+            <Field
+              autoFocus
+              className={classNames('form-control', {'is-invalid': errors.authKey && isSubmitted})}
+              name="authKey"
+              type="text"
+              placeholder={_('Please enter the authentication key.')}
+              style={{width: '312px'}}
+            />
+          </div>
+          <div className="col-auto my-1">
+            <button
+              className="btn btn-primary rounded-pill px-4"
+              type="submit"
+              disabled={this.state.$isApiProcessing}
+            >
+              {_('Activate')}
+            </button>
+          </div>
+        </div>
+      </Form>
+    );
+  };
 
   render() {
     const {systemInformation, authKeys} = this.props;
@@ -70,30 +101,11 @@ module.exports = class License extends Base {
             <div className="row">
               <div className="col-12">
                 <h3 className="mb-4">{_('License')}</h3>
-                <Formik initialValues={{authKey: ''}} onSubmit={this.onSubmit}>
-                  <Form>
-                    <div className="form-row">
-                      <div className="col-auto my-1">
-                        <Field
-                          autoFocus
-                          className="form-control"
-                          name="authKey"
-                          type="text"
-                          placeholder={_('Please enter the authentication key.')}
-                          style={{width: '312px'}}
-                        />
-                      </div>
-                      <div className="col-auto my-1">
-                        <button
-                          className="btn btn-primary rounded-pill px-4"
-                          type="submit"
-                          disabled={this.state.$isApiProcessing}
-                        >
-                          {_('Activate')}
-                        </button>
-                      </div>
-                    </div>
-                  </Form>
+                <Formik initialValues={{authKey: ''}}
+                  validate={makeFormikValidator(authKeyValidator)}
+                  onSubmit={this.onSubmit}
+                >
+                  {this.addLicenseFormRender}
                 </Formik>
               </div>
             </div>
