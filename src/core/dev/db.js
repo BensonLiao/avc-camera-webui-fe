@@ -67,6 +67,28 @@ module.exports = {
         usedDiskSize: 3117 * 1024 * 1024,
         totalDiskSize: 7692 * 1024 * 1024
       },
+      stream: {
+        channelA: {
+          format: 'H265',
+          resolution: '1',
+          frameRate: '5',
+          bandwidthManagement: 'CBR',
+          vbrBitRateLevel: '2',
+          vbrMaxBitRate: '8',
+          cbrBitRate: '4',
+          gop: '1'
+        },
+        channelB: {
+          format: 'H265',
+          resolution: '1',
+          frameRate: '5',
+          bandwidthManagement: 'CBR',
+          vbrBitRateLevel: '2',
+          vbrMaxBitRate: '8',
+          cbrBitRate: '4',
+          gop: '1'
+        }
+      },
       groups: [
         {
           id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
