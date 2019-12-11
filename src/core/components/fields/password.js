@@ -1,7 +1,6 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Field} = require('formik');
 
 module.exports = class Password extends React.PureComponent {
   static get propTypes() {
@@ -32,7 +31,7 @@ module.exports = class Password extends React.PureComponent {
 
     return (
       <>
-        <Field {...inputProps} {...field} type={isShowPassword ? 'text' : 'password'}/>
+        <input {...inputProps} {...field} type={isShowPassword ? 'text' : 'password'}/>
         <a href="#" className="form-control-feedback text-muted"
           tabIndex={-1} onClick={this.onTogglePassword}
         >
