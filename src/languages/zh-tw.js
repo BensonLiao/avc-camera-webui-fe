@@ -272,6 +272,9 @@ window.languageResource = {
   'End time': '結束時間',
   'End datetime': '結束日期時間',
 
+  // /media
+  'Stream settings': '串流',
+
   // /members
   'All members': '所有成員',
   Groups: '群組',

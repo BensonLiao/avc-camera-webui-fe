@@ -30,6 +30,31 @@ module.exports = new Router({
       component: require('./pages/home')
     },
     {
+      name: 'web.media',
+      uri: '/media',
+      onEnter: () => {
+        document.title = `${_('Multimedia settings')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/layout'
+      )
+    },
+    {
+      name: 'web.media.stream',
+      uri: '/stream',
+      onEnter: () => {
+        document.title = `${_('Multimedia settings')} - ${_title}`;
+      },
+      resolve: {
+        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/stream'
+      )
+    },
+    {
       name: 'web.members',
       uri: '/members?group?keyword?index?sort',
       onEnter: () => {
