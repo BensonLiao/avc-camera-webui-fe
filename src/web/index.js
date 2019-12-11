@@ -137,6 +137,17 @@ router.listen('ChangeSuccess', (action, toState, fromState) => {
       return;
     }
 
+    if (
+      toState.name === 'web.security.users.details' ||
+      toState.name === 'web.security.users.new-user' ||
+      (toState.name === 'web.security.users' && [
+        'web.security.users.details',
+        'web.security.users.new-user'
+      ].indexOf(fromState.name) >= 0)
+    ) {
+      return;
+    }
+
     if (typeof window.scrollTo === 'function') {
       window.scrollTo(0, 0);
     }

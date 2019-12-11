@@ -110,7 +110,7 @@ module.exports = new Router({
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
-        './pages/security/index'
+        './pages/security/layout'
       )
     },
     {
@@ -120,7 +120,6 @@ module.exports = new Router({
         document.title = `${_('Security')} - ${_title}`;
       },
       resolve: {
-        parentRouteName: () => 'web.security',
         users: () => api.user.getUsers().then(response => response.data)
       },
       loadComponent: () => import(
@@ -136,7 +135,6 @@ module.exports = new Router({
         document.title = `${_('Security')} - ${_title}`;
       },
       resolve: {
-        parentRouteName: () => 'web.security.users',
         user: params => api.user.getUser(params.userId).then(response => response.data)
       },
       loadComponent: () => import(
@@ -152,7 +150,6 @@ module.exports = new Router({
         document.title = `${_('New user')} - ${_title}`;
       },
       resolve: {
-        parentRouteName: () => 'web.security.users',
         user: () => null
       },
       loadComponent: () => import(
@@ -166,9 +163,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
       },
-      resolve: {
-        parentRouteName: () => 'web.security'
-      },
+      resolve: {},
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
         './pages/security/https'
@@ -180,9 +175,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
       },
-      resolve: {
-        parentRouteName: () => 'web.security'
-      },
+      resolve: {},
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
         './pages/security/off-line'
