@@ -325,6 +325,19 @@ window.languageResource = {
   Confidence: '相似度',
   'Can\'t find any data.': '查無相符資料，請重新搜尋。',
 
+  // /security/account
+  'Account settings': '帳號設定',
+  'Off line record': '斷線錄影',
+  'New user': '新增帳號',
+  'Modify user': '編輯帳號',
+  'Confirm new password': '確認新密碼',
+  'Please confirm your new password.': '請再次輸入您的新密碼',
+  'Please confirm your password.': '請再次輸入您的密碼',
+  'Old password': '舊密碼',
+  'Please enter your old password.': '請輸入您的舊密碼',
+  'Delete account': '刪除帳號',
+  'Are you sure to delete account {0}?': '您即將刪除 {0}，確認要刪除這個帳號嗎？',
+
   // /license
   'Please enter the authentication key.': '請輸入授權碼',
   Activate: '啟用',

@@ -3,20 +3,26 @@ const React = require('react');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
+const Loading = require('../../../core/components/loading');
 
 module.exports = class Security extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
-    this.state.currentRouteUri = router.currentRoute.uriTemplate;
+
+    this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
-        const currentRouteUri = router.findRouteByName(toState.name).uriTemplate;
         this.setState({
-          currentRouteUri: currentRouteUri
+          currentRouteName: toState.name
         });
       })
     );
+    if (this.state.currentRouteName === 'web.security') {
+      setTimeout(() => {
+        router.go({name: 'web.security.users'});
+      });
+    }
   }
 
   render() {
@@ -27,25 +33,28 @@ module.exports = class Security extends Base {
           <h2>{_('Security')}</h2>
           <nav className="nav flex-column">
             <Link to="/security/account" title={_('All members')}
-              className={classNames('nav-link', {active: this.state.currentRouteUri === '/security/account'})}
+              className={classNames(
+                'nav-link',
+                {active: ['web.security.users', 'web.security.users.details', 'web.security.users.new-user'].indexOf(this.state.currentRouteName) >= 0}
+              )}
             >
-              帳號設定
+              {_('Account settings')}
             </Link>
             <Link to="/security/https" title={_('All members')}
-              className={classNames('nav-link', {active: this.state.currentRouteUri === '/security/https'})}
+              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.security.https'})}
             >
               HTTPS
             </Link>
             <Link to="/security/off-line" title={_('All members')}
-              className={classNames('nav-link', {active: this.state.currentRouteUri === '/security/off-line'})}
+              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.security.off-line'})}
             >
-              斷線錄影
+              {_('Off line record')}
             </Link>
           </nav>
         </div>
 
         {/* Main content */}
-        <RouterView/>
+        <RouterView><Loading/></RouterView>
       </>
     );
   }
