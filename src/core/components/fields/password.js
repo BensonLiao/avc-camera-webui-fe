@@ -34,7 +34,7 @@ module.exports = class Password extends React.PureComponent {
       <>
         <Field {...inputProps} {...field} type={isShowPassword ? 'text' : 'password'}/>
         <a href="#" className="form-control-feedback text-muted"
-          onClick={this.onTogglePassword}
+          tabIndex={-1} onClick={this.onTogglePassword}
         >
           <i className={classNames('fas', isShowPassword ? 'fa-eye' : 'fa-eye-slash')}/>
         </a>
