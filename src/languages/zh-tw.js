@@ -137,6 +137,7 @@ window.languageResource = {
   Security: '安全性',
   License: '智慧授權',
   Develop: '工程模式',
+  'Sign out': '登出',
 
   // /login
   'Welcome to use AndroVideo system': '歡迎使用 AndroVideo 系統',
