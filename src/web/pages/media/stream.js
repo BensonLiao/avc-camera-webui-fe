@@ -1,7 +1,11 @@
 const React = require('react');
 const PropTypes = require('prop-types');
+const {getRouter} = require('capybara-router');
+const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
+const api = require('../../../core/apis/web-api');
+const {renderError} = require('../../../core/utils');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 const StreamFormat = require('webserver-form-schema/constants/stream-format');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
@@ -46,18 +50,33 @@ module.exports = class Stream extends Base {
 
   generateInitialValue = streamSettings => {
     if (streamSettings) {
-      return streamSettings;
+      return {
+        channelA: streamSettings,
+        channelB: streamSettings
+      };
     }
 
     return {
-      format: 'H264',
-      resolution: '2',
-      frameRate: '30',
-      bandwidthManagement: 'VBR',
-      vbrBitRateLevel: '1',
-      vbrMaxBitRate: '12',
-      cbrBitRate: '2',
-      gop: '2'
+      channelA: {
+        format: 'H264',
+        resolution: '2',
+        frameRate: '30',
+        bandwidthManagement: 'VBR',
+        vbrBitRateLevel: '1',
+        vbrMaxBitRate: '12',
+        cbrBitRate: '2',
+        gop: '2'
+      },
+      channelB: {
+        format: 'H264',
+        resolution: '2',
+        frameRate: '30',
+        bandwidthManagement: 'VBR',
+        vbrBitRateLevel: '1',
+        vbrMaxBitRate: '12',
+        cbrBitRate: '2',
+        gop: '2'
+      }
     };
   };
 
@@ -74,13 +93,13 @@ module.exports = class Stream extends Base {
     return options;
   }
 
-  formRender = () => {
+  formRender = (parentFieldName = '') => {
     return (
-      <Form>
+      <div className="form">
         <div className="form-group">
           <label>{_('Format')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="format" component="select" className="form-control border-0">
+            <Field name={`${parentFieldName}format`} component="select" className="form-control border-0">
               {
                 StreamFormat.all().map(format => (
                   <option key={format} value={format}>
@@ -94,7 +113,7 @@ module.exports = class Stream extends Base {
         <div className="form-group">
           <label>{_('Resolution')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="resolution" component="select" className="form-control border-0">
+            <Field name={`${parentFieldName}resolution`} component="select" className="form-control border-0">
               {
                 StreamResolution.all().map(resolution => (
                   <option key={resolution} value={resolution}>
@@ -108,7 +127,7 @@ module.exports = class Stream extends Base {
         <div className="form-group">
           <label>{_('Frame rate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="frameRate" component="select" className="form-control border-0">
+            <Field name={`${parentFieldName}frameRate`} component="select" className="form-control border-0">
               {this.renderFrameRateOption()}
             </Field>
           </div>
@@ -116,7 +135,7 @@ module.exports = class Stream extends Base {
         <div className="form-group">
           <label>{_('Bandwidth management')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="bandwidthManagement" component="select" className="form-control border-0">
+            <Field name={`${parentFieldName}bandwidthManagement`} component="select" className="form-control border-0">
               {
                 StreamBandwidthManagement.all().map(bandwidthManagement => (
                   <option key={bandwidthManagement} value={bandwidthManagement}>
@@ -130,7 +149,7 @@ module.exports = class Stream extends Base {
         <div className="form-group">
           <label>{_('VBR bitrate level')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="vbrBitRateLevel" component="select" className="form-control border-0">
+            <Field name={`${parentFieldName}vbrBitRateLevel`} component="select" className="form-control border-0">
               {
                 StreamVBRBitRateLevel.all().map(vbrBitRateLevel => (
                   <option key={vbrBitRateLevel} value={vbrBitRateLevel}>
@@ -144,7 +163,7 @@ module.exports = class Stream extends Base {
         <div className="form-group">
           <label>{_('VBR max bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="vbrMaxBitRate" component="select" className="form-control border-0">
+            <Field name={`${parentFieldName}vbrMaxBitRate`} component="select" className="form-control border-0">
               {
                 StreamVBRMaxBitRate.all().map(vbrMaxBitRate => (
                   <option key={vbrMaxBitRate} value={vbrMaxBitRate}>
@@ -158,7 +177,7 @@ module.exports = class Stream extends Base {
         <div className="form-group">
           <label>{_('CBR bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="cbrBitRate" component="select" className="form-control border-0">
+            <Field name={`${parentFieldName}cbrBitRate`} component="select" className="form-control border-0">
               {
                 StreamCBRBitRate.all().map(cbrBitRate => (
                   <option key={cbrBitRate} value={cbrBitRate}>
@@ -172,7 +191,7 @@ module.exports = class Stream extends Base {
         <div className="form-group">
           <label>{_('GOP')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="gop" component="select" className="form-control border-0">
+            <Field name={`${parentFieldName}gop`} component="select" className="form-control border-0">
               {
                 StreamGOP.all().map(gop => (
                   <option key={gop} value={gop}>
@@ -191,8 +210,20 @@ module.exports = class Stream extends Base {
         <button type="button" className="btn btn-block btn-outline-primary rounded-pill">
           {_('Reset to defaults')}
         </button>
-      </Form>
+      </div>
     );
+  };
+
+  onSubmit = ({channelA}) => {
+    progress.start();
+    api.multimedia.updateStreamSettings({channelA, channelB: channelA})
+      .then(() => {
+        getRouter().reload();
+      })
+      .catch(error => {
+        progress.done();
+        renderError(error);
+      });
   };
 
   render() {
@@ -212,38 +243,34 @@ module.exports = class Stream extends Base {
                   </ol>
                 </nav>
               </div>
+              <Formik
+                initialValues={this.generateInitialValue(channelA)}
+                onSubmit={this.onSubmit}
+              >
+                <Form style={{display: 'flex', width: '100%'}}>
+                  <div className="col-6 col-xl-4">
+                    <div className="card shadow">
+                      <div className="card-header">
+                        {_('Stream {0}', '01')}
+                      </div>
+                      <div className="card-body">
+                        {this.formRender('channelA.')}
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="col-6 col-xl-4">
-                <div className="card shadow">
-                  <div className="card-header">
-                    {_('Stream {0}', '01')}
+                  <div className="col-6 col-xl-4">
+                    <div className="card shadow">
+                      <div className="card-header">
+                        {_('Stream {0}', '02')}
+                      </div>
+                      <div className="card-body">
+                        {this.formRender('channelA.')}
+                      </div>
+                    </div>
                   </div>
-                  <div className="card-body">
-                    <Formik
-                      initialValues={this.generateInitialValue(channelA)}
-                      onSubmit={this.onSubmitForm}
-                    >
-                      {this.formRender}
-                    </Formik>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-6 col-xl-4">
-                <div className="card shadow">
-                  <div className="card-header">
-                    {_('Stream {0}', '02')}
-                  </div>
-                  <div className="card-body">
-                    <Formik
-                      initialValues={this.generateInitialValue(channelA)}
-                      onSubmit={this.onSubmitForm}
-                    >
-                      {this.formRender}
-                    </Formik>
-                  </div>
-                </div>
-              </div>
+                </Form>
+              </Formik>
             </div>
           </div>
         </section>
