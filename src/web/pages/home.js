@@ -95,6 +95,12 @@ module.exports = class Home extends Base {
           this.setState({streamImageUrl: imageUrl});
           setTimeout(this.fetchSnapshot, 500);
         }
+      })
+      .catch(error => {
+        console.error(error);
+        if (this.state.isPlayStream) {
+          setTimeout(this.fetchSnapshot, 500);
+        }
       });
   };
 
