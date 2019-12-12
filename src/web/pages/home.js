@@ -437,7 +437,9 @@ module.exports = class Home extends Base {
                   }
                   {
                     this.state.isPlayStream && !this.state.streamImageUrl && (
-                      <div className="cover d-flex justify-content-center align-items-center text-muted">
+                      <div className="cover d-flex justify-content-center align-items-center text-muted"
+                        onClick={this.onTogglePlayStream}
+                      >
                         <div className="spinner-border">
                           <span className="sr-only">Loading...</span>
                         </div>
