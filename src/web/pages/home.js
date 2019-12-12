@@ -429,6 +429,15 @@ module.exports = class Home extends Base {
                       </div>
                     )
                   }
+                  {
+                    this.state.isPlayStream && !this.state.streamImageUrl && (
+                      <div className="cover d-flex justify-content-center align-items-center text-muted">
+                        <div className="spinner-border">
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                    )
+                  }
                   <div className="controls d-flex justify-content-end align-items-center">
                     <div>
                       <button className="btn-action" type="button" onClick={this.onClickDownloadImage}>
