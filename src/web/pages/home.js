@@ -1,9 +1,12 @@
+const axios = require('axios');
+const download = require('downloadjs');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
+const defaultVideoBackground = require('webserver-prototype/src/resource/video-bg.jpg');
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
@@ -53,8 +56,11 @@ module.exports = class Home extends Base {
 
   constructor(props) {
     super(props);
+    this.streamPlayerRef = React.createRef();
     this.submitPromise = Promise.resolve();
     this.state.deviceName = props.systemInformation.deviceName || '';
+    this.state.isPlayStream = false;
+    this.state.streamImageUrl = null;
   }
 
   generateInitialValues = videoSettings => ({
@@ -75,6 +81,53 @@ module.exports = class Home extends Base {
     this.submitPromise = this.submitPromise
       .then(() => api.video.updateSettings(values))
       .catch(utils.renderError);
+  };
+
+  fetchSnapshot = () => {
+    axios.get('/api/snapshot', {responseType: 'blob'})
+      .then(response => {
+        if (this.state.streamImageUrl) {
+          window.URL.revokeObjectURL(this.state.streamImageUrl);
+        }
+
+        if (this.state.isPlayStream) {
+          const imageUrl = window.URL.createObjectURL(response.data);
+          this.setState({streamImageUrl: imageUrl});
+          setTimeout(this.fetchSnapshot, 500);
+        }
+      });
+  };
+
+  onTogglePlayStream = event => {
+    event.preventDefault();
+    this.setState(prevState => {
+      if (prevState.isPlayStream) {
+        if (prevState.streamImageUrl) {
+          window.URL.revokeObjectURL(prevState.streamImageUrl);
+        }
+
+        return {isPlayStream: false, streamImageUrl: null};
+      }
+
+      this.fetchSnapshot();
+      return {isPlayStream: true};
+    });
+  };
+
+  onClickDownloadImage = event => {
+    event.preventDefault();
+    download('/api/snapshot');
+  };
+
+  onClickRequestFullScreen = event => {
+    event.preventDefault();
+    if (this.streamPlayerRef.current.requestFullScreen) {
+      this.streamPlayerRef.current.requestFullScreen();
+    } else if (this.streamPlayerRef.current.mozRequestFullScreen) {
+      this.streamPlayerRef.current.mozRequestFullScreen();
+    } else if (this.streamPlayerRef.current.webkitRequestFullScreen) {
+      this.streamPlayerRef.current.webkitRequestFullScreen();
+    }
   };
 
   generateClickResetButtonHandler = ({resetForm}) => event => {
@@ -364,20 +417,26 @@ module.exports = class Home extends Base {
               <div className="col-8 pr-24">
                 {/* The video */}
                 <div className="video-wrapper mb-5">
-                  <video width="100%">
-                    <source src="https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4"/>
-                  </video>
-                  <div className="cover d-flex justify-content-center align-items-center">
-                    <button className="btn-play" type="button"><i className="fas fa-play fa-fw"/></button>
-                  </div>
-                  <div className="controls d-flex justify-content-between align-items-center">
+                  <img ref={this.streamPlayerRef}
+                    className="img-fluid" src={this.state.streamImageUrl || defaultVideoBackground}
+                    onClick={this.onTogglePlayStream}/>
+                  {
+                    !this.state.isPlayStream && (
+                      <div className="cover d-flex justify-content-center align-items-center">
+                        <button className="btn-play" type="button" onClick={this.onTogglePlayStream}>
+                          <i className="fas fa-play fa-fw"/>
+                        </button>
+                      </div>
+                    )
+                  }
+                  <div className="controls d-flex justify-content-end align-items-center">
                     <div>
-                      <button className="btn-stream active" type="button">{_('Stream {0}', ['01'])}</button>
-                      <button className="btn-stream" type="button">{_('Stream {0}', ['02'])}</button>
-                    </div>
-                    <div>
-                      <button className="btn-action" type="button"><i className="fas fa-camera"/></button>
-                      <button className="btn-action" type="button"><i className="fas fa-expand-arrows-alt"/></button>
+                      <button className="btn-action" type="button" onClick={this.onClickDownloadImage}>
+                        <i className="fas fa-camera"/>
+                      </button>
+                      <button className="btn-action" type="button" onClick={this.onClickRequestFullScreen}>
+                        <i className="fas fa-expand-arrows-alt"/>
+                      </button>
                     </div>
                   </div>
                 </div>

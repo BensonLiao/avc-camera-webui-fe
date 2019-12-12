@@ -34,6 +34,7 @@
     "config": "3.2.4",
     "css-loader": "3.2.0",
     "dayjs": "1.8.17",
+    "downloadjs": "1.4.7",
     "fastest-validator": "0.6.19",
     "file-loader": "4.2.0",
     "filesize": "6.0.1",
@@ -65,7 +66,7 @@
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
     "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#ff9bcab9a4de3ab38135832b84757853ccd7b5d6",
-    "webserver-prototype": "git+http://gitlab+deploy-token-4:4T2Lsn6ZE__sh6ZoCsPN@192.168.100.137/cloud/webserver-prototype.git#eebb0976fa00786145867658159009026a73dd68"
+    "webserver-prototype": "git+http://gitlab+deploy-token-4:4T2Lsn6ZE__sh6ZoCsPN@192.168.100.137/cloud/webserver-prototype.git#4dfe543087d45b76cc20ae533bc07f40caffa127"
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",
