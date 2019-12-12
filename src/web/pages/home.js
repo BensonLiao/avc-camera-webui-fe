@@ -58,9 +58,23 @@ module.exports = class Home extends Base {
     super(props);
     this.streamPlayerRef = React.createRef();
     this.submitPromise = Promise.resolve();
+    this.fetchSnapshotTimeoutId = null;
     this.state.deviceName = props.systemInformation.deviceName || '';
     this.state.isPlayStream = false;
     this.state.streamImageUrl = null;
+  }
+
+  componentWillUnmount() {
+    if (this.state.isPlayStream) {
+      if (this.state.streamImageUrl) {
+        window.URL.revokeObjectURL(this.state.streamImageUrl);
+      }
+
+      this.setState({isPlayStream: false, streamImageUrl: null});
+      clearTimeout(this.fetchSnapshotTimeoutId);
+    }
+
+    super.componentWillUnmount();
   }
 
   generateInitialValues = videoSettings => ({
@@ -93,13 +107,13 @@ module.exports = class Home extends Base {
         if (this.state.isPlayStream) {
           const imageUrl = window.URL.createObjectURL(response.data);
           this.setState({streamImageUrl: imageUrl});
-          setTimeout(this.fetchSnapshot, 500);
+          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
         }
       })
       .catch(error => {
         console.error(error);
         if (this.state.isPlayStream) {
-          setTimeout(this.fetchSnapshot, 500);
+          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
         }
       });
   };
