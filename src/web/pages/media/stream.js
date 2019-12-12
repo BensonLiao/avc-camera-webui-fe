@@ -14,6 +14,7 @@ const StreamVBRMaxBitRate =
 const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
 const StreamGOP = require('webserver-form-schema/constants/stream-gop');
 const _ = require('../../../languages');
+const {channelA: {props: {frameRate}}} = StreamSettingsSchema;
 
 module.exports = class Stream extends Base {
   static get propTypes() {
@@ -61,7 +62,6 @@ module.exports = class Stream extends Base {
   };
 
   renderFrameRateOption = () => {
-    const {channelA: {props: {frameRate}}} = StreamSettingsSchema;
     const options = [];
     for (let i = frameRate.min; i < frameRate.max; i++) {
       options.push(
@@ -78,7 +78,7 @@ module.exports = class Stream extends Base {
     return (
       <Form>
         <div className="form-group">
-          <label>影像格式</label>
+          <label>{_('Format')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="format" component="select" className="form-control border-0">
               {
@@ -92,13 +92,13 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>解新度</label>
+          <label>{_('Resolution')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="resolution" component="select" className="form-control border-0">
               {
                 StreamResolution.all().map(resolution => (
                   <option key={resolution} value={resolution}>
-                    {resolution}
+                    {_(`stream-resolution-${resolution}`)}
                   </option>
                 ))
               }
@@ -106,7 +106,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>每秒傳送張數</label>
+          <label>{_('Frame rate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="frameRate" component="select" className="form-control border-0">
               {this.renderFrameRateOption()}
@@ -114,7 +114,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>頻寬管理</label>
+          <label>{_('Bandwidth management')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="bandwidthManagement" component="select" className="form-control border-0">
               {
@@ -128,13 +128,13 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>可變比特率(VBR)</label>
+          <label>{_('VBR bitrate level')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="vbrBitRateLevel" component="select" className="form-control border-0">
               {
                 StreamVBRBitRateLevel.all().map(vbrBitRateLevel => (
                   <option key={vbrBitRateLevel} value={vbrBitRateLevel}>
-                    {vbrBitRateLevel}
+                    {_(`stream-vbr-bit-rate-level-${vbrBitRateLevel}`)}
                   </option>
                 ))
               }
@@ -142,7 +142,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>最佳可變比特率(VBR Max Bitrate)</label>
+          <label>{_('VBR max bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="vbrMaxBitRate" component="select" className="form-control border-0">
               {
@@ -156,7 +156,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>固定比特率(CBR)</label>
+          <label>{_('CBR bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="cbrBitRate" component="select" className="form-control border-0">
               {
@@ -170,13 +170,13 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>圖像群組(GOP)</label>
+          <label>{_('GOP')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="gop" component="select" className="form-control border-0">
               {
                 StreamGOP.all().map(gop => (
                   <option key={gop} value={gop}>
-                    {gop}
+                    {_(`stream-gop-${gop}`)}
                   </option>
                 ))
               }
@@ -184,9 +184,13 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <button type="submit" className="btn btn-block btn-primary rounded-pill">套用</button>
+          <button type="submit" className="btn btn-block btn-primary rounded-pill">
+            {_('Apply')}
+          </button>
         </div>
-        <button type="button" className="btn btn-block btn-outline-primary rounded-pill">恢復預設</button>
+        <button type="button" className="btn btn-block btn-outline-primary rounded-pill">
+          {_('Reset to defaults')}
+        </button>
       </Form>
     );
   };
@@ -212,7 +216,7 @@ module.exports = class Stream extends Base {
               <div className="col-6 col-xl-4">
                 <div className="card shadow">
                   <div className="card-header">
-                    串流01
+                    {_('Stream {0}', '01')}
                   </div>
                   <div className="card-body">
                     <Formik
@@ -228,7 +232,7 @@ module.exports = class Stream extends Base {
               <div className="col-6 col-xl-4">
                 <div className="card shadow">
                   <div className="card-header">
-                    串流02
+                    {_('Stream {0}', '02')}
                   </div>
                   <div className="card-body">
                     <Formik

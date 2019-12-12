@@ -76,5 +76,12 @@ window.languageResource = {
   'validation-countryCode': 'This field must be a valid country code.',
 
   // /set/language
-  'SETUP-Account': 'Account'
+  'SETUP-Account': 'Account',
+
+  // /media/stream
+  'stream-vbr-bit-rate-level-0': 'Best',
+  'stream-vbr-bit-rate-level-1': 'Complete',
+  'stream-vbr-bit-rate-level-2': 'Good',
+  'stream-vbr-bit-rate-level-3': 'Normal',
+  'stream-vbr-bit-rate-level-4': 'Bad'
 };
