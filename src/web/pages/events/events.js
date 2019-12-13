@@ -3,6 +3,8 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
+const OverlayTrigger = require('react-bootstrap/OverlayTrigger').default;
+const Tooltip = require('react-bootstrap/Tooltip').default;
 const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 const _ = require('../../../languages');
@@ -532,9 +534,15 @@ module.exports = class Events extends Base {
                         </td>
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                           {
-                            event.confidences.length > 0 && event.confidences[0].enrollStatus === EnrollStatus.registered ?
-                              <span className="badge badge-success badge-pill px-3">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
-                              <span className="badge badge-danger badge-pill px-3">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
+                            event.confidences.length > 0 && (
+                              <OverlayTrigger overlay={<Tooltip>{event.confidences[0].score}</Tooltip>}>
+                                {
+                                  event.confidences[0].enrollStatus === EnrollStatus.registered ?
+                                    <span className="badge badge-success badge-pill px-3">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
+                                    <span className="badge badge-danger badge-pill px-3">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
+                                }
+                              </OverlayTrigger>
+                            )
                           }
                         </td>
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
