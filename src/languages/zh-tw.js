@@ -13,8 +13,8 @@ window.languageResource = {
   'confidence-2': '中',
   'confidence-3': '高',
 
-  'enroll-status-1': '已註冊',
-  'enroll-status-2': '未註冊',
+  'enroll-status-1': '成功',
+  'enroll-status-2': '未知',
 
   auto: '自動',
   off: '關閉',

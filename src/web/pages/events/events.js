@@ -533,8 +533,8 @@ module.exports = class Events extends Base {
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                           {
                             event.confidences.length > 0 && event.confidences[0].enrollStatus === EnrollStatus.registered ?
-                              <span className="badge badge-success badge-pill px-3">成功</span> :
-                              <span className="badge badge-danger badge-pill px-3">失敗</span>
+                              <span className="badge badge-success badge-pill px-3">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
+                              <span className="badge badge-danger badge-pill px-3">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
                           }
                         </td>
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
