@@ -275,25 +275,29 @@ window.languageResource = {
   // /media
   // /media/stream
   'Stream settings': '串流',
+  Settings: '設定',
   Format: '影像格式',
   Resolution: '解析度',
   'Frame rate': '每秒傳送張數',
   'Bandwidth management': '頻寬管理',
-  'VBR bitrate level': '可變比特率(VBR)',
-  'VBR max bitrate': '最佳可變比特率(VBR Max Bitrate)',
-  'CBR bitrate': '固定比特率(CBR)',
-  GOP: '圖像群組(GOP)',
+  'VBR bitrate level': '可變比特率 (VBR)',
+  'VBR max bitrate': '最佳可變比特率 (VBR Max Bitrate)',
+  'CBR bitrate': '固定比特率 (CBR)',
+  GOP: '圖像群組 (GOP)',
+  // 解析度
   'stream-resolution-0': '3840*2160(16:9)',
   'stream-resolution-1': '1920*1080(16:9)',
   'stream-resolution-2': '1280*720(16:9)',
   'stream-resolution-3': '2048*1536(4:3)',
   'stream-resolution-4': '1600*1200(4:3)',
   'stream-resolution-5': '1280*960(4:3)',
+  // 可變比特率 (VBR)
   'stream-vbr-bit-rate-level-0': '最好',
   'stream-vbr-bit-rate-level-1': '完整',
   'stream-vbr-bit-rate-level-2': '較佳',
   'stream-vbr-bit-rate-level-3': '一般',
   'stream-vbr-bit-rate-level-4': '不足',
+  // 圖像群組 (GOP)
   'stream-gop-0': '10',
   'stream-gop-1': '5',
   'stream-gop-2': '2',

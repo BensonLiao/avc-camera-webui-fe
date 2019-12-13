@@ -95,7 +95,7 @@ module.exports = class Stream extends Base {
 
   formRender = (parentFieldName = '') => {
     return (
-      <div className="form">
+      <>
         <div className="form-group">
           <label>{_('Format')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
@@ -210,7 +210,7 @@ module.exports = class Stream extends Base {
         <button type="button" className="btn btn-block btn-outline-primary rounded-pill">
           {_('Reset to defaults')}
         </button>
-      </div>
+      </>
     );
   };
 
@@ -243,34 +243,38 @@ module.exports = class Stream extends Base {
                   </ol>
                 </nav>
               </div>
-              <Formik
-                initialValues={this.generateInitialValue(channelA)}
-                onSubmit={this.onSubmit}
-              >
-                <Form style={{display: 'flex', width: '100%'}}>
-                  <div className="col-6 col-xl-4">
-                    <div className="card shadow">
-                      <div className="card-header">
+              <div className="col-center">
+                <div className="card shadow">
+                  <div className="card-header">
+                    {_('Settings')}
+                  </div>
+                  <nav>
+                    <div className="nav nav-tabs">
+                      <a className="nav-item nav-link active" data-toggle="tab" href="#tab-channel-a">
                         {_('Stream {0}', '01')}
-                      </div>
-                      <div className="card-body">
-                        {this.formRender('channelA.')}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-6 col-xl-4">
-                    <div className="card shadow">
-                      <div className="card-header">
+                      </a>
+                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-channel-b">
                         {_('Stream {0}', '02')}
-                      </div>
-                      <div className="card-body">
-                        {this.formRender('channelA.')}
-                      </div>
+                      </a>
                     </div>
-                  </div>
-                </Form>
-              </Formik>
+                  </nav>
+                  <Formik
+                    initialValues={this.generateInitialValue(channelA)}
+                    onSubmit={this.onSubmit}
+                  >
+                    <Form>
+                      <div className="card-body tab-content">
+                        <div className="tab-pane fade show active" id="tab-channel-a">
+                          {this.formRender('channelA.')}
+                        </div>
+                        <div className="tab-pane fade" id="tab-channel-b">
+                          {this.formRender('channelA.')}
+                        </div>
+                      </div>
+                    </Form>
+                  </Formik>
+                </div>
+              </div>
             </div>
           </div>
         </section>
