@@ -217,13 +217,9 @@ module.exports = class Stream extends Base {
   onSubmit = ({channelA}) => {
     progress.start();
     api.multimedia.updateStreamSettings({channelA, channelB: channelA})
-      .then(() => {
-        getRouter().reload();
-      })
-      .catch(error => {
-        progress.done();
-        renderError(error);
-      });
+      .then(getRouter().reload)
+      .catch(renderError)
+      .finally(progress.done);
   };
 
   render() {
