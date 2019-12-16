@@ -19,6 +19,7 @@ const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit
 const StreamGOP = require('webserver-form-schema/constants/stream-gop');
 const _ = require('../../../languages');
 const {channelA: {props: {frameRate}}} = StreamSettingsSchema;
+const resolutionGroupIndices = [2];
 
 module.exports = class Stream extends Base {
   static get propTypes() {
@@ -47,6 +48,12 @@ module.exports = class Stream extends Base {
       }).isRequired
     };
   }
+
+state = {
+  channelB: {
+    resolutions: StreamResolution.all()
+  }
+}
 
   generateInitialValue = streamSettings => {
     if (streamSettings) {
@@ -80,6 +87,63 @@ module.exports = class Stream extends Base {
     };
   };
 
+  filterWithinGroups = (array, value, groupIndices = [], withinValue = true) => {
+    /*
+    Helper function for filter array of <option> within groupIndices by value and
+    do grouping with array index. Return original array if not a valid groupIndices.
+    e.g. array: [0, 1, 2, 3, 4, 5], value: 1, groupIndices: [2]
+    means there's 2 groups: [0, 1, 2] and [3, 4, 5],
+    and filter array will be: [0, 1, 2] or [1, 2] if withinValue is true.
+    e.g. array: ["40", "20", "16", "12", "10", "8", "4", "2"], value: "8", groupIndices: [2, 5]
+    means there's 3 groups: ["40", "20", "16"], ["12", "10", "8"] and ["4", "2"],
+    and filter array will be: ["12", "10", "8"] or ["8"] if withinValue is true.
+    @param array {Array}
+    @param value {String|Number}
+    @param groupIndices {Array}
+    @parem withinValue {Boolean}
+    @returns filterArray {Array}
+    */
+    if (groupIndices.length === 0 ||
+      !groupIndices.every(group => typeof group === 'number')) {
+      return array;
+    }
+
+    let filterArray = [];
+    let groupStartIdx = 0;
+    let groupEndIdx = array.length - 1;
+    groupIndices.forEach(groupIdx => {
+      if (array.indexOf(value) > groupIdx) {
+        groupStartIdx = groupIdx + 1;
+      }
+
+      if (array.indexOf(value) <= groupIdx && groupEndIdx === array.length - 1) {
+        groupEndIdx = groupIdx;
+      }
+    });
+    filterArray = withinValue ? array.filter((_, idx) => {
+      return idx >= array.indexOf(value) && idx <= groupEndIdx;
+    }) :
+      array.filter((_, idx) => {
+        return idx >= groupStartIdx && idx <= groupEndIdx;
+      });
+
+    return filterArray;
+  }
+
+  onResolutionChange = onChange => {
+    return event => {
+      const filterResolutions = this.filterWithinGroups(
+        StreamResolution.all(),
+        event.target.value,
+        resolutionGroupIndices
+      );
+      this.setState({channelB: {resolutions: filterResolutions}});
+      if (typeof onChange === 'function') {
+        onChange(event);
+      }
+    };
+  };
+
   renderFrameRateOption = () => {
     const options = [];
     for (let i = frameRate.min; i < frameRate.max; i++) {
@@ -93,9 +157,10 @@ module.exports = class Stream extends Base {
     return options;
   }
 
-  formRender = (parentFieldName = '') => {
+  formRender = (props, parentFieldName = '') => {
+    const {channelB} = this.state;
     return (
-      <>
+      <Form>
         <div className="form-group">
           <label>{_('Format')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
@@ -113,14 +178,21 @@ module.exports = class Stream extends Base {
         <div className="form-group">
           <label>{_('Resolution')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name={`${parentFieldName}resolution`} component="select" className="form-control border-0">
-              {
+            <Field name={`${parentFieldName}resolution`} component="select" className="form-control border-0" onChange={this.onResolutionChange(props.handleChange)}>
+              {parentFieldName === 'channelA.' && (
                 StreamResolution.all().map(resolution => (
                   <option key={resolution} value={resolution}>
                     {_(`stream-resolution-${resolution}`)}
                   </option>
                 ))
-              }
+              )}
+              {parentFieldName === 'channelB.' && (
+                channelB.resolutions.map(resolution => (
+                  <option key={resolution} value={resolution}>
+                    {_(`stream-resolution-${resolution}`)}
+                  </option>
+                ))
+              )}
             </Field>
           </div>
         </div>
@@ -210,7 +282,7 @@ module.exports = class Stream extends Base {
         <button type="button" className="btn btn-block btn-outline-primary rounded-pill">
           {_('Reset to defaults')}
         </button>
-      </>
+      </Form>
     );
   };
 
@@ -258,16 +330,16 @@ module.exports = class Stream extends Base {
                     initialValues={this.generateInitialValue(channelA)}
                     onSubmit={this.onSubmit}
                   >
-                    <Form>
+                    {props => (
                       <div className="card-body tab-content">
                         <div className="tab-pane fade show active" id="tab-channel-a">
-                          {this.formRender('channelA.')}
+                          {this.formRender(props, 'channelA.')}
                         </div>
                         <div className="tab-pane fade" id="tab-channel-b">
-                          {this.formRender('channelA.')}
+                          {this.formRender(props, 'channelB.')}
                         </div>
                       </div>
-                    </Form>
+                    )}
                   </Formik>
                 </div>
               </div>
