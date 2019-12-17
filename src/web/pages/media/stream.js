@@ -87,47 +87,50 @@ state = {
     };
   };
 
-  filterWithinGroups = (array, value, groupIndices = [], withinValue = true) => {
-    /*
-    Helper function for filter array of <option> within groupIndices by value and
-    do grouping with array index. Return original array if not a valid groupIndices.
-    e.g. array: [0, 1, 2, 3, 4, 5], value: 1, groupIndices: [2]
-    means there's 2 groups: [0, 1, 2] and [3, 4, 5],
-    and filter array will be: [0, 1, 2] or [1, 2] if withinValue is true.
-    e.g. array: ["40", "20", "16", "12", "10", "8", "4", "2"], value: "8", groupIndices: [2, 5]
-    means there's 3 groups: ["40", "20", "16"], ["12", "10", "8"] and ["4", "2"],
-    and filter array will be: ["12", "10", "8"] or ["8"] if withinValue is true.
-    @param array {Array}
-    @param value {String|Number}
-    @param groupIndices {Array}
-    @parem withinValue {Boolean}
-    @returns filterArray {Array}
-    */
+  /**
+   * Helper function for filter array of <option> within `groupIndices` by `targetValue` and
+   * do grouping and comparison with array index,
+   * return original `array` if not a valid `groupIndices`.
+   * e.g. `array`: [0, 1, 2, 3, 4, 5], `targetValue`: 1, `groupIndices`: [2]
+   * means there's 2 groups: [0, 1, 2] and [3, 4, 5],
+   * and filtered array will be: [0, 1, 2] or [1, 2] if `isWithinTargetValue` is true.
+   * e.g. `array`: ["40", "20", "16", "12", "10", "8", "4", "2"],
+   * `targetValue`: "8", `groupIndices`: [2, 5]
+   * means there's 3 groups: ["40", "20", "16"], ["12", "10", "8"] and ["4", "2"],
+   * and filtered array will be: ["12", "10", "8"] or ["8"] if `isWithinTargetValue` is true.
+   * @param {Array} array Array to be filter.
+   * @param {String|Number} targetValue
+   * Filter array based on `targetValue` between groups by index.
+   * @param {Number[]} groupIndices Must be ascending order to make proper grouping.
+   * @param {Boolean} isWithinTargetValue
+   * Do further filtering if index greater than `targetValue` and within groups.
+   * @returns {Array} An filtered array.
+   */
+  filterWithinGroups = (array, targetValue, groupIndices = [], isWithinTargetValue = true) => {
     if (groupIndices.length === 0 ||
       !groupIndices.every(group => typeof group === 'number')) {
       return array;
     }
 
-    let filterArray = [];
+    const targetIdx = array.indexOf(targetValue);
     let groupStartIdx = 0;
     let groupEndIdx = array.length - 1;
     groupIndices.forEach(groupIdx => {
-      if (array.indexOf(value) > groupIdx) {
+      if (targetIdx > groupIdx) {
         groupStartIdx = groupIdx + 1;
       }
 
-      if (array.indexOf(value) <= groupIdx && groupEndIdx === array.length - 1) {
+      if (targetIdx <= groupIdx && groupEndIdx === array.length - 1) {
         groupEndIdx = groupIdx;
       }
     });
-    filterArray = withinValue ? array.filter((_, idx) => {
-      return idx >= array.indexOf(value) && idx <= groupEndIdx;
-    }) :
-      array.filter((_, idx) => {
-        return idx >= groupStartIdx && idx <= groupEndIdx;
-      });
 
-    return filterArray;
+    return isWithinTargetValue ? array.filter((_, idx) => (
+      idx >= targetIdx && idx <= groupEndIdx
+    )) :
+      array.filter((_, idx) => (
+        idx >= groupStartIdx && idx <= groupEndIdx
+      ));
   }
 
   onResolutionChange = onChange => {
@@ -164,21 +167,28 @@ state = {
         <div className="form-group">
           <label>{_('Format')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name={`${parentFieldName}format`} component="select" className="form-control border-0">
-              {
-                StreamFormat.all().map(format => (
-                  <option key={format} value={format}>
-                    {format}
-                  </option>
-                ))
-              }
+            <Field
+              name={`${parentFieldName}format`}
+              component="select"
+              className="form-control border-0"
+            >
+              {StreamFormat.all().map(format => (
+                <option key={format} value={format}>
+                  {format}
+                </option>
+              ))}
             </Field>
           </div>
         </div>
         <div className="form-group">
           <label>{_('Resolution')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name={`${parentFieldName}resolution`} component="select" className="form-control border-0" onChange={this.onResolutionChange(props.handleChange)}>
+            <Field
+              name={`${parentFieldName}resolution`}
+              component="select"
+              className="form-control border-0"
+              onChange={this.onResolutionChange(props.handleChange)}
+            >
               {parentFieldName === 'channelA.' && (
                 StreamResolution.all().map(resolution => (
                   <option key={resolution} value={resolution}>
@@ -199,7 +209,11 @@ state = {
         <div className="form-group">
           <label>{_('Frame rate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name={`${parentFieldName}frameRate`} component="select" className="form-control border-0">
+            <Field
+              name={`${parentFieldName}frameRate`}
+              component="select"
+              className="form-control border-0"
+            >
               {this.renderFrameRateOption()}
             </Field>
           </div>
@@ -207,70 +221,80 @@ state = {
         <div className="form-group">
           <label>{_('Bandwidth management')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name={`${parentFieldName}bandwidthManagement`} component="select" className="form-control border-0">
-              {
-                StreamBandwidthManagement.all().map(bandwidthManagement => (
-                  <option key={bandwidthManagement} value={bandwidthManagement}>
-                    {bandwidthManagement}
-                  </option>
-                ))
-              }
+            <Field
+              name={`${parentFieldName}bandwidthManagement`}
+              component="select"
+              className="form-control border-0"
+            >
+              {StreamBandwidthManagement.all().map(bandwidthManagement => (
+                <option key={bandwidthManagement} value={bandwidthManagement}>
+                  {bandwidthManagement}
+                </option>
+              ))}
             </Field>
           </div>
         </div>
         <div className="form-group">
           <label>{_('VBR bitrate level')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name={`${parentFieldName}vbrBitRateLevel`} component="select" className="form-control border-0">
-              {
-                StreamVBRBitRateLevel.all().map(vbrBitRateLevel => (
-                  <option key={vbrBitRateLevel} value={vbrBitRateLevel}>
-                    {_(`stream-vbr-bit-rate-level-${vbrBitRateLevel}`)}
-                  </option>
-                ))
-              }
+            <Field
+              name={`${parentFieldName}vbrBitRateLevel`}
+              component="select"
+              className="form-control border-0"
+            >
+              {StreamVBRBitRateLevel.all().map(vbrBitRateLevel => (
+                <option key={vbrBitRateLevel} value={vbrBitRateLevel}>
+                  {_(`stream-vbr-bit-rate-level-${vbrBitRateLevel}`)}
+                </option>
+              ))}
             </Field>
           </div>
         </div>
         <div className="form-group">
           <label>{_('VBR max bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name={`${parentFieldName}vbrMaxBitRate`} component="select" className="form-control border-0">
-              {
-                StreamVBRMaxBitRate.all().map(vbrMaxBitRate => (
-                  <option key={vbrMaxBitRate} value={vbrMaxBitRate}>
-                    {vbrMaxBitRate}Mb
-                  </option>
-                ))
-              }
+            <Field
+              name={`${parentFieldName}vbrMaxBitRate`}
+              component="select"
+              className="form-control border-0"
+            >
+              {StreamVBRMaxBitRate.all().map(vbrMaxBitRate => (
+                <option key={vbrMaxBitRate} value={vbrMaxBitRate}>
+                  {vbrMaxBitRate}Mb
+                </option>
+              ))}
             </Field>
           </div>
         </div>
         <div className="form-group">
           <label>{_('CBR bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name={`${parentFieldName}cbrBitRate`} component="select" className="form-control border-0">
-              {
-                StreamCBRBitRate.all().map(cbrBitRate => (
-                  <option key={cbrBitRate} value={cbrBitRate}>
-                    {cbrBitRate}MB
-                  </option>
-                ))
-              }
+            <Field
+              name={`${parentFieldName}cbrBitRate`}
+              component="select"
+              className="form-control border-0"
+            >
+              {StreamCBRBitRate.all().map(cbrBitRate => (
+                <option key={cbrBitRate} value={cbrBitRate}>
+                  {cbrBitRate}MB
+                </option>
+              ))}
             </Field>
           </div>
         </div>
         <div className="form-group">
           <label>{_('GOP')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name={`${parentFieldName}gop`} component="select" className="form-control border-0">
-              {
-                StreamGOP.all().map(gop => (
-                  <option key={gop} value={gop}>
-                    {_(`stream-gop-${gop}`)}
-                  </option>
-                ))
-              }
+            <Field
+              name={`${parentFieldName}gop`}
+              component="select"
+              className="form-control border-0"
+            >
+              {StreamGOP.all().map(gop => (
+                <option key={gop} value={gop}>
+                  {_(`stream-gop-${gop}`)}
+                </option>
+              ))}
             </Field>
           </div>
         </div>
@@ -318,10 +342,18 @@ state = {
                   </div>
                   <nav>
                     <div className="nav nav-tabs">
-                      <a className="nav-item nav-link active" data-toggle="tab" href="#tab-channel-a">
+                      <a
+                        className="nav-item nav-link active"
+                        data-toggle="tab"
+                        href="#tab-channel-a"
+                      >
                         {_('Stream {0}', '01')}
                       </a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-channel-b">
+                      <a
+                        className="nav-item nav-link"
+                        data-toggle="tab"
+                        href="#tab-channel-b"
+                      >
                         {_('Stream {0}', '02')}
                       </a>
                     </div>
