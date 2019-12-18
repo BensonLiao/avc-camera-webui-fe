@@ -211,7 +211,7 @@ module.exports = class Members extends Base {
   onChangeDatabaseFile = event => {
     const file = event.target.files[0];
 
-    if (!file) {
+    if (!file || this.state.$isApiProcessing) {
       return;
     }
 
@@ -275,7 +275,9 @@ module.exports = class Members extends Base {
         </div>
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
-            <button type="submit" className="btn btn-primary btn-block rounded-pill">{_('Modify')}</button>
+            <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
+              {_('Modify')}
+            </button>
           </div>
           <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill" data-dismiss="modal">
             {_('Close')}
@@ -379,11 +381,14 @@ module.exports = class Members extends Base {
             </div>
             <div className="actions">
               <div className="form-group">
-                <button className="btn btn-outline-light btn-block rounded-pill" type="button" onClick={this.onClickExportDatabase}>
+                <button disabled={this.state.$isApiProcessing} type="button"
+                  className="btn btn-outline-light btn-block rounded-pill"
+                  onClick={this.onClickExportDatabase}
+                >
                   {_('Export')}
                 </button>
               </div>
-              <label className="btn btn-outline-light btn-block rounded-pill font-weight-bold">
+              <label className={classNames('btn btn-outline-light btn-block rounded-pill font-weight-bold', {disabled: this.state.$isApiProcessing})}>
                 <input type="file" className="d-none" accept=".zip" onChange={this.onChangeDatabaseFile}/>{_('Import')}
               </label>
             </div>
