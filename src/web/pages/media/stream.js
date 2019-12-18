@@ -50,10 +50,10 @@ module.exports = class Stream extends Base {
   }
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state.channelB = {
       resolutions: StreamResolution.all()
-    }
+    };
   }
 
   generateInitialValue = streamSettings => {
