@@ -49,11 +49,12 @@ module.exports = class Stream extends Base {
     };
   }
 
-state = {
-  channelB: {
-    resolutions: StreamResolution.all()
+  constructor(props) {
+    super(props)
+    this.state.channelB = {
+      resolutions: StreamResolution.all()
+    }
   }
-}
 
   generateInitialValue = streamSettings => {
     if (streamSettings) {
@@ -320,6 +321,7 @@ state = {
 
   render() {
     const {streamSettings: {channelA}} = this.props;
+    console.log('this.state', this.state);
     return (
       <div className="main-content left-menu-active">
         <section className="section-media">
