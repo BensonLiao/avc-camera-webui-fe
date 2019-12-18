@@ -205,7 +205,7 @@ module.exports = class Members extends Base {
 
   onClickExportDatabase = event => {
     event.preventDefault();
-    download('/api/members/database');
+    download('/api/members/database.zip');
   };
 
   onChangeDatabaseFile = event => {
