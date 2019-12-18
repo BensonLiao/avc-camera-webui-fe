@@ -442,7 +442,7 @@ module.exports = {
     /**
      * @param {File} file - The database file.
      * @returns {Promise<response>}
-     *  response 200
+     *  response 204
      */
     uploadDatabaseFile: file => api({
       method: 'post',
