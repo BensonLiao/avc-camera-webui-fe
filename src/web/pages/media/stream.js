@@ -136,9 +136,12 @@ module.exports = class Stream extends Base {
   }
 
   getParentFieldName = fieldName => {
-    if (typeof fieldName !== 'string') return '';
+    if (typeof fieldName !== 'string') {
+      return '';
+    }
+
     return fieldName.substring(0, fieldName.indexOf('.'));
-  } 
+  }
 
   onResolutionChange = onChange => {
     return event => {
@@ -151,6 +154,7 @@ module.exports = class Stream extends Base {
         );
         this.setState({channelB: {resolutionOptions: filterResolutions}});
       }
+
       if (typeof onChange === 'function') {
         onChange(event);
       }
