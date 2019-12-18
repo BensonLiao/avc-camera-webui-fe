@@ -51,8 +51,9 @@ module.exports = class Stream extends Base {
 
   constructor(props) {
     super(props);
+    this.state.channelA = {};
     this.state.channelB = {
-      resolutions: StreamResolution.all()
+      resolutionOptions: StreamResolution.all()
     };
   }
 
@@ -134,14 +135,22 @@ module.exports = class Stream extends Base {
       ));
   }
 
+  getParentFieldName = fieldName => {
+    if (typeof fieldName !== 'string') return '';
+    return fieldName.substring(0, fieldName.indexOf('.'));
+  } 
+
   onResolutionChange = onChange => {
     return event => {
-      const filterResolutions = this.filterWithinGroups(
-        StreamResolution.all(),
-        event.target.value,
-        resolutionGroupIndices
-      );
-      this.setState({channelB: {resolutions: filterResolutions}});
+      const parentFieldName = this.getParentFieldName(event.target.name);
+      if (parentFieldName === 'channelA') {
+        const filterResolutions = this.filterWithinGroups(
+          StreamResolution.all(),
+          event.target.value,
+          resolutionGroupIndices
+        );
+        this.setState({channelB: {resolutionOptions: filterResolutions}});
+      }
       if (typeof onChange === 'function') {
         onChange(event);
       }
@@ -161,15 +170,16 @@ module.exports = class Stream extends Base {
     return options;
   }
 
-  formRender = (props, parentFieldName = '') => {
-    const {channelB} = this.state;
+  formRender = (props, fieldNamePrefix = '') => {
+    const parentFieldName = this.getParentFieldName(fieldNamePrefix);
+    const {[parentFieldName]: channel} = this.state;
     return (
       <Form>
         <div className="form-group">
           <label>{_('Format')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${parentFieldName}format`}
+              name={`${fieldNamePrefix}format`}
               component="select"
               className="form-control border-0"
             >
@@ -185,20 +195,20 @@ module.exports = class Stream extends Base {
           <label>{_('Resolution')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${parentFieldName}resolution`}
+              name={`${fieldNamePrefix}resolution`}
               component="select"
               className="form-control border-0"
               onChange={this.onResolutionChange(props.handleChange)}
             >
-              {parentFieldName === 'channelA.' && (
+              {!channel.resolutionOptions && (
                 StreamResolution.all().map(resolution => (
                   <option key={resolution} value={resolution}>
                     {_(`stream-resolution-${resolution}`)}
                   </option>
                 ))
               )}
-              {parentFieldName === 'channelB.' && (
-                channelB.resolutions.map(resolution => (
+              {channel.resolutionOptions && (
+                channel.resolutionOptions.map(resolution => (
                   <option key={resolution} value={resolution}>
                     {_(`stream-resolution-${resolution}`)}
                   </option>
@@ -211,7 +221,7 @@ module.exports = class Stream extends Base {
           <label>{_('Frame rate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${parentFieldName}frameRate`}
+              name={`${fieldNamePrefix}frameRate`}
               component="select"
               className="form-control border-0"
             >
@@ -223,7 +233,7 @@ module.exports = class Stream extends Base {
           <label>{_('Bandwidth management')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${parentFieldName}bandwidthManagement`}
+              name={`${fieldNamePrefix}bandwidthManagement`}
               component="select"
               className="form-control border-0"
             >
@@ -239,7 +249,7 @@ module.exports = class Stream extends Base {
           <label>{_('VBR bitrate level')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${parentFieldName}vbrBitRateLevel`}
+              name={`${fieldNamePrefix}vbrBitRateLevel`}
               component="select"
               className="form-control border-0"
             >
@@ -255,7 +265,7 @@ module.exports = class Stream extends Base {
           <label>{_('VBR max bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${parentFieldName}vbrMaxBitRate`}
+              name={`${fieldNamePrefix}vbrMaxBitRate`}
               component="select"
               className="form-control border-0"
             >
@@ -271,7 +281,7 @@ module.exports = class Stream extends Base {
           <label>{_('CBR bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${parentFieldName}cbrBitRate`}
+              name={`${fieldNamePrefix}cbrBitRate`}
               component="select"
               className="form-control border-0"
             >
@@ -287,7 +297,7 @@ module.exports = class Stream extends Base {
           <label>{_('GOP')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${parentFieldName}gop`}
+              name={`${fieldNamePrefix}gop`}
               component="select"
               className="form-control border-0"
             >
