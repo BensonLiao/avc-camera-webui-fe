@@ -414,6 +414,45 @@ module.exports = {
        */
       method: 'delete',
       url: `/api/members/${memberId}`
+    }),
+    /**
+     * @returns {Promise<response>}
+     *  response 200
+     *    password: {string}
+     */
+    getDatabaseEncryptionSettings: () => api({
+      method: 'get',
+      url: '/api/members/database-encryption-settings'
+    }),
+    /**
+     * @param {string} password - The old password.
+     * @param {string} newPassword - The new password.
+     * @returns {Promise<response>}
+     *  response 200
+     *    password: {string}
+     */
+    updateDatabaseEncryptionSettings: ({password, newPassword}) => api({
+      method: 'put',
+      url: '/api/members/database-encryption-settings',
+      data: {
+        password,
+        newPassword
+      }
+    }),
+    /**
+     * @param {File} file - The database file.
+     * @returns {Promise<response>}
+     *  response 204
+     */
+    uploadDatabaseFile: file => api({
+      method: 'post',
+      url: '/api/members/database',
+      headers: {'content-type': 'multipart/form-data'},
+      data: (() => {
+        const formData = new FormData();
+        formData.set('file', file);
+        return formData;
+      })()
     })
   },
   multimedia: {

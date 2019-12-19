@@ -125,6 +125,19 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     db.get('users').remove({id: itemId}).write();
     return mockResponseWithLog(config, [204, {}]);
   })
+  .onGet('/api/members/database-encryption-settings').reply(config => {
+    return mockResponseWithLog(config, [200, {
+      password: '0000'
+    }]);
+  })
+  .onPut('/api/members/database-encryption-settings').reply(config => {
+    return mockResponseWithLog(config, [200, {
+      password: '0000'
+    }]);
+  })
+  .onPost('/api/members/database').reply(config => {
+    return mockResponseWithLog(config, [204]);
+  })
   .onGet('/api/auth-keys').reply(config => {
     const data = db.get('authKeys').value();
     return mockResponseWithLog(config, [200, {
