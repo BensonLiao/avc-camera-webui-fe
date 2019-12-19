@@ -417,7 +417,7 @@ module.exports = class Members extends Base {
                         >
                           {_('Add a new member')}
                         </Link>
-                        <Link className="dropdown-item" to="/histories">{_('Add a member from events')}</Link>
+                        <Link className="dropdown-item" to="/events">{_('Add a member from events')}</Link>
                       </div>
                     </div>
                   </div>
