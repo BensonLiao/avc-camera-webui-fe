@@ -59,10 +59,7 @@ module.exports = class Stream extends Base {
 
   generateInitialValue = streamSettings => {
     if (streamSettings) {
-      return {
-        channelA: streamSettings,
-        channelB: streamSettings
-      };
+      return streamSettings;
     }
 
     return {
@@ -336,7 +333,7 @@ module.exports = class Stream extends Base {
   };
 
   render() {
-    const {streamSettings: {channelA}} = this.props;
+    const {streamSettings} = this.props;
     return (
       <div className="main-content left-menu-active">
         <section className="section-media">
@@ -376,7 +373,7 @@ module.exports = class Stream extends Base {
                     </div>
                   </nav>
                   <Formik
-                    initialValues={this.generateInitialValue(channelA)}
+                    initialValues={this.generateInitialValue(streamSettings)}
                     onSubmit={this.onSubmit}
                   >
                     {props => (
