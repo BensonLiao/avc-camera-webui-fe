@@ -67,24 +67,24 @@ module.exports = class Stream extends Base {
 
     return {
       channelA: {
-        format: 'H264',
-        resolution: '2',
+        format: StreamFormat.h264,
+        resolution: StreamResolution['0'],
         frameRate: '30',
-        bandwidthManagement: 'VBR',
-        vbrBitRateLevel: '1',
-        vbrMaxBitRate: '12',
-        cbrBitRate: '2',
-        gop: '2'
+        bandwidthManagement: StreamBandwidthManagement.vbr,
+        vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+        vbrMaxBitRate: StreamVBRMaxBitRate['12'],
+        cbrBitRate: StreamCBRBitRate['4'],
+        gop: StreamGOP['1']
       },
       channelB: {
-        format: 'H264',
-        resolution: '2',
+        format: StreamFormat.mJpeg,
+        resolution: StreamResolution['0'],
         frameRate: '30',
-        bandwidthManagement: 'VBR',
-        vbrBitRateLevel: '1',
-        vbrMaxBitRate: '12',
-        cbrBitRate: '2',
-        gop: '2'
+        bandwidthManagement: StreamBandwidthManagement.vbr,
+        vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+        vbrMaxBitRate: StreamVBRMaxBitRate['12'],
+        cbrBitRate: StreamCBRBitRate['4'],
+        gop: StreamGOP['1']
       }
     };
   };

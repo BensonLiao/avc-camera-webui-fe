@@ -24,6 +24,14 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('system').assign(newItem).write()]);
   })
+  .onGet('/api/multimedia/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('stream').value()]
+    );
+  })
+  .onPut('/api/multimedia/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('stream').assign(newItem).write()]);
+  })
   .onGet('/api/groups').reply(config => {
     return mockResponseWithLog(config, [200, {
       items: db.get('groups').value()

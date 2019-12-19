@@ -6,6 +6,13 @@ const ApertureType = require('webserver-form-schema/constants/aperture-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const OrientationType = require('webserver-form-schema/constants/orientation-type');
 const RefreshRate = require('webserver-form-schema/constants/refresh-rate');
+const StreamFormat = require('webserver-form-schema/constants/stream-format');
+const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
+const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
+const StreamVBRBitRateLevel = require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
+const StreamVBRMaxBitRate = require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
+const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
+const StreamGOP = require('webserver-form-schema/constants/stream-gop');
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
@@ -69,24 +76,24 @@ module.exports = {
       },
       stream: {
         channelA: {
-          format: 'H265',
-          resolution: '1',
-          frameRate: '5',
-          bandwidthManagement: 'CBR',
-          vbrBitRateLevel: '2',
-          vbrMaxBitRate: '8',
-          cbrBitRate: '4',
-          gop: '1'
+          format: StreamFormat.h264,
+          resolution: StreamResolution['0'],
+          frameRate: '30',
+          bandwidthManagement: StreamBandwidthManagement.vbr,
+          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
+          cbrBitRate: StreamCBRBitRate['4'],
+          gop: StreamGOP['1']
         },
         channelB: {
-          format: 'H265',
-          resolution: '1',
-          frameRate: '5',
-          bandwidthManagement: 'CBR',
-          vbrBitRateLevel: '2',
-          vbrMaxBitRate: '8',
-          cbrBitRate: '4',
-          gop: '1'
+          format: StreamFormat.mJpeg,
+          resolution: StreamResolution['0'],
+          frameRate: '30',
+          bandwidthManagement: StreamBandwidthManagement.vbr,
+          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
+          cbrBitRate: StreamCBRBitRate['4'],
+          gop: StreamGOP['1']
         }
       },
       groups: [
