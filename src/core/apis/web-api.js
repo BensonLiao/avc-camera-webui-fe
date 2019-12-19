@@ -2,14 +2,14 @@ const api = require('./index.js');
 
 module.exports = {
   validation: {
+    /**
+     * Validate the birthday of the account.
+     * @param {String} account User's account to be reference.
+     * @param {String} birthday User's birth day to be validate.
+     * @returns {Promise<response>}
+     *  response 204
+     */
     accountBirthday: ({account, birthday}) => api({
-      /*
-      Validate the birthday of the account.
-      @param args {Object}
-        account: {String}
-        birthday: {String} "19910326"
-      @response 204
-       */
       method: 'post',
       url: '/api/_validate/account-birthday',
       data: {account, birthday}
