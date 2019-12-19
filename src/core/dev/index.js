@@ -24,14 +24,6 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('system').assign(newItem).write()]);
   })
-  .onGet('/api/multimedia/settings').reply(config => {
-    return mockResponseWithLog(config, [200, db.get('stream').value()]
-    );
-  })
-  .onPut('/api/multimedia/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('stream').assign(newItem).write()]);
-  })
   .onGet('/api/groups').reply(config => {
     return mockResponseWithLog(config, [200, {
       items: db.get('groups').value()
@@ -132,6 +124,19 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
     db.get('users').remove({id: itemId}).write();
     return mockResponseWithLog(config, [204, {}]);
+  })
+  .onGet('/api/members/database-encryption-settings').reply(config => {
+    return mockResponseWithLog(config, [200, {
+      password: '0000'
+    }]);
+  })
+  .onPut('/api/members/database-encryption-settings').reply(config => {
+    return mockResponseWithLog(config, [200, {
+      password: '0000'
+    }]);
+  })
+  .onPost('/api/members/database').reply(config => {
+    return mockResponseWithLog(config, [204]);
   })
   .onGet('/api/auth-keys').reply(config => {
     const data = db.get('authKeys').value();
