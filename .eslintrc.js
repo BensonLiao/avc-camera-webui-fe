@@ -24,6 +24,9 @@ module.exports = {
   rules: {
     'no-eq-null': 0,
     eqeqeq: ['error', 'allow-null'],
-    'valid-jsdoc': ["error", { "requireParamDescription": false }]
+    'valid-jsdoc': ["error", {
+      "requireParamDescription": false,
+      "requireReturnDescription": false
+    }]
   }
 };
