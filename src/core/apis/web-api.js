@@ -477,6 +477,14 @@ module.exports = {
       method: 'put',
       url: '/api/multimedia/settings',
       data: {channelA, channelB}
+    }),
+    /**
+     * @returns {Promise<response>}
+     *  response 204
+     */
+    resetStreamSettings: () => api({
+      method: 'post',
+      url: '/api/multimedia/settings/_reset'
     })
   },
   event: {
