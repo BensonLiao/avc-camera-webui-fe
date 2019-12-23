@@ -2,6 +2,7 @@ const classNames = require('classnames');
 const React = require('react');
 const progress = require('nprogress');
 const {RouterView} = require('capybara-router');
+const ReactNotification = require('react-notifications-component').default;
 const Base = require('./shared/base');
 const {Link, getRouter} = require('capybara-router');
 const Loading = require('../../core/components/loading');
@@ -225,6 +226,7 @@ module.exports = class Layout extends Base {
           </div>
         </nav>
 
+        <ReactNotification/>
         <RouterView>
           <Loading/>
         </RouterView>
