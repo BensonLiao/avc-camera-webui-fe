@@ -50,6 +50,12 @@ module.exports = class License extends Base {
     };
   }
 
+  /**
+   * Handler on user submit the add auth key form.
+   * Reload the router or render error page.
+   * @param {String} authKey
+   * @returns {void}
+   */
   onSubmit = ({authKey}) => {
     progress.start();
     api.authKey.addAuthKey(authKey)

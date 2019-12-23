@@ -123,13 +123,13 @@ module.exports = class Members extends Base {
     this.setState({isShowDeleteMemberModal: false});
   };
 
+  /**
+   * Generate the handler to change filter.
+   * @param {String} paramKey
+   * @param {*} value The filter value. Pass null to remove the param.
+   * @returns {Function} The handler.
+   */
   generateChangeFilterHandler = (paramKey, value) => event => {
-    /*
-    @param paramKey {String}
-    @param value {Any}
-      The filter value. Pass null to remove the param.
-    @returns {Function}
-     */
     event.preventDefault();
     getRouter().go({
       name: this.currentRoute.name,
