@@ -33,19 +33,21 @@ module.exports = class DropdownField extends React.Component {
 
   state = {};
 
+  /**
+   * @param {any} value
+   * @returns {Object|undefined}
+   */
   findItemByValue = value => {
-    /*
-    @param value {Any}
-    @returns {Object|undefined}
-     */
     return this.props.items.find(x => x.value === value) || this.props.items[0];
   };
 
+  /**
+   * @param {any} value
+   * @returns {Function} A event handler to set the form field's value.
+   * @param {any} event
+   * @returns {void}
+   */
   generateClickItemHandler = value => {
-    /*
-    @param value {Any}
-    @returns {Function} (event) =>
-     */
     return event => {
       event.preventDefault();
       this.props.form.setFieldValue(this.props.field.name, value);

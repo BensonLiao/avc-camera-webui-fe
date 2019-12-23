@@ -63,13 +63,13 @@ module.exports = class DatePicker extends React.PureComponent {
     this.state.displayDate.setDate(1);
   }
 
+  /**
+   * Compare two dates.
+   * @param {Date|null} a
+   * @param {Date|null} b
+   * @returns {Boolean}
+   */
   isSelected = (a, b) => {
-    /*
-    Compare two dates.
-    @param a {Date|null}
-    @param b {Date|null}
-    @returns {Boolean}
-     */
     if (!a || !b) {
       return false;
     }
@@ -90,12 +90,16 @@ module.exports = class DatePicker extends React.PureComponent {
     form.setFieldValue(field.name, date);
   };
 
+  /**
+   * @param {Date} start
+   * @param {Date} selectedDate
+   * @returns {calender}
+   * @calender {Array<Array<{Object}>>}
+   * - [][].date {Date}
+   * - [][].isSelected {Boolean}
+   * - [][].isDisplayMonth {Boolean}
+   */
   generateCalendarContentInMonth = (start, selectedDate) => {
-    /*
-    @param start {Date}
-    @param selectedDate {Date}
-    @returns {Array<Array<{date: {Date}, isSelected: {boolean}, isDisplayMonth: {boolean}}>>}
-     */
     const result = [];
 
     // Complete previous month.
