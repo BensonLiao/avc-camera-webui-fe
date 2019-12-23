@@ -25,7 +25,7 @@ const {channelA: {props: {frameRate}}} = StreamSettingsSchema;
 // 'stream-resolution-5': '1280*960(4:3)',
 const StreamResolutionMapping = {
   0: [],
-  1: [StreamResolution['2']],
+  1: [StreamResolution['2'], StreamResolution['5']],
   2: [StreamResolution['2']],
   3: [StreamResolution['5']],
   4: [StreamResolution['5']],
@@ -34,16 +34,16 @@ const StreamResolutionMapping = {
 
 const StreamCBRBitRateMapping = {
   channelA: {
-    0: ['12', '10', StreamCBRBitRate['8'], StreamCBRBitRate['6']],
+    0: [StreamCBRBitRate['8'], StreamCBRBitRate['6']],
     1: [StreamCBRBitRate['8'], StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
-    2: [StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2'], '1'],
+    2: [StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
     3: [StreamCBRBitRate['8'], StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
     4: [StreamCBRBitRate['8'], StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
-    5: [StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2'], '1']
+    5: [StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']]
   },
   channelB: {
-    2: [StreamCBRBitRate['4'], StreamCBRBitRate['2'], '1', '512'],
-    5: [StreamCBRBitRate['4'], StreamCBRBitRate['2'], '1', '512']
+    2: [StreamCBRBitRate['4'], StreamCBRBitRate['2']],
+    5: [StreamCBRBitRate['4'], StreamCBRBitRate['2']]
   }
 };
 
@@ -84,7 +84,7 @@ module.exports = class Stream extends Base {
       resolutionOptions: undefined,
       bandwidthManagementOptions: undefined,
       cbrBitRateOptions: undefined,
-      vbrMaxBitRateOptions: [StreamVBRMaxBitRate['4'], StreamVBRMaxBitRate['2'], '1']
+      vbrMaxBitRateOptions: [StreamVBRMaxBitRate['4'], StreamVBRMaxBitRate['2']]
     };
   }
 
