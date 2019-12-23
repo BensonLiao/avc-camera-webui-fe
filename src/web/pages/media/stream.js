@@ -19,7 +19,6 @@ const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit
 const StreamGOP = require('webserver-form-schema/constants/stream-gop');
 const _ = require('../../../languages');
 const {channelA: {props: {frameRate}}} = StreamSettingsSchema;
-const resolutionGroupIndices = [2];
 
 module.exports = class Stream extends Base {
   static get propTypes() {
@@ -53,7 +52,8 @@ module.exports = class Stream extends Base {
     super(props);
     this.state.channelA = {};
     this.state.channelB = {
-      resolutionOptions: StreamResolution.all()
+      resolutionOptions: StreamResolution.all(),
+      bandwidthManagementOptions: [StreamBandwidthManagement.cbr]
     };
   }
 
@@ -86,52 +86,6 @@ module.exports = class Stream extends Base {
     };
   };
 
-  /**
-   * Helper function for filter array of <option> within `groupIndices` by `targetValue` and
-   * do grouping and comparison with array index,
-   * return original `array` if not a valid `groupIndices`.
-   * e.g. `array`: [0, 1, 2, 3, 4, 5], `targetValue`: 1, `groupIndices`: [2]
-   * means there's 2 groups: [0, 1, 2] and [3, 4, 5],
-   * and filtered array will be: [0, 1, 2] or [1, 2] if `isWithinTargetValue` is true.
-   * e.g. `array`: ["40", "20", "16", "12", "10", "8", "4", "2"],
-   * `targetValue`: "8", `groupIndices`: [2, 5]
-   * means there's 3 groups: ["40", "20", "16"], ["12", "10", "8"] and ["4", "2"],
-   * and filtered array will be: ["12", "10", "8"] or ["8"] if `isWithinTargetValue` is true.
-   * @param {Array} array Array to be filter.
-   * @param {String|Number} targetValue
-   * Filter array based on `targetValue` between groups by index.
-   * @param {Number[]} groupIndices Must be ascending order to make proper grouping.
-   * @param {Boolean} isWithinTargetValue
-   * Do further filtering if index greater than `targetValue` and within groups.
-   * @returns {Array} An filtered array.
-   */
-  filterWithinGroups = (array, targetValue, groupIndices = [], isWithinTargetValue = true) => {
-    if (groupIndices.length === 0 ||
-      !groupIndices.every(group => typeof group === 'number')) {
-      return array;
-    }
-
-    const targetIdx = array.indexOf(targetValue);
-    let groupStartIdx = 0;
-    let groupEndIdx = array.length - 1;
-    groupIndices.forEach(groupIdx => {
-      if (targetIdx > groupIdx) {
-        groupStartIdx = groupIdx + 1;
-      }
-
-      if (targetIdx <= groupIdx && groupEndIdx === array.length - 1) {
-        groupEndIdx = groupIdx;
-      }
-    });
-
-    return isWithinTargetValue ? array.filter((_, idx) => (
-      idx >= targetIdx && idx <= groupEndIdx
-    )) :
-      array.filter((_, idx) => (
-        idx >= groupStartIdx && idx <= groupEndIdx
-      ));
-  }
-
   getParentFieldName = fieldName => {
     if (typeof fieldName !== 'string') {
       return '';
@@ -144,12 +98,13 @@ module.exports = class Stream extends Base {
     return event => {
       const parentFieldName = this.getParentFieldName(event.target.name);
       if (parentFieldName === 'channelA') {
-        const filterResolutions = this.filterWithinGroups(
-          StreamResolution.all(),
-          event.target.value,
-          resolutionGroupIndices
-        );
-        this.setState({channelB: {resolutionOptions: filterResolutions}});
+        const filterBandwidthManagementOptions = event.target.value === '0' ? [StreamBandwidthManagement.cbr] :
+          StreamBandwidthManagement.all();
+        this.setState({
+          channelB: {
+            bandwidthManagementOptions: filterBandwidthManagementOptions
+          }
+        });
       }
 
       if (typeof onChange === 'function') {
@@ -174,6 +129,8 @@ module.exports = class Stream extends Base {
   formRender = (props, fieldNamePrefix = '') => {
     const parentFieldName = this.getParentFieldName(fieldNamePrefix);
     const {[parentFieldName]: channel} = this.state;
+    const bandwidthManagementOptions = channel.bandwidthManagementOptions ||
+      StreamBandwidthManagement.all();
     return (
       <Form>
         <div className="form-group">
@@ -201,20 +158,11 @@ module.exports = class Stream extends Base {
               className="form-control border-0"
               onChange={this.onResolutionChange(props.handleChange)}
             >
-              {!channel.resolutionOptions && (
-                StreamResolution.all().map(resolution => (
-                  <option key={resolution} value={resolution}>
-                    {_(`stream-resolution-${resolution}`)}
-                  </option>
-                ))
-              )}
-              {channel.resolutionOptions && (
-                channel.resolutionOptions.map(resolution => (
-                  <option key={resolution} value={resolution}>
-                    {_(`stream-resolution-${resolution}`)}
-                  </option>
-                ))
-              )}
+              {StreamResolution.all().map(resolution => (
+                <option key={resolution} value={resolution}>
+                  {_(`stream-resolution-${resolution}`)}
+                </option>
+              ))}
             </Field>
           </div>
         </div>
@@ -238,7 +186,7 @@ module.exports = class Stream extends Base {
               component="select"
               className="form-control border-0"
             >
-              {StreamBandwidthManagement.all().map(bandwidthManagement => (
+              {bandwidthManagementOptions.map(bandwidthManagement => (
                 <option key={bandwidthManagement} value={bandwidthManagement}>
                   {bandwidthManagement}
                 </option>
