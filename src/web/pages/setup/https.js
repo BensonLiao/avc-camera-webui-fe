@@ -41,10 +41,11 @@ module.exports = class SetupHTTPS extends Base {
     }
   };
 
+  /**
+   * @param {Function} next
+   * @returns {Function}
+   */
   generateChangeCertificateTypeHandler = next => {
-    /*
-    @param next {Function}
-      */
     return event => {
       this.setState({certificateType: event.target.value});
       if (typeof next === 'function') {
@@ -53,10 +54,11 @@ module.exports = class SetupHTTPS extends Base {
     };
   };
 
+  /**
+   * @param {Object} values
+   * @returns {void}
+   */
   onSubmitSetupHTTPSForm = values => {
-    /*
-    @param values {Object}
-      */
     const $setup = store.get('$setup');
 
     progress.start();

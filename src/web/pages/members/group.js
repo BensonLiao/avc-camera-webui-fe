@@ -40,6 +40,11 @@ module.exports = class Group extends Base {
     });
   };
 
+  /**
+   * Handler on user submit the add or update group form.
+   * @param {Object} values
+   * @returns {void}
+   */
   onSubmitGroupForm = values => {
     progress.start();
     if (this.props.group) {

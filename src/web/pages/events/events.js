@@ -75,11 +75,12 @@ module.exports = class Events extends Base {
     this.state.defaultMemberPictureUrl = null;
   }
 
+  /**
+   * Convert router params to an array.
+   * @param {Array<String>|String|null} param
+   * @returns {Array<String>}
+   */
   convertArrayParams = param => {
-    /*
-    @param param {Array<String>|String|null}
-    @returns {Array<String>}
-     */
     let result = [];
 
     if (Array.isArray(param)) {
@@ -91,10 +92,20 @@ module.exports = class Events extends Base {
     return result;
   };
 
+  /**
+   * Find group with its id.
+   * @param {Number} groupId
+   * @returns {Object}
+   */
   findGroup = groupId => {
     return this.props.groups.items.find(x => x.id === groupId);
   };
 
+  /**
+   * Clean filter on user clicks.
+   * @param {*} event
+   * @returns {void}
+   */
   onClickCleanFilters = event => {
     event.preventDefault();
     getRouter().go({
@@ -103,6 +114,13 @@ module.exports = class Events extends Base {
     });
   };
 
+  /**
+   * Handler on user submit the search form.
+   * @param {String} keyword
+   * @param {String} start
+   * @param {String} end
+   * @returns {void}
+   */
   onSubmitSearchForm = ({keyword, start, end}) => {
     getRouter().go({
       name: this.currentRoute.name,
@@ -116,11 +134,13 @@ module.exports = class Events extends Base {
     });
   };
 
+  /**
+   * Generate the handler to toggle filter.
+   * @param {String} paramKey
+   * @param {String} value
+   * @returns {Function} The handler.
+   */
   generateToggleFilterHandler = (paramKey, value) => () => {
-    /*
-    @param paramKey {String}
-    @param value {String}
-     */
     const params = this.convertArrayParams(this.props.params[paramKey]);
     const indexOfConfidences = params.indexOf(value);
 
@@ -140,13 +160,13 @@ module.exports = class Events extends Base {
     });
   };
 
+  /**
+   * Generate the handler to change filter.
+   * @param {String} paramKey
+   * @param {*} value The filter value. Pass null to remove the param.
+   * @returns {Function} The handler.
+   */
   generateChangeFilterHandler = (paramKey, value) => event => {
-    /*
-    @param paramKey {String}
-    @param value {Any}
-      The filter value. Pass null to remove the param.
-    @returns {Function}
-     */
     event.preventDefault();
     getRouter().go({
       name: this.currentRoute.name,
@@ -160,6 +180,12 @@ module.exports = class Events extends Base {
     });
   };
 
+  /**
+   * Generate the handler to modify `member`.
+   * @param {Object} member
+   * @param {*} defaultPictureUrl
+   * @returns {Function} The handler.
+   */
   generateMemberModifyHandler = (member, defaultPictureUrl) => event => {
     event.preventDefault();
     this.setState({
