@@ -348,5 +348,9 @@ window.languageResource = {
   'Activate User': '啟用者',
   'Authentication Key': '授權碼',
   'Enabled Functions': '啟用功能',
-  'Enable Status': '狀態'
+  'Enable Status': '狀態',
+  'Activated successfully': '啟用成功',
+  '{0} authorized successfully!': '{0}已授權成功！',
+  'Activation failed': '啟用失敗',
+  'Authorization failed!': '授權失敗！'
 };
