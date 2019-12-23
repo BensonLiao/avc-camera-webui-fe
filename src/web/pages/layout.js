@@ -227,7 +227,7 @@ module.exports = class Layout extends Base {
                     {this.state.$user.account}
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>Sign out</a>
+                    <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>{_('Sign out')}</a>
                   </div>
                 </div>
               </div>

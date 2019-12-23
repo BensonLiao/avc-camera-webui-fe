@@ -13,8 +13,8 @@ window.languageResource = {
   'confidence-2': '中',
   'confidence-3': '高',
 
-  'enroll-status-1': '已註冊',
-  'enroll-status-2': '未註冊',
+  'enroll-status-1': '成功',
+  'enroll-status-2': '未知',
 
   auto: '自動',
   off: '關閉',
@@ -137,6 +137,7 @@ window.languageResource = {
   Security: '安全性',
   License: '智慧授權',
   Develop: '工程模式',
+  'Sign out': '登出',
 
   // /login
   'Welcome to use AndroVideo system': '歡迎使用 AndroVideo 系統',
@@ -318,6 +319,8 @@ window.languageResource = {
   '{0}-{1} items. Total: {2}': '目前 {0}-{1} 筆，總筆數 {2} 筆',
   'Delete member': '刪除成員',
   'Are you sure to delete the member {0}?': '您即將刪除 {0} 成員，確認要刪除嗎？',
+  'Database encryption': '資料庫加密',
+  Modify: '修改',
 
   // /members/details
   'New member': '新增成員',

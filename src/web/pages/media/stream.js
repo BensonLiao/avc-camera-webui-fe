@@ -57,7 +57,7 @@ module.exports = class Stream extends Base {
     };
   }
 
-  generateInitialValue = streamSettings => {
+  generateInitialValues = streamSettings => {
     if (streamSettings) {
       return streamSettings;
     }
@@ -315,22 +315,32 @@ module.exports = class Stream extends Base {
             {_('Apply')}
           </button>
         </div>
-        <button type="button" className="btn btn-block btn-outline-primary rounded-pill">
+        <button type="button" className="btn btn-block btn-outline-primary rounded-pill" onClick={this.generateClickResetButtonHandler(props)}>
           {_('Reset to defaults')}
         </button>
       </Form>
     );
   };
 
-  onSubmit = ({channelA}) => {
+  onSubmit = ({channelA, channelB}) => {
     progress.start();
-    api.multimedia.updateStreamSettings({channelA, channelB: channelA})
+    api.multimedia.updateStreamSettings({channelA, channelB})
       .then(getRouter().reload)
       .catch(error => {
         progress.done();
         renderError(error);
       });
   };
+
+  generateClickResetButtonHandler = ({resetForm}) => event => {
+    event.preventDefault();
+    progress.start();
+    api.multimedia.resetStreamSettings()
+      .then(() => api.multimedia.getStreamSettings())
+      .then(response => resetForm({values: this.generateInitialValues(response.data)}))
+      .catch(renderError)
+      .finally(progress.done);
+  }
 
   render() {
     const {streamSettings} = this.props;
@@ -373,7 +383,7 @@ module.exports = class Stream extends Base {
                     </div>
                   </nav>
                   <Formik
-                    initialValues={this.generateInitialValue(streamSettings)}
+                    initialValues={this.generateInitialValues(streamSettings)}
                     onSubmit={this.onSubmit}
                   >
                     {props => (

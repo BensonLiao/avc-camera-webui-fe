@@ -74,6 +74,28 @@ module.exports = {
         usedDiskSize: 3117 * 1024 * 1024,
         totalDiskSize: 7692 * 1024 * 1024
       },
+      streamDefault: {
+        channelA: {
+          format: StreamFormat.h264,
+          resolution: StreamResolution['0'],
+          frameRate: '30',
+          bandwidthManagement: StreamBandwidthManagement.vbr,
+          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
+          cbrBitRate: StreamCBRBitRate['4'],
+          gop: StreamGOP['1']
+        },
+        channelB: {
+          format: StreamFormat.mJpeg,
+          resolution: StreamResolution['0'],
+          frameRate: '30',
+          bandwidthManagement: StreamBandwidthManagement.vbr,
+          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
+          cbrBitRate: StreamCBRBitRate['4'],
+          gop: StreamGOP['1']
+        }
+      },
       stream: {
         channelA: {
           format: StreamFormat.h264,

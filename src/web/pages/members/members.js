@@ -1,3 +1,4 @@
+const download = require('downloadjs');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
@@ -5,8 +6,11 @@ const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
+const iconHttps = require('webserver-prototype/src/resource/https-24px.svg');
 const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
+const Password = require('../../../core/components/fields/password');
+const databaseEncryptionValidator = require('../../validations/members/database-encryption-validator');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
@@ -48,6 +52,9 @@ module.exports = class Members extends Base {
     this.state.selectedGroup = props.groups.items.find(x => x.id === props.params.group);
     this.state.isShowDeleteMemberModal = false;
     this.state.deleteMemberTarget = null;
+    this.state.isShowDatabaseEncryptionModal = false;
+    this.state.databaseEncryptionInitialValues = null;
+    this.state.databaseFile = null;
   }
 
   generateShowDeleteGroupModalHandler = group => {
@@ -164,6 +171,122 @@ module.exports = class Members extends Base {
     );
   };
 
+  showDatabaseEncryptionModal = event => {
+    event.preventDefault();
+    progress.start();
+    api.member.getDatabaseEncryptionSettings()
+      .then(response => {
+        this.setState({
+          isShowDatabaseEncryptionModal: true,
+          databaseEncryptionInitialValues: {
+            password: response.data.password,
+            newPassword: '',
+            confirmPassword: ''
+          }
+        });
+      })
+      .catch(error => utils.renderError(error))
+      .finally(progress.done);
+  };
+
+  hideDatabaseEncryptionModal = () => {
+    this.setState({isShowDatabaseEncryptionModal: false});
+  };
+
+  onSubmitDatabaseEncryptionForm = values => {
+    progress.start();
+    api.member.updateDatabaseEncryptionSettings(values)
+      .then(() => {
+        this.setState({isShowDatabaseEncryptionModal: false});
+      })
+      .catch(error => utils.renderError(error))
+      .finally(progress.done);
+  };
+
+  onClickExportDatabase = event => {
+    event.preventDefault();
+    download('/api/members/database.zip');
+  };
+
+  onChangeDatabaseFile = event => {
+    const file = event.target.files[0];
+
+    if (!file || this.state.$isApiProcessing) {
+      return;
+    }
+
+    progress.start();
+    api.member.uploadDatabaseFile(file)
+      .then(() => {
+        getRouter().go(
+          {name: 'web.members', params: {}},
+          {reload: true}
+        );
+      })
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
+
+  databaseEncryptionFormRender = ({errors, touched}) => {
+    return (
+      <Form className="modal-content">
+        <div className="modal-header">
+          <h5 className="modal-title">{_('Database encryption')}</h5>
+        </div>
+        <div className="modal-body">
+          <div className="form-group has-feedback">
+            <label>{_('Old password')}</label>
+            <Field name="password" component={Password}
+              inputProps={{className: classNames('form-control', {'is-invalid': errors.password && touched.password})}}/>
+            {
+              errors.password && touched.password && (
+                <div className="invalid-feedback">{errors.password}</div>
+              )
+            }
+          </div>
+          <div className="form-group has-feedback">
+            <label>{_('New password')}</label>
+            <Field name="newPassword" component={Password}
+              inputProps={{
+                className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
+                placeholder: _('Please enter your password.')
+              }}/>
+            {
+              errors.newPassword && touched.newPassword && (
+                <div className="invalid-feedback">{errors.newPassword}</div>
+              )
+            }
+          </div>
+          <div className="form-group has-feedback">
+            <label>{_('Confirm password')}</label>
+            <Field name="confirmPassword" component={Password}
+              inputProps={{
+                className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
+                placeholder: _('Please confirm your password.')
+              }}/>
+            {
+              errors.confirmPassword && touched.confirmPassword && (
+                <div className="invalid-feedback">{errors.confirmPassword}</div>
+              )
+            }
+          </div>
+        </div>
+        <div className="modal-footer flex-column">
+          <div className="form-group w-100 mx-0">
+            <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
+              {_('Modify')}
+            </button>
+          </div>
+          <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill" data-dismiss="modal">
+            {_('Close')}
+          </button>
+        </div>
+      </Form>
+    );
+  };
+
   render() {
     const groups = this.props.groups.items;
     const members = this.props.members.items;
@@ -249,15 +372,24 @@ module.exports = class Members extends Base {
               ))
             }
 
-            <h3 className="text-truncate mt-3 mb-4">{_('Database file')}</h3>
+            <hr/>
+            <div className="d-flex justify-content-between align-items-center mb-3 pr-3">
+              <h3>{_('Database file')}</h3>
+              <button className="btn btn-link text-light" type="button" onClick={this.showDatabaseEncryptionModal}>
+                <img src={iconHttps}/>
+              </button>
+            </div>
             <div className="actions">
               <div className="form-group">
-                <button className="btn btn-outline-light btn-block rounded-pill" type="button">
+                <button disabled={this.state.$isApiProcessing} type="button"
+                  className="btn btn-outline-light btn-block rounded-pill"
+                  onClick={this.onClickExportDatabase}
+                >
                   {_('Export')}
                 </button>
               </div>
-              <label className="btn btn-outline-light btn-block rounded-pill font-weight-bold">
-                <input type="file" className="d-none" accept=".zip"/>{_('Import')}
+              <label className={classNames('btn btn-outline-light btn-block rounded-pill font-weight-bold', {disabled: this.state.$isApiProcessing})}>
+                <input type="file" className="d-none" accept=".zip" onChange={this.onChangeDatabaseFile}/>{_('Import')}
               </label>
             </div>
           </div>
@@ -285,7 +417,7 @@ module.exports = class Members extends Base {
                         >
                           {_('Add a new member')}
                         </Link>
-                        <Link className="dropdown-item" to="/histories">{_('Add a member from events')}</Link>
+                        <Link className="dropdown-item" to="/events">{_('Add a member from events')}</Link>
                       </div>
                     </div>
                   </div>
@@ -430,6 +562,21 @@ module.exports = class Members extends Base {
               </button>
             </div>
           </form>
+        </Modal>
+
+        {/* Database encryption */}
+        <Modal
+          show={this.state.isShowDatabaseEncryptionModal}
+          autoFocus={false}
+          onHide={this.hideDatabaseEncryptionModal}
+        >
+          <Formik
+            initialValues={this.state.databaseEncryptionInitialValues}
+            validate={utils.makeFormikValidator(databaseEncryptionValidator, ['newPassword', 'confirmPassword'])}
+            onSubmit={this.onSubmitDatabaseEncryptionForm}
+          >
+            {this.databaseEncryptionFormRender}
+          </Formik>
         </Modal>
       </>
     );
