@@ -25,7 +25,7 @@ const {channelA: {props: {frameRate}}} = StreamSettingsSchema;
 // 'stream-resolution-5': '1280*960(4:3)',
 const StreamResolutionMapping = {
   0: [],
-  1: [StreamResolution['2'], StreamResolution['5']],
+  1: [StreamResolution['2']],
   2: [StreamResolution['2']],
   3: [StreamResolution['5']],
   4: [StreamResolution['5']],
@@ -45,6 +45,11 @@ const StreamCBRBitRateMapping = {
     2: [StreamCBRBitRate['4'], StreamCBRBitRate['2']],
     5: [StreamCBRBitRate['4'], StreamCBRBitRate['2']]
   }
+};
+
+const vbrMaxBitRateOptions = {
+  channelA: StreamVBRMaxBitRate.all(),
+  channelB: [StreamVBRMaxBitRate['4'], StreamVBRMaxBitRate['2']]
 };
 
 module.exports = class Stream extends Base {
@@ -77,15 +82,8 @@ module.exports = class Stream extends Base {
 
   constructor(props) {
     super(props);
-    this.state.channelA = {
-      cbrBitRateOptions: undefined
-    };
-    this.state.channelB = {
-      resolutionOptions: undefined,
-      bandwidthManagementOptions: undefined,
-      cbrBitRateOptions: undefined,
-      vbrMaxBitRateOptions: [StreamVBRMaxBitRate['4'], StreamVBRMaxBitRate['2']]
-    };
+    this.state.channelA = {};
+    this.state.channelB = {};
   }
 
   generateInitialValues = streamSettings => {
@@ -188,7 +186,6 @@ module.exports = class Stream extends Base {
     const resolutionOptions = channel.resolutionOptions || StreamResolution.all();
     const bandwidthManagementOptions = channel.bandwidthManagementOptions || StreamBandwidthManagement.all();
     const cbrBitRateOptions = channel.cbrBitRateOptions || StreamCBRBitRate.all();
-    const vbrMaxBitRateOptions = channel.vbrMaxBitRateOptions || StreamVBRMaxBitRate.all();
     return (
       <Form>
         <div className="form-group">
@@ -276,7 +273,7 @@ module.exports = class Stream extends Base {
               component="select"
               className="form-control border-0"
             >
-              {vbrMaxBitRateOptions.map(vbrMaxBitRate => (
+              {vbrMaxBitRateOptions[parentFieldName].map(vbrMaxBitRate => (
                 <option key={vbrMaxBitRate} value={vbrMaxBitRate}>
                   {vbrMaxBitRate}Mb
                 </option>
