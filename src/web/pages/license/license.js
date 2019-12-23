@@ -54,29 +54,27 @@ module.exports = class License extends Base {
     progress.start();
     api.authKey.addAuthKey(authKey)
       .then(response => {
-        setTimeout(() => {
-          utils.showSuccessNotification(
-            _('Activated successfully'),
-            _('{0} authorized successfully!', [
-              (() => {
-                const result = [];
-                if (response.data.isEnableFaceRecognition) {
-                  result.push(_('Face recognition'));
-                }
+        utils.showSuccessNotification(
+          _('Activated successfully'),
+          _('{0} authorized successfully!', [
+            (() => {
+              const result = [];
+              if (response.data.isEnableFaceRecognition) {
+                result.push(_('Face recognition'));
+              }
 
-                if (response.data.isEnableAgeGender) {
-                  result.push(_('Age gender'));
-                }
+              if (response.data.isEnableAgeGender) {
+                result.push(_('Age gender'));
+              }
 
-                if (response.data.isEnableHumanoidDetection) {
-                  result.push(_('Humanoid detection'));
-                }
+              if (response.data.isEnableHumanoidDetection) {
+                result.push(_('Humanoid detection'));
+              }
 
-                return result.join(', ');
-              })()
-            ])
-          );
-        }, 100);
+              return result.join(', ');
+            })()
+          ])
+        );
         getRouter().reload();
       })
       .catch(() => {

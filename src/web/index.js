@@ -22,6 +22,7 @@ const dayjsEs = require('dayjs/locale/es');
 const dayjsJa = require('dayjs/locale/ja');
 const React = require('react');
 const ReactDOM = require('react-dom');
+const ReactNotification = require('react-notifications-component').default;
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const router = require('./router');
@@ -163,6 +164,9 @@ router.listen('ChangeError', progress.done);
 router.start();
 
 ReactDOM.render(
-  <RouterView><Loading/></RouterView>,
+  <>
+    <ReactNotification/>
+    <RouterView><Loading/></RouterView>
+  </>,
   document.getElementById('root')
 );
