@@ -82,7 +82,7 @@ module.exports = {
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
           vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['4'],
+          cbrBitRate: StreamCBRBitRate['6'],
           gop: StreamGOP['1']
         },
         channelB: {
@@ -91,8 +91,8 @@ module.exports = {
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['4'],
+          vbrMaxBitRate: '1',
+          cbrBitRate: '1',
           gop: StreamGOP['1']
         }
       },
@@ -104,7 +104,7 @@ module.exports = {
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
           vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['4'],
+          cbrBitRate: StreamCBRBitRate['6'],
           gop: StreamGOP['1']
         },
         channelB: {
@@ -113,8 +113,8 @@ module.exports = {
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['4'],
+          vbrMaxBitRate: '1',
+          cbrBitRate: '1',
           gop: StreamGOP['1']
         }
       },

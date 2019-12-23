@@ -9,16 +9,43 @@ const {renderError} = require('../../../core/utils');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 const StreamFormat = require('webserver-form-schema/constants/stream-format');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
-const StreamBandwidthManagement =
-  require('webserver-form-schema/constants/stream-bandwidth-management');
-const StreamVBRBitRateLevel =
-  require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
-const StreamVBRMaxBitRate =
-  require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
+const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
+const StreamVBRBitRateLevel = require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
+const StreamVBRMaxBitRate = require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
 const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
 const StreamGOP = require('webserver-form-schema/constants/stream-gop');
 const _ = require('../../../languages');
 const {channelA: {props: {frameRate}}} = StreamSettingsSchema;
+// 解析度對照
+// 'stream-resolution-0': '3840*2160(16:9)',
+// 'stream-resolution-1': '1920*1080(16:9)',
+// 'stream-resolution-2': '1280*720(16:9)',
+// 'stream-resolution-3': '2048*1536(4:3)',
+// 'stream-resolution-4': '1600*1200(4:3)',
+// 'stream-resolution-5': '1280*960(4:3)',
+const StreamResolutionMapping = {
+  0: [],
+  1: [StreamResolution['2']],
+  2: [StreamResolution['2']],
+  3: [StreamResolution['5']],
+  4: [StreamResolution['5']],
+  5: [StreamResolution['5']]
+};
+
+const StreamCBRBitRateMapping = {
+  channelA: {
+    0: ['12', '10', StreamCBRBitRate['8'], StreamCBRBitRate['6']],
+    1: [StreamCBRBitRate['8'], StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
+    2: [StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2'], '1'],
+    3: [StreamCBRBitRate['8'], StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
+    4: [StreamCBRBitRate['8'], StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
+    5: [StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2'], '1']
+  },
+  channelB: {
+    2: [StreamCBRBitRate['4'], StreamCBRBitRate['2'], '1', '512'],
+    5: [StreamCBRBitRate['4'], StreamCBRBitRate['2'], '1', '512']
+  }
+};
 
 module.exports = class Stream extends Base {
   static get propTypes() {
@@ -50,10 +77,14 @@ module.exports = class Stream extends Base {
 
   constructor(props) {
     super(props);
-    this.state.channelA = {};
+    this.state.channelA = {
+      cbrBitRateOptions: undefined
+    };
     this.state.channelB = {
-      resolutionOptions: StreamResolution.all(),
-      bandwidthManagementOptions: [StreamBandwidthManagement.cbr]
+      resolutionOptions: undefined,
+      bandwidthManagementOptions: undefined,
+      cbrBitRateOptions: undefined,
+      vbrMaxBitRateOptions: [StreamVBRMaxBitRate['4'], StreamVBRMaxBitRate['2'], '1']
     };
   }
 
@@ -70,7 +101,7 @@ module.exports = class Stream extends Base {
         bandwidthManagement: StreamBandwidthManagement.vbr,
         vbrBitRateLevel: StreamVBRBitRateLevel.complete,
         vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-        cbrBitRate: StreamCBRBitRate['4'],
+        cbrBitRate: StreamCBRBitRate['6'],
         gop: StreamGOP['1']
       },
       channelB: {
@@ -79,8 +110,8 @@ module.exports = class Stream extends Base {
         frameRate: '30',
         bandwidthManagement: StreamBandwidthManagement.vbr,
         vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-        vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-        cbrBitRate: StreamCBRBitRate['4'],
+        vbrMaxBitRate: StreamVBRMaxBitRate['1'],
+        cbrBitRate: StreamCBRBitRate['1'],
         gop: StreamGOP['1']
       }
     };
@@ -94,18 +125,43 @@ module.exports = class Stream extends Base {
     return fieldName.substring(0, fieldName.indexOf('.'));
   }
 
+  filterByMaps = (targetValue, maps) => {
+    return maps[targetValue];
+  }
+
   onResolutionChange = onChange => {
     return event => {
       const parentFieldName = this.getParentFieldName(event.target.name);
       if (parentFieldName === 'channelA') {
         const filterBandwidthManagementOptions = event.target.value === '0' ? [StreamBandwidthManagement.cbr] :
           StreamBandwidthManagement.all();
-        this.setState({
-          channelB: {
-            bandwidthManagementOptions: filterBandwidthManagementOptions
-          }
+        const filterResolutions = this.filterByMaps(
+          event.target.value,
+          StreamResolutionMapping
+        );
+        this.setState(prevState => {
+          return {
+            channelB: {
+              ...prevState.channelB,
+              resolutionOptions: filterResolutions,
+              bandwidthManagementOptions: filterBandwidthManagementOptions
+            }
+          };
         });
       }
+
+      const filterCBRBitRateOptions = this.filterByMaps(
+        event.target.value,
+        StreamCBRBitRateMapping[parentFieldName]
+      );
+      this.setState(prevState => {
+        return {
+          [parentFieldName]: {
+            ...prevState[parentFieldName],
+            cbrBitRateOptions: filterCBRBitRateOptions
+          }
+        };
+      });
 
       if (typeof onChange === 'function') {
         onChange(event);
@@ -115,7 +171,7 @@ module.exports = class Stream extends Base {
 
   renderFrameRateOption = () => {
     const options = [];
-    for (let i = frameRate.min; i < frameRate.max; i++) {
+    for (let i = frameRate.min; i <= frameRate.max; i++) {
       options.push(
         <option key={i} value={i}>
           {i}
@@ -129,8 +185,10 @@ module.exports = class Stream extends Base {
   formRender = (props, fieldNamePrefix = '') => {
     const parentFieldName = this.getParentFieldName(fieldNamePrefix);
     const {[parentFieldName]: channel} = this.state;
-    const bandwidthManagementOptions = channel.bandwidthManagementOptions ||
-      StreamBandwidthManagement.all();
+    const resolutionOptions = channel.resolutionOptions || StreamResolution.all();
+    const bandwidthManagementOptions = channel.bandwidthManagementOptions || StreamBandwidthManagement.all();
+    const cbrBitRateOptions = channel.cbrBitRateOptions || StreamCBRBitRate.all();
+    const vbrMaxBitRateOptions = channel.vbrMaxBitRateOptions || StreamVBRMaxBitRate.all();
     return (
       <Form>
         <div className="form-group">
@@ -158,7 +216,7 @@ module.exports = class Stream extends Base {
               className="form-control border-0"
               onChange={this.onResolutionChange(props.handleChange)}
             >
-              {StreamResolution.all().map(resolution => (
+              {resolutionOptions.map(resolution => (
                 <option key={resolution} value={resolution}>
                   {_(`stream-resolution-${resolution}`)}
                 </option>
@@ -218,7 +276,7 @@ module.exports = class Stream extends Base {
               component="select"
               className="form-control border-0"
             >
-              {StreamVBRMaxBitRate.all().map(vbrMaxBitRate => (
+              {vbrMaxBitRateOptions.map(vbrMaxBitRate => (
                 <option key={vbrMaxBitRate} value={vbrMaxBitRate}>
                   {vbrMaxBitRate}Mb
                 </option>
@@ -234,7 +292,7 @@ module.exports = class Stream extends Base {
               component="select"
               className="form-control border-0"
             >
-              {StreamCBRBitRate.all().map(cbrBitRate => (
+              {cbrBitRateOptions.map(cbrBitRate => (
                 <option key={cbrBitRate} value={cbrBitRate}>
                   {cbrBitRate}MB
                 </option>
