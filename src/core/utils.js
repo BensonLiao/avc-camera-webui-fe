@@ -157,12 +157,12 @@ exports.showErrorNotification = (title, message) => {
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
  * @param {Object} req XHR request instance, or if we use library like axios then `req` is the axios request config and contains things like `url`.
  * @see https://github.com/axios/axios#request-config
- * @param {Array<[Number, ?Object, ?Object]>|Object} res Accept any type of response, or if we use library like axios-mock-adapter then this will be an array in the form of [status, data, headers].
+ * @param {Array<Number, ?Object, ?Object>} res Accept any type of response, or if we use library like axios-mock-adapter then this will be an array in the form of [status, data, headers].
  * @see https://github.com/ctimmerm/axios-mock-adapter
- * @returns {Array<[Number, ?Object, ?Object]>} Same object as `res`.
+ * @returns {Array<Number, ?Object, ?Object>} Same object as `res`.
  */
 exports.mockResponseWithLog = (req, res) => {
-  console.groupCollapsed('mock axios xhr log:');
+  console.groupCollapsed(`[${res[0]}] ${req.method} ${req.url}`);
   console.log('request config:', req);
   console.log('response: [status, data, headers]', res);
   console.groupEnd();
