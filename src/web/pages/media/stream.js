@@ -91,28 +91,7 @@ module.exports = class Stream extends Base {
       return streamSettings;
     }
 
-    return {
-      channelA: {
-        format: StreamFormat.h264,
-        resolution: StreamResolution['0'],
-        frameRate: '30',
-        bandwidthManagement: StreamBandwidthManagement.vbr,
-        vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-        vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-        cbrBitRate: StreamCBRBitRate['6'],
-        gop: StreamGOP['1']
-      },
-      channelB: {
-        format: StreamFormat.mJpeg,
-        resolution: StreamResolution['0'],
-        frameRate: '30',
-        bandwidthManagement: StreamBandwidthManagement.vbr,
-        vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-        vbrMaxBitRate: StreamVBRMaxBitRate['1'],
-        cbrBitRate: StreamCBRBitRate['1'],
-        gop: StreamGOP['1']
-      }
-    };
+    return {};
   };
 
   getParentFieldName = fieldName => {
