@@ -86,14 +86,6 @@ module.exports = class Stream extends Base {
     this.state.channelB = {};
   }
 
-  generateInitialValues = streamSettings => {
-    if (streamSettings) {
-      return streamSettings;
-    }
-
-    return {};
-  };
-
   getParentFieldName = fieldName => {
     if (typeof fieldName !== 'string') {
       return '';
@@ -319,7 +311,7 @@ module.exports = class Stream extends Base {
     progress.start();
     api.multimedia.resetStreamSettings()
       .then(() => api.multimedia.getStreamSettings())
-      .then(response => resetForm({values: this.generateInitialValues(response.data)}))
+      .then(response => resetForm({values: response.data}))
       .catch(renderError)
       .finally(progress.done);
   }
@@ -365,7 +357,7 @@ module.exports = class Stream extends Base {
                     </div>
                   </nav>
                   <Formik
-                    initialValues={this.generateInitialValues(streamSettings)}
+                    initialValues={streamSettings}
                     onSubmit={this.onSubmit}
                   >
                     {props => (
