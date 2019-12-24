@@ -45,11 +45,6 @@ module.exports = class Security extends Base {
             >
               HTTPS
             </Link>
-            <Link to="/security/off-line" title={_('All members')}
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.security.off-line'})}
-            >
-              {_('Off line record')}
-            </Link>
           </nav>
         </div>
 
