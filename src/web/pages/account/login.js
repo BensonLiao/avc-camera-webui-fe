@@ -22,11 +22,14 @@ module.exports = class Login extends Base {
     this.loginFormRender = this.loginFormRender.bind(this);
   }
 
+  /**
+   * Handler on user submit the login form.
+   * @param {Object} values
+   * @property {String} account
+   * @property {String} password
+   * @returns {void}
+   */
   onSubmitLoginForm(values) {
-    /*
-    The user submit the login form.
-    @param values {Object}
-     */
     progress.start();
     this.setState({isIncorrectPassword: false});
     api.account.login(values)

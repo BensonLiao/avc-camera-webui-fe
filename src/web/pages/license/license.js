@@ -8,7 +8,7 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
-const {formatDate, renderError, makeFormikValidator} = require('../../../core/utils');
+const utils = require('../../../core/utils');
 const iconFaceRecognitionEnable =
   require('webserver-prototype/src/resource/face-recognition-enable.svg');
 const iconFaceRecognitionDisable =
@@ -50,15 +50,42 @@ module.exports = class License extends Base {
     };
   }
 
+  /**
+   * Handler on user submit the add auth key form.
+   * Reload the router or render error page.
+   * @param {String} authKey
+   * @returns {void}
+   */
   onSubmit = ({authKey}) => {
     progress.start();
     api.authKey.addAuthKey(authKey)
-      .then(() => {
+      .then(response => {
+        utils.showSuccessNotification(
+          _('Activated successfully'),
+          _('{0} authorized successfully!', [
+            (() => {
+              const result = [];
+              if (response.data.isEnableFaceRecognition) {
+                result.push(_('Face recognition'));
+              }
+
+              if (response.data.isEnableAgeGender) {
+                result.push(_('Age gender'));
+              }
+
+              if (response.data.isEnableHumanoidDetection) {
+                result.push(_('Humanoid detection'));
+              }
+
+              return result.join(', ');
+            })()
+          ])
+        );
         getRouter().reload();
       })
-      .catch(error => {
+      .catch(() => {
         progress.done();
-        renderError(error);
+        utils.showErrorNotification(_('Activation failed'), _('Authorization failed!'));
       });
   };
 
@@ -102,7 +129,7 @@ module.exports = class License extends Base {
               <div className="col-12">
                 <h3 className="mb-4">{_('License')}</h3>
                 <Formik initialValues={{authKey: ''}}
-                  validate={makeFormikValidator(authKeyValidator)}
+                  validate={utils.makeFormikValidator(authKeyValidator)}
                   onSubmit={this.onSubmit}
                 >
                   {this.addLicenseFormRender}
@@ -247,7 +274,7 @@ module.exports = class License extends Base {
                           {index + 1}
                         </td>
                         <td>
-                          {formatDate(authKey.time)}
+                          {utils.formatDate(authKey.time)}
                         </td>
                         <td>
                           {authKey.user.name}

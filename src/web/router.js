@@ -195,18 +195,6 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.security.off-line',
-      uri: '/off-line',
-      onEnter: () => {
-        document.title = `${_('Security')} - ${_title}`;
-      },
-      resolve: {},
-      loadComponent: () => import(
-        /* webpackChunkName: "page-security" */
-        './pages/security/off-line'
-      )
-    },
-    {
       name: 'web.events',
       uri: '/events?keyword?index?sort?type?confidence?enrollStatus?start?end',
       onEnter: () => {

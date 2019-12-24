@@ -123,13 +123,13 @@ module.exports = class Members extends Base {
     this.setState({isShowDeleteMemberModal: false});
   };
 
+  /**
+   * Generate the handler to change filter.
+   * @param {String} paramKey
+   * @param {*} value The filter value. Pass null to remove the param.
+   * @returns {Function} The handler.
+   */
   generateChangeFilterHandler = (paramKey, value) => event => {
-    /*
-    @param paramKey {String}
-    @param value {Any}
-      The filter value. Pass null to remove the param.
-    @returns {Function}
-     */
     event.preventDefault();
     getRouter().go({
       name: this.currentRoute.name,
@@ -279,7 +279,9 @@ module.exports = class Members extends Base {
               {_('Modify')}
             </button>
           </div>
-          <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill" data-dismiss="modal">
+          <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill"
+            onClick={this.hideDatabaseEncryptionModal}
+          >
             {_('Close')}
           </button>
         </div>

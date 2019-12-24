@@ -30,13 +30,14 @@ module.exports = class ResetPassword extends Base {
     this.resetPasswordFormRender = this.resetPasswordFormRender.bind(this);
   }
 
+  /**
+   * Handler on user submit the reset password form.
+   * @param {Object} values
+   * @property {String} password
+   * @property {String} confirmPassword
+   * @returns {void}
+   */
   onSubmitResetPasswordForm(values) {
-    /*
-    The user submit the reset password form.
-    @param values {Object}
-      password: {String}
-      confirmPassword: {String}
-     */
     progress.start();
     api.account.changePasswordWithBirthday({
       ...values,

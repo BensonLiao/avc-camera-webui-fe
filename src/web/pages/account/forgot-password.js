@@ -21,13 +21,14 @@ module.exports = class ForgotPassword extends Base {
     this.forgotPasswordFormRender = this.forgotPasswordFormRender.bind(this);
   }
 
+  /**
+   * Handler on user submit the forgot password form.
+   * @param {Object} values
+   * @property {String} account
+   * @property {String} birthday e.g. "19910326"
+   * @returns {void}
+   */
   onSubmitForgotPasswordForm(values) {
-    /*
-    The user submit the forgot password form.
-    @param values {Object}
-      account: {String}
-      birthday: {String} "19910326"
-     */
     progress.start();
     this.setState({isIncorrectBirthday: false});
     api.validation.accountBirthday(values)

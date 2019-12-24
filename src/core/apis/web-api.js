@@ -2,179 +2,185 @@ const api = require('./index.js');
 
 module.exports = {
   validation: {
+    /**
+     * Validate the birthday of the account.
+     * @param {String} account User's account to be reference.
+     * @param {String} birthday User's birth day to be validate.
+     * @returns {Promise<response>}
+     * @response 204
+     */
     accountBirthday: ({account, birthday}) => api({
-      /*
-      Validate the birthday of the account.
-      @param args {Object}
-        account: {String}
-        birthday: {String} "19910326"
-      @response 204
-       */
       method: 'post',
       url: '/api/_validate/account-birthday',
       data: {account, birthday}
     })
   },
   account: {
+    /**
+     * Do authentication with account and password.
+     * @param {String} account
+     * @param {String} password
+     * @param {String|Number} maxAge in milliseconds
+     * @returns {Promise<response>}
+     * @response 200 {UserModel} with set-cookie
+     * @response 400 {Object}
+     * - extra {Object}
+     * - - loginFailedTimes {Number}
+     * @response 429 {Object}
+     * - extra {Object}
+     * - - loginFailedTimes {Number}
+     * - - loginLockExpiredTime {Date}
+     */
     login: ({account, password, maxAge}) => api({
-      /*
-      Do authentication with account and password.
-      @param args {Object}
-        account: {String}
-        password: {String}
-        maxAge: {String|Number} milliseconds
-      @returns {Promise<Object>}
-      @response 200 {UserModel} with set-cookie
-      @response 400 {Object}
-        extra: {Object}
-          loginFailedTimes: {Number}
-      @response 429 {Object}
-        extra: {Object}
-          loginFailedTimes: {Number}
-          loginLockExpiredTime: {Date}
-       */
       method: 'post',
       url: '/api/account/_login',
       data: {account, password, maxAge: Number(maxAge)}
     }),
+    /**
+     * Logout.
+     * @returns {Promise<response>}
+     * @response 204 with set-cookie
+     */
     logout: () => api({
-      /*
-      Logout.
-      @response 204 with set-cookie
-       */
       method: 'post',
       url: '/api/account/_logout'
     }),
+    /**
+     * Change the password with the birthday.
+     * @param {String} account
+     * @param {String} birthday e.g. "19910326"
+     * @param {String} password
+     * @returns {Promise<response>}
+     * @response 200 {UserModel}
+     */
     changePasswordWithBirthday: ({account, birthday, password}) => api({
-      /*
-      Change the password with the birthday.
-      @param args {Object}
-        account: {String}
-        birthday: {String} "19910326"
-        password: {String}
-      @response 200 {UserModel} with set-cookie
-       */
       method: 'post',
       url: '/api/account/_change-password',
       data: {account, birthday, password}
     }),
+    /**
+     * Change my password.
+     * @param {String} password
+     * @param {String} newPassword
+     * @returns {Promise<response>}
+     * @response 200 {UserModel}
+     */
     changeMyPassword: ({password, newPassword}) => api({
-      /*
-      Change my password.
-      @param args {Object}
-        password: {String}
-        newPassword: {String}
-      @response 200 {UserModel}
-       */
       method: 'put',
       url: '/api/me/password',
       data: {password, newPassword}
     })
   },
   user: {
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - items {Array<Object>}
+     * - items[].id {Number}
+     * - items[].account {String}
+     * - items[].permission {String}
+     */
     getUsers: () => api({
-      /*
-      @response 200
-        items: {Array<Object>}
-          id: {Number}
-          account: {String}
-          permission: {String}
-       */
       method: 'get',
       url: '/api/users'
     }),
+    /**
+     * @param {Number} userId
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - items {Array<Object>}
+     * - items[].id {Number}
+     * - items[].account {String}
+     * - items[].permission {String}
+     */
     getUser: userId => api({
-      /*
-      @param userId {Object}
-      @response 200
-        id: {Number}
-        account: {String}
-        permission: {String}
-       */
       method: 'get',
       url: `/api/users/${userId}`
     }),
+    /**
+     * @param {String} account
+     * @param {String} permission
+     * @param {String} birthday
+     * @param {String} password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - id {Number}
+     * - account {String}
+     * - permission {String}
+     */
     addUser: ({account, permission, birthday, password}) => api({
-      /*
-      @param args {Object}
-        account: {String}
-        permission: {String}
-        birthday: {String}
-        password: {String}
-      @response 200
-        id: {Number}
-        account: {String}
-        permission: {String}
-       */
       method: 'post',
       url: '/api/users',
       data: {account, permission, birthday, password}
     }),
+    /**
+     * @param {Number} id
+     * @param {String} account
+     * @param {String} permission
+     * @param {String} birthday
+     * @param {String} password The old password.
+     * @param {String} newPassword
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - id {Number}
+     * - account {String}
+     * - permission {String}
+     */
     updateUser: ({id, account, birthday, permission, password, newPassword}) => api({
-      /*
-      @param args {Object}
-        id: {Number}
-        account: {String}
-        birthday: {String}
-        permission: {String}
-        password: {String} The old password.
-        newPassword: {String}
-      @response 200
-        id: {Number}
-        account: {String}
-        permission: {String}
-       */
       method: 'put',
       url: `/api/users/${id}`,
       data: {account, birthday, permission, password, newPassword}
     }),
+    /**
+     * @param {Number} userId
+     * @returns {Promise<response>}
+     * @response 204
+     */
     deleteUser: userId => api({
-      /*
-      @param userId {Number}
-      @response 204
-       */
       method: 'delete',
       url: `/api/users/${userId}`
     })
   },
   system: {
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - languageCode {String}
+     * - deviceName {String}
+     * - isEnableFaceRecognition {Boolean}
+     * - isEnableAgeGender {Boolean}
+     * - isEnableHumanoidDetection {Boolean}
+     * - deviceStatus {Number}
+     * - usedDiskSize {Number}
+     * - totalDiskSize {Number}
+     */
     getInformation: () => api({
-      /*
-      @response 200
-        languageCode: {String}
-        deviceName: {String}
-        isEnableFaceRecognition: {Boolean}
-        isEnableAgeGender: {Boolean}
-        isEnableHumanoidDetection: {Boolean}
-        deviceStatus: {Number}
-        usedDiskSize: {Number}
-        totalDiskSize: {Number}
-       */
       method: 'get',
       url: '/api/system/information'
     }),
+    /**
+     * @param {String} deviceName
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - deviceName {String}
+     */
     updateDeviceName: deviceName => api({
-      /*
-      @param deviceName {String}
-      @response 200
-        deviceName: {String}
-       */
       method: 'put',
       url: '/api/system/device-name',
       data: {deviceName}
     }),
+    /**
+     * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
+     * @param {Object} account
+     *   @property {String} account
+     *   @property {String} permission
+     *   @property {String} birthday
+     *   @property {String} password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - account {String}
+     */
     setup: ({language, account, https}) => api({
-      /*
-      @param args {Object}
-        language: {String} "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
-        account: {Object}
-          permission: {String}
-          account: {String}
-          birthday: {String}
-          password: {String}
-      @response 200
-        account: {String}
-       */
       method: 'post',
       url: '/api/system/_setup',
       data: {
@@ -183,22 +189,91 @@ module.exports = {
         https
       }
     }),
+    /**
+     * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - language {String}
+     */
     updateLanguage: language => api({
-      /*
-      @param language {String} "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
-      @response 200
-        language: {String}
-       */
       method: 'put',
       url: '/api/system/language',
       data: {language}
     })
   },
   video: {
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - defoggingEnabled {Boolean}
+     * - irEnabled {Boolean}
+     * - brightness {Number}
+     * - contrast {Number}
+     * - hdrEnabled {String}
+     * - shutterSpeed {String}
+     * - aperture {String}
+     * - saturation {Number}
+     * - whiteblanceMode {String}
+     * - whiteblanceManual {Boolean}
+     * - daynightMode {String}
+     * - timePeriodStart {Number}
+     * - timePeriodEnd {Number}
+     * - sharpness {Number}
+     * - orientation {String}
+     * - refreshRate {String}
+     * - sensitivity {Number}
+     * - autoFocusEnabled {Boolean}
+     * - focalLength {Number}
+     * - zoom {Number}
+     */
     getSettings: () => api({
       method: 'get',
       url: '/api/video/settings'
     }),
+    /**
+     * @param {Boolean} defoggingEnabled
+     * @param {Boolean} irEnabled
+     * @param {Number} brightness
+     * @param {Number} contrast
+     * @param {String} hdrEnabled
+     * @param {String} shutterSpeed
+     * @param {String} aperture
+     * @param {Number} saturation
+     * @param {String} whiteblanceMode
+     * @param {Boolean} whiteblanceManual
+     * @param {String} daynightMode
+     * @param {Number} timePeriodStart
+     * @param {Number} timePeriodEnd
+     * @param {Number} sharpness
+     * @param {String} orientation
+     * @param {String} refreshRate
+     * @param {Number} sensitivity
+     * @param {Boolean} autoFocusEnabled
+     * @param {Number} focalLength
+     * @param {Number} zoom
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - defoggingEnabled {Boolean}
+     * - irEnabled {Boolean}
+     * - brightness {Number}
+     * - contrast {Number}
+     * - hdrEnabled {String}
+     * - shutterSpeed {String}
+     * - aperture {String}
+     * - saturation {Number}
+     * - whiteblanceMode {String}
+     * - whiteblanceManual {Boolean}
+     * - daynightMode {String}
+     * - timePeriodStart {Number}
+     * - timePeriodEnd {Number}
+     * - sharpness {Number}
+     * - orientation {String}
+     * - refreshRate {String}
+     * - sensitivity {Number}
+     * - autoFocusEnabled {Boolean}
+     * - focalLength {Number}
+     * - zoom {Number}
+     */
     updateSettings: ({
       defoggingEnabled,
       irEnabled,
@@ -243,67 +318,74 @@ module.exports = {
         refreshRate
       }
     }),
+    /**
+     * @returns {Promise<response>}
+     * @response 204
+     */
     resetSettings: () => api({
-      /*
-      @response 204
-       */
       method: 'post',
       url: '/api/video/settings/_reset'
     })
   },
   group: {
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - items {Array<Object>}
+     * - items[].id {String}
+     * - items[].name {String}
+     * - items[].note {String}
+     */
     getGroups: () => api({
-      /*
-      @response 200
-        items: {Array<Object>}
-          id: {String}
-          name: {String}
-          note: {String}
-       */
       method: 'get',
       url: '/api/groups'
     }),
+    /**
+     * @param {String} groupId
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - id {String}
+     * - name {String}
+     * - note {String}
+     */
     getGroup: groupId => api({
-      /*
-      @param groupId {Object}
-      @response 200
-        id: {String}
-        name: {String}
-        note: {String}
-       */
       method: 'get',
       url: `/api/groups/${groupId}`
     }),
+    /**
+     * @param {String} name
+     * @param {String} note
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - id {String}
+     * - name {String}
+     * - note {String}
+     */
     addGroup: ({name, note}) => api({
-      /*
-      @param args {Object}
-        id: {String}
-        name: {String}
-        note: {String}
-      @response 200
-        id: {String}
-        name: {String}
-        note: {String}
-       */
       method: 'post',
       url: '/api/groups',
       data: {name, note}
     }),
+    /**
+     * @param {String} id
+     * @param {String} name
+     * @param {String} note
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - id {String}
+     * - name {String}
+     * - note {String}
+     */
     updateGroup: ({id, name, note}) => api({
-      /*
-      @param args {Object}
-        id: {String}
-        name: {String}
-        note: {String}
-      @response 200
-        id: {String}
-        name: {String}
-        note: {String}
-       */
       method: 'put',
       url: `/api/groups/${id}`,
       data: {name, note}
     }),
+    /**
+     * @param {String} groupId
+     * @returns {Promise<response>}
+     * @response 204
+     */
     deleteGroup: groupId => api({
       /*
       @param groupId {String}
@@ -314,48 +396,47 @@ module.exports = {
     })
   },
   member: {
+    /**
+     * @param {Number} index
+     * @param {String} keyword
+     * @param {String} group The group id.
+     * @param {String} sort "name", "-name", "organization", "-organization", "group", "-group"
+     * "name": Sorting by name with ASC.
+     * "-name": Sorting by name with DESC.
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - index {Number} The current page index.
+     * - size {Number} The current page size.
+     * - total {Number} The total item quantity.
+     * - items {Array<Object>}
+     * - items[].name {String}
+     * - items[].organization {String}
+     * - items[].groupId {String} The group id.
+     * - items[].note {String}
+     * - items[].pictures {Array<String>} The base64 string of jpeg images.
+     * - items[].id {String}
+     */
     getMembers: ({index, keyword, group, sort}) => api({
-      /*
-      Get members.
-      @param args {Object}
-        index: {Number}
-        keyword: {String}
-        group: {String} The group id.
-        sort: {String} "name", "-name", "organization", "-organization", "group", "-group"
-          name: Sorting by name with ASC.
-          -name: Sorting by name with DESC.
-      @response 200
-        index: {Number} The current page index.
-        size: {Number} The current page size.
-        total: {Number} The total item quantity.
-        items: {Array<Object>}
-          id: {String}
-          name: {String}
-          organization: {String}
-          groupId: {String} The group id.
-          note: {String}
-          pictures {Array<String>} The base64 string of jpeg images.
-       */
       method: 'get',
       url: '/api/members',
       params: {index, keyword, group, sort}
     }),
+    /**
+     * @param {String} name
+     * @param {String} organization
+     * @param {String} group The group id.
+     * @param {String} note
+     * @param {Array<String>} pictures The base64 string of jpeg images.
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - id {String}
+     * - name {String}
+     * - organization {String}
+     * - groupId {String} The group id.
+     * - note {String}
+     * - pictures {Array<String>} The base64 string of jpeg images.
+     */
     addMember: ({name, organization, group, note, pictures}) => api({
-      /*
-      @param args {Object}
-        name: {String}
-        organization: {String}
-        group: {String} The group id.
-        note: {String}
-        pictures {Array<String>} The base64 string of jpeg images.
-      @response 200
-        id: {String}
-        name: {String}
-        organization: {String}
-        group: {String} The group id.
-        note: {String}
-        pictures {Array<String>} The base64 string of jpeg images.
-       */
       method: 'post',
       url: '/api/members',
       data: {
@@ -366,23 +447,23 @@ module.exports = {
         pictures
       }
     }),
+    /**
+     * @param {String} id
+     * @param {String} name
+     * @param {String} organization
+     * @param {String} group The group id.
+     * @param {String} note
+     * @param {Array<String>} pictures The base64 string of jpeg images.
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - id {String}
+     * - name {String}
+     * - organization {String}
+     * - groupId {String} The group id.
+     * - note {String}
+     * - pictures {Array<String>} The base64 string of jpeg images.
+     */
     updateMember: ({id, name, organization, group, note, pictures}) => api({
-      /*
-      @param args {Object}
-        id: {String}
-        name: {String}
-        organization: {String}
-        group: {String} The group id.
-        note: {String}
-        pictures {Array<String>} The base64 string of jpeg images.
-      @response 200
-        id: {String}
-        name: {String}
-        organization: {String}
-        group: {String} The group id.
-        note: {String}
-        pictures {Array<String>} The base64 string of jpeg images.
-       */
       method: 'put',
       url: `/api/members/${id}`,
       data: {
@@ -393,32 +474,34 @@ module.exports = {
         pictures
       }
     }),
+    /**
+     * @param {String} memberId
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - id {String}
+     * - name {String}
+     * - organization {String}
+     * - groupId {String} The group id.
+     * - note {String}
+     * - pictures {Array<String>} The base64 string of jpeg images.
+     */
     getMember: memberId => api({
-      /*
-      @param memberId {String}
-      @response 200
-        id: {String}
-        name: {String}
-        organization: {String}
-        groupId: {String}
-        note: {String}
-        pictures: {Array<String>}
-       */
       method: 'get',
       url: `/api/members/${memberId}`
     }),
+    /**
+     * @param {String} memberId
+     * @returns {Promise<response>}
+     * @response 204
+     */
     deleteMember: memberId => api({
-      /*
-      @param memberId {String}
-      @response 204
-       */
       method: 'delete',
       url: `/api/members/${memberId}`
     }),
     /**
      * @returns {Promise<response>}
-     *  response 200
-     *    password: {string}
+     * @response 200 {Object}
+     * - password {String}
      */
     getDatabaseEncryptionSettings: () => api({
       method: 'get',
@@ -428,8 +511,8 @@ module.exports = {
      * @param {string} password - The old password.
      * @param {string} newPassword - The new password.
      * @returns {Promise<response>}
-     *  response 200
-     *    password: {string}
+     * @response 200 {Object}
+     * - password {String}
      */
     updateDatabaseEncryptionSettings: ({password, newPassword}) => api({
       method: 'put',
@@ -442,7 +525,7 @@ module.exports = {
     /**
      * @param {File} file - The database file.
      * @returns {Promise<response>}
-     *  response 204
+     * @response 204
      */
     uploadDatabaseFile: file => api({
       method: 'post',
@@ -456,23 +539,48 @@ module.exports = {
     })
   },
   multimedia: {
+    /**
+     * @returns {Promise<response>} webserver-form-schema/stream-settings-schema
+     * @response 200 {Object}
+     * - channelA {Object}
+     * - - format {String} webserver-form-schema/constants/stream-format
+     * - - resolution {String} webserver-form-schema/constants/stream-resolution
+     * - - frameRate {String}
+     * - - bandwidthManagement {String}
+     * - - vbrBitRateLevel {String}
+     * - - vbrMaxBitRate {String}
+     * - - cbrBitRate {String}
+     * - - gop {String}
+     * - channelB {Object} It is same as channelA.
+     */
     getStreamSettings: () => api({
-      /*
-      @returns {Promise<Object>} webserver-form-schema/stream-settings-schema
-        channelA: {Object}
-          format: {String} webserver-form-schema/constants/stream-format
-          resolution: {String} webserver-form-schema/constants/stream-resolution
-          frameRate: {String}
-          bandwidthManagement: {String}
-          vbrBitRateLevel: {String}
-          vbrMaxBitRate: {String}
-          cbrBitRate: {String}
-          gop: {String}
-        channelB: {Object} It is same as channelA.
-       */
       method: 'get',
       url: '/api/multimedia/settings'
     }),
+    /**
+     * @param {Object} channelA
+     * @property {String} format webserver-form-schema/constants/stream-format
+     * @property {String} resolution webserver-form-schema/constants/stream-resolution
+     * @property {String} frameRate
+     * @property {String} bandwidthManagement
+     * @property {String} vbrBitRateLevel
+     * @property {String} vbrMaxBitRate
+     * @property {String} cbrBitRate
+     * @property {String} gop
+     * @param {Object} channelB It is same as channelA.
+     * @returns {Promise<response>} webserver-form-schema/stream-settings-schema
+     * @response 200 {Object}
+     * - channelA {Object}
+     * - - format {String} webserver-form-schema/constants/stream-format
+     * - - resolution {String} webserver-form-schema/constants/stream-resolution
+     * - - frameRate {String}
+     * - - bandwidthManagement {String}
+     * - - vbrBitRateLevel {String}
+     * - - vbrMaxBitRate {String}
+     * - - cbrBitRate {String}
+     * - - gop {String}
+     * - channelB {Object} It is same as channelA.
+     */
     updateStreamSettings: ({channelA, channelB}) => api({
       method: 'put',
       url: '/api/multimedia/settings',
@@ -480,7 +588,7 @@ module.exports = {
     }),
     /**
      * @returns {Promise<response>}
-     *  response 204
+     * @response 204
      */
     resetStreamSettings: () => api({
       method: 'post',
@@ -488,70 +596,72 @@ module.exports = {
     })
   },
   event: {
+    /**
+     * @param {Array<String>|String} enrollStatus webserver-form-schema/constants/event-filters/enroll-status
+     * @param {Array<String>|String} confidence webserver-form-schema/constants/event-filters/confidence
+     * @param {Number} index
+     * @param {String} keyword
+     * @param {Date|null} start The start time.
+     * @param {Date|null} end The end time.
+     * @param {String} sort "time", "-time", "name", "-name", "organization", "-organization", "group", "-group"
+     * "time": Sorting by time with ASC.
+     * "-time": Sorting by time with DESC.
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - index {Number} The current page index.
+     * - size {Number} The current page size.
+     * - total {Number} The total item quantity.
+     * - items {Array<Object>}
+     * - items[].id {String}
+     * - items[].pictureThumbUrl {String}
+     * - items[].pictureLargeUrl {String}
+     * - items[].time {String} ISO8601 "2019-10-02T02:00:00.000Z"
+     * - items[].confidences {Array<Object>}
+     * - items[].confidences[].score {Number}
+     * - items[].confidences[].confidence {String}
+     * - items[].confidences[].enrollStatus {String}
+     * - items[].confidences[].member {Object|null}
+     * - - id {String}
+     * - - name {String}
+     * - - organization {String}
+     * - - groupId {String} The group id.
+     * - - note {String}
+     * - - pictures {Array<String>} The base64 string of jpeg images.
+     */
     getFaceEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
-      /*
-      @param args {Object}
-        enrollStatus: {Array<String>|String} webserver-form-schema/constants/event-filters/enroll-status
-        confidence: {Array<String>|String} webserver-form-schema/constants/event-filters/confidence
-        index: {Number}
-        keyword: {String}
-        start: {Date|null} The start time.
-        end: {Date} The end time.
-        sort: {String} "time", "-time", "name", "-name", "organization", "-organization", "group", "-group"
-          time: Sorting by time with ASC.
-          -time: Sorting by time with DESC.
-      @response 200
-        index: {Number} The current page index.
-        size: {Number} The current page size.
-        total: {Number} The total item quantity.
-        items: {Array<Object>}
-          id: {String}
-          pictureThumbUrl: {String}
-          pictureLargeUrl: {String}
-          time: {String} ISO8601 "2019-10-02T02:00:00.000Z"
-          confidences: {Array<Object>}
-            score: {Number}
-            confidence: {String}
-            enrollStatus: {String}
-            member: {Object|null}
-              id: {String}
-              name: {String}
-              organization: {String}
-              groupId: {String} The group id.
-              note: {String}
-              pictures {Array<String>} The base64 string of jpeg images.
-       */
       method: 'get',
       url: '/api/face-events',
       params: {enrollStatus, confidence, index, keyword, start, end, sort}
     })
   },
   authKey: {
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - items {Array<Object>}
+     * - items[].authKey {String}
+     * - items[].isEnableFaceRecognition {Boolean}
+     * - items[].isEnableAgeGender {Boolean}
+     * - items[].isEnableHumanoidDetection {Boolean}
+     * - items[].isEnable {Boolean}
+     * - items[].time {String} ISO8601 "2019-10-02T02:00:00.000Z"
+     * - items[].user {Object}
+     * - - id {Number}
+     * - - name {String}
+     */
     getAuthKeys: () => api({
-      /*
-      @returns {Promise<Object>}
-        items: {Array<Object>}
-          authKey: {String}
-          isEnableFaceRecognition: {Boolean}
-          isEnableAgeGender: {Boolean}
-          isEnableHumanoidDetection: {Boolean}
-          isEnable: {Boolean}
-          time: {String} ISO8601 "2019-10-02T02:00:00.000Z"
-          user: {Object}
-            id: {Number}
-            name: {String}
-       */
       method: 'get',
       url: '/api/auth-keys'
     }),
+    /**
+     * @param {String} authKey
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableFaceRecognition {Boolean}
+     * - isEnableAgeGender {Boolean}
+     * - isEnableHumanoidDetection {Boolean}
+     */
     addAuthKey: authKey => api({
-      /*
-      @param authKey {String}
-      @returns {Promise<Object>}
-        isEnableFaceRecognition: {Boolean}
-        isEnableAgeGender: {Boolean}
-        isEnableHumanoidDetection: {Boolean}
-       */
       method: 'post',
       url: '/api/auth-keys',
       data: {authKey}

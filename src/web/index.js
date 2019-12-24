@@ -1,8 +1,10 @@
 // Style
 require('@fortawesome/fontawesome-free/css/all.css');
 require('bootstrap-slider/dist/css/bootstrap-slider.css');
-require('webserver-prototype/src/style/main.scss');
 require('nprogress/nprogress.css');
+require('react-notifications-component/dist/theme.css');
+require('animate.css/animate.css');
+require('webserver-prototype/src/style/main.scss');
 
 // Dependence
 require('@babel/polyfill');
@@ -20,6 +22,7 @@ const dayjsEs = require('dayjs/locale/es');
 const dayjsJa = require('dayjs/locale/ja');
 const React = require('react');
 const ReactDOM = require('react-dom');
+const ReactNotification = require('react-notifications-component').default;
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const router = require('./router');
@@ -161,6 +164,9 @@ router.listen('ChangeError', progress.done);
 router.start();
 
 ReactDOM.render(
-  <RouterView><Loading/></RouterView>,
+  <>
+    <ReactNotification/>
+    <RouterView><Loading/></RouterView>
+  </>,
   document.getElementById('root')
 );
