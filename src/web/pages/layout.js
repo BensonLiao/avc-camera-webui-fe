@@ -105,8 +105,7 @@ module.exports = class Layout extends Base {
           active: [
             'web.security',
             'web.security.users',
-            'web.security.https',
-            'web.security.off-line'
+            'web.security.https'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
