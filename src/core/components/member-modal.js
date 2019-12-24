@@ -295,7 +295,7 @@ module.exports = class Member extends React.PureComponent {
             </button>
           </div>
           <button className="btn btn-secondary btn-block m-0 rounded-pill"
-            type="button" onClick={this.hideModal}
+            type="button" onClick={this.props.onHide}
           >
             {_('Close')}
           </button>
