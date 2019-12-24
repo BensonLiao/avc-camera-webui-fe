@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {getRouter} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
@@ -285,11 +285,20 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <button type="submit" className="btn btn-block btn-primary rounded-pill">
+          <button
+            type="submit"
+            className="btn btn-block btn-primary rounded-pill"
+            disabled={this.state.$isApiProcessing}
+          >
             {_('Apply')}
           </button>
         </div>
-        <button type="button" className="btn btn-block btn-outline-primary rounded-pill" onClick={this.generateClickResetButtonHandler(props)}>
+        <button
+          type="button"
+          className="btn btn-block btn-outline-primary rounded-pill"
+          disabled={this.state.$isApiProcessing}
+          onClick={this.generateClickResetButtonHandler(props)}
+        >
           {_('Reset to defaults')}
         </button>
       </Form>
@@ -327,7 +336,7 @@ module.exports = class Stream extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <a href="/media/stream">{_('Multimedia settings')}</a>
+                      <Link to="/media/stream">{_('Multimedia settings')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('Stream settings')}</li>
                   </ol>
