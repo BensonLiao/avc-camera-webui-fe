@@ -379,7 +379,7 @@ module.exports = class Events extends Base {
                   {active: isShowStartDatePicker}
                 ),
                 placeholder: _('Start datetime'),
-                style: {'white-space': 'nowrap'}
+                style: {whiteSpace: 'nowrap'}
               }}
               isShowPicker={isShowStartDatePicker}
               onClickInput={this.toggleStartDatePicker}
@@ -396,7 +396,7 @@ module.exports = class Events extends Base {
                   {active: isShowEndDatePicker}
                 ),
                 placeholder: _('End datetime'),
-                style: {'white-space': 'nowrap'}
+                style: {whiteSpace: 'nowrap'}
               }}
               isShowPicker={isShowEndDatePicker}
               onClickInput={this.toggleEndDatePicker}
