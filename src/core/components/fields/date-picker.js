@@ -22,20 +22,22 @@ module.exports = class DatePicker extends React.PureComponent {
       }).isRequired,
       form: PropTypes.shape({
         setFieldValue: PropTypes.func.isRequired
-      }).isRequired
+      }).isRequired,
+      isShowPicker: PropTypes.bool,
+      onClickInput: PropTypes.func.isRequired,
+      onHide: PropTypes.func.isRequired
     };
   }
 
   static get defaultProps() {
     return {
       inputProps: {},
-      isShowRepeatSwitch: false
+      isShowRepeatSwitch: false,
+      isShowPicker: false
     };
   }
 
-  state = {
-    isShowPicker: false
-  };
+  state = {};
 
   constructor(props) {
     super(props);
@@ -475,8 +477,7 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   render() {
-    const {inputProps, field} = this.props;
-    const {isShowPicker} = this.state;
+    const {inputProps, field, isShowPicker, onClickInput, onHide} = this.props;
 
     return (
       <>
@@ -484,7 +485,7 @@ module.exports = class DatePicker extends React.PureComponent {
           ref={this.inputRef}
           type="button"
           {...inputProps}
-          onClick={this.onClickInput}
+          onClick={onClickInput}
         >
           {utils.formatDate(field.value) || inputProps.placeholder}
         </button>
@@ -495,7 +496,7 @@ module.exports = class DatePicker extends React.PureComponent {
           show={isShowPicker}
           onEntered={this.onEnteredPicker}
           onExit={this.onExitPicker}
-          onHide={() => this.setState({isShowPicker: false})}
+          onHide={onHide}
         >
           {this.pickerRender}
         </Overlay>

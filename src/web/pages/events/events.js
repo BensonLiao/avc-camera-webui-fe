@@ -73,6 +73,8 @@ module.exports = class Events extends Base {
     this.state.isShowMemberModal = false;
     this.state.currentMember = null;
     this.state.defaultMemberPictureUrl = null;
+    this.state.isShowStartDatePicker = false;
+    this.state.isShowEndDatePicker = false;
   }
 
   /**
@@ -212,6 +214,28 @@ module.exports = class Events extends Base {
     });
   };
 
+  toggleStartDatePicker = () => {
+    this.setState(prevState => ({
+      isShowStartDatePicker: !prevState.isShowStartDatePicker,
+      isShowEndDatePicker: false
+    }));
+  }
+
+  onHideStartDatePicker = () => {
+    this.setState({isShowStartDatePicker: false});
+  }
+
+  toggleEndDatePicker = () => {
+    this.setState(prevState => ({
+      isShowEndDatePicker: !prevState.isShowEndDatePicker,
+      isShowStartDatePicker: false
+    }));
+  }
+
+  onHideEndDatePicker = () => {
+    this.setState({isShowEndDatePicker: false});
+  }
+
   faceRecognitionFilterRender = () => {
     const confidence = this.convertArrayParams(this.props.params.confidence);
     const enrollStatus = this.convertArrayParams(this.props.params.enrollStatus);
@@ -339,6 +363,7 @@ module.exports = class Events extends Base {
   };
 
   searchFormRender = () => {
+    const {isShowStartDatePicker, isShowEndDatePicker} = this.state;
     return (
       <Form className="datepicker-wrapper">
         <div className="form-row">
@@ -349,9 +374,16 @@ module.exports = class Events extends Base {
               dateTabText={_('Start date')}
               timeTabText={_('Start time')}
               inputProps={{
-                className: 'form-control btn start-date px-4 active',
-                placeholder: _('Start datetime')
+                className: classNames(
+                  'form-control btn start-date px-4',
+                  {active: isShowStartDatePicker}
+                ),
+                placeholder: _('Start datetime'),
+                style: {'white-space': 'nowrap'}
               }}
+              isShowPicker={isShowStartDatePicker}
+              onClickInput={this.toggleStartDatePicker}
+              onHide={this.onHideStartDatePicker}
             />
             <Field
               name="end"
@@ -359,9 +391,16 @@ module.exports = class Events extends Base {
               dateTabText={_('End date')}
               timeTabText={_('End time')}
               inputProps={{
-                className: 'form-control btn end-date px-4',
-                placeholder: _('End datetime')
+                className: classNames(
+                  'form-control btn end-date px-4',
+                  {active: isShowEndDatePicker}
+                ),
+                placeholder: _('End datetime'),
+                style: {'white-space': 'nowrap'}
               }}
+              isShowPicker={isShowEndDatePicker}
+              onClickInput={this.toggleEndDatePicker}
+              onHide={this.onHideEndDatePicker}
             />
           </div>
         </div>
