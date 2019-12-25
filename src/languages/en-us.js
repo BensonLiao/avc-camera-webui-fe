@@ -36,6 +36,24 @@ window.languageResource = {
   'orientation-flip-h': 'Horizontal flip',
   'orientation-flip-vh': '180 degree flip',
 
+  // 解析度
+  'stream-resolution-0': '3840*2160(16:9)',
+  'stream-resolution-1': '2560*1440(16:9)',
+  'stream-resolution-2': '1920*1080(16:9)',
+  'stream-resolution-3': '1280*720(16:9)',
+  'stream-resolution-4': '640*360(16:9)',
+  'stream-resolution-5': '2048*1536(4:3)',
+  'stream-resolution-6': '1600*1200(4:3)',
+  'stream-resolution-7': '1280*960(4:3)',
+  'stream-resolution-8': '640*480(4:3)',
+
+  // 可變比特率 (VBR)
+  'stream-vbr-bit-rate-level-0': 'Best',
+  'stream-vbr-bit-rate-level-1': 'Complete',
+  'stream-vbr-bit-rate-level-2': 'Good',
+  'stream-vbr-bit-rate-level-3': 'Normal',
+  'stream-vbr-bit-rate-level-4': 'Bad',
+
   // Validations
   'validation-required': 'This field is required.',
   'validation-string': 'This field must be a string.',
@@ -76,12 +94,5 @@ window.languageResource = {
   'validation-countryCode': 'This field must be a valid country code.',
 
   // /set/language
-  'SETUP-Account': 'Account',
-
-  // /media/stream
-  'stream-vbr-bit-rate-level-0': 'Best',
-  'stream-vbr-bit-rate-level-1': 'Complete',
-  'stream-vbr-bit-rate-level-2': 'Good',
-  'stream-vbr-bit-rate-level-3': 'Normal',
-  'stream-vbr-bit-rate-level-4': 'Bad'
+  'SETUP-Account': 'Account'
 };

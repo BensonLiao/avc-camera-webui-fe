@@ -3,6 +3,7 @@ const PropTypes = require('prop-types');
 const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
+const filesize = require('filesize');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
 const {renderError} = require('../../../core/utils');
@@ -13,44 +14,8 @@ const StreamBandwidthManagement = require('webserver-form-schema/constants/strea
 const StreamVBRBitRateLevel = require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
 const StreamVBRMaxBitRate = require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
 const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
-const StreamGOP = require('webserver-form-schema/constants/stream-gop');
+const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const _ = require('../../../languages');
-const {channelA: {props: {frameRate}}} = StreamSettingsSchema;
-// 解析度對照
-// 'stream-resolution-0': '3840*2160(16:9)',
-// 'stream-resolution-1': '1920*1080(16:9)',
-// 'stream-resolution-2': '1280*720(16:9)',
-// 'stream-resolution-3': '2048*1536(4:3)',
-// 'stream-resolution-4': '1600*1200(4:3)',
-// 'stream-resolution-5': '1280*960(4:3)',
-const StreamResolutionMapping = {
-  0: [],
-  1: [StreamResolution['2']],
-  2: [StreamResolution['2']],
-  3: [StreamResolution['5']],
-  4: [StreamResolution['5']],
-  5: [StreamResolution['5']]
-};
-
-const StreamCBRBitRateMapping = {
-  channelA: {
-    0: [StreamCBRBitRate['8'], StreamCBRBitRate['6']],
-    1: [StreamCBRBitRate['8'], StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
-    2: [StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
-    3: [StreamCBRBitRate['8'], StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
-    4: [StreamCBRBitRate['8'], StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']],
-    5: [StreamCBRBitRate['6'], StreamCBRBitRate['4'], StreamCBRBitRate['2']]
-  },
-  channelB: {
-    2: [StreamCBRBitRate['4'], StreamCBRBitRate['2']],
-    5: [StreamCBRBitRate['4'], StreamCBRBitRate['2']]
-  }
-};
-
-const vbrMaxBitRateOptions = {
-  channelA: StreamVBRMaxBitRate.all(),
-  channelB: [StreamVBRMaxBitRate['4'], StreamVBRMaxBitRate['2']]
-};
 
 module.exports = class Stream extends Base {
   static get propTypes() {
@@ -64,7 +29,7 @@ module.exports = class Stream extends Base {
           vbrBitRateLevel: PropTypes.string.isRequired,
           vbrMaxBitRate: PropTypes.string.isRequired,
           cbrBitRate: PropTypes.string.isRequired,
-          gop: PropTypes.string.isRequired
+          gov: PropTypes.string.isRequired
         }).isRequired,
         channelB: PropTypes.shape({
           format: PropTypes.string.isRequired,
@@ -74,104 +39,50 @@ module.exports = class Stream extends Base {
           vbrBitRateLevel: PropTypes.string.isRequired,
           vbrMaxBitRate: PropTypes.string.isRequired,
           cbrBitRate: PropTypes.string.isRequired,
-          gop: PropTypes.string.isRequired
+          gov: PropTypes.string.isRequired
         }).isRequired
       }).isRequired
     };
   }
 
-  constructor(props) {
-    super(props);
-    this.state.channelA = {};
-    this.state.channelB = {};
-  }
-
-  getParentFieldName = fieldName => {
-    if (typeof fieldName !== 'string') {
-      return '';
-    }
-
-    return fieldName.substring(0, fieldName.indexOf('.'));
-  }
-
-  filterByMaps = (targetValue, maps) => {
-    return maps[targetValue];
-  }
-
-  onResolutionChange = onChange => {
-    return event => {
-      const parentFieldName = this.getParentFieldName(event.target.name);
-      if (parentFieldName === 'channelA') {
-        const filterBandwidthManagementOptions = event.target.value === '0' ? [StreamBandwidthManagement.cbr] :
-          StreamBandwidthManagement.all();
-        const filterResolutions = this.filterByMaps(
-          event.target.value,
-          StreamResolutionMapping
-        );
-        this.setState(prevState => {
-          return {
-            channelB: {
-              ...prevState.channelB,
-              resolutionOptions: filterResolutions,
-              bandwidthManagementOptions: filterBandwidthManagementOptions
-            }
-          };
-        });
-      }
-
-      const filterCBRBitRateOptions = this.filterByMaps(
-        event.target.value,
-        StreamCBRBitRateMapping[parentFieldName]
-      );
-      this.setState(prevState => {
-        return {
-          [parentFieldName]: {
-            ...prevState[parentFieldName],
-            cbrBitRateOptions: filterCBRBitRateOptions
-          }
-        };
+  onSubmit = values => {
+    progress.start();
+    api.multimedia.updateStreamSettings(values)
+      .then(getRouter().reload)
+      .catch(error => {
+        progress.done();
+        renderError(error);
       });
-
-      if (typeof onChange === 'function') {
-        onChange(event);
-      }
-    };
   };
 
-  renderFrameRateOption = () => {
-    const options = [];
-    for (let i = frameRate.min; i <= frameRate.max; i++) {
-      options.push(
-        <option key={i} value={i}>
-          {i}
-        </option>
-      );
-    }
+  onClickResetButton = event => {
+    event.preventDefault();
+    progress.start();
+    api.multimedia.resetStreamSettings()
+      .then(getRouter().reload)
+      .catch(renderError)
+      .catch(error => {
+        progress.done();
+        renderError(error);
+      });
+  };
 
-    return options;
-  }
-
-  formRender = (props, fieldNamePrefix = '') => {
-    const parentFieldName = this.getParentFieldName(fieldNamePrefix);
-    const {[parentFieldName]: channel} = this.state;
-    const resolutionOptions = channel.resolutionOptions || StreamResolution.all();
-    const bandwidthManagementOptions = channel.bandwidthManagementOptions || StreamBandwidthManagement.all();
-    const cbrBitRateOptions = channel.cbrBitRateOptions || StreamCBRBitRate.all();
+  fieldsRender = (fieldNamePrefix, options) => {
     return (
-      <Form>
+      <>
         <div className="form-group">
           <label>{_('Format')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${fieldNamePrefix}format`}
+              name={`${fieldNamePrefix}.format`}
               component="select"
               className="form-control border-0"
             >
-              {StreamFormat.all().map(format => (
-                <option key={format} value={format}>
-                  {format}
-                </option>
-              ))}
+              {
+                options.format.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
             </Field>
           </div>
         </div>
@@ -179,16 +90,15 @@ module.exports = class Stream extends Base {
           <label>{_('Resolution')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${fieldNamePrefix}resolution`}
+              name={`${fieldNamePrefix}.resolution`}
               component="select"
               className="form-control border-0"
-              onChange={this.onResolutionChange(props.handleChange)}
             >
-              {resolutionOptions.map(resolution => (
-                <option key={resolution} value={resolution}>
-                  {_(`stream-resolution-${resolution}`)}
-                </option>
-              ))}
+              {
+                options.resolution.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
             </Field>
           </div>
         </div>
@@ -196,11 +106,15 @@ module.exports = class Stream extends Base {
           <label>{_('Frame rate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${fieldNamePrefix}frameRate`}
+              name={`${fieldNamePrefix}.frameRate`}
               component="select"
               className="form-control border-0"
             >
-              {this.renderFrameRateOption()}
+              {
+                options.frameRate.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
             </Field>
           </div>
         </div>
@@ -208,15 +122,15 @@ module.exports = class Stream extends Base {
           <label>{_('Bandwidth management')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${fieldNamePrefix}bandwidthManagement`}
+              name={`${fieldNamePrefix}.bandwidthManagement`}
               component="select"
               className="form-control border-0"
             >
-              {bandwidthManagementOptions.map(bandwidthManagement => (
-                <option key={bandwidthManagement} value={bandwidthManagement}>
-                  {bandwidthManagement}
-                </option>
-              ))}
+              {
+                options.bandwidthManagement.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
             </Field>
           </div>
         </div>
@@ -224,15 +138,15 @@ module.exports = class Stream extends Base {
           <label>{_('VBR bitrate level')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${fieldNamePrefix}vbrBitRateLevel`}
+              name={`${fieldNamePrefix}.vbrBitRateLevel`}
               component="select"
               className="form-control border-0"
             >
-              {StreamVBRBitRateLevel.all().map(vbrBitRateLevel => (
-                <option key={vbrBitRateLevel} value={vbrBitRateLevel}>
-                  {_(`stream-vbr-bit-rate-level-${vbrBitRateLevel}`)}
-                </option>
-              ))}
+              {
+                options.vbrBitRateLevel.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
             </Field>
           </div>
         </div>
@@ -240,15 +154,15 @@ module.exports = class Stream extends Base {
           <label>{_('VBR max bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${fieldNamePrefix}vbrMaxBitRate`}
+              name={`${fieldNamePrefix}.vbrMaxBitRate`}
               component="select"
               className="form-control border-0"
             >
-              {vbrMaxBitRateOptions[parentFieldName].map(vbrMaxBitRate => (
-                <option key={vbrMaxBitRate} value={vbrMaxBitRate}>
-                  {vbrMaxBitRate}Mb
-                </option>
-              ))}
+              {
+                options.vbrMaxBitRate.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
             </Field>
           </div>
         </div>
@@ -256,34 +170,143 @@ module.exports = class Stream extends Base {
           <label>{_('CBR bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${fieldNamePrefix}cbrBitRate`}
+              name={`${fieldNamePrefix}.cbrBitRate`}
               component="select"
               className="form-control border-0"
             >
-              {cbrBitRateOptions.map(cbrBitRate => (
-                <option key={cbrBitRate} value={cbrBitRate}>
-                  {cbrBitRate}MB
-                </option>
-              ))}
+              {
+                options.cbrBitRate.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
             </Field>
           </div>
         </div>
         <div className="form-group">
-          <label>{_('GOP')}</label>
+          <label>{_('GOV')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
-              name={`${fieldNamePrefix}gop`}
+              name={`${fieldNamePrefix}.gov`}
               component="select"
               className="form-control border-0"
             >
-              {StreamGOP.all().map(gop => (
-                <option key={gop} value={gop}>
-                  {_(`stream-gop-${gop}`)}
-                </option>
-              ))}
+              {
+                options.gov.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
             </Field>
           </div>
         </div>
+      </>
+    );
+  };
+
+  formRender = ({values}) => {
+    const channelAOptions = {
+      format: StreamFormat.all().map(x => ({label: x, value: x})),
+      resolution: StreamResolution.all().map(x => ({label: _(`stream-resolution-${x}`), value: x})),
+      frameRate: (() => {
+        const result = [];
+        for (let index = StreamSettingsSchema.channelA.props.frameRate.min; index <= StreamSettingsSchema.channelA.props.frameRate.max; index += 1) {
+          result.push({label: `${index}`, value: `${index}`});
+        }
+
+        return result;
+      })(),
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: x, value: x})),
+      vbrBitRateLevel: StreamVBRBitRateLevel.all().map(x => ({label: _(`stream-vbr-bit-rate-level-${x}`), value: x})),
+      vbrMaxBitRate: (() => {
+        const result = [];
+        StreamVBRMaxBitRate.all().forEach(x => {
+          if (Number(x) >= 2) {
+            result.push({label: `${x}Mb`, value: x});
+          }
+        });
+        return result;
+      })(),
+      cbrBitRate: (() => {
+        const result = [];
+        StreamCBRBitRate.all().forEach(x => {
+          if (Number(x) >= 2048) {
+            result.push({
+              label: filesize(Number(x) * 1024, {spacer: '', symbols: {KB: 'kb', MB: 'Mb'}}),
+              value: x
+            });
+          }
+        });
+        return result;
+      })(),
+      gov: StreamGOV.all().map(x => ({label: x, value: x}))
+    };
+    const channelBOptions = {
+      format: StreamFormat.all().map(x => ({label: x, value: x})),
+      resolution: (() => {
+        let options;
+        if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
+          options = [
+            StreamResolution['0'],
+            StreamResolution['1'],
+            StreamResolution['2'],
+            StreamResolution['3'],
+            StreamResolution['4']
+          ];
+        } else {
+          options = [
+            StreamResolution['5'],
+            StreamResolution['6'],
+            StreamResolution['7'],
+            StreamResolution['8']
+          ];
+        }
+
+        return options.map(x => ({label: _(`stream-resolution-${x}`), value: x}));
+      })(),
+      frameRate: (() => {
+        const result = [];
+        for (let index = StreamSettingsSchema.channelB.props.frameRate.min; index <= StreamSettingsSchema.channelB.props.frameRate.max; index += 1) {
+          result.push({label: `${index}`, value: `${index}`});
+        }
+
+        return result;
+      })(),
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: x, value: x})),
+      vbrBitRateLevel: StreamVBRBitRateLevel.all().map(x => ({label: _(`stream-vbr-bit-rate-level-${x}`), value: x})),
+      vbrMaxBitRate: (() => {
+        const result = [];
+        StreamVBRMaxBitRate.all().forEach(x => {
+          if (Number(x) <= 4) {
+            result.push({label: `${x}Mb`, value: x});
+          }
+        });
+        return result;
+      })(),
+      cbrBitRate: (() => {
+        const result = [];
+        StreamCBRBitRate.all().forEach(x => {
+          if (Number(x) <= 2048) {
+            result.push({
+              label: filesize(Number(x) * 1024, {spacer: '', symbols: {KB: 'kb', MB: 'Mb'}}),
+              value: x
+            });
+          }
+        });
+        return result;
+      })(),
+      gov: StreamGOV.all().map(x => ({label: x, value: x}))
+    };
+
+    return (
+      <Form className="card-body">
+        <div className="tab-content">
+          <div className="tab-pane fade show active" id="tab-channel-a">
+            {this.fieldsRender('channelA', channelAOptions)}
+          </div>
+          <div className="tab-pane fade" id="tab-channel-b">
+            {this.fieldsRender('channelB', channelBOptions)}
+          </div>
+        </div>
+
         <div className="form-group">
           <button
             type="submit"
@@ -297,7 +320,7 @@ module.exports = class Stream extends Base {
           type="button"
           className="btn btn-block btn-outline-primary rounded-pill"
           disabled={this.state.$isApiProcessing}
-          onClick={this.generateClickResetButtonHandler(props)}
+          onClick={this.onClickResetButton}
         >
           {_('Reset to defaults')}
         </button>
@@ -305,28 +328,9 @@ module.exports = class Stream extends Base {
     );
   };
 
-  onSubmit = ({channelA, channelB}) => {
-    progress.start();
-    api.multimedia.updateStreamSettings({channelA, channelB})
-      .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        renderError(error);
-      });
-  };
-
-  generateClickResetButtonHandler = ({resetForm}) => event => {
-    event.preventDefault();
-    progress.start();
-    api.multimedia.resetStreamSettings()
-      .then(() => api.multimedia.getStreamSettings())
-      .then(response => resetForm({values: response.data}))
-      .catch(renderError)
-      .finally(progress.done);
-  }
-
   render() {
     const {streamSettings} = this.props;
+
     return (
       <div className="main-content left-menu-active">
         <section className="section-media">
@@ -369,16 +373,7 @@ module.exports = class Stream extends Base {
                     initialValues={streamSettings}
                     onSubmit={this.onSubmit}
                   >
-                    {props => (
-                      <div className="card-body tab-content">
-                        <div className="tab-pane fade show active" id="tab-channel-a">
-                          {this.formRender(props, 'channelA.')}
-                        </div>
-                        <div className="tab-pane fade" id="tab-channel-b">
-                          {this.formRender(props, 'channelB.')}
-                        </div>
-                      </div>
-                    )}
+                    {this.formRender}
                   </Formik>
                 </div>
               </div>

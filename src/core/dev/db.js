@@ -12,7 +12,7 @@ const StreamBandwidthManagement = require('webserver-form-schema/constants/strea
 const StreamVBRBitRateLevel = require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
 const StreamVBRMaxBitRate = require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
 const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
-const StreamGOP = require('webserver-form-schema/constants/stream-gop');
+const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
@@ -82,18 +82,18 @@ module.exports = {
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
           vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['6'],
-          gop: StreamGOP['1']
+          cbrBitRate: StreamCBRBitRate['1024'],
+          gov: StreamGOV['120']
         },
         channelB: {
-          format: StreamFormat.mJpeg,
+          format: StreamFormat.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
           vbrMaxBitRate: '1',
-          cbrBitRate: '1',
-          gop: StreamGOP['1']
+          cbrBitRate: StreamCBRBitRate['1024'],
+          gov: StreamGOV['120']
         }
       },
       stream: {
@@ -104,18 +104,18 @@ module.exports = {
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
           vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['6'],
-          gop: StreamGOP['1']
+          cbrBitRate: StreamCBRBitRate['1024'],
+          gov: StreamGOV['120']
         },
         channelB: {
-          format: StreamFormat.mJpeg,
+          format: StreamFormat.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
           vbrMaxBitRate: '1',
-          cbrBitRate: '1',
-          gop: StreamGOP['1']
+          cbrBitRate: StreamCBRBitRate['1024'],
+          gov: StreamGOV['120']
         }
       },
       groups: [

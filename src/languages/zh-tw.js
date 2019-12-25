@@ -67,6 +67,24 @@ window.languageResource = {
   'refresh-rate-1': '50Hz',
   'refresh-rate-2': '60Hz',
 
+  // 解析度
+  'stream-resolution-0': '3840*2160(16:9)',
+  'stream-resolution-1': '2560*1440(16:9)',
+  'stream-resolution-2': '1920*1080(16:9)',
+  'stream-resolution-3': '1280*720(16:9)',
+  'stream-resolution-4': '640*360(16:9)',
+  'stream-resolution-5': '2048*1536(4:3)',
+  'stream-resolution-6': '1600*1200(4:3)',
+  'stream-resolution-7': '1280*960(4:3)',
+  'stream-resolution-8': '640*480(4:3)',
+
+  // 可變比特率 (VBR)
+  'stream-vbr-bit-rate-level-0': '最好',
+  'stream-vbr-bit-rate-level-1': '完整',
+  'stream-vbr-bit-rate-level-2': '較佳',
+  'stream-vbr-bit-rate-level-3': '一般',
+  'stream-vbr-bit-rate-level-4': '不足',
+
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
   'validation-required': '此欄位必填。',
@@ -284,27 +302,6 @@ window.languageResource = {
   'VBR bitrate level': '可變比特率 (VBR)',
   'VBR max bitrate': '最佳可變比特率 (VBR Max Bitrate)',
   'CBR bitrate': '固定比特率 (CBR)',
-  GOP: '圖像群組 (GOP)',
-  // 解析度
-  'stream-resolution-0': '3840*2160(16:9)',
-  'stream-resolution-1': '1920*1080(16:9)',
-  'stream-resolution-2': '1280*720(16:9)',
-  'stream-resolution-3': '2048*1536(4:3)',
-  'stream-resolution-4': '1600*1200(4:3)',
-  'stream-resolution-5': '1280*960(4:3)',
-  // 可變比特率 (VBR)
-  'stream-vbr-bit-rate-level-0': '最好',
-  'stream-vbr-bit-rate-level-1': '完整',
-  'stream-vbr-bit-rate-level-2': '較佳',
-  'stream-vbr-bit-rate-level-3': '一般',
-  'stream-vbr-bit-rate-level-4': '不足',
-  // 圖像群組 (GOP)
-  'stream-gop-0': '10',
-  'stream-gop-1': '5',
-  'stream-gop-2': '2',
-  'stream-gop-3': '1',
-  'stream-gop-4': '0.5',
-  'stream-gop-5': '0.25',
 
   // /members
   'All members': '所有成員',
