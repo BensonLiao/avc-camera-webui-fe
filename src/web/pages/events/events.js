@@ -340,27 +340,31 @@ module.exports = class Events extends Base {
 
   searchFormRender = () => {
     return (
-      <Form>
+      <Form className="form-group pl-4 datepicker-wrapper">
         <div className="form-row">
-          <div className="col-auto">
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text"><i className="far fa-calendar-alt"/></span>
-              </div>
-              <Field name="start" component={DatePicker}
-                dateTabText={_('Start date')} timeTabText={_('Start time')}
-                inputProps={{readOnly: true, className: 'form-control', placeholder: _('Start datetime'), style: {width: '270px'}}}/>
-            </div>
-          </div>
-          <div className="col-auto">
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text"><i className="far fa-calendar-alt"/></span>
-              </div>
-              <Field name="end" component={DatePicker}
-                dateTabText={_('End date')} timeTabText={_('End time')}
-                inputProps={{readOnly: true, className: 'form-control', placeholder: _('End datetime'), style: {width: '270px'}}}/>
-            </div>
+          <div className="col-auto my-1 btn-group">
+            <Field
+              name="start"
+              component={DatePicker}
+              dateTabText={_('Start date')}
+              timeTabText={_('Start time')}
+              inputProps={{
+                className: 'form-control btn start-date px-4 active',
+                placeholder: _('Start datetime'),
+                style: {width: '180px'}
+              }}
+            />
+            <Field
+              name="end"
+              component={DatePicker}
+              dateTabText={_('End date')}
+              timeTabText={_('End time')}
+              inputProps={{
+                className: 'form-control btn end-date px-4',
+                placeholder: _('End datetime'),
+                style: {width: '180px'}
+              }}
+            />
           </div>
         </div>
         <div className="form-row mt-3">

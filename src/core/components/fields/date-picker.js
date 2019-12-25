@@ -480,9 +480,18 @@ module.exports = class DatePicker extends React.PureComponent {
 
     return (
       <>
-        <input ref={this.inputRef} type="text" {...inputProps}
-          value={utils.formatDate(field.value)} onClick={this.onClickInput}/>
-        <Overlay rootClose target={this.inputRef.current} placement="bottom"
+        <button
+          ref={this.inputRef}
+          type="button"
+          {...inputProps}
+          onClick={this.onClickInput}
+        >
+          {utils.formatDate(field.value) || inputProps.placeholder}
+        </button>
+        <Overlay
+          rootClose
+          target={this.inputRef.current}
+          placement="bottom-start"
           show={isShowPicker}
           onEntered={this.onEnteredPicker}
           onExit={this.onExitPicker}
