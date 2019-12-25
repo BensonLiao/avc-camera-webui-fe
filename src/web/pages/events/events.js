@@ -340,7 +340,7 @@ module.exports = class Events extends Base {
 
   searchFormRender = () => {
     return (
-      <Form className="form-group pl-4 datepicker-wrapper">
+      <Form className="datepicker-wrapper">
         <div className="form-row">
           <div className="col-auto my-1 btn-group">
             <Field
@@ -350,8 +350,7 @@ module.exports = class Events extends Base {
               timeTabText={_('Start time')}
               inputProps={{
                 className: 'form-control btn start-date px-4 active',
-                placeholder: _('Start datetime'),
-                style: {width: '180px'}
+                placeholder: _('Start datetime')
               }}
             />
             <Field
@@ -361,8 +360,7 @@ module.exports = class Events extends Base {
               timeTabText={_('End time')}
               inputProps={{
                 className: 'form-control btn end-date px-4',
-                placeholder: _('End datetime'),
-                style: {width: '180px'}
+                placeholder: _('End datetime')
               }}
             />
           </div>
