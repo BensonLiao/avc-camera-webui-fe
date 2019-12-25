@@ -191,21 +191,20 @@ module.exports = class DatePicker extends React.PureComponent {
     const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
     const hours = this.clockData.hours[index + 2];
     const {currentMeridiem} = this.state;
-
-    if (field.value.getHours() !== hours) {
-      const date = new Date(field.value);
-      if (hours === 12) {
-        date.setHours(currentMeridiem === 'PM' ? hours : hours - 12);
-      } else {
-        date.setHours(currentMeridiem === 'PM' ? hours + 12 : hours);
-      }
-
-      form.setFieldValue(field.name, date);
-    }
-
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneHoursScrollTimeout);
-    if (expectPositionY !== positionY) {
+    if (expectPositionY === positionY) {
+      if (field.value.getHours() !== hours) {
+        const date = new Date(field.value);
+        if (hours === 12) {
+          date.setHours(currentMeridiem === 'PM' ? hours : hours - 12);
+        } else {
+          date.setHours(currentMeridiem === 'PM' ? hours + 12 : hours);
+        }
+
+        form.setFieldValue(field.name, date);
+      }
+    } else {
       this.clockData.tuneHoursScrollTimeout = setTimeout(() => {
         $(this.clockData.hoursRef.current).animate({scrollTop: expectPositionY}, 200);
       }, 300);
@@ -217,16 +216,15 @@ module.exports = class DatePicker extends React.PureComponent {
     const positionY = $(event.target).scrollTop();
     const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
     const minutes = this.clockData.minutes[index + 2];
-
-    if (field.value.getMinutes() !== minutes) {
-      const date = new Date(field.value);
-      date.setMinutes(minutes);
-      form.setFieldValue(field.name, date);
-    }
-
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneMinutesScrollTimeout);
-    if (expectPositionY !== positionY) {
+    if (expectPositionY === positionY) {
+      if (field.value.getMinutes() !== minutes) {
+        const date = new Date(field.value);
+        date.setMinutes(minutes);
+        form.setFieldValue(field.name, date);
+      }
+    } else {
       this.clockData.tuneMinutesScrollTimeout = setTimeout(() => {
         $(this.clockData.minutesRef.current).animate({scrollTop: expectPositionY}, 200);
       }, 300);
@@ -238,21 +236,21 @@ module.exports = class DatePicker extends React.PureComponent {
     const positionY = $(event.target).scrollTop();
     const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
     const item = this.clockData.meridiemItems[index + 2];
-
-    if (item === 'AM' && field.value.getHours() >= 12) {
-      const date = new Date(field.value);
-      date.setHours(date.getHours() - 12);
-      form.setFieldValue(field.name, date);
-    } else if (item === 'PM' && field.value.getHours() < 12) {
-      const date = new Date(field.value);
-      date.setHours(date.getHours() + 12);
-      form.setFieldValue(field.name, date);
-    }
-
-    this.setState({currentMeridiem: item});
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneMeridiemItemsScrollTimeout);
-    if (expectPositionY !== positionY) {
+    if (expectPositionY === positionY) {
+      if (item === 'AM' && field.value.getHours() >= 12) {
+        const date = new Date(field.value);
+        date.setHours(date.getHours() - 12);
+        form.setFieldValue(field.name, date);
+      } else if (item === 'PM' && field.value.getHours() < 12) {
+        const date = new Date(field.value);
+        date.setHours(date.getHours() + 12);
+        form.setFieldValue(field.name, date);
+      }
+
+      this.setState({currentMeridiem: item});
+    } else {
       this.clockData.tuneMeridiemItemsScrollTimeout = setTimeout(() => {
         $(this.clockData.meridiemItemsRef.current).animate({scrollTop: expectPositionY}, 200);
       }, 300);
