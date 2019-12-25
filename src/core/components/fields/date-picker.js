@@ -41,7 +41,7 @@ module.exports = class DatePicker extends React.PureComponent {
     super(props);
     this.inputRef = React.createRef();
     this.clockData = {
-      hours: [null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, null, null],
+      hours: [null, null, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, null, null],
       minutes: [null, null, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, null, null],
       meridiemItems: [null, null, 'PM', 'AM', null, null],
       hoursRef: React.createRef(),
@@ -58,6 +58,11 @@ module.exports = class DatePicker extends React.PureComponent {
       }
     } else {
       this.state.displayDate = new Date();
+    }
+
+    this.state.currentMeridiem = 'AM';
+    if (this.state.displayDate.getHours() >= 12) {
+      this.state.currentMeridiem = 'PM';
     }
 
     this.state.displayDate.setDate(1);
@@ -169,7 +174,7 @@ module.exports = class DatePicker extends React.PureComponent {
 
     setTimeout(() => {
       $(this.clockData.hoursRef.current).scrollTop(
-        ((this.props.field.value.getHours() % 13) - 1) * CLOCK_ITEM_HEIGHT
+        (this.props.field.value.getHours() % 12) * CLOCK_ITEM_HEIGHT
       );
       $(this.clockData.minutesRef.current).scrollTop(
         this.props.field.value.getMinutes() * CLOCK_ITEM_HEIGHT
@@ -185,13 +190,14 @@ module.exports = class DatePicker extends React.PureComponent {
     const positionY = $(event.target).scrollTop();
     const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
     const hours = this.clockData.hours[index + 2];
+    const {currentMeridiem} = this.state;
 
     if (field.value.getHours() !== hours) {
       const date = new Date(field.value);
-      if (date.getHours() >= 12) {
-        date.setHours(hours + 12);
+      if (hours === 12) {
+        date.setHours(currentMeridiem === 'PM' ? hours : hours - 12);
       } else {
-        date.setHours(hours);
+        date.setHours(currentMeridiem === 'PM' ? hours + 12 : hours);
       }
 
       form.setFieldValue(field.name, date);
@@ -243,6 +249,7 @@ module.exports = class DatePicker extends React.PureComponent {
       form.setFieldValue(field.name, date);
     }
 
+    this.setState({currentMeridiem: item});
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneMeridiemItemsScrollTimeout);
     if (expectPositionY !== positionY) {
