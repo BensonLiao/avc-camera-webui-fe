@@ -3,6 +3,7 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const Overlay = require('react-bootstrap/Overlay').default;
+const dayjs = require('dayjs');
 const leftPad = require('left-pad');
 const utils = require('../../utils');
 const _ = require('../../../languages');
@@ -21,8 +22,11 @@ module.exports = class DatePicker extends React.PureComponent {
         value: PropTypes.instanceOf(Date)
       }).isRequired,
       form: PropTypes.shape({
-        setFieldValue: PropTypes.func.isRequired
+        setFieldValue: PropTypes.func.isRequired,
+        values: PropTypes.object.isRequired
       }).isRequired,
+      startDateFieldName: PropTypes.string,
+      endDateFieldName: PropTypes.string,
       isShowPicker: PropTypes.bool,
       onClickInput: PropTypes.func.isRequired,
       onHide: PropTypes.func.isRequired
@@ -33,7 +37,9 @@ module.exports = class DatePicker extends React.PureComponent {
     return {
       inputProps: {},
       isShowRepeatSwitch: false,
-      isShowPicker: false
+      isShowPicker: false,
+      startDateFieldName: '',
+      endDateFieldName: ''
     };
   }
 
@@ -282,7 +288,16 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   calendarRender = () => {
-    const {field} = this.props;
+    const {
+      field,
+      form: {values},
+      endDateFieldName,
+      startDateFieldName
+    } = this.props;
+    const {
+      [startDateFieldName]: startDate,
+      [endDateFieldName]: endDate
+    } = values;
     const {displayDate} = this.state;
     const content = this.generateCalendarContentInMonth(displayDate, field.value);
     const previousMonthDisplayDate = new Date(displayDate);
@@ -358,11 +373,27 @@ module.exports = class DatePicker extends React.PureComponent {
                       row.map(item => {
                         const key = utils.formatDate(item.date, {format: 'YYYYMMDD'});
                         if (item.isDisplayMonth) {
+                          let isDateDisabled = false;
+                          if (startDate) {
+                            isDateDisabled = dayjs(item.date).isBefore(dayjs(startDate));
+                          } else if (endDate) {
+                            isDateDisabled = dayjs(item.date).isAfter(dayjs(endDate));
+                          }
+
                           return (
-                            <td key={key} className={classNames({active: item.isSelected})}
+                            <td
+                              key={key}
+                              className={classNames({
+                                active: item.isSelected,
+                                disabled: isDateDisabled
+                              })}
                               onClick={this.generateClickDateHandler(item.date)}
                             >
-                              <a href={`#${key}`}>{item.date.getDate()}</a>
+                              {isDateDisabled ? (
+                                item.date.getDate()
+                              ) : (
+                                <a href={`#${key}`}>{item.date.getDate()}</a>
+                              )}
                             </td>
                           );
                         }
@@ -429,12 +460,14 @@ module.exports = class DatePicker extends React.PureComponent {
     );
   };
 
-  pickerRender = ({placement,
+  pickerRender = ({
+    placement,
     scheduleUpdate,
     arrowProps,
     outOfBoundaries,
     show: _show,
-    ...props}) => {
+    ...props
+  }) => {
     const {isShowRepeatSwitch, dateTabText, timeTabText} = this.props;
 
     return (
@@ -478,7 +511,6 @@ module.exports = class DatePicker extends React.PureComponent {
 
   render() {
     const {inputProps, field, isShowPicker, onClickInput, onHide} = this.props;
-
     return (
       <>
         <button
