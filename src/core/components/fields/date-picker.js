@@ -366,14 +366,14 @@ module.exports = class DatePicker extends React.PureComponent {
                     {
                       row.map(item => {
                         const key = utils.formatDate(item.date, {format: 'YYYYMMDD'});
-                        if (item.isDisplayMonth) {
-                          let isDateDisabled = false;
-                          if (startDate) {
-                            isDateDisabled = dayjs(item.date).isBefore(dayjs(startDate));
-                          } else if (endDate) {
-                            isDateDisabled = dayjs(item.date).isAfter(dayjs(endDate));
-                          }
+                        let isDateDisabled = false;
+                        if (startDate) {
+                          isDateDisabled = dayjs(item.date).isBefore(dayjs(startDate));
+                        } else if (endDate) {
+                          isDateDisabled = dayjs(item.date).isAfter(dayjs(endDate));
+                        }
 
+                        if (item.isDisplayMonth && !isDateDisabled) {
                           return (
                             <td
                               key={key}
@@ -383,11 +383,7 @@ module.exports = class DatePicker extends React.PureComponent {
                               })}
                               onClick={this.generateClickDateHandler(item.date)}
                             >
-                              {isDateDisabled ? (
-                                item.date.getDate()
-                              ) : (
-                                <a href={`#${key}`}>{item.date.getDate()}</a>
-                              )}
+                              <a href={`#${key}`}>{item.date.getDate()}</a>
                             </td>
                           );
                         }
