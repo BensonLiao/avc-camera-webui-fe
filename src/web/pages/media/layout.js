@@ -45,17 +45,17 @@ module.exports = class Media extends Base {
             <Link to="/media/rtsp" title={_('Overlay settings')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.overlay'})}
             >
-              文字貼圖
+              {_('Text stickers')}
             </Link>
             <Link to="/media/privacy-mask" title={_('Privacy mask settings')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.privacy-mask'})}
             >
-              隱私遮罩
+              {_('Privacy mask')}
             </Link>
             <Link to="/media/audio" title={_('Audio settings')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.audio'})}
             >
-              聲音設定
+              {_('Sound settings')}
             </Link>
           </nav>
         </div>

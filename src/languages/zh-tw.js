@@ -292,6 +292,10 @@ window.languageResource = {
   'End datetime': '結束日期時間',
 
   // /media
+  'Text stickers': '文字貼圖',
+  'Privacy mask': '隱私遮罩',
+  'Sound settings': '聲音設定',
+
   // /media/stream
   'Stream settings': '串流',
   Settings: '設定',
