@@ -377,10 +377,7 @@ module.exports = class DatePicker extends React.PureComponent {
                           return (
                             <td
                               key={key}
-                              className={classNames({
-                                active: item.isSelected,
-                                disabled: isDateDisabled
-                              })}
+                              className={classNames({active: item.isSelected})}
                               onClick={this.generateClickDateHandler(item.date)}
                             >
                               <a href={`#${key}`}>{item.date.getDate()}</a>
