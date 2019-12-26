@@ -167,12 +167,6 @@ module.exports = class DatePicker extends React.PureComponent {
     return result;
   };
 
-  onClickInput = () => {
-    this.setState(prevState => {
-      return {isShowPicker: !prevState.isShowPicker};
-    });
-  };
-
   onSwitchToClock = () => {
     const {field} = this.props;
 
