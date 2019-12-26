@@ -67,6 +67,24 @@ window.languageResource = {
   'refresh-rate-1': '50Hz',
   'refresh-rate-2': '60Hz',
 
+  // 解析度
+  'stream-resolution-0': '3840*2160(16:9)',
+  'stream-resolution-1': '2560*1440(16:9)',
+  'stream-resolution-2': '1920*1080(16:9)',
+  'stream-resolution-3': '1280*720(16:9)',
+  'stream-resolution-4': '640*360(16:9)',
+  'stream-resolution-5': '2048*1536(4:3)',
+  'stream-resolution-6': '1600*1200(4:3)',
+  'stream-resolution-7': '1280*960(4:3)',
+  'stream-resolution-8': '640*480(4:3)',
+
+  // 可變比特率 (VBR)
+  'stream-vbr-bit-rate-level-0': '最好',
+  'stream-vbr-bit-rate-level-1': '完整',
+  'stream-vbr-bit-rate-level-2': '較佳',
+  'stream-vbr-bit-rate-level-3': '一般',
+  'stream-vbr-bit-rate-level-4': '不足',
+
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
   'validation-required': '此欄位必填。',
@@ -272,6 +290,22 @@ window.languageResource = {
   'End date': '結束日期',
   'End time': '結束時間',
   'End datetime': '結束日期時間',
+
+  // /media
+  'Text stickers': '文字貼圖',
+  'Privacy mask': '隱私遮罩',
+  'Sound settings': '聲音設定',
+
+  // /media/stream
+  'Stream settings': '串流',
+  Settings: '設定',
+  Format: '影像格式',
+  Resolution: '解析度',
+  'Frame rate': '每秒傳送張數',
+  'Bandwidth management': '頻寬管理',
+  'VBR bitrate level': '可變比特率 (VBR)',
+  'VBR max bitrate': '最佳可變比特率 (VBR Max Bitrate)',
+  'CBR bitrate': '固定比特率 (CBR)',
 
   // /members
   'All members': '所有成員',

@@ -70,7 +70,17 @@ module.exports = class Layout extends Base {
         {active: this.state.currentRouteName === 'web.home'}
       ),
       mediaLink: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {
+          active: [
+            'web.media',
+            'web.media.stream',
+            'web.media.rtsp',
+            'web.media.overlay',
+            'web.media.privacy-mask',
+            'web.media.audio'
+          ].indexOf(this.state.currentRouteName) >= 0
+        }
       ),
       notification: classNames(
         'btn d-flex justify-content-center align-items-center'
@@ -134,7 +144,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Multimedia settings')} {...tooltipOptions}>
-            <Link className={classTable.mediaLink} to="/media/stream.html">
+            <Link className={classTable.mediaLink} to="/media/stream">
               <img src={iconMedia}/>
             </Link>
           </Tooltip>

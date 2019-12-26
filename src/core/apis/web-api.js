@@ -550,7 +550,7 @@ module.exports = {
      * - - vbrBitRateLevel {String}
      * - - vbrMaxBitRate {String}
      * - - cbrBitRate {String}
-     * - - gop {String}
+     * - - gov {String}
      * - channelB {Object} It is same as channelA.
      */
     getStreamSettings: () => api({
@@ -566,7 +566,7 @@ module.exports = {
      * @property {String} vbrBitRateLevel
      * @property {String} vbrMaxBitRate
      * @property {String} cbrBitRate
-     * @property {String} gop
+     * @property {String} gov
      * @param {Object} channelB It is same as channelA.
      * @returns {Promise<response>} webserver-form-schema/stream-settings-schema
      * @response 200 {Object}
@@ -578,7 +578,7 @@ module.exports = {
      * - - vbrBitRateLevel {String}
      * - - vbrMaxBitRate {String}
      * - - cbrBitRate {String}
-     * - - gop {String}
+     * - - gov {String}
      * - channelB {Object} It is same as channelA.
      */
     updateStreamSettings: ({channelA, channelB}) => api({

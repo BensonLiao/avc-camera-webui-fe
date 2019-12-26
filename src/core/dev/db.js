@@ -6,6 +6,13 @@ const ApertureType = require('webserver-form-schema/constants/aperture-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const OrientationType = require('webserver-form-schema/constants/orientation-type');
 const RefreshRate = require('webserver-form-schema/constants/refresh-rate');
+const StreamFormat = require('webserver-form-schema/constants/stream-format');
+const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
+const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
+const StreamVBRBitRateLevel = require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
+const StreamVBRMaxBitRate = require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
+const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
+const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
@@ -66,6 +73,50 @@ module.exports = {
         deviceStatus: 1,
         usedDiskSize: 3117 * 1024 * 1024,
         totalDiskSize: 7692 * 1024 * 1024
+      },
+      streamDefault: {
+        channelA: {
+          format: StreamFormat.h264,
+          resolution: StreamResolution['0'],
+          frameRate: '30',
+          bandwidthManagement: StreamBandwidthManagement.vbr,
+          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
+          cbrBitRate: StreamCBRBitRate['1024'],
+          gov: StreamGOV['120']
+        },
+        channelB: {
+          format: StreamFormat.h264,
+          resolution: StreamResolution['0'],
+          frameRate: '30',
+          bandwidthManagement: StreamBandwidthManagement.vbr,
+          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+          vbrMaxBitRate: '1',
+          cbrBitRate: StreamCBRBitRate['1024'],
+          gov: StreamGOV['120']
+        }
+      },
+      stream: {
+        channelA: {
+          format: StreamFormat.h264,
+          resolution: StreamResolution['0'],
+          frameRate: '30',
+          bandwidthManagement: StreamBandwidthManagement.vbr,
+          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
+          cbrBitRate: StreamCBRBitRate['1024'],
+          gov: StreamGOV['120']
+        },
+        channelB: {
+          format: StreamFormat.h264,
+          resolution: StreamResolution['0'],
+          frameRate: '30',
+          bandwidthManagement: StreamBandwidthManagement.vbr,
+          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
+          vbrMaxBitRate: '1',
+          cbrBitRate: StreamCBRBitRate['1024'],
+          gov: StreamGOV['120']
+        }
       },
       groups: [
         {
