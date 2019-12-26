@@ -73,6 +73,8 @@ module.exports = class Events extends Base {
     this.state.isShowMemberModal = false;
     this.state.currentMember = null;
     this.state.defaultMemberPictureUrl = null;
+    this.state.isShowStartDatePicker = false;
+    this.state.isShowEndDatePicker = false;
   }
 
   /**
@@ -212,6 +214,28 @@ module.exports = class Events extends Base {
     });
   };
 
+  toggleStartDatePicker = () => {
+    this.setState(prevState => ({
+      isShowStartDatePicker: !prevState.isShowStartDatePicker,
+      isShowEndDatePicker: false
+    }));
+  }
+
+  onHideStartDatePicker = () => {
+    this.setState({isShowStartDatePicker: false});
+  }
+
+  toggleEndDatePicker = () => {
+    this.setState(prevState => ({
+      isShowEndDatePicker: !prevState.isShowEndDatePicker,
+      isShowStartDatePicker: false
+    }));
+  }
+
+  onHideEndDatePicker = () => {
+    this.setState({isShowEndDatePicker: false});
+  }
+
   faceRecognitionFilterRender = () => {
     const confidence = this.convertArrayParams(this.props.params.confidence);
     const enrollStatus = this.convertArrayParams(this.props.params.enrollStatus);
@@ -339,28 +363,47 @@ module.exports = class Events extends Base {
   };
 
   searchFormRender = () => {
+    const {isShowStartDatePicker, isShowEndDatePicker} = this.state;
     return (
       <Form>
-        <div className="form-row">
-          <div className="col-auto">
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text"><i className="far fa-calendar-alt"/></span>
-              </div>
-              <Field name="start" component={DatePicker}
-                dateTabText={_('Start date')} timeTabText={_('Start time')}
-                inputProps={{readOnly: true, className: 'form-control', placeholder: _('Start datetime'), style: {width: '270px'}}}/>
-            </div>
-          </div>
-          <div className="col-auto">
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className="input-group-text"><i className="far fa-calendar-alt"/></span>
-              </div>
-              <Field name="end" component={DatePicker}
-                dateTabText={_('End date')} timeTabText={_('End time')}
-                inputProps={{readOnly: true, className: 'form-control', placeholder: _('End datetime'), style: {width: '270px'}}}/>
-            </div>
+        <div className="form-row datepicker-wrapper">
+          <div className="col-auto my-1 btn-group">
+            <Field
+              name="start"
+              component={DatePicker}
+              dateTabText={_('Start date')}
+              timeTabText={_('Start time')}
+              inputProps={{
+                className: classNames(
+                  'btn start-date px-4',
+                  {active: isShowStartDatePicker}
+                ),
+                placeholder: _('Start datetime'),
+                style: {whiteSpace: 'nowrap'}
+              }}
+              endDateFieldName="end"
+              isShowPicker={isShowStartDatePicker}
+              onClickInput={this.toggleStartDatePicker}
+              onHide={this.onHideStartDatePicker}
+            />
+            <Field
+              name="end"
+              component={DatePicker}
+              dateTabText={_('End date')}
+              timeTabText={_('End time')}
+              inputProps={{
+                className: classNames(
+                  'btn end-date px-4',
+                  {active: isShowEndDatePicker}
+                ),
+                placeholder: _('End datetime'),
+                style: {whiteSpace: 'nowrap'}
+              }}
+              startDateFieldName="start"
+              isShowPicker={isShowEndDatePicker}
+              onClickInput={this.toggleEndDatePicker}
+              onHide={this.onHideEndDatePicker}
+            />
           </div>
         </div>
         <div className="form-row mt-3">
