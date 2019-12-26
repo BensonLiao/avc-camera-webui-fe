@@ -365,8 +365,8 @@ module.exports = class Events extends Base {
   searchFormRender = () => {
     const {isShowStartDatePicker, isShowEndDatePicker} = this.state;
     return (
-      <Form className="datepicker-wrapper">
-        <div className="form-row">
+      <Form>
+        <div className="form-row datepicker-wrapper">
           <div className="col-auto my-1 btn-group">
             <Field
               name="start"
