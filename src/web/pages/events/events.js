@@ -375,7 +375,7 @@ module.exports = class Events extends Base {
               timeTabText={_('Start time')}
               inputProps={{
                 className: classNames(
-                  'form-control btn start-date px-4',
+                  'btn start-date px-4',
                   {active: isShowStartDatePicker}
                 ),
                 placeholder: _('Start datetime'),
@@ -393,7 +393,7 @@ module.exports = class Events extends Base {
               timeTabText={_('End time')}
               inputProps={{
                 className: classNames(
-                  'form-control btn end-date px-4',
+                  'btn end-date px-4',
                   {active: isShowEndDatePicker}
                 ),
                 placeholder: _('End datetime'),
