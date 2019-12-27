@@ -71,7 +71,7 @@ module.exports = class Group extends Base {
   };
 
   groupFormRender = ({errors, touched}) => {
-    const {group} = this.props;
+    const {group, isAddGroupDisabled} = this.props;
 
     return (
       <Form>
@@ -105,7 +105,7 @@ module.exports = class Group extends Base {
         </div>
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
-            <button disabled={this.state.$isApiProcessing} type="submit"
+            <button disabled={this.state.$isApiProcessing || isAddGroupDisabled} type="submit"
               className="btn btn-primary btn-block rounded-pill"
             >
               {group ? _('Confirm') : _('Create')}

@@ -106,6 +106,7 @@ module.exports = new Router({
         document.title = `${_('Members')} - ${_title}`;
       },
       resolve: {
+        isAddGroupDisabled: () => api.group.getGroups().then(response => response.data.items.length >= 32),
         group: () => null
       },
       loadComponent: () => import(
