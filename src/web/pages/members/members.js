@@ -297,6 +297,7 @@ module.exports = class Members extends Base {
       this.currentRoute,
       {...this.props.params, index: undefined}
     );
+    const isAddGroupDisabled = groups.length >= 32;
     const sort = {
       name: {
         handler: this.generateChangeFilterHandler(
@@ -346,7 +347,10 @@ module.exports = class Members extends Base {
           <div className="groups">
             <div className="d-flex justify-content-between align-items-center mb-3 pr-3">
               <h3>{_('Groups')}</h3>
-              <Link to={{name: 'web.members.new-group', params: this.props.params}} className="btn btn-link text-light">
+              <Link
+                to={(!isAddGroupDisabled && {name: 'web.members.new-group', params: this.props.params})}
+                className={classNames('btn btn-link text-light', {disabled: isAddGroupDisabled})}
+              >
                 <i className="fas fa-plus fa-fw fa-lg"/>
               </Link>
             </div>
