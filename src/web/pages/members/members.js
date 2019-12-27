@@ -14,6 +14,7 @@ const databaseEncryptionValidator = require('../../validations/members/database-
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -297,7 +298,7 @@ module.exports = class Members extends Base {
       this.currentRoute,
       {...this.props.params, index: undefined}
     );
-    const isAddGroupDisabled = groups.length >= 32;
+    const isAddGroupDisabled = groups.length >= MEMBERS_PAGE_GROUPS_MAX;
     const sort = {
       name: {
         handler: this.generateChangeFilterHandler(
