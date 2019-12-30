@@ -555,7 +555,7 @@ module.exports = {
      */
     getStreamSettings: () => api({
       method: 'get',
-      url: '/api/multimedia/settings'
+      url: '/api/multimedia/stream/settings'
     }),
     /**
      * @param {Object} channelA
@@ -583,7 +583,7 @@ module.exports = {
      */
     updateStreamSettings: ({channelA, channelB}) => api({
       method: 'put',
-      url: '/api/multimedia/settings',
+      url: '/api/multimedia/stream/settings',
       data: {channelA, channelB}
     }),
     /**
@@ -592,7 +592,7 @@ module.exports = {
      */
     resetStreamSettings: () => api({
       method: 'post',
-      url: '/api/multimedia/settings/_reset'
+      url: '/api/multimedia/stream/settings/_reset'
     })
   },
   event: {

@@ -24,15 +24,15 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('system').assign(newItem).write()]);
   })
-  .onGet('/api/multimedia/settings').reply(config => {
+  .onGet('/api/multimedia/stream/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('stream').value()]
     );
   })
-  .onPut('/api/multimedia/settings').reply(config => {
+  .onPut('/api/multimedia/stream/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('stream').assign(newItem).write()]);
   })
-  .onPost('/api/multimedia/settings/_reset').reply(config => {
+  .onPost('/api/multimedia/stream/settings/_reset').reply(config => {
     const defaultItem = db.get('streamDefault').value();
     return mockResponseWithLog(config, [200, db.get('stream').assign(defaultItem).write()]);
   })
