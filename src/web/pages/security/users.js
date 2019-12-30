@@ -59,7 +59,9 @@ module.exports = class Users extends Base {
 
   render() {
     const users = this.props.users.items;
-    const isDeleteUserDisabled = users.filter(user => user.permission === 0).length <= 1;
+    const isDeleteUserDisabled = users.filter(
+      user => user.permission.toString() === UserPermission.root
+    ).length <= 1;
     return (
       <div className="main-content left-menu-active">
         <div className="page-security bg-white">
@@ -112,7 +114,8 @@ module.exports = class Users extends Base {
                                 <i className="fas fa-pen fa-lg fa-fw"/>
                               </Link>
                               <button
-                                disabled={isDeleteUserDisabled && user.permission === 0}
+                                disabled={isDeleteUserDisabled &&
+                                  user.permission.toString() === UserPermission.root}
                                 className="btn btn-link"
                                 type="button"
                                 onClick={this.generateShowDeleteUserModalHandler(user)}
