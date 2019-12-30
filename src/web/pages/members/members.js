@@ -350,7 +350,7 @@ module.exports = class Members extends Base {
               <h3>{_('Groups')}</h3>
               <Link
                 to={{name: 'web.members.new-group', params: this.props.params}}
-                tabIndex={(isAddGroupDisabled && -1)}
+                tabIndex={(isAddGroupDisabled ? -1 : null)}
                 className={classNames('btn btn-link text-light', {disabled: isAddGroupDisabled})}
               >
                 <i className="fas fa-plus fa-fw fa-lg"/>
