@@ -17,6 +17,13 @@ module.exports = class Group extends Base {
   static get propTypes() {
     return {
       params: PropTypes.object.isRequired,
+      groups: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string
+        }))
+      }),
       group: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
