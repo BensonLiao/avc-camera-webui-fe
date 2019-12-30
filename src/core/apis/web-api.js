@@ -596,14 +596,12 @@ module.exports = {
     }),
     /**
      * @returns {Promise<response>}
-     *  200:
-     *    {
-     *      isEnableAudioToStream: {boolean}
-     *      isEnablePassword: {boolean}
-     *      tcpPort: {number}
-     *      udpPort: {number}
-     *      connectionLimit: {number}
-     *    }
+     * @response 200 {Object}
+     * - isEnableAudioToStream {boolean}
+     * - isEnablePassword {boolean}
+     * - tcpPort {number}
+     * - udpPort {number}
+     * - connectionLimit {number}
      */
     getRTSPSettings: () => api({
       method: 'get',
@@ -617,14 +615,12 @@ module.exports = {
      * @param {number} udpPort - RTSP/UDP 連接埠
      * @param {number} connectionLimit - 最大連接數
      * @returns {Promise<response>}
-     *  200:
-     *    {
-     *      isEnableAudioToStream: {boolean}
-     *      isEnablePassword: {boolean}
-     *      tcpPort: {number}
-     *      udpPort: {number}
-     *      connectionLimit: {number}
-     *    }
+     * @response 200 {Object}
+     * - isEnableAudioToStream {boolean}
+     * - isEnablePassword {boolean}
+     * - tcpPort {number}
+     * - udpPort {number}
+     * - connectionLimit {number}
      */
     updateRTSPSettings: ({isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}) => api({
       method: 'put',
