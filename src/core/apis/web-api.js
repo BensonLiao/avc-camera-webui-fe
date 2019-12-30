@@ -593,6 +593,39 @@ module.exports = {
     resetStreamSettings: () => api({
       method: 'post',
       url: '/api/multimedia/stream/settings/_reset'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableAudioToStream {boolean}
+     * - isEnablePassword {boolean}
+     * - tcpPort {number}
+     * - udpPort {number}
+     * - connectionLimit {number}
+     */
+    getRTSPSettings: () => api({
+      method: 'get',
+      url: '/api/multimedia/rtsp/settings'
+    }),
+    /**
+     * Schema: webserver-form-schema/rtsp-settings-schema
+     * @param {boolean} isEnableAudioToStream - 將聲音記錄至串流除霧
+     * @param {boolean} isEnablePassword - 連線時需帳號密碼認證
+     * @param {number} tcpPort - RTSP/TCP 連接埠
+     * @param {number} udpPort - RTSP/UDP 連接埠
+     * @param {number} connectionLimit - 最大連接數
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableAudioToStream {boolean}
+     * - isEnablePassword {boolean}
+     * - tcpPort {number}
+     * - udpPort {number}
+     * - connectionLimit {number}
+     */
+    updateRTSPSettings: ({isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}) => api({
+      method: 'put',
+      url: '/api/multimedia/rtsp/settings',
+      data: {isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}
     })
   },
   event: {
