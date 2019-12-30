@@ -4,6 +4,7 @@ const classNames = require('classnames');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
@@ -58,6 +59,9 @@ module.exports = class Users extends Base {
 
   render() {
     const users = this.props.users.items;
+    const isDeleteUserDisabled = users.filter(
+      user => user.permission.toString() === UserPermission.root
+    ).length <= 1;
     return (
       <div className="main-content left-menu-active">
         <div className="page-security bg-white">
@@ -109,7 +113,11 @@ module.exports = class Users extends Base {
                               <Link className="btn btn-link" to={{name: 'web.security.users.details', params: {...this.props.params, userId: user.id}}}>
                                 <i className="fas fa-pen fa-lg fa-fw"/>
                               </Link>
-                              <button className="btn btn-link" type="button"
+                              <button
+                                disabled={isDeleteUserDisabled &&
+                                  user.permission.toString() === UserPermission.root}
+                                className="btn btn-link"
+                                type="button"
                                 onClick={this.generateShowDeleteUserModalHandler(user)}
                               >
                                 <i className="far fa-trash-alt fa-lg fa-fw"/>
