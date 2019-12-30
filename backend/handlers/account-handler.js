@@ -28,7 +28,7 @@ exports.changePasswordWithBirthday = (req, res) => {
   /*
   POST /api/account/_change-password
    */
-  if (req.body.account === 'admin' && req.body.birthday === '19910326') {
+  if (req.body.account === 'admin' && req.body.birthday === '19900101') {
     res.json({
       id: 'id',
       account: 'admin',
