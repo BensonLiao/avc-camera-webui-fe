@@ -14,6 +14,7 @@ const databaseEncryptionValidator = require('../../validations/members/database-
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -297,6 +298,7 @@ module.exports = class Members extends Base {
       this.currentRoute,
       {...this.props.params, index: undefined}
     );
+    const isAddGroupDisabled = groups.length >= MEMBERS_PAGE_GROUPS_MAX;
     const sort = {
       name: {
         handler: this.generateChangeFilterHandler(
@@ -346,7 +348,11 @@ module.exports = class Members extends Base {
           <div className="groups">
             <div className="d-flex justify-content-between align-items-center mb-3 pr-3">
               <h3>{_('Groups')}</h3>
-              <Link to={{name: 'web.members.new-group', params: this.props.params}} className="btn btn-link text-light">
+              <Link
+                to={{name: 'web.members.new-group', params: this.props.params}}
+                tabIndex={(isAddGroupDisabled ? -1 : null)}
+                className={classNames('btn btn-link text-light', {disabled: isAddGroupDisabled})}
+              >
                 <i className="fas fa-plus fa-fw fa-lg"/>
               </Link>
             </div>
