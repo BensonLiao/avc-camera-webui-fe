@@ -27,6 +27,6 @@ module.exports = {
     'valid-jsdoc': ["error", {
       "requireParamDescription": false,
       "requireReturnDescription": false
-    }]
+    }],
   }
 };

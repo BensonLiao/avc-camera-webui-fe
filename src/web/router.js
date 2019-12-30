@@ -3,7 +3,6 @@ const {Router} = require('capybara-router');
 const history = require('history');
 const _ = require('../languages');
 const api = require('../core/apis/web-api');
-const {MEMBERS_PAGE_GROUPS_MAX} = require('../core/constants');
 
 const _title = `${window.cameraName} Web-Manager`;
 
@@ -107,7 +106,6 @@ module.exports = new Router({
         document.title = `${_('Members')} - ${_title}`;
       },
       resolve: {
-        isAddGroupDisabled: () => api.group.getGroups().then(response => response.data.items.length >= MEMBERS_PAGE_GROUPS_MAX),
         group: () => null
       },
       loadComponent: () => import(

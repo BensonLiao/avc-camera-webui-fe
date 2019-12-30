@@ -349,10 +349,8 @@ module.exports = class Members extends Base {
             <div className="d-flex justify-content-between align-items-center mb-3 pr-3">
               <h3>{_('Groups')}</h3>
               <Link
-                to={(!isAddGroupDisabled && {
-                  name: 'web.members.new-group',
-                  params: this.props.params
-                })}
+                to={{name: 'web.members.new-group', params: this.props.params}}
+                tabIndex={(isAddGroupDisabled ? -1 : null)}
                 className={classNames('btn btn-link text-light', {disabled: isAddGroupDisabled})}
               >
                 <i className="fas fa-plus fa-fw fa-lg"/>

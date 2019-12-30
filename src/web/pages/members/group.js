@@ -11,11 +11,19 @@ const api = require('../../../core/apis/web-api');
 const _ = require('../../../languages');
 const groupValidator = require('../../validations/groups/group-validator');
 const Base = require('../shared/base');
+const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 
 module.exports = class Group extends Base {
   static get propTypes() {
     return {
       params: PropTypes.object.isRequired,
+      groups: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string
+        }))
+      }),
       group: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
@@ -71,7 +79,8 @@ module.exports = class Group extends Base {
   };
 
   groupFormRender = ({errors, touched}) => {
-    const {group, isAddGroupDisabled} = this.props;
+    const {groups, group} = this.props;
+    const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
 
     return (
       <Form>
