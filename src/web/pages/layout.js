@@ -98,7 +98,13 @@ module.exports = class Layout extends Base {
         }
       ),
       smart: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {
+          active: [
+            'web.smart',
+            'web.smart.face-recognition'
+          ].indexOf(this.state.currentRouteName) >= 0
+        }
       ),
       historis: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -158,8 +164,8 @@ module.exports = class Layout extends Base {
               <img src={iconMembers}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Smart function')} {...tooltipOptions}>
-            <Link className={classTable.smart} to="/smart/face-recognition.html">
+          <Tooltip title={_('Smart functions')} {...tooltipOptions}>
+            <Link className={classTable.smart} to="/smart/face-recognition">
               <img src={iconSmart}/>
             </Link>
           </Tooltip>

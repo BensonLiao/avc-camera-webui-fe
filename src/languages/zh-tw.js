@@ -149,7 +149,7 @@ window.languageResource = {
   'Multimedia settings': '多媒體設定',
   'Notification settings': '通知設定',
   Members: '成員管理',
-  'Smart function': '智慧功能',
+  'Smart functions': '智慧功能',
   'Smart search': '智慧搜尋',
   System: '系統',
   Security: '安全性',
@@ -242,7 +242,6 @@ window.languageResource = {
   // /
   'Stream {0}': '串流 {0}',
   'Device name': '裝置名稱',
-  'Smart functions': '智慧功能',
   'Device status': '裝置狀態',
   'SD card': 'SD 卡',
   'Please enter letters between 1 and 32.': '請輸入1-32字元',
