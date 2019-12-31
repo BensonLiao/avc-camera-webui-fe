@@ -48,7 +48,7 @@ module.exports = {
     /**
      * Change the password with the birthday.
      * @param {String} account
-     * @param {String} birthday e.g. "19910326"
+     * @param {String} birthday e.g. "19900101"
      * @param {String} password
      * @returns {Promise<response>}
      * @response 200 {UserModel}

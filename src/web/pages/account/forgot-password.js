@@ -25,7 +25,7 @@ module.exports = class ForgotPassword extends Base {
    * Handler on user submit the forgot password form.
    * @param {Object} values
    * @property {String} account
-   * @property {String} birthday e.g. "19910326"
+   * @property {String} birthday e.g. "19900101"
    * @returns {void}
    */
   onSubmitForgotPasswordForm(values) {
@@ -108,7 +108,7 @@ module.exports = class ForgotPassword extends Base {
               }
             </div>
             <small className="form-text text-muted" style={{paddingLeft: '40px'}}>
-              Ex : 19910326
+              Ex : 19900101
             </small>
           </div>
           <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">

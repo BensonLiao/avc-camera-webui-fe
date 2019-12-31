@@ -136,7 +136,7 @@ module.exports = class User extends Base {
               )
             }
             <small className="form-text text-muted">
-              {_('This value is for resetting password, such as 19910326.')}
+              {_('This value is for resetting password, such as 19900101.')}
             </small>
           </div>
           <div className="form-group has-feedback">

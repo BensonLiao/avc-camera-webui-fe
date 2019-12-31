@@ -104,7 +104,7 @@ module.exports = class SetupAccount extends Base {
                 <div className="invalid-feedback">{errors.birthday}</div>
               )
             }
-            <small className="form-text text-muted">{_('This value is for resetting password, such as 19910326.')}</small>
+            <small className="form-text text-muted">{_('This value is for resetting password, such as 19900101.')}</small>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>

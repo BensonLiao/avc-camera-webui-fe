@@ -210,7 +210,7 @@ window.languageResource = {
   Permission: '權限',
   'Please enter your account.': '請輸入您的帳號',
   'Please enter your birthday.': '請輸入您的西元出生年月日',
-  'This value is for resetting password, such as 19910326.': 'Ex:19910326，此欄位是為了讓您忘記密碼可使用來重設密碼',
+  'This value is for resetting password, such as 19900101.': 'Ex:19900101，此欄位是為了讓您忘記密碼可使用來重設密碼',
   Password: '密碼',
   'Please enter your password.': '請輸入您的密碼',
   'Please enter less than 9 letters.': '8 字元以內的大寫或小寫',
