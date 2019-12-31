@@ -118,6 +118,26 @@ module.exports = {
           gov: StreamGOV['120']
         }
       },
+      faceRecognitionSettings: {
+        isEnable: true,
+        confidenceLevel: '0',
+        isShowMember: true,
+        isShowGroup: false,
+        isShowUnknown: false,
+        triggerArea: {
+          x: 0,
+          y: 0,
+          width: 100,
+          height: 100,
+        },
+        isEnableFaceFrame: true,
+        faceFrame: {
+          x: 10,
+          y: 5,
+          width: 20,
+          height: 30
+        }
+      },
       groups: [
         {
           id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',

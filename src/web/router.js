@@ -71,6 +71,9 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Face recognition')} - ${_('Smart functions')} - ${_title}`;
       },
+      resolve: {
+        faceRecognitionSettings: () => api.smartFunction.getFaceRecognitionSettings().then(response => response.data)
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-smart-face-recognition" */
         './pages/smart/face-recognition'
