@@ -327,6 +327,76 @@ module.exports = {
       url: '/api/video/settings/_reset'
     })
   },
+  smartFunction: {
+    /**
+     * Schema: webserver-form-schema/face-recognition-settings-schema
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - confidenceLevel {string}
+     * - isShowMember {boolean}
+     * - isShowGroup {boolean}
+     * - isShowUnknown {boolean}
+     * - triggerArea {Object}
+     * - - x {number}
+     * - - y {number}
+     * - - width {number}
+     * - - height {number}
+     * - isEnableFaceFrame {boolean}
+     * - faceFrame {Object}
+     * - - x {number}
+     * - - y {number}
+     * - - width {number}
+     * - - height {number}
+     */
+    getFaceRecognitionSettings: () => api({
+      method: 'get',
+      url: '/api/face-recognition/settings'
+    }),
+    /**
+     * Schema: webserver-form-schema/face-recognition-settings-schema
+     * @param {boolean} isEnable
+     * @param {string} confidenceLevel
+     * @param {boolean} isShowMember
+     * @param {boolean} isShowGroup
+     * @param {boolean} isShowUnknown
+     * @param {Object} triggerArea
+     * @param {boolean} isEnableFaceFrame
+     * @param {Object} faceFrame
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - confidenceLevel {string}
+     * - isShowMember {boolean}
+     * - isShowGroup {boolean}
+     * - isShowUnknown {boolean}
+     * - triggerArea {Object}
+     * - - x {number}
+     * - - y {number}
+     * - - width {number}
+     * - - height {number}
+     * - isEnableFaceFrame {boolean}
+     * - faceFrame {Object}
+     * - - x {number}
+     * - - y {number}
+     * - - width {number}
+     * - - height {number}
+     */
+    updateFaceRecognitionSettings: ({isEnable, confidenceLevel, isShowMember, isShowGroup, isShowUnknown, triggerArea, isEnableFaceFrame, faceFrame}) => api({
+      method: 'put',
+      url: '/api/face-recognition/settings',
+      data: {
+        isEnable,
+        confidenceLevel,
+        isShowMember,
+        isShowGroup,
+        isShowUnknown,
+        triggerArea,
+        isEnableFaceFrame,
+        faceFrame
+      }
+    })
+  },
   group: {
     /**
      * @returns {Promise<response>}
