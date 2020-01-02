@@ -8,10 +8,12 @@ try {
 } catch (_) {}
 
 const _pool = {};
+/**
+ * Update store.$isApiProcessing.
+ * @private
+ * @returns {undefined}
+ */
 const _updateApiStatus = () => {
-  /*
-  Update store.$isApiProcessing.
-   */
   if (Object.keys(_pool).length) {
     if (!store.get(constants.store.IS_API_PROCESSING)) {
       store.set(constants.store.IS_API_PROCESSING, true);
@@ -21,12 +23,27 @@ const _updateApiStatus = () => {
   }
 };
 
-module.exports = args => {
+/**
+ * @param {Object} config - The axios request config.
+ * @returns {Promise<AxiosResponse<any>>}
+ */
+module.exports = config => {
   const id = Math.random().toString(36).substr(2);
-  _pool[id] = args;
+
+  _pool[id] = config;
   _updateApiStatus();
-  return axios(args).finally(() => {
-    delete _pool[id];
-    _updateApiStatus();
-  });
+
+  return axios(config)
+    .catch(error => {
+      if (error && error.response && error.response.status === 401) {
+        location.href = '/login';
+        return new Promise(); // Lock the promise chain.
+      }
+
+      throw error;
+    })
+    .finally(() => {
+      delete _pool[id];
+      _updateApiStatus();
+    });
 };
