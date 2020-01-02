@@ -316,6 +316,11 @@ window.languageResource = {
   'Face size': '人臉大小',
   'Similarity level': '相似度層級',
   'Recognition function': '辨識功能',
+  'The default is full screen, it is changeable.': '預設為全畫面，可自訂範圍。',
+  'Display recognition name': '顯示辨識名稱',
+  'Display name': '顯示人名',
+  'Display group': '顯示已註冊群組',
+  'Display "Unknown"': '顯示 "Unknown"',
 
   // /members
   'All members': '所有成員',
