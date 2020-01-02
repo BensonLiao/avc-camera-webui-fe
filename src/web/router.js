@@ -44,7 +44,7 @@ module.exports = new Router({
       name: 'web.media.stream',
       uri: '/stream',
       onEnter: () => {
-        document.title = `${_('Multimedia settings')} - ${_title}`;
+        document.title = `${_('Stream settings')} - ${_('Multimedia settings')} - ${_title}`;
       },
       resolve: {
         streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
