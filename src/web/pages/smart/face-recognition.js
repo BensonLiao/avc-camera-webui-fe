@@ -4,6 +4,7 @@ const React = require('react');
 const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const ConfidenceLevel = require('webserver-form-schema/constants/face-recognition-confidence-level');
+const MaskArea = require('../../../core/components/fields/mask-area');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 
@@ -58,7 +59,8 @@ module.exports = class FaceRecognition extends Base {
     return (
       <>
         <div className="col-7 pr-24">
-          <div className="video-wrapper">
+          <p>{JSON.stringify(values.faceFrame)}</p>{/* Todo: debug code */}
+          <div id="fr-video-wrapper" className="video-wrapper">
             <img className="img-fluid" src="https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
             <div className="draggable-cover border-black" style={{left: 0, top: 0, width: '100%', height: '100%'}}>
               <p className="description text-size-20">{_('Trigger area')}</p>
@@ -67,13 +69,7 @@ module.exports = class FaceRecognition extends Base {
               <div className="right-top-point"/>
               <div className="right-bottom-point"/>
             </div>
-            <div className="draggable-cover border-green" style={{left: 57, top: 36, width: '20%', height: '30%'}}>
-              <p className="description text-size-16">{_('Face size')}</p>
-              <div className="left-top-point"/>
-              <div className="left-bottom-point"/>
-              <div className="right-top-point"/>
-              <div className="right-bottom-point"/>
-            </div>
+            <Field name="faceFrame" component={MaskArea} parentElementId="fr-video-wrapper" text={_('Face size')}/>
           </div>
         </div>
 
