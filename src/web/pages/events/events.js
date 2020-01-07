@@ -561,7 +561,7 @@ module.exports = class Events extends Base {
                     events.items.map((event, index) => (
                       <tr key={event.id}>
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {utils.formatDate(event.time)}
+                          {utils.formatDate(event.time, {withSecond: true})}
                         </td>
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                           <img className="rounded-circle" src={event.pictureThumbUrl} style={{height: '56px'}}/>
