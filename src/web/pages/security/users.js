@@ -9,6 +9,7 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const {SECURITY_USERS_MAX} = require('../../../core/constants');
 
 module.exports = class Users extends Base {
   static get propTypes() {
@@ -62,6 +63,7 @@ module.exports = class Users extends Base {
     const isDeleteUserDisabled = users.filter(
       user => user.permission.toString() === UserPermission.root
     ).length <= 1;
+    const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
     return (
       <div className="main-content left-menu-active">
         <div className="page-security bg-white">
@@ -79,8 +81,13 @@ module.exports = class Users extends Base {
               </div>
 
               <div className="col-12 actions">
-                <Link className="btn btn-outline-primary rounded-pill px-3"
+                <Link
                   to={{name: 'web.security.users.new-user', params: this.props.params}}
+                  tabIndex={(isAddUserDisabled ? -1 : null)}
+                  className={classNames(
+                    'btn btn-outline-primary rounded-pill px-3',
+                    {disabled: isAddUserDisabled}
+                  )}
                 >
                   <i className="fas fa-plus fa-fw"/> {_('New user')}
                 </Link>
