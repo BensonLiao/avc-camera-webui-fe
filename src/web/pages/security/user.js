@@ -19,6 +19,13 @@ const {SECURITY_USERS_MAX} = require('../../../core/constants');
 module.exports = class User extends Base {
   static get propTypes() {
     return {
+      users: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          permission: PropTypes.number.isRequired,
+          account: PropTypes.string.isRequired
+        })).isRequired
+      }),
       user: PropTypes.shape({
         id: PropTypes.number.isRequired,
         permission: PropTypes.number.isRequired,
