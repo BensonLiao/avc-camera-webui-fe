@@ -60,7 +60,7 @@ module.exports = class FaceRecognition extends Base {
       <>
         <div className="col-7 pr-24">
           <div id="fr-video-wrapper" className="video-wrapper">
-            <img className="img-fluid" src="https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+            <img className="img-fluid" src="/api/snapshot"/>
             <Field name="triggerArea" component={MaskArea} text={_('Trigger area')}
               className="border-black" parentElementId="fr-video-wrapper"/>
             <Field name="faceFrame" component={MaskArea} text={_('Face size')}

@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const Draggable = require('react-draggable').default;
-const elementResizeDetectorMaker = require('element-resize-detector');
+const store = require('../../store');
 
 module.exports = class MaskArea extends React.PureComponent {
   static get propTypes() {
@@ -44,26 +44,31 @@ module.exports = class MaskArea extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.erd = elementResizeDetectorMaker();
+    this.erd = store.get('$erd');
     this.draggingCorner = null; // "right-bottom", "right-top", "left-bottom", "left-top"
   }
 
   componentDidMount() {
     this.erd.listenTo(
       document.getElementById(this.props.parentElementId),
-      element => {
-        this.setState({
-          parentSize: {
-            width: element.offsetWidth,
-            height: element.offsetHeight
-          }
-        });
-      }
+      this.parentResizeHandler
     );
   }
 
+  parentResizeHandler = element => {
+    this.setState({
+      parentSize: {
+        width: element.offsetWidth,
+        height: element.offsetHeight
+      }
+    });
+  };
+
   componentWillUnmount() {
-    this.erd.uninstall(document.getElementById(this.props.parentElementId));
+    this.erd.removeListener(
+      document.getElementById(this.props.parentElementId),
+      this.parentResizeHandler
+    );
   }
 
   /**
