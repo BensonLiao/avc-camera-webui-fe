@@ -31,15 +31,18 @@ module.exports = class MaskArea extends React.PureComponent {
   }
 
   state = {
-    parentSize: {
-      width: 0,
-      height: 0
-    }
+    parentSize: {width: 0, height: 0},
+    maskAreaDragOffset: {x: 0, y: 0},
+    leftTopCornerDragOffset: {x: 0, y: 0},
+    leftBottomCornerDragOffset: {x: 0, y: 0},
+    rightTopCornerDragOffset: {x: 0, y: 0},
+    rightBottomCornerDragOffset: {x: 0, y: 0}
   };
 
   constructor(props) {
     super(props);
     this.erd = elementResizeDetectorMaker();
+    this.draggingCorner = null; // "right-bottom", "right-top", "left-bottom", "left-top"
   }
 
   componentDidMount() {
@@ -88,35 +91,190 @@ module.exports = class MaskArea extends React.PureComponent {
     };
   };
 
-  onStopDraggingMaskArea = (event, data) => {
+  /**
+   * Calculate the mask area style without `maskAreaDragOffset`.
+   * @returns {{left: number, top: number, width: number, height: number}}
+   */
+  calculateMaskAreaPosition = () => {
     const {field, form} = this.props;
-    const {parentSize} = this.state;
-    const initialStyle = this.convertPercentageToPixel(parentSize, form.initialValues[field.name]);
-    const value = this.convertPixelToPercentage(parentSize, {
-      left: initialStyle.left + data.x,
-      top: initialStyle.top + data.y,
-      width: initialStyle.width,
-      height: initialStyle.height
-    });
+    const {
+      parentSize,
+      leftTopCornerDragOffset,
+      leftBottomCornerDragOffset,
+      rightTopCornerDragOffset,
+      rightBottomCornerDragOffset
+    } = this.state;
+    const maskAreaStyle = this.convertPercentageToPixel(parentSize, form.initialValues[field.name]);
 
-    form.setFieldValue(field.name, value);
+    maskAreaStyle.left += leftTopCornerDragOffset.x;
+    maskAreaStyle.width -= leftTopCornerDragOffset.x;
+    maskAreaStyle.top += leftTopCornerDragOffset.y;
+    maskAreaStyle.height -= leftTopCornerDragOffset.y;
+    maskAreaStyle.left += leftBottomCornerDragOffset.x;
+    maskAreaStyle.width -= leftBottomCornerDragOffset.x;
+    maskAreaStyle.height += leftBottomCornerDragOffset.y;
+    maskAreaStyle.width += rightTopCornerDragOffset.x;
+    maskAreaStyle.top += rightTopCornerDragOffset.y;
+    maskAreaStyle.height -= rightTopCornerDragOffset.y;
+    maskAreaStyle.width += rightBottomCornerDragOffset.x;
+    maskAreaStyle.height += rightBottomCornerDragOffset.y;
+    return maskAreaStyle;
+  };
+
+  generateStartDraggingCornerHandler = corner => () => {
+    this.draggingCorner = corner;
+  };
+
+  /**
+   * @param {string} corner - "right-bottom", "right-top", "left-bottom", "left-top"
+   * @returns {function(Event, {x: number, y: number})}
+   */
+  generateDraggingCornerHandler = corner => (event, data) => {
+    switch (corner) {
+      case 'right-bottom':
+        this.setState({rightBottomCornerDragOffset: {x: data.x, y: data.y}});
+        break;
+      case 'right-top':
+        this.setState({rightTopCornerDragOffset: {x: data.x, y: data.y}});
+        break;
+      case 'left-bottom':
+        this.setState({leftBottomCornerDragOffset: {x: data.x, y: data.y}});
+        break;
+      case 'left-top':
+        this.setState({leftTopCornerDragOffset: {x: data.x, y: data.y}});
+        break;
+      default:
+        throw new Error(`unknown corner ${corner}`);
+    }
+  };
+
+  onStopDraggingCorner = () => {
+    this.draggingCorner = null;
+    this.onStopDraggingMaskArea(); // Trigger `form.setFieldValue()`.
+  };
+
+  /**
+   * @returns {boolean} - If `false` is returned any handler, the action will cancel.
+   */
+  onStartDraggingMaskArea = () => {
+    return this.draggingCorner == null;
+  };
+
+  onDraggingMaskArea = (event, data) => {
+    this.setState({maskAreaDragOffset: {x: data.x, y: data.y}});
+  };
+
+  onStopDraggingMaskArea = () => {
+    const {field, form} = this.props;
+    const {parentSize, maskAreaDragOffset} = this.state;
+    const maskArea = this.calculateMaskAreaPosition();
+
+    maskArea.left += maskAreaDragOffset.x;
+    maskArea.top += maskAreaDragOffset.y;
+    form.setFieldValue(field.name, this.convertPixelToPercentage(parentSize, maskArea));
   };
 
   render() {
-    const {parentElementId, text, field, form} = this.props;
-    const {parentSize} = this.state;
-    const initialStyle = this.convertPercentageToPixel(parentSize, form.initialValues[field.name]);
+    const {parentElementId, text} = this.props;
+    const {
+      parentSize,
+      maskAreaDragOffset,
+      leftTopCornerDragOffset,
+      leftBottomCornerDragOffset,
+      rightTopCornerDragOffset,
+      rightBottomCornerDragOffset
+    } = this.state;
+    const maskAreaStyle = this.calculateMaskAreaPosition();
+    const leftTopCornerOffset = {
+      x: maskAreaStyle.left + maskAreaDragOffset.x - leftTopCornerDragOffset.x,
+      y: maskAreaStyle.top + maskAreaDragOffset.y - leftTopCornerDragOffset.y
+    };
+    const leftTopCornerBounds = {
+      left: -leftTopCornerOffset.x,
+      top: -leftTopCornerOffset.y,
+      right: maskAreaStyle.left + maskAreaStyle.width + maskAreaDragOffset.x - 20 - leftTopCornerOffset.x,
+      bottom: maskAreaStyle.top + maskAreaStyle.height + maskAreaDragOffset.y - 20 - leftTopCornerOffset.y
+    };
+    const leftBottomCornerOffset = {
+      x: maskAreaStyle.left + maskAreaDragOffset.x - leftBottomCornerDragOffset.x,
+      y: maskAreaStyle.top + maskAreaStyle.height + maskAreaDragOffset.y - 10 - leftBottomCornerDragOffset.y
+    };
+    const leftBottomCornerBounds = {
+      left: -leftBottomCornerOffset.x,
+      top: -leftBottomCornerOffset.y + maskAreaStyle.top + maskAreaDragOffset.y + 10,
+      right: maskAreaStyle.left + maskAreaStyle.width + maskAreaDragOffset.x - 20 - leftBottomCornerOffset.x,
+      bottom: parentSize.height - leftBottomCornerOffset.y - 10
+    };
+    const rightTopCornerOffset = {
+      x: maskAreaStyle.left + maskAreaStyle.width + maskAreaDragOffset.x - 10 - rightTopCornerDragOffset.x,
+      y: maskAreaStyle.top + maskAreaDragOffset.y - rightTopCornerDragOffset.y
+    };
+    const rightTopCornerBounds = {
+      left: -rightTopCornerOffset.x + maskAreaStyle.left + maskAreaDragOffset.x + 10,
+      top: -rightTopCornerOffset.y,
+      right: parentSize.width - rightTopCornerOffset.x - 10,
+      bottom: maskAreaStyle.top + maskAreaStyle.height + maskAreaDragOffset.y - 20 - rightTopCornerOffset.y
+    };
+    const rightBottomCornerOffset = {
+      x: maskAreaStyle.left + maskAreaStyle.width + maskAreaDragOffset.x - 10 - rightBottomCornerDragOffset.x,
+      y: maskAreaStyle.top + maskAreaStyle.height + maskAreaDragOffset.y - 10 - rightBottomCornerDragOffset.y
+    };
+    const rightBottomCornerBounds = {
+      left: -rightBottomCornerOffset.x + maskAreaStyle.left + maskAreaDragOffset.x + 10,
+      top: -rightBottomCornerOffset.y + maskAreaStyle.top + maskAreaDragOffset.y + 10,
+      right: parentSize.width - rightBottomCornerOffset.x - 10,
+      bottom: parentSize.height - rightBottomCornerOffset.y - 10
+    };
 
     return (
-      <Draggable bounds={`#${parentElementId}`} onStop={this.onStopDraggingMaskArea}>
-        <div className="draggable-cover border-green" style={initialStyle}>
-          <p className="description text-size-16">{text}</p>
-          <div className="left-top-point"/>
-          <div className="left-bottom-point"/>
-          <div className="right-top-point"/>
-          <div className="right-bottom-point"/>
-        </div>
-      </Draggable>
+      <div className="draggable-wrapper border-green">
+        <Draggable
+          bounds={`#${parentElementId}`}
+          onStart={this.onStartDraggingMaskArea}
+          onDrag={this.onDraggingMaskArea}
+          onStop={this.onStopDraggingMaskArea}
+        >
+          <div className="draggable-cover" style={maskAreaStyle}>
+            <p className="description text-size-16">{text}</p>
+          </div>
+        </Draggable>
+        <Draggable
+          bounds={leftTopCornerBounds}
+          positionOffset={leftTopCornerOffset}
+          onStart={this.generateStartDraggingCornerHandler('left-top')}
+          onDrag={this.generateDraggingCornerHandler('left-top')}
+          onStop={this.onStopDraggingCorner}
+        >
+          <div className="left-top-point" style={{left: 0, top: 0}}/>
+        </Draggable>
+        <Draggable
+          bounds={leftBottomCornerBounds}
+          positionOffset={leftBottomCornerOffset}
+          onStart={this.generateStartDraggingCornerHandler('left-bottom')}
+          onDrag={this.generateDraggingCornerHandler('left-bottom')}
+          onStop={this.onStopDraggingCorner}
+        >
+          <div className="left-bottom-point" style={{left: 0, top: 0}}/>
+        </Draggable>
+        <Draggable
+          bounds={rightTopCornerBounds}
+          positionOffset={rightTopCornerOffset}
+          onStart={this.generateStartDraggingCornerHandler('right-top')}
+          onDrag={this.generateDraggingCornerHandler('right-top')}
+          onStop={this.onStopDraggingCorner}
+        >
+          <div className="right-top-point" style={{left: 0, top: 0}}/>
+        </Draggable>
+        <Draggable
+          bounds={rightBottomCornerBounds}
+          positionOffset={rightBottomCornerOffset}
+          onStart={this.generateStartDraggingCornerHandler('right-bottom')}
+          onDrag={this.generateDraggingCornerHandler('right-bottom')}
+          onStop={this.onStopDraggingCorner}
+        >
+          <div className="right-bottom-point" style={{left: 0, top: 0}}/>
+        </Draggable>
+      </div>
     );
   }
 };
