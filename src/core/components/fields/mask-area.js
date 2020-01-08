@@ -1,3 +1,4 @@
+const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const Draggable = require('react-draggable').default;
@@ -7,6 +8,7 @@ module.exports = class MaskArea extends React.PureComponent {
   static get propTypes() {
     return {
       parentElementId: PropTypes.string.isRequired,
+      className: PropTypes.string,
       text: PropTypes.string,
       field: PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -26,6 +28,7 @@ module.exports = class MaskArea extends React.PureComponent {
 
   static get defaultProps() {
     return {
+      className: '',
       text: ''
     };
   }
@@ -175,7 +178,7 @@ module.exports = class MaskArea extends React.PureComponent {
   };
 
   render() {
-    const {parentElementId, text} = this.props;
+    const {parentElementId, className, text} = this.props;
     const {
       parentSize,
       maskAreaDragOffset,
@@ -227,7 +230,7 @@ module.exports = class MaskArea extends React.PureComponent {
     };
 
     return (
-      <div className="draggable-wrapper border-green">
+      <div className={classNames('draggable-wrapper', className)}>
         <Draggable
           bounds={`#${parentElementId}`}
           onStart={this.onStartDraggingMaskArea}

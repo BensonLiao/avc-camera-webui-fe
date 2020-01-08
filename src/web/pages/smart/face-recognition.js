@@ -59,17 +59,12 @@ module.exports = class FaceRecognition extends Base {
     return (
       <>
         <div className="col-7 pr-24">
-          <p>{JSON.stringify(values.faceFrame)}</p>{/* Todo: debug code */}
           <div id="fr-video-wrapper" className="video-wrapper">
             <img className="img-fluid" src="https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
-            <div className="draggable-cover border-black" style={{left: 0, top: 0, width: '100%', height: '100%'}}>
-              <p className="description text-size-20">{_('Trigger area')}</p>
-              <div className="left-top-point"/>
-              <div className="left-bottom-point"/>
-              <div className="right-top-point"/>
-              <div className="right-bottom-point"/>
-            </div>
-            <Field name="faceFrame" component={MaskArea} parentElementId="fr-video-wrapper" text={_('Face size')}/>
+            <Field name="triggerArea" component={MaskArea} text={_('Trigger area')}
+              className="border-black" parentElementId="fr-video-wrapper"/>
+            <Field name="faceFrame" component={MaskArea} text={_('Face size')}
+              className="border-green" parentElementId="fr-video-wrapper"/>
           </div>
         </div>
 
