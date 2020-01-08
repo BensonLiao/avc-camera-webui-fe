@@ -153,6 +153,10 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onGet('/api/face-recognition/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').value()]);
   })
+  .onPut('/api/face-recognition/settings').reply(config => {
+    const settings = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
+  })
   .onGet('/api/auth-keys').reply(config => {
     const data = db.get('authKeys').value();
     return mockResponseWithLog(config, [200, {

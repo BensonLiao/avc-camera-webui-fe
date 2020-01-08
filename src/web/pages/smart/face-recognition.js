@@ -1,10 +1,13 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Link} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
+const progress = require('nprogress');
 const ConfidenceLevel = require('webserver-form-schema/constants/face-recognition-confidence-level');
 const MaskArea = require('../../../core/components/fields/mask-area');
+const utils = require('../../../core/utils');
+const api = require('../../../core/apis/web-api');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 
@@ -49,8 +52,21 @@ module.exports = class FaceRecognition extends Base {
   };
 
   onSubmitFaceRecognitionSettingsForm = values => {
-    // Todo: not implemented
-    console.log(values);
+    progress.start();
+    api.smartFunction.updateFaceRecognitionSettings({
+      ...values,
+      isShowMember: values.isEnableRecognitionInformation && values.isShowMember,
+      isShowGroup: values.isEnableRecognitionInformation && values.isShowGroup,
+      isShowUnknown: values.isEnableRecognitionInformation && values.isShowUnknown,
+      triggerArea: values.isEnableTriggerArea ?
+        values.triggerArea :
+        {x: 0, y: 0, width: 100, height: 100}
+    })
+      .then(getRouter().reload)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
   };
 
   faceRecognitionSettingsFormRender = form => {
@@ -61,10 +77,18 @@ module.exports = class FaceRecognition extends Base {
         <div className="col-7 pr-24">
           <div id="fr-video-wrapper" className="video-wrapper">
             <img className="img-fluid" src="/api/snapshot"/>
-            <Field name="triggerArea" component={MaskArea} text={_('Trigger area')}
-              className="border-black" parentElementId="fr-video-wrapper"/>
-            <Field name="faceFrame" component={MaskArea} text={_('Face size')}
-              className="border-green" parentElementId="fr-video-wrapper"/>
+            {
+              values.isEnableTriggerArea && (
+                <Field name="triggerArea" component={MaskArea} text={_('Trigger area')}
+                  className="border-black" parentElementId="fr-video-wrapper"/>
+              )
+            }
+            {
+              values.isEnableFaceFrame && (
+                <Field name="faceFrame" component={MaskArea} text={_('Face size')}
+                  className="border-green" parentElementId="fr-video-wrapper"/>
+              )
+            }
           </div>
         </div>
 
