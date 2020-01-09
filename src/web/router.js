@@ -55,6 +55,31 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.smart',
+      uri: '/smart',
+      onEnter: () => {
+        document.title = `${_('Smart functions')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-smart" */
+        './pages/smart/layout'
+      )
+    },
+    {
+      name: 'web.smart.face-recognition',
+      uri: '/face-recognition',
+      onEnter: () => {
+        document.title = `${_('Face recognition')} - ${_('Smart functions')} - ${_title}`;
+      },
+      resolve: {
+        faceRecognitionSettings: () => api.smartFunction.getFaceRecognitionSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-smart-face-recognition" */
+        './pages/smart/face-recognition'
+      )
+    },
+    {
       name: 'web.members',
       uri: '/members?group?keyword?index?sort',
       onEnter: () => {

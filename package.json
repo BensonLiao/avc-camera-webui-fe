@@ -36,6 +36,7 @@
     "css-loader": "3.2.0",
     "dayjs": "1.8.17",
     "downloadjs": "1.4.7",
+    "element-resize-detector": "1.1.15",
     "fastest-validator": "0.6.19",
     "file-loader": "4.2.0",
     "filesize": "6.0.1",
@@ -59,6 +60,7 @@
     "react": "16.12.0",
     "react-bootstrap": "1.0.0-beta.14",
     "react-dom": "16.12.0",
+    "react-draggable": "4.2.0",
     "react-notifications-component": "2.2.4",
     "react-use": "13.8.0",
     "sass-loader": "8.0.0",
@@ -68,7 +70,7 @@
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
     "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#c272f6bee249cf52be4bc9c46c15e088686703cc",
-    "webserver-prototype": "git+http://gitlab+deploy-token-4:4T2Lsn6ZE__sh6ZoCsPN@192.168.100.137/cloud/webserver-prototype.git#ec601a86e5f20971c8838e4d28227f59183b0ef4"
+    "webserver-prototype": "git+http://gitlab+deploy-token-4:4T2Lsn6ZE__sh6ZoCsPN@192.168.100.137/cloud/webserver-prototype.git#912f3ca44de27033d45ec9b0645a6c2c9de7f2a9"
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",

@@ -85,6 +85,11 @@ window.languageResource = {
   'stream-vbr-bit-rate-level-3': '一般',
   'stream-vbr-bit-rate-level-4': '不足',
 
+  // 相似度層級
+  'confidence-level-0': '低',
+  'confidence-level-1': '中',
+  'confidence-level-2': '高',
+
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
   'validation-required': '此欄位必填。',
@@ -149,7 +154,7 @@ window.languageResource = {
   'Multimedia settings': '多媒體設定',
   'Notification settings': '通知設定',
   Members: '成員管理',
-  'Smart function': '智慧功能',
+  'Smart functions': '智慧功能',
   'Smart search': '智慧搜尋',
   System: '系統',
   Security: '安全性',
@@ -242,7 +247,6 @@ window.languageResource = {
   // /
   'Stream {0}': '串流 {0}',
   'Device name': '裝置名稱',
-  'Smart functions': '智慧功能',
   'Device status': '裝置狀態',
   'SD card': 'SD 卡',
   'Please enter letters between 1 and 32.': '請輸入1-32字元',
@@ -306,6 +310,17 @@ window.languageResource = {
   'VBR bitrate level': '可變比特率 (VBR)',
   'VBR max bitrate': '最佳可變比特率 (VBR Max Bitrate)',
   'CBR bitrate': '固定比特率 (CBR)',
+
+  // /smart/face-recognition
+  'Trigger area': '觸發區域',
+  'Face size': '人臉大小',
+  'Similarity level': '相似度層級',
+  'Recognition function': '辨識功能',
+  'The default is full screen, it is changeable.': '預設為全畫面，可自訂範圍。',
+  'Display recognition name': '顯示辨識名稱',
+  'Display name': '顯示人名',
+  'Display group': '顯示已註冊群組',
+  'Display "Unknown"': '顯示 "Unknown"',
 
   // /members
   'All members': '所有成員',

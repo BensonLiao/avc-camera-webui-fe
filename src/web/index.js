@@ -20,6 +20,7 @@ const dayjsZhTW = require('dayjs/locale/zh-tw');
 const dayjsZhCN = require('dayjs/locale/zh-cn');
 const dayjsEs = require('dayjs/locale/es');
 const dayjsJa = require('dayjs/locale/ja');
+const elementResizeDetectorMaker = require('element-resize-detector');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const ReactNotification = require('react-notifications-component').default;
@@ -79,6 +80,7 @@ store.set('$setup', {
     domain: ''
   }
 });
+store.set('$erd', elementResizeDetectorMaker());
 
 // Setup routers
 router.listen('ChangeStart', (action, toState, fromState, cancel) => {

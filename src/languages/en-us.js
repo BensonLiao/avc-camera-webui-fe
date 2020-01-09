@@ -54,6 +54,11 @@ window.languageResource = {
   'stream-vbr-bit-rate-level-3': 'Normal',
   'stream-vbr-bit-rate-level-4': 'Bad',
 
+  // 相似度層級
+  'confidence-level-0': 'Low',
+  'confidence-level-1': 'Medium',
+  'confidence-level-2': 'High',
+
   // Validations
   'validation-required': 'This field is required.',
   'validation-string': 'This field must be a string.',
