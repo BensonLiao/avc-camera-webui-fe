@@ -14,10 +14,18 @@ const NewUserValidator = require('../../validations/users/new-user-validator');
 const Password = require('../../../core/components/fields/password');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const {SECURITY_USERS_MAX} = require('../../../core/constants');
 
 module.exports = class User extends Base {
   static get propTypes() {
     return {
+      users: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          permission: PropTypes.number.isRequired,
+          account: PropTypes.string.isRequired
+        })).isRequired
+      }),
       user: PropTypes.shape({
         id: PropTypes.number.isRequired,
         permission: PropTypes.number.isRequired,
@@ -95,6 +103,8 @@ module.exports = class User extends Base {
   };
 
   formRender = ({errors, touched}) => {
+    const {users: {items}, user} = this.props;
+    const isAddUserDisabled = items.length >= SECURITY_USERS_MAX;
     return (
       <Form>
         <div className="modal-body">
@@ -152,7 +162,7 @@ module.exports = class User extends Base {
             }
           </div>
           {
-            this.props.user && (
+            user && (
               <div className="form-group has-feedback">
                 <label>{_('New password')}</label>
                 <Field name="newPassword" component={Password} inputProps={{
@@ -169,9 +179,9 @@ module.exports = class User extends Base {
             )
           }
           <div className="form-group has-feedback">
-            <label>{_(this.props.user ? 'Confirm new password' : 'Confirm password')}</label>
+            <label>{_(user ? 'Confirm new password' : 'Confirm password')}</label>
             <Field name="confirmPassword" component={Password} inputProps={{
-              placeholder: _(this.props.user ? 'Please confirm your new password.' : 'Please confirm your password.'),
+              placeholder: _(user ? 'Please confirm your new password.' : 'Please confirm your password.'),
               className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
             }}/>
             {
@@ -183,12 +193,19 @@ module.exports = class User extends Base {
         </div>
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
-            <button type="submit" className="btn btn-primary btn-block rounded-pill">
-              {this.props.user ? _('Confirm') : _('New')}
+            <button
+              disabled={this.state.$isApiProcessing || isAddUserDisabled}
+              type="submit"
+              className="btn btn-primary btn-block rounded-pill"
+            >
+              {user ? _('Confirm') : _('New')}
             </button>
           </div>
-          <button className="btn btn-secondary btn-block m-0 rounded-pill"
-            type="button" onClick={this.hideModal}
+          <button
+            disabled={this.state.$isApiProcessing}
+            className="btn btn-secondary btn-block m-0 rounded-pill"
+            type="button"
+            onClick={this.hideModal}
           >
             {_('Close')}
           </button>
