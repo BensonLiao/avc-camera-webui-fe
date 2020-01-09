@@ -243,7 +243,7 @@ module.exports = class Members extends Base {
               name="password"
               component={Password}
               inputProps={{
-                disabled: true,
+                readOnly: true,
                 className: classNames(
                   'form-control',
                   {'is-invalid': errors.password && touched.password}
