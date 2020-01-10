@@ -16,12 +16,6 @@ module.exports = class Pagination extends React.PureComponent {
     };
   }
 
-  constructor(props) {
-    super(props);
-    this.router = getRouter();
-    this.currentRouterName = this.router.currentRoute.name;
-  }
-
   state = {
     gotoIndex: 0
   };
@@ -33,8 +27,9 @@ module.exports = class Pagination extends React.PureComponent {
   onKeyPress = event => {
     if (event.charCode === 13) {
       const {gotoIndex} = this.state;
-      this.router.go(
-        {name: this.currentRouterName, params: {index: gotoIndex}},
+      const router = getRouter();
+      router.go(
+        {name: router.currentRoute.name, params: {index: gotoIndex}},
         {reload: true}
       );
     }
