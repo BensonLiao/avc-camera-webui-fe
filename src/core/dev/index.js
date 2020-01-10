@@ -62,12 +62,18 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/members').reply(config => {
+    const itemChunkIndex = Number(config.params.index) || 0;
+    const itemChunkSize = 20;
     const data = db.get('members').value();
+    const pageData = data.slice(
+      itemChunkIndex * itemChunkSize,
+      (itemChunkIndex + 1) * itemChunkSize
+    );
     return mockResponseWithLog(config, [200, {
-      index: 0,
-      size: 20,
+      index: itemChunkIndex,
+      size: itemChunkSize,
       total: data.length,
-      items: data
+      items: pageData
     }]);
   })
   .onGet(/api\/members\/[a-f0-9-]{36}$/).reply(config => {

@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const format = require('string-template');
-const {Link} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const _ = require('../../languages');
 
 module.exports = class Pagination extends React.PureComponent {
@@ -16,6 +16,30 @@ module.exports = class Pagination extends React.PureComponent {
     };
   }
 
+  constructor(props) {
+    super(props);
+    this.router = getRouter();
+    this.currentRouterName = this.router.currentRoute.name;
+  }
+
+  state = {
+    gotoIndex: 0
+  };
+
+  onChangeGotoIndex = event => {
+    this.setState({gotoIndex: event.currentTarget.value - 1});
+  }
+
+  onKeyPress = event => {
+    if (event.charCode === 13) {
+      const {gotoIndex} = this.state;
+      this.router.go(
+        {name: this.currentRouterName, params: {index: gotoIndex}},
+        {reload: true}
+      );
+    }
+  }
+
   render() {
     if (this.props.total === 0) {
       return <></>;
@@ -26,9 +50,11 @@ module.exports = class Pagination extends React.PureComponent {
     const hasNext = this.props.total > (this.props.index + 1) * this.props.size;
     const startItem = (this.props.index * this.props.size) + 1;
     const endItem = startItem + this.props.itemQuantity - 1;
+    const {gotoIndex} = this.state;
+    const maxGotoIndex = Math.ceil(this.props.total / this.props.size);
 
     for (let index = this.props.index - 3; index < this.props.index + 3; index += 1) {
-      if (index < 0 || index >= Math.ceil(this.props.total / this.props.size)) {
+      if (index < 0 || index >= maxGotoIndex) {
         continue;
       }
 
@@ -68,6 +94,29 @@ module.exports = class Pagination extends React.PureComponent {
                 className="page-link"
               >
                 &raquo;
+              </Link>
+            </li>
+            <li className="page-item">
+              <input
+                type="number"
+                placeholder={1}
+                min={1}
+                max={maxGotoIndex}
+                style={{
+                  margin: '0px 8px',
+                  lineHeight: 2,
+                  textAlign: 'center',
+                  paddingLeft: '8px'
+                }}
+                onChange={this.onChangeGotoIndex}
+                onKeyPress={this.onKeyPress}
+              />
+            </li>
+            <li className="page-item">
+              <Link to={format(this.props.hrefTemplate, {index: gotoIndex})}
+                className="page-link"
+              >
+                Go
               </Link>
             </li>
           </ul>
