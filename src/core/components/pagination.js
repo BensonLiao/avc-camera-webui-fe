@@ -16,12 +16,24 @@ module.exports = class Pagination extends React.PureComponent {
     };
   }
 
+  constructor(props) {
+    super(props);
+    this.maxGotoIndex = Math.ceil(this.props.total / this.props.size);
+  }
+
   state = {
     gotoIndex: 0
   };
 
   onChangeGotoIndex = event => {
-    this.setState({gotoIndex: event.currentTarget.value - 1});
+    let validateValue = event.currentTarget.value;
+    if (Number(event.currentTarget.value)) {
+      validateValue = event.currentTarget.value >= this.maxGotoIndex ?
+        this.maxGotoIndex :
+        event.currentTarget.value;
+      validateValue = validateValue < 1 ? 1 : validateValue;
+      this.setState({gotoIndex: validateValue - 1});
+    }
   }
 
   onKeyPress = event => {
@@ -46,10 +58,9 @@ module.exports = class Pagination extends React.PureComponent {
     const startItem = (this.props.index * this.props.size) + 1;
     const endItem = startItem + this.props.itemQuantity - 1;
     const {gotoIndex} = this.state;
-    const maxGotoIndex = Math.ceil(this.props.total / this.props.size);
 
     for (let index = this.props.index - 3; index < this.props.index + 3; index += 1) {
-      if (index < 0 || index >= maxGotoIndex) {
+      if (index < 0 || index >= this.maxGotoIndex) {
         continue;
       }
 
@@ -96,7 +107,7 @@ module.exports = class Pagination extends React.PureComponent {
                 type="number"
                 placeholder={1}
                 min={1}
-                max={maxGotoIndex}
+                max={this.maxGotoIndex}
                 style={{
                   margin: '0px 8px',
                   lineHeight: 2,
