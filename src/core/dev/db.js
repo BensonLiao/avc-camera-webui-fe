@@ -118,6 +118,13 @@ module.exports = {
           gov: StreamGOV['120']
         }
       },
+      rtspSettings: {
+        isEnableAudioToStream: true,
+        isEnablePassword: true,
+        tcpPort: '37778',
+        udpPort: '37778',
+        connectionLimit: '4'
+      },
       faceRecognitionSettings: {
         isEnable: true,
         confidenceLevel: '0',

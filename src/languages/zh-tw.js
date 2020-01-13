@@ -151,7 +151,7 @@ window.languageResource = {
 
   // Navigation
   Home: '首頁',
-  'Multimedia settings': '多媒體設定',
+  'Multimedia settings': '多媒體串流',
   'Notification settings': '通知設定',
   Members: '成員管理',
   'Smart functions': '智慧功能',
@@ -310,6 +310,13 @@ window.languageResource = {
   'VBR bitrate level': '可變比特率 (VBR)',
   'VBR max bitrate': '最佳可變比特率 (VBR Max Bitrate)',
   'CBR bitrate': '固定比特率 (CBR)',
+
+  // /media/rtsp
+  'Record sound to stream': '將聲音記錄至串流',
+  'Required authentication': '連線時需帳號密碼認證',
+  'RTSP/TCP port': 'RTSP/TCP 連接埠',
+  'RTSP/UDP port': 'RTSP/UDP 連接埠',
+  'Concurrent connection limit': '最大連接數',
 
   // /smart/face-recognition
   'Trigger area': '觸發區域',
