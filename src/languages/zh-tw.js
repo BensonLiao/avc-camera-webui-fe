@@ -155,7 +155,7 @@ window.languageResource = {
 
   // Navigation
   Home: '首頁',
-  'Multimedia settings': '多媒體設定',
+  'Multimedia settings': '多媒體串流',
   'Notification settings': '通知設定',
   Members: '成員管理',
   'Smart functions': '智慧功能',
@@ -323,6 +323,13 @@ window.languageResource = {
   'Audio input source': '聲音輸入來源',
   'Built-in microphone': '內建式麥克風',
   'Sound output': '聲音輸出',
+
+  // /media/rtsp
+  'Record sound to stream': '將聲音記錄至串流',
+  'Required authentication': '連線時需帳號密碼認證',
+  'RTSP/TCP port': 'RTSP/TCP 連接埠',
+  'RTSP/UDP port': 'RTSP/UDP 連接埠',
+  'Concurrent connection limit': '最大連接數',
 
   // /smart/face-recognition
   'Trigger area': '觸發區域',

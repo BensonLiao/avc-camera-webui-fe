@@ -124,6 +124,13 @@ module.exports = {
         inputQuality: '1',
         inputSource: 'LINE IN'
       },
+      rtspSettings: {
+        isEnableAudioToStream: true,
+        isEnablePassword: true,
+        tcpPort: '37778',
+        udpPort: '37778',
+        connectionLimit: '4'
+      },
       faceRecognitionSettings: {
         isEnable: true,
         confidenceLevel: '0',

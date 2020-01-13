@@ -69,6 +69,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.media.rtsp',
+      uri: '/rtsp',
+      onEnter: () => {
+        document.title = `${_('RTSP settings')} - ${_('Multimedia settings')} - ${_title}`;
+      },
+      resolve: {
+        rtspSettings: () => api.multimedia.getRTSPSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/rtsp'
+      )
+    },
+    {
       name: 'web.smart',
       uri: '/smart',
       onEnter: () => {
