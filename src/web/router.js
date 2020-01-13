@@ -55,6 +55,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.media.audio',
+      uri: '/audio',
+      onEnter: () => {
+        document.title = `${_('Audio settings')} - ${_('Multimedia settings')} - ${_title}`;
+      },
+      resolve: {
+        audioSettings: () => api.multimedia.getAudioSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/audio'
+      )
+    },
+    {
       name: 'web.smart',
       uri: '/smart',
       onEnter: () => {

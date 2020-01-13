@@ -118,6 +118,12 @@ module.exports = {
           gov: StreamGOV['120']
         }
       },
+      audioSettings: {
+        isEnableInput: true,
+        isEnableOutput: false,
+        inputQuality: '1',
+        inputSource: 'LINE IN'
+      },
       faceRecognitionSettings: {
         isEnable: true,
         confidenceLevel: '0',
