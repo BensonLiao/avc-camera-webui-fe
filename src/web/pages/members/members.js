@@ -239,8 +239,17 @@ module.exports = class Members extends Base {
         <div className="modal-body">
           <div className="form-group has-feedback">
             <label>{_('Old password')}</label>
-            <Field name="password" component={Password}
-              inputProps={{className: classNames('form-control', {'is-invalid': errors.password && touched.password})}}/>
+            <Field
+              name="password"
+              component={Password}
+              inputProps={{
+                readOnly: true,
+                className: classNames(
+                  'form-control',
+                  {'is-invalid': errors.password && touched.password}
+                )
+              }}
+            />
             {
               errors.password && touched.password && (
                 <div className="invalid-feedback">{errors.password}</div>
