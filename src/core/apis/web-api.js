@@ -696,6 +696,36 @@ module.exports = {
       method: 'put',
       url: '/api/multimedia/rtsp/settings',
       data: {isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}
+    }),
+    /**
+     * Schema: webserver-form-schema/audio-settings-schema
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableInput {boolean}
+     * - isEnableOutput {boolean}
+     * - inputQuality {string}
+     * - inputSource {string}
+     */
+    getAudioSettings: () => api({
+      method: 'get',
+      url: '/api/multimedia/audio/settings'
+    }),
+    /**
+     * @param {boolean} isEnableInput
+     * @param {boolean} isEnableOutput
+     * @param {string} inputQuality
+     * @param {string} inputSource
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableInput {boolean}
+     * - isEnableOutput {boolean}
+     * - inputQuality {string}
+     * - inputSource {string}
+     */
+    updateAudioSettings: ({isEnableInput, isEnableOutput, inputQuality, inputSource}) => api({
+      method: 'put',
+      url: '/api/multimedia/audio/settings',
+      data: {isEnableInput, isEnableOutput, inputQuality, inputSource}
     })
   },
   event: {

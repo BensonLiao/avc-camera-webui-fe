@@ -59,6 +59,10 @@ window.languageResource = {
   'confidence-level-1': 'Medium',
   'confidence-level-2': 'High',
 
+  // 聲音品質
+  'audio-quality-0': 'Low (G.711, 8kHz, 64kbps, Mono)',
+  'audio-quality-1': 'Normal (AAC, 16kHz, 96kbps, Mono)',
+
   // Validations
   'validation-required': 'This field is required.',
   'validation-string': 'This field must be a string.',

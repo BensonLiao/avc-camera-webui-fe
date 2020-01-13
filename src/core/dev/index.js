@@ -36,9 +36,15 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const defaultItem = db.get('streamDefault').value();
     return mockResponseWithLog(config, [200, db.get('stream').assign(defaultItem).write()]);
   })
+  .onGet('/api/multimedia/audio/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('audioSettings').value()]);
+  })
+  .onPut('/api/multimedia/audio/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('audioSettings').assign(newItem).write()]);
+  })
   .onGet('/api/multimedia/rtsp/settings').reply(config => {
-    return mockResponseWithLog(config, [200, db.get('rtspSettings').value()]
-    );
+    return mockResponseWithLog(config, [200, db.get('rtspSettings').value()]);
   })
   .onPut('/api/multimedia/rtsp/settings').reply(config => {
     const newItem = JSON.parse(config.data);
