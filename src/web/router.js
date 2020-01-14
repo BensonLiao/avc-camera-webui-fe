@@ -83,6 +83,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.media.word',
+      uri: '/word',
+      onEnter: () => {
+        document.title = `${_('Text stickers')} - ${_('Multimedia settings')} - ${_title}`;
+      },
+      resolve: {
+        wordSettings: () => api.multimedia.getWordSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/word'
+      )
+    },
+    {
       name: 'web.smart',
       uri: '/smart',
       onEnter: () => {

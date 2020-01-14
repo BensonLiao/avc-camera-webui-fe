@@ -50,6 +50,13 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('rtspSettings').assign(newItem).write()]);
   })
+  .onGet('/api/multimedia/word/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('wordSettings').value()]);
+  })
+  .onPut('/api/multimedia/word/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('wordSettings').assign(newItem).write()]);
+  })
   .onGet('/api/groups').reply(config => {
     return mockResponseWithLog(config, [200, {
       items: db.get('groups').value()

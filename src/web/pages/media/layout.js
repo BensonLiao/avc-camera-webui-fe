@@ -42,8 +42,8 @@ module.exports = class Media extends Base {
             >
               RTSP
             </Link>
-            <Link to="/media/rtsp" title={_('Overlay settings')}
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.overlay'})}
+            <Link to="/media/word" title={_('Overlay settings')}
+              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.word'})}
             >
               {_('Text stickers')}
             </Link>

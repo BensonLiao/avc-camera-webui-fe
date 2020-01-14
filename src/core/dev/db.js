@@ -131,6 +131,12 @@ module.exports = {
         udpPort: '37778',
         connectionLimit: '4'
       },
+      wordSettings: {
+        isEnable: true,
+        fontSize: '1',
+        color: '0',
+        position: '1'
+      },
       faceRecognitionSettings: {
         isEnable: true,
         confidenceLevel: '0',
