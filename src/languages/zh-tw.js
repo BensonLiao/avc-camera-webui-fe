@@ -337,7 +337,7 @@ window.languageResource = {
   'Concurrent connection limit': '最大連接數',
 
   // /media/word
-  Function: '公能',
+  Function: '功能',
   'Word color': '文字顏色',
   Word: '文字',
   Size: '大小',
