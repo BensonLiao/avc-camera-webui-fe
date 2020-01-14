@@ -131,6 +131,17 @@ module.exports = {
         udpPort: '37778',
         connectionLimit: '4'
       },
+      privacyMaskSettings: {
+        isEnable: true,
+        maskAreas: [
+          {
+            x: 10,
+            y: 10,
+            width: 20,
+            height: 30
+          }
+        ]
+      },
       faceRecognitionSettings: {
         isEnable: true,
         confidenceLevel: '0',
