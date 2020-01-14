@@ -2,6 +2,7 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const Draggable = require('react-draggable').default;
+const objectPath = require('object-path');
 const store = require('../../store');
 
 module.exports = class MaskArea extends React.PureComponent {
@@ -112,7 +113,10 @@ module.exports = class MaskArea extends React.PureComponent {
       rightTopCornerDragOffset,
       rightBottomCornerDragOffset
     } = this.state;
-    const maskAreaStyle = this.convertPercentageToPixel(parentSize, form.initialValues[field.name]);
+    const maskAreaStyle = this.convertPercentageToPixel(
+      parentSize,
+      objectPath.get(form.initialValues, field.name)
+    );
 
     maskAreaStyle.left += leftTopCornerDragOffset.x;
     maskAreaStyle.width -= leftTopCornerDragOffset.x;
