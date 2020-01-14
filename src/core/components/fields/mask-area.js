@@ -8,6 +8,7 @@ const store = require('../../store');
 module.exports = class MaskArea extends React.PureComponent {
   static get propTypes() {
     return {
+      rightBottomCornerRef: PropTypes.any,
       parentElementId: PropTypes.string.isRequired,
       className: PropTypes.string,
       text: PropTypes.string,
@@ -30,6 +31,7 @@ module.exports = class MaskArea extends React.PureComponent {
   static get defaultProps() {
     return {
       className: '',
+      rightBottomCornerRef: null,
       text: ''
     };
   }
@@ -187,7 +189,7 @@ module.exports = class MaskArea extends React.PureComponent {
   };
 
   render() {
-    const {parentElementId, className, text} = this.props;
+    const {parentElementId, className, text, rightBottomCornerRef} = this.props;
     const {
       parentSize,
       maskAreaDragOffset,
@@ -284,7 +286,7 @@ module.exports = class MaskArea extends React.PureComponent {
           onDrag={this.generateDraggingCornerHandler('right-bottom')}
           onStop={this.onStopDraggingCorner}
         >
-          <div className="right-bottom-point" style={{left: 0, top: 0}}/>
+          <div ref={rightBottomCornerRef} className="right-bottom-point" style={{left: 0, top: 0}}/>
         </Draggable>
       </div>
     );
