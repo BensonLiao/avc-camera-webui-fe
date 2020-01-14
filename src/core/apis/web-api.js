@@ -726,6 +726,35 @@ module.exports = {
       method: 'put',
       url: '/api/multimedia/audio/settings',
       data: {isEnableInput, isEnableOutput, inputQuality, inputSource}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - fontSize {string}
+     * - color {string}
+     * - position {string}
+     */
+    getWordSettings: () => api({
+      method: 'get',
+      url: '/api/multimedia/word/settings'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {string} fontSize
+     * @param {string} color
+     * @param {string} position
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - fontSize {string}
+     * - color {string}
+     * - position {string}
+     */
+    updateWordSettings: ({isEnable, fontSize, color, position}) => api({
+      method: 'put',
+      url: '/api/multimedia/word/settings',
+      data: {isEnable, fontSize, color, position}
     })
   },
   event: {
