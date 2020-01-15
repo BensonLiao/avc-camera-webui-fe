@@ -94,6 +94,11 @@ window.languageResource = {
   'audio-quality-0': '低 (G.711, 8kHz, 64kbps, Mono)',
   'audio-quality-1': '一般 (AAC, 16kHz, 96kbps, Mono)',
 
+  // 文字大小
+  'font-size-0': '小',
+  'font-size-1': '中',
+  'font-size-2': '大',
+
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
   'validation-required': '此欄位必填。',
@@ -335,6 +340,14 @@ window.languageResource = {
   'RTSP/TCP port': 'RTSP/TCP 連接埠',
   'RTSP/UDP port': 'RTSP/UDP 連接埠',
   'Concurrent connection limit': '最大連接數',
+
+  // /media/word
+  Function: '功能',
+  'Word color': '文字顏色',
+  Word: '文字',
+  Size: '大小',
+  'Word position': '貼圖顯示位置',
+  'Please click position buttons.': '請於左方畫面點選貼圖顯示位置。',
 
   // /smart/face-recognition
   'Trigger area': '觸發區域',
