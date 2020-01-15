@@ -1,11 +1,14 @@
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Link} = require('capybara-router');
+const progress = require('nprogress');
+const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const {HotKeys} = require('react-hotkeys');
 const Base = require('../shared/base');
 const MaskArea = require('../../../core/components/fields/mask-area');
 const _ = require('../../../languages');
+const utils = require('../../../core/utils');
+const api = require('../../../core/apis/web-api');
 
 module.exports = class PrivacyMask extends Base {
   static get propTypes() {
@@ -87,8 +90,25 @@ module.exports = class PrivacyMask extends Base {
   };
 
   onSubmitPrivacyMaskForm = values => {
-    // Todo: not implemented
-    console.log(values);
+    progress.start();
+    api.multimedia.updatePrivacyMaskSettings({
+      isEnable: values.isEnable,
+      maskAreas: (() => {
+        const result = [];
+
+        this.state.maskAreaStates.forEach((state, index) => {
+          if (state.isVisible) {
+            result.push(values.maskAreas[index]);
+          }
+        });
+        return result;
+      })()
+    })
+      .then(getRouter().reload)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
   };
 
   privacyMaskFormRender = form => {
