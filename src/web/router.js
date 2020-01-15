@@ -55,6 +55,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.media.privacy-mask',
+      uri: '/privacy-mask',
+      onEnter: () => {
+        document.title = `${_('Privacy mask')} - ${_('Multimedia settings')} - ${_title}`;
+      },
+      resolve: {
+        privacyMaskSettings: () => api.multimedia.getPrivacyMaskSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/privacy-mask'
+      )
+    },
+    {
       name: 'web.media.audio',
       uri: '/audio',
       onEnter: () => {

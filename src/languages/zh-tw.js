@@ -320,6 +320,11 @@ window.languageResource = {
   'VBR max bitrate': '最佳可變比特率 (VBR Max Bitrate)',
   'CBR bitrate': '固定比特率 (CBR)',
 
+  // /media/privacy-mask
+  'Mask area': '遮罩區域',
+  '1. Please drag a mask area.': '1. 請框選畫面位置決定遮罩區域。',
+  '2. The mask area limit is 4. To drag for creating, delete to remove.': '2. 遮罩區域最多可設定4個、用拖移新增、delete刪除。',
+
   // /media/audio
   'Multimedia streaming': '多媒體串流',
   'Audio settings': '聲音設定',

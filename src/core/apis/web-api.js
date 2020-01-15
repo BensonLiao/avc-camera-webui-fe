@@ -698,6 +698,37 @@ module.exports = {
       data: {isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}
     }),
     /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - maskAreas {Array<Object>}
+     * - maskAreas[].x {number}
+     * - maskAreas[].y {number}
+     * - maskAreas[].width {number}
+     * - maskAreas[].height {number}
+     */
+    getPrivacyMaskSettings: () => api({
+      method: 'get',
+      url: '/api/multimedia/privacy-mask/settings'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {Array<{x: number, y: number, width: number, height: number}>} maskAreas
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - maskAreas {Array<Object>}
+     * - maskAreas[].x {number}
+     * - maskAreas[].y {number}
+     * - maskAreas[].width {number}
+     * - maskAreas[].height {number}
+     */
+    updatePrivacyMaskSettings: ({isEnable, maskAreas}) => api({
+      method: 'put',
+      url: '/api/multimedia/privacy-mask/settings',
+      data: {isEnable, maskAreas}
+    }),
+    /**
      * Schema: webserver-form-schema/audio-settings-schema
      * @returns {Promise<response>}
      * @response 200 {Object}

@@ -50,6 +50,13 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('rtspSettings').assign(newItem).write()]);
   })
+  .onGet('/api/multimedia/privacy-mask/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('privacyMaskSettings').value()]);
+  })
+  .onPut('/api/multimedia/privacy-mask/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('privacyMaskSettings').assign(newItem).write()]);
+  })
   .onGet('/api/multimedia/word/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('wordSettings').value()]);
   })
