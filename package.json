@@ -71,7 +71,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#0cc2d6517248848ae23c5464d5ad20fe5cdbf116",
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#c99193296d18409f54951d9f8c75e08e81fae04a",
     "webserver-prototype": "git+http://gitlab+deploy-token-4:4T2Lsn6ZE__sh6ZoCsPN@192.168.100.137/cloud/webserver-prototype.git#526c33d1fc93a53abbc44dbfee189f34150f59b5"
   },
   "devDependencies": {
