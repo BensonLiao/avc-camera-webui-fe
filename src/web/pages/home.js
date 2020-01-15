@@ -276,7 +276,7 @@ module.exports = class Home extends Base {
                   <label>{_('Saturation')}</label>
                   <span className="text-primary text-size-14">{values.saturation}</span>
                 </div>
-                <Field name="saturation" component={Slider} step={10}
+                <Field name="saturation" component={Slider} step={1}
                   min={videoSettingsSchema.saturation.min}
                   max={videoSettingsSchema.saturation.max}/>
               </div>
@@ -295,7 +295,7 @@ module.exports = class Home extends Base {
                         <label>{_('Color temperature')}</label>
                         <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
                       </div>
-                      <Field name="whiteblanceManual" component={Slider} step={10}
+                      <Field name="whiteblanceManual" component={Slider} step={1000}
                         min={videoSettingsSchema.whiteblanceManual.min}
                         max={videoSettingsSchema.whiteblanceManual.max}/>
                     </div>
@@ -359,7 +359,7 @@ module.exports = class Home extends Base {
                   <label>{_('Sharpness')}</label>
                   <span className="text-primary text-size-14">{values.sharpness}</span>
                 </div>
-                <Field name="sharpness" component={Slider} step={10}
+                <Field name="sharpness" component={Slider} step={1}
                   min={videoSettingsSchema.sharpness.min}
                   max={videoSettingsSchema.sharpness.max}/>
               </div>
