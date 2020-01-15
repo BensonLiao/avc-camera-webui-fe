@@ -669,9 +669,9 @@ module.exports = {
      * @response 200 {Object}
      * - isEnableAudioToStream {boolean}
      * - isEnablePassword {boolean}
-     * - tcpPort {number}
-     * - udpPort {number}
-     * - connectionLimit {number}
+     * - tcpPort {string}
+     * - udpPort {string}
+     * - connectionLimit {string}
      */
     getRTSPSettings: () => api({
       method: 'get',
@@ -681,16 +681,16 @@ module.exports = {
      * Schema: webserver-form-schema/rtsp-settings-schema
      * @param {boolean} isEnableAudioToStream - 將聲音記錄至串流除霧
      * @param {boolean} isEnablePassword - 連線時需帳號密碼認證
-     * @param {number} tcpPort - RTSP/TCP 連接埠
-     * @param {number} udpPort - RTSP/UDP 連接埠
-     * @param {number} connectionLimit - 最大連接數
+     * @param {string} tcpPort - RTSP/TCP 連接埠
+     * @param {string} udpPort - RTSP/UDP 連接埠
+     * @param {string} connectionLimit - 最大連接數
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isEnableAudioToStream {boolean}
      * - isEnablePassword {boolean}
-     * - tcpPort {number}
-     * - udpPort {number}
-     * - connectionLimit {number}
+     * - tcpPort {string}
+     * - udpPort {string}
+     * - connectionLimit {string}
      */
     updateRTSPSettings: ({isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}) => api({
       method: 'put',
