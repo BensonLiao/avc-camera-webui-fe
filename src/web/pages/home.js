@@ -107,7 +107,7 @@ module.exports = class Home extends Base {
         if (this.state.isPlayStream) {
           const imageUrl = window.URL.createObjectURL(response.data);
           this.setState({streamImageUrl: imageUrl});
-          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
+          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 50);
         }
       })
       .catch(error => {
@@ -117,7 +117,7 @@ module.exports = class Home extends Base {
         }
 
         if (this.state.isPlayStream) {
-          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
+          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 50);
         }
       });
   };
