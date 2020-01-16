@@ -111,7 +111,11 @@ module.exports = class Home extends Base {
         }
       })
       .catch(error => {
-        console.error(error);
+        if (error && error.response && error.response.status === 401) {
+          location.href = '/login';
+          return;
+        }
+
         if (this.state.isPlayStream) {
           this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
         }
