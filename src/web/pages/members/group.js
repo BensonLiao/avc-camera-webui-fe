@@ -80,7 +80,7 @@ module.exports = class Group extends Base {
 
   groupFormRender = ({errors, touched}) => {
     const {groups, group} = this.props;
-    const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
+    const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX && !group;
 
     return (
       <Form>
