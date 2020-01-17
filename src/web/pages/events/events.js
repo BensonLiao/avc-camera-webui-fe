@@ -564,7 +564,11 @@ module.exports = class Events extends Base {
                           {utils.formatDate(event.time, {withSecond: true})}
                         </td>
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          <img className="rounded-circle" src={event.pictureThumbUrl} style={{height: '56px'}}/>
+                          <div style={{width: 56, height: 56}}>
+                            <div className="rounded-circle overflow-hidden" style={{margin: 0, padding: '0 0 100%', position: 'relative'}}>
+                              <div style={{background: '50%', backgroundSize: 'cover', width: '100%', height: '100%', position: 'absolute', left: 0, top: 0, backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
+                            </div>
+                          </div>
                         </td>
                         <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                           {
