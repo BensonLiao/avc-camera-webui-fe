@@ -349,6 +349,20 @@ window.languageResource = {
   'Word position': '貼圖顯示位置',
   'Please click position buttons.': '請於左方畫面點選貼圖顯示位置。',
 
+  // /notification/app
+  'Basic settings': '基本設定',
+  App: 'App 相關',
+  Mail: 'Mail 相關',
+  'I/O': 'I/O 相關',
+  'Smart notifications': '智慧通知',
+  'Device token': '裝置金鑰',
+  'Please enter your device token.': '請輸入您的金鑰',
+  'Device id': '裝置編碼',
+  'Please enter your device id.': '請輸入您的編碼',
+  'Notification interval(second)': '通知時間間隔 (秒)',
+  'Please enter your notification interval.': '請輸入通知時間',
+  '5 - 1,800 seconds': '5 - 1800 秒',
+
   // /smart/face-recognition
   'Trigger area': '觸發區域',
   'Face size': '人臉大小',
