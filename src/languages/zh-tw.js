@@ -160,7 +160,7 @@ window.languageResource = {
 
   // Navigation
   Home: '首頁',
-  'Multimedia settings': '多媒體串流',
+  'Multimedia settings': '多媒體設定',
   'Notification settings': '通知設定',
   Members: '成員管理',
   'Smart functions': '智慧功能',
