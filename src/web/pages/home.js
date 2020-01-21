@@ -70,8 +70,10 @@ module.exports = class Home extends Base {
         window.URL.revokeObjectURL(this.state.streamImageUrl);
       }
 
-      this.setState({isPlayStream: false, streamImageUrl: null});
-      clearTimeout(this.fetchSnapshotTimeoutId);
+      this.setState(
+        {isPlayStream: false, streamImageUrl: null},
+        () => clearTimeout(this.fetchSnapshotTimeoutId)
+      );
     }
 
     super.componentWillUnmount();
@@ -106,8 +108,12 @@ module.exports = class Home extends Base {
 
         if (this.state.isPlayStream) {
           const imageUrl = window.URL.createObjectURL(response.data);
-          this.setState({streamImageUrl: imageUrl});
-          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 50);
+          this.setState(
+            {streamImageUrl: imageUrl},
+            () => {
+              this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 50);
+            }
+          );
         }
       })
       .catch(error => {
@@ -126,6 +132,7 @@ module.exports = class Home extends Base {
     event.preventDefault();
     this.setState(prevState => {
       if (prevState.isPlayStream) {
+        // Stop play stream.
         if (prevState.streamImageUrl) {
           window.URL.revokeObjectURL(prevState.streamImageUrl);
         }
@@ -133,6 +140,7 @@ module.exports = class Home extends Base {
         return {isPlayStream: false, streamImageUrl: null};
       }
 
+      // Start play stream.
       this.fetchSnapshot();
       return {isPlayStream: true};
     });
