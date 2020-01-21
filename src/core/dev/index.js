@@ -29,7 +29,7 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onPost('/api/video/settings/_auto-focus').reply(config => new Promise((resolve, _) => {
     setTimeout(() => {
       resolve(mockResponseWithLog(config, [204, {}]));
-    }, 1000);
+    }, 3000); // The real api is delay 45s.
   }))
   .onGet('/api/system/information').reply(config => {
     return mockResponseWithLog(config, [200, db.get('system').value()]);
