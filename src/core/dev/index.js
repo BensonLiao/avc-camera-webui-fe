@@ -13,10 +13,24 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('video').assign(newItem).write()]);
   })
+  .onPut('/api/video/settings/focus').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      const data = {
+        ...db.get('video').value(),
+        ...JSON.parse(config.data)
+      };
+      resolve(mockResponseWithLog(config, [200, db.get('video').assign(data).write()]));
+    }, 1000);
+  }))
   .onPost('/api/video/settings/_reset').reply(config => {
     const defaultItem = db.get('videoDefault').value();
     return mockResponseWithLog(config, [200, db.get('video').assign(defaultItem).write()]);
   })
+  .onPost('/api/video/settings/_auto-focus').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      resolve(mockResponseWithLog(config, [204, {}]));
+    }, 1000);
+  }))
   .onGet('/api/system/information').reply(config => {
     return mockResponseWithLog(config, [200, db.get('system').value()]);
   })

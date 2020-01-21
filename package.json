@@ -71,8 +71,8 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#55ff113a6f12cea7963ea8869d323916862ad147",
-    "webserver-prototype": "git+http://gitlab+deploy-token-4:4T2Lsn6ZE__sh6ZoCsPN@192.168.100.137/cloud/webserver-prototype.git#6e8e438066012f63b6bdbc249ce2ee72f2df3307"
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#c18f629c18b6cd815807f6c5e412628b3985d294",
+    "webserver-prototype": "git+http://gitlab+deploy-token-4:4T2Lsn6ZE__sh6ZoCsPN@192.168.100.137/cloud/webserver-prototype.git#1b090af05d8967a674033e767bb19b7c9e71aa7c"
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",
