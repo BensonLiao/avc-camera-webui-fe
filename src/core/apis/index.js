@@ -37,7 +37,7 @@ module.exports = config => {
     .catch(error => {
       if (error && error.response && error.response.status === 401) {
         location.href = '/login';
-        return new Promise(); // Lock the promise chain.
+        return new Promise(() => {}); // Lock the promise chain.
       }
 
       throw error;
