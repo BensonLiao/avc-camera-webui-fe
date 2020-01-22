@@ -287,6 +287,9 @@ window.languageResource = {
   Sharpness: '銳利度',
   Orientation: '影像方向',
   'Flicker less': '刷新頻率',
+  Focus: '對焦',
+  'Auto focus': '自動對焦',
+  'Focal length': '焦距',
 
   // /events
   'Filter condition': '篩選條件',

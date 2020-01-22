@@ -38,8 +38,8 @@ module.exports = {
         orientation: OrientationType.normal,
         refreshRate: RefreshRate.auto,
         sensitivity: 0,
-        autoFocusEnabled: false,
-        focalLength: 1,
+        isAutoFocus: false,
+        focalLength: 5,
         zoom: 1
       },
       video: {
@@ -60,8 +60,8 @@ module.exports = {
         orientation: OrientationType.normal,
         refreshRate: RefreshRate.auto,
         sensitivity: 0,
-        autoFocusEnabled: false,
-        focalLength: 1,
+        isAutoFocus: false,
+        focalLength: 5,
         zoom: 1
       },
       system: {

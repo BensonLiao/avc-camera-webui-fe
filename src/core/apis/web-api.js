@@ -250,7 +250,7 @@ module.exports = {
      * - orientation {String}
      * - refreshRate {String}
      * - sensitivity {Number}
-     * - autoFocusEnabled {Boolean}
+     * - isAutoFocus {Boolean}
      * - focalLength {Number}
      * - zoom {Number}
      */
@@ -353,6 +353,20 @@ module.exports = {
     resetSettings: () => api({
       method: 'post',
       url: '/api/video/settings/_reset'
+    }),
+    startAutoFocus: () => api({
+      method: 'post',
+      url: '/api/video/settings/_auto-focus'
+    }),
+    /**
+     * @param {number} focalLength
+     * @param {number} zoom
+     * @returns {Promise<response>}
+     */
+    updateFocusSettings: ({focalLength, zoom}) => api({
+      method: 'put',
+      url: '/api/video/settings/focus',
+      data: {focalLength, zoom}
     })
   },
   smartFunction: {
