@@ -74,11 +74,11 @@ module.exports = class Pagination extends React.PureComponent {
 
     return (
       <div className="col-12">
-        <nav className="d-flex justify-content-center align-items-center">
-          <p className="text-size-14 text-muted mr-auto invisible">
+        <nav className="d-flex justify-content-center align-items-center" style={{padding: '0px 2px', height: '36px'}}>
+          <p className="text-size-14 text-muted mb-0 mr-auto invisible">
             {_('{0}-{1} items. Total: {2}', [startItem, endItem, this.props.total])}
           </p>
-          <ul className="pagination">
+          <ul className="pagination my-auto">
             <li className={classNames('page-item', {disabled: !hasPrevious})}>
               <Link to={hasPrevious ? format(this.props.hrefTemplate, {index: this.props.index - 1}) : ''}
                 className="page-link"
@@ -105,15 +105,9 @@ module.exports = class Pagination extends React.PureComponent {
             <li className="page-item">
               <input
                 type="number"
-                placeholder={1}
+                className="page-input"
                 min={1}
                 max={this.maxGotoIndex}
-                style={{
-                  margin: '0px 8px',
-                  lineHeight: 2,
-                  textAlign: 'center',
-                  paddingLeft: '8px'
-                }}
                 onChange={this.onChangeGotoIndex}
                 onKeyPress={this.onKeyPress}
               />
@@ -126,7 +120,7 @@ module.exports = class Pagination extends React.PureComponent {
               </Link>
             </li>
           </ul>
-          <p className="text-size-14 text-muted ml-auto">
+          <p className="text-size-14 text-muted mb-0 ml-auto">
             {_('{0}-{1} items. Total: {2}', [startItem, endItem, this.props.total])}
           </p>
         </nav>
