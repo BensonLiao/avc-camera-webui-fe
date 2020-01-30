@@ -81,7 +81,7 @@ module.exports = class Pagination extends React.PureComponent {
           <ul className="pagination my-auto">
             <li className={classNames('page-item', {disabled: !hasPrevious})}>
               <Link to={hasPrevious ? format(this.props.hrefTemplate, {index: this.props.index - 1}) : ''}
-                className="page-link"
+                className="page-link prev"
               >
                 &laquo;
               </Link>
@@ -97,7 +97,7 @@ module.exports = class Pagination extends React.PureComponent {
             }
             <li className={classNames('page-item', {disabled: !hasNext})}>
               <Link to={hasNext ? format(this.props.hrefTemplate, {index: this.props.index + 1}) : ''}
-                className="page-link"
+                className="page-link next"
               >
                 &raquo;
               </Link>
@@ -114,7 +114,7 @@ module.exports = class Pagination extends React.PureComponent {
             </li>
             <li className="page-item">
               <Link to={format(this.props.hrefTemplate, {index: gotoIndex})}
-                className="page-link"
+                className="page-link go"
               >
                 Go
               </Link>
