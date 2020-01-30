@@ -55,6 +55,87 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.media.privacy-mask',
+      uri: '/privacy-mask',
+      onEnter: () => {
+        document.title = `${_('Privacy mask')} - ${_('Multimedia settings')} - ${_title}`;
+      },
+      resolve: {
+        privacyMaskSettings: () => api.multimedia.getPrivacyMaskSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/privacy-mask'
+      )
+    },
+    {
+      name: 'web.media.audio',
+      uri: '/audio',
+      onEnter: () => {
+        document.title = `${_('Audio settings')} - ${_('Multimedia settings')} - ${_title}`;
+      },
+      resolve: {
+        audioSettings: () => api.multimedia.getAudioSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/audio'
+      )
+    },
+    {
+      name: 'web.media.rtsp',
+      uri: '/rtsp',
+      onEnter: () => {
+        document.title = `${_('RTSP settings')} - ${_('Multimedia settings')} - ${_title}`;
+      },
+      resolve: {
+        rtspSettings: () => api.multimedia.getRTSPSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/rtsp'
+      )
+    },
+    {
+      name: 'web.media.word',
+      uri: '/word',
+      onEnter: () => {
+        document.title = `${_('Text stickers')} - ${_('Multimedia settings')} - ${_title}`;
+      },
+      resolve: {
+        wordSettings: () => api.multimedia.getWordSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/word'
+      )
+    },
+    {
+      name: 'web.notification',
+      uri: '/notification',
+      onEnter: () => {
+        document.title = `${_('Notification settings')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-notification" */
+        './pages/notification/layout'
+      )
+    },
+    {
+      name: 'web.notification.app',
+      uri: '/app',
+      onEnter: () => {
+        document.title = `${_('Notification settings')} - ${_title}`;
+      },
+      resolve: {
+        appSettings: () => api.notification.getAppSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-notification" */
+        './pages/notification/app'
+      )
+    },
+    {
       name: 'web.smart',
       uri: '/smart',
       onEnter: () => {

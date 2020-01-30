@@ -54,6 +54,7 @@
     "mini-css-extract-plugin": "0.8.0",
     "node-sass": "4.13.0",
     "nprogress": "0.2.0",
+    "object-path": "0.11.4",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "prop-types": "15.7.2",
     "pubsub-js": "1.7.0",
@@ -61,6 +62,7 @@
     "react-bootstrap": "1.0.0-beta.14",
     "react-dom": "16.12.0",
     "react-draggable": "4.2.0",
+    "react-hotkeys": "2.0.0",
     "react-notifications-component": "2.2.4",
     "react-use": "13.8.0",
     "sass-loader": "8.0.0",
@@ -69,7 +71,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#c272f6bee249cf52be4bc9c46c15e088686703cc",
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#c18f629c18b6cd815807f6c5e412628b3985d294",
     "webserver-prototype": "git+http://gitlab+deploy-token-4:4T2Lsn6ZE__sh6ZoCsPN@192.168.100.137/cloud/webserver-prototype.git#d6f1b7afdd73f4d798d8a3c2db0b025e9070998c"
   },
   "devDependencies": {

@@ -76,14 +76,20 @@ module.exports = class Layout extends Base {
             'web.media',
             'web.media.stream',
             'web.media.rtsp',
-            'web.media.overlay',
+            'web.media.word',
             'web.media.privacy-mask',
             'web.media.audio'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
       notification: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {
+          active: [
+            'web.notification',
+            'web.notification.app'
+          ].indexOf(this.state.currentRouteName) >= 0
+        }
       ),
       members: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -157,7 +163,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Notification settings')} {...tooltipOptions}>
-            <Link className={classTable.notification} to="/notification/app.html">
+            <Link className={classTable.notification} to="/notification/app">
               <img src={iconNotification}/>
             </Link>
           </Tooltip>

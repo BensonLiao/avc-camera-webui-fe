@@ -10,6 +10,7 @@ const defaultVideoBackground = require('webserver-prototype/src/resource/video-b
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
+const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-settings-schema');
 const Base = require('./shared/base');
 const _ = require('../../languages');
 const utils = require('../../core/utils');
@@ -49,7 +50,10 @@ module.exports = class Home extends Base {
         timePeriodEnd: PropTypes.number.isRequired, // 黑白模式-指定時間
         sharpness: PropTypes.number.isRequired, // 銳利度
         orientation: PropTypes.oneOf(videoSettingsSchema.orientation.enum).isRequired, // 影像方向
-        refreshRate: PropTypes.oneOf(videoSettingsSchema.refreshRate.enum).isRequired // 刷新頻率
+        refreshRate: PropTypes.oneOf(videoSettingsSchema.refreshRate.enum).isRequired, // 刷新頻率
+        isAutoFocus: PropTypes.bool.isRequired, // 自動對焦
+        focalLength: PropTypes.number.isRequired, // 焦距
+        zoom: PropTypes.number.isRequired
       }).isRequired
     };
   }
@@ -62,6 +66,7 @@ module.exports = class Home extends Base {
     this.state.deviceName = props.systemInformation.deviceName || '';
     this.state.isPlayStream = false;
     this.state.streamImageUrl = null;
+    this.state.isAutoFocusProcessing = false;
   }
 
   componentWillUnmount() {
@@ -70,8 +75,10 @@ module.exports = class Home extends Base {
         window.URL.revokeObjectURL(this.state.streamImageUrl);
       }
 
-      this.setState({isPlayStream: false, streamImageUrl: null});
-      clearTimeout(this.fetchSnapshotTimeoutId);
+      this.setState(
+        {isPlayStream: false, streamImageUrl: null},
+        () => clearTimeout(this.fetchSnapshotTimeoutId)
+      );
     }
 
     super.componentWillUnmount();
@@ -85,16 +92,24 @@ module.exports = class Home extends Base {
     ]
   });
 
-  onChangeVideoSettings = ({nextValues}) => {
-    const values = {
-      ...nextValues,
-      timePeriodStart: nextValues.dnDuty[0],
-      timePeriodEnd: nextValues.dnDuty[1]
-    };
+  onChangeVideoSettings = ({nextValues, prevValues}) => {
+    if (prevValues.focalLength !== nextValues.focalLength || prevValues.zoom !== nextValues.zoom) {
+      // Change focus settings.
+      this.submitPromise = this.submitPromise
+        .then(() => api.video.updateFocusSettings(nextValues))
+        .catch(utils.renderError);
+    } else {
+      // Change other settings.
+      const values = {
+        ...nextValues,
+        timePeriodStart: nextValues.dnDuty[0],
+        timePeriodEnd: nextValues.dnDuty[1]
+      };
 
-    this.submitPromise = this.submitPromise
-      .then(() => api.video.updateSettings(values))
-      .catch(utils.renderError);
+      this.submitPromise = this.submitPromise
+        .then(() => api.video.updateSettings(values))
+        .catch(utils.renderError);
+    }
   };
 
   fetchSnapshot = () => {
@@ -106,14 +121,22 @@ module.exports = class Home extends Base {
 
         if (this.state.isPlayStream) {
           const imageUrl = window.URL.createObjectURL(response.data);
-          this.setState({streamImageUrl: imageUrl});
-          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
+          this.setState(
+            {streamImageUrl: imageUrl},
+            () => {
+              this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 50);
+            }
+          );
         }
       })
       .catch(error => {
-        console.error(error);
+        if (error && error.response && error.response.status === 401) {
+          location.href = '/login';
+          return;
+        }
+
         if (this.state.isPlayStream) {
-          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
+          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 50);
         }
       });
   };
@@ -122,6 +145,7 @@ module.exports = class Home extends Base {
     event.preventDefault();
     this.setState(prevState => {
       if (prevState.isPlayStream) {
+        // Stop play stream.
         if (prevState.streamImageUrl) {
           window.URL.revokeObjectURL(prevState.streamImageUrl);
         }
@@ -129,6 +153,7 @@ module.exports = class Home extends Base {
         return {isPlayStream: false, streamImageUrl: null};
       }
 
+      // Start play stream.
       this.fetchSnapshot();
       return {isPlayStream: true};
     });
@@ -158,6 +183,24 @@ module.exports = class Home extends Base {
       .then(response => resetForm({values: this.generateInitialValues(response.data)}))
       .catch(utils.renderError)
       .finally(progress.done);
+  };
+
+  generateClickAutoFocusButtonHandler = ({resetForm}) => event => {
+    event.preventDefault();
+    progress.start();
+    this.setState({isAutoFocusProcessing: true});
+    this.submitPromise = this.submitPromise
+      .then(api.video.startAutoFocus)
+      .then(api.video.getSettings)
+      .then(response => {
+        progress.done();
+        resetForm({values: this.generateInitialValues(response.data)});
+        this.setState({isAutoFocusProcessing: false});
+      })
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
   };
 
   onSubmitDeviceNameForm = ({deviceName}, {resetForm}) => {
@@ -276,7 +319,7 @@ module.exports = class Home extends Base {
                   <label>{_('Saturation')}</label>
                   <span className="text-primary text-size-14">{values.saturation}</span>
                 </div>
-                <Field name="saturation" component={Slider} step={10}
+                <Field name="saturation" component={Slider} step={1}
                   min={videoSettingsSchema.saturation.min}
                   max={videoSettingsSchema.saturation.max}/>
               </div>
@@ -295,7 +338,7 @@ module.exports = class Home extends Base {
                         <label>{_('Color temperature')}</label>
                         <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
                       </div>
-                      <Field name="whiteblanceManual" component={Slider} step={10}
+                      <Field name="whiteblanceManual" component={Slider} step={1000}
                         min={videoSettingsSchema.whiteblanceManual.min}
                         max={videoSettingsSchema.whiteblanceManual.max}/>
                     </div>
@@ -359,7 +402,7 @@ module.exports = class Home extends Base {
                   <label>{_('Sharpness')}</label>
                   <span className="text-primary text-size-14">{values.sharpness}</span>
                 </div>
-                <Field name="sharpness" component={Slider} step={10}
+                <Field name="sharpness" component={Slider} step={1}
                   min={videoSettingsSchema.sharpness.min}
                   max={videoSettingsSchema.sharpness.max}/>
               </div>
@@ -380,6 +423,48 @@ module.exports = class Home extends Base {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 對焦 */}
+          <hr className="my-0"/>
+          <div className="card-body pb-0">
+            <h2 className="d-flex justify-content-between">
+              <button type="button" data-toggle="collapse" data-target="#focus"
+                className="btn btn-link btn-block text-left collapsed"
+              >
+                <i className="fas fa-chevron-up"/>{_('Focus')}
+              </button>
+              <button
+                disabled={this.state.$isApiProcessing} type="button"
+                className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
+                onClick={this.generateClickAutoFocusButtonHandler(form)}
+              >
+                {_('Auto focus')}
+              </button>
+            </h2>
+
+            <div id="focus" className="collapse" data-parent="#accordion-video-properties">
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Focal length')}</label>
+                  <span className="text-primary text-size-14">{values.focalLength}</span>
+                </div>
+                <Field disabled={this.state.isAutoFocusProcessing}
+                  name="focalLength" component={Slider} step={1}
+                  min={videoFocusSettingsSchema.focalLength.min}
+                  max={videoFocusSettingsSchema.focalLength.max}/>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>ZOOM</label>
+                  <span className="text-primary text-size-14">{values.zoom}</span>
+                </div>
+                <Field disabled={this.state.isAutoFocusProcessing}
+                  name="zoom" component={Slider} step={0.1}
+                  min={videoFocusSettingsSchema.zoom.min}
+                  max={videoFocusSettingsSchema.zoom.max}/>
               </div>
             </div>
           </div>

@@ -90,6 +90,15 @@ window.languageResource = {
   'confidence-level-1': '中',
   'confidence-level-2': '高',
 
+  // 聲音品質
+  'audio-quality-0': '低 (G.711, 8kHz, 64kbps, Mono)',
+  'audio-quality-1': '一般 (AAC, 16kHz, 96kbps, Mono)',
+
+  // 文字大小
+  'font-size-0': '小',
+  'font-size-1': '中',
+  'font-size-2': '大',
+
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
   'validation-required': '此欄位必填。',
@@ -278,6 +287,9 @@ window.languageResource = {
   Sharpness: '銳利度',
   Orientation: '影像方向',
   'Flicker less': '刷新頻率',
+  Focus: '對焦',
+  'Auto focus': '自動對焦',
+  'Focal length': '焦距',
 
   // /events
   'Filter condition': '篩選條件',
@@ -310,6 +322,49 @@ window.languageResource = {
   'VBR bitrate level': '可變比特率 (VBR)',
   'VBR max bitrate': '最佳可變比特率 (VBR Max Bitrate)',
   'CBR bitrate': '固定比特率 (CBR)',
+
+  // /media/privacy-mask
+  'Mask area': '遮罩區域',
+  '1. Please drag a mask area.': '1. 請框選畫面位置決定遮罩區域。',
+  '2. The mask area limit is 4. To drag for creating, delete to remove.': '2. 遮罩區域最多可設定4個、用拖移新增、delete刪除。',
+
+  // /media/audio
+  'Multimedia streaming': '多媒體串流',
+  'Audio settings': '聲音設定',
+  Audio: '聲音',
+  'Audio quality': '聲音品質',
+  'Audio input source': '聲音輸入來源',
+  'Built-in microphone': '內建式麥克風',
+  'Sound output': '聲音輸出',
+
+  // /media/rtsp
+  'Record sound to stream': '將聲音記錄至串流',
+  'Required authentication': '連線時需帳號密碼認證',
+  'RTSP/TCP port': 'RTSP/TCP 連接埠',
+  'RTSP/UDP port': 'RTSP/UDP 連接埠',
+  'Concurrent connection limit': '最大連接數',
+
+  // /media/word
+  Function: '功能',
+  'Word color': '文字顏色',
+  Word: '文字',
+  Size: '大小',
+  'Word position': '貼圖顯示位置',
+  'Please click position buttons.': '請於左方畫面點選貼圖顯示位置。',
+
+  // /notification/app
+  'Basic settings': '基本設定',
+  App: 'App 相關',
+  Mail: 'Mail 相關',
+  'I/O': 'I/O 相關',
+  'Smart notifications': '智慧通知',
+  'Device token': '裝置金鑰',
+  'Please enter your device token.': '請輸入您的金鑰',
+  'Device id': '裝置編碼',
+  'Please enter your device id.': '請輸入您的編碼',
+  'Notification interval(second)': '通知時間間隔 (秒)',
+  'Please enter your notification interval.': '請輸入通知時間',
+  '5 - 1,800 seconds': '5 - 1800 秒',
 
   // /smart/face-recognition
   'Trigger area': '觸發區域',

@@ -201,6 +201,34 @@ module.exports = {
       data: {language}
     })
   },
+  notification: {
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - deviceToken {string}
+     * - deviceId {string}
+     * - interval {string}
+     */
+    getAppSettings: () => api({
+      method: 'get',
+      url: '/api/notification/app/settings'
+    }),
+    /**
+     * @param {string} deviceToken
+     * @param {string} deviceId
+     * @param {string} interval
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - deviceToken {string}
+     * - deviceId {string}
+     * - interval {string}
+     */
+    updateAppSettings: ({deviceToken, deviceId, interval}) => api({
+      method: 'put',
+      url: '/api/notification/app/settings',
+      data: {deviceToken, deviceId, interval}
+    })
+  },
   video: {
     /**
      * @returns {Promise<response>}
@@ -222,7 +250,7 @@ module.exports = {
      * - orientation {String}
      * - refreshRate {String}
      * - sensitivity {Number}
-     * - autoFocusEnabled {Boolean}
+     * - isAutoFocus {Boolean}
      * - focalLength {Number}
      * - zoom {Number}
      */
@@ -325,6 +353,20 @@ module.exports = {
     resetSettings: () => api({
       method: 'post',
       url: '/api/video/settings/_reset'
+    }),
+    startAutoFocus: () => api({
+      method: 'post',
+      url: '/api/video/settings/_auto-focus'
+    }),
+    /**
+     * @param {number} focalLength
+     * @param {number} zoom
+     * @returns {Promise<response>}
+     */
+    updateFocusSettings: ({focalLength, zoom}) => api({
+      method: 'put',
+      url: '/api/video/settings/focus',
+      data: {focalLength, zoom}
     })
   },
   smartFunction: {
@@ -669,9 +711,9 @@ module.exports = {
      * @response 200 {Object}
      * - isEnableAudioToStream {boolean}
      * - isEnablePassword {boolean}
-     * - tcpPort {number}
-     * - udpPort {number}
-     * - connectionLimit {number}
+     * - tcpPort {string}
+     * - udpPort {string}
+     * - connectionLimit {string}
      */
     getRTSPSettings: () => api({
       method: 'get',
@@ -681,21 +723,111 @@ module.exports = {
      * Schema: webserver-form-schema/rtsp-settings-schema
      * @param {boolean} isEnableAudioToStream - 將聲音記錄至串流除霧
      * @param {boolean} isEnablePassword - 連線時需帳號密碼認證
-     * @param {number} tcpPort - RTSP/TCP 連接埠
-     * @param {number} udpPort - RTSP/UDP 連接埠
-     * @param {number} connectionLimit - 最大連接數
+     * @param {string} tcpPort - RTSP/TCP 連接埠
+     * @param {string} udpPort - RTSP/UDP 連接埠
+     * @param {string} connectionLimit - 最大連接數
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isEnableAudioToStream {boolean}
      * - isEnablePassword {boolean}
-     * - tcpPort {number}
-     * - udpPort {number}
-     * - connectionLimit {number}
+     * - tcpPort {string}
+     * - udpPort {string}
+     * - connectionLimit {string}
      */
     updateRTSPSettings: ({isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}) => api({
       method: 'put',
       url: '/api/multimedia/rtsp/settings',
       data: {isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - maskAreas {Array<Object>}
+     * - maskAreas[].x {number}
+     * - maskAreas[].y {number}
+     * - maskAreas[].width {number}
+     * - maskAreas[].height {number}
+     */
+    getPrivacyMaskSettings: () => api({
+      method: 'get',
+      url: '/api/multimedia/privacy-mask/settings'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {Array<{x: number, y: number, width: number, height: number}>} maskAreas
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - maskAreas {Array<Object>}
+     * - maskAreas[].x {number}
+     * - maskAreas[].y {number}
+     * - maskAreas[].width {number}
+     * - maskAreas[].height {number}
+     */
+    updatePrivacyMaskSettings: ({isEnable, maskAreas}) => api({
+      method: 'put',
+      url: '/api/multimedia/privacy-mask/settings',
+      data: {isEnable, maskAreas}
+    }),
+    /**
+     * Schema: webserver-form-schema/audio-settings-schema
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableInput {boolean}
+     * - isEnableOutput {boolean}
+     * - inputQuality {string}
+     * - inputSource {string}
+     */
+    getAudioSettings: () => api({
+      method: 'get',
+      url: '/api/multimedia/audio/settings'
+    }),
+    /**
+     * @param {boolean} isEnableInput
+     * @param {boolean} isEnableOutput
+     * @param {string} inputQuality
+     * @param {string} inputSource
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableInput {boolean}
+     * - isEnableOutput {boolean}
+     * - inputQuality {string}
+     * - inputSource {string}
+     */
+    updateAudioSettings: ({isEnableInput, isEnableOutput, inputQuality, inputSource}) => api({
+      method: 'put',
+      url: '/api/multimedia/audio/settings',
+      data: {isEnableInput, isEnableOutput, inputQuality, inputSource}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - fontSize {string}
+     * - color {string}
+     * - position {string}
+     */
+    getWordSettings: () => api({
+      method: 'get',
+      url: '/api/multimedia/word/settings'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {string} fontSize
+     * @param {string} color
+     * @param {string} position
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - fontSize {string}
+     * - color {string}
+     * - position {string}
+     */
+    updateWordSettings: ({isEnable, fontSize, color, position}) => api({
+      method: 'put',
+      url: '/api/multimedia/word/settings',
+      data: {isEnable, fontSize, color, position}
     })
   },
   event: {

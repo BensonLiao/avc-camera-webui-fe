@@ -104,7 +104,7 @@ module.exports = class User extends Base {
 
   formRender = ({errors, touched}) => {
     const {users: {items}, user} = this.props;
-    const isAddUserDisabled = items.length >= SECURITY_USERS_MAX;
+    const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
     return (
       <Form>
         <div className="modal-body">

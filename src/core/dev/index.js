@@ -13,10 +13,24 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('video').assign(newItem).write()]);
   })
+  .onPut('/api/video/settings/focus').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      const data = {
+        ...db.get('video').value(),
+        ...JSON.parse(config.data)
+      };
+      resolve(mockResponseWithLog(config, [200, db.get('video').assign(data).write()]));
+    }, 1000);
+  }))
   .onPost('/api/video/settings/_reset').reply(config => {
     const defaultItem = db.get('videoDefault').value();
     return mockResponseWithLog(config, [200, db.get('video').assign(defaultItem).write()]);
   })
+  .onPost('/api/video/settings/_auto-focus').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      resolve(mockResponseWithLog(config, [204, {}]));
+    }, 3000); // The real api is delay 45s.
+  }))
   .onGet('/api/system/information').reply(config => {
     return mockResponseWithLog(config, [200, db.get('system').value()]);
   })
@@ -35,6 +49,41 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onPost('/api/multimedia/stream/settings/_reset').reply(config => {
     const defaultItem = db.get('streamDefault').value();
     return mockResponseWithLog(config, [200, db.get('stream').assign(defaultItem).write()]);
+  })
+  .onGet('/api/multimedia/audio/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('audioSettings').value()]);
+  })
+  .onPut('/api/multimedia/audio/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('audioSettings').assign(newItem).write()]);
+  })
+  .onGet('/api/multimedia/rtsp/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('rtspSettings').value()]);
+  })
+  .onPut('/api/multimedia/rtsp/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('rtspSettings').assign(newItem).write()]);
+  })
+  .onGet('/api/multimedia/privacy-mask/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('privacyMaskSettings').value()]);
+  })
+  .onPut('/api/multimedia/privacy-mask/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('privacyMaskSettings').assign(newItem).write()]);
+  })
+  .onGet('/api/multimedia/word/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('wordSettings').value()]);
+  })
+  .onPut('/api/multimedia/word/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('wordSettings').assign(newItem).write()]);
+  })
+  .onGet('/api/notification/app/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('notificationAppSettings').value()]);
+  })
+  .onPut('/api/notification/app/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('notificationAppSettings').assign(newItem).write()]);
   })
   .onGet('/api/groups').reply(config => {
     return mockResponseWithLog(config, [200, {

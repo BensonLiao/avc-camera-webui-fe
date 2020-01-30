@@ -24,44 +24,44 @@ module.exports = {
         defoggingEnabled: false,
         irEnabled: false,
         brightness: 0,
-        contrast: 0,
+        contrast: 6,
         hdrEnabled: 'false',
         shutterSpeed: ShutterSpeed.auto,
         aperture: ApertureType.auto,
-        saturation: 0,
+        saturation: 2,
         whiteblanceMode: WhiteBalanceType.auto,
-        whiteblanceManual: 0,
+        whiteblanceManual: 5000,
         daynightMode: DaynightType.auto,
         timePeriodStart: 0,
         timePeriodEnd: 0,
-        sharpness: 0,
+        sharpness: 5,
         orientation: OrientationType.normal,
         refreshRate: RefreshRate.auto,
         sensitivity: 0,
-        autoFocusEnabled: false,
-        focalLength: 1,
+        isAutoFocus: false,
+        focalLength: 5,
         zoom: 1
       },
       video: {
         defoggingEnabled: false,
         irEnabled: false,
         brightness: 0,
-        contrast: 0,
+        contrast: 6,
         hdrEnabled: 'false',
         shutterSpeed: ShutterSpeed.auto,
         aperture: ApertureType.auto,
-        saturation: 0,
+        saturation: 2,
         whiteblanceMode: WhiteBalanceType.auto,
-        whiteblanceManual: 0,
+        whiteblanceManual: 5000,
         daynightMode: DaynightType.auto,
         timePeriodStart: 0,
         timePeriodEnd: 0,
-        sharpness: 0,
+        sharpness: 5,
         orientation: OrientationType.normal,
         refreshRate: RefreshRate.auto,
         sensitivity: 0,
-        autoFocusEnabled: false,
-        focalLength: 1,
+        isAutoFocus: false,
+        focalLength: 5,
         zoom: 1
       },
       system: {
@@ -118,6 +118,36 @@ module.exports = {
           gov: StreamGOV['120']
         }
       },
+      audioSettings: {
+        isEnableInput: true,
+        isEnableOutput: false,
+        inputQuality: '1',
+        inputSource: 'LINE IN'
+      },
+      rtspSettings: {
+        isEnableAudioToStream: true,
+        isEnablePassword: true,
+        tcpPort: '37778',
+        udpPort: '37778',
+        connectionLimit: '4'
+      },
+      privacyMaskSettings: {
+        isEnable: true,
+        maskAreas: [
+          {
+            x: 10,
+            y: 10,
+            width: 20,
+            height: 30
+          }
+        ]
+      },
+      wordSettings: {
+        isEnable: true,
+        fontSize: '1',
+        color: '0',
+        position: '1'
+      },
       faceRecognitionSettings: {
         isEnable: true,
         confidenceLevel: '0',
@@ -137,6 +167,11 @@ module.exports = {
           width: 20,
           height: 30
         }
+      },
+      notificationAppSettings: {
+        deviceToken: '',
+        deviceId: '',
+        interval: ''
       },
       groups: [
         {
