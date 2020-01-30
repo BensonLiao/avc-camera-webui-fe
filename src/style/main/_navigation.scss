@@ -1,0 +1,185 @@
+.navbar {
+  background-color: #fff;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+nav.navbar.fixed-top {
+  z-index: 1031;
+}
+
+.left-navigation {
+  padding-top: $navigation-height;
+  width: 80px;
+  height: 100vh;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  background-color: $primary;
+
+  .btn {
+    width: 64px;
+    height: 64px;
+    margin: 0 8px 16px 8px;
+    display: block;
+    border-radius: 8px;
+    &:first-child {
+      margin-top: 8px;
+    }
+
+    &:hover, &.active {
+      background-color: #34698A;
+    }
+
+    img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+.left-menu {
+  padding-top: $navigation-height;
+  margin-left: 80px;
+  width: 256px;
+  height: 100vh;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+  background-color: #666;
+
+  h2 {
+    font-size: 26px;
+    line-height: 40px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0;
+    padding: 20px 24px;
+  }
+
+  .text-truncate {
+    font-size: 20px;
+  }
+
+  hr {
+    border-color: #DEE2E6;
+    margin: 16px;
+  }
+
+  .groups {
+    color: #fff;
+    h3 {
+      padding-left: 16px + 24px;
+      margin: 0;
+      font-size: 20px;
+    }
+    .group-item {
+      padding: 12px 16px 12px 16px + 24px;
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .btn-delete {
+        @extend .transition;
+        visibility: hidden;
+        opacity: 0;
+      }
+      &:hover {
+        .btn-delete {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+      &.active {
+        background-color: #4D4D4D;
+        padding-right: 8px;
+        border-right: 8px solid #4991bf;
+      }
+    }
+    .actions {
+      padding: 0 32px;
+    }
+  }
+
+  .filter-wrapper {
+    margin: 0 16px;
+    .header {
+      padding: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px #ccc solid;
+      color: #fff;
+      a {
+        color: #fff;
+      }
+    }
+    .card {
+      border: none;
+      &.active .card-header {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      .card-header {
+        background-color: #4D4D4D;
+        border-radius: 8px;
+        padding: 10px 16px;
+        border: none;
+        font-size: 14px;
+        line-height: 24px;
+        a {
+          color: #fff;
+        }
+        .badge {
+          padding: 6px 10px;
+          margin-left: 16px;
+        }
+      }
+      .card-body {
+        background-color: #4D4D4D;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border-top: 1px #666 solid;
+        padding: 16px;
+        font-size: 14px;
+        color: #fff;
+        .form-check-label {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .nav {
+    .accordion {
+      @extend .w-100, .text-truncate;
+    }
+    a.nav-link {
+      @extend .w-100, .text-truncate;
+      font-size: 20px;
+      line-height: 30px;
+      color: #fff;
+      padding: 25px 24px;
+      i {
+        @extend .transition-transform;
+      }
+      &.active {
+        background: #4d4d4d;
+        border-right: 8px solid #4991bf;
+        border-radius: 0;
+        &.collapse {
+          border-right: none;
+        }
+      }
+      &.collapsed {
+        .fa-chevron-up {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    .collapsing, .collapse {
+      a {
+        &.active {
+          background-color: #1A1A1A;
+        }
+        background-color: #333333;
+        padding-left: 48px;
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+html.nprogress-busy {
+  cursor: wait !important;
+  body, div, input, textarea, button, select, img, a, label {
+    cursor: wait !important;
+  }
+}
+
+.page-loading {
+  height: 100vh;
+  .spinner-container {
+    position: relative;
+    .spinner-wrapper {
+      transform: scale(3, 3);
+      .spinner-border {
+        border-width: 0.15em;
+      }
+    }
+    .description {
+      position: absolute;
+      top: 0;
+      left: -20px;
+      font-size: 16px;
+      white-space: nowrap;
+      text-align: center;
+      width: 80px;
+      .dotty:after {
+        font-family: Consolas, Monaco, monospace;
+        font-size: 10px;
+        animation: dotty steps(1, end) 2s infinite;
+        content: '';
+      }
+    }
+  }
+}
+
+@keyframes dotty {
+  0% {
+    content: '\00a0\00a0\00a0';
+  }
+  25% {
+    content: '.\00a0\00a0';
+  }
+  50% {
+    content: '..\00a0';
+  }
+  75% {
+    content: '...';
+  }
+  100% {
+    content: '\00a0\00a0\00a0';
+  }
+}

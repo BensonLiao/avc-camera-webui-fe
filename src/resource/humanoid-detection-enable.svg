@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <g id="グループ_3295" data-name="グループ 3295" transform="translate(-238 -416)">
+    <g id="グループ_2794" data-name="グループ 2794" transform="translate(-736 29)">
+      <g id="man-512" transform="translate(984 397)">
+        <rect id="長方形_1077" data-name="長方形 1077" width="80" height="79.998" fill="none"/>
+      </g>
+      <g id="グループ_2788" data-name="グループ 2788" transform="translate(936 352)">
+        <g id="グループ_2768" data-name="グループ 2768" transform="translate(112 56)">
+          <line id="線_333" data-name="線 333" x1="15.835" transform="translate(0)" fill="none" stroke="#4991bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+          <line id="線_334" data-name="線 334" y1="16" transform="translate(16)" fill="none" stroke="#4991bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+        </g>
+        <g id="グループ_2769" data-name="グループ 2769" transform="translate(48 56)">
+          <line id="線_335" data-name="線 335" y2="15.835" transform="translate(0 0.165)" fill="none" stroke="#4991bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+          <line id="線_336" data-name="線 336" x1="16" transform="translate(0)" fill="none" stroke="#4991bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+        </g>
+        <g id="グループ_2771" data-name="グループ 2771" transform="translate(112 97)">
+          <line id="線_337" data-name="線 337" x1="15.835" transform="translate(0 16)" fill="none" stroke="#4991bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+          <line id="線_338" data-name="線 338" y2="16" transform="translate(16)" fill="none" stroke="#4991bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+        </g>
+        <g id="グループ_2772" data-name="グループ 2772" transform="translate(48 97)">
+          <line id="線_339" data-name="線 339" y1="15.835" transform="translate(0)" fill="none" stroke="#4991bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+          <line id="線_340" data-name="線 340" x1="16" transform="translate(0 16)" fill="none" stroke="#4991bf" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+        </g>
+      </g>
+      <rect id="長方形_1080" data-name="長方形 1080" width="100" height="100" transform="translate(974 387)" fill="none"/>
+    </g>
+    <g id="グループ_3294" data-name="グループ 3294" transform="translate(-443.006 -144.5)">
+      <path id="パス_1194" data-name="パス 1194" d="M724,586l-1-4,1-4,3-2,2-2,4,1,4,2,2,5-1,5-2,3,4,3,4,2,1,3,2,4-1,5,1,3v8l-2,2-3,1-2,1v23l-6,4-4-1-3,1-5-2-1-27h-4l-2-1V600l2-5,4-2,3-2h2l1-1Z" fill="#fff"/>
+      <path id="Path_1115" data-name="Path 1115" d="M741.936,622.885v.988c0,6.815.013,13.63-.008,20.444a7.094,7.094,0,0,1-5.5,6.965,6.8,6.8,0,0,1-5.158-.733,1,1,0,0,0-1.157-.025,7.109,7.109,0,0,1-10.676-6.256c-.036-6.786-.01-13.575-.01-20.363v-.97a6.581,6.581,0,0,1-7.414-6.833c.308-4.955.545-9.925,1.106-14.853.683-6,4.014-10.033,9.767-11.958.128-.042.249-.1.473-.19a10.4,10.4,0,0,1-2.576-9.573,9.943,9.943,0,0,1,3.79-5.89,10.258,10.258,0,0,1,13.128.492,10.142,10.142,0,0,1,3.45,7.373,10.555,10.555,0,0,1-2.85,7.623c.463.162.847.277,1.217.428a13.437,13.437,0,0,1,8.859,11.381c.539,4.357.7,8.761,1,13.146a15.343,15.343,0,0,1,.043,3.242,6.323,6.323,0,0,1-6.673,5.57C742.513,622.885,742.275,622.885,741.936,622.885Zm-4.079-23.9.221-.1a5.885,5.885,0,0,1,.922,1.25,8.67,8.67,0,0,1,.638,2.415c.373,4.652.683,9.31,1.011,13.965.1,1.422,1.252,2.757,2.324,2.568a2.655,2.655,0,0,0,2.508-2.794c0-.056-.007-.112-.014-.168-.3-4.495-.6-8.988-.93-13.481-.284-3.888-1.878-7-5.46-8.8a7.668,7.668,0,0,0-3.067-.9c-3.318-.1-6.642-.02-9.963-.007a4.671,4.671,0,0,0-.967.04,9.344,9.344,0,0,0-7.421,6.511,20.419,20.419,0,0,0-.743,4.553c-.337,4.11-.6,8.228-.856,12.345a2.656,2.656,0,0,0,2.487,2.727c.98.092,2.1-1.012,2.295-2.263a2.207,2.207,0,0,0,.022-.243c.119-2.087.217-4.175.361-6.258.192-2.788.39-5.576.647-8.358a4.286,4.286,0,0,1,1.631-3.122v45.129a3.2,3.2,0,0,0,1.932,3.2,3.093,3.093,0,0,0,4.259-3.13q.012-11.445,0-22.888v-.995h1.961v21.677c0,.923-.028,1.848.036,2.768a3,3,0,0,0,2.958,2.783c1.96.04,3.2-1.372,3.2-3.657V599.765c.009-.266.009-.525.009-.78Zm-13.286-17.114a6.27,6.27,0,1,0,6.288-6.286A6.27,6.27,0,0,0,724.571,581.871Z" fill="#4991bf"/>
+    </g>
+  </g>
+</svg>

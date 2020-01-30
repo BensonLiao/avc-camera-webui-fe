@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="パス_1170" data-name="パス 1170" d="M504.245,290.551l-15.2,49.711h63.3V290.551Z" transform="translate(-489.046 -290.551)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="グループ_3136" data-name="グループ 3136" transform="translate(-450.166 -273.762)" opacity="0.501">
+    <g id="グループ_3135" data-name="グループ 3135" transform="translate(450.167 273.762)">
+      <text id="HTTPS" transform="translate(33.253 118.336)" fill="#fff" font-size="20" font-family="Arial-BoldMT, Arial" font-weight="700"><tspan x="0" y="0">HTTPS</tspan></text>
+      <path id="パス_1175" data-name="パス 1175" d="M75,0A75,75,0,1,1,0,75,75,75,0,0,1,75,0Z" fill="#90c3df"/>
+      <path id="パス_1169" data-name="パス 1169" d="M522.274,322.918,466.9,316.165l29.495-17.2,56.185,7.745Z" transform="translate(-435.863 -252.281)" fill="#96765c"/>
+      <g id="グループ_3131" data-name="グループ 3131" transform="translate(46.053 31.112)">
+        <rect id="長方形_1145" data-name="長方形 1145" width="55.646" height="49.711" rx="10.009" fill="#267a78"/>
+        <rect id="長方形_1146" data-name="長方形 1146" width="52.32" height="49.711" rx="8.874" transform="translate(0 3.344)" fill="#76ae2e"/>
+      </g>
+      <text id="SDK" transform="translate(50.781 56.816)" fill="#fff" font-size="18" font-family="Arial-BoldMT, Arial" font-weight="700"><tspan x="0" y="0">SDK</tspan></text>
+      <g id="グループ_3133" data-name="グループ 3133" transform="translate(72.094 31.11)" opacity="0.54">
+        <g id="グループ_3132" data-name="グループ 3132" clip-path="url(#clip-path)">
+          <rect id="長方形_1147" data-name="長方形 1147" width="52.32" height="49.711" rx="8.874" transform="translate(-22.835)" fill="#364e27"/>
+        </g>
+      </g>
+      <g id="グループ_3134" data-name="グループ 3134" transform="translate(24.004 54.489)">
+        <path id="パス_1171" data-name="パス 1171" d="M522.274,367.97l-49.017-6.17L466.9,308.266l55.376,6.753Z" transform="translate(-459.862 -298.813)" fill="#c89c79"/>
+        <path id="パス_1172" data-name="パス 1172" d="M522.4,356.106l-25.561,16.206V319.361l30.3-16.206Z" transform="translate(-434.428 -303.155)" fill="#a98468"/>
+        <path id="パス_1173" data-name="パス 1173" d="M517.853,339.976l-54.76-6.59,7.036-25.12,55.376,6.753Z" transform="translate(-463.094 -298.813)" fill="#ddad85"/>
+        <path id="パス_1174" data-name="パス 1174" d="M537.167,324.826l-29.787,16.9-10.54-22.362,30.3-16.206Z" transform="translate(-434.428 -303.155)" fill="#ddad85"/>
+      </g>
+    </g>
+  </g>
+</svg>

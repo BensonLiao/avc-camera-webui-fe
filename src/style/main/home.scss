@@ -1,0 +1,110 @@
+.page-home {
+  padding: 48px 33px;
+  min-width: 1000px;
+
+  .card {
+    border-radius: 16px;
+    table {
+      width: 100%;
+      thead {
+        color: #FFFFFF;
+        th {
+          background-color: #666666;
+          &:first-child {
+            border-top-left-radius: 16px;
+          }
+          &:last-child {
+            border-top-right-radius: 16px;
+          }
+        }
+      }
+      th {
+        padding: 10px 24px;
+        font-size: 20px;
+      }
+      td {
+        padding: 32px 24px;
+        font-size: 16px;
+        .badge {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .card-header {
+    background-color: #666666;
+    border-radius: 16px 16px 0 0;
+    padding: 8px 24px;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .card-body {
+    padding: 20px 30px;
+    &.actions {
+      padding: 80px 24px 24px 24px;
+    }
+  }
+
+  .accordion {
+    h2 {
+      padding: 0;
+      margin: 0;
+      .tip {
+        height: 32px;
+        margin-top: 5px;
+      }
+      .collapsed + .tip {
+        display: none;
+      }
+      > .btn-link {
+        margin-left: -6px;
+        padding: 5px 0 25px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #666666;
+        text-decoration: none;
+        i {
+          margin-right: 16px;
+          color: #CCCCCC;
+          @extend .transition-transform;
+        }
+        .tip {
+          position: absolute; // To avoid height up the button.
+          font-size: 14px;
+          font-weight: normal;
+          border: 1px #CCCCCC solid;
+          border-radius: 6px;
+          padding: 4px 8px;
+          margin-left: 16px;
+        }
+        &.collapsed {
+          .fa-chevron-up {
+            transform: rotate(180deg);
+          }
+          .tip {
+            display: none;
+          }
+        }
+      }
+    }
+    .collapsing, .collapse {
+      .form-group {
+        label {
+          font-size: 16px;
+          font-weight: normal;
+          margin-bottom: 0;
+        }
+        .dropdown .btn-link {
+          font-size: 16px;
+          font-weight: normal;
+        }
+      }
+    }
+    .well {
+      border-radius: 6px;
+      background-color: #F2F2F2;
+      padding: 16px;
+    }
+  }
+}
