@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="376.666" height="84" viewBox="0 0 376.666 84">
+  <defs>
+    <filter id="パス_1" x="0" y="0" width="84.219" height="83.998" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="パス_2" x="18.305" y="31.033" width="49.395" height="48.502" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-2"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="パス_3" x="51.793" y="16.744" width="67.254" height="67.254" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-3"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="パス_4" x="122.336" y="16.744" width="51.627" height="67.254" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-4"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-4"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="パス_5" x="141.535" y="15.854" width="68.146" height="68.146" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-5"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-5"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="パス_6" x="308.52" y="15.854" width="68.146" height="68.146" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-6"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-6"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="楕円形_1" x="224.58" y="0.225" width="45.822" height="45.822" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-7"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-7"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="パス_7" x="173.682" y="0" width="84.221" height="83.998" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-8"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-8"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="パス_8" x="86.617" y="0.672" width="68.146" height="83.328" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-9"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-9"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="パス_9" x="237.082" y="0.672" width="68.146" height="83.328" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-10"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-10"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="長方形_316" x="225.473" y="15.852" width="44.037" height="68.146" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-11"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-11"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="パス_10" x="272.799" y="15.852" width="68.146" height="68.146" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur-12"/>
+      <feFlood flood-opacity="0.302"/>
+      <feComposite operator="in" in2="blur-12"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="グループ化_1499" data-name="グループ化 1499" transform="translate(-46 -25)">
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_1)">
+      <path id="パス_1-2" data-name="パス 1" d="M623.22,774.762h-10.2l-12.671-30.508a1.339,1.339,0,0,0-2.474,0L585.2,774.762H575l18.338-44.146a6.25,6.25,0,0,1,11.545,0Z" transform="translate(-557 -711.76)" fill="#fff"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_2)">
+      <path id="パス_2-2" data-name="パス 2" d="M616,808.769v-12.5l13.394,6.251Z" transform="translate(-579.69 -750.23)" fill="#4991bf"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_3)">
+      <path id="パス_3-2" data-name="パス 3" d="M722.254,779.895v15.627h-8.037V779.895a7.59,7.59,0,0,0-7.59-7.59h0a7.59,7.59,0,0,0-7.59,7.59v15.627H691V779.895a15.627,15.627,0,0,1,15.627-15.626h0A15.627,15.627,0,0,1,722.254,779.895Z" transform="translate(-621.21 -732.52)" fill="#fff"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_4)">
+      <path id="パス_4-2" data-name="パス 4" d="M864.627,764.268V772.3a7.591,7.591,0,0,0-7.59,7.59v15.627H849V779.895A15.627,15.627,0,0,1,864.627,764.268Z" transform="translate(-708.66 -732.52)" fill="#fff"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_5)">
+      <path id="パス_5-2" data-name="パス 5" d="M908.073,762.27a16.073,16.073,0,1,0,16.073,16.073A16.075,16.075,0,0,0,908.073,762.27Zm0,25a8.93,8.93,0,1,1,8.93-8.929A8.93,8.93,0,0,1,908.073,787.273Z" transform="translate(-732.47 -731.42)" fill="#fff"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_6)">
+      <path id="パス_6-2" data-name="パス 6" d="M1282.074,762.27a16.073,16.073,0,1,0,16.073,16.073A16.076,16.076,0,0,0,1282.074,762.27Zm0,25a8.93,8.93,0,1,1,8.93-8.929A8.93,8.93,0,0,1,1282.074,787.273Z" transform="translate(-939.48 -731.42)" fill="#4991bf"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#楕円形_1)">
+      <circle id="楕円形_1-2" data-name="楕円形 1" cx="4.911" cy="4.911" r="4.911" transform="translate(242.58 15.23)" fill="#4991bf"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_7)">
+      <path id="パス_7-2" data-name="パス 7" d="M1012.22,726.763h-10.2l-12.67,30.509a1.34,1.34,0,0,1-2.474,0L974.2,726.763H964l18.337,44.146a6.251,6.251,0,0,0,11.545,0Z" transform="translate(-772.32 -711.76)" fill="#4991bf"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_8)">
+      <path id="パス_8-2" data-name="パス 8" d="M793.111,728.268v19.873a15.181,15.181,0,1,0,0,24.549v2.906h8.036V728.268Zm-8.93,40.184a8.037,8.037,0,1,1,8.036-8.037A8.037,8.037,0,0,1,784.181,768.452Z" transform="translate(-664.38 -712.6)" fill="#fff"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_9)">
+      <path id="パス_9-2" data-name="パス 9" d="M1130.11,728.268v19.873a15.181,15.181,0,1,0,0,24.549v2.906h8.037V728.268Zm-8.93,40.184a8.037,8.037,0,1,1,8.037-8.037A8.038,8.038,0,0,1,1121.18,768.452Z" transform="translate(-850.92 -712.6)" fill="#4991bf"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#長方形_316)">
+      <rect id="長方形_316-2" data-name="長方形 316" width="8.037" height="32.147" transform="translate(243.47 30.85)" fill="#4991bf"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 46, 25)" filter="url(#パス_10)">
+      <path id="パス_10-2" data-name="パス 10" d="M1203.092,794.415q-7.575,0-12.333-4.183A14.1,14.1,0,0,1,1186,779.086v-.8a17.174,17.174,0,0,1,2.005-8.352,13.852,13.852,0,0,1,5.681-5.673,17.321,17.321,0,0,1,8.386-1.99q7.066,0,11.123,4.011a15.8,15.8,0,0,1,4.951,11.374,22.062,22.062,0,0,1-.224,3.379c0-.014-22.6,0-22.6,0a7.446,7.446,0,0,0,2.689,4.871,8.688,8.688,0,0,0,5.681,1.834,10.389,10.389,0,0,0,8.307-3.467l4.519,4.556a13.6,13.6,0,0,1-5.6,4.111A20.114,20.114,0,0,1,1203.092,794.415Zm-1.051-25.471a6.068,6.068,0,0,0-4.439,1.669,8.215,8.215,0,0,0-2.18,4.778h12.793v-.662a5.809,5.809,0,0,0-1.654-4.274A6.308,6.308,0,0,0,1202.041,768.943Z" transform="translate(-895.2 -731.42)" fill="#4991bf"/>
+    </g>
+  </g>
+</svg>
