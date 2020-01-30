@@ -1,0 +1,65 @@
+.section-media {
+  padding: 48px 33px;
+  min-width: 1000px;
+
+  .video-wrapper {
+    .btn {
+      position: absolute;
+      color: #4491bf;
+      background: #fff;
+      font-size: 20px;
+    }
+
+    .btn.btn-top-left {
+      top: 16px;
+      left: 16px;
+      i {
+        transform: rotate(-45deg);
+      }
+    }
+
+    .btn.btn-top-right {
+      top: 16px;
+      right: 16px;
+      i {
+        transform: rotate(45deg);
+      }
+    }
+
+    .btn.btn-bottom-left {
+      bottom: 16px;
+      left: 16px;
+      i {
+        transform: rotate(225deg);
+      }
+    }
+
+    .btn.btn-bottom-right {
+      bottom: 16px;
+      right: 16px;
+      i {
+        transform: rotate(135deg);
+      }
+    }
+
+    .video-info {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      label {
+        display: block;
+        color: #fff;
+        margin: 0;
+      }
+    }
+  }
+
+  .btn-black, .btn-white {
+    width: 32px;
+    height: 32px;
+    border: 1px #CCCCCC solid;
+  }
+  .btn-black {
+    background-color: #000;
+  }
+}

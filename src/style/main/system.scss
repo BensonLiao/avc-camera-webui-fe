@@ -1,0 +1,58 @@
+.page-system {
+  padding: 48px 33px;
+  min-width: 1000px;
+
+  .card-body {
+    .card {
+      border-radius: 8px;
+    }
+    table {
+      tr {
+        border-color: #ccc !important;
+      }
+    }
+  }
+
+  pre.border {
+    border-radius: 8px;
+    border-color: #ccc !important;
+  }
+
+  .card-store {
+    border-color: #D9D9D9;
+    border-radius: 8px;
+    .card-header {
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+      border-color: #D9D9D9;
+      background-color: #D9D9D9;
+      color: #666;
+      font-weight: bold;
+    }
+  }
+
+  .input-group {
+    .legend {
+      display: inline-block;
+      position: absolute;
+      z-index: 10;
+      font-size: 8px;
+      color: #707070;
+      left: 14px;
+      top: -10px;
+      background-color: #fff;
+      padding: 0 4px;
+    }
+    > .form-control:not(:last-child) {
+      border-right: none;
+      padding-right: 5px;
+    }
+    .input-group-prepend:last-child > .input-group-text {
+      border-top-right-radius: 50rem;
+      border-bottom-right-radius: 50rem;
+      border-left: none;
+      background-color: transparent;
+      color: #CED4DA;
+    }
+  }
+}

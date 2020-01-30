@@ -1,14 +1,14 @@
 const classNames = require('classnames');
 const React = require('react');
 const PropTypes = require('prop-types');
-const imageCode404 = require('webserver-prototype/src/resource/error-404-code.svg');
-const imageCode500 = require('webserver-prototype/src/resource/error-500-code.svg');
-const imageOops = require('webserver-prototype/src/resource/error-oops.svg');
-const imageError01 = require('webserver-prototype/src/resource/error-icon-01.svg');
-const imageError02 = require('webserver-prototype/src/resource/error-icon-02.svg');
-const imageError03 = require('webserver-prototype/src/resource/error-icon-03.svg');
-const imageError04 = require('webserver-prototype/src/resource/error-icon-04.svg');
-const imageError05 = require('webserver-prototype/src/resource/error-icon-05.svg');
+const imageCode404 = require('../../../resource/error-404-code.svg');
+const imageCode500 = require('../../../resource/error-500-code.svg');
+const imageOops = require('../../../resource/error-oops.svg');
+const imageError01 = require('../../../resource/error-icon-01.svg');
+const imageError02 = require('../../../resource/error-icon-02.svg');
+const imageError03 = require('../../../resource/error-icon-03.svg');
+const imageError04 = require('../../../resource/error-icon-04.svg');
+const imageError05 = require('../../../resource/error-icon-05.svg');
 const _ = require('../../../languages');
 
 module.exports = class ErrorPage extends React.Component {

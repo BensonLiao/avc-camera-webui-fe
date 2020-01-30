@@ -1,0 +1,18 @@
+.page-users {
+  padding: 32px 29px;
+  min-width: 1030px;
+  min-height: calc(100vh - #{$navigation-height});
+
+  .table {
+    th {
+      color: #1a1a1a !important;
+      a {
+        color: #1a1a1a;
+      }
+    }
+    td {
+      @extend .text-truncate;
+      padding: 12px 8px !important;
+    }
+  }
+}

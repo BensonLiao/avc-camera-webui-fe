@@ -1,0 +1,187 @@
+.page-notification {
+  padding: 48px 33px;
+  min-width: 1000px;
+
+  .filter {
+    padding: 24px;
+    margin: 0 -48px 49px 0;
+    background-color: #fff;
+    border-bottom-left-radius: 32px;
+    label {
+      font-size: 20px;
+      font-weight: bold;
+      color: #666666;
+    }
+    .btn {
+      padding-left: 24px;
+      padding-right: 24px;
+      &:not(.active) {
+        border-color: #ccc;
+      }
+    }
+  }
+
+  h3 {
+    font-size: 20px;
+    color: #666;
+  }
+  hr {
+    border-color: #6C757D;
+  }
+
+  .btn-star {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    color: $primary;
+    background-color: #E5F5FF;
+    border: none;
+    box-shadow: none;
+    &.text-secondary {
+      color: #999 !important;
+      background-color: #F2F2F2;
+    }
+  }
+
+  @mixin grid_container_padding() {
+    padding: 48px 48px;
+    @media (max-width: 1440px) and (min-width: 1366px) {
+      padding: 48px 40px;
+    }
+    @media (max-width: 1366px) {
+      padding: 48px 2px;
+    }
+  }
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    @include grid_container_padding();
+    .card {
+      flex: 0 0 440px;
+      margin: 12px;
+      border: none;
+    }
+    .card:hover {
+      .card-body {
+        background-color: rgba(142, 142, 142, 0.15);
+      }
+      .btn-delete {
+        display: block;
+      }
+    }
+    .card-title {
+      padding: 24px 24px 8px 24px;
+      margin-bottom: 0;
+      .icons .icon {
+        @extend .btn-star;
+        background-color: #fff;
+        border: 1px solid #ccc;
+      }
+    }
+    .card-body {
+      padding: 8px 24px 24px 24px;
+      .btn-delete {
+        height: $notify-card-btn-delete-height;
+        width: $notify-card-btn-delete-height;
+        display: none;
+        background-color: #808080;
+        position: absolute;
+        right: 24px;
+        bottom: 24px;
+      }
+
+      table {
+        tr {
+          height: 32px;
+        }
+        th, td {
+          padding: 4px 8px 4px 0px;
+        }
+        th {
+          color: #1A1A1A;
+        }
+        td {
+          font-size: 14px;
+          color: #666666;
+          &:not(.no-seperator) {
+            &::before {
+              content: "|";
+              font-weight: bold;
+              color: #1A1A1A;
+              padding-right: 8px;
+            }
+          }
+          &.no-seperator {
+            &::before {
+              content: "";
+              padding-right: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .fixed-actions-section {
+    padding-left: 336px;
+  }
+
+  .modal {
+    .title {
+      line-height: 40px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .btn-edit-title {
+      line-height: 40px;
+    }
+    .btn-new-row {
+      background-color: #E6E6E6;
+      color: #CCC;
+      border: none;
+    }
+    hr {
+      border-color: #ccc;
+      margin: 24px -16px 24px -16px;
+    }
+    .select-wrapper {
+      i {
+        margin: 0 3px 0 8px;
+        color: #777;
+      }
+    }
+    .text-desh {
+      color: #E6E6E6;
+      font-weight: bold;
+      line-height: 40px;
+    }
+    .select-wrapper select {
+      min-width: 100px;
+    }
+    .filter-item {
+      background-color: #E5F5FF;
+      height: 40px;
+      padding: 0 13px 0 24px;
+      font-size: 14px;
+      .btn {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .form-group .card {
+      border-radius: 8px;
+    }
+    .input-group {
+      .input-group-prepend + .form-control {
+        border-left: none;
+        padding-left: 5px;
+      }
+      .input-group-text {
+        border-right: none;
+        background-color: transparent;
+        color: #CED4DA;
+      }
+    }
+  }
+}

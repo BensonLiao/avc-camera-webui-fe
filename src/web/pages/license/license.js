@@ -10,17 +10,17 @@ const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
 const utils = require('../../../core/utils');
 const iconFaceRecognitionEnable =
-  require('webserver-prototype/src/resource/face-recognition-enable.svg');
+  require('../../../resource/face-recognition-enable.svg');
 const iconFaceRecognitionDisable =
-  require('webserver-prototype/src/resource/face-recognition-disable.svg');
+  require('../../../resource/face-recognition-disable.svg');
 const iconAgeGenderEnable =
-  require('webserver-prototype/src/resource/age-gender-enable.svg');
+  require('../../../resource/age-gender-enable.svg');
 const iconAgeGenderDisable =
-  require('webserver-prototype/src/resource/age-gender-disable.svg');
+  require('../../../resource/age-gender-disable.svg');
 const iconHumanoidDetectionEnable =
-  require('webserver-prototype/src/resource/humanoid-detection-enable.svg');
+  require('../../../resource/humanoid-detection-enable.svg');
 const iconHumanoidDetectionDisable =
-  require('webserver-prototype/src/resource/humanoid-detection-disable.svg');
+  require('../../../resource/humanoid-detection-disable.svg');
 
 const ACTIVATED = _('Activated');
 const NOT_ACTIVATED = _('Not activated');

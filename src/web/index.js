@@ -4,7 +4,7 @@ require('bootstrap-slider/dist/css/bootstrap-slider.css');
 require('nprogress/nprogress.css');
 require('react-notifications-component/dist/theme.css');
 require('animate.css/animate.css');
-require('webserver-prototype/src/style/main.scss');
+require('../style/main.scss');
 
 // Dependence
 require('@babel/polyfill');

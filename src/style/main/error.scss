@@ -1,0 +1,41 @@
+.error-page {
+  min-width: 1400px;
+  padding-top: 320px;
+  background-size: contain;
+  background-position: center top;
+  &.error-404 {
+    background-image: url("../resource/error-404-bg.png");
+  }
+  &.error-500 {
+    background-image: url("../resource/error-500-bg.png");
+  }
+
+  .row {
+    min-height: calc(100vh - 320px);
+    background-color: #fff;
+  }
+  .message-container {
+    padding-top: 81px;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: "Roboto", serif;
+    .message-title {
+      font-weight: bold;
+      font-size: 72px;
+      line-height: 125px;
+      padding-left: 20px;
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .message-subtitle {
+      font-size: 20px;
+      padding-top: 36px;
+    }
+    .btn {
+      width: 320px;
+    }
+  }
+  .icons > img {
+    margin: 0 16px;
+  }
+}

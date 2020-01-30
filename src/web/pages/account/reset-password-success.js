@@ -1,8 +1,8 @@
 const React = require('react');
 const {Link} = require('capybara-router');
-const logo = require('webserver-prototype/src/resource/logo-01.svg');
-const decoration = require('webserver-prototype/src/resource/decoration-01.svg');
-const checkCircleSolid = require('webserver-prototype/src/resource/check-circle-solid.svg');
+const logo = require('../../../resource/logo-01.svg');
+const decoration = require('../../../resource/decoration-01.svg');
+const checkCircleSolid = require('../../../resource/check-circle-solid.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 
