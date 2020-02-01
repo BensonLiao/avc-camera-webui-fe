@@ -1,3 +1,14 @@
+const got = require('got');
+let fakeImage;
+
 exports.getSnapshot = (req, res) => {
-  res.redirect('https://images.pexels.com/photos/730896/pexels-photo-730896.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  if (fakeImage) {
+    return res.send(fakeImage);
+  }
+
+  return got.get('https://picsum.photos/1200/675', {responseType: 'buffer'})
+    .then(response => {
+      fakeImage = response.body;
+      res.send(response.body);
+    });
 };
