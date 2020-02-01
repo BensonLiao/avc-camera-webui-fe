@@ -227,6 +227,42 @@ module.exports = {
       method: 'put',
       url: '/api/notification/app/settings',
       data: {deviceToken, deviceId, interval}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - encryption {string}
+     * - host {string}
+     * - port {string}
+     * - account {string}
+     * - password {string}
+     * - senderName {string}
+     * - senderEmail {string}
+     * - interval {string}
+     * - isEnableLoginNotification {boolean}
+     * - isEnableAuth {boolean}
+     */
+    getSMTPSettings: () => api({
+      method: 'get',
+      url: '/api/notification/smtp/settings'
+    }),
+    /**
+     * @param {string} encryption
+     * @param {string} host
+     * @param {string} port
+     * @param {string} account
+     * @param {string} password
+     * @param {string} senderName
+     * @param {string} senderEmail
+     * @param {string} interval
+     * @param {boolean} isEnableLoginNotification
+     * @param {boolean} isEnableAuth
+     * @returns {Promise<response>}
+     */
+    updateSMTPSettings: ({encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth}) => api({
+      method: 'put',
+      url: '/api/notification/smtp/settings',
+      data: {encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth}
     })
   },
   video: {
