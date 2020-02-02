@@ -173,6 +173,26 @@ module.exports = {
         deviceId: '',
         interval: ''
       },
+      notificationIOInSettings: {
+        isEnable: false,
+        ioType: '0'
+      },
+      notificationIOOutSettings: [
+        {
+          isEnable: false,
+          ioType: '0',
+          gateType: '0',
+          pulse: '',
+          delay: ''
+        },
+        {
+          isEnable: false,
+          ioType: '0',
+          gateType: '0',
+          pulse: '',
+          delay: ''
+        }
+      ],
       groups: [
         {
           id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
