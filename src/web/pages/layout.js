@@ -87,7 +87,8 @@ module.exports = class Layout extends Base {
         {
           active: [
             'web.notification',
-            'web.notification.app'
+            'web.notification.app',
+            'web.notification.io'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),

@@ -366,6 +366,20 @@ window.languageResource = {
   'Please enter your notification interval.': '請輸入通知時間',
   '5 - 1,800 seconds': '5 - 1800 秒',
 
+  // /notification/io
+  'I/O input': '硬體輸入',
+  'I/O type': '平常狀態',
+  'Normally closed': '常關',
+  'Normally open': '常開',
+  'I/O output {0}': '硬體輸出 {0}',
+  'Gate type': '輸出類型',
+  Normal: '一般',
+  Buffer: '緩衝',
+  'Signal buffer time (seconds)': '訊號緩衝時間 (秒)',
+  'Please enter seconds.': '請輸入秒數',
+  '1 - 80 seconds': '1 - 80秒',
+  'Delay time (seconds)': '延後間格時間 (秒)',
+
   // /smart/face-recognition
   'Trigger area': '觸發區域',
   'Face size': '人臉大小',
