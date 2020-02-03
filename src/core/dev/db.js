@@ -173,6 +173,26 @@ module.exports = {
         deviceId: '',
         interval: ''
       },
+      notificationIOInSettings: {
+        isEnable: false,
+        ioType: '0'
+      },
+      notificationIOOutSettings: [
+        {
+          isEnable: false,
+          ioType: '0',
+          gateType: '0',
+          pulse: '',
+          delay: ''
+        },
+        {
+          isEnable: false,
+          ioType: '0',
+          gateType: '0',
+          pulse: '',
+          delay: ''
+        }
+      ],
       notificationSMTPSettings: {
         host: '',
         account: '',

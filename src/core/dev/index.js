@@ -85,6 +85,33 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('notificationAppSettings').assign(newItem).write()]);
   })
+  .onGet('/api/notification/io-in/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('notificationIOInSettings').value()]);
+  })
+  .onPut('/api/notification/io-in/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('notificationIOInSettings').assign(newItem).write()]);
+  })
+  .onGet('/api/notification/io-out/0/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('notificationIOOutSettings').value()[0]]);
+  })
+  .onPut('/api/notification/io-out/0/settings').reply(config => {
+    const data = [
+      JSON.parse(config.data),
+      db.get('notificationIOOutSettings').value()[1]
+    ];
+    return mockResponseWithLog(config, [200, db.get('notificationIOOutSettings').assign(data).write()]);
+  })
+  .onGet('/api/notification/io-out/1/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('notificationIOOutSettings').value()[1]]);
+  })
+  .onPut('/api/notification/io-out/1/settings').reply(config => {
+    const data = [
+      db.get('notificationIOOutSettings').value()[0],
+      JSON.parse(config.data)
+    ];
+    return mockResponseWithLog(config, [200, db.get('notificationIOOutSettings').assign(data).write()]);
+  })
   .onGet('/api/notification/smtp/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('notificationSMTPSettings').value()]);
   })
