@@ -227,6 +227,90 @@ module.exports = {
       method: 'put',
       url: '/api/notification/app/settings',
       data: {deviceToken, deviceId, interval}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - ioType {string}
+     */
+    getIOInSettings: () => api({
+      method: 'get',
+      url: '/api/notification/io-in/settings'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {string} ioType
+     * @returns {Promise<response>}
+     */
+    updateIOInSettings: ({isEnable, ioType}) => api({
+      method: 'put',
+      url: '/api/notification/io-in/settings',
+      data: {isEnable, ioType}
+    }),
+    /**
+     * @param {number} index
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - ioType {string}
+     * - gateType {string}
+     * - pulse {string}
+     * - delay {string}
+     */
+    getIOOutSettings: index => api({
+      method: 'get',
+      url: `/api/notification/io-out/${index}/settings`
+    }),
+    /**
+     * @param {number} index
+     * @param {boolean} isEnable
+     * @param {string} ioType
+     * @param {string} gateType
+     * @param {string} pulse
+     * @param {string} delay
+     * @returns {Promise<response>}
+     */
+    updateIOOutSettings: (index, {isEnable, ioType, gateType, pulse, delay}) => api({
+      method: 'put',
+      url: `/api/notification/io-out/${index}/settings`,
+      data: {isEnable, ioType, gateType, pulse, delay}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - encryption {string}
+     * - host {string}
+     * - port {string}
+     * - account {string}
+     * - password {string}
+     * - senderName {string}
+     * - senderEmail {string}
+     * - interval {string}
+     * - isEnableLoginNotification {boolean}
+     * - isEnableAuth {boolean}
+     */
+    getSMTPSettings: () => api({
+      method: 'get',
+      url: '/api/notification/smtp/settings'
+    }),
+    /**
+     * @param {string} encryption
+     * @param {string} host
+     * @param {string} port
+     * @param {string} account
+     * @param {string} password
+     * @param {string} senderName
+     * @param {string} senderEmail
+     * @param {string} interval
+     * @param {boolean} isEnableLoginNotification
+     * @param {boolean} isEnableAuth
+     * @returns {Promise<response>}
+     */
+    updateSMTPSettings: ({encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth}) => api({
+      method: 'put',
+      url: '/api/notification/smtp/settings',
+      data: {encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth}
     })
   },
   video: {

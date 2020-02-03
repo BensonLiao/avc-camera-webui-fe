@@ -28,13 +28,13 @@ module.exports = {
         hdrEnabled: 'false',
         shutterSpeed: ShutterSpeed.auto,
         aperture: ApertureType.auto,
-        saturation: 2,
+        saturation: 5,
         whiteblanceMode: WhiteBalanceType.auto,
         whiteblanceManual: 5000,
         daynightMode: DaynightType.auto,
         timePeriodStart: 0,
         timePeriodEnd: 0,
-        sharpness: 5,
+        sharpness: 2,
         orientation: OrientationType.normal,
         refreshRate: RefreshRate.auto,
         sensitivity: 0,
@@ -50,13 +50,13 @@ module.exports = {
         hdrEnabled: 'false',
         shutterSpeed: ShutterSpeed.auto,
         aperture: ApertureType.auto,
-        saturation: 2,
+        saturation: 5,
         whiteblanceMode: WhiteBalanceType.auto,
         whiteblanceManual: 5000,
         daynightMode: DaynightType.auto,
         timePeriodStart: 0,
         timePeriodEnd: 0,
-        sharpness: 5,
+        sharpness: 2,
         orientation: OrientationType.normal,
         refreshRate: RefreshRate.auto,
         sensitivity: 0,
@@ -172,6 +172,36 @@ module.exports = {
         deviceToken: '',
         deviceId: '',
         interval: ''
+      },
+      notificationIOInSettings: {
+        isEnable: false,
+        ioType: '0'
+      },
+      notificationIOOutSettings: [
+        {
+          isEnable: false,
+          ioType: '0',
+          gateType: '0',
+          pulse: '',
+          delay: ''
+        },
+        {
+          isEnable: false,
+          ioType: '0',
+          gateType: '0',
+          pulse: '',
+          delay: ''
+        }
+      ],
+      notificationSMTPSettings: {
+        host: '',
+        account: '',
+        password: '',
+        senderName: '',
+        senderEmail: '',
+        interval: '',
+        isEnableLoginNotification: false,
+        isEnableAuth: false
       },
       groups: [
         {
