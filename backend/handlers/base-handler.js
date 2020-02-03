@@ -3,7 +3,7 @@ exports.baseView = (req, res) => {
   [web] GET /.*
    */
   res.render('base', {
-    htmlLang: 'en-us',
+    htmlLang: 'en-US',
     languageCode: 'en-us',
     loadingText: 'Loading',
     user: {
