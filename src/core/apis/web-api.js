@@ -277,6 +277,8 @@ module.exports = {
       data: {isEnable, ioType, gateType, pulse, delay}
     }),
     /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
      * - encryption {string}
      * - host {string}
      * - port {string}
