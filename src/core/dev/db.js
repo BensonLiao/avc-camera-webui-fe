@@ -173,6 +173,16 @@ module.exports = {
         deviceId: '',
         interval: ''
       },
+      notificationSMTPSettings: {
+        host: '',
+        account: '',
+        password: '',
+        senderName: '',
+        senderEmail: '',
+        interval: '',
+        isEnableLoginNotification: false,
+        isEnableAuth: false
+      },
       groups: [
         {
           id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',

@@ -85,6 +85,13 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('notificationAppSettings').assign(newItem).write()]);
   })
+  .onGet('/api/notification/smtp/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('notificationSMTPSettings').value()]);
+  })
+  .onPut('/api/notification/smtp/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('notificationSMTPSettings').assign(newItem).write()]);
+  })
   .onGet('/api/groups').reply(config => {
     return mockResponseWithLog(config, [200, {
       items: db.get('groups').value()
