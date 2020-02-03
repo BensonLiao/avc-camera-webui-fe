@@ -380,6 +380,20 @@ window.languageResource = {
   '1 - 80 seconds': '1 - 80秒',
   'Delay time (seconds)': '延後間格時間 (秒)',
 
+  // /notification/smtp
+  'SMTP server': 'SMTP 伺服器',
+  'IP address': 'IP 位址',
+  'Please enter your IP address.': '請輸入您的 IP 位址',
+  'SMTP account settings': '電子郵件登入認證',
+  'Edit account and password': '編輯帳號密碼',
+  'Login notification': '登入通知信',
+  Sender: '寄件人顯示',
+  Email: '電子郵件',
+  'Please enter your email.': '請輸入您的電子郵件',
+  'Email and login settings': '電子郵件登入認證設定',
+  Port: '埠',
+  Encryption: '加密',
+
   // /smart/face-recognition
   'Trigger area': '觸發區域',
   'Face size': '人臉大小',

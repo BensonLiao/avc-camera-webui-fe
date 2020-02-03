@@ -41,7 +41,7 @@ module.exports = class Notification extends Base {
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.app'})} to="/notification/app" title={_('App')}>
                   {_('App')}
                 </Link>
-                <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.mail'})} to="/notification/mail" title={_('Mail')}>
+                <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.smtp'})} to="/notification/smtp" title={_('Mail')}>
                   {_('Mail')}
                 </Link>
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.io'})} to="/notification/io" title={_('I/O')}>

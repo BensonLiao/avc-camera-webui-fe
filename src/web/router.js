@@ -136,6 +136,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.notification.smtp',
+      uri: '/smtp',
+      onEnter: () => {
+        document.title = `${_('Notification settings')} - ${_title}`;
+      },
+      resolve: {
+        smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-notification" */
+        './pages/notification/smtp'
+      )
+    },
+    {
       name: 'web.notification.io',
       uri: '/io',
       onEnter: () => {
