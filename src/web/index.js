@@ -24,8 +24,6 @@ const elementResizeDetectorMaker = require('element-resize-detector');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const ReactNotification = require('react-notifications-component').default;
-const UserPermission = require('webserver-form-schema/constants/user-permission');
-const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
@@ -58,28 +56,6 @@ switch (window.currentLanguageCode) {
 
 // Setup initial data
 store.set('$user', window.user);
-store.set('$setup', {
-  language: window.currentLanguageCode,
-  account: {
-    permission: UserPermission.root,
-    account: '',
-    birthday: '',
-    password: '',
-    confirmPassword: ''
-  },
-  https: {
-    certificateType: CertificateType.selfSigned,
-    certificate: '',
-    privateKey: '',
-    country: '',
-    state: '',
-    city: '',
-    organization: '',
-    organizationUnit: '',
-    email: '',
-    domain: ''
-  }
-});
 store.set('$erd', elementResizeDetectorMaker());
 
 // Setup routers
@@ -95,14 +71,6 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
     return;
   }
 
-  if (toState.name === 'setup-https' && !store.get('$setup').account.account) {
-    cancel();
-    setTimeout(() => {
-      router.go('/setup/account', {replace: true});
-    });
-    return;
-  }
-
   const $user = store.get('$user');
   const allowAnonymousRoutes = [
     'login',
@@ -110,10 +78,6 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
     'forgot-password',
     'reset-password',
     'reset-password-success',
-    'setup-welcome',
-    'setup-language',
-    'setup-account',
-    'setup-https',
     'not-found'
   ];
   if (!$user && allowAnonymousRoutes.indexOf(toState.name) < 0) {
