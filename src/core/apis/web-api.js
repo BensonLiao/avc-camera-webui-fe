@@ -311,6 +311,28 @@ module.exports = {
       method: 'put',
       url: '/api/notification/smtp/settings',
       data: {encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - type {string}
+     * - isTop {boolean}
+     * - timeType {string}
+     * - timePeriods {Array<{start: number, end: number, isRepeat: boolean}>}
+     * - isEnableGPIO {boolean}
+     * - isEnableGPIO1 {boolean}
+     * - isEnableGPIO2 {boolean}
+     * - isEnableApp {boolean}
+     * - isEnableEmail {boolean}
+     * - emails {Array<string>}
+     * - emailAttachmentType {string}
+     * - groups {Array<string>}
+     * - isEnableFaceRecognition {boolean}
+     * - faceRecognitionCondition {string}
+     */
+    getCards: () => api({
+      method: 'get',
+      url: '/api/notification/cards'
     })
   },
   video: {

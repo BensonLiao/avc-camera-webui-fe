@@ -119,6 +119,12 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('notificationSMTPSettings').assign(newItem).write()]);
   })
+  .onGet('/api/notification/cards').reply(config => {
+    const result = {
+      items: db.get('notificationCards').value()
+    };
+    return mockResponseWithLog(config, [200, result]);
+  })
   .onGet('/api/groups').reply(config => {
     return mockResponseWithLog(config, [200, {
       items: db.get('groups').value()
