@@ -37,6 +37,7 @@ module.exports = class Login extends Base {
    * @param {Object} values
    * @property {String} account
    * @property {String} password
+   * @property {String} confirmPassword
    * @returns {void}
    */
   onSubmitSetupForm = values => {
@@ -81,7 +82,7 @@ module.exports = class Login extends Base {
                 <div className="invalid-feedback">{errors.password}</div>
               )
             }
-            <small className="form-text text-muted">
+            <small className="form-text text-muted text-size-14">
               {_('8-16 characters ,contain at least 1 upper and lowercase,1 number, 1 special characters. Do not use #, %, &,`, “, \\, <, > and space.')}
             </small>
           </div>
