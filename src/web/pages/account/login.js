@@ -4,8 +4,6 @@ const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const Cookies = require('js-cookie');
 const {Link, getRouter} = require('capybara-router');
-const logo = require('../../../resource/logo-01.svg');
-const decoration = require('../../../resource/decoration-01.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
@@ -154,8 +152,7 @@ module.exports = class Login extends Base {
   render() {
     return (
       <div className="page-login">
-        <img src={logo} className="logo" alt="AndroVideo"/>
-        <img src={decoration} className="decoration"/>
+        <div className="navbar primary"/>
         <div className="container">
           <div className="row justify-content-center">
             <Once>

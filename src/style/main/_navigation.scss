@@ -1,7 +1,12 @@
 .navbar {
   background-color: #fff;
-  padding-left: 32px;
-  padding-right: 32px;
+  height: $navigation-height;
+  padding: 8px 16px;
+  box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .2);
+}
+.navbar.primary {
+  background-color: $primary-500;
+  box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .4);
 }
 nav.navbar.fixed-top {
   z-index: 1031;

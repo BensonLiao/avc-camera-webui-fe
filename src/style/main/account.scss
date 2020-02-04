@@ -1,19 +1,10 @@
 .page-login, .page-login-lock, .page-forgot-password, .page-reset-password, .page-reset-password-success {
   min-height: 100vh;
-  background-image: url("../resource/background-01.png");
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
+  background-color: white;
 
   img.logo {
     position: absolute;
     margin: 40px 64px 0;
-  }
-  img.decoration {
-    position: fixed;
-    right: 140px;
-    bottom: 65px;
-    width: 679px;
   }
   .text-welcome {
     font-size: 40px;
