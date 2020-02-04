@@ -171,26 +171,6 @@ module.exports = {
     }),
     /**
      * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
-     * @param {Object} account
-     *   @property {String} account
-     *   @property {String} permission
-     *   @property {String} birthday
-     *   @property {String} password
-     * @returns {Promise<response>}
-     * @response 200 {Object}
-     * - account {String}
-     */
-    setup: ({language, account, https}) => api({
-      method: 'post',
-      url: '/api/system/_setup',
-      data: {
-        language,
-        account,
-        https
-      }
-    }),
-    /**
-     * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - language {String}
