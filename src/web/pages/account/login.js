@@ -10,6 +10,8 @@ const Once = require('../../../core/components/one-time-render');
 const loginValidator = require('../../validations/account/login-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
+const logo = require('../../../resource/logo-avn-secondary.svg');
+const logoWithTitle = require('../../../resource/logo-avn-title.svg');
 
 module.exports = class Login extends Base {
   constructor(props) {
@@ -152,16 +154,14 @@ module.exports = class Login extends Base {
   render() {
     return (
       <div className="page-login">
-        <div className="navbar primary"/>
+        <div className="navbar primary">
+          <img src={logo}/>
+        </div>
         <div className="container">
           <div className="row justify-content-center">
-            <Once>
-              <div className="col-12">
-                <p className="text-light text-center text-welcome">
-                  {_('Welcome to use AndroVideo system')}
-                </p>
-              </div>
-            </Once>
+            <div className="col-12 logo">
+              <img src={logoWithTitle}/>
+            </div>
             <div className="col-card">
               <Formik
                 initialValues={{account: '', password: '', maxAge: '3600000'}}
