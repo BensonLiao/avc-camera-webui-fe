@@ -19,7 +19,6 @@ module.exports = class Login extends Base {
   constructor(props) {
     super(props);
     this.state.isIncorrectPassword = null;
-    this.isSetupSuccess = false;
   }
 
   redirectPage = () => {
