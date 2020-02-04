@@ -12,19 +12,18 @@
       bottom: 0;
     }
   }
-  .text-welcome {
-    font-size: 40px;
-    margin-top: 220px;
-  }
   .card {
-    border-radius: 16px;
+    border-radius: 8px;
     .card-body {
-      padding: 24px;
+      padding: 40px;
     }
     .card-title {
-      font-size: 30px;
+      font-size: 22px;
       font-weight: bold;
-      margin-bottom: 38px;
+      margin-bottom: 8px;
+    }
+    .card-sub-title {
+      margin-bottom: 48px;
     }
   }
 }
