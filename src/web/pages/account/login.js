@@ -153,13 +153,13 @@ module.exports = class Login extends Base {
 
   render() {
     return (
-      <div className="page-login">
+      <div className="page-login bg-secondary">
         <div className="navbar primary">
           <img src={logo}/>
         </div>
-        <div className="container">
+        <div className="container-fluid">
           <div className="row justify-content-center">
-            <div className="col-12 logo">
+            <div className="col-12 bg-white logo">
               <img src={logoWithTitle}/>
             </div>
             <div className="col-card">
