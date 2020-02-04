@@ -6,9 +6,9 @@ const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
-const Once = require('../../../core/components/one-time-render');
 const Password = require('../../../core/components/fields/password');
 const UserSchema = require('webserver-form-schema/user-schema');
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const loginValidator = require('../../validations/account/login-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
@@ -19,9 +19,91 @@ module.exports = class Login extends Base {
   constructor(props) {
     super(props);
     this.state.isIncorrectPassword = null;
+    this.isSetupSuccess = false;
+  }
 
-    this.onSubmitLoginForm = this.onSubmitLoginForm.bind(this);
-    this.loginFormRender = this.loginFormRender.bind(this);
+  redirectPage = () => {
+    const redirectUri = Cookies.get(window.config.cookies.redirect);
+    if (redirectUri && /^\/.*/.test(redirectUri)) {
+      Cookies.set(window.config.cookies.redirect, null, {expires: -100});
+      location.href = redirectUri;
+    } else {
+      location.href = '/';
+    }
+  }
+
+  /**
+   * Handler on user submit the setup form.
+   * @param {Object} values
+   * @property {String} account
+   * @property {String} password
+   * @returns {void}
+   */
+  onSubmitSetupForm = values => {
+    progress.start();
+    api.user.addUser(values)
+      .then(this.redirectPage)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  }
+
+  setupFormRender = ({errors, touched, submitCount}) => {
+    const isSubmitted = submitCount > 0;
+
+    return (
+      <Form className="card shadow mb-5">
+        <div className="card-body">
+          <h3 className="card-title text-primary">{_('INITIAL PASSWORD SETUP')}</h3>
+          <div className="card-sub-title text-muted">
+            {_('Prior to accessing this device for the first time a unique admin password must be created')}
+          </div>
+          <div className="form-group">
+            <label>{_('Username')}</label>
+            <Field readOnly name="account" type="text"
+              maxLength={UserSchema.account.max}
+              className={classNames('form-control', {'is-invalid': errors.account && touched.account && isSubmitted})}/>
+            {
+              errors.account && touched.account && (
+                <div className="invalid-feedback">{errors.account}</div>
+              )
+            }
+          </div>
+          <div className="form-group has-feedback">
+            <label>{_('Password')}</label>
+            <Field name="password" component={Password} inputProps={{
+              placeholder: _('Please enter your password.'),
+              className: classNames('form-control', {'is-invalid': (errors.password && isSubmitted) || this.state.isIncorrectPassword})
+            }}/>
+            {
+              errors.password && touched.password && (
+                <div className="invalid-feedback">{errors.password}</div>
+              )
+            }
+            <small className="form-text text-muted">
+              {_('8-16 characters ,contain at least 1 upper and lowercase,1 number, 1 special characters. Do not use #, %, &,`, “, \\, <, > and space.')}
+            </small>
+          </div>
+          <div className="form-group has-feedback">
+            <label>{_('Confirm password')}</label>
+            <Field name="confirmPassword" component={Password} inputProps={{
+              placeholder: _('Please confirm your password.'),
+              className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
+            }}/>
+            {
+              errors.confirmPassword && touched.confirmPassword && (
+                <div className="invalid-feedback">{errors.confirmPassword}</div>
+              )
+            }
+          </div>
+          <div className="text-primary text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</div>
+          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+            {_('Submit')}
+          </button>
+        </div>
+      </Form>
+    );
   }
 
   /**
@@ -31,19 +113,11 @@ module.exports = class Login extends Base {
    * @property {String} password
    * @returns {void}
    */
-  onSubmitLoginForm(values) {
+  onSubmitLoginForm = values => {
     progress.start();
     this.setState({isIncorrectPassword: false});
     api.account.login(values)
-      .then(() => {
-        const redirectUri = Cookies.get(window.config.cookies.redirect);
-        if (redirectUri && /^\/.*/.test(redirectUri)) {
-          Cookies.set(window.config.cookies.redirect, null, {expires: -100});
-          location.href = redirectUri;
-        } else {
-          location.href = '/';
-        }
-      })
+      .then(this.redirectPage)
       .catch(error => {
         if (error.response) {
           if (error.response.status === 429) {
@@ -74,22 +148,19 @@ module.exports = class Login extends Base {
       });
   }
 
-  loginFormRender({errors, touched, submitCount}) {
+  loginFormRender = ({errors, touched, submitCount}) => {
     const isSubmitted = submitCount > 0;
 
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <Once>
-            <h3 className="card-title text-primary">{_('INITIAL PASSWORD SETUP')}</h3>
-            <h6 className="card-sub-title text-muted">
-              {_('Prior to accessing this device for the first time a unique admin password must be created')}
-            </h6>
-          </Once>
+          <h3 className="card-title text-primary">{_('ACCUNT LOGIN')}</h3>
+          <div className="card-sub-title text-muted">
+            {_('Please enter your admin password')}
+          </div>
           <div className="form-group">
             <label>{_('Username')}</label>
-            <Field disabled name="account" type="text"
-              value="admin"
+            <Field name="account" type="text"
               maxLength={UserSchema.account.max}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account && isSubmitted})}/>
             {
@@ -109,28 +180,10 @@ module.exports = class Login extends Base {
                 <div className="invalid-feedback">{errors.password}</div>
               )
             }
-            <small className="form-text text-muted">
-              {_('8-16 characters ,contain at least 1 upper and lowercase,1 number, 1 special characters. Do not use #, %, &,`, “, \\, <, > and space.')}
-            </small>
           </div>
-          <Once>
-            <div className="form-group has-feedback">
-              <label>{_('Confirm password')}</label>
-              <Field name="confirmPassword" component={Password} inputProps={{
-                placeholder: _('Please confirm your password.'),
-                className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
-              }}/>
-              {
-                errors.confirmPassword && touched.confirmPassword && (
-                  <div className="invalid-feedback">{errors.confirmPassword}</div>
-                )
-              }
-            </div>
-          </Once>
-          <h6 className="text-primary">{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</h6>
-
+          <div className="text-primary text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</div>
           <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-            <Once>{_('Login')}</Once>
+            {_('Login')}
           </button>
         </div>
       </Form>
@@ -138,6 +191,7 @@ module.exports = class Login extends Base {
   }
 
   render() {
+    const {isSetupSuccess} = this.props;
     return (
       <div className="page-login bg-secondary">
         <div className="navbar primary">
@@ -149,13 +203,27 @@ module.exports = class Login extends Base {
               <img src={logoWithTitle}/>
             </div>
             <div className="col-card">
-              <Formik
-                initialValues={{account: '', password: '', maxAge: '3600000'}}
-                validate={utils.makeFormikValidator(loginValidator)}
-                onSubmit={this.onSubmitLoginForm}
-              >
-                {this.loginFormRender}
-              </Formik>
+              {isSetupSuccess ? (
+                <Formik
+                  initialValues={{account: '', password: '', maxAge: '3600000'}}
+                  validate={utils.makeFormikValidator(loginValidator)}
+                  onSubmit={this.onSubmitLoginForm}
+                >
+                  {this.loginFormRender}
+                </Formik>
+              ) : (
+                <Formik
+                  initialValues={{
+                    account: 'admin',
+                    permission: UserPermission.root,
+                    password: ''
+                  }}
+                  validate={utils.makeFormikValidator(loginValidator)}
+                  onSubmit={this.onSubmitSetupForm}
+                >
+                  {this.setupFormRender}
+                </Formik>
+              )}
             </div>
           </div>
         </div>

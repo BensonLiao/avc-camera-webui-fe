@@ -377,6 +377,9 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Login')} - ${_title}`;
       },
+      resolve: {
+        isSetupSuccess: () => api.user.getUsers().then(response => response.data.items.some(item => item.account === 'admin'))
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-login" */
         './pages/account/login'
