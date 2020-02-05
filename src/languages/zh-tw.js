@@ -99,6 +99,21 @@ window.languageResource = {
   'font-size-1': '中',
   'font-size-2': '大',
 
+  // 通知類型
+  'notification-card-0': '臉部辨識',
+  'notification-card-1': '性別年齡',
+  'notification-card-2': '人形偵測',
+
+  // 辨識通知條件
+  'face-recognition-condition-0': '不限',
+  'face-recognition-condition-1': '成功',
+  'face-recognition-condition-2': '未知',
+
+  // 通知附件檔案
+  'email-attachment-type-0': '臉部快照',
+  'email-attachment-type-1': '完整快照',
+  'email-attachment-type-2': '不傳附件',
+
   // Validations
   'Incorrect confirm password.': '兩次密碼不一致。',
   'validation-required': '此欄位必填。',
@@ -393,6 +408,21 @@ window.languageResource = {
   'Email and login settings': '電子郵件登入認證設定',
   Port: '埠',
   Encryption: '加密',
+
+  // /notification/cards
+  'Notification filter': '通知篩選',
+  'Sticky items': '置頂項目',
+  'Other items': '其他項目',
+  'Notification time': '通知時間',
+  'Notification condition': '通知條件',
+  Condition: '條件',
+  'Notification object': '通知對象',
+  'All groups': '所有群組',
+  'Email attachment': '附件檔案',
+  Receiver: '收件人',
+  'Please enter email address.': '請輸入電子郵件',
+  Add: '新增',
+  Cancel: '取消',
 
   // /smart/face-recognition
   'Trigger area': '觸發區域',

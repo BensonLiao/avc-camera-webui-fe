@@ -64,6 +64,7 @@
     "pubsub-js": "1.7.0",
     "react": "16.12.0",
     "react-bootstrap": "1.0.0-beta.14",
+    "react-contenteditable": "3.3.3",
     "react-dom": "16.12.0",
     "react-draggable": "4.2.0",
     "react-hotkeys": "2.0.0",
@@ -75,7 +76,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#d8d76e285714f22eb9ebf90e47566d858f3840ab"
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#7aaaa5e799a5a464996e449a4a8dcde94c752a38"
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",

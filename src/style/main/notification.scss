@@ -126,62 +126,62 @@
   .fixed-actions-section {
     padding-left: 336px;
   }
+}
 
-  .modal {
-    .title {
-      line-height: 40px;
-      font-size: 20px;
-      font-weight: bold;
+.modal.notification-card {
+  .title {
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .btn-edit-title {
+    line-height: 40px;
+  }
+  .btn-new-row {
+    background-color: #E6E6E6;
+    color: #CCC;
+    border: none;
+  }
+  hr {
+    border-color: #ccc;
+    margin: 24px -16px 24px -16px;
+  }
+  .select-wrapper {
+    i {
+      margin: 0 3px 0 8px;
+      color: #777;
     }
-    .btn-edit-title {
-      line-height: 40px;
+  }
+  .text-desh {
+    color: #E6E6E6;
+    font-weight: bold;
+    line-height: 40px;
+  }
+  .select-wrapper select {
+    min-width: 100px;
+  }
+  .filter-item {
+    background-color: #E5F5FF;
+    height: 40px;
+    padding: 0 13px 0 24px;
+    font-size: 14px;
+    .btn {
+      width: 18px;
+      height: 18px;
     }
-    .btn-new-row {
-      background-color: #E6E6E6;
-      color: #CCC;
-      border: none;
+  }
+  .form-group .card {
+    border-radius: 8px;
+  }
+  .input-group {
+    .input-group-prepend + .form-control {
+      border-left: none;
+      padding-left: 5px;
     }
-    hr {
-      border-color: #ccc;
-      margin: 24px -16px 24px -16px;
-    }
-    .select-wrapper {
-      i {
-        margin: 0 3px 0 8px;
-        color: #777;
-      }
-    }
-    .text-desh {
-      color: #E6E6E6;
-      font-weight: bold;
-      line-height: 40px;
-    }
-    .select-wrapper select {
-      min-width: 100px;
-    }
-    .filter-item {
-      background-color: #E5F5FF;
-      height: 40px;
-      padding: 0 13px 0 24px;
-      font-size: 14px;
-      .btn {
-        width: 18px;
-        height: 18px;
-      }
-    }
-    .form-group .card {
-      border-radius: 8px;
-    }
-    .input-group {
-      .input-group-prepend + .form-control {
-        border-left: none;
-        padding-left: 5px;
-      }
-      .input-group-text {
-        border-right: none;
-        background-color: transparent;
-        color: #CED4DA;
-      }
+    .input-group-text {
+      border-right: none;
+      background-color: transparent;
+      color: #CED4DA;
     }
   }
 }

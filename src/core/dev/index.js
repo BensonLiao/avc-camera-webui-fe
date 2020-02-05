@@ -120,10 +120,24 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('notificationSMTPSettings').assign(newItem).write()]);
   })
   .onGet('/api/notification/cards').reply(config => {
-    const result = {
-      items: db.get('notificationCards').value()
-    };
-    return mockResponseWithLog(config, [200, result]);
+    return mockResponseWithLog(config, [200, {items: db.get('notificationCards').value()}]);
+  })
+  .onPost('/api/notification/cards').reply(config => {
+    const cards = db.get('notificationCards').value();
+    const card = {id: (cards.sort((a, b) => b - a)[0] || 0) + 1, ...JSON.parse(config.data)};
+    cards.push(card);
+    db.get('notificationCards').assign(cards).write();
+    return mockResponseWithLog(config, [200, card]);
+  })
+  .onPut(/api\/notification\/cards\/\d+$/).reply(config => {
+    const id = parseInt(config.url.replace('/api/notification/cards/', ''), 10);
+    const card = {id, ...JSON.parse(config.data)};
+    return mockResponseWithLog(config, [200, db.get('notificationCards').find({id}).assign(card).write()]);
+  })
+  .onDelete(/api\/notification\/cards\/\d+$/).reply(config => {
+    const id = config.url.replace('/api/notification/cards/', '');
+    db.get('notificationCards').remove({id: parseInt(id, 10)}).write();
+    return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/groups').reply(config => {
     return mockResponseWithLog(config, [200, {

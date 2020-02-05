@@ -166,6 +166,21 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.notification.cards',
+      uri: '/cards',
+      onEnter: () => {
+        document.title = `${_('Notification settings')} - ${_title}`;
+      },
+      resolve: {
+        groups: () => api.group.getGroups().then(response => response.data),
+        cards: () => api.notification.getCards().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-notification" */
+        './pages/notification/cards'
+      )
+    },
+    {
       name: 'web.smart',
       uri: '/smart',
       onEnter: () => {
