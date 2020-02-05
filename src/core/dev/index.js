@@ -124,7 +124,7 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   })
   .onPost('/api/notification/cards').reply(config => {
     const cards = db.get('notificationCards').value();
-    const card = {id: (cards.sort((a, b) => b - a)[0] || 0) + 1, ...JSON.parse(config.data)};
+    const card = {id: (cards.sort((a, b) => b.id - a.id)[0] || {id: 0}).id + 1, ...JSON.parse(config.data)};
     cards.push(card);
     db.get('notificationCards').assign(cards).write();
     return mockResponseWithLog(config, [200, card]);
