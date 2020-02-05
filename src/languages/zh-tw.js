@@ -423,6 +423,7 @@ window.languageResource = {
   'Please enter email address.': '請輸入電子郵件',
   Add: '新增',
   Cancel: '取消',
+  Recognition: '辨識',
 
   // /smart/face-recognition
   'Trigger area': '觸發區域',
