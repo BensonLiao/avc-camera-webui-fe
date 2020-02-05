@@ -44,7 +44,9 @@ module.exports = class Cards extends Base {
         isEnableEmail: card.isEnableEmail,
         $email: '',
         emails: card.emails,
-        emailAttachmentType: card.emailAttachmentType
+        emailAttachmentType: card.emailAttachmentType,
+        isEnableFaceRecognition: card.isEnableFaceRecognition,
+        isEnableApp: card.isEnableApp
       };
     }
 
@@ -64,7 +66,9 @@ module.exports = class Cards extends Base {
       isEnableEmail: false,
       $email: '',
       emails: [],
-      emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail
+      emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
+      isEnableFaceRecognition: false,
+      isEnableApp: false
     };
   };
 
@@ -350,12 +354,12 @@ module.exports = class Cards extends Base {
           <div className="tab-pane fade" id="tab-notification-condition">
             {/* face-recognition */}
             <div className="form-group d-flex justify-content-between align-items-center">
-              <label className="mb-0">辨識</label>
+              <label className="mb-0">{_('Recognition')}</label>
               <div className="custom-control custom-switch">
-                <input type="checkbox" className="custom-control-input" id="switch-notification-face-recognition"/>
+                <Field name="isEnableFaceRecognition" checked={values.isEnableFaceRecognition} type="checkbox" className="custom-control-input" id="switch-notification-face-recognition"/>
                 <label className="custom-control-label" htmlFor="switch-notification-face-recognition">
-                  <span>開</span>
-                  <span>關</span>
+                  <span>{_('ON')}</span>
+                  <span>{_('OFF')}</span>
                 </label>
               </div>
             </div>
