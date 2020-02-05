@@ -68,6 +68,21 @@ window.languageResource = {
   'font-size-1': 'Medium',
   'font-size-2': 'Large',
 
+  // 通知類型
+  'notification-card-0': 'Face recognition',
+  'notification-card-1': 'Age gender',
+  'notification-card-2': 'Humanoid detection',
+
+  // 辨識通知條件
+  'face-recognition-condition-0': 'Always',
+  'face-recognition-condition-1': 'Success',
+  'face-recognition-condition-2': 'Unknown',
+
+  // 通知附件檔案
+  'email-attachment-type-0': 'Face thumbnail',
+  'email-attachment-type-1': 'Screenshot',
+  'email-attachment-type-2': 'None',
+
   // Validations
   'validation-required': 'This field is required.',
   'validation-string': 'This field must be a string.',

@@ -33,7 +33,13 @@ module.exports = class Notification extends Base {
           <h2>{_('Notification settings')}</h2>
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-notification-menu">
-              <a href="#" data-toggle="collapse" data-target="#basic-settings" title={_('Basic settings')} className="nav-link active collapse show d-flex justify-content-between align-items-center">
+              <a href="#" data-toggle="collapse" data-target="#basic-settings"
+                title={_('Basic settings')}
+                className={classNames(
+                  'nav-link collapse show d-flex justify-content-between align-items-center',
+                  {active: ['web.notification.app', 'web.notification.smtp', 'web.notification.io'].indexOf(currentRouteName) >= 0}
+                )}
+              >
                 <span className="text-truncate">{_('Basic settings')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
