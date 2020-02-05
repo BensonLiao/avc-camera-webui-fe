@@ -295,7 +295,7 @@ module.exports = class Cards extends Base {
                       placeholder: _('Start datetime'),
                       style: {whiteSpace: 'nowrap'}
                     }}
-                    endDateFieldName="end"
+                    endDateFieldName="$end"
                     isShowPicker={isShowStartDatePicker}
                     onClickInput={this.toggleStartDatePicker}
                     onHide={this.onHideStartDatePicker}
@@ -313,7 +313,7 @@ module.exports = class Cards extends Base {
                       placeholder: _('End datetime'),
                       style: {whiteSpace: 'nowrap'}
                     }}
-                    startDateFieldName="start"
+                    startDateFieldName="$start"
                     isShowPicker={isShowEndDatePicker}
                     onClickInput={this.toggleEndDatePicker}
                     onHide={this.onHideEndDatePicker}
