@@ -3,6 +3,7 @@ const {Router} = require('capybara-router');
 const history = require('history');
 const _ = require('../languages');
 const api = require('../core/apis/web-api');
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 
 const _title = `${window.cameraName} Web-Manager`;
 
@@ -378,7 +379,7 @@ module.exports = new Router({
         document.title = `${_('Login')} - ${_title}`;
       },
       resolve: {
-        isSetupSuccess: () => api.user.getUsers().then(response => response.data.items.some(item => item.account === 'admin'))
+        isSetupSuccess: () => api.user.getUsers().then(response => response.data.items.some(item => item.account === 'admin' && String(item.permission) === UserPermission.root))
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login" */
