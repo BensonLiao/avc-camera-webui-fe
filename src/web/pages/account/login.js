@@ -48,9 +48,7 @@ module.exports = class Login extends Base {
       });
   }
 
-  setupFormRender = ({errors, touched, submitCount}) => {
-    const isSubmitted = submitCount > 0;
-
+  setupFormRender = ({errors, touched}) => {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
@@ -62,7 +60,7 @@ module.exports = class Login extends Base {
             <label>{_('Username')}</label>
             <Field readOnly name="account" type="text"
               maxLength={UserSchema.account.max}
-              className={classNames('form-control', {'is-invalid': errors.account && touched.account && isSubmitted})}/>
+              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
             {
               errors.account && touched.account && (
                 <div className="invalid-feedback">{errors.account}</div>
@@ -73,7 +71,7 @@ module.exports = class Login extends Base {
             <label>{_('Password')}</label>
             <Field name="password" component={Password} inputProps={{
               placeholder: _('Please enter your password.'),
-              className: classNames('form-control', {'is-invalid': (errors.password && isSubmitted) || this.state.isIncorrectPassword})
+              className: classNames('form-control', {'is-invalid': errors.password})
             }}/>
             {
               errors.password && touched.password && (
@@ -123,7 +121,10 @@ module.exports = class Login extends Base {
                   permission: UserPermission.root,
                   password: ''
                 }}
-                validate={utils.makeFormikValidator(loginValidator)}
+                validate={utils.makeFormikValidator(
+                  loginValidator,
+                  ['password', 'confirmPassword']
+                )}
                 onSubmit={this.onSubmitSetupForm}
               >
                 {this.setupFormRender}

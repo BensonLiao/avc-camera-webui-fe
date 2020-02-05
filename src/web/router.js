@@ -3,7 +3,6 @@ const {Router} = require('capybara-router');
 const history = require('history');
 const _ = require('../languages');
 const api = require('../core/apis/web-api');
-const UserPermission = require('webserver-form-schema/constants/user-permission');
 
 const _title = `${window.cameraName} Web-Manager`;
 
