@@ -219,31 +219,82 @@ module.exports = class Layout extends Base {
             <form className="form-row text-right">
               <div className="col d-none d-sm-block">
                 <div className="dropdown">
-                  <button className="btn dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
+                  <button className="btn text-primary border-primary" type="button" data-toggle="dropdown">
+                    <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    {
-                      Object.keys(window.config.languages).map(languageCode => (
-                        <a key={languageCode} className="dropdown-item"
-                          href={`#${languageCode}`}
-                          onClick={this.generateChangeLanguageHandler(languageCode)}
-                        >
-                          {window.config.languages[languageCode].title}
-                        </a>
-                      ))
-                    }
+                    <h5 className="dropdown-header text-primary">Support</h5>
+                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
+                      {_('Resources')}
+                    </a>
+                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
+                      {_('Online Support Request')}
+                    </a>
+                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
+                      {_('Firmware Downloads')}
+                    </a>
+                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
+                      {_('Software Downloads')}
+                    </a>
+                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
+                      {_('Technical Updates')}
+                    </a>
+                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
+                      {_('Product Selector')}
+                    </a>
+                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
+                      {_('Downloads')}
+                    </a>
                   </div>
                 </div>
               </div>
 
               <div className="col">
                 <div className="dropdown">
-                  <button className="btn text-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    {this.state.$user.account}
+                  <button className="btn text-primary border-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i className="fas fa-question-circle text-primary text-size-20" style={{width: '20px', marginRight: '4px'}}/>
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>{_('Sign out')}</a>
+                    <h5 className="dropdown-header text-primary">Support</h5>
+                    <a className="dropdown-item" href="https://www.arecontvision.com/resource" target="_blank" rel="noopener noreferrer">
+                      {_('Resources')}
+                    </a>
+                    <a className="dropdown-item" href="https://arecontvision.zendesk.com/hc/en-us" target="_blank" rel="noopener noreferrer">
+                      {_('Online Support Request')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/firmware.php" target="_blank" rel="noopener noreferrer">
+                      {_('Firmware Downloads')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/software.php" target="_blank" rel="noopener noreferrer">
+                      {_('Software Downloads')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/bulletins/Technical" target="_blank" rel="noopener noreferrer">
+                      {_('Technical Updates')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/productselector.php" target="_blank" rel="noopener noreferrer">
+                      {_('Product Selector')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/downloads.php" target="_blank" rel="noopener noreferrer">
+                      {_('Downloads')}
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col">
+                <div className="dropdown">
+                  <button className="btn bg-primary border-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i className="fas fa-user text-white"/>
+                  </button>
+                  <div className="dropdown-menu dropdown-menu-right">
+                    <h5 className="dropdown-header text-primary">
+                      {_(`permission-${this.state.$user.permission}`)}
+                    </h5>
+                    <span className="dropdown-item-text font-weight-bold">{this.state.$user.account}</span>
+                    <div className="dropdown-divider"/>
+                    <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>
+                      {_('Sign out')}
+                    </a>
                   </div>
                 </div>
               </div>
