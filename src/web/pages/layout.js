@@ -4,6 +4,7 @@ const progress = require('nprogress');
 const {RouterView} = require('capybara-router');
 const Base = require('./shared/base');
 const {Link, getRouter} = require('capybara-router');
+const Modal = require('react-bootstrap/Modal').default;
 const Loading = require('../../core/components/loading');
 const iconHome = require('../../resource/left-navigation-home.svg');
 const iconMedia = require('../../resource/left-navigation-media.svg');
@@ -26,7 +27,6 @@ module.exports = class Layout extends Base {
     super(props);
     const router = getRouter();
 
-    this.onClickLogout = this.onClickLogout.bind(this);
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
@@ -35,7 +35,17 @@ module.exports = class Layout extends Base {
         });
       })
     );
+    this.state.isShowAboutModal = false;
   }
+
+  showAboutModal = () => {
+    console.log('showAboutModal');
+    this.setState({isShowAboutModal: true});
+  };
+
+  hideAboutModal = () => {
+    this.setState({isShowAboutModal: false});
+  };
 
   generateChangeLanguageHandler = languageCode => event => {
     event.preventDefault();
@@ -50,7 +60,7 @@ module.exports = class Layout extends Base {
       });
   };
 
-  onClickLogout(event) {
+  onClickLogout = event => {
     event.preventDefault();
     progress.start();
     api.account.logout()
@@ -151,6 +161,7 @@ module.exports = class Layout extends Base {
       offset: '0,-4',
       boundary: 'viewport'
     };
+    console.log('this.state', this.state);
 
     return (
       <>
@@ -218,35 +229,9 @@ module.exports = class Layout extends Base {
             <ul className="navbar-nav mr-auto"/>
             <form className="form-row text-right">
               <div className="col d-none d-sm-block">
-                <div className="dropdown">
-                  <button className="btn text-primary border-primary" type="button" data-toggle="dropdown">
-                    <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
-                  </button>
-                  <div className="dropdown-menu dropdown-menu-right">
-                    <h5 className="dropdown-header text-primary">Support</h5>
-                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
-                      {_('Resources')}
-                    </a>
-                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
-                      {_('Online Support Request')}
-                    </a>
-                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
-                      {_('Firmware Downloads')}
-                    </a>
-                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
-                      {_('Software Downloads')}
-                    </a>
-                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
-                      {_('Technical Updates')}
-                    </a>
-                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
-                      {_('Product Selector')}
-                    </a>
-                    <a className="dropdown-item" href="#" onClick={this.onClickLogout}>
-                      {_('Downloads')}
-                    </a>
-                  </div>
-                </div>
+                <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
+                  <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
+                </button>
               </div>
 
               <div className="col">
@@ -301,6 +286,36 @@ module.exports = class Layout extends Base {
             </form>
           </div>
         </nav>
+
+        {/* About info modal */}
+        <Modal
+          show={this.state.isShowAboutModal}
+          autoFocus={false}
+          onHide={this.hideAboutModal}
+        >
+          <div className="modal-header">
+            <h5 className="modal-title">{_('About')}</h5>
+          </div>
+          <div className="modal-body">
+            <div className="text-info">{_('Model name :')}</div>
+            <div className="text-primary font-weight-bold">AV02CLD-100</div>
+            <div className="text-info">{_('Firmware :')}</div>
+            <div className="text-primary font-weight-bold">35110.4</div>
+            <div className="text-info">{_('Serial number :')}</div>
+            <div className="text-primary font-weight-bold">181000723</div>
+            <div className="text-info">{_('MAC address :')}</div>
+            <div className="text-primary font-weight-bold">00-1a-07-18-c5-58</div>
+          </div>
+          <div className="modal-footer flex-column">
+            <button
+              type="button"
+              className="btn btn-secondary btn-block m-0 rounded-pill bg-info text-white"
+              onClick={this.hideAboutModal}
+            >
+              {_('Close')}
+            </button>
+          </div>
+        </Modal>
 
         <RouterView>
           <Loading/>
