@@ -206,7 +206,7 @@ module.exports = class Layout extends Base {
           </Tooltip>
         </div>
 
-        <nav className="navbar navbar-expand fixed-top shadow-sm">
+        <nav className="navbar navbar-expand fixed-top">
           <Link className="navbar-brand" to="/">
             <img src={logo} height="24" className="logo"/>
           </Link>

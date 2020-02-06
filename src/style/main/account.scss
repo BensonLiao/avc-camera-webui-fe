@@ -1,33 +1,29 @@
 .page-login, .page-login-lock, .page-forgot-password, .page-reset-password, .page-reset-password-success {
   min-height: 100vh;
-  background-image: url("../resource/background-01.png");
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
 
-  img.logo {
-    position: absolute;
-    margin: 40px 64px 0;
-  }
-  img.decoration {
-    position: fixed;
-    right: 140px;
-    bottom: 65px;
-    width: 679px;
-  }
-  .text-welcome {
-    font-size: 40px;
-    margin-top: 220px;
+  .logo {
+    height: 208px;
+    > img {
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
   }
   .card {
-    border-radius: 16px;
+    border-radius: 8px;
     .card-body {
-      padding: 24px;
+      padding: 40px;
     }
     .card-title {
-      font-size: 30px;
+      font-size: 22px;
       font-weight: bold;
-      margin-bottom: 38px;
+      margin-bottom: 8px;
+    }
+    .card-sub-title {
+      margin-bottom: 40px;
     }
   }
 }
