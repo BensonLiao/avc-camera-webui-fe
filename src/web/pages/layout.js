@@ -15,7 +15,7 @@ const iconSystem = require('../../resource/left-navigation-system.svg');
 const iconSecurity = require('../../resource/left-navigation-security.svg');
 const iconLicense = require('../../resource/left-navigation-license.svg');
 const iconDevelop = require('../../resource/left-navigation-develop.svg');
-const logo = require('../../resource/logo-02.svg');
+const logo = require('../../resource/logo-avn.svg');
 const Tooltip = require('../../core/components/tooltip');
 const api = require('../../core/apis/web-api');
 const utils = require('../../core/utils');
@@ -207,9 +207,9 @@ module.exports = class Layout extends Base {
           </Tooltip>
         </div>
 
-        <nav className="navbar navbar-expand fixed-top">
-          <Link className="navbar-brand" to="/">
-            <img src={logo} height="24" className="logo"/>
+        <nav className="navbar navbar-expand fixed-top shadow-sm">
+          <Link className="navbar-brand py-0 mx-0" to="/">
+            <img src={logo} className="logo"/>
           </Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation">
             <span className="navbar-toggler-icon"/>
