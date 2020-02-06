@@ -78,14 +78,15 @@ module.exports = class Login extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <h3 className="card-title text-primary">{_('ACCUNT LOGIN')}</h3>
+          <h3 className="card-title text-primary">{_('ACCOUNT LOGIN')}</h3>
           <div className="card-sub-title text-muted">
-            {_('Please enter your admin password')}
+            {_('Please enter your username and password')}
           </div>
           <div className="form-group">
             <label>{_('Username')}</label>
             <Field name="account" type="text"
               maxLength={UserSchema.account.max}
+              placeholder={_('Eenter your username')}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account && isSubmitted})}/>
             {
               errors.account && touched.account && (
@@ -96,7 +97,7 @@ module.exports = class Login extends Base {
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
             <Field name="password" component={Password} inputProps={{
-              placeholder: _('Please enter your password.'),
+              placeholder: _('Eenter your password'),
               className: classNames('form-control', {'is-invalid': (errors.password && isSubmitted) || this.state.isIncorrectPassword})
             }}/>
             {
