@@ -154,6 +154,46 @@ exports.showErrorNotification = (title, message) => {
 };
 
 /**
+ * @param {string} imgSrc - The src of the img element.
+ * @param {number} zoomRate - `100` mean 100%. `200` means zoom in 2x.
+ * @param {number} pictureRotateDegrees - The rotate degrees. 0 ~ 360
+ * @returns {Promise<string>} - The base64 jpeg string.
+ */
+exports.convertPicture = (imgSrc, zoomRate, pictureRotateDegrees) => new Promise((resolve, reject) => {
+  const img = document.createElement('img');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  const size = 300;
+  let rate;
+
+  img.onerror = reject;
+  img.onload = () => {
+    rate = img.height / img.width;
+    if (img.width < img.height) {
+      img.width = size;
+      img.height = Math.round(img.width * rate);
+    } else {
+      img.height = size;
+      img.width = Math.round(img.height / rate);
+    }
+
+    img.width = Math.round(img.width * zoomRate * 0.01);
+    img.height = Math.round(img.height * zoomRate * 0.01);
+
+    canvas.width = size;
+    canvas.height = size;
+    context.translate(canvas.width / 2, canvas.height / 2);
+    context.rotate(pictureRotateDegrees * Math.PI / 180);
+    context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
+    context.restore();
+
+    resolve(canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', ''));
+  };
+
+  img.src = imgSrc;
+});
+
+/**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
  * @param {Object} req XHR request instance, or if we use library like axios then `req` is the axios request config and contains things like `url`.
  * @see https://github.com/axios/axios#request-config
