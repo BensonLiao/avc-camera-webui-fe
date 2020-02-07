@@ -1,9 +1,11 @@
+const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const React = require('react');
 const progress = require('nprogress');
 const {RouterView} = require('capybara-router');
 const Base = require('./shared/base');
 const {Link, getRouter} = require('capybara-router');
+const Modal = require('react-bootstrap/Modal').default;
 const Loading = require('../../core/components/loading');
 const iconHome = require('../../resource/left-navigation-home.svg');
 const iconMedia = require('../../resource/left-navigation-media.svg');
@@ -15,18 +17,38 @@ const iconSystem = require('../../resource/left-navigation-system.svg');
 const iconSecurity = require('../../resource/left-navigation-security.svg');
 const iconLicense = require('../../resource/left-navigation-license.svg');
 const iconDevelop = require('../../resource/left-navigation-develop.svg');
-const logo = require('../../resource/logo-02.svg');
+const logo = require('../../resource/logo-avn.svg');
 const Tooltip = require('../../core/components/tooltip');
 const api = require('../../core/apis/web-api');
 const utils = require('../../core/utils');
 const _ = require('../../languages');
 
 module.exports = class Layout extends Base {
+  static get propTypes() {
+    return {
+      systemInformation: PropTypes.shape({
+        languageCode: PropTypes.oneOf(['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es']).isRequired,
+        deviceName: PropTypes.string.isRequired,
+        isEnableFaceRecognition: PropTypes.bool.isRequired,
+        isEnableAgeGender: PropTypes.bool.isRequired,
+        isEnableHumanoidDetection: PropTypes.bool.isRequired,
+        deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
+        usedDiskSize: PropTypes.number.isRequired,
+        totalDiskSize: PropTypes.number.isRequired,
+        serialNumber: PropTypes.string.isRequired,
+        modelName: PropTypes.string.isRequired,
+        firmware: PropTypes.string.isRequired
+      }).isRequired,
+      networkSettings: PropTypes.shape({
+        mac: PropTypes.string.isRequired
+      }).isRequired
+    };
+  }
+
   constructor(props) {
     super(props);
     const router = getRouter();
 
-    this.onClickLogout = this.onClickLogout.bind(this);
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
@@ -35,7 +57,16 @@ module.exports = class Layout extends Base {
         });
       })
     );
+    this.state.isShowAboutModal = false;
   }
+
+  showAboutModal = () => {
+    this.setState({isShowAboutModal: true});
+  };
+
+  hideAboutModal = () => {
+    this.setState({isShowAboutModal: false});
+  };
 
   generateChangeLanguageHandler = languageCode => event => {
     event.preventDefault();
@@ -50,7 +81,7 @@ module.exports = class Layout extends Base {
       });
   };
 
-  onClickLogout(event) {
+  onClickLogout = event => {
     event.preventDefault();
     progress.start();
     api.account.logout()
@@ -64,6 +95,7 @@ module.exports = class Layout extends Base {
   }
 
   render() {
+    const {systemInformation, networkSettings} = this.props;
     const classTable = {
       homeLink: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -207,9 +239,9 @@ module.exports = class Layout extends Base {
           </Tooltip>
         </div>
 
-        <nav className="navbar navbar-expand fixed-top">
-          <Link className="navbar-brand" to="/">
-            <img src={logo} height="24" className="logo"/>
+        <nav className="navbar navbar-expand fixed-top shadow-sm">
+          <Link className="navbar-brand py-0 mx-0" to="/">
+            <img src={logo} className="logo"/>
           </Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation">
             <span className="navbar-toggler-icon"/>
@@ -218,38 +250,93 @@ module.exports = class Layout extends Base {
             <ul className="navbar-nav mr-auto"/>
             <form className="form-row text-right">
               <div className="col d-none d-sm-block">
+                <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
+                  <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
+                </button>
+              </div>
+
+              <div className="col">
                 <div className="dropdown">
-                  <button className="btn dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
+                  <button className="btn text-primary border-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i className="fas fa-question-circle text-primary text-size-20" style={{width: '20px', marginRight: '4px'}}/>
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    {
-                      Object.keys(window.config.languages).map(languageCode => (
-                        <a key={languageCode} className="dropdown-item"
-                          href={`#${languageCode}`}
-                          onClick={this.generateChangeLanguageHandler(languageCode)}
-                        >
-                          {window.config.languages[languageCode].title}
-                        </a>
-                      ))
-                    }
+                    <h5 className="dropdown-header text-primary">Support</h5>
+                    <a className="dropdown-item" href="https://www.arecontvision.com/resource" target="_blank" rel="noopener noreferrer">
+                      {_('Resources')}
+                    </a>
+                    <a className="dropdown-item" href="https://arecontvision.zendesk.com/hc/en-us" target="_blank" rel="noopener noreferrer">
+                      {_('Online Support Request')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/firmware.php" target="_blank" rel="noopener noreferrer">
+                      {_('Firmware Downloads')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/software.php" target="_blank" rel="noopener noreferrer">
+                      {_('Software Downloads')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/bulletins/Technical" target="_blank" rel="noopener noreferrer">
+                      {_('Technical Updates')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/productselector.php" target="_blank" rel="noopener noreferrer">
+                      {_('Product Selector')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/downloads.php" target="_blank" rel="noopener noreferrer">
+                      {_('Downloads')}
+                    </a>
                   </div>
                 </div>
               </div>
 
               <div className="col">
                 <div className="dropdown">
-                  <button className="btn text-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    {this.state.$user.account}
+                  <button className="btn bg-primary border-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i className="fas fa-user text-white"/>
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>{_('Sign out')}</a>
+                    <h5 className="dropdown-header text-primary">
+                      {_(`permission-${this.state.$user.permission}`)}
+                    </h5>
+                    <span className="dropdown-item-text font-weight-bold">{this.state.$user.account}</span>
+                    <div className="dropdown-divider"/>
+                    <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>
+                      {_('Sign out')}
+                    </a>
                   </div>
                 </div>
               </div>
             </form>
           </div>
         </nav>
+
+        {/* About info modal */}
+        <Modal
+          show={this.state.isShowAboutModal}
+          autoFocus={false}
+          onHide={this.hideAboutModal}
+        >
+          <div className="modal-header">
+            <h5 className="modal-title">{_('About')}</h5>
+          </div>
+          <div className="modal-body">
+            <div className="text-info">{_('Model name :')}</div>
+            <div className="text-primary font-weight-bold">{systemInformation.modelName}</div>
+            <div className="text-info">{_('Firmware :')}</div>
+            <div className="text-primary font-weight-bold">{systemInformation.firmware}</div>
+            <div className="text-info">{_('Serial number :')}</div>
+            <div className="text-primary font-weight-bold">{systemInformation.serialNumber}</div>
+            <div className="text-info">{_('MAC address :')}</div>
+            <div className="text-primary font-weight-bold">{networkSettings.mac}</div>
+          </div>
+          <div className="modal-footer flex-column">
+            <button
+              type="button"
+              className="btn btn-secondary btn-block m-0 rounded-pill bg-info text-white"
+              onClick={this.hideAboutModal}
+            >
+              {_('Close')}
+            </button>
+          </div>
+        </Modal>
 
         <RouterView>
           <Loading/>

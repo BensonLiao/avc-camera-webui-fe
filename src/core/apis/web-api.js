@@ -153,10 +153,22 @@ module.exports = {
      * - deviceStatus {Number}
      * - usedDiskSize {Number}
      * - totalDiskSize {Number}
+     * - serialNumber {string}
+     * - modelName {string}
+     * - firmware {string}
      */
     getInformation: () => api({
       method: 'get',
       url: '/api/system/information'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - mac {string} The mac address.
+     */
+    getNetworkSettings: () => api({
+      method: 'get',
+      url: '/api/system/network'
     }),
     /**
      * @param {String} deviceName
