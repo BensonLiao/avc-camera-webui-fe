@@ -1,3 +1,4 @@
+const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const React = require('react');
 const progress = require('nprogress');
@@ -23,6 +24,27 @@ const utils = require('../../core/utils');
 const _ = require('../../languages');
 
 module.exports = class Layout extends Base {
+  static get propTypes() {
+    return {
+      systemInformation: PropTypes.shape({
+        languageCode: PropTypes.oneOf(['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es']).isRequired,
+        deviceName: PropTypes.string.isRequired,
+        isEnableFaceRecognition: PropTypes.bool.isRequired,
+        isEnableAgeGender: PropTypes.bool.isRequired,
+        isEnableHumanoidDetection: PropTypes.bool.isRequired,
+        deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
+        usedDiskSize: PropTypes.number.isRequired,
+        totalDiskSize: PropTypes.number.isRequired,
+        serialNumber: PropTypes.string.isRequired,
+        modelName: PropTypes.string.isRequired,
+        firmware: PropTypes.string.isRequired
+      }).isRequired,
+      networkSettings: PropTypes.shape({
+        mac: PropTypes.string.isRequired
+      }).isRequired
+    };
+  }
+
   constructor(props) {
     super(props);
     const router = getRouter();
@@ -73,6 +95,7 @@ module.exports = class Layout extends Base {
   }
 
   render() {
+    const {systemInformation, networkSettings} = this.props;
     const classTable = {
       homeLink: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -296,13 +319,13 @@ module.exports = class Layout extends Base {
           </div>
           <div className="modal-body">
             <div className="text-info">{_('Model name :')}</div>
-            <div className="text-primary font-weight-bold">AV02CLD-100</div>
+            <div className="text-primary font-weight-bold">{systemInformation.modelName}</div>
             <div className="text-info">{_('Firmware :')}</div>
-            <div className="text-primary font-weight-bold">35110.4</div>
+            <div className="text-primary font-weight-bold">{systemInformation.firmware}</div>
             <div className="text-info">{_('Serial number :')}</div>
-            <div className="text-primary font-weight-bold">181000723</div>
+            <div className="text-primary font-weight-bold">{systemInformation.serialNumber}</div>
             <div className="text-info">{_('MAC address :')}</div>
-            <div className="text-primary font-weight-bold">00-1a-07-18-c5-58</div>
+            <div className="text-primary font-weight-bold">{networkSettings.mac}</div>
           </div>
           <div className="modal-footer flex-column">
             <button

@@ -72,7 +72,13 @@ module.exports = {
         isEnableHumanoidDetection: false,
         deviceStatus: 1,
         usedDiskSize: 3117 * 1024 * 1024,
-        totalDiskSize: 7692 * 1024 * 1024
+        totalDiskSize: 7692 * 1024 * 1024,
+        serialNumber: '181000723',
+        modelName: 'AV02CLD-100',
+        firmware: '35110.4'
+      },
+      networkSettings: {
+        mac: '00-1a-07-18-c5-58'
       },
       streamDefault: {
         channelA: {
