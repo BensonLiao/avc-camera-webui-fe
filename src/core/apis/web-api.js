@@ -153,6 +153,9 @@ module.exports = {
      * - deviceStatus {Number}
      * - usedDiskSize {Number}
      * - totalDiskSize {Number}
+     * - serialNumber {string}
+     * - modelName {string}
+     * - firmware {string}
      */
     getInformation: () => api({
       method: 'get',
