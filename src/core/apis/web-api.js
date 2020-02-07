@@ -162,6 +162,15 @@ module.exports = {
       url: '/api/system/information'
     }),
     /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - mac {string} The mac address.
+     */
+    getNetworkSettings: () => api({
+      method: 'get',
+      url: '/api/system/network'
+    }),
+    /**
      * @param {String} deviceName
      * @returns {Promise<response>}
      * @response 200 {Object}

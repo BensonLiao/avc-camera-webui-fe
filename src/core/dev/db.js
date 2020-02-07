@@ -77,6 +77,9 @@ module.exports = {
         modelName: 'AV02CLD-100',
         firmware: '35110.4'
       },
+      networkSettings: {
+        mac: '00-1a-07-18-c5-58'
+      },
       streamDefault: {
         channelA: {
           format: StreamFormat.h264,
