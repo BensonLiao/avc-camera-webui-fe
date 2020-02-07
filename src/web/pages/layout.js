@@ -39,7 +39,6 @@ module.exports = class Layout extends Base {
   }
 
   showAboutModal = () => {
-    console.log('showAboutModal');
     this.setState({isShowAboutModal: true});
   };
 
@@ -161,7 +160,6 @@ module.exports = class Layout extends Base {
       offset: '0,-4',
       boundary: 'viewport'
     };
-    console.log('this.state', this.state);
 
     return (
       <>
