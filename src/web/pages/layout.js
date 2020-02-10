@@ -8,15 +8,15 @@ const {Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const Loading = require('../../core/components/loading');
 const iconHome = require('../../resource/left-navigation-home.svg');
+const iconImage = require('../../resource/left-navigation-image.svg');
 const iconMedia = require('../../resource/left-navigation-media.svg');
+const iconAudio = require('../../resource/left-navigation-audio.svg');
 const iconNotification = require('../../resource/left-navigation-bell.svg');
-const iconMembers = require('../../resource/left-navigation-users.svg');
-const iconSmart = require('../../resource/left-navigation-smart.svg');
-const iconHistories = require('../../resource/left-navigation-histories.svg');
+const iconUserManagement = require('../../resource/left-navigation-users.svg');
+const iconAnalytic = require('../../resource/left-navigation-analytic.svg');
+const iconNetwork = require('../../resource/left-navigation-network.svg');
 const iconSystem = require('../../resource/left-navigation-system.svg');
-const iconSecurity = require('../../resource/left-navigation-security.svg');
-const iconLicense = require('../../resource/left-navigation-license.svg');
-const iconDevelop = require('../../resource/left-navigation-develop.svg');
+const iconSDCard = require('../../resource/left-navigation-sd-card.svg');
 const logo = require('../../resource/logo-avn.svg');
 const Tooltip = require('../../core/components/tooltip');
 const api = require('../../core/apis/web-api');
@@ -97,11 +97,15 @@ module.exports = class Layout extends Base {
   render() {
     const {systemInformation, networkSettings} = this.props;
     const classTable = {
-      homeLink: classNames(
+      home: classNames(
         'btn d-flex justify-content-center align-items-center',
         {active: this.state.currentRouteName === 'web.home'}
       ),
-      mediaLink: classNames(
+      image: classNames(
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName === 'web.image'}
+      ),
+      media: classNames(
         'btn d-flex justify-content-center align-items-center',
         {
           active: [
@@ -113,6 +117,10 @@ module.exports = class Layout extends Base {
             'web.media.audio'
           ].indexOf(this.state.currentRouteName) >= 0
         }
+      ),
+      audio: classNames(
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName === 'web.audio'}
       ),
       notification: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -147,35 +155,16 @@ module.exports = class Layout extends Base {
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
-      historis: classNames(
+      network: classNames(
         'btn d-flex justify-content-center align-items-center',
-        {
-          active: ['web.events'].indexOf(this.state.currentRouteName) >= 0
-        }
+        {active: this.state.currentRouteName === 'web.network'}
       ),
       system: classNames(
         'btn d-flex justify-content-center align-items-center'
       ),
-      security: classNames(
+      sdCard: classNames(
         'btn d-flex justify-content-center align-items-center',
-        {
-          active: [
-            'web.security',
-            'web.security.users',
-            'web.security.users.details',
-            'web.security.users.new-user',
-            'web.security.https'
-          ].indexOf(this.state.currentRouteName) >= 0
-        }
-      ),
-      license: classNames(
-        'btn d-flex justify-content-center align-items-center',
-        {
-          active: ['web.license'].indexOf(this.state.currentRouteName) >= 0
-        }
-      ),
-      develop: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        {active: this.state.currentRouteName === 'web.sd-card'}
       )
     };
     const tooltipOptions = {
@@ -188,13 +177,23 @@ module.exports = class Layout extends Base {
       <>
         <div className="left-navigation fixed-top">
           <Tooltip title={_('Home')} {...tooltipOptions}>
-            <Link className={classTable.homeLink} to="/">
+            <Link className={classTable.home} to="/">
               <img src={iconHome}/>
             </Link>
           </Tooltip>
+          <Tooltip title={_('Image')} {...tooltipOptions}>
+            <Link className={classTable.image} to="/image">
+              <img src={iconImage}/>
+            </Link>
+          </Tooltip>
           <Tooltip title={_('Multimedia settings')} {...tooltipOptions}>
-            <Link className={classTable.mediaLink} to="/media/stream">
+            <Link className={classTable.media} to="/media/stream">
               <img src={iconMedia}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Audio')} {...tooltipOptions}>
+            <Link className={classTable.audio} to="/audio">
+              <img src={iconAudio}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('Notification settings')} {...tooltipOptions}>
@@ -202,19 +201,19 @@ module.exports = class Layout extends Base {
               <img src={iconNotification}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Members')} {...tooltipOptions}>
+          <Tooltip title={_('User management')} {...tooltipOptions}>
             <Link className={classTable.members} to="/members">
-              <img src={iconMembers}/>
+              <img src={iconUserManagement}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Smart functions')} {...tooltipOptions}>
+          <Tooltip title={_('Analytic')} {...tooltipOptions}>
             <Link className={classTable.smart} to="/smart/face-recognition">
-              <img src={iconSmart}/>
+              <img src={iconAnalytic}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Smart search')} {...tooltipOptions}>
-            <Link className={classTable.historis} to="/events">
-              <img src={iconHistories}/>
+          <Tooltip title={_('Network')} {...tooltipOptions}>
+            <Link className={classTable.network} to="/network">
+              <img src={iconNetwork}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('System')} {...tooltipOptions}>
@@ -222,19 +221,9 @@ module.exports = class Layout extends Base {
               <img src={iconSystem}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Security')} {...tooltipOptions}>
-            <Link className={classTable.security} to="/security/account">
-              <img src={iconSecurity}/>
-            </Link>
-          </Tooltip>
-          <Tooltip title={_('License')} {...tooltipOptions}>
-            <Link className={classTable.license} to="/license">
-              <img src={iconLicense}/>
-            </Link>
-          </Tooltip>
-          <Tooltip title={_('Develop')} {...tooltipOptions}>
-            <Link className={classTable.develop} to="/develop">
-              <img src={iconDevelop}/>
+          <Tooltip title={_('SD Card')} {...tooltipOptions}>
+            <Link className={classTable.sdCard} to="/sd-card">
+              <img src={iconSDCard}/>
             </Link>
           </Tooltip>
         </div>
