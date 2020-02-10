@@ -122,7 +122,7 @@ module.exports = {
         isEnableInput: true,
         isEnableOutput: false,
         inputQuality: '1',
-        inputSource: 'LINE IN'
+        inputSource: 'LINEIN'
       },
       rtspSettings: {
         isEnableAudioToStream: true,

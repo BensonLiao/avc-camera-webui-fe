@@ -4,6 +4,7 @@ const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const AudioInputQuality = require('webserver-form-schema/constants/audio-input-quality');
+const AudioInputSource = require('webserver-form-schema/constants/audio-input-source');
 const Base = require('../shared/base');
 const utils = require('../../../core/utils');
 const _ = require('../../../languages');
@@ -60,7 +61,7 @@ module.exports = class Audio extends Base {
           <label>{_('Audio input source')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="inputSource" component="select" className="form-control border-0">
-              <option value="LINE IN">{_('Built-in microphone')}</option>
+              <option value={AudioInputSource.lineIn}>{_('Built-in microphone')}</option>
             </Field>
           </div>
         </div>
