@@ -12,11 +12,7 @@ const iconMedia = require('../../resource/left-navigation-media.svg');
 const iconNotification = require('../../resource/left-navigation-bell.svg');
 const iconMembers = require('../../resource/left-navigation-users.svg');
 const iconSmart = require('../../resource/left-navigation-smart.svg');
-const iconHistories = require('../../resource/left-navigation-histories.svg');
 const iconSystem = require('../../resource/left-navigation-system.svg');
-const iconSecurity = require('../../resource/left-navigation-security.svg');
-const iconLicense = require('../../resource/left-navigation-license.svg');
-const iconDevelop = require('../../resource/left-navigation-develop.svg');
 const logo = require('../../resource/logo-avn.svg');
 const Tooltip = require('../../core/components/tooltip');
 const api = require('../../core/apis/web-api');
@@ -212,29 +208,9 @@ module.exports = class Layout extends Base {
               <img src={iconSmart}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Smart search')} {...tooltipOptions}>
-            <Link className={classTable.historis} to="/events">
-              <img src={iconHistories}/>
-            </Link>
-          </Tooltip>
           <Tooltip title={_('System')} {...tooltipOptions}>
             <Link className={classTable.system} to="/system/date.html">
               <img src={iconSystem}/>
-            </Link>
-          </Tooltip>
-          <Tooltip title={_('Security')} {...tooltipOptions}>
-            <Link className={classTable.security} to="/security/account">
-              <img src={iconSecurity}/>
-            </Link>
-          </Tooltip>
-          <Tooltip title={_('License')} {...tooltipOptions}>
-            <Link className={classTable.license} to="/license">
-              <img src={iconLicense}/>
-            </Link>
-          </Tooltip>
-          <Tooltip title={_('Develop')} {...tooltipOptions}>
-            <Link className={classTable.develop} to="/develop">
-              <img src={iconDevelop}/>
             </Link>
           </Tooltip>
         </div>
