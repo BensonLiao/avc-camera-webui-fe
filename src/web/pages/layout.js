@@ -12,7 +12,7 @@ const iconImage = require('../../resource/left-navigation-image.svg');
 const iconMedia = require('../../resource/left-navigation-media.svg');
 const iconAudio = require('../../resource/left-navigation-audio.svg');
 const iconNotification = require('../../resource/left-navigation-bell.svg');
-const iconMembers = require('../../resource/left-navigation-users.svg');
+const iconUserManagement = require('../../resource/left-navigation-users.svg');
 const iconAnalytic = require('../../resource/left-navigation-analytic.svg');
 const iconNetwork = require('../../resource/left-navigation-network.svg');
 const iconSystem = require('../../resource/left-navigation-system.svg');
@@ -201,9 +201,9 @@ module.exports = class Layout extends Base {
               <img src={iconNotification}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Members')} {...tooltipOptions}>
+          <Tooltip title={_('User management')} {...tooltipOptions}>
             <Link className={classTable.members} to="/members">
-              <img src={iconMembers}/>
+              <img src={iconUserManagement}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('Analytic')} {...tooltipOptions}>
