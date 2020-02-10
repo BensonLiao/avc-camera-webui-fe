@@ -8,11 +8,15 @@ const {Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const Loading = require('../../core/components/loading');
 const iconHome = require('../../resource/left-navigation-home.svg');
+const iconImage = require('../../resource/left-navigation-image.svg');
 const iconMedia = require('../../resource/left-navigation-media.svg');
+const iconAudio = require('../../resource/left-navigation-audio.svg');
 const iconNotification = require('../../resource/left-navigation-bell.svg');
 const iconMembers = require('../../resource/left-navigation-users.svg');
-const iconSmart = require('../../resource/left-navigation-smart.svg');
+const iconAnalytic = require('../../resource/left-navigation-analytic.svg');
+const iconNetwork = require('../../resource/left-navigation-network.svg');
 const iconSystem = require('../../resource/left-navigation-system.svg');
+const iconSDCard = require('../../resource/left-navigation-sd-card.svg');
 const logo = require('../../resource/logo-avn.svg');
 const Tooltip = require('../../core/components/tooltip');
 const api = require('../../core/apis/web-api');
@@ -97,6 +101,10 @@ module.exports = class Layout extends Base {
         'btn d-flex justify-content-center align-items-center',
         {active: this.state.currentRouteName === 'web.home'}
       ),
+      imageLink: classNames(
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName === 'web.image'}
+      ),
       mediaLink: classNames(
         'btn d-flex justify-content-center align-items-center',
         {
@@ -109,6 +117,10 @@ module.exports = class Layout extends Base {
             'web.media.audio'
           ].indexOf(this.state.currentRouteName) >= 0
         }
+      ),
+      audio: classNames(
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName === 'web.audio'}
       ),
       notification: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -149,8 +161,16 @@ module.exports = class Layout extends Base {
           active: ['web.events'].indexOf(this.state.currentRouteName) >= 0
         }
       ),
+      network: classNames(
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName === 'web.network'}
+      ),
       system: classNames(
         'btn d-flex justify-content-center align-items-center'
+      ),
+      sdCard: classNames(
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName === 'web.sd-card'}
       ),
       security: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -188,9 +208,19 @@ module.exports = class Layout extends Base {
               <img src={iconHome}/>
             </Link>
           </Tooltip>
+          <Tooltip title={_('Image')} {...tooltipOptions}>
+            <Link className={classTable.imageLink} to="/image">
+              <img src={iconImage}/>
+            </Link>
+          </Tooltip>
           <Tooltip title={_('Multimedia settings')} {...tooltipOptions}>
             <Link className={classTable.mediaLink} to="/media/stream">
               <img src={iconMedia}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Audio')} {...tooltipOptions}>
+            <Link className={classTable.audio} to="/audio">
+              <img src={iconAudio}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('Notification settings')} {...tooltipOptions}>
@@ -203,14 +233,24 @@ module.exports = class Layout extends Base {
               <img src={iconMembers}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Smart functions')} {...tooltipOptions}>
+          <Tooltip title={_('Analytic')} {...tooltipOptions}>
             <Link className={classTable.smart} to="/smart/face-recognition">
-              <img src={iconSmart}/>
+              <img src={iconAnalytic}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('Network')} {...tooltipOptions}>
+            <Link className={classTable.network} to="/network">
+              <img src={iconNetwork}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('System')} {...tooltipOptions}>
             <Link className={classTable.system} to="/system/date.html">
               <img src={iconSystem}/>
+            </Link>
+          </Tooltip>
+          <Tooltip title={_('SD Card')} {...tooltipOptions}>
+            <Link className={classTable.sdCard} to="/sd-card">
+              <img src={iconSDCard}/>
             </Link>
           </Tooltip>
         </div>
