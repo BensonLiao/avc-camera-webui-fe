@@ -97,15 +97,15 @@ module.exports = class Layout extends Base {
   render() {
     const {systemInformation, networkSettings} = this.props;
     const classTable = {
-      homeLink: classNames(
+      home: classNames(
         'btn d-flex justify-content-center align-items-center',
         {active: this.state.currentRouteName === 'web.home'}
       ),
-      imageLink: classNames(
+      image: classNames(
         'btn d-flex justify-content-center align-items-center',
         {active: this.state.currentRouteName === 'web.image'}
       ),
-      mediaLink: classNames(
+      media: classNames(
         'btn d-flex justify-content-center align-items-center',
         {
           active: [
@@ -155,12 +155,6 @@ module.exports = class Layout extends Base {
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
-      historis: classNames(
-        'btn d-flex justify-content-center align-items-center',
-        {
-          active: ['web.events'].indexOf(this.state.currentRouteName) >= 0
-        }
-      ),
       network: classNames(
         'btn d-flex justify-content-center align-items-center',
         {active: this.state.currentRouteName === 'web.network'}
@@ -171,27 +165,6 @@ module.exports = class Layout extends Base {
       sdCard: classNames(
         'btn d-flex justify-content-center align-items-center',
         {active: this.state.currentRouteName === 'web.sd-card'}
-      ),
-      security: classNames(
-        'btn d-flex justify-content-center align-items-center',
-        {
-          active: [
-            'web.security',
-            'web.security.users',
-            'web.security.users.details',
-            'web.security.users.new-user',
-            'web.security.https'
-          ].indexOf(this.state.currentRouteName) >= 0
-        }
-      ),
-      license: classNames(
-        'btn d-flex justify-content-center align-items-center',
-        {
-          active: ['web.license'].indexOf(this.state.currentRouteName) >= 0
-        }
-      ),
-      develop: classNames(
-        'btn d-flex justify-content-center align-items-center'
       )
     };
     const tooltipOptions = {
@@ -204,17 +177,17 @@ module.exports = class Layout extends Base {
       <>
         <div className="left-navigation fixed-top">
           <Tooltip title={_('Home')} {...tooltipOptions}>
-            <Link className={classTable.homeLink} to="/">
+            <Link className={classTable.home} to="/">
               <img src={iconHome}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('Image')} {...tooltipOptions}>
-            <Link className={classTable.imageLink} to="/image">
+            <Link className={classTable.image} to="/image">
               <img src={iconImage}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('Multimedia settings')} {...tooltipOptions}>
-            <Link className={classTable.mediaLink} to="/media/stream">
+            <Link className={classTable.media} to="/media/stream">
               <img src={iconMedia}/>
             </Link>
           </Tooltip>
