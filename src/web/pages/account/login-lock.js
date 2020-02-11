@@ -71,7 +71,7 @@ module.exports = class LoginLock extends Base {
                     <h5 className="card-title text-oops" style={{marginBottom: '32px'}}>{_('OOPS!')}</h5>
                     <div className="text-center" style={{marginBottom: '80px'}}>
                       <img src={frownOpenSolid} width="80" height="80" style={{marginBottom: '32px'}}/>
-                      <p className="text-gray-700">
+                      <p className="text-dark">
                         {_('Incorrect password 5 times! Please wait for 5 minutes.')}
                       </p>
                     </div>
