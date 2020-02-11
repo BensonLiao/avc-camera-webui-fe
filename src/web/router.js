@@ -421,39 +421,6 @@ module.exports = new Router({
       )
     },
     {
-      name: 'forgot-password',
-      uri: '/forgot-password',
-      onEnter: () => {
-        document.title = `${_('Forgot password')} - ${_title}`;
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-forgot-password" */
-        './pages/account/forgot-password'
-      )
-    },
-    {
-      name: 'reset-password',
-      uri: '/reset-password?account?birthday',
-      onEnter: () => {
-        document.title = `${_('Reset password')} - ${_title}`;
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-reset-password" */
-        './pages/account/reset-password'
-      )
-    },
-    {
-      name: 'reset-password-success',
-      uri: '/reset-password-success',
-      onEnter: () => {
-        document.title = `${_('Reset password success.')} - ${_title}`;
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-reset-password-success" */
-        './pages/account/reset-password-success'
-      )
-    },
-    {
       name: 'not-found',
       uri: '.*',
       component: require('./pages/shared/not-found')
