@@ -1,8 +1,8 @@
 const leftPad = require('left-pad');
 const React = require('react');
 const {Link} = require('capybara-router');
-const logo = require('../../../resource/logo-01.svg');
-const decoration = require('../../../resource/decoration-01.svg');
+const logo = require('../../../resource/logo-avn-secondary.svg');
+const logoWithTitle = require('../../../resource/logo-avn-title.svg');
 const frownOpenSolid = require('../../../resource/frown-open-solid.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
@@ -55,13 +55,14 @@ module.exports = class LoginLock extends Base {
 
   render() {
     return (
-      <div className="page-login-lock">
-        <img src={logo} className="logo" alt="AndroVideo"/>
-        <img src={decoration} className="decoration"/>
-        <div className="container">
+      <div className="page-login-lock bg-secondary">
+        <div className="navbar primary">
+          <img src={logo}/>
+        </div>
+        <div className="container-fluid">
           <div className="row justify-content-center">
-            <div className="col-12">
-              <p className="text-light text-center text-welcome"/>
+            <div className="col-12 bg-white logo">
+              <img src={logoWithTitle}/>
             </div>
             <div className="col-card">
               <div className="card shadow mb-5">
