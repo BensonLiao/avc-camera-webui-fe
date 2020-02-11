@@ -1,6 +1,6 @@
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const AudioInputQuality = require('webserver-form-schema/constants/audio-input-quality');
@@ -92,9 +92,6 @@ module.exports = class Audio extends Base {
               <div className="col-12 px-0">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/media/stream">{_('Multimedia streaming')}</Link>
-                    </li>
                     <li className="breadcrumb-item">{_('Audio settings')}</li>
                   </ol>
                 </nav>
