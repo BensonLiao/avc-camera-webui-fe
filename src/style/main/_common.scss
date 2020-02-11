@@ -42,9 +42,9 @@ body {
 }
 
 .col-card {
-  margin-top: 32px;
+  margin: 32px auto 0 auto;
   position: relative;
-  width: 724px;
+  width: 720px;
 }
 .col-center {
   // 在 1366px 下，Card 的寬度應為 672px，並置中
