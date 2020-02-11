@@ -97,8 +97,8 @@ module.exports = {
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: '1',
-          cbrBitRate: StreamCBRBitRate['1024'],
+          vbrMaxBitRate: StreamVBRMaxBitRate['1'],
+          cbrBitRate: StreamCBRBitRate['10'],
           gov: StreamGOV['120']
         }
       },
@@ -110,7 +110,7 @@ module.exports = {
           bandwidthManagement: StreamBandwidthManagement.vbr,
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
           vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['1024'],
+          cbrBitRate: StreamCBRBitRate['10'],
           gov: StreamGOV['120']
         },
         channelB: {
@@ -128,7 +128,7 @@ module.exports = {
         isEnableInput: true,
         isEnableOutput: false,
         inputQuality: '1',
-        inputSource: 'LINE IN'
+        inputSource: 'LINEIN'
       },
       rtspSettings: {
         isEnableAudioToStream: true,
