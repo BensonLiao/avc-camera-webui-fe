@@ -75,9 +75,6 @@ module.exports = class LoginLock extends Base {
                         {_('Incorrect password 5 times! Please wait for 5 minutes.')}
                       </p>
                     </div>
-                    <div className="text-right">
-                      <Link to="/forgot-password">{_('Forgot password?')}</Link>
-                    </div>
                   </Once>
 
                   {
