@@ -52,11 +52,6 @@ module.exports = class Media extends Base {
             >
               {_('Privacy mask')}
             </Link>
-            <Link to="/media/audio" title={_('Audio settings')}
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.audio'})}
-            >
-              {_('Sound settings')}
-            </Link>
           </nav>
         </div>
 
