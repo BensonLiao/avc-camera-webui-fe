@@ -145,6 +145,8 @@ $switch-height: 32px;
 $switch-width: 72px;
 $switch-height-small: 16px;
 $switch-width-small: 32px;
+$switch-input-color-default: $error;
+$switch-input-color-checked: $success;
 .custom-switch {
   height: $switch-height;
   width: $switch-width;
@@ -156,7 +158,7 @@ $switch-width-small: 32px;
       height: $switch-height;
       border-color: #CCCCCC;
       border-radius: 50rem;
-      background-color: #EA4335;
+      background-color: $switch-input-color-default;
     }
     span {
       cursor: pointer;
@@ -193,9 +195,14 @@ $switch-width-small: 32px;
       left: -$switch-height - 3px;
     }
   }
+  .custom-control-input:focus:not(:checked) ~ .custom-control-label {
+    &::before {
+      border-color: $switch-input-color-default;
+    }
+  }
   .custom-control-input:checked ~ .custom-control-label {
     &::before {
-      background-color: #34A853;
+      background-color: $switch-input-color-checked;
       border-color: #CCCCCC;
     }
     span {
