@@ -109,24 +109,14 @@ module.exports = class FaceRecognition extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('Similarity level')}</label>
                 <div className="btn-group">
-                  <button type="button"
-                    className={classNames('btn btn-sm btn-outline-success', {active: values.confidenceLevel === ConfidenceLevel.low})}
-                    onClick={() => setFieldValue('confidenceLevel', ConfidenceLevel.low)}
-                  >
-                    {_(`confidence-level-${ConfidenceLevel.low}`)}
-                  </button>
-                  <button type="button"
-                    className={classNames('btn btn-sm btn-outline-success', {active: values.confidenceLevel === ConfidenceLevel.medium})}
-                    onClick={() => setFieldValue('confidenceLevel', ConfidenceLevel.medium)}
-                  >
-                    {_(`confidence-level-${ConfidenceLevel.medium}`)}
-                  </button>
-                  <button type="button"
-                    className={classNames('btn btn-sm btn-outline-success', {active: values.confidenceLevel === ConfidenceLevel.high})}
-                    onClick={() => setFieldValue('confidenceLevel', ConfidenceLevel.high)}
-                  >
-                    {_(`confidence-level-${ConfidenceLevel.high}`)}
-                  </button>
+                  {ConfidenceLevel.all().map(confidenceLevel => (
+                    <button key={confidenceLevel} type="button"
+                      className={classNames('btn btn-sm btn-outline-success px-2 py-1', {active: values.confidenceLevel === confidenceLevel})}
+                      onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
+                    >
+                      {_(`confidence-level-${confidenceLevel}`)}
+                    </button>
+                  ))}
                 </div>
               </div>
 
