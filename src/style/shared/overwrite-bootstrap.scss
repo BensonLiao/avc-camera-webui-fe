@@ -269,7 +269,8 @@ $switch-input-color-checked: $success;
 }
 
 .card .nav.nav-tabs {
-  padding: 12px 12px 0 12px;
+  padding: 0px 24px;
+  height: 48px;
 }
 .modal .nav.nav-tabs {
   .nav-item:first-child {
