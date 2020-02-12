@@ -14,7 +14,7 @@ nav.navbar.fixed-top {
 
 .left-navigation {
   padding-top: $top-navigation-height;
-  width: 80px;
+  width: $left-navigation-width;
   height: 100vh;
   -ms-overflow-style: none;
   overflow-y: scroll;
@@ -43,8 +43,8 @@ nav.navbar.fixed-top {
 
 .left-menu {
   padding-top: $top-navigation-height;
-  margin-left: 80px;
-  width: 256px;
+  margin-left: $left-navigation-width;
+  width: $left-sub-navigation-width;
   height: 100vh;
   -ms-overflow-style: none;
   overflow-y: scroll;
