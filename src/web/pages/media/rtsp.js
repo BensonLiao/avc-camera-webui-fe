@@ -105,7 +105,7 @@ module.exports = class RTSP extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
+              <div className="col-12 px-0">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
