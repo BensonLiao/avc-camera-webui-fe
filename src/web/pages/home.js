@@ -467,7 +467,7 @@ module.exports = class Home extends Base {
         </div>
 
         <hr className="my-0"/>
-        <div className="card-body actions">
+        <div className="card-body pt-0 mt-5">
           <button disabled={this.state.$isApiProcessing} type="button"
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler(form)}
