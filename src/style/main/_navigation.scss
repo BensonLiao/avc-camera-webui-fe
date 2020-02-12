@@ -51,7 +51,7 @@ nav.navbar.fixed-top {
   background-color: #666;
 
   h2 {
-    font-size: 26px;
+    font-size: 22px;
     line-height: 40px;
     font-weight: 700;
     color: #fff;
@@ -157,9 +157,9 @@ nav.navbar.fixed-top {
     a.nav-link {
       @extend .w-100, .text-truncate;
       font-size: 20px;
-      line-height: 30px;
+      line-height: 40px;
       color: #fff;
-      padding: 25px 24px;
+      padding: 20px 24px;
       i {
         @extend .transition-transform;
       }
