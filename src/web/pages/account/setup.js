@@ -114,7 +114,7 @@ module.exports = class Login extends Base {
             <div className="col-12 bg-white logo">
               <img src={logoWithTitle}/>
             </div>
-            <div className="col-card">
+            <div className="col-center">
               <Formik
                 initialValues={{
                   account: 'admin',

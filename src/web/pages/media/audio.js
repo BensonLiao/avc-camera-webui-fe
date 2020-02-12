@@ -86,7 +86,7 @@ module.exports = class Audio extends Base {
 
     return (
       <div className="main-content">
-        <div className="section-audio">
+        <div className="section-media">
           <div className="container-fluid">
             <div className="row justify-content-center">
               <div className="col-12 px-0">
@@ -97,7 +97,7 @@ module.exports = class Audio extends Base {
                 </nav>
               </div>
 
-              <div className="col-card">
+              <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Audio settings')}</div>
                   <Formik

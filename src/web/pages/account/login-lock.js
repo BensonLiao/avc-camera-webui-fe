@@ -64,7 +64,7 @@ module.exports = class LoginLock extends Base {
             <div className="col-12 bg-white logo">
               <img src={logoWithTitle}/>
             </div>
-            <div className="col-card">
+            <div className="col-center">
               <div className="card shadow mb-5">
                 <div className="card-body">
                   <Once>
