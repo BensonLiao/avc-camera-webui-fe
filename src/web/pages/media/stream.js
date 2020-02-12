@@ -318,7 +318,7 @@ module.exports = class Stream extends Base {
         </div>
         <button
           type="button"
-          className="btn btn-block btn-outline-primary rounded-pill"
+          className="btn btn-block btn-outline-primary rounded-pill mt-5"
           disabled={this.state.$isApiProcessing}
           onClick={this.onClickResetButton}
         >

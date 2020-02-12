@@ -182,7 +182,7 @@ module.exports = class FaceRecognition extends Base {
                 )
               }
 
-              <button type="submit" className="btn btn-block btn-primary rounded-pill">
+              <button type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
               </button>
             </Form>

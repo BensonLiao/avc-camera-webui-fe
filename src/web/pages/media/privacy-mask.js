@@ -166,7 +166,7 @@ module.exports = class PrivacyMask extends Base {
                 <span className="form-text text-primary">{_('1. Please drag a mask area.')}</span>
                 <span className="form-text text-primary">{_('2. The mask area limit is 4. To drag for creating, delete to remove.')}</span>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
+              <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
               </button>
             </div>

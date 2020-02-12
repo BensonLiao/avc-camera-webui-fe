@@ -74,7 +74,7 @@ module.exports = class Audio extends Base {
             </label>
           </div>
         </div>
-        <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
+        <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
           {_('Apply')}
         </button>
       </Form>

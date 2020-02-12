@@ -66,7 +66,7 @@ module.exports = class App extends Base {
           }
           <small className="form-text text-muted">{_('5 - 1,800 seconds')}</small>
         </div>
-        <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
+        <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
           {_('Apply')}
         </button>
       </Form>

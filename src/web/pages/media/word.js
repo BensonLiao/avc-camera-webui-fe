@@ -147,7 +147,7 @@ module.exports = class Word extends Base {
                 <label>{_('Word position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
                 <p className="text-primary">{_('Please click position buttons.')}</p>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
+              <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
               </button>
             </div>
