@@ -1,6 +1,6 @@
 .navbar {
   background-color: #fff;
-  height: $navigation-height;
+  height: $top-navigation-height;
   padding: 8px 16px;
   box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .2);
 }
@@ -13,7 +13,7 @@ nav.navbar.fixed-top {
 }
 
 .left-navigation {
-  padding-top: $navigation-height;
+  padding-top: $top-navigation-height;
   width: 80px;
   height: 100vh;
   -ms-overflow-style: none;
@@ -42,7 +42,7 @@ nav.navbar.fixed-top {
 }
 
 .left-menu {
-  padding-top: $navigation-height;
+  padding-top: $top-navigation-height;
   margin-left: 80px;
   width: 256px;
   height: 100vh;
