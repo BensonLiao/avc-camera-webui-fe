@@ -348,7 +348,7 @@ module.exports = class Members extends Base {
           <h2>{_('Members')}</h2>
           <nav className="nav flex-column">
             <Link to="/members" title={_('All members')}
-              className={classNames('nav-link text-size-14 py-1 px-4', {active: !this.props.params.group})}
+              className={classNames('nav-link text-size-16 py-3', {active: !this.props.params.group})}
             >
               <i className="fas fa-user-friends pl-3 pr-4"/>{_('All members')}
             </Link>
