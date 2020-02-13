@@ -42,15 +42,13 @@ body {
 }
 
 .col-card {
-  margin: 32px auto 0 auto;
   position: relative;
-  width: 720px;
+  width: 448px;
+  max-width: 448px;
 }
 .col-center {
-  // 在 1366px 下，Card 的寬度應為 672px，並置中
-  width: 72.823%;
-  padding: 0 15px 0 15px;
   margin: 0 auto;
+  width: 720px;
 }
 
 .pr-24 {

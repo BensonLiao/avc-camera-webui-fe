@@ -34,16 +34,13 @@
   .card-header {
     background-color: #666666;
     border-radius: 16px 16px 0 0;
-    padding: 8px 24px;
+    padding: 12px 24px;
     color: #FFFFFF;
     font-size: 20px;
     font-weight: bold;
   }
   .card-body {
-    padding: 20px 30px;
-    &.actions {
-      padding: 80px 24px 24px 24px;
-    }
+    padding: 24px;
   }
 
   .accordion {
@@ -58,13 +55,14 @@
         display: none;
       }
       > .btn-link {
-        margin-left: -6px;
         padding: 5px 0 25px;
         font-size: 20px;
         font-weight: bold;
         color: #666666;
         text-decoration: none;
         i {
+          font-size: 16px !important;
+          width: 16px !important;
           margin-right: 16px;
           color: #CCCCCC;
           @extend .transition-transform;

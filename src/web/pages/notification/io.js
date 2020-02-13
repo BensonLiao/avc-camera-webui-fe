@@ -111,7 +111,7 @@ module.exports = class IO extends Base {
           }
           <small className="form-text text-muted">{_('5 - 1,800 seconds')}</small>
         </div>
-        <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
+        <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
           {_('Apply')}
         </button>
       </Form>
@@ -160,7 +160,7 @@ module.exports = class IO extends Base {
             </div>
           </div>
         </div>
-        <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
+        <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
           {_('Apply')}
         </button>
       </Form>
@@ -175,7 +175,7 @@ module.exports = class IO extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
+              <div className="col-12 px-0">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">

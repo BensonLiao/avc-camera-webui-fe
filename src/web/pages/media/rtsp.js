@@ -90,7 +90,7 @@ module.exports = class RTSP extends Base {
           }
           <span className="form-text text-muted">1 - 8</span>
         </div>
-        <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
+        <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
           {_('Apply')}
         </button>
       </Form>
@@ -105,7 +105,7 @@ module.exports = class RTSP extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
+              <div className="col-12 px-0">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">

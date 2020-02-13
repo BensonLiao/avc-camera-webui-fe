@@ -84,7 +84,7 @@ module.exports = class Https extends Base {
                       <input type="text" className="form-control" placeholder="請輸入您的域名"/>
                     </div>
 
-                    <button type="submit" className="btn btn-block btn-primary rounded-pill">套用</button>
+                    <button type="submit" className="btn btn-block btn-primary rounded-pill mt-5">套用</button>
                   </form>
                 </div>
               </div>

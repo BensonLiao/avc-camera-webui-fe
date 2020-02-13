@@ -119,7 +119,7 @@ module.exports = class Word extends Base {
                   {
                     WordFontSize.all().map(size => (
                       <button key={size} type="button"
-                        className={classNames('btn btn-sm btn-outline-success', {active: values.fontSize === size})}
+                        className={classNames('btn btn-sm btn-outline-success px-2 py-1', {active: values.fontSize === size})}
                         onClick={() => setFieldValue('fontSize', size)}
                       >
                         {_(`font-size-${size}`)}
@@ -147,7 +147,7 @@ module.exports = class Word extends Base {
                 <label>{_('Word position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
                 <p className="text-primary">{_('Please click position buttons.')}</p>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
+              <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
               </button>
             </div>
