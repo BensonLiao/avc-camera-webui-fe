@@ -348,7 +348,10 @@ module.exports = class Members extends Base {
           <h2>{_('Members')}</h2>
           <nav className="nav flex-column">
             <Link to="/users/members" title={_('All members')}
-              className={classNames('nav-link text-size-16 py-1 px-3', {active: !this.props.params.group})}
+              className={classNames('nav-link text-size-16 py-1 px-3',
+                {active: !this.props.params.group},
+                {'bg-light': !this.props.params.group}
+              )}
             >
               <i className="fas fa-user-friends pl-3 pr-4"/>{_('All members')}
             </Link>
@@ -360,7 +363,7 @@ module.exports = class Members extends Base {
               <Link
                 to={{name: 'web.users.members.new-group', params: this.props.params}}
                 tabIndex={(isAddGroupDisabled ? -1 : null)}
-                className={classNames('btn btn-link text-light', {disabled: isAddGroupDisabled})}
+                className={classNames('btn btn-link text-info', {disabled: isAddGroupDisabled})}
               >
                 <i className="fas fa-plus fa-fw fa-lg"/>
               </Link>
@@ -380,7 +383,7 @@ module.exports = class Members extends Base {
                     <i className="far fa-folder fa-lg"/>
                     <span className="text-truncate text-size-16 pl-4">{group.name}</span>
                   </a>
-                  <button className="btn btn-link btn-delete text-light" type="button"
+                  <button className="btn btn-link btn-delete text-info" type="button"
                     onClick={this.generateShowDeleteGroupModalHandler(group)}
                   >
                     <i className="far fa-trash-alt fa-fw fa-lg"/>
@@ -392,20 +395,20 @@ module.exports = class Members extends Base {
             <hr/>
             <div className="d-flex justify-content-between align-items-center mb-3 pr-3">
               <h3>{_('Database file')}</h3>
-              <button className="btn btn-link text-light" type="button" onClick={this.showDatabaseEncryptionModal}>
+              <button className="btn btn-link" type="button" onClick={this.showDatabaseEncryptionModal}>
                 <img src={iconHttps}/>
               </button>
             </div>
             <div className="actions">
               <div className="form-group">
                 <button disabled={this.state.$isApiProcessing} type="button"
-                  className="btn btn-outline-light btn-block rounded-pill"
+                  className="btn btn-outline-primary btn-block rounded-pill"
                   onClick={this.onClickExportDatabase}
                 >
                   {_('Export')}
                 </button>
               </div>
-              <label className={classNames('btn btn-outline-light btn-block rounded-pill font-weight-bold', {disabled: this.state.$isApiProcessing})}>
+              <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: this.state.$isApiProcessing})}>
                 <input type="file" className="d-none" accept=".zip" onChange={this.onChangeDatabaseFile}/>{_('Import')}
               </label>
             </div>

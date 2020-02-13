@@ -282,11 +282,11 @@ $switch-input-color-checked: $success;
 }
 .nav.nav-tabs {
   height: 48px;
-  border-bottom: 2px #E6E6E6 solid;
+  border-bottom: 2px $secondary-300 solid;
   .nav-item {
     margin-bottom: -2px;
     border: none;
-    border-bottom: 2px #E6E6E6 solid;
+    border-bottom: 2px $secondary-300 solid;
   }
   .nav-link {
     padding: 12px 12px 10px 12px;
