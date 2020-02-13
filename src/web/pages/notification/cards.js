@@ -505,7 +505,7 @@ module.exports = class Cards extends Base {
 
         <div className="modal-body">
           <div className="form-group">
-            <button type="submit" className="btn btn-primary btn-block rounded-pill">
+            <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
               {_('Add')}
             </button>
           </div>
