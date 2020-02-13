@@ -6,7 +6,7 @@ const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
-const iconHttps = require('../../../resource/https-24px.svg');
+const iconLock = require('../../../resource/lock-24px.svg');
 const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
 const Password = require('../../../core/components/fields/password');
@@ -365,7 +365,7 @@ module.exports = class Members extends Base {
                 tabIndex={(isAddGroupDisabled ? -1 : null)}
                 className={classNames('btn btn-link text-info', {disabled: isAddGroupDisabled})}
               >
-                <i className="fas fa-plus fa-fw fa-lg"/>
+                <i className="fas fa-plus fa-fw text-size-20"/>
               </Link>
             </div>
 
@@ -380,7 +380,7 @@ module.exports = class Members extends Base {
                   <a className="w-100 text-truncate" href={`#${group.id}`}
                     onClick={this.generateChangeFilterHandler('group', group.id)}
                   >
-                    <i className="far fa-folder fa-lg"/>
+                    <i className="far fa-folder text-size-24"/>
                     <span className="text-truncate text-size-16 pl-4">{group.name}</span>
                   </a>
                   <button className="btn btn-link btn-delete text-info" type="button"
@@ -396,7 +396,7 @@ module.exports = class Members extends Base {
             <div className="d-flex justify-content-between align-items-center mb-3 pr-3">
               <h3>{_('Database file')}</h3>
               <button className="btn btn-link" type="button" onClick={this.showDatabaseEncryptionModal}>
-                <img src={iconHttps}/>
+                <img src={iconLock}/>
               </button>
             </div>
             <div className="actions">
