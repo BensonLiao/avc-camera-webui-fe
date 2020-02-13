@@ -70,6 +70,7 @@ module.exports = class FaceRecognition extends Base {
   };
 
   faceRecognitionSettingsFormRender = form => {
+    const {$isApiProcessing} = this.state;
     const {values, setFieldValue} = form;
 
     return (
@@ -192,7 +193,7 @@ module.exports = class FaceRecognition extends Base {
                 )
               }
 
-              <button type="submit" className="btn btn-block btn-primary rounded-pill">
+              <button disabled={$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
                 {_('Apply')}
               </button>
             </Form>
