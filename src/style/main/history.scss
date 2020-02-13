@@ -1,5 +1,5 @@
 .page-histories {
-  padding: 48px 33px;
+  padding: calc(48px + #{$top-sub-navigation-height}) 33px;
   min-width: 1000px;
 
   .input-group {

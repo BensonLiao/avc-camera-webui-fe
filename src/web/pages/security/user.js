@@ -41,8 +41,8 @@ module.exports = class User extends Base {
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
         const isShowModal = [
-          'web.security.users.new-user',
-          'web.security.users.details'
+          'web.users.account.new-user',
+          'web.users.account.details'
         ].indexOf(toState.name) >= 0;
         this.setState({isShowModal});
       })
@@ -73,7 +73,7 @@ module.exports = class User extends Base {
 
   hideModal = (reload = false) => {
     getRouter().go({
-      name: 'web.security.users'
+      name: 'web.users.account'
     }, {reload});
   };
 

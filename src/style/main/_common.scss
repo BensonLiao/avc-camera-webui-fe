@@ -89,6 +89,9 @@ body {
   &.left-menu-active {
     padding-left: $left-navigation-width + $left-sub-navigation-width;
   }
+  &.sub {
+    padding-top: $top-navigation-height + $top-sub-navigation-height;
+  }
 }
 
 .bg-gray {

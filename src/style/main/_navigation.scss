@@ -3,13 +3,31 @@
   height: $top-navigation-height;
   padding: 8px 16px;
   box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .2);
-}
-.navbar.primary {
-  background-color: $primary-500;
-  box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .4);
+  &.primary {
+    background-color: $primary-500;
+    box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .4);
+  }
+  &.sub {
+    height: $top-sub-navigation-height;
+    margin-left: $left-navigation-width;
+    margin-top: $top-navigation-height;
+    padding: 0;
+    .nav-tabs {
+      padding: 0px 24px;
+    }
+  }
 }
 nav.navbar.fixed-top {
   z-index: 1031;
+  &.sub {
+    z-index: 1030;
+  }
+}
+.fixed-top {
+  z-index: 1030;
+  &.sub {
+    z-index: 1029;
+  }
 }
 
 .left-navigation {
@@ -50,6 +68,10 @@ nav.navbar.fixed-top {
   overflow-y: scroll;
   background-color: #666;
 
+  &.sub {
+    padding-top: $top-navigation-height + $top-sub-navigation-height;
+  }
+
   h2 {
     font-size: 22px;
     line-height: 40px;
@@ -65,7 +87,6 @@ nav.navbar.fixed-top {
 
   hr {
     border-color: #DEE2E6;
-    margin: 16px;
   }
 
   .groups {

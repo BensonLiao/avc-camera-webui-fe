@@ -47,7 +47,7 @@ module.exports = class Members extends Base {
 
   constructor(props) {
     super(props);
-    this.currentRoute = getRouter().findRouteByName('web.members');
+    this.currentRoute = getRouter().findRouteByName('web.users.members');
     this.state.isShowDeleteGroupModal = false;
     this.state.deleteGroupTarget = null;
     this.state.selectedGroup = props.groups.items.find(x => x.id === props.params.group);
@@ -77,7 +77,7 @@ module.exports = class Members extends Base {
         if (this.state.deleteGroupTarget.id === this.props.params.group) {
           getRouter().go(
             {
-              name: 'web.members',
+              name: 'web.users.members',
               params: {...this.props.params, group: undefined, index: undefined}
             },
             {reload: true}
@@ -220,7 +220,7 @@ module.exports = class Members extends Base {
     api.member.uploadDatabaseFile(file)
       .then(() => {
         getRouter().go(
-          {name: 'web.members', params: {}},
+          {name: 'web.users.members', params: {}},
           {reload: true}
         );
       })
@@ -344,11 +344,11 @@ module.exports = class Members extends Base {
     return (
       <>
         {/* Left menu */}
-        <div className="left-menu fixed-top">
+        <div className="left-menu fixed-top sub">
           <h2>{_('Members')}</h2>
           <nav className="nav flex-column">
-            <Link to="/members" title={_('All members')}
-              className={classNames('nav-link text-size-16 py-3', {active: !this.props.params.group})}
+            <Link to="/users/members" title={_('All members')}
+              className={classNames('nav-link text-size-16 py-1 px-3', {active: !this.props.params.group})}
             >
               <i className="fas fa-user-friends pl-3 pr-4"/>{_('All members')}
             </Link>
@@ -358,7 +358,7 @@ module.exports = class Members extends Base {
             <div className="d-flex justify-content-between align-items-center mb-3 pr-3">
               <h3>{_('Groups')}</h3>
               <Link
-                to={{name: 'web.members.new-group', params: this.props.params}}
+                to={{name: 'web.users.members.new-group', params: this.props.params}}
                 tabIndex={(isAddGroupDisabled ? -1 : null)}
                 className={classNames('btn btn-link text-light', {disabled: isAddGroupDisabled})}
               >
@@ -413,7 +413,7 @@ module.exports = class Members extends Base {
         </div>
 
         {/* Main content */}
-        <div className="main-content left-menu-active">
+        <div className="main-content left-menu-active sub">
           <div className="page-users bg-white">
             <div className="container-fluid">
               <div className="row">
@@ -430,7 +430,7 @@ module.exports = class Members extends Base {
                       </button>
                       <div className="dropdown-menu dropdown-menu-right shadow">
                         <Link className="dropdown-item"
-                          to={{name: 'web.members.new-member', params: this.props.params}}
+                          to={{name: 'web.users.members.new-member', params: this.props.params}}
                         >
                           {_('Add a new member')}
                         </Link>
@@ -445,7 +445,7 @@ module.exports = class Members extends Base {
                     <div className="col-12 mb-4">
                       <i className="far fa-folder fa-fw fa-lg text-primary ml-3"/>
                       <span className="text-size-16 text-muted ml-3">{selectedGroup.name}</span>
-                      <Link className="ml-5" to={{name: 'web.members.modify-group', params: this.props.params}}>
+                      <Link className="ml-5" to={{name: 'web.users.members.modify-group', params: this.props.params}}>
                         <i className="fas fa-pen fa-fw"/>
                       </Link>
                       <span className="text-size-14 text-muted ml-5">{selectedGroup.note}</span>
@@ -490,7 +490,7 @@ module.exports = class Members extends Base {
                               <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('None')}</td>
                               <td className={tdClass}>{member.note || _('None')}</td>
                               <td className={tdClass}>
-                                <Link className="btn btn-link" to={{name: 'web.members.details', params: {...this.props.params, memberId: member.id}}}>
+                                <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...this.props.params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
                                 <button className="btn btn-link" type="button"

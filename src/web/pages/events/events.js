@@ -68,7 +68,7 @@ module.exports = class Events extends Base {
 
   constructor(props) {
     super(props);
-    this.currentRoute = getRouter().findRouteByName('web.events');
+    this.currentRoute = getRouter().findRouteByName('web.users.events');
     this.state.type = props.params.type || 'face-recognition';
     this.state.isShowMemberModal = false;
     this.state.currentMember = null;
@@ -301,7 +301,7 @@ module.exports = class Events extends Base {
     } = this.props.systemInformation;
 
     return (
-      <div className="left-menu fixed-top">
+      <div className="left-menu fixed-top sub shadow-sm">
         <h2>{_('Smart search')}</h2>
         <div className="filter-wrapper">
           <div className="header d-flex justify-content-between align-items-center">

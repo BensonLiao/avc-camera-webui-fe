@@ -43,7 +43,7 @@ module.exports = class Group extends Base {
 
   hiddenModal = () => {
     getRouter().go({
-      name: 'web.members',
+      name: 'web.users.members',
       params: this.props.params
     });
   };
@@ -59,7 +59,7 @@ module.exports = class Group extends Base {
       // Update group.
       api.group.updateGroup(values)
         .then(() => {
-          getRouter().go({name: 'web.members', params: this.props.params}, {reload: true});
+          getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
         })
         .catch(error => {
           progress.done();
@@ -69,7 +69,7 @@ module.exports = class Group extends Base {
       // Add group.
       api.group.addGroup(values)
         .then(() => {
-          getRouter().go({name: 'web.members', params: this.props.params}, {reload: true});
+          getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
         })
         .catch(error => {
           progress.done();

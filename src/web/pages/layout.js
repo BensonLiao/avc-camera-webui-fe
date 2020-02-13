@@ -202,7 +202,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('User management')} {...tooltipOptions}>
-            <Link className={classTable.members} to="/members">
+            <Link className={classTable.members} to="/users">
               <img src={iconUserManagement}/>
             </Link>
           </Tooltip>
@@ -228,7 +228,7 @@ module.exports = class Layout extends Base {
           </Tooltip>
         </div>
 
-        <nav className="navbar navbar-expand fixed-top shadow-sm">
+        <nav className="navbar navbar-expand fixed-top">
           <Link className="navbar-brand py-0 mx-0" to="/">
             <img src={logo} className="logo"/>
           </Link>

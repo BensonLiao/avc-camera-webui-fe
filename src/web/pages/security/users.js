@@ -65,7 +65,7 @@ module.exports = class Users extends Base {
     ).length <= 1;
     const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
     return (
-      <div className="main-content left-menu-active">
+      <div className="main-content">
         <div className="page-security bg-white">
           <div className="container-fluid">
             <div className="row">
@@ -82,7 +82,7 @@ module.exports = class Users extends Base {
 
               <div className="col-12 actions">
                 <Link
-                  to={{name: 'web.security.users.new-user', params: this.props.params}}
+                  to={{name: 'web.users.account.new-user', params: this.props.params}}
                   tabIndex={(isAddUserDisabled ? -1 : null)}
                   className={classNames(
                     'btn btn-outline-primary rounded-pill px-3',
@@ -117,7 +117,7 @@ module.exports = class Users extends Base {
                             </td>
                             <td className={tdClass}>{user.account}</td>
                             <td className={classNames('text-right', tdClass)}>
-                              <Link className="btn btn-link" to={{name: 'web.security.users.details', params: {...this.props.params, userId: user.id}}}>
+                              <Link className="btn btn-link" to={{name: 'web.users.account.details', params: {...this.props.params, userId: user.id}}}>
                                 <i className="fas fa-pen fa-lg fa-fw"/>
                               </Link>
                               <button
