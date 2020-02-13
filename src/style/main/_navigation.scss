@@ -1,6 +1,6 @@
 .navbar {
   background-color: #fff;
-  height: $navigation-height;
+  height: $top-navigation-height;
   padding: 8px 16px;
   box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .2);
 }
@@ -13,8 +13,8 @@ nav.navbar.fixed-top {
 }
 
 .left-navigation {
-  padding-top: $navigation-height;
-  width: 80px;
+  padding-top: $top-navigation-height;
+  width: $left-navigation-width;
   height: 100vh;
   -ms-overflow-style: none;
   overflow-y: scroll;
@@ -42,16 +42,16 @@ nav.navbar.fixed-top {
 }
 
 .left-menu {
-  padding-top: $navigation-height;
-  margin-left: 80px;
-  width: 256px;
+  padding-top: $top-navigation-height;
+  margin-left: $left-navigation-width;
+  width: $left-sub-navigation-width;
   height: 100vh;
   -ms-overflow-style: none;
   overflow-y: scroll;
   background-color: #666;
 
   h2 {
-    font-size: 26px;
+    font-size: 22px;
     line-height: 40px;
     font-weight: 700;
     color: #fff;
@@ -157,15 +157,15 @@ nav.navbar.fixed-top {
     a.nav-link {
       @extend .w-100, .text-truncate;
       font-size: 20px;
-      line-height: 30px;
+      line-height: 40px;
       color: #fff;
-      padding: 25px 24px;
+      padding: 20px 24px;
       i {
         @extend .transition-transform;
       }
       &.active {
         background: #4d4d4d;
-        border-right: 8px solid #4991bf;
+        border-right: 8px solid $primary;
         border-radius: 0;
         &.collapse {
           border-right: none;
