@@ -17,6 +17,7 @@ const api = require('../apis/web-api');
 module.exports = class Member extends React.PureComponent {
   static get propTypes() {
     return {
+      isApiProcessing: PropTypes.bool.isRequired,
       isShowModal: PropTypes.bool.isRequired,
       onSubmitted: PropTypes.func.isRequired, // The form submitted callback.
       onHide: PropTypes.func.isRequired,
@@ -166,6 +167,7 @@ module.exports = class Member extends React.PureComponent {
   };
 
   formRender = ({errors, touched, values}) => {
+    const {isApiProcessing} = this.props;
     const avatarPreviewStyle = {backgroundImage: `url('${this.props.defaultPictureUrl || defaultAvatar}')`};
     if (this.props.member) {
       avatarPreviewStyle.backgroundImage = `url("data:image/jpeg;base64,${this.props.member.pictures[0]}")`;
@@ -261,7 +263,7 @@ module.exports = class Member extends React.PureComponent {
         </div>
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
-            <button type="submit" className="btn btn-primary btn-block rounded-pill">
+            <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
               {this.props.member ? _('Confirm') : _('New')}
             </button>
           </div>
