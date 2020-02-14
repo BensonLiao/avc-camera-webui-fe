@@ -40,7 +40,7 @@ module.exports = class Setup extends Base {
    */
   onSubmitSetupForm = values => {
     progress.start();
-    api.user.addUser(values)
+    api.system.setup(values)
       .then(this.redirectPage)
       .catch(error => {
         progress.done();

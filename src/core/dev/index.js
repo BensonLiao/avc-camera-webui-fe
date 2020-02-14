@@ -31,6 +31,9 @@ mockAxios.onGet('/api/video/settings').reply(config => {
       resolve(mockResponseWithLog(config, [204, {}]));
     }, 3000); // The real api is delay 45s.
   }))
+  .onPost('/api/system/_setup').reply(config => {
+    return mockResponseWithLog(config, [200, {}]);
+  })
   .onGet('/api/system/information').reply(config => {
     return mockResponseWithLog(config, [200, db.get('system').value()]);
   })

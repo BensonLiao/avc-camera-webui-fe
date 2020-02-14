@@ -182,6 +182,19 @@ module.exports = {
       data: {deviceName}
     }),
     /**
+     * Setup the device with an account.
+     * @param {string} account
+     * @param {string} password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - account {string}
+     */
+    setup: ({account, password}) => api({
+      method: 'post',
+      url: '/api/system/_setup',
+      data: {account, password}
+    }),
+    /**
      * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
      * @returns {Promise<response>}
      * @response 200 {Object}
