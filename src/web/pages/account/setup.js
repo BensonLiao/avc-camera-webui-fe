@@ -8,7 +8,7 @@ const Base = require('../shared/base');
 const Password = require('../../../core/components/fields/password');
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
-const loginValidator = require('../../validations/account/login-validator');
+const setupAccountValidator = require('../../validations/setup/account-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const logo = require('../../../resource/logo-avn-secondary.svg');
@@ -123,7 +123,7 @@ module.exports = class Setup extends Base {
                   confirmPassword: ''
                 }}
                 validate={utils.makeFormikValidator(
-                  loginValidator,
+                  setupAccountValidator,
                   ['password', 'confirmPassword']
                 )}
                 onSubmit={this.onSubmitSetupForm}
