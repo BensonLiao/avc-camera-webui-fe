@@ -333,10 +333,13 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {type: 'age-gender'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Age gender')}</span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Age gender')}</span>
+                    <i className="fas fa-chevron-down"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Age gender')} <span className="badge badge-danger badge-pill">{_('Not activated')}</span></span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Age gender')}</span>
+                    <h6><span className="badge badge-danger badge-pill">{_('Not activated')}</span></h6>
+                    <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
@@ -349,10 +352,13 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {type: 'humanoid-detection'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Humanoid detection')}</span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Humanoid detection')}</span>
+                    <i className="fas fa-chevron-down"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Humanoid detection')} <span className="badge badge-danger badge-pill">{_('Not activated')}</span></span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Humanoid detection')}</span>
+                    <h6><span className="badge badge-danger badge-pill">{_('Not activated')}</span></h6>
+                    <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
