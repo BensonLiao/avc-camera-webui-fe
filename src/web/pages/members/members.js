@@ -7,6 +7,7 @@ const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const iconLock = require('../../../resource/lock-24px.svg');
+const iconDescription = require('../../../resource/description-20px.svg');
 const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
 const Password = require('../../../core/components/fields/password');
@@ -449,10 +450,11 @@ module.exports = class Members extends Base {
                     <div className="col-12 mb-4">
                       <i className="far fa-folder fa-fw fa-lg text-primary ml-3"/>
                       <span className="text-size-16 text-muted ml-3">{selectedGroup.name}</span>
-                      <Link className="ml-5" to={{name: 'web.users.members.modify-group', params: this.props.params}}>
+                      <img className="ml-32px" src={iconDescription}/>
+                      <span className="text-size-14 text-muted ml-2">{selectedGroup.note}</span>
+                      <Link className="ml-32px" to={{name: 'web.users.members.modify-group', params: this.props.params}}>
                         <i className="fas fa-pen fa-fw"/>
                       </Link>
-                      <span className="text-size-14 text-muted ml-5">{selectedGroup.note}</span>
                     </div>
                   )
                 }
