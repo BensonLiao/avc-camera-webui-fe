@@ -98,7 +98,7 @@ module.exports = class Users extends Base {
                         return (
                           <tr key={user.id}>
                             <td className={tdClass}>
-                              <span className={classNames('badge badge-pill text-size-16 px-3', user.permission ? 'badge-admin' : 'badge-guest')}>
+                              <span className={classNames('badge badge-pill text-size-16 px-3', Number(user.permission) ? 'badge-guest' : 'badge-admin')}>
                                 {_(`permission-${user.permission}`)}
                               </span>
                             </td>

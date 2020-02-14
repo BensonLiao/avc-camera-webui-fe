@@ -11,12 +11,13 @@
       color: #1A1A1A;
     }
   }
-  .badge-guest {
+  .badge {
     color: #fff;
-    background-color: #808080;
-  }
-  .badge-admin {
-    color: #fff;
-    background-color: #34698A;
+    &.badge-guest {
+      background-color: $info;
+    }
+    &.badge-admin {
+      background-color: $primary;
+    }
   }
 }
