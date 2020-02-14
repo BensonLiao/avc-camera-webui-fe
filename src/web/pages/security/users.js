@@ -65,94 +65,136 @@ module.exports = class Users extends Base {
     ).length <= 1;
     const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
     return (
-      <div className="main-content">
-        <div className="page-security bg-white">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-12 text-right mr-32px mb-4">
-                <Link
-                  to={{name: 'web.users.account.new-user', params: this.props.params}}
-                  tabIndex={(isAddUserDisabled ? -1 : null)}
+      <>
+        {/* Left menu */}
+        <div className="left-menu fixed-top sub">
+          <h2>{_('Accounts')}</h2>
+          <nav className="nav flex-column">
+            <Link to="/users/account" title={_('All accounts')}
+              className={classNames('nav-link text-size-16 py-1 px-3',
+                {active: !this.props.params.group},
+                {'bg-light': !this.props.params.group}
+              )}
+            >
+              <i className="fas fa-user-friends pl-2 pr-4"/>{_('All accounts')}
+            </Link>
+          </nav>
+          <hr/>
+          <div className="groups">
+            <div className="sub-title py-1 px-4">
+              <h3>{_('Permission')}</h3>
+            </div>
+
+            {
+              UserPermission.all().map((permission, idx) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <div key={idx}
                   className={classNames(
-                    'btn btn-outline-primary rounded-pill px-3',
-                    {disabled: isAddUserDisabled}
+                    'group-item d-flex justify-content-between align-items-center',
+                    {active: this.props.params.group === permission},
+                    {'bg-light': this.props.params.group === permission}
                   )}
                 >
-                  <i className="fas fa-plus fa-fw"/> {_('New')}
-                </Link>
-              </div>
-
-              <div className="col-12">
-                <table className="table custom-style">
-                  <thead>
-                    <tr className="shadow">
-                      <th>{_('Permission')}</th>
-                      <th>{_('Account')}</th>
-                      <th style={{width: '150px'}}>{_('Actions')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      users.map((user, index) => {
-                        const tdClass = classNames({'border-bottom': index >= users.length - 1});
-                        return (
-                          <tr key={user.id}>
-                            <td className={tdClass}>
-                              <span className={classNames('badge badge-pill text-size-16 px-3', Number(user.permission) ? 'badge-guest' : 'badge-admin')}>
-                                {_(`permission-${user.permission}`)}
-                              </span>
-                            </td>
-                            <td className={tdClass}>{user.account}</td>
-                            <td className={classNames('text-left group-btn', tdClass)}>
-                              <Link className="btn btn-link" to={{name: 'web.users.account.details', params: {...this.props.params, userId: user.id}}}>
-                                <i className="fas fa-pen fa-lg fa-fw"/>
-                              </Link>
-                              <button
-                                disabled={isDeleteUserDisabled &&
-                                  user.permission.toString() === UserPermission.root}
-                                className="btn btn-link"
-                                type="button"
-                                onClick={this.generateShowDeleteUserModalHandler(user)}
-                              >
-                                <i className="far fa-trash-alt fa-lg fa-fw"/>
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })
-                    }
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                  <a className="w-100 text-truncate d-flex align-items-center" href={`#${idx}`}>
+                    <i className="far fa-folder text-size-24"/>
+                    <span className="text-truncate text-size-14 pl-4">{_(`permission-${permission}`)}</span>
+                  </a>
+                </div>
+              ))
+            }
           </div>
-          <RouterView/>
         </div>
 
-        {/* Delete user modal */}
-        <Modal
-          show={this.state.isShowDeleteUserModal}
-          autoFocus={false}
-          onHide={this.hideDeleteUserModal}
-        >
-          <form>
-            <div className="modal-header">
-              <h5 className="modal-title">{_('Delete account')}</h5>
-            </div>
-            <div className="modal-body">
-              <span className="text-muted">
-                {_('Are you sure to delete account {0}?', [this.state.deleteUserTarget && this.state.deleteUserTarget.account])}
-              </span>
-            </div>
-            <div className="modal-footer flex-column">
-              <div className="form-group w-100 mx-0">
-                <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill" onClick={this.confirmDeleteUser}>{_('Delete')}</button>
+        {/* Main content */}
+        <div className="main-content left-menu-active">
+          <div className="page-security bg-white">
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-12 text-right mr-32px mb-4">
+                  <Link
+                    to={{name: 'web.users.account.new-user', params: this.props.params}}
+                    tabIndex={(isAddUserDisabled ? -1 : null)}
+                    className={classNames(
+                      'btn btn-outline-primary rounded-pill px-3',
+                      {disabled: isAddUserDisabled}
+                    )}
+                  >
+                    <i className="fas fa-plus fa-fw"/> {_('New')}
+                  </Link>
+                </div>
+
+                <div className="col-12">
+                  <table className="table custom-style">
+                    <thead>
+                      <tr className="shadow">
+                        <th>{_('Permission')}</th>
+                        <th>{_('Account')}</th>
+                        <th style={{width: '150px'}}>{_('Actions')}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        users.map((user, index) => {
+                          const tdClass = classNames({'border-bottom': index >= users.length - 1});
+                          return (
+                            <tr key={user.id}>
+                              <td className={tdClass}>
+                                <span className={classNames('badge badge-pill text-size-16 px-3', Number(user.permission) ? 'badge-guest' : 'badge-admin')}>
+                                  {_(`permission-${user.permission}`)}
+                                </span>
+                              </td>
+                              <td className={tdClass}>{user.account}</td>
+                              <td className={classNames('text-left group-btn', tdClass)}>
+                                <Link className="btn btn-link" to={{name: 'web.users.account.details', params: {...this.props.params, userId: user.id}}}>
+                                  <i className="fas fa-pen fa-lg fa-fw"/>
+                                </Link>
+                                <button
+                                  disabled={isDeleteUserDisabled &&
+                                  user.permission.toString() === UserPermission.root}
+                                  className="btn btn-link"
+                                  type="button"
+                                  onClick={this.generateShowDeleteUserModalHandler(user)}
+                                >
+                                  <i className="far fa-trash-alt fa-lg fa-fw"/>
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      }
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteUserModal}>{_('Close')}</button>
             </div>
-          </form>
-        </Modal>
-      </div>
+            <RouterView/>
+          </div>
+
+          {/* Delete user modal */}
+          <Modal
+            show={this.state.isShowDeleteUserModal}
+            autoFocus={false}
+            onHide={this.hideDeleteUserModal}
+          >
+            <form>
+              <div className="modal-header">
+                <h5 className="modal-title">{_('Delete account')}</h5>
+              </div>
+              <div className="modal-body">
+                <span className="text-muted">
+                  {_('Are you sure to delete account {0}?', [this.state.deleteUserTarget && this.state.deleteUserTarget.account])}
+                </span>
+              </div>
+              <div className="modal-footer flex-column">
+                <div className="form-group w-100 mx-0">
+                  <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill" onClick={this.confirmDeleteUser}>{_('Delete')}</button>
+                </div>
+                <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteUserModal}>{_('Close')}</button>
+              </div>
+            </form>
+          </Modal>
+        </div>
+      </>
     );
   }
 };

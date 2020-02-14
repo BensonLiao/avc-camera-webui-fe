@@ -98,7 +98,7 @@ nav.navbar.fixed-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-height: 2rem;
+      height: 2rem !important;
       h3 {
         padding-left: 0;
         margin: 0;
@@ -108,9 +108,13 @@ nav.navbar.fixed-top {
     }
     .group-item {
       padding: 4px 24px;
+      height: 3rem !important;
       a {
         color: inherit;
         text-decoration: none;
+      }
+      a, button {
+        padding: 12px 0px;
       }
       .btn-delete {
         @extend .transition;

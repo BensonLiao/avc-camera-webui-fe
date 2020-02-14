@@ -385,7 +385,7 @@ module.exports = class Members extends Base {
                     <i className="far fa-folder text-size-24"/>
                     <span className="text-truncate text-size-14 pl-4">{group.name}</span>
                   </a>
-                  <button className="btn btn-link btn-delete text-info px-0" type="button"
+                  <button className="btn btn-link btn-delete text-info" type="button"
                     onClick={this.generateShowDeleteGroupModalHandler(group)}
                   >
                     <i className="far fa-trash-alt fa-fw text-size-20"/>
