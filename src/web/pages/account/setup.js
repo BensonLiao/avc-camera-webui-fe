@@ -14,7 +14,7 @@ const utils = require('../../../core/utils');
 const logo = require('../../../resource/logo-avn-secondary.svg');
 const logoWithTitle = require('../../../resource/logo-avn-title.svg');
 
-module.exports = class Login extends Base {
+module.exports = class Setup extends Base {
   constructor(props) {
     super(props);
     this.state.isIncorrectPassword = null;
