@@ -4,6 +4,9 @@ const classNames = require('classnames');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
+const iconUsers = require('../../../resource/users-24px.svg');
+const iconUser = require('../../../resource/user-24px.svg');
+const iconUserShield = require('../../../resource/user-shield-24px.svg');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
@@ -76,7 +79,7 @@ module.exports = class Users extends Base {
                 {'bg-light': !this.props.params.group}
               )}
             >
-              <i className="fas fa-user-friends pl-2 pr-4"/>{_('All accounts')}
+              <img className="pl-2 pr-4" src={iconUsers}/>{_('All accounts')}
             </Link>
           </nav>
           <hr/>
@@ -85,23 +88,30 @@ module.exports = class Users extends Base {
               <h3>{_('Permission')}</h3>
             </div>
 
-            {
-              UserPermission.all().map((permission, idx) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <div key={idx}
-                  className={classNames(
-                    'group-item d-flex justify-content-between align-items-center',
-                    {active: this.props.params.group === permission},
-                    {'bg-light': this.props.params.group === permission}
-                  )}
-                >
-                  <a className="w-100 text-truncate d-flex align-items-center" href={`#${idx}`}>
-                    <i className="far fa-folder text-size-24"/>
-                    <span className="text-truncate text-size-14 pl-4">{_(`permission-${permission}`)}</span>
-                  </a>
-                </div>
-              ))
-            }
+            <div
+              className={classNames(
+                'group-item d-flex justify-content-between align-items-center',
+                {active: this.props.params.group === UserPermission.root},
+                {'bg-light': this.props.params.group === UserPermission.root}
+              )}
+            >
+              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.root}`}>
+                <img src={iconUserShield}/>
+                <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.root}`)}</span>
+              </a>
+            </div>
+            <div
+              className={classNames(
+                'group-item d-flex justify-content-between align-items-center',
+                {active: this.props.params.group === UserPermission.guest},
+                {'bg-light': this.props.params.group === UserPermission.guest}
+              )}
+            >
+              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.guest}`}>
+                <img src={iconUser}/>
+                <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.guest}`)}</span>
+              </a>
+            </div>
           </div>
         </div>
 
