@@ -95,6 +95,7 @@ window.languageResource = {
   'validation-stringContainsLowerCaseLatter': 'This field must contain the lower case letter.',
   'validation-stringContainsUpperCaseLatter': 'This field must contain the upper case letter.',
   'validation-stringContainsNumber': 'This field must contain the number.',
+  'validation-stringAbortSpecialCharacters': 'This field can\'t use special characters.',
   'validation-stringEnum': 'This field does not match any of the allowed values.',
   'validation-number': 'This field must be a number.',
   'validation-numberMin': 'This field must be greater than or equal to {expected}.',

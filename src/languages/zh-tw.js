@@ -127,6 +127,7 @@ window.languageResource = {
   'validation-stringContainsLowerCaseLatter': '此欄位必須輸入包含小寫英文字母。',
   'validation-stringContainsUpperCaseLatter': '此欄位必須輸入包含大寫英文字母。',
   'validation-stringContainsNumber': '此欄位必須輸入包含數字。',
+  'validation-stringAbortSpecialCharacters': '此欄位禁用特殊符號。',
   'validation-stringEnum': '此欄位與要求的內容不符合。',
   'validation-number': '此欄位必須是數字。',
   'validation-numberMin': '此欄位必須為 {expected} 以上的數字。',
