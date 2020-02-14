@@ -113,8 +113,7 @@ module.exports = class Layout extends Base {
             'web.media.stream',
             'web.media.rtsp',
             'web.media.word',
-            'web.media.privacy-mask',
-            'web.media.audio'
+            'web.media.privacy-mask'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
@@ -134,15 +133,19 @@ module.exports = class Layout extends Base {
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
-      members: classNames(
+      users: classNames(
         'btn d-flex justify-content-center align-items-center',
         {
           active: [
-            'web.members',
-            'web.members.new-group',
-            'web.members.modify-group',
-            'web.members.new-member',
-            'web.members.details'
+            'web.users.members',
+            'web.users.members.new-group',
+            'web.users.members.modify-group',
+            'web.users.members.new-member',
+            'web.users.members.details',
+            'web.users.account',
+            'web.users.account.details',
+            'web.users.account.new-user',
+            'web.users.events'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
@@ -202,7 +205,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('User management')} {...tooltipOptions}>
-            <Link className={classTable.members} to="/users">
+            <Link className={classTable.users} to="/users">
               <img src={iconUserManagement}/>
             </Link>
           </Tooltip>
