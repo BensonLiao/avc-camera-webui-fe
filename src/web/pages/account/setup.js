@@ -119,7 +119,8 @@ module.exports = class Setup extends Base {
                 initialValues={{
                   account: 'admin',
                   permission: UserPermission.root,
-                  password: ''
+                  password: '',
+                  confirmPassword: ''
                 }}
                 validate={utils.makeFormikValidator(
                   loginValidator,
