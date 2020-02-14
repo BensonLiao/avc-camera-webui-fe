@@ -448,7 +448,7 @@ module.exports = class Members extends Base {
                 {
                   selectedGroup && (
                     <div className="col-12 mb-4">
-                      <i className="far fa-folder fa-fw fa-lg text-primary ml-3"/>
+                      <i className="far fa-folder fa-fw fa-lg text-primary"/>
                       <span className="text-size-16 text-muted ml-3">{selectedGroup.name}</span>
                       <img className="ml-32px" src={iconDescription}/>
                       <span className="text-size-14 text-muted ml-2">{selectedGroup.note}</span>
