@@ -358,8 +358,8 @@ module.exports = class Members extends Base {
           </nav>
           <hr/>
           <div className="groups">
-            <div className="d-flex justify-content-between align-items-center py-1 px-4">
-              <h3 className="pl-0 text-size-12 font-weight-bold">{_('Groups')}</h3>
+            <div className="sub-title py-1 px-4">
+              <h3>{_('Groups')}</h3>
               <Link
                 to={{name: 'web.users.members.new-group', params: this.props.params}}
                 tabIndex={(isAddGroupDisabled ? -1 : null)}
@@ -384,7 +384,7 @@ module.exports = class Members extends Base {
                     <i className="far fa-folder text-size-24"/>
                     <span className="text-truncate text-size-14 pl-4">{group.name}</span>
                   </a>
-                  <button className="btn btn-link btn-delete text-info pr-0" type="button"
+                  <button className="btn btn-link btn-delete text-info px-0" type="button"
                     onClick={this.generateShowDeleteGroupModalHandler(group)}
                   >
                     <i className="far fa-trash-alt fa-fw text-size-20"/>
@@ -394,13 +394,13 @@ module.exports = class Members extends Base {
             }
 
             <hr/>
-            <div className="d-flex justify-content-between align-items-center py-1 px-4">
-              <h3 className="pl-0">{_('Database file')}</h3>
-              <button className="btn btn-link" type="button" onClick={this.showDatabaseEncryptionModal}>
+            <div className="sub-title py-2 px-4">
+              <h3>{_('Database file')}</h3>
+              <button className="btn btn-link p-0" type="button" onClick={this.showDatabaseEncryptionModal}>
                 <img src={iconLock}/>
               </button>
             </div>
-            <div className="actions px-4">
+            <div className="actions px-4 py-3">
               <div className="form-group">
                 <button disabled={this.state.$isApiProcessing} type="button"
                   className="btn btn-outline-primary btn-block rounded-pill"
