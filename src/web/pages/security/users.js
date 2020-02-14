@@ -97,7 +97,6 @@ module.exports = class Users extends Base {
                 <table className="table custom-style">
                   <thead>
                     <tr className="shadow">
-                      <th>#</th>
                       <th>{_('Permission')}</th>
                       <th>{_('Account')}</th>
                       <th style={{width: '150px'}}>{_('Actions')}</th>
@@ -109,7 +108,6 @@ module.exports = class Users extends Base {
                         const tdClass = classNames({'border-bottom': index >= users.length - 1});
                         return (
                           <tr key={user.id}>
-                            <td className={tdClass}>{user.id}</td>
                             <td className={tdClass}>
                               <span className={classNames('badge badge-pill text-size-16 px-3', user.permission ? 'badge-admin' : 'badge-guest')}>
                                 {_(`permission-${user.permission}`)}
