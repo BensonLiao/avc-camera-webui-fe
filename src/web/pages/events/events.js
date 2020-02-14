@@ -304,12 +304,12 @@ module.exports = class Events extends Base {
       <div className="left-menu fixed-top sub shadow-sm">
         <h2>{_('Smart search')}</h2>
         <div className="filter-wrapper">
-          <div className="header d-flex justify-content-between align-items-center">
+          <div className="header d-flex justify-content-between align-items-center  text-size-12">
             <span>{_('Filter condition')}</span>
-            <a className="text-size-14" href="#" onClick={this.onClickCleanFilters}>{_('Clean')}</a>
+            <a className="text-primary font-weight-bold" href="#" onClick={this.onClickCleanFilters}>{_('Clean')}</a>
           </div>
 
-          <div className={classNames('card mb-3', {active: this.state.type === 'face-recognition' && isEnableFaceRecognition})}>
+          <div className={classNames('card sub mb-3', {active: this.state.type === 'face-recognition' && isEnableFaceRecognition})}>
             <div className="card-header text-truncate">
               {
                 isEnableFaceRecognition ?
@@ -326,7 +326,7 @@ module.exports = class Events extends Base {
             {this.state.type === 'face-recognition' && isEnableFaceRecognition && this.faceRecognitionFilterRender()}
           </div>
 
-          <div className={classNames('card mb-3', {active: this.state.type === 'age-gender' && isEnableAgeGender})}>
+          <div className={classNames('card sub mb-3', {active: this.state.type === 'age-gender' && isEnableAgeGender})}>
             <div className="card-header text-truncate">
               {
                 isEnableAgeGender ?
@@ -342,7 +342,7 @@ module.exports = class Events extends Base {
             </div>
           </div>
 
-          <div className={classNames('card mb-3', {active: this.state.type === 'humanoid-detection' && isEnableHumanoidDetection})}>
+          <div className={classNames('card sub mb-3', {active: this.state.type === 'humanoid-detection' && isEnableHumanoidDetection})}>
             <div className="card-header text-truncate">
               {
                 isEnableHumanoidDetection ?

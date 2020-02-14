@@ -139,9 +139,9 @@ nav.navbar.fixed-top {
   }
 
   .filter-wrapper {
-    margin: 0 16px;
+    margin: 0;
     .header {
-      padding: 8px;
+      padding: 8px 24px;
       margin-bottom: 16px;
       border-bottom: 1px #ccc solid;
       color: inherit;
@@ -150,13 +150,29 @@ nav.navbar.fixed-top {
       }
     }
     .card {
+      margin: 0 16px;
       border: none;
+      background-color: #4D4D4D;
+      &.sub {
+        background-color: #EEEEEE;
+        color: $secondary-500;
+        .card-header {
+          color: $secondary-700;
+        }
+        .card-body {
+          border-top: 1px $secondary-300 solid;
+          .form-check-label {
+            color: $secondary-700;
+          }
+        }
+      }
       &.active .card-header {
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
       }
       .card-header {
-        background-color: #4D4D4D;
+        background-color: inherit;
+        color: inherit;
         border-radius: 8px;
         padding: 10px 16px;
         border: none;
@@ -171,7 +187,7 @@ nav.navbar.fixed-top {
         }
       }
       .card-body {
-        background-color: #4D4D4D;
+        background-color: inherit;
         border-bottom-right-radius: 8px;
         border-bottom-left-radius: 8px;
         border-top: 1px #666 solid;
