@@ -69,16 +69,6 @@ module.exports = class Users extends Base {
         <div className="page-security bg-white">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/security/account">{_('Security')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Account settings')}</li>
-                  </ol>
-                </nav>
-              </div>
 
               <div className="col-12 actions">
                 <Link
