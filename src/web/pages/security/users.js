@@ -31,6 +31,14 @@ module.exports = class Users extends Base {
     super(props);
     this.state.isShowDeleteUserModal = false;
     this.state.deleteUserTarget = null;
+    this.state.permissionFilter = 'all';
+  }
+
+  generateChangePermissionFilterHandler = permission => {
+    return event => {
+      event.preventDefault();
+      this.setState({permissionFilter: permission});
+    };
   }
 
   generateShowDeleteUserModalHandler = user => {
@@ -62,7 +70,10 @@ module.exports = class Users extends Base {
   };
 
   render() {
-    const users = this.props.users.items;
+    const {permissionFilter} = this.state;
+    const users = permissionFilter === 'all' ?
+      this.props.users.items :
+      this.props.users.items.filter(user => user.permission.toString() === permissionFilter);
     const isDeleteUserDisabled = users.filter(
       user => user.permission.toString() === UserPermission.root
     ).length <= 1;
@@ -75,8 +86,8 @@ module.exports = class Users extends Base {
           <nav className="nav flex-column">
             <Link to="/users/account" title={_('All accounts')}
               className={classNames('nav-link text-size-16 py-1 px-3',
-                {active: !this.props.params.group},
-                {'bg-light': !this.props.params.group}
+                {active: permissionFilter === 'all'},
+                {'bg-light': permissionFilter === 'all'}
               )}
             >
               <img className="pl-2 pr-4" src={iconUsers}/>{_('All accounts')}
@@ -91,11 +102,11 @@ module.exports = class Users extends Base {
             <div
               className={classNames(
                 'group-item d-flex justify-content-between align-items-center',
-                {active: this.props.params.group === UserPermission.root},
-                {'bg-light': this.props.params.group === UserPermission.root}
+                {active: permissionFilter === UserPermission.root},
+                {'bg-light': permissionFilter === UserPermission.root}
               )}
             >
-              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.root}`}>
+              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.root}`} onClick={this.generateChangePermissionFilterHandler(UserPermission.root)}>
                 <img src={iconUserShield}/>
                 <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.root}`)}</span>
               </a>
@@ -103,11 +114,11 @@ module.exports = class Users extends Base {
             <div
               className={classNames(
                 'group-item d-flex justify-content-between align-items-center',
-                {active: this.props.params.group === UserPermission.guest},
-                {'bg-light': this.props.params.group === UserPermission.guest}
+                {active: permissionFilter === UserPermission.guest},
+                {'bg-light': permissionFilter === UserPermission.guest}
               )}
             >
-              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.guest}`}>
+              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.guest}`} onClick={this.generateChangePermissionFilterHandler(UserPermission.guest)}>
                 <img src={iconUser}/>
                 <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.guest}`)}</span>
               </a>
