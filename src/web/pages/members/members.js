@@ -353,7 +353,7 @@ module.exports = class Members extends Base {
                 {'bg-light': !this.props.params.group}
               )}
             >
-              <i className="fas fa-user-friends pl-3 pr-4"/>{_('All members')}
+              <i className="fas fa-user-friends pl-2 pr-4"/>{_('All members')}
             </Link>
           </nav>
           <hr/>
