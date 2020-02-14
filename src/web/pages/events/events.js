@@ -625,7 +625,7 @@ module.exports = class Events extends Base {
                               '-'
                           }
                         </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                        <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
                           {
                             event.confidences.length > 0 && event.confidences[0].enrollStatus === EnrollStatus.registered ?
                               <button className="btn btn-link" type="button" onClick={this.generateMemberModifyHandler(event.confidences[0].member)}>

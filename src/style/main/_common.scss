@@ -375,6 +375,7 @@ body {
 }
 
 .table.custom-style {
+  margin-bottom: 0;
   thead > tr {
     border-radius: 8px;
     > th {
@@ -395,9 +396,19 @@ body {
   }
   tr > th, td {
     @extend .align-middle;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 32px;
+    padding-right: 32px;
     color: #666;
+  }
+  td, td.group-btn {
+    button, a {
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+    }
   }
 }
 

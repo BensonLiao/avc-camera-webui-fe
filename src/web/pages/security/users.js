@@ -103,7 +103,7 @@ module.exports = class Users extends Base {
                               </span>
                             </td>
                             <td className={tdClass}>{user.account}</td>
-                            <td className={classNames('text-right', tdClass)}>
+                            <td className={classNames('text-left group-btn', tdClass)}>
                               <Link className="btn btn-link" to={{name: 'web.users.account.details', params: {...this.props.params, userId: user.id}}}>
                                 <i className="fas fa-pen fa-lg fa-fw"/>
                               </Link>

@@ -495,7 +495,7 @@ module.exports = class Members extends Base {
                               <td className={tdClass}>{member.organization || _('None')}</td>
                               <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('None')}</td>
                               <td className={tdClass}>{member.note || _('None')}</td>
-                              <td className={tdClass}>
+                              <td className={classNames('text-left group-btn', tdClass)}>
                                 <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...this.props.params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
