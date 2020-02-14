@@ -69,8 +69,7 @@ module.exports = class Users extends Base {
         <div className="page-security bg-white">
           <div className="container-fluid">
             <div className="row">
-
-              <div className="col-12 actions">
+              <div className="col-12 actions text-right">
                 <Link
                   to={{name: 'web.users.account.new-user', params: this.props.params}}
                   tabIndex={(isAddUserDisabled ? -1 : null)}
@@ -79,7 +78,7 @@ module.exports = class Users extends Base {
                     {disabled: isAddUserDisabled}
                   )}
                 >
-                  <i className="fas fa-plus fa-fw"/> {_('New user')}
+                  <i className="fas fa-plus fa-fw"/> {_('New')}
                 </Link>
               </div>
 
