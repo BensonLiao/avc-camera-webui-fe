@@ -122,7 +122,7 @@ module.exports = class License extends Base {
   render() {
     const {systemInformation, authKeys} = this.props;
     return (
-      <div className="main-content bg-white">
+      <div className="bg-white">
         <div className="page-license bg-gray" style={{height: '522px'}}>
           <div className="container-fluid">
             <div className="row">

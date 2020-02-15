@@ -39,6 +39,11 @@ module.exports = class Smart extends Base {
             >
               {_('Face recognition')}
             </Link>
+            <Link to="/smart/license" title={_('License')}
+              className={classNames('nav-link', {active: currentRouteName === 'web.smart.license'})}
+            >
+              {_('License')}
+            </Link>
           </nav>
         </div>
 

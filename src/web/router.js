@@ -207,6 +207,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.smart.license',
+      uri: '/license',
+      onEnter: () => {
+        document.title = `${_('License')} - ${_title}`;
+      },
+      resolve: {
+        authKeys: () => api.authKey.getAuthKeys().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-license" */
+        './pages/license/license'
+      )
+    },
+    {
       name: 'web.users',
       uri: '/users',
       onEnter: () => {
@@ -359,31 +373,6 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-events" */
         './pages/events/events'
-      )
-    },
-    {
-      name: 'web.license',
-      uri: '/license',
-      onEnter: () => {
-        document.title = `${_('License')} - ${_title}`;
-      },
-      resolve: {
-        authKeys: () => api.authKey.getAuthKeys().then(response => response.data)
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-license" */
-        './pages/license/license'
-      )
-    },
-    {
-      name: 'setup',
-      uri: '/setup',
-      onEnter: () => {
-        document.title = `${_('Setup account')} - ${_title}`;
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-setup" */
-        './pages/account/setup'
       )
     },
     {
