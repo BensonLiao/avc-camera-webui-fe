@@ -148,9 +148,9 @@ module.exports = class Users extends Base {
                   <table className="table custom-style">
                     <thead>
                       <tr className="shadow">
-                        <th>{_('Permission')}</th>
-                        <th>{_('Account')}</th>
-                        <th style={{width: '150px'}}>{_('Actions')}</th>
+                        <th style={{width: '33%'}}>{_('Permission')}</th>
+                        <th style={{width: '34%'}}>{_('Account')}</th>
+                        <th style={{width: '33%'}}>{_('Actions')}</th>
                       </tr>
                     </thead>
                     <tbody>
