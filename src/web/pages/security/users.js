@@ -149,7 +149,7 @@ module.exports = class Users extends Base {
                     <thead>
                       <tr className="shadow">
                         <th style={{width: '33%'}}>{_('Permission')}</th>
-                        <th style={{width: '34%'}}>{_('Account')}</th>
+                        <th style={{width: '34%'}}>{_('Username')}</th>
                         <th style={{width: '33%'}}>{_('Actions')}</th>
                       </tr>
                     </thead>

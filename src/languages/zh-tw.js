@@ -490,7 +490,8 @@ window.languageResource = {
   'End datetime': '結束日期時間',
 
   // /security/account
-  Accounts: '帳戶管理',
+  Accounts: '帳號管理',
+  Username: '帳號',
   'Off line record': '斷線錄影',
   'Modify user': '編輯帳號',
   'Confirm new password': '確認新密碼',
