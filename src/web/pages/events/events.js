@@ -316,10 +316,12 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Face recognition')}</span> <i className="fas fa-chevron-up"/>
+                    <span>{_('Face recognition')}</span>
+                    <i className="fas fa-chevron-up"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Face recognition')} <span className="badge badge-danger badge-pill">{_('Not activated')}</span></span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Face recognition')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Not activated')}</span> <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
@@ -338,7 +340,7 @@ module.exports = class Events extends Base {
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Age gender')}</span>
-                    <h6><span className="badge badge-danger badge-pill">{_('Not activated')}</span></h6>
+                    <span className="badge badge-danger badge-pill">{_('Not activated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -357,7 +359,7 @@ module.exports = class Events extends Base {
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Humanoid detection')}</span>
-                    <h6><span className="badge badge-danger badge-pill">{_('Not activated')}</span></h6>
+                    <span className="badge badge-danger badge-pill">{_('Not activated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -617,8 +619,8 @@ module.exports = class Events extends Base {
                               <OverlayTrigger overlay={<Tooltip>{event.confidences[0].score}</Tooltip>}>
                                 {
                                   event.confidences[0].enrollStatus === EnrollStatus.registered ?
-                                    <span className="badge badge-success badge-pill px-3">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
-                                    <span className="badge badge-danger badge-pill px-3">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
+                                    <span className="badge badge-success badge-pill">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
+                                    <span className="badge badge-danger badge-pill">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
                                 }
                               </OverlayTrigger>
                             )

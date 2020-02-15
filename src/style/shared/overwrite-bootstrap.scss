@@ -324,6 +324,11 @@ $switch-input-color-checked: $success;
   }
 }
 
+.badge {
+  font-size: 14px;
+  padding: 2px 8px;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: $secondary-400 !important;
   opacity: 1 !important; /* Firefox */
