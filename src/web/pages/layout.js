@@ -142,9 +142,9 @@ module.exports = class Layout extends Base {
             'web.users.members.modify-group',
             'web.users.members.new-member',
             'web.users.members.details',
-            'web.users.account',
-            'web.users.account.details',
-            'web.users.account.new-user',
+            'web.users.accounts',
+            'web.users.accounts.details',
+            'web.users.accounts.new-user',
             'web.users.events'
           ].indexOf(this.state.currentRouteName) >= 0
         }
@@ -154,7 +154,8 @@ module.exports = class Layout extends Base {
         {
           active: [
             'web.smart',
-            'web.smart.face-recognition'
+            'web.smart.face-recognition',
+            'web.smart.license'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
