@@ -302,7 +302,7 @@ module.exports = class Events extends Base {
 
     return (
       <div className="left-menu fixed-top sub shadow-sm">
-        <h2>{_('Smart search')}</h2>
+        <h2>{_('Events')}</h2>
         <div className="filter-wrapper">
           <div className="header d-flex justify-content-between align-items-center  text-size-12">
             <span>{_('Filter condition')}</span>

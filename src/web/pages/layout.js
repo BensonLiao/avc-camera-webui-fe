@@ -189,7 +189,7 @@ module.exports = class Layout extends Base {
               <img src={iconImage}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Multimedia settings')} {...tooltipOptions}>
+          <Tooltip title={_('Video')} {...tooltipOptions}>
             <Link className={classTable.media} to="/media/stream">
               <img src={iconMedia}/>
             </Link>

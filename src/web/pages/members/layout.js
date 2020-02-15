@@ -45,24 +45,24 @@ module.exports = class Users extends Base {
               {_('Members')}
             </Link>
             <Link
-              to="/users/account"
-              title={_('Account settings')}
+              to="/users/accounts"
+              title={_('Accounts')}
               data-toggle="tab"
               className={classNames('nav-item nav-link', {
-                active: this.state.currentRouteName === 'web.users.account'
+                active: this.state.currentRouteName === 'web.users.accounts'
               })}
             >
-              {_('Account settings')}
+              {_('Accounts')}
             </Link>
             <Link
               to="/users/events"
-              title={_('Smart search')}
+              title={_('Events')}
               data-toggle="tab"
               className={classNames('nav-item nav-link', {
                 active: this.state.currentRouteName === 'web.users.events'
               })}
             >
-              {_('Smart search')}
+              {_('Events')}
             </Link>
           </div>
         </nav>

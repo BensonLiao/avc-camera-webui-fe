@@ -291,8 +291,8 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.users.account',
-      uri: '/account',
+      name: 'web.users.accounts',
+      uri: '/accounts',
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
       },
@@ -305,7 +305,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.users.account.details',
+      name: 'web.users.accounts.details',
       uri: '/{userId:\\d+}',
       dismissalDelay: 300,
       onEnter: () => {
@@ -320,7 +320,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.users.account.new-user',
+      name: 'web.users.accounts.new-user',
       uri: '/new',
       dismissalDelay: 300,
       onEnter: () => {

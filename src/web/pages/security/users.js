@@ -84,7 +84,7 @@ module.exports = class Users extends Base {
         <div className="left-menu fixed-top sub">
           <h2>{_('Accounts')}</h2>
           <nav className="nav flex-column">
-            <Link to="/users/account" title={_('All accounts')}
+            <Link to="/users/accounts" title={_('All accounts')}
               className={classNames('nav-link text-size-16 py-1 px-3',
                 {active: permissionFilter === 'all'},
                 {'bg-light': permissionFilter === 'all'}
@@ -133,7 +133,7 @@ module.exports = class Users extends Base {
               <div className="row">
                 <div className="col-12 text-right mr-32px mb-4">
                   <Link
-                    to={{name: 'web.users.account.new-user', params: this.props.params}}
+                    to={{name: 'web.users.accounts.new-user', params: this.props.params}}
                     tabIndex={(isAddUserDisabled ? -1 : null)}
                     className={classNames(
                       'btn btn-outline-primary rounded-pill px-3',
@@ -166,7 +166,7 @@ module.exports = class Users extends Base {
                               </td>
                               <td className={tdClass}>{user.account}</td>
                               <td className={classNames('text-left group-btn', tdClass)}>
-                                <Link className="btn btn-link" to={{name: 'web.users.account.details', params: {...this.props.params, userId: user.id}}}>
+                                <Link className="btn btn-link" to={{name: 'web.users.accounts.details', params: {...this.props.params, userId: user.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
                                 <button
