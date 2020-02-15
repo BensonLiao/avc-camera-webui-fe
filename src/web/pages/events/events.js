@@ -375,7 +375,7 @@ module.exports = class Events extends Base {
     return (
       <Form>
         <div className="form-row datepicker-wrapper">
-          <div className="col-auto my-1 btn-group">
+          <div className="col-auto px-0 btn-group">
             <Field
               name="start"
               component={DatePicker}
@@ -414,11 +414,11 @@ module.exports = class Events extends Base {
             />
           </div>
         </div>
-        <div className="form-row mt-3">
-          <div className="col-auto my-1">
+        <div className="form-row mt-4">
+          <div className="col-auto my-1 px-0">
             <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
           </div>
-          <div className="col-auto my-1">
+          <div className="col-auto my-1 px-0 ml-3">
             <button className="btn btn-outline-primary rounded-pill px-3" type="submit">
               <i className="fas fa-search fa-fw"/> {_('Search')}
             </button>
