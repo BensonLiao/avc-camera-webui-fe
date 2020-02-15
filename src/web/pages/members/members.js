@@ -159,10 +159,10 @@ module.exports = class Members extends Base {
   searchFormRender = () => {
     return (
       <Form className="form-row">
-        <div className="col-auto my-1">
+        <div className="col-auto">
           <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
         </div>
-        <div className="col-auto my-1">
+        <div className="col-auto">
           <button disabled={this.state.$isApiProcessing}
             className="btn btn-outline-primary rounded-pill px-3" type="submit"
           >
@@ -422,25 +422,23 @@ module.exports = class Members extends Base {
           <div className="page-users bg-white">
             <div className="container-fluid">
               <div className="row">
-                <div className="col-12 d-flex justify-content-between mb-4">
+                <div className="col-12 d-flex justify-content-between align-items-center mb-4">
                   <Formik initialValues={{keyword: this.props.params.keyword || ''}}
                     onSubmit={this.onSubmitSearchForm}
                   >
                     {this.searchFormRender}
                   </Formik>
-                  <div className="form-row">
-                    <div className="dropdown">
-                      <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
-                        <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
-                      </button>
-                      <div className="dropdown-menu dropdown-menu-right shadow">
-                        <Link className="dropdown-item"
-                          to={{name: 'web.users.members.new-member', params: this.props.params}}
-                        >
-                          {_('Add a new member')}
-                        </Link>
-                        <Link className="dropdown-item" to="/events">{_('Add a member from events')}</Link>
-                      </div>
+                  <div className="dropdown">
+                    <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
+                      <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
+                    </button>
+                    <div className="dropdown-menu dropdown-menu-right shadow">
+                      <Link className="dropdown-item"
+                        to={{name: 'web.users.members.new-member', params: this.props.params}}
+                      >
+                        {_('Add a new member')}
+                      </Link>
+                      <Link className="dropdown-item" to="/events">{_('Add a member from events')}</Link>
                     </div>
                   </div>
                 </div>

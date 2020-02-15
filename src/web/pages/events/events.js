@@ -415,10 +415,10 @@ module.exports = class Events extends Base {
           </div>
         </div>
         <div className="form-row mt-4">
-          <div className="col-auto my-1 px-0">
+          <div className="col-auto px-0">
             <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
           </div>
-          <div className="col-auto my-1 px-0 ml-3">
+          <div className="col-auto px-0 ml-3">
             <button className="btn btn-outline-primary rounded-pill px-3" type="submit">
               <i className="fas fa-search fa-fw"/> {_('Search')}
             </button>
