@@ -206,6 +206,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.smart.motion-detection',
+      uri: '/motion-detection',
+      onEnter: () => {
+        document.title = `${_('Motion detection')} - ${_('Smart functions')} - ${_title}`;
+      },
+      resolve: {
+        motionDetectionSettings: () => api.smartFunction.getMotionDetectionSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-smart-motion-detection" */
+        './pages/smart/motion-detection'
+      )
+    },
+    {
       name: 'web.members',
       uri: '/members?group?keyword?index?sort',
       onEnter: () => {
