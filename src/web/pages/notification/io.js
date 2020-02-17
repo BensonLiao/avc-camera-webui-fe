@@ -179,10 +179,10 @@ module.exports = class IO extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{_('Notification settings')}</Link>
+                      <Link to="/notification/smtp">{_('Notification settings')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{_('Basic settings')}</Link>
+                      <Link to="/notification/smtp">{_('Basic settings')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('I/O')}</li>
                   </ol>
