@@ -146,7 +146,7 @@ module.exports = class License extends Base {
           </div>
         </div>
 
-        <div className="page-license pt-0">
+        <div className="page-license pt-0 page-bottom">
           <div className="container-fluid">
             <div className="row">
               <div className="col-12">
