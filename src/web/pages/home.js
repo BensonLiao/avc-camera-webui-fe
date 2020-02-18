@@ -219,7 +219,7 @@ module.exports = class Home extends Base {
         <div className="card-body">
           <div className="form-row">
             <div className="col-12 my-1 d-flex justify-content-between align-items-center">
-              <span>{_('WDR')}</span>
+              <span className="text-size-20">{_('WDR')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
                 <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled} className="custom-control-input" id="switch-hdr-enabled"/>
                 <label className="custom-control-label" htmlFor="switch-hdr-enabled">
@@ -230,189 +230,40 @@ module.exports = class Home extends Base {
             </div>
           </div>
         </div>
+        <hr className="my-0"/>
+        <div className="card-body">
+          <div className="form-row">
+            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+              <span className="text-size-20">{_('Focus')}</span>
+              <button
+                disabled={this.state.$isApiProcessing} type="button"
+                className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
+                onClick={this.generateClickAutoFocusButtonHandler(form)}
+              >
+                {_('Auto focus')}
+              </button>
+            </div>
+          </div>
+        </div>
+        <hr className="my-0"/>
+        <div className="card-body">
+          <div className="form-row">
+            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+              <div className="form-group w-100 mb-0">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label className="text-size-16 mb-0 text-left">ZOOM</label>
+                  <span className="text-primary text-size-14">{values.zoom}</span>
+                </div>
+                <Field disabled={this.state.isAutoFocusProcessing}
+                  name="zoom" component={Slider} step={0.1}
+                  min={videoFocusSettingsSchema.zoom.min}
+                  max={videoFocusSettingsSchema.zoom.max}/>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="accordion" id="accordion-video-properties">
-          {/* 亮度 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>{_('Brightness')}
-              </button>
-            </h2>
-
-            <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Brightness')}</label>
-                  <span className="text-primary text-size-14">{values.brightness}</span>
-                </div>
-                <Field name="brightness" component={Slider} step={1}
-                  min={videoSettingsSchema.brightness.min}
-                  max={videoSettingsSchema.brightness.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Contrast')}</label>
-                  <span className="text-primary text-size-14">{values.contrast}</span>
-                </div>
-                <Field name="contrast" component={Slider} step={1}
-                  min={videoSettingsSchema.contrast.min}
-                  max={videoSettingsSchema.contrast.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('HDR')}</label>
-                  <Field name="hdrEnabled" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Shutter speed')}</label>
-                  <Field name="shutterSpeed" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({value: x, label: _(`shutter-speed-${x}`)}))}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Auto Iris')}</label>
-                  <Field name="aperture" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.aperture.enum.map(x => ({value: x, label: _(`aperture-${x}`)}))}/>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 顏色 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
-                <i className="fas fa-chevron-up"/>{_('Color')}
-              </button>
-            </h2>
-
-            <div id="color" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Saturation')}</label>
-                  <span className="text-primary text-size-14">{values.saturation}</span>
-                </div>
-                <Field name="saturation" component={Slider} step={1}
-                  min={videoSettingsSchema.saturation.min}
-                  max={videoSettingsSchema.saturation.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('White balance')}</label>
-                  <Field name="whiteblanceMode" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({value: x, label: _(`white-balance-${x}`)}))}/>
-                </div>
-                {
-                  values.whiteblanceMode === WhiteBalanceType.manual && (
-                    <div className="well">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Color temperature')}</label>
-                        <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
-                      </div>
-                      <Field name="whiteblanceManual" component={Slider} step={1000}
-                        min={videoSettingsSchema.whiteblanceManual.min}
-                        max={videoSettingsSchema.whiteblanceManual.max}/>
-                    </div>
-                  )
-                }
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('D/N')}</label>
-                  <Field name="daynightMode" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.daynightMode.enum.map(x => ({value: x, label: _(`daynight-mode-${x}`)}))}/>
-                </div>
-                {
-                  values.daynightMode === DaynightType.auto && (
-                    <div className="well">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Sensitivity')}</label>
-                        <span className="text-primary text-size-14">{values.sensitivity}</span>
-                      </div>
-                      <Field name="sensitivity" component={Slider} step={1}
-                        min={videoSettingsSchema.sensitivity.min}
-                        max={videoSettingsSchema.sensitivity.max}/>
-                    </div>
-                  )
-                }
-                {
-                  values.daynightMode === DaynightType.manual && (
-                    <div className="well">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Duty time')}</label>
-                        <span className="text-primary text-size-14">
-                          {utils.formatTimeRange(values.dnDuty)}
-                        </span>
-                      </div>
-                      <Field name="dnDuty" component={Slider}
-                        mode="range"
-                        step={0.5}
-                        min={videoSettingsSchema.timePeriodStart.min}
-                        max={videoSettingsSchema.timePeriodEnd.max}/>
-                    </div>
-                  )
-                }
-              </div>
-            </div>
-          </div>
-
-          {/* 影像 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#video">
-                <i className="fas fa-chevron-up"/>{_('Video')}
-              </button>
-            </h2>
-
-            <div id="video" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Sharpness')}</label>
-                  <span className="text-primary text-size-14">{values.sharpness}</span>
-                </div>
-                <Field name="sharpness" component={Slider} step={1}
-                  min={videoSettingsSchema.sharpness.min}
-                  max={videoSettingsSchema.sharpness.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Orientation')}</label>
-                  <Field name="orientation" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.orientation.enum.map(x => ({value: x, label: _(`orientation-${x}`)}))}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Flicker less')}</label>
-                  <Field name="refreshRate" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* 對焦 */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
