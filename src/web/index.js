@@ -73,6 +73,7 @@ router.listen('ChangeStart', (action, toState, fromState, cancel) => {
 
   const $user = store.get('$user');
   const allowAnonymousRoutes = [
+    'setup',
     'login',
     'login-lock',
     'forgot-password',

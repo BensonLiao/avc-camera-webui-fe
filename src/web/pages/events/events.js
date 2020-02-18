@@ -663,6 +663,7 @@ module.exports = class Events extends Base {
   };
 
   render() {
+    const {$isApiProcessing} = this.state;
     let events;
     if (this.state.type === 'face-recognition') {
       events = this.props.faceEvents;
@@ -674,6 +675,7 @@ module.exports = class Events extends Base {
         <div className="main-content left-menu-active bg-white">
           {this.mainContentRender(events)}
           <MemberModal
+            isApiProcessing={$isApiProcessing}
             isShowModal={this.state.isShowMemberModal}
             groups={this.props.groups}
             member={this.state.currentMember}

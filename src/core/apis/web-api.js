@@ -182,6 +182,19 @@ module.exports = {
       data: {deviceName}
     }),
     /**
+     * Setup the device with an account.
+     * @param {string} account
+     * @param {string} password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - account {string}
+     */
+    setup: ({account, password}) => api({
+      method: 'post',
+      url: '/api/system/_setup',
+      data: {account, password}
+    }),
+    /**
      * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
      * @returns {Promise<response>}
      * @response 200 {Object}
@@ -550,6 +563,32 @@ module.exports = {
         isEnableFaceFrame,
         faceFrame
       }
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - sensibility {number}
+     * - areas {Array<{x: number, y: number, width: number, height: number}>}
+     */
+    getMotionDetectionSettings: () => api({
+      method: 'get',
+      url: '/api/motion-detection/settings'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {number} sensibility
+     * @param {Array<{x: number, y: number, width: number, height: number}>} areas
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - sensibility {number}
+     * - areas {Array<{x: number, y: number: width: number, height: number}>}
+     */
+    updateMotionDetectionSettings: ({isEnable, sensibility, areas}) => api({
+      method: 'put',
+      url: '/api/motion-detection/settings',
+      data: {isEnable, sensibility, areas}
     })
   },
   group: {

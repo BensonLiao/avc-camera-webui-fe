@@ -17,8 +17,9 @@ const api = require('../apis/web-api');
 module.exports = class Member extends React.PureComponent {
   static get propTypes() {
     return {
+      isApiProcessing: PropTypes.bool.isRequired,
       isShowModal: PropTypes.bool.isRequired,
-      onSubmitted: PropTypes.func.isRequired,
+      onSubmitted: PropTypes.func.isRequired, // The form submitted callback.
       onHide: PropTypes.func.isRequired,
       defaultPictureUrl: PropTypes.string,
       groups: PropTypes.shape({
@@ -101,100 +102,72 @@ module.exports = class Member extends React.PureComponent {
 
   onSubmitForm = values => {
     const data = {...values};
-    const convertPicture = (imgSrc, zoomRate, pictureRotateDegrees) => {
-      /*
-      @returns {String} base64 jpeg string
-       */
-      const img = document.createElement('img');
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      const size = 300;
-      let rate;
-
-      img.src = imgSrc;
-      rate = img.height / img.width;
-      if (img.width < img.height) {
-        img.width = size;
-        img.height = Math.round(img.width * rate);
-      } else {
-        img.height = size;
-        img.width = Math.round(img.height / rate);
-      }
-
-      img.width = Math.round(img.width * zoomRate * 0.01);
-      img.height = Math.round(img.height * zoomRate * 0.01);
-
-      canvas.width = size;
-      canvas.height = size;
-      context.translate(canvas.width / 2, canvas.height / 2);
-      context.rotate(pictureRotateDegrees * Math.PI / 180);
-      context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
-      context.restore();
-
-      return canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', '');
-    };
+    const tasks = [];
 
     if (this.avatarFile) {
-      data.pictures = [
-        convertPicture(this.state.avatarPreviewUrl, values.zoom, this.state.pictureRotateDegrees)
-      ];
+      // The user upload a file.
+      tasks.push(
+        utils.convertPicture(this.state.avatarPreviewUrl, values.zoom, this.state.pictureRotateDegrees)
+      );
     } else if (this.props.member && (this.state.pictureRotateDegrees || values.zoom !== 100)) {
       // The user modify the exist picture.
-      data.pictures = [
-        convertPicture(
+      tasks.push(
+        utils.convertPicture(
           `data:image/jpeg;base64,${this.props.member.pictures[0]}`,
           values.zoom,
           this.state.pictureRotateDegrees
         )
-      ];
+      );
     } else if (this.props.member) {
       // The user didn't modify the picture.
       data.pictures = this.props.member.pictures;
     } else if (this.props.defaultPictureUrl) {
       // Register a member from the event.
-      data.pictures = [
-        convertPicture(
+      tasks.push(
+        utils.convertPicture(
           this.props.defaultPictureUrl,
           values.zoom,
           this.state.pictureRotateDegrees
         )
-      ];
-    }
-
-    if (data.pictures && data.pictures.length) {
-      if (this.state.isIncorrectPicture) {
-        this.setState({isIncorrectPicture: null});
-      }
-    } else {
-      // Incorrect picture.
-      if (!this.state.isIncorrectPicture) {
-        this.setState({isIncorrectPicture: true});
-      }
-
-      return;
+      );
     }
 
     progress.start();
-    if (this.props.member) {
-      // Update the member.
-      api.member.updateMember(data)
-        .then(() => this.props.onSubmitted())
-        .catch(error => {
-          progress.done();
-          utils.renderError(error);
-        });
-    } else {
+    Promise.all(tasks).then(([imageData]) => {
+      if (imageData) {
+        data.pictures = [imageData];
+      }
+
+      if (data.pictures && data.pictures.length) {
+        if (this.state.isIncorrectPicture) {
+          this.setState({isIncorrectPicture: null});
+        }
+      } else {
+        // Incorrect picture.
+        progress.done();
+        if (!this.state.isIncorrectPicture) {
+          this.setState({isIncorrectPicture: true});
+        }
+
+        return;
+      }
+
+      if (this.props.member) {
+        // Update the member.
+        return api.member.updateMember(data).then(this.props.onSubmitted);
+      }
+
       // Add a new member.
-      api.member.addMember(data)
-        .then(() => this.props.onSubmitted())
-        .catch(error => {
-          progress.done();
-          utils.renderError(error);
-        });
-    }
+      return api.member.addMember(data).then(this.props.onSubmitted);
+    })
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
   };
 
   formRender = ({errors, touched, values}) => {
+    const {isApiProcessing} = this.props;
     const avatarPreviewStyle = {backgroundImage: `url('${this.props.defaultPictureUrl || defaultAvatar}')`};
     if (this.props.member) {
       avatarPreviewStyle.backgroundImage = `url("data:image/jpeg;base64,${this.props.member.pictures[0]}")`;
@@ -290,7 +263,7 @@ module.exports = class Member extends React.PureComponent {
         </div>
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
-            <button type="submit" className="btn btn-primary btn-block rounded-pill">
+            <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
               {this.props.member ? _('Confirm') : _('New')}
             </button>
           </div>

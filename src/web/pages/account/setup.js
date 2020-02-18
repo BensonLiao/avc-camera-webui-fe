@@ -8,13 +8,13 @@ const Base = require('../shared/base');
 const Password = require('../../../core/components/fields/password');
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
-const loginValidator = require('../../validations/account/login-validator');
+const setupAccountValidator = require('../../validations/setup/account-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const logo = require('../../../resource/logo-avn-secondary.svg');
 const logoWithTitle = require('../../../resource/logo-avn-title.svg');
 
-module.exports = class Login extends Base {
+module.exports = class Setup extends Base {
   constructor(props) {
     super(props);
     this.state.isIncorrectPassword = null;
@@ -40,7 +40,7 @@ module.exports = class Login extends Base {
    */
   onSubmitSetupForm = values => {
     progress.start();
-    api.user.addUser(values)
+    api.system.setup(values)
       .then(this.redirectPage)
       .catch(error => {
         progress.done();
@@ -119,10 +119,11 @@ module.exports = class Login extends Base {
                 initialValues={{
                   account: 'admin',
                   permission: UserPermission.root,
-                  password: ''
+                  password: '',
+                  confirmPassword: ''
                 }}
                 validate={utils.makeFormikValidator(
-                  loginValidator,
+                  setupAccountValidator,
                   ['password', 'confirmPassword']
                 )}
                 onSubmit={this.onSubmitSetupForm}

@@ -123,20 +123,6 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.notification.app',
-      uri: '/app',
-      onEnter: () => {
-        document.title = `${_('Notification settings')} - ${_title}`;
-      },
-      resolve: {
-        appSettings: () => api.notification.getAppSettings().then(response => response.data)
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-notification" */
-        './pages/notification/app'
-      )
-    },
-    {
       name: 'web.notification.smtp',
       uri: '/smtp',
       onEnter: () => {
@@ -204,6 +190,20 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-smart-face-recognition" */
         './pages/smart/face-recognition'
+      )
+    },
+    {
+      name: 'web.smart.motion-detection',
+      uri: '/motion-detection',
+      onEnter: () => {
+        document.title = `${_('Motion detection')} - ${_('Smart functions')} - ${_title}`;
+      },
+      resolve: {
+        motionDetectionSettings: () => api.smartFunction.getMotionDetectionSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-smart-motion-detection" */
+        './pages/smart/motion-detection'
       )
     },
     {

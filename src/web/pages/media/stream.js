@@ -3,7 +3,6 @@ const PropTypes = require('prop-types');
 const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
-const filesize = require('filesize');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
 const {renderError} = require('../../../core/utils');
@@ -219,8 +218,9 @@ module.exports = class Stream extends Base {
       vbrMaxBitRate: (() => {
         const result = [];
         StreamVBRMaxBitRate.all().forEach(x => {
-          if (Number(x) >= 2) {
-            result.push({label: `${x}Mb`, value: x});
+          const value = Number(x);
+          if (value >= Number(StreamVBRMaxBitRate['2'])) {
+            result.push({label: `${value / 1000}Mb`, value: x});
           }
         });
         return result;
@@ -228,9 +228,10 @@ module.exports = class Stream extends Base {
       cbrBitRate: (() => {
         const result = [];
         StreamCBRBitRate.all().forEach(x => {
-          if (Number(x) >= 2048) {
+          const value = Number(x);
+          if (value >= Number(StreamCBRBitRate['2'])) {
             result.push({
-              label: filesize(Number(x) * 1024, {spacer: '', symbols: {KB: 'kb', MB: 'Mb'}}),
+              label: `${value / 1000}Mb`,
               value: x
             });
           }
@@ -275,8 +276,9 @@ module.exports = class Stream extends Base {
       vbrMaxBitRate: (() => {
         const result = [];
         StreamVBRMaxBitRate.all().forEach(x => {
-          if (Number(x) <= 4) {
-            result.push({label: `${x}Mb`, value: x});
+          const value = Number(x);
+          if (value <= Number(StreamVBRMaxBitRate['4'])) {
+            result.push({label: `${value / 1000}Mb`, value: x});
           }
         });
         return result;
@@ -284,9 +286,15 @@ module.exports = class Stream extends Base {
       cbrBitRate: (() => {
         const result = [];
         StreamCBRBitRate.all().forEach(x => {
-          if (Number(x) <= 2048) {
+          const value = Number(x);
+          if (value <= Number(StreamCBRBitRate['512'])) {
             result.push({
-              label: filesize(Number(x) * 1024, {spacer: '', symbols: {KB: 'kb', MB: 'Mb'}}),
+              label: `${x}kb`,
+              value: x
+            });
+          } else if (value <= Number(StreamCBRBitRate['2'])) {
+            result.push({
+              label: `${value / 1000}Mb`,
               value: x
             });
           }

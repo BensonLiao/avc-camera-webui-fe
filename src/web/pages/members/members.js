@@ -428,7 +428,7 @@ module.exports = class Members extends Base {
                   >
                     {this.searchFormRender}
                   </Formik>
-                  <div className="dropdown fab-top-right">
+                  <div className="dropdown">
                     <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
                       <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
                     </button>
@@ -438,7 +438,7 @@ module.exports = class Members extends Base {
                       >
                         {_('Add a new member')}
                       </Link>
-                      <Link className="dropdown-item" to="/events">{_('Add a member from events')}</Link>
+                      <Link className="dropdown-item" to="/users/events">{_('Add a member from events')}</Link>
                     </div>
                   </div>
                 </div>

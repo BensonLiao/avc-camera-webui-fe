@@ -127,6 +127,7 @@ window.languageResource = {
   'validation-stringContainsLowerCaseLatter': '此欄位必須輸入包含小寫英文字母。',
   'validation-stringContainsUpperCaseLatter': '此欄位必須輸入包含大寫英文字母。',
   'validation-stringContainsNumber': '此欄位必須輸入包含數字。',
+  'validation-stringAbortSpecialCharacters': '此欄位禁用特殊符號。',
   'validation-stringEnum': '此欄位與要求的內容不符合。',
   'validation-number': '此欄位必須是數字。',
   'validation-numberMin': '此欄位必須為 {expected} 以上的數字。',
@@ -417,6 +418,11 @@ window.languageResource = {
   'Display name': '顯示人名',
   'Display group': '顯示已註冊群組',
   'Display "Unknown"': '顯示 "Unknown"',
+
+  // /smart/motion-detection
+  'Motion detection': '動作偵測',
+  'You can set up to 4 trigger areas.': '觸發區域最多可設置4個。',
+  'Motion detection recognition': '動作偵測辨識',
 
   // /members
   Members: '成員管理',

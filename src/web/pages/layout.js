@@ -126,7 +126,6 @@ module.exports = class Layout extends Base {
         {
           active: [
             'web.notification',
-            'web.notification.app',
             'web.notification.io',
             'web.notification.smtp',
             'web.notification.cards'
@@ -155,6 +154,7 @@ module.exports = class Layout extends Base {
           active: [
             'web.smart',
             'web.smart.face-recognition',
+            'web.smart.motion-detection',
             'web.smart.license'
           ].indexOf(this.state.currentRouteName) >= 0
         }
@@ -201,7 +201,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Notification settings')} {...tooltipOptions}>
-            <Link className={classTable.notification} to="/notification/app">
+            <Link className={classTable.notification} to="/notification/smtp">
               <img src={iconNotification}/>
             </Link>
           </Tooltip>

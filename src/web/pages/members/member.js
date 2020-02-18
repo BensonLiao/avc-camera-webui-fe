@@ -60,9 +60,11 @@ module.exports = class Member extends Base {
 
   render() {
     const {groups, member} = this.props;
+    const {$isApiProcessing} = this.state;
 
     return (
       <MemberModal
+        isApiProcessing={$isApiProcessing}
         isShowModal={this.state.isShowModal}
         groups={groups}
         member={member}

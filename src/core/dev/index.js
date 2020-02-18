@@ -31,6 +31,9 @@ mockAxios.onGet('/api/video/settings').reply(config => {
       resolve(mockResponseWithLog(config, [204, {}]));
     }, 3000); // The real api is delay 45s.
   }))
+  .onPost('/api/system/_setup').reply(config => {
+    return mockResponseWithLog(config, [200, {}]);
+  })
   .onGet('/api/system/information').reply(config => {
     return mockResponseWithLog(config, [200, db.get('system').value()]);
   })
@@ -268,6 +271,13 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onPut('/api/face-recognition/settings').reply(config => {
     const settings = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
+  })
+  .onGet('/api/motion-detection/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('motionDetectionSettings').value()]);
+  })
+  .onPut('/api/motion-detection/settings').reply(config => {
+    const settings = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('motionDetectionSettings').assign(settings).write()]);
   })
   .onGet('/api/auth-keys').reply(config => {
     const data = db.get('authKeys').value();
