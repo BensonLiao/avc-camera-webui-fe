@@ -218,23 +218,13 @@ module.exports = class Home extends Base {
         <div className="card-header">{_('Video properties')}</div>
         <div className="card-body">
           <div className="form-row">
-            <div className="col-12 col-lg-6 my-1 d-flex align-items-center">
-              <span>{_('Defog')}</span>
+            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+              <span>{_('WDR')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="defoggingEnabled" type="checkbox" checked={values.defoggingEnabled} className="custom-control-input" id="switch-defogging"/>
-                <label className="custom-control-label" htmlFor="switch-defogging">
-                  <span>{_('Auto')}</span>
-                  <span>{_('Off')}</span>
-                </label>
-              </div>
-            </div>
-            <div className="col-12 col-lg-6 my-1 d-flex align-items-center justify-content-xl-end">
-              <span>{_('IR light')}</span>
-              <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="irEnabled" type="checkbox" checked={values.irEnabled} className="custom-control-input" id="switch-ir"/>
-                <label className="custom-control-label" htmlFor="switch-ir">
-                  <span>{_('Auto')}</span>
-                  <span>{_('Off')}</span>
+                <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled} className="custom-control-input" id="switch-hdr-enabled"/>
+                <label className="custom-control-label" htmlFor="switch-hdr-enabled">
+                  <span>{_('ON')}</span>
+                  <span>{_('OFF')}</span>
                 </label>
               </div>
             </div>
