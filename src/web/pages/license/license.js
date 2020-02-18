@@ -71,7 +71,7 @@ module.exports = class License extends Base {
               }
 
               if (response.data.isEnableHumanoidDetection) {
-                result.push(_('Humanoid detection'));
+                result.push(_('Human detection'));
               }
 
               return result.join(', ');
@@ -243,7 +243,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      {_('Humanoid detection')}
+                      {_('Human detection')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -305,7 +305,7 @@ module.exports = class License extends Base {
                           )}
                           {authKey.isEnableHumanoidDetection && (
                             <span className="badge badge-primary badge-pill ml-1">
-                              {_('Humanoid detection')}
+                              {_('Human detection')}
                             </span>
                           )}
                         </td>

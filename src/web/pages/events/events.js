@@ -354,11 +354,11 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {type: 'humanoid-detection'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Humanoid detection')}</span>
+                    <span>{_('Human detection')}</span>
                     <i className="fas fa-chevron-down"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Humanoid detection')}</span>
+                    <span>{_('Human detection')}</span>
                     <span className="badge badge-danger badge-pill">{_('Unactivated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
