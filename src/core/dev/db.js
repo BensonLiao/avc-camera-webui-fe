@@ -152,7 +152,8 @@ module.exports = {
         isEnable: true,
         fontSize: '1',
         color: '0',
-        position: '1'
+        position: '1',
+        type: '0'
       },
       faceRecognitionSettings: {
         isEnable: true,

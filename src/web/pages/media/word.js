@@ -7,6 +7,7 @@ const {Formik, Form, Field} = require('formik');
 const WordFontSize = require('webserver-form-schema/constants/word-font-size');
 const WordColor = require('webserver-form-schema/constants/word-color');
 const WordPosition = require('webserver-form-schema/constants/word-position');
+const WordType = require('webserver-form-schema/constants/word-type');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
@@ -19,7 +20,8 @@ module.exports = class Word extends Base {
         isEnable: PropTypes.bool.isRequired,
         fontSize: PropTypes.oneOf(WordFontSize.all()).isRequired,
         color: PropTypes.oneOf(WordColor.all()).isRequired,
-        position: PropTypes.oneOf(WordPosition.all()).isRequired
+        position: PropTypes.oneOf(WordPosition.all()).isRequired,
+        type: PropTypes.oneOf(WordType.all()).isRequired
       }).isRequired
     };
   }
@@ -141,6 +143,22 @@ module.exports = class Word extends Base {
                   >
                     &nbsp;
                   </button>
+                </div>
+              </div>
+              <div className="form-group">
+                <label>{_('Text overlay')}</label>
+                <div className="select-wrapper border rounded-pill overflow-hidden">
+                  <Field
+                    name="type"
+                    component="select"
+                    className="form-control border-0"
+                  >
+                    {
+                      WordType.all().map(type => (
+                        <option key={type} value={type}>{_(`word-type-${type}`)}</option>
+                      ))
+                    }
+                  </Field>
                 </div>
               </div>
               <div className="form-group">
