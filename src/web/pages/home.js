@@ -6,8 +6,6 @@ const React = require('react');
 const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
-const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
-const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-settings-schema');
 const defaultVideoBackground = require('../../resource/video-bg.jpg');
@@ -16,7 +14,6 @@ const _ = require('../../languages');
 const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
 const Slider = require('../../core/components/fields/slider');
-const Dropdown = require('../../core/components/fields/dropdown');
 const FormikEffect = require('../../core/components/formik-effect');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 
