@@ -22,9 +22,6 @@ const iconHumanoidDetectionEnable =
 const iconHumanoidDetectionDisable =
   require('../../../resource/humanoid-detection-disable.svg');
 
-const ACTIVATED = _('Activated');
-const NOT_ACTIVATED = _('Not activated');
-
 module.exports = class License extends Base {
   static get propTypes() {
     return {
@@ -186,7 +183,8 @@ module.exports = class License extends Base {
                           systemInformation.isEnableFaceRecognition ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableFaceRecognition ? ACTIVATED : NOT_ACTIVATED}
+                        )}/>
+                        {systemInformation.isEnableFaceRecognition ? _('Activated') : _('Unactivated')}
                       </span>
                     </div>
                   </div>
@@ -223,7 +221,8 @@ module.exports = class License extends Base {
                           systemInformation.isEnableAgeGender ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableAgeGender ? ACTIVATED : NOT_ACTIVATED}
+                        )}/>
+                        {systemInformation.isEnableAgeGender ? _('Activated') : _('Unactivated')}
                       </span>
                     </div>
                   </div>
@@ -260,7 +259,8 @@ module.exports = class License extends Base {
                           systemInformation.isEnableHumanoidDetection ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableHumanoidDetection ? ACTIVATED : NOT_ACTIVATED}
+                        )}/>
+                        {systemInformation.isEnableHumanoidDetection ? _('Activated') : _('Unactivated')}
                       </span>
                     </div>
                   </div>

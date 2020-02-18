@@ -321,7 +321,7 @@ module.exports = class Events extends Base {
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Face recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Not activated')}</span> <i className="fas fa-chevron-down"/>
+                    <span className="badge badge-danger badge-pill">{_('Unactivated')}</span> <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
@@ -340,7 +340,7 @@ module.exports = class Events extends Base {
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Age gender')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Not activated')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Unactivated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -359,7 +359,7 @@ module.exports = class Events extends Base {
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Humanoid detection')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Not activated')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Unactivated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
