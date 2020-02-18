@@ -211,7 +211,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Analytic')} {...tooltipOptions}>
-            <Link className={classTable.smart} to="/smart/face-recognition">
+            <Link className={classTable.smart} to="/analytic/face-recognition">
               <img src={iconAnalytic}/>
             </Link>
           </Tooltip>
