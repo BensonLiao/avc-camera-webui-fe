@@ -1,10 +1,8 @@
 const axios = require('axios');
 const download = require('downloadjs');
-const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
-const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
@@ -18,7 +16,6 @@ const api = require('../../core/apis/web-api');
 const Slider = require('../../core/components/fields/slider');
 const Dropdown = require('../../core/components/fields/dropdown');
 const FormikEffect = require('../../core/components/formik-effect');
-const deviceNameValidator = require('../validations/system/device-name-validator');
 
 module.exports = class Home extends Base {
   static get propTypes() {
@@ -197,16 +194,6 @@ module.exports = class Home extends Base {
         progress.done();
         utils.renderError(error);
       });
-  };
-
-  onSubmitDeviceNameForm = ({deviceName}, {resetForm}) => {
-    progress.start();
-    api.system.updateDeviceName(deviceName)
-      .then(response => {
-        resetForm({values: {deviceName: response.data.deviceName}});
-      })
-      .catch(utils.renderError)
-      .finally(progress.done);
   };
 
   videoSettingsFormRender = form => {
@@ -479,37 +466,7 @@ module.exports = class Home extends Base {
     );
   };
 
-  deviceNameFormRender = ({errors, touched}) => {
-    return (
-      <Form className="form-group">
-        <Field name="deviceName" type="text"
-          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
-        <small className="form-text text-muted">
-          {_('Please enter letters between 1 and 32.')}
-        </small>
-        <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
-      </Form>
-    );
-  };
-
   render() {
-    const {systemInformation} = this.props;
-    const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
-    const classTable = {
-      faceRecognitionState: classNames({
-        'text-success': systemInformation.isEnableFaceRecognition,
-        'text-muted': !systemInformation.isEnableFaceRecognition
-      }),
-      ageGenderState: classNames({
-        'text-success': systemInformation.isEnableAgeGender,
-        'text-muted': !systemInformation.isEnableAgeGender
-      }),
-      humanoidDetectionState: classNames({
-        'text-success': systemInformation.isEnableHumanoidDetection,
-        'text-muted': !systemInformation.isEnableHumanoidDetection
-      })
-    };
-
     return (
       <div className="main-content">
         <div className="page-home">
@@ -551,71 +508,6 @@ module.exports = class Home extends Base {
                       </button>
                     </div>
                   </div>
-                </div>
-
-                {/* System information */}
-                <div className="card border-0 shadow">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>{_('Device name')}</th>
-                        <th>{_('Smart functions')}</th>
-                        <th>{_('Device status')}</th>
-                        <th>{_('SD card')}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="align-top">
-                          <Formik
-                            initialValues={{deviceName: this.state.deviceName}}
-                            validate={utils.makeFormikValidator(deviceNameValidator)}
-                            onSubmit={this.onSubmitDeviceNameForm}
-                          >
-                            {this.deviceNameFormRender}
-                          </Formik>
-                        </td>
-                        <td className="align-top">
-                          <span>{_('Face recognition: ')}</span>
-                          <span className={classTable.faceRecognitionState}>
-                            {_(`${systemInformation.isEnableFaceRecognition ? 'ON' : 'OFF'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Age gender: ')}</span>
-                          <span className={classTable.ageGenderState}>
-                            {_(`${systemInformation.isEnableAgeGender ? 'ON' : 'OFF'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Humanoid detection: ')}</span>
-                          <span className={classTable.humanoidDetectionState}>
-                            {_(`${systemInformation.isEnableHumanoidDetection ? 'ON' : 'OFF'}`)}
-                          </span>
-                        </td>
-                        <td className="align-top">
-                          <span className="badge badge-pill badge-success">{_('Green')}</span>
-                        </td>
-                        <td className="align-top">
-                          <div className="progress">
-                            {
-                              isNaN(usedDiskPercentage) ?
-                                <div className="progress-bar"/> :
-                                <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                                  {`${usedDiskPercentage}%`}
-                                </div>
-                            }
-                          </div>
-                          <p>
-                            {
-                              _('Free: {0}, Total: {1}', [
-                                filesize(systemInformation.totalDiskSize - systemInformation.usedDiskSize),
-                                filesize(systemInformation.totalDiskSize)
-                              ])
-                            }
-                          </p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
               </div>
 
