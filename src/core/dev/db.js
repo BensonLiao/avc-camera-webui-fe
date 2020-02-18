@@ -168,6 +168,11 @@ module.exports = {
           height: 30
         }
       },
+      motionDetectionSettings: {
+        isEnable: false,
+        sensibility: 1,
+        areas: []
+      },
       notificationAppSettings: {
         deviceToken: '',
         deviceId: '',

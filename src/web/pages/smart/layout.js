@@ -39,6 +39,11 @@ module.exports = class Smart extends Base {
             >
               {_('Face recognition')}
             </Link>
+            <Link to="/smart/motion-detection" title={_('Motion detection')}
+              className={classNames('nav-link', {active: currentRouteName === 'web.smart.motion-detection'})}
+            >
+              {_('Motion detection')}
+            </Link>
           </nav>
         </div>
 

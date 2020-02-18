@@ -111,7 +111,8 @@ module.exports = class Layout extends Base {
         {
           active: [
             'web.smart',
-            'web.smart.face-recognition'
+            'web.smart.face-recognition',
+            'web.smart.motion-detection'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
