@@ -1,25 +1,23 @@
 .page-security {
-  padding: 48px 33px;
-  min-width: 1000px;
+  padding: calc(48px + #{$top-sub-navigation-height}) 33px;
+  min-width: 640px;
   min-height: calc(100vh - #{$top-navigation-height});
 
   .card-body .card {
     border-radius: 8px;
-  }
-  .actions {
-    margin: 8px 0 32px;
   }
   .table.custom-style {
     th {
       color: #1A1A1A;
     }
   }
-  .badge-guest {
+  .badge {
     color: #fff;
-    background-color: #808080;
-  }
-  .badge-admin {
-    color: #fff;
-    background-color: #34698A;
+    &.badge-guest {
+      background-color: $info;
+    }
+    &.badge-admin {
+      background-color: $primary;
+    }
   }
 }

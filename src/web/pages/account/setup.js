@@ -80,7 +80,7 @@ module.exports = class Setup extends Base {
             }
             <small className="form-text text-muted text-size-14">
               {_('8-16 characters ,contain at least 1 upper and lowercase,1 number, 1 special characters. Do not use #, %, &,`, “, \\, <, > and space.')}
-            </small>s
+            </small>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Confirm password')}</label>

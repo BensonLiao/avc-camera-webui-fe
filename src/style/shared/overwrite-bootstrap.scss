@@ -281,11 +281,12 @@ $switch-input-color-checked: $success;
   }
 }
 .nav.nav-tabs {
-  border-bottom: 2px #E6E6E6 solid;
+  height: 48px;
+  border-bottom: 2px $secondary-300 solid;
   .nav-item {
     margin-bottom: -2px;
     border: none;
-    border-bottom: 2px #E6E6E6 solid;
+    border-bottom: 2px $secondary-300 solid;
   }
   .nav-link {
     padding: 12px 12px 10px 12px;
@@ -321,6 +322,11 @@ $switch-input-color-checked: $success;
   .modal-footer {
     padding: 24px;
   }
+}
+
+.badge {
+  font-size: 14px;
+  padding: 2px 8px;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

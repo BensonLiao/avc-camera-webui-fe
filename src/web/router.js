@@ -193,7 +193,18 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.members',
+      name: 'web.users',
+      uri: '/users',
+      onEnter: () => {
+        document.title = `${_('User Management')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-users" */
+        './pages/members/layout'
+      )
+    },
+    {
+      name: 'web.users.members',
       uri: '/members?group?keyword?index?sort',
       onEnter: () => {
         document.title = `${_('Members')} - ${_title}`;
@@ -208,7 +219,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.members.details',
+      name: 'web.users.members.details',
       uri: '/{memberId:[a-f0-9-]{36}}',
       dismissalDelay: 300,
       onEnter: () => {
@@ -223,7 +234,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.members.new-member',
+      name: 'web.users.members.new-member',
       uri: '/new',
       dismissalDelay: 300,
       onEnter: () => {
@@ -238,7 +249,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.members.new-group',
+      name: 'web.users.members.new-group',
       uri: '/new-group',
       onEnter: () => {
         document.title = `${_('Members')} - ${_title}`;
@@ -252,7 +263,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.members.modify-group',
+      name: 'web.users.members.modify-group',
       uri: '/modify-group',
       onEnter: () => {
         document.title = `${_('Members')} - ${_title}`;
@@ -266,19 +277,8 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.security',
-      uri: '/security',
-      onEnter: () => {
-        document.title = `${_('Security')} - ${_title}`;
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-security" */
-        './pages/security/layout'
-      )
-    },
-    {
-      name: 'web.security.users',
-      uri: '/account',
+      name: 'web.users.accounts',
+      uri: '/accounts',
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
       },
@@ -291,7 +291,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.security.users.details',
+      name: 'web.users.accounts.details',
       uri: '/{userId:\\d+}',
       dismissalDelay: 300,
       onEnter: () => {
@@ -306,7 +306,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.security.users.new-user',
+      name: 'web.users.accounts.new-user',
       uri: '/new',
       dismissalDelay: 300,
       onEnter: () => {
@@ -321,19 +321,7 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.security.https',
-      uri: '/https',
-      onEnter: () => {
-        document.title = `${_('Security')} - ${_title}`;
-      },
-      resolve: {},
-      loadComponent: () => import(
-        /* webpackChunkName: "page-security" */
-        './pages/security/https'
-      )
-    },
-    {
-      name: 'web.events',
+      name: 'web.users.events',
       uri: '/events?keyword?index?sort?type?confidence?enrollStatus?start?end',
       onEnter: () => {
         document.title = `${_('Smart search')} - ${_title}`;

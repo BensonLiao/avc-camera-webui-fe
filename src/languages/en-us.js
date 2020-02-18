@@ -2,8 +2,8 @@ window.languageResource = {
   _code: 'en-us',
 
   // Constants
-  'permission-0': 'Administrator',
-  'permission-1': 'Guest',
+  'permission-0': 'Admin',
+  'permission-1': 'Viewer',
 
   'certificate-type-0': 'AndroVideo self-signed',
   'certificate-type-1': 'Upload certificate',

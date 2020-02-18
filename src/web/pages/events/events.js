@@ -68,7 +68,7 @@ module.exports = class Events extends Base {
 
   constructor(props) {
     super(props);
-    this.currentRoute = getRouter().findRouteByName('web.events');
+    this.currentRoute = getRouter().findRouteByName('web.users.events');
     this.state.type = props.params.type || 'face-recognition';
     this.state.isShowMemberModal = false;
     this.state.currentMember = null;
@@ -301,58 +301,66 @@ module.exports = class Events extends Base {
     } = this.props.systemInformation;
 
     return (
-      <div className="left-menu fixed-top">
-        <h2>{_('Smart search')}</h2>
+      <div className="left-menu fixed-top sub shadow-sm">
+        <h2>{_('Events')}</h2>
         <div className="filter-wrapper">
-          <div className="header d-flex justify-content-between align-items-center">
+          <div className="header d-flex justify-content-between align-items-center  text-size-12">
             <span>{_('Filter condition')}</span>
-            <a className="text-size-14" href="#" onClick={this.onClickCleanFilters}>{_('Clean')}</a>
+            <a className="text-primary font-weight-bold" href="#" onClick={this.onClickCleanFilters}>{_('Clean')}</a>
           </div>
 
-          <div className={classNames('card mb-3', {active: this.state.type === 'face-recognition' && isEnableFaceRecognition})}>
+          <div className={classNames('card sub mb-3', {active: this.state.type === 'face-recognition' && isEnableFaceRecognition})}>
             <div className="card-header text-truncate">
               {
                 isEnableFaceRecognition ?
                   <Link to={{name: this.currentRoute.name, params: {}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Face recognition')}</span> <i className="fas fa-chevron-up"/>
+                    <span>{_('Face recognition')}</span>
+                    <i className="fas fa-chevron-up"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Face recognition')} <span className="badge badge-danger badge-pill">{_('Not activated')}</span></span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Face recognition')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Not activated')}</span> <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
             {this.state.type === 'face-recognition' && isEnableFaceRecognition && this.faceRecognitionFilterRender()}
           </div>
 
-          <div className={classNames('card mb-3', {active: this.state.type === 'age-gender' && isEnableAgeGender})}>
+          <div className={classNames('card sub mb-3', {active: this.state.type === 'age-gender' && isEnableAgeGender})}>
             <div className="card-header text-truncate">
               {
                 isEnableAgeGender ?
                   <Link to={{name: this.currentRoute.name, params: {type: 'age-gender'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Age gender')}</span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Age gender')}</span>
+                    <i className="fas fa-chevron-down"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Age gender')} <span className="badge badge-danger badge-pill">{_('Not activated')}</span></span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Age gender')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Not activated')}</span>
+                    <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
           </div>
 
-          <div className={classNames('card mb-3', {active: this.state.type === 'humanoid-detection' && isEnableHumanoidDetection})}>
+          <div className={classNames('card sub mb-3', {active: this.state.type === 'humanoid-detection' && isEnableHumanoidDetection})}>
             <div className="card-header text-truncate">
               {
                 isEnableHumanoidDetection ?
                   <Link to={{name: this.currentRoute.name, params: {type: 'humanoid-detection'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Humanoid detection')}</span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Humanoid detection')}</span>
+                    <i className="fas fa-chevron-down"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Humanoid detection')} <span className="badge badge-danger badge-pill">{_('Not activated')}</span></span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Humanoid detection')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Not activated')}</span>
+                    <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
@@ -367,7 +375,7 @@ module.exports = class Events extends Base {
     return (
       <Form>
         <div className="form-row datepicker-wrapper">
-          <div className="col-auto my-1 btn-group">
+          <div className="col-auto px-0 btn-group">
             <Field
               name="start"
               component={DatePicker}
@@ -406,11 +414,11 @@ module.exports = class Events extends Base {
             />
           </div>
         </div>
-        <div className="form-row mt-3">
-          <div className="col-auto my-1">
+        <div className="form-row mt-4">
+          <div className="col-auto px-0">
             <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
           </div>
-          <div className="col-auto my-1">
+          <div className="col-auto px-0 ml-3">
             <button className="btn btn-outline-primary rounded-pill px-3" type="submit">
               <i className="fas fa-search fa-fw"/> {_('Search')}
             </button>
@@ -611,8 +619,8 @@ module.exports = class Events extends Base {
                               <OverlayTrigger overlay={<Tooltip>{event.confidences[0].score}</Tooltip>}>
                                 {
                                   event.confidences[0].enrollStatus === EnrollStatus.registered ?
-                                    <span className="badge badge-success badge-pill px-3">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
-                                    <span className="badge badge-danger badge-pill px-3">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
+                                    <span className="badge badge-success badge-pill">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
+                                    <span className="badge badge-danger badge-pill">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
                                 }
                               </OverlayTrigger>
                             )
@@ -625,7 +633,7 @@ module.exports = class Events extends Base {
                               '-'
                           }
                         </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                        <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
                           {
                             event.confidences.length > 0 && event.confidences[0].enrollStatus === EnrollStatus.registered ?
                               <button className="btn btn-link" type="button" onClick={this.generateMemberModifyHandler(event.confidences[0].member)}>

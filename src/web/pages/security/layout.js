@@ -20,7 +20,7 @@ module.exports = class Security extends Base {
     );
     if (this.state.currentRouteName === 'web.security') {
       setTimeout(() => {
-        router.go({name: 'web.security.users'});
+        router.go({name: 'web.users.account'});
       });
     }
   }
@@ -35,7 +35,7 @@ module.exports = class Security extends Base {
             <Link to="/security/account" title={_('Account settings')}
               className={classNames(
                 'nav-link',
-                {active: ['web.security.users', 'web.security.users.details', 'web.security.users.new-user'].indexOf(this.state.currentRouteName) >= 0}
+                {active: ['web.users.account', 'web.users.account.details', 'web.users.account.new-user'].indexOf(this.state.currentRouteName) >= 0}
               )}
             >
               {_('Account settings')}

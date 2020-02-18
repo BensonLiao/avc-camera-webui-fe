@@ -3,13 +3,31 @@
   height: $top-navigation-height;
   padding: 8px 16px;
   box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .2);
-}
-.navbar.primary {
-  background-color: $primary-500;
-  box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .4);
+  &.primary {
+    background-color: $primary-500;
+    box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .4);
+  }
+  &.sub {
+    height: $top-sub-navigation-height;
+    margin-left: $left-navigation-width;
+    margin-top: $top-navigation-height;
+    padding: 0;
+    .nav-tabs {
+      padding: 0px 24px;
+    }
+  }
 }
 nav.navbar.fixed-top {
   z-index: 1031;
+  &.sub {
+    z-index: 1030;
+  }
+}
+.fixed-top {
+  z-index: 1030;
+  &.sub {
+    z-index: 1029;
+  }
 }
 
 .left-navigation {
@@ -49,12 +67,19 @@ nav.navbar.fixed-top {
   -ms-overflow-style: none;
   overflow-y: scroll;
   background-color: #666;
+  color: #fff;
+
+  &.sub {
+    padding-top: $top-navigation-height + $top-sub-navigation-height;
+    background-color: #FAFAFA;
+    color: $secondary-500;
+  }
 
   h2 {
     font-size: 22px;
     line-height: 40px;
     font-weight: 700;
-    color: #fff;
+    color: inherit;
     margin-bottom: 0;
     padding: 20px 24px;
   }
@@ -65,21 +90,31 @@ nav.navbar.fixed-top {
 
   hr {
     border-color: #DEE2E6;
-    margin: 16px;
   }
 
   .groups {
-    color: #fff;
-    h3 {
-      padding-left: 16px + 24px;
-      margin: 0;
-      font-size: 20px;
+    color: inherit;
+    > .sub-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 2rem !important;
+      h3 {
+        padding-left: 0;
+        margin: 0;
+        font-size: 12px;
+        font-weight: bold;
+      }
     }
     .group-item {
-      padding: 12px 16px 12px 16px + 24px;
+      padding: 4px 24px;
+      height: 3rem !important;
       a {
-        color: #fff;
+        color: inherit;
         text-decoration: none;
+      }
+      a, button {
+        padding: 12px 0px;
       }
       .btn-delete {
         @extend .transition;
@@ -94,8 +129,8 @@ nav.navbar.fixed-top {
       }
       &.active {
         background-color: #4D4D4D;
-        padding-right: 8px;
-        border-right: 8px solid #4991bf;
+        padding-right: 16px;
+        border-right: 8px solid $primary;
       }
     }
     .actions {
@@ -104,47 +139,68 @@ nav.navbar.fixed-top {
   }
 
   .filter-wrapper {
-    margin: 0 16px;
+    margin: 0;
     .header {
-      padding: 8px;
+      padding: 8px 24px;
       margin-bottom: 16px;
       border-bottom: 1px #ccc solid;
-      color: #fff;
+      color: inherit;
       a {
-        color: #fff;
+        color: inherit;
       }
     }
     .card {
+      margin: 0 16px;
       border: none;
+      background-color: #4D4D4D;
+      &.sub {
+        background-color: #EEEEEE;
+        color: $secondary-500;
+        .card-header {
+          color: $secondary-700;
+        }
+        .card-body {
+          border-top: 1px $secondary-300 solid;
+          .form-check-label {
+            color: $secondary-700;
+          }
+        }
+      }
       &.active .card-header {
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
       }
       .card-header {
-        background-color: #4D4D4D;
+        background-color: inherit;
+        color: inherit;
         border-radius: 8px;
         padding: 10px 16px;
         border: none;
         font-size: 14px;
         line-height: 24px;
         a {
-          color: #fff;
+          color: inherit;
         }
         .badge {
-          padding: 6px 10px;
+          padding: 2px 8px;
           margin-left: 16px;
+          line-height: 16px;
+          position: absolute;
+          top: -10px;
+          right: 0;
+          font-size: 14px;
         }
       }
       .card-body {
-        background-color: #4D4D4D;
+        background-color: inherit;
         border-bottom-right-radius: 8px;
         border-bottom-left-radius: 8px;
         border-top: 1px #666 solid;
         padding: 16px;
         font-size: 14px;
-        color: #fff;
+        color: inherit;
         .form-check-label {
-          color: #fff;
+          color: inherit;
         }
       }
     }
@@ -158,7 +214,7 @@ nav.navbar.fixed-top {
       @extend .w-100, .text-truncate;
       font-size: 20px;
       line-height: 40px;
-      color: #fff;
+      color: inherit;
       padding: 20px 24px;
       i {
         @extend .transition-transform;
