@@ -39,7 +39,7 @@ module.exports = class Users extends Base {
               title={_('Members')}
               data-toggle="tab"
               className={classNames('nav-item nav-link', {
-                active: this.state.currentRouteName === 'web.users.members'
+                active: this.state.currentRouteName.indexOf('web.users.members') === 0
               })}
             >
               {_('Members')}
@@ -49,7 +49,7 @@ module.exports = class Users extends Base {
               title={_('Accounts')}
               data-toggle="tab"
               className={classNames('nav-item nav-link', {
-                active: this.state.currentRouteName === 'web.users.accounts'
+                active: this.state.currentRouteName.indexOf('web.users.accounts') === 0
               })}
             >
               {_('Accounts')}
