@@ -55,7 +55,6 @@ module.exports = class User extends Base {
         id: user.id,
         permission: user.permission,
         account: user.account,
-        birthday: '',
         password: '',
         newPassword: '',
         confirmPassword: ''
@@ -65,7 +64,6 @@ module.exports = class User extends Base {
     return {
       permission: UserPermission.root,
       account: '',
-      birthday: '',
       password: '',
       confirmPassword: ''
     };
@@ -133,21 +131,6 @@ module.exports = class User extends Base {
               )
             }
             <small className="form-text text-muted">{_('Please enter less than 9 letters.')}</small>
-          </div>
-          <div className="form-group has-feedback">
-            <label>{_('Birthday')}</label>
-            <Field name="birthday" component={Password} inputProps={{
-              placeholder: _('Please enter your birthday.'),
-              className: classNames('form-control', {'is-invalid': errors.birthday && touched.birthday})
-            }}/>
-            {
-              errors.birthday && touched.birthday && (
-                <div className="invalid-feedback">{errors.birthday}</div>
-              )
-            }
-            <small className="form-text text-muted">
-              {_('This value is for resetting password, such as 19900101.')}
-            </small>
           </div>
           <div className="form-group has-feedback">
             <label>{_(this.props.user ? 'Old password' : 'Password')}</label>
