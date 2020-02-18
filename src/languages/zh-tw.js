@@ -419,6 +419,11 @@ window.languageResource = {
   'Display group': '顯示已註冊群組',
   'Display "Unknown"': '顯示 "Unknown"',
 
+  // /smart/motion-detection
+  'Motion detection': '動作偵測',
+  'You can set up to 4 trigger areas.': '觸發區域最多可設置4個。',
+  'Motion detection recognition': '動作偵測辨識',
+
   // /members
   Members: '成員管理',
   'All members': '所有成員',

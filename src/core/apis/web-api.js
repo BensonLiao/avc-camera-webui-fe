@@ -563,6 +563,32 @@ module.exports = {
         isEnableFaceFrame,
         faceFrame
       }
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - sensibility {number}
+     * - areas {Array<{x: number, y: number, width: number, height: number}>}
+     */
+    getMotionDetectionSettings: () => api({
+      method: 'get',
+      url: '/api/motion-detection/settings'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {number} sensibility
+     * @param {Array<{x: number, y: number, width: number, height: number}>} areas
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - sensibility {number}
+     * - areas {Array<{x: number, y: number: width: number, height: number}>}
+     */
+    updateMotionDetectionSettings: ({isEnable, sensibility, areas}) => api({
+      method: 'put',
+      url: '/api/motion-detection/settings',
+      data: {isEnable, sensibility, areas}
     })
   },
   group: {
