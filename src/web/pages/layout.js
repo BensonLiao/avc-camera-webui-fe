@@ -68,19 +68,6 @@ module.exports = class Layout extends Base {
     this.setState({isShowAboutModal: false});
   };
 
-  generateChangeLanguageHandler = languageCode => event => {
-    event.preventDefault();
-    progress.start();
-    api.system.updateLanguage(languageCode)
-      .then(() => {
-        location.reload();
-      })
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
-  };
-
   onClickLogout = event => {
     event.preventDefault();
     progress.start();
