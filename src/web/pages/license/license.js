@@ -10,17 +10,17 @@ const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
 const utils = require('../../../core/utils');
 const iconFaceRecognitionEnable =
-  require('../../../resource/face-recognition-enable.svg');
+  require('../../../resource/face-recognition-enable-100px.svg');
 const iconFaceRecognitionDisable =
-  require('../../../resource/face-recognition-disable.svg');
+  require('../../../resource/face-recognition-disable-100px.svg');
 const iconAgeGenderEnable =
-  require('../../../resource/age-gender-enable.svg');
+  require('../../../resource/age-gender-enable-100px.svg');
 const iconAgeGenderDisable =
-  require('../../../resource/age-gender-disable.svg');
+  require('../../../resource/age-gender-disable-100px.svg');
 const iconHumanoidDetectionEnable =
-  require('../../../resource/humanoid-detection-enable.svg');
+  require('../../../resource/human-detection-enable-100px.svg');
 const iconHumanoidDetectionDisable =
-  require('../../../resource/humanoid-detection-disable.svg');
+  require('../../../resource/human-detection-disable-100px.svg');
 
 module.exports = class License extends Base {
   static get propTypes() {
