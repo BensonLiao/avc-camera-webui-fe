@@ -192,7 +192,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('User management')} {...tooltipOptions}>
-            <Link className={classTable.users} to="/users">
+            <Link className={classTable.users} to="/users/members">
               <img src={iconUserManagement}/>
             </Link>
           </Tooltip>
