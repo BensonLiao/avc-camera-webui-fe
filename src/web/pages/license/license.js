@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {getRouter} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
@@ -126,6 +126,16 @@ module.exports = class License extends Base {
         <div className="page-license bg-gray" style={{height: '522px'}}>
           <div className="container-fluid">
             <div className="row">
+              <div className="col-12">
+                <nav>
+                  <ol className="breadcrumb rounded-pill">
+                    <li className="breadcrumb-item active">
+                      <Link to="/smart/face-recognition">{_('Smart functions')}</Link>
+                    </li>
+                    <li className="breadcrumb-item">{_('License')}</li>
+                  </ol>
+                </nav>
+              </div>
               <div className="col-12">
                 <h3 className="mb-4">{_('License')}</h3>
                 <Formik initialValues={{authKey: ''}}
