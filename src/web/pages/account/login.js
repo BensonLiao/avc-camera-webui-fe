@@ -79,7 +79,7 @@ module.exports = class Login extends Base {
       <Form className="card shadow mb-5">
         <div className="card-body">
           <h3 className="card-title text-primary">{_('ACCOUNT LOGIN')}</h3>
-          <div className="card-sub-title text-muted">
+          <div className="card-sub-title text-info">
             {_('Please enter your username and password')}
           </div>
           <div className="form-group">
@@ -106,7 +106,7 @@ module.exports = class Login extends Base {
               )
             }
           </div>
-          <div className="text-primary text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</div>
+          <div className="text-dark text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</div>
           <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             {_('Login')}
           </button>

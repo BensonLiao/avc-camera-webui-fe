@@ -53,7 +53,7 @@ module.exports = class Setup extends Base {
       <Form className="card shadow mb-5">
         <div className="card-body">
           <h3 className="card-title text-primary">{_('INITIAL PASSWORD SETUP')}</h3>
-          <div className="card-sub-title text-muted">
+          <div className="card-sub-title text-info">
             {_('Prior to accessing this device for the first time a unique admin password must be created')}
           </div>
           <div className="form-group">
@@ -78,7 +78,7 @@ module.exports = class Setup extends Base {
                 <div className="invalid-feedback">{errors.password}</div>
               )
             }
-            <small className="form-text text-muted text-size-14">
+            <small className="form-text text-info text-size-14">
               {_('8-16 characters ,contain at least 1 upper and lowercase,1 number, 1 special characters. Do not use #, %, &,`, “, \\, <, > and space.')}
             </small>
           </div>
@@ -94,7 +94,7 @@ module.exports = class Setup extends Base {
               )
             }
           </div>
-          <div className="text-primary text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</div>
+          <div className="text-dark text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</div>
           <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             {_('Submit')}
           </button>
