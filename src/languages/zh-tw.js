@@ -16,15 +16,11 @@ window.languageResource = {
   'enroll-status-1': '成功',
   'enroll-status-2': '未知',
 
-  auto: '自動',
-  off: '關閉',
   max: '最大',
   outdoor: '戶外',
   fluorescent: '日光燈',
   incandescent: '白熱燈泡',
   manual: '手動調整',
-  ON: '開啟',
-  OFF: '關閉',
 
   // Shutter speed
   'shutter-speed-0': '自動',
@@ -285,6 +281,7 @@ window.languageResource = {
   'IR light': '紅外線燈',
   Auto: '自動',
   Off: '關閉',
+  On: '開啟',
   Brightness: '亮度',
   Contrast: '對比',
   HDR: 'HDR',
