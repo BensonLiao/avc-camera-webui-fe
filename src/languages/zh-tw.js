@@ -284,7 +284,7 @@ window.languageResource = {
   On: '開啟',
   Brightness: '亮度',
   Contrast: '對比',
-  HDR: 'HDR',
+  WDR: 'WDR',
   'Shutter speed': '快門速度',
   'Auto Iris': '自動光圈',
   Apply: '套用',
@@ -302,6 +302,9 @@ window.languageResource = {
   Focus: '對焦',
   'Auto focus': '自動對焦',
   'Focal length': '焦距',
+
+  // /image
+  'Image settings': '圖像設定',
 
   // /media
   'Text stickers': '文字貼圖',

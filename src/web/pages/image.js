@@ -204,7 +204,7 @@ module.exports = class Home extends Base {
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{_('Video properties')}</div>
+        <div className="card-header">{_('Image settings')}</div>
         <div className="accordion" id="accordion-video-properties">
           {/* 亮度 */}
           <hr className="my-0"/>
@@ -236,11 +236,11 @@ module.exports = class Home extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('HDR')}</label>
+                  <label>{_('WDR')}</label>
                   <Field name="hdrEnabled" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}
+                    items={[{value: 'true', label: _('On')}, {value: 'false', label: _('Off')}]}
                   />
                 </div>
               </div>
@@ -419,7 +419,7 @@ module.exports = class Home extends Base {
                   <Field name="defoggingEnabled" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}
+                    items={[{value: 'true', label: _('On')}, {value: 'false', label: _('Off')}]}
                   />
                 </div>
               </div>
