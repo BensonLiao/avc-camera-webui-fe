@@ -78,8 +78,8 @@ module.exports = class Setup extends Base {
                 <div className="invalid-feedback">{errors.password}</div>
               )
             }
-            <small className="form-text text-info text-size-14">
-              {_('8-16 characters ,contain at least 1 upper and lowercase,1 number, 1 special characters. Do not use #, %, &,`, “, \\, <, > and space.')}
+            <small className="text-info">
+              {_('8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space')}
             </small>
           </div>
           <div className="form-group has-feedback">
