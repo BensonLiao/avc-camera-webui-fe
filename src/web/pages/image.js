@@ -473,7 +473,7 @@ module.exports = class Home extends Base {
             <div className="row">
               <div className="col-8 pr-24">
                 {/* The video */}
-                <div className="video-wrapper mb-5">
+                <div className="video-wrapper mb-4">
                   <img ref={this.streamPlayerRef}
                     className="img-fluid" src={this.state.streamImageUrl || defaultVideoBackground}
                     onClick={this.onTogglePlayStream}/>
@@ -510,7 +510,7 @@ module.exports = class Home extends Base {
                 </div>
               </div>
 
-              <div className="col-4 pl-24">
+              <div className="col-4 pl-0">
                 <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
                   {this.videoSettingsFormRender}
                 </Formik>
