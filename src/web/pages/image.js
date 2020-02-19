@@ -31,7 +31,7 @@ module.exports = class Home extends Base {
         totalDiskSize: PropTypes.number.isRequired
       }).isRequired,
       videoSettings: PropTypes.shape({
-        defoggingEnabled: PropTypes.bool.isRequired, // 除霧
+        defoggingEnabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired, // 除霧
         irEnabled: PropTypes.bool.isRequired, // 紅外線燈
         brightness: PropTypes.number.isRequired, // 亮度
         contrast: PropTypes.number.isRequired, // 對比
@@ -205,16 +205,6 @@ module.exports = class Home extends Base {
         <div className="card-header">{_('Video properties')}</div>
         <div className="card-body">
           <div className="form-row">
-            <div className="col-12 col-lg-6 my-1 d-flex align-items-center">
-              <span>{_('Defog')}</span>
-              <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="defoggingEnabled" type="checkbox" checked={values.defoggingEnabled} className="custom-control-input" id="switch-defogging"/>
-                <label className="custom-control-label" htmlFor="switch-defogging">
-                  <span>{_('Auto')}</span>
-                  <span>{_('Off')}</span>
-                </label>
-              </div>
-            </div>
             <div className="col-12 col-lg-6 my-1 d-flex align-items-center justify-content-xl-end">
               <span>{_('IR light')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
@@ -405,6 +395,15 @@ module.exports = class Home extends Base {
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Defog')}</label>
+                  <Field name="defoggingEnabled" component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}/>
                 </div>
               </div>
             </div>

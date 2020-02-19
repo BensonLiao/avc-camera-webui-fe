@@ -15,7 +15,7 @@ module.exports = class DropdownField extends React.Component {
       }).isRequired).isRequired,
       field: PropTypes.shape({
         name: PropTypes.string.isRequired,
-        value: PropTypes.string
+        value: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
       }).isRequired,
       form: PropTypes.shape({
         setFieldValue: PropTypes.func.isRequired
@@ -38,7 +38,9 @@ module.exports = class DropdownField extends React.Component {
    * @returns {Object|undefined}
    */
   findItemByValue = value => {
-    return this.props.items.find(x => x.value === value) || this.props.items[0];
+    return this.props.items.find(x => x.value === value) ||
+    this.props.items.find(x => String(x.value) === String(value)) ||
+    this.props.items[0];
   };
 
   /**
