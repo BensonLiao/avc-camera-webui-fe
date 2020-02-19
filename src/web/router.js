@@ -169,9 +169,9 @@ module.exports = new Router({
     },
     {
       name: 'web.smart',
-      uri: '/smart',
+      uri: '/analytic',
       onEnter: () => {
-        document.title = `${_('Smart functions')} - ${_title}`;
+        document.title = `${_('Analytic')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-smart" */
@@ -182,7 +182,7 @@ module.exports = new Router({
       name: 'web.smart.face-recognition',
       uri: '/face-recognition',
       onEnter: () => {
-        document.title = `${_('Face recognition')} - ${_('Smart functions')} - ${_title}`;
+        document.title = `${_('Face recognition')} - ${_('Analytic')} - ${_title}`;
       },
       resolve: {
         faceRecognitionSettings: () => api.smartFunction.getFaceRecognitionSettings().then(response => response.data)
@@ -196,7 +196,7 @@ module.exports = new Router({
       name: 'web.smart.motion-detection',
       uri: '/motion-detection',
       onEnter: () => {
-        document.title = `${_('Motion detection')} - ${_('Smart functions')} - ${_title}`;
+        document.title = `${_('Motion detection')} - ${_('Analytic')} - ${_title}`;
       },
       resolve: {
         motionDetectionSettings: () => api.smartFunction.getMotionDetectionSettings().then(response => response.data)
@@ -204,6 +204,20 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-smart-motion-detection" */
         './pages/smart/motion-detection'
+      )
+    },
+    {
+      name: 'web.smart.license',
+      uri: '/license',
+      onEnter: () => {
+        document.title = `${_('License')} - ${_('Analytic')} - ${_title}`;
+      },
+      resolve: {
+        authKeys: () => api.authKey.getAuthKeys().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-license" */
+        './pages/license/license'
       )
     },
     {
@@ -359,20 +373,6 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-events" */
         './pages/events/events'
-      )
-    },
-    {
-      name: 'web.license',
-      uri: '/license',
-      onEnter: () => {
-        document.title = `${_('License')} - ${_title}`;
-      },
-      resolve: {
-        authKeys: () => api.authKey.getAuthKeys().then(response => response.data)
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-license" */
-        './pages/license/license'
       )
     },
     {

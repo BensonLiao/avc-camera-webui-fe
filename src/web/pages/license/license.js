@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {getRouter} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
@@ -10,20 +10,17 @@ const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
 const utils = require('../../../core/utils');
 const iconFaceRecognitionEnable =
-  require('../../../resource/face-recognition-enable.svg');
+  require('../../../resource/face-recognition-enable-100px.svg');
 const iconFaceRecognitionDisable =
-  require('../../../resource/face-recognition-disable.svg');
+  require('../../../resource/face-recognition-disable-100px.svg');
 const iconAgeGenderEnable =
-  require('../../../resource/age-gender-enable.svg');
+  require('../../../resource/age-gender-enable-100px.svg');
 const iconAgeGenderDisable =
-  require('../../../resource/age-gender-disable.svg');
+  require('../../../resource/age-gender-disable-100px.svg');
 const iconHumanoidDetectionEnable =
-  require('../../../resource/humanoid-detection-enable.svg');
+  require('../../../resource/human-detection-enable-100px.svg');
 const iconHumanoidDetectionDisable =
-  require('../../../resource/humanoid-detection-disable.svg');
-
-const ACTIVATED = _('Activated');
-const NOT_ACTIVATED = _('Not activated');
+  require('../../../resource/human-detection-disable-100px.svg');
 
 module.exports = class License extends Base {
   static get propTypes() {
@@ -74,7 +71,7 @@ module.exports = class License extends Base {
               }
 
               if (response.data.isEnableHumanoidDetection) {
-                result.push(_('Humanoid detection'));
+                result.push(_('Human detection'));
               }
 
               return result.join(', ');
@@ -122,10 +119,20 @@ module.exports = class License extends Base {
   render() {
     const {systemInformation, authKeys} = this.props;
     return (
-      <div className="main-content bg-white">
+      <div className="bg-white">
         <div className="page-license bg-gray" style={{height: '522px'}}>
           <div className="container-fluid">
             <div className="row">
+              <div className="col-12">
+                <nav>
+                  <ol className="breadcrumb rounded-pill">
+                    <li className="breadcrumb-item active">
+                      <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
+                    </li>
+                    <li className="breadcrumb-item">{_('License')}</li>
+                  </ol>
+                </nav>
+              </div>
               <div className="col-12">
                 <h3 className="mb-4">{_('License')}</h3>
                 <Formik initialValues={{authKey: ''}}
@@ -139,7 +146,7 @@ module.exports = class License extends Base {
           </div>
         </div>
 
-        <div className="page-license pt-0">
+        <div className="page-license pt-0 page-bottom">
           <div className="container-fluid">
             <div className="row">
               <div className="col-12">
@@ -176,7 +183,8 @@ module.exports = class License extends Base {
                           systemInformation.isEnableFaceRecognition ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableFaceRecognition ? ACTIVATED : NOT_ACTIVATED}
+                        )}/>
+                        {systemInformation.isEnableFaceRecognition ? _('Activated') : _('Unactivated')}
                       </span>
                     </div>
                   </div>
@@ -213,7 +221,8 @@ module.exports = class License extends Base {
                           systemInformation.isEnableAgeGender ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableAgeGender ? ACTIVATED : NOT_ACTIVATED}
+                        )}/>
+                        {systemInformation.isEnableAgeGender ? _('Activated') : _('Unactivated')}
                       </span>
                     </div>
                   </div>
@@ -234,7 +243,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      {_('Humanoid detection')}
+                      {_('Human detection')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -250,7 +259,8 @@ module.exports = class License extends Base {
                           systemInformation.isEnableHumanoidDetection ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableHumanoidDetection ? ACTIVATED : NOT_ACTIVATED}
+                        )}/>
+                        {systemInformation.isEnableHumanoidDetection ? _('Activated') : _('Unactivated')}
                       </span>
                     </div>
                   </div>
@@ -295,7 +305,7 @@ module.exports = class License extends Base {
                           )}
                           {authKey.isEnableHumanoidDetection && (
                             <span className="badge badge-primary badge-pill ml-1">
-                              {_('Humanoid detection')}
+                              {_('Human detection')}
                             </span>
                           )}
                         </td>

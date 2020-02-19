@@ -141,7 +141,8 @@ module.exports = class Layout extends Base {
           active: [
             'web.smart',
             'web.smart.face-recognition',
-            'web.smart.motion-detection'
+            'web.smart.motion-detection',
+            'web.smart.license'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
@@ -197,7 +198,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Analytic')} {...tooltipOptions}>
-            <Link className={classTable.smart} to="/smart/face-recognition">
+            <Link className={classTable.smart} to="/analytic/face-recognition">
               <img src={iconAnalytic}/>
             </Link>
           </Tooltip>
