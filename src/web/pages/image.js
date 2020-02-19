@@ -4,6 +4,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
+const IREnableType = require('webserver-form-schema/constants/ir-enable-type');
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
@@ -32,7 +33,8 @@ module.exports = class Home extends Base {
       }).isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired, // 除霧
-        irEnabled: PropTypes.bool.isRequired, // 紅外線燈
+        irEnabled: PropTypes.string.isRequired, // 紅外線燈
+        irBrightness: PropTypes.number, // 紅外線燈功率
         brightness: PropTypes.number.isRequired, // 亮度
         contrast: PropTypes.number.isRequired, // 對比
         hdrEnabled: PropTypes.oneOf(videoSettingsSchema.hdrEnabled.enum).isRequired, // HDR
@@ -203,21 +205,6 @@ module.exports = class Home extends Base {
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
         <div className="card-header">{_('Video properties')}</div>
-        <div className="card-body">
-          <div className="form-row">
-            <div className="col-12 col-lg-6 my-1 d-flex align-items-center justify-content-xl-end">
-              <span>{_('IR light')}</span>
-              <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="irEnabled" type="checkbox" checked={values.irEnabled} className="custom-control-input" id="switch-ir"/>
-                <label className="custom-control-label" htmlFor="switch-ir">
-                  <span>{_('Auto')}</span>
-                  <span>{_('Off')}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="accordion" id="accordion-video-properties">
           {/* 亮度 */}
           <hr className="my-0"/>
@@ -253,7 +240,8 @@ module.exports = class Home extends Base {
                   <Field name="hdrEnabled" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}/>
+                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}
+                  />
                 </div>
               </div>
               <div className="form-group">
@@ -314,6 +302,34 @@ module.exports = class Home extends Base {
                       <Field name="whiteblanceManual" component={Slider} step={1000}
                         min={videoSettingsSchema.whiteblanceManual.min}
                         max={videoSettingsSchema.whiteblanceManual.max}/>
+                    </div>
+                  )
+                }
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center mb-1">
+                  <label>{_('IR Control')}</label>
+                  <Field
+                    name="irEnabled"
+                    component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={utils.capitalizeObjKeyValuePairs(IREnableType).map(
+                      x => ({value: x.value, label: _(x.key)})
+                    )}
+                  />
+                </div>
+                {
+                  values.irEnabled === IREnableType.on && (
+                    <div className="well">
+                      <div className="d-flex justify-content-between align-items-center">
+                        <label>{_('Level')}</label>
+                        <span className="text-primary text-size-14">{values.irBrightness}</span>
+                      </div>
+                      {/* Slider step are still under review */}
+                      <Field name="irBrightness" component={Slider} step={15}
+                        min={videoSettingsSchema.irBrightness.min}
+                        max={videoSettingsSchema.irBrightness.max}/>
                     </div>
                   )
                 }
@@ -403,7 +419,8 @@ module.exports = class Home extends Base {
                   <Field name="defoggingEnabled" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}/>
+                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}
+                  />
                 </div>
               </div>
             </div>

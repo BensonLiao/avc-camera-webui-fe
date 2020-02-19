@@ -22,7 +22,7 @@ module.exports = {
     db.defaults({
       videoDefault: {
         defoggingEnabled: false,
-        irEnabled: false,
+        irEnabled: '0',
         brightness: 0,
         contrast: 6,
         hdrEnabled: 'false',
@@ -44,7 +44,7 @@ module.exports = {
       },
       video: {
         defoggingEnabled: false,
-        irEnabled: false,
+        irEnabled: '0',
         brightness: 0,
         contrast: 6,
         hdrEnabled: 'false',
