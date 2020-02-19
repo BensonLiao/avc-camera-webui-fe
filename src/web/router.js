@@ -376,6 +376,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'setup',
+      uri: '/setup',
+      onEnter: () => {
+        document.title = `${_('Setup account')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-setup" */
+        './pages/account/setup'
+      )
+    },
+    {
       name: 'login',
       uri: '/login',
       onEnter: () => {
