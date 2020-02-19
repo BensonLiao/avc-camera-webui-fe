@@ -200,7 +200,7 @@ window.languageResource = {
   'Login lock': '登入鎖定',
   'Forgot password?': '忘記密碼？',
   'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
-  '{0} left': '還剩 {0}',
+  '{0} Remaining': '還剩 {0}',
   'Log in again': '重新登入',
 
   // /forgot-password

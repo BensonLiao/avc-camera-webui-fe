@@ -3,7 +3,6 @@ const React = require('react');
 const {Link} = require('capybara-router');
 const logo = require('../../../resource/logo-avn-secondary.svg');
 const logoWithTitle = require('../../../resource/logo-avn-title.svg');
-const frownOpenSolid = require('../../../resource/frown-open-solid.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
@@ -68,11 +67,12 @@ module.exports = class LoginLock extends Base {
               <div className="card shadow mb-5">
                 <div className="card-body">
                   <Once>
-                    <h5 className="card-title text-oops" style={{marginBottom: '32px'}}>{_('OOPS!')}</h5>
-                    <div className="text-center" style={{marginBottom: '80px'}}>
-                      <img src={frownOpenSolid} width="80" height="80" style={{marginBottom: '32px'}}/>
+                    <div className="text-center" style={{margin: '8rem 0'}}>
+                      <p className="text-dark font-weight-bold m-0">
+                        {_('Too many login attempts!')}
+                      </p>
                       <p className="text-dark">
-                        {_('Incorrect password 5 times! Please wait for 5 minutes.')}
+                        {_('Please try again in 5 minutes.')}
                       </p>
                     </div>
                   </Once>
@@ -80,7 +80,7 @@ module.exports = class LoginLock extends Base {
                   {
                     this.state.disableLoginLink ? (
                       <a href="#disabled" className="btn btn-primary btn-block rounded-pill mt-5 disabled">
-                        {_('{0} left', [this.state.displayTime])}
+                        {_('{0} Remaining', [this.state.displayTime])}
                       </a>
                     ) : (
                       <Once>
