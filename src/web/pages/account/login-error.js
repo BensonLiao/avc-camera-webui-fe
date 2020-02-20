@@ -31,7 +31,7 @@ module.exports = class LoginError extends Base {
                       <p className="text-dark">
                         {_(
                           'You have {0} attemps remaining...',
-                          LOGIN_ERROR_ATTEMPS_MAX - loginFailedTimes
+                          String(LOGIN_ERROR_ATTEMPS_MAX - loginFailedTimes)
                         )}
                       </p>
                     </div>
