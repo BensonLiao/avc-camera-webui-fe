@@ -62,11 +62,18 @@ module.exports = class Login extends Base {
               isIncorrectPassword: true,
               loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1
             });
-            getRouter().go({
-              name: 'login-error',
-              params: {loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1}
-            });
-            return;
+            if (
+              error.response.data && error.response.data.extra &&
+              error.response.data.extra.loginFailedRemainingTimes >= 0
+            ) {
+              getRouter().go({
+                name: 'login-error',
+                params: {
+                  loginFailedRemainingTimes: error.response.data.extra.loginFailedRemainingTimes
+                }
+              });
+              return;
+            }
           }
         }
 

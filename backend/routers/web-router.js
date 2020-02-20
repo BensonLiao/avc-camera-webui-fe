@@ -6,7 +6,6 @@ const baseHandler = require('../handlers/base-handler');
 const snapshotHandler = require('../handlers/snapshot-handler');
 const systemHandler = require('../handlers/system-handler');
 const validationHandler = require('../handlers/validation-handler');
-const {LOGIN_ERROR_ATTEMPS_MAX} = require('../../src/core/constants');
 
 class CustomRouter {
   constructor(router) {
@@ -83,7 +82,7 @@ router.post(
   rateLimit({
     keyGenerator: req => `/api/account/_login${req.ip}`,
     windowMs: 5 * 60 * 1000,
-    max: LOGIN_ERROR_ATTEMPS_MAX,
+    max: 5,
     handler: (req, res, next) => {
       next(
         new errors.Http429('Incorrect account or password over 5 times.', {

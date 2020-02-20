@@ -399,7 +399,7 @@ module.exports = new Router({
     },
     {
       name: 'login-error',
-      uri: '/login-error?loginFailedTimes',
+      uri: '/login-error?loginFailedRemainingTimes',
       onEnter: () => {
         document.title = `${_('Login error')} - ${_title}`;
       },
