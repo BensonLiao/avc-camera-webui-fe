@@ -5,9 +5,11 @@ const logoWithTitle = require('../../../resource/logo-avn-title.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
+const {LOGIN_ERROR_ATTEMPS_MAX} = require('../../../core/constants');
 
 module.exports = class LoginError extends Base {
   render() {
+    const {loginFailedTimes} = this.props.params;
     return (
       <div className="page-login-lock bg-secondary">
         <div className="navbar primary">
@@ -25,6 +27,12 @@ module.exports = class LoginError extends Base {
                     <div className="text-center" style={{margin: '8rem 0'}}>
                       <p className="text-dark font-weight-bold m-0">
                         {_('Password incorrect!')}
+                      </p>
+                      <p className="text-dark">
+                        {_(
+                          'You have {0} attemps remaining...',
+                          LOGIN_ERROR_ATTEMPS_MAX - loginFailedTimes
+                        )}
                       </p>
                     </div>
                     <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-5">
