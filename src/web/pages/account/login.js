@@ -58,10 +58,13 @@ module.exports = class Login extends Base {
           }
 
           if (error.response.status === 400) {
-            progress.done();
             this.setState({
               isIncorrectPassword: true,
               loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1
+            });
+            getRouter().go({
+              name: 'login-error',
+              params: {loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1}
             });
             return;
           }

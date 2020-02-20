@@ -398,6 +398,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'login-error',
+      uri: '/login-error?loginFailedTimes',
+      onEnter: () => {
+        document.title = `${_('Login error')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-login-error" */
+        './pages/account/login-error'
+      )
+    },
+    {
       name: 'login-lock',
       uri: '/login-lock?loginLockExpiredTime',
       onEnter: () => {
