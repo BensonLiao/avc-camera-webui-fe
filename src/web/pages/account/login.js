@@ -15,11 +15,6 @@ const logo = require('../../../resource/logo-avn-secondary.svg');
 const logoWithTitle = require('../../../resource/logo-avn-title.svg');
 
 module.exports = class Login extends Base {
-  constructor(props) {
-    super(props);
-    this.state.isIncorrectPassword = null;
-  }
-
   redirectPage = () => {
     const redirectUri = Cookies.get(window.config.cookies.redirect);
     if (redirectUri && /^\/.*/.test(redirectUri)) {
@@ -58,10 +53,6 @@ module.exports = class Login extends Base {
           }
 
           if (error.response.status === 400) {
-            this.setState({
-              isIncorrectPassword: true,
-              loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1
-            });
             if (
               error.response.data && error.response.data.extra &&
               error.response.data.extra.loginFailedRemainingTimes >= 0
@@ -82,9 +73,7 @@ module.exports = class Login extends Base {
       });
   }
 
-  loginFormRender = ({errors, touched, submitCount}) => {
-    const isSubmitted = submitCount > 0;
-
+  loginFormRender = ({errors, touched}) => {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
@@ -97,7 +86,7 @@ module.exports = class Login extends Base {
             <Field name="account" type="text"
               maxLength={UserSchema.account.max}
               placeholder={_('Eenter your username')}
-              className={classNames('form-control', {'is-invalid': errors.account && touched.account && isSubmitted})}/>
+              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
             {
               errors.account && touched.account && (
                 <div className="invalid-feedback">{errors.account}</div>
@@ -108,7 +97,7 @@ module.exports = class Login extends Base {
             <label>{_('Password')}</label>
             <Field name="password" component={Password} inputProps={{
               placeholder: _('Eenter your password'),
-              className: classNames('form-control', {'is-invalid': (errors.password && isSubmitted) || this.state.isIncorrectPassword})
+              className: classNames('form-control', {'is-invalid': errors.password})
             }}/>
             {
               errors.password && touched.password && (
