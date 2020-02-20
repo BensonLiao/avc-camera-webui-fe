@@ -193,6 +193,10 @@ exports.convertPicture = (imgSrc, zoomRate, pictureRotateDegrees) => new Promise
   img.src = imgSrc;
 });
 
+exports.isObjectEmpty = obj => {
+  return !obj || Object.keys(obj).length === 0;
+};
+
 /**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
  * @param {Object} req XHR request instance, or if we use library like axios then `req` is the axios request config and contains things like `url`.

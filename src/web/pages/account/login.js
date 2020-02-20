@@ -34,14 +34,13 @@ module.exports = class Login extends Base {
    */
   onSubmitLoginForm = values => {
     progress.start();
-    this.setState({isIncorrectPassword: false});
     api.account.login(values)
       .then(this.redirectPage)
       .catch(error => {
         if (error.response) {
           if (error.response.status === 429) {
             if (
-              error.response.data && error.response.data.extra && error.response.data.extra &&
+              error.response.data && error.response.data.extra &&
               error.response.data.extra.loginLockExpiredTime
             ) {
               getRouter().go({
@@ -115,7 +114,7 @@ module.exports = class Login extends Base {
             </a>
           </h6>
           <div className="text-dark text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</div>
-          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+          <button disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             {_('Login')}
           </button>
         </div>
