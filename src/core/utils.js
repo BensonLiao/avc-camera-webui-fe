@@ -193,6 +193,14 @@ exports.convertPicture = (imgSrc, zoomRate, pictureRotateDegrees) => new Promise
   img.src = imgSrc;
 });
 
+/**
+ * Check if the object is empty, not available for some primitive type object like `Number` or `Boolean`.
+ * e.g. `isObjectEmpty({}) = true`
+ * e.g. `isObjectEmpty([]) = true`
+ * e.g. `isObjectEmpty('') = true`
+ * @param {Object} obj - The object.
+ * @returns {Boolean} - Is the object `obj` empty or not.
+ */
 exports.isObjectEmpty = obj => {
   return !obj || Object.keys(obj).length === 0;
 };
