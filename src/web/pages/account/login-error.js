@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 const {Link} = require('capybara-router');
 const logo = require('../../../resource/logo-avn-secondary.svg');
 const logoWithTitle = require('../../../resource/logo-avn-title.svg');
@@ -8,6 +9,14 @@ const Once = require('../../../core/components/one-time-render');
 const {LOGIN_ERROR_ATTEMPS_MAX} = require('../../../core/constants');
 
 module.exports = class LoginError extends Base {
+  static get propTypes() {
+    return {
+      params: PropTypes.shape({
+        loginFailedTimes: PropTypes.number.isRequired
+      }).isRequired
+    };
+  }
+
   render() {
     const {loginFailedTimes} = this.props.params;
     return (
