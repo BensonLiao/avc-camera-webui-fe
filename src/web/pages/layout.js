@@ -151,7 +151,8 @@ module.exports = class Layout extends Base {
         {active: this.state.currentRouteName === 'web.network'}
       ),
       system: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName.indexOf('web.system') === 0}
       ),
       sdCard: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -208,7 +209,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('System')} {...tooltipOptions}>
-            <Link className={classTable.system} to="/system/date.html">
+            <Link className={classTable.system} to="/system/upgrade">
               <img src={iconSystem}/>
             </Link>
           </Tooltip>
