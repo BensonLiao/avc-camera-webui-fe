@@ -112,7 +112,7 @@ module.exports = class FaceRecognition extends Base {
                 <div className="btn-group">
                   {ConfidenceLevel.all().map(confidenceLevel => (
                     <button key={confidenceLevel} type="button"
-                      className={classNames('btn btn-sm btn-outline-success px-2 py-1', {active: values.confidenceLevel === confidenceLevel})}
+                      className={classNames('btn btn-sm outline-success px-2 py-1', {active: values.confidenceLevel === confidenceLevel})}
                       onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
                     >
                       {_(`confidence-level-${confidenceLevel}`)}

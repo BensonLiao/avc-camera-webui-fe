@@ -1,5 +1,12 @@
 @import "./transition";
 
+$switch-height: 32px;
+$switch-width: 72px;
+$switch-height-small: 16px;
+$switch-width-small: 32px;
+$switch-input-color-default: $error;
+$switch-input-color-checked: $success;
+
 .form-check {
   .form-check-input[type="radio"] {
     margin-top: 0.25rem;
@@ -119,19 +126,36 @@ textarea.form-control {
 
 .btn-group {
   .btn {
-    background-color: #F2F2F2;
-    padding: 5px 20px;
+    padding: 4px 8px;
     font-weight: bold;
-    border-color: #CCCCCC;
-    color: #666666;
+    &.outline-success {
+      &:not(:hover) {
+        background-color: $secondary;
+        border-color: #CCCCCC;
+        color: $info;
+      }
+      &:hover, &.active {
+        background-color: $success;
+        border-color: $success;
+        color: #fff;
+      }
+      &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(40,167,69,.5);
+      }
+    }
   }
   .btn:first-child {
     border-top-left-radius: 50rem;
     border-bottom-left-radius: 50rem;
   }
-  .btn:last-child {
+  .btn:last-child, .dropdown-toggle {
     border-top-right-radius: 50rem;
     border-bottom-right-radius: 50rem;
+  }
+  .dropdown-menu {
+    &.show {
+      transform: translate3d(0px, $switch-height, 0px) !important;
+    }
   }
 }
 
@@ -144,12 +168,6 @@ label.btn {
   }
 }
 
-$switch-height: 32px;
-$switch-width: 72px;
-$switch-height-small: 16px;
-$switch-width-small: 32px;
-$switch-input-color-default: $error;
-$switch-input-color-checked: $success;
 .custom-switch {
   height: $switch-height;
   width: $switch-width;

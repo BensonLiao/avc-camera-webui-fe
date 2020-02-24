@@ -435,13 +435,26 @@ module.exports = class Home extends Base {
               >
                 <i className="fas fa-chevron-up"/>{_('Focus')}
               </button>
-              <button
-                disabled={this.state.$isApiProcessing} type="button"
-                className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
-                onClick={this.generateClickAutoFocusButtonHandler(form)}
-              >
-                {_('Auto focus')}
-              </button>
+              <div className="btn-group tip">
+                <button
+                  disabled={this.state.$isApiProcessing} type="button"
+                  className="btn btn-outline-primary text-nowrap"
+                  onClick={this.generateClickAutoFocusButtonHandler(form)}
+                >
+                  {_('Full-range focus')}
+                </button>
+                <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span className="sr-only">Select focus type</span>
+                </button>
+                <div className="dropdown-menu">
+                  <a className="dropdown-item" href="#">
+                    {_('Full-range focus')}
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    {_('Short-range focus')}
+                  </a>
+                </div>
+              </div>
             </h2>
 
             <div id="focus" className="collapse" data-parent="#accordion-video-properties">
