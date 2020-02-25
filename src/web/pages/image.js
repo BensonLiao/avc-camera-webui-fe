@@ -453,7 +453,7 @@ module.exports = class Home extends Base {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={this.state.$isApiProcessing} type="button"
+                  disabled={this.state.$isApiProcessing || isEnableAutoFocusAfterZoom} type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
@@ -479,7 +479,7 @@ module.exports = class Home extends Base {
                   <label>{_('Focal length')}</label>
                   <span className="text-primary text-size-14">{values.focalLength}</span>
                 </div>
-                <Field disabled={this.state.isAutoFocusProcessing}
+                <Field disabled={this.state.isAutoFocusProcessing || isEnableAutoFocusAfterZoom}
                   name="focalLength" component={Slider} step={1}
                   min={videoFocusSettingsSchema.focalLength.min}
                   max={videoFocusSettingsSchema.focalLength.max}/>
