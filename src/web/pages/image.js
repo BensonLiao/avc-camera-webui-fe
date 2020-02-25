@@ -67,7 +67,7 @@ module.exports = class Home extends Base {
     this.state.streamImageUrl = null;
     this.state.isAutoFocusProcessing = false;
     this.state.autoFocusType = 'Full-range focus';
-    this.state.enableAutoFocusAfterZoom = false;
+    this.state.isEnableAutoFocusAfterZoom = false;
   }
 
   componentWillUnmount() {
@@ -92,9 +92,9 @@ module.exports = class Home extends Base {
     };
   }
 
-  enableAutoFocusAfterZoomHandler = () => {
+  isEnableAutoFocusAfterZoomHandler = () => {
     this.setState(prevState => {
-      return {enableAutoFocusAfterZoom: !prevState.enableAutoFocusAfterZoom};
+      return {isEnableAutoFocusAfterZoom: !prevState.isEnableAutoFocusAfterZoom};
     });
   }
 
@@ -215,7 +215,7 @@ module.exports = class Home extends Base {
 
   videoSettingsFormRender = form => {
     const {values} = form;
-    const {autoFocusType, enableAutoFocusAfterZoom} = this.state;
+    const {autoFocusType, isEnableAutoFocusAfterZoom} = this.state;
 
     return (
       <Form className="card shadow">
@@ -497,7 +497,7 @@ module.exports = class Home extends Base {
               <div className="form-group form-check">
                 <Field id="input-check-auto-focus-after-zoom" type="checkbox" className="form-check-input"
                   disabled={this.state.isAutoFocusProcessing}
-                  name="enableAutoFocusAfterZoom" checked={enableAutoFocusAfterZoom} onChange={this.enableAutoFocusAfterZoomHandler}/>
+                  name="isEnableAutoFocusAfterZoom" checked={isEnableAutoFocusAfterZoom} onChange={this.isEnableAutoFocusAfterZoomHandler}/>
                 <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
                   {_('Enable auto focus after zoom')}
                 </label>
