@@ -18,7 +18,7 @@ const Slider = require('../../core/components/fields/slider');
 const Dropdown = require('../../core/components/fields/dropdown');
 const FormikEffect = require('../../core/components/formik-effect');
 
-module.exports = class Home extends Base {
+module.exports = class Image extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
