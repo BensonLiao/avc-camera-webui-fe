@@ -100,6 +100,7 @@ router.post('/api/account/_change-password', accountHandler.changePasswordWithBi
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.put('/api/system/language', systemHandler.updateLanguage);
 router.get('/api/snapshot', snapshotHandler.getSnapshot);
+router.get('/api/ping', (req, res) => res.status(204).send());
 
 router.get('/assets/service-worker.js', assetHandler.getServiceWorker);
 router.get(/.*/, baseHandler.baseView);
