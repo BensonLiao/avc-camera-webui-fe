@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const config = require('config');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
@@ -6,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
+const packageInformation = JSON.parse(fs.readFileSync('package.json'));
 
 module.exports = (env = {}) => {
   const isDebug = (env.mode || 'development') === 'development';
@@ -22,7 +24,8 @@ module.exports = (env = {}) => {
       'ja-jp': path.join(__dirname, 'src', 'languages', 'ja-jp.js'),
       'zh-tw': path.join(__dirname, 'src', 'languages', 'zh-tw.js'),
       'zh-cn': path.join(__dirname, 'src', 'languages', 'zh-cn.js'),
-      web: path.join(__dirname, 'src', 'web', 'index.js')
+      web: path.join(__dirname, 'src', 'web', 'index.js'),
+      'service-worker': path.join(__dirname, 'src', 'web', 'service-worker.js')
     },
     devServer: {
       host: config.webpackDevServer.host,
@@ -122,7 +125,11 @@ module.exports = (env = {}) => {
           filename: '[name].css',
           chunkFilename: '[id].css'
         }),
-        new webpack.ProvidePlugin({$: 'jquery'})
+        new webpack.ProvidePlugin({$: 'jquery'}),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': JSON.stringify(env.mode || 'development'),
+          'process.env.VERSION': JSON.stringify(packageInformation.version)
+        })
       ];
       if (isDisableMockServer) {
         result.push(new webpack.IgnorePlugin(/.*dev\/.*$/));
