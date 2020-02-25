@@ -66,6 +66,7 @@ module.exports = class Home extends Base {
     this.state.isPlayStream = false;
     this.state.streamImageUrl = null;
     this.state.isAutoFocusProcessing = false;
+    this.state.autoFocusType = 'Full-range focus';
   }
 
   componentWillUnmount() {
@@ -81,6 +82,13 @@ module.exports = class Home extends Base {
     }
 
     super.componentWillUnmount();
+  }
+
+  generateOnChangeAutoFocusType = autoFocusType => {
+    return event => {
+      event.preventDefault();
+      this.setState({autoFocusType});
+    };
   }
 
   generateInitialValues = videoSettings => ({
@@ -200,6 +208,7 @@ module.exports = class Home extends Base {
 
   videoSettingsFormRender = form => {
     const {values} = form;
+    const {autoFocusType} = this.state;
 
     return (
       <Form className="card shadow">
@@ -441,18 +450,18 @@ module.exports = class Home extends Base {
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
-                  {_('Full-range focus')}
+                  {_(autoFocusType)}
                 </button>
                 <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span className="sr-only">Select focus type</span>
                 </button>
                 <div className="dropdown-menu">
-                  <a className="dropdown-item" href="#">
+                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType('Full-range focus')}>
                     {_('Full-range focus')}
-                  </a>
-                  <a className="dropdown-item" href="#">
+                  </button>
+                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType('Short-range focus')}>
                     {_('Short-range focus')}
-                  </a>
+                  </button>
                 </div>
               </div>
             </h2>
