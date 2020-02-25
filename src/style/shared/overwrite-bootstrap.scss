@@ -103,21 +103,6 @@ textarea.form-control {
     margin-right: 10px;
   }
 }
-.accordion .dropdown-menu:not(.show) {
-  // This style will be overwrite by bootstrap.
-  // It just let accordion not calculate the height include the dropdown menu.
-  position: fixed !important;
-}
-.dropdown-menu {
-  @extend .transition;
-  display: block;
-  opacity: 0;
-  visibility: hidden;
-  &.show {
-    visibility: visible;
-    opacity: 1;
-  }
-}
 
 .btn {
   padding: 7px 0.75rem;
