@@ -67,7 +67,7 @@ module.exports = class Upgrade extends Base {
             }
           </div>
         </div>
-        <button disabled={$isApiProcessing} className="btn btn-primary btn-block rounded-pill" type="submit">
+        <button disabled={$isApiProcessing || !file} className="btn btn-primary btn-block rounded-pill" type="submit">
           {_('Firmware upgrade')}
         </button>
       </Form>
