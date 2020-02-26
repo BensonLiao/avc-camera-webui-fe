@@ -99,6 +99,12 @@ window.languageResource = {
   'font-size-1': '中',
   'font-size-2': '大',
 
+  // 文字貼圖
+  'word-type-0': '時間',
+  'word-type-1': '相機名稱',
+  'word-type-2': '相機名稱+時間',
+  'word-type-3': '自訂文字',
+
   // 通知類型
   'notification-card-0': '臉部辨識',
   'notification-card-1': '性別年齡',

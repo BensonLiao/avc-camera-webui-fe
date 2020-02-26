@@ -957,6 +957,8 @@ module.exports = {
      * - fontSize {string}
      * - color {string}
      * - position {string}
+     * - type {string}
+     * - customText {string}
      */
     getWordSettings: () => api({
       method: 'get',
@@ -967,17 +969,21 @@ module.exports = {
      * @param {string} fontSize
      * @param {string} color
      * @param {string} position
+     * @param {string} type
+     * @param {string} customText
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isEnable {boolean}
      * - fontSize {string}
      * - color {string}
      * - position {string}
+     * - type {string}
+     * - customText {string}
      */
-    updateWordSettings: ({isEnable, fontSize, color, position}) => api({
+    updateWordSettings: ({isEnable, fontSize, color, position, type, customText}) => api({
       method: 'put',
       url: '/api/multimedia/word/settings',
-      data: {isEnable, fontSize, color, position}
+      data: {isEnable, fontSize, color, position, type, customText}
     })
   },
   event: {
