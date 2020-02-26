@@ -90,14 +90,33 @@ textarea.form-control {
   border-radius: 8px;
 }
 
-.dropdown {
-  .btn {
-    border-radius: 4px;
-    font-weight: bold;
-    border-color: #cccccc;
-    color: #666666;
-    background-color: #fff;
+.accordion .dropdown-menu:not(.show) {
+  // This style will be overwrite by bootstrap.
+  // It just let accordion not calculate the height include the dropdown menu.
+  position: fixed !important;
+}
+.dropdown-menu {
+  @extend .transition;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1; // apply also with z-index to avoid unexpected display on show or hide.
+  &.show {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1000; // bootstrap's original value
   }
+}
+.rounded-left {
+  border-top-left-radius: $input-border-radius !important;
+  border-bottom-left-radius: $input-border-radius !important;
+}
+.rounded-right {
+  border-top-right-radius: $input-border-radius !important;
+  border-bottom-right-radius: $input-border-radius !important;
+}
+
+.dropdown {
   i {
     color: #cccccc;
     margin-right: 10px;
