@@ -1,5 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
+const classNames = require('classnames');
 const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
@@ -28,6 +29,9 @@ module.exports = class Stream extends Base {
           vbrBitRateLevel: PropTypes.string.isRequired,
           vbrMaxBitRate: PropTypes.string.isRequired,
           cbrBitRate: PropTypes.string.isRequired,
+          maximumBitrate: PropTypes.string,
+          variableBitrate: PropTypes.string,
+          constantBitrate: PropTypes.string,
           gov: PropTypes.string.isRequired
         }).isRequired,
         channelB: PropTypes.shape({
@@ -38,9 +42,24 @@ module.exports = class Stream extends Base {
           vbrBitRateLevel: PropTypes.string.isRequired,
           vbrMaxBitRate: PropTypes.string.isRequired,
           cbrBitRate: PropTypes.string.isRequired,
+          maximumBitrate: PropTypes.string,
+          variableBitrate: PropTypes.string,
+          constantBitrate: PropTypes.string,
           gov: PropTypes.string.isRequired
         }).isRequired
       }).isRequired
+    };
+  }
+
+  constructor(props) {
+    super(props);
+    this.state.bandwidthManagement = 'Maximum Bitrate';
+  }
+
+  generateOnChangeBandwidthManagement = bandwidthManagement => {
+    return event => {
+      event.preventDefault();
+      this.setState({bandwidthManagement});
     };
   }
 
@@ -67,6 +86,7 @@ module.exports = class Stream extends Base {
   };
 
   fieldsRender = (fieldNamePrefix, options) => {
+    const {bandwidthManagement} = this.state;
     return (
       <>
         <div className="form-group">
@@ -123,22 +143,24 @@ module.exports = class Stream extends Base {
             <div className="input-group-prepend">
               <div className="dropdown">
                 <button className="btn btn-outline-primary rounded-left dropdown-toggle" type="button" data-toggle="dropdown">
-                  {_('Maximum Bitrate')}
+                  {_(bandwidthManagement)}
                 </button>
                 <div className="dropdown-menu dropdown-menu-right">
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#" onClick={this.generateOnChangeBandwidthManagement('Maximum Bitrate')}>
                     {_('Maximum Bitrate')}
                   </a>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#" onClick={this.generateOnChangeBandwidthManagement('Variable Bitrate')}>
                     {_('Variable Bitrate')}
                   </a>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="#" onClick={this.generateOnChangeBandwidthManagement('Constant Bitrate')}>
                     {_('Constant Bitrate')}
                   </a>
                 </div>
               </div>
             </div>
-            <input type="text" className="form-control"/>
+            <Field type="text" name={`${fieldNamePrefix}.maximumBitrate`} className={classNames('form-control', {show: bandwidthManagement === 'Maximum Bitrate'})}/>
+            <Field type="text" name={`${fieldNamePrefix}.variableBitrate`} className={classNames('form-control', {show: bandwidthManagement === 'Variable Bitrate'})}/>
+            <Field type="text" name={`${fieldNamePrefix}.constantBitrate`} className={classNames('form-control', {show: bandwidthManagement === 'Constant Bitrate'})}/>
             <div className="input-group-append">
               <span className="input-group-text">Kbps</span>
             </div>

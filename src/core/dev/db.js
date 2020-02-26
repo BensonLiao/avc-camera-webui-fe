@@ -111,6 +111,9 @@ module.exports = {
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
           vbrMaxBitRate: StreamVBRMaxBitRate['12'],
           cbrBitRate: StreamCBRBitRate['10'],
+          maximumBitrate: '4096',
+          variableBitrate: '4096',
+          constantBitrate: '1024',
           gov: StreamGOV['120']
         },
         channelB: {
@@ -121,6 +124,9 @@ module.exports = {
           vbrBitRateLevel: StreamVBRBitRateLevel.complete,
           vbrMaxBitRate: '1',
           cbrBitRate: StreamCBRBitRate['1024'],
+          maximumBitrate: '4096',
+          variableBitrate: '4096',
+          constantBitrate: '1024',
           gov: StreamGOV['120']
         }
       },
