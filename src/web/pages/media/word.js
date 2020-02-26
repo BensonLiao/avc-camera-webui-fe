@@ -21,7 +21,8 @@ module.exports = class Word extends Base {
         fontSize: PropTypes.oneOf(WordFontSize.all()).isRequired,
         color: PropTypes.oneOf(WordColor.all()).isRequired,
         position: PropTypes.oneOf(WordPosition.all()).isRequired,
-        type: PropTypes.oneOf(WordType.all()).isRequired
+        type: PropTypes.oneOf(WordType.all()).isRequired,
+        customText: PropTypes.string
       }).isRequired
     };
   }
@@ -161,6 +162,9 @@ module.exports = class Word extends Base {
                   </Field>
                 </div>
               </div>
+              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
+                <Field name="customText" type="text" className="form-control"/>
+              </div>
               <div className="form-group">
                 <label>{_('Word position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
                 <p className="text-primary">{_('Please click position buttons.')}</p>
@@ -179,6 +183,7 @@ module.exports = class Word extends Base {
   render() {
     const {wordSettings} = this.props;
 
+    wordSettings.customText = wordSettings.customText || '';
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
