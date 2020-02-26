@@ -376,6 +376,28 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.system',
+      uri: '/system',
+      onEnter: () => {
+        document.title = `${_('System')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/layout'
+      )
+    },
+    {
+      name: 'web.system.upgrade',
+      uri: '/upgrade',
+      onEnter: () => {
+        document.title = `${_('System')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/upgrade'
+      )
+    },
+    {
       name: 'setup',
       uri: '/setup',
       onEnter: () => {
