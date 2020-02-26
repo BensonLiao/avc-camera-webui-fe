@@ -79,15 +79,16 @@ input.form-control {
 textarea.form-control {
   border-radius: 8px;
 }
+.rounded-left {
+  border-top-left-radius: $input-border-radius !important;
+  border-bottom-left-radius: $input-border-radius !important;
+}
+.rounded-right {
+  border-top-right-radius: $input-border-radius !important;
+  border-bottom-right-radius: $input-border-radius !important;
+}
 
 .dropdown {
-  .btn {
-    border-radius: 4px;
-    font-weight: bold;
-    border-color: #cccccc;
-    color: #666666;
-    background-color: #fff;
-  }
   i {
     color: #cccccc;
     margin-right: 10px;

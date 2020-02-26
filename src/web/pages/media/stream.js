@@ -119,6 +119,33 @@ module.exports = class Stream extends Base {
         </div>
         <div className="form-group">
           <label>{_('Bandwidth management')}</label>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <div className="dropdown">
+                <button className="btn btn-outline-primary rounded-left dropdown-toggle" type="button" data-toggle="dropdown">
+                  {_('Maximum Bitrate')}
+                </button>
+                <div className="dropdown-menu dropdown-menu-right">
+                  <a className="dropdown-item" href="#">
+                    {_('Maximum Bitrate')}
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    {_('Variable Bitrate')}
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    {_('Constant Bitrate')}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <input type="text" className="form-control"/>
+            <div className="input-group-append">
+              <span className="input-group-text">Kbps</span>
+            </div>
+          </div>
+        </div>
+        <div className="form-group">
+          <label>{_('Bandwidth management')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
               name={`${fieldNamePrefix}.bandwidthManagement`}
