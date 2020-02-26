@@ -8,6 +8,7 @@ const WordFontSize = require('webserver-form-schema/constants/word-font-size');
 const WordColor = require('webserver-form-schema/constants/word-color');
 const WordPosition = require('webserver-form-schema/constants/word-position');
 const WordType = require('webserver-form-schema/constants/word-type');
+const WordSettingsSchema = require('webserver-form-schema/word-settings-schema');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
@@ -163,7 +164,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
-                <Field name="customText" type="text" className="form-control"/>
+                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
               </div>
               <div className="form-group">
                 <label>{_('Word position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
