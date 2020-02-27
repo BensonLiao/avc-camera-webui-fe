@@ -1,5 +1,5 @@
 .page-notification {
-  padding: 48px;
+  padding: 33px;
 
   .filter {
     padding: 24px;
@@ -42,15 +42,16 @@
     }
   }
 
-  @mixin grid_container_padding() {
-    padding: 48px 48px;
+  @mixin grid_container_padding() { 
+    padding: 48px 3.2%;
     @media (max-width: 1440px) and (min-width: 1366px) {
-      padding: 48px 40px;
+      padding: 48px 0.5%;
     }
-    @media (max-width: 1366px) {
-      padding: 48px 2px;
+    @media (max-width: 1365px) {
+      padding: 48px 0.01%;
     }
   }
+
   .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -58,7 +59,7 @@
     @include grid_container_padding();
     .card {
       flex: 0 0 440px;
-      margin: 12px;
+      margin: 14px;
       border: none;
     }
     .card:hover {
