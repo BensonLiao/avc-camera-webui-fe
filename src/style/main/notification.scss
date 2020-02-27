@@ -1,3 +1,19 @@
+.btn-star {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: $primary;
+  background-color: #E5F5FF;
+  border: none;
+  box-shadow: none;
+  &.btn-secondary {
+    color: $secondary-400;
+    background-color: $secondary-50;
+  }
+  &:hover {
+    filter: brightness(0.8);
+  }
+}
 .page-notification {
   padding: 33px;
 
@@ -26,23 +42,6 @@
   }
   hr {
     border-color: #6C757D;
-  }
-
-  .btn-star {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    color: $primary;
-    background-color: #E5F5FF;
-    border: none;
-    box-shadow: none;
-    &.btn-secondary {
-      color: $secondary-400;
-      background-color: $secondary-50;
-    }
-    &:hover {
-      filter: brightness(0.8);
-    }
   }
 
   @mixin grid_container_padding() { 
