@@ -86,9 +86,13 @@
         width: $notify-card-btn-delete-height;
         display: none;
         background-color: #808080;
+        color: #fff;
         position: absolute;
         right: 24px;
         bottom: 24px;
+        &:hover {
+          background-color: #4D4D4D;
+        }
       }
 
       table {
