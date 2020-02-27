@@ -243,7 +243,7 @@ module.exports = class Cards extends Base {
           <div className="d-flex align-content-center">
             <button
               disabled={$isApiProcessing || values.id == null} type="button"
-              className="btn btn-star rounded-pill text-secondary"
+              className="btn btn-star rounded-pill btn-secondary"
               onClick={this.generateToggleTopHandler(values.id)}
             >
               <i className="fas fa-bell fa-fw fa-lg"/>
@@ -530,7 +530,7 @@ module.exports = class Cards extends Base {
           <div className="title text-truncate">
             <button
               disabled={$isApiProcessing} type="button"
-              className={classNames('btn btn-star rounded-pill', {'text-secondary': !card.isTop})}
+              className={classNames('btn btn-star rounded-pill', {'btn-secondary': !card.isTop})}
               onClick={this.generateToggleTopHandler(card.id)}
             >
               <i className="fas fa-bell fa-fw fa-lg"/>

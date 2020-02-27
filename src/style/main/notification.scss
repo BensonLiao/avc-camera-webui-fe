@@ -36,9 +36,12 @@
     background-color: #E5F5FF;
     border: none;
     box-shadow: none;
-    &.text-secondary {
-      color: #999 !important;
-      background-color: #F2F2F2;
+    &.btn-secondary {
+      color: $secondary-400;
+      background-color: $secondary-50;
+    }
+    &:hover {
+      filter: brightness(0.8);
     }
   }
 
@@ -61,13 +64,13 @@
       flex: 0 0 440px;
       margin: 14px;
       border: none;
-    }
-    .card:hover {
-      .card-body {
-        background-color: rgba(142, 142, 142, 0.15);
-      }
-      .btn-delete {
-        display: block;
+      &:hover {
+        .card-body {
+          background-color: $secondary-50;
+        }
+        .btn-delete {
+          display: block;
+        }
       }
     }
     .card-title {
