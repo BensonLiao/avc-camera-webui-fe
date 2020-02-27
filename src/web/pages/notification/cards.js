@@ -23,6 +23,7 @@ module.exports = class Cards extends Base {
     this.state.cardDetails = null;
     this.state.isShowStartDatePicker = false;
     this.state.isShowEndDatePicker = false;
+    this.state.isCardTitleOnFocus = false;
   }
 
   generateCardInitialValues = card => {
@@ -187,9 +188,17 @@ module.exports = class Cards extends Base {
     }
   };
 
+  setCardTitleOnFocus = () => {
+    this.setState({isCardTitleOnFocus: true});
+  }
+
+  setCardTitleOnBlur = () => {
+    this.setState({isCardTitleOnFocus: false});
+  }
+
   cardFormRender = ({values, setFieldValue}) => {
     const {groups} = this.props;
-    const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker} = this.state;
+    const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker, isCardTitleOnFocus} = this.state;
     const onClickTitleEditButton = event => {
       event.preventDefault();
       this.cardFormTitleRef.current.focus();
@@ -251,8 +260,15 @@ module.exports = class Cards extends Base {
             <ContentEditable
               innerRef={this.cardFormTitleRef}
               html={values.title}
-              tagName="p" className="title text-primary ml-3 my-0"
-              onChange={onChangeTitle}/>
+              tagName="p"
+              className={classNames(
+                'title text-primary ml-3 my-0',
+                {'text-truncate': !isCardTitleOnFocus}
+              )}
+              onChange={onChangeTitle}
+              onFocus={this.setCardTitleOnFocus}
+              onBlur={this.setCardTitleOnBlur}
+            />
             <a className="btn-edit-title ml-3" href="#" onClick={onClickTitleEditButton}>
               <i className="fas fa-pen"/>
             </a>

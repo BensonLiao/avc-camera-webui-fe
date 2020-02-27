@@ -139,6 +139,10 @@
     line-height: 40px;
     font-size: 20px;
     font-weight: bold;
+    max-width: 240px;
+    &.editable-truncate:focus {
+      max-height: 180px;
+    }
   }
   .btn-edit-title {
     line-height: 40px;
