@@ -10,7 +10,7 @@
     color: $secondary-400;
     background-color: $secondary-50;
   }
-  &:hover {
+  &.btn:hover {
     filter: brightness(0.8);
   }
 }
