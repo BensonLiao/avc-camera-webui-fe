@@ -80,6 +80,11 @@ module.exports = {
       networkSettings: {
         mac: '00-1a-07-18-c5-58'
       },
+      httpsSettings: {
+        isEnable: true,
+        port: '443',
+        certificateType: '0'
+      },
       streamDefault: {
         channelA: {
           format: StreamFormat.h264,
