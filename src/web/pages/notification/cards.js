@@ -636,7 +636,7 @@ module.exports = class Cards extends Base {
               {
                 topCards.length > 0 && (
                   <>
-                    <h3 className="mb-2">{_('Sticky items')}</h3>
+                    <h3 className="mb-2">{_('Pinned')}</h3>
                     <hr className="my-1"/>
                     <div className="card-container">
                       {topCards.map(this.cardRender)}
@@ -645,7 +645,7 @@ module.exports = class Cards extends Base {
                 )
               }
 
-              <h3 className="mb-2">{_('Other items')}</h3>
+              <h3 className="mb-2">{_('Others')}</h3>
               <hr className="my-1"/>
 
               <div className="card-container mb-4">
