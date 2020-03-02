@@ -246,6 +246,10 @@ module.exports = class Cards extends Base {
       }
     };
 
+    const onKeyDownTitle = event => {
+      return event.keyCode === 13 && event.currentTarget.innerHTML === '' && event.preventDefault();
+    };
+
     return (
       <Form className="modal-content">
         <div className="modal-body d-flex justify-content-between align-content-center pb-2">
@@ -265,6 +269,7 @@ module.exports = class Cards extends Base {
                 'title text-primary ml-3 my-0',
                 {'text-truncate': !isCardTitleOnFocus}
               )}
+              onKeyDown={onKeyDownTitle}
               onChange={onChangeTitle}
               onFocus={this.setCardTitleOnFocus}
               onBlur={this.setCardTitleOnBlur}
