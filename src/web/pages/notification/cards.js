@@ -23,7 +23,6 @@ module.exports = class Cards extends Base {
     this.state.cardDetails = null;
     this.state.isShowStartDatePicker = false;
     this.state.isShowEndDatePicker = false;
-    this.state.isCardTitleOnFocus = false;
   }
 
   generateCardInitialValues = card => {
@@ -188,17 +187,9 @@ module.exports = class Cards extends Base {
     }
   };
 
-  setCardTitleOnFocus = () => {
-    this.setState({isCardTitleOnFocus: true});
-  }
-
-  setCardTitleOnBlur = () => {
-    this.setState({isCardTitleOnFocus: false});
-  }
-
   cardFormRender = ({values, setFieldValue}) => {
     const {groups} = this.props;
-    const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker, isCardTitleOnFocus} = this.state;
+    const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker} = this.state;
     const onClickTitleEditButton = event => {
       event.preventDefault();
       this.cardFormTitleRef.current.focus();
@@ -246,10 +237,6 @@ module.exports = class Cards extends Base {
       }
     };
 
-    const onKeyDownTitle = event => {
-      return event.keyCode === 13 && event.currentTarget.innerHTML === '' && event.preventDefault();
-    };
-
     return (
       <Form className="modal-content">
         <div className="modal-body d-flex justify-content-between align-content-center pb-2">
@@ -264,16 +251,8 @@ module.exports = class Cards extends Base {
             <ContentEditable
               innerRef={this.cardFormTitleRef}
               html={values.title}
-              tagName="p"
-              className={classNames(
-                'title text-primary ml-3 my-0',
-                {'text-truncate': !isCardTitleOnFocus}
-              )}
-              onKeyDown={onKeyDownTitle}
-              onChange={onChangeTitle}
-              onFocus={this.setCardTitleOnFocus}
-              onBlur={this.setCardTitleOnBlur}
-            />
+              tagName="p" className="title text-primary ml-3 my-0"
+              onChange={onChangeTitle}/>
             <a className="btn-edit-title ml-3" href="#" onClick={onClickTitleEditButton}>
               <i className="fas fa-pen"/>
             </a>
