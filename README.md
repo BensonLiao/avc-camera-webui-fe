@@ -29,3 +29,11 @@ $ npm run build
   1. Create your new branch from `master`.
   2. Push commits to your new branch.
   3. Create a merge-request from your new branch to `master`.
+  + note: Merge master into avn before release.
++ [avn](http://192.168.100.137/cloud/webserver-frontend/tree/avn)  
+  The ArecontVision branch.  
+  How to push commits?
+  1. Create your new branch from `avn`.
+  2. Push commits to your new branch.
+  3. Create a merge-request from your new branch to `avn`.
+  + note: Don't merge avn into master.
