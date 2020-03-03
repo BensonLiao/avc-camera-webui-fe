@@ -34,9 +34,8 @@ nav.navbar.fixed-top {
   padding-top: $top-navigation-height;
   width: $left-navigation-width;
   height: 100vh;
-  @extend .hidden-scrollbar;
+  -ms-overflow-style: none;
   overflow-y: scroll;
-  overflow-x: hidden;
   background-color: $primary;
 
   .btn {
