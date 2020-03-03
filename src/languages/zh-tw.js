@@ -312,20 +312,20 @@ window.languageResource = {
   'Focal Length': '焦距',
 
   // /media
-  'Text stickers': '文字貼圖',
-  'Privacy mask': '隱私遮罩',
-  'Sound settings': '聲音設定',
+  OSD: '文字貼圖',
+  'Privacy Mask': '隱私遮罩',
+  'Sound Settings': '聲音設定',
 
   // /media/stream
-  'Stream settings': '串流',
+  'Stream Settings': '串流',
   Settings: '設定',
   Format: '影像格式',
   Resolution: '解析度',
-  'Frame rate': '每秒傳送張數',
-  'Bandwidth management': '頻寬管理',
-  'VBR bitrate level': '可變比特率 (VBR)',
-  'VBR max bitrate': '最佳可變比特率 (VBR Max Bitrate)',
-  'CBR bitrate': '固定比特率 (CBR)',
+  'Frame Rate': '每秒傳送張數',
+  'Bandwidth Management': '頻寬管理',
+  'VBR Bitrate Level': '可變比特率 (VBR)',
+  'VBR Max Bitrate': '最佳可變比特率 (VBR Max Bitrate)',
+  'CBR Bitrate': '固定比特率 (CBR)',
 
   // /media/privacy-mask
   'Mask area': '遮罩區域',
