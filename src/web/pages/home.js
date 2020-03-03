@@ -484,9 +484,6 @@ module.exports = class Home extends Base {
       <Form className="form-group">
         <Field name="deviceName" type="text"
           className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
-        <small className="form-text text-muted">
-          {_('Please enter letters between 1 and 32.')}
-        </small>
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
     );
@@ -559,7 +556,7 @@ module.exports = class Home extends Base {
                     <thead>
                       <tr>
                         <th>{_('Device Name')}</th>
-                        <th>{_('Smart Functions')}</th>
+                        <th>{_('Analytic')}</th>
                         <th>{_('Device Status')}</th>
                         <th>{_('SD Card')}</th>
                       </tr>
@@ -576,20 +573,30 @@ module.exports = class Home extends Base {
                           </Formik>
                         </td>
                         <td className="align-top">
-                          <span>{_('Facial Recognition: ')}</span>
-                          <span className={classTable.faceRecognitionState}>
-                            {_(`${systemInformation.isEnableFaceRecognition ? 'On' : 'Off'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Age Gender: ')}</span>
-                          <span className={classTable.ageGenderState}>
-                            {_(`${systemInformation.isEnableAgeGender ? 'On' : 'Off'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Human Detection: ')}</span>
-                          <span className={classTable.humanoidDetectionState}>
-                            {_(`${systemInformation.isEnableHumanoidDetection ? 'On' : 'Off'}`)}
-                          </span>
+                          {systemInformation.isEnableFaceRecognition && (
+                            <div>
+                              <span>{_('Facial Recognition: ')}</span>
+                              <span className={classTable.faceRecognitionState}>
+                                {_(`${systemInformation.isEnableFaceRecognition ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
+                          {systemInformation.isEnableAgeGender && (
+                            <div>
+                              <span>{_('Age Gender: ')}</span>
+                              <span className={classTable.ageGenderState}>
+                                {_(`${systemInformation.isEnableAgeGender ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
+                          {systemInformation.isEnableHumanoidDetection && (
+                            <div>
+                              <span>{_('Human Detection: ')}</span>
+                              <span className={classTable.humanoidDetectionState}>
+                                {_(`${systemInformation.isEnableHumanoidDetection ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
                         </td>
                         <td className="align-top">
                           <span className="badge badge-pill badge-success">{_('Green')}</span>
