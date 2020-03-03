@@ -215,7 +215,7 @@ module.exports = class Home extends Base {
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{_('Video properties')}</div>
+        <div className="card-header">{_('Quick Start')}</div>
         <div className="card-body">
           <div className="form-row">
             <div className="col-12 col-lg-6 my-1 d-flex align-items-center">
@@ -229,7 +229,7 @@ module.exports = class Home extends Base {
               </div>
             </div>
             <div className="col-12 col-lg-6 my-1 d-flex align-items-center justify-content-xl-end">
-              <span>{_('IR light')}</span>
+              <span>{_('IR Control')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
                 <Field name="irEnabled" type="checkbox" checked={values.irEnabled} className="custom-control-input" id="switch-ir"/>
                 <label className="custom-control-label" htmlFor="switch-ir">
@@ -272,16 +272,16 @@ module.exports = class Home extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('HDR')}</label>
+                  <label>{_('WDR')}</label>
                   <Field name="hdrEnabled" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}/>
+                    items={[{value: 'true', label: _('Auto')}, {value: 'false', label: _('Off')}]}/>
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Shutter speed')}</label>
+                  <label>{_('Shutter Speed')}</label>
                   <Field name="shutterSpeed" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
@@ -290,7 +290,7 @@ module.exports = class Home extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Auto Iris')}</label>
+                  <label>{_('Iris')}</label>
                   <Field name="aperture" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
@@ -321,7 +321,7 @@ module.exports = class Home extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('White balance')}</label>
+                  <label>{_('White Balance')}</label>
                   <Field name="whiteblanceMode" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
@@ -331,7 +331,7 @@ module.exports = class Home extends Base {
                   values.whiteblanceMode === WhiteBalanceType.manual && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Color temperature')}</label>
+                        <label>{_('Color Temperature')}</label>
                         <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
                       </div>
                       <Field name="whiteblanceManual" component={Slider} step={1000}
@@ -366,7 +366,7 @@ module.exports = class Home extends Base {
                   values.daynightMode === DaynightType.manual && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Duty time')}</label>
+                        <label>{_('Duty Time')}</label>
                         <span className="text-primary text-size-14">
                           {utils.formatTimeRange(values.dnDuty)}
                         </span>
@@ -413,7 +413,7 @@ module.exports = class Home extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Flicker less')}</label>
+                  <label>{_('Lighting Compensation Frequency')}</label>
                   <Field name="refreshRate" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
@@ -437,14 +437,14 @@ module.exports = class Home extends Base {
                 className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
                 onClick={this.generateClickAutoFocusButtonHandler(form)}
               >
-                {_('Auto focus')}
+                {_('Auto Focus')}
               </button>
             </h2>
 
             <div id="focus" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Focal length')}</label>
+                  <label>{_('Focal Length')}</label>
                   <span className="text-primary text-size-14">{values.focalLength}</span>
                 </div>
                 <Field disabled={this.state.isAutoFocusProcessing}
@@ -454,7 +454,7 @@ module.exports = class Home extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>ZOOM</label>
+                  <label>Zoom</label>
                   <span className="text-primary text-size-14">{values.zoom}</span>
                 </div>
                 <Field disabled={this.state.isAutoFocusProcessing}
@@ -472,7 +472,7 @@ module.exports = class Home extends Base {
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler(form)}
           >
-            {_('Reset to defaults')}
+            {_('Reset to Defaults')}
           </button>
         </div>
       </Form>
@@ -558,10 +558,10 @@ module.exports = class Home extends Base {
                   <table>
                     <thead>
                       <tr>
-                        <th>{_('Device name')}</th>
-                        <th>{_('Smart functions')}</th>
-                        <th>{_('Device status')}</th>
-                        <th>{_('SD card')}</th>
+                        <th>{_('Device Name')}</th>
+                        <th>{_('Smart Functions')}</th>
+                        <th>{_('Device Status')}</th>
+                        <th>{_('SD Card')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -576,19 +576,19 @@ module.exports = class Home extends Base {
                           </Formik>
                         </td>
                         <td className="align-top">
-                          <span>{_('Face recognition: ')}</span>
+                          <span>{_('Facial Recognition: ')}</span>
                           <span className={classTable.faceRecognitionState}>
-                            {_(`${systemInformation.isEnableFaceRecognition ? 'ON' : 'OFF'}`)}
+                            {_(`${systemInformation.isEnableFaceRecognition ? 'On' : 'Off'}`)}
                           </span>
                           <br/>
-                          <span>{_('Age gender: ')}</span>
+                          <span>{_('Age Gender: ')}</span>
                           <span className={classTable.ageGenderState}>
-                            {_(`${systemInformation.isEnableAgeGender ? 'ON' : 'OFF'}`)}
+                            {_(`${systemInformation.isEnableAgeGender ? 'On' : 'Off'}`)}
                           </span>
                           <br/>
-                          <span>{_('Humanoid detection: ')}</span>
+                          <span>{_('Human Detection: ')}</span>
                           <span className={classTable.humanoidDetectionState}>
-                            {_(`${systemInformation.isEnableHumanoidDetection ? 'ON' : 'OFF'}`)}
+                            {_(`${systemInformation.isEnableHumanoidDetection ? 'On' : 'Off'}`)}
                           </span>
                         </td>
                         <td className="align-top">
