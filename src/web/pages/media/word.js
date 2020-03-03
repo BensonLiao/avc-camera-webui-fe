@@ -7,6 +7,8 @@ const {Formik, Form, Field} = require('formik');
 const WordFontSize = require('webserver-form-schema/constants/word-font-size');
 const WordColor = require('webserver-form-schema/constants/word-color');
 const WordPosition = require('webserver-form-schema/constants/word-position');
+const WordType = require('webserver-form-schema/constants/word-type');
+const WordSettingsSchema = require('webserver-form-schema/word-settings-schema');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
@@ -19,7 +21,9 @@ module.exports = class Word extends Base {
         isEnable: PropTypes.bool.isRequired,
         fontSize: PropTypes.oneOf(WordFontSize.all()).isRequired,
         color: PropTypes.oneOf(WordColor.all()).isRequired,
-        position: PropTypes.oneOf(WordPosition.all()).isRequired
+        position: PropTypes.oneOf(WordPosition.all()).isRequired,
+        type: PropTypes.oneOf(WordType.all()).isRequired,
+        customText: PropTypes.string
       }).isRequired
     };
   }
@@ -144,6 +148,25 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group">
+                <label>{_('Text overlay')}</label>
+                <div className="select-wrapper border rounded-pill overflow-hidden">
+                  <Field
+                    name="type"
+                    component="select"
+                    className="form-control border-0"
+                  >
+                    {
+                      WordType.all().map(type => (
+                        <option key={type} value={type}>{_(`word-type-${type}`)}</option>
+                      ))
+                    }
+                  </Field>
+                </div>
+              </div>
+              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
+                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
+              </div>
+              <div className="form-group">
                 <label>{_('Word position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
                 <p className="text-primary">{_('Please click position buttons.')}</p>
               </div>
@@ -161,6 +184,7 @@ module.exports = class Word extends Base {
   render() {
     const {wordSettings} = this.props;
 
+    wordSettings.customText = wordSettings.customText || '';
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">

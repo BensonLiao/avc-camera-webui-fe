@@ -141,7 +141,8 @@ module.exports = class Layout extends Base {
           active: [
             'web.smart',
             'web.smart.face-recognition',
-            'web.smart.motion-detection'
+            'web.smart.motion-detection',
+            'web.smart.license'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
@@ -150,7 +151,8 @@ module.exports = class Layout extends Base {
         {active: this.state.currentRouteName === 'web.network'}
       ),
       system: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName.indexOf('web.system') === 0}
       ),
       sdCard: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -197,7 +199,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Analytic')} {...tooltipOptions}>
-            <Link className={classTable.smart} to="/smart/face-recognition">
+            <Link className={classTable.smart} to="/analytic/face-recognition">
               <img src={iconAnalytic}/>
             </Link>
           </Tooltip>
@@ -207,7 +209,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('System')} {...tooltipOptions}>
-            <Link className={classTable.system} to="/system/date.html">
+            <Link className={classTable.system} to="/system/upgrade">
               <img src={iconSystem}/>
             </Link>
           </Tooltip>

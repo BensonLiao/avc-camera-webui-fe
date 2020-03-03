@@ -130,7 +130,7 @@ module.exports = class MotionDetection extends Base {
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
-                <Link to="/smart/face-recognition">{_('Smart functions')}</Link>
+                <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
               </li>
               <li className="breadcrumb-item">{_('Motion detection')}</li>
             </ol>

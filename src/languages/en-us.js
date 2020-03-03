@@ -68,6 +68,12 @@ window.languageResource = {
   'font-size-1': 'Medium',
   'font-size-2': 'Large',
 
+  // 文字貼圖
+  'word-type-0': 'Time',
+  'word-type-1': 'Camera name',
+  'word-type-2': 'Camera name and time',
+  'word-type-3': 'Custom',
+
   // 通知類型
   'notification-card-0': 'Face recognition',
   'notification-card-1': 'Age gender',

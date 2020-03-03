@@ -99,6 +99,12 @@ window.languageResource = {
   'font-size-1': '中',
   'font-size-2': '大',
 
+  // 文字貼圖
+  'word-type-0': '時間',
+  'word-type-1': '相機名稱',
+  'word-type-2': '相機名稱+時間',
+  'word-type-3': '自訂文字',
+
   // 通知類型
   'notification-card-0': '臉部辨識',
   'notification-card-1': '性別年齡',
@@ -277,7 +283,7 @@ window.languageResource = {
   'Please enter letters between 1 and 32.': '請輸入1-32字元',
   'Face recognition: ': '臉部辨識 : ',
   'Age gender: ': '性別年齡 : ',
-  'Humanoid detection: ': '人形偵測 : ',
+  'Human detection: ': '人形偵測 : ',
   Green: '正常',
   'Free: {0}, Total: {1}': '{0} 可用 (共 {1})',
   'Video properties': '影像屬性',
@@ -484,8 +490,7 @@ window.languageResource = {
   Clean: '清除條件',
   'Face recognition': '臉部辨識',
   'Age gender': '性別年齡',
-  'Not activated': '未啟用',
-  'Humanoid detection': '人形偵測',
+  'Human detection': '人形偵測',
   Similarity: '相似度',
   'Recognition result': '辨識狀態',
   'Start date': '開始日期',
@@ -508,10 +513,19 @@ window.languageResource = {
   'Delete account': '刪除帳號',
   'Are you sure to delete account {0}?': '您即將刪除 {0}，確認要刪除這個帳號嗎？',
 
+  // /system
+  'System settings': '系統設定',
+  'Firmware upgrade': '韌體升級',
+  'Import file': '匯入設定檔',
+  '※ Just support .zip file': '※ 僅支援 .zip 檔案',
+  'Select file': '選擇檔案',
+  'No files selected': '未選任何檔案',
+
   // /license
   'Please enter the authentication key.': '請輸入授權碼',
   Activate: '啟用',
   Activated: '已啟用',
+  Unactivated: '未啟用',
   'Activate User': '啟用者',
   'Authentication Key': '授權碼',
   'Enabled Functions': '啟用功能',

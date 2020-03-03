@@ -1,6 +1,12 @@
 const api = require('./index.js');
 
 module.exports = {
+  ping: () => api({
+    method: 'get',
+    url: '/api/ping',
+    timeout: 1000,
+    params: {_: Math.random().toString(36).substr(2)}
+  }),
   validation: {
     /**
      * Validate the birthday of the account.
@@ -202,6 +208,21 @@ module.exports = {
       method: 'put',
       url: '/api/system/language',
       data: {language}
+    }),
+    /**
+     * @param {File} file - The firmware file.
+     * @returns {Promise<response>}
+     * @response 204
+     */
+    uploadFirmware: file => api({
+      method: 'post',
+      url: '/api/system/firmware',
+      headers: {'content-type': 'multipart/form-data'},
+      data: (() => {
+        const formData = new FormData();
+        formData.set('file', file);
+        return formData;
+      })()
     })
   },
   notification: {
@@ -957,6 +978,8 @@ module.exports = {
      * - fontSize {string}
      * - color {string}
      * - position {string}
+     * - type {string}
+     * - customText {string}
      */
     getWordSettings: () => api({
       method: 'get',
@@ -967,17 +990,21 @@ module.exports = {
      * @param {string} fontSize
      * @param {string} color
      * @param {string} position
+     * @param {string} type
+     * @param {string} customText
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isEnable {boolean}
      * - fontSize {string}
      * - color {string}
      * - position {string}
+     * - type {string}
+     * - customText {string}
      */
-    updateWordSettings: ({isEnable, fontSize, color, position}) => api({
+    updateWordSettings: ({isEnable, fontSize, color, position, type, customText}) => api({
       method: 'put',
       url: '/api/multimedia/word/settings',
-      data: {isEnable, fontSize, color, position}
+      data: {isEnable, fontSize, color, position, type, customText}
     })
   },
   event: {
