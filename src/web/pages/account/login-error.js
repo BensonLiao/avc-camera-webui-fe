@@ -37,7 +37,7 @@ module.exports = class LoginError extends Base {
                   <Once>
                     <div className="text-center" style={{margin: '8rem 0'}}>
                       <p className="text-dark font-weight-bold m-0">
-                        {_('Password incorrect!')}
+                        {_('Password Incorrect!')}
                       </p>
                       <p className="text-dark">
                         {_('You have {0} attemps remaining...', [loginFailedRemainingTimes])}

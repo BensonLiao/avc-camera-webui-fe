@@ -113,7 +113,7 @@ module.exports = class Login extends Base {
               {_('Password Reset')}
             </a>
           </h6>
-          <div className="text-dark text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</div>
+          <div className="text-dark text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call AV Costar Technical Support at +1.818.937.0700 and select option #1')}</div>
           <button disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             {_('Login')}
           </button>
