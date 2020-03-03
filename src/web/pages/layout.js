@@ -280,7 +280,7 @@ module.exports = class Layout extends Base {
                     <span className="dropdown-item-text font-weight-bold">{this.state.$user.account}</span>
                     <div className="dropdown-divider"/>
                     <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>
-                      {_('Sign out')}
+                      {_('Sign Out')}
                     </a>
                   </div>
                 </div>

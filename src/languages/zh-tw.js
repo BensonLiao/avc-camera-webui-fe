@@ -191,7 +191,7 @@ window.languageResource = {
   Network: '網路',
   System: '系統',
   SDCard: 'SD卡',
-  'Sign out': '登出',
+  'Sign Out': '登出',
 
   // /login
   'Welcome to use AndroVideo system': '歡迎使用 AndroVideo 系統',
