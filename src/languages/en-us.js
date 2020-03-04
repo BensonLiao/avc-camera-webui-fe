@@ -158,6 +158,6 @@ window.languageResource = {
   'validation-birthday': 'This field must be a valid birthday.',
   'validation-countryCode': 'This field must be a valid country code.',
 
-  // /set/language
-  'SETUP-Account': 'Account'
+  // /events
+  'Recognition result': 'Status'
 };

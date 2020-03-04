@@ -305,7 +305,7 @@ module.exports = class Events extends Base {
         <h2>{_('Events')}</h2>
         <div className="filter-wrapper">
           <div className="header d-flex justify-content-between align-items-center  text-size-12">
-            <span>{_('Filter condition')}</span>
+            <span>{_('Filters')}</span>
             <a className="text-primary font-weight-bold" href="#" onClick={this.onClickCleanFilters}>{_('Clean')}</a>
           </div>
 
@@ -316,12 +316,12 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Face recognition')}</span>
+                    <span>{_('Facial recognition')}</span>
                     <i className="fas fa-chevron-up"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Face recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Unactivated')}</span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Facial recognition')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span> <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
@@ -340,7 +340,7 @@ module.exports = class Events extends Base {
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Age gender')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Unactivated')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -359,7 +359,7 @@ module.exports = class Events extends Base {
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Human detection')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Unactivated')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -416,7 +416,7 @@ module.exports = class Events extends Base {
         </div>
         <div className="form-row mt-4">
           <div className="col-auto px-0">
-            <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
+            <Field name="keyword" className="form-control" type="text" placeholder={_('Enter keywords')}/>
           </div>
           <div className="col-auto px-0 ml-3">
             <button className="btn btn-outline-primary rounded-pill px-3" type="submit">
@@ -528,8 +528,8 @@ module.exports = class Events extends Base {
                       <a href="#time" onClick={sort.time.handler}>{_('Time')}</a>
                       <i className={sort.time.icon}/>
                     </th>
-                    <th style={{width: '10%'}}>{_('Snapshot')}</th>
-                    <th style={{width: '10%'}}>{_('Member picture')}</th>
+                    <th style={{width: '10%'}}>{_('Capture')}</th>
+                    <th style={{width: '10%'}}>{_('Profile Picture')}</th>
                     <th style={{width: '10%'}}>
                       <a href="#" onClick={sort.name.handler}>{_('Name')}</a>
                       <i className={sort.name.icon}/>
@@ -543,7 +543,7 @@ module.exports = class Events extends Base {
                       <i className={sort.organization.icon}/>
                     </th>
                     <th style={{width: '10%'}}>
-                      <a href="#" onClick={sort.confidence.handler}>{_('Confidence')}</a>
+                      <a href="#" onClick={sort.confidence.handler}>{_('Similarity')}</a>
                       <i className={sort.confidence.icon}/>
                     </th>
                     <th style={{width: '8%'}}>
