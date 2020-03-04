@@ -526,7 +526,7 @@ window.languageResource = {
   Inactivated: '未啟用',
   'Activate User': '啟用者',
   'Authentication Key': '授權碼',
-  'Enabled Functions': '啟用功能',
+  'Activate Functions': '啟用功能',
   'Enable Status': '狀態',
   'Activated successfully': '啟用成功',
   '{0} authorized successfully!': '{0}已授權成功！',

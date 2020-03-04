@@ -159,5 +159,8 @@ window.languageResource = {
   'validation-countryCode': 'This field must be a valid country code.',
 
   // /events
-  'Recognition result': 'Status'
+  'Recognition result': 'Status',
+
+  // /license
+  'Enable Status': 'Status'
 };
