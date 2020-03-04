@@ -433,7 +433,7 @@ window.languageResource = {
   Members: '成員管理',
   'All members': '所有成員',
   Groups: '群組',
-  'Please enter the keyword.': '請輸入關鍵字',
+  'Enter keywords': '輸入關鍵字',
   Search: '搜尋',
   New: '新增',
   'Add a new member': '自行新增',
@@ -453,7 +453,7 @@ window.languageResource = {
   'Please enter the organization.': '請輸入您的組織',
   'Letters within 32 characters.': '32 字元以內的中英文大寫或小寫',
   Group: '群組',
-  None: '無',
+  'N/A': '無',
 
   // /members/new-group
   'Create a group': '新增群組',

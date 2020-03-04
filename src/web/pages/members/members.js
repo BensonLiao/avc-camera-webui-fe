@@ -160,7 +160,7 @@ module.exports = class Members extends Base {
     return (
       <Form className="form-row">
         <div className="col-auto">
-          <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
+          <Field name="keyword" className="form-control" type="text" placeholder={_('Enter keywords')}/>
         </div>
         <div className="col-auto">
           <button disabled={this.state.$isApiProcessing}
@@ -490,9 +490,9 @@ module.exports = class Members extends Base {
                                   src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
                               </td>
                               <td className={tdClass}>{member.name}</td>
-                              <td className={tdClass}>{member.organization || _('None')}</td>
-                              <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('None')}</td>
-                              <td className={tdClass}>{member.note || _('None')}</td>
+                              <td className={tdClass}>{member.organization || _('N/A')}</td>
+                              <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
+                              <td className={tdClass}>{member.note || _('N/A')}</td>
                               <td className={classNames('text-left group-btn', tdClass)}>
                                 <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...this.props.params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
