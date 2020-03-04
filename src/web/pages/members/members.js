@@ -461,7 +461,7 @@ module.exports = class Members extends Base {
                   <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                     <thead>
                       <tr className="shadow">
-                        <th className="text-center" style={{width: '20%'}}>{_('Register picture')}</th>
+                        <th className="text-center" style={{width: '20%'}}>{_('Profile Picture')}</th>
                         <th style={{width: '15%'}}>
                           <a href="#name" onClick={sort.name.handler}>{_('Name')}</a>
                           <i className={sort.name.icon}/>
