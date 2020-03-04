@@ -34,10 +34,10 @@ module.exports = class Smart extends Base {
         <div className="left-menu fixed-top">
           <h2>{_('Analytic')}</h2>
           <nav className="nav flex-column">
-            <Link to="/analytic/face-recognition" title={_('Face recognition')}
+            <Link to="/analytic/face-recognition" title={_('Facial recognition')}
               className={classNames('nav-link', {active: currentRouteName === 'web.smart.face-recognition'})}
             >
-              {_('Face recognition')}
+              {_('Facial recognition')}
             </Link>
             <Link to="/analytic/motion-detection" title={_('Motion detection')}
               className={classNames('nav-link', {active: currentRouteName === 'web.smart.motion-detection'})}

@@ -80,13 +80,13 @@ module.exports = class FaceRecognition extends Base {
             <img className="img-fluid" src="/api/snapshot"/>
             {
               values.isEnableTriggerArea && (
-                <Field name="triggerArea" component={MaskArea} text={_('Trigger area')}
+                <Field name="triggerArea" component={MaskArea} text={_('Detection Zone')}
                   className="border-black" parentElementId="fr-video-wrapper"/>
               )
             }
             {
               values.isEnableFaceFrame && (
-                <Field name="faceFrame" component={MaskArea} text={_('Face size')}
+                <Field name="faceFrame" component={MaskArea} text={_('Facial Detection Size')}
                   className="border-green" parentElementId="fr-video-wrapper"/>
               )
             }
@@ -95,7 +95,7 @@ module.exports = class FaceRecognition extends Base {
 
         <div className="col-5 pl-24">
           <div className="card shadow">
-            <div className="card-header">{_('Face recognition')}</div>
+            <div className="card-header">{_('Facial recognition')}</div>
             <Form className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('Recognition function')}</label>
@@ -126,7 +126,7 @@ module.exports = class FaceRecognition extends Base {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex align-items-center">
-                    <label className="mb-0">{_('Trigger area')}</label>
+                    <label className="mb-0">{_('Detection Zone')}</label>
                     <i className="fas fa-info-circle text-size-14 text-primary pl-2"/>
                   </div>
                   <div className="custom-control custom-switch">
@@ -138,11 +138,11 @@ module.exports = class FaceRecognition extends Base {
                   </div>
                 </div>
                 <span className="text-size-16 text-primary">
-                  {_('The default is full screen, it is changeable.')}
+                  {_('Default is Fullscreen')}
                 </span>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Face size')}</label>
+                <label className="mb-0">{_('Facial Detection Size')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnableFaceFrame" type="checkbox" checked={values.isEnableFaceFrame} className="custom-control-input" id="switch-face-size"/>
                   <label className="custom-control-label" htmlFor="switch-face-size">
@@ -206,7 +206,7 @@ module.exports = class FaceRecognition extends Base {
                   <li className="breadcrumb-item active">
                     <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
                   </li>
-                  <li className="breadcrumb-item">{_('Face recognition')}</li>
+                  <li className="breadcrumb-item">{_('Facial recognition')}</li>
                 </ol>
               </nav>
             </div>
