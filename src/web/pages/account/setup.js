@@ -83,7 +83,7 @@ module.exports = class Setup extends Base {
             </small>
           </div>
           <div className="form-group has-feedback">
-            <label>{_('Confirm password')}</label>
+            <label>{_('Confirm Password')}</label>
             <Field name="confirmPassword" component={Password} inputProps={{
               placeholder: _('Enter your password again'),
               className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})

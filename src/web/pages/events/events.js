@@ -270,7 +270,7 @@ module.exports = class Events extends Base {
           </div>
         </div>
 
-        <span>{_('Recognition result')}</span>
+        <span>{_('Recognition Result')}</span>
         <div className="checkbox-group mt-3 mb-2 pl-2">
           <div className="form-check mb-3">
             <input type="checkbox" className="form-check-input" id="input-checkbox-register"
@@ -316,11 +316,11 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Facial recognition')}</span>
+                    <span>{_('Facial Recognition')}</span>
                     <i className="fas fa-chevron-up"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Facial recognition')}</span>
+                    <span>{_('Facial Recognition')}</span>
                     <span className="badge badge-danger badge-pill">{_('Inactivated')}</span> <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -335,11 +335,11 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {type: 'age-gender'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Age gender')}</span>
+                    <span>{_('Age Gender')}</span>
                     <i className="fas fa-chevron-down"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Age gender')}</span>
+                    <span>{_('Age Gender')}</span>
                     <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
@@ -354,11 +354,11 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {type: 'humanoid-detection'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Human detection')}</span>
+                    <span>{_('Human Detection')}</span>
                     <i className="fas fa-chevron-down"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Human detection')}</span>
+                    <span>{_('Human Detection')}</span>
                     <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
@@ -379,14 +379,14 @@ module.exports = class Events extends Base {
             <Field
               name="start"
               component={DatePicker}
-              dateTabText={_('Start date')}
-              timeTabText={_('Start time')}
+              dateTabText={_('Start Date')}
+              timeTabText={_('Start Time')}
               inputProps={{
                 className: classNames(
                   'btn start-date px-4',
                   {active: isShowStartDatePicker}
                 ),
-                placeholder: _('Start datetime'),
+                placeholder: _('Start Datetime'),
                 style: {whiteSpace: 'nowrap'}
               }}
               endDateFieldName="end"
@@ -397,14 +397,14 @@ module.exports = class Events extends Base {
             <Field
               name="end"
               component={DatePicker}
-              dateTabText={_('End date')}
-              timeTabText={_('End time')}
+              dateTabText={_('End Date')}
+              timeTabText={_('End Time')}
               inputProps={{
                 className: classNames(
                   'btn end-date px-4',
                   {active: isShowEndDatePicker}
                 ),
-                placeholder: _('End datetime'),
+                placeholder: _('End Datetime'),
                 style: {whiteSpace: 'nowrap'}
               }}
               startDateFieldName="start"
@@ -547,7 +547,7 @@ module.exports = class Events extends Base {
                       <i className={sort.confidence.icon}/>
                     </th>
                     <th style={{width: '8%'}}>
-                      <a href="#" onClick={sort.recognitionResult.handler}>{_('Recognition result')}</a>
+                      <a href="#" onClick={sort.recognitionResult.handler}>{_('Recognition Result')}</a>
                       <i className={sort.recognitionResult.icon}/>
                     </th>
                     <th style={{width: '12%'}}>{_('Note')}</th>

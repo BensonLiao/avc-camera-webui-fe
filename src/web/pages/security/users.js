@@ -84,13 +84,13 @@ module.exports = class Users extends Base {
         <div className="left-menu fixed-top sub">
           <h2>{_('Accounts')}</h2>
           <nav className="nav flex-column">
-            <Link to="/users/accounts" title={_('All accounts')}
+            <Link to="/users/accounts" title={_('All Accounts')}
               className={classNames('nav-link text-size-16 py-1 px-3',
                 {active: permissionFilter === 'all'},
                 {'bg-light': permissionFilter === 'all'}
               )}
             >
-              <img className="pl-2 pr-4" src={iconUsers}/>{_('All accounts')}
+              <img className="pl-2 pr-4" src={iconUsers}/>{_('All Accounts')}
             </Link>
           </nav>
           <hr/>
@@ -199,7 +199,7 @@ module.exports = class Users extends Base {
           >
             <form>
               <div className="modal-header">
-                <h5 className="modal-title">{_('Delete account')}</h5>
+                <h5 className="modal-title">{_('Delete Account')}</h5>
               </div>
               <div className="modal-body">
                 <span className="text-muted">

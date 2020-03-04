@@ -102,7 +102,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Frame Rate')}</label>
+          <label>{_('Frame Rate (FPS)')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
               name={`${fieldNamePrefix}.frameRate`}

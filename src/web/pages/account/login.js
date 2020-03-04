@@ -78,7 +78,7 @@ module.exports = class Login extends Base {
         <div className="card-body">
           <h3 className="card-title text-primary">{_('ACCOUNT LOGIN')}</h3>
           <div className="card-sub-title text-info">
-            {_('Please enter your username and password')}
+            {_('Enter your username and password')}
           </div>
           <div className="form-group">
             <label>{_('Username')}</label>

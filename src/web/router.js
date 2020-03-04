@@ -34,7 +34,7 @@ module.exports = new Router({
       name: 'web.media',
       uri: '/media',
       onEnter: () => {
-        document.title = `${_('Multimedia settings')} - ${_title}`;
+        document.title = `${_('Multimedia Settings')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
@@ -45,7 +45,7 @@ module.exports = new Router({
       name: 'web.media.stream',
       uri: '/stream',
       onEnter: () => {
-        document.title = `${_('Stream settings')} - ${_('Multimedia settings')} - ${_title}`;
+        document.title = `${_('Stream Settings')} - ${_('Multimedia Settings')} - ${_title}`;
       },
       resolve: {
         streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
@@ -59,7 +59,7 @@ module.exports = new Router({
       name: 'web.media.privacy-mask',
       uri: '/privacy-mask',
       onEnter: () => {
-        document.title = `${_('Privacy mask')} - ${_('Multimedia settings')} - ${_title}`;
+        document.title = `${_('Privacy Mask')} - ${_('Multimedia Settings')} - ${_title}`;
       },
       resolve: {
         privacyMaskSettings: () => api.multimedia.getPrivacyMaskSettings().then(response => response.data)
@@ -73,7 +73,7 @@ module.exports = new Router({
       name: 'web.media.rtsp',
       uri: '/rtsp',
       onEnter: () => {
-        document.title = `${_('RTSP settings')} - ${_('Multimedia settings')} - ${_title}`;
+        document.title = `${_('Rtsp Settings')} - ${_('Multimedia Settings')} - ${_title}`;
       },
       resolve: {
         rtspSettings: () => api.multimedia.getRTSPSettings().then(response => response.data)
@@ -87,7 +87,7 @@ module.exports = new Router({
       name: 'web.media.word',
       uri: '/word',
       onEnter: () => {
-        document.title = `${_('Text stickers')} - ${_('Multimedia settings')} - ${_title}`;
+        document.title = `${_('Text Stickers')} - ${_('Multimedia Settings')} - ${_title}`;
       },
       resolve: {
         wordSettings: () => api.multimedia.getWordSettings().then(response => response.data)
@@ -101,7 +101,7 @@ module.exports = new Router({
       name: 'web.audio',
       uri: '/audio',
       onEnter: () => {
-        document.title = `${_('Audio settings')} - ${_title}`;
+        document.title = `${_('Audio Settings')} - ${_title}`;
       },
       resolve: {
         audioSettings: () => api.multimedia.getAudioSettings().then(response => response.data)
@@ -115,7 +115,7 @@ module.exports = new Router({
       name: 'web.notification',
       uri: '/notification',
       onEnter: () => {
-        document.title = `${_('Notification settings')} - ${_title}`;
+        document.title = `${_('Notification Settings')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-notification" */
@@ -126,7 +126,7 @@ module.exports = new Router({
       name: 'web.notification.smtp',
       uri: '/smtp',
       onEnter: () => {
-        document.title = `${_('Notification settings')} - ${_title}`;
+        document.title = `${_('Notification Settings')} - ${_title}`;
       },
       resolve: {
         smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)
@@ -140,7 +140,7 @@ module.exports = new Router({
       name: 'web.notification.io',
       uri: '/io',
       onEnter: () => {
-        document.title = `${_('Notification settings')} - ${_title}`;
+        document.title = `${_('Notification Settings')} - ${_title}`;
       },
       resolve: {
         ioInSettings: () => api.notification.getIOInSettings().then(response => response.data),
@@ -156,7 +156,7 @@ module.exports = new Router({
       name: 'web.notification.cards',
       uri: '/cards',
       onEnter: () => {
-        document.title = `${_('Notification settings')} - ${_title}`;
+        document.title = `${_('Notification Settings')} - ${_title}`;
       },
       resolve: {
         groups: () => api.group.getGroups().then(response => response.data),
@@ -182,7 +182,7 @@ module.exports = new Router({
       name: 'web.smart.face-recognition',
       uri: '/face-recognition',
       onEnter: () => {
-        document.title = `${_('Face recognition')} - ${_('Analytic')} - ${_title}`;
+        document.title = `${_('Face Recognition')} - ${_('Analytic')} - ${_title}`;
       },
       resolve: {
         faceRecognitionSettings: () => api.smartFunction.getFaceRecognitionSettings().then(response => response.data)
@@ -196,7 +196,7 @@ module.exports = new Router({
       name: 'web.smart.motion-detection',
       uri: '/motion-detection',
       onEnter: () => {
-        document.title = `${_('Motion detection')} - ${_('Analytic')} - ${_title}`;
+        document.title = `${_('Motion Detection')} - ${_('Analytic')} - ${_title}`;
       },
       resolve: {
         motionDetectionSettings: () => api.smartFunction.getMotionDetectionSettings().then(response => response.data)
@@ -266,7 +266,7 @@ module.exports = new Router({
       uri: '/new',
       dismissalDelay: 300,
       onEnter: () => {
-        document.title = `${_('New member')} - ${_title}`;
+        document.title = `${_('New Member')} - ${_title}`;
       },
       resolve: {
         member: () => null
@@ -338,7 +338,7 @@ module.exports = new Router({
       uri: '/new',
       dismissalDelay: 300,
       onEnter: () => {
-        document.title = `${_('New user')} - ${_title}`;
+        document.title = `${_('New User')} - ${_title}`;
       },
       resolve: {
         user: () => null
@@ -352,7 +352,7 @@ module.exports = new Router({
       name: 'web.users.events',
       uri: '/events?keyword?index?sort?type?confidence?enrollStatus?start?end',
       onEnter: () => {
-        document.title = `${_('Smart search')} - ${_title}`;
+        document.title = `${_('Smart Search')} - ${_title}`;
       },
       resolve: {
         groups: params => {
@@ -401,7 +401,7 @@ module.exports = new Router({
       name: 'setup',
       uri: '/setup',
       onEnter: () => {
-        document.title = `${_('Setup account')} - ${_title}`;
+        document.title = `${_('Setup Account')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-setup" */
@@ -423,7 +423,7 @@ module.exports = new Router({
       name: 'login-error',
       uri: '/login-error?loginFailedRemainingTimes',
       onEnter: () => {
-        document.title = `${_('Login error')} - ${_title}`;
+        document.title = `${_('Login Error')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login-error" */
@@ -434,7 +434,7 @@ module.exports = new Router({
       name: 'login-lock',
       uri: '/login-lock?loginLockExpiredTime',
       onEnter: () => {
-        document.title = `${_('Login lock')} - ${_title}`;
+        document.title = `${_('Login Lock')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login-lock" */

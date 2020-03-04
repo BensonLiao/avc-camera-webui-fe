@@ -188,12 +188,12 @@ module.exports = class Layout extends Base {
               <img src={iconAudio}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Notification settings')} {...tooltipOptions}>
+          <Tooltip title={_('Notification Settings')} {...tooltipOptions}>
             <Link className={classTable.notification} to="/notification/smtp">
               <img src={iconNotification}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('User management')} {...tooltipOptions}>
+          <Tooltip title={_('User Management')} {...tooltipOptions}>
             <Link className={classTable.users} to="/users/members">
               <img src={iconUserManagement}/>
             </Link>

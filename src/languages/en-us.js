@@ -158,8 +158,14 @@ window.languageResource = {
   'validation-birthday': 'This field must be a valid birthday.',
   'validation-countryCode': 'This field must be a valid country code.',
 
+  // /
+  'Device Status': 'Status',
+
+  // /members
+  Database: 'Database',
+
   // /events
-  'Recognition result': 'Status',
+  'Recognition Result': 'Status',
 
   // /license
   'Enable Status': 'Status'

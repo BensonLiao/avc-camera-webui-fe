@@ -97,7 +97,7 @@ module.exports = class LoginLock extends Base {
                     ) : (
                       <Once>
                         <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-4">
-                          {_('Log in again')}
+                          {_('Login Again')}
                         </Link>
                       </Once>
                     )

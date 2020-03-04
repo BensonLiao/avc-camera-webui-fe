@@ -132,7 +132,7 @@ module.exports = class MotionDetection extends Base {
               <li className="breadcrumb-item active">
                 <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
               </li>
-              <li className="breadcrumb-item">{_('Motion detection')}</li>
+              <li className="breadcrumb-item">{_('Motion Detection')}</li>
             </ol>
           </nav>
         </div>
@@ -157,10 +157,10 @@ module.exports = class MotionDetection extends Base {
 
         <div className="col-5 pl-24">
           <div className="card shadow">
-            <div className="card-header">{_('Motion detection recognition')}</div>
+            <div className="card-header">{_('Motion Detection Recognition')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Recognition function')}</label>
+                <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-motion-detection"/>
                   <label className="custom-control-label" htmlFor="switch-motion-detection">

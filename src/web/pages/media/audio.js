@@ -89,7 +89,7 @@ module.exports = class Audio extends Base {
               <div className="col-12 px-0">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item">{_('Audio Settings')}</li>
+                    <li className="breadcrumb-item">{_('Audio')}</li>
                   </ol>
                 </nav>
               </div>

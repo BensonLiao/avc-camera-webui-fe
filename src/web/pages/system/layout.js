@@ -33,18 +33,18 @@ module.exports = class System extends Base {
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-notification-menu">
               <a href="#" data-toggle="collapse" data-target="#basic-settings"
-                title={_('System settings')}
+                title={_('System Settings')}
                 className={classNames(
                   'nav-link collapse show d-flex justify-content-between align-items-center',
                   {active: ['web.system.upgrade'].indexOf(currentRouteName) >= 0}
                 )}
               >
-                <span className="text-truncate">{_('System settings')}</span>
+                <span className="text-truncate">{_('System Settings')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-settings" className="collapse show" data-parent="#accordion-notification-menu">
-                <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.upgrade'})} to="/system/upgrade" title={_('Firmware upgrade')}>
-                  {_('Firmware upgrade')}
+                <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.upgrade'})} to="/system/upgrade" title={_('Firmware Upgrade')}>
+                  {_('Firmware Upgrade')}
                 </Link>
               </div>
             </div>
