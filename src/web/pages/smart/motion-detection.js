@@ -146,7 +146,7 @@ module.exports = class MotionDetection extends Base {
                 maskAreaStates[index].isVisible ?
                   <HotKeys key={index} keyMap={{DELETE: ['del', 'backspace']}} handlers={{DELETE: this.generateDeleteMaskAreaHandler(index)}}>
                     <Field rightBottomCornerRef={this.maskAreaRefs[index]} name={`areas.${index}`}
-                      component={MaskArea} text={_('Trigger area')}
+                      component={MaskArea} text={_('Detection Zone')}
                       className="border-green" parentElementId="md-video-wrapper"/>
                   </HotKeys> :
                   <div key={index}/>
@@ -183,11 +183,11 @@ module.exports = class MotionDetection extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex align-items-center">
-                  <label className="mb-0">{_('Trigger area')}</label>
+                  <label className="mb-0">{_('Detection Zone')}</label>
                   <i className="fas fa-info-circle text-size-14 text-primary pl-2"/>
                 </div>
                 <span className="text-size-16 text-primary">
-                  {_('You can set up to 4 trigger areas.')}
+                  {_('Up to 4 detection zones')}
                 </span>
               </div>
 

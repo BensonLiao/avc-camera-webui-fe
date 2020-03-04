@@ -426,7 +426,7 @@ window.languageResource = {
 
   // /smart/motion-detection
   'Motion detection': '動作偵測',
-  'You can set up to 4 trigger areas.': '觸發區域最多可設置4個。',
+  'Up to 4 detection zones': '觸發區域最多可設置4個',
   'Motion detection recognition': '動作偵測辨識',
 
   // /members
