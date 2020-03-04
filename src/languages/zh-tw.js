@@ -392,11 +392,11 @@ window.languageResource = {
   Encryption: '加密',
 
   // /notification/cards
-  'Notification Filter': '通知篩選',
-  'Sticky Items': '置頂項目',
-  'Other Items': '其他項目',
-  'Notification Time': '通知時間',
-  'Notification Condition': '通知條件',
+  'Notification filter': '通知篩選',
+  Pinned: '置頂項目',
+  Others: '其他項目',
+  'Notification time': '通知時間',
+  'Notification condition': '通知條件',
   Condition: '條件',
   'Notification Object': '通知對象',
   'All Groups': '所有群組',

@@ -3,10 +3,10 @@ const filesToCache = [
   '/',
   ...process.env.NODE_ENV === 'development' ?
     [
-      '//localhost:8002/web.css',
-      '//localhost:8002/web.js',
-      '//localhost:8002/en-us.js',
-      '//localhost:8002/zh-tw.js'
+      'http://localhost:8002/web.css',
+      'http://localhost:8002/web.js',
+      'http://localhost:8002/en-us.js',
+      'http://localhost:8002/zh-tw.js'
     ] :
     [
       '/assets/web.css',

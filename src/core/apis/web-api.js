@@ -175,6 +175,30 @@ module.exports = {
       url: '/api/system/network'
     }),
     /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - port {string}
+     * - certificateType {string}
+     */
+    getHttpsSettings: () => api({
+      method: 'get',
+      url: '/api/system/https'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {string} port
+     * @param {string} certificateType
+     * @param {string} certificate
+     * @param {string} privateKey
+     * @returns {Promise<response>}
+     */
+    updateHttpsSettings: ({isEnable, port, certificateType, certificate, privateKey}) => api({
+      method: 'put',
+      url: '/api/system/https',
+      data: {isEnable, port, certificateType, certificate, privateKey}
+    }),
+    /**
      * @param {String} deviceName
      * @returns {Promise<response>}
      * @response 200 {Object}

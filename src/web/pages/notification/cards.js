@@ -7,7 +7,7 @@ const ContentEditable = require('react-contenteditable').default;
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
-const outputIcon = require('../../../resource/output.svg');
+const outputIcon = require('../../../resource/icon-output-40px.svg');
 const Base = require('../shared/base');
 const DatePicker = require('../../../core/components/fields/date-picker');
 const _ = require('../../../languages');
@@ -243,7 +243,7 @@ module.exports = class Cards extends Base {
           <div className="d-flex align-content-center">
             <button
               disabled={$isApiProcessing || values.id == null} type="button"
-              className="btn btn-star rounded-pill text-secondary"
+              className="btn btn-star rounded-pill btn-secondary"
               onClick={this.generateToggleTopHandler(values.id)}
             >
               <i className="fas fa-bell fa-fw fa-lg"/>
@@ -530,7 +530,7 @@ module.exports = class Cards extends Base {
           <div className="title text-truncate">
             <button
               disabled={$isApiProcessing} type="button"
-              className={classNames('btn btn-star rounded-pill', {'text-secondary': !card.isTop})}
+              className={classNames('btn btn-star rounded-pill', {'btn-secondary': !card.isTop})}
               onClick={this.generateToggleTopHandler(card.id)}
             >
               <i className="fas fa-bell fa-fw fa-lg"/>
@@ -636,7 +636,7 @@ module.exports = class Cards extends Base {
               {
                 topCards.length > 0 && (
                   <>
-                    <h3 className="mb-2">{_('Sticky Items')}</h3>
+                    <h3 className="mb-2">{_('Pinned')}</h3>
                     <hr className="my-1"/>
                     <div className="card-container">
                       {topCards.map(this.cardRender)}
@@ -645,7 +645,7 @@ module.exports = class Cards extends Base {
                 )
               }
 
-              <h3 className="mb-2">{_('Other Items')}</h3>
+              <h3 className="mb-2">{_('Others')}</h3>
               <hr className="my-1"/>
 
               <div className="card-container mb-4">

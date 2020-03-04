@@ -376,6 +376,31 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.network',
+      uri: '/network',
+      onEnter: () => {
+        document.title = `${_('Network')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-network" */
+        './pages/network/layout'
+      )
+    },
+    {
+      name: 'web.network.https',
+      uri: '/https',
+      onEnter: () => {
+        document.title = `${_('Network')} - ${_title}`;
+      },
+      resolve: {
+        httpsSettings: () => api.system.getHttpsSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-network" */
+        './pages/network/https'
+      )
+    },
+    {
       name: 'web.system',
       uri: '/system',
       onEnter: () => {

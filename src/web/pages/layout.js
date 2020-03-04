@@ -148,7 +148,7 @@ module.exports = class Layout extends Base {
       ),
       network: classNames(
         'btn d-flex justify-content-center align-items-center',
-        {active: this.state.currentRouteName === 'web.network'}
+        {active: this.state.currentRouteName.indexOf('web.network') === 0}
       ),
       system: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -204,7 +204,7 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Network')} {...tooltipOptions}>
-            <Link className={classTable.network} to="/network">
+            <Link className={classTable.network} to="/network/https">
               <img src={iconNetwork}/>
             </Link>
           </Tooltip>
