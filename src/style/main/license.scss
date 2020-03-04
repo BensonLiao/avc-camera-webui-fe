@@ -1,16 +1,20 @@
 .page-license {
   padding: 48px 33px;
   min-width: 1000px;
+  &.page-bottom {
+    // 32px equals padding-bottom pixel minus boostrap's default border width
+    padding-bottom: calc(32px + #{$license-status-top-offset} + #{$license-status-height});
+  }
 
   .status {
     position: absolute;
-    top: -215px;
+    top: #{$license-status-top-offset};
 
     > div {
       position: relative;
       border-radius: 24px;
-      width: 272px;
-      height: 272px;
+      width: #{$license-status-height};
+      height: #{$license-status-height};
       margin: 0 24px 0 24px;
       padding: 32px 16px 16px 16px;
 
@@ -37,6 +41,6 @@
   }
 
   .table.custom-style {
-    margin-top: 130px;
+    margin-top: 103px;
   }
 }

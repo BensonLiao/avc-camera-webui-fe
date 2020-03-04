@@ -212,7 +212,7 @@ module.exports = class Home extends Base {
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{_('Video properties')}</div>
+        <div className="card-header">{_('Quick Start')}</div>
         <div className="card-body">
           <div className="form-row">
             <div className="col-12 my-1 d-flex justify-content-between align-items-center">
@@ -275,14 +275,14 @@ module.exports = class Home extends Base {
                 className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
                 onClick={this.generateClickAutoFocusButtonHandler(form)}
               >
-                {_('Auto focus')}
+                {_('Auto Focus')}
               </button>
             </h2>
 
             <div id="focus" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Focal length')}</label>
+                  <label>{_('Focal Length')}</label>
                   <span className="text-primary text-size-14">{values.focalLength}</span>
                 </div>
                 <Field disabled={this.state.isAutoFocusProcessing}
@@ -292,7 +292,7 @@ module.exports = class Home extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>ZOOM</label>
+                  <label>Zoom</label>
                   <span className="text-primary text-size-14">{values.zoom}</span>
                 </div>
                 <Field disabled={this.state.isAutoFocusProcessing}
@@ -310,7 +310,7 @@ module.exports = class Home extends Base {
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler(form)}
           >
-            {_('Reset to defaults')}
+            {_('Reset to Defaults')}
           </button>
         </div>
       </Form>
@@ -322,9 +322,6 @@ module.exports = class Home extends Base {
       <Form className="form-group">
         <Field name="deviceName" type="text"
           className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
-        <small className="form-text text-muted">
-          {_('Please enter letters between 1 and 32.')}
-        </small>
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
     );
@@ -396,10 +393,10 @@ module.exports = class Home extends Base {
                   <table>
                     <thead>
                       <tr>
-                        <th>{_('Device name')}</th>
-                        <th>{_('Smart functions')}</th>
-                        <th>{_('Device status')}</th>
-                        <th>{_('SD card')}</th>
+                        <th>{_('Device Name')}</th>
+                        <th>{_('Analytic')}</th>
+                        <th>{_('Device Status')}</th>
+                        <th>{_('SD Card')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -414,20 +411,30 @@ module.exports = class Home extends Base {
                           </Formik>
                         </td>
                         <td className="align-top">
-                          <span>{_('Face recognition: ')}</span>
-                          <span className={classTable.faceRecognitionState}>
-                            {_(`${systemInformation.isEnableFaceRecognition ? 'ON' : 'OFF'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Age gender: ')}</span>
-                          <span className={classTable.ageGenderState}>
-                            {_(`${systemInformation.isEnableAgeGender ? 'ON' : 'OFF'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Humanoid detection: ')}</span>
-                          <span className={classTable.humanoidDetectionState}>
-                            {_(`${systemInformation.isEnableHumanoidDetection ? 'ON' : 'OFF'}`)}
-                          </span>
+                          {systemInformation.isEnableFaceRecognition && (
+                            <div>
+                              <span>{_('Facial Recognition: ')}</span>
+                              <span className={classTable.faceRecognitionState}>
+                                {_(`${systemInformation.isEnableFaceRecognition ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
+                          {systemInformation.isEnableAgeGender && (
+                            <div>
+                              <span>{_('Age Gender: ')}</span>
+                              <span className={classTable.ageGenderState}>
+                                {_(`${systemInformation.isEnableAgeGender ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
+                          {systemInformation.isEnableHumanoidDetection && (
+                            <div>
+                              <span>{_('Human Detection: ')}</span>
+                              <span className={classTable.humanoidDetectionState}>
+                                {_(`${systemInformation.isEnableHumanoidDetection ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
                         </td>
                         <td className="align-top">
                           <span className="badge badge-pill badge-success">{_('Green')}</span>

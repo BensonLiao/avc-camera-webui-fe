@@ -80,6 +80,11 @@ module.exports = {
       networkSettings: {
         mac: '00-1a-07-18-c5-58'
       },
+      httpsSettings: {
+        isEnable: true,
+        port: '443',
+        certificateType: '0'
+      },
       streamDefault: {
         channelA: {
           format: StreamFormat.h264,
@@ -152,7 +157,8 @@ module.exports = {
         isEnable: true,
         fontSize: '1',
         color: '0',
-        position: '1'
+        position: '1',
+        type: '0'
       },
       faceRecognitionSettings: {
         isEnable: true,

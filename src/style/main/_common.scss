@@ -376,10 +376,13 @@ body {
 
 .table.custom-style {
   margin-bottom: 0;
-  thead > tr {
+  thead {
+    text-transform: uppercase;
+    > tr {
     border-radius: 8px;
-    > th {
-      border: none;
+      > th {
+        border: none;
+      }
     }
   }
   tbody > tr {

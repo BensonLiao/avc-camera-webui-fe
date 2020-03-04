@@ -21,7 +21,7 @@
 .form-group {
   margin-bottom: 24px;
   label {
-    color: #666666;
+    color: $info;
     font-weight: bold;
     font-size: 20px;
   }
@@ -332,12 +332,15 @@ $switch-input-color-checked: $success;
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: $secondary-400 !important;
   opacity: 1 !important; /* Firefox */
+  text-transform: capitalize;
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
   color: $secondary-400 !important;
+  text-transform: capitalize;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: $secondary-400 !important;
+  text-transform: capitalize;
 }

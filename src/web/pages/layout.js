@@ -141,16 +141,18 @@ module.exports = class Layout extends Base {
           active: [
             'web.smart',
             'web.smart.face-recognition',
-            'web.smart.motion-detection'
+            'web.smart.motion-detection',
+            'web.smart.license'
           ].indexOf(this.state.currentRouteName) >= 0
         }
       ),
       network: classNames(
         'btn d-flex justify-content-center align-items-center',
-        {active: this.state.currentRouteName === 'web.network'}
+        {active: this.state.currentRouteName.indexOf('web.network') === 0}
       ),
       system: classNames(
-        'btn d-flex justify-content-center align-items-center'
+        'btn d-flex justify-content-center align-items-center',
+        {active: this.state.currentRouteName.indexOf('web.system') === 0}
       ),
       sdCard: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -186,28 +188,28 @@ module.exports = class Layout extends Base {
               <img src={iconAudio}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('Notification settings')} {...tooltipOptions}>
+          <Tooltip title={_('Notification Settings')} {...tooltipOptions}>
             <Link className={classTable.notification} to="/notification/smtp">
               <img src={iconNotification}/>
             </Link>
           </Tooltip>
-          <Tooltip title={_('User management')} {...tooltipOptions}>
+          <Tooltip title={_('User Management')} {...tooltipOptions}>
             <Link className={classTable.users} to="/users/members">
               <img src={iconUserManagement}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('Analytic')} {...tooltipOptions}>
-            <Link className={classTable.smart} to="/smart/face-recognition">
+            <Link className={classTable.smart} to="/analytic/face-recognition">
               <img src={iconAnalytic}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('Network')} {...tooltipOptions}>
-            <Link className={classTable.network} to="/network">
+            <Link className={classTable.network} to="/network/https">
               <img src={iconNetwork}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('System')} {...tooltipOptions}>
-            <Link className={classTable.system} to="/system/date.html">
+            <Link className={classTable.system} to="/system/upgrade">
               <img src={iconSystem}/>
             </Link>
           </Tooltip>
@@ -240,10 +242,7 @@ module.exports = class Layout extends Base {
                     <i className="fas fa-question-circle text-primary text-size-20" style={{width: '20px', marginRight: '4px'}}/>
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    <h5 className="dropdown-header text-primary">Support</h5>
-                    <a className="dropdown-item" href="https://www.arecontvision.com/resource" target="_blank" rel="noopener noreferrer">
-                      {_('Resources')}
-                    </a>
+                    <h5 className="dropdown-header text-primary"> {_('Support')}</h5>
                     <a className="dropdown-item" href="https://arecontvision.zendesk.com/hc/en-us" target="_blank" rel="noopener noreferrer">
                       {_('Online Support Request')}
                     </a>
@@ -253,14 +252,17 @@ module.exports = class Layout extends Base {
                     <a className="dropdown-item" href="https://sales.arecontvision.com/software.php" target="_blank" rel="noopener noreferrer">
                       {_('Software Downloads')}
                     </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/bulletins/Technical" target="_blank" rel="noopener noreferrer">
-                      {_('Technical Updates')}
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/downloads.php" target="_blank" rel="noopener noreferrer">
+                      {_('Downloads')}
                     </a>
                     <a className="dropdown-item" href="https://sales.arecontvision.com/productselector.php" target="_blank" rel="noopener noreferrer">
                       {_('Product Selector')}
                     </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/downloads.php" target="_blank" rel="noopener noreferrer">
-                      {_('Downloads')}
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/bulletins/Technical" target="_blank" rel="noopener noreferrer">
+                      {_('Technical Updates')}
+                    </a>
+                    <a className="dropdown-item" href="https://www.arecontvision.com/resource" target="_blank" rel="noopener noreferrer">
+                      {_('Resources')}
                     </a>
                   </div>
                 </div>
@@ -278,7 +280,7 @@ module.exports = class Layout extends Base {
                     <span className="dropdown-item-text font-weight-bold">{this.state.$user.account}</span>
                     <div className="dropdown-divider"/>
                     <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>
-                      {_('Sign out')}
+                      {_('Sign Out')}
                     </a>
                   </div>
                 </div>

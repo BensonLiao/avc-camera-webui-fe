@@ -194,6 +194,18 @@ exports.convertPicture = (imgSrc, zoomRate, pictureRotateDegrees) => new Promise
 });
 
 /**
+ * Check if the object is empty, not available for some primitive type object like `Number` or `Boolean`.
+ * e.g. `isObjectEmpty({}) = true`
+ * e.g. `isObjectEmpty([]) = true`
+ * e.g. `isObjectEmpty('') = true`
+ * @param {Object} obj - The object.
+ * @returns {Boolean} - Is the object `obj` empty or not.
+ */
+exports.isObjectEmpty = obj => {
+  return !obj || Object.keys(obj).length === 0;
+};
+
+/**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
  * @param {Object} req XHR request instance, or if we use library like axios then `req` is the axios request config and contains things like `url`.
  * @see https://github.com/axios/axios#request-config
