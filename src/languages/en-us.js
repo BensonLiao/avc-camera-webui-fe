@@ -89,8 +89,8 @@ window.languageResource = {
   'confidence-level-2': 'High',
 
   // 聲音品質
-  'audio-quality-0': 'Low (G.711, 8kHz, 64kbps, Mono)',
-  'audio-quality-1': 'Normal (AAC, 16kHz, 96kbps, Mono)',
+  'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
+  'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
 
   // 文字大小
   'font-size-0': 'Small',

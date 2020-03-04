@@ -91,8 +91,8 @@ window.languageResource = {
   'confidence-level-2': '高',
 
   // 聲音品質
-  'audio-quality-0': '低 (G.711, 8kHz, 64kbps, Mono)',
-  'audio-quality-1': '一般 (AAC, 16kHz, 96kbps, Mono)',
+  'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
+  'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
 
   // 文字大小
   'font-size-0': '小',
@@ -336,9 +336,9 @@ window.languageResource = {
   'Multimedia streaming': '多媒體串流',
   'Audio settings': '聲音設定',
   'Audio quality': '聲音品質',
-  'Audio input source': '聲音輸入來源',
-  'Built-in microphone': '內建式麥克風',
-  'Sound output': '聲音輸出',
+  'Input source': '聲音輸入來源',
+  'Internal Microphone': '內建式麥克風',
+  'Audio Out': '聲音輸出',
 
   // /media/rtsp
   'Record sound to stream': '將聲音記錄至串流',
