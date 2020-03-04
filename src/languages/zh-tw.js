@@ -400,8 +400,8 @@ window.languageResource = {
 
   // /notification/cards
   'Notification filter': '通知篩選',
-  'Sticky items': '置頂項目',
-  'Other items': '其他項目',
+  Pinned: '置頂項目',
+  Others: '其他項目',
   'Notification time': '通知時間',
   'Notification condition': '通知條件',
   Condition: '條件',
