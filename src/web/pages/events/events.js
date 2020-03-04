@@ -524,7 +524,7 @@ module.exports = class Events extends Base {
               <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
-                    <th style={{width: '16%'}}>
+                    <th style={{width: '14%'}}>
                       <a href="#time" onClick={sort.time.handler}>{_('Time')}</a>
                       <i className={sort.time.icon}/>
                     </th>
@@ -538,7 +538,7 @@ module.exports = class Events extends Base {
                       <a href="#" onClick={sort.group.handler}>{_('Group')}</a>
                       <i className={sort.group.icon}/>
                     </th>
-                    <th style={{width: '8%'}}>
+                    <th style={{width: '14%'}}>
                       <a href="#" onClick={sort.organization.handler}>{_('Organization')}</a>
                       <i className={sort.organization.icon}/>
                     </th>
@@ -550,8 +550,8 @@ module.exports = class Events extends Base {
                       <a href="#" onClick={sort.recognitionResult.handler}>{_('Recognition Result')}</a>
                       <i className={sort.recognitionResult.icon}/>
                     </th>
-                    <th style={{width: '12%'}}>{_('Note')}</th>
-                    <th style={{width: '8%'}}>{_('Actions')}</th>
+                    <th style={{width: '10%'}}>{_('Note')}</th>
+                    <th style={{width: '6%'}}>{_('Actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
