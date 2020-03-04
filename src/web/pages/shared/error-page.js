@@ -33,7 +33,7 @@ module.exports = class ErrorPage extends React.Component {
     const classTable = {
       page: classNames('error-page', `error-${this.state.status}`)
     };
-    const messageTitle = this.state.status === 404 ? _('Not found this page') : _('The server error');
+    const messageTitle = this.state.status === 404 ? _('Not found this page') : _('The Server Error');
     const messageSubtitle = this.state.status === 404 ?
       _('Please click the button to go back to home!') :
       _('Sorry for your inconvenience, we are actively process with it!');
@@ -49,7 +49,7 @@ module.exports = class ErrorPage extends React.Component {
               <img src={imageOops}/> <span className="message-title">{messageTitle}</span>
               <p className="message-subtitle">{messageSubtitle}</p>
               <a className="btn btn-primary text-light rounded-pill" href="/">
-                {_('Go to home')} <i className="fas fa-arrow-right fa-fw"/>
+                {_('Go to Home')} <i className="fas fa-arrow-right fa-fw"/>
               </a>
             </div>
             <div className="col-12 text-center icons mb-5">

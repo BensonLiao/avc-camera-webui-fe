@@ -99,6 +99,7 @@ nav.navbar.fixed-top {
       justify-content: space-between;
       align-items: center;
       height: 2rem !important;
+      text-transform: uppercase;
       h3 {
         padding-left: 0;
         margin: 0;
@@ -145,6 +146,7 @@ nav.navbar.fixed-top {
       margin-bottom: 16px;
       border-bottom: 1px #ccc solid;
       color: inherit;
+      text-transform: uppercase;
       a {
         color: inherit;
       }

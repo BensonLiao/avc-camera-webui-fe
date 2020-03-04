@@ -52,9 +52,9 @@ module.exports = class Word extends Base {
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
-                <Link to="/media/stream">{_('Multimedia settings')}</Link>
+                <Link to="/media/stream">{_('Multimedia Settings')}</Link>
               </li>
-              <li className="breadcrumb-item">{_('Text stickers')}</li>
+              <li className="breadcrumb-item">{_('OSD')}</li>
             </ol>
           </nav>
         </div>
@@ -103,7 +103,7 @@ module.exports = class Word extends Base {
 
         <div className="col-4 pl-24">
           <div className="card shadow">
-            <div className="card-header">{_('Text stickers')}</div>
+            <div className="card-header">{_('OSD')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('Function')}</label>
@@ -133,7 +133,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Word color')}</label>
+                <label className="mb-0">{_('Word Color')}</label>
                 <div>
                   <button type="button" className="border btn-black"
                     onClick={() => setFieldValue('color', WordColor.black)}
@@ -148,7 +148,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group">
-                <label>{_('Text overlay')}</label>
+                <label>{_('Text Overlay')}</label>
                 <div className="select-wrapper border rounded-pill overflow-hidden">
                   <Field
                     name="type"
@@ -167,7 +167,7 @@ module.exports = class Word extends Base {
                 <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
               </div>
               <div className="form-group">
-                <label>{_('Word position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
+                <label>{_('Word Position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
                 <p className="text-primary">{_('Please click position buttons.')}</p>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">

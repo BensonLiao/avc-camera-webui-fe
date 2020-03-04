@@ -7,6 +7,7 @@ module.exports = validator.compile({
     ...UserSchema.password,
     isNeedLowerCase: false,
     isNeedUpperCase: false,
-    isNeedNumber: false
+    isNeedNumber: false,
+    isAbortSpecialCharacters: false
   }
 });

@@ -32,13 +32,13 @@ module.exports = class Security extends Base {
         <div className="left-menu fixed-top">
           <h2>{_('Security')}</h2>
           <nav className="nav flex-column">
-            <Link to="/security/account" title={_('Account settings')}
+            <Link to="/security/account" title={_('Account Settings')}
               className={classNames(
                 'nav-link',
                 {active: ['web.users.account', 'web.users.account.details', 'web.users.account.new-user'].indexOf(this.state.currentRouteName) >= 0}
               )}
             >
-              {_('Account settings')}
+              {_('Account Settings')}
             </Link>
             <Link to="/security/https" title="HTTPS"
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.security.https'})}

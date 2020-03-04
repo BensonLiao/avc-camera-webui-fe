@@ -172,11 +172,11 @@ module.exports = class SMTP extends Base {
     return (
       <Form className="card shadow">
         <div className="card-header">
-          {_('SMTP server')}
+          {_('Smtp Server')}
         </div>
         <div className="card-body">
           <div className="form-group">
-            <label>{_('IP address')}</label>
+            <label>{_('Ip Address')}</label>
             <Field autoFocus name="host" type="text"
               className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
               placeholder={_('Please enter your IP address.')}/>
@@ -188,7 +188,7 @@ module.exports = class SMTP extends Base {
           </div>
           <div className="form-group d-flex justify-content-between align-items-center">
             <div>
-              <label className="mb-0">{_('SMTP account settings')}</label>
+              <label className="mb-0">{_('Smtp Account Settings')}</label>
               <br/>
               <a href="#" onClick={this.onClickAccountSettingsButton}>
                 {_('Edit account and password')}
@@ -203,7 +203,7 @@ module.exports = class SMTP extends Base {
             </div>
           </div>
           <div className="form-group d-flex justify-content-between align-items-center">
-            <label>{_('Login notification')}</label>
+            <label>{_('Login Notification')}</label>
             <div className="custom-control custom-switch">
               <Field name="isEnableLoginNotification" checked={values.isEnableLoginNotification} type="checkbox" className="custom-control-input" id="switch-login-notification"/>
               <label className="custom-control-label" htmlFor="switch-login-notification">
@@ -272,10 +272,10 @@ module.exports = class SMTP extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Notification settings')}</Link>
+                      <Link to="/notification/smtp">{_('Notification Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Basic settings')}</Link>
+                      <Link to="/notification/smtp">{_('Basic Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('Mail')}</li>
                   </ol>

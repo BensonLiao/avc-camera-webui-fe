@@ -52,23 +52,23 @@ module.exports = class Upgrade extends Base {
     return (
       <Form className="card-body">
         <div className="form-group">
-          <label className="mb-0">{_('Import file')}</label>
+          <label className="mb-0">{_('Import File')}</label>
           <small className="form-text text-muted my-2">
-            {_('※ Just support .zip file')}
+            {_('Only .Zip File Supported')}
           </small>
           <div>
             <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
-              <input disabled={$isApiProcessing} type="file" className="d-none" accept=".zip" onChange={this.onChangeFile}/>{_('Select file')}
+              <input disabled={$isApiProcessing} type="file" className="d-none" accept=".zip" onChange={this.onChangeFile}/>{_('Select File')}
             </label>
             {
               file ?
                 <span className="text-size-14 text-muted ml-3">{_(file.name)}</span> :
-                <span className="text-size-14 text-muted ml-3">{_('No files selected')}</span>
+                <span className="text-size-14 text-muted ml-3">{_('No Files Selected')}</span>
             }
           </div>
         </div>
         <button disabled={$isApiProcessing || !file} className="btn btn-primary btn-block rounded-pill" type="submit">
-          {_('Firmware upgrade')}
+          {_('Firmware Upgrade')}
         </button>
       </Form>
     );
@@ -84,16 +84,16 @@ module.exports = class Upgrade extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/system/upgrade">{_('System settings')}</Link>
+                      <Link to="/system/upgrade">{_('System Settings')}</Link>
                     </li>
-                    <li className="breadcrumb-item">{_('Firmware upgrade')}</li>
+                    <li className="breadcrumb-item">{_('Firmware Upgrade')}</li>
                   </ol>
                 </nav>
               </div>
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Firmware upgrade')}</div>
+                  <div className="card-header">{_('Firmware Upgrade')}</div>
                   <Formik initialValues={{}} onSubmit={this.onSubmitForm}>
                     {this.formRender}
                   </Formik>

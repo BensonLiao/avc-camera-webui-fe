@@ -102,7 +102,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Frame rate')}</label>
+          <label>{_('Frame Rate (FPS)')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
               name={`${fieldNamePrefix}.frameRate`}
@@ -118,7 +118,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Bandwidth management')}</label>
+          <label>{_('Bandwidth Management')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
               name={`${fieldNamePrefix}.bandwidthManagement`}
@@ -134,7 +134,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('VBR bitrate level')}</label>
+          <label>{_('VBR Bitrate Level')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
               name={`${fieldNamePrefix}.vbrBitRateLevel`}
@@ -150,7 +150,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('VBR max bitrate')}</label>
+          <label>{_('VBR Max Bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
               name={`${fieldNamePrefix}.vbrMaxBitRate`}
@@ -166,7 +166,7 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('CBR bitrate')}</label>
+          <label>{_('CBR Bitrate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
               name={`${fieldNamePrefix}.cbrBitRate`}
@@ -330,7 +330,7 @@ module.exports = class Stream extends Base {
           disabled={this.state.$isApiProcessing}
           onClick={this.onClickResetButton}
         >
-          {_('Reset to defaults')}
+          {_('Reset to Defaults')}
         </button>
       </Form>
     );
@@ -348,9 +348,9 @@ module.exports = class Stream extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/media/stream">{_('Multimedia settings')}</Link>
+                      <Link to="/media/stream">{_('Video')}</Link>
                     </li>
-                    <li className="breadcrumb-item">{_('Stream settings')}</li>
+                    <li className="breadcrumb-item">{_('Stream Settings')}</li>
                   </ol>
                 </nav>
               </div>
