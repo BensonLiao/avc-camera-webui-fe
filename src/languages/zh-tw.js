@@ -278,7 +278,7 @@ window.languageResource = {
   'Facial Recognition: ': '臉部辨識 : ',
   'Age Gender: ': '性別年齡 : ',
   'Human Detection: ': '人形偵測 : ',
-  Normal: '正常',
+  Green: '正常',
   'Free: {0}, Total: {1}': '{0} 可用 (共 {1})',
   Defog: '除霧',
   'IR Control': '紅外線燈',
