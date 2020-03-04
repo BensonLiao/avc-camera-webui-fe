@@ -54,7 +54,7 @@ module.exports = class Upgrade extends Base {
         <div className="form-group">
           <label className="mb-0">{_('Import file')}</label>
           <small className="form-text text-muted my-2">
-            {_('※ Just support .zip file')}
+            {_('Only .Zip File Supported')}
           </small>
           <div>
             <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">

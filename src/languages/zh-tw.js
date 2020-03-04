@@ -515,7 +515,7 @@ window.languageResource = {
   'System settings': '系統設定',
   'Firmware upgrade': '韌體升級',
   'Import file': '匯入設定檔',
-  '※ Just support .zip file': '※ 僅支援 .zip 檔案',
+  'Only .Zip File Supported': '僅支援 .zip 檔案',
   'Select file': '選擇檔案',
   'No files selected': '未選任何檔案',
 
