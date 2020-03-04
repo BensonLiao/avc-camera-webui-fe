@@ -237,7 +237,7 @@ module.exports = class Home extends Base {
                 className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
                 onClick={this.generateClickAutoFocusButtonHandler(form)}
               >
-                {_('Auto focus')}
+                {_('Auto Focus')}
               </button>
             </div>
           </div>
@@ -248,7 +248,7 @@ module.exports = class Home extends Base {
             <div className="col-12 my-1 d-flex justify-content-between align-items-center">
               <div className="form-group w-100 mb-0">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label className="text-size-16 mb-0 text-left">ZOOM</label>
+                  <label className="text-size-16 mb-0 text-left">Zoom</label>
                   <span className="text-primary text-size-14">{values.zoom}</span>
                 </div>
                 <Field disabled={this.state.isAutoFocusProcessing}
@@ -437,7 +437,7 @@ module.exports = class Home extends Base {
                           )}
                         </td>
                         <td className="align-top">
-                          <span className="badge badge-pill badge-success">{_('Green')}</span>
+                          <span className="badge badge-pill badge-success">{_('Normal')}</span>
                         </td>
                         <td className="align-top">
                           <div className="progress">
