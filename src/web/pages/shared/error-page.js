@@ -1,8 +1,8 @@
 const classNames = require('classnames');
 const React = require('react');
 const PropTypes = require('prop-types');
-const imageCode404 = require('../../../resource/error-404-code.svg');
-const imageCode500 = require('../../../resource/error-500-code.svg');
+const imageCode404 = require('../../../resource/icon-error-404.svg');
+const imageCode500 = require('../../../resource/icon-error-500.svg');
 const _ = require('../../../languages');
 
 module.exports = class ErrorPage extends React.Component {
@@ -33,14 +33,15 @@ module.exports = class ErrorPage extends React.Component {
       <div className={classTable.page}>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-6 text-right">
+            <div className="col-12 justify-content-center text-center mt-5">
               <img src={this.state.status === 404 ? imageCode404 : imageCode500}/>
-            </div>
-            <div className="col-6 message-container">
-              <span className="message-title">{messageTitle}</span>
-              <a className="btn btn-primary text-light rounded-pill" href="/">
-                {_('Back to Home')} <i className="fas fa-arrow-right fa-fw"/>
-              </a>
+              <div className="message-container mt-5">
+                <h2 className="message-status mb-0">{this.state.status}</h2>
+                <h3 className="message-title">{messageTitle}</h3>
+                <a className="btn btn-primary text-light rounded-pill mt-5" href="/">
+                  {_('Back to Home')}
+                </a>
+              </div>
             </div>
           </div>
         </div>
