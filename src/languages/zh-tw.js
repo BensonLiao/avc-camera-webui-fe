@@ -345,6 +345,7 @@ window.languageResource = {
   Function: '功能',
   Word: '文字',
   Size: '大小',
+  Position: '位置',
   'Word Position': '貼圖顯示位置',
   'Please click position buttons.': '請於左方畫面點選貼圖顯示位置。',
 
