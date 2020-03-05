@@ -69,7 +69,7 @@ module.exports = class RTSP extends Base {
           <span className="form-text text-muted">1024 - 65535</span>
         </div>
         <div className="form-group">
-          <label>{_('RTSP/TCP Port')}</label>
+          <label>{_('RTSP/UDP Port')}</label>
           <Field name="udpPort" type="text"
             className={classNames('form-control', {'is-invalid': errors.udpPort && touched.udpPort})} placeholder="17300"/>
           {
