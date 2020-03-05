@@ -359,9 +359,9 @@ window.languageResource = {
   'Please enter your device token.': '請輸入您的金鑰',
   'Device Id': '裝置編碼',
   'Please enter your device id.': '請輸入您的編碼',
-  'Notification interval(second)': '通知時間間隔 (秒)',
-  'Please enter your notification interval.': '請輸入通知時間',
-  '5 - 1,800 seconds': '5 - 1800 秒',
+  'Notification Interval (Seconds)': '通知時間間隔 (秒)',
+  'Enter your notification interval': '請輸入通知時間',
+  '5 - 1,800 Seconds': '5 - 1800 秒',
 
   // /notification/io
   'I/O Input': '硬體輸入',
@@ -378,15 +378,15 @@ window.languageResource = {
   'Delay time (seconds)': '延後間格時間 (秒)',
 
   // /notification/smtp
-  'Smtp Server': 'SMTP 伺服器',
-  'Ip Address': 'IP 位址',
-  'Please enter your IP address.': '請輸入您的 IP 位址',
-  'Smtp Account Settings': '電子郵件登入認證',
+  'SMTP Server': 'SMTP 伺服器',
+  'IP Address': 'IP 位址',
+  'Enter your IP address': '請輸入您的 IP 位址',
+  'SMTP Account Settings': '電子郵件登入認證',
   'Edit account and password': '編輯帳號密碼',
   'Login Notification': '登入通知信',
   Sender: '寄件人顯示',
   Email: '電子郵件',
-  'Please enter your email.': '請輸入您的電子郵件',
+  'Enter your email': '請輸入您的電子郵件',
   'Email and login settings': '電子郵件登入認證設定',
   Port: '埠',
   Encryption: '加密',
