@@ -343,7 +343,6 @@ window.languageResource = {
 
   // /media/word
   Function: '功能',
-  'Word Color': '文字顏色',
   Word: '文字',
   Size: '大小',
   'Word Position': '貼圖顯示位置',

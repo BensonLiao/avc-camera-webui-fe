@@ -52,7 +52,7 @@ module.exports = class Word extends Base {
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
-                <Link to="/media/stream">{_('Multimedia Settings')}</Link>
+                <Link to="/media/stream">{_('Video')}</Link>
               </li>
               <li className="breadcrumb-item">{_('OSD')}</li>
             </ol>
@@ -106,7 +106,7 @@ module.exports = class Word extends Base {
             <div className="card-header">{_('OSD')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Function')}</label>
+                <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">
@@ -117,7 +117,7 @@ module.exports = class Word extends Base {
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">
-                  <span style={{whiteSpace: 'nowrap'}}>{_('Word')}</span><span style={{whiteSpace: 'nowrap'}}>{_('Size')}</span>
+                  <span style={{whiteSpace: 'nowrap'}}>{_('Size')}</span>
                 </label>
                 <div className="btn-group">
                   {
@@ -133,7 +133,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Word Color')}</label>
+                <label className="mb-0">{_('Color')}</label>
                 <div>
                   <button type="button" className="border btn-black"
                     onClick={() => setFieldValue('color', WordColor.black)}
