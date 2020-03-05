@@ -5,9 +5,9 @@ window.languageResource = {
   'permission-0': 'Admin',
   'permission-1': 'Viewer',
 
-  'certificate-type-0': 'AndroVideo self-signed',
-  'certificate-type-1': 'Upload certificate',
-  'certificate-type-2': 'Generate certificate on this device',
+  'certificate-type-0': 'AndroVideo Self-signed',
+  'certificate-type-1': 'Upload Certificate',
+  'certificate-type-2': 'Generate Certificate on This Device',
 
   'confidence-1': 'Low',
   'confidence-2': 'Medium',
@@ -24,17 +24,46 @@ window.languageResource = {
   incandescent: 'Incandescent',
   manual: 'Nanual',
 
+  // Shutter speed
+  'shutter-speed-0': 'Auto',
+  'shutter-speed-1': '1/30',
+  'shutter-speed-2': '1/50',
+  'shutter-speed-3': '1/60',
+  'shutter-speed-4': '1/100',
+  'shutter-speed-5': '1/125',
+  'shutter-speed-6': '1/500',
+  'shutter-speed-7': '1/1,000',
+  'shutter-speed-8': '1/2,000',
+  'shutter-speed-9': '1/4,000',
+  'shutter-speed-10': '1/8,000',
+
+  // Aperture (Iris)
+  'aperture-0': 'Auto',
+  'aperture-1': 'Max',
+
+  // White balance
+  'white-balance-0': 'Auto',
+  'white-balance-1': 'Outdoor',
+  'white-balance-2': 'Fluorescent',
+  'white-balance-3': 'Incandescent',
+  'white-balance-4': 'Manual',
+
   // D/N
-  'dn-auto': 'Auto',
-  'dn-day': 'Color',
-  'dn-night': 'Black and white',
-  'dn-manual': 'Manual',
+  'daynight-mode-0': 'Auto',
+  'daynight-mode-1': 'Color',
+  'daynight-mode-2': 'Black and White',
+  'daynight-mode-3': 'Manual',
 
   // Orientation
-  'orientation-off': 'Normal',
-  'orientation-flip-v': 'Vertical flip',
-  'orientation-flip-h': 'Horizontal flip',
-  'orientation-flip-vh': '180 degree flip',
+  'orientation-0': 'Normal',
+  'orientation-1': 'Vertical Flip',
+  'orientation-2': 'Horizontal Flip',
+  'orientation-3': '180 Degree Flip',
+
+  // Refresh rate
+  'refresh-rate-0': 'Auto',
+  'refresh-rate-1': '50Hz',
+  'refresh-rate-2': '60Hz',
 
   // 解析度
   'stream-resolution-0': '3840*2160(16:9)',
@@ -60,18 +89,24 @@ window.languageResource = {
   'confidence-level-2': 'High',
 
   // 聲音品質
-  'audio-quality-0': 'Low (G.711, 8kHz, 64kbps, Mono)',
-  'audio-quality-1': 'Normal (AAC, 16kHz, 96kbps, Mono)',
+  'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
+  'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
 
   // 文字大小
   'font-size-0': 'Small',
   'font-size-1': 'Medium',
   'font-size-2': 'Large',
 
+  // 文字貼圖
+  'word-type-0': 'Time',
+  'word-type-1': 'Camera Name',
+  'word-type-2': 'Camera Name and Time',
+  'word-type-3': 'Custom',
+
   // 通知類型
-  'notification-card-0': 'Face recognition',
-  'notification-card-1': 'Age gender',
-  'notification-card-2': 'Humanoid detection',
+  'notification-card-0': 'Face Recognition',
+  'notification-card-1': 'Age Gender',
+  'notification-card-2': 'Humanoid Detection',
 
   // 辨識通知條件
   'face-recognition-condition-0': 'Always',
@@ -79,7 +114,7 @@ window.languageResource = {
   'face-recognition-condition-2': 'Unknown',
 
   // 通知附件檔案
-  'email-attachment-type-0': 'Face thumbnail',
+  'email-attachment-type-0': 'Face Thumbnail',
   'email-attachment-type-1': 'Screenshot',
   'email-attachment-type-2': 'None',
 
@@ -123,6 +158,15 @@ window.languageResource = {
   'validation-birthday': 'This field must be a valid birthday.',
   'validation-countryCode': 'This field must be a valid country code.',
 
-  // /set/language
-  'SETUP-Account': 'Account'
+  // /
+  'Device Status': 'Status',
+
+  // /members
+  Database: 'Database',
+
+  // /events
+  'Recognition Result': 'Status',
+
+  // /license
+  'Enable Status': 'Status'
 };

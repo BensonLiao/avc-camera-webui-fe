@@ -85,7 +85,7 @@ module.exports = class Group extends Base {
     return (
       <Form>
         <div className="modal-header">
-          <h5 className="modal-title">{group ? _('Modify group') : _('Create a group')}</h5>
+          <h5 className="modal-title">{group ? _('Modify Group') : _('Create a Group')}</h5>
         </div>
         <div className="modal-body">
           <div className="form-group">

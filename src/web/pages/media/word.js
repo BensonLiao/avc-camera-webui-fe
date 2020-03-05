@@ -7,6 +7,8 @@ const {Formik, Form, Field} = require('formik');
 const WordFontSize = require('webserver-form-schema/constants/word-font-size');
 const WordColor = require('webserver-form-schema/constants/word-color');
 const WordPosition = require('webserver-form-schema/constants/word-position');
+const WordType = require('webserver-form-schema/constants/word-type');
+const WordSettingsSchema = require('webserver-form-schema/word-settings-schema');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
@@ -19,7 +21,9 @@ module.exports = class Word extends Base {
         isEnable: PropTypes.bool.isRequired,
         fontSize: PropTypes.oneOf(WordFontSize.all()).isRequired,
         color: PropTypes.oneOf(WordColor.all()).isRequired,
-        position: PropTypes.oneOf(WordPosition.all()).isRequired
+        position: PropTypes.oneOf(WordPosition.all()).isRequired,
+        type: PropTypes.oneOf(WordType.all()).isRequired,
+        customText: PropTypes.string
       }).isRequired
     };
   }
@@ -48,9 +52,9 @@ module.exports = class Word extends Base {
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
-                <Link to="/media/stream">{_('Multimedia settings')}</Link>
+                <Link to="/media/stream">{_('Video')}</Link>
               </li>
-              <li className="breadcrumb-item">{_('Text stickers')}</li>
+              <li className="breadcrumb-item">{_('OSD')}</li>
             </ol>
           </nav>
         </div>
@@ -99,10 +103,10 @@ module.exports = class Word extends Base {
 
         <div className="col-4 pl-24">
           <div className="card shadow">
-            <div className="card-header">{_('Text stickers')}</div>
+            <div className="card-header">{_('OSD')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Function')}</label>
+                <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">
@@ -112,9 +116,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">
-                  <span style={{whiteSpace: 'nowrap'}}>{_('Word')}</span><span style={{whiteSpace: 'nowrap'}}>{_('Size')}</span>
-                </label>
+                <label className="mb-0">{_('Size')}</label>
                 <div className="btn-group">
                   {
                     WordFontSize.all().map(size => (
@@ -132,7 +134,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Word color')}</label>
+                <label className="mb-0">{_('Color')}</label>
                 <div>
                   <button type="button" className="border btn-black"
                     onClick={() => setFieldValue('color', WordColor.black)}
@@ -146,9 +148,28 @@ module.exports = class Word extends Base {
                   </button>
                 </div>
               </div>
+              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
+                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
+              </div>
               <div className="form-group">
-                <label>{_('Word position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
+                <label>{_('Position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
                 <p className="text-primary">{_('Please click position buttons.')}</p>
+              </div>
+              <div className="form-group">
+                <label>{_('Text Overlay')}</label>
+                <div className="select-wrapper border rounded-pill overflow-hidden">
+                  <Field
+                    name="type"
+                    component="select"
+                    className="form-control border-0"
+                  >
+                    {
+                      WordType.all().map(type => (
+                        <option key={type} value={type}>{_(`word-type-${type}`)}</option>
+                      ))
+                    }
+                  </Field>
+                </div>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
@@ -164,6 +185,7 @@ module.exports = class Word extends Base {
   render() {
     const {wordSettings} = this.props;
 
+    wordSettings.customText = wordSettings.customText || '';
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">

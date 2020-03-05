@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {getRouter} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
@@ -10,20 +10,17 @@ const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
 const utils = require('../../../core/utils');
 const iconFaceRecognitionEnable =
-  require('../../../resource/face-recognition-enable.svg');
+  require('../../../resource/face-recognition-enable-100px.svg');
 const iconFaceRecognitionDisable =
-  require('../../../resource/face-recognition-disable.svg');
+  require('../../../resource/face-recognition-disable-100px.svg');
 const iconAgeGenderEnable =
-  require('../../../resource/age-gender-enable.svg');
+  require('../../../resource/age-gender-enable-100px.svg');
 const iconAgeGenderDisable =
-  require('../../../resource/age-gender-disable.svg');
+  require('../../../resource/age-gender-disable-100px.svg');
 const iconHumanoidDetectionEnable =
-  require('../../../resource/humanoid-detection-enable.svg');
+  require('../../../resource/human-detection-enable-100px.svg');
 const iconHumanoidDetectionDisable =
-  require('../../../resource/humanoid-detection-disable.svg');
-
-const ACTIVATED = _('Activated');
-const NOT_ACTIVATED = _('Not activated');
+  require('../../../resource/human-detection-disable-100px.svg');
 
 module.exports = class License extends Base {
   static get propTypes() {
@@ -61,20 +58,20 @@ module.exports = class License extends Base {
     api.authKey.addAuthKey(authKey)
       .then(response => {
         utils.showSuccessNotification(
-          _('Activated successfully'),
+          _('Activated Successfully'),
           _('{0} authorized successfully!', [
             (() => {
               const result = [];
               if (response.data.isEnableFaceRecognition) {
-                result.push(_('Face recognition'));
+                result.push(_('Facial Recognition'));
               }
 
               if (response.data.isEnableAgeGender) {
-                result.push(_('Age gender'));
+                result.push(_('Age Gender'));
               }
 
               if (response.data.isEnableHumanoidDetection) {
-                result.push(_('Humanoid detection'));
+                result.push(_('Human Detection'));
               }
 
               return result.join(', ');
@@ -85,7 +82,7 @@ module.exports = class License extends Base {
       })
       .catch(() => {
         progress.done();
-        utils.showErrorNotification(_('Activation failed'), _('Authorization failed!'));
+        utils.showErrorNotification(_('Activation Failed'), _('Authorization failed!'));
       });
   };
 
@@ -101,7 +98,7 @@ module.exports = class License extends Base {
               className={classNames('form-control', {'is-invalid': errors.authKey && isSubmitted})}
               name="authKey"
               type="text"
-              placeholder={_('Please enter the authentication key.')}
+              placeholder={_('Enter your authentication key')}
               style={{width: '312px'}}
             />
           </div>
@@ -122,10 +119,20 @@ module.exports = class License extends Base {
   render() {
     const {systemInformation, authKeys} = this.props;
     return (
-      <div className="main-content bg-white">
+      <div className="bg-white">
         <div className="page-license bg-gray" style={{height: '522px'}}>
           <div className="container-fluid">
             <div className="row">
+              <div className="col-12">
+                <nav>
+                  <ol className="breadcrumb rounded-pill">
+                    <li className="breadcrumb-item active">
+                      <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
+                    </li>
+                    <li className="breadcrumb-item">{_('License')}</li>
+                  </ol>
+                </nav>
+              </div>
               <div className="col-12">
                 <h3 className="mb-4">{_('License')}</h3>
                 <Formik initialValues={{authKey: ''}}
@@ -139,7 +146,7 @@ module.exports = class License extends Base {
           </div>
         </div>
 
-        <div className="page-license pt-0">
+        <div className="page-license pt-0 page-bottom">
           <div className="container-fluid">
             <div className="row">
               <div className="col-12">
@@ -160,7 +167,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      {_('Face recognition')}
+                      {_('Facial Recognition')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -176,7 +183,8 @@ module.exports = class License extends Base {
                           systemInformation.isEnableFaceRecognition ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableFaceRecognition ? ACTIVATED : NOT_ACTIVATED}
+                        )}/>
+                        {systemInformation.isEnableFaceRecognition ? _('Activated') : _('Inactivated')}
                       </span>
                     </div>
                   </div>
@@ -197,7 +205,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      {_('Age gender')}
+                      {_('Age Gender')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -213,7 +221,8 @@ module.exports = class License extends Base {
                           systemInformation.isEnableAgeGender ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableAgeGender ? ACTIVATED : NOT_ACTIVATED}
+                        )}/>
+                        {systemInformation.isEnableAgeGender ? _('Activated') : _('Inactivated')}
                       </span>
                     </div>
                   </div>
@@ -234,7 +243,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      {_('Humanoid detection')}
+                      {_('Human Detection')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -250,7 +259,8 @@ module.exports = class License extends Base {
                           systemInformation.isEnableHumanoidDetection ?
                             'fa-check-circle' :
                             'fa-minus-circle'
-                        )}/>{systemInformation.isEnableHumanoidDetection ? ACTIVATED : NOT_ACTIVATED}
+                        )}/>
+                        {systemInformation.isEnableHumanoidDetection ? _('Activated') : _('Inactivated')}
                       </span>
                     </div>
                   </div>
@@ -263,7 +273,7 @@ module.exports = class License extends Base {
                       <th>{_('Time')}</th>
                       <th>{_('Activate User')}</th>
                       <th>{_('Authentication Key')}</th>
-                      <th>{_('Enabled Functions')}</th>
+                      <th>{_('Activate Functions')}</th>
                       <th>{_('Enable Status')}</th>
                     </tr>
                   </thead>
@@ -285,17 +295,17 @@ module.exports = class License extends Base {
                         <td>
                           {authKey.isEnableFaceRecognition && (
                             <span className="badge badge-primary badge-pill">
-                              {_('Face recognition')}
+                              {_('Facial Recognition')}
                             </span>
                           )}
                           {authKey.isEnableAgeGender && (
                             <span className="badge badge-primary badge-pill ml-1">
-                              {_('Age gender')}
+                              {_('Age Gender')}
                             </span>
                           )}
                           {authKey.isEnableHumanoidDetection && (
                             <span className="badge badge-primary badge-pill ml-1">
-                              {_('Humanoid detection')}
+                              {_('Human Detection')}
                             </span>
                           )}
                         </td>

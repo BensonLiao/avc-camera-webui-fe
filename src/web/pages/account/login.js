@@ -15,11 +15,6 @@ const logo = require('../../../resource/logo-avn-secondary.svg');
 const logoWithTitle = require('../../../resource/logo-avn-title.svg');
 
 module.exports = class Login extends Base {
-  constructor(props) {
-    super(props);
-    this.state.isIncorrectPassword = null;
-  }
-
   redirectPage = () => {
     const redirectUri = Cookies.get(window.config.cookies.redirect);
     if (redirectUri && /^\/.*/.test(redirectUri)) {
@@ -39,14 +34,13 @@ module.exports = class Login extends Base {
    */
   onSubmitLoginForm = values => {
     progress.start();
-    this.setState({isIncorrectPassword: false});
     api.account.login(values)
       .then(this.redirectPage)
       .catch(error => {
         if (error.response) {
           if (error.response.status === 429) {
             if (
-              error.response.data && error.response.data.extra && error.response.data.extra &&
+              error.response.data && error.response.data.extra &&
               error.response.data.extra.loginLockExpiredTime
             ) {
               getRouter().go({
@@ -58,12 +52,18 @@ module.exports = class Login extends Base {
           }
 
           if (error.response.status === 400) {
-            progress.done();
-            this.setState({
-              isIncorrectPassword: true,
-              loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1
-            });
-            return;
+            if (
+              error.response.data && error.response.data.extra &&
+              error.response.data.extra.loginFailedRemainingTimes >= 0
+            ) {
+              getRouter().go({
+                name: 'login-error',
+                params: {
+                  loginFailedRemainingTimes: error.response.data.extra.loginFailedRemainingTimes
+                }
+              });
+              return;
+            }
           }
         }
 
@@ -72,22 +72,20 @@ module.exports = class Login extends Base {
       });
   }
 
-  loginFormRender = ({errors, touched, submitCount}) => {
-    const isSubmitted = submitCount > 0;
-
+  loginFormRender = ({errors, touched}) => {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
           <h3 className="card-title text-primary">{_('ACCOUNT LOGIN')}</h3>
-          <div className="card-sub-title text-muted">
-            {_('Please enter your username and password')}
+          <div className="card-sub-title text-info">
+            {_('Enter your username and password')}
           </div>
           <div className="form-group">
             <label>{_('Username')}</label>
             <Field name="account" type="text"
               maxLength={UserSchema.account.max}
               placeholder={_('Eenter your username')}
-              className={classNames('form-control', {'is-invalid': errors.account && touched.account && isSubmitted})}/>
+              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
             {
               errors.account && touched.account && (
                 <div className="invalid-feedback">{errors.account}</div>
@@ -98,7 +96,7 @@ module.exports = class Login extends Base {
             <label>{_('Password')}</label>
             <Field name="password" component={Password} inputProps={{
               placeholder: _('Eenter your password'),
-              className: classNames('form-control', {'is-invalid': (errors.password && isSubmitted) || this.state.isIncorrectPassword})
+              className: classNames('form-control', {'is-invalid': errors.password})
             }}/>
             {
               errors.password && touched.password && (
@@ -106,8 +104,17 @@ module.exports = class Login extends Base {
               )
             }
           </div>
-          <div className="text-primary text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call Arecont Vision Technical Support at +1.818.937.0700 and select option #1')}</div>
-          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+          <h6 className="text-right text-primary font-weight-bold" style={{height: '24px'}}>
+            <a
+              href="https://arecontvision.zendesk.com/hc/en-us/articles/360018682854-Password-Reset"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {_('Password Reset')}
+            </a>
+          </h6>
+          <div className="text-dark text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call AV Costar Technical Support at +1.818.937.0700 and select option #1')}</div>
+          <button disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             {_('Login')}
           </button>
         </div>

@@ -7,7 +7,7 @@ const ContentEditable = require('react-contenteditable').default;
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
-const outputIcon = require('../../../resource/output.svg');
+const outputIcon = require('../../../resource/icon-output-40px.svg');
 const Base = require('../shared/base');
 const DatePicker = require('../../../core/components/fields/date-picker');
 const _ = require('../../../languages');
@@ -243,7 +243,7 @@ module.exports = class Cards extends Base {
           <div className="d-flex align-content-center">
             <button
               disabled={$isApiProcessing || values.id == null} type="button"
-              className="btn btn-star rounded-pill text-secondary"
+              className="btn btn-star rounded-pill btn-secondary"
               onClick={this.generateToggleTopHandler(values.id)}
             >
               <i className="fas fa-bell fa-fw fa-lg"/>
@@ -259,15 +259,15 @@ module.exports = class Cards extends Base {
           </div>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="type" component="select" className="form-control border-0">
-              <option value={NotificationCardType.faceRecognition}>{_('Face recognition')}</option>
+              <option value={NotificationCardType.faceRecognition}>{_('Face Recognition')}</option>
             </Field>
           </div>
         </div>
         <nav>
           <div className="nav nav-tabs">
-            <a className="nav-item nav-link active" data-toggle="tab" href="#tab-notification-time">{_('Notification time')}</a>
-            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Notification condition')}</a>
-            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-target">{_('Notification object')}</a>
+            <a className="nav-item nav-link active" data-toggle="tab" href="#tab-notification-time">{_('Notification Time')}</a>
+            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Notification Condition')}</a>
+            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-target">{_('Notification Object')}</a>
           </div>
         </nav>
         <div className="modal-body tab-content">
@@ -289,14 +289,14 @@ module.exports = class Cards extends Base {
                   <Field
                     name="$start"
                     component={DatePicker}
-                    dateTabText={_('Start date')}
-                    timeTabText={_('Start time')}
+                    dateTabText={_('Start Date')}
+                    timeTabText={_('Start Time')}
                     inputProps={{
                       className: classNames(
                         'btn start-date px-4',
                         {active: isShowStartDatePicker}
                       ),
-                      placeholder: _('Start datetime'),
+                      placeholder: _('Start Datetime'),
                       style: {whiteSpace: 'nowrap'}
                     }}
                     endDateFieldName="$end"
@@ -307,14 +307,14 @@ module.exports = class Cards extends Base {
                   <Field
                     name="$end"
                     component={DatePicker}
-                    dateTabText={_('End date')}
-                    timeTabText={_('End time')}
+                    dateTabText={_('End Date')}
+                    timeTabText={_('End Time')}
                     inputProps={{
                       className: classNames(
                         'btn end-date px-4',
                         {active: isShowEndDatePicker}
                       ),
-                      placeholder: _('End datetime'),
+                      placeholder: _('End Datetime'),
                       style: {whiteSpace: 'nowrap'}
                     }}
                     startDateFieldName="$start"
@@ -379,7 +379,7 @@ module.exports = class Cards extends Base {
               <div className="select-wrapper border rounded-pill overflow-hidden d-flex align-items-center">
                 <i className="far fa-folder fa-sm"/>
                 <Field name="$groups" component="select" className="form-control border-0">
-                  <option value="">{_('All groups')}</option>
+                  <option value="">{_('All Groups')}</option>
                   {
                     groups.items.map(group => (
                       <option key={group.id} value={group.id}>{group.name}</option>
@@ -444,7 +444,7 @@ module.exports = class Cards extends Base {
               <div className="card">
                 <div className="card-body">
                   <div className="form-group">
-                    <label className="text-size-16 mb-0">{_('Email attachment')}</label>
+                    <label className="text-size-16 mb-0">{_('Email Attachment')}</label>
                   </div>
                   <div className="form-group">
                     {
@@ -530,7 +530,7 @@ module.exports = class Cards extends Base {
           <div className="title text-truncate">
             <button
               disabled={$isApiProcessing} type="button"
-              className={classNames('btn btn-star rounded-pill', {'text-secondary': !card.isTop})}
+              className={classNames('btn btn-star rounded-pill', {'btn-secondary': !card.isTop})}
               onClick={this.generateToggleTopHandler(card.id)}
             >
               <i className="fas fa-bell fa-fw fa-lg"/>
@@ -623,8 +623,8 @@ module.exports = class Cards extends Base {
           <div className="page-notification pt-0 pb-0">
             <div className="container-fluid">
               <div className="filter d-flex align-items-center text-nowrap mb-0">
-                <label className="mb-0">{_('Notification filter')}</label>
-                <button className="btn btn-primary rounded-pill shadow-sm ml-4" type="button">{_('Face recognition')}</button>
+                <label className="mb-0">{_('Notification Filter')}</label>
+                <button className="btn btn-primary rounded-pill shadow-sm ml-4" type="button">{_('Face Recognition')}</button>
               </div>
             </div>
           </div>
@@ -636,7 +636,7 @@ module.exports = class Cards extends Base {
               {
                 topCards.length > 0 && (
                   <>
-                    <h3 className="mb-2">{_('Sticky items')}</h3>
+                    <h3 className="mb-2">{_('Pinned')}</h3>
                     <hr className="my-1"/>
                     <div className="card-container">
                       {topCards.map(this.cardRender)}
@@ -645,7 +645,7 @@ module.exports = class Cards extends Base {
                 )
               }
 
-              <h3 className="mb-2">{_('Other items')}</h3>
+              <h3 className="mb-2">{_('Others')}</h3>
               <hr className="my-1"/>
 
               <div className="card-container mb-4">

@@ -36,7 +36,7 @@ module.exports = class Audio extends Base {
     return (
       <Form className="card-body">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{_('Audio')}</label>
+          <label className="mb-0">{_('Audio In')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnableInput" checked={values.isEnableInput} type="checkbox" className="custom-control-input" id="switch-sound"/>
             <label className="custom-control-label" htmlFor="switch-sound">
@@ -46,27 +46,23 @@ module.exports = class Audio extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Audio quality')}</label>
+          <label>{_('Audio Quality')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="inputQuality" component="select" className="form-control border-0">
-              {
-                AudioInputQuality.all().map(quality => (
-                  <option key={quality} value={quality}>{_(`audio-quality-${quality}`)}</option>
-                ))
-              }
+              <option value={AudioInputQuality.low}>{_(`audio-quality-${AudioInputQuality.low}`)}</option>
             </Field>
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Audio input source')}</label>
+          <label>{_('Input Source')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="inputSource" component="select" className="form-control border-0">
-              <option value={AudioInputSource.lineIn}>{_('Built-in microphone')}</option>
+              <option value={AudioInputSource.lineIn}>{_('Internal Microphone')}</option>
             </Field>
           </div>
         </div>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{_('Sound output')}</label>
+          <label className="mb-0">{_('Audio Out')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnableOutput" checked={values.isEnableOutput} type="checkbox" className="custom-control-input" id="switch-output"/>
             <label className="custom-control-label" htmlFor="switch-output">
@@ -93,14 +89,14 @@ module.exports = class Audio extends Base {
               <div className="col-12 px-0">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item">{_('Audio settings')}</li>
+                    <li className="breadcrumb-item">{_('Audio')}</li>
                   </ol>
                 </nav>
               </div>
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Audio settings')}</div>
+                  <div className="card-header">{_('Audio Settings')}</div>
                   <Formik
                     initialValues={audioSettings}
                     onSubmit={this.onSubmitAudioSettingsForm}

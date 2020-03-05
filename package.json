@@ -1,6 +1,6 @@
 {
   "name": "webserver-frontend",
-  "version": "0.0.0",
+  "version": "0.2.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -76,7 +76,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#d2656c527f1b933a32cdcb0149a7dd4e3406788b"
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#9fc0484c05bad9a994b56127f0e19e0824ec42b1",
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",

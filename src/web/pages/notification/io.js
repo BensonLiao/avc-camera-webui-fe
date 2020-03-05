@@ -52,7 +52,7 @@ module.exports = class IO extends Base {
     return (
       <Form className="tab-pane fade" id={`tab-output-${index + 1}`}>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label>{_('I/O output {0}', [index + 1])}</label>
+          <label>{_('I/O Output {0}', [index + 1])}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
             <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
@@ -62,20 +62,20 @@ module.exports = class IO extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('I/O type')}</label>
+          <label>{_('I/O Type')}</label>
           <div className="d-flex align-items-center">
             <div className="form-check">
               <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-open`} value={IOType.normallyOpen}/>
-              <label className="form-check-label" htmlFor={`input-output${index}-normally-open`}>{_('Normally open')}</label>
+              <label className="form-check-label" htmlFor={`input-output${index}-normally-open`}>{_('Normally Open')}</label>
             </div>
             <div className="form-check ml-5">
               <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-closed`} value={IOType.normallyClosed}/>
-              <label className="form-check-label" htmlFor={`input-output${index}-normally-closed`}>{_('Normally closed')}</label>
+              <label className="form-check-label" htmlFor={`input-output${index}-normally-closed`}>{_('Normally Closed')}</label>
             </div>
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Gate type')}</label>
+          <label>{_('Gate Type')}</label>
           <div className="d-flex align-items-center">
             <div className="form-check">
               <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-normal`} value={GateType.normal}/>
@@ -88,28 +88,28 @@ module.exports = class IO extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Signal buffer time (seconds)')}</label>
+          <label>{_('Signal Buffer Time (Seconds)')}</label>
           <Field name="pulse" type="text"
             className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
-            placeholder={_('Please enter seconds.')}/>
+            placeholder={_('Enter seconds')}/>
           {
             errors.pulse && touched.pulse && (
               <div className="invalid-feedback">{errors.pulse}</div>
             )
           }
-          <small className="form-text text-muted">{_('1 - 80 seconds')}</small>
+          <small className="form-text text-muted">{_('1 - 80 Seconds')}</small>
         </div>
         <div className="form-group">
-          <label>{_('Delay time (seconds)')}</label>
+          <label>{_('Delay Time (Seconds)')}</label>
           <Field name="delay" type="text"
             className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
-            placeholder={_('Please enter seconds.')}/>
+            placeholder={_('Enter seconds')}/>
           {
             errors.delay && touched.delay && (
               <div className="invalid-feedback">{errors.delay}</div>
             )
           }
-          <small className="form-text text-muted">{_('5 - 1,800 seconds')}</small>
+          <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
         </div>
         <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
           {_('Apply')}
@@ -134,7 +134,7 @@ module.exports = class IO extends Base {
     return (
       <Form className="tab-pane fade show active" id="tab-input">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label>{_('I/O input')}</label>
+          <label>{_('I/O Input')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-input"/>
             <label className="custom-control-label" htmlFor="switch-input">
@@ -144,18 +144,18 @@ module.exports = class IO extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('I/O type')}</label>
+          <label>{_('I/O Type')}</label>
           <div className="d-flex align-items-center">
             <div className="form-check">
               <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-open" value={IOType.normallyOpen}/>
               <label className="form-check-label" htmlFor="input-input-normally-open">
-                {_('Normally open')}
+                {_('Normally Open')}
               </label>
             </div>
             <div className="form-check ml-5">
               <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-closed" value={IOType.normallyClosed}/>
               <label className="form-check-label" htmlFor="input-input-normally-closed">
-                {_('Normally closed')}
+                {_('Normally Closed')}
               </label>
             </div>
           </div>
@@ -179,10 +179,10 @@ module.exports = class IO extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Notification settings')}</Link>
+                      <Link to="/notification/smtp">{_('Notification Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Basic settings')}</Link>
+                      <Link to="/notification/smtp">{_('Basic Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('I/O')}</li>
                   </ol>
@@ -194,9 +194,9 @@ module.exports = class IO extends Base {
                   <div className="card-header">{_('I/O')}</div>
                   <nav>
                     <div className="nav nav-tabs">
-                      <a className="nav-item nav-link active" data-toggle="tab" href="#tab-input">{_('I/O input')}</a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-1">{_('I/O output {0}', [1])}</a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-2">{_('I/O output {0}', [2])}</a>
+                      <a className="nav-item nav-link active" data-toggle="tab" href="#tab-input">{_('I/O Input')}</a>
+                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-1">{_('I/O Output {0}', [1])}</a>
+                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-2">{_('I/O Output {0}', [2])}</a>
                     </div>
                   </nav>
                   <div className="card-body tab-content">

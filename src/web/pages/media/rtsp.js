@@ -47,7 +47,7 @@ module.exports = class RTSP extends Base {
           </div>
         </div>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{_('Required authentication')}</label>
+          <label className="mb-0">{_('Required Authentication')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnablePassword" checked={values.isEnablePassword} type="checkbox" className="custom-control-input" id="switch-auth"/>
             <label className="custom-control-label" htmlFor="switch-auth">
@@ -57,7 +57,7 @@ module.exports = class RTSP extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('RTSP/TCP port')}</label>
+          <label>{_('RTSP/TCP Port')}</label>
           <Field autoFocus name="tcpPort" type="text"
             placeholder="8554"
             className={classNames('form-control', {'is-invalid': errors.tcpPort && touched.tcpPort})}/>
@@ -69,7 +69,7 @@ module.exports = class RTSP extends Base {
           <span className="form-text text-muted">1024 - 65535</span>
         </div>
         <div className="form-group">
-          <label>{_('RTSP/UDP port')}</label>
+          <label>{_('RTSP/UDP Port')}</label>
           <Field name="udpPort" type="text"
             className={classNames('form-control', {'is-invalid': errors.udpPort && touched.udpPort})} placeholder="17300"/>
           {
@@ -80,7 +80,7 @@ module.exports = class RTSP extends Base {
           <span className="form-text text-muted">1024 - 65535</span>
         </div>
         <div className="form-group">
-          <label>{_('Concurrent connection limit')}</label>
+          <label>{_('Concurrent Connection Limit')}</label>
           <Field name="connectionLimit" type="text"
             className={classNames('form-control', {'is-invalid': errors.connectionLimit && touched.connectionLimit})} placeholder="8"/>
           {
@@ -109,7 +109,7 @@ module.exports = class RTSP extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/media/stream">{_('Multimedia settings')}</Link>
+                      <Link to="/media/stream">{_('Video')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('RTSP')}</li>
                   </ol>

@@ -160,7 +160,7 @@ module.exports = class Members extends Base {
     return (
       <Form className="form-row">
         <div className="col-auto">
-          <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
+          <Field name="keyword" className="form-control" type="text" placeholder={_('Enter keywords')}/>
         </div>
         <div className="col-auto">
           <button disabled={this.state.$isApiProcessing}
@@ -235,11 +235,11 @@ module.exports = class Members extends Base {
     return (
       <Form className="modal-content">
         <div className="modal-header">
-          <h5 className="modal-title">{_('Database encryption')}</h5>
+          <h5 className="modal-title">{_('Database Encryption')}</h5>
         </div>
         <div className="modal-body">
           <div className="form-group has-feedback">
-            <label>{_('Old password')}</label>
+            <label>{_('Old Password')}</label>
             <Field
               name="password"
               component={Password}
@@ -258,11 +258,11 @@ module.exports = class Members extends Base {
             }
           </div>
           <div className="form-group has-feedback">
-            <label>{_('New password')}</label>
+            <label>{_('New Password')}</label>
             <Field name="newPassword" component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
-                placeholder: _('Please enter your password.')
+                placeholder: _('Enter your password')
               }}/>
             {
               errors.newPassword && touched.newPassword && (
@@ -271,11 +271,11 @@ module.exports = class Members extends Base {
             }
           </div>
           <div className="form-group has-feedback">
-            <label>{_('Confirm password')}</label>
+            <label>{_('Confirm Password')}</label>
             <Field name="confirmPassword" component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                placeholder: _('Please confirm your password.')
+                placeholder: _('Confirm your password')
               }}/>
             {
               errors.confirmPassword && touched.confirmPassword && (
@@ -348,13 +348,13 @@ module.exports = class Members extends Base {
         <div className="left-menu fixed-top sub">
           <h2>{_('Members')}</h2>
           <nav className="nav flex-column">
-            <Link to="/users/members" title={_('All members')}
+            <Link to="/users/members" title={_('All Members')}
               className={classNames('nav-link text-size-16 py-1 px-3',
                 {active: !this.props.params.group},
                 {'bg-light': !this.props.params.group}
               )}
             >
-              <i className="fas fa-user-friends pl-2 pr-4"/>{_('All members')}
+              <i className="fas fa-user-friends pl-2 pr-4"/>{_('All Members')}
             </Link>
           </nav>
           <hr/>
@@ -396,7 +396,7 @@ module.exports = class Members extends Base {
 
             <hr/>
             <div className="sub-title py-2 px-4">
-              <h3>{_('Database file')}</h3>
+              <h3>{_('Database')}</h3>
               <button className="btn btn-link p-0" type="button" onClick={this.showDatabaseEncryptionModal}>
                 <img src={iconLock}/>
               </button>
@@ -461,7 +461,7 @@ module.exports = class Members extends Base {
                   <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                     <thead>
                       <tr className="shadow">
-                        <th className="text-center" style={{width: '20%'}}>{_('Register picture')}</th>
+                        <th className="text-center" style={{width: '20%'}}>{_('User Picture')}</th>
                         <th style={{width: '15%'}}>
                           <a href="#name" onClick={sort.name.handler}>{_('Name')}</a>
                           <i className={sort.name.icon}/>
@@ -490,9 +490,9 @@ module.exports = class Members extends Base {
                                   src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
                               </td>
                               <td className={tdClass}>{member.name}</td>
-                              <td className={tdClass}>{member.organization || _('None')}</td>
-                              <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('None')}</td>
-                              <td className={tdClass}>{member.note || _('None')}</td>
+                              <td className={tdClass}>{member.organization || _('N/A')}</td>
+                              <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
+                              <td className={tdClass}>{member.note || _('N/A')}</td>
                               <td className={classNames('text-left group-btn', tdClass)}>
                                 <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...this.props.params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
@@ -530,7 +530,7 @@ module.exports = class Members extends Base {
         >
           <form>
             <div className="modal-header">
-              <h5 className="modal-title">{_('Delete group')}</h5>
+              <h5 className="modal-title">{_('Delete Group')}</h5>
             </div>
             <div className="modal-body">
               <span className="text-muted en-us">
@@ -563,7 +563,7 @@ module.exports = class Members extends Base {
         >
           <form>
             <div className="modal-header">
-              <h5 className="modal-title">{_('Delete member')}</h5>
+              <h5 className="modal-title">{_('Delete Member')}</h5>
             </div>
             <div className="modal-body">
               <span className="text-muted">
