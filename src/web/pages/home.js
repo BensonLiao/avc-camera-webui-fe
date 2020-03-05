@@ -260,50 +260,6 @@ module.exports = class Home extends Base {
           </div>
         </div>
 
-        <div className="accordion" id="accordion-video-properties">
-          {/* 對焦 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2 className="d-flex justify-content-between">
-              <button type="button" data-toggle="collapse" data-target="#focus"
-                className="btn btn-link btn-block text-left collapsed"
-              >
-                <i className="fas fa-chevron-up"/>{_('Focus')}
-              </button>
-              <button
-                disabled={this.state.$isApiProcessing} type="button"
-                className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
-                onClick={this.generateClickAutoFocusButtonHandler(form)}
-              >
-                {_('Auto Focus')}
-              </button>
-            </h2>
-
-            <div id="focus" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Focal Length')}</label>
-                  <span className="text-primary text-size-14">{values.focalLength}</span>
-                </div>
-                <Field disabled={this.state.isAutoFocusProcessing}
-                  name="focalLength" component={Slider} step={1}
-                  min={videoFocusSettingsSchema.focalLength.min}
-                  max={videoFocusSettingsSchema.focalLength.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>Zoom</label>
-                  <span className="text-primary text-size-14">{values.zoom}</span>
-                </div>
-                <Field disabled={this.state.isAutoFocusProcessing}
-                  name="zoom" component={Slider} step={0.1}
-                  min={videoFocusSettingsSchema.zoom.min}
-                  max={videoFocusSettingsSchema.zoom.max}/>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <hr className="my-0"/>
         <div className="card-body pt-0 mt-5">
           <button disabled={this.state.$isApiProcessing} type="button"
