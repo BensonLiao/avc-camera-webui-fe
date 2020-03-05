@@ -375,7 +375,7 @@ window.languageResource = {
   'Signal Buffer Time (Seconds)': '訊號緩衝時間 (秒)',
   'Enter Seconds': '請輸入秒數',
   '1 - 80 Seconds': '1 - 80秒',
-  'Delay Time (Seconds)': '延後間格時間 (秒)',
+  'Delay Time (Seconds)': '延後間隔時間 (秒)',
 
   // /notification/smtp
   'SMTP Server': 'SMTP 伺服器',
