@@ -393,7 +393,12 @@ module.exports = class Home extends Base {
                           )}
                         </td>
                         <td className="align-top">
-                          <span className="badge badge-pill badge-success">{_('Normal')}</span>
+                          {systemInformation.deviceStatus === 0 && (
+                            <span className="badge badge-pill badge-danger">{_('Error')}</span>
+                          )}
+                          {systemInformation.deviceStatus === 1 && (
+                            <span className="badge badge-pill badge-success">{_('Normal')}</span>
+                          )}
                         </td>
                         <td className="align-top">
                           <div className="progress">

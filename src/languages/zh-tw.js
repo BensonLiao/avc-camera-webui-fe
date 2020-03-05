@@ -279,6 +279,7 @@ window.languageResource = {
   'Age Gender: ': '性別年齡 : ',
   'Human Detection: ': '人形偵測 : ',
   Green: '正常',
+  Error: '異常',
   'Free: {0}, Total: {1}': '{0} 可用 (共 {1})',
   Defog: '除霧',
   'IR Control': '紅外線燈',
