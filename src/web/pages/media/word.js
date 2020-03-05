@@ -52,7 +52,7 @@ module.exports = class Word extends Base {
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
-                <Link to="/media/stream">{_('Multimedia Settings')}</Link>
+                <Link to="/media/stream">{_('Video')}</Link>
               </li>
               <li className="breadcrumb-item">{_('OSD')}</li>
             </ol>
@@ -106,7 +106,7 @@ module.exports = class Word extends Base {
             <div className="card-header">{_('OSD')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Function')}</label>
+                <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">
@@ -116,9 +116,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">
-                  <span style={{whiteSpace: 'nowrap'}}>{_('Word')}</span><span style={{whiteSpace: 'nowrap'}}>{_('Size')}</span>
-                </label>
+                <label className="mb-0">{_('Size')}</label>
                 <div className="btn-group">
                   {
                     WordFontSize.all().map(size => (
@@ -133,7 +131,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Word Color')}</label>
+                <label className="mb-0">{_('Color')}</label>
                 <div>
                   <button type="button" className="border btn-black"
                     onClick={() => setFieldValue('color', WordColor.black)}
@@ -146,6 +144,13 @@ module.exports = class Word extends Base {
                     &nbsp;
                   </button>
                 </div>
+              </div>
+              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
+                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
+              </div>
+              <div className="form-group">
+                <label>{_('Position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
+                <p className="text-primary">{_('Please click position buttons.')}</p>
               </div>
               <div className="form-group">
                 <label>{_('Text Overlay')}</label>
@@ -162,13 +167,6 @@ module.exports = class Word extends Base {
                     }
                   </Field>
                 </div>
-              </div>
-              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
-                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
-              </div>
-              <div className="form-group">
-                <label>{_('Word Position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
-                <p className="text-primary">{_('Please click position buttons.')}</p>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}

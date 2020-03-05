@@ -107,7 +107,7 @@ module.exports = class HTTPS extends Base {
                 }
               </div>
               <div className="form-group">
-                <label>{_('Private key')}</label>
+                <label>{_('Private Key')}</label>
                 <Field name="privateKey" component="textarea" rows={5}
                   className={classNames('form-control', {'is-invalid': errors.privateKey && touched.privateKey})}/>
                 {

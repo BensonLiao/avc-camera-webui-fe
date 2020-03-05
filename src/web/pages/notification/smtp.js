@@ -93,7 +93,7 @@ module.exports = class SMTP extends Base {
             <label>{_('Account')}</label>
             <Field name="account" type="text"
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
-              placeholder={_('Please enter your account.')}/>
+              placeholder={_('Enter your account')}/>
             {
               errors.account && touched.account && (
                 <div className="invalid-feedback">{errors.account}</div>
@@ -105,7 +105,7 @@ module.exports = class SMTP extends Base {
             <Field name="password" component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.password && touched.password}),
-                placeholder: _('Please enter your password.')
+                placeholder: _('Enter your password')
               }}/>
             {
               errors.password && touched.password && (
@@ -172,14 +172,14 @@ module.exports = class SMTP extends Base {
     return (
       <Form className="card shadow">
         <div className="card-header">
-          {_('Smtp Server')}
+          {_('SMTP Server')}
         </div>
         <div className="card-body">
           <div className="form-group">
-            <label>{_('Ip Address')}</label>
+            <label>{_('IP Address')}</label>
             <Field autoFocus name="host" type="text"
               className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-              placeholder={_('Please enter your IP address.')}/>
+              placeholder={_('Enter your IP address')}/>
             {
               errors.host && touched.host && (
                 <div className="invalid-feedback">{errors.host}</div>
@@ -188,7 +188,7 @@ module.exports = class SMTP extends Base {
           </div>
           <div className="form-group d-flex justify-content-between align-items-center">
             <div>
-              <label className="mb-0">{_('Smtp Account Settings')}</label>
+              <label className="mb-0">{_('SMTP Account Settings')}</label>
               <br/>
               <a href="#" onClick={this.onClickAccountSettingsButton}>
                 {_('Edit account and password')}
@@ -221,7 +221,7 @@ module.exports = class SMTP extends Base {
             <label>{_('Name')}</label>
             <Field name="senderName" type="text"
               className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
-              placeholder={_('Please enter your name.')}/>
+              placeholder={_('Enter your name')}/>
             {
               errors.senderName && touched.senderName && (
                 <div className="invalid-feedback">{errors.senderName}</div>
@@ -232,7 +232,7 @@ module.exports = class SMTP extends Base {
             <label>{_('Email')}</label>
             <Field name="senderEmail" type="text"
               className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
-              placeholder={_('Please enter your email.')}/>
+              placeholder={_('Enter your email')}/>
             {
               errors.senderEmail && touched.senderEmail && (
                 <div className="invalid-feedback">{errors.senderEmail}</div>
@@ -240,16 +240,16 @@ module.exports = class SMTP extends Base {
             }
           </div>
           <div className="form-group">
-            <label>{_('Notification interval(second)')}</label>
+            <label>{_('Notification Interval (Seconds)')}</label>
             <Field name="interval" type="text"
               className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
-              placeholder={_('Please enter your notification interval.')}/>
+              placeholder={_('Enter your notification interval')}/>
             {
               errors.interval && touched.interval && (
                 <div className="invalid-feedback">{errors.interval}</div>
               )
             }
-            <small className="form-text text-muted">{_('5 - 1,800 seconds')}</small>
+            <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
           </div>
           <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             {_('Apply')}

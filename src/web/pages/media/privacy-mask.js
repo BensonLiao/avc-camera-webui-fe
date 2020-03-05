@@ -122,7 +122,7 @@ module.exports = class PrivacyMask extends Base {
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
-                <Link to="/media/stream">{_('Multimedia Settings')}</Link>
+                <Link to="/media/stream">{_('Video')}</Link>
               </li>
               <li className="breadcrumb-item">{_('Privacy Mask')}</li>
             </ol>
@@ -152,7 +152,7 @@ module.exports = class PrivacyMask extends Base {
             <div className="card-header">{_('Privacy Mask')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Function')}</label>
+                <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">

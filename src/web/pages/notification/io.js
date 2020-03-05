@@ -52,7 +52,7 @@ module.exports = class IO extends Base {
     return (
       <Form className="tab-pane fade" id={`tab-output-${index + 1}`}>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label>{_('I/O output {0}', [index + 1])}</label>
+          <label>{_('I/O Output {0}', [index + 1])}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
             <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
@@ -88,28 +88,28 @@ module.exports = class IO extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Signal buffer time (seconds)')}</label>
+          <label>{_('Signal Buffer Time (Seconds)')}</label>
           <Field name="pulse" type="text"
             className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
-            placeholder={_('Please enter seconds.')}/>
+            placeholder={_('Enter seconds')}/>
           {
             errors.pulse && touched.pulse && (
               <div className="invalid-feedback">{errors.pulse}</div>
             )
           }
-          <small className="form-text text-muted">{_('1 - 80 seconds')}</small>
+          <small className="form-text text-muted">{_('1 - 80 Seconds')}</small>
         </div>
         <div className="form-group">
-          <label>{_('Delay time (seconds)')}</label>
+          <label>{_('Delay Time (Seconds)')}</label>
           <Field name="delay" type="text"
             className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
-            placeholder={_('Please enter seconds.')}/>
+            placeholder={_('Enter seconds')}/>
           {
             errors.delay && touched.delay && (
               <div className="invalid-feedback">{errors.delay}</div>
             )
           }
-          <small className="form-text text-muted">{_('5 - 1,800 seconds')}</small>
+          <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
         </div>
         <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
           {_('Apply')}
@@ -195,8 +195,8 @@ module.exports = class IO extends Base {
                   <nav>
                     <div className="nav nav-tabs">
                       <a className="nav-item nav-link active" data-toggle="tab" href="#tab-input">{_('I/O Input')}</a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-1">{_('I/O output {0}', [1])}</a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-2">{_('I/O output {0}', [2])}</a>
+                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-1">{_('I/O Output {0}', [1])}</a>
+                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-2">{_('I/O Output {0}', [2])}</a>
                     </div>
                   </nav>
                   <div className="card-body tab-content">
