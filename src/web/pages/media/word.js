@@ -116,9 +116,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">
-                  <span style={{whiteSpace: 'nowrap'}}>{_('Size')}</span>
-                </label>
+                <label className="mb-0">{_('Size')}</label>
                 <div className="btn-group">
                   {
                     WordFontSize.all().map(size => (
