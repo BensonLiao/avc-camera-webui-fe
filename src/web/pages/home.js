@@ -218,7 +218,7 @@ module.exports = class Home extends Base {
             <div className="col-12 my-1 d-flex justify-content-between align-items-center">
               <span className="text-size-20">{_('WDR')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled} className="custom-control-input" id="switch-hdr-enabled"/>
+                <Field name="hdrEnabled" type="checkbox" checked={Boolean(values.hdrEnabled)} className="custom-control-input" id="switch-hdr-enabled"/>
                 <label className="custom-control-label" htmlFor="switch-hdr-enabled">
                   <span>{_('ON')}</span>
                   <span>{_('OFF')}</span>
