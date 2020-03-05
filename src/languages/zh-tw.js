@@ -431,7 +431,7 @@ window.languageResource = {
   New: '新增',
   'Add a new member': '自行新增',
   'Add a member from events': '從事件新增',
-  'Profile Picture': '註冊照片',
+  'User Picture': '註冊照片',
   Actions: '操作',
   '{0}-{1} items. Total: {2}': '目前 {0}-{1} 筆，總筆數 {2} 筆',
   'Delete Member': '刪除成員',

@@ -529,7 +529,7 @@ module.exports = class Events extends Base {
                       <i className={sort.time.icon}/>
                     </th>
                     <th style={{width: '10%'}}>{_('Capture')}</th>
-                    <th style={{width: '10%'}}>{_('Profile Picture')}</th>
+                    <th style={{width: '10%'}}>{_('User Picture')}</th>
                     <th style={{width: '10%'}}>
                       <a href="#" onClick={sort.name.handler}>{_('Name')}</a>
                       <i className={sort.name.icon}/>
