@@ -109,7 +109,7 @@ module.exports = class RTSP extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/media/stream">{_('Multimedia Settings')}</Link>
+                      <Link to="/media/stream">{_('Video')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('RTSP')}</li>
                   </ol>
