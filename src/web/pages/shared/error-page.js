@@ -4,11 +4,6 @@ const PropTypes = require('prop-types');
 const imageCode404 = require('../../../resource/error-404-code.svg');
 const imageCode500 = require('../../../resource/error-500-code.svg');
 const imageOops = require('../../../resource/error-oops.svg');
-const imageError01 = require('../../../resource/error-icon-01.svg');
-const imageError02 = require('../../../resource/error-icon-02.svg');
-const imageError03 = require('../../../resource/error-icon-03.svg');
-const imageError04 = require('../../../resource/error-icon-04.svg');
-const imageError05 = require('../../../resource/error-icon-05.svg');
 const _ = require('../../../languages');
 
 module.exports = class ErrorPage extends React.Component {
@@ -51,13 +46,6 @@ module.exports = class ErrorPage extends React.Component {
               <a className="btn btn-primary text-light rounded-pill" href="/">
                 {_('Go to Home')} <i className="fas fa-arrow-right fa-fw"/>
               </a>
-            </div>
-            <div className="col-12 text-center icons mb-5">
-              <img src={imageError01}/>
-              <img src={imageError02}/>
-              <img src={imageError03}/>
-              <img src={imageError04}/>
-              <img src={imageError05}/>
             </div>
           </div>
         </div>
