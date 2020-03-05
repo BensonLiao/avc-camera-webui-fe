@@ -3,13 +3,13 @@
 .error-page {
   min-width: 320px;
   padding-top: 320px;
-  background-size: contain;
-  background-position: center top;
+  background-size: 100%;
+  background-position: center bottom 336px;
   &.error-404 {
-    background-image: url("../resource/error-404-bg.png");
+    background-image: url("../resource/bg-error-404.png");
   }
   &.error-500 {
-    background-image: url("../resource/error-500-bg.png");
+    background-image: url("../resource/bg-error-500.png");
   }
 
   .row {
