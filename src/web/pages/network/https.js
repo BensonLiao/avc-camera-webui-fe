@@ -15,11 +15,11 @@ const api = require('../../../core/apis/web-api');
 module.exports = class HTTPS extends Base {
   static get propTypes() {
     return {
-      httpsSettings: {
+      httpsSettings: PropTypes.shape({
         isEnable: PropTypes.bool.isRequired,
         port: PropTypes.string.isRequired,
         certificateType: PropTypes.oneOf(CertificateType.all()).isRequired
-      }
+      }).isRequired
     };
   }
 
