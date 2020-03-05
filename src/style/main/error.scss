@@ -1,3 +1,5 @@
+@import "../shared/gotham-base64.scss";
+
 .error-page {
   min-width: 320px;
   padding-top: 320px;
@@ -19,6 +21,7 @@
     overflow: hidden;
     font-family: "Roboto", serif;
     .message-status {
+      font-family: "Gotham-Bold", serif;
       font-weight: bold;
       font-size: 108px;
       color: $secondary-400;
