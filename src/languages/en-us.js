@@ -160,6 +160,7 @@ window.languageResource = {
 
   // /
   'Device Status': 'Status',
+  Green: 'Normal',
 
   // /members
   Database: 'Database',
