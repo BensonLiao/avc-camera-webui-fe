@@ -32,7 +32,6 @@ module.exports = class Home extends Base {
       }).isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.bool.isRequired, // 除霧
-        irEnabled: PropTypes.bool.isRequired, // 紅外線燈
         brightness: PropTypes.number.isRequired, // 亮度
         contrast: PropTypes.number.isRequired, // 對比
         hdrEnabled: PropTypes.oneOf(videoSettingsSchema.hdrEnabled.enum).isRequired, // HDR
