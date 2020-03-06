@@ -121,7 +121,10 @@ module.exports = class Word extends Base {
                   {
                     WordFontSize.all().map(size => (
                       <button key={size} type="button"
-                        className={classNames('btn btn-sm btn-outline-success px-2 py-1', {active: values.fontSize === size})}
+                        className={classNames(
+                          'btn btn-sm outline-success px-2 py-1',
+                          {active: values.fontSize === size}
+                        )}
                         onClick={() => setFieldValue('fontSize', size)}
                       >
                         {_(`font-size-${size}`)}

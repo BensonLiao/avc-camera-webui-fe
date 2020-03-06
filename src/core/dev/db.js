@@ -22,7 +22,7 @@ module.exports = {
     db.defaults({
       videoDefault: {
         defoggingEnabled: false,
-        irEnabled: false,
+        irEnabled: '0',
         brightness: 0,
         contrast: 6,
         hdrEnabled: 'false',
@@ -40,11 +40,14 @@ module.exports = {
         sensitivity: 0,
         isAutoFocus: false,
         focalLength: 5,
-        zoom: 1
+        zoom: 1,
+        irBrightness: 1,
+        focusType: '0',
+        isAutoFocusAfterZoom: false
       },
       video: {
         defoggingEnabled: false,
-        irEnabled: false,
+        irEnabled: '0',
         brightness: 0,
         contrast: 6,
         hdrEnabled: 'false',
@@ -62,7 +65,10 @@ module.exports = {
         sensitivity: 0,
         isAutoFocus: false,
         focalLength: 5,
-        zoom: 1
+        zoom: 1,
+        irBrightness: 1,
+        focusType: '0',
+        isAutoFocusAfterZoom: false
       },
       system: {
         languageCode: 'en-us',

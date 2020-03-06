@@ -422,6 +422,8 @@ module.exports = {
      * - isAutoFocus {Boolean}
      * - focalLength {Number}
      * - zoom {Number}
+     * - focusType {string}
+     * - isAutoFocusAfterZoom {boolean}
      */
     getSettings: () => api({
       method: 'get',
@@ -446,8 +448,7 @@ module.exports = {
      * @param {String} refreshRate
      * @param {Number} sensitivity
      * @param {Boolean} autoFocusEnabled
-     * @param {Number} focalLength
-     * @param {Number} zoom
+     * @param {number} irBrightness
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - defoggingEnabled {Boolean}
@@ -488,7 +489,8 @@ module.exports = {
       timePeriodEnd,
       sharpness,
       orientation,
-      refreshRate
+      refreshRate,
+      irBrightness
     }) => api({
       method: 'put',
       url: '/api/video/settings',
@@ -509,6 +511,7 @@ module.exports = {
         sensitivity,
         timePeriodStart,
         timePeriodEnd,
+        irBrightness,
 
         sharpness,
         orientation,
@@ -530,12 +533,14 @@ module.exports = {
     /**
      * @param {number} focalLength
      * @param {number} zoom
+     * @param {string} focusType
+     * @param {boolean} isAutoFocusAfterZoom
      * @returns {Promise<response>}
      */
-    updateFocusSettings: ({focalLength, zoom}) => api({
+    updateFocusSettings: ({focalLength, zoom, focusType, isAutoFocusAfterZoom}) => api({
       method: 'put',
       url: '/api/video/settings/focus',
-      data: {focalLength, zoom}
+      data: {focalLength, zoom, focusType, isAutoFocusAfterZoom}
     })
   },
   smartFunction: {

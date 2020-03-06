@@ -193,6 +193,17 @@ exports.convertPicture = (imgSrc, zoomRate, pictureRotateDegrees) => new Promise
   img.src = imgSrc;
 });
 
+exports.capitalizeObjKeyValuePairs = obj => {
+  return Object.keys(obj)
+    .filter(key => typeof obj[key] === 'string')
+    .map(key => {
+      let newObj = {};
+      newObj.key = key.charAt(0).toUpperCase() + key.substring(1);
+      newObj.value = obj[key];
+      return newObj;
+    });
+};
+
 /**
  * Check if the object is empty, not available for some primitive type object like `Number` or `Boolean`.
  * e.g. `isObjectEmpty({}) = true`

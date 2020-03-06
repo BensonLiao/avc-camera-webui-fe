@@ -16,15 +16,11 @@ window.languageResource = {
   'enroll-status-1': '成功',
   'enroll-status-2': '未知',
 
-  auto: '自動',
-  off: '關閉',
   max: '最大',
   outdoor: '戶外',
   fluorescent: '日光燈',
   incandescent: '白熱燈泡',
   manual: '手動調整',
-  ON: '開啟',
-  OFF: '關閉',
 
   // Shutter speed
   'shutter-speed-0': '自動',
@@ -305,6 +301,9 @@ window.languageResource = {
   Focus: '對焦',
   'Auto Focus': '自動對焦',
   'Focal Length': '焦距',
+
+  // /image
+  'Image settings': '圖像設定',
 
   // /media
   OSD: '文字貼圖',

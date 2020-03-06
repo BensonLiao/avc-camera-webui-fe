@@ -31,6 +31,17 @@ module.exports = new Router({
       component: require('./pages/home')
     },
     {
+      name: 'web.image',
+      uri: '/image',
+      onEnter: () => {
+        document.title = `${_('Image')} - ${_title}`;
+      },
+      resolve: {
+        videoSettings: () => api.video.getSettings().then(response => response.data)
+      },
+      component: require('./pages/image')
+    },
+    {
       name: 'web.media',
       uri: '/media',
       onEnter: () => {
