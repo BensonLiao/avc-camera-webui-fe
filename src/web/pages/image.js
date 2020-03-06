@@ -5,6 +5,7 @@ const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const IREnableType = require('webserver-form-schema/constants/ir-enable-type');
+const FocusType = require('webserver-form-schema/constants/focus-type');
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
@@ -52,7 +53,9 @@ module.exports = class Image extends Base {
         refreshRate: PropTypes.oneOf(videoSettingsSchema.refreshRate.enum).isRequired, // 刷新頻率
         isAutoFocus: PropTypes.bool.isRequired, // 自動對焦
         focalLength: PropTypes.number.isRequired, // 焦距
-        zoom: PropTypes.number.isRequired
+        zoom: PropTypes.number.isRequired,
+        focusType: PropTypes.oneOf(FocusType.all()).isRequired,
+        isAutoFocusAfterZoom: PropTypes.bool.isRequired
       }).isRequired
     };
   }
@@ -66,8 +69,6 @@ module.exports = class Image extends Base {
     this.state.isPlayStream = false;
     this.state.streamImageUrl = null;
     this.state.isAutoFocusProcessing = false;
-    this.state.autoFocusType = 'Full-range focus';
-    this.state.isEnableAutoFocusAfterZoom = false;
   }
 
   componentWillUnmount() {
@@ -85,17 +86,9 @@ module.exports = class Image extends Base {
     super.componentWillUnmount();
   }
 
-  generateOnChangeAutoFocusType = autoFocusType => {
-    return event => {
-      event.preventDefault();
-      this.setState({autoFocusType});
-    };
-  }
-
-  isEnableAutoFocusAfterZoomHandler = () => {
-    this.setState(prevState => {
-      return {isEnableAutoFocusAfterZoom: !prevState.isEnableAutoFocusAfterZoom};
-    });
+  generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
+    event.preventDefault();
+    form.setFieldValue('focusType', autoFocusType);
   }
 
   generateInitialValues = videoSettings => ({
@@ -107,7 +100,12 @@ module.exports = class Image extends Base {
   });
 
   onChangeVideoSettings = ({nextValues, prevValues}) => {
-    if (prevValues.focalLength !== nextValues.focalLength || prevValues.zoom !== nextValues.zoom) {
+    if (
+      prevValues.focalLength !== nextValues.focalLength ||
+      prevValues.zoom !== nextValues.zoom ||
+      prevValues.focusType !== nextValues.focusType ||
+      prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom
+    ) {
       // Change focus settings.
       this.submitPromise = this.submitPromise
         .then(() => api.video.updateFocusSettings(nextValues))
@@ -215,7 +213,6 @@ module.exports = class Image extends Base {
 
   videoSettingsFormRender = form => {
     const {values} = form;
-    const {autoFocusType, isEnableAutoFocusAfterZoom} = this.state;
 
     return (
       <Form className="card shadow">
@@ -453,20 +450,20 @@ module.exports = class Image extends Base {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={this.state.$isApiProcessing || isEnableAutoFocusAfterZoom} type="button"
+                  disabled={this.state.$isApiProcessing || values.isAutoFocusAfterZoom} type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
-                  {_(autoFocusType)}
+                  {_(values.focusType === FocusType.fullRange ? 'Full-range focus' : 'Short-range focus')}
                 </button>
                 <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span className="sr-only">Select focus type</span>
                 </button>
                 <div className="dropdown-menu">
-                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType('Full-range focus')}>
+                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.fullRange)}>
                     {_('Full-range focus')}
                   </button>
-                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType('Short-range focus')}>
+                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.shortRange)}>
                     {_('Short-range focus')}
                   </button>
                 </div>
@@ -479,7 +476,7 @@ module.exports = class Image extends Base {
                   <label>{_('Focal length')}</label>
                   <span className="text-primary text-size-14">{values.focalLength}</span>
                 </div>
-                <Field disabled={this.state.isAutoFocusProcessing || isEnableAutoFocusAfterZoom}
+                <Field disabled={this.state.isAutoFocusProcessing || values.isAutoFocusAfterZoom}
                   name="focalLength" component={Slider} step={1}
                   min={videoFocusSettingsSchema.focalLength.min}
                   max={videoFocusSettingsSchema.focalLength.max}/>
@@ -497,7 +494,7 @@ module.exports = class Image extends Base {
               <div className="form-group form-check">
                 <Field id="input-check-auto-focus-after-zoom" type="checkbox" className="form-check-input"
                   disabled={this.state.isAutoFocusProcessing}
-                  name="isEnableAutoFocusAfterZoom" checked={isEnableAutoFocusAfterZoom} onChange={this.isEnableAutoFocusAfterZoomHandler}/>
+                  name="isAutoFocusAfterZoom" checked={values.isAutoFocusAfterZoom}/>
                 <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
                   {_('Enable auto focus after zoom')}
                 </label>
