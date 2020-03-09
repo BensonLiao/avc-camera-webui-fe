@@ -64,8 +64,9 @@ nav.navbar.fixed-top {
   margin-left: $left-navigation-width;
   width: $left-sub-navigation-width;
   height: 100vh;
-  -ms-overflow-style: none;
+  @extend .hidden-scrollbar;
   overflow-y: scroll;
+  overflow-x: hidden;
   background-color: #666;
   color: #fff;
 

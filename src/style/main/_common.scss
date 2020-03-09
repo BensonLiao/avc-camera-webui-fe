@@ -496,3 +496,13 @@ $chips-sum-extra-width: 50px;
     }
   }
 }
+
+/* Hide scrollbar but keep functionality */
+.hidden-scrollbar {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE and Edge */
+  -ms-overflow-style: none;
+}
