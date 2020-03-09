@@ -403,7 +403,7 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - defoggingEnabled {Boolean}
-     * - irEnabled {Boolean}
+     * - irEnabled {string}
      * - brightness {Number}
      * - contrast {Number}
      * - hdrEnabled {String}
@@ -431,7 +431,7 @@ module.exports = {
     }),
     /**
      * @param {Boolean} defoggingEnabled
-     * @param {Boolean} irEnabled
+     * @param {string} irEnabled
      * @param {Number} brightness
      * @param {Number} contrast
      * @param {String} hdrEnabled
@@ -452,7 +452,7 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - defoggingEnabled {Boolean}
-     * - irEnabled {Boolean}
+     * - irEnabled {string}
      * - brightness {Number}
      * - contrast {Number}
      * - hdrEnabled {String}
