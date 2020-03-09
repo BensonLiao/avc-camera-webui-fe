@@ -1,19 +1,7 @@
 @import "../shared/gotham-base64.scss";
 
 .error-page {
-  min-width: 320px;
-  padding-top: 320px;
-  background-size: 100%;
-  background-position: center bottom 336px;
-  &.error-404 {
-    background-image: url("../resource/bg-error-404.png");
-  }
-  &.error-500 {
-    background-image: url("../resource/bg-error-500.png");
-  }
-
   .row {
-    min-height: calc(100vh - 320px);
     background-color: #fff;
   }
   .message-container {

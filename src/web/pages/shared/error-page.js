@@ -3,6 +3,8 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const imageCode404 = require('../../../resource/icon-error-404.svg');
 const imageCode500 = require('../../../resource/icon-error-500.svg');
+const bgCode404 = require('../../../resource/bg-error-404-clip.png');
+const bgCode500 = require('../../../resource/bg-error-500-clip.png');
 const _ = require('../../../languages');
 
 module.exports = class ErrorPage extends React.Component {
@@ -31,6 +33,7 @@ module.exports = class ErrorPage extends React.Component {
 
     return (
       <div className={classTable.page}>
+        <img className="mw-100" src={this.state.status === 404 ? bgCode404 : bgCode500}/>
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 justify-content-center text-center mt-5">
