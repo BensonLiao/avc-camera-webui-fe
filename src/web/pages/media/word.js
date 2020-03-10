@@ -157,9 +157,6 @@ module.exports = class Word extends Base {
                   </button>
                 </div>
               </div>
-              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
-                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
-              </div>
               <div className="form-group">
                 <label>{_('Position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
                 <p className="text-primary">{_('Please click position buttons.')}</p>
@@ -179,6 +176,9 @@ module.exports = class Word extends Base {
                     }
                   </Field>
                 </div>
+              </div>
+              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
+                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
