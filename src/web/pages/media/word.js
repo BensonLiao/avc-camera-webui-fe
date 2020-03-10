@@ -136,12 +136,21 @@ module.exports = class Word extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('Color')}</label>
                 <div>
-                  <button type="button" className="border btn-black"
+                  <button type="button"
+                    className={classNames(
+                      'btn-black',
+                      {active: values.color === WordColor.black}
+                    )}
                     onClick={() => setFieldValue('color', WordColor.black)}
                   >
                     &nbsp;
                   </button>
-                  <button type="button" className="border btn-white"
+                  &nbsp;
+                  <button type="button"
+                    className={classNames(
+                      'btn-white',
+                      {active: values.color === WordColor.white}
+                    )}
                     onClick={() => setFieldValue('color', WordColor.white)}
                   >
                     &nbsp;
