@@ -510,10 +510,10 @@ module.exports = class Cards extends Base {
             </button>
           </div>
           <button
-            type="button" className="btn btn-outline-primary btn-block m-0 rounded-pill"
+            type="button" className="btn btn-info btn-block m-0 rounded-pill"
             onClick={this.onHideCardModal}
           >
-            {_('Cancel')}
+            {_('Close')}
           </button>
         </div>
       </Form>

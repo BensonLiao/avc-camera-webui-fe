@@ -290,7 +290,7 @@ module.exports = class Members extends Base {
               {_('Modify')}
             </button>
           </div>
-          <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill"
+          <button type="button" className="btn btn-info btn-block m-0 rounded-pill"
             onClick={this.hideDatabaseEncryptionModal}
           >
             {_('Close')}
@@ -548,7 +548,7 @@ module.exports = class Members extends Base {
                   {_('Delete')}
                 </button>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteGroupModal}>
+              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideDeleteGroupModal}>
                 {_('Close')}
               </button>
             </div>
@@ -578,7 +578,7 @@ module.exports = class Members extends Base {
                   {_('Delete')}
                 </button>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteMemberModal}>
+              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideDeleteMemberModal}>
                 {_('Close')}
               </button>
             </div>
