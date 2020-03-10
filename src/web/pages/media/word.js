@@ -64,7 +64,7 @@ module.exports = class Word extends Base {
             <img className="img-fluid" src="/api/snapshot"/>
             {
               values.position !== WordPosition.leftTop && (
-                <button className="btn btn-top-left text-primary" type="button"
+                <button className="btn btn-top-left" type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.leftTop)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -73,7 +73,7 @@ module.exports = class Word extends Base {
             }
             {
               values.position !== WordPosition.rightTop && (
-                <button className="btn btn-top-right text-primary" type="button"
+                <button className="btn btn-top-right" type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.rightTop)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -82,7 +82,7 @@ module.exports = class Word extends Base {
             }
             {
               values.position !== WordPosition.leftBottom && (
-                <button className="btn btn-bottom-left text-primary" type="button"
+                <button className="btn btn-bottom-left" type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.leftBottom)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -91,7 +91,7 @@ module.exports = class Word extends Base {
             }
             {
               values.position !== WordPosition.rightBottom && (
-                <button className="btn btn-bottom-right text-primary" type="button"
+                <button className="btn btn-bottom-right" type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.rightBottom)}
                 >
                   <i className="fas fa-arrow-up"/>
