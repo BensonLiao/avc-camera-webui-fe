@@ -533,11 +533,8 @@ module.exports = class Members extends Base {
               <h5 className="modal-title">{_('Delete Group')}</h5>
             </div>
             <div className="modal-body">
-              <span className="text-muted en-us">
-                Are you sure to delete the group <strong>{this.state.deleteGroupTarget && this.state.deleteGroupTarget.name}</strong>?
-              </span>
-              <span className="text-muted zh-tw">
-                您即將刪除<strong>{this.state.deleteGroupTarget && this.state.deleteGroupTarget.name}</strong>群組，確認要刪除嗎？
+              <span className="text-muted">
+                {_('Are you sure to delete the group {0}?', [this.state.deleteGroupTarget && this.state.deleteGroupTarget.name])}
               </span>
             </div>
             <div className="modal-footer flex-column">

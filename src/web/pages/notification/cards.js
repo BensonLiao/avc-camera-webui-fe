@@ -259,15 +259,15 @@ module.exports = class Cards extends Base {
           </div>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="type" component="select" className="form-control border-0">
-              <option value={NotificationCardType.faceRecognition}>{_('Face Recognition')}</option>
+              <option value={NotificationCardType.faceRecognition}>{_('Facial Recognition')}</option>
             </Field>
           </div>
         </div>
         <nav>
           <div className="nav nav-tabs">
-            <a className="nav-item nav-link active" data-toggle="tab" href="#tab-notification-time">{_('Notification Time')}</a>
-            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Notification Condition')}</a>
-            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-target">{_('Notification Object')}</a>
+            <a className="nav-item nav-link active" data-toggle="tab" href="#tab-notification-time">{_('Schedule')}</a>
+            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Rule')}</a>
+            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-target">{_('Subject')}</a>
           </div>
         </nav>
         <div className="modal-body tab-content">
@@ -624,7 +624,7 @@ module.exports = class Cards extends Base {
             <div className="container-fluid">
               <div className="filter d-flex align-items-center text-nowrap mb-0">
                 <label className="mb-0">{_('Notification Filter')}</label>
-                <button className="btn btn-primary rounded-pill shadow-sm ml-4" type="button">{_('Face Recognition')}</button>
+                <button className="btn btn-primary rounded-pill shadow-sm ml-4" type="button">{_('Facial Recognition')}</button>
               </div>
             </div>
           </div>
