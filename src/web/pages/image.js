@@ -410,7 +410,7 @@ module.exports = class Image extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Orientation')}</label>
+                  <label>{_('Rotation')}</label>
                   <Field name="orientation" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"

@@ -52,13 +52,13 @@ window.languageResource = {
   'daynight-mode-2': '黑白',
   'daynight-mode-3': '指定時段',
 
-  // Orientation
+  // Orientation/Rotation
   'orientation-0': '正常',
   'orientation-1': '垂直翻轉',
   'orientation-2': '水平翻轉',
   'orientation-3': '180 度翻轉',
 
-  // Refresh rate
+  // Refresh rate/Lighting Compensation Frequency (Hz)
   'refresh-rate-0': '自動',
   'refresh-rate-1': '50Hz',
   'refresh-rate-2': '60Hz',
@@ -297,7 +297,7 @@ window.languageResource = {
   'Duty Time': '啟動時段',
   Sensitivity: '靈敏度',
   Sharpness: '銳利度',
-  Orientation: '影像方向',
+  Rotation: '影像方向',
   'Lighting Compensation Frequency (Hz)': '刷新頻率',
   Focus: '對焦',
   'Auto Focus': '自動對焦',
