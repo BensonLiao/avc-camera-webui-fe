@@ -250,7 +250,9 @@ module.exports = class Home extends Base {
                   <label className="text-size-16 mb-0 text-left">Zoom</label>
                   <span className="text-primary text-size-14">{values.zoom}</span>
                 </div>
-                <Field disabled={this.state.isAutoFocusProcessing}
+                <Field
+                  updateFieldOnStop
+                  disabled={this.state.isAutoFocusProcessing}
                   name="zoom" component={Slider} step={0.1}
                   min={videoFocusSettingsSchema.zoom.min}
                   max={videoFocusSettingsSchema.zoom.max}/>
