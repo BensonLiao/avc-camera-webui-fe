@@ -38,8 +38,8 @@ module.exports = class SliderField extends React.PureComponent {
       value: this.props.field.value,
       step: this.props.step
     });
-    this.slider.on('change', ({newValue}) => {
-      this.props.form.setFieldValue(this.props.field.name, newValue);
+    this.slider.on('slideStop', value => {
+      this.props.form.setFieldValue(this.props.field.name, value);
     });
     if (this.props.disabled) {
       this.slider.disable();
