@@ -320,6 +320,14 @@ label.btn {
       color: $primary;
       border-bottom-color: $primary;
     }
+    &:not(.active):hover {
+      color: $primary;
+      padding: 11px 11px 8px 11px;
+      border-top: 1px $primary solid;
+      border-left: 1px $primary solid;
+      border-right: 1px $primary solid;
+      border-bottom: 2px $primary solid;
+    }
   }
 }
 
