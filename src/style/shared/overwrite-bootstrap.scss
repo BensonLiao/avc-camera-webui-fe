@@ -51,7 +51,7 @@ $switch-input-color-checked: $success;
     box-shadow: none;
   }
   .slider-handle {
-    background: #4991BF !important;
+    background: $primary !important;
     border: 1px #fff solid !important;
   }
   .slider .slider-track {
@@ -319,6 +319,14 @@ label.btn {
     &.active {
       color: $primary;
       border-bottom-color: $primary;
+    }
+    &:not(.active):hover {
+      color: $primary;
+      padding: 11px 11px 8px 11px;
+      border-top: 1px $primary solid;
+      border-left: 1px $primary solid;
+      border-right: 1px $primary solid;
+      border-bottom: 2px $primary solid;
     }
   }
 }

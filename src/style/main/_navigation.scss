@@ -222,6 +222,15 @@ nav.navbar.fixed-top {
       i {
         @extend .transition-transform;
       }
+      &:hover {
+        background: #4d4d4d;
+      }
+      &.active:hover {
+        background: #333333;
+      }
+      &.active.collapse:hover {
+        background: #1a1a1a;
+      }
       &.active {
         background: #4d4d4d;
         border-right: 8px solid $primary;
@@ -238,10 +247,13 @@ nav.navbar.fixed-top {
     }
     .collapsing, .collapse {
       a {
-        &.active {
-          background-color: #1A1A1A;
+        &:not(.active):hover {
+          background: #1A1A1A;
         }
-        background-color: #333333;
+        &.active, &.active:hover {
+          background: #1A1A1A;
+        }
+        background: #333333;
         padding-left: 48px;
       }
     }

@@ -158,7 +158,7 @@ module.exports = class SMTP extends Base {
               {_('Apply')}
             </button>
           </div>
-          <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.onHideModal}>
+          <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.onHideModal}>
             {_('Close')}
           </button>
         </div>

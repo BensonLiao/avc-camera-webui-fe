@@ -121,7 +121,7 @@ module.exports = class Group extends Base {
             </button>
           </div>
           <button disabled={this.state.$isApiProcessing} type="button"
-            className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideModal}
+            className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideModal}
           >
             {_('Close')}
           </button>

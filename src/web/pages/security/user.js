@@ -187,7 +187,7 @@ module.exports = class User extends Base {
           </div>
           <button
             disabled={this.state.$isApiProcessing}
-            className="btn btn-secondary btn-block m-0 rounded-pill"
+            className="btn btn-info btn-block m-0 rounded-pill"
             type="button"
             onClick={this.hideModal}
           >

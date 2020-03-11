@@ -210,7 +210,7 @@ module.exports = class Users extends Base {
                 <div className="form-group w-100 mx-0">
                   <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill" onClick={this.confirmDeleteUser}>{_('Delete')}</button>
                 </div>
-                <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteUserModal}>{_('Close')}</button>
+                <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideDeleteUserModal}>{_('Close')}</button>
               </div>
             </form>
           </Modal>

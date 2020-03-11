@@ -311,7 +311,7 @@ module.exports = class Layout extends Base {
           <div className="modal-footer flex-column">
             <button
               type="button"
-              className="btn btn-secondary btn-block m-0 rounded-pill bg-info text-white"
+              className="btn btn-info btn-block m-0 rounded-pill"
               onClick={this.hideAboutModal}
             >
               {_('Close')}

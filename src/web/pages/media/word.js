@@ -136,20 +136,26 @@ module.exports = class Word extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('Color')}</label>
                 <div>
-                  <button type="button" className="border btn-black"
+                  <button type="button"
+                    className={classNames(
+                      'btn-black',
+                      {active: values.color === WordColor.black}
+                    )}
                     onClick={() => setFieldValue('color', WordColor.black)}
                   >
                     &nbsp;
                   </button>
-                  <button type="button" className="border btn-white"
+                  &nbsp;
+                  <button type="button"
+                    className={classNames(
+                      'btn-white',
+                      {active: values.color === WordColor.white}
+                    )}
                     onClick={() => setFieldValue('color', WordColor.white)}
                   >
                     &nbsp;
                   </button>
                 </div>
-              </div>
-              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
-                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
               </div>
               <div className="form-group">
                 <label>{_('Position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
@@ -170,6 +176,9 @@ module.exports = class Word extends Base {
                     }
                   </Field>
                 </div>
+              </div>
+              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
+                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}

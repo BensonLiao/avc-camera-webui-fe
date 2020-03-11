@@ -267,7 +267,7 @@ module.exports = class Member extends React.PureComponent {
               {this.props.member ? _('Confirm') : _('New')}
             </button>
           </div>
-          <button className="btn btn-secondary btn-block m-0 rounded-pill"
+          <button className="btn btn-info btn-block m-0 rounded-pill"
             type="button" onClick={this.props.onHide}
           >
             {_('Close')}

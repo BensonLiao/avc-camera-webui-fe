@@ -338,7 +338,7 @@ body {
               width: 28px;
               height: 28px;
               line-height: 28px;
-              background-color: #4991BF;
+              background-color: $primary;
             }
           }
           &.disabled {
@@ -356,8 +356,8 @@ body {
         bottom: 80px;
         width: 80px;
         height: 40px;
-        border-top: 1px #4991BF solid;
-        border-bottom: 1px #4991BF solid;
+        border-top: 1px $primary solid;
+        border-bottom: 1px $primary solid;
       }
       .item-container {
         height: 200px;
