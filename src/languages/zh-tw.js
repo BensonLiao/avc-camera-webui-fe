@@ -351,11 +351,11 @@ window.languageResource = {
   'Please click position buttons.': '請於左方畫面點選貼圖顯示位置。',
 
   // /notification/app
-  'Basic Settings': '基本設定',
+  'Basic Setting': '基本設定',
   App: 'App 相關',
   Mail: 'Mail 相關',
   'I/O': 'I/O 相關',
-  'Smart Notifications': '智慧通知',
+  'Smart Notification': '智慧通知',
   'Device Token': '裝置金鑰',
   'Please enter your device token.': '請輸入您的金鑰',
   'Device Id': '裝置編碼',
@@ -393,7 +393,7 @@ window.languageResource = {
   Encryption: '加密',
 
   // /notification/cards
-  'Notification filter': '通知篩選',
+  'Notification Filters': '通知篩選',
   Pinned: '置頂項目',
   Others: '其他項目',
   Schedule: '通知時間',
@@ -401,9 +401,10 @@ window.languageResource = {
   Condition: '條件',
   Subject: '通知對象',
   'All Groups': '所有群組',
+  Everyone: '所有人',
   'Email Attachment': '附件檔案',
   Receiver: '收件人',
-  'Please enter email address.': '請輸入電子郵件',
+  'Enter email address': '請輸入電子郵件',
   Add: '新增',
   Cancel: '取消',
   Recognition: '辨識',
