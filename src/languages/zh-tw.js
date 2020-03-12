@@ -287,7 +287,7 @@ window.languageResource = {
   'Shutter Speed': '快門速度',
   Iris: '光圈',
   Apply: '套用',
-  'Reset to Defaults': '恢復預設',
+  'Reset to Default': '恢復預設',
   Color: '顏色',
   'Lens Control': '鏡頭控制',
   Saturation: '飽和度',

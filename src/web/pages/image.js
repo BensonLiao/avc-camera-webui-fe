@@ -509,7 +509,7 @@ module.exports = class Image extends Base {
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler(form)}
           >
-            {_('Reset to Defaults')}
+            {_('Reset to Default')}
           </button>
         </div>
       </Form>

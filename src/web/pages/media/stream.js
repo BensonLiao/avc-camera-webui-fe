@@ -330,7 +330,7 @@ module.exports = class Stream extends Base {
           disabled={this.state.$isApiProcessing}
           onClick={this.onClickResetButton}
         >
-          {_('Reset to Defaults')}
+          {_('Reset to Default')}
         </button>
       </Form>
     );
