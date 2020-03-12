@@ -496,7 +496,7 @@ module.exports = class Image extends Base {
                   disabled={this.state.isAutoFocusProcessing}
                   name="isAutoFocusAfterZoom" checked={values.isAutoFocusAfterZoom}/>
                 <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
-                  {_('Enable auto focus after zoom')}
+                  {_('Auto focus after zoom')}
                 </label>
               </div>
             </div>
