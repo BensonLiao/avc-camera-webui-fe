@@ -234,7 +234,8 @@ module.exports = class Image extends Base {
                   <label>{_('Brightness')}</label>
                   <span className="text-primary text-size-14">{values.brightness}</span>
                 </div>
-                <Field name="brightness" component={Slider} step={1}
+                <Field updateFieldOnStop name="brightness" component={Slider}
+                  step={1}
                   min={videoSettingsSchema.brightness.min}
                   max={videoSettingsSchema.brightness.max}/>
               </div>
@@ -243,7 +244,8 @@ module.exports = class Image extends Base {
                   <label>{_('Contrast')}</label>
                   <span className="text-primary text-size-14">{values.contrast}</span>
                 </div>
-                <Field name="contrast" component={Slider} step={1}
+                <Field updateFieldOnStop name="contrast" component={Slider}
+                  step={1}
                   min={videoSettingsSchema.contrast.min}
                   max={videoSettingsSchema.contrast.max}/>
               </div>
@@ -293,7 +295,8 @@ module.exports = class Image extends Base {
                   <label>{_('Saturation')}</label>
                   <span className="text-primary text-size-14">{values.saturation}</span>
                 </div>
-                <Field name="saturation" component={Slider} step={1}
+                <Field updateFieldOnStop name="saturation" component={Slider}
+                  step={1}
                   min={videoSettingsSchema.saturation.min}
                   max={videoSettingsSchema.saturation.max}/>
               </div>
@@ -312,7 +315,8 @@ module.exports = class Image extends Base {
                         <label>{_('Color temperature')}</label>
                         <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
                       </div>
-                      <Field name="whiteblanceManual" component={Slider} step={1000}
+                      <Field updateFieldOnStop name="whiteblanceManual" component={Slider}
+                        step={1000}
                         min={videoSettingsSchema.whiteblanceManual.min}
                         max={videoSettingsSchema.whiteblanceManual.max}/>
                     </div>
@@ -340,7 +344,8 @@ module.exports = class Image extends Base {
                         <span className="text-primary text-size-14">{values.irBrightness}</span>
                       </div>
                       {/* Slider step are still under review */}
-                      <Field name="irBrightness" component={Slider} step={15}
+                      <Field updateFieldOnStop name="irBrightness" component={Slider}
+                        step={15}
                         min={videoSettingsSchema.irBrightness.min}
                         max={videoSettingsSchema.irBrightness.max}/>
                     </div>
@@ -362,7 +367,8 @@ module.exports = class Image extends Base {
                         <label>{_('Sensitivity')}</label>
                         <span className="text-primary text-size-14">{values.sensitivity}</span>
                       </div>
-                      <Field name="sensitivity" component={Slider} step={1}
+                      <Field updateFieldOnStop name="sensitivity" component={Slider}
+                        step={1}
                         min={videoSettingsSchema.sensitivity.min}
                         max={videoSettingsSchema.sensitivity.max}/>
                     </div>
@@ -377,7 +383,7 @@ module.exports = class Image extends Base {
                           {utils.formatTimeRange(values.dnDuty)}
                         </span>
                       </div>
-                      <Field name="dnDuty" component={Slider}
+                      <Field updateFieldOnStop name="dnDuty" component={Slider}
                         mode="range"
                         step={0.5}
                         min={videoSettingsSchema.timePeriodStart.min}
@@ -404,7 +410,8 @@ module.exports = class Image extends Base {
                   <label>{_('Sharpness')}</label>
                   <span className="text-primary text-size-14">{values.sharpness}</span>
                 </div>
-                <Field name="sharpness" component={Slider} step={1}
+                <Field updateFieldOnStop name="sharpness" component={Slider}
+                  step={1}
                   min={videoSettingsSchema.sharpness.min}
                   max={videoSettingsSchema.sharpness.max}/>
               </div>
@@ -476,7 +483,7 @@ module.exports = class Image extends Base {
                   <label>{_('Focal length')}</label>
                   <span className="text-primary text-size-14">{values.focalLength}</span>
                 </div>
-                <Field disabled={this.state.isAutoFocusProcessing || values.isAutoFocusAfterZoom}
+                <Field updateFieldOnStop disabled={this.state.isAutoFocusProcessing || values.isAutoFocusAfterZoom}
                   name="focalLength" component={Slider} step={1}
                   min={videoFocusSettingsSchema.focalLength.min}
                   max={videoFocusSettingsSchema.focalLength.max}/>
@@ -486,7 +493,7 @@ module.exports = class Image extends Base {
                   <label>ZOOM</label>
                   <span className="text-primary text-size-14">{values.zoom}</span>
                 </div>
-                <Field disabled={this.state.isAutoFocusProcessing}
+                <Field updateFieldOnStop disabled={this.state.isAutoFocusProcessing}
                   name="zoom" component={Slider} step={0.1}
                   min={videoFocusSettingsSchema.zoom.min}
                   max={videoFocusSettingsSchema.zoom.max}/>

@@ -15,13 +15,15 @@ module.exports = class SliderField extends React.PureComponent {
       min: PropTypes.number.isRequired,
       max: PropTypes.number.isRequired,
       step: PropTypes.number.isRequired,
-      disabled: PropTypes.bool
+      disabled: PropTypes.bool,
+      updateFieldOnStop: PropTypes.bool
     };
   }
 
   static get defaultProps() {
     return {
-      disabled: false
+      disabled: false,
+      updateFieldOnStop: false
     };
   }
 
@@ -38,9 +40,16 @@ module.exports = class SliderField extends React.PureComponent {
       value: this.props.field.value,
       step: this.props.step
     });
-    this.slider.on('change', ({newValue}) => {
-      this.props.form.setFieldValue(this.props.field.name, newValue);
-    });
+    if (this.props.updateFieldOnStop) {
+      this.slider.on('slideStop', value => {
+        this.props.form.setFieldValue(this.props.field.name, value);
+      });
+    } else {
+      this.slider.on('change', ({newValue}) => {
+        this.props.form.setFieldValue(this.props.field.name, newValue);
+      });
+    }
+
     if (this.props.disabled) {
       this.slider.disable();
     }
