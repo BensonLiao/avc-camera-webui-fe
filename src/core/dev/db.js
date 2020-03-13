@@ -97,20 +97,18 @@ module.exports = {
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['1024'],
-          gov: StreamGOV['120']
+          maximumBitrate: '4096',
+          constantBitrate: '4096',
+          gov: StreamGOV['60']
         },
         channelB: {
           format: StreamFormat.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['1'],
-          cbrBitRate: StreamCBRBitRate['10'],
-          gov: StreamGOV['120']
+          maximumBitrate: '4096',
+          constantBitrate: '4096',
+          gov: StreamGOV['60']
         }
       },
       stream: {
@@ -119,26 +117,18 @@ module.exports = {
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['10'],
           maximumBitrate: '4096',
-          variableBitrate: '4096',
           constantBitrate: '1024',
-          gov: StreamGOV['120']
+          gov: StreamGOV['60']
         },
         channelB: {
           format: StreamFormat.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: '1',
-          cbrBitRate: StreamCBRBitRate['1024'],
           maximumBitrate: '4096',
-          variableBitrate: '4096',
           constantBitrate: '1024',
-          gov: StreamGOV['120']
+          gov: StreamGOV['60']
         }
       },
       audioSettings: {

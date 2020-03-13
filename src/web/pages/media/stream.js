@@ -11,9 +11,6 @@ const StreamSettingsSchema = require('webserver-form-schema/stream-settings-sche
 const StreamFormat = require('webserver-form-schema/constants/stream-format');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
-const StreamVBRBitRateLevel = require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
-const StreamVBRMaxBitRate = require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
-const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const _ = require('../../../languages');
 
@@ -26,11 +23,7 @@ module.exports = class Stream extends Base {
           resolution: PropTypes.string.isRequired,
           frameRate: PropTypes.string.isRequired,
           bandwidthManagement: PropTypes.string.isRequired,
-          vbrBitRateLevel: PropTypes.string.isRequired,
-          vbrMaxBitRate: PropTypes.string.isRequired,
-          cbrBitRate: PropTypes.string.isRequired,
           maximumBitrate: PropTypes.string,
-          variableBitrate: PropTypes.string,
           constantBitrate: PropTypes.string,
           gov: PropTypes.string.isRequired
         }).isRequired,
@@ -39,11 +32,7 @@ module.exports = class Stream extends Base {
           resolution: PropTypes.string.isRequired,
           frameRate: PropTypes.string.isRequired,
           bandwidthManagement: PropTypes.string.isRequired,
-          vbrBitRateLevel: PropTypes.string.isRequired,
-          vbrMaxBitRate: PropTypes.string.isRequired,
-          cbrBitRate: PropTypes.string.isRequired,
           maximumBitrate: PropTypes.string,
-          variableBitrate: PropTypes.string,
           constantBitrate: PropTypes.string,
           gov: PropTypes.string.isRequired
         }).isRequired
@@ -159,75 +148,11 @@ module.exports = class Stream extends Base {
               </div>
             </div>
             <Field type="text" name={`${fieldNamePrefix}.maximumBitrate`} className={classNames('form-control', {show: bandwidthManagement === 'Maximum Bitrate'})}/>
-            <Field type="text" name={`${fieldNamePrefix}.variableBitrate`} className={classNames('form-control', {show: bandwidthManagement === 'Variable Bitrate'})}/>
+            <input readOnly type="text" className={classNames('form-control', {show: bandwidthManagement === 'Variable Bitrate'})} placeholder="Auto"/>
             <Field type="text" name={`${fieldNamePrefix}.constantBitrate`} className={classNames('form-control', {show: bandwidthManagement === 'Constant Bitrate'})}/>
             <div className="input-group-append">
               <span className="input-group-text">Kbps</span>
             </div>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Bandwidth management')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field
-              name={`${fieldNamePrefix}.bandwidthManagement`}
-              component="select"
-              className="form-control border-0"
-            >
-              {
-                options.bandwidthManagement.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))
-              }
-            </Field>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('VBR Bitrate Level')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field
-              name={`${fieldNamePrefix}.vbrBitRateLevel`}
-              component="select"
-              className="form-control border-0"
-            >
-              {
-                options.vbrBitRateLevel.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))
-              }
-            </Field>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('VBR Max Bitrate')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field
-              name={`${fieldNamePrefix}.vbrMaxBitRate`}
-              component="select"
-              className="form-control border-0"
-            >
-              {
-                options.vbrMaxBitRate.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))
-              }
-            </Field>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('CBR Bitrate')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field
-              name={`${fieldNamePrefix}.cbrBitRate`}
-              component="select"
-              className="form-control border-0"
-            >
-              {
-                options.cbrBitRate.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))
-              }
-            </Field>
           </div>
         </div>
         <div className="form-group">
@@ -253,7 +178,7 @@ module.exports = class Stream extends Base {
   formRender = ({values}) => {
     const channelAOptions = {
       format: StreamFormat.all().map(x => ({label: x, value: x})),
-      resolution: StreamResolution.all().map(x => ({label: _(`stream-resolution-${x}`), value: x})),
+      resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
       frameRate: (() => {
         const result = [];
         for (let index = StreamSettingsSchema.channelA.props.frameRate.min; index <= StreamSettingsSchema.channelA.props.frameRate.max; index += 1) {
@@ -263,30 +188,6 @@ module.exports = class Stream extends Base {
         return result;
       })(),
       bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: x, value: x})),
-      vbrBitRateLevel: StreamVBRBitRateLevel.all().map(x => ({label: _(`stream-vbr-bit-rate-level-${x}`), value: x})),
-      vbrMaxBitRate: (() => {
-        const result = [];
-        StreamVBRMaxBitRate.all().forEach(x => {
-          const value = Number(x);
-          if (value >= Number(StreamVBRMaxBitRate['2'])) {
-            result.push({label: `${value / 1000}Mb`, value: x});
-          }
-        });
-        return result;
-      })(),
-      cbrBitRate: (() => {
-        const result = [];
-        StreamCBRBitRate.all().forEach(x => {
-          const value = Number(x);
-          if (value >= Number(StreamCBRBitRate['2'])) {
-            result.push({
-              label: `${value / 1000}Mb`,
-              value: x
-            });
-          }
-        });
-        return result;
-      })(),
       gov: StreamGOV.all().map(x => ({label: x, value: x}))
     };
     const channelBOptions = {
@@ -321,35 +222,6 @@ module.exports = class Stream extends Base {
         return result;
       })(),
       bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: x, value: x})),
-      vbrBitRateLevel: StreamVBRBitRateLevel.all().map(x => ({label: _(`stream-vbr-bit-rate-level-${x}`), value: x})),
-      vbrMaxBitRate: (() => {
-        const result = [];
-        StreamVBRMaxBitRate.all().forEach(x => {
-          const value = Number(x);
-          if (value <= Number(StreamVBRMaxBitRate['4'])) {
-            result.push({label: `${value / 1000}Mb`, value: x});
-          }
-        });
-        return result;
-      })(),
-      cbrBitRate: (() => {
-        const result = [];
-        StreamCBRBitRate.all().forEach(x => {
-          const value = Number(x);
-          if (value <= Number(StreamCBRBitRate['512'])) {
-            result.push({
-              label: `${x}kb`,
-              value: x
-            });
-          } else if (value <= Number(StreamCBRBitRate['2'])) {
-            result.push({
-              label: `${value / 1000}Mb`,
-              value: x
-            });
-          }
-        });
-        return result;
-      })(),
       gov: StreamGOV.all().map(x => ({label: x, value: x}))
     };
 
