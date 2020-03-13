@@ -23,7 +23,7 @@ const api = require('../../core/apis/web-api');
 const utils = require('../../core/utils');
 const _ = require('../../languages');
 
-module.exports = class Layout extends Base {
+module.exports = class  extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
