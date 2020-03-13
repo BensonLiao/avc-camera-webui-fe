@@ -1,6 +1,12 @@
 const api = require('./index.js');
 
 module.exports = {
+  ping: () => api({
+    method: 'get',
+    url: '/api/ping',
+    timeout: 1000,
+    params: {_: Math.random().toString(36).substr(2)}
+  }),
   validation: {
     /**
      * Validate the birthday of the account.
@@ -169,6 +175,30 @@ module.exports = {
       url: '/api/system/network'
     }),
     /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - port {string}
+     * - certificateType {string}
+     */
+    getHttpsSettings: () => api({
+      method: 'get',
+      url: '/api/system/https'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {string} port
+     * @param {string} certificateType
+     * @param {string} certificate
+     * @param {string} privateKey
+     * @returns {Promise<response>}
+     */
+    updateHttpsSettings: ({isEnable, port, certificateType, certificate, privateKey}) => api({
+      method: 'put',
+      url: '/api/system/https',
+      data: {isEnable, port, certificateType, certificate, privateKey}
+    }),
+    /**
      * @param {String} deviceName
      * @returns {Promise<response>}
      * @response 200 {Object}
@@ -202,6 +232,21 @@ module.exports = {
       method: 'put',
       url: '/api/system/language',
       data: {language}
+    }),
+    /**
+     * @param {File} file - The firmware file.
+     * @returns {Promise<response>}
+     * @response 204
+     */
+    uploadFirmware: file => api({
+      method: 'post',
+      url: '/api/system/firmware',
+      headers: {'content-type': 'multipart/form-data'},
+      data: (() => {
+        const formData = new FormData();
+        formData.set('file', file);
+        return formData;
+      })()
     })
   },
   notification: {
@@ -358,7 +403,7 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - defoggingEnabled {Boolean}
-     * - irEnabled {Boolean}
+     * - irEnabled {string}
      * - brightness {Number}
      * - contrast {Number}
      * - hdrEnabled {String}
@@ -377,6 +422,8 @@ module.exports = {
      * - isAutoFocus {Boolean}
      * - focalLength {Number}
      * - zoom {Number}
+     * - focusType {string}
+     * - isAutoFocusAfterZoom {boolean}
      */
     getSettings: () => api({
       method: 'get',
@@ -384,7 +431,7 @@ module.exports = {
     }),
     /**
      * @param {Boolean} defoggingEnabled
-     * @param {Boolean} irEnabled
+     * @param {string} irEnabled
      * @param {Number} brightness
      * @param {Number} contrast
      * @param {String} hdrEnabled
@@ -401,12 +448,11 @@ module.exports = {
      * @param {String} refreshRate
      * @param {Number} sensitivity
      * @param {Boolean} autoFocusEnabled
-     * @param {Number} focalLength
-     * @param {Number} zoom
+     * @param {number} irBrightness
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - defoggingEnabled {Boolean}
-     * - irEnabled {Boolean}
+     * - irEnabled {string}
      * - brightness {Number}
      * - contrast {Number}
      * - hdrEnabled {String}
@@ -443,7 +489,8 @@ module.exports = {
       timePeriodEnd,
       sharpness,
       orientation,
-      refreshRate
+      refreshRate,
+      irBrightness
     }) => api({
       method: 'put',
       url: '/api/video/settings',
@@ -464,6 +511,7 @@ module.exports = {
         sensitivity,
         timePeriodStart,
         timePeriodEnd,
+        irBrightness,
 
         sharpness,
         orientation,
@@ -485,12 +533,14 @@ module.exports = {
     /**
      * @param {number} focalLength
      * @param {number} zoom
+     * @param {string} focusType
+     * @param {boolean} isAutoFocusAfterZoom
      * @returns {Promise<response>}
      */
-    updateFocusSettings: ({focalLength, zoom}) => api({
+    updateFocusSettings: ({focalLength, zoom, focusType, isAutoFocusAfterZoom}) => api({
       method: 'put',
       url: '/api/video/settings/focus',
-      data: {focalLength, zoom}
+      data: {focalLength, zoom, focusType, isAutoFocusAfterZoom}
     })
   },
   smartFunction: {
@@ -957,6 +1007,8 @@ module.exports = {
      * - fontSize {string}
      * - color {string}
      * - position {string}
+     * - type {string}
+     * - customText {string}
      */
     getWordSettings: () => api({
       method: 'get',
@@ -967,17 +1019,21 @@ module.exports = {
      * @param {string} fontSize
      * @param {string} color
      * @param {string} position
+     * @param {string} type
+     * @param {string} customText
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isEnable {boolean}
      * - fontSize {string}
      * - color {string}
      * - position {string}
+     * - type {string}
+     * - customText {string}
      */
-    updateWordSettings: ({isEnable, fontSize, color, position}) => api({
+    updateWordSettings: ({isEnable, fontSize, color, position, type, customText}) => api({
       method: 'put',
       url: '/api/multimedia/word/settings',
-      data: {isEnable, fontSize, color, position}
+      data: {isEnable, fontSize, color, position, type, customText}
     })
   },
   event: {

@@ -41,6 +41,9 @@
   }
   .card-body {
     padding: 24px;
+    .tip {
+      height: 32px;
+    }
   }
 
   .accordion {
@@ -88,6 +91,9 @@
     }
     .collapsing, .collapse {
       .form-group {
+        > div.d-flex { 
+          height: 1.5rem;
+        }
         label {
           font-size: 16px;
           font-weight: normal;
@@ -97,12 +103,13 @@
           font-size: 16px;
           font-weight: normal;
         }
+        .well {
+          height: 5rem;
+          border-radius: 6px;
+          background-color: #F2F2F2;
+          padding: 16px;
+        }
       }
-    }
-    .well {
-      border-radius: 6px;
-      background-color: #F2F2F2;
-      padding: 16px;
     }
   }
 }

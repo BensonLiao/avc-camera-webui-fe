@@ -85,7 +85,7 @@ module.exports = class Group extends Base {
     return (
       <Form>
         <div className="modal-header">
-          <h5 className="modal-title">{group ? _('Modify group') : _('Create a group')}</h5>
+          <h5 className="modal-title">{group ? _('Modify Group') : _('Create a Group')}</h5>
         </div>
         <div className="modal-body">
           <div className="form-group">
@@ -121,7 +121,7 @@ module.exports = class Group extends Base {
             </button>
           </div>
           <button disabled={this.state.$isApiProcessing} type="button"
-            className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideModal}
+            className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideModal}
           >
             {_('Close')}
           </button>

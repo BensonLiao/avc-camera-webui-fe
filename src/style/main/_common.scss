@@ -338,7 +338,7 @@ body {
               width: 28px;
               height: 28px;
               line-height: 28px;
-              background-color: #4991BF;
+              background-color: $primary;
             }
           }
           &.disabled {
@@ -356,8 +356,8 @@ body {
         bottom: 80px;
         width: 80px;
         height: 40px;
-        border-top: 1px #4991BF solid;
-        border-bottom: 1px #4991BF solid;
+        border-top: 1px $primary solid;
+        border-bottom: 1px $primary solid;
       }
       .item-container {
         height: 200px;
@@ -376,10 +376,13 @@ body {
 
 .table.custom-style {
   margin-bottom: 0;
-  thead > tr {
+  thead {
+    text-transform: uppercase;
+    > tr {
     border-radius: 8px;
-    > th {
-      border: none;
+      > th {
+        border: none;
+      }
     }
   }
   tbody > tr {
@@ -492,4 +495,14 @@ $chips-sum-extra-width: 50px;
       text-align: center;
     }
   }
+}
+
+/* Hide scrollbar but keep functionality */
+.hidden-scrollbar {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE and Edge */
+  -ms-overflow-style: none;
 }

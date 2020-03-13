@@ -6,8 +6,6 @@ const React = require('react');
 const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
-const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
-const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-settings-schema');
 const defaultVideoBackground = require('../../resource/video-bg.jpg');
@@ -16,7 +14,6 @@ const _ = require('../../languages');
 const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
 const Slider = require('../../core/components/fields/slider');
-const Dropdown = require('../../core/components/fields/dropdown');
 const FormikEffect = require('../../core/components/formik-effect');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 
@@ -35,7 +32,6 @@ module.exports = class Home extends Base {
       }).isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.bool.isRequired, // 除霧
-        irEnabled: PropTypes.bool.isRequired, // 紅外線燈
         brightness: PropTypes.number.isRequired, // 亮度
         contrast: PropTypes.number.isRequired, // 對比
         hdrEnabled: PropTypes.oneOf(videoSettingsSchema.hdrEnabled.enum).isRequired, // HDR
@@ -102,6 +98,7 @@ module.exports = class Home extends Base {
       // Change other settings.
       const values = {
         ...nextValues,
+        hdrEnabled: `${nextValues.hdrEnabled}`,
         timePeriodStart: nextValues.dnDuty[0],
         timePeriodEnd: nextValues.dnDuty[1]
       };
@@ -215,249 +212,48 @@ module.exports = class Home extends Base {
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{_('Video properties')}</div>
+        <div className="card-header">{_('Quick Start')}</div>
         <div className="card-body">
           <div className="form-row">
-            <div className="col-12 col-lg-6 my-1 d-flex align-items-center">
-              <span>{_('Defog')}</span>
+            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+              <span className="text-size-20">{_('WDR')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="defoggingEnabled" type="checkbox" checked={values.defoggingEnabled} className="custom-control-input" id="switch-defogging"/>
-                <label className="custom-control-label" htmlFor="switch-defogging">
-                  <span>{_('Auto')}</span>
-                  <span>{_('Off')}</span>
-                </label>
-              </div>
-            </div>
-            <div className="col-12 col-lg-6 my-1 d-flex align-items-center justify-content-xl-end">
-              <span>{_('IR light')}</span>
-              <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="irEnabled" type="checkbox" checked={values.irEnabled} className="custom-control-input" id="switch-ir"/>
-                <label className="custom-control-label" htmlFor="switch-ir">
-                  <span>{_('Auto')}</span>
-                  <span>{_('Off')}</span>
+                <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled === 'true' ? true : undefined} className="custom-control-input" id="switch-hdr-enabled"/>
+                <label className="custom-control-label" htmlFor="switch-hdr-enabled">
+                  <span>{_('ON')}</span>
+                  <span>{_('OFF')}</span>
                 </label>
               </div>
             </div>
           </div>
         </div>
-
-        <div className="accordion" id="accordion-video-properties">
-          {/* 亮度 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>{_('Brightness')}
-              </button>
-            </h2>
-
-            <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Brightness')}</label>
-                  <span className="text-primary text-size-14">{values.brightness}</span>
-                </div>
-                <Field name="brightness" component={Slider} step={1}
-                  min={videoSettingsSchema.brightness.min}
-                  max={videoSettingsSchema.brightness.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Contrast')}</label>
-                  <span className="text-primary text-size-14">{values.contrast}</span>
-                </div>
-                <Field name="contrast" component={Slider} step={1}
-                  min={videoSettingsSchema.contrast.min}
-                  max={videoSettingsSchema.contrast.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('HDR')}</label>
-                  <Field name="hdrEnabled" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Shutter speed')}</label>
-                  <Field name="shutterSpeed" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({value: x, label: _(`shutter-speed-${x}`)}))}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Auto Iris')}</label>
-                  <Field name="aperture" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.aperture.enum.map(x => ({value: x, label: _(`aperture-${x}`)}))}/>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 顏色 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
-                <i className="fas fa-chevron-up"/>{_('Color')}
-              </button>
-            </h2>
-
-            <div id="color" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Saturation')}</label>
-                  <span className="text-primary text-size-14">{values.saturation}</span>
-                </div>
-                <Field name="saturation" component={Slider} step={1}
-                  min={videoSettingsSchema.saturation.min}
-                  max={videoSettingsSchema.saturation.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('White balance')}</label>
-                  <Field name="whiteblanceMode" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({value: x, label: _(`white-balance-${x}`)}))}/>
-                </div>
-                {
-                  values.whiteblanceMode === WhiteBalanceType.manual && (
-                    <div className="well">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Color temperature')}</label>
-                        <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
-                      </div>
-                      <Field name="whiteblanceManual" component={Slider} step={1000}
-                        min={videoSettingsSchema.whiteblanceManual.min}
-                        max={videoSettingsSchema.whiteblanceManual.max}/>
-                    </div>
-                  )
-                }
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('D/N')}</label>
-                  <Field name="daynightMode" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.daynightMode.enum.map(x => ({value: x, label: _(`daynight-mode-${x}`)}))}/>
-                </div>
-                {
-                  values.daynightMode === DaynightType.auto && (
-                    <div className="well">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Sensitivity')}</label>
-                        <span className="text-primary text-size-14">{values.sensitivity}</span>
-                      </div>
-                      <Field name="sensitivity" component={Slider} step={1}
-                        min={videoSettingsSchema.sensitivity.min}
-                        max={videoSettingsSchema.sensitivity.max}/>
-                    </div>
-                  )
-                }
-                {
-                  values.daynightMode === DaynightType.manual && (
-                    <div className="well">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Duty time')}</label>
-                        <span className="text-primary text-size-14">
-                          {utils.formatTimeRange(values.dnDuty)}
-                        </span>
-                      </div>
-                      <Field name="dnDuty" component={Slider}
-                        mode="range"
-                        step={0.5}
-                        min={videoSettingsSchema.timePeriodStart.min}
-                        max={videoSettingsSchema.timePeriodEnd.max}/>
-                    </div>
-                  )
-                }
-              </div>
-            </div>
-          </div>
-
-          {/* 影像 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#video">
-                <i className="fas fa-chevron-up"/>{_('Video')}
-              </button>
-            </h2>
-
-            <div id="video" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Sharpness')}</label>
-                  <span className="text-primary text-size-14">{values.sharpness}</span>
-                </div>
-                <Field name="sharpness" component={Slider} step={1}
-                  min={videoSettingsSchema.sharpness.min}
-                  max={videoSettingsSchema.sharpness.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Orientation')}</label>
-                  <Field name="orientation" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.orientation.enum.map(x => ({value: x, label: _(`orientation-${x}`)}))}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Flicker less')}</label>
-                  <Field name="refreshRate" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 對焦 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2 className="d-flex justify-content-between">
-              <button type="button" data-toggle="collapse" data-target="#focus"
-                className="btn btn-link btn-block text-left collapsed"
-              >
-                <i className="fas fa-chevron-up"/>{_('Focus')}
-              </button>
+        <hr className="my-0"/>
+        <div className="card-body">
+          <div className="form-row">
+            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+              <span className="text-size-20">{_('Focus')}</span>
               <button
                 disabled={this.state.$isApiProcessing} type="button"
                 className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
                 onClick={this.generateClickAutoFocusButtonHandler(form)}
               >
-                {_('Auto focus')}
+                {_('Auto Focus')}
               </button>
-            </h2>
-
-            <div id="focus" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
+            </div>
+          </div>
+        </div>
+        <hr className="my-0"/>
+        <div className="card-body">
+          <div className="form-row">
+            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+              <div className="form-group w-100 mb-0">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Focal length')}</label>
-                  <span className="text-primary text-size-14">{values.focalLength}</span>
-                </div>
-                <Field disabled={this.state.isAutoFocusProcessing}
-                  name="focalLength" component={Slider} step={1}
-                  min={videoFocusSettingsSchema.focalLength.min}
-                  max={videoFocusSettingsSchema.focalLength.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>ZOOM</label>
+                  <label className="text-size-16 mb-0 text-left">Zoom</label>
                   <span className="text-primary text-size-14">{values.zoom}</span>
                 </div>
-                <Field disabled={this.state.isAutoFocusProcessing}
+                <Field
+                  updateFieldOnStop
+                  disabled={this.state.isAutoFocusProcessing}
                   name="zoom" component={Slider} step={0.1}
                   min={videoFocusSettingsSchema.zoom.min}
                   max={videoFocusSettingsSchema.zoom.max}/>
@@ -472,7 +268,7 @@ module.exports = class Home extends Base {
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler(form)}
           >
-            {_('Reset to defaults')}
+            {_('Reset to Defaults')}
           </button>
         </div>
       </Form>
@@ -484,9 +280,6 @@ module.exports = class Home extends Base {
       <Form className="form-group">
         <Field name="deviceName" type="text"
           className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
-        <small className="form-text text-muted">
-          {_('Please enter letters between 1 and 32.')}
-        </small>
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
     );
@@ -517,7 +310,7 @@ module.exports = class Home extends Base {
             <div className="row">
               <div className="col-8 pr-24">
                 {/* The video */}
-                <div className="video-wrapper mb-5">
+                <div className="video-wrapper mb-4">
                   <img ref={this.streamPlayerRef}
                     className="img-fluid" src={this.state.streamImageUrl || defaultVideoBackground}
                     onClick={this.onTogglePlayStream}/>
@@ -558,10 +351,10 @@ module.exports = class Home extends Base {
                   <table>
                     <thead>
                       <tr>
-                        <th>{_('Device name')}</th>
-                        <th>{_('Smart functions')}</th>
-                        <th>{_('Device status')}</th>
-                        <th>{_('SD card')}</th>
+                        <th>{_('Device Name')}</th>
+                        <th>{_('Analytic')}</th>
+                        <th>{_('Device Status')}</th>
+                        <th>{_('SD Card')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -576,23 +369,38 @@ module.exports = class Home extends Base {
                           </Formik>
                         </td>
                         <td className="align-top">
-                          <span>{_('Face recognition: ')}</span>
-                          <span className={classTable.faceRecognitionState}>
-                            {_(`${systemInformation.isEnableFaceRecognition ? 'ON' : 'OFF'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Age gender: ')}</span>
-                          <span className={classTable.ageGenderState}>
-                            {_(`${systemInformation.isEnableAgeGender ? 'ON' : 'OFF'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Humanoid detection: ')}</span>
-                          <span className={classTable.humanoidDetectionState}>
-                            {_(`${systemInformation.isEnableHumanoidDetection ? 'ON' : 'OFF'}`)}
-                          </span>
+                          {systemInformation.isEnableFaceRecognition && (
+                            <div>
+                              <span>{_('Facial Recognition: ')}</span>
+                              <span className={classTable.faceRecognitionState}>
+                                {_(`${systemInformation.isEnableFaceRecognition ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
+                          {systemInformation.isEnableAgeGender && (
+                            <div>
+                              <span>{_('Age Gender: ')}</span>
+                              <span className={classTable.ageGenderState}>
+                                {_(`${systemInformation.isEnableAgeGender ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
+                          {systemInformation.isEnableHumanoidDetection && (
+                            <div>
+                              <span>{_('Human Detection: ')}</span>
+                              <span className={classTable.humanoidDetectionState}>
+                                {_(`${systemInformation.isEnableHumanoidDetection ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
                         </td>
                         <td className="align-top">
-                          <span className="badge badge-pill badge-success">{_('Green')}</span>
+                          {systemInformation.deviceStatus === 0 && (
+                            <span className="badge badge-pill badge-danger">{_('Error')}</span>
+                          )}
+                          {systemInformation.deviceStatus === 1 && (
+                            <span className="badge badge-pill badge-success">{_('Normal')}</span>
+                          )}
                         </td>
                         <td className="align-top">
                           <div className="progress">
@@ -619,7 +427,7 @@ module.exports = class Home extends Base {
                 </div>
               </div>
 
-              <div className="col-4 pl-24">
+              <div className="col-4 pl-0">
                 <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
                   {this.videoSettingsFormRender}
                 </Formik>

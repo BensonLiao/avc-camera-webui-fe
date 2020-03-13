@@ -215,7 +215,7 @@ module.exports = class Member extends React.PureComponent {
           </div>
           <div className="form-group">
             <label>{_('Name')}</label>
-            <Field name="name" type="text" placeholder={_('Please enter your name.')}
+            <Field name="name" type="text" placeholder={_('Enter your name')}
               maxLength={MemberSchema.name.max}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}/>
             {
@@ -226,7 +226,7 @@ module.exports = class Member extends React.PureComponent {
           </div>
           <div className="form-group">
             <label>{_('Organization')}</label>
-            <Field name="organization" type="text" placeholder={_('Please enter the organization.')}
+            <Field name="organization" type="text" placeholder={_('Enter the organization')}
               maxLength={MemberSchema.organization.max}
               className={classNames('form-control', {'is-invalid': errors.organization && touched.organization})}/>
             {
@@ -240,7 +240,7 @@ module.exports = class Member extends React.PureComponent {
             <label>{_('Group')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
               <Field name="group" component="select" className="form-control border-0">
-                <option value="">{_('None')}</option>
+                <option value="">{_('N/A')}</option>
                 {
                   this.props.groups.items.map(group => (
                     <option key={group.id} value={group.id}>{group.name}</option>
@@ -251,7 +251,7 @@ module.exports = class Member extends React.PureComponent {
           </div>
           <div className="form-group">
             <label>{_('Note')}</label>
-            <Field name="note" type="text" placeholder={_('Please enter your note.')}
+            <Field name="note" type="text" placeholder={_('Enter your note')}
               maxLength={MemberSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}/>
             {
@@ -267,7 +267,7 @@ module.exports = class Member extends React.PureComponent {
               {this.props.member ? _('Confirm') : _('New')}
             </button>
           </div>
-          <button className="btn btn-secondary btn-block m-0 rounded-pill"
+          <button className="btn btn-info btn-block m-0 rounded-pill"
             type="button" onClick={this.props.onHide}
           >
             {_('Close')}
@@ -283,7 +283,7 @@ module.exports = class Member extends React.PureComponent {
     return (
       <Modal autoFocus={false} show={isShowModal} onHide={onHide}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{member ? _('Modify member') : _('New member')}</Modal.Title>
+          <Modal.Title as="h5">{member ? _('Modify Member') : _('New Member')}</Modal.Title>
         </Modal.Header>
         <Formik
           initialValues={this.generateInitialValue(member)}

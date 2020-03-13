@@ -270,7 +270,7 @@ module.exports = class Events extends Base {
           </div>
         </div>
 
-        <span>{_('Recognition result')}</span>
+        <span>{_('Recognition Result')}</span>
         <div className="checkbox-group mt-3 mb-2 pl-2">
           <div className="form-check mb-3">
             <input type="checkbox" className="form-check-input" id="input-checkbox-register"
@@ -305,7 +305,7 @@ module.exports = class Events extends Base {
         <h2>{_('Events')}</h2>
         <div className="filter-wrapper">
           <div className="header d-flex justify-content-between align-items-center  text-size-12">
-            <span>{_('Filter condition')}</span>
+            <span>{_('Filters')}</span>
             <a className="text-primary font-weight-bold" href="#" onClick={this.onClickCleanFilters}>{_('Clean')}</a>
           </div>
 
@@ -316,12 +316,12 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Face recognition')}</span>
+                    <span>{_('Facial Recognition')}</span>
                     <i className="fas fa-chevron-up"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Face recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Unactivated')}</span> <i className="fas fa-chevron-down"/>
+                    <span>{_('Facial Recognition')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span> <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
@@ -335,12 +335,12 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {type: 'age-gender'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Age gender')}</span>
+                    <span>{_('Age Gender')}</span>
                     <i className="fas fa-chevron-down"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Age gender')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Unactivated')}</span>
+                    <span>{_('Age Gender')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -354,12 +354,12 @@ module.exports = class Events extends Base {
                   <Link to={{name: this.currentRoute.name, params: {type: 'humanoid-detection'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Human detection')}</span>
+                    <span>{_('Human Detection')}</span>
                     <i className="fas fa-chevron-down"/>
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Human detection')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Unactivated')}</span>
+                    <span>{_('Human Detection')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -379,14 +379,14 @@ module.exports = class Events extends Base {
             <Field
               name="start"
               component={DatePicker}
-              dateTabText={_('Start date')}
-              timeTabText={_('Start time')}
+              dateTabText={_('Start Date')}
+              timeTabText={_('Start Time')}
               inputProps={{
                 className: classNames(
                   'btn start-date px-4',
                   {active: isShowStartDatePicker}
                 ),
-                placeholder: _('Start datetime'),
+                placeholder: _('Start Datetime'),
                 style: {whiteSpace: 'nowrap'}
               }}
               endDateFieldName="end"
@@ -397,14 +397,14 @@ module.exports = class Events extends Base {
             <Field
               name="end"
               component={DatePicker}
-              dateTabText={_('End date')}
-              timeTabText={_('End time')}
+              dateTabText={_('End Date')}
+              timeTabText={_('End Time')}
               inputProps={{
                 className: classNames(
                   'btn end-date px-4',
                   {active: isShowEndDatePicker}
                 ),
-                placeholder: _('End datetime'),
+                placeholder: _('End Datetime'),
                 style: {whiteSpace: 'nowrap'}
               }}
               startDateFieldName="start"
@@ -416,7 +416,7 @@ module.exports = class Events extends Base {
         </div>
         <div className="form-row mt-4">
           <div className="col-auto px-0">
-            <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
+            <Field name="keyword" className="form-control" type="text" placeholder={_('Enter keywords')}/>
           </div>
           <div className="col-auto px-0 ml-3">
             <button className="btn btn-outline-primary rounded-pill px-3" type="submit">
@@ -524,12 +524,12 @@ module.exports = class Events extends Base {
               <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
-                    <th style={{width: '16%'}}>
+                    <th style={{width: '14%'}}>
                       <a href="#time" onClick={sort.time.handler}>{_('Time')}</a>
                       <i className={sort.time.icon}/>
                     </th>
-                    <th style={{width: '10%'}}>{_('Snapshot')}</th>
-                    <th style={{width: '10%'}}>{_('Member picture')}</th>
+                    <th style={{width: '10%'}}>{_('Capture')}</th>
+                    <th style={{width: '10%'}}>{_('User Picture')}</th>
                     <th style={{width: '10%'}}>
                       <a href="#" onClick={sort.name.handler}>{_('Name')}</a>
                       <i className={sort.name.icon}/>
@@ -538,20 +538,20 @@ module.exports = class Events extends Base {
                       <a href="#" onClick={sort.group.handler}>{_('Group')}</a>
                       <i className={sort.group.icon}/>
                     </th>
-                    <th style={{width: '8%'}}>
+                    <th style={{width: '14%'}}>
                       <a href="#" onClick={sort.organization.handler}>{_('Organization')}</a>
                       <i className={sort.organization.icon}/>
                     </th>
                     <th style={{width: '10%'}}>
-                      <a href="#" onClick={sort.confidence.handler}>{_('Confidence')}</a>
+                      <a href="#" onClick={sort.confidence.handler}>{_('Similarity')}</a>
                       <i className={sort.confidence.icon}/>
                     </th>
                     <th style={{width: '8%'}}>
-                      <a href="#" onClick={sort.recognitionResult.handler}>{_('Recognition result')}</a>
+                      <a href="#" onClick={sort.recognitionResult.handler}>{_('Recognition Result')}</a>
                       <i className={sort.recognitionResult.icon}/>
                     </th>
-                    <th style={{width: '12%'}}>{_('Note')}</th>
-                    <th style={{width: '8%'}}>{_('Actions')}</th>
+                    <th style={{width: '10%'}}>{_('Note')}</th>
+                    <th style={{width: '6%'}}>{_('Actions')}</th>
                   </tr>
                 </thead>
                 <tbody>

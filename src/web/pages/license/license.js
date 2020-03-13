@@ -58,20 +58,20 @@ module.exports = class License extends Base {
     api.authKey.addAuthKey(authKey)
       .then(response => {
         utils.showSuccessNotification(
-          _('Activated successfully'),
+          _('Activated Successfully'),
           _('{0} authorized successfully!', [
             (() => {
               const result = [];
               if (response.data.isEnableFaceRecognition) {
-                result.push(_('Face recognition'));
+                result.push(_('Facial Recognition'));
               }
 
               if (response.data.isEnableAgeGender) {
-                result.push(_('Age gender'));
+                result.push(_('Age Gender'));
               }
 
               if (response.data.isEnableHumanoidDetection) {
-                result.push(_('Human detection'));
+                result.push(_('Human Detection'));
               }
 
               return result.join(', ');
@@ -82,7 +82,7 @@ module.exports = class License extends Base {
       })
       .catch(() => {
         progress.done();
-        utils.showErrorNotification(_('Activation failed'), _('Authorization failed!'));
+        utils.showErrorNotification(_('Activation Failed'), _('Authorization failed!'));
       });
   };
 
@@ -98,7 +98,7 @@ module.exports = class License extends Base {
               className={classNames('form-control', {'is-invalid': errors.authKey && isSubmitted})}
               name="authKey"
               type="text"
-              placeholder={_('Please enter the authentication key.')}
+              placeholder={_('Enter your authentication key')}
               style={{width: '312px'}}
             />
           </div>
@@ -167,7 +167,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      {_('Face recognition')}
+                      {_('Facial Recognition')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -184,7 +184,7 @@ module.exports = class License extends Base {
                             'fa-check-circle' :
                             'fa-minus-circle'
                         )}/>
-                        {systemInformation.isEnableFaceRecognition ? _('Activated') : _('Unactivated')}
+                        {systemInformation.isEnableFaceRecognition ? _('Activated') : _('Inactivated')}
                       </span>
                     </div>
                   </div>
@@ -205,7 +205,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      {_('Age gender')}
+                      {_('Age Gender')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -222,7 +222,7 @@ module.exports = class License extends Base {
                             'fa-check-circle' :
                             'fa-minus-circle'
                         )}/>
-                        {systemInformation.isEnableAgeGender ? _('Activated') : _('Unactivated')}
+                        {systemInformation.isEnableAgeGender ? _('Activated') : _('Inactivated')}
                       </span>
                     </div>
                   </div>
@@ -243,7 +243,7 @@ module.exports = class License extends Base {
                         'text-muted'
                     )}
                     >
-                      {_('Human detection')}
+                      {_('Human Detection')}
                     </h4>
                     <div className="bottom">
                       <hr/>
@@ -260,7 +260,7 @@ module.exports = class License extends Base {
                             'fa-check-circle' :
                             'fa-minus-circle'
                         )}/>
-                        {systemInformation.isEnableHumanoidDetection ? _('Activated') : _('Unactivated')}
+                        {systemInformation.isEnableHumanoidDetection ? _('Activated') : _('Inactivated')}
                       </span>
                     </div>
                   </div>
@@ -273,7 +273,7 @@ module.exports = class License extends Base {
                       <th>{_('Time')}</th>
                       <th>{_('Activate User')}</th>
                       <th>{_('Authentication Key')}</th>
-                      <th>{_('Enabled Functions')}</th>
+                      <th>{_('Activate Functions')}</th>
                       <th>{_('Enable Status')}</th>
                     </tr>
                   </thead>
@@ -295,17 +295,17 @@ module.exports = class License extends Base {
                         <td>
                           {authKey.isEnableFaceRecognition && (
                             <span className="badge badge-primary badge-pill">
-                              {_('Face recognition')}
+                              {_('Facial Recognition')}
                             </span>
                           )}
                           {authKey.isEnableAgeGender && (
                             <span className="badge badge-primary badge-pill ml-1">
-                              {_('Age gender')}
+                              {_('Age Gender')}
                             </span>
                           )}
                           {authKey.isEnableHumanoidDetection && (
                             <span className="badge badge-primary badge-pill ml-1">
-                              {_('Human detection')}
+                              {_('Human Detection')}
                             </span>
                           )}
                         </td>
