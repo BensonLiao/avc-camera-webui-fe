@@ -9,9 +9,6 @@ const RefreshRate = require('webserver-form-schema/constants/refresh-rate');
 const StreamFormat = require('webserver-form-schema/constants/stream-format');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
-const StreamVBRBitRateLevel = require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
-const StreamVBRMaxBitRate = require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
-const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 
 const adapter = new LocalStorage('db');
