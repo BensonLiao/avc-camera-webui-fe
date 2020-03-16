@@ -48,7 +48,7 @@ module.exports = class Word extends Base {
 
     return (
       <Form className="row">
-        <div className="col-12">
+        <div className="col-12 px-0">
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
@@ -59,7 +59,7 @@ module.exports = class Word extends Base {
           </nav>
         </div>
 
-        <div className="col-8">
+        <div className="col-8 px-0">
           <div className="video-wrapper">
             <img className="img-fluid" src="/api/snapshot"/>
             {
@@ -101,7 +101,7 @@ module.exports = class Word extends Base {
           </div>
         </div>
 
-        <div className="col-4">
+        <div className="col-4 pl-4 pr-0">
           <div className="card shadow">
             <div className="card-header">{_('OSD')}</div>
             <div className="card-body">
@@ -178,7 +178,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
-                <Field name="customText" type="text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
+                <Field name="customText" type="text" placeholder="Enter Custom Text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
