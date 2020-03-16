@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
