@@ -13,6 +13,7 @@ const StreamResolution = require('webserver-form-schema/constants/stream-resolut
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const _ = require('../../../languages');
+const Dropdown = require('../../../core/components/fields/dropdown');
 
 module.exports = class Stream extends Base {
   static get propTypes() {
@@ -36,11 +37,6 @@ module.exports = class Stream extends Base {
         }).isRequired
       }).isRequired
     };
-  }
-
-  constructor(props) {
-    super(props);
-    this.state.bandwidthManagement = _(`stream-bandwidth-management-${this.props.streamSettings.channelA.bandwidthManagement}`) || 'Maximum Bitrate';
   }
 
   generateOnChangeBandwidthManagement = bandwidthManagement => {
@@ -72,8 +68,7 @@ module.exports = class Stream extends Base {
       });
   };
 
-  fieldsRender = (fieldNamePrefix, options) => {
-    const {bandwidthManagement} = this.state;
+  fieldsRender = (fieldNamePrefix, options, values) => {
     return (
       <>
         <div className="form-group">
@@ -125,27 +120,20 @@ module.exports = class Stream extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Bandwidth management')}</label>
+          <label>{_('Bandwidth Management')}</label>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
-              <div className="dropdown">
-                <button className="btn btn-outline-primary rounded-left dropdown-toggle" type="button" data-toggle="dropdown">
-                  {_(bandwidthManagement)}
-                </button>
-                <div className="dropdown-menu dropdown-menu-right">
-                  {
-                    options.bandwidthManagement.map(option => (
-                      <a key={option.value} className="dropdown-item" href="#" onClick={this.generateOnChangeBandwidthManagement(_(`stream-bandwidth-management-${option.label}`))}>
-                        {_(`stream-bandwidth-management-${option.label}`)}
-                      </a>
-                    ))
-                  }
-                </div>
-              </div>
+              <Field
+                name={`${fieldNamePrefix}.bandwidthManagement`}
+                component={Dropdown}
+                buttonClassName="btn btn-outline-primary rounded-left"
+                menuClassName="dropdown-menu-right"
+                items={options.bandwidthManagement.map(x => ({value: x.value, label: x.label}))}
+              />
             </div>
-            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control', {show: bandwidthManagement === _('stream-bandwidth-management-0')})}/>
-            <input readOnly type="text" className={classNames('form-control', {show: bandwidthManagement === _('stream-bandwidth-management-1')})} placeholder="Auto"/>
-            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control', {show: bandwidthManagement === _('stream-bandwidth-management-2')})}/>
+            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}/>
+            <input readOnly type="text" className={classNames('form-control', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
+            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
             <div className="input-group-append">
               <span className="input-group-text">Kbps</span>
             </div>
@@ -183,7 +171,7 @@ module.exports = class Stream extends Base {
 
         return result;
       })(),
-      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: x, value: x})),
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: _(`stream-bandwidth-management-${x}`), value: x})),
       gov: StreamGOV.all().map(x => ({label: x, value: x}))
     };
     const channelBOptions = {
@@ -225,10 +213,10 @@ module.exports = class Stream extends Base {
       <Form className="card-body">
         <div className="tab-content">
           <div className="tab-pane fade show active" id="tab-channel-a">
-            {this.fieldsRender('channelA', channelAOptions)}
+            {this.fieldsRender('channelA', channelAOptions, values.channelA)}
           </div>
           <div className="tab-pane fade" id="tab-channel-b">
-            {this.fieldsRender('channelB', channelBOptions)}
+            {this.fieldsRender('channelB', channelBOptions, values.channelB)}
           </div>
         </div>
 
