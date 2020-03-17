@@ -15,7 +15,8 @@ module.exports = new Router({
       isAbstract: true,
       resolve: {
         systemInformation: () => api.system.getInformation().then(response => response.data),
-        networkSettings: () => api.system.getNetworkSettings().then(response => response.data)
+        networkSettings: () => api.system.getNetworkSettings().then(response => response.data),
+        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
       },
       component: require('./pages/layout')
     },

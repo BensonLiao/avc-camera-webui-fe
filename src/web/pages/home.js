@@ -57,7 +57,25 @@ module.exports = class Home extends Base {
         isAutoFocus: PropTypes.bool.isRequired, // 自動對焦
         focalLength: PropTypes.number.isRequired, // 焦距
         zoom: PropTypes.number.isRequired
-      }).isRequired
+      }).isRequired,
+      streamSettings: PropTypes.shape({
+        channelA: PropTypes.shape({
+          format: PropTypes.string.isRequired,
+          resolution: PropTypes.string.isRequired,
+          frameRate: PropTypes.string.isRequired,
+          bandwidthManagement: PropTypes.string.isRequired,
+          bitRate: PropTypes.string,
+          gov: PropTypes.string.isRequired
+        }).isRequired,
+        channelB: PropTypes.shape({
+          format: PropTypes.string.isRequired,
+          resolution: PropTypes.string.isRequired,
+          frameRate: PropTypes.string.isRequired,
+          bandwidthManagement: PropTypes.string.isRequired,
+          bitRate: PropTypes.string,
+          gov: PropTypes.string.isRequired
+        }).isRequired
+      })
     };
   }
 
@@ -495,7 +513,7 @@ module.exports = class Home extends Base {
   };
 
   render() {
-    const {systemInformation} = this.props;
+    const {systemInformation, streamSettings} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
     const classTable = {
       faceRecognitionState: classNames({
@@ -640,6 +658,35 @@ module.exports = class Home extends Base {
                 <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
                   {this.videoSettingsFormRender}
                 </Formik>
+                <div className="card shadow">
+                  <div className="card-header">
+                    {_('Settings')}
+                  </div>
+                  <nav>
+                    <div className="nav nav-tabs">
+                      <a
+                        className="nav-item nav-link active"
+                        data-toggle="tab"
+                        href="#tab-channel-a"
+                      >
+                        {_('Stream {0}', '01')}
+                      </a>
+                      <a
+                        className="nav-item nav-link"
+                        data-toggle="tab"
+                        href="#tab-channel-b"
+                      >
+                        {_('Stream {0}', '02')}
+                      </a>
+                    </div>
+                  </nav>
+                  <Formik
+                    initialValues={streamSettings}
+                    onSubmit={this.onSubmit}
+                  >
+                    {this.formRender}
+                  </Formik>
+                </div>
               </div>
             </div>
           </div>
