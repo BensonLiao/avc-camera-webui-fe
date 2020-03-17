@@ -24,7 +24,7 @@ module.exports = class Stream extends Base {
           resolution: PropTypes.string.isRequired,
           frameRate: PropTypes.string.isRequired,
           bandwidthManagement: PropTypes.string.isRequired,
-          bitrate: PropTypes.string,
+          bitRate: PropTypes.string,
           gov: PropTypes.string.isRequired
         }).isRequired,
         channelB: PropTypes.shape({
@@ -32,7 +32,7 @@ module.exports = class Stream extends Base {
           resolution: PropTypes.string.isRequired,
           frameRate: PropTypes.string.isRequired,
           bandwidthManagement: PropTypes.string.isRequired,
-          bitrate: PropTypes.string,
+          bitRate: PropTypes.string,
           gov: PropTypes.string.isRequired
         }).isRequired
       }).isRequired
@@ -131,9 +131,9 @@ module.exports = class Stream extends Base {
                 items={options.bandwidthManagement.map(x => ({value: x.value, label: x.label}))}
               />
             </div>
-            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}/>
+            <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}/>
             <input readOnly type="text" className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
-            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
+            <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
             <div className="input-group-append">
               <span className="input-group-text">Kbps</span>
             </div>
