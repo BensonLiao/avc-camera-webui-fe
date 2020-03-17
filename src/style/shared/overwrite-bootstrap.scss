@@ -82,9 +82,11 @@ $switch-input-color-checked: $success;
 
 input.form-control {
   height: 40px;
-  display: none;
-  &.show {
-    display: block;
+  &.dynamic {
+    display: none;
+    &.show {
+      display: block;
+    }
   }
 }
 .form-control.is-invalid {

@@ -131,9 +131,9 @@ module.exports = class Stream extends Base {
                 items={options.bandwidthManagement.map(x => ({value: x.value, label: x.label}))}
               />
             </div>
-            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}/>
-            <input readOnly type="text" className={classNames('form-control', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
-            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
+            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}/>
+            <input readOnly type="text" className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
+            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
             <div className="input-group-append">
               <span className="input-group-text">Kbps</span>
             </div>
