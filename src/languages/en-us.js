@@ -165,6 +165,9 @@ window.languageResource = {
   'Device Status': 'Status',
   Green: 'Normal',
 
+  // /notification/cards
+  'Notification Filters': 'Filters',
+
   // /members
   Database: 'Database',
 

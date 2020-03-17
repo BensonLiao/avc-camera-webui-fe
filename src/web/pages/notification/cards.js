@@ -259,15 +259,15 @@ module.exports = class Cards extends Base {
           </div>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="type" component="select" className="form-control border-0">
-              <option value={NotificationCardType.faceRecognition}>{_('Face Recognition')}</option>
+              <option value={NotificationCardType.faceRecognition}>{_('Facial Recognition')}</option>
             </Field>
           </div>
         </div>
         <nav>
           <div className="nav nav-tabs">
-            <a className="nav-item nav-link active" data-toggle="tab" href="#tab-notification-time">{_('Notification Time')}</a>
-            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Notification Condition')}</a>
-            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-target">{_('Notification Object')}</a>
+            <a className="nav-item nav-link active" data-toggle="tab" href="#tab-notification-time">{_('Schedule')}</a>
+            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Rule')}</a>
+            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-target">{_('Subject')}</a>
           </div>
         </nav>
         <div className="modal-body tab-content">
@@ -379,7 +379,7 @@ module.exports = class Cards extends Base {
               <div className="select-wrapper border rounded-pill overflow-hidden d-flex align-items-center">
                 <i className="far fa-folder fa-sm"/>
                 <Field name="$groups" component="select" className="form-control border-0">
-                  <option value="">{_('All Groups')}</option>
+                  <option value="">{_('Everyone')}</option>
                   {
                     groups.items.map(group => (
                       <option key={group.id} value={group.id}>{group.name}</option>
@@ -470,7 +470,7 @@ module.exports = class Cards extends Base {
                           <div className="input-group-prepend">
                             <span className="input-group-text"><i className="fas fa-envelope"/></span>
                           </div>
-                          <Field name="$email" type="text" className="form-control" placeholder={_('Please enter email address.')} style={{width: 260}}/>
+                          <Field name="$email" type="text" className="form-control" placeholder={_('Enter email address')} style={{width: 260}}/>
                         </div>
                       </div>
                       <div className="col-auto my-1">
@@ -558,7 +558,7 @@ module.exports = class Cards extends Base {
           <table>
             <tbody>
               <tr>
-                <th>{_('Function')}</th>
+                <th>{_('Analytic')}</th>
                 <td>{_(`notification-card-${card.type}`)}</td>
               </tr>
               {
@@ -567,14 +567,14 @@ module.exports = class Cards extends Base {
 
                   return (
                     <tr key={key}>
-                      <th>{index === 0 ? _('Time') : ''}</th>
+                      <th>{index === 0 ? _('Schedule') : ''}</th>
                       <td>{`${utils.formatDate(timePeriod.start)} - ${utils.formatDate(timePeriod.end)}`}</td>
                     </tr>
                   );
                 })
               }
               <tr>
-                <th>{_('Condition')}</th>
+                <th>{_('Rule')}</th>
                 <td>{_(`face-recognition-condition-${card.faceRecognitionCondition}`)}</td>
               </tr>
             </tbody>
@@ -623,8 +623,8 @@ module.exports = class Cards extends Base {
           <div className="page-notification pt-0 pb-0">
             <div className="container-fluid">
               <div className="filter d-flex align-items-center text-nowrap mb-0">
-                <label className="mb-0">{_('Notification Filter')}</label>
-                <button className="btn btn-primary rounded-pill shadow-sm ml-4" type="button">{_('Face Recognition')}</button>
+                <label className="mb-0">{_('Notification Filters')}</label>
+                <button className="btn btn-primary rounded-pill shadow-sm ml-4" type="button">{_('Facial Recognition')}</button>
               </div>
             </div>
           </div>
