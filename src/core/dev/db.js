@@ -113,18 +113,16 @@ module.exports = {
           format: StreamFormat.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
-          bandwidthManagement: StreamBandwidthManagement.vbr,
-          maximumBitrate: '4096',
-          constantBitrate: '1024',
+          bandwidthManagement: StreamBandwidthManagement.mbr,
+          bitrate: '4096',
           gov: StreamGOV['60']
         },
         channelB: {
           format: StreamFormat.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
-          bandwidthManagement: StreamBandwidthManagement.vbr,
-          maximumBitrate: '4096',
-          constantBitrate: '1024',
+          bandwidthManagement: StreamBandwidthManagement.mbr,
+          bitrate: '4096',
           gov: StreamGOV['60']
         }
       },

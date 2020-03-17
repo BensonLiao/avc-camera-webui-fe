@@ -79,6 +79,11 @@ window.languageResource = {
   'stream-resolution-10': '640*480(4:3)',
   'stream-resolution-11': '320*240(4:3)',
 
+  // Bandwidth Management
+  'stream-bandwidth-management-0': 'Maximum Bitrate',
+  'stream-bandwidth-management-1': 'Variable Bitrate',
+  'stream-bandwidth-management-2': 'Constant Bitrate',
+
   // 可變比特率 (VBR)
   'stream-vbr-bit-rate-level-0': 'Best',
   'stream-vbr-bit-rate-level-1': 'Complete',

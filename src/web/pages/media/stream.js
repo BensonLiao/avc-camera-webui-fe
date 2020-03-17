@@ -23,8 +23,7 @@ module.exports = class Stream extends Base {
           resolution: PropTypes.string.isRequired,
           frameRate: PropTypes.string.isRequired,
           bandwidthManagement: PropTypes.string.isRequired,
-          maximumBitrate: PropTypes.string,
-          constantBitrate: PropTypes.string,
+          bitrate: PropTypes.string,
           gov: PropTypes.string.isRequired
         }).isRequired,
         channelB: PropTypes.shape({
@@ -32,8 +31,7 @@ module.exports = class Stream extends Base {
           resolution: PropTypes.string.isRequired,
           frameRate: PropTypes.string.isRequired,
           bandwidthManagement: PropTypes.string.isRequired,
-          maximumBitrate: PropTypes.string,
-          constantBitrate: PropTypes.string,
+          bitrate: PropTypes.string,
           gov: PropTypes.string.isRequired
         }).isRequired
       }).isRequired
@@ -42,7 +40,7 @@ module.exports = class Stream extends Base {
 
   constructor(props) {
     super(props);
-    this.state.bandwidthManagement = 'Maximum Bitrate';
+    this.state.bandwidthManagement = _(`stream-bandwidth-management-${this.props.streamSettings.channelA.bandwidthManagement}`) || 'Maximum Bitrate';
   }
 
   generateOnChangeBandwidthManagement = bandwidthManagement => {
@@ -135,21 +133,19 @@ module.exports = class Stream extends Base {
                   {_(bandwidthManagement)}
                 </button>
                 <div className="dropdown-menu dropdown-menu-right">
-                  <a className="dropdown-item" href="#" onClick={this.generateOnChangeBandwidthManagement('Maximum Bitrate')}>
-                    {_('Maximum Bitrate')}
-                  </a>
-                  <a className="dropdown-item" href="#" onClick={this.generateOnChangeBandwidthManagement('Variable Bitrate')}>
-                    {_('Variable Bitrate')}
-                  </a>
-                  <a className="dropdown-item" href="#" onClick={this.generateOnChangeBandwidthManagement('Constant Bitrate')}>
-                    {_('Constant Bitrate')}
-                  </a>
+                  {
+                    options.bandwidthManagement.map(option => (
+                      <a key={option.value} className="dropdown-item" href="#" onClick={this.generateOnChangeBandwidthManagement(_(`stream-bandwidth-management-${option.label}`))}>
+                        {_(`stream-bandwidth-management-${option.label}`)}
+                      </a>
+                    ))
+                  }
                 </div>
               </div>
             </div>
-            <Field type="text" name={`${fieldNamePrefix}.maximumBitrate`} className={classNames('form-control', {show: bandwidthManagement === 'Maximum Bitrate'})}/>
-            <input readOnly type="text" className={classNames('form-control', {show: bandwidthManagement === 'Variable Bitrate'})} placeholder="Auto"/>
-            <Field type="text" name={`${fieldNamePrefix}.constantBitrate`} className={classNames('form-control', {show: bandwidthManagement === 'Constant Bitrate'})}/>
+            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control', {show: bandwidthManagement === _('stream-bandwidth-management-0')})}/>
+            <input readOnly type="text" className={classNames('form-control', {show: bandwidthManagement === _('stream-bandwidth-management-1')})} placeholder="Auto"/>
+            <Field type="text" name={`${fieldNamePrefix}.bitrate`} className={classNames('form-control', {show: bandwidthManagement === _('stream-bandwidth-management-2')})}/>
             <div className="input-group-append">
               <span className="input-group-text">Kbps</span>
             </div>

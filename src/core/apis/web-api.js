@@ -859,8 +859,7 @@ module.exports = {
      * - - resolution {String} webserver-form-schema/constants/stream-resolution
      * - - frameRate {String}
      * - - bandwidthManagement {String}
-     * - - maximumBitrate {String}
-     * - - constantBitrate {String}
+     * - - bitrate {String}
      * - - gov {String}
      * - channelB {Object} It is same as channelA.
      */
@@ -874,8 +873,7 @@ module.exports = {
      * @property {String} resolution webserver-form-schema/constants/stream-resolution
      * @property {String} frameRate
      * @property {String} bandwidthManagement
-     * @property {String} maximumBitrate
-     * @property {String} constantBitrate
+     * @property {String} bitrate
      * @property {String} gov
      * @param {Object} channelB It is same as channelA.
      * @returns {Promise<response>} webserver-form-schema/stream-settings-schema
@@ -885,8 +883,7 @@ module.exports = {
      * - - resolution {String} webserver-form-schema/constants/stream-resolution
      * - - frameRate {String}
      * - - bandwidthManagement {String}
-     * - - maximumBitrate {String}
-     * - - constantBitrate {String}
+     * - - bitrate {String}
      * - - gov {String}
      * - channelB {Object} It is same as channelA.
      */
