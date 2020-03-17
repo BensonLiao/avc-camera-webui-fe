@@ -178,7 +178,7 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
-                <Field name="customText" type="text" placeholder="Enter Custom Text" maxLength={WordSettingsSchema.customText.max} className="form-control"/>
+                <Field name="customText" type="text" placeholder={_('Enter Custom Text')} maxLength={WordSettingsSchema.customText.max} className="form-control"/>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
