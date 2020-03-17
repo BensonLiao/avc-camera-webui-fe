@@ -100,6 +100,7 @@ window.languageResource = {
   'word-type-1': '相機名稱',
   'word-type-2': '相機名稱+時間',
   'word-type-3': '自訂文字',
+  'Enter Custom Text': '輸入自訂文字',
 
   // 通知類型
   'notification-card-0': '臉部辨識',
