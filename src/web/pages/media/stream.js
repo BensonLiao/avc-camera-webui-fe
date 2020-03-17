@@ -205,7 +205,7 @@ module.exports = class Stream extends Base {
 
         return result;
       })(),
-      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: x, value: x})),
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: _(`stream-bandwidth-management-${x}`), value: x})),
       gov: StreamGOV.all().map(x => ({label: x, value: x}))
     };
 
