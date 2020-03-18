@@ -161,7 +161,7 @@ module.exports = class Stream extends Base {
 
   formRender = ({values}) => {
     const channelAOptions = {
-      format: StreamFormat.all().map(x => ({label: x, value: x})),
+      format: StreamFormat.all().filter(x => x !== StreamFormat.mjpeg).map(x => ({label: x, value: x})),
       resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
       frameRate: (() => {
         const result = [];
@@ -175,7 +175,7 @@ module.exports = class Stream extends Base {
       gov: StreamGOV.all().map(x => ({label: x, value: x}))
     };
     const channelBOptions = {
-      format: StreamFormat.all().map(x => ({label: x, value: x})),
+      format: StreamFormat.all().filter(x => x !== StreamFormat.h265).map(x => ({label: x, value: x})),
       resolution: (() => {
         let options;
         if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
