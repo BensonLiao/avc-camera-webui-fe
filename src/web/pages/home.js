@@ -380,6 +380,9 @@ module.exports = class Home extends Base {
               <span className="input-group-text">Kbps</span>
             </div>
           </div>
+          <small className="text-info mb-3">
+            {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
+          </small>
         </div>
         <div className="form-group">
           <label>{_('GOV')}</label>
