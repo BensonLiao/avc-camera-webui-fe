@@ -247,7 +247,15 @@ module.exports = class Home extends Base {
     return (
       <Form>
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{_('Quick Start')}</div>
+        <div className="card-header d-flex align-items-center justify-content-between">
+          {_('Quick Start')}
+          <button disabled={this.state.$isApiProcessing} type="button"
+            className="btn btn-outline-light rounded-pill"
+            onClick={this.generateClickResetButtonHandler(form)}
+          >
+            {_('Reset to Default')}
+          </button>
+        </div>
         <div className="card-body">
           <div className="form-row">
             <div className="col-12 my-1 d-flex justify-content-between align-items-center">
@@ -296,16 +304,6 @@ module.exports = class Home extends Base {
             </div>
           </div>
         </div>
-
-        <hr className="my-0"/>
-        <div className="card-body pt-0 mt-5">
-          <button disabled={this.state.$isApiProcessing} type="button"
-            className="btn btn-outline-primary btn-block rounded-pill"
-            onClick={this.generateClickResetButtonHandler(form)}
-          >
-            {_('Reset to Default')}
-          </button>
-        </div>
       </Form>
     );
   };
@@ -317,6 +315,7 @@ module.exports = class Home extends Base {
           <label>{_('Format')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
+              readOnly
               name={`${fieldNamePrefix}.format`}
               component="select"
               className="form-control border-0"
@@ -333,6 +332,7 @@ module.exports = class Home extends Base {
           <label>{_('Resolution')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
+              readOnly
               name={`${fieldNamePrefix}.resolution`}
               component="select"
               className="form-control border-0"
@@ -385,6 +385,7 @@ module.exports = class Home extends Base {
           <label>{_('GOV')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
+              readOnly
               name={`${fieldNamePrefix}.gov`}
               component="select"
               className="form-control border-0"
@@ -452,34 +453,57 @@ module.exports = class Home extends Base {
     };
 
     return (
-      <Form className="card-body">
-        <div className="tab-content">
-          <div className="tab-pane fade show active" id="tab-channel-a">
-            {this.fieldsRender('channelA', channelAOptions, values.channelA)}
-          </div>
-          <div className="tab-pane fade" id="tab-channel-b">
-            {this.fieldsRender('channelB', channelBOptions, values.channelB)}
-          </div>
-        </div>
-
-        <div className="form-group mt-5">
+      <>
+        <div className="card-header d-flex align-items-center justify-content-between rounded-0">
+          {_('Stream Settings')}
           <button
-            type="submit"
-            className="btn btn-block btn-primary rounded-pill"
+            type="button"
+            className="btn btn-outline-light rounded-pill"
             disabled={this.state.$isApiProcessing}
+            onClick={this.onClickResetButton}
           >
-            {_('Apply')}
+            {_('Reset to Default')}
           </button>
         </div>
-        <button
-          type="button"
-          className="btn btn-block btn-outline-primary rounded-pill"
-          disabled={this.state.$isApiProcessing}
-          onClick={this.onClickResetButton}
-        >
-          {_('Reset to Default')}
-        </button>
-      </Form>
+        <nav>
+          <div className="nav nav-tabs">
+            <a
+              className="nav-item nav-link active"
+              data-toggle="tab"
+              href="#tab-channel-a"
+            >
+              {_('Stream {0}', '01')}
+            </a>
+            <a
+              className="nav-item nav-link"
+              data-toggle="tab"
+              href="#tab-channel-b"
+            >
+              {_('Stream {0}', '02')}
+            </a>
+          </div>
+        </nav>
+        <Form className="card-body">
+          <div className="tab-content">
+            <div className="tab-pane fade show active" id="tab-channel-a">
+              {this.fieldsRender('channelA', channelAOptions, values.channelA)}
+            </div>
+            <div className="tab-pane fade" id="tab-channel-b">
+              {this.fieldsRender('channelB', channelBOptions, values.channelB)}
+            </div>
+          </div>
+
+          <div className="form-group mt-5">
+            <button
+              type="submit"
+              className="btn btn-block btn-primary rounded-pill"
+              disabled={this.state.$isApiProcessing}
+            >
+              {_('Apply')}
+            </button>
+          </div>
+        </Form>
+      </>
     );
   };
 
@@ -659,27 +683,6 @@ module.exports = class Home extends Base {
                   <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
                     {this.videoSettingsFormRender}
                   </Formik>
-                  <div className="card-header rounded-0">
-                    {_('Settings')}
-                  </div>
-                  <nav>
-                    <div className="nav nav-tabs">
-                      <a
-                        className="nav-item nav-link active"
-                        data-toggle="tab"
-                        href="#tab-channel-a"
-                      >
-                        {_('Stream {0}', '01')}
-                      </a>
-                      <a
-                        className="nav-item nav-link"
-                        data-toggle="tab"
-                        href="#tab-channel-b"
-                      >
-                        {_('Stream {0}', '02')}
-                      </a>
-                    </div>
-                  </nav>
                   <Formik
                     initialValues={streamSettings}
                     onSubmit={this.onSubmit}
