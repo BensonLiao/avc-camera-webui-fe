@@ -84,7 +84,7 @@ module.exports = class Login extends Base {
             <label>{_('Username')}</label>
             <Field name="account" type="text"
               maxLength={UserSchema.account.max}
-              placeholder={_('Eenter your username')}
+              placeholder={_('Enter your username')}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
             {
               errors.account && touched.account && (
@@ -95,7 +95,7 @@ module.exports = class Login extends Base {
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
             <Field name="password" component={Password} inputProps={{
-              placeholder: _('Eenter your password'),
+              placeholder: _('Enter your password'),
               className: classNames('form-control', {'is-invalid': errors.password})
             }}/>
             {
