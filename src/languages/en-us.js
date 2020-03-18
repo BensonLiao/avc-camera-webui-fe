@@ -71,10 +71,18 @@ window.languageResource = {
   'stream-resolution-2': '1920*1080(16:9)',
   'stream-resolution-3': '1280*720(16:9)',
   'stream-resolution-4': '640*360(16:9)',
-  'stream-resolution-5': '2048*1536(4:3)',
-  'stream-resolution-6': '1600*1200(4:3)',
-  'stream-resolution-7': '1280*960(4:3)',
-  'stream-resolution-8': '640*480(4:3)',
+  'stream-resolution-5': '2560*1920(4:3)',
+  'stream-resolution-6': '2048*1536(4:3)',
+  'stream-resolution-7': '1600*1200(4:3)',
+  'stream-resolution-8': '1280*960(4:3)',
+  'stream-resolution-9': '1024*768(4:3)',
+  'stream-resolution-10': '640*480(4:3)',
+  'stream-resolution-11': '320*240(4:3)',
+
+  // Bandwidth Management
+  'stream-bandwidth-management-0': 'Maximum Bitrate',
+  'stream-bandwidth-management-1': 'Variable Bitrate',
+  'stream-bandwidth-management-2': 'Constant Bitrate',
 
   // 可變比特率 (VBR)
   'stream-vbr-bit-rate-level-0': 'Best',

@@ -9,9 +9,6 @@ const RefreshRate = require('webserver-form-schema/constants/refresh-rate');
 const StreamFormat = require('webserver-form-schema/constants/stream-format');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
-const StreamVBRBitRateLevel = require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
-const StreamVBRMaxBitRate = require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
-const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 
 const adapter = new LocalStorage('db');
@@ -97,20 +94,18 @@ module.exports = {
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['1024'],
-          gov: StreamGOV['120']
+          maximumBitrate: '4096',
+          constantBitrate: '4096',
+          gov: StreamGOV['60']
         },
         channelB: {
           format: StreamFormat.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['1'],
-          cbrBitRate: StreamCBRBitRate['10'],
-          gov: StreamGOV['120']
+          maximumBitrate: '4096',
+          constantBitrate: '4096',
+          gov: StreamGOV['60']
         }
       },
       stream: {
@@ -118,21 +113,17 @@ module.exports = {
           format: StreamFormat.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
-          bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['10'],
-          gov: StreamGOV['120']
+          bandwidthManagement: StreamBandwidthManagement.mbr,
+          bitrate: '4096',
+          gov: StreamGOV['60']
         },
         channelB: {
           format: StreamFormat.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
-          bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: '1',
-          cbrBitRate: StreamCBRBitRate['1024'],
-          gov: StreamGOV['120']
+          bandwidthManagement: StreamBandwidthManagement.mbr,
+          bitrate: '4096',
+          gov: StreamGOV['60']
         }
       },
       audioSettings: {
