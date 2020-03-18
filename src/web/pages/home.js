@@ -231,11 +231,21 @@ module.exports = class Home extends Base {
       .finally(progress.done);
   };
 
+  deviceNameFormRender = ({errors, touched}) => {
+    return (
+      <Form className="form-group">
+        <Field name="deviceName" type="text"
+          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
+        <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
+      </Form>
+    );
+  };
+
   videoSettingsFormRender = form => {
     const {values} = form;
 
     return (
-      <Form className="card shadow">
+      <Form>
         <FormikEffect onChange={this.onChangeVideoSettings}/>
         <div className="card-header">{_('Quick Start')}</div>
         <div className="card-body">
@@ -298,35 +308,6 @@ module.exports = class Home extends Base {
         </div>
       </Form>
     );
-  };
-
-  generateOnChangeBandwidthManagement = bandwidthManagement => {
-    return event => {
-      event.preventDefault();
-      this.setState({bandwidthManagement});
-    };
-  }
-
-  onSubmit = values => {
-    progress.start();
-    api.multimedia.updateStreamSettings(values)
-      .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
-  };
-
-  onClickResetButton = event => {
-    event.preventDefault();
-    progress.start();
-    api.multimedia.resetStreamSettings()
-      .then(getRouter().reload)
-      .catch(utils.renderError)
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
   };
 
   fieldsRender = (fieldNamePrefix, options, values) => {
@@ -502,14 +483,33 @@ module.exports = class Home extends Base {
     );
   };
 
-  deviceNameFormRender = ({errors, touched}) => {
-    return (
-      <Form className="form-group">
-        <Field name="deviceName" type="text"
-          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
-        <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
-      </Form>
-    );
+  generateOnChangeBandwidthManagement = bandwidthManagement => {
+    return event => {
+      event.preventDefault();
+      this.setState({bandwidthManagement});
+    };
+  }
+
+  onSubmit = values => {
+    progress.start();
+    api.multimedia.updateStreamSettings(values)
+      .then(getRouter().reload)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
+
+  onClickResetButton = event => {
+    event.preventDefault();
+    progress.start();
+    api.multimedia.resetStreamSettings()
+      .then(getRouter().reload)
+      .catch(utils.renderError)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
   };
 
   render() {
@@ -655,11 +655,11 @@ module.exports = class Home extends Base {
               </div>
 
               <div className="col-4 pl-0">
-                <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
-                  {this.videoSettingsFormRender}
-                </Formik>
                 <div className="card shadow">
-                  <div className="card-header">
+                  <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
+                    {this.videoSettingsFormRender}
+                  </Formik>
+                  <div className="card-header rounded-0">
                     {_('Settings')}
                   </div>
                   <nav>
