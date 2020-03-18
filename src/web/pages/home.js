@@ -75,7 +75,7 @@ module.exports = class Home extends Base {
           bitRate: PropTypes.string,
           gov: PropTypes.string.isRequired
         }).isRequired
-      })
+      }).isRequired
     };
   }
 
