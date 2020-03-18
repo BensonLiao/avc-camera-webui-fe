@@ -114,7 +114,7 @@ module.exports = class Stream extends Base {
         </div>
         <div className="form-group">
           <label>{_('Bandwidth Management')}</label>
-          <div className="input-group mb-3">
+          <div className="input-group">
             <div className="input-group-prepend">
               <Field
                 name={`${fieldNamePrefix}.bandwidthManagement`}
@@ -131,6 +131,9 @@ module.exports = class Stream extends Base {
               <span className="input-group-text">Kbps</span>
             </div>
           </div>
+          <small className="text-info mb-3">
+            {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
+          </small>
         </div>
         <div className="form-group">
           <label>{_('GOV')}</label>
