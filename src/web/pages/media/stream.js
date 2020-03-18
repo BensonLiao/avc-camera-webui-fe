@@ -39,13 +39,6 @@ module.exports = class Stream extends Base {
     };
   }
 
-  generateOnChangeBandwidthManagement = bandwidthManagement => {
-    return event => {
-      event.preventDefault();
-      this.setState({bandwidthManagement});
-    };
-  }
-
   onSubmit = values => {
     progress.start();
     api.multimedia.updateStreamSettings(values)
@@ -180,16 +173,21 @@ module.exports = class Stream extends Base {
         let options;
         if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
           options = [
-            StreamResolution['0'],
-            StreamResolution['1'],
-            StreamResolution['2'],
             StreamResolution['3'],
             StreamResolution['4']
           ];
         } else {
           options = [
-            StreamResolution['5'],
-            StreamResolution['6'],
+            StreamResolution['9'],
+            StreamResolution['10'],
+            StreamResolution['11']
+          ];
+        }
+
+        if (values.channelB.format === StreamFormat.mjpeg) {
+          options = [
+            StreamResolution['2'],
+            StreamResolution['3'],
             StreamResolution['7'],
             StreamResolution['8']
           ];
