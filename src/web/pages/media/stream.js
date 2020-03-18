@@ -39,13 +39,6 @@ module.exports = class Stream extends Base {
     };
   }
 
-  generateOnChangeBandwidthManagement = bandwidthManagement => {
-    return event => {
-      event.preventDefault();
-      this.setState({bandwidthManagement});
-    };
-  }
-
   onSubmit = values => {
     progress.start();
     api.multimedia.updateStreamSettings(values)
@@ -121,7 +114,7 @@ module.exports = class Stream extends Base {
         </div>
         <div className="form-group">
           <label>{_('Bandwidth Management')}</label>
-          <div className="input-group mb-3">
+          <div className="input-group">
             <div className="input-group-prepend">
               <Field
                 name={`${fieldNamePrefix}.bandwidthManagement`}
@@ -138,6 +131,9 @@ module.exports = class Stream extends Base {
               <span className="input-group-text">Kbps</span>
             </div>
           </div>
+          <small className="text-info mb-3">
+            {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
+          </small>
         </div>
         <div className="form-group">
           <label>{_('GOV')}</label>
@@ -161,7 +157,7 @@ module.exports = class Stream extends Base {
 
   formRender = ({values}) => {
     const channelAOptions = {
-      format: StreamFormat.all().map(x => ({label: x, value: x})),
+      format: StreamFormat.all().filter(x => x !== StreamFormat.mjpeg).map(x => ({label: x, value: x})),
       resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
       frameRate: (() => {
         const result = [];
@@ -175,21 +171,26 @@ module.exports = class Stream extends Base {
       gov: StreamGOV.all().map(x => ({label: x, value: x}))
     };
     const channelBOptions = {
-      format: StreamFormat.all().map(x => ({label: x, value: x})),
+      format: StreamFormat.all().filter(x => x !== StreamFormat.h265).map(x => ({label: x, value: x})),
       resolution: (() => {
         let options;
         if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
           options = [
-            StreamResolution['0'],
-            StreamResolution['1'],
-            StreamResolution['2'],
             StreamResolution['3'],
             StreamResolution['4']
           ];
         } else {
           options = [
-            StreamResolution['5'],
-            StreamResolution['6'],
+            StreamResolution['9'],
+            StreamResolution['10'],
+            StreamResolution['11']
+          ];
+        }
+
+        if (values.channelB.format === StreamFormat.mjpeg) {
+          options = [
+            StreamResolution['2'],
+            StreamResolution['3'],
             StreamResolution['7'],
             StreamResolution['8']
           ];

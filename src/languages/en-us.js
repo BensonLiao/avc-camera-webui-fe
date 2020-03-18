@@ -170,6 +170,9 @@ window.languageResource = {
   'Device Status': 'Status',
   Green: 'Normal',
 
+  // /media/stream
+  '{0} - {1} Kbps': '{0} - {1} Kbps',
+
   // /notification/cards
   'Notification Filters': 'Filters',
 
