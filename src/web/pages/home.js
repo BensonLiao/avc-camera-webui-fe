@@ -318,7 +318,7 @@ module.exports = class Home extends Base {
               readOnly
               name={`${fieldNamePrefix}.format`}
               component="select"
-              className="form-control border-0"
+              className="form-control border-0 select-readonly"
             >
               {
                 options.format.map(option => (
@@ -335,7 +335,7 @@ module.exports = class Home extends Base {
               readOnly
               name={`${fieldNamePrefix}.resolution`}
               component="select"
-              className="form-control border-0"
+              className="form-control border-0 select-readonly"
             >
               {
                 options.resolution.map(option => (
@@ -391,7 +391,7 @@ module.exports = class Home extends Base {
               readOnly
               name={`${fieldNamePrefix}.gov`}
               component="select"
-              className="form-control border-0"
+              className="form-control border-0 select-readonly"
             >
               {
                 options.gov.map(option => (

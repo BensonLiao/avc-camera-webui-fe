@@ -112,4 +112,7 @@
       }
     }
   }
+  .select-readonly {
+    pointer-events: none;
+  }
 }
