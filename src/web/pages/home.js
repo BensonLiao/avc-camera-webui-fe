@@ -23,6 +23,7 @@ const StreamFormat = require('webserver-form-schema/constants/stream-format');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
+const {DEVICE_NAME_CHAR_MAX} = require('../../core/constants');
 
 module.exports = class Home extends Base {
   static get propTypes() {
@@ -235,6 +236,7 @@ module.exports = class Home extends Base {
     return (
       <Form className="form-group">
         <Field name="deviceName" type="text"
+          maxLength={DEVICE_NAME_CHAR_MAX}
           className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
