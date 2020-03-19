@@ -4,5 +4,6 @@ module.exports = {
     IS_API_PROCESSING: '$isApiProcessing'
   },
   MEMBERS_PAGE_GROUPS_MAX: 32,
-  SECURITY_USERS_MAX: 20
+  SECURITY_USERS_MAX: 20,
+  DEVICE_NAME_CHAR_MAX: 32
 };
