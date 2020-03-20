@@ -219,7 +219,24 @@ module.exports = class Image extends Base {
         <FormikEffect onChange={this.onChangeVideoSettings}/>
         <div className="card-header">{_('Image settings')}</div>
         <div className="accordion" id="accordion-video-properties">
-          {/* 亮度 */}
+          {/* WDR */}
+          <hr className="my-0"/>
+          <div className="card-body">
+            <div className="form-row">
+              <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+                <span className="text-size-20">{_('WDR')}</span>
+                <div className="custom-control custom-switch d-inline-block ml-2">
+                  <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled === 'true' ? true : undefined} className="custom-control-input" id="switch-hdr-enabled"/>
+                  <label className="custom-control-label" htmlFor="switch-hdr-enabled">
+                    <span>{_('ON')}</span>
+                    <span>{_('OFF')}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Picture */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
@@ -251,6 +268,26 @@ module.exports = class Image extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Sharpness')}</label>
+                  <span className="text-primary text-size-14">{values.sharpness}</span>
+                </div>
+                <Field updateFieldOnStop name="sharpness" component={Slider}
+                  step={1}
+                  min={videoSettingsSchema.sharpness.min}
+                  max={videoSettingsSchema.sharpness.max}/>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Saturation')}</label>
+                  <span className="text-primary text-size-14">{values.saturation}</span>
+                </div>
+                <Field updateFieldOnStop name="saturation" component={Slider}
+                  step={1}
+                  min={videoSettingsSchema.saturation.min}
+                  max={videoSettingsSchema.saturation.max}/>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
                   <label>{_('WDR')}</label>
                   <Field name="hdrEnabled" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
@@ -268,6 +305,19 @@ module.exports = class Image extends Base {
                     items={videoSettingsSchema.shutterSpeed.enum.map(x => ({value: x, label: _(`shutter-speed-${x}`)}))}/>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Lens Control */}
+          <hr className="my-0"/>
+          <div className="card-body pb-0">
+            <h2>
+              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
+                <i className="fas fa-chevron-up"/>{_('Lens Control')}
+              </button>
+            </h2>
+
+            <div id="color" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Iris')}</label>
@@ -280,26 +330,16 @@ module.exports = class Image extends Base {
             </div>
           </div>
 
-          {/* 顏色 */}
+          {/* Image Configuration */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
-                <i className="fas fa-chevron-up"/>{_('Lens Control')}
+              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#video">
+                <i className="fas fa-chevron-up"/>{_('Image Configuration')}
               </button>
             </h2>
 
-            <div id="color" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Saturation')}</label>
-                  <span className="text-primary text-size-14">{values.saturation}</span>
-                </div>
-                <Field updateFieldOnStop name="saturation" component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.saturation.min}
-                  max={videoSettingsSchema.saturation.max}/>
-              </div>
+            <div id="video" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
                   <label>{_('Auto White Balance')}</label>
@@ -392,29 +432,6 @@ module.exports = class Image extends Base {
                   )
                 }
               </div>
-            </div>
-          </div>
-
-          {/* 影像 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#video">
-                <i className="fas fa-chevron-up"/>{_('Image Configuration')}
-              </button>
-            </h2>
-
-            <div id="video" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Sharpness')}</label>
-                  <span className="text-primary text-size-14">{values.sharpness}</span>
-                </div>
-                <Field updateFieldOnStop name="sharpness" component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.sharpness.min}
-                  max={videoSettingsSchema.sharpness.max}/>
-              </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Rotation')}</label>
@@ -426,21 +443,21 @@ module.exports = class Image extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Lighting Compensation Frequency (Hz)')}</label>
-                  <Field name="refreshRate" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Defog')}</label>
                   <Field name="defoggingEnabled" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
                     items={[{value: 'true', label: _('On')}, {value: 'false', label: _('Off')}]}
                   />
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Lighting Compensation Frequency (Hz)')}</label>
+                  <Field name="refreshRate" component={Dropdown}
+                    buttonClassName="btn-link text-primary border-0 p-0"
+                    menuClassName="dropdown-menu-right"
+                    items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
                 </div>
               </div>
             </div>
