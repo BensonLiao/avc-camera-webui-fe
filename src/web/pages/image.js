@@ -286,14 +286,74 @@ module.exports = class Image extends Base {
                   min={videoSettingsSchema.saturation.min}
                   max={videoSettingsSchema.saturation.max}/>
               </div>
+            </div>
+          </div>
+
+          {/* Lens Control */}
+          <hr className="my-0"/>
+          <div className="card-body pb-0">
+            <h2 className="d-flex justify-content-between">
+              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
+                <i className="fas fa-chevron-up"/>{_('Lens Control')}
+              </button>
+              <div className="btn-group tip">
+                <button
+                  disabled={this.state.$isApiProcessing || values.isAutoFocusAfterZoom} type="button"
+                  className="btn btn-outline-primary text-nowrap"
+                  onClick={this.generateClickAutoFocusButtonHandler(form)}
+                >
+                  {_(values.focusType === FocusType.fullRange ? 'Full-range Focus' : 'Short-range Focus')}
+                </button>
+                <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span className="sr-only">Select focus type</span>
+                </button>
+                <div className="dropdown-menu">
+                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.fullRange)}>
+                    {_('Full-range Focus')}
+                  </button>
+                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.shortRange)}>
+                    {_('Short-range Focus')}
+                  </button>
+                </div>
+              </div>
+            </h2>
+
+            <div id="color" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('WDR')}</label>
-                  <Field name="hdrEnabled" component={Dropdown}
+                  <label>{_('Focus')}</label>
+                  <span className="text-primary text-size-14">{values.focalLength}</span>
+                </div>
+                <Field updateFieldOnStop disabled={this.state.isAutoFocusProcessing || values.isAutoFocusAfterZoom}
+                  name="focalLength" component={Slider} step={1}
+                  min={videoFocusSettingsSchema.focalLength.min}
+                  max={videoFocusSettingsSchema.focalLength.max}/>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>Zoom</label>
+                  <span className="text-primary text-size-14">{values.zoom}</span>
+                </div>
+                <Field updateFieldOnStop disabled={this.state.isAutoFocusProcessing}
+                  name="zoom" component={Slider} step={0.1}
+                  min={videoFocusSettingsSchema.zoom.min}
+                  max={videoFocusSettingsSchema.zoom.max}/>
+              </div>
+              <div className="form-group form-check">
+                <Field id="input-check-auto-focus-after-zoom" type="checkbox" className="form-check-input"
+                  disabled={this.state.isAutoFocusProcessing}
+                  name="isAutoFocusAfterZoom" checked={values.isAutoFocusAfterZoom}/>
+                <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
+                  {_('Auto focus after zoom')}
+                </label>
+              </div>
+              <div className="form-group">
+                <div className="d-flex justify-content-between align-items-center">
+                  <label>{_('Iris')}</label>
+                  <Field name="aperture" component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('On')}, {value: 'false', label: _('Off')}]}
-                  />
+                    items={videoSettingsSchema.aperture.enum.map(x => ({value: x, label: _(`aperture-${x}`)}))}/>
                 </div>
               </div>
               <div className="form-group">
@@ -303,28 +363,6 @@ module.exports = class Image extends Base {
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.shutterSpeed.enum.map(x => ({value: x, label: _(`shutter-speed-${x}`)}))}/>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Lens Control */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
-                <i className="fas fa-chevron-up"/>{_('Lens Control')}
-              </button>
-            </h2>
-
-            <div id="color" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Iris')}</label>
-                  <Field name="aperture" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.aperture.enum.map(x => ({value: x, label: _(`aperture-${x}`)}))}/>
                 </div>
               </div>
             </div>
@@ -459,69 +497,6 @@ module.exports = class Image extends Base {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 對焦 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2 className="d-flex justify-content-between">
-              <button type="button" data-toggle="collapse" data-target="#focus"
-                className="btn btn-link btn-block text-left collapsed"
-              >
-                <i className="fas fa-chevron-up"/>{_('Focus')}
-              </button>
-              <div className="btn-group tip">
-                <button
-                  disabled={this.state.$isApiProcessing || values.isAutoFocusAfterZoom} type="button"
-                  className="btn btn-outline-primary text-nowrap"
-                  onClick={this.generateClickAutoFocusButtonHandler(form)}
-                >
-                  {_(values.focusType === FocusType.fullRange ? 'Full-range Focus' : 'Short-range Focus')}
-                </button>
-                <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span className="sr-only">Select focus type</span>
-                </button>
-                <div className="dropdown-menu">
-                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.fullRange)}>
-                    {_('Full-range Focus')}
-                  </button>
-                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.shortRange)}>
-                    {_('Short-range Focus')}
-                  </button>
-                </div>
-              </div>
-            </h2>
-
-            <div id="focus" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Focal Length')}</label>
-                  <span className="text-primary text-size-14">{values.focalLength}</span>
-                </div>
-                <Field updateFieldOnStop disabled={this.state.isAutoFocusProcessing || values.isAutoFocusAfterZoom}
-                  name="focalLength" component={Slider} step={1}
-                  min={videoFocusSettingsSchema.focalLength.min}
-                  max={videoFocusSettingsSchema.focalLength.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>Zoom</label>
-                  <span className="text-primary text-size-14">{values.zoom}</span>
-                </div>
-                <Field updateFieldOnStop disabled={this.state.isAutoFocusProcessing}
-                  name="zoom" component={Slider} step={0.1}
-                  min={videoFocusSettingsSchema.zoom.min}
-                  max={videoFocusSettingsSchema.zoom.max}/>
-              </div>
-              <div className="form-group form-check">
-                <Field id="input-check-auto-focus-after-zoom" type="checkbox" className="form-check-input"
-                  disabled={this.state.isAutoFocusProcessing}
-                  name="isAutoFocusAfterZoom" checked={values.isAutoFocusAfterZoom}/>
-                <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
-                  {_('Auto focus after zoom')}
-                </label>
               </div>
             </div>
           </div>
