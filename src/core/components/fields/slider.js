@@ -2,6 +2,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const Slider = require('bootstrap-slider');
+const {getPrecision} = require('../../utils');
 
 module.exports = class SliderField extends React.PureComponent {
   static get propTypes() {
@@ -35,6 +36,7 @@ module.exports = class SliderField extends React.PureComponent {
   }
 
   componentDidMount() {
+    const precisionDigit = getPrecision(this.props.step);
     this.slider = new Slider(this.ref.current, {
       min: this.props.min,
       max: this.props.max,
@@ -45,11 +47,11 @@ module.exports = class SliderField extends React.PureComponent {
     });
     if (this.props.updateFieldOnStop) {
       this.slider.on('slideStop', value => {
-        this.props.form.setFieldValue(this.props.field.name, value);
+        this.props.form.setFieldValue(this.props.field.name, value.toFixed(precisionDigit));
       });
     } else {
       this.slider.on('change', ({newValue}) => {
-        this.props.form.setFieldValue(this.props.field.name, newValue);
+        this.props.form.setFieldValue(this.props.field.name, newValue.toFixed(precisionDigit));
       });
     }
 
