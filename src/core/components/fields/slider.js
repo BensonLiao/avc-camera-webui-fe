@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const React = require('react');
 const PropTypes = require('prop-types');
 const Slider = require('bootstrap-slider');
@@ -38,7 +39,9 @@ module.exports = class SliderField extends React.PureComponent {
       min: this.props.min,
       max: this.props.max,
       value: this.props.field.value,
-      step: this.props.step
+      step: `${this.props.step}`,
+      focus: true,
+      natural_arrow_keys: true
     });
     if (this.props.updateFieldOnStop) {
       this.slider.on('slideStop', value => {
