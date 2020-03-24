@@ -39,7 +39,7 @@ module.exports = class SliderField extends React.PureComponent {
       min: this.props.min,
       max: this.props.max,
       value: this.props.field.value,
-      step: `${this.props.step}`,
+      step: this.props.step,
       focus: true,
       natural_arrow_keys: true
     });
