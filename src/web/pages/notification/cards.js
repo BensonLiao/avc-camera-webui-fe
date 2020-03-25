@@ -195,7 +195,7 @@ module.exports = class Cards extends Base {
 
   cardFormRender = ({values, setFieldValue}) => {
     const {groups} = this.props;
-    const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker} = this.state;
+    const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker, cardDetails} = this.state;
     const onClickTitleEditButton = event => {
       event.preventDefault();
       this.cardFormTitleRef.current.focus();
@@ -548,7 +548,7 @@ module.exports = class Cards extends Base {
         <div className="modal-body">
           <div className="form-group">
             <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
-              {_('Add')}
+              {cardDetails ? _('Confirm') : _('Add')}
             </button>
           </div>
           <button
