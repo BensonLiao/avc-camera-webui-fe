@@ -217,6 +217,26 @@ exports.isObjectEmpty = obj => {
 };
 
 /**
+ * Get the number precision.
+ * @param {Number} num - The number.
+ * @returns {Number} - The number's precision digit.
+ */
+exports.getPrecision = num => {
+  if (!isFinite(num)) {
+    return 0;
+  }
+
+  let e = 1;
+  let p = 0;
+  while (Math.round(num * e) / e !== num) {
+    e *= 10;
+    p++;
+  }
+
+  return p;
+};
+
+/**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
  * @param {Object} req XHR request instance, or if we use library like axios then `req` is the axios request config and contains things like `url`.
  * @see https://github.com/axios/axios#request-config

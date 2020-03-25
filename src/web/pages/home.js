@@ -298,6 +298,7 @@ module.exports = class Home extends Base {
                 </div>
                 <Field
                   updateFieldOnStop
+                  enableArrowKey
                   disabled={this.state.isAutoFocusProcessing}
                   name="zoom" component={Slider} step={0.1}
                   min={videoFocusSettingsSchema.zoom.min}
