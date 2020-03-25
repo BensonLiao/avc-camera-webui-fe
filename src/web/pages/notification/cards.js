@@ -640,7 +640,7 @@ module.exports = class Cards extends Base {
                   const group = groups.items.find(x => x.id === groupId);
                   return (
                     <span key={groupId} className="border border-primary rounded-pill text-primary">
-                      {group.name}
+                      {group.name || ''}
                     </span>
                   );
                 })
