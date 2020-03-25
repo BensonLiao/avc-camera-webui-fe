@@ -324,20 +324,32 @@ module.exports = class Image extends Base {
                   <label>{_('Focus')}</label>
                   <span className="text-primary text-size-14">{values.focalLength}</span>
                 </div>
-                <Field updateFieldOnStop disabled={this.state.isAutoFocusProcessing || values.isAutoFocusAfterZoom}
-                  name="focalLength" component={Slider} step={1}
+                <Field
+                  updateFieldOnStop
+                  enableArrowKey
+                  disabled={this.state.isAutoFocusProcessing || values.isAutoFocusAfterZoom}
+                  name="focalLength"
+                  component={Slider}
+                  step={1}
                   min={videoFocusSettingsSchema.focalLength.min}
-                  max={videoFocusSettingsSchema.focalLength.max}/>
+                  max={videoFocusSettingsSchema.focalLength.max}
+                />
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>Zoom</label>
                   <span className="text-primary text-size-14">{values.zoom}</span>
                 </div>
-                <Field updateFieldOnStop disabled={this.state.isAutoFocusProcessing}
-                  name="zoom" component={Slider} step={0.1}
+                <Field
+                  updateFieldOnStop
+                  enableArrowKey
+                  disabled={this.state.isAutoFocusProcessing}
+                  name="zoom"
+                  component={Slider}
+                  step={0.1}
                   min={videoFocusSettingsSchema.zoom.min}
-                  max={videoFocusSettingsSchema.zoom.max}/>
+                  max={videoFocusSettingsSchema.zoom.max}
+                />
               </div>
               <div className="form-group form-check">
                 <Field id="input-check-auto-focus-after-zoom" type="checkbox" className="form-check-input"
