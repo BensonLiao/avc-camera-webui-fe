@@ -159,7 +159,6 @@ module.exports = class Cards extends Base {
   };
 
   onSubmitCardForm = values => {
-    console.log('values', values);
     const data = {
       ...values,
       groups: values.$groups ? [values.$groups] : []
@@ -195,9 +194,6 @@ module.exports = class Cards extends Base {
   };
 
   cardFormRender = ({values, setFieldValue}) => {
-    console.log('values', values);
-    console.log('this.state.cards', this.state.cards);
-    console.log('this.state.cardDetails', this.state.cardDetails);
     const {groups} = this.props;
     const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker} = this.state;
     const onClickTitleEditButton = event => {
