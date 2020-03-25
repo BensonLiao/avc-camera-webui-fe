@@ -194,6 +194,7 @@ module.exports = class Cards extends Base {
   };
 
   cardFormRender = ({values, setFieldValue}) => {
+    console.log('values', values);
     const {groups} = this.props;
     const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker} = this.state;
     const onClickTitleEditButton = event => {
@@ -440,7 +441,7 @@ module.exports = class Cards extends Base {
             <div className="form-group d-flex justify-content-between align-items-center">
               <label className="mb-0">{_('Video Management System')}</label>
               <div className="custom-control custom-switch">
-                <Field name="isEnableVMS" type="checkbox" className="custom-control-input" id="switch-notification-target-vms"/>
+                <Field name="isEnableVMS" type="checkbox" className="custom-control-input" id="switch-notification-target-vms" checked={values.isEnableVMS}/>
                 <label className="custom-control-label" htmlFor="switch-notification-target-vms">
                   <span>{_('ON')}</span>
                   <span>{_('OFF')}</span>
