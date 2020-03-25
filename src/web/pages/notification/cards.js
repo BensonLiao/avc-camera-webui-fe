@@ -266,11 +266,6 @@ module.exports = class Cards extends Base {
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="type" component="select" className="form-control border-0">
               <option value={NotificationCardType.faceRecognition}>{_('Facial Recognition')}</option>
-              {
-                NotificationCardType.all().map(card => {
-                  return <option key={card} value={card}>{card}</option>;
-                })
-              }
             </Field>
           </div>
         </div>
