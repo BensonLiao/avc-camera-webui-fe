@@ -373,6 +373,8 @@ module.exports = {
      * - isEnableGPIO2 {boolean}
      * - isEnableApp {boolean}
      * - isEnableEmail {boolean}
+     * - isEnableVMS {boolean}
+     * - faceRecognitionVMSEvent {string}
      * - emails {Array<string>}
      * - emailAttachmentType {string}
      * - groups {Array<string>}
@@ -383,15 +385,15 @@ module.exports = {
       method: 'get',
       url: '/api/notification/cards'
     }),
-    addCard: ({type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    addCard: ({type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
       method: 'post',
       url: '/api/notification/cards',
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
     }),
-    updateCard: ({id, type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    updateCard: ({id, type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
       method: 'put',
       url: `/api/notification/cards/${id}`,
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
     }),
     deleteCard: cardId => api({
       method: 'delete',

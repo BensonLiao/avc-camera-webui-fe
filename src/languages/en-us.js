@@ -121,6 +121,10 @@ window.languageResource = {
   'face-recognition-condition-1': 'Success',
   'face-recognition-condition-2': 'Unknown',
 
+  // VMS類型
+  'notification-vms-event-0': 'Video Motion Detection Event',
+  'notification-vms-event-1': 'Analytic Event',
+
   // 通知附件檔案
   'email-attachment-type-0': 'Face Thumbnail',
   'email-attachment-type-1': 'Screenshot',
