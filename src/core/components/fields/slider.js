@@ -49,11 +49,16 @@ module.exports = class SliderField extends React.PureComponent {
     });
     if (this.props.updateFieldOnStop) {
       this.slider.on('slideStop', value => {
-        this.props.form.setFieldValue(this.props.field.name, value.toFixed(precisionDigit));
+        this.props.form.setFieldValue(
+          this.props.field.name,
+          Number(value.toFixed(precisionDigit))
+        );
       });
     } else {
       this.slider.on('change', ({newValue}) => {
-        this.props.form.setFieldValue(this.props.field.name, newValue.toFixed(precisionDigit));
+        this.props.form.setFieldValue(
+          this.props.field.name, Number(newValue.toFixed(precisionDigit))
+        );
       });
     }
 
