@@ -260,6 +260,11 @@ module.exports = class Cards extends Base {
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="type" component="select" className="form-control border-0">
               <option value={NotificationCardType.faceRecognition}>{_('Facial Recognition')}</option>
+              {
+                NotificationCardType.all().map(card => {
+                  return <option key={card} value={card}>{card}</option>;
+                })
+              }
             </Field>
           </div>
         </div>
@@ -430,6 +435,20 @@ module.exports = class Cards extends Base {
             </div>
 
             <hr/>
+
+            <div className="form-group d-flex justify-content-between align-items-center">
+              <label className="mb-0">{_('Video Management System')}</label>
+              <div className="custom-control custom-switch">
+                <Field name="isEnableVms" type="checkbox" className="custom-control-input" id="switch-notification-target-vms"/>
+                <label className="custom-control-label" htmlFor="switch-notification-target-vms">
+                  <span>{_('ON')}</span>
+                  <span>{_('OFF')}</span>
+                </label>
+              </div>
+            </div>
+
+            <hr/>
+
             <div className="form-group d-flex justify-content-between align-items-center">
               <label className="mb-0">{_('Email')}</label>
               <div className="custom-control custom-switch">
@@ -458,6 +477,7 @@ module.exports = class Cards extends Base {
                       ))
                     }
                   </div>
+
                   <hr/>
 
                   <div className="form-group">
