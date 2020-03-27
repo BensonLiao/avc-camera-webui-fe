@@ -451,7 +451,7 @@ module.exports = class Cards extends Base {
                 </label>
               </div>
             </div>
-            <div className="form-group">
+            <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.motionDetection})}>
               <div className="card">
                 <div className="card-body">
                   <div className="form-group">
