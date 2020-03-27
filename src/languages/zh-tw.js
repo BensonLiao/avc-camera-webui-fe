@@ -111,6 +111,8 @@ window.languageResource = {
   'notification-card-0': '臉部辨識',
   'notification-card-1': '性別年齡',
   'notification-card-2': '人形偵測',
+  'notification-card-3': '動作偵測',
+  'notification-card-4': '破壞警報',
 
   // 辨識通知條件
   'face-recognition-condition-0': '不限',

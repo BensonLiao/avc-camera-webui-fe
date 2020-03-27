@@ -115,6 +115,8 @@ window.languageResource = {
   'notification-card-0': 'Face Recognition',
   'notification-card-1': 'Age Gender',
   'notification-card-2': 'Humanoid Detection',
+  'notification-card-3': 'Motion Detection',
+  'notification-card-4': 'Tamper Alarm',
 
   // 辨識通知條件
   'face-recognition-condition-0': 'Always',

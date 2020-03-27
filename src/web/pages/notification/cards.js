@@ -45,7 +45,7 @@ module.exports = class Cards extends Base {
         isEnableGPIO2: card.isEnableGPIO2,
         isEnableEmail: card.isEnableEmail,
         isEnableVMS: card.isEnableVMS,
-        faceRecognitionVMSEvent: card.faceRecognitionVMSEvent,
+        faceRecognitionVMSEvent: card.type === NotificationCardType.motionDetection ? '-1' : card.faceRecognitionVMSEvent,
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
@@ -265,7 +265,11 @@ module.exports = class Cards extends Base {
           </div>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="type" component="select" className="form-control border-0">
-              <option value={NotificationCardType.faceRecognition}>{_('Facial Recognition')}</option>
+              {
+                NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3')).map(faceRecognition => {
+                  return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
+                })
+              }
             </Field>
           </div>
         </div>
@@ -447,7 +451,7 @@ module.exports = class Cards extends Base {
                 </label>
               </div>
             </div>
-            <div className="form-group">
+            <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.motionDetection})}>
               <div className="card">
                 <div className="card-body">
                   <div className="form-group">
