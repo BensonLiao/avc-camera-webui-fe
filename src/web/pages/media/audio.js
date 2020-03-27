@@ -57,7 +57,7 @@ module.exports = class Audio extends Base {
           <label>{_('Input Source')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="inputSource" component="select" className="form-control border-0">
-              <option value={AudioInputSource.lineIn}>{_('Internal Microphone')}</option>
+              <option value={AudioInputSource.lineIn}>{_('External Microphone')}</option>
             </Field>
           </div>
         </div>
