@@ -245,7 +245,7 @@ module.exports = class Image extends Base {
               </button>
             </h2>
 
-            <div id="lightness" className="collapse" data-parent="#accordion-video-properties">
+            <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Brightness')}</label>
