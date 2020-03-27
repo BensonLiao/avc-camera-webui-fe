@@ -400,6 +400,7 @@ window.languageResource = {
 
   // /notification/cards
   'Notification Filters': '通知篩選',
+  'Enter Your Title': '輸入通知名稱',
   Pinned: '置頂項目',
   Others: '其他項目',
   Schedule: '通知時間',
