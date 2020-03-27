@@ -339,6 +339,7 @@ window.languageResource = {
   'Audio Quality': '聲音品質',
   'Input Source': '聲音輸入來源',
   'Internal Microphone': '內建式麥克風',
+  'External Microphone': '外接麥克風',
   'Audio Out': '聲音輸出',
 
   // /media/rtsp
