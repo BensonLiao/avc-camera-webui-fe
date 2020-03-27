@@ -56,7 +56,7 @@ module.exports = class Cards extends Base {
 
     return {
       type: NotificationCardType.faceRecognition,
-      title: '輸入通知名稱',
+      title: _('Enter Your Title'),
       isTop: false,
       isEnableTime: false,
       $start: null,
