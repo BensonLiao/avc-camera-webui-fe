@@ -45,7 +45,7 @@ module.exports = class Cards extends Base {
         isEnableGPIO2: card.isEnableGPIO2,
         isEnableEmail: card.isEnableEmail,
         isEnableVMS: card.isEnableVMS,
-        faceRecognitionVMSEvent: card.faceRecognitionVMSEvent,
+        faceRecognitionVMSEvent: card.type === NotificationCardType.motionDetection ? '-1' : card.faceRecognitionVMSEvent,
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
