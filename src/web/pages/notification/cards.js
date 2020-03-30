@@ -20,10 +20,10 @@ const api = require('../../../core/apis/web-api');
 module.exports = class Cards extends Base {
   static get propTypes() {
     return {
-      card: PropTypes.shape({
+      cards: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.number.isRequired,
-          type: PropTypes.number.isRequired,
+          type: PropTypes.string.isRequired,
           title: PropTypes.string.isRequired
         })).isRequired
       }).isRequired
@@ -688,10 +688,9 @@ module.exports = class Cards extends Base {
 
   render() {
     const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter} = this.state;
-    const cardType = NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3'));
-    console.log('cardType', cardType);
-    const topCards = cards.filter(x => x.isTop);
-    const normalCards = cards.filter(x => !x.isTop);
+    const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
+    const topCards = filterCards.filter(x => x.isTop);
+    const normalCards = filterCards.filter(x => !x.isTop);
 
     return (
       <>
