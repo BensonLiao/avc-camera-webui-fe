@@ -180,6 +180,7 @@ window.languageResource = {
   '{0} - {1} Kbps': '{0} - {1} Kbps',
 
   // /notification/cards
+  'notification-card-filter-all': 'All',
   'Notification Filters': 'Filters',
 
   // /members
