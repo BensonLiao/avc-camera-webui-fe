@@ -92,6 +92,7 @@ window.languageResource = {
   'confidence-level-2': '高',
 
   // 聲音品質
+  'Audio In': '聲音輸入',
   'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
   'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
 
@@ -189,7 +190,7 @@ window.languageResource = {
   Image: '圖像',
   Video: '影像設定',
   Audio: '聲音',
-  Notification: '通知',
+  'Notification Settings': '通知設定',
   'User Management': '用戶管理',
   Analytic: '智慧分析',
   Network: '網路',
@@ -314,6 +315,9 @@ window.languageResource = {
   'Reset to Default': '恢復預設',
   Color: '顏色',
   'Lens Control': '鏡頭控制',
+  'Short-range Focus': '短距離對焦',
+  'Full-range Focus': '全範圍對焦',
+  'Auto Focus After Zoom': '調整Zoom時自動對焦',
   Saturation: '飽和度',
   'Auto White Balance': '白平衡',
   'Color Temperature': '色溫',
@@ -329,6 +333,8 @@ window.languageResource = {
 
   // /image
   'Image settings': '圖像設定',
+  Picture: '影像品質',
+  'Image Configuration': '影像設定',
 
   // /media
   OSD: '文字貼圖',
@@ -483,7 +489,7 @@ window.languageResource = {
   Groups: '群組',
   'Enter Your Group Name': '請輸入群組名稱',
   'Letters within 16 characters.': '16 字元以內的中英文大寫或小寫',
-  'Enter your name': '請輸入您的姓名',
+  'Enter your name': '請輸入您的名稱',
   Note: '備註',
   'Enter Your Note': '請輸入您的備註',
   Create: '新增',
@@ -526,6 +532,7 @@ window.languageResource = {
   // /security/account
   Accounts: '帳號管理',
   Username: '帳號',
+  'All Accounts': '所有帳號',
   'Off Line Record': '斷線錄影',
   'Modify User': '編輯帳號',
   'Confirm New Password': '確認新密碼',
