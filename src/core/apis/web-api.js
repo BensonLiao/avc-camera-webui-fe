@@ -405,7 +405,7 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - defoggingEnabled {Boolean}
-     * - irEnabled {string}
+     * - irEnabled {String}
      * - brightness {Number}
      * - contrast {Number}
      * - hdrEnabled {String}
@@ -421,11 +421,12 @@ module.exports = {
      * - orientation {String}
      * - refreshRate {String}
      * - sensitivity {Number}
+     * - irBrightness {Number}
      * - isAutoFocus {Boolean}
      * - focalLength {Number}
      * - zoom {Number}
-     * - focusType {string}
-     * - isAutoFocusAfterZoom {boolean}
+     * - focusType {String}
+     * - isAutoFocusAfterZoom {Boolean}
      */
     getSettings: () => api({
       method: 'get',
@@ -433,7 +434,7 @@ module.exports = {
     }),
     /**
      * @param {Boolean} defoggingEnabled
-     * @param {string} irEnabled
+     * @param {String} irEnabled
      * @param {Number} brightness
      * @param {Number} contrast
      * @param {String} hdrEnabled
@@ -449,12 +450,11 @@ module.exports = {
      * @param {String} orientation
      * @param {String} refreshRate
      * @param {Number} sensitivity
-     * @param {Boolean} autoFocusEnabled
-     * @param {number} irBrightness
+     * @param {Number} irBrightness
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - defoggingEnabled {Boolean}
-     * - irEnabled {string}
+     * - irEnabled {String}
      * - brightness {Number}
      * - contrast {Number}
      * - hdrEnabled {String}
@@ -470,9 +470,7 @@ module.exports = {
      * - orientation {String}
      * - refreshRate {String}
      * - sensitivity {Number}
-     * - autoFocusEnabled {Boolean}
-     * - focalLength {Number}
-     * - zoom {Number}
+     * - irBrightness {Number}
      */
     updateSettings: ({
       defoggingEnabled,
@@ -499,13 +497,11 @@ module.exports = {
       data: {
         defoggingEnabled,
         irEnabled,
-
         brightness,
         contrast,
         hdrEnabled,
         shutterSpeed,
         aperture,
-
         saturation,
         whiteblanceMode,
         whiteblanceManual,
@@ -513,11 +509,10 @@ module.exports = {
         sensitivity,
         timePeriodStart,
         timePeriodEnd,
-        irBrightness,
-
         sharpness,
         orientation,
-        refreshRate
+        refreshRate,
+        irBrightness
       }
     }),
     /**
