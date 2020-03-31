@@ -313,12 +313,10 @@ module.exports = class Events extends Base {
             <div className="card-header text-truncate">
               {
                 isEnableFaceRecognition ?
-                  <Link to={{name: this.currentRoute.name, params: {}}}
-                    className="text-decoration-none d-flex justify-content-between align-items-center"
-                  >
+                  <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
                     <i className="fas fa-chevron-up"/>
-                  </Link> :
+                  </a> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
                     <span className="badge badge-danger badge-pill">{_('Inactivated')}</span> <i className="fas fa-chevron-down"/>
