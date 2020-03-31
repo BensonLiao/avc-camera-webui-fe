@@ -4,7 +4,7 @@ exports.baseView = (req, res) => {
    */
   res.render('base', {
     htmlLang: 'en',
-    languageCode: 'us-en',
+    languageCode: 'en-us',
     loadingText: 'Loading',
     user: {
       id: 1,
