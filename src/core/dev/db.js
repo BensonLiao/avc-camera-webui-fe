@@ -114,7 +114,7 @@ module.exports = {
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.mbr,
-          bitrate: '4096',
+          bitRate: '4096',
           gov: StreamGOV['60']
         },
         channelB: {
@@ -122,7 +122,7 @@ module.exports = {
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.mbr,
-          bitrate: '4096',
+          bitRate: '4096',
           gov: StreamGOV['60']
         }
       },
