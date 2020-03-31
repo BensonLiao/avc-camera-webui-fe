@@ -221,7 +221,7 @@ module.exports = class SMTP extends Base {
             <label>{_('Name')}</label>
             <Field name="senderName" type="text"
               className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
-              placeholder={_('Enter your name')}/>
+              placeholder={_('Enter Your Name')}/>
             {
               errors.senderName && touched.senderName && (
                 <div className="invalid-feedback">{errors.senderName}</div>

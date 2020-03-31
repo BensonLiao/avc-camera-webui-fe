@@ -92,6 +92,7 @@ window.languageResource = {
   'confidence-level-2': '高',
 
   // 聲音品質
+  'Audio In': '聲音輸入',
   'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
   'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
 
@@ -189,7 +190,7 @@ window.languageResource = {
   Image: '圖像',
   Video: '影像設定',
   Audio: '聲音',
-  Notification: '通知',
+  'Notification Settings': '通知設定',
   'User Management': '用戶管理',
   Analytic: '智慧分析',
   Network: '網路',
@@ -199,6 +200,15 @@ window.languageResource = {
 
   // /login
   Login: '登入',
+  'ACCOUNT LOGIN': '帳號登入',
+  'Enter Your Username and Password': '請輸入您的帳號與密碼',
+  'Enter Your Username': '請輸入您的帳號',
+  'Password Reset': '重置密碼',
+  'Need Help? Call AV Costar Technical Support at +1.818.937.0700 and select option #1': '需要幫忙嗎？請撥打AV Costar的支援專線+1.818.937.0700#1',
+
+  // /login-error
+  'Password Incorrect': '密碼輸入錯誤',
+  'You have {0} attemps remaining...': '您尚可嘗試 {0} 次...',
   'Incorrect password x {0}': '密碼錯誤 x {0}',
   'Expires in 10 minutes': '10 分鐘後過期',
   'Expires in 30 minutes': '30 分鐘後過期',
@@ -206,6 +216,9 @@ window.languageResource = {
   'Expires in 12 hours': '12 小時後過期',
 
   // /login-lock
+  'Too Many Login Attempts!': '密碼嘗試輸入錯誤次數過多！',
+  'Please try again in 5 minutes.': '請於五分鐘後再次登入',
+  'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
   'Login Lock': '登入鎖定',
   'Forgot password?': '忘記密碼？',
   'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
@@ -229,10 +242,14 @@ window.languageResource = {
   Done: '完成',
 
   // /setup
+  'INITIAL PASSWORD SETUP': '初始密碼設定',
+  'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
+  '8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space': '8-16個字元，至少包含1個大寫和小寫字母，1個數字，1個符號。 請勿使用＃，％，＆，`，\\，<，>和空格',
   Welcome: '歡 迎',
   'For the good experience.': '為了使您有更好的體驗，',
   'Please press Continue to complete the simple three-step installation setup!': '請您先按下繼續來完成簡單三步驟的安裝設定！',
   Continue: '繼續',
+  Submit: '註冊',
 
   // /setup/language
   'Setup Language': '選擇語言',
@@ -242,7 +259,7 @@ window.languageResource = {
   Next: '下一步',
 
   // /setup/account
-  'Setup Account': '設定帳號密碼',
+  'Setup Account': '初始帳號設定',
   Permission: '權限',
   Password: '密碼',
   'Enter your account': '請輸入您的帳號',
@@ -298,6 +315,9 @@ window.languageResource = {
   'Reset to Default': '恢復預設',
   Color: '顏色',
   'Lens Control': '鏡頭控制',
+  'Short-range Focus': '短距離對焦',
+  'Full-range Focus': '全範圍對焦',
+  'Auto Focus After Zoom': '調整Zoom時自動對焦',
   Saturation: '飽和度',
   'Auto White Balance': '白平衡',
   'Color Temperature': '色溫',
@@ -313,6 +333,8 @@ window.languageResource = {
 
   // /image
   'Image settings': '圖像設定',
+  Picture: '圖像調整',
+  'Image Configuration': '影像屬性',
 
   // /media
   OSD: '文字貼圖',
@@ -439,12 +461,11 @@ window.languageResource = {
   // /members
   Members: '成員管理',
   'All Members': '所有成員',
-  Groups: '群組',
   'Enter keywords': '輸入關鍵字',
   Search: '搜尋',
   New: '新增',
-  'Add a new member': '自行新增',
-  'Add a member from events': '從事件新增',
+  'Add a New Member': '自行新增',
+  'Add a Member from Events': '從事件新增',
   'User Picture': '註冊照片',
   Actions: '操作',
   '{0}-{1} items. Total: {2}': '目前 {0}-{1} 筆，總筆數 {2} 筆',
@@ -465,10 +486,12 @@ window.languageResource = {
   // /members/new-group
   'Create a Group': '新增群組',
   Name: '名稱',
-  'Enter your name': '請輸入您的姓名',
+  Groups: '群組',
+  'Enter Your Group Name': '請輸入群組名稱',
   'Letters within 16 characters.': '16 字元以內的中英文大寫或小寫',
+  'Enter Your Name': '請輸入您的名稱',
   Note: '備註',
-  'Enter your note': '請輸入您的備註',
+  'Enter Your Note': '請輸入您的備註',
   Create: '新增',
   Close: '關閉',
   'Delete Group': '刪除群組',
@@ -509,6 +532,7 @@ window.languageResource = {
   // /security/account
   Accounts: '帳號管理',
   Username: '帳號',
+  'All Accounts': '所有帳號',
   'Off Line Record': '斷線錄影',
   'Modify User': '編輯帳號',
   'Confirm New Password': '確認新密碼',
