@@ -90,7 +90,7 @@ module.exports = class Group extends Base {
         <div className="modal-body">
           <div className="form-group">
             <label>{_('Name')}</label>
-            <Field name="name" type="text" placeholder={_('Please enter your name.')}
+            <Field name="name" type="text" placeholder={_('Enter Your Group Name')}
               maxLength={GroupSchema.name.max}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}/>
             {
@@ -102,7 +102,7 @@ module.exports = class Group extends Base {
           </div>
           <div className="form-group">
             <label>{_('Note')}</label>
-            <Field name="note" type="text" placeholder={_('Please enter your note.')}
+            <Field name="note" type="text" placeholder={_('Enter Your Note')}
               maxLength={GroupSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}/>
             {

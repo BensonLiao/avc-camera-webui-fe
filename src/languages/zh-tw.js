@@ -439,7 +439,6 @@ window.languageResource = {
   // /members
   Members: '成員管理',
   'All Members': '所有成員',
-  Groups: '群組',
   'Enter keywords': '輸入關鍵字',
   Search: '搜尋',
   New: '新增',
@@ -465,10 +464,12 @@ window.languageResource = {
   // /members/new-group
   'Create a Group': '新增群組',
   Name: '名稱',
-  'Enter your name': '請輸入您的姓名',
+  Groups: '群組',
+  'Enter Your Group Name': '請輸入群組名稱',
   'Letters within 16 characters.': '16 字元以內的中英文大寫或小寫',
+  'Enter your name': '請輸入您的姓名',
   Note: '備註',
-  'Enter your note': '請輸入您的備註',
+  'Enter Your Note': '請輸入您的備註',
   Create: '新增',
   Close: '關閉',
   'Delete Group': '刪除群組',
