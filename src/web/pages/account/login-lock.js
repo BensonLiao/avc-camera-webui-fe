@@ -69,7 +69,7 @@ module.exports = class LoginLock extends Base {
                   <Once>
                     <div style={{margin: '5rem 0'}}>
                       <p className="font-weight-bold m-0">
-                        {_('Too many login attempts!')}
+                        {_('Too Many Login Attempts!')}
                       </p>
                       <p>
                         {_('Please try again in 5 minutes.')}

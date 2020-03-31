@@ -78,13 +78,13 @@ module.exports = class Login extends Base {
         <div className="card-body">
           <h3 className="card-title text-primary">{_('ACCOUNT LOGIN')}</h3>
           <div className="card-sub-title text-info">
-            {_('Enter your username and password')}
+            {_('Enter Your Username and Password')}
           </div>
           <div className="form-group">
             <label>{_('Username')}</label>
             <Field name="account" type="text"
               maxLength={UserSchema.account.max}
-              placeholder={_('Enter your username')}
+              placeholder={_('Enter Your Username')}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
             {
               errors.account && touched.account && (
