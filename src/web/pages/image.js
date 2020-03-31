@@ -115,6 +115,7 @@ module.exports = class Image extends Base {
       const values = {
         ...nextValues,
         hdrEnabled: `${nextValues.hdrEnabled}`,
+        defoggingEnabled: Boolean(nextValues.defoggingEnabled),
         timePeriodStart: nextValues.dnDuty[0],
         timePeriodEnd: nextValues.dnDuty[1]
       };
