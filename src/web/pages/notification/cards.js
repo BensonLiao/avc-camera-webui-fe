@@ -1,5 +1,6 @@
 const classNames = require('classnames');
 const React = require('react');
+const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const Modal = require('react-bootstrap/Modal').default;
 const {Formik, Form, Field} = require('formik');
@@ -17,6 +18,18 @@ const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
 module.exports = class Cards extends Base {
+  static get propTypes() {
+    return {
+      cards: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          type: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired
+        })).isRequired
+      }).isRequired
+    };
+  }
+
   constructor(props) {
     super(props);
     this.cardFormTitleRef = React.createRef();
@@ -25,6 +38,7 @@ module.exports = class Cards extends Base {
     this.state.cardDetails = null;
     this.state.isShowStartDatePicker = false;
     this.state.isShowEndDatePicker = false;
+    this.state.cardTypeFilter = 'all';
   }
 
   generateCardInitialValues = card => {
@@ -45,7 +59,7 @@ module.exports = class Cards extends Base {
         isEnableGPIO2: card.isEnableGPIO2,
         isEnableEmail: card.isEnableEmail,
         isEnableVMS: card.isEnableVMS,
-        faceRecognitionVMSEvent: card.type === NotificationCardType.motionDetection ? '-1' : card.faceRecognitionVMSEvent,
+        faceRecognitionVMSEvent: card.faceRecognitionVMSEvent,
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
@@ -77,6 +91,13 @@ module.exports = class Cards extends Base {
       isEnableApp: false
     };
   };
+
+  generateChangeNotificationCardTypeFilter = cardType => {
+    return event => {
+      event.preventDefault();
+      this.setState({cardTypeFilter: cardType});
+    };
+  }
 
   generateDeleteCardHandler = cardId => event => {
     event.preventDefault();
@@ -666,9 +687,10 @@ module.exports = class Cards extends Base {
   };
 
   render() {
-    const {cards, isShowCardDetailsModal, cardDetails} = this.state;
-    const topCards = cards.filter(x => x.isTop);
-    const normalCards = cards.filter(x => !x.isTop);
+    const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter} = this.state;
+    const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
+    const topCards = filterCards.filter(x => x.isTop);
+    const normalCards = filterCards.filter(x => !x.isTop);
 
     return (
       <>
@@ -677,7 +699,33 @@ module.exports = class Cards extends Base {
             <div className="container-fluid">
               <div className="filter d-flex align-items-center text-nowrap mb-0">
                 <label className="mb-0">{_('Notification Filters')}</label>
-                <button className="btn btn-primary rounded-pill shadow-sm ml-4" type="button">{_('Facial Recognition')}</button>
+                <button
+                  className={classNames(
+                    'btn rounded-pill shadow-sm ml-4',
+                    {active: cardTypeFilter === 'all'},
+                    {'btn-primary': cardTypeFilter === 'all'}
+                  )} type="button"
+                  onClick={this.generateChangeNotificationCardTypeFilter('all')}
+                >{_('notification-card-filter-all')}
+                </button>
+                <button
+                  className={classNames(
+                    'btn rounded-pill shadow-sm ml-4',
+                    {active: cardTypeFilter === NotificationCardType.faceRecognition},
+                    {'btn-primary': cardTypeFilter === NotificationCardType.faceRecognition}
+                  )} type="button"
+                  onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.faceRecognition)}
+                >{_(`notification-card-${NotificationCardType.faceRecognition}`)}
+                </button>
+                <button
+                  className={classNames(
+                    'btn rounded-pill shadow-sm ml-4',
+                    {active: cardTypeFilter === NotificationCardType.motionDetection},
+                    {'btn-primary': cardTypeFilter === NotificationCardType.motionDetection}
+                  )} type="button"
+                  onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.motionDetection)}
+                >{_(`notification-card-${NotificationCardType.motionDetection}`)}
+                </button>
               </div>
             </div>
           </div>

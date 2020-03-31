@@ -402,6 +402,7 @@ window.languageResource = {
   Encryption: '加密',
 
   // /notification/cards
+  'notification-card-filter-all': '所有通知',
   'Notification Filters': '通知篩選',
   'Enter Your Title': '輸入通知名稱',
   Pinned: '置頂項目',
