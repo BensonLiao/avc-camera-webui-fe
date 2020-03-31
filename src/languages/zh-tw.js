@@ -333,8 +333,8 @@ window.languageResource = {
 
   // /image
   'Image settings': '圖像設定',
-  Picture: '影像品質',
-  'Image Configuration': '影像設定',
+  Picture: '圖像調整',
+  'Image Configuration': '影像屬性',
 
   // /media
   OSD: '文字貼圖',
