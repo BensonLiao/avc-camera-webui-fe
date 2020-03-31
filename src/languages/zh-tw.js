@@ -241,10 +241,14 @@ window.languageResource = {
   Done: '完成',
 
   // /setup
+  'INITIAL PASSWORD SETUP': '初始密碼設定',
+  'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
+  '8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space': '8-16個字元，至少包含1個大寫和小寫字母，1個數字，1個符號。 請勿使用＃，％，＆，`，\\，<，>和空格',
   Welcome: '歡 迎',
   'For the good experience.': '為了使您有更好的體驗，',
   'Please press Continue to complete the simple three-step installation setup!': '請您先按下繼續來完成簡單三步驟的安裝設定！',
   Continue: '繼續',
+  Submit: '註冊',
 
   // /setup/language
   'Setup Language': '選擇語言',
@@ -254,7 +258,7 @@ window.languageResource = {
   Next: '下一步',
 
   // /setup/account
-  'Setup Account': '設定帳號密碼',
+  'Setup Account': '初始帳號設定',
   Permission: '權限',
   Password: '密碼',
   'Enter your account': '請輸入您的帳號',
