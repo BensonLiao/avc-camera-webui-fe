@@ -100,14 +100,11 @@ module.exports = class Image extends Base {
   });
 
   onChangeVideoSettings = ({nextValues, prevValues}) => {
-    if (prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom) {
-      return;
-    }
-
     if (
       prevValues.focalLength !== nextValues.focalLength ||
       prevValues.zoom !== nextValues.zoom ||
-      prevValues.focusType !== nextValues.focusType
+      prevValues.focusType !== nextValues.focusType ||
+      prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom
     ) {
       // Change focus settings.
       this.submitPromise = this.submitPromise
