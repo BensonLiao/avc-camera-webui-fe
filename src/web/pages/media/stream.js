@@ -112,45 +112,49 @@ module.exports = class Stream extends Base {
             </Field>
           </div>
         </div>
-        <div className="form-group">
-          <label>{_('Bandwidth Management')}</label>
-          <div className="input-group">
-            <div className="input-group-prepend">
+        {values.format !== StreamFormat.mjpeg && (
+          <div className="form-group">
+            <label>{_('Bandwidth Management')}</label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <Field
+                  name={`${fieldNamePrefix}.bandwidthManagement`}
+                  component={Dropdown}
+                  buttonClassName="btn btn-outline-primary rounded-left"
+                  menuClassName="dropdown-menu-right"
+                  items={options.bandwidthManagement.map(x => ({value: x.value, label: x.label}))}
+                />
+              </div>
+              <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}/>
+              <input readOnly type="text" className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
+              <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
+              <div className="input-group-append">
+                <span className="input-group-text">Kbps</span>
+              </div>
+            </div>
+            <small className="text-info mb-3">
+              {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
+            </small>
+          </div>
+        )}
+        {values.format !== StreamFormat.mjpeg && (
+          <div className="form-group">
+            <label>{_('GOV')}</label>
+            <div className="select-wrapper border rounded-pill overflow-hidden">
               <Field
-                name={`${fieldNamePrefix}.bandwidthManagement`}
-                component={Dropdown}
-                buttonClassName="btn btn-outline-primary rounded-left"
-                menuClassName="dropdown-menu-right"
-                items={options.bandwidthManagement.map(x => ({value: x.value, label: x.label}))}
-              />
-            </div>
-            <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}/>
-            <input readOnly type="text" className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
-            <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
-            <div className="input-group-append">
-              <span className="input-group-text">Kbps</span>
+                name={`${fieldNamePrefix}.gov`}
+                component="select"
+                className="form-control border-0"
+              >
+                {
+                  options.gov.map(option => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))
+                }
+              </Field>
             </div>
           </div>
-          <small className="text-info mb-3">
-            {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
-          </small>
-        </div>
-        <div className="form-group">
-          <label>{_('GOV')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field
-              name={`${fieldNamePrefix}.gov`}
-              component="select"
-              className="form-control border-0"
-            >
-              {
-                options.gov.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))
-              }
-            </Field>
-          </div>
-        </div>
+        )}
       </>
     );
   };
