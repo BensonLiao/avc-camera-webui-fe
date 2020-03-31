@@ -3,8 +3,8 @@ exports.baseView = (req, res) => {
   [web] GET /.*
    */
   res.render('base', {
-    htmlLang: 'tw',
-    languageCode: 'zh-tw',
+    htmlLang: 'en',
+    languageCode: 'us-en',
     loadingText: 'Loading',
     user: {
       id: 1,
