@@ -436,9 +436,9 @@ module.exports = class Members extends Base {
                       <Link className="dropdown-item"
                         to={{name: 'web.users.members.new-member', params: this.props.params}}
                       >
-                        {_('Add a new member')}
+                        {_('Add a New Member')}
                       </Link>
-                      <Link className="dropdown-item" to="/users/events">{_('Add a member from events')}</Link>
+                      <Link className="dropdown-item" to="/users/events">{_('Add a Member from Events')}</Link>
                     </div>
                   </div>
                 </div>

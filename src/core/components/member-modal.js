@@ -215,7 +215,7 @@ module.exports = class Member extends React.PureComponent {
           </div>
           <div className="form-group">
             <label>{_('Name')}</label>
-            <Field name="name" type="text" placeholder={_('Enter your name')}
+            <Field name="name" type="text" placeholder={_('Enter Your Name')}
               maxLength={MemberSchema.name.max}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}/>
             {
