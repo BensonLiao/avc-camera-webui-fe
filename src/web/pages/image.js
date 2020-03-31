@@ -114,6 +114,7 @@ module.exports = class Image extends Base {
       // Change other settings.
       const values = {
         ...nextValues,
+        hdrEnabled: `${nextValues.hdrEnabled}`,
         timePeriodStart: nextValues.dnDuty[0],
         timePeriodEnd: nextValues.dnDuty[1]
       };
