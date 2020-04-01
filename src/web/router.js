@@ -194,7 +194,7 @@ module.exports = new Router({
       name: 'web.smart.face-recognition',
       uri: '/face-recognition',
       onEnter: () => {
-        document.title = `${_('Face Recognition')} - ${_('Analytic')} - ${_title}`;
+        document.title = `${_('Facial Recognition')} - ${_('Analytic')} - ${_title}`;
       },
       resolve: {
         faceRecognitionSettings: () => api.smartFunction.getFaceRecognitionSettings().then(response => response.data)
