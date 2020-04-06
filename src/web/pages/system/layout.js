@@ -36,7 +36,10 @@ module.exports = class System extends Base {
                 title={_('System Settings')}
                 className={classNames(
                   'nav-link collapse show d-flex justify-content-between align-items-center',
-                  {active: ['web.system.upgrade'].indexOf(currentRouteName) >= 0}
+                  {active: [
+                    'web.system.upgrade',
+                    'web.system.maintain'
+                  ].indexOf(currentRouteName) >= 0}
                 )}
               >
                 <span className="text-truncate">{_('System Settings')}</span>
@@ -45,6 +48,9 @@ module.exports = class System extends Base {
               <div id="basic-settings" className="collapse show" data-parent="#accordion-notification-menu">
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.upgrade'})} to="/system/upgrade" title={_('Firmware Upgrade')}>
                   {_('Firmware Upgrade')}
+                </Link>
+                <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.maintain'})} to="/system/maintain" title={_('Device Maintain')}>
+                  {_('Device Maintain')}
                 </Link>
               </div>
             </div>

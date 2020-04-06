@@ -435,6 +435,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.system.maintain',
+      uri: '/maintain',
+      onEnter: () => {
+        document.title = `${_('Device Maintain')} - ${_('System')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/maintain'
+      )
+    },
+    {
       name: 'setup',
       uri: '/setup',
       onEnter: () => {

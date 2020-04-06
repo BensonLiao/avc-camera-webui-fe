@@ -47,6 +47,9 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const data = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('httpsSettings').assign(data).write()]);
   })
+  .onPost('/api/system/reboot').reply(config => {
+    return mockResponseWithLog(config, [204, {}]);
+  })
   .onPut('/api/system/device-name').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('system').assign(newItem).write()]);
