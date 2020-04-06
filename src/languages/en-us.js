@@ -112,7 +112,7 @@ window.languageResource = {
   'word-type-3': 'Custom',
 
   // 通知類型
-  'notification-card-0': 'Face Recognition',
+  'notification-card-0': 'Facial Recognition',
   'notification-card-1': 'Age Gender',
   'notification-card-2': 'Humanoid Detection',
   'notification-card-3': 'Motion Detection',
