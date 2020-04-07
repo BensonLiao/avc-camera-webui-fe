@@ -187,9 +187,11 @@ module.exports = class Maintain extends Base {
                   <div className="card-body">
                     <div className="form-group">
                       <label>{_('Device Reboot')}</label>
-                      <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal}>
-                        {_('Reboot')}
-                      </button>
+                      <div>
+                        <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal}>
+                          {_('Reboot')}
+                        </button>
+                      </div>
                     </div>
                     {this.deviceRebootFormRender()}
                     <Formik

@@ -551,6 +551,10 @@ window.languageResource = {
   'Select File': '選擇檔案',
   'No Files Selected': '未選任何檔案',
 
+  // /system/Device Maintain
+  'Device Maintenace': '裝置維護',
+  'System Reboot': '系統重啟',
+
   // /license
   'Enter your authentication key': '請輸入授權碼',
   Activate: '啟用',
