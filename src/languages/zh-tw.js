@@ -562,6 +562,7 @@ window.languageResource = {
   'Import System Settings': '匯入系統設定值',
 
   // /license
+  License: '智慧授權',
   'Enter your authentication key': '請輸入授權碼',
   Activate: '啟用',
   Activated: '已啟用',
