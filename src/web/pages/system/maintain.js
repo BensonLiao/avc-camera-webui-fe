@@ -119,11 +119,11 @@ module.exports = class Maintain extends Base {
     return (
       <Form>
         <div className="form-group">
-          <label>{_('Reset Default')}</label>
+          <label>{_('Restore to Default Setting')}</label>
           <div className="form-check mb-2">
             <Field type="checkbox" name="resetIP" className="form-check-input" id="input-checkbox-reset-all"/>
             <label className="form-check-label" htmlFor="input-checkbox-reset-all">
-              {_('Reset Default(Innclude IP Address)')}
+              {_('Restore to factory default setting (Includes IP Address)')}
             </label>
           </div>
           <div>
@@ -140,12 +140,12 @@ module.exports = class Maintain extends Base {
     return (
       <Form>
         <div className="form-group">
-          <label className="mb-0">{_('Import Setting')}</label>
-          <small className="form-text text-muted my-2">※{_('Support .zip extension Only Setting')}</small>
+          <label className="mb-0">{_('Import System Settings')}</label>
+          <small className="form-text text-muted my-2">{_('Only .Zip File Supported')}</small>
           <div>
             <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
               <input type="file" className="d-none" accept=".zip" onChange={this.onChangeFile}/>
-              {_('Choose file')}
+              {_('Select File')}
             </label>
             {
               file ?
@@ -186,7 +186,7 @@ module.exports = class Maintain extends Base {
                   <div className="card-header">{_('Device Maintenace')}</div>
                   <div className="card-body">
                     <div className="form-group">
-                      <label>{_('Device Reboot')}</label>
+                      <label>{_('System Reboot')}</label>
                       <div>
                         <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal}>
                           {_('Reboot')}
@@ -201,7 +201,7 @@ module.exports = class Maintain extends Base {
                       {this.deviceResetFormRender}
                     </Formik>
                     <div className="form-group">
-                      <label>{_('Export Setting')}</label>
+                      <label>{_('Export System Settings')}</label>
                       <div>
                         <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.onClickExportDeviceSettings}>{_('Export')}</button>
                       </div>

@@ -553,7 +553,13 @@ window.languageResource = {
 
   // /system/Device Maintain
   'Device Maintenace': '裝置維護',
-  'System Reboot': '系統重啟',
+  'System Reboot': '重新啟動裝置',
+  Reboot: '重啟',
+  'Restore to Default Setting': '將裝置還原成原始預設值',
+  'Restore to factory default setting (Includes IP Address)': '將所有設定恢復為預設值(包含IP位址)',
+  Reset: '重設設定',
+  'Export System Settings': '匯出系統設定值',
+  'Import System Settings': '匯入系統設定值',
 
   // /license
   'Enter your authentication key': '請輸入授權碼',
