@@ -2,7 +2,7 @@ const download = require('downloadjs');
 const React = require('react');
 const progress = require('nprogress');
 const {Link, getRouter} = require('capybara-router');
-const {Formik, Form} = require('formik');
+const {Formik, Form, Field} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
 const Base = require('../shared/base');
 const _ = require('../../../languages');
@@ -55,9 +55,9 @@ module.exports = class Maintain extends Base {
       });
   };
 
-  onSubmitDeviceReset = values => {
+  onSubmitDeviceReset = ({resetIP}) => {
     progress.start();
-    api.system.deviceReset(values)
+    api.system.deviceReset(resetIP)
       .then(getRouter().reload)
       .catch(error => {
         progress.done();
@@ -121,7 +121,7 @@ module.exports = class Maintain extends Base {
         <div className="form-group">
           <label>{_('Reset Default')}</label>
           <div className="form-check mb-2">
-            <input type="checkbox" name="resetIP" className="form-check-input" id="input-checkbox-reset-all"/>
+            <Field type="checkbox" name="resetIP" className="form-check-input" id="input-checkbox-reset-all"/>
             <label className="form-check-label" htmlFor="input-checkbox-reset-all">
               {_('Reset Default(Innclude IP Address)')}
             </label>
@@ -162,8 +162,6 @@ module.exports = class Maintain extends Base {
   };
 
   render() {
-    const {appSettings} = this.props;
-
     return (
       <div className="main-content left-menu-active">
         <div className="page-system">
@@ -195,7 +193,7 @@ module.exports = class Maintain extends Base {
                     </div>
                     {this.deviceRebootFormRender()}
                     <Formik
-                      initialValues={appSettings}
+                      initialValues={{resetIP: false}}
                       onSubmit={this.onSubmitDeviceReset}
                     >
                       {this.deviceResetFormRender}
@@ -207,7 +205,7 @@ module.exports = class Maintain extends Base {
                       </div>
                     </div>
                     <Formik
-                      initialValues={appSettings}
+                      initialValues={{}}
                       onSubmit={this.onSubmitImportDeviceSettings}
                     >
                       {this.importDeviceSettingsFormRender}
