@@ -176,14 +176,14 @@ module.exports = class Maintain extends Base {
                     <li className="breadcrumb-item active">
                       <Link to="/system/date">{_('Settings')}</Link>
                     </li>
-                    <li className="breadcrumb-item">{_('Devcice Maintenace')}</li>
+                    <li className="breadcrumb-item">{_('Device Maintenace')}</li>
                   </ol>
                 </nav>
               </div>
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Devcice Maintenace')}</div>
+                  <div className="card-header">{_('Device Maintenace')}</div>
                   <div className="card-body">
                     <div className="form-group">
                       <label>{_('Device Reboot')}</label>
