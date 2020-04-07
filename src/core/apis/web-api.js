@@ -247,6 +247,39 @@ module.exports = {
         formData.set('file', file);
         return formData;
       })()
+    }),
+    /**
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    deviceReboot: () => api({
+      method: 'post',
+      url: '/api/system/reboot'
+    }),
+    /**
+     * @param {Boolean} resetIP - Reset IP address or not.
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    deviceReset: resetIP => api({
+      method: 'post',
+      url: '/api/system/resetdefault',
+      data: {resetIP}
+    }),
+    /**
+     * @param {File} file - The device settings file.
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    importDeviceSettings: file => api({
+      method: 'post',
+      url: '/api/system/importsettings',
+      headers: {'content-type': 'multipart/form-data'},
+      data: (() => {
+        const formData = new FormData();
+        formData.set('file', file);
+        return formData;
+      })()
     })
   },
   notification: {

@@ -551,7 +551,18 @@ window.languageResource = {
   'Select File': '選擇檔案',
   'No Files Selected': '未選任何檔案',
 
+  // /system/Device Maintain
+  'Device Maintenace': '裝置維護',
+  'System Reboot': '重新啟動裝置',
+  Reboot: '重啟',
+  'Restore to Default Setting': '將裝置還原成原始預設值',
+  'Restore to factory default setting (Includes IP Address)': '將所有設定恢復為預設值(包含IP位址)',
+  Reset: '重設設定',
+  'Export System Settings': '匯出系統設定值',
+  'Import System Settings': '匯入系統設定值',
+
   // /license
+  License: '智慧授權',
   'Enter your authentication key': '請輸入授權碼',
   Activate: '啟用',
   Activated: '已啟用',
