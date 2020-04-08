@@ -10,20 +10,23 @@ const utils = require('../../../core/utils');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 
-module.exports = class Audio extends Base {
+module.exports = class SDCard extends Base {
   static get propTypes() {
     return {
-      audioSettings: PropTypes.shape({
-        isEnableInput: PropTypes.bool.isRequired,
-        isEnableOutput: PropTypes.bool.isRequired,
-        inputQuality: PropTypes.string.isRequired,
-        inputSource: PropTypes.string.isRequired
-      }).isRequired
+      systemInformation: PropTypes.shape({
+        deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
+        usedDiskSize: PropTypes.number.isRequired,
+        totalDiskSize: PropTypes.number.isRequired
+      }).isRequired,
+      sdcardSettings: PropTypes.shape({
+        enableSDCard: PropTypes.bool.isReired
+      })
     };
   }
 
   constructor(props) {
     super(props);
+    this.state.enableSDCard = true;
     this.state.file = null;
     this.state.isShowModal = false;
     this.state.showSelectModal = {
@@ -41,17 +44,7 @@ module.exports = class Audio extends Base {
     return this.setState({showSelectModal: {[selectedModal]: false}});
   };
 
-  onSubmitSDcardSettingsForm = values => {
-    progress.start();
-    api.multimedia.updateAudioSettings(values)
-      .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
-  };
-
-  formatSDcardFormRender = () => {
+  formatSDcardModalRender = () => {
     const {$isApiProcessing} = this.state;
     return (
       <Modal
@@ -84,7 +77,7 @@ module.exports = class Audio extends Base {
     );
   };
 
-  unmountSDCardFormRender = () => {
+  unmountSDCardModalRender = () => {
     const {$isApiProcessing} = this.state;
     return (
       <Modal
@@ -117,6 +110,16 @@ module.exports = class Audio extends Base {
     );
   };
 
+  onSubmitSDcardSettingsForm = values => {
+    progress.start();
+    api.system.setSDCard(values)
+      .then(getRouter().reload)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
+
   sdcardSettingsFormRender = ({values}) => {
     const {systemInformation} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
@@ -126,7 +129,7 @@ module.exports = class Audio extends Base {
         <div className="form-group d-flex justify-content-between align-items-center">
           <label className="mb-0">{_('SD Card')}</label>
           <div className="custom-control custom-switch">
-            <Field name="isEnableInput" checked={values.isEnableInput} type="checkbox" className="custom-control-input" id="switch-sound"/>
+            <Field name="enableSDCard" checked={values.enableSDCard} type="checkbox" className="custom-control-input" id="switch-sound"/>
             <label className="custom-control-label" htmlFor="switch-sound">
               <span>{_('ON')}</span>
               <span>{_('OFF')}</span>
@@ -142,13 +145,13 @@ module.exports = class Audio extends Base {
                   <button className="btn btn-outline-primary rounded-pill px-5 mr-3" type="button" onClick={this.showModal('isShowFormatModal')}>
                     {_('Format')}
                   </button>
-                  {this.formatSDcardFormRender()}
+                  {this.formatSDcardModalRender()}
                 </span>
                 <span>
                   <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal('isShowUnmountModal')}>
                     {_('Uninstall')}
                   </button>
-                  {this.unmountSDCardFormRender()}
+                  {this.unmountSDCardModalRender()}
                 </span>
               </div>
             </div>
@@ -220,7 +223,7 @@ module.exports = class Audio extends Base {
   };
 
   render() {
-    const {audioSettings} = this.props;
+    const {sdcardSettings} = this.props;
 
     return (
       <div className="main-content">
@@ -239,7 +242,7 @@ module.exports = class Audio extends Base {
                 <div className="card shadow">
                   <div className="card-header">{_('SD Card Settings')}</div>
                   <Formik
-                    initialValues={audioSettings}
+                    initialValues={sdcardSettings}
                     onSubmit={this.onSubmitSDcardSettingsForm}
                   >
                     {this.sdcardSettingsFormRender}

@@ -280,6 +280,22 @@ module.exports = {
         formData.set('file', file);
         return formData;
       })()
+    }),
+    setSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard'
+    }),
+    alertSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcardalert'
+    }),
+    formatSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard/format'
+    }),
+    unmountSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard/unmount'
     })
   },
   notification: {
