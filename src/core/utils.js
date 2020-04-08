@@ -46,6 +46,73 @@ exports.formatDate = (date, {withSecond, withoutTime, format} = {}) => {
 };
 
 /**
+ * Get hours from time.
+ * @param {String} time - e.g. "12:23"
+ * @returns {Number} e.g. 12
+ */
+exports.getHours = time => {
+  if (typeof time !== 'string') {
+    return 'time must be string';
+  }
+
+  if (time === '') {
+    return 'time must not be empty';
+  }
+
+  return Number(time.split(':')[0]);
+};
+
+/**
+ * Get minutes from time.
+ * @param {String} time - e.g. "12:23"
+ * @returns {Number} e.g. 23
+ */
+exports.getMinutes = time => {
+  if (typeof time !== 'string') {
+    return 'time must be string';
+  }
+
+  if (time === '') {
+    return 'time must not be empty';
+  }
+
+  return Number(time.split(':')[1]);
+};
+
+/**
+ * Set datetime from time.
+ * @param {String} time - e.g. "12:23"
+ * @returns {Date} A `Date` object represent time
+ */
+exports.setDateTime = time => {
+  if (typeof time !== 'string') {
+    return 'time must be string';
+  }
+
+  if (time === '') {
+    return 'time must not be empty';
+  }
+
+  const date = new Date();
+  date.setMinutes(this.getMinutes(time));
+  date.setHours(this.getHours(time));
+  return date;
+};
+
+/**
+ * Set time from datetime.
+ * @param {Date} time - A `Date` object represent time
+ * @returns {String} e.g. "15:23"
+ */
+exports.setTime = time => {
+  if (!dayjs(time).isValid()) {
+    return 'time must be a date object';
+  }
+
+  return `${time.getHours()}:${time.getMinutes()}`;
+};
+
+/**
  * Format number. e.g. 1000 -> 1,000
  * @param {Number|String|null} value
  * @returns {String}
