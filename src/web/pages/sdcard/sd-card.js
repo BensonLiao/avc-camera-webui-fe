@@ -17,15 +17,13 @@ module.exports = class SDCard extends Base {
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         usedDiskSize: PropTypes.number.isRequired,
         totalDiskSize: PropTypes.number.isRequired
-      }).isRequired,
-      sdcardSettings: PropTypes.shape({
-        enableSDCard: PropTypes.bool.isReired
-      })
+      }).isRequired
     };
   }
 
   constructor(props) {
     super(props);
+    console.log('this.props', this.props);
     this.state.enableSDCard = true;
     this.state.file = null;
     this.state.isShowModal = false;
@@ -112,7 +110,7 @@ module.exports = class SDCard extends Base {
 
   onSubmitSDcardSettingsForm = values => {
     progress.start();
-    api.system.setSDCard(values)
+    api.system.enableSDCard(values)
       .then(getRouter().reload)
       .catch(error => {
         progress.done();
@@ -129,7 +127,7 @@ module.exports = class SDCard extends Base {
         <div className="form-group d-flex justify-content-between align-items-center">
           <label className="mb-0">{_('SD Card')}</label>
           <div className="custom-control custom-switch">
-            <Field name="enableSDCard" checked={values.enableSDCard} type="checkbox" className="custom-control-input" id="switch-sound"/>
+            <Field checked name="enableSDCard" type="checkbox" className="custom-control-input" id="switch-sound"/>
             <label className="custom-control-label" htmlFor="switch-sound">
               <span>{_('ON')}</span>
               <span>{_('OFF')}</span>
@@ -176,12 +174,12 @@ module.exports = class SDCard extends Base {
         <div className="form-group px-3">
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('Status')}</label>
-            <label className="mb-o text-primary">{_('Inserted')}</label>
+            <label className="mb-o text-primary">{systemInformation.sdcardStatus}</label>
           </div>
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('File Format')}</label>
-            <label className="mb-o text-primary">{_('FAT32')}</label>
+            <label className="mb-o text-primary">{systemInformation.sdcardFormat}</label>
           </div>
           <hr/>
         </div>
@@ -223,7 +221,7 @@ module.exports = class SDCard extends Base {
   };
 
   render() {
-    const {sdcardSettings} = this.props;
+    const {systemInformation} = this.props;
 
     return (
       <div className="main-content">
@@ -242,7 +240,7 @@ module.exports = class SDCard extends Base {
                 <div className="card shadow">
                   <div className="card-header">{_('SD Card Settings')}</div>
                   <Formik
-                    initialValues={sdcardSettings}
+                    initialValues={systemInformation}
                     onSubmit={this.onSubmitSDcardSettingsForm}
                   >
                     {this.sdcardSettingsFormRender}

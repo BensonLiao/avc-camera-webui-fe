@@ -449,13 +449,10 @@ module.exports = new Router({
       name: 'web.sd-card',
       uri: '/sd-card',
       onEnter: () => {
-        document.title = `${_('Audio Settings')} - ${_title}`;
-      },
-      resolve: {
-        audioSettings: () => api.multimedia.getAudioSettings().then(response => response.data)
+        document.title = `${_('SD Card Settings')} - ${_title}`;
       },
       loadComponent: () => import(
-        /* webpackChunkName: "page-media" */
+        /* webpackChunkName: "page-sd-card" */
         './pages/sdcard/sd-card'
       )
     },

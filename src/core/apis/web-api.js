@@ -281,7 +281,7 @@ module.exports = {
         return formData;
       })()
     }),
-    setSDCard: () => api({
+    getSDCardInformation: () => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard'
     }),
