@@ -1009,7 +1009,6 @@ module.exports = {
     }),
     /**
      * @param {boolean} isEnableInput
-     * @param {boolean} isEnableOutput
      * @param {string} inputQuality
      * @param {string} inputSource
      * @returns {Promise<response>}
@@ -1019,10 +1018,10 @@ module.exports = {
      * - inputQuality {string}
      * - inputSource {string}
      */
-    updateAudioSettings: ({isEnableInput, isEnableOutput, inputQuality, inputSource}) => api({
+    updateAudioSettings: ({isEnableInput, inputQuality, inputSource}) => api({
       method: 'put',
       url: '/api/multimedia/audio/settings',
-      data: {isEnableInput, isEnableOutput, inputQuality, inputSource}
+      data: {isEnableInput, inputQuality, inputSource}
     }),
     /**
      * @returns {Promise<response>}
