@@ -93,7 +93,7 @@ module.exports = class DatePicker extends React.PureComponent {
     return utils.formatDate(a, {format: 'YYYYMMDD'}) === utils.formatDate(b, {format: 'YYYYMMDD'});
   };
 
-  setValue = (date = new Date(), {skipTime} = {}) => {
+  setDateValue = (date = new Date(), {skipTime} = {}) => {
     const {field, form} = this.props;
 
     if (skipTime && field.value) {
@@ -174,7 +174,7 @@ module.exports = class DatePicker extends React.PureComponent {
     const {field} = this.props;
 
     if (field.value == null) {
-      this.setValue();
+      this.setDateValue();
     }
 
     setTimeout(() => {
@@ -182,7 +182,7 @@ module.exports = class DatePicker extends React.PureComponent {
         (this.props.field.value.getHours() % 12) * CLOCK_ITEM_HEIGHT
       );
       $(this.clockData.minutesRef.current).scrollTop(
-        (this.props.field.value.getMinutes()) * CLOCK_ITEM_HEIGHT
+        this.props.field.value.getMinutes() * CLOCK_ITEM_HEIGHT
       );
       $(this.clockData.meridiemItemsRef.current).scrollTop(
         (this.props.field.value.getHours() >= 12 ? 0 : 1) * CLOCK_ITEM_HEIGHT
@@ -206,7 +206,7 @@ module.exports = class DatePicker extends React.PureComponent {
         date.setHours(currentMeridiem === 'PM' ? hours + 12 : hours);
       }
 
-      this.setValue(date);
+      this.setDateValue(date);
     } else {
       this.clockData.tuneHoursScrollTimeout = setTimeout(() => {
         $(this.clockData.hoursRef.current).animate({scrollTop: expectPositionY}, 200);
@@ -227,7 +227,7 @@ module.exports = class DatePicker extends React.PureComponent {
         date.setMinutes(minutes);
       }
 
-      this.setValue(date);
+      this.setDateValue(date);
     } else {
       this.clockData.tuneMinutesScrollTimeout = setTimeout(() => {
         $(this.clockData.minutesRef.current).animate({scrollTop: expectPositionY}, 200);
@@ -250,7 +250,7 @@ module.exports = class DatePicker extends React.PureComponent {
         date.setHours(date.getHours() + 12);
       }
 
-      this.setValue(date);
+      this.setDateValue(date);
       this.setState({currentMeridiem: item});
     } else {
       this.clockData.tuneMeridiemItemsScrollTimeout = setTimeout(() => {
@@ -273,7 +273,7 @@ module.exports = class DatePicker extends React.PureComponent {
 
   generateClickDateHandler = date => event => {
     event.preventDefault();
-    this.setValue(date, {skipTime: true});
+    this.setDateValue(date, {skipTime: true});
   };
 
   generateChangeDisplayMonthHandler = date => event => {
