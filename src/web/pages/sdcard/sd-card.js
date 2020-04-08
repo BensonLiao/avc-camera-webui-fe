@@ -2,6 +2,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
+const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const utils = require('../../../core/utils');
@@ -31,6 +32,9 @@ module.exports = class Audio extends Base {
   };
 
   sdcardSettingsFormRender = ({values}) => {
+    const {systemInformation} = this.props;
+    const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
+
     return (
       <Form className="card-body sdcard">
         <div className="form-group d-flex justify-content-between align-items-center">
@@ -78,18 +82,48 @@ module.exports = class Audio extends Base {
             </div>
           </div>
         </div>
-        <div className="form-group">
+        <div className="form-group px-3">
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('Status')}</label>
             <label className="mb-o text-primary">{_('Inserted')}</label>
           </div>
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
-            <label className="mb-o">{_('Status')}</label>
-            <label className="mb-o text-primary">{_('Inserted')}</label>
+            <label className="mb-o">{_('File Format')}</label>
+            <label className="mb-o text-primary">{_('FAT32')}</label>
           </div>
           <hr/>
         </div>
+        <div className="form-group">
+          <div className="card">
+            <div className="card-header sd-card-round">
+              {_('Storage Space')}
+            </div>
+            <div className="card-body">
+              <div className="form-group mb-0">
+                <label className="mb-3">{_('SD Card')}</label>
+                <p>
+                  {
+                    _('Free: {0}, Total: {1}', [
+                      filesize(systemInformation.totalDiskSize - systemInformation.usedDiskSize),
+                      filesize(systemInformation.totalDiskSize)
+                    ])
+                  }
+                </p>
+                <div className="progress">
+                  {
+                    isNaN(usedDiskPercentage) ?
+                      <div className="progress-bar"/> :
+                      <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
+                        {`${usedDiskPercentage}%`}
+                      </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
           {_('Apply')}
         </button>
