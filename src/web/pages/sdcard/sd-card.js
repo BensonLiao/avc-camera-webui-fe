@@ -4,6 +4,7 @@ const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
+const Modal = require('react-bootstrap/Modal').default;
 const Base = require('../shared/base');
 const utils = require('../../../core/utils');
 const _ = require('../../../languages');
@@ -21,6 +22,25 @@ module.exports = class Audio extends Base {
     };
   }
 
+  constructor(props) {
+    super(props);
+    this.state.file = null;
+    this.state.isShowModal = false;
+    this.state.showSelectModal = {
+      isShowFormatModal: false,
+      isShowUnmountModal: false
+    };
+  }
+
+  showModal = selectedModal => event => {
+    event.preventDefault();
+    return this.setState({showSelectModal: {[selectedModal]: true}});
+  };
+
+  hideModal = selectedModal => _ => {
+    return this.setState({showSelectModal: {[selectedModal]: false}});
+  };
+
   onSubmitSDcardSettingsForm = values => {
     progress.start();
     api.multimedia.updateAudioSettings(values)
@@ -29,6 +49,72 @@ module.exports = class Audio extends Base {
         progress.done();
         utils.renderError(error);
       });
+  };
+
+  formatSDcardFormRender = () => {
+    const {$isApiProcessing} = this.state;
+    return (
+      <Modal
+        show={this.state.showSelectModal.isShowFormatModal}
+        autoFocus={false}
+        onHide={this.hideModal('isShowFormatModal')}
+      >
+        <Formik
+          initialValues={{}}
+          onSubmit={this.onSubmitDeviceReboot}
+        >
+          <Form>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title">{_('Format')}</h4>
+              </div>
+              <div className="modal-body">
+                <p>{_('Are you sure you want to format the Micro SD card?')}</p>
+              </div>
+              <div className="modal-footer flex-column">
+                <div className="form-group w-100 mx-0">
+                  <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">{_('Confirm')}</button>
+                </div>
+                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowFormatModal')}>{_('Cancel')}</button>
+              </div>
+            </div>
+          </Form>
+        </Formik>
+      </Modal>
+    );
+  };
+
+  unmountSDCardFormRender = () => {
+    const {$isApiProcessing} = this.state;
+    return (
+      <Modal
+        show={this.state.showSelectModal.isShowUnmountModal}
+        autoFocus={false}
+        onHide={this.hideModal('isShowUnmountModal')}
+      >
+        <Formik
+          initialValues={{}}
+          onSubmit={this.onSubmitDeviceReboot}
+        >
+          <Form>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title">{_('Uninstall')}</h4>
+              </div>
+              <div className="modal-body">
+                <p>{_('Are you sure you want to uninstall the Micro SD card?')}</p>
+              </div>
+              <div className="modal-footer flex-column">
+                <div className="form-group w-100 mx-0">
+                  <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">{_('Confirm')}</button>
+                </div>
+                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowUnmountModal')}>{_('Cancel')}</button>
+              </div>
+            </div>
+          </Form>
+        </Formik>
+      </Modal>
+    );
   };
 
   sdcardSettingsFormRender = ({values}) => {
@@ -53,14 +139,16 @@ module.exports = class Audio extends Base {
               <label>{_('SD Card Operation')}</label>
               <div>
                 <span>
-                  <button className="btn btn-outline-primary rounded-pill px-5 mr-3" type="button" onClick={this.showModal}>
+                  <button className="btn btn-outline-primary rounded-pill px-5 mr-3" type="button" onClick={this.showModal('isShowFormatModal')}>
                     {_('Format')}
                   </button>
+                  {this.formatSDcardFormRender()}
                 </span>
                 <span>
-                  <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal}>
+                  <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal('isShowUnmountModal')}>
                     {_('Uninstall')}
                   </button>
+                  {this.unmountSDCardFormRender()}
                 </span>
               </div>
             </div>
