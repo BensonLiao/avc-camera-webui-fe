@@ -15,11 +15,12 @@ module.exports = class DatePicker extends React.PureComponent {
     return {
       inputProps: PropTypes.object,
       isShowRepeatSwitch: PropTypes.bool,
-      dateTabText: PropTypes.string.isRequired,
+      dateTabText: PropTypes.string,
       timeTabText: PropTypes.string.isRequired,
+      timeFormat: PropTypes.string,
       field: PropTypes.shape({
         name: PropTypes.string.isRequired,
-        value: PropTypes.instanceOf(Date)
+        value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string])
       }).isRequired,
       form: PropTypes.shape({
         setFieldValue: PropTypes.func.isRequired,
@@ -37,6 +38,8 @@ module.exports = class DatePicker extends React.PureComponent {
     return {
       inputProps: {},
       isShowRepeatSwitch: false,
+      dateTabText: undefined,
+      timeFormat: 'HH:mm',
       isShowPicker: false,
       startDateFieldName: '',
       endDateFieldName: ''
@@ -90,7 +93,7 @@ module.exports = class DatePicker extends React.PureComponent {
     return utils.formatDate(a, {format: 'YYYYMMDD'}) === utils.formatDate(b, {format: 'YYYYMMDD'});
   };
 
-  setValue = (date = new Date(), {skipTime} = {}) => {
+  setDateValue = (date = new Date(), {skipTime} = {}) => {
     const {field, form} = this.props;
 
     if (skipTime && field.value) {
@@ -171,7 +174,7 @@ module.exports = class DatePicker extends React.PureComponent {
     const {field} = this.props;
 
     if (field.value == null) {
-      this.setValue();
+      this.setDateValue();
     }
 
     setTimeout(() => {
@@ -188,7 +191,7 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   hoursScrollHandler = event => {
-    const {field, form} = this.props;
+    const {field} = this.props;
     const positionY = $(event.target).scrollTop();
     const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
     const hours = this.clockData.hours[index + 2];
@@ -196,16 +199,14 @@ module.exports = class DatePicker extends React.PureComponent {
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneHoursScrollTimeout);
     if (expectPositionY === positionY) {
-      if (field.value.getHours() !== hours) {
-        const date = new Date(field.value);
-        if (hours === 12) {
-          date.setHours(currentMeridiem === 'PM' ? hours : hours - 12);
-        } else {
-          date.setHours(currentMeridiem === 'PM' ? hours + 12 : hours);
-        }
-
-        form.setFieldValue(field.name, date);
+      const date = new Date(field.value);
+      if (hours === 12) {
+        date.setHours(currentMeridiem === 'PM' ? hours : hours - 12);
+      } else {
+        date.setHours(currentMeridiem === 'PM' ? hours + 12 : hours);
       }
+
+      this.setDateValue(date);
     } else {
       this.clockData.tuneHoursScrollTimeout = setTimeout(() => {
         $(this.clockData.hoursRef.current).animate({scrollTop: expectPositionY}, 200);
@@ -214,18 +215,19 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   minutesScrollHandler = event => {
-    const {field, form} = this.props;
+    const {field} = this.props;
     const positionY = $(event.target).scrollTop();
     const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
     const minutes = this.clockData.minutes[index + 2];
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneMinutesScrollTimeout);
     if (expectPositionY === positionY) {
+      const date = new Date(field.value);
       if (field.value.getMinutes() !== minutes) {
-        const date = new Date(field.value);
         date.setMinutes(minutes);
-        form.setFieldValue(field.name, date);
       }
+
+      this.setDateValue(date);
     } else {
       this.clockData.tuneMinutesScrollTimeout = setTimeout(() => {
         $(this.clockData.minutesRef.current).animate({scrollTop: expectPositionY}, 200);
@@ -234,23 +236,21 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   meridiemItemsScrollHandler = event => {
-    const {field, form} = this.props;
+    const {field} = this.props;
     const positionY = $(event.target).scrollTop();
     const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
     const item = this.clockData.meridiemItems[index + 2];
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneMeridiemItemsScrollTimeout);
     if (expectPositionY === positionY) {
+      const date = new Date(field.value);
       if (item === 'AM' && field.value.getHours() >= 12) {
-        const date = new Date(field.value);
         date.setHours(date.getHours() - 12);
-        form.setFieldValue(field.name, date);
       } else if (item === 'PM' && field.value.getHours() < 12) {
-        const date = new Date(field.value);
         date.setHours(date.getHours() + 12);
-        form.setFieldValue(field.name, date);
       }
 
+      this.setDateValue(date);
       this.setState({currentMeridiem: item});
     } else {
       this.clockData.tuneMeridiemItemsScrollTimeout = setTimeout(() => {
@@ -273,7 +273,7 @@ module.exports = class DatePicker extends React.PureComponent {
 
   generateClickDateHandler = date => event => {
     event.preventDefault();
-    this.setValue(date, {skipTime: true});
+    this.setDateValue(date, {skipTime: true});
   };
 
   generateChangeDisplayMonthHandler = date => event => {
@@ -462,9 +462,12 @@ module.exports = class DatePicker extends React.PureComponent {
         <div className="datepicker" {...props}>
           <nav>
             <div className="nav nav-tabs">
-              <a className="nav-item nav-link flex-fill text-center ml-0 active" data-toggle="tab" href="#tab-datepicker-date">
-                {dateTabText}
-              </a>
+              {dateTabText && (
+                <a className="nav-item nav-link flex-fill text-center ml-0 active" data-toggle="tab" href="#tab-datepicker-date">
+                  {dateTabText}
+                </a>
+              )}
+              {!dateTabText && this.onSwitchToClock()}
               <a className="nav-item nav-link flex-fill text-center mr-0" data-toggle="tab" href="#tab-datepicker-time"
                 onClick={this.onSwitchToClock}
               >
@@ -485,9 +488,9 @@ module.exports = class DatePicker extends React.PureComponent {
                   </div>
                 )
               }
-              {this.calendarRender()}
+              {dateTabText && this.calendarRender()}
             </div>
-            <div className="tab-pane fade" id="tab-datepicker-time">
+            <div className={classNames('tab-pane', {'active show': dateTabText === undefined})} id="tab-datepicker-time">
               {this.clockRender()}
             </div>
           </div>
@@ -497,7 +500,7 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   render() {
-    const {inputProps, field, isShowPicker, onClickInput, onHide} = this.props;
+    const {inputProps, field, isShowPicker, onClickInput, onHide, dateTabText, timeFormat} = this.props;
     return (
       <>
         <button
@@ -506,7 +509,10 @@ module.exports = class DatePicker extends React.PureComponent {
           {...inputProps}
           onClick={onClickInput}
         >
-          {utils.formatDate(field.value) || inputProps.placeholder}
+          {utils.formatDate(
+            field.value,
+            dateTabText ? {} : {format: timeFormat}
+          ) || inputProps.placeholder}
         </button>
         <Overlay
           rootClose

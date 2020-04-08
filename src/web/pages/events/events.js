@@ -11,7 +11,7 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
 const Pagination = require('../../../core/components/pagination');
-const DatePicker = require('../../../core/components/fields/date-picker');
+const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const utils = require('../../../core/utils');
 
 module.exports = class Events extends Base {
@@ -376,7 +376,7 @@ module.exports = class Events extends Base {
           <div className="col-auto px-0 btn-group">
             <Field
               name="start"
-              component={DatePicker}
+              component={DateTimePicker}
               dateTabText={_('Start Date')}
               timeTabText={_('Start Time')}
               inputProps={{
@@ -394,7 +394,7 @@ module.exports = class Events extends Base {
             />
             <Field
               name="end"
-              component={DatePicker}
+              component={DateTimePicker}
               dateTabText={_('End Date')}
               timeTabText={_('End Time')}
               inputProps={{
