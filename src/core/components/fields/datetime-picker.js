@@ -171,7 +171,7 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   onSwitchToClock = () => {
-    const {field, dateTabText} = this.props;
+    const {field} = this.props;
 
     if (field.value == null) {
       this.setValue();
