@@ -384,7 +384,7 @@ module.exports = class Home extends Base {
             </div>
           </div>
           <small className="text-info mb-3">
-            {_('{0} - {1} Kbps', [StreamSettingsSchema.bitRate.min, StreamSettingsSchema.bitRate.max])}
+            {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
           </small>
         </div>
         <div className="form-group">
@@ -414,7 +414,7 @@ module.exports = class Home extends Base {
       resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
       frameRate: (() => {
         const result = [];
-        for (let index = StreamSettingsSchema.frameRate.min; index <= StreamSettingsSchema.frameRate.max; index += 1) {
+        for (let index = StreamSettingsSchema.channelA.props.frameRate.min; index <= StreamSettingsSchema.channelA.props.frameRate.max; index += 1) {
           result.push({label: `${index}`, value: `${index}`});
         }
 
@@ -448,7 +448,7 @@ module.exports = class Home extends Base {
       })(),
       frameRate: (() => {
         const result = [];
-        for (let index = StreamSettingsSchema.frameRate.min; index <= StreamSettingsSchema.frameRate.max; index += 1) {
+        for (let index = StreamSettingsSchema.channelB.props.frameRate.min; index <= StreamSettingsSchema.channelB.props.frameRate.max; index += 1) {
           result.push({label: `${index}`, value: `${index}`});
         }
 
@@ -682,7 +682,6 @@ module.exports = class Home extends Base {
                     </tbody>
                   </table>
                 </div>
-
               </div>
 
               <div className="col-4 pl-0">
