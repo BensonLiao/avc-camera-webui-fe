@@ -20,7 +20,7 @@ module.exports = class Audio extends Base {
     };
   }
 
-  onSubmitAudioSettingsForm = values => {
+  onSubmitSDcardSettingsForm = values => {
     progress.start();
     api.multimedia.updateAudioSettings(values)
       .then(getRouter().reload)
@@ -30,7 +30,7 @@ module.exports = class Audio extends Base {
       });
   };
 
-  audioSettingsFormRender = ({values}) => {
+  sdcardSettingsFormRender = ({values}) => {
     return (
       <Form className="card-body sdcard">
         <div className="form-group d-flex justify-content-between align-items-center">
@@ -78,6 +78,18 @@ module.exports = class Audio extends Base {
             </div>
           </div>
         </div>
+        <div className="form-group">
+          <div className="d-flex justify-content-between align-items-center mb-0">
+            <label className="mb-o">{_('Status')}</label>
+            <label className="mb-o text-primary">{_('Inserted')}</label>
+          </div>
+          <hr/>
+          <div className="d-flex justify-content-between align-items-center mb-0">
+            <label className="mb-o">{_('Status')}</label>
+            <label className="mb-o text-primary">{_('Inserted')}</label>
+          </div>
+          <hr/>
+        </div>
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
           {_('Apply')}
         </button>
@@ -106,9 +118,9 @@ module.exports = class Audio extends Base {
                   <div className="card-header">{_('SD Card Settings')}</div>
                   <Formik
                     initialValues={audioSettings}
-                    onSubmit={this.onSubmitAudioSettingsForm}
+                    onSubmit={this.onSubmitSDcardSettingsForm}
                   >
-                    {this.audioSettingsFormRender}
+                    {this.sdcardSettingsFormRender}
                   </Formik>
                 </div>
               </div>
