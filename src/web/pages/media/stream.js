@@ -14,6 +14,7 @@ const StreamBandwidthManagement = require('webserver-form-schema/constants/strea
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const _ = require('../../../languages');
 const Dropdown = require('../../../core/components/fields/dropdown');
+// Const streamSettingsValidator = require('../../validations/media/stream-settings-validator');
 
 module.exports = class Stream extends Base {
   static get propTypes() {
@@ -133,7 +134,7 @@ module.exports = class Stream extends Base {
               </div>
             </div>
             <small className="text-info mb-3">
-              {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
+              {_('{0} - {1} Kbps', [StreamSettingsSchema.bitRate.min, StreamSettingsSchema.bitRate.max])}
             </small>
           </div>
         )}
@@ -165,7 +166,7 @@ module.exports = class Stream extends Base {
       resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
       frameRate: (() => {
         const result = [];
-        for (let index = StreamSettingsSchema.channelA.props.frameRate.min; index <= StreamSettingsSchema.channelA.props.frameRate.max; index += 1) {
+        for (let index = StreamSettingsSchema.frameRate.min; index <= StreamSettingsSchema.frameRate.max; index += 1) {
           result.push({label: `${index}`, value: `${index}`});
         }
 
@@ -204,7 +205,7 @@ module.exports = class Stream extends Base {
       })(),
       frameRate: (() => {
         const result = [];
-        for (let index = StreamSettingsSchema.channelB.props.frameRate.min; index <= StreamSettingsSchema.channelB.props.frameRate.max; index += 1) {
+        for (let index = StreamSettingsSchema.frameRate.min; index <= StreamSettingsSchema.frameRate.max; index += 1) {
           result.push({label: `${index}`, value: `${index}`});
         }
 
