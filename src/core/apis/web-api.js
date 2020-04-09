@@ -280,6 +280,15 @@ module.exports = {
         formData.set('file', file);
         return formData;
       })()
+    }),
+    /**
+     * Clears system log
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    clearLog: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/clearLog'
     })
   },
   notification: {

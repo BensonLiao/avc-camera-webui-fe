@@ -60,6 +60,9 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('system').assign(newItem).write()]);
   })
+  .onPost('/api/system/systeminfo/clearLog').reply(config => {
+    return mockResponseWithLog(config, [204, {}]);
+  })
   .onGet('/api/multimedia/stream/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('stream').value()]
     );

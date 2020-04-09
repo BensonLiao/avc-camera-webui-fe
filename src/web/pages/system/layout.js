@@ -38,7 +38,8 @@ module.exports = class System extends Base {
                   'nav-link collapse show d-flex justify-content-between align-items-center',
                   {active: [
                     'web.system.upgrade',
-                    'web.system.maintain'
+                    'web.system.maintain',
+                    'web.system.log'
                   ].indexOf(currentRouteName) >= 0}
                 )}
               >
@@ -51,6 +52,9 @@ module.exports = class System extends Base {
                 </Link>
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.maintain'})} to="/system/maintain" title={_('Device Maintain')}>
                   {_('Device Maintenace')}
+                </Link>
+                <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.log'})} to="/system/log" title={_('System Log')}>
+                  {_('System Log')}
                 </Link>
               </div>
             </div>
