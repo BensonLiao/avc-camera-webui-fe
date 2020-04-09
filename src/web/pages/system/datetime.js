@@ -48,7 +48,7 @@ module.exports = class DateTime extends Base {
     }));
   }
 
-  onHideDateTimePicker = _ => name => {
+  onHideDateTimePicker = name => _ => {
     return this.setState({isShowEndDatePicker: {[name]: false}});
   }
 

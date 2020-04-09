@@ -455,7 +455,7 @@ module.exports = class DatePicker extends React.PureComponent {
     show: _show,
     ...props
   }) => {
-    const {isShowRepeatSwitch, dateTabText, timeTabText} = this.props;
+    const {isShowRepeatSwitch, dateTabText, timeTabText, onClickInput} = this.props;
 
     return (
       <div className="datepicker-wrapper">
@@ -469,7 +469,7 @@ module.exports = class DatePicker extends React.PureComponent {
               )}
               {!dateTabText && this.onSwitchToClock()}
               <a className="nav-item nav-link flex-fill text-center mr-0" data-toggle="tab" href="#tab-datepicker-time"
-                onClick={this.onSwitchToClock}
+                onClick={dateTabText ? this.onSwitchToClock : onClickInput}
               >
                 {timeTabText}
               </a>
