@@ -23,13 +23,13 @@ const StreamFormat = require('webserver-form-schema/constants/stream-format');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
-const {DEVICE_NAME_CHAR_MAX} = require('../../core/constants');
+const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX} = require('../../core/constants');
 
 module.exports = class Home extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es']).isRequired,
+        languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired,
         deviceName: PropTypes.string.isRequired,
         isEnableFaceRecognition: PropTypes.bool.isRequired,
         isEnableAgeGender: PropTypes.bool.isRequired,

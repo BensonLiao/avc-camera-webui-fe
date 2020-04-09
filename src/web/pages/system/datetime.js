@@ -13,10 +13,14 @@ const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time
 const NTPTimeZone = require('webserver-form-schema/constants/system-sync-time-ntp-timezone');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
+const {AVAILABLE_LANGUAGE_CODES} = require('../../../core/constants');
 
 module.exports = class DateTime extends Base {
   static get propTypes() {
     return {
+      systemInformation: PropTypes.shape({
+        languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired
+      }).isRequired,
       systemDateTime: PropTypes.shape({
         deviceTime: PropTypes.string.isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,
@@ -53,7 +57,10 @@ module.exports = class DateTime extends Base {
   }
 
   onSubmit = values => {
+    console.log('values', values);
     progress.start();
+    values.language = undefined;
+    console.log('new values', values);
     api.system.updateSystemDateTime(values)
       .then(getRouter().reload)
       .catch(error => {
@@ -63,7 +70,7 @@ module.exports = class DateTime extends Base {
   };
 
   formRender = () => {
-    const {deviceTime} = this.props.systemDateTime;
+    const {systemDateTime: {deviceTime}} = this.props;
     const {showDateTimePicker} = this.state;
     return (
       <Form className="card-body">
@@ -78,9 +85,10 @@ module.exports = class DateTime extends Base {
         <div className="form-group">
           <label>{_('Language')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <select className="form-control border-0">
-              <option value="english">{_('English')}</option>
-            </select>
+            <Field name="language" component="select" className="form-control border-0">
+              <option value="en-us">{_('English')}</option>
+              <option value="zh-tw">{_('Traditional Chinese')}</option>
+            </Field>
           </div>
         </div>
         <div className="form-group">
@@ -206,7 +214,7 @@ module.exports = class DateTime extends Base {
   };
 
   render() {
-    const {systemDateTime} = this.props;
+    const {systemDateTime, systemInformation: {languageCode}} = this.props;
 
     return (
       <div className="main-content left-menu-active">
@@ -234,7 +242,8 @@ module.exports = class DateTime extends Base {
                     initialValues={{
                       ...systemDateTime,
                       ntpUpdateTime: new Date(systemDateTime.ntpUpdateTime),
-                      manualTime: new Date(systemDateTime.manualTime)
+                      manualTime: new Date(systemDateTime.manualTime),
+                      language: languageCode
                     }}
                     onSubmit={this.onSubmit}
                   >
