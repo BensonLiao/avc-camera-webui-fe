@@ -1,5 +1,6 @@
 const React = require('react');
-const {Link} = require('capybara-router');
+const PropTypes = require('prop-types');
+const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
@@ -7,9 +8,14 @@ const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 
 module.exports = class Information extends Base {
-  constructor(props) {
-    super(props);
-    this.state.file = null;
+  static get propTypes() {
+    return {
+      systemInfo: PropTypes.shape({
+        buildVersion: PropTypes.string.isRequired,
+        serialNumber: PropTypes.string.isRequired,
+        modelName: PropTypes.string.isRequired
+      }).isRequired
+    };
   }
 
   onChangeFile = event => {
@@ -45,7 +51,19 @@ module.exports = class Information extends Base {
       });
   };
 
+  systemInfo = () => {
+    progress.start();
+    console.log('receiving');
+    api.system.getInformation()
+      .then(getRouter().reload)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
+
   render() {
+    const {systemInfo} = this.props;
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
@@ -72,12 +90,12 @@ module.exports = class Information extends Base {
                     <table className="w-100">
                       <tbody>
                         <tr className="border-bottom">
-                          <th className="text-size-20 pb-3 text-muted">Build Version</th>
-                          <th className="text-size-20 pb-3 text-primary text-right">V301_2019_03_27_99</th>
+                          <th className="text-size-20 pb-3 text-muted">{_('Build Version')}</th>
+                          <th className="text-size-20 pb-3 text-primary text-right">{systemInfo.buildVersion}</th>
                         </tr>
                         <tr className="border-bottom">
-                          <th className="text-size-20 py-3 text-muted">S/N 碼</th>
-                          <th className="text-size-20 py-3 text-primary text-right">STATIC</th>
+                          <th className="text-size-20 py-3 text-muted">{_('S/N Code')}</th>
+                          <th className="text-size-20 py-3 text-primary text-right">{systemInfo.serialNumber}</th>
                         </tr>
                       </tbody>
                     </table>

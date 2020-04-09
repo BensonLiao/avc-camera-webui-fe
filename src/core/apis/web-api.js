@@ -168,6 +168,17 @@ module.exports = {
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}
+     * - build_version {String}
+     * - sn {String}
+     * - model_name {String}
+     */
+    getSystemInfo: () => api({
+      method: 'get',
+      url: '/api/system/systeminfo/information'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
      * - mac {string} The mac address.
      */
     getNetworkSettings: () => api({
