@@ -20,9 +20,10 @@ module.exports = class SDCard extends Base {
       }).isRequired,
       sdcardInformation: PropTypes.shape({
         sdEnabled: PropTypes.bool.isRequired,
-        sdStatus: PropTypes.number.isRequired,
-        sdFormat: PropTypes.string.isRequired
-      }),
+        sdStatus: PropTypes.oneOf([0, 1]).isRequired,
+        sdFormat: PropTypes.string.isRequired,
+        sdAlertEnabled: PropTypes.bool.isRequired
+      }).isRequired,
       smtpSettings: PropTypes.shape({
         isEnableAuth: PropTypes.bool.isRequired
       })
@@ -31,12 +32,12 @@ module.exports = class SDCard extends Base {
 
   constructor(props) {
     super(props);
-    console.log('this.props', this.props);
-    this.state.enableSDCard = true;
+    this.state.isEnableAuth = null;
+    this.state.sdEnabled = null;
     this.state.file = null;
     this.state.isShowModal = false;
     this.state.showSelectModal = {
-      isShowAlertModal: false,
+      isShowAlertModal: true,
       isShowFormatModal: false,
       isShowUnmountModal: false
     };
@@ -53,35 +54,37 @@ module.exports = class SDCard extends Base {
 
   alertSDCardModalRender = () => {
     const {$isApiProcessing} = this.state;
-    return (
-      <Modal
-        show={this.state.showSelectModal.isShowAlertModal}
-        autoFocus={false}
-        onHide={this.hideModal('isShowAlertModal')}
-      >
-        <Formik
-          initialValues={{}}
-          onSubmit={this.state}
+    if (this.props.sdEnabled === true) {
+      return (
+        <Modal
+          show={this.state.showSelectModal.isShowAlertModal}
+          autoFocus={false}
+          onHide={this.hideModal('isShowAlertModal')}
         >
-          <Form>
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title">{_('Disable SD Card')}</h4>
-              </div>
-              <div className="modal-body">
-                <p>{_('All micro SD card related services will be disabled. Are you sure you want to continue?')}</p>
-              </div>
-              <div className="modal-footer flex-column">
-                <div className="form-group w-100 mx-0">
-                  <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">{_('Confirm')}</button>
+          <Formik
+            initialValues={{}}
+            onSubmit={this.state}
+          >
+            <Form>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h4 className="modal-title">{_('Disable SD Card')}</h4>
                 </div>
-                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowAlertModal')}>{_('Cancel')}</button>
+                <div className="modal-body">
+                  <p>{_('All micro SD card related services will be disabled. Are you sure you want to continue?')}</p>
+                </div>
+                <div className="modal-footer flex-column">
+                  <div className="form-group w-100 mx-0">
+                    <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">{_('Confirm')}</button>
+                  </div>
+                  <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowAlertModal')}>{_('Cancel')}</button>
+                </div>
               </div>
-            </div>
-          </Form>
-        </Formik>
-      </Modal>
-    );
+            </Form>
+          </Formik>
+        </Modal>
+      );
+    }
   }
 
   formatSDcardModalRender = () => {
@@ -160,8 +163,8 @@ module.exports = class SDCard extends Base {
       });
   };
 
-  sdcardSettingsFormRender = ({values}) => {
-    const {systemInformation, sdcardInformation} = this.props;
+  sdcardSettingsFormRender = () => {
+    const {systemInformation, sdcardInformation, isEnableAuth} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
 
     return (
@@ -169,7 +172,7 @@ module.exports = class SDCard extends Base {
         <div className="form-group d-flex justify-content-between align-items-center">
           <label className="mb-0">{_('SD Card')}</label>
           <div className="custom-control custom-switch">
-            <Field name="enableSDCard" checked={sdcardInformation.sdEnabled} type="checkbox" className="custom-control-input" id="switch-sound"/>
+            <Field name="enableSDCard" checked={sdcardInformation.sdEnabled} type="checkbox" className="custom-control-input" id="switch-sound" onClick={this.showModal('isShowAlertModal')}/>
             <label className="custom-control-label" htmlFor="switch-sound">
               <span>{_('ON')}</span>
               <span>{_('OFF')}</span>
@@ -202,9 +205,15 @@ module.exports = class SDCard extends Base {
             <div className="card-body">
               <div className="form-group align-items-center mb-0">
                 <label className="mb-0 mr-3">{_('Notification')}</label>
-                <a href="#" className="text-primary">Setup Email Notifications</a>
+                <span>
+                  {
+                    isEnableAuth ?
+                      <a className="text-success">{_('Email Notification Set')}</a> :
+                      <a className="text-danger">{_('Setup Email Notifications')}</a>
+                  }
+                </span>
                 <div className="custom-control custom-switch float-right">
-                  <Field name="isEnableOutput" checked={values.isEnableOutput} type="checkbox" className="custom-control-input" id="switch-output"/>
+                  <Field name="isEnableNotification" checked={sdcardInformation.sdAlertEnabled} type="checkbox" className="custom-control-input" id="switch-output"/>
                   <label className="custom-control-label" htmlFor="switch-output">
                     <span>{_('ON')}</span>
                     <span>{_('OFF')}</span>

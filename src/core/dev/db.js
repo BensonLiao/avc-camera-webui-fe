@@ -81,7 +81,8 @@ module.exports = {
         firmware: '35110.4',
         sdEnabled: true,
         sdStatus: 1,
-        sdFormat: 'FAT32'
+        sdFormat: 'FAT32',
+        sdAlertEnable: true
       },
       networkSettings: {
         mac: '00-1a-07-18-c5-58'
@@ -218,7 +219,7 @@ module.exports = {
         senderEmail: '',
         interval: '',
         isEnableLoginNotification: false,
-        isEnableAuth: false
+        isEnableAuth: true
       },
       notificationCards: [],
       groups: [
