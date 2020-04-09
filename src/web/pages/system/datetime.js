@@ -121,22 +121,24 @@ module.exports = class DateTime extends Base {
                   {_('Update Time')}
                 </label>
               </div>
-              <Field
-                name="ntpUpdateTime"
-                component={DateTimePicker}
-                timeTabText={_('Update Time')}
-                inputProps={{
-                  className: classNames(
-                    'btn px-4',
-                    {active: showDateTimePicker.ntpUpdateTime}
-                  ),
-                  placeholder: _('Update Time'),
-                  style: {whiteSpace: 'nowrap'}
-                }}
-                isShowPicker={showDateTimePicker.ntpUpdateTime}
-                onClickInput={this.toggleDateTimePicker('ntpUpdateTime')}
-                onHide={this.onHideDateTimePicker('ntpUpdateTime')}
-              />
+              <div className="form-row datepicker-wrapper">
+                <Field
+                  name="ntpUpdateTime"
+                  component={DateTimePicker}
+                  timeTabText={_('Update Time')}
+                  inputProps={{
+                    className: classNames(
+                      'btn date px-4',
+                      {active: showDateTimePicker.ntpUpdateTime}
+                    ),
+                    placeholder: _('Update Time'),
+                    style: {whiteSpace: 'nowrap'}
+                  }}
+                  isShowPicker={showDateTimePicker.ntpUpdateTime}
+                  onClickInput={this.toggleDateTimePicker('ntpUpdateTime')}
+                  onHide={this.onHideDateTimePicker('ntpUpdateTime')}
+                />
+              </div>
             </div>
 
             <div className="d-flex align-items-center mb-3">
@@ -172,23 +174,25 @@ module.exports = class DateTime extends Base {
               {_('Setup the Date/Time Manually')}
             </label>
           </div>
-          <Field
-            name="manualTime"
-            component={DateTimePicker}
-            dateTabText={_('Manual Date')}
-            timeTabText={_('Manual Time')}
-            inputProps={{
-              className: classNames(
-                'btn px-4',
-                {active: showDateTimePicker.manualTime}
-              ),
-              placeholder: _('Manual DateTime'),
-              style: {whiteSpace: 'nowrap'}
-            }}
-            isShowPicker={showDateTimePicker.manualTime}
-            onClickInput={this.toggleDateTimePicker('manualTime')}
-            onHide={this.onHideDateTimePicker('manualTime')}
-          />
+          <div className="form-row datepicker-wrapper">
+            <Field
+              name="manualTime"
+              component={DateTimePicker}
+              dateTabText={_('Manual Date')}
+              timeTabText={_('Manual Time')}
+              inputProps={{
+                className: classNames(
+                  'btn date px-4',
+                  {active: showDateTimePicker.manualTime}
+                ),
+                placeholder: _('Manual DateTime'),
+                style: {whiteSpace: 'nowrap'}
+              }}
+              isShowPicker={showDateTimePicker.manualTime}
+              onClickInput={this.toggleDateTimePicker('manualTime')}
+              onHide={this.onHideDateTimePicker('manualTime')}
+            />
+          </div>
         </div>
 
         <button
