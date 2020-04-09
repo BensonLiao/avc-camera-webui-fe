@@ -1,11 +1,8 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {Link, getRouter} = require('capybara-router');
-const progress = require('nprogress');
+const {Link} = require('capybara-router');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
-const api = require('../../../core/apis/web-api');
-const utils = require('../../../core/utils');
 
 module.exports = class Information extends Base {
   static get propTypes() {
