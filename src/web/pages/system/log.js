@@ -35,7 +35,10 @@ module.exports = class Log extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/system/upgrade">{_('System Settings')}</Link>
+                      <Link to="/system">{_('System')}</Link>
+                    </li>
+                    <li className="breadcrumb-item active">
+                      <Link to="/system/date">{_('Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('System Log')}</li>
                   </ol>
@@ -43,13 +46,13 @@ module.exports = class Log extends Base {
               </div>
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('System Log')}</div>
+                  <div className="card-header">{_('Log')}</div>
                   <div className="card-body">
-                    <div className="form-group mb-0 d-flex justify-content-between align-items-center">
-                      <label className="mb-0">{_('Log actions')}</label>
+                    <div className="form-group">
+                      <label className="mb-0 my-3">{_('System Log File Record')}</label>
                       <div>
-                        <button className="btn btn-outline-primary rounded-pill px-3" type="button" onClick={this.onClickClearLog}>{_('Clear Log')}</button>
-                        <button className="btn btn-primary rounded-pill px-3 ml-2" type="button" onClick={this.onClickDownloadLog}>{_('Download')}</button>
+                        <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.onClickClearLog}>{_('Delete Record')}</button>
+                        <button className="btn btn-outline-primary rounded-pill px-5 ml-3" type="button" onClick={this.onClickDownloadLog}>{_('Download')}</button>
                       </div>
                     </div>
                   </div>
