@@ -17,7 +17,15 @@ module.exports = class SDCard extends Base {
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         usedDiskSize: PropTypes.number.isRequired,
         totalDiskSize: PropTypes.number.isRequired
-      }).isRequired
+      }).isRequired,
+      sdcardInformation: PropTypes.shape({
+        sdEnabled: PropTypes.bool.isRequired,
+        sdStatus: PropTypes.number.isRequired,
+        sdFormat: PropTypes.string.isRequired
+      }),
+      smtpSettings: PropTypes.shape({
+        isEnableAuth: PropTypes.bool.isRequired
+      })
     };
   }
 
@@ -28,6 +36,7 @@ module.exports = class SDCard extends Base {
     this.state.file = null;
     this.state.isShowModal = false;
     this.state.showSelectModal = {
+      isShowAlertModal: false,
       isShowFormatModal: false,
       isShowUnmountModal: false
     };
@@ -42,6 +51,39 @@ module.exports = class SDCard extends Base {
     return this.setState({showSelectModal: {[selectedModal]: false}});
   };
 
+  alertSDCardModalRender = () => {
+    const {$isApiProcessing} = this.state;
+    return (
+      <Modal
+        show={this.state.showSelectModal.isShowAlertModal}
+        autoFocus={false}
+        onHide={this.hideModal('isShowAlertModal')}
+      >
+        <Formik
+          initialValues={{}}
+          onSubmit={this.state}
+        >
+          <Form>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title">{_('Disable SD Card')}</h4>
+              </div>
+              <div className="modal-body">
+                <p>{_('All micro SD card related services will be disabled. Are you sure you want to continue?')}</p>
+              </div>
+              <div className="modal-footer flex-column">
+                <div className="form-group w-100 mx-0">
+                  <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">{_('Confirm')}</button>
+                </div>
+                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowAlertModal')}>{_('Cancel')}</button>
+              </div>
+            </div>
+          </Form>
+        </Formik>
+      </Modal>
+    );
+  }
+
   formatSDcardModalRender = () => {
     const {$isApiProcessing} = this.state;
     return (
@@ -52,7 +94,7 @@ module.exports = class SDCard extends Base {
       >
         <Formik
           initialValues={{}}
-          onSubmit={this.onSubmitDeviceReboot}
+          onSubmit={this.state}
         >
           <Form>
             <div className="modal-content">
@@ -85,7 +127,7 @@ module.exports = class SDCard extends Base {
       >
         <Formik
           initialValues={{}}
-          onSubmit={this.onSubmitDeviceReboot}
+          onSubmit={this.state}
         >
           <Form>
             <div className="modal-content">
@@ -119,7 +161,7 @@ module.exports = class SDCard extends Base {
   };
 
   sdcardSettingsFormRender = ({values}) => {
-    const {systemInformation} = this.props;
+    const {systemInformation, sdcardInformation} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
 
     return (
@@ -127,7 +169,7 @@ module.exports = class SDCard extends Base {
         <div className="form-group d-flex justify-content-between align-items-center">
           <label className="mb-0">{_('SD Card')}</label>
           <div className="custom-control custom-switch">
-            <Field checked name="enableSDCard" type="checkbox" className="custom-control-input" id="switch-sound"/>
+            <Field name="enableSDCard" checked={sdcardInformation.sdEnabled} type="checkbox" className="custom-control-input" id="switch-sound"/>
             <label className="custom-control-label" htmlFor="switch-sound">
               <span>{_('ON')}</span>
               <span>{_('OFF')}</span>
@@ -175,12 +217,12 @@ module.exports = class SDCard extends Base {
         <div className="form-group px-3">
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('Status')}</label>
-            <label className="mb-o text-primary">{systemInformation.sdcardStatus}</label>
+            <label className="mb-o text-primary">{systemInformation.sdStatus}</label>
           </div>
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('File Format')}</label>
-            <label className="mb-o text-primary">{systemInformation.fileFormat}</label>
+            <label className="mb-o text-primary">{systemInformation.formatSDCard}</label>
           </div>
           <hr/>
         </div>

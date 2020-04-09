@@ -79,8 +79,9 @@ module.exports = {
         serialNumber: '181000723',
         modelName: 'AV02CLD-100',
         firmware: '35110.4',
-        sdcardStatus: 'INSERTED',
-        fileFormat: 'FAT32'
+        sdEnabled: true,
+        sdStatus: 1,
+        sdFormat: 'FAT32'
       },
       networkSettings: {
         mac: '00-1a-07-18-c5-58'

@@ -282,6 +282,19 @@ module.exports = {
       })()
     }),
     getSDCardInformation: () => api({
+      method: 'get',
+      url: '/api//system/systeminfo/sdcard'
+    }),
+    /**
+     * - sdEnabled {boolean}
+     * - sdAlertEnabled {boolean}
+     * - sdFormat {string}
+     * - sdTotal {string}
+     * - sdUsage {string}
+     * - sdStatus {boolean}
+     */
+
+    enableSDCard: () => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard'
     }),
