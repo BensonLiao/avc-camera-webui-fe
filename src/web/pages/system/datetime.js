@@ -176,13 +176,14 @@ module.exports = class DateTime extends Base {
             <Field
               name="manualTime"
               component={DateTimePicker}
+              dateTabText={_('Manual Date')}
               timeTabText={_('Manual Time')}
               inputProps={{
                 className: classNames(
                   'btn start-date px-4',
                   {active: showDateTimePicker.manualTime}
                 ),
-                placeholder: _('Manual Time'),
+                placeholder: _('Manual DateTime'),
                 style: {whiteSpace: 'nowrap'}
               }}
               isShowPicker={showDateTimePicker.manualTime}
