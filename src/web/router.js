@@ -457,6 +457,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.system.information',
+      uri: '/information',
+      onEnter: () => {
+        document.title = `${_('System')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/information'
+      )
+    },
+    {
       name: 'setup',
       uri: '/setup',
       onEnter: () => {

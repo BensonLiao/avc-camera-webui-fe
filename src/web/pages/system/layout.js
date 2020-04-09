@@ -39,7 +39,8 @@ module.exports = class System extends Base {
                   {active: [
                     'web.system.upgrade',
                     'web.system.maintain',
-                    'web.system.log'
+                    'web.system.log',
+                    'web.system.information'
                   ].indexOf(currentRouteName) >= 0}
                 )}
               >
@@ -55,6 +56,9 @@ module.exports = class System extends Base {
                 </Link>
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.log'})} to="/system/log" title={_('System Log')}>
                   {_('System Log')}
+                </Link>
+                <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.information'})} to="/system/information" title={_('System information')}>
+                  {_('System Information')}
                 </Link>
               </div>
             </div>
