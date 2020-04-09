@@ -35,8 +35,8 @@ module.exports = class Home extends Base {
         isEnableAgeGender: PropTypes.bool.isRequired,
         isEnableHumanoidDetection: PropTypes.bool.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
-        usedDiskSize: PropTypes.number.isRequired,
-        totalDiskSize: PropTypes.number.isRequired
+        sdUsage: PropTypes.number.isRequired,
+        sdTotal: PropTypes.number.isRequired
       }).isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.bool.isRequired, // 除霧
@@ -544,7 +544,7 @@ module.exports = class Home extends Base {
 
   render() {
     const {systemInformation, streamSettings} = this.props;
-    const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
+    const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
     const classTable = {
       faceRecognitionState: classNames({
         'text-success': systemInformation.isEnableFaceRecognition,
@@ -672,8 +672,8 @@ module.exports = class Home extends Base {
                           <p>
                             {
                               _('Free: {0}, Total: {1}', [
-                                filesize(systemInformation.totalDiskSize - systemInformation.usedDiskSize),
-                                filesize(systemInformation.totalDiskSize)
+                                filesize(systemInformation.sdTotal - systemInformation.sdUsage),
+                                filesize(systemInformation.sdTotal)
                               ])
                             }
                           </p>
