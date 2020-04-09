@@ -127,7 +127,7 @@ module.exports = class DateTime extends Base {
                 timeTabText={_('Update Time')}
                 inputProps={{
                   className: classNames(
-                    'btn start-date px-4',
+                    'btn px-4',
                     {active: showDateTimePicker.ntpUpdateTime}
                   ),
                   placeholder: _('Update Time'),
@@ -172,25 +172,23 @@ module.exports = class DateTime extends Base {
               {_('Setup the Date/Time Manually')}
             </label>
           </div>
-          <div className="pl-4 mb-3">
-            <Field
-              name="manualTime"
-              component={DateTimePicker}
-              dateTabText={_('Manual Date')}
-              timeTabText={_('Manual Time')}
-              inputProps={{
-                className: classNames(
-                  'btn start-date px-4',
-                  {active: showDateTimePicker.manualTime}
-                ),
-                placeholder: _('Manual DateTime'),
-                style: {whiteSpace: 'nowrap'}
-              }}
-              isShowPicker={showDateTimePicker.manualTime}
-              onClickInput={this.toggleDateTimePicker('manualTime')}
-              onHide={this.onHideDateTimePicker('manualTime')}
-            />
-          </div>
+          <Field
+            name="manualTime"
+            component={DateTimePicker}
+            dateTabText={_('Manual Date')}
+            timeTabText={_('Manual Time')}
+            inputProps={{
+              className: classNames(
+                'btn px-4',
+                {active: showDateTimePicker.manualTime}
+              ),
+              placeholder: _('Manual DateTime'),
+              style: {whiteSpace: 'nowrap'}
+            }}
+            isShowPicker={showDateTimePicker.manualTime}
+            onClickInput={this.toggleDateTimePicker('manualTime')}
+            onHide={this.onHideDateTimePicker('manualTime')}
+          />
         </div>
 
         <button

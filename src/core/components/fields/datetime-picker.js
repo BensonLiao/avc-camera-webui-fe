@@ -517,7 +517,7 @@ module.exports = class DatePicker extends React.PureComponent {
         <Overlay
           rootClose
           target={this.inputRef.current}
-          placement="bottom-start"
+          placement="auto-start"
           show={isShowPicker}
           onEntered={this.onEnteredPicker}
           onExit={this.onExitPicker}
