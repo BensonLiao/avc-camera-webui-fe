@@ -37,6 +37,9 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onGet('/api/system/information').reply(config => {
     return mockResponseWithLog(config, [200, db.get('system').value()]);
   })
+  .onGet('/api/system/datetime').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('systemDateTime').value()]);
+  })
   .onGet('/api/system/network').reply(config => {
     return mockResponseWithLog(config, [200, db.get('networkSettings').value()]);
   })

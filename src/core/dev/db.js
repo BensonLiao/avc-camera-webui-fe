@@ -80,6 +80,16 @@ module.exports = {
         modelName: 'AV02CLD-100',
         firmware: '35110.4'
       },
+      systemDateTime: {
+        deviceTime: '2019-04-17 23:48:45',
+        ntpTimeZone: 'Asia/Taipei',
+        ntpIP: 'tw.pool.ntp.org',
+        syncTimeOption: '0',
+        ntpTimeOption: '0',
+        ntpTime: '2020-01-02T10:00:00.000Z',
+        ntpTimeRateOption: '10',
+        manualTime: '2019-10-02T08:00:00.000Z'
+      },
       networkSettings: {
         mac: '00-1a-07-18-c5-58'
       },
