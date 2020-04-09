@@ -244,6 +244,11 @@ nav.navbar.fixed-top {
           transform: rotate(180deg);
         }
       }
+      &.collapsed {
+        .fa-chevron-down {
+          transform: rotate(180deg);
+        }
+      }
     }
     .collapsing, .collapse {
       a {
