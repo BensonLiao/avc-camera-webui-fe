@@ -43,6 +43,13 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onGet('/api/system/https').reply(config => {
     return mockResponseWithLog(config, [200, db.get('httpsSettings').value()]);
   })
+  .onGet('/api/system/systeminfo/sdcard').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('sdCard').value()]);
+  })
+  .onPut('/api/system/systeminfo/sdcard').reply(config => {
+    const data = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('sdCard').assign(data).write()]);
+  })
   .onPut('/api/system/https').reply(config => {
     const data = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('httpsSettings').assign(data).write()]);

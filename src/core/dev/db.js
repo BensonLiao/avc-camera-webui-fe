@@ -330,7 +330,15 @@ module.exports = {
           isEnableHumanoidDetection: true,
           isEnable: true
         }
-      ]
+      ],
+      sdCard: {
+        sdEnabled: false,
+        sdStatus: 1,
+        sdFormat: 'FAT32',
+        sdTotal: 7510,
+        sdUsage: 4470,
+        sdAlertEnabled: false
+      }
     })
       .write();
     return db;
