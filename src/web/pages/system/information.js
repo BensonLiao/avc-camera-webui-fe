@@ -8,16 +8,7 @@ module.exports = class Information extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es']).isRequired,
-        deviceName: PropTypes.string.isRequired,
-        isEnableFaceRecognition: PropTypes.bool.isRequired,
-        isEnableAgeGender: PropTypes.bool.isRequired,
-        isEnableHumanoidDetection: PropTypes.bool.isRequired,
-        deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
-        usedDiskSize: PropTypes.number.isRequired,
-        totalDiskSize: PropTypes.number.isRequired,
         serialNumber: PropTypes.string.isRequired,
-        modelName: PropTypes.string.isRequired,
         firmware: PropTypes.string.isRequired
       }).isRequired
     };
