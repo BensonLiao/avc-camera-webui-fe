@@ -211,7 +211,7 @@ module.exports = {
      * - manualTime {Date}
      */
     updateSystemDateTime: ({syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}) => api({
-      method: 'post',
+      method: 'put',
       url: '/api/system/datetime',
       data: {syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}
     }),
