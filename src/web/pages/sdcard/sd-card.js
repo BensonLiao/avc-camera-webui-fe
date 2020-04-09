@@ -158,9 +158,10 @@ module.exports = class SDCard extends Base {
         <div className="form-group">
           <div className="card">
             <div className="card-body">
-              <div className="form-group d-flex justify-content-between align-items-center mb-0">
-                <label className="mb-0">{_('Notification')}</label>
-                <div className="custom-control custom-switch">
+              <div className="form-group align-items-center mb-0">
+                <label className="mb-0 mr-3">{_('Notification')}</label>
+                <a href="#" className="text-primary">Setup Email Notifications</a>
+                <div className="custom-control custom-switch float-right">
                   <Field name="isEnableOutput" checked={values.isEnableOutput} type="checkbox" className="custom-control-input" id="switch-output"/>
                   <label className="custom-control-label" htmlFor="switch-output">
                     <span>{_('ON')}</span>
@@ -179,7 +180,7 @@ module.exports = class SDCard extends Base {
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('File Format')}</label>
-            <label className="mb-o text-primary">{systemInformation.sdcardFormat}</label>
+            <label className="mb-o text-primary">{systemInformation.fileFormat}</label>
           </div>
           <hr/>
         </div>
