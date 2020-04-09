@@ -86,8 +86,8 @@ module.exports = {
         ntpIP: 'tw.pool.ntp.org',
         syncTimeOption: '0',
         ntpTimeOption: '0',
-        ntpTime: '2020-01-02T10:00:00.000Z',
-        ntpTimeRateOption: '10',
+        ntpUpdateTime: '2020-01-02T10:00:00.000Z',
+        ntpUpdateTimeRate: '10',
         manualTime: '2019-10-02T08:00:00.000Z'
       },
       networkSettings: {

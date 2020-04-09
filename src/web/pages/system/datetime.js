@@ -23,8 +23,8 @@ module.exports = class DateTime extends Base {
         ntpTimeZone: PropTypes.oneOf(NTPTimeZone.all()).isRequired,
         ntpIP: PropTypes.string.isRequired,
         ntpTimeOption: PropTypes.oneOf(NTPTimeOption.all()).isRequired,
-        ntpTime: PropTypes.string.isRequired,
-        ntpTimeRateOption: PropTypes.oneOf(NTPTimeRateOption.all()).isRequired,
+        ntpUpdateTime: PropTypes.string.isRequired,
+        ntpUpdateTimeRate: PropTypes.oneOf(NTPTimeRateOption.all()).isRequired,
         manualTime: PropTypes.string
       }).isRequired
     };
@@ -33,7 +33,7 @@ module.exports = class DateTime extends Base {
   constructor(props) {
     super(props);
     this.state.showDateTimePicker = {
-      ntpTime: false,
+      ntpUpdateTime: false,
       manualTime: false
     };
   }
@@ -116,38 +116,38 @@ module.exports = class DateTime extends Base {
             </div>
             <div className="d-flex align-items-center mb-3">
               <div className="form-check">
-                <Field checked name="ntpTimeOption" className="form-check-input" type="radio" id={`system-date-sync-time-option-${NTPTimeOption.time}`} value={NTPTimeOption.time}/>
-                <label className="form-check-label" htmlFor={`system-date-sync-time-option-${NTPTimeOption.time}`}>
+                <Field checked name="ntpTimeOption" className="form-check-input" type="radio" id={`system-date-sync-time-option-${NTPTimeOption.updateTime}`} value={NTPTimeOption.updateTime}/>
+                <label className="form-check-label" htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}>
                   {_('Update Time')}
                 </label>
               </div>
               <Field
-                name="ntpTime"
+                name="ntpUpdateTime"
                 component={DateTimePicker}
                 timeTabText={_('Update Time')}
                 inputProps={{
                   className: classNames(
                     'btn start-date px-4',
-                    {active: showDateTimePicker.ntpTime}
+                    {active: showDateTimePicker.ntpUpdateTime}
                   ),
                   placeholder: _('Update Time'),
                   style: {whiteSpace: 'nowrap'}
                 }}
-                isShowPicker={showDateTimePicker.ntpTime}
-                onClickInput={this.toggleDateTimePicker('ntpTime')}
-                onHide={this.onHideDateTimePicker('ntpTime')}
+                isShowPicker={showDateTimePicker.ntpUpdateTime}
+                onClickInput={this.toggleDateTimePicker('ntpUpdateTime')}
+                onHide={this.onHideDateTimePicker('ntpUpdateTime')}
               />
             </div>
 
             <div className="d-flex align-items-center mb-3">
               <div className="form-check">
-                <Field name="ntpTimeOption" className="form-check-input" type="radio" id={`system-date-sync-time-option-${NTPTimeOption.timeRate}`} value={NTPTimeOption.timeRate}/>
-                <label className="form-check-label" htmlFor={`system-date-sync-time-option-${NTPTimeOption.timeRate}`}>
+                <Field name="ntpTimeOption" className="form-check-input" type="radio" id={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`} value={NTPTimeOption.updateTimeRate}/>
+                <label className="form-check-label" htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}>
                   {_('Update Frequency')}
                 </label>
               </div>
               <div className="select-wrapper border rounded-pill overflow-hidden ml-3">
-                <Field name="ntpTimeRateOption" component="select" className="form-control border-0">
+                <Field name="ntpUpdateTimeRate" component="select" className="form-control border-0">
                   {NTPTimeRateOption.all().map(v => {
                     return (
                       <option key={v} value={v}>{v}</option>
@@ -204,7 +204,6 @@ module.exports = class DateTime extends Base {
 
   render() {
     const {systemDateTime} = this.props;
-    console.log('systemDateTime', systemDateTime);
 
     return (
       <div className="main-content left-menu-active">
@@ -231,7 +230,7 @@ module.exports = class DateTime extends Base {
                   <Formik
                     initialValues={{
                       ...systemDateTime,
-                      ntpTime: new Date(systemDateTime.ntpTime),
+                      ntpUpdateTime: new Date(systemDateTime.ntpUpdateTime),
                       manualTime: new Date(systemDateTime.manualTime)
                     }}
                     onSubmit={this.onSubmit}
