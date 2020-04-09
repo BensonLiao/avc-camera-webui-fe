@@ -18,7 +18,7 @@ module.exports = class System extends Base {
     );
     if (this.state.currentRouteName === 'web.system') {
       setTimeout(() => {
-        router.go({name: 'web.system.upgrade'});
+        router.go({name: 'web.system.datetime'});
       });
     }
   }
@@ -37,20 +37,24 @@ module.exports = class System extends Base {
                 className={classNames(
                   'nav-link collapse show d-flex justify-content-between align-items-center',
                   {active: [
-                    'web.system.upgrade',
-                    'web.system.maintain'
+                    'web.system.datetime',
+                    'web.system.maintain',
+                    'web.system.upgrade'
                   ].indexOf(currentRouteName) >= 0}
                 )}
               >
                 <span className="text-truncate">{_('Settings')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
-              <div id="basic-settings" className="collapse show" data-parent="#accordion-setting-menu">
-                <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.upgrade'})} to="/system/upgrade" title={_('Firmware Upgrade')}>
-                  {_('Firmware Upgrade')}
+              <div id="basic-settings" className="collapse show" data-parent="#accordion-notification-menu">
+                <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.datetime'})} to="/system/datetime" title={_('Date & Region')}>
+                  {_('Date & Region')}
                 </Link>
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.maintain'})} to="/system/maintain" title={_('Device Maintain')}>
                   {_('Device Maintenace')}
+                </Link>
+                <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.upgrade'})} to="/system/upgrade" title={_('Firmware Upgrade')}>
+                  {_('Firmware Upgrade')}
                 </Link>
               </div>
               <a href="#" data-toggle="collapse" data-target="#basic-information"

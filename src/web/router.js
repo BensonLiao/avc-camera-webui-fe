@@ -424,6 +424,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.system.datetime',
+      uri: '/datetime',
+      onEnter: () => {
+        document.title = `${_('System')} - ${_title}`;
+      },
+      resolve: {
+        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/datetime'
+      )
+    },
+    {
       name: 'web.system.upgrade',
       uri: '/upgrade',
       onEnter: () => {

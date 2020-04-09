@@ -177,6 +177,47 @@ module.exports = {
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}
+     * - syncTimeOption {String}
+     * - ntpTimeZone {String}
+     * - ntpIP {String}
+     * - ntpTimeOption {String}
+     * - ntpUpdateTime {Date}
+     * - ntpUpdateTimeRate {String}
+     * - deviceTime {String}
+     * - manualTime {Date}
+     */
+    getSystemDateTime: () => api({
+      method: 'get',
+      url: '/api/system/datetime'
+    }),
+    /**
+     * @param {string} token - The user token.
+     * @param {string} syncTimeOption
+     * @param {string} ntpTimeZone
+     * @param {string} ntpIP
+     * @param {string} ntpTimeOption
+     * @param {Date} ntpUpdateTime
+     * @param {string} ntpUpdateTimeRate
+     * @param {string} deviceTime
+     * @param {Date} manualTime
+     * @returns {Promise<Object>}
+     * - syncTimeOption {String}
+     * - ntpTimeZone {String}
+     * - ntpIP {String}
+     * - ntpTimeOption {String}
+     * - ntpUpdateTime {Date}
+     * - ntpUpdateTimeRate {String}
+     * - deviceTime {String}
+     * - manualTime {Date}
+     */
+    updateSystemDateTime: ({syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}) => api({
+      method: 'put',
+      url: '/api/system/datetime',
+      data: {syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
      * - isEnable {boolean}
      * - port {string}
      * - certificateType {string}
