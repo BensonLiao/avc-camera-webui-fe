@@ -463,7 +463,7 @@ module.exports = new Router({
         document.title = `${_('System')} - ${_title}`;
       },
       resolve: {
-        systemInfo: () => api.system.getSystemInfo().then(response => response.data)
+        systemInformation: () => api.system.getInformation().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-system" */

@@ -10,10 +10,18 @@ const utils = require('../../../core/utils');
 module.exports = class Information extends Base {
   static get propTypes() {
     return {
-      systemInfo: PropTypes.shape({
-        buildVersion: PropTypes.string.isRequired,
+      systemInformation: PropTypes.shape({
+        languageCode: PropTypes.oneOf(['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es']).isRequired,
+        deviceName: PropTypes.string.isRequired,
+        isEnableFaceRecognition: PropTypes.bool.isRequired,
+        isEnableAgeGender: PropTypes.bool.isRequired,
+        isEnableHumanoidDetection: PropTypes.bool.isRequired,
+        deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
+        usedDiskSize: PropTypes.number.isRequired,
+        totalDiskSize: PropTypes.number.isRequired,
         serialNumber: PropTypes.string.isRequired,
-        modelName: PropTypes.string.isRequired
+        modelName: PropTypes.string.isRequired,
+        firmware: PropTypes.string.isRequired
       }).isRequired
     };
   }
@@ -63,7 +71,7 @@ module.exports = class Information extends Base {
   };
 
   render() {
-    const {systemInfo} = this.props;
+    const {systemInformation} = this.props;
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
@@ -91,11 +99,11 @@ module.exports = class Information extends Base {
                       <tbody>
                         <tr className="border-bottom">
                           <th className="text-size-20 pb-3 text-muted">{_('Build Version')}</th>
-                          <th className="text-size-20 pb-3 text-primary text-right">{systemInfo.buildVersion}</th>
+                          <th className="text-size-20 pb-3 text-primary text-right">{systemInformation.firmware}</th>
                         </tr>
                         <tr className="border-bottom">
                           <th className="text-size-20 py-3 text-muted">{_('S/N Code')}</th>
-                          <th className="text-size-20 py-3 text-primary text-right">{systemInfo.serialNumber}</th>
+                          <th className="text-size-20 py-3 text-primary text-right">{systemInformation.serialNumber}</th>
                         </tr>
                       </tbody>
                     </table>
