@@ -58,8 +58,15 @@ module.exports = class DateTime extends Base {
 
   onSubmit = values => {
     progress.start();
-    api.system.updateSystemDateTime(values)
-      .then(getRouter().reload)
+    api.system.updateLanguage(values.language)
+      .then(() => {
+        api.system.updateSystemDateTime(values)
+          .then(getRouter().reload)
+          .catch(error => {
+            progress.done();
+            utils.renderError(error);
+          });
+      })
       .catch(error => {
         progress.done();
         utils.renderError(error);
