@@ -116,7 +116,7 @@ module.exports = class DateTime extends Base {
             </div>
             <div className="d-flex align-items-center mb-3">
               <div className="form-check">
-                <Field checked name="ntpTimeOption" className="form-check-input" type="radio" id={`system-date-sync-time-option-${NTPTimeOption.updateTime}`} value={NTPTimeOption.updateTime}/>
+                <Field name="ntpTimeOption" className="form-check-input" type="radio" id={`system-date-sync-time-option-${NTPTimeOption.updateTime}`} value={NTPTimeOption.updateTime}/>
                 <label className="form-check-label" htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}>
                   {_('Update Time')}
                 </label>
