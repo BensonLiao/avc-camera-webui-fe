@@ -460,6 +460,31 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.system.log',
+      uri: '/log',
+      onEnter: () => {
+        document.title = `${_('System')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/log'
+      )
+    },
+    {
+      name: 'web.system.information',
+      uri: '/information',
+      onEnter: () => {
+        document.title = `${_('System')} - ${_title}`;
+      },
+      resolve: {
+        systemInformation: () => api.system.getInformation().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/information'
+      )
+    },
+    {
       name: 'setup',
       uri: '/setup',
       onEnter: () => {

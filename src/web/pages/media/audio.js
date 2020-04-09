@@ -15,7 +15,6 @@ module.exports = class Audio extends Base {
     return {
       audioSettings: PropTypes.shape({
         isEnableInput: PropTypes.bool.isRequired,
-        isEnableOutput: PropTypes.bool.isRequired,
         inputQuality: PropTypes.string.isRequired,
         inputSource: PropTypes.string.isRequired
       }).isRequired
@@ -59,16 +58,6 @@ module.exports = class Audio extends Base {
             <Field name="inputSource" component="select" className="form-control border-0">
               <option value={AudioInputSource.lineIn}>{_('External Microphone')}</option>
             </Field>
-          </div>
-        </div>
-        <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{_('Audio Out')}</label>
-          <div className="custom-control custom-switch">
-            <Field name="isEnableOutput" checked={values.isEnableOutput} type="checkbox" className="custom-control-input" id="switch-output"/>
-            <label className="custom-control-label" htmlFor="switch-output">
-              <span>{_('ON')}</span>
-              <span>{_('OFF')}</span>
-            </label>
           </div>
         </div>
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
