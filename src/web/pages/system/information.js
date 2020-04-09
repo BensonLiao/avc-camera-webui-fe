@@ -39,7 +39,7 @@ module.exports = class Information extends Base {
                     <li className="breadcrumb-item active">
                       <Link to="/system/date">{_('Settings')}</Link>
                     </li>
-                    <li className="breadcrumb-item">{_('Firmware Upgrade')}</li>
+                    <li className="breadcrumb-item">{_('Information')}</li>
                   </ol>
                 </nav>
               </div>
