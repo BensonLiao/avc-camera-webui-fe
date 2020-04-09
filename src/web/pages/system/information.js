@@ -26,50 +26,6 @@ module.exports = class Information extends Base {
     };
   }
 
-  onChangeFile = event => {
-    this.setState({file: event.target.files[0]});
-  };
-
-  onSubmitForm = () => {
-    const {file} = this.state;
-
-    progress.start();
-    api.system.uploadFirmware(file)
-      .then(() => new Promise(resolve => {
-        // Check the server was shut down.
-        const test = () => {
-          api.ping()
-            .then(() => {
-              setTimeout(test, 500);
-            })
-            .catch(() => {
-              resolve();
-            });
-        };
-
-        test();
-      }))
-      .then(() => {
-        // Redirect to the home page with off-line access.
-        location.href = '/';
-      })
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
-  };
-
-  systemInfo = () => {
-    progress.start();
-    console.log('receiving');
-    api.system.getInformation()
-      .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
-  };
-
   render() {
     const {systemInformation} = this.props;
     return (
@@ -93,17 +49,17 @@ module.exports = class Information extends Base {
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">資訊</div>
+                  <div className="card-header">{_('Information')}</div>
                   <div className="card-body">
                     <table className="w-100">
                       <tbody>
                         <tr className="border-bottom">
-                          <th className="text-size-20 pb-3 text-muted">{_('Build Version')}</th>
-                          <th className="text-size-20 pb-3 text-primary text-right">{systemInformation.firmware}</th>
+                          <th className="text-size-20 pt-2 pb-2 text-muted">{_('Build Version')}</th>
+                          <th className="text-size-20 pt-2 pb-2 text-primary text-right">{systemInformation.firmware}</th>
                         </tr>
                         <tr className="border-bottom">
-                          <th className="text-size-20 py-3 text-muted">{_('S/N Code')}</th>
-                          <th className="text-size-20 py-3 text-primary text-right">{systemInformation.serialNumber}</th>
+                          <th className="text-size-20 pt-4 pb-2 text-muted">{_('S/N Code')}</th>
+                          <th className="text-size-20 pt-4 pb-2 text-primary text-right">{systemInformation.serialNumber}</th>
                         </tr>
                       </tbody>
                     </table>
