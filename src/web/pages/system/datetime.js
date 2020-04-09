@@ -57,12 +57,16 @@ module.exports = class DateTime extends Base {
   }
 
   onSubmit = values => {
-    console.log('values', values);
     progress.start();
-    values.language = undefined;
-    console.log('new values', values);
-    api.system.updateSystemDateTime(values)
-      .then(getRouter().reload)
+    api.system.updateLanguage(values.language)
+      .then(() => {
+        api.system.updateSystemDateTime(values)
+          .then(getRouter().reload)
+          .catch(error => {
+            progress.done();
+            utils.renderError(error);
+          });
+      })
       .catch(error => {
         progress.done();
         utils.renderError(error);
@@ -86,8 +90,8 @@ module.exports = class DateTime extends Base {
           <label>{_('Language')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="language" component="select" className="form-control border-0">
-              <option value="en-us">{_('English')}</option>
-              <option value="zh-tw">{_('Traditional Chinese')}</option>
+              <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
+              <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
             </Field>
           </div>
         </div>

@@ -44,6 +44,13 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const data = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('systemDateTime').assign(data).write()]);
   })
+  .onPut('/api/system/language').reply(config => {
+    const data = {
+      ...db.get('system').value(),
+      languageCode: JSON.parse(config.data).language
+    };
+    return mockResponseWithLog(config, [200, db.get('system').assign(data).write()]);
+  })
   .onGet('/api/system/network').reply(config => {
     return mockResponseWithLog(config, [200, db.get('networkSettings').value()]);
   })
