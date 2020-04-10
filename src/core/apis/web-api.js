@@ -349,7 +349,7 @@ module.exports = {
      */
     updateNetworkSettings: ({ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}) => api({
       method: 'put',
-      url: '/system/network/lan',
+      url: '/system/network',
       data: {ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}
     }),
     /**

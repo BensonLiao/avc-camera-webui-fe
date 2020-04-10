@@ -29,14 +29,6 @@ module.exports = class NetworkSettings extends Base {
     super(props);
     this.state.isShowModal = false;
     this.state.dhcpTestResult = false;
-    this.state.networkInterface = 'WIRED';
-    this.state.DHCP_STATIC = 'STATIC';
-    this.state.MAC = '00-13-E2-FA-06-B2';
-    this.state.IP = '192.168.20.229';
-    this.state.SUB_MASK = '225.225.225.0';
-    this.state.GATE = '192.169.20.1';
-    this.state.PRIMARY_DNS = '192.169.20.1';
-    this.state.OTHER_DNS = '192.169.20.123';
   }
 
   showModal = () => {
@@ -252,7 +244,16 @@ module.exports = class NetworkSettings extends Base {
   };
 
   networkStatusRender = () => {
-    const {networkInterface, DHCP_STATIC, MAC, IP, SUB_MASK, GATE, PRIMARY_DNS, OTHER_DNS} = this.state;
+    const {
+      networkInterface,
+      ipType,
+      mac,
+      ipAddress,
+      primaryDNS,
+      secondaryDNS,
+      subnetMask,
+      gateway
+    } = this.props.networkSettings;
     return (
       <table className="w-100">
         <tbody>
@@ -265,7 +266,7 @@ module.exports = class NetworkSettings extends Base {
           <tr className="border-bottom">
             <th className="text-size-20 py-3 pl-4 text-muted">IP 取得方式</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {DHCP_STATIC}
+              {_(ipType === '0' ? 'Static' : 'Dynamic')}
             </th>
           </tr>
           <tr className="border-bottom">
@@ -273,37 +274,37 @@ module.exports = class NetworkSettings extends Base {
                 網路卡硬體位址
             </th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {MAC}
+              {mac}
             </th>
           </tr>
           <tr className="border-bottom">
             <th className="text-size-20 py-3 pl-4 text-muted">IP 位址</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {IP}
+              {ipAddress}
             </th>
           </tr>
           <tr className="border-bottom">
             <th className="text-size-20 py-3 pl-4 text-muted">子網路遮罩</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {SUB_MASK}
+              {subnetMask}
             </th>
           </tr>
           <tr className="border-bottom">
             <th className="text-size-20 py-3 pl-4 text-muted">路由器/閘道</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {GATE}
+              {gateway}
             </th>
           </tr>
           <tr className="border-bottom">
             <th className="text-size-20 py-3 pl-4 text-muted">慣用 DNS</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {PRIMARY_DNS}
+              {primaryDNS}
             </th>
           </tr>
           <tr className="border-bottom">
             <th className="text-size-20 py-3 pl-4 text-muted">其他 DNS</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {OTHER_DNS}
+              {secondaryDNS}
             </th>
           </tr>
         </tbody>
