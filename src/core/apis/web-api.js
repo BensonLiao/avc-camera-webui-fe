@@ -323,6 +323,38 @@ module.exports = {
       })()
     }),
     /**
+     * @returns {Promise<Response>}
+     * @response 204
+     * - sdEnabled {boolean}
+     * - sdAlertEnabled {boolean}
+     * - sdFormat {string}
+     * - sdTotal {string}
+     * - sdUsage {string}
+     * - sdStatus {boolean}
+     */
+    getSDCardInformation: () => api({
+      method: 'get',
+      url: '/api/system/systeminfo/sdcard'
+    }),
+    enableSD: ({sdEnabled}) => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard',
+      data: {sdEnabled}
+    }),
+    sdCardAlert: ({sdAlertEnabled}) => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcardalert',
+      data: {sdAlertEnabled}
+    }),
+    formatSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard/format'
+    }),
+    unmountSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard/unmount'
+    }),
+    /**
      * Clears system log
      * @returns {Promise<Response>}
      * @response 204
@@ -355,7 +387,7 @@ module.exports = {
      * - interval {string}
      */
     updateAppSettings: ({deviceToken, deviceId, interval}) => api({
-      method: 'put',
+      method: 'post',
       url: '/api/notification/app/settings',
       data: {deviceToken, deviceId, interval}
     }),
