@@ -95,7 +95,7 @@ module.exports = {
         manualTime: '2019-10-02T08:00:00.000Z'
       },
       networkSettings: {
-        networkInterface: 'Wired',
+        networkInterface: '0',
         ipType: '0',
         mac: '00-1a-07-18-c5-58',
         ipAddress: '192.168.20.229',

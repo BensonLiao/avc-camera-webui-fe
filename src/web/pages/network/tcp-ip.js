@@ -119,7 +119,7 @@ module.exports = class TCPIP extends Base {
         <button
           type="submit"
           className="btn btn-primary btn-block rounded-pill"
-          disabled={!values.isEnableDDNS || $isApiProcessing}
+          disabled={$isApiProcessing}
         >
           套用
         </button>
