@@ -74,15 +74,15 @@ module.exports = {
         isEnableAgeGender: false,
         isEnableHumanoidDetection: false,
         deviceStatus: 1,
-        usedDiskSize: 3117 * 1024 * 1024,
-        totalDiskSize: 7692 * 1024 * 1024,
         serialNumber: '181000723',
         modelName: 'AV02CLD-100',
         firmware: '35110.4',
-        sdEnabled: true,
+        sdEnabled: false,
         sdStatus: 1,
         sdFormat: 'FAT32',
-        sdAlertEnable: true
+        totalDiskSize: 7510123,
+        usedDiskSize: 4470321,
+        sdAlertEnabled: false
       },
       networkSettings: {
         mac: '00-1a-07-18-c5-58'
@@ -330,15 +330,7 @@ module.exports = {
           isEnableHumanoidDetection: true,
           isEnable: true
         }
-      ],
-      sdCard: {
-        sdEnabled: false,
-        sdStatus: 1,
-        sdFormat: 'FAT32',
-        sdTotal: 7510,
-        sdUsage: 4470,
-        sdAlertEnabled: false
-      }
+      ]
     })
       .write();
     return db;
