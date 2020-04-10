@@ -22,16 +22,6 @@ const FormikEffect = require('../../core/components/formik-effect');
 module.exports = class Image extends Base {
   static get propTypes() {
     return {
-      systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es']).isRequired,
-        deviceName: PropTypes.string.isRequired,
-        isEnableFaceRecognition: PropTypes.bool.isRequired,
-        isEnableAgeGender: PropTypes.bool.isRequired,
-        isEnableHumanoidDetection: PropTypes.bool.isRequired,
-        deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
-        usedDiskSize: PropTypes.number.isRequired,
-        totalDiskSize: PropTypes.number.isRequired
-      }).isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired, // 除霧
         irEnabled: PropTypes.string.isRequired, // 紅外線燈
@@ -65,7 +55,6 @@ module.exports = class Image extends Base {
     this.streamPlayerRef = React.createRef();
     this.submitPromise = Promise.resolve();
     this.fetchSnapshotTimeoutId = null;
-    this.state.deviceName = props.systemInformation.deviceName || '';
     this.state.isPlayStream = false;
     this.state.streamImageUrl = null;
     this.state.isAutoFocusProcessing = false;

@@ -177,6 +177,47 @@ module.exports = {
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}
+     * - syncTimeOption {String}
+     * - ntpTimeZone {String}
+     * - ntpIP {String}
+     * - ntpTimeOption {String}
+     * - ntpUpdateTime {Date}
+     * - ntpUpdateTimeRate {String}
+     * - deviceTime {String}
+     * - manualTime {Date}
+     */
+    getSystemDateTime: () => api({
+      method: 'get',
+      url: '/api/system/datetime'
+    }),
+    /**
+     * @param {string} token - The user token.
+     * @param {string} syncTimeOption
+     * @param {string} ntpTimeZone
+     * @param {string} ntpIP
+     * @param {string} ntpTimeOption
+     * @param {Date} ntpUpdateTime
+     * @param {string} ntpUpdateTimeRate
+     * @param {string} deviceTime
+     * @param {Date} manualTime
+     * @returns {Promise<Object>}
+     * - syncTimeOption {String}
+     * - ntpTimeZone {String}
+     * - ntpIP {String}
+     * - ntpTimeOption {String}
+     * - ntpUpdateTime {Date}
+     * - ntpUpdateTimeRate {String}
+     * - deviceTime {String}
+     * - manualTime {Date}
+     */
+    updateSystemDateTime: ({syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}) => api({
+      method: 'put',
+      url: '/api/system/datetime',
+      data: {syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
      * - isEnable {boolean}
      * - port {string}
      * - certificateType {string}
@@ -312,6 +353,15 @@ module.exports = {
     unmountSDCard: () => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard/unmount'
+    }),
+    /**
+     * Clears system log
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    clearLog: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/clearLog'
     })
   },
   notification: {
@@ -1041,7 +1091,6 @@ module.exports = {
     }),
     /**
      * @param {boolean} isEnableInput
-     * @param {boolean} isEnableOutput
      * @param {string} inputQuality
      * @param {string} inputSource
      * @returns {Promise<response>}
@@ -1051,10 +1100,10 @@ module.exports = {
      * - inputQuality {string}
      * - inputSource {string}
      */
-    updateAudioSettings: ({isEnableInput, isEnableOutput, inputQuality, inputSource}) => api({
+    updateAudioSettings: ({isEnableInput, inputQuality, inputSource}) => api({
       method: 'put',
       url: '/api/multimedia/audio/settings',
-      data: {isEnableInput, isEnableOutput, inputQuality, inputSource}
+      data: {isEnableInput, inputQuality, inputSource}
     }),
     /**
      * @returns {Promise<response>}

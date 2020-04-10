@@ -12,7 +12,7 @@ const NotificationFaceRecognitionVMSEvent = require('webserver-form-schema/const
 const outputIcon = require('../../../resource/icon-output-40px.svg');
 const vmsIcon = require('../../../resource/icon-server-40px.svg');
 const Base = require('../shared/base');
-const DatePicker = require('../../../core/components/fields/date-picker');
+const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
@@ -319,7 +319,7 @@ module.exports = class Cards extends Base {
                 <div className="col-auto my-1 btn-group">
                   <Field
                     name="$start"
-                    component={DatePicker}
+                    component={DateTimePicker}
                     dateTabText={_('Start Date')}
                     timeTabText={_('Start Time')}
                     inputProps={{
@@ -337,7 +337,7 @@ module.exports = class Cards extends Base {
                   />
                   <Field
                     name="$end"
-                    component={DatePicker}
+                    component={DateTimePicker}
                     dateTabText={_('End Date')}
                     timeTabText={_('End Time')}
                     inputProps={{

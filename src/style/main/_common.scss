@@ -236,15 +236,24 @@ body {
 }
 
 .datepicker-wrapper {
-  .btn-group {
-    .btn {
-      position: relative;
-      border: none;
-      height: 40px;
-      background-color: #f2f2f2;
-      transition: background-color 0.25s linear;
+  > .btn {
+    position: relative;
+    border: none;
+    height: 40px;
+    background-color: #f2f2f2;
+    transition: background-color 0.25s linear;
+    &.date {
+      border-radius: 50rem;
+      margin-left: 15px;
+      margin-right: 15px;
+      &.active, &:hover {
+        background-color: #E5F5FF;
+        &::before {
+          border-color: #E5F5FF #E5F5FF #E5F5FF transparent;
+        }
+      }
     }
-    .btn.start-date {
+    &.start-date {
       border-top-left-radius: 50rem;
       border-bottom-left-radius: 50rem;
       &::after {
@@ -264,7 +273,7 @@ body {
         }
       }
     }
-    .btn.end-date {
+    &.end-date {
       border-top-right-radius: 50rem;
       border-bottom-right-radius: 50rem;
       margin-left: 15px;

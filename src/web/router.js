@@ -424,6 +424,20 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.system.datetime',
+      uri: '/datetime',
+      onEnter: () => {
+        document.title = `${_('System')} - ${_title}`;
+      },
+      resolve: {
+        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/datetime'
+      )
+    },
+    {
       name: 'web.system.upgrade',
       uri: '/upgrade',
       onEnter: () => {
@@ -457,6 +471,31 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */
         './pages/sdcard/sd-card'
+      )
+    },
+    {
+      name: 'web.system.log',
+      uri: '/log',
+      onEnter: () => {
+        document.title = `${_('System')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/log'
+      )
+    },
+    {
+      name: 'web.system.information',
+      uri: '/information',
+      onEnter: () => {
+        document.title = `${_('System')} - ${_title}`;
+      },
+      resolve: {
+        systemInformation: () => api.system.getInformation().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-system" */
+        './pages/system/information'
       )
     },
     {
