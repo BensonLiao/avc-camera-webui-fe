@@ -489,6 +489,17 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.sd-card',
+      uri: '/sd-card',
+      onEnter: () => {
+        document.title = `${_('SD Card Settings')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-sd-card" */
+        './pages/sdcard/sd-card'
+      )
+    },
+    {
       name: 'web.system.log',
       uri: '/log',
       onEnter: () => {

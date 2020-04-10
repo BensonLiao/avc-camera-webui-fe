@@ -74,11 +74,15 @@ module.exports = {
         isEnableAgeGender: false,
         isEnableHumanoidDetection: false,
         deviceStatus: 1,
-        usedDiskSize: 3117 * 1024 * 1024,
-        totalDiskSize: 7692 * 1024 * 1024,
         serialNumber: '181000723',
         modelName: 'AV02CLD-100',
-        firmware: '35110.4'
+        firmware: '35110.4',
+        sdEnabled: false,
+        sdStatus: 1,
+        sdFormat: 'FAT32',
+        sdTotal: 32000000000,
+        sdUsage: 12470321000,
+        sdAlertEnabled: false
       },
       systemDateTime: {
         deviceTime: '2019-04-17 23:48:45',
@@ -242,7 +246,7 @@ module.exports = {
         senderEmail: '',
         interval: '',
         isEnableLoginNotification: false,
-        isEnableAuth: false
+        isEnableAuth: true
       },
       notificationCards: [],
       groups: [

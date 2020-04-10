@@ -78,6 +78,30 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onGet('/api/system/https').reply(config => {
     return mockResponseWithLog(config, [200, db.get('httpsSettings').value()]);
   })
+  .onPost('/api/system/systeminfo/sdcard').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      const data = {
+        ...db.get('system').value(),
+        ...JSON.parse(config.data)
+      };
+      resolve(mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
+    }, 1000);
+  }))
+  .onPost('/api/system/systeminfo/sdcardalert').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      const data = {
+        ...db.get('system').value(),
+        ...JSON.parse(config.data)
+      };
+      resolve(mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
+    }, 1000);
+  }))
+  .onPost('/api/system/systeminfo/sdcard/format').reply(config => {
+    return mockResponseWithLog(config, [200]);
+  })
+  .onPost('/api/system/systeminfo/sdcard/unmount').reply(config => {
+    return mockResponseWithLog(config, [200]);
+  })
   .onPut('/api/system/https').reply(config => {
     const data = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('httpsSettings').assign(data).write()]);
