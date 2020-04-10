@@ -2,12 +2,13 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const {Link} = require('capybara-router');
-const {Formik, Form} = require('formik');
+const {Formik, Form, Field} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const NetworkIPType = require('webserver-form-schema/constants/system-network-ip-type');
 
 module.exports = class NetworkSettings extends Base {
   static get propTypes() {
@@ -94,7 +95,7 @@ module.exports = class NetworkSettings extends Base {
       >
         <div className="modal-content">
           <div className="modal-header">
-            <h4 className="modal-title">DHCP TEST</h4>
+            <h4 className="modal-title">{_('DHCP TEST')}</h4>
           </div>
           <div className="modal-body">
             <p>
@@ -109,7 +110,7 @@ module.exports = class NetworkSettings extends Base {
                 className="btn btn-primary btn-block rounded-pill"
                 onClick={this.hideModal}
               >
-                Confirm
+                {_('Confirm')}
               </button>
 
             </div>
@@ -119,29 +120,25 @@ module.exports = class NetworkSettings extends Base {
     );
   };
 
-  networkSettingsFormRender = () => {
+  networkSettingsFormRender = ({values}) => {
+    const {$isApiProcessing} = this.state;
     return (
       <Form>
         <div className="form-group d-flex justify-content-between align-items-center">
           <div className="form-check">
-            <input
+            <Field
               className="form-check-input"
               type="radio"
-              name="input-local-network-ip"
-              id="input-local-network-dynamic-ip"
-              value="dynamic-ip"
-              onChange={this.handleChange}
-
+              name="ipType"
+              id={`network-ip-type-${NetworkIPType.dynamic}`}
+              value={NetworkIPType.dynamic}
             />
             <label
               className="form-check-label"
-              htmlFor="input-local-network-dynamic-ip"
+              htmlFor={`network-ip-type-${NetworkIPType.dynamic}`}
             >
-              浮動 IP 位址
+              {_('Enable DHCP')}
             </label>
-            <span className="border rounded text-muted text-size-14 ml-3 p-1">
-              選擇此選項以從 DHCP 伺服器得到 IP 位址
-            </span>
           </div>
           <div>
             <i className="fas fa-check-circle fa-lg text-success mr-2"/>
@@ -151,84 +148,93 @@ module.exports = class NetworkSettings extends Base {
               id="dhcpTestButton"
               onClick={this.onClickTestDHCPButton}
             >
-              測試 DHCP
+              {_('Test DHCP')}
             </button>
             {this.testDHCPModalRender()}
           </div>
         </div>
         <div className="form-group">
           <div className="form-check">
-            <input
+            <Field
               className="form-check-input"
               type="radio"
-              name="input-local-network-ip"
-              id="input-local-network-static-ip"
-              value="static-ip"
-              onChange={this.handleChange}
-
+              name="ipType"
+              id={`network-ip-type-${NetworkIPType.fixed}`}
+              value={NetworkIPType.fixed}
             />
             <label
               className="form-check-label"
-              htmlFor="input-local-network-static-ip"
+              htmlFor={`network-ip-type-${NetworkIPType.fixed}`}
             >
-              固定 IP 位址
+              {_('Fixed IP Address')}
             </label>
             <span className="border rounded text-muted text-size-14 ml-3 p-1">
-              選擇此選項以手動輸入固定 IP 位址
+              {_('Enter a Fixed IP Address')}
             </span>
           </div>
         </div>
         <div className="form-group">
-          <label>IP 位址</label>
-          <input
+          <label>{_('IP Address')}</label>
+          <Field
             className="form-control"
             type="text"
-            placeholder="請輸入 IP 位址"
-            id="ip_address"
+            name="ipAddress"
+            placeholder={_('Enter IP Address')}
+            value={values.ipAddress}
             disabled={this.state.input_enable}
           />
         </div>
         <div className="form-group">
-          <label>子網路遮罩</label>
-          <input
+          <label>{_('Subnet Mask')}</label>
+          <Field
             className="form-control"
             type="text"
-            placeholder="請輸入子網路遮罩"
-            id="ip_mask"
+            name="subnetMask"
+            placeholder={_('Enter Subnet Mask')}
+            value={values.subnetMask}
             disabled={this.state.input_enable}
           />
         </div>
         <div className="form-group">
-          <label>路由器/閘道</label>
-          <input
+          <label>{_('Router/Gateway')}</label>
+          <Field
             className="form-control"
             type="text"
-            placeholder="請輸入您的路由器/閘道"
-            id="gate_address"
+            name="gateway"
+            placeholder={_('Enter Router/Gateway')}
+            value={values.gateway}
             disabled={this.state.input_enable}
           />
         </div>
         <div className="form-group">
-          <label>慣用 DNS</label>
-          <input
+          <label>{_('Primary DNS')}</label>
+          <Field
             className="form-control"
             type="text"
-            placeholder="請輸入慣用DNS"
-            id="dns_address"
+            name="primaryDNS"
+            placeholder={_('Enter Primary DNS')}
+            value={values.primaryDNS}
             disabled={this.state.input_enable}
           />
         </div>
         <div className="form-group">
-          <label>其他 DNS (選填)</label>
-          <input className="form-control" type="text" id="other_dns_address" disabled={this.state.input_enable}/>
+          <label>{_('Secondary DNS (Optional)')}</label>
+          <Field
+            className="form-control"
+            type="text"
+            name="secondaryDNS"
+            placeholder={_('Enter Secondary DNS')}
+            value={values.secondaryDNS || _('None')}
+            disabled={this.state.input_enable}
+          />
         </div>
 
         <button
-          type="button"
+          type="submit"
           className="btn btn-primary btn-block rounded-pill"
-          onClick={this.onSubmit}
+          disabled={$isApiProcessing}
         >
-          套用
+          {_('Apply')}
         </button>
       </Form>
     );
@@ -304,7 +310,7 @@ module.exports = class NetworkSettings extends Base {
   };
 
   render() {
-    const {appSettings} = this.props;
+    const {networkSettings} = this.props;
     return (
       <div className="main-content left-menu-active">
         <div className="page-notification">
@@ -351,7 +357,7 @@ module.exports = class NetworkSettings extends Base {
                       id="tab-local-network"
                     >
                       <Formik
-                        initialValues={appSettings}
+                        initialValues={networkSettings}
                         onSubmit={this.onSubmit}
                       >
                         {this.networkSettingsFormRender}
