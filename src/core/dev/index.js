@@ -58,17 +58,20 @@ mockAxios.onGet('/api/video/settings').reply(config => {
     const data = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('networkSettings').assign(data).write()]);
   })
-  .onGet('/system/network/tcpip/ddns').reply(config => {
+  .onPost('/api/system/network/testdhcp').reply(config => {
+    return mockResponseWithLog(config, [200, {success: true}]);
+  })
+  .onGet('/api/system/network/tcpip/ddns').reply(config => {
     return mockResponseWithLog(config, [200, db.get('ddnsSettings').value()]);
   })
-  .onPut('/system/network/tcpip/ddns').reply(config => {
+  .onPut('/api/system/network/tcpip/ddns').reply(config => {
     const data = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('ddnsSettings').assign(data).write()]);
   })
-  .onGet('/system/network/tcpip/http').reply(config => {
+  .onGet('/api/system/network/tcpip/http').reply(config => {
     return mockResponseWithLog(config, [200, db.get('httpSettings').value()]);
   })
-  .onPut('/system/network/tcpip/http').reply(config => {
+  .onPut('/api/system/network/tcpip/http').reply(config => {
     const data = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('httpSettings').assign(data).write()]);
   })

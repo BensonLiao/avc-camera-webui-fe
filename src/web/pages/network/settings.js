@@ -39,6 +39,24 @@ module.exports = class NetworkSettings extends Base {
     this.setState({isShowModal: false});
   };
 
+  onClickTestDHCPButton = event => {
+    event.preventDefault();
+    progress.start();
+    api.system.testDHCP()
+      .then(response => {
+        if (response.data) {
+          this.state.dhcpTestResult = response.data.success;
+          this.setState({isShowModal: true});
+        }
+
+        progress.done();
+      })
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
+
   onSubmit = values => {
     progress.start();
     api.system.updateNetworkSettings(values)
@@ -74,58 +92,31 @@ module.exports = class NetworkSettings extends Base {
         autoFocus={false}
         onHide={this.hideModal}
       >
-        <Formik
-          initialValues={{}}
-          onSubmit={this.onSubmit}
-        >
-          <Form>
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title">DHCP TEST</h4>
-              </div>
-              <div className="modal-body">
-                <p>
-                  {_(this.state.dhcpTestResult ? 'DHCP Testing Succeed!' : 'DHCP Testing Failed!')}
-                </p>
-              </div>
-              <div className="modal-footer flex-column">
-                <div className="form-group w-100 mx-0">
-                  <button
-                    disabled={$isApiProcessing}
-                    type="submit"
-                    className="btn btn-primary btn-block rounded-pill"
-                  >
-                    Confirm
-                  </button>
-                  <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal}>Cancel</button>
+        <div className="modal-content">
+          <div className="modal-header">
+            <h4 className="modal-title">DHCP TEST</h4>
+          </div>
+          <div className="modal-body">
+            <p>
+              {_(this.state.dhcpTestResult ? 'DHCP Testing Succeed!' : 'DHCP Testing Failed!')}
+            </p>
+          </div>
+          <div className="modal-footer flex-column">
+            <div className="form-group w-100 mx-0">
+              <button
+                disabled={$isApiProcessing}
+                type="button"
+                className="btn btn-primary btn-block rounded-pill"
+                onClick={this.hideModal}
+              >
+                Confirm
+              </button>
 
-                </div>
-              </div>
             </div>
-          </Form>
-        </Formik>
+          </div>
+        </div>
       </Modal>
     );
-  };
-
-  onClickTestDHCPButton = event => {
-    event.preventDefault();
-    progress.start();
-
-    progress.start();
-    api.system.testDHCP()
-      .then(response => {
-        // Check the server was shut down.
-        if (response.data) {
-          this.state.dhcpTestResult = response.data.success;
-        }
-
-        this.setState({isShowModal: true});
-      })
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
   };
 
   networkSettingsFormRender = () => {

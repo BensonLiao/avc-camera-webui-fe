@@ -349,7 +349,7 @@ module.exports = {
      */
     updateNetworkSettings: ({ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}) => api({
       method: 'put',
-      url: '/system/network',
+      url: '/api/system/network',
       data: {ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}
     }),
     /**
@@ -359,7 +359,7 @@ module.exports = {
      */
     testDHCP: () => api({
       method: 'post',
-      url: '/system/network/testdhcp'
+      url: '/api/system/network/testdhcp'
     }),
     /**
      * @returns {Promise<response>}
@@ -372,7 +372,7 @@ module.exports = {
      */
     getDDNSInfo: () => api({
       method: 'get',
-      url: '/system/network/tcpip/ddns'
+      url: '/api/system/network/tcpip/ddns'
     }),
     /**
      * @param {Boolean} ddnsEnabled
@@ -385,7 +385,7 @@ module.exports = {
      */
     updateDDNSInfo: ({ddnsEnabled, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}) => api({
       method: 'put',
-      url: '/system/network/tcpip/ddns',
+      url: '/api/system/network/tcpip/ddns',
       data: {ddnsEnabled, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}
     }),
     /**
@@ -395,7 +395,7 @@ module.exports = {
      */
     getHttpInfo: () => api({
       method: 'get',
-      url: '/system/network/tcpip/http'
+      url: '/api/system/network/tcpip/http'
     }),
     /**
      * @param {Number} httpPort
@@ -405,7 +405,7 @@ module.exports = {
      */
     updateHttpInfo: httpPort => api({
       method: 'put',
-      url: '/system/network/tcpip/http',
+      url: '/api/system/network/tcpip/http',
       data: {httpPort}
     })
   },
