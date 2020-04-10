@@ -263,7 +263,7 @@ module.exports = class NetworkSettings extends Base {
           <tr className="border-bottom">
             <th className="text-size-20 py-3 pl-4 text-muted">IP 取得方式</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {_(ipType === '0' ? 'Static' : 'Dynamic')}
+              {_(ipType === '0' ? 'Dynamic' : 'Static')}
             </th>
           </tr>
           <tr className="border-bottom">
