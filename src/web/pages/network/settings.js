@@ -255,51 +255,51 @@ module.exports = class NetworkSettings extends Base {
       <table className="w-100">
         <tbody>
           <tr className="border-bottom">
-            <th className="text-size-20 pb-3 pl-4 text-muted">介面</th>
+            <th className="text-size-20 pb-3 pl-4 text-muted">{_('Interface')}</th>
             <th className="text-size-20 pb-3 pr-4 text-primary text-right">
               {_(networkInterface === '0' ? 'Wired' : 'Wifi')}
             </th>
           </tr>
           <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">IP 取得方式</th>
+            <th className="text-size-20 py-3 pl-4 text-muted">{_('IP Status')}</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
               {_(ipType === '0' ? 'Dynamic' : 'Static')}
             </th>
           </tr>
           <tr className="border-bottom">
             <th className="text-size-20 py-3 pl-4 text-muted">
-                網路卡硬體位址
+              {_('MAC Address')}
             </th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
               {mac}
             </th>
           </tr>
           <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">IP 位址</th>
+            <th className="text-size-20 py-3 pl-4 text-muted">{_('IP Address')}</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
               {ipAddress}
             </th>
           </tr>
           <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">子網路遮罩</th>
+            <th className="text-size-20 py-3 pl-4 text-muted">{_('Subnet Mask')}</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
               {subnetMask}
             </th>
           </tr>
           <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">路由器/閘道</th>
+            <th className="text-size-20 py-3 pl-4 text-muted">{_('Router/Gateway')}</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
               {gateway}
             </th>
           </tr>
           <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">慣用 DNS</th>
+            <th className="text-size-20 py-3 pl-4 text-muted">{_('Primary DNS')}</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
               {primaryDNS}
             </th>
           </tr>
           <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">其他 DNS</th>
+            <th className="text-size-20 py-3 pl-4 text-muted">{_('Secondary DNS')}</th>
             <th className="text-size-20 py-3 pr-4 text-primary text-right">
               {secondaryDNS}
             </th>

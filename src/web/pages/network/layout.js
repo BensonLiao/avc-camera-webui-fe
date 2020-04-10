@@ -28,7 +28,7 @@ module.exports = class Network extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{_('Network')}</h2>
+          <h2>{_('Internet/Network Settings')}</h2>
           <nav className="nav flex-column">
             <Link to="/network/settings" title="Network Settings"
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.settings'})}

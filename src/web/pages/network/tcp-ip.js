@@ -66,17 +66,17 @@ module.exports = class TCPIP extends Base {
     return (
       <Form className="tab-pane fade show active" id="tab-ddns">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">DDNS 伺服器</label>
+          <label className="mb-0">{_('DDNS Server')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnableDDNS" checked={values.isEnableDDNS} type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
             <label className="custom-control-label" htmlFor="switch-ddns-enable">
-              <span>開</span>
-              <span>關</span>
+              <span>{_('ON')}</span>
+              <span>{_('OFF')}</span>
             </label>
           </div>
         </div>
         <div className="form-group">
-          <label>服務提供</label>
+          <label>{_('Server Provider')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="ddnsProvider" component="select" className="form-control border-0">
               <option value="dyn-dns">DynDNS.org</option>
@@ -84,7 +84,7 @@ module.exports = class TCPIP extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>主機名稱</label>
+          <label>{_('Host Name')}</label>
           <Field
             className="form-control"
             type="text"
@@ -95,7 +95,7 @@ module.exports = class TCPIP extends Base {
           />
         </div>
         <div className="form-group">
-          <label>帳號</label>
+          <label>{_('Account')}</label>
           <Field
             className="form-control"
             type="text"
@@ -106,7 +106,7 @@ module.exports = class TCPIP extends Base {
           />
         </div>
         <div className="form-group">
-          <label>密碼</label>
+          <label>{_('Password')}</label>
           <Field
             className="form-control"
             type="text"
@@ -120,8 +120,7 @@ module.exports = class TCPIP extends Base {
           type="submit"
           className="btn btn-primary btn-block rounded-pill"
           disabled={$isApiProcessing}
-        >
-          套用
+        >{_('Apply')}
         </button>
       </Form>
     );
@@ -131,10 +130,10 @@ module.exports = class TCPIP extends Base {
     return (
       <Form className="tab-pane fad" id="tab-http">
         <div className="form-group">
-          <label>網頁服務埠設定</label>
-          <input className="form-control" type="text" placeholder="請輸入您的服務埠"/>
+          <label>{_('Web Server Port Settings')}</label>
+          <input className="form-control" type="text" placeholder={_('Enter Your Server Port Settings')}/>
         </div>
-        <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>套用</button>
+        <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{_('Apply')}</button>
       </Form>
     );
   }
