@@ -257,7 +257,7 @@ module.exports = class NetworkSettings extends Base {
           <tr className="border-bottom">
             <th className="text-size-20 pb-3 pl-4 text-muted">介面</th>
             <th className="text-size-20 pb-3 pr-4 text-primary text-right">
-              {networkInterface}
+              {_(networkInterface === '0' ? 'Wired' : 'Wifi')}
             </th>
           </tr>
           <tr className="border-bottom">
