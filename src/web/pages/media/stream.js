@@ -14,6 +14,7 @@ const StreamBandwidthManagement = require('webserver-form-schema/constants/strea
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const _ = require('../../../languages');
 const Dropdown = require('../../../core/components/fields/dropdown');
+const utils = require('../../../core/utils');
 
 module.exports = class Stream extends Base {
   static get propTypes() {
@@ -125,7 +126,12 @@ module.exports = class Stream extends Base {
                   items={options.bandwidthManagement.map(x => ({value: x.value, label: x.label}))}
                 />
               </div>
-              <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}/>
+              <Field
+                type="text"
+                name={`${fieldNamePrefix}.bitRate`}
+                validate={utils.validateStreamBitRate()}
+                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}
+              />
               <input readOnly type="text" className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
               <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
               <div className="input-group-append">
