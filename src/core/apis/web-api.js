@@ -168,15 +168,6 @@ module.exports = {
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}
-     * - mac {string} The mac address.
-     */
-    getNetworkSettings: () => api({
-      method: 'get',
-      url: '/api/system/network'
-    }),
-    /**
-     * @returns {Promise<response>}
-     * @response 200 {Object}
      * - syncTimeOption {String}
      * - ntpTimeZone {String}
      * - ntpIP {String}
@@ -191,7 +182,6 @@ module.exports = {
       url: '/api/system/datetime'
     }),
     /**
-     * @param {string} token - The user token.
      * @param {string} syncTimeOption
      * @param {string} ntpTimeZone
      * @param {string} ntpIP
@@ -362,6 +352,98 @@ module.exports = {
     clearLog: () => api({
       method: 'post',
       url: '/api/system/systeminfo/clearLog'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - networkInterface {String}
+     * - ipType {String}
+     * - ipAddress {String}
+     * - primaryDNS {String}
+     * - secondaryDNS {String}
+     * - gateway {String}
+     * - subnetMask {String}
+     * - mac {String}
+     */
+    getNetworkSettings: () => api({
+      method: 'get',
+      url: '/api/system/network'
+    }),
+    /**
+     * @param {String} ipType
+     * @param {String} ipAddress
+     * @param {String} primaryDNS
+     * @param {String} secondaryDNS
+     * @param {String} subnetMask
+     * @param {String} gateway
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    updateNetworkSettings: ({ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}) => api({
+      method: 'put',
+      url: '/api/system/network',
+      data: {ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - success {Number}
+     */
+    testDHCP: () => api({
+      method: 'post',
+      url: '/api/system/network/testdhcp'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableDDNS {Boolean}
+     * - ddnsProvider {String}
+     * - ddnsHost {String}
+     * - ddnsAccount {String}
+     * - ddnsPassword {String}
+     */
+    getDDNSInfo: () => api({
+      method: 'get',
+      url: '/api/system/network/tcpip/ddns'
+    }),
+    /**
+     * @param {Boolean} isEnableDDNS
+     * @param {String} ddnsProvider
+     * @param {String} ddnsHost
+     * @param {String} ddnsAccount
+     * @param {String} ddnsPassword
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableDDNS {Boolean}
+     * - ddnsProvider {String}
+     * - ddnsHost {String}
+     * - ddnsAccount {String}
+     * - ddnsPassword {String}
+     */
+    updateDDNSInfo: ({isEnableDDNS, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}) => api({
+      method: 'put',
+      url: '/api/system/network/tcpip/ddns',
+      data: {isEnableDDNS, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - httpPort {Number}
+     */
+    getHttpInfo: () => api({
+      method: 'get',
+      url: '/api/system/network/tcpip/http'
+    }),
+    /**
+     * @param {Number} httpPort
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - httpPort {Number}
+     */
+    updateHttpInfo: httpPort => api({
+      method: 'put',
+      url: '/api/system/network/tcpip/http',
+      data: {httpPort}
     })
   },
   notification: {

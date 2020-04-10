@@ -543,6 +543,20 @@ window.languageResource = {
   'Delete Account': '刪除帳號',
   'Are you sure to delete account {0}?': '您即將刪除 {0}，確認要刪除這個帳號嗎？',
 
+  // Internet/Network Settings
+  Interface: '介面',
+  'IP Status': 'IP 取得方式',
+  'MAC Address': '網路卡硬體位址',
+  'Subnet Mask': '子網路遮罩',
+  'Router/Gateway': '路由器/閘道',
+  'Primary DNS': '慣用 DNS',
+  'Secondary DNS': '其他 DNS',
+  'DDNS Server': 'DDNS 伺服器',
+  'Server Provider': '服務提供',
+  'Host Name': '主機名稱',
+  'Web Server Port Settings': '網頁服務埠設定',
+  'Enter Your Server Port Settings': '請輸入您的服務埠',
+
   // /system
   'System Settings': '系統設定',
   'Firmware Upgrade': '韌體升級',

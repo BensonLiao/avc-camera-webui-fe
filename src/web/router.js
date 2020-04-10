@@ -399,6 +399,35 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.network.settings',
+      uri: '/settings',
+      onEnter: () => {
+        document.title = `${_('Network')} - ${_title}`;
+      },
+      resolve: {
+        networkSettings: () => api.system.getNetworkSettings().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-network" */
+        './pages/network/settings'
+      )
+    },
+    {
+      name: 'web.network.tcp-ip',
+      uri: '/tcp-ip',
+      onEnter: () => {
+        document.title = `${_('Network')} - ${_title}`;
+      },
+      resolve: {
+        ddnsInfo: () => api.system.getDDNSInfo().then(response => response.data),
+        httpInfo: () => api.system.getHttpInfo().then(response => response.data)
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-network" */
+        './pages/network/tcp-ip'
+      )
+    },
+    {
       name: 'web.network.https',
       uri: '/https',
       onEnter: () => {

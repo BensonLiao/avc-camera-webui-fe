@@ -95,7 +95,24 @@ module.exports = {
         manualTime: '2019-10-02T08:00:00.000Z'
       },
       networkSettings: {
-        mac: '00-1a-07-18-c5-58'
+        networkInterface: '0',
+        ipType: '0',
+        mac: '00-1a-07-18-c5-58',
+        ipAddress: '192.168.20.229',
+        primaryDNS: '192.169.20.1',
+        secondaryDNS: '192.169.20.123',
+        subnetMask: '225.225.225.0',
+        gateway: '192.169.20.1'
+      },
+      ddnsSettings: {
+        isEnableDDNS: false,
+        ddnsProvider: '0',
+        ddnsHost: 'aa',
+        ddnsAccount: 'aa',
+        ddnsPassword: 'aa'
+      },
+      httpSettings: {
+        port: '8080'
       },
       httpsSettings: {
         isEnable: true,

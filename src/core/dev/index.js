@@ -54,6 +54,27 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onGet('/api/system/network').reply(config => {
     return mockResponseWithLog(config, [200, db.get('networkSettings').value()]);
   })
+  .onPut('/api/system/network').reply(config => {
+    const data = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('networkSettings').assign(data).write()]);
+  })
+  .onPost('/api/system/network/testdhcp').reply(config => {
+    return mockResponseWithLog(config, [200, {success: true}]);
+  })
+  .onGet('/api/system/network/tcpip/ddns').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('ddnsSettings').value()]);
+  })
+  .onPut('/api/system/network/tcpip/ddns').reply(config => {
+    const data = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('ddnsSettings').assign(data).write()]);
+  })
+  .onGet('/api/system/network/tcpip/http').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('httpSettings').value()]);
+  })
+  .onPut('/api/system/network/tcpip/http').reply(config => {
+    const data = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('httpSettings').assign(data).write()]);
+  })
   .onGet('/api/system/https').reply(config => {
     return mockResponseWithLog(config, [200, db.get('httpsSettings').value()]);
   })
