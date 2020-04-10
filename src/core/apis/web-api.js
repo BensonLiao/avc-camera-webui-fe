@@ -281,11 +281,9 @@ module.exports = {
         return formData;
       })()
     }),
-    getSDCardInformation: () => api({
-      method: 'get',
-      url: '/api//system/systeminfo/sdcard'
-    }),
     /**
+     * @returns {Promise<Response>}
+     * @response 204
      * - sdEnabled {boolean}
      * - sdAlertEnabled {boolean}
      * - sdFormat {string}
@@ -293,14 +291,19 @@ module.exports = {
      * - sdUsage {string}
      * - sdStatus {boolean}
      */
-
-    enableSDCard: () => api({
-      method: 'post',
+    getSDCardInformation: () => api({
+      method: 'get',
       url: '/api/system/systeminfo/sdcard'
     }),
-    alertSDCard: () => api({
+    enableSD: ({sdEnabled}) => api({
       method: 'post',
-      url: '/api/system/systeminfo/sdcardalert'
+      url: '/api/system/systeminfo/sdcard',
+      data: {sdEnabled}
+    }),
+    sdCardAlert: ({sdAlertEnabled}) => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcardalert',
+      data: {sdAlertEnabled}
     }),
     formatSDCard: () => api({
       method: 'post',
@@ -334,7 +337,7 @@ module.exports = {
      * - interval {string}
      */
     updateAppSettings: ({deviceToken, deviceId, interval}) => api({
-      method: 'put',
+      method: 'post',
       url: '/api/notification/app/settings',
       data: {deviceToken, deviceId, interval}
     }),
