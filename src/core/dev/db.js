@@ -101,7 +101,7 @@ module.exports = {
         gateway: '192.169.20.1'
       },
       ddnsSettings: {
-        ddnsEnabled: false,
+        isEnableDDNS: false,
         ddnsProvider: '0',
         ddnsHost: 'aa',
         ddnsAccount: 'aa',

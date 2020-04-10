@@ -375,18 +375,23 @@ module.exports = {
       url: '/api/system/network/tcpip/ddns'
     }),
     /**
-     * @param {Boolean} ddnsEnabled
+     * @param {Boolean} isEnableDDNS
      * @param {String} ddnsProvider
      * @param {String} ddnsHost
      * @param {String} ddnsAccount
      * @param {String} ddnsPassword
      * @returns {Promise<response>}
      * @response 200 {Object}
+     * - isEnableDDNS {Boolean}
+     * - ddnsProvider {String}
+     * - ddnsHost {String}
+     * - ddnsAccount {String}
+     * - ddnsPassword {String}
      */
-    updateDDNSInfo: ({ddnsEnabled, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}) => api({
+    updateDDNSInfo: ({isEnableDDNS, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}) => api({
       method: 'put',
       url: '/api/system/network/tcpip/ddns',
-      data: {ddnsEnabled, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}
+      data: {isEnableDDNS, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}
     }),
     /**
      * @returns {Promise<response>}

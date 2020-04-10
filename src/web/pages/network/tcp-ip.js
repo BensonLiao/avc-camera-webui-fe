@@ -12,25 +12,16 @@ module.exports = class TCPIP extends Base {
   static get propTypes() {
     return {
       ddnsInfo: PropTypes.shape({
-        ddnsEnabled: PropTypes.bool.isRequired,
+        isEnableDDNS: PropTypes.bool.isRequired,
         ddnsProvider: PropTypes.string.isRequired,
         ddnsHost: PropTypes.string.isRequired,
         ddnsAccount: PropTypes.string.isRequired,
         ddnsPassword: PropTypes.string.isRequired
       }).isRequired,
       httpInfo: PropTypes.shape({
-        ddnsEnabled: PropTypes.bool.isRequired,
-        ddnsProvider: PropTypes.string.isRequired,
-        ddnsHost: PropTypes.string.isRequired,
-        ddnsAccount: PropTypes.string.isRequired,
-        ddnsPassword: PropTypes.string.isRequired
+        port: PropTypes.string.isRequired
       }).isRequired
     };
-  }
-
-  constructor(props) {
-    super(props);
-    this.state.isDDNSFormDisable = true;
   }
 
   onSubmitDDNSForm = values => {
@@ -70,19 +61,15 @@ module.exports = class TCPIP extends Base {
       });
   }
 
-  handleChange = () => {
-    this.setState(prevState => ({isDDNSFormDisable: !prevState.isDDNSFormDisable}));
-  };
-
-  ddnsFormRender = () => {
-    const {isDDNSFormDisable} = this.state;
+  ddnsFormRender = ({values}) => {
+    const {$isApiProcessing} = this.state;
     return (
-      <Form className="tab-pane fade show active" id="tab-ddns" onBlur={this.onBlur}>
+      <Form className="tab-pane fade show active" id="tab-ddns">
         <div className="form-group d-flex justify-content-between align-items-center">
           <label className="mb-0">DDNS 伺服器</label>
           <div className="custom-control custom-switch">
-            <input type="checkbox" className="custom-control-input" id="switch-ddns" onChange={this.handleChange}/>
-            <label className="custom-control-label" htmlFor="switch-ddns">
+            <Field name="isEnableDDNS" checked={values.isEnableDDNS} type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
+            <label className="custom-control-label" htmlFor="switch-ddns-enable">
               <span>開</span>
               <span>關</span>
             </label>
@@ -98,17 +85,44 @@ module.exports = class TCPIP extends Base {
         </div>
         <div className="form-group">
           <label>主機名稱</label>
-          <input className="form-control" type="text" placeholder="請輸入您的主機名稱" disabled={isDDNSFormDisable}/>
+          <Field
+            className="form-control"
+            type="text"
+            name="ddnsHost"
+            placeholder={_('Enter DDNS Host')}
+            value={values.ddnsHost}
+            disabled={!values.isEnableDDNS}
+          />
         </div>
         <div className="form-group">
           <label>帳號</label>
-          <input className="form-control" type="text" placeholder="請輸入您的帳號" disabled={isDDNSFormDisable}/>
+          <Field
+            className="form-control"
+            type="text"
+            name="ddnsAccount"
+            placeholder={_('Enter DDNS Account')}
+            value={values.ddnsAccount}
+            disabled={!values.isEnableDDNS}
+          />
         </div>
         <div className="form-group">
           <label>密碼</label>
-          <input className="form-control" type="password" placeholder="請輸入您的密碼" disabled={isDDNSFormDisable}/>
+          <Field
+            className="form-control"
+            type="text"
+            name="ddnsPassword"
+            placeholder={_('Enter DDNS Password')}
+            value={values.ddnsPassword}
+            disabled={!values.isEnableDDNS}
+          />
         </div>
-        <button type="submit" className="btn btn-primary btn-block rounded-pill" id="ddns_button" disabled={isDDNSFormDisable} onClick={this.onClick}>套用</button>
+        <button
+          type="submit"
+          className="btn btn-primary btn-block rounded-pill"
+          disabled={!values.isEnableDDNS || $isApiProcessing}
+        >
+          套用
+        </button>
       </Form>
     );
   }
@@ -126,7 +140,7 @@ module.exports = class TCPIP extends Base {
   }
 
   render() {
-    const {appSettings} = this.props;
+    const {ddnsInfo, httpInfo} = this.props;
 
     return (
       <div className="main-content left-menu-active">
@@ -158,13 +172,13 @@ module.exports = class TCPIP extends Base {
                   </nav>
                   <div className="card-body tab-content">
                     <Formik
-                      initialValues={appSettings}
+                      initialValues={ddnsInfo}
                       onSubmit={this.onSubmitDDNSForm}
                     >
                       {this.ddnsFormRender}
                     </Formik>
                     <Formik
-                      initialValues={appSettings}
+                      initialValues={httpInfo}
                       onSubmit={this.onSubmitHTTPForm}
                     >
                       {this.httpFormRender}
