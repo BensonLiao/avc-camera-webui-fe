@@ -61,7 +61,6 @@ mockAxios.onGet('/api/video/settings').reply(config => {
         ...db.get('system').value(),
         ...JSON.parse(config.data)
       };
-      console.log(config.data);
       resolve(mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
     }, 1000);
   }))

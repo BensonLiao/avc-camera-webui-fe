@@ -35,7 +35,6 @@ module.exports = class SDCard extends Base {
     this.state.file = null;
     this.state.isShowModal = false;
     this.state.showSelectModal = {
-      isShowAlertModal: true,
       isShowFormatModal: false,
       isShowUnmountModal: false
     };
@@ -43,47 +42,22 @@ module.exports = class SDCard extends Base {
 
   showModal = selectedModal => event => {
     event.preventDefault();
-    return this.setState({showSelectModal: {[selectedModal]: true}});
+    return this.setState(prevState => ({
+      showSelectModal: {
+        ...prevState.showSelectModal,
+        [selectedModal]: true
+      }
+    }));
   };
 
   hideModal = selectedModal => _ => {
-    return this.setState({showSelectModal: {[selectedModal]: false}});
+    return this.setState(prevState => ({
+      showSelectModal: {
+        ...prevState.showSelectModal,
+        [selectedModal]: false
+      }
+    }));
   };
-
-  alertSDCardModalRender = () => {
-    const {$isApiProcessing} = this.state;
-    if (this.props.sdEnabled === true) {
-      return (
-        <Modal
-          show={this.state.showSelectModal.isShowAlertModal}
-          autoFocus={false}
-          onHide={this.hideModal('isShowAlertModal')}
-        >
-          <Formik
-            initialValues={{}}
-            onSubmit={this.state}
-          >
-            <Form>
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h4 className="modal-title">{_('Disable SD Card')}</h4>
-                </div>
-                <div className="modal-body">
-                  <p>{_('All micro SD card related services will be disabled. Are you sure you want to continue?')}</p>
-                </div>
-                <div className="modal-footer flex-column">
-                  <div className="form-group w-100 mx-0">
-                    <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">{_('Confirm')}</button>
-                  </div>
-                  <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowAlertModal')}>{_('Cancel')}</button>
-                </div>
-              </div>
-            </Form>
-          </Formik>
-        </Modal>
-      );
-    }
-  }
 
   formatSDcardModalRender = () => {
     const {$isApiProcessing} = this.state;
@@ -116,16 +90,6 @@ module.exports = class SDCard extends Base {
         </Formik>
       </Modal>
     );
-  };
-
-  onSubmitFormatSDCard = () => {
-    progress.start();
-    api.system.formatSDCard()
-      .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
   };
 
   unmountSDCardModalRender = () => {
@@ -161,6 +125,16 @@ module.exports = class SDCard extends Base {
     );
   };
 
+  onSubmitFormatSDCard = () => {
+    progress.start();
+    api.system.formatSDCard()
+      .then(getRouter().reload)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
+
   onSubmitUnmountSDCard = () => {
     progress.start();
     api.system.unmountSDCard()
@@ -184,7 +158,6 @@ module.exports = class SDCard extends Base {
 
     if (`${prevValues.sdAlertEnabled}` !== `${nextValues.sdAlertEnabled}`) {
       progress.start();
-      console.log(nextValues);
       api.system.sdCardAlert(nextValues)
         .then(getRouter().reload)
         .catch(error => {

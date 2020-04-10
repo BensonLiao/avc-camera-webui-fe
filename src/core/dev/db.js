@@ -80,8 +80,8 @@ module.exports = {
         sdEnabled: false,
         sdStatus: 1,
         sdFormat: 'FAT32',
-        totalDiskSize: 7510123,
-        usedDiskSize: 4470321,
+        totalDiskSize: 32000000000,
+        usedDiskSize: 12470321000,
         sdAlertEnabled: false
       },
       networkSettings: {
