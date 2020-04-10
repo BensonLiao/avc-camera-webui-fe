@@ -57,9 +57,6 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onGet('/api/system/https').reply(config => {
     return mockResponseWithLog(config, [200, db.get('httpsSettings').value()]);
   })
-  .onGet('/api/system/systeminfo/sdcard').reply(config => {
-    return mockResponseWithLog(config, [200, db.get('sdCard').value()]);
-  })
   .onPost('/api/system/systeminfo/sdcard').reply(config => new Promise((resolve, _) => {
     setTimeout(() => {
       const data = {

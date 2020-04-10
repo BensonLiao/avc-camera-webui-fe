@@ -18,8 +18,8 @@ module.exports = class SDCard extends Base {
         sdEnabled: PropTypes.bool.isRequired,
         sdStatus: PropTypes.oneOf([0, 1]).isRequired,
         sdFormat: PropTypes.string.isRequired,
-        totalDiskSize: PropTypes.number.isRequired,
-        usedDiskSize: PropTypes.number.isRequired,
+        sdTotal: PropTypes.number.isRequired,
+        sdUsage: PropTypes.number.isRequired,
         sdAlertEnabled: PropTypes.bool.isRequired
       }).isRequired,
       smtpSettings: PropTypes.shape({
@@ -169,7 +169,7 @@ module.exports = class SDCard extends Base {
 
   sdcardSettingsFormRender = () => {
     const {systemInformation, isEnableAuth} = this.props;
-    const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
+    const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
 
     return (
       <Form className="card-body sdcard">
@@ -251,8 +251,8 @@ module.exports = class SDCard extends Base {
                 <p>
                   {
                     _('Free: {0}, Total: {1}', [
-                      filesize(systemInformation.totalDiskSize - systemInformation.usedDiskSize),
-                      filesize(systemInformation.totalDiskSize)
+                      filesize(systemInformation.sdTotal - systemInformation.sdUsage),
+                      filesize(systemInformation.sdTotal)
                     ])
                   }
                 </p>
