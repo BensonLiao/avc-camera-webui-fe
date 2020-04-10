@@ -181,7 +181,7 @@ module.exports = class NetworkSettings extends Base {
             name="ipAddress"
             placeholder={_('Enter IP Address')}
             value={values.ipAddress}
-            disabled={this.state.input_enable}
+            disabled={values.ipType === NetworkIPType.dynamic}
           />
         </div>
         <div className="form-group">
@@ -192,7 +192,7 @@ module.exports = class NetworkSettings extends Base {
             name="subnetMask"
             placeholder={_('Enter Subnet Mask')}
             value={values.subnetMask}
-            disabled={this.state.input_enable}
+            disabled={values.ipType === NetworkIPType.dynamic}
           />
         </div>
         <div className="form-group">
@@ -203,7 +203,7 @@ module.exports = class NetworkSettings extends Base {
             name="gateway"
             placeholder={_('Enter Router/Gateway')}
             value={values.gateway}
-            disabled={this.state.input_enable}
+            disabled={values.ipType === NetworkIPType.dynamic}
           />
         </div>
         <div className="form-group">
@@ -214,7 +214,7 @@ module.exports = class NetworkSettings extends Base {
             name="primaryDNS"
             placeholder={_('Enter Primary DNS')}
             value={values.primaryDNS}
-            disabled={this.state.input_enable}
+            disabled={values.ipType === NetworkIPType.dynamic}
           />
         </div>
         <div className="form-group">
@@ -225,7 +225,7 @@ module.exports = class NetworkSettings extends Base {
             name="secondaryDNS"
             placeholder={_('Enter Secondary DNS')}
             value={values.secondaryDNS || _('None')}
-            disabled={this.state.input_enable}
+            disabled={values.ipType === NetworkIPType.dynamic}
           />
         </div>
 
