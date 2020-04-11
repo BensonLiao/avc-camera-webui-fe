@@ -80,8 +80,8 @@ module.exports = {
         sdEnabled: false,
         sdStatus: 1,
         sdFormat: 'FAT32',
-        sdTotal: 32000000000,
-        sdUsage: 12470321000,
+        sdTotal: 31250000,
+        sdUsage: 12178048,
         sdAlertEnabled: false
       },
       systemDateTime: {

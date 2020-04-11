@@ -107,10 +107,10 @@ module.exports = class SDCard extends Base {
           <Form>
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">{_('Uninstall')}</h4>
+                <h4 className="modal-title">{_('Unmount')}</h4>
               </div>
               <div className="modal-body">
-                <p>{_('Are you sure you want to uninstall the Micro SD card?')}</p>
+                <p>{_('Are you sure you want to unmount the Micro SD card?')}</p>
               </div>
               <div className="modal-footer flex-column">
                 <div className="form-group w-100 mx-0">
@@ -197,7 +197,7 @@ module.exports = class SDCard extends Base {
                 </span>
                 <span>
                   <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal('isShowUnmountModal')}>
-                    {_('Uninstall')}
+                    {_('Unmount')}
                   </button>
                   {this.unmountSDCardModalRender()}
                 </span>
@@ -231,7 +231,7 @@ module.exports = class SDCard extends Base {
         <div className="form-group px-3">
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('Status')}</label>
-            <label className="mb-o text-primary">{systemInformation.sdStatus}</label>
+            <label className="mb-o text-primary">{_(systemInformation.sdStatus ? 'MOUNTED' : 'UNMOUNTED')}</label>
           </div>
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
@@ -251,8 +251,8 @@ module.exports = class SDCard extends Base {
                 <p>
                   {
                     _('Free: {0}, Total: {1}', [
-                      filesize(systemInformation.sdTotal - systemInformation.sdUsage),
-                      filesize(systemInformation.sdTotal)
+                      filesize((systemInformation.sdTotal - systemInformation.sdUsage) * 1024),
+                      filesize(systemInformation.sdTotal * 1024)
                     ])
                   }
                 </p>
