@@ -203,12 +203,12 @@ module.exports = class Layout extends Base {
             </Link>
           </Tooltip>
           <Tooltip title={_('Network')} {...tooltipOptions}>
-            <Link className={classTable.network} to="/network/https">
+            <Link className={classTable.network} to="/network/settings">
               <img src={iconNetwork}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('System')} {...tooltipOptions}>
-            <Link className={classTable.system} to="/system/upgrade">
+            <Link className={classTable.system} to="/system/datetime">
               <img src={iconSystem}/>
             </Link>
           </Tooltip>
