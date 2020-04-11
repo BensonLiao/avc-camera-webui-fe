@@ -22,12 +22,13 @@ const Tooltip = require('../../core/components/tooltip');
 const api = require('../../core/apis/web-api');
 const utils = require('../../core/utils');
 const _ = require('../../languages');
+const {AVAILABLE_LANGUAGE_CODES} = require('../../core/constants');
 
 module.exports = class Layout extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es']).isRequired,
+        languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired,
         deviceName: PropTypes.string.isRequired,
         isEnableFaceRecognition: PropTypes.bool.isRequired,
         isEnableAgeGender: PropTypes.bool.isRequired,
