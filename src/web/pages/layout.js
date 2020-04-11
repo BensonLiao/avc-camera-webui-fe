@@ -33,8 +33,6 @@ module.exports = class Layout extends Base {
         isEnableAgeGender: PropTypes.bool.isRequired,
         isEnableHumanoidDetection: PropTypes.bool.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
-        usedDiskSize: PropTypes.number.isRequired,
-        totalDiskSize: PropTypes.number.isRequired,
         serialNumber: PropTypes.string.isRequired,
         modelName: PropTypes.string.isRequired,
         firmware: PropTypes.string.isRequired
