@@ -297,7 +297,9 @@ module.exports = class Cards extends Base {
         <nav>
           <div className="nav nav-tabs">
             <a className="nav-item nav-link active" data-toggle="tab" href="#tab-notification-time">{_('Schedule')}</a>
-            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Rule')}</a>
+            {values.type === NotificationCardType.faceRecognition && (
+              <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Rule')}</a>
+            )}
             <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-target">{_('Subject')}</a>
           </div>
         </nav>
