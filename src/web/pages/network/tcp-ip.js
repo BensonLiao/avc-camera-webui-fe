@@ -126,12 +126,18 @@ module.exports = class TCPIP extends Base {
     );
   }
 
-  httpFormRender = () => {
+  httpFormRender = ({values}) => {
     return (
       <Form className="tab-pane fad" id="tab-http">
         <div className="form-group">
           <label>{_('Web Server Port Settings')}</label>
-          <input className="form-control" type="text" placeholder={_('Enter Your Server Port Settings')}/>
+          <Field
+            name="port"
+            className="form-control"
+            type="text"
+            placeholder={_('Enter Your Server Port Settings')}
+            value={values.port}
+          />
         </div>
         <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{_('Apply')}</button>
       </Form>
