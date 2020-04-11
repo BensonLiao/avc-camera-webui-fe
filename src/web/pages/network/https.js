@@ -58,7 +58,6 @@ module.exports = class HTTPS extends Base {
     return (
       <select {...field} className="form-control border-0" onChange={onChange}>
         <option value={CertificateType.selfSigned}>{_(`certificate-type-${CertificateType.selfSigned}`)}</option>
-        <option value={CertificateType.uploadCertificate}>{_(`certificate-type-${CertificateType.uploadCertificate}`)}</option>
       </select>
     );
   };
