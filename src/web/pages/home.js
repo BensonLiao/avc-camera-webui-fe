@@ -1,7 +1,6 @@
 const axios = require('axios');
 const download = require('downloadjs');
 const classNames = require('classnames');
-const {getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
@@ -313,18 +312,6 @@ module.exports = class Home extends Base {
     };
   }
 
-  onClickResetButton = event => {
-    event.preventDefault();
-    progress.start();
-    api.multimedia.resetStreamSettings()
-      .then(getRouter().reload)
-      .catch(utils.renderError)
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
-  };
-
   render() {
     const {systemInformation, streamSettings} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
@@ -466,7 +453,6 @@ module.exports = class Home extends Base {
                   </table>
                 </div>
               </div>
-
               <div className="col-4 pl-0">
                 <div className="card shadow">
                   <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>

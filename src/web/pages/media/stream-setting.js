@@ -39,15 +39,18 @@ module.exports = class StreamSetting extends Base {
   };
 
   fieldsRender = (fieldNamePrefix, options, values) => {
+    const {homePage} = this.props;
+
     return (
       <>
         <div className="form-group">
           <label>{_('Format')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
+              readOnly={homePage}
               name={`${fieldNamePrefix}.format`}
               component="select"
-              className="form-control border-0"
+              className={classNames('form-control border-0', (homePage && 'select-readonly'))}
             >
               {
                 options.format.map(option => (
@@ -61,9 +64,10 @@ module.exports = class StreamSetting extends Base {
           <label>{_('Resolution')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
+              readOnly={homePage}
               name={`${fieldNamePrefix}.resolution`}
               component="select"
-              className="form-control border-0"
+              className={classNames('form-control border-0', (homePage && 'select-readonly'))}
             >
               {
                 options.resolution.map(option => (
@@ -131,9 +135,11 @@ module.exports = class StreamSetting extends Base {
             <label>{_('GOV')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden">
               <Field
+                readOnly={homePage}
                 name={`${fieldNamePrefix}.gov`}
                 component="select"
-                className="form-control border-0"
+                className={classNames('form-control border-0', (homePage && 'select-readonly'))}
+
               >
                 {
                   options.gov.map(option => (
@@ -236,11 +242,23 @@ module.exports = class StreamSetting extends Base {
   };
 
   render() {
-    const {streamSettings} = this.props;
+    const {streamSettings, homePage} = this.props;
     return (
       <>
-        <div className="card-header">
-          {_('Settings')}
+        <div className={classNames('card-header', (homePage && 'd-flex align-items-center justify-content-between rounded-0'))}>
+          {homePage ? (_('Stream Settings')) : (_('Settings'))}
+          {
+            homePage && (
+              <button
+                type="button"
+                className="btn btn-outline-light rounded-pill"
+                disabled={this.state.$isApiProcessing}
+                onClick={this.onClickResetButton}
+              >
+                {_('Reset to Default')}
+              </button>
+            )
+          }
         </div>
         <nav>
           <div className="nav nav-tabs">
