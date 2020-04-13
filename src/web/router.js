@@ -517,7 +517,8 @@ module.exports = new Router({
         document.title = `${_('System')} - ${_title}`;
       },
       resolve: {
-        systemInformation: () => api.system.getInformation().then(response => response.data)
+        systemInformation: () => api.system.getInformation().then(response => response.data),
+        networkSettings: () => api.system.getNetworkSettings().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-system" */

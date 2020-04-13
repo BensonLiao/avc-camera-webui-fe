@@ -10,12 +10,15 @@ module.exports = class Information extends Base {
       systemInformation: PropTypes.shape({
         serialNumber: PropTypes.string.isRequired,
         firmware: PropTypes.string.isRequired
+      }).isRequired,
+      networkSettings: PropTypes.shape({
+        mac: PropTypes.string.isRequired
       }).isRequired
     };
   }
 
   render() {
-    const {systemInformation} = this.props;
+    const {systemInformation, networkSettings} = this.props;
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
@@ -48,6 +51,10 @@ module.exports = class Information extends Base {
                         <tr className="border-bottom">
                           <th className="text-size-20 pt-4 pb-2 text-muted">{_('S/N Code')}</th>
                           <th className="text-size-20 pt-4 pb-2 text-primary text-right">{systemInformation.serialNumber}</th>
+                        </tr>
+                        <tr className="border-bottom">
+                          <th className="text-size-20 pt-4 pb-2 text-muted">{_('MAC Address')}</th>
+                          <th className="text-size-20 pt-4 pb-2 text-primary text-right">{networkSettings.mac}</th>
                         </tr>
                       </tbody>
                     </table>
