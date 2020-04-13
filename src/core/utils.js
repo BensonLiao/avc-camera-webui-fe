@@ -110,6 +110,7 @@ exports.validateStreamBitRate = () => values => {
     bitRate: {
       optional: false,
       type: 'custom',
+      pattern: /^[\d]+$/,
       min: 2048,
       max: 20480,
       check: function (value, schema) {
@@ -119,6 +120,10 @@ exports.validateStreamBitRate = () => values => {
 
         if (typeof value !== 'string') {
           return this.makeError('string', null, value);
+        }
+
+        if (!schema.pattern.test(value)) {
+          return this.makeError('stringPattern', schema.pattern, value);
         }
 
         const number = Number(value);
