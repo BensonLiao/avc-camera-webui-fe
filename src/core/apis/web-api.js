@@ -1049,7 +1049,7 @@ module.exports = {
      * @returns {Promise<response>} webserver-form-schema/stream-settings-schema
      * @response 200 {Object}
      * - channelA {Object}
-     * - - format {String} webserver-form-schema/constants/stream-format
+     * - - codec {String} webserver-form-schema/constants/stream-codec
      * - - resolution {String} webserver-form-schema/constants/stream-resolution
      * - - frameRate {String}
      * - - bandwidthManagement {String}
@@ -1063,7 +1063,7 @@ module.exports = {
     }),
     /**
      * @param {Object} channelA
-     * @property {String} format webserver-form-schema/constants/stream-format
+     * @property {String} codec webserver-form-schema/constants/stream-codec
      * @property {String} resolution webserver-form-schema/constants/stream-resolution
      * @property {String} frameRate
      * @property {String} bandwidthManagement
@@ -1073,7 +1073,7 @@ module.exports = {
      * @returns {Promise<response>} webserver-form-schema/stream-settings-schema
      * @response 200 {Object}
      * - channelA {Object}
-     * - - format {String} webserver-form-schema/constants/stream-format
+     * - - codec {String} webserver-form-schema/constants/stream-codec
      * - - resolution {String} webserver-form-schema/constants/stream-resolution
      * - - frameRate {String}
      * - - bandwidthManagement {String}
