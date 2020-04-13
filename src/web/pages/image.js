@@ -289,13 +289,21 @@ module.exports = class Image extends Base {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={this.state.$isApiProcessing || values.isAutoFocusAfterZoom} type="button"
+                  disabled={this.state.$isApiProcessing || values.isAutoFocusAfterZoom || JSON.parse(values.hdrEnabled)}
+                  type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
                   {_(values.focusType === FocusType.fullRange ? 'Full-range Focus' : 'Short-range Focus')}
                 </button>
-                <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button
+                  type="button"
+                  disabled={JSON.parse(values.hdrEnabled)}
+                  className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
                   <span className="sr-only">Select focus type</span>
                 </button>
                 <div className="dropdown-menu">
@@ -318,7 +326,7 @@ module.exports = class Image extends Base {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={this.state.isAutoFocusProcessing || values.isAutoFocusAfterZoom}
+                  disabled={this.state.$isApiProcessing || values.isAutoFocusAfterZoom || JSON.parse(values.hdrEnabled)}
                   name="focalLength"
                   component={Slider}
                   step={1}
@@ -334,7 +342,7 @@ module.exports = class Image extends Base {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={this.state.isAutoFocusProcessing}
+                  disabled={values.isAutoFocusProcessing || JSON.parse(values.hdrEnabled)}
                   name="zoom"
                   component={Slider}
                   step={0.1}
@@ -343,9 +351,12 @@ module.exports = class Image extends Base {
                 />
               </div>
               <div className="form-group form-check">
-                <Field id="input-check-auto-focus-after-zoom" type="checkbox" className="form-check-input"
-                  disabled={this.state.isAutoFocusProcessing}
-                  name="isAutoFocusAfterZoom" checked={values.isAutoFocusAfterZoom}/>
+                <Field id="input-check-auto-focus-after-zoom"
+                  type="checkbox"
+                  disabled={values.isAutoFocusProcessing || JSON.parse(values.hdrEnabled)}
+                  className="form-check-input"
+                  name="isAutoFocusAfterZoom"
+                  checked={values.isAutoFocusAfterZoom}/>
                 <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
                   {_('Auto Focus After Zoom')}
                 </label>

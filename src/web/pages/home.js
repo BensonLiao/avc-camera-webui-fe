@@ -272,7 +272,8 @@ module.exports = class Home extends Base {
             <div className="col-12 my-1 d-flex justify-content-between align-items-center">
               <span className="text-size-20">{_('Focus')}</span>
               <button
-                disabled={this.state.$isApiProcessing} type="button"
+                disabled={this.state.$isApiProcessing || JSON.parse(values.hdrEnabled)}
+                type="button"
                 className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
                 onClick={this.generateClickAutoFocusButtonHandler(form)}
               >
@@ -293,7 +294,7 @@ module.exports = class Home extends Base {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={this.state.isAutoFocusProcessing}
+                  disabled={this.state.$isApiProcessing || JSON.parse(values.hdrEnabled)}
                   name="zoom" component={Slider} step={0.1}
                   min={videoFocusSettingsSchema.zoom.min}
                   max={videoFocusSettingsSchema.zoom.max}/>
