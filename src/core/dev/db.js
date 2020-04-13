@@ -6,7 +6,7 @@ const ApertureType = require('webserver-form-schema/constants/aperture-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const OrientationType = require('webserver-form-schema/constants/orientation-type');
 const RefreshRate = require('webserver-form-schema/constants/refresh-rate');
-const StreamFormat = require('webserver-form-schema/constants/stream-format');
+const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
@@ -121,7 +121,7 @@ module.exports = {
       },
       streamDefault: {
         channelA: {
-          format: StreamFormat.h264,
+          codec: StreamCodec.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
@@ -130,7 +130,7 @@ module.exports = {
           gov: StreamGOV['60']
         },
         channelB: {
-          format: StreamFormat.h264,
+          codec: StreamCodec.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
@@ -141,7 +141,7 @@ module.exports = {
       },
       stream: {
         channelA: {
-          format: StreamFormat.h264,
+          codec: StreamCodec.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.mbr,
@@ -149,7 +149,7 @@ module.exports = {
           gov: StreamGOV['60']
         },
         channelB: {
-          format: StreamFormat.h264,
+          codec: StreamCodec.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.mbr,

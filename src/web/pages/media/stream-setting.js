@@ -7,7 +7,7 @@ const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
 const {renderError} = require('../../../core/utils');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
-const StreamFormat = require('webserver-form-schema/constants/stream-format');
+const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
@@ -44,16 +44,16 @@ module.exports = class StreamSetting extends Base {
     return (
       <>
         <div className="form-group">
-          <label>{_('Format')}</label>
+          <label>{_('Codec')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field
               readOnly={homePage}
-              name={`${fieldNamePrefix}.format`}
+              name={`${fieldNamePrefix}.codec`}
               component="select"
               className={classNames('form-control border-0', (homePage && 'select-readonly'))}
             >
               {
-                options.format.map(option => (
+                options.codec.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
                 ))
               }
@@ -93,7 +93,7 @@ module.exports = class StreamSetting extends Base {
             </Field>
           </div>
         </div>
-        {values.format !== StreamFormat.mjpeg && (
+        {values.codec !== StreamCodec.mjpeg && (
           <div className="form-group">
             <label>{_('Bandwidth Management')}</label>
             <div className="input-group">
@@ -130,7 +130,7 @@ module.exports = class StreamSetting extends Base {
             </div>
           </div>
         )}
-        {values.format !== StreamFormat.mjpeg && (
+        {values.codec !== StreamCodec.mjpeg && (
           <div className="form-group">
             <label>{_('GOV')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden">
@@ -156,7 +156,7 @@ module.exports = class StreamSetting extends Base {
 
   formRender = ({values}) => {
     const channelAOptions = {
-      format: StreamFormat.all().filter(x => x !== StreamFormat.mjpeg).map(x => ({label: x, value: x})),
+      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg).map(x => ({label: x, value: x})),
       resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
       frameRate: (() => {
         const result = [];
@@ -170,7 +170,7 @@ module.exports = class StreamSetting extends Base {
       gov: StreamGOV.all().map(x => ({label: x, value: x}))
     };
     const channelBOptions = {
-      format: StreamFormat.all().filter(x => x !== StreamFormat.h265).map(x => ({label: x, value: x})),
+      codec: StreamCodec.all().filter(x => x !== StreamCodec.h265).map(x => ({label: x, value: x})),
       resolution: (() => {
         let options;
         if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
@@ -186,7 +186,7 @@ module.exports = class StreamSetting extends Base {
           ];
         }
 
-        if (values.channelB.format === StreamFormat.mjpeg) {
+        if (values.channelB.codec === StreamCodec.mjpeg) {
           options = [
             StreamResolution['2'],
             StreamResolution['3'],

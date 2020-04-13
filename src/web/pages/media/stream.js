@@ -10,7 +10,7 @@ module.exports = class Stream extends Base {
     return {
       streamSettings: PropTypes.shape({
         channelA: PropTypes.shape({
-          format: PropTypes.string.isRequired,
+          codec: PropTypes.string.isRequired,
           resolution: PropTypes.string.isRequired,
           frameRate: PropTypes.string.isRequired,
           bandwidthManagement: PropTypes.string.isRequired,
@@ -18,7 +18,7 @@ module.exports = class Stream extends Base {
           gov: PropTypes.string.isRequired
         }).isRequired,
         channelB: PropTypes.shape({
-          format: PropTypes.string.isRequired,
+          codec: PropTypes.string.isRequired,
           resolution: PropTypes.string.isRequired,
           frameRate: PropTypes.string.isRequired,
           bandwidthManagement: PropTypes.string.isRequired,
