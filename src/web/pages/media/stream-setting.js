@@ -1,4 +1,5 @@
 const React = require('react');
+const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
@@ -16,6 +17,18 @@ const Dropdown = require('../../../core/components/fields/dropdown');
 const utils = require('../../../core/utils');
 
 module.exports = class StreamSetting extends Base {
+  static get propTypes() {
+    return {
+      homePage: PropTypes.bool // Make form ui for home page or not
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      homePage: false
+    };
+  }
+
   onSubmit = values => {
     progress.start();
     api.multimedia.updateStreamSettings(values)
