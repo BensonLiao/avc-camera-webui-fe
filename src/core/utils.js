@@ -105,11 +105,11 @@ exports.renderError = error => {
 };
 
 exports.validateStreamBitRate = () => values => {
+  let result;
   const bitRateSchema = {
     bitRate: {
       optional: false,
       type: 'custom',
-      pattern: /^[\d]{4,5}$/,
       min: 2048,
       max: 20480,
       check: function (value, schema) {
@@ -119,10 +119,6 @@ exports.validateStreamBitRate = () => values => {
 
         if (typeof value !== 'string') {
           return this.makeError('string', null, value);
-        }
-
-        if (!schema.pattern.test(value)) {
-          return this.makeError('stringPattern', schema.pattern, value);
         }
 
         const number = Number(value);
@@ -138,10 +134,8 @@ exports.validateStreamBitRate = () => values => {
       }
     }
   };
-  let result;
   result = validator.validate({bitRate: values}, bitRateSchema);
-  console.log('result', result);
-  return (result ? result[0].message : '');
+  return (result === true ? '' : result[0].message);
 };
 
 /**

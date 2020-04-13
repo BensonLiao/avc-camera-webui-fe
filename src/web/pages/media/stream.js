@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
 const {renderError} = require('../../../core/utils');
@@ -130,7 +130,11 @@ module.exports = class Stream extends Base {
                 type="text"
                 name={`${fieldNamePrefix}.bitRate`}
                 validate={utils.validateStreamBitRate()}
-                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}
+                className={
+                  classNames('form-control dynamic',
+                    {show: values.bandwidthManagement === StreamBandwidthManagement.mbr}
+                  )
+                }
               />
               <input readOnly type="text" className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
               <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
@@ -141,6 +145,9 @@ module.exports = class Stream extends Base {
             <small className="text-info mb-3">
               {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
             </small>
+            <div style={{display: 'block'}} className="invalid-feedback">
+              <ErrorMessage name={`${fieldNamePrefix}.bitRate`}/>
+            </div>
           </div>
         )}
         {values.format !== StreamFormat.mjpeg && (
