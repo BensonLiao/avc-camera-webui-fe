@@ -242,6 +242,9 @@ body {
     height: 40px;
     background-color: #f2f2f2;
     transition: background-color 0.25s linear;
+    &.triple-wrapper {
+      border: 1px solid $secondary;
+    }
     &.date {
       border-radius: 50rem;
       margin-left: 15px;
