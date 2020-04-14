@@ -58,6 +58,19 @@ module.exports = class Layout extends Base {
     this.state.isShowAboutModal = false;
   }
 
+  generateChangeLanguageHandler = languageCode => event => {
+    event.preventDefault();
+    progress.start();
+    api.system.updateLanguage(languageCode)
+      .then(() => {
+        location.reload();
+      })
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
+
   showAboutModal = () => {
     this.setState({isShowAboutModal: true});
   };
@@ -219,42 +232,31 @@ module.exports = class Layout extends Base {
           <div className="collapse navbar-collapse" id="navigation">
             <ul className="navbar-nav mr-auto"/>
             <form className="form-row text-right">
+
+              <div className="col d-none d-sm-block">
+                <div className="dropdown">
+                  <button className="btn dropdown-toggle border-primary btn-outline text-primary" type="button" data-toggle="dropdown">
+                    <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
+                  </button>
+                  <div className="dropdown-menu dropdown-menu-right">
+                    {
+                      Object.keys(window.config.languages).map(languageCode => (
+                        <a key={languageCode} className="dropdown-item"
+                          href={`#${languageCode}`}
+                          onClick={this.generateChangeLanguageHandler(languageCode)}
+                        >
+                          {window.config.languages[languageCode].title}
+                        </a>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+
               <div className="col d-none d-sm-block">
                 <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
                   <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
                 </button>
-              </div>
-
-              <div className="col">
-                <div className="dropdown">
-                  <button className="btn text-primary border-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i className="fas fa-question-circle text-primary text-size-20" style={{width: '20px', marginRight: '4px'}}/>
-                  </button>
-                  <div className="dropdown-menu dropdown-menu-right">
-                    <h5 className="dropdown-header text-primary"> {_('Support')}</h5>
-                    <a className="dropdown-item" href="https://arecontvision.zendesk.com/hc/en-us" target="_blank" rel="noopener noreferrer">
-                      {_('Online Support Request')}
-                    </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/firmware.php" target="_blank" rel="noopener noreferrer">
-                      {_('Firmware Downloads')}
-                    </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/software.php" target="_blank" rel="noopener noreferrer">
-                      {_('Software Downloads')}
-                    </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/downloads.php" target="_blank" rel="noopener noreferrer">
-                      {_('Downloads')}
-                    </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/productselector.php" target="_blank" rel="noopener noreferrer">
-                      {_('Product Selector')}
-                    </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/bulletins/Technical" target="_blank" rel="noopener noreferrer">
-                      {_('Technical Updates')}
-                    </a>
-                    <a className="dropdown-item" href="https://www.arecontvision.com/resource" target="_blank" rel="noopener noreferrer">
-                      {_('Resources')}
-                    </a>
-                  </div>
-                </div>
               </div>
 
               <div className="col">
