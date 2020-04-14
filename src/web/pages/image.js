@@ -5,7 +5,6 @@ const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const IREnableType = require('webserver-form-schema/constants/ir-enable-type');
-const FocusType = require('webserver-form-schema/constants/focus-type');
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
@@ -43,9 +42,7 @@ module.exports = class Image extends Base {
         refreshRate: PropTypes.oneOf(videoSettingsSchema.refreshRate.enum).isRequired, // 刷新頻率
         isAutoFocus: PropTypes.bool.isRequired, // 自動對焦
         focalLength: PropTypes.number.isRequired, // 焦距
-        zoom: PropTypes.number.isRequired,
-        focusType: PropTypes.oneOf(FocusType.all()).isRequired,
-        isAutoFocusAfterZoom: PropTypes.bool.isRequired
+        zoom: PropTypes.number.isRequired
       }).isRequired
     };
   }
@@ -93,7 +90,7 @@ module.exports = class Image extends Base {
       prevValues.focalLength !== nextValues.focalLength ||
       prevValues.zoom !== nextValues.zoom ||
       prevValues.focusType !== nextValues.focusType ||
-      prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom
+      prevValues.isAutoFocus !== nextValues.isAutoFocus
     ) {
       // Change focus settings.
       this.submitPromise = this.submitPromise
@@ -289,23 +286,13 @@ module.exports = class Image extends Base {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={this.state.$isApiProcessing || values.isAutoFocusAfterZoom} type="button"
+                  disabled={this.state.$isApiProcessing || values.isAutoFocus || JSON.parse(values.hdrEnabled)}
+                  type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
-                  {_(values.focusType === FocusType.fullRange ? 'Full-range Focus' : 'Short-range Focus')}
+                  {_('Auto Focus')}
                 </button>
-                <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span className="sr-only">Select focus type</span>
-                </button>
-                <div className="dropdown-menu">
-                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.fullRange)}>
-                    {_('Full-range Focus')}
-                  </button>
-                  <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.shortRange)}>
-                    {_('Short-range Focus')}
-                  </button>
-                </div>
               </div>
             </h2>
 
@@ -318,7 +305,7 @@ module.exports = class Image extends Base {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={this.state.isAutoFocusProcessing || values.isAutoFocusAfterZoom}
+                  disabled={this.state.$isApiProcessing || values.isAutoFocus || JSON.parse(values.hdrEnabled)}
                   name="focalLength"
                   component={Slider}
                   step={1}
@@ -334,21 +321,13 @@ module.exports = class Image extends Base {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={this.state.isAutoFocusProcessing}
+                  disabled={values.isAutoFocusProcessing || JSON.parse(values.hdrEnabled)}
                   name="zoom"
                   component={Slider}
                   step={0.1}
                   min={videoFocusSettingsSchema.zoom.min}
                   max={videoFocusSettingsSchema.zoom.max}
                 />
-              </div>
-              <div className="form-group form-check">
-                <Field id="input-check-auto-focus-after-zoom" type="checkbox" className="form-check-input"
-                  disabled={this.state.isAutoFocusProcessing}
-                  name="isAutoFocusAfterZoom" checked={values.isAutoFocusAfterZoom}/>
-                <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
-                  {_('Auto Focus After Zoom')}
-                </label>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">

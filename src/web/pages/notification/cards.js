@@ -8,9 +8,7 @@ const ContentEditable = require('react-contenteditable').default;
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
-const NotificationFaceRecognitionVMSEvent = require('webserver-form-schema/constants/notification-face-recognition-vms-event');
 const outputIcon = require('../../../resource/icon-output-40px.svg');
-const vmsIcon = require('../../../resource/icon-server-40px.svg');
 const Base = require('../shared/base');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const _ = require('../../../languages');
@@ -58,8 +56,6 @@ module.exports = class Cards extends Base {
         isEnableGPIO1: card.isEnableGPIO1,
         isEnableGPIO2: card.isEnableGPIO2,
         isEnableEmail: card.isEnableEmail,
-        isEnableVMS: card.isEnableVMS,
-        faceRecognitionVMSEvent: card.faceRecognitionVMSEvent,
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
@@ -82,8 +78,6 @@ module.exports = class Cards extends Base {
       isEnableGPIO1: false,
       isEnableGPIO2: false,
       isEnableEmail: false,
-      isEnableVMS: true,
-      faceRecognitionVMSEvent: NotificationFaceRecognitionVMSEvent.motionDetect,
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
@@ -465,40 +459,6 @@ module.exports = class Cards extends Base {
             <hr/>
 
             <div className="form-group d-flex justify-content-between align-items-center">
-              <label className="mb-0">{_('Video Management System')}</label>
-              <div className="custom-control custom-switch">
-                <Field name="isEnableVMS" type="checkbox" className="custom-control-input" id="switch-notification-target-vms" checked={values.isEnableVMS}/>
-                <label className="custom-control-label" htmlFor="switch-notification-target-vms">
-                  <span>{_('ON')}</span>
-                  <span>{_('OFF')}</span>
-                </label>
-              </div>
-            </div>
-            <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.motionDetection})}>
-              <div className="card">
-                <div className="card-body">
-                  <div className="form-group">
-                    <label className="text-size-16 mb-0">{_('Method')}</label>
-                  </div>
-                  <div className="form-group">
-                    {
-                      NotificationFaceRecognitionVMSEvent.all().map(RecognitionVMSEvent => (
-                        <div key={RecognitionVMSEvent} className="form-check mb-3">
-                          <Field name="faceRecognitionVMSEvent" className="form-check-input" type="radio" id={`input-notification-vms-event-${RecognitionVMSEvent}`} value={RecognitionVMSEvent}/>
-                          <label className="form-check-label" htmlFor={`input-notification-vms-event-${RecognitionVMSEvent}`}>
-                            {_(`notification-vms-event-${RecognitionVMSEvent}`)}
-                          </label>
-                        </div>
-                      ))
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <hr/>
-
-            <div className="form-group d-flex justify-content-between align-items-center">
               <label className="mb-0">{_('Email')}</label>
               <div className="custom-control custom-switch">
                 <Field name="isEnableEmail" type="checkbox" className="custom-control-input" id="switch-notification-target-mail"/>
@@ -618,13 +578,6 @@ module.exports = class Cards extends Base {
               card.isEnableGPIO && (
                 <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
                   <img src={outputIcon}/>
-                </div>
-              )
-            }
-            {
-              card.isEnableVMS && (
-                <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
-                  <img src={vmsIcon}/>
                 </div>
               )
             }
