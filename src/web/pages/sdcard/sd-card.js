@@ -269,10 +269,6 @@ module.exports = class SDCard extends Base {
             </div>
           </div>
         </div>
-
-        <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-          {_('Apply')}
-        </button>
       </Form>
     );
   };
