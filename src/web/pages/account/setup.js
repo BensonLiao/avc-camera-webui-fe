@@ -11,8 +11,8 @@ const UserPermission = require('webserver-form-schema/constants/user-permission'
 const setupAccountValidator = require('../../validations/setup/account-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
-const logo = require('../../../resource/logo-avn-secondary.svg');
-const logoWithTitle = require('../../../resource/logo-avn-title.svg');
+const logo = require('../../../resource/logo-avc-secondary.svg');
+const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 
 module.exports = class Setup extends Base {
   constructor(props) {
