@@ -6,6 +6,9 @@ const React = require('react');
 const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
+const IREnableType = require('webserver-form-schema/constants/ir-enable-type');
+const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
+const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-settings-schema');
 const defaultVideoBackground = require('../../resource/video-bg.jpg');
@@ -13,6 +16,7 @@ const Base = require('./shared/base');
 const _ = require('../../languages');
 const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
+const Dropdown = require('../../core/components/fields/dropdown');
 const Slider = require('../../core/components/fields/slider');
 const FormikEffect = require('../../core/components/formik-effect');
 const deviceNameValidator = require('../validations/system/device-name-validator');
@@ -32,7 +36,9 @@ module.exports = class Home extends Base {
         sdTotal: PropTypes.number.isRequired
       }).isRequired,
       videoSettings: PropTypes.shape({
-        defoggingEnabled: PropTypes.bool.isRequired, // 除霧
+        defoggingEnabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired, // 除霧
+        irEnabled: PropTypes.string.isRequired, // 紅外線燈
+        irBrightness: PropTypes.number, // 紅外線燈功率
         brightness: PropTypes.number.isRequired, // 亮度
         contrast: PropTypes.number.isRequired, // 對比
         hdrEnabled: PropTypes.oneOf(videoSettingsSchema.hdrEnabled.enum).isRequired, // HDR
@@ -90,7 +96,12 @@ module.exports = class Home extends Base {
   });
 
   onChangeVideoSettings = ({nextValues, prevValues}) => {
-    if (prevValues.focalLength !== nextValues.focalLength || prevValues.zoom !== nextValues.zoom) {
+    if (
+      prevValues.focalLength !== nextValues.focalLength ||
+      prevValues.zoom !== nextValues.zoom ||
+      prevValues.focusType !== nextValues.focusType ||
+      prevValues.isAutoFocus !== nextValues.isAutoFocus
+    ) {
       // Change focus settings.
       this.submitPromise = this.submitPromise
         .then(() => api.video.updateFocusSettings(nextValues))
@@ -100,6 +111,7 @@ module.exports = class Home extends Base {
       const values = {
         ...nextValues,
         hdrEnabled: `${nextValues.hdrEnabled}`,
+        defoggingEnabled: Boolean(nextValues.defoggingEnabled),
         timePeriodStart: nextValues.dnDuty[0],
         timePeriodEnd: nextValues.dnDuty[1]
       };
@@ -524,7 +536,7 @@ module.exports = class Home extends Base {
   }
 
   render() {
-    const {systemInformation, streamSettings} = this.props;
+    const {systemInformation} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
     const classTable = {
       faceRecognitionState: classNames({
