@@ -469,7 +469,7 @@ module.exports = {
      * - interval {string}
      */
     updateAppSettings: ({deviceToken, deviceId, interval}) => api({
-      method: 'post',
+      method: 'put',
       url: '/api/notification/app/settings',
       data: {deviceToken, deviceId, interval}
     }),
