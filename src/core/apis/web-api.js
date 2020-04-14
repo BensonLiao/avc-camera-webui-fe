@@ -435,15 +435,15 @@ module.exports = {
       url: '/api/system/network/tcpip/http'
     }),
     /**
-     * @param {Number} httpPort
+     * @param {Number} port
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - httpPort {Number}
      */
-    updateHttpInfo: httpPort => api({
+    updateHttpInfo: ({port}) => api({
       method: 'put',
       url: '/api/system/network/tcpip/http',
-      data: {httpPort}
+      data: {port}
     })
   },
   notification: {
