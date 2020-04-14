@@ -1,14 +1,10 @@
 const classNames = require('classnames');
 const React = require('react');
 const PropTypes = require('prop-types');
-const imageCode404 = require('../../../resource/error-404-code.svg');
-const imageCode500 = require('../../../resource/error-500-code.svg');
-const imageOops = require('../../../resource/error-oops.svg');
-const imageError01 = require('../../../resource/error-icon-01.svg');
-const imageError02 = require('../../../resource/error-icon-02.svg');
-const imageError03 = require('../../../resource/error-icon-03.svg');
-const imageError04 = require('../../../resource/error-icon-04.svg');
-const imageError05 = require('../../../resource/error-icon-05.svg');
+const imageCode404 = require('../../../resource/icon-error-404.svg');
+const imageCode500 = require('../../../resource/icon-error-500.svg');
+const bgCode404 = require('../../../resource/bg-error-404-clip.png');
+const bgCode500 = require('../../../resource/bg-error-500-clip.png');
 const _ = require('../../../languages');
 
 module.exports = class ErrorPage extends React.Component {
@@ -33,31 +29,22 @@ module.exports = class ErrorPage extends React.Component {
     const classTable = {
       page: classNames('error-page', `error-${this.state.status}`)
     };
-    const messageTitle = this.state.status === 404 ? _('Not found this page') : _('The server error');
-    const messageSubtitle = this.state.status === 404 ?
-      _('Please click the button to go back to home!') :
-      _('Sorry for your inconvenience, we are actively process with it!');
+    const messageTitle = this.state.status === 404 ? _('Not Found') : _('The Server Error');
 
     return (
       <div className={classTable.page}>
+        <img className="mw-100" src={this.state.status === 404 ? bgCode404 : bgCode500}/>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-6 text-right">
+            <div className="col-12 justify-content-center text-center mt-5">
               <img src={this.state.status === 404 ? imageCode404 : imageCode500}/>
-            </div>
-            <div className="col-6 message-container">
-              <img src={imageOops}/> <span className="message-title">{messageTitle}</span>
-              <p className="message-subtitle">{messageSubtitle}</p>
-              <a className="btn btn-primary text-light rounded-pill" href="/">
-                {_('Go to home')} <i className="fas fa-arrow-right fa-fw"/>
-              </a>
-            </div>
-            <div className="col-12 text-center icons mb-5">
-              <img src={imageError01}/>
-              <img src={imageError02}/>
-              <img src={imageError03}/>
-              <img src={imageError04}/>
-              <img src={imageError05}/>
+              <div className="message-container mt-5">
+                <h2 className="message-status mb-0">{this.state.status}</h2>
+                <h3 className="message-title">{messageTitle}</h3>
+                <a className="btn btn-primary text-light rounded-pill mt-5" href="/">
+                  {_('Back to Home')}
+                </a>
+              </div>
             </div>
           </div>
         </div>

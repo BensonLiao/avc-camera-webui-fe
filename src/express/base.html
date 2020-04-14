@@ -3,10 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <link rel="icon" href="../resource/favicon.png" type="image/png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
   <title>{{ cameraName }} Web-Manager</title>
 
   <% if @isDebug : %>
-    <link type="text/css" rel="stylesheet" href="//localhost:8002/web.css"/>
+    <link type="text/css" rel="stylesheet" href="http://localhost:8002/web.css"/>
   <% else : %>
     <link type="text/css" rel="stylesheet" href="/assets/web.css"/>
   <% end %>
@@ -40,8 +42,8 @@
   </div>
 </div>
 <% if @isDebug : %>
-  <script type="text/javascript" src="//localhost:8002/{{ languageCode }}.js"></script>
-  <script type="text/javascript" src="//localhost:8002/web.js"></script>
+  <script type="text/javascript" src="http://localhost:8002/{{ languageCode }}.js"></script>
+  <script type="text/javascript" src="http://localhost:8002/web.js"></script>
 <% else : %>
   <script type="text/javascript" src="/assets/{{ languageCode }}.js"></script>
   <script type="text/javascript" src="/assets/web.js"></script>

@@ -2,12 +2,12 @@ window.languageResource = {
   _code: 'en-us',
 
   // Constants
-  'permission-0': 'Administrator',
-  'permission-1': 'Guest',
+  'permission-0': 'Admin',
+  'permission-1': 'Viewer',
 
-  'certificate-type-0': 'AndroVideo self-signed',
-  'certificate-type-1': 'Upload certificate',
-  'certificate-type-2': 'Generate certificate on this device',
+  'certificate-type-0': 'AV Costar Self-signed',
+  'certificate-type-1': 'Upload Certificate',
+  'certificate-type-2': 'Generate Certificate on This Device',
 
   'confidence-1': 'Low',
   'confidence-2': 'Medium',
@@ -24,17 +24,46 @@ window.languageResource = {
   incandescent: 'Incandescent',
   manual: 'Nanual',
 
+  // Shutter speed
+  'shutter-speed-0': 'Auto',
+  'shutter-speed-1': '1/30',
+  'shutter-speed-2': '1/50',
+  'shutter-speed-3': '1/60',
+  'shutter-speed-4': '1/100',
+  'shutter-speed-5': '1/125',
+  'shutter-speed-6': '1/500',
+  'shutter-speed-7': '1/1,000',
+  'shutter-speed-8': '1/2,000',
+  'shutter-speed-9': '1/4,000',
+  'shutter-speed-10': '1/8,000',
+
+  // Aperture (Iris)
+  'aperture-0': 'Auto',
+  'aperture-1': 'Max',
+
+  // White balance
+  'white-balance-0': 'Auto',
+  'white-balance-1': 'Outdoor',
+  'white-balance-2': 'Fluorescent',
+  'white-balance-3': 'Incandescent',
+  'white-balance-4': 'Manual',
+
   // D/N
-  'dn-auto': 'Auto',
-  'dn-day': 'Color',
-  'dn-night': 'Black and white',
-  'dn-manual': 'Manual',
+  'daynight-mode-0': 'Auto',
+  'daynight-mode-1': 'Color',
+  'daynight-mode-2': 'Black and White',
+  'daynight-mode-3': 'Manual',
 
   // Orientation
-  'orientation-off': 'Normal',
-  'orientation-flip-v': 'Vertical flip',
-  'orientation-flip-h': 'Horizontal flip',
-  'orientation-flip-vh': '180 degree flip',
+  'orientation-0': 'Normal',
+  'orientation-1': 'Vertical Flip',
+  'orientation-2': 'Horizontal Flip',
+  'orientation-3': '180 Degree Flip',
+
+  // Refresh rate
+  'refresh-rate-0': 'Auto',
+  'refresh-rate-1': '50Hz',
+  'refresh-rate-2': '60Hz',
 
   // 解析度
   'stream-resolution-0': '3840*2160(16:9)',
@@ -42,10 +71,18 @@ window.languageResource = {
   'stream-resolution-2': '1920*1080(16:9)',
   'stream-resolution-3': '1280*720(16:9)',
   'stream-resolution-4': '640*360(16:9)',
-  'stream-resolution-5': '2048*1536(4:3)',
-  'stream-resolution-6': '1600*1200(4:3)',
-  'stream-resolution-7': '1280*960(4:3)',
-  'stream-resolution-8': '640*480(4:3)',
+  'stream-resolution-5': '2560*1920(4:3)',
+  'stream-resolution-6': '2048*1536(4:3)',
+  'stream-resolution-7': '1600*1200(4:3)',
+  'stream-resolution-8': '1280*960(4:3)',
+  'stream-resolution-9': '1024*768(4:3)',
+  'stream-resolution-10': '640*480(4:3)',
+  'stream-resolution-11': '320*240(4:3)',
+
+  // Bandwidth Management
+  'stream-bandwidth-management-0': 'Maximum Bitrate',
+  'stream-bandwidth-management-1': 'Variable Bitrate',
+  'stream-bandwidth-management-2': 'Constant Bitrate',
 
   // 可變比特率 (VBR)
   'stream-vbr-bit-rate-level-0': 'Best',
@@ -60,26 +97,38 @@ window.languageResource = {
   'confidence-level-2': 'High',
 
   // 聲音品質
-  'audio-quality-0': 'Low (G.711, 8kHz, 64kbps, Mono)',
-  'audio-quality-1': 'Normal (AAC, 16kHz, 96kbps, Mono)',
+  'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
+  'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
 
   // 文字大小
   'font-size-0': 'Small',
   'font-size-1': 'Medium',
   'font-size-2': 'Large',
 
+  // 文字貼圖
+  'word-type-0': 'Time',
+  'word-type-1': 'Camera Name',
+  'word-type-2': 'Camera Name and Time',
+  'word-type-3': 'Custom',
+
   // 通知類型
-  'notification-card-0': 'Face recognition',
-  'notification-card-1': 'Age gender',
-  'notification-card-2': 'Humanoid detection',
+  'notification-card-0': 'Facial Recognition',
+  'notification-card-1': 'Age Gender',
+  'notification-card-2': 'Humanoid Detection',
+  'notification-card-3': 'Motion Detection',
+  'notification-card-4': 'Tamper Alarm',
 
   // 辨識通知條件
   'face-recognition-condition-0': 'Always',
   'face-recognition-condition-1': 'Success',
   'face-recognition-condition-2': 'Unknown',
 
+  // VMS類型
+  'notification-vms-event-0': 'Video Motion Detection Event',
+  'notification-vms-event-1': 'Analytic Event',
+
   // 通知附件檔案
-  'email-attachment-type-0': 'Face thumbnail',
+  'email-attachment-type-0': 'Face Thumbnail',
   'email-attachment-type-1': 'Screenshot',
   'email-attachment-type-2': 'None',
 
@@ -95,6 +144,7 @@ window.languageResource = {
   'validation-stringContainsLowerCaseLatter': 'This field must contain the lower case letter.',
   'validation-stringContainsUpperCaseLatter': 'This field must contain the upper case letter.',
   'validation-stringContainsNumber': 'This field must contain the number.',
+  'validation-stringAbortSpecialCharacters': 'This field can\'t use special characters.',
   'validation-stringEnum': 'This field does not match any of the allowed values.',
   'validation-number': 'This field must be a number.',
   'validation-numberMin': 'This field must be greater than or equal to {expected}.',
@@ -122,6 +172,23 @@ window.languageResource = {
   'validation-birthday': 'This field must be a valid birthday.',
   'validation-countryCode': 'This field must be a valid country code.',
 
-  // /set/language
-  'SETUP-Account': 'Account'
+  // /
+  'Device Status': 'Status',
+  Green: 'Normal',
+
+  // /media/stream
+  '{0} - {1} Kbps': '{0} - {1} Kbps',
+
+  // /notification/cards
+  'notification-card-filter-all': 'All',
+  'Notification Filters': 'Filters',
+
+  // /members
+  Database: 'Database',
+
+  // /events
+  'Recognition Result': 'Status',
+
+  // /license
+  'Enable Status': 'Status'
 };

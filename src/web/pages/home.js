@@ -1,13 +1,12 @@
 const axios = require('axios');
 const download = require('downloadjs');
 const classNames = require('classnames');
+const {getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
-const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
-const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-settings-schema');
 const defaultVideoBackground = require('../../resource/video-bg.jpg');
@@ -19,23 +18,28 @@ const Slider = require('../../core/components/fields/slider');
 const Dropdown = require('../../core/components/fields/dropdown');
 const FormikEffect = require('../../core/components/formik-effect');
 const deviceNameValidator = require('../validations/system/device-name-validator');
+const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
+const StreamFormat = require('webserver-form-schema/constants/stream-format');
+const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
+const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
+const StreamGOV = require('webserver-form-schema/constants/stream-gov');
+const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX} = require('../../core/constants');
 
 module.exports = class Home extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es']).isRequired,
+        languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired,
         deviceName: PropTypes.string.isRequired,
         isEnableFaceRecognition: PropTypes.bool.isRequired,
         isEnableAgeGender: PropTypes.bool.isRequired,
         isEnableHumanoidDetection: PropTypes.bool.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
-        usedDiskSize: PropTypes.number.isRequired,
-        totalDiskSize: PropTypes.number.isRequired
+        sdUsage: PropTypes.number.isRequired,
+        sdTotal: PropTypes.number.isRequired
       }).isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.bool.isRequired, // 除霧
-        irEnabled: PropTypes.bool.isRequired, // 紅外線燈
         brightness: PropTypes.number.isRequired, // 亮度
         contrast: PropTypes.number.isRequired, // 對比
         hdrEnabled: PropTypes.oneOf(videoSettingsSchema.hdrEnabled.enum).isRequired, // HDR
@@ -54,6 +58,24 @@ module.exports = class Home extends Base {
         isAutoFocus: PropTypes.bool.isRequired, // 自動對焦
         focalLength: PropTypes.number.isRequired, // 焦距
         zoom: PropTypes.number.isRequired
+      }).isRequired,
+      streamSettings: PropTypes.shape({
+        channelA: PropTypes.shape({
+          format: PropTypes.string.isRequired,
+          resolution: PropTypes.string.isRequired,
+          frameRate: PropTypes.string.isRequired,
+          bandwidthManagement: PropTypes.string.isRequired,
+          bitRate: PropTypes.string,
+          gov: PropTypes.string.isRequired
+        }).isRequired,
+        channelB: PropTypes.shape({
+          format: PropTypes.string.isRequired,
+          resolution: PropTypes.string.isRequired,
+          frameRate: PropTypes.string.isRequired,
+          bandwidthManagement: PropTypes.string.isRequired,
+          bitRate: PropTypes.string,
+          gov: PropTypes.string.isRequired
+        }).isRequired
       }).isRequired
     };
   }
@@ -102,6 +124,7 @@ module.exports = class Home extends Base {
       // Change other settings.
       const values = {
         ...nextValues,
+        hdrEnabled: `${nextValues.hdrEnabled}`,
         timePeriodStart: nextValues.dnDuty[0],
         timePeriodEnd: nextValues.dnDuty[1]
       };
@@ -209,255 +232,74 @@ module.exports = class Home extends Base {
       .finally(progress.done);
   };
 
+  deviceNameFormRender = ({errors, touched}) => {
+    return (
+      <Form className="form-group">
+        <Field name="deviceName" type="text"
+          maxLength={DEVICE_NAME_CHAR_MAX}
+          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
+        <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
+      </Form>
+    );
+  };
+
   videoSettingsFormRender = form => {
     const {values} = form;
 
     return (
-      <Form className="card shadow">
+      <Form>
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{_('Video properties')}</div>
+        <div className="card-header d-flex align-items-center justify-content-between">
+          {_('Quick Start')}
+          <button disabled={this.state.$isApiProcessing} type="button"
+            className="btn btn-outline-light rounded-pill"
+            onClick={this.generateClickResetButtonHandler(form)}
+          >
+            {_('Reset to Default')}
+          </button>
+        </div>
         <div className="card-body">
           <div className="form-row">
-            <div className="col-12 col-lg-6 my-1 d-flex align-items-center">
-              <span>{_('Defog')}</span>
+            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+              <span className="text-size-20">{_('WDR')}</span>
               <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="defoggingEnabled" type="checkbox" checked={values.defoggingEnabled} className="custom-control-input" id="switch-defogging"/>
-                <label className="custom-control-label" htmlFor="switch-defogging">
-                  <span>{_('Auto')}</span>
-                  <span>{_('Off')}</span>
-                </label>
-              </div>
-            </div>
-            <div className="col-12 col-lg-6 my-1 d-flex align-items-center justify-content-xl-end">
-              <span>{_('IR light')}</span>
-              <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="irEnabled" type="checkbox" checked={values.irEnabled} className="custom-control-input" id="switch-ir"/>
-                <label className="custom-control-label" htmlFor="switch-ir">
-                  <span>{_('Auto')}</span>
-                  <span>{_('Off')}</span>
+                <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled === 'true' ? true : undefined} className="custom-control-input" id="switch-hdr-enabled"/>
+                <label className="custom-control-label" htmlFor="switch-hdr-enabled">
+                  <span>{_('ON')}</span>
+                  <span>{_('OFF')}</span>
                 </label>
               </div>
             </div>
           </div>
         </div>
-
-        <div className="accordion" id="accordion-video-properties">
-          {/* 亮度 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>{_('Brightness')}
-              </button>
-            </h2>
-
-            <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Brightness')}</label>
-                  <span className="text-primary text-size-14">{values.brightness}</span>
-                </div>
-                <Field name="brightness" component={Slider} step={1}
-                  min={videoSettingsSchema.brightness.min}
-                  max={videoSettingsSchema.brightness.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Contrast')}</label>
-                  <span className="text-primary text-size-14">{values.contrast}</span>
-                </div>
-                <Field name="contrast" component={Slider} step={1}
-                  min={videoSettingsSchema.contrast.min}
-                  max={videoSettingsSchema.contrast.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('HDR')}</label>
-                  <Field name="hdrEnabled" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('ON')}, {value: 'false', label: _('OFF')}]}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Shutter speed')}</label>
-                  <Field name="shutterSpeed" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({value: x, label: _(`shutter-speed-${x}`)}))}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Auto Iris')}</label>
-                  <Field name="aperture" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.aperture.enum.map(x => ({value: x, label: _(`aperture-${x}`)}))}/>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 顏色 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
-                <i className="fas fa-chevron-up"/>{_('Color')}
-              </button>
-            </h2>
-
-            <div id="color" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Saturation')}</label>
-                  <span className="text-primary text-size-14">{values.saturation}</span>
-                </div>
-                <Field name="saturation" component={Slider} step={1}
-                  min={videoSettingsSchema.saturation.min}
-                  max={videoSettingsSchema.saturation.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('White balance')}</label>
-                  <Field name="whiteblanceMode" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({value: x, label: _(`white-balance-${x}`)}))}/>
-                </div>
-                {
-                  values.whiteblanceMode === WhiteBalanceType.manual && (
-                    <div className="well">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Color temperature')}</label>
-                        <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
-                      </div>
-                      <Field name="whiteblanceManual" component={Slider} step={1000}
-                        min={videoSettingsSchema.whiteblanceManual.min}
-                        max={videoSettingsSchema.whiteblanceManual.max}/>
-                    </div>
-                  )
-                }
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('D/N')}</label>
-                  <Field name="daynightMode" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.daynightMode.enum.map(x => ({value: x, label: _(`daynight-mode-${x}`)}))}/>
-                </div>
-                {
-                  values.daynightMode === DaynightType.auto && (
-                    <div className="well">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Sensitivity')}</label>
-                        <span className="text-primary text-size-14">{values.sensitivity}</span>
-                      </div>
-                      <Field name="sensitivity" component={Slider} step={1}
-                        min={videoSettingsSchema.sensitivity.min}
-                        max={videoSettingsSchema.sensitivity.max}/>
-                    </div>
-                  )
-                }
-                {
-                  values.daynightMode === DaynightType.manual && (
-                    <div className="well">
-                      <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Duty time')}</label>
-                        <span className="text-primary text-size-14">
-                          {utils.formatTimeRange(values.dnDuty)}
-                        </span>
-                      </div>
-                      <Field name="dnDuty" component={Slider}
-                        mode="range"
-                        step={0.5}
-                        min={videoSettingsSchema.timePeriodStart.min}
-                        max={videoSettingsSchema.timePeriodEnd.max}/>
-                    </div>
-                  )
-                }
-              </div>
-            </div>
-          </div>
-
-          {/* 影像 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#video">
-                <i className="fas fa-chevron-up"/>{_('Video')}
-              </button>
-            </h2>
-
-            <div id="video" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Sharpness')}</label>
-                  <span className="text-primary text-size-14">{values.sharpness}</span>
-                </div>
-                <Field name="sharpness" component={Slider} step={1}
-                  min={videoSettingsSchema.sharpness.min}
-                  max={videoSettingsSchema.sharpness.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Orientation')}</label>
-                  <Field name="orientation" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.orientation.enum.map(x => ({value: x, label: _(`orientation-${x}`)}))}/>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Flicker less')}</label>
-                  <Field name="refreshRate" component={Dropdown}
-                    buttonClassName="btn-link text-primary border-0 p-0"
-                    menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 對焦 */}
-          <hr className="my-0"/>
-          <div className="card-body pb-0">
-            <h2 className="d-flex justify-content-between">
-              <button type="button" data-toggle="collapse" data-target="#focus"
-                className="btn btn-link btn-block text-left collapsed"
-              >
-                <i className="fas fa-chevron-up"/>{_('Focus')}
-              </button>
+        <hr className="my-0"/>
+        <div className="card-body">
+          <div className="form-row">
+            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+              <span className="text-size-20">{_('Focus')}</span>
               <button
                 disabled={this.state.$isApiProcessing} type="button"
                 className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
                 onClick={this.generateClickAutoFocusButtonHandler(form)}
               >
-                {_('Auto focus')}
+                {_('Auto Focus')}
               </button>
-            </h2>
-
-            <div id="focus" className="collapse" data-parent="#accordion-video-properties">
-              <div className="form-group">
+            </div>
+          </div>
+        </div>
+        <hr className="my-0"/>
+        <div className="card-body">
+          <div className="form-row">
+            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
+              <div className="form-group w-100 mb-0">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Focal length')}</label>
-                  <span className="text-primary text-size-14">{values.focalLength}</span>
-                </div>
-                <Field disabled={this.state.isAutoFocusProcessing}
-                  name="focalLength" component={Slider} step={1}
-                  min={videoFocusSettingsSchema.focalLength.min}
-                  max={videoFocusSettingsSchema.focalLength.max}/>
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>ZOOM</label>
+                  <label className="text-size-16 mb-0 text-left">Zoom</label>
                   <span className="text-primary text-size-14">{values.zoom}</span>
                 </div>
-                <Field disabled={this.state.isAutoFocusProcessing}
+                <Field
+                  updateFieldOnStop
+                  enableArrowKey
+                  disabled={this.state.isAutoFocusProcessing}
                   name="zoom" component={Slider} step={0.1}
                   min={videoFocusSettingsSchema.zoom.min}
                   max={videoFocusSettingsSchema.zoom.max}/>
@@ -465,36 +307,244 @@ module.exports = class Home extends Base {
             </div>
           </div>
         </div>
-
-        <hr className="my-0"/>
-        <div className="card-body actions">
-          <button disabled={this.state.$isApiProcessing} type="button"
-            className="btn btn-outline-primary btn-block rounded-pill"
-            onClick={this.generateClickResetButtonHandler(form)}
-          >
-            {_('Reset to defaults')}
-          </button>
-        </div>
       </Form>
     );
   };
 
-  deviceNameFormRender = ({errors, touched}) => {
+  fieldsRender = (fieldNamePrefix, options, values) => {
     return (
-      <Form className="form-group">
-        <Field name="deviceName" type="text"
-          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
-        <small className="form-text text-muted">
-          {_('Please enter letters between 1 and 32.')}
-        </small>
-        <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
-      </Form>
+      <>
+        <div className="form-group">
+          <label>{_('Format')}</label>
+          <div className="select-wrapper border rounded-pill overflow-hidden">
+            <Field
+              readOnly
+              name={`${fieldNamePrefix}.format`}
+              component="select"
+              className="form-control border-0 select-readonly"
+            >
+              {
+                options.format.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
+            </Field>
+          </div>
+        </div>
+        <div className="form-group">
+          <label>{_('Resolution')}</label>
+          <div className="select-wrapper border rounded-pill overflow-hidden">
+            <Field
+              readOnly
+              name={`${fieldNamePrefix}.resolution`}
+              component="select"
+              className="form-control border-0 select-readonly"
+            >
+              {
+                options.resolution.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
+            </Field>
+          </div>
+        </div>
+        <div className="form-group">
+          <label>{_('Frame Rate (FPS)')}</label>
+          <div className="select-wrapper border rounded-pill overflow-hidden">
+            <Field
+              name={`${fieldNamePrefix}.frameRate`}
+              component="select"
+              className="form-control border-0"
+            >
+              {
+                options.frameRate.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
+            </Field>
+          </div>
+        </div>
+        <div className="form-group">
+          <label>{_('Bandwidth Management')}</label>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <Field
+                name={`${fieldNamePrefix}.bandwidthManagement`}
+                component={Dropdown}
+                buttonClassName="btn btn-outline-primary rounded-left"
+                menuClassName="dropdown-menu-right"
+                items={options.bandwidthManagement.map(x => ({value: x.value, label: x.label}))}
+              />
+            </div>
+            <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.mbr})}/>
+            <input readOnly type="text" className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
+            <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
+            <div className="input-group-append">
+              <span className="input-group-text">Kbps</span>
+            </div>
+          </div>
+          <small className="text-info mb-3">
+            {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
+          </small>
+        </div>
+        <div className="form-group">
+          <label>{_('GOV')}</label>
+          <div className="select-wrapper border rounded-pill overflow-hidden">
+            <Field
+              readOnly
+              name={`${fieldNamePrefix}.gov`}
+              component="select"
+              className="form-control border-0 select-readonly"
+            >
+              {
+                options.gov.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))
+              }
+            </Field>
+          </div>
+        </div>
+      </>
     );
+  };
+
+  formRender = ({values}) => {
+    const channelAOptions = {
+      format: StreamFormat.all().map(x => ({label: x, value: x})),
+      resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
+      frameRate: (() => {
+        const result = [];
+        for (let index = StreamSettingsSchema.channelA.props.frameRate.min; index <= StreamSettingsSchema.channelA.props.frameRate.max; index += 1) {
+          result.push({label: `${index}`, value: `${index}`});
+        }
+
+        return result;
+      })(),
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: _(`stream-bandwidth-management-${x}`), value: x})),
+      gov: StreamGOV.all().map(x => ({label: x, value: x}))
+    };
+    const channelBOptions = {
+      format: StreamFormat.all().map(x => ({label: x, value: x})),
+      resolution: (() => {
+        let options;
+        if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
+          options = [
+            StreamResolution['0'],
+            StreamResolution['1'],
+            StreamResolution['2'],
+            StreamResolution['3'],
+            StreamResolution['4']
+          ];
+        } else {
+          options = [
+            StreamResolution['5'],
+            StreamResolution['6'],
+            StreamResolution['7'],
+            StreamResolution['8']
+          ];
+        }
+
+        return options.map(x => ({label: _(`stream-resolution-${x}`), value: x}));
+      })(),
+      frameRate: (() => {
+        const result = [];
+        for (let index = StreamSettingsSchema.channelB.props.frameRate.min; index <= StreamSettingsSchema.channelB.props.frameRate.max; index += 1) {
+          result.push({label: `${index}`, value: `${index}`});
+        }
+
+        return result;
+      })(),
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: _(`stream-bandwidth-management-${x}`), value: x})),
+      gov: StreamGOV.all().map(x => ({label: x, value: x}))
+    };
+
+    return (
+      <>
+        <div className="card-header d-flex align-items-center justify-content-between rounded-0">
+          {_('Stream Settings')}
+          <button
+            type="button"
+            className="btn btn-outline-light rounded-pill"
+            disabled={this.state.$isApiProcessing}
+            onClick={this.onClickResetButton}
+          >
+            {_('Reset to Default')}
+          </button>
+        </div>
+        <nav>
+          <div className="nav nav-tabs">
+            <a
+              className="nav-item nav-link active"
+              data-toggle="tab"
+              href="#tab-channel-a"
+            >
+              {_('Stream {0}', '01')}
+            </a>
+            <a
+              className="nav-item nav-link"
+              data-toggle="tab"
+              href="#tab-channel-b"
+            >
+              {_('Stream {0}', '02')}
+            </a>
+          </div>
+        </nav>
+        <Form className="card-body">
+          <div className="tab-content">
+            <div className="tab-pane fade show active" id="tab-channel-a">
+              {this.fieldsRender('channelA', channelAOptions, values.channelA)}
+            </div>
+            <div className="tab-pane fade" id="tab-channel-b">
+              {this.fieldsRender('channelB', channelBOptions, values.channelB)}
+            </div>
+          </div>
+
+          <div className="form-group mt-5">
+            <button
+              type="submit"
+              className="btn btn-block btn-primary rounded-pill"
+              disabled={this.state.$isApiProcessing}
+            >
+              {_('Apply')}
+            </button>
+          </div>
+        </Form>
+      </>
+    );
+  };
+
+  generateOnChangeBandwidthManagement = bandwidthManagement => {
+    return event => {
+      event.preventDefault();
+      this.setState({bandwidthManagement});
+    };
+  }
+
+  onSubmit = values => {
+    progress.start();
+    api.multimedia.updateStreamSettings(values)
+      .then(getRouter().reload)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
+
+  onClickResetButton = event => {
+    event.preventDefault();
+    progress.start();
+    api.multimedia.resetStreamSettings()
+      .then(getRouter().reload)
+      .catch(utils.renderError)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
   };
 
   render() {
-    const {systemInformation} = this.props;
-    const usedDiskPercentage = Math.ceil((systemInformation.usedDiskSize / systemInformation.totalDiskSize) * 100);
+    const {systemInformation, streamSettings} = this.props;
+    const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
     const classTable = {
       faceRecognitionState: classNames({
         'text-success': systemInformation.isEnableFaceRecognition,
@@ -517,7 +567,7 @@ module.exports = class Home extends Base {
             <div className="row">
               <div className="col-8 pr-24">
                 {/* The video */}
-                <div className="video-wrapper mb-5">
+                <div className="video-wrapper mb-4">
                   <img ref={this.streamPlayerRef}
                     className="img-fluid" src={this.state.streamImageUrl || defaultVideoBackground}
                     onClick={this.onTogglePlayStream}/>
@@ -558,10 +608,10 @@ module.exports = class Home extends Base {
                   <table>
                     <thead>
                       <tr>
-                        <th>{_('Device name')}</th>
-                        <th>{_('Smart functions')}</th>
-                        <th>{_('Device status')}</th>
-                        <th>{_('SD card')}</th>
+                        <th>{_('Device Name')}</th>
+                        <th>{_('Analytic')}</th>
+                        <th>{_('Device Status')}</th>
+                        <th>{_('SD Card')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -576,23 +626,38 @@ module.exports = class Home extends Base {
                           </Formik>
                         </td>
                         <td className="align-top">
-                          <span>{_('Face recognition: ')}</span>
-                          <span className={classTable.faceRecognitionState}>
-                            {_(`${systemInformation.isEnableFaceRecognition ? 'ON' : 'OFF'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Age gender: ')}</span>
-                          <span className={classTable.ageGenderState}>
-                            {_(`${systemInformation.isEnableAgeGender ? 'ON' : 'OFF'}`)}
-                          </span>
-                          <br/>
-                          <span>{_('Humanoid detection: ')}</span>
-                          <span className={classTable.humanoidDetectionState}>
-                            {_(`${systemInformation.isEnableHumanoidDetection ? 'ON' : 'OFF'}`)}
-                          </span>
+                          {systemInformation.isEnableFaceRecognition && (
+                            <div>
+                              <span>{_('Facial Recognition: ')}</span>
+                              <span className={classTable.faceRecognitionState}>
+                                {_(`${systemInformation.isEnableFaceRecognition ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
+                          {systemInformation.isEnableAgeGender && (
+                            <div>
+                              <span>{_('Age Gender: ')}</span>
+                              <span className={classTable.ageGenderState}>
+                                {_(`${systemInformation.isEnableAgeGender ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
+                          {systemInformation.isEnableHumanoidDetection && (
+                            <div>
+                              <span>{_('Human Detection: ')}</span>
+                              <span className={classTable.humanoidDetectionState}>
+                                {_(`${systemInformation.isEnableHumanoidDetection ? 'On' : 'Off'}`)}
+                              </span>
+                            </div>
+                          )}
                         </td>
                         <td className="align-top">
-                          <span className="badge badge-pill badge-success">{_('Green')}</span>
+                          {systemInformation.deviceStatus === 0 && (
+                            <span className="badge badge-pill badge-danger">{_('Error')}</span>
+                          )}
+                          {systemInformation.deviceStatus === 1 && (
+                            <span className="badge badge-pill badge-success">{_('Normal')}</span>
+                          )}
                         </td>
                         <td className="align-top">
                           <div className="progress">
@@ -607,8 +672,8 @@ module.exports = class Home extends Base {
                           <p>
                             {
                               _('Free: {0}, Total: {1}', [
-                                filesize(systemInformation.totalDiskSize - systemInformation.usedDiskSize),
-                                filesize(systemInformation.totalDiskSize)
+                                filesize(systemInformation.sdTotal - systemInformation.sdUsage),
+                                filesize(systemInformation.sdTotal)
                               ])
                             }
                           </p>
@@ -619,10 +684,18 @@ module.exports = class Home extends Base {
                 </div>
               </div>
 
-              <div className="col-4 pl-24">
-                <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
-                  {this.videoSettingsFormRender}
-                </Formik>
+              <div className="col-4 pl-0">
+                <div className="card shadow">
+                  <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
+                    {this.videoSettingsFormRender}
+                  </Formik>
+                  <Formik
+                    initialValues={streamSettings}
+                    onSubmit={this.onSubmit}
+                  >
+                    {this.formRender}
+                  </Formik>
+                </div>
               </div>
             </div>
           </div>

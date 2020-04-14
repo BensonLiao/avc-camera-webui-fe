@@ -1,6 +1,21 @@
+.btn-star {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: $primary;
+  background-color: #E5F5FF;
+  border: none;
+  box-shadow: none;
+  &.btn-secondary {
+    color: $secondary-400;
+    background-color: $secondary-50;
+  }
+  &.btn:hover {
+    filter: brightness(0.8);
+  }
+}
 .page-notification {
-  padding: 48px 33px;
-  min-width: 1000px;
+  padding: 33px;
 
   .filter {
     padding: 24px;
@@ -24,34 +39,22 @@
   h3 {
     font-size: 20px;
     color: #666;
+    text-transform: uppercase;
   }
   hr {
     border-color: #6C757D;
   }
 
-  .btn-star {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    color: $primary;
-    background-color: #E5F5FF;
-    border: none;
-    box-shadow: none;
-    &.text-secondary {
-      color: #999 !important;
-      background-color: #F2F2F2;
+  @mixin grid_container_padding() { 
+    padding: 48px 3.2%;
+    @media (max-width: 1440px) and (min-width: 1366px) {
+      padding: 48px 0.5%;
+    }
+    @media (max-width: 1365px) {
+      padding: 48px 0.01%;
     }
   }
 
-  @mixin grid_container_padding() {
-    padding: 48px 48px;
-    @media (max-width: 1440px) and (min-width: 1366px) {
-      padding: 48px 40px;
-    }
-    @media (max-width: 1366px) {
-      padding: 48px 2px;
-    }
-  }
   .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -59,15 +62,15 @@
     @include grid_container_padding();
     .card {
       flex: 0 0 440px;
-      margin: 12px;
+      margin: 14px;
       border: none;
-    }
-    .card:hover {
-      .card-body {
-        background-color: rgba(142, 142, 142, 0.15);
-      }
-      .btn-delete {
-        display: block;
+      &:hover {
+        .card-body {
+          background-color: $secondary-50;
+        }
+        .btn-delete {
+          display: block;
+        }
       }
     }
     .card-title {
@@ -86,9 +89,13 @@
         width: $notify-card-btn-delete-height;
         display: none;
         background-color: #808080;
+        color: #fff;
         position: absolute;
         right: 24px;
         bottom: 24px;
+        &:hover {
+          background-color: #4D4D4D;
+        }
       }
 
       table {
@@ -148,8 +155,8 @@
   }
   .select-wrapper {
     i {
-      margin: 0 3px 0 8px;
-      color: #777;
+      margin: 0 8px 0 8px;
+      color: $info;
     }
   }
   .text-desh {

@@ -1,5 +1,6 @@
 const classNames = require('classnames');
 const React = require('react');
+const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const Modal = require('react-bootstrap/Modal').default;
 const {Formik, Form, Field} = require('formik');
@@ -7,14 +8,28 @@ const ContentEditable = require('react-contenteditable').default;
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
-const outputIcon = require('../../../resource/output.svg');
+const NotificationFaceRecognitionVMSEvent = require('webserver-form-schema/constants/notification-face-recognition-vms-event');
+const outputIcon = require('../../../resource/icon-output-40px.svg');
+const vmsIcon = require('../../../resource/icon-server-40px.svg');
 const Base = require('../shared/base');
-const DatePicker = require('../../../core/components/fields/date-picker');
+const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
 module.exports = class Cards extends Base {
+  static get propTypes() {
+    return {
+      cards: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          type: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired
+        })).isRequired
+      }).isRequired
+    };
+  }
+
   constructor(props) {
     super(props);
     this.cardFormTitleRef = React.createRef();
@@ -23,6 +38,7 @@ module.exports = class Cards extends Base {
     this.state.cardDetails = null;
     this.state.isShowStartDatePicker = false;
     this.state.isShowEndDatePicker = false;
+    this.state.cardTypeFilter = 'all';
   }
 
   generateCardInitialValues = card => {
@@ -42,6 +58,8 @@ module.exports = class Cards extends Base {
         isEnableGPIO1: card.isEnableGPIO1,
         isEnableGPIO2: card.isEnableGPIO2,
         isEnableEmail: card.isEnableEmail,
+        isEnableVMS: card.isEnableVMS,
+        faceRecognitionVMSEvent: card.faceRecognitionVMSEvent,
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
@@ -52,7 +70,7 @@ module.exports = class Cards extends Base {
 
     return {
       type: NotificationCardType.faceRecognition,
-      title: '輸入通知名稱',
+      title: _('Enter Your Title'),
       isTop: false,
       isEnableTime: false,
       $start: null,
@@ -64,6 +82,8 @@ module.exports = class Cards extends Base {
       isEnableGPIO1: false,
       isEnableGPIO2: false,
       isEnableEmail: false,
+      isEnableVMS: true,
+      faceRecognitionVMSEvent: NotificationFaceRecognitionVMSEvent.motionDetect,
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
@@ -71,6 +91,13 @@ module.exports = class Cards extends Base {
       isEnableApp: false
     };
   };
+
+  generateChangeNotificationCardTypeFilter = cardType => {
+    return event => {
+      event.preventDefault();
+      this.setState({cardTypeFilter: cardType});
+    };
+  }
 
   generateDeleteCardHandler = cardId => event => {
     event.preventDefault();
@@ -189,7 +216,7 @@ module.exports = class Cards extends Base {
 
   cardFormRender = ({values, setFieldValue}) => {
     const {groups} = this.props;
-    const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker} = this.state;
+    const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker, cardDetails} = this.state;
     const onClickTitleEditButton = event => {
       event.preventDefault();
       this.cardFormTitleRef.current.focus();
@@ -243,7 +270,7 @@ module.exports = class Cards extends Base {
           <div className="d-flex align-content-center">
             <button
               disabled={$isApiProcessing || values.id == null} type="button"
-              className="btn btn-star rounded-pill text-secondary"
+              className="btn btn-star rounded-pill btn-secondary"
               onClick={this.generateToggleTopHandler(values.id)}
             >
               <i className="fas fa-bell fa-fw fa-lg"/>
@@ -259,15 +286,21 @@ module.exports = class Cards extends Base {
           </div>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="type" component="select" className="form-control border-0">
-              <option value={NotificationCardType.faceRecognition}>{_('Face recognition')}</option>
+              {
+                NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3')).map(faceRecognition => {
+                  return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
+                })
+              }
             </Field>
           </div>
         </div>
         <nav>
           <div className="nav nav-tabs">
-            <a className="nav-item nav-link active" data-toggle="tab" href="#tab-notification-time">{_('Notification time')}</a>
-            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Notification condition')}</a>
-            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-target">{_('Notification object')}</a>
+            <a className="nav-item nav-link active" data-toggle="tab" href="#tab-notification-time">{_('Schedule')}</a>
+            {values.type === NotificationCardType.faceRecognition && (
+              <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-condition">{_('Rule')}</a>
+            )}
+            <a className="nav-item nav-link" data-toggle="tab" href="#tab-notification-target">{_('Subject')}</a>
           </div>
         </nav>
         <div className="modal-body tab-content">
@@ -288,15 +321,15 @@ module.exports = class Cards extends Base {
                 <div className="col-auto my-1 btn-group">
                   <Field
                     name="$start"
-                    component={DatePicker}
-                    dateTabText={_('Start date')}
-                    timeTabText={_('Start time')}
+                    component={DateTimePicker}
+                    dateTabText={_('Start Date')}
+                    timeTabText={_('Start Time')}
                     inputProps={{
                       className: classNames(
                         'btn start-date px-4',
                         {active: isShowStartDatePicker}
                       ),
-                      placeholder: _('Start datetime'),
+                      placeholder: _('Start Datetime'),
                       style: {whiteSpace: 'nowrap'}
                     }}
                     endDateFieldName="$end"
@@ -306,15 +339,15 @@ module.exports = class Cards extends Base {
                   />
                   <Field
                     name="$end"
-                    component={DatePicker}
-                    dateTabText={_('End date')}
-                    timeTabText={_('End time')}
+                    component={DateTimePicker}
+                    dateTabText={_('End Date')}
+                    timeTabText={_('End Time')}
                     inputProps={{
                       className: classNames(
                         'btn end-date px-4',
                         {active: isShowEndDatePicker}
                       ),
-                      placeholder: _('End datetime'),
+                      placeholder: _('End Datetime'),
                       style: {whiteSpace: 'nowrap'}
                     }}
                     startDateFieldName="$start"
@@ -379,7 +412,7 @@ module.exports = class Cards extends Base {
               <div className="select-wrapper border rounded-pill overflow-hidden d-flex align-items-center">
                 <i className="far fa-folder fa-sm"/>
                 <Field name="$groups" component="select" className="form-control border-0">
-                  <option value="">{_('All groups')}</option>
+                  <option value="">{_('Everyone')}</option>
                   {
                     groups.items.map(group => (
                       <option key={group.id} value={group.id}>{group.name}</option>
@@ -430,6 +463,41 @@ module.exports = class Cards extends Base {
             </div>
 
             <hr/>
+
+            <div className="form-group d-flex justify-content-between align-items-center">
+              <label className="mb-0">{_('Video Management System')}</label>
+              <div className="custom-control custom-switch">
+                <Field name="isEnableVMS" type="checkbox" className="custom-control-input" id="switch-notification-target-vms" checked={values.isEnableVMS}/>
+                <label className="custom-control-label" htmlFor="switch-notification-target-vms">
+                  <span>{_('ON')}</span>
+                  <span>{_('OFF')}</span>
+                </label>
+              </div>
+            </div>
+            <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.motionDetection})}>
+              <div className="card">
+                <div className="card-body">
+                  <div className="form-group">
+                    <label className="text-size-16 mb-0">{_('Method')}</label>
+                  </div>
+                  <div className="form-group">
+                    {
+                      NotificationFaceRecognitionVMSEvent.all().map(RecognitionVMSEvent => (
+                        <div key={RecognitionVMSEvent} className="form-check mb-3">
+                          <Field name="faceRecognitionVMSEvent" className="form-check-input" type="radio" id={`input-notification-vms-event-${RecognitionVMSEvent}`} value={RecognitionVMSEvent}/>
+                          <label className="form-check-label" htmlFor={`input-notification-vms-event-${RecognitionVMSEvent}`}>
+                            {_(`notification-vms-event-${RecognitionVMSEvent}`)}
+                          </label>
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr/>
+
             <div className="form-group d-flex justify-content-between align-items-center">
               <label className="mb-0">{_('Email')}</label>
               <div className="custom-control custom-switch">
@@ -444,7 +512,7 @@ module.exports = class Cards extends Base {
               <div className="card">
                 <div className="card-body">
                   <div className="form-group">
-                    <label className="text-size-16 mb-0">{_('Email attachment')}</label>
+                    <label className="text-size-16 mb-0">{_('Email Attachment')}</label>
                   </div>
                   <div className="form-group">
                     {
@@ -458,6 +526,7 @@ module.exports = class Cards extends Base {
                       ))
                     }
                   </div>
+
                   <hr/>
 
                   <div className="form-group">
@@ -470,7 +539,7 @@ module.exports = class Cards extends Base {
                           <div className="input-group-prepend">
                             <span className="input-group-text"><i className="fas fa-envelope"/></span>
                           </div>
-                          <Field name="$email" type="text" className="form-control" placeholder={_('Please enter email address.')} style={{width: 260}}/>
+                          <Field name="$email" type="text" className="form-control" placeholder={_('Enter email address')} style={{width: 260}}/>
                         </div>
                       </div>
                       <div className="col-auto my-1">
@@ -506,14 +575,14 @@ module.exports = class Cards extends Base {
         <div className="modal-body">
           <div className="form-group">
             <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
-              {_('Add')}
+              {cardDetails ? _('Confirm') : _('Add')}
             </button>
           </div>
           <button
-            type="button" className="btn btn-outline-primary btn-block m-0 rounded-pill"
+            type="button" className="btn btn-info btn-block m-0 rounded-pill"
             onClick={this.onHideCardModal}
           >
-            {_('Cancel')}
+            {_('Close')}
           </button>
         </div>
       </Form>
@@ -530,7 +599,7 @@ module.exports = class Cards extends Base {
           <div className="title text-truncate">
             <button
               disabled={$isApiProcessing} type="button"
-              className={classNames('btn btn-star rounded-pill', {'text-secondary': !card.isTop})}
+              className={classNames('btn btn-star rounded-pill', {'btn-secondary': !card.isTop})}
               onClick={this.generateToggleTopHandler(card.id)}
             >
               <i className="fas fa-bell fa-fw fa-lg"/>
@@ -552,13 +621,20 @@ module.exports = class Cards extends Base {
                 </div>
               )
             }
+            {
+              card.isEnableVMS && (
+                <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
+                  <img src={vmsIcon}/>
+                </div>
+              )
+            }
           </div>
         </div>
         <div className="card-body">
           <table>
             <tbody>
               <tr>
-                <th>{_('Function')}</th>
+                <th>{_('Analytic')}</th>
                 <td>{_(`notification-card-${card.type}`)}</td>
               </tr>
               {
@@ -567,14 +643,14 @@ module.exports = class Cards extends Base {
 
                   return (
                     <tr key={key}>
-                      <th>{index === 0 ? _('Time') : ''}</th>
+                      <th>{index === 0 ? _('Schedule') : ''}</th>
                       <td>{`${utils.formatDate(timePeriod.start)} - ${utils.formatDate(timePeriod.end)}`}</td>
                     </tr>
                   );
                 })
               }
               <tr>
-                <th>{_('Condition')}</th>
+                <th>{_('Rule')}</th>
                 <td>{_(`face-recognition-condition-${card.faceRecognitionCondition}`)}</td>
               </tr>
             </tbody>
@@ -586,7 +662,7 @@ module.exports = class Cards extends Base {
                   const group = groups.items.find(x => x.id === groupId);
                   return (
                     <span key={groupId} className="border border-primary rounded-pill text-primary">
-                      {group.name}
+                      {group ? group.name : ''}
                     </span>
                   );
                 })
@@ -613,9 +689,10 @@ module.exports = class Cards extends Base {
   };
 
   render() {
-    const {cards, isShowCardDetailsModal, cardDetails} = this.state;
-    const topCards = cards.filter(x => x.isTop);
-    const normalCards = cards.filter(x => !x.isTop);
+    const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter} = this.state;
+    const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
+    const topCards = filterCards.filter(x => x.isTop);
+    const normalCards = filterCards.filter(x => !x.isTop);
 
     return (
       <>
@@ -623,8 +700,34 @@ module.exports = class Cards extends Base {
           <div className="page-notification pt-0 pb-0">
             <div className="container-fluid">
               <div className="filter d-flex align-items-center text-nowrap mb-0">
-                <label className="mb-0">{_('Notification filter')}</label>
-                <button className="btn btn-primary rounded-pill shadow-sm ml-4" type="button">{_('Face recognition')}</button>
+                <label className="mb-0">{_('Notification Filters')}</label>
+                <button
+                  className={classNames(
+                    'btn rounded-pill shadow-sm ml-4',
+                    {active: cardTypeFilter === 'all'},
+                    {'btn-primary': cardTypeFilter === 'all'}
+                  )} type="button"
+                  onClick={this.generateChangeNotificationCardTypeFilter('all')}
+                >{_('notification-card-filter-all')}
+                </button>
+                <button
+                  className={classNames(
+                    'btn rounded-pill shadow-sm ml-4',
+                    {active: cardTypeFilter === NotificationCardType.faceRecognition},
+                    {'btn-primary': cardTypeFilter === NotificationCardType.faceRecognition}
+                  )} type="button"
+                  onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.faceRecognition)}
+                >{_(`notification-card-${NotificationCardType.faceRecognition}`)}
+                </button>
+                <button
+                  className={classNames(
+                    'btn rounded-pill shadow-sm ml-4',
+                    {active: cardTypeFilter === NotificationCardType.motionDetection},
+                    {'btn-primary': cardTypeFilter === NotificationCardType.motionDetection}
+                  )} type="button"
+                  onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.motionDetection)}
+                >{_(`notification-card-${NotificationCardType.motionDetection}`)}
+                </button>
               </div>
             </div>
           </div>
@@ -636,7 +739,7 @@ module.exports = class Cards extends Base {
               {
                 topCards.length > 0 && (
                   <>
-                    <h3 className="mb-2">{_('Sticky items')}</h3>
+                    <h3 className="mb-2">{_('Pinned')}</h3>
                     <hr className="my-1"/>
                     <div className="card-container">
                       {topCards.map(this.cardRender)}
@@ -645,7 +748,7 @@ module.exports = class Cards extends Base {
                 )
               }
 
-              <h3 className="mb-2">{_('Other items')}</h3>
+              <h3 className="mb-2">{_('Others')}</h3>
               <hr className="my-1"/>
 
               <div className="card-container mb-4">

@@ -12,7 +12,7 @@ exports.login = (req, res) => {
     });
   } else {
     throw new errors.Http400('incorrect account or password.', {
-      loginFailedTimes: req.rateLimit.current
+      loginFailedRemainingTimes: req.rateLimit.remaining
     });
   }
 };

@@ -1,3 +1,5 @@
+@import "../main/variables.scss";
+
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
@@ -6,7 +8,27 @@ $grid-breakpoints: (
   xl: 1441px
 );
 
-$primary: #4991BF;
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: ($spacer * .25), // 16px -> 4px
+  2: ($spacer * .5), // 16px -> 8px
+  3: $spacer,
+  4: ($spacer * 1.5),// 16px -> 24px
+  5: ($spacer * 3),// 16px -> 48px
+  // custom spacing
+  12px: ($spacer * .75), // 16px -> 12px
+  32px: ($spacer * 2), // 16px -> 32px
+  40px: ($spacer * 2.5), // 16px -> 40px
+  56px: ($spacer * 3.5) // 16px -> 56px
+);
+
+$primary: $primary-500;
+$secondary: $secondary-50;
 $success: #34A853;
+$error: #EA4335;
+$light: $secondary-100;
+$info: $secondary-500;
+$dark: $secondary-700;
 
 $input-border-radius: 50rem;

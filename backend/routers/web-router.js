@@ -2,6 +2,7 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 const errors = require('../models/errors');
 const accountHandler = require('../handlers/account-handler');
+const assetHandler = require('../handlers/asset-handler');
 const baseHandler = require('../handlers/base-handler');
 const snapshotHandler = require('../handlers/snapshot-handler');
 const systemHandler = require('../handlers/system-handler');
@@ -99,5 +100,7 @@ router.post('/api/account/_change-password', accountHandler.changePasswordWithBi
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.put('/api/system/language', systemHandler.updateLanguage);
 router.get('/api/snapshot', snapshotHandler.getSnapshot);
+router.get('/api/ping', (req, res) => res.status(204).send());
 
+router.get('/assets/service-worker.js', assetHandler.getServiceWorker);
 router.get(/.*/, baseHandler.baseView);

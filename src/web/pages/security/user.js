@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
@@ -41,8 +42,8 @@ module.exports = class User extends Base {
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
         const isShowModal = [
-          'web.security.users.new-user',
-          'web.security.users.details'
+          'web.users.accounts.new-user',
+          'web.users.accounts.details'
         ].indexOf(toState.name) >= 0;
         this.setState({isShowModal});
       })
@@ -55,7 +56,6 @@ module.exports = class User extends Base {
         id: user.id,
         permission: user.permission,
         account: user.account,
-        birthday: '',
         password: '',
         newPassword: '',
         confirmPassword: ''
@@ -65,7 +65,6 @@ module.exports = class User extends Base {
     return {
       permission: UserPermission.root,
       account: '',
-      birthday: '',
       password: '',
       confirmPassword: ''
     };
@@ -73,7 +72,7 @@ module.exports = class User extends Base {
 
   hideModal = (reload = false) => {
     getRouter().go({
-      name: 'web.security.users'
+      name: 'web.users.accounts'
     }, {reload});
   };
 
@@ -124,7 +123,7 @@ module.exports = class User extends Base {
           </div>
           <div className="form-group">
             <label>{_('Account')}</label>
-            <Field name="account" type="text" placeholder={_('Please enter your account.')}
+            <Field name="account" type="text" placeholder={_('Enter your account')}
               maxLength={UserSchema.account.max}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
             {
@@ -132,27 +131,11 @@ module.exports = class User extends Base {
                 <div className="invalid-feedback">{errors.account}</div>
               )
             }
-            <small className="form-text text-muted">{_('Please enter less than 9 letters.')}</small>
           </div>
           <div className="form-group has-feedback">
-            <label>{_('Birthday')}</label>
-            <Field name="birthday" component={Password} inputProps={{
-              placeholder: _('Please enter your birthday.'),
-              className: classNames('form-control', {'is-invalid': errors.birthday && touched.birthday})
-            }}/>
-            {
-              errors.birthday && touched.birthday && (
-                <div className="invalid-feedback">{errors.birthday}</div>
-              )
-            }
-            <small className="form-text text-muted">
-              {_('This value is for resetting password, such as 19900101.')}
-            </small>
-          </div>
-          <div className="form-group has-feedback">
-            <label>{_(this.props.user ? 'Old password' : 'Password')}</label>
+            <label>{_(this.props.user ? 'Old Password' : 'Password')}</label>
             <Field name="password" component={Password} inputProps={{
-              placeholder: _(this.props.user ? 'Please enter your old password.' : 'Please enter your password.'),
+              placeholder: _(this.props.user ? 'Enter your old password' : 'Enter your password'),
               className: classNames('form-control', {'is-invalid': errors.password && touched.password})
             }}/>
             {
@@ -164,24 +147,26 @@ module.exports = class User extends Base {
           {
             user && (
               <div className="form-group has-feedback">
-                <label>{_('New password')}</label>
+                <label>{_('New Password')}</label>
                 <Field name="newPassword" component={Password} inputProps={{
-                  placeholder: _('Please enter your new password.'),
+                  placeholder: _('Enter your new password'),
                   className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
                 }}/>
+                <small className="text-info">
+                  {_('8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space')}
+                </small>
                 {
                   errors.newPassword && touched.newPassword && (
                     <div className="invalid-feedback">{errors.newPassword}</div>
                   )
                 }
-                <small className="form-text text-muted">{_('Please enter less than 9 letters.')}</small>
               </div>
             )
           }
           <div className="form-group has-feedback">
-            <label>{_(user ? 'Confirm new password' : 'Confirm password')}</label>
+            <label>{_(user ? 'Confirm New Password' : 'Confirm Password')}</label>
             <Field name="confirmPassword" component={Password} inputProps={{
-              placeholder: _(user ? 'Please confirm your new password.' : 'Please confirm your password.'),
+              placeholder: _(user ? 'Confirm your new password' : 'Confirm your password'),
               className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
             }}/>
             {
@@ -203,7 +188,7 @@ module.exports = class User extends Base {
           </div>
           <button
             disabled={this.state.$isApiProcessing}
-            className="btn btn-secondary btn-block m-0 rounded-pill"
+            className="btn btn-info btn-block m-0 rounded-pill"
             type="button"
             onClick={this.hideModal}
           >
@@ -221,7 +206,7 @@ module.exports = class User extends Base {
     return (
       <Modal autoFocus={false} show={this.state.isShowModal} onHide={this.hideModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{user ? _('Modify user') : _('New user')}</Modal.Title>
+          <Modal.Title as="h5">{user ? _('Modify User') : _('New User')}</Modal.Title>
         </Modal.Header>
         <Formik
           initialValues={this.generateInitialValue(user)}

@@ -1,11 +1,11 @@
 .section-media {
-  padding: 48px 33px;
+  padding: 48px;
   min-width: 1000px;
 
   .video-wrapper {
     .btn {
       position: absolute;
-      color: #4491bf;
+      color: $primary;
       background: #fff;
       font-size: 20px;
     }
@@ -57,7 +57,10 @@
   .btn-black, .btn-white {
     width: 32px;
     height: 32px;
-    border: 1px #CCCCCC solid;
+    border: 2px #CCCCCC solid;
+    &.active {
+      outline: 2px $select solid;
+    }
   }
   .btn-black {
     background-color: #000;

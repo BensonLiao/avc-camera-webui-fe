@@ -1,9 +1,8 @@
 const leftPad = require('left-pad');
 const React = require('react');
 const {Link} = require('capybara-router');
-const logo = require('../../../resource/logo-01.svg');
-const decoration = require('../../../resource/decoration-01.svg');
-const frownOpenSolid = require('../../../resource/frown-open-solid.svg');
+const logo = require('../../../resource/logo-avn-secondary.svg');
+const logoWithTitle = require('../../../resource/logo-avn-title.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
@@ -55,39 +54,50 @@ module.exports = class LoginLock extends Base {
 
   render() {
     return (
-      <div className="page-login-lock">
-        <img src={logo} className="logo" alt="AndroVideo"/>
-        <img src={decoration} className="decoration"/>
-        <div className="container">
+      <div className="page-login-lock bg-secondary">
+        <div className="navbar primary">
+          <img src={logo}/>
+        </div>
+        <div className="container-fluid">
           <div className="row justify-content-center">
-            <div className="col-12">
-              <p className="text-light text-center text-welcome"/>
+            <div className="col-12 bg-white logo">
+              <img src={logoWithTitle}/>
             </div>
-            <div className="col-card">
+            <div className="col-center">
               <div className="card shadow mb-5">
-                <div className="card-body">
+                <div className="card-body text-dark text-center">
                   <Once>
-                    <h5 className="card-title text-oops">{_('Oops!')}</h5>
-                    <div className="text-center mb-4">
-                      <img src={frownOpenSolid} className="mb-4" width="80" height="80"/>
-                      <p className="text-gray-700">
-                        {_('Incorrect password 5 times! Please wait for 5 minutes.')}
+                    <div style={{margin: '5rem 0'}}>
+                      <p className="font-weight-bold m-0">
+                        {_('Too Many Login Attempts!')}
+                      </p>
+                      <p>
+                        {_('Please try again in 5 minutes.')}
                       </p>
                     </div>
-                    <div className="text-right">
-                      <Link to="/forgot-password">{_('Forgot password?')}</Link>
+                    <div style={{height: '1.5rem'}}>
+                      <a
+                        className="text-primary font-weight-bold"
+                        href="https://arecontvision.zendesk.com/hc/en-us/articles/360018682854-Password-Reset"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {_('Password Reset')}
+                      </a>
+                      &nbsp;
+                      {_('Tech Support Phone Number: +1 (818) 937-0700')}
                     </div>
                   </Once>
 
                   {
                     this.state.disableLoginLink ? (
-                      <a href="#disabled" className="btn btn-primary btn-block rounded-pill mt-5 disabled">
-                        {_('{0} left', [this.state.displayTime])}
+                      <a href="#disabled" className="btn btn-primary btn-block rounded-pill mt-4 disabled">
+                        {_('{0} Remaining', [this.state.displayTime])}
                       </a>
                     ) : (
                       <Once>
-                        <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-5">
-                          {_('Log in again')}
+                        <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-4">
+                          {_('Login Again')}
                         </Link>
                       </Once>
                     )
