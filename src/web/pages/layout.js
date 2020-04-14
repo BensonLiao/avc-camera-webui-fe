@@ -8,7 +8,6 @@ const {Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const Loading = require('../../core/components/loading');
 const iconHome = require('../../resource/left-navigation-home.svg');
-const iconImage = require('../../resource/left-navigation-image.svg');
 const iconMedia = require('../../resource/left-navigation-media.svg');
 const iconAudio = require('../../resource/left-navigation-audio.svg');
 const iconNotification = require('../../resource/left-navigation-bell.svg');
@@ -86,10 +85,6 @@ module.exports = class Layout extends Base {
       home: classNames(
         'btn d-flex justify-content-center align-items-center',
         {active: this.state.currentRouteName === 'web.home'}
-      ),
-      image: classNames(
-        'btn d-flex justify-content-center align-items-center',
-        {active: this.state.currentRouteName === 'web.image'}
       ),
       media: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -170,11 +165,6 @@ module.exports = class Layout extends Base {
           <Tooltip title={_('Home')} {...tooltipOptions}>
             <Link className={classTable.home} to="/">
               <img src={iconHome}/>
-            </Link>
-          </Tooltip>
-          <Tooltip title={_('Image')} {...tooltipOptions}>
-            <Link className={classTable.image} to="/image">
-              <img src={iconImage}/>
             </Link>
           </Tooltip>
           <Tooltip title={_('Video')} {...tooltipOptions}>
