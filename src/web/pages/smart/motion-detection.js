@@ -130,9 +130,9 @@ module.exports = class MotionDetection extends Base {
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
-                <Link to="/smart/face-recognition">{_('Smart functions')}</Link>
+                <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
               </li>
-              <li className="breadcrumb-item">{_('Motion detection')}</li>
+              <li className="breadcrumb-item">{_('Motion Detection')}</li>
             </ol>
           </nav>
         </div>
@@ -146,7 +146,7 @@ module.exports = class MotionDetection extends Base {
                 maskAreaStates[index].isVisible ?
                   <HotKeys key={index} keyMap={{DELETE: ['del', 'backspace']}} handlers={{DELETE: this.generateDeleteMaskAreaHandler(index)}}>
                     <Field rightBottomCornerRef={this.maskAreaRefs[index]} name={`areas.${index}`}
-                      component={MaskArea} text={_('Trigger area')}
+                      component={MaskArea} text={_('Detection Zone')}
                       className="border-green" parentElementId="md-video-wrapper"/>
                   </HotKeys> :
                   <div key={index}/>
@@ -157,10 +157,10 @@ module.exports = class MotionDetection extends Base {
 
         <div className="col-5 pl-24">
           <div className="card shadow">
-            <div className="card-header">{_('Motion detection recognition')}</div>
+            <div className="card-header">{_('Motion Detection Recognition')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Recognition function')}</label>
+                <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-motion-detection"/>
                   <label className="custom-control-label" htmlFor="switch-motion-detection">
@@ -183,11 +183,11 @@ module.exports = class MotionDetection extends Base {
               </div>
               <div className="form-group">
                 <div className="d-flex align-items-center">
-                  <label className="mb-0">{_('Trigger area')}</label>
+                  <label className="mb-0">{_('Detection Zone')}</label>
                   <i className="fas fa-info-circle text-size-14 text-primary pl-2"/>
                 </div>
                 <span className="text-size-16 text-primary">
-                  {_('You can set up to 4 trigger areas.')}
+                  {_('Up to 4 detection zones')}
                 </span>
               </div>
 

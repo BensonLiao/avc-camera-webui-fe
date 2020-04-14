@@ -80,13 +80,13 @@ module.exports = class FaceRecognition extends Base {
             <img className="img-fluid" src="/api/snapshot"/>
             {
               values.isEnableTriggerArea && (
-                <Field name="triggerArea" component={MaskArea} text={_('Trigger area')}
+                <Field name="triggerArea" component={MaskArea} text={_('Detection Zone')}
                   className="border-black" parentElementId="fr-video-wrapper"/>
               )
             }
             {
               values.isEnableFaceFrame && (
-                <Field name="faceFrame" component={MaskArea} text={_('Face size')}
+                <Field name="faceFrame" component={MaskArea} text={_('Facial Detection Size')}
                   className="border-green" parentElementId="fr-video-wrapper"/>
               )
             }
@@ -95,10 +95,10 @@ module.exports = class FaceRecognition extends Base {
 
         <div className="col-5 pl-24">
           <div className="card shadow">
-            <div className="card-header">{_('Face recognition')}</div>
+            <div className="card-header">{_('Facial Recognition')}</div>
             <Form className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Recognition function')}</label>
+                <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" type="checkbox" checked={values.isEnable} className="custom-control-input" id="switch-face-recognition"/>
                   <label className="custom-control-label" htmlFor="switch-face-recognition">
@@ -108,26 +108,16 @@ module.exports = class FaceRecognition extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Similarity level')}</label>
+                <label className="mb-0">{_('Similarity Level')}</label>
                 <div className="btn-group">
-                  <button type="button"
-                    className={classNames('btn btn-sm btn-outline-success', {active: values.confidenceLevel === ConfidenceLevel.low})}
-                    onClick={() => setFieldValue('confidenceLevel', ConfidenceLevel.low)}
-                  >
-                    {_(`confidence-level-${ConfidenceLevel.low}`)}
-                  </button>
-                  <button type="button"
-                    className={classNames('btn btn-sm btn-outline-success', {active: values.confidenceLevel === ConfidenceLevel.medium})}
-                    onClick={() => setFieldValue('confidenceLevel', ConfidenceLevel.medium)}
-                  >
-                    {_(`confidence-level-${ConfidenceLevel.medium}`)}
-                  </button>
-                  <button type="button"
-                    className={classNames('btn btn-sm btn-outline-success', {active: values.confidenceLevel === ConfidenceLevel.high})}
-                    onClick={() => setFieldValue('confidenceLevel', ConfidenceLevel.high)}
-                  >
-                    {_(`confidence-level-${ConfidenceLevel.high}`)}
-                  </button>
+                  {ConfidenceLevel.all().map(confidenceLevel => (
+                    <button key={confidenceLevel} type="button"
+                      className={classNames('btn triple-wrapper btn-sm outline-success px-2 py-1', {active: values.confidenceLevel === confidenceLevel})}
+                      onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
+                    >
+                      {_(`confidence-level-${confidenceLevel}`)}
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -136,7 +126,7 @@ module.exports = class FaceRecognition extends Base {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex align-items-center">
-                    <label className="mb-0">{_('Trigger area')}</label>
+                    <label className="mb-0">{_('Detection Zone')}</label>
                     <i className="fas fa-info-circle text-size-14 text-primary pl-2"/>
                   </div>
                   <div className="custom-control custom-switch">
@@ -148,11 +138,11 @@ module.exports = class FaceRecognition extends Base {
                   </div>
                 </div>
                 <span className="text-size-16 text-primary">
-                  {_('The default is full screen, it is changeable.')}
+                  {_('Default is Fullscreen')}
                 </span>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Face size')}</label>
+                <label className="mb-0">{_('Facial Detection Size')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnableFaceFrame" type="checkbox" checked={values.isEnableFaceFrame} className="custom-control-input" id="switch-face-size"/>
                   <label className="custom-control-label" htmlFor="switch-face-size">
@@ -165,7 +155,7 @@ module.exports = class FaceRecognition extends Base {
               <hr/>
 
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Display recognition name')}</label>
+                <label className="mb-0">{_('Display Recognition Name')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnableRecognitionInformation" type="checkbox" checked={values.isEnableRecognitionInformation} className="custom-control-input" id="switch-show-name"/>
                   <label className="custom-control-label" htmlFor="switch-show-name">
@@ -179,11 +169,11 @@ module.exports = class FaceRecognition extends Base {
                   <div className="form-group">
                     <div className="form-check mb-3">
                       <Field name="isShowMember" checked={values.isShowMember} className="form-check-input" type="checkbox" id="input-show-all"/>
-                      <label className="form-check-label" htmlFor="input-show-all">{_('Display name')}</label>
+                      <label className="form-check-label" htmlFor="input-show-all">{_('Display Name')}</label>
                     </div>
                     <div className="form-check mb-3">
                       <Field name="isShowGroup" checked={values.isShowGroup} className="form-check-input" type="checkbox" id="input-show-register-group"/>
-                      <label className="form-check-label" htmlFor="input-show-register-group">{_('Display group')}</label>
+                      <label className="form-check-label" htmlFor="input-show-register-group">{_('Display Group')}</label>
                     </div>
                     <div className="form-check">
                       <Field name="isShowUnknown" checked={values.isShowUnknown} className="form-check-input" type="checkbox" id="input-show-unknown-personal"/>
@@ -193,7 +183,7 @@ module.exports = class FaceRecognition extends Base {
                 )
               }
 
-              <button disabled={$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
+              <button disabled={$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
               </button>
             </Form>
@@ -214,9 +204,9 @@ module.exports = class FaceRecognition extends Base {
               <nav>
                 <ol className="breadcrumb rounded-pill">
                   <li className="breadcrumb-item active">
-                    <Link to="/smart/face-recognition">{_('Smart functions')}</Link>
+                    <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
                   </li>
-                  <li className="breadcrumb-item">{_('Face recognition')}</li>
+                  <li className="breadcrumb-item">{_('Facial Recognition')}</li>
                 </ol>
               </nav>
             </div>

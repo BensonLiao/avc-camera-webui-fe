@@ -30,32 +30,27 @@ module.exports = class Media extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{_('Multimedia settings')}</h2>
+          <h2>{_('Video')}</h2>
           <nav className="nav flex-column">
-            <Link to="/media/stream" title={_('Stream settings')}
+            <Link to="/media/stream" title={_('Stream Settings')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.stream'})}
             >
-              {_('Stream settings')}
+              {_('Stream Settings')}
             </Link>
-            <Link to="/media/rtsp" title={_('RTSP settings')}
+            <Link to="/media/rtsp" title={_('RTSP')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.rtsp'})}
             >
               RTSP
             </Link>
-            <Link to="/media/word" title={_('Overlay settings')}
+            <Link to="/media/word" title={_('OSD')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.word'})}
             >
-              {_('Text stickers')}
+              {_('OSD')}
             </Link>
-            <Link to="/media/privacy-mask" title={_('Privacy mask settings')}
+            <Link to="/media/privacy-mask" title={_('Privacy Mask')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.privacy-mask'})}
             >
-              {_('Privacy mask')}
-            </Link>
-            <Link to="/media/audio" title={_('Audio settings')}
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.audio'})}
-            >
-              {_('Sound settings')}
+              {_('Privacy Mask')}
             </Link>
           </nav>
         </div>

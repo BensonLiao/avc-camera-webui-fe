@@ -6,12 +6,9 @@ const ApertureType = require('webserver-form-schema/constants/aperture-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const OrientationType = require('webserver-form-schema/constants/orientation-type');
 const RefreshRate = require('webserver-form-schema/constants/refresh-rate');
-const StreamFormat = require('webserver-form-schema/constants/stream-format');
+const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
-const StreamVBRBitRateLevel = require('webserver-form-schema/constants/stream-vbr-bit-rate-level');
-const StreamVBRMaxBitRate = require('webserver-form-schema/constants/stream-vbr-max-bit-rate');
-const StreamCBRBitRate = require('webserver-form-schema/constants/stream-cbr-bit-rate');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 
 const adapter = new LocalStorage('db');
@@ -22,7 +19,7 @@ module.exports = {
     db.defaults({
       videoDefault: {
         defoggingEnabled: false,
-        irEnabled: false,
+        irEnabled: '0',
         brightness: 0,
         contrast: 6,
         hdrEnabled: 'false',
@@ -40,11 +37,14 @@ module.exports = {
         sensitivity: 0,
         isAutoFocus: false,
         focalLength: 5,
-        zoom: 1
+        zoom: 1,
+        irBrightness: 1,
+        focusType: '0',
+        isAutoFocusAfterZoom: false
       },
       video: {
         defoggingEnabled: false,
-        irEnabled: false,
+        irEnabled: '0',
         brightness: 0,
         contrast: 6,
         hdrEnabled: 'false',
@@ -62,7 +62,10 @@ module.exports = {
         sensitivity: 0,
         isAutoFocus: false,
         focalLength: 5,
-        zoom: 1
+        zoom: 1,
+        irBrightness: 1,
+        focusType: '0',
+        isAutoFocusAfterZoom: false
       },
       system: {
         languageCode: 'en-us',
@@ -71,51 +74,87 @@ module.exports = {
         isEnableAgeGender: false,
         isEnableHumanoidDetection: false,
         deviceStatus: 1,
-        usedDiskSize: 3117 * 1024 * 1024,
-        totalDiskSize: 7692 * 1024 * 1024
+        serialNumber: '181000723',
+        modelName: 'AV02CLD-100',
+        firmware: '35110.4',
+        sdEnabled: false,
+        sdStatus: 1,
+        sdFormat: 'FAT32',
+        sdTotal: 31250000,
+        sdUsage: 12178048,
+        sdAlertEnabled: false
+      },
+      systemDateTime: {
+        deviceTime: '2019-04-17 23:48:45',
+        ntpTimeZone: 'Asia/Taipei',
+        ntpIP: 'tw.pool.ntp.org',
+        syncTimeOption: '0',
+        ntpTimeOption: '0',
+        ntpUpdateTime: '2020-01-02T10:00:00.000Z',
+        ntpUpdateTimeRate: '10',
+        manualTime: '2019-10-02T08:00:00.000Z'
+      },
+      networkSettings: {
+        networkInterface: '0',
+        ipType: '0',
+        mac: '00-1a-07-18-c5-58',
+        ipAddress: '192.168.20.229',
+        primaryDNS: '192.169.20.1',
+        secondaryDNS: '192.169.20.123',
+        subnetMask: '225.225.225.0',
+        gateway: '192.169.20.1'
+      },
+      ddnsSettings: {
+        isEnableDDNS: false,
+        ddnsProvider: '0',
+        ddnsHost: 'aa',
+        ddnsAccount: 'aa',
+        ddnsPassword: 'aa'
+      },
+      httpSettings: {
+        port: '8080'
+      },
+      httpsSettings: {
+        isEnable: true,
+        port: '443',
+        certificateType: '0'
       },
       streamDefault: {
         channelA: {
-          format: StreamFormat.h264,
+          codec: StreamCodec.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['1024'],
-          gov: StreamGOV['120']
+          maximumBitrate: '4096',
+          constantBitrate: '4096',
+          gov: StreamGOV['60']
         },
         channelB: {
-          format: StreamFormat.h264,
+          codec: StreamCodec.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['1'],
-          cbrBitRate: StreamCBRBitRate['10'],
-          gov: StreamGOV['120']
+          maximumBitrate: '4096',
+          constantBitrate: '4096',
+          gov: StreamGOV['60']
         }
       },
       stream: {
         channelA: {
-          format: StreamFormat.h264,
+          codec: StreamCodec.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
-          bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: StreamVBRMaxBitRate['12'],
-          cbrBitRate: StreamCBRBitRate['10'],
-          gov: StreamGOV['120']
+          bandwidthManagement: StreamBandwidthManagement.mbr,
+          bitRate: '4096',
+          gov: StreamGOV['60']
         },
         channelB: {
-          format: StreamFormat.h264,
+          codec: StreamCodec.h264,
           resolution: StreamResolution['0'],
           frameRate: '30',
-          bandwidthManagement: StreamBandwidthManagement.vbr,
-          vbrBitRateLevel: StreamVBRBitRateLevel.complete,
-          vbrMaxBitRate: '1',
-          cbrBitRate: StreamCBRBitRate['1024'],
-          gov: StreamGOV['120']
+          bandwidthManagement: StreamBandwidthManagement.mbr,
+          bitRate: '4096',
+          gov: StreamGOV['60']
         }
       },
       audioSettings: {
@@ -146,7 +185,8 @@ module.exports = {
         isEnable: true,
         fontSize: '1',
         color: '0',
-        position: '1'
+        position: '1',
+        type: '0'
       },
       faceRecognitionSettings: {
         isEnable: true,
@@ -206,7 +246,7 @@ module.exports = {
         senderEmail: '',
         interval: '',
         isEnableLoginNotification: false,
-        isEnableAuth: false
+        isEnableAuth: true
       },
       notificationCards: [],
       groups: [

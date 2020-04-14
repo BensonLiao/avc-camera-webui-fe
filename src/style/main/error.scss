@@ -1,38 +1,25 @@
-.error-page {
-  min-width: 1400px;
-  padding-top: 320px;
-  background-size: contain;
-  background-position: center top;
-  &.error-404 {
-    background-image: url("../resource/error-404-bg.png");
-  }
-  &.error-500 {
-    background-image: url("../resource/error-500-bg.png");
-  }
+@import "../shared/gotham-base64.scss";
 
+.error-page {
   .row {
-    min-height: calc(100vh - 320px);
     background-color: #fff;
   }
   .message-container {
-    padding-top: 81px;
     white-space: nowrap;
     overflow: hidden;
     font-family: "Roboto", serif;
-    .message-title {
+    .message-status {
+      font-family: "Gotham-Bold", serif;
       font-weight: bold;
-      font-size: 72px;
-      line-height: 125px;
-      padding-left: 20px;
-      white-space: nowrap;
-      vertical-align: bottom;
+      font-size: 108px;
+      color: $secondary-400;
+      line-height: 120px;
     }
-    .message-subtitle {
-      font-size: 20px;
-      padding-top: 36px;
+    .message-title {
+      font-size: 50px;
     }
     .btn {
-      width: 320px;
+      width: 10rem;
     }
   }
   .icons > img {

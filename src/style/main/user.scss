@@ -1,7 +1,7 @@
 .page-users {
-  padding: 32px 29px;
-  min-width: 1030px;
-  min-height: calc(100vh - #{$navigation-height});
+  padding: 48px 33px;
+  min-width: 1500px;
+  min-height: calc(100vh - #{$top-navigation-height});
 
   .table {
     th {
@@ -12,7 +12,6 @@
     }
     td {
       @extend .text-truncate;
-      padding: 12px 8px !important;
     }
   }
 }

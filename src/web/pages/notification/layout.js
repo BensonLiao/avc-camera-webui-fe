@@ -18,7 +18,7 @@ module.exports = class Notification extends Base {
     );
     if (this.state.currentRouteName === 'web.notification') {
       setTimeout(() => {
-        router.go({name: 'web.notification.app'});
+        router.go({name: 'web.notification.smtp'});
       });
     }
   }
@@ -30,23 +30,20 @@ module.exports = class Notification extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{_('Notification settings')}</h2>
+          <h2>{_('Notification')}</h2>
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-notification-menu">
               <a href="#" data-toggle="collapse" data-target="#basic-settings"
-                title={_('Basic settings')}
+                title={_('Basic Setting')}
                 className={classNames(
                   'nav-link collapse show d-flex justify-content-between align-items-center',
-                  {active: ['web.notification.app', 'web.notification.smtp', 'web.notification.io'].indexOf(currentRouteName) >= 0}
+                  {active: ['web.notification.smtp', 'web.notification.io'].indexOf(currentRouteName) >= 0}
                 )}
               >
-                <span className="text-truncate">{_('Basic settings')}</span>
+                <span className="text-truncate">{_('Basic Setting')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-settings" className="collapse show" data-parent="#accordion-notification-menu">
-                <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.app'})} to="/notification/app" title={_('App')}>
-                  {_('App')}
-                </Link>
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.smtp'})} to="/notification/smtp" title={_('Mail')}>
                   {_('Mail')}
                 </Link>
@@ -55,8 +52,8 @@ module.exports = class Notification extends Base {
                 </Link>
               </div>
             </div>
-            <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.cards'})} to="/notification/cards" title={_('Smart notifications')}>
-              {_('Smart notifications')}
+            <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.cards'})} to="/notification/cards" title={_('Smart Notification')}>
+              {_('Smart Notification')}
             </Link>
           </nav>
         </div>

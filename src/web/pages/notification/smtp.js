@@ -93,7 +93,7 @@ module.exports = class SMTP extends Base {
             <label>{_('Account')}</label>
             <Field name="account" type="text"
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
-              placeholder={_('Please enter your account.')}/>
+              placeholder={_('Enter your account')}/>
             {
               errors.account && touched.account && (
                 <div className="invalid-feedback">{errors.account}</div>
@@ -105,7 +105,7 @@ module.exports = class SMTP extends Base {
             <Field name="password" component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.password && touched.password}),
-                placeholder: _('Please enter your password.')
+                placeholder: _('Enter your password')
               }}/>
             {
               errors.password && touched.password && (
@@ -158,7 +158,7 @@ module.exports = class SMTP extends Base {
               {_('Apply')}
             </button>
           </div>
-          <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.onHideModal}>
+          <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.onHideModal}>
             {_('Close')}
           </button>
         </div>
@@ -172,14 +172,14 @@ module.exports = class SMTP extends Base {
     return (
       <Form className="card shadow">
         <div className="card-header">
-          {_('SMTP server')}
+          {_('SMTP Server')}
         </div>
         <div className="card-body">
           <div className="form-group">
-            <label>{_('IP address')}</label>
+            <label>{_('IP Address')}</label>
             <Field autoFocus name="host" type="text"
               className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-              placeholder={_('Please enter your IP address.')}/>
+              placeholder={_('Enter your IP address')}/>
             {
               errors.host && touched.host && (
                 <div className="invalid-feedback">{errors.host}</div>
@@ -188,7 +188,7 @@ module.exports = class SMTP extends Base {
           </div>
           <div className="form-group d-flex justify-content-between align-items-center">
             <div>
-              <label className="mb-0">{_('SMTP account settings')}</label>
+              <label className="mb-0">{_('SMTP Account Settings')}</label>
               <br/>
               <a href="#" onClick={this.onClickAccountSettingsButton}>
                 {_('Edit account and password')}
@@ -203,7 +203,7 @@ module.exports = class SMTP extends Base {
             </div>
           </div>
           <div className="form-group d-flex justify-content-between align-items-center">
-            <label>{_('Login notification')}</label>
+            <label>{_('Login Notification')}</label>
             <div className="custom-control custom-switch">
               <Field name="isEnableLoginNotification" checked={values.isEnableLoginNotification} type="checkbox" className="custom-control-input" id="switch-login-notification"/>
               <label className="custom-control-label" htmlFor="switch-login-notification">
@@ -221,7 +221,7 @@ module.exports = class SMTP extends Base {
             <label>{_('Name')}</label>
             <Field name="senderName" type="text"
               className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
-              placeholder={_('Please enter your name.')}/>
+              placeholder={_('Enter Your Name')}/>
             {
               errors.senderName && touched.senderName && (
                 <div className="invalid-feedback">{errors.senderName}</div>
@@ -232,7 +232,7 @@ module.exports = class SMTP extends Base {
             <label>{_('Email')}</label>
             <Field name="senderEmail" type="text"
               className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
-              placeholder={_('Please enter your email.')}/>
+              placeholder={_('Enter your email')}/>
             {
               errors.senderEmail && touched.senderEmail && (
                 <div className="invalid-feedback">{errors.senderEmail}</div>
@@ -240,18 +240,18 @@ module.exports = class SMTP extends Base {
             }
           </div>
           <div className="form-group">
-            <label>{_('Notification interval(second)')}</label>
+            <label>{_('Notification Interval (Seconds)')}</label>
             <Field name="interval" type="text"
               className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
-              placeholder={_('Please enter your notification interval.')}/>
+              placeholder={_('Enter your notification interval')}/>
             {
               errors.interval && touched.interval && (
                 <div className="invalid-feedback">{errors.interval}</div>
               )
             }
-            <small className="form-text text-muted">{_('5 - 1,800 seconds')}</small>
+            <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
           </div>
-          <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
+          <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             {_('Apply')}
           </button>
         </div>
@@ -268,14 +268,14 @@ module.exports = class SMTP extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
+              <div className="col-12 px-0">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{_('Notification settings')}</Link>
+                      <Link to="/notification/smtp">{_('Notification')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{_('Basic settings')}</Link>
+                      <Link to="/notification/smtp">{_('Basic Setting')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('Mail')}</li>
                   </ol>

@@ -6,7 +6,8 @@ const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
-const iconHttps = require('../../../resource/https-24px.svg');
+const iconLock = require('../../../resource/lock-24px.svg');
+const iconDescription = require('../../../resource/description-20px.svg');
 const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
 const Password = require('../../../core/components/fields/password');
@@ -47,7 +48,7 @@ module.exports = class Members extends Base {
 
   constructor(props) {
     super(props);
-    this.currentRoute = getRouter().findRouteByName('web.members');
+    this.currentRoute = getRouter().findRouteByName('web.users.members');
     this.state.isShowDeleteGroupModal = false;
     this.state.deleteGroupTarget = null;
     this.state.selectedGroup = props.groups.items.find(x => x.id === props.params.group);
@@ -77,7 +78,7 @@ module.exports = class Members extends Base {
         if (this.state.deleteGroupTarget.id === this.props.params.group) {
           getRouter().go(
             {
-              name: 'web.members',
+              name: 'web.users.members',
               params: {...this.props.params, group: undefined, index: undefined}
             },
             {reload: true}
@@ -158,10 +159,10 @@ module.exports = class Members extends Base {
   searchFormRender = () => {
     return (
       <Form className="form-row">
-        <div className="col-auto my-1">
-          <Field name="keyword" className="form-control" type="text" placeholder={_('Please enter the keyword.')}/>
+        <div className="col-auto">
+          <Field name="keyword" className="form-control" type="text" placeholder={_('Enter keywords')}/>
         </div>
-        <div className="col-auto my-1">
+        <div className="col-auto">
           <button disabled={this.state.$isApiProcessing}
             className="btn btn-outline-primary rounded-pill px-3" type="submit"
           >
@@ -220,7 +221,7 @@ module.exports = class Members extends Base {
     api.member.uploadDatabaseFile(file)
       .then(() => {
         getRouter().go(
-          {name: 'web.members', params: {}},
+          {name: 'web.users.members', params: {}},
           {reload: true}
         );
       })
@@ -234,11 +235,11 @@ module.exports = class Members extends Base {
     return (
       <Form className="modal-content">
         <div className="modal-header">
-          <h5 className="modal-title">{_('Database encryption')}</h5>
+          <h5 className="modal-title">{_('Database Encryption')}</h5>
         </div>
         <div className="modal-body">
           <div className="form-group has-feedback">
-            <label>{_('Old password')}</label>
+            <label>{_('Old Password')}</label>
             <Field
               name="password"
               component={Password}
@@ -257,11 +258,11 @@ module.exports = class Members extends Base {
             }
           </div>
           <div className="form-group has-feedback">
-            <label>{_('New password')}</label>
+            <label>{_('New Password')}</label>
             <Field name="newPassword" component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
-                placeholder: _('Please enter your password.')
+                placeholder: _('Enter your password')
               }}/>
             {
               errors.newPassword && touched.newPassword && (
@@ -270,11 +271,11 @@ module.exports = class Members extends Base {
             }
           </div>
           <div className="form-group has-feedback">
-            <label>{_('Confirm password')}</label>
+            <label>{_('Confirm Password')}</label>
             <Field name="confirmPassword" component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                placeholder: _('Please confirm your password.')
+                placeholder: _('Confirm your password')
               }}/>
             {
               errors.confirmPassword && touched.confirmPassword && (
@@ -289,7 +290,7 @@ module.exports = class Members extends Base {
               {_('Modify')}
             </button>
           </div>
-          <button type="button" className="btn btn-secondary btn-block m-0 rounded-pill"
+          <button type="button" className="btn btn-info btn-block m-0 rounded-pill"
             onClick={this.hideDatabaseEncryptionModal}
           >
             {_('Close')}
@@ -344,25 +345,28 @@ module.exports = class Members extends Base {
     return (
       <>
         {/* Left menu */}
-        <div className="left-menu fixed-top">
+        <div className="left-menu fixed-top sub">
           <h2>{_('Members')}</h2>
           <nav className="nav flex-column">
-            <Link to="/members" title={_('All members')}
-              className={classNames('nav-link text-size-16 py-3', {active: !this.props.params.group})}
+            <Link to="/users/members" title={_('All Members')}
+              className={classNames('nav-link text-size-16 py-1 px-3',
+                {active: !this.props.params.group},
+                {'bg-light': !this.props.params.group}
+              )}
             >
-              <i className="fas fa-user-friends pl-3 pr-4"/>{_('All members')}
+              <i className="fas fa-user-friends pl-2 pr-4"/>{_('All Members')}
             </Link>
           </nav>
           <hr/>
           <div className="groups">
-            <div className="d-flex justify-content-between align-items-center mb-3 pr-3">
+            <div className="sub-title py-1 px-4">
               <h3>{_('Groups')}</h3>
               <Link
-                to={{name: 'web.members.new-group', params: this.props.params}}
+                to={{name: 'web.users.members.new-group', params: this.props.params}}
                 tabIndex={(isAddGroupDisabled ? -1 : null)}
-                className={classNames('btn btn-link text-light', {disabled: isAddGroupDisabled})}
+                className={classNames('btn btn-link text-info p-0', {disabled: isAddGroupDisabled})}
               >
-                <i className="fas fa-plus fa-fw fa-lg"/>
+                <i className="fas fa-plus fa-fw text-size-20"/>
               </Link>
             </div>
 
@@ -371,41 +375,42 @@ module.exports = class Members extends Base {
                 <div key={group.id}
                   className={classNames(
                     'group-item d-flex justify-content-between align-items-center',
-                    {active: this.props.params.group === group.id}
+                    {active: this.props.params.group === group.id},
+                    {'bg-light': this.props.params.group === group.id}
                   )}
                 >
-                  <a className="w-100 text-truncate" href={`#${group.id}`}
+                  <a className="w-100 text-truncate d-flex align-items-center" href={`#${group.id}`}
                     onClick={this.generateChangeFilterHandler('group', group.id)}
                   >
-                    <i className="far fa-folder fa-lg"/>
-                    <span className="text-truncate text-size-16 pl-4">{group.name}</span>
+                    <i className="far fa-folder text-size-24"/>
+                    <span className="text-truncate text-size-14 pl-4">{group.name}</span>
                   </a>
-                  <button className="btn btn-link btn-delete text-light" type="button"
+                  <button className="btn btn-link btn-delete text-info" type="button"
                     onClick={this.generateShowDeleteGroupModalHandler(group)}
                   >
-                    <i className="far fa-trash-alt fa-fw fa-lg"/>
+                    <i className="far fa-trash-alt fa-fw text-size-20"/>
                   </button>
                 </div>
               ))
             }
 
             <hr/>
-            <div className="d-flex justify-content-between align-items-center mb-3 pr-3">
-              <h3>{_('Database file')}</h3>
-              <button className="btn btn-link text-light" type="button" onClick={this.showDatabaseEncryptionModal}>
-                <img src={iconHttps}/>
+            <div className="sub-title py-2 px-4">
+              <h3>{_('Database')}</h3>
+              <button className="btn btn-link p-0" type="button" onClick={this.showDatabaseEncryptionModal}>
+                <img src={iconLock}/>
               </button>
             </div>
-            <div className="actions">
+            <div className="actions px-4 py-3">
               <div className="form-group">
                 <button disabled={this.state.$isApiProcessing} type="button"
-                  className="btn btn-outline-light btn-block rounded-pill"
+                  className="btn btn-outline-primary btn-block rounded-pill"
                   onClick={this.onClickExportDatabase}
                 >
                   {_('Export')}
                 </button>
               </div>
-              <label className={classNames('btn btn-outline-light btn-block rounded-pill font-weight-bold', {disabled: this.state.$isApiProcessing})}>
+              <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: this.state.$isApiProcessing})}>
                 <input type="file" className="d-none" accept=".zip" onChange={this.onChangeDatabaseFile}/>{_('Import')}
               </label>
             </div>
@@ -413,29 +418,27 @@ module.exports = class Members extends Base {
         </div>
 
         {/* Main content */}
-        <div className="main-content left-menu-active">
+        <div className="main-content left-menu-active sub">
           <div className="page-users bg-white">
             <div className="container-fluid">
               <div className="row">
-                <div className="col-12 d-flex justify-content-between mb-4">
+                <div className="col-12 d-flex justify-content-between align-items-center mb-4">
                   <Formik initialValues={{keyword: this.props.params.keyword || ''}}
                     onSubmit={this.onSubmitSearchForm}
                   >
                     {this.searchFormRender}
                   </Formik>
-                  <div className="form-row">
-                    <div className="dropdown">
-                      <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
-                        <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
-                      </button>
-                      <div className="dropdown-menu dropdown-menu-right shadow">
-                        <Link className="dropdown-item"
-                          to={{name: 'web.members.new-member', params: this.props.params}}
-                        >
-                          {_('Add a new member')}
-                        </Link>
-                        <Link className="dropdown-item" to="/events">{_('Add a member from events')}</Link>
-                      </div>
+                  <div className="dropdown">
+                    <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
+                      <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
+                    </button>
+                    <div className="dropdown-menu dropdown-menu-right shadow">
+                      <Link className="dropdown-item"
+                        to={{name: 'web.users.members.new-member', params: this.props.params}}
+                      >
+                        {_('Add a New Member')}
+                      </Link>
+                      <Link className="dropdown-item" to="/users/events">{_('Add a Member from Events')}</Link>
                     </div>
                   </div>
                 </div>
@@ -443,12 +446,13 @@ module.exports = class Members extends Base {
                 {
                   selectedGroup && (
                     <div className="col-12 mb-4">
-                      <i className="far fa-folder fa-fw fa-lg text-primary ml-3"/>
+                      <i className="far fa-folder fa-fw fa-lg text-primary"/>
                       <span className="text-size-16 text-muted ml-3">{selectedGroup.name}</span>
-                      <Link className="ml-5" to={{name: 'web.members.modify-group', params: this.props.params}}>
+                      <img className="ml-32px" src={iconDescription}/>
+                      <span className="text-size-14 text-muted ml-2">{selectedGroup.note}</span>
+                      <Link className="ml-32px" to={{name: 'web.users.members.modify-group', params: this.props.params}}>
                         <i className="fas fa-pen fa-fw"/>
                       </Link>
-                      <span className="text-size-14 text-muted ml-5">{selectedGroup.note}</span>
                     </div>
                   )
                 }
@@ -457,7 +461,7 @@ module.exports = class Members extends Base {
                   <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                     <thead>
                       <tr className="shadow">
-                        <th className="text-center" style={{width: '20%'}}>{_('Register picture')}</th>
+                        <th className="text-center" style={{width: '20%'}}>{_('User Picture')}</th>
                         <th style={{width: '15%'}}>
                           <a href="#name" onClick={sort.name.handler}>{_('Name')}</a>
                           <i className={sort.name.icon}/>
@@ -486,11 +490,11 @@ module.exports = class Members extends Base {
                                   src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
                               </td>
                               <td className={tdClass}>{member.name}</td>
-                              <td className={tdClass}>{member.organization || _('None')}</td>
-                              <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('None')}</td>
-                              <td className={tdClass}>{member.note || _('None')}</td>
-                              <td className={tdClass}>
-                                <Link className="btn btn-link" to={{name: 'web.members.details', params: {...this.props.params, memberId: member.id}}}>
+                              <td className={tdClass}>{member.organization || _('N/A')}</td>
+                              <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
+                              <td className={tdClass}>{member.note || _('N/A')}</td>
+                              <td className={classNames('text-left group-btn', tdClass)}>
+                                <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...this.props.params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
                                 <button className="btn btn-link" type="button"
@@ -526,14 +530,11 @@ module.exports = class Members extends Base {
         >
           <form>
             <div className="modal-header">
-              <h5 className="modal-title">{_('Delete group')}</h5>
+              <h5 className="modal-title">{_('Delete Group')}</h5>
             </div>
             <div className="modal-body">
-              <span className="text-muted en-us">
-                Are you sure to delete the group <strong>{this.state.deleteGroupTarget && this.state.deleteGroupTarget.name}</strong>?
-              </span>
-              <span className="text-muted zh-tw">
-                您即將刪除<strong>{this.state.deleteGroupTarget && this.state.deleteGroupTarget.name}</strong>群組，確認要刪除嗎？
+              <span className="text-muted">
+                {_('Are you sure to delete the group {0}?', [this.state.deleteGroupTarget && this.state.deleteGroupTarget.name])}
               </span>
             </div>
             <div className="modal-footer flex-column">
@@ -544,7 +545,7 @@ module.exports = class Members extends Base {
                   {_('Delete')}
                 </button>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteGroupModal}>
+              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideDeleteGroupModal}>
                 {_('Close')}
               </button>
             </div>
@@ -559,7 +560,7 @@ module.exports = class Members extends Base {
         >
           <form>
             <div className="modal-header">
-              <h5 className="modal-title">{_('Delete member')}</h5>
+              <h5 className="modal-title">{_('Delete Member')}</h5>
             </div>
             <div className="modal-body">
               <span className="text-muted">
@@ -574,7 +575,7 @@ module.exports = class Members extends Base {
                   {_('Delete')}
                 </button>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideDeleteMemberModal}>
+              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideDeleteMemberModal}>
                 {_('Close')}
               </button>
             </div>

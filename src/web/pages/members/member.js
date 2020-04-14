@@ -33,8 +33,8 @@ module.exports = class Member extends Base {
     this.$listens.push(
       getRouter().listen('ChangeStart', (action, toState) => {
         const isShowModal = [
-          'web.members.new-member',
-          'web.members.details'
+          'web.users.members.new-member',
+          'web.users.members.details'
         ].indexOf(toState.name) >= 0;
         this.setState({isShowModal});
       })
@@ -44,16 +44,16 @@ module.exports = class Member extends Base {
   onSubmittedMemberForm = () => {
     if (this.props.member) {
       // Updated the member.
-      getRouter().go({name: 'web.members', params: this.props.params}, {reload: true});
+      getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
     } else {
       // Created a new member.
-      getRouter().go({name: 'web.members', params: {}}, {reload: true});
+      getRouter().go({name: 'web.users.members', params: {}}, {reload: true});
     }
   };
 
   onHideModal = () => {
     getRouter().go({
-      name: 'web.members',
+      name: 'web.users.members',
       params: this.props.params
     });
   };

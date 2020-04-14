@@ -1,6 +1,12 @@
 const api = require('./index.js');
 
 module.exports = {
+  ping: () => api({
+    method: 'get',
+    url: '/api/ping',
+    timeout: 1000,
+    params: {_: Math.random().toString(36).substr(2)}
+  }),
   validation: {
     /**
      * Validate the birthday of the account.
@@ -100,7 +106,6 @@ module.exports = {
     /**
      * @param {String} account
      * @param {String} permission
-     * @param {String} birthday
      * @param {String} password
      * @returns {Promise<response>}
      * @response 200 {Object}
@@ -108,16 +113,15 @@ module.exports = {
      * - account {String}
      * - permission {String}
      */
-    addUser: ({account, permission, birthday, password}) => api({
+    addUser: ({account, permission, password}) => api({
       method: 'post',
       url: '/api/users',
-      data: {account, permission, birthday, password}
+      data: {account, permission, password}
     }),
     /**
      * @param {Number} id
      * @param {String} account
      * @param {String} permission
-     * @param {String} birthday
      * @param {String} password The old password.
      * @param {String} newPassword
      * @returns {Promise<response>}
@@ -126,10 +130,10 @@ module.exports = {
      * - account {String}
      * - permission {String}
      */
-    updateUser: ({id, account, birthday, permission, password, newPassword}) => api({
+    updateUser: ({id, account, permission, password, newPassword}) => api({
       method: 'put',
       url: `/api/users/${id}`,
-      data: {account, birthday, permission, password, newPassword}
+      data: {account, permission, password, newPassword}
     }),
     /**
      * @param {Number} userId
@@ -153,10 +157,77 @@ module.exports = {
      * - deviceStatus {Number}
      * - usedDiskSize {Number}
      * - totalDiskSize {Number}
+     * - serialNumber {string}
+     * - modelName {string}
+     * - firmware {string}
      */
     getInformation: () => api({
       method: 'get',
       url: '/api/system/information'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - syncTimeOption {String}
+     * - ntpTimeZone {String}
+     * - ntpIP {String}
+     * - ntpTimeOption {String}
+     * - ntpUpdateTime {Date}
+     * - ntpUpdateTimeRate {String}
+     * - deviceTime {String}
+     * - manualTime {Date}
+     */
+    getSystemDateTime: () => api({
+      method: 'get',
+      url: '/api/system/datetime'
+    }),
+    /**
+     * @param {string} syncTimeOption
+     * @param {string} ntpTimeZone
+     * @param {string} ntpIP
+     * @param {string} ntpTimeOption
+     * @param {Date} ntpUpdateTime
+     * @param {string} ntpUpdateTimeRate
+     * @param {string} deviceTime
+     * @param {Date} manualTime
+     * @returns {Promise<Object>}
+     * - syncTimeOption {String}
+     * - ntpTimeZone {String}
+     * - ntpIP {String}
+     * - ntpTimeOption {String}
+     * - ntpUpdateTime {Date}
+     * - ntpUpdateTimeRate {String}
+     * - deviceTime {String}
+     * - manualTime {Date}
+     */
+    updateSystemDateTime: ({syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}) => api({
+      method: 'put',
+      url: '/api/system/datetime',
+      data: {syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     * - port {string}
+     * - certificateType {string}
+     */
+    getHttpsSettings: () => api({
+      method: 'get',
+      url: '/api/system/https'
+    }),
+    /**
+     * @param {boolean} isEnable
+     * @param {string} port
+     * @param {string} certificateType
+     * @param {string} certificate
+     * @param {string} privateKey
+     * @returns {Promise<response>}
+     */
+    updateHttpsSettings: ({isEnable, port, certificateType, certificate, privateKey}) => api({
+      method: 'put',
+      url: '/api/system/https',
+      data: {isEnable, port, certificateType, certificate, privateKey}
     }),
     /**
      * @param {String} deviceName
@@ -170,24 +241,17 @@ module.exports = {
       data: {deviceName}
     }),
     /**
-     * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
-     * @param {Object} account
-     *   @property {String} account
-     *   @property {String} permission
-     *   @property {String} birthday
-     *   @property {String} password
+     * Setup the device with an account.
+     * @param {string} account
+     * @param {string} password
      * @returns {Promise<response>}
      * @response 200 {Object}
-     * - account {String}
+     * - account {string}
      */
-    setup: ({language, account, https}) => api({
+    setup: ({account, password}) => api({
       method: 'post',
       url: '/api/system/_setup',
-      data: {
-        language,
-        account,
-        https
-      }
+      data: {account, password}
     }),
     /**
      * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
@@ -199,6 +263,187 @@ module.exports = {
       method: 'put',
       url: '/api/system/language',
       data: {language}
+    }),
+    /**
+     * @param {File} file - The firmware file.
+     * @returns {Promise<response>}
+     * @response 204
+     */
+    uploadFirmware: file => api({
+      method: 'post',
+      url: '/api/system/firmware',
+      headers: {'content-type': 'multipart/form-data'},
+      data: (() => {
+        const formData = new FormData();
+        formData.set('file', file);
+        return formData;
+      })()
+    }),
+    /**
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    deviceReboot: () => api({
+      method: 'post',
+      url: '/api/system/reboot'
+    }),
+    /**
+     * @param {Boolean} resetIP - Reset IP address or not.
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    deviceReset: resetIP => api({
+      method: 'post',
+      url: '/api/system/resetdefault',
+      data: {resetIP}
+    }),
+    /**
+     * @param {File} file - The device settings file.
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    importDeviceSettings: file => api({
+      method: 'post',
+      url: '/api/system/importsettings',
+      headers: {'content-type': 'multipart/form-data'},
+      data: (() => {
+        const formData = new FormData();
+        formData.set('file', file);
+        return formData;
+      })()
+    }),
+    /**
+     * @returns {Promise<Response>}
+     * @response 204
+     * - sdEnabled {boolean}
+     * - sdAlertEnabled {boolean}
+     * - sdFormat {string}
+     * - sdTotal {string}
+     * - sdUsage {string}
+     * - sdStatus {boolean}
+     */
+    getSDCardInformation: () => api({
+      method: 'get',
+      url: '/api/system/systeminfo/sdcard'
+    }),
+    enableSD: ({sdEnabled}) => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard',
+      data: {sdEnabled}
+    }),
+    sdCardAlert: ({sdAlertEnabled}) => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcardalert',
+      data: {sdAlertEnabled}
+    }),
+    formatSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard/format'
+    }),
+    unmountSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard/unmount'
+    }),
+    /**
+     * Clears system log
+     * @returns {Promise<Response>}
+     * @response 204
+     */
+    clearLog: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/clearLog'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - networkInterface {String}
+     * - ipType {String}
+     * - ipAddress {String}
+     * - primaryDNS {String}
+     * - secondaryDNS {String}
+     * - gateway {String}
+     * - subnetMask {String}
+     * - mac {String}
+     */
+    getNetworkSettings: () => api({
+      method: 'get',
+      url: '/api/system/network'
+    }),
+    /**
+     * @param {String} ipType
+     * @param {String} ipAddress
+     * @param {String} primaryDNS
+     * @param {String} secondaryDNS
+     * @param {String} subnetMask
+     * @param {String} gateway
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    updateNetworkSettings: ({ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}) => api({
+      method: 'put',
+      url: '/api/system/network',
+      data: {ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - success {Number}
+     */
+    testDHCP: () => api({
+      method: 'post',
+      url: '/api/system/network/testdhcp'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableDDNS {Boolean}
+     * - ddnsProvider {String}
+     * - ddnsHost {String}
+     * - ddnsAccount {String}
+     * - ddnsPassword {String}
+     */
+    getDDNSInfo: () => api({
+      method: 'get',
+      url: '/api/system/network/tcpip/ddns'
+    }),
+    /**
+     * @param {Boolean} isEnableDDNS
+     * @param {String} ddnsProvider
+     * @param {String} ddnsHost
+     * @param {String} ddnsAccount
+     * @param {String} ddnsPassword
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableDDNS {Boolean}
+     * - ddnsProvider {String}
+     * - ddnsHost {String}
+     * - ddnsAccount {String}
+     * - ddnsPassword {String}
+     */
+    updateDDNSInfo: ({isEnableDDNS, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}) => api({
+      method: 'put',
+      url: '/api/system/network/tcpip/ddns',
+      data: {isEnableDDNS, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - httpPort {Number}
+     */
+    getHttpInfo: () => api({
+      method: 'get',
+      url: '/api/system/network/tcpip/http'
+    }),
+    /**
+     * @param {Number} httpPort
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - httpPort {Number}
+     */
+    updateHttpInfo: httpPort => api({
+      method: 'put',
+      url: '/api/system/network/tcpip/http',
+      data: {httpPort}
     })
   },
   notification: {
@@ -224,7 +469,7 @@ module.exports = {
      * - interval {string}
      */
     updateAppSettings: ({deviceToken, deviceId, interval}) => api({
-      method: 'put',
+      method: 'post',
       url: '/api/notification/app/settings',
       data: {deviceToken, deviceId, interval}
     }),
@@ -325,6 +570,8 @@ module.exports = {
      * - isEnableGPIO2 {boolean}
      * - isEnableApp {boolean}
      * - isEnableEmail {boolean}
+     * - isEnableVMS {boolean}
+     * - faceRecognitionVMSEvent {string}
      * - emails {Array<string>}
      * - emailAttachmentType {string}
      * - groups {Array<string>}
@@ -335,15 +582,15 @@ module.exports = {
       method: 'get',
       url: '/api/notification/cards'
     }),
-    addCard: ({type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    addCard: ({type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
       method: 'post',
       url: '/api/notification/cards',
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
     }),
-    updateCard: ({id, type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    updateCard: ({id, type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
       method: 'put',
       url: `/api/notification/cards/${id}`,
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
     }),
     deleteCard: cardId => api({
       method: 'delete',
@@ -355,7 +602,7 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - defoggingEnabled {Boolean}
-     * - irEnabled {Boolean}
+     * - irEnabled {String}
      * - brightness {Number}
      * - contrast {Number}
      * - hdrEnabled {String}
@@ -371,9 +618,12 @@ module.exports = {
      * - orientation {String}
      * - refreshRate {String}
      * - sensitivity {Number}
+     * - irBrightness {Number}
      * - isAutoFocus {Boolean}
      * - focalLength {Number}
      * - zoom {Number}
+     * - focusType {String}
+     * - isAutoFocusAfterZoom {Boolean}
      */
     getSettings: () => api({
       method: 'get',
@@ -381,7 +631,7 @@ module.exports = {
     }),
     /**
      * @param {Boolean} defoggingEnabled
-     * @param {Boolean} irEnabled
+     * @param {String} irEnabled
      * @param {Number} brightness
      * @param {Number} contrast
      * @param {String} hdrEnabled
@@ -397,13 +647,11 @@ module.exports = {
      * @param {String} orientation
      * @param {String} refreshRate
      * @param {Number} sensitivity
-     * @param {Boolean} autoFocusEnabled
-     * @param {Number} focalLength
-     * @param {Number} zoom
+     * @param {Number} irBrightness
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - defoggingEnabled {Boolean}
-     * - irEnabled {Boolean}
+     * - irEnabled {String}
      * - brightness {Number}
      * - contrast {Number}
      * - hdrEnabled {String}
@@ -419,9 +667,7 @@ module.exports = {
      * - orientation {String}
      * - refreshRate {String}
      * - sensitivity {Number}
-     * - autoFocusEnabled {Boolean}
-     * - focalLength {Number}
-     * - zoom {Number}
+     * - irBrightness {Number}
      */
     updateSettings: ({
       defoggingEnabled,
@@ -440,20 +686,19 @@ module.exports = {
       timePeriodEnd,
       sharpness,
       orientation,
-      refreshRate
+      refreshRate,
+      irBrightness
     }) => api({
       method: 'put',
       url: '/api/video/settings',
       data: {
         defoggingEnabled,
         irEnabled,
-
         brightness,
         contrast,
         hdrEnabled,
         shutterSpeed,
         aperture,
-
         saturation,
         whiteblanceMode,
         whiteblanceManual,
@@ -461,10 +706,10 @@ module.exports = {
         sensitivity,
         timePeriodStart,
         timePeriodEnd,
-
         sharpness,
         orientation,
-        refreshRate
+        refreshRate,
+        irBrightness
       }
     }),
     /**
@@ -482,12 +727,14 @@ module.exports = {
     /**
      * @param {number} focalLength
      * @param {number} zoom
+     * @param {string} focusType
+     * @param {boolean} isAutoFocusAfterZoom
      * @returns {Promise<response>}
      */
-    updateFocusSettings: ({focalLength, zoom}) => api({
+    updateFocusSettings: ({focalLength, zoom, focusType, isAutoFocusAfterZoom}) => api({
       method: 'put',
       url: '/api/video/settings/focus',
-      data: {focalLength, zoom}
+      data: {focalLength, zoom, focusType, isAutoFocusAfterZoom}
     })
   },
   smartFunction: {
@@ -802,13 +1049,11 @@ module.exports = {
      * @returns {Promise<response>} webserver-form-schema/stream-settings-schema
      * @response 200 {Object}
      * - channelA {Object}
-     * - - format {String} webserver-form-schema/constants/stream-format
+     * - - codec {String} webserver-form-schema/constants/stream-codec
      * - - resolution {String} webserver-form-schema/constants/stream-resolution
      * - - frameRate {String}
      * - - bandwidthManagement {String}
-     * - - vbrBitRateLevel {String}
-     * - - vbrMaxBitRate {String}
-     * - - cbrBitRate {String}
+     * - - bitrate {String}
      * - - gov {String}
      * - channelB {Object} It is same as channelA.
      */
@@ -818,25 +1063,21 @@ module.exports = {
     }),
     /**
      * @param {Object} channelA
-     * @property {String} format webserver-form-schema/constants/stream-format
+     * @property {String} codec webserver-form-schema/constants/stream-codec
      * @property {String} resolution webserver-form-schema/constants/stream-resolution
      * @property {String} frameRate
      * @property {String} bandwidthManagement
-     * @property {String} vbrBitRateLevel
-     * @property {String} vbrMaxBitRate
-     * @property {String} cbrBitRate
+     * @property {String} bitrate
      * @property {String} gov
      * @param {Object} channelB It is same as channelA.
      * @returns {Promise<response>} webserver-form-schema/stream-settings-schema
      * @response 200 {Object}
      * - channelA {Object}
-     * - - format {String} webserver-form-schema/constants/stream-format
+     * - - codec {String} webserver-form-schema/constants/stream-codec
      * - - resolution {String} webserver-form-schema/constants/stream-resolution
      * - - frameRate {String}
      * - - bandwidthManagement {String}
-     * - - vbrBitRateLevel {String}
-     * - - vbrMaxBitRate {String}
-     * - - cbrBitRate {String}
+     * - - bitrate {String}
      * - - gov {String}
      * - channelB {Object} It is same as channelA.
      */
@@ -932,7 +1173,6 @@ module.exports = {
     }),
     /**
      * @param {boolean} isEnableInput
-     * @param {boolean} isEnableOutput
      * @param {string} inputQuality
      * @param {string} inputSource
      * @returns {Promise<response>}
@@ -942,10 +1182,10 @@ module.exports = {
      * - inputQuality {string}
      * - inputSource {string}
      */
-    updateAudioSettings: ({isEnableInput, isEnableOutput, inputQuality, inputSource}) => api({
+    updateAudioSettings: ({isEnableInput, inputQuality, inputSource}) => api({
       method: 'put',
       url: '/api/multimedia/audio/settings',
-      data: {isEnableInput, isEnableOutput, inputQuality, inputSource}
+      data: {isEnableInput, inputQuality, inputSource}
     }),
     /**
      * @returns {Promise<response>}
@@ -954,6 +1194,8 @@ module.exports = {
      * - fontSize {string}
      * - color {string}
      * - position {string}
+     * - type {string}
+     * - customText {string}
      */
     getWordSettings: () => api({
       method: 'get',
@@ -964,17 +1206,21 @@ module.exports = {
      * @param {string} fontSize
      * @param {string} color
      * @param {string} position
+     * @param {string} type
+     * @param {string} customText
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isEnable {boolean}
      * - fontSize {string}
      * - color {string}
      * - position {string}
+     * - type {string}
+     * - customText {string}
      */
-    updateWordSettings: ({isEnable, fontSize, color, position}) => api({
+    updateWordSettings: ({isEnable, fontSize, color, position, type, customText}) => api({
       method: 'put',
       url: '/api/multimedia/word/settings',
-      data: {isEnable, fontSize, color, position}
+      data: {isEnable, fontSize, color, position, type, customText}
     })
   },
   event: {

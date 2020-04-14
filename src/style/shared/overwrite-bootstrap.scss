@@ -1,5 +1,12 @@
 @import "./transition";
 
+$switch-height: 32px;
+$switch-width: 72px;
+$switch-height-small: 16px;
+$switch-width-small: 32px;
+$switch-input-color-default: $error;
+$switch-input-color-checked: $success;
+
 .form-check {
   .form-check-input[type="radio"] {
     margin-top: 0.25rem;
@@ -21,7 +28,7 @@
 .form-group {
   margin-bottom: 24px;
   label {
-    color: #666666;
+    color: $info;
     font-weight: bold;
     font-size: 20px;
   }
@@ -31,8 +38,11 @@
 }
 
 .left-selection {
+  .slider {
+    height: 24px;
+  }
   .slider-selection {
-    background: linear-gradient(90deg, rgba(52, 105, 138, 1) 50%, rgba(73, 145, 191, 1) 100%);
+    background: $primary;
   }
 }
 .none-selection {
@@ -41,7 +51,7 @@
     box-shadow: none;
   }
   .slider-handle {
-    background: #4991BF !important;
+    background: $primary !important;
     border: 1px #fff solid !important;
   }
   .slider .slider-track {
@@ -72,6 +82,12 @@
 
 input.form-control {
   height: 40px;
+  &.dynamic {
+    display: none;
+    &.show {
+      display: block;
+    }
+  }
 }
 .form-control.is-invalid {
   background-image: none;
@@ -80,19 +96,6 @@ textarea.form-control {
   border-radius: 8px;
 }
 
-.dropdown {
-  .btn {
-    border-radius: 8px;
-    font-weight: bold;
-    border-color: #cccccc;
-    color: #666666;
-    background-color: #fff;
-  }
-  i {
-    color: #cccccc;
-    margin-right: 10px;
-  }
-}
 .accordion .dropdown-menu:not(.show) {
   // This style will be overwrite by bootstrap.
   // It just let accordion not calculate the height include the dropdown menu.
@@ -103,9 +106,26 @@ textarea.form-control {
   display: block;
   opacity: 0;
   visibility: hidden;
+  z-index: -1; // apply also with z-index to avoid unexpected display on show or hide.
   &.show {
     visibility: visible;
     opacity: 1;
+    z-index: 1000; // bootstrap's original value
+  }
+}
+.rounded-left {
+  border-top-left-radius: $input-border-radius !important;
+  border-bottom-left-radius: $input-border-radius !important;
+}
+.rounded-right {
+  border-top-right-radius: $input-border-radius !important;
+  border-bottom-right-radius: $input-border-radius !important;
+}
+
+.dropdown {
+  i {
+    color: #cccccc;
+    margin-right: 10px;
   }
 }
 
@@ -116,19 +136,36 @@ textarea.form-control {
 
 .btn-group {
   .btn {
-    background-color: #F2F2F2;
-    padding: 5px 20px;
+    padding: 4px 8px;
     font-weight: bold;
-    border-color: #CCCCCC;
-    color: #666666;
+    &.outline-success {
+      &:not(:hover) {
+        background-color: $secondary;
+        border-color: #CCCCCC;
+        color: $info;
+      }
+      &:hover, &.active {
+        background-color: $success;
+        border-color: $success;
+        color: #fff;
+      }
+      &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(40,167,69,.5);
+      }
+    }
   }
   .btn:first-child {
     border-top-left-radius: 50rem;
     border-bottom-left-radius: 50rem;
   }
-  .btn:last-child {
+  .btn:last-child, .dropdown-toggle {
     border-top-right-radius: 50rem;
     border-bottom-right-radius: 50rem;
+  }
+  .dropdown-menu {
+    &.show {
+      transform: translate3d(0px, $switch-height, 0px) !important;
+    }
   }
 }
 
@@ -141,10 +178,6 @@ label.btn {
   }
 }
 
-$switch-height: 32px;
-$switch-width: 72px;
-$switch-height-small: 16px;
-$switch-width-small: 32px;
 .custom-switch {
   height: $switch-height;
   width: $switch-width;
@@ -156,7 +189,7 @@ $switch-width-small: 32px;
       height: $switch-height;
       border-color: #CCCCCC;
       border-radius: 50rem;
-      background-color: #EA4335;
+      background-color: $switch-input-color-default;
     }
     span {
       cursor: pointer;
@@ -193,9 +226,14 @@ $switch-width-small: 32px;
       left: -$switch-height - 3px;
     }
   }
+  .custom-control-input:focus:not(:checked) ~ .custom-control-label {
+    &::before {
+      border-color: $switch-input-color-default;
+    }
+  }
   .custom-control-input:checked ~ .custom-control-label {
     &::before {
-      background-color: #34A853;
+      background-color: $switch-input-color-checked;
       border-color: #CCCCCC;
     }
     span {
@@ -262,7 +300,8 @@ $switch-width-small: 32px;
 }
 
 .card .nav.nav-tabs {
-  padding: 12px 12px 0 12px;
+  padding: 0px 24px;
+  height: 48px;
 }
 .modal .nav.nav-tabs {
   .nav-item:first-child {
@@ -273,11 +312,12 @@ $switch-width-small: 32px;
   }
 }
 .nav.nav-tabs {
-  border-bottom: 2px #E6E6E6 solid;
+  height: 48px;
+  border-bottom: 2px $secondary-300 solid;
   .nav-item {
     margin-bottom: -2px;
     border: none;
-    border-bottom: 2px #E6E6E6 solid;
+    border-bottom: 2px $secondary-300 solid;
   }
   .nav-link {
     padding: 12px 12px 10px 12px;
@@ -285,6 +325,14 @@ $switch-width-small: 32px;
     &.active {
       color: $primary;
       border-bottom-color: $primary;
+    }
+    &:not(.active):hover {
+      color: $primary;
+      padding: 11px 11px 8px 11px;
+      border-top: 1px $primary solid;
+      border-left: 1px $primary solid;
+      border-right: 1px $primary solid;
+      border-bottom: 2px $primary solid;
     }
   }
 }
@@ -313,4 +361,25 @@ $switch-width-small: 32px;
   .modal-footer {
     padding: 24px;
   }
+}
+
+.badge {
+  font-size: 14px;
+  padding: 2px 8px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: $secondary-400 !important;
+  opacity: 1 !important; /* Firefox */
+  text-transform: capitalize;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: $secondary-400 !important;
+  text-transform: capitalize;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: $secondary-400 !important;
+  text-transform: capitalize;
 }

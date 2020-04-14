@@ -3,23 +3,26 @@ const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const Cookies = require('js-cookie');
-const {Link, getRouter} = require('capybara-router');
-const logo = require('../../../resource/logo-01.svg');
-const decoration = require('../../../resource/decoration-01.svg');
+const {getRouter} = require('capybara-router');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
-const Once = require('../../../core/components/one-time-render');
+const Password = require('../../../core/components/fields/password');
+const UserSchema = require('webserver-form-schema/user-schema');
 const loginValidator = require('../../validations/account/login-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
+const logo = require('../../../resource/logo-avn-secondary.svg');
+const logoWithTitle = require('../../../resource/logo-avn-title.svg');
 
 module.exports = class Login extends Base {
-  constructor(props) {
-    super(props);
-    this.state.isIncorrectPassword = null;
-
-    this.onSubmitLoginForm = this.onSubmitLoginForm.bind(this);
-    this.loginFormRender = this.loginFormRender.bind(this);
+  redirectPage = () => {
+    const redirectUri = Cookies.get(window.config.cookies.redirect);
+    if (redirectUri && /^\/.*/.test(redirectUri)) {
+      Cookies.set(window.config.cookies.redirect, null, {expires: -100});
+      location.href = redirectUri;
+    } else {
+      location.href = '/';
+    }
   }
 
   /**
@@ -29,24 +32,15 @@ module.exports = class Login extends Base {
    * @property {String} password
    * @returns {void}
    */
-  onSubmitLoginForm(values) {
+  onSubmitLoginForm = values => {
     progress.start();
-    this.setState({isIncorrectPassword: false});
     api.account.login(values)
-      .then(() => {
-        const redirectUri = Cookies.get(window.config.cookies.redirect);
-        if (redirectUri && /^\/.*/.test(redirectUri)) {
-          Cookies.set(window.config.cookies.redirect, null, {expires: -100});
-          location.href = redirectUri;
-        } else {
-          location.href = '/';
-        }
-      })
+      .then(this.redirectPage)
       .catch(error => {
         if (error.response) {
           if (error.response.status === 429) {
             if (
-              error.response.data && error.response.data.extra && error.response.data.extra &&
+              error.response.data && error.response.data.extra &&
               error.response.data.extra.loginLockExpiredTime
             ) {
               getRouter().go({
@@ -58,12 +52,18 @@ module.exports = class Login extends Base {
           }
 
           if (error.response.status === 400) {
-            progress.done();
-            this.setState({
-              isIncorrectPassword: true,
-              loginFailedTimes: (error.response.data && error.response.data.extra && error.response.data.extra.loginFailedTimes) || 1
-            });
-            return;
+            if (
+              error.response.data && error.response.data.extra &&
+              error.response.data.extra.loginFailedRemainingTimes >= 0
+            ) {
+              getRouter().go({
+                name: 'login-error',
+                params: {
+                  loginFailedRemainingTimes: error.response.data.extra.loginFailedRemainingTimes
+                }
+              });
+              return;
+            }
           }
         }
 
@@ -72,79 +72,50 @@ module.exports = class Login extends Base {
       });
   }
 
-  loginFormRender({errors, submitCount}) {
-    const isSubmitted = submitCount > 0;
-    const classTable = {
-      accountGroupText: classNames(
-        'input-group-text',
-        {'border-danger': errors.account && isSubmitted}
-      ),
-      account: classNames(
-        'form-control rounded-circle-right',
-        {'is-invalid': errors.account && isSubmitted}
-      ),
-      passwordGroupText: classNames(
-        'input-group-text',
-        {'border-danger': (errors.password && isSubmitted) || this.state.isIncorrectPassword}
-      ),
-      password: classNames(
-        'form-control rounded-circle-right',
-        {'is-invalid': (errors.password && isSubmitted) || this.state.isIncorrectPassword}
-      )
-    };
-
+  loginFormRender = ({errors, touched}) => {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <Once>
-            <h5 className="card-title text-primary">{_('Login')}</h5>
-          </Once>
-          <div className="form-group">
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className={classTable.accountGroupText}><i className="fas fa-user"/></span>
-              </div>
-              <Field autoFocus name="account" maxLength="8" type="text" className={classTable.account}/>
-              {
-                errors.account && isSubmitted && (
-                  <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
-                    {errors.account}
-                  </div>
-                )
-              }
-            </div>
+          <h3 className="card-title text-primary">{_('ACCOUNT LOGIN')}</h3>
+          <div className="card-sub-title text-info">
+            {_('Enter Your Username and Password')}
           </div>
           <div className="form-group">
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className={classTable.passwordGroupText}><i className="fas fa-lock"/></span>
-              </div>
-              <Field name="password" maxLength="12" type="password" className={classTable.password}/>
-              {
-                ((errors.password && isSubmitted) || this.state.isIncorrectPassword) && (
-                  <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
-                    {errors.password || _('Incorrect password x {0}', [this.state.loginFailedTimes])}
-                  </div>
-                )
-              }
-            </div>
+            <label>{_('Username')}</label>
+            <Field name="account" type="text"
+              maxLength={UserSchema.account.max}
+              placeholder={_('Enter Your Username')}
+              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
+            {
+              errors.account && touched.account && (
+                <div className="invalid-feedback">{errors.account}</div>
+              )
+            }
           </div>
-          <div className="form-group d-flex justify-content-between align-items-center">
-            <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-              <Field component="select" name="maxAge" className="form-control border-0">
-                <option value="600000">{_('Expires in 10 minutes')}</option>
-                <option value="1800000">{_('Expires in 30 minutes')}</option>
-                <option value="3600000">{_('Expires in 1 hour')}</option>
-                <option value="43200000">{_('Expires in 12 hours')}</option>
-              </Field>
-            </div>
-            <div className="text-right">
-              <Link to="/forgot-password">{_('Forgot password?')}</Link>
-            </div>
+          <div className="form-group has-feedback">
+            <label>{_('Password')}</label>
+            <Field name="password" component={Password} inputProps={{
+              placeholder: _('Enter your password'),
+              className: classNames('form-control', {'is-invalid': errors.password})
+            }}/>
+            {
+              errors.password && touched.password && (
+                <div className="invalid-feedback">{errors.password}</div>
+              )
+            }
           </div>
-
-          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-            <Once>{_('Login')}</Once>
+          <h6 className="text-right text-primary font-weight-bold" style={{height: '24px'}}>
+            <a
+              href="https://arecontvision.zendesk.com/hc/en-us/articles/360018682854-Password-Reset"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {_('Password Reset')}
+            </a>
+          </h6>
+          <div className="text-dark text-size-14" style={{marginTop: '40px'}}>{_('Need Help? Call AV Costar Technical Support at +1.818.937.0700 and select option #1')}</div>
+          <button disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+            {_('Login')}
           </button>
         </div>
       </Form>
@@ -153,19 +124,16 @@ module.exports = class Login extends Base {
 
   render() {
     return (
-      <div className="page-login">
-        <img src={logo} className="logo" alt="AndroVideo"/>
-        <img src={decoration} className="decoration"/>
-        <div className="container">
+      <div className="page-login bg-secondary">
+        <div className="navbar primary">
+          <img src={logo}/>
+        </div>
+        <div className="container-fluid">
           <div className="row justify-content-center">
-            <Once>
-              <div className="col-12">
-                <p className="text-light text-center text-welcome">
-                  {_('Welcome to use AndroVideo system')}
-                </p>
-              </div>
-            </Once>
-            <div className="col-card">
+            <div className="col-12 bg-white logo">
+              <img src={logoWithTitle}/>
+            </div>
+            <div className="col-center">
               <Formik
                 initialValues={{account: '', password: '', maxAge: '3600000'}}
                 validate={utils.makeFormikValidator(loginValidator)}

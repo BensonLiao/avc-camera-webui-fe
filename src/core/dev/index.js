@@ -31,12 +31,96 @@ mockAxios.onGet('/api/video/settings').reply(config => {
       resolve(mockResponseWithLog(config, [204, {}]));
     }, 3000); // The real api is delay 45s.
   }))
+  .onPost('/api/system/_setup').reply(config => {
+    return mockResponseWithLog(config, [200, {}]);
+  })
   .onGet('/api/system/information').reply(config => {
     return mockResponseWithLog(config, [200, db.get('system').value()]);
+  })
+  .onGet('/api/system/datetime').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('systemDateTime').value()]);
+  })
+  .onPut('/api/system/datetime').reply(config => {
+    const data = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('systemDateTime').assign(data).write()]);
+  })
+  .onPut('/api/system/language').reply(config => {
+    const data = {
+      ...db.get('system').value(),
+      languageCode: JSON.parse(config.data).language
+    };
+    return mockResponseWithLog(config, [200, db.get('system').assign(data).write()]);
+  })
+  .onGet('/api/system/network').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('networkSettings').value()]);
+  })
+  .onPut('/api/system/network').reply(config => {
+    const data = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('networkSettings').assign(data).write()]);
+  })
+  .onPost('/api/system/network/testdhcp').reply(config => {
+    return mockResponseWithLog(config, [200, {success: true}]);
+  })
+  .onGet('/api/system/network/tcpip/ddns').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('ddnsSettings').value()]);
+  })
+  .onPut('/api/system/network/tcpip/ddns').reply(config => {
+    const data = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('ddnsSettings').assign(data).write()]);
+  })
+  .onGet('/api/system/network/tcpip/http').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('httpSettings').value()]);
+  })
+  .onPut('/api/system/network/tcpip/http').reply(config => {
+    const data = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('httpSettings').assign(data).write()]);
+  })
+  .onGet('/api/system/https').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('httpsSettings').value()]);
+  })
+  .onPost('/api/system/systeminfo/sdcard').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      const data = {
+        ...db.get('system').value(),
+        ...JSON.parse(config.data)
+      };
+      resolve(mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
+    }, 1000);
+  }))
+  .onPost('/api/system/systeminfo/sdcardalert').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      const data = {
+        ...db.get('system').value(),
+        ...JSON.parse(config.data)
+      };
+      resolve(mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
+    }, 1000);
+  }))
+  .onPost('/api/system/systeminfo/sdcard/format').reply(config => {
+    return mockResponseWithLog(config, [200]);
+  })
+  .onPost('/api/system/systeminfo/sdcard/unmount').reply(config => {
+    return mockResponseWithLog(config, [200]);
+  })
+  .onPut('/api/system/https').reply(config => {
+    const data = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('httpsSettings').assign(data).write()]);
+  })
+  .onPost('/api/system/reboot').reply(config => {
+    return mockResponseWithLog(config, [204, {}]);
+  })
+  .onPost('/api/system/resetdefault').reply(config => {
+    return mockResponseWithLog(config, [204, {}]);
+  })
+  .onPost('/api/system/importsettings').reply(config => {
+    return mockResponseWithLog(config, [204, {}]);
   })
   .onPut('/api/system/device-name').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('system').assign(newItem).write()]);
+  })
+  .onPost('/api/system/systeminfo/clearLog').reply(config => {
+    return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/multimedia/stream/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('stream').value()]

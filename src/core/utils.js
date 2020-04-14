@@ -4,6 +4,7 @@ const {getRouter} = require('capybara-router');
 const dayjs = require('dayjs');
 const {store} = require('react-notifications-component');
 const _ = require('../languages');
+const {validator} = require('../core/validations');
 
 /**
  * Format time range.
@@ -43,6 +44,73 @@ exports.formatDate = (date, {withSecond, withoutTime, format} = {}) => {
   }
 
   return `${dayjs(date).format(formats[0])} ${dayjs(date).format(formats[1])}`;
+};
+
+/**
+ * Get hours from time.
+ * @param {String} time - e.g. "12:23"
+ * @returns {Number} e.g. 12
+ */
+exports.getHours = time => {
+  if (typeof time !== 'string') {
+    return 'time must be string';
+  }
+
+  if (time === '') {
+    return 'time must not be empty';
+  }
+
+  return Number(time.split(':')[0]);
+};
+
+/**
+ * Get minutes from time.
+ * @param {String} time - e.g. "12:23"
+ * @returns {Number} e.g. 23
+ */
+exports.getMinutes = time => {
+  if (typeof time !== 'string') {
+    return 'time must be string';
+  }
+
+  if (time === '') {
+    return 'time must not be empty';
+  }
+
+  return Number(time.split(':')[1]);
+};
+
+/**
+ * Set datetime from time.
+ * @param {String} time - e.g. "12:23"
+ * @returns {Date} A `Date` object represent time
+ */
+exports.setDateTime = time => {
+  if (typeof time !== 'string') {
+    return 'time must be string';
+  }
+
+  if (time === '') {
+    return 'time must not be empty';
+  }
+
+  const date = new Date();
+  date.setMinutes(this.getMinutes(time));
+  date.setHours(this.getHours(time));
+  return date;
+};
+
+/**
+ * Set time from datetime.
+ * @param {Date} time - A `Date` object represent time
+ * @returns {String} e.g. "15:23"
+ */
+exports.setTime = time => {
+  if (!dayjs(time).isValid()) {
+    return 'time must be a date object';
+  }
+
+  return `${time.getHours()}:${time.getMinutes()}`;
 };
 
 /**
@@ -101,6 +169,45 @@ exports.renderError = error => {
   } catch (e) {}
 
   throw error;
+};
+
+exports.validateStreamBitRate = () => values => {
+  let result;
+  const bitRateSchema = {
+    bitRate: {
+      optional: false,
+      type: 'custom',
+      pattern: /^[\d]+$/,
+      min: 2048,
+      max: 20480,
+      check: function (value, schema) {
+        if (schema.optional && (value == null || value === '')) {
+          return true;
+        }
+
+        if (typeof value !== 'string') {
+          return this.makeError('string', null, value);
+        }
+
+        if (!schema.pattern.test(value)) {
+          return this.makeError('stringPattern', schema.pattern, value);
+        }
+
+        const number = Number(value);
+        if (number < schema.min) {
+          return this.makeError('numberMin', schema.min, value);
+        }
+
+        if (number > schema.max) {
+          return this.makeError('numberMax', schema.max, value);
+        }
+
+        return true;
+      }
+    }
+  };
+  result = validator.validate({bitRate: values}, bitRateSchema);
+  return (result === true ? '' : result[0].message);
 };
 
 /**
@@ -192,6 +299,49 @@ exports.convertPicture = (imgSrc, zoomRate, pictureRotateDegrees) => new Promise
 
   img.src = imgSrc;
 });
+
+exports.capitalizeObjKeyValuePairs = obj => {
+  return Object.keys(obj)
+    .filter(key => typeof obj[key] === 'string')
+    .map(key => {
+      let newObj = {};
+      newObj.key = key.charAt(0).toUpperCase() + key.substring(1);
+      newObj.value = obj[key];
+      return newObj;
+    });
+};
+
+/**
+ * Check if the object is empty, not available for some primitive type object like `Number` or `Boolean`.
+ * e.g. `isObjectEmpty({}) = true`
+ * e.g. `isObjectEmpty([]) = true`
+ * e.g. `isObjectEmpty('') = true`
+ * @param {Object} obj - The object.
+ * @returns {Boolean} - Is the object `obj` empty or not.
+ */
+exports.isObjectEmpty = obj => {
+  return !obj || Object.keys(obj).length === 0;
+};
+
+/**
+ * Get the number precision.
+ * @param {Number} num - The number.
+ * @returns {Number} - The number's precision digit.
+ */
+exports.getPrecision = num => {
+  if (!isFinite(num)) {
+    return 0;
+  }
+
+  let e = 1;
+  let p = 0;
+  while (Math.round(num * e) / e !== num) {
+    e *= 10;
+    p++;
+  }
+
+  return p;
+};
 
 /**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.

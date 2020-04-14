@@ -122,9 +122,9 @@ module.exports = class PrivacyMask extends Base {
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
-                <Link to="/media/stream">{_('Multimedia settings')}</Link>
+                <Link to="/media/stream">{_('Video')}</Link>
               </li>
-              <li className="breadcrumb-item">{_('Privacy mask')}</li>
+              <li className="breadcrumb-item">{_('Privacy Mask')}</li>
             </ol>
           </nav>
         </div>
@@ -138,7 +138,7 @@ module.exports = class PrivacyMask extends Base {
                 maskAreaStates[index].isVisible ?
                   <HotKeys key={index} keyMap={{DELETE: ['del', 'backspace']}} handlers={{DELETE: this.generateDeleteMaskAreaHandler(index)}}>
                     <Field rightBottomCornerRef={this.maskAreaRefs[index]} name={`maskAreas.${index}`}
-                      component={MaskArea} text={_('Mask area')}
+                      component={MaskArea} text={_('Mask Area')}
                       className="border-green" parentElementId="pm-video-wrapper"/>
                   </HotKeys> :
                   <div key={index}/>
@@ -149,10 +149,10 @@ module.exports = class PrivacyMask extends Base {
 
         <div className="col-4 pl-24">
           <div className="card shadow">
-            <div className="card-header">{_('Privacy mask')}</div>
+            <div className="card-header">{_('Privacy Mask')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Function')}</label>
+                <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">
@@ -162,11 +162,11 @@ module.exports = class PrivacyMask extends Base {
                 </div>
               </div>
               <div className="form-group">
-                <label>{_('Mask area')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
+                <label>{_('Mask Area')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
                 <span className="form-text text-primary">{_('1. Please drag a mask area.')}</span>
                 <span className="form-text text-primary">{_('2. The mask area limit is 4. To drag for creating, delete to remove.')}</span>
               </div>
-              <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
+              <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
               </button>
             </div>

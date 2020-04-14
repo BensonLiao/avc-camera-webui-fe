@@ -43,7 +43,7 @@ module.exports = class Group extends Base {
 
   hiddenModal = () => {
     getRouter().go({
-      name: 'web.members',
+      name: 'web.users.members',
       params: this.props.params
     });
   };
@@ -59,7 +59,7 @@ module.exports = class Group extends Base {
       // Update group.
       api.group.updateGroup(values)
         .then(() => {
-          getRouter().go({name: 'web.members', params: this.props.params}, {reload: true});
+          getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
         })
         .catch(error => {
           progress.done();
@@ -69,7 +69,7 @@ module.exports = class Group extends Base {
       // Add group.
       api.group.addGroup(values)
         .then(() => {
-          getRouter().go({name: 'web.members', params: this.props.params}, {reload: true});
+          getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
         })
         .catch(error => {
           progress.done();
@@ -85,12 +85,12 @@ module.exports = class Group extends Base {
     return (
       <Form>
         <div className="modal-header">
-          <h5 className="modal-title">{group ? _('Modify group') : _('Create a group')}</h5>
+          <h5 className="modal-title">{group ? _('Modify Group') : _('Create a Group')}</h5>
         </div>
         <div className="modal-body">
           <div className="form-group">
             <label>{_('Name')}</label>
-            <Field name="name" type="text" placeholder={_('Please enter your name.')}
+            <Field name="name" type="text" placeholder={_('Enter Your Group Name')}
               maxLength={GroupSchema.name.max}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}/>
             {
@@ -102,7 +102,7 @@ module.exports = class Group extends Base {
           </div>
           <div className="form-group">
             <label>{_('Note')}</label>
-            <Field name="note" type="text" placeholder={_('Please enter your note.')}
+            <Field name="note" type="text" placeholder={_('Enter Your Note')}
               maxLength={GroupSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}/>
             {
@@ -121,7 +121,7 @@ module.exports = class Group extends Base {
             </button>
           </div>
           <button disabled={this.state.$isApiProcessing} type="button"
-            className="btn btn-secondary btn-block m-0 rounded-pill" onClick={this.hideModal}
+            className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideModal}
           >
             {_('Close')}
           </button>

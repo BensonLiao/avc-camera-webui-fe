@@ -1,6 +1,8 @@
+/* eslint-disable camelcase */
 const React = require('react');
 const PropTypes = require('prop-types');
 const Slider = require('bootstrap-slider');
+const {getPrecision} = require('../../utils');
 
 module.exports = class SliderField extends React.PureComponent {
   static get propTypes() {
@@ -15,13 +17,17 @@ module.exports = class SliderField extends React.PureComponent {
       min: PropTypes.number.isRequired,
       max: PropTypes.number.isRequired,
       step: PropTypes.number.isRequired,
-      disabled: PropTypes.bool
+      disabled: PropTypes.bool,
+      updateFieldOnStop: PropTypes.bool,
+      enableArrowKey: PropTypes.bool
     };
   }
 
   static get defaultProps() {
     return {
-      disabled: false
+      disabled: false,
+      updateFieldOnStop: false,
+      enableArrowKey: false
     };
   }
 
@@ -32,15 +38,30 @@ module.exports = class SliderField extends React.PureComponent {
   }
 
   componentDidMount() {
+    const precisionDigit = getPrecision(this.props.step);
     this.slider = new Slider(this.ref.current, {
       min: this.props.min,
       max: this.props.max,
       value: this.props.field.value,
-      step: this.props.step
+      step: this.props.step,
+      focus: this.props.enableArrowKey,
+      natural_arrow_keys: this.props.enableArrowKey
     });
-    this.slider.on('change', ({newValue}) => {
-      this.props.form.setFieldValue(this.props.field.name, newValue);
-    });
+    if (this.props.updateFieldOnStop) {
+      this.slider.on('slideStop', value => {
+        this.props.form.setFieldValue(
+          this.props.field.name,
+          Number(value.toFixed(precisionDigit))
+        );
+      });
+    } else {
+      this.slider.on('change', ({newValue}) => {
+        this.props.form.setFieldValue(
+          this.props.field.name, Number(newValue.toFixed(precisionDigit))
+        );
+      });
+    }
+
     if (this.props.disabled) {
       this.slider.disable();
     }
