@@ -46,7 +46,7 @@ module.exports = class System extends Base {
                 <span className="text-truncate">{_('Settings')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
-              <div id="basic-settings" className="collapse show" data-parent="#accordion-notification-menu">
+              <div id="basic-settings" className="collapse show" data-parent="#accordion-setting-menu">
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.datetime'})} to="/system/datetime" title={_('Date & Region')}>
                   {_('Date & Region')}
                 </Link>

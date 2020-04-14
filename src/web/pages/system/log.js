@@ -11,7 +11,6 @@ module.exports = class Log extends Base {
   onClickClearLog = event => {
     event.preventDefault();
     progress.start();
-    console.log('clearing');
     api.system.clearLog()
       .then(getRouter().reload)
       .catch(error => {
