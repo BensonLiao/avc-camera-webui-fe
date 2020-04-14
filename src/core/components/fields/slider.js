@@ -51,7 +51,7 @@ module.exports = class SliderField extends React.PureComponent {
       this.slider.on('slideStop', value => {
         this.props.form.setFieldValue(
           this.props.field.name,
-          Number(value.toFixed(precisionDigit))
+          typeof value === 'number' ? Number(value.toFixed(precisionDigit)) : value
         );
       });
     } else {
