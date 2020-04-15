@@ -137,8 +137,8 @@ window.languageResource = {
   'validation-stringContains': '此欄位必須輸入包含 {expected} 的文字。',
   'validation-stringContainsLowerCaseLatter': '此欄位必須輸入包含小寫英文字母。',
   'validation-stringContainsUpperCaseLatter': '此欄位必須輸入包含大寫英文字母。',
-  'validation-stringContainsNumber': '此欄位必須輸入包含數字。',
-  'validation-stringAbortSpecialCharacters': '此欄位禁用特殊符號。',
+  'validation-stringContainsNumber': '此欄位必須輸入包含數字。', 'validation-stringAbortSpecialCharacters': '此欄位禁用特殊符號(#, %, &, `, “, \\, <, >)。',
+  'validation-stringAcceptSpecialCharacters': '此欄必須至少有一個特殊符號。',
   'validation-stringEnum': '此欄位與要求的內容不符合。',
   'validation-number': '此欄位必須是數字。',
   'validation-numberMin': '此欄位必須為 {expected} 以上的數字。',
@@ -264,7 +264,6 @@ window.languageResource = {
   Password: '密碼',
   'Enter your account': '請輸入您的帳號',
   'Enter your password': '請輸入您的密碼',
-  'Please enter less than 9 letters.': '8 字元以內的大寫或小寫',
   'Please enter letters between 8 and 12.': '8~12 字元的大寫或小寫',
   'Enter your password again': '請再次輸入您的密碼',
 
