@@ -33,7 +33,8 @@ module.exports = class Home extends Base {
         isEnableHumanoidDetection: PropTypes.bool.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         sdUsage: PropTypes.number.isRequired,
-        sdTotal: PropTypes.number.isRequired
+        sdTotal: PropTypes.number.isRequired,
+        sdStatus: PropTypes.number.isRequired
       }).isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired, // 除霧
@@ -652,7 +653,7 @@ module.exports = class Home extends Base {
                             <span className="badge badge-pill badge-success">{_('Normal')}</span>
                           )}
                         </td>
-                        <td className="align-top">
+                        <td className={classNames('align-top', systemInformation.sdStatus ? '' : 'd-none')}>
                           <div className="progress">
                             {
                               isNaN(usedDiskPercentage) ?
@@ -670,6 +671,9 @@ module.exports = class Home extends Base {
                               ])
                             }
                           </p>
+                        </td>
+                        <td className={classNames('align-top', systemInformation.sdStatus ? 'd-none' : '')}>
+                          <label>{_(systemInformation.sdStatus ? 'MOUNTED' : 'UNMOUNTED')}</label>
                         </td>
                       </tr>
                     </tbody>
