@@ -155,8 +155,12 @@ module.exports = {
      * - isEnableAgeGender {Boolean}
      * - isEnableHumanoidDetection {Boolean}
      * - deviceStatus {Number}
-     * - usedDiskSize {Number}
-     * - totalDiskSize {Number}
+     * - sdEnabled {Boolean}
+     * - sdAlertEnabled {Boolean}
+     * - sdFormat {String}
+     * - sdStatus {Number}
+     * - sdUsage {Number}
+     * - sdTotal {Number}
      * - serialNumber {string}
      * - modelName {string}
      * - firmware {string}
@@ -164,6 +168,10 @@ module.exports = {
     getInformation: () => api({
       method: 'get',
       url: '/api/system/information'
+    }).then(res => {
+      res.data.sdTotal *= 1024;
+      res.data.sdUsage *= 1024;
+      return res;
     }),
     /**
      * @returns {Promise<response>}

@@ -1,5 +1,6 @@
 const PropTypes = require('prop-types');
 const React = require('react');
+const classNames = require('classnames');
 const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const filesize = require('filesize');
@@ -240,7 +241,7 @@ module.exports = class SDCard extends Base {
           </div>
           <hr/>
         </div>
-        <div className="form-group">
+        <div className={classNames('form-group', systemInformation.sdStatus ? '' : 'd-none')}>
           <div className="card">
             <div className="card-header sd-card-round">
               {_('Storage Space')}
@@ -251,8 +252,8 @@ module.exports = class SDCard extends Base {
                 <p>
                   {
                     _('Free: {0}, Total: {1}', [
-                      filesize((systemInformation.sdTotal - systemInformation.sdUsage) * 1024),
-                      filesize(systemInformation.sdTotal * 1024)
+                      filesize(systemInformation.sdTotal - systemInformation.sdUsage),
+                      filesize(systemInformation.sdTotal)
                     ])
                   }
                 </p>
