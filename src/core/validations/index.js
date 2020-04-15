@@ -40,6 +40,7 @@ exports.validator = new Validator({
     stringContainsUpperCaseLatter: _('validation-stringContainsUpperCaseLatter'),
     stringContainsNumber: _('validation-stringContainsNumber'),
     stringAbortSpecialCharacters: _('validation-stringAbortSpecialCharacters'),
+    stringAcceptSpecialCharacters: _('validation-stringAcceptSpecialCharacters'),
     birthday: _('validation-birthday'),
     countryCode: _('validation-countryCode')
   }
