@@ -1,6 +1,7 @@
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
+const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
 const {Link, getRouter} = require('capybara-router');
 const {HotKeys} = require('react-hotkeys');
@@ -172,7 +173,7 @@ module.exports = class MotionDetection extends Base {
 
               <hr/>
 
-              <div className="form-group">
+              <div className={classNames('form-group', values.isEnable ? '' : 'd-none')}>
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Sensitivity')}</label>
                   <span className="text-primary text-size-14">{values.sensibility}</span>
@@ -181,7 +182,7 @@ module.exports = class MotionDetection extends Base {
                   min={MotionDetectionSettingsSchema.sensibility.min}
                   max={MotionDetectionSettingsSchema.sensibility.max}/>
               </div>
-              <div className="form-group">
+              <div className={classNames('form-group', values.isEnable ? '' : 'd-none')}>
                 <div className="d-flex align-items-center">
                   <label className="mb-0">{_('Detection Zone')}</label>
                   <i className="fas fa-info-circle text-size-14 text-primary pl-2"/>
