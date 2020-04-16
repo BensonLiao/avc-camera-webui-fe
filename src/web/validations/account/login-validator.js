@@ -5,9 +5,11 @@ module.exports = validator.compile({
   account: UserSchema.account,
   password: {
     ...UserSchema.password,
+    isNeedMinMax: false,
     isNeedLowerCase: false,
     isNeedUpperCase: false,
     isNeedNumber: false,
-    isAbortSpecialCharacters: false
+    isAbortSpecialCharacters: false,
+    isAcceptSpecialCharacters: false
   }
 });

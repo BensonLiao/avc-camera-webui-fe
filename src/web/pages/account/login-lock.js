@@ -75,18 +75,6 @@ module.exports = class LoginLock extends Base {
                         {_('Please try again in 5 minutes.')}
                       </p>
                     </div>
-                    <div style={{height: '1.5rem'}}>
-                      <a
-                        className="text-primary font-weight-bold"
-                        href="https://arecontvision.zendesk.com/hc/en-us/articles/360018682854-Password-Reset"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {_('Password Reset')}
-                      </a>
-                      &nbsp;
-                      {_('Tech Support Phone Number: +1 (818) 937-0700')}
-                    </div>
                   </Once>
 
                   {
