@@ -204,7 +204,6 @@ window.languageResource = {
   'Enter Your Username and Password': '請輸入您的帳號與密碼',
   'Enter Your Username': '請輸入您的帳號',
   'Password Reset': '重置密碼',
-  'Need Help? Call AV Costar Technical Support at +1.818.937.0700 and select option #1': '需要幫忙嗎？請撥打AV Costar的支援專線+1.818.937.0700#1',
 
   // /login-error
   'Password Incorrect': '密碼輸入錯誤',
@@ -218,7 +217,6 @@ window.languageResource = {
   // /login-lock
   'Too Many Login Attempts!': '密碼嘗試輸入錯誤次數過多！',
   'Please try again in 5 minutes.': '請於五分鐘後再次登入',
-  'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
   'Login Lock': '登入鎖定',
   'Forgot password?': '忘記密碼？',
   'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
