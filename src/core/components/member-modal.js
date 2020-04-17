@@ -36,7 +36,8 @@ module.exports = class Member extends React.PureComponent {
         groupId: PropTypes.string,
         note: PropTypes.string,
         pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-      })
+      }),
+      membersName: PropTypes.array.isRequired
     };
   }
 
@@ -99,6 +100,17 @@ module.exports = class Member extends React.PureComponent {
 
     this.setState({avatarPreviewUrl: window.URL.createObjectURL(this.avatarFile)});
   };
+
+  duplicateNameCheck = value => {
+    let error;
+    let check = this.props.membersName.some(name => name === value);
+
+    if (check) {
+      error = _('Same name found, please use a different name.');
+    }
+
+    return error;
+  }
 
   onSubmitForm = values => {
     const data = {...values};
@@ -217,6 +229,7 @@ module.exports = class Member extends React.PureComponent {
             <label>{_('Name')}</label>
             <Field name="name" type="text" placeholder={_('Enter Your Name')}
               maxLength={MemberSchema.name.max}
+              validate={this.duplicateNameCheck}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}/>
             {
               errors.name && touched.name && (

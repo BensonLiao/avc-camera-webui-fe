@@ -59,7 +59,8 @@ module.exports = class Member extends Base {
   };
 
   render() {
-    const {groups, member} = this.props;
+    const {groups, member, members} = this.props;
+    const membersName = members.items.map(member => member.name);
     const {$isApiProcessing} = this.state;
 
     return (
@@ -68,6 +69,7 @@ module.exports = class Member extends Base {
         isShowModal={this.state.isShowModal}
         groups={groups}
         member={member}
+        membersName={membersName}
         onHide={this.onHideModal}
         onSubmitted={this.onSubmittedMemberForm}/>
     );
