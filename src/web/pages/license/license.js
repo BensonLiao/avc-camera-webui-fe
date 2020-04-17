@@ -54,36 +54,44 @@ module.exports = class License extends Base {
    * @returns {void}
    */
   onSubmit = ({authKey}) => {
-    progress.start();
-    api.authKey.addAuthKey(authKey)
-      .then(response => {
-        utils.showSuccessNotification(
-          _('Activated Successfully'),
-          _('{0} authorized successfully!', [
-            (() => {
-              const result = [];
-              if (response.data.isEnableFaceRecognition) {
-                result.push(_('Facial Recognition'));
-              }
+    const checkDuplicateKey = this.props.authKeys.items.some(key => key.authKey === authKey);
 
-              if (response.data.isEnableAgeGender) {
-                result.push(_('Age Gender'));
-              }
+    if (checkDuplicateKey) {
+      utils.showErrorNotification(_('Activation Failed'), _('Key already registered!'));
+    }
 
-              if (response.data.isEnableHumanoidDetection) {
-                result.push(_('Human Detection'));
-              }
+    if (!checkDuplicateKey) {
+      progress.start();
+      api.authKey.addAuthKey(authKey)
+        .then(response => {
+          utils.showSuccessNotification(
+            _('Activated Successfully'),
+            _('{0} authorized successfully!', [
+              (() => {
+                const result = [];
+                if (response.data.isEnableFaceRecognition) {
+                  result.push(_('Facial Recognition'));
+                }
 
-              return result.join(', ');
-            })()
-          ])
-        );
-        getRouter().reload();
-      })
-      .catch(() => {
-        progress.done();
-        utils.showErrorNotification(_('Activation Failed'), _('Authorization failed!'));
-      });
+                if (response.data.isEnableAgeGender) {
+                  result.push(_('Age Gender'));
+                }
+
+                if (response.data.isEnableHumanoidDetection) {
+                  result.push(_('Human Detection'));
+                }
+
+                return result.join(', ');
+              })()
+            ])
+          );
+          getRouter().reload();
+        })
+        .catch(() => {
+          progress.done();
+          utils.showErrorNotification(_('Activation Failed'), _('Authorization failed!'));
+        });
+    }
   };
 
   addLicenseFormRender = ({errors, submitCount}) => {
