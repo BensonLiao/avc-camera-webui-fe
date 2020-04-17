@@ -58,6 +58,10 @@ module.exports = class DateTime extends Base {
 
   onSubmit = values => {
     progress.start();
+    if (values.syncTimeOption === SyncTimeOption.local) {
+      values.manualTime = new Date();
+    }
+
     api.system.updateLanguage(values.language)
       .then(() => {
         api.system.updateSystemDateTime(values)
