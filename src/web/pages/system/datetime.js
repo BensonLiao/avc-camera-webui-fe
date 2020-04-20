@@ -29,7 +29,7 @@ module.exports = class DateTime extends Base {
         ntpTimeOption: PropTypes.oneOf(NTPTimeOption.all()).isRequired,
         ntpUpdateTime: PropTypes.string.isRequired,
         ntpUpdateTimeRate: PropTypes.oneOf(NTPTimeRateOption.all()).isRequired,
-        manualTime: PropTypes.string
+        manualTime: PropTypes.number
       }).isRequired
     };
   }
@@ -57,24 +57,32 @@ module.exports = class DateTime extends Base {
   }
 
   onSubmit = values => {
+    const {systemInformation: {languageCode}} = this.props;
+    const isLanguageUpdate = languageCode !== values.language;
     progress.start();
     if (values.syncTimeOption === SyncTimeOption.local) {
       values.manualTime = new Date();
     }
 
-    api.system.updateLanguage(values.language)
-      .then(() => {
-        api.system.updateSystemDateTime(values)
-          .then(getRouter().reload)
-          .catch(error => {
-            progress.done();
-            utils.renderError(error);
-          });
-      })
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
+    if (isLanguageUpdate) {
+      api.system.updateLanguage(values.language)
+        .then(() => {
+          location.reload();
+        })
+        .catch(error => {
+          progress.done();
+          utils.renderError(error);
+        });
+    } else {
+      api.system.updateSystemDateTime(values)
+        .then(() => {
+          getRouter().reload();
+        })
+        .catch(error => {
+          progress.done();
+          utils.renderError(error);
+        });
+    }
   };
 
   formRender = () => {
@@ -250,7 +258,8 @@ module.exports = class DateTime extends Base {
                     initialValues={{
                       ...systemDateTime,
                       ntpUpdateTime: new Date(systemDateTime.ntpUpdateTime),
-                      manualTime: new Date(systemDateTime.manualTime),
+                      manualTime: systemDateTime.manualTime ?
+                        new Date(systemDateTime.manualTime) : new Date(),
                       language: languageCode
                     }}
                     onSubmit={this.onSubmit}
