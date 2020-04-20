@@ -5,7 +5,7 @@ window.languageResource = {
   'permission-0': 'Admin',
   'permission-1': 'Viewer',
 
-  'certificate-type-0': 'AV Costar Self-signed',
+  'certificate-type-0': 'AndroVideo Self-signed',
   'certificate-type-1': 'Upload Certificate',
   'certificate-type-2': 'Generate Certificate on This Device',
 
