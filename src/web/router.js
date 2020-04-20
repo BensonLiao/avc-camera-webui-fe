@@ -525,14 +525,47 @@ module.exports = new Router({
       )
     },
     {
-      name: 'setup',
+      name: 'setup-welcome',
       uri: '/setup',
       onEnter: () => {
-        document.title = `${_('Setup Account')} - ${_title}`;
+        document.title = `${_('Welcome')} - ${_title}`;
       },
       loadComponent: () => import(
-        /* webpackChunkName: "page-setup" */
-        './pages/account/setup'
+        /* webpackChunkName: "page-setup-welcome" */
+        './pages/setup/welcome'
+      )
+    },
+    {
+      name: 'setup-language',
+      uri: '/setup/language',
+      onEnter: () => {
+        document.title = `${_('Setup language')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-setup-language" */
+        './pages/setup/language'
+      )
+    },
+    {
+      name: 'setup-account',
+      uri: '/setup/account',
+      onEnter: () => {
+        document.title = `${_('Setup account')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-setup-account" */
+        './pages/setup/account'
+      )
+    },
+    {
+      name: 'setup-https',
+      uri: '/setup/https',
+      onEnter: () => {
+        document.title = `${_('Setup HTTPS')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-setup-https" */
+        './pages/setup/https'
       )
     },
     {
