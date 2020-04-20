@@ -97,6 +97,7 @@ const renderWeb = () => {
       'setup',
       'login',
       'login-lock',
+      'login-error',
       'forgot-password',
       'reset-password',
       'reset-password-success',
