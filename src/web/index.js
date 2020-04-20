@@ -95,6 +95,10 @@ const renderWeb = () => {
     const $user = store.get('$user');
     const allowAnonymousRoutes = [
       'setup',
+      'setup-welcome',
+      'setup-language',
+      'setup-account',
+      'setup-https',
       'login',
       'login-lock',
       'forgot-password',
