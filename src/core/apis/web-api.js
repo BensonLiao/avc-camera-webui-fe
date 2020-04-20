@@ -249,17 +249,24 @@ module.exports = {
       data: {deviceName}
     }),
     /**
-     * Setup the device with an account.
-     * @param {string} account
-     * @param {string} password
+     * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
+     * @param {Object} account
+     *   @property {String} account
+     *   @property {String} permission
+     *   @property {String} birthday
+     *   @property {String} password
      * @returns {Promise<response>}
      * @response 200 {Object}
-     * - account {string}
+     * - account {String}
      */
-    setup: ({account, password}) => api({
+    setup: ({language, account, https}) => api({
       method: 'post',
       url: '/api/system/_setup',
-      data: {account, password}
+      data: {
+        language,
+        account,
+        https
+      }
     }),
     /**
      * @param {String} language available: "en-us", "zh-tw", "zh-cn", "ja-jp", "es-es"
