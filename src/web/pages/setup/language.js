@@ -14,12 +14,9 @@ module.exports = class SetupLanguage extends Base {
   constructor(props) {
     super(props);
     this.state.languageCode = store.get('$setup').language;
-
-    this.onChangeLanguage = this.onChangeLanguage.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChangeLanguage(event) {
+  onChangeLanguage = event => {
     event.preventDefault();
     progress.start();
     utils.setDefaultLanguage(event.target.value);
@@ -65,7 +62,7 @@ module.exports = class SetupLanguage extends Base {
                     </div>
                   </div>
 
-                  <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
+                  <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onSubmit}>
                     {_('Next')}
                   </button>
                 </div>
