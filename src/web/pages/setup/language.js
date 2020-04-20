@@ -26,10 +26,12 @@ module.exports = class SetupLanguage extends Base {
     location.reload();
   }
 
-  onSubmit(event) {
-    event.preventDefault();
+  onSubmit = values => {
+    const $setup = store.get('$setup');
+    $setup.language = values.language;
+    store.set('$setup', $setup);
     getRouter().go('/setup/account');
-  }
+  };
 
   render() {
     return (
@@ -63,7 +65,7 @@ module.exports = class SetupLanguage extends Base {
                     </div>
                   </div>
 
-                  <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onSubmit}>
+                  <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
                     {_('Next')}
                   </button>
                 </div>
