@@ -54,13 +54,13 @@ module.exports = class License extends Base {
    * @returns {void}
    */
   onSubmit = ({authKey}) => {
-    const checkDuplicateKey = this.props.authKeys.items.some(key => key.authKey === authKey);
-
-    if (checkDuplicateKey) {
+    const keyList = this.props.authKeys.items.map(key => key.authKey);
+    const check = utils.duplicateCheck(keyList, authKey);
+    if (check) {
       utils.showErrorNotification(_('Activation Failed'), _('Key already registered!'));
     }
 
-    if (!checkDuplicateKey) {
+    if (!check) {
       progress.start();
       api.authKey.addAuthKey(authKey)
         .then(response => {

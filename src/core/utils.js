@@ -358,3 +358,26 @@ exports.mockResponseWithLog = (req, res) => {
   console.groupEnd();
   return res;
 };
+
+/**
+ * Check for duplicate value.
+ * @param {Object} array - The object to check.
+ * @param {string} value - The string to compare with.
+ * @param {string} error - (optional) Error message for Formik validator
+ * @returns {Boolean} - Return true if duplicate value found.
+ * @returns {string} - (optional) Return error message for Formik validation if duplicate value found.
+ */
+exports.duplicateCheck = (array, value, error) => {
+  const check = array.some(val => val === value);
+
+  if (error) {
+    let errorMsg;
+    if (check) {
+      errorMsg = _('Same name found, please use a different name.');
+    }
+
+    return errorMsg;
+  }
+
+  return check;
+};
