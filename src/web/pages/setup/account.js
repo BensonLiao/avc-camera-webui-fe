@@ -2,6 +2,7 @@ const classNames = require('classnames');
 const React = require('react');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
+const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const logo = require('../../../resource/logo-01.svg');
 const decoration = require('../../../resource/decoration-01.svg');
@@ -9,6 +10,7 @@ const setupStep02 = require('../../../resource/setup-step-02.png');
 const setupStep02x2 = require('../../../resource/setup-step-02@2x.png');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
+const Password = require('../../../core/components/fields/password');
 const store = require('../../../core/store');
 const setupAccountValidator = require('../../validations/setup/account-validator');
 const utils = require('../../../core/utils');
@@ -17,27 +19,7 @@ module.exports = class SetupAccount extends Base {
   constructor(props) {
     super(props);
     this.state.languageCode = store.get('$setup').language;
-    this.state.fieldTypes = {
-      birthday: 'password',
-      password: 'password',
-      confirmPassword: 'password'
-    };
   }
-
-  generateTogglePasswordFieldHandler = field => {
-    return event => {
-      event.preventDefault();
-      this.setState(previousState => {
-        return {
-          ...previousState,
-          fieldTypes: {
-            ...previousState.fieldTypes,
-            [field]: previousState.fieldTypes[field] === 'password' ? 'text' : 'password'
-          }
-        };
-      });
-    };
-  };
 
   onSubmitSetupAccountForm = values => {
     const $setup = store.get('$setup');
@@ -46,20 +28,19 @@ module.exports = class SetupAccount extends Base {
     getRouter().go('/setup/https');
   };
 
-  setupAccountFormRender = ({errors, submitCount}) => {
-    const isSubmitted = submitCount > 0;
+  setupAccountFormRender = ({errors, touched}) => {
     const classTable = {
       account: classNames(
-        'form-control', {'is-invalid': errors.account && isSubmitted}
+        'form-control', {'is-invalid': errors.account && touched}
       ),
       birthday: classNames(
-        'form-control', {'is-invalid': errors.birthday && isSubmitted}
+        'form-control', {'is-invalid': errors.birthday && touched}
       ),
       password: classNames(
-        'form-control', {'is-invalid': errors.password && isSubmitted}
+        'form-control', {'is-invalid': errors.password && touched}
       ),
       confirmPassword: classNames(
-        'form-control', {'is-invalid': errors.confirmPassword && isSubmitted}
+        'form-control', {'is-invalid': errors.confirmPassword && touched}
       )
     };
 
@@ -85,22 +66,21 @@ module.exports = class SetupAccount extends Base {
           </div>
           <div className="form-group">
             <label>{_('Account')}</label>
-            <Field autoFocus name="account" maxLength="8" type="text" className={classTable.account} placeholder={_('Please enter your account.')}/>
+            <Field autoFocus name="account" maxLength={UserSchema.account.max} type="text" className={classTable.account} placeholder={_('Please enter your account.')}/>
             {
-              errors.account && isSubmitted && (
+              errors.account && touched && (
                 <div className="invalid-feedback">{errors.account}</div>
               )
             }
-            <small className="form-text text-muted">{_('Please enter less than 9 letters.')}</small>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Birthday')}</label>
-            <Field name="birthday" type={this.state.fieldTypes.birthday} className={classTable.birthday} placeholder={_('Please enter your birthday.')}/>
-            <a href="#" className="form-control-feedback text-muted" tabIndex="-1" onClick={this.generateTogglePasswordFieldHandler('birthday')}>
-              {this.state.fieldTypes.birthday === 'password' ? <i className="fas fa-eye"/> : <i className="fas fa-eye-slash"/>}
-            </a>
+            <Field name="birthday" component={Password} inputProps={{
+              placeholder: _('Enter your Birthday'),
+              className: classTable.birthday
+            }}/>
             {
-              errors.birthday && isSubmitted && (
+              errors.birthday && touched && (
                 <div className="invalid-feedback">{errors.birthday}</div>
               )
             }
@@ -108,31 +88,33 @@ module.exports = class SetupAccount extends Base {
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
-            <Field name="password" type={this.state.fieldTypes.password} className={classTable.password} placeholder={_('Please enter your password.')}/>
-            <a href="#" className="form-control-feedback text-muted" tabIndex="-1" onClick={this.generateTogglePasswordFieldHandler('password')}>
-              {this.state.fieldTypes.password === 'password' ? <i className="fas fa-eye"/> : <i className="fas fa-eye-slash"/>}
-            </a>
+            <Field name="password" component={Password} inputProps={{
+              placeholder: _('Enter your password'),
+              className: classTable.password
+            }}/>
             {
-              errors.password && isSubmitted && (
+              errors.password && touched && (
                 <div className="invalid-feedback">{errors.password}</div>
               )
             }
-            <small className="form-text text-muted">{_('Please enter letters between 8 and 12.')}</small>
+            <small className="text-info">
+              {_('8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space')}
+            </small>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Confirm password')}</label>
-            <Field name="confirmPassword" type={this.state.fieldTypes.confirmPassword} className={classTable.confirmPassword} placeholder={_('Please enter your password again.')}/>
-            <a href="#" className="form-control-feedback text-muted" tabIndex="-1" onClick={this.generateTogglePasswordFieldHandler('confirmPassword')}>
-              {this.state.fieldTypes.password === 'password' ? <i className="fas fa-eye"/> : <i className="fas fa-eye-slash"/>}
-            </a>
+            <Field name="confirmPassword" component={Password} inputProps={{
+              placeholder: _('Confirm your password'),
+              className: classTable.confirmPassword
+            }}/>
             {
-              errors.confirmPassword && isSubmitted && (
+              errors.confirmPassword && touched && (
                 <div className="invalid-feedback">{errors.confirmPassword}</div>
               )
             }
           </div>
 
-          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
+          <button disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill">
             {_('Next')}
           </button>
         </div>
