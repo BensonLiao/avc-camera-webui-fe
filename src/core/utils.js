@@ -369,7 +369,6 @@ exports.mockResponseWithLog = (req, res) => {
  */
 exports.duplicateCheck = (array, value, error) => {
   const check = array.some(val => val === value);
-
   if (error) {
     let errorMsg;
     if (check) {
