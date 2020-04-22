@@ -140,6 +140,7 @@
     line-height: 40px;
     font-size: 20px;
     font-weight: bold;
+    max-width: 240px;
   }
   .btn-edit-title {
     line-height: 40px;
@@ -154,6 +155,7 @@
     margin: 24px -16px 24px -16px;
   }
   .select-wrapper {
+    max-height: 2.5rem;
     i {
       margin: 0 8px 0 8px;
       color: $info;

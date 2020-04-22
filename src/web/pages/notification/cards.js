@@ -14,6 +14,7 @@ const DateTimePicker = require('../../../core/components/fields/datetime-picker'
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const sanitizeHtml = require('sanitize-html');
 
 module.exports = class Cards extends Base {
   static get propTypes() {
@@ -36,6 +37,7 @@ module.exports = class Cards extends Base {
     this.state.cardDetails = null;
     this.state.isShowStartDatePicker = false;
     this.state.isShowEndDatePicker = false;
+    this.state.isCardTitleOnFocus = false;
     this.state.cardTypeFilter = 'all';
   }
 
@@ -176,7 +178,8 @@ module.exports = class Cards extends Base {
   onSubmitCardForm = values => {
     const data = {
       ...values,
-      groups: values.$groups ? [values.$groups] : []
+      groups: values.$groups ? [values.$groups] : [],
+      title: this.sanitizeInput(values.title)
     };
 
     progress.start();
@@ -208,9 +211,27 @@ module.exports = class Cards extends Base {
     }
   };
 
+  setCardTitleOnFocus = () => {
+    this.setState({isCardTitleOnFocus: true});
+  }
+
+  setCardTitleOnBlur = () => {
+    this.setState({isCardTitleOnFocus: false});
+  }
+
+  sanitizeInput = input => {
+    return sanitizeHtml(input, {allowedTags: [], allowedAttributes: {}});
+  }
+
   cardFormRender = ({values, setFieldValue}) => {
     const {groups} = this.props;
-    const {$isApiProcessing, isShowStartDatePicker, isShowEndDatePicker, cardDetails} = this.state;
+    const {
+      $isApiProcessing,
+      isShowStartDatePicker,
+      isShowEndDatePicker,
+      isCardTitleOnFocus,
+      cardDetails
+    } = this.state;
     const onClickTitleEditButton = event => {
       event.preventDefault();
       this.cardFormTitleRef.current.focus();
@@ -254,7 +275,7 @@ module.exports = class Cards extends Base {
 
     const onChangeTitle = event => {
       if (event.target.value) {
-        setFieldValue('title', event.target.value);
+        setFieldValue('title', this.sanitizeInput(event.target.value));
       }
     };
 
@@ -272,8 +293,16 @@ module.exports = class Cards extends Base {
             <ContentEditable
               innerRef={this.cardFormTitleRef}
               html={values.title}
-              tagName="p" className="title text-primary ml-3 my-0"
-              onChange={onChangeTitle}/>
+              tagName="p"
+              className={classNames(
+                'title text-primary ml-3 my-0',
+                {'text-truncate': !isCardTitleOnFocus}
+              )}
+              onChange={onChangeTitle}
+              onFocus={this.setCardTitleOnFocus}
+              onBlur={this.setCardTitleOnBlur}
+            />
+
             <a className="btn-edit-title ml-3" href="#" onClick={onClickTitleEditButton}>
               <i className="fas fa-pen"/>
             </a>
