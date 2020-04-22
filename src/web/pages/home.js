@@ -318,7 +318,7 @@ module.exports = class Home extends Base {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={this.state.$isApiProcessing || values.isAutoFocus || JSON.parse(values.hdrEnabled)}
+                  disabled={this.state.$isApiProcessing || values.isAutoFocus}
                   type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
@@ -337,7 +337,7 @@ module.exports = class Home extends Base {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={this.state.$isApiProcessing || values.isAutoFocus || JSON.parse(values.hdrEnabled)}
+                  disabled={this.state.$isApiProcessing || values.isAutoFocus}
                   name="focalLength"
                   component={Slider}
                   step={1}
@@ -353,7 +353,7 @@ module.exports = class Home extends Base {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={values.isAutoFocusProcessing || JSON.parse(values.hdrEnabled)}
+                  disabled={values.isAutoFocusProcessing}
                   name="zoom"
                   component={Slider}
                   step={0.1}
