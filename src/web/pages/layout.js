@@ -167,7 +167,7 @@ module.exports = class Layout extends Base {
       )
     };
     const tooltipOptions = {
-      delay: {show: 1500, hide: 0},
+      delay: {show: 250, hide: 0},
       offset: '0,-4',
       boundary: 'viewport'
     };
