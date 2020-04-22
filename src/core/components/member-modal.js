@@ -163,7 +163,7 @@ module.exports = class Member extends React.PureComponent {
     })
       .catch(error => {
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification(null, error.response.data.message);
       });
   };
 
