@@ -182,7 +182,7 @@ window.languageResource = {
   'Not Found': '找不到此網頁',
   'Please click the button to go back to home!': '您可以從下面按鈕回首頁！',
   'Back to Home': '回首頁',
-  'The Server Error': '內部伺服器問題',
+  'Internal Server Error': '內部伺服器問題',
   'Sorry for your inconvenience, we are actively process with it!': '造成您的不便不好意思，我們正在積極處理中！',
 
   // Navigation
