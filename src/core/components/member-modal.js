@@ -163,7 +163,10 @@ module.exports = class Member extends React.PureComponent {
     })
       .catch(error => {
         progress.done();
-        utils.showErrorNotification(null, error.response.data.message);
+        utils.showErrorNotification(_('Error'), error.response.status === 500 ?
+          _('Internal Server Error') :
+          error.response.data.message
+        );
       });
   };
 
