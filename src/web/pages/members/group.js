@@ -34,7 +34,10 @@ module.exports = class Group extends Base {
 
   constructor(props) {
     super(props);
-    this.state.isShowModal = true;
+    this.state = {
+      isShowModal: true,
+      groupsName: this.props.groups.items.map(group => group.name)
+    };
   }
 
   hideModal = () => {
@@ -78,6 +81,16 @@ module.exports = class Group extends Base {
     }
   };
 
+  checkDuplicate = values => {
+    if (!this.props.group) {
+      return utils.duplicateCheck(
+        this.state.groupsName,
+        values,
+        _('Same name found, please use a different name.')
+      );
+    }
+  }
+
   groupFormRender = ({errors, touched}) => {
     const {groups, group} = this.props;
     const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX && !group;
@@ -92,6 +105,7 @@ module.exports = class Group extends Base {
             <label>{_('Name')}</label>
             <Field name="name" type="text" placeholder={_('Enter Your Group Name')}
               maxLength={GroupSchema.name.max}
+              validate={this.checkDuplicate}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}/>
             {
               errors.name && touched.name && (
