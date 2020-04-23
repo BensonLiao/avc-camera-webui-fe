@@ -38,7 +38,10 @@ module.exports = class User extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
-    this.state.isShowModal = true;
+    this.state = {
+      isShowModal: true,
+      usersName: this.props.users.items.map(user => user.account)
+    };
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
         const isShowModal = [
@@ -101,6 +104,16 @@ module.exports = class User extends Base {
     }
   };
 
+  checkDuplicate = values => {
+    if (!this.props.user) {
+      return utils.duplicateCheck(
+        this.state.usersName,
+        values,
+        _('Same name found, please use a different name.')
+      );
+    }
+  }
+
   formRender = ({errors, touched}) => {
     const {users: {items}, user} = this.props;
     const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
@@ -125,6 +138,7 @@ module.exports = class User extends Base {
             <label>{_('Account')}</label>
             <Field name="account" type="text" placeholder={_('Enter your account')}
               maxLength={UserSchema.account.max}
+              validate={this.checkDuplicate}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
             {
               errors.account && touched.account && (
