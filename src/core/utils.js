@@ -5,6 +5,7 @@ const dayjs = require('dayjs');
 const {store} = require('react-notifications-component');
 const _ = require('../languages');
 const {validator} = require('../core/validations');
+const {RESTRICTED_PORTS} = require('../core/constants');
 
 /**
  * Format time range.
@@ -373,6 +374,34 @@ exports.duplicateCheck = (array, value, error) => {
     let errorMsg;
     if (check) {
       errorMsg = _('Same name found, please use a different name.');
+    }
+
+    return errorMsg;
+  }
+
+  return check;
+};
+
+/**
+ * Check for validated port number.
+ * @param {string} value - The string to compare with.
+ * @param {string} error - (optional) Error message for Formik validator
+ * @returns {Boolean} - Return true if duplicate value found.
+ * @returns {string} - (optional) Return error message for Formik validation if duplicate value found.
+ */
+exports.validatedPortCheck = (value, error) => {
+  const check = Number(value) < 1024 ||
+    Number(value) > 65535 ||
+    RESTRICTED_PORTS.some(val => val === value);
+  if (error) {
+    let errorMsg;
+    if (value === '') {
+      errorMsg = _('The port number must not empty.');
+      return errorMsg;
+    }
+
+    if (check) {
+      errorMsg = _('Not a valid port number, please use another number.');
     }
 
     return errorMsg;
