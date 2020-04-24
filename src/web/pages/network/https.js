@@ -39,6 +39,13 @@ module.exports = class HTTPS extends Base {
     }
   };
 
+  checkValidatePort = values => {
+    return utils.validatedPortCheck(
+      values,
+      _('Not a valid port number, please use another number.')
+    );
+  }
+
   onSubmitForm = values => {
     progress.start();
     api.system.updateHttpsSettings(values)
@@ -79,7 +86,11 @@ module.exports = class HTTPS extends Base {
         </div>
         <div className="form-group">
           <label>{_('Port')}</label>
-          <Field name="port" type="text" className={classNames('form-control', {'is-invalid': errors.port && touched.port})}/>
+          <Field
+            name="port"
+            type="text"
+            validate={this.checkValidatePort}
+            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}/>
           {
             errors.port && touched.port && (
               <div className="invalid-feedback">{errors.port}</div>
@@ -118,7 +129,7 @@ module.exports = class HTTPS extends Base {
             </>
           )
         }
-        <button disabled={$isApiProcessing} className="btn btn-primary btn-block rounded-pill" type="submit">
+        <button disabled={$isApiProcessing || !utils.isObjectEmpty(errors)} className="btn btn-primary btn-block rounded-pill" type="submit">
           {_('Apply')}
         </button>
       </Form>
