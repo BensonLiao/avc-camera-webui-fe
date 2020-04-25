@@ -391,6 +391,7 @@ exports.duplicateCheck = (array, value, error) => {
  */
 exports.validatedPortCheck = (value, error) => {
   const check = (value.match(/^[\d]{1,5}$/) === null) ||
+    (value.match(/^0+/) !== null) ||
     (Number(value) > 65535) ||
     RESTRICTED_PORTS.some(val => val === value);
   let errorMsg = error || _('Not a valid port number, please use another number.');
