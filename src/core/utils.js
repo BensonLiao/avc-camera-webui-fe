@@ -390,20 +390,16 @@ exports.duplicateCheck = (array, value, error) => {
  * @returns {string} - (optional) Return error message for Formik validation if duplicate value found.
  */
 exports.validatedPortCheck = (value, error) => {
-  const check = Number(value) < 1024 ||
-    Number(value) > 65535 ||
+  const check = (value.match(/^[\d]{1,5}$/) === null) ||
+    (Number(value) > 65535) ||
     RESTRICTED_PORTS.some(val => val === value);
-  if (error) {
-    let errorMsg;
-    if (value === '') {
-      errorMsg = _('The port number must not empty.');
-      return errorMsg;
-    }
+  let errorMsg = error || _('Not a valid port number, please use another number.');
+  if (value === '') {
+    errorMsg = _('The port number must not empty.');
+    return errorMsg;
+  }
 
-    if (check) {
-      errorMsg = _('Not a valid port number, please use another number.');
-    }
-
+  if (check) {
     return errorMsg;
   }
 
