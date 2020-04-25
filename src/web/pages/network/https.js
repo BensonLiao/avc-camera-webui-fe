@@ -40,10 +40,7 @@ module.exports = class HTTPS extends Base {
   };
 
   checkValidatePort = values => {
-    return utils.validatedPortCheck(
-      values,
-      _('Not a valid port number, please use another number.')
-    );
+    return utils.validatedPortCheck(values);
   }
 
   onSubmitForm = values => {
