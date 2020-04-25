@@ -88,6 +88,7 @@ module.exports = class Maintain extends Base {
       <Modal
         show={this.state.isShowModal}
         autoFocus={false}
+        backdrop="static"
         onHide={this.hideModal}
       >
         <Formik
@@ -106,7 +107,7 @@ module.exports = class Maintain extends Base {
                 <div className="form-group w-100 mx-0">
                   <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">Confirm</button>
                 </div>
-                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal}>Cancel</button>
+                <button disabled={$isApiProcessing} type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal}>Cancel</button>
               </div>
             </div>
           </Form>
