@@ -781,20 +781,58 @@ module.exports = {
     /**
      * Schema: webserver-form-schema/face-recognition-settings-schema
      * @param {boolean} isEnable
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnable {boolean}
+     */
+    updateFRSetting: ({isEnable}) => api({
+      method: 'put',
+      url: '/api/face-recognition/fr',
+      data: {
+        isEnable
+      }
+    }),
+    /**
+     * Schema: webserver-form-schema/face-recognition-settings-schema
      * @param {string} confidenceLevel
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - confidenceLevel {string}
+     */
+    updateFRConfidenceLevel: ({confidenceLevel}) => api({
+      method: 'put',
+      url: '/api/face-recognition/confidencelevel',
+      data: {
+        confidenceLevel
+      }
+    }),
+    /**
+     * Schema: webserver-form-schema/face-recognition-settings-schema
      * @param {boolean} isShowMember
      * @param {boolean} isShowGroup
      * @param {boolean} isShowUnknown
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isShowMember {boolean}
+     * - isShowGroup {boolean}
+     * - isShowUnknown {boolean}
+     */
+    updateFREnrollDisplaySetting: ({isShowMember, isShowGroup, isShowUnknown}) => api({
+      method: 'put',
+      url: '/api/face-recognition/enrolldisplay',
+      data: {
+        isShowMember,
+        isShowGroup,
+        isShowUnknown
+      }
+    }),
+    /**
+     * Schema: webserver-form-schema/face-recognition-settings-schema
      * @param {Object} triggerArea
      * @param {boolean} isEnableFaceFrame
      * @param {Object} faceFrame
      * @returns {Promise<response>}
      * @response 200 {Object}
-     * - isEnable {boolean}
-     * - confidenceLevel {string}
-     * - isShowMember {boolean}
-     * - isShowGroup {boolean}
-     * - isShowUnknown {boolean}
      * - triggerArea {Object}
      * - - x {number}
      * - - y {number}
@@ -807,15 +845,10 @@ module.exports = {
      * - - width {number}
      * - - height {number}
      */
-    updateFaceRecognitionSettings: ({isEnable, confidenceLevel, isShowMember, isShowGroup, isShowUnknown, triggerArea, isEnableFaceFrame, faceFrame}) => api({
+    updateFRROI: ({triggerArea, isEnableFaceFrame, faceFrame}) => api({
       method: 'put',
-      url: '/api/face-recognition/settings',
+      url: '/api/face-recognition/roi',
       data: {
-        isEnable,
-        confidenceLevel,
-        isShowMember,
-        isShowGroup,
-        isShowUnknown,
         triggerArea,
         isEnableFaceFrame,
         faceFrame

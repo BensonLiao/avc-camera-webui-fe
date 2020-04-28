@@ -346,7 +346,19 @@ mockAxios.onGet('/api/video/settings').reply(config => {
   .onGet('/api/face-recognition/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').value()]);
   })
-  .onPut('/api/face-recognition/settings').reply(config => {
+  .onPut('/api/face-recognition/fr').reply(config => {
+    const settings = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
+  })
+  .onPut('/api/face-recognition/confidencelevel').reply(config => {
+    const settings = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
+  })
+  .onPut('/api/face-recognition/enrolldisplay').reply(config => {
+    const settings = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
+  })
+  .onPut('/api/face-recognition/roi').reply(config => {
     const settings = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
   })

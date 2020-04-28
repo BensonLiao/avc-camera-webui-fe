@@ -43,31 +43,63 @@ module.exports = class FaceRecognition extends Base {
         const {triggerArea} = faceRecognitionSettings;
 
         return !(triggerArea.x === 0 && triggerArea.y === 0 && triggerArea.width === 100 && triggerArea.height === 100);
-      })(),
-      isEnableRecognitionInformation:
-        faceRecognitionSettings.isShowMember ||
-        faceRecognitionSettings.isShowGroup ||
-        faceRecognitionSettings.isShowUnknown
+      })()
     };
   };
 
-  onSubmitFaceRecognitionSettingsForm = values => {
+  onSubmitFaceRecognitionSettingsForm = (values, faceRecognitionSettings) => {
     progress.start();
-    api.smartFunction.updateFaceRecognitionSettings({
-      ...values,
-      isShowMember: values.isEnableRecognitionInformation && values.isShowMember,
-      isShowGroup: values.isEnableRecognitionInformation && values.isShowGroup,
-      isShowUnknown: values.isEnableRecognitionInformation && values.isShowUnknown,
-      triggerArea: values.isEnableTriggerArea ?
-        values.triggerArea :
-        {x: 0, y: 0, width: 100, height: 100}
-    })
+
+    const createPromises = () => {
+      let promises = [];
+
+      if (values.isEnable !== faceRecognitionSettings.isEnable) {
+        promises.push(api.smartFunction.updateFRSetting(values));
+      }
+
+      if (values.confidenceLevel !== faceRecognitionSettings.confidenceLevel) {
+        promises.push(api.smartFunction.updateFRConfidenceLevel(values));
+      }
+
+      if (
+        values.isShowMember !== faceRecognitionSettings.isShowMember ||
+        values.isShowGroup !== faceRecognitionSettings.isShowGroup ||
+        values.isShowUnknown !== faceRecognitionSettings.isShowUnknown
+      ) {
+        promises.push(api.smartFunction.updateFREnrollDisplaySetting({
+          ...values,
+          isShowMember: values.isShowMember,
+          isShowGroup: values.isShowGroup,
+          isShowUnknown: values.isShowUnknown
+        }));
+      }
+
+      if (
+        values.triggerArea !== faceRecognitionSettings.triggerArea ||
+        values.isEnableFaceFrame !== faceRecognitionSettings.isEnableFaceFrame ||
+        values.faceFrame !== faceRecognitionSettings.faceFrame
+      ) {
+        promises.push(api.smartFunction.updateFRROI({
+          ...values,
+          triggerArea: values.isEnableTriggerArea ?
+            values.triggerArea :
+            {x: 0, y: 0, width: 100, height: 100}
+        }));
+      }
+
+      return promises;
+    };
+
+    Promise.all(createPromises())
       .then(getRouter().reload)
       .catch(error => {
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification(
+          error.response.status || '500',
+          error.response.data.message || _('Internal Server Error')
+        );
       });
-  };
+  }
 
   faceRecognitionSettingsFormRender = form => {
     const {$isApiProcessing} = this.state;
@@ -154,34 +186,20 @@ module.exports = class FaceRecognition extends Base {
 
               <hr/>
 
-              <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Display Recognition Name')}</label>
-                <div className="custom-control custom-switch">
-                  <Field name="isEnableRecognitionInformation" type="checkbox" checked={values.isEnableRecognitionInformation} className="custom-control-input" id="switch-show-name"/>
-                  <label className="custom-control-label" htmlFor="switch-show-name">
-                    <span>{_('ON')}</span>
-                    <span>{_('OFF')}</span>
-                  </label>
+              <div className="form-group">
+                <div className="form-check mb-3">
+                  <Field name="isShowMember" checked={values.isShowMember} className="form-check-input" type="checkbox" id="input-show-all"/>
+                  <label className="form-check-label" htmlFor="input-show-all">{_('Display Name')}</label>
+                </div>
+                <div className="form-check mb-3">
+                  <Field name="isShowGroup" checked={values.isShowGroup} className="form-check-input" type="checkbox" id="input-show-register-group"/>
+                  <label className="form-check-label" htmlFor="input-show-register-group">{_('Display Group')}</label>
+                </div>
+                <div className="form-check">
+                  <Field name="isShowUnknown" checked={values.isShowUnknown} className="form-check-input" type="checkbox" id="input-show-unknown-personal"/>
+                  <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Display "Unknown"')}</label>
                 </div>
               </div>
-              {
-                values.isEnableRecognitionInformation && (
-                  <div className="form-group">
-                    <div className="form-check mb-3">
-                      <Field name="isShowMember" checked={values.isShowMember} className="form-check-input" type="checkbox" id="input-show-all"/>
-                      <label className="form-check-label" htmlFor="input-show-all">{_('Display Name')}</label>
-                    </div>
-                    <div className="form-check mb-3">
-                      <Field name="isShowGroup" checked={values.isShowGroup} className="form-check-input" type="checkbox" id="input-show-register-group"/>
-                      <label className="form-check-label" htmlFor="input-show-register-group">{_('Display Group')}</label>
-                    </div>
-                    <div className="form-check">
-                      <Field name="isShowUnknown" checked={values.isShowUnknown} className="form-check-input" type="checkbox" id="input-show-unknown-personal"/>
-                      <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Display "Unknown"')}</label>
-                    </div>
-                  </div>
-                )
-              }
 
               <button disabled={$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
@@ -213,7 +231,7 @@ module.exports = class FaceRecognition extends Base {
 
             <Formik
               initialValues={initialValues}
-              onSubmit={this.onSubmitFaceRecognitionSettingsForm}
+              onSubmit={values => this.onSubmitFaceRecognitionSettingsForm(values, initialValues)}
             >
               {this.faceRecognitionSettingsFormRender}
             </Formik>
