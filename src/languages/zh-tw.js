@@ -116,6 +116,7 @@ window.languageResource = {
   'notification-card-4': '破壞警報',
 
   // 辨識通知條件
+  'Group Type': '群組類型',
   'face-recognition-condition-0': '不限',
   'face-recognition-condition-1': '成功',
   'face-recognition-condition-2': '未知',

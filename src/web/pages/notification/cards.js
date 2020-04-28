@@ -330,7 +330,7 @@ module.exports = class Cards extends Base {
           {/* Time settings */}
           <div className="tab-pane fade show active" id="tab-notification-time">
             <div className="form-group d-flex justify-content-between align-items-center">
-              <label className="mb-0">{_('Time')}</label>
+              <label className="mb-0">{_('Schedule')}</label>
               <div className="custom-control custom-switch">
                 <Field name="isEnableTime" checked={values.isEnableTime} type="checkbox" className="custom-control-input" id="switch-notification-time"/>
                 <label className="custom-control-label" htmlFor="switch-notification-time">
@@ -385,13 +385,13 @@ module.exports = class Cards extends Base {
                     className="btn btn-primary rounded-circle" type="button"
                     onClick={onClickAddTimePeriod}
                   >
-                    <i className="fas fa-plus fa-lg"/>
+                    <i className="fas fa-plus"/>
                   </button>
                 </div>
               </div>
               {
                 values.timePeriods.map((timePeriod, index) => (
-                  <div key={timePeriod.id} className="form-row mb-1">
+                  <div key={timePeriod.id} className="form-row my-3">
                     <div className="col-12">
                       <div className="border border-primary rounded-pill text-primary d-flex justify-content-between align-items-center filter-item">
                         <div>
@@ -431,17 +431,26 @@ module.exports = class Cards extends Base {
                 ))
               }
             </div>
-            <div className="col-auto my-1">
-              <div className="select-wrapper border rounded-pill overflow-hidden d-flex align-items-center">
-                <i className="far fa-folder fa-sm"/>
-                <Field name="$groups" component="select" className="form-control border-0">
-                  <option value="">{_('Everyone')}</option>
-                  {
-                    groups.items.map(group => (
-                      <option key={group.id} value={group.id}>{group.name}</option>
-                    ))
-                  }
-                </Field>
+            <div className="form-group">
+              <div className="card">
+                <div className="card-body px-4 py-4">
+                  <div className="form-group">
+                    <label className="text-size-16 mb-0">{_('Group Type')}</label>
+                  </div>
+                  <div className="col-auto px-0">
+                    <div className="select-wrapper border rounded-pill overflow-hidden d-flex align-items-center">
+                      <i className="far fa-folder fa-sm"/>
+                      <Field name="$groups" component="select" className="form-control border-0">
+                        <option value="">{_('Everyone')}</option>
+                        {
+                          groups.items.map(group => (
+                            <option key={group.id} value={group.id}>{group.name}</option>
+                          ))
+                        }
+                      </Field>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -534,7 +543,7 @@ module.exports = class Cards extends Base {
                       <div className="col-auto my-1">
                         <button
                           disabled={!values.$email} type="button"
-                          className="btn btn-secondary btn-new-row rounded-circle"
+                          className="btn btn-primary rounded-circle"
                           onClick={onClickAddEmail}
                         >
                           <i className="fas fa-plus"/>
@@ -546,7 +555,7 @@ module.exports = class Cards extends Base {
                     values.emails.map((email, index) => {
                       const key = `${index}${email}`;
                       return (
-                        <div key={key} className="border border-primary rounded-pill text-primary d-flex justify-content-between align-items-center filter-item">
+                        <div key={key} className="border border-primary rounded-pill text-primary d-flex justify-content-between align-items-center filter-item mb-3">
                           <div>{email}</div>
                           <a href="#" onClick={generateDeleteEmailHandler(index)}>
                             <i className="fas fa-times-circle fa-lg"/>
