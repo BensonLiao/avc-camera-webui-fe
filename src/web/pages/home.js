@@ -2,6 +2,7 @@ const axios = require('axios');
 const download = require('downloadjs');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
+const {getRouter} = require('capybara-router');
 const React = require('react');
 const progress = require('nprogress');
 const filesize = require('filesize');
@@ -216,6 +217,15 @@ module.exports = class Home extends Base {
       .then(response => {
         resetForm({values: {deviceName: response.data.deviceName}});
       })
+      .then(getRouter().reload)
+      .catch(utils.renderError)
+      .finally(progress.done);
+  };
+
+  onBlurDeviceNameForm = e => {
+    progress.start();
+    api.system.updateDeviceName(e.target.value)
+      .then(getRouter().reload)
       .catch(utils.renderError)
       .finally(progress.done);
   };
@@ -225,7 +235,8 @@ module.exports = class Home extends Base {
       <Form className="form-group">
         <Field name="deviceName" type="text"
           maxLength={DEVICE_NAME_CHAR_MAX}
-          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}/>
+          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}
+          onBlur={this.onBlurDeviceNameForm}/>
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
     );
