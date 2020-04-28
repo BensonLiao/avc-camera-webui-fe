@@ -96,7 +96,7 @@ module.exports = class Login extends Base {
             <label>{_('Password')}</label>
             <Field name="password" component={Password} inputProps={{
               placeholder: _('Enter your password'),
-              className: classNames('form-control', {'is-invalid': errors.password})
+              className: classNames('form-control', {'is-invalid': errors.password && touched.password})
             }}/>
             {
               errors.password && touched.password && (
