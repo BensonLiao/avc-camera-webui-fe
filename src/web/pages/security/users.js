@@ -70,13 +70,10 @@ module.exports = class Users extends Base {
   };
 
   render() {
-    const {permissionFilter} = this.state;
+    const {permissionFilter, $user: {account}} = this.state;
     const users = permissionFilter === 'all' ?
       this.props.users.items :
       this.props.users.items.filter(user => user.permission.toString() === permissionFilter);
-    const isDeleteUserDisabled = users.filter(
-      user => user.permission.toString() === UserPermission.root
-    ).length <= 1;
     const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
     return (
       <>
@@ -170,8 +167,7 @@ module.exports = class Users extends Base {
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
                                 <button
-                                  disabled={isDeleteUserDisabled &&
-                                  user.permission.toString() === UserPermission.root}
+                                  disabled={user.account === account}
                                   className="btn btn-link"
                                   type="button"
                                   onClick={this.generateShowDeleteUserModalHandler(user)}
