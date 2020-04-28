@@ -34,10 +34,10 @@ module.exports = class SDCard extends Base {
     this.state.isEnableAuth = null;
     this.state.sdEnabled = null;
     this.state.file = null;
-    this.state.isShowModal = false;
     this.state.showSelectModal = {
       isShowFormatModal: false,
-      isShowUnmountModal: false
+      isShowUnmountModal: false,
+      isShowDisableModal: false
     };
   }
 
@@ -60,71 +60,75 @@ module.exports = class SDCard extends Base {
     }));
   };
 
-  formatSDcardModalRender = () => {
+  sdcardModalRender = mode => {
     const {$isApiProcessing} = this.state;
-    return (
-      <Modal
-        show={this.state.showSelectModal.isShowFormatModal}
-        autoFocus={false}
-        onHide={this.hideModal('isShowFormatModal')}
-      >
-        <Formik
-          initialValues={{}}
-          onSubmit={this.onSubmitFormatSDCard}
-        >
-          <Form>
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title">{_('Format')}</h4>
-              </div>
-              <div className="modal-body">
-                <p>{_('Are you sure you want to format the Micro SD card?')}</p>
-              </div>
-              <div className="modal-footer flex-column">
-                <div className="form-group w-100 mx-0">
-                  <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">{_('Confirm')}</button>
-                </div>
-                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowFormatModal')}>{_('Cancel')}</button>
-              </div>
-            </div>
-          </Form>
-        </Formik>
-      </Modal>
-    );
-  };
 
-  unmountSDCardModalRender = () => {
-    const {$isApiProcessing} = this.state;
+    const modalType = {
+      format: {
+        showModal: this.state.showSelectModal.isShowFormatModal,
+        hideModal: this.hideModal('isShowFormatModal'),
+        modalOnSubmit: this.onSubmitFormatSDCard,
+        modalTitle: _('Format'),
+        modalBody: _('Are you sure you want to format the Micro SD card?'),
+        modalOnClick: this.hideModal('isShowFormatModal')
+      },
+      unmount: {
+        showModal: this.state.showSelectModal.isShowUnmountModal,
+        hideModal: this.hideModal('isShowUnmountModal'),
+        modalOnSubmit: this.onSubmitUnmountSDCard,
+        modalTitle: _('Unmount'),
+        modalBody: _('Are you sure you want to unmount the Micro SD card?'),
+        modalOnClick: this.hideModal('isShowUnmountModal')
+      },
+      disable: {
+        showModal: this.state.showSelectModal.isShowDisableModal,
+        hideModal: this.hideModal('isShowDisableModal'),
+        modalOnSubmit: this.onSubmitDisableSDCard,
+        modalTitle: _('Disable'),
+        modalBody: _('Are you sure you want to disable the Micro SD card?'),
+        modalOnClick: this.hideModal('isShowDisableModal')
+      }
+    };
     return (
       <Modal
-        show={this.state.showSelectModal.isShowUnmountModal}
+        show={modalType[mode].showModal}
         autoFocus={false}
-        onHide={this.hideModal('isShowUnmountModal')}
+        onHide={modalType[mode].hideModal}
       >
         <Formik
           initialValues={{}}
-          onSubmit={this.onSubmitUnmountSDCard}
+          onSubmit={modalType[mode].modalOnSubmit}
         >
           <Form>
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">{_('Unmount')}</h4>
+                <h4 className="modal-title">{modalType[mode].modalTitle}</h4>
               </div>
               <div className="modal-body">
-                <p>{_('Are you sure you want to unmount the Micro SD card?')}</p>
+                <p>{modalType[mode].modalBody}</p>
               </div>
               <div className="modal-footer flex-column">
                 <div className="form-group w-100 mx-0">
-                  <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">{_('Confirm')}</button>
+                  <button
+                    disabled={$isApiProcessing}
+                    type="submit"
+                    className="btn btn-primary btn-block rounded-pill"
+                  >{_('Confirm')}
+                  </button>
                 </div>
-                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowUnmountModal')}>{_('Cancel')}</button>
+                <button
+                  type="button"
+                  className="btn btn-info btn-block rounded-pill"
+                  onClick={getRouter().reload}
+                >{_('Cancel')}
+                </button>
               </div>
             </div>
           </Form>
         </Formik>
       </Modal>
     );
-  };
+  }
 
   onSubmitFormatSDCard = () => {
     progress.start();
@@ -146,8 +150,27 @@ module.exports = class SDCard extends Base {
       });
   };
 
+  onSubmitDisableSDCard = () => {
+    progress.start();
+    api.system.enableSD({sdEnabled: false})
+      .then(getRouter().reload)
+      .catch(error => {
+        progress.done();
+        utils.renderError(error);
+      });
+  };
+
   onChangeSdCardSetting = ({nextValues, prevValues}) => {
-    if (`${prevValues.sdEnabled}` !== `${nextValues.sdEnabled}`) {
+    if (prevValues.sdEnabled && !nextValues.sdEnabled) {
+      this.setState(prevState => ({
+        showSelectModal: {
+          ...prevState.showSelectModal,
+          isShowDisableModal: true
+        }
+      }));
+    }
+
+    if (!prevValues.sdEnabled && nextValues.sdEnabled) {
       progress.start();
       api.system.enableSD(nextValues)
         .then(getRouter().reload)
@@ -178,7 +201,12 @@ module.exports = class SDCard extends Base {
         <div className="form-group d-flex justify-content-between align-items-center">
           <label className="mb-0">{_('SD Card')}</label>
           <div className="custom-control custom-switch">
-            <Field name="sdEnabled" type="checkbox" className="custom-control-input" id="switch-sound"/>
+            <Field
+              name="sdEnabled"
+              type="checkbox"
+              className="custom-control-input"
+              id="switch-sound"
+            />
             <label className="custom-control-label" htmlFor="switch-sound">
               <span>{_('ON')}</span>
               <span>{_('OFF')}</span>
@@ -191,16 +219,29 @@ module.exports = class SDCard extends Base {
               <label>{_('SD Card Operation')}</label>
               <div>
                 <span>
-                  <button className="btn btn-outline-primary rounded-pill px-5 mr-3" type="button" onClick={this.showModal('isShowFormatModal')}>
+                  <button
+                    className="btn btn-outline-primary rounded-pill px-5 mr-3"
+                    type="button"
+                    disabled={systemInformation.sdEnabled}
+                    onClick={this.showModal('isShowFormatModal')}
+                  >
                     {_('Format')}
                   </button>
-                  {this.formatSDcardModalRender()}
+                  {this.sdcardModalRender('format')}
                 </span>
                 <span>
-                  <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal('isShowUnmountModal')}>
+                  <button
+                    className="btn btn-outline-primary rounded-pill px-5"
+                    type="button"
+                    disabled={systemInformation.sdEnabled}
+                    onClick={this.showModal('isShowUnmountModal')}
+                  >
                     {_('Unmount')}
                   </button>
-                  {this.unmountSDCardModalRender()}
+                  {this.sdcardModalRender('unmount')}
+                </span>
+                <span>
+                  {this.sdcardModalRender('disable')}
                 </span>
               </div>
             </div>
@@ -276,7 +317,6 @@ module.exports = class SDCard extends Base {
 
   render() {
     const {systemInformation} = this.props;
-
     return (
       <div className="main-content">
         <div className="section-media">
