@@ -1102,7 +1102,7 @@ module.exports = {
      * - - frameRate {String}
      * - - bandwidthManagement {String}
      * - - bitrate {String}
-     * - - gov {String}
+     * - - gov = gop {String}
      * - channelB {Object} It is same as channelA.
      */
     getStreamSettings: () => api({
@@ -1116,7 +1116,7 @@ module.exports = {
      * @property {String} frameRate
      * @property {String} bandwidthManagement
      * @property {String} bitrate
-     * @property {String} gov
+     * @property {String} gov It is same as GOP
      * @param {Object} channelB It is same as channelA.
      * @returns {Promise<response>} webserver-form-schema/stream-settings-schema
      * @response 200 {Object}
