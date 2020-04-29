@@ -94,10 +94,10 @@ module.exports = class FaceRecognition extends Base {
       .then(getRouter().reload)
       .catch(error => {
         progress.done();
-        utils.showErrorNotification(
-          error.response.status || '500',
-          error.response.data.message || _('Internal Server Error')
-        );
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   }
 

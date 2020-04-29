@@ -42,7 +42,10 @@ module.exports = class Upgrade extends Base {
       })
       .catch(error => {
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   };
 
