@@ -89,7 +89,10 @@ module.exports = class User extends Base {
         })
         .catch(error => {
           progress.done();
-          utils.renderError(error);
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
         });
     } else {
       // Add a new user.
@@ -99,7 +102,10 @@ module.exports = class User extends Base {
         })
         .catch(error => {
           progress.done();
-          utils.renderError(error);
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
         });
     }
   };

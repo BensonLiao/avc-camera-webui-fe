@@ -275,11 +275,27 @@ mockAxios.onGet('/api/ping').reply(config => {
     const itemId = config.url.replace('/api/members/', '');
     const newItem = JSON.parse(config.data);
     newItem.id = itemId;
+    if (newItem.name === 'test400') {
+      return mockResponseWithLog(config, [400, new Error('Bad Request')]);
+    }
+
+    if (newItem.name === 'test500') {
+      return mockResponseWithLog(config, [500]);
+    }
+
     return mockResponseWithLog(config, [200, db.get('members').find({id: itemId}).assign(newItem).write()]);
   })
   .onPost('/api/members').reply(config => {
     const newItem = JSON.parse(config.data);
     newItem.id = uuidv4();
+    if (newItem.name === 'test400') {
+      return mockResponseWithLog(config, [400, new Error('Bad Request')]);
+    }
+
+    if (newItem.name === 'test500') {
+      return mockResponseWithLog(config, [500]);
+    }
+
     return mockResponseWithLog(config, [200, db.get('members').push(newItem).write()]);
   })
   .onDelete(/api\/members\/[a-f0-9-]{36}$/).reply(config => {
@@ -382,6 +398,10 @@ mockAxios.onGet('/api/ping').reply(config => {
   })
   .onPost('/api/auth-keys').reply(config => {
     const authKey = JSON.parse(config.data).authKey;
+    if (authKey === 'test') {
+      return mockResponseWithLog(config, [500]);
+    }
+
     const enabledFunctions = {
       isEnableFaceRecognition: true,
       isEnableAgeGender: false,

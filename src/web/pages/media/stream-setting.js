@@ -35,7 +35,10 @@ module.exports = class StreamSetting extends Base {
       .then(getRouter().reload)
       .catch(error => {
         progress.done();
-        renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   };
 
@@ -47,7 +50,10 @@ module.exports = class StreamSetting extends Base {
       .catch(renderError)
       .catch(error => {
         progress.done();
-        renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   };
 

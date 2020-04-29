@@ -216,7 +216,7 @@ exports.validateStreamBitRate = () => values => {
  * @param {string} message - The success message.
  * @returns {undefined}
  */
-exports.showSuccessNotification = (title, message) => {
+exports.showSuccessNotification = ({title, message}) => {
   store.addNotification({
     type: 'default',
     insert: 'top',
@@ -228,8 +228,8 @@ exports.showSuccessNotification = (title, message) => {
       <div className="d-flex bg-white rounded p-3">
         <div><i className="fas fa-check-circle fa-lg text-success"/></div>
         <div className="d-flex flex-column ml-3">
-          <div><strong>{title}</strong></div>
-          <div className="text-muted">{message}</div>
+          <div><strong>{title || _('Success')}</strong></div>
+          <div className="text-muted">{message || _('Server Process Success')}</div>
         </div>
       </div>
     )
@@ -241,7 +241,7 @@ exports.showSuccessNotification = (title, message) => {
  * @param {string} message - The error message.
  * @returns {undefined}
  */
-exports.showErrorNotification = (title, message) => {
+exports.showErrorNotification = ({title, message}) => {
   store.addNotification({
     type: 'default',
     insert: 'top',
@@ -253,8 +253,8 @@ exports.showErrorNotification = (title, message) => {
       <div className="d-flex bg-white rounded p-3">
         <div><i className="fas fa-times-circle fa-lg text-danger"/></div>
         <div className="d-flex flex-column ml-3">
-          <div><strong>{title}</strong></div>
-          <div className="text-muted">{message}</div>
+          <div><strong>{title || _('Error')}</strong></div>
+          <div className="text-muted">{message || _('Internal Server Error')}</div>
         </div>
       </div>
     )

@@ -107,7 +107,12 @@ module.exports = class Home extends Base {
       // Change focus settings.
       this.submitPromise = this.submitPromise
         .then(() => api.video.updateFocusSettings(nextValues))
-        .catch(utils.renderError);
+        .catch(error => {
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
+        });
     } else {
       // Change other settings.
       const values = {
@@ -120,7 +125,12 @@ module.exports = class Home extends Base {
 
       this.submitPromise = this.submitPromise
         .then(() => api.video.updateSettings(values))
-        .catch(utils.renderError);
+        .catch(error => {
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
+        });
     }
   };
 
@@ -189,7 +199,12 @@ module.exports = class Home extends Base {
     api.video.resetSettings()
       .then(() => api.video.getSettings())
       .then(response => resetForm({values: this.generateInitialValues(response.data)}))
-      .catch(utils.renderError)
+      .catch(error => {
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
+      })
       .finally(progress.done);
   };
 
@@ -207,7 +222,10 @@ module.exports = class Home extends Base {
       })
       .catch(error => {
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   };
 
@@ -218,15 +236,25 @@ module.exports = class Home extends Base {
         resetForm({values: {deviceName: response.data.deviceName}});
       })
       .then(getRouter().reload)
-      .catch(utils.renderError)
+      .catch(error => {
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
+      })
       .finally(progress.done);
   };
 
-  onBlurDeviceNameForm = e => {
+  onBlurDeviceNameForm = event => {
     progress.start();
-    api.system.updateDeviceName(e.target.value)
+    api.system.updateDeviceName(event.target.value)
       .then(getRouter().reload)
-      .catch(utils.renderError)
+      .catch(error => {
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
+      })
       .finally(progress.done);
   };
 

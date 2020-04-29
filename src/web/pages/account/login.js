@@ -68,7 +68,10 @@ module.exports = class Login extends Base {
         }
 
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   }
 

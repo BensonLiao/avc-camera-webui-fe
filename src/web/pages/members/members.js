@@ -89,7 +89,10 @@ module.exports = class Members extends Base {
       })
       .catch(error => {
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   };
 
@@ -117,7 +120,10 @@ module.exports = class Members extends Base {
       })
       .catch(error => {
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   };
 
@@ -187,7 +193,12 @@ module.exports = class Members extends Base {
           }
         });
       })
-      .catch(error => utils.renderError(error))
+      .catch(error => {
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
+      })
       .finally(progress.done);
   };
 
@@ -201,7 +212,12 @@ module.exports = class Members extends Base {
       .then(() => {
         this.setState({isShowDatabaseEncryptionModal: false});
       })
-      .catch(error => utils.renderError(error))
+      .catch(error => {
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
+      })
       .finally(progress.done);
   };
 
@@ -227,7 +243,10 @@ module.exports = class Members extends Base {
       })
       .catch(error => {
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   };
 

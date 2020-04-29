@@ -61,7 +61,10 @@ module.exports = class Maintain extends Base {
         .catch(error => {
           progress.done();
           this.hideApiProcessModal();
-          utils.renderError(error);
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
         });
     });
   };
@@ -72,7 +75,10 @@ module.exports = class Maintain extends Base {
       .then(getRouter().reload)
       .catch(error => {
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   };
 
@@ -89,7 +95,10 @@ module.exports = class Maintain extends Base {
       .then(getRouter().reload)
       .catch(error => {
         progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   };
 

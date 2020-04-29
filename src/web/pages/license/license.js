@@ -57,16 +57,19 @@ module.exports = class License extends Base {
     const keyList = this.props.authKeys.items.map(key => key.authKey);
     const check = utils.duplicateCheck(keyList, authKey);
     if (check) {
-      utils.showErrorNotification(_('Activation Failed'), _('Key already registered!'));
+      utils.showErrorNotification({
+        title: _('Activation Failed'),
+        message: _('Key already registered!')
+      });
     }
 
     if (!check) {
       progress.start();
       api.authKey.addAuthKey(authKey)
         .then(response => {
-          utils.showSuccessNotification(
-            _('Activated Successfully'),
-            _('{0} authorized successfully!', [
+          utils.showSuccessNotification({
+            title: _('Activated Successfully'),
+            message: _('{0} authorized successfully!', [
               (() => {
                 const result = [];
                 if (response.data.isEnableFaceRecognition) {
@@ -84,12 +87,15 @@ module.exports = class License extends Base {
                 return result.join(', ');
               })()
             ])
-          );
+          });
           getRouter().reload();
         })
         .catch(() => {
           progress.done();
-          utils.showErrorNotification(_('Activation Failed'), _('Authorization failed!'));
+          utils.showErrorNotification({
+            title: _('Activation Failed'),
+            message: _('Authorization failed!')
+          });
         });
     }
   };
