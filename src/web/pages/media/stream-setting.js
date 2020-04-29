@@ -145,14 +145,14 @@ module.exports = class StreamSetting extends Base {
         )}
         {values.codec !== StreamCodec.mjpeg && (
           <div className="form-group">
-            <label>{_('GOV')}</label>
+            {/* GOP is same as GOV */}
+            <label>{_('GOP')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden">
               <Field
                 readOnly={homePage}
                 name={`${fieldNamePrefix}.gov`}
                 component="select"
                 className={classNames('form-control border-0', (homePage && 'select-readonly'))}
-
               >
                 {
                   options.gov.map(option => (
