@@ -27,7 +27,8 @@ module.exports = new Router({
       },
       resolve: {
         videoSettings: () => api.video.getSettings().then(response => response.data),
-        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
+        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data),
+        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)
       },
       component: require('./pages/home')
     },

@@ -59,6 +59,9 @@ module.exports = class Home extends Base {
         isAutoFocus: PropTypes.bool.isRequired, // 自動對焦
         focalLength: PropTypes.number.isRequired, // 焦距
         zoom: PropTypes.number.isRequired
+      }).isRequired,
+      systemDateTime: PropTypes.shape({
+        deviceTime: PropTypes.string.isRequired
       }).isRequired
     };
   }
@@ -179,7 +182,8 @@ module.exports = class Home extends Base {
 
   onClickDownloadImage = event => {
     event.preventDefault();
-    download('/api/snapshot');
+    const dateTime = this.props.systemDateTime.deviceTime.replace(/:|-/g, '').replace(/\s/g, '-');
+    download('/api/snapshot', `${dateTime}.jpg`);
   };
 
   onClickRequestFullScreen = event => {
