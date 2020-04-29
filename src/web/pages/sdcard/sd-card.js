@@ -1,7 +1,7 @@
 const PropTypes = require('prop-types');
 const React = require('react');
 const classNames = require('classnames');
-const {getRouter} = require('capybara-router');
+const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
@@ -25,13 +25,12 @@ module.exports = class SDCard extends Base {
       }).isRequired,
       smtpSettings: PropTypes.shape({
         isEnableAuth: PropTypes.bool.isRequired
-      })
+      }).isRequired
     };
   }
 
   constructor(props) {
     super(props);
-    this.state.isEnableAuth = null;
     this.state.sdEnabled = null;
     this.state.file = null;
     this.state.showSelectModal = {
@@ -207,9 +206,8 @@ module.exports = class SDCard extends Base {
   };
 
   sdcardSettingsFormRender = () => {
-    const {systemInformation, isEnableAuth} = this.props;
+    const {systemInformation, smtpSettings: {isEnableAuth}} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
-
     return (
       <Form className="card-body sdcard">
         <FormikEffect onChange={this.onChangeSdCardSetting}/>
@@ -271,7 +269,7 @@ module.exports = class SDCard extends Base {
                   {
                     isEnableAuth ?
                       <a className="text-success">{_('Email Notification Set')}</a> :
-                      <a className="text-danger">{_('Setup Email Notifications')}</a>
+                      <Link className="text-danger" to="/notification/smtp">{_('Setup Email Notifications')}</Link>
                   }
                 </span>
                 <div className="custom-control custom-switch float-right">
