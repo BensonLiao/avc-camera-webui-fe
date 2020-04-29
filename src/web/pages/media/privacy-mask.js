@@ -30,10 +30,10 @@ module.exports = class PrivacyMask extends Base {
     this.videoWrapperRef = React.createRef();
     this.maskAreaRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
     this.state.maskAreaStates = [
-      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[0])},
-      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[1])},
-      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[2])},
-      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[3])}
+      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[0]) && this.props.privacyMaskSettings.isEnable},
+      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[1]) && this.props.privacyMaskSettings.isEnable},
+      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[2]) && this.props.privacyMaskSettings.isEnable},
+      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[3]) && this.props.privacyMaskSettings.isEnable}
     ];
   }
 
@@ -67,6 +67,7 @@ module.exports = class PrivacyMask extends Base {
         form.resetForm({
           values: {
             ...form.initialValues,
+            isEnable: form.values.isEnable,
             maskAreas
           }
         });
