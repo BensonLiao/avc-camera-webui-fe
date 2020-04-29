@@ -1,11 +1,11 @@
 const api = require('./index.js');
 
 module.exports = {
-  ping: () => api({
+  ping: type => api({
     method: 'get',
     url: '/api/ping',
     timeout: 1000,
-    params: {_: Math.random().toString(36).substr(2)}
+    params: {type, _: Math.random().toString(36).substr(2)}
   }),
   validation: {
     /**

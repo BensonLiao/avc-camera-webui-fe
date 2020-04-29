@@ -5,10 +5,14 @@ const {mockResponseWithLog} = require('../utils');
 const mockDB = require('./db');
 const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);
-mockAxios.onGet('/api/video/settings').reply(config => {
-  return mockResponseWithLog(config, [200, db.get('video').value()]
+mockAxios.onGet('/api/ping').reply(config => {
+  return mockResponseWithLog(config, [config.params.type === 'shutDown' ? 500 : 200]
   );
 })
+  .onGet('/api/video/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('video').value()]
+    );
+  })
   .onPut('/api/video/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('video').assign(newItem).write()]);
