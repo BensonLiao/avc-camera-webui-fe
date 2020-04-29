@@ -8,12 +8,15 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const ApiProcessModal = require('../../../core/components/api-process-modal');
 
 module.exports = class Maintain extends Base {
   constructor(props) {
     super(props);
     this.state.file = null;
     this.state.isShowModal = false;
+    this.state.isShowApiProcessModal = false;
+    this.state.apiProcessModalTitle = 'Device processing, please wait...';
   }
 
   showModal = () => {
@@ -24,35 +27,43 @@ module.exports = class Maintain extends Base {
     this.setState({isShowModal: false});
   };
 
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
+
   onChangeFile = event => {
     this.setState({file: event.target.files[0]});
   };
 
   onSubmitDeviceReboot = () => {
     progress.start();
-    api.system.deviceReboot()
-      .then(() => new Promise(resolve => {
-        // Check the server was shut down.
-        const test = () => {
-          api.ping()
-            .then(() => {
-              setTimeout(test, 500);
-            })
-            .catch(() => {
-              resolve();
-            });
-        };
+    this.hideModal();
+    this.setState({isShowApiProcessModal: true}, () => {
+      api.system.deviceReboot()
+        .then(() => new Promise(resolve => {
+          // Check the server was shut down, if success then shutdown was failed and retry.
+          const test = () => {
+            api.ping('shutDown')
+              .then(() => {
+                setTimeout(test, 500);
+              })
+              .catch(() => {
+                resolve();
+              });
+          };
 
-        test();
-      }))
-      .then(() => {
-        // Redirect to the home page with off-line access.
-        location.href = '/';
-      })
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
+          test();
+        }))
+        .then(() => {
+          // Keep modal and update the title.
+          this.setState({apiProcessModalTitle: 'Device rebooting, please wait...'});
+        })
+        .catch(error => {
+          progress.done();
+          this.hideApiProcessModal();
+          utils.renderError(error);
+        });
+    });
   };
 
   onSubmitDeviceReset = ({resetIP}) => {
@@ -88,7 +99,6 @@ module.exports = class Maintain extends Base {
       <Modal
         show={this.state.isShowModal}
         autoFocus={false}
-        backdrop="static"
         onHide={this.hideModal}
       >
         <Formik
@@ -107,7 +117,7 @@ module.exports = class Maintain extends Base {
                 <div className="form-group w-100 mx-0">
                   <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">Confirm</button>
                 </div>
-                <button disabled={$isApiProcessing} type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal}>Cancel</button>
+                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal}>Cancel</button>
               </div>
             </div>
           </Form>
@@ -181,6 +191,11 @@ module.exports = class Maintain extends Base {
                   </ol>
                 </nav>
               </div>
+
+              <ApiProcessModal
+                isShowModal={this.state.isShowApiProcessModal}
+                modalTitle={this.state.apiProcessModalTitle}
+                onHide={this.hideApiProcessModal}/>
 
               <div className="col-center">
                 <div className="card shadow">
