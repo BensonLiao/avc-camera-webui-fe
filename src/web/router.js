@@ -498,6 +498,9 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('SD Card Settings')} - ${_title}`;
       },
+      resolve: {
+        smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */
         './pages/sdcard/sd-card'
