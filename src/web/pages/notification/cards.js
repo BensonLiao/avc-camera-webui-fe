@@ -32,13 +32,14 @@ module.exports = class Cards extends Base {
   constructor(props) {
     super(props);
     this.cardFormTitleRef = React.createRef();
-    this.state.cards = props.cards.items;
+    this.state.cards = this.props.cards.items;
     this.state.isShowCardDetailsModal = false;
     this.state.cardDetails = null;
     this.state.isShowStartDatePicker = false;
     this.state.isShowEndDatePicker = false;
     this.state.isCardTitleOnFocus = false;
     this.state.cardTypeFilter = 'all';
+    this.state.isTop = false;
   }
 
   generateCardInitialValues = card => {
@@ -138,7 +139,8 @@ module.exports = class Cards extends Base {
     if (cardId == null) {
       this.setState({
         isShowCardDetailsModal: true,
-        cardDetails: null
+        cardDetails: null,
+        isTop: false
       });
     } else {
       this.setState(prevState => {
@@ -146,7 +148,8 @@ module.exports = class Cards extends Base {
         if (card) {
           return {
             isShowCardDetailsModal: true,
-            cardDetails: card
+            cardDetails: card,
+            isTop: card.isTop
           };
         }
       });
@@ -178,6 +181,7 @@ module.exports = class Cards extends Base {
   onSubmitCardForm = values => {
     const data = {
       ...values,
+      isTop: this.state.isTop,
       groups: values.$groups ? [values.$groups] : [],
       title: this.sanitizeInput(values.title)
     };
@@ -279,14 +283,22 @@ module.exports = class Cards extends Base {
       }
     };
 
+    const toggleIsTop = () => {
+      this.setState(
+        prevState => ({
+          isTop: !prevState.isTop
+        })
+      );
+    };
+
     return (
       <Form className="modal-content">
         <div className="modal-body d-flex justify-content-between align-content-center pb-2">
           <div className="d-flex align-content-center">
             <button
-              disabled={$isApiProcessing || values.id == null} type="button"
-              className="btn btn-star rounded-pill btn-secondary"
-              onClick={this.generateToggleTopHandler(values.id)}
+              type="button"
+              className={classNames('btn btn-star rounded-pill', {'btn-secondary': !this.state.isTop})}
+              onClick={toggleIsTop}
             >
               <i className="fas fa-bell fa-fw fa-lg"/>
             </button>
@@ -684,7 +696,6 @@ module.exports = class Cards extends Base {
     const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
     const topCards = filterCards.filter(x => x.isTop);
     const normalCards = filterCards.filter(x => !x.isTop);
-
     return (
       <>
         <div className="main-content left-menu-active  fixed-top-horizontal-scroll">
