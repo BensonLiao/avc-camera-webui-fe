@@ -1,4 +1,14 @@
 const axios = require('axios');
+axios.interceptors.response.use(
+  config => config,
+  error => {
+    if (error.response.status === 408 || error.code === 'ECONNABORTED') {
+      console.log(`A timeout happend on url ${error.config.url}`);
+    }
+
+    return Promise.reject(error);
+  }
+);
 const download = require('downloadjs');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
@@ -72,9 +82,15 @@ module.exports = class Home extends Base {
     this.submitPromise = Promise.resolve();
     this.fetchSnapshotTimeoutId = null;
     this.state.deviceName = props.systemInformation.deviceName || '';
-    this.state.isPlayStream = false;
+    this.state.isPlayStream = true;
     this.state.streamImageUrl = null;
     this.state.isAutoFocusProcessing = false;
+  }
+
+  componentDidMount() {
+    if (this.state.isPlayStream) {
+      this.fetchSnapshot();
+    }
   }
 
   componentWillUnmount() {
@@ -138,7 +154,7 @@ module.exports = class Home extends Base {
   };
 
   fetchSnapshot = () => {
-    axios.get('/api/snapshot', {responseType: 'blob'})
+    axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
       .then(response => {
         if (this.state.streamImageUrl) {
           window.URL.revokeObjectURL(this.state.streamImageUrl);
@@ -155,7 +171,7 @@ module.exports = class Home extends Base {
           return;
         }
 
-        if (this.state.isPlayStream) {
+        if (this.state.isPlayStream || error.code === 'ECONNABORTED') {
           // Wait 500ms to retry.
           this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
         }
