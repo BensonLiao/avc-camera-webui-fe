@@ -34,10 +34,10 @@ module.exports = class MotionDetection extends Base {
     this.videoWrapperRef = React.createRef();
     this.maskAreaRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
     this.state.maskAreaStates = [
-      {isVisible: Boolean(props.motionDetectionSettings.areas[0])},
-      {isVisible: Boolean(props.motionDetectionSettings.areas[1])},
-      {isVisible: Boolean(props.motionDetectionSettings.areas[2])},
-      {isVisible: Boolean(props.motionDetectionSettings.areas[3])}
+      {isVisible: Boolean(props.motionDetectionSettings.areas[0]) && this.props.motionDetectionSettings.isEnable},
+      {isVisible: Boolean(props.motionDetectionSettings.areas[1]) && this.props.motionDetectionSettings.isEnable},
+      {isVisible: Boolean(props.motionDetectionSettings.areas[2]) && this.props.motionDetectionSettings.isEnable},
+      {isVisible: Boolean(props.motionDetectionSettings.areas[3]) && this.props.motionDetectionSettings.isEnable}
     ];
   }
 
@@ -75,6 +75,7 @@ module.exports = class MotionDetection extends Base {
         form.resetForm({
           values: {
             ...form.initialValues,
+            isEnable: form.values.isEnable,
             areas: maskAreas
           }
         });
@@ -98,9 +99,11 @@ module.exports = class MotionDetection extends Base {
   };
 
   onSubmitMotionDetectionSettingsForm = values => {
+    const noMaskCheck = this.state.maskAreaStates.map(x => x.isVisible).filter(x => x === true).length < 1;
+
     progress.start();
     api.smartFunction.updateMotionDetectionSettings({
-      isEnable: values.isEnable,
+      isEnable: noMaskCheck ? false : values.isEnable,
       sensibility: values.sensibility,
       areas: (() => {
         const result = [];
