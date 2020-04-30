@@ -15,6 +15,7 @@ const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const _ = require('../../../languages');
 const Dropdown = require('../../../core/components/fields/dropdown');
 const utils = require('../../../core/utils');
+const Modal = require('react-bootstrap/Modal').default;
 
 module.exports = class StreamSetting extends Base {
   static get propTypes() {
@@ -27,6 +28,11 @@ module.exports = class StreamSetting extends Base {
     return {
       homePage: false
     };
+  }
+
+  constructor(props) {
+    super(props);
+    this.state.isShxowModal = false;
   }
 
   onSubmit = values => {
@@ -55,6 +61,47 @@ module.exports = class StreamSetting extends Base {
           message: error.response.status === 400 ? error.response.data.message || null : null
         });
       });
+  };
+
+  showModal = () => {
+    this.setState({isShowModal: true});
+  };
+
+  hideModal = () => {
+    this.setState({isShowModal: false});
+  };
+
+  updateSettingModalRender = values => {
+    const {$isApiProcessing} = this.state;
+
+    return (
+      <Modal
+        show={this.state.isShowModal}
+        autoFocus={false}
+        backdrop="static"
+        onHide={this.hideModal}
+      >
+        <div className="modal-content">
+          <div className="modal-header">
+            <h4 className="modal-title">Update setting</h4>
+          </div>
+          <div className="modal-body">
+            <p>Are you sure you want to update stream settings?</p>
+          </div>
+          <div className="modal-footer flex-column">
+            <div className="form-group w-100 mx-0">
+              <button disabled={$isApiProcessing} type="button" className="btn btn-primary btn-block rounded-pill"
+                onClick={() => {
+                  this.onSubmit(values);
+                }}
+              >Confirm
+              </button>
+            </div>
+            <button type="button" className="btn btn-info btn-block rounded-pill" disabled={this.state.$isApiProcessing} onClick={this.hideModal}>Cancel</button>
+          </div>
+        </div>
+      </Modal>
+    );
   };
 
   fieldsRender = (fieldNamePrefix, options, values) => {
@@ -241,9 +288,10 @@ module.exports = class StreamSetting extends Base {
 
         <div className="form-group mt-5">
           <button
-            type="submit"
+            type="button"
             className="btn btn-block btn-primary rounded-pill"
             disabled={this.state.$isApiProcessing}
+            onClick={this.showModal}
           >
             {_('Apply')}
           </button>
@@ -256,6 +304,7 @@ module.exports = class StreamSetting extends Base {
         >
           {_('Reset to Default')}
         </button>
+        {this.updateSettingModalRender(values)}
       </Form>
     );
   };
