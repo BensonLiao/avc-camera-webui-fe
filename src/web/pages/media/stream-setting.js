@@ -32,7 +32,7 @@ module.exports = class StreamSetting extends Base {
 
   constructor(props) {
     super(props);
-    this.state.isShxowModal = false;
+    this.state.isShowModal = false;
   }
 
   onSubmit = values => {
