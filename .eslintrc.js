@@ -28,5 +28,6 @@ module.exports = {
       "requireParamDescription": false,
       "requireReturnDescription": false
     }],
+    'complexity': 0
   }
 };

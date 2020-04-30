@@ -1,7 +1,9 @@
 const axios = require('axios');
 const MockAdapter = require('axios-mock-adapter');
 const uuidv4 = require('uuid/v4');
-const {mockResponseWithLog} = require('../utils');
+const {mockResponseWithLog, isArray} = require('../utils');
+const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
+const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 const mockDB = require('./db');
 const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);
@@ -304,7 +306,82 @@ mockAxios.onGet('/api/ping').reply(config => {
     return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/face-events').reply(config => {
-    const data = db.get('faceEvents').value();
+    const data = db.get('faceEvents')
+      .filter(value => {
+        if (config.params.confidence && config.params.confidence.length > 0) {
+          if (typeof config.params.confidence === 'string') {
+            switch (config.params.confidence) {
+              default:
+                return true;
+              case Confidence.low:
+                return value.confidences[0].score < 55;
+              case Confidence.medium:
+                return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
+              case Confidence.high:
+                return value.confidences[0].score >= 65;
+            }
+          }
+
+          if (isArray(config.params.confidence)) {
+            if (config.params.confidence.length === Confidence.all().length) {
+              return true;
+            }
+
+            if (config.params.confidence.indexOf(Confidence.low) > 0 &&
+            config.params.confidence.indexOf(Confidence.medium) > 0) {
+              return value.confidences[0].score < 65;
+            }
+
+            if (config.params.confidence.indexOf(Confidence.low) > 0 &&
+            config.params.confidence.indexOf(Confidence.high) > 0) {
+              return value.confidences[0].score < 55 || value.confidences[0].score >= 65;
+            }
+
+            if (config.params.confidence.indexOf(Confidence.medium) > 0 &&
+            config.params.confidence.indexOf(Confidence.high) > 0) {
+              return value.confidences[0].score >= 55;
+            }
+
+            if (config.params.confidence.indexOf(Confidence.low) > 0) {
+              return value.confidences[0].score < 55;
+            }
+
+            if (config.params.confidence.indexOf(Confidence.medium) > 0) {
+              return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
+            }
+
+            if (config.params.confidence.indexOf(Confidence.high) > 0) {
+              return value.confidences[0].score >= 65;
+            }
+          }
+        }
+
+        return true;
+      })
+      .filter(value => {
+        if (config.params.enrollStatus && config.params.enrollStatus.length > 0) {
+          if (typeof config.params.enrollStatus === 'string') {
+            return config.params.enrollStatus === value.confidences[0].enrollStatus;
+          }
+
+          if (isArray(config.params.enrollStatus)) {
+            if (config.params.enrollStatus.length === EnrollStatus.all().length) {
+              return true;
+            }
+
+            if (config.params.enrollStatus.indexOf(EnrollStatus.registered) > 0) {
+              return EnrollStatus.registered === value.confidences[0].enrollStatus;
+            }
+
+            if (config.params.enrollStatus.indexOf(EnrollStatus.unknown) > 0) {
+              return EnrollStatus.unknown === value.confidences[0].enrollStatus;
+            }
+          }
+        }
+
+        return true;
+      })
+      .value();
     return mockResponseWithLog(config, [200, {
       index: 0,
       size: 20,
