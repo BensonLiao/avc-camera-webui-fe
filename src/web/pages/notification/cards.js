@@ -15,6 +15,7 @@ const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const sanitizeHtml = require('sanitize-html');
+const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
 
 module.exports = class Cards extends Base {
   static get propTypes() {
@@ -147,6 +148,11 @@ module.exports = class Cards extends Base {
   generateClickCardHandler = cardId => event => {
     event.preventDefault();
     if (cardId == null) {
+      if (this.state.cards.length >= NOTIFY_CARDS_MAX) {
+        this.cardLimitError();
+        return;
+      }
+
       this.setState({
         isShowCardDetailsModal: true,
         cardDetails: null,
@@ -188,6 +194,25 @@ module.exports = class Cards extends Base {
     this.setState({isShowEndDatePicker: false});
   };
 
+  setCardTitleOnFocus = () => {
+    this.setState({isCardTitleOnFocus: true});
+  }
+
+  setCardTitleOnBlur = () => {
+    this.setState({isCardTitleOnFocus: false});
+  }
+
+  sanitizeInput = input => {
+    return sanitizeHtml(input, {allowedTags: [], allowedAttributes: {}});
+  }
+
+  cardLimitError = () => { // Over card limit 32
+    utils.showErrorNotification({
+      title: _('Cards Limit Error'),
+      message: _('Cannot create more than {0} cards', [NOTIFY_CARDS_MAX])
+    });
+  }
+
   onSubmitCardForm = values => {
     const data = {
       ...values,
@@ -196,9 +221,14 @@ module.exports = class Cards extends Base {
       title: this.sanitizeInput(values.title)
     };
 
-    progress.start();
     if (data.id == null) {
       // Create a new card.
+      if (this.state.cards.length >= NOTIFY_CARDS_MAX) {
+        this.cardLimitError();
+        return;
+      }
+
+      progress.start();
       api.notification.addCard(data)
         .then(response => {
           this.setState(prevState => {
@@ -216,6 +246,7 @@ module.exports = class Cards extends Base {
         .finally(progress.done);
     } else {
       // Update the card.
+      progress.start();
       api.notification.updateCard(data)
         .then(response => {
           this.setState(prevState => {
@@ -234,18 +265,6 @@ module.exports = class Cards extends Base {
         .finally(progress.done);
     }
   };
-
-  setCardTitleOnFocus = () => {
-    this.setState({isCardTitleOnFocus: true});
-  }
-
-  setCardTitleOnBlur = () => {
-    this.setState({isCardTitleOnFocus: false});
-  }
-
-  sanitizeInput = input => {
-    return sanitizeHtml(input, {allowedTags: [], allowedAttributes: {}});
-  }
 
   cardFormRender = ({values, setFieldValue}) => {
     const {groups} = this.props;
