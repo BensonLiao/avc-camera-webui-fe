@@ -406,3 +406,7 @@ exports.validatedPortCheck = (value, error) => {
 
   return check;
 };
+
+module.exports.isArray = arg => {
+  return Object.prototype.toString.call(arg) === '[object Array]';
+};

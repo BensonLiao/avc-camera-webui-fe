@@ -1,4 +1,5 @@
 const low = require('lowdb');
+const uuidv4 = require('uuid/v4');
 const LocalStorage = require('lowdb/adapters/LocalStorage');
 const ShutterSpeed = require('webserver-form-schema/constants/shutter-speed');
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
@@ -13,6 +14,55 @@ const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
+const memberGroups = [
+  {
+    id: uuidv4(),
+    name: '業務部',
+    note: '#主要執行AVC與AB的相關業務部門'
+  },
+  {
+    id: uuidv4(),
+    name: '開發部',
+    note: '#主要執行AVC與AB的研究開發'
+  },
+  {
+    id: uuidv4(),
+    name: '開發部2',
+    note: ''
+  }
+];
+const members = [
+  {
+    id: uuidv4(),
+    name: 'abby2',
+    organization: 'SW',
+    groupId: memberGroups[0].id,
+    note: 'note',
+    pictures: [
+      'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'benson',
+    organization: 'SW',
+    groupId: memberGroups[1].id,
+    note: 'note',
+    pictures: [
+      'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'elon musk',
+    organization: 'SW',
+    groupId: memberGroups[2].id,
+    note: 'tesla',
+    pictures: [
+      'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
+    ]
+  }
+];
 
 module.exports = {
   init: () => {
@@ -249,62 +299,57 @@ module.exports = {
         isEnableAuth: true
       },
       notificationCards: [],
-      groups: [
-        {
-          id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
-          name: '業務部',
-          note: '#主要執行AVC與AB的相關業務部門'
-        },
-        {
-          id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060779',
-          name: '業務部2',
-          note: ''
-        }
-      ],
-      members: [
-        {
-          id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
-          name: 'abby2',
-          organization: 'SW',
-          groupId: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060779',
-          note: 'note',
-          pictures: [
-            'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
-          ]
-        }
-      ],
+      groups: memberGroups,
+      members,
       faceEvents: [
         {
-          id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
+          id: uuidv4(),
           pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
           time: '2019-10-02T12:00:00.000Z',
           confidences: [
             {
               score: 50,
-              confidence: '2',
+              confidence: '1',
               enrollStatus: '1',
-              member: {
-                id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060778',
-                name: 'abby2',
-                organization: 'SW',
-                groupId: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060779',
-                note: 'note',
-                pictures: [
-                  'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
-                ]
-              }
+              member: members[0]
             }
           ]
         },
         {
-          id: '40d1e5fd-3dd7-4ad1-a4c8-0ca928060779',
+          id: uuidv4(),
           pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
-          time: '2019-10-02T12:00:00.000Z',
+          time: '2020-01-02T12:00:00.000Z',
           confidences: [
             {
               score: 49,
-              confidence: '2',
+              confidence: '1',
               enrollStatus: '2'
+            }
+          ]
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
+          time: '2020-02-02T12:00:00.000Z',
+          confidences: [
+            {
+              score: 56,
+              confidence: '2',
+              enrollStatus: '1',
+              member: members[1]
+            }
+          ]
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
+          time: '2020-03-03T12:00:00.000Z',
+          confidences: [
+            {
+              score: 70,
+              confidence: '3',
+              enrollStatus: '1',
+              member: members[2]
             }
           ]
         }
