@@ -198,7 +198,7 @@ module.exports = class Home extends Base {
 
   onClickDownloadImage = event => {
     event.preventDefault();
-    const dateTime = this.props.systemDateTime.deviceTime.replace(/:|-/g, '').replace(/\s/g, '-');
+    const dateTime = this.props.systemDateTime.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
     download('/api/snapshot', `${dateTime}.jpg`);
   };
 
