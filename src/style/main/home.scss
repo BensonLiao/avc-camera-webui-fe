@@ -114,5 +114,21 @@
   }
   .select-readonly {
     pointer-events: none;
+    background-color: $disable;
+  }
+
+  .form-group {
+    position: relative;
+    .cover {
+      height: 40px;
+      width: 40px;
+      background-color: $disable;
+      border: 1px #DFE2E6 solid;
+      border-left: 0px;
+      border-radius: 0 20px 20px 0;
+      margin-top: 38px;
+      right: 0px;
+      position: absolute;
+    }
   }
 }
