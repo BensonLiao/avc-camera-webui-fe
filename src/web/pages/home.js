@@ -31,7 +31,11 @@ const Dropdown = require('../../core/components/fields/dropdown');
 const Slider = require('../../core/components/fields/slider');
 const FormikEffect = require('../../core/components/formik-effect');
 const deviceNameValidator = require('../validations/system/device-name-validator');
-const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX} = require('../../core/constants');
+const {
+  AVAILABLE_LANGUAGE_CODES,
+  DEVICE_NAME_CHAR_MAX,
+  SD_STATUS_LIST
+} = require('../../core/constants');
 
 module.exports = class Home extends Base {
   static get propTypes() {
@@ -712,7 +716,7 @@ module.exports = class Home extends Base {
                             <span className="badge badge-pill badge-success">{_('Normal')}</span>
                           )}
                         </td>
-                        <td className={classNames('align-top', systemInformation.sdStatus ? '' : 'd-none')}>
+                        <td className={classNames('align-top', systemInformation.sdStatus === 1 ? '' : 'd-none')}>
                           <div className="progress">
                             {
                               isNaN(usedDiskPercentage) ?
@@ -731,8 +735,10 @@ module.exports = class Home extends Base {
                             }
                           </p>
                         </td>
-                        <td className={classNames('align-top', systemInformation.sdStatus ? 'd-none' : '')}>
-                          <label>{_(systemInformation.sdStatus ? 'MOUNTED' : 'UNMOUNTED')}</label>
+                        <td className={classNames('align-top', systemInformation.sdStatus === 1 ? 'd-none' : '')}>
+                          <label>
+                            {_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}
+                          </label>
                         </td>
                       </tr>
                     </tbody>

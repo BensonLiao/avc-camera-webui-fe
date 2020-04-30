@@ -11,13 +11,14 @@ const Base = require('../shared/base');
 const utils = require('../../../core/utils');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const {SD_STATUS_LIST} = require('../../../core/constants');
 
 module.exports = class SDCard extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
         sdEnabled: PropTypes.bool.isRequired,
-        sdStatus: PropTypes.oneOf([0, 1]).isRequired,
+        sdStatus: PropTypes.number.isRequired,
         sdFormat: PropTypes.string.isRequired,
         sdTotal: PropTypes.number.isRequired,
         sdUsage: PropTypes.number.isRequired,
@@ -273,7 +274,7 @@ module.exports = class SDCard extends Base {
                   }
                 </span>
                 <div className="custom-control custom-switch float-right">
-                  <Field name="sdAlertEnabled" type="checkbox" className="custom-control-input" id="switch-output"/>
+                  <Field disabled={!isEnableAuth} name="sdAlertEnabled" type="checkbox" className="custom-control-input" id="switch-output"/>
                   <label className="custom-control-label" htmlFor="switch-output">
                     <span>{_('ON')}</span>
                     <span>{_('OFF')}</span>
@@ -286,7 +287,9 @@ module.exports = class SDCard extends Base {
         <div className="form-group px-3">
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('Status')}</label>
-            <label className="mb-o text-primary">{_(systemInformation.sdStatus ? 'MOUNTED' : 'UNMOUNTED')}</label>
+            <label className="mb-o text-primary">
+              {_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}
+            </label>
           </div>
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
@@ -295,7 +298,7 @@ module.exports = class SDCard extends Base {
           </div>
           <hr/>
         </div>
-        <div className={classNames('form-group', systemInformation.sdStatus ? '' : 'd-none')}>
+        <div className={classNames('form-group', systemInformation.sdStatus === 1 ? '' : 'd-none')}>
           <div className="card">
             <div className="card-header sd-card-round">
               {_('Storage Space')}
