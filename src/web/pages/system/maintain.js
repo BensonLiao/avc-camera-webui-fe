@@ -43,7 +43,7 @@ module.exports = class Maintain extends Base {
         .then(() => new Promise(resolve => {
           // Check the server was shut down, if success then shutdown was failed and retry.
           const test = () => {
-            api.ping('shutDown')
+            api.ping('web')
               .then(() => {
                 setTimeout(test, 500);
               })
@@ -57,6 +57,18 @@ module.exports = class Maintain extends Base {
         .then(() => {
           // Keep modal and update the title.
           this.setState({apiProcessModalTitle: 'Device rebooting, please wait...'});
+          // Check the server was start up, if success then startup was failed and retry.
+          const test = () => {
+            api.ping('app')
+              .then(() => {
+                location.reload();
+              })
+              .catch(() => {
+                setTimeout(test, 1000);
+              });
+          };
+
+          test();
         })
         .catch(error => {
           progress.done();
