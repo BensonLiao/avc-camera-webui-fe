@@ -3,7 +3,7 @@ const api = require('./index.js');
 module.exports = {
   ping: type => api({
     method: 'get',
-    url: '/api/ping',
+    url: `/api/ping/${type || 'web'}`,
     timeout: 1000,
     params: {type, _: Math.random().toString(36).substr(2)}
   }),
