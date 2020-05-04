@@ -14,21 +14,37 @@ module.exports = class Maintain extends Base {
   constructor(props) {
     super(props);
     this.state.file = null;
-    this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = 'Device processing, please wait...';
+    this.state.showSelectModal = {
+      isShowRebootModal: false,
+      isShowResetModal: false,
+      isShowResetFinishedModal: false
+    };
   }
-
-  showModal = () => {
-    this.setState({isShowModal: true});
-  };
-
-  hideModal = () => {
-    this.setState({isShowModal: false});
-  };
 
   hideApiProcessModal = () => {
     this.setState({isShowApiProcessModal: false});
+  };
+
+  showModal = selectedModal => event => {
+    console.log(selectedModal);
+    event.preventDefault();
+    return this.setState(prevState => ({
+      showSelectModal: {
+        ...prevState.showSelectModal,
+        [selectedModal]: true
+      }
+    }));
+  };
+
+  hideModal = selectedModal => _ => {
+    return this.setState(prevState => ({
+      showSelectModal: {
+        ...prevState.showSelectModal,
+        [selectedModal]: false
+      }
+    }));
   };
 
   onChangeFile = event => {
@@ -37,8 +53,13 @@ module.exports = class Maintain extends Base {
 
   onSubmitDeviceReboot = () => {
     progress.start();
-    this.hideModal();
-    this.setState({isShowApiProcessModal: true}, () => {
+    this.setState(prevState => ({
+      isShowApiProcessModal: true,
+      showSelectModal: {
+        ...prevState.showSelectModal,
+        isShowRebootModal: false
+      }
+    }), () => {
       api.system.deviceReboot()
         .then(() => new Promise(resolve => {
           // Check the server was shut down, if success then shutdown was failed and retry.
@@ -83,15 +104,37 @@ module.exports = class Maintain extends Base {
 
   onSubmitDeviceReset = ({resetIP}) => {
     progress.start();
-    api.system.deviceReset(resetIP)
-      .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
+    this.setState(prevState => ({
+      isShowApiProcessModal: true,
+      showSelectModal: {
+        ...prevState.showSelectModal,
+        isShowResetModal: false
+      },
+      apiProcessModalTitle: 'Device resetting, please wait...'
+    }),
+    () => {
+      api.system.deviceReset(resetIP)
+        .then(api.account.logout())
+        .then(() => {
+          progress.done();
+          this.hideApiProcessModal();
+          this.setState(prevState => ({
+            showSelectModal: {
+              ...prevState.showSelectModal,
+              isShowResetFinishedModal: true
+            }
+          }));
+          console.log('hi');
+        })
+        .catch(error => {
+          progress.done();
+          this.hideApiProcessModal();
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
         });
-      });
+    });
   };
 
   onClickExportDeviceSettings = event => {
@@ -118,9 +161,9 @@ module.exports = class Maintain extends Base {
     const {$isApiProcessing} = this.state;
     return (
       <Modal
-        show={this.state.isShowModal}
+        show={this.state.showSelectModal.isShowRebootModal}
         autoFocus={false}
-        onHide={this.hideModal}
+        onHide={this.hideModal('isShowRebootModal')}
       >
         <Formik
           initialValues={{}}
@@ -138,7 +181,7 @@ module.exports = class Maintain extends Base {
                 <div className="form-group w-100 mx-0">
                   <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">Confirm</button>
                 </div>
-                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal}>Cancel</button>
+                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowRebootModal')}>Cancel</button>
               </div>
             </div>
           </Form>
@@ -147,7 +190,75 @@ module.exports = class Maintain extends Base {
     );
   };
 
-  deviceResetFormRender = () => {
+  deviceResetModalRender = values => {
+    const {$isApiProcessing} = this.state;
+    return (
+      <Modal
+        show={this.state.showSelectModal.isShowResetModal}
+        autoFocus={false}
+        onHide={this.hideModal('isShowResetModal')}
+      >
+        <Formik
+          initialValues={{}}
+        >
+          <Form>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h4 className="modal-title">System Reset</h4>
+              </div>
+              <div className="modal-body">
+                <p>Are you sure you want to reset the system?</p>
+              </div>
+              <div className="modal-footer flex-column">
+                <div className="form-group w-100 mx-0">
+                  <button disabled={$isApiProcessing} type="button" className="btn btn-primary btn-block rounded-pill"
+                    onClick={() => {
+                      this.onSubmitDeviceReset(values);
+                    }}
+                  >Confirm
+                  </button>
+                </div>
+                <button type="button" className="btn btn-info btn-block rounded-pill" onClick={this.hideModal('isShowResetModal')}>Cancel</button>
+              </div>
+            </div>
+          </Form>
+        </Formik>
+      </Modal>
+    );
+  };
+
+  resetFinishedRender = () => {
+    const {$isApiProcessing} = this.state;
+    console.log(this.state.showSelectModal);
+    return (
+      <Modal
+        show={this.state.showSelectModal.isShowResetFinishedModal}
+        autoFocus={false}
+        onHide={this.hideModal('isShowResetFinishedModal')}
+      >
+        <div className="modal-content">
+          <div className="modal-header">
+            <h4 className="modal-title">System Reset</h4>
+          </div>
+          <div className="modal-body">
+            <p>Device has reset, please log back in.</p>
+          </div>
+          <div className="modal-footer flex-column">
+            <div className="form-group w-100 mx-0">
+              <button disabled={$isApiProcessing} type="button" className="btn btn-primary btn-block rounded-pill"
+                onClick={() => {
+                  location.href = '/';
+                }}
+              >Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
+    );
+  };
+
+  deviceResetFormRender = ({values}) => {
     return (
       <Form>
         <div className="form-group">
@@ -158,8 +269,9 @@ module.exports = class Maintain extends Base {
               {_('Restore to factory default setting (Includes IP Address)')}
             </label>
           </div>
+          {this.deviceResetModalRender(values)}
           <div>
-            <button className="btn btn-outline-primary rounded-pill px-5" type="submit">{_('Reset')}</button>
+            <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal('isShowResetModal')}>{_('Reset')}</button>
           </div>
         </div>
       </Form>
@@ -225,7 +337,7 @@ module.exports = class Maintain extends Base {
                     <div className="form-group">
                       <label>{_('System Reboot')}</label>
                       <div>
-                        <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal}>
+                        <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal('isShowRebootModal')}>
                           {_('Reboot')}
                         </button>
                       </div>
@@ -249,6 +361,7 @@ module.exports = class Maintain extends Base {
                     >
                       {this.importDeviceSettingsFormRender}
                     </Formik>
+                    {this.resetFinishedRender()}
                   </div>
                 </div>
               </div>
