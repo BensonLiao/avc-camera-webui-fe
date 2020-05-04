@@ -53,7 +53,7 @@ module.exports = class DateTime extends Base {
   }
 
   onHideDateTimePicker = name => _ => {
-    return this.setState({isShowEndDatePicker: {[name]: false}});
+    return this.setState({showDateTimePicker: {[name]: false}});
   }
 
   onSubmit = values => {
