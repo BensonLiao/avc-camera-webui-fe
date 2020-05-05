@@ -31,10 +31,6 @@ const store = require('../core/store');
 const Loading = require('../core/components/loading');
 const api = require('../core/apis/web-api');
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/assets/service-worker.js', {scope: '/'});
-}
-
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
