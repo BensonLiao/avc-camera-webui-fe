@@ -24,8 +24,7 @@ module.exports = (env = {}) => {
       'ja-jp': path.join(__dirname, 'src', 'languages', 'ja-jp.js'),
       'zh-tw': path.join(__dirname, 'src', 'languages', 'zh-tw.js'),
       'zh-cn': path.join(__dirname, 'src', 'languages', 'zh-cn.js'),
-      web: path.join(__dirname, 'src', 'web', 'index.js'),
-      'service-worker': path.join(__dirname, 'src', 'web', 'service-worker.js')
+      web: path.join(__dirname, 'src', 'web', 'index.js')
     },
     devServer: {
       host: config.webpackDevServer.host,
