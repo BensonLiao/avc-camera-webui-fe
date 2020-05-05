@@ -16,6 +16,7 @@ const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
+const ApiProcessModal = require('../../../core/components/api-process-modal');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -57,6 +58,8 @@ module.exports = class Members extends Base {
     this.state.isShowDatabaseEncryptionModal = false;
     this.state.databaseEncryptionInitialValues = null;
     this.state.databaseFile = null;
+    this.state.isShowApiProcessModal = false;
+    this.state.apiProcessModalTitle = 'Updating members, please wait...';
   }
 
   generateShowDeleteGroupModalHandler = group => {
@@ -98,6 +101,10 @@ module.exports = class Members extends Base {
 
   hideDeleteGroupModal = () => {
     this.setState({isShowDeleteGroupModal: false});
+  };
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
   };
 
   generateShowDeleteMemberModalHandler = member => {
@@ -234,20 +241,22 @@ module.exports = class Members extends Base {
     }
 
     progress.start();
-    api.member.uploadDatabaseFile(file)
-      .then(() => {
-        getRouter().go(
-          {name: 'web.users.members', params: {}},
-          {reload: true}
-        );
-      })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
+    this.setState({isShowApiProcessModal: true}, () => {
+      api.member.uploadDatabaseFile(file)
+        .then(() => {
+          getRouter().go(
+            {name: 'web.users.members', params: {}},
+            {reload: true}
+          );
+        })
+        .catch(error => {
+          progress.done();
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
         });
-      });
+    });
   };
 
   databaseEncryptionFormRender = ({errors, touched}) => {
@@ -600,6 +609,12 @@ module.exports = class Members extends Base {
             </div>
           </form>
         </Modal>
+
+        {/* Databse updating modal */}
+        <ApiProcessModal
+          isShowModal={this.state.isShowApiProcessModal}
+          modalTitle={this.state.apiProcessModalTitle}
+          onHide={this.hideApiProcessModal}/>
 
         {/* Database encryption */}
         <Modal
