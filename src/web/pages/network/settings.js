@@ -3,8 +3,8 @@ const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
-const Modal = require('react-bootstrap/Modal').default;
 const Base = require('../shared/base');
+const ConfirmModal = require('../../../core/components/confirm-modal');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
@@ -91,43 +91,8 @@ module.exports = class NetworkSettings extends Base {
       });
   };
 
-  testDHCPModalRender = () => {
-    const {$isApiProcessing} = this.state;
-    return (
-      <Modal
-        show={this.state.isShowModal}
-        autoFocus={false}
-        onHide={this.hideModal}
-      >
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4 className="modal-title">{_('DHCP TEST')}</h4>
-          </div>
-          <div className="modal-body">
-            <p>
-              {_(this.state.dhcpTestResult ? 'DHCP Testing Succeed!' : 'DHCP Testing Failed!')}
-            </p>
-          </div>
-          <div className="modal-footer flex-column">
-            <div className="form-group w-100 mx-0">
-              <button
-                disabled={$isApiProcessing}
-                type="button"
-                className="btn btn-primary btn-block rounded-pill"
-                onClick={this.hideModal}
-              >
-                {_('Confirm')}
-              </button>
-
-            </div>
-          </div>
-        </div>
-      </Modal>
-    );
-  };
-
   networkSettingsFormRender = ({values}) => {
-    const {$isApiProcessing} = this.state;
+    const {$isApiProcessing, isShowModal, dhcpTestResult} = this.state;
     return (
       <Form>
         <div className="form-group d-flex justify-content-between align-items-center">
@@ -156,7 +121,12 @@ module.exports = class NetworkSettings extends Base {
             >
               {_('Test DHCP')}
             </button>
-            {this.testDHCPModalRender()}
+            <ConfirmModal
+              isShowModal={isShowModal}
+              modalTitle="DHCP TEST"
+              modalBody={dhcpTestResult ? 'DHCP Testing Succeed!' : 'DHCP Testing Failed!'}
+              onHide={this.hideModal}
+              onConfirm={this.hideModal}/>
           </div>
         </div>
         <div className="form-group">
