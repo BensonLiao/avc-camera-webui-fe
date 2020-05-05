@@ -256,12 +256,17 @@ module.exports = class StreamSetting extends Base {
         }
 
         if (values.channelB.codec === StreamCodec.mjpeg) {
-          options = [
-            StreamResolution['2'],
-            StreamResolution['3'],
-            StreamResolution['7'],
-            StreamResolution['8']
-          ];
+          if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
+            options = [
+              StreamResolution['2'],
+              StreamResolution['3']
+            ];
+          } else {
+            options = [
+              StreamResolution['7'],
+              StreamResolution['8']
+            ];
+          }
         }
 
         return options.map(x => ({label: _(`stream-resolution-${x}`), value: x}));
