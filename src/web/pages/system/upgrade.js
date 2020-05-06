@@ -6,12 +6,19 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
+const ApiProcessModal = require('../../../core/components/api-process-modal');
 
 module.exports = class Upgrade extends Base {
   constructor(props) {
     super(props);
     this.state.file = null;
+    this.state.isShowApiProcessModal = false;
+    this.state.apiProcessModalTitle = 'Device processing, please wait...';
   }
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
 
   onChangeFile = event => {
     this.setState({file: event.target.files[0]});
@@ -19,34 +26,52 @@ module.exports = class Upgrade extends Base {
 
   onSubmitForm = () => {
     const {file} = this.state;
-
     progress.start();
-    api.system.uploadFirmware(file)
-      .then(() => new Promise(resolve => {
-        // Check the server was shut down.
-        const test = () => {
-          api.ping()
-            .then(() => {
-              setTimeout(test, 500);
-            })
-            .catch(() => {
-              resolve();
-            });
-        };
+    this.setState({
+      isShowApiProcessModal: true,
+      apiProcessModalTitle: 'Firmware uploading, please wait...'
+    },
+    () => {
+      api.system.uploadFirmware(file)
+        .then(() => new Promise(resolve => {
+          // Check the server was shut down, if success then shutdown was failed and retry.
+          const test = () => {
+            api.ping('web')
+              .then(() => {
+                setTimeout(test, 500);
+              })
+              .catch(() => {
+                resolve();
+              });
+          };
 
-        test();
-      }))
-      .then(() => {
-        // Redirect to the home page with off-line access.
-        location.href = '/';
-      })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
+          test();
+        }))
+        .then(() => {
+          // Keep modal and update the title.
+          this.setState({apiProcessModalTitle: 'Device upgrading and rebooting, please wait...'});
+          // Check the server was start up, if success then startup was failed and retry.
+          const test = () => {
+            api.ping('app')
+              .then(() => {
+                location.reload();
+              })
+              .catch(() => {
+                setTimeout(test, 1000);
+              });
+          };
+
+          test();
+        })
+        .catch(error => {
+          progress.done();
+          this.hideApiProcessModal();
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
         });
-      });
+    });
   };
 
   formRender = () => {
@@ -96,6 +121,11 @@ module.exports = class Upgrade extends Base {
                   </ol>
                 </nav>
               </div>
+
+              <ApiProcessModal
+                isShowModal={this.state.isShowApiProcessModal}
+                modalTitle={this.state.apiProcessModalTitle}
+                onHide={this.hideApiProcessModal}/>
 
               <div className="col-center">
                 <div className="card shadow">
