@@ -16,7 +16,9 @@ module.exports = class TCPIP extends Base {
         ddnsProvider: PropTypes.string.isRequired,
         ddnsHost: PropTypes.string.isRequired,
         ddnsAccount: PropTypes.string.isRequired,
-        ddnsPassword: PropTypes.string.isRequired
+        ddnsPassword: PropTypes.string.isRequired,
+        ddnsRefreshStatus: PropTypes.bool.isRequired,
+        ddnsHostStatus: PropTypes.bool.isRequired
       }).isRequired,
       httpInfo: PropTypes.shape({
         port: PropTypes.string.isRequired
@@ -27,7 +29,21 @@ module.exports = class TCPIP extends Base {
   onSubmitDDNSForm = values => {
     progress.start();
     api.system.updateDDNSInfo(values)
-      .then(getRouter().reload)
+      .then(response => {
+        if (response.data.ddnsHostStatus) {
+          utils.showSuccessNotification({
+            title: _('Setting Success'),
+            message: _('DDNS setting success!')
+          });
+        } else {
+          utils.showErrorNotification({
+            title: _('Setting Failed'),
+            message: _('DDNS setting failed!')
+          });
+        }
+
+        getRouter().reload();
+      })
       .catch(error => {
         progress.done();
         utils.showErrorNotification({
