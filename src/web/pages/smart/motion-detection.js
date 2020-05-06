@@ -5,6 +5,9 @@ const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
 const {Link, getRouter} = require('capybara-router');
 const {HotKeys} = require('react-hotkeys');
+const iconHotkeyBackspace = require('../../../resource/hotkey-backspace-32px.svg');
+const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');
+const iconCursor = require('../../../resource/cursor-24px.svg');
 const MotionDetectionSettingsSchema = require('webserver-form-schema/motion-detection-settings-schema');
 const MaskArea = require('../../../core/components/fields/mask-area');
 const Slider = require('../../../core/components/fields/slider');
@@ -144,7 +147,7 @@ module.exports = class MotionDetection extends Base {
           </nav>
         </div>
 
-        <div className="col-7 pr-24">
+        <div className="col-7 pl-3 pr-0">
           <div ref={this.videoWrapperRef} id="md-video-wrapper" className="video-wrapper">
             <img draggable={false} className="img-fluid" src="/api/snapshot"
               onMouseDown={this.generateVideoWrapperMouseDownHandler(form)}/>
@@ -162,7 +165,7 @@ module.exports = class MotionDetection extends Base {
           </div>
         </div>
 
-        <div className="col-5 pl-24">
+        <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
             <div className="card-header">{_('Motion Detection Recognition')}</div>
             <div className="card-body">
@@ -188,14 +191,28 @@ module.exports = class MotionDetection extends Base {
                   min={MotionDetectionSettingsSchema.sensibility.min}
                   max={MotionDetectionSettingsSchema.sensibility.max}/>
               </div>
-              <div className={classNames('form-group', values.isEnable ? '' : 'd-none')}>
-                <div className="d-flex align-items-center">
-                  <label className="mb-0">{_('Detection Zone')}</label>
-                  <i className="fas fa-info-circle text-size-14 text-primary pl-2"/>
+              <div className="form-group">
+                <div className="card-header l-24 light text-size-18">{_('Note Area')}</div>
+                <div className="card-body l-32 light px-3 py-3">
+                  <div className="mb-2 d-flex justify-content-between align-items-center">
+                    <span className="font-italic text-size-14">•{_('Set a Mask.')}</span>
+                    <div className="d-flex align-items-center drag-icon">
+                      <img src={iconCursor}/>
+                      <span className="text-size-12">{_('Drag')}</span>
+                    </div>
+                  </div>
+                  <div className="mb-2 d-flex justify-content-between align-items-center">
+                    <span className="font-italic text-size-14">•{_('Erase a Mask.')}</span>
+                    <div className="d-flex justify-content-end align-items-center flex-wrap">
+                      <img src={iconHotkeyBackspace}/>
+                      <span className="font-italic text-size-14 mx-2">{_('or')}</span>
+                      <img src={iconHotkeyDeleted}/>
+                    </div>
+                  </div>
+                  <div className="mb-2 d-flex justify-content-between align-items-center">
+                    <span className="font-italic text-size-14">•{_('Up to 4 Mask Areas.')}</span>
+                  </div>
                 </div>
-                <span className="text-size-16 text-primary">
-                  {_('Up to 4 detection zones')}
-                </span>
               </div>
 
               <button disabled={$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">

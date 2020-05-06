@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="52" height="32" viewBox="0 0 52 32">
+  <g id="Group_4699" data-name="Group 4699" transform="translate(-0.269)">
+    <g id="Rectangle_1542" data-name="Rectangle 1542" transform="translate(0.269)" fill="none" stroke="#cfcfcf" stroke-width="1">
+      <rect width="52" height="32" rx="4" stroke="none"/>
+      <rect x="0.5" y="0.5" width="51" height="31" rx="3.5" fill="none"/>
+    </g>
+    <text id="Delete" transform="translate(9 20)" fill="#212121" font-size="12" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">Delete</tspan></text>
+  </g>
+</svg>

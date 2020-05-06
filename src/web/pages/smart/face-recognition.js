@@ -107,7 +107,7 @@ module.exports = class FaceRecognition extends Base {
 
     return (
       <>
-        <div className="col-7 pr-24">
+        <div className="col-7 pl-3 pr-0">
           <div id="fr-video-wrapper" className="video-wrapper">
             <img className="img-fluid" src="/api/snapshot"/>
             {
@@ -125,7 +125,7 @@ module.exports = class FaceRecognition extends Base {
           </div>
         </div>
 
-        <div className="col-5 pl-24">
+        <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
             <div className="card-header">{_('Facial Recognition')}</div>
             <Form className="card-body">

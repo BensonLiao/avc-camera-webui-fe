@@ -351,9 +351,13 @@ window.languageResource = {
   'CBR Bitrate': '固定比特率 (CBR)',
 
   // /media/privacy-mask
+  'Please Drag a Mask Area.': '請拖曳新增遮罩',
   'Mask Area': '遮罩區域',
-  '1. Please drag a mask area.': '1. 請框選畫面位置決定遮罩區域。',
-  '2. The mask area limit is 4. To drag for creating, delete to remove.': '2. 遮罩區域最多可設定4個、用拖移新增、delete刪除。',
+  'Note Area': '說明',
+  Drag: '拖曳',
+  'Set a Mask.': '新增遮罩',
+  'Erase a Mask.': '刪除遮罩',
+  'Up to 4 Mask Areas.': '最多至四個遮罩',
 
   // /media/audio
   'Multimedia Streaming': '多媒體串流',

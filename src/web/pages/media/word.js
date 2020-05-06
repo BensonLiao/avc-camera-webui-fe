@@ -62,7 +62,7 @@ module.exports = class Word extends Base {
           </nav>
         </div>
 
-        <div className="col-8 px-0">
+        <div className="col-7 px-0">
           <div className="video-wrapper">
             <img className="img-fluid" src="/api/snapshot"/>
             {
@@ -104,7 +104,7 @@ module.exports = class Word extends Base {
           </div>
         </div>
 
-        <div className="col-4 pl-4 pr-0">
+        <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
             <div className="card-header">{_('OSD')}</div>
             <div className="card-body">

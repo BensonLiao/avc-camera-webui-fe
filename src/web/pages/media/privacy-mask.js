@@ -4,6 +4,9 @@ const progress = require('nprogress');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const {HotKeys} = require('react-hotkeys');
+const iconHotkeyBackspace = require('../../../resource/hotkey-backspace-32px.svg');
+const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');
+const iconCursor = require('../../../resource/cursor-24px.svg');
 const Base = require('../shared/base');
 const MaskArea = require('../../../core/components/fields/mask-area');
 const _ = require('../../../languages');
@@ -122,7 +125,7 @@ module.exports = class PrivacyMask extends Base {
 
     return (
       <Form className="row">
-        <div className="col-12">
+        <div className="col-12 px-0">
           <nav>
             <ol className="breadcrumb rounded-pill">
               <li className="breadcrumb-item active">
@@ -133,7 +136,7 @@ module.exports = class PrivacyMask extends Base {
           </nav>
         </div>
 
-        <div className="col-8 pr-24">
+        <div className="col-7 px-0">
           <div ref={this.videoWrapperRef} id="pm-video-wrapper" className="video-wrapper">
             <img draggable={false} className="img-fluid" src="/api/snapshot"
               onMouseDown={this.generateVideoWrapperMouseDownHandler(form)}/>
@@ -151,7 +154,7 @@ module.exports = class PrivacyMask extends Base {
           </div>
         </div>
 
-        <div className="col-4 pl-24">
+        <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
             <div className="card-header">{_('Privacy Mask')}</div>
             <div className="card-body">
@@ -165,10 +168,31 @@ module.exports = class PrivacyMask extends Base {
                   </label>
                 </div>
               </div>
+              <div className="form-group mb-5">
+                <span className="form-text text-primary">{_('Please Drag a Mask Area.')}</span>
+              </div>
               <div className="form-group">
-                <label>{_('Mask Area')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
-                <span className="form-text text-primary">{_('1. Please drag a mask area.')}</span>
-                <span className="form-text text-primary">{_('2. The mask area limit is 4. To drag for creating, delete to remove.')}</span>
+                <div className="card-header l-24 light text-size-18">{_('Note Area')}</div>
+                <div className="card-body l-32 light px-3 py-3">
+                  <div className="mb-2 d-flex justify-content-between align-items-center">
+                    <span className="font-italic text-size-14">•{_('Set a Mask.')}</span>
+                    <div className="d-flex align-items-center drag-icon">
+                      <img src={iconCursor}/>
+                      <span className="text-size-12">{_('Drag')}</span>
+                    </div>
+                  </div>
+                  <div className="mb-2 d-flex justify-content-between align-items-center">
+                    <span className="font-italic text-size-14">•{_('Erase a Mask.')}</span>
+                    <div className="d-flex justify-content-end align-items-center flex-wrap">
+                      <img src={iconHotkeyBackspace}/>
+                      <span className="font-italic text-size-14 mx-2">{_('or')}</span>
+                      <img src={iconHotkeyDeleted}/>
+                    </div>
+                  </div>
+                  <div className="mb-2 d-flex justify-content-between align-items-center">
+                    <span className="font-italic text-size-14">•{_('Up to 4 Mask Areas.')}</span>
+                  </div>
+                </div>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}
