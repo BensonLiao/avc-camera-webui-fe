@@ -416,6 +416,8 @@ module.exports = {
      * - ddnsHost {String}
      * - ddnsAccount {String}
      * - ddnsPassword {String}
+     * - ddnsRefreshStatus {Boolean}
+     * - ddnsHostStatus {Boolean}
      */
     getDDNSInfo: () => api({
       method: 'get',
@@ -434,6 +436,8 @@ module.exports = {
      * - ddnsHost {String}
      * - ddnsAccount {String}
      * - ddnsPassword {String}
+     * - ddnsRefreshStatus {Boolean}
+     * - ddnsHostStatus {Boolean}
      */
     updateDDNSInfo: ({isEnableDDNS, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}) => api({
       method: 'put',

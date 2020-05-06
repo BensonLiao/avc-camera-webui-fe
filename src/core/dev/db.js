@@ -159,7 +159,9 @@ module.exports = {
         ddnsProvider: '0',
         ddnsHost: 'aa',
         ddnsAccount: 'aa',
-        ddnsPassword: 'aa'
+        ddnsPassword: 'aa',
+        ddnsRefreshStatus: false,
+        ddnsHostStatus: false
       },
       httpSettings: {
         port: '8080'
