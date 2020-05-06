@@ -179,6 +179,9 @@ window.languageResource = {
   // /media/stream
   '{0} - {1} Kbps': '{0} - {1} Kbps',
 
+  // /media/privacy-mask
+  'Note Area': 'Note',
+
   // /notification/cards
   'notification-card-filter-all': 'All',
   'Notification Filters': 'Filters',

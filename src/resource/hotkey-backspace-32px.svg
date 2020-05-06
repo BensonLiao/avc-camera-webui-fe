@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="32" viewBox="0 0 88 32">
+  <g id="Group_4700" data-name="Group 4700" transform="translate(-0.5)">
+    <g id="Rectangle_1541" data-name="Rectangle 1541" transform="translate(0.5)" fill="none" stroke="#cfcfcf" stroke-width="1">
+      <rect width="88" height="32" rx="4" stroke="none"/>
+      <rect x="0.5" y="0.5" width="87" height="31" rx="3.5" fill="none"/>
+    </g>
+    <g id="Group_4704" data-name="Group 4704" transform="translate(-0.5)">
+      <text id="Backspace" transform="translate(21.5 20)" fill="#212121" font-size="12" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">Backspace</tspan></text>
+      <g id="Group_4701" data-name="Group 4701" transform="translate(9 13.5)">
+        <rect id="Rectangle_1543" data-name="Rectangle 1543" width="5" height="1" transform="translate(3.5 2.5)" fill="#707070"/>
+        <path id="Polygon_4" data-name="Polygon 4" d="M3,0,6,4H0Z" transform="translate(0 6) rotate(-90)" fill="#707070"/>
+      </g>
+    </g>
+  </g>
+</svg>

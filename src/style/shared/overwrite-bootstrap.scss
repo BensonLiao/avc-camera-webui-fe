@@ -293,9 +293,27 @@ label.btn {
     background: #666;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
+    &.light{
+      line-height: 24px;
+      background: $secondary-50;
+      color: $secondary-500;
+    }
   }
   .card-body {
     padding: 24px;
+    &.light{
+      line-height: 32px;
+      background: $secondary-50;
+      color: $secondary-500;
+      border-radius: 0 0 16px 16px;
+    }
+    .drag-icon {
+      padding: 0 8px 0 4px;
+      height: 32px;
+      border-radius: 4px;
+      border: 1px #CFCFCF solid;
+      color: $secondary-700;
+    }
   }
 }
 
