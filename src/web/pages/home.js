@@ -635,29 +635,31 @@ module.exports = class Home extends Base {
               <div className="col-8 pr-24">
                 {/* The video */}
                 <div className="video-wrapper mb-4">
-                  <img ref={this.streamPlayerRef}
-                    className="img-fluid" src={this.state.streamImageUrl || defaultVideoBackground}
-                    onClick={this.onTogglePlayStream}/>
-                  {
-                    !this.state.isPlayStream && (
-                      <div className="cover d-flex justify-content-center align-items-center">
-                        <button className="btn-play" type="button" onClick={this.onTogglePlayStream}>
-                          <i className="fas fa-play fa-fw"/>
-                        </button>
-                      </div>
-                    )
-                  }
-                  {
-                    this.state.isPlayStream && !this.state.streamImageUrl && (
-                      <div className="cover d-flex justify-content-center align-items-center text-muted"
-                        onClick={this.onTogglePlayStream}
-                      >
-                        <div className="spinner-border">
-                          <span className="sr-only">Loading...</span>
+                  <div ref={this.streamPlayerRef}>
+                    <img
+                      className="img-fluid" src={this.state.streamImageUrl || defaultVideoBackground}
+                      onClick={this.onTogglePlayStream}/>
+                    {
+                      !this.state.isPlayStream && (
+                        <div className="cover d-flex justify-content-center align-items-center">
+                          <button className="btn-play" type="button" onClick={this.onTogglePlayStream}>
+                            <i className="fas fa-play fa-fw"/>
+                          </button>
                         </div>
-                      </div>
-                    )
-                  }
+                      )
+                    }
+                    {
+                      this.state.isPlayStream && !this.state.streamImageUrl && (
+                        <div className="cover d-flex justify-content-center align-items-center text-muted"
+                          onClick={this.onTogglePlayStream}
+                        >
+                          <div className="spinner-border">
+                            <span className="sr-only">Loading...</span>
+                          </div>
+                        </div>
+                      )
+                    }
+                  </div>
                   <div className="controls d-flex justify-content-end align-items-center">
                     <div>
                       <button className="btn-action" type="button" onClick={this.onClickDownloadImage}>
