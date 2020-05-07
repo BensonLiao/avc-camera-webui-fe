@@ -6,12 +6,12 @@ const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const FormikEffect = require('../../../core/components/formik-effect');
-const Modal = require('react-bootstrap/Modal').default;
 const Base = require('../shared/base');
 const utils = require('../../../core/utils');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const {SD_STATUS_LIST} = require('../../../core/constants');
+const ConfirmModal = require('../../../core/components/confirm-modal');
 
 module.exports = class SDCard extends Base {
   static get propTypes() {
@@ -50,85 +50,6 @@ module.exports = class SDCard extends Base {
       }
     }));
   };
-
-  hideModal = selectedModal => _ => {
-    return this.setState(prevState => ({
-      showSelectModal: {
-        ...prevState.showSelectModal,
-        [selectedModal]: false
-      }
-    }));
-  };
-
-  sdcardModalRender = mode => {
-    const {$isApiProcessing} = this.state;
-
-    const modalType = {
-      format: {
-        showModal: this.state.showSelectModal.isShowFormatModal,
-        hideModal: this.hideModal('isShowFormatModal'),
-        modalOnSubmit: this.onSubmitFormatSDCard,
-        modalTitle: _('Format'),
-        modalBody: _('Are you sure you want to format the Micro SD card?'),
-        modalOnClick: this.hideModal('isShowFormatModal')
-      },
-      unmount: {
-        showModal: this.state.showSelectModal.isShowUnmountModal,
-        hideModal: this.hideModal('isShowUnmountModal'),
-        modalOnSubmit: this.onSubmitUnmountSDCard,
-        modalTitle: _('Unmount'),
-        modalBody: _('Are you sure you want to unmount the Micro SD card?'),
-        modalOnClick: this.hideModal('isShowUnmountModal')
-      },
-      disable: {
-        showModal: this.state.showSelectModal.isShowDisableModal,
-        hideModal: this.hideModal('isShowDisableModal'),
-        modalOnSubmit: this.onSubmitDisableSDCard,
-        modalTitle: _('Disable'),
-        modalBody: _('Are you sure you want to disable the Micro SD card?'),
-        modalOnClick: this.hideModal('isShowDisableModal')
-      }
-    };
-    return (
-      <Modal
-        show={modalType[mode].showModal}
-        autoFocus={false}
-        onHide={modalType[mode].hideModal}
-      >
-        <Formik
-          initialValues={{}}
-          onSubmit={modalType[mode].modalOnSubmit}
-        >
-          <Form>
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title">{modalType[mode].modalTitle}</h4>
-              </div>
-              <div className="modal-body">
-                <p>{modalType[mode].modalBody}</p>
-              </div>
-              <div className="modal-footer flex-column">
-                <div className="form-group w-100 mx-0">
-                  <button
-                    disabled={$isApiProcessing}
-                    type="submit"
-                    className="btn btn-primary btn-block rounded-pill"
-                  >{_('Confirm')}
-                  </button>
-                </div>
-                <button
-                  type="button"
-                  className="btn btn-info btn-block rounded-pill"
-                  onClick={getRouter().reload}
-                >{_('Cancel')}
-                </button>
-              </div>
-            </div>
-          </Form>
-        </Formik>
-      </Modal>
-    );
-  }
 
   onSubmitFormatSDCard = () => {
     progress.start();
@@ -205,6 +126,40 @@ module.exports = class SDCard extends Base {
         });
     }
   };
+
+  sdcardModalRender = mode => {
+    const {$isApiProcessing} = this.state;
+
+    const modalType = {
+      format: {
+        showModal: this.state.showSelectModal.isShowFormatModal,
+        modalOnSubmit: this.onSubmitFormatSDCard,
+        modalTitle: _('Format'),
+        modalBody: _('Are you sure you want to format the Micro SD card?')
+      },
+      unmount: {
+        showModal: this.state.showSelectModal.isShowUnmountModal,
+        modalOnSubmit: this.onSubmitUnmountSDCard,
+        modalTitle: _('Unmount'),
+        modalBody: _('Are you sure you want to unmount the Micro SD card?')
+      },
+      disable: {
+        showModal: this.state.showSelectModal.isShowDisableModal,
+        modalOnSubmit: this.onSubmitDisableSDCard,
+        modalTitle: _('Disable'),
+        modalBody: _('Are you sure you want to disable the Micro SD card?')
+      }
+    };
+    return (
+      <ConfirmModal
+        isShowModal={modalType[mode].showModal}
+        modalTitle={modalType[mode].modalTitle}
+        modalBody={modalType[mode].modalBody}
+        isConfirmDisable={$isApiProcessing}
+        onHide={getRouter().reload} // Reload to reset SD card switch button state
+        onConfirm={modalType[mode].modalOnSubmit}/>
+    );
+  }
 
   sdcardSettingsFormRender = () => {
     const {systemInformation, smtpSettings: {isEnableAuth}} = this.props;
@@ -345,7 +300,6 @@ module.exports = class SDCard extends Base {
                   </ol>
                 </nav>
               </div>
-
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('SD Card Settings')}</div>
