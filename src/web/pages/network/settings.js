@@ -4,7 +4,7 @@ const progress = require('nprogress');
 const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
-const ConfirmModal = require('../../../core/components/confirm-modal');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
@@ -121,7 +121,7 @@ module.exports = class NetworkSettings extends Base {
             >
               {_('Test DHCP')}
             </button>
-            <ConfirmModal
+            <CustomNotifyModal
               isShowModal={isShowModal}
               modalTitle="DHCP TEST"
               modalBody={dhcpTestResult ? 'DHCP Testing Succeed!' : 'DHCP Testing Failed!'}

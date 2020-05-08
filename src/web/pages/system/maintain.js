@@ -7,15 +7,14 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
-const ConfirmModal = require('../../../core/components/confirm-modal');
-const ApiProcessModal = require('../../../core/components/api-process-modal');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 
 module.exports = class Maintain extends Base {
   constructor(props) {
     super(props);
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = 'Device processing, please wait...';
+    this.state.apiProcessModalTitle = 'Device processing';
     this.state.isShowSelectModal = {
       reboot: false,
       reset: false,
@@ -76,7 +75,7 @@ module.exports = class Maintain extends Base {
         }))
         .then(() => {
           // Keep modal and update the title.
-          this.setState({apiProcessModalTitle: 'Device rebooting, please wait...'});
+          this.setState({apiProcessModalTitle: 'Device rebooting'});
           // Check the server was start up, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')
@@ -109,7 +108,7 @@ module.exports = class Maintain extends Base {
         ...prevState.isShowSelectModal,
         reset: false
       },
-      apiProcessModalTitle: 'Device resetting, please wait...'
+      apiProcessModalTitle: 'Device resetting'
     }),
     () => {
       api.system.deviceReset(resetIP)
@@ -145,7 +144,7 @@ module.exports = class Maintain extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: 'Device settings importing, please wait...'
+      apiProcessModalTitle: 'Importing device settings'
     },
     () => {
       api.system.importDeviceSettings(file)
@@ -167,7 +166,7 @@ module.exports = class Maintain extends Base {
             }))
             .then(() => {
               // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: 'Device rebooting, please wait...'});
+              this.setState({apiProcessModalTitle: 'Device rebooting'});
               // Check the server was start up, if success then startup was failed and retry.
               const test = () => {
                 api.ping('app')
@@ -209,10 +208,10 @@ module.exports = class Maintain extends Base {
           <div className="form-check mb-2">
             <Field type="checkbox" name="resetIP" className="form-check-input" id="input-checkbox-reset-all"/>
             <label className="form-check-label" htmlFor="input-checkbox-reset-all">
-              {_('Restore to factory default setting (Includes IP Address)')}
+              {_('Restore to Factory Default Settings (Includes Network Settings)')}
             </label>
           </div>
-          <ConfirmModal
+          <CustomNotifyModal
             isShowModal={this.state.isShowSelectModal.reset}
             modalTitle="System Reset"
             modalBody="Are you sure you want to reset the system?"
@@ -275,7 +274,8 @@ module.exports = class Maintain extends Base {
                 </nav>
               </div>
 
-              <ApiProcessModal
+              <CustomNotifyModal
+                modalType="process"
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
                 onHide={this.hideApiProcessModal}/>
@@ -292,7 +292,7 @@ module.exports = class Maintain extends Base {
                         </button>
                       </div>
                     </div>
-                    <ConfirmModal
+                    <CustomNotifyModal
                       isShowModal={isShowSelectModal.reboot}
                       modalTitle="System Reboot"
                       modalBody="Are you sure you want to reboot the system?"
@@ -305,7 +305,8 @@ module.exports = class Maintain extends Base {
                     >
                       {this.deviceResetFormRender}
                     </Formik>
-                    <ConfirmModal
+                    <CustomNotifyModal
+                      modalType="info"
                       isShowModal={isShowSelectModal.resetFinished}
                       modalTitle="System Reset"
                       modalBody="Device has reset, please log back in"
