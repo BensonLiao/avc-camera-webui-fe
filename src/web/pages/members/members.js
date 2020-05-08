@@ -16,6 +16,7 @@ const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
+const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 
 module.exports = class Members extends Base {
@@ -59,7 +60,7 @@ module.exports = class Members extends Base {
     this.state.databaseEncryptionInitialValues = null;
     this.state.databaseFile = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Updating members');
+    this.state.apiProcessModalTitle = 'Updating members';
   }
 
   generateShowDeleteGroupModalHandler = group => {
@@ -475,9 +476,19 @@ module.exports = class Members extends Base {
                   selectedGroup && (
                     <div className="col-12 mb-4">
                       <i className="far fa-folder fa-fw fa-lg text-primary"/>
-                      <span className="text-size-16 text-muted ml-3">{selectedGroup.name}</span>
+                      <span className="text-size-16 text-muted ml-3">
+                        {selectedGroup.name}
+                      </span>
                       <img className="ml-32px" src={iconDescription}/>
-                      <span className="text-size-14 text-muted ml-2">{selectedGroup.note}</span>
+                      {
+                        selectedGroup.note.length > 0 && (
+                          <CustomTooltip title={selectedGroup.note}>
+                            <div className="text-size-14 text-muted ml-2" style={{display: 'inline-block', lineHeight: 'initial', wordWrap: 'break-word', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '50%'}}>
+                              {selectedGroup.note}
+                            </div>
+                          </CustomTooltip>
+                        )
+                      }
                       <Link className="ml-32px" to={{name: 'web.users.members.modify-group', params: this.props.params}}>
                         <i className="fas fa-pen fa-fw"/>
                       </Link>
@@ -517,10 +528,16 @@ module.exports = class Members extends Base {
                                 <img className="rounded-circle" style={{height: '56px'}}
                                   src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
                               </td>
-                              <td className={tdClass}>{member.name}</td>
-                              <td className={tdClass}>{member.organization || _('N/A')}</td>
+                              <CustomTooltip title={member.name}>
+                                <td className={tdClass}>{member.name}</td>
+                              </CustomTooltip>
+                              <CustomTooltip title={member.organization}>
+                                <td className={tdClass}>{member.organization || _('N/A')}</td>
+                              </CustomTooltip>
                               <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
-                              <td className={tdClass}>{member.note || _('N/A')}</td>
+                              <CustomTooltip title={member.note}>
+                                <td className={tdClass}>{member.note || _('N/A')}</td>
+                              </CustomTooltip>
                               <td className={classNames('text-left group-btn', tdClass)}>
                                 <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...this.props.params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>

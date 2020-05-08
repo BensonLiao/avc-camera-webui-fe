@@ -17,7 +17,7 @@ const iconNetwork = require('../../resource/left-navigation-network.svg');
 const iconSystem = require('../../resource/left-navigation-system.svg');
 const iconSDCard = require('../../resource/left-navigation-sd-card.svg');
 const logo = require('../../resource/logo-avc.svg');
-const Tooltip = require('../../core/components/tooltip');
+const CustomTooltip = require('../../core/components/tooltip');
 const api = require('../../core/apis/web-api');
 const utils = require('../../core/utils');
 const _ = require('../../languages');
@@ -166,60 +166,55 @@ module.exports = class Layout extends Base {
         {active: this.state.currentRouteName === 'web.sd-card'}
       )
     };
-    const tooltipOptions = {
-      delay: {show: 250, hide: 0},
-      offset: '0,-4',
-      boundary: 'viewport'
-    };
 
     return (
       <>
         <div className="left-navigation fixed-top">
-          <Tooltip title={_('Home')} {...tooltipOptions}>
+          <CustomTooltip title={_('Home')}>
             <Link className={classTable.home} to="/">
               <img src={iconHome}/>
             </Link>
-          </Tooltip>
-          <Tooltip title={_('Video')} {...tooltipOptions}>
+          </CustomTooltip>
+          <CustomTooltip title={_('Video')}>
             <Link className={classTable.media} to="/media/stream">
               <img src={iconMedia}/>
             </Link>
-          </Tooltip>
-          <Tooltip title={_('Audio')} {...tooltipOptions}>
+          </CustomTooltip>
+          <CustomTooltip title={_('Audio')}>
             <Link className={classTable.audio} to="/audio">
               <img src={iconAudio}/>
             </Link>
-          </Tooltip>
-          <Tooltip title={_('Notification Settings')} {...tooltipOptions}>
+          </CustomTooltip>
+          <CustomTooltip title={_('Notification Settings')}>
             <Link className={classTable.notification} to="/notification/smtp">
               <img src={iconNotification}/>
             </Link>
-          </Tooltip>
-          <Tooltip title={_('User Management')} {...tooltipOptions}>
+          </CustomTooltip>
+          <CustomTooltip title={_('User Management')}>
             <Link className={classTable.users} to="/users/members">
               <img src={iconUserManagement}/>
             </Link>
-          </Tooltip>
-          <Tooltip title={_('Analytic')} {...tooltipOptions}>
+          </CustomTooltip>
+          <CustomTooltip title={_('Analytic')}>
             <Link className={classTable.smart} to="/analytic/face-recognition">
               <img src={iconAnalytic}/>
             </Link>
-          </Tooltip>
-          <Tooltip title={_('Network')} {...tooltipOptions}>
+          </CustomTooltip>
+          <CustomTooltip title={_('Network')}>
             <Link className={classTable.network} to="/network/settings">
               <img src={iconNetwork}/>
             </Link>
-          </Tooltip>
-          <Tooltip title={_('System')} {...tooltipOptions}>
+          </CustomTooltip>
+          <CustomTooltip title={_('System')}>
             <Link className={classTable.system} to="/system/datetime">
               <img src={iconSystem}/>
             </Link>
-          </Tooltip>
-          <Tooltip title={_('SD Card')} {...tooltipOptions}>
+          </CustomTooltip>
+          <CustomTooltip title={_('SD Card')}>
             <Link className={classTable.sdCard} to="/sd-card">
               <img src={iconSDCard}/>
             </Link>
-          </Tooltip>
+          </CustomTooltip>
         </div>
 
         <nav className="navbar navbar-expand fixed-top">
