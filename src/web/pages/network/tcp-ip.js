@@ -1,12 +1,14 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {Link, getRouter} = require('capybara-router');
+const classNames = require('classnames');
 const progress = require('nprogress');
+const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
-const {utils} = require('../../../core/utils');
+const utils = require('../../../core/utils');
 const _ = require('../../../languages');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 
 module.exports = class TCPIP extends Base {
   static get propTypes() {
@@ -21,9 +23,24 @@ module.exports = class TCPIP extends Base {
         ddnsHostStatus: PropTypes.bool.isRequired
       }).isRequired,
       httpInfo: PropTypes.shape({
-        port: PropTypes.string.isRequired
+        port: PropTypes.string.isRequired,
+        port2: PropTypes.string
       }).isRequired
     };
+  }
+
+  constructor(props) {
+    super(props);
+    this.state.isShowApiProcessModal = false;
+    this.state.apiProcessModalTitle = 'Device processing';
+  }
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
+
+  checkValidatePort = values => {
+    return utils.validatedPortCheck(values);
   }
 
   onSubmitDDNSForm = values => {
@@ -55,32 +72,62 @@ module.exports = class TCPIP extends Base {
 
   onSubmitHTTPForm = values => {
     progress.start();
-    api.system.updateHttpInfo(values)
-      .then(() => new Promise(resolve => {
-        // Check the server was shut down.
-        const test = () => {
-          api.ping()
-            .then(() => {
-              setTimeout(test, 500);
-            })
-            .catch(() => {
-              resolve();
-            });
-        };
+    this.setState({
+      isShowApiProcessModal: true,
+      apiProcessModalTitle: 'Updating http settings'
+    },
+    () => {
+      api.system.updateHttpInfo(values)
+        .then(() => {
+          api.system.deviceReboot()
+            .then(() => new Promise(resolve => {
+              // Check the server was shut down, if success then shutdown was failed and retry.
+              const test = () => {
+                api.ping('web')
+                  .then(() => {
+                    setTimeout(test, 500);
+                  })
+                  .catch(() => {
+                    resolve();
+                  });
+              };
 
-        test();
-      }))
-      .then(() => {
-        // Redirect to the home page with off-line access.
-        location.href = '/';
-      })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
+              test();
+            }))
+            .then(() => {
+              // Keep modal and update the title.
+              this.setState({apiProcessModalTitle: 'Device rebooting'});
+              // Check the server was start up, if success then startup was failed and retry.
+              const test = () => {
+                api.ping('app')
+                  .then(() => {
+                    location.reload();
+                  })
+                  .catch(() => {
+                    setTimeout(test, 1000);
+                  });
+              };
+
+              test();
+            })
+            .catch(error => {
+              progress.done();
+              this.hideApiProcessModal();
+              utils.showErrorNotification({
+                title: `Error ${error.response.status}` || null,
+                message: error.response.status === 400 ? error.response.data.message || null : null
+              });
+            });
+        })
+        .catch(error => {
+          progress.done();
+          this.hideApiProcessModal();
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
         });
-      });
+    });
   }
 
   ddnsFormRender = ({values}) => {
@@ -148,18 +195,20 @@ module.exports = class TCPIP extends Base {
     );
   }
 
-  httpFormRender = ({values}) => {
+  httpFormRender = ({values, errors, touched}) => {
     return (
       <Form className="tab-pane fad" id="tab-http">
         <div className="form-group">
           <label>{_('Web Server Port Settings')}</label>
           <Field
             name="port"
-            className="form-control"
+            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
             type="text"
+            validate={this.checkValidatePort}
             placeholder={_('Enter Your Server Port Settings')}
             value={values.port}
           />
+          {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
         </div>
         <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{_('Apply')}</button>
       </Form>
@@ -185,6 +234,12 @@ module.exports = class TCPIP extends Base {
                   </ol>
                 </nav>
               </div>
+
+              <CustomNotifyModal
+                modalType="process"
+                isShowModal={this.state.isShowApiProcessModal}
+                modalTitle={this.state.apiProcessModalTitle}
+                onHide={this.hideApiProcessModal}/>
 
               <div className="col-center">
                 <div className="card shadow">

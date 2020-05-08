@@ -6,14 +6,14 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
-const ApiProcessModal = require('../../../core/components/api-process-modal');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 
 module.exports = class Upgrade extends Base {
   constructor(props) {
     super(props);
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = 'Device processing, please wait...';
+    this.state.apiProcessModalTitle = 'Device processing';
   }
 
   hideApiProcessModal = () => {
@@ -29,7 +29,7 @@ module.exports = class Upgrade extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: 'Firmware uploading, please wait...'
+      apiProcessModalTitle: 'Firmware uploading'
     },
     () => {
       api.system.uploadFirmware(file)
@@ -49,7 +49,7 @@ module.exports = class Upgrade extends Base {
         }))
         .then(() => {
           // Keep modal and update the title.
-          this.setState({apiProcessModalTitle: 'Device upgrading and rebooting, please wait...'});
+          this.setState({apiProcessModalTitle: 'Device upgrading and rebooting'});
           // Check the server was start up, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')
@@ -122,7 +122,8 @@ module.exports = class Upgrade extends Base {
                 </nav>
               </div>
 
-              <ApiProcessModal
+              <CustomNotifyModal
+                modalType="process"
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
                 onHide={this.hideApiProcessModal}/>

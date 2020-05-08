@@ -11,7 +11,7 @@ const utils = require('../../../core/utils');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const {SD_STATUS_LIST} = require('../../../core/constants');
-const ConfirmModal = require('../../../core/components/confirm-modal');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 
 module.exports = class SDCard extends Base {
   static get propTypes() {
@@ -151,7 +151,7 @@ module.exports = class SDCard extends Base {
       }
     };
     return (
-      <ConfirmModal
+      <CustomNotifyModal
         isShowModal={modalType[mode].showModal}
         modalTitle={modalType[mode].modalTitle}
         modalBody={modalType[mode].modalBody}
@@ -242,8 +242,7 @@ module.exports = class SDCard extends Base {
         <div className="form-group px-3">
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('Status')}</label>
-            <label className="mb-o text-primary">
-              {_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}
+            <label className="mb-o text-primary">{_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}
             </label>
           </div>
           <hr/>

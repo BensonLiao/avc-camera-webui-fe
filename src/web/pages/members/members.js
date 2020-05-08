@@ -16,7 +16,7 @@ const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
-const ApiProcessModal = require('../../../core/components/api-process-modal');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -59,7 +59,7 @@ module.exports = class Members extends Base {
     this.state.databaseEncryptionInitialValues = null;
     this.state.databaseFile = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = 'Updating members, please wait...';
+    this.state.apiProcessModalTitle = 'Updating members';
   }
 
   generateShowDeleteGroupModalHandler = group => {
@@ -611,7 +611,8 @@ module.exports = class Members extends Base {
         </Modal>
 
         {/* Databse updating modal */}
-        <ApiProcessModal
+        <CustomNotifyModal
+          modalType="process"
           isShowModal={this.state.isShowApiProcessModal}
           modalTitle={this.state.apiProcessModalTitle}
           onHide={this.hideApiProcessModal}/>
