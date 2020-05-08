@@ -41,7 +41,7 @@ module.exports = class NetworkSettings extends Base {
     this.setState({isShowModal: false});
   };
 
-  onClickTestDHCPButton = setFieldValue => event => {
+  onClickTestDHCPButton = event => {
     event.preventDefault();
     progress.start();
     api.system.testDHCP()
@@ -51,10 +51,6 @@ module.exports = class NetworkSettings extends Base {
             isShowModal: true,
             dhcpTestResult: response.data.success,
             dhcpTestIp: response.data.resultIP
-          }, () => {
-            if (!this.state.dhcpTestResult) {
-              setFieldValue('ipAddress', '192.168.1.168');
-            }
           });
         }
 
@@ -99,7 +95,7 @@ module.exports = class NetworkSettings extends Base {
       });
   };
 
-  networkSettingsFormRender = ({setFieldValue, values}) => {
+  networkSettingsFormRender = ({values}) => {
     const {$isApiProcessing, isShowModal, dhcpTestResult} = this.state;
     return (
       <Form>
@@ -125,7 +121,7 @@ module.exports = class NetworkSettings extends Base {
               type="button"
               className="btn btn-outline-primary rounded-pill px-3"
               id="dhcpTestButton"
-              onClick={this.onClickTestDHCPButton(setFieldValue)}
+              onClick={this.onClickTestDHCPButton}
             >
               {_('Test DHCP')}
             </button>
