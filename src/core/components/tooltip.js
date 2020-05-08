@@ -1,53 +1,37 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const $ = require('jquery');
+const classNames = require('classnames');
+const OverlayTrigger = require('react-bootstrap/OverlayTrigger').default;
+const Tooltip = require('react-bootstrap/Tooltip').default;
 
-module.exports = class Tooltip extends React.PureComponent {
+module.exports = class CustomTooltip extends React.PureComponent {
   static get propTypes() {
     return {
-      title: PropTypes.string.isRequired,
-      placement: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
-      delay: PropTypes.any,
-      offset: PropTypes.any,
-      boundary: PropTypes.oneOf(['viewport', 'window', 'scrollParent']),
-      children: PropTypes.any.isRequired
+      title: PropTypes.string,
+      placement: PropTypes.oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
+      delay: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+      children: PropTypes.element.isRequired
     };
   }
 
   static get defaultProps() {
     return {
+      title: null,
       placement: 'top',
-      delay: 0,
-      offset: 0,
-      boundary: 'scrollParent'
+      delay: {show: 250, hide: 0}
     };
   }
 
-  constructor(props) {
-    super(props);
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    $(this.ref.current).tooltip({
-      title: this.props.title,
-      placement: this.props.placement,
-      delay: this.props.delay,
-      offset: this.props.offset,
-      boundary: this.props.boundary
-    });
-  }
-
-  componentDidUpdate() {
-    this.componentWillUnmount();
-    this.componentDidMount();
-  }
-
-  componentWillUnmount() {
-    $(this.ref.current).tooltip('dispose');
-  }
-
   render() {
-    return <span ref={this.ref}>{this.props.children}</span>;
+    const {title, placement, delay, children} = this.props;
+    return (
+      <OverlayTrigger
+        placement={placement}
+        delay={delay}
+        overlay={<Tooltip className={classNames({'d-none': !title})}>{title}</Tooltip>}
+      >
+        {children}
+      </OverlayTrigger>
+    );
   }
 };
