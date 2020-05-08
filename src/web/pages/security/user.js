@@ -110,13 +110,16 @@ module.exports = class User extends Base {
   };
 
   checkDuplicate = values => {
-    if (!this.props.user) {
-      return utils.duplicateCheck(
-        this.state.usersName,
-        values,
-        _('Same name found, please use a different name.')
-      );
+    let nameList;
+    if (this.props.user) { // Check duplicate when editing user, removes user's own name from list to check
+      nameList = this.state.usersName.filter(name => name !== this.props.user.account);
     }
+
+    return utils.duplicateCheck(
+      nameList || this.state.usersName,
+      values,
+      _('Same name found, please use a different name.')
+    );
   }
 
   formRender = ({errors, touched}) => {
