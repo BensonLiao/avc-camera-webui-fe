@@ -14,7 +14,7 @@ module.exports = class Maintain extends Base {
     super(props);
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = 'Device processing';
+    this.state.apiProcessModalTitle = _('Device processing');
     this.state.isShowSelectModal = {
       reboot: false,
       reset: false,
@@ -75,7 +75,7 @@ module.exports = class Maintain extends Base {
         }))
         .then(() => {
           // Keep modal and update the title.
-          this.setState({apiProcessModalTitle: 'Device rebooting'});
+          this.setState({apiProcessModalTitle: _('Device rebooting')});
           // Check the server was start up, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')
@@ -108,7 +108,7 @@ module.exports = class Maintain extends Base {
         ...prevState.isShowSelectModal,
         reset: false
       },
-      apiProcessModalTitle: 'Device resetting'
+      apiProcessModalTitle: _('Device resetting')
     }),
     () => {
       api.system.deviceReset(resetIP)
@@ -144,7 +144,7 @@ module.exports = class Maintain extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: 'Importing device settings'
+      apiProcessModalTitle: _('Importing device settings')
     },
     () => {
       api.system.importDeviceSettings(file)
@@ -166,7 +166,7 @@ module.exports = class Maintain extends Base {
             }))
             .then(() => {
               // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: 'Device rebooting'});
+              this.setState({apiProcessModalTitle: _('Device rebooting')});
               // Check the server was start up, if success then startup was failed and retry.
               const test = () => {
                 api.ping('app')
@@ -213,8 +213,8 @@ module.exports = class Maintain extends Base {
           </div>
           <CustomNotifyModal
             isShowModal={this.state.isShowSelectModal.reset}
-            modalTitle="System Reset"
-            modalBody="Are you sure you want to reset the system?"
+            modalTitle={_('System Reset')}
+            modalBody={_('Are you sure you want to reset the system?')}
             isConfirmDisable={this.state.$isApiProcessing}
             onHide={this.hideModal('reset')}
             onConfirm={() => {
@@ -294,8 +294,8 @@ module.exports = class Maintain extends Base {
                     </div>
                     <CustomNotifyModal
                       isShowModal={isShowSelectModal.reboot}
-                      modalTitle="System Reboot"
-                      modalBody="Are you sure you want to reboot the system?"
+                      modalTitle={_('System Reboot')}
+                      modalBody={_('Are you sure you want to reboot the system?')}
                       isConfirmDisable={$isApiProcessing}
                       onHide={this.hideModal('reboot')}
                       onConfirm={this.onSubmitDeviceReboot}/>
@@ -308,8 +308,8 @@ module.exports = class Maintain extends Base {
                     <CustomNotifyModal
                       modalType="info"
                       isShowModal={isShowSelectModal.resetFinished}
-                      modalTitle="System Reset"
-                      modalBody="Device has reset, please log back in"
+                      modalTitle={_('System Reset')}
+                      modalBody={_('Device has reset, please log back in')}
                       onHide={this.hideModal('resetFinished')}
                       onConfirm={() => {
                         location.href = '/';

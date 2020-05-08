@@ -13,7 +13,7 @@ module.exports = class Upgrade extends Base {
     super(props);
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = 'Device processing';
+    this.state.apiProcessModalTitle = _('Device processing');
   }
 
   hideApiProcessModal = () => {
@@ -29,7 +29,7 @@ module.exports = class Upgrade extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: 'Firmware uploading'
+      apiProcessModalTitle: _('Firmware uploading')
     },
     () => {
       api.system.uploadFirmware(file)
@@ -49,7 +49,7 @@ module.exports = class Upgrade extends Base {
         }))
         .then(() => {
           // Keep modal and update the title.
-          this.setState({apiProcessModalTitle: 'Device upgrading and rebooting'});
+          this.setState({apiProcessModalTitle: _('Device upgrading and rebooting')});
           // Check the server was start up, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')

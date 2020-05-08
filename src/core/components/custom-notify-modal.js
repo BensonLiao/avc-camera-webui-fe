@@ -2,6 +2,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const Modal = require('react-bootstrap/Modal').default;
 const _ = require('../../languages');
+const utils = require('../../core/utils');
 const classNames = require('classnames');
 
 module.exports = class CustomNotifyModal extends React.PureComponent {
@@ -10,7 +11,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       isShowModal: PropTypes.bool.isRequired,
       onHide: PropTypes.func.isRequired,
       modalTitle: PropTypes.string.isRequired,
-      modalBody: PropTypes.string,
+      modalBody: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
       // Specify modal type, with different backdrop setting, buttons layout.
       modalType: PropTypes.oneOf(['default', 'info', 'process']),
       // On submit/finish actions
@@ -25,7 +26,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
   static get defaultProps() {
     return {
       // Default is for processing modal only. All other modals should have a body message
-      modalBody: 'Please wait',
+      modalBody: _('Please wait'),
       modalType: 'default',
       onConfirm: null,
       isConfirmDisable: false,
@@ -53,12 +54,22 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
         onHide={onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h4">{_(modalTitle)}</Modal.Title>
+          <Modal.Title as="h4">{modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p className={classNames({'modal-loading': modalType === 'process'})}>
-            {_(modalBody)}
-          </p>
+          {utils.isArray(modalBody) ? (
+            modalBody.map((element, idx) => {
+              return (
+                <p key={String(idx)} className={classNames({'modal-loading': modalType === 'process'})}>
+                  {element}
+                </p>
+              );
+            })
+          ) : (
+            <p className={classNames({'modal-loading': modalType === 'process'})}>
+              {modalBody}
+            </p>
+          )}
         </Modal.Body>
         {modalType !== 'process' && (
           <Modal.Footer className="flex-column">

@@ -30,6 +30,7 @@ module.exports = class NetworkSettings extends Base {
     super(props);
     this.state.isShowModal = false;
     this.state.dhcpTestResult = false;
+    this.state.dhcpTestIp = null; // Default IP
   }
 
   showModal = () => {
@@ -40,14 +41,21 @@ module.exports = class NetworkSettings extends Base {
     this.setState({isShowModal: false});
   };
 
-  onClickTestDHCPButton = event => {
+  onClickTestDHCPButton = setFieldValue => event => {
     event.preventDefault();
     progress.start();
     api.system.testDHCP()
       .then(response => {
         if (response.data) {
-          this.state.dhcpTestResult = response.data.success;
-          this.setState({isShowModal: true});
+          this.setState({
+            isShowModal: true,
+            dhcpTestResult: response.data.success,
+            dhcpTestIp: response.data.resultIP
+          }, () => {
+            if (!this.state.dhcpTestResult) {
+              setFieldValue('ipAddress', '192.168.1.168');
+            }
+          });
         }
 
         progress.done();
@@ -91,7 +99,7 @@ module.exports = class NetworkSettings extends Base {
       });
   };
 
-  networkSettingsFormRender = ({values}) => {
+  networkSettingsFormRender = ({setFieldValue, values}) => {
     const {$isApiProcessing, isShowModal, dhcpTestResult} = this.state;
     return (
       <Form>
@@ -117,14 +125,17 @@ module.exports = class NetworkSettings extends Base {
               type="button"
               className="btn btn-outline-primary rounded-pill px-3"
               id="dhcpTestButton"
-              onClick={this.onClickTestDHCPButton}
+              onClick={this.onClickTestDHCPButton(setFieldValue)}
             >
               {_('Test DHCP')}
             </button>
             <CustomNotifyModal
+              modalType="info"
               isShowModal={isShowModal}
-              modalTitle="DHCP TEST"
-              modalBody={dhcpTestResult ? 'DHCP Testing Succeed!' : 'DHCP Testing Failed!'}
+              modalTitle={_('DHCP TEST')}
+              modalBody={dhcpTestResult ?
+                [_('DHCP Testing Succeed!'), `${_('IP Address')}: ${this.state.dhcpTestIp}`] :
+                _('DHCP Testing Failed!')}
               onHide={this.hideModal}
               onConfirm={this.hideModal}/>
           </div>
