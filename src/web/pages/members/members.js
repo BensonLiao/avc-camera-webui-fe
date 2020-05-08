@@ -59,7 +59,7 @@ module.exports = class Members extends Base {
     this.state.databaseEncryptionInitialValues = null;
     this.state.databaseFile = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = 'Updating members';
+    this.state.apiProcessModalTitle = _('Updating members');
   }
 
   generateShowDeleteGroupModalHandler = group => {

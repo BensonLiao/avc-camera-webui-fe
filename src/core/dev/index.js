@@ -65,7 +65,7 @@ mockAxios.onGet('/api/ping').reply(config => {
     return mockResponseWithLog(config, [200, db.get('networkSettings').assign(data).write()]);
   })
   .onPost('/api/system/network/testdhcp').reply(config => {
-    return mockResponseWithLog(config, [200, {success: true}]);
+    return mockResponseWithLog(config, [200, {success: true, resultIP: '19.168.88.99'}]);
   })
   .onGet('/api/system/network/tcpip/ddns').reply(config => {
     return mockResponseWithLog(config, [200, db.get('ddnsSettings').value()]);

@@ -32,7 +32,7 @@ module.exports = class TCPIP extends Base {
   constructor(props) {
     super(props);
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = 'Device processing';
+    this.state.apiProcessModalTitle = _('Device processing');
   }
 
   hideApiProcessModal = () => {
@@ -74,7 +74,7 @@ module.exports = class TCPIP extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: 'Updating http settings'
+      apiProcessModalTitle: _('Updating http settings')
     },
     () => {
       api.system.updateHttpInfo(values)
@@ -96,7 +96,7 @@ module.exports = class TCPIP extends Base {
             }))
             .then(() => {
               // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: 'Device rebooting'});
+              this.setState({apiProcessModalTitle: _('Device rebooting')});
               // Check the server was start up, if success then startup was failed and retry.
               const test = () => {
                 api.ping('app')
