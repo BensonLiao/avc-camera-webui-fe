@@ -19,8 +19,27 @@ module.exports = class RTSP extends Base {
         tcpPort: PropTypes.string.isRequired,
         udpPort: PropTypes.string.isRequired,
         connectionLimit: PropTypes.string.isRequired
+      }).isRequired,
+      httpInfo: PropTypes.shape({
+        port: PropTypes.string.isRequired,
+        port2: PropTypes.string
+      }).isRequired,
+      httpsSettings: PropTypes.shape({
+        port: PropTypes.string.isRequired
       }).isRequired
     };
+  }
+
+  checkValidatePort = values => {
+    const {httpInfo, httpsSettings} = this.props;
+    // Check if using http port
+    if (values === httpInfo.port ||
+      values === httpInfo.port2 ||
+      values === httpsSettings.port) {
+      return _('This port are used on http/https setting, please try another number.');
+    }
+
+    return utils.validatedPortCheck(values);
   }
 
   onSubmitRTSPSettingsForm = values => {
@@ -61,8 +80,12 @@ module.exports = class RTSP extends Base {
         </div>
         <div className="form-group">
           <label>{_('RTSP/TCP Port')}</label>
-          <Field autoFocus name="tcpPort" type="text"
+          <Field
+            autoFocus
+            name="tcpPort"
+            type="text"
             placeholder="8554"
+            validate={this.checkValidatePort}
             className={classNames('form-control', {'is-invalid': errors.tcpPort && touched.tcpPort})}/>
           {
             errors.tcpPort && touched.tcpPort && (
@@ -73,8 +96,12 @@ module.exports = class RTSP extends Base {
         </div>
         <div className="form-group">
           <label>{_('RTSP/UDP Port')}</label>
-          <Field name="udpPort" type="text"
-            className={classNames('form-control', {'is-invalid': errors.udpPort && touched.udpPort})} placeholder="17300"/>
+          <Field
+            name="udpPort"
+            type="text"
+            className={classNames('form-control', {'is-invalid': errors.udpPort && touched.udpPort})}
+            validate={this.checkValidatePort}
+            placeholder="17300"/>
           {
             errors.udpPort && touched.udpPort && (
               <div className="invalid-feedback">{errors.udpPort}</div>
