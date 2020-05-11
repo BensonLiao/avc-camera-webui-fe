@@ -147,14 +147,14 @@ module.exports = class HTTPS extends Base {
 
     return (
       <div className="main-content left-menu-active">
-        <div className="section-media">
+        <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
               <div className="col-12 px-0">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/network/https">{_('Network')}</Link>
+                      <Link to="/network/https">{_('Internet/Network Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item">HTTPS</li>
                   </ol>

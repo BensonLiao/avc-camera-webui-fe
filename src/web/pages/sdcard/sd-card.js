@@ -220,7 +220,7 @@ module.exports = class SDCard extends Base {
           <div className="card">
             <div className="card-body">
               <div className="form-group align-items-center mb-0">
-                <label className="mb-0 mr-3">{_('Notification')}</label>
+                <label className="mb-0 mr-3">{_('SD Card Notification')}</label>
                 <span>
                   {
                     isEnableAuth ?

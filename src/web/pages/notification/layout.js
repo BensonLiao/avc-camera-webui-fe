@@ -30,7 +30,7 @@ module.exports = class Notification extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{_('Notification')}</h2>
+          <h2>{_('Notification Setting')}</h2>
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-notification-menu">
               <a href="#" data-toggle="collapse" data-target="#basic-settings"

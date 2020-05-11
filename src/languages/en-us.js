@@ -193,5 +193,8 @@ window.languageResource = {
   'Recognition Result': 'Status',
 
   // /license
-  'Enable Status': 'Status'
+  'Enable Status': 'Status',
+
+  // /sd-card
+  'SD Card Notification': 'Notification'
 };

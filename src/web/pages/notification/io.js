@@ -55,7 +55,7 @@ module.exports = class IO extends Base {
     return (
       <Form className="tab-pane fade" id={`tab-output-${index + 1}`}>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label>{_('I/O Output {0}', [index + 1])}</label>
+          <label>{_('Output {0}', [index + 1])}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
             <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
@@ -65,7 +65,7 @@ module.exports = class IO extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('I/O Type')}</label>
+          <label>{_('Type')}</label>
           <div className="d-flex align-items-center">
             <div className="form-check">
               <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-open`} value={IOType.normallyOpen}/>
@@ -94,7 +94,7 @@ module.exports = class IO extends Base {
           <label>{_('Signal Buffer Time (Seconds)')}</label>
           <Field name="pulse" type="text"
             className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
-            placeholder={_('Enter seconds')}/>
+            placeholder={_('Enter Seconds')}/>
           {
             errors.pulse && touched.pulse && (
               <div className="invalid-feedback">{errors.pulse}</div>
@@ -106,7 +106,7 @@ module.exports = class IO extends Base {
           <label>{_('Delay Time (Seconds)')}</label>
           <Field name="delay" type="text"
             className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
-            placeholder={_('Enter seconds')}/>
+            placeholder={_('Enter Seconds')}/>
           {
             errors.delay && touched.delay && (
               <div className="invalid-feedback">{errors.delay}</div>
@@ -140,7 +140,7 @@ module.exports = class IO extends Base {
     return (
       <Form className="tab-pane fade show active" id="tab-input">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label>{_('I/O Input')}</label>
+          <label>{_('Input')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-input"/>
             <label className="custom-control-label" htmlFor="switch-input">
@@ -150,7 +150,7 @@ module.exports = class IO extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('I/O Type')}</label>
+          <label>{_('Type')}</label>
           <div className="d-flex align-items-center">
             <div className="form-check">
               <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-open" value={IOType.normallyOpen}/>
@@ -185,24 +185,24 @@ module.exports = class IO extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Notification')}</Link>
+                      <Link to="/notification/smtp">{_('Notification Setting')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
                       <Link to="/notification/smtp">{_('Basic Setting')}</Link>
                     </li>
-                    <li className="breadcrumb-item">{_('I/O')}</li>
+                    <li className="breadcrumb-item">{_('Input and Output Setting')}</li>
                   </ol>
                 </nav>
               </div>
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('I/O')}</div>
+                  <div className="card-header">{_('Input and Output Setting')}</div>
                   <nav>
                     <div className="nav nav-tabs">
-                      <a className="nav-item nav-link active" data-toggle="tab" href="#tab-input">{_('I/O Input')}</a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-1">{_('I/O Output {0}', [1])}</a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-2">{_('I/O Output {0}', [2])}</a>
+                      <a className="nav-item nav-link active" data-toggle="tab" href="#tab-input">{_('Input')}</a>
+                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-1">{_('Output {0}', [1])}</a>
+                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-2">{_('Output {0}', [2])}</a>
                     </div>
                   </nav>
                   <div className="card-body tab-content">
