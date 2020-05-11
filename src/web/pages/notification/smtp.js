@@ -78,6 +78,12 @@ module.exports = class SMTP extends Base {
   onSubmitSMTPSettingsForm = values => {
     progress.start();
     api.notification.updateSMTPSettings({...values, ...this.state.accountSettings})
+      .then(() => {
+        utils.showSuccessNotification({
+          title: _('Setting Success'),
+          message: _('Test E-mail sent!')
+        });
+      })
       .then(getRouter().reload)
       .catch(error => {
         progress.done();
