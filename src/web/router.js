@@ -78,7 +78,9 @@ module.exports = new Router({
         document.title = `${_('Rtsp Settings')} - ${_('Multimedia Settings')} - ${_title}`;
       },
       resolve: {
-        rtspSettings: () => api.multimedia.getRTSPSettings().then(response => response.data)
+        rtspSettings: () => api.multimedia.getRTSPSettings().then(response => response.data),
+        httpInfo: () => api.system.getHttpInfo().then(response => response.data),
+        httpsSettings: () => api.system.getHttpsSettings().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
