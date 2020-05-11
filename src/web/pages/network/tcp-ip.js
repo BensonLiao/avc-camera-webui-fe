@@ -223,11 +223,11 @@ module.exports = class TCPIP extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
+              <div className="col-12 px-0">
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/network/tcp-ip">{_('Internet/Network')}</Link>
+                      <Link to="/network/tcp-ip">{_('Internet/Network Settings')}</Link>
                     </li>
 
                     <li className="breadcrumb-item">{_('TCP/IP')}</li>

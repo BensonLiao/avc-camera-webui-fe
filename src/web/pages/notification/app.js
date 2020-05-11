@@ -88,10 +88,10 @@ module.exports = class App extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{_('Notification settings')}</Link>
+                      <Link to="/notification/app">{_('Notification Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{_('Basic settings')}</Link>
+                      <Link to="/notification/app">{_('Basic Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('App')}</li>
                   </ol>

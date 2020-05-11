@@ -275,7 +275,7 @@ module.exports = class SMTP extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Notification')}</Link>
+                      <Link to="/notification/smtp">{_('Notification Setting')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
                       <Link to="/notification/smtp">{_('Basic Setting')}</Link>

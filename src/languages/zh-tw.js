@@ -138,7 +138,8 @@ window.languageResource = {
   'validation-stringContains': '此欄位必須輸入包含 {expected} 的文字。',
   'validation-stringContainsLowerCaseLatter': '此欄位必須輸入包含小寫英文字母。',
   'validation-stringContainsUpperCaseLatter': '此欄位必須輸入包含大寫英文字母。',
-  'validation-stringContainsNumber': '此欄位必須輸入包含數字。', 'validation-stringAbortSpecialCharacters': '此欄位禁用特殊符號(#, %, &, `, “, \\, <, >)。',
+  'validation-stringContainsNumber': '此欄位必須輸入包含數字。',
+  'validation-stringAbortSpecialCharacters': '此欄位禁用特殊符號(#, %, &, `, “, \\, <, >)。',
   'validation-stringAcceptSpecialCharacters': '此欄必須至少有一個特殊符號。',
   'validation-stringEnum': '此欄位與要求的內容不符合。',
   'validation-number': '此欄位必須是數字。',
@@ -205,6 +206,7 @@ window.languageResource = {
   'Enter Your Username and Password': '請輸入您的帳號與密碼',
   'Enter Your Username': '請輸入您的帳號',
   'Password Reset': '重置密碼',
+  'Need Help? Call AV Costar Technical Support at +1.818.937.0700 and select option #1': '需要幫忙嗎？請撥打AV Costar的支援專線+1.818.937.0700#1',
 
   // /login-error
   'Password Incorrect': '密碼輸入錯誤',
@@ -218,6 +220,7 @@ window.languageResource = {
   // /login-lock
   'Too Many Login Attempts!': '密碼嘗試輸入錯誤次數過多！',
   'Please try again in 5 minutes.': '請於五分鐘後再次登入',
+  'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
   'Login Lock': '登入鎖定',
   'Forgot password?': '忘記密碼？',
   'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
@@ -288,11 +291,11 @@ window.languageResource = {
   Domain: '域名',
   'Please enter the domain.': '請輸入域名',
 
-  // /
+  // /home
   'Stream {0}': '串流 {0}',
   'Device Name': '裝置名稱',
   'Device Status': '裝置狀態',
-  'SD Card': 'SD 卡',
+  'SD Card': 'SD卡',
   'Please enter letters between 1 and 32.': '請輸入1-32字元',
   'Facial Recognition: ': '臉部辨識 : ',
   'Age Gender: ': '性別年齡 : ',
@@ -320,7 +323,7 @@ window.languageResource = {
   'Auto White Balance': '白平衡',
   'Color Temperature': '色溫',
   'D/N': '黑白模式',
-  'Duty Time': '啟動時段',
+  'Day Mode': '啟動時段',
   Sensitivity: '靈敏度',
   Sharpness: '銳利度',
   Rotation: '影像方向',
@@ -340,15 +343,16 @@ window.languageResource = {
   'Sound Settings': '聲音設定',
 
   // /media/stream
-  'Stream Settings': '串流',
+  'Stream Settings': '串流設定',
   Settings: '設定',
-  Format: '影像格式',
+  Codec: '影像格式',
   Resolution: '解析度',
   'Frame Rate (FPS)': '每秒傳送張數 (FPS)',
   'Bandwidth Management': '頻寬管理',
   'VBR Bitrate Level': '可變比特率 (VBR)',
   'VBR Max Bitrate': '最佳可變比特率 (VBR Max Bitrate)',
   'CBR Bitrate': '固定比特率 (CBR)',
+  'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
 
   // /media/privacy-mask
   'Please Drag a Mask Area.': '請拖曳新增遮罩',
@@ -369,11 +373,11 @@ window.languageResource = {
   'Audio Out': '聲音輸出',
 
   // /media/rtsp
-  'Record sound to stream': '將聲音記錄至串流',
+  'Enable Audio over RTSP': '將聲音記錄至串流',
   'Required Authentication': '連線時需帳號密碼認證',
   'RTSP/TCP Port': 'RTSP/TCP 連接埠',
   'RTSP/UDP Port': 'RTSP/UDP 連接埠',
-  'Concurrent Connection Limit': '最大連接數',
+  'Maximum Connection': '最大連接數',
 
   // /media/word
   Function: '功能',
@@ -381,13 +385,20 @@ window.languageResource = {
   Size: '大小',
   Position: '位置',
   'Word Position': '貼圖顯示位置',
-  'Please click position buttons.': '請於左方畫面點選貼圖顯示位置。',
+  'Please Select a Desired Position.': '請於畫面中點選文字顯示位置。',
+
+  // /notification/card
+  'Notification Setting': '通知設定',
+  'Video Management System': '影像管理系統(VMS)',
+  Method: '傳送方式',
+  'notification-vms-event-0': '影像動態偵測事件',
+  'notification-vms-event-1': '智慧分析事件',
 
   // /notification/app
   'Basic Setting': '基本設定',
-  App: 'App 相關',
-  Mail: 'Mail 相關',
-  'I/O': 'I/O 相關',
+  App: 'APP設定',
+  Mail: '電子郵件設定',
+  'I/O': 'I/O設定',
   'Smart Notification': '智慧通知',
   'Device Token': '裝置金鑰',
   'Please enter your device token.': '請輸入您的金鑰',
@@ -398,11 +409,12 @@ window.languageResource = {
   '5 - 1,800 Seconds': '5 - 1800 秒',
 
   // /notification/io
-  'I/O Input': '硬體輸入',
-  'I/O Type': '平常狀態',
+  'Input and Output Setting': 'I/O設定',
+  Input: '硬體輸入',
+  Type: '平常狀態',
   'Normally Closed': '常關',
   'Normally Open': '常開',
-  'I/O Output {0}': '硬體輸出 {0}',
+  'Output {0}': '硬體輸出 {0}',
   'Gate Type': '輸出類型',
   Normal: '一般',
   Buffer: '緩衝',
@@ -412,6 +424,7 @@ window.languageResource = {
   'Delay Time (Seconds)': '延後間隔時間 (秒)',
 
   // /notification/smtp
+  None: '無',
   'SMTP Server': 'SMTP 伺服器',
   'IP Address': 'IP 位址',
   'Enter your IP address': '請輸入您的 IP 位址',
@@ -458,7 +471,6 @@ window.languageResource = {
   // /smart/motion-detection
   'Motion Detection': '動作偵測',
   'Up to 4 detection zones': '觸發區域最多可設置4個',
-  'Motion Detection Recognition': '動作偵測辨識',
 
   // /members
   Members: '成員管理',
@@ -546,6 +558,14 @@ window.languageResource = {
   'Are you sure to delete account {0}?': '您即將刪除 {0}，確認要刪除這個帳號嗎？',
 
   // Internet/Network Settings
+  'Internet/Network Settings': '網路',
+  'Network Settings': '連線設定',
+  'LAN Configuration': 'LAN組態',
+  'Network Status': '連線狀態',
+  'Enable DHCP': '使用DHCP',
+  'Test DHCP': '測試DHCP',
+  'Fixed IP Address': '固定IP位址',
+  'Enter a Fixed IP Address': '請輸入固定IP位址',
   Interface: '介面',
   'IP Status': 'IP 取得方式',
   'MAC Address': '網路卡硬體位址',
@@ -567,12 +587,24 @@ window.languageResource = {
   'Select File': '選擇檔案',
   'No Files Selected': '未選任何檔案',
 
+  // /system/datetime
+  'Date & Region': '語言與時區',
+  'Date and Time of the Device': '裝置的日期與時間',
+  'Time Zone': '時區',
+  'Sync with Network Time Server (NTP)': '與網路時間伺服器(NTP)同步',
+  'Host Name and IP Address:': '主機名稱或IP位址：',
+  'Update Time': '更新時間',
+  'Update Frequency': '更新頻率',
+  Minutes: '分',
+  'Sync with Computer': '與電腦同步',
+  'Setup the Date/Time Manually': '手動編輯',
+
   // /system/Device Maintain
   'Device Maintenace': '裝置維護',
   'System Reboot': '重新啟動裝置',
   Reboot: '重啟',
   'Restore to Default Setting': '將裝置還原成原始預設值',
-  'Restore to factory default setting (Includes IP Address)': '將所有設定恢復為預設值(包含IP位址)',
+  'Restore to Factory Default Settings (Includes Network Settings)': '將所有設定恢復為預設值(包含IP位址)',
   Reset: '重設設定',
   'Export System Settings': '匯出系統設定值',
   'Import System Settings': '匯入系統設定值',
@@ -590,5 +622,17 @@ window.languageResource = {
   'Activated Successfully': '啟用成功',
   '{0} authorized successfully!': '{0}已授權成功！',
   'Activation Failed': '啟用失敗',
-  'Authorization failed!': '授權失敗！'
+  'Authorization failed!': '授權失敗！',
+
+  // /sd-card
+  'SD Card Settings': 'SD卡設定',
+  'SD Card Operation': '操作',
+  Format: '格式化',
+  Unmount: '卸載',
+  'sd-card-notification': '異常通報',
+  'Email Notification Set': '電子郵件通知已設定',
+  'Setup Email Notifications': '請設定電子郵件通知',
+  Status: '狀態',
+  'File Format': '檔案格式',
+  'Storage Space': '儲存空間'
 };
