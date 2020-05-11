@@ -36,16 +36,15 @@ module.exports = class FaceRecognition extends Base {
     };
   }
 
-  generateInitialValues = faceRecognitionSettings => {
-    return {
-      ...faceRecognitionSettings,
-      isEnableTriggerArea: (() => {
-        const {triggerArea} = faceRecognitionSettings;
+  constructor(props) {
+    super(props);
+    // Show or hide trigger area
+    this.state.isShowDetectionZone = true;
+  }
 
-        return !(triggerArea.x === 0 && triggerArea.y === 0 && triggerArea.width === 100 && triggerArea.height === 100);
-      })()
-    };
-  };
+  onToggleDetectionZone = () => {
+    this.setState(prevState => ({isShowDetectionZone: !prevState.isShowDetectionZone}));
+  }
 
   onSubmitFaceRecognitionSettingsForm = (values, faceRecognitionSettings) => {
     progress.start();
@@ -81,9 +80,7 @@ module.exports = class FaceRecognition extends Base {
       ) {
         promises.push(api.smartFunction.updateFRROI({
           ...values,
-          triggerArea: values.isEnableTriggerArea ?
-            values.triggerArea :
-            {x: 0, y: 0, width: 100, height: 100}
+          triggerArea: values.triggerArea
         }));
       }
 
@@ -102,7 +99,7 @@ module.exports = class FaceRecognition extends Base {
   }
 
   faceRecognitionSettingsFormRender = form => {
-    const {$isApiProcessing} = this.state;
+    const {$isApiProcessing, isShowDetectionZone} = this.state;
     const {values, setFieldValue} = form;
 
     return (
@@ -111,7 +108,7 @@ module.exports = class FaceRecognition extends Base {
           <div id="fr-video-wrapper" className="video-wrapper">
             <img className="img-fluid" src="/api/snapshot"/>
             {
-              values.isEnableTriggerArea && (
+              isShowDetectionZone && (
                 <Field name="triggerArea" component={MaskArea} text={_('Detection Zone')}
                   className="border-black" parentElementId="fr-video-wrapper"/>
               )
@@ -162,11 +159,11 @@ module.exports = class FaceRecognition extends Base {
                     <i className="fas fa-info-circle text-size-14 text-primary pl-2"/>
                   </div>
                   <div className="custom-control custom-switch">
-                    <Field name="isEnableTriggerArea" type="checkbox" checked={values.isEnableTriggerArea} className="custom-control-input" id="switch-trigger-area"/>
-                    <label className="custom-control-label" htmlFor="switch-trigger-area">
-                      <span>{_('ON')}</span>
-                      <span>{_('OFF')}</span>
-                    </label>
+                    <a className="form-control-feedback text-muted"
+                      tabIndex={-1} onClick={this.onToggleDetectionZone}
+                    >
+                      <i className={classNames('fas', isShowDetectionZone ? 'fa-eye' : 'fa-eye-slash')}/>
+                    </a>
                   </div>
                 </div>
                 <span className="text-size-16 text-primary">
@@ -212,7 +209,7 @@ module.exports = class FaceRecognition extends Base {
   };
 
   render() {
-    const initialValues = this.generateInitialValues(this.props.faceRecognitionSettings);
+    const initialValues = this.props.faceRecognitionSettings;
 
     return (
       <div className="page-smart">
