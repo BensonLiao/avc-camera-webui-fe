@@ -252,6 +252,7 @@ module.exports = class Members extends Base {
         })
         .catch(error => {
           progress.done();
+          this.setState({isShowApiProcessModal: false});
           utils.showErrorNotification({
             title: `Error ${error.response.status}` || null,
             message: error.response.status === 400 ? error.response.data.message || null : null
