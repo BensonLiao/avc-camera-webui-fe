@@ -60,7 +60,7 @@ module.exports = class Members extends Base {
     this.state.databaseEncryptionInitialValues = null;
     this.state.databaseFile = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = 'Updating members';
+    this.state.apiProcessModalTitle = _('Updating members');
   }
 
   generateShowDeleteGroupModalHandler = group => {
@@ -333,7 +333,18 @@ module.exports = class Members extends Base {
   render() {
     const groups = this.props.groups.items;
     const members = this.props.members.items;
-    const {selectedGroup} = this.state;
+    const {
+      $isApiProcessing,
+      isShowDeleteGroupModal,
+      deleteGroupTarget,
+      isShowDeleteMemberModal,
+      deleteMemberTarget,
+      isShowDatabaseEncryptionModal,
+      databaseEncryptionInitialValues,
+      selectedGroup,
+      isShowApiProcessModal,
+      apiProcessModalTitle
+    } = this.state;
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
       {...this.props.params, index: undefined}
@@ -433,14 +444,14 @@ module.exports = class Members extends Base {
             </div>
             <div className="actions px-4 py-3">
               <div className="form-group">
-                <button disabled={this.state.$isApiProcessing} type="button"
+                <button disabled={$isApiProcessing} type="button"
                   className="btn btn-outline-primary btn-block rounded-pill"
                   onClick={this.onClickExportDatabase}
                 >
                   {_('Export')}
                 </button>
               </div>
-              <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: this.state.$isApiProcessing})}>
+              <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: $isApiProcessing})}>
                 <input type="file" className="d-none" accept=".zip" onChange={this.onChangeDatabaseFile}/>{_('Import')}
               </label>
             </div>
@@ -569,80 +580,39 @@ module.exports = class Members extends Base {
         </div>
 
         {/* Delete group modal */}
-        <Modal
-          show={this.state.isShowDeleteGroupModal}
-          autoFocus={false}
+
+        <CustomNotifyModal
+          isShowModal={isShowDeleteGroupModal}
+          modalTitle={_('Delete Group')}
+          modalBody={_('Are you sure you want to delete group {0}?', [deleteGroupTarget && deleteGroupTarget.name])}
+          isConfirmDisable={$isApiProcessing}
           onHide={this.hideDeleteGroupModal}
-        >
-          <form>
-            <div className="modal-header">
-              <h5 className="modal-title">{_('Delete Group')}</h5>
-            </div>
-            <div className="modal-body">
-              <span className="text-muted">
-                {_('Are you sure to delete the group {0}?', [this.state.deleteGroupTarget && this.state.deleteGroupTarget.name])}
-              </span>
-            </div>
-            <div className="modal-footer flex-column">
-              <div className="form-group w-100 mx-0">
-                <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill"
-                  onClick={this.confirmDeleteGroup}
-                >
-                  {_('Delete')}
-                </button>
-              </div>
-              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideDeleteGroupModal}>
-                {_('Close')}
-              </button>
-            </div>
-          </form>
-        </Modal>
+          onConfirm={this.confirmDeleteGroup}/>
 
         {/* Delete member modal */}
-        <Modal
-          show={this.state.isShowDeleteMemberModal}
-          autoFocus={false}
+        <CustomNotifyModal
+          isShowModal={isShowDeleteMemberModal}
+          modalTitle={_('Delete Member')}
+          modalBody={_('Are you sure you want to delete member {0}?', [deleteMemberTarget && deleteMemberTarget.name])}
+          isConfirmDisable={$isApiProcessing}
           onHide={this.hideDeleteMemberModal}
-        >
-          <form>
-            <div className="modal-header">
-              <h5 className="modal-title">{_('Delete Member')}</h5>
-            </div>
-            <div className="modal-body">
-              <span className="text-muted">
-                {_('Are you sure to delete the member {0}?', [this.state.deleteMemberTarget && this.state.deleteMemberTarget.name])}
-              </span>
-            </div>
-            <div className="modal-footer flex-column">
-              <div className="form-group w-100 mx-0">
-                <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill"
-                  onClick={this.confirmDeleteMember}
-                >
-                  {_('Delete')}
-                </button>
-              </div>
-              <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideDeleteMemberModal}>
-                {_('Close')}
-              </button>
-            </div>
-          </form>
-        </Modal>
+          onConfirm={this.confirmDeleteMember}/>
 
         {/* Databse updating modal */}
         <CustomNotifyModal
           modalType="process"
-          isShowModal={this.state.isShowApiProcessModal}
-          modalTitle={this.state.apiProcessModalTitle}
+          isShowModal={isShowApiProcessModal}
+          modalTitle={apiProcessModalTitle}
           onHide={this.hideApiProcessModal}/>
 
         {/* Database encryption */}
         <Modal
-          show={this.state.isShowDatabaseEncryptionModal}
+          show={isShowDatabaseEncryptionModal}
           autoFocus={false}
           onHide={this.hideDatabaseEncryptionModal}
         >
           <Formik
-            initialValues={this.state.databaseEncryptionInitialValues}
+            initialValues={databaseEncryptionInitialValues}
             validate={utils.makeFormikValidator(databaseEncryptionValidator, ['newPassword', 'confirmPassword'])}
             onSubmit={this.onSubmitDatabaseEncryptionForm}
           >

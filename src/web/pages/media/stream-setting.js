@@ -15,7 +15,7 @@ const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const _ = require('../../../languages');
 const Dropdown = require('../../../core/components/fields/dropdown');
 const utils = require('../../../core/utils');
-const Modal = require('react-bootstrap/Modal').default;
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 
 module.exports = class StreamSetting extends Base {
   static get propTypes() {
@@ -33,19 +33,32 @@ module.exports = class StreamSetting extends Base {
   constructor(props) {
     super(props);
     this.state.isShowModal = false;
+    this.state.isShowApiProcessModal = false;
+    this.state.apiProcessModalTitle = _('Updating stream settings');
   }
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
 
   onSubmit = values => {
     progress.start();
-    api.multimedia.updateStreamSettings(values)
-      .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
+    this.setState({
+      isShowApiProcessModal: true,
+      isShowModal: false
+    },
+    () => {
+      api.multimedia.updateStreamSettings(values)
+        .then(getRouter().reload)
+        .catch(error => {
+          progress.done();
+          this.hideApiProcessModal();
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
         });
-      });
+    });
   };
 
   onClickResetButton = event => {
@@ -75,32 +88,15 @@ module.exports = class StreamSetting extends Base {
     const {$isApiProcessing} = this.state;
 
     return (
-      <Modal
-        show={this.state.isShowModal}
-        autoFocus={false}
-        backdrop="static"
+      <CustomNotifyModal
+        isShowModal={this.state.isShowModal}
+        modalTitle={_('Stream Settings')}
+        modalBody={_('Are you sure you want to update stream settings?')}
+        isConfirmDisable={$isApiProcessing}
         onHide={this.hideModal}
-      >
-        <div className="modal-content">
-          <div className="modal-header">
-            <h4 className="modal-title">Update setting</h4>
-          </div>
-          <div className="modal-body">
-            <p>Are you sure you want to update stream settings?</p>
-          </div>
-          <div className="modal-footer flex-column">
-            <div className="form-group w-100 mx-0">
-              <button disabled={$isApiProcessing} type="button" className="btn btn-primary btn-block rounded-pill"
-                onClick={() => {
-                  this.onSubmit(values);
-                }}
-              >Confirm
-              </button>
-            </div>
-            <button type="button" className="btn btn-info btn-block rounded-pill" disabled={this.state.$isApiProcessing} onClick={this.hideModal}>Cancel</button>
-          </div>
-        </div>
-      </Modal>
+        onConfirm={() => {
+          this.onSubmit(values);
+        }}/>
     );
   };
 
@@ -199,7 +195,7 @@ module.exports = class StreamSetting extends Base {
           </div>
         )}
         {values.codec !== StreamCodec.mjpeg && (
-          <div className="form-group">
+          <div className={classNames('form-group', (homePage && 'd-none'))}>
             {/* GOP is same as GOV */}
             <div className={classNames(homePage ? 'cover' : 'd-none')}/>
             <label>{_('GOP')}</label>
@@ -354,6 +350,12 @@ module.exports = class StreamSetting extends Base {
             </a>
           </div>
         </nav>
+
+        <CustomNotifyModal
+          modalType="process"
+          isShowModal={this.state.isShowApiProcessModal}
+          modalTitle={this.state.apiProcessModalTitle}
+          onHide={this.hideApiProcessModal}/>
         <Formik
           initialValues={streamSettings}
           onSubmit={this.onSubmit}
