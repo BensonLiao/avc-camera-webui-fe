@@ -12,6 +12,7 @@ const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const {SD_STATUS_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const CustomTooltip = require('../../../core/components/tooltip');
 
 module.exports = class SDCard extends Base {
   static get propTypes() {
@@ -164,6 +165,7 @@ module.exports = class SDCard extends Base {
   sdcardSettingsFormRender = () => {
     const {systemInformation, smtpSettings: {isEnableAuth}} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
+    const freeDiskPercentage = 100 - usedDiskPercentage;
     return (
       <Form className="card-body sdcard">
         <FormikEffect onChange={this.onChangeSdCardSetting}/>
@@ -272,9 +274,20 @@ module.exports = class SDCard extends Base {
                   {
                     isNaN(usedDiskPercentage) ?
                       <div className="progress-bar"/> :
-                      <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                        {`${usedDiskPercentage}%`}
-                      </div>
+                      <>
+                        <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
+                          <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
+                            {`${usedDiskPercentage}%`}
+                          </div>
+                        </CustomTooltip>
+                        {usedDiskPercentage && (
+                          <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
+
+                            <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
+                              {`${freeDiskPercentage}%`}
+                            </div>
+                          </CustomTooltip>)}
+                      </>
                   }
                 </div>
               </div>
