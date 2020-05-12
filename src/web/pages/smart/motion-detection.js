@@ -179,6 +179,9 @@ module.exports = class MotionDetection extends Base {
                   </label>
                 </div>
               </div>
+              <div className="form-group mb-3">
+                <span className="form-text text-primary">{_('Please Drag a Detection Zone Area.')}</span>
+              </div>
 
               <hr/>
 
@@ -195,14 +198,14 @@ module.exports = class MotionDetection extends Base {
                 <div className="card-header l-24 light text-size-18">{_('Note Area')}</div>
                 <div className="card-body l-32 light px-3 py-3">
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{_('Set a Mask.')}</span>
+                    <span className="font-italic text-size-14">•{_('Set a Zone.')}</span>
                     <div className="d-flex align-items-center drag-icon">
                       <img src={iconCursor}/>
                       <span className="text-size-12">{_('Drag')}</span>
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{_('Erase a Mask.')}</span>
+                    <span className="font-italic text-size-14">•{_('Erase a Zone.')}</span>
                     <div className="d-flex justify-content-end align-items-center flex-wrap">
                       <img src={iconHotkeyBackspace}/>
                       <span className="font-italic text-size-14 mx-2">{_('or')}</span>
@@ -210,7 +213,7 @@ module.exports = class MotionDetection extends Base {
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{_('Up to 4 Mask Areas.')}</span>
+                    <span className="font-italic text-size-14">•{_('Up to 4 Zone Areas.')}</span>
                   </div>
                 </div>
               </div>
