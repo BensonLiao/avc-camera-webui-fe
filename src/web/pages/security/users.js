@@ -3,7 +3,6 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
-const Modal = require('react-bootstrap/Modal').default;
 const iconUsers = require('../../../resource/users-24px.svg');
 const iconUser = require('../../../resource/user-24px.svg');
 const iconUserShield = require('../../../resource/user-shield-24px.svg');
@@ -13,14 +12,14 @@ const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {SECURITY_USERS_MAX} = require('../../../core/constants');
-
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 module.exports = class Users extends Base {
   static get propTypes() {
     return {
       users: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.number.isRequired,
-          permission: PropTypes.number.isRequired,
+          permission: PropTypes.string.isRequired,
           account: PropTypes.string.isRequired
         })).isRequired
       }).isRequired
@@ -73,7 +72,7 @@ module.exports = class Users extends Base {
   };
 
   render() {
-    const {permissionFilter, $user: {account}} = this.state;
+    const {permissionFilter, $user: {account}, $isApiProcessing, isShowDeleteUserModal, deleteUserTarget} = this.state;
     const users = permissionFilter === 'all' ?
       this.props.users.items :
       this.props.users.items.filter(user => user.permission.toString() === permissionFilter);
@@ -170,7 +169,9 @@ module.exports = class Users extends Base {
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
                                 <button
-                                  disabled={user.account === account}
+                                  // Account with name 'admin' should not be deleted, due to avn restrictions
+                                  disabled={user.account === account ||
+                                    user.account === 'admin'}
                                   className="btn btn-link"
                                   type="button"
                                   onClick={this.generateShowDeleteUserModalHandler(user)}
@@ -191,28 +192,13 @@ module.exports = class Users extends Base {
           </div>
 
           {/* Delete user modal */}
-          <Modal
-            show={this.state.isShowDeleteUserModal}
-            autoFocus={false}
+          <CustomNotifyModal
+            isShowModal={isShowDeleteUserModal}
+            modalTitle={_('Delete Account')}
+            modalBody={_('Are you sure to delete account {0}?', [deleteUserTarget && deleteUserTarget.account])}
+            isConfirmDisable={$isApiProcessing}
             onHide={this.hideDeleteUserModal}
-          >
-            <form>
-              <div className="modal-header">
-                <h5 className="modal-title">{_('Delete Account')}</h5>
-              </div>
-              <div className="modal-body">
-                <span className="text-muted">
-                  {_('Are you sure to delete account {0}?', [this.state.deleteUserTarget && this.state.deleteUserTarget.account])}
-                </span>
-              </div>
-              <div className="modal-footer flex-column">
-                <div className="form-group w-100 mx-0">
-                  <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-danger btn-block rounded-pill" onClick={this.confirmDeleteUser}>{_('Delete')}</button>
-                </div>
-                <button disabled={this.state.$isApiProcessing} type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideDeleteUserModal}>{_('Close')}</button>
-              </div>
-            </form>
-          </Modal>
+            onConfirm={this.confirmDeleteUser}/>
         </div>
       </>
     );
