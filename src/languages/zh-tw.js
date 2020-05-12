@@ -361,7 +361,7 @@ window.languageResource = {
   Drag: '拖曳',
   'Set a Mask.': '新增遮罩',
   'Erase a Mask.': '刪除遮罩',
-  'Up to 4 Mask Areas.': '最多至四個遮罩',
+  'Up to 4 Mask Areas.': '最多至4個遮罩',
 
   // /media/audio
   'Multimedia Streaming': '多媒體串流',
@@ -470,7 +470,10 @@ window.languageResource = {
 
   // /smart/motion-detection
   'Motion Detection': '動作偵測',
-  'Up to 4 detection zones': '觸發區域最多可設置4個',
+  'Set a Zone.': '新增區域',
+  'Erase a Zone.': '刪除區域',
+  'Up to 4 Zone Areas.': '最多至4個觸發區域',
+  'Please Drag a Detection Zone Area.': '請拖曳新增觸發區域',
 
   // /members
   Members: '成員管理',
