@@ -30,6 +30,7 @@ const api = require('../../core/apis/web-api');
 const Dropdown = require('../../core/components/fields/dropdown');
 const Slider = require('../../core/components/fields/slider');
 const FormikEffect = require('../../core/components/formik-effect');
+const CustomTooltip = require('../../core/components/tooltip');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {
   AVAILABLE_LANGUAGE_CODES,
@@ -612,6 +613,7 @@ module.exports = class Home extends Base {
   render() {
     const {systemInformation} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
+    const freeDiskPercentage = 100 - usedDiskPercentage;
     const classTable = {
       faceRecognitionState: classNames({
         'text-success': systemInformation.isEnableFaceRecognition,
@@ -733,9 +735,20 @@ module.exports = class Home extends Base {
                             {
                               isNaN(usedDiskPercentage) ?
                                 <div className="progress-bar"/> :
-                                <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                                  {`${usedDiskPercentage}%`}
-                                </div>
+                                <>
+                                  <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
+                                    <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
+                                      {`${usedDiskPercentage}%`}
+                                    </div>
+                                  </CustomTooltip>
+                                  {usedDiskPercentage && (
+                                    <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
+
+                                      <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
+                                        {`${freeDiskPercentage}%`}
+                                      </div>
+                                    </CustomTooltip>)}
+                                </>
                             }
                           </div>
                           <p>
