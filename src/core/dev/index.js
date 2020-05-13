@@ -112,9 +112,11 @@ mockAxios.onGet('/api/ping').reply(config => {
     const data = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('httpsSettings').assign(data).write()]);
   })
-  .onPost('/api/system/reboot').reply(config => {
-    return mockResponseWithLog(config, [204, {}]);
-  })
+  .onPost('/api/system/reboot').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      resolve(mockResponseWithLog(config, [204, {}]));
+    }, 3000);
+  }))
   .onPost('/api/system/resetdefault').reply(config => {
     return mockResponseWithLog(config, [204, {}]);
   })

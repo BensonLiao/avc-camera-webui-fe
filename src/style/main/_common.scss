@@ -509,6 +509,10 @@ $chips-sum-extra-width: 50px;
   }
 }
 
+.stage-progress-done {
+  color: $success;
+}
+
 /* Hide scrollbar but keep functionality */
 .hidden-scrollbar {
   /* Hide scrollbar for Chrome, Safari and Opera */

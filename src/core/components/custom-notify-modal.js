@@ -59,10 +59,14 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
         <Modal.Body>
           {utils.isArray(modalBody) ? (
             modalBody.map((element, idx) => {
-              return (
+              return typeof element === 'string' ? (
                 <p key={String(idx)} className={classNames({'modal-loading': modalType === 'process'})}>
                   {element}
                 </p>
+              ) : (
+                <React.Fragment key={String(idx)}>
+                  {element}
+                </React.Fragment>
               );
             })
           ) : (

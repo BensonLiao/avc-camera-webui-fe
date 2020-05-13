@@ -7,6 +7,7 @@ const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const StageProgress = require('../../../core/components/stage-progress');
 
 module.exports = class Upgrade extends Base {
   constructor(props) {
@@ -14,7 +15,34 @@ module.exports = class Upgrade extends Base {
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Device processing');
+    this.state.apiProcessModalBody = null;
+    this.state.progressStatus = {
+      uploadFirmware: 'start',
+      upgradeFirmware: 'start'
+    };
+    this.state.progressPercentage = {
+      uploadFirmware: 0,
+      upgradeFirmware: 0
+    };
   }
+
+  updateProgress = (stage, progress) => {
+    this.setState(prevState => ({
+      progressPercentage: {
+        ...prevState.progressPercentage,
+        [stage]: progress
+      }
+    }));
+  };
+
+  updateProgressStatus = (stage, progressStatus) => {
+    this.setState(prevState => ({
+      progressStatus: {
+        ...prevState.progressStatus,
+        [stage]: progressStatus
+      }
+    }));
+  };
 
   hideApiProcessModal = () => {
     this.setState({isShowApiProcessModal: false});
@@ -32,24 +60,42 @@ module.exports = class Upgrade extends Base {
       apiProcessModalTitle: _('Firmware uploading')
     },
     () => {
-      api.system.uploadFirmware(file)
-        .then(() => new Promise(resolve => {
-          // Check the server was shut down, if success then shutdown was failed and retry.
-          const test = () => {
-            api.ping('web')
-              .then(() => {
-                setTimeout(test, 500);
+      api.system.uploadFirmware(file, this.updateProgress)
+        .then(response => new Promise(resolve => {
+          this.updateProgressStatus('uploadFirmware', 'done');
+          this.setState({apiProcessModalTitle: _('Firmware upgrading')});
+          const upgrade = init => {
+            api.system.upgradeFirmware(init ? response.data.filename : null)
+              .then(response => {
+                if (response.data.updateStatus === 2) {
+                  this.updateProgress('upgradeFirmware', 100);
+                  this.updateProgressStatus('upgradeFirmware', 'done');
+                  resolve();
+                } else {
+                  this.updateProgress('upgradeFirmware', response.data.updateProgress);
+                  setTimeout(() => {
+                    upgrade(false);
+                  }, 2000);
+                }
               })
-              .catch(() => {
-                resolve();
+              .catch(error => {
+                progress.done();
+                this.hideApiProcessModal();
+                utils.showErrorNotification({
+                  title: `Error ${error.response.status}` || null,
+                  message: error.response.status === 400 ? error.response.data.message || null : null
+                });
               });
           };
 
-          test();
+          upgrade(true);
         }))
         .then(() => {
-          // Keep modal and update the title.
-          this.setState({apiProcessModalTitle: _('Device upgrading and rebooting')});
+          // Keep modal and update the title and body.
+          this.setState({
+            apiProcessModalTitle: _('Device rebooting'),
+            apiProcessModalBody: _('Please wait')
+          });
           // Check the server was start up, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')
@@ -103,6 +149,7 @@ module.exports = class Upgrade extends Base {
   };
 
   render() {
+    const {progressStatus, progressPercentage} = this.state;
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
@@ -126,6 +173,12 @@ module.exports = class Upgrade extends Base {
                 modalType="process"
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
+                modalBody={this.state.apiProcessModalBody ?
+                  this.state.apiProcessModalBody :
+                  [
+                    <StageProgress key="stage 1" title="Firmware uploading" progressStatus={progressStatus.uploadFirmware} progressPercentage={progressPercentage.uploadFirmware}/>,
+                    <StageProgress key="stage 2" title="Firmware upgrading" progressStatus={progressStatus.upgradeFirmware} progressPercentage={progressPercentage.upgradeFirmware}/>
+                  ]}
                 onHide={this.hideApiProcessModal}/>
 
               <div className="col-center">
