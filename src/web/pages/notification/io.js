@@ -65,7 +65,7 @@ module.exports = class IO extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Type')}</label>
+          <label>{_('Normal State')}</label>
           <div className="d-flex align-items-center">
             <div className="form-check">
               <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-open`} value={IOType.normallyOpen}/>
@@ -78,7 +78,7 @@ module.exports = class IO extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Gate Type')}</label>
+          <label>{_('Type')}</label>
           <div className="d-flex align-items-center">
             <div className="form-check">
               <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-normal`} value={GateType.normal}/>
@@ -91,7 +91,7 @@ module.exports = class IO extends Base {
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Signal Buffer Time (Seconds)')}</label>
+          <label>{_('Pulse Time (Seconds)')}</label>
           <Field name="pulse" type="text"
             className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
             placeholder={_('Enter Seconds')}/>
