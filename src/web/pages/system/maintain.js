@@ -18,7 +18,8 @@ module.exports = class Maintain extends Base {
     this.state.isShowSelectModal = {
       reboot: false,
       reset: false,
-      resetFinished: false
+      resetFinished: false,
+      rebootFinished: false
     };
   }
 
@@ -171,7 +172,14 @@ module.exports = class Maintain extends Base {
               const test = () => {
                 api.ping('app')
                   .then(() => {
-                    location.reload();
+                    progress.done();
+                    this.hideApiProcessModal();
+                    this.setState(prevState => ({
+                      isShowSelectModal: {
+                        ...prevState.isShowSelectModal,
+                        rebootFinished: true
+                      }
+                    }));
                   })
                   .catch(() => {
                     setTimeout(test, 1000);
@@ -311,6 +319,15 @@ module.exports = class Maintain extends Base {
                       modalTitle={_('System Reset')}
                       modalBody={_('Device has reset, please log back in')}
                       onHide={this.hideModal('resetFinished')}
+                      onConfirm={() => {
+                        location.href = '/';
+                      }}/>
+                    <CustomNotifyModal
+                      modalType="info"
+                      isShowModal={isShowSelectModal.rebootFinished}
+                      modalTitle={_('System Reboot')}
+                      modalBody={_('Device has rebooted, please log back in')}
+                      onHide={this.hideModal('rebootFinished')}
                       onConfirm={() => {
                         location.href = '/';
                       }}/>
