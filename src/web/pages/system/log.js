@@ -6,8 +6,31 @@ const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const download = require('downloadjs');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const axios = require('axios');
+axios.interceptors.response.use(
+  config => config,
+  error => {
+    if (error.response.status === 408 || error.code === 'ECONNABORTED') {
+      console.log(`A timeout happend on url ${error.config.url}`);
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 module.exports = class Log extends Base {
+  constructor(props) {
+    super(props);
+    this.state.file = null;
+    this.state.isShowApiProcessModal = false;
+    this.state.apiProcessModalTitle = _('Downloading system log');
+  }
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
+
   onClickClearLog = event => {
     event.preventDefault();
     progress.start();
@@ -24,7 +47,23 @@ module.exports = class Log extends Base {
 
   onClickDownloadLog = event => {
     event.preventDefault();
-    download('/api/system/systeminfo/log.zip');
+    progress.start();
+    this.setState({isShowApiProcessModal: true},
+      () => {
+        axios.get('/api/system/systeminfo/log.zip', {timeout: 3 * 60 * 1000, responseType: 'blob'})
+          .then(response => {
+            download(response.data, 'log');
+            this.hideApiProcessModal();
+            progress.done();
+          })
+          .catch(error => {
+            progress.done();
+            utils.showErrorNotification({
+              title: `Error ${error.response.status}` || null,
+              message: error.response.status === 400 ? error.response.data.message || null : null
+            });
+          });
+      });
   }
 
   render() {
@@ -60,6 +99,11 @@ module.exports = class Log extends Base {
                   </div>
                 </div>
               </div>
+              <CustomNotifyModal
+                modalType="process"
+                isShowModal={this.state.isShowApiProcessModal}
+                modalTitle={this.state.apiProcessModalTitle}
+                onHide={this.hideApiProcessModal}/>
             </div>
           </div>
         </div>
