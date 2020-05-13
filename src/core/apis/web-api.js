@@ -281,10 +281,11 @@ module.exports = {
     }),
     /**
      * @param {File} file - The firmware file.
+     * @param {Function} updateProgress - Set component state to update ui.
      * @returns {Promise<response>}
      * @response 204
      */
-    uploadFirmware: file => api({
+    uploadFirmware: (file, updateProgress) => api({
       method: 'post',
       url: '/api/system/firmware',
       headers: {'content-type': 'multipart/form-data'},
@@ -292,7 +293,24 @@ module.exports = {
         const formData = new FormData();
         formData.set('file', file);
         return formData;
-      })()
+      })(),
+      onUploadProgress: progressEvent => {
+        // Do whatever you want with the native progress event
+        updateProgress('uploadFirmware',
+          Math.round((progressEvent.loaded / progressEvent.total) * 100));
+      }
+    }),
+    /**
+     * @param {String} filename - The firmware file name.
+     * @returns {Promise<response>}
+     * @response 200
+     * - upgradeStatus {String}
+     * - upgradeProgress {Number}
+     */
+    upgradeFirmware: filename => api({
+      method: 'post',
+      url: '/api/system/firmware/upgrade',
+      data: {filename}
     }),
     /**
      * @returns {Promise<Response>}
