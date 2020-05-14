@@ -99,8 +99,10 @@ module.exports = class Upgrade extends Base {
           // Check the server was start up, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')
-              .then(() => {
-                location.reload();
+              .then(response => {
+                console.log('ping app response(userinitiated)', response);
+                // Add 2 sec delay to make sure server are ready.
+                setTimeout(location.reload, 2000);
               })
               .catch(() => {
                 setTimeout(test, 1000);
