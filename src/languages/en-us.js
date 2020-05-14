@@ -79,6 +79,11 @@ window.languageResource = {
   'stream-resolution-10': '640*480(4:3)',
   'stream-resolution-11': '320*240(4:3)',
 
+  // Quality
+  'quality-30': 'Low',
+  'quality-50': 'Medium',
+  'quality-80': 'High',
+
   // Bandwidth Management
   'stream-bandwidth-management-0': 'Maximum Bitrate',
   'stream-bandwidth-management-1': 'Variable Bitrate',

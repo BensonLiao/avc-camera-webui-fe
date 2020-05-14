@@ -12,6 +12,7 @@ const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
+const StreamQuality = require('webserver-form-schema/constants/stream-quality');
 const _ = require('../../../languages');
 const Dropdown = require('../../../core/components/fields/dropdown');
 const utils = require('../../../core/utils');
@@ -157,6 +158,24 @@ module.exports = class StreamSetting extends Base {
             </Field>
           </div>
         </div>
+        {values.codec === StreamCodec.mjpeg && (
+          <div className="form-group">
+            <label>{_('Quality')}</label>
+            <div className="select-wrapper border rounded-pill overflow-hidden">
+              <Field
+                name={`${fieldNamePrefix}.quality`}
+                component="select"
+                className="form-control border-0"
+              >
+                {
+                  options.quality.map(option => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))
+                }
+              </Field>
+            </div>
+          </div>
+        )}
         {values.codec !== StreamCodec.mjpeg && (
           <div className="form-group">
             <label>{_('Bandwidth Management')}</label>
@@ -276,9 +295,9 @@ module.exports = class StreamSetting extends Base {
         return result;
       })(),
       bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: _(`stream-bandwidth-management-${x}`), value: x})),
-      gov: StreamGOV.all().map(x => ({label: x, value: x}))
+      gov: StreamGOV.all().map(x => ({label: x, value: x})),
+      quality: StreamQuality.all().map(x => ({label: _(`quality-${x}`), value: x}))
     };
-
     return (
       <Form className="card-body">
         <div className="tab-content">

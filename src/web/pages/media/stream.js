@@ -23,7 +23,8 @@ module.exports = class Stream extends Base {
           frameRate: PropTypes.string.isRequired,
           bandwidthManagement: PropTypes.string.isRequired,
           bitRate: PropTypes.string,
-          gov: PropTypes.string.isRequired
+          gov: PropTypes.string.isRequired,
+          quality: PropTypes.string.isRequired
         }).isRequired
       }).isRequired
     };
