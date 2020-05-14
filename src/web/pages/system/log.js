@@ -1,12 +1,6 @@
 const React = require('react');
 const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
-const Base = require('../shared/base');
-const _ = require('../../../languages');
-const api = require('../../../core/apis/web-api');
-const utils = require('../../../core/utils');
-const download = require('downloadjs');
-const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const axios = require('axios');
 axios.interceptors.response.use(
   config => config,
@@ -18,6 +12,13 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+const Base = require('../shared/base');
+const _ = require('../../../languages');
+const api = require('../../../core/apis/web-api');
+const utils = require('../../../core/utils');
+const download = require('downloadjs');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const StageProgress = require('../../../core/components/stage-progress');
 
 module.exports = class Log extends Base {
   constructor(props) {
@@ -25,6 +26,8 @@ module.exports = class Log extends Base {
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Downloading system log');
+    this.state.progressStatus = 'start';
+    this.state.progressPercentage = 0;
   }
 
   hideApiProcessModal = () => {
@@ -50,7 +53,14 @@ module.exports = class Log extends Base {
     progress.start();
     this.setState({isShowApiProcessModal: true},
       () => {
-        axios.get('/api/system/systeminfo/log.zip', {timeout: 3 * 60 * 1000, responseType: 'blob'})
+        axios.get('/api/system/systeminfo/log.zip',
+          {timeout: 3 * 60 * 1000,
+            responseType: 'blob',
+            onDownloadProgress: progressEvent => {
+              // Do whatever you want with the native progress event
+              this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
+            }
+          })
           .then(response => {
             download(response.data, 'log');
             this.hideApiProcessModal();
@@ -103,6 +113,9 @@ module.exports = class Log extends Base {
                 modalType="process"
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
+                modalBody={[
+                  <StageProgress key="stage 1" title="System log loading" progressStatus={this.state.progressStatus} progressPercentage={this.state.progressPercentage}/>
+                ]}
                 onHide={this.hideApiProcessModal}/>
             </div>
           </div>
