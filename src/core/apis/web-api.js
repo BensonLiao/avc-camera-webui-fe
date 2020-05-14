@@ -7,6 +7,11 @@ module.exports = {
     timeout: 1000,
     params: {type, _: Math.random().toString(36).substr(2)}
   }),
+  updateMjpeg: ({res, quality}) => api({
+    method: 'put',
+    url: '/api/update-mjpeg',
+    data: {res, quality}
+  }),
   validation: {
     /**
      * Validate the birthday of the account.

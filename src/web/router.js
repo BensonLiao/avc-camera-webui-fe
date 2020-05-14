@@ -20,6 +20,20 @@ module.exports = new Router({
       component: require('./pages/layout')
     },
     {
+      name: 'mjpeg',
+      uri: '/mjpeg?res?quality',
+      loadComponent: () => import(
+        './pages/mjpeg'
+      )
+    },
+    {
+      name: 'h264',
+      uri: '/h264?res?qp?fps?bitrate?iframe',
+      loadComponent: () => import(
+        './pages/h264'
+      )
+    },
+    {
       name: 'web.home',
       uri: '/',
       onEnter: () => {
