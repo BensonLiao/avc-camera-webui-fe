@@ -70,7 +70,7 @@
     "react-hotkeys": "2.0.0",
     "react-notifications-component": "2.2.4",
     "react-use": "13.8.0",
-    "sanitize-html": "^1.23.0",
+    "sanitize-html": "1.23.0",
     "sass-loader": "8.0.0",
     "string-template": "1.0.0",
     "time-grunt": "2.0.0",
