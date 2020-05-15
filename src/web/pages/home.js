@@ -25,6 +25,7 @@ const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-sett
 const defaultVideoBackground = require('../../resource/video-bg.jpg');
 const Base = require('./shared/base');
 const _ = require('../../languages');
+const store = require('../../core/store');
 const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
 const Dropdown = require('../../core/components/fields/dropdown');
@@ -88,6 +89,7 @@ module.exports = class Home extends Base {
     this.fetchSnapshotTimeoutId = null;
     this.state.deviceName = props.systemInformation.deviceName || '';
     this.state.isPlayStream = true;
+    store.set(`${this.constructor.name}.isPlayStream`, true);
     this.state.streamImageUrl = null;
     this.state.isAutoFocusProcessing = false;
   }
@@ -104,10 +106,8 @@ module.exports = class Home extends Base {
         window.URL.revokeObjectURL(this.state.streamImageUrl);
       }
 
-      this.setState(
-        {isPlayStream: false, streamImageUrl: null},
-        () => clearTimeout(this.fetchSnapshotTimeoutId)
-      );
+      store.set(`${this.constructor.name}.isPlayStream`, false);
+      clearTimeout(this.fetchSnapshotTimeoutId);
     }
 
     super.componentWillUnmount();
@@ -176,7 +176,8 @@ module.exports = class Home extends Base {
           return;
         }
 
-        if (this.state.isPlayStream || error.code === 'ECONNABORTED') {
+        if (store.get(`${this.constructor.name}.isPlayStream`) &&
+          (this.state.isPlayStream || error.code === 'ECONNABORTED')) {
           // Wait 500ms to retry.
           this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
         }
