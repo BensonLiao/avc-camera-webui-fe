@@ -185,10 +185,10 @@ module.exports = class SMTP extends Base {
         </div>
         <div className="card-body">
           <div className="form-group">
-            <label>{_('IP Address')}</label>
+            <label>{_('Host Address')}</label>
             <Field autoFocus name="host" type="text"
               className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-              placeholder={_('Enter your IP address')}/>
+              placeholder={_('Enter your Host Address')}/>
             {
               errors.host && touched.host && (
                 <div className="invalid-feedback">{errors.host}</div>

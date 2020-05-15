@@ -426,8 +426,8 @@ window.languageResource = {
   // /notification/smtp
   None: '無',
   'SMTP Server': 'SMTP 伺服器',
-  'IP Address': 'IP 位址',
-  'Enter your IP address': '請輸入您的 IP 位址',
+  'Host Address': 'HOST位址',
+  'Enter your Host Address': '請輸入您的 Host 位址',
   'SMTP Account Settings': '電子郵件登入認證',
   'Edit account and password': '編輯帳號密碼',
   'Login Notification': '登入通知信',
