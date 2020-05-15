@@ -14,6 +14,7 @@ const NTPTimeZone = require('webserver-form-schema/constants/system-sync-time-nt
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
 const {AVAILABLE_LANGUAGE_CODES} = require('../../../core/constants');
+const Clock = require('react-live-clock');
 
 module.exports = class DateTime extends Base {
   static get propTypes() {
@@ -100,7 +101,13 @@ module.exports = class DateTime extends Base {
           <div className="card-body">
             <div className="form-group d-flex justify-content-between align-items-center mb-0">
               <label className="mb-0">{_('Date and Time of the Device')}</label>
-              <label className="text-primary mb-0">{deviceTime}</label>
+              <label className="text-primary mb-0">
+                <Clock
+                  ticking
+                  date={deviceTime}
+                  format="YYYY-MM-DD, hh:mm:ss A"
+                />
+              </label>
             </div>
           </div>
         </div>
