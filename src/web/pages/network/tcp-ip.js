@@ -198,17 +198,18 @@ module.exports = class TCPIP extends Base {
   httpFormRender = ({values, errors, touched}) => {
     return (
       <Form className="tab-pane fad" id="tab-http">
-        <div className="form-group">
-          <label>{_('Web Server Port Settings')}</label>
+        <div className="form-group mb-5">
+          <label>{_('Secondary Web Server Port')}</label>
           <Field
             name="port"
             className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
             type="text"
             validate={this.checkValidatePort}
-            placeholder={_('Enter Your Server Port Settings')}
+            placeholder={_('Enter Your Secondary Server Port')}
             value={values.port}
           />
           {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
+          <p className="text-size-14 text-muted mt-2">{_('Default primary port is 80')}</p>
         </div>
         <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{_('Apply')}</button>
       </Form>

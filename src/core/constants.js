@@ -29,6 +29,7 @@ module.exports = {
     '53', // Domain
     '77', // Priv-rjs
     '79', // Finger
+    '80', // Android app reserved
     '87', // Ttylink
     '95', // Supdup
     '101', // Hostriame
