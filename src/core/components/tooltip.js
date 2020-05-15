@@ -28,6 +28,13 @@ module.exports = class CustomTooltip extends React.PureComponent {
       <OverlayTrigger
         placement={placement}
         delay={delay}
+        popperConfig={{
+          modifiers: {
+            preventOverflow: {
+              boundariesElement: 'window'
+            }
+          }
+        }}
         overlay={<Tooltip className={classNames({'d-none': !title})}>{title}</Tooltip>}
       >
         {children}
