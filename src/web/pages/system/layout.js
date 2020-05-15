@@ -68,7 +68,7 @@ module.exports = class System extends Base {
                 )}
               >
                 <span className="text-truncate">{_('System Information')}</span>
-                <i className="fas fa-chevron-down"/>
+                <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-information" className="collapse" data-parent="#accordion-setting-menu">
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.log'})} to="/system/log" title={_('System Log')}>
