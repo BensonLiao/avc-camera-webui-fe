@@ -294,6 +294,7 @@ module.exports = class Members extends Base {
                 className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
                 placeholder: _('Enter your password')
               }}/>
+            <small className="form-text text-muted">{_('Please enter letters between 1 and 32.')}</small>
             {
               errors.newPassword && touched.newPassword && (
                 <div className="invalid-feedback">{errors.newPassword}</div>
