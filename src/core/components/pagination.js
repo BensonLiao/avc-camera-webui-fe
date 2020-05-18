@@ -44,27 +44,34 @@ module.exports = class Pagination extends React.PureComponent {
   }
 
   render() {
-    if (this.props.total === 0) {
+    const {
+      index,
+      size,
+      total,
+      itemQuantity,
+      hrefTemplate
+    } = this.props;
+    if (total === 0) {
       return <></>;
     }
 
     const numbers = [];
-    const hasPrevious = this.props.index > 0;
-    const hasNext = this.props.total > (this.props.index + 1) * this.props.size;
-    const startItem = (this.props.index * this.props.size) + 1;
-    const endItem = startItem + this.props.itemQuantity - 1;
+    const hasPrevious = index > 0;
+    const hasNext = total > (index + 1) * size;
+    const startItem = (index * size) + 1;
+    const endItem = startItem + itemQuantity - 1;
     const {gotoIndex} = this.state;
 
-    for (let index = this.props.index - 3; index < this.props.index + 3; index += 1) {
-      if (index < 0 || index >= this.maxGotoIndex) {
+    for (let idx = index - 3; idx < index + 3; idx += 1) {
+      if (idx < 0 || idx >= this.maxGotoIndex) {
         continue;
       }
 
       numbers.push({
-        key: `pagination-${index}`,
-        pageNumber: index + 1,
-        href: format(this.props.hrefTemplate, {index: index}),
-        className: classNames('page-item', {disabled: index === this.props.index})
+        key: `pagination-${idx}`,
+        pageNumber: idx + 1,
+        href: format(hrefTemplate, {index: idx}),
+        className: classNames('page-item', {disabled: idx === index})
       });
     }
 
@@ -72,11 +79,11 @@ module.exports = class Pagination extends React.PureComponent {
       <div className="col-12">
         <nav className="d-flex justify-content-center align-items-center" style={{padding: '0px 2px', height: '36px'}}>
           <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-            {_('{0}-{1} items. Total: {2}', [startItem, endItem, this.props.total])}
+            {_('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
           </p>
           <ul className="pagination my-auto">
             <li className={classNames('page-item', {disabled: !hasPrevious})}>
-              <Link to={hasPrevious ? format(this.props.hrefTemplate, {index: this.props.index - 1}) : ''}
+              <Link to={hasPrevious ? format(hrefTemplate, {index: index - 1}) : ''}
                 className="page-link prev"
               >
                 &laquo;
@@ -92,7 +99,7 @@ module.exports = class Pagination extends React.PureComponent {
               ))
             }
             <li className={classNames('page-item', {disabled: !hasNext})}>
-              <Link to={hasNext ? format(this.props.hrefTemplate, {index: this.props.index + 1}) : ''}
+              <Link to={hasNext ? format(hrefTemplate, {index: index + 1}) : ''}
                 className="page-link next"
               >
                 &raquo;
@@ -109,7 +116,7 @@ module.exports = class Pagination extends React.PureComponent {
               />
             </li>
             <li className="page-item">
-              <Link to={format(this.props.hrefTemplate, {index: gotoIndex})}
+              <Link to={format(hrefTemplate, {index: gotoIndex})}
                 className="page-link go"
               >
                 Go
@@ -117,7 +124,7 @@ module.exports = class Pagination extends React.PureComponent {
             </li>
           </ul>
           <p className="text-size-14 text-muted mb-0 ml-auto">
-            {_('{0}-{1} items. Total: {2}', [startItem, endItem, this.props.total])}
+            {_('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
           </p>
         </nav>
       </div>
