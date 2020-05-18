@@ -259,7 +259,18 @@ mockAxios.onGet('/api/ping').reply(config => {
   .onGet('/api/members').reply(config => {
     const itemChunkIndex = Number(config.params.index) || 0;
     const itemChunkSize = 20;
-    const data = db.get('members').value();
+    let data = db.get('members').value();
+    const dataTotal = data.length;
+    if (config.params.keyword) {
+      data = data.filter(value => {
+        const groups = db.get('groups').find({id: value.groupId}).value();
+        return value.name.indexOf(config.params.keyword) >= 0 ||
+        value.organization.indexOf(config.params.keyword) >= 0 ||
+        groups.name.indexOf(config.params.keyword) >= 0 ||
+        value.note.indexOf(config.params.keyword) >= 0;
+      });
+    }
+
     const pageData = data.slice(
       itemChunkIndex * itemChunkSize,
       (itemChunkIndex + 1) * itemChunkSize
@@ -267,7 +278,7 @@ mockAxios.onGet('/api/ping').reply(config => {
     return mockResponseWithLog(config, [200, {
       index: itemChunkIndex,
       size: itemChunkSize,
-      total: data.length,
+      total: dataTotal,
       items: pageData
     }]);
   })
