@@ -51,7 +51,7 @@ module.exports = class Pagination extends React.PureComponent {
       itemQuantity,
       hrefTemplate
     } = this.props;
-    if (this.props.total === 0) {
+    if (total === 0) {
       return <></>;
     }
 

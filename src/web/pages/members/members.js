@@ -569,11 +569,10 @@ module.exports = class Members extends Base {
                   </table>
                 </div>
 
-                <Pagination index={members.index}
+                <Pagination
+                  index={members.index}
                   size={members.size}
-                  total={members.total > members.items.length ?
-                    members.items.length :
-                    members.total}
+                  total={members.total}
                   itemQuantity={members.items.length}
                   hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
                     `${hrefTemplate}&index={index}` :

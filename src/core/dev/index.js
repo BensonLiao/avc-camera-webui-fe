@@ -260,7 +260,6 @@ mockAxios.onGet('/api/ping').reply(config => {
     const itemChunkIndex = Number(config.params.index) || 0;
     const itemChunkSize = 20;
     let data = db.get('members').value();
-    const dataTotal = data.length;
     if (config.params.keyword) {
       data = data.filter(value => {
         const groups = db.get('groups').find({id: value.groupId}).value();
@@ -278,7 +277,7 @@ mockAxios.onGet('/api/ping').reply(config => {
     return mockResponseWithLog(config, [200, {
       index: itemChunkIndex,
       size: itemChunkSize,
-      total: dataTotal,
+      total: data.length,
       items: pageData
     }]);
   })
