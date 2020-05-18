@@ -562,18 +562,23 @@ module.exports = class Cards extends Base {
                 <div className="card-body">
                   <div className="form-group">
                     <label className="text-size-16 mb-0">{_('Email Attachment')}</label>
-                  </div>
-                  <div className="form-group">
-                    {
-                      NotificationEmailAttachmentType.all().map(attachmentType => (
-                        <div key={attachmentType} className="form-check mb-3">
-                          <Field name="emailAttachmentType" className="form-check-input" type="radio" id={`input-notification-mail-attachment-${attachmentType}`} value={attachmentType}/>
-                          <label className="form-check-label" htmlFor={`input-notification-mail-attachment-${attachmentType}`}>
-                            {_(`email-attachment-type-${attachmentType}`)}
-                          </label>
-                        </div>
-                      ))
-                    }
+                    <div className="select-wrapper border rounded-pill overflow-hidden">
+                      <Field
+                        name="emailAttachmentType"
+                        component="select"
+                        className="form-control border-0"
+                      >
+                        {
+                          NotificationEmailAttachmentType.all().map(attachmentType => (
+                            <option
+                              key={attachmentType}
+                              value={attachmentType}
+                            >{_(`email-attachment-type-${attachmentType}`)}
+                            </option>
+                          ))
+                        }
+                      </Field>
+                    </div>
                   </div>
 
                   <hr/>
