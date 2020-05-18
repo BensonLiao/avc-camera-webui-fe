@@ -332,10 +332,8 @@ module.exports = class Members extends Base {
   };
 
   render() {
-    const groups = this.props.groups.items;
-    const members = this.props.members.items;
+    const {groups, members, params} = this.props;
     const {
-      $isApiProcessing,
       isShowDeleteGroupModal,
       deleteGroupTarget,
       isShowDeleteMemberModal,
@@ -344,42 +342,43 @@ module.exports = class Members extends Base {
       databaseEncryptionInitialValues,
       selectedGroup,
       isShowApiProcessModal,
-      apiProcessModalTitle
+      apiProcessModalTitle,
+      $isApiProcessing
     } = this.state;
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
-      {...this.props.params, index: undefined}
+      {...params, index: undefined}
     );
-    const isAddGroupDisabled = groups.length >= MEMBERS_PAGE_GROUPS_MAX;
+    const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
     const sort = {
       name: {
         handler: this.generateChangeFilterHandler(
           'sort',
-          (this.props.params.sort || 'name') === 'name' ? '-name' : null
+          (params.sort || 'name') === 'name' ? '-name' : null
         ),
         icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-name',
-          'fas fa-fw text-muted ml-3 fa-caret-up': (this.props.params.sort || 'name') === 'name'
+          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-name',
+          'fas fa-fw text-muted ml-3 fa-caret-up': (params.sort || 'name') === 'name'
         })
       },
       organization: {
         handler: this.generateChangeFilterHandler(
           'sort',
-          this.props.params.sort === 'organization' ? '-organization' : 'organization'
+          params.sort === 'organization' ? '-organization' : 'organization'
         ),
         icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-organization',
-          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'organization'
+          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-organization',
+          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'organization'
         })
       },
       group: {
         handler: this.generateChangeFilterHandler(
           'sort',
-          this.props.params.sort === 'group' ? '-group' : 'group'
+          params.sort === 'group' ? '-group' : 'group'
         ),
         icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-group',
-          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'group'
+          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-group',
+          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'group'
         })
       }
     };
@@ -392,8 +391,8 @@ module.exports = class Members extends Base {
           <nav className="nav flex-column">
             <Link to="/users/members" title={_('All Members')}
               className={classNames('nav-link text-size-16 py-1 px-3',
-                {active: !this.props.params.group},
-                {'bg-light': !this.props.params.group}
+                {active: !params.group},
+                {'bg-light': !params.group}
               )}
             >
               <i className="fas fa-user-friends pl-2 pr-4"/>{_('All Members')}
@@ -404,7 +403,7 @@ module.exports = class Members extends Base {
             <div className="sub-title py-1 px-4">
               <h3>{_('Groups')}</h3>
               <Link
-                to={{name: 'web.users.members.new-group', params: this.props.params}}
+                to={{name: 'web.users.members.new-group', params: params}}
                 tabIndex={(isAddGroupDisabled ? -1 : null)}
                 className={classNames('btn btn-link text-info p-0', {disabled: isAddGroupDisabled})}
               >
@@ -413,12 +412,12 @@ module.exports = class Members extends Base {
             </div>
 
             {
-              groups.map(group => (
+              groups.items.map(group => (
                 <div key={group.id}
                   className={classNames(
                     'group-item d-flex justify-content-between align-items-center',
-                    {active: this.props.params.group === group.id},
-                    {'bg-light': this.props.params.group === group.id}
+                    {active: params.group === group.id},
+                    {'bg-light': params.group === group.id}
                   )}
                 >
                   <a className="w-100 text-truncate d-flex align-items-center" href={`#${group.id}`}
@@ -465,7 +464,7 @@ module.exports = class Members extends Base {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12 d-flex justify-content-between align-items-center mb-4">
-                  <Formik initialValues={{keyword: this.props.params.keyword || ''}}
+                  <Formik initialValues={{keyword: params.keyword || ''}}
                     onSubmit={this.onSubmitSearchForm}
                   >
                     {this.searchFormRender}
@@ -476,7 +475,7 @@ module.exports = class Members extends Base {
                     </button>
                     <div className="dropdown-menu dropdown-menu-right shadow">
                       <Link className="dropdown-item"
-                        to={{name: 'web.users.members.new-member', params: this.props.params}}
+                        to={{name: 'web.users.members.new-member', params: params}}
                       >
                         {_('Add a New Member')}
                       </Link>
@@ -502,7 +501,7 @@ module.exports = class Members extends Base {
                           </CustomTooltip>
                         )
                       }
-                      <Link className="ml-32px" to={{name: 'web.users.members.modify-group', params: this.props.params}}>
+                      <Link className="ml-32px" to={{name: 'web.users.members.modify-group', params: params}}>
                         <i className="fas fa-pen fa-fw"/>
                       </Link>
                     </div>
@@ -532,8 +531,9 @@ module.exports = class Members extends Base {
                     </thead>
                     <tbody>
                       {
-                        members.map((member, index) => {
-                          const tdClass = classNames({'border-bottom': index >= members.length - 1});
+                        members.items.map((member, index) => {
+                          const tdClass = classNames({'border-bottom':
+                          index >= members.items.length - 1});
 
                           return (
                             <tr key={member.id}>
@@ -547,12 +547,12 @@ module.exports = class Members extends Base {
                               <CustomTooltip title={member.organization}>
                                 <td className={tdClass}>{member.organization || _('N/A')}</td>
                               </CustomTooltip>
-                              <td className={tdClass}>{(groups.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
+                              <td className={tdClass}>{(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
                               <CustomTooltip title={member.note}>
                                 <td className={tdClass}>{member.note || _('N/A')}</td>
                               </CustomTooltip>
                               <td className={classNames('text-left group-btn', tdClass)}>
-                                <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...this.props.params, memberId: member.id}}}>
+                                <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
                                 <button className="btn btn-link" type="button"
@@ -569,11 +569,15 @@ module.exports = class Members extends Base {
                   </table>
                 </div>
 
-                <Pagination index={this.props.members.index}
-                  size={this.props.members.size}
-                  total={this.props.members.total}
-                  itemQuantity={this.props.members.items.length}
-                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index={index}` : `${hrefTemplate}?index={index}`}/>
+                <Pagination index={members.index}
+                  size={members.size}
+                  total={members.total > members.items.length ?
+                    members.items.length :
+                    members.total}
+                  itemQuantity={members.items.length}
+                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
+                    `${hrefTemplate}&index={index}` :
+                    `${hrefTemplate}?index={index}`}/>
               </div>
             </div>
             <RouterView/>
