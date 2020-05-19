@@ -203,17 +203,19 @@ module.exports = {
       url: '/api/system/datetime'
     }),
     /**
-     * @param {string} syncTimeOption
-     * @param {string} ntpTimeZone
-     * @param {string} ntpIP
-     * @param {string} ntpTimeOption
+     * @param {String} syncTimeOption
+     * @param {String} ntpTimeZone
+     * @param {?String} ntpTimeZoneAuto
+     * @param {String} ntpIP
+     * @param {String} ntpTimeOption
      * @param {Date} ntpUpdateTime
-     * @param {string} ntpUpdateTimeRate
-     * @param {string} deviceTime
+     * @param {String} ntpUpdateTimeRate
+     * @param {String} deviceTime
      * @param {Date} manualTime
      * @returns {Promise<Object>}
      * - syncTimeOption {String}
      * - ntpTimeZone {String}
+     * - ntpTimeZoneAuto {?String}
      * - ntpIP {String}
      * - ntpTimeOption {String}
      * - ntpUpdateTime {Date}
@@ -221,10 +223,10 @@ module.exports = {
      * - deviceTime {String}
      * - manualTime {Date}
      */
-    updateSystemDateTime: ({syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}) => api({
+    updateSystemDateTime: ({syncTimeOption, ntpTimeZone, ntpTimeZoneAuto, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}) => api({
       method: 'put',
       url: '/api/system/datetime',
-      data: {syncTimeOption, ntpTimeZone, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}
+      data: {syncTimeOption, ntpTimeZone, ntpTimeZoneAuto, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}
     }),
     /**
      * @returns {Promise<response>}
