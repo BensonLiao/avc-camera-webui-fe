@@ -15,16 +15,21 @@ module.exports = class Maintain extends Base {
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Device processing');
+    this.state.isShowFinishModal = false;
+    this.state.finishModalTitle = _('Process finished');
+    this.state.finishModalBody = '';
     this.state.isShowSelectModal = {
       reboot: false,
-      reset: false,
-      resetFinished: false,
-      rebootFinished: false
+      reset: false
     };
   }
 
   hideApiProcessModal = () => {
     this.setState({isShowApiProcessModal: false});
+  };
+
+  hideFinishModal = () => {
+    this.setState({isShowFinishModal: false});
   };
 
   showModal = selectedModal => event => {
@@ -81,7 +86,13 @@ module.exports = class Maintain extends Base {
           const test = () => {
             api.ping('app')
               .then(() => {
-                location.reload();
+                progress.done();
+                this.hideApiProcessModal();
+                this.setState({
+                  isShowFinishModal: true,
+                  finishModalTitle: _('System Reboot'),
+                  finishModalBody: _('Device has rebooted, please log back in')
+                });
               })
               .catch(() => {
                 setTimeout(test, 1000);
@@ -113,16 +124,52 @@ module.exports = class Maintain extends Base {
     }),
     () => {
       api.system.deviceReset(resetIP)
-        .then(api.account.logout())
         .then(() => {
-          progress.done();
-          this.hideApiProcessModal();
-          this.setState(prevState => ({
-            isShowSelectModal: {
-              ...prevState.isShowSelectModal,
-              resetFinished: true
-            }
-          }));
+          api.system.deviceReboot()
+            .then(() => new Promise(resolve => {
+              // Check the server was shut down, if success then shutdown was failed and retry.
+              const test = () => {
+                api.ping('web')
+                  .then(() => {
+                    setTimeout(test, 500);
+                  })
+                  .catch(() => {
+                    resolve();
+                  });
+              };
+
+              test();
+            }))
+            .then(() => {
+              // Keep modal and update the title.
+              this.setState({apiProcessModalTitle: _('Device rebooting')});
+              // Check the server was start up, if success then startup was failed and retry.
+              const test = () => {
+                api.ping('app')
+                  .then(() => {
+                    progress.done();
+                    this.hideApiProcessModal();
+                    this.setState({
+                      isShowFinishModal: true,
+                      finishModalTitle: _('System Reset'),
+                      finishModalBody: _('Device has reset, please log back in')
+                    });
+                  })
+                  .catch(() => {
+                    setTimeout(test, 1000);
+                  });
+              };
+
+              test();
+            })
+            .catch(error => {
+              progress.done();
+              this.hideApiProcessModal();
+              utils.showErrorNotification({
+                title: `Error ${error.response.status}` || null,
+                message: error.response.status === 400 ? error.response.data.message || null : null
+              });
+            });
         })
         .catch(error => {
           progress.done();
@@ -174,12 +221,11 @@ module.exports = class Maintain extends Base {
                   .then(() => {
                     progress.done();
                     this.hideApiProcessModal();
-                    this.setState(prevState => ({
-                      isShowSelectModal: {
-                        ...prevState.isShowSelectModal,
-                        rebootFinished: true
-                      }
-                    }));
+                    this.setState({
+                      isShowFinishModal: true,
+                      finishModalTitle: _('Device settings import'),
+                      finishModalBody: _('Device settings has imported, please log back in')
+                    });
                   })
                   .catch(() => {
                     setTimeout(test, 1000);
@@ -229,7 +275,13 @@ module.exports = class Maintain extends Base {
               this.onSubmitDeviceReset(values);
             }}/>
           <div>
-            <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal('reset')}>{_('Reset')}</button>
+            <button
+              className="btn btn-outline-primary rounded-pill px-5"
+              type="button"
+              onClick={this.showModal('reset')}
+            >
+              {_('Reset')}
+            </button>
           </div>
         </div>
       </Form>
@@ -255,14 +307,29 @@ module.exports = class Maintain extends Base {
           }
         </div>
         <div>
-          <button disabled={$isApiProcessing || !file} className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.onSubmitImportDeviceSettings}>{_('Import')}</button>
+          <button
+            disabled={$isApiProcessing || !file}
+            className="btn btn-outline-primary rounded-pill px-5"
+            type="button"
+            onClick={this.onSubmitImportDeviceSettings}
+          >
+            {_('Import')}
+          </button>
         </div>
       </div>
     );
   };
 
   render() {
-    const {$isApiProcessing, isShowSelectModal} = this.state;
+    const {
+      $isApiProcessing,
+      isShowSelectModal,
+      isShowApiProcessModal,
+      apiProcessModalTitle,
+      isShowFinishModal,
+      finishModalTitle,
+      finishModalBody
+    } = this.state;
     return (
       <div className="main-content left-menu-active">
         <div className="page-system">
@@ -284,9 +351,18 @@ module.exports = class Maintain extends Base {
 
               <CustomNotifyModal
                 modalType="process"
-                isShowModal={this.state.isShowApiProcessModal}
-                modalTitle={this.state.apiProcessModalTitle}
+                isShowModal={isShowApiProcessModal}
+                modalTitle={apiProcessModalTitle}
                 onHide={this.hideApiProcessModal}/>
+              <CustomNotifyModal
+                modalType="info"
+                isShowModal={isShowFinishModal}
+                modalTitle={finishModalTitle}
+                modalBody={finishModalBody}
+                onHide={this.hideFinishModal}
+                onConfirm={() => {
+                  location.href = '/';
+                }}/>
 
               <div className="col-center">
                 <div className="card shadow">
@@ -295,7 +371,11 @@ module.exports = class Maintain extends Base {
                     <div className="form-group">
                       <label>{_('System Reboot')}</label>
                       <div>
-                        <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.showModal('reboot')}>
+                        <button
+                          className="btn btn-outline-primary rounded-pill px-5"
+                          type="button"
+                          onClick={this.showModal('reboot')}
+                        >
                           {_('Reboot')}
                         </button>
                       </div>
@@ -313,28 +393,16 @@ module.exports = class Maintain extends Base {
                     >
                       {this.deviceResetFormRender}
                     </Formik>
-                    <CustomNotifyModal
-                      modalType="info"
-                      isShowModal={isShowSelectModal.resetFinished}
-                      modalTitle={_('System Reset')}
-                      modalBody={_('Device has reset, please log back in')}
-                      onHide={this.hideModal('resetFinished')}
-                      onConfirm={() => {
-                        location.href = '/';
-                      }}/>
-                    <CustomNotifyModal
-                      modalType="info"
-                      isShowModal={isShowSelectModal.rebootFinished}
-                      modalTitle={_('System Reboot')}
-                      modalBody={_('Device has rebooted, please log back in')}
-                      onHide={this.hideModal('rebootFinished')}
-                      onConfirm={() => {
-                        location.href = '/';
-                      }}/>
                     <div className="form-group">
                       <label>{_('Export System Settings')}</label>
                       <div>
-                        <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.onClickExportDeviceSettings}>{_('Export')}</button>
+                        <button
+                          className="btn btn-outline-primary rounded-pill px-5"
+                          type="button"
+                          onClick={this.onClickExportDeviceSettings}
+                        >
+                          {_('Export')}
+                        </button>
                       </div>
                     </div>
                     {this.importDeviceSettingsFormRender()}
