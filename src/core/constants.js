@@ -88,5 +88,36 @@ module.exports = {
     'MEDIA_UNMOUNTABLE', // 8 - MEDIA_UNMOUNTABLE: 外部儲存體存在但不能被掛載
     'MEDIA_EJECTING', // 9 - MEDIA_EJECTING: Storage state if the media is in the process of being ejected.
     'MEDIA_UNKNOWN' // 10 - MEDIA_UNKNOWN: Unknown storage state, such as when a path isn't backed by known storage media.
-  ]
+  ],
+  // How many hours ahead(-n) or behind(+n) GMT/UTC
+  // Note. the only method to get client's timezone is Date.prototype.getTimezoneOffset(),
+  // it will return in minutes (e.g. -60 => +1) and its not constant because it doesn't count the daylight saving.
+  TIMEZONE_OFFSET_MAP: {
+    0: 'UTC',
+    '-1': 'Europe/Amsterdam',
+    '-2': 'Africa/Cairo',
+    '-3': 'Asia/Qatar',
+    '-4': 'Asia/Dubai',
+    '-5': 'Indian/Kerguelen',
+    '-6': 'Asia/Urumqi',
+    '-7': 'Asia/Bangkok',
+    '-8': 'Asia/Taipei',
+    '-9': 'Asia/Seoul',
+    '-10': 'Australia/Sydney',
+    '-11': 'Pacific/Pohnpei',
+    '-12': 'Pacific/Fiji',
+    '-13': 'Pacific/Apia',
+    '-14': 'Pacific/Kiritimati',
+    '+1': 'Atlantic/Azores',
+    '+2': 'America/Noronha',
+    '+3': 'America/Cayenne',
+    '+4': 'America/Dominica',
+    '+5': 'America/Detroit',
+    '+6': 'America/Chicago',
+    '+7': 'America/Denver',
+    '+8': 'America/Los_Angeles',
+    '+9': 'Pacific/Gambier',
+    '+10': 'Pacific/Tahiti',
+    '+11': 'Pacific/Midway'
+  }
 };
