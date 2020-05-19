@@ -63,7 +63,7 @@ module.exports = class DateTime extends Base {
     progress.start();
     if (values.syncTimeOption === SyncTimeOption.local) {
       values.manualTime = new Date();
-      values.ntpTimeZone = TIMEZONE_OFFSET_MAP[values.manualTime.getTimezoneOffset() / 60];
+      values.ntpTimeZoneAuto = TIMEZONE_OFFSET_MAP[values.manualTime.getTimezoneOffset() / 60];
     }
 
     if (isLanguageUpdate) {
