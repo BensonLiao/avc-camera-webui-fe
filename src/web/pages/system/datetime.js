@@ -2,6 +2,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
+const Clock = require('react-live-clock');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
@@ -13,8 +14,7 @@ const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time
 const NTPTimeZone = require('webserver-form-schema/constants/system-sync-time-ntp-timezone');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
-const {AVAILABLE_LANGUAGE_CODES} = require('../../../core/constants');
-const Clock = require('react-live-clock');
+const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP} = require('../../../core/constants');
 
 module.exports = class DateTime extends Base {
   static get propTypes() {
@@ -63,6 +63,7 @@ module.exports = class DateTime extends Base {
     progress.start();
     if (values.syncTimeOption === SyncTimeOption.local) {
       values.manualTime = new Date();
+      values.ntpTimeZone = TIMEZONE_OFFSET_MAP[values.manualTime.getTimezoneOffset() / 60];
     }
 
     if (isLanguageUpdate) {
