@@ -30,7 +30,9 @@ module.exports = class NetworkSettings extends Base {
     super(props);
     this.state.isShowModal = false;
     this.state.dhcpTestResult = false;
-    this.state.dhcpTestIp = null; // Default IP
+    this.state.dhcpTestIp = null;
+    this.state.modalTitle = '';
+    this.state.modalBody = '';
   }
 
   showModal = () => {
@@ -41,16 +43,24 @@ module.exports = class NetworkSettings extends Base {
     this.setState({isShowModal: false});
   };
 
-  onClickTestDHCPButton = event => {
+  onClickTestDHCPButton = setFieldValue => event => {
     event.preventDefault();
     progress.start();
     api.system.testDHCP()
       .then(response => {
         if (response.data) {
-          this.setState({
+          this.setState(prevState => ({
             isShowModal: true,
             dhcpTestResult: response.data.success,
-            dhcpTestIp: response.data.resultIP
+            dhcpTestIp: response.data.resultIP,
+            modalTitle: _('DHCP TEST'),
+            modalBody: prevState.dhcpTestResult ?
+              [_('DHCP Testing Succeed!'), `${_('IP Address')}: ${prevState.dhcpTestIp}`] :
+              _('DHCP Testing Failed!')
+          }), () => {
+            if (!this.state.dhcpTestResult) {
+              setFieldValue('ipAddress', '192.168.1.168');
+            }
           });
         }
 
@@ -76,16 +86,24 @@ module.exports = class NetworkSettings extends Base {
               setTimeout(test, 500);
             })
             .catch(() => {
-              resolve();
+              let redirectIP;
+              if (values.ipType === '0') {
+                redirectIP = values.ipAddress;
+              } else {
+                redirectIP = this.state.dhcpTestIp || '192.168.1.168';
+              }
+
+              progress.done();
+              this.setState({
+                isShowModal: true,
+                modalTitle: _('Success'),
+                modalBody: [_('Please re-login at the new IP.'), `${_('IP Address')}: ${redirectIP}`]
+              }, resolve());
             });
         };
 
         test();
       }))
-      .then(() => {
-        // Redirect to the home page with off-line access.
-        location.href = '/';
-      })
       .catch(error => {
         progress.done();
         utils.showErrorNotification({
@@ -95,8 +113,8 @@ module.exports = class NetworkSettings extends Base {
       });
   };
 
-  networkSettingsFormRender = ({values}) => {
-    const {$isApiProcessing, isShowModal, dhcpTestResult} = this.state;
+  networkSettingsFormRender = ({setFieldValue, values}) => {
+    const {$isApiProcessing} = this.state;
     return (
       <Form>
         <div className="form-group d-flex justify-content-between align-items-center">
@@ -121,19 +139,10 @@ module.exports = class NetworkSettings extends Base {
               type="button"
               className="btn btn-outline-primary rounded-pill px-3"
               id="dhcpTestButton"
-              onClick={this.onClickTestDHCPButton}
+              onClick={this.onClickTestDHCPButton(setFieldValue)}
             >
               {_('Test DHCP')}
             </button>
-            <CustomNotifyModal
-              modalType="info"
-              isShowModal={isShowModal}
-              modalTitle={_('DHCP TEST')}
-              modalBody={dhcpTestResult ?
-                [_('DHCP Testing Succeed!'), `${_('IP Address')}: ${this.state.dhcpTestIp}`] :
-                _('DHCP Testing Failed!')}
-              onHide={this.hideModal}
-              onConfirm={this.hideModal}/>
           </div>
         </div>
         <div className="form-group">
@@ -294,6 +303,7 @@ module.exports = class NetworkSettings extends Base {
 
   render() {
     const {networkSettings} = this.props;
+    const {isShowModal, modalBody, modalTitle} = this.state;
     return (
       <div className="main-content left-menu-active">
         <div className="page-notification">
@@ -350,6 +360,13 @@ module.exports = class NetworkSettings extends Base {
                     <div className="tab-pane fad" id="tab-network-status">
                       {this.networkStatusRender()}
                     </div>
+                    <CustomNotifyModal
+                      modalType="info"
+                      isShowModal={isShowModal}
+                      modalTitle={modalTitle}
+                      modalBody={modalBody}
+                      onHide={this.hideModal}
+                      onConfirm={this.hideModal}/>
                   </div>
                 </div>
               </div>
