@@ -123,6 +123,7 @@ module.exports = class HTTPS extends Base {
               <div className="invalid-feedback">{errors.port}</div>
             )
           }
+          <p className="text-size-14 text-muted mt-2">{_('1024 - 65535, except for 5555, 8080, 8554, 17300.')}</p>
         </div>
         <div className="form-group">
           <label>{_('Certificate')}</label>

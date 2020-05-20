@@ -104,7 +104,7 @@ module.exports = class RTSP extends Base {
               <div className="invalid-feedback">{errors.tcpPort}</div>
             )
           }
-          <span className="form-text text-muted">1024 - 65535</span>
+          <span className="form-text text-muted">{_('1024 - 65535, except for 5555, 8080, 8443, 17300.')}</span>
         </div>
         <div className="form-group">
           <label>{_('RTSP/UDP Port')}</label>
@@ -119,7 +119,7 @@ module.exports = class RTSP extends Base {
               <div className="invalid-feedback">{errors.udpPort}</div>
             )
           }
-          <span className="form-text text-muted">1024 - 65535</span>
+          <span className="form-text text-muted">{_('1024 - 65535, except for 5555, 8080, 8443, 8554.')}</span>
         </div>
         <div className="form-group">
           <label>{_('Concurrent Connection Limit')}</label>

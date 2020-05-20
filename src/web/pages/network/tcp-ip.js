@@ -235,7 +235,7 @@ module.exports = class TCPIP extends Base {
             value={values.port}
           />
           {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
-          <p className="text-size-14 text-muted mt-2">{_('Default primary port is 80')}</p>
+          <p className="text-size-14 text-muted mt-2">{_('1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.')}</p>
         </div>
         <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{_('Apply')}</button>
       </Form>
