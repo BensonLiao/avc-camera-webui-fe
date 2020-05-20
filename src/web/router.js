@@ -440,7 +440,9 @@ module.exports = new Router({
       },
       resolve: {
         ddnsInfo: () => api.system.getDDNSInfo().then(response => response.data),
-        httpInfo: () => api.system.getHttpInfo().then(response => response.data)
+        httpInfo: () => api.system.getHttpInfo().then(response => response.data),
+        rtspSettings: () => api.multimedia.getRTSPSettings().then(response => response.data),
+        httpsSettings: () => api.system.getHttpsSettings().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-network" */
@@ -454,7 +456,9 @@ module.exports = new Router({
         document.title = `${_('Network')} - ${_title}`;
       },
       resolve: {
-        httpsSettings: () => api.system.getHttpsSettings().then(response => response.data)
+        httpsSettings: () => api.system.getHttpsSettings().then(response => response.data),
+        httpInfo: () => api.system.getHttpInfo().then(response => response.data),
+        rtspSettings: () => api.multimedia.getRTSPSettings().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-network" */

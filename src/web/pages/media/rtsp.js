@@ -6,6 +6,7 @@ const {Formik, Form, Field} = require('formik');
 const {Link, getRouter} = require('capybara-router');
 const Base = require('../shared/base');
 const rtspSettingsValidator = require('../../validations/media/rtsp-settings-validator');
+const {DEFAULT_PORTS} = require('../../../core/constants');
 const utils = require('../../../core/utils');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
@@ -30,13 +31,24 @@ module.exports = class RTSP extends Base {
     };
   }
 
-  checkValidatePort = values => {
-    const {httpInfo, httpsSettings} = this.props;
+  checkValidatePort = (values, portType) => {
+    const {httpInfo, httpsSettings, rtspSettings} = this.props;
+    let defaultPorts = DEFAULT_PORTS;
+
+    let checkDefaultPortList = Object.keys(defaultPorts)
+      .filter(items => items !== portType)
+      .reduce((obj, key) => ({...obj, [key]: defaultPorts[key]}), {});
+
+    checkDefaultPortList = utils.duplicateCheck(Object.values(checkDefaultPortList), values);
     // Check if using http port
-    if (values === httpInfo.port ||
+    if (
+      ((portType === 'RTSP_TCP') && (values === rtspSettings.udpPort)) ||
+      ((portType === 'RTSP_UDP') && (values === rtspSettings.tcpPort)) ||
+      checkDefaultPortList ||
+      values === httpInfo.port ||
       values === httpInfo.port2 ||
       values === httpsSettings.port) {
-      return _('This port are used on http/https setting, please try another number.');
+      return _('This is a reserved port or is in use, please try another port.');
     }
 
     return utils.validatedPortCheck(values);
@@ -85,7 +97,7 @@ module.exports = class RTSP extends Base {
             name="tcpPort"
             type="text"
             placeholder="8554"
-            validate={this.checkValidatePort}
+            validate={values => (this.checkValidatePort(values, 'RTSP_TCP'))}
             className={classNames('form-control', {'is-invalid': errors.tcpPort && touched.tcpPort})}/>
           {
             errors.tcpPort && touched.tcpPort && (
@@ -100,7 +112,7 @@ module.exports = class RTSP extends Base {
             name="udpPort"
             type="text"
             className={classNames('form-control', {'is-invalid': errors.udpPort && touched.udpPort})}
-            validate={this.checkValidatePort}
+            validate={values => (this.checkValidatePort(values, 'RTSP_UDP'))}
             placeholder="17300"/>
           {
             errors.udpPort && touched.udpPort && (
