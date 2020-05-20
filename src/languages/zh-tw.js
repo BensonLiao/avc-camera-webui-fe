@@ -5,7 +5,7 @@ window.languageResource = {
   'permission-0': '管理者',
   'permission-1': '訪客',
 
-  'certificate-type-0': 'AndroVideo 自簽憑證',
+  'certificate-type-0': 'AV Costar 自簽憑證',
   'certificate-type-1': '自行上傳您的憑證',
   'certificate-type-2': '在此裝置上產生憑證',
 
@@ -290,6 +290,7 @@ window.languageResource = {
   'Please enter the email address.': '請輸入電子信箱',
   Domain: '域名',
   'Please enter the domain.': '請輸入域名',
+  '1024 - 65535, except for 5555, 8080, 8554, 17300.': '1024 - 65535，除了5555、8080、8554, 17300.',
 
   // /home
   'Stream {0}': '串流 {0}',
@@ -378,6 +379,8 @@ window.languageResource = {
   'RTSP/TCP Port': 'RTSP/TCP 連接埠',
   'RTSP/UDP Port': 'RTSP/UDP 連接埠',
   'Maximum Connection': '最大連接數',
+  '1024 - 65535, except for 5555, 8080, 8443, 17300.': '1024 - 65535，除了5555、8080、8443、17300',
+  '1024 - 65535, except for 5555, 8080, 8443, 8554.': '1024 - 65535，除了5555、8080、8443、8554',
 
   // /media/word
   Function: '功能',
@@ -571,16 +574,22 @@ window.languageResource = {
   'Enter a Fixed IP Address': '請輸入固定IP位址',
   Interface: '介面',
   'IP Status': 'IP 取得方式',
+  'IP Address': 'IP 位址',
   'MAC Address': '網路卡硬體位址',
   'Subnet Mask': '子網路遮罩',
   'Router/Gateway': '路由器/閘道',
   'Primary DNS': '慣用 DNS',
   'Secondary DNS': '其他 DNS',
+  'Secondary DNS (Optional)': '其他 DNS (選填)',
+  'Web Server Port Settings': '網頁服務埠設定',
+  'Enter Your Server Port Settings': '請輸入您的服務埠',
+
+  // Internet/Network Settings/TCP/IP
   'DDNS Server': 'DDNS 伺服器',
   'Server Provider': '服務提供',
   'Host Name': '主機名稱',
-  'Web Server Port Settings': '網頁服務埠設定',
-  'Enter Your Server Port Settings': '請輸入您的服務埠',
+  'Secondary Web Server Port': '次網頁服務埠',
+  '1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.': '1024 - 65535，除了5555、8443、8554、17300，預設主要埠為80',
 
   // /system
   'System Settings': '系統設定',
