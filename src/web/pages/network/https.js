@@ -11,6 +11,7 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const {DEFAULT_PORTS} = require('../../../core/constants');
 
 module.exports = class HTTPS extends Base {
   static get propTypes() {
@@ -19,6 +20,14 @@ module.exports = class HTTPS extends Base {
         isEnable: PropTypes.bool.isRequired,
         port: PropTypes.string.isRequired,
         certificateType: PropTypes.oneOf(CertificateType.all()).isRequired
+      }).isRequired,
+      httpInfo: PropTypes.shape({
+        port: PropTypes.string.isRequired,
+        port2: PropTypes.string
+      }).isRequired,
+      rtspSettings: PropTypes.shape({
+        tcpPort: PropTypes.string.isRequired,
+        udpPort: PropTypes.string.isRequired
       }).isRequired
     };
   }
@@ -40,6 +49,24 @@ module.exports = class HTTPS extends Base {
   };
 
   checkValidatePort = values => {
+    const {httpInfo, rtspSettings} = this.props;
+    let defaultPorts = DEFAULT_PORTS;
+
+    let checkDefaultPortList = Object.keys(defaultPorts)
+      .filter(items => items !== 'HTTPS')
+      .reduce((obj, key) => ({...obj, [key]: defaultPorts[key]}), {});
+
+    checkDefaultPortList = utils.duplicateCheck(Object.values(checkDefaultPortList), values);
+    // Check if using http port
+    if (
+      checkDefaultPortList ||
+      values === rtspSettings.udpPort ||
+      values === rtspSettings.tcpPort ||
+      values === httpInfo.port2 ||
+      values === httpInfo.port1) {
+      return _('This is a reserved port or is in use, please try another port.');
+    }
+
     return utils.validatedPortCheck(values);
   }
 

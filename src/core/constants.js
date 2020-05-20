@@ -69,6 +69,7 @@ module.exports = {
     '2049', // Nfs
     '3659', // Apple-sasl / PasswordServer
     '4045', // Lockd
+    '5555', // 工程模式
     '6000', // X11
     '6665', // Alternate IRC [Apple addition]
     '6666', // Alternate IRC [Apple addition]
@@ -76,6 +77,12 @@ module.exports = {
     '6668', // Alternate IRC [Apple addition]
     '6669' // Alternate IRC [Apple addition]
   ],
+  DEFAULT_PORTS: {
+    RTSP_TCP: '8554',
+    RTSP_UDP: '17300',
+    HTTP: '8080',
+    HTTPS: '8443'
+  },
   SD_STATUS_LIST: [ // Order is important!
     'MEDIA_UNMOUNTED', // 0 - MEDIA_UNMOUNTED: 外部儲存體存在但未被掛載
     'MEDIA_MOUNTED', // 1 - MEDIA_MOUNTED: 外部儲存體存在且可以進行讀取與寫入
