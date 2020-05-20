@@ -70,7 +70,23 @@ module.exports = class Upgrade extends Base {
                 if (response.data.updateStatus === 2) {
                   this.updateProgress('upgradeFirmware', 100);
                   this.updateProgressStatus('upgradeFirmware', 'done');
-                  resolve();
+                  // Keep modal and update the title and body.
+                  this.setState({
+                    apiProcessModalTitle: _('Device shutting down'),
+                    apiProcessModalBody: _('Please wait')
+                  });
+                  // Check the server was shutdown, if success then shutdown was failed and retry.
+                  const test = () => {
+                    api.ping('web')
+                      .then(() => {
+                        setTimeout(test, 1000);
+                      })
+                      .catch(() => {
+                        resolve();
+                      });
+                  };
+
+                  test();
                 } else {
                   this.updateProgress('upgradeFirmware', response.data.updateProgress);
                   setTimeout(() => {
@@ -93,10 +109,9 @@ module.exports = class Upgrade extends Base {
         .then(() => {
           // Keep modal and update the title and body.
           this.setState({
-            apiProcessModalTitle: _('Device rebooting'),
-            apiProcessModalBody: _('Please wait')
+            apiProcessModalTitle: _('Device restarting')
           });
-          // Check the server was start up, if success then startup was failed and retry.
+          // Check the server was startup, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')
               .then(response => {
