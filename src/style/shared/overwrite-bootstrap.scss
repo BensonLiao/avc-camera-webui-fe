@@ -306,6 +306,9 @@ label.btn {
       background: $secondary-50;
       color: $secondary-500;
       border-radius: 0 0 16px 16px;
+      .mb-2:nth-child(2) > div, .mb-2:nth-child(2) > span {
+        width: 100%;
+      }
     }
     .drag-icon {
       padding: 0 8px 0 4px;
