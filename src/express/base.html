@@ -3,15 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='cache-control' content='no-cache, no-store, must-revalidate'>
+  <meta http-equiv='pragma' content='no-cache, no-store, must-revalidate'>
   <link rel="icon" href="../resource/favicon.png" type="image/png" />
   <link rel="shortcut icon" href="/favicon.ico" />
   <title>{{ cameraName }} Web-Manager</title>
-
-  <% if @isDebug : %>
-    <link type="text/css" rel="stylesheet" href="http://localhost:8002/web.css"/>
-  <% else : %>
-    <link type="text/css" rel="stylesheet" href="/assets/web.css"/>
-  <% end %>
   <script type="text/javascript">
     function base64DecodeUnicode(text) {
       // Going backwards: from bytestream, to percent-encoding, to original string.
@@ -24,6 +21,35 @@
     window.currentLanguageCode = '{{ languageCode }}';
     window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));
     window.error = JSON.parse(base64DecodeUnicode('{{ archive error }}'));
+    var isDebug = '{{ isDebug }}';
+    // Append css resource
+    var cssRefreshId = Math.random().toString(36).substr(2);
+    var cssLinkElement = document.createElement("link");
+    cssLinkElement.type = 'text/css';
+    cssLinkElement.rel = 'stylesheet';
+    cssLinkElement.href = '/assets/web.css?_=' + cssRefreshId;
+    if (isDebug === 'y') {
+      cssLinkElement.href = 'http://localhost:8002/web.css?_=' + cssRefreshId;
+    }
+    document.head.appendChild(cssLinkElement);
+    // Append language resource
+    var langRefreshId = Math.random().toString(36).substr(2);
+    var langScriptElement = document.createElement("script");
+    langScriptElement.type = 'text/javascript';
+    langScriptElement.src = '/assets/{{ languageCode }}.js?_=' + langRefreshId;
+    if (isDebug === 'y') {
+      langScriptElement.src = 'http://localhost:8002/{{ languageCode }}.js?_=' + langRefreshId;
+    }
+    document.head.appendChild(langScriptElement);
+    // Append js bundle resource
+    var jsRefreshId = Math.random().toString(36).substr(2);
+    var jsScriptElement = document.createElement("script");
+    jsScriptElement.type = 'text/javascript';
+    jsScriptElement.src = '/assets/web.js?_=' + jsRefreshId;
+    if (isDebug === 'y') {
+      jsScriptElement.src = 'http://localhost:8002/web.js?_=' + jsRefreshId;
+    }
+    document.head.appendChild(jsScriptElement);
   </script>
 </head>
 <body class="{{ languageCode }}">
@@ -41,12 +67,5 @@
     </div>
   </div>
 </div>
-<% if @isDebug : %>
-  <script type="text/javascript" src="http://localhost:8002/{{ languageCode }}.js"></script>
-  <script type="text/javascript" src="http://localhost:8002/web.js"></script>
-<% else : %>
-  <script type="text/javascript" src="/assets/{{ languageCode }}.js"></script>
-  <script type="text/javascript" src="/assets/web.js"></script>
-<% end %>
 </body>
 </html>
