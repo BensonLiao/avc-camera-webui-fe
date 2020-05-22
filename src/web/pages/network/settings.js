@@ -139,6 +139,7 @@ module.exports = class NetworkSettings extends Base {
               type="button"
               className="btn btn-outline-primary rounded-pill px-3"
               id="dhcpTestButton"
+              disabled={$isApiProcessing}
               onClick={this.onClickTestDHCPButton(setFieldValue)}
             >
               {_('Test DHCP')}
