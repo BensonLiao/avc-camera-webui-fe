@@ -140,7 +140,7 @@ module.exports = class Upgrade extends Base {
   };
 
   formRender = () => {
-    const {$isApiProcessing, file} = this.state;
+    const {$isApiProcessing, file, isShowApiProcessModal} = this.state;
 
     return (
       <Form className="card-body">
@@ -160,7 +160,7 @@ module.exports = class Upgrade extends Base {
             }
           </div>
         </div>
-        <button disabled={$isApiProcessing || !file} className="btn btn-primary btn-block rounded-pill" type="submit">
+        <button disabled={isShowApiProcessModal || $isApiProcessing || !file} className="btn btn-primary btn-block rounded-pill" type="submit">
           {_('Firmware Upgrade')}
         </button>
       </Form>
