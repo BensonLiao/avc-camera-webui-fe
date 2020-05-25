@@ -206,7 +206,8 @@ module.exports = {
           frameRate: '30',
           bandwidthManagement: StreamBandwidthManagement.mbr,
           bitRate: '4096',
-          gov: StreamGOV['60']
+          gov: StreamGOV['60'],
+          quality: '15'
         }
       },
       audioSettings: {
