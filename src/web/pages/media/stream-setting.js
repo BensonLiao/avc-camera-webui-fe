@@ -85,22 +85,6 @@ module.exports = class StreamSetting extends Base {
     this.setState({isShowModal: false});
   };
 
-  updateSettingModalRender = values => {
-    const {$isApiProcessing} = this.state;
-
-    return (
-      <CustomNotifyModal
-        isShowModal={this.state.isShowModal}
-        modalTitle={_('Stream Settings')}
-        modalBody={_('Are you sure you want to update stream settings?')}
-        isConfirmDisable={$isApiProcessing}
-        onHide={this.hideModal}
-        onConfirm={() => {
-          this.onSubmit(values);
-        }}/>
-    );
-  };
-
   fieldsRender = (fieldNamePrefix, options, values) => {
     const {homePage} = this.props;
 
@@ -238,7 +222,8 @@ module.exports = class StreamSetting extends Base {
     );
   };
 
-  formRender = ({values}) => {
+  formRender = ({values, errors}) => {
+    const {isShowModal, $isApiProcessing} = this.state;
     const channelAOptions = {
       codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg).map(x => ({label: x, value: x})),
       resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
@@ -313,7 +298,7 @@ module.exports = class StreamSetting extends Base {
           <button
             type="button"
             className="btn btn-block btn-primary rounded-pill"
-            disabled={this.state.$isApiProcessing}
+            disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)}
             onClick={this.showModal}
           >
             {_('Apply')}
@@ -327,7 +312,15 @@ module.exports = class StreamSetting extends Base {
         >
           {_('Reset to Default')}
         </button>
-        {this.updateSettingModalRender(values)}
+        <CustomNotifyModal
+          isShowModal={isShowModal}
+          modalTitle={_('Stream Settings')}
+          modalBody={_('Are you sure you want to update stream settings?')}
+          isConfirmDisable={$isApiProcessing}
+          onHide={this.hideModal}
+          onConfirm={() => {
+            this.onSubmit(values);
+          }}/>
       </Form>
     );
   };
