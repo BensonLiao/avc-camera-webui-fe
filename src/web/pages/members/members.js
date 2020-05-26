@@ -51,26 +51,126 @@ module.exports = class Members extends Base {
   constructor(props) {
     super(props);
     this.currentRoute = getRouter().findRouteByName('web.users.members');
-    this.state.isShowDeleteGroupModal = false;
     this.state.deleteGroupTarget = null;
     this.state.selectedGroup = props.groups.items.find(x => x.id === props.params.group);
-    this.state.isShowDeleteMemberModal = false;
     this.state.deleteMemberTarget = null;
     this.state.isShowDatabaseEncryptionModal = false;
     this.state.databaseEncryptionInitialValues = null;
     this.state.databaseFile = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Updating members');
+    this.state.isShowSelectModal = {
+      deleteGroup: false,
+      deleteMember: false
+    };
+  }
+
+  showModal = selectedModal => event => {
+    event.preventDefault();
+    return this.setState(prevState => ({
+      isShowSelectModal: {
+        ...prevState.isShowSelectModal,
+        [selectedModal]: true
+      }
+    }));
+  };
+
+  hideModal = selectedModal => () => {
+    return this.setState(prevState => ({
+      isShowSelectModal: {
+        ...prevState.isShowSelectModal,
+        [selectedModal]: false
+      }
+    }));
+  };
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
+
+  hideDatabaseEncryptionModal = () => {
+    this.setState({isShowDatabaseEncryptionModal: false});
+  };
+
+  memberCardModalRender = mode => {
+    const {
+      deleteGroupTarget,
+      deleteMemberTarget,
+      $isApiProcessing,
+      isShowSelectModal: {
+        [mode]: isShowModal
+      }
+    } = this.state;
+    const modalType = {
+      deleteGroup: {
+        showModal: isShowModal,
+        hideModal: this.hideModal(mode),
+        modalOnSubmit: this.confirmDeleteGroup,
+        modalTitle: _('Delete Group'),
+        modalBody: _('Are you sure you want to delete group {0}?', [deleteGroupTarget && deleteGroupTarget.name])
+      },
+      deleteMember: {
+        showModal: isShowModal,
+        hideModal: this.hideModal(mode),
+        modalOnSubmit: this.confirmDeleteMember,
+        modalTitle: _('Delete Member'),
+        modalBody: _('Are you sure you want to delete member {0}?', [deleteMemberTarget && deleteMemberTarget.name])
+      }
+    };
+    return (
+      <CustomNotifyModal
+        isShowModal={modalType[mode].showModal}
+        modalTitle={modalType[mode].modalTitle}
+        modalBody={modalType[mode].modalBody}
+        isConfirmDisable={$isApiProcessing}
+        onHide={modalType[mode].hideModal}
+        onConfirm={modalType[mode].modalOnSubmit}/>
+    );
   }
 
   generateShowDeleteGroupModalHandler = group => {
     return event => {
       event.preventDefault();
-      this.setState({
-        isShowDeleteGroupModal: true,
+      this.setState(prevState => ({
+        ...prevState,
+        isShowSelectModal: {
+          ...prevState.isShowSelectModal,
+          deleteGroup: true
+        },
         deleteGroupTarget: group
-      });
+      }));
     };
+  };
+
+  generateShowDeleteMemberModalHandler = member => {
+    return event => {
+      event.preventDefault();
+      this.setState(prevState => ({
+        ...prevState,
+        isShowSelectModal: {
+          ...prevState.isShowSelectModal,
+          deleteMember: true
+        },
+        deleteMemberTarget: member
+      }));
+    };
+  };
+
+  confirmDeleteMember = event => {
+    event.preventDefault();
+    progress.start();
+    api.member.deleteMember(this.state.deleteMemberTarget.id)
+      .then(() => {
+        this.hideDeleteMemberModal();
+        getRouter().reload();
+      })
+      .catch(error => {
+        progress.done();
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
+      });
   };
 
   confirmDeleteGroup = event => {
@@ -100,45 +200,6 @@ module.exports = class Members extends Base {
       });
   };
 
-  hideDeleteGroupModal = () => {
-    this.setState({isShowDeleteGroupModal: false});
-  };
-
-  hideApiProcessModal = () => {
-    this.setState({isShowApiProcessModal: false});
-  };
-
-  generateShowDeleteMemberModalHandler = member => {
-    return event => {
-      event.preventDefault();
-      this.setState({
-        isShowDeleteMemberModal: true,
-        deleteMemberTarget: member
-      });
-    };
-  };
-
-  confirmDeleteMember = event => {
-    event.preventDefault();
-    progress.start();
-    api.member.deleteMember(this.state.deleteMemberTarget.id)
-      .then(() => {
-        this.hideDeleteMemberModal();
-        getRouter().reload();
-      })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
-  };
-
-  hideDeleteMemberModal = () => {
-    this.setState({isShowDeleteMemberModal: false});
-  };
-
   /**
    * Generate the handler to change filter.
    * @param {String} paramKey
@@ -159,17 +220,6 @@ module.exports = class Members extends Base {
     });
   };
 
-  onSubmitSearchForm = ({keyword}) => {
-    getRouter().go({
-      name: this.currentRoute.name,
-      params: {
-        ...this.props.params,
-        index: undefined,
-        keyword
-      }
-    });
-  };
-
   searchFormRender = () => {
     return (
       <Form className="form-row">
@@ -185,6 +235,17 @@ module.exports = class Members extends Base {
         </div>
       </Form>
     );
+  };
+
+  onSubmitSearchForm = ({keyword}) => {
+    getRouter().go({
+      name: this.currentRoute.name,
+      params: {
+        ...this.props.params,
+        index: undefined,
+        keyword
+      }
+    });
   };
 
   showDatabaseEncryptionModal = event => {
@@ -210,10 +271,6 @@ module.exports = class Members extends Base {
       .finally(progress.done);
   };
 
-  hideDatabaseEncryptionModal = () => {
-    this.setState({isShowDatabaseEncryptionModal: false});
-  };
-
   onSubmitDatabaseEncryptionForm = values => {
     progress.start();
     api.member.updateDatabaseEncryptionSettings(values)
@@ -236,7 +293,6 @@ module.exports = class Members extends Base {
 
   onChangeDatabaseFile = event => {
     const file = event.target.files[0];
-
     if (!file || this.state.$isApiProcessing) {
       return;
     }
@@ -252,6 +308,7 @@ module.exports = class Members extends Base {
         })
         .catch(error => {
           progress.done();
+          getRouter().reload();
           this.setState({isShowApiProcessModal: false});
           utils.showErrorNotification({
             title: `Error ${error.response.status}` || null,
@@ -334,10 +391,6 @@ module.exports = class Members extends Base {
   render() {
     const {groups, members, params} = this.props;
     const {
-      isShowDeleteGroupModal,
-      deleteGroupTarget,
-      isShowDeleteMemberModal,
-      deleteMemberTarget,
       isShowDatabaseEncryptionModal,
       databaseEncryptionInitialValues,
       selectedGroup,
@@ -584,23 +637,10 @@ module.exports = class Members extends Base {
         </div>
 
         {/* Delete group modal */}
-
-        <CustomNotifyModal
-          isShowModal={isShowDeleteGroupModal}
-          modalTitle={_('Delete Group')}
-          modalBody={_('Are you sure you want to delete group {0}?', [deleteGroupTarget && deleteGroupTarget.name])}
-          isConfirmDisable={$isApiProcessing}
-          onHide={this.hideDeleteGroupModal}
-          onConfirm={this.confirmDeleteGroup}/>
+        {this.memberCardModalRender('deleteGroup')}
 
         {/* Delete member modal */}
-        <CustomNotifyModal
-          isShowModal={isShowDeleteMemberModal}
-          modalTitle={_('Delete Member')}
-          modalBody={_('Are you sure you want to delete member {0}?', [deleteMemberTarget && deleteMemberTarget.name])}
-          isConfirmDisable={$isApiProcessing}
-          onHide={this.hideDeleteMemberModal}
-          onConfirm={this.confirmDeleteMember}/>
+        {this.memberCardModalRender('deleteMember')}
 
         {/* Databse updating modal */}
         <CustomNotifyModal
