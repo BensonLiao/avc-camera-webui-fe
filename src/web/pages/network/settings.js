@@ -28,19 +28,33 @@ module.exports = class NetworkSettings extends Base {
 
   constructor(props) {
     super(props);
-    this.state.isShowModal = false;
+    this.state.isShowSelectModal = {
+      info: false,
+      applyConfirm: false
+    };
     this.state.dhcpTestResult = false;
     this.state.dhcpTestIp = null;
     this.state.modalTitle = '';
     this.state.modalBody = '';
+    this.state.isUpdating = false;
   }
 
-  showModal = () => {
-    this.setState({isShowModal: true});
+  showModal = selectedModal => {
+    return this.setState(prevState => ({
+      isShowSelectModal: {
+        ...prevState.isShowSelectModal,
+        [selectedModal]: true
+      }
+    }));
   };
 
-  hideModal = () => {
-    this.setState({isShowModal: false});
+  hideModal = selectedModal => () => {
+    return this.setState(prevState => ({
+      isShowSelectModal: {
+        ...prevState.isShowSelectModal,
+        [selectedModal]: false
+      }
+    }));
   };
 
   onClickTestDHCPButton = setFieldValue => event => {
@@ -50,12 +64,16 @@ module.exports = class NetworkSettings extends Base {
       .then(response => {
         if (response.data) {
           this.setState(prevState => ({
-            isShowModal: true,
+            ...prevState,
+            isShowSelectModal: {
+              ...prevState.isShowSelectModal,
+              info: true
+            },
             dhcpTestResult: response.data.success,
             dhcpTestIp: response.data.resultIP,
             modalTitle: _('DHCP TEST'),
-            modalBody: prevState.dhcpTestResult ?
-              [_('DHCP Testing Succeed!'), `${_('IP Address')}: ${prevState.dhcpTestIp}`] :
+            modalBody: response.data.success ?
+              [_('DHCP Testing Success!'), `${_('IP Address')}: ${response.data.resultIP}`] :
               _('DHCP Testing Failed!')
           }), () => {
             if (!this.state.dhcpTestResult) {
@@ -77,44 +95,54 @@ module.exports = class NetworkSettings extends Base {
 
   onSubmit = values => {
     progress.start();
-    api.system.updateNetworkSettings(values)
-      .then(() => new Promise(resolve => {
-        // Check the server was shut down.
-        const test = () => {
-          api.ping()
-            .then(() => {
-              setTimeout(test, 500);
-            })
-            .catch(() => {
-              let redirectIP;
-              if (values.ipType === '0') {
-                redirectIP = values.ipAddress;
-              } else {
-                redirectIP = this.state.dhcpTestIp || '192.168.1.168';
-              }
+    this.setState({isUpdating: true},
+      () => {
+        api.system.updateNetworkSettings(values)
+          .then(() => new Promise(resolve => {
+            // Check the server was shut down.
+            const test = () => {
+              api.ping()
+                .then(() => {
+                  setTimeout(test, 500);
+                })
+                .catch(() => {
+                  this.setState(prevState => ({...prevState, isShowSelectModal: {...prevState, info: false}}));
+                  let redirectIP;
+                  if (values.ipType === '0') {
+                    redirectIP = values.ipAddress;
+                  } else {
+                    redirectIP = this.state.dhcpTestIp || '192.168.1.168';
+                  }
 
-              progress.done();
-              this.setState({
-                isShowModal: true,
-                modalTitle: _('Success'),
-                modalBody: [_('Please re-login at the new IP.'), `${_('IP Address')}: ${redirectIP}`]
-              }, resolve());
+                  progress.done();
+                  this.setState(prevState => ({
+                    ...prevState,
+                    isShowSelectModal: {
+                      ...prevState.isShowSelectModal,
+                      info: true
+                    },
+                    isUpdating: false,
+                    modalTitle: _('Success'),
+                    modalBody: [_('Please re-login at the new IP.'), `${_('IP Address')}: ${redirectIP}`]
+                  }), resolve());
+                });
+            };
+
+            test();
+          }))
+          .catch(error => {
+            progress.done();
+            utils.showErrorNotification({
+              title: `Error ${error.response.status}` || null,
+              message: error.response.status === 400 ? error.response.data.message || null : null
             });
-        };
-
-        test();
-      }))
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+          });
+      }
+    );
   };
 
   networkSettingsFormRender = ({setFieldValue, values}) => {
-    const {$isApiProcessing} = this.state;
+    const {$isApiProcessing, isShowSelectModal, isUpdating} = this.state;
     return (
       <Form>
         <div className="form-group d-flex justify-content-between align-items-center">
@@ -223,12 +251,26 @@ module.exports = class NetworkSettings extends Base {
         </div>
 
         <button
-          type="submit"
+          type="button"
           className="btn btn-primary btn-block rounded-pill"
-          disabled={$isApiProcessing}
+          disabled={$isApiProcessing || isUpdating || JSON.stringify(this.props.networkSettings) === JSON.stringify(values)}
+          onClick={() => {
+            this.showModal('applyConfirm');
+          }}
         >
           {_('Apply')}
         </button>
+
+        <CustomNotifyModal
+          backdrop="static"
+          isShowModal={isShowSelectModal.applyConfirm}
+          modalTitle={_('Network Settings')}
+          modalBody={_('Are you sure you want to update network settings?')}
+          isConfirmDisable={$isApiProcessing || isUpdating}
+          onHide={this.hideModal('applyConfirm')}
+          onConfirm={() => {
+            this.onSubmit(values);
+          }}/>
       </Form>
     );
   };
@@ -304,7 +346,7 @@ module.exports = class NetworkSettings extends Base {
 
   render() {
     const {networkSettings} = this.props;
-    const {isShowModal, modalBody, modalTitle} = this.state;
+    const {isShowSelectModal, modalBody, modalTitle} = this.state;
     return (
       <div className="main-content left-menu-active">
         <div className="page-notification">
@@ -363,11 +405,11 @@ module.exports = class NetworkSettings extends Base {
                     </div>
                     <CustomNotifyModal
                       modalType="info"
-                      isShowModal={isShowModal}
+                      isShowModal={isShowSelectModal.info}
                       modalTitle={modalTitle}
                       modalBody={modalBody}
-                      onHide={this.hideModal}
-                      onConfirm={this.hideModal}/>
+                      onHide={this.hideModal('info')}
+                      onConfirm={this.hideModal('info')}/>
                   </div>
                 </div>
               </div>
