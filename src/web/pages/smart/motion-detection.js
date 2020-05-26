@@ -102,11 +102,9 @@ module.exports = class MotionDetection extends Base {
   };
 
   onSubmitMotionDetectionSettingsForm = values => {
-    const noMaskCheck = this.state.maskAreaStates.map(x => x.isVisible).filter(x => x === true).length < 1;
-
     progress.start();
     api.smartFunction.updateMotionDetectionSettings({
-      isEnable: noMaskCheck ? false : values.isEnable,
+      isEnable: values.isEnable,
       sensibility: values.sensibility,
       areas: (() => {
         const result = [];
