@@ -157,7 +157,7 @@ module.exports = class TCPIP extends Base {
   }
 
   ddnsFormRender = ({values}) => {
-    const {$isApiProcessing} = this.state;
+    const {$isApiProcessing, isShowApiProcessModal} = this.state;
     return (
       <Form className="tab-pane fade show active" id="tab-ddns">
         <div className="form-group d-flex justify-content-between align-items-center">
@@ -214,7 +214,7 @@ module.exports = class TCPIP extends Base {
         <button
           type="submit"
           className="btn btn-primary btn-block rounded-pill"
-          disabled={$isApiProcessing}
+          disabled={$isApiProcessing || isShowApiProcessModal}
         >{_('Apply')}
         </button>
       </Form>
