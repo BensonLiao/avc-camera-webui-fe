@@ -79,6 +79,7 @@ module.exports = class DateTime extends Base {
           });
         });
     } else {
+      values.manualTime.setSeconds(0);
       api.system.updateSystemDateTime(values)
         .then(() => {
           getRouter().reload();
