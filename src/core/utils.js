@@ -1,3 +1,4 @@
+const axios = require('axios');
 const React = require('react');
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
@@ -409,4 +410,18 @@ exports.validatedPortCheck = (value, error) => {
 
 module.exports.isArray = arg => {
   return Object.prototype.toString.call(arg) === '[object Array]';
+};
+
+module.exports.pingAndRedirectPage = url => {
+  const test = () => {
+    axios.get(url, {timeout: 1500, responseType: 'document'})
+      .then(() => {
+        location.href = url;
+      })
+      .catch(() => {
+        setTimeout(test, 500);
+      });
+  };
+
+  test();
 };

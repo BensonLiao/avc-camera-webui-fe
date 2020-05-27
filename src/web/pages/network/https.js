@@ -1,13 +1,12 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {Link} = require('capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
-const HTTPSSelfSignedSettingsValidator = require('../../validations/system/https-self-signed-settings-validator');
-const HTTPSUploadCertificateValidator = require('../../validations/system/https-upload-certificate-settings-validator');
 const Base = require('../shared/base');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
@@ -34,18 +33,12 @@ module.exports = class HTTPS extends Base {
 
   constructor(props) {
     super(props);
-    this.state.validator = this.generateValidator(props.httpsSettings.certificateType);
+    this.state.isShowModal = false;
+    this.state.onConfirm = this.hideModal;
   }
 
-  generateValidator = certificateType => {
-    switch (certificateType) {
-      case CertificateType.selfSigned:
-        return utils.makeFormikValidator(HTTPSSelfSignedSettingsValidator);
-      case CertificateType.uploadCertificate:
-        return utils.makeFormikValidator(HTTPSUploadCertificateValidator);
-      default:
-        throw new Error('certificate type failed');
-    }
+  hideModal = () => {
+    this.setState({isShowModal: false});
   };
 
   checkValidatePort = values => {
@@ -73,7 +66,16 @@ module.exports = class HTTPS extends Base {
   onSubmitForm = values => {
     progress.start();
     api.system.updateHttpsSettings(values)
-      .then(getRouter().reload)
+      .then(() => {
+        this.setState({
+          isShowModal: true,
+          onConfirm: () => {
+            utils.pingAndRedirectPage(
+              `${values.isEnable ? 'https' : 'http'}://${location.hostname}:${values.isEnable ? values.port : this.props.httpInfo.port}`
+            );
+          }
+        });
+      })
       .catch(error => {
         progress.done();
         utils.showErrorNotification({
@@ -81,19 +83,6 @@ module.exports = class HTTPS extends Base {
           message: error.response.status === 400 ? error.response.data.message || null : null
         });
       });
-  };
-
-  certificateTypeRender = ({field}) => {
-    const onChange = event => {
-      this.setState({validator: this.generateValidator(event.target.value)});
-      field.onChange(event);
-    };
-
-    return (
-      <select {...field} className="form-control border-0" onChange={onChange}>
-        <option value={CertificateType.selfSigned}>{_(`certificate-type-${CertificateType.selfSigned}`)}</option>
-      </select>
-    );
   };
 
   formRender = ({values, errors, touched}) => {
@@ -128,35 +117,13 @@ module.exports = class HTTPS extends Base {
         <div className="form-group">
           <label>{_('Certificate')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="certificateType" component={this.certificateTypeRender}/>
+            <Field name="certificateType" component="select" className="form-control border-0">
+              <option value={CertificateType.selfSigned}>
+                {_(`certificate-type-${CertificateType.selfSigned}`)}
+              </option>
+            </Field>
           </div>
         </div>
-        {
-          values.certificateType === CertificateType.uploadCertificate && (
-            <>
-              <div className="form-group">
-                <label>{_('Certificate')}</label>
-                <Field name="certificate" component="textarea" rows={5}
-                  className={classNames('form-control', {'is-invalid': errors.certificate && touched.certificate})}/>
-                {
-                  errors.certificate && touched.certificate && (
-                    <div className="invalid-feedback">{errors.certificate}</div>
-                  )
-                }
-              </div>
-              <div className="form-group">
-                <label>{_('Private Key')}</label>
-                <Field name="privateKey" component="textarea" rows={5}
-                  className={classNames('form-control', {'is-invalid': errors.privateKey && touched.privateKey})}/>
-                {
-                  errors.privateKey && touched.privateKey && (
-                    <div className="invalid-feedback">{errors.privateKey}</div>
-                  )
-                }
-              </div>
-            </>
-          )
-        }
         <button disabled={$isApiProcessing || !utils.isObjectEmpty(errors)} className="btn btn-primary btn-block rounded-pill" type="submit">
           {_('Apply')}
         </button>
@@ -166,12 +133,7 @@ module.exports = class HTTPS extends Base {
 
   render() {
     const {httpsSettings} = this.props;
-    const {validator} = this.state;
-    const initialValues = {
-      ...httpsSettings,
-      certificate: '',
-      privateKey: ''
-    };
+    const {validator, isShowModal, onConfirm} = this.state;
 
     return (
       <div className="main-content left-menu-active">
@@ -193,12 +155,19 @@ module.exports = class HTTPS extends Base {
                 <div className="card shadow">
                   <div className="card-header">HTTPS</div>
                   <Formik
-                    initialValues={initialValues}
+                    initialValues={httpsSettings}
                     validate={validator}
                     onSubmit={this.onSubmitForm}
                   >
                     {this.formRender}
                   </Formik>
+                  <CustomNotifyModal
+                    modalType="info"
+                    isShowModal={isShowModal}
+                    modalTitle={_('Success')}
+                    modalBody={_('Click Confirm to Redirect to the New Address.')}
+                    onHide={this.hideModal}
+                    onConfirm={onConfirm}/>
                 </div>
               </div>
             </div>
