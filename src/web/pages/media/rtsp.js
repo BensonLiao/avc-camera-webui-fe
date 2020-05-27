@@ -71,7 +71,7 @@ module.exports = class RTSP extends Base {
     return (
       <Form className="card-body">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{_('Record sound to stream')}</label>
+          <label className="mb-0">{_('Enable Audio over RTSP')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnableAudioToStream" checked={values.isEnableAudioToStream} type="checkbox" className="custom-control-input" id="switch-voice-to-stream"/>
             <label className="custom-control-label" htmlFor="switch-voice-to-stream">
@@ -81,7 +81,7 @@ module.exports = class RTSP extends Base {
           </div>
         </div>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{_('Required Authentication')}</label>
+          <label className="mb-0">{_('Require Authentication')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnablePassword" checked={values.isEnablePassword} type="checkbox" className="custom-control-input" id="switch-auth"/>
             <label className="custom-control-label" htmlFor="switch-auth">
@@ -122,7 +122,7 @@ module.exports = class RTSP extends Base {
           <span className="form-text text-muted">{_('1024 - 65535, except for 5555, 8080, 8443, 8554.')}</span>
         </div>
         <div className="form-group">
-          <label>{_('Concurrent Connection Limit')}</label>
+          <label>{_('Maximum Number of Connection')}</label>
           <Field name="connectionLimit" type="text"
             className={classNames('form-control', {'is-invalid': errors.connectionLimit && touched.connectionLimit})} placeholder="8"/>
           {

@@ -160,9 +160,9 @@ module.exports = class Word extends Base {
                   </button>
                 </div>
               </div>
-              <div className="form-group">
-                <label>{_('Position')}</label> <i className="fas fa-info-circle text-primary ml-2"/>
-                <p className="text-primary">{_('Please click position buttons.')}</p>
+              <div className="form-group d-flex justify-content-between align-items-center">
+                <label>{_('Position')}</label>
+                <p className="text-primary">{_('Select Position')}</p>
               </div>
               <div className="form-group">
                 <label>{_('Text Overlay')}</label>
