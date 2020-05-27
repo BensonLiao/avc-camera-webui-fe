@@ -11,12 +11,14 @@ module.exports = validator.compile({
     optional: false,
     type: 'string',
     empty: false,
-    max: 32
+    min: 8,
+    max: 16
   },
   confirmPassword: {
     optional: false,
     type: 'string',
     empty: false,
-    max: 32
+    min: 8,
+    max: 16
   }
 });
