@@ -36,6 +36,7 @@ module.exports = class NetworkSettings extends Base {
     this.state.dhcpTestIp = null;
     this.state.modalTitle = '';
     this.state.modalBody = '';
+    this.state.onConfirm = this.hideModal('info');
     this.state.isUpdating = false;
   }
 
@@ -108,7 +109,7 @@ module.exports = class NetworkSettings extends Base {
                 .catch(() => {
                   this.setState(prevState => ({...prevState, isShowSelectModal: {...prevState, info: false}}));
                   let redirectIP;
-                  if (values.ipType === '0') {
+                  if (values.ipType === NetworkIPType.fixed) {
                     redirectIP = values.ipAddress;
                   } else {
                     redirectIP = this.state.dhcpTestIp || '192.168.1.168';
@@ -123,7 +124,10 @@ module.exports = class NetworkSettings extends Base {
                     },
                     isUpdating: false,
                     modalTitle: _('Success'),
-                    modalBody: [_('Please re-login at the new IP.'), `${_('IP Address')}: ${redirectIP}`]
+                    modalBody: [_('Click Confirm to Redirect to the New Address.'), `${_('IP Address')}: ${redirectIP}`],
+                    onConfirm: () => {
+                      utils.pingAndRedirectPage(`${location.protocol}//${redirectIP}:${location.port}`);
+                    }
                   }), resolve());
                 });
             };
@@ -346,7 +350,7 @@ module.exports = class NetworkSettings extends Base {
 
   render() {
     const {networkSettings} = this.props;
-    const {isShowSelectModal, modalBody, modalTitle} = this.state;
+    const {isShowSelectModal, modalBody, modalTitle, onConfirm} = this.state;
     return (
       <div className="main-content left-menu-active">
         <div className="page-notification">
@@ -409,7 +413,7 @@ module.exports = class NetworkSettings extends Base {
                       modalTitle={modalTitle}
                       modalBody={modalBody}
                       onHide={this.hideModal('info')}
-                      onConfirm={this.hideModal('info')}/>
+                      onConfirm={onConfirm}/>
                   </div>
                 </div>
               </div>
