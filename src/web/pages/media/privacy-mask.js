@@ -3,7 +3,6 @@ const React = require('react');
 const progress = require('nprogress');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
-const {HotKeys} = require('react-hotkeys');
 const iconHotkeyBackspace = require('../../../resource/hotkey-backspace-32px.svg');
 const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');
 const iconCursor = require('../../../resource/cursor-24px.svg');
@@ -40,14 +39,16 @@ module.exports = class PrivacyMask extends Base {
     ];
   }
 
-  generateDeleteMaskAreaHandler = index => () => {
-    this.setState(prevState => {
-      const maskAreaStates = [...prevState.maskAreaStates];
-
-      maskAreaStates[index].isVisible = false;
-      return {maskAreaStates};
-    });
-  };
+  generateDeleteMaskAreaHandler = index => event => {
+    // Delete if backspace or delete key is detected
+    if (event.keyCode === 8 || event.keyCode === 46) {
+      this.setState(prevState => {
+        const maskAreaStates = [...prevState.maskAreaStates];
+        maskAreaStates[index].isVisible = false;
+        return {maskAreaStates};
+      });
+    }
+  }
 
   generateVideoWrapperMouseDownHandler = form => event => {
     const width = this.videoWrapperRef.current.offsetWidth;
@@ -143,11 +144,16 @@ module.exports = class PrivacyMask extends Base {
             {
               maskAreaItems.map(index => (
                 maskAreaStates[index].isVisible ?
-                  <HotKeys key={index} keyMap={{DELETE: ['del', 'backspace']}} handlers={{DELETE: this.generateDeleteMaskAreaHandler(index)}}>
-                    <Field rightBottomCornerRef={this.maskAreaRefs[index]} name={`maskAreas.${index}`}
-                      component={MaskArea} text={_('Mask Area')}
-                      className="border-green" parentElementId="pm-video-wrapper"/>
-                  </HotKeys> :
+                  <div key={index} tabIndex={1} onKeyDown={this.generateDeleteMaskAreaHandler(index)}>
+                    <Field
+                      rightBottomCornerRef={this.maskAreaRefs[index]}
+                      name={`maskAreas.${index}`}
+                      component={MaskArea}
+                      text={_('Mask Area')}
+                      className="border-green"
+                      parentElementId="pm-video-wrapper"
+                    />
+                  </div> :
                   <div key={index}/>
               ))
             }
