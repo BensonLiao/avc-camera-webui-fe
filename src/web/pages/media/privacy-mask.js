@@ -175,7 +175,7 @@ module.exports = class PrivacyMask extends Base {
                 </div>
               </div>
               <div className="form-group mb-5">
-                <span className="form-text text-primary">{_('Please Drag a Mask Area.')}</span>
+                <span className="form-text text-primary">{_('Drag a Mask Area.')}</span>
               </div>
               <div className="form-group">
                 <div className="card-header l-24 light text-size-18">{_('Note Area')}</div>

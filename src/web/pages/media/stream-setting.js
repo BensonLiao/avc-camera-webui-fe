@@ -225,7 +225,7 @@ module.exports = class StreamSetting extends Base {
   formRender = ({values, errors}) => {
     const {isShowModal, $isApiProcessing} = this.state;
     const channelAOptions = {
-      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({label: x, value: x})),
+      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg).map(x => ({label: x, value: x})),
       resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
       frameRate: (() => {
         const result = [];
@@ -306,11 +306,11 @@ module.exports = class StreamSetting extends Base {
         </div>
         <button
           type="button"
-          className="btn btn-block btn-outline-primary rounded-pill"
+          className="btn btn-block btn-outline-primary rounded-pill d-none"
           disabled={this.state.$isApiProcessing}
           onClick={this.onClickResetButton}
         >
-          {_('Reset to Default')}
+          {_('Reset to Default Settings')}
         </button>
         <CustomNotifyModal
           isShowModal={isShowModal}
@@ -339,7 +339,7 @@ module.exports = class StreamSetting extends Base {
                 disabled={this.state.$isApiProcessing}
                 onClick={this.onClickResetButton}
               >
-                {_('Reset to Default')}
+                {_('Reset to Default Settings')}
               </button>
             )
           }

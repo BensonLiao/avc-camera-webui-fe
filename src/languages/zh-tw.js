@@ -314,12 +314,12 @@ window.languageResource = {
   'Shutter Speed': '快門速度',
   Iris: '光圈',
   Apply: '套用',
-  'Reset to Default': '恢復預設',
+  'Reset to Default Settings': '恢復預設',
   Color: '顏色',
   'Lens Control': '鏡頭控制',
   'Short-range Focus': '短距離對焦',
   'Full-range Focus': '全範圍對焦',
-  'Auto Focus After Zoom': '調整Zoom時自動對焦',
+  'Auto Focus after Zoom': '調整Zoom時自動對焦',
   Saturation: '飽和度',
   'Auto White Balance': '白平衡',
   'Color Temperature': '色溫',
@@ -334,7 +334,7 @@ window.languageResource = {
   'Focal Length': '焦距',
 
   // /image
-  'Image settings': '圖像設定',
+  'Image Settings': '圖像設定',
   Picture: '圖像調整',
   'Image Configuration': '影像屬性',
 
@@ -356,7 +356,7 @@ window.languageResource = {
   'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
 
   // /media/privacy-mask
-  'Please Drag a Mask Area.': '請拖曳新增遮罩',
+  'Drag a Mask Area.': '請拖曳新增遮罩',
   'Mask Area': '遮罩區域',
   'Note Area': '說明',
   Drag: '拖曳',
@@ -375,10 +375,10 @@ window.languageResource = {
 
   // /media/rtsp
   'Enable Audio over RTSP': '將聲音記錄至串流',
-  'Required Authentication': '連線時需帳號密碼認證',
+  'Require Authentication': '連線時需帳號密碼認證',
   'RTSP/TCP Port': 'RTSP/TCP 連接埠',
   'RTSP/UDP Port': 'RTSP/UDP 連接埠',
-  'Maximum Connection': '最大連接數',
+  'Maximum Number of Connection': '最大連接數',
   '1024 - 65535, except for 5555, 8080, 8443, 17300.': '1024 - 65535，除了5555、8080、8443、17300',
   '1024 - 65535, except for 5555, 8080, 8443, 8554.': '1024 - 65535，除了5555、8080、8443、8554',
 
@@ -388,7 +388,7 @@ window.languageResource = {
   Size: '大小',
   Position: '位置',
   'Word Position': '貼圖顯示位置',
-  'Please Select a Desired Position.': '請於畫面中點選文字顯示位置。',
+  'Select Position': '請於畫面中點選文字顯示位置。',
 
   // /notification/card
   'Notification Setting': '通知設定',
@@ -641,7 +641,7 @@ window.languageResource = {
   'SD Card Operation': '操作',
   Format: '格式化',
   Unmount: '卸載',
-  'sd-card-notification': '異常通報',
+  'SD Card Notification': '異常通報',
   'Email Notification Set': '電子郵件通知已設定',
   'Setup Email Notifications': '請設定電子郵件通知',
   Status: '狀態',
