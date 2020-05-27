@@ -4,7 +4,6 @@ const progress = require('nprogress');
 const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
 const {Link, getRouter} = require('capybara-router');
-const {HotKeys} = require('react-hotkeys');
 const iconHotkeyBackspace = require('../../../resource/hotkey-backspace-32px.svg');
 const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');
 const iconCursor = require('../../../resource/cursor-24px.svg');
@@ -48,14 +47,16 @@ module.exports = class MotionDetection extends Base {
     return {...settings};
   };
 
-  generateDeleteMaskAreaHandler = index => () => {
-    this.setState(prevState => {
-      const maskAreaStates = [...prevState.maskAreaStates];
-
-      maskAreaStates[index].isVisible = false;
-      return {maskAreaStates};
-    });
-  };
+  generateDeleteMaskAreaHandler = index => event => {
+    // Delete if backspace or delete key is detected
+    if (event.keyCode === 8 || event.keyCode === 46) {
+      this.setState(prevState => {
+        const maskAreaStates = [...prevState.maskAreaStates];
+        maskAreaStates[index].isVisible = false;
+        return {maskAreaStates};
+      });
+    }
+  }
 
   generateVideoWrapperMouseDownHandler = form => event => {
     const width = this.videoWrapperRef.current.offsetWidth;
@@ -152,11 +153,15 @@ module.exports = class MotionDetection extends Base {
             {
               maskAreaItems.map(index => (
                 maskAreaStates[index].isVisible ?
-                  <HotKeys key={index} keyMap={{DELETE: ['del', 'backspace']}} handlers={{DELETE: this.generateDeleteMaskAreaHandler(index)}}>
-                    <Field rightBottomCornerRef={this.maskAreaRefs[index]} name={`areas.${index}`}
-                      component={MaskArea} text={_('Detection Zone')}
-                      className="border-green" parentElementId="md-video-wrapper"/>
-                  </HotKeys> :
+                  <div key={index} tabIndex={1} onKeyDown={this.generateDeleteMaskAreaHandler(index)}>
+                    <Field
+                      rightBottomCornerRef={this.maskAreaRefs[index]}
+                      name={`areas.${index}`}
+                      component={MaskArea}
+                      text={_('Detection Zone')}
+                      className="border-green"
+                      parentElementId="md-video-wrapper"/>
+                  </div> :
                   <div key={index}/>
               ))
             }
