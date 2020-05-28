@@ -117,6 +117,7 @@ module.exports = class DateTime extends Base {
           <label>{_('Language')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="language" component="select" className="form-control border-0">
+              <option value={window.navigator.userLanguage || window.navigator.language}>{_('Default')}</option>
               <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
               <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
             </Field>
