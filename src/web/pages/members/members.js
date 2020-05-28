@@ -161,7 +161,7 @@ module.exports = class Members extends Base {
     progress.start();
     api.member.deleteMember(this.state.deleteMemberTarget.id)
       .then(() => {
-        this.hideDeleteMemberModal();
+        this.hideModal('deleteMember');
         getRouter().reload();
       })
       .catch(error => {
@@ -178,7 +178,7 @@ module.exports = class Members extends Base {
     progress.start();
     api.group.deleteGroup(this.state.deleteGroupTarget.id)
       .then(() => {
-        this.hideDeleteGroupModal();
+        this.hideModal('deleteGroup');
         if (this.state.deleteGroupTarget.id === this.props.params.group) {
           getRouter().go(
             {
