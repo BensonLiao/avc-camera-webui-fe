@@ -18,18 +18,15 @@ const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
-const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-settings-schema');
 const defaultVideoBackground = require('../../resource/video-bg.jpg');
 const Base = require('./shared/base');
 const _ = require('../../languages');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
-const Slider = require('../../core/components/fields/slider');
-const FormikEffect = require('../../core/components/formik-effect');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
-const StreamSetting = require('./media/stream-setting');
+const VideoSetting = require('../../core/components/video-setting');
 const CustomTooltip = require('../../core/components/tooltip');
 
 module.exports = class Home extends Base {
@@ -320,75 +317,6 @@ module.exports = class Home extends Base {
     );
   };
 
-  videoSettingsFormRender = form => {
-    const {values} = form;
-
-    return (
-      <Form>
-        <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header d-flex align-items-center justify-content-between">
-          {_('Quick Start')}
-          <button disabled={this.state.$isApiProcessing} type="button"
-            className="btn btn-outline-light rounded-pill"
-            onClick={this.generateClickResetButtonHandler(form)}
-          >
-            {_('Reset to Default Settings')}
-          </button>
-        </div>
-        <div className="card-body">
-          <div className="form-row">
-            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
-              <span className="text-size-20">{_('WDR')}</span>
-              <div className="custom-control custom-switch d-inline-block ml-2">
-                <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled === 'true' ? true : undefined} className="custom-control-input" id="switch-hdr-enabled"/>
-                <label className="custom-control-label" htmlFor="switch-hdr-enabled">
-                  <span>{_('ON')}</span>
-                  <span>{_('OFF')}</span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr className="my-0"/>
-        <div className="card-body">
-          <div className="form-row">
-            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
-              <span className="text-size-20">{_('Focus')}</span>
-              <button
-                disabled={this.state.$isApiProcessing}
-                type="button"
-                className="btn btn-outline-primary rounded-pill tip text-nowrap py-0 px-3"
-                onClick={this.generateClickAutoFocusButtonHandler(form)}
-              >
-                {_('Auto Focus')}
-              </button>
-            </div>
-          </div>
-        </div>
-        <hr className="my-0"/>
-        <div className="card-body">
-          <div className="form-row">
-            <div className="col-12 my-1 d-flex justify-content-between align-items-center">
-              <div className="form-group w-100 mb-0">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label className="text-size-16 mb-0 text-left">Zoom</label>
-                  <span className="text-primary text-size-14">{values.zoom}X</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  enableArrowKey
-                  disabled={this.state.$isApiProcessing}
-                  name="zoom" component={Slider} step={0.1}
-                  min={videoFocusSettingsSchema.zoom.min}
-                  max={videoFocusSettingsSchema.zoom.max}/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Form>
-    );
-  };
-
   generateOnChangeBandwidthManagement = bandwidthManagement => {
     return event => {
       event.preventDefault();
@@ -397,7 +325,7 @@ module.exports = class Home extends Base {
   }
 
   render() {
-    const {systemInformation, streamSettings} = this.props;
+    const {systemInformation, videoSettings, systemDateTime} = this.props;
     const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
     const freeDiskPercentage = 100 - usedDiskPercentage;
     const classTable = {
@@ -555,14 +483,11 @@ module.exports = class Home extends Base {
                 </div>
               </div>
               <div className="col-4 pl-0">
-                <div className="card shadow">
-                  <Formik initialValues={this.generateInitialValues(this.props.videoSettings)}>
-                    {this.videoSettingsFormRender}
-                  </Formik>
-                  <StreamSetting
-                    homePage
-                    streamSettings={streamSettings}/>
-                </div>
+                <div className="card shadow"/>
+                <VideoSetting
+                  videoSettings={videoSettings}
+                  systemDateTime={systemDateTime}
+                />
               </div>
             </div>
           </div>
