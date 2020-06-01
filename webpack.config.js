@@ -5,6 +5,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
 const packageInformation = JSON.parse(fs.readFileSync('package.json'));
@@ -128,7 +129,10 @@ module.exports = (env = {}) => {
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': JSON.stringify(env.mode || 'development'),
           'process.env.VERSION': JSON.stringify(packageInformation.version)
-        })
+        }),
+        new CopyWebpackPlugin([
+          {from: './favicon.ico'}
+        ])
       ];
       if (isDisableMockServer) {
         result.push(new webpack.IgnorePlugin(/.*dev\/.*$/));
