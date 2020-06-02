@@ -35,7 +35,10 @@ module.exports = class Login extends Base {
   onSubmitLoginForm = values => {
     progress.start();
     api.account.login(values)
-      .then(this.redirectPage)
+      .then(response => {
+        localStorage.setItem('$expires', response.data.expires);
+        this.redirectPage();
+      })
       .catch(error => {
         if (error.response) {
           if (error.response.status === 429) {
