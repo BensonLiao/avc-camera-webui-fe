@@ -4,7 +4,8 @@ const store = require('../../../core/store');
 module.exports = class Base extends React.Component {
   state = {
     $isApiProcessing: store.get('$isApiProcessing'),
-    $user: store.get('$user')
+    $user: store.get('$user'),
+    $expires: store.get('$expires')
   };
 
   constructor(props) {
@@ -23,6 +24,13 @@ module.exports = class Base extends React.Component {
           this.setState({$user: data});
         } else {
           this.state.$user = data;
+        }
+      }),
+      store.subscribe('$expires', (msg, data) => {
+        if (this.$isMounted) {
+          this.setState({$expires: data});
+        } else {
+          this.state.$expires = data;
         }
       })
     ];

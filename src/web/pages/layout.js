@@ -18,10 +18,11 @@ const iconSystem = require('../../resource/left-navigation-system.svg');
 const iconSDCard = require('../../resource/left-navigation-sd-card.svg');
 const logo = require('../../resource/logo-avc.svg');
 const CustomTooltip = require('../../core/components/tooltip');
+const CustomNotifyModal = require('../../core/components/custom-notify-modal');
 const api = require('../../core/apis/web-api');
 const utils = require('../../core/utils');
 const _ = require('../../languages');
-const {AVAILABLE_LANGUAGE_CODES} = require('../../core/constants');
+const {AVAILABLE_LANGUAGE_CODES, REDIRECT_COUNTDOWN} = require('../../core/constants');
 
 module.exports = class Layout extends Base {
   static get propTypes() {
@@ -55,7 +56,30 @@ module.exports = class Layout extends Base {
         });
       })
     );
+    this.state.isShowExpireModal = false;
     this.state.isShowAboutModal = false;
+    this.state.modalBody = `Server session has expired, redirect in ${REDIRECT_COUNTDOWN} seconds`;
+  }
+
+  componentDidMount() {
+    const expires = localStorage.getItem('$expires') || null;
+    if (expires) {
+      setTimeout(() => {
+        this.setState(
+          {isShowExpireModal: true},
+          () => {
+            let countdown = REDIRECT_COUNTDOWN;
+            const countdownId = setInterval(() => {
+              this.setState({modalBody: `Server session has expired, redirect in ${--countdown} seconds`});
+            }, 1000);
+            setTimeout(() => {
+              clearInterval(countdownId);
+              location.href = '/login';
+            }, REDIRECT_COUNTDOWN * 1000);
+          }
+        );
+      }, expires);
+    }
   }
 
   generateChangeLanguageHandler = languageCode => event => {
@@ -304,6 +328,15 @@ module.exports = class Layout extends Base {
             </button>
           </div>
         </Modal>
+
+        <CustomNotifyModal
+          modalType="process"
+          isShowModal={this.state.isShowExpireModal}
+          modalTitle="Session expired"
+          modalBody={this.state.modalBody}
+          onHide={() => {
+            this.setState({isShowExpireModal: false});
+          }}/>
 
         <RouterView>
           <Loading/>

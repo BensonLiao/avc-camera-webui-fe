@@ -9,6 +9,7 @@ module.exports = {
   DEVICE_NAME_CHAR_MAX: 32,
   NOTIFY_CARDS_MAX: 32,
   NOTIFY_CARDS_EMAIL_MAX: 64,
+  REDIRECT_COUNTDOWN: 5,
   RESTRICTED_PORTS: [
     '0', // Reserved
     '1', // Tcpmux
