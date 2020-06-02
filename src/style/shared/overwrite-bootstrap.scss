@@ -320,7 +320,7 @@ label.btn {
   }
 }
 
-.card .nav.nav-tabs {
+.card .nav {
   padding: 0px 24px;
   height: 48px;
 }
@@ -332,7 +332,7 @@ label.btn {
     margin-right: 12px;
   }
 }
-.nav.nav-tabs {
+div[role="tablist"].nav {
   height: 48px;
   border-bottom: 2px $secondary-300 solid;
   .nav-item {

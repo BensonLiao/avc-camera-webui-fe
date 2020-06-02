@@ -1,4 +1,5 @@
 const React = require('react');
+const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const {getRouter} = require('capybara-router');
@@ -285,14 +286,18 @@ module.exports = class StreamSetting extends Base {
     };
     return (
       <Form className="card-body">
-        <div className="tab-content">
-          <div className="tab-pane fade show active" id="tab-channel-a">
+
+        <Tab.Content>
+          <Tab.Pane eventKey="channel-a">
             {this.fieldsRender('channelA', channelAOptions, values.channelA)}
-          </div>
-          <div className="tab-pane fade" id="tab-channel-b">
+          </Tab.Pane>
+        </Tab.Content>
+
+        <Tab.Content>
+          <Tab.Pane eventKey="channel-b">
             {this.fieldsRender('channelB', channelBOptions, values.channelB)}
-          </div>
-        </div>
+          </Tab.Pane>
+        </Tab.Content>
 
         <div className="form-group mt-5">
           <button
@@ -344,36 +349,31 @@ module.exports = class StreamSetting extends Base {
             )
           }
         </div>
-        <nav>
-          <div className="nav nav-tabs">
-            <a
-              className="nav-item nav-link active"
-              data-toggle="tab"
-              href="#tab-channel-a"
-            >
-              {_('Stream {0}', '01')}
-            </a>
-            <a
-              className="nav-item nav-link"
-              data-toggle="tab"
-              href="#tab-channel-b"
-            >
-              {_('Stream {0}', '02')}
-            </a>
-          </div>
-        </nav>
-
+        <Tab.Container defaultActiveKey="channel-a">
+          <Nav>
+            <Nav.Item>
+              <Nav.Link eventKey="channel-a">
+                {_('Stream {0}', '01')}
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="channel-b">
+                {_('Stream {0}', '02')}
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+          <Formik
+            initialValues={streamSettings}
+            onSubmit={this.onSubmit}
+          >
+            {this.formRender}
+          </Formik>
+        </Tab.Container>
         <CustomNotifyModal
           modalType="process"
           isShowModal={this.state.isShowApiProcessModal}
           modalTitle={this.state.apiProcessModalTitle}
           onHide={this.hideApiProcessModal}/>
-        <Formik
-          initialValues={streamSettings}
-          onSubmit={this.onSubmit}
-        >
-          {this.formRender}
-        </Formik>
       </>
     );
   }
