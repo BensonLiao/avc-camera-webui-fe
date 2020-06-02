@@ -2,13 +2,13 @@ const api = require('./index.js');
 
 module.exports = {
   /**
-     * Ping server status.
-     * @param {String} type - Determing what server to ping (android or nodejs), default is nodejs.
-     * @param {Number} mock - Pass `1` to simulate web shutdown, be sure not to pass it or pass `0` in production.
-     * @returns {Promise<response>}
-     * @response 200 {Response} default
-     * @response 500 {Response} if `mock` is set to `1`
-     */
+   * Ping server status.
+   * @param {String} type - Determing what server to ping (android or nodejs), default is nodejs.
+   * @param {Number} mock - Pass `1` to simulate web shutdown, be sure not to pass it or pass `0` in production.
+   * @returns {Promise<response>}
+   * @response 200 {Response} default
+   * @response 500 {Response} if `mock` is set to `1`
+   */
   ping: (type, mock = 0) => api({
     method: 'get',
     url: `/api/ping/${type || 'web'}`,
