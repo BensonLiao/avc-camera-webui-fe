@@ -16,7 +16,7 @@ const iconAnalytic = require('../../resource/left-navigation-analytic.svg');
 const iconNetwork = require('../../resource/left-navigation-network.svg');
 const iconSystem = require('../../resource/left-navigation-system.svg');
 const iconSDCard = require('../../resource/left-navigation-sd-card.svg');
-const logo = require('../../resource/logo-avc.svg');
+const logo = require('../../resource/logo-avn.svg');
 const CustomTooltip = require('../../core/components/tooltip');
 const CustomNotifyModal = require('../../core/components/custom-notify-modal');
 const api = require('../../core/apis/web-api');
@@ -56,9 +56,9 @@ module.exports = class Layout extends Base {
         });
       })
     );
-    this.state.isShowExpireModal = false;
     this.state.isShowAboutModal = false;
-    this.state.modalBody = `Server session has expired, redirect in ${REDIRECT_COUNTDOWN} seconds`;
+    this.state.isShowExpireModal = false;
+    this.state.expireModalBody = `Your session has expired, redirect in ${REDIRECT_COUNTDOWN} seconds`;
   }
 
   componentDidMount() {
@@ -70,7 +70,7 @@ module.exports = class Layout extends Base {
           () => {
             let countdown = REDIRECT_COUNTDOWN;
             const countdownId = setInterval(() => {
-              this.setState({modalBody: `Server session has expired, redirect in ${--countdown} seconds`});
+              this.setState({expireModalBody: `Your session has expired, redirect in ${--countdown} seconds`});
             }, 1000);
             setTimeout(() => {
               clearInterval(countdownId);
@@ -81,19 +81,6 @@ module.exports = class Layout extends Base {
       }, expires);
     }
   }
-
-  generateChangeLanguageHandler = languageCode => event => {
-    event.preventDefault();
-    progress.start();
-    api.system.updateLanguage(languageCode)
-      .then(() => {
-        location.reload();
-      })
-      .catch(error => {
-        progress.done();
-        utils.renderError(error);
-      });
-  };
 
   showAboutModal = () => {
     this.setState({isShowAboutModal: true});
@@ -118,13 +105,14 @@ module.exports = class Layout extends Base {
 
   render() {
     const {systemInformation, networkSettings} = this.props;
+    const {$user, currentRouteName, isShowAboutModal, isShowExpireModal, expireModalBody} = this.state;
     const classTable = {
       home: classNames(
         'btn d-flex justify-content-center align-items-center',
-        {active: this.state.currentRouteName === 'web.home'}
+        {active: currentRouteName === 'web.home'}
       ),
       media: classNames(
-        'btn d-flex justify-content-center align-items-center',
+        'btn',
         {
           active: [
             'web.media',
@@ -132,26 +120,34 @@ module.exports = class Layout extends Base {
             'web.media.rtsp',
             'web.media.word',
             'web.media.privacy-mask'
-          ].indexOf(this.state.currentRouteName) >= 0
+          ].indexOf(currentRouteName) >= 0,
+          'd-flex justify-content-center align-items-center': $user.permission === '0',
+          'd-none': $user.permission !== '0'
         }
       ),
       audio: classNames(
-        'btn d-flex justify-content-center align-items-center',
-        {active: this.state.currentRouteName === 'web.audio'}
+        'btn',
+        {
+          active: currentRouteName === 'web.audio',
+          'd-flex justify-content-center align-items-center': $user.permission === '0',
+          'd-none': $user.permission !== '0'
+        }
       ),
       notification: classNames(
-        'btn d-flex justify-content-center align-items-center',
+        'btn',
         {
           active: [
             'web.notification',
             'web.notification.io',
             'web.notification.smtp',
             'web.notification.cards'
-          ].indexOf(this.state.currentRouteName) >= 0
+          ].indexOf(currentRouteName) >= 0,
+          'd-flex justify-content-center align-items-center': $user.permission === '0',
+          'd-none': $user.permission !== '0'
         }
       ),
       users: classNames(
-        'btn d-flex justify-content-center align-items-center',
+        'btn',
         {
           active: [
             'web.users.members',
@@ -163,31 +159,47 @@ module.exports = class Layout extends Base {
             'web.users.accounts.details',
             'web.users.accounts.new-user',
             'web.users.events'
-          ].indexOf(this.state.currentRouteName) >= 0
+          ].indexOf(currentRouteName) >= 0,
+          'd-flex justify-content-center align-items-center': $user.permission === '0',
+          'd-none': $user.permission !== '0'
         }
       ),
       smart: classNames(
-        'btn d-flex justify-content-center align-items-center',
+        'btn',
         {
           active: [
             'web.smart',
             'web.smart.face-recognition',
             'web.smart.motion-detection',
             'web.smart.license'
-          ].indexOf(this.state.currentRouteName) >= 0
+          ].indexOf(currentRouteName) >= 0,
+          'd-flex justify-content-center align-items-center': $user.permission === '0',
+          'd-none': $user.permission !== '0'
         }
       ),
       network: classNames(
-        'btn d-flex justify-content-center align-items-center',
-        {active: this.state.currentRouteName.indexOf('web.network') === 0}
+        'btn',
+        {
+          active: currentRouteName.indexOf('web.network') === 0,
+          'd-flex justify-content-center align-items-center': $user.permission === '0',
+          'd-none': $user.permission !== '0'
+        }
       ),
       system: classNames(
-        'btn d-flex justify-content-center align-items-center',
-        {active: this.state.currentRouteName.indexOf('web.system') === 0}
+        'btn',
+        {
+          active: currentRouteName.indexOf('web.system') === 0,
+          'd-flex justify-content-center align-items-center': $user.permission === '0',
+          'd-none': $user.permission !== '0'
+        }
       ),
       sdCard: classNames(
-        'btn d-flex justify-content-center align-items-center',
-        {active: this.state.currentRouteName === 'web.sd-card'}
+        'btn',
+        {
+          active: currentRouteName === 'web.sd-card',
+          'd-flex justify-content-center align-items-center': $user.permission === '0',
+          'd-none': $user.permission !== '0'
+        }
       )
     };
 
@@ -251,31 +263,42 @@ module.exports = class Layout extends Base {
           <div className="collapse navbar-collapse" id="navigation">
             <ul className="navbar-nav mr-auto"/>
             <form className="form-row text-right">
-
-              <div className="col d-none d-sm-block">
-                <div className="dropdown">
-                  <button className="btn dropdown-toggle border-primary btn-outline text-primary" type="button" data-toggle="dropdown">
-                    <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
-                  </button>
-                  <div className="dropdown-menu dropdown-menu-right">
-                    {
-                      Object.keys(window.config.languages).map(languageCode => (
-                        <a key={languageCode} className="dropdown-item"
-                          href={`#${languageCode}`}
-                          onClick={this.generateChangeLanguageHandler(languageCode)}
-                        >
-                          {window.config.languages[languageCode].title}
-                        </a>
-                      ))
-                    }
-                  </div>
-                </div>
-              </div>
-
               <div className="col d-none d-sm-block">
                 <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
                   <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
                 </button>
+              </div>
+
+              <div className="col">
+                <div className="dropdown">
+                  <button className="btn text-primary border-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i className="fas fa-question-circle text-primary text-size-20" style={{width: '20px', marginRight: '4px'}}/>
+                  </button>
+                  <div className="dropdown-menu dropdown-menu-right">
+                    <h5 className="dropdown-header text-primary"> {_('Support')}</h5>
+                    <a className="dropdown-item" href="https://arecontvision.zendesk.com/hc/en-us" target="_blank" rel="noopener noreferrer">
+                      {_('Online Support Request')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/firmware.php" target="_blank" rel="noopener noreferrer">
+                      {_('Firmware Downloads')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/software.php" target="_blank" rel="noopener noreferrer">
+                      {_('Software Downloads')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/downloads.php" target="_blank" rel="noopener noreferrer">
+                      {_('Downloads')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/productselector.php" target="_blank" rel="noopener noreferrer">
+                      {_('Product Selector')}
+                    </a>
+                    <a className="dropdown-item" href="https://sales.arecontvision.com/bulletins/Technical" target="_blank" rel="noopener noreferrer">
+                      {_('Technical Updates')}
+                    </a>
+                    <a className="dropdown-item" href="https://www.arecontvision.com/resource" target="_blank" rel="noopener noreferrer">
+                      {_('Resources')}
+                    </a>
+                  </div>
+                </div>
               </div>
 
               <div className="col">
@@ -285,9 +308,9 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h5 className="dropdown-header text-primary">
-                      {_(`permission-${this.state.$user.permission}`)}
+                      {_(`permission-${$user.permission}`)}
                     </h5>
-                    <span className="dropdown-item-text font-weight-bold">{this.state.$user.account}</span>
+                    <span className="dropdown-item-text font-weight-bold">{$user.account}</span>
                     <div className="dropdown-divider"/>
                     <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>
                       {_('Sign Out')}
@@ -301,7 +324,7 @@ module.exports = class Layout extends Base {
 
         {/* About info modal */}
         <Modal
-          show={this.state.isShowAboutModal}
+          show={isShowAboutModal}
           autoFocus={false}
           onHide={this.hideAboutModal}
         >
@@ -309,13 +332,13 @@ module.exports = class Layout extends Base {
             <h5 className="modal-title">{_('About')}</h5>
           </div>
           <div className="modal-body">
-            <div className="text-info">{_('Model name :')}</div>
+            <div className="text-info mt-2">{_('Model Name :')}</div>
             <div className="text-primary font-weight-bold">{systemInformation.modelName}</div>
-            <div className="text-info">{_('Firmware :')}</div>
+            <div className="text-info mt-3">{_('Firmware :')}</div>
             <div className="text-primary font-weight-bold">{systemInformation.firmware}</div>
-            <div className="text-info">{_('Serial number :')}</div>
+            <div className="text-info mt-3">{_('Serial Number :')}</div>
             <div className="text-primary font-weight-bold">{systemInformation.serialNumber}</div>
-            <div className="text-info">{_('MAC address :')}</div>
+            <div className="text-info mt-3">{_('MAC Address :')}</div>
             <div className="text-primary font-weight-bold">{networkSettings.mac}</div>
           </div>
           <div className="modal-footer flex-column">
@@ -331,9 +354,9 @@ module.exports = class Layout extends Base {
 
         <CustomNotifyModal
           modalType="process"
-          isShowModal={this.state.isShowExpireModal}
+          isShowModal={isShowExpireModal}
           modalTitle="Session expired"
-          modalBody={this.state.modalBody}
+          modalBody={expireModalBody}
           onHide={() => {
             this.setState({isShowExpireModal: false});
           }}/>
