@@ -288,13 +288,13 @@ module.exports = class StreamSetting extends Base {
       <Form className="card-body">
 
         <Tab.Content>
-          <Tab.Pane eventKey="channel-a">
+          <Tab.Pane eventKey="tab-channel-a">
             {this.fieldsRender('channelA', channelAOptions, values.channelA)}
           </Tab.Pane>
         </Tab.Content>
 
         <Tab.Content>
-          <Tab.Pane eventKey="channel-b">
+          <Tab.Pane eventKey="tab-channel-b">
             {this.fieldsRender('channelB', channelBOptions, values.channelB)}
           </Tab.Pane>
         </Tab.Content>
@@ -349,15 +349,15 @@ module.exports = class StreamSetting extends Base {
             )
           }
         </div>
-        <Tab.Container defaultActiveKey="channel-a">
+        <Tab.Container defaultActiveKey="tab-channel-a">
           <Nav>
             <Nav.Item>
-              <Nav.Link eventKey="channel-a">
+              <Nav.Link eventKey="tab-channel-a">
                 {_('Stream {0}', '01')}
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="channel-b">
+              <Nav.Link eventKey="tab-channel-b">
                 {_('Stream {0}', '02')}
               </Nav.Link>
             </Nav.Item>

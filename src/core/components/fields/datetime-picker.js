@@ -462,13 +462,13 @@ module.exports = class DatePicker extends React.PureComponent {
       <div className="datepicker-wrapper">
         <div className="datepicker" {...props}>
 
-          <Tab.Container defaultActiveKey="datepicker-date">
+          <Tab.Container defaultActiveKey="tab-datepicker-date">
             <Nav>
               <Nav.Item className="flex-fill">
                 {dateTabText && (
                   <Nav.Link
                     className="text-center ml-0"
-                    eventKey="datepicker-date"
+                    eventKey="tab-datepicker-date"
                   >
                     {dateTabText}
                   </Nav.Link>
@@ -478,7 +478,7 @@ module.exports = class DatePicker extends React.PureComponent {
                 {!dateTabText && this.onSwitchToClock()}
                 <Nav.Link
                   className="text-center mr-0"
-                  eventKey="datepicker-time"
+                  eventKey="tab-datepicker-time"
                   onClick={dateTabText ? this.onSwitchToClock : onClickInput}
                 >
                   {timeTabText}
@@ -486,7 +486,7 @@ module.exports = class DatePicker extends React.PureComponent {
               </Nav.Item>
             </Nav>
             <Tab.Content>
-              <Tab.Pane eventKey="datepicker-date">
+              <Tab.Pane eventKey="tab-datepicker-date">
                 {
                   isShowRepeatSwitch && (
                     <div className="form-group d-flex justify-content-between align-items-center">
@@ -502,7 +502,7 @@ module.exports = class DatePicker extends React.PureComponent {
               </Tab.Pane>
             </Tab.Content>
             <Tab.Content>
-              <Tab.Pane eventKey="datepicker-time" className={classNames('tab-pane', {'active show': dateTabText === undefined})}>
+              <Tab.Pane eventKey="tab-datepicker-time" className={classNames('tab-pane', {'active show': dateTabText === undefined})}>
                 {this.clockRender()}
               </Tab.Pane>
             </Tab.Content>
