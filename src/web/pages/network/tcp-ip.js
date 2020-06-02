@@ -1,4 +1,5 @@
 const React = require('react');
+const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
@@ -159,86 +160,95 @@ module.exports = class TCPIP extends Base {
   ddnsFormRender = ({values}) => {
     const {$isApiProcessing, isShowApiProcessModal} = this.state;
     return (
-      <Form className="tab-pane fade show active" id="tab-ddns">
-        <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{_('DDNS Server')}</label>
-          <div className="custom-control custom-switch">
-            <Field name="isEnableDDNS" checked={values.isEnableDDNS} type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
-            <label className="custom-control-label" htmlFor="switch-ddns-enable">
-              <span>{_('ON')}</span>
-              <span>{_('OFF')}</span>
-            </label>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Server Provider')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="ddnsProvider" component="select" className="form-control border-0">
-              <option value="dyn-dns">DynDNS.org</option>
-            </Field>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Host Name')}</label>
-          <Field
-            className="form-control"
-            type="text"
-            name="ddnsHost"
-            placeholder={_('Enter DDNS Host')}
-            value={values.ddnsHost}
-            disabled={!values.isEnableDDNS}
-          />
-        </div>
-        <div className="form-group">
-          <label>{_('Account')}</label>
-          <Field
-            className="form-control"
-            type="text"
-            name="ddnsAccount"
-            placeholder={_('Enter DDNS Account')}
-            value={values.ddnsAccount}
-            disabled={!values.isEnableDDNS}
-          />
-        </div>
-        <div className="form-group">
-          <label>{_('Password')}</label>
-          <Field
-            className="form-control"
-            type="text"
-            name="ddnsPassword"
-            placeholder={_('Enter DDNS Password')}
-            value={values.ddnsPassword}
-            disabled={!values.isEnableDDNS}
-          />
-        </div>
-        <button
-          type="submit"
-          className="btn btn-primary btn-block rounded-pill"
-          disabled={$isApiProcessing || isShowApiProcessModal}
-        >{_('Apply')}
-        </button>
-      </Form>
+      <Tab.Content>
+        <Tab.Pane eventKey="tab-ddns">
+          <Form>
+
+            <div className="form-group d-flex justify-content-between align-items-center">
+              <label className="mb-0">{_('DDNS Server')}</label>
+              <div className="custom-control custom-switch">
+                <Field name="isEnableDDNS" checked={values.isEnableDDNS} type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
+                <label className="custom-control-label" htmlFor="switch-ddns-enable">
+                  <span>{_('ON')}</span>
+                  <span>{_('OFF')}</span>
+                </label>
+              </div>
+            </div>
+            <div className="form-group">
+              <label>{_('Server Provider')}</label>
+              <div className="select-wrapper border rounded-pill overflow-hidden">
+                <Field name="ddnsProvider" component="select" className="form-control border-0">
+                  <option value="dyn-dns">DynDNS.org</option>
+                </Field>
+              </div>
+            </div>
+            <div className="form-group">
+              <label>{_('Host Name')}</label>
+              <Field
+                className="form-control"
+                type="text"
+                name="ddnsHost"
+                placeholder={_('Enter DDNS Host')}
+                value={values.ddnsHost}
+                disabled={!values.isEnableDDNS}
+              />
+            </div>
+            <div className="form-group">
+              <label>{_('Account')}</label>
+              <Field
+                className="form-control"
+                type="text"
+                name="ddnsAccount"
+                placeholder={_('Enter DDNS Account')}
+                value={values.ddnsAccount}
+                disabled={!values.isEnableDDNS}
+              />
+            </div>
+            <div className="form-group">
+              <label>{_('Password')}</label>
+              <Field
+                className="form-control"
+                type="text"
+                name="ddnsPassword"
+                placeholder={_('Enter DDNS Password')}
+                value={values.ddnsPassword}
+                disabled={!values.isEnableDDNS}
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary btn-block rounded-pill"
+              disabled={$isApiProcessing || isShowApiProcessModal}
+            >{_('Apply')}
+            </button>
+          </Form>
+        </Tab.Pane>
+      </Tab.Content>
     );
   }
 
   httpFormRender = ({values, errors, touched}) => {
     return (
-      <Form className="tab-pane fad" id="tab-http">
-        <div className="form-group mb-5">
-          <label>{_('Secondary Web Server Port')}</label>
-          <Field
-            name="port"
-            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
-            type="text"
-            validate={this.checkValidatePort}
-            placeholder={_('Enter Your Secondary Server Port')}
-            value={values.port}
-          />
-          {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
-          <p className="text-size-14 text-muted mt-2">{_('1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.')}</p>
-        </div>
-        <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{_('Apply')}</button>
-      </Form>
+      <Tab.Content>
+        <Tab.Pane eventKey="tab-http">
+          <Form>
+            <div className="form-group mb-5">
+              <label>{_('Secondary Web Server Port')}</label>
+              <Field
+                name="port"
+                className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
+                type="text"
+                validate={this.checkValidatePort}
+                placeholder={_('Enter Your Secondary Server Port')}
+                value={values.port}
+              />
+              {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
+              <p className="text-size-14 text-muted mt-2">{_('1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.')}</p>
+            </div>
+            <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{_('Apply')}</button>
+          </Form>
+        </Tab.Pane>
+      </Tab.Content>
     );
   }
 
@@ -273,27 +283,34 @@ module.exports = class TCPIP extends Base {
                   <div className="card-header">
                     {_('TCP/IP')}
                   </div>
-                  <nav>
-                    <div className="nav nav-tabs">
-                      <a className="nav-item nav-link active" data-toggle="tab" href="#tab-ddns">DDNS</a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-http">HTTP</a>
+                  <Tab.Container defaultActiveKey="tab-ddns">
+                    <Nav>
+                      <Nav.Item>
+                        <Nav.Link eventKey="tab-ddns">
+                          {_('LAN Configuration')}
+                        </Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="tab-http">
+                          {_('Network Status')}
+                        </Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                    <div className="card-body">
+                      <Formik
+                        initialValues={ddnsInfo}
+                        onSubmit={this.onSubmitDDNSForm}
+                      >
+                        {this.ddnsFormRender}
+                      </Formik>
+                      <Formik
+                        initialValues={httpInfo}
+                        onSubmit={this.onSubmitHTTPForm}
+                      >
+                        {this.httpFormRender}
+                      </Formik>
                     </div>
-                  </nav>
-                  <div className="card-body tab-content">
-                    <Formik
-                      initialValues={ddnsInfo}
-                      onSubmit={this.onSubmitDDNSForm}
-                    >
-                      {this.ddnsFormRender}
-                    </Formik>
-                    <Formik
-                      initialValues={httpInfo}
-                      onSubmit={this.onSubmitHTTPForm}
-                    >
-                      {this.httpFormRender}
-                    </Formik>
-
-                  </div>
+                  </Tab.Container>
                 </div>
               </div>
             </div>
