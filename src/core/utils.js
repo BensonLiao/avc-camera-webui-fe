@@ -363,7 +363,7 @@ exports.mockResponseWithLog = (req, res) => {
 
 /**
  * Check for duplicate value.
- * @param {Object} array - The object to check.
+ * @param {array} array - The array to check.
  * @param {string} value - The string to compare with.
  * @param {string} error - (optional) Error message for Formik validator
  * @returns {Boolean} - Return true if duplicate value found.
@@ -371,13 +371,8 @@ exports.mockResponseWithLog = (req, res) => {
  */
 exports.duplicateCheck = (array, value, error) => {
   const check = array.some(val => val === value);
-  if (error) {
-    let errorMsg;
-    if (check) {
-      errorMsg = _('Same name found, please use a different name.');
-    }
-
-    return errorMsg;
+  if (check) {
+    return error || check;
   }
 
   return check;

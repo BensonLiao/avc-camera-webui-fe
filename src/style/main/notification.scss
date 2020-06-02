@@ -193,4 +193,11 @@
       color: #CED4DA;
     }
   }
+  .notification-email {
+    border-radius: 50rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    width: 260px;
+    flex: 0 0 auto
+  }
 }

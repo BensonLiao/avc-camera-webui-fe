@@ -15,7 +15,7 @@ const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const sanitizeHtml = require('sanitize-html');
-const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
+const {NOTIFY_CARDS_MAX, NOTIFY_CARDS_EMAIL_MAX} = require('../../../core/constants');
 
 module.exports = class Cards extends Base {
   static get propTypes() {
@@ -266,7 +266,7 @@ module.exports = class Cards extends Base {
     }
   };
 
-  cardFormRender = ({values, setFieldValue}) => {
+  cardFormRender = ({errors, touched, values, setFieldValue, validateField}) => {
     const {groups} = this.props;
     const {
       $isApiProcessing,
@@ -303,10 +303,30 @@ module.exports = class Cards extends Base {
 
     const onClickAddEmail = event => {
       event.preventDefault();
-      const emails = [...values.emails];
-      emails.push(values.$email);
-      setFieldValue('emails', emails);
-      setFieldValue('$email', '');
+      validateField('$email').then(value => {
+        if (!value) {
+          const emails = [...values.emails];
+          emails.push(values.$email);
+          setFieldValue('emails', emails);
+          setFieldValue('$email', '');
+        }
+      });
+    };
+
+    const validateEmail = () => {
+      if (values.$email) {
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.$email)) {
+          return _('Invalid email address');
+        }
+
+        const emails = [...values.emails];
+
+        if (emails.length > NOTIFY_CARDS_EMAIL_MAX - 1) {
+          return _('Number of receiver E-mails limit is 64');
+        }
+
+        return utils.duplicateCheck(emails, values.$email, _('Duplicate E-mail found'));
+      }
     };
 
     const generateDeleteEmailHandler = index => event => {
@@ -570,11 +590,12 @@ module.exports = class Cards extends Base {
                       >
                         {
                           NotificationEmailAttachmentType.all().map(attachmentType => (
-                            <option
-                              key={attachmentType}
-                              value={attachmentType}
-                            >{_(`email-attachment-type-${attachmentType}`)}
-                            </option>
+                            !(values.type === NotificationCardType.motionDetection && attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
+                              <option
+                                key={attachmentType}
+                                value={attachmentType}
+                              >{_(`email-attachment-type-${attachmentType}`)}
+                              </option>)
                           ))
                         }
                       </Field>
@@ -591,20 +612,43 @@ module.exports = class Cards extends Base {
                       <div className="col-auto my-1">
                         <div className="input-group">
                           <div className="input-group-prepend">
-                            <span className="input-group-text"><i className="fas fa-envelope"/></span>
+                            <span
+                              className="input-group-text"
+                              style={{borderColor: (errors.$email && touched.$email) && '#dc3545'}}
+                            >
+                              <i className="fas fa-envelope"/>
+                            </span>
                           </div>
-                          <Field name="$email" type="text" className="form-control" placeholder={_('Enter email address')} style={{width: 260}}/>
+                          <Field
+                            name="$email"
+                            type="text"
+                            className={classNames('form-control', 'notification-email', {'is-invalid': errors.$email && touched.$email})}
+                            validate={validateEmail}
+                            placeholder={_('Enter email address')}/>
                         </div>
                       </div>
                       <div className="col-auto my-1">
                         <button
-                          disabled={!values.$email} type="button"
+                          disabled={!values.$email}
+                          type="button"
                           className="btn btn-primary rounded-circle"
                           onClick={onClickAddEmail}
                         >
                           <i className="fas fa-plus"/>
                         </button>
                       </div>
+                    </div>
+                    <div className={classNames({'is-invalid': errors.$email && touched.$email})}>
+                      {
+                        errors.$email && touched.$email && (
+                          <div
+                            style={{display: (errors.$email && touched.$email) && 'block'}}
+                            className="invalid-feedback form-row"
+                          >
+                            {errors.$email}
+                          </div>
+                        )
+                      }
                     </div>
                   </div>
                   {
@@ -818,6 +862,7 @@ module.exports = class Cards extends Base {
             >
               <Formik
                 initialValues={this.generateCardInitialValues(cardDetails)}
+                validateOnChange={false}
                 onSubmit={this.onSubmitCardForm}
               >
                 {this.cardFormRender}

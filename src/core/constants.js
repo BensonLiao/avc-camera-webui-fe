@@ -8,6 +8,7 @@ module.exports = {
   SECURITY_USERS_MAX: 20,
   DEVICE_NAME_CHAR_MAX: 32,
   NOTIFY_CARDS_MAX: 32,
+  NOTIFY_CARDS_EMAIL_MAX: 64,
   RESTRICTED_PORTS: [
     '0', // Reserved
     '1', // Tcpmux
