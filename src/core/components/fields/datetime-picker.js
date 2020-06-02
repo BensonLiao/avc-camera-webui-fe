@@ -2,6 +2,7 @@ const $ = require('jquery');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
+const {Nav, Tab} = require('react-bootstrap');
 const Overlay = require('react-bootstrap/Overlay').default;
 const dayjs = require('dayjs');
 const leftPad = require('left-pad');
@@ -460,40 +461,53 @@ module.exports = class DatePicker extends React.PureComponent {
     return (
       <div className="datepicker-wrapper">
         <div className="datepicker" {...props}>
-          <nav>
-            <div className="nav nav-tabs">
-              {dateTabText && (
-                <a className="nav-item nav-link flex-fill text-center ml-0 active" data-toggle="tab" href="#tab-datepicker-date">
-                  {dateTabText}
-                </a>
-              )}
-              {!dateTabText && this.onSwitchToClock()}
-              <a className="nav-item nav-link flex-fill text-center mr-0" data-toggle="tab" href="#tab-datepicker-time"
-                onClick={dateTabText ? this.onSwitchToClock : onClickInput}
-              >
-                {timeTabText}
-              </a>
-            </div>
-          </nav>
-          <div className="tab-content">
-            <div className="tab-pane fade active show" id="tab-datepicker-date">
-              {
-                isShowRepeatSwitch && (
-                  <div className="form-group d-flex justify-content-between align-items-center">
-                    <label className="text-size-14 mb-0">重複</label>
-                    <div className="custom-control custom-switch switch-sm">
-                      <input type="checkbox" className="custom-control-input" id="switch-repeat"/>
-                      <label className="custom-control-label" htmlFor="switch-repeat"/>
+
+          <Tab.Container defaultActiveKey="datepicker-date">
+            <Nav>
+              <Nav.Item className="flex-fill">
+                {dateTabText && (
+                  <Nav.Link
+                    className="text-center ml-0"
+                    eventKey="datepicker-date"
+                  >
+                    {dateTabText}
+                  </Nav.Link>
+                )}
+              </Nav.Item>
+              <Nav.Item className="flex-fill">
+                {!dateTabText && this.onSwitchToClock()}
+                <Nav.Link
+                  className="text-center mr-0"
+                  eventKey="datepicker-time"
+                  onClick={dateTabText ? this.onSwitchToClock : onClickInput}
+                >
+                  {timeTabText}
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+            <Tab.Content>
+              <Tab.Pane eventKey="datepicker-date">
+                {
+                  isShowRepeatSwitch && (
+                    <div className="form-group d-flex justify-content-between align-items-center">
+                      <label className="text-size-14 mb-0">重複</label>
+                      <div className="custom-control custom-switch switch-sm">
+                        <input type="checkbox" className="custom-control-input" id="switch-repeat"/>
+                        <label className="custom-control-label" htmlFor="switch-repeat"/>
+                      </div>
                     </div>
-                  </div>
-                )
-              }
-              {dateTabText && this.calendarRender()}
-            </div>
-            <div className={classNames('tab-pane', {'active show': dateTabText === undefined})} id="tab-datepicker-time">
-              {this.clockRender()}
-            </div>
-          </div>
+                  )
+                }
+                {dateTabText && this.calendarRender()}
+              </Tab.Pane>
+            </Tab.Content>
+            <Tab.Content>
+              <Tab.Pane eventKey="datepicker-time" className={classNames('tab-pane', {'active show': dateTabText === undefined})}>
+                {this.clockRender()}
+              </Tab.Pane>
+            </Tab.Content>
+          </Tab.Container>
+
         </div>
       </div>
     );
