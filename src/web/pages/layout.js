@@ -20,6 +20,8 @@ const logo = require('../../resource/logo-avn.svg');
 const CustomTooltip = require('../../core/components/tooltip');
 const CustomNotifyModal = require('../../core/components/custom-notify-modal');
 const api = require('../../core/apis/web-api');
+const store = require('../../core/store');
+const Timer = require('../../core/timer');
 const utils = require('../../core/utils');
 const _ = require('../../languages');
 const {AVAILABLE_LANGUAGE_CODES, REDIRECT_COUNTDOWN} = require('../../core/constants');
@@ -64,21 +66,26 @@ module.exports = class Layout extends Base {
   componentDidMount() {
     const expires = localStorage.getItem('$expires') || null;
     if (expires) {
-      setTimeout(() => {
-        this.setState(
-          {isShowExpireModal: true},
-          () => {
-            let countdown = REDIRECT_COUNTDOWN;
-            const countdownId = setInterval(() => {
-              this.setState({expireModalBody: `Your session has expired, redirect in ${--countdown} seconds`});
-            }, 1000);
-            setTimeout(() => {
-              clearInterval(countdownId);
-              location.href = '/login';
-            }, REDIRECT_COUNTDOWN * 1000);
-          }
-        );
-      }, expires);
+      const expiresTimer = new Timer(
+        () => {
+          this.setState(
+            {isShowExpireModal: true},
+            () => {
+              let countdown = REDIRECT_COUNTDOWN;
+              const countdownId = setInterval(() => {
+                this.setState({expireModalBody: `Your session has expired, redirect in ${--countdown} seconds`});
+              }, 1000);
+              setTimeout(() => {
+                clearInterval(countdownId);
+                location.href = '/login';
+              }, REDIRECT_COUNTDOWN * 1000);
+            }
+          );
+        },
+        expires
+      );
+      expiresTimer.start();
+      store.set('$expiresTimer', expiresTimer);
     }
   }
 
