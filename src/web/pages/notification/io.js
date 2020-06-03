@@ -2,6 +2,7 @@ const classNames = require('classnames');
 const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
+const {Nav, Tab} = require('react-bootstrap');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const IOType = require('webserver-form-schema/constants/io-type');
@@ -53,71 +54,82 @@ module.exports = class IO extends Base {
     const {$isApiProcessing} = this.state;
 
     return (
-      <Form className="tab-pane fade" id={`tab-output-${index + 1}`}>
-        <div className="form-group d-flex justify-content-between align-items-center">
-          <label>{_('Output {0}', [index + 1])}</label>
-          <div className="custom-control custom-switch">
-            <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
-            <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
-              <span>{_('ON')}</span>
-              <span>{_('OFF')}</span>
-            </label>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Normal State')}</label>
-          <div className="d-flex align-items-center">
-            <div className="form-check">
-              <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-open`} value={IOType.normallyOpen}/>
-              <label className="form-check-label" htmlFor={`input-output${index}-normally-open`}>{_('Normally Open')}</label>
+      <Tab.Content>
+        <Tab.Pane eventKey={`tab-output-${index + 1}`}>
+          <Form>
+            <div className="form-group d-flex justify-content-between align-items-center">
+              <label>{_('Output {0}', [index + 1])}</label>
+              <div className="custom-control custom-switch">
+                <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
+                <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
+                  <span>{_('ON')}</span>
+                  <span>{_('OFF')}</span>
+                </label>
+              </div>
             </div>
-            <div className="form-check ml-5">
-              <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-closed`} value={IOType.normallyClosed}/>
-              <label className="form-check-label" htmlFor={`input-output${index}-normally-closed`}>{_('Normally Closed')}</label>
+            <div className={classNames(
+              index === 0 ?
+                (this.props.ioOutASettings.isEnable ? '' : 'd-none') :
+                (this.props.ioOutBSettings.isEnable ? '' : 'd-none')
+            )}
+            >
+              <div className="form-group">
+                <label>{_('Normal State')}</label>
+                <div className="d-flex align-items-center">
+                  <div className="form-check">
+                    <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-open`} value={IOType.normallyOpen}/>
+                    <label className="form-check-label" htmlFor={`input-output${index}-normally-open`}>{_('Normally Open')}</label>
+                  </div>
+                  <div className="form-check ml-5">
+                    <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-closed`} value={IOType.normallyClosed}/>
+                    <label className="form-check-label" htmlFor={`input-output${index}-normally-closed`}>{_('Normally Closed')}</label>
+                  </div>
+                </div>
+              </div>
+              <div className="form-group">
+                <label>{_('Type')}</label>
+                <div className="d-flex align-items-center">
+                  <div className="form-check">
+                    <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-normal`} value={GateType.normal}/>
+                    <label className="form-check-label" htmlFor={`input-output${index}-normal`}>{_('Normal')}</label>
+                  </div>
+                  <div className="form-check ml-5">
+                    <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-debounce`} value={GateType.buffer}/>
+                    <label className="form-check-label" htmlFor={`input-output${index}-debounce`}>{_('Buffer')}</label>
+                  </div>
+                </div>
+              </div>
+              <div className="form-group">
+                <label>{_('Pulse Time (Seconds)')}</label>
+                <Field name="pulse" type="text"
+                  className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
+                  placeholder={_('Enter Seconds')}/>
+                {
+                  errors.pulse && touched.pulse && (
+                    <div className="invalid-feedback">{errors.pulse}</div>
+                  )
+                }
+                <small className="form-text text-muted">{_('1 - 80 Seconds')}</small>
+              </div>
+              <div className="form-group">
+                <label>{_('Delay Time (Seconds)')}</label>
+                <Field name="delay" type="text"
+                  className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
+                  placeholder={_('Enter Seconds')}/>
+                {
+                  errors.delay && touched.delay && (
+                    <div className="invalid-feedback">{errors.delay}</div>
+                  )
+                }
+                <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Type')}</label>
-          <div className="d-flex align-items-center">
-            <div className="form-check">
-              <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-normal`} value={GateType.normal}/>
-              <label className="form-check-label" htmlFor={`input-output${index}-normal`}>{_('Normal')}</label>
-            </div>
-            <div className="form-check ml-5">
-              <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-debounce`} value={GateType.buffer}/>
-              <label className="form-check-label" htmlFor={`input-output${index}-debounce`}>{_('Buffer')}</label>
-            </div>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Pulse Time (Seconds)')}</label>
-          <Field name="pulse" type="text"
-            className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
-            placeholder={_('Enter Seconds')}/>
-          {
-            errors.pulse && touched.pulse && (
-              <div className="invalid-feedback">{errors.pulse}</div>
-            )
-          }
-          <small className="form-text text-muted">{_('1 - 80 Seconds')}</small>
-        </div>
-        <div className="form-group">
-          <label>{_('Delay Time (Seconds)')}</label>
-          <Field name="delay" type="text"
-            className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
-            placeholder={_('Enter Seconds')}/>
-          {
-            errors.delay && touched.delay && (
-              <div className="invalid-feedback">{errors.delay}</div>
-            )
-          }
-          <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
-        </div>
-        <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-          {_('Apply')}
-        </button>
-      </Form>
+            <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+              {_('Apply')}
+            </button>
+          </Form>
+        </Tab.Pane>
+      </Tab.Content>
     );
   };
 
@@ -138,38 +150,42 @@ module.exports = class IO extends Base {
     const {$isApiProcessing} = this.state;
 
     return (
-      <Form className="tab-pane fade show active" id="tab-input">
-        <div className="form-group d-flex justify-content-between align-items-center">
-          <label>{_('Input')}</label>
-          <div className="custom-control custom-switch">
-            <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-input"/>
-            <label className="custom-control-label" htmlFor="switch-input">
-              <span>{_('ON')}</span>
-              <span>{_('OFF')}</span>
-            </label>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Type')}</label>
-          <div className="d-flex align-items-center">
-            <div className="form-check">
-              <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-open" value={IOType.normallyOpen}/>
-              <label className="form-check-label" htmlFor="input-input-normally-open">
-                {_('Normally Open')}
-              </label>
+      <Tab.Content>
+        <Tab.Pane eventKey="tab-input">
+          <Form>
+            <div className="form-group d-flex justify-content-between align-items-center">
+              <label>{_('Input')}</label>
+              <div className="custom-control custom-switch">
+                <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-input"/>
+                <label className="custom-control-label" htmlFor="switch-input">
+                  <span>{_('ON')}</span>
+                  <span>{_('OFF')}</span>
+                </label>
+              </div>
             </div>
-            <div className="form-check ml-5">
-              <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-closed" value={IOType.normallyClosed}/>
-              <label className="form-check-label" htmlFor="input-input-normally-closed">
-                {_('Normally Closed')}
-              </label>
+            <div className={classNames('form-group', this.props.ioInSettings.isEnable ? '' : 'd-none')}>
+              <label>{_('Type')}</label>
+              <div className="d-flex align-items-center">
+                <div className="form-check">
+                  <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-open" value={IOType.normallyOpen}/>
+                  <label className="form-check-label" htmlFor="input-input-normally-open">
+                    {_('Normally Open')}
+                  </label>
+                </div>
+                <div className="form-check ml-5">
+                  <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-closed" value={IOType.normallyClosed}/>
+                  <label className="form-check-label" htmlFor="input-input-normally-closed">
+                    {_('Normally Closed')}
+                  </label>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-          {_('Apply')}
-        </button>
-      </Form>
+            <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+              {_('Apply')}
+            </button>
+          </Form>
+        </Tab.Pane>
+      </Tab.Content>
     );
   };
 
@@ -198,37 +214,55 @@ module.exports = class IO extends Base {
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Input and Output Setting')}</div>
-                  <nav>
-                    <div className="nav nav-tabs">
-                      <a className="nav-item nav-link active" data-toggle="tab" href="#tab-input">{_('Input')}</a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-1">{_('Output {0}', [1])}</a>
-                      <a className="nav-item nav-link" data-toggle="tab" href="#tab-output-2">{_('Output {0}', [2])}</a>
+                  <Tab.Container defaultActiveKey="tab-input">
+                    <Nav>
+                      <Nav.Item>
+                        <Nav.Link
+                          eventKey="tab-input"
+                        >
+                          {_('Input')}
+                        </Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link
+                          eventKey="tab-output-1"
+                        >
+                          {_('Output {0}', [1])}
+                        </Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link
+                          eventKey="tab-output-2"
+                        >
+                          {_('Output {0}', [2])}
+                        </Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                    <div className="card-body tab-content">
+                      <Formik
+                        initialValues={ioInSettings}
+                        onSubmit={this.onSubmitIOInSettingsForm}
+                      >
+                        {this.ioInSettingsFormRender}
+                      </Formik>
+
+                      <Formik
+                        initialValues={ioOutASettings}
+                        validate={utils.makeFormikValidator(ioOutSettingsValidator)}
+                        onSubmit={this.generateIOOutSettingsSubmitHandler(0)}
+                      >
+                        {this.generateIOOutSettingsFormRender(0)}
+                      </Formik>
+
+                      <Formik
+                        initialValues={ioOutBSettings}
+                        validate={utils.makeFormikValidator(ioOutSettingsValidator)}
+                        onSubmit={this.generateIOOutSettingsSubmitHandler(1)}
+                      >
+                        {this.generateIOOutSettingsFormRender(1)}
+                      </Formik>
                     </div>
-                  </nav>
-                  <div className="card-body tab-content">
-                    <Formik
-                      initialValues={ioInSettings}
-                      onSubmit={this.onSubmitIOInSettingsForm}
-                    >
-                      {this.ioInSettingsFormRender}
-                    </Formik>
-
-                    <Formik
-                      initialValues={ioOutASettings}
-                      validate={utils.makeFormikValidator(ioOutSettingsValidator)}
-                      onSubmit={this.generateIOOutSettingsSubmitHandler(0)}
-                    >
-                      {this.generateIOOutSettingsFormRender(0)}
-                    </Formik>
-
-                    <Formik
-                      initialValues={ioOutBSettings}
-                      validate={utils.makeFormikValidator(ioOutSettingsValidator)}
-                      onSubmit={this.generateIOOutSettingsSubmitHandler(1)}
-                    >
-                      {this.generateIOOutSettingsFormRender(1)}
-                    </Formik>
-                  </div>
+                  </Tab.Container>
                 </div>
               </div>
             </div>

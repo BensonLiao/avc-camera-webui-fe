@@ -1,4 +1,5 @@
 const React = require('react');
+const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const {Link} = require('capybara-router');
@@ -373,48 +374,49 @@ module.exports = class NetworkSettings extends Base {
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Network Settings')}</div>
-                  <nav>
-                    <div className="nav nav-tabs">
-                      <a
-                        className="nav-item nav-link active"
-                        data-toggle="tab"
-                        href="#tab-local-network"
-                      >
-                        {_('LAN Configuration')}
-                      </a>
-                      <a
-                        className="nav-item nav-link"
-                        data-toggle="tab"
-                        href="#tab-network-status"
-                      >
-                        {_('Network Status')}
-                      </a>
+                  <Tab.Container defaultActiveKey="tab-local-network">
+                    <Nav>
+                      <Nav.Item>
+                        <Nav.Link
+                          eventKey="tab-local-network"
+                        >
+                          {_('LAN Configuration')}
+                        </Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link
+                          eventKey="tab-network-status"
+                        >
+                          {_('Network Status')}
+                        </Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                    <div className="card-body">
+                      <Tab.Content>
+                        <Tab.Pane eventKey="tab-local-network">
+                          <Formik
+                            initialValues={networkSettings}
+                            onSubmit={this.onSubmit}
+                          >
+                            {this.networkSettingsFormRender}
+                          </Formik>
+                        </Tab.Pane>
+                      </Tab.Content>
+                      <Tab.Content>
+                        <Tab.Pane eventKey="tab-network-status">
+                          {this.networkStatusRender()}
+                        </Tab.Pane>
+                      </Tab.Content>
                     </div>
-                  </nav>
-                  <div className="card-body tab-content">
-                    <div
-                      className="tab-pane fade show active"
-                      id="tab-local-network"
-                    >
-                      <Formik
-                        initialValues={networkSettings}
-                        onSubmit={this.onSubmit}
-                      >
-                        {this.networkSettingsFormRender}
-                      </Formik>
-                    </div>
+                  </Tab.Container>
 
-                    <div className="tab-pane fad" id="tab-network-status">
-                      {this.networkStatusRender()}
-                    </div>
-                    <CustomNotifyModal
-                      modalType="info"
-                      isShowModal={isShowSelectModal.info}
-                      modalTitle={modalTitle}
-                      modalBody={modalBody}
-                      onHide={this.hideModal('info')}
-                      onConfirm={onConfirm}/>
-                  </div>
+                  <CustomNotifyModal
+                    modalType="info"
+                    isShowModal={isShowSelectModal.info}
+                    modalTitle={modalTitle}
+                    modalBody={modalBody}
+                    onHide={this.hideModal('info')}
+                    onConfirm={onConfirm}/>
                 </div>
               </div>
             </div>

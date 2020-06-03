@@ -320,7 +320,7 @@ label.btn {
   }
 }
 
-.card .nav.nav-tabs {
+.card .nav {
   padding: 0px 24px;
   height: 48px;
 }
@@ -332,24 +332,24 @@ label.btn {
     margin-right: 12px;
   }
 }
-.nav.nav-tabs {
+div[role="tablist"].nav, .nav.w-100 {
   height: 48px;
   border-bottom: 2px $secondary-300 solid;
-  .nav-item {
+  .nav-link {
     margin-bottom: -2px;
     border: none;
     border-bottom: 2px $secondary-300 solid;
-  }
-  .nav-link {
     padding: 12px 12px 10px 12px;
     color: #666;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
     &.active {
       color: $primary;
       border-bottom-color: $primary;
     }
     &:not(.active):hover {
       color: $primary;
-      padding: 11px 11px 8px 11px;
+      padding: 11px 11px 10px 11px;
       border-top: 1px $primary solid;
       border-left: 1px $primary solid;
       border-right: 1px $primary solid;
