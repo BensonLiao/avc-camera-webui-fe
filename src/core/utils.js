@@ -409,7 +409,7 @@ module.exports.isArray = arg => {
 
 module.exports.pingAndRedirectPage = url => {
   const test = () => {
-    axios.get(url, {timeout: 1500, responseType: 'document'})
+    axios.get(url, {responseType: 'document'})
       .then(() => {
         location.href = url;
       })
