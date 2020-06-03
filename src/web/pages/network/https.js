@@ -34,6 +34,7 @@ module.exports = class HTTPS extends Base {
   constructor(props) {
     super(props);
     this.state.isShowModal = false;
+    this.state.isConfirmDisable = false;
     this.state.onConfirm = this.hideModal;
   }
 
@@ -56,7 +57,7 @@ module.exports = class HTTPS extends Base {
       values === rtspSettings.udpPort ||
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
-      values === httpInfo.port1) {
+      values === httpInfo.port) {
       return _('This is a reserved port or is in use, please try another port.');
     }
 
@@ -70,8 +71,9 @@ module.exports = class HTTPS extends Base {
         this.setState({
           isShowModal: true,
           onConfirm: () => {
+            this.setState({isConfirmDisable: true});
             utils.pingAndRedirectPage(
-              `${values.isEnable ? 'https' : 'http'}://${location.hostname}:${values.isEnable ? values.port : this.props.httpInfo.port}`
+              `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`
             );
           }
         });
@@ -133,7 +135,7 @@ module.exports = class HTTPS extends Base {
 
   render() {
     const {httpsSettings} = this.props;
-    const {validator, isShowModal, onConfirm} = this.state;
+    const {validator, isShowModal, isConfirmDisable, onConfirm} = this.state;
 
     return (
       <div className="main-content left-menu-active">
@@ -166,8 +168,9 @@ module.exports = class HTTPS extends Base {
                     isShowModal={isShowModal}
                     modalTitle={_('Success')}
                     modalBody={_('Click Confirm to Redirect to the New Address.')}
-                    onHide={this.hideModal}
-                    onConfirm={onConfirm}/>
+                    isConfirmDisable={isConfirmDisable}
+                    onConfirm={onConfirm}
+                    onHide={this.hideModal}/>
                 </div>
               </div>
             </div>

@@ -37,6 +37,7 @@ module.exports = class NetworkSettings extends Base {
     this.state.dhcpTestIp = null;
     this.state.modalTitle = '';
     this.state.modalBody = '';
+    this.state.isConfirmDisable = false;
     this.state.onConfirm = this.hideModal('info');
     this.state.isUpdating = false;
   }
@@ -100,41 +101,25 @@ module.exports = class NetworkSettings extends Base {
     this.setState({isUpdating: true},
       () => {
         api.system.updateNetworkSettings(values)
-          .then(() => new Promise(resolve => {
-            // Check the server was shut down.
-            const test = () => {
-              api.ping()
-                .then(() => {
-                  setTimeout(test, 500);
-                })
-                .catch(() => {
-                  this.setState(prevState => ({...prevState, isShowSelectModal: {...prevState, info: false}}));
-                  let redirectIP;
-                  if (values.ipType === NetworkIPType.fixed) {
-                    redirectIP = values.ipAddress;
-                  } else {
-                    redirectIP = this.state.dhcpTestIp || '192.168.1.168';
-                  }
-
-                  progress.done();
-                  this.setState(prevState => ({
-                    ...prevState,
-                    isShowSelectModal: {
-                      ...prevState.isShowSelectModal,
-                      info: true
-                    },
-                    isUpdating: false,
-                    modalTitle: _('Success'),
-                    modalBody: [_('Click Confirm to Redirect to the New Address.'), `${_('IP Address')}: ${redirectIP}`],
-                    onConfirm: () => {
-                      utils.pingAndRedirectPage(`${location.protocol}//${redirectIP}:${location.port}`);
-                    }
-                  }), resolve());
-                });
-            };
-
-            test();
-          }))
+          .then(() => {
+            progress.done();
+            const redirectIP = values.ipType === NetworkIPType.fixed ?
+              values.ipAddress :
+              this.state.dhcpTestIp || '192.168.1.168';
+            this.setState(prevState => ({
+              isShowSelectModal: {
+                ...prevState.isShowSelectModal,
+                info: true
+              },
+              isUpdating: false,
+              modalTitle: _('Success'),
+              modalBody: [_('Click Confirm to Redirect to the New Address.'), `${_('IP Address')}: ${redirectIP}`],
+              onConfirm: () => {
+                this.setState({isConfirmDisable: true});
+                utils.pingAndRedirectPage(`${location.protocol}//${redirectIP}:${location.port}`);
+              }
+            }));
+          })
           .catch(error => {
             progress.done();
             utils.showErrorNotification({
@@ -166,18 +151,15 @@ module.exports = class NetworkSettings extends Base {
               {_('Enable DHCP')}
             </label>
           </div>
-          <div>
-            <i className="fas fa-check-circle fa-lg text-success mr-2"/>
-            <button
-              type="button"
-              className="btn btn-outline-primary rounded-pill px-3"
-              id="dhcpTestButton"
-              disabled={$isApiProcessing}
-              onClick={this.onClickTestDHCPButton(setFieldValue)}
-            >
-              {_('Test DHCP')}
-            </button>
-          </div>
+          <button
+            type="button"
+            className="btn btn-outline-primary rounded-pill px-3"
+            id="dhcpTestButton"
+            disabled={$isApiProcessing}
+            onClick={this.onClickTestDHCPButton(setFieldValue)}
+          >
+            {_('Test DHCP')}
+          </button>
         </div>
         <div className="form-group">
           <div className="form-check">
@@ -351,7 +333,7 @@ module.exports = class NetworkSettings extends Base {
 
   render() {
     const {networkSettings} = this.props;
-    const {isShowSelectModal, modalBody, modalTitle, onConfirm} = this.state;
+    const {isShowSelectModal, modalBody, modalTitle, isConfirmDisable, onConfirm} = this.state;
     return (
       <div className="main-content left-menu-active">
         <div className="page-notification">
@@ -409,14 +391,14 @@ module.exports = class NetworkSettings extends Base {
                       </Tab.Content>
                     </div>
                   </Tab.Container>
-
                   <CustomNotifyModal
                     modalType="info"
                     isShowModal={isShowSelectModal.info}
                     modalTitle={modalTitle}
                     modalBody={modalBody}
-                    onHide={this.hideModal('info')}
-                    onConfirm={onConfirm}/>
+                    isConfirmDisable={isConfirmDisable}
+                    onConfirm={onConfirm}
+                    onHide={this.hideModal('info')}/>
                 </div>
               </div>
             </div>
