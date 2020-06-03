@@ -5,6 +5,7 @@ const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
+const store = require('../../../core/store');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
@@ -56,6 +57,8 @@ module.exports = class Maintain extends Base {
   };
 
   onSubmitDeviceReboot = () => {
+    const expiresTimer = store.get('$expiresTimer');
+    expiresTimer.pause();
     progress.start();
     this.setState(prevState => ({
       isShowApiProcessModal: true,
@@ -113,6 +116,8 @@ module.exports = class Maintain extends Base {
   };
 
   onSubmitDeviceReset = ({resetIP}) => {
+    const expiresTimer = store.get('$expiresTimer');
+    expiresTimer.pause();
     progress.start();
     this.setState(prevState => ({
       isShowApiProcessModal: true,
@@ -189,6 +194,8 @@ module.exports = class Maintain extends Base {
 
   onSubmitImportDeviceSettings = () => {
     const {file} = this.state;
+    const expiresTimer = store.get('$expiresTimer');
+    expiresTimer.pause();
     progress.start();
     this.setState({
       isShowApiProcessModal: true,

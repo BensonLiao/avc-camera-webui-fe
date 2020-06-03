@@ -15,6 +15,7 @@ axios.interceptors.response.use(
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const store = require('../../../core/store');
 const utils = require('../../../core/utils');
 const download = require('downloadjs');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
@@ -50,6 +51,8 @@ module.exports = class Log extends Base {
 
   onClickDownloadLog = event => {
     event.preventDefault();
+    const expiresTimer = store.get('$expiresTimer');
+    expiresTimer.pause();
     progress.start();
     this.setState({isShowApiProcessModal: true},
       () => {
@@ -65,6 +68,7 @@ module.exports = class Log extends Base {
             download(response.data, 'log');
             this.hideApiProcessModal();
             progress.done();
+            expiresTimer.resume();
           })
           .catch(error => {
             progress.done();
