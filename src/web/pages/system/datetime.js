@@ -28,7 +28,7 @@ module.exports = class DateTime extends Base {
         ntpTimeZone: PropTypes.oneOf(NTPTimeZone.all()).isRequired,
         ntpIP: PropTypes.string.isRequired,
         ntpTimeOption: PropTypes.oneOf(NTPTimeOption.all()).isRequired,
-        ntpUpdateTime: PropTypes.string.isRequired,
+        ntpUpdateTime: PropTypes.number.isRequired,
         ntpUpdateTimeRate: PropTypes.oneOf(NTPTimeRateOption.all()).isRequired,
         manualTime: PropTypes.number
       }).isRequired
@@ -80,6 +80,8 @@ module.exports = class DateTime extends Base {
         });
     } else {
       values.manualTime.setSeconds(0);
+      values.manualTime = values.manualTime.getTime() - (new Date(values.manualTime).getTimezoneOffset() * 60 * 1000);
+      values.ntpUpdateTime = values.ntpUpdateTime.getTime() - (new Date(values.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
       api.system.updateSystemDateTime(values)
         .then(() => {
           getRouter().reload();
@@ -247,6 +249,7 @@ module.exports = class DateTime extends Base {
 
   render() {
     const {systemDateTime, systemInformation: {languageCode}} = this.props;
+    const ntpUpdateTimeAdjust = systemDateTime.ntpUpdateTime + (new Date(systemDateTime.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
 
     return (
       <div className="main-content left-menu-active">
@@ -273,7 +276,7 @@ module.exports = class DateTime extends Base {
                   <Formik
                     initialValues={{
                       ...systemDateTime,
-                      ntpUpdateTime: new Date(systemDateTime.ntpUpdateTime),
+                      ntpUpdateTime: new Date(ntpUpdateTimeAdjust),
                       manualTime: systemDateTime.manualTime ?
                         new Date(systemDateTime.manualTime) : new Date(),
                       language: languageCode
