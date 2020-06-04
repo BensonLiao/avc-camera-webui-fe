@@ -103,9 +103,6 @@ module.exports = class NetworkSettings extends Base {
         api.system.updateNetworkSettings(values)
           .then(() => {
             progress.done();
-            const redirectIP = values.ipType === NetworkIPType.fixed ?
-              values.ipAddress :
-              this.state.dhcpTestIp || '192.168.1.168';
             this.setState(prevState => ({
               isShowSelectModal: {
                 ...prevState.isShowSelectModal,
@@ -113,10 +110,10 @@ module.exports = class NetworkSettings extends Base {
               },
               isUpdating: false,
               modalTitle: _('Success'),
-              modalBody: [_('Click Confirm to Redirect to the New Address.'), `${_('IP Address')}: ${redirectIP}`],
+              modalBody: [_('Click Confirm to Redirect to the New Address.'), `${_('IP Address')}: ${values.ipAddress}`],
               onConfirm: () => {
                 this.setState({isConfirmDisable: true});
-                utils.pingAndRedirectPage(`${location.protocol}//${redirectIP}:${location.port}`);
+                utils.pingAndRedirectPage(`${location.protocol}//${values.ipAddress}:${location.port}`);
               }
             }));
           })
