@@ -89,6 +89,7 @@ module.exports = class HTTPS extends Base {
 
   formRender = ({values, errors, touched}) => {
     const {$isApiProcessing} = this.state;
+    const {httpsSettings} = this.props;
 
     return (
       <Form className="card-body">
@@ -126,7 +127,7 @@ module.exports = class HTTPS extends Base {
             </Field>
           </div>
         </div>
-        <button disabled={$isApiProcessing || !utils.isObjectEmpty(errors)} className="btn btn-primary btn-block rounded-pill" type="submit">
+        <button disabled={$isApiProcessing || !utils.isObjectEmpty(errors) || (httpsSettings.isEnable === values.isEnable)} className="btn btn-primary btn-block rounded-pill" type="submit">
           {_('Apply')}
         </button>
       </Form>
