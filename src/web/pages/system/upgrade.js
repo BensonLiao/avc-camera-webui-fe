@@ -5,7 +5,6 @@ const progress = require('nprogress');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const store = require('../../../core/store');
 const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const StageProgress = require('../../../core/components/stage-progress');
@@ -55,8 +54,6 @@ module.exports = class Upgrade extends Base {
 
   onSubmitForm = () => {
     const {file} = this.state;
-    const expiresTimer = store.get('$expiresTimer');
-    expiresTimer.pause();
     progress.start();
     this.setState({
       isShowApiProcessModal: true,

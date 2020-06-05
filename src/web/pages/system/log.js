@@ -1,21 +1,10 @@
 const React = require('react');
 const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
-const axios = require('axios');
-axios.interceptors.response.use(
-  config => config,
-  error => {
-    if (error.response.status === 408 || error.code === 'ECONNABORTED') {
-      console.log(`A timeout happend on url ${error.config.url}`);
-    }
-
-    return Promise.reject(error);
-  }
-);
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const store = require('../../../core/store');
+const wrappedApi = require('../../../core/apis');
 const utils = require('../../../core/utils');
 const download = require('downloadjs');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
@@ -51,24 +40,23 @@ module.exports = class Log extends Base {
 
   onClickDownloadLog = event => {
     event.preventDefault();
-    const expiresTimer = store.get('$expiresTimer');
-    expiresTimer.pause();
     progress.start();
     this.setState({isShowApiProcessModal: true},
       () => {
-        axios.get('/api/system/systeminfo/log.zip',
-          {timeout: 3 * 60 * 1000,
-            responseType: 'blob',
-            onDownloadProgress: progressEvent => {
-              // Do whatever you want with the native progress event
-              this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
-            }
-          })
+        wrappedApi({
+          method: 'get',
+          url: '/api/system/systeminfo/log.zip',
+          timeout: 3 * 60 * 1000,
+          responseType: 'blob',
+          onDownloadProgress: progressEvent => {
+            // Do whatever you want with the native progress event
+            this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
+          }
+        })
           .then(response => {
             download(response.data, 'log');
             this.hideApiProcessModal();
             progress.done();
-            expiresTimer.resume();
           })
           .catch(error => {
             progress.done();
