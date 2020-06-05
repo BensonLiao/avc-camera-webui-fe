@@ -84,7 +84,7 @@ module.exports = class Maintain extends Base {
         }))
         .then(() => {
           // Keep modal and update the title.
-          this.setState({apiProcessModalTitle: _('Device rebooting')});
+          this.setState({apiProcessModalTitle: _('Device Rebooting')});
           // Check the server was start up, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')
@@ -94,7 +94,7 @@ module.exports = class Maintain extends Base {
                 this.setState({
                   isShowFinishModal: true,
                   finishModalTitle: _('System Reboot'),
-                  finishModalBody: _('Device has rebooted, please log back in')
+                  finishModalBody: _('Device has rebooted. Please log in again.')
                 });
               })
               .catch(() => {
@@ -125,7 +125,7 @@ module.exports = class Maintain extends Base {
         ...prevState.isShowSelectModal,
         reset: false
       },
-      apiProcessModalTitle: _('Device resetting')
+      apiProcessModalTitle: _('Device Resetting')
     }),
     () => {
       api.system.deviceReset(resetIP)
@@ -147,7 +147,7 @@ module.exports = class Maintain extends Base {
             }))
             .then(() => {
               // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: _('Device rebooting')});
+              this.setState({apiProcessModalTitle: _('Device Rebooting')});
               // Check the server was start up, if success then startup was failed and retry.
               const test = () => {
                 api.ping('app')
@@ -157,7 +157,7 @@ module.exports = class Maintain extends Base {
                     this.setState({
                       isShowFinishModal: true,
                       finishModalTitle: _('System Reset'),
-                      finishModalBody: _('Device has reset, please log back in')
+                      finishModalBody: _('Device has reset. Please log in again.')
                     });
                   })
                   .catch(() => {
@@ -221,7 +221,7 @@ module.exports = class Maintain extends Base {
             }))
             .then(() => {
               // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: _('Device rebooting')});
+              this.setState({apiProcessModalTitle: _('Device Rebooting')});
               // Check the server was start up, if success then startup was failed and retry.
               const test = () => {
                 api.ping('app')
@@ -230,8 +230,8 @@ module.exports = class Maintain extends Base {
                     this.hideApiProcessModal();
                     this.setState({
                       isShowFinishModal: true,
-                      finishModalTitle: _('Device settings import'),
-                      finishModalBody: _('Device settings has imported, please log back in')
+                      finishModalTitle: _('Import System Settings'),
+                      finishModalBody: _('Device settings has imported. Please log in again.')
                     });
                   })
                   .catch(() => {
@@ -269,12 +269,12 @@ module.exports = class Maintain extends Base {
           <div className="form-check mb-2">
             <Field type="checkbox" name="resetIP" className="form-check-input" id="input-checkbox-reset-all"/>
             <label className="form-check-label" htmlFor="input-checkbox-reset-all">
-              {_('Restore to Factory Default Settings (Includes Network Settings)')}
+              {_('Restore All Settings')}
             </label>
           </div>
           <CustomNotifyModal
             isShowModal={this.state.isShowSelectModal.reset}
-            modalTitle={_('System Reset')}
+            modalTitle={_('Restore to Default Setting')}
             modalBody={_('Are you sure you want to reset the system?')}
             isConfirmDisable={this.state.$isApiProcessing}
             onHide={this.hideModal('reset')}

@@ -101,7 +101,7 @@ module.exports = class Log extends Base {
               </div>
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Log')}</div>
+                  <div className="card-header">{_('System Log')}</div>
                   <div className="card-body">
                     <div className="form-group">
                       <label className="mb-0 my-3">{_('System Log File Record')}</label>
