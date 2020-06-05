@@ -29,9 +29,12 @@ const _updateApiStatus = () => {
  */
 module.exports = config => {
   const id = Math.random().toString(36).substr(2);
-
   _pool[id] = config;
   _updateApiStatus();
+  const expiresTimer = store.get('$expiresTimer');
+  if (expiresTimer && typeof expiresTimer.pause === 'function') {
+    expiresTimer.pause();
+  }
 
   return axios(config)
     .catch(error => {
@@ -45,5 +48,8 @@ module.exports = config => {
     .finally(() => {
       delete _pool[id];
       _updateApiStatus();
+      if (expiresTimer && typeof expiresTimer.resume === 'function') {
+        expiresTimer.resetAndResume();
+      }
     });
 };

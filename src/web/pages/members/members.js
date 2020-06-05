@@ -1,14 +1,3 @@
-const axios = require('axios');
-axios.interceptors.response.use(
-  config => config,
-  error => {
-    if (error.response.status === 408 || error.code === 'ECONNABORTED') {
-      console.log(`A timeout happend on url ${error.config.url}`);
-    }
-
-    return Promise.reject(error);
-  }
-);
 const download = require('downloadjs');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
@@ -25,12 +14,11 @@ const Password = require('../../../core/components/fields/password');
 const databaseEncryptionValidator = require('../../validations/members/database-encryption-validator');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const store = require('../../../core/store');
+const wrappedApi = require('../../../core/apis');
 const utils = require('../../../core/utils');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
-const StageProgress = require('../../../core/components/stage-progress');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -72,8 +60,6 @@ module.exports = class Members extends Base {
     this.state.databaseFile = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Updating members');
-    this.state.progressStatus = 'start';
-    this.state.progressPercentage = 0;
     this.state.isShowSelectModal = {
       deleteGroup: false,
       deleteMember: false
@@ -303,27 +289,26 @@ module.exports = class Members extends Base {
 
   onClickExportDatabase = event => {
     event.preventDefault();
-    const expiresTimer = store.get('$expiresTimer');
-    expiresTimer.pause();
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
       apiProcessModalTitle: _('Exporting member database')
     },
     () => {
-      axios.get('/api/members/database.zip',
-        {timeout: 3 * 60 * 1000,
-          responseType: 'blob',
-          onDownloadProgress: progressEvent => {
-            // Do whatever you want with the native progress event
-            this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
-          }
-        })
+      wrappedApi({
+        method: 'get',
+        url: '/api/members/database.zip',
+        timeout: 3 * 60 * 1000,
+        responseType: 'blob',
+        onDownloadProgress: progressEvent => {
+          // Do whatever you want with the native progress event
+          this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
+        }
+      })
         .then(response => {
           download(response.data, 'database');
           this.hideApiProcessModal();
           progress.done();
-          expiresTimer.resume();
         })
         .catch(error => {
           progress.done();
@@ -341,8 +326,6 @@ module.exports = class Members extends Base {
       return;
     }
 
-    const expiresTimer = store.get('$expiresTimer');
-    expiresTimer.pause();
     progress.start();
     this.setState({isShowApiProcessModal: true}, () => {
       api.member.uploadDatabaseFile(file)
@@ -354,7 +337,6 @@ module.exports = class Members extends Base {
         })
         .catch(error => {
           progress.done();
-          expiresTimer.resume();
           getRouter().reload();
           this.setState({isShowApiProcessModal: false});
           utils.showErrorNotification({
@@ -694,9 +676,7 @@ module.exports = class Members extends Base {
           modalType="process"
           isShowModal={isShowApiProcessModal}
           modalTitle={apiProcessModalTitle}
-          modalBody={[
-            <StageProgress key="stage 1" title="Database loading" progressStatus={this.state.progressStatus} progressPercentage={this.state.progressPercentage}/>
-          ]}
+          modalBody="Member Database Updating"
           onHide={this.hideApiProcessModal}/>
 
         {/* Database encryption */}
