@@ -49,7 +49,6 @@ module.exports = class Layout extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
-
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
@@ -60,11 +59,13 @@ module.exports = class Layout extends Base {
     );
     this.state.isShowAboutModal = false;
     this.state.isShowExpireModal = false;
-    this.state.expireModalBody = `Your session has expired, redirect in ${REDIRECT_COUNTDOWN} seconds`;
+    this.state.expireModalBody = _('Your session has expired, redirect in {0} seconds', [REDIRECT_COUNTDOWN]);
+    this.countdownTimerID = null;
+    this.countdownID = null;
   }
 
   componentDidMount() {
-    const expires = localStorage.getItem('$expires') || null;
+    const expires = localStorage.getItem('$expires') || 3000;
     if (expires) {
       const expiresTimer = new Timer(
         () => {
@@ -72,11 +73,11 @@ module.exports = class Layout extends Base {
             {isShowExpireModal: true},
             () => {
               let countdown = REDIRECT_COUNTDOWN;
-              const countdownId = setInterval(() => {
-                this.setState({expireModalBody: `Your session has expired, redirect in ${--countdown} seconds`});
+              this.countdownID = setInterval(() => {
+                this.setState({expireModalBody: _('Your session has expired, redirect in {0} seconds', [--countdown])});
               }, 1000);
-              setTimeout(() => {
-                clearInterval(countdownId);
+              this.countdownTimerID = setTimeout(() => {
+                clearInterval(this.countdownID);
                 location.href = '/login';
               }, REDIRECT_COUNTDOWN * 1000);
             }
@@ -105,8 +106,10 @@ module.exports = class Layout extends Base {
         location.href = '/';
       })
       .catch(error => {
-        progress.done();
-        utils.renderError(error);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       });
   }
 
@@ -360,10 +363,25 @@ module.exports = class Layout extends Base {
         </Modal>
 
         <CustomNotifyModal
-          modalType="process"
+          modalType="info"
           isShowModal={isShowExpireModal}
-          modalTitle="Session expired"
+          modalTitle={_('Session Expired')}
           modalBody={expireModalBody}
+          confirmBtnTitle={_('Resume Session')}
+          onConfirm={() => {
+            api.account.refresh()
+              .then(() => {
+                clearInterval(this.countdownID);
+                clearTimeout(this.countdownTimerID);
+                this.setState({isShowExpireModal: false});
+              })
+              .catch(error => {
+                utils.showErrorNotification({
+                  title: `Error ${error.response.status}` || null,
+                  message: error.response.status === 400 ? error.response.data.message || null : null
+                });
+              });
+          }}
           onHide={() => {
             this.setState({isShowExpireModal: false});
           }}/>

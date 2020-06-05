@@ -14,6 +14,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       modalBody: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
       // Specify modal type, with different backdrop setting, buttons layout.
       modalType: PropTypes.oneOf(['default', 'info', 'process']),
+      confirmBtnTitle: PropTypes.string,
       // On submit/finish actions
       onConfirm: PropTypes.func,
       // Disable button when api is processing
@@ -28,6 +29,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       // Default is for processing modal only. All other modals should have a body message
       modalBody: _('Please wait'),
       modalType: 'default',
+      confirmBtnTitle: _('Confirm'),
       onConfirm: null,
       isConfirmDisable: false,
       backdrop: true
@@ -42,6 +44,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       modalTitle,
       modalBody,
       modalType,
+      confirmBtnTitle,
       isConfirmDisable,
       backdrop
     } = this.props;
@@ -84,7 +87,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
                 className="btn btn-primary btn-block rounded-pill"
                 onClick={onConfirm}
               >
-                {_('Confirm')}
+                {confirmBtnTitle}
               </button>
             </div>
             {modalType !== 'info' && (

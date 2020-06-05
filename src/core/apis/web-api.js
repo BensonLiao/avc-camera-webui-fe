@@ -65,6 +65,15 @@ module.exports = {
       url: '/api/account/_logout'
     }),
     /**
+     * Refresh server session.
+     * @returns {Promise<response>}
+     * @response 204 with set-cookie
+     */
+    refresh: () => api({
+      method: 'post',
+      url: '/api/account/_refresh'
+    }),
+    /**
      * Change the password with the birthday.
      * @param {String} account
      * @param {String} birthday e.g. "19900101"
