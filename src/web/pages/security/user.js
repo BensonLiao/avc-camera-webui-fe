@@ -37,10 +37,8 @@ module.exports = class User extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
-    this.state = {
-      isShowModal: true,
-      usersName: this.props.users.items.map(user => user.account)
-    };
+    this.state.isShowModal = true;
+    this.state.usersName = this.props.users.items.map(user => user.account);
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
         const isShowModal = [
@@ -226,7 +224,7 @@ module.exports = class User extends Base {
     const validator = user ? UserValidator : NewUserValidator;
 
     return (
-      <Modal autoFocus={false} show={this.state.isShowModal} onHide={this.hideModal}>
+      <Modal autoFocus={false} show={this.state.isShowModal} backdrop={this.state.$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
           <Modal.Title as="h5">{user ? _('Modify User') : _('New User')}</Modal.Title>
         </Modal.Header>
