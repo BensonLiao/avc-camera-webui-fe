@@ -1,6 +1,20 @@
 window.languageResource = {
   _code: 'zh-tw',
 
+  // App Bar
+  About: '關於',
+  'Model Name': '裝置名稱',
+  Firmware: '韌體版本',
+  'Serial Number': '產品序號',
+  Support: '支援',
+  'Online Support Request': '線上支援',
+  'Firmware Downloads': '韌體下載',
+  'Software Downloads': '軟體下載',
+  Downloads: '下載中心',
+  'Product Selector': '產品選擇',
+  'Technical Updates': '技術更新',
+  Resources: '資源',
+
   // Constants
   'permission-0': '管理者',
   'permission-1': '訪客',
@@ -73,6 +87,11 @@ window.languageResource = {
   'stream-resolution-6': '1600*1200(4:3)',
   'stream-resolution-7': '1280*960(4:3)',
   'stream-resolution-8': '640*480(4:3)',
+
+  // Quality
+  'quality-30': '低',
+  'quality-50': '中',
+  'quality-80': '高',
 
   // Bandwidth Management
   'stream-bandwidth-management-0': '最佳比特率 (MBR)',
@@ -620,6 +639,14 @@ window.languageResource = {
   Reset: '重設設定',
   'Export System Settings': '匯出系統設定值',
   'Import System Settings': '匯入系統設定值',
+
+  // /system/System Information
+  'System Information': '資訊',
+  Information: '裝置資訊',
+  'System Log': 'Log 紀錄',
+  'System Log File Record': '系統 Log 檔紀錄',
+  'Delete Record': '刪除紀錄',
+  Download: '下載',
 
   // /license
   License: '智慧授權',

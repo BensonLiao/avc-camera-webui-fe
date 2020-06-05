@@ -339,13 +339,13 @@ module.exports = class Layout extends Base {
             <h5 className="modal-title">{_('About')}</h5>
           </div>
           <div className="modal-body">
-            <div className="text-info mt-2">{_('Model Name :')}</div>
+            <div className="text-info mt-2">{_('Model Name')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.modelName}</div>
-            <div className="text-info mt-3">{_('Firmware :')}</div>
+            <div className="text-info mt-3">{_('Firmware')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.firmware}</div>
-            <div className="text-info mt-3">{_('Serial Number :')}</div>
+            <div className="text-info mt-3">{_('Serial Number')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.serialNumber}</div>
-            <div className="text-info mt-3">{_('MAC Address :')}</div>
+            <div className="text-info mt-3">{_('MAC Address')} :</div>
             <div className="text-primary font-weight-bold">{networkSettings.mac}</div>
           </div>
           <div className="modal-footer flex-column">

@@ -395,21 +395,21 @@ module.exports = class Cards extends Base {
               <Nav.Link
                 eventKey="tab-notification-time"
               >
-                {_('LAN Configuration')}
+                {_('Schedule')}
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link
                 eventKey="tab-notification-condition"
               >
-                {_('Network Status')}
+                {_('Rule')}
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link
                 eventKey="tab-notification-target"
               >
-                {_('Network Status')}
+                {_('Subject')}
               </Nav.Link>
             </Nav.Item>
           </Nav>

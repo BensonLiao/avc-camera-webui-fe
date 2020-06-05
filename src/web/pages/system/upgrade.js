@@ -15,7 +15,7 @@ module.exports = class Upgrade extends Base {
     super(props);
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Device processing');
+    this.state.apiProcessModalTitle = _('Device Processing');
     this.state.apiProcessModalBody = null;
     this.state.progressStatus = {
       uploadFirmware: 'start',
@@ -60,13 +60,13 @@ module.exports = class Upgrade extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Firmware uploading')
+      apiProcessModalTitle: _('Firmware Uploading')
     },
     () => {
       api.system.uploadFirmware(file, this.updateProgress)
         .then(response => new Promise(resolve => {
           this.updateProgressStatus('uploadFirmware', 'done');
-          this.setState({apiProcessModalTitle: _('Firmware upgrading')});
+          this.setState({apiProcessModalTitle: _('Firmware Upgrading')});
           const upgrade = init => {
             api.system.upgradeFirmware(init ? response.data.filename : null)
               .then(response => {
@@ -75,7 +75,7 @@ module.exports = class Upgrade extends Base {
                   this.updateProgressStatus('upgradeFirmware', 'done');
                   // Keep modal and update the title and body.
                   this.setState({
-                    apiProcessModalTitle: _('Device shutting down'),
+                    apiProcessModalTitle: _('Device Shutting Down'),
                     apiProcessModalBody: _('Please wait')
                   });
                   // Check the server was shutdown, if success then shutdown was failed and retry.
@@ -112,7 +112,7 @@ module.exports = class Upgrade extends Base {
         .then(() => {
           // Keep modal and update the title and body.
           this.setState({
-            apiProcessModalTitle: _('Device restarting')
+            apiProcessModalTitle: _('Device Restarting')
           });
           // Check the server was startup, if success then startup was failed and retry.
           const test = () => {
@@ -198,8 +198,8 @@ module.exports = class Upgrade extends Base {
                 modalBody={this.state.apiProcessModalBody ?
                   this.state.apiProcessModalBody :
                   [
-                    <StageProgress key="stage 1" title="Firmware uploading" progressStatus={progressStatus.uploadFirmware} progressPercentage={progressPercentage.uploadFirmware}/>,
-                    <StageProgress key="stage 2" title="Firmware upgrading" progressStatus={progressStatus.upgradeFirmware} progressPercentage={progressPercentage.upgradeFirmware}/>
+                    <StageProgress key="stage 1" title="Firmware Uploading" progressStatus={progressStatus.uploadFirmware} progressPercentage={progressPercentage.uploadFirmware}/>,
+                    <StageProgress key="stage 2" title="Firmware Upgrading" progressStatus={progressStatus.upgradeFirmware} progressPercentage={progressPercentage.upgradeFirmware}/>
                   ]}
                 onHide={this.hideApiProcessModal}/>
 

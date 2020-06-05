@@ -123,7 +123,7 @@ module.exports = class TCPIP extends Base {
             }))
             .then(() => {
               // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: _('Device rebooting')});
+              this.setState({apiProcessModalTitle: _('Device Rebooting')});
               // Check the server was start up, if success then startup was failed and retry.
               const test = () => {
                 api.ping('app')
