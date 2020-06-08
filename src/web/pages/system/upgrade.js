@@ -7,6 +7,7 @@ const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const CustomTooltip = require('../../../core/components/tooltip');
 const StageProgress = require('../../../core/components/stage-progress');
 
 module.exports = class Upgrade extends Base {
@@ -160,9 +161,19 @@ module.exports = class Upgrade extends Base {
             }
           </div>
         </div>
-        <button disabled={isShowApiProcessModal || $isApiProcessing || !file} className="btn btn-primary btn-block rounded-pill" type="submit">
-          {_('Firmware Upgrade')}
-        </button>
+        <CustomTooltip show={!file} title={_('Please Select a File First')}>
+          <div>
+            <button
+              disabled={isShowApiProcessModal || $isApiProcessing || !file}
+              className="btn btn-primary btn-block rounded-pill"
+              type="submit"
+              style={file ? {} : {pointerEvents: 'none'}}
+            >
+              {_('Firmware Upgrade')}
+            </button>
+          </div>
+        </CustomTooltip>
+
       </Form>
     );
   };

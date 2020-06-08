@@ -13,6 +13,7 @@ const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {SECURITY_USERS_MAX} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const CustomTooltip = require('../../../core/components/tooltip');
 module.exports = class Users extends Base {
   static get propTypes() {
     return {
@@ -168,16 +169,23 @@ module.exports = class Users extends Base {
                                 <Link className="btn btn-link" to={{name: 'web.users.accounts.details', params: {...this.props.params, userId: user.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
-                                <button
-                                  // Account with name 'admin' should not be deleted, due to avn restrictions
-                                  disabled={user.account === account ||
-                                    user.account === 'admin'}
-                                  className="btn btn-link"
-                                  type="button"
-                                  onClick={this.generateShowDeleteUserModalHandler(user)}
+                                <CustomTooltip
+                                  show={user.account === account || user.account === 'admin'}
+                                  title={user.account === account ? _('Cannot Delete Account That is Currently Logged In') : _('This Account is Protected')}
                                 >
-                                  <i className="far fa-trash-alt fa-lg fa-fw"/>
-                                </button>
+                                  <span>
+                                    <button
+                                      // Account with name 'admin' should not be deleted, due to avn restrictions
+                                      disabled={user.account === account ||
+                                    user.account === 'admin'}
+                                      className="btn btn-link"
+                                      type="button"
+                                      onClick={this.generateShowDeleteUserModalHandler(user)}
+                                    >
+                                      <i className="far fa-trash-alt fa-lg fa-fw"/>
+                                    </button>
+                                  </span>
+                                </CustomTooltip>
                               </td>
                             </tr>
                           );

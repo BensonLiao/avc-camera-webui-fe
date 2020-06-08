@@ -7,23 +7,24 @@ const Tooltip = require('react-bootstrap/Tooltip').default;
 module.exports = class CustomTooltip extends React.PureComponent {
   static get propTypes() {
     return {
-      title: PropTypes.string,
+      title: PropTypes.string.isRequired,
       placement: PropTypes.oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
       delay: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-      children: PropTypes.element.isRequired
+      children: PropTypes.element.isRequired,
+      show: PropTypes.bool
     };
   }
 
   static get defaultProps() {
     return {
-      title: null,
       placement: 'top',
-      delay: {show: 250, hide: 0}
+      delay: {show: 250, hide: 0},
+      show: true
     };
   }
 
   render() {
-    const {title, placement, delay, children} = this.props;
+    const {title, placement, delay, children, show} = this.props;
     return (
       <OverlayTrigger
         placement={placement}
@@ -35,7 +36,7 @@ module.exports = class CustomTooltip extends React.PureComponent {
             }
           }
         }}
-        overlay={<Tooltip className={classNames({'d-none': !title})}>{title}</Tooltip>}
+        overlay={<Tooltip className={classNames({'d-none': !show})}>{title}</Tooltip>}
       >
         {children}
       </OverlayTrigger>

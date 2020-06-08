@@ -199,6 +199,17 @@ window.languageResource = {
   // The loading component.
   Loading: '載入中',
 
+  // The CustomTooltip component
+  'Please Select a File First': '請先選擇一個檔案',
+  'Please Disable SD Card First': '請先關掉SD卡',
+  'No Values Have Changed': '數值沒有更動',
+  'This Account is Protected': '此帳戶不可刪除',
+  'Cannot Delete Account That is Currently Logged In': '無法刪除正在使用的帳號',
+  'Please Enter Start and End Datetime': '請輸入開始與結束時間',
+  'Please Enter an Email Address': '請輸入Email',
+  'Unpin Card': '解除置頂',
+  'Pin Card': '置頂',
+
   // The error pages.
   'Not Found': '找不到此網頁',
   'Please click the button to go back to home!': '您可以從下面按鈕回首頁！',

@@ -6,6 +6,7 @@ const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const CustomTooltip = require('../../../core/components/tooltip');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
@@ -233,17 +234,22 @@ module.exports = class NetworkSettings extends Base {
             disabled={values.ipType === NetworkIPType.dynamic}
           />
         </div>
+        <CustomTooltip show={JSON.stringify(this.props.networkSettings) === JSON.stringify(values)} title={_('No Values Have Changed')}>
 
-        <button
-          type="button"
-          className="btn btn-primary btn-block rounded-pill"
-          disabled={$isApiProcessing || isUpdating || JSON.stringify(this.props.networkSettings) === JSON.stringify(values)}
-          onClick={() => {
-            this.showModal('applyConfirm');
-          }}
-        >
-          {_('Apply')}
-        </button>
+          <div>
+            <button
+              type="button"
+              className="btn btn-primary btn-block rounded-pill"
+              disabled={$isApiProcessing || isUpdating || JSON.stringify(this.props.networkSettings) === JSON.stringify(values)}
+              style={(JSON.stringify(this.props.networkSettings) === JSON.stringify(values)) ? {pointerEvents: 'none'} : {}}
+              onClick={() => {
+                this.showModal('applyConfirm');
+              }}
+            >
+              {_('Apply')}
+            </button>
+          </div>
+        </CustomTooltip>
 
         <CustomNotifyModal
           backdrop="static"

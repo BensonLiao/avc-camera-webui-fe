@@ -15,6 +15,7 @@ const DateTimePicker = require('../../../core/components/fields/datetime-picker'
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const CustomTooltip = require('../../../core/components/tooltip');
 const sanitizeHtml = require('sanitize-html');
 const {NOTIFY_CARDS_MAX, NOTIFY_CARDS_EMAIL_MAX} = require('../../../core/constants');
 
@@ -355,13 +356,15 @@ module.exports = class Cards extends Base {
       <Form className="modal-content">
         <div className="modal-body d-flex justify-content-between align-content-center pb-2">
           <div className="d-flex align-content-center">
-            <button
-              type="button"
-              className={classNames('btn btn-star rounded-pill', {'btn-secondary': !this.state.isTop})}
-              onClick={toggleIsTop}
-            >
-              <i className="fas fa-bell fa-fw fa-lg"/>
-            </button>
+            <CustomTooltip title={this.state.isTop ? _('Unpin Card') : _('Pin Card')}>
+              <button
+                type="button"
+                className={classNames('btn btn-star rounded-pill', {'btn-secondary': !this.state.isTop})}
+                onClick={toggleIsTop}
+              >
+                <i className="fas fa-bell fa-fw fa-lg"/>
+              </button>
+            </CustomTooltip>
             <ContentEditable
               innerRef={this.cardFormTitleRef}
               html={values.title}
@@ -398,13 +401,15 @@ module.exports = class Cards extends Base {
                 {_('Schedule')}
               </Nav.Link>
             </Nav.Item>
-            <Nav.Item>
-              <Nav.Link
-                eventKey="tab-notification-condition"
-              >
-                {_('Rule')}
-              </Nav.Link>
-            </Nav.Item>
+            {values.type === NotificationCardType.faceRecognition && (
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="tab-notification-condition"
+                >
+                  {_('Rule')}
+                </Nav.Link>
+              </Nav.Item>
+            )}
             <Nav.Item>
               <Nav.Link
                 eventKey="tab-notification-target"
@@ -467,15 +472,18 @@ module.exports = class Cards extends Base {
                         onHide={this.onHideEndDatePicker}
                       />
                     </div>
-                    <div className="col-auto my-1">
-                      <button
-                        disabled={!values.$start || !values.$end || values.timePeriods.length >= 5}
-                        className="btn btn-primary rounded-circle" type="button"
-                        onClick={onClickAddTimePeriod}
-                      >
-                        <i className="fas fa-plus"/>
-                      </button>
-                    </div>
+                    <CustomTooltip show={!values.$start || !values.$end} title={_('Please Enter Start and End Datetime')}>
+                      <div className="col-auto my-1">
+                        <button
+                          disabled={!values.$start || !values.$end || values.timePeriods.length >= 5}
+                          className="btn btn-primary rounded-circle" type="button"
+                          style={(!values.$start || !values.$end) ? {pointerEvents: 'none'} : {}}
+                          onClick={onClickAddTimePeriod}
+                        >
+                          <i className="fas fa-plus"/>
+                        </button>
+                      </div>
+                    </CustomTooltip>
                   </div>
                   {
                     values.timePeriods.map((timePeriod, index) => (
@@ -646,16 +654,22 @@ module.exports = class Cards extends Base {
                                 placeholder={_('Enter email address')}/>
                             </div>
                           </div>
-                          <div className="col-auto my-1">
-                            <button
-                              disabled={!values.$email}
-                              type="button"
-                              className="btn btn-primary rounded-circle"
-                              onClick={onClickAddEmail}
-                            >
-                              <i className="fas fa-plus"/>
-                            </button>
-                          </div>
+                          <CustomTooltip show={!values.$email} title={_('Please Enter an Email Address')}>
+
+                            <div className="col-auto my-1">
+                              <button
+                                disabled={!values.$email}
+                                style={values.$email ? {} : {pointerEvents: 'none'}}
+
+                                type="button"
+                                className="btn btn-primary rounded-circle"
+                                onClick={onClickAddEmail}
+                              >
+                                <i className="fas fa-plus"/>
+                              </button>
+                            </div>
+                          </CustomTooltip>
+
                         </div>
                         <div className={classNames({'is-invalid': errors.$email && touched.$email})}>
                           {
@@ -716,13 +730,16 @@ module.exports = class Cards extends Base {
       <div key={card.id} className="card shadow overflow-hidden" onClick={this.generateClickCardHandler(card.id)}>
         <div className="card-title d-flex justify-content-between align-items-center">
           <div className="title text-truncate">
-            <button
-              disabled={$isApiProcessing} type="button"
-              className={classNames('btn btn-star rounded-pill', {'btn-secondary': !card.isTop})}
-              onClick={this.generateToggleTopHandler(card.id)}
-            >
-              <i className="fas fa-bell fa-fw fa-lg"/>
-            </button>
+            <CustomTooltip title={card.isTop ? _('Unpin Card') : _('Pin Card')}>
+              <button
+                disabled={$isApiProcessing} type="button"
+                className={classNames('btn btn-star rounded-pill', {'btn-secondary': !card.isTop})}
+                onClick={this.generateToggleTopHandler(card.id)}
+              >
+                <i className="fas fa-bell fa-fw fa-lg"/>
+              </button>
+            </CustomTooltip>
+
             <a className="ml-3" href="#">{card.title}</a>
           </div>
           <div className="icons d-flex justify-content-end">

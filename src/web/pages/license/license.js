@@ -100,7 +100,7 @@ module.exports = class License extends Base {
     }
   };
 
-  addLicenseFormRender = ({errors, submitCount}) => {
+  addLicenseFormRender = ({errors, touched, submitCount}) => {
     const isSubmitted = submitCount > 0;
 
     return (
@@ -115,6 +115,11 @@ module.exports = class License extends Base {
               placeholder={_('Enter your authentication key')}
               style={{width: '312px'}}
             />
+            {
+              errors.authKey && touched.authKey && (
+                <div className="invalid-feedback">{errors.authKey}</div>
+              )
+            }
           </div>
           <div className="col-auto my-1">
             <button
