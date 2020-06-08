@@ -226,7 +226,7 @@ module.exports = class StreamSetting extends Base {
   formRender = ({values, errors}) => {
     const {isShowModal, $isApiProcessing} = this.state;
     const channelAOptions = {
-      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg).map(x => ({label: x, value: x})),
+      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({label: x, value: x})),
       resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
       frameRate: (() => {
         const result = [];
