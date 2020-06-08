@@ -73,9 +73,14 @@ module.exports = class HTTPS extends Base {
           isShowModal: true,
           onConfirm: () => {
             this.setState({isConfirmDisable: true});
-            utils.pingAndRedirectPage(
-              `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`
-            );
+            if ((this.props.httpsSettings.isEnable === true) && (values.isEnable === false)) {
+              progress.done();
+              this.hideModal();
+            } else {
+              utils.pingAndRedirectPage(
+                `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`
+              );
+            }
           }
         });
       })
@@ -89,7 +94,7 @@ module.exports = class HTTPS extends Base {
   };
 
   formRender = ({values, errors, touched}) => {
-    const {$isApiProcessing} = this.state;
+    const {$isApiProcessing, isShowModal, isConfirmDisable, onConfirm} = this.state;
     const {httpsSettings} = this.props;
 
     return (
@@ -128,25 +133,37 @@ module.exports = class HTTPS extends Base {
             </Field>
           </div>
         </div>
-        <CustomTooltip show={httpsSettings.isEnable === values.isEnable} title={_('No Values Have Changed')}>
+        <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={_('Please Enable HTTPS')}>
           <div>
             <button
-              disabled={$isApiProcessing || !utils.isObjectEmpty(errors) || (httpsSettings.isEnable === values.isEnable)}
+              disabled={$isApiProcessing || !utils.isObjectEmpty(errors) || ((httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false)}
               className="btn btn-primary btn-block rounded-pill"
               type="submit"
-              style={httpsSettings.isEnable === values.isEnable ? {pointerEvents: 'none'} : {}}
+              style={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false ? {pointerEvents: 'none'} : {}}
             >
               {_('Apply')}
             </button>
           </div>
         </CustomTooltip>
+        <CustomNotifyModal
+          modalType="info"
+          isShowModal={isShowModal}
+          modalTitle={_('Success')}
+          modalBody={
+            (httpsSettings.isEnable === true) && (values.isEnable === false) ?
+              _('Please Redirect Manually to the New Address.') :
+              _('Click Confirm to Redirect to the New Address.')
+          }
+          isConfirmDisable={isConfirmDisable}
+          onConfirm={onConfirm}
+          onHide={this.hideModal}/>
       </Form>
     );
   };
 
   render() {
     const {httpsSettings} = this.props;
-    const {validator, isShowModal, isConfirmDisable, onConfirm} = this.state;
+    const {validator} = this.state;
 
     return (
       <div className="main-content left-menu-active">
@@ -174,14 +191,6 @@ module.exports = class HTTPS extends Base {
                   >
                     {this.formRender}
                   </Formik>
-                  <CustomNotifyModal
-                    modalType="info"
-                    isShowModal={isShowModal}
-                    modalTitle={_('Success')}
-                    modalBody={_('Click Confirm to Redirect to the New Address.')}
-                    isConfirmDisable={isConfirmDisable}
-                    onConfirm={onConfirm}
-                    onHide={this.hideModal}/>
                 </div>
               </div>
             </div>

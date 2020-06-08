@@ -203,6 +203,7 @@ window.languageResource = {
   'Please Select a File First': '請先選擇一個檔案',
   'Please Disable SD Card First': '請先關掉SD卡',
   'No Values Have Changed': '數值沒有更動',
+  'Please Enable HTTPS': '請開啟HTTPS功能',
   'This Account is Protected': '此帳戶不可刪除',
   'Cannot Delete Account That is Currently Logged In': '無法刪除正在使用的帳號',
   'Please Enter Start and End Datetime': '請輸入開始與結束時間',
@@ -620,6 +621,11 @@ window.languageResource = {
   'Host Name': '主機名稱',
   'Secondary Web Server Port': '次網頁服務埠',
   '1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.': '1024 - 65535，除了5555、8443、8554、17300，預設主要埠為80',
+
+  // Internet/Network Settings/HTTPS
+  'Click Confirm to Redirect to the New Address': '請按確認重新導向新的網址',
+  'Please Redirect Manually to the New Address.': '請自行手動重新導向新的網址',
+  'This is a reserved port or is in use, please try another port.': '請設定非使用中或預留的服務埠',
 
   // /system
   'System Settings': '系統設定',
