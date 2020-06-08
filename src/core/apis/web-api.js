@@ -796,7 +796,16 @@ module.exports = {
       method: 'put',
       url: '/api/video/settings/focus',
       data: {focalLength, zoom, focusType, isAutoFocusAfterZoom}
+    }),
+    /**
+     * @returns {Object}
+     * - focalLength {Number}
+     */
+    getFocalLength: () => api({
+      method: 'get',
+      url: '/api/video/focusposition'
     })
+
   },
   smartFunction: {
     /**
