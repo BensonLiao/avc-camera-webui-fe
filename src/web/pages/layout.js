@@ -24,13 +24,13 @@ const store = require('../../core/store');
 const Timer = require('../../core/timer');
 const utils = require('../../core/utils');
 const _ = require('../../languages');
-const {AVAILABLE_LANGUAGE_CODES, REDIRECT_COUNTDOWN} = require('../../core/constants');
+const constants = require('../../core/constants');
 
 module.exports = class Layout extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired,
+        languageCode: PropTypes.oneOf(constants.AVAILABLE_LANGUAGE_CODES).isRequired,
         deviceName: PropTypes.string.isRequired,
         isEnableFaceRecognition: PropTypes.bool.isRequired,
         isEnableAgeGender: PropTypes.bool.isRequired,
@@ -59,34 +59,34 @@ module.exports = class Layout extends Base {
     );
     this.state.isShowAboutModal = false;
     this.state.isShowExpireModal = false;
-    this.state.expireModalBody = _('Your session has expired, redirect in {0} seconds', [REDIRECT_COUNTDOWN]);
+    this.state.expireModalBody = _('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN]);
     this.countdownTimerID = null;
     this.countdownID = null;
   }
 
   componentDidMount() {
-    const expires = localStorage.getItem('$expires') || 3000;
+    const expires = localStorage.getItem(constants.store.EXPIRES) || 3000;
     if (expires) {
       const expiresTimer = new Timer(
         () => {
           this.setState(
             {isShowExpireModal: true},
             () => {
-              let countdown = REDIRECT_COUNTDOWN;
+              let countdown = constants.REDIRECT_COUNTDOWN;
               this.countdownID = setInterval(() => {
                 this.setState({expireModalBody: _('Your session has expired, redirect in {0} seconds', [--countdown])});
               }, 1000);
               this.countdownTimerID = setTimeout(() => {
                 clearInterval(this.countdownID);
                 location.href = '/login';
-              }, REDIRECT_COUNTDOWN * 1000);
+              }, constants.REDIRECT_COUNTDOWN * 1000);
             }
           );
         },
         expires
       );
       expiresTimer.start();
-      store.set('$expiresTimer', expiresTimer);
+      store.set(constants.store.EXPIRES_TIMER, expiresTimer);
     }
   }
 
