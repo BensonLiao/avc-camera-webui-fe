@@ -19,7 +19,8 @@ module.exports = class SliderField extends React.PureComponent {
       step: PropTypes.number.isRequired,
       disabled: PropTypes.bool,
       updateFieldOnStop: PropTypes.bool,
-      enableArrowKey: PropTypes.bool
+      enableArrowKey: PropTypes.bool,
+      onChangeInput: PropTypes.func
     };
   }
 
@@ -27,7 +28,8 @@ module.exports = class SliderField extends React.PureComponent {
     return {
       disabled: false,
       updateFieldOnStop: false,
-      enableArrowKey: false
+      enableArrowKey: false,
+      onChangeInput: null
     };
   }
 
@@ -74,6 +76,7 @@ module.exports = class SliderField extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.field.value !== this.props.field.value) {
       this.slider.setValue(this.props.field.value);
+      this.props.onChangeInput();
     }
 
     if (prevProps.disabled !== this.props.disabled) {
