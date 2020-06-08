@@ -7,6 +7,7 @@ const {Formik, Form, Field} = require('formik');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const Base = require('../shared/base');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const CustomTooltip = require('../../../core/components/tooltip');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
@@ -127,9 +128,18 @@ module.exports = class HTTPS extends Base {
             </Field>
           </div>
         </div>
-        <button disabled={$isApiProcessing || !utils.isObjectEmpty(errors) || (httpsSettings.isEnable === values.isEnable)} className="btn btn-primary btn-block rounded-pill" type="submit">
-          {_('Apply')}
-        </button>
+        <CustomTooltip show={httpsSettings.isEnable === values.isEnable} title={_('No Values Have Changed')}>
+          <div>
+            <button
+              disabled={$isApiProcessing || !utils.isObjectEmpty(errors) || (httpsSettings.isEnable === values.isEnable)}
+              className="btn btn-primary btn-block rounded-pill"
+              type="submit"
+              style={httpsSettings.isEnable === values.isEnable ? {pointerEvents: 'none'} : {}}
+            >
+              {_('Apply')}
+            </button>
+          </div>
+        </CustomTooltip>
       </Form>
     );
   };

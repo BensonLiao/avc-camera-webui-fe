@@ -623,16 +623,28 @@ module.exports = class Members extends Base {
                                 <img className="rounded-circle" style={{height: '56px'}}
                                   src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
                               </td>
-                              <CustomTooltip title={member.name}>
-                                <td className={tdClass}>{member.name}</td>
-                              </CustomTooltip>
-                              <CustomTooltip title={member.organization}>
-                                <td className={tdClass}>{member.organization || _('N/A')}</td>
-                              </CustomTooltip>
+                              <td className={tdClass}>
+                                <CustomTooltip title={member.name}>
+                                  <span>
+                                    {member.name}
+                                  </span>
+                                </CustomTooltip>
+                              </td>
+                              <td className={tdClass}>
+                                <CustomTooltip title={member.organization}>
+                                  <span>
+                                    {member.organization || _('N/A')}
+                                  </span>
+                                </CustomTooltip>
+                              </td>
                               <td className={tdClass}>{(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
-                              <CustomTooltip title={member.note}>
-                                <td className={tdClass}>{member.note || _('N/A')}</td>
-                              </CustomTooltip>
+                              <td className={tdClass}>
+                                <CustomTooltip title={member.note}>
+                                  <span>
+                                    {member.note || _('N/A')}
+                                  </span>
+                                </CustomTooltip>
+                              </td>
                               <td className={classNames('text-left group-btn', tdClass)}>
                                 <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...params, memberId: member.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>

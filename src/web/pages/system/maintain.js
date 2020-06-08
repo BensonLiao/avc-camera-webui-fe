@@ -8,6 +8,7 @@ const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const CustomTooltip = require('../../../core/components/tooltip');
 
 module.exports = class Maintain extends Base {
   constructor(props) {
@@ -307,14 +308,19 @@ module.exports = class Maintain extends Base {
           }
         </div>
         <div>
-          <button
-            disabled={$isApiProcessing || !file}
-            className="btn btn-outline-primary rounded-pill px-5"
-            type="button"
-            onClick={this.onSubmitImportDeviceSettings}
-          >
-            {_('Import')}
-          </button>
+          <CustomTooltip show={!file} title={_('Please Select a File First')}>
+            <span>
+              <button
+                disabled={$isApiProcessing || !file}
+                className="btn btn-outline-primary rounded-pill px-5"
+                type="button"
+                style={file ? {} : {pointerEvents: 'none'}}
+                onClick={this.onSubmitImportDeviceSettings}
+              >
+                {_('Import')}
+              </button>
+            </span>
+          </CustomTooltip>
         </div>
       </div>
     );

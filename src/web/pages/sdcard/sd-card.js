@@ -189,28 +189,34 @@ module.exports = class SDCard extends Base {
             <div className="card-body">
               <label>{_('SD Card Operation')}</label>
               <div>
-                <span>
-                  <button
-                    className="btn btn-outline-primary rounded-pill px-5 mr-3"
-                    type="button"
-                    disabled={systemInformation.sdEnabled}
-                    onClick={this.showModal('isShowFormatModal')}
-                  >
-                    {_('Format')}
-                  </button>
-                  {this.sdcardModalRender('format')}
-                </span>
-                <span>
-                  <button
-                    className="btn btn-outline-primary rounded-pill px-5"
-                    type="button"
-                    disabled={systemInformation.sdEnabled}
-                    onClick={this.showModal('isShowUnmountModal')}
-                  >
-                    {_('Unmount')}
-                  </button>
-                  {this.sdcardModalRender('unmount')}
-                </span>
+                <CustomTooltip show={systemInformation.sdEnabled} title={_('Please Disable SD Card First')}>
+                  <span>
+                    <button
+                      className="btn btn-outline-primary rounded-pill px-5 mr-3"
+                      type="button"
+                      disabled={systemInformation.sdEnabled}
+                      style={systemInformation.sdEnabled ? {pointerEvents: 'none'} : {}}
+                      onClick={this.showModal('isShowFormatModal')}
+                    >
+                      {_('Format')}
+                    </button>
+                    {this.sdcardModalRender('format')}
+                  </span>
+                </CustomTooltip>
+                <CustomTooltip show={systemInformation.sdEnabled} title={_('Please Disable SD Card First')}>
+                  <span>
+                    <button
+                      className="btn btn-outline-primary rounded-pill px-5"
+                      type="button"
+                      disabled={systemInformation.sdEnabled}
+                      style={systemInformation.sdEnabled ? {pointerEvents: 'none'} : {}}
+                      onClick={this.showModal('isShowUnmountModal')}
+                    >
+                      {_('Unmount')}
+                    </button>
+                    {this.sdcardModalRender('unmount')}
+                  </span>
+                </CustomTooltip>
                 <span>
                   {this.sdcardModalRender('disable')}
                 </span>
