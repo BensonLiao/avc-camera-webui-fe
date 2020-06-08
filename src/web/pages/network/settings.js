@@ -102,8 +102,9 @@ module.exports = class NetworkSettings extends Base {
     this.setState({isUpdating: true},
       () => {
         api.system.updateNetworkSettings(values)
-          .then(() => {
+          .then(response => {
             progress.done();
+            const resultIP = values.ipType === NetworkIPType.dynamic ? response.data.ipAddress : values.ipAddress;
             this.setState(prevState => ({
               isShowSelectModal: {
                 ...prevState.isShowSelectModal,
@@ -111,10 +112,10 @@ module.exports = class NetworkSettings extends Base {
               },
               isUpdating: false,
               modalTitle: _('Success'),
-              modalBody: [_('Click Confirm to Redirect to the New Address.'), `${_('IP Address')}: ${values.ipAddress}`],
+              modalBody: [_('Click Confirm to Redirect to the New Address.'), `${_('IP Address')}: ${resultIP}`],
               onConfirm: () => {
                 this.setState({isConfirmDisable: true});
-                utils.pingAndRedirectPage(`${location.protocol}//${values.ipAddress}:${location.port}`);
+                utils.pingAndRedirectPage(`${location.protocol}//${resultIP}:${location.port}`);
               }
             }));
           })
