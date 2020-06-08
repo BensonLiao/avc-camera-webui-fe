@@ -7,7 +7,7 @@ const Tooltip = require('react-bootstrap/Tooltip').default;
 module.exports = class CustomTooltip extends React.PureComponent {
   static get propTypes() {
     return {
-      title: PropTypes.string.isRequired,
+      title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
       placement: PropTypes.oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
       delay: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
       children: PropTypes.element.isRequired,
