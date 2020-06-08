@@ -76,7 +76,9 @@ module.exports = class SliderField extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.field.value !== this.props.field.value) {
       this.slider.setValue(this.props.field.value);
-      this.props.onChangeInput();
+      if (this.props.onChangeInput) {
+        this.props.onChangeInput();
+      }
     }
 
     if (prevProps.disabled !== this.props.disabled) {
