@@ -264,34 +264,41 @@ exports.showErrorNotification = ({title, message}) => {
 
 /**
  * @param {string} imgSrc - The src of the img element.
- * @param {number} zoomRate - `100` mean 100%. `200` means zoom in 2x.
+ * @param {number} zoomFactor - Zoom factor as a number, `2` is 2x.
  * @param {number} pictureRotateDegrees - The rotate degrees. 0 ~ 360
+ * @param {object} offset - offset of the photo
+ * @param {number} wrapperSize - size of the photo container
  * @returns {Promise<string>} - The base64 jpeg string.
  */
-exports.convertPicture = (imgSrc, zoomRate, pictureRotateDegrees) => new Promise((resolve, reject) => {
+exports.convertPicture = (imgSrc, zoomFactor, pictureRotateDegrees, offset, wrapperSize) => new Promise((resolve, reject) => {
   const img = document.createElement('img');
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
   const size = 300;
-  let rate;
+  const maxOffset = ((wrapperSize * zoomFactor) - wrapperSize) / zoomFactor / 2;
+  let ratio;
 
   img.onerror = reject;
   img.onload = () => {
-    rate = img.height / img.width;
+    ratio = img.height / img.width;
     if (img.width < img.height) {
       img.width = size;
-      img.height = Math.round(img.width * rate);
+      img.height = Math.round(img.width * ratio);
     } else {
       img.height = size;
-      img.width = Math.round(img.height / rate);
+      img.width = Math.round(img.height / ratio);
     }
 
-    img.width = Math.round(img.width * zoomRate * 0.01);
-    img.height = Math.round(img.height * zoomRate * 0.01);
+    img.width = Math.round(img.width * zoomFactor);
+    img.height = Math.round(img.height * zoomFactor);
+
+    // Offset amount
+    const offsetX = ((img.height - size) / 2) * (offset ? offset.x / maxOffset : 0);
+    const offsetY = ((img.height - size) / 2) * (offset ? offset.y / maxOffset : 0);
 
     canvas.width = size;
     canvas.height = size;
-    context.translate(canvas.width / 2, canvas.height / 2);
+    context.translate((canvas.width / 2) + offsetX, (canvas.height / 2) + offsetY);
     context.rotate(pictureRotateDegrees * Math.PI / 180);
     context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
     context.restore();
