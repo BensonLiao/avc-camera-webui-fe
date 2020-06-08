@@ -63,9 +63,11 @@ module.exports = class Member extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.setState({
-      wrapperSize: document.getElementById('avatar-wrapper').clientHeight
-    });
+    if (document.getElementById('avatar-wrapper')) {
+      this.setState({
+        wrapperSize: document.getElementById('avatar-wrapper').clientHeight
+      });
+    }
   }
 
   generateInitialValue = member => {
