@@ -31,7 +31,7 @@ module.exports = config => {
   const id = Math.random().toString(36).substr(2);
   _pool[id] = config;
   _updateApiStatus();
-  const expiresTimer = store.get('$expiresTimer');
+  const expiresTimer = store.get(constants.store.EXPIRES_TIMER);
   if (expiresTimer && typeof expiresTimer.pause === 'function') {
     expiresTimer.pause();
   }
