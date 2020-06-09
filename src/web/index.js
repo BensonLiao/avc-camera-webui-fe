@@ -24,6 +24,8 @@ const elementResizeDetectorMaker = require('element-resize-detector');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const ReactNotification = require('react-notifications-component').default;
+const UserPermission = require('webserver-form-schema/constants/user-permission');
+const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
@@ -57,6 +59,29 @@ switch (window.currentLanguageCode) {
 
 // Setup initial data
 store.set('$user', window.user);
+store.set('$setup', {
+  language: window.currentLanguageCode,
+  account: {
+    permission: UserPermission.root,
+    account: '',
+    birthday: '',
+    password: '',
+    confirmPassword: ''
+  },
+  https: {
+    certificateType: CertificateType.selfSigned,
+    certificate: '',
+    privateKey: '',
+    country: '',
+    state: '',
+    city: '',
+    organization: '',
+    organizationUnit: '',
+    email: '',
+    domain: ''
+  }
+});
+
 store.set('$erd', elementResizeDetectorMaker());
 
 const waitForReboot = () => {
@@ -90,7 +115,6 @@ const renderWeb = () => {
 
     const $user = store.get('$user');
     const allowAnonymousRoutes = [
-      'setup',
       'setup-https',
       'setup-account',
       'setup-language',
