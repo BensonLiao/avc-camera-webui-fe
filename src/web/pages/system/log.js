@@ -46,7 +46,6 @@ module.exports = class Log extends Base {
         wrappedApi({
           method: 'get',
           url: '/api/system/systeminfo/log.zip',
-          timeout: 3 * 60 * 1000,
           responseType: 'blob',
           onDownloadProgress: progressEvent => {
             // Do whatever you want with the native progress event
