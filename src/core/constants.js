@@ -88,17 +88,18 @@ module.exports = {
     HTTPS: '8443'
   },
   SD_STATUS_LIST: [ // Order is important!
-    'MEDIA_UNMOUNTED', // 0 - MEDIA_UNMOUNTED: 外部儲存體存在但未被掛載
-    'MEDIA_MOUNTED', // 1 - MEDIA_MOUNTED: 外部儲存體存在且可以進行讀取與寫入
-    'MEDIA_BAD_REMOVAL', // 2- MEDIA_BAD_REMOVAL: 外部儲存體在正常卸載之前就被拔除
-    'MEDIA_CHECKING', // 3 - MEDIA_CHECKING: 外部儲存體存在且正在進行磁碟檢查
-    'MEDIA_MOUNTED_READ_ONLY', // 4 - MEDIA_MOUNTED_READ_ONLY: 外部儲存體存在但只能進行讀取
-    'MEDIA_NOFS', // 5 - MEDIA_NOFS: 外部儲存體存在，但內容是空的或是 Android 不支援該檔案系統
-    'MEDIA_REMOVED', // 6 - MEDIA_REMOVED: 外部儲存體不存在
-    'MEDIA_SHARED', // 7 - MEDIA_SHARED: 外部儲存體存在但未被掛載，且為 USB 的裝置
-    'MEDIA_UNMOUNTABLE', // 8 - MEDIA_UNMOUNTABLE: 外部儲存體存在但不能被掛載
-    'MEDIA_EJECTING', // 9 - MEDIA_EJECTING: Storage state if the media is in the process of being ejected.
-    'MEDIA_UNKNOWN' // 10 - MEDIA_UNKNOWN: Unknown storage state, such as when a path isn't backed by known storage media.
+    // 0 - MEDIA_MOUNTED: 外部儲存體存在且可以進行讀取與寫入
+    'MEDIA_MOUNTED',
+    // 1 - MEDIA_UNMOUNTED: 外部儲存體存在但未被掛載
+    'MEDIA_UNMOUNTED',
+    // 2 - SD_CARD_NOT_EXIST: 外部儲存體不存在
+    'SD_CARD_NOT_EXIST',
+    // 3 - MEDIA_ABNORMAL: 外部儲存體異常
+    'MEDIA_ABNORMAL',
+    // 4 - MEDIA_MOUNTED_READ_ONLY: 外部儲存體存在但只能進行讀取
+    'MEDIA_MOUNTED_READ_ONLY',
+    // 5 - MEDIA_UNKNOWN: Unknown storage state, such as when a path isn't backed by known storage media.
+    'MEDIA_UNKNOWN'
   ],
   // How many hours ahead(-n) or behind(+n) GMT/UTC
   // Note. the only method to get client's timezone is Date.prototype.getTimezoneOffset(),
