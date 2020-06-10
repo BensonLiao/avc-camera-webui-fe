@@ -54,15 +54,10 @@ module.exports = class Log extends Base {
         })
           .then(response => {
             download(response.data, 'log');
-            this.hideApiProcessModal();
-            progress.done();
           })
-          .catch(error => {
+          .finally(() => {
             progress.done();
-            utils.showErrorNotification({
-              title: `Error ${error.response.status}` || null,
-              message: error.response.status === 400 ? error.response.data.message || null : null
-            });
+            this.hideApiProcessModal();
           });
       });
   }

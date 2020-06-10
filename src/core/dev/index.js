@@ -133,6 +133,10 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('system').assign(newItem).write()]);
   })
+  .onGet('/api/system/systeminfo/log.zip').reply(config => {
+    return mockResponseWithLog(config, [200, new Blob()]
+    );
+  })
   .onPost('/api/system/systeminfo/clearLog').reply(config => {
     return mockResponseWithLog(config, [204, {}]);
   })
