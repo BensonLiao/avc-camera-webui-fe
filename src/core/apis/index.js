@@ -1,6 +1,7 @@
 const axios = require('axios');
 const constants = require('../constants');
 const store = require('../store');
+const utils = require('../utils');
 try {
   // This module will be ignored when `env.disablemockserver` is true.
   // Go to webpack.config.js find "webpack.IgnorePlugin".
@@ -38,9 +39,32 @@ module.exports = config => {
 
   return axios(config)
     .catch(error => {
-      if (error && error.response && error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         location.href = '/login';
         return new Promise(() => {}); // Lock the promise chain.
+      }
+
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        utils.showErrorNotification({
+          title: 'Error on No Response Was Received',
+          message: error.request
+        });
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        utils.showErrorNotification({
+          title: 'Error on Setting up The Request',
+          message: error.message
+        });
       }
 
       throw error;
