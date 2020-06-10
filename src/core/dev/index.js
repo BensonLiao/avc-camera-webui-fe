@@ -17,6 +17,13 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       resolve(mockResponseWithLog(config, [200]));
     }, 3000);
   }))
+  .onGet('/api/system/adbconfig').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('adbConfig').value()]);
+  })
+  .onPut('/api/system/adbconfig').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('adbConfig').assign(newItem).write()]);
+  })
   .onGet('/api/video/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('video').value()]
     );

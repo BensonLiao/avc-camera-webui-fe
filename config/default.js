@@ -24,5 +24,7 @@ module.exports = {
     'es-es': {
       title: 'Spanish'
     }
-  }
+  },
+  rootPassword: 'Root123!'
+
 };
