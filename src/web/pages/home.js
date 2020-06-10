@@ -478,7 +478,7 @@ module.exports = class Home extends Base {
                               }
                             </p>
                           </td>
-                          <td className={classNames('align-top', systemInformation.sdStatus === 1 ? 'd-none' : '')}>
+                          <td className={classNames('align-top', systemInformation.sdStatus === SD_STATUS_LIST.indexOf('MEDIA_MOUNTED') ? 'd-none' : '')}>
                             <label>{_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}</label>
                           </td>
                         </tr>
