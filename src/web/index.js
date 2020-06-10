@@ -24,12 +24,17 @@ const elementResizeDetectorMaker = require('element-resize-detector');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const ReactNotification = require('react-notifications-component').default;
+const SimpleCrypto = require('simple-crypto-js').default;
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
 const api = require('../core/apis/web-api');
+const config = require('../../config/default');
+
+const simpleCrypto = new SimpleCrypto(SimpleCrypto.generateRandom);
+window.rootPassword = simpleCrypto.encrypt(config.rootPassword);
 
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';

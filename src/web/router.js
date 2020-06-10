@@ -20,6 +20,11 @@ module.exports = new Router({
       component: require('./pages/layout')
     },
     {
+      name: 'adbconfig',
+      uri: '/adbconfig?enable',
+      component: require('./pages/adbconfig')
+    },
+    {
       name: 'mjpeg',
       uri: '/mjpeg?res?quality',
       loadComponent: () => import(

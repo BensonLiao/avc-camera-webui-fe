@@ -505,6 +505,21 @@ module.exports = {
       method: 'put',
       url: '/api/system/network/tcpip/http',
       data: {port}
+    }),
+    getADBConfig: () => api({
+      method: 'get',
+      url: '/api/system/adbconfig'
+    }),
+    /**
+     * @param {Boolean} isEnable
+     * @param {Boolean} isPersist
+     * @param {Number} port
+     * @returns {Promise<response>}
+     */
+    updateADBConfig: ({isEnable, isPersist, port}) => api({
+      method: 'put',
+      url: '/api/system/adbconfig',
+      data: {isEnable, isPersist, port}
     })
   },
   notification: {

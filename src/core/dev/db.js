@@ -67,6 +67,11 @@ const members = [
 module.exports = {
   init: () => {
     db.defaults({
+      adbConfig: {
+        isEnable: false,
+        isPersist: false,
+        port: 5555
+      },
       videoDefault: {
         defoggingEnabled: false,
         irEnabled: '0',
