@@ -212,18 +212,20 @@ module.exports = class Home extends Base {
 
   onClickDownloadImage = event => {
     event.preventDefault();
-    const dateTime = this.props.systemDateTime.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
-    axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
-      .then(response => {
-        download(response.data, `${dateTime}`);
-      })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
+    api.system.getSystemDateTime().then(({data}) => {
+      const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
+      axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
+        .then(response => {
+          download(response.data, `${dateTime}`);
+        })
+        .catch(error => {
+          progress.done();
+          utils.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
         });
-      });
+    });
   };
 
   onClickRequestFullScreen = event => {
