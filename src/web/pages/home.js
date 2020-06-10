@@ -326,6 +326,7 @@ module.exports = class Home extends Base {
 
   render() {
     const {systemInformation, videoSettings, systemDateTime} = this.props;
+    const {$user} = this.state;
     const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
     const freeDiskPercentage = 100 - usedDiskPercentage;
     const classTable = {
@@ -344,10 +345,10 @@ module.exports = class Home extends Base {
     };
 
     return (
-      <div className="main-content">
+      <div className={classNames('main-content', $user.permission === '0' ? '' : 'pl-0')}>
         <div className="page-home">
           <div className="container-fluid">
-            <div className="row">
+            <div className={classNames($user.permission === '0' ? 'row' : 'd-flex justify-content-center')}>
               <div className="col-8 pr-24">
                 {/* The video */}
                 <div className="video-wrapper mb-4">
@@ -389,106 +390,111 @@ module.exports = class Home extends Base {
                 </div>
 
                 {/* System information */}
-                <div className="card border-0 shadow">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>{_('Device Name')}</th>
-                        <th>{_('Analytic')}</th>
-                        <th>{_('Device Status')}</th>
-                        <th>{_('SD Card')}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="align-top">
-                          <Formik
-                            initialValues={{deviceName: this.state.deviceName}}
-                            validate={utils.makeFormikValidator(deviceNameValidator)}
-                            onSubmit={this.onSubmitDeviceNameForm}
-                          >
-                            {this.deviceNameFormRender}
-                          </Formik>
-                        </td>
-                        <td className="align-top">
-                          {systemInformation.isEnableFaceRecognition && (
-                            <div>
-                              <span>{_('Facial Recognition: ')}</span>
-                              <span className={classTable.faceRecognitionState}>
-                                {_(`${systemInformation.isEnableFaceRecognition ? 'On' : 'Off'}`)}
-                              </span>
-                            </div>
-                          )}
-                          {systemInformation.isEnableAgeGender && (
-                            <div>
-                              <span>{_('Age Gender: ')}</span>
-                              <span className={classTable.ageGenderState}>
-                                {_(`${systemInformation.isEnableAgeGender ? 'On' : 'Off'}`)}
-                              </span>
-                            </div>
-                          )}
-                          {systemInformation.isEnableHumanoidDetection && (
-                            <div>
-                              <span>{_('Human Detection: ')}</span>
-                              <span className={classTable.humanoidDetectionState}>
-                                {_(`${systemInformation.isEnableHumanoidDetection ? 'On' : 'Off'}`)}
-                              </span>
-                            </div>
-                          )}
-                        </td>
-                        <td className="align-top">
-                          {systemInformation.deviceStatus === 0 && (
-                            <span className="badge badge-pill badge-danger">{_('Error')}</span>
-                          )}
-                          {systemInformation.deviceStatus === 1 && (
-                            <span className="badge badge-pill badge-success">{_('Normal')}</span>
-                          )}
-                        </td>
-                        <td className={classNames('align-top', systemInformation.sdStatus === SD_STATUS_LIST.indexOf('MEDIA_MOUNTED') ? '' : 'd-none')}>
-                          <div className="progress">
-                            {
-                              isNaN(usedDiskPercentage) ?
-                                <div className="progress-bar"/> :
-                                <>
-                                  <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
-                                    <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                                      {`${usedDiskPercentage}%`}
-                                    </div>
-                                  </CustomTooltip>
-                                  {usedDiskPercentage && (
-                                    <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
-
-                                      <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
-                                        {`${freeDiskPercentage}%`}
+                { $user.permission === '0' && (
+                  <div className="card border-0 shadow">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>{_('Device Name')}</th>
+                          <th>{_('Analytic')}</th>
+                          <th>{_('Device Status')}</th>
+                          <th>{_('SD Card')}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="align-top">
+                            <Formik
+                              initialValues={{deviceName: this.state.deviceName}}
+                              validate={utils.makeFormikValidator(deviceNameValidator)}
+                              onSubmit={this.onSubmitDeviceNameForm}
+                            >
+                              {this.deviceNameFormRender}
+                            </Formik>
+                          </td>
+                          <td className="align-top">
+                            {systemInformation.isEnableFaceRecognition && (
+                              <div>
+                                <span>{_('Facial Recognition: ')}</span>
+                                <span className={classTable.faceRecognitionState}>
+                                  {_(`${systemInformation.isEnableFaceRecognition ? 'On' : 'Off'}`)}
+                                </span>
+                              </div>
+                            )}
+                            {systemInformation.isEnableAgeGender && (
+                              <div>
+                                <span>{_('Age Gender: ')}</span>
+                                <span className={classTable.ageGenderState}>
+                                  {_(`${systemInformation.isEnableAgeGender ? 'On' : 'Off'}`)}
+                                </span>
+                              </div>
+                            )}
+                            {systemInformation.isEnableHumanoidDetection && (
+                              <div>
+                                <span>{_('Human Detection: ')}</span>
+                                <span className={classTable.humanoidDetectionState}>
+                                  {_(`${systemInformation.isEnableHumanoidDetection ? 'On' : 'Off'}`)}
+                                </span>
+                              </div>
+                            )}
+                          </td>
+                          <td className="align-top">
+                            {systemInformation.deviceStatus === 0 && (
+                              <span className="badge badge-pill badge-danger">{_('Error')}</span>
+                            )}
+                            {systemInformation.deviceStatus === 1 && (
+                              <span className="badge badge-pill badge-success">{_('Normal')}</span>
+                            )}
+                          </td>
+                          <td className={classNames('align-top', systemInformation.sdStatus === SD_STATUS_LIST.indexOf('MEDIA_MOUNTED') ? '' : 'd-none')}>
+                            <div className="progress">
+                              {
+                                isNaN(usedDiskPercentage) ?
+                                  <div className="progress-bar"/> :
+                                  <>
+                                    <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
+                                      <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
+                                        {`${usedDiskPercentage}%`}
                                       </div>
-                                    </CustomTooltip>)}
-                                </>
-                            }
-                          </div>
-                          <p>
-                            {
-                              _('Free: {0}, Total: {1}', [
-                                filesize(systemInformation.sdTotal - systemInformation.sdUsage),
-                                filesize(systemInformation.sdTotal)
-                              ])
-                            }
-                          </p>
-                        </td>
-                        <td className={classNames('align-top', systemInformation.sdStatus === 1 ? 'd-none' : '')}>
-                          <label>{_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}</label>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                                    </CustomTooltip>
+                                    {usedDiskPercentage && (
+                                      <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
+
+                                        <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
+                                          {`${freeDiskPercentage}%`}
+                                        </div>
+                                      </CustomTooltip>)}
+                                  </>
+                              }
+                            </div>
+                            <p>
+                              {
+                                _('Free: {0}, Total: {1}', [
+                                  filesize(systemInformation.sdTotal - systemInformation.sdUsage),
+                                  filesize(systemInformation.sdTotal)
+                                ])
+                              }
+                            </p>
+                          </td>
+                          <td className={classNames('align-top', systemInformation.sdStatus === 1 ? 'd-none' : '')}>
+                            <label>{_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}</label>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+              { $user.permission === '0' && (
+                <div className="col-4 pl-0">
+                  <div className="card shadow">
+                    <VideoSetting
+                      videoSettings={videoSettings}
+                      systemDateTime={systemDateTime}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="col-4 pl-0">
-                <div className="card shadow"/>
-                <VideoSetting
-                  videoSettings={videoSettings}
-                  systemDateTime={systemDateTime}
-                />
-              </div>
+              )}
             </div>
           </div>
         </div>

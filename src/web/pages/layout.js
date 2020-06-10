@@ -65,7 +65,7 @@ module.exports = class Layout extends Base {
   }
 
   componentDidMount() {
-    const expires = localStorage.getItem(constants.store.EXPIRES) || 3000;
+    const expires = localStorage.getItem(constants.store.EXPIRES) || null;
     if (expires) {
       const expiresTimer = new Timer(
         () => {
@@ -215,53 +215,55 @@ module.exports = class Layout extends Base {
 
     return (
       <>
-        <div className="left-navigation fixed-top">
-          <CustomTooltip title={_('Home')}>
-            <Link className={classTable.home} to="/">
-              <img src={iconHome}/>
-            </Link>
-          </CustomTooltip>
-          <CustomTooltip title={_('Video')}>
-            <Link className={classTable.media} to="/media/stream">
-              <img src={iconMedia}/>
-            </Link>
-          </CustomTooltip>
-          <CustomTooltip title={_('Audio')}>
-            <Link className={classTable.audio} to="/audio">
-              <img src={iconAudio}/>
-            </Link>
-          </CustomTooltip>
-          <CustomTooltip title={_('Notification Settings')}>
-            <Link className={classTable.notification} to="/notification/smtp">
-              <img src={iconNotification}/>
-            </Link>
-          </CustomTooltip>
-          <CustomTooltip title={_('User Management')}>
-            <Link className={classTable.users} to="/users/members">
-              <img src={iconUserManagement}/>
-            </Link>
-          </CustomTooltip>
-          <CustomTooltip title={_('Analytic')}>
-            <Link className={classTable.smart} to="/analytic/face-recognition">
-              <img src={iconAnalytic}/>
-            </Link>
-          </CustomTooltip>
-          <CustomTooltip title={_('Network')}>
-            <Link className={classTable.network} to="/network/settings">
-              <img src={iconNetwork}/>
-            </Link>
-          </CustomTooltip>
-          <CustomTooltip title={_('System')}>
-            <Link className={classTable.system} to="/system/datetime">
-              <img src={iconSystem}/>
-            </Link>
-          </CustomTooltip>
-          <CustomTooltip title={_('SD Card')}>
-            <Link className={classTable.sdCard} to="/sd-card">
-              <img src={iconSDCard}/>
-            </Link>
-          </CustomTooltip>
-        </div>
+        { $user.permission === '0' && (
+          <div className="left-navigation fixed-top">
+            <CustomTooltip title={_('Home')}>
+              <Link className={classTable.home} to="/">
+                <img src={iconHome}/>
+              </Link>
+            </CustomTooltip>
+            <CustomTooltip title={_('Video')}>
+              <Link className={classTable.media} to="/media/stream">
+                <img src={iconMedia}/>
+              </Link>
+            </CustomTooltip>
+            <CustomTooltip title={_('Audio')}>
+              <Link className={classTable.audio} to="/audio">
+                <img src={iconAudio}/>
+              </Link>
+            </CustomTooltip>
+            <CustomTooltip title={_('Notification Settings')}>
+              <Link className={classTable.notification} to="/notification/smtp">
+                <img src={iconNotification}/>
+              </Link>
+            </CustomTooltip>
+            <CustomTooltip title={_('User Management')}>
+              <Link className={classTable.users} to="/users/members">
+                <img src={iconUserManagement}/>
+              </Link>
+            </CustomTooltip>
+            <CustomTooltip title={_('Analytic')}>
+              <Link className={classTable.smart} to="/analytic/face-recognition">
+                <img src={iconAnalytic}/>
+              </Link>
+            </CustomTooltip>
+            <CustomTooltip title={_('Network')}>
+              <Link className={classTable.network} to="/network/settings">
+                <img src={iconNetwork}/>
+              </Link>
+            </CustomTooltip>
+            <CustomTooltip title={_('System')}>
+              <Link className={classTable.system} to="/system/datetime">
+                <img src={iconSystem}/>
+              </Link>
+            </CustomTooltip>
+            <CustomTooltip title={_('SD Card')}>
+              <Link className={classTable.sdCard} to="/sd-card">
+                <img src={iconSDCard}/>
+              </Link>
+            </CustomTooltip>
+          </div>
+        )}
 
         <nav className="navbar navbar-expand fixed-top">
           <Link className="navbar-brand py-0 mx-0" to="/">
