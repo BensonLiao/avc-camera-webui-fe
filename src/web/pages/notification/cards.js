@@ -632,27 +632,23 @@ module.exports = class Cards extends Base {
                           </Field>
                         </div>
                       </div>
-
                       <hr/>
-
                       <div className="form-group mb-4">
                         <label className="text-size-16">Subject :</label>
                         <Field
                           name="senderSubject"
                           type="text"
                           className="form-control"
-                          placeholder={_('Enter Your Subject')}/>
+                          placeholder={_('Specify the subject of notification emails.')}/>
                       </div>
-
                       <div className="form-group mb-4">
                         <label className="text-size-16">Content :</label>
                         <Field
                           name="senderContent"
                           type="text"
                           className="form-control"
-                          placeholder={_('Enter Your Mail Content')}/>
+                          placeholder={_('Append your message to notification emails.')}/>
                       </div>
-
                       <div className="form-group mb-1">
                         <label className="text-size-16 mb-0">{_('Receiver')} :</label>
                       </div>
