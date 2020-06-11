@@ -607,8 +607,8 @@ module.exports = class Cards extends Base {
                 <div className="form-group">
                   <div className="card">
                     <div className="card-body">
-                      <div className="form-group">
-                        <label className="text-size-16 mb-0">{_('Email Attachment')}</label>
+                      <div className="form-group mb-2">
+                        <label className="text-size-16">{_('Email Attachment')}</label>
                         <div className="select-wrapper border rounded-pill overflow-hidden">
                           <Field
                             name="emailAttachmentType"
@@ -631,8 +631,26 @@ module.exports = class Cards extends Base {
 
                       <hr/>
 
-                      <div className="form-group">
-                        <label className="text-size-16 mb-0">{_('Receiver')}</label>
+                      <div className="form-group mb-4">
+                        <label className="text-size-16">Subject :</label>
+                        <Field
+                          name="senderSubject"
+                          type="text"
+                          className="form-control"
+                          placeholder={_('Enter Your Subject')}/>
+                      </div>
+
+                      <div className="form-group mb-4">
+                        <label className="text-size-16">Content :</label>
+                        <Field
+                          name="senderContent"
+                          type="text"
+                          className="form-control"
+                          placeholder={_('Enter Your Mail Content')}/>
+                      </div>
+
+                      <div className="form-group mb-1">
+                        <label className="text-size-16 mb-0">{_('Receiver')} :</label>
                       </div>
                       <div className="form-group">
                         <div className="form-row">
