@@ -46,7 +46,7 @@
   }
 
   @mixin grid_container_padding() { 
-    padding: 48px 3.2%;
+    padding: 48px 1.5%;
     @media (max-width: 1440px) and (min-width: 1366px) {
       padding: 48px 0.5%;
     }
