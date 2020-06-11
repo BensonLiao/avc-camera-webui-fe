@@ -288,25 +288,25 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h5 className="dropdown-header text-primary"> {_('Support')}</h5>
-                    <a className="dropdown-item" href="https://arecontvision.zendesk.com/hc/en-us" target="_blank" rel="noopener noreferrer">
+                    <a className="dropdown-item" href="http://www.androvideo.com/contact.aspx" target="_blank" rel="noopener noreferrer">
                       {_('Online Support Request')}
                     </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/firmware.php" target="_blank" rel="noopener noreferrer">
+                    <a className="dropdown-item" href="http://www.androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
                       {_('Firmware Downloads')}
                     </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/software.php" target="_blank" rel="noopener noreferrer">
+                    <a className="dropdown-item" href="http://www.androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
                       {_('Software Downloads')}
                     </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/downloads.php" target="_blank" rel="noopener noreferrer">
+                    <a className="dropdown-item" href="http://www.androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
                       {_('Downloads')}
                     </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/productselector.php" target="_blank" rel="noopener noreferrer">
+                    <a className="dropdown-item" href="http://www.androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
                       {_('Product Selector')}
                     </a>
-                    <a className="dropdown-item" href="https://sales.arecontvision.com/bulletins/Technical" target="_blank" rel="noopener noreferrer">
+                    <a className="dropdown-item" href="http://www.androvideo.com/home.aspx" target="_blank" rel="noopener noreferrer">
                       {_('Technical Updates')}
                     </a>
-                    <a className="dropdown-item" href="https://www.arecontvision.com/resource" target="_blank" rel="noopener noreferrer">
+                    <a className="dropdown-item" href="http://www.androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
                       {_('Resources')}
                     </a>
                   </div>
