@@ -55,6 +55,14 @@ module.exports = class Log extends Base {
           .then(response => {
             download(response.data, 'log');
           })
+          .catch(error => {
+            if (error.response) {
+              utils.showErrorNotification({
+                title: `Error ${error.response.status}` || null,
+                message: error.response.status === 400 ? error.response.data.message || null : null
+              });
+            }
+          })
           .finally(() => {
             progress.done();
             this.hideApiProcessModal();
