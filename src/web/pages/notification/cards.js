@@ -65,6 +65,8 @@ module.exports = class Cards extends Base {
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
+        senderSubject: card.senderSubject,
+        senderContent: card.senderContent,
         isEnableFaceRecognition: card.isEnableFaceRecognition,
         isEnableApp: card.isEnableApp
       };
@@ -87,6 +89,8 @@ module.exports = class Cards extends Base {
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
+      senderSubject: '',
+      senderContent: '',
       isEnableFaceRecognition: false,
       isEnableApp: false
     };

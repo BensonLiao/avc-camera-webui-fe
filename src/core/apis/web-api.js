@@ -658,15 +658,15 @@ module.exports = {
       method: 'get',
       url: '/api/notification/cards'
     }),
-    addCard: ({type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    addCard: ({type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
       method: 'post',
       url: '/api/notification/cards',
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}
     }),
-    updateCard: ({id, type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    updateCard: ({id, type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
       method: 'put',
       url: `/api/notification/cards/${id}`,
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}
     }),
     deleteCard: cardId => api({
       method: 'delete',
