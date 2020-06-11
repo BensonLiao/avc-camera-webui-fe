@@ -306,7 +306,37 @@ module.exports = {
         isEnableLoginNotification: false,
         isEnableAuth: true
       },
-      notificationCards: [],
+      notificationCards: [
+        {
+          emailAttachmentType: '0',
+          senderSubject: 'Test subject',
+          senderContent: 'this is email content',
+          emails: [
+            'rodger0531@gmail.com'
+          ],
+          faceRecognitionCondition: '0',
+          groups: [],
+          id: 1,
+          isEnableApp: false,
+          isEnableEmail: false,
+          isEnableFaceRecognition: true,
+          isEnableGPIO: false,
+          isEnableGPIO1: false,
+          isEnableGPIO2: false,
+          isEnableTime: false,
+          isTop: false,
+          timePeriods: [
+            {
+              id: '89i591c9qb',
+              start: '2020-06-03T06:29:32.869Z',
+              end: '2020-09-18T06:29:32.869Z',
+              isRepeat: false
+            }
+          ],
+          title: 'Default test',
+          type: '0'
+        }
+      ],
       groups: memberGroups,
       members,
       faceEvents: [
