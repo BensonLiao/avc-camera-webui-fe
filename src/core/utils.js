@@ -6,7 +6,7 @@ const dayjs = require('dayjs');
 const {store} = require('react-notifications-component');
 const _ = require('../languages');
 const {validator} = require('../core/validations');
-const {RESTRICTED_PORTS} = require('../core/constants');
+const {RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
 
 /**
  * Format time range.
@@ -395,7 +395,8 @@ exports.duplicateCheck = (array, value, error) => {
 exports.validatedPortCheck = (value, error) => {
   const check = (value.match(/^[\d]{1,5}$/) === null) ||
     (value.match(/^0+/) !== null) ||
-    (Number(value) > 65535) ||
+    (Number(value) < PORT_NUMBER_MIN) ||
+    (Number(value) > PORT_NUMBER_MAX) ||
     RESTRICTED_PORTS.some(val => val === value);
   let errorMsg = error || _('Not a valid port number, please use another number.');
   if (value === '') {

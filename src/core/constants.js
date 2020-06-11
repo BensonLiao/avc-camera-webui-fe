@@ -53,6 +53,7 @@ module.exports = {
     '143', // Imap2
     '179', // BGP
     '389', // Ldap
+    '443', // Android app reserved
     '465', // Smtp+ssl
     '512', // Print / exec
     '513', // Login
@@ -81,6 +82,8 @@ module.exports = {
     '6668', // Alternate IRC [Apple addition]
     '6669' // Alternate IRC [Apple addition]
   ],
+  PORT_NUMBER_MIN: 1024,
+  PORT_NUMBER_MAX: 65535,
   DEFAULT_PORTS: {
     RTSP_TCP: '8554',
     RTSP_UDP: '17300',

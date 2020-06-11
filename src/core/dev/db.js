@@ -224,8 +224,8 @@ module.exports = {
       rtspSettings: {
         isEnableAudioToStream: true,
         isEnablePassword: true,
-        tcpPort: '37778',
-        udpPort: '37778',
+        tcpPort: '8554',
+        udpPort: '17300',
         connectionLimit: '4'
       },
       privacyMaskSettings: {
