@@ -850,6 +850,15 @@ module.exports = class Cards extends Base {
                   onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.motionDetection)}
                 >{_(`notification-card-${NotificationCardType.motionDetection}`)}
                 </button>
+                <button
+                  className={classNames(
+                    'btn rounded-pill shadow-sm ml-4',
+                    {active: cardTypeFilter === NotificationCardType.digitalInput},
+                    {'btn-primary': cardTypeFilter === NotificationCardType.digitalInput}
+                  )} type="button"
+                  onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.digitalInput)}
+                >{_(`notification-card-${5}`)}
+                </button>
               </div>
             </div>
           </div>
