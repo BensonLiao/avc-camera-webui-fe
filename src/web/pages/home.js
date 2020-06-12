@@ -216,7 +216,7 @@ module.exports = class Home extends Base {
       const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
       axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
         .then(response => {
-          download(response.data, `${dateTime}`);
+          download(response.data, `${dateTime}.jpg`);
         })
         .catch(error => {
           progress.done();
