@@ -47,7 +47,7 @@ module.exports = config => {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        console.error(`Error ${error.response.status}: `, error.response.data.message || 'Unknown Message');
+        console.error('Error on Response Error Status: ', error.response);
         utils.showErrorNotification({
           title: `Error ${error.response.status}` || null,
           message: error.response.status === 400 ? error.response.data.message || null : null
