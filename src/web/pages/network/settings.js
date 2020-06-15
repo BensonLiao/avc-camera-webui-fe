@@ -85,16 +85,8 @@ module.exports = class NetworkSettings extends Base {
             }
           });
         }
-
-        progress.done();
       })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   onSubmit = values => {
@@ -103,7 +95,6 @@ module.exports = class NetworkSettings extends Base {
       () => {
         api.system.updateNetworkSettings(values)
           .then(response => {
-            progress.done();
             const resultIP = values.ipType === NetworkIPType.dynamic ? response.data.ipAddress : values.ipAddress;
             this.setState(prevState => ({
               isShowSelectModal: {
@@ -119,13 +110,7 @@ module.exports = class NetworkSettings extends Base {
               }
             }));
           })
-          .catch(error => {
-            progress.done();
-            utils.showErrorNotification({
-              title: `Error ${error.response.status}` || null,
-              message: error.response.status === 400 ? error.response.data.message || null : null
-            });
-          });
+          .finally(progress.done);
       }
     );
   };

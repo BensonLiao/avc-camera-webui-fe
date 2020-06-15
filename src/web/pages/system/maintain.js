@@ -5,7 +5,6 @@ const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
-const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
@@ -102,13 +101,9 @@ module.exports = class Maintain extends Base {
 
           test();
         })
-        .catch(error => {
+        .finally(() => {
           progress.done();
           this.hideApiProcessModal();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
         });
     });
   };
@@ -163,22 +158,14 @@ module.exports = class Maintain extends Base {
 
               test();
             })
-            .catch(error => {
+            .finally(() => {
               progress.done();
               this.hideApiProcessModal();
-              utils.showErrorNotification({
-                title: `Error ${error.response.status}` || null,
-                message: error.response.status === 400 ? error.response.data.message || null : null
-              });
             });
         })
-        .catch(error => {
+        .finally(() => {
           progress.done();
           this.hideApiProcessModal();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
         });
     });
   };
@@ -235,22 +222,14 @@ module.exports = class Maintain extends Base {
 
               test();
             })
-            .catch(error => {
+            .finally(() => {
               progress.done();
               this.hideApiProcessModal();
-              utils.showErrorNotification({
-                title: `Error ${error.response.status}` || null,
-                message: error.response.status === 400 ? error.response.data.message || null : null
-              });
             });
         })
-        .catch(error => {
+        .finally(() => {
           progress.done();
           this.hideApiProcessModal();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
         });
     });
   };

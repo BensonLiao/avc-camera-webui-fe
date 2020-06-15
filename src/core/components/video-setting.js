@@ -98,9 +98,6 @@ constructor(props) {
             })
             .then(focalLength => {
               form.setFieldValue('focalLength', focalLength);
-            })
-            .catch(error => {
-              throw error;
             });
         };
 
@@ -157,21 +154,12 @@ constructor(props) {
                   })
                   .then(focalLength => {
                     formik.setFieldValue('focalLength', focalLength);
-                  })
-                  .catch(error => {
-                    throw error;
                   });
               };
 
               refreshFocalLength();
             });
           }
-        })
-        .catch(error => {
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
         });
     }
   }
@@ -200,13 +188,7 @@ constructor(props) {
       };
 
       this.submitPromise = this.submitPromise
-        .then(() => api.video.updateSettings(values))
-        .catch(error => {
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
+        .then(() => api.video.updateSettings(values));
     }
   };
 
@@ -215,12 +197,6 @@ constructor(props) {
     progress.start();
     api.video.resetSettings()
       .then(getRouter().reload)
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      })
       .finally(progress.done);
   };
 
@@ -248,19 +224,10 @@ constructor(props) {
               })
               .then(focalLength => {
                 form.setFieldValue('focalLength', focalLength);
-              })
-              .catch(error => {
-                throw error;
               });
           };
 
           refreshFocalLength();
-        });
-      })
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
         });
       });
   };

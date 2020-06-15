@@ -1,6 +1,7 @@
 const axios = require('axios');
 const constants = require('../constants');
 const store = require('../store');
+const utils = require('../utils');
 try {
   // This module will be ignored when `env.disablemockserver` is true.
   // Go to webpack.config.js find "webpack.IgnorePlugin".
@@ -46,7 +47,11 @@ module.exports = config => {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        console.error(`Error ${error.response.status}: `, error.response.data.message || 'Unkown Message');
+        console.error('Error on Response Error Status: ', error.response);
+        utils.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of

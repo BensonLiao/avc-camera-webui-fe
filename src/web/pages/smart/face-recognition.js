@@ -6,7 +6,6 @@ const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const ConfidenceLevel = require('webserver-form-schema/constants/face-recognition-confidence-level');
 const MaskArea = require('../../../core/components/fields/mask-area');
-const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
@@ -89,13 +88,7 @@ module.exports = class FaceRecognition extends Base {
 
     Promise.all(createPromises())
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   }
 
   faceRecognitionSettingsFormRender = form => {

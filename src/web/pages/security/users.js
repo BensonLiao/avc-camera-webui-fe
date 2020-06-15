@@ -9,7 +9,6 @@ const iconUserShield = require('../../../resource/user-shield-24px.svg');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
-const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {SECURITY_USERS_MAX} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
@@ -55,16 +54,10 @@ module.exports = class Users extends Base {
     event.preventDefault();
     progress.start();
     api.user.deleteUser(this.state.deleteUserTarget.id)
-      .then(() => {
-        this.hideDeleteUserModal();
-        getRouter().reload();
-      })
-      .catch(error => {
+      .then(getRouter().reload)
+      .finally(() => {
         progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
+        this.hideDeleteUserModal();
       });
   };
 

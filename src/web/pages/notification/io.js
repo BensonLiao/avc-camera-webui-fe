@@ -41,13 +41,7 @@ module.exports = class IO extends Base {
     progress.start();
     api.notification.updateIOOutSettings(index, values)
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   generateIOOutSettingsFormRender = index => ({values, errors, touched}) => {
@@ -137,13 +131,7 @@ module.exports = class IO extends Base {
     progress.start();
     api.notification.updateIOInSettings(values)
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   ioInSettingsFormRender = ({values}) => {

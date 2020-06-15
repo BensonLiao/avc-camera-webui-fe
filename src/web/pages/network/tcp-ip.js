@@ -88,13 +88,7 @@ module.exports = class TCPIP extends Base {
 
         getRouter().reload();
       })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   }
 
   onSubmitHTTPForm = values => {
@@ -137,22 +131,14 @@ module.exports = class TCPIP extends Base {
 
               test();
             })
-            .catch(error => {
+            .finally(() => {
               progress.done();
               this.hideApiProcessModal();
-              utils.showErrorNotification({
-                title: `Error ${error.response.status}` || null,
-                message: error.response.status === 400 ? error.response.data.message || null : null
-              });
             });
         })
-        .catch(error => {
+        .finally(() => {
           progress.done();
           this.hideApiProcessModal();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
         });
     });
   }

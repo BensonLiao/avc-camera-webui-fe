@@ -117,12 +117,6 @@ module.exports = class Cards extends Base {
           return {cards};
         }
       }))
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      })
       .finally(progress.done);
   };
 
@@ -142,12 +136,6 @@ module.exports = class Cards extends Base {
           return {cards};
         }
       }))
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      })
       .finally(progress.done);
   };
 
@@ -243,12 +231,6 @@ module.exports = class Cards extends Base {
             return {cards, isShowCardDetailsModal: false};
           });
         })
-        .catch(error => {
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        })
         .finally(progress.done);
     } else {
       // Update the card.
@@ -260,12 +242,6 @@ module.exports = class Cards extends Base {
             const index = cards.findIndex(x => x.id === data.id);
             cards.splice(index, 1, response.data);
             return {cards, isShowCardDetailsModal: false};
-          });
-        })
-        .catch(error => {
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
           });
         })
         .finally(progress.done);

@@ -7,7 +7,6 @@ const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const FormikEffect = require('../../../core/components/formik-effect');
 const Base = require('../shared/base');
-const utils = require('../../../core/utils');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const {SD_STATUS_LIST} = require('../../../core/constants');
@@ -56,39 +55,21 @@ module.exports = class SDCard extends Base {
     progress.start();
     api.system.formatSDCard()
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   onSubmitUnmountSDCard = () => {
     progress.start();
     api.system.unmountSDCard()
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   onSubmitDisableSDCard = () => {
     progress.start();
     api.system.enableSD({sdEnabled: false})
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   onChangeSdCardSetting = ({nextValues, prevValues}) => {
@@ -105,26 +86,14 @@ module.exports = class SDCard extends Base {
       progress.start();
       api.system.enableSD(nextValues)
         .then(getRouter().reload)
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
+        .finally(progress.done);
     }
 
     if (`${prevValues.sdAlertEnabled}` !== `${nextValues.sdAlertEnabled}`) {
       progress.start();
       api.system.sdCardAlert(nextValues)
         .then(getRouter().reload)
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
+        .finally(progress.done);
     }
   };
 

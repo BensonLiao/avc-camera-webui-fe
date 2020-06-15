@@ -165,13 +165,7 @@ module.exports = class Members extends Base {
         this.hideModal('deleteMember');
         getRouter().reload();
       })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   confirmDeleteGroup = event => {
@@ -192,13 +186,7 @@ module.exports = class Members extends Base {
           getRouter().reload();
         }
       })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   /**
@@ -263,12 +251,6 @@ module.exports = class Members extends Base {
           }
         });
       })
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      })
       .finally(progress.done);
   };
 
@@ -277,12 +259,6 @@ module.exports = class Members extends Base {
     api.member.updateDatabaseEncryptionSettings(values)
       .then(() => {
         this.setState({isShowDatabaseEncryptionModal: false});
-      })
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
       })
       .finally(progress.done);
   };
@@ -307,15 +283,10 @@ module.exports = class Members extends Base {
       })
         .then(response => {
           download(response.data, 'database');
-          this.hideApiProcessModal();
-          progress.done();
         })
-        .catch(error => {
+        .finally(() => {
           progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
+          this.hideApiProcessModal();
         });
     });
   };
@@ -335,14 +306,9 @@ module.exports = class Members extends Base {
             {reload: true}
           );
         })
-        .catch(error => {
+        .finally(() => {
           progress.done();
           getRouter().reload();
-          this.setState({isShowApiProcessModal: false});
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
         });
     });
   };

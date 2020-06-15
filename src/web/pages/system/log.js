@@ -5,7 +5,6 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const wrappedApi = require('../../../core/apis');
-const utils = require('../../../core/utils');
 const download = require('downloadjs');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const StageProgress = require('../../../core/components/stage-progress');
@@ -29,13 +28,7 @@ module.exports = class Log extends Base {
     progress.start();
     api.system.clearLog()
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   onClickDownloadLog = event => {
@@ -54,14 +47,6 @@ module.exports = class Log extends Base {
         })
           .then(response => {
             download(response.data, 'log');
-          })
-          .catch(error => {
-            if (error.response) {
-              utils.showErrorNotification({
-                title: `Error ${error.response.status}` || null,
-                message: error.response.status === 400 ? error.response.data.message || null : null
-              });
-            }
           })
           .finally(() => {
             progress.done();
