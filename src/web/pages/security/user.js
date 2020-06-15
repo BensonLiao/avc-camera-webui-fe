@@ -84,26 +84,14 @@ module.exports = class User extends Base {
         .then(() => {
           this.hideModal(true);
         })
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
+        .finally(progress.done);
     } else {
       // Add a new user.
       api.user.addUser(values)
         .then(() => {
           this.hideModal(true);
         })
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
+        .finally(progress.done);
     }
   };
 

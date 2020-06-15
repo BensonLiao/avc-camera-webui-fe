@@ -5,7 +5,6 @@ const progress = require('nprogress');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const StageProgress = require('../../../core/components/stage-progress');
@@ -95,13 +94,9 @@ module.exports = class Upgrade extends Base {
                   }, 2000);
                 }
               })
-              .catch(error => {
+              .finally(() => {
                 progress.done();
                 this.hideApiProcessModal();
-                utils.showErrorNotification({
-                  title: `Error ${error.response.status}` || null,
-                  message: error.response.status === 400 ? error.response.data.message || null : null
-                });
               });
           };
 
@@ -129,13 +124,9 @@ module.exports = class Upgrade extends Base {
 
           test();
         })
-        .catch(error => {
+        .finally(() => {
           progress.done();
           this.hideApiProcessModal();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
         });
     });
   };

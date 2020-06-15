@@ -64,26 +64,14 @@ module.exports = class Group extends Base {
         .then(() => {
           getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
         })
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
+        .finally(progress.done);
     } else {
       // Add group.
       api.group.addGroup(values)
         .then(() => {
           getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
         })
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
+        .finally(progress.done);
     }
   };
 

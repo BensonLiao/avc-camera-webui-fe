@@ -65,17 +65,11 @@ module.exports = class Login extends Base {
                   loginFailedRemainingTimes: error.response.data.extra.loginFailedRemainingTimes
                 }
               });
-              return;
             }
           }
         }
-
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      })
+      .finally(progress.done);
   }
 
   loginFormRender = ({errors, touched}) => {

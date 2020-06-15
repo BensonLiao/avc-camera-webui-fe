@@ -10,7 +10,6 @@ const iconCursor = require('../../../resource/cursor-24px.svg');
 const MotionDetectionSettingsSchema = require('webserver-form-schema/motion-detection-settings-schema');
 const MaskArea = require('../../../core/components/fields/mask-area');
 const Slider = require('../../../core/components/fields/slider');
-const utils = require('../../../core/utils');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
@@ -119,13 +118,7 @@ module.exports = class MotionDetection extends Base {
       })()
     })
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   motionDetectionSettingsFormRender = form => {

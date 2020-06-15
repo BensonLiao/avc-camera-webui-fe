@@ -7,7 +7,6 @@ const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
-const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
@@ -68,31 +67,15 @@ module.exports = class DateTime extends Base {
 
     if (isLanguageUpdate) {
       api.system.updateLanguage(values.language)
-        .then(() => {
-          location.reload();
-        })
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
+        .then(location.reload)
+        .finally(progress.done);
     } else {
       values.manualTime.setSeconds(0);
       values.manualTime = values.manualTime.getTime() - (new Date(values.manualTime).getTimezoneOffset() * 60 * 1000);
       values.ntpUpdateTime = values.ntpUpdateTime.getTime() - (new Date(values.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
       api.system.updateSystemDateTime(values)
-        .then(() => {
-          getRouter().reload();
-        })
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
+        .then(getRouter().reload)
+        .finally(progress.done);
     }
   };
 

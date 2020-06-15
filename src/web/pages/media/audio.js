@@ -6,7 +6,6 @@ const {Formik, Form, Field} = require('formik');
 const AudioInputQuality = require('webserver-form-schema/constants/audio-input-quality');
 const AudioInputSource = require('webserver-form-schema/constants/audio-input-source');
 const Base = require('../shared/base');
-const utils = require('../../../core/utils');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 
@@ -25,13 +24,7 @@ module.exports = class Audio extends Base {
     progress.start();
     api.multimedia.updateAudioSettings(values)
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   audioSettingsFormRender = ({values}) => {

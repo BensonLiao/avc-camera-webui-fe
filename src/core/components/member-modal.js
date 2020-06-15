@@ -187,7 +187,6 @@ module.exports = class Member extends React.PureComponent {
         }
       } else {
         // Incorrect picture.
-        progress.done();
         if (!isIncorrectPicture) {
           this.setState({isIncorrectPicture: true});
         }
@@ -203,13 +202,7 @@ module.exports = class Member extends React.PureComponent {
       // Add a new member.
       return api.member.addMember(data).then(onSubmitted);
     })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   formRender = ({errors, touched, values}) => {

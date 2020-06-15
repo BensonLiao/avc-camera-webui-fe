@@ -58,13 +58,7 @@ module.exports = class RTSP extends Base {
     progress.start();
     api.multimedia.updateRTSPSettings(values)
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   rtspSettingsFormRender = ({values, errors, touched}) => {

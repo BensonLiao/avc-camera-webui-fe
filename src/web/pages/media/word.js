@@ -11,7 +11,6 @@ const WordType = require('webserver-form-schema/constants/word-type');
 const WordSettingsSchema = require('webserver-form-schema/word-settings-schema');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
-const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
 module.exports = class Word extends Base {
@@ -37,13 +36,7 @@ module.exports = class Word extends Base {
     progress.start();
     api.multimedia.updateWordSettings(values)
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   wordSettingsFormRender = form => {

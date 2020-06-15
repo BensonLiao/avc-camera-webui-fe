@@ -9,7 +9,6 @@ const iconCursor = require('../../../resource/cursor-24px.svg');
 const Base = require('../shared/base');
 const MaskArea = require('../../../core/components/fields/mask-area');
 const _ = require('../../../languages');
-const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
 module.exports = class PrivacyMask extends Base {
@@ -110,13 +109,7 @@ module.exports = class PrivacyMask extends Base {
       })()
     })
       .then(getRouter().reload)
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   privacyMaskFormRender = form => {

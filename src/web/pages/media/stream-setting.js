@@ -7,7 +7,6 @@ const progress = require('nprogress');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
-const {renderError} = require('../../../core/utils');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
@@ -52,13 +51,9 @@ module.exports = class StreamSetting extends Base {
     () => {
       api.multimedia.updateStreamSettings(values)
         .then(getRouter().reload)
-        .catch(error => {
+        .finally(() => {
           progress.done();
           this.hideApiProcessModal();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
         });
     });
   };
@@ -68,13 +63,9 @@ module.exports = class StreamSetting extends Base {
     progress.start();
     api.multimedia.resetStreamSettings()
       .then(getRouter().reload)
-      .catch(renderError)
-      .catch(error => {
+      .finally(() => {
         progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
+        this.hideApiProcessModal();
       });
   };
 

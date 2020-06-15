@@ -4,7 +4,6 @@ const ReactDOM = require('react-dom');
 const PropTypes = require('prop-types');
 const api = require('../../core/apis/web-api');
 const store = require('../../core/store');
-const utils = require('../../core/utils');
 const axios = require('axios');
 axios.interceptors.response.use(
   config => config,
@@ -43,13 +42,7 @@ module.exports = class Mjpeg extends Base {
   }
 
   updateMjpeg = params => {
-    api.updateMjpeg(params)
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+    api.updateMjpeg(params);
   }
 
   fetchSnapshot = () => {
