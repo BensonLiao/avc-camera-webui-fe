@@ -33,16 +33,12 @@ module.exports = class Mjpeg extends Base {
   }
 
   componentDidMount() {
-    this.updateMjpeg(this.props.params);
+    api.updateMjpeg(this.props.params);
     this.fetchSnapshot();
   }
 
   componentWillUnmount() {
     store.set(`${this.constructor.name}.isPlayStream`, false);
-  }
-
-  updateMjpeg = params => {
-    api.updateMjpeg(params);
   }
 
   fetchSnapshot = () => {
