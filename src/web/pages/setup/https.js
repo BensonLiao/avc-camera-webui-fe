@@ -70,13 +70,7 @@ module.exports = class SetupHTTPS extends Base {
       .then(() => {
         location.href = '/';
       })
-      .catch(error => {
-        progress.done();
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   };
 
   setupHTTPSFormRender = ({errors, submitCount, values, handleChange}) => {
