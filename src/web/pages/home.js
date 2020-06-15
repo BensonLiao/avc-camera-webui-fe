@@ -130,16 +130,7 @@ module.exports = class Home extends Base {
       // Change focus settings.
       this.submitPromise = this.submitPromise
         .then(() => {
-          api.video.updateFocusSettings(nextValues)
-            .catch(error => {
-              throw error;
-            });
-        })
-        .catch(error => {
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
+          api.video.updateFocusSettings(nextValues);
         });
     } else {
       // Change other settings.
@@ -152,16 +143,7 @@ module.exports = class Home extends Base {
 
       this.submitPromise = this.submitPromise
         .then(() => {
-          api.video.updateSettings(values)
-            .catch(error => {
-              throw error;
-            });
-        })
-        .catch(error => {
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
+          api.video.updateSettings(values);
         });
     }
   };
@@ -247,12 +229,6 @@ module.exports = class Home extends Base {
       .then(response => {
         resetForm({values: this.generateInitialValues(response.data)});
       })
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      })
       .finally(progress.done);
   };
 
@@ -265,12 +241,6 @@ module.exports = class Home extends Base {
       .then(api.video.getSettings)
       .then(response => {
         resetForm({values: this.generateInitialValues(response.data)});
-      })
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
       })
       .finally(() => {
         progress.done();
@@ -285,12 +255,6 @@ module.exports = class Home extends Base {
         resetForm({values: {deviceName: response.data.deviceName}});
       })
       .then(getRouter().reload)
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      })
       .finally(progress.done);
   };
 
@@ -298,12 +262,6 @@ module.exports = class Home extends Base {
     progress.start();
     api.system.updateDeviceName(event.target.value)
       .then(getRouter().reload)
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      })
       .finally(progress.done);
   };
 
