@@ -365,7 +365,7 @@ module.exports = class Cards extends Base {
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="type" component="select" className="form-control border-0">
               {
-                NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3')).map(faceRecognition => {
+                NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3' || faceRecognition === '5')).map(faceRecognition => {
                   return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
                 })
               }
@@ -575,6 +575,42 @@ module.exports = class Cards extends Base {
                 <hr/>
 
                 <div className="form-group d-flex justify-content-between align-items-center">
+                  <label className="mb-0">{_('Video Management System')}</label>
+                  <div className="custom-control custom-switch">
+                    <Field name="isEnableVMS" type="checkbox" className="custom-control-input" id="switch-notification-target-vms" checked={values.isEnableVMS}/>
+                    <label className="custom-control-label" htmlFor="switch-notification-target-vms">
+                      <span>{_('ON')}</span>
+                      <span>{_('OFF')}</span>
+                    </label>
+                  </div>
+                </div>
+                <div className={classNames(
+                  'form-group', {'d-none': NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '5'))})}
+                >
+                  <div className="card">
+                    <div className="card-body">
+                      <div className="form-group">
+                        <label className="text-size-16 mb-0">{_('Method')}</label>
+                      </div>
+                      <div className="form-group">
+                        {
+                          NotificationFaceRecognitionVMSEvent.all().map(RecognitionVMSEvent => (
+                            <div key={RecognitionVMSEvent} className="form-check mb-3">
+                              <Field name="faceRecognitionVMSEvent" className="form-check-input" type="radio" id={`input-notification-vms-event-${RecognitionVMSEvent}`} value={RecognitionVMSEvent}/>
+                              <label className="form-check-label" htmlFor={`input-notification-vms-event-${RecognitionVMSEvent}`}>
+                                {_(`notification-vms-event-${RecognitionVMSEvent}`)}
+                              </label>
+                            </div>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr/>
+
+                <div className="form-group d-flex justify-content-between align-items-center">
                   <label className="mb-0">{_('Email')}</label>
                   <div className="custom-control custom-switch">
                     <Field name="isEnableEmail" type="checkbox" className="custom-control-input" id="switch-notification-target-mail"/>
@@ -587,8 +623,8 @@ module.exports = class Cards extends Base {
                 <div className="form-group">
                   <div className="card">
                     <div className="card-body">
-                      <div className="form-group mb-2">
-                        <label className="text-size-16">{_('Email Attachment')}</label>
+                      <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.digitalInput})}>
+                        <label className="text-size-16 mb-3">{_('Email Attachment')}</label>
                         <div className="select-wrapper border rounded-pill overflow-hidden">
                           <Field
                             name="emailAttachmentType"
@@ -629,6 +665,7 @@ module.exports = class Cards extends Base {
                         <label className="text-size-16 mb-0">{_('Receiver')} :</label>
                       </div>
                       <div className="form-group">
+                        <label className="text-size-16 mb-3">{_('Receiver')}</label>
                         <div className="form-row">
                           <div className="col-auto my-1">
                             <div className="input-group">
@@ -857,7 +894,7 @@ module.exports = class Cards extends Base {
                     {'btn-primary': cardTypeFilter === NotificationCardType.digitalInput}
                   )} type="button"
                   onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.digitalInput)}
-                >{_(`notification-card-${5}`)}
+                >{_(`notification-card-${NotificationCardType.digitalInput}`)}
                 </button>
               </div>
             </div>
