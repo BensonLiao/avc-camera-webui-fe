@@ -585,7 +585,7 @@ module.exports = class Cards extends Base {
                   </div>
                 </div>
                 <div className={classNames(
-                  'form-group', {'d-none': NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '5'))})}
+                  'form-group', {'d-none': values.type === NotificationCardType.motionDetection || values.type === NotificationCardType.digitalInput})}
                 >
                   <div className="card">
                     <div className="card-body">
