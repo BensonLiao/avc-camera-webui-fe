@@ -22,7 +22,6 @@ const CustomNotifyModal = require('../../core/components/custom-notify-modal');
 const api = require('../../core/apis/web-api');
 const store = require('../../core/store');
 const Timer = require('../../core/timer');
-const utils = require('../../core/utils');
 const _ = require('../../languages');
 const constants = require('../../core/constants');
 
@@ -105,12 +104,7 @@ module.exports = class Layout extends Base {
       .then(() => {
         location.href = '/';
       })
-      .catch(error => {
-        utils.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      });
+      .finally(progress.done);
   }
 
   render() {
@@ -372,16 +366,10 @@ module.exports = class Layout extends Base {
           confirmBtnTitle={_('Resume Session')}
           onConfirm={() => {
             api.account.refresh()
-              .then(() => {
+              .finally(() => {
                 clearInterval(this.countdownID);
                 clearTimeout(this.countdownTimerID);
                 this.setState({isShowExpireModal: false});
-              })
-              .catch(error => {
-                utils.showErrorNotification({
-                  title: `Error ${error.response.status}` || null,
-                  message: error.response.status === 400 ? error.response.data.message || null : null
-                });
               });
           }}
           onHide={() => {
