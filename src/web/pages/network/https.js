@@ -35,8 +35,7 @@ module.exports = class HTTPS extends Base {
   constructor(props) {
     super(props);
     this.state.isShowModal = false;
-    this.state.isConfirmDisable = false;
-    this.state.onConfirm = this.hideModal;
+    this.state.modalBody = _('Please Redirect Manually to the New Address.');
   }
 
   hideModal = () => {
@@ -69,26 +68,29 @@ module.exports = class HTTPS extends Base {
     progress.start();
     api.system.updateHttpsSettings(values)
       .then(() => {
+        const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         this.setState({
           isShowModal: true,
-          onConfirm: () => {
-            this.setState({isConfirmDisable: true});
-            if ((this.props.httpsSettings.isEnable === true) && (values.isEnable === false)) {
-              progress.done();
-              this.hideModal();
-            } else {
-              utils.pingAndRedirectPage(
-                `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`
-              );
-            }
-          }
+          modalBody: [_('Please Redirect Manually to the New Address:'),
+            <React.Fragment key="copy">
+              <span key="copy">{newAddress}</span>&nbsp;&nbsp;
+              <i key="copy" className="far fa-copy" style={{cursor: 'pointer'}}
+                onClick={() => {
+                  navigator.clipboard.writeText(newAddress)
+                    .then(() => {
+                      utils.showSuccessNotification({message: 'Address Copied.'});
+                    }, () => {
+                      utils.showErrorNotification({message: 'Address Copy Failed. Your Browser May Not Support It.'});
+                    });
+                }}/>
+            </React.Fragment>]
         });
       })
       .finally(progress.done);
   };
 
   formRender = ({values, errors, touched}) => {
-    const {$isApiProcessing, isShowModal, isConfirmDisable, onConfirm} = this.state;
+    const {$isApiProcessing, isShowModal, modalBody} = this.state;
     const {httpsSettings} = this.props;
 
     return (
@@ -143,13 +145,8 @@ module.exports = class HTTPS extends Base {
           modalType="info"
           isShowModal={isShowModal}
           modalTitle={_('Success')}
-          modalBody={
-            (httpsSettings.isEnable === true) && (values.isEnable === false) ?
-              _('Please Redirect Manually to the New Address.') :
-              _('Click Confirm to Redirect to the New Address.')
-          }
-          isConfirmDisable={isConfirmDisable}
-          onConfirm={onConfirm}
+          modalBody={modalBody}
+          onConfirm={this.hideModal}
           onHide={this.hideModal}/>
       </Form>
     );

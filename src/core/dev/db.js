@@ -173,7 +173,7 @@ module.exports = {
       },
       httpsSettings: {
         isEnable: true,
-        port: '443',
+        port: '8443',
         certificateType: '0'
       },
       streamDefault: {
