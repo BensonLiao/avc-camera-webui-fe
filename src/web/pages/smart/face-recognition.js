@@ -130,7 +130,7 @@ module.exports = class FaceRecognition extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Similarity Level')}</label>
+                <label className="mb-0">{_('Level of Accuracy')}</label>
                 <div className="btn-group">
                   {ConfidenceLevel.all().map(confidenceLevel => (
                     <button key={confidenceLevel} type="button"
