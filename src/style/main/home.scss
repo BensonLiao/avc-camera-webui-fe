@@ -132,7 +132,12 @@
     }
   }
 
-  .video-wrapper .img-fluid{
-    width: 100%;
+  .video-wrapper {
+    .img-fluid{
+      width: 100%;
+    }
+    .btn-play:focus, .btn-action:focus{
+      outline: none;
+    }
   }
 }

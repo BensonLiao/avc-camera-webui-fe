@@ -318,8 +318,8 @@ module.exports = class Home extends Base {
                       onClick={this.onTogglePlayStream}/>
                     {
                       !this.state.isPlayStream && (
-                        <div className="cover d-flex justify-content-center align-items-center">
-                          <button className="btn-play" type="button" onClick={this.onTogglePlayStream}>
+                        <div className="cover d-flex justify-content-center align-items-center" onClick={this.onTogglePlayStream}>
+                          <button className="btn-play" type="button">
                             <i className="fas fa-play fa-fw"/>
                           </button>
                         </div>
