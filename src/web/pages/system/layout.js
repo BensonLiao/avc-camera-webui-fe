@@ -25,7 +25,8 @@ module.exports = class System extends Base {
 
   render() {
     const {currentRouteName} = this.state;
-
+    const topSubNav = ['web.system.datetime', 'web.system.maintain', 'web.system.upgrade'].some(route => route === currentRouteName);
+    const bottomSubNav = ['web.system.log', 'web.system.information'].some(route => route === currentRouteName);
     return (
       <>
         <div className="left-menu fixed-top">
@@ -35,18 +36,20 @@ module.exports = class System extends Base {
               <a href="#" data-toggle="collapse" data-target="#basic-settings"
                 title={_('Settings')}
                 className={classNames(
-                  'nav-link collapse show d-flex justify-content-between align-items-center',
+                  'nav-link collapse d-flex justify-content-between align-items-center',
                   {active: [
                     'web.system.datetime',
                     'web.system.maintain',
                     'web.system.upgrade'
-                  ].indexOf(currentRouteName) >= 0}
+                  ].indexOf(currentRouteName) >= 0},
+                  {show: topSubNav},
+                  {collapsed: !topSubNav}
                 )}
               >
                 <span className="text-truncate">{_('Settings')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
-              <div id="basic-settings" className="collapse show" data-parent="#accordion-setting-menu">
+              <div id="basic-settings" className={classNames('collapse', {show: topSubNav})} data-parent="#accordion-setting-menu">
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.datetime'})} to="/system/datetime" title={_('Date & Region')}>
                   {_('Date & Region')}
                 </Link>
@@ -60,17 +63,19 @@ module.exports = class System extends Base {
               <a href="#" data-toggle="collapse" data-target="#basic-information"
                 title={_('System Information')}
                 className={classNames(
-                  'nav-link collapse d-flex justify-content-between align-items-center collapsed',
+                  'nav-link collapse d-flex justify-content-between align-items-center',
                   {active: [
                     'web.system.log',
                     'web.system.information'
-                  ].indexOf(currentRouteName) >= 0}
+                  ].indexOf(currentRouteName) >= 0},
+                  {show: bottomSubNav},
+                  {collapsed: !bottomSubNav}
                 )}
               >
                 <span className="text-truncate">{_('System Information')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
-              <div id="basic-information" className="collapse" data-parent="#accordion-setting-menu">
+              <div id="basic-information" className={classNames('collapse', {show: bottomSubNav})} data-parent="#accordion-setting-menu">
                 <Link className={classNames('nav-link', {active: currentRouteName === 'web.system.log'})} to="/system/log" title={_('System Log')}>
                   {_('System Log')}
                 </Link>
