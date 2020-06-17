@@ -494,7 +494,7 @@ window.languageResource = {
   // /smart/face-recognition
   'Detection Zone': '觸發區域',
   'Facial Detection Size': '人臉大小',
-  'Similarity Level': '相似度層級',
+  'Level of Accuracy': '相似度層級',
   'Recognition Function': '辨識功能',
   'Default is Fullscreen': '預設為全畫面',
   'Display Recognition Name': '顯示辨識名稱',
