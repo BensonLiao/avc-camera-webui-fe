@@ -44,7 +44,11 @@ module.exports = class Mjpeg extends Base {
   }
 
   componentDidMount() {
-    api.updateMjpeg(this.props.params);
+    const {params} = this.props;
+    if (!Object.values(params).some(query => query === undefined)) {
+      api.updateMjpeg(params);
+    }
+
     this.fetchSnapshot();
     const expires = localStorage.getItem(constants.store.EXPIRES) || null;
     if (expires) {
@@ -77,7 +81,7 @@ module.exports = class Mjpeg extends Base {
 
   fetchSnapshot = () => {
     if (store.get(`${this.constructor.name}.isPlayStream`)) {
-      axios.get('/api/mjpeg-snapshot', {timeout: 5000, responseType: 'blob'})
+      axios.get('/api/mjpeg-snapshot', {responseType: 'blob'})
         .then(response => {
           if (this.state.streamImageUrl) {
             window.URL.revokeObjectURL(this.state.streamImageUrl);
