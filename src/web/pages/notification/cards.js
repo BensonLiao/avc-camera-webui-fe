@@ -573,42 +573,6 @@ module.exports = class Cards extends Base {
                 </div>
                 <hr/>
 
-                {/* VMS Notification */}
-                <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.digitalInput})}>
-                  <div className="form-group d-flex justify-content-between align-items-center">
-                    <label className="mb-0">{_('Video Management System')}</label>
-                    <div className="custom-control custom-switch">
-                      <Field name="isEnableVMS" type="checkbox" className="custom-control-input" id="switch-notification-target-vms" checked={values.isEnableVMS}/>
-                      <label className="custom-control-label" htmlFor="switch-notification-target-vms">
-                        <span>{_('ON')}</span>
-                        <span>{_('OFF')}</span>
-                      </label>
-                    </div>
-                  </div>
-                  <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.motionDetection})}>
-                    <div className="card">
-                      <div className="card-body">
-                        <div className="form-group">
-                          <label className="text-size-16 mb-0">{_('Method')}</label>
-                        </div>
-                        <div className="form-group">
-                          {
-                            NotificationFaceRecognitionVMSEvent.all().map(RecognitionVMSEvent => (
-                              <div key={RecognitionVMSEvent} className="form-check mb-3">
-                                <Field name="faceRecognitionVMSEvent" className="form-check-input" type="radio" id={`input-notification-vms-event-${RecognitionVMSEvent}`} value={RecognitionVMSEvent}/>
-                                <label className="form-check-label" htmlFor={`input-notification-vms-event-${RecognitionVMSEvent}`}>
-                                  {_(`notification-vms-event-${RecognitionVMSEvent}`)}
-                                </label>
-                              </div>
-                            ))
-                          }
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <hr/>
-                </div>
-
                 {/* E-mail Notification */}
                 <div className="form-group d-flex justify-content-between align-items-center">
                   <label className="mb-0">{_('Email')}</label>
@@ -643,8 +607,8 @@ module.exports = class Cards extends Base {
                             }
                           </Field>
                         </div>
+                        <hr/>
                       </div>
-                      <hr/>
                       <div className="form-group mb-4">
                         <label className="text-size-16">Subject :</label>
                         <Field
@@ -663,9 +627,6 @@ module.exports = class Cards extends Base {
                       </div>
                       <div className="form-group mb-1">
                         <label className="text-size-16 mb-0">{_('Receiver')} :</label>
-                      </div>
-                      <div className="form-group">
-                        <label className="text-size-16 mb-3">{_('Receiver')}</label>
                         <div className="form-row">
                           <div className="col-auto my-1">
                             <div className="input-group">
