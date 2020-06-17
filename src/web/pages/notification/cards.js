@@ -365,7 +365,7 @@ module.exports = class Cards extends Base {
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="type" component="select" className="form-control border-0">
               {
-                NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3')).map(faceRecognition => {
+                NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3' || faceRecognition === '5')).map(faceRecognition => {
                   return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
                 })
               }
@@ -534,7 +534,7 @@ module.exports = class Cards extends Base {
             </Tab.Content>
             <Tab.Content>
               <Tab.Pane eventKey="tab-notification-target">
-                {/* Notification receiver */}
+                {/* I/O Notification */}
                 <div className="form-group d-flex justify-content-between align-items-center">
                   <label className="mb-0">I/O</label>
                   <div className="custom-control custom-switch">
@@ -571,9 +571,9 @@ module.exports = class Cards extends Base {
                     </div>
                   </div>
                 </div>
-
                 <hr/>
 
+                {/* E-mail Notification */}
                 <div className="form-group d-flex justify-content-between align-items-center">
                   <label className="mb-0">{_('Email')}</label>
                   <div className="custom-control custom-switch">
@@ -587,8 +587,8 @@ module.exports = class Cards extends Base {
                 <div className="form-group">
                   <div className="card">
                     <div className="card-body">
-                      <div className="form-group mb-2">
-                        <label className="text-size-16">{_('Email Attachment')}</label>
+                      <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.digitalInput})}>
+                        <label className="text-size-16 mb-3">{_('Email Attachment')}</label>
                         <div className="select-wrapper border rounded-pill overflow-hidden">
                           <Field
                             name="emailAttachmentType"
@@ -607,8 +607,8 @@ module.exports = class Cards extends Base {
                             }
                           </Field>
                         </div>
+                        <hr/>
                       </div>
-                      <hr/>
                       <div className="form-group mb-4">
                         <label className="text-size-16">Subject :</label>
                         <Field
@@ -627,8 +627,6 @@ module.exports = class Cards extends Base {
                       </div>
                       <div className="form-group mb-1">
                         <label className="text-size-16 mb-0">{_('Receiver')} :</label>
-                      </div>
-                      <div className="form-group">
                         <div className="form-row">
                           <div className="col-auto my-1">
                             <div className="input-group">
@@ -849,6 +847,15 @@ module.exports = class Cards extends Base {
                   )} type="button"
                   onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.motionDetection)}
                 >{_(`notification-card-${NotificationCardType.motionDetection}`)}
+                </button>
+                <button
+                  className={classNames(
+                    'btn rounded-pill shadow-sm ml-4',
+                    {active: cardTypeFilter === NotificationCardType.digitalInput},
+                    {'btn-primary': cardTypeFilter === NotificationCardType.digitalInput}
+                  )} type="button"
+                  onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.digitalInput)}
+                >{_(`notification-card-${NotificationCardType.digitalInput}`)}
                 </button>
               </div>
             </div>
