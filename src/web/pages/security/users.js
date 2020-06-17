@@ -78,7 +78,7 @@ module.exports = class Users extends Base {
           <h2>{_('Accounts')}</h2>
           <nav className="nav flex-column">
             <Link to="/users/accounts" title={_('All Accounts')}
-              className={classNames('nav-link text-size-16 py-1 px-3',
+              className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
                 {active: permissionFilter === 'all'},
                 {'bg-light': permissionFilter === 'all'}
               )}

@@ -222,6 +222,9 @@ nav.navbar.fixed-top {
       i {
         @extend .transition-transform;
       }
+      &.users-nav:hover {
+        background-color: #EEEEEE;
+      }
       &:hover {
         background: #4d4d4d;
       }
