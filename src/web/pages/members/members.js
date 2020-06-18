@@ -1,24 +1,20 @@
-const download = require('downloadjs');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const {Formik, Form, Field} = require('formik');
+const download = require('downloadjs');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
-const Modal = require('react-bootstrap/Modal').default;
-const iconLock = require('../../../resource/lock-24px.svg');
 const iconDescription = require('../../../resource/description-20px.svg');
 const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
-const Password = require('../../../core/components/fields/password');
-const databaseEncryptionValidator = require('../../validations/members/database-encryption-validator');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const wrappedApi = require('../../../core/apis');
-const utils = require('../../../core/utils');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const MemberDatabase = require('../../../core/components/member-database');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -85,12 +81,29 @@ module.exports = class Members extends Base {
     }));
   };
 
-  hideApiProcessModal = () => {
-    this.setState({isShowApiProcessModal: false});
-  };
-
   hideDatabaseEncryptionModal = () => {
     this.setState({isShowDatabaseEncryptionModal: false});
+  };
+
+  showDatabaseEncryptionModal = event => {
+    event.preventDefault();
+    progress.start();
+    api.member.getDatabaseEncryptionSettings()
+      .then(response => {
+        this.setState({
+          isShowDatabaseEncryptionModal: true,
+          databaseEncryptionInitialValues: {
+            password: response.data.password,
+            newPassword: '',
+            confirmPassword: ''
+          }
+        });
+      })
+      .finally(progress.done);
+  };
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
   };
 
   memberCardModalRender = mode => {
@@ -237,23 +250,6 @@ module.exports = class Members extends Base {
     });
   };
 
-  showDatabaseEncryptionModal = event => {
-    event.preventDefault();
-    progress.start();
-    api.member.getDatabaseEncryptionSettings()
-      .then(response => {
-        this.setState({
-          isShowDatabaseEncryptionModal: true,
-          databaseEncryptionInitialValues: {
-            password: response.data.password,
-            newPassword: '',
-            confirmPassword: ''
-          }
-        });
-      })
-      .finally(progress.done);
-  };
-
   onSubmitDatabaseEncryptionForm = values => {
     progress.start();
     api.member.updateDatabaseEncryptionSettings(values)
@@ -311,76 +307,6 @@ module.exports = class Members extends Base {
           getRouter().reload();
         });
     });
-  };
-
-  databaseEncryptionFormRender = ({errors, touched}) => {
-    return (
-      <Form className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title">{_('Database Encryption')}</h5>
-        </div>
-        <div className="modal-body">
-          <div className="form-group has-feedback">
-            <label>{_('Old Password')}</label>
-            <Field
-              name="password"
-              component={Password}
-              inputProps={{
-                readOnly: true,
-                className: classNames(
-                  'form-control',
-                  {'is-invalid': errors.password && touched.password}
-                )
-              }}
-            />
-            {
-              errors.password && touched.password && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )
-            }
-          </div>
-          <div className="form-group has-feedback">
-            <label>{_('New Password')}</label>
-            <Field name="newPassword" component={Password}
-              inputProps={{
-                className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
-                placeholder: _('Enter your password')
-              }}/>
-            <small className="form-text text-muted">{_('8-16 characters, letters, numbers and/or symbols')}</small>
-            {
-              errors.newPassword && touched.newPassword && (
-                <div className="invalid-feedback">{errors.newPassword}</div>
-              )
-            }
-          </div>
-          <div className="form-group has-feedback">
-            <label>{_('Confirm Password')}</label>
-            <Field name="confirmPassword" component={Password}
-              inputProps={{
-                className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                placeholder: _('Confirm your password')
-              }}/>
-            {
-              errors.confirmPassword && touched.confirmPassword && (
-                <div className="invalid-feedback">{errors.confirmPassword}</div>
-              )
-            }
-          </div>
-        </div>
-        <div className="modal-footer flex-column">
-          <div className="form-group w-100 mx-0">
-            <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
-              {_('Modify')}
-            </button>
-          </div>
-          <button type="button" className="btn btn-info btn-block m-0 rounded-pill"
-            onClick={this.hideDatabaseEncryptionModal}
-          >
-            {_('Close')}
-          </button>
-        </div>
-      </Form>
-    );
   };
 
   render() {
@@ -484,25 +410,19 @@ module.exports = class Members extends Base {
             }
 
             <hr/>
-            <div className="sub-title py-2 px-4">
-              <h3>{_('Database')}</h3>
-              <button className="btn btn-link p-0" type="button" onClick={this.showDatabaseEncryptionModal}>
-                <img src={iconLock}/>
-              </button>
-            </div>
-            <div className="actions px-4 py-3">
-              <div className="form-group">
-                <button disabled={$isApiProcessing} type="button"
-                  className="btn btn-outline-primary btn-block rounded-pill"
-                  onClick={this.onClickExportDatabase}
-                >
-                  {_('Export')}
-                </button>
-              </div>
-              <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: $isApiProcessing})}>
-                <input type="file" className="d-none" accept=".zip" onChange={this.onChangeDatabaseFile}/>{_('Import')}
-              </label>
-            </div>
+            <MemberDatabase
+              showModal={isShowDatabaseEncryptionModal}
+              initalValues={databaseEncryptionInitialValues}
+              isShowApiProcessModal={isShowApiProcessModal}
+              apiProcessModalTitle={apiProcessModalTitle}
+              isApiProcessing={$isApiProcessing}
+              hideApiProcessModal={this.hideApiProcessModal}
+              hideDatabaseModal={this.hideDatabaseEncryptionModal}
+              showDatabaseModal={this.showDatabaseEncryptionModal}
+              onSubmitForm={this.onSubmitDatabaseEncryptionForm}
+              onClickExport={this.onClickExportDatabase}
+              onChangeFile={this.onChangeDatabaseFile}
+            />
           </div>
         </div>
 
@@ -648,29 +568,6 @@ module.exports = class Members extends Base {
 
         {/* Delete member modal */}
         {this.memberCardModalRender('deleteMember')}
-
-        {/* Databse updating modal */}
-        <CustomNotifyModal
-          modalType="process"
-          isShowModal={isShowApiProcessModal}
-          modalTitle={apiProcessModalTitle}
-          modalBody="Member Database Updating"
-          onHide={this.hideApiProcessModal}/>
-
-        {/* Database encryption */}
-        <Modal
-          show={isShowDatabaseEncryptionModal}
-          autoFocus={false}
-          onHide={this.hideDatabaseEncryptionModal}
-        >
-          <Formik
-            initialValues={databaseEncryptionInitialValues}
-            validate={utils.makeFormikValidator(databaseEncryptionValidator, ['newPassword', 'confirmPassword'])}
-            onSubmit={this.onSubmitDatabaseEncryptionForm}
-          >
-            {this.databaseEncryptionFormRender}
-          </Formik>
-        </Modal>
       </>
     );
   }
