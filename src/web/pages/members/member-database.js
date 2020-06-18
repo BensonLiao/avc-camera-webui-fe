@@ -3,12 +3,12 @@ const {Formik, Form, Field} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../languages');
-const CustomTooltip = require('./tooltip');
-const databaseEncryptionValidator = require('../../web/validations/members/database-encryption-validator');
+const _ = require('../../../languages');
+const CustomTooltip = require('../../../core/components/tooltip');
+const databaseEncryptionValidator = require('../../validations/members/database-encryption-validator');
 const iconLock = require('../../resource/lock-24px.svg');
-const Password = require('./fields/password');
-const utils = require('../utils');
+const Password = require('../../../core/components/fields/password');
+const utils = require('../../../core/utils');
 
 module.exports = class MemberDatabase extends React.PureComponent {
   static get propTypes() {

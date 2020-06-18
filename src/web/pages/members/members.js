@@ -14,7 +14,7 @@ const wrappedApi = require('../../../core/apis');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
-const MemberDatabase = require('../../../core/components/member-database');
+const MemberDatabase = require('./member-database');
 
 module.exports = class Members extends Base {
   static get propTypes() {
