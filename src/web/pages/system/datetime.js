@@ -67,7 +67,9 @@ module.exports = class DateTime extends Base {
 
     if (isLanguageUpdate) {
       api.system.updateLanguage(values.language)
-        .then(location.reload)
+        .then(() => {
+          location.reload();
+        })
         .finally(progress.done);
     } else {
       values.manualTime.setSeconds(0);
