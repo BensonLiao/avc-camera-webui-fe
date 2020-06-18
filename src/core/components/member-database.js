@@ -21,9 +21,6 @@ module.exports = class MemberDatabase extends React.PureComponent {
         newPassword: PropTypes.string.isRequired,
         confirmPassword: PropTypes.string.isRequired
       }),
-      hideApiProcessModal: PropTypes.func.isRequired,
-      isShowApiProcessModal: PropTypes.bool.isRequired,
-      apiProcessModalTitle: PropTypes.string.isRequired,
       onSubmitForm: PropTypes.func.isRequired,
       onClickExport: PropTypes.func.isRequired,
       onChangeFile: PropTypes.func.isRequired,
@@ -117,9 +114,6 @@ module.exports = class MemberDatabase extends React.PureComponent {
     const {isApiProcessing,
       showModal,
       initalValues,
-      hideApiProcessModal,
-      isShowApiProcessModal,
-      apiProcessModalTitle,
       onSubmitForm,
       onClickExport,
       onChangeFile,
@@ -149,14 +143,6 @@ module.exports = class MemberDatabase extends React.PureComponent {
             <input type="file" className="d-none" accept=".zip" onChange={onChangeFile}/>{_('Import')}
           </label>
         </div>
-
-        {/* Databse updating modal */}
-        <CustomNotifyModal
-          modalType="process"
-          isShowModal={isShowApiProcessModal}
-          modalTitle={apiProcessModalTitle}
-          modalBody="Member Database Updating"
-          onHide={hideApiProcessModal}/>
 
         {/* Database encryption */}
         <Modal

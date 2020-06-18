@@ -413,10 +413,7 @@ module.exports = class Members extends Base {
             <MemberDatabase
               showModal={isShowDatabaseEncryptionModal}
               initalValues={databaseEncryptionInitialValues}
-              isShowApiProcessModal={isShowApiProcessModal}
-              apiProcessModalTitle={apiProcessModalTitle}
               isApiProcessing={$isApiProcessing}
-              hideApiProcessModal={this.hideApiProcessModal}
               hideDatabaseModal={this.hideDatabaseEncryptionModal}
               showDatabaseModal={this.showDatabaseEncryptionModal}
               onSubmitForm={this.onSubmitDatabaseEncryptionForm}
@@ -568,6 +565,14 @@ module.exports = class Members extends Base {
 
         {/* Delete member modal */}
         {this.memberCardModalRender('deleteMember')}
+
+        {/* Database updating modal */}
+        <CustomNotifyModal
+          modalType="process"
+          isShowModal={isShowApiProcessModal}
+          modalTitle={apiProcessModalTitle}
+          modalBody="Member Database Updating"
+          onHide={this.hideApiProcessModal}/>
       </>
     );
   }
