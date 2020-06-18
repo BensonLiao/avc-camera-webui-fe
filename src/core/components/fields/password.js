@@ -1,6 +1,8 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
+const _ = require('../../../languages');
+const CustomTooltip = require('../tooltip');
 
 module.exports = class Password extends React.PureComponent {
   static get propTypes() {
@@ -35,7 +37,9 @@ module.exports = class Password extends React.PureComponent {
         <a href="#" className="form-control-feedback text-muted"
           tabIndex={-1} onClick={this.onTogglePassword}
         >
-          <i className={classNames('fas', isShowPassword ? 'fa-eye' : 'fa-eye-slash')}/>
+          <CustomTooltip title={isShowPassword ? _('Hide Password') : _('Show Password')}>
+            <i className={classNames('fas', isShowPassword ? 'fa-eye' : 'fa-eye-slash')}/>
+          </CustomTooltip>
         </a>
       </>
     );
