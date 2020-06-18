@@ -2,7 +2,6 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const {getRouter} = require('capybara-router');
-const {Formik, Form, Field} = require('formik');
 const CustomTooltip = require('../../../core/components/tooltip');
 const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
@@ -10,9 +9,9 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
 const Pagination = require('../../../core/components/pagination');
-const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const utils = require('../../../core/utils');
 const EventsSidebar = require('./events-sidebar');
+const EventsSearchForm = require('./event-search-form');
 
 module.exports = class Events extends Base {
   static get propTypes() {
@@ -87,26 +86,6 @@ module.exports = class Events extends Base {
   };
 
   /**
-   * Handler on user submit the search form.
-   * @param {String} keyword
-   * @param {String} start
-   * @param {String} end
-   * @returns {void}
-   */
-  onSubmitSearchForm = ({keyword, start, end}) => {
-    getRouter().go({
-      name: this.currentRoute.name,
-      params: {
-        ...this.props.params,
-        index: undefined,
-        keyword,
-        start: start ? start.toJSON() : undefined,
-        end: end ? end.toJSON() : undefined
-      }
-    });
-  };
-
-  /**
    * Generate the handler to change filter.
    * @param {String} paramKey
    * @param {*} value The filter value. Pass null to remove the param.
@@ -158,92 +137,7 @@ module.exports = class Events extends Base {
     });
   };
 
-  toggleStartDatePicker = () => {
-    this.setState(prevState => ({
-      isShowStartDatePicker: !prevState.isShowStartDatePicker,
-      isShowEndDatePicker: false
-    }));
-  }
-
-  onHideStartDatePicker = () => {
-    this.setState({isShowStartDatePicker: false});
-  }
-
-  toggleEndDatePicker = () => {
-    this.setState(prevState => ({
-      isShowEndDatePicker: !prevState.isShowEndDatePicker,
-      isShowStartDatePicker: false
-    }));
-  }
-
-  onHideEndDatePicker = () => {
-    this.setState({isShowEndDatePicker: false});
-  }
-
-  searchFormRender = () => {
-    const {isShowStartDatePicker, isShowEndDatePicker} = this.state;
-    return (
-      <Form>
-        <div className="form-row datepicker-wrapper">
-          <div className="col-auto px-0 btn-group">
-            <Field
-              name="start"
-              component={DateTimePicker}
-              dateTabText={_('Start Date')}
-              timeTabText={_('Start Time')}
-              inputProps={{
-                className: classNames(
-                  'btn start-date px-4',
-                  {active: isShowStartDatePicker}
-                ),
-                placeholder: _('Start Datetime'),
-                style: {whiteSpace: 'nowrap'}
-              }}
-              endDateFieldName="end"
-              isShowPicker={isShowStartDatePicker}
-              onClickInput={this.toggleStartDatePicker}
-              onHide={this.onHideStartDatePicker}
-            />
-            <Field
-              name="end"
-              component={DateTimePicker}
-              dateTabText={_('End Date')}
-              timeTabText={_('End Time')}
-              inputProps={{
-                className: classNames(
-                  'btn end-date px-4',
-                  {active: isShowEndDatePicker}
-                ),
-                placeholder: _('End Datetime'),
-                style: {whiteSpace: 'nowrap'}
-              }}
-              startDateFieldName="start"
-              isShowPicker={isShowEndDatePicker}
-              onClickInput={this.toggleEndDatePicker}
-              onHide={this.onHideEndDatePicker}
-            />
-          </div>
-        </div>
-        <div className="form-row mt-4">
-          <div className="col-auto px-0">
-            <Field name="keyword" className="form-control" type="text" placeholder={_('Enter keywords')}/>
-          </div>
-          <div className="col-auto px-0 ml-3">
-            <button className="btn btn-outline-primary rounded-pill px-3" type="submit">
-              <i className="fas fa-search fa-fw"/> {_('Search')}
-            </button>
-          </div>
-        </div>
-      </Form>
-    );
-  };
-
   mainContentRender = events => {
-    const searchFromInitialValues = {
-      keyword: this.props.params.keyword || '',
-      start: this.props.params.start ? new Date(this.props.params.start) : null,
-      end: this.props.params.end ? new Date(this.props.params.end) : null
-    };
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
       {...this.props.params, index: undefined}
@@ -323,11 +217,10 @@ module.exports = class Events extends Base {
                 </div>
               </div>
 
-              <Formik initialValues={searchFromInitialValues}
-                onSubmit={this.onSubmitSearchForm}
-              >
-                {this.searchFormRender}
-              </Formik>
+              <EventsSearchForm
+                params={this.props.params}
+              />
+
             </div>
 
             <div className="col-12 mb-5">
