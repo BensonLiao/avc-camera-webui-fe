@@ -138,69 +138,70 @@ module.exports = class Events extends Base {
   };
 
   mainContentRender = events => {
+    const {params, faceEvents} = this.props;
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
-      {...this.props.params, index: undefined}
+      {...params, index: undefined}
     );
     const sort = {
       time: {
         handler: this.generateChangeFilterHandler(
           'sort',
-          (this.props.params.sort || '-time') === '-time' ? 'time' : null
+          (params.sort || '-time') === '-time' ? 'time' : null
         ),
         icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': (this.props.params.sort || '-time') === '-time',
-          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'time'
+          'fas fa-fw text-muted ml-3 fa-caret-down': (params.sort || '-time') === '-time',
+          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'time'
         })
       },
       name: {
         handler: this.generateChangeFilterHandler(
           'sort',
-          this.props.params.sort === 'name' ? '-name' : 'name'
+          params.sort === 'name' ? '-name' : 'name'
         ),
         icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-name',
-          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'name'
+          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-name',
+          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'name'
         })
       },
       organization: {
         handler: this.generateChangeFilterHandler(
           'sort',
-          this.props.params.sort === 'organization' ? '-organization' : 'organization'
+          params.sort === 'organization' ? '-organization' : 'organization'
         ),
         icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-organization',
-          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'organization'
+          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-organization',
+          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'organization'
         })
       },
       group: {
         handler: this.generateChangeFilterHandler(
           'sort',
-          this.props.params.sort === 'group' ? '-group' : 'group'
+          params.sort === 'group' ? '-group' : 'group'
         ),
         icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-group',
-          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'group'
+          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-group',
+          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'group'
         })
       },
       confidence: {
         handler: this.generateChangeFilterHandler(
           'sort',
-          this.props.params.sort === 'confidence' ? '-confidence' : 'confidence'
+          params.sort === 'confidence' ? '-confidence' : 'confidence'
         ),
         icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-confidence',
-          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'confidence'
+          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-confidence',
+          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'confidence'
         })
       },
       recognitionResult: {
         handler: this.generateChangeFilterHandler(
           'sort',
-          this.props.params.sort === 'recognitionResult' ? '-recognitionResult' : 'recognitionResult'
+          params.sort === 'recognitionResult' ? '-recognitionResult' : 'recognitionResult'
         ),
         icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': this.props.params.sort === '-recognitionResult',
-          'fas fa-fw text-muted ml-3 fa-caret-up': this.props.params.sort === 'recognitionResult'
+          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-recognitionResult',
+          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'recognitionResult'
         })
       }
     };
@@ -218,7 +219,7 @@ module.exports = class Events extends Base {
               </div>
 
               <EventsSearchForm
-                params={this.props.params}
+                params={params}
                 currentRouteName={this.currentRoute.name}
               />
 
@@ -355,10 +356,10 @@ module.exports = class Events extends Base {
               </table>
             </div>
 
-            <Pagination index={this.props.faceEvents.index}
-              size={this.props.faceEvents.size}
-              total={this.props.faceEvents.total}
-              itemQuantity={this.props.faceEvents.items.length}
+            <Pagination index={faceEvents.index}
+              size={faceEvents.size}
+              total={faceEvents.total}
+              itemQuantity={faceEvents.items.length}
               hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index={index}` : `${hrefTemplate}?index={index}`}/>
           </div>
         </div>
@@ -367,11 +368,11 @@ module.exports = class Events extends Base {
   };
 
   render() {
-    const {$isApiProcessing, type} = this.state;
-    const {params, systemInformation} = this.props;
+    const {$isApiProcessing, type, isShowMemberModal, currentMember, defaultMemberPictureUrl} = this.state;
+    const {params, systemInformation, groups, faceEvents} = this.props;
     let events;
     if (type === 'face-recognition') {
-      events = this.props.faceEvents;
+      events = faceEvents;
     }
 
     return (
@@ -387,10 +388,10 @@ module.exports = class Events extends Base {
 
           <MemberModal
             isApiProcessing={$isApiProcessing}
-            isShowModal={this.state.isShowMemberModal}
-            groups={this.props.groups}
-            member={this.state.currentMember}
-            defaultPictureUrl={this.state.defaultMemberPictureUrl}
+            isShowModal={isShowMemberModal}
+            groups={groups}
+            member={currentMember}
+            defaultPictureUrl={defaultMemberPictureUrl}
             onHide={this.onHideMemberModal}
             onSubmitted={this.onSubmittedMemberForm}/>
 
