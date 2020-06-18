@@ -5,7 +5,6 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const _ = require('../../languages');
 const CustomTooltip = require('./tooltip');
-const CustomNotifyModal = require('./custom-notify-modal');
 const databaseEncryptionValidator = require('../../web/validations/members/database-encryption-validator');
 const iconLock = require('../../resource/lock-24px.svg');
 const Password = require('./fields/password');

@@ -51,8 +51,8 @@ module.exports = class Members extends Base {
     this.state.deleteGroupTarget = null;
     this.state.selectedGroup = props.groups.items.find(x => x.id === props.params.group);
     this.state.deleteMemberTarget = null;
-    this.state.isShowDatabaseEncryptionModal = false;
-    this.state.databaseEncryptionInitialValues = null;
+    this.state.isShowDatabaseModal = false;
+    this.state.databaseInitialValues = null;
     this.state.databaseFile = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Updating members');
@@ -81,18 +81,18 @@ module.exports = class Members extends Base {
     }));
   };
 
-  hideDatabaseEncryptionModal = () => {
-    this.setState({isShowDatabaseEncryptionModal: false});
+  hideDatabaseModal = () => {
+    this.setState({isShowDatabaseModal: false});
   };
 
-  showDatabaseEncryptionModal = event => {
+  showDatabaseModal = event => {
     event.preventDefault();
     progress.start();
     api.member.getDatabaseEncryptionSettings()
       .then(response => {
         this.setState({
-          isShowDatabaseEncryptionModal: true,
-          databaseEncryptionInitialValues: {
+          isShowDatabaseModal: true,
+          databaseInitialValues: {
             password: response.data.password,
             newPassword: '',
             confirmPassword: ''
@@ -250,11 +250,11 @@ module.exports = class Members extends Base {
     });
   };
 
-  onSubmitDatabaseEncryptionForm = values => {
+  onSubmitDatabaseForm = values => {
     progress.start();
     api.member.updateDatabaseEncryptionSettings(values)
       .then(() => {
-        this.setState({isShowDatabaseEncryptionModal: false});
+        this.setState({isShowDatabaseModal: false});
       })
       .finally(progress.done);
   };
@@ -312,8 +312,8 @@ module.exports = class Members extends Base {
   render() {
     const {groups, members, params} = this.props;
     const {
-      isShowDatabaseEncryptionModal,
-      databaseEncryptionInitialValues,
+      isShowDatabaseModal,
+      databaseInitialValues,
       selectedGroup,
       isShowApiProcessModal,
       apiProcessModalTitle,
@@ -411,12 +411,12 @@ module.exports = class Members extends Base {
 
             <hr/>
             <MemberDatabase
-              showModal={isShowDatabaseEncryptionModal}
-              initalValues={databaseEncryptionInitialValues}
+              showModal={isShowDatabaseModal}
+              initalValues={databaseInitialValues}
               isApiProcessing={$isApiProcessing}
-              hideDatabaseModal={this.hideDatabaseEncryptionModal}
-              showDatabaseModal={this.showDatabaseEncryptionModal}
-              onSubmitForm={this.onSubmitDatabaseEncryptionForm}
+              hideDatabaseModal={this.hideDatabaseModal}
+              showDatabaseModal={this.showDatabaseModal}
+              onSubmitForm={this.onSubmitDatabaseForm}
               onClickExport={this.onClickExportDatabase}
               onChangeFile={this.onChangeDatabaseFile}
             />
