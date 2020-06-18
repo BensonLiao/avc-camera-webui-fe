@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const CustomTooltip = require('../../../core/components/tooltip');
 const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
@@ -12,6 +12,7 @@ const MemberModal = require('../../../core/components/member-modal');
 const Pagination = require('../../../core/components/pagination');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const utils = require('../../../core/utils');
+const EventsSidebar = require('./events-sidebar');
 
 module.exports = class Events extends Base {
   static get propTypes() {
@@ -77,42 +78,12 @@ module.exports = class Events extends Base {
   }
 
   /**
-   * Convert router params to an array.
-   * @param {Array<String>|String|null} param
-   * @returns {Array<String>}
-   */
-  convertArrayParams = param => {
-    let result = [];
-
-    if (Array.isArray(param)) {
-      result = [...param];
-    } else if (param) {
-      result = [param];
-    }
-
-    return result;
-  };
-
-  /**
    * Find group with its id.
    * @param {Number} groupId
    * @returns {Object}
    */
   findGroup = groupId => {
     return this.props.groups.items.find(x => x.id === groupId);
-  };
-
-  /**
-   * Clean filter on user clicks.
-   * @param {*} event
-   * @returns {void}
-   */
-  onClickCleanFilters = event => {
-    event.preventDefault();
-    getRouter().go({
-      name: this.currentRoute.name,
-      params: {type: this.state.type}
-    });
   };
 
   /**
@@ -131,32 +102,6 @@ module.exports = class Events extends Base {
         keyword,
         start: start ? start.toJSON() : undefined,
         end: end ? end.toJSON() : undefined
-      }
-    });
-  };
-
-  /**
-   * Generate the handler to toggle filter.
-   * @param {String} paramKey
-   * @param {String} value
-   * @returns {Function} The handler.
-   */
-  generateToggleFilterHandler = (paramKey, value) => () => {
-    const params = this.convertArrayParams(this.props.params[paramKey]);
-    const indexOfConfidences = params.indexOf(value);
-
-    if (indexOfConfidences >= 0) {
-      params.splice(indexOfConfidences, 1);
-    } else {
-      params.push(value);
-    }
-
-    getRouter().go({
-      name: this.currentRoute.name,
-      params: {
-        ...this.props.params,
-        index: undefined,
-        [paramKey]: params
       }
     });
   };
@@ -234,138 +179,6 @@ module.exports = class Events extends Base {
   onHideEndDatePicker = () => {
     this.setState({isShowEndDatePicker: false});
   }
-
-  faceRecognitionFilterRender = () => {
-    const confidence = this.convertArrayParams(this.props.params.confidence);
-    const enrollStatus = this.convertArrayParams(this.props.params.enrollStatus);
-
-    return (
-      <div className="card-body">
-        <span>{_('Similarity')}</span>
-        <div className="checkbox-group mt-3 pl-2">
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-low-similar"
-              checked={confidence.indexOf(Confidence.low) >= 0}
-              onChange={this.generateToggleFilterHandler('confidence', Confidence.low)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-low-similar">
-              {_(`confidence-${Confidence.low}`)}
-            </label>
-          </div>
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-medium-similar"
-              checked={confidence.indexOf(Confidence.medium) >= 0}
-              onChange={this.generateToggleFilterHandler('confidence', Confidence.medium)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-medium-similar">
-              {_(`confidence-${Confidence.medium}`)}
-            </label>
-          </div>
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-high-similar"
-              checked={confidence.indexOf(Confidence.high) >= 0}
-              onChange={this.generateToggleFilterHandler('confidence', Confidence.high)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-high-similar">
-              {_(`confidence-${Confidence.high}`)}
-            </label>
-          </div>
-        </div>
-
-        <span>{_('Recognition Result')}</span>
-        <div className="checkbox-group mt-3 mb-2 pl-2">
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-register"
-              checked={enrollStatus.indexOf(EnrollStatus.registered) >= 0}
-              onChange={this.generateToggleFilterHandler('enrollStatus', EnrollStatus.registered)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-register">
-              {_(`enroll-status-${EnrollStatus.registered}`)}
-            </label>
-          </div>
-          <div className="form-check">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-anonymous"
-              checked={enrollStatus.indexOf(EnrollStatus.unknown) >= 0}
-              onChange={this.generateToggleFilterHandler('enrollStatus', EnrollStatus.unknown)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-anonymous">
-              {_(`enroll-status-${EnrollStatus.unknown}`)}
-            </label>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  leftMenuRender = () => {
-    const {
-      isEnableFaceRecognition,
-      isEnableAgeGender,
-      isEnableHumanoidDetection
-    } = this.props.systemInformation;
-
-    return (
-      <div className="left-menu fixed-top sub shadow-sm">
-        <h2>{_('Events')}</h2>
-        <div className="filter-wrapper">
-          <div className="header d-flex justify-content-between align-items-center  text-size-12">
-            <span>{_('Filters')}</span>
-            <a className="text-primary font-weight-bold" href="#" onClick={this.onClickCleanFilters}>{_('Clean')}</a>
-          </div>
-
-          <div className={classNames('card sub mb-3', {active: this.state.type === 'face-recognition' && isEnableFaceRecognition})}>
-            <div className="card-header text-truncate">
-              {
-                isEnableFaceRecognition ?
-                  <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Facial Recognition')}</span>
-                    <i className="fas fa-chevron-up"/>
-                  </a> :
-                  <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Facial Recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span> <i className="fas fa-chevron-down"/>
-                  </a>
-              }
-            </div>
-            {this.state.type === 'face-recognition' && isEnableFaceRecognition && this.faceRecognitionFilterRender()}
-          </div>
-
-          <div className={classNames('card sub mb-3', {active: this.state.type === 'age-gender' && isEnableAgeGender})}>
-            <div className="card-header text-truncate">
-              {
-                isEnableAgeGender ?
-                  <Link to={{name: this.currentRoute.name, params: {type: 'age-gender'}}}
-                    className="text-decoration-none d-flex justify-content-between align-items-center"
-                  >
-                    <span>{_('Age Gender')}</span>
-                    <i className="fas fa-chevron-down"/>
-                  </Link> :
-                  <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Age Gender')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
-                    <i className="fas fa-chevron-down"/>
-                  </a>
-              }
-            </div>
-          </div>
-
-          <div className={classNames('card sub mb-3', {active: this.state.type === 'humanoid-detection' && isEnableHumanoidDetection})}>
-            <div className="card-header text-truncate">
-              {
-                isEnableHumanoidDetection ?
-                  <Link to={{name: this.currentRoute.name, params: {type: 'humanoid-detection'}}}
-                    className="text-decoration-none d-flex justify-content-between align-items-center"
-                  >
-                    <span>{_('Human Detection')}</span>
-                    <i className="fas fa-chevron-down"/>
-                  </Link> :
-                  <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Human Detection')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
-                    <i className="fas fa-chevron-down"/>
-                  </a>
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   searchFormRender = () => {
     const {isShowStartDatePicker, isShowEndDatePicker} = this.state;
@@ -660,17 +473,23 @@ module.exports = class Events extends Base {
   };
 
   render() {
-    const {$isApiProcessing} = this.state;
+    const {$isApiProcessing, type} = this.state;
+    const {params, systemInformation} = this.props;
     let events;
-    if (this.state.type === 'face-recognition') {
+    if (type === 'face-recognition') {
       events = this.props.faceEvents;
     }
 
     return (
       <>
-        {this.leftMenuRender()}
+        <EventsSidebar
+          params={params}
+          systemInformation={systemInformation}
+          type={type}/>
+
         <div className="main-content left-menu-active bg-white">
           {this.mainContentRender(events)}
+
           <MemberModal
             isApiProcessing={$isApiProcessing}
             isShowModal={this.state.isShowMemberModal}
@@ -679,6 +498,7 @@ module.exports = class Events extends Base {
             defaultPictureUrl={this.state.defaultMemberPictureUrl}
             onHide={this.onHideMemberModal}
             onSubmitted={this.onSubmittedMemberForm}/>
+
         </div>
       </>
     );
