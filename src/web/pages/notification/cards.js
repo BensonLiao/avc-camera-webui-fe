@@ -214,6 +214,9 @@ module.exports = class Cards extends Base {
       groups: values.$groups ? [values.$groups] : [],
       title: this.sanitizeInput(values.title)
     };
+    if (data.type === NotificationCardType.digitalInput) {
+      data.isEnableVMS = false;
+    }
 
     if (data.id == null) {
       // Create a new card.
