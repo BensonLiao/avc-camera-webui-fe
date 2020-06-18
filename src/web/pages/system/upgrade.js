@@ -94,7 +94,7 @@ module.exports = class Upgrade extends Base {
                   }, 2000);
                 }
               })
-              .finally(() => {
+              .catch(() => {
                 progress.done();
                 this.hideApiProcessModal();
               });
@@ -124,7 +124,7 @@ module.exports = class Upgrade extends Base {
 
           test();
         })
-        .finally(() => {
+        .catch(() => {
           progress.done();
           this.hideApiProcessModal();
         });
