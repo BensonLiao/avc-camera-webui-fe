@@ -71,19 +71,7 @@ module.exports = class HTTPS extends Base {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         this.setState({
           isShowModal: true,
-          modalBody: [_('Please Redirect Manually to the New Address:'),
-            <React.Fragment key="copy">
-              <span key="copy">{newAddress}</span>&nbsp;&nbsp;
-              <i key="copy" className="far fa-copy" style={{cursor: 'pointer'}}
-                onClick={() => {
-                  navigator.clipboard.writeText(newAddress)
-                    .then(() => {
-                      utils.showSuccessNotification({message: 'Address Copied.'});
-                    }, () => {
-                      utils.showErrorNotification({message: 'Address Copy Failed. Your Browser May Not Support It.'});
-                    });
-                }}/>
-            </React.Fragment>]
+          modalBody: [_('Please Redirect Manually to the New Address:'), newAddress]
         });
       })
       .finally(progress.done);
