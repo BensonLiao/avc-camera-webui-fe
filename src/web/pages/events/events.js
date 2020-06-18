@@ -219,6 +219,7 @@ module.exports = class Events extends Base {
 
               <EventsSearchForm
                 params={this.props.params}
+                currentRouteName={this.currentRoute.name}
               />
 
             </div>
@@ -378,7 +379,8 @@ module.exports = class Events extends Base {
         <EventsSidebar
           params={params}
           systemInformation={systemInformation}
-          type={type}/>
+          type={type}
+          currentRouteName={this.currentRoute.name}/>
 
         <div className="main-content left-menu-active bg-white">
           {this.mainContentRender(events)}

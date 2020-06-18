@@ -13,13 +13,9 @@ module.exports = class EventsSearchForm extends React.PureComponent {
         keyword: PropTypes.string,
         start: PropTypes.any,
         end: PropTypes.any
-      }).isRequired
+      }).isRequired,
+      currentRouteName: PropTypes.string.isRequired
     };
-  }
-
-  constructor(props) {
-    super(props);
-    this.currentRoute = getRouter().findRouteByName('web.users.events');
   }
 
   state = {
@@ -58,7 +54,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
    */
   onSubmitSearchForm = ({keyword, start, end}) => {
     getRouter().go({
-      name: this.currentRoute.name,
+      name: this.props.currentRouteName,
       params: {
         ...this.props.params,
         index: undefined,
@@ -77,8 +73,6 @@ module.exports = class EventsSearchForm extends React.PureComponent {
       start: params.start ? new Date(params.start) : null,
       end: params.end ? new Date(params.end) : null
     };
-
-    console.log(this.props.params);
 
     return (
       <Formik initialValues={searchFromInitialValues}

@@ -25,7 +25,8 @@ module.exports = class EventsSidebar extends React.PureComponent {
         isEnableAgeGender: PropTypes.bool.isRequired,
         isEnableHumanoidDetection: PropTypes.bool.isRequired
       }).isRequired,
-      type: PropTypes.string.isRequired
+      type: PropTypes.string.isRequired,
+      currentRouteName: PropTypes.string.isRequired
     };
   }
 
@@ -59,7 +60,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
   onClickCleanFilters = event => {
     event.preventDefault();
     getRouter().go({
-      name: this.currentRoute.name,
+      name: this.props.currentRouteName,
       params: {type: this.props.type}
     });
   };
@@ -81,7 +82,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
     }
 
     getRouter().go({
-      name: this.currentRoute.name,
+      name: this.props.currentRouteName,
       params: {
         ...this.props.params,
         index: undefined,
@@ -149,10 +150,14 @@ module.exports = class EventsSidebar extends React.PureComponent {
   };
 
   render() {
-    const {type,
-      systemInformation: {isEnableFaceRecognition,
+    const {
+      systemInformation: {
+        isEnableFaceRecognition,
         isEnableAgeGender,
-        isEnableHumanoidDetection}} = this.props;
+        isEnableHumanoidDetection},
+      type,
+      currentRouteName
+    } = this.props;
     return (
       <div className="left-menu fixed-top sub shadow-sm">
         <h2>{_('Events')}</h2>
@@ -183,7 +188,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
             <div className="card-header text-truncate">
               {
                 isEnableAgeGender ?
-                  <Link to={{name: this.currentRoute.name, params: {type: 'age-gender'}}}
+                  <Link to={{name: currentRouteName, params: {type: 'age-gender'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
                     <span>{_('Age Gender')}</span>
@@ -202,7 +207,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
             <div className="card-header text-truncate">
               {
                 isEnableHumanoidDetection ?
-                  <Link to={{name: this.currentRoute.name, params: {type: 'humanoid-detection'}}}
+                  <Link to={{name: currentRouteName, params: {type: 'humanoid-detection'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
                     <span>{_('Human Detection')}</span>
