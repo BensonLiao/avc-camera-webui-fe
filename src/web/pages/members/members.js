@@ -1,7 +1,6 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const iconDescription = require('../../../resource/description-20px.svg');
@@ -12,7 +11,8 @@ const api = require('../../../core/apis/web-api');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
-const MemberDatabase = require('./member-database');
+const MembersDatabase = require('./members-database');
+const MembersSearchForm = require('./members-search-form');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -190,40 +190,9 @@ module.exports = class Members extends Base {
     });
   };
 
-  searchFormRender = () => {
-    return (
-      <Form className="form-row">
-        <div className="col-auto">
-          <Field name="keyword" className="form-control" type="text" placeholder={_('Enter keywords')}/>
-        </div>
-        <div className="col-auto">
-          <button disabled={this.state.$isApiProcessing}
-            className="btn btn-outline-primary rounded-pill px-3" type="submit"
-          >
-            <i className="fas fa-search fa-fw"/> {_('Search')}
-          </button>
-        </div>
-      </Form>
-    );
-  };
-
-  onSubmitSearchForm = ({keyword}) => {
-    getRouter().go({
-      name: this.currentRoute.name,
-      params: {
-        ...this.props.params,
-        index: undefined,
-        keyword
-      }
-    });
-  };
-
   render() {
     const {groups, members, params} = this.props;
-    const {
-      selectedGroup,
-      $isApiProcessing
-    } = this.state;
+    const {selectedGroup, $isApiProcessing} = this.state;
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
       {...params, index: undefined}
@@ -315,7 +284,7 @@ module.exports = class Members extends Base {
             }
 
             <hr/>
-            <MemberDatabase
+            <MembersDatabase
               isApiProcessing={$isApiProcessing}
             />
           </div>
@@ -327,11 +296,13 @@ module.exports = class Members extends Base {
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12 d-flex justify-content-between align-items-center mb-4">
-                  <Formik initialValues={{keyword: params.keyword || ''}}
-                    onSubmit={this.onSubmitSearchForm}
-                  >
-                    {this.searchFormRender}
-                  </Formik>
+
+                  <MembersSearchForm
+                    isApiProcessing={$isApiProcessing}
+                    params={params}
+                    currentRouteName={this.currentRoute.name}
+                  />
+
                   <div className="dropdown">
                     <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
                       <i className="fas fa-plus fa-fw text-primary"/>{_('New')}

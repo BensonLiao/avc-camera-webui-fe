@@ -16,7 +16,7 @@ const Password = require('../../../core/components/fields/password');
 const utils = require('../../../core/utils');
 const wrappedApi = require('../../../core/apis');
 
-module.exports = class MemberDatabase extends React.PureComponent {
+module.exports = class MembersDatabase extends React.PureComponent {
   static get propTypes() {
     return {
       isApiProcessing: PropTypes.bool.isRequired
@@ -190,7 +190,6 @@ module.exports = class MemberDatabase extends React.PureComponent {
   render() {
     const {isApiProcessing} = this.props;
     const {isShowApiProcessModal, apiProcessModalTitle, databaseInitialValues, isShowDatabaseModal} = this.state;
-    console.log('render -> databaseInitialValues', databaseInitialValues);
 
     return (
       <>
