@@ -1,8 +1,6 @@
-const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const {getRouter} = require('capybara-router');
-const CustomTooltip = require('../../../core/components/tooltip');
 const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 const _ = require('../../../languages');
@@ -12,6 +10,7 @@ const Pagination = require('../../../core/components/pagination');
 const utils = require('../../../core/utils');
 const EventsSidebar = require('./events-sidebar');
 const EventsSearchForm = require('./event-search-form');
+const EventsTable = require('./events-table');
 
 module.exports = class Events extends Base {
   static get propTypes() {
@@ -77,15 +76,6 @@ module.exports = class Events extends Base {
   }
 
   /**
-   * Find group with its id.
-   * @param {Number} groupId
-   * @returns {Object}
-   */
-  findGroup = groupId => {
-    return this.props.groups.items.find(x => x.id === groupId);
-  };
-
-  /**
    * Generate the handler to change filter.
    * @param {String} paramKey
    * @param {*} value The filter value. Pass null to remove the param.
@@ -137,236 +127,6 @@ module.exports = class Events extends Base {
     });
   };
 
-  mainContentRender = events => {
-    const {params, faceEvents} = this.props;
-    const hrefTemplate = getRouter().generateUri(
-      this.currentRoute,
-      {...params, index: undefined}
-    );
-    const sort = {
-      time: {
-        handler: this.generateChangeFilterHandler(
-          'sort',
-          (params.sort || '-time') === '-time' ? 'time' : null
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': (params.sort || '-time') === '-time',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'time'
-        })
-      },
-      name: {
-        handler: this.generateChangeFilterHandler(
-          'sort',
-          params.sort === 'name' ? '-name' : 'name'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-name',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'name'
-        })
-      },
-      organization: {
-        handler: this.generateChangeFilterHandler(
-          'sort',
-          params.sort === 'organization' ? '-organization' : 'organization'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-organization',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'organization'
-        })
-      },
-      group: {
-        handler: this.generateChangeFilterHandler(
-          'sort',
-          params.sort === 'group' ? '-group' : 'group'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-group',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'group'
-        })
-      },
-      confidence: {
-        handler: this.generateChangeFilterHandler(
-          'sort',
-          params.sort === 'confidence' ? '-confidence' : 'confidence'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-confidence',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'confidence'
-        })
-      },
-      recognitionResult: {
-        handler: this.generateChangeFilterHandler(
-          'sort',
-          params.sort === 'recognitionResult' ? '-recognitionResult' : 'recognitionResult'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-recognitionResult',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'recognitionResult'
-        })
-      }
-    };
-
-    return (
-      <div className="page-histories">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-12 mb-4">
-              <div className="card quantity-wrapper float-right">
-                <div className="card-body">
-                  <div className="quantity">{utils.formatNumber(events.total)}</div>
-                  <div className="description">{_('Total')}</div>
-                </div>
-              </div>
-
-              <EventsSearchForm
-                params={params}
-                currentRouteName={this.currentRoute.name}
-              />
-
-            </div>
-
-            <div className="col-12 mb-5">
-              <table className="table custom-style" style={{tableLayout: 'fixed'}}>
-                <thead>
-                  <tr className="shadow">
-                    <th style={{width: '14%'}}>
-                      <a href="#time" onClick={sort.time.handler}>{_('Time')}</a>
-                      <i className={sort.time.icon}/>
-                    </th>
-                    <th style={{width: '10%'}}>{_('Capture')}</th>
-                    <th style={{width: '10%'}}>{_('User Picture')}</th>
-                    <th style={{width: '10%'}}>
-                      <a href="#" onClick={sort.name.handler}>{_('Name')}</a>
-                      <i className={sort.name.icon}/>
-                    </th>
-                    <th style={{width: '8%'}}>
-                      <a href="#" onClick={sort.group.handler}>{_('Group')}</a>
-                      <i className={sort.group.icon}/>
-                    </th>
-                    <th style={{width: '14%'}}>
-                      <a href="#" onClick={sort.organization.handler}>{_('Organization')}</a>
-                      <i className={sort.organization.icon}/>
-                    </th>
-                    <th style={{width: '10%'}}>
-                      <a href="#" onClick={sort.confidence.handler}>{_('Similarity')}</a>
-                      <i className={sort.confidence.icon}/>
-                    </th>
-                    <th style={{width: '8%'}}>
-                      <a href="#" onClick={sort.recognitionResult.handler}>{_('Recognition Result')}</a>
-                      <i className={sort.recognitionResult.icon}/>
-                    </th>
-                    <th style={{width: '10%'}}>{_('Note')}</th>
-                    <th style={{width: '6%'}}>{_('Actions')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    /* The empty view */
-                    !events.items.length && (
-                      <tr>
-                        <td className="text-size-20 text-center" colSpan="10">
-                          <i className="fas fa-frown-open fa-fw text-dark"/> {_('Can\'t find any data.')}
-                        </td>
-                      </tr>
-                    )
-                  }
-                  {
-                    events.items.map((event, index) => (
-                      <tr key={event.id}>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {utils.formatDate(event.time, {withSecond: true})}
-                        </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          <div style={{width: 56, height: 56}}>
-                            <div className="rounded-circle overflow-hidden" style={{margin: 0, padding: '0 0 100%', position: 'relative'}}>
-                              <div style={{background: '50%', backgroundSize: 'cover', width: '100%', height: '100%', position: 'absolute', left: 0, top: 0, backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
-                            </div>
-                          </div>
-                        </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {
-                            event.confidences.length > 0 && event.confidences[0].member ?
-                              <img className="rounded-circle" src={`data:image/jpeg;base64,${event.confidences[0].member.pictures[0]}`} style={{height: '56px'}}/> :
-                              '-'
-                          }
-                        </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {
-                            event.confidences.length > 0 && event.confidences[0].member ?
-                              event.confidences[0].member.name :
-                              '-'
-                          }
-                        </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {
-                            event.confidences.length > 0 && event.confidences[0].member ?
-                              (this.findGroup(event.confidences[0].member.groupId) || {name: '-'}).name :
-                              '-'
-                          }
-                        </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {
-                            event.confidences.length > 0 && event.confidences[0].member ?
-                              event.confidences[0].member.organization || '-' :
-                              '-'
-                          }
-                        </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {
-                            event.confidences.length > 0 ?
-                              _(`confidence-${event.confidences[0].confidence}`) :
-                              '-'
-                          }
-                        </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {
-                            event.confidences.length > 0 && (
-                              <CustomTooltip title={event.confidences[0].score}>
-                                {
-                                  event.confidences[0].enrollStatus === EnrollStatus.registered ?
-                                    <span className="badge badge-success badge-pill">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
-                                    <span className="badge badge-danger badge-pill">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
-                                }
-                              </CustomTooltip>
-                            )
-                          }
-                        </td>
-                        <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                          {
-                            event.confidences.length > 0 && event.confidences[0].member ?
-                              event.confidences[0].member.note || '-' :
-                              '-'
-                          }
-                        </td>
-                        <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
-                          {
-                            event.confidences.length > 0 && event.confidences[0].enrollStatus === EnrollStatus.registered ?
-                              <button className="btn btn-link" type="button" onClick={this.generateMemberModifyHandler(event.confidences[0].member)}>
-                                <i className="fas fa-pen fa-fw"/>
-                              </button> :
-                              <button className="btn btn-link" type="button" onClick={this.generateMemberModifyHandler(null, event.pictureThumbUrl)}>
-                                <i className="fas fa-plus fa-fw"/>
-                              </button>
-                          }
-                        </td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
-            </div>
-
-            <Pagination index={faceEvents.index}
-              size={faceEvents.size}
-              total={faceEvents.total}
-              itemQuantity={faceEvents.items.length}
-              hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index={index}` : `${hrefTemplate}?index={index}`}/>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   render() {
     const {$isApiProcessing, type, isShowMemberModal, currentMember, defaultMemberPictureUrl} = this.state;
     const {params, systemInformation, groups, faceEvents} = this.props;
@@ -375,6 +135,11 @@ module.exports = class Events extends Base {
       events = faceEvents;
     }
 
+    const hrefTemplate = getRouter().generateUri(
+      this.currentRoute,
+      {...params, index: undefined}
+    );
+
     return (
       <>
         <EventsSidebar
@@ -382,10 +147,35 @@ module.exports = class Events extends Base {
           systemInformation={systemInformation}
           type={type}
           currentRouteName={this.currentRoute.name}/>
-
         <div className="main-content left-menu-active bg-white">
-          {this.mainContentRender(events)}
-
+          <div className="page-histories">
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-12 mb-4">
+                  <div className="card quantity-wrapper float-right">
+                    <div className="card-body">
+                      <div className="quantity">{utils.formatNumber(events.total)}</div>
+                      <div className="description">{_('Total')}</div>
+                    </div>
+                  </div>
+                  <EventsSearchForm
+                    params={params}
+                    currentRouteName={this.currentRoute.name}/>
+                </div>
+                <EventsTable
+                  params={params}
+                  events={events}
+                  groups={groups}
+                  filterHandler={this.generateChangeFilterHandler}
+                  modifyMemberHandler={this.generateMemberModifyHandler}/>
+                <Pagination index={faceEvents.index}
+                  size={faceEvents.size}
+                  total={faceEvents.total}
+                  itemQuantity={faceEvents.items.length}
+                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index={index}` : `${hrefTemplate}?index={index}`}/>
+              </div>
+            </div>
+          </div>
           <MemberModal
             isApiProcessing={$isApiProcessing}
             isShowModal={isShowMemberModal}
@@ -394,7 +184,6 @@ module.exports = class Events extends Base {
             defaultPictureUrl={defaultMemberPictureUrl}
             onHide={this.onHideMemberModal}
             onSubmitted={this.onSubmittedMemberForm}/>
-
         </div>
       </>
     );
