@@ -1,4 +1,3 @@
-const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
@@ -12,6 +11,7 @@ const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const MembersSearchForm = require('./members-search-form');
 const MembersSidebar = require('./members-sidebar');
+const MembersTable = require('./members-table');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -196,47 +196,16 @@ module.exports = class Members extends Base {
       this.currentRoute,
       {...params, index: undefined}
     );
-    const sort = {
-      name: {
-        handler: this.generateChangeFilterHandler(
-          'sort',
-          (params.sort || 'name') === 'name' ? '-name' : null
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-name',
-          'fas fa-fw text-muted ml-3 fa-caret-up': (params.sort || 'name') === 'name'
-        })
-      },
-      organization: {
-        handler: this.generateChangeFilterHandler(
-          'sort',
-          params.sort === 'organization' ? '-organization' : 'organization'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-organization',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'organization'
-        })
-      },
-      group: {
-        handler: this.generateChangeFilterHandler(
-          'sort',
-          params.sort === 'group' ? '-group' : 'group'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-group',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'group'
-        })
-      }
-    };
+
     return (
       <>
         {/* Left menu */}
         <MembersSidebar
           isApiProcessing={$isApiProcessing}
-          filterHandler={this.generateChangeFilterHandler}
-          deleteGroupHandler={this.generateShowDeleteGroupModalHandler}
           params={params}
           groups={groups}
+          filterHandler={this.generateChangeFilterHandler}
+          deleteGroupHandler={this.generateShowDeleteGroupModalHandler}
         />
         {/* Main content */}
         <div className="main-content left-menu-active sub">
@@ -286,78 +255,13 @@ module.exports = class Members extends Base {
                     </div>
                   )
                 }
-                <div className="col-12 mb-5">
-                  <table className="table custom-style" style={{tableLayout: 'fixed'}}>
-                    <thead>
-                      <tr className="shadow">
-                        <th className="text-center" style={{width: '20%'}}>{_('User Picture')}</th>
-                        <th style={{width: '15%'}}>
-                          <a href="#name" onClick={sort.name.handler}>{_('Name')}</a>
-                          <i className={sort.name.icon}/>
-                        </th>
-                        <th style={{width: '15%'}}>
-                          <a href="#organization" onClick={sort.organization.handler}>{_('Organization')}</a>
-                          <i className={sort.organization.icon}/>
-                        </th>
-                        <th style={{width: '15%'}}>
-                          <a href="#group" onClick={sort.group.handler}>{_('Group')}</a>
-                          <i className={sort.group.icon}/>
-                        </th>
-                        <th style={{width: '20%'}}>{_('Note')}</th>
-                        <th style={{width: '15%'}}>{_('Actions')}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        members.items.map((member, index) => {
-                          const tdClass = classNames({'border-bottom':
-                          index >= members.items.length - 1});
-
-                          return (
-                            <tr key={member.id}>
-                              <td className={classNames('text-center', tdClass)}>
-                                <img className="rounded-circle" style={{height: '56px'}}
-                                  src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
-                              </td>
-                              <td className={tdClass}>
-                                <CustomTooltip title={member.name}>
-                                  <span>
-                                    {member.name}
-                                  </span>
-                                </CustomTooltip>
-                              </td>
-                              <td className={tdClass}>
-                                <CustomTooltip title={member.organization}>
-                                  <span>
-                                    {member.organization || _('N/A')}
-                                  </span>
-                                </CustomTooltip>
-                              </td>
-                              <td className={tdClass}>{(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
-                              <td className={tdClass}>
-                                <CustomTooltip title={member.note}>
-                                  <span>
-                                    {member.note || _('N/A')}
-                                  </span>
-                                </CustomTooltip>
-                              </td>
-                              <td className={classNames('text-left group-btn', tdClass)}>
-                                <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...params, memberId: member.id}}}>
-                                  <i className="fas fa-pen fa-lg fa-fw"/>
-                                </Link>
-                                <button className="btn btn-link" type="button"
-                                  onClick={this.generateShowDeleteMemberModalHandler(member)}
-                                >
-                                  <i className="far fa-trash-alt fa-lg fa-fw"/>
-                                </button>
-                              </td>
-                            </tr>
-                          );
-                        })
-                      }
-                    </tbody>
-                  </table>
-                </div>
+                <MembersTable
+                  params={params}
+                  members={members}
+                  groups={groups}
+                  filterHandler={this.generateChangeFilterHandler}
+                  deleteMemberModal={this.generateShowDeleteMemberModalHandler}
+                />
                 <Pagination
                   index={members.index}
                   size={members.size}
