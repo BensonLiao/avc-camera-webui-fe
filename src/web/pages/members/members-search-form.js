@@ -12,7 +12,6 @@ module.exports = class MembersSearchForm extends React.PureComponent {
       params: PropTypes.shape({
         keyword: PropTypes.string
       }).isRequired
-
     };
   }
 
@@ -29,7 +28,6 @@ module.exports = class MembersSearchForm extends React.PureComponent {
 
   render() {
     const {isApiProcessing, params} = this.props;
-
     return (
       <Formik
         initialValues={{keyword: params.keyword || ''}}

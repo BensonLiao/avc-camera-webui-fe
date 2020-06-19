@@ -230,6 +230,7 @@ module.exports = class Members extends Base {
     };
     return (
       <>
+        {/* Left menu */}
         <MembersSidebar
           isApiProcessing={$isApiProcessing}
           filterHandler={this.generateChangeFilterHandler}
@@ -237,20 +238,17 @@ module.exports = class Members extends Base {
           params={params}
           groups={groups}
         />
-
         {/* Main content */}
         <div className="main-content left-menu-active sub">
           <div className="page-users bg-white">
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12 d-flex justify-content-between align-items-center mb-4">
-
                   <MembersSearchForm
                     isApiProcessing={$isApiProcessing}
-                    params={params}
                     currentRouteName={this.currentRoute.name}
+                    params={params}
                   />
-
                   <div className="dropdown">
                     <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
                       <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
@@ -265,7 +263,6 @@ module.exports = class Members extends Base {
                     </div>
                   </div>
                 </div>
-
                 {
                   selectedGroup && (
                     <div className="col-12 mb-4">
@@ -289,7 +286,6 @@ module.exports = class Members extends Base {
                     </div>
                   )
                 }
-
                 <div className="col-12 mb-5">
                   <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                     <thead>
@@ -362,7 +358,6 @@ module.exports = class Members extends Base {
                     </tbody>
                   </table>
                 </div>
-
                 <Pagination
                   index={members.index}
                   size={members.size}
@@ -376,10 +371,8 @@ module.exports = class Members extends Base {
             <RouterView/>
           </div>
         </div>
-
         {/* Delete group modal */}
         {this.memberCardModalRender('deleteGroup')}
-
         {/* Delete member modal */}
         {this.memberCardModalRender('deleteMember')}
       </>

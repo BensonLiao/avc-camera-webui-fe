@@ -25,10 +25,8 @@ module.exports = class MembersSidebar extends React.PureComponent {
   render() {
     const {isApiProcessing, params, groups, filterHandler, deleteGroupHandler} = this.props;
     const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
-
     return (
       <>
-        {/* Left menu */}
         <div className="left-menu fixed-top sub">
           <h2>{_('Members')}</h2>
           <nav className="nav flex-column">
@@ -55,7 +53,6 @@ module.exports = class MembersSidebar extends React.PureComponent {
                 </Link>
               </CustomTooltip>
             </div>
-
             {
               groups.items.map(group => (
                 <div key={group.id}
@@ -79,7 +76,6 @@ module.exports = class MembersSidebar extends React.PureComponent {
                 </div>
               ))
             }
-
             <hr/>
             <MembersDatabase
               isApiProcessing={isApiProcessing}

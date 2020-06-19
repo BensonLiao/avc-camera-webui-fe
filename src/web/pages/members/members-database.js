@@ -40,7 +40,6 @@ module.exports = class MembersDatabase extends React.PureComponent {
     progress.start();
     api.member.getDatabaseEncryptionSettings()
       .then(response => {
-        console.log(response.data);
         this.setState({
           isShowDatabaseModal: true,
           databaseInitialValues: {
