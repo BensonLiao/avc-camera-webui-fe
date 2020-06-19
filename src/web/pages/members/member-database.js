@@ -1,45 +1,123 @@
 const classNames = require('classnames');
+const download = require('downloadjs');
 const {Formik, Form, Field} = require('formik');
+const {getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
+const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
 const _ = require('../../../languages');
+const api = require('../../../core/apis/web-api');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const databaseEncryptionValidator = require('../../validations/members/database-encryption-validator');
 const iconLock = require('../../../resource/lock-24px.svg');
 const Password = require('../../../core/components/fields/password');
 const utils = require('../../../core/utils');
+const wrappedApi = require('../../../core/apis');
 
 module.exports = class MemberDatabase extends React.PureComponent {
   static get propTypes() {
     return {
-      isApiProcessing: PropTypes.bool.isRequired,
-      showModal: PropTypes.bool.isRequired,
-      initalValues: PropTypes.shape({
-        password: PropTypes.string.isRequired,
-        newPassword: PropTypes.string.isRequired,
-        confirmPassword: PropTypes.string.isRequired
-      }),
-      onSubmitForm: PropTypes.func.isRequired,
-      onClickExport: PropTypes.func.isRequired,
-      onChangeFile: PropTypes.func.isRequired,
-      hideDatabaseModal: PropTypes.func.isRequired,
-      showDatabaseModal: PropTypes.func.isRequired
+      isApiProcessing: PropTypes.bool.isRequired
     };
   }
 
-  static get defaultProps() {
-    return {
-      initalValues: {
-        password: '',
-        newPassword: '',
-        confirmPassword: ''
-      }
-    };
+  state = {
+    isShowDatabaseModal: false,
+    databaseInitialValues: null,
+    databaseFile: null,
+    isShowApiProcessModal: false,
+    apiProcessModalTitle: _('Updating members')
   }
+
+  hideDatabaseModal = () => {
+    this.setState({isShowDatabaseModal: false});
+  };
+
+  showDatabaseModal = event => {
+    event.preventDefault();
+    progress.start();
+    api.member.getDatabaseEncryptionSettings()
+      .then(response => {
+        console.log(response.data);
+        this.setState({
+          isShowDatabaseModal: true,
+          databaseInitialValues: {
+            password: response.data.password,
+            newPassword: '',
+            confirmPassword: ''
+          }
+        });
+      })
+      .finally(progress.done);
+  };
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
+
+  onClickExportDatabase = event => {
+    event.preventDefault();
+    progress.start();
+    this.setState({
+      isShowApiProcessModal: true,
+      apiProcessModalTitle: _('Exporting member database')
+    },
+    () => {
+      wrappedApi({
+        method: 'get',
+        url: '/api/members/database.zip',
+        timeout: 3 * 60 * 1000,
+        responseType: 'blob',
+        onDownloadProgress: progressEvent => {
+          // Do whatever you want with the native progress event
+          this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
+        }
+      })
+        .then(response => {
+          download(response.data, 'database');
+        })
+        .finally(() => {
+          progress.done();
+          this.hideApiProcessModal();
+        });
+    });
+  };
+
+  onChangeDatabaseFile = event => {
+    const file = event.target.files[0];
+    if (!file || this.state.$isApiProcessing) {
+      return;
+    }
+
+    progress.start();
+    this.setState({isShowApiProcessModal: true}, () => {
+      api.member.uploadDatabaseFile(file)
+        .then(() => {
+          getRouter().go(
+            {name: 'web.users.members', params: {}},
+            {reload: true}
+          );
+        })
+        .finally(() => {
+          progress.done();
+          getRouter().reload();
+        });
+    });
+  };
+
+  onSubmitDatabaseForm = values => {
+    progress.start();
+    api.member.updateDatabaseEncryptionSettings(values)
+      .then(() => {
+        this.setState({isShowDatabaseModal: false});
+      })
+      .finally(progress.done);
+  };
 
   databaseEncryptionFormRender = ({errors, touched}) => {
-    const {isApiProcessing, hideDatabaseModal} = this.props;
+    const {isApiProcessing} = this.props;
     return (
       <Form className="modal-content">
         <div className="modal-header">
@@ -100,7 +178,7 @@ module.exports = class MemberDatabase extends React.PureComponent {
             </button>
           </div>
           <button type="button" className="btn btn-info btn-block m-0 rounded-pill"
-            onClick={hideDatabaseModal}
+            onClick={this.hideDatabaseModal}
           >
             {_('Close')}
           </button>
@@ -110,21 +188,16 @@ module.exports = class MemberDatabase extends React.PureComponent {
   };
 
   render() {
-    const {isApiProcessing,
-      showModal,
-      initalValues,
-      onSubmitForm,
-      onClickExport,
-      onChangeFile,
-      hideDatabaseModal,
-      showDatabaseModal} = this.props;
+    const {isApiProcessing} = this.props;
+    const {isShowApiProcessModal, apiProcessModalTitle, databaseInitialValues, isShowDatabaseModal} = this.state;
+    console.log('render -> databaseInitialValues', databaseInitialValues);
 
     return (
       <>
         <div className="sub-title py-2 px-4">
           <h3>{_('Database')}</h3>
           <CustomTooltip title={_('Encryption Settings')}>
-            <button className="btn btn-link p-0" type="button" onClick={showDatabaseModal}>
+            <button className="btn btn-link p-0" type="button" onClick={this.showDatabaseModal}>
               <img src={iconLock}/>
             </button>
           </CustomTooltip>
@@ -133,30 +206,38 @@ module.exports = class MemberDatabase extends React.PureComponent {
           <div className="form-group">
             <button disabled={isApiProcessing} type="button"
               className="btn btn-outline-primary btn-block rounded-pill"
-              onClick={onClickExport}
+              onClick={this.onClickExportDatabase}
             >
               {_('Export')}
             </button>
           </div>
           <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}>
-            <input type="file" className="d-none" accept=".zip" onChange={onChangeFile}/>{_('Import')}
+            <input type="file" className="d-none" accept=".zip" onChange={this.onChangeDatabaseFile}/>{_('Import')}
           </label>
         </div>
 
         {/* Database encryption */}
         <Modal
-          show={showModal}
+          show={isShowDatabaseModal}
           autoFocus={false}
-          onHide={hideDatabaseModal}
+          onHide={this.hideDatabaseModal}
         >
           <Formik
-            initialValues={initalValues}
+            initialValues={databaseInitialValues}
             validate={utils.makeFormikValidator(databaseEncryptionValidator, ['newPassword', 'confirmPassword'])}
-            onSubmit={onSubmitForm}
+            onSubmit={this.onSubmitDatabaseForm}
           >
             {this.databaseEncryptionFormRender}
           </Formik>
         </Modal>
+
+        {/* Database updating modal */}
+        <CustomNotifyModal
+          modalType="process"
+          isShowModal={isShowApiProcessModal}
+          modalTitle={apiProcessModalTitle}
+          modalBody="Member Database Updating"
+          onHide={this.hideApiProcessModal}/>
       </>
     );
   }

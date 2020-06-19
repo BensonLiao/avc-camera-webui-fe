@@ -2,7 +2,6 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const {Formik, Form, Field} = require('formik');
-const download = require('downloadjs');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const iconDescription = require('../../../resource/description-20px.svg');
@@ -10,7 +9,6 @@ const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const wrappedApi = require('../../../core/apis');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
@@ -51,11 +49,6 @@ module.exports = class Members extends Base {
     this.state.deleteGroupTarget = null;
     this.state.selectedGroup = props.groups.items.find(x => x.id === props.params.group);
     this.state.deleteMemberTarget = null;
-    this.state.isShowDatabaseModal = false;
-    this.state.databaseInitialValues = null;
-    this.state.databaseFile = null;
-    this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Updating members');
     this.state.isShowSelectModal = {
       deleteGroup: false,
       deleteMember: false
@@ -79,31 +72,6 @@ module.exports = class Members extends Base {
         [selectedModal]: false
       }
     }));
-  };
-
-  hideDatabaseModal = () => {
-    this.setState({isShowDatabaseModal: false});
-  };
-
-  showDatabaseModal = event => {
-    event.preventDefault();
-    progress.start();
-    api.member.getDatabaseEncryptionSettings()
-      .then(response => {
-        this.setState({
-          isShowDatabaseModal: true,
-          databaseInitialValues: {
-            password: response.data.password,
-            newPassword: '',
-            confirmPassword: ''
-          }
-        });
-      })
-      .finally(progress.done);
-  };
-
-  hideApiProcessModal = () => {
-    this.setState({isShowApiProcessModal: false});
   };
 
   memberCardModalRender = mode => {
@@ -250,73 +218,10 @@ module.exports = class Members extends Base {
     });
   };
 
-  onSubmitDatabaseForm = values => {
-    progress.start();
-    api.member.updateDatabaseEncryptionSettings(values)
-      .then(() => {
-        this.setState({isShowDatabaseModal: false});
-      })
-      .finally(progress.done);
-  };
-
-  onClickExportDatabase = event => {
-    event.preventDefault();
-    progress.start();
-    this.setState({
-      isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Exporting member database')
-    },
-    () => {
-      wrappedApi({
-        method: 'get',
-        url: '/api/members/database.zip',
-        timeout: 3 * 60 * 1000,
-        responseType: 'blob',
-        onDownloadProgress: progressEvent => {
-          // Do whatever you want with the native progress event
-          this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
-        }
-      })
-        .then(response => {
-          download(response.data, 'database');
-        })
-        .finally(() => {
-          progress.done();
-          this.hideApiProcessModal();
-        });
-    });
-  };
-
-  onChangeDatabaseFile = event => {
-    const file = event.target.files[0];
-    if (!file || this.state.$isApiProcessing) {
-      return;
-    }
-
-    progress.start();
-    this.setState({isShowApiProcessModal: true}, () => {
-      api.member.uploadDatabaseFile(file)
-        .then(() => {
-          getRouter().go(
-            {name: 'web.users.members', params: {}},
-            {reload: true}
-          );
-        })
-        .finally(() => {
-          progress.done();
-          getRouter().reload();
-        });
-    });
-  };
-
   render() {
     const {groups, members, params} = this.props;
     const {
-      isShowDatabaseModal,
-      databaseInitialValues,
       selectedGroup,
-      isShowApiProcessModal,
-      apiProcessModalTitle,
       $isApiProcessing
     } = this.state;
     const hrefTemplate = getRouter().generateUri(
@@ -411,14 +316,7 @@ module.exports = class Members extends Base {
 
             <hr/>
             <MemberDatabase
-              showModal={isShowDatabaseModal}
-              initalValues={databaseInitialValues}
               isApiProcessing={$isApiProcessing}
-              hideDatabaseModal={this.hideDatabaseModal}
-              showDatabaseModal={this.showDatabaseModal}
-              onSubmitForm={this.onSubmitDatabaseForm}
-              onClickExport={this.onClickExportDatabase}
-              onChangeFile={this.onChangeDatabaseFile}
             />
           </div>
         </div>
@@ -565,14 +463,6 @@ module.exports = class Members extends Base {
 
         {/* Delete member modal */}
         {this.memberCardModalRender('deleteMember')}
-
-        {/* Database updating modal */}
-        <CustomNotifyModal
-          modalType="process"
-          isShowModal={isShowApiProcessModal}
-          modalTitle={apiProcessModalTitle}
-          modalBody="Member Database Updating"
-          onHide={this.hideApiProcessModal}/>
       </>
     );
   }
