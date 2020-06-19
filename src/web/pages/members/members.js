@@ -8,11 +8,10 @@ const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
-const MembersDatabase = require('./members-database');
 const MembersSearchForm = require('./members-search-form');
+const MembersSidebar = require('./members-sidebar');
 
 module.exports = class Members extends Base {
   static get propTypes() {
@@ -197,7 +196,6 @@ module.exports = class Members extends Base {
       this.currentRoute,
       {...params, index: undefined}
     );
-    const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
     const sort = {
       name: {
         handler: this.generateChangeFilterHandler(
@@ -230,65 +228,15 @@ module.exports = class Members extends Base {
         })
       }
     };
-
     return (
       <>
-        {/* Left menu */}
-        <div className="left-menu fixed-top sub">
-          <h2>{_('Members')}</h2>
-          <nav className="nav flex-column">
-            <Link to="/users/members" title={_('All Members')}
-              className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
-                {active: !params.group},
-                {'bg-light': !params.group}
-              )}
-            >
-              <i className="fas fa-user-friends pl-2 pr-4"/>{_('All Members')}
-            </Link>
-          </nav>
-          <hr/>
-          <div className="groups">
-            <div className="sub-title py-1 px-4">
-              <h3>{_('Groups')}</h3>
-              <Link
-                to={{name: 'web.users.members.new-group', params: params}}
-                tabIndex={(isAddGroupDisabled ? -1 : null)}
-                className={classNames('btn btn-link text-info p-0', {disabled: isAddGroupDisabled})}
-              >
-                <i className="fas fa-plus fa-fw text-size-20"/>
-              </Link>
-            </div>
-
-            {
-              groups.items.map(group => (
-                <div key={group.id}
-                  className={classNames(
-                    'group-item d-flex justify-content-between align-items-center',
-                    {active: params.group === group.id},
-                    {'bg-light': params.group === group.id}
-                  )}
-                >
-                  <a className="w-100 text-truncate d-flex align-items-center" href={`#${group.id}`}
-                    onClick={this.generateChangeFilterHandler('group', group.id)}
-                  >
-                    <i className="far fa-folder text-size-24"/>
-                    <span className="text-truncate text-size-14 pl-4">{group.name}</span>
-                  </a>
-                  <button className="btn btn-link btn-delete text-info" type="button"
-                    onClick={this.generateShowDeleteGroupModalHandler(group)}
-                  >
-                    <i className="far fa-trash-alt fa-fw text-size-20"/>
-                  </button>
-                </div>
-              ))
-            }
-
-            <hr/>
-            <MembersDatabase
-              isApiProcessing={$isApiProcessing}
-            />
-          </div>
-        </div>
+        <MembersSidebar
+          isApiProcessing={$isApiProcessing}
+          filterHandler={this.generateChangeFilterHandler}
+          deleteGroupHandler={this.generateShowDeleteGroupModalHandler}
+          params={params}
+          groups={groups}
+        />
 
         {/* Main content */}
         <div className="main-content left-menu-active sub">
