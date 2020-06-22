@@ -208,6 +208,7 @@ window.languageResource = {
   'This Account is Protected': '此帳戶不可刪除',
   'Cannot Delete Account That is Currently Logged In': '無法刪除正在使用的帳號',
   'Please Enter Start and End Datetime': '請輸入開始與結束時間',
+  'Maximum Allowed Number of Schedule is 5': '最多可輸入5個通知時間',
   'Please Enter an Email Address': '請輸入Email',
   'Unpin Card': '解除置頂',
   'Pin Card': '置頂',

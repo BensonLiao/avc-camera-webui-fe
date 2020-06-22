@@ -122,18 +122,24 @@ module.exports = class CardsFormSchedule extends React.PureComponent {
                  onHide={this.onHideEndDatePicker}
                />
              </div>
-             <CustomTooltip show={!values.$start || !values.$end} title={_('Please Enter Start and End Datetime')}>
-               <div className="col-auto my-1">
-                 <button
-                   disabled={!values.$start || !values.$end || values.timePeriods.length >= 5}
-                   className="btn btn-primary rounded-circle" type="button"
-                   style={(!values.$start || !values.$end) ? {pointerEvents: 'none'} : {}}
-                   onClick={this.onClickAddTimePeriod}
-                 >
-                   <i className="fas fa-plus"/>
-                 </button>
-               </div>
-             </CustomTooltip>
+             {(() => {
+               console.log(values.timePeriods);
+               let statusCheck = !values.$start || !values.$end || values.timePeriods.length >= 5;
+               return (
+                 <CustomTooltip show={statusCheck} title={values.timePeriods.length >= 5 ? _('Maximum Allowed Number of Schedule is 5') : _('Please Enter Start and End Datetime')}>
+                   <div className="col-auto my-1">
+                     <button
+                       disabled={statusCheck}
+                       className="btn btn-primary rounded-circle" type="button"
+                       style={statusCheck ? {pointerEvents: 'none'} : {}}
+                       onClick={this.onClickAddTimePeriod}
+                     >
+                       <i className="fas fa-plus"/>
+                     </button>
+                   </div>
+                 </CustomTooltip>
+               );
+             })()}
            </div>
            {
              values.timePeriods.map((timePeriod, index) => (
