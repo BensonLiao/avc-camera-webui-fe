@@ -11,17 +11,17 @@ const NotificationEmailAttachmentType = require('webserver-form-schema/constants
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const NotificationFaceRecognitionVMSEvent = require('webserver-form-schema/constants/notification-face-recognition-vms-event');
 const _ = require('../../../languages');
-const CustomTooltip = require('../../../core/components/tooltip');
-const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
-const utils = require('../../../core/utils');
 const CardsFormSchedule = require('./cards-form-schedule');
 const CardsFormRule = require('./cards-form-rule');
 const CardsFormSubject = require('./cards-form-subject');
+const CustomTooltip = require('../../../core/components/tooltip');
 
-module.exports = class CardsForm extends React.Component {
+module.exports = class CardsForm extends React.PureComponent {
   static get propTypes() {
     return {
-      groups: PropTypes.object.isRequired,
+      groups: PropTypes.shape({
+        items: PropTypes.array
+      }).isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
       isShowCardDetailsModal: PropTypes.bool.isRequired,
       cardDetails: PropTypes.object,
@@ -76,8 +76,7 @@ module.exports = class CardsForm extends React.Component {
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
-        isEnableFaceRecognition: card.isEnableFaceRecognition,
-        isEnableApp: card.isEnableApp
+        isEnableFaceRecognition: card.isEnableFaceRecognition
       };
     }
 
@@ -100,17 +99,9 @@ module.exports = class CardsForm extends React.Component {
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
-      isEnableFaceRecognition: false,
-      isEnableApp: false
+      isEnableFaceRecognition: false
     };
   };
-
-  cardLimitError = () => { // Over card limit 32
-    utils.showErrorNotification({
-      title: _('Cards Limit Error'),
-      message: _('Cannot create more than {0} cards', [NOTIFY_CARDS_MAX])
-    });
-  }
 
   render() {
     const {isApiProcessing,
@@ -228,7 +219,7 @@ module.exports = class CardsForm extends React.Component {
                       <Tab.Pane eventKey="tab-notification-condition">
                         {/* Rule settings */}
                         <CardsFormRule
-                          values={values}
+                          isEnableFaceRecognition={values.isEnableFaceRecognition}
                           groups={groups}
                         />
                       </Tab.Pane>

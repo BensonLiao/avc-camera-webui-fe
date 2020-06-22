@@ -10,10 +10,16 @@ const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
 
-module.exports = class CardsFormSubject extends React.Component {
+module.exports = class CardsFormSubject extends React.PureComponent {
   static get propTypes() {
     return {
-      values: PropTypes.object.isRequired,
+      values: PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        isEnableGPIO: PropTypes.bool.isRequired,
+        isEnableVMS: PropTypes.bool.isRequired,
+        $email: PropTypes.string.isRequired,
+        emails: PropTypes.array.isRequired
+      }).isRequired,
       setFieldValue: PropTypes.func.isRequired,
       validateField: PropTypes.func.isRequired,
       errors: PropTypes.object.isRequired,

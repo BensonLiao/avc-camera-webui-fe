@@ -7,19 +7,21 @@ const _ = require('../../../languages');
 module.exports = class CardsFormRule extends React.PureComponent {
   static get propTypes() {
     return {
-      values: PropTypes.object.isRequired,
-      groups: PropTypes.object.isRequired
+      isEnableFaceRecognition: PropTypes.bool.isRequired,
+      groups: PropTypes.shape({
+        items: PropTypes.array
+      }).isRequired
     };
   }
 
   render() {
-    const {values, groups} = this.props;
+    const {isEnableFaceRecognition, groups} = this.props;
     return (
       <>
         <div className="form-group d-flex justify-content-between align-items-center">
           <label className="mb-0">{_('Recognition')}</label>
           <div className="custom-control custom-switch">
-            <Field name="isEnableFaceRecognition" checked={values.isEnableFaceRecognition} type="checkbox" className="custom-control-input" id="switch-notification-face-recognition"/>
+            <Field name="isEnableFaceRecognition" checked={isEnableFaceRecognition} type="checkbox" className="custom-control-input" id="switch-notification-face-recognition"/>
             <label className="custom-control-label" htmlFor="switch-notification-face-recognition">
               <span>{_('ON')}</span>
               <span>{_('OFF')}</span>

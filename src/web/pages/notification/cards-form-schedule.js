@@ -7,10 +7,15 @@ const CustomTooltip = require('../../../core/components/tooltip');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const utils = require('../../../core/utils');
 
-module.exports = class CardsFormSchedule extends React.Component {
+module.exports = class CardsFormSchedule extends React.PureComponent {
   static get propTypes() {
     return {
-      values: PropTypes.object.isRequired,
+      values: PropTypes.shape({
+        isEnableTime: PropTypes.bool.isRequired,
+        $start: PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.instanceOf(Date)]),
+        $end: PropTypes.oneOfType([PropTypes.oneOf([null]), PropTypes.instanceOf(Date)]),
+        timePeriods: PropTypes.array.isRequired
+      }).isRequired,
       setFieldValue: PropTypes.func.isRequired
     };
   }

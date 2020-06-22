@@ -7,11 +7,11 @@ const NotificationCardType = require('webserver-form-schema/constants/notificati
 const outputIcon = require('../../../resource/icon-output-40px.svg');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
-const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const CardsForm = require('./cards-form');
 const CustomTooltip = require('../../../core/components/tooltip');
 const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
-const CardsForm = require('./cards-form');
+const utils = require('../../../core/utils');
 
 module.exports = class Cards extends Base {
   static get propTypes() {
@@ -22,6 +22,9 @@ module.exports = class Cards extends Base {
           type: PropTypes.string.isRequired,
           title: PropTypes.string.isRequired
         })).isRequired
+      }).isRequired,
+      groups: PropTypes.shape({
+        items: PropTypes.array
       }).isRequired
     };
   }
@@ -46,6 +49,13 @@ module.exports = class Cards extends Base {
       })
     );
   };
+
+  cardLimitError = () => { // Over card limit 32
+    utils.showErrorNotification({
+      title: _('Cards Limit Error'),
+      message: _('Cannot create more than {0} cards', [NOTIFY_CARDS_MAX])
+    });
+  }
 
   generateChangeNotificationCardTypeFilter = cardType => {
     return event => {
