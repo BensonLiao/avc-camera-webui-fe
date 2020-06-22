@@ -7,7 +7,7 @@ const CustomTooltip = require('../../../core/components/tooltip');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const utils = require('../../../core/utils');
 
-module.exports = class CardsFormSchedule extends React.PureComponent {
+module.exports = class CardsFormSchedule extends React.Component {
   static get propTypes() {
     return {
       values: PropTypes.object.isRequired,
@@ -66,6 +66,7 @@ module.exports = class CardsFormSchedule extends React.PureComponent {
      const {isShowStartDatePicker, isShowEndDatePicker} = this.state;
      return (
        <>
+         {/* face-recognition */}
          <div className="form-group d-flex justify-content-between align-items-center">
            <label className="mb-0">{_('Schedule')}</label>
            <div className="custom-control custom-switch">

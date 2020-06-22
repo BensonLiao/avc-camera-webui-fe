@@ -10,7 +10,7 @@ const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
 
-module.exports = class CardsFormSubject extends React.PureComponent {
+module.exports = class CardsFormSubject extends React.Component {
   static get propTypes() {
     return {
       values: PropTypes.object.isRequired,
@@ -35,14 +35,12 @@ module.exports = class CardsFormSubject extends React.PureComponent {
 
    validateEmail = () => {
      const {values} = this.props;
-
      if (values.$email) {
        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.$email)) {
          return _('Invalid email address');
        }
 
        const emails = [...values.emails];
-
        if (emails.length > NOTIFY_CARDS_EMAIL_MAX - 1) {
          return _('Number of receiver E-mails limit is 64');
        }
@@ -101,7 +99,6 @@ module.exports = class CardsFormSubject extends React.PureComponent {
            </div>
          </div>
          <hr/>
-
          {/* VMS Notification */}
          <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.digitalInput})}>
            <div className="form-group d-flex justify-content-between align-items-center">
@@ -137,7 +134,6 @@ module.exports = class CardsFormSubject extends React.PureComponent {
            </div>
            <hr/>
          </div>
-
          {/* E-mail Notification */}
          <div className="form-group d-flex justify-content-between align-items-center">
            <label className="mb-0">{_('Email')}</label>
@@ -196,7 +192,6 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                      </div>
                    </div>
                    <CustomTooltip show={!values.$email} title={_('Please Enter an Email Address')}>
-
                      <div className="col-auto my-1">
                        <button
                          disabled={!values.$email}
@@ -210,7 +205,6 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                        </button>
                      </div>
                    </CustomTooltip>
-
                  </div>
                  <div className={classNames({'is-invalid': errors.$email && touched.$email})}>
                    {

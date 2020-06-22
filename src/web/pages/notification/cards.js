@@ -28,7 +28,6 @@ module.exports = class Cards extends Base {
 
   constructor(props) {
     super(props);
-    this.cardFormTitleRef = React.createRef();
     this.state.cards = this.props.cards.items;
     this.state.isShowCardDetailsModal = false;
     this.state.cardDetails = null;
@@ -38,6 +37,14 @@ module.exports = class Cards extends Base {
 
   onHideCardModal = () => {
     this.setState({isShowCardDetailsModal: false});
+  };
+
+  toggleIsTop = () => {
+    this.setState(
+      prevState => ({
+        isTop: !prevState.isTop
+      })
+    );
   };
 
   generateChangeNotificationCardTypeFilter = cardType => {
@@ -254,7 +261,7 @@ module.exports = class Cards extends Base {
   };
 
   render() {
-    const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, $isApiProcessing} = this.state;
+    const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, $isApiProcessing, isTop} = this.state;
     const {groups} = this.props;
     const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
     const topCards = filterCards.filter(x => x.isTop);
@@ -341,9 +348,11 @@ module.exports = class Cards extends Base {
             {/* Card Form Modal */}
             <CardsForm
               groups={groups}
+              cardDetails={cardDetails}
               isApiProcessing={$isApiProcessing}
               isShowCardDetailsModal={isShowCardDetailsModal}
-              cardDetails={cardDetails}
+              isTop={isTop}
+              toggleIsTop={this.toggleIsTop}
               sanitizeInput={this.sanitizeInput}
               onHideCardModal={this.onHideCardModal}
               onSubmit={this.onSubmitCardForm}

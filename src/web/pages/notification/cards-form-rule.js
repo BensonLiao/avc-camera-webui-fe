@@ -12,11 +12,6 @@ module.exports = class CardsFormRule extends React.PureComponent {
     };
   }
 
-  state = {
-    isShowStartDatePicker: false,
-    isShowEndDatePicker: false
-  };
-
   render() {
     const {values, groups} = this.props;
     return (
