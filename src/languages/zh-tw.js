@@ -211,6 +211,8 @@ window.languageResource = {
   'Please Enter an Email Address': '請輸入Email',
   'Unpin Card': '解除置頂',
   'Pin Card': '置頂',
+  'Edit Current Member': '編輯成員',
+  'Add as New Member': '新增為成員',
 
   // The error pages.
   'Not Found': '找不到此網頁',
