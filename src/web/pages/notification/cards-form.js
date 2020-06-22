@@ -76,7 +76,8 @@ module.exports = class CardsForm extends React.PureComponent {
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
-        isEnableFaceRecognition: card.isEnableFaceRecognition
+        isEnableFaceRecognition: card.isEnableFaceRecognition,
+        isEnableApp: card.isEnableApp
       };
     }
 
@@ -99,7 +100,8 @@ module.exports = class CardsForm extends React.PureComponent {
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
-      isEnableFaceRecognition: false
+      isEnableFaceRecognition: false,
+      isEnableApp: false
     };
   };
 
