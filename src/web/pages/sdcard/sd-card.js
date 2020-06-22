@@ -205,13 +205,21 @@ module.exports = class SDCard extends Base {
                       <Link className="text-danger" to="/notification/smtp">{_('Setup Email Notifications')}</Link>
                   }
                 </span>
-                <div className="custom-control custom-switch float-right">
-                  <Field disabled={!isEnableAuth} name="sdAlertEnabled" type="checkbox" className="custom-control-input" id="switch-output"/>
-                  <label className="custom-control-label" htmlFor="switch-output">
-                    <span>{_('ON')}</span>
-                    <span>{_('OFF')}</span>
-                  </label>
-                </div>
+                <CustomTooltip show={!isEnableAuth} title={_('Please Setup Email Notifications')}>
+                  <div className="custom-control custom-switch float-right">
+                    <Field
+                      disabled={!isEnableAuth}
+                      name="sdAlertEnabled"
+                      type="checkbox"
+                      style={isEnableAuth ? {} : {pointerEvents: 'none'}}
+                      className="custom-control-input"
+                      id="switch-output"/>
+                    <label className="custom-control-label" htmlFor="switch-output">
+                      <span>{_('ON')}</span>
+                      <span>{_('OFF')}</span>
+                    </label>
+                  </div>
+                </CustomTooltip>
               </div>
             </div>
           </div>

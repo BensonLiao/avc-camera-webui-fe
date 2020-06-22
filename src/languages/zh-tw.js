@@ -133,6 +133,7 @@ window.languageResource = {
   'notification-card-2': '人形偵測',
   'notification-card-3': '動作偵測',
   'notification-card-4': '破壞警報',
+  'notification-card-5': '數位輸出',
 
   // 辨識通知條件
   'Group Type': '群組類型',
@@ -210,6 +211,13 @@ window.languageResource = {
   'Please Enter Start and End Datetime': '請輸入開始與結束時間',
   'Maximum Allowed Number of Schedule is 5': '最多可輸入5個通知時間',
   'Please Enter an Email Address': '請輸入Email',
+  'Email: On': '電子郵件: 開',
+  'Output: On': '數位輸出: 開',
+  'VMS: On': '影像管理系統(VMS): 開',
+  'Show/Hide Detection Zone': '顯示/隱藏觸發區域',
+  'Please Setup Email Notifications': '請設定電子郵件通知',
+  'Hide Password': '隱藏密碼',
+  'Show Password': '顯示密碼',
   'Unpin Card': '解除置頂',
   'Pin Card': '置頂',
   'Edit Current Member': '編輯成員',
