@@ -7,7 +7,7 @@ const outputIcon = require('../../../resource/icon-output-40px.svg');
 const vmsIcon = require('../../../resource/icon-server-40px.svg');
 const utils = require('../../../core/utils');
 
-module.exports = class CardsSingleCard extends React.PureComponent {
+module.exports = class CardsListSingleCard extends React.PureComponent {
   static get propTypes() {
     return {
       card: PropTypes.shape({

@@ -1,4 +1,3 @@
-const classNames = require('classnames');
 const React = require('react');
 const PropTypes = require('prop-types');
 const progress = require('nprogress');
@@ -10,7 +9,8 @@ const api = require('../../../core/apis/web-api');
 const CardsForm = require('./cards-form');
 const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
 const utils = require('../../../core/utils');
-const CardsSingleCard = require('./cards-single-card');
+const CardsList = require('./cards-list');
+const CardsFilter = require('./cards-filter');
 
 module.exports = class Cards extends Base {
   static get propTypes() {
@@ -177,112 +177,25 @@ module.exports = class Cards extends Base {
   render() {
     const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, $isApiProcessing, isTop} = this.state;
     const {groups} = this.props;
-    const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
-    const topCards = filterCards.filter(x => x.isTop);
-    const normalCards = filterCards.filter(x => !x.isTop);
-    const cardTypeCheck = {
-      faceRecognition: cardTypeFilter === NotificationCardType.faceRecognition,
-      motionDetection: cardTypeFilter === NotificationCardType.motionDetection,
-      digitalInput: cardTypeFilter === NotificationCardType.digitalInput
-    };
     return (
       <>
         <div className="main-content left-menu-active  fixed-top-horizontal-scroll">
-          <div className="page-notification pt-0 pb-0">
-            <div className="container-fluid">
-              <div className="filter d-flex align-items-center text-nowrap mb-0">
-                <label className="mb-0">{_('Notification Filters')}</label>
-                <button
-                  className={classNames(
-                    'btn rounded-pill shadow-sm ml-4',
-                    {active: cardTypeFilter === 'all'},
-                    {'btn-primary': cardTypeFilter === 'all'}
-                  )} type="button"
-                  onClick={this.generateChangeNotificationCardTypeFilter('all')}
-                >{_('notification-card-filter-all')}
-                </button>
-                <button
-                  className={classNames(
-                    'btn rounded-pill shadow-sm ml-4',
-                    {active: cardTypeCheck.faceRecognition},
-                    {'btn-primary': cardTypeCheck.faceRecognition}
-                  )} type="button"
-                  onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.faceRecognition)}
-                >{_(`notification-card-${NotificationCardType.faceRecognition}`)}
-                </button>
-                <button
-                  className={classNames(
-                    'btn rounded-pill shadow-sm ml-4',
-                    {active: cardTypeCheck.motionDetection},
-                    {'btn-primary': cardTypeCheck.motionDetection}
-                  )} type="button"
-                  onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.motionDetection)}
-                >{_(`notification-card-${NotificationCardType.motionDetection}`)}
-                </button>
-                <button
-                  className={classNames(
-                    'btn rounded-pill shadow-sm ml-4',
-                    {active: cardTypeCheck.digitalInput},
-                    {'btn-primary': cardTypeCheck.digitalInput}
-                  )} type="button"
-                  onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.digitalInput)}
-                >{_(`notification-card-${NotificationCardType.digitalInput}`)}
-                </button>
-              </div>
-            </div>
-          </div>
+          <CardsFilter
+            cardTypeFilter={cardTypeFilter}
+            generateChangeNotificationCardTypeFilter={this.generateChangeNotificationCardTypeFilter}
+          />
         </div>
-
         <div className="main-content left-menu-active">
           <div className="page-notification pt-0">
-            <div className="container-fluid">
-              {
-                topCards.length > 0 && (
-                  <>
-                    <h3 className="mb-2">{_('Pinned')}</h3>
-                    <hr className="my-1"/>
-                    <div className="card-container">
-                      {topCards.map(card => (
-                        <CardsSingleCard
-                          key={card.id}
-                          card={card}
-                          groups={groups}
-                          isApiProcessing={$isApiProcessing}
-                          generateClickCardHandler={this.generateClickCardHandler}
-                          generateToggleTopHandler={this.generateToggleTopHandler}
-                          generateDeleteCardHandler={this.generateDeleteCardHandler}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )
-              }
-
-              <h3 className="mb-2">{_('Others')}</h3>
-              <hr className="my-1"/>
-
-              <div className="card-container mb-4">
-                {normalCards.map(card => (
-                  <CardsSingleCard
-                    key={card.id}
-                    card={card}
-                    groups={groups}
-                    isApiProcessing={$isApiProcessing}
-                    generateClickCardHandler={this.generateClickCardHandler}
-                    generateToggleTopHandler={this.generateToggleTopHandler}
-                    generateDeleteCardHandler={this.generateDeleteCardHandler}
-                  />
-                ))}
-              </div>
-
-              <div className="fixed-actions-section fixed-bottom text-center pb-5">
-                <button className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"
-                  type="button" onClick={this.generateClickCardHandler()}
-                >
-                  <i className="fas fa-plus"/>
-                </button>
-              </div>
-            </div>
+            <CardsList
+              cards={cards}
+              groups={groups}
+              cardTypeFilter={cardTypeFilter}
+              isApiProcessing={$isApiProcessing}
+              generateClickCardHandler={this.generateClickCardHandler}
+              generateToggleTopHandler={this.generateToggleTopHandler}
+              generateDeleteCardHandler={this.generateDeleteCardHandler}
+            />
 
             {/* Card Form Modal */}
             <CardsForm
