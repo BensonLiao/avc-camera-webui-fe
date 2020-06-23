@@ -18,6 +18,10 @@ module.exports = class Maintain extends Base {
     this.state.isShowFinishModal = false;
     this.state.finishModalTitle = _('Process finished');
     this.state.finishModalBody = '';
+    this.state.onConfirm = () => {
+      location.href = '/';
+    };
+
     this.state.isShowSelectModal = {
       reboot: false,
       reset: false
@@ -101,7 +105,7 @@ module.exports = class Maintain extends Base {
 
           test();
         })
-        .finally(() => {
+        .catch(() => {
           progress.done();
           this.hideApiProcessModal();
         });
@@ -121,22 +125,33 @@ module.exports = class Maintain extends Base {
     () => {
       api.system.deviceReset(resetIP)
         .then(() => {
-          api.system.deviceReboot()
-            .then(() => new Promise(resolve => {
-              // Check the server was shut down, if success then shutdown was failed and retry.
-              const test = () => {
-                api.ping('web')
-                  .then(() => {
-                    setTimeout(test, 500);
-                  })
-                  .catch(() => {
-                    resolve();
-                  });
-              };
+          new Promise(resolve => {
+            // Check the server was shut down, if success then shutdown was failed and retry.
+            const test = () => {
+              api.ping('web')
+                .then(() => {
+                  setTimeout(test, 500);
+                })
+                .catch(() => {
+                  resolve();
+                });
+            };
 
-              test();
-            }))
+            test();
+          })
             .then(() => {
+              if (resetIP) {
+                progress.done();
+                this.hideApiProcessModal();
+                this.setState({
+                  isShowFinishModal: true,
+                  finishModalTitle: _('Device Resetting to Factory Default'),
+                  finishModalBody: _('Please follow the user manual to access your camera.'),
+                  onConfirm: this.hideFinishModal
+                });
+                return;
+              }
+
               // Keep modal and update the title.
               this.setState({apiProcessModalTitle: _('Device Rebooting')});
               // Check the server was start up, if success then startup was failed and retry.
@@ -157,13 +172,9 @@ module.exports = class Maintain extends Base {
               };
 
               test();
-            })
-            .finally(() => {
-              progress.done();
-              this.hideApiProcessModal();
             });
         })
-        .finally(() => {
+        .catch(() => {
           progress.done();
           this.hideApiProcessModal();
         });
@@ -222,12 +233,12 @@ module.exports = class Maintain extends Base {
 
               test();
             })
-            .finally(() => {
+            .catch(() => {
               progress.done();
               this.hideApiProcessModal();
             });
         })
-        .finally(() => {
+        .catch(() => {
           progress.done();
           this.hideApiProcessModal();
         });
@@ -332,7 +343,8 @@ module.exports = class Maintain extends Base {
       apiProcessModalTitle,
       isShowFinishModal,
       finishModalTitle,
-      finishModalBody
+      finishModalBody,
+      onConfirm
     } = this.state;
     return (
       <div className="main-content left-menu-active">
@@ -364,9 +376,7 @@ module.exports = class Maintain extends Base {
                 modalTitle={finishModalTitle}
                 modalBody={finishModalBody}
                 onHide={this.hideFinishModal}
-                onConfirm={() => {
-                  location.href = '/';
-                }}/>
+                onConfirm={onConfirm}/>
 
               <div className="col-center">
                 <div className="card shadow">
