@@ -4,14 +4,13 @@ const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const sanitizeHtml = require('sanitize-html');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
-const outputIcon = require('../../../resource/icon-output-40px.svg');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const CardsForm = require('./cards-form');
-const CustomTooltip = require('../../../core/components/tooltip');
 const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
 const utils = require('../../../core/utils');
+const CardsSingleCard = require('./cards-single-card');
 
 module.exports = class Cards extends Base {
   static get propTypes() {
@@ -175,107 +174,17 @@ module.exports = class Cards extends Base {
     }
   };
 
-  cardRender = card => {
-    const {groups} = this.props;
-    const {$isApiProcessing} = this.state;
-
-    return (
-      <div key={card.id} className="card shadow overflow-hidden" onClick={this.generateClickCardHandler(card.id)}>
-        <div className="card-title d-flex justify-content-between align-items-center">
-          <div className="title text-truncate">
-            <CustomTooltip title={card.isTop ? _('Unpin Card') : _('Pin Card')}>
-              <button
-                disabled={$isApiProcessing} type="button"
-                className={classNames('btn btn-star rounded-pill', {'btn-secondary': !card.isTop})}
-                onClick={this.generateToggleTopHandler(card.id)}
-              >
-                <i className="fas fa-bell fa-fw fa-lg"/>
-              </button>
-            </CustomTooltip>
-
-            <a className="ml-3" href="#">{card.title}</a>
-          </div>
-          <div className="icons d-flex justify-content-end">
-            {
-              card.isEnableEmail && (
-                <div className="icon rounded-pill d-flex justify-content-center align-items-center">
-                  <i className="fas fa-envelope fa-fw fa-lg"/>
-                </div>
-              )
-            }
-            {
-              card.isEnableGPIO && (
-                <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
-                  <img src={outputIcon}/>
-                </div>
-              )
-            }
-          </div>
-        </div>
-        <div className="card-body">
-          <table>
-            <tbody>
-              <tr>
-                <th>{_('Analytic')}</th>
-                <td>{_(`notification-card-${card.type}`)}</td>
-              </tr>
-              {
-                card.timePeriods.map((timePeriod, index) => {
-                  const key = `${index}`;
-
-                  return (
-                    <tr key={key}>
-                      <th>{index === 0 ? _('Schedule') : ''}</th>
-                      <td>{`${utils.formatDate(timePeriod.start)} - ${utils.formatDate(timePeriod.end)}`}</td>
-                    </tr>
-                  );
-                })
-              }
-              <tr>
-                <th>{_('Rule')}</th>
-                <td>{_(`face-recognition-condition-${card.faceRecognitionCondition}`)}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div className="chips-wrapper">
-            <div className="chips">
-              {
-                card.groups.slice(0, 2).map(groupId => {
-                  const group = groups.items.find(x => x.id === groupId);
-                  return (
-                    <span key={groupId} className="border border-primary rounded-pill text-primary">
-                      {group ? group.name : ''}
-                    </span>
-                  );
-                })
-              }
-            </div>
-            {
-              card.groups.length > 2 && (
-                <div className="chips-sum-extra">
-                  <span className="border border-primary rounded-pill text-primary">+{card.groups.length - 2}</span>
-                </div>
-              )
-            }
-          </div>
-          <button
-            disabled={$isApiProcessing} type="button"
-            className="btn btn-secondary rounded-circle btn-delete"
-            onClick={this.generateDeleteCardHandler(card.id)}
-          >
-            <i className="far fa-trash-alt fa-lg"/>
-          </button>
-        </div>
-      </div>
-    );
-  };
-
   render() {
     const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, $isApiProcessing, isTop} = this.state;
     const {groups} = this.props;
     const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
     const topCards = filterCards.filter(x => x.isTop);
     const normalCards = filterCards.filter(x => !x.isTop);
+    const cardTypeCheck = {
+      faceRecognition: cardTypeFilter === NotificationCardType.faceRecognition,
+      motionDetection: cardTypeFilter === NotificationCardType.motionDetection,
+      digitalInput: cardTypeFilter === NotificationCardType.digitalInput
+    };
     return (
       <>
         <div className="main-content left-menu-active  fixed-top-horizontal-scroll">
@@ -295,8 +204,8 @@ module.exports = class Cards extends Base {
                 <button
                   className={classNames(
                     'btn rounded-pill shadow-sm ml-4',
-                    {active: cardTypeFilter === NotificationCardType.faceRecognition},
-                    {'btn-primary': cardTypeFilter === NotificationCardType.faceRecognition}
+                    {active: cardTypeCheck.faceRecognition},
+                    {'btn-primary': cardTypeCheck.faceRecognition}
                   )} type="button"
                   onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.faceRecognition)}
                 >{_(`notification-card-${NotificationCardType.faceRecognition}`)}
@@ -304,8 +213,8 @@ module.exports = class Cards extends Base {
                 <button
                   className={classNames(
                     'btn rounded-pill shadow-sm ml-4',
-                    {active: cardTypeFilter === NotificationCardType.motionDetection},
-                    {'btn-primary': cardTypeFilter === NotificationCardType.motionDetection}
+                    {active: cardTypeCheck.motionDetection},
+                    {'btn-primary': cardTypeCheck.motionDetection}
                   )} type="button"
                   onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.motionDetection)}
                 >{_(`notification-card-${NotificationCardType.motionDetection}`)}
@@ -313,8 +222,8 @@ module.exports = class Cards extends Base {
                 <button
                   className={classNames(
                     'btn rounded-pill shadow-sm ml-4',
-                    {active: cardTypeFilter === NotificationCardType.digitalInput},
-                    {'btn-primary': cardTypeFilter === NotificationCardType.digitalInput}
+                    {active: cardTypeCheck.digitalInput},
+                    {'btn-primary': cardTypeCheck.digitalInput}
                   )} type="button"
                   onClick={this.generateChangeNotificationCardTypeFilter(NotificationCardType.digitalInput)}
                 >{_(`notification-card-${NotificationCardType.digitalInput}`)}
@@ -333,7 +242,17 @@ module.exports = class Cards extends Base {
                     <h3 className="mb-2">{_('Pinned')}</h3>
                     <hr className="my-1"/>
                     <div className="card-container">
-                      {topCards.map(this.cardRender)}
+                      {topCards.map(card => (
+                        <CardsSingleCard
+                          key={card.id}
+                          card={card}
+                          groups={groups}
+                          isApiProcessing={$isApiProcessing}
+                          generateClickCardHandler={this.generateClickCardHandler}
+                          generateToggleTopHandler={this.generateToggleTopHandler}
+                          generateDeleteCardHandler={this.generateDeleteCardHandler}
+                        />
+                      ))}
                     </div>
                   </>
                 )
@@ -343,7 +262,17 @@ module.exports = class Cards extends Base {
               <hr className="my-1"/>
 
               <div className="card-container mb-4">
-                {normalCards.map(this.cardRender)}
+                {normalCards.map(card => (
+                  <CardsSingleCard
+                    key={card.id}
+                    card={card}
+                    groups={groups}
+                    isApiProcessing={$isApiProcessing}
+                    generateClickCardHandler={this.generateClickCardHandler}
+                    generateToggleTopHandler={this.generateToggleTopHandler}
+                    generateDeleteCardHandler={this.generateDeleteCardHandler}
+                  />
+                ))}
               </div>
 
               <div className="fixed-actions-section fixed-bottom text-center pb-5">
