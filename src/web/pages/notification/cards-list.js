@@ -49,7 +49,7 @@ module.exports = class CardsList extends React.PureComponent {
     const topCards = filterCards.filter(x => x.isTop);
     const normalCards = filterCards.filter(x => !x.isTop);
     return (
-      <div className="container-fluid">
+      <>
         {
           topCards.length > 0 && (
             <>
@@ -86,14 +86,7 @@ module.exports = class CardsList extends React.PureComponent {
             />
           ))}
         </div>
-        <div className="fixed-actions-section fixed-bottom text-center pb-5">
-          <button className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"
-            type="button" onClick={clickCardHandler()}
-          >
-            <i className="fas fa-plus"/>
-          </button>
-        </div>
-      </div>
+      </>
     );
   }
 };

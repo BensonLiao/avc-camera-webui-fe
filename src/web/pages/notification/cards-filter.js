@@ -21,49 +21,47 @@ module.exports = class CardsFilter extends React.PureComponent {
     };
 
     return (
-      <div className="page-notification pt-0 pb-0">
-        <div className="container-fluid">
-          <div className="filter d-flex align-items-center text-nowrap mb-0">
-            <label className="mb-0">{_('Notification Filters')}</label>
-            <button
-              className={classNames(
-                'btn rounded-pill shadow-sm ml-4',
-                {active: cardTypeFilter === 'all'},
-                {'btn-primary': cardTypeFilter === 'all'}
-              )} type="button"
-              onClick={changeCardTypeFilter('all')}
-            >{_('notification-card-filter-all')}
-            </button>
-            <button
-              className={classNames(
-                'btn rounded-pill shadow-sm ml-4',
-                {active: cardTypeCheck.faceRecognition},
-                {'btn-primary': cardTypeCheck.faceRecognition}
-              )} type="button"
-              onClick={changeCardTypeFilter(NotificationCardType.faceRecognition)}
-            >{_(`notification-card-${NotificationCardType.faceRecognition}`)}
-            </button>
-            <button
-              className={classNames(
-                'btn rounded-pill shadow-sm ml-4',
-                {active: cardTypeCheck.motionDetection},
-                {'btn-primary': cardTypeCheck.motionDetection}
-              )} type="button"
-              onClick={changeCardTypeFilter(NotificationCardType.motionDetection)}
-            >{_(`notification-card-${NotificationCardType.motionDetection}`)}
-            </button>
-            <button
-              className={classNames(
-                'btn rounded-pill shadow-sm ml-4',
-                {active: cardTypeCheck.digitalInput},
-                {'btn-primary': cardTypeCheck.digitalInput}
-              )} type="button"
-              onClick={changeCardTypeFilter(NotificationCardType.digitalInput)}
-            >{_(`notification-card-${NotificationCardType.digitalInput}`)}
-            </button>
-          </div>
-        </div>
+
+      <div className="filter d-flex align-items-center text-nowrap mb-0">
+        <label className="mb-0">{_('Notification Filters')}</label>
+        <button
+          className={classNames(
+            'btn rounded-pill shadow-sm ml-4',
+            {active: cardTypeFilter === 'all'},
+            {'btn-primary': cardTypeFilter === 'all'}
+          )} type="button"
+          onClick={changeCardTypeFilter('all')}
+        >{_('notification-card-filter-all')}
+        </button>
+        <button
+          className={classNames(
+            'btn rounded-pill shadow-sm ml-4',
+            {active: cardTypeCheck.faceRecognition},
+            {'btn-primary': cardTypeCheck.faceRecognition}
+          )} type="button"
+          onClick={changeCardTypeFilter(NotificationCardType.faceRecognition)}
+        >{_(`notification-card-${NotificationCardType.faceRecognition}`)}
+        </button>
+        <button
+          className={classNames(
+            'btn rounded-pill shadow-sm ml-4',
+            {active: cardTypeCheck.motionDetection},
+            {'btn-primary': cardTypeCheck.motionDetection}
+          )} type="button"
+          onClick={changeCardTypeFilter(NotificationCardType.motionDetection)}
+        >{_(`notification-card-${NotificationCardType.motionDetection}`)}
+        </button>
+        <button
+          className={classNames(
+            'btn rounded-pill shadow-sm ml-4',
+            {active: cardTypeCheck.digitalInput},
+            {'btn-primary': cardTypeCheck.digitalInput}
+          )} type="button"
+          onClick={changeCardTypeFilter(NotificationCardType.digitalInput)}
+        >{_(`notification-card-${NotificationCardType.digitalInput}`)}
+        </button>
       </div>
+
     );
   }
 };

@@ -195,24 +195,38 @@ module.exports = class Cards extends Base {
     return (
       <>
         <div className="main-content left-menu-active  fixed-top-horizontal-scroll">
-          <CardsFilter
-            cardTypeFilter={cardTypeFilter}
-            changeCardTypeFilter={this.changeCardTypeFilter}
-          />
+          <div className="page-notification pt-0 pb-0">
+            <div className="container-fluid">
+              <CardsFilter
+                cardTypeFilter={cardTypeFilter}
+                changeCardTypeFilter={this.changeCardTypeFilter}
+              />
+            </div>
+          </div>
         </div>
         <div className="main-content left-menu-active">
           <div className="page-notification pt-0">
-            <CardsList
-              cards={cards}
-              groups={groups}
-              cardTypeFilter={cardTypeFilter}
-              isApiProcessing={$isApiProcessing}
-              clickCardHandler={this.clickCardHandler}
-              toggleIsTopHandler={this.toggleIsTopHandler}
-              deleteCardHandler={this.deleteCardHandler}
-            />
-
-            {/* Card Form Modal */}
+            <div className="container-fluid">
+              <CardsList
+                cards={cards}
+                groups={groups}
+                cardTypeFilter={cardTypeFilter}
+                isApiProcessing={$isApiProcessing}
+                clickCardHandler={this.clickCardHandler}
+                toggleIsTopHandler={this.toggleIsTopHandler}
+                deleteCardHandler={this.deleteCardHandler}
+              />
+              <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
+                <button
+                  className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"
+                  type="button"
+                  style={{pointerEvents: 'auto'}}
+                  onClick={this.clickCardHandler()}
+                >
+                  <i className="fas fa-plus"/>
+                </button>
+              </div>
+            </div>
             <CardsForm
               groups={groups}
               cardDetails={cardDetails}
