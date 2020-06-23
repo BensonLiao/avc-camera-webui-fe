@@ -3,27 +3,46 @@ const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const sanitizeHtml = require('sanitize-html');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
-const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const CardsForm = require('./cards-form');
+const Base = require('../shared/base');
 const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
 const utils = require('../../../core/utils');
-const CardsList = require('./cards-list');
 const CardsFilter = require('./cards-filter');
+const CardsForm = require('./cards-form');
+const CardsList = require('./cards-list');
 
 module.exports = class Cards extends Base {
   static get propTypes() {
     return {
       cards: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
+          emailAttachmentType: PropTypes.string.isRequired,
+          emails: PropTypes.array.isRequired,
+          faceRecognitionCondition: PropTypes.string.isRequired,
+          faceRecognitionVMSEvent: PropTypes.string.isRequired,
+          groups: PropTypes.array.isRequired,
           id: PropTypes.number.isRequired,
-          type: PropTypes.string.isRequired,
-          title: PropTypes.string.isRequired
+          isEnableApp: PropTypes.bool.isRequired,
+          isEnableEmail: PropTypes.bool.isRequired,
+          isEnableFaceRecognition: PropTypes.bool.isRequired,
+          isEnableGPIO: PropTypes.bool.isRequired,
+          isEnableGPIO1: PropTypes.bool.isRequired,
+          isEnableGPIO2: PropTypes.bool.isRequired,
+          isEnableTime: PropTypes.bool.isRequired,
+          isEnableVMS: PropTypes.bool.isRequired,
+          isTop: PropTypes.bool.isRequired,
+          timePeriods: PropTypes.array.isRequired,
+          title: PropTypes.string.isRequired,
+          type: PropTypes.string.isRequired
         })).isRequired
       }).isRequired,
       groups: PropTypes.shape({
-        items: PropTypes.array
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string.isRequired
+        }).isRequired)
       }).isRequired
     };
   }
@@ -42,11 +61,7 @@ module.exports = class Cards extends Base {
   };
 
   toggleIsTop = () => {
-    this.setState(
-      prevState => ({
-        isTop: !prevState.isTop
-      })
-    );
+    this.setState(prevState => ({isTop: !prevState.isTop}));
   };
 
   cardLimitError = () => { // Over card limit 32
@@ -56,14 +71,14 @@ module.exports = class Cards extends Base {
     });
   }
 
-  generateChangeNotificationCardTypeFilter = cardType => {
+  changeCardTypeFilter = cardType => {
     return event => {
       event.preventDefault();
       this.setState({cardTypeFilter: cardType});
     };
   }
 
-  generateDeleteCardHandler = cardId => event => {
+  deleteCardHandler = cardId => event => {
     event.preventDefault();
     event.stopPropagation();
     progress.start();
@@ -80,7 +95,7 @@ module.exports = class Cards extends Base {
       .finally(progress.done);
   };
 
-  generateToggleTopHandler = cardId => event => {
+  toggleIsTopHandler = cardId => event => {
     event.preventDefault();
     event.stopPropagation();
     const card = {...this.state.cards.find(x => x.id === cardId)};
@@ -99,7 +114,7 @@ module.exports = class Cards extends Base {
       .finally(progress.done);
   };
 
-  generateClickCardHandler = cardId => event => {
+  clickCardHandler = cardId => event => {
     event.preventDefault();
     if (cardId == null) {
       if (this.state.cards.length >= NOTIFY_CARDS_MAX) {
@@ -177,12 +192,14 @@ module.exports = class Cards extends Base {
   render() {
     const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, $isApiProcessing, isTop} = this.state;
     const {groups} = this.props;
+    console.log('groups', groups);
+    console.log(cards);
     return (
       <>
         <div className="main-content left-menu-active  fixed-top-horizontal-scroll">
           <CardsFilter
             cardTypeFilter={cardTypeFilter}
-            generateChangeNotificationCardTypeFilter={this.generateChangeNotificationCardTypeFilter}
+            changeCardTypeFilter={this.changeCardTypeFilter}
           />
         </div>
         <div className="main-content left-menu-active">
@@ -192,9 +209,9 @@ module.exports = class Cards extends Base {
               groups={groups}
               cardTypeFilter={cardTypeFilter}
               isApiProcessing={$isApiProcessing}
-              generateClickCardHandler={this.generateClickCardHandler}
-              generateToggleTopHandler={this.generateToggleTopHandler}
-              generateDeleteCardHandler={this.generateDeleteCardHandler}
+              clickCardHandler={this.clickCardHandler}
+              toggleIsTopHandler={this.toggleIsTopHandler}
+              deleteCardHandler={this.deleteCardHandler}
             />
 
             {/* Card Form Modal */}

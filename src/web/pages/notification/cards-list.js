@@ -31,17 +31,17 @@ module.exports = class CardsList extends React.PureComponent {
       groups: PropTypes.shape({
         items: PropTypes.array
       }).isRequired,
-      cardTypeFilter: PropTypes.oneOf(['all', PropTypes.number.isRequired]).isRequired,
+      cardTypeFilter: PropTypes.string.isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
-      generateClickCardHandler: PropTypes.func.isRequired,
-      generateDeleteCardHandler: PropTypes.func.isRequired,
-      generateToggleTopHandler: PropTypes.func.isRequired
+      clickCardHandler: PropTypes.func.isRequired,
+      deleteCardHandler: PropTypes.func.isRequired,
+      toggleIsTopHandler: PropTypes.func.isRequired
 
     };
   }
 
   render() {
-    const {cards, groups, cardTypeFilter, isApiProcessing, generateClickCardHandler, generateDeleteCardHandler, generateToggleTopHandler} = this.props;
+    const {cards, groups, cardTypeFilter, isApiProcessing, clickCardHandler, deleteCardHandler, toggleIsTopHandler} = this.props;
     const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
     const topCards = filterCards.filter(x => x.isTop);
     const normalCards = filterCards.filter(x => !x.isTop);
@@ -59,9 +59,9 @@ module.exports = class CardsList extends React.PureComponent {
                     card={card}
                     groups={groups}
                     isApiProcessing={isApiProcessing}
-                    generateClickCardHandler={generateClickCardHandler}
-                    generateToggleTopHandler={generateToggleTopHandler}
-                    generateDeleteCardHandler={generateDeleteCardHandler}
+                    clickCardHandler={clickCardHandler}
+                    toggleIsTopHandler={toggleIsTopHandler}
+                    deleteCardHandler={deleteCardHandler}
                   />
                 ))}
               </div>
@@ -77,15 +77,15 @@ module.exports = class CardsList extends React.PureComponent {
               card={card}
               groups={groups}
               isApiProcessing={isApiProcessing}
-              generateClickCardHandler={generateClickCardHandler}
-              generateToggleTopHandler={generateToggleTopHandler}
-              generateDeleteCardHandler={generateDeleteCardHandler}
+              clickCardHandler={clickCardHandler}
+              toggleIsTopHandler={toggleIsTopHandler}
+              deleteCardHandler={deleteCardHandler}
             />
           ))}
         </div>
         <div className="fixed-actions-section fixed-bottom text-center pb-5">
           <button className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"
-            type="button" onClick={generateClickCardHandler()}
+            type="button" onClick={clickCardHandler()}
           >
             <i className="fas fa-plus"/>
           </button>

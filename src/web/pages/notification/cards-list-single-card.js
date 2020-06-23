@@ -31,9 +31,9 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
         type: PropTypes.string.isRequired
       }).isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
-      generateClickCardHandler: PropTypes.func.isRequired,
-      generateDeleteCardHandler: PropTypes.func.isRequired,
-      generateToggleTopHandler: PropTypes.func.isRequired,
+      clickCardHandler: PropTypes.func.isRequired,
+      deleteCardHandler: PropTypes.func.isRequired,
+      toggleIsTopHandler: PropTypes.func.isRequired,
       groups: PropTypes.shape({
         items: PropTypes.array
       }).isRequired
@@ -41,17 +41,17 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
   }
 
   render() {
-    const {card, groups, isApiProcessing, generateClickCardHandler, generateDeleteCardHandler, generateToggleTopHandler} = this.props;
+    const {card, groups, isApiProcessing, clickCardHandler, deleteCardHandler, toggleIsTopHandler} = this.props;
     return (
       <>
-        <div key={card.id} className="card shadow overflow-hidden" onClick={generateClickCardHandler(card.id)}>
+        <div key={card.id} className="card shadow overflow-hidden" onClick={clickCardHandler(card.id)}>
           <div className="card-title d-flex justify-content-between align-items-center">
             <div className="title text-truncate">
               <CustomTooltip title={card.isTop ? _('Unpin Card') : _('Pin Card')}>
                 <button
                   disabled={isApiProcessing} type="button"
                   className={classNames('btn btn-star rounded-pill', {'btn-secondary': !card.isTop})}
-                  onClick={generateToggleTopHandler(card.id)}
+                  onClick={toggleIsTopHandler(card.id)}
                 >
                   <i className="fas fa-bell fa-fw fa-lg"/>
                 </button>
@@ -138,7 +138,7 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
             <button
               disabled={isApiProcessing} type="button"
               className="btn btn-secondary rounded-circle btn-delete"
-              onClick={generateDeleteCardHandler(card.id)}
+              onClick={deleteCardHandler(card.id)}
             >
               <i className="far fa-trash-alt fa-lg"/>
             </button>

@@ -8,12 +8,12 @@ module.exports = class CardsFilter extends React.PureComponent {
   static get propTypes() {
     return {
       cardTypeFilter: PropTypes.string.isRequired,
-      generateChangeNotificationCardTypeFilter: PropTypes.func.isRequired
+      changeCardTypeFilter: PropTypes.func.isRequired
     };
   }
 
   render() {
-    const {cardTypeFilter, generateChangeNotificationCardTypeFilter} = this.props;
+    const {cardTypeFilter, changeCardTypeFilter} = this.props;
     const cardTypeCheck = {
       faceRecognition: cardTypeFilter === NotificationCardType.faceRecognition,
       motionDetection: cardTypeFilter === NotificationCardType.motionDetection,
@@ -31,7 +31,7 @@ module.exports = class CardsFilter extends React.PureComponent {
                 {active: cardTypeFilter === 'all'},
                 {'btn-primary': cardTypeFilter === 'all'}
               )} type="button"
-              onClick={generateChangeNotificationCardTypeFilter('all')}
+              onClick={changeCardTypeFilter('all')}
             >{_('notification-card-filter-all')}
             </button>
             <button
@@ -40,7 +40,7 @@ module.exports = class CardsFilter extends React.PureComponent {
                 {active: cardTypeCheck.faceRecognition},
                 {'btn-primary': cardTypeCheck.faceRecognition}
               )} type="button"
-              onClick={generateChangeNotificationCardTypeFilter(NotificationCardType.faceRecognition)}
+              onClick={changeCardTypeFilter(NotificationCardType.faceRecognition)}
             >{_(`notification-card-${NotificationCardType.faceRecognition}`)}
             </button>
             <button
@@ -49,7 +49,7 @@ module.exports = class CardsFilter extends React.PureComponent {
                 {active: cardTypeCheck.motionDetection},
                 {'btn-primary': cardTypeCheck.motionDetection}
               )} type="button"
-              onClick={generateChangeNotificationCardTypeFilter(NotificationCardType.motionDetection)}
+              onClick={changeCardTypeFilter(NotificationCardType.motionDetection)}
             >{_(`notification-card-${NotificationCardType.motionDetection}`)}
             </button>
             <button
@@ -58,7 +58,7 @@ module.exports = class CardsFilter extends React.PureComponent {
                 {active: cardTypeCheck.digitalInput},
                 {'btn-primary': cardTypeCheck.digitalInput}
               )} type="button"
-              onClick={generateChangeNotificationCardTypeFilter(NotificationCardType.digitalInput)}
+              onClick={changeCardTypeFilter(NotificationCardType.digitalInput)}
             >{_(`notification-card-${NotificationCardType.digitalInput}`)}
             </button>
           </div>
