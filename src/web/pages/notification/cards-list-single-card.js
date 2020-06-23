@@ -30,13 +30,17 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
         title: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired
       }).isRequired,
+      groups: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string.isRequired
+        }).isRequired)
+      }).isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
       clickCardHandler: PropTypes.func.isRequired,
       deleteCardHandler: PropTypes.func.isRequired,
-      toggleIsTopHandler: PropTypes.func.isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.array
-      }).isRequired
+      toggleIsTopHandler: PropTypes.func.isRequired
     };
   }
 

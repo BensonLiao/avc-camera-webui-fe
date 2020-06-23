@@ -9,7 +9,11 @@ module.exports = class CardsFormRule extends React.PureComponent {
     return {
       isEnableFaceRecognition: PropTypes.bool.isRequired,
       groups: PropTypes.shape({
-        items: PropTypes.array
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string.isRequired
+        }).isRequired)
       }).isRequired
     };
   }

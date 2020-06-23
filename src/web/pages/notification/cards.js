@@ -192,8 +192,6 @@ module.exports = class Cards extends Base {
   render() {
     const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, $isApiProcessing, isTop} = this.state;
     const {groups} = this.props;
-    console.log('groups', groups);
-    console.log(cards);
     return (
       <>
         <div className="main-content left-menu-active  fixed-top-horizontal-scroll">

@@ -19,12 +19,35 @@ const CustomTooltip = require('../../../core/components/tooltip');
 module.exports = class CardsForm extends React.PureComponent {
   static get propTypes() {
     return {
+      cardDetails: PropTypes.shape({
+        emailAttachmentType: PropTypes.string.isRequired,
+        emails: PropTypes.array.isRequired,
+        faceRecognitionCondition: PropTypes.string.isRequired,
+        faceRecognitionVMSEvent: PropTypes.string.isRequired,
+        groups: PropTypes.array.isRequired,
+        id: PropTypes.number.isRequired,
+        isEnableApp: PropTypes.bool.isRequired,
+        isEnableEmail: PropTypes.bool.isRequired,
+        isEnableFaceRecognition: PropTypes.bool.isRequired,
+        isEnableGPIO: PropTypes.bool.isRequired,
+        isEnableGPIO1: PropTypes.bool.isRequired,
+        isEnableGPIO2: PropTypes.bool.isRequired,
+        isEnableTime: PropTypes.bool.isRequired,
+        isEnableVMS: PropTypes.bool.isRequired,
+        isTop: PropTypes.bool.isRequired,
+        timePeriods: PropTypes.array.isRequired,
+        title: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired
+      }),
       groups: PropTypes.shape({
-        items: PropTypes.array
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string.isRequired
+        }).isRequired)
       }).isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
       isShowCardDetailsModal: PropTypes.bool.isRequired,
-      cardDetails: PropTypes.object,
       isTop: PropTypes.bool.isRequired,
       toggleIsTop: PropTypes.func.isRequired,
       sanitizeInput: PropTypes.func.isRequired,
@@ -116,6 +139,7 @@ module.exports = class CardsForm extends React.PureComponent {
       toggleIsTop,
       sanitizeInput} = this.props;
     const {isCardTitleOnFocus} = this.state;
+
     return (
       <Modal
         autoFocus={false}

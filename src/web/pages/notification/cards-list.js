@@ -29,14 +29,17 @@ module.exports = class CardsList extends React.PureComponent {
         }).isRequired
       ).isRequired,
       groups: PropTypes.shape({
-        items: PropTypes.array
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string.isRequired
+        }).isRequired)
       }).isRequired,
-      cardTypeFilter: PropTypes.string.isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
+      cardTypeFilter: PropTypes.string.isRequired,
       clickCardHandler: PropTypes.func.isRequired,
       deleteCardHandler: PropTypes.func.isRequired,
       toggleIsTopHandler: PropTypes.func.isRequired
-
     };
   }
 
