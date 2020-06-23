@@ -43,14 +43,16 @@ module.exports = class MembersSidebar extends React.PureComponent {
           <div className="groups">
             <div className="sub-title py-1 px-4">
               <h3>{_('Groups')}</h3>
-              <CustomTooltip title={_('Create a Group')}>
-                <Link
-                  to={{name: 'web.users.members.new-group', params: params}}
-                  tabIndex={(isAddGroupDisabled ? -1 : null)}
-                  className={classNames('btn btn-link text-info p-0', {disabled: isAddGroupDisabled})}
-                >
-                  <i className="fas fa-plus text-size-16"/>
-                </Link>
+              <CustomTooltip title={isAddGroupDisabled ? _('Group Limit Reached') : _('Create a Group')}>
+                <span>
+                  <Link
+                    to={{name: 'web.users.members.new-group', params: params}}
+                    tabIndex={(isAddGroupDisabled ? -1 : null)}
+                    className={classNames('btn btn-link text-info p-0', {disabled: isAddGroupDisabled})}
+                  >
+                    <i className="fas fa-plus text-size-16"/>
+                  </Link>
+                </span>
               </CustomTooltip>
             </div>
             {
