@@ -66,80 +66,76 @@ module.exports = class EventsTable extends React.PureComponent {
   render() {
     const {params, events, filterHandler, modifyMemberHandler} = this.props;
     const defaultIconClass = 'fas fa-fw text-muted ml-3';
-
-    const sort = {
-      time: {
+    const tableField = [
+      {
         handler: filterHandler('sort', (params.sort || '-time') === '-time' ? 'time' : null),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': (params.sort || '-time') === '-time'},
-          {'fa-caret-up': params.sort === 'time'})
+          {'fa-caret-up': params.sort === 'time'}),
+        title: _('Time'), width: {width: '14%'}
       },
-      name: {
+      {
+        title: _('Capture'), width: {width: '10%'}
+      },
+      {
+        title: _('User Picture'), width: {width: '10%'}
+      },
+      {
         handler: filterHandler('sort', params.sort === 'name' ? '-name' : 'name'),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-name'},
-          {'fa-caret-up': params.sort === 'name'})
+          {'fa-caret-up': params.sort === 'name'}),
+        title: _('Name'), width: {width: '10%'}
       },
-      organization: {
-        handler: filterHandler('sort', params.sort === 'organization' ? '-organization' : 'organization'),
-        icon: classNames(defaultIconClass,
-          {'fa-caret-down': params.sort === '-organization'},
-          {'fa-caret-up': params.sort === 'organization'})
-      },
-      group: {
+      {
         handler: filterHandler('sort', params.sort === 'group' ? '-group' : 'group'),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-group'},
-          {'fa-caret-up': params.sort === 'group'})
+          {'fa-caret-up': params.sort === 'group'}),
+        title: _('Group'), width: {width: '8%'}
       },
-      confidence: {
+      {
+        handler: filterHandler('sort', params.sort === 'organization' ? '-organization' : 'organization'),
+        icon: classNames(defaultIconClass,
+          {'fa-caret-down': params.sort === '-organization'},
+          {'fa-caret-up': params.sort === 'organization'}),
+        title: _('Organization'), width: {width: '14%'}
+      },
+      {
         handler: filterHandler('sort', params.sort === 'confidence' ? '-confidence' : 'confidence'),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-confidence'},
-          {'fa-caret-up': params.sort === 'confidence'})
+          {'fa-caret-up': params.sort === 'confidence'}),
+        title: _('Similarity'), width: {width: '10%'}
       },
-      recognitionResult: {
+      {
         handler: filterHandler('sort', params.sort === 'recognitionResult' ? '-recognitionResult' : 'recognitionResult'),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-recognitionResult'},
-          {'fa-caret-up': params.sort === 'recognitionResult'})
+          {'fa-caret-up': params.sort === 'recognitionResult'}),
+        title: _('Recognition Result'), width: {width: '8%'}
+      },
+      {
+        title: _('Note'), width: {width: '10%'}
+      },
+      {
+        title: _('Actions'), width: {width: '6%'}
       }
-    };
+    ];
 
     return (
-
       <div className="col-12 mb-5">
         <table className="table custom-style" style={{tableLayout: 'fixed'}}>
           <thead>
             <tr className="shadow">
-              <th style={{width: '14%'}}>
-                <a href="#time" onClick={sort.time.handler}>{_('Time')}</a>
-                <i className={sort.time.icon}/>
-              </th>
-              <th style={{width: '10%'}}>{_('Capture')}</th>
-              <th style={{width: '10%'}}>{_('User Picture')}</th>
-              <th style={{width: '10%'}}>
-                <a href="#" onClick={sort.name.handler}>{_('Name')}</a>
-                <i className={sort.name.icon}/>
-              </th>
-              <th style={{width: '8%'}}>
-                <a href="#" onClick={sort.group.handler}>{_('Group')}</a>
-                <i className={sort.group.icon}/>
-              </th>
-              <th style={{width: '14%'}}>
-                <a href="#" onClick={sort.organization.handler}>{_('Organization')}</a>
-                <i className={sort.organization.icon}/>
-              </th>
-              <th style={{width: '10%'}}>
-                <a href="#" onClick={sort.confidence.handler}>{_('Similarity')}</a>
-                <i className={sort.confidence.icon}/>
-              </th>
-              <th style={{width: '8%'}}>
-                <a href="#" onClick={sort.recognitionResult.handler}>{_('Recognition Result')}</a>
-                <i className={sort.recognitionResult.icon}/>
-              </th>
-              <th style={{width: '10%'}}>{_('Note')}</th>
-              <th style={{width: '6%'}}>{_('Actions')}</th>
+              {tableField.map(item => {
+                const render = item.handler ? (<><a href="#" onClick={item.handler}>{item.title}</a><i className={item.icon}/></>) : item.title;
+                return (
+                  <th key={item.title} style={item.width}>
+                    {render}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>

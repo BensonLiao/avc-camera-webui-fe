@@ -87,10 +87,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 dateTabText={_('Start Date')}
                 timeTabText={_('Start Time')}
                 inputProps={{
-                  className: classNames(
-                    'btn start-date px-4',
-                    {active: isShowStartDatePicker}
-                  ),
+                  className: classNames('btn start-date px-4', {active: isShowStartDatePicker}),
                   placeholder: _('Start Datetime'),
                   style: {whiteSpace: 'nowrap'}
                 }}
@@ -105,10 +102,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 dateTabText={_('End Date')}
                 timeTabText={_('End Time')}
                 inputProps={{
-                  className: classNames(
-                    'btn end-date px-4',
-                    {active: isShowEndDatePicker}
-                  ),
+                  className: classNames('btn end-date px-4', {active: isShowEndDatePicker}),
                   placeholder: _('End Datetime'),
                   style: {whiteSpace: 'nowrap'}
                 }}
