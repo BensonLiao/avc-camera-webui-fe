@@ -35,7 +35,7 @@ const memberGroups = [
 const members = [
   {
     id: uuidv4(),
-    name: 'Scarlett Johannson something test very long',
+    name: 'Scarlett Johannson',
     organization: 'Godess',
     groupId: memberGroups[0].id,
     note: '"Let me put you on hold."',

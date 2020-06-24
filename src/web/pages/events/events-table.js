@@ -65,67 +65,44 @@ module.exports = class EventsTable extends React.PureComponent {
 
   render() {
     const {params, events, filterHandler, modifyMemberHandler} = this.props;
+    const defaultIconClass = 'fas fa-fw text-muted ml-3';
 
     const sort = {
       time: {
-        handler: filterHandler(
-          'sort',
-          (params.sort || '-time') === '-time' ? 'time' : null
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': (params.sort || '-time') === '-time',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'time'
-        })
+        handler: filterHandler('sort', (params.sort || '-time') === '-time' ? 'time' : null),
+        icon: classNames(defaultIconClass,
+          {'fa-caret-down': (params.sort || '-time') === '-time'},
+          {'fa-caret-up': params.sort === 'time'})
       },
       name: {
-        handler: filterHandler(
-          'sort',
-          params.sort === 'name' ? '-name' : 'name'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-name',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'name'
-        })
+        handler: filterHandler('sort', params.sort === 'name' ? '-name' : 'name'),
+        icon: classNames(defaultIconClass,
+          {'fa-caret-down': params.sort === '-name'},
+          {'fa-caret-up': params.sort === 'name'})
       },
       organization: {
-        handler: filterHandler(
-          'sort',
-          params.sort === 'organization' ? '-organization' : 'organization'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-organization',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'organization'
-        })
+        handler: filterHandler('sort', params.sort === 'organization' ? '-organization' : 'organization'),
+        icon: classNames(defaultIconClass,
+          {'fa-caret-down': params.sort === '-organization'},
+          {'fa-caret-up': params.sort === 'organization'})
       },
       group: {
-        handler: filterHandler(
-          'sort',
-          params.sort === 'group' ? '-group' : 'group'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-group',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'group'
-        })
+        handler: filterHandler('sort', params.sort === 'group' ? '-group' : 'group'),
+        icon: classNames(defaultIconClass,
+          {'fa-caret-down': params.sort === '-group'},
+          {'fa-caret-up': params.sort === 'group'})
       },
       confidence: {
-        handler: filterHandler(
-          'sort',
-          params.sort === 'confidence' ? '-confidence' : 'confidence'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-confidence',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'confidence'
-        })
+        handler: filterHandler('sort', params.sort === 'confidence' ? '-confidence' : 'confidence'),
+        icon: classNames(defaultIconClass,
+          {'fa-caret-down': params.sort === '-confidence'},
+          {'fa-caret-up': params.sort === 'confidence'})
       },
       recognitionResult: {
-        handler: filterHandler(
-          'sort',
-          params.sort === 'recognitionResult' ? '-recognitionResult' : 'recognitionResult'
-        ),
-        icon: classNames({
-          'fas fa-fw text-muted ml-3 fa-caret-down': params.sort === '-recognitionResult',
-          'fas fa-fw text-muted ml-3 fa-caret-up': params.sort === 'recognitionResult'
-        })
+        handler: filterHandler('sort', params.sort === 'recognitionResult' ? '-recognitionResult' : 'recognitionResult'),
+        icon: classNames(defaultIconClass,
+          {'fa-caret-down': params.sort === '-recognitionResult'},
+          {'fa-caret-up': params.sort === 'recognitionResult'})
       }
     };
 
@@ -181,6 +158,7 @@ module.exports = class EventsTable extends React.PureComponent {
                 const item = event.confidences[0];
                 const lengthCheck = event.confidences.length;
                 const ifExists = lengthCheck > 0 && item.member;
+                const isEnrolled = lengthCheck > 0 && item.enrollStatus === EnrollStatus.registered;
                 return (
                   <tr key={event.id}>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
@@ -222,11 +200,9 @@ module.exports = class EventsTable extends React.PureComponent {
                       {
                         lengthCheck > 0 && (
                           <CustomTooltip title={item.score}>
-                            {
-                              item.enrollStatus === EnrollStatus.registered ?
-                                <span className="badge badge-success badge-pill">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
-                                <span className="badge badge-danger badge-pill">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
-                            }
+                            <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
+                              {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
+                            </span>
                           </CustomTooltip>
                         )
                       }
@@ -239,16 +215,11 @@ module.exports = class EventsTable extends React.PureComponent {
                       </CustomTooltip>
                     </td>
                     <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
-                      {(() => {
-                        const isEnrolled = lengthCheck > 0 && item.enrollStatus === EnrollStatus.registered;
-                        return (
-                          <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
-                            <button className="btn btn-link" type="button" onClick={isEnrolled ? modifyMemberHandler(item.member) : modifyMemberHandler(null, event.pictureThumbUrl)}>
-                              <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
-                            </button>
-                          </CustomTooltip>
-                        );
-                      })()}
+                      <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
+                        <button className="btn btn-link" type="button" onClick={isEnrolled ? modifyMemberHandler(item.member) : modifyMemberHandler(null, event.pictureThumbUrl)}>
+                          <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
+                        </button>
+                      </CustomTooltip>
                     </td>
                   </tr>
                 );
