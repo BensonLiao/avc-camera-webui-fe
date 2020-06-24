@@ -203,6 +203,7 @@ window.languageResource = {
   'Please Select a File First': '請先選擇一個檔案',
   'Please Disable SD Card First': '請先關掉SD卡',
   'No Values Have Changed': '數值沒有更動',
+  'Group Limit Reached': '已達群組數量限制',
   'Please Enable HTTPS': '請開啟HTTPS功能',
   'This Account is Protected': '此帳戶不可刪除',
   'Cannot Delete Account That is Currently Logged In': '無法刪除正在使用的帳號',
