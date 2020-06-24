@@ -71,7 +71,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
    * @param {String} value
    * @returns {Function} The handler.
    */
-  generateToggleFilterHandler = (paramKey, value) => () => {
+  toggleFilterHandler = (paramKey, value) => () => {
     const params = this.convertArrayParams(this.props.params[paramKey]);
     const indexOfConfidences = params.indexOf(value);
 
@@ -95,55 +95,42 @@ module.exports = class EventsSidebar extends React.PureComponent {
     const {params} = this.props;
     const confidence = this.convertArrayParams(params.confidence);
     const enrollStatus = this.convertArrayParams(params.enrollStatus);
-
+    const similarityRender = [
+      {confidence: Confidence.low, id: 'input-checkbox-low-similar'},
+      {confidence: Confidence.medium, id: 'input-checkbox-medium-similar'},
+      {confidence: Confidence.high, id: 'input-checkbox-high-similar'}
+    ];
+    const resultRender = [
+      {status: EnrollStatus.registered, id: 'input-checkbox-register'},
+      {status: EnrollStatus.unknown, id: 'input-checkbox-anonymous'}
+    ];
     return (
       <div className="card-body">
         <span>{_('Similarity')}</span>
         <div className="checkbox-group mt-3 pl-2">
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-low-similar"
-              checked={confidence.indexOf(Confidence.low) >= 0}
-              onChange={this.generateToggleFilterHandler('confidence', Confidence.low)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-low-similar">
-              {_(`confidence-${Confidence.low}`)}
-            </label>
-          </div>
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-medium-similar"
-              checked={confidence.indexOf(Confidence.medium) >= 0}
-              onChange={this.generateToggleFilterHandler('confidence', Confidence.medium)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-medium-similar">
-              {_(`confidence-${Confidence.medium}`)}
-            </label>
-          </div>
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-high-similar"
-              checked={confidence.indexOf(Confidence.high) >= 0}
-              onChange={this.generateToggleFilterHandler('confidence', Confidence.high)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-high-similar">
-              {_(`confidence-${Confidence.high}`)}
-            </label>
-          </div>
+          {similarityRender.map(item => (
+            <div key={item.id} className="form-check mb-3">
+              <input type="checkbox" className="form-check-input" id={item.id}
+                checked={confidence.indexOf(item.confidence) >= 0}
+                onChange={this.toggleFilterHandler('confidence', item.confidence)}/>
+              <label className="form-check-label" htmlFor={item.id}>
+                {_(`confidence-${item.confidence}`)}
+              </label>
+            </div>
+          ))}
         </div>
-
         <span>{_('Recognition Result')}</span>
         <div className="checkbox-group mt-3 mb-2 pl-2">
-          <div className="form-check mb-3">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-register"
-              checked={enrollStatus.indexOf(EnrollStatus.registered) >= 0}
-              onChange={this.generateToggleFilterHandler('enrollStatus', EnrollStatus.registered)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-register">
-              {_(`enroll-status-${EnrollStatus.registered}`)}
-            </label>
-          </div>
-          <div className="form-check">
-            <input type="checkbox" className="form-check-input" id="input-checkbox-anonymous"
-              checked={enrollStatus.indexOf(EnrollStatus.unknown) >= 0}
-              onChange={this.generateToggleFilterHandler('enrollStatus', EnrollStatus.unknown)}/>
-            <label className="form-check-label" htmlFor="input-checkbox-anonymous">
-              {_(`enroll-status-${EnrollStatus.unknown}`)}
-            </label>
-          </div>
+          {resultRender.map(item => (
+            <div key={item.id} className={classNames('form-check', {'mb-3': item.status === '1'})}>
+              <input type="checkbox" className="form-check-input" id={item.id}
+                checked={enrollStatus.indexOf(item.status) >= 0}
+                onChange={this.toggleFilterHandler('enrollStatus', item.status)}/>
+              <label className="form-check-label" htmlFor={item.id}>
+                {_(`enroll-status-${item.status}`)}
+              </label>
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -151,10 +138,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
 
   render() {
     const {
-      systemInformation: {
-        isEnableFaceRecognition,
-        isEnableAgeGender,
-        isEnableHumanoidDetection},
+      systemInformation: {isEnableFaceRecognition, isEnableAgeGender, isEnableHumanoidDetection},
       type,
       currentRouteName
     } = this.props;

@@ -174,7 +174,6 @@ module.exports = class EventsTable extends React.PureComponent {
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                       {ifExists ? <img className="rounded-circle" src={`data:image/jpeg;base64,${item.member.pictures[0]}`} style={{height: '56px'}}/> : '-'}
                     </td>
-
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                       <CustomTooltip title={ifExists ? item.member.name : ''}>
                         <div style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>
@@ -182,7 +181,6 @@ module.exports = class EventsTable extends React.PureComponent {
                         </div>
                       </CustomTooltip>
                     </td>
-
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                       {ifExists ? (this.findGroup(item.member.groupId) || {name: '-'}).name : '-'}
                     </td>
