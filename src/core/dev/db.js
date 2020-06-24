@@ -11,55 +11,56 @@ const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
+const defaultPhotos = require('./default-photos');
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
 const memberGroups = [
   {
     id: uuidv4(),
-    name: '業務部',
+    name: '暗殺部',
     note: '#主要執行AVC與AB的相關業務部門'
   },
   {
     id: uuidv4(),
-    name: '開發部',
+    name: '精神病院',
     note: '#主要執行AVC與AB的研究開發'
   },
   {
     id: uuidv4(),
-    name: '開發部2',
+    name: '火星太空站',
     note: ''
   }
 ];
 const members = [
   {
     id: uuidv4(),
-    name: 'abby2',
-    organization: 'SW',
+    name: 'Scarlett Johannson',
+    organization: 'Godess',
     groupId: memberGroups[0].id,
-    note: 'note',
+    note: '"Let me put you on hold."',
     pictures: [
-      'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
+      defaultPhotos.user.scarlett
     ]
   },
   {
     id: uuidv4(),
-    name: 'benson',
-    organization: 'SW',
+    name: 'Kim Jung Un',
+    organization: 'Psych Ward',
     groupId: memberGroups[1].id,
-    note: 'note',
+    note: 'Has No Nuclear Weapon',
     pictures: [
-      'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
+      defaultPhotos.user.kim
     ]
   },
   {
     id: uuidv4(),
-    name: 'elon musk',
-    organization: 'SW',
+    name: 'Elon Musk',
+    organization: 'SpaceX',
     groupId: memberGroups[2].id,
-    note: 'tesla',
+    note: 'Iron Man',
     pictures: [
-      'iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN'
+      defaultPhotos.user.elon
     ]
   }
 ];
@@ -306,43 +307,15 @@ module.exports = {
         isEnableLoginNotification: false,
         isEnableAuth: true
       },
-      notificationCards: [
-        {
-          emailAttachmentType: '0',
-          senderSubject: 'Test subject',
-          senderContent: 'this is email content',
-          emails: [
-            'rodger0531@gmail.com'
-          ],
-          faceRecognitionCondition: '0',
-          groups: [],
-          id: 1,
-          isEnableApp: false,
-          isEnableEmail: false,
-          isEnableFaceRecognition: true,
-          isEnableGPIO: false,
-          isEnableGPIO1: false,
-          isEnableGPIO2: false,
-          isEnableTime: false,
-          isTop: false,
-          timePeriods: [
-            {
-              id: '89i591c9qb',
-              start: '2020-06-03T06:29:32.869Z',
-              end: '2020-09-18T06:29:32.869Z',
-              isRepeat: false
-            }
-          ],
-          title: 'Default test',
-          type: '0'
-        }
-      ],
+      notificationCards: [{id: 1, type: '0', title: 'FR', isTop: false, isEnableTime: true, timePeriods: [{id: 'xx9urlxa87q', start: '2020-06-01T02:01:43.172Z', end: '2020-06-04T02:01:43.172Z', isRepeat: false}], isEnableGPIO: false, isEnableGPIO1: false, isEnableGPIO2: false, isEnableApp: false, isEnableEmail: false, isEnableVMS: true, faceRecognitionVMSEvent: '0', emails: ['test@a.com'], emailAttachmentType: '0', groups: [], isEnableFaceRecognition: false, faceRecognitionCondition: '1'},
+        {id: 2, type: '3', title: 'Motion Detection', isTop: true, isEnableTime: true, timePeriods: [{id: 'u14iphxq2n', start: '2020-06-03T02:04:09.439Z', end: '2020-06-23T02:04:09.440Z', isRepeat: false}, {id: '82n5o8kcmf3', start: '2020-06-10T02:04:09.439Z', end: '2020-06-16T02:04:09.440Z', isRepeat: false}, {id: 'zbvd5d2hywt', start: '2020-08-07T02:04:09.439Z', end: '2020-09-18T02:04:09.440Z', isRepeat: false}, {id: 'fsri48cr4n', start: '2020-08-05T02:04:09.439Z', end: '2020-09-03T02:04:09.440Z', isRepeat: false}, {id: 'xovlkrg8so', start: '2020-08-05T02:04:09.439Z', end: '2020-09-29T02:04:09.440Z', isRepeat: false}], isEnableGPIO: true, isEnableGPIO1: true, isEnableGPIO2: false, isEnableApp: false, isEnableEmail: true, isEnableVMS: true, faceRecognitionVMSEvent: '0', emails: ['test1@b.com', 'test2@c.com'], emailAttachmentType: '0', groups: [], isEnableFaceRecognition: false, faceRecognitionCondition: '0'},
+        {id: 3, type: '0', title: 'FR2', isTop: true, isEnableTime: true, timePeriods: [{id: 'vam1qo63kb', start: '2020-06-09T02:06:17.274Z', end: '2020-06-12T02:06:17.275Z', isRepeat: false}], isEnableGPIO: true, isEnableGPIO1: true, isEnableGPIO2: true, isEnableApp: false, isEnableEmail: true, isEnableVMS: true, faceRecognitionVMSEvent: '0', emails: ['testd@abc.com'], emailAttachmentType: '0', groups: [memberGroups[0].id], isEnableFaceRecognition: true, faceRecognitionCondition: '0'}],
       groups: memberGroups,
       members,
       faceEvents: [
         {
           id: uuidv4(),
-          pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
+          pictureThumbUrl: defaultPhotos.event.scarlett,
           time: '2019-10-02T12:00:00.000Z',
           confidences: [
             {
@@ -355,7 +328,7 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
+          pictureThumbUrl: defaultPhotos.event.jackman,
           time: '2020-01-02T12:00:00.000Z',
           confidences: [
             {
@@ -367,7 +340,7 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
+          pictureThumbUrl: defaultPhotos.event.kim,
           time: '2020-02-02T12:00:00.000Z',
           confidences: [
             {
@@ -380,7 +353,7 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: 'data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAANIAAAAzCAYAAADigVZlAAAQN0lEQVR4nO2dCXQTxxnHl0LT5jVteHlN',
+          pictureThumbUrl: defaultPhotos.event.elon,
           time: '2020-03-03T12:00:00.000Z',
           confidences: [
             {
@@ -397,21 +370,21 @@ module.exports = {
           id: 1,
           account: 'abby',
           birthday: '19860221',
-          permission: 0,
+          permission: '0',
           password: 'aA12345678'
         },
         {
           id: 2,
           account: 'minchien',
           birthday: '19860221',
-          permission: 0,
+          permission: '0',
           password: 'bB12345678'
         },
         {
           id: 3,
           account: 'barry123',
           birthday: '19860221',
-          permission: 1,
+          permission: '1',
           password: 'cC12345678'
         }
       ],
