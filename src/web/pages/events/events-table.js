@@ -177,90 +177,82 @@ module.exports = class EventsTable extends React.PureComponent {
               )
             }
             {
-              events.items.map((event, index) => (
-                <tr key={event.id}>
-                  <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                    {utils.formatDate(event.time, {withSecond: true})}
-                  </td>
-                  <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                    <div style={{width: 56, height: 56}}>
-                      <div className="rounded-circle overflow-hidden" style={{margin: 0, padding: '0 0 100%', position: 'relative'}}>
-                        <div style={{background: '50%', backgroundSize: 'cover', width: '100%', height: '100%', position: 'absolute', left: 0, top: 0, backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
+              events.items.map((event, index) => {
+                const item = event.confidences[0];
+                const lengthCheck = event.confidences.length;
+                const ifExists = lengthCheck > 0 && item.member;
+                return (
+                  <tr key={event.id}>
+                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                      {utils.formatDate(event.time, {withSecond: true})}
+                    </td>
+                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                      <div style={{width: 56, height: 56}}>
+                        <div className="rounded-circle overflow-hidden" style={{margin: 0, padding: '0 0 100%', position: 'relative'}}>
+                          <div style={{background: '50%', backgroundSize: 'cover', width: '100%', height: '100%', position: 'absolute', left: 0, top: 0, backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                    {
-                      event.confidences.length > 0 && event.confidences[0].member ?
-                        <img className="rounded-circle" src={`data:image/jpeg;base64,${event.confidences[0].member.pictures[0]}`} style={{height: '56px'}}/> :
-                        '-'
-                    }
-                  </td>
-                  <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                    {
-                      event.confidences.length > 0 && event.confidences[0].member ?
-                        event.confidences[0].member.name :
-                        '-'
-                    }
-                  </td>
-                  <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                    {
-                      event.confidences.length > 0 && event.confidences[0].member ?
-                        (this.findGroup(event.confidences[0].member.groupId) || {name: '-'}).name :
-                        '-'
-                    }
-                  </td>
-                  <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                    {
-                      event.confidences.length > 0 && event.confidences[0].member ?
-                        event.confidences[0].member.organization || '-' :
-                        '-'
-                    }
-                  </td>
-                  <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                    {
-                      event.confidences.length > 0 ?
-                        _(`confidence-${event.confidences[0].confidence}`) :
-                        '-'
-                    }
-                  </td>
-                  <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                    {
-                      event.confidences.length > 0 && (
-                        <CustomTooltip title={event.confidences[0].score}>
-                          {
-                            event.confidences[0].enrollStatus === EnrollStatus.registered ?
-                              <span className="badge badge-success badge-pill">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
-                              <span className="badge badge-danger badge-pill">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
-                          }
-                        </CustomTooltip>
-                      )
-                    }
-                  </td>
-                  <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                    {
-                      event.confidences.length > 0 && event.confidences[0].member ?
-                        event.confidences[0].member.note || '-' :
-                        '-'
-                    }
-                  </td>
-                  <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
-                    {
-                      event.confidences.length > 0 && event.confidences[0].enrollStatus === EnrollStatus.registered ?
-                        <CustomTooltip title={_('Edit Current Member')}>
-                          <button className="btn btn-link" type="button" onClick={modifyMemberHandler(event.confidences[0].member)}>
-                            <i className="fas fa-pen fa-fw"/>
-                          </button>
-                        </CustomTooltip> :
-                        <CustomTooltip title={_('Add as New Member')}>
-                          <button className="btn btn-link" type="button" onClick={modifyMemberHandler(null, event.pictureThumbUrl)}>
-                            <i className="fas fa-plus text-size-20"/>
-                          </button>
-                        </CustomTooltip>
-                    }
-                  </td>
-                </tr>
-              ))
+                    </td>
+                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                      {ifExists ? <img className="rounded-circle" src={`data:image/jpeg;base64,${item.member.pictures[0]}`} style={{height: '56px'}}/> : '-'}
+                    </td>
+
+                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                      <CustomTooltip title={ifExists ? item.member.name : ''}>
+                        <div style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>
+                          {ifExists ? item.member.name : '-'}
+                        </div>
+                      </CustomTooltip>
+                    </td>
+
+                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                      {ifExists ? (this.findGroup(item.member.groupId) || {name: '-'}).name : '-'}
+                    </td>
+                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                      <CustomTooltip title={ifExists ? item.member.organization || '-' : ''}>
+                        <div style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>
+                          {ifExists ? item.member.organization || '-' : '-'}
+                        </div>
+                      </CustomTooltip>
+                    </td>
+                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                      {lengthCheck > 0 ? _(`confidence-${item.confidence}`) : '-'}
+                    </td>
+                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                      {
+                        lengthCheck > 0 && (
+                          <CustomTooltip title={item.score}>
+                            {
+                              item.enrollStatus === EnrollStatus.registered ?
+                                <span className="badge badge-success badge-pill">{_(`enroll-status-${EnrollStatus.registered}`)}</span> :
+                                <span className="badge badge-danger badge-pill">{_(`enroll-status-${EnrollStatus.unknown}`)}</span>
+                            }
+                          </CustomTooltip>
+                        )
+                      }
+                    </td>
+                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                      <CustomTooltip title={ifExists ? item.member.note || '-' : ''}>
+                        <div style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>
+                          {ifExists ? item.member.note || '-' : '-'}
+                        </div>
+                      </CustomTooltip>
+                    </td>
+                    <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
+                      {(() => {
+                        const isEnrolled = lengthCheck > 0 && item.enrollStatus === EnrollStatus.registered;
+                        return (
+                          <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
+                            <button className="btn btn-link" type="button" onClick={isEnrolled ? modifyMemberHandler(item.member) : modifyMemberHandler(null, event.pictureThumbUrl)}>
+                              <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
+                            </button>
+                          </CustomTooltip>
+                        );
+                      })()}
+                    </td>
+                  </tr>
+                );
+              })
             }
           </tbody>
         </table>
