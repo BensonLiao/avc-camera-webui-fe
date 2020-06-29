@@ -36,7 +36,7 @@ module.exports = class CustomTooltip extends React.PureComponent {
             }
           }
         }}
-        overlay={<Tooltip className={classNames({'d-none': !show})}>{title}</Tooltip>}
+        overlay={<Tooltip className={classNames({'d-none': !show || !title})}>{title}</Tooltip>}
       >
         {children}
       </OverlayTrigger>
