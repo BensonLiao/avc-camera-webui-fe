@@ -228,7 +228,7 @@ module.exports = class Member extends React.PureComponent {
     return (
       <Form>
         <div className="modal-body">
-          <div className="avatar-uploader d-flex align-items-center">
+          <div className="avatar-uploader d-flex flex-column align-items-center">
             <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
               <div style={{transform: avatarPreviewStyle.transform}}>
                 <Draggable
