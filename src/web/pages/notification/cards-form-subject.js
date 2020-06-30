@@ -4,7 +4,6 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
-const NotificationFaceRecognitionVMSEvent = require('webserver-form-schema/constants/notification-face-recognition-vms-event');
 const {NOTIFY_CARDS_EMAIL_MAX} = require('../../../core/constants');
 const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
@@ -16,7 +15,6 @@ module.exports = class CardsFormSubject extends React.PureComponent {
       values: PropTypes.shape({
         type: PropTypes.string.isRequired,
         isEnableGPIO: PropTypes.bool.isRequired,
-        isEnableVMS: PropTypes.bool.isRequired,
         $email: PropTypes.string.isRequired,
         emails: PropTypes.array.isRequired
       }).isRequired,
@@ -105,41 +103,6 @@ module.exports = class CardsFormSubject extends React.PureComponent {
            </div>
          </div>
          <hr/>
-         {/* VMS Notification */}
-         <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.digitalInput})}>
-           <div className="form-group d-flex justify-content-between align-items-center">
-             <label className="mb-0">{_('Video Management System')}</label>
-             <div className="custom-control custom-switch">
-               <Field name="isEnableVMS" type="checkbox" className="custom-control-input" id="switch-notification-target-vms" checked={values.isEnableVMS}/>
-               <label className="custom-control-label" htmlFor="switch-notification-target-vms">
-                 <span>{_('ON')}</span>
-                 <span>{_('OFF')}</span>
-               </label>
-             </div>
-           </div>
-           <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.motionDetection})}>
-             <div className="card">
-               <div className="card-body">
-                 <div className="form-group">
-                   <label className="text-size-16 mb-0">{_('Method')}</label>
-                 </div>
-                 <div className="form-group">
-                   {
-                     NotificationFaceRecognitionVMSEvent.all().map(RecognitionVMSEvent => (
-                       <div key={RecognitionVMSEvent} className="form-check mb-3">
-                         <Field name="faceRecognitionVMSEvent" className="form-check-input" type="radio" id={`input-notification-vms-event-${RecognitionVMSEvent}`} value={RecognitionVMSEvent}/>
-                         <label className="form-check-label" htmlFor={`input-notification-vms-event-${RecognitionVMSEvent}`}>
-                           {_(`notification-vms-event-${RecognitionVMSEvent}`)}
-                         </label>
-                       </div>
-                     ))
-                   }
-                 </div>
-               </div>
-             </div>
-           </div>
-           <hr/>
-         </div>
          {/* E-mail Notification */}
          <div className="form-group d-flex justify-content-between align-items-center">
            <label className="mb-0">{_('Email')}</label>
@@ -154,7 +117,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
          <div className="form-group">
            <div className="card">
              <div className="card-body">
-               <div className={classNames('form-group', {'d-none': values.type === NotificationCardType.digitalInput})}>
+               <div className={classNames('form-group mb-2', {'d-none': values.type === NotificationCardType.digitalInput})}>
                  <label className="text-size-16 mb-3">{_('Email Attachment')}</label>
                  <div className="select-wrapper border rounded-pill overflow-hidden">
                    <Field
@@ -176,8 +139,24 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                  </div>
                  <hr/>
                </div>
-               <div className="form-group">
-                 <label className="text-size-16 mb-3">{_('Receiver')}</label>
+               <div className="form-group mb-4">
+                 <label className="text-size-16">Subject :</label>
+                 <Field
+                   name="senderSubject"
+                   type="text"
+                   className="form-control"
+                   placeholder={_('Specify the subject of notification emails.')}/>
+               </div>
+               <div className="form-group mb-4">
+                 <label className="text-size-16">Content :</label>
+                 <Field
+                   name="senderContent"
+                   type="text"
+                   className="form-control"
+                   placeholder={_('Append your message to notification emails.')}/>
+               </div>
+               <div className="form-group mb-3">
+                 <label className="text-size-16 mb-0">{_('Receiver')} :</label>
                  <div className="form-row">
                    <div className="col-auto my-1">
                      <div className="input-group">

@@ -4,7 +4,6 @@ const React = require('react');
 const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
 const outputIcon = require('../../../resource/icon-output-40px.svg');
-const vmsIcon = require('../../../resource/icon-server-40px.svg');
 const utils = require('../../../core/utils');
 
 module.exports = class CardsListSingleCard extends React.PureComponent {
@@ -14,7 +13,6 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
         emailAttachmentType: PropTypes.string.isRequired,
         emails: PropTypes.array.isRequired,
         faceRecognitionCondition: PropTypes.string.isRequired,
-        faceRecognitionVMSEvent: PropTypes.string.isRequired,
         groups: PropTypes.array.isRequired,
         id: PropTypes.number.isRequired,
         isEnableApp: PropTypes.bool.isRequired,
@@ -24,7 +22,6 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
         isEnableGPIO1: PropTypes.bool.isRequired,
         isEnableGPIO2: PropTypes.bool.isRequired,
         isEnableTime: PropTypes.bool.isRequired,
-        isEnableVMS: PropTypes.bool.isRequired,
         isTop: PropTypes.bool.isRequired,
         timePeriods: PropTypes.array.isRequired,
         title: PropTypes.string.isRequired,
@@ -78,15 +75,6 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
                   <CustomTooltip title={_('Output: On')}>
                     <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
                       <img src={outputIcon}/>
-                    </div>
-                  </CustomTooltip>
-                )
-              }
-              {
-                card.isEnableVMS && (
-                  <CustomTooltip title={_('VMS: On')}>
-                    <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
-                      <img src={vmsIcon}/>
                     </div>
                   </CustomTooltip>
                 )

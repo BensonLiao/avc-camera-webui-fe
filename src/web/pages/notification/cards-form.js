@@ -9,7 +9,6 @@ const React = require('react');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
-const NotificationFaceRecognitionVMSEvent = require('webserver-form-schema/constants/notification-face-recognition-vms-event');
 const _ = require('../../../languages');
 const CardsFormSchedule = require('./cards-form-schedule');
 const CardsFormRule = require('./cards-form-rule');
@@ -23,7 +22,6 @@ module.exports = class CardsForm extends React.PureComponent {
         emailAttachmentType: PropTypes.string.isRequired,
         emails: PropTypes.array.isRequired,
         faceRecognitionCondition: PropTypes.string.isRequired,
-        faceRecognitionVMSEvent: PropTypes.string.isRequired,
         groups: PropTypes.array.isRequired,
         id: PropTypes.number.isRequired,
         isEnableApp: PropTypes.bool.isRequired,
@@ -33,7 +31,6 @@ module.exports = class CardsForm extends React.PureComponent {
         isEnableGPIO1: PropTypes.bool.isRequired,
         isEnableGPIO2: PropTypes.bool.isRequired,
         isEnableTime: PropTypes.bool.isRequired,
-        isEnableVMS: PropTypes.bool.isRequired,
         isTop: PropTypes.bool.isRequired,
         timePeriods: PropTypes.array.isRequired,
         title: PropTypes.string.isRequired,
@@ -94,11 +91,11 @@ module.exports = class CardsForm extends React.PureComponent {
         isEnableGPIO1: card.isEnableGPIO1,
         isEnableGPIO2: card.isEnableGPIO2,
         isEnableEmail: card.isEnableEmail,
-        isEnableVMS: card.isEnableVMS,
-        faceRecognitionVMSEvent: card.faceRecognitionVMSEvent,
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
+        senderSubject: card.senderSubject,
+        senderContent: card.senderContent,
         isEnableFaceRecognition: card.isEnableFaceRecognition,
         isEnableApp: card.isEnableApp
       };
@@ -118,11 +115,11 @@ module.exports = class CardsForm extends React.PureComponent {
       isEnableGPIO1: false,
       isEnableGPIO2: false,
       isEnableEmail: false,
-      isEnableVMS: true,
-      faceRecognitionVMSEvent: NotificationFaceRecognitionVMSEvent.motionDetect,
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
+      senderSubject: '',
+      senderContent: '',
       isEnableFaceRecognition: false,
       isEnableApp: false
     };

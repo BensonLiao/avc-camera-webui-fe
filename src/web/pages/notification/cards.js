@@ -2,7 +2,6 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const sanitizeHtml = require('sanitize-html');
-const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const Base = require('../shared/base');
@@ -20,7 +19,6 @@ module.exports = class Cards extends Base {
           emailAttachmentType: PropTypes.string.isRequired,
           emails: PropTypes.array.isRequired,
           faceRecognitionCondition: PropTypes.string.isRequired,
-          faceRecognitionVMSEvent: PropTypes.string.isRequired,
           groups: PropTypes.array.isRequired,
           id: PropTypes.number.isRequired,
           isEnableApp: PropTypes.bool.isRequired,
@@ -30,7 +28,6 @@ module.exports = class Cards extends Base {
           isEnableGPIO1: PropTypes.bool.isRequired,
           isEnableGPIO2: PropTypes.bool.isRequired,
           isEnableTime: PropTypes.bool.isRequired,
-          isEnableVMS: PropTypes.bool.isRequired,
           isTop: PropTypes.bool.isRequired,
           timePeriods: PropTypes.array.isRequired,
           title: PropTypes.string.isRequired,
@@ -152,9 +149,6 @@ module.exports = class Cards extends Base {
       groups: values.$groups ? [values.$groups] : [],
       title: this.sanitizeInput(values.title)
     };
-    if (data.type === NotificationCardType.digitalInput) {
-      data.isEnableVMS = false;
-    }
 
     if (data.id == null) {
       // Create a new card.
