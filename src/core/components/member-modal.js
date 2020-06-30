@@ -244,7 +244,7 @@ module.exports = class Member extends React.PureComponent {
               </div>
             </label>
 
-            <label className="btn btn-outline-primary text-nowrap mt-2">
+            <label className="btn btn-outline-primary mt-2">
               <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar}/>
               {_('Upload Image')}
             </label>
