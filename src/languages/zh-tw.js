@@ -571,7 +571,7 @@ window.languageResource = {
   Confidence: '相似度',
   'Can\'t find any data.': '查無相符資料，請重新搜尋。',
   Filters: '篩選條件',
-  Clean: '清除條件',
+  Clear: '清除條件',
   'Facial Recognition': '臉部辨識',
   'Age Gender': '性別年齡',
   'Human Detection': '人形偵測',

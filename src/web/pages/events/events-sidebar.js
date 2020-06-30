@@ -53,11 +53,11 @@ module.exports = class EventsSidebar extends React.PureComponent {
   };
 
   /**
-   * Clean filter on user clicks.
+   * Clear filter on user clicks.
    * @param {*} event
    * @returns {void}
    */
-  onClickCleanFilters = event => {
+  onClickClearFilters = event => {
     event.preventDefault();
     getRouter().go({
       name: this.props.currentRouteName,
@@ -148,7 +148,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
         <div className="filter-wrapper">
           <div className="header d-flex justify-content-between align-items-center  text-size-12">
             <span>{_('Filters')}</span>
-            <a className="text-primary font-weight-bold" href="#" onClick={this.onClickCleanFilters}>{_('Clean')}</a>
+            <a className="text-primary font-weight-bold" href="#" onClick={this.onClickClearFilters}>{_('Clear')}</a>
           </div>
 
           <div className={classNames('card sub mb-3', {active: type === 'face-recognition' && isEnableFaceRecognition})}>

@@ -35,7 +35,7 @@ module.exports = class MembersSearchForm extends React.PureComponent {
       >
         <Form className="form-row">
           <div className="col-auto">
-            <Field name="keyword" className="form-control" type="text" placeholder={_('Enter keywords')}/>
+            <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
           </div>
           <div className="col-auto">
             <button disabled={isApiProcessing}
