@@ -115,7 +115,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
           </div>
           <div className="form-row mt-4">
             <div className="col-auto px-0">
-              <Field name="keyword" className="form-control" type="text" placeholder={_('Enter keywords')}/>
+              <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
             </div>
             <div className="col-auto px-0 ml-3">
               <button className="btn btn-outline-primary rounded-pill px-3" type="submit">
