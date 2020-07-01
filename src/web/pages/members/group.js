@@ -106,7 +106,7 @@ module.exports = class Group extends Base {
                 <div className="invalid-feedback">{errors.name}</div>
               )
             }
-            <small className="form-text text-muted">{_('Letters within 16 characters.')}</small>
+            <small className="form-text text-muted">{_('Letters within 32 characters.')}</small>
           </div>
           <div className="form-group">
             <label>{_('Note')}</label>
