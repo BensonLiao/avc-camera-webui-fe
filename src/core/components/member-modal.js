@@ -228,7 +228,7 @@ module.exports = class Member extends React.PureComponent {
     return (
       <Form>
         <div className="modal-body">
-          <div className="avatar-uploader">
+          <div className="avatar-uploader d-flex flex-column align-items-center">
             <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
               <div style={{transform: avatarPreviewStyle.transform}}>
                 <Draggable
@@ -244,7 +244,7 @@ module.exports = class Member extends React.PureComponent {
               </div>
             </label>
 
-            <label className="btn btn-outline-primary avatar-button">
+            <label className="btn btn-outline-primary mt-2">
               <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar}/>
               {_('Upload Image')}
             </label>
