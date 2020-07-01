@@ -39,7 +39,6 @@
   h3 {
     font-size: 20px;
     color: #666;
-    text-transform: uppercase;
   }
   hr {
     border-color: #6C757D;
@@ -132,6 +131,14 @@
 
   .fixed-actions-section {
     padding-left: 336px;
+    .btn {
+      .fa-plus{
+        transition: 0.5s;
+      }
+      &:hover .fa-plus{
+        transform: rotate(90deg);
+      }
+    }
   }
 }
 
