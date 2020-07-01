@@ -9,7 +9,7 @@ const MaskArea = require('../../../core/components/fields/mask-area');
 const api = require('../../../core/apis/web-api');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
-
+const CustomTooltip = require('../../../core/components/tooltip');
 module.exports = class FaceRecognition extends Base {
   static get propTypes() {
     return {
@@ -151,13 +151,15 @@ module.exports = class FaceRecognition extends Base {
                     <label className="mb-0">{_('Detection Zone')}</label>
                     <i className="fas fa-info-circle text-size-14 text-primary pl-2"/>
                   </div>
-                  <div className="custom-control custom-switch">
-                    <a className="form-control-feedback text-muted"
-                      tabIndex={-1} onClick={this.onToggleDetectionZone}
-                    >
-                      <i className={classNames('fas', isShowDetectionZone ? 'fa-eye' : 'fa-eye-slash')}/>
-                    </a>
-                  </div>
+                  <CustomTooltip title={_('Show/Hide Detection Zone')}>
+                    <div className="custom-control custom-switch">
+                      <a className="form-control-feedback text-muted"
+                        tabIndex={-1} onClick={this.onToggleDetectionZone}
+                      >
+                        <i className={classNames('fas', isShowDetectionZone ? 'fa-eye' : 'fa-eye-slash')}/>
+                      </a>
+                    </div>
+                  </CustomTooltip>
                 </div>
                 <span className="text-size-16 text-primary">
                   {_('Default is Fullscreen')}
