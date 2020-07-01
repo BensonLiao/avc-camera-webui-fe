@@ -10,6 +10,7 @@ const utils = require('../../../core/utils');
 const CardsFilter = require('./cards-filter');
 const CardsForm = require('./cards-form');
 const CardsList = require('./cards-list');
+const CustomTooltip = require('../../../core/components/tooltip');
 
 module.exports = class Cards extends Base {
   static get propTypes() {
@@ -211,14 +212,16 @@ module.exports = class Cards extends Base {
                 deleteCardHandler={this.deleteCardHandler}
               />
               <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
-                <button
-                  className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"
-                  type="button"
-                  style={{pointerEvents: 'auto'}}
-                  onClick={this.clickCardHandler()}
-                >
-                  <i className="fas fa-plus"/>
-                </button>
+                <CustomTooltip title={_('Add New Notification Card')}>
+                  <button
+                    className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"
+                    type="button"
+                    style={{pointerEvents: 'auto'}}
+                    onClick={this.clickCardHandler()}
+                  >
+                    <i className="fas fa-plus"/>
+                  </button>
+                </CustomTooltip>
               </div>
             </div>
             <CardsForm
