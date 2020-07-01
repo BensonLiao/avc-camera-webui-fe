@@ -543,7 +543,6 @@ window.languageResource = {
   Name: '名稱',
   Groups: '群組',
   'Enter Your Group Name': '請輸入群組名稱',
-  'Letters within 16 characters.': '16 字元以內的中英文大寫或小寫',
   'Enter Your Name': '請輸入您的名稱',
   Note: '備註',
   'Enter Your Note': '請輸入您的備註',
