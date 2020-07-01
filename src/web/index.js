@@ -91,7 +91,7 @@ store.set('$erd', elementResizeDetectorMaker());
 
 const waitForReboot = () => {
   const ping = () => {
-    return api.ping('startUp')
+    return api.ping()
       .then(() => {
         location.reload();
       })
