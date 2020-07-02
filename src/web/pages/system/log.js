@@ -34,25 +34,28 @@ module.exports = class Log extends Base {
   onClickDownloadLog = event => {
     event.preventDefault();
     progress.start();
-    this.setState({isShowApiProcessModal: true},
-      () => {
-        wrappedApi({
-          method: 'get',
-          url: '/api/system/systeminfo/log.zip',
-          responseType: 'blob',
-          onDownloadProgress: progressEvent => {
-            // Do whatever you want with the native progress event
-            this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
-          }
+    this.setState({
+      isShowApiProcessModal: true,
+      progressPercentage: 0
+    },
+    () => {
+      wrappedApi({
+        method: 'get',
+        url: '/api/system/systeminfo/log.zip',
+        responseType: 'blob',
+        onDownloadProgress: progressEvent => {
+          // Do whatever you want with the native progress event
+          this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
+        }
+      })
+        .then(response => {
+          download(response.data, 'log');
         })
-          .then(response => {
-            download(response.data, 'log');
-          })
-          .finally(() => {
-            progress.done();
-            this.hideApiProcessModal();
-          });
-      });
+        .finally(() => {
+          progress.done();
+          this.hideApiProcessModal();
+        });
+    });
   }
 
   render() {
