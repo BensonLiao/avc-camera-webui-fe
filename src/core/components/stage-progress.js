@@ -24,10 +24,17 @@ module.exports = class StageProgress extends React.PureComponent {
       title
     } = this.props;
     return (
-      <div>
-        <i className={classNames('far fa-check-circle',
-          {'stage-progress-done': progressStatus === 'done'})}/>
-        {`${title}...${progressPercentage}%`}
+      <div className="stage-progress">
+        <div className="loading-spinners">
+          <svg className={classNames('checkmark', {'d-none': progressStatus !== 'done'})} viewBox="0 0 52 52">
+            <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+            <path className="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+          <div className={classNames('loading-dots', {'d-none': progressStatus === 'done'})}>
+            <div className="spinner"/>
+          </div>
+        </div>
+        <span>{`${title} ... ${progressPercentage}%`}</span>
       </div>
     );
   }
