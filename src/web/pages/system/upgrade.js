@@ -131,6 +131,41 @@ module.exports = class Upgrade extends Base {
     });
   };
 
+  /*
+  // Test Script for FOTA process
+  testScript = () => {
+    let count = 0;
+    new Promise(resolve => {
+      this.setState({
+        isShowApiProcessModal: true,
+        apiProcessModalTitle: _('Firmware Uploading')
+      }, () => {
+        let interval = setInterval(() => {
+          this.updateProgress('uploadFirmware', count);
+          if (++count === 101) {
+            clearInterval(interval);
+            resolve();
+          }
+        }, 10);
+      });
+    })
+      .then(() => {
+        this.updateProgressStatus('uploadFirmware', 'done');
+        count = 0;
+        let interval2 = setInterval(() => {
+          this.updateProgress('upgradeFirmware', count);
+          if (++count === 101) {
+            clearInterval(interval2);
+            return new Promise(resolve => {
+              this.updateProgressStatus('upgradeFirmware', 'done');
+              resolve();
+            });
+          }
+        }, 1000);
+      });
+  }
+  */
+
   formRender = () => {
     const {$isApiProcessing, file, isShowApiProcessModal} = this.state;
 
@@ -164,7 +199,9 @@ module.exports = class Upgrade extends Base {
             </button>
           </div>
         </CustomTooltip>
-
+        {/* Test button for FOTA process simulation
+          <button type="button" onClick={this.testScript}>test</button>
+        */}
       </Form>
     );
   };
