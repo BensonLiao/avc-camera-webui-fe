@@ -359,6 +359,7 @@ module.exports = class Layout extends Base {
         </Modal>
 
         <CustomNotifyModal
+          backdrop="static"
           modalType="info"
           isShowModal={isShowExpireModal}
           modalTitle={_('Session Expired')}
@@ -367,9 +368,12 @@ module.exports = class Layout extends Base {
           onConfirm={() => {
             api.account.refresh()
               .finally(() => {
-                clearInterval(this.countdownID);
                 clearTimeout(this.countdownTimerID);
-                this.setState({isShowExpireModal: false});
+                clearInterval(this.countdownID);
+                this.setState({
+                  isShowExpireModal: false,
+                  expireModalBody: _('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN])
+                });
               });
           }}
           onHide={() => {

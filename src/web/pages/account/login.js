@@ -13,6 +13,7 @@ const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const logoWithTitle = require('../../../resource/logo-avc-title.svg');
+const constants = require('../../../core/constants');
 
 module.exports = class Login extends Base {
   redirectPage = () => {
@@ -36,7 +37,7 @@ module.exports = class Login extends Base {
     progress.start();
     api.account.login(values)
       .then(response => {
-        localStorage.setItem('$expires', response.data.expires);
+        localStorage.setItem('$expires', response.data.expires - (constants.REDIRECT_COUNTDOWN * 1000));
         this.redirectPage();
       })
       .catch(error => {
