@@ -713,7 +713,22 @@ window.languageResource = {
   'SD Card Notification': '異常通報',
   'Email Notification Set': '電子郵件通知已設定',
   'Setup Email Notifications': '請設定電子郵件通知',
-  Status: '狀態',
   'File Format': '檔案格式',
-  'Storage Space': '儲存空間'
+  'Storage Space': '儲存空間',
+  Status: '狀態',
+  // /sd-card/status
+  // 0 - MOUNTED:
+  Functioning: '正常',
+  // 1 - UNMOUNTED:
+  Unmounted: '未掛載',
+  // 2 - SDCARDNOTEXIST:
+  'Empty Slot': '未插卡',
+  // 3 - ABNORMAL:
+  Nonfunctioning: '不正常',
+  // 4 - READONLY:
+  'Read-only Access': '唯獨',
+  // 5 - UNKNOWN:
+  'Unknown Error': '未知錯誤',
+  // /sd-card/file format
+  Unrecognized: '無法識別'
 };
