@@ -95,6 +95,16 @@ module.exports = class MembersTable extends React.PureComponent {
           </thead>
           <tbody>
             {
+              /* Empty Search Message */
+              !members.items.length && (
+                <tr>
+                  <td className="text-size-20 text-center" colSpan="10">
+                    <i className="fas fa-frown-open fa-fw text-dark"/> {_('Can\'t find any data.')}
+                  </td>
+                </tr>
+              )
+            }
+            {
               members.items.map((member, index) => {
                 const tdClass = classNames({'border-bottom':
                 index >= members.items.length - 1});
