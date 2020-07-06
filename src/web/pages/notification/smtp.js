@@ -14,6 +14,7 @@ const Password = require('../../../core/components/fields/password');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
+const CustomTooltip = require('../../../core/components/tooltip');
 
 module.exports = class SMTP extends Base {
   static get propTypes() {
@@ -193,9 +194,12 @@ module.exports = class SMTP extends Base {
             <div>
               <label className="mb-0">{_('SMTP Account Settings')}</label>
               <br/>
-              <a href="#" onClick={this.onClickAccountSettingsButton}>
+              <a className="mr-2" href="#" onClick={this.onClickAccountSettingsButton}>
                 {_('Edit account and password')}
               </a>
+              <CustomTooltip title={_('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
+                <i className="fas fa-question-circle text-primary"/>
+              </CustomTooltip>
             </div>
             <div className="custom-control custom-switch">
               <Field name="isEnableAuth" checked={values.isEnableAuth} type="checkbox" className="custom-control-input" id="switch-auth"/>
