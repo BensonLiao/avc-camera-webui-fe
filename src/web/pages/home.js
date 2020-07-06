@@ -226,6 +226,35 @@ module.exports = class Home extends Base {
     }
   };
 
+  toggleFullscreen = event => {
+    event.preventDefault();
+
+    let isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+        (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+        (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+        (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+    if (!isInFullScreen) {
+      if (this.streamPlayerRef.current.requestFullscreen) {
+        this.streamPlayerRef.current.requestFullscreen();
+      } else if (this.streamPlayerRef.current.mozRequestFullScreen) {
+        this.streamPlayerRef.current.mozRequestFullScreen();
+      } else if (this.streamPlayerRef.current.webkitRequestFullScreen) {
+        this.streamPlayerRef.current.webkitRequestFullScreen();
+      } else if (this.streamPlayerRef.current.msRequestFullscreen) {
+        this.streamPlayerRef.current.msRequestFullscreen();
+      }
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  }
+
   generateClickResetButtonHandler = ({resetForm}) => event => {
     event.preventDefault();
     progress.start();
@@ -348,15 +377,15 @@ module.exports = class Home extends Base {
                         </div>
                       )
                     }
-                  </div>
-                  <div className="controls d-flex justify-content-end align-items-center">
-                    <div>
-                      <button className="btn-action" type="button" onClick={this.onClickDownloadImage}>
-                        <i className="fas fa-camera"/>
-                      </button>
-                      <button className="btn-action" type="button" onClick={this.onClickRequestFullScreen}>
-                        <i className="fas fa-expand-arrows-alt"/>
-                      </button>
+                    <div className="controls d-flex justify-content-end align-items-center">
+                      <div>
+                        <button className="btn-action" type="button" onClick={this.onClickDownloadImage}>
+                          <i className="fas fa-camera"/>
+                        </button>
+                        <button className="btn-action" type="button" onClick={this.toggleFullscreen}>
+                          <i className="fas fa-expand-arrows-alt"/>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
