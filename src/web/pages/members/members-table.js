@@ -129,7 +129,13 @@ module.exports = class MembersTable extends React.PureComponent {
                         </span>
                       </CustomTooltip>
                     </td>
-                    <td className={tdClass}>{(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
+                    <td className={tdClass}>
+                      <CustomTooltip title={(groups.items.find(x => x.id === member.groupId) || {}).name}>
+                        <span>
+                          {(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}
+                        </span>
+                      </CustomTooltip>
+                    </td>
                     <td className={tdClass}>
                       <CustomTooltip title={member.note}>
                         <span>
