@@ -285,22 +285,31 @@ module.exports = class Home extends Base {
   }
 
   render() {
-    const {systemInformation, videoSettings, systemDateTime} = this.props;
-    const {$user} = this.state;
-    const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
+    const {systemInformation: {
+      sdUsage,
+      sdTotal,
+      sdStatus,
+      isEnableFaceRecognition,
+      isEnableAgeGender,
+      isEnableHumanoidDetection,
+      deviceStatus
+    }, videoSettings, systemDateTime} = this.props;
+    const {$user, streamImageUrl, isPlayStream, deviceName} = this.state;
+    const usedDiskPercentage = Math.ceil((sdUsage / sdTotal) * 100);
+    const freeDiskVolume = sdTotal - sdUsage;
     const freeDiskPercentage = 100 - usedDiskPercentage;
     const classTable = {
       faceRecognitionState: classNames({
-        'text-success': systemInformation.isEnableFaceRecognition,
-        'text-muted': !systemInformation.isEnableFaceRecognition
+        'text-success': isEnableFaceRecognition,
+        'text-muted': !isEnableFaceRecognition
       }),
       ageGenderState: classNames({
-        'text-success': systemInformation.isEnableAgeGender,
-        'text-muted': !systemInformation.isEnableAgeGender
+        'text-success': isEnableAgeGender,
+        'text-muted': !isEnableAgeGender
       }),
       humanoidDetectionState: classNames({
-        'text-success': systemInformation.isEnableHumanoidDetection,
-        'text-muted': !systemInformation.isEnableHumanoidDetection
+        'text-success': isEnableHumanoidDetection,
+        'text-muted': !isEnableHumanoidDetection
       })
     };
 
@@ -314,10 +323,10 @@ module.exports = class Home extends Base {
                 <div className="video-wrapper mb-4">
                   <div ref={this.streamPlayerRef}>
                     <img
-                      className="img-fluid" src={this.state.streamImageUrl || defaultVideoBackground}
+                      className="img-fluid" src={streamImageUrl || defaultVideoBackground}
                       onClick={this.onTogglePlayStream}/>
                     {
-                      !this.state.isPlayStream && (
+                      !isPlayStream && (
                         <div className="cover d-flex justify-content-center align-items-center" onClick={this.onTogglePlayStream}>
                           <button className="btn-play" type="button">
                             <i className="fas fa-play fa-fw"/>
@@ -326,7 +335,7 @@ module.exports = class Home extends Base {
                       )
                     }
                     {
-                      this.state.isPlayStream && !this.state.streamImageUrl && (
+                      isPlayStream && !streamImageUrl && (
                         <div className="cover d-flex justify-content-center align-items-center text-muted"
                           onClick={this.onTogglePlayStream}
                         >
@@ -365,7 +374,7 @@ module.exports = class Home extends Base {
                         <tr>
                           <td className="align-top">
                             <Formik
-                              initialValues={{deviceName: this.state.deviceName}}
+                              initialValues={{deviceName: deviceName}}
                               validate={utils.makeFormikValidator(deviceNameValidator)}
                               onSubmit={this.onSubmitDeviceNameForm}
                             >
@@ -373,52 +382,52 @@ module.exports = class Home extends Base {
                             </Formik>
                           </td>
                           <td className="align-top">
-                            {systemInformation.isEnableFaceRecognition && (
+                            {isEnableFaceRecognition && (
                               <div>
                                 <span>{_('Facial Recognition: ')}</span>
                                 <span className={classTable.faceRecognitionState}>
-                                  {_(`${systemInformation.isEnableFaceRecognition ? 'On' : 'Off'}`)}
+                                  {_(`${isEnableFaceRecognition ? 'On' : 'Off'}`)}
                                 </span>
                               </div>
                             )}
-                            {systemInformation.isEnableAgeGender && (
+                            {isEnableAgeGender && (
                               <div>
                                 <span>{_('Age Gender: ')}</span>
                                 <span className={classTable.ageGenderState}>
-                                  {_(`${systemInformation.isEnableAgeGender ? 'On' : 'Off'}`)}
+                                  {_(`${isEnableAgeGender ? 'On' : 'Off'}`)}
                                 </span>
                               </div>
                             )}
-                            {systemInformation.isEnableHumanoidDetection && (
+                            {isEnableHumanoidDetection && (
                               <div>
                                 <span>{_('Human Detection: ')}</span>
                                 <span className={classTable.humanoidDetectionState}>
-                                  {_(`${systemInformation.isEnableHumanoidDetection ? 'On' : 'Off'}`)}
+                                  {_(`${isEnableHumanoidDetection ? 'On' : 'Off'}`)}
                                 </span>
                               </div>
                             )}
                           </td>
                           <td className="align-top">
-                            {systemInformation.deviceStatus === 0 && (
+                            {deviceStatus === 0 && (
                               <span className="badge badge-pill badge-danger">{_('Error')}</span>
                             )}
-                            {systemInformation.deviceStatus === 1 && (
+                            {deviceStatus === 1 && (
                               <span className="badge badge-pill badge-success">{_('Normal')}</span>
                             )}
                           </td>
-                          <td className={classNames('align-top', systemInformation.sdStatus === 0 ? '' : 'd-none')}>
+                          <td className={classNames('align-top', sdStatus === 0 ? '' : 'd-none')}>
                             <div className="progress">
                               {
                                 isNaN(usedDiskPercentage) ?
                                   <div className="progress-bar"/> :
                                   <>
-                                    <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
+                                    <CustomTooltip title={_('Used: {0}', [filesize(sdUsage)])}>
                                       <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
                                         {`${usedDiskPercentage}%`}
                                       </div>
                                     </CustomTooltip>
                                     {usedDiskPercentage && (
-                                      <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
+                                      <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
 
                                         <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
                                           {`${freeDiskPercentage}%`}
@@ -430,14 +439,15 @@ module.exports = class Home extends Base {
                             <p>
                               {
                                 _('Free: {0}, Total: {1}', [
-                                  filesize(systemInformation.sdTotal - systemInformation.sdUsage),
-                                  filesize(systemInformation.sdTotal)
+                                  filesize(freeDiskVolume),
+                                  filesize(sdTotal)
                                 ])
                               }
+
                             </p>
                           </td>
-                          <td className={classNames('align-top', systemInformation.sdStatus === 0 ? 'd-none' : '')}>
-                            <label>{_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}</label>
+                          <td className={classNames('align-top', sdStatus === 0 ? 'd-none' : '')}>
+                            <label>{_(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}</label>
                           </td>
                         </tr>
                       </tbody>
