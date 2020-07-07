@@ -138,14 +138,18 @@ module.exports = class MembersTable extends React.PureComponent {
                       </CustomTooltip>
                     </td>
                     <td className={classNames('text-left group-btn', tdClass)}>
-                      <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...params, memberId: member.id}}}>
-                        <i className="fas fa-pen fa-lg fa-fw"/>
-                      </Link>
-                      <button className="btn btn-link" type="button"
-                        onClick={deleteMemberModal(member)}
-                      >
-                        <i className="far fa-trash-alt fa-lg fa-fw"/>
-                      </button>
+                      <CustomTooltip title={_(`Edit ${member.name}`)}>
+                        <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...params, memberId: member.id}}}>
+                          <i className="fas fa-pen fa-lg fa-fw"/>
+                        </Link>
+                      </CustomTooltip>
+                      <CustomTooltip title={_(`Delete ${member.name}`)}>
+                        <button className="btn btn-link" type="button"
+                          onClick={deleteMemberModal(member)}
+                        >
+                          <i className="far fa-trash-alt fa-lg fa-fw"/>
+                        </button>
+                      </CustomTooltip>
                     </td>
                   </tr>
                 );
