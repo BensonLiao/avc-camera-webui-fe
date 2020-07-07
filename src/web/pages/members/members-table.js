@@ -129,7 +129,13 @@ module.exports = class MembersTable extends React.PureComponent {
                         </span>
                       </CustomTooltip>
                     </td>
-                    <td className={tdClass}>{(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}</td>
+                    <td className={tdClass}>
+                      <CustomTooltip title={(groups.items.find(x => x.id === member.groupId) || {}).name}>
+                        <span>
+                          {(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}
+                        </span>
+                      </CustomTooltip>
+                    </td>
                     <td className={tdClass}>
                       <CustomTooltip title={member.note}>
                         <span>
@@ -138,14 +144,18 @@ module.exports = class MembersTable extends React.PureComponent {
                       </CustomTooltip>
                     </td>
                     <td className={classNames('text-left group-btn', tdClass)}>
-                      <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...params, memberId: member.id}}}>
-                        <i className="fas fa-pen fa-lg fa-fw"/>
-                      </Link>
-                      <button className="btn btn-link" type="button"
-                        onClick={deleteMemberModal(member)}
-                      >
-                        <i className="far fa-trash-alt fa-lg fa-fw"/>
-                      </button>
+                      <CustomTooltip title={_('Edit {0}', [member.name])}>
+                        <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...params, memberId: member.id}}}>
+                          <i className="fas fa-pen fa-lg fa-fw"/>
+                        </Link>
+                      </CustomTooltip>
+                      <CustomTooltip title={_('Delete {0}', [member.name])}>
+                        <button className="btn btn-link" type="button"
+                          onClick={deleteMemberModal(member)}
+                        >
+                          <i className="far fa-trash-alt fa-lg fa-fw"/>
+                        </button>
+                      </CustomTooltip>
                     </td>
                   </tr>
                 );

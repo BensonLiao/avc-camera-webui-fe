@@ -249,9 +249,11 @@ module.exports = class Members extends Base {
                           </CustomTooltip>
                         )
                       }
-                      <Link className="ml-32px" to={{name: 'web.users.members.modify-group', params: params}}>
-                        <i className="fas fa-pen fa-fw"/>
-                      </Link>
+                      <CustomTooltip title={_(`Edit ${selectedGroup.name}`)}>
+                        <Link className="ml-32px" to={{name: 'web.users.members.modify-group', params: params}}>
+                          <i className="fas fa-pen fa-fw"/>
+                        </Link>
+                      </CustomTooltip>
                     </div>
                   )
                 }

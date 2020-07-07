@@ -14,4 +14,15 @@
       @extend .text-truncate;
     }
   }
+
+  .dropdown {
+    button:hover {
+      color: #fff !important;
+      background-color: #0049AD;
+      border-color: #0049AD;
+      i {
+        color: #fff !important;
+      }
+    }
+  }
 }
