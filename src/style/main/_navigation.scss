@@ -124,13 +124,17 @@ nav.navbar.fixed-top {
         opacity: 0;
       }
       &:hover {
+        background-color: #EEEEEE !important;
         .btn-delete {
           visibility: visible;
           opacity: 1;
         }
       }
       &.active {
-        background-color: #4D4D4D;
+        &:hover {
+          background-color: #d5d5d5 !important;
+        }
+        background-color: #4d4d4d;
         padding-right: 16px;
         border-right: 8px solid $primary;
       }
