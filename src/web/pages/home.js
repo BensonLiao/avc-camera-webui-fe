@@ -406,7 +406,7 @@ module.exports = class Home extends Base {
                               <span className="badge badge-pill badge-success">{_('Normal')}</span>
                             )}
                           </td>
-                          <td className={classNames('align-top', systemInformation.sdStatus === SD_STATUS_LIST.indexOf('MEDIA_MOUNTED') ? '' : 'd-none')}>
+                          <td className={classNames('align-top', systemInformation.sdStatus === 0 ? '' : 'd-none')}>
                             <div className="progress">
                               {
                                 isNaN(usedDiskPercentage) ?
@@ -436,7 +436,7 @@ module.exports = class Home extends Base {
                               }
                             </p>
                           </td>
-                          <td className={classNames('align-top', systemInformation.sdStatus === SD_STATUS_LIST.indexOf('MEDIA_MOUNTED') ? 'd-none' : '')}>
+                          <td className={classNames('align-top', systemInformation.sdStatus === 0 ? 'd-none' : '')}>
                             <label>{_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}</label>
                           </td>
                         </tr>
