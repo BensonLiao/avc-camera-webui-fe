@@ -535,11 +535,7 @@ window.languageResource = {
   Actions: '操作',
   '{0}-{1} items. Total: {2}': '目前 {0}-{1} 筆，總筆數 {2} 筆',
   'Delete Member': '刪除成員',
-<<<<<<< HEAD
-  'Are you sure to delete the member {0}?': '您即將刪除 {0} 成員，確認要刪除嗎？',
-=======
   'Are you sure you want to delete member {0}?': '您即將刪除成員 {0}，確認要刪除嗎？',
->>>>>>> 459e791... update and fix i18n
   'Database Encryption': '資料庫加密',
   Modify: '修改',
   'Upload Image': '上傳照片',
@@ -564,13 +560,9 @@ window.languageResource = {
   Create: '新增',
   Close: '關閉',
   'Delete Group': '刪除群組',
-<<<<<<< HEAD
-  'Are you sure to delete the group {0}?': '您即將刪除 {0} 群組，確認要刪除嗎？',
-=======
   'Are you sure you want to delete group {0}?': '您即將刪除 {0} 群組，確認要刪除嗎？',
   'Delete {0}': '刪除 {0}',
   'Edit {0}': '編輯 {0}',
->>>>>>> 459e791... update and fix i18n
   Delete: '刪除',
   Database: '資料庫檔案',
   Export: '匯出',
