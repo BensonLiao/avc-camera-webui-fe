@@ -91,18 +91,18 @@ module.exports = {
     HTTPS: '8443'
   },
   SD_STATUS_LIST: [ // Order is important!
-    // 0 - MEDIA_MOUNTED: 外部儲存體存在且可以進行讀取與寫入
-    'MEDIA_MOUNTED',
-    // 1 - MEDIA_UNMOUNTED: 外部儲存體存在但未被掛載
-    'MEDIA_UNMOUNTED',
-    // 2 - SD_CARD_NOT_EXIST: 外部儲存體不存在
-    'SD_CARD_NOT_EXIST',
-    // 3 - MEDIA_ABNORMAL: 外部儲存體異常
-    'MEDIA_ABNORMAL',
-    // 4 - MEDIA_MOUNTED_READ_ONLY: 外部儲存體存在但只能進行讀取
-    'MEDIA_MOUNTED_READ_ONLY',
-    // 5 - MEDIA_UNKNOWN: Unknown storage state, such as when a path isn't backed by known storage media.
-    'MEDIA_UNKNOWN'
+    // 0 - MOUNTED: 外部儲存體存在且可以進行讀取與寫入
+    'Functioning',
+    // 1 - UNMOUNTED: 外部儲存體存在但未被掛載
+    'Unmounted',
+    // 2 - SDCARDNOTEXIST: 外部儲存體不存在
+    'Empty Slot',
+    // 3 - ABNORMAL: 外部儲存體異常
+    'Nonfunctioning',
+    // 4 - READONLY: 外部儲存體存在但只能進行讀取
+    'Read-only Access',
+    // 5 - UNKNOWN: Unknown storage state, such as when a path isn't backed by known storage media.
+    'Unknown Error'
   ],
   // How many hours ahead(-n) or behind(+n) GMT/UTC
   // Note. the only method to get client's timezone is Date.prototype.getTimezoneOffset(),

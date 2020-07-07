@@ -237,7 +237,7 @@ module.exports = class SDCard extends Base {
           </div>
           <hr/>
         </div>
-        <div className={classNames('form-group', systemInformation.sdStatus === SD_STATUS_LIST.indexOf('MEDIA_MOUNTED') ? '' : 'd-none')}>
+        <div className={classNames('form-group', systemInformation.sdStatus === 0 ? '' : 'd-none')}>
           <div className="card">
             <div className="card-header sd-card-round">
               {_('Storage Space')}
