@@ -99,7 +99,7 @@ module.exports = class FaceRecognition extends Base {
       <>
         <div className="col-7 pl-3 pr-0">
           <div id="fr-video-wrapper" className="video-wrapper">
-            <img className="img-fluid" src="/api/snapshot"/>
+            <img className="img-fluid" draggable={false} src="/api/snapshot"/>
             {
               isShowDetectionZone && (
                 <div className="draggable-wrapper" tabIndex={-1}>

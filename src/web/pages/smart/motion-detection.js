@@ -141,7 +141,7 @@ module.exports = class MotionDetection extends Base {
 
         <div className="col-7 pl-3 pr-0">
           <div ref={this.videoWrapperRef} id="md-video-wrapper" className="video-wrapper">
-            <img draggable={false} className="img-fluid" src="/api/snapshot"
+            <img className="img-fluid" draggable={false} src="/api/snapshot"
               onMouseDown={this.generateVideoWrapperMouseDownHandler(form)}/>
             {
               maskAreaItems.map(index => (
