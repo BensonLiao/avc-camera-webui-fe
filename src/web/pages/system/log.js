@@ -13,6 +13,7 @@ module.exports = class Log extends Base {
   constructor(props) {
     super(props);
     this.state.file = null;
+    this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Downloading system log');
     this.state.progressStatus = 'start';
@@ -58,7 +59,16 @@ module.exports = class Log extends Base {
     });
   }
 
+  showModal = () => {
+    this.setState({isShowModal: true});
+  };
+
+  hideModal = () => {
+    this.setState({isShowModal: false});
+  };
+
   render() {
+    const {isShowModal} = this.state;
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
@@ -84,22 +94,44 @@ module.exports = class Log extends Base {
                     <div className="form-group">
                       <label className="mb-0 my-3">{_('System Log File Record')}</label>
                       <div>
-                        <button className="btn btn-outline-primary rounded-pill px-5" type="button" onClick={this.onClickClearLog}>{_('Delete Record')}</button>
-                        <button className="btn btn-outline-primary rounded-pill px-5 ml-3" type="button" onClick={this.onClickDownloadLog}>{_('Download')}</button>
+                        <button
+                          className="btn btn-outline-primary rounded-pill px-5"
+                          type="button"
+                          onClick={this.showModal}
+                        >{_('Delete Record')}
+                        </button>
+                        <CustomNotifyModal
+                          modalType="default"
+                          isShowModal={isShowModal}
+                          modalTitle={_('Delete System Log File Record')}
+                          modalBody={_('Are you sure you want to Delete Record?')}
+                          onHide={this.hideModal}
+                          onConfirm={this.onClickClearLog}
+                        />
+                        <button
+                          className="btn btn-outline-primary rounded-pill px-5 ml-3"
+                          type="button"
+                          onClick={this.onClickDownloadLog}
+                        >{_('Download')}
+                        </button>
+                        <CustomNotifyModal
+                          modalType="process"
+                          backdrop="static"
+                          isShowModal={this.state.isShowApiProcessModal}
+                          modalTitle={this.state.apiProcessModalTitle}
+                          modalBody={[
+                            <StageProgress
+                              key="stage 1"
+                              title="System log loading"
+                              progressStatus={this.state.progressStatus}
+                              progressPercentage={this.state.progressPercentage}/>
+                          ]}
+                          onHide={this.hideApiProcessModal}/>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <CustomNotifyModal
-                modalType="process"
-                backdrop="static"
-                isShowModal={this.state.isShowApiProcessModal}
-                modalTitle={this.state.apiProcessModalTitle}
-                modalBody={[
-                  <StageProgress key="stage 1" title="System log loading" progressStatus={this.state.progressStatus} progressPercentage={this.state.progressPercentage}/>
-                ]}
-                onHide={this.hideApiProcessModal}/>
             </div>
           </div>
         </div>
