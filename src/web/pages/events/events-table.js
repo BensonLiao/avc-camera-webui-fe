@@ -171,18 +171,22 @@ module.exports = class EventsTable extends React.PureComponent {
                       {ifExists ? <img className="rounded-circle" src={`data:image/jpeg;base64,${item.member.pictures[0]}`} style={{height: '56px'}}/> : '-'}
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip title={ifExists ? item.member.name : ''}>
-                        <div style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>
+                      <CustomTooltip placement="top-start" title={ifExists ? item.member.name : ''}>
+                        <div>
                           {ifExists ? item.member.name : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      {ifExists ? (this.findGroup(item.member.groupId) || {name: '-'}).name : '-'}
+                      <CustomTooltip placement="top-start" title={ifExists ? (this.findGroup(item.member.groupId) || {name: '-'}).name : ''}>
+                        <div>
+                          {ifExists ? (this.findGroup(item.member.groupId) || {name: '-'}).name : '-'}
+                        </div>
+                      </CustomTooltip>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip title={ifExists ? item.member.organization || '-' : ''}>
-                        <div style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>
+                      <CustomTooltip placement="top-start" title={ifExists ? item.member.organization || '-' : ''}>
+                        <div>
                           {ifExists ? item.member.organization || '-' : '-'}
                         </div>
                       </CustomTooltip>
@@ -202,8 +206,8 @@ module.exports = class EventsTable extends React.PureComponent {
                       }
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip title={ifExists ? item.member.note || '-' : ''}>
-                        <div style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap'}}>
+                      <CustomTooltip placement="top-start" title={ifExists ? item.member.note || '-' : ''}>
+                        <div>
                           {ifExists ? item.member.note || '-' : '-'}
                         </div>
                       </CustomTooltip>

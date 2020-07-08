@@ -116,31 +116,31 @@ module.exports = class MembersTable extends React.PureComponent {
                         src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
                     </td>
                     <td className={tdClass}>
-                      <CustomTooltip title={member.name}>
-                        <span>
+                      <CustomTooltip placement="top-start" title={member.name}>
+                        <div>
                           {member.name}
-                        </span>
+                        </div>
                       </CustomTooltip>
                     </td>
                     <td className={tdClass}>
-                      <CustomTooltip title={member.organization}>
-                        <span>
+                      <CustomTooltip placement="top-start" title={member.organization}>
+                        <div>
                           {member.organization || _('N/A')}
-                        </span>
+                        </div>
                       </CustomTooltip>
                     </td>
                     <td className={tdClass}>
-                      <CustomTooltip title={(groups.items.find(x => x.id === member.groupId) || {}).name}>
-                        <span>
+                      <CustomTooltip placement="top-start" title={(groups.items.find(x => x.id === member.groupId) || {}).name || ''}>
+                        <div>
                           {(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}
-                        </span>
+                        </div>
                       </CustomTooltip>
                     </td>
                     <td className={tdClass}>
-                      <CustomTooltip title={member.note}>
-                        <span>
+                      <CustomTooltip placement="top-start" title={member.note}>
+                        <div>
                           {member.note || _('N/A')}
-                        </span>
+                        </div>
                       </CustomTooltip>
                     </td>
                     <td className={classNames('text-left group-btn', tdClass)}>

@@ -430,6 +430,11 @@ body {
     padding-left: 32px;
     padding-right: 32px;
     color: #666;
+    div {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
   td, td.group-btn {
     button, a {
