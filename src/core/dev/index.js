@@ -472,6 +472,9 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   .onGet('/api/face-recognition/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').value()]);
   })
+  .onGet('/api/face-recognition/fr').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]);
+  })
   .onPut('/api/face-recognition/fr').reply(config => {
     const settings = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
@@ -509,9 +512,9 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     }
 
     const enabledFunctions = {
-      isEnableFaceRecognition: true,
-      isEnableAgeGender: false,
-      isEnableHumanoidDetection: false
+      isEnableFaceRecognitionKey: true,
+      isEnableAgeGenderKey: false,
+      isEnableHumanoidDetectionKey: false
     };
     const newItem = {
       authKey,
@@ -525,5 +528,8 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     newItem.time = new Date();
     db.get('authKeys').push(newItem).write();
     return mockResponseWithLog(config, [200, enabledFunctions]);
+  })
+  .onGet('/api/auth-status').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('authStatus').value()]);
   })
   .onAny().passThrough(); // Pass other request to normal axios

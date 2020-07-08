@@ -126,9 +126,6 @@ module.exports = {
       system: {
         languageCode: 'en-us',
         deviceName: 'IP Camera',
-        isEnableFaceRecognition: true,
-        isEnableAgeGender: false,
-        isEnableHumanoidDetection: false,
         deviceStatus: 1,
         serialNumber: '181000723',
         modelName: 'AV02CLD-100',
@@ -246,6 +243,9 @@ module.exports = {
         color: '0',
         position: '1',
         type: '0'
+      },
+      faceRecognitionStatus: {
+        isEnable: true
       },
       faceRecognitionSettings: {
         isEnable: true,
@@ -396,9 +396,9 @@ module.exports = {
             name: 'ChiChi'
           },
           authKey: 'GVHBNJLKBHVYIUON:KJLBNK',
-          isEnableFaceRecognition: true,
-          isEnableAgeGender: true,
-          isEnableHumanoidDetection: false,
+          isEnableFaceRecognitionKey: true,
+          isEnableAgeGenderKey: true,
+          isEnableHumanoidDetectionKey: false,
           isEnable: true
         },
         {
@@ -408,12 +408,17 @@ module.exports = {
             name: 'Ben'
           },
           authKey: 'VGHBJNKBIVHBKJLNK:MPOIBJ',
-          isEnableFaceRecognition: false,
-          isEnableAgeGender: false,
-          isEnableHumanoidDetection: true,
+          isEnableFaceRecognitionKey: false,
+          isEnableAgeGenderKey: false,
+          isEnableHumanoidDetectionKey: true,
           isEnable: true
         }
-      ]
+      ],
+      authStatus: {
+        isEnableFaceRecognitionKey: true,
+        isEnableAgeGenderKey: false,
+        isEnableHumanoidDetectionKey: false
+      }
     })
       .write();
     return db;

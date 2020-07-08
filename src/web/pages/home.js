@@ -35,9 +35,6 @@ module.exports = class Home extends Base {
       systemInformation: PropTypes.shape({
         languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired,
         deviceName: PropTypes.string.isRequired,
-        isEnableFaceRecognition: PropTypes.bool.isRequired,
-        isEnableAgeGender: PropTypes.bool.isRequired,
-        isEnableHumanoidDetection: PropTypes.bool.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         sdUsage: PropTypes.number.isRequired,
         sdTotal: PropTypes.number.isRequired,
@@ -84,6 +81,14 @@ module.exports = class Home extends Base {
       }).isRequired,
       systemDateTime: PropTypes.shape({
         deviceTime: PropTypes.string.isRequired
+      }).isRequired,
+      authStatus: PropTypes.shape({
+        isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+        isEnableAgeGenderKey: PropTypes.bool.isRequired,
+        isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
+      }).isRequired,
+      faceRecognitionStatus: PropTypes.shape({
+        isEnable: PropTypes.bool.isRequired
       }).isRequired
     };
   }
@@ -289,27 +294,29 @@ module.exports = class Home extends Base {
       sdUsage,
       sdTotal,
       sdStatus,
-      isEnableFaceRecognition,
-      isEnableAgeGender,
-      isEnableHumanoidDetection,
       deviceStatus
-    }, videoSettings, systemDateTime} = this.props;
+    },
+    authStatus: {
+      isEnableFaceRecognitionKey,
+      isEnableAgeGenderKey,
+      isEnableHumanoidDetectionKey
+    }, systemDateTime, videoSettings, faceRecognitionStatus} = this.props;
     const {$user, streamImageUrl, isPlayStream, deviceName} = this.state;
     const usedDiskPercentage = Math.ceil((sdUsage / sdTotal) * 100);
     const freeDiskVolume = sdTotal - sdUsage;
     const freeDiskPercentage = 100 - usedDiskPercentage;
     const classTable = {
       faceRecognitionState: classNames({
-        'text-success': isEnableFaceRecognition,
-        'text-muted': !isEnableFaceRecognition
+        'text-success': faceRecognitionStatus.isEnable && isEnableFaceRecognitionKey,
+        'text-muted': !faceRecognitionStatus.isEnable || !isEnableFaceRecognitionKey
       }),
       ageGenderState: classNames({
-        'text-success': isEnableAgeGender,
-        'text-muted': !isEnableAgeGender
+        'text-success': isEnableAgeGenderKey,
+        'text-muted': !isEnableAgeGenderKey
       }),
       humanoidDetectionState: classNames({
-        'text-success': isEnableHumanoidDetection,
-        'text-muted': !isEnableHumanoidDetection
+        'text-success': isEnableHumanoidDetectionKey,
+        'text-muted': !isEnableHumanoidDetectionKey
       })
     };
 
@@ -378,27 +385,25 @@ module.exports = class Home extends Base {
                             </Formik>
                           </td>
                           <td className="align-top">
-                            {isEnableFaceRecognition && (
-                              <div>
-                                <span>{_('Facial Recognition: ')}</span>
-                                <span className={classTable.faceRecognitionState}>
-                                  {_(`${isEnableFaceRecognition ? 'On' : 'Off'}`)}
-                                </span>
-                              </div>
-                            )}
-                            {isEnableAgeGender && (
+                            <div>
+                              <span>{_('Facial Recognition: ')}</span>
+                              <span className={classTable.faceRecognitionState}>
+                                {_(`${isEnableFaceRecognitionKey ? faceRecognitionStatus.isEnable ? 'On' : 'Off' : 'Unlicensed'}`)}
+                              </span>
+                            </div>
+                            {isEnableAgeGenderKey && (
                               <div>
                                 <span>{_('Age Gender: ')}</span>
                                 <span className={classTable.ageGenderState}>
-                                  {_(`${isEnableAgeGender ? 'On' : 'Off'}`)}
+                                  {_(`${isEnableAgeGenderKey ? 'On' : 'Off'}`)}
                                 </span>
                               </div>
                             )}
-                            {isEnableHumanoidDetection && (
+                            {isEnableHumanoidDetectionKey && (
                               <div>
                                 <span>{_('Human Detection: ')}</span>
                                 <span className={classTable.humanoidDetectionState}>
-                                  {_(`${isEnableHumanoidDetection ? 'On' : 'Off'}`)}
+                                  {_(`${isEnableHumanoidDetectionKey ? 'On' : 'Off'}`)}
                                 </span>
                               </div>
                             )}

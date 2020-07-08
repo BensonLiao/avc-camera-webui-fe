@@ -25,11 +25,6 @@ const iconHumanoidDetectionDisable =
 module.exports = class License extends Base {
   static get propTypes() {
     return {
-      systemInformation: PropTypes.shape({
-        isEnableFaceRecognition: PropTypes.bool.isRequired,
-        isEnableAgeGender: PropTypes.bool.isRequired,
-        isEnableHumanoidDetection: PropTypes.bool.isRequired
-      }).isRequired,
       authKeys: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
           time: PropTypes.string.isRequired,
@@ -38,11 +33,16 @@ module.exports = class License extends Base {
             name: PropTypes.string.isRequired
           }).isRequired,
           authKey: PropTypes.string.isRequired,
-          isEnableFaceRecognition: PropTypes.bool.isRequired,
-          isEnableAgeGender: PropTypes.bool.isRequired,
-          isEnableHumanoidDetection: PropTypes.bool.isRequired,
+          isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+          isEnableAgeGenderKey: PropTypes.bool.isRequired,
+          isEnableHumanoidDetectionKey: PropTypes.bool.isRequired,
           isEnable: PropTypes.bool.isRequired
         }).isRequired).isRequired
+      }).isRequired,
+      authStatus: PropTypes.shape({
+        isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+        isEnableAgeGenderKey: PropTypes.bool.isRequired,
+        isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
       }).isRequired
     };
   }
@@ -72,15 +72,15 @@ module.exports = class License extends Base {
             message: _('{0} authorized successfully!', [
               (() => {
                 const result = [];
-                if (response.data.isEnableFaceRecognition) {
+                if (response.data.isEnableFaceRecognitionKey) {
                   result.push(_('Facial Recognition'));
                 }
 
-                if (response.data.isEnableAgeGender) {
+                if (response.data.isEnableAgeGenderKey) {
                   result.push(_('Age Gender'));
                 }
 
-                if (response.data.isEnableHumanoidDetection) {
+                if (response.data.isEnableHumanoidDetectionKey) {
                   result.push(_('Human Detection'));
                 }
 
@@ -136,7 +136,11 @@ module.exports = class License extends Base {
   };
 
   render() {
-    const {systemInformation, authKeys} = this.props;
+    const {authStatus: {
+      isEnableFaceRecognitionKey,
+      isEnableAgeGenderKey,
+      isEnableHumanoidDetectionKey
+    }, authKeys} = this.props;
     return (
       <div className="bg-white">
         <div className="page-license bg-gray" style={{height: '522px'}}>
@@ -172,16 +176,16 @@ module.exports = class License extends Base {
                 <div className="status d-flex">
                   <div className={classNames(
                     'border text-center bg-white',
-                    {'active shadow border-success': systemInformation.isEnableFaceRecognition}
+                    {'active shadow border-success': isEnableFaceRecognitionKey}
                   )}
                   >
                     <div className="img-wrapper">
-                      <img src={systemInformation.isEnableFaceRecognition ? iconFaceRecognitionEnable :
+                      <img src={isEnableFaceRecognitionKey ? iconFaceRecognitionEnable :
                         iconFaceRecognitionDisable}/>
                     </div>
                     <h4 className={classNames(
                       'text-size-20 mt-3',
-                      systemInformation.isEnableFaceRecognition ?
+                      isEnableFaceRecognitionKey ?
                         'text-primary' :
                         'text-muted'
                     )}
@@ -192,34 +196,34 @@ module.exports = class License extends Base {
                       <hr/>
                       <span className={classNames(
                         'border rounded-pill p-1 pr-2',
-                        systemInformation.isEnableFaceRecognition ?
+                        isEnableFaceRecognitionKey ?
                           'border-success text-success' :
                           'border-danger text-danger'
                       )}
                       >
                         <i className={classNames(
                           'fas',
-                          systemInformation.isEnableFaceRecognition ?
+                          isEnableFaceRecognitionKey ?
                             'fa-check-circle' :
                             'fa-minus-circle'
                         )}/>
-                        {systemInformation.isEnableFaceRecognition ? _('Activated') : _('Inactivated')}
+                        {isEnableFaceRecognitionKey ? _('Activated') : _('Inactivated')}
                       </span>
                     </div>
                   </div>
 
                   <div className={classNames(
                     'border text-center bg-white',
-                    {'active shadow border-success': systemInformation.isEnableAgeGender}
+                    {'active shadow border-success': isEnableAgeGenderKey}
                   )}
                   >
                     <div className="img-wrapper">
-                      <img src={systemInformation.isEnableAgeGender ? iconAgeGenderEnable :
+                      <img src={isEnableAgeGenderKey ? iconAgeGenderEnable :
                         iconAgeGenderDisable}/>
                     </div>
                     <h4 className={classNames(
                       'text-size-20 mt-3',
-                      systemInformation.isEnableAgeGender ?
+                      isEnableAgeGenderKey ?
                         'text-primary' :
                         'text-muted'
                     )}
@@ -230,34 +234,34 @@ module.exports = class License extends Base {
                       <hr/>
                       <span className={classNames(
                         'border rounded-pill p-1 pr-2',
-                        systemInformation.isEnableAgeGender ?
+                        isEnableAgeGenderKey ?
                           'border-success text-success' :
                           'border-danger text-danger'
                       )}
                       >
                         <i className={classNames(
                           'fas',
-                          systemInformation.isEnableAgeGender ?
+                          isEnableAgeGenderKey ?
                             'fa-check-circle' :
                             'fa-minus-circle'
                         )}/>
-                        {systemInformation.isEnableAgeGender ? _('Activated') : _('Inactivated')}
+                        {isEnableAgeGenderKey ? _('Activated') : _('Inactivated')}
                       </span>
                     </div>
                   </div>
 
                   <div className={classNames(
                     'border text-center bg-white',
-                    {'active shadow border-success': systemInformation.isEnableHumanoidDetection}
+                    {'active shadow border-success': isEnableHumanoidDetectionKey}
                   )}
                   >
                     <div className="img-wrapper">
-                      <img src={systemInformation.isEnableHumanoidDetection ? iconHumanoidDetectionEnable :
+                      <img src={isEnableHumanoidDetectionKey ? iconHumanoidDetectionEnable :
                         iconHumanoidDetectionDisable}/>
                     </div>
                     <h4 className={classNames(
                       'text-size-20 mt-3',
-                      systemInformation.isEnableHumanoidDetection ?
+                      isEnableHumanoidDetectionKey ?
                         'text-primary' :
                         'text-muted'
                     )}
@@ -268,18 +272,18 @@ module.exports = class License extends Base {
                       <hr/>
                       <span className={classNames(
                         'border rounded-pill p-1 pr-2',
-                        systemInformation.isEnableHumanoidDetection ?
+                        isEnableHumanoidDetectionKey ?
                           'border-success text-success' :
                           'border-danger text-danger'
                       )}
                       >
                         <i className={classNames(
                           'fas',
-                          systemInformation.isEnableHumanoidDetection ?
+                          isEnableHumanoidDetectionKey ?
                             'fa-check-circle' :
                             'fa-minus-circle'
                         )}/>
-                        {systemInformation.isEnableHumanoidDetection ? _('Activated') : _('Inactivated')}
+                        {isEnableHumanoidDetectionKey ? _('Activated') : _('Inactivated')}
                       </span>
                     </div>
                   </div>
@@ -312,17 +316,17 @@ module.exports = class License extends Base {
                           {authKey.authKey}
                         </td>
                         <td>
-                          {authKey.isEnableFaceRecognition && (
+                          {authKey.isEnableFaceRecognitionKey && (
                             <span className="badge badge-primary badge-pill">
                               {_('Facial Recognition')}
                             </span>
                           )}
-                          {authKey.isEnableAgeGender && (
+                          {authKey.isEnableAgeGenderKey && (
                             <span className="badge badge-primary badge-pill ml-1">
                               {_('Age Gender')}
                             </span>
                           )}
-                          {authKey.isEnableHumanoidDetection && (
+                          {authKey.isEnableHumanoidDetectionKey && (
                             <span className="badge badge-primary badge-pill ml-1">
                               {_('Human Detection')}
                             </span>

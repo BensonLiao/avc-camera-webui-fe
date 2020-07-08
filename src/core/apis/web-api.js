@@ -173,9 +173,6 @@ module.exports = {
      * @response 200 {Object}
      * - languageCode {String}
      * - deviceName {String}
-     * - isEnableFaceRecognition {Boolean}
-     * - isEnableAgeGender {Boolean}
-     * - isEnableHumanoidDetection {Boolean}
      * - deviceStatus {Number}
      * - sdEnabled {Boolean}
      * - sdAlertEnabled {Boolean}
@@ -824,6 +821,15 @@ module.exports = {
   },
   smartFunction: {
     /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - faceRecognitionStatus {boolean}
+     */
+    getFaceRecognitionStatus: () => api({
+      method: 'get',
+      url: '/api/face-recognition/fr'
+    }),
+    /**
      * Schema: webserver-form-schema/face-recognition-settings-schema
      * @returns {Promise<response>}
      * @response 200 {Object}
@@ -1386,9 +1392,9 @@ module.exports = {
      * @response 200 {Object}
      * - items {Array<Object>}
      * - items[].authKey {String}
-     * - items[].isEnableFaceRecognition {Boolean}
-     * - items[].isEnableAgeGender {Boolean}
-     * - items[].isEnableHumanoidDetection {Boolean}
+     * - items[].isEnableFaceRecognitionKey {Boolean}
+     * - items[].isEnableAgeGenderKey {Boolean}
+     * - items[].isEnableHumanoidDetectionKey {Boolean}
      * - items[].isEnable {Boolean}
      * - items[].time {String} ISO8601 "2019-10-02T02:00:00.000Z"
      * - items[].user {Object}
@@ -1403,14 +1409,25 @@ module.exports = {
      * @param {String} authKey
      * @returns {Promise<response>}
      * @response 200 {Object}
-     * - isEnableFaceRecognition {Boolean}
-     * - isEnableAgeGender {Boolean}
-     * - isEnableHumanoidDetection {Boolean}
+     * - isEnableFaceRecognitionKey {Boolean}
+     * - isEnableAgeGenderKey {Boolean}
+     * - isEnableHumanoidDetectionKey {Boolean}
      */
     addAuthKey: authKey => api({
       method: 'post',
       url: '/api/auth-keys',
       data: {authKey}
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableFaceRecognitionKey {Boolean}
+     * - isEnableAgeGenderKey {Boolean}
+     * - isEnableHumanoidDetectionKey {Boolean}
+     */
+    getAuthStatus: () => api({
+      method: 'get',
+      url: '/api/auth-status'
     })
   }
 };

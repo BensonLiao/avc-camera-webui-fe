@@ -375,6 +375,7 @@ window.languageResource = {
   Focus: '對焦',
   'Auto Focus': '自動對焦',
   'Focal Length': '焦距',
+  Unlicensed: '未授權',
 
   // /image
   'Image Settings': '圖像設定',
