@@ -177,9 +177,14 @@ exports.renderError = error => {
 
 exports.onTogglePlayStream = (event, thisRef) => {
   event.preventDefault();
+  if (typeof thisRef.fetchSnapshot !== 'function') {
+    console.error('this.fetchSnapshot must be a function to get stream data.');
+    return false;
+  }
+
   thisRef.setState(prevState => {
     if (prevState.isPlayStream) {
-      // Stop play stream.
+      // Stop play stream
       if (prevState.streamImageUrl) {
         window.URL.revokeObjectURL(prevState.streamImageUrl);
       }
@@ -187,12 +192,9 @@ exports.onTogglePlayStream = (event, thisRef) => {
       return {isPlayStream: false, streamImageUrl: null};
     }
 
-    // Start play stream.
-    if (typeof thisRef.fetchSnapshot !== 'function') {
-      console.error('this.fetchSnapshot must be a function to get stream data.');
-    }
-
+    // Get the stream data
     thisRef.fetchSnapshot();
+    // Start play stream
     return {isPlayStream: true};
   });
 };
