@@ -367,6 +367,7 @@ module.exports = class Maintain extends Base {
 
               <CustomNotifyModal
                 modalType="process"
+                backdrop="static"
                 isShowModal={isShowApiProcessModal}
                 modalTitle={apiProcessModalTitle}
                 onHide={this.hideApiProcessModal}/>

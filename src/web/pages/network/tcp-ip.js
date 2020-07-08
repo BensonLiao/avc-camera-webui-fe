@@ -260,6 +260,7 @@ module.exports = class TCPIP extends Base {
 
               <CustomNotifyModal
                 modalType="process"
+                backdrop="static"
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
                 onHide={this.hideApiProcessModal}/>

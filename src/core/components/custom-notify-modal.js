@@ -20,7 +20,8 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       // Disable button when api is processing
       isConfirmDisable: PropTypes.bool,
       // For overriding default backdrop setting
-      backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
+      backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+      loading: PropTypes.bool
     };
   }
 
@@ -32,7 +33,8 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       confirmBtnTitle: _('Confirm'),
       onConfirm: null,
       isConfirmDisable: false,
-      backdrop: true
+      backdrop: true,
+      loading: false
     };
   }
 
@@ -46,18 +48,19 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       modalType,
       confirmBtnTitle,
       isConfirmDisable,
-      backdrop
+      backdrop,
+      loading
     } = this.props;
     return (
       <Modal
-        backdrop={modalType === 'process' ? 'static' : backdrop}
+        backdrop={backdrop}
         show={isShowModal}
         autoFocus={false}
         centered={modalType === 'process'}
         onHide={onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h4">{modalTitle}</Modal.Title>
+          <Modal.Title as="h4" className={classNames({'modal-loading': loading})}>{modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {utils.isArray(modalBody) ? (

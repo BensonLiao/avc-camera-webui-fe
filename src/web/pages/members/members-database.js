@@ -232,6 +232,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
         {/* Database updating modal */}
         <CustomNotifyModal
           modalType="process"
+          backdrop="static"
           isShowModal={isShowApiProcessModal}
           modalTitle={apiProcessModalTitle}
           modalBody="Member Database Updating"

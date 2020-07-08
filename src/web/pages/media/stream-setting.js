@@ -362,6 +362,7 @@ module.exports = class StreamSetting extends Base {
         </Tab.Container>
         <CustomNotifyModal
           modalType="process"
+          backdrop="static"
           isShowModal={this.state.isShowApiProcessModal}
           modalTitle={this.state.apiProcessModalTitle}
           onHide={this.hideApiProcessModal}/>
