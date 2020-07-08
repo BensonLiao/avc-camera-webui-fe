@@ -8,6 +8,7 @@ const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
+const notify = require('../../../core/notify');
 const _ = require('../../../languages');
 const {DEFAULT_PORTS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
@@ -75,12 +76,12 @@ module.exports = class TCPIP extends Base {
     api.system.updateDDNSInfo(values)
       .then(response => {
         if (response.data.ddnsHostStatus) {
-          utils.showSuccessNotification({
+          notify.showSuccessNotification({
             title: _('Setting Success'),
             message: _('DDNS setting success!')
           });
         } else {
-          utils.showErrorNotification({
+          notify.showErrorNotification({
             title: _('Setting Failed'),
             message: _('DDNS setting failed!')
           });

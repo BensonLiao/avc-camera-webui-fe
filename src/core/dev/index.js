@@ -1,9 +1,27 @@
 const axios = require('axios');
 const MockAdapter = require('axios-mock-adapter');
 const uuidv4 = require('uuid/v4');
-const {mockResponseWithLog, isArray} = require('../utils');
 const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+
+/**
+ * Log mock XHR like axios with console.groupCollapsed() and return mock response.
+ * @param {Object} req XHR request instance, or if we use library like axios then `req` is the axios request config and contains things like `url`.
+ * @see https://github.com/axios/axios#request-config
+ * @param {Array<Number, ?Object, ?Object>} res Accept any type of response, or if we use library like axios-mock-adapter then this will be an array in the form of [status, data, headers].
+ * @see https://github.com/ctimmerm/axios-mock-adapter
+ * @returns {Array<Number, ?Object, ?Object>} Same object as `res`.
+ */
+const mockResponseWithLog = (req, res) => {
+  console.groupCollapsed(`[${res[0]}] ${req.method} ${req.url}`);
+  console.log('request config:', req);
+  console.log('response: [status, data, headers]', res);
+  console.groupEnd();
+  return res;
+};
+
+const isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
+
 const mockDB = require('./db');
 const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);

@@ -9,7 +9,6 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-const download = require('downloadjs');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const {getRouter} = require('capybara-router');
@@ -179,24 +178,6 @@ module.exports = class Home extends Base {
       });
   };
 
-  onClickDownloadImage = event => {
-    event.preventDefault();
-    api.system.getSystemDateTime().then(({data}) => {
-      const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
-      axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
-        .then(response => {
-          download(response.data, `${dateTime}.jpg`);
-        })
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
-    });
-  };
-
   generateClickResetButtonHandler = ({resetForm}) => event => {
     event.preventDefault();
     progress.start();
@@ -321,7 +302,7 @@ module.exports = class Home extends Base {
                     }
                     <div className="controls d-flex justify-content-end align-items-center">
                       <div>
-                        <button className="btn-action" type="button" onClick={this.onClickDownloadImage}>
+                        <button className="btn-action" type="button" onClick={e => utils.onClickDownloadImage(e)}>
                           <i className="fas fa-camera"/>
                         </button>
                         <button className="btn-action" type="button" onClick={e => utils.toggleFullscreen(e, this.streamPlayerRef)}>

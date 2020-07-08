@@ -9,6 +9,7 @@ const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
 const utils = require('../../../core/utils');
+const notify = require('../../../core/notify');
 const iconFaceRecognitionEnable =
   require('../../../resource/face-recognition-enable-100px.svg');
 const iconFaceRecognitionDisable =
@@ -57,7 +58,7 @@ module.exports = class License extends Base {
     const keyList = this.props.authKeys.items.map(key => key.authKey);
     const check = utils.duplicateCheck(keyList, authKey);
     if (check) {
-      utils.showErrorNotification({
+      notify.showErrorNotification({
         title: _('Activation Failed'),
         message: _('Key already registered!')
       });
@@ -67,7 +68,7 @@ module.exports = class License extends Base {
       progress.start();
       api.authKey.addAuthKey(authKey)
         .then(response => {
-          utils.showSuccessNotification({
+          notify.showSuccessNotification({
             title: _('Activated Successfully'),
             message: _('{0} authorized successfully!', [
               (() => {
@@ -91,7 +92,7 @@ module.exports = class License extends Base {
           getRouter().reload();
         })
         .catch(() => {
-          utils.showErrorNotification({
+          notify.showErrorNotification({
             title: _('Activation Failed'),
             message: _('Authorization failed!')
           });
