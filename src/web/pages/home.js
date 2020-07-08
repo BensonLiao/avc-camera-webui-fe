@@ -179,24 +179,6 @@ module.exports = class Home extends Base {
       });
   };
 
-  onTogglePlayStream = event => {
-    event.preventDefault();
-    this.setState(prevState => {
-      if (prevState.isPlayStream) {
-        // Stop play stream.
-        if (prevState.streamImageUrl) {
-          window.URL.revokeObjectURL(prevState.streamImageUrl);
-        }
-
-        return {isPlayStream: false, streamImageUrl: null};
-      }
-
-      // Start play stream.
-      this.fetchSnapshot();
-      return {isPlayStream: true};
-    });
-  };
-
   onClickDownloadImage = event => {
     event.preventDefault();
     api.system.getSystemDateTime().then(({data}) => {
@@ -320,8 +302,8 @@ module.exports = class Home extends Base {
                   <div ref={this.streamPlayerRef}>
                     <img
                       className="img-fluid" draggable={false} src={streamImageUrl || defaultVideoBackground}
-                      onClick={this.onTogglePlayStream}/>
-                    <div className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})} onClick={this.onTogglePlayStream}>
+                      onClick={e => utils.onTogglePlayStream(e, this)}/>
+                    <div className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})} onClick={e => utils.onTogglePlayStream(e, this)}>
                       <button className="btn-play" type="button">
                         <i className="fas fa-play fa-fw"/>
                       </button>
@@ -329,7 +311,7 @@ module.exports = class Home extends Base {
                     {
                       isPlayStream && !streamImageUrl && (
                         <div className="cover d-flex justify-content-center align-items-center text-muted"
-                          onClick={this.onTogglePlayStream}
+                          onClick={e => utils.onTogglePlayStream(e, this)}
                         >
                           <div className="spinner-border">
                             <span className="sr-only">Loading...</span>

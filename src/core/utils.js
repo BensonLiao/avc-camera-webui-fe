@@ -173,6 +173,28 @@ exports.renderError = error => {
   throw error;
 };
 
+exports.onTogglePlayStream = (event, thisRef) => {
+  event.preventDefault();
+  thisRef.setState(prevState => {
+    if (prevState.isPlayStream) {
+      // Stop play stream.
+      if (prevState.streamImageUrl) {
+        window.URL.revokeObjectURL(prevState.streamImageUrl);
+      }
+
+      return {isPlayStream: false, streamImageUrl: null};
+    }
+
+    // Start play stream.
+    if (typeof thisRef.fetchSnapshot !== 'function') {
+      console.error('this.fetchSnapshot must be a function to get stream data.');
+    }
+
+    thisRef.fetchSnapshot();
+    return {isPlayStream: true};
+  });
+};
+
 exports.toggleFullscreen = (event, streamPlayerRef) => {
   event.preventDefault();
 
