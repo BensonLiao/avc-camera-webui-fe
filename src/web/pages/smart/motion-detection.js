@@ -146,7 +146,7 @@ module.exports = class MotionDetection extends Base {
             {
               maskAreaItems.map(index => (
                 maskAreaStates[index].isVisible ?
-                  <div key={index} tabIndex={1} onKeyDown={this.generateDeleteMaskAreaHandler(index)}>
+                  <div key={index} className="draggable-wrapper" tabIndex={-1} onKeyDown={this.generateDeleteMaskAreaHandler(index)}>
                     <Field
                       rightBottomCornerRef={this.maskAreaRefs[index]}
                       name={`areas.${index}`}
