@@ -173,6 +173,35 @@ exports.renderError = error => {
   throw error;
 };
 
+exports.toggleFullscreen = (event, streamPlayerRef) => {
+  event.preventDefault();
+
+  let isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+      (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+      (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+      (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+  if (!isInFullScreen) {
+    if (streamPlayerRef.current.requestFullscreen) {
+      streamPlayerRef.current.requestFullscreen();
+    } else if (streamPlayerRef.current.mozRequestFullScreen) {
+      streamPlayerRef.current.mozRequestFullScreen();
+    } else if (streamPlayerRef.current.webkitRequestFullScreen) {
+      streamPlayerRef.current.webkitRequestFullScreen();
+    } else if (streamPlayerRef.current.msRequestFullscreen) {
+      streamPlayerRef.current.msRequestFullscreen();
+    }
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  }
+};
+
 exports.validateStreamBitRate = () => values => {
   let result;
   const bitRateSchema = {

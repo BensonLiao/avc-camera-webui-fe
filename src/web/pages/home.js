@@ -215,46 +215,6 @@ module.exports = class Home extends Base {
     });
   };
 
-  onClickRequestFullScreen = event => {
-    event.preventDefault();
-    if (this.streamPlayerRef.current.requestFullScreen) {
-      this.streamPlayerRef.current.requestFullScreen();
-    } else if (this.streamPlayerRef.current.mozRequestFullScreen) {
-      this.streamPlayerRef.current.mozRequestFullScreen();
-    } else if (this.streamPlayerRef.current.webkitRequestFullScreen) {
-      this.streamPlayerRef.current.webkitRequestFullScreen();
-    }
-  };
-
-  toggleFullscreen = event => {
-    event.preventDefault();
-
-    let isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
-        (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
-        (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
-        (document.msFullscreenElement && document.msFullscreenElement !== null);
-
-    if (!isInFullScreen) {
-      if (this.streamPlayerRef.current.requestFullscreen) {
-        this.streamPlayerRef.current.requestFullscreen();
-      } else if (this.streamPlayerRef.current.mozRequestFullScreen) {
-        this.streamPlayerRef.current.mozRequestFullScreen();
-      } else if (this.streamPlayerRef.current.webkitRequestFullScreen) {
-        this.streamPlayerRef.current.webkitRequestFullScreen();
-      } else if (this.streamPlayerRef.current.msRequestFullscreen) {
-        this.streamPlayerRef.current.msRequestFullscreen();
-      }
-    } else if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-  }
-
   generateClickResetButtonHandler = ({resetForm}) => event => {
     event.preventDefault();
     progress.start();
@@ -382,7 +342,7 @@ module.exports = class Home extends Base {
                         <button className="btn-action" type="button" onClick={this.onClickDownloadImage}>
                           <i className="fas fa-camera"/>
                         </button>
-                        <button className="btn-action" type="button" onClick={this.toggleFullscreen}>
+                        <button className="btn-action" type="button" onClick={e => utils.toggleFullscreen(e, this.streamPlayerRef)}>
                           <i className="fas fa-expand-arrows-alt"/>
                         </button>
                       </div>
