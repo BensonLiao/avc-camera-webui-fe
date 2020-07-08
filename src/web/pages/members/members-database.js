@@ -99,9 +99,9 @@ module.exports = class MembersDatabase extends React.PureComponent {
             {reload: true}
           );
         })
-        .finally(() => {
+        .catch(() => {
           progress.done();
-          getRouter().reload();
+          this.hideApiProcessModal();
         });
     });
   };
