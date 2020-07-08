@@ -145,6 +145,7 @@ module.exports = class Events extends Base {
         <EventsSidebar
           params={params}
           systemInformation={systemInformation}
+          isApiProcessing={$isApiProcessing}
           type={type}
           currentRouteName={this.currentRoute.name}/>
         <div className="main-content left-menu-active bg-white">
@@ -160,6 +161,7 @@ module.exports = class Events extends Base {
                   </div>
                   <EventsSearchForm
                     params={params}
+                    isApiProcessing={$isApiProcessing}
                     currentRouteName={this.currentRoute.name}/>
                 </div>
                 <EventsTable

@@ -14,7 +14,8 @@ module.exports = class EventsSearchForm extends React.PureComponent {
         start: PropTypes.any,
         end: PropTypes.any
       }).isRequired,
-      currentRouteName: PropTypes.string.isRequired
+      currentRouteName: PropTypes.string.isRequired,
+      isApiProcessing: PropTypes.bool.isRequired
     };
   }
 
@@ -67,7 +68,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
 
   render() {
     const {isShowStartDatePicker, isShowEndDatePicker} = this.state;
-    const {params} = this.props;
+    const {params, isApiProcessing} = this.props;
     const searchFromInitialValues = {
       keyword: params.keyword || '',
       start: params.start ? new Date(params.start) : null,
@@ -118,7 +119,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
               <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
             </div>
             <div className="col-auto px-0 ml-3">
-              <button className="btn btn-outline-primary rounded-pill px-3" type="submit">
+              <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
                 <i className="fas fa-search fa-fw"/> {_('Search')}
               </button>
             </div>
