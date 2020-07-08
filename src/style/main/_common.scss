@@ -184,7 +184,12 @@ body {
   }
 
   .draggable-wrapper {
-    &.border-black {
+    &:focus{
+      .draggable-cover{
+        border-color: red !important;
+      }
+    }
+    .border-black {
       .draggable-cover {
         border: 4px #000 solid;
         background-color: rgba(0, 0, 0, 0.6);
@@ -193,7 +198,7 @@ body {
         border: 1px #000 solid;
       }
     }
-    &.border-purple {
+    .border-purple {
       .draggable-cover {
         border: 4px #7D3F98 solid;
         background-color: rgba(125, 63, 152, 0.5);
@@ -202,7 +207,7 @@ body {
         border: 1px #7D3F98 solid;
       }
     }
-    &.border-green {
+    .border-green {
       .draggable-cover {
         border: 2px #76FF00 solid;
         background-color: rgba(118, 255, 0, 0.5);
@@ -215,6 +220,7 @@ body {
     .draggable-cover {
       position: absolute;
       cursor: move;
+      transition: border-color 0.2s;
 
       .description {
         position: absolute;

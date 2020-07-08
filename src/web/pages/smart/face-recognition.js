@@ -102,14 +102,18 @@ module.exports = class FaceRecognition extends Base {
             <img className="img-fluid" src="/api/snapshot"/>
             {
               isShowDetectionZone && (
-                <Field name="triggerArea" component={MaskArea} text={_('Detection Zone')}
-                  className="border-black" parentElementId="fr-video-wrapper"/>
+                <div className="draggable-wrapper" tabIndex={-1}>
+                  <Field name="triggerArea" component={MaskArea} text={_('Detection Zone')}
+                    className="border-black" parentElementId="fr-video-wrapper"/>
+                </div>
               )
             }
             {
               values.isEnableFaceFrame && (
-                <Field name="faceFrame" component={MaskArea} text={_('Facial Detection Size')}
-                  className="border-green" parentElementId="fr-video-wrapper"/>
+                <div className="draggable-wrapper" tabIndex={-1}>
+                  <Field name="faceFrame" component={MaskArea} text={_('Facial Detection Size')}
+                    className="border-green" parentElementId="fr-video-wrapper"/>
+                </div>
               )
             }
           </div>
