@@ -84,7 +84,7 @@ module.exports = class CardsFormSchedule extends React.PureComponent {
          </div>
          <div className="form-group pl-4 datepicker-wrapper">
            <div className="form-row">
-             <div className="col-auto my-1 btn-group">
+             <div className="col-auto my-1 btn-group datepicker-group">
                <Field
                  name="$start"
                  component={DateTimePicker}

@@ -81,7 +81,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
       >
         <Form>
           <div className="form-row datepicker-wrapper">
-            <div className="col-auto px-0 btn-group">
+            <div className="col-auto px-0 btn-group datepicker-group">
               <Field
                 name="start"
                 component={DateTimePicker}
