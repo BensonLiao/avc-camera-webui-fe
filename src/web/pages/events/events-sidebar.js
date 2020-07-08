@@ -20,14 +20,13 @@ module.exports = class EventsSidebar extends React.PureComponent {
           PropTypes.arrayOf(PropTypes.oneOf(EnrollStatus.all()))
         ])
       }).isRequired,
-      systemInformation: PropTypes.shape({
-        isEnableFaceRecognition: PropTypes.bool.isRequired,
-        isEnableAgeGender: PropTypes.bool.isRequired,
-        isEnableHumanoidDetection: PropTypes.bool.isRequired
+      authStatus: PropTypes.shape({
+        isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+        isEnableAgeGenderKey: PropTypes.bool.isRequired,
+        isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
       }).isRequired,
       type: PropTypes.string.isRequired,
-      currentRouteName: PropTypes.string.isRequired,
-      isApiProcessing: PropTypes.bool.isRequired
+      currentRouteName: PropTypes.string.isRequired
     };
   }
 
@@ -93,7 +92,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
   };
 
   faceRecognitionFilterRender = () => {
-    const {params, isApiProcessing} = this.props;
+    const {params} = this.props;
     const confidence = this.convertArrayParams(params.confidence);
     const enrollStatus = this.convertArrayParams(params.enrollStatus);
     const similarityRender = [
@@ -112,7 +111,6 @@ module.exports = class EventsSidebar extends React.PureComponent {
           {similarityRender.map(item => (
             <div key={item.id} className="form-check mb-3">
               <input type="checkbox" className="form-check-input" id={item.id}
-                disabled={isApiProcessing}
                 checked={confidence.indexOf(item.confidence) >= 0}
                 onChange={this.toggleFilterHandler('confidence', item.confidence)}/>
               <label className="form-check-label" htmlFor={item.id}>
@@ -126,7 +124,6 @@ module.exports = class EventsSidebar extends React.PureComponent {
           {resultRender.map(item => (
             <div key={item.id} className={classNames('form-check', {'mb-3': item.status === '1'})}>
               <input type="checkbox" className="form-check-input" id={item.id}
-                disabled={isApiProcessing}
                 checked={enrollStatus.indexOf(item.status) >= 0}
                 onChange={this.toggleFilterHandler('enrollStatus', item.status)}/>
               <label className="form-check-label" htmlFor={item.id}>
@@ -141,7 +138,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
 
   render() {
     const {
-      systemInformation: {isEnableFaceRecognition, isEnableAgeGender, isEnableHumanoidDetection},
+      authStatus: {isEnableFaceRecognitionKey, isEnableAgeGenderKey, isEnableHumanoidDetectionKey},
       type,
       currentRouteName
     } = this.props;
@@ -154,10 +151,10 @@ module.exports = class EventsSidebar extends React.PureComponent {
             <a className="text-primary font-weight-bold" href="#" onClick={this.onClickClearFilters}>{_('Clear')}</a>
           </div>
 
-          <div className={classNames('card sub mb-3', {active: type === 'face-recognition' && isEnableFaceRecognition})}>
+          <div className={classNames('card sub mb-3', {active: type === 'face-recognition' && isEnableFaceRecognitionKey})}>
             <div className="card-header text-truncate">
               {
-                isEnableFaceRecognition ?
+                isEnableFaceRecognitionKey ?
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
                     <i className="fas fa-chevron-up"/>
@@ -168,13 +165,13 @@ module.exports = class EventsSidebar extends React.PureComponent {
                   </a>
               }
             </div>
-            {type === 'face-recognition' && isEnableFaceRecognition && this.faceRecognitionFilterRender()}
+            {type === 'face-recognition' && isEnableFaceRecognitionKey && this.faceRecognitionFilterRender()}
           </div>
 
-          <div className={classNames('card sub mb-3 d-none', {active: type === 'age-gender' && isEnableAgeGender})}>
+          <div className={classNames('card sub mb-3 d-none', {active: type === 'age-gender' && isEnableAgeGenderKey})}>
             <div className="card-header text-truncate">
               {
-                isEnableAgeGender ?
+                isEnableAgeGenderKey ?
                   <Link to={{name: currentRouteName, params: {type: 'age-gender'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
@@ -190,10 +187,10 @@ module.exports = class EventsSidebar extends React.PureComponent {
             </div>
           </div>
 
-          <div className={classNames('card sub mb-3 d-none', {active: type === 'humanoid-detection' && isEnableHumanoidDetection})}>
+          <div className={classNames('card sub mb-3 d-none', {active: type === 'humanoid-detection' && isEnableHumanoidDetectionKey})}>
             <div className="card-header text-truncate">
               {
-                isEnableHumanoidDetection ?
+                isEnableHumanoidDetectionKey ?
                   <Link to={{name: currentRouteName, params: {type: 'humanoid-detection'}}}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >

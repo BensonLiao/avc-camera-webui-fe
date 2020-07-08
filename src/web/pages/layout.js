@@ -31,9 +31,6 @@ module.exports = class Layout extends Base {
       systemInformation: PropTypes.shape({
         languageCode: PropTypes.oneOf(constants.AVAILABLE_LANGUAGE_CODES).isRequired,
         deviceName: PropTypes.string.isRequired,
-        isEnableFaceRecognition: PropTypes.bool.isRequired,
-        isEnableAgeGender: PropTypes.bool.isRequired,
-        isEnableHumanoidDetection: PropTypes.bool.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         serialNumber: PropTypes.string.isRequired,
         modelName: PropTypes.string.isRequired,

@@ -47,7 +47,9 @@ module.exports = new Router({
       resolve: {
         videoSettings: () => api.video.getSettings().then(response => response.data),
         streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data),
-        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)
+        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data),
+        authStatus: () => api.authKey.getAuthStatus().then(response => response.data),
+        faceRecognitionStatus: () => api.smartFunction.getFaceRecognitionStatus().then(response => response.data)
       },
       component: require('./pages/home')
     },
@@ -250,7 +252,8 @@ module.exports = new Router({
         document.title = `${_('License')} - ${_('Analytic')} - ${_title}`;
       },
       resolve: {
-        authKeys: () => api.authKey.getAuthKeys().then(response => response.data)
+        authKeys: () => api.authKey.getAuthKeys().then(response => response.data),
+        authStatus: () => api.authKey.getAuthStatus().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-license" */
@@ -405,7 +408,8 @@ module.exports = new Router({
           }
 
           return api.event.getFaceEvents(params).then(response => response.data);
-        }
+        },
+        authStatus: () => api.authKey.getAuthStatus().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-events" */

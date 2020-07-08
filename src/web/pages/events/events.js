@@ -26,10 +26,10 @@ module.exports = class Events extends Base {
           PropTypes.arrayOf(PropTypes.oneOf(EnrollStatus.all()))
         ])
       }).isRequired,
-      systemInformation: PropTypes.shape({
-        isEnableFaceRecognition: PropTypes.bool.isRequired,
-        isEnableAgeGender: PropTypes.bool.isRequired,
-        isEnableHumanoidDetection: PropTypes.bool.isRequired
+      authStatus: PropTypes.shape({
+        isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+        isEnableAgeGenderKey: PropTypes.bool.isRequired,
+        isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
       }).isRequired,
       groups: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
@@ -129,7 +129,7 @@ module.exports = class Events extends Base {
 
   render() {
     const {$isApiProcessing, type, isShowMemberModal, currentMember, defaultMemberPictureUrl} = this.state;
-    const {params, systemInformation, groups, faceEvents} = this.props;
+    const {params, authStatus, groups, faceEvents} = this.props;
     let events;
     if (type === 'face-recognition') {
       events = faceEvents;
@@ -144,8 +144,7 @@ module.exports = class Events extends Base {
       <>
         <EventsSidebar
           params={params}
-          systemInformation={systemInformation}
-          isApiProcessing={$isApiProcessing}
+          authStatus={authStatus}
           type={type}
           currentRouteName={this.currentRoute.name}/>
         <div className="main-content left-menu-active bg-white">
@@ -161,7 +160,6 @@ module.exports = class Events extends Base {
                   </div>
                   <EventsSearchForm
                     params={params}
-                    isApiProcessing={$isApiProcessing}
                     currentRouteName={this.currentRoute.name}/>
                 </div>
                 <EventsTable
