@@ -93,6 +93,7 @@ module.exports = class Log extends Base {
               </div>
               <CustomNotifyModal
                 modalType="process"
+                backdrop="static"
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
                 modalBody={[

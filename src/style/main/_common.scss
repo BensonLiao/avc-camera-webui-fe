@@ -1,3 +1,4 @@
+@import "../main/variables";
 /* OS X 黑體 */
 @font-face {
   font-family: CustomSTHeitiTC;
@@ -509,24 +510,143 @@ $chips-sum-extra-width: 50px;
   }
 }
 
+// FOTA processing modal variables
+$stage-border-width: 1px;
+$finish-border-draw-width: 2px;
+$finish-border-width: $finish-border-draw-width + 8px;
+$stage-connector-width: 2px;
+$stage-spacer: 32px;
+
 // FOTA processing modal
 .stage-progress{
+  position: relative;
   line-height: 3rem;
-  display: flex;
-  align-items: center;
+  margin-bottom: $stage-spacer;
+  padding: $finish-border-draw-width;
+  border: $stage-border-width solid $secondary-300;
+  border-radius: 1rem;
 
-  .loading-spinners{
-    margin-right: 1.5rem;
+  .rounded-border-container {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 0.8rem;
+  }
 
+  &:after {
+    content: '';
+    height: $stage-spacer + $stage-border-width;
+    margin-left: 2.3rem;
+    position: absolute;
+    bottom: -($stage-spacer + $stage-border-width);
+    border: none;
+    border-left: $stage-connector-width solid $secondary-300;
+  }
+
+  // Remove connecting line between stages from the last one
+  &:last-child:after {
+    border: none;
+  }
+
+  &.draw {
+    // Stage finish green border
+    &:before {
+      content:"";
+      z-index: -1;
+      position: absolute;
+      top:0;
+      right:0;
+      left:0;
+      bottom:0;
+    }
+
+    &:not(:last-child):after {
+      transition: 1s;
+      transition-delay: 2.25s;
+      border-left: $stage-connector-width solid #2bb341;
+    }
+
+    background-image: 
+    linear-gradient(#2bb341, #2bb341), 
+    linear-gradient(#2bb341, #2bb341), 
+    linear-gradient(#2bb341, #2bb341), 
+    linear-gradient(#2bb341, #2bb341);
+  
+    background-position: 0 0, 0 0, 0 100%, 0 100%;
+    background-size: $finish-border-width 0%, 0% $finish-border-width, 0% $finish-border-width, $finish-border-width 0%;
+    background-color:transparent;
+    background-repeat:no-repeat;
+    animation: animate-finish 1s forwards;
+    animation-timing-function: linear;
+    animation-delay: 0.5s;
+
+    @keyframes animate-finish {
+      0% {
+      background-position: 0 100%, 0 0, 0 100%, 100% 0;
+      background-size: $finish-border-width 0%, 0% $finish-border-width, 0% $finish-border-width,$finish-border-width 0%;
+      }
+      45% {
+      background-position: 0 100%, 0 0, 0 100%, 100% 0;
+      background-size: $finish-border-width 0%, 100% $finish-border-width, 0% $finish-border-width,$finish-border-width 0%;
+      }
+      50% {
+      background-position: 0 100%, 100% 0, 100% 100%, 100% 0;
+      background-size: $finish-border-width 0%, 100% $finish-border-width, 0% $finish-border-width,$finish-border-width 100%;
+      }
+      95% {
+      background-position: 0 100%, 100% 0, 100% 100%, 100% 100%;
+      background-size: $finish-border-width 0%, 100% $finish-border-width, 100% $finish-border-width,$finish-border-width 100%
+      }
+      100% {
+      background-position: 0 100%, 100% 0, 0% 100%, 100% 100%;
+      background-size: $finish-border-width 100%, 100% $finish-border-width, 100% $finish-border-width,$finish-border-width 100%;
+      }
+    }
+  }
+
+  .progress-percentage {
+    position: absolute;
+    right:0;
+    margin-right: 1rem;
+  }
+
+  .progress-title {
+    color: $secondary-500;
+  }
+
+  .divider {
+    border: none;
+    height: 2.5rem;
+    width: 1rem;
+    padding: 0 0.5rem;
+    margin-right: 1rem;
+    border-right: $stage-border-width solid $secondary-300;
+    background-size: 0 0%, 0% $finish-border-width, 0% $finish-border-width, $finish-border-width 0%;
+  }
+
+  // Progress status icon
+  .loading-spinners {
+    margin: 0 1.5rem;
+    width: $progress-stage-icon-size;
+    height: $progress-stage-icon-size;
+    position: relative;
+
+    // Finished checkmark
     .checkmark {
-      width: 2rem;
-      height: 2rem;
+      position: absolute;
+      left: 0;
+      width: $progress-stage-icon-size;
+      height: $progress-stage-icon-size;
       border-radius: 50%;
       stroke-width: 2;
       stroke: #fff;
       stroke-miterlimit: 10;
       box-shadow: inset 0px 0px 0px #7ac142;
-      animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+      animation: check-fill 0.4s ease-in-out 0.4s forwards, check-scale 0.3s ease-in-out 0.9s both;
+      display: none;
+      &.show {
+        display: block;
+      }
       .checkmark-circle {
         stroke-dasharray: 166;
         stroke-dashoffset: 166;
@@ -534,22 +654,21 @@ $chips-sum-extra-width: 50px;
         stroke-miterlimit: 10;
         stroke: #7ac142;
         fill: none;
-        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        animation: check-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
       }
 
       .checkmark-check {
         transform-origin: 50% 50%;
         stroke-dasharray: 48;
         stroke-dashoffset: 48;
-        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        animation: check-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
       }
-
-      @keyframes stroke {
+      @keyframes check-stroke {
         100% {
           stroke-dashoffset: 0;
         }
       }
-      @keyframes scale {
+      @keyframes check-scale {
         0%, 100% {
           transform: none;
         }
@@ -557,47 +676,123 @@ $chips-sum-extra-width: 50px;
           transform: scale3d(1.1, 1.1, 1);
         }
       }
-      @keyframes fill {
+      @keyframes check-fill {
         100% {
           box-shadow: inset 0px 0px 0px 30px #7ac142;
         }
       }
     }
 
-    .loading-dots{
+    // Failed Crossmark
+    .crossmark {
+      width: $progress-stage-icon-size;
+      height: $progress-stage-icon-size;
+      border-radius: 50%;
+      display: block;
+      stroke-width: 2;
+      stroke: #fff;
+      stroke-miterlimit: 10;
+      margin: 10% auto;
+      box-shadow: inset 0px 0px 0px red;
+      animation: cross-fill 0.4s ease-in-out 0.4s forwards, cross-scale 0.3s ease-in-out 0.9s both;
+      display: none;
+      &.show {
+        display: block;
+      }
+    }
+    .crossmark-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 2;
+      stroke-miterlimit: 10;
+      stroke: red;
+      fill: none;
+      animation: cross-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+    .crossmark-cross {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 29;
+      stroke-dashoffset: 29;
+      animation: cross-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+    @keyframes cross-stroke {
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+    @keyframes cross-scale {
+      0%, 100% {
+        transform: none;
+      }
+      50% {
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+    @keyframes cross-fill {
+      100% {
+        box-shadow: inset 0px 0px 0px 30px red;
+      }
+    }
+
+    // Loading spinner
+    .loading-dots {
       display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: ease-out 1s;
+      transition-delay: 0.3s;
+
+      &.hide-loading {
+        opacity: 0;
+        transition: ease-out 0.6s;
+        .double-bounce1, .double-bounce2 {
+        transition: ease-out 0.3s;
+          background-color: #7ac142;
+        }
+      }
 
       .spinner {
-        width: 2rem;
-        height: 2rem;
-        background-color: #333;
-        border-radius: 100%;  
-        -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
-        animation: sk-scaleout 1.0s infinite ease-in-out;
+        width: $progress-stage-icon-size;
+        height: $progress-stage-icon-size;
+        position: relative;
       }
       
-      @-webkit-keyframes sk-scaleout {
-        0% { -webkit-transform: scale(0) }
-        100% {
-          -webkit-transform: scale(1.0);
-          opacity: 0;
-        }
+      .double-bounce1, .double-bounce2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: $info;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
       }
       
-      @keyframes sk-scaleout {
-        0% { 
-          -webkit-transform: scale(0);
-          transform: scale(0);
-        } 100% {
-          -webkit-transform: scale(1.0);
+      .double-bounce2 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+      }
+      
+      @-webkit-keyframes sk-bounce {
+        0%, 100% { -webkit-transform: scale(0.0) }
+        50% { -webkit-transform: scale(1.0) }
+      }
+      
+      @keyframes sk-bounce {
+        0%, 100% { 
+          transform: scale(0.0);
+          -webkit-transform: scale(0.0);
+        } 50% { 
           transform: scale(1.0);
-          opacity: 0;
+          -webkit-transform: scale(1.0);
         }
       }
-      
     }
   }
-
 }
 
 /* Hide scrollbar but keep functionality */
