@@ -325,15 +325,11 @@ module.exports = class Home extends Base {
                     <img
                       className="img-fluid" src={streamImageUrl || defaultVideoBackground}
                       onClick={this.onTogglePlayStream}/>
-                    {
-                      !isPlayStream && (
-                        <div className="cover d-flex justify-content-center align-items-center" onClick={this.onTogglePlayStream}>
-                          <button className="btn-play" type="button">
-                            <i className="fas fa-play fa-fw"/>
-                          </button>
-                        </div>
-                      )
-                    }
+                    <div className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})} onClick={this.onTogglePlayStream}>
+                      <button className="btn-play" type="button">
+                        <i className="fas fa-play fa-fw"/>
+                      </button>
+                    </div>
                     {
                       isPlayStream && !streamImageUrl && (
                         <div className="cover d-flex justify-content-center align-items-center text-muted"
