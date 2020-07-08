@@ -688,6 +688,8 @@ window.languageResource = {
   Information: '裝置資訊',
   'System Log': 'Log 紀錄',
   'System Log File Record': '系統 Log 檔紀錄',
+  'Delete System Log File Record': '刪除系統 Log 檔紀錄',
+  'Are you sure you want to Delete Record?': '您即將刪除系統 Log 檔紀錄，確認是否繼續？',
   'Delete Record': '刪除紀錄',
   Download: '下載',
 
