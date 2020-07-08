@@ -132,7 +132,7 @@ module.exports = class PrivacyMask extends Base {
 
         <div className="col-7 px-0">
           <div ref={this.videoWrapperRef} id="pm-video-wrapper" className="video-wrapper">
-            <img draggable={false} className="img-fluid" src="/api/snapshot"
+            <img className="img-fluid" draggable={false} src="/api/snapshot"
               onMouseDown={this.generateVideoWrapperMouseDownHandler(form)}/>
             {
               maskAreaItems.map(index => (

@@ -57,7 +57,7 @@ module.exports = class Word extends Base {
 
         <div className="col-7 px-0">
           <div className="video-wrapper">
-            <img className="img-fluid" src="/api/snapshot"/>
+            <img className="img-fluid" draggable={false} src="/api/snapshot"/>
             {
               values.position !== WordPosition.leftTop && (
                 <button className="btn btn-top-left" type="button"
