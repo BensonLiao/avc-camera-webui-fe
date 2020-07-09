@@ -38,7 +38,7 @@ module.exports = class StageProgress extends React.PureComponent {
               <circle className="crossmark-circle" cx="26" cy="26" r="25" fill="none"/>
               <path className="crossmark-cross" fill="none" d="M16 16 36 36 M36 16 16 36"/>
             </svg>
-            <div className={classNames('loading-dots', {'hide-loading': progressPercentage === 0 || progressStatus !== 'start'})}>
+            <div className={classNames('loading-dots', {'hide-loading': progressStatus !== 'start'})}>
               {progressPercentage === -1 ? (
                 <div className="spinner">
                   <div className="double-bounce1"/>
