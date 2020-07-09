@@ -160,11 +160,12 @@ module.exports = class EventsSidebar extends React.PureComponent {
                 isEnableFaceRecognitionKey ?
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
-                    <i className="fas fa-chevron-up"/>
+                    <i className="d-none fas fa-chevron-up"/>
                   </a> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span> <i className="fas fa-chevron-down"/>
+                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
+                    <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
