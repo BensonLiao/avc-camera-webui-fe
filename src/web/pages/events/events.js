@@ -144,6 +144,7 @@ module.exports = class Events extends Base {
       <>
         <EventsSidebar
           params={params}
+          isApiProcessing={$isApiProcessing}
           authStatus={authStatus}
           type={type}
           currentRouteName={this.currentRoute.name}/>
@@ -160,6 +161,7 @@ module.exports = class Events extends Base {
                   </div>
                   <EventsSearchForm
                     params={params}
+                    isApiProcessing={$isApiProcessing}
                     currentRouteName={this.currentRoute.name}/>
                 </div>
                 <EventsTable
