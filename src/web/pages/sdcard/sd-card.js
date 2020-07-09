@@ -260,14 +260,14 @@ module.exports = class SDCard extends Base {
                       <>
                         <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
                           <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                            {`${usedDiskPercentage}%`}
+                            {usedDiskPercentage > 4 ? `${usedDiskPercentage}%` : ''}
                           </div>
                         </CustomTooltip>
                         {usedDiskPercentage && (
                           <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
 
                             <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
-                              {`${freeDiskPercentage}%`}
+                              {freeDiskPercentage > 4 ? `${freeDiskPercentage}%` : ''}
                             </div>
                           </CustomTooltip>)}
                       </>
@@ -283,6 +283,7 @@ module.exports = class SDCard extends Base {
 
   render() {
     const {systemInformation} = this.props;
+    console.log(systemInformation);
     return (
       <div className="main-content">
         <div className="section-media">

@@ -737,6 +737,8 @@ window.languageResource = {
   'Setup Email Notifications': '請設定電子郵件通知',
   'File Format': '檔案格式',
   'Storage Space': '儲存空間',
+  'Free: {0}': '{0} 可用',
+  'Used: {0}': '{0} 已使用',
   Status: '狀態',
   // /sd-card/status
   // 0 - MOUNTED:

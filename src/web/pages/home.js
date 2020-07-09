@@ -353,14 +353,14 @@ module.exports = class Home extends Base {
                                   <>
                                     <CustomTooltip title={_('Used: {0}', [filesize(sdUsage)])}>
                                       <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                                        {`${usedDiskPercentage}%`}
+                                        {usedDiskPercentage > 8 ? `${usedDiskPercentage}%` : ''}
                                       </div>
                                     </CustomTooltip>
                                     {usedDiskPercentage && (
                                       <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
 
                                         <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
-                                          {`${freeDiskPercentage}%`}
+                                          {freeDiskPercentage > 8 ? `${freeDiskPercentage}%` : ''}
                                         </div>
                                       </CustomTooltip>)}
                                   </>
