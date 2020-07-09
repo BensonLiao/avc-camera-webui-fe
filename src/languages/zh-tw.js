@@ -685,6 +685,23 @@ window.languageResource = {
   '• Internet/Network settings': '• 網路設定',
   '• SD Card settings.': '• SD卡設定',
 
+  // /system/Upgrade
+  'Upload Firmware': '上傳韌體',
+  'Install Firmware': '安裝韌體',
+  'Shutdown Device': '關閉裝置',
+  'Restart Device': '重啟裝置',
+  'Stage 01': '階段 01',
+  'Stage 02': '階段 02',
+  'Stage 03': '階段 03',
+  'Stage 04': '階段 04',
+  '※ Please do not close browser or tab while upgrading': '※ 升級時請勿關閉瀏覽器或分頁',
+  'Uploading Firmware': '韌體上傳中',
+  'Installing Firmware': '韌體安裝中',
+  'Device Shutting Down': '裝置關閉中',
+  'Device Restarting': '裝置重啟中',
+  'Firmware Upgrade Success': '韌體升級成功',
+  'Redirect to login page in {0} seconds': '於 {0} 秒後重新導向至登入頁面',
+
   // /system/System Information
   'System Information': '資訊',
   Information: '裝置資訊',
