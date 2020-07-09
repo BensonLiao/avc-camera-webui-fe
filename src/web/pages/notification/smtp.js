@@ -16,6 +16,7 @@ const utils = require('../../../core/utils');
 const notify = require('../../../core/notify');
 const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
+const notify = require('../../../core/notify');
 
 module.exports = class SMTP extends Base {
   static get propTypes() {
