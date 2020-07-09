@@ -153,24 +153,27 @@ module.exports = class EventsSidebar extends React.PureComponent {
             <span>{_('Filters')}</span>
             <a className="text-primary font-weight-bold" href="#" onClick={this.onClickClearFilters}>{_('Clear')}</a>
           </div>
-
+          {/* Facial Filter */}
+          {/* AVN only have facial */}
           <div className={classNames('card sub mb-3', {active: type === 'face-recognition' && isEnableFaceRecognitionKey})}>
             <div className="card-header text-truncate">
               {
                 isEnableFaceRecognitionKey ?
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
+                    {/* Remove arrow in AVN */}
                     <i className="fas fa-chevron-up"/>
                   </a> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span> <i className="fas fa-chevron-down"/>
+                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
+                    <i className="fas fa-chevron-down"/>
                   </a>
               }
             </div>
             {type === 'face-recognition' && isEnableFaceRecognitionKey && this.faceRecognitionFilterRender()}
           </div>
-
+          {/* Age Gender Filter */}
           <div className={classNames('card sub mb-3 d-none', {active: type === 'age-gender' && isEnableAgeGenderKey})}>
             <div className="card-header text-truncate">
               {
@@ -189,7 +192,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
               }
             </div>
           </div>
-
+          {/* Human Detection Filter */}
           <div className={classNames('card sub mb-3 d-none', {active: type === 'humanoid-detection' && isEnableHumanoidDetectionKey})}>
             <div className="card-header text-truncate">
               {
