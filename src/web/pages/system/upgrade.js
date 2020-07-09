@@ -148,8 +148,8 @@ module.exports = class Upgrade extends Base {
     this.setState(prevState => ({
       isShowApiProcessModal: true,
       apiProcessModalTitle: _('Uploading Firmware'),
-      progressPercentage: {
-        ...prevState.progressPercentage,
+      progressStatus: {
+        ...prevState.progressStatus,
         uploadFirmware: 'start'
       }
     }),
