@@ -26,7 +26,8 @@ module.exports = class EventsSidebar extends React.PureComponent {
         isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
       }).isRequired,
       type: PropTypes.string.isRequired,
-      currentRouteName: PropTypes.string.isRequired
+      currentRouteName: PropTypes.string.isRequired,
+      isApiProcessing: PropTypes.bool.isRequired
     };
   }
 
@@ -92,7 +93,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
   };
 
   faceRecognitionFilterRender = () => {
-    const {params} = this.props;
+    const {params, isApiProcessing} = this.props;
     const confidence = this.convertArrayParams(params.confidence);
     const enrollStatus = this.convertArrayParams(params.enrollStatus);
     const similarityRender = [
@@ -111,6 +112,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
           {similarityRender.map(item => (
             <div key={item.id} className="form-check mb-3">
               <input type="checkbox" className="form-check-input" id={item.id}
+                disabled={isApiProcessing}
                 checked={confidence.indexOf(item.confidence) >= 0}
                 onChange={this.toggleFilterHandler('confidence', item.confidence)}/>
               <label className="form-check-label" htmlFor={item.id}>
@@ -124,6 +126,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
           {resultRender.map(item => (
             <div key={item.id} className={classNames('form-check', {'mb-3': item.status === '1'})}>
               <input type="checkbox" className="form-check-input" id={item.id}
+                disabled={isApiProcessing}
                 checked={enrollStatus.indexOf(item.status) >= 0}
                 onChange={this.toggleFilterHandler('enrollStatus', item.status)}/>
               <label className="form-check-label" htmlFor={item.id}>
