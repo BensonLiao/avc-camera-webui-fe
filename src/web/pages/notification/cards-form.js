@@ -6,6 +6,7 @@ const Modal = require('react-bootstrap/Modal').default;
 const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
 const React = require('react');
+const NotificationCardSchema = require('webserver-form-schema/notification-card-schema');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
@@ -66,13 +67,19 @@ module.exports = class CardsForm extends React.PureComponent {
     isCardTitleOnFocus: false
   };
 
-  setCardTitleOnFocus = () => {
+  onFocusCardTitle = () => {
     this.setState({isCardTitleOnFocus: true});
   }
 
-  setCardTitleOnBlur = () => {
+  onBlurCardTitle = () => {
     this.setState({isCardTitleOnFocus: false});
   }
+
+  onKeyDownCardTitle = event => {
+    if (event.target.innerHTML.length > NotificationCardSchema.title.max) {
+      event.preventDefault();
+    }
+  };
 
   generateCardInitialValues = card => {
     if (card) {
@@ -183,9 +190,10 @@ module.exports = class CardsForm extends React.PureComponent {
                         'title text-primary ml-3 my-0',
                         {'text-truncate': !isCardTitleOnFocus}
                       )}
+                      onKeyDown={this.onKeyDownCardTitle}
+                      onFocus={this.onFocusCardTitle}
+                      onBlur={this.onBlurCardTitle}
                       onChange={onChangeTitle}
-                      onFocus={this.setCardTitleOnFocus}
-                      onBlur={this.setCardTitleOnBlur}
                     />
 
                     <a className="btn-edit-title ml-3" href="#" onClick={onClickTitleEditButton}>
