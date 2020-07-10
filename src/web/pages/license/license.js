@@ -1,27 +1,22 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const {Link, getRouter} = require('capybara-router');
 const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
+const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
+const PropTypes = require('prop-types');
+const React = require('react');
 const Base = require('../shared/base');
+const LicenseStatus = require('./license-status');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
-const utils = require('../../../core/utils');
+const iconFaceRecognitionEnable = require('../../../resource/face-recognition-enable-100px.svg');
+const iconFaceRecognitionDisable = require('../../../resource/face-recognition-disable-100px.svg');
+const iconAgeGenderEnable = require('../../../resource/age-gender-enable-100px.svg');
+const iconAgeGenderDisable = require('../../../resource/age-gender-disable-100px.svg');
+const iconHumanoidDetectionEnable = require('../../../resource/human-detection-enable-100px.svg');
+const iconHumanoidDetectionDisable = require('../../../resource/human-detection-disable-100px.svg');
 const notify = require('../../../core/notify');
-const iconFaceRecognitionEnable =
-  require('../../../resource/face-recognition-enable-100px.svg');
-const iconFaceRecognitionDisable =
-  require('../../../resource/face-recognition-disable-100px.svg');
-const iconAgeGenderEnable =
-  require('../../../resource/age-gender-enable-100px.svg');
-const iconAgeGenderDisable =
-  require('../../../resource/age-gender-disable-100px.svg');
-const iconHumanoidDetectionEnable =
-  require('../../../resource/human-detection-enable-100px.svg');
-const iconHumanoidDetectionDisable =
-  require('../../../resource/human-detection-disable-100px.svg');
+const utils = require('../../../core/utils');
 
 module.exports = class License extends Base {
   static get propTypes() {
@@ -175,119 +170,24 @@ module.exports = class License extends Base {
             <div className="row">
               <div className="col-12">
                 <div className="status d-flex">
-                  <div className={classNames(
-                    'border text-center bg-white',
-                    {'active shadow border-success': isEnableFaceRecognitionKey}
-                  )}
-                  >
-                    <div className="img-wrapper">
-                      <img src={isEnableFaceRecognitionKey ? iconFaceRecognitionEnable :
-                        iconFaceRecognitionDisable}/>
-                    </div>
-                    <h4 className={classNames(
-                      'text-size-20 mt-3',
-                      isEnableFaceRecognitionKey ?
-                        'text-primary' :
-                        'text-muted'
-                    )}
-                    >
-                      {_('Facial Recognition')}
-                    </h4>
-                    <div className="bottom">
-                      <hr/>
-                      <span className={classNames(
-                        'border rounded-pill p-1 pr-2',
-                        isEnableFaceRecognitionKey ?
-                          'border-success text-success' :
-                          'border-danger text-danger'
-                      )}
-                      >
-                        <i className={classNames(
-                          'fas',
-                          isEnableFaceRecognitionKey ?
-                            'fa-check-circle' :
-                            'fa-minus-circle'
-                        )}/>
-                        {isEnableFaceRecognitionKey ? _('Activated') : _('Inactivated')}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className={classNames(
-                    'border text-center bg-white',
-                    {'active shadow border-success': isEnableAgeGenderKey}
-                  )}
-                  >
-                    <div className="img-wrapper">
-                      <img src={isEnableAgeGenderKey ? iconAgeGenderEnable :
-                        iconAgeGenderDisable}/>
-                    </div>
-                    <h4 className={classNames(
-                      'text-size-20 mt-3',
-                      isEnableAgeGenderKey ?
-                        'text-primary' :
-                        'text-muted'
-                    )}
-                    >
-                      {_('Age Gender')}
-                    </h4>
-                    <div className="bottom">
-                      <hr/>
-                      <span className={classNames(
-                        'border rounded-pill p-1 pr-2',
-                        isEnableAgeGenderKey ?
-                          'border-success text-success' :
-                          'border-danger text-danger'
-                      )}
-                      >
-                        <i className={classNames(
-                          'fas',
-                          isEnableAgeGenderKey ?
-                            'fa-check-circle' :
-                            'fa-minus-circle'
-                        )}/>
-                        {isEnableAgeGenderKey ? _('Activated') : _('Inactivated')}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className={classNames(
-                    'border text-center bg-white',
-                    {'active shadow border-success': isEnableHumanoidDetectionKey}
-                  )}
-                  >
-                    <div className="img-wrapper">
-                      <img src={isEnableHumanoidDetectionKey ? iconHumanoidDetectionEnable :
-                        iconHumanoidDetectionDisable}/>
-                    </div>
-                    <h4 className={classNames(
-                      'text-size-20 mt-3',
-                      isEnableHumanoidDetectionKey ?
-                        'text-primary' :
-                        'text-muted'
-                    )}
-                    >
-                      {_('Human Detection')}
-                    </h4>
-                    <div className="bottom">
-                      <hr/>
-                      <span className={classNames(
-                        'border rounded-pill p-1 pr-2',
-                        isEnableHumanoidDetectionKey ?
-                          'border-success text-success' :
-                          'border-danger text-danger'
-                      )}
-                      >
-                        <i className={classNames(
-                          'fas',
-                          isEnableHumanoidDetectionKey ?
-                            'fa-check-circle' :
-                            'fa-minus-circle'
-                        )}/>
-                        {isEnableHumanoidDetectionKey ? _('Activated') : _('Inactivated')}
-                      </span>
-                    </div>
-                  </div>
+                  <LicenseStatus
+                    licenseName={_('Facial Recognition')}
+                    licenseKeyStatus={isEnableFaceRecognitionKey}
+                    licenseEnableImg={iconFaceRecognitionEnable}
+                    licenseDisableImg={iconFaceRecognitionDisable}
+                  />
+                  <LicenseStatus
+                    licenseName={_('Age Gender')}
+                    licenseKeyStatus={isEnableAgeGenderKey}
+                    licenseEnableImg={iconAgeGenderEnable}
+                    licenseDisableImg={iconAgeGenderDisable}
+                  />
+                  <LicenseStatus
+                    licenseName={_('Human Detection')}
+                    licenseKeyStatus={isEnableHumanoidDetectionKey}
+                    licenseEnableImg={iconHumanoidDetectionEnable}
+                    licenseDisableImg={iconHumanoidDetectionDisable}
+                  />
                 </div>
 
                 <table className="table custom-style">
