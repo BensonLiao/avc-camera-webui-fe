@@ -5,6 +5,7 @@ const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
 const Base = require('../shared/base');
+const LicenseList = require('./license-list');
 const LicenseStatus = require('./license-status');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
@@ -189,59 +190,9 @@ module.exports = class License extends Base {
                     licenseDisableImg={iconHumanoidDetectionDisable}
                   />
                 </div>
-
-                <table className="table custom-style">
-                  <thead>
-                    <tr className="shadow">
-                      <th/>
-                      <th>{_('Time')}</th>
-                      <th>{_('Activate User')}</th>
-                      <th>{_('Authentication Key')}</th>
-                      <th>{_('Activate Functions')}</th>
-                      <th>{_('Enable Status')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {authKeys.items.map((authKey, index) => (
-                      <tr key={authKey.time}>
-                        <td>
-                          {index + 1}
-                        </td>
-                        <td>
-                          {utils.formatDate(authKey.time)}
-                        </td>
-                        <td>
-                          {authKey.user.name}
-                        </td>
-                        <td>
-                          {authKey.authKey}
-                        </td>
-                        <td>
-                          {authKey.isEnableFaceRecognitionKey && (
-                            <span className="badge badge-primary badge-pill">
-                              {_('Facial Recognition')}
-                            </span>
-                          )}
-                          {authKey.isEnableAgeGenderKey && (
-                            <span className="badge badge-primary badge-pill ml-1">
-                              {_('Age Gender')}
-                            </span>
-                          )}
-                          {authKey.isEnableHumanoidDetectionKey && (
-                            <span className="badge badge-primary badge-pill ml-1">
-                              {_('Human Detection')}
-                            </span>
-                          )}
-                        </td>
-                        <td>
-                          {authKey.isEnable && (
-                            <i className="fas fa-check-circle fa-lg fa-fw text-success"/>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <LicenseList
+                  authKeys={authKeys}
+                />
               </div>
             </div>
           </div>
