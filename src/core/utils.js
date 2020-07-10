@@ -1,10 +1,12 @@
 const axios = require('axios');
-const React = require('react');
+const download = require('downloadjs');
+const progress = require('nprogress');
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
 const dayjs = require('dayjs');
-const {store} = require('react-notifications-component');
 const _ = require('../languages');
+const api = require('../core/apis/web-api');
+const notify = require('../core/notify');
 const {validator} = require('../core/validations');
 const {RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
 
@@ -173,6 +175,78 @@ exports.renderError = error => {
   throw error;
 };
 
+exports.onTogglePlayStream = (event, thisRef) => {
+  event.preventDefault();
+  if (typeof thisRef.fetchSnapshot !== 'function') {
+    console.error('this.fetchSnapshot must be a function to get stream data.');
+    return false;
+  }
+
+  thisRef.setState(prevState => {
+    if (prevState.isPlayStream) {
+      // Stop play stream
+      if (prevState.streamImageUrl) {
+        window.URL.revokeObjectURL(prevState.streamImageUrl);
+      }
+
+      return {isPlayStream: false, streamImageUrl: null};
+    }
+
+    // Get the stream data
+    thisRef.fetchSnapshot();
+    // Start play stream
+    return {isPlayStream: true};
+  });
+};
+
+exports.onClickDownloadImage = event => {
+  event.preventDefault();
+  api.system.getSystemDateTime()
+    .then(({data}) => {
+      const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
+      axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
+        .then(response => {
+          download(response.data, `${dateTime}.jpg`);
+        })
+        .catch(error => {
+          progress.done();
+          notify.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
+        });
+    });
+};
+
+exports.toggleFullscreen = (event, streamPlayerRef) => {
+  event.preventDefault();
+
+  let isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+      (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+      (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+      (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+  if (!isInFullScreen) {
+    if (streamPlayerRef.current.requestFullscreen) {
+      streamPlayerRef.current.requestFullscreen();
+    } else if (streamPlayerRef.current.mozRequestFullScreen) {
+      streamPlayerRef.current.mozRequestFullScreen();
+    } else if (streamPlayerRef.current.webkitRequestFullScreen) {
+      streamPlayerRef.current.webkitRequestFullScreen();
+    } else if (streamPlayerRef.current.msRequestFullscreen) {
+      streamPlayerRef.current.msRequestFullscreen();
+    }
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
+  }
+};
+
 exports.validateStreamBitRate = () => values => {
   let result;
   const bitRateSchema = {
@@ -210,56 +284,6 @@ exports.validateStreamBitRate = () => values => {
   };
   result = validator.validate({bitRate: values}, bitRateSchema);
   return (result === true ? '' : result[0].message);
-};
-
-/**
- * @param {string} title - The success title.
- * @param {string} message - The success message.
- * @returns {undefined}
- */
-exports.showSuccessNotification = ({title, message}) => {
-  store.addNotification({
-    type: 'default',
-    insert: 'top',
-    container: 'top-right',
-    animationIn: ['animated', 'faster', 'slideInRight'],
-    animationOut: ['animated', 'faster', 'slideOutRight'],
-    dismiss: {duration: 5000},
-    content: () => (
-      <div className="d-flex bg-white rounded p-3">
-        <div><i className="fas fa-check-circle fa-lg text-success"/></div>
-        <div className="d-flex flex-column ml-3">
-          <div><strong>{title || _('Success')}</strong></div>
-          <div className="text-muted">{message || _('Server Process Success')}</div>
-        </div>
-      </div>
-    )
-  });
-};
-
-/**
- * @param {string} title - The error title.
- * @param {string} message - The error message.
- * @returns {undefined}
- */
-exports.showErrorNotification = ({title, message}) => {
-  store.addNotification({
-    type: 'default',
-    insert: 'top',
-    container: 'top-right',
-    animationIn: ['animated', 'faster', 'slideInRight'],
-    animationOut: ['animated', 'faster', 'slideOutRight'],
-    dismiss: {duration: 5000},
-    content: () => (
-      <div className="d-flex bg-white rounded p-3">
-        <div><i className="fas fa-times-circle fa-lg text-danger"/></div>
-        <div className="d-flex flex-column ml-3">
-          <div><strong>{title || _('Error')}</strong></div>
-          <div className="text-muted">{message || _('Internal Server Error')}</div>
-        </div>
-      </div>
-    )
-  });
 };
 
 /**
@@ -353,22 +377,6 @@ exports.getPrecision = num => {
 };
 
 /**
- * Log mock XHR like axios with console.groupCollapsed() and return mock response.
- * @param {Object} req XHR request instance, or if we use library like axios then `req` is the axios request config and contains things like `url`.
- * @see https://github.com/axios/axios#request-config
- * @param {Array<Number, ?Object, ?Object>} res Accept any type of response, or if we use library like axios-mock-adapter then this will be an array in the form of [status, data, headers].
- * @see https://github.com/ctimmerm/axios-mock-adapter
- * @returns {Array<Number, ?Object, ?Object>} Same object as `res`.
- */
-exports.mockResponseWithLog = (req, res) => {
-  console.groupCollapsed(`[${res[0]}] ${req.method} ${req.url}`);
-  console.log('request config:', req);
-  console.log('response: [status, data, headers]', res);
-  console.groupEnd();
-  return res;
-};
-
-/**
  * Check for duplicate value.
  * @param {array} array - The array to check.
  * @param {string} value - The string to compare with.
@@ -411,9 +419,7 @@ exports.validatedPortCheck = (value, error) => {
   return check;
 };
 
-module.exports.isArray = arg => {
-  return Object.prototype.toString.call(arg) === '[object Array]';
-};
+module.exports.isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
 
 module.exports.pingAndRedirectPage = url => {
   const test = () => {

@@ -5,7 +5,7 @@ const ReactDOM = require('react-dom');
 const PropTypes = require('prop-types');
 const api = require('../../core/apis/web-api');
 const store = require('../../core/store');
-const utils = require('../../core/utils');
+const notify = require('../../core/notify');
 const constants = require('../../core/constants');
 const CustomNotifyModal = require('../../core/components/custom-notify-modal');
 const Timer = require('../../core/timer');
@@ -121,7 +121,7 @@ module.exports = class Mjpeg extends Base {
                 this.setState({isShowExpireModal: false});
               })
               .catch(error => {
-                utils.showErrorNotification({
+                notify.showErrorNotification({
                   title: `Error ${error.response.status}` || null,
                   message: error.response.status === 400 ? error.response.data.message || null : null
                 });

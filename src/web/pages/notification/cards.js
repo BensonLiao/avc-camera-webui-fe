@@ -6,7 +6,7 @@ const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const Base = require('../shared/base');
 const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
-const utils = require('../../../core/utils');
+const notify = require('../../../core/notify');
 const CardsFilter = require('./cards-filter');
 const CardsForm = require('./cards-form');
 const CardsList = require('./cards-list');
@@ -63,7 +63,7 @@ module.exports = class Cards extends Base {
   };
 
   cardLimitError = () => { // Over card limit 32
-    utils.showErrorNotification({
+    notify.showErrorNotification({
       title: _('Cards Limit Error'),
       message: _('Cannot create more than {0} cards', [NOTIFY_CARDS_MAX])
     });

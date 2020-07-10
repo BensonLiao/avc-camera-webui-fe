@@ -234,6 +234,7 @@ constructor(props) {
 
   videoSettingsFormRender = form => {
     const {values} = form;
+    const {$isApiProcessing, updateFocalLengthField} = this.state;
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
@@ -318,7 +319,7 @@ constructor(props) {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={this.state.$isApiProcessing || this.state.updateFocalLengthField}
+                  disabled={$isApiProcessing || updateFocalLengthField}
                   type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
@@ -327,7 +328,7 @@ constructor(props) {
                 </button>
                 <button
                   type="button"
-                  disabled={this.state.$isApiProcessing || this.state.updateFocalLengthField}
+                  disabled={$isApiProcessing || updateFocalLengthField}
                   className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
@@ -547,7 +548,7 @@ constructor(props) {
         <hr className="my-0"/>
         <div className="card-body pt-0 mt-5">
           <button
-            disabled={this.state.$isApiProcessing || this.state.updateFocalLengthField}
+            disabled={$isApiProcessing || updateFocalLengthField}
             type="button"
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler()}

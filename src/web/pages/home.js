@@ -9,7 +9,6 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-const download = require('downloadjs');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const {getRouter} = require('capybara-router');
@@ -179,53 +178,6 @@ module.exports = class Home extends Base {
       });
   };
 
-  onTogglePlayStream = event => {
-    event.preventDefault();
-    this.setState(prevState => {
-      if (prevState.isPlayStream) {
-        // Stop play stream.
-        if (prevState.streamImageUrl) {
-          window.URL.revokeObjectURL(prevState.streamImageUrl);
-        }
-
-        return {isPlayStream: false, streamImageUrl: null};
-      }
-
-      // Start play stream.
-      this.fetchSnapshot();
-      return {isPlayStream: true};
-    });
-  };
-
-  onClickDownloadImage = event => {
-    event.preventDefault();
-    api.system.getSystemDateTime().then(({data}) => {
-      const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
-      axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
-        .then(response => {
-          download(response.data, `${dateTime}.jpg`);
-        })
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
-    });
-  };
-
-  onClickRequestFullScreen = event => {
-    event.preventDefault();
-    if (this.streamPlayerRef.current.requestFullScreen) {
-      this.streamPlayerRef.current.requestFullScreen();
-    } else if (this.streamPlayerRef.current.mozRequestFullScreen) {
-      this.streamPlayerRef.current.mozRequestFullScreen();
-    } else if (this.streamPlayerRef.current.webkitRequestFullScreen) {
-      this.streamPlayerRef.current.webkitRequestFullScreen();
-    }
-  };
-
   generateClickResetButtonHandler = ({resetForm}) => event => {
     event.preventDefault();
     progress.start();
@@ -331,8 +283,8 @@ module.exports = class Home extends Base {
                   <div ref={this.streamPlayerRef}>
                     <img
                       className="img-fluid" draggable={false} src={streamImageUrl || defaultVideoBackground}
-                      onClick={this.onTogglePlayStream}/>
-                    <div className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})} onClick={this.onTogglePlayStream}>
+                      onClick={e => utils.onTogglePlayStream(e, this)}/>
+                    <div className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})} onClick={e => utils.onTogglePlayStream(e, this)}>
                       <button className="btn-play" type="button">
                         <i className="fas fa-play fa-fw"/>
                       </button>
@@ -340,7 +292,7 @@ module.exports = class Home extends Base {
                     {
                       isPlayStream && !streamImageUrl && (
                         <div className="cover d-flex justify-content-center align-items-center text-muted"
-                          onClick={this.onTogglePlayStream}
+                          onClick={e => utils.onTogglePlayStream(e, this)}
                         >
                           <div className="spinner-border">
                             <span className="sr-only">Loading...</span>
@@ -348,15 +300,15 @@ module.exports = class Home extends Base {
                         </div>
                       )
                     }
-                  </div>
-                  <div className="controls d-flex justify-content-end align-items-center">
-                    <div>
-                      <button className="btn-action" type="button" onClick={this.onClickDownloadImage}>
-                        <i className="fas fa-camera"/>
-                      </button>
-                      <button className="btn-action" type="button" onClick={this.onClickRequestFullScreen}>
-                        <i className="fas fa-expand-arrows-alt"/>
-                      </button>
+                    <div className="controls d-flex justify-content-end align-items-center">
+                      <div>
+                        <button className="btn-action" type="button" onClick={e => utils.onClickDownloadImage(e)}>
+                          <i className="fas fa-camera"/>
+                        </button>
+                        <button className="btn-action" type="button" onClick={e => utils.toggleFullscreen(e, this.streamPlayerRef)}>
+                          <i className="fas fa-expand-arrows-alt"/>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
