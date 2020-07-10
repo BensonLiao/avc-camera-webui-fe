@@ -129,29 +129,6 @@ module.exports = class Home extends Base {
     ]
   });
 
-  onChangeVideoSettings = ({nextValues, prevValues}) => {
-    if (prevValues.focalLength !== nextValues.focalLength || prevValues.zoom !== nextValues.zoom) {
-      // Change focus settings.
-      this.submitPromise = this.submitPromise
-        .then(() => {
-          api.video.updateFocusSettings(nextValues);
-        });
-    } else {
-      // Change other settings.
-      const values = {
-        ...nextValues,
-        hdrEnabled: `${nextValues.hdrEnabled}`,
-        timePeriodStart: nextValues.dnDuty[0],
-        timePeriodEnd: nextValues.dnDuty[1]
-      };
-
-      this.submitPromise = this.submitPromise
-        .then(() => {
-          api.video.updateSettings(values);
-        });
-    }
-  };
-
   fetchSnapshot = () => {
     axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
       .then(response => {
