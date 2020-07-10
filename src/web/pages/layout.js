@@ -18,10 +18,8 @@ const iconSystem = require('../../resource/left-navigation-system.svg');
 const iconSDCard = require('../../resource/left-navigation-sd-card.svg');
 const logo = require('../../resource/logo-avc.svg');
 const CustomTooltip = require('../../core/components/tooltip');
-const CustomNotifyModal = require('../../core/components/custom-notify-modal');
+const SessionExpireModal = require('../../core/components/session-expire-modal');
 const api = require('../../core/apis/web-api');
-const store = require('../../core/store');
-const Timer = require('../../core/timer');
 const _ = require('../../languages');
 const constants = require('../../core/constants');
 
@@ -54,36 +52,6 @@ module.exports = class Layout extends Base {
       })
     );
     this.state.isShowAboutModal = false;
-    this.state.isShowExpireModal = false;
-    this.state.expireModalBody = _('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN]);
-    this.countdownTimerID = null;
-    this.countdownID = null;
-  }
-
-  componentDidMount() {
-    const expires = localStorage.getItem(constants.store.EXPIRES) || null;
-    if (expires) {
-      const expiresTimer = new Timer(
-        () => {
-          this.setState(
-            {isShowExpireModal: true},
-            () => {
-              let countdown = constants.REDIRECT_COUNTDOWN;
-              this.countdownID = setInterval(() => {
-                this.setState({expireModalBody: _('Your session has expired, redirect in {0} seconds', [--countdown])});
-              }, 1000);
-              this.countdownTimerID = setTimeout(() => {
-                clearInterval(this.countdownID);
-                location.href = '/login';
-              }, constants.REDIRECT_COUNTDOWN * 1000);
-            }
-          );
-        },
-        expires
-      );
-      expiresTimer.start();
-      store.set(constants.store.EXPIRES_TIMER, expiresTimer);
-    }
   }
 
   showAboutModal = () => {
@@ -106,7 +74,7 @@ module.exports = class Layout extends Base {
 
   render() {
     const {systemInformation, networkSettings} = this.props;
-    const {$user, currentRouteName, isShowAboutModal, isShowExpireModal, expireModalBody} = this.state;
+    const {$user, currentRouteName, isShowAboutModal} = this.state;
     const classTable = {
       home: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -355,27 +323,7 @@ module.exports = class Layout extends Base {
           </div>
         </Modal>
 
-        <CustomNotifyModal
-          backdrop="static"
-          modalType="info"
-          isShowModal={isShowExpireModal}
-          modalTitle={_('Session Expired')}
-          modalBody={expireModalBody}
-          confirmBtnTitle={_('Resume Session')}
-          onConfirm={() => {
-            api.account.refresh()
-              .finally(() => {
-                clearTimeout(this.countdownTimerID);
-                clearInterval(this.countdownID);
-                this.setState({
-                  isShowExpireModal: false,
-                  expireModalBody: _('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN])
-                });
-              });
-          }}
-          onHide={() => {
-            this.setState({isShowExpireModal: false});
-          }}/>
+        <SessionExpireModal/>
 
         <RouterView>
           <Loading/>
