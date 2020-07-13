@@ -8,6 +8,7 @@ const AudioInputSource = require('webserver-form-schema/constants/audio-input-so
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class Audio extends Base {
   static get propTypes() {
@@ -40,22 +41,12 @@ module.exports = class Audio extends Base {
             </label>
           </div>
         </div>
-        <div className="form-group">
-          <label>{_('Audio Quality')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="inputQuality" component="select" className="form-control border-0">
-              <option value={AudioInputQuality.low}>{_(`audio-quality-${AudioInputQuality.low}`)}</option>
-            </Field>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Input Source')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="inputSource" component="select" className="form-control border-0">
-              <option value={AudioInputSource.lineIn}>{_('External Microphone')}</option>
-            </Field>
-          </div>
-        </div>
+        <SelectField labelName={_('Audio Quality')} name="inputQuality">
+          <option value={AudioInputQuality.low}>{_(`audio-quality-${AudioInputQuality.low}`)}</option>
+        </SelectField>
+        <SelectField labelName={_('Input Source')} name="inputQuality">
+          <option value={AudioInputSource.lineIn}>{_('External Microphone')}</option>
+        </SelectField>
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
           {_('Apply')}
         </button>

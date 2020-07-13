@@ -13,6 +13,7 @@ const _ = require('../../languages');
 const MemberValidator = require('../../web/validations/members/member-validator');
 const utils = require('../utils');
 const api = require('../apis/web-api');
+const SelectField = require('./fields/select-field');
 
 module.exports = class Member extends React.PureComponent {
   static get propTypes() {
@@ -299,19 +300,12 @@ module.exports = class Member extends React.PureComponent {
             }
             <small className="form-text text-muted">{_('Letters within 32 characters.')}</small>
           </div>
-          <div className="form-group">
-            <label>{_('Group')}</label>
-            <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-              <Field name="group" component="select" className="form-control border-0">
-                <option value="">{_('N/A')}</option>
-                {
-                  this.props.groups.items.map(group => (
-                    <option key={group.id} value={group.id}>{group.name}</option>
-                  ))
-                }
-              </Field>
-            </div>
-          </div>
+          <SelectField labelName={_('Group')} wrapperClassName="px-2" name="group">
+            <option value="">{_('N/A')}</option>
+            {this.props.groups.items.map(group => (
+              <option key={group.id} value={group.id}>{group.name}</option>
+            ))}
+          </SelectField>
           <div className="form-group">
             <label>{_('Note')}</label>
             <Field name="note" type="text" placeholder={_('Enter Your Note')}

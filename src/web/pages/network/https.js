@@ -12,6 +12,7 @@ const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {DEFAULT_PORTS} = require('../../../core/constants');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class HTTPS extends Base {
   static get propTypes() {
@@ -107,16 +108,9 @@ module.exports = class HTTPS extends Base {
           }
           <p className="text-size-14 text-muted mt-2">{_('1024 - 65535, except for 5555, 8080, 8554, 17300.')}</p>
         </div>
-        <div className="form-group">
-          <label>{_('Certificate')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="certificateType" component="select" className="form-control border-0">
-              <option value={CertificateType.selfSigned}>
-                {_(`certificate-type-${CertificateType.selfSigned}`)}
-              </option>
-            </Field>
-          </div>
-        </div>
+        <SelectField labelName={_('Certificate')} name="certificateType">
+          <option value={CertificateType.selfSigned}>{_(`certificate-type-${CertificateType.selfSigned}`)}</option>
+        </SelectField>
         <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={_('Please Enable HTTPS')}>
           <div>
             <button
