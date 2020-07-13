@@ -83,37 +83,23 @@ module.exports = class StreamSetting extends Base {
 
     return (
       <>
-        <SelectField
-          labelName={_('Codec')}
-          readOnly={homePage}
-          name={`${fieldNamePrefix}.codec`}
-        >
+        <SelectField labelName={_('Codec')} readOnly={homePage} name={`${fieldNamePrefix}.codec`}>
           {options.codec.map(option => (
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </SelectField>
-        <SelectField
-          labelName={_('Resolution')}
-          readOnly={homePage}
-          name={`${fieldNamePrefix}.resolution`}
-        >
+        <SelectField labelName={_('Resolution')} readOnly={homePage} name={`${fieldNamePrefix}.resolution`}>
           {options.resolution.map(option => (
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </SelectField>
-        <SelectField
-          labelName={_('Frame Rate (FPS)')}
-          name={`${fieldNamePrefix}.frameRate`}
-        >
+        <SelectField labelName={_('Frame Rate (FPS)')} name={`${fieldNamePrefix}.frameRate`}>
           {options.frameRate.map(option => (
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </SelectField>
         {values.codec === StreamCodec.mjpeg && (
-          <SelectField
-            labelName={_('Quality')}
-            name={`${fieldNamePrefix}.quality`}
-          >
+          <SelectField labelName={_('Quality')} name={`${fieldNamePrefix}.quality`}>
             {options.quality.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
@@ -159,12 +145,7 @@ module.exports = class StreamSetting extends Base {
         )}
         {values.codec !== StreamCodec.mjpeg && (
         /* GOP is same as GOV */
-          <SelectField
-            hide={homePage}
-            readOnly={homePage}
-            labelName={_('GOP')}
-            name={`${fieldNamePrefix}.gov`}
-          >
+          <SelectField hide={homePage} readOnly={homePage} labelName={_('GOP')} name={`${fieldNamePrefix}.gov`}>
             {options.gov.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
