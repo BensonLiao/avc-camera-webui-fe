@@ -17,6 +17,7 @@ const _ = require('../../../languages');
 const Dropdown = require('../../../core/components/fields/dropdown');
 const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class StreamSetting extends Base {
   static get propTypes() {
@@ -82,73 +83,41 @@ module.exports = class StreamSetting extends Base {
 
     return (
       <>
-        <div className="form-group">
-          <label>{_('Codec')}</label>
-          <div className={classNames('select-wrapper border rounded-pill overflow-hidden', (homePage && 'select-readonly'))}>
-            <Field
-              readOnly={homePage}
-              name={`${fieldNamePrefix}.codec`}
-              component="select"
-              className="form-control border-0"
-            >
-              {
-                options.codec.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))
-              }
-            </Field>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Resolution')}</label>
-          <div className={classNames('select-wrapper border rounded-pill overflow-hidden', (homePage && 'select-readonly'))}>
-            <Field
-              readOnly={homePage}
-              name={`${fieldNamePrefix}.resolution`}
-              component="select"
-              className="form-control border-0"
-            >
-              {
-                options.resolution.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))
-              }
-            </Field>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Frame Rate (FPS)')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field
-              name={`${fieldNamePrefix}.frameRate`}
-              component="select"
-              className="form-control border-0"
-            >
-              {
-                options.frameRate.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
-                ))
-              }
-            </Field>
-          </div>
-        </div>
+        <SelectField
+          labelName={_('Codec')}
+          readOnly={homePage}
+          name={`${fieldNamePrefix}.codec`}
+        >
+          {options.codec.map(option => (
+            <option key={option.value} value={option.value}>{option.label}</option>
+          ))}
+        </SelectField>
+        <SelectField
+          labelName={_('Resolution')}
+          readOnly={homePage}
+          name={`${fieldNamePrefix}.resolution`}
+        >
+          {options.resolution.map(option => (
+            <option key={option.value} value={option.value}>{option.label}</option>
+          ))}
+        </SelectField>
+        <SelectField
+          labelName={_('Frame Rate (FPS)')}
+          name={`${fieldNamePrefix}.frameRate`}
+        >
+          {options.frameRate.map(option => (
+            <option key={option.value} value={option.value}>{option.label}</option>
+          ))}
+        </SelectField>
         {values.codec === StreamCodec.mjpeg && (
-          <div className="form-group">
-            <label>{_('Quality')}</label>
-            <div className="select-wrapper border rounded-pill overflow-hidden">
-              <Field
-                name={`${fieldNamePrefix}.quality`}
-                component="select"
-                className="form-control border-0"
-              >
-                {
-                  options.quality.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))
-                }
-              </Field>
-            </div>
-          </div>
+          <SelectField
+            labelName={_('Quality')}
+            name={`${fieldNamePrefix}.quality`}
+          >
+            {options.quality.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))}
+          </SelectField>
         )}
         {values.codec !== StreamCodec.mjpeg && (
           <div className="form-group">
@@ -189,24 +158,17 @@ module.exports = class StreamSetting extends Base {
           </div>
         )}
         {values.codec !== StreamCodec.mjpeg && (
-          <div className={classNames('form-group', (homePage && 'd-none'))}>
-            {/* GOP is same as GOV */}
-            <label>{_('GOP')}</label>
-            <div className={classNames('select-wrapper border rounded-pill overflow-hidden', (homePage && 'select-readonly'))}>
-              <Field
-                readOnly={homePage}
-                name={`${fieldNamePrefix}.gov`}
-                component="select"
-                className="form-control border-0"
-              >
-                {
-                  options.gov.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
-                  ))
-                }
-              </Field>
-            </div>
-          </div>
+        /* GOP is same as GOV */
+          <SelectField
+            hide={homePage}
+            readOnly={homePage}
+            labelName={_('GOP')}
+            name={`${fieldNamePrefix}.gov`}
+          >
+            {options.gov.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))}
+          </SelectField>
         )}
       </>
     );
