@@ -23,13 +23,13 @@ module.exports = class User extends Base {
       users: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.number.isRequired,
-          permission: PropTypes.number.isRequired,
+          permission: PropTypes.string.isRequired,
           account: PropTypes.string.isRequired
         })).isRequired
       }),
       user: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        permission: PropTypes.number.isRequired,
+        permission: PropTypes.string.isRequired,
         account: PropTypes.string.isRequired
       })
     };
