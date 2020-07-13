@@ -90,7 +90,7 @@ module.exports = class StreamSetting extends Base {
               readOnly={homePage}
               name={`${fieldNamePrefix}.codec`}
               component="select"
-              className={classNames('form-control border-0', (homePage && 'erase'))}
+              className="form-control border-0"
             >
               {
                 options.codec.map(option => (
@@ -108,7 +108,7 @@ module.exports = class StreamSetting extends Base {
               readOnly={homePage}
               name={`${fieldNamePrefix}.resolution`}
               component="select"
-              className={classNames('form-control border-0', (homePage && 'erase'))}
+              className="form-control border-0"
             >
               {
                 options.resolution.map(option => (
