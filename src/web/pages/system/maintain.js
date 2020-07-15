@@ -149,29 +149,28 @@ module.exports = class Maintain extends Base {
                   finishModalBody: _('Please follow the user manual to access your camera.'),
                   onConfirm: this.hideFinishModal
                 });
-                return;
-              }
-
-              // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: _('Device Rebooting')});
-              // Check the server was start up, if success then startup was failed and retry.
-              const test = () => {
-                api.ping('app')
-                  .then(() => {
-                    progress.done();
-                    this.hideApiProcessModal();
-                    this.setState({
-                      isShowFinishModal: true,
-                      finishModalTitle: _('System Reset'),
-                      finishModalBody: _('Device has reset. Please log in again.')
+              } else {
+                // Keep modal and update the title.
+                this.setState({apiProcessModalTitle: _('Device Rebooting')});
+                // Check the server was start up, if success then startup was failed and retry.
+                const test = () => {
+                  api.ping('app')
+                    .then(() => {
+                      progress.done();
+                      this.hideApiProcessModal();
+                      this.setState({
+                        isShowFinishModal: true,
+                        finishModalTitle: _('System Reset'),
+                        finishModalBody: _('Device has reset. Please log in again.')
+                      });
+                    })
+                    .catch(() => {
+                      setTimeout(test, 1000);
                     });
-                  })
-                  .catch(() => {
-                    setTimeout(test, 1000);
-                  });
-              };
+                };
 
-              test();
+                test();
+              }
             });
         })
         .catch(() => {
