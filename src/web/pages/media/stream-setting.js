@@ -166,7 +166,7 @@ module.exports = class StreamSetting extends Base {
               <Field
                 type="text"
                 name={`${fieldNamePrefix}.bitRate`}
-                validate={utils.validateStreamBitRate()}
+                validate={!(values.bandwidthManagement === StreamBandwidthManagement.vbr) && utils.validateStreamBitRate()}
                 className={
                   classNames('form-control dynamic',
                     {show: values.bandwidthManagement === StreamBandwidthManagement.mbr}
@@ -182,9 +182,10 @@ module.exports = class StreamSetting extends Base {
             <small className="text-info mb-3">
               {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
             </small>
+            {!(values.bandwidthManagement === StreamBandwidthManagement.vbr) &&
             <div style={{display: 'block'}} className="invalid-feedback">
               <ErrorMessage name={`${fieldNamePrefix}.bitRate`}/>
-            </div>
+            </div>}
           </div>
         )}
         {values.codec !== StreamCodec.mjpeg && (
@@ -306,7 +307,9 @@ module.exports = class StreamSetting extends Base {
           <button
             type="button"
             className="btn btn-block btn-primary rounded-pill"
-            disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)}
+            disabled={this.state.$isApiProcessing ||
+              (errors.channelA && !(values.channelA.bandwidthManagement === StreamBandwidthManagement.vbr)) ||
+              (errors.channelB && !(values.channelB.bandwidthManagement === StreamBandwidthManagement.vbr))}
             onClick={this.showModal}
           >
             {_('Apply')}
