@@ -262,7 +262,22 @@ module.exports = class StreamSetting extends Base {
       })(),
       frameRate: (() => {
         const result = [];
-        for (let index = StreamSettingsSchema.channelB.props.frameRate.min; index <= StreamSettingsSchema.channelB.props.frameRate.max; index += 1) {
+        let min;
+        let max;
+        if (values.channelB.codec === StreamCodec.mjpeg) {
+          if (Number(values.channelB.resolution) === Number(StreamResolution['2']) || Number(values.channelB.resolution) === Number(StreamResolution['7'])) {
+            min = 5;
+            max = 10;
+          } else {
+            min = 5;
+            max = 15;
+          }
+        } else {
+          min = StreamSettingsSchema.channelB.props.frameRate.min;
+          max = StreamSettingsSchema.channelB.props.frameRate.max;
+        }
+
+        for (let index = min; index <= max; index += 1) {
           result.push({label: `${index}`, value: `${index}`});
         }
 
