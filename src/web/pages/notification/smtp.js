@@ -13,6 +13,7 @@ const smtpAccountSettingsValidator = require('../../validations/notifications/sm
 const Password = require('../../../core/components/fields/password');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
+const notify = require('../../../core/notify');
 const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
 
@@ -80,7 +81,7 @@ module.exports = class SMTP extends Base {
     progress.start();
     api.notification.updateSMTPSettings({...values, ...this.state.accountSettings})
       .then(() => {
-        utils.showSuccessNotification({
+        notify.showSuccessNotification({
           title: _('Setting Success'),
           message: _('Test E-mail sent!')
         });
