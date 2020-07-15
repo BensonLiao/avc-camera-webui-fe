@@ -83,14 +83,13 @@ module.exports = class StreamSetting extends Base {
     return (
       <>
         <div className="form-group">
-          <div className={classNames(homePage ? 'cover' : 'd-none')}/>
           <label>{_('Codec')}</label>
           <div className={classNames('select-wrapper border rounded-pill overflow-hidden', (homePage && 'select-readonly'))}>
             <Field
               readOnly={homePage}
               name={`${fieldNamePrefix}.codec`}
               component="select"
-              className={classNames('form-control border-0', (homePage && 'erase'))}
+              className="form-control border-0"
             >
               {
                 options.codec.map(option => (
@@ -101,14 +100,13 @@ module.exports = class StreamSetting extends Base {
           </div>
         </div>
         <div className="form-group">
-          <div className={classNames(homePage ? 'cover' : 'd-none')}/>
           <label>{_('Resolution')}</label>
           <div className={classNames('select-wrapper border rounded-pill overflow-hidden', (homePage && 'select-readonly'))}>
             <Field
               readOnly={homePage}
               name={`${fieldNamePrefix}.resolution`}
               component="select"
-              className={classNames('form-control border-0', (homePage && 'erase'))}
+              className="form-control border-0"
             >
               {
                 options.resolution.map(option => (
@@ -192,7 +190,6 @@ module.exports = class StreamSetting extends Base {
         {values.codec !== StreamCodec.mjpeg && (
           <div className={classNames('form-group', (homePage && 'd-none'))}>
             {/* GOP is same as GOV */}
-            <div className={classNames(homePage ? 'cover' : 'd-none')}/>
             <label>{_('GOP')}</label>
             <div className={classNames('select-wrapper border rounded-pill overflow-hidden', (homePage && 'select-readonly'))}>
               <Field
