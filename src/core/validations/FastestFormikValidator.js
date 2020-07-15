@@ -1,5 +1,9 @@
 const Validator = require('fastest-validator');
 
+/**
+ * Custom fastest-validator class with overrided `compile` method for compiling
+ * checker function in Formik format
+ */
 module.exports = class FastestFormikValidator extends Validator {
   compile(schema) {
     const checker = super.compile(schema);
