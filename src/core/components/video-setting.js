@@ -26,6 +26,7 @@ const Slider = require('./fields/slider');
 const Dropdown = require('./fields/dropdown');
 const FormikEffect = require('./formik-effect');
 const {getRouter} = require('capybara-router');
+const CustomTooltip = require('../../core/components/tooltip');
 
 module.exports = class VideoSetting extends React.PureComponent {
   static get propTypes() {
@@ -114,6 +115,19 @@ constructor(props) {
     ]
   });
 
+  varyFocus = (form, step) => {
+    let newFocalLength = step + form.values.focalLength;
+    if (newFocalLength < videoFocusSettingsSchema.focalLength.min) {
+      newFocalLength = videoFocusSettingsSchema.focalLength.min;
+    }
+
+    if (newFocalLength > videoFocusSettingsSchema.focalLength.max) {
+      newFocalLength = videoFocusSettingsSchema.focalLength.max;
+    }
+
+    form.setFieldValue('focalLength', newFocalLength);
+  }
+
   // Queues user input during api processing
   recursiveFocusPromise = ({nextValues, prevValues, formik}) => {
     if (!nextValues) {
@@ -135,31 +149,34 @@ constructor(props) {
           }
         })
         .then(() => {
-          if (nextValues.isAutoFocusAfterZoom && prevValues.zoom !== nextValues.zoom) {
-            let prevFocalLength;
-            this.setState({updateFocalLengthField: true}, () => {
-              // Refresh focal length until previous value matches current value
-              const refreshFocalLength = () => {
-                api.video.getFocalLength()
-                  .then(response => {
-                    if (prevFocalLength === response.data.focalLength) {
-                      this.setState({updateFocalLengthField: false});
-                    } else {
-                      prevFocalLength = response.data.focalLength;
-                      // Refresh focal length at 1hz
-                      setTimeout(refreshFocalLength, 1000);
-                    }
+          // Trigger react update to get the latest global state
+          this.setState({updateFocalLengthField: false}, () => {
+            if (nextValues.isAutoFocusAfterZoom && prevValues.zoom !== nextValues.zoom) {
+              let prevFocalLength;
+              this.setState({updateFocalLengthField: true}, () => {
+                // Refresh focal length until previous value matches current value
+                const refreshFocalLength = () => {
+                  api.video.getFocalLength()
+                    .then(response => {
+                      if (prevFocalLength === response.data.focalLength) {
+                        this.setState({updateFocalLengthField: false});
+                      } else {
+                        prevFocalLength = response.data.focalLength;
+                        // Refresh focal length at 1hz
+                        setTimeout(refreshFocalLength, 1000);
+                      }
 
-                    return response.data.focalLength;
-                  })
-                  .then(focalLength => {
-                    formik.setFieldValue('focalLength', focalLength);
-                  });
-              };
+                      return response.data.focalLength;
+                    })
+                    .then(focalLength => {
+                      formik.setFieldValue('focalLength', focalLength);
+                    });
+                };
 
-              refreshFocalLength();
-            });
-          }
+                refreshFocalLength();
+              });
+            }
+          });
         });
     }
   }
@@ -324,7 +341,7 @@ constructor(props) {
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
-                  {_(values.focusType === FocusType.fullRange ? 'Full-range Focus' : 'Short-range Focus')}
+                  {_(values.focusType === FocusType.fullRange ? 'Full-Range Focus' : 'Short-Range Focus')}
                 </button>
                 <button
                   type="button"
@@ -334,34 +351,64 @@ constructor(props) {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span className="sr-only">Select focus type</span>
+                  <span className="sr-only">{_('Select Focus Type')}</span>
                 </button>
                 <div className="dropdown-menu">
                   <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.fullRange)}>
-                    {_('Full-range Focus')}
+                    {_('Full-Range Focus')}
                   </button>
                   <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.shortRange)}>
-                    {_('Short-range Focus')}
+                    {_('Short-Range Focus')}
                   </button>
                 </div>
               </div>
             </h2>
 
+            {/* Focus */}
             <div id="color" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Focus')}</label>
                   <span className="d-none text-primary text-size-14">{values.focalLength}</span>
                 </div>
-                <Field
-                  updateFieldOnStop
-                  enableArrowKey
-                  name="focalLength"
-                  component={Slider}
-                  step={1}
-                  min={videoFocusSettingsSchema.focalLength.min}
-                  max={videoFocusSettingsSchema.focalLength.max}
-                />
+                <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
+                  <div>
+                    <CustomTooltip title="-5">
+                      <button className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -5)}>
+                        <i type="button" className="fa fa-angle-double-left text-size-16"/>
+                      </button>
+                    </CustomTooltip>
+                    <CustomTooltip title="-1">
+                      <button className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -1)}>
+                        <i className="fas fa-minus text-size-16"/>
+                      </button>
+                    </CustomTooltip>
+                  </div>
+                  <div className="flex-grow-1">
+                    <Field
+                      updateFieldOnStop
+                      enableArrowKey
+                      name="focalLength"
+                      component={Slider}
+                      step={1}
+                      min={videoFocusSettingsSchema.focalLength.min}
+                      max={videoFocusSettingsSchema.focalLength.max}
+                    />
+                  </div>
+
+                  <div>
+                    <CustomTooltip title="+1">
+                      <button className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 1)}>
+                        <i className="fas fa-plus text-size-16"/>
+                      </button>
+                    </CustomTooltip>
+                    <CustomTooltip title="+5">
+                      <button className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 5)}>
+                        <i className="fa fa-angle-double-right text-size-16"/>
+                      </button>
+                    </CustomTooltip>
+                  </div>
+                </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
