@@ -44,6 +44,15 @@
     .tip {
       height: 32px;
     }
+    .focal-length .btn{
+      &:focus{
+        outline: none;
+        box-shadow: none;
+      }
+      &:hover{
+        color: $select;
+      }
+    }
   }
 
   .accordion {
