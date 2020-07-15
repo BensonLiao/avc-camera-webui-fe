@@ -1,6 +1,5 @@
 
 const classNames = require('classnames');
-const ContentEditable = require('react-contenteditable').default;
 const {Formik, Form, Field} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
 const {Nav, Tab} = require('react-bootstrap');
@@ -15,6 +14,7 @@ const CardsFormSchedule = require('./cards-form-schedule');
 const CardsFormRule = require('./cards-form-rule');
 const CardsFormSubject = require('./cards-form-subject');
 const CustomTooltip = require('../../../core/components/tooltip');
+const ContentEditable = require('../../../core/components/content-editable');
 
 module.exports = class CardsForm extends React.PureComponent {
   static get propTypes() {
@@ -62,24 +62,6 @@ module.exports = class CardsForm extends React.PureComponent {
     super(props);
     this.cardFormTitleRef = React.createRef();
   }
-
-  state = {
-    isCardTitleOnFocus: false
-  };
-
-  onFocusCardTitle = () => {
-    this.setState({isCardTitleOnFocus: true});
-  }
-
-  onBlurCardTitle = () => {
-    this.setState({isCardTitleOnFocus: false});
-  }
-
-  onKeyDownCardTitle = event => {
-    if (event.target.innerHTML.length > NotificationCardSchema.title.max) {
-      event.preventDefault();
-    }
-  };
 
   generateCardInitialValues = card => {
     if (card) {
@@ -142,7 +124,6 @@ module.exports = class CardsForm extends React.PureComponent {
       isTop,
       toggleIsTop,
       sanitizeInput} = this.props;
-    const {isCardTitleOnFocus} = this.state;
 
     return (
       <Modal
@@ -163,9 +144,9 @@ module.exports = class CardsForm extends React.PureComponent {
               this.cardFormTitleRef.current.focus();
             };
 
-            const onChangeTitle = event => {
-              if (event.target.value) {
-                setFieldValue('title', sanitizeInput(event.target.value));
+            const onChangeTitle = value => {
+              if (value) {
+                setFieldValue('title', sanitizeInput(value));
               }
             };
 
@@ -184,15 +165,10 @@ module.exports = class CardsForm extends React.PureComponent {
                     </CustomTooltip>
                     <ContentEditable
                       innerRef={this.cardFormTitleRef}
-                      html={values.title}
-                      tagName="p"
-                      className={classNames(
-                        'title text-primary ml-3 my-0',
-                        {'text-truncate': !isCardTitleOnFocus}
-                      )}
-                      onKeyDown={this.onKeyDownCardTitle}
-                      onFocus={this.onFocusCardTitle}
-                      onBlur={this.onBlurCardTitle}
+                      tag="p"
+                      type="modal-title"
+                      maxLength={NotificationCardSchema.title.max}
+                      value={values.title}
                       onChange={onChangeTitle}
                     />
 
