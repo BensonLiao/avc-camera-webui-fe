@@ -8,12 +8,12 @@ const Modal = require('react-bootstrap/Modal').default;
 const MemberSchema = require('webserver-form-schema/member-schema');
 const defaultAvatar = require('../../resource/default-avatar@2x.png');
 const avatarMask = require('../../resource/avatar-mask.png');
+const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
 const _ = require('../../languages');
 const MemberValidator = require('../../web/validations/members/member-validator');
 const utils = require('../utils');
 const api = require('../apis/web-api');
-const SelectField = require('./fields/select-field');
 
 module.exports = class Member extends React.PureComponent {
   static get propTypes() {

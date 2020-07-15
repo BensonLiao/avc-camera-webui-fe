@@ -6,12 +6,12 @@ const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const Base = require('../shared/base');
-const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
-const CustomTooltip = require('../../../core/components/tooltip');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {DEFAULT_PORTS} = require('../../../core/constants');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const CustomTooltip = require('../../../core/components/tooltip');
 const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class HTTPS extends Base {

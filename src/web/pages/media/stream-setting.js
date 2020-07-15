@@ -14,9 +14,9 @@ const StreamBandwidthManagement = require('webserver-form-schema/constants/strea
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const StreamQuality = require('webserver-form-schema/constants/stream-quality');
 const _ = require('../../../languages');
-const Dropdown = require('../../../core/components/fields/dropdown');
 const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const Dropdown = require('../../../core/components/fields/dropdown');
 const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class StreamSetting extends Base {

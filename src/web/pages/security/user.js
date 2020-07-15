@@ -11,10 +11,10 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const UserValidator = require('../../validations/users/user-validator');
 const NewUserValidator = require('../../validations/users/new-user-validator');
-const Password = require('../../../core/components/fields/password');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {SECURITY_USERS_MAX} = require('../../../core/constants');
+const Password = require('../../../core/components/fields/password');
 const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class User extends Base {

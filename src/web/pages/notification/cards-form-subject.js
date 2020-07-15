@@ -6,8 +6,8 @@ const NotificationCardType = require('webserver-form-schema/constants/notificati
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
 const {NOTIFY_CARDS_EMAIL_MAX} = require('../../../core/constants');
 const _ = require('../../../languages');
-const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
+const CustomTooltip = require('../../../core/components/tooltip');
 const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class CardsFormSubject extends React.PureComponent {

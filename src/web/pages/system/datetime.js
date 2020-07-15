@@ -8,12 +8,12 @@ const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const NTPTimeZone = require('webserver-form-schema/constants/system-sync-time-ntp-timezone');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
 const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP} = require('../../../core/constants');
+const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class DateTime extends Base {
