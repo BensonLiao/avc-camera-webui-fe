@@ -132,12 +132,12 @@ module.exports = class TCPIP extends Base {
 
               test();
             })
-            .finally(() => {
+            .catch(() => {
               progress.done();
               this.hideApiProcessModal();
             });
         })
-        .finally(() => {
+        .catch(() => {
           progress.done();
           this.hideApiProcessModal();
         });
