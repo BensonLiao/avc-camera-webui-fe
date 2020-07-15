@@ -131,10 +131,10 @@ module.exports = {
         modelName: 'AV02CLD-100',
         firmware: '35110.4',
         sdEnabled: false,
-        sdStatus: 1,
+        sdStatus: 0,
         sdFormat: 'FAT32',
-        sdTotal: 31250000,
-        sdUsage: 12178048,
+        sdTotal: 10000000,
+        sdUsage: 3200000,
         sdAlertEnabled: false
       },
       systemDateTime: {

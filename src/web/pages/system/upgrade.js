@@ -16,7 +16,7 @@ module.exports = class Upgrade extends Base {
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Device Processing');
-    this.state.apiProcessModalBody = _('Please do not close tab or browser while upgrading');
+    this.state.apiProcessModalBody = _('※ Please do not close browser or tab while upgrading');
     this.state.progressStatus = {
       uploadFirmware: 'initial',
       upgradeFirmware: 'initial',
@@ -307,28 +307,28 @@ module.exports = class Upgrade extends Base {
                   </div>,
                   <StageProgress
                     key="stage 1"
-                    stage="Stage 01"
-                    title="Upload Firmware"
+                    stage={_('Stage 01')}
+                    title={_('Upload Firmware')}
                     progressStatus={progressStatus.uploadFirmware}
                     progressPercentage={progressPercentage.uploadFirmware}
                   />,
                   <StageProgress
                     key="stage 2"
-                    stage="Stage 02"
-                    title="Install Firmware"
+                    stage={_('Stage 02')}
+                    title={_('Install Firmware')}
                     progressStatus={progressStatus.upgradeFirmware}
                     progressPercentage={progressPercentage.upgradeFirmware}
                   />,
                   <StageProgress
                     key="stage 3"
-                    stage="Stage 03"
-                    title="Device Shutdown"
+                    stage={_('Stage 03')}
+                    title={_('Shutdown Device')}
                     progressStatus={progressStatus.deviceShutdown}
                   />,
                   <StageProgress
                     key="stage 4"
-                    stage="Stage 04"
-                    title="Device Restart"
+                    stage={_('Stage 04')}
+                    title={_('Restart Device')}
                     progressStatus={progressStatus.deviceRestart}
                   />
                 ]}

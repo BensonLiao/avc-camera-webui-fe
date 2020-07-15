@@ -22,6 +22,18 @@ nav.navbar.fixed-top {
   &.sub {
     z-index: 1030;
   }
+  .form-row > .col {
+    &:hover:not(:last-child) {
+      button, div{
+        color: #fff !important;
+        background-color: #0049AD;
+        border-color: #0049AD;
+        i {
+          color: #fff !important;
+        }
+      }
+    }
+  }
 }
 .fixed-top {
   z-index: 1030;

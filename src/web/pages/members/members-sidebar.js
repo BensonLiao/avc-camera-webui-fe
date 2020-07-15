@@ -70,7 +70,7 @@ module.exports = class MembersSidebar extends React.PureComponent {
                     <i className="far fa-folder text-size-20"/>
                     <span className="text-truncate text-size-14 pl-3">{group.name}</span>
                   </a>
-                  <CustomTooltip title={_('Delete {0}', [group.name])}>
+                  <CustomTooltip title={_('Delete Group: {0}', [group.name])}>
                     <button className="btn btn-link btn-delete text-info" type="button"
                       onClick={deleteGroupHandler(group)}
                     >
