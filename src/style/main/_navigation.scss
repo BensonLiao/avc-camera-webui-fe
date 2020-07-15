@@ -24,7 +24,7 @@ nav.navbar.fixed-top {
   }
   .form-row > .col {
     &:hover:not(:last-child) {
-      button, div{
+      button{
         color: #fff !important;
         background-color: #0049AD;
         border-color: #0049AD;
