@@ -8,12 +8,13 @@ const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const NTPTimeZone = require('webserver-form-schema/constants/system-sync-time-ntp-timezone');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
 const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP} = require('../../../core/constants');
+const DateTimePicker = require('../../../core/components/fields/datetime-picker');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class DateTime extends Base {
   static get propTypes() {
@@ -100,22 +101,11 @@ module.exports = class DateTime extends Base {
             </div>
           </div>
         </div>
-        {/* Remove language in AVN */}
-        <div className="form-group d-none">
-          <label>{_('Language')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field
-              name="language"
-              component="select"
-              className="form-control border-0"
-            >
-              <option value={window.navigator.userLanguage || window.navigator.language}>{_('Default')}</option>
-              <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
-              <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
-            </Field>
-          </div>
-        </div>
-        <hr className="my-4"/>
+        <SelectField hide labelName={_('Language')} name="language">
+          <option value={window.navigator.userLanguage || window.navigator.language}>{_('Default')}</option>
+          <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
+          <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
+        </SelectField>
         <div className="form-group mb-5">
           <div className="form-check mb-4">
             <Field

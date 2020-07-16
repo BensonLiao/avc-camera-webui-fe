@@ -12,6 +12,7 @@ const notify = require('../../../core/notify');
 const _ = require('../../../languages');
 const {DEFAULT_PORTS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class TCPIP extends Base {
   static get propTypes() {
@@ -161,14 +162,9 @@ module.exports = class TCPIP extends Base {
                 </label>
               </div>
             </div>
-            <div className="form-group">
-              <label>{_('Server Provider')}</label>
-              <div className="select-wrapper border rounded-pill overflow-hidden">
-                <Field name="ddnsProvider" component="select" className="form-control border-0">
-                  <option value="dyn-dns">DynDNS.org</option>
-                </Field>
-              </div>
-            </div>
+            <SelectField labelName={_('Server Provider')} name="ddnsProvider">
+              <option value="dyn-dns">DynDNS.org</option>
+            </SelectField>
             <div className="form-group">
               <label>{_('Host Name')}</label>
               <Field

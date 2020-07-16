@@ -6,8 +6,9 @@ const NotificationCardType = require('webserver-form-schema/constants/notificati
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
 const {NOTIFY_CARDS_EMAIL_MAX} = require('../../../core/constants');
 const _ = require('../../../languages');
-const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
+const CustomTooltip = require('../../../core/components/tooltip');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class CardsFormSubject extends React.PureComponent {
   static get propTypes() {
@@ -117,28 +118,17 @@ module.exports = class CardsFormSubject extends React.PureComponent {
          <div className="form-group">
            <div className="card">
              <div className="card-body">
-               <div className={classNames('form-group mb-2', {'d-none': values.type === NotificationCardType.digitalInput})}>
-                 <label className="text-size-16 mb-3">{_('Email Attachment')}</label>
-                 <div className="select-wrapper border rounded-pill overflow-hidden">
-                   <Field
-                     name="emailAttachmentType"
-                     component="select"
-                     className="form-control border-0"
-                   >
-                     {
-                       NotificationEmailAttachmentType.all().map(attachmentType => (
-                         !(values.type === NotificationCardType.motionDetection && attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
-                           <option
-                             key={attachmentType}
-                             value={attachmentType}
-                           >{_(`email-attachment-type-${attachmentType}`)}
-                           </option>)
-                       ))
-                     }
-                   </Field>
-                 </div>
-                 <hr/>
-               </div>
+               <SelectField hide={values.type === NotificationCardType.digitalInput} labelName={_('Email Attachment')} labelClassName="text-size-16 mb-3" name="emailAttachmentType">
+                 {NotificationEmailAttachmentType.all().map(attachmentType => (
+                   !(values.type === NotificationCardType.motionDetection && attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
+                     <option
+                       key={attachmentType}
+                       value={attachmentType}
+                     >{_(`email-attachment-type-${attachmentType}`)}
+                     </option>)
+                 ))}
+               </SelectField>
+               <hr/>
                <div className="form-group mb-4">
                  <label className="text-size-16">Subject :</label>
                  <Field

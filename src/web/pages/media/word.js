@@ -12,6 +12,7 @@ const WordSettingsSchema = require('webserver-form-schema/word-settings-schema')
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class Word extends Base {
   static get propTypes() {
@@ -157,22 +158,11 @@ module.exports = class Word extends Base {
                 <label>{_('Position')}</label>
                 <p className="text-primary">{_('Select Position')}</p>
               </div>
-              <div className="form-group">
-                <label>{_('Text Overlay')}</label>
-                <div className="select-wrapper border rounded-pill overflow-hidden">
-                  <Field
-                    name="type"
-                    component="select"
-                    className="form-control border-0"
-                  >
-                    {
-                      WordType.all().map(type => (
-                        <option key={type} value={type}>{_(`word-type-${type}`)}</option>
-                      ))
-                    }
-                  </Field>
-                </div>
-              </div>
+              <SelectField labelName={_('Text Overlay')} name="type">
+                {WordType.all().map(type => (
+                  <option key={type} value={type}>{_(`word-type-${type}`)}</option>
+                ))}
+              </SelectField>
               <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
                 <Field name="customText" type="text" placeholder={_('Enter Custom Text')} maxLength={WordSettingsSchema.customText.max} className="form-control"/>
               </div>

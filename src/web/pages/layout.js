@@ -250,7 +250,8 @@ module.exports = class Layout extends Base {
                 </button>
               </div>
 
-              <div className="col">
+              {/* Hide language dropdown */}
+              <div hidden className="col">
                 <div className="dropdown">
                   <button className="btn bg-primary border-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
                     <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}

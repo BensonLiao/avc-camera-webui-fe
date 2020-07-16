@@ -11,10 +11,11 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const UserValidator = require('../../validations/users/user-validator');
 const NewUserValidator = require('../../validations/users/new-user-validator');
-const Password = require('../../../core/components/fields/password');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {SECURITY_USERS_MAX} = require('../../../core/constants');
+const Password = require('../../../core/components/fields/password');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class User extends Base {
   static get propTypes() {
@@ -22,13 +23,13 @@ module.exports = class User extends Base {
       users: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.number.isRequired,
-          permission: PropTypes.number.isRequired,
+          permission: PropTypes.string.isRequired,
           account: PropTypes.string.isRequired
         })).isRequired
       }),
       user: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        permission: PropTypes.number.isRequired,
+        permission: PropTypes.string.isRequired,
         account: PropTypes.string.isRequired
       })
     };
@@ -114,20 +115,13 @@ module.exports = class User extends Base {
     return (
       <Form>
         <div className="modal-body">
-          <div className="form-group">
-            <label>{_('Permission')}</label>
-            <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-              <Field name="permission" component="select" className="form-control border-0">
-                {
-                  UserPermission.all().map(permission => (
-                    <option key={permission} value={permission}>
-                      {_(`permission-${permission}`)}
-                    </option>
-                  ))
-                }
-              </Field>
-            </div>
-          </div>
+          <SelectField labelName={_('Permission')} name="permission" wrapperClassName="px-2">
+            {UserPermission.all().map(permission => (
+              <option key={permission} value={permission}>
+                {_(`permission-${permission}`)}
+              </option>
+            ))}
+          </SelectField>
           <div className="form-group">
             <label>{_('Account')}</label>
             <Field name="account" type="text" placeholder={_('Enter your account')}
