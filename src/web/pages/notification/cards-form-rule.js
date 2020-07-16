@@ -7,6 +7,7 @@ const _ = require('../../../languages');
 module.exports = class CardsFormRule extends React.PureComponent {
   static get propTypes() {
     return {
+      faceRecognitionCondition: PropTypes.string.isRequired,
       isEnableFaceRecognition: PropTypes.bool.isRequired,
       groups: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
@@ -19,7 +20,7 @@ module.exports = class CardsFormRule extends React.PureComponent {
   }
 
   render() {
-    const {isEnableFaceRecognition, groups} = this.props;
+    const {faceRecognitionCondition, isEnableFaceRecognition, groups} = this.props;
     return (
       <>
         <div className="form-group d-flex justify-content-between align-items-center">
@@ -44,6 +45,7 @@ module.exports = class CardsFormRule extends React.PureComponent {
             ))
           }
         </div>
+        { faceRecognitionCondition === NotificationFaceRecognitionCondition.success &&
         <div className="form-group">
           <div className="card">
             <div className="card-body px-4 py-4">
@@ -65,7 +67,7 @@ module.exports = class CardsFormRule extends React.PureComponent {
               </div>
             </div>
           </div>
-        </div>
+        </div>}
 
       </>
     );

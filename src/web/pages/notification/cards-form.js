@@ -226,6 +226,7 @@ module.exports = class CardsForm extends React.PureComponent {
                       <Tab.Pane eventKey="tab-notification-condition">
                         {/* Rule settings */}
                         <CardsFormRule
+                          faceRecognitionCondition={values.faceRecognitionCondition}
                           isEnableFaceRecognition={values.isEnableFaceRecognition}
                           groups={groups}
                         />
