@@ -92,11 +92,7 @@ module.exports = class DateTime extends Base {
             <div className="form-group d-flex justify-content-between align-items-center mb-0">
               <label className="mb-0">{_('Date and Time of the Device')}</label>
               <label className="text-primary mb-0">
-                <Clock
-                  ticking
-                  date={deviceTime}
-                  format="YYYY-MM-DD, hh:mm:ss A"
-                />
+                <Clock ticking date={deviceTime} format="YYYY-MM-DD, hh:mm:ss A"/>
               </label>
             </div>
           </div>
@@ -133,9 +129,7 @@ module.exports = class DateTime extends Base {
                       className="form-control border-0"
                     >
                       {NTPTimeZone.all().map(v => {
-                        return (
-                          <option key={v} value={v}>{v}</option>
-                        );
+                        return (<option key={v} value={v}>{v}</option>);
                       })}
                     </Field>
                   </div>

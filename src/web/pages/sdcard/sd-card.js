@@ -283,7 +283,6 @@ module.exports = class SDCard extends Base {
 
   render() {
     const {systemInformation} = this.props;
-    console.log(systemInformation);
     return (
       <div className="main-content">
         <div className="section-media">

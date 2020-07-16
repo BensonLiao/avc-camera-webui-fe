@@ -193,10 +193,13 @@ module.exports = class Home extends Base {
   };
 
   onBlurDeviceNameForm = event => {
-    progress.start();
-    api.system.updateDeviceName(event.target.value)
-      .then(getRouter().reload)
-      .finally(progress.done);
+    // Update device name only if the value has changed
+    if (event.target.value !== this.props.systemInformation.deviceName) {
+      progress.start();
+      api.system.updateDeviceName(event.target.value)
+        .then(getRouter().reload)
+        .finally(progress.done);
+    }
   };
 
   deviceNameFormRender = ({errors, touched}) => {
