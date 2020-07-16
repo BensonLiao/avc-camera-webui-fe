@@ -2,6 +2,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const sanitizeHtml = require('sanitize-html');
+const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const Base = require('../shared/base');
@@ -147,7 +148,9 @@ module.exports = class Cards extends Base {
     const data = {
       ...values,
       isTop: this.state.isTop,
-      groups: values.$groups ? [values.$groups] : [],
+      groups: values.faceRecognitionCondition === NotificationFaceRecognitionCondition.success ?
+        (values.$groups ? [values.$groups] : []) :
+        [],
       title: this.sanitizeInput(values.title)
     };
 
