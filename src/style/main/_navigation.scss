@@ -23,11 +23,14 @@ nav.navbar.fixed-top {
     z-index: 1030;
   }
   .form-row > .col {
+    button{
+      color: $primary;
+    }
     &:hover:not(:last-child) {
       button{
         color: #fff !important;
-        background-color: #0049AD;
-        border-color: #0049AD;
+        background-color: $primary;
+        border-color: $primary;
         i {
           color: #fff !important;
         }
