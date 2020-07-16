@@ -142,6 +142,36 @@ body {
   }
 }
 
+.btn {
+  &.chips, .chips-outline {
+    border-color: $primary;
+  }
+  &.chips {
+    background-color: $primary;
+    color: #fff;
+    &:hover {
+      background-color: #fff;
+      color: $primary;
+    }
+    &.active {
+      background-color: #fff;
+      color: $primary;
+    }
+  }
+  &.chips-outline {
+    background-color: #fff;
+    color: $primary;
+    &:hover {
+      background-color: $secondary-500;
+      color: #fff;
+    }
+    &.active {
+      background-color: $primary;
+      color: #fff;
+    }
+  }
+}
+
 .has-feedback {
   position: relative;
   .form-control {
