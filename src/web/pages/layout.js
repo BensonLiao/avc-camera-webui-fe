@@ -244,16 +244,10 @@ module.exports = class Layout extends Base {
           <div className="collapse navbar-collapse" id="navigation">
             <ul className="navbar-nav mr-auto"/>
             <form className="form-row text-right">
-              <div className="col d-none d-sm-block">
-                <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
-                  <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
-                </button>
-              </div>
 
-              {/* Hide language dropdown */}
-              <div hidden className="col">
+              <div className="col">
                 <div className="dropdown">
-                  <button className="btn bg-primary border-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
+                  <button className="btn border-primary dropdown-toggle" type="button" data-toggle="dropdown">
                     <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
@@ -269,6 +263,12 @@ module.exports = class Layout extends Base {
                     }
                   </div>
                 </div>
+              </div>
+
+              <div className="col d-none d-sm-block">
+                <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
+                  <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
+                </button>
               </div>
 
               <div className="col">
