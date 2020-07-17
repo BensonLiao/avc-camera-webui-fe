@@ -111,6 +111,7 @@ module.exports = class User extends Base {
 
   formRender = ({errors, touched}) => {
     const {users: {items}, user} = this.props;
+    const {$isApiProcessing} = this.state;
     const isSuperAdmin = user && (user.permission === UserPermission.superAdmin);
     const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
     const permissionList = UserPermission.all().reduce((permissionList, permission) => {
@@ -131,7 +132,7 @@ module.exports = class User extends Base {
           </SelectField>
           <div className="form-group">
             <label>{_('Account')}</label>
-            <Field name="account" type="text" placeholder={_('Enter Your Account')}
+            <Field name="account" type="text" placeholder={_('Enter your account')}
               disabled={isSuperAdmin}
               maxLength={UserSchema.account.max}
               validate={this.checkDuplicate}
@@ -143,9 +144,9 @@ module.exports = class User extends Base {
             }
           </div>
           <div className="form-group has-feedback">
-            <label>{_(this.props.user ? 'Old Password' : 'Password')}</label>
+            <label>{_(user ? 'Old Password' : 'Password')}</label>
             <Field name="password" component={Password} inputProps={{
-              placeholder: _(this.props.user ? 'Enter your old password' : 'Enter your password'),
+              placeholder: _(user ? 'Enter your old password' : 'Enter your password'),
               className: classNames('form-control', {'is-invalid': errors.password && touched.password})
             }}/>
             {
@@ -189,7 +190,7 @@ module.exports = class User extends Base {
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
             <button
-              disabled={this.state.$isApiProcessing || isAddUserDisabled}
+              disabled={$isApiProcessing || isAddUserDisabled}
               type="submit"
               className="btn btn-primary btn-block rounded-pill"
             >
@@ -197,7 +198,7 @@ module.exports = class User extends Base {
             </button>
           </div>
           <button
-            disabled={this.state.$isApiProcessing}
+            disabled={$isApiProcessing}
             className="btn btn-info btn-block m-0 rounded-pill"
             type="button"
             onClick={this.hideModal}
@@ -211,10 +212,11 @@ module.exports = class User extends Base {
 
   render() {
     const {user} = this.props;
+    const {$isApiProcessing, isShowModal} = this.state;
     const validator = user ? UserValidator : NewUserValidator;
 
     return (
-      <Modal autoFocus={false} show={this.state.isShowModal} backdrop={this.state.$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
+      <Modal autoFocus={false} show={isShowModal} backdrop={$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
           <Modal.Title as="h5">{user ? _('Modify User') : _('New User')}</Modal.Title>
         </Modal.Header>
