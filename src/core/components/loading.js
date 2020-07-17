@@ -10,13 +10,13 @@ module.exports = class Loading extends React.Component {
     return (
       <div className="page-loading d-flex justify-content-center align-items-center">
         <div className="spinner-container">
-          <div className="spinner-wrapper text-primary">
-            <div className="spinner-border">
-              <span className="sr-only">Loading...</span>
-            </div>
+          <div className="spinner">
+            <div className="bounce1"/>
+            <div className="bounce2"/>
+            <div className="bounce3"/>
           </div>
           <div className="description">
-            <p>{_('Loading')}<span className="dotty"/></p>
+            <p className="mt-4">{_('Loading')}</p>
           </div>
         </div>
       </div>
