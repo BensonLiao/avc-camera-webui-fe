@@ -111,20 +111,28 @@ module.exports = class User extends Base {
 
   formRender = ({errors, touched}) => {
     const {users: {items}, user} = this.props;
+    const isSuperAdmin = user && (user.permission === UserPermission.superAdmin);
     const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
+    const permissionList = UserPermission.all().reduce((permissionList, permission) => {
+      if (permissionList.indexOf(UserPermission.superAdmin) < 0) {
+        permissionList.push(
+          <option key={permission} value={permission}>
+            {_(`permission-${permission}`)}
+          </option>);
+      }
+
+      return permissionList;
+    }, []);
     return (
       <Form>
         <div className="modal-body">
-          <SelectField labelName={_('Permission')} name="permission" wrapperClassName="px-2">
-            {UserPermission.all().map(permission => (
-              <option key={permission} value={permission}>
-                {_(`permission-${permission}`)}
-              </option>
-            ))}
+          <SelectField readOnly={isSuperAdmin} labelName={_('Permission')} name="permission" wrapperClassName="px-2">
+            {permissionList}
           </SelectField>
           <div className="form-group">
             <label>{_('Account')}</label>
-            <Field name="account" type="text" placeholder={_('Enter your account')}
+            <Field name="account" type="text" placeholder={_('Enter Your Account')}
+              disabled={isSuperAdmin}
               maxLength={UserSchema.account.max}
               validate={this.checkDuplicate}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>

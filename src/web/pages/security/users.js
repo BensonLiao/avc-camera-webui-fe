@@ -69,7 +69,7 @@ module.exports = class Users extends Base {
     const {permissionFilter, $user: {account}, $isApiProcessing, isShowDeleteUserModal, deleteUserTarget} = this.state;
     const users = permissionFilter === 'all' ?
       this.props.users.items :
-      this.props.users.items.filter(user => user.permission.toString() === permissionFilter);
+      this.props.users.items.filter(user => permissionFilter === UserPermission.root ? user.permission.toString() === UserPermission.root || user.permission.toString() === UserPermission.superAdmin : user.permission.toString() === permissionFilter);
     const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
     return (
       <>
@@ -150,10 +150,11 @@ module.exports = class Users extends Base {
                       {
                         users.map((user, index) => {
                           const tdClass = classNames({'border-bottom': index >= users.length - 1});
+                          const isSuperAdmin = user.permission === UserPermission.superAdmin;
                           return (
                             <tr key={user.id}>
                               <td className={tdClass}>
-                                <span className={classNames('badge badge-pill text-size-16 px-3', Number(user.permission) ? 'badge-guest' : 'badge-admin')}>
+                                <span className={classNames('badge badge-pill text-size-16 px-3', (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest')}>
                                   {_(`permission-${user.permission}`)}
                                 </span>
                               </td>
@@ -162,23 +163,23 @@ module.exports = class Users extends Base {
                                 <Link className="btn btn-link" to={{name: 'web.users.accounts.details', params: {...this.props.params, userId: user.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
-                                <CustomTooltip
-                                  show={user.account === account || user.account === 'admin'}
-                                  title={user.account === account ? _('Cannot Delete Account That is Currently Logged In') : _('This Account is Protected')}
-                                >
-                                  <span>
-                                    <button
-                                      // Account with name 'admin' should not be deleted, due to avn restrictions
-                                      disabled={user.account === account ||
-                                    user.account === 'admin'}
-                                      className="btn btn-link"
-                                      type="button"
-                                      onClick={this.generateShowDeleteUserModalHandler(user)}
-                                    >
-                                      <i className="far fa-trash-alt fa-lg fa-fw"/>
-                                    </button>
-                                  </span>
-                                </CustomTooltip>
+                                { !isSuperAdmin &&
+                                  <CustomTooltip
+                                    show={user.account === account}
+                                    title={_('Cannot Delete Account That is Currently Logged In')}
+                                  >
+                                    <span>
+                                      <button
+                                        // Super Admin account should not be deleted, due to app restrictions
+                                        disabled={user.account === account}
+                                        className="btn btn-link"
+                                        type="button"
+                                        onClick={this.generateShowDeleteUserModalHandler(user)}
+                                      >
+                                        <i className="far fa-trash-alt fa-lg fa-fw"/>
+                                      </button>
+                                    </span>
+                                  </CustomTooltip>}
                               </td>
                             </tr>
                           );
