@@ -4,6 +4,7 @@ window.languageResource = {
   // Constants
   'permission-0': 'Admin',
   'permission-1': 'Viewer',
+  'permission-99': 'Admin', // Super-Admin, for easier backend permission control, no difference for UI
 
   'certificate-type-0': 'AndroVideo Self-signed',
   'certificate-type-1': 'Upload Certificate',
