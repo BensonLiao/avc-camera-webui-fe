@@ -69,7 +69,9 @@ module.exports = class Users extends Base {
     const {permissionFilter, $user: {account}, $isApiProcessing, isShowDeleteUserModal, deleteUserTarget} = this.state;
     const users = permissionFilter === 'all' ?
       this.props.users.items :
-      this.props.users.items.filter(user => permissionFilter === UserPermission.root ? user.permission.toString() === UserPermission.root || user.permission.toString() === UserPermission.superAdmin : user.permission.toString() === permissionFilter);
+      this.props.users.items.filter(user => permissionFilter === UserPermission.root ?
+        user.permission.toString() === UserPermission.root || user.permission.toString() === UserPermission.superAdmin :
+        user.permission.toString() === permissionFilter);
     const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
     return (
       <>
