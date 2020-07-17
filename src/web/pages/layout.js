@@ -6,6 +6,7 @@ const {RouterView} = require('capybara-router');
 const Base = require('./shared/base');
 const {Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Loading = require('../../core/components/loading');
 const iconHome = require('../../resource/left-navigation-home.svg');
 const iconMedia = require('../../resource/left-navigation-media.svg');
@@ -85,6 +86,7 @@ module.exports = class Layout extends Base {
   render() {
     const {systemInformation, networkSettings} = this.props;
     const {$user, currentRouteName, isShowAboutModal} = this.state;
+    const isAdmin = $user.permission === UserPermission.root || $user.permission === UserPermission.superAdmin;
     const classTable = {
       home: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -100,16 +102,16 @@ module.exports = class Layout extends Base {
             'web.media.word',
             'web.media.privacy-mask'
           ].indexOf(currentRouteName) >= 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       audio: classNames(
         'btn',
         {
           active: currentRouteName === 'web.audio',
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       notification: classNames(
@@ -121,8 +123,8 @@ module.exports = class Layout extends Base {
             'web.notification.smtp',
             'web.notification.cards'
           ].indexOf(currentRouteName) >= 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       users: classNames(
@@ -139,8 +141,8 @@ module.exports = class Layout extends Base {
             'web.users.accounts.new-user',
             'web.users.events'
           ].indexOf(currentRouteName) >= 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       smart: classNames(
@@ -152,39 +154,39 @@ module.exports = class Layout extends Base {
             'web.smart.motion-detection',
             'web.smart.license'
           ].indexOf(currentRouteName) >= 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       network: classNames(
         'btn',
         {
           active: currentRouteName.indexOf('web.network') === 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       system: classNames(
         'btn',
         {
           active: currentRouteName.indexOf('web.system') === 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       sdCard: classNames(
         'btn',
         {
           active: currentRouteName === 'web.sd-card',
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       )
     };
 
     return (
       <>
-        { $user.permission === '0' && (
+        { isAdmin && (
           <div className="left-navigation fixed-top">
             <CustomTooltip title={_('Home')}>
               <Link className={classTable.home} to="/">
