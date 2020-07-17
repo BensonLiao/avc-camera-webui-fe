@@ -16,6 +16,7 @@ const React = require('react');
 const progress = require('nprogress');
 const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const defaultVideoBackground = require('../../resource/video-bg.jpg');
 const Base = require('./shared/base');
@@ -234,6 +235,7 @@ module.exports = class Home extends Base {
       isEnableHumanoidDetectionKey
     }, systemDateTime, videoSettings, faceRecognitionStatus} = this.props;
     const {$user, streamImageUrl, isPlayStream, deviceName} = this.state;
+    const isAdmin = $user.permission === UserPermission.root || $user.permission === UserPermission.superAdmin;
     const usedDiskPercentage = Math.ceil((sdUsage / sdTotal) * 100);
     const freeDiskVolume = sdTotal - sdUsage;
     const freeDiskPercentage = 100 - usedDiskPercentage;
@@ -253,10 +255,10 @@ module.exports = class Home extends Base {
     };
 
     return (
-      <div className={classNames('main-content', $user.permission === '0' ? '' : 'pl-0')}>
+      <div className={classNames('main-content', isAdmin ? '' : 'pl-0')}>
         <div className="page-home">
           <div className="container-fluid">
-            <div className={classNames($user.permission === '0' ? 'row' : 'd-flex justify-content-center')}>
+            <div className={classNames(isAdmin ? 'row' : 'd-flex justify-content-center')}>
               <div className="col-8 pr-24">
                 {/* The video */}
                 <div className="video-wrapper mb-4">
@@ -294,7 +296,7 @@ module.exports = class Home extends Base {
                 </div>
 
                 {/* System information */}
-                { $user.permission === '0' && (
+                { isAdmin && (
                   <div className="card border-0 shadow">
                     <table>
                       <thead>
@@ -388,7 +390,7 @@ module.exports = class Home extends Base {
                   </div>
                 )}
               </div>
-              { $user.permission === '0' && (
+              { isAdmin && (
                 <div className="col-4 pl-0">
                   <div className="card shadow">
                     <VideoSetting
