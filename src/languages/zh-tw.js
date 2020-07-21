@@ -518,6 +518,8 @@ window.languageResource = {
   Add: '新增',
   Cancel: '取消',
   Recognition: '辨識',
+  'Cards Limit Error': '通知卡數量限制',
+  'Cannot Create More Than {0} Cards': '無法新增超過 {0} 張卡',
 
   // /smart/face-recognition
   'Detection Zone': '觸發區域',
@@ -751,6 +753,7 @@ window.languageResource = {
   '{0} authorized successfully!': '{0}已授權成功！',
   'Activation Failed': '啟用失敗',
   'Authorization failed!': '授權失敗！',
+  'Key Already Registered!': '授權碼已註冊!',
 
   // /sd-card
   'SD Card Settings': 'SD卡設定',

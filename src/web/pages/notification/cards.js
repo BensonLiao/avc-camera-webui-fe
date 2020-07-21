@@ -66,7 +66,7 @@ module.exports = class Cards extends Base {
   cardLimitError = () => { // Over card limit 32
     notify.showErrorNotification({
       title: _('Cards Limit Error'),
-      message: _('Cannot create more than {0} cards', [NOTIFY_CARDS_MAX])
+      message: _('Cannot Create More Than {0} Cards', [NOTIFY_CARDS_MAX])
     });
   }
 
