@@ -188,6 +188,7 @@ window.languageResource = {
   'validation-url': '請使用正確的網址格式。',
   'validation-birthday': '請使用正確的生日格式。',
   'validation-countryCode': '國家代碼錯誤。',
+  'Same name found, please use a different name.': '名字重複，請使用不同的名字',
 
   // Date picker
   Su: '日',
