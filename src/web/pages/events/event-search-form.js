@@ -46,6 +46,18 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     this.setState({isShowEndDatePicker: false});
   }
 
+  convertTime = (time, method) => {
+    if (method === 'add') {
+      return new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
+    }
+
+    if (method === 'subtract') {
+      return new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
+    }
+
+    return time;
+  }
+
   /**
    * Handler on user submit the search form.
    * @param {String} keyword
@@ -60,8 +72,8 @@ module.exports = class EventsSearchForm extends React.PureComponent {
         ...this.props.params,
         index: undefined,
         keyword,
-        start: start ? start.toJSON() : undefined,
-        end: end ? end.toJSON() : undefined
+        start: start ? this.convertTime(start, 'add').toJSON() : undefined,
+        end: end ? this.convertTime(end, 'add').toJSON() : undefined
       }
     });
   };
@@ -71,8 +83,8 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     const {params, isApiProcessing} = this.props;
     const searchFromInitialValues = {
       keyword: params.keyword || '',
-      start: params.start ? new Date(params.start) : null,
-      end: params.end ? new Date(params.end) : null
+      start: params.start ? this.convertTime(new Date(params.start), 'subtract') : null,
+      end: params.end ? this.convertTime(new Date(params.end), 'subtract') : null
     };
 
     return (

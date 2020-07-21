@@ -155,6 +155,7 @@ module.exports = class EventsTable extends React.PureComponent {
                 const lengthCheck = event.confidences.length;
                 const ifExists = lengthCheck > 0 && item.member;
                 const isEnrolled = lengthCheck > 0 && item.enrollStatus === EnrollStatus.registered;
+                event.time = (new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000))).toJSON();
                 return (
                   <tr key={event.id}>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
