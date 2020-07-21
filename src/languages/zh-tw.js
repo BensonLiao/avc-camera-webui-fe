@@ -201,15 +201,24 @@ window.languageResource = {
   // The loading component.
   Loading: '載入中',
 
-  // The CustomTooltip component
-  'Please Select a File First': '請先選擇一個檔案',
-  'Please Disable SD Card First': '請先關掉SD卡',
+  // Switch component
+  'On/Off': '開/關',
+  ON: '開',
+  OFF: '關',
+
+  // CustomTooltip - Begin
+  'Please Enter Start and End Datetime': '請輸入開始與結束時間',
+  // - Internet/Network Settings
   'No Values Have Changed': '數值沒有更動',
-  'Group Limit Reached': '已達群組數量限制',
   'Please Enable HTTPS': '請開啟HTTPS功能',
+  // - Device Maintain
+  'Please Select a File': '請先選擇一個檔案',
+  'Check or uncheck this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD card.': '勾選或不勾選此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像中對焦跟Zoom的設定、RTSP設定、網路設定及SD卡的資料',
+  // - SD Card
+  'Please Disable SD Card First': '請先關掉SD卡',
+  'Group Limit Reached': '已達群組數量限制',
   'This Account is Protected': '此帳戶不可刪除',
   'Cannot Delete Account That is Currently Logged In': '無法刪除正在使用的帳號',
-  'Please Enter Start and End Datetime': '請輸入開始與結束時間',
   'Maximum Allowed Number of Schedule is 5': '最多可輸入5個通知時間',
   'Please Enter an Email Address': '請輸入Email',
   'Email: On': '電子郵件: 開',
