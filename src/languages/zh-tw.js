@@ -670,6 +670,7 @@ window.languageResource = {
   // /system/Device Maintain
   'Device Maintenace': '裝置維護',
   'System Reboot': '重新啟動裝置',
+  'Are you sure you want to reboot the system?': '您即將要重新啟動裝置，確認是否繼續？',
   Reboot: '重啟',
   'Restore to Default Setting': '將裝置還原成原始預設值',
   'Restore to Factory Default Settings (Includes Network Settings)': '將所有設定恢復為預設值(包含IP位址)',
@@ -677,8 +678,8 @@ window.languageResource = {
   'Export System Settings': '匯出系統設定值',
   'Import System Settings': '匯入系統設定值',
   'Check or clear this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD Card.': '勾選或清除此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像設定中對焦跟Zoom的設定、RTSP設定、網路設定並清空SD卡的資料',
-  'The system will return to factory default settings. Any data and configurations you have saved will be overwritten.': '系統將回歸至原廠設定，任何已儲存的資訊和設定將會被清除',
-  'The system will reset the device. All configurations are overwritten and settings go back to default except the following:': '所有設定將被清除並回復成出廠預設值，但保留以下設定：',
+  'The system will revert to factory default settings. Any data and configurations you have saved will be overwritten.': '系統將回歸至原廠設定，任何已儲存的資訊和設定將會被清除',
+  'The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following': '所有設定將被清除並回復成出廠預設值，但將保留以下設定',
   '• Members and Groups': '• 成員跟群組',
   '• System Accounts': '• 系統帳號',
   '• Focus and Zoom settings of the Image': '• 圖像設定中"對焦"和"Zoom"的設定',

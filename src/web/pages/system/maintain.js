@@ -269,15 +269,14 @@ module.exports = class Maintain extends Base {
             isShowModal={this.state.isShowSelectModal.reset}
             modalTitle={values.resetIP ? _('Restore All Settings') : _('Restore to Default Settings')}
             modalBody={values.resetIP ?
-              _('The system will return to factory default settings. Any data and configurations you have saved will be overwritten.') :
-              [_(`The system will reset the device. All configurations are overwritten and 
-              settings go back to default except the following:`),
-              _('• Members and Groups'),
-              _('• System Accounts'),
-              _('• Focus and Zoom settings of the Image'),
-              _('• RTSP settings'),
-              _('• Internet/Network settings'),
-              _('• SD Card settings.')]}
+              _('The system will revert to factory default settings. Any data and configurations you have saved will be overwritten.') :
+              [`${_('The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following')} :`,
+                _('• Members and Groups'),
+                _('• System Accounts'),
+                _('• Focus and Zoom settings of the Image'),
+                _('• RTSP settings'),
+                _('• Internet/Network settings'),
+                _('• SD Card settings.')]}
             isConfirmDisable={this.state.$isApiProcessing}
             onHide={this.hideModal('reset')}
             onConfirm={() => {
