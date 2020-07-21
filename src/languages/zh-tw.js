@@ -95,11 +95,11 @@ window.languageResource = {
   'quality-80': '高',
 
   // Bandwidth Management
-  'stream-bandwidth-management-0': '最佳比特率 (MBR)',
-  'stream-bandwidth-management-1': '可變比特率 (VBR)',
-  'stream-bandwidth-management-2': '固定比特率 (CBR)',
+  'stream-bandwidth-management-0': '最佳位元速率 (MBR)',
+  'stream-bandwidth-management-1': '可變位元速率 (VBR)',
+  'stream-bandwidth-management-2': '固定位元速率 (CBR)',
 
-  // 可變比特率 (VBR)
+  // 可變位元速率 (VBR)
   'stream-vbr-bit-rate-level-0': '最好',
   'stream-vbr-bit-rate-level-1': '完整',
   'stream-vbr-bit-rate-level-2': '較佳',
@@ -188,6 +188,7 @@ window.languageResource = {
   'validation-url': '請使用正確的網址格式。',
   'validation-birthday': '請使用正確的生日格式。',
   'validation-countryCode': '國家代碼錯誤。',
+  'Same name found, please use a different name.': '名字重複，請使用不同的名字',
 
   // Date picker
   Su: '日',
@@ -201,15 +202,24 @@ window.languageResource = {
   // The loading component.
   Loading: '載入中',
 
-  // The CustomTooltip component
-  'Please Select a File First': '請先選擇一個檔案',
-  'Please Disable SD Card First': '請先關掉SD卡',
+  // Switch component
+  'On/Off': '開/關',
+  ON: '開',
+  OFF: '關',
+
+  // CustomTooltip - Begin
+  'Please Enter Start and End Datetime': '請輸入開始與結束時間',
+  // - Internet/Network Settings
   'No Values Have Changed': '數值沒有更動',
-  'Group Limit Reached': '已達群組數量限制',
   'Please Enable HTTPS': '請開啟HTTPS功能',
+  // - Device Maintain
+  'Please Select a File': '請先選擇一個檔案',
+  'Check or uncheck this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD card.': '勾選或不勾選此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像中對焦跟Zoom的設定、RTSP設定、網路設定及SD卡的資料',
+  // - SD Card
+  'Please Disable SD Card First': '請先關掉SD卡',
+  'Group Limit Reached': '已達群組數量限制',
   'This Account is Protected': '此帳戶不可刪除',
   'Cannot Delete Account That is Currently Logged In': '無法刪除正在使用的帳號',
-  'Please Enter Start and End Datetime': '請輸入開始與結束時間',
   'Maximum Allowed Number of Schedule is 5': '最多可輸入5個通知時間',
   'Please Enter an Email Address': '請輸入Email',
   'Email: On': '電子郵件: 開',
@@ -396,9 +406,9 @@ window.languageResource = {
   Resolution: '解析度',
   'Frame Rate (FPS)': '每秒傳送張數 (FPS)',
   'Bandwidth Management': '頻寬管理',
-  'VBR Bitrate Level': '可變比特率 (VBR)',
-  'VBR Max Bitrate': '最佳可變比特率 (VBR Max Bitrate)',
-  'CBR Bitrate': '固定比特率 (CBR)',
+  'VBR Bitrate Level': '可變位元速率 (VBR)',
+  'VBR Max Bitrate': '最佳可變位元速率 (VBR Max Bitrate)',
+  'CBR Bitrate': '固定位元速率 (CBR)',
   'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
 
   // /media/privacy-mask
@@ -435,6 +445,7 @@ window.languageResource = {
   Position: '位置',
   'Word Position': '貼圖顯示位置',
   'Select Position': '請於畫面中點選文字顯示位置。',
+  'Text Overlay': '文字覆蓋',
 
   // /notification/card
   'Notification Setting': '通知設定',
@@ -507,6 +518,8 @@ window.languageResource = {
   Add: '新增',
   Cancel: '取消',
   Recognition: '辨識',
+  'Cards Limit Error': '通知卡數量限制',
+  'Cannot Create More Than {0} Cards': '無法新增超過 {0} 張卡',
 
   // /smart/face-recognition
   'Detection Zone': '觸發區域',
@@ -622,6 +635,8 @@ window.languageResource = {
   'Network Status': '連線狀態',
   'Enable DHCP': '使用DHCP',
   'Test DHCP': '測試DHCP',
+  'DHCP Testing Success!': 'DHCP 測試成功！',
+  'DHCP Testing Failed!': 'DHCP 測試失敗！',
   'Fixed IP Address': '固定IP位址',
   'Enter a Fixed IP Address': '請輸入固定IP位址',
   Interface: '介面',
@@ -642,11 +657,19 @@ window.languageResource = {
   'Host Name': '主機名稱',
   'Secondary Web Server Port': '次網頁服務埠',
   '1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.': '1024 - 65535，除了5555、8443、8554、17300，預設主要埠為80',
+  'Setting Success': '設定成功',
+  'Setting Failed': '設定失敗',
+  'DDNS Setting Success!': 'DDNS 設定成功！',
+  'DDNS Setting Failed!': 'DDNS 設定失敗！',
+  'Updating Http Settings': '更新HTTP設定',
+  'Device Rebooting': '裝置重新開機',
+  'Device Processing': '裝置處理中',
 
   // Internet/Network Settings/HTTPS
   'Click Confirm to Redirect to the New Address': '請按確認重新導向新的網址',
-  'Please Redirect Manually to the New Address.': '請自行手動重新導向新的網址',
-  'This is a reserved port or is in use, please try another port.': '請設定非使用中或預留的服務埠',
+  'Please Redirect Manually to the New Address': '請自行手動重新導向新的網址',
+  'This is A Reserved Port or is In Use, Please Try Another Port.': '請設定非使用中或預留的服務埠',
+  Success: '成功',
 
   // /system
   'System Settings': '系統設定',
@@ -659,18 +682,20 @@ window.languageResource = {
   // /system/datetime
   'Date & Region': '語言與時區',
   'Date and Time of the Device': '裝置的日期與時間',
-  'Select Time Zone :': '選擇時區 :',
+  'Select Time Zone': '選擇時區',
   'Sync with Network Time Server (NTP)': '與網路時間伺服器 (NTP) 同步',
-  'Host Name and IP Address :': '主機名稱或 IP 位址：',
-  'Update Time :': '更新時間 :',
-  'Update Frequency (Minutes) :': '更新頻率 (分) :',
+  'Host Name and IP Address': '主機名稱或 IP 位址',
+  'Update Time': '更新時間',
+  'Manual Date': '自訂日期',
+  'Manual Time': '自訂時間',
+  'Update Frequency (Minutes)': '更新頻率 (分)',
   'Sync with Computer': '與電腦同步',
-  'Setup the Date/Time Manually :': '手動編輯日期與時間 :',
-  'Manual Date and Time :': '手動調整日期與時間 :',
+  'Set Date/Time Manually': '手動編輯日期與時間',
 
   // /system/Device Maintain
   'Device Maintenace': '裝置維護',
   'System Reboot': '重新啟動裝置',
+  'Are you sure you want to reboot the system?': '您即將要重新啟動裝置，確認是否繼續？',
   Reboot: '重啟',
   'Restore to Default Setting': '將裝置還原成原始預設值',
   'Restore to Factory Default Settings (Includes Network Settings)': '將所有設定恢復為預設值(包含IP位址)',
@@ -678,8 +703,8 @@ window.languageResource = {
   'Export System Settings': '匯出系統設定值',
   'Import System Settings': '匯入系統設定值',
   'Check or clear this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD Card.': '勾選或清除此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像設定中對焦跟Zoom的設定、RTSP設定、網路設定並清空SD卡的資料',
-  'The system will return to factory default settings. Any data and configurations you have saved will be overwritten.': '系統將回歸至原廠設定，任何已儲存的資訊和設定將會被清除',
-  'The system will reset the device. All configurations are overwritten and settings go back to default except the following:': '所有設定將被清除並回復成出廠預設值，但保留以下設定：',
+  'The system will revert to factory default settings. Any data and configurations you have saved will be overwritten.': '系統將回歸至原廠設定，任何已儲存的資訊和設定將會被清除',
+  'The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following': '所有設定將被清除並回復成出廠預設值，但將保留以下設定',
   '• Members and Groups': '• 成員跟群組',
   '• System Accounts': '• 系統帳號',
   '• Focus and Zoom settings of the Image': '• 圖像設定中"對焦"和"Zoom"的設定',
@@ -719,7 +744,7 @@ window.languageResource = {
   'Enter your authentication key': '請輸入授權碼',
   Activate: '啟用',
   Activated: '已啟用',
-  Inactivated: '未啟用',
+  Inactive: '未啟用',
   'Activate User': '啟用者',
   'Authentication Key': '授權碼',
   'Activate Functions': '啟用功能',
@@ -728,6 +753,7 @@ window.languageResource = {
   '{0} authorized successfully!': '{0}已授權成功！',
   'Activation Failed': '啟用失敗',
   'Authorization failed!': '授權失敗！',
+  'Key Already Registered!': '授權碼已註冊!',
 
   // /sd-card
   'SD Card Settings': 'SD卡設定',

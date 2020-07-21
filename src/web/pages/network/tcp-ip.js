@@ -43,7 +43,7 @@ module.exports = class TCPIP extends Base {
   constructor(props) {
     super(props);
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Device processing');
+    this.state.apiProcessModalTitle = _('Device Processing');
   }
 
   hideApiProcessModal = () => {
@@ -66,7 +66,7 @@ module.exports = class TCPIP extends Base {
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
       values === httpsSettings.port) {
-      return _('This is a reserved port or is in use, please try another port.');
+      return _('This is A Reserved Port or is In Use, Please Try Another Port.');
     }
 
     return utils.validatedPortCheck(values);
@@ -79,12 +79,12 @@ module.exports = class TCPIP extends Base {
         if (response.data.ddnsHostStatus) {
           notify.showSuccessNotification({
             title: _('Setting Success'),
-            message: _('DDNS setting success!')
+            message: _('DDNS Setting Success!')
           });
         } else {
           notify.showErrorNotification({
             title: _('Setting Failed'),
-            message: _('DDNS setting failed!')
+            message: _('DDNS Setting Failed!')
           });
         }
 
@@ -97,7 +97,7 @@ module.exports = class TCPIP extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Updating http settings')
+      apiProcessModalTitle: _('Updating Http Settings')
     },
     () => {
       api.system.updateHttpInfo(values)

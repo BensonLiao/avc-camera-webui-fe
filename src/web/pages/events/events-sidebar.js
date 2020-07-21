@@ -166,7 +166,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
                   </a> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactive')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -186,7 +186,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Age Gender')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactive')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }
@@ -205,7 +205,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
                   </Link> :
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Human Detection')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactive')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
               }

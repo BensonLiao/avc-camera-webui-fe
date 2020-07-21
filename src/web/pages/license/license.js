@@ -56,7 +56,7 @@ module.exports = class License extends Base {
     if (check) {
       notify.showErrorNotification({
         title: _('Activation Failed'),
-        message: _('Key already registered!')
+        message: _('Key Already Registered!')
       });
     }
 

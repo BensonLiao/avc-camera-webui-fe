@@ -36,7 +36,7 @@ module.exports = class HTTPS extends Base {
   constructor(props) {
     super(props);
     this.state.isShowModal = false;
-    this.state.modalBody = _('Please Redirect Manually to the New Address.');
+    this.state.modalBody = _('Please Redirect Manually to the New Address');
   }
 
   hideModal = () => {
@@ -72,7 +72,7 @@ module.exports = class HTTPS extends Base {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         this.setState({
           isShowModal: true,
-          modalBody: [_('Please Redirect Manually to the New Address:'), newAddress]
+          modalBody: [`${_('Please Redirect Manually to the New Address')} :`, newAddress]
         });
       })
       .finally(progress.done);
