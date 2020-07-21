@@ -683,6 +683,8 @@ window.languageResource = {
   'Sync with Network Time Server (NTP)': '與網路時間伺服器 (NTP) 同步',
   'Host Name and IP Address': '主機名稱或 IP 位址',
   'Update Time': '更新時間',
+  'Manual Date': '自訂日期',
+  'Manual Time': '自訂時間',
   'Update Frequency (Minutes)': '更新頻率 (分)',
   'Sync with Computer': '與電腦同步',
   'Set Date/Time Manually': '手動編輯日期與時間',
