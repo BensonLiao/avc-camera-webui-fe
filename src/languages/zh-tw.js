@@ -659,14 +659,13 @@ window.languageResource = {
   // /system/datetime
   'Date & Region': '語言與時區',
   'Date and Time of the Device': '裝置的日期與時間',
-  'Select Time Zone :': '選擇時區 :',
+  'Select Time Zone': '選擇時區',
   'Sync with Network Time Server (NTP)': '與網路時間伺服器 (NTP) 同步',
-  'Host Name and IP Address :': '主機名稱或 IP 位址：',
-  'Update Time :': '更新時間 :',
-  'Update Frequency (Minutes) :': '更新頻率 (分) :',
+  'Host Name and IP Address': '主機名稱或 IP 位址',
+  'Update Time': '更新時間',
+  'Update Frequency (Minutes)': '更新頻率 (分)',
   'Sync with Computer': '與電腦同步',
-  'Setup the Date/Time Manually :': '手動編輯日期與時間 :',
-  'Manual Date and Time :': '手動調整日期與時間 :',
+  'Set Date/Time Manually': '手動編輯日期與時間',
 
   // /system/Device Maintain
   'Device Maintenace': '裝置維護',

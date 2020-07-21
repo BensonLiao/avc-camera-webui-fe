@@ -121,7 +121,7 @@ module.exports = class DateTime extends Base {
             <div className="card-body">
               <div>
                 <div className="d-flex form-group align-items-center">
-                  <div className="text-size-14 text-nowrap mr-3">{_('Select Time Zone :')}</div>
+                  <div className="text-size-14 text-nowrap mr-3">{`${_('Select Time Zone')} :`}</div>
                   <div className="select-wrapper border rounded-pill overflow-hidden">
                     <Field
                       name="ntpTimeZone"
@@ -135,7 +135,7 @@ module.exports = class DateTime extends Base {
                   </div>
                 </div>
                 <div className="d-flex form-group align-items-center">
-                  <div className="text-size-14 text-nowrap mr-3">{_('Host Name and IP Address :')}</div>
+                  <div className="text-size-14 text-nowrap mr-3">{`${_('Host Name and IP Address')} :`}</div>
                   <Field
                     className="form-control flex-grow-1"
                     type="text"
@@ -156,7 +156,7 @@ module.exports = class DateTime extends Base {
                       className="form-check-label"
                       htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
                     >
-                      {_('Update Time :')}
+                      {`${_('Update Time')} :`}
                     </label>
                   </div>
                   <div className="form-row datepicker-wrapper">
@@ -191,7 +191,7 @@ module.exports = class DateTime extends Base {
                       className="form-check-label mr-3"
                       htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
                     >
-                      {_('Update Frequency (Minutes) :')}
+                      {`${_('Update Frequency (Minutes)')} :`}
                     </label>
                   </div>
                   <div className="select-wrapper border rounded-pill overflow-hidden">
@@ -237,7 +237,7 @@ module.exports = class DateTime extends Base {
                 className="form-check-label text-size-16"
                 htmlFor={`system-date-sync-option-${SyncTimeOption.manual}`}
               >
-                {_('Setup the Date/Time Manually :')}
+                {`${_('Set Date/Time Manually')} :`}
               </label>
             </div>
             <div className="form-row datepicker-wrapper">
