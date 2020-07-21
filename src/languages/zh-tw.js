@@ -719,7 +719,7 @@ window.languageResource = {
   'Enter your authentication key': '請輸入授權碼',
   Activate: '啟用',
   Activated: '已啟用',
-  Inactivated: '未啟用',
+  Inactive: '未啟用',
   'Activate User': '啟用者',
   'Authentication Key': '授權碼',
   'Activate Functions': '啟用功能',
