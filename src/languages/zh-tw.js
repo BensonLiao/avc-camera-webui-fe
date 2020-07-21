@@ -622,6 +622,8 @@ window.languageResource = {
   'Network Status': '連線狀態',
   'Enable DHCP': '使用DHCP',
   'Test DHCP': '測試DHCP',
+  'DHCP Testing Success!': 'DHCP 測試成功！',
+  'DHCP Testing Failed!': 'DHCP 測試失敗！',
   'Fixed IP Address': '固定IP位址',
   'Enter a Fixed IP Address': '請輸入固定IP位址',
   Interface: '介面',
@@ -642,11 +644,19 @@ window.languageResource = {
   'Host Name': '主機名稱',
   'Secondary Web Server Port': '次網頁服務埠',
   '1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.': '1024 - 65535，除了5555、8443、8554、17300，預設主要埠為80',
+  'Setting Success': '設定成功',
+  'Setting Failed': '設定失敗',
+  'DDNS Setting Success!': 'DDNS 設定成功！',
+  'DDNS Setting Failed!': 'DDNS 設定失敗！',
+  'Updating Http Settings': '更新HTTP設定',
+  'Device Rebooting': '裝置重新開機',
+  'Device Processing': '裝置處理中',
 
   // Internet/Network Settings/HTTPS
   'Click Confirm to Redirect to the New Address': '請按確認重新導向新的網址',
-  'Please Redirect Manually to the New Address.': '請自行手動重新導向新的網址',
-  'This is a reserved port or is in use, please try another port.': '請設定非使用中或預留的服務埠',
+  'Please Redirect Manually to the New Address': '請自行手動重新導向新的網址',
+  'This is A Reserved Port or is In Use, Please Try Another Port.': '請設定非使用中或預留的服務埠',
+  Success: '成功',
 
   // /system
   'System Settings': '系統設定',
