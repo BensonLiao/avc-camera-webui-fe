@@ -95,11 +95,11 @@ window.languageResource = {
   'quality-80': '高',
 
   // Bandwidth Management
-  'stream-bandwidth-management-0': '最佳比特率 (MBR)',
-  'stream-bandwidth-management-1': '可變比特率 (VBR)',
-  'stream-bandwidth-management-2': '固定比特率 (CBR)',
+  'stream-bandwidth-management-0': '最佳位元速率 (MBR)',
+  'stream-bandwidth-management-1': '可變位元速率 (VBR)',
+  'stream-bandwidth-management-2': '固定位元速率 (CBR)',
 
-  // 可變比特率 (VBR)
+  // 可變位元速率 (VBR)
   'stream-vbr-bit-rate-level-0': '最好',
   'stream-vbr-bit-rate-level-1': '完整',
   'stream-vbr-bit-rate-level-2': '較佳',
@@ -406,9 +406,9 @@ window.languageResource = {
   Resolution: '解析度',
   'Frame Rate (FPS)': '每秒傳送張數 (FPS)',
   'Bandwidth Management': '頻寬管理',
-  'VBR Bitrate Level': '可變比特率 (VBR)',
-  'VBR Max Bitrate': '最佳可變比特率 (VBR Max Bitrate)',
-  'CBR Bitrate': '固定比特率 (CBR)',
+  'VBR Bitrate Level': '可變位元速率 (VBR)',
+  'VBR Max Bitrate': '最佳可變位元速率 (VBR Max Bitrate)',
+  'CBR Bitrate': '固定位元速率 (CBR)',
   'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
 
   // /media/privacy-mask
@@ -445,6 +445,7 @@ window.languageResource = {
   Position: '位置',
   'Word Position': '貼圖顯示位置',
   'Select Position': '請於畫面中點選文字顯示位置。',
+  'Text Overlay': '文字覆蓋',
 
   // /notification/card
   'Notification Setting': '通知設定',
