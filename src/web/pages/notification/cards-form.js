@@ -14,7 +14,18 @@ const CardsFormSchedule = require('./cards-form-schedule');
 const CardsFormRule = require('./cards-form-rule');
 const CardsFormSubject = require('./cards-form-subject');
 const CustomTooltip = require('../../../core/components/tooltip');
-const ContentEditable = require('../../../core/components/content-editable');
+const ContentEditable = require('@benson.liao/react-content-editable').default;
+
+const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+const CustomNormalWrapper = (
+  <div style={{
+    fontSize: '20px',
+    fontWeight: 'bold',
+    marginLeft: '1rem',
+    cursor: 'pointer',
+    color: primaryColor
+  }}/>
+);
 
 module.exports = class CardsForm extends React.PureComponent {
   static get propTypes() {
@@ -139,11 +150,6 @@ module.exports = class CardsForm extends React.PureComponent {
           onSubmit={onSubmit}
         >
           {({errors, touched, values, setFieldValue, validateField}) => {
-            const onClickTitleEditButton = event => {
-              event.preventDefault();
-              this.cardFormTitleRef.current.focus();
-            };
-
             const onChangeTitle = value => {
               if (value) {
                 setFieldValue('title', sanitizeInput(value));
@@ -164,17 +170,15 @@ module.exports = class CardsForm extends React.PureComponent {
                       </button>
                     </CustomTooltip>
                     <ContentEditable
+                      ellipseOnBlur
                       innerRef={this.cardFormTitleRef}
                       tag="p"
-                      type="modal-title"
+                      width="240px"
                       maxLength={NotificationCardSchema.title.max}
                       value={values.title}
+                      customWrapper={CustomNormalWrapper}
                       onChange={onChangeTitle}
                     />
-
-                    <a className="btn-edit-title ml-3" href="#" onClick={onClickTitleEditButton}>
-                      <i className="fas fa-pen"/>
-                    </a>
                   </div>
                   <div className="select-wrapper border rounded-pill overflow-hidden">
                     <Field name="type" component="select" className="form-control border-0">
