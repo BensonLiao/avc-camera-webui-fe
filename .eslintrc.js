@@ -23,7 +23,7 @@ module.exports = {
   ],
   rules: {
     'no-eq-null': 0,
-    eqeqeq: ['error', 'allow-null'],
+    eqeqeq: ["error", "always", {"null": "ignore"}],
     'valid-jsdoc': ["error", {
       "requireParamDescription": false,
       "requireReturnDescription": false
