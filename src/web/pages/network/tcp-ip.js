@@ -101,42 +101,35 @@ module.exports = class TCPIP extends Base {
     },
     () => {
       api.system.updateHttpInfo(values)
+        .then(() => new Promise(resolve => {
+        // Check the server was shut down, if success then shutdown was failed and retry.
+          const test = () => {
+            api.ping()
+              .then(() => {
+                setTimeout(test, 1000);
+              })
+              .catch(() => {
+                resolve();
+              });
+          };
+
+          test();
+        }))
         .then(() => {
-          api.system.deviceReboot()
-            .then(() => new Promise(resolve => {
-              // Check the server was shut down, if success then shutdown was failed and retry.
-              const test = () => {
-                api.ping('web')
-                  .then(() => {
-                    setTimeout(test, 500);
-                  })
-                  .catch(() => {
-                    resolve();
-                  });
-              };
+        // Keep modal and update the title.
+          this.setState({apiProcessModalTitle: _('Device Rebooting')});
+          // Check the server was start up, if success then startup was failed and retry.
+          const test = () => {
+            api.ping()
+              .then(() => {
+                location.reload();
+              })
+              .catch(() => {
+                setTimeout(test, 1000);
+              });
+          };
 
-              test();
-            }))
-            .then(() => {
-              // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: _('Device Rebooting')});
-              // Check the server was start up, if success then startup was failed and retry.
-              const test = () => {
-                api.ping('app')
-                  .then(() => {
-                    location.reload();
-                  })
-                  .catch(() => {
-                    setTimeout(test, 1000);
-                  });
-              };
-
-              test();
-            })
-            .catch(() => {
-              progress.done();
-              this.hideApiProcessModal();
-            });
+          test();
         })
         .catch(() => {
           progress.done();
