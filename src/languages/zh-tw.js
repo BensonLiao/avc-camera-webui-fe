@@ -479,9 +479,9 @@ window.languageResource = {
   Normal: '一般',
   Buffer: '緩衝',
   'Pulse Time (Seconds)': '訊號緩衝時間 (秒)',
-  'Enter Seconds': '請輸入秒數',
-  '1 - 80 Seconds': '1 - 80秒',
   'Delay Time (Seconds)': '延後間隔時間 (秒)',
+  'Enter Seconds': '請輸入秒數',
+  '{0} - {1} Seconds': '{0} - {1} 秒',
 
   // /notification/smtp
   None: '無',

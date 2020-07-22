@@ -5,6 +5,7 @@ const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
 const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
+const NotificationIOOutSchema = require('webserver-form-schema/notification-io-out-schema');
 const IOType = require('webserver-form-schema/constants/io-type');
 const GateType = require('webserver-form-schema/constants/gate-type');
 const ioOutSettingsValidator = require('../../validations/notifications/io-out-settings-validator');
@@ -103,7 +104,9 @@ module.exports = class IO extends Base {
                     <div className="invalid-feedback">{errors.pulse}</div>
                   )
                 }
-                <small className="form-text text-muted">{_('1 - 80 Seconds')}</small>
+                <small className="form-text text-muted">
+                  {_('{0} - {1} Seconds', [NotificationIOOutSchema.pulse.min, NotificationIOOutSchema.pulse.max])}
+                </small>
               </div>
               <div className="form-group">
                 <label>{_('Delay Time (Seconds)')}</label>
@@ -115,7 +118,9 @@ module.exports = class IO extends Base {
                     <div className="invalid-feedback">{errors.delay}</div>
                   )
                 }
-                <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
+                <small className="form-text text-muted">
+                  {_('{0} - {1} Seconds', [NotificationIOOutSchema.delay.min, NotificationIOOutSchema.delay.max])}
+                </small>
               </div>
             </div>
             <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
