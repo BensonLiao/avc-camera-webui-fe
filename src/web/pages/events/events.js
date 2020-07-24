@@ -3,6 +3,8 @@ const React = require('react');
 const {getRouter} = require('capybara-router');
 const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
+const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
@@ -60,7 +62,11 @@ module.exports = class Events extends Base {
             })
           }).isRequired).isRequired
         }).isRequired).isRequired
-      })
+      }),
+      systemDateTime: PropTypes.shape({
+        ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
+        syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
+      }).isRequired
     };
   }
 
@@ -129,7 +135,7 @@ module.exports = class Events extends Base {
 
   render() {
     const {$isApiProcessing, type, isShowMemberModal, currentMember, defaultMemberPictureUrl} = this.state;
-    const {params, authStatus, groups, faceEvents} = this.props;
+    const {params, authStatus, groups, faceEvents, systemDateTime} = this.props;
     let events;
     if (type === 'face-recognition') {
       events = faceEvents;
@@ -168,6 +174,7 @@ module.exports = class Events extends Base {
                   params={params}
                   events={events}
                   groups={groups}
+                  systemDateTime={systemDateTime}
                   filterHandler={this.generateChangeFilterHandler}
                   modifyMemberHandler={this.generateMemberModifyHandler}/>
                 <Pagination index={faceEvents.index}

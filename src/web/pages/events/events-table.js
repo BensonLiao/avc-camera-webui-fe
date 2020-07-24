@@ -4,6 +4,8 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
+const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
@@ -45,6 +47,10 @@ module.exports = class EventsTable extends React.PureComponent {
           name: PropTypes.string.isRequired,
           note: PropTypes.string
         }).isRequired).isRequired
+      }).isRequired,
+      systemDateTime: PropTypes.shape({
+        ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
+        syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
       }).isRequired
     };
   }
@@ -64,7 +70,7 @@ module.exports = class EventsTable extends React.PureComponent {
   };
 
   render() {
-    const {params, events, filterHandler, modifyMemberHandler} = this.props;
+    const {params, events, filterHandler, modifyMemberHandler, systemDateTime} = this.props;
     const defaultIconClass = 'fas fa-fw text-muted ml-3';
     const tableField = [
       {
@@ -122,7 +128,8 @@ module.exports = class EventsTable extends React.PureComponent {
         title: _('Actions'), width: {width: '6%'}
       }
     ];
-
+    console.log('timezone:', systemDateTime.ntpTimeZone);
+    console.log('ntpTimeOption', systemDateTime.ntpTimeOption);
     return (
       <div className="col-12 mb-5">
         <table className="table custom-style" style={{tableLayout: 'fixed'}}>
@@ -155,7 +162,11 @@ module.exports = class EventsTable extends React.PureComponent {
                 const lengthCheck = event.confidences.length;
                 const ifExists = lengthCheck > 0 && item.member;
                 const isEnrolled = lengthCheck > 0 && item.enrollStatus === EnrollStatus.registered;
-                event.time = (new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000))).toJSON();
+                event.time = (new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000)));
+                if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
+                  event.time = event.time.toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
+                }
+
                 return (
                   <tr key={event.id}>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>

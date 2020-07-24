@@ -409,7 +409,8 @@ module.exports = new Router({
 
           return api.event.getFaceEvents(params).then(response => response.data);
         },
-        authStatus: () => api.authKey.getAuthStatus().then(response => response.data)
+        authStatus: () => api.authKey.getAuthStatus().then(response => response.data),
+        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-events" */
