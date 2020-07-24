@@ -3,6 +3,8 @@ const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const PropTypes = require('prop-types');
 const React = require('react');
+const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
+const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 
@@ -13,6 +15,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
         keyword: PropTypes.string,
         start: PropTypes.any,
         end: PropTypes.any
+      }).isRequired,
+      systemDateTime: PropTypes.shape({
+        ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
+        syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
       }).isRequired,
       currentRouteName: PropTypes.string.isRequired,
       isApiProcessing: PropTypes.bool.isRequired
@@ -47,12 +53,27 @@ module.exports = class EventsSearchForm extends React.PureComponent {
   }
 
   convertTime = (time, method) => {
+    const {systemDateTime} = this.props;
     if (method === 'add') {
-      return new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
+      time = new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
     }
 
     if (method === 'subtract') {
-      return new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
+      time = new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
+    }
+
+    if (this.props.systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
+      const timeZoneDifference = systemDateTime.syncTimeOption === SyncTimeOption.ntp ?
+        new Date(time.toLocaleString('en-US', {timeZone: 'utc'})) -
+        new Date(time.toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone})) :
+        0;
+      if (method === 'add') {
+        time = new Date(time.getTime() + timeZoneDifference);
+      }
+
+      if (method === 'subtract') {
+        time = new Date(time.getTime() - timeZoneDifference);
+      }
     }
 
     return time;

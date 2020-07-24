@@ -128,8 +128,6 @@ module.exports = class EventsTable extends React.PureComponent {
         title: _('Actions'), width: {width: '6%'}
       }
     ];
-    console.log('timezone:', systemDateTime.ntpTimeZone);
-    console.log('ntpTimeOption', systemDateTime.ntpTimeOption);
     return (
       <div className="col-12 mb-5">
         <table className="table custom-style" style={{tableLayout: 'fixed'}}>
@@ -162,9 +160,10 @@ module.exports = class EventsTable extends React.PureComponent {
                 const lengthCheck = event.confidences.length;
                 const ifExists = lengthCheck > 0 && item.member;
                 const isEnrolled = lengthCheck > 0 && item.enrollStatus === EnrollStatus.registered;
-                event.time = (new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000)));
                 if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
-                  event.time = event.time.toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
+                  event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
+                } else {
+                  event.time = (new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000)));
                 }
 
                 return (

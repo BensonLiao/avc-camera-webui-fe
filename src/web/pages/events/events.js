@@ -167,6 +167,7 @@ module.exports = class Events extends Base {
                   </div>
                   <EventsSearchForm
                     params={params}
+                    systemDateTime={systemDateTime}
                     isApiProcessing={$isApiProcessing}
                     currentRouteName={this.currentRoute.name}/>
                 </div>
