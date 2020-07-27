@@ -104,7 +104,7 @@ module.exports = class FaceRecognition extends Base {
               isShowDetectionZone && (
                 <div className="draggable-wrapper" tabIndex={-1}>
                   <Field name="triggerArea" component={MaskArea} text={_('Detection Zone')}
-                    className="border-black" parentElementId="fr-video-wrapper"/>
+                    className="bounding-black" parentElementId="fr-video-wrapper"/>
                 </div>
               )
             }
@@ -112,7 +112,7 @@ module.exports = class FaceRecognition extends Base {
               values.isEnableFaceFrame && (
                 <div className="draggable-wrapper" tabIndex={-1}>
                   <Field name="faceFrame" component={MaskArea} text={_('Facial Detection Size')}
-                    className="border-green" parentElementId="fr-video-wrapper"/>
+                    className="bounding-primary" parentElementId="fr-video-wrapper"/>
                 </div>
               )
             }

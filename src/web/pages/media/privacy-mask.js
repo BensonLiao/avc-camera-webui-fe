@@ -143,7 +143,7 @@ module.exports = class PrivacyMask extends Base {
                       name={`maskAreas.${index}`}
                       component={MaskArea}
                       text={_('Mask Area')}
-                      className="border-green"
+                      className="bounding-primary"
                       parentElementId="pm-video-wrapper"
                     />
                   </div> :

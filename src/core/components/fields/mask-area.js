@@ -248,7 +248,8 @@ module.exports = class MaskArea extends React.PureComponent {
           onStop={this.onStopDraggingMaskArea}
         >
           <div className="draggable-cover" style={maskAreaStyle}>
-            <p className="description text-size-16">{text}</p>
+            <div className="draggable-bg"/>
+            <p className="description">{text}</p>
           </div>
         </Draggable>
         <Draggable

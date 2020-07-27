@@ -152,7 +152,7 @@ module.exports = class MotionDetection extends Base {
                       name={`areas.${index}`}
                       component={MaskArea}
                       text={_('Detection Zone')}
-                      className="border-green"
+                      className="bounding-primary"
                       parentElementId="md-video-wrapper"/>
                   </div> :
                   <div key={index}/>
