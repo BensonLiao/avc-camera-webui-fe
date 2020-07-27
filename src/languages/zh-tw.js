@@ -721,7 +721,7 @@ window.languageResource = {
   'Stage 02': '階段 02',
   'Stage 03': '階段 03',
   'Stage 04': '階段 04',
-  '※ Please do not close browser or tab while upgrading': '※ 升級時請勿關閉瀏覽器或分頁',
+  '※ Please do not close browser or tab during upgrade': '※ 升級時請勿關閉瀏覽器或分頁',
   'Uploading Firmware': '韌體上傳中',
   'Installing Firmware': '韌體安裝中',
   'Device Shutting Down': '裝置關閉中',

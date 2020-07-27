@@ -5,6 +5,7 @@ const progress = require('nprogress');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const StageProgress = require('../../../core/components/stage-progress');
@@ -16,7 +17,7 @@ module.exports = class Upgrade extends Base {
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Device Processing');
-    this.state.apiProcessModalBody = _('※ Please do not close browser or tab while upgrading');
+    this.state.apiProcessModalBody = _('※ Please do not close browser or tab during upgrade');
     this.state.progressStatus = {
       uploadFirmware: 'initial',
       upgradeFirmware: 'initial',
@@ -168,18 +169,7 @@ module.exports = class Upgrade extends Base {
                   this.updateProgressStatus('deviceShutdown', 'start');
                   // Keep modal and update the title and body.
                   this.setState({apiProcessModalTitle: _('Device Shutting Down')});
-                  // Check the server was shutdown, if success then shutdown was failed and retry.
-                  const test = () => {
-                    api.ping('web')
-                      .then(() => {
-                        setTimeout(test, 1000);
-                      })
-                      .catch(() => {
-                        resolve();
-                      });
-                  };
-
-                  test();
+                  utils.pingToCheckShutdown(resolve, 1000);
                 } else {
                   this.updateProgress('upgradeFirmware', response.data.updateProgress);
                   setTimeout(() => {
