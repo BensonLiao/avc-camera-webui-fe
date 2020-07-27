@@ -33,6 +33,10 @@
   src: local(Roboto);
 }
 
+@mixin text-outline-dark {
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
 body {
   font-family: "CustomSTHeitiTC", "CustomSTHeitiSC", "CustomJhengHei", serif;
 }
@@ -229,36 +233,38 @@ body {
   }
 
   .draggable-wrapper {
-    &:focus{
-      .draggable-cover{
-        border-color: red !important;
+    &:focus {
+      .bounding-primary > .draggable-cover {
+        z-index: 3 !important;
       }
-    }
-    .border-black {
-      .draggable-cover {
-        border: 4px #000 solid;
-        background-color: rgba(0, 0, 0, 0.6);
+      .bounding-primary > {
+        .left-top-point, .left-bottom-point, .right-top-point, .right-bottom-point {
+          z-index: 4;
+        }
       }
-      .left-top-point, .left-bottom-point, .right-top-point, .right-bottom-point {
-        border: 1px #000 solid;
-      }
-    }
-    .border-purple {
-      .draggable-cover {
-        border: 4px #7D3F98 solid;
-        background-color: rgba(125, 63, 152, 0.5);
+      .draggable-bg {
+        border: 2px black solid !important;
+        box-shadow: 
+          inset 0 0 0 3px white,
+          inset 0 0 0 5px black;
+        transition: 0.2s box-shadow;
       }
       .left-top-point, .left-bottom-point, .right-top-point, .right-bottom-point {
-        border: 1px #7D3F98 solid;
+        opacity: 1;
       }
     }
-    .border-green {
-      .draggable-cover {
-        border: 2px #76FF00 solid;
-        background-color: rgba(118, 255, 0, 0.5);
+    .bounding-black {
+      @include text-outline-dark;
+      .draggable-bg {
+        border: 2px $secondary-300 solid;
+        background-color: rgba($secondary-700, 0.5);
       }
-      .left-top-point, .left-bottom-point, .right-top-point, .right-bottom-point {
-        border: 1px #76FF00 solid;
+    }
+    .bounding-primary {
+      @include text-outline-dark;
+      .draggable-bg {
+        border: 2px $primary solid;
+        background-color: rgba($primary, 0.5);
       }
     }
 
@@ -266,12 +272,19 @@ body {
       position: absolute;
       cursor: move;
       transition: border-color 0.2s;
+      z-index: 1;
+
+      .draggable-bg {
+        width: 100%;
+        height: 100%;
+      }
 
       .description {
         position: absolute;
         top: calc(50% - 10px);
         width: 100%;
         text-align: center;
+        font-size: 1rem;
         color: #fff;
       }
     }
@@ -279,7 +292,15 @@ body {
       position: absolute;
       width: 10px;
       height: 10px;
-      background-color: #fff;
+      background-color: white;
+      opacity: 0;
+      border: 1px black solid;
+      z-index: 1;
+      &.react-draggable-dragging {
+        box-shadow: 0 0px 16px 2px gray;
+        background-color: red !important;
+        opacity: 1;
+      }
     }
     .left-top-point {
       cursor: nwse-resize;
