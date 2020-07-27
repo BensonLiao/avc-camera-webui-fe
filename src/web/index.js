@@ -31,6 +31,7 @@ const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
 const api = require('../core/apis/web-api');
+const utils = require('../core/utils');
 const config = require('../../config/default');
 
 const simpleCrypto = new SimpleCrypto(SimpleCrypto.generateRandom);
@@ -90,17 +91,7 @@ store.set('$setup', {
 store.set('$erd', elementResizeDetectorMaker());
 
 const waitForReboot = () => {
-  const ping = () => {
-    return api.ping()
-      .then(() => {
-        location.reload();
-      })
-      .catch(() => {
-        setTimeout(ping, 1000);
-      });
-  };
-
-  ping();
+  utils.pingToCheckStartupAndReload(1000);
   ReactDOM.render(<Loading/>, document.getElementById('root'));
 };
 

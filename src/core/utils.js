@@ -434,3 +434,44 @@ module.exports.pingAndRedirectPage = url => {
 
   test();
 };
+
+/**
+ * Check if the server has shutdown; Device has not shutdown if ping succeeds, proceed if ping fails.
+ * @param {func} resolve - Resolve for Promise to proceed after shutdown.
+ * @param {number} interval - Duration of the timeout interval.
+ * @param {string} type - Ping type.
+ * @returns {object} - A Promise resolve object if shutdown is successful.
+ */
+module.exports.pingToCheckShutdown = (resolve, interval, type = 'web') => {
+  const test = () => {
+    api.ping(type)
+      .then(() => {
+        setTimeout(test, interval);
+      })
+      .catch(() => {
+        resolve();
+      });
+  };
+
+  test();
+};
+
+/**
+ * Check if the server has started up; Device has not started up if ping fails, proceed if ping succeeds.
+ * @param {number} interval - Duration of the timeout.
+ * @param {string} type - Ping type.
+ * @returns {redirect} - Reloads after device has started up.
+ */
+module.exports.pingToCheckStartupAndReload = (interval, type = 'app') => {
+  const test = () => {
+    api.ping(type)
+      .then(() => {
+        location.reload();
+      })
+      .catch(() => {
+        setTimeout(test, interval);
+      });
+  };
+
+  test();
+};

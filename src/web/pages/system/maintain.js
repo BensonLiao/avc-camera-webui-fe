@@ -6,6 +6,7 @@ const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 
@@ -70,18 +71,7 @@ module.exports = class Maintain extends Base {
     }), () => {
       api.system.deviceReboot()
         .then(() => new Promise(resolve => {
-          // Check the server was shut down, if success then shutdown was failed and retry.
-          const test = () => {
-            api.ping('web')
-              .then(() => {
-                setTimeout(test, 500);
-              })
-              .catch(() => {
-                resolve();
-              });
-          };
-
-          test();
+          utils.pingToCheckShutdown(resolve, 1000);
         }))
         .then(() => {
           // Keep modal and update the title.
@@ -126,18 +116,7 @@ module.exports = class Maintain extends Base {
       api.system.deviceReset(resetIP)
         .then(() => {
           new Promise(resolve => {
-            // Check the server was shut down, if success then shutdown was failed and retry.
-            const test = () => {
-              api.ping('web')
-                .then(() => {
-                  setTimeout(test, 500);
-                })
-                .catch(() => {
-                  resolve();
-                });
-            };
-
-            test();
+            utils.pingToCheckShutdown(resolve, 1000);
           })
             .then(() => {
               if (resetIP) {
@@ -198,17 +177,7 @@ module.exports = class Maintain extends Base {
           api.system.deviceReboot()
             .then(() => new Promise(resolve => {
               // Check the server was shut down, if success then shutdown was failed and retry.
-              const test = () => {
-                api.ping('web')
-                  .then(() => {
-                    setTimeout(test, 500);
-                  })
-                  .catch(() => {
-                    resolve();
-                  });
-              };
-
-              test();
+              utils.pingToCheckShutdown(resolve, 1000);
             }))
             .then(() => {
               // Keep modal and update the title.
