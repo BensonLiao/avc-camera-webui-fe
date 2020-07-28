@@ -151,7 +151,7 @@ constructor(props) {
         .then(() => {
           // Trigger react update to get the latest global state
           this.setState({updateFocalLengthField: false}, () => {
-            if (nextValues.isAutoFocusAfterZoom && prevValues.zoom !== nextValues.zoom) {
+            if (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) {
               let prevFocalLength;
               this.setState({updateFocalLengthField: true}, () => {
                 // Refresh focal length until previous value matches current value
