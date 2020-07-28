@@ -134,6 +134,10 @@ constructor(props) {
       return;
     }
 
+    if (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) {
+      this.setState({updateFocalLengthField: true});
+    }
+
     if (this.state.$isApiProcessing) {
       this.setState({focalLengthQueue: nextValues.focalLength});
     } else {
