@@ -134,6 +134,10 @@ constructor(props) {
       return;
     }
 
+    if (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) {
+      this.setState({updateFocalLengthField: true});
+    }
+
     if (this.state.$isApiProcessing) {
       this.setState({focalLengthQueue: nextValues.focalLength});
     } else {
@@ -151,7 +155,7 @@ constructor(props) {
         .then(() => {
           // Trigger react update to get the latest global state
           this.setState({updateFocalLengthField: false}, () => {
-            if (nextValues.isAutoFocusAfterZoom && prevValues.zoom !== nextValues.zoom) {
+            if (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) {
               let prevFocalLength;
               this.setState({updateFocalLengthField: true}, () => {
                 // Refresh focal length until previous value matches current value
@@ -374,12 +378,12 @@ constructor(props) {
                 <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
                   <div>
                     <CustomTooltip title="-5">
-                      <button className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -5)}>
+                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -5)}>
                         <i type="button" className="fa fa-angle-double-left text-size-16"/>
                       </button>
                     </CustomTooltip>
                     <CustomTooltip title="-1">
-                      <button className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -1)}>
+                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -1)}>
                         <i className="fas fa-minus text-size-16"/>
                       </button>
                     </CustomTooltip>
@@ -388,6 +392,7 @@ constructor(props) {
                     <Field
                       updateFieldOnStop
                       enableArrowKey
+                      disabled={updateFocalLengthField}
                       name="focalLength"
                       component={Slider}
                       step={1}
@@ -398,12 +403,12 @@ constructor(props) {
 
                   <div>
                     <CustomTooltip title="+1">
-                      <button className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 1)}>
+                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 1)}>
                         <i className="fas fa-plus text-size-16"/>
                       </button>
                     </CustomTooltip>
                     <CustomTooltip title="+5">
-                      <button className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 5)}>
+                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 5)}>
                         <i className="fa fa-angle-double-right text-size-16"/>
                       </button>
                     </CustomTooltip>
@@ -418,7 +423,7 @@ constructor(props) {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={values.isAutoFocusProcessing}
+                  disabled={values.isAutoFocusProcessing || updateFocalLengthField}
                   name="zoom"
                   component={Slider}
                   step={0.1}
@@ -429,7 +434,7 @@ constructor(props) {
               <div className="form-group form-check">
                 <Field id="input-check-auto-focus-after-zoom"
                   type="checkbox"
-                  disabled={values.isAutoFocusProcessing}
+                  disabled={values.isAutoFocusProcessing || updateFocalLengthField}
                   className="form-check-input"
                   name="isAutoFocusAfterZoom"
                   checked={values.isAutoFocusAfterZoom}/>

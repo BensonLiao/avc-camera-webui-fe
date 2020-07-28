@@ -49,7 +49,7 @@
         outline: none;
         box-shadow: none;
       }
-      &:hover{
+      &:hover:not(:disabled){
         color: $select;
       }
     }
