@@ -1,6 +1,6 @@
 const classNames = require('classnames');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
@@ -13,6 +13,7 @@ const Password = require('../../../core/components/fields/password');
 const store = require('../../../core/store');
 const setupAccountValidator = require('../../validations/setup/account-validator');
 const utils = require('../../../core/utils');
+const {default: ProgressBar} = require('./progress-bar');
 
 module.exports = class SetupAccount extends Base {
   constructor(props) {
@@ -46,17 +47,12 @@ module.exports = class SetupAccount extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <div className="steps d-flex">
-            <div className="d-flex flex-grow-1 justify-content-between">
-              <p className="text-primary">{_('Language')}</p>
-              <p className="text-primary">{_('SETUP-Account')}</p>
-              <p>{_('HTTPS')}</p>
-            </div>
-            <img src={setupStep02} srcSet={`${setupStep02x2} 2x`}/>
-            <Link to="/setup/language" className="go-back">
-              <i className="fas fa-chevron-left"/>
-            </Link>
-          </div>
+          <ProgressBar
+            step={2}
+            progressBarImage={setupStep02}
+            progressBarImagex2={setupStep02x2}
+          />
+
           <div className="form-group">
             <label>{_('Permission')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">

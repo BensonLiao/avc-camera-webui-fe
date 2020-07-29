@@ -1,6 +1,6 @@
 const classNames = require('classnames');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
@@ -14,6 +14,7 @@ const utils = require('../../../core/utils');
 const uploadCertificateValidator = require('../../validations/setup/https-upload-certificate-validator');
 const generateCertificateValidator = require('../../validations/setup/https-generate-certificate-validator');
 const api = require('../../../core/apis/web-api');
+const {default: ProgressBar} = require('./progress-bar');
 
 module.exports = class SetupHTTPS extends Base {
   constructor(props) {
@@ -107,15 +108,11 @@ module.exports = class SetupHTTPS extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <div className="steps d-flex">
-            <div className="d-flex flex-grow-1 justify-content-between">
-              <p className="text-primary">{_('Language')}</p>
-              <p className="text-primary">{_('SETUP-Account')}</p>
-              <p className="text-primary">{_('HTTPS')}</p>
-            </div>
-            <img src={setupStep03} srcSet={`${setupStep03x2} 2x`}/>
-            <Link to="/setup/account" className="go-back"><i className="fas fa-chevron-left"/></Link>
-          </div>
+          <ProgressBar
+            step={3}
+            progressBarImage={setupStep03}
+            progressBarImagex2={setupStep03x2}
+          />
           <div className="form-group">
             <label>{_('Certificate type')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">

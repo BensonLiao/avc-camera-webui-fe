@@ -8,6 +8,7 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const store = require('../../../core/store');
 const utils = require('../../../core/utils');
+const {default: ProgressBar} = require('./progress-bar');
 
 module.exports = class SetupLanguage extends Base {
   constructor(props) {
@@ -40,14 +41,12 @@ module.exports = class SetupLanguage extends Base {
             <div className="col-card">
               <form className="card shadow mb-5">
                 <div className="card-body">
-                  <div className="steps d-flex">
-                    <div className="d-flex flex-grow-1 justify-content-between">
-                      <p className="text-primary">{_('Language')}</p>
-                      <p>{_('Setup Account')}</p>
-                      <p>{_('HTTPS')}</p>
-                    </div>
-                    <img src={setupStep01} srcSet={`${setupStep01x2} 2x`}/>
-                  </div>
+                  <ProgressBar
+                    hasPreviousPage={false}
+                    step={1}
+                    progressBarImage={setupStep01}
+                    progressBarImagex2={setupStep01x2}
+                  />
                   <div className="form-group">
                     <div className="select-wrapper border rounded-pill overflow-hidden px-2">
                       <select name="language" value={window.currentLanguageCode} className="form-control border-0" onChange={this.onChangeLanguage}>
