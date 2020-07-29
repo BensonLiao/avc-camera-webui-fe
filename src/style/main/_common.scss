@@ -462,6 +462,10 @@ body {
           text-align: center;
           height: 40px;
           line-height: 40px;
+          &.disabled {
+            color: rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+          }
         }
       }
     }

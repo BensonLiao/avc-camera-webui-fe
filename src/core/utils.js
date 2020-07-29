@@ -421,6 +421,9 @@ exports.validatedPortCheck = (value, error) => {
 
 module.exports.isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
 
+module.exports.isDate = arg => Object.prototype.toString.call(arg) === '[object Date]' &&
+  !isNaN(arg.getTime());
+
 module.exports.pingAndRedirectPage = url => {
   const test = () => {
     axios.get(url, {responseType: 'document'})
