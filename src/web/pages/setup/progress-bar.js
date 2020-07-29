@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-const {Link} = require('capybara-router');
-const _ = require('../../../languages');
+import {Link} from 'capybara-router';
+import _ from '../../../languages';
 
 const ProgressBar = props => {
   const {step, hasPreviousPage, progressBarImage, progressBarImagex2} = props;
@@ -19,7 +19,6 @@ const ProgressBar = props => {
         </Link>
       )}
     </div>
-
   );
 };
 
