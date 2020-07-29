@@ -15,13 +15,10 @@
   }
   .card {
     border-radius: 8px;
-    width: 560px;
     .card-body {
       padding: 40px;
       .steps {
         img {
-          display: flex;
-          justify-items: center;
           position: absolute;
         }
       }

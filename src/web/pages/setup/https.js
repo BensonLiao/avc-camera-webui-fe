@@ -243,7 +243,7 @@ module.exports = class SetupHTTPS extends Base {
     const initialValue = store.get('$setup').https;
 
     return (
-      <div className="page-setup-https">
+      <div className="page-setup-https bg-secondary">
         <div className="navbar primary">
           <img src={logo}/>
         </div>
