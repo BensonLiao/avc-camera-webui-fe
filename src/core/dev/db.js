@@ -138,7 +138,7 @@ module.exports = {
         sdAlertEnabled: false
       },
       systemDateTime: {
-        deviceTime: '2019-04-17 23:48:45',
+        deviceTime: '2020-07-29  10:01:45',
         ntpTimeZone: 'Asia/Taipei',
         ntpIP: 'tw.pool.ntp.org',
         syncTimeOption: '0',
