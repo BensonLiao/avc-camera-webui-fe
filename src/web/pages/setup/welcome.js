@@ -24,9 +24,9 @@ module.exports = class Welcome extends Base {
                       <img src={smileWinkSolid} className="mb-4" width="120" height="120"/>
                       <h3 className="text-primary mb-3" style={{fontSize: '39px'}}>{_('Welcome')}</h3>
                       <p>
-                        {_('For the good experience.')}
+                        {_('For a better experience,')}
                         <br/>
-                        {_('Please press Continue to complete the simple three-step installation setup!')}
+                        {_('please press continue to complete the simple three-step installation setup!')}
                       </p>
                     </div>
 

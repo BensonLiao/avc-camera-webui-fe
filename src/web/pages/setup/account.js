@@ -77,7 +77,7 @@ module.exports = class SetupAccount extends Base {
           <div className="form-group has-feedback">
             <label>{_('Birthday')}</label>
             <Field name="birthday" component={Password} inputProps={{
-              placeholder: _('Enter your Birthday'),
+              placeholder: '19900101',
               className: classTable.birthday
             }}/>
             {
@@ -85,7 +85,7 @@ module.exports = class SetupAccount extends Base {
                 <div className="invalid-feedback">{errors.birthday}</div>
               )
             }
-            <small className="form-text text-muted">{_('This value is for resetting password, such as 19900101.')}</small>
+            <small className="form-text text-muted">{_('This is used for resetting password.')}</small>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
@@ -103,7 +103,7 @@ module.exports = class SetupAccount extends Base {
             </small>
           </div>
           <div className="form-group has-feedback">
-            <label>{_('Confirm password')}</label>
+            <label>{_('Confirm Password')}</label>
             <Field name="confirmPassword" component={Password} inputProps={{
               placeholder: _('Confirm your password'),
               className: classTable.confirmPassword
