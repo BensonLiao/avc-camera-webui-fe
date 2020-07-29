@@ -1,7 +1,7 @@
 const React = require('react');
 const {Link} = require('capybara-router');
-const logo = require('../../../resource/logo-01.svg');
-const decoration = require('../../../resource/decoration-01.svg');
+const logo = require('../../../resource/logo-avc-secondary.svg');
+const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 const smileWinkSolid = require('../../../resource/smile-wink-solid.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
@@ -10,12 +10,16 @@ const Once = require('../../../core/components/one-time-render');
 module.exports = class Welcome extends Base {
   render() {
     return (
-      <div className="page-welcome">
-        <img src={logo} className="logo" alt="AndroVideo"/>
-        <img src={decoration} className="decoration"/>
+      <div className="page-welcome bg-secondary">
+        <div className="navbar primary">
+          <img src={logo}/>
+        </div>
         <Once>
-          <div className="container">
+          <div className="container-fluid">
             <div className="row justify-content-center">
+              <div className="col-12 bg-white logo">
+                <img src={logoWithTitle}/>
+              </div>
               <div className="col-card">
                 <form className="card shadow mb-5">
                   <div className="card-body">
