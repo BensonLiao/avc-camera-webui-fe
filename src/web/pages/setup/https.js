@@ -108,8 +108,8 @@ module.exports = class SetupHTTPS extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <div className="steps">
-            <div className="d-flex justify-content-between">
+          <div className="steps d-flex">
+            <div className="d-flex flex-grow-1 justify-content-between">
               <p className="text-primary">{_('Language')}</p>
               <p className="text-primary">{_('SETUP-Account')}</p>
               <p className="text-primary">{_('HTTPS')}</p>
