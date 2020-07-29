@@ -2,7 +2,6 @@ const React = require('react');
 const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const logo = require('../../../resource/logo-avc-secondary.svg');
-const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 const setupStep01 = require('../../../resource/setup-step-01.png');
 const setupStep01x2 = require('../../../resource/setup-step-01@2x.png');
 const _ = require('../../../languages');
@@ -38,9 +37,6 @@ module.exports = class SetupLanguage extends Base {
         </div>
         <div className="container-fluid">
           <div className="row justify-content-center">
-            <div className="col-12 bg-white logo">
-              <img src={logoWithTitle}/>
-            </div>
             <div className="col-card">
               <form className="card shadow mb-5">
                 <div className="card-body">

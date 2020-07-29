@@ -1,18 +1,10 @@
 .page-welcome, .page-setup-language, .page-setup-https, .page-setup-account {
   min-height: 100vh;
-
-  .logo {
-    height: 208px;
-    margin-bottom: 32px;
-    > img {
-      position: absolute;
-      margin: auto;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
+  
+  .navbar {
+    margin-bottom: 48px;
   }
+
   .card {
     border-radius: 8px;
     .card-body {
