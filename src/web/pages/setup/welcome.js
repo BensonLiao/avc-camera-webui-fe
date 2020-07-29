@@ -1,7 +1,6 @@
 const React = require('react');
 const {Link} = require('capybara-router');
 const logo = require('../../../resource/logo-avc-secondary.svg');
-const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 const smileWinkSolid = require('../../../resource/smile-wink-solid.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
@@ -17,9 +16,6 @@ module.exports = class Welcome extends Base {
         <Once>
           <div className="container-fluid">
             <div className="row justify-content-center">
-              <div className="col-12 bg-white logo">
-                <img src={logoWithTitle}/>
-              </div>
               <div className="col-card">
                 <form className="card shadow mb-5">
                   <div className="card-body">
