@@ -27,7 +27,10 @@ module.exports = class SessionExpireModal extends React.PureComponent {
               }, 1000);
               this.countdownTimerID = setTimeout(() => {
                 clearInterval(this.countdownID);
-                location.href = '/login';
+                api.account.logout()
+                  .then(() => {
+                    location.href = '/';
+                  });
               }, constants.REDIRECT_COUNTDOWN * 1000);
             }
           );
