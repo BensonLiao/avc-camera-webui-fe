@@ -58,7 +58,6 @@ module.exports = class SetupAccount extends Base {
               <i className="fas fa-chevron-left"/>
             </Link>
           </div>
-
           <div className="form-group">
             <label>{_('Permission')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
