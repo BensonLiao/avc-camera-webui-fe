@@ -91,6 +91,8 @@ module.exports = class DateTime extends Base {
   formRender = () => {
     const {systemDateTime: {deviceTime}} = this.props;
     const {showDateTimePicker} = this.state;
+    // For browser compatibility, condition string for react-live-clock to work on Chrome, Firefox and Safari
+    const conditionedDeviceTime = deviceTime.replace('  ', ' ').replace(/-/g, '/');
     return (
       <Form className="card-body">
         <div className="card form-group">
@@ -98,7 +100,7 @@ module.exports = class DateTime extends Base {
             <div className="form-group d-flex justify-content-between align-items-center mb-0">
               <label className="mb-0">{_('Date and Time of the Device')}</label>
               <label className="text-primary mb-0">
-                <Clock ticking date={deviceTime} format="YYYY-MM-DD, hh:mm:ss A"/>
+                <Clock ticking date={conditionedDeviceTime} format="YYYY-MM-DD, hh:mm:ss A"/>
               </label>
             </div>
           </div>
