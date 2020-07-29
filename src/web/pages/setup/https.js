@@ -4,8 +4,8 @@ const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
-const logo = require('../../../resource/logo-01.svg');
-const decoration = require('../../../resource/decoration-01.svg');
+const logo = require('../../../resource/logo-avc-secondary.svg');
+const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 const setupStep03 = require('../../../resource/setup-step-03.png');
 const setupStep03x2 = require('../../../resource/setup-step-03@2x.png');
 const _ = require('../../../languages');
@@ -244,10 +244,14 @@ module.exports = class SetupHTTPS extends Base {
 
     return (
       <div className="page-setup-https">
-        <img src={logo} className="logo" alt="AndroVideo"/>
-        <img src={decoration} className="decoration"/>
-        <div className="container">
+        <div className="navbar primary">
+          <img src={logo}/>
+        </div>
+        <div className="container-fluid">
           <div className="row justify-content-center">
+            <div className="col-12 bg-white logo">
+              <img src={logoWithTitle}/>
+            </div>
             <div className="col-card">
               <Formik
                 initialValues={initialValue}

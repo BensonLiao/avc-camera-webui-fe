@@ -1,0 +1,30 @@
+.page-welcome, .page-setup-language, .page-setup-https, .page-setup-account {
+  min-height: 100vh;
+
+  .logo {
+    height: 208px;
+    margin-bottom: 32px;
+    > img {
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+  .card {
+    border-radius: 8px;
+    .card-body {
+      padding: 40px;
+    }
+    .card-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .card-sub-title {
+      margin-bottom: 40px;
+    }
+  }
+}
