@@ -18,10 +18,17 @@
     .card-body {
       padding: 40px;
       .steps {
+        margin-bottom: 80px;
         img {
           position: absolute;
         }
+        .go-back {
+          position: absolute;
+          z-index: 1;
+          margin-top: 32px;
+        }
       }
+      
     }
     .card-title {
       font-size: 22px;

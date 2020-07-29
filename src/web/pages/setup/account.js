@@ -47,15 +47,18 @@ module.exports = class SetupAccount extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <div className="steps">
-            <div className="d-flex justify-content-between">
+          <div className="steps d-flex">
+            <div className="d-flex flex-grow-1 justify-content-between">
               <p className="text-primary">{_('Language')}</p>
               <p className="text-primary">{_('SETUP-Account')}</p>
               <p>{_('HTTPS')}</p>
             </div>
             <img src={setupStep02} srcSet={`${setupStep02x2} 2x`}/>
-            <Link to="/setup/language" className="go-back"><i className="fas fa-chevron-left"/></Link>
+            <Link to="/setup/language" className="go-back">
+              <i className="fas fa-chevron-left"/>
+            </Link>
           </div>
+
           <div className="form-group">
             <label>{_('Permission')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">

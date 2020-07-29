@@ -37,6 +37,15 @@
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow-y: overlay;
+}
+
 body {
   font-family: "CustomSTHeitiTC", "CustomSTHeitiSC", "CustomJhengHei", serif;
 }
@@ -48,8 +57,8 @@ body {
 
 .col-card {
   position: relative;
-  width: 560px;
-  min-width: 480px;
+  width: 480px;
+  min-width: 472px;
 }
 .col-center {
   margin: 0 auto;
