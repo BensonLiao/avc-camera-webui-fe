@@ -80,10 +80,10 @@ module.exports = class SMTP extends Base {
   onSubmitSMTPSettingsForm = values => {
     progress.start();
     api.notification.updateSMTPSettings({...values, ...this.state.accountSettings})
-      .then(() => {
+      .then(response => {
         notify.showSuccessNotification({
-          title: _('Setting Success'),
-          message: _('Test E-mail sent!')
+          title: _('Mail Setting Success'),
+          message: _(response.data.isTestMailSent ? 'Test Mail Sent!' : 'Account Auth is Off, Test Mail not Sent.')
         });
       })
       .then(getRouter().reload)

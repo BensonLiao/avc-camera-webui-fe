@@ -501,6 +501,10 @@ window.languageResource = {
   Port: '埠',
   Encryption: '加密',
   'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': '有些網路郵件供應商為了提高安全性， 可能會需要應用程式密碼，例如Google和Yahoo奇摩電子信箱帳號。請依照您郵件供應商的指示產生並使用應用程式密碼。',
+  'Mail Setting Success!': '電子郵件設定成功！',
+  'Mail Setting Failed!': '電子郵件設定失敗！',
+  'Test Mail Sent!': '測試郵件已寄出',
+  'Account Auth is Off, Test Mail not Sent.': '登入認證設定為關閉，測試郵件未寄出',
 
   // /notification/cards
   'notification-card-filter-all': '所有通知',
