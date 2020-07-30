@@ -134,7 +134,7 @@ constructor(props) {
       return;
     }
 
-    if (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) {
+    if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
       this.setState({updateFocalLengthField: true});
     }
 
@@ -155,7 +155,7 @@ constructor(props) {
         .then(() => {
           // Trigger react update to get the latest global state
           this.setState({updateFocalLengthField: false}, () => {
-            if (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) {
+            if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
               let prevFocalLength;
               this.setState({updateFocalLengthField: true}, () => {
                 // Refresh focal length until previous value matches current value
@@ -223,33 +223,31 @@ constructor(props) {
 
   generateClickAutoFocusButtonHandler = form => event => {
     event.preventDefault();
-    this.setState({isAutoFocusProcessing: true});
+    this.setState({updateFocalLengthField: true});
     this.submitPromise = this.submitPromise
       .then(api.video.startAutoFocus)
       .then(() => {
         let prevFocalLength;
-        this.setState({updateFocalLengthField: true}, () => {
-          // Refresh focal length until previous value matches current value
-          const refreshFocalLength = () => {
-            api.video.getFocalLength()
-              .then(response => {
-                if (prevFocalLength === response.data.focalLength) {
-                  this.setState({updateFocalLengthField: false});
-                } else {
-                  prevFocalLength = response.data.focalLength;
-                  // Refresh focal length at 1hz
-                  setTimeout(refreshFocalLength, 1000);
-                }
+        // Refresh focal length until previous value matches current value
+        const refreshFocalLength = () => {
+          api.video.getFocalLength()
+            .then(response => {
+              if (prevFocalLength === response.data.focalLength) {
+                this.setState({updateFocalLengthField: false});
+              } else {
+                prevFocalLength = response.data.focalLength;
+                // Refresh focal length at 1hz
+                setTimeout(refreshFocalLength, 1000);
+              }
 
-                return response.data.focalLength;
-              })
-              .then(focalLength => {
-                form.setFieldValue('focalLength', focalLength);
-              });
-          };
+              return response.data.focalLength;
+            })
+            .then(focalLength => {
+              form.setFieldValue('focalLength', focalLength);
+            });
+        };
 
-          refreshFocalLength();
-        });
+        refreshFocalLength();
       });
   };
 
@@ -423,7 +421,7 @@ constructor(props) {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={values.isAutoFocusProcessing || updateFocalLengthField}
+                  disabled={updateFocalLengthField}
                   name="zoom"
                   component={Slider}
                   step={0.1}
@@ -434,7 +432,7 @@ constructor(props) {
               <div className="form-group form-check">
                 <Field id="input-check-auto-focus-after-zoom"
                   type="checkbox"
-                  disabled={values.isAutoFocusProcessing || updateFocalLengthField}
+                  disabled={updateFocalLengthField}
                   className="form-check-input"
                   name="isAutoFocusAfterZoom"
                   checked={values.isAutoFocusAfterZoom}/>
