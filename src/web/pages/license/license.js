@@ -10,6 +10,7 @@ const LicenseStatus = require('./license-status');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
+const AuthKeySchema = require('webserver-form-schema/auth-key-schema');
 const iconFaceRecognitionEnable = require('../../../resource/face-recognition-enable-100px.svg');
 const iconFaceRecognitionDisable = require('../../../resource/face-recognition-disable-100px.svg');
 const iconAgeGenderEnable = require('../../../resource/age-gender-enable-100px.svg');
@@ -109,7 +110,7 @@ module.exports = class License extends Base {
               className={classNames('form-control', {'is-invalid': errors.authKey && isSubmitted})}
               name="authKey"
               type="text"
-              maxLength={24}
+              maxLength={AuthKeySchema.authKey.max}
               placeholder={_('Enter your authentication key')}
               style={{width: '312px'}}
             />
