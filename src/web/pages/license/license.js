@@ -112,11 +112,6 @@ module.exports = class License extends Base {
               placeholder={_('Enter your authentication key')}
               style={{width: '312px'}}
             />
-            {
-              errors.authKey && touched.authKey && (
-                <div className="invalid-feedback">{errors.authKey}</div>
-              )
-            }
           </div>
           <div className="col-auto my-1">
             <button
@@ -126,6 +121,15 @@ module.exports = class License extends Base {
             >
               {_('Activate')}
             </button>
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="col-auto">
+            {
+              errors.authKey && touched.authKey && (
+                <div className="invalid-feedback" style={{display: 'block', marginTop: '0'}}>{errors.authKey}</div>
+              )
+            }
           </div>
         </div>
       </Form>
