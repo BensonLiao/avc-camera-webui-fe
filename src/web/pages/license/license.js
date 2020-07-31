@@ -126,7 +126,7 @@ module.exports = class License extends Base {
         <div className="form-row">
           <div className="col-auto">
             {
-              errors.authKey && touched.authKey && (
+              errors.authKey && touched.authKey && isSubmitted && (
                 <div className="invalid-feedback" style={{display: 'block', marginTop: '0'}}>{errors.authKey}</div>
               )
             }
