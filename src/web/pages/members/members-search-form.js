@@ -9,9 +9,7 @@ module.exports = class MembersSearchForm extends React.PureComponent {
     return {
       isApiProcessing: PropTypes.bool.isRequired,
       currentRouteName: PropTypes.string.isRequired,
-      params: PropTypes.shape({
-        keyword: PropTypes.string
-      }).isRequired
+      params: PropTypes.shape({keyword: PropTypes.string}).isRequired
     };
   }
 
@@ -38,8 +36,10 @@ module.exports = class MembersSearchForm extends React.PureComponent {
             <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
           </div>
           <div className="col-auto">
-            <button disabled={isApiProcessing}
-              className="btn btn-outline-primary rounded-pill px-3" type="submit"
+            <button
+              disabled={isApiProcessing}
+              className="btn btn-outline-primary rounded-pill px-3"
+              type="submit"
             >
               <i className="fas fa-search fa-fw"/> {_('Search')}
             </button>

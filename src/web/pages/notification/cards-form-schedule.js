@@ -129,7 +129,8 @@ module.exports = class CardsFormSchedule extends React.PureComponent {
                    <div className="col-auto my-1">
                      <button
                        disabled={statusCheck}
-                       className="btn btn-primary rounded-circle" type="button"
+                       className="btn btn-primary rounded-circle"
+                       type="button"
                        style={statusCheck ? {pointerEvents: 'none'} : {}}
                        onClick={this.onClickAddTimePeriod}
                      >

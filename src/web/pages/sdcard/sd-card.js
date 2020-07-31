@@ -24,9 +24,7 @@ module.exports = class SDCard extends Base {
         sdUsage: PropTypes.number.isRequired,
         sdAlertEnabled: PropTypes.bool.isRequired
       }).isRequired,
-      smtpSettings: PropTypes.shape({
-        isEnableAuth: PropTypes.bool.isRequired
-      }).isRequired
+      smtpSettings: PropTypes.shape({isEnableAuth: PropTypes.bool.isRequired}).isRequired
     };
   }
 
@@ -127,7 +125,8 @@ module.exports = class SDCard extends Base {
         modalBody={modalType[mode].modalBody}
         isConfirmDisable={$isApiProcessing}
         onHide={getRouter().reload} // Reload to reset SD card switch button state
-        onConfirm={modalType[mode].modalOnSubmit}/>
+        onConfirm={modalType[mode].modalOnSubmit}
+      />
     );
   }
 
@@ -213,7 +212,8 @@ module.exports = class SDCard extends Base {
                       type="checkbox"
                       style={isEnableAuth ? {} : {pointerEvents: 'none'}}
                       className="custom-control-input"
-                      id="switch-output"/>
+                      id="switch-output"
+                    />
                     <label className="custom-control-label" htmlFor="switch-output">
                       <span>{_('ON')}</span>
                       <span>{_('OFF')}</span>
@@ -256,21 +256,23 @@ module.exports = class SDCard extends Base {
                 <div className="progress">
                   {
                     isNaN(usedDiskPercentage) ?
-                      <div className="progress-bar"/> :
-                      <>
-                        <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
-                          <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                            {usedDiskPercentage > 4 ? `${usedDiskPercentage}%` : ''}
-                          </div>
-                        </CustomTooltip>
-                        {usedDiskPercentage && (
-                          <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
-
-                            <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
-                              {freeDiskPercentage > 4 ? `${freeDiskPercentage}%` : ''}
+                      <div className="progress-bar"/> : (
+                        <>
+                          <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
+                            <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
+                              {usedDiskPercentage > 4 ? `${usedDiskPercentage}%` : ''}
                             </div>
-                          </CustomTooltip>)}
-                      </>
+                          </CustomTooltip>
+                          {usedDiskPercentage && (
+                            <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
+
+                              <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
+                                {freeDiskPercentage > 4 ? `${freeDiskPercentage}%` : ''}
+                              </div>
+                            </CustomTooltip>
+                          )}
+                        </>
+                      )
                   }
                 </div>
               </div>

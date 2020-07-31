@@ -96,9 +96,12 @@ module.exports = class IO extends Base {
               </div>
               <div className="form-group">
                 <label>{_('Pulse Time (Seconds)')}</label>
-                <Field name="pulse" type="text"
+                <Field
+                  name="pulse"
+                  type="text"
                   className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
-                  placeholder={_('Enter Seconds')}/>
+                  placeholder={_('Enter Seconds')}
+                />
                 {
                   errors.pulse && touched.pulse && (
                     <div className="invalid-feedback">{errors.pulse}</div>
@@ -110,9 +113,12 @@ module.exports = class IO extends Base {
               </div>
               <div className="form-group">
                 <label>{_('Delay Time (Seconds)')}</label>
-                <Field name="delay" type="text"
+                <Field
+                  name="delay"
+                  type="text"
                   className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
-                  placeholder={_('Enter Seconds')}/>
+                  placeholder={_('Enter Seconds')}
+                />
                 {
                   errors.delay && touched.delay && (
                     <div className="invalid-feedback">{errors.delay}</div>

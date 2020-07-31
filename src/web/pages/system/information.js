@@ -11,9 +11,7 @@ module.exports = class Information extends Base {
         serialNumber: PropTypes.string.isRequired,
         firmware: PropTypes.string.isRequired
       }).isRequired,
-      networkSettings: PropTypes.shape({
-        mac: PropTypes.string.isRequired
-      }).isRequired
+      networkSettings: PropTypes.shape({mac: PropTypes.string.isRequired}).isRequired
     };
   }
 

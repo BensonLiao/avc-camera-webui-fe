@@ -100,7 +100,8 @@ module.exports = class HTTPS extends Base {
             name="port"
             type="text"
             validate={this.checkValidatePort}
-            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}/>
+            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
+          />
           {
             errors.port && touched.port && (
               <div className="invalid-feedback">{errors.port}</div>
@@ -129,7 +130,8 @@ module.exports = class HTTPS extends Base {
           modalTitle={_('Success')}
           modalBody={modalBody}
           onConfirm={this.hideModal}
-          onHide={this.hideModal}/>
+          onHide={this.hideModal}
+        />
       </Form>
     );
   };

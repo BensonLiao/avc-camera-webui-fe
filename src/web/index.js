@@ -42,9 +42,7 @@ if ('scrollRestoration' in history) {
 }
 
 // Setup nprogress
-progress.configure({
-  showSpinner: false
-});
+progress.configure({showSpinner: false});
 
 dayjs.extend(LocalizedFormat);
 switch (window.currentLanguageCode) {

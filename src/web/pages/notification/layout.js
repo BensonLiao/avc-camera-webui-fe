@@ -33,7 +33,10 @@ module.exports = class Notification extends Base {
           <h2>{_('Notification Setting')}</h2>
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-notification-menu">
-              <a href="#" data-toggle="collapse" data-target="#basic-settings"
+              <a
+                href="#"
+                data-toggle="collapse"
+                data-target="#basic-settings"
                 title={_('Basic Setting')}
                 className={classNames(
                   'nav-link collapse show d-flex justify-content-between align-items-center',

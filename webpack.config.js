@@ -37,9 +37,7 @@ module.exports = (env = {}) => {
         'Access-Control-Allow-Methods': 'GET'
       }
     },
-    resolve: {
-      extensions: ['.js']
-    },
+    resolve: {extensions: ['.js']},
     output: {
       path: path.join(__dirname, buildFolder),
       publicPath: isDebug ?
@@ -144,11 +142,7 @@ module.exports = (env = {}) => {
           result.push(new BundleAnalyzerPlugin());
         }
 
-        result.push(new OptimizeCSSAssetsPlugin({
-          cssProcessorOptions: {
-            discardComments: {removeAll: true}
-          }
-        }));
+        result.push(new OptimizeCSSAssetsPlugin({cssProcessorOptions: {discardComments: {removeAll: true}}}));
         result.push(
           new ImageminPlugin({
             test: /\.png$/i,

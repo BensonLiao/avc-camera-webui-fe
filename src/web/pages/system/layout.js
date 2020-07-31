@@ -33,15 +33,20 @@ module.exports = class System extends Base {
           <h2>{_('System')}</h2>
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-setting-menu">
-              <a href="#" data-toggle="collapse" data-target="#basic-settings"
+              <a
+                href="#"
+                data-toggle="collapse"
+                data-target="#basic-settings"
                 title={_('Settings')}
                 className={classNames(
                   'nav-link collapse d-flex justify-content-between align-items-center',
-                  {active: [
-                    'web.system.datetime',
-                    'web.system.maintain',
-                    'web.system.upgrade'
-                  ].indexOf(currentRouteName) >= 0},
+                  {
+                    active: [
+                      'web.system.datetime',
+                      'web.system.maintain',
+                      'web.system.upgrade'
+                    ].indexOf(currentRouteName) >= 0
+                  },
                   {show: topSubNav},
                   {collapsed: !topSubNav}
                 )}
@@ -60,14 +65,19 @@ module.exports = class System extends Base {
                   {_('Firmware Upgrade')}
                 </Link>
               </div>
-              <a href="#" data-toggle="collapse" data-target="#basic-information"
+              <a
+                href="#"
+                data-toggle="collapse"
+                data-target="#basic-information"
                 title={_('System Information')}
                 className={classNames(
                   'nav-link collapse d-flex justify-content-between align-items-center',
-                  {active: [
-                    'web.system.log',
-                    'web.system.information'
-                  ].indexOf(currentRouteName) >= 0},
+                  {
+                    active: [
+                      'web.system.log',
+                      'web.system.information'
+                    ].indexOf(currentRouteName) >= 0
+                  },
                   {show: bottomSubNav},
                   {collapsed: !bottomSubNav}
                 )}

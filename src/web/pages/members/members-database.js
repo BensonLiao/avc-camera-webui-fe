@@ -18,9 +18,7 @@ const wrappedApi = require('../../../core/apis');
 
 module.exports = class MembersDatabase extends React.PureComponent {
   static get propTypes() {
-    return {
-      isApiProcessing: PropTypes.bool.isRequired
-    };
+    return {isApiProcessing: PropTypes.bool.isRequired};
   }
 
   state = {
@@ -144,11 +142,14 @@ module.exports = class MembersDatabase extends React.PureComponent {
           </div>
           <div className="form-group has-feedback">
             <label>{_('New Password')}</label>
-            <Field name="newPassword" component={Password}
+            <Field
+              name="newPassword"
+              component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
                 placeholder: _('Enter your password')
-              }}/>
+              }}
+            />
             <small className="form-text text-muted">{_('8-16 characters, letters, numbers and/or symbols')}</small>
             {
               errors.newPassword && touched.newPassword && (
@@ -158,11 +159,14 @@ module.exports = class MembersDatabase extends React.PureComponent {
           </div>
           <div className="form-group has-feedback">
             <label>{_('Confirm Password')}</label>
-            <Field name="confirmPassword" component={Password}
+            <Field
+              name="confirmPassword"
+              component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
                 placeholder: _('Confirm your password')
-              }}/>
+              }}
+            />
             {
               errors.confirmPassword && touched.confirmPassword && (
                 <div className="invalid-feedback">{errors.confirmPassword}</div>
@@ -176,7 +180,9 @@ module.exports = class MembersDatabase extends React.PureComponent {
               {_('Modify')}
             </button>
           </div>
-          <button type="button" className="btn btn-info btn-block m-0 rounded-pill"
+          <button
+            type="button"
+            className="btn btn-info btn-block m-0 rounded-pill"
             onClick={this.hideDatabaseModal}
           >
             {_('Close')}
@@ -202,7 +208,9 @@ module.exports = class MembersDatabase extends React.PureComponent {
         </div>
         <div className="actions px-4 py-3">
           <div className="form-group">
-            <button disabled={isApiProcessing} type="button"
+            <button
+              disabled={isApiProcessing}
+              type="button"
               className="btn btn-outline-primary btn-block rounded-pill"
               onClick={this.onClickExportDatabase}
             >
@@ -236,7 +244,8 @@ module.exports = class MembersDatabase extends React.PureComponent {
           isShowModal={isShowApiProcessModal}
           modalTitle={apiProcessModalTitle}
           modalBody="Member Database Updating"
-          onHide={this.hideApiProcessModal}/>
+          onHide={this.hideApiProcessModal}
+        />
       </>
     );
   }

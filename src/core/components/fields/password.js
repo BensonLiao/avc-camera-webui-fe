@@ -8,16 +8,12 @@ module.exports = class Password extends React.PureComponent {
   static get propTypes() {
     return {
       inputProps: PropTypes.object,
-      field: PropTypes.shape({
-        name: PropTypes.string.isRequired
-      }).isRequired
+      field: PropTypes.shape({name: PropTypes.string.isRequired}).isRequired
     };
   }
 
   static get defaultProps() {
-    return {
-      inputProps: {}
-    };
+    return {inputProps: {}};
   }
 
   state = {isShowPassword: false};
@@ -34,8 +30,11 @@ module.exports = class Password extends React.PureComponent {
     return (
       <>
         <input {...inputProps} {...field} type={isShowPassword ? 'text' : 'password'}/>
-        <a href="#" className="form-control-feedback text-muted"
-          tabIndex={-1} onClick={this.onTogglePassword}
+        <a
+          href="#"
+          className="form-control-feedback text-muted"
+          tabIndex={-1}
+          onClick={this.onTogglePassword}
         >
           <CustomTooltip title={isShowPassword ? _('Hide Password') : _('Show Password')}>
             <i className={classNames('fas', isShowPassword ? 'fa-eye' : 'fa-eye-slash')}/>

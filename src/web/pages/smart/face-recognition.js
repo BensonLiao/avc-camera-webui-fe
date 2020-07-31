@@ -103,16 +103,26 @@ module.exports = class FaceRecognition extends Base {
             {
               isShowDetectionZone && (
                 <div className="draggable-wrapper" tabIndex={-1}>
-                  <Field name="triggerArea" component={MaskArea} text={_('Detection Zone')}
-                    className="bounding-black" parentElementId="fr-video-wrapper"/>
+                  <Field
+                    name="triggerArea"
+                    component={MaskArea}
+                    text={_('Detection Zone')}
+                    className="bounding-black"
+                    parentElementId="fr-video-wrapper"
+                  />
                 </div>
               )
             }
             {
               values.isEnableFaceFrame && (
                 <div className="draggable-wrapper" tabIndex={-1}>
-                  <Field name="faceFrame" component={MaskArea} text={_('Facial Detection Size')}
-                    className="bounding-primary" parentElementId="fr-video-wrapper"/>
+                  <Field
+                    name="faceFrame"
+                    component={MaskArea}
+                    text={_('Facial Detection Size')}
+                    className="bounding-primary"
+                    parentElementId="fr-video-wrapper"
+                  />
                 </div>
               )
             }
@@ -137,7 +147,9 @@ module.exports = class FaceRecognition extends Base {
                 <label className="mb-0">{_('Level of Accuracy')}</label>
                 <div className="btn-group">
                   {ConfidenceLevel.all().map(confidenceLevel => (
-                    <button key={confidenceLevel} type="button"
+                    <button
+                      key={confidenceLevel}
+                      type="button"
                       className={classNames('btn triple-wrapper btn-sm outline-success px-2 py-1', {active: values.confidenceLevel === confidenceLevel})}
                       onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
                     >
@@ -157,8 +169,10 @@ module.exports = class FaceRecognition extends Base {
                   </div>
                   <CustomTooltip title={_('Show/Hide Detection Zone')}>
                     <div className="custom-control custom-switch">
-                      <a className="form-control-feedback text-muted"
-                        tabIndex={-1} onClick={this.onToggleDetectionZone}
+                      <a
+                        className="form-control-feedback text-muted"
+                        tabIndex={-1}
+                        onClick={this.onToggleDetectionZone}
                       >
                         <i className={classNames('fas', isShowDetectionZone ? 'fa-eye' : 'fa-eye-slash')}/>
                       </a>

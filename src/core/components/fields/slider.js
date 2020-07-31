@@ -11,9 +11,7 @@ module.exports = class SliderField extends React.PureComponent {
         name: PropTypes.string.isRequired,
         value: PropTypes.any
       }).isRequired,
-      form: PropTypes.shape({
-        setFieldValue: PropTypes.func.isRequired
-      }).isRequired,
+      form: PropTypes.shape({setFieldValue: PropTypes.func.isRequired}).isRequired,
       min: PropTypes.number.isRequired,
       max: PropTypes.number.isRequired,
       step: PropTypes.number.isRequired,

@@ -47,9 +47,11 @@ module.exports = class H264 extends Base {
       <>
         <div style={{textAlign: 'center'}}>
           <video
-            autoPlay className="img-fluid"
+            autoPlay
+            className="img-fluid"
             style={{height: '100vh'}}
-            src={this.state.streamImageUrl}/>
+            src={this.state.streamImageUrl}
+          />
         </div>
       </>
       ,

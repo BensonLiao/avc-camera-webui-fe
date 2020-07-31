@@ -69,7 +69,8 @@ module.exports = class Member extends Base {
         groups={groups}
         member={member}
         onHide={this.onHideModal}
-        onSubmitted={this.onSubmittedMemberForm}/>
+        onSubmitted={this.onSubmittedMemberForm}
+      />
     );
   }
 };

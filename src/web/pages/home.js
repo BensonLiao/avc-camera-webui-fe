@@ -79,17 +79,13 @@ module.exports = class Home extends Base {
           gov: PropTypes.string.isRequired
         }).isRequired
       }).isRequired,
-      systemDateTime: PropTypes.shape({
-        deviceTime: PropTypes.string.isRequired
-      }).isRequired,
+      systemDateTime: PropTypes.shape({deviceTime: PropTypes.string.isRequired}).isRequired,
       authStatus: PropTypes.shape({
         isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
         isEnableAgeGenderKey: PropTypes.bool.isRequired,
         isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
       }).isRequired,
-      faceRecognitionStatus: PropTypes.shape({
-        isEnable: PropTypes.bool.isRequired
-      }).isRequired
+      faceRecognitionStatus: PropTypes.shape({isEnable: PropTypes.bool.isRequired}).isRequired
     };
   }
 
@@ -206,10 +202,13 @@ module.exports = class Home extends Base {
   deviceNameFormRender = ({errors, touched}) => {
     return (
       <Form className="form-group">
-        <Field name="deviceName" type="text"
+        <Field
+          name="deviceName"
+          type="text"
           maxLength={DEVICE_NAME_CHAR_MAX}
           className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}
-          onBlur={this.onBlurDeviceNameForm}/>
+          onBlur={this.onBlurDeviceNameForm}
+        />
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
     );
@@ -223,17 +222,19 @@ module.exports = class Home extends Base {
   }
 
   render() {
-    const {systemInformation: {
-      sdUsage,
-      sdTotal,
-      sdStatus,
-      deviceStatus
-    },
-    authStatus: {
-      isEnableFaceRecognitionKey,
-      isEnableAgeGenderKey,
-      isEnableHumanoidDetectionKey
-    }, systemDateTime, videoSettings, faceRecognitionStatus} = this.props;
+    const {
+      systemInformation: {
+        sdUsage,
+        sdTotal,
+        sdStatus,
+        deviceStatus
+      },
+      authStatus: {
+        isEnableFaceRecognitionKey,
+        isEnableAgeGenderKey,
+        isEnableHumanoidDetectionKey
+      }, systemDateTime, videoSettings, faceRecognitionStatus
+    } = this.props;
     const {$user, streamImageUrl, isPlayStream, deviceName} = this.state;
     const isAdmin = $user.permission === UserPermission.root || $user.permission === UserPermission.superAdmin;
     const usedDiskPercentage = Math.ceil((sdUsage / sdTotal) * 100);
@@ -264,8 +265,11 @@ module.exports = class Home extends Base {
                 <div className="video-wrapper mb-4">
                   <div ref={this.streamPlayerRef}>
                     <img
-                      className="img-fluid" draggable={false} src={streamImageUrl || defaultVideoBackground}
-                      onClick={e => utils.onTogglePlayStream(e, this)}/>
+                      className="img-fluid"
+                      draggable={false}
+                      src={streamImageUrl || defaultVideoBackground}
+                      onClick={e => utils.onTogglePlayStream(e, this)}
+                    />
                     <div className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})} onClick={e => utils.onTogglePlayStream(e, this)}>
                       <button className="btn-play" type="button">
                         <i className="fas fa-play fa-fw"/>
@@ -273,7 +277,8 @@ module.exports = class Home extends Base {
                     </div>
                     {
                       isPlayStream && !streamImageUrl && (
-                        <div className="cover d-flex justify-content-center align-items-center text-muted"
+                        <div
+                          className="cover d-flex justify-content-center align-items-center text-muted"
                           onClick={e => utils.onTogglePlayStream(e, this)}
                         >
                           <div className="spinner-border">
@@ -354,21 +359,23 @@ module.exports = class Home extends Base {
                             <div className="progress">
                               {
                                 isNaN(usedDiskPercentage) ?
-                                  <div className="progress-bar"/> :
-                                  <>
-                                    <CustomTooltip title={_('Used: {0}', [filesize(sdUsage)])}>
-                                      <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                                        {usedDiskPercentage > 8 ? `${usedDiskPercentage}%` : ''}
-                                      </div>
-                                    </CustomTooltip>
-                                    {usedDiskPercentage && (
-                                      <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
-
-                                        <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
-                                          {freeDiskPercentage > 8 ? `${freeDiskPercentage}%` : ''}
+                                  <div className="progress-bar"/> : (
+                                    <>
+                                      <CustomTooltip title={_('Used: {0}', [filesize(sdUsage)])}>
+                                        <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
+                                          {usedDiskPercentage > 8 ? `${usedDiskPercentage}%` : ''}
                                         </div>
-                                      </CustomTooltip>)}
-                                  </>
+                                      </CustomTooltip>
+                                      {usedDiskPercentage && (
+                                        <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
+
+                                          <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
+                                            {freeDiskPercentage > 8 ? `${freeDiskPercentage}%` : ''}
+                                          </div>
+                                        </CustomTooltip>
+                                      )}
+                                    </>
+                                  )
                               }
                             </div>
                             <p>

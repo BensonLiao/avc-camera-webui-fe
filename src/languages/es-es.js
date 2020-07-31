@@ -1,3 +1,1 @@
-window.languageResource = {
-  _code: 'es-es'
-};
+window.languageResource = {_code: 'es-es'};

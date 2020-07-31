@@ -13,9 +13,7 @@ const utils = require('../../../core/utils');
 module.exports = class EventsTable extends React.PureComponent {
   static get propTypes() {
     return {
-      params: PropTypes.shape({
-        sort: PropTypes.string
-      }).isRequired,
+      params: PropTypes.shape({sort: PropTypes.string}).isRequired,
       events: PropTypes.shape({
         index: PropTypes.number.isRequired,
         size: PropTypes.number.isRequired,
@@ -80,12 +78,8 @@ module.exports = class EventsTable extends React.PureComponent {
           {'fa-caret-up': params.sort === 'time'}),
         title: _('Time'), width: {width: '14%'}
       },
-      {
-        title: _('Capture'), width: {width: '10%'}
-      },
-      {
-        title: _('User Picture'), width: {width: '10%'}
-      },
+      {title: _('Capture'), width: {width: '10%'}},
+      {title: _('User Picture'), width: {width: '10%'}},
       {
         handler: filterHandler('sort', params.sort === 'name' ? '-name' : 'name'),
         icon: classNames(defaultIconClass,
@@ -121,12 +115,8 @@ module.exports = class EventsTable extends React.PureComponent {
           {'fa-caret-up': params.sort === 'recognitionResult'}),
         title: _('Recognition Result'), width: {width: '8%'}
       },
-      {
-        title: _('Note'), width: {width: '10%'}
-      },
-      {
-        title: _('Actions'), width: {width: '6%'}
-      }
+      {title: _('Note'), width: {width: '10%'}},
+      {title: _('Actions'), width: {width: '6%'}}
     ];
     return (
       <div className="col-12 mb-5">
@@ -174,7 +164,10 @@ module.exports = class EventsTable extends React.PureComponent {
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                       <div style={{width: 56, height: 56}}>
                         <div className="rounded-circle overflow-hidden" style={{margin: 0, padding: '0 0 100%', position: 'relative'}}>
-                          <div style={{background: '50%', backgroundSize: 'cover', width: '100%', height: '100%', position: 'absolute', left: 0, top: 0, backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
+                          <div style={{
+                            background: '50%', backgroundSize: 'cover', width: '100%', height: '100%', position: 'absolute', left: 0, top: 0, backgroundImage: `url('${event.pictureThumbUrl}')`
+                          }}
+                          />
                         </div>
                       </div>
                     </td>

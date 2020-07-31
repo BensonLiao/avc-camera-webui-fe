@@ -267,9 +267,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/groups').reply(config => {
-    return mockResponseWithLog(config, [200, {
-      items: db.get('groups').value()
-    }]);
+    return mockResponseWithLog(config, [200, {items: db.get('groups').value()}]);
   })
   .onGet(/api\/groups\/[a-f0-9-]{36}$/).reply(config => {
     const itemId = config.url.replace('/api/groups/', '');
@@ -475,14 +473,10 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/members/database-encryption-settings').reply(config => {
-    return mockResponseWithLog(config, [200, {
-      password: '0000'
-    }]);
+    return mockResponseWithLog(config, [200, {password: '0000'}]);
   })
   .onPut('/api/members/database-encryption-settings').reply(config => {
-    return mockResponseWithLog(config, [200, {
-      password: '0000'
-    }]);
+    return mockResponseWithLog(config, [200, {password: '0000'}]);
   })
   .onPost('/api/members/database').reply(config => {
     return mockResponseWithLog(config, [204]);

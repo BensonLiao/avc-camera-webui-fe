@@ -229,10 +229,14 @@ module.exports = {
      * - deviceTime {String}
      * - manualTime {Date}
      */
-    updateSystemDateTime: ({syncTimeOption, ntpTimeZone, ntpTimeZoneAuto, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}) => api({
+    updateSystemDateTime: ({
+      syncTimeOption, ntpTimeZone, ntpTimeZoneAuto, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime
+    }) => api({
       method: 'put',
       url: '/api/system/datetime',
-      data: {syncTimeOption, ntpTimeZone, ntpTimeZoneAuto, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}
+      data: {
+        syncTimeOption, ntpTimeZone, ntpTimeZoneAuto, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -625,10 +629,14 @@ module.exports = {
      * @param {boolean} isEnableAuth
      * @returns {Promise<response>}
      */
-    updateSMTPSettings: ({encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth}) => api({
+    updateSMTPSettings: ({
+      encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth
+    }) => api({
       method: 'put',
       url: '/api/notification/smtp/settings',
-      data: {encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth}
+      data: {
+        encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -655,15 +663,23 @@ module.exports = {
       method: 'get',
       url: '/api/notification/cards'
     }),
-    addCard: ({type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    addCard: ({
+      type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition
+    }) => api({
       method: 'post',
       url: '/api/notification/cards',
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {
+        type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition
+      }
     }),
-    updateCard: ({id, type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    updateCard: ({
+      id, type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition
+    }) => api({
       method: 'put',
       url: `/api/notification/cards/${id}`,
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {
+        type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition
+      }
     }),
     deleteCard: cardId => api({
       method: 'delete',
@@ -864,9 +880,7 @@ module.exports = {
     updateFRSetting: ({isEnable}) => api({
       method: 'put',
       url: '/api/face-recognition/fr',
-      data: {
-        isEnable
-      }
+      data: {isEnable}
     }),
     /**
      * Schema: webserver-form-schema/face-recognition-settings-schema
@@ -878,9 +892,7 @@ module.exports = {
     updateFRConfidenceLevel: ({confidenceLevel}) => api({
       method: 'put',
       url: '/api/face-recognition/confidencelevel',
-      data: {
-        confidenceLevel
-      }
+      data: {confidenceLevel}
     }),
     /**
      * Schema: webserver-form-schema/face-recognition-settings-schema

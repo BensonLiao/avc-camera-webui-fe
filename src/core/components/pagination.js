@@ -21,9 +21,7 @@ module.exports = class Pagination extends React.PureComponent {
     this.maxGotoIndex = Math.ceil(this.props.total / this.props.size);
   }
 
-  state = {
-    gotoIndex: 0
-  };
+  state = {gotoIndex: 0};
 
   onChangeGotoIndex = event => {
     let validateValue = event.currentTarget.value;
@@ -83,7 +81,8 @@ module.exports = class Pagination extends React.PureComponent {
           </p>
           <ul className="pagination my-auto">
             <li className={classNames('page-item', {disabled: !hasPrevious})}>
-              <Link to={hasPrevious ? format(hrefTemplate, {index: index - 1}) : ''}
+              <Link
+                to={hasPrevious ? format(hrefTemplate, {index: index - 1}) : ''}
                 className="page-link prev"
               >
                 &laquo;
@@ -99,7 +98,8 @@ module.exports = class Pagination extends React.PureComponent {
               ))
             }
             <li className={classNames('page-item', {disabled: !hasNext})}>
-              <Link to={hasNext ? format(hrefTemplate, {index: index + 1}) : ''}
+              <Link
+                to={hasNext ? format(hrefTemplate, {index: index + 1}) : ''}
                 className="page-link next"
               >
                 &raquo;
@@ -116,7 +116,8 @@ module.exports = class Pagination extends React.PureComponent {
               />
             </li>
             <li className="page-item">
-              <Link to={format(hrefTemplate, {index: gotoIndex})}
+              <Link
+                to={format(hrefTemplate, {index: gotoIndex})}
                 className="page-link go"
               >
                 Go

@@ -132,11 +132,15 @@ module.exports = class PrivacyMask extends Base {
 
         <div className="col-7 px-0">
           <div ref={this.videoWrapperRef} id="pm-video-wrapper" className="video-wrapper">
-            <img className="img-fluid" draggable={false} src="/api/snapshot"
-              onMouseDown={this.generateVideoWrapperMouseDownHandler(form)}/>
+            <img
+              className="img-fluid"
+              draggable={false}
+              src="/api/snapshot"
+              onMouseDown={this.generateVideoWrapperMouseDownHandler(form)}
+            />
             {
               maskAreaItems.map(index => (
-                maskAreaStates[index].isVisible ?
+                maskAreaStates[index].isVisible ? (
                   <div key={index} className="draggable-wrapper" tabIndex={-1} onKeyDown={this.generateDeleteMaskAreaHandler(index)}>
                     <Field
                       rightBottomCornerRef={this.maskAreaRefs[index]}
@@ -146,7 +150,8 @@ module.exports = class PrivacyMask extends Base {
                       className="bounding-primary"
                       parentElementId="pm-video-wrapper"
                     />
-                  </div> :
+                  </div>
+                ) :
                   <div key={index}/>
               ))
             }

@@ -73,7 +73,10 @@ module.exports = class Mjpeg extends Base {
       <>
         <div style={{textAlign: 'center'}}>
           <img
-            className="img-fluid" style={{height: '100vh'}} src={this.state.streamImageUrl}/>
+            className="img-fluid"
+            style={{height: '100vh'}}
+            src={this.state.streamImageUrl}
+          />
         </div>
         <SessionExpireModal/>
       </>

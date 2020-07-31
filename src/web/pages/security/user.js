@@ -72,9 +72,7 @@ module.exports = class User extends Base {
   };
 
   hideModal = (reload = false) => {
-    getRouter().go({
-      name: 'web.users.accounts'
-    }, {reload});
+    getRouter().go({name: 'web.users.accounts'}, {reload});
   };
 
   onSubmitForm = values => {
@@ -132,11 +130,15 @@ module.exports = class User extends Base {
           </SelectField>
           <div className="form-group">
             <label>{_('Account')}</label>
-            <Field name="account" type="text" placeholder={_('Enter your account')}
+            <Field
+              name="account"
+              type="text"
+              placeholder={_('Enter your account')}
               disabled={isSuperAdmin}
               maxLength={UserSchema.account.max}
               validate={this.checkDuplicate}
-              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
+              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
+            />
             {
               errors.account && touched.account && (
                 <div className="invalid-feedback">{errors.account}</div>
@@ -145,10 +147,14 @@ module.exports = class User extends Base {
           </div>
           <div className="form-group has-feedback">
             <label>{_(user ? 'Old Password' : 'Password')}</label>
-            <Field name="password" component={Password} inputProps={{
-              placeholder: _(user ? 'Enter your old password' : 'Enter your password'),
-              className: classNames('form-control', {'is-invalid': errors.password && touched.password})
-            }}/>
+            <Field
+              name="password"
+              component={Password}
+              inputProps={{
+                placeholder: _(user ? 'Enter your old password' : 'Enter your password'),
+                className: classNames('form-control', {'is-invalid': errors.password && touched.password})
+              }}
+            />
             {
               errors.password && touched.password && (
                 <div className="invalid-feedback">{errors.password}</div>
@@ -159,10 +165,14 @@ module.exports = class User extends Base {
             user && (
               <div className="form-group has-feedback">
                 <label>{_('New Password')}</label>
-                <Field name="newPassword" component={Password} inputProps={{
-                  placeholder: _('Enter your new password'),
-                  className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
-                }}/>
+                <Field
+                  name="newPassword"
+                  component={Password}
+                  inputProps={{
+                    placeholder: _('Enter your new password'),
+                    className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
+                  }}
+                />
                 <small className="text-info">
                   {_('8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space')}
                 </small>
@@ -176,10 +186,14 @@ module.exports = class User extends Base {
           }
           <div className="form-group has-feedback">
             <label>{_(user ? 'Confirm New Password' : 'Confirm Password')}</label>
-            <Field name="confirmPassword" component={Password} inputProps={{
-              placeholder: _(user ? 'Confirm your new password' : 'Confirm your password'),
-              className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
-            }}/>
+            <Field
+              name="confirmPassword"
+              component={Password}
+              inputProps={{
+                placeholder: _(user ? 'Confirm your new password' : 'Confirm your password'),
+                className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
+              }}
+            />
             {
               errors.confirmPassword && touched.confirmPassword && (
                 <div className="invalid-feedback">{errors.confirmPassword}</div>

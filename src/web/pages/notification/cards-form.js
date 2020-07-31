@@ -24,7 +24,8 @@ const CustomNormalWrapper = (
     marginLeft: '1rem',
     cursor: 'pointer',
     color: primaryColor
-  }}/>
+  }}
+  />
 );
 
 module.exports = class CardsForm extends React.PureComponent {
@@ -126,7 +127,8 @@ module.exports = class CardsForm extends React.PureComponent {
   };
 
   render() {
-    const {isApiProcessing,
+    const {
+      isApiProcessing,
       groups,
       isShowCardDetailsModal,
       onSubmit,
@@ -134,7 +136,8 @@ module.exports = class CardsForm extends React.PureComponent {
       onHideCardModal,
       isTop,
       toggleIsTop,
-      sanitizeInput} = this.props;
+      sanitizeInput
+    } = this.props;
 
     return (
       <Modal

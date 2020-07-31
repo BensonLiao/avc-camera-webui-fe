@@ -124,9 +124,11 @@ module.exports = class Log extends Base {
                               key="stage 1"
                               title="System log loading"
                               progressStatus={this.state.progressStatus}
-                              progressPercentage={this.state.progressPercentage}/>
+                              progressPercentage={this.state.progressPercentage}
+                            />
                           ]}
-                          onHide={this.hideApiProcessModal}/>
+                          onHide={this.hideApiProcessModal}
+                        />
                       </div>
                     </div>
                   </div>

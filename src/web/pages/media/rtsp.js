@@ -25,9 +25,7 @@ module.exports = class RTSP extends Base {
         port: PropTypes.string.isRequired,
         port2: PropTypes.string
       }).isRequired,
-      httpsSettings: PropTypes.shape({
-        port: PropTypes.string.isRequired
-      }).isRequired
+      httpsSettings: PropTypes.shape({port: PropTypes.string.isRequired}).isRequired
     };
   }
 
@@ -92,7 +90,8 @@ module.exports = class RTSP extends Base {
             type="text"
             placeholder="8554"
             validate={values => (this.checkValidatePort(values, 'RTSP_TCP'))}
-            className={classNames('form-control', {'is-invalid': errors.tcpPort && touched.tcpPort})}/>
+            className={classNames('form-control', {'is-invalid': errors.tcpPort && touched.tcpPort})}
+          />
           {
             errors.tcpPort && touched.tcpPort && (
               <div className="invalid-feedback">{errors.tcpPort}</div>
@@ -107,7 +106,8 @@ module.exports = class RTSP extends Base {
             type="text"
             className={classNames('form-control', {'is-invalid': errors.udpPort && touched.udpPort})}
             validate={values => (this.checkValidatePort(values, 'RTSP_UDP'))}
-            placeholder="17300"/>
+            placeholder="17300"
+          />
           {
             errors.udpPort && touched.udpPort && (
               <div className="invalid-feedback">{errors.udpPort}</div>
@@ -117,8 +117,12 @@ module.exports = class RTSP extends Base {
         </div>
         <div className="form-group">
           <label>{_('Maximum Number of Connection')}</label>
-          <Field name="connectionLimit" type="text"
-            className={classNames('form-control', {'is-invalid': errors.connectionLimit && touched.connectionLimit})} placeholder="8"/>
+          <Field
+            name="connectionLimit"
+            type="text"
+            className={classNames('form-control', {'is-invalid': errors.connectionLimit && touched.connectionLimit})}
+            placeholder="8"
+          />
           {
             errors.connectionLimit && touched.connectionLimit && (
               <div className="invalid-feedback">{errors.connectionLimit}</div>

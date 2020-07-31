@@ -21,15 +21,12 @@ const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class StreamSetting extends Base {
   static get propTypes() {
-    return {
-      homePage: PropTypes.bool // Make form ui for home page or not
-    };
+    // Make form ui for home page or not
+    return {homePage: PropTypes.bool};
   }
 
   static get defaultProps() {
-    return {
-      homePage: false
-    };
+    return {homePage: false};
   }
 
   constructor(props) {
@@ -137,10 +134,11 @@ module.exports = class StreamSetting extends Base {
             <small className="text-info mb-3">
               {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
             </small>
-            {!(values.bandwidthManagement === StreamBandwidthManagement.vbr) &&
-            <div style={{display: 'block'}} className="invalid-feedback">
-              <ErrorMessage name={`${fieldNamePrefix}.bitRate`}/>
-            </div>}
+            {!(values.bandwidthManagement === StreamBandwidthManagement.vbr) && (
+              <div style={{display: 'block'}} className="invalid-feedback">
+                <ErrorMessage name={`${fieldNamePrefix}.bitRate`}/>
+              </div>
+            )}
           </div>
         )}
         {values.codec !== StreamCodec.mjpeg && (
@@ -274,7 +272,8 @@ module.exports = class StreamSetting extends Base {
           onHide={this.hideModal}
           onConfirm={() => {
             this.onSubmit(values);
-          }}/>
+          }}
+        />
       </Form>
     );
   };
@@ -323,7 +322,8 @@ module.exports = class StreamSetting extends Base {
           backdrop="static"
           isShowModal={this.state.isShowApiProcessModal}
           modalTitle={this.state.apiProcessModalTitle}
-          onHide={this.hideApiProcessModal}/>
+          onHide={this.hideApiProcessModal}
+        />
       </>
     );
   }

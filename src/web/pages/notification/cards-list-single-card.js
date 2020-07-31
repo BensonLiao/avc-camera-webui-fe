@@ -50,7 +50,8 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
             <div className="title text-truncate">
               <CustomTooltip title={card.isTop ? _('Unpin Card') : _('Pin Card')}>
                 <button
-                  disabled={isApiProcessing} type="button"
+                  disabled={isApiProcessing}
+                  type="button"
                   className={classNames('btn btn-star rounded-pill', {'btn-secondary': !card.isTop})}
                   onClick={toggleIsTopHandler(card.id)}
                 >
@@ -128,7 +129,8 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
               }
             </div>
             <button
-              disabled={isApiProcessing} type="button"
+              disabled={isApiProcessing}
+              type="button"
               className="btn btn-secondary rounded-circle btn-delete"
               onClick={deleteCardHandler(card.id)}
             >

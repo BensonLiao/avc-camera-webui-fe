@@ -250,7 +250,8 @@ module.exports = class Maintain extends Base {
             onHide={this.hideModal('reset')}
             onConfirm={() => {
               this.onSubmitDeviceReset(values);
-            }}/>
+            }}
+          />
           <div>
             <button
               className="btn btn-outline-primary rounded-pill px-5"
@@ -337,14 +338,16 @@ module.exports = class Maintain extends Base {
                 backdrop="static"
                 isShowModal={isShowApiProcessModal}
                 modalTitle={apiProcessModalTitle}
-                onHide={this.hideApiProcessModal}/>
+                onHide={this.hideApiProcessModal}
+              />
               <CustomNotifyModal
                 modalType="info"
                 isShowModal={isShowFinishModal}
                 modalTitle={finishModalTitle}
                 modalBody={finishModalBody}
                 onHide={this.hideFinishModal}
-                onConfirm={onConfirm}/>
+                onConfirm={onConfirm}
+              />
 
               <div className="col-center">
                 <div className="card shadow">
@@ -368,7 +371,8 @@ module.exports = class Maintain extends Base {
                       modalBody={_('Are you sure you want to reboot the system?')}
                       isConfirmDisable={$isApiProcessing}
                       onHide={this.hideModal('reboot')}
-                      onConfirm={this.onSubmitDeviceReboot}/>
+                      onConfirm={this.onSubmitDeviceReboot}
+                    />
                     <Formik
                       initialValues={{resetIP: false}}
                       onSubmit={this.onSubmitDeviceReset}

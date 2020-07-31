@@ -61,7 +61,9 @@ module.exports = class Word extends Base {
             <img className="img-fluid" draggable={false} src="/api/snapshot"/>
             {
               values.position !== WordPosition.leftTop && (
-                <button className="btn btn-top-left" type="button"
+                <button
+                  className="btn btn-top-left"
+                  type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.leftTop)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -70,7 +72,9 @@ module.exports = class Word extends Base {
             }
             {
               values.position !== WordPosition.rightTop && (
-                <button className="btn btn-top-right" type="button"
+                <button
+                  className="btn btn-top-right"
+                  type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.rightTop)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -79,7 +83,9 @@ module.exports = class Word extends Base {
             }
             {
               values.position !== WordPosition.leftBottom && (
-                <button className="btn btn-bottom-left" type="button"
+                <button
+                  className="btn btn-bottom-left"
+                  type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.leftBottom)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -88,7 +94,9 @@ module.exports = class Word extends Base {
             }
             {
               values.position !== WordPosition.rightBottom && (
-                <button className="btn btn-bottom-right" type="button"
+                <button
+                  className="btn btn-bottom-right"
+                  type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.rightBottom)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -117,7 +125,9 @@ module.exports = class Word extends Base {
                 <div className="btn-group">
                   {
                     WordFontSize.all().map(size => (
-                      <button key={size} type="button"
+                      <button
+                        key={size}
+                        type="button"
                         className={classNames(
                           'btn triple-wrapper btn-sm outline-success px-2 py-1',
                           {active: values.fontSize === size}
@@ -133,7 +143,8 @@ module.exports = class Word extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('Color')}</label>
                 <div>
-                  <button type="button"
+                  <button
+                    type="button"
                     className={classNames(
                       'btn-black',
                       {active: values.color === WordColor.black}
@@ -143,7 +154,8 @@ module.exports = class Word extends Base {
                     &nbsp;
                   </button>
                   &nbsp;
-                  <button type="button"
+                  <button
+                    type="button"
                     className={classNames(
                       'btn-white',
                       {active: values.color === WordColor.white}

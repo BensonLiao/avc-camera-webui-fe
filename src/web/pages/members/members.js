@@ -16,9 +16,7 @@ const MembersTable = require('./members-table');
 module.exports = class Members extends Base {
   static get propTypes() {
     return {
-      params: PropTypes.shape({
-        group: PropTypes.string
-      }).isRequired,
+      params: PropTypes.shape({group: PropTypes.string}).isRequired,
       groups: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.string.isRequired,
@@ -78,9 +76,7 @@ module.exports = class Members extends Base {
       deleteGroupTarget,
       deleteMemberTarget,
       $isApiProcessing,
-      isShowSelectModal: {
-        [mode]: isShowModal
-      }
+      isShowSelectModal: {[mode]: isShowModal}
     } = this.state;
     const modalType = {
       deleteGroup: {
@@ -105,7 +101,8 @@ module.exports = class Members extends Base {
         modalBody={modalType[mode].modalBody}
         isConfirmDisable={$isApiProcessing}
         onHide={modalType[mode].hideModal}
-        onConfirm={modalType[mode].modalOnSubmit}/>
+        onConfirm={modalType[mode].modalOnSubmit}
+      />
     );
   }
 
@@ -223,7 +220,8 @@ module.exports = class Members extends Base {
                       <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
                     </button>
                     <div className="dropdown-menu dropdown-menu-right shadow">
-                      <Link className="dropdown-item"
+                      <Link
+                        className="dropdown-item"
                         to={{name: 'web.users.members.new-member', params: params}}
                       >
                         {_('Add a New Member')}
@@ -271,7 +269,8 @@ module.exports = class Members extends Base {
                   itemQuantity={members.items.length}
                   hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
                     `${hrefTemplate}&index={index}` :
-                    `${hrefTemplate}?index={index}`}/>
+                    `${hrefTemplate}?index={index}`}
+                />
               </div>
             </div>
             <RouterView/>

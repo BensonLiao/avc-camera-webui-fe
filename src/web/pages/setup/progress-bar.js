@@ -29,8 +29,6 @@ ProgressBar.propTypes = {
   progressBarImagex2: PropTypes.string.isRequired
 };
 
-ProgressBar.defaultProps = {
-  hasPreviousPage: true
-};
+ProgressBar.defaultProps = {hasPreviousPage: true};
 
 export default ProgressBar;

@@ -13,9 +13,7 @@ module.exports = class Users extends Base {
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
-        this.setState({
-          currentRouteName: toState.name
-        });
+        this.setState({currentRouteName: toState.name});
       })
     );
     if (this.state.currentRouteName === 'web.users') {
@@ -38,9 +36,7 @@ module.exports = class Users extends Base {
               to="/users/members"
               title={_('Members')}
               data-toggle="tab"
-              className={classNames('nav-item nav-link', {
-                active: this.state.currentRouteName.indexOf('web.users.members') === 0
-              })}
+              className={classNames('nav-item nav-link', {active: this.state.currentRouteName.indexOf('web.users.members') === 0})}
             >
               {_('Members')}
             </Link>
@@ -48,9 +44,7 @@ module.exports = class Users extends Base {
               to="/users/accounts"
               title={_('Accounts')}
               data-toggle="tab"
-              className={classNames('nav-item nav-link', {
-                active: this.state.currentRouteName.indexOf('web.users.accounts') === 0
-              })}
+              className={classNames('nav-item nav-link', {active: this.state.currentRouteName.indexOf('web.users.accounts') === 0})}
             >
               {_('Accounts')}
             </Link>
@@ -58,9 +52,7 @@ module.exports = class Users extends Base {
               to="/users/events"
               title={_('Events')}
               data-toggle="tab"
-              className={classNames('nav-item nav-link', {
-                active: this.state.currentRouteName === 'web.users.events'
-              })}
+              className={classNames('nav-item nav-link', {active: this.state.currentRouteName === 'web.users.events'})}
             >
               {_('Events')}
             </Link>

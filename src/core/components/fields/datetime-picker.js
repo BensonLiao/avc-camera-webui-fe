@@ -586,7 +586,9 @@ module.exports = class DatePicker extends React.PureComponent {
                 displayMonthDropdownItems.map(date => {
                   const key = utils.formatDate(date, {format: 'YYYYMM'});
                   return (
-                    <a key={key} href={`#${key}`}
+                    <a
+                      key={key}
+                      href={`#${key}`}
                       className="dropdown-item"
                       onClick={this.generateChangeDisplayMonthHandler(date)}
                     >
@@ -598,12 +600,16 @@ module.exports = class DatePicker extends React.PureComponent {
             </div>
           </div>
           <div>
-            <button className="btn btn-link previous-month" type="button"
+            <button
+              className="btn btn-link previous-month"
+              type="button"
               onClick={this.generateChangeDisplayMonthHandler(previousMonthDisplayDate)}
             >
               <i className="fas fa-chevron-left"/>
             </button>
-            <button className="btn btn-link next-month" type="button"
+            <button
+              className="btn btn-link next-month"
+              type="button"
               onClick={this.generateChangeDisplayMonthHandler(nextMonthDisplayDate)}
             >
               <i className="fas fa-chevron-right"/>

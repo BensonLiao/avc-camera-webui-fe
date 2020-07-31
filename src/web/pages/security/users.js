@@ -79,7 +79,9 @@ module.exports = class Users extends Base {
         <div className="left-menu fixed-top sub">
           <h2>{_('Accounts')}</h2>
           <nav className="nav flex-column">
-            <Link to="/users/accounts" title={_('All Accounts')}
+            <Link
+              to="/users/accounts"
+              title={_('All Accounts')}
               className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
                 {active: permissionFilter === 'all'},
                 {'bg-light': permissionFilter === 'all'}
@@ -165,7 +167,7 @@ module.exports = class Users extends Base {
                                 <Link className="btn btn-link" to={{name: 'web.users.accounts.details', params: {...this.props.params, userId: user.id}}}>
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
-                                { !isSuperAdmin &&
+                                { !isSuperAdmin && (
                                   <CustomTooltip
                                     show={user.account === account}
                                     title={_('Cannot Delete Account That is Currently Logged In')}
@@ -181,7 +183,8 @@ module.exports = class Users extends Base {
                                         <i className="far fa-trash-alt fa-lg fa-fw"/>
                                       </button>
                                     </span>
-                                  </CustomTooltip>}
+                                  </CustomTooltip>
+                                )}
                               </td>
                             </tr>
                           );
@@ -202,7 +205,8 @@ module.exports = class Users extends Base {
             modalBody={_('Are you sure to delete account {0}?', [deleteUserTarget && deleteUserTarget.account])}
             isConfirmDisable={$isApiProcessing}
             onHide={this.hideDeleteUserModal}
-            onConfirm={this.confirmDeleteUser}/>
+            onConfirm={this.confirmDeleteUser}
+          />
         </div>
       </>
     );

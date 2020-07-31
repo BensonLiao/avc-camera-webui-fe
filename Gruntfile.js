@@ -39,9 +39,7 @@ module.exports = grunt => {
 
   grunt.config.init({
     config: gruntConfig,
-    clean: {
-      dist: ['dist']
-    },
+    clean: {dist: ['dist']},
     ect: {
       express: {
         options: {

@@ -97,10 +97,14 @@ module.exports = class Group extends Base {
         <div className="modal-body">
           <div className="form-group">
             <label>{_('Name')}</label>
-            <Field name="name" type="text" placeholder={_('Enter Your Group Name')}
+            <Field
+              name="name"
+              type="text"
+              placeholder={_('Enter Your Group Name')}
               maxLength={GroupSchema.name.max}
               validate={this.checkDuplicate}
-              className={classNames('form-control', {'is-invalid': errors.name && touched.name})}/>
+              className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
+            />
             {
               errors.name && touched.name && (
                 <div className="invalid-feedback">{errors.name}</div>
@@ -110,9 +114,13 @@ module.exports = class Group extends Base {
           </div>
           <div className="form-group">
             <label>{_('Note')}</label>
-            <Field name="note" type="text" placeholder={_('Enter Your Note')}
+            <Field
+              name="note"
+              type="text"
+              placeholder={_('Enter Your Note')}
               maxLength={GroupSchema.note.max}
-              className={classNames('form-control', {'is-invalid': errors.note && touched.note})}/>
+              className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
+            />
             {
               errors.note && touched.note && (
                 <div className="invalid-feedback">{errors.note}</div>
@@ -122,14 +130,19 @@ module.exports = class Group extends Base {
         </div>
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
-            <button disabled={this.state.$isApiProcessing || isAddGroupDisabled} type="submit"
+            <button
+              disabled={this.state.$isApiProcessing || isAddGroupDisabled}
+              type="submit"
               className="btn btn-primary btn-block rounded-pill"
             >
               {group ? _('Confirm') : _('Create')}
             </button>
           </div>
-          <button disabled={this.state.$isApiProcessing} type="button"
-            className="btn btn-info btn-block m-0 rounded-pill" onClick={this.hideModal}
+          <button
+            disabled={this.state.$isApiProcessing}
+            type="button"
+            className="btn btn-info btn-block m-0 rounded-pill"
+            onClick={this.hideModal}
           >
             {_('Close')}
           </button>
