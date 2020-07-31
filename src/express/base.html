@@ -20,11 +20,9 @@
     window.user = JSON.parse(base64DecodeUnicode('{{ archive user }}'));
     window.currentLanguageCode = '{{ languageCode }}';
     window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));
+    window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ archive skuID }}')) === 'NoBrand';
     window.error = JSON.parse(base64DecodeUnicode('{{ archive error }}'));
     var isDebug = '{{ isDebug }}';
-    if (isDebug !== 'y'){
-      window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ archive skuID }}')) === 'NoBrand';
-    }
     // Append css resource
     var cssRefreshId = Math.random().toString(36).substr(2);
     var cssLinkElement = document.createElement("link");
