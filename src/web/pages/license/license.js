@@ -109,6 +109,7 @@ module.exports = class License extends Base {
               className={classNames('form-control', {'is-invalid': errors.authKey && isSubmitted})}
               name="authKey"
               type="text"
+              maxLength={24}
               placeholder={_('Enter your authentication key')}
               style={{width: '312px'}}
             />
