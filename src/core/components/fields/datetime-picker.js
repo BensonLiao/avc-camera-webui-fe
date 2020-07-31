@@ -318,25 +318,11 @@ module.exports = class DatePicker extends React.PureComponent {
       )
         .then(() => {
           if (dateTabText && isHourDisabled) {
-            const hourScrollPos = $(this.clockData.hoursRef.current).scrollTop();
+            const meridiemScrollPos = $(this.clockData.meridiemItemsRef.current).scrollTop();
             this.scrollTopAnimatePromise(
-              this.clockData.hoursRef.current,
-              hourScrollPos + (hourScrollPos === 0 ? 1 : -1)
-            )
-              .then(() => {
-                const minuteScrollPos = $(this.clockData.minutesRef.current).scrollTop();
-                return this.scrollTopAnimatePromise(
-                  this.clockData.minutesRef.current,
-                  minuteScrollPos + (minuteScrollPos === 0 ? 1 : -1)
-                );
-              })
-              .then(() => {
-                const meridiemScrollPos = $(this.clockData.meridiemItemsRef.current).scrollTop();
-                this.scrollTopAnimatePromise(
-                  this.clockData.meridiemItemsRef.current,
-                  meridiemScrollPos + (meridiemScrollPos === 0 ? 1 : -1)
-                );
-              });
+              this.clockData.meridiemItemsRef.current,
+              meridiemScrollPos + (meridiemScrollPos === 0 ? 1 : -1)
+            );
           }
         });
 
