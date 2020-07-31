@@ -165,14 +165,27 @@ module.exports = class EventsTable extends React.PureComponent {
                       <div style={{width: 56, height: 56}}>
                         <div className="rounded-circle overflow-hidden" style={{margin: 0, padding: '0 0 100%', position: 'relative'}}>
                           <div style={{
-                            background: '50%', backgroundSize: 'cover', width: '100%', height: '100%', position: 'absolute', left: 0, top: 0, backgroundImage: `url('${event.pictureThumbUrl}')`
+                            background: '50%',
+                            backgroundSize: 'cover',
+                            width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            backgroundImage: `url('${event.pictureThumbUrl}')`
                           }}
                           />
                         </div>
                       </div>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      {ifExists ? <img className="rounded-circle" src={`data:image/jpeg;base64,${item.member.pictures[0]}`} style={{height: '56px'}}/> : '-'}
+                      {ifExists ? (
+                        <img
+                          className="rounded-circle"
+                          src={`data:image/jpeg;base64,${item.member.pictures[0]}`}
+                          style={{height: '56px'}}
+                        />
+                      ) : '-'}
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                       <CustomTooltip placement="top-start" title={ifExists ? item.member.name : ''}>
@@ -218,7 +231,11 @@ module.exports = class EventsTable extends React.PureComponent {
                     </td>
                     <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
                       <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
-                        <button className="btn btn-link" type="button" onClick={isEnrolled ? modifyMemberHandler(item.member) : modifyMemberHandler(null, event.pictureThumbUrl)}>
+                        <button
+                          className="btn btn-link"
+                          type="button"
+                          onClick={isEnrolled ? modifyMemberHandler(item.member) : modifyMemberHandler(null, event.pictureThumbUrl)}
+                        >
                           <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
                         </button>
                       </CustomTooltip>

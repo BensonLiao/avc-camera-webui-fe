@@ -233,7 +233,13 @@ module.exports = class Upgrade extends Base {
           </small>
           <div>
             <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
-              <input disabled={isShowApiProcessModal || $isApiProcessing} type="file" className="d-none" accept=".zip" onChange={this.onChangeFile}/>{_('Select File')}
+              <input
+                disabled={isShowApiProcessModal || $isApiProcessing}
+                type="file"
+                className="d-none"
+                accept=".zip"
+                onChange={this.onChangeFile}
+              />{_('Select File')}
             </label>
             {
               file ?

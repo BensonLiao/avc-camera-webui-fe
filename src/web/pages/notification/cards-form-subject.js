@@ -119,7 +119,12 @@ module.exports = class CardsFormSubject extends React.PureComponent {
          <div className="form-group">
            <div className="card">
              <div className="card-body">
-               <SelectField hide={values.type === NotificationCardType.digitalInput} labelName={_('Email Attachment')} labelClassName="text-size-16 mb-3" name="emailAttachmentType">
+               <SelectField
+                 hide={values.type === NotificationCardType.digitalInput}
+                 labelName={_('Email Attachment')}
+                 labelClassName="text-size-16 mb-3"
+                 name="emailAttachmentType"
+               >
                  {NotificationEmailAttachmentType.all().map(attachmentType => (
                    !(values.type === NotificationCardType.motionDetection && attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
                      <option
@@ -203,7 +208,10 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                  values.emails.map((email, index) => {
                    const key = `${index}${email}`;
                    return (
-                     <div key={key} className="border border-primary rounded-pill text-primary d-flex justify-content-between align-items-center filter-item mb-3">
+                     <div
+                       key={key}
+                       className="border border-primary rounded-pill text-primary d-flex justify-content-between align-items-center filter-item mb-3"
+                     >
                        <div>{email}</div>
                        <a href="#" onClick={this.generateDeleteEmailHandler(index)}>
                          <i className="fas fa-times-circle fa-lg"/>

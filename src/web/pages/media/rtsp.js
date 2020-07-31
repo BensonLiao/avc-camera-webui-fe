@@ -65,7 +65,13 @@ module.exports = class RTSP extends Base {
         <div className="form-group d-flex justify-content-between align-items-center">
           <label className="mb-0">{_('Enable Audio over RTSP')}</label>
           <div className="custom-control custom-switch">
-            <Field name="isEnableAudioToStream" checked={values.isEnableAudioToStream} type="checkbox" className="custom-control-input" id="switch-voice-to-stream"/>
+            <Field
+              name="isEnableAudioToStream"
+              checked={values.isEnableAudioToStream}
+              type="checkbox"
+              className="custom-control-input"
+              id="switch-voice-to-stream"
+            />
             <label className="custom-control-label" htmlFor="switch-voice-to-stream">
               <span>{_('ON')}</span>
               <span>{_('OFF')}</span>

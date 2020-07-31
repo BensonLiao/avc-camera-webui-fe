@@ -103,7 +103,11 @@ module.exports = class Users extends Base {
                 {'bg-light': permissionFilter === UserPermission.root}
               )}
             >
-              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.root}`} onClick={this.generateChangePermissionFilterHandler(UserPermission.root)}>
+              <a
+                className="w-100 text-truncate d-flex align-items-center"
+                href={`#${UserPermission.root}`}
+                onClick={this.generateChangePermissionFilterHandler(UserPermission.root)}
+              >
                 <img src={iconUserShield}/>
                 <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.root}`)}</span>
               </a>
@@ -115,7 +119,11 @@ module.exports = class Users extends Base {
                 {'bg-light': permissionFilter === UserPermission.guest}
               )}
             >
-              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.guest}`} onClick={this.generateChangePermissionFilterHandler(UserPermission.guest)}>
+              <a
+                className="w-100 text-truncate d-flex align-items-center"
+                href={`#${UserPermission.guest}`}
+                onClick={this.generateChangePermissionFilterHandler(UserPermission.guest)}
+              >
                 <img src={iconUser}/>
                 <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.guest}`)}</span>
               </a>
@@ -158,13 +166,21 @@ module.exports = class Users extends Base {
                           return (
                             <tr key={user.id}>
                               <td className={tdClass}>
-                                <span className={classNames('badge badge-pill text-size-16 px-3', (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest')}>
+                                <span
+                                  className={classNames(
+                                    'badge badge-pill text-size-16 px-3',
+                                    (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest'
+                                  )}
+                                >
                                   {_(`permission-${user.permission}`)}
                                 </span>
                               </td>
                               <td className={tdClass}>{user.account}</td>
                               <td className={classNames('text-left group-btn', tdClass)}>
-                                <Link className="btn btn-link" to={{name: 'web.users.accounts.details', params: {...this.props.params, userId: user.id}}}>
+                                <Link
+                                  className="btn btn-link"
+                                  to={{name: 'web.users.accounts.details', params: {...this.props.params, userId: user.id}}}
+                                >
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
                                 { !isSuperAdmin && (

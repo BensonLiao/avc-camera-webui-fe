@@ -1,4 +1,3 @@
-/* eslint-disable capitalized-comments */
 const {Router} = require('capybara-router');
 const history = require('history');
 const _ = require('../languages');

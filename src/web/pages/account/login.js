@@ -110,7 +110,11 @@ module.exports = class Login extends Base {
               )
             }
           </div>
-          <button disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+          <button
+            disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)}
+            type="submit"
+            className="btn btn-primary btn-block rounded-pill mt-5"
+          >
             {_('Login')}
           </button>
         </div>

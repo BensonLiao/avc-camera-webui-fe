@@ -266,7 +266,10 @@ module.exports = class SDCard extends Base {
                           {usedDiskPercentage && (
                             <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
 
-                              <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
+                              <div
+                                className="progress-bar"
+                                style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}
+                              >
                                 {freeDiskPercentage > 4 ? `${freeDiskPercentage}%` : ''}
                               </div>
                             </CustomTooltip>

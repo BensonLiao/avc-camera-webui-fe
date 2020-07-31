@@ -125,8 +125,17 @@ module.exports = class StreamSetting extends Base {
                   )
                 }
               />
-              <input readOnly type="text" className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
-              <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
+              <input
+                readOnly
+                type="text"
+                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})}
+                placeholder="Auto"
+              />
+              <Field
+                type="text"
+                name={`${fieldNamePrefix}.bitRate`}
+                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}
+              />
               <div className="input-group-append">
                 <span className="input-group-text">Kbps</span>
               </div>
@@ -207,7 +216,10 @@ module.exports = class StreamSetting extends Base {
         let min;
         let max;
         if (values.channelB.codec === StreamCodec.mjpeg) {
-          if (Number(values.channelB.resolution) === Number(StreamResolution['2']) || Number(values.channelB.resolution) === Number(StreamResolution['7'])) {
+          if (
+            Number(values.channelB.resolution) === Number(StreamResolution['2']) ||
+            Number(values.channelB.resolution) === Number(StreamResolution['7'])
+          ) {
             min = 5;
             max = 10;
           } else {

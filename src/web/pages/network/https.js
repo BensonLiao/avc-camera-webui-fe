@@ -115,7 +115,11 @@ module.exports = class HTTPS extends Base {
         <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={_('Please Enable HTTPS')}>
           <div>
             <button
-              disabled={$isApiProcessing || !utils.isObjectEmpty(errors) || ((httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false)}
+              disabled={
+                $isApiProcessing ||
+                !utils.isObjectEmpty(errors) ||
+                ((httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false)
+              }
               className="btn btn-primary btn-block rounded-pill"
               type="submit"
               style={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false ? {pointerEvents: 'none'} : {}}

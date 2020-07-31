@@ -136,7 +136,13 @@ module.exports = class FaceRecognition extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
-                  <Field name="isEnable" type="checkbox" checked={values.isEnable} className="custom-control-input" id="switch-face-recognition"/>
+                  <Field
+                    name="isEnable"
+                    type="checkbox"
+                    checked={values.isEnable}
+                    className="custom-control-input"
+                    id="switch-face-recognition"
+                  />
                   <label className="custom-control-label" htmlFor="switch-face-recognition">
                     <span>{_('ON')}</span>
                     <span>{_('OFF')}</span>
@@ -150,7 +156,10 @@ module.exports = class FaceRecognition extends Base {
                     <button
                       key={confidenceLevel}
                       type="button"
-                      className={classNames('btn triple-wrapper btn-sm outline-success px-2 py-1', {active: values.confidenceLevel === confidenceLevel})}
+                      className={classNames(
+                        'btn triple-wrapper btn-sm outline-success px-2 py-1',
+                        {active: values.confidenceLevel === confidenceLevel}
+                      )}
                       onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
                     >
                       {_(`confidence-level-${confidenceLevel}`)}
@@ -186,7 +195,13 @@ module.exports = class FaceRecognition extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('Facial Detection Size')}</label>
                 <div className="custom-control custom-switch">
-                  <Field name="isEnableFaceFrame" type="checkbox" checked={values.isEnableFaceFrame} className="custom-control-input" id="switch-face-size"/>
+                  <Field
+                    name="isEnableFaceFrame"
+                    type="checkbox"
+                    checked={values.isEnableFaceFrame}
+                    className="custom-control-input"
+                    id="switch-face-size"
+                  />
                   <label className="custom-control-label" htmlFor="switch-face-size">
                     <span>{_('ON')}</span>
                     <span>{_('OFF')}</span>
@@ -198,15 +213,33 @@ module.exports = class FaceRecognition extends Base {
 
               <div className="form-group">
                 <div className="form-check mb-3">
-                  <Field name="isShowMember" checked={values.isShowMember} className="form-check-input" type="checkbox" id="input-show-all"/>
+                  <Field
+                    name="isShowMember"
+                    checked={values.isShowMember}
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input-show-all"
+                  />
                   <label className="form-check-label" htmlFor="input-show-all">{_('Display Name')}</label>
                 </div>
                 <div className="form-check mb-3">
-                  <Field name="isShowGroup" checked={values.isShowGroup} className="form-check-input" type="checkbox" id="input-show-register-group"/>
+                  <Field
+                    name="isShowGroup"
+                    checked={values.isShowGroup}
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input-show-register-group"
+                  />
                   <label className="form-check-label" htmlFor="input-show-register-group">{_('Display Group')}</label>
                 </div>
                 <div className="form-check">
-                  <Field name="isShowUnknown" checked={values.isShowUnknown} className="form-check-input" type="checkbox" id="input-show-unknown-personal"/>
+                  <Field
+                    name="isShowUnknown"
+                    checked={values.isShowUnknown}
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input-show-unknown-personal"
+                  />
                   <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Display "Unknown"')}</label>
                 </div>
               </div>

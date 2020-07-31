@@ -264,7 +264,13 @@ constructor(props) {
               <div className="col-12 my-1 d-flex justify-content-between align-items-center">
                 <span className="text-size-20">{_('WDR')}</span>
                 <div className="custom-control custom-switch d-inline-block ml-2">
-                  <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled === 'true' ? true : undefined} className="custom-control-input" id="switch-hdr-enabled"/>
+                  <Field
+                    name="hdrEnabled"
+                    type="checkbox"
+                    checked={values.hdrEnabled === 'true' ? true : undefined}
+                    className="custom-control-input"
+                    id="switch-hdr-enabled"
+                  />
                   <label className="custom-control-label" htmlFor="switch-hdr-enabled">
                     <span>{_('ON')}</span>
                     <span>{_('OFF')}</span>
@@ -390,12 +396,22 @@ constructor(props) {
                 <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
                   <div>
                     <CustomTooltip title="-5">
-                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -5)}>
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, -5)}
+                      >
                         <i type="button" className="fa fa-angle-double-left text-size-16"/>
                       </button>
                     </CustomTooltip>
                     <CustomTooltip title="-1">
-                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -1)}>
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, -1)}
+                      >
                         <i className="fas fa-minus text-size-16"/>
                       </button>
                     </CustomTooltip>
@@ -415,12 +431,22 @@ constructor(props) {
 
                   <div>
                     <CustomTooltip title="+1">
-                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 1)}>
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, 1)}
+                      >
                         <i className="fas fa-plus text-size-16"/>
                       </button>
                     </CustomTooltip>
                     <CustomTooltip title="+5">
-                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 5)}>
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, 5)}
+                      >
                         <i className="fa fa-angle-double-right text-size-16"/>
                       </button>
                     </CustomTooltip>

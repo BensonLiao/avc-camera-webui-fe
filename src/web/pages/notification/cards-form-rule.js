@@ -26,7 +26,13 @@ module.exports = class CardsFormRule extends React.PureComponent {
         <div className="form-group d-flex justify-content-between align-items-center">
           <label className="mb-0">{_('Recognition')}</label>
           <div className="custom-control custom-switch">
-            <Field name="isEnableFaceRecognition" checked={isEnableFaceRecognition} type="checkbox" className="custom-control-input" id="switch-notification-face-recognition"/>
+            <Field
+              name="isEnableFaceRecognition"
+              checked={isEnableFaceRecognition}
+              type="checkbox"
+              className="custom-control-input"
+              id="switch-notification-face-recognition"
+            />
             <label className="custom-control-label" htmlFor="switch-notification-face-recognition">
               <span>{_('ON')}</span>
               <span>{_('OFF')}</span>
@@ -37,7 +43,13 @@ module.exports = class CardsFormRule extends React.PureComponent {
           {
             NotificationFaceRecognitionCondition.all().map(condition => (
               <div key={condition} className="form-check mb-3">
-                <Field name="faceRecognitionCondition" className="form-check-input" type="radio" id={`input-notification-face-recognition-${condition}`} value={condition}/>
+                <Field
+                  name="faceRecognitionCondition"
+                  className="form-check-input"
+                  type="radio"
+                  id={`input-notification-face-recognition-${condition}`}
+                  value={condition}
+                />
                 <label className="form-check-label" htmlFor={`input-notification-face-recognition-${condition}`}>
                   {_(`face-recognition-condition-${condition}`)}
                 </label>

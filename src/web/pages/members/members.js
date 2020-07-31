@@ -241,7 +241,18 @@ module.exports = class Members extends Base {
                       {
                         selectedGroup.note.length > 0 && (
                           <CustomTooltip title={selectedGroup.note}>
-                            <div className="text-size-14 text-muted ml-2" style={{display: 'inline-block', lineHeight: 'initial', wordWrap: 'break-word', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '50%'}}>
+                            <div
+                              className="text-size-14 text-muted ml-2"
+                              style={{
+                                display: 'inline-block',
+                                lineHeight: 'initial',
+                                wordWrap: 'break-word',
+                                textOverflow: 'ellipsis',
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                maxWidth: '50%'
+                              }}
+                            >
                               {selectedGroup.note}
                             </div>
                           </CustomTooltip>

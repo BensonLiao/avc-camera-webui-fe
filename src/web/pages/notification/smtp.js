@@ -213,7 +213,13 @@ module.exports = class SMTP extends Base {
               </CustomTooltip>
             </div>
             <div className="custom-control custom-switch">
-              <Field name="isEnableAuth" checked={values.isEnableAuth} type="checkbox" className="custom-control-input" id="switch-auth"/>
+              <Field
+                name="isEnableAuth"
+                checked={values.isEnableAuth}
+                type="checkbox"
+                className="custom-control-input"
+                id="switch-auth"
+              />
               <label className="custom-control-label" htmlFor="switch-auth">
                 <span>{_('ON')}</span>
                 <span>{_('OFF')}</span>
@@ -223,7 +229,13 @@ module.exports = class SMTP extends Base {
           <div className="form-group d-flex justify-content-between align-items-center">
             <label>{_('Login Notification')}</label>
             <div className="custom-control custom-switch">
-              <Field name="isEnableLoginNotification" checked={values.isEnableLoginNotification} type="checkbox" className="custom-control-input" id="switch-login-notification"/>
+              <Field
+                name="isEnableLoginNotification"
+                checked={values.isEnableLoginNotification}
+                type="checkbox"
+                className="custom-control-input"
+                id="switch-login-notification"
+              />
               <label className="custom-control-label" htmlFor="switch-login-notification">
                 <span>{_('ON')}</span>
                 <span>{_('OFF')}</span>

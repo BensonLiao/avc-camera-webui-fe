@@ -270,7 +270,10 @@ module.exports = class Home extends Base {
                       src={streamImageUrl || defaultVideoBackground}
                       onClick={e => utils.onTogglePlayStream(e, this)}
                     />
-                    <div className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})} onClick={e => utils.onTogglePlayStream(e, this)}>
+                    <div
+                      className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})}
+                      onClick={e => utils.onTogglePlayStream(e, this)}
+                    >
                       <button className="btn-play" type="button">
                         <i className="fas fa-play fa-fw"/>
                       </button>
@@ -369,7 +372,10 @@ module.exports = class Home extends Base {
                                       {usedDiskPercentage && (
                                         <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
 
-                                          <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
+                                          <div
+                                            className="progress-bar"
+                                            style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}
+                                          >
                                             {freeDiskPercentage > 8 ? `${freeDiskPercentage}%` : ''}
                                           </div>
                                         </CustomTooltip>

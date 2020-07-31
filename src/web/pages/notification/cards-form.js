@@ -186,9 +186,13 @@ module.exports = class CardsForm extends React.PureComponent {
                   <div className="select-wrapper border rounded-pill overflow-hidden">
                     <Field name="type" component="select" className="form-control border-0">
                       {
-                        NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3' || faceRecognition === '5')).map(faceRecognition => {
-                          return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
-                        })
+                        NotificationCardType.all().filter(faceRecognition => (
+                          faceRecognition === '0' || faceRecognition === '3' || faceRecognition === '5'
+                        )).map(
+                          faceRecognition => {
+                            return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
+                          }
+                        )
                       }
                     </Field>
                   </div>
