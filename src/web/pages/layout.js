@@ -238,7 +238,7 @@ module.exports = class Layout extends Base {
 
         <nav className="navbar navbar-expand fixed-top">
           <Link className="navbar-brand py-0 mx-0" to="/">
-            <img src={logo} className="logo"/>
+            {!window.isNoBrand && <img src={logo} className="logo"/>}
           </Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation">
             <span className="navbar-toggler-icon"/>

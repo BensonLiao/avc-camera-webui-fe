@@ -34,7 +34,8 @@ module.exports = class SetupLanguage extends Base {
     return (
       <div className="page-setup-language bg-secondary">
         <div className="navbar primary">
-          <img src={logo}/>
+          { !window.isNoBrand &&
+          <img src={logo}/>}
         </div>
         <div className="container-fluid">
           <div className="row justify-content-center">
