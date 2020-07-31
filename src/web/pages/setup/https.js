@@ -241,7 +241,8 @@ module.exports = class SetupHTTPS extends Base {
     return (
       <div className="page-setup-https bg-secondary">
         <div className="navbar primary">
-          <img src={logo}/>
+          { !window.isNoBrand &&
+          <img src={logo}/>}
         </div>
         <div className="container-fluid">
           <div className="row justify-content-center">

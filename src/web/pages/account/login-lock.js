@@ -1,6 +1,7 @@
 const leftPad = require('left-pad');
 const React = require('react');
 const {Link} = require('capybara-router');
+const classNames = require('classnames');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 const _ = require('../../../languages');
@@ -56,14 +57,16 @@ module.exports = class LoginLock extends Base {
     return (
       <div className="page-login-lock bg-secondary">
         <div className="navbar primary">
-          <img src={logo}/>
+          { !window.isNoBrand &&
+          <img src={logo}/>}
         </div>
         <div className="container-fluid">
           <div className="row justify-content-center">
+            { !window.isNoBrand &&
             <div className="col-12 bg-white logo">
               <img src={logoWithTitle}/>
-            </div>
-            <div className="col-center">
+            </div>}
+            <div className={classNames('col-center', {'mt-5': window.isNoBrand})}>
               <div className="card shadow mb-5">
                 <div className="card-body text-dark text-center">
                   <Once>

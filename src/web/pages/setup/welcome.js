@@ -11,7 +11,8 @@ module.exports = class Welcome extends Base {
     return (
       <div className="page-welcome bg-secondary">
         <div className="navbar primary">
-          <img src={logo}/>
+          { !window.isNoBrand &&
+          <img src={logo}/>}
         </div>
         <Once>
           <div className="container-fluid">

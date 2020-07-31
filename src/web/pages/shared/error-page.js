@@ -37,7 +37,8 @@ module.exports = class ErrorPage extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12 justify-content-center text-center mt-5">
-              <img src={this.state.status === 404 ? imageCode404 : imageCode500}/>
+              { !window.isNoBrand &&
+              <img src={this.state.status === 404 ? imageCode404 : imageCode500}/>}
               <div className="message-container mt-5">
                 <h2 className="message-status mb-0">{this.state.status}</h2>
                 <h3 className="message-title">{messageTitle}</h3>
