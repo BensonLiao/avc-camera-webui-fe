@@ -10,6 +10,7 @@ const LicenseStatus = require('./license-status');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
+const AuthKeySchema = require('webserver-form-schema/auth-key-schema');
 const iconFaceRecognitionEnable = require('../../../resource/face-recognition-enable-100px.svg');
 const iconFaceRecognitionDisable = require('../../../resource/face-recognition-disable-100px.svg');
 const iconAgeGenderEnable = require('../../../resource/age-gender-enable-100px.svg');
@@ -109,14 +110,10 @@ module.exports = class License extends Base {
               className={classNames('form-control', {'is-invalid': errors.authKey && isSubmitted})}
               name="authKey"
               type="text"
+              maxLength={AuthKeySchema.authKey.max}
               placeholder={_('Enter your authentication key')}
               style={{width: '312px'}}
             />
-            {
-              errors.authKey && touched.authKey && (
-                <div className="invalid-feedback">{errors.authKey}</div>
-              )
-            }
           </div>
           <div className="col-auto my-1">
             <button
@@ -126,6 +123,15 @@ module.exports = class License extends Base {
             >
               {_('Activate')}
             </button>
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="col-auto">
+            {
+              errors.authKey && touched.authKey && isSubmitted && (
+                <div className="invalid-feedback d-block mt-0">{errors.authKey}</div>
+              )
+            }
           </div>
         </div>
       </Form>
