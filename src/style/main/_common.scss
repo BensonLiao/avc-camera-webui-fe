@@ -1,24 +1,28 @@
 @import "../main/variables";
+
 /* OS X 黑體 */
 @font-face {
   font-family: CustomSTHeitiTC;
   src: local("STHeitiTC-Light");
 }
+
 /* Latin characters */
 @font-face {
   font-family: CustomSTHeitiTC;
   unicode-range: U+00-024F;
-  src: local(Roboto);
+  src: local(roboto);
 }
+
 @font-face {
   font-family: CustomSTHeitiSC;
   src: local("STHeitiSC-Light");
 }
+
 /* Latin characters */
 @font-face {
   font-family: CustomSTHeitiSC;
   unicode-range: U+00-024F;
-  src: local(Roboto);
+  src: local(roboto);
 }
 
 /* Windows 正黑體 */
@@ -26,11 +30,12 @@
   font-family: CustomJhengHei;
   src: local("Microsoft JhengHei");
 }
+
 /* Latin characters */
 @font-face {
   font-family: CustomJhengHei;
   unicode-range: U+00-024F;
-  src: local(Roboto);
+  src: local(roboto);
 }
 
 @mixin text-outline-dark {
@@ -60,6 +65,7 @@ body {
   width: 480px;
   min-width: 472px;
 }
+
 .col-center {
   margin: 0 auto;
   width: 720px;
@@ -68,6 +74,7 @@ body {
 .pr-24 {
   padding-right: 24px;
 }
+
 .pl-24 {
   padding-left: 24px;
 }
@@ -80,18 +87,23 @@ body {
 .text-gray-700 {
   color: $gray-700; // #495057
 }
+
 .text-size-12 {
   font-size: 12px !important;
 }
+
 .text-size-14 {
   font-size: 14px !important;
 }
+
 .text-size-16 {
   font-size: 16px !important;
 }
+
 .text-size-20 {
   font-size: 20px !important;
 }
+
 .text-size-24 {
   font-size: 24px !important;
 }
@@ -103,25 +115,28 @@ body {
 .main-content {
   padding-top: $top-navigation-height;
   padding-left: $left-navigation-width;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   min-height: 100vh;
   overflow: auto;
+
   &.left-menu-active {
     padding-left: $left-navigation-width + $left-sub-navigation-width;
   }
+
   &.sub {
     padding-top: $top-navigation-height + $top-sub-navigation-height;
   }
 }
 
 .bg-gray {
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 
 .select-wrapper {
-  border-color: #CED4DA;
+  border-color: #ced4da;
   cursor: pointer;
   padding: 0 8px;
+
   select {
     cursor: pointer;
     min-width: 160px;
@@ -131,6 +146,7 @@ body {
   // Overwrite for firefox.
   @-moz-document url-prefix() {
     padding: 0 13px 0 0;
+
     select {
       -moz-appearance: none;
       background-image: url("../resource/select-icon.svg");
@@ -142,12 +158,15 @@ body {
   &.select-readonly {
     pointer-events: none;
     background-color: $disable;
+
     select {
       /* for Firefox */
       -moz-appearance: none;
+
       /* for Chrome */
       -webkit-appearance: none;
     }
+
     /* For IE10 */
     select::-ms-expand {
       display: none;
@@ -156,28 +175,35 @@ body {
 }
 
 .btn {
-  &.chips, .chips-outline {
+  &.chips,
+  .chips-outline {
     border-color: $primary;
   }
+
   &.chips {
     background-color: $primary;
     color: #fff;
+
     &:hover {
       background-color: #fff;
       color: $primary;
     }
+
     &.active {
       background-color: #fff;
       color: $primary;
     }
   }
+
   &.chips-outline {
     background-color: #fff;
     color: $primary;
+
     &:hover {
       background-color: $secondary-500;
       color: #fff;
     }
+
     &.active {
       background-color: $primary;
       color: #fff;
@@ -187,9 +213,11 @@ body {
 
 .has-feedback {
   position: relative;
+
   .form-control {
     padding-right: 40px;
   }
+
   .form-control + .form-control-feedback {
     position: absolute;
     right: 15px;
@@ -199,6 +227,7 @@ body {
 
 .video-wrapper {
   position: relative;
+
   .cover {
     background-color: rgba(0, 0, 0, 0.4);
     position: absolute;
@@ -207,6 +236,7 @@ body {
     top: 0;
     left: 0;
     transition: 0.3s;
+
     .btn-play {
       background-color: rgba(255, 255, 255, 0.5);
       padding: 0 0 0 10px;
@@ -217,14 +247,17 @@ body {
       height: 140px;
       transition: 0.3s;
     }
+
     &.pause {
       visibility: hidden;
       opacity: 0;
-      .btn-play{
+
+      .btn-play {
         transform: scale(2);
       }
     }
   }
+
   .controls {
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
@@ -232,6 +265,7 @@ body {
     height: 48px;
     bottom: 0;
     padding: 0 16px;
+
     .btn-action {
       color: #fff;
       background-color: transparent;
@@ -246,31 +280,44 @@ body {
       .bounding-primary > .draggable-cover {
         z-index: 3 !important;
       }
+
       .bounding-primary > {
-        .left-top-point, .left-bottom-point, .right-top-point, .right-bottom-point {
+        .left-top-point,
+        .left-bottom-point,
+        .right-top-point,
+        .right-bottom-point {
           z-index: 4;
         }
       }
+
       .draggable-bg {
         border: 2px black solid !important;
-        box-shadow: 
+        box-shadow:
           inset 0 0 0 3px white,
           inset 0 0 0 5px black;
         transition: 0.2s box-shadow;
       }
-      .left-top-point, .left-bottom-point, .right-top-point, .right-bottom-point {
+
+      .left-top-point,
+      .left-bottom-point,
+      .right-top-point,
+      .right-bottom-point {
         opacity: 1;
       }
     }
+
     .bounding-black {
       @include text-outline-dark;
+
       .draggable-bg {
         border: 2px $secondary-300 solid;
         background-color: rgba($secondary-700, 0.5);
       }
     }
+
     .bounding-primary {
       @include text-outline-dark;
+
       .draggable-bg {
         border: 2px $primary solid;
         background-color: rgba($primary, 0.5);
@@ -297,7 +344,11 @@ body {
         color: #fff;
       }
     }
-    .left-top-point, .left-bottom-point, .right-top-point, .right-bottom-point {
+
+    .left-top-point,
+    .left-bottom-point,
+    .right-top-point,
+    .right-bottom-point {
       position: absolute;
       width: 10px;
       height: 10px;
@@ -305,51 +356,64 @@ body {
       opacity: 0;
       border: 1px black solid;
       z-index: 1;
+
       &.react-draggable-dragging {
-        box-shadow: 0 0px 16px 2px gray;
+        box-shadow: 0 0 16px 2px gray;
         background-color: red !important;
         opacity: 1;
       }
     }
+
     .left-top-point {
       cursor: nwse-resize;
     }
+
     .left-bottom-point {
       cursor: nesw-resize;
     }
+
     .right-top-point {
       cursor: nesw-resize;
     }
+
     .right-bottom-point {
       cursor: nwse-resize;
     }
   }
 }
 
-.datepicker-wrapper, .datepicker-group {
+.datepicker-wrapper,
+.datepicker-group {
   > .btn {
     position: relative;
     border: none;
     height: 40px;
     background-color: #f2f2f2;
     transition: background-color 0.25s linear;
+
     &.triple-wrapper {
       border: 1px solid $secondary;
     }
+
     &.date {
       border-radius: 50rem;
       margin-left: 15px;
       margin-right: 15px;
-      &.active, &:hover {
-        background-color: #E5F5FF;
+
+      &.active,
+      &:hover {
+        background-color: #e5f5ff;
+
         &::before {
-          border-color: #E5F5FF #E5F5FF #E5F5FF transparent;
+          border-color: #e5f5ff #e5f5ff #e5f5ff transparent;
         }
       }
     }
+
     &.start-date {
       border-top-left-radius: 50rem;
       border-bottom-left-radius: 50rem;
+
       &::after {
         content: "";
         position: absolute;
@@ -360,17 +424,22 @@ body {
         transition: border-left 0.25s linear;
         right: -10px;
       }
-      &.active, &:hover {
-        background-color: #E5F5FF;
+
+      &.active,
+      &:hover {
+        background-color: #e5f5ff;
+
         &::after {
-          border-left: #E5F5FF 10px solid;
+          border-left: #e5f5ff 10px solid;
         }
       }
     }
+
     &.end-date {
       border-top-right-radius: 50rem;
       border-bottom-right-radius: 50rem;
       margin-left: 15px;
+
       &::before {
         content: "";
         position: absolute;
@@ -381,14 +450,18 @@ body {
         transition: border-color 0.25s linear;
         left: -10px;
       }
-      &.active, &:hover {
-        background-color: #E5F5FF;
+
+      &.active,
+      &:hover {
+        background-color: #e5f5ff;
+
         &::before {
-          border-color: #E5F5FF #E5F5FF #E5F5FF transparent;
+          border-color: #e5f5ff #e5f5ff #e5f5ff transparent;
         }
       }
     }
   }
+
   .form-row {
     .btn.rounded-circle {
       width: 40px;
@@ -396,46 +469,60 @@ body {
       padding: 0;
     }
   }
+
   .datepicker {
     @extend .shadow-sm;
+
     position: absolute;
     width: 304px;
     padding: 0;
     background-color: #fff;
     z-index: 1051;
     border-radius: 8px;
+
     .form-group {
       padding: 10px 40px;
       margin: 0;
-      border-bottom: 1px #E6E6E6 solid;
+      border-bottom: 1px #e6e6e6 solid;
     }
+
     .calendar {
       padding: 10px 40px 32px 40px;
+
       .date-selector {
-        color: #1A1A1A;
+        color: #1a1a1a;
       }
-      .previous-month, .next-month {
+
+      .previous-month,
+      .next-month {
         color: rgba(26, 26, 26, 0.54);
       }
+
       table {
-        th, td {
+        th,
+        td {
           text-align: center;
           font-size: 12px;
           width: 32px;
           height: 32px;
         }
+
         thead th {
           color: rgba(0, 0, 0, 0.5);
         }
+
         tbody td {
           cursor: pointer;
+
           a {
             color: #000;
             text-decoration: none;
           }
+
           &.active {
             a {
               @extend .rounded-circle;
+
               color: #fff;
               display: inline-block;
               width: 28px;
@@ -444,6 +531,7 @@ body {
               background-color: $primary;
             }
           }
+
           &.disabled {
             color: rgba(0, 0, 0, 0.5);
             cursor: default;
@@ -451,8 +539,10 @@ body {
         }
       }
     }
+
     .time-selector {
       padding: 72px 24px;
+
       .divider {
         position: absolute;
         z-index: -1;
@@ -462,15 +552,18 @@ body {
         border-top: 1px $primary solid;
         border-bottom: 1px $primary solid;
       }
+
       .item-container {
         height: 200px;
         overflow-x: hidden;
         overflow-y: scroll;
+
         .item {
           display: block;
           text-align: center;
           height: 40px;
           line-height: 40px;
+
           &.disabled {
             color: rgba(0, 0, 0, 0.5);
             pointer-events: none;
@@ -483,43 +576,56 @@ body {
 
 .table.custom-style {
   margin-bottom: 0;
+
   thead {
     text-transform: uppercase;
+
     > tr {
-    border-radius: 8px;
+      border-radius: 8px;
+
       > th {
         border: none;
       }
     }
   }
+
   tbody > tr {
     &:first-child {
       td {
         border: none;
       }
     }
+
     > td {
       padding-top: 16px;
       padding-bottom: 16px;
       height: 80px;
     }
   }
-  tr > th, td {
+
+  tr > th,
+  td {
     @extend .align-middle;
+
     padding-left: 32px;
     padding-right: 32px;
     color: #666;
+
     div {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
   }
-  td, td.group-btn {
-    button, a {
+
+  td,
+  td.group-btn {
+    button,
+    a {
       &:first-child {
         padding-left: 0;
       }
+
       &:last-child {
         padding-right: 0;
       }
@@ -530,7 +636,7 @@ body {
 .avatar-uploader {
   padding-bottom: 16px;
   margin-bottom: 25px;
-  border-bottom: 1px #DEE2E6 solid;
+  border-bottom: 1px #dee2e6 solid;
 
   .avatar-wrapper {
     cursor: pointer;
@@ -540,6 +646,7 @@ body {
     width: 128px;
     height: 128px;
     overflow: hidden;
+
     .avatar-img {
       width: 128px;
       height: 128px;
@@ -547,6 +654,7 @@ body {
       background-repeat: no-repeat;
       background-position: center center;
     }
+
     .avatar-mask {
       position: absolute;
       top: 0;
@@ -560,18 +668,23 @@ body {
 }
 
 $chips-sum-extra-width: 50px;
+
 .chips-wrapper {
   display: flex;
   width: calc(100% - #{$notify-card-btn-delete-height});
   height: 32px;
-  padding: 4px 0px;
+  padding: 4px 0;
+
   .chips {
     width: calc(100% - #{$chips-sum-extra-width});
   }
+
   .chips-sum-extra {
     width: $chips-sum-extra-width;
   }
-  .chips, .chips-sum-extra {
+
+  .chips,
+  .chips-sum-extra {
     > span {
       width: calc(#{$chips-sum-extra-width} - 8px);
       margin-right: 8px;
@@ -584,25 +697,31 @@ $chips-sum-extra-width: 50px;
 
 .pagination {
   height: 34px;
+
   .page-item {
-    > .page-input, .page-link.go {
+    > .page-input,
+    .page-link.go {
       border-radius: 0.25rem;
     }
+
     > .page-link {
       line-height: 1;
+
       &.prev {
         border-top-left-radius: 0.25rem;
         border-bottom-left-radius: 0.25rem;
       }
+
       &.next {
         border-top-right-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
       }
     }
+
     > .page-input {
       height: 100%;
       width: 58px;
-      margin: 0px 12px;
+      margin: 0 12px;
       border: 1px solid #dee2e6;
       text-align: center;
     }
@@ -617,7 +736,7 @@ $stage-connector-width: 2px;
 $stage-spacer: 32px;
 
 // FOTA processing modal
-.stage-progress{
+.stage-progress {
   position: relative;
   line-height: 3rem;
   margin-bottom: $stage-spacer;
@@ -632,7 +751,7 @@ $stage-spacer: 32px;
     border-radius: 0.8rem;
   }
 
-  &:after {
+  &::after {
     content: '';
     height: $stage-spacer + $stage-border-width;
     margin-left: 2.3rem;
@@ -643,69 +762,72 @@ $stage-spacer: 32px;
   }
 
   // Remove connecting line between stages from the last one
-  &:last-child:after {
+  &:last-child::after {
     border: none;
   }
 
   &.draw {
     // Stage finish green border
-    &:before {
-      content:"";
+    &::before {
+      content: "";
       z-index: -1;
       position: absolute;
-      top:0;
-      right:0;
-      left:0;
-      bottom:0;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
     }
 
-    &:not(:last-child):after {
+    &:not(:last-child)::after {
       transition: 1s;
       transition-delay: 2.25s;
       border-left: $stage-connector-width solid #2bb341;
     }
 
-    background-image: 
-    linear-gradient(#2bb341, #2bb341), 
-    linear-gradient(#2bb341, #2bb341), 
-    linear-gradient(#2bb341, #2bb341), 
-    linear-gradient(#2bb341, #2bb341);
-  
+    background-image:
+      linear-gradient(#2bb341, #2bb341),
+      linear-gradient(#2bb341, #2bb341),
+      linear-gradient(#2bb341, #2bb341),
+      linear-gradient(#2bb341, #2bb341);
     background-position: 0 0, 0 0, 0 100%, 0 100%;
     background-size: $finish-border-width 0%, 0% $finish-border-width, 0% $finish-border-width, $finish-border-width 0%;
-    background-color:transparent;
-    background-repeat:no-repeat;
+    background-color: transparent;
+    background-repeat: no-repeat;
     animation: animate-finish 1s forwards;
     animation-timing-function: linear;
     animation-delay: 0.5s;
 
     @keyframes animate-finish {
       0% {
-      background-position: 0 100%, 0 0, 0 100%, 100% 0;
-      background-size: $finish-border-width 0%, 0% $finish-border-width, 0% $finish-border-width,$finish-border-width 0%;
+        background-position: 0 100%, 0 0, 0 100%, 100% 0;
+        background-size: $finish-border-width 0%, 0% $finish-border-width, 0% $finish-border-width, $finish-border-width 0%;
       }
+
       45% {
-      background-position: 0 100%, 0 0, 0 100%, 100% 0;
-      background-size: $finish-border-width 0%, 100% $finish-border-width, 0% $finish-border-width,$finish-border-width 0%;
+        background-position: 0 100%, 0 0, 0 100%, 100% 0;
+        background-size: $finish-border-width 0%, 100% $finish-border-width, 0% $finish-border-width, $finish-border-width 0%;
       }
+
       50% {
-      background-position: 0 100%, 100% 0, 100% 100%, 100% 0;
-      background-size: $finish-border-width 0%, 100% $finish-border-width, 0% $finish-border-width,$finish-border-width 100%;
+        background-position: 0 100%, 100% 0, 100% 100%, 100% 0;
+        background-size: $finish-border-width 0%, 100% $finish-border-width, 0% $finish-border-width, $finish-border-width 100%;
       }
+
       95% {
-      background-position: 0 100%, 100% 0, 100% 100%, 100% 100%;
-      background-size: $finish-border-width 0%, 100% $finish-border-width, 100% $finish-border-width,$finish-border-width 100%
+        background-position: 0 100%, 100% 0, 100% 100%, 100% 100%;
+        background-size: $finish-border-width 0%, 100% $finish-border-width, 100% $finish-border-width, $finish-border-width 100%;
       }
+
       100% {
-      background-position: 0 100%, 100% 0, 0% 100%, 100% 100%;
-      background-size: $finish-border-width 100%, 100% $finish-border-width, 100% $finish-border-width,$finish-border-width 100%;
+        background-position: 0 100%, 100% 0, 0% 100%, 100% 100%;
+        background-size: $finish-border-width 100%, 100% $finish-border-width, 100% $finish-border-width, $finish-border-width 100%;
       }
     }
   }
 
   .progress-percentage {
     position: absolute;
-    right:0;
+    right: 0;
     margin-right: 1rem;
   }
 
@@ -740,12 +862,14 @@ $stage-spacer: 32px;
       stroke-width: 2;
       stroke: #fff;
       stroke-miterlimit: 10;
-      box-shadow: inset 0px 0px 0px #7ac142;
+      box-shadow: inset 0 0 0 #7ac142;
       animation: check-fill 0.4s ease-in-out 0.4s forwards, check-scale 0.3s ease-in-out 0.9s both;
       display: none;
+
       &.show {
         display: block;
       }
+
       .checkmark-circle {
         stroke-dasharray: 166;
         stroke-dashoffset: 166;
@@ -762,22 +886,27 @@ $stage-spacer: 32px;
         stroke-dashoffset: 48;
         animation: check-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
       }
+
       @keyframes check-stroke {
         100% {
           stroke-dashoffset: 0;
         }
       }
+
       @keyframes check-scale {
-        0%, 100% {
+        0%,
+        100% {
           transform: none;
         }
+
         50% {
           transform: scale3d(1.1, 1.1, 1);
         }
       }
+
       @keyframes check-fill {
         100% {
-          box-shadow: inset 0px 0px 0px 30px #7ac142;
+          box-shadow: inset 0 0 0 30px #7ac142;
         }
       }
     }
@@ -787,18 +916,19 @@ $stage-spacer: 32px;
       width: $progress-stage-icon-size;
       height: $progress-stage-icon-size;
       border-radius: 50%;
-      display: block;
       stroke-width: 2;
       stroke: #fff;
       stroke-miterlimit: 10;
       margin: 10% auto;
-      box-shadow: inset 0px 0px 0px red;
+      box-shadow: inset 0 0 0 red;
       animation: cross-fill 0.4s ease-in-out 0.4s forwards, cross-scale 0.3s ease-in-out 0.9s both;
       display: none;
+
       &.show {
         display: block;
       }
     }
+
     .crossmark-circle {
       stroke-dasharray: 166;
       stroke-dashoffset: 166;
@@ -808,28 +938,34 @@ $stage-spacer: 32px;
       fill: none;
       animation: cross-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
     }
+
     .crossmark-cross {
       transform-origin: 50% 50%;
       stroke-dasharray: 29;
       stroke-dashoffset: 29;
       animation: cross-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
     }
+
     @keyframes cross-stroke {
       100% {
         stroke-dashoffset: 0;
       }
     }
+
     @keyframes cross-scale {
-      0%, 100% {
+      0%,
+      100% {
         transform: none;
       }
+
       50% {
         transform: scale3d(1.1, 1.1, 1);
       }
     }
+
     @keyframes cross-fill {
       100% {
-        box-shadow: inset 0px 0px 0px 30px red;
+        box-shadow: inset 0 0 0 30px red;
       }
     }
 
@@ -845,8 +981,10 @@ $stage-spacer: 32px;
       &.hide-loading {
         opacity: 0;
         transition: ease-out 0.6s;
-        .double-bounce1, .double-bounce2 {
-        transition: ease-out 0.3s;
+
+        .double-bounce1,
+        .double-bounce2 {
+          transition: ease-out 0.3s;
           background-color: #7ac142;
         }
       }
@@ -856,8 +994,9 @@ $stage-spacer: 32px;
         height: $progress-stage-icon-size;
         position: relative;
       }
-      
-      .double-bounce1, .double-bounce2 {
+
+      .double-bounce1,
+      .double-bounce2 {
         width: 100%;
         height: 100%;
         border-radius: 50%;
@@ -866,28 +1005,31 @@ $stage-spacer: 32px;
         position: absolute;
         top: 0;
         left: 0;
-        
-        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-        animation: sk-bounce 2.0s infinite ease-in-out;
+        -webkit-animation: sk-bounce 2s infinite ease-in-out;
+        animation: sk-bounce 2s infinite ease-in-out;
       }
-      
+
       .double-bounce2 {
-        -webkit-animation-delay: -1.0s;
-        animation-delay: -1.0s;
+        -webkit-animation-delay: -1s;
+        animation-delay: -1s;
       }
-      
+
       @-webkit-keyframes sk-bounce {
-        0%, 100% { -webkit-transform: scale(0.0) }
-        50% { -webkit-transform: scale(1.0) }
+        0%,
+        100% { -webkit-transform: scale(0); }
+        50% { -webkit-transform: scale(1); }
       }
-      
+
       @keyframes sk-bounce {
-        0%, 100% { 
-          transform: scale(0.0);
-          -webkit-transform: scale(0.0);
-        } 50% { 
-          transform: scale(1.0);
-          -webkit-transform: scale(1.0);
+        0%,
+        100% {
+          transform: scale(0);
+          -webkit-transform: scale(0);
+        }
+
+        50% {
+          transform: scale(1);
+          -webkit-transform: scale(1);
         }
       }
     }
@@ -900,6 +1042,7 @@ $stage-spacer: 32px;
   &::-webkit-scrollbar {
     display: none;
   }
+
   /* Hide scrollbar for IE and Edge */
   -ms-overflow-style: none;
 }

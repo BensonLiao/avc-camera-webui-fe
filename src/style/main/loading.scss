@@ -1,6 +1,15 @@
 html.nprogress-busy {
   cursor: wait !important;
-  body, div, input, textarea, button, select, img, a, label {
+
+  body,
+  div,
+  input,
+  textarea,
+  button,
+  select,
+  img,
+  a,
+  label {
     cursor: wait !important;
   }
 }
@@ -13,10 +22,12 @@ html.nprogress-busy {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .spinner {
       width: 200px;
       text-align: center;
     }
+
     .spinner > div {
       width: 24px;
       height: 24px;
@@ -27,38 +38,46 @@ html.nprogress-busy {
       -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
       animation: sk-bouncedelay 1.4s infinite ease-in-out both;
     }
-    
+
     .spinner .bounce1 {
       -webkit-animation-delay: -0.32s;
       animation-delay: -0.32s;
     }
-    
+
     .spinner .bounce2 {
       -webkit-animation-delay: -0.16s;
       animation-delay: -0.16s;
     }
-    
+
     @-webkit-keyframes sk-bouncedelay {
-      0%, 80%, 100% { -webkit-transform: scale(0) }
-      40% { -webkit-transform: scale(1.0) }
+      0%,
+      80%,
+      100% { -webkit-transform: scale(0); }
+      40% { -webkit-transform: scale(1); }
     }
-    
+
     @keyframes sk-bouncedelay {
-      0%, 80%, 100% { 
+      0%,
+      80%,
+      100% {
         -webkit-transform: scale(0);
         transform: scale(0);
-      } 40% { 
-        -webkit-transform: scale(1.0);
-        transform: scale(1.0);
+      }
+
+      40% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
       }
     }
+
     .description {
       font-size: 16px;
       white-space: nowrap;
       text-align: center;
       width: 80px;
       transition: 0.2s;
-      &:hover{
+
+      &:hover {
         // Easter egg :)
         transition-delay: 1s;
         animation: text-shadow 1.5s ease-in-out infinite;
@@ -69,80 +88,85 @@ html.nprogress-busy {
   }
 }
 
-.modal-loading:after {
+.modal-loading::after {
   content: ' .';
   animation: dots 1s steps(5, end) infinite;
 }
 
 @keyframes dots {
-  0%, 20% {
-    color: rgba(0,0,0,0);
+  0%,
+  20% {
+    color: rgba(0, 0, 0, 0);
     text-shadow:
-      .25em 0 0 rgba(0,0,0,0),
-      .5em 0 0 rgba(0,0,0,0);
+      0.25em 0 0 rgba(0, 0, 0, 0),
+      0.5em 0 0 rgba(0, 0, 0, 0);
   }
+
   40% {
     color: black;
     text-shadow:
-      .25em 0 0 rgba(0,0,0,0),
-      .5em 0 0 rgba(0,0,0,0);
+      0.25em 0 0 rgba(0, 0, 0, 0),
+      0.5em 0 0 rgba(0, 0, 0, 0);
   }
+
   60% {
     text-shadow:
-      .25em 0 0 black,
-      .5em 0 0 rgba(0,0,0,0);
+      0.25em 0 0 black,
+      0.5em 0 0 rgba(0, 0, 0, 0);
   }
-  80%, 100% {
+
+  80%,
+  100% {
     text-shadow:
-      .25em 0 0 black,
-      .5em 0 0 black;
+      0.25em 0 0 black,
+      0.5em 0 0 black;
   }
 }
 
 @keyframes text-shadow {
-  0% {  
-      transform: translateY(0);
-      text-shadow: 
-          0 0 0 #0c2ffb, 
-          0 0 0 #2cfcfd, 
-          0 0 0 #fb203b, 
-          0 0 0 #fefc4b;
+  0% {
+    transform: translateY(0);
+    text-shadow:
+      0 0 0 #0c2ffb,
+      0 0 0 #2cfcfd,
+      0 0 0 #fb203b,
+      0 0 0 #fefc4b;
   }
 
-  20% {  
-      transform: translateY(-1em);
-      text-shadow: 
-          0 0.125em 0 #0c2ffb, 
-          0 0.25em 0 #2cfcfd, 
-          0 -0.125em 0 #fb203b, 
-          0 -0.25em 0 #fefc4b;
+  20% {
+    transform: translateY(-1em);
+    text-shadow:
+      0 0.125em 0 #0c2ffb,
+      0 0.25em 0 #2cfcfd,
+      0 -0.125em 0 #fb203b,
+      0 -0.25em 0 #fefc4b;
   }
 
-  40% {  
-      transform: translateY(0.5em);
-      text-shadow: 
-          0 -0.0625em 0 #0c2ffb, 
-          0 -0.125em 0 #2cfcfd, 
-          0 0.0625em 0 #fb203b, 
-          0 0.125em 0 #fefc4b;
-  }
-  
- 60% {
-      transform: translateY(-0.25em);
-      text-shadow: 
-          0 0.03125em 0 #0c2ffb, 
-          0 0.0625em 0 #2cfcfd, 
-          0 -0.03125em 0 #fb203b, 
-          0 -0.0625em 0 #fefc4b;
+  40% {
+    transform: translateY(0.5em);
+    text-shadow:
+      0 -0.0625em 0 #0c2ffb,
+      0 -0.125em 0 #2cfcfd,
+      0 0.0625em 0 #fb203b,
+      0 0.125em 0 #fefc4b;
   }
 
-  80% {  
-      transform: translateY(0);
-      text-shadow: 
-          0 0 0 #0c2ffb, 
-          0 0 0 #2cfcfd, 
-          0 0 0 #fb203b, 
-          0 0 0 #fefc4b;
+  60% {
+    transform: translateY(-0.25em);
+    text-shadow:
+      0 0.03125em 0 #0c2ffb,
+      0 0.0625em 0 #2cfcfd,
+      0 -0.03125em 0 #fb203b,
+      0 -0.0625em 0 #fefc4b;
+  }
+
+  80% {
+    transform: translateY(0);
+    text-shadow:
+      0 0 0 #0c2ffb,
+      0 0 0 #2cfcfd,
+      0 0 0 #fb203b,
+      0 0 0 #fefc4b;
   }
 }
-  
+

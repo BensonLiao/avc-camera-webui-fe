@@ -6,10 +6,12 @@
   .table {
     th {
       color: #1a1a1a !important;
+
       a {
         color: #1a1a1a;
       }
     }
+
     td {
       @extend .text-truncate;
     }
@@ -18,8 +20,9 @@
   .dropdown {
     button:hover {
       color: #fff !important;
-      background-color: #0049AD;
-      border-color: #0049AD;
+      background-color: #0049ad;
+      border-color: #0049ad;
+
       i {
         color: #fff !important;
       }

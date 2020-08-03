@@ -2,35 +2,43 @@
   background-color: #fff;
   height: $top-navigation-height;
   padding: 8px 16px;
-  box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .2);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+
   &.primary {
     background-color: $primary-500;
-    box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, .4);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.4);
   }
+
   &.sub {
     height: $top-sub-navigation-height;
     margin-left: $left-navigation-width;
     margin-top: $top-navigation-height;
     padding: 0;
+
     .nav-tabs {
-      padding: 0px 24px;
+      padding: 0 24px;
     }
   }
 }
+
 nav.navbar.fixed-top {
   z-index: 1031;
+
   &.sub {
     z-index: 1030;
   }
+
   .form-row > .col {
-    button{
+    button {
       color: $primary;
     }
+
     &:hover:not(:last-child) {
-      button{
+      button {
         color: #fff !important;
         background-color: $primary;
         border-color: $primary;
+
         i {
           color: #fff !important;
         }
@@ -38,8 +46,10 @@ nav.navbar.fixed-top {
     }
   }
 }
+
 .fixed-top {
   z-index: 1030;
+
   &.sub {
     z-index: 1029;
   }
@@ -59,11 +69,13 @@ nav.navbar.fixed-top {
     margin: 0 8px 16px 8px;
     display: block;
     border-radius: 8px;
+
     &:first-child {
       margin-top: 8px;
     }
 
-    &:hover, &.active {
+    &:hover,
+    &.active {
       background-color: $primary-700;
     }
 
@@ -79,7 +91,9 @@ nav.navbar.fixed-top {
   margin-left: $left-navigation-width;
   width: $left-sub-navigation-width;
   height: 100vh;
+
   @extend .hidden-scrollbar;
+
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #666;
@@ -87,7 +101,7 @@ nav.navbar.fixed-top {
 
   &.sub {
     padding-top: $top-navigation-height + $top-sub-navigation-height;
-    background-color: #FAFAFA;
+    background-color: #fafafa;
     color: $secondary-500;
   }
 
@@ -105,17 +119,19 @@ nav.navbar.fixed-top {
   }
 
   hr {
-    border-color: #DEE2E6;
+    border-color: #dee2e6;
   }
 
   .groups {
     color: inherit;
+
     > .sub-title {
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 2rem !important;
       text-transform: uppercase;
+
       h3 {
         padding-left: 0;
         margin: 0;
@@ -123,37 +139,48 @@ nav.navbar.fixed-top {
         font-weight: bold;
       }
     }
+
     .group-item {
       padding: 4px 24px;
       height: 3rem !important;
+
       a {
         color: inherit;
         text-decoration: none;
       }
-      a, button {
-        padding: 12px 0px;
+
+      a,
+      button {
+        padding: 12px 0;
       }
+
       .btn-delete {
         @extend .transition;
+
         visibility: hidden;
         opacity: 0;
       }
+
       &:hover {
-        background-color: #EEEEEE !important;
+        background-color: #eee !important;
+
         .btn-delete {
           visibility: visible;
           opacity: 1;
         }
       }
+
       &.active {
         &:hover {
           background-color: #d5d5d5 !important;
         }
+
         background-color: #4d4d4d;
         padding-right: 16px;
         border-right: 8px solid $primary;
       }
     }
+
     .actions {
       padding: 0 32px;
     }
@@ -161,37 +188,46 @@ nav.navbar.fixed-top {
 
   .filter-wrapper {
     margin: 0;
+
     .header {
       padding: 8px 24px;
       margin-bottom: 16px;
       border-bottom: 1px #ccc solid;
       color: inherit;
       text-transform: uppercase;
+
       a {
         color: inherit;
       }
     }
+
     .card {
       margin: 0 16px;
       border: none;
-      background-color: #4D4D4D;
+      background-color: #4d4d4d;
+
       &.sub {
-        background-color: #EEEEEE;
+        background-color: #eee;
         color: $secondary-500;
+
         .card-header {
           color: $secondary-700;
         }
+
         .card-body {
           border-top: 1px $secondary-300 solid;
+
           .form-check-label {
             color: $secondary-700;
           }
         }
       }
+
       &.active .card-header {
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
       }
+
       .card-header {
         background-color: inherit;
         color: inherit;
@@ -200,9 +236,11 @@ nav.navbar.fixed-top {
         border: none;
         font-size: 14px;
         line-height: 24px;
+
         a {
           color: inherit;
         }
+
         .badge {
           padding: 2px 8px;
           margin-left: 16px;
@@ -213,6 +251,7 @@ nav.navbar.fixed-top {
           font-size: 14px;
         }
       }
+
       .card-body {
         background-color: inherit;
         border-bottom-right-radius: 8px;
@@ -221,6 +260,7 @@ nav.navbar.fixed-top {
         padding: 16px;
         font-size: 14px;
         color: inherit;
+
         .form-check-label {
           color: inherit;
         }
@@ -232,55 +272,69 @@ nav.navbar.fixed-top {
     .accordion {
       @extend .w-100, .text-truncate;
     }
+
     a.nav-link {
       @extend .w-100, .text-truncate;
+
       font-size: 20px;
       line-height: 40px;
       color: inherit;
       padding: 20px 24px;
+
       i {
         @extend .transition-transform;
       }
+
       &.users-nav:hover {
-        background-color: #EEEEEE;
+        background-color: #eee;
       }
+
       &:hover {
         background: #4d4d4d;
       }
+
       &.active:hover {
-        background: #333333;
+        background: #333;
       }
+
       &.active.collapse:hover {
         background: #1a1a1a;
       }
+
       &.active {
         background: #4d4d4d;
         border-right: 8px solid $primary;
         border-radius: 0;
+
         &.collapse {
           border-right: none;
         }
       }
+
       &.collapsed {
         .fa-chevron-up {
           transform: rotate(180deg);
         }
-      }
-      &.collapsed {
+
         .fa-chevron-down {
           transform: rotate(180deg);
         }
       }
     }
-    .collapsing, .collapse {
+
+    .collapsing,
+    .collapse {
       a {
         &:not(.active):hover {
-          background: #1A1A1A;
+          background: #1a1a1a;
         }
-        &.active, &.active:hover {
-          background: #1A1A1A;
+
+        &.active,
+        &.active:hover {
+          background: #1a1a1a;
         }
-        background: #333333;
+
+        background: #333;
         padding-left: 48px;
       }
     }

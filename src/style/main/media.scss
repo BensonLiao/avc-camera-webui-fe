@@ -13,6 +13,7 @@
     .btn.btn-top-left {
       top: 16px;
       left: 16px;
+
       i {
         transform: rotate(-45deg);
       }
@@ -21,6 +22,7 @@
     .btn.btn-top-right {
       top: 16px;
       right: 16px;
+
       i {
         transform: rotate(45deg);
       }
@@ -29,6 +31,7 @@
     .btn.btn-bottom-left {
       bottom: 16px;
       left: 16px;
+
       i {
         transform: rotate(225deg);
       }
@@ -37,6 +40,7 @@
     .btn.btn-bottom-right {
       bottom: 16px;
       right: 16px;
+
       i {
         transform: rotate(135deg);
       }
@@ -46,6 +50,7 @@
       position: absolute;
       bottom: 16px;
       right: 16px;
+
       label {
         display: block;
         color: #fff;
@@ -54,14 +59,17 @@
     }
   }
 
-  .btn-black, .btn-white {
+  .btn-black,
+  .btn-white {
     width: 32px;
     height: 32px;
-    border: 2px #CCCCCC solid;
+    border: 2px #ccc solid;
+
     &.active {
       outline: 2px $select solid;
     }
   }
+
   .btn-black {
     background-color: #000;
   }
