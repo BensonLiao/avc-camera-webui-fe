@@ -62,14 +62,20 @@ module.exports = class Group extends Base {
       // Update group.
       api.group.updateGroup(values)
         .then(() => {
-          getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
+          getRouter().go({
+            name: 'web.users.members',
+            params: this.props.params
+          }, {reload: true});
         })
         .finally(progress.done);
     } else {
       // Add group.
       api.group.addGroup(values)
         .then(() => {
-          getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
+          getRouter().go({
+            name: 'web.users.members',
+            params: this.props.params
+          }, {reload: true});
         })
         .finally(progress.done);
     }

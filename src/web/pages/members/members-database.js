@@ -93,7 +93,10 @@ module.exports = class MembersDatabase extends React.PureComponent {
       api.member.uploadDatabaseFile(file)
         .then(() => {
           getRouter().go(
-            {name: 'web.users.members', params: {}},
+            {
+              name: 'web.users.members',
+              params: {}
+            },
             {reload: true}
           );
         })

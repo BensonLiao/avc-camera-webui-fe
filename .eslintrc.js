@@ -59,6 +59,10 @@ module.exports = {
       "ExportDeclaration": "never"
     }],
 
+    // Enforce placing object properties on separate lines
+    // https://eslint.org/docs/rules/object-property-newline
+    "object-property-newline": ["error"],
+
     // Enforces a maximum line length to increase code readability and maintainability.
     // https://eslint.org/docs/rules/max-len
     'max-len': ["warn", { "code": 150 }],

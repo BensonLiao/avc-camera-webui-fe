@@ -36,12 +36,30 @@ module.exports = class MaskArea extends React.PureComponent {
   }
 
   state = {
-    parentSize: {width: 0, height: 0},
-    maskAreaDragOffset: {x: 0, y: 0},
-    leftTopCornerDragOffset: {x: 0, y: 0},
-    leftBottomCornerDragOffset: {x: 0, y: 0},
-    rightTopCornerDragOffset: {x: 0, y: 0},
-    rightBottomCornerDragOffset: {x: 0, y: 0}
+    parentSize: {
+      width: 0,
+      height: 0
+    },
+    maskAreaDragOffset: {
+      x: 0,
+      y: 0
+    },
+    leftTopCornerDragOffset: {
+      x: 0,
+      y: 0
+    },
+    leftBottomCornerDragOffset: {
+      x: 0,
+      y: 0
+    },
+    rightTopCornerDragOffset: {
+      x: 0,
+      y: 0
+    },
+    rightBottomCornerDragOffset: {
+      x: 0,
+      y: 0
+    }
   };
 
   constructor(props) {
@@ -145,16 +163,36 @@ module.exports = class MaskArea extends React.PureComponent {
   generateDraggingCornerHandler = corner => (event, data) => {
     switch (corner) {
       case 'right-bottom':
-        this.setState({rightBottomCornerDragOffset: {x: data.x, y: data.y}});
+        this.setState({
+          rightBottomCornerDragOffset: {
+            x: data.x,
+            y: data.y
+          }
+        });
         break;
       case 'right-top':
-        this.setState({rightTopCornerDragOffset: {x: data.x, y: data.y}});
+        this.setState({
+          rightTopCornerDragOffset: {
+            x: data.x,
+            y: data.y
+          }
+        });
         break;
       case 'left-bottom':
-        this.setState({leftBottomCornerDragOffset: {x: data.x, y: data.y}});
+        this.setState({
+          leftBottomCornerDragOffset: {
+            x: data.x,
+            y: data.y
+          }
+        });
         break;
       case 'left-top':
-        this.setState({leftTopCornerDragOffset: {x: data.x, y: data.y}});
+        this.setState({
+          leftTopCornerDragOffset: {
+            x: data.x,
+            y: data.y
+          }
+        });
         break;
       default:
         throw new Error(`unknown corner ${corner}`);
@@ -174,7 +212,12 @@ module.exports = class MaskArea extends React.PureComponent {
   };
 
   onDraggingMaskArea = (event, data) => {
-    this.setState({maskAreaDragOffset: {x: data.x, y: data.y}});
+    this.setState({
+      maskAreaDragOffset: {
+        x: data.x,
+        y: data.y
+      }
+    });
   };
 
   onStopDraggingMaskArea = () => {
@@ -259,7 +302,13 @@ module.exports = class MaskArea extends React.PureComponent {
           onDrag={this.generateDraggingCornerHandler('left-top')}
           onStop={this.onStopDraggingCorner}
         >
-          <div className="left-top-point" style={{left: 0, top: 0}}/>
+          <div
+            className="left-top-point"
+            style={{
+              left: 0,
+              top: 0
+            }}
+          />
         </Draggable>
         <Draggable
           bounds={leftBottomCornerBounds}
@@ -268,7 +317,13 @@ module.exports = class MaskArea extends React.PureComponent {
           onDrag={this.generateDraggingCornerHandler('left-bottom')}
           onStop={this.onStopDraggingCorner}
         >
-          <div className="left-bottom-point" style={{left: 0, top: 0}}/>
+          <div
+            className="left-bottom-point"
+            style={{
+              left: 0,
+              top: 0
+            }}
+          />
         </Draggable>
         <Draggable
           bounds={rightTopCornerBounds}
@@ -277,7 +332,13 @@ module.exports = class MaskArea extends React.PureComponent {
           onDrag={this.generateDraggingCornerHandler('right-top')}
           onStop={this.onStopDraggingCorner}
         >
-          <div className="right-top-point" style={{left: 0, top: 0}}/>
+          <div
+            className="right-top-point"
+            style={{
+              left: 0,
+              top: 0
+            }}
+          />
         </Draggable>
         <Draggable
           bounds={rightBottomCornerBounds}
@@ -286,7 +347,14 @@ module.exports = class MaskArea extends React.PureComponent {
           onDrag={this.generateDraggingCornerHandler('right-bottom')}
           onStop={this.onStopDraggingCorner}
         >
-          <div ref={rightBottomCornerRef} className="right-bottom-point" style={{left: 0, top: 0}}/>
+          <div
+            ref={rightBottomCornerRef}
+            className="right-bottom-point"
+            style={{
+              left: 0,
+              top: 0
+            }}
+          />
         </Draggable>
       </div>
     );

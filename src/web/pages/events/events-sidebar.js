@@ -97,13 +97,28 @@ module.exports = class EventsSidebar extends React.PureComponent {
     const confidence = this.convertArrayParams(params.confidence);
     const enrollStatus = this.convertArrayParams(params.enrollStatus);
     const similarityRender = [
-      {confidence: Confidence.low, id: 'input-checkbox-low-similar'},
-      {confidence: Confidence.medium, id: 'input-checkbox-medium-similar'},
-      {confidence: Confidence.high, id: 'input-checkbox-high-similar'}
+      {
+        confidence: Confidence.low,
+        id: 'input-checkbox-low-similar'
+      },
+      {
+        confidence: Confidence.medium,
+        id: 'input-checkbox-medium-similar'
+      },
+      {
+        confidence: Confidence.high,
+        id: 'input-checkbox-high-similar'
+      }
     ];
     const resultRender = [
-      {status: EnrollStatus.registered, id: 'input-checkbox-register'},
-      {status: EnrollStatus.unknown, id: 'input-checkbox-anonymous'}
+      {
+        status: EnrollStatus.registered,
+        id: 'input-checkbox-register'
+      },
+      {
+        status: EnrollStatus.unknown,
+        id: 'input-checkbox-anonymous'
+      }
     ];
     return (
       <div className="card-body">
@@ -189,7 +204,10 @@ module.exports = class EventsSidebar extends React.PureComponent {
               {
                 isEnableAgeGenderKey ? (
                   <Link
-                    to={{name: currentRouteName, params: {type: 'age-gender'}}}
+                    to={{
+                      name: currentRouteName,
+                      params: {type: 'age-gender'}
+                    }}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
                     <span>{_('Age Gender')}</span>
@@ -211,7 +229,10 @@ module.exports = class EventsSidebar extends React.PureComponent {
               {
                 isEnableHumanoidDetectionKey ? (
                   <Link
-                    to={{name: currentRouteName, params: {type: 'humanoid-detection'}}}
+                    to={{
+                      name: currentRouteName,
+                      params: {type: 'humanoid-detection'}
+                    }}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
                     <span>{_('Human Detection')}</span>

@@ -112,7 +112,10 @@ module.exports = class StreamSetting extends Base {
                   component={Dropdown}
                   buttonClassName="btn btn-outline-primary rounded-left"
                   menuClassName="dropdown-menu-right"
-                  items={options.bandwidthManagement.map(x => ({value: x.value, label: x.label}))}
+                  items={options.bandwidthManagement.map(x => ({
+                    value: x.value,
+                    label: x.label
+                  }))}
                 />
               </div>
               <Field
@@ -165,21 +168,39 @@ module.exports = class StreamSetting extends Base {
   formRender = ({values, errors}) => {
     const {isShowModal, $isApiProcessing} = this.state;
     const channelAOptions = {
-      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({label: x, value: x})),
-      resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
+      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({
+        label: x,
+        value: x
+      })),
+      resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({
+        label: _(`stream-resolution-${x}`),
+        value: x
+      })),
       frameRate: (() => {
         const result = [];
         for (let index = StreamSettingsSchema.channelA.props.frameRate.min; index <= StreamSettingsSchema.channelA.props.frameRate.max; index += 1) {
-          result.push({label: `${index}`, value: `${index}`});
+          result.push({
+            label: `${index}`,
+            value: `${index}`
+          });
         }
 
         return result;
       })(),
-      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: _(`stream-bandwidth-management-${x}`), value: x})),
-      gov: StreamGOV.all().map(x => ({label: x, value: x}))
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
+        label: _(`stream-bandwidth-management-${x}`),
+        value: x
+      })),
+      gov: StreamGOV.all().map(x => ({
+        label: x,
+        value: x
+      }))
     };
     const channelBOptions = {
-      codec: StreamCodec.all().filter(x => x !== StreamCodec.h265).map(x => ({label: x, value: x})),
+      codec: StreamCodec.all().filter(x => x !== StreamCodec.h265).map(x => ({
+        label: x,
+        value: x
+      })),
       resolution: (() => {
         let options;
         if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
@@ -209,7 +230,10 @@ module.exports = class StreamSetting extends Base {
           }
         }
 
-        return options.map(x => ({label: _(`stream-resolution-${x}`), value: x}));
+        return options.map(x => ({
+          label: _(`stream-resolution-${x}`),
+          value: x
+        }));
       })(),
       frameRate: (() => {
         const result = [];
@@ -232,14 +256,26 @@ module.exports = class StreamSetting extends Base {
         }
 
         for (let index = min; index <= max; index += 1) {
-          result.push({label: `${index}`, value: `${index}`});
+          result.push({
+            label: `${index}`,
+            value: `${index}`
+          });
         }
 
         return result;
       })(),
-      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: _(`stream-bandwidth-management-${x}`), value: x})),
-      gov: StreamGOV.all().map(x => ({label: x, value: x})),
-      quality: StreamQuality.all().map(x => ({label: _(`quality-${x}`), value: x}))
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
+        label: _(`stream-bandwidth-management-${x}`),
+        value: x
+      })),
+      gov: StreamGOV.all().map(x => ({
+        label: x,
+        value: x
+      })),
+      quality: StreamQuality.all().map(x => ({
+        label: _(`quality-${x}`),
+        value: x
+      }))
     };
     return (
       <Form className="card-body">

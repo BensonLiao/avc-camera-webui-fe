@@ -43,7 +43,10 @@ module.exports = class DateTime extends Base {
   }
 
   getMatchedValue = (list, value) => {
-    return Object.entries(list).filter(key => key.includes(value)).reduce((obj, [key, value]) => ({key, value}), {});
+    return Object.entries(list).filter(key => key.includes(value)).reduce((obj, [key, value]) => ({
+      key,
+      value
+    }), {});
   }
 
   toggleDateTimePicker = name => event => {

@@ -54,7 +54,10 @@ module.exports = class TCPIP extends Base {
 
     let checkDefaultPortList = Object.keys(defaultPorts)
       .filter(items => items !== 'HTTP')
-      .reduce((obj, key) => ({...obj, [key]: defaultPorts[key]}), {});
+      .reduce((obj, key) => ({
+        ...obj,
+        [key]: defaultPorts[key]
+      }), {});
 
     checkDefaultPortList = utils.duplicateCheck(Object.values(checkDefaultPortList), values);
     // Check if using http port

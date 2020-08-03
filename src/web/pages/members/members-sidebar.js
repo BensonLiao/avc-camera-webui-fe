@@ -44,7 +44,10 @@ module.exports = class MembersSidebar extends React.PureComponent {
               <CustomTooltip title={isAddGroupDisabled ? _('Group Limit Reached') : _('Create a Group')}>
                 <span>
                   <Link
-                    to={{name: 'web.users.members.new-group', params: params}}
+                    to={{
+                      name: 'web.users.members.new-group',
+                      params: params
+                    }}
                     tabIndex={(isAddGroupDisabled ? -1 : null)}
                     className={classNames('btn btn-link text-info p-0', {disabled: isAddGroupDisabled})}
                   >

@@ -42,7 +42,11 @@ module.exports = class Member extends React.PureComponent {
   }
 
   static get defaultProps() {
-    return {defaultPictureUrl: null, groups: {items: []}, member: null};
+    return {
+      defaultPictureUrl: null,
+      groups: {items: []},
+      member: null
+    };
   }
 
   state = {
@@ -113,7 +117,12 @@ module.exports = class Member extends React.PureComponent {
   };
 
   onDraggingMaskArea = (event, data) => {
-    this.setState({photoOffset: {x: data.x, y: data.y}});
+    this.setState({
+      photoOffset: {
+        x: data.x,
+        y: data.y
+      }
+    });
   };
 
   updateBoundary = zoomScale => {

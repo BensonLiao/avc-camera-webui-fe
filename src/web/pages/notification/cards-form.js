@@ -85,7 +85,10 @@ module.exports = class CardsForm extends React.PureComponent {
         isEnableTime: card.isEnableTime,
         $start: null,
         $end: null,
-        timePeriods: card.timePeriods.map(x => ({...x, id: Math.random().toString(36).substr(2)})),
+        timePeriods: card.timePeriods.map(x => ({
+          ...x,
+          id: Math.random().toString(36).substr(2)
+        })),
         $groups: card.groups.length > 0 ? card.groups[0] : '',
         faceRecognitionCondition: card.faceRecognitionCondition,
         isEnableGPIO: card.isEnableGPIO,

@@ -268,7 +268,11 @@ module.exports = class SDCard extends Base {
 
                               <div
                                 className="progress-bar"
-                                style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}
+                                style={{
+                                  width: `${freeDiskPercentage}%`,
+                                  backgroundColor: '#e9ecef',
+                                  color: 'var(--gray-dark)'
+                                }}
                               >
                                 {freeDiskPercentage > 4 ? `${freeDiskPercentage}%` : ''}
                               </div>

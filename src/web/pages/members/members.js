@@ -155,7 +155,11 @@ module.exports = class Members extends Base {
           getRouter().go(
             {
               name: 'web.users.members',
-              params: {...this.props.params, group: undefined, index: undefined}
+              params: {
+                ...this.props.params,
+                group: undefined,
+                index: undefined
+              }
             },
             {reload: true}
           );
@@ -191,7 +195,10 @@ module.exports = class Members extends Base {
     const {selectedGroup, $isApiProcessing} = this.state;
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
-      {...params, index: undefined}
+      {
+        ...params,
+        index: undefined
+      }
     );
 
     return (
@@ -222,7 +229,10 @@ module.exports = class Members extends Base {
                     <div className="dropdown-menu dropdown-menu-right shadow">
                       <Link
                         className="dropdown-item"
-                        to={{name: 'web.users.members.new-member', params: params}}
+                        to={{
+                          name: 'web.users.members.new-member',
+                          params: params
+                        }}
                       >
                         {_('Add a New Member')}
                       </Link>
@@ -259,7 +269,13 @@ module.exports = class Members extends Base {
                         )
                       }
                       <CustomTooltip title={_('Edit Group: {0}', [selectedGroup.name])}>
-                        <Link className="ml-32px" to={{name: 'web.users.members.modify-group', params: params}}>
+                        <Link
+                          className="ml-32px"
+                          to={{
+                            name: 'web.users.members.modify-group',
+                            params: params
+                          }}
+                        >
                           <i className="fas fa-pen fa-fw"/>
                         </Link>
                       </CustomTooltip>

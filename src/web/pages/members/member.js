@@ -44,10 +44,16 @@ module.exports = class Member extends Base {
   onSubmittedMemberForm = () => {
     if (this.props.member) {
       // Updated the member.
-      getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
+      getRouter().go({
+        name: 'web.users.members',
+        params: this.props.params
+      }, {reload: true});
     } else {
       // Created a new member.
-      getRouter().go({name: 'web.users.members', params: {}}, {reload: true});
+      getRouter().go({
+        name: 'web.users.members',
+        params: {}
+      }, {reload: true});
     }
   };
 

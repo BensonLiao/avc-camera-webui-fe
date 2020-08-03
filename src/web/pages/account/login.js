@@ -138,7 +138,11 @@ module.exports = class Login extends Base {
             )}
             <div className={classNames('col-center', {'mt-5': window.isNoBrand})}>
               <Formik
-                initialValues={{account: '', password: '', maxAge: '3600000'}}
+                initialValues={{
+                  account: '',
+                  password: '',
+                  maxAge: '3600000'
+                }}
                 validate={utils.makeFormikValidator(loginValidator)}
                 onSubmit={this.onSubmitLoginForm}
               >

@@ -144,7 +144,14 @@ constructor(props) {
           if (this.state.focalLengthQueue) {
             this.setState(
               {focalLengthQueue: null},
-              this.recursiveFocusPromise({nextValues: {...nextValues, focalLength: this.state.focalLengthQueue}, prevValues, formik})
+              this.recursiveFocusPromise({
+                nextValues: {
+                  ...nextValues,
+                  focalLength: this.state.focalLengthQueue
+                },
+                prevValues,
+                formik
+              })
             );
           } else {
             return Promise.resolve();
@@ -195,7 +202,11 @@ constructor(props) {
       prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom
     ) {
       // Change focus settings with user input queue.
-      this.recursiveFocusPromise({nextValues, prevValues, formik});
+      this.recursiveFocusPromise({
+        nextValues,
+        prevValues,
+        formik
+      });
     } else {
       // Change other settings.
       const values = {
@@ -490,7 +501,10 @@ constructor(props) {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.aperture.enum.map(x => ({value: x, label: _(`aperture-${x}`)}))}
+                    items={videoSettingsSchema.aperture.enum.map(x => ({
+                      value: x,
+                      label: _(`aperture-${x}`)
+                    }))}
                   />
                 </div>
               </div>
@@ -502,7 +516,10 @@ constructor(props) {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({value: x, label: _(`shutter-speed-${x}`)}))}
+                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({
+                      value: x,
+                      label: _(`shutter-speed-${x}`)
+                    }))}
                   />
                 </div>
               </div>
@@ -527,7 +544,10 @@ constructor(props) {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({value: x, label: _(`white-balance-${x}`)}))}
+                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({
+                      value: x,
+                      label: _(`white-balance-${x}`)
+                    }))}
                   />
                 </div>
                 {
@@ -558,7 +578,10 @@ constructor(props) {
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
                     items={utils.capitalizeObjKeyValuePairs(IREnableType).map(
-                      x => ({value: x.value, label: _(x.key)})
+                      x => ({
+                        value: x.value,
+                        label: _(x.key)
+                      })
                     )}
                   />
                 </div>
@@ -590,7 +613,10 @@ constructor(props) {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.daynightMode.enum.map(x => ({value: x, label: _(`daynight-mode-${x}`)}))}
+                    items={videoSettingsSchema.daynightMode.enum.map(x => ({
+                      value: x,
+                      label: _(`daynight-mode-${x}`)
+                    }))}
                   />
                 </div>
                 {
@@ -641,7 +667,10 @@ constructor(props) {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.orientation.enum.map(x => ({value: x, label: _(`orientation-${x}`)}))}
+                    items={videoSettingsSchema.orientation.enum.map(x => ({
+                      value: x,
+                      label: _(`orientation-${x}`)
+                    }))}
                   />
                 </div>
               </div>
@@ -653,7 +682,13 @@ constructor(props) {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('On')}, {value: 'false', label: _('Off')}]}
+                    items={[{
+                      value: 'true',
+                      label: _('On')
+                    }, {
+                      value: 'false',
+                      label: _('Off')
+                    }]}
                   />
                 </div>
               </div>
@@ -665,7 +700,10 @@ constructor(props) {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}
+                    items={videoSettingsSchema.refreshRate.enum.map(x => ({
+                      value: x,
+                      label: _(`refresh-rate-${x}`)
+                    }))}
                   />
                 </div>
               </div>

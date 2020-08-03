@@ -304,13 +304,99 @@ module.exports = {
         isEnableAuth: true
       },
       notificationCards: [{
-        id: 1, type: '0', title: 'FR', isTop: false, isEnableTime: true, timePeriods: [{id: 'xx9urlxa87q', start: '2020-06-01T02:01:43.172Z', end: '2020-06-04T02:01:43.172Z', isRepeat: false}], isEnableGPIO: false, isEnableGPIO1: false, isEnableGPIO2: false, isEnableApp: false, isEnableEmail: false, isEnableVMS: true, faceRecognitionVMSEvent: '0', emails: ['test@a.com'], emailAttachmentType: '0', groups: [], isEnableFaceRecognition: false, faceRecognitionCondition: '1'
+        id: 1,
+        type: '0',
+        title: 'FR',
+        isTop: false,
+        isEnableTime: true,
+        timePeriods: [{
+          id: 'xx9urlxa87q',
+          start: '2020-06-01T02:01:43.172Z',
+          end: '2020-06-04T02:01:43.172Z',
+          isRepeat: false
+        }],
+        isEnableGPIO: false,
+        isEnableGPIO1: false,
+        isEnableGPIO2: false,
+        isEnableApp: false,
+        isEnableEmail: false,
+        isEnableVMS: true,
+        faceRecognitionVMSEvent: '0',
+        emails: ['test@a.com'],
+        emailAttachmentType: '0',
+        groups: [],
+        isEnableFaceRecognition: false,
+        faceRecognitionCondition: '1'
       },
       {
-        id: 2, type: '3', title: 'Motion Detection', isTop: true, isEnableTime: true, timePeriods: [{id: 'u14iphxq2n', start: '2020-06-03T02:04:09.439Z', end: '2020-06-23T02:04:09.440Z', isRepeat: false}, {id: '82n5o8kcmf3', start: '2020-06-10T02:04:09.439Z', end: '2020-06-16T02:04:09.440Z', isRepeat: false}, {id: 'zbvd5d2hywt', start: '2020-08-07T02:04:09.439Z', end: '2020-09-18T02:04:09.440Z', isRepeat: false}, {id: 'fsri48cr4n', start: '2020-08-05T02:04:09.439Z', end: '2020-09-03T02:04:09.440Z', isRepeat: false}, {id: 'xovlkrg8so', start: '2020-08-05T02:04:09.439Z', end: '2020-09-29T02:04:09.440Z', isRepeat: false}], isEnableGPIO: true, isEnableGPIO1: true, isEnableGPIO2: false, isEnableApp: false, isEnableEmail: true, isEnableVMS: true, faceRecognitionVMSEvent: '0', emails: ['test1@b.com', 'test2@c.com'], emailAttachmentType: '0', groups: [], isEnableFaceRecognition: false, faceRecognitionCondition: '0'
+        id: 2,
+        type: '3',
+        title: 'Motion Detection',
+        isTop: true,
+        isEnableTime: true,
+        timePeriods: [{
+          id: 'u14iphxq2n',
+          start: '2020-06-03T02:04:09.439Z',
+          end: '2020-06-23T02:04:09.440Z',
+          isRepeat: false
+        }, {
+          id: '82n5o8kcmf3',
+          start: '2020-06-10T02:04:09.439Z',
+          end: '2020-06-16T02:04:09.440Z',
+          isRepeat: false
+        }, {
+          id: 'zbvd5d2hywt',
+          start: '2020-08-07T02:04:09.439Z',
+          end: '2020-09-18T02:04:09.440Z',
+          isRepeat: false
+        }, {
+          id: 'fsri48cr4n',
+          start: '2020-08-05T02:04:09.439Z',
+          end: '2020-09-03T02:04:09.440Z',
+          isRepeat: false
+        }, {
+          id: 'xovlkrg8so',
+          start: '2020-08-05T02:04:09.439Z',
+          end: '2020-09-29T02:04:09.440Z',
+          isRepeat: false
+        }],
+        isEnableGPIO: true,
+        isEnableGPIO1: true,
+        isEnableGPIO2: false,
+        isEnableApp: false,
+        isEnableEmail: true,
+        isEnableVMS: true,
+        faceRecognitionVMSEvent: '0',
+        emails: ['test1@b.com', 'test2@c.com'],
+        emailAttachmentType: '0',
+        groups: [],
+        isEnableFaceRecognition: false,
+        faceRecognitionCondition: '0'
       },
       {
-        id: 3, type: '0', title: 'FR2', isTop: true, isEnableTime: true, timePeriods: [{id: 'vam1qo63kb', start: '2020-06-09T02:06:17.274Z', end: '2020-06-12T02:06:17.275Z', isRepeat: false}], isEnableGPIO: true, isEnableGPIO1: true, isEnableGPIO2: true, isEnableApp: false, isEnableEmail: true, isEnableVMS: true, faceRecognitionVMSEvent: '0', emails: ['testd@abc.com'], emailAttachmentType: '0', groups: [memberGroups[0].id], isEnableFaceRecognition: true, faceRecognitionCondition: '0'
+        id: 3,
+        type: '0',
+        title: 'FR2',
+        isTop: true,
+        isEnableTime: true,
+        timePeriods: [{
+          id: 'vam1qo63kb',
+          start: '2020-06-09T02:06:17.274Z',
+          end: '2020-06-12T02:06:17.275Z',
+          isRepeat: false
+        }],
+        isEnableGPIO: true,
+        isEnableGPIO1: true,
+        isEnableGPIO2: true,
+        isEnableApp: false,
+        isEnableEmail: true,
+        isEnableVMS: true,
+        faceRecognitionVMSEvent: '0',
+        emails: ['testd@abc.com'],
+        emailAttachmentType: '0',
+        groups: [memberGroups[0].id],
+        isEnableFaceRecognition: true,
+        faceRecognitionCondition: '0'
       }],
       groups: memberGroups,
       members,

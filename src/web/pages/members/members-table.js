@@ -148,7 +148,16 @@ module.exports = class MembersTable extends React.PureComponent {
                     </td>
                     <td className={classNames('text-left group-btn', tdClass)}>
                       <CustomTooltip title={_('Edit Member: {0}', [member.name])}>
-                        <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...params, memberId: member.id}}}>
+                        <Link
+                          className="btn btn-link"
+                          to={{
+                            name: 'web.users.members.details',
+                            params: {
+                              ...params,
+                              memberId: member.id
+                            }
+                          }}
+                        >
                           <i className="fas fa-pen fa-lg fa-fw"/>
                         </Link>
                       </CustomTooltip>

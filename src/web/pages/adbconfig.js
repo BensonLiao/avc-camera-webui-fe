@@ -91,7 +91,11 @@ module.exports = class ADBConfig extends React.PureComponent {
     const {isEnable, isPersist, port} = this.state;
     return ReactDOM.createPortal(
       <>
-        <div style={{textAlign: 'center', marginTop: '1.5rem'}}>
+        <div style={{
+          textAlign: 'center',
+          marginTop: '1.5rem'
+        }}
+        >
           <div>{`is enable: ${isEnable}`}</div>
           <div>{`is persist: ${isPersist}`}</div>
           <div>{`port: ${port}`}</div>

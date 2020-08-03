@@ -127,7 +127,10 @@ module.exports = class Home extends Base {
   });
 
   fetchSnapshot = () => {
-    axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
+    axios.get('/api/snapshot', {
+      timeout: 1500,
+      responseType: 'blob'
+    })
       .then(response => {
         if (this.state.streamImageUrl) {
           window.URL.revokeObjectURL(this.state.streamImageUrl);
@@ -374,7 +377,11 @@ module.exports = class Home extends Base {
 
                                           <div
                                             className="progress-bar"
-                                            style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}
+                                            style={{
+                                              width: `${freeDiskPercentage}%`,
+                                              backgroundColor: '#e9ecef',
+                                              color: 'var(--gray-dark)'
+                                            }}
                                           >
                                             {freeDiskPercentage > 8 ? `${freeDiskPercentage}%` : ''}
                                           </div>

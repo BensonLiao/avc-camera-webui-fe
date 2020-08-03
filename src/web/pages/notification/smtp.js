@@ -79,7 +79,10 @@ module.exports = class SMTP extends Base {
 
   onSubmitSMTPSettingsForm = values => {
     progress.start();
-    api.notification.updateSMTPSettings({...values, ...this.state.accountSettings})
+    api.notification.updateSMTPSettings({
+      ...values,
+      ...this.state.accountSettings
+    })
       .then(response => {
         notify.showSuccessNotification({
           title: _('Mail Setting Success'),

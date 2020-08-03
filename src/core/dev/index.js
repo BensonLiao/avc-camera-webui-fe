@@ -96,7 +96,10 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     return mockResponseWithLog(config, [200, db.get('networkSettings').assign(data).write()]);
   })
   .onPost('/api/system/network/testdhcp').reply(config => {
-    return mockResponseWithLog(config, [200, {success: 1, resultIP: '19.168.88.99'}]);
+    return mockResponseWithLog(config, [200, {
+      success: 1,
+      resultIP: '19.168.88.99'
+    }]);
   })
   .onGet('/api/system/network/tcpip/ddns').reply(config => {
     return mockResponseWithLog(config, [200, db.get('ddnsSettings').value()]);
@@ -251,14 +254,20 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   })
   .onPost('/api/notification/cards').reply(config => {
     const cards = db.get('notificationCards').value();
-    const card = {id: (cards.sort((a, b) => b.id - a.id)[0] || {id: 0}).id + 1, ...JSON.parse(config.data)};
+    const card = {
+      id: (cards.sort((a, b) => b.id - a.id)[0] || {id: 0}).id + 1,
+      ...JSON.parse(config.data)
+    };
     cards.push(card);
     db.get('notificationCards').assign(cards).write();
     return mockResponseWithLog(config, [200, card]);
   })
   .onPut(/api\/notification\/cards\/\d+$/).reply(config => {
     const id = parseInt(config.url.replace('/api/notification/cards/', ''), 10);
-    const card = {id, ...JSON.parse(config.data)};
+    const card = {
+      id,
+      ...JSON.parse(config.data)
+    };
     return mockResponseWithLog(config, [200, db.get('notificationCards').find({id}).assign(card).write()]);
   })
   .onDelete(/api\/notification\/cards\/\d+$/).reply(config => {

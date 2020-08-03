@@ -122,7 +122,10 @@ module.exports = class Events extends Base {
       currentMember: null,
       defaultMemberPictureUrl: null
     });
-    getRouter().go({name: this.currentRoute.name, params: this.props.params}, {reload: true});
+    getRouter().go({
+      name: this.currentRoute.name,
+      params: this.props.params
+    }, {reload: true});
   };
 
   onHideMemberModal = () => {
@@ -143,7 +146,10 @@ module.exports = class Events extends Base {
 
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
-      {...params, index: undefined}
+      {
+        ...params,
+        index: undefined
+      }
     );
 
     return (

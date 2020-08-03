@@ -75,7 +75,13 @@ module.exports = class Pagination extends React.PureComponent {
 
     return (
       <div className="col-12">
-        <nav className="d-flex justify-content-center align-items-center" style={{padding: '0px 2px', height: '36px'}}>
+        <nav
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            padding: '0px 2px',
+            height: '36px'
+          }}
+        >
           <p className="text-size-14 text-muted mb-0 mr-auto invisible">
             {_('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
           </p>

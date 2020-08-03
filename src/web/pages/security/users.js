@@ -138,7 +138,10 @@ module.exports = class Users extends Base {
               <div className="row">
                 <div className="col-12 text-right mr-32px mb-4">
                   <Link
-                    to={{name: 'web.users.accounts.new-user', params: this.props.params}}
+                    to={{
+                      name: 'web.users.accounts.new-user',
+                      params: this.props.params
+                    }}
                     tabIndex={(isAddUserDisabled ? -1 : null)}
                     className={classNames(
                       'btn btn-outline-primary rounded-pill px-3',
@@ -179,7 +182,13 @@ module.exports = class Users extends Base {
                               <td className={classNames('text-left group-btn', tdClass)}>
                                 <Link
                                   className="btn btn-link"
-                                  to={{name: 'web.users.accounts.details', params: {...this.props.params, userId: user.id}}}
+                                  to={{
+                                    name: 'web.users.accounts.details',
+                                    params: {
+                                      ...this.props.params,
+                                      userId: user.id
+                                    }
+                                  }}
                                 >
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>

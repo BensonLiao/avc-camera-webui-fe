@@ -34,7 +34,10 @@ module.exports = class CustomTooltip extends React.PureComponent {
   static get defaultProps() {
     return {
       placement: 'top',
-      delay: {show: 250, hide: 0},
+      delay: {
+        show: 250,
+        hide: 0
+      },
       show: true
     };
   }
