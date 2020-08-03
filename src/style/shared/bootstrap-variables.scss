@@ -11,16 +11,15 @@ $grid-breakpoints: (
 $spacer: 1rem;
 $spacers: (
   0: 0,
-  1: ($spacer * 0.25), 
-  2: ($spacer * 0.5), 
+  1: ($spacer * 0.25),
+  2: ($spacer * 0.5),
   3: $spacer,
   4: ($spacer * 1.5),
   5: ($spacer * 3),
-  
-  12px: ($spacer * 0.75), 
-  32px: ($spacer * 2), 
-  40px: ($spacer * 2.5), 
-  56px: ($spacer * 3.5) 
+  12px: ($spacer * 0.75),
+  32px: ($spacer * 2),
+  40px: ($spacer * 2.5),
+  56px: ($spacer * 3.5)
 );
 
 $primary: $primary-500;
