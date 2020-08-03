@@ -72,11 +72,23 @@ module.exports = class IO extends Base {
                 <label>{_('Normal State')}</label>
                 <div className="d-flex align-items-center">
                   <div className="form-check">
-                    <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-open`} value={IOType.normallyOpen}/>
+                    <Field
+                      name="ioType"
+                      className="form-check-input"
+                      type="radio"
+                      id={`input-output${index}-normally-open`}
+                      value={IOType.normallyOpen}
+                    />
                     <label className="form-check-label" htmlFor={`input-output${index}-normally-open`}>{_('Normally Open')}</label>
                   </div>
                   <div className="form-check ml-5">
-                    <Field name="ioType" className="form-check-input" type="radio" id={`input-output${index}-normally-closed`} value={IOType.normallyClosed}/>
+                    <Field
+                      name="ioType"
+                      className="form-check-input"
+                      type="radio"
+                      id={`input-output${index}-normally-closed`}
+                      value={IOType.normallyClosed}
+                    />
                     <label className="form-check-label" htmlFor={`input-output${index}-normally-closed`}>{_('Normally Closed')}</label>
                   </div>
                 </div>
@@ -96,9 +108,12 @@ module.exports = class IO extends Base {
               </div>
               <div className="form-group">
                 <label>{_('Pulse Time (Seconds)')}</label>
-                <Field name="pulse" type="text"
+                <Field
+                  name="pulse"
+                  type="text"
                   className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
-                  placeholder={_('Enter Seconds')}/>
+                  placeholder={_('Enter Seconds')}
+                />
                 {
                   errors.pulse && touched.pulse && (
                     <div className="invalid-feedback">{errors.pulse}</div>
@@ -110,9 +125,12 @@ module.exports = class IO extends Base {
               </div>
               <div className="form-group">
                 <label>{_('Delay Time (Seconds)')}</label>
-                <Field name="delay" type="text"
+                <Field
+                  name="delay"
+                  type="text"
                   className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
-                  placeholder={_('Enter Seconds')}/>
+                  placeholder={_('Enter Seconds')}
+                />
                 {
                   errors.delay && touched.delay && (
                     <div className="invalid-feedback">{errors.delay}</div>

@@ -16,9 +16,7 @@ const MembersTable = require('./members-table');
 module.exports = class Members extends Base {
   static get propTypes() {
     return {
-      params: PropTypes.shape({
-        group: PropTypes.string
-      }).isRequired,
+      params: PropTypes.shape({group: PropTypes.string}).isRequired,
       groups: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.string.isRequired,
@@ -78,9 +76,7 @@ module.exports = class Members extends Base {
       deleteGroupTarget,
       deleteMemberTarget,
       $isApiProcessing,
-      isShowSelectModal: {
-        [mode]: isShowModal
-      }
+      isShowSelectModal: {[mode]: isShowModal}
     } = this.state;
     const modalType = {
       deleteGroup: {
@@ -105,7 +101,8 @@ module.exports = class Members extends Base {
         modalBody={modalType[mode].modalBody}
         isConfirmDisable={$isApiProcessing}
         onHide={modalType[mode].hideModal}
-        onConfirm={modalType[mode].modalOnSubmit}/>
+        onConfirm={modalType[mode].modalOnSubmit}
+      />
     );
   }
 
@@ -158,7 +155,11 @@ module.exports = class Members extends Base {
           getRouter().go(
             {
               name: 'web.users.members',
-              params: {...this.props.params, group: undefined, index: undefined}
+              params: {
+                ...this.props.params,
+                group: undefined,
+                index: undefined
+              }
             },
             {reload: true}
           );
@@ -194,7 +195,10 @@ module.exports = class Members extends Base {
     const {selectedGroup, $isApiProcessing} = this.state;
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
-      {...params, index: undefined}
+      {
+        ...params,
+        index: undefined
+      }
     );
 
     return (
@@ -223,8 +227,12 @@ module.exports = class Members extends Base {
                       <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
                     </button>
                     <div className="dropdown-menu dropdown-menu-right shadow">
-                      <Link className="dropdown-item"
-                        to={{name: 'web.users.members.new-member', params: params}}
+                      <Link
+                        className="dropdown-item"
+                        to={{
+                          name: 'web.users.members.new-member',
+                          params: params
+                        }}
                       >
                         {_('Add a New Member')}
                       </Link>
@@ -243,14 +251,31 @@ module.exports = class Members extends Base {
                       {
                         selectedGroup.note.length > 0 && (
                           <CustomTooltip title={selectedGroup.note}>
-                            <div className="text-size-14 text-muted ml-2" style={{display: 'inline-block', lineHeight: 'initial', wordWrap: 'break-word', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '50%'}}>
+                            <div
+                              className="text-size-14 text-muted ml-2"
+                              style={{
+                                display: 'inline-block',
+                                lineHeight: 'initial',
+                                wordWrap: 'break-word',
+                                textOverflow: 'ellipsis',
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                maxWidth: '50%'
+                              }}
+                            >
                               {selectedGroup.note}
                             </div>
                           </CustomTooltip>
                         )
                       }
                       <CustomTooltip title={_('Edit Group: {0}', [selectedGroup.name])}>
-                        <Link className="ml-32px" to={{name: 'web.users.members.modify-group', params: params}}>
+                        <Link
+                          className="ml-32px"
+                          to={{
+                            name: 'web.users.members.modify-group',
+                            params: params
+                          }}
+                        >
                           <i className="fas fa-pen fa-fw"/>
                         </Link>
                       </CustomTooltip>
@@ -271,7 +296,8 @@ module.exports = class Members extends Base {
                   itemQuantity={members.items.length}
                   hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
                     `${hrefTemplate}&index={index}` :
-                    `${hrefTemplate}?index={index}`}/>
+                    `${hrefTemplate}?index={index}`}
+                />
               </div>
             </div>
             <RouterView/>

@@ -10,17 +10,11 @@ const simpleCrypto = new SimpleCrypto(SimpleCrypto.generateRandom);
 
 module.exports = class ADBConfig extends React.PureComponent {
   static get propTypes() {
-    return {
-      params: PropTypes.shape({
-        enable: PropTypes.oneOf(['on', 'off'])
-      })
-    };
+    return {params: PropTypes.shape({enable: PropTypes.oneOf(['on', 'off'])})};
   }
 
   static get defaultProps() {
-    return {
-      params: {}
-    };
+    return {params: {}};
   }
 
   state = {
@@ -72,10 +66,14 @@ module.exports = class ADBConfig extends React.PureComponent {
         <Modal.Body>
           <div className="form-group has-feedback">
             <label>Password</label>
-            <Field name="rootPassword" component={Password} inputProps={{
-              className: 'form-control',
-              placeholder: 'Enter password to view/update config'
-            }}/>
+            <Field
+              name="rootPassword"
+              component={Password}
+              inputProps={{
+                className: 'form-control',
+                placeholder: 'Enter password to view/update config'
+              }}
+            />
           </div>
         </Modal.Body>
         <Modal.Footer className="flex-column">
@@ -93,7 +91,11 @@ module.exports = class ADBConfig extends React.PureComponent {
     const {isEnable, isPersist, port} = this.state;
     return ReactDOM.createPortal(
       <>
-        <div style={{textAlign: 'center', marginTop: '1.5rem'}}>
+        <div style={{
+          textAlign: 'center',
+          marginTop: '1.5rem'
+        }}
+        >
           <div>{`is enable: ${isEnable}`}</div>
           <div>{`is persist: ${isPersist}`}</div>
           <div>{`port: ${port}`}</div>

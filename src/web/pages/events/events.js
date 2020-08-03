@@ -122,7 +122,10 @@ module.exports = class Events extends Base {
       currentMember: null,
       defaultMemberPictureUrl: null
     });
-    getRouter().go({name: this.currentRoute.name, params: this.props.params}, {reload: true});
+    getRouter().go({
+      name: this.currentRoute.name,
+      params: this.props.params
+    }, {reload: true});
   };
 
   onHideMemberModal = () => {
@@ -143,7 +146,10 @@ module.exports = class Events extends Base {
 
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
-      {...params, index: undefined}
+      {
+        ...params,
+        index: undefined
+      }
     );
 
     return (
@@ -153,7 +159,8 @@ module.exports = class Events extends Base {
           isApiProcessing={$isApiProcessing}
           authStatus={authStatus}
           type={type}
-          currentRouteName={this.currentRoute.name}/>
+          currentRouteName={this.currentRoute.name}
+        />
         <div className="main-content left-menu-active bg-white">
           <div className="page-histories">
             <div className="container-fluid">
@@ -169,7 +176,8 @@ module.exports = class Events extends Base {
                     params={params}
                     systemDateTime={systemDateTime}
                     isApiProcessing={$isApiProcessing}
-                    currentRouteName={this.currentRoute.name}/>
+                    currentRouteName={this.currentRoute.name}
+                  />
                 </div>
                 <EventsTable
                   params={params}
@@ -177,12 +185,15 @@ module.exports = class Events extends Base {
                   groups={groups}
                   systemDateTime={systemDateTime}
                   filterHandler={this.generateChangeFilterHandler}
-                  modifyMemberHandler={this.generateMemberModifyHandler}/>
-                <Pagination index={faceEvents.index}
+                  modifyMemberHandler={this.generateMemberModifyHandler}
+                />
+                <Pagination
+                  index={faceEvents.index}
                   size={faceEvents.size}
                   total={faceEvents.total}
                   itemQuantity={faceEvents.items.length}
-                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index={index}` : `${hrefTemplate}?index={index}`}/>
+                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index={index}` : `${hrefTemplate}?index={index}`}
+                />
               </div>
             </div>
           </div>
@@ -193,7 +204,8 @@ module.exports = class Events extends Base {
             member={currentMember}
             defaultPictureUrl={defaultMemberPictureUrl}
             onHide={this.onHideMemberModal}
-            onSubmitted={this.onSubmittedMemberForm}/>
+            onSubmitted={this.onSubmittedMemberForm}
+          />
         </div>
       </>
     );

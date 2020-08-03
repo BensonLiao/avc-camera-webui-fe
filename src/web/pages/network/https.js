@@ -49,7 +49,10 @@ module.exports = class HTTPS extends Base {
 
     let checkDefaultPortList = Object.keys(defaultPorts)
       .filter(items => items !== 'HTTPS')
-      .reduce((obj, key) => ({...obj, [key]: defaultPorts[key]}), {});
+      .reduce((obj, key) => ({
+        ...obj,
+        [key]: defaultPorts[key]
+      }), {});
 
     checkDefaultPortList = utils.duplicateCheck(Object.values(checkDefaultPortList), values);
     // Check if using http port
@@ -100,7 +103,8 @@ module.exports = class HTTPS extends Base {
             name="port"
             type="text"
             validate={this.checkValidatePort}
-            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}/>
+            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
+          />
           {
             errors.port && touched.port && (
               <div className="invalid-feedback">{errors.port}</div>
@@ -114,7 +118,11 @@ module.exports = class HTTPS extends Base {
         <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={_('Please Enable HTTPS')}>
           <div>
             <button
-              disabled={$isApiProcessing || !utils.isObjectEmpty(errors) || ((httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false)}
+              disabled={
+                $isApiProcessing ||
+                !utils.isObjectEmpty(errors) ||
+                ((httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false)
+              }
               className="btn btn-primary btn-block rounded-pill"
               type="submit"
               style={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false ? {pointerEvents: 'none'} : {}}
@@ -129,7 +137,8 @@ module.exports = class HTTPS extends Base {
           modalTitle={_('Success')}
           modalBody={modalBody}
           onConfirm={this.hideModal}
-          onHide={this.hideModal}/>
+          onHide={this.hideModal}
+        />
       </Form>
     );
   };

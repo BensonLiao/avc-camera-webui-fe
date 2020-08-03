@@ -79,7 +79,10 @@ module.exports = class SMTP extends Base {
 
   onSubmitSMTPSettingsForm = values => {
     progress.start();
-    api.notification.updateSMTPSettings({...values, ...this.state.accountSettings})
+    api.notification.updateSMTPSettings({
+      ...values,
+      ...this.state.accountSettings
+    })
       .then(response => {
         notify.showSuccessNotification({
           title: _('Mail Setting Success'),
@@ -96,9 +99,12 @@ module.exports = class SMTP extends Base {
         <div className="modal-body">
           <div className="form-group">
             <label>{_('Account')}</label>
-            <Field name="account" type="text"
+            <Field
+              name="account"
+              type="text"
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
-              placeholder={_('Enter your account')}/>
+              placeholder={_('Enter your account')}
+            />
             {
               errors.account && touched.account && (
                 <div className="invalid-feedback">{errors.account}</div>
@@ -107,11 +113,14 @@ module.exports = class SMTP extends Base {
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
-            <Field name="password" component={Password}
+            <Field
+              name="password"
+              component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.password && touched.password}),
                 placeholder: _('Enter your password')
-              }}/>
+              }}
+            />
             {
               errors.password && touched.password && (
                 <div className="invalid-feedback">{errors.password}</div>
@@ -182,9 +191,13 @@ module.exports = class SMTP extends Base {
         <div className="card-body">
           <div className="form-group">
             <label>{_('Host Address')}</label>
-            <Field autoFocus name="host" type="text"
+            <Field
+              autoFocus
+              name="host"
+              type="text"
               className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-              placeholder={_('Enter your Host Address')}/>
+              placeholder={_('Enter your Host Address')}
+            />
             {
               errors.host && touched.host && (
                 <div className="invalid-feedback">{errors.host}</div>
@@ -203,7 +216,13 @@ module.exports = class SMTP extends Base {
               </CustomTooltip>
             </div>
             <div className="custom-control custom-switch">
-              <Field name="isEnableAuth" checked={values.isEnableAuth} type="checkbox" className="custom-control-input" id="switch-auth"/>
+              <Field
+                name="isEnableAuth"
+                checked={values.isEnableAuth}
+                type="checkbox"
+                className="custom-control-input"
+                id="switch-auth"
+              />
               <label className="custom-control-label" htmlFor="switch-auth">
                 <span>{_('ON')}</span>
                 <span>{_('OFF')}</span>
@@ -213,7 +232,13 @@ module.exports = class SMTP extends Base {
           <div className="form-group d-flex justify-content-between align-items-center">
             <label>{_('Login Notification')}</label>
             <div className="custom-control custom-switch">
-              <Field name="isEnableLoginNotification" checked={values.isEnableLoginNotification} type="checkbox" className="custom-control-input" id="switch-login-notification"/>
+              <Field
+                name="isEnableLoginNotification"
+                checked={values.isEnableLoginNotification}
+                type="checkbox"
+                className="custom-control-input"
+                id="switch-login-notification"
+              />
               <label className="custom-control-label" htmlFor="switch-login-notification">
                 <span>{_('ON')}</span>
                 <span>{_('OFF')}</span>
@@ -227,9 +252,12 @@ module.exports = class SMTP extends Base {
         <div className="card-body">
           <div className="form-group">
             <label>{_('Name')}</label>
-            <Field name="senderName" type="text"
+            <Field
+              name="senderName"
+              type="text"
               className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
-              placeholder={_('Enter Your Name')}/>
+              placeholder={_('Enter Your Name')}
+            />
             {
               errors.senderName && touched.senderName && (
                 <div className="invalid-feedback">{errors.senderName}</div>
@@ -238,9 +266,12 @@ module.exports = class SMTP extends Base {
           </div>
           <div className="form-group">
             <label>{_('Email')}</label>
-            <Field name="senderEmail" type="text"
+            <Field
+              name="senderEmail"
+              type="text"
               className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
-              placeholder={_('Enter your email')}/>
+              placeholder={_('Enter your email')}
+            />
             {
               errors.senderEmail && touched.senderEmail && (
                 <div className="invalid-feedback">{errors.senderEmail}</div>
@@ -249,9 +280,12 @@ module.exports = class SMTP extends Base {
           </div>
           <div className="form-group">
             <label>{_('Notification Interval (Seconds)')}</label>
-            <Field name="interval" type="text"
+            <Field
+              name="interval"
+              type="text"
               className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
-              placeholder={_('Enter your notification interval')}/>
+              placeholder={_('Enter your notification interval')}
+            />
             {
               errors.interval && touched.interval && (
                 <div className="invalid-feedback">{errors.interval}</div>

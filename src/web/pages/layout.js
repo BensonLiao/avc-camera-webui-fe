@@ -35,9 +35,7 @@ module.exports = class Layout extends Base {
         modelName: PropTypes.string.isRequired,
         firmware: PropTypes.string.isRequired
       }).isRequired,
-      networkSettings: PropTypes.shape({
-        mac: PropTypes.string.isRequired
-      }).isRequired
+      networkSettings: PropTypes.shape({mac: PropTypes.string.isRequired}).isRequired
     };
   }
 
@@ -47,9 +45,7 @@ module.exports = class Layout extends Base {
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
-        this.setState({
-          currentRouteName: toState.name
-        });
+        this.setState({currentRouteName: toState.name});
       })
     );
     this.state.isShowAboutModal = false;
@@ -255,7 +251,9 @@ module.exports = class Layout extends Base {
                   <div className="dropdown-menu dropdown-menu-right">
                     {
                       constants.AVAILABLE_LANGUAGE_CODES.map(languageCode => (
-                        <a key={languageCode} className="dropdown-item"
+                        <a
+                          key={languageCode}
+                          className="dropdown-item"
                           href={`#${languageCode}`}
                           onClick={this.generateChangeLanguageHandler(languageCode)}
                         >

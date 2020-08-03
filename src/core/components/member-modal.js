@@ -42,7 +42,11 @@ module.exports = class Member extends React.PureComponent {
   }
 
   static get defaultProps() {
-    return {defaultPictureUrl: null, groups: {items: []}, member: null};
+    return {
+      defaultPictureUrl: null,
+      groups: {items: []},
+      member: null
+    };
   }
 
   state = {
@@ -60,14 +64,13 @@ module.exports = class Member extends React.PureComponent {
       left: 0,
       top: 0,
       right: 0,
-      bottom: 0};
+      bottom: 0
+    };
   }
 
   componentDidMount() {
     if (document.getElementById('avatar-wrapper')) {
-      this.setState({
-        wrapperSize: document.getElementById('avatar-wrapper').clientHeight
-      });
+      this.setState({wrapperSize: document.getElementById('avatar-wrapper').clientHeight});
     }
   }
 
@@ -95,9 +98,7 @@ module.exports = class Member extends React.PureComponent {
   generateRotatePictureHandler = isClockwise => event => {
     event.preventDefault();
     const degrees = isClockwise ? 90 : -90;
-    this.setState(prevState => ({
-      pictureRotateDegrees: prevState.pictureRotateDegrees + degrees
-    }));
+    this.setState(prevState => ({pictureRotateDegrees: prevState.pictureRotateDegrees + degrees}));
   };
 
   onChangeAvatar = event => {
@@ -116,7 +117,12 @@ module.exports = class Member extends React.PureComponent {
   };
 
   onDraggingMaskArea = (event, data) => {
-    this.setState({photoOffset: {x: data.x, y: data.y}});
+    this.setState({
+      photoOffset: {
+        x: data.x,
+        y: data.y
+      }
+    });
   };
 
   updateBoundary = zoomScale => {
@@ -127,7 +133,8 @@ module.exports = class Member extends React.PureComponent {
         left: -calculateBoundary,
         top: -calculateBoundary,
         right: calculateBoundary,
-        bottom: calculateBoundary}
+        bottom: calculateBoundary
+      }
     });
   }
 
@@ -271,7 +278,8 @@ module.exports = class Member extends React.PureComponent {
                     max={300}
                     onChangeInput={() => {
                       this.updateBoundary(zoomScale);
-                    }}/>
+                    }}
+                  />
                 </div>
               </div>
               <i className="far fa-image fa-fw fa-lg ml-2"/>
@@ -279,9 +287,13 @@ module.exports = class Member extends React.PureComponent {
           </div>
           <div className="form-group">
             <label>{_('Name')}</label>
-            <Field name="name" type="text" placeholder={_('Enter Your Name')}
+            <Field
+              name="name"
+              type="text"
+              placeholder={_('Enter Your Name')}
               maxLength={MemberSchema.name.max}
-              className={classNames('form-control', {'is-invalid': errors.name && touched.name})}/>
+              className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
+            />
             {
               errors.name && touched.name && (
                 <div className="invalid-feedback">{errors.name}</div>
@@ -290,9 +302,13 @@ module.exports = class Member extends React.PureComponent {
           </div>
           <div className="form-group">
             <label>{_('Organization')}</label>
-            <Field name="organization" type="text" placeholder={_('Enter the organization')}
+            <Field
+              name="organization"
+              type="text"
+              placeholder={_('Enter the organization')}
               maxLength={MemberSchema.organization.max}
-              className={classNames('form-control', {'is-invalid': errors.organization && touched.organization})}/>
+              className={classNames('form-control', {'is-invalid': errors.organization && touched.organization})}
+            />
             {
               errors.organization && touched.organization && (
                 <div className="invalid-feedback">{errors.organization}</div>
@@ -308,9 +324,13 @@ module.exports = class Member extends React.PureComponent {
           </SelectField>
           <div className="form-group">
             <label>{_('Note')}</label>
-            <Field name="note" type="text" placeholder={_('Enter Your Note')}
+            <Field
+              name="note"
+              type="text"
+              placeholder={_('Enter Your Note')}
               maxLength={MemberSchema.note.max}
-              className={classNames('form-control', {'is-invalid': errors.note && touched.note})}/>
+              className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
+            />
             {
               errors.note && touched.note && (
                 <div className="invalid-feedback">{errors.note}</div>
@@ -324,8 +344,10 @@ module.exports = class Member extends React.PureComponent {
               {this.props.member ? _('Confirm') : _('New')}
             </button>
           </div>
-          <button className="btn btn-info btn-block m-0 rounded-pill"
-            type="button" onClick={this.props.onHide}
+          <button
+            className="btn btn-info btn-block m-0 rounded-pill"
+            type="button"
+            onClick={this.props.onHide}
           >
             {_('Close')}
           </button>

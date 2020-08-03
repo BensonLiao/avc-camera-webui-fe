@@ -13,9 +13,7 @@ module.exports = class Media extends Base {
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
-        this.setState({
-          currentRouteName: toState.name
-        });
+        this.setState({currentRouteName: toState.name});
       })
     );
     if (this.state.currentRouteName === 'web.media') {
@@ -32,22 +30,30 @@ module.exports = class Media extends Base {
         <div className="left-menu fixed-top">
           <h2>{_('Video')}</h2>
           <nav className="nav flex-column">
-            <Link to="/media/stream" title={_('Stream Settings')}
+            <Link
+              to="/media/stream"
+              title={_('Stream Settings')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.stream'})}
             >
               {_('Stream Settings')}
             </Link>
-            <Link to="/media/rtsp" title={_('RTSP')}
+            <Link
+              to="/media/rtsp"
+              title={_('RTSP')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.rtsp'})}
             >
               RTSP
             </Link>
-            <Link to="/media/word" title={_('OSD')}
+            <Link
+              to="/media/word"
+              title={_('OSD')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.word'})}
             >
               {_('OSD')}
             </Link>
-            <Link to="/media/privacy-mask" title={_('Privacy Mask')}
+            <Link
+              to="/media/privacy-mask"
+              title={_('Privacy Mask')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.privacy-mask'})}
             >
               {_('Privacy Mask')}

@@ -20,9 +20,7 @@ const SelectField = require('../../../core/components/fields/select-field');
 module.exports = class DateTime extends Base {
   static get propTypes() {
     return {
-      systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired
-      }).isRequired,
+      systemInformation: PropTypes.shape({languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired}).isRequired,
       systemDateTime: PropTypes.shape({
         deviceTime: PropTypes.string.isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,
@@ -45,7 +43,10 @@ module.exports = class DateTime extends Base {
   }
 
   getMatchedValue = (list, value) => {
-    return Object.entries(list).filter(key => key.includes(value)).reduce((obj, [key, value]) => ({key, value}), {});
+    return Object.entries(list).filter(key => key.includes(value)).reduce((obj, [key, value]) => ({
+      key,
+      value
+    }), {});
   }
 
   toggleDateTimePicker = name => event => {
@@ -117,7 +118,8 @@ module.exports = class DateTime extends Base {
               className="form-check-input"
               type="radio"
               id={`system-date-sync-option-${SyncTimeOption.ntp}`}
-              value={SyncTimeOption.ntp}/>
+              value={SyncTimeOption.ntp}
+            />
             <label
               className="form-check-label text-size-16"
               htmlFor={`system-date-sync-option-${SyncTimeOption.ntp}`}
@@ -159,7 +161,8 @@ module.exports = class DateTime extends Base {
                       className="form-check-input"
                       type="radio"
                       id={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
-                      value={NTPTimeOption.updateTime}/>
+                      value={NTPTimeOption.updateTime}
+                    />
                     <label
                       className="form-check-label"
                       htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
@@ -194,7 +197,8 @@ module.exports = class DateTime extends Base {
                       className="form-check-input"
                       type="radio"
                       id={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
-                      value={NTPTimeOption.updateTimeRate}/>
+                      value={NTPTimeOption.updateTimeRate}
+                    />
                     <label
                       className="form-check-label mr-3"
                       htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
@@ -225,7 +229,8 @@ module.exports = class DateTime extends Base {
               className="form-check-input"
               type="radio"
               id={`system-date-sync-option-${SyncTimeOption.local}`}
-              value={SyncTimeOption.local}/>
+              value={SyncTimeOption.local}
+            />
             <label
               className="form-check-label text-size-16"
               htmlFor={`system-date-sync-option-${SyncTimeOption.local}`}
@@ -240,7 +245,8 @@ module.exports = class DateTime extends Base {
                 className="form-check-input"
                 type="radio"
                 id={`system-date-sync-option-${SyncTimeOption.manual}`}
-                value={SyncTimeOption.manual}/>
+                value={SyncTimeOption.manual}
+              />
               <label
                 className="form-check-label text-size-16"
                 htmlFor={`system-date-sync-option-${SyncTimeOption.manual}`}

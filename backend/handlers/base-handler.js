@@ -12,8 +12,11 @@ exports.baseView = (req, res) => {
       permission: '0'
     },
     cameraName: 'IP Camera',
-    skuID: 'NoBrand',
+    skuID: '',
     isDebug: 'y',
-    error: res.error ? {status: res.error.status, message: `${res.error}`} : null
+    error: res.error ? {
+      status: res.error.status,
+      message: `${res.error}`
+    } : null
   });
 };

@@ -28,7 +28,9 @@ module.exports = class SelectField extends React.PureComponent {
   }
 
   render() {
-    const {hide, labelName, labelClassName, wrapperClassName, readOnly, name, className, children} = this.props;
+    const {
+      hide, labelName, labelClassName, wrapperClassName, readOnly, name, className, children
+    } = this.props;
     return (
       <div className={classNames('form-group', (hide && 'd-none'))}>
         <label className={labelClassName}>{labelName}</label>

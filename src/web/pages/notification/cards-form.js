@@ -24,7 +24,8 @@ const CustomNormalWrapper = (
     marginLeft: '1rem',
     cursor: 'pointer',
     color: primaryColor
-  }}/>
+  }}
+  />
 );
 
 module.exports = class CardsForm extends React.PureComponent {
@@ -84,7 +85,10 @@ module.exports = class CardsForm extends React.PureComponent {
         isEnableTime: card.isEnableTime,
         $start: null,
         $end: null,
-        timePeriods: card.timePeriods.map(x => ({...x, id: Math.random().toString(36).substr(2)})),
+        timePeriods: card.timePeriods.map(x => ({
+          ...x,
+          id: Math.random().toString(36).substr(2)
+        })),
         $groups: card.groups.length > 0 ? card.groups[0] : '',
         faceRecognitionCondition: card.faceRecognitionCondition,
         isEnableGPIO: card.isEnableGPIO,
@@ -126,7 +130,8 @@ module.exports = class CardsForm extends React.PureComponent {
   };
 
   render() {
-    const {isApiProcessing,
+    const {
+      isApiProcessing,
       groups,
       isShowCardDetailsModal,
       onSubmit,
@@ -134,7 +139,8 @@ module.exports = class CardsForm extends React.PureComponent {
       onHideCardModal,
       isTop,
       toggleIsTop,
-      sanitizeInput} = this.props;
+      sanitizeInput
+    } = this.props;
 
     return (
       <Modal
@@ -183,9 +189,13 @@ module.exports = class CardsForm extends React.PureComponent {
                   <div className="select-wrapper border rounded-pill overflow-hidden">
                     <Field name="type" component="select" className="form-control border-0">
                       {
-                        NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3' || faceRecognition === '5')).map(faceRecognition => {
-                          return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
-                        })
+                        NotificationCardType.all().filter(faceRecognition => (
+                          faceRecognition === '0' || faceRecognition === '3' || faceRecognition === '5'
+                        )).map(
+                          faceRecognition => {
+                            return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
+                          }
+                        )
                       }
                     </Field>
                   </div>

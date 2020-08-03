@@ -141,7 +141,10 @@ module.exports = class Cards extends Base {
   };
 
   sanitizeInput = input => {
-    return sanitizeHtml(input, {allowedTags: [], allowedAttributes: {}});
+    return sanitizeHtml(input, {
+      allowedTags: [],
+      allowedAttributes: {}
+    });
   }
 
   onSubmitCardForm = values => {
@@ -167,7 +170,10 @@ module.exports = class Cards extends Base {
           this.setState(prevState => {
             const cards = [...prevState.cards];
             cards.push(response.data);
-            return {cards, isShowCardDetailsModal: false};
+            return {
+              cards,
+              isShowCardDetailsModal: false
+            };
           });
         })
         .finally(progress.done);
@@ -180,7 +186,10 @@ module.exports = class Cards extends Base {
             const cards = [...prevState.cards];
             const index = cards.findIndex(x => x.id === data.id);
             cards.splice(index, 1, response.data);
-            return {cards, isShowCardDetailsModal: false};
+            return {
+              cards,
+              isShowCardDetailsModal: false
+            };
           });
         })
         .finally(progress.done);

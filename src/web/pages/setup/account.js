@@ -72,10 +72,14 @@ module.exports = class SetupAccount extends Base {
           </div>
           <div className="form-group has-feedback">
             <label>{_('Birthday')}</label>
-            <Field name="birthday" component={Password} inputProps={{
-              placeholder: '19900101',
-              className: classTable.birthday
-            }}/>
+            <Field
+              name="birthday"
+              component={Password}
+              inputProps={{
+                placeholder: '19900101',
+                className: classTable.birthday
+              }}
+            />
             {
               errors.birthday && touched && (
                 <div className="invalid-feedback">{errors.birthday}</div>
@@ -85,10 +89,14 @@ module.exports = class SetupAccount extends Base {
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
-            <Field name="password" component={Password} inputProps={{
-              placeholder: _('Enter your password'),
-              className: classTable.password
-            }}/>
+            <Field
+              name="password"
+              component={Password}
+              inputProps={{
+                placeholder: _('Enter your password'),
+                className: classTable.password
+              }}
+            />
             {
               errors.password && touched && (
                 <div className="invalid-feedback">{errors.password}</div>
@@ -100,10 +108,14 @@ module.exports = class SetupAccount extends Base {
           </div>
           <div className="form-group has-feedback">
             <label>{_('Confirm Password')}</label>
-            <Field name="confirmPassword" component={Password} inputProps={{
-              placeholder: _('Confirm your password'),
-              className: classTable.confirmPassword
-            }}/>
+            <Field
+              name="confirmPassword"
+              component={Password}
+              inputProps={{
+                placeholder: _('Confirm your password'),
+                className: classTable.confirmPassword
+              }}
+            />
             {
               errors.confirmPassword && touched && (
                 <div className="invalid-feedback">{errors.confirmPassword}</div>

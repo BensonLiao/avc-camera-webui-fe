@@ -13,12 +13,18 @@ module.exports = {
     method: 'get',
     url: `/api/ping/${type || 'web'}`,
     timeout: 1000,
-    params: {mock, _: Math.random().toString(36).substr(2)}
+    params: {
+      mock,
+      _: Math.random().toString(36).substr(2)
+    }
   }),
   updateMjpeg: ({res, quality}) => api({
     method: 'put',
     url: '/api/update-mjpeg',
-    data: {res, quality}
+    data: {
+      res,
+      quality
+    }
   }),
   validation: {
     /**
@@ -31,7 +37,10 @@ module.exports = {
     accountBirthday: ({account, birthday}) => api({
       method: 'post',
       url: '/api/_validate/account-birthday',
-      data: {account, birthday}
+      data: {
+        account,
+        birthday
+      }
     })
   },
   account: {
@@ -53,7 +62,11 @@ module.exports = {
     login: ({account, password, maxAge}) => api({
       method: 'post',
       url: '/api/account/_login',
-      data: {account, password, maxAge: Number(maxAge)}
+      data: {
+        account,
+        password,
+        maxAge: Number(maxAge)
+      }
     }),
     /**
      * Logout.
@@ -84,7 +97,11 @@ module.exports = {
     changePasswordWithBirthday: ({account, birthday, password}) => api({
       method: 'post',
       url: '/api/account/_change-password',
-      data: {account, birthday, password}
+      data: {
+        account,
+        birthday,
+        password
+      }
     }),
     /**
      * Change my password.
@@ -96,7 +113,10 @@ module.exports = {
     changeMyPassword: ({password, newPassword}) => api({
       method: 'put',
       url: '/api/me/password',
-      data: {password, newPassword}
+      data: {
+        password,
+        newPassword
+      }
     })
   },
   user: {
@@ -138,7 +158,11 @@ module.exports = {
     addUser: ({account, permission, password}) => api({
       method: 'post',
       url: '/api/users',
-      data: {account, permission, password}
+      data: {
+        account,
+        permission,
+        password
+      }
     }),
     /**
      * @param {Number} id
@@ -155,7 +179,12 @@ module.exports = {
     updateUser: ({id, account, permission, password, newPassword}) => api({
       method: 'put',
       url: `/api/users/${id}`,
-      data: {account, permission, password, newPassword}
+      data: {
+        account,
+        permission,
+        password,
+        newPassword
+      }
     }),
     /**
      * @param {Number} userId
@@ -229,10 +258,22 @@ module.exports = {
      * - deviceTime {String}
      * - manualTime {Date}
      */
-    updateSystemDateTime: ({syncTimeOption, ntpTimeZone, ntpTimeZoneAuto, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}) => api({
+    updateSystemDateTime: ({
+      syncTimeOption, ntpTimeZone, ntpTimeZoneAuto, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime
+    }) => api({
       method: 'put',
       url: '/api/system/datetime',
-      data: {syncTimeOption, ntpTimeZone, ntpTimeZoneAuto, ntpIP, ntpTimeOption, ntpUpdateTime, ntpUpdateTimeRate, deviceTime, manualTime}
+      data: {
+        syncTimeOption,
+        ntpTimeZone,
+        ntpTimeZoneAuto,
+        ntpIP,
+        ntpTimeOption,
+        ntpUpdateTime,
+        ntpUpdateTimeRate,
+        deviceTime,
+        manualTime
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -256,7 +297,13 @@ module.exports = {
     updateHttpsSettings: ({isEnable, port, certificateType, certificate, privateKey}) => api({
       method: 'put',
       url: '/api/system/https',
-      data: {isEnable, port, certificateType, certificate, privateKey}
+      data: {
+        isEnable,
+        port,
+        certificateType,
+        certificate,
+        privateKey
+      }
     }),
     /**
      * @param {String} deviceName
@@ -436,7 +483,14 @@ module.exports = {
     updateNetworkSettings: ({ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}) => api({
       method: 'put',
       url: '/api/system/network',
-      data: {ipType, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}
+      data: {
+        ipType,
+        ipAddress,
+        primaryDNS,
+        secondaryDNS,
+        subnetMask,
+        gateway
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -481,7 +535,13 @@ module.exports = {
     updateDDNSInfo: ({isEnableDDNS, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}) => api({
       method: 'put',
       url: '/api/system/network/tcpip/ddns',
-      data: {isEnableDDNS, ddnsProvider, ddnsHost, ddnsAccount, ddnsPassword}
+      data: {
+        isEnableDDNS,
+        ddnsProvider,
+        ddnsHost,
+        ddnsAccount,
+        ddnsPassword
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -516,7 +576,11 @@ module.exports = {
     updateADBConfig: ({isEnable, isPersist, port}) => api({
       method: 'put',
       url: '/api/system/adbconfig',
-      data: {isEnable, isPersist, port}
+      data: {
+        isEnable,
+        isPersist,
+        port
+      }
     })
   },
   notification: {
@@ -544,7 +608,11 @@ module.exports = {
     updateAppSettings: ({deviceToken, deviceId, interval}) => api({
       method: 'put',
       url: '/api/notification/app/settings',
-      data: {deviceToken, deviceId, interval}
+      data: {
+        deviceToken,
+        deviceId,
+        interval
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -564,7 +632,10 @@ module.exports = {
     updateIOInSettings: ({isEnable, ioType}) => api({
       method: 'put',
       url: '/api/notification/io-in/settings',
-      data: {isEnable, ioType}
+      data: {
+        isEnable,
+        ioType
+      }
     }),
     /**
      * @param {number} index
@@ -592,7 +663,13 @@ module.exports = {
     updateIOOutSettings: (index, {isEnable, ioType, gateType, pulse, delay}) => api({
       method: 'put',
       url: `/api/notification/io-out/${index}/settings`,
-      data: {isEnable, ioType, gateType, pulse, delay}
+      data: {
+        isEnable,
+        ioType,
+        gateType,
+        pulse,
+        delay
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -625,10 +702,23 @@ module.exports = {
      * @param {boolean} isEnableAuth
      * @returns {Promise<response>}
      */
-    updateSMTPSettings: ({encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth}) => api({
+    updateSMTPSettings: ({
+      encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth
+    }) => api({
       method: 'put',
       url: '/api/notification/smtp/settings',
-      data: {encryption, host, port, account, password, senderName, senderEmail, interval, isEnableLoginNotification, isEnableAuth}
+      data: {
+        encryption,
+        host,
+        port,
+        account,
+        password,
+        senderName,
+        senderEmail,
+        interval,
+        isEnableLoginNotification,
+        isEnableAuth
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -655,15 +745,96 @@ module.exports = {
       method: 'get',
       url: '/api/notification/cards'
     }),
-    addCard: ({type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    addCard: ({
+      type,
+      title,
+      isTop,
+      isEnableTime,
+      timePeriods,
+      isEnableGPIO,
+      isEnableGPIO1,
+      isEnableGPIO2,
+      isEnableApp,
+      isEnableEmail,
+      isEnableVMS,
+      faceRecognitionVMSEvent,
+      emails,
+      emailAttachmentType,
+      senderSubject,
+      senderContent,
+      groups,
+      isEnableFaceRecognition,
+      faceRecognitionCondition
+    }) => api({
       method: 'post',
       url: '/api/notification/cards',
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {
+        type,
+        title,
+        isTop,
+        isEnableTime,
+        timePeriods,
+        isEnableGPIO,
+        isEnableGPIO1,
+        isEnableGPIO2,
+        isEnableApp,
+        isEnableEmail,
+        isEnableVMS,
+        faceRecognitionVMSEvent,
+        emails,
+        emailAttachmentType,
+        senderSubject,
+        senderContent,
+        groups,
+        isEnableFaceRecognition,
+        faceRecognitionCondition
+      }
     }),
-    updateCard: ({id, type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}) => api({
+    updateCard: ({
+      id,
+      type,
+      title,
+      isTop,
+      isEnableTime,
+      timePeriods,
+      isEnableGPIO,
+      isEnableGPIO1,
+      isEnableGPIO2,
+      isEnableApp,
+      isEnableEmail,
+      isEnableVMS,
+      faceRecognitionVMSEvent,
+      emails,
+      emailAttachmentType,
+      senderSubject,
+      senderContent,
+      groups,
+      isEnableFaceRecognition,
+      faceRecognitionCondition
+    }) => api({
       method: 'put',
       url: `/api/notification/cards/${id}`,
-      data: {type, title, isTop, isEnableTime, timePeriods, isEnableGPIO, isEnableGPIO1, isEnableGPIO2, isEnableApp, isEnableEmail, isEnableVMS, faceRecognitionVMSEvent, emails, emailAttachmentType, senderSubject, senderContent, groups, isEnableFaceRecognition, faceRecognitionCondition}
+      data: {
+        type,
+        title,
+        isTop,
+        isEnableTime,
+        timePeriods,
+        isEnableGPIO,
+        isEnableGPIO1,
+        isEnableGPIO2,
+        isEnableApp,
+        isEnableEmail,
+        isEnableVMS,
+        faceRecognitionVMSEvent,
+        emails,
+        emailAttachmentType,
+        senderSubject,
+        senderContent,
+        groups,
+        isEnableFaceRecognition,
+        faceRecognitionCondition
+      }
     }),
     deleteCard: cardId => api({
       method: 'delete',
@@ -807,7 +978,12 @@ module.exports = {
     updateFocusSettings: ({focalLength, zoom, focusType, isAutoFocusAfterZoom}) => api({
       method: 'put',
       url: '/api/video/settings/focus',
-      data: {focalLength, zoom, focusType, isAutoFocusAfterZoom}
+      data: {
+        focalLength,
+        zoom,
+        focusType,
+        isAutoFocusAfterZoom
+      }
     }),
     /**
      * @returns {Object}
@@ -864,9 +1040,7 @@ module.exports = {
     updateFRSetting: ({isEnable}) => api({
       method: 'put',
       url: '/api/face-recognition/fr',
-      data: {
-        isEnable
-      }
+      data: {isEnable}
     }),
     /**
      * Schema: webserver-form-schema/face-recognition-settings-schema
@@ -878,9 +1052,7 @@ module.exports = {
     updateFRConfidenceLevel: ({confidenceLevel}) => api({
       method: 'put',
       url: '/api/face-recognition/confidencelevel',
-      data: {
-        confidenceLevel
-      }
+      data: {confidenceLevel}
     }),
     /**
      * Schema: webserver-form-schema/face-recognition-settings-schema
@@ -954,7 +1126,11 @@ module.exports = {
     updateMotionDetectionSettings: ({isEnable, sensibility, areas}) => api({
       method: 'put',
       url: '/api/motion-detection/settings',
-      data: {isEnable, sensibility, areas}
+      data: {
+        isEnable,
+        sensibility,
+        areas
+      }
     })
   },
   group: {
@@ -994,7 +1170,10 @@ module.exports = {
     addGroup: ({name, note}) => api({
       method: 'post',
       url: '/api/groups',
-      data: {name, note}
+      data: {
+        name,
+        note
+      }
     }),
     /**
      * @param {String} id
@@ -1009,7 +1188,10 @@ module.exports = {
     updateGroup: ({id, name, note}) => api({
       method: 'put',
       url: `/api/groups/${id}`,
-      data: {name, note}
+      data: {
+        name,
+        note
+      }
     }),
     /**
      * @param {String} groupId
@@ -1049,7 +1231,12 @@ module.exports = {
     getMembers: ({index, keyword, group, sort}) => api({
       method: 'get',
       url: '/api/members',
-      params: {index, keyword, group, sort}
+      params: {
+        index,
+        keyword,
+        group,
+        sort
+      }
     }),
     /**
      * @param {String} name
@@ -1208,7 +1395,10 @@ module.exports = {
     updateStreamSettings: ({channelA, channelB}) => api({
       method: 'put',
       url: '/api/multimedia/stream/settings',
-      data: {channelA, channelB}
+      data: {
+        channelA,
+        channelB
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -1249,7 +1439,13 @@ module.exports = {
     updateRTSPSettings: ({isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}) => api({
       method: 'put',
       url: '/api/multimedia/rtsp/settings',
-      data: {isEnableAudioToStream, isEnablePassword, tcpPort, udpPort, connectionLimit}
+      data: {
+        isEnableAudioToStream,
+        isEnablePassword,
+        tcpPort,
+        udpPort,
+        connectionLimit
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -1280,7 +1476,10 @@ module.exports = {
     updatePrivacyMaskSettings: ({isEnable, maskAreas}) => api({
       method: 'put',
       url: '/api/multimedia/privacy-mask/settings',
-      data: {isEnable, maskAreas}
+      data: {
+        isEnable,
+        maskAreas
+      }
     }),
     /**
      * Schema: webserver-form-schema/audio-settings-schema
@@ -1309,7 +1508,11 @@ module.exports = {
     updateAudioSettings: ({isEnableInput, inputQuality, inputSource}) => api({
       method: 'put',
       url: '/api/multimedia/audio/settings',
-      data: {isEnableInput, inputQuality, inputSource}
+      data: {
+        isEnableInput,
+        inputQuality,
+        inputSource
+      }
     }),
     /**
      * @returns {Promise<response>}
@@ -1344,7 +1547,14 @@ module.exports = {
     updateWordSettings: ({isEnable, fontSize, color, position, type, customText}) => api({
       method: 'put',
       url: '/api/multimedia/word/settings',
-      data: {isEnable, fontSize, color, position, type, customText}
+      data: {
+        isEnable,
+        fontSize,
+        color,
+        position,
+        type,
+        customText
+      }
     })
   },
   event: {
@@ -1383,7 +1593,15 @@ module.exports = {
     getFaceEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
       method: 'get',
       url: '/api/face-events',
-      params: {enrollStatus, confidence, index, keyword, start, end, sort}
+      params: {
+        enrollStatus,
+        confidence,
+        index,
+        keyword,
+        start,
+        end,
+        sort
+      }
     })
   },
   authKey: {

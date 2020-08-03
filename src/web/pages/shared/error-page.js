@@ -26,9 +26,7 @@ module.exports = class ErrorPage extends React.Component {
   }
 
   render() {
-    const classTable = {
-      page: classNames('error-page', `error-${this.state.status}`)
-    };
+    const classTable = {page: classNames('error-page', `error-${this.state.status}`)};
     const messageTitle = this.state.status === 404 ? _('Not Found') : _('The Server Error');
 
     return (

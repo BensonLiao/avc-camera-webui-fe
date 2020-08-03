@@ -189,7 +189,10 @@ exports.onTogglePlayStream = (event, thisRef) => {
         window.URL.revokeObjectURL(prevState.streamImageUrl);
       }
 
-      return {isPlayStream: false, streamImageUrl: null};
+      return {
+        isPlayStream: false,
+        streamImageUrl: null
+      };
     }
 
     // Get the stream data
@@ -204,7 +207,10 @@ exports.onClickDownloadImage = event => {
   api.system.getSystemDateTime()
     .then(({data}) => {
       const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
-      axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
+      axios.get('/api/snapshot', {
+        timeout: 1500,
+        responseType: 'blob'
+      })
         .then(response => {
           download(response.data, `${dateTime}.jpg`);
         })

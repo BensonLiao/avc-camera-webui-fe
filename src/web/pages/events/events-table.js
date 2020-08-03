@@ -13,9 +13,7 @@ const utils = require('../../../core/utils');
 module.exports = class EventsTable extends React.PureComponent {
   static get propTypes() {
     return {
-      params: PropTypes.shape({
-        sort: PropTypes.string
-      }).isRequired,
+      params: PropTypes.shape({sort: PropTypes.string}).isRequired,
       events: PropTypes.shape({
         index: PropTypes.number.isRequired,
         size: PropTypes.number.isRequired,
@@ -78,54 +76,64 @@ module.exports = class EventsTable extends React.PureComponent {
         icon: classNames(defaultIconClass,
           {'fa-caret-down': (params.sort || '-time') === '-time'},
           {'fa-caret-up': params.sort === 'time'}),
-        title: _('Time'), width: {width: '14%'}
+        title: _('Time'),
+        width: {width: '14%'}
       },
       {
-        title: _('Capture'), width: {width: '10%'}
+        title: _('Capture'),
+        width: {width: '10%'}
       },
       {
-        title: _('User Picture'), width: {width: '10%'}
+        title: _('User Picture'),
+        width: {width: '10%'}
       },
       {
         handler: filterHandler('sort', params.sort === 'name' ? '-name' : 'name'),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-name'},
           {'fa-caret-up': params.sort === 'name'}),
-        title: _('Name'), width: {width: '10%'}
+        title: _('Name'),
+        width: {width: '10%'}
       },
       {
         handler: filterHandler('sort', params.sort === 'group' ? '-group' : 'group'),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-group'},
           {'fa-caret-up': params.sort === 'group'}),
-        title: _('Group'), width: {width: '8%'}
+        title: _('Group'),
+        width: {width: '8%'}
       },
       {
         handler: filterHandler('sort', params.sort === 'organization' ? '-organization' : 'organization'),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-organization'},
           {'fa-caret-up': params.sort === 'organization'}),
-        title: _('Organization'), width: {width: '14%'}
+        title: _('Organization'),
+        width: {width: '14%'}
       },
       {
         handler: filterHandler('sort', params.sort === 'confidence' ? '-confidence' : 'confidence'),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-confidence'},
           {'fa-caret-up': params.sort === 'confidence'}),
-        title: _('Similarity'), width: {width: '10%'}
+        title: _('Similarity'),
+        width: {width: '10%'}
       },
       {
         handler: filterHandler('sort', params.sort === 'recognitionResult' ? '-recognitionResult' : 'recognitionResult'),
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-recognitionResult'},
           {'fa-caret-up': params.sort === 'recognitionResult'}),
-        title: _('Recognition Result'), width: {width: '8%'}
+        title: _('Recognition Result'),
+        width: {width: '8%'}
       },
       {
-        title: _('Note'), width: {width: '10%'}
+        title: _('Note'),
+        width: {width: '10%'}
       },
       {
-        title: _('Actions'), width: {width: '6%'}
+        title: _('Actions'),
+        width: {width: '6%'}
       }
     ];
     return (
@@ -172,14 +180,41 @@ module.exports = class EventsTable extends React.PureComponent {
                       {utils.formatDate(event.time, {withSecond: true})}
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <div style={{width: 56, height: 56}}>
-                        <div className="rounded-circle overflow-hidden" style={{margin: 0, padding: '0 0 100%', position: 'relative'}}>
-                          <div style={{background: '50%', backgroundSize: 'cover', width: '100%', height: '100%', position: 'absolute', left: 0, top: 0, backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
+                      <div style={{
+                        width: 56,
+                        height: 56
+                      }}
+                      >
+                        <div
+                          className="rounded-circle overflow-hidden"
+                          style={{
+                            margin: 0,
+                            padding: '0 0 100%',
+                            position: 'relative'
+                          }}
+                        >
+                          <div style={{
+                            background: '50%',
+                            backgroundSize: 'cover',
+                            width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            left: 0,
+                            top: 0,
+                            backgroundImage: `url('${event.pictureThumbUrl}')`
+                          }}
+                          />
                         </div>
                       </div>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      {ifExists ? <img className="rounded-circle" src={`data:image/jpeg;base64,${item.member.pictures[0]}`} style={{height: '56px'}}/> : '-'}
+                      {ifExists ? (
+                        <img
+                          className="rounded-circle"
+                          src={`data:image/jpeg;base64,${item.member.pictures[0]}`}
+                          style={{height: '56px'}}
+                        />
+                      ) : '-'}
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                       <CustomTooltip placement="top-start" title={ifExists ? item.member.name : ''}>
@@ -225,7 +260,11 @@ module.exports = class EventsTable extends React.PureComponent {
                     </td>
                     <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
                       <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
-                        <button className="btn btn-link" type="button" onClick={isEnrolled ? modifyMemberHandler(item.member) : modifyMemberHandler(null, event.pictureThumbUrl)}>
+                        <button
+                          className="btn btn-link"
+                          type="button"
+                          onClick={isEnrolled ? modifyMemberHandler(item.member) : modifyMemberHandler(null, event.pictureThumbUrl)}
+                        >
                           <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
                         </button>
                       </CustomTooltip>

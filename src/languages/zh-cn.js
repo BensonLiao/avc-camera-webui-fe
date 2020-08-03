@@ -1,3 +1,1 @@
-window.languageResource = {
-  _code: 'zh-cn'
-};
+window.languageResource = {_code: 'zh-cn'};

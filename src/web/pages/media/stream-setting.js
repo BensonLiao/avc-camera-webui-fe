@@ -21,15 +21,12 @@ const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class StreamSetting extends Base {
   static get propTypes() {
-    return {
-      homePage: PropTypes.bool // Make form ui for home page or not
-    };
+    // Make form ui for home page or not
+    return {homePage: PropTypes.bool};
   }
 
   static get defaultProps() {
-    return {
-      homePage: false
-    };
+    return {homePage: false};
   }
 
   constructor(props) {
@@ -115,7 +112,10 @@ module.exports = class StreamSetting extends Base {
                   component={Dropdown}
                   buttonClassName="btn btn-outline-primary rounded-left"
                   menuClassName="dropdown-menu-right"
-                  items={options.bandwidthManagement.map(x => ({value: x.value, label: x.label}))}
+                  items={options.bandwidthManagement.map(x => ({
+                    value: x.value,
+                    label: x.label
+                  }))}
                 />
               </div>
               <Field
@@ -128,8 +128,17 @@ module.exports = class StreamSetting extends Base {
                   )
                 }
               />
-              <input readOnly type="text" className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})} placeholder="Auto"/>
-              <Field type="text" name={`${fieldNamePrefix}.bitRate`} className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}/>
+              <input
+                readOnly
+                type="text"
+                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})}
+                placeholder="Auto"
+              />
+              <Field
+                type="text"
+                name={`${fieldNamePrefix}.bitRate`}
+                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}
+              />
               <div className="input-group-append">
                 <span className="input-group-text">Kbps</span>
               </div>
@@ -137,10 +146,11 @@ module.exports = class StreamSetting extends Base {
             <small className="text-info mb-3">
               {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
             </small>
-            {!(values.bandwidthManagement === StreamBandwidthManagement.vbr) &&
-            <div style={{display: 'block'}} className="invalid-feedback">
-              <ErrorMessage name={`${fieldNamePrefix}.bitRate`}/>
-            </div>}
+            {!(values.bandwidthManagement === StreamBandwidthManagement.vbr) && (
+              <div style={{display: 'block'}} className="invalid-feedback">
+                <ErrorMessage name={`${fieldNamePrefix}.bitRate`}/>
+              </div>
+            )}
           </div>
         )}
         {values.codec !== StreamCodec.mjpeg && (
@@ -158,21 +168,39 @@ module.exports = class StreamSetting extends Base {
   formRender = ({values, errors}) => {
     const {isShowModal, $isApiProcessing} = this.state;
     const channelAOptions = {
-      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({label: x, value: x})),
-      resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({label: _(`stream-resolution-${x}`), value: x})),
+      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({
+        label: x,
+        value: x
+      })),
+      resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({
+        label: _(`stream-resolution-${x}`),
+        value: x
+      })),
       frameRate: (() => {
         const result = [];
         for (let index = StreamSettingsSchema.channelA.props.frameRate.min; index <= StreamSettingsSchema.channelA.props.frameRate.max; index += 1) {
-          result.push({label: `${index}`, value: `${index}`});
+          result.push({
+            label: `${index}`,
+            value: `${index}`
+          });
         }
 
         return result;
       })(),
-      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: _(`stream-bandwidth-management-${x}`), value: x})),
-      gov: StreamGOV.all().map(x => ({label: x, value: x}))
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
+        label: _(`stream-bandwidth-management-${x}`),
+        value: x
+      })),
+      gov: StreamGOV.all().map(x => ({
+        label: x,
+        value: x
+      }))
     };
     const channelBOptions = {
-      codec: StreamCodec.all().filter(x => x !== StreamCodec.h265).map(x => ({label: x, value: x})),
+      codec: StreamCodec.all().filter(x => x !== StreamCodec.h265).map(x => ({
+        label: x,
+        value: x
+      })),
       resolution: (() => {
         let options;
         if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
@@ -202,14 +230,20 @@ module.exports = class StreamSetting extends Base {
           }
         }
 
-        return options.map(x => ({label: _(`stream-resolution-${x}`), value: x}));
+        return options.map(x => ({
+          label: _(`stream-resolution-${x}`),
+          value: x
+        }));
       })(),
       frameRate: (() => {
         const result = [];
         let min;
         let max;
         if (values.channelB.codec === StreamCodec.mjpeg) {
-          if (Number(values.channelB.resolution) === Number(StreamResolution['2']) || Number(values.channelB.resolution) === Number(StreamResolution['7'])) {
+          if (
+            Number(values.channelB.resolution) === Number(StreamResolution['2']) ||
+            Number(values.channelB.resolution) === Number(StreamResolution['7'])
+          ) {
             min = 5;
             max = 10;
           } else {
@@ -222,14 +256,26 @@ module.exports = class StreamSetting extends Base {
         }
 
         for (let index = min; index <= max; index += 1) {
-          result.push({label: `${index}`, value: `${index}`});
+          result.push({
+            label: `${index}`,
+            value: `${index}`
+          });
         }
 
         return result;
       })(),
-      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({label: _(`stream-bandwidth-management-${x}`), value: x})),
-      gov: StreamGOV.all().map(x => ({label: x, value: x})),
-      quality: StreamQuality.all().map(x => ({label: _(`quality-${x}`), value: x}))
+      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
+        label: _(`stream-bandwidth-management-${x}`),
+        value: x
+      })),
+      gov: StreamGOV.all().map(x => ({
+        label: x,
+        value: x
+      })),
+      quality: StreamQuality.all().map(x => ({
+        label: _(`quality-${x}`),
+        value: x
+      }))
     };
     return (
       <Form className="card-body">
@@ -274,7 +320,8 @@ module.exports = class StreamSetting extends Base {
           onHide={this.hideModal}
           onConfirm={() => {
             this.onSubmit(values);
-          }}/>
+          }}
+        />
       </Form>
     );
   };
@@ -323,7 +370,8 @@ module.exports = class StreamSetting extends Base {
           backdrop="static"
           isShowModal={this.state.isShowApiProcessModal}
           modalTitle={this.state.apiProcessModalTitle}
-          onHide={this.hideApiProcessModal}/>
+          onHide={this.hideApiProcessModal}
+        />
       </>
     );
   }

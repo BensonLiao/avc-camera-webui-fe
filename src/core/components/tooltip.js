@@ -8,7 +8,23 @@ module.exports = class CustomTooltip extends React.PureComponent {
   static get propTypes() {
     return {
       title: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-      placement: PropTypes.oneOf(['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start']),
+      placement: PropTypes.oneOf([
+        'auto-start',
+        'auto',
+        'auto-end',
+        'top-start',
+        'top',
+        'top-end',
+        'right-start',
+        'right',
+        'right-end',
+        'bottom-end',
+        'bottom',
+        'bottom-start',
+        'left-end',
+        'left',
+        'left-start'
+      ]),
       delay: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
       children: PropTypes.element.isRequired,
       show: PropTypes.bool
@@ -18,7 +34,10 @@ module.exports = class CustomTooltip extends React.PureComponent {
   static get defaultProps() {
     return {
       placement: 'top',
-      delay: {show: 250, hide: 0},
+      delay: {
+        show: 250,
+        hide: 0
+      },
       show: true
     };
   }
@@ -29,13 +48,7 @@ module.exports = class CustomTooltip extends React.PureComponent {
       <OverlayTrigger
         placement={placement}
         delay={delay}
-        popperConfig={{
-          modifiers: {
-            preventOverflow: {
-              boundariesElement: 'window'
-            }
-          }
-        }}
+        popperConfig={{modifiers: {preventOverflow: {boundariesElement: 'window'}}}}
         overlay={<Tooltip className={classNames({'d-none': !show || !title})}>{title}</Tooltip>}
       >
         {children}

@@ -109,7 +109,8 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     };
 
     return (
-      <Formik initialValues={searchFromInitialValues}
+      <Formik
+        initialValues={searchFromInitialValues}
         onSubmit={this.onSubmitSearchForm}
       >
         <Form>

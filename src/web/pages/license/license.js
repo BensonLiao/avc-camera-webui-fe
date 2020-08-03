@@ -139,11 +139,13 @@ module.exports = class License extends Base {
   };
 
   render() {
-    const {authStatus: {
-      isEnableFaceRecognitionKey,
-      isEnableAgeGenderKey,
-      isEnableHumanoidDetectionKey
-    }, authKeys} = this.props;
+    const {
+      authStatus: {
+        isEnableFaceRecognitionKey,
+        isEnableAgeGenderKey,
+        isEnableHumanoidDetectionKey
+      }, authKeys
+    } = this.props;
     return (
       <div className="bg-white">
         <div className="page-license bg-gray" style={{height: '522px'}}>
@@ -161,7 +163,8 @@ module.exports = class License extends Base {
               </div>
               <div className="col-12">
                 <h3 className="mb-4">{_('License')}</h3>
-                <Formik initialValues={{authKey: ''}}
+                <Formik
+                  initialValues={{authKey: ''}}
                   validate={utils.makeFormikValidator(authKeyValidator)}
                   onSubmit={this.onSubmit}
                 >

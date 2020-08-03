@@ -13,12 +13,8 @@ module.exports = class MembersSidebar extends React.PureComponent {
       isApiProcessing: PropTypes.bool.isRequired,
       filterHandler: PropTypes.func.isRequired,
       deleteGroupHandler: PropTypes.func.isRequired,
-      params: PropTypes.shape({
-        group: PropTypes.string
-      }).isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.array
-      }).isRequired
+      params: PropTypes.shape({group: PropTypes.string}).isRequired,
+      groups: PropTypes.shape({items: PropTypes.array}).isRequired
     };
   }
 
@@ -30,7 +26,9 @@ module.exports = class MembersSidebar extends React.PureComponent {
         <div className="left-menu fixed-top sub">
           <h2>{_('Members')}</h2>
           <nav className="nav flex-column">
-            <Link to="/users/members" title={_('All Members')}
+            <Link
+              to="/users/members"
+              title={_('All Members')}
               className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
                 {active: !params.group},
                 {'bg-light': !params.group}
@@ -46,7 +44,10 @@ module.exports = class MembersSidebar extends React.PureComponent {
               <CustomTooltip title={isAddGroupDisabled ? _('Group Limit Reached') : _('Create a Group')}>
                 <span>
                   <Link
-                    to={{name: 'web.users.members.new-group', params: params}}
+                    to={{
+                      name: 'web.users.members.new-group',
+                      params: params
+                    }}
                     tabIndex={(isAddGroupDisabled ? -1 : null)}
                     className={classNames('btn btn-link text-info p-0', {disabled: isAddGroupDisabled})}
                   >
@@ -57,21 +58,26 @@ module.exports = class MembersSidebar extends React.PureComponent {
             </div>
             {
               groups.items.map(group => (
-                <div key={group.id}
+                <div
+                  key={group.id}
                   className={classNames(
                     'group-item d-flex justify-content-between align-items-center',
                     {active: params.group === group.id},
                     {'bg-light': params.group === group.id}
                   )}
                 >
-                  <a className="w-100 text-truncate d-flex align-items-center" href={`#${group.id}`}
+                  <a
+                    className="w-100 text-truncate d-flex align-items-center"
+                    href={`#${group.id}`}
                     onClick={filterHandler('group', group.id)}
                   >
                     <i className="far fa-folder text-size-20"/>
                     <span className="text-truncate text-size-14 pl-3">{group.name}</span>
                   </a>
                   <CustomTooltip title={_('Delete Group: {0}', [group.name])}>
-                    <button className="btn btn-link btn-delete text-info" type="button"
+                    <button
+                      className="btn btn-link btn-delete text-info"
+                      type="button"
                       onClick={deleteGroupHandler(group)}
                     >
                       <i className="far fa-trash-alt fa-fw text-size-20"/>

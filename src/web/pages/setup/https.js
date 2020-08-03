@@ -116,7 +116,9 @@ module.exports = class SetupHTTPS extends Base {
           <div className="form-group">
             <label>{_('Certificate type')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-              <Field name="certificateType" component="select"
+              <Field
+                name="certificateType"
+                component="select"
                 className="form-control border-0"
                 onChange={this.generateChangeCertificateTypeHandler(handleChange)}
               >

@@ -22,7 +22,8 @@ module.exports = class CardsFormSubject extends React.PureComponent {
       setFieldValue: PropTypes.func.isRequired,
       validateField: PropTypes.func.isRequired,
       errors: PropTypes.object.isRequired,
-      touched: PropTypes.object.isRequired};
+      touched: PropTypes.object.isRequired
+    };
   }
 
     onClickAddEmail = event => {
@@ -118,14 +119,20 @@ module.exports = class CardsFormSubject extends React.PureComponent {
          <div className="form-group">
            <div className="card">
              <div className="card-body">
-               <SelectField hide={values.type === NotificationCardType.digitalInput} labelName={_('Email Attachment')} labelClassName="text-size-16 mb-3" name="emailAttachmentType">
+               <SelectField
+                 hide={values.type === NotificationCardType.digitalInput}
+                 labelName={_('Email Attachment')}
+                 labelClassName="text-size-16 mb-3"
+                 name="emailAttachmentType"
+               >
                  {NotificationEmailAttachmentType.all().map(attachmentType => (
                    !(values.type === NotificationCardType.motionDetection && attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
                      <option
                        key={attachmentType}
                        value={attachmentType}
                      >{_(`email-attachment-type-${attachmentType}`)}
-                     </option>)
+                     </option>
+                   )
                  ))}
                </SelectField>
                <hr/>
@@ -135,7 +142,8 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    name="senderSubject"
                    type="text"
                    className="form-control"
-                   placeholder={_('Specify the subject of notification emails.')}/>
+                   placeholder={_('Specify the subject of notification emails.')}
+                 />
                </div>
                <div className="form-group mb-4">
                  <label className="text-size-16">Content :</label>
@@ -143,7 +151,8 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    name="senderContent"
                    type="text"
                    className="form-control"
-                   placeholder={_('Append your message to notification emails.')}/>
+                   placeholder={_('Append your message to notification emails.')}
+                 />
                </div>
                <div className="form-group mb-3">
                  <label className="text-size-16 mb-0">{_('Receiver')} :</label>
@@ -163,7 +172,8 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                          type="text"
                          className={classNames('form-control', 'notification-email', {'is-invalid': errors.$email && touched.$email})}
                          validate={this.validateEmail}
-                         placeholder={_('Enter email address')}/>
+                         placeholder={_('Enter email address')}
+                       />
                      </div>
                    </div>
                    <CustomTooltip show={!values.$email} title={_('Please Enter an Email Address')}>
@@ -198,7 +208,10 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                  values.emails.map((email, index) => {
                    const key = `${index}${email}`;
                    return (
-                     <div key={key} className="border border-primary rounded-pill text-primary d-flex justify-content-between align-items-center filter-item mb-3">
+                     <div
+                       key={key}
+                       className="border border-primary rounded-pill text-primary d-flex justify-content-between align-items-center filter-item mb-3"
+                     >
                        <div>{email}</div>
                        <a href="#" onClick={this.generateDeleteEmailHandler(index)}>
                          <i className="fas fa-times-circle fa-lg"/>

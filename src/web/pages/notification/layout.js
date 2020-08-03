@@ -33,7 +33,10 @@ module.exports = class Notification extends Base {
           <h2>{_('Notification Setting')}</h2>
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-notification-menu">
-              <a href="#" data-toggle="collapse" data-target="#basic-settings"
+              <a
+                href="#"
+                data-toggle="collapse"
+                data-target="#basic-settings"
                 title={_('Basic Setting')}
                 className={classNames(
                   'nav-link collapse show d-flex justify-content-between align-items-center',
@@ -44,19 +47,35 @@ module.exports = class Notification extends Base {
                 <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-settings" className="collapse show" data-parent="#accordion-notification-menu">
-                <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.app'})} to="/notification/app" title={_('App')}>
+                <Link
+                  className={classNames('nav-link', {active: currentRouteName === 'web.notification.app'})}
+                  to="/notification/app"
+                  title={_('App')}
+                >
                   {_('App')}
                 </Link>
 
-                <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.smtp'})} to="/notification/smtp" title={_('Mail')}>
+                <Link
+                  className={classNames('nav-link', {active: currentRouteName === 'web.notification.smtp'})}
+                  to="/notification/smtp"
+                  title={_('Mail')}
+                >
                   {_('Mail')}
                 </Link>
-                <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.io'})} to="/notification/io" title={_('I/O')}>
+                <Link
+                  className={classNames('nav-link', {active: currentRouteName === 'web.notification.io'})}
+                  to="/notification/io"
+                  title={_('I/O')}
+                >
                   {_('I/O')}
                 </Link>
               </div>
             </div>
-            <Link className={classNames('nav-link', {active: currentRouteName === 'web.notification.cards'})} to="/notification/cards" title={_('Smart Notification')}>
+            <Link
+              className={classNames('nav-link', {active: currentRouteName === 'web.notification.cards'})}
+              to="/notification/cards"
+              title={_('Smart Notification')}
+            >
               {_('Smart Notification')}
             </Link>
           </nav>

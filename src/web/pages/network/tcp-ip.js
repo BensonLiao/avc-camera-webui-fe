@@ -30,9 +30,7 @@ module.exports = class TCPIP extends Base {
         port: PropTypes.string.isRequired,
         port2: PropTypes.string
       }).isRequired,
-      httpsSettings: PropTypes.shape({
-        port: PropTypes.string.isRequired
-      }).isRequired,
+      httpsSettings: PropTypes.shape({port: PropTypes.string.isRequired}).isRequired,
       rtspSettings: PropTypes.shape({
         tcpPort: PropTypes.string.isRequired,
         udpPort: PropTypes.string.isRequired
@@ -56,7 +54,10 @@ module.exports = class TCPIP extends Base {
 
     let checkDefaultPortList = Object.keys(defaultPorts)
       .filter(items => items !== 'HTTP')
-      .reduce((obj, key) => ({...obj, [key]: defaultPorts[key]}), {});
+      .reduce((obj, key) => ({
+        ...obj,
+        [key]: defaultPorts[key]
+      }), {});
 
     checkDefaultPortList = utils.duplicateCheck(Object.values(checkDefaultPortList), values);
     // Check if using http port
@@ -231,7 +232,8 @@ module.exports = class TCPIP extends Base {
                 backdrop="static"
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
-                onHide={this.hideApiProcessModal}/>
+                onHide={this.hideApiProcessModal}
+              />
 
               <div className="col-center">
                 <div className="card shadow">

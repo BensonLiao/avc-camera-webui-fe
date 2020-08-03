@@ -62,9 +62,7 @@ module.exports = class Login extends Base {
             ) {
               getRouter().go({
                 name: 'login-error',
-                params: {
-                  loginFailedRemainingTimes: error.response.data.extra.loginFailedRemainingTimes
-                }
+                params: {loginFailedRemainingTimes: error.response.data.extra.loginFailedRemainingTimes}
               });
             }
           }
@@ -83,10 +81,13 @@ module.exports = class Login extends Base {
           </div>
           <div className="form-group">
             <label>{_('Username')}</label>
-            <Field name="account" type="text"
+            <Field
+              name="account"
+              type="text"
               maxLength={UserSchema.account.max}
               placeholder={_('Enter Your Username')}
-              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
+              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
+            />
             {
               errors.account && touched.account && (
                 <div className="invalid-feedback">{errors.account}</div>
@@ -95,17 +96,25 @@ module.exports = class Login extends Base {
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
-            <Field name="password" component={Password} inputProps={{
-              placeholder: _('Enter your password'),
-              className: classNames('form-control', {'is-invalid': errors.password && touched.password})
-            }}/>
+            <Field
+              name="password"
+              component={Password}
+              inputProps={{
+                placeholder: _('Enter your password'),
+                className: classNames('form-control', {'is-invalid': errors.password && touched.password})
+              }}
+            />
             {
               errors.password && touched.password && (
                 <div className="invalid-feedback">{errors.password}</div>
               )
             }
           </div>
-          <button disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+          <button
+            disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)}
+            type="submit"
+            className="btn btn-primary btn-block rounded-pill mt-5"
+          >
             {_('Login')}
           </button>
         </div>
@@ -122,13 +131,18 @@ module.exports = class Login extends Base {
         </div>
         <div className="container-fluid">
           <div className="row justify-content-center">
-            { !window.isNoBrand &&
-            <div className="col-12 bg-white logo">
-              <img src={logoWithTitle}/>
-            </div>}
+            { !window.isNoBrand && (
+              <div className="col-12 bg-white logo">
+                <img src={logoWithTitle}/>
+              </div>
+            )}
             <div className={classNames('col-center', {'mt-5': window.isNoBrand})}>
               <Formik
-                initialValues={{account: '', password: '', maxAge: '3600000'}}
+                initialValues={{
+                  account: '',
+                  password: '',
+                  maxAge: '3600000'
+                }}
                 validate={utils.makeFormikValidator(loginValidator)}
                 onSubmit={this.onSubmitLoginForm}
               >

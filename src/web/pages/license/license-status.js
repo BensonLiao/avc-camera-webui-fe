@@ -16,9 +16,7 @@ module.exports = class LicenseStatus extends React.PureComponent {
   }
 
   static get defaultProps() {
-    return {
-      hide: false
-    };
+    return {hide: false};
   }
 
   render() {
@@ -46,7 +44,8 @@ module.exports = class LicenseStatus extends React.PureComponent {
           >
             <i className={classNames(
               'fas',
-              licenseKeyStatus ? 'fa-check-circle' : 'fa-minus-circle')}/>
+              licenseKeyStatus ? 'fa-check-circle' : 'fa-minus-circle')}
+            />
             {licenseKeyStatus ? _('Activated') : _('Inactive')}
           </span>
         </div>

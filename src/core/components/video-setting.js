@@ -56,9 +56,7 @@ module.exports = class VideoSetting extends React.PureComponent {
         focusType: PropTypes.oneOf(FocusType.all()).isRequired,
         isAutoFocusAfterZoom: PropTypes.bool.isRequired
       }).isRequired,
-      systemDateTime: PropTypes.shape({
-        deviceTime: PropTypes.string.isRequired
-      }).isRequired
+      systemDateTime: PropTypes.shape({deviceTime: PropTypes.string.isRequired}).isRequired
     };
   }
 
@@ -146,7 +144,14 @@ constructor(props) {
           if (this.state.focalLengthQueue) {
             this.setState(
               {focalLengthQueue: null},
-              this.recursiveFocusPromise({nextValues: {...nextValues, focalLength: this.state.focalLengthQueue}, prevValues, formik})
+              this.recursiveFocusPromise({
+                nextValues: {
+                  ...nextValues,
+                  focalLength: this.state.focalLengthQueue
+                },
+                prevValues,
+                formik
+              })
             );
           } else {
             return Promise.resolve();
@@ -197,7 +202,11 @@ constructor(props) {
       prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom
     ) {
       // Change focus settings with user input queue.
-      this.recursiveFocusPromise({nextValues, prevValues, formik});
+      this.recursiveFocusPromise({
+        nextValues,
+        prevValues,
+        formik
+      });
     } else {
       // Change other settings.
       const values = {
@@ -266,7 +275,13 @@ constructor(props) {
               <div className="col-12 my-1 d-flex justify-content-between align-items-center">
                 <span className="text-size-20">{_('WDR')}</span>
                 <div className="custom-control custom-switch d-inline-block ml-2">
-                  <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled === 'true' ? true : undefined} className="custom-control-input" id="switch-hdr-enabled"/>
+                  <Field
+                    name="hdrEnabled"
+                    type="checkbox"
+                    checked={values.hdrEnabled === 'true' ? true : undefined}
+                    className="custom-control-input"
+                    id="switch-hdr-enabled"
+                  />
                   <label className="custom-control-label" htmlFor="switch-hdr-enabled">
                     <span>{_('ON')}</span>
                     <span>{_('OFF')}</span>
@@ -291,40 +306,56 @@ constructor(props) {
                   <label>{_('Brightness')}</label>
                   <span className="text-primary text-size-14">{values.brightness}</span>
                 </div>
-                <Field updateFieldOnStop name="brightness" component={Slider}
+                <Field
+                  updateFieldOnStop
+                  name="brightness"
+                  component={Slider}
                   step={1}
                   min={videoSettingsSchema.brightness.min}
-                  max={videoSettingsSchema.brightness.max}/>
+                  max={videoSettingsSchema.brightness.max}
+                />
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Contrast')}</label>
                   <span className="text-primary text-size-14">{values.contrast}</span>
                 </div>
-                <Field updateFieldOnStop name="contrast" component={Slider}
+                <Field
+                  updateFieldOnStop
+                  name="contrast"
+                  component={Slider}
                   step={1}
                   min={videoSettingsSchema.contrast.min}
-                  max={videoSettingsSchema.contrast.max}/>
+                  max={videoSettingsSchema.contrast.max}
+                />
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Sharpness')}</label>
                   <span className="text-primary text-size-14">{values.sharpness}</span>
                 </div>
-                <Field updateFieldOnStop name="sharpness" component={Slider}
+                <Field
+                  updateFieldOnStop
+                  name="sharpness"
+                  component={Slider}
                   step={1}
                   min={videoSettingsSchema.sharpness.min}
-                  max={videoSettingsSchema.sharpness.max}/>
+                  max={videoSettingsSchema.sharpness.max}
+                />
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Saturation')}</label>
                   <span className="text-primary text-size-14">{values.saturation}</span>
                 </div>
-                <Field updateFieldOnStop name="saturation" component={Slider}
+                <Field
+                  updateFieldOnStop
+                  name="saturation"
+                  component={Slider}
                   step={1}
                   min={videoSettingsSchema.saturation.min}
-                  max={videoSettingsSchema.saturation.max}/>
+                  max={videoSettingsSchema.saturation.max}
+                />
               </div>
             </div>
           </div>
@@ -376,12 +407,22 @@ constructor(props) {
                 <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
                   <div>
                     <CustomTooltip title="-5">
-                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -5)}>
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, -5)}
+                      >
                         <i type="button" className="fa fa-angle-double-left text-size-16"/>
                       </button>
                     </CustomTooltip>
                     <CustomTooltip title="-1">
-                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, -1)}>
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, -1)}
+                      >
                         <i className="fas fa-minus text-size-16"/>
                       </button>
                     </CustomTooltip>
@@ -401,12 +442,22 @@ constructor(props) {
 
                   <div>
                     <CustomTooltip title="+1">
-                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 1)}>
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, 1)}
+                      >
                         <i className="fas fa-plus text-size-16"/>
                       </button>
                     </CustomTooltip>
                     <CustomTooltip title="+5">
-                      <button disabled={updateFocalLengthField} className="btn text-secondary-700" type="button" onClick={() => this.varyFocus(form, 5)}>
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, 5)}
+                      >
                         <i className="fa fa-angle-double-right text-size-16"/>
                       </button>
                     </CustomTooltip>
@@ -430,12 +481,14 @@ constructor(props) {
                 />
               </div>
               <div className="form-group form-check">
-                <Field id="input-check-auto-focus-after-zoom"
+                <Field
+                  id="input-check-auto-focus-after-zoom"
                   type="checkbox"
                   disabled={updateFocalLengthField}
                   className="form-check-input"
                   name="isAutoFocusAfterZoom"
-                  checked={values.isAutoFocusAfterZoom}/>
+                  checked={values.isAutoFocusAfterZoom}
+                />
                 <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
                   {_('Auto Focus after Zoom')}
                 </label>
@@ -443,19 +496,31 @@ constructor(props) {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Iris')}</label>
-                  <Field name="aperture" component={Dropdown}
+                  <Field
+                    name="aperture"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.aperture.enum.map(x => ({value: x, label: _(`aperture-${x}`)}))}/>
+                    items={videoSettingsSchema.aperture.enum.map(x => ({
+                      value: x,
+                      label: _(`aperture-${x}`)
+                    }))}
+                  />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Shutter Speed')}</label>
-                  <Field name="shutterSpeed" component={Dropdown}
+                  <Field
+                    name="shutterSpeed"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({value: x, label: _(`shutter-speed-${x}`)}))}/>
+                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({
+                      value: x,
+                      label: _(`shutter-speed-${x}`)
+                    }))}
+                  />
                 </div>
               </div>
             </div>
@@ -474,10 +539,16 @@ constructor(props) {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
                   <label>{_('Auto White Balance')}</label>
-                  <Field name="whiteblanceMode" component={Dropdown}
+                  <Field
+                    name="whiteblanceMode"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({value: x, label: _(`white-balance-${x}`)}))}/>
+                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({
+                      value: x,
+                      label: _(`white-balance-${x}`)
+                    }))}
+                  />
                 </div>
                 {
                   values.whiteblanceMode === WhiteBalanceType.manual && (
@@ -486,10 +557,14 @@ constructor(props) {
                         <label>{_('Color Temperature')}</label>
                         <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
                       </div>
-                      <Field updateFieldOnStop name="whiteblanceManual" component={Slider}
+                      <Field
+                        updateFieldOnStop
+                        name="whiteblanceManual"
+                        component={Slider}
                         step={1000}
                         min={videoSettingsSchema.whiteblanceManual.min}
-                        max={videoSettingsSchema.whiteblanceManual.max}/>
+                        max={videoSettingsSchema.whiteblanceManual.max}
+                      />
                     </div>
                   )
                 }
@@ -503,7 +578,10 @@ constructor(props) {
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
                     items={utils.capitalizeObjKeyValuePairs(IREnableType).map(
-                      x => ({value: x.value, label: _(x.key)})
+                      x => ({
+                        value: x.value,
+                        label: _(x.key)
+                      })
                     )}
                   />
                 </div>
@@ -515,10 +593,14 @@ constructor(props) {
                         <span className="text-primary text-size-14">{values.irBrightness}</span>
                       </div>
                       {/* Slider step are still under review */}
-                      <Field updateFieldOnStop name="irBrightness" component={Slider}
+                      <Field
+                        updateFieldOnStop
+                        name="irBrightness"
+                        component={Slider}
                         step={15}
                         min={videoSettingsSchema.irBrightness.min}
-                        max={videoSettingsSchema.irBrightness.max}/>
+                        max={videoSettingsSchema.irBrightness.max}
+                      />
                     </div>
                   )
                 }
@@ -526,10 +608,16 @@ constructor(props) {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
                   <label>{_('D/N')}</label>
-                  <Field name="daynightMode" component={Dropdown}
+                  <Field
+                    name="daynightMode"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.daynightMode.enum.map(x => ({value: x, label: _(`daynight-mode-${x}`)}))}/>
+                    items={videoSettingsSchema.daynightMode.enum.map(x => ({
+                      value: x,
+                      label: _(`daynight-mode-${x}`)
+                    }))}
+                  />
                 </div>
                 {
                   values.daynightMode === DaynightType.auto && (
@@ -538,10 +626,14 @@ constructor(props) {
                         <label>{_('Sensitivity')}</label>
                         <span className="text-primary text-size-14">{values.sensitivity}</span>
                       </div>
-                      <Field updateFieldOnStop name="sensitivity" component={Slider}
+                      <Field
+                        updateFieldOnStop
+                        name="sensitivity"
+                        component={Slider}
                         step={1}
                         min={videoSettingsSchema.sensitivity.min}
-                        max={videoSettingsSchema.sensitivity.max}/>
+                        max={videoSettingsSchema.sensitivity.max}
+                      />
                     </div>
                   )
                 }
@@ -554,11 +646,15 @@ constructor(props) {
                           {utils.formatTimeRange(values.dnDuty)}
                         </span>
                       </div>
-                      <Field updateFieldOnStop name="dnDuty" component={Slider}
+                      <Field
+                        updateFieldOnStop
+                        name="dnDuty"
+                        component={Slider}
                         mode="range"
                         step={0.5}
                         min={videoSettingsSchema.timePeriodStart.min}
-                        max={videoSettingsSchema.timePeriodEnd.max}/>
+                        max={videoSettingsSchema.timePeriodEnd.max}
+                      />
                     </div>
                   )
                 }
@@ -566,29 +662,49 @@ constructor(props) {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Rotation')}</label>
-                  <Field name="orientation" component={Dropdown}
+                  <Field
+                    name="orientation"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.orientation.enum.map(x => ({value: x, label: _(`orientation-${x}`)}))}/>
+                    items={videoSettingsSchema.orientation.enum.map(x => ({
+                      value: x,
+                      label: _(`orientation-${x}`)
+                    }))}
+                  />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Defog')}</label>
-                  <Field name="defoggingEnabled" component={Dropdown}
+                  <Field
+                    name="defoggingEnabled"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('On')}, {value: 'false', label: _('Off')}]}
+                    items={[{
+                      value: 'true',
+                      label: _('On')
+                    }, {
+                      value: 'false',
+                      label: _('Off')
+                    }]}
                   />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Lighting Compensation Frequency (Hz)')}</label>
-                  <Field name="refreshRate" component={Dropdown}
+                  <Field
+                    name="refreshRate"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
+                    items={videoSettingsSchema.refreshRate.enum.map(x => ({
+                      value: x,
+                      label: _(`refresh-rate-${x}`)
+                    }))}
+                  />
                 </div>
               </div>
             </div>

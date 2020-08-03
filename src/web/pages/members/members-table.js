@@ -8,9 +8,7 @@ const CustomTooltip = require('../../../core/components/tooltip');
 module.exports = class MembersTable extends React.PureComponent {
   static get propTypes() {
     return {
-      params: PropTypes.shape({
-        sort: PropTypes.string
-      }).isRequired,
+      params: PropTypes.shape({sort: PropTypes.string}).isRequired,
       groups: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.string.isRequired,
@@ -106,14 +104,19 @@ module.exports = class MembersTable extends React.PureComponent {
             }
             {
               members.items.map((member, index) => {
-                const tdClass = classNames({'border-bottom':
-                index >= members.items.length - 1});
+                const tdClass = classNames({
+                  'border-bottom':
+                index >= members.items.length - 1
+                });
 
                 return (
                   <tr key={member.id}>
                     <td className={classNames('text-center', tdClass)}>
-                      <img className="rounded-circle" style={{height: '56px'}}
-                        src={`data:image/jpeg;base64,${member.pictures[0]}`}/>
+                      <img
+                        className="rounded-circle"
+                        style={{height: '56px'}}
+                        src={`data:image/jpeg;base64,${member.pictures[0]}`}
+                      />
                     </td>
                     <td className={tdClass}>
                       <CustomTooltip placement="top-start" title={member.name}>
@@ -145,12 +148,23 @@ module.exports = class MembersTable extends React.PureComponent {
                     </td>
                     <td className={classNames('text-left group-btn', tdClass)}>
                       <CustomTooltip title={_('Edit Member: {0}', [member.name])}>
-                        <Link className="btn btn-link" to={{name: 'web.users.members.details', params: {...params, memberId: member.id}}}>
+                        <Link
+                          className="btn btn-link"
+                          to={{
+                            name: 'web.users.members.details',
+                            params: {
+                              ...params,
+                              memberId: member.id
+                            }
+                          }}
+                        >
                           <i className="fas fa-pen fa-lg fa-fw"/>
                         </Link>
                       </CustomTooltip>
                       <CustomTooltip title={_('Delete Member: {0}', [member.name])}>
-                        <button className="btn btn-link" type="button"
+                        <button
+                          className="btn btn-link"
+                          type="button"
                           onClick={deleteMemberModal(member)}
                         >
                           <i className="far fa-trash-alt fa-lg fa-fw"/>

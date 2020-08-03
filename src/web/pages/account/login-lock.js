@@ -35,9 +35,7 @@ module.exports = class LoginLock extends Base {
       const now = new Date();
       const time = new Date(new Date(props.params.loginLockExpiredTime) - now);
       if (time >= 0) {
-        this.setState({
-          displayTime: `${time.getMinutes()}:${leftPad(time.getSeconds(), 2, '0')}`
-        });
+        this.setState({displayTime: `${time.getMinutes()}:${leftPad(time.getSeconds(), 2, '0')}`});
       } else {
         clearInterval(this.timerId);
         this.timerId = null;
@@ -62,10 +60,11 @@ module.exports = class LoginLock extends Base {
         </div>
         <div className="container-fluid">
           <div className="row justify-content-center">
-            { !window.isNoBrand &&
-            <div className="col-12 bg-white logo">
-              <img src={logoWithTitle}/>
-            </div>}
+            { !window.isNoBrand && (
+              <div className="col-12 bg-white logo">
+                <img src={logoWithTitle}/>
+              </div>
+            )}
             <div className={classNames('col-center', {'mt-5': window.isNoBrand})}>
               <div className="card shadow mb-5">
                 <div className="card-body text-dark text-center">

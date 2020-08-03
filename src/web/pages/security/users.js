@@ -79,7 +79,9 @@ module.exports = class Users extends Base {
         <div className="left-menu fixed-top sub">
           <h2>{_('Accounts')}</h2>
           <nav className="nav flex-column">
-            <Link to="/users/accounts" title={_('All Accounts')}
+            <Link
+              to="/users/accounts"
+              title={_('All Accounts')}
               className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
                 {active: permissionFilter === 'all'},
                 {'bg-light': permissionFilter === 'all'}
@@ -101,7 +103,11 @@ module.exports = class Users extends Base {
                 {'bg-light': permissionFilter === UserPermission.root}
               )}
             >
-              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.root}`} onClick={this.generateChangePermissionFilterHandler(UserPermission.root)}>
+              <a
+                className="w-100 text-truncate d-flex align-items-center"
+                href={`#${UserPermission.root}`}
+                onClick={this.generateChangePermissionFilterHandler(UserPermission.root)}
+              >
                 <img src={iconUserShield}/>
                 <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.root}`)}</span>
               </a>
@@ -113,7 +119,11 @@ module.exports = class Users extends Base {
                 {'bg-light': permissionFilter === UserPermission.guest}
               )}
             >
-              <a className="w-100 text-truncate d-flex align-items-center" href={`#${UserPermission.guest}`} onClick={this.generateChangePermissionFilterHandler(UserPermission.guest)}>
+              <a
+                className="w-100 text-truncate d-flex align-items-center"
+                href={`#${UserPermission.guest}`}
+                onClick={this.generateChangePermissionFilterHandler(UserPermission.guest)}
+              >
                 <img src={iconUser}/>
                 <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.guest}`)}</span>
               </a>
@@ -128,7 +138,10 @@ module.exports = class Users extends Base {
               <div className="row">
                 <div className="col-12 text-right mr-32px mb-4">
                   <Link
-                    to={{name: 'web.users.accounts.new-user', params: this.props.params}}
+                    to={{
+                      name: 'web.users.accounts.new-user',
+                      params: this.props.params
+                    }}
                     tabIndex={(isAddUserDisabled ? -1 : null)}
                     className={classNames(
                       'btn btn-outline-primary rounded-pill px-3',
@@ -156,16 +169,30 @@ module.exports = class Users extends Base {
                           return (
                             <tr key={user.id}>
                               <td className={tdClass}>
-                                <span className={classNames('badge badge-pill text-size-16 px-3', (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest')}>
+                                <span
+                                  className={classNames(
+                                    'badge badge-pill text-size-16 px-3',
+                                    (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest'
+                                  )}
+                                >
                                   {_(`permission-${user.permission}`)}
                                 </span>
                               </td>
                               <td className={tdClass}>{user.account}</td>
                               <td className={classNames('text-left group-btn', tdClass)}>
-                                <Link className="btn btn-link" to={{name: 'web.users.accounts.details', params: {...this.props.params, userId: user.id}}}>
+                                <Link
+                                  className="btn btn-link"
+                                  to={{
+                                    name: 'web.users.accounts.details',
+                                    params: {
+                                      ...this.props.params,
+                                      userId: user.id
+                                    }
+                                  }}
+                                >
                                   <i className="fas fa-pen fa-lg fa-fw"/>
                                 </Link>
-                                { !isSuperAdmin &&
+                                { !isSuperAdmin && (
                                   <CustomTooltip
                                     show={user.account === account}
                                     title={_('Cannot Delete Account That is Currently Logged In')}
@@ -181,7 +208,8 @@ module.exports = class Users extends Base {
                                         <i className="far fa-trash-alt fa-lg fa-fw"/>
                                       </button>
                                     </span>
-                                  </CustomTooltip>}
+                                  </CustomTooltip>
+                                )}
                               </td>
                             </tr>
                           );
@@ -202,7 +230,8 @@ module.exports = class Users extends Base {
             modalBody={_('Are you sure to delete account {0}?', [deleteUserTarget && deleteUserTarget.account])}
             isConfirmDisable={$isApiProcessing}
             onHide={this.hideDeleteUserModal}
-            onConfirm={this.confirmDeleteUser}/>
+            onConfirm={this.confirmDeleteUser}
+          />
         </div>
       </>
     );
