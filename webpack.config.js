@@ -35,7 +35,9 @@ module.exports = (env = {}) => {
         'Access-Control-Max-Age': '3000',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         'Access-Control-Allow-Methods': 'GET'
-      }
+      },
+      proxy: {'/': `http://${config.webpackDevServer.host}:${config.expressServer.port}/`},
+      open: true
     },
     resolve: {extensions: ['.js']},
     output: {
