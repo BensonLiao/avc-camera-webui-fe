@@ -252,8 +252,8 @@ module.exports = class SDCard extends Base {
               <div className="form-group mb-0">
                 <label className="mb-3">{_('SD Card')}</label>
                 <VolumeProgressBar
-                  sdTotal={sdTotal}
-                  sdUsage={sdUsage}
+                  total={sdTotal}
+                  usage={sdUsage}
                   percentageToHideText={4}
                 />
               </div>

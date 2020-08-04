@@ -7,8 +7,8 @@ const CustomTooltip = require('./tooltip');
 module.exports = class VolumeProgressBar extends React.PureComponent {
   static get propTypes() {
     return {
-      sdTotal: PropTypes.number.isRequired,
-      sdUsage: PropTypes.number.isRequired,
+      total: PropTypes.number.isRequired,
+      usage: PropTypes.number.isRequired,
       percentageToHideText: PropTypes.number
     };
   }
@@ -18,17 +18,17 @@ module.exports = class VolumeProgressBar extends React.PureComponent {
   }
 
   render() {
-    const {sdUsage, sdTotal, percentageToHideText} = this.props;
-    const usedDiskPercentage = Math.ceil((sdUsage / sdTotal) * 100);
+    const {usage, total, percentageToHideText} = this.props;
+    const usedDiskPercentage = Math.ceil((usage / total) * 100);
     const freeDiskPercentage = 100 - usedDiskPercentage;
-    const freeDiskVolume = sdTotal - sdUsage;
+    const freeDiskVolume = total - usage;
     return (
       <>
         <p>
           {
             _('Free: {0}, Total: {1}', [
               filesize(freeDiskVolume),
-              filesize(sdTotal)
+              filesize(total)
             ])
           }
         </p>
@@ -37,7 +37,7 @@ module.exports = class VolumeProgressBar extends React.PureComponent {
             isNaN(usedDiskPercentage) ?
               <div className="progress-bar"/> : (
                 <>
-                  <CustomTooltip title={_('Used: {0}', [filesize(sdUsage)])}>
+                  <CustomTooltip title={_('Used: {0}', [filesize(usage)])}>
                     <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
                       {usedDiskPercentage > percentageToHideText ? `${usedDiskPercentage}%` : ''}
                     </div>
