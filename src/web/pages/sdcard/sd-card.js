@@ -12,6 +12,7 @@ const api = require('../../../core/apis/web-api');
 const {SD_STATUS_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
+const SdVolumeProgressBar = require('../../../core/components/sd-volume-progress-bar');
 
 module.exports = class SDCard extends Base {
   static get propTypes() {
@@ -132,8 +133,6 @@ module.exports = class SDCard extends Base {
 
   sdcardSettingsFormRender = () => {
     const {systemInformation, smtpSettings: {isEnableAuth}} = this.props;
-    const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
-    const freeDiskPercentage = 100 - usedDiskPercentage;
     return (
       <Form className="card-body sdcard">
         <FormikEffect onChange={this.onChangeSdCardSetting}/>
@@ -253,35 +252,11 @@ module.exports = class SDCard extends Base {
                     ])
                   }
                 </p>
-                <div className="progress">
-                  {
-                    isNaN(usedDiskPercentage) ?
-                      <div className="progress-bar"/> : (
-                        <>
-                          <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
-                            <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                              {usedDiskPercentage > 4 ? `${usedDiskPercentage}%` : ''}
-                            </div>
-                          </CustomTooltip>
-                          {usedDiskPercentage && (
-                            <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
-
-                              <div
-                                className="progress-bar"
-                                style={{
-                                  width: `${freeDiskPercentage}%`,
-                                  backgroundColor: '#e9ecef',
-                                  color: 'var(--gray-dark)'
-                                }}
-                              >
-                                {freeDiskPercentage > 4 ? `${freeDiskPercentage}%` : ''}
-                              </div>
-                            </CustomTooltip>
-                          )}
-                        </>
-                      )
-                  }
-                </div>
+                <SdVolumeProgressBar
+                  sdTotal={systemInformation.sdTotal}
+                  sdUsage={systemInformation.sdUsage}
+                  percentageToHideText={4}
+                />
               </div>
             </div>
           </div>
