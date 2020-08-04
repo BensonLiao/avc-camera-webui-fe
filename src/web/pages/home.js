@@ -14,7 +14,6 @@ const PropTypes = require('prop-types');
 const {getRouter} = require('capybara-router');
 const React = require('react');
 const progress = require('nprogress');
-const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
@@ -364,15 +363,6 @@ module.exports = class Home extends Base {
                               sdUsage={sdUsage}
                               percentageToHideText={4}
                             />
-                            <p>
-                              {
-                                _('Free: {0}, Total: {1}', [
-                                  filesize(sdTotal - sdUsage),
-                                  filesize(sdTotal)
-                                ])
-                              }
-
-                            </p>
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? 'd-none' : '')}>
                             <label>{_(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}</label>

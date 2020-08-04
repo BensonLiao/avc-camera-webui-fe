@@ -23,35 +23,45 @@ module.exports = class SdVolumeProgressBar extends React.PureComponent {
     const freeDiskPercentage = 100 - usedDiskPercentage;
     const freeDiskVolume = sdTotal - sdUsage;
     return (
-      <div className="progress">
-        {
-          isNaN(usedDiskPercentage) ?
-            <div className="progress-bar"/> : (
-              <>
-                <CustomTooltip title={_('Used: {0}', [filesize(sdUsage)])}>
-                  <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                    {usedDiskPercentage > percentageToHideText ? `${usedDiskPercentage}%` : ''}
-                  </div>
-                </CustomTooltip>
-                {usedDiskPercentage && (
-                  <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
-
-                    <div
-                      className="progress-bar"
-                      style={{
-                        width: `${freeDiskPercentage}%`,
-                        backgroundColor: '#e9ecef',
-                        color: 'var(--gray-dark)'
-                      }}
-                    >
-                      {freeDiskPercentage > 8 ? `${freeDiskPercentage}%` : ''}
+      <>
+        <p>
+          {
+            _('Free: {0}, Total: {1}', [
+              filesize(freeDiskVolume),
+              filesize(sdTotal)
+            ])
+          }
+        </p>
+        <div className="progress">
+          {
+            isNaN(usedDiskPercentage) ?
+              <div className="progress-bar"/> : (
+                <>
+                  <CustomTooltip title={_('Used: {0}', [filesize(sdUsage)])}>
+                    <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
+                      {usedDiskPercentage > percentageToHideText ? `${usedDiskPercentage}%` : ''}
                     </div>
                   </CustomTooltip>
-                )}
-              </>
-            )
-        }
-      </div>
+                  {usedDiskPercentage && (
+                    <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
+
+                      <div
+                        className="progress-bar"
+                        style={{
+                          width: `${freeDiskPercentage}%`,
+                          backgroundColor: '#e9ecef',
+                          color: 'var(--gray-dark)'
+                        }}
+                      >
+                        {freeDiskPercentage > 8 ? `${freeDiskPercentage}%` : ''}
+                      </div>
+                    </CustomTooltip>
+                  )}
+                </>
+              )
+          }
+        </div>
+      </>
     );
   }
 };

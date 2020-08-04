@@ -3,7 +3,6 @@ const React = require('react');
 const classNames = require('classnames');
 const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
-const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const FormikEffect = require('../../../core/components/formik-effect');
 const Base = require('../shared/base');
@@ -252,14 +251,6 @@ module.exports = class SDCard extends Base {
             <div className="card-body">
               <div className="form-group mb-0">
                 <label className="mb-3">{_('SD Card')}</label>
-                <p>
-                  {
-                    _('Free: {0}, Total: {1}', [
-                      filesize(sdTotal - sdUsage),
-                      filesize(sdTotal)
-                    ])
-                  }
-                </p>
                 <SdVolumeProgressBar
                   sdTotal={sdTotal}
                   sdUsage={sdUsage}
