@@ -1,0 +1,15 @@
+{   
+  "extends": [
+    "stylelint-config-recommended-scss",
+    "stylelint-config-standard"
+  ],
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules": {
+    "value-list-comma-newline-after": "always",
+    "declaration-colon-newline-after": "always-multi-line",
+    "at-rule-no-unknown": null,
+    "no-descending-specificity": null
+  }
+}

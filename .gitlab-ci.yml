@@ -11,4 +11,5 @@ build:
     - npm install -g grunt-cli
     - npm install
     - npm run eslint
+    - npm run stylelint
     - npm run build

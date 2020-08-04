@@ -6,31 +6,38 @@
     input.form-control[readonly] {
       background-color: initial;
     }
+
     .input-group-prepend + .form-control {
       border-left: none;
       padding-left: 5px;
     }
+
     .input-group-text {
       border-right: none;
       background-color: transparent;
-      color: #CED4DA;
+      color: #ced4da;
     }
   }
 
   .quantity-wrapper {
     border-radius: 24px;
     border: 1px solid $secondary-300;
+
     .card-body {
       padding: 18px 24px;
       text-align: center;
     }
+
     .quantity {
       @extend .text-primary;
+
       font-weight: bold;
       font-size: 28px;
     }
+
     .description {
       @extend .text-muted;
+
       font-size: 16px;
     }
   }
@@ -39,12 +46,15 @@
     th {
       padding: 12px !important;
       color: #1a1a1a !important;
+
       a {
         color: #1a1a1a;
       }
     }
+
     td {
       @extend .text-truncate;
+
       padding: 12px !important;
     }
   }

@@ -1,25 +1,44 @@
 body.en-us {
-  .zh-tw, .zh-cn, .ja-jp, .es-es {
+  .zh-tw,
+  .zh-cn,
+  .ja-jp,
+  .es-es {
     display: none !important;
   }
 }
+
 body.zh-tw {
-  .en-us, .zh-cn, .ja-jp, .es-es {
+  .en-us,
+  .zh-cn,
+  .ja-jp,
+  .es-es {
     display: none !important;
   }
 }
+
 body.zh-cn {
-  .en-us, .zh-tw, .ja-jp, .es-es {
+  .en-us,
+  .zh-tw,
+  .ja-jp,
+  .es-es {
     display: none !important;
   }
 }
+
 body.ja-jp {
-  .en-us, .zh-tw, .zh-cn, .es-es {
+  .en-us,
+  .zh-tw,
+  .zh-cn,
+  .es-es {
     display: none !important;
   }
 }
+
 body.es-es {
-  .en-us, .zh-tw, .zh-cn, .ja-jp {
+  .en-us,
+  .zh-tw,
+  .zh-cn,
+  .ja-jp {
     display: none !important;
   }
 }

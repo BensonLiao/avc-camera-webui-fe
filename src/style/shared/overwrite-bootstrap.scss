@@ -12,6 +12,7 @@ $switch-input-color-checked: $success;
     margin-top: 0.25rem;
     cursor: pointer;
   }
+
   .form-check-label {
     color: $gray-700; // #495057
     font-size: 14px;
@@ -21,7 +22,7 @@ $switch-input-color-checked: $success;
 }
 
 .input-group-text {
-  background-color: #E6E9EC;
+  background-color: #e6e9ec;
   color: #808080;
 }
 
@@ -33,6 +34,7 @@ $switch-input-color-checked: $success;
     font-weight: bold;
     font-size: 20px;
   }
+
   .form-text {
     font-size: 14px;
   }
@@ -42,57 +44,73 @@ $switch-input-color-checked: $success;
   .slider {
     height: 24px;
   }
+
   .slider-selection {
     background: $primary;
   }
 }
+
 .none-selection {
-  .slider-selection, .slider-track-low, .slider-track-high {
-    background: #E6E6E6;
+  .slider-selection,
+  .slider-track-low,
+  .slider-track-high {
+    background: #e6e6e6;
     box-shadow: none;
   }
+
   .slider-handle {
     background: $primary !important;
     border: 1px #fff solid !important;
   }
+
   .slider .slider-track {
     height: 6px;
     margin-top: -3px;
   }
 }
+
 .slider {
   width: 100% !important;
+
   &.slider-disabled {
-    .slider-selection{
-      background: #AEAEAE !important;
+    .slider-selection {
+      background: #aeaeae !important;
     }
   }
+
   .slider-track {
     height: 8px;
     margin-top: -4px;
   }
-  .slider-track-low, .slider-track-high {
-    background-color: #E6E6E6;
+
+  .slider-track-low,
+  .slider-track-high {
+    background-color: #e6e6e6;
   }
+
   .slider-handle {
     background: #fff;
-    border: 1px #B3B3B3 solid;
+    border: 1px #b3b3b3 solid;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 }
 
 input.form-control {
   height: 40px;
+
   &.dynamic {
     display: none;
+
     &.show {
       display: block;
     }
   }
 }
+
 .form-control.is-invalid {
   background-image: none;
 }
+
 textarea.form-control {
   border-radius: 8px;
 }
@@ -102,8 +120,10 @@ textarea.form-control {
   // It just let accordion not calculate the height include the dropdown menu.
   position: fixed !important;
 }
+
 .dropdown-menu {
   @extend .transition;
+
   display: block;
   opacity: 0;
   visibility: hidden;
@@ -114,10 +134,12 @@ textarea.form-control {
     z-index: 1000; // bootstrap's original value
   }
 }
+
 .rounded-left {
   border-top-left-radius: $input-border-radius !important;
   border-bottom-left-radius: $input-border-radius !important;
 }
+
 .rounded-right {
   border-top-right-radius: $input-border-radius !important;
   border-bottom-right-radius: $input-border-radius !important;
@@ -139,33 +161,41 @@ textarea.form-control {
   .btn {
     padding: 4px 8px;
     font-weight: bold;
+
     &.outline-success {
       &:not(:hover) {
         background-color: $secondary;
-        border-color: #CCCCCC;
+        border-color: #ccc;
         color: $info;
       }
-      &:hover, &.active {
+
+      &:hover,
+      &.active {
         background-color: $success;
         border-color: $success;
         color: #fff;
       }
+
       &:focus {
-        box-shadow: 0 0 0 0.2rem rgba(40,167,69,.5);
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
       }
     }
   }
+
   .btn:first-child {
     border-top-left-radius: 50rem;
     border-bottom-left-radius: 50rem;
   }
-  .btn:last-child, .dropdown-toggle {
+
+  .btn:last-child,
+  .dropdown-toggle {
     border-top-right-radius: 50rem;
     border-bottom-right-radius: 50rem;
   }
+
   .dropdown-menu {
     &.show {
-      transform: translate3d(0px, $switch-height, 0px) !important;
+      transform: translate3d(0, $switch-height, 0) !important;
     }
   }
 }
@@ -174,6 +204,7 @@ label.btn {
   cursor: pointer;
   font-size: 16px;
   font-weight: initial;
+
   &.btn-outline-primary:not(:hover) {
     color: $primary;
   }
@@ -182,16 +213,19 @@ label.btn {
 .custom-switch {
   height: $switch-height;
   width: $switch-width;
+
   .custom-control-label {
     margin-top: -5px;
+
     &::before {
       cursor: pointer;
       width: $switch-width;
       height: $switch-height;
-      border-color: #CCCCCC;
+      border-color: #ccc;
       border-radius: 50rem;
       background-color: $switch-input-color-default;
     }
+
     span {
       cursor: pointer;
       white-space: nowrap;
@@ -203,8 +237,10 @@ label.btn {
       top: 4px;
       left: -($switch-height - 2px);
       width: $switch-height;
+
       @extend .text-center;
     }
+
     span + span {
       cursor: pointer;
       white-space: nowrap;
@@ -215,11 +251,13 @@ label.btn {
       top: 4px;
       left: -2px;
       width: $switch-height;
+
       @extend .text-center;
     }
+
     &::after {
       cursor: pointer;
-      background-color: #ffffff;
+      background-color: #fff;
       border-radius: 50rem;
       height: $switch-height - 2px;
       width: $switch-height - 2px;
@@ -227,35 +265,43 @@ label.btn {
       left: -$switch-height - 3px;
     }
   }
+
   .custom-control-input:focus:not(:checked) ~ .custom-control-label {
     &::before {
       border-color: $switch-input-color-default;
     }
   }
+
   .custom-control-input:checked ~ .custom-control-label {
     &::before {
       background-color: $switch-input-color-checked;
-      border-color: #CCCCCC;
+      border-color: #ccc;
     }
+
     span {
       display: inline;
     }
+
     span + span {
       display: none;
     }
+
     &::after {
       left: -7px;
     }
   }
+
   &.switch-sm {
     height: $switch-height-small;
     width: $switch-width-small;
     min-height: initial;
+
     .custom-control-label {
       &::before {
         width: $switch-width-small;
         height: $switch-height-small;
       }
+
       &::after {
         height: $switch-height-small - 2px;
         width: $switch-height-small - 2px;
@@ -263,6 +309,7 @@ label.btn {
         left: -$switch-height-small - 3px;
       }
     }
+
     .custom-control-input:checked ~ .custom-control-label {
       &::after {
         left: -32px;
@@ -274,11 +321,14 @@ label.btn {
 .breadcrumb {
   background: #e9ecef;
   margin: 0 0 32px;
+
   .breadcrumb-item {
     font-size: 16px;
     line-height: 21px;
     color: #666;
-    &.active, &.active a {
+
+    &.active,
+    &.active a {
       color: #007bff;
       font-weight: bold;
     }
@@ -287,6 +337,7 @@ label.btn {
 
 .card {
   border-radius: 16px;
+
   .card-header {
     font-size: 20px;
     color: #fff;
@@ -294,60 +345,73 @@ label.btn {
     background: #666;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-    &.light{
+
+    &.light {
       line-height: 24px;
       background: $secondary-50;
       color: $secondary-500;
     }
   }
+
   .card-body {
     padding: 24px;
-    &.light{
+
+    &.light {
       line-height: 32px;
       background: $secondary-50;
       color: $secondary-500;
       border-radius: 0 0 16px 16px;
-      .mb-2:nth-child(2) > div, .mb-2:nth-child(2) > span {
+
+      .mb-2:nth-child(2) > div,
+      .mb-2:nth-child(2) > span {
         width: 100%;
       }
     }
+
     .drag-icon {
       padding: 0 8px 0 4px;
       height: 32px;
       border-radius: 4px;
-      border: 1px #CFCFCF solid;
+      border: 1px #cfcfcf solid;
       color: $secondary-700;
     }
   }
 }
 
 .card .nav {
-  padding: 0px 24px;
+  padding: 0 24px;
   height: 48px;
 }
+
 .modal .nav.nav-tabs {
   .nav-item:first-child {
     margin-left: 12px;
   }
+
   .nav-item:last-child {
     margin-right: 12px;
   }
 }
-div[role="tablist"].nav, .nav.w-100 {
+
+div[role="tablist"].nav,
+.nav.w-100 {
   height: 48px;
   border-bottom: 2px $secondary-300 solid;
+
   .nav-link {
     margin-bottom: -2px;
     border: none;
     border-bottom: 2px $secondary-300 solid;
     padding: 12px 12px 10px 12px;
     color: #666;
-    border-top-left-radius: .25rem;
-    border-top-right-radius: .25rem;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+
     &.active {
       color: $primary;
       border-bottom-color: $primary;
     }
+
     &:not(.active):hover {
       color: $primary;
       padding: 11px 11px 10px 11px;
@@ -367,19 +431,23 @@ div[role="tablist"].nav, .nav.w-100 {
   .modal-content {
     border-radius: 16px;
   }
+
   .modal-header {
     padding: 24px;
     font-size: 24px;
     font-weight: bold;
+
     .modal-title {
       color: #333;
       font-size: 24px;
       font-weight: bold;
     }
   }
+
   .modal-body {
     padding: 24px;
   }
+
   .modal-footer {
     padding: 24px;
   }

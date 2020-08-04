@@ -8,6 +8,7 @@
     "build": "grunt build",
     "analyze": "grunt build --analyze",
     "eslint": "node_modules/eslint/bin/eslint.js backend config src Gruntfile.js webpack.config.js",
+    "stylelint": "node_modules/stylelint/bin/stylelint.js '**/*.scss'",
     "ncu": "node_modules/npm-check-updates/bin/ncu",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -98,6 +99,10 @@
     "lowdb": "1.0.0",
     "nodemon": "1.19.4",
     "npm-check-updates": "3.2.1",
+    "stylelint": "13.6.1",
+    "stylelint-config-recommended-scss": "4.2.0",
+    "stylelint-config-standard": "20.0.0",
+    "stylelint-scss": "3.18.0",
     "uuid": "3.3.3",
     "webpack-bundle-analyzer": "3.6.0"
   }
