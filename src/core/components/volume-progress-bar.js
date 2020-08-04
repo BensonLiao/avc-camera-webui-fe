@@ -4,7 +4,7 @@ const React = require('react');
 const _ = require('../../languages');
 const CustomTooltip = require('./tooltip');
 
-module.exports = class SdVolumeProgressBar extends React.PureComponent {
+module.exports = class VolumeProgressBar extends React.PureComponent {
   static get propTypes() {
     return {
       sdTotal: PropTypes.number.isRequired,

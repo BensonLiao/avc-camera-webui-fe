@@ -26,7 +26,7 @@ const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
-const SdVolumeProgressBar = require('../../core/components/sd-volume-progress-bar');
+const VolumeProgressBar = require('../../core/components/volume-progress-bar');
 
 module.exports = class Home extends Base {
   static get propTypes() {
@@ -358,7 +358,7 @@ module.exports = class Home extends Base {
                             )}
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? '' : 'd-none')}>
-                            <SdVolumeProgressBar
+                            <VolumeProgressBar
                               sdTotal={sdTotal}
                               sdUsage={sdUsage}
                               percentageToHideText={4}

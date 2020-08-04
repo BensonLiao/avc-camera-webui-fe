@@ -11,7 +11,7 @@ const api = require('../../../core/apis/web-api');
 const {SD_STATUS_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
-const SdVolumeProgressBar = require('../../../core/components/sd-volume-progress-bar');
+const VolumeProgressBar = require('../../../core/components/volume-progress-bar');
 
 module.exports = class SDCard extends Base {
   static get propTypes() {
@@ -251,7 +251,7 @@ module.exports = class SDCard extends Base {
             <div className="card-body">
               <div className="form-group mb-0">
                 <label className="mb-3">{_('SD Card')}</label>
-                <SdVolumeProgressBar
+                <VolumeProgressBar
                   sdTotal={sdTotal}
                   sdUsage={sdUsage}
                   percentageToHideText={4}
