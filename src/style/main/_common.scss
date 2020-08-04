@@ -39,7 +39,11 @@
 }
 
 @mixin text-outline-dark {
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  text-shadow:
+    -1px 0 black,
+    0 1px black,
+    1px 0 black,
+    0 -1px black;
 }
 
 * {
@@ -52,7 +56,11 @@ html {
 }
 
 body {
-  font-family: "CustomSTHeitiTC", "CustomSTHeitiSC", "CustomJhengHei", serif;
+  font-family:
+    "CustomSTHeitiTC",
+    "CustomSTHeitiSC",
+    "CustomJhengHei",
+    serif;
 }
 
 .fixed-top-horizontal-scroll {
@@ -789,8 +797,16 @@ $stage-spacer: 32px;
       linear-gradient(#2bb341, #2bb341),
       linear-gradient(#2bb341, #2bb341),
       linear-gradient(#2bb341, #2bb341);
-    background-position: 0 0, 0 0, 0 100%, 0 100%;
-    background-size: $finish-border-width 0%, 0% $finish-border-width, 0% $finish-border-width, $finish-border-width 0%;
+    background-position:
+      0 0,
+      0 0,
+      0 100%,
+      0 100%;
+    background-size:
+      $finish-border-width 0%,
+      0% $finish-border-width,
+      0% $finish-border-width,
+      $finish-border-width 0%;
     background-color: transparent;
     background-repeat: no-repeat;
     animation: animate-finish 1s forwards;
@@ -799,28 +815,68 @@ $stage-spacer: 32px;
 
     @keyframes animate-finish {
       0% {
-        background-position: 0 100%, 0 0, 0 100%, 100% 0;
-        background-size: $finish-border-width 0%, 0% $finish-border-width, 0% $finish-border-width, $finish-border-width 0%;
+        background-position:
+          0 100%,
+          0 0,
+          0 100%,
+          100% 0;
+        background-size:
+          $finish-border-width 0%,
+          0% $finish-border-width,
+          0% $finish-border-width,
+          $finish-border-width 0%;
       }
 
       45% {
-        background-position: 0 100%, 0 0, 0 100%, 100% 0;
-        background-size: $finish-border-width 0%, 100% $finish-border-width, 0% $finish-border-width, $finish-border-width 0%;
+        background-position:
+          0 100%,
+          0 0,
+          0 100%,
+          100% 0;
+        background-size:
+          $finish-border-width 0%,
+          100% $finish-border-width,
+          0% $finish-border-width,
+          $finish-border-width 0%;
       }
 
       50% {
-        background-position: 0 100%, 100% 0, 100% 100%, 100% 0;
-        background-size: $finish-border-width 0%, 100% $finish-border-width, 0% $finish-border-width, $finish-border-width 100%;
+        background-position:
+          0 100%,
+          100% 0,
+          100% 100%,
+          100% 0;
+        background-size:
+          $finish-border-width 0%,
+          100% $finish-border-width,
+          0% $finish-border-width,
+          $finish-border-width 100%;
       }
 
       95% {
-        background-position: 0 100%, 100% 0, 100% 100%, 100% 100%;
-        background-size: $finish-border-width 0%, 100% $finish-border-width, 100% $finish-border-width, $finish-border-width 100%;
+        background-position:
+          0 100%,
+          100% 0,
+          100% 100%,
+          100% 100%;
+        background-size:
+          $finish-border-width 0%,
+          100% $finish-border-width,
+          100% $finish-border-width,
+          $finish-border-width 100%;
       }
 
       100% {
-        background-position: 0 100%, 100% 0, 0% 100%, 100% 100%;
-        background-size: $finish-border-width 100%, 100% $finish-border-width, 100% $finish-border-width, $finish-border-width 100%;
+        background-position:
+          0 100%,
+          100% 0,
+          0% 100%,
+          100% 100%;
+        background-size:
+          $finish-border-width 100%,
+          100% $finish-border-width,
+          100% $finish-border-width,
+          $finish-border-width 100%;
       }
     }
   }
@@ -842,7 +898,11 @@ $stage-spacer: 32px;
     padding: 0 0.5rem;
     margin-right: 1rem;
     border-right: $stage-border-width solid $secondary-300;
-    background-size: 0 0%, 0% $finish-border-width, 0% $finish-border-width, $finish-border-width 0%;
+    background-size:
+      0 0%,
+      0% $finish-border-width,
+      0% $finish-border-width,
+      $finish-border-width 0%;
   }
 
   // Progress status icon
@@ -863,7 +923,9 @@ $stage-spacer: 32px;
       stroke: #fff;
       stroke-miterlimit: 10;
       box-shadow: inset 0 0 0 #7ac142;
-      animation: check-fill 0.4s ease-in-out 0.4s forwards, check-scale 0.3s ease-in-out 0.9s both;
+      animation:
+        check-fill 0.4s ease-in-out 0.4s forwards,
+        check-scale 0.3s ease-in-out 0.9s both;
       display: none;
 
       &.show {
@@ -921,7 +983,9 @@ $stage-spacer: 32px;
       stroke-miterlimit: 10;
       margin: 10% auto;
       box-shadow: inset 0 0 0 red;
-      animation: cross-fill 0.4s ease-in-out 0.4s forwards, cross-scale 0.3s ease-in-out 0.9s both;
+      animation:
+        cross-fill 0.4s ease-in-out 0.4s forwards,
+        cross-scale 0.3s ease-in-out 0.9s both;
       display: none;
 
       &.show {

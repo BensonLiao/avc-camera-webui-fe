@@ -8,10 +8,14 @@
   .message-container {
     white-space: nowrap;
     overflow: hidden;
-    font-family: "Roboto", serif;
+    font-family:
+      "Roboto",
+      serif;
 
     .message-status {
-      font-family: "Gotham-Bold", serif;
+      font-family:
+        "Gotham-Bold",
+        serif;
       font-weight: bold;
       font-size: 108px;
       color: $secondary-400;
