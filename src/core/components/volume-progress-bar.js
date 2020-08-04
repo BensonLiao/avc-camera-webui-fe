@@ -53,7 +53,7 @@ module.exports = class VolumeProgressBar extends React.PureComponent {
                           color: 'var(--gray-dark)'
                         }}
                       >
-                        {freeDiskPercentage > 8 ? `${freeDiskPercentage}%` : ''}
+                        {freeDiskPercentage > percentageToHideText ? `${freeDiskPercentage}%` : ''}
                       </div>
                     </CustomTooltip>
                   )}

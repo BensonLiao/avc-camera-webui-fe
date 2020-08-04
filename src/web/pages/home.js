@@ -361,7 +361,6 @@ module.exports = class Home extends Base {
                             <VolumeProgressBar
                               total={sdTotal}
                               usage={sdUsage}
-                              percentageToHideText={4}
                             />
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? 'd-none' : '')}>
