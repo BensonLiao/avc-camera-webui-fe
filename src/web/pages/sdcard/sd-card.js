@@ -132,7 +132,15 @@ module.exports = class SDCard extends Base {
   }
 
   sdcardSettingsFormRender = () => {
-    const {systemInformation, smtpSettings: {isEnableAuth}} = this.props;
+    const {
+      systemInformation: {
+        sdUsage,
+        sdTotal,
+        sdStatus,
+        sdEnabled,
+        sdFormat
+      }, smtpSettings: {isEnableAuth}
+    } = this.props;
     return (
       <Form className="card-body sdcard">
         <FormikEffect onChange={this.onChangeSdCardSetting}/>
@@ -156,13 +164,13 @@ module.exports = class SDCard extends Base {
             <div className="card-body">
               <label>{_('SD Card Operation')}</label>
               <div>
-                <CustomTooltip show={systemInformation.sdEnabled} title={_('Please Disable SD Card First')}>
+                <CustomTooltip show={sdEnabled} title={_('Please Disable SD Card First')}>
                   <span>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5 mr-3"
                       type="button"
-                      disabled={systemInformation.sdEnabled}
-                      style={systemInformation.sdEnabled ? {pointerEvents: 'none'} : {}}
+                      disabled={sdEnabled}
+                      style={sdEnabled ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowFormatModal')}
                     >
                       {_('Format')}
@@ -170,13 +178,13 @@ module.exports = class SDCard extends Base {
                     {this.sdcardModalRender('format')}
                   </span>
                 </CustomTooltip>
-                <CustomTooltip show={systemInformation.sdEnabled} title={_('Please Disable SD Card First')}>
+                <CustomTooltip show={sdEnabled} title={_('Please Disable SD Card First')}>
                   <span>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5"
                       type="button"
-                      disabled={systemInformation.sdEnabled}
-                      style={systemInformation.sdEnabled ? {pointerEvents: 'none'} : {}}
+                      disabled={sdEnabled}
+                      style={sdEnabled ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowUnmountModal')}
                     >
                       {_('Unmount')}
@@ -226,17 +234,17 @@ module.exports = class SDCard extends Base {
         <div className="form-group px-3">
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('Status')}</label>
-            <label className="mb-o text-primary">{_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}
+            <label className="mb-o text-primary">{_(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}
             </label>
           </div>
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('File Format')}</label>
-            <label className="mb-o text-primary">{systemInformation.sdFormat}</label>
+            <label className="mb-o text-primary">{sdFormat}</label>
           </div>
           <hr/>
         </div>
-        <div className={classNames('form-group', systemInformation.sdStatus === 0 ? '' : 'd-none')}>
+        <div className={classNames('form-group', sdStatus === 0 ? '' : 'd-none')}>
           <div className="card">
             <div className="card-header sd-card-round">
               {_('Storage Space')}
@@ -247,14 +255,14 @@ module.exports = class SDCard extends Base {
                 <p>
                   {
                     _('Free: {0}, Total: {1}', [
-                      filesize(systemInformation.sdTotal - systemInformation.sdUsage),
-                      filesize(systemInformation.sdTotal)
+                      filesize(sdTotal - sdUsage),
+                      filesize(sdTotal)
                     ])
                   }
                 </p>
                 <SdVolumeProgressBar
-                  sdTotal={systemInformation.sdTotal}
-                  sdUsage={systemInformation.sdUsage}
+                  sdTotal={sdTotal}
+                  sdUsage={sdUsage}
                   percentageToHideText={4}
                 />
               </div>
