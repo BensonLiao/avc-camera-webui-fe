@@ -14,7 +14,6 @@ const PropTypes = require('prop-types');
 const {getRouter} = require('capybara-router');
 const React = require('react');
 const progress = require('nprogress');
-const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
@@ -27,7 +26,7 @@ const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
-const CustomTooltip = require('../../core/components/tooltip');
+const VolumeProgressBar = require('../../core/components/volume-progress-bar');
 
 module.exports = class Home extends Base {
   static get propTypes() {
@@ -240,9 +239,6 @@ module.exports = class Home extends Base {
     } = this.props;
     const {$user, streamImageUrl, isPlayStream, deviceName} = this.state;
     const isAdmin = $user.permission === UserPermission.root || $user.permission === UserPermission.superAdmin;
-    const usedDiskPercentage = Math.ceil((sdUsage / sdTotal) * 100);
-    const freeDiskVolume = sdTotal - sdUsage;
-    const freeDiskPercentage = 100 - usedDiskPercentage;
     const classTable = {
       faceRecognitionState: classNames({
         'text-success': faceRecognitionStatus.isEnable && isEnableFaceRecognitionKey,
@@ -362,44 +358,10 @@ module.exports = class Home extends Base {
                             )}
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? '' : 'd-none')}>
-                            <div className="progress">
-                              {
-                                isNaN(usedDiskPercentage) ?
-                                  <div className="progress-bar"/> : (
-                                    <>
-                                      <CustomTooltip title={_('Used: {0}', [filesize(sdUsage)])}>
-                                        <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                                          {usedDiskPercentage > 8 ? `${usedDiskPercentage}%` : ''}
-                                        </div>
-                                      </CustomTooltip>
-                                      {usedDiskPercentage && (
-                                        <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
-
-                                          <div
-                                            className="progress-bar"
-                                            style={{
-                                              width: `${freeDiskPercentage}%`,
-                                              backgroundColor: '#e9ecef',
-                                              color: 'var(--gray-dark)'
-                                            }}
-                                          >
-                                            {freeDiskPercentage > 8 ? `${freeDiskPercentage}%` : ''}
-                                          </div>
-                                        </CustomTooltip>
-                                      )}
-                                    </>
-                                  )
-                              }
-                            </div>
-                            <p>
-                              {
-                                _('Free: {0}, Total: {1}', [
-                                  filesize(freeDiskVolume),
-                                  filesize(sdTotal)
-                                ])
-                              }
-
-                            </p>
+                            <VolumeProgressBar
+                              total={sdTotal}
+                              usage={sdUsage}
+                            />
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? 'd-none' : '')}>
                             <label>{_(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}</label>

@@ -3,7 +3,6 @@ const React = require('react');
 const classNames = require('classnames');
 const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
-const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
 const FormikEffect = require('../../../core/components/formik-effect');
 const Base = require('../shared/base');
@@ -12,6 +11,7 @@ const api = require('../../../core/apis/web-api');
 const {SD_STATUS_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
+const VolumeProgressBar = require('../../../core/components/volume-progress-bar');
 
 module.exports = class SDCard extends Base {
   static get propTypes() {
@@ -131,9 +131,15 @@ module.exports = class SDCard extends Base {
   }
 
   sdcardSettingsFormRender = () => {
-    const {systemInformation, smtpSettings: {isEnableAuth}} = this.props;
-    const usedDiskPercentage = Math.ceil((systemInformation.sdUsage / systemInformation.sdTotal) * 100);
-    const freeDiskPercentage = 100 - usedDiskPercentage;
+    const {
+      systemInformation: {
+        sdUsage,
+        sdTotal,
+        sdStatus,
+        sdEnabled,
+        sdFormat
+      }, smtpSettings: {isEnableAuth}
+    } = this.props;
     return (
       <Form className="card-body sdcard">
         <FormikEffect onChange={this.onChangeSdCardSetting}/>
@@ -157,13 +163,13 @@ module.exports = class SDCard extends Base {
             <div className="card-body">
               <label>{_('SD Card Operation')}</label>
               <div>
-                <CustomTooltip show={systemInformation.sdEnabled} title={_('Please Disable SD Card First')}>
+                <CustomTooltip show={sdEnabled} title={_('Please Disable SD Card First')}>
                   <span>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5 mr-3"
                       type="button"
-                      disabled={systemInformation.sdEnabled}
-                      style={systemInformation.sdEnabled ? {pointerEvents: 'none'} : {}}
+                      disabled={sdEnabled}
+                      style={sdEnabled ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowFormatModal')}
                     >
                       {_('Format')}
@@ -171,13 +177,13 @@ module.exports = class SDCard extends Base {
                     {this.sdcardModalRender('format')}
                   </span>
                 </CustomTooltip>
-                <CustomTooltip show={systemInformation.sdEnabled} title={_('Please Disable SD Card First')}>
+                <CustomTooltip show={sdEnabled} title={_('Please Disable SD Card First')}>
                   <span>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5"
                       type="button"
-                      disabled={systemInformation.sdEnabled}
-                      style={systemInformation.sdEnabled ? {pointerEvents: 'none'} : {}}
+                      disabled={sdEnabled}
+                      style={sdEnabled ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowUnmountModal')}
                     >
                       {_('Unmount')}
@@ -227,17 +233,17 @@ module.exports = class SDCard extends Base {
         <div className="form-group px-3">
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('Status')}</label>
-            <label className="mb-o text-primary">{_(SD_STATUS_LIST[systemInformation.sdStatus] || 'UNKNOWN STATUS')}
+            <label className="mb-o text-primary">{_(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}
             </label>
           </div>
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{_('File Format')}</label>
-            <label className="mb-o text-primary">{systemInformation.sdFormat}</label>
+            <label className="mb-o text-primary">{sdFormat}</label>
           </div>
           <hr/>
         </div>
-        <div className={classNames('form-group', systemInformation.sdStatus === 0 ? '' : 'd-none')}>
+        <div className={classNames('form-group', sdStatus === 0 ? '' : 'd-none')}>
           <div className="card">
             <div className="card-header sd-card-round">
               {_('Storage Space')}
@@ -245,43 +251,11 @@ module.exports = class SDCard extends Base {
             <div className="card-body">
               <div className="form-group mb-0">
                 <label className="mb-3">{_('SD Card')}</label>
-                <p>
-                  {
-                    _('Free: {0}, Total: {1}', [
-                      filesize(systemInformation.sdTotal - systemInformation.sdUsage),
-                      filesize(systemInformation.sdTotal)
-                    ])
-                  }
-                </p>
-                <div className="progress">
-                  {
-                    isNaN(usedDiskPercentage) ?
-                      <div className="progress-bar"/> : (
-                        <>
-                          <CustomTooltip title={_('Used: {0}', [filesize(systemInformation.sdUsage)])}>
-                            <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                              {usedDiskPercentage > 4 ? `${usedDiskPercentage}%` : ''}
-                            </div>
-                          </CustomTooltip>
-                          {usedDiskPercentage && (
-                            <CustomTooltip title={_('Free: {0}', [filesize(systemInformation.sdTotal - systemInformation.sdUsage)])}>
-
-                              <div
-                                className="progress-bar"
-                                style={{
-                                  width: `${freeDiskPercentage}%`,
-                                  backgroundColor: '#e9ecef',
-                                  color: 'var(--gray-dark)'
-                                }}
-                              >
-                                {freeDiskPercentage > 4 ? `${freeDiskPercentage}%` : ''}
-                              </div>
-                            </CustomTooltip>
-                          )}
-                        </>
-                      )
-                  }
-                </div>
+                <VolumeProgressBar
+                  total={sdTotal}
+                  usage={sdUsage}
+                  percentageToHideText={4}
+                />
               </div>
             </div>
           </div>
