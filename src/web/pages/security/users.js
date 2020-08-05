@@ -67,11 +67,12 @@ module.exports = class Users extends Base {
 
   render() {
     const {permissionFilter, $user: {account}, $isApiProcessing, isShowDeleteUserModal, deleteUserTarget} = this.state;
+    // superAdmin is the same as admin, viewer is the same as guest
     const users = permissionFilter === 'all' ?
       this.props.users.items :
       this.props.users.items.filter(user => permissionFilter === UserPermission.root ?
         user.permission.toString() === UserPermission.root || user.permission.toString() === UserPermission.superAdmin :
-        user.permission.toString() === permissionFilter);
+        user.permission.toString() === permissionFilter || user.permission.toString() === UserPermission.viewer);
     const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
     return (
       <>
