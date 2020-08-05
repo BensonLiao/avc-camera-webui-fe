@@ -1110,3 +1110,15 @@ $stage-spacer: 32px;
   /* Hide scrollbar for IE and Edge */
   -ms-overflow-style: none;
 }
+
+.react-notification-root {
+  .n-child {
+    justify-content: flex-end;
+    margin-left: auto;
+    box-shadow: none;
+
+    & > div {
+      box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
