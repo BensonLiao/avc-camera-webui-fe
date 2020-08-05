@@ -244,12 +244,12 @@ module.exports = class TCPIP extends Base {
                     <Nav>
                       <Nav.Item>
                         <Nav.Link eventKey="tab-ddns">
-                          {_('LAN Configuration')}
+                          {_('DDNS')}
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link eventKey="tab-http">
-                          {_('Network Status')}
+                          {_('HTTP')}
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>
