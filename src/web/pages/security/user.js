@@ -55,7 +55,7 @@ module.exports = class User extends Base {
     if (user) {
       return {
         id: user.id,
-        permission: user.permission,
+        permission: user.permission === UserPermission.viewer ? parseInt(UserPermission.guest, 10) : user.permission,
         account: user.account,
         password: '',
         newPassword: '',
@@ -79,6 +79,10 @@ module.exports = class User extends Base {
     progress.start();
     if (this.props.user) {
       // Update the user.
+      if (this.props.user.permission === UserPermission.viewer) {
+        values.permission = parseInt(UserPermission.viewer, 10);
+      }
+
       api.user.updateUser(values)
         .then(() => {
           this.hideModal(true);
