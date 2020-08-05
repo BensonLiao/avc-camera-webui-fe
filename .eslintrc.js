@@ -65,7 +65,12 @@ module.exports = {
 
     // Enforces a maximum line length to increase code readability and maintainability.
     // https://eslint.org/docs/rules/max-len
-    'max-len': ["warn", { "code": 150 }],
+    'max-len': ["warn", {
+      "code": 150,
+      "ignoreTemplateLiterals": true,
+      "ignoreStrings": true,
+      "ignorePattern": "^.*minutes.*\\[.*\\].*" // For datetime picker clock data, e.g. minutes: [n, n+1, ...]
+    }],
 
     // Enforce or disallow capitalization of the first letter of a comment
     // https://eslint.org/docs/rules/capitalized-comments
