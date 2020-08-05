@@ -11,5 +11,9 @@
     "declaration-colon-newline-after": "always-multi-line",
     "at-rule-no-unknown": null,
     "no-descending-specificity": null
-  }
+  },
+  "ignoreFiles": [
+    "**/*.js",
+    "**/*.jsx"
+  ]
 }
