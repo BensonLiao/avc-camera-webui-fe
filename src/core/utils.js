@@ -9,6 +9,7 @@ const api = require('../core/apis/web-api');
 const notify = require('../core/notify');
 const {validator} = require('../core/validations');
 const {RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
+const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 
 /**
  * Format time range.
@@ -255,40 +256,7 @@ exports.toggleFullscreen = (event, streamPlayerRef) => {
 
 exports.validateStreamBitRate = () => values => {
   let result;
-  const bitRateSchema = {
-    bitRate: {
-      optional: false,
-      type: 'custom',
-      pattern: /^[\d]+$/,
-      min: 2048,
-      max: 20480,
-      check: function (value, schema) {
-        if (schema.optional && (value == null || value === '')) {
-          return true;
-        }
-
-        if (typeof value !== 'string') {
-          return this.makeError('string', null, value);
-        }
-
-        if (!schema.pattern.test(value)) {
-          return this.makeError('stringPattern', schema.pattern, value);
-        }
-
-        const number = Number(value);
-        if (number < schema.min) {
-          return this.makeError('numberMin', schema.min, value);
-        }
-
-        if (number > schema.max) {
-          return this.makeError('numberMax', schema.max, value);
-        }
-
-        return true;
-      }
-    }
-  };
-  result = validator.validate({bitRate: values}, bitRateSchema);
+  result = validator.validate({bitRate: values}, StreamSettingsSchema);
   return (result === true ? '' : result[0].message);
 };
 
