@@ -256,7 +256,9 @@ exports.toggleFullscreen = (event, streamPlayerRef) => {
 
 exports.validateStreamBitRate = () => values => {
   let result;
-  result = validator.validate({bitRate: values}, StreamSettingsSchema);
+  console.log(StreamSettingsSchema);
+  console.log(StreamSettingsSchema.channelA.props.bitRate);
+  result = validator.validate({bitRate: values}, StreamSettingsSchema.channelA.props.bitRate);
   return (result === true ? '' : result[0].message);
 };
 
