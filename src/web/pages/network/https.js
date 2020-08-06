@@ -132,7 +132,8 @@ module.exports = class HTTPS extends Base {
           </div>
         </CustomTooltip>
         <CustomNotifyModal
-          modalType="info"
+          isShowAllBtns={false}
+          backdrop="static"
           isShowModal={isShowModal}
           modalTitle={_('Success')}
           modalBody={modalBody}
