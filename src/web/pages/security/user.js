@@ -55,7 +55,7 @@ module.exports = class User extends Base {
     if (user) {
       return {
         id: user.id,
-        permission: user.permission,
+        permission: user.permission === UserPermission.viewer ? UserPermission.guest : user.permission,
         account: user.account,
         password: '',
         newPassword: '',
@@ -79,7 +79,12 @@ module.exports = class User extends Base {
     progress.start();
     if (this.props.user) {
       // Update the user.
-      api.user.updateUser(values)
+      let submitValues = {...values};
+      if (this.props.user.permission === UserPermission.viewer) {
+        submitValues.permission = UserPermission.viewer;
+      }
+
+      api.user.updateUser(submitValues)
         .then(() => {
           this.hideModal(true);
         })
@@ -113,7 +118,7 @@ module.exports = class User extends Base {
     const isSuperAdmin = user && (user.permission === UserPermission.superAdmin);
     const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
     const permissionList = UserPermission.all().reduce((permissionList, permission) => {
-      if (permission !== UserPermission.superAdmin) {
+      if (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) {
         permissionList.push(
           <option key={permission} value={permission}>
             {_(`permission-${permission}`)}
