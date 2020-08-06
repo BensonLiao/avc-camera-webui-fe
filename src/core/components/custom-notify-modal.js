@@ -21,7 +21,9 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       isConfirmDisable: PropTypes.bool,
       // For overriding default backdrop setting
       backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-      loading: PropTypes.bool
+      isLoading: PropTypes.bool,
+      // For showing buttons at all
+      isShowAllBtns: PropTypes.bool
     };
   }
 
@@ -34,7 +36,8 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       onConfirm: null,
       isConfirmDisable: false,
       backdrop: true,
-      loading: false
+      isLoading: false,
+      isShowAllBtns: true
     };
   }
 
@@ -49,10 +52,13 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       confirmBtnTitle,
       isConfirmDisable,
       backdrop,
-      loading
+      isLoading,
+      isShowAllBtns
     } = this.props;
     return (
       <Modal
+        // keyboard disallows usage of ESC key to close modal, this is tied with backdrop
+        keyboard={backdrop !== 'static'}
         backdrop={backdrop}
         show={isShowModal}
         autoFocus={false}
@@ -60,7 +66,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
         onHide={onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h4" className={classNames({'modal-loading': loading})}>{modalTitle}</Modal.Title>
+          <Modal.Title as="h4" className={classNames({'modal-loading': isLoading})}>{modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {utils.isArray(modalBody) ? (
@@ -81,7 +87,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
             </p>
           )}
         </Modal.Body>
-        {modalType !== 'process' && (
+        {modalType !== 'process' && isShowAllBtns && (
           <Modal.Footer className="flex-column">
             <div className="form-group w-100 mx-0">
               <button
