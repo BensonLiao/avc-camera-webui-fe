@@ -45,23 +45,13 @@ module.exports = config => {
       }
 
       if (error.response) {
-        // Form validation error message
-        if (error.response.status === 400 && error.response.data.extra) {
-          error.response.data.extra.forEach(errorMessage => {
-            notify.showErrorNotification({
-              title: `Error ${error.response.status} - ${error.response.data.message.replace('Error: ', '')}` || null,
-              message: errorMessage.message || null
-            });
-          });
-        } else {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-          console.error('Error on Response Error Status: ', error.response);
-          notify.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        }
+        console.error('Error on Response Error Status: ', error.response);
+        notify.showErrorNotification({
+          title: `Error ${error.response.status}` || null,
+          message: error.response.status === 400 ? error.response.data.message || null : null
+        });
       } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
