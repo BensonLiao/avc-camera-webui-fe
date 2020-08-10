@@ -7,32 +7,9 @@ module.exports = class CardsList extends React.PureComponent {
   static get propTypes() {
     return {
       cards: PropTypes.arrayOf(
-        PropTypes.shape({
-          emailAttachmentType: PropTypes.string.isRequired,
-          emails: PropTypes.array.isRequired,
-          faceRecognitionCondition: PropTypes.string.isRequired,
-          groups: PropTypes.array.isRequired,
-          id: PropTypes.number.isRequired,
-          isEnableApp: PropTypes.bool.isRequired,
-          isEnableEmail: PropTypes.bool.isRequired,
-          isEnableFaceRecognition: PropTypes.bool.isRequired,
-          isEnableGPIO: PropTypes.bool.isRequired,
-          isEnableGPIO1: PropTypes.bool.isRequired,
-          isEnableGPIO2: PropTypes.bool.isRequired,
-          isEnableTime: PropTypes.bool.isRequired,
-          isTop: PropTypes.bool.isRequired,
-          timePeriods: PropTypes.array.isRequired,
-          title: PropTypes.string.isRequired,
-          type: PropTypes.string.isRequired
-        }).isRequired
+        PropTypes.shape(CardsListSingleCard.propTypes.card).isRequired
       ).isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string.isRequired
-        }).isRequired)
-      }).isRequired,
+      groups: PropTypes.shape(CardsListSingleCard.propTypes.groups).isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
       cardTypeFilter: PropTypes.string.isRequired,
       clickCardHandler: PropTypes.func.isRequired,

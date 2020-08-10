@@ -49,13 +49,7 @@ module.exports = class CardsForm extends React.PureComponent {
         title: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired
       }),
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string.isRequired
-        }).isRequired)
-      }).isRequired,
+      groups: PropTypes.shape(CardsFormRule.propTypes.groups.items).isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
       isShowCardDetailsModal: PropTypes.bool.isRequired,
       isTop: PropTypes.bool.isRequired,

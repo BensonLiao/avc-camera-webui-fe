@@ -8,13 +8,7 @@ module.exports = class Member extends Base {
   static get propTypes() {
     return {
       params: PropTypes.object.isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string
-        }).isRequired).isRequired
-      }),
+      groups: PropTypes.shape(MemberModal.propTypes.groups.items),
       member: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,

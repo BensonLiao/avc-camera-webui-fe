@@ -23,20 +23,7 @@ const utils = require('../../../core/utils');
 module.exports = class License extends Base {
   static get propTypes() {
     return {
-      authKeys: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          time: PropTypes.string.isRequired,
-          user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-          }).isRequired,
-          authKey: PropTypes.string.isRequired,
-          isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
-          isEnableAgeGenderKey: PropTypes.bool.isRequired,
-          isEnableHumanoidDetectionKey: PropTypes.bool.isRequired,
-          isEnable: PropTypes.bool.isRequired
-        }).isRequired).isRequired
-      }).isRequired,
+      authKeys: PropTypes.shape(LicenseList.propTypes.authKeys).isRequired,
       authStatus: PropTypes.shape({
         isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
         isEnableAgeGenderKey: PropTypes.bool.isRequired,

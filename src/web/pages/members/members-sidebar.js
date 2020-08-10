@@ -14,7 +14,13 @@ module.exports = class MembersSidebar extends React.PureComponent {
       filterHandler: PropTypes.func.isRequired,
       deleteGroupHandler: PropTypes.func.isRequired,
       params: PropTypes.shape({group: PropTypes.string}).isRequired,
-      groups: PropTypes.shape({items: PropTypes.array}).isRequired
+      groups: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string
+        }).isRequired).isRequired
+      }).isRequired
     };
   }
 
