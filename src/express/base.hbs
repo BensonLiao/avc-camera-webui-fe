@@ -13,6 +13,7 @@
     window.user = JSON.parse(base64DecodeUnicode('{{ archive user }}'));
     window.currentLanguageCode = '{{ languageCode }}';
     window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));
+    window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ archive skuID }}')) === 'NoBrand';
     window.error = JSON.parse(base64DecodeUnicode('{{ archive error }}'));
   </script>
 </head>
