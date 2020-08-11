@@ -29,13 +29,15 @@ module.exports = class SelectField extends React.PureComponent {
 
   render() {
     const {
-      hide, labelName, labelClassName, wrapperClassName, readOnly, name, className, children
+      hide, labelName, labelClassName, wrapperClassName, readOnly, name, className, children, ...extraProps
     } = this.props;
+
     return (
       <div className={classNames('form-group', (hide && 'd-none'))}>
         <label className={labelClassName}>{labelName}</label>
         <div className={classNames('select-wrapper border rounded-pill overflow-hidden', readOnly && 'select-readonly', wrapperClassName)}>
           <Field
+            {...extraProps}
             readOnly={readOnly}
             name={name}
             component="select"

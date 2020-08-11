@@ -34,140 +34,29 @@ module.exports = class StreamSetting extends Base {
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Updating stream settings');
+    // Enum to test for changing resolution aspect ratio
+    this.fourByThree = [
+      Number(StreamResolution['5']),
+      Number(StreamResolution['6']),
+      Number(StreamResolution['7']),
+      Number(StreamResolution['8'])
+    ];
+    this.sixteenByNine = [
+      Number(StreamResolution['0']),
+      Number(StreamResolution['1']),
+      Number(StreamResolution['2']),
+      Number(StreamResolution['3'])
+    ];
+    this.channelAOptions = null;
+    this.channelBOptions = null;
   }
 
   hideApiProcessModal = () => {
     this.setState({isShowApiProcessModal: false});
   };
 
-  onSubmit = values => {
-    progress.start();
-    this.setState({
-      isShowApiProcessModal: true,
-      isShowModal: false
-    },
-    () => {
-      api.multimedia.updateStreamSettings(values)
-        .then(getRouter().reload)
-        .finally(() => {
-          progress.done();
-          this.hideApiProcessModal();
-        });
-    });
-  };
-
-  onClickResetButton = event => {
-    event.preventDefault();
-    progress.start();
-    api.multimedia.resetStreamSettings()
-      .then(getRouter().reload)
-      .finally(() => {
-        progress.done();
-        this.hideApiProcessModal();
-      });
-  };
-
-  showModal = () => {
-    this.setState({isShowModal: true});
-  };
-
-  hideModal = () => {
-    this.setState({isShowModal: false});
-  };
-
-  fieldsRender = (fieldNamePrefix, options, values) => {
-    const {homePage} = this.props;
-
-    return (
-      <>
-        <SelectField labelName={_('Codec')} readOnly={homePage} name={`${fieldNamePrefix}.codec`}>
-          {options.codec.map(option => (
-            <option key={option.value} value={option.value}>{option.label}</option>
-          ))}
-        </SelectField>
-        <SelectField labelName={_('Resolution')} readOnly={homePage} name={`${fieldNamePrefix}.resolution`}>
-          {options.resolution.map(option => (
-            <option key={option.value} value={option.value}>{option.label}</option>
-          ))}
-        </SelectField>
-        <SelectField labelName={_('Frame Rate (FPS)')} name={`${fieldNamePrefix}.frameRate`}>
-          {options.frameRate.map(option => (
-            <option key={option.value} value={option.value}>{option.label}</option>
-          ))}
-        </SelectField>
-        {values.codec === StreamCodec.mjpeg && (
-          <SelectField labelName={_('Quality')} name={`${fieldNamePrefix}.quality`}>
-            {options.quality.map(option => (
-              <option key={option.value} value={option.value}>{option.label}</option>
-            ))}
-          </SelectField>
-        )}
-        {values.codec !== StreamCodec.mjpeg && (
-          <div className="form-group">
-            <label>{_('Bandwidth Management')}</label>
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <Field
-                  name={`${fieldNamePrefix}.bandwidthManagement`}
-                  component={Dropdown}
-                  buttonClassName="btn btn-outline-primary rounded-left"
-                  menuClassName="dropdown-menu-right"
-                  items={options.bandwidthManagement.map(x => ({
-                    value: x.value,
-                    label: x.label
-                  }))}
-                />
-              </div>
-              <Field
-                type="text"
-                name={`${fieldNamePrefix}.bitRate`}
-                validate={!(values.bandwidthManagement === StreamBandwidthManagement.vbr) && utils.validateStreamBitRate()}
-                className={
-                  classNames('form-control dynamic',
-                    {show: values.bandwidthManagement === StreamBandwidthManagement.mbr}
-                  )
-                }
-              />
-              <input
-                readOnly
-                type="text"
-                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})}
-                placeholder="Auto"
-              />
-              <Field
-                type="text"
-                name={`${fieldNamePrefix}.bitRate`}
-                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}
-              />
-              <div className="input-group-append">
-                <span className="input-group-text">Kbps</span>
-              </div>
-            </div>
-            <small className="text-info mb-3">
-              {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
-            </small>
-            {!(values.bandwidthManagement === StreamBandwidthManagement.vbr) && (
-              <div style={{display: 'block'}} className="invalid-feedback">
-                <ErrorMessage name={`${fieldNamePrefix}.bitRate`}/>
-              </div>
-            )}
-          </div>
-        )}
-        {values.codec !== StreamCodec.mjpeg && (
-        /* GOP is same as GOV */
-          <SelectField hide={homePage} readOnly={homePage} labelName={_('GOP')} name={`${fieldNamePrefix}.gov`}>
-            {options.gov.map(option => (
-              <option key={option.value} value={option.value}>{option.label}</option>
-            ))}
-          </SelectField>
-        )}
-      </>
-    );
-  };
-
-  formRender = ({values, errors}) => {
-    const {isShowModal, $isApiProcessing} = this.state;
-    const channelAOptions = {
+  processRenderOptions = values => {
+    this.channelAOptions = {
       codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({
         label: x,
         value: x
@@ -196,7 +85,7 @@ module.exports = class StreamSetting extends Base {
         value: x
       }))
     };
-    const channelBOptions = {
+    this.channelBOptions = {
       codec: StreamCodec.all().filter(x => x !== StreamCodec.h265).map(x => ({
         label: x,
         value: x
@@ -277,18 +166,239 @@ module.exports = class StreamSetting extends Base {
         value: x
       }))
     };
+  }
+
+  onSubmit = values => {
+    progress.start();
+    this.setState({
+      isShowApiProcessModal: true,
+      isShowModal: false
+    },
+    () => {
+      api.multimedia.updateStreamSettings(values)
+        .then(getRouter().reload)
+        .finally(() => {
+          progress.done();
+          this.hideApiProcessModal();
+        });
+    });
+  };
+
+  onClickResetButton = event => {
+    event.preventDefault();
+    progress.start();
+    api.multimedia.resetStreamSettings()
+      .then(getRouter().reload)
+      .finally(() => {
+        progress.done();
+        this.hideApiProcessModal();
+      });
+  };
+
+  showModal = () => {
+    this.setState({isShowModal: true});
+  };
+
+  hideModal = () => {
+    this.setState({isShowModal: false});
+  };
+
+  // Test if switching resolution aspect ratio
+  hasResolutionChanged = (prev, current) => {
+    if (this.fourByThree.includes(prev) && this.fourByThree.includes(current)) {
+      return false;
+    }
+
+    if (this.sixteenByNine.includes(prev) && this.sixteenByNine.includes(current)) {
+      return false;
+    }
+
+    return true;
+  };
+
+  fieldsRender = (fieldNamePrefix, options, values, setFieldValue, allValues) => {
+    const {homePage} = this.props;
+
+    // Logic for Resolution field change, updates field value to first option if options are updated
+    // Solves dependent field value are not updated when provider has changed
+    const onUpdateResField = event => {
+      event.persist();
+      const newResValue = event.target.value;
+      setFieldValue(`${fieldNamePrefix}.resolution`, newResValue);
+      const prev = Number(allValues.channelA.resolution);
+      const current = Number(newResValue);
+      if (fieldNamePrefix === 'channelA' && this.hasResolutionChanged(prev, current)) {
+        this.processRenderOptions({
+          ...allValues,
+          channelA: {
+            ...allValues.channelA,
+            resolution: newResValue
+          }
+        });
+        setFieldValue('channelB.resolution', this.channelBOptions.resolution[0].value);
+      }
+
+      if (fieldNamePrefix === 'channelB') {
+        this.processRenderOptions({
+          ...allValues,
+          channelB: {
+            ...allValues.channelB,
+            resolution: newResValue
+          }
+        });
+
+        // Update FPS field
+        const maxFrameRate = this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value;
+        const currentFrameRateValue = allValues.channelB.frameRate;
+        if (fieldNamePrefix === 'channelB' && currentFrameRateValue > maxFrameRate) {
+          setFieldValue(`${fieldNamePrefix}.frameRate`, options.frameRate[0].value);
+        }
+      }
+    };
+
+    // Logic for Codec field change
+    const onUpdateCodecField = event => {
+      event.persist();
+      const newCodecValue = event.target.value;
+      setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
+      if (fieldNamePrefix === 'channelB') {
+        this.processRenderOptions({
+          ...allValues,
+          channelB: {
+            ...allValues.channelB,
+            codec: newCodecValue
+          }
+        });
+        setFieldValue(`${fieldNamePrefix}.resolution`, this.channelBOptions.resolution[0].value);
+        this.processRenderOptions({
+          ...allValues,
+          channelB: {
+            ...allValues.channelB,
+            codec: newCodecValue,
+            resolution: this.channelBOptions.resolution[0].value
+          }
+        });
+        const maxFrameRate = this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value;
+        const currentFrameRateValue = values.frameRate;
+        if (fieldNamePrefix === 'channelB' && newCodecValue === StreamCodec.mjpeg && currentFrameRateValue > maxFrameRate) {
+          setFieldValue(`${fieldNamePrefix}.frameRate`, options.frameRate[0].value);
+        }
+      }
+    };
+
+    return (
+      <>
+        <SelectField
+          labelName={_('Codec')}
+          readOnly={homePage}
+          name={`${fieldNamePrefix}.codec`}
+          onChange={event => onUpdateCodecField(event)}
+        >
+          {options.codec.map(option => (
+            <option key={option.value} value={option.value}>{option.label}</option>
+          ))}
+        </SelectField>
+        <SelectField
+          labelName={_('Resolution')}
+          readOnly={homePage}
+          name={`${fieldNamePrefix}.resolution`}
+          onChange={event => onUpdateResField(event)}
+        >
+          {options.resolution.map(option => (
+            <option key={option.value} value={option.value}>{option.label}</option>
+          ))}
+        </SelectField>
+        <SelectField labelName={_('Frame Rate (FPS)')} name={`${fieldNamePrefix}.frameRate`}>
+          {options.frameRate.map(option => (
+            <option key={option.value} value={option.value}>{option.label}</option>
+          ))}
+        </SelectField>
+        {values.codec === StreamCodec.mjpeg && (
+          <SelectField labelName={_('Quality')} name={`${fieldNamePrefix}.quality`}>
+            {options.quality.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))}
+          </SelectField>
+        )}
+        {values.codec !== StreamCodec.mjpeg && (
+          <div className="form-group">
+            <label>{_('Bandwidth Management')}</label>
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <Field
+                  name={`${fieldNamePrefix}.bandwidthManagement`}
+                  component={Dropdown}
+                  buttonClassName="btn btn-outline-primary rounded-left"
+                  menuClassName="dropdown-menu-right"
+                  items={options.bandwidthManagement.map(x => ({
+                    value: x.value,
+                    label: x.label
+                  }))}
+                />
+              </div>
+              <Field
+                type="text"
+                name={`${fieldNamePrefix}.bitRate`}
+                validate={!(values.bandwidthManagement === StreamBandwidthManagement.vbr) && utils.validateStreamBitRate()}
+                className={
+                  classNames('form-control dynamic',
+                    {show: values.bandwidthManagement === StreamBandwidthManagement.mbr}
+                  )
+                }
+              />
+              <input
+                readOnly
+                type="text"
+                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})}
+                placeholder="Auto"
+              />
+              <Field
+                type="text"
+                name={`${fieldNamePrefix}.bitRate`}
+                className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.cbr})}
+              />
+              <div className="input-group-append">
+                <span className="input-group-text">Kbps</span>
+              </div>
+            </div>
+            <small className="text-info mb-3">
+              {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
+            </small>
+            {!(values.bandwidthManagement === StreamBandwidthManagement.vbr) && (
+              <div style={{display: 'block'}} className="invalid-feedback">
+                <ErrorMessage name={`${fieldNamePrefix}.bitRate`}/>
+              </div>
+            )}
+          </div>
+        )}
+        {values.codec !== StreamCodec.mjpeg && (
+        /* GOP is same as GOV */
+          <SelectField hide={homePage} readOnly={homePage} labelName={_('GOP')} name={`${fieldNamePrefix}.gov`}>
+            {options.gov.map(option => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))}
+          </SelectField>
+        )}
+      </>
+    );
+  };
+
+  formRender = ({values, setFieldValue, errors}) => {
+    const {isShowModal, $isApiProcessing} = this.state;
+    this.processRenderOptions(values);
+
     return (
       <Form className="card-body">
 
         <Tab.Content>
           <Tab.Pane eventKey="tab-channel-a">
-            {this.fieldsRender('channelA', channelAOptions, values.channelA)}
+            {this.fieldsRender('channelA', this.channelAOptions, values.channelA, setFieldValue, values)}
           </Tab.Pane>
         </Tab.Content>
 
         <Tab.Content>
           <Tab.Pane eventKey="tab-channel-b">
-            {this.fieldsRender('channelB', channelBOptions, values.channelB)}
+            {this.fieldsRender('channelB', this.channelBOptions, values.channelB, setFieldValue, values)}
           </Tab.Pane>
         </Tab.Content>
 
