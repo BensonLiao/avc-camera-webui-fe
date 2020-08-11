@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('config');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -122,6 +123,19 @@ module.exports = (env = {}) => {
     },
     plugins: (() => {
       const result = [
+        new HtmlWebpackPlugin({
+          filename: path.join(__dirname, buildFolder, 'express', 'index.html'),
+          meta: {
+            charset: 'utf-8',
+            'X-UA-Compatible': 'IE=Edge',
+            expires: '0',
+            'cache-control': 'no-cache, no-store, must-revalidate',
+            pragma: 'no-cache, no-store, must-revalidate'
+          },
+          favicon: './favicon.ico',
+          template: path.join(__dirname, 'src', 'express', 'base.hbs'),
+          hash: true
+        }),
         new MiniCssExtractPlugin({
           filename: '[name].css',
           chunkFilename: '[id].css'
