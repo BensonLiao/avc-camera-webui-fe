@@ -2,6 +2,7 @@ const classNames = require('classnames');
 const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
+const loadImage = require('blueimp-load-image');
 const {Formik, Form, Field} = require('formik');
 const Draggable = require('react-draggable').default;
 const Modal = require('react-bootstrap/Modal').default;
@@ -108,12 +109,29 @@ module.exports = class Member extends React.PureComponent {
       return;
     }
 
-    this.avatarFile = file;
-    if (this.state.avatarPreviewUrl) {
-      window.URL.revokeObjectURL(this.state.avatarPreviewUrl);
-    }
+    // Ensure correct orientation
+    // Orientation info:
+    // https://sirv.com/help/articles/rotate-photos-to-be-upright/
+    loadImage(file, {
+      orientation: 1,
+      canvas: true,
+      meta: true
+    })
+      .then(data => {
+        const conditionedImage = data.image;
+        conditionedImage.toBlob(blob => {
+          this.avatarFile = blob;
+          if (this.state.avatarPreviewUrl) {
+            window.URL.revokeObjectURL(this.state.avatarPreviewUrl);
+          }
 
-    this.setState({avatarPreviewUrl: window.URL.createObjectURL(this.avatarFile)});
+          this.setState({avatarPreviewUrl: window.URL.createObjectURL(blob)});
+        }, `${conditionedImage.type}`);
+      })
+      .catch(err => {
+        // Handling image loading errors
+        console.error(err);
+      });
   };
 
   onDraggingMaskArea = (event, data) => {
