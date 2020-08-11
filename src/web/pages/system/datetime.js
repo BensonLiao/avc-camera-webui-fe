@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
 const Clock = require('react-live-clock');
-const {Link, getRouter} = require('capybara-router');
+const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
@@ -14,6 +14,7 @@ const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-tim
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
 const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP} = require('../../../core/constants');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
 
@@ -40,7 +41,22 @@ module.exports = class DateTime extends Base {
       ntpUpdateTime: false,
       manualTime: false
     };
+    this.state.isShowModal = false;
+    this.state.isShowApiProcessModal = false;
+    this.state.apiProcessModalTitle = _('Updating Date & Region');
   }
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
+
+  showModal = () => {
+    this.setState({isShowModal: true});
+  };
+
+  hideModal = () => {
+    this.setState({isShowModal: false});
+  };
 
   getMatchedValue = (list, value) => {
     return Object.entries(list).filter(key => key.includes(value)).reduce((obj, [key, value]) => ({
@@ -67,31 +83,42 @@ module.exports = class DateTime extends Base {
     const {systemInformation: {languageCode}} = this.props;
     const isLanguageUpdate = languageCode !== values.language;
     progress.start();
-    if (values.syncTimeOption === SyncTimeOption.local) {
-      values.manualTime = new Date();
-      values.ntpTimeZoneAuto = TIMEZONE_OFFSET_MAP[values.manualTime.getTimezoneOffset() / 60];
-    }
+    this.setState({
+      isShowApiProcessModal: true,
+      isShowModal: false
+    }, () => {
+      if (values.syncTimeOption === SyncTimeOption.local) {
+        values.manualTime = new Date();
+        values.ntpTimeZoneAuto = TIMEZONE_OFFSET_MAP[values.manualTime.getTimezoneOffset() / 60];
+      }
 
-    if (isLanguageUpdate) {
-      api.system.updateLanguage(values.language)
-        .then(() => {
-          location.reload();
-        })
-        .finally(progress.done);
-    } else {
-      values.manualTime.setSeconds(0);
-      values.ntpTimeZone = this.getMatchedValue(NTPTimeZoneList, this.getMatchedValue(NTPTimeZone, values.ntpTimeZone).key).value;
-      values.manualTime = values.manualTime.getTime() - (new Date(values.manualTime).getTimezoneOffset() * 60 * 1000);
-      values.ntpUpdateTime = values.ntpUpdateTime.getTime() - (new Date(values.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
-      api.system.updateSystemDateTime(values)
-        .then(getRouter().reload)
-        .finally(progress.done);
-    }
+      if (isLanguageUpdate) {
+        api.system.updateLanguage(values.language)
+          .then(() => {
+            location.reload();
+          })
+          .finally(progress.done);
+      } else {
+        values.manualTime.setSeconds(0);
+        values.ntpTimeZone = this.getMatchedValue(NTPTimeZoneList, this.getMatchedValue(NTPTimeZone, values.ntpTimeZone).key).value;
+        values.manualTime = values.manualTime.getTime() - (new Date(values.manualTime).getTimezoneOffset() * 60 * 1000);
+        values.ntpUpdateTime = values.ntpUpdateTime.getTime() - (new Date(values.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
+        api.system.updateSystemDateTime(values)
+          .then(() => {
+            location.href = '/login';
+          })
+          .catch(() => {
+            this.hideApiProcessModal();
+          })
+          .finally(progress.done);
+      }
+    });
   };
 
-  formRender = () => {
+  formRender = ({values}) => {
     const {systemDateTime: {deviceTime}} = this.props;
-    const {showDateTimePicker} = this.state;
+    const {$isApiProcessing, showDateTimePicker, isShowModal} = this.state;
+
     // For browser compatibility, condition string for react-live-clock to work on Chrome, Firefox and Safari
     const conditionedDeviceTime = deviceTime.replace('  ', ' ').replace(/-/g, '/');
     return (
@@ -277,10 +304,21 @@ module.exports = class DateTime extends Base {
         </div>
         <button
           className="btn btn-block btn-primary rounded-pill"
-          type="submit"
+          type="button"
+          onClick={this.showModal}
         >
           {_('Apply')}
         </button>
+        <CustomNotifyModal
+          isShowModal={isShowModal}
+          modalTitle={_('Update Settings')}
+          modalBody={_('Update date & region need to log in again. Are you sure you want to continue?')}
+          isConfirmDisable={$isApiProcessing}
+          onHide={this.hideModal}
+          onConfirm={() => {
+            this.onSubmit(values);
+          }}
+        />
       </Form>
     );
   };
@@ -328,6 +366,13 @@ module.exports = class DateTime extends Base {
               </div>
             </div>
           </div>
+          <CustomNotifyModal
+            modalType="process"
+            backdrop="static"
+            isShowModal={this.state.isShowApiProcessModal}
+            modalTitle={this.state.apiProcessModalTitle}
+            onHide={this.hideApiProcessModal}
+          />
         </div>
       </div>
     );
