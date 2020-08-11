@@ -3,8 +3,6 @@ const React = require('react');
 const {getRouter} = require('capybara-router');
 const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
-const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
-const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
@@ -28,45 +26,10 @@ module.exports = class Events extends Base {
           PropTypes.arrayOf(PropTypes.oneOf(EnrollStatus.all()))
         ])
       }).isRequired,
-      authStatus: PropTypes.shape({
-        isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
-        isEnableAgeGenderKey: PropTypes.bool.isRequired,
-        isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
-      }).isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string
-        }).isRequired).isRequired
-      }),
-      faceEvents: PropTypes.shape({
-        index: PropTypes.number.isRequired,
-        size: PropTypes.number.isRequired,
-        total: PropTypes.number.isRequired,
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          pictureThumbUrl: PropTypes.string.isRequired,
-          time: PropTypes.string.isRequired,
-          confidences: PropTypes.arrayOf(PropTypes.shape({
-            score: PropTypes.number.isRequired,
-            confidence: PropTypes.oneOf(Confidence.all()).isRequired,
-            enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
-            member: PropTypes.shape({
-              id: PropTypes.string.isRequired,
-              name: PropTypes.string.isRequired,
-              organization: PropTypes.string,
-              groupId: PropTypes.string,
-              note: PropTypes.string,
-              pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-            })
-          }).isRequired).isRequired
-        }).isRequired).isRequired
-      }),
-      systemDateTime: PropTypes.shape({
-        ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
-        syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
-      }).isRequired
+      authStatus: PropTypes.shape(EventsSidebar.propTypes.authStatus).isRequired,
+      groups: PropTypes.shape(EventsSidebar.propTypes.groups),
+      faceEvents: PropTypes.shape(EventsTable.events).isRequired,
+      systemDateTime: PropTypes.shape(EventsSearchForm.propTypes.systemDateTime).isRequired
     };
   }
 

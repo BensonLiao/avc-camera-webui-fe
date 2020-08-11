@@ -17,26 +17,8 @@ module.exports = class Members extends Base {
   static get propTypes() {
     return {
       params: PropTypes.shape({group: PropTypes.string}).isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string
-        }).isRequired).isRequired
-      }).isRequired,
-      members: PropTypes.shape({
-        index: PropTypes.number.isRequired,
-        size: PropTypes.number.isRequired,
-        total: PropTypes.number.isRequired,
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          organization: PropTypes.string,
-          groupId: PropTypes.string,
-          note: PropTypes.string,
-          pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-        }).isRequired).isRequired
-      }).isRequired
+      groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
+      members: PropTypes.shape(MembersTable.propTypes.members).isRequired
     };
   }
 
