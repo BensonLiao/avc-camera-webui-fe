@@ -291,8 +291,8 @@ exports.convertPicture = (imgSrc, zoomFactor, pictureRotateDegrees, offset, wrap
     img.height = Math.round(img.height * zoomFactor);
 
     // Offset amount
-    const offsetX = ((img.height - size) / 2) * (offset ? offset.x / maxOffset : 0);
-    const offsetY = ((img.height - size) / 2) * (offset ? offset.y / maxOffset : 0);
+    const offsetX = ((img.width - size) / 2) * (offset ? offset.x && (offset.x / maxOffset) : 0);
+    const offsetY = ((img.height - size) / 2) * (offset ? offset.y && (offset.y / maxOffset) : 0);
 
     canvas.width = size;
     canvas.height = size;
