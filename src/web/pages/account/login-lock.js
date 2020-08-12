@@ -1,4 +1,3 @@
-const leftPad = require('left-pad');
 const React = require('react');
 const {Link} = require('capybara-router');
 const classNames = require('classnames');
@@ -28,14 +27,14 @@ module.exports = class LoginLock extends Base {
     super(props);
     const now = new Date();
     const time = new Date(new Date(props.params.loginLockExpiredTime) - now);
-    this.state.displayTime = `${time.getMinutes()}:${leftPad(time.getSeconds(), 2, '0')}`;
+    this.state.displayTime = `${time.getMinutes()}:${time.getSeconds().toString().padStart(2, '0')}`;
     this.state.disableLoginLink = true;
 
     this.timerId = setInterval(() => {
       const now = new Date();
       const time = new Date(new Date(props.params.loginLockExpiredTime) - now);
       if (time >= 0) {
-        this.setState({displayTime: `${time.getMinutes()}:${leftPad(time.getSeconds(), 2, '0')}`});
+        this.setState({displayTime: `${time.getMinutes()}:${time.getSeconds().toString().padStart(2, '0')}`});
       } else {
         clearInterval(this.timerId);
         this.timerId = null;

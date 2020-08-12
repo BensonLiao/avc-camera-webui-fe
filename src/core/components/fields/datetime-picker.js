@@ -5,7 +5,6 @@ const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
 const Overlay = require('react-bootstrap/Overlay').default;
 const dayjs = require('dayjs');
-const leftPad = require('left-pad');
 const utils = require('../../utils');
 const _ = require('../../../languages');
 
@@ -684,7 +683,7 @@ module.exports = class DatePicker extends React.PureComponent {
               hours.map((hour, index) => {
                 return (
                   <a key={hour || `none-${index}`} className={classNames('item', {disabled: this.isInvalidHour(hour)})}>
-                    {hour == null ? '' : leftPad(hour, 2, '0')}
+                    {hour == null ? '' : `${hour}`.padStart(2, '0')}
                   </a>
                 );
               })
@@ -698,7 +697,7 @@ module.exports = class DatePicker extends React.PureComponent {
               minutes.map((minute, index) => {
                 return (
                   <a key={minute || `none-${index}`} className={classNames('item', {disabled: this.isInvalidMinute(minute)})}>
-                    {minute == null ? '' : leftPad(minute, 2, '0')}
+                    {minute == null ? '' : `${minute}`.padStart(2, '0')}
                   </a>
                 );
               })
