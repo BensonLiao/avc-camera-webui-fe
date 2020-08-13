@@ -46,7 +46,7 @@ module.exports = (env = {}) => {
       publicPath: isDebug ?
         `//${config.webpackDevServer.host}:${config.webpackDevServer.port}/` :
         '/assets/',
-      filename: '[name].js',
+      filename: '[name].[contenthash].js',
       chunkFilename: '[name].[contenthash].js'
     },
     module: {
