@@ -134,6 +134,7 @@ module.exports = (env = {}) => {
           },
           favicon: './favicon.ico',
           template: path.join(__dirname, 'src', 'express', 'base.hbs'),
+          excludeChunks: ['en-us', 'es-es', 'ja-jp', 'zh-tw', 'zh-cn'],
           hash: true
         }),
         new MiniCssExtractPlugin({

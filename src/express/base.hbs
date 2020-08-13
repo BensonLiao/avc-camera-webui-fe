@@ -15,6 +15,16 @@
     window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));
     window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ archive skuID }}')) === 'NoBrand';
     window.error = JSON.parse(base64DecodeUnicode('{{ archive error }}'));
+    // Append language resource
+    var isDebug = '{{ isDebug }}';
+    var langRefreshId = Math.random().toString(36).substr(2);
+    var langScriptElement = document.createElement("script");
+    langScriptElement.type = 'text/javascript';
+    langScriptElement.src = '/assets/{{ languageCode }}.js?_=' + langRefreshId;
+    if (isDebug === 'y') {
+      langScriptElement.src = 'http://localhost:8002/{{ languageCode }}.js?_=' + langRefreshId;
+    }
+    document.head.appendChild(langScriptElement);
   </script>
 </head>
 <body class="{{ languageCode }}">
