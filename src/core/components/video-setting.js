@@ -68,9 +68,7 @@ state = {
 
 constructor(props) {
   super(props);
-  this.streamPlayerRef = React.createRef();
   this.submitPromise = Promise.resolve();
-  this.fetchSnapshotTimeoutId = null;
   this.state.isAutoFocusProcessing = false;
   this.state.focalLengthQueue = null;
   this.state.updateFocalLengthField = false;
