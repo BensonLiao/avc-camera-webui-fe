@@ -32,6 +32,7 @@ module.exports = grunt => {
     gruntConfig.setupMode('development');
     grunt.task.run([
       'clean:dist',
+      'ect:express',
       'parallel:startDevelop'
     ]);
   });
