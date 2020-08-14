@@ -60,19 +60,19 @@ module.exports = class VideoSetting extends React.PureComponent {
     };
   }
 
-state = {
-  isAutoFocusProcessing: false,
-  focalLengthQueue: null,
-  updateFocalLengthField: false
-}
+  state = {
+    isAutoFocusProcessing: false,
+    focalLengthQueue: null,
+    updateFocalLengthField: false
+  }
 
-constructor(props) {
-  super(props);
-  this.submitPromise = Promise.resolve();
-  this.state.isAutoFocusProcessing = false;
-  this.state.focalLengthQueue = null;
-  this.state.updateFocalLengthField = false;
-}
+  constructor(props) {
+    super(props);
+    this.submitPromise = Promise.resolve();
+    this.state.isAutoFocusProcessing = false;
+    this.state.focalLengthQueue = null;
+    this.state.updateFocalLengthField = false;
+  }
 
   generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
     event.preventDefault();

@@ -17,16 +17,15 @@ const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
-const defaultVideoBackground = require('../../resource/video-bg.jpg');
 const Base = require('./shared/base');
 const _ = require('../../languages');
-const store = require('../../core/store');
 const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
 const VolumeProgressBar = require('../../core/components/volume-progress-bar');
+const LiveView = require('../../core/components/live-view');
 
 module.exports = class Home extends Base {
   static get propTypes() {
@@ -90,33 +89,12 @@ module.exports = class Home extends Base {
 
   constructor(props) {
     super(props);
-    this.streamPlayerRef = React.createRef();
     this.submitPromise = Promise.resolve();
-    this.fetchSnapshotTimeoutId = null;
     this.state.deviceName = props.systemInformation.deviceName || '';
-    this.state.isPlayStream = true;
-    store.set(`${this.constructor.name}.isPlayStream`, true);
-    this.state.streamImageUrl = null;
     this.state.isAutoFocusProcessing = false;
-    // To prevent memory leak on unmount
-    this.signal = axios.CancelToken.source();
-  }
-
-  componentDidMount() {
-    if (this.state.isPlayStream) {
-      this.fetchSnapshot();
-    }
   }
 
   componentWillUnmount() {
-    if (this.state.streamImageUrl) {
-      window.URL.revokeObjectURL(this.state.streamImageUrl);
-    }
-
-    store.set(`${this.constructor.name}.isPlayStream`, false);
-    clearTimeout(this.fetchSnapshotTimeoutId);
-    this.signal.cancel('Cancel playback');
-
     super.componentWillUnmount();
   }
 
@@ -127,36 +105,6 @@ module.exports = class Home extends Base {
       videoSettings.timePeriodEnd
     ]
   });
-
-  fetchSnapshot = () => {
-    axios.get('/api/snapshot', {
-      timeout: 1500,
-      responseType: 'blob',
-      cancelToken: this.signal.token
-    })
-      .then(response => {
-        if (this.state.streamImageUrl) {
-          window.URL.revokeObjectURL(this.state.streamImageUrl);
-        }
-
-        if (this.state.isPlayStream) {
-          const imageUrl = window.URL.createObjectURL(response.data);
-          this.setState({streamImageUrl: imageUrl}, this.fetchSnapshot);
-        }
-      })
-      .catch(error => {
-        if (error && error.response && error.response.status === 401) {
-          location.href = '/login';
-          return;
-        }
-
-        if (store.get(`${this.constructor.name}.isPlayStream`) &&
-          (this.state.isPlayStream || error.code === 'ECONNABORTED')) {
-          // Wait 500ms to retry.
-          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
-        }
-      });
-  };
 
   generateClickResetButtonHandler = ({resetForm}) => event => {
     event.preventDefault();
@@ -241,7 +189,7 @@ module.exports = class Home extends Base {
         isEnableHumanoidDetectionKey
       }, systemDateTime, videoSettings, faceRecognitionStatus
     } = this.props;
-    const {$user, streamImageUrl, isPlayStream, deviceName} = this.state;
+    const {$user, deviceName} = this.state;
     const isAdmin = $user.permission === UserPermission.root || $user.permission === UserPermission.superAdmin;
     const classTable = {
       faceRecognitionState: classNames({
@@ -265,46 +213,7 @@ module.exports = class Home extends Base {
             <div className={classNames(isAdmin ? 'row' : 'd-flex justify-content-center')}>
               <div className="col-8 pr-24">
                 {/* The video */}
-                <div className="video-wrapper mb-4">
-                  <div ref={this.streamPlayerRef}>
-                    <img
-                      className="img-fluid"
-                      draggable={false}
-                      src={streamImageUrl || defaultVideoBackground}
-                      onClick={e => utils.onTogglePlayStream(e, this)}
-                    />
-                    <div
-                      className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})}
-                      onClick={e => utils.onTogglePlayStream(e, this)}
-                    >
-                      <button className="btn-play" type="button">
-                        <i className="fas fa-play fa-fw"/>
-                      </button>
-                    </div>
-                    {
-                      isPlayStream && !streamImageUrl && (
-                        <div
-                          className="cover d-flex justify-content-center align-items-center text-muted"
-                          onClick={e => utils.onTogglePlayStream(e, this)}
-                        >
-                          <div className="spinner-border">
-                            <span className="sr-only">Loading...</span>
-                          </div>
-                        </div>
-                      )
-                    }
-                    <div className="controls d-flex justify-content-end align-items-center">
-                      <div>
-                        <button className="btn-action" type="button" onClick={e => utils.onClickDownloadImage(e)}>
-                          <i className="fas fa-camera"/>
-                        </button>
-                        <button className="btn-action" type="button" onClick={e => utils.toggleFullscreen(e, this.streamPlayerRef)}>
-                          <i className="fas fa-expand-arrows-alt"/>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <LiveView/>
 
                 {/* System information */}
                 { isAdmin && (
