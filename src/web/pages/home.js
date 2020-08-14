@@ -98,6 +98,8 @@ module.exports = class Home extends Base {
     store.set(`${this.constructor.name}.isPlayStream`, true);
     this.state.streamImageUrl = null;
     this.state.isAutoFocusProcessing = false;
+    // To prevent memory leak on unmount
+    this.signal = axios.CancelToken.source();
   }
 
   componentDidMount() {
@@ -113,6 +115,7 @@ module.exports = class Home extends Base {
 
     store.set(`${this.constructor.name}.isPlayStream`, false);
     clearTimeout(this.fetchSnapshotTimeoutId);
+    this.signal.cancel('Cancel playback');
 
     super.componentWillUnmount();
   }
@@ -128,7 +131,8 @@ module.exports = class Home extends Base {
   fetchSnapshot = () => {
     axios.get('/api/snapshot', {
       timeout: 1500,
-      responseType: 'blob'
+      responseType: 'blob',
+      cancelToken: this.signal.token
     })
       .then(response => {
         if (this.state.streamImageUrl) {
