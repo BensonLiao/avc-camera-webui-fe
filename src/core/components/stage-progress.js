@@ -7,7 +7,7 @@ module.exports = class StageProgress extends React.PureComponent {
     return {
       progressStatus: PropTypes.string.isRequired,
       progressPercentage: PropTypes.number,
-      stage: PropTypes.string.isRequired,
+      stage: PropTypes.string,
       title: PropTypes.string
     };
   }
@@ -15,6 +15,7 @@ module.exports = class StageProgress extends React.PureComponent {
   static get defaultProps() {
     return {
       title: 'progressing',
+      stage: '',
       progressPercentage: -1
     };
   }
