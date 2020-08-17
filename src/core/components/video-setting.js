@@ -1,14 +1,3 @@
-const axios = require('axios');
-axios.interceptors.response.use(
-  config => config,
-  error => {
-    if (error.response.status === 408 || error.code === 'ECONNABORTED') {
-      console.log(`A timeout happend on url ${error.config.url}`);
-    }
-
-    return Promise.reject(error);
-  }
-);
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
@@ -60,21 +49,19 @@ module.exports = class VideoSetting extends React.PureComponent {
     };
   }
 
-state = {
-  isAutoFocusProcessing: false,
-  focalLengthQueue: null,
-  updateFocalLengthField: false
-}
+  state = {
+    isAutoFocusProcessing: false,
+    focalLengthQueue: null,
+    updateFocalLengthField: false
+  }
 
-constructor(props) {
-  super(props);
-  this.streamPlayerRef = React.createRef();
-  this.submitPromise = Promise.resolve();
-  this.fetchSnapshotTimeoutId = null;
-  this.state.isAutoFocusProcessing = false;
-  this.state.focalLengthQueue = null;
-  this.state.updateFocalLengthField = false;
-}
+  constructor(props) {
+    super(props);
+    this.submitPromise = Promise.resolve();
+    this.state.isAutoFocusProcessing = false;
+    this.state.focalLengthQueue = null;
+    this.state.updateFocalLengthField = false;
+  }
 
   generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
     event.preventDefault();
