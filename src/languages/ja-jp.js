@@ -1,1 +1,3 @@
-window.languageResource = {_code: 'ja-jp'};
+if (!window.languageResource['ja-jp']) {
+  window.languageResource['ja-jp'] = {};
+}

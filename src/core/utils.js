@@ -1,12 +1,9 @@
 const axios = require('axios');
-const download = require('downloadjs');
-const progress = require('nprogress');
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
 const dayjs = require('dayjs');
 const _ = require('../languages');
 const api = require('../core/apis/web-api');
-const notify = require('../core/notify');
 const {validator} = require('../core/validations');
 const {RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
@@ -174,84 +171,6 @@ exports.renderError = error => {
   } catch (e) {}
 
   throw error;
-};
-
-exports.onTogglePlayStream = (event, thisRef) => {
-  event.preventDefault();
-  if (typeof thisRef.fetchSnapshot !== 'function') {
-    console.error('this.fetchSnapshot must be a function to get stream data.');
-    return false;
-  }
-
-  thisRef.setState(prevState => {
-    if (prevState.isPlayStream) {
-      // Stop play stream
-      if (prevState.streamImageUrl) {
-        window.URL.revokeObjectURL(prevState.streamImageUrl);
-      }
-
-      return {
-        isPlayStream: false,
-        streamImageUrl: null
-      };
-    }
-
-    // Get the stream data
-    thisRef.fetchSnapshot();
-    // Start play stream
-    return {isPlayStream: true};
-  });
-};
-
-exports.onClickDownloadImage = event => {
-  event.preventDefault();
-  api.system.getSystemDateTime()
-    .then(({data}) => {
-      const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
-      axios.get('/api/snapshot', {
-        timeout: 1500,
-        responseType: 'blob'
-      })
-        .then(response => {
-          download(response.data, `${dateTime}.jpg`);
-        })
-        .catch(error => {
-          progress.done();
-          notify.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
-    });
-};
-
-exports.toggleFullscreen = (event, streamPlayerRef) => {
-  event.preventDefault();
-
-  let isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
-      (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
-      (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
-      (document.msFullscreenElement && document.msFullscreenElement !== null);
-
-  if (!isInFullScreen) {
-    if (streamPlayerRef.current.requestFullscreen) {
-      streamPlayerRef.current.requestFullscreen();
-    } else if (streamPlayerRef.current.mozRequestFullScreen) {
-      streamPlayerRef.current.mozRequestFullScreen();
-    } else if (streamPlayerRef.current.webkitRequestFullScreen) {
-      streamPlayerRef.current.webkitRequestFullScreen();
-    } else if (streamPlayerRef.current.msRequestFullscreen) {
-      streamPlayerRef.current.msRequestFullscreen();
-    }
-  } else if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  } else if (document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
-  }
 };
 
 exports.validateStreamBitRate = () => values => {

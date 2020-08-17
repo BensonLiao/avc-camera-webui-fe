@@ -21,11 +21,7 @@ module.exports = (env = {}) => {
     target: 'web',
     mode: env.mode || 'development',
     entry: {
-      'en-us': path.join(__dirname, 'src', 'languages', 'en-us.js'),
-      'es-es': path.join(__dirname, 'src', 'languages', 'es-es.js'),
-      'ja-jp': path.join(__dirname, 'src', 'languages', 'ja-jp.js'),
-      'zh-tw': path.join(__dirname, 'src', 'languages', 'zh-tw.js'),
-      'zh-cn': path.join(__dirname, 'src', 'languages', 'zh-cn.js'),
+      lang: path.join(__dirname, 'src', 'languages', 'index.js'),
       web: path.join(__dirname, 'src', 'web', 'index.js')
     },
     devServer: {
@@ -134,7 +130,6 @@ module.exports = (env = {}) => {
           },
           favicon: './favicon.ico',
           template: path.join(__dirname, 'src', 'express', 'base.hbs'),
-          excludeChunks: ['en-us', 'es-es', 'ja-jp', 'zh-tw', 'zh-cn'],
           hash: true
         }),
         new MiniCssExtractPlugin({
