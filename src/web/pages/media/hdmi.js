@@ -39,10 +39,12 @@ module.exports = class HDMI extends Base {
       return result;
     })());
     this.resolution =
-      StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({
-        label: _(`stream-resolution-${x}`),
-        value: x
-      }));
+      StreamResolution.all()
+        .filter(x => Number(x) <= 8 && Number(x) !== 4)
+        .map(x => ({
+          label: _(`stream-resolution-${x}`),
+          value: x
+        }));
   }
 
   showModal = () => {
@@ -106,7 +108,7 @@ module.exports = class HDMI extends Base {
                     {({values}) => (
                       <Form className="card-body">
                         <div className="form-group d-flex justify-content-between align-items-center">
-                          <label className="mb-0">{_('Enable HDMI')}</label>
+                          <label className="mb-0">{_('On/Off')}</label>
                           <div className="custom-control custom-switch">
                             <Field
                               name="isEnableHDMI"
