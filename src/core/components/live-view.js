@@ -12,7 +12,6 @@ axios.interceptors.response.use(
 const classNames = require('classnames');
 const React = require('react');
 const defaultVideoBackground = require('../../resource/video-bg.jpg');
-const store = require('../../core/store');
 const utils = require('../../core/utils');
 
 module.exports = class LiveView extends React.PureComponent {
@@ -20,7 +19,6 @@ module.exports = class LiveView extends React.PureComponent {
     super(props);
     this.streamPlayerRef = React.createRef();
     this.fetchSnapshotTimeoutId = null;
-    store.set(`${this.constructor.name}.isPlayStream`, true);
     // To prevent memory leak on unmount
     this.signal = axios.CancelToken.source();
   }
@@ -41,7 +39,6 @@ module.exports = class LiveView extends React.PureComponent {
       window.URL.revokeObjectURL(this.state.streamImageUrl);
     }
 
-    store.set(`${this.constructor.name}.isPlayStream`, false);
     clearTimeout(this.fetchSnapshotTimeoutId);
     this.signal.cancel('Cancel playback');
   }
@@ -68,8 +65,7 @@ module.exports = class LiveView extends React.PureComponent {
           return;
         }
 
-        if (store.get(`${this.constructor.name}.isPlayStream`) &&
-          (this.state.isPlayStream || error.code === 'ECONNABORTED')) {
+        if (this.state.isPlayStream || error.code === 'ECONNABORTED') {
           // Wait 500ms to retry.
           this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
         }
