@@ -1,25 +1,25 @@
-// const classNames = require('classnames');
-// const PropTypes = require('prop-types');
 const React = require('react');
-// const progress = require('nprogress');
-const {Formik, Form} = require('formik');
-const {Link} = require('capybara-router');
+const progress = require('nprogress');
+const PropTypes = require('prop-types');
+const {Formik, Form, Field} = require('formik');
+const {Link, getRouter} = require('capybara-router');
 const Base = require('../shared/base');
 const HDMISettingsSchema = require('webserver-form-schema/hdmi-settings-schema');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const _ = require('../../../languages');
-// const api = require('../../../core/apis/web-api');
+const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class HDMI extends Base {
-//   static get propTypes() {
-//     return {
-//       hdmiSettings: PropTypes.shape({
-//         resolution: PropTypes.string.isRequired,
-//         frameRate: PropTypes.string.isRequired
-//       }).isRequired
-//     };
-//   }
+  static get propTypes() {
+    return {
+      hdmiSettings: PropTypes.shape({
+        isEnableHDMI: PropTypes.bool.isRequired,
+        resolution: PropTypes.string.isRequired,
+        frameRate: PropTypes.string.isRequired
+      }).isRequired
+    };
+  }
 
   constructor(props) {
     super(props);
@@ -41,36 +41,15 @@ module.exports = class HDMI extends Base {
       }));
   }
 
-  hdmiSettingsFormRender = () => {
-    return (
-      <>
-        <Form className="card-body">
-
-          <SelectField
-            labelName={_('Resolution')}
-            name="resolution"
-          >
-            {this.resolution.map(option => (
-              <option key={option.value} value={option.value}>{option.label}</option>
-            ))}
-          </SelectField>
-          <SelectField labelName={_('Frame Rate (FPS)')} name="frameRate">
-            {this.frameRate.map(option => (
-              <option key={option.value} value={option.value}>{option.label}</option>
-            ))}
-          </SelectField>
-          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-            {_('Apply')}
-          </button>
-        </Form>
-
-      </>
-    );
+  onSubmitHDMISettingsForm = values => {
+    progress.start();
+    api.multimedia.updateHDMISettings(values)
+      .then(getRouter().reload)
+      .finally(progress.done);
   }
 
   render() {
     const {hdmiSettings} = this.props;
-
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
@@ -96,7 +75,39 @@ module.exports = class HDMI extends Base {
                     initialValues={hdmiSettings}
                     onSubmit={this.onSubmitHDMISettingsForm}
                   >
-                    {this.hdmiSettingsFormRender}
+                    <Form className="card-body">
+                      <div className="form-group d-flex justify-content-between align-items-center">
+                        <label className="mb-0">{_('Enable HDMI')}</label>
+                        <div className="custom-control custom-switch">
+                          <Field
+                            name="isEnableHDMI"
+                            type="checkbox"
+                            className="custom-control-input"
+                            id="switch-hdmi"
+                          />
+                          <label className="custom-control-label" htmlFor="switch-hdmi">
+                            <span>{_('ON')}</span>
+                            <span>{_('OFF')}</span>
+                          </label>
+                        </div>
+                      </div>
+                      <SelectField
+                        labelName={_('Resolution')}
+                        name="resolution"
+                      >
+                        {this.resolution.map(option => (
+                          <option key={option.value} value={option.value}>{option.label}</option>
+                        ))}
+                      </SelectField>
+                      <SelectField labelName={_('Frame Rate (FPS)')} name="frameRate">
+                        {this.frameRate.map(option => (
+                          <option key={option.value} value={option.value}>{option.label}</option>
+                        ))}
+                      </SelectField>
+                      <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
+                        {_('Apply')}
+                      </button>
+                    </Form>
                   </Formik>
                 </div>
               </div>
