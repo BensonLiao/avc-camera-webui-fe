@@ -109,7 +109,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('HDMI Settings')} - ${_('Multimedia Settings')} - ${_title}`;
       },
-      resolve: {},
+      resolve: {hdmiSettings: () => api.multimedia.getHDMISettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
         './pages/media/hdmi'

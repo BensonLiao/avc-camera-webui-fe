@@ -1411,6 +1411,34 @@ module.exports = {
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}
+     * - isEnableHDMI {boolean}
+     * - frameRate {string}
+     * - resolution {string}
+     */
+    getHDMISettings: () => api({
+      method: 'get',
+      url: '/api/multimedia/hdmi/settings'
+    }),
+    /**
+     * Schema: webserver-form-schema/hdmi-settings-schema
+     * @param {boolean} isEnableHDMI - Enable HDMI.
+     * @param {string} frameRate - HDMI frame rate (fps).
+     * @param {string} resolution - HDMI resolution.
+     * @returns {Promise<{isEnableHDMI: number, frameRate: string, resolution: string}>} - HDMI settings.
+     * @response 200 {Object}
+     */
+    updateHDMISettings: ({isEnableHDMI, frameRate, resolution}) => api({
+      method: 'put',
+      url: '/api/multimedia/hdmi/settings',
+      data: {
+        isEnableHDMI,
+        frameRate,
+        resolution
+      }
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
      * - isEnableAudioToStream {boolean}
      * - isEnablePassword {boolean}
      * - tcpPort {string}

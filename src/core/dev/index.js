@@ -185,6 +185,14 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   .onGet('/api/multimedia/audio/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('audioSettings').value()]);
   })
+  .onGet('/api/multimedia/hdmi/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('hdmiSettings').value()]
+    );
+  })
+  .onPut('/api/multimedia/hdmi/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('hdmiSettings').assign(newItem).write()]);
+  })
   .onPut('/api/multimedia/audio/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('audioSettings').assign(newItem).write()]);
