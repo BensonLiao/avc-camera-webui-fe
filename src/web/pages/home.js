@@ -1,14 +1,3 @@
-const axios = require('axios');
-axios.interceptors.response.use(
-  config => config,
-  error => {
-    if (error.response.status === 408 || error.code === 'ECONNABORTED') {
-      console.log(`A timeout happend on url ${error.config.url}`);
-    }
-
-    return Promise.reject(error);
-  }
-);
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const {getRouter} = require('capybara-router');
