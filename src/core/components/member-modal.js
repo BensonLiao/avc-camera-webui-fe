@@ -174,7 +174,6 @@ module.exports = class Member extends React.PureComponent {
 
   onChangeAvatar = (avatarName, callback) => event => {
     const file = event.target.files[0];
-
     if (!file) {
       return;
     }
@@ -211,6 +210,27 @@ module.exports = class Member extends React.PureComponent {
       });
   };
 
+  onDeleteAvatar = () => {
+    const newState = update(this.state, {
+      avatarList: {
+        [this.state.avatarToEdit]: {
+          $set: {
+            boundary: {},
+            photoOffset: {},
+            avatarPreviewStyle: {
+              transform: {
+                scale: 1,
+                rotate: 0
+              }
+            }
+          }
+        }
+      }
+    });
+    this.setState(newState);
+    this.onHideEditModal();
+  }
+
   onDraggingMaskArea = (event, data) => {
     const newState = update(this.state, {
       avatarList: {
@@ -225,6 +245,7 @@ module.exports = class Member extends React.PureComponent {
       }
     });
     this.setState(newState);
+    console.log(newState.avatarList.Primary);
   };
 
   updateBoundary = zoomScale => {
@@ -327,22 +348,7 @@ module.exports = class Member extends React.PureComponent {
   formRender = ({errors, touched, values}) => {
     const {isApiProcessing} = this.props;
     const {avatarList, isShowEditModal, avatarToEdit} = this.state;
-    // const avatarPreviewStyle = {backgroundImage: `url('${this.props.defaultPictureUrl || defaultAvatar}')`};
     const zoomScale = values.zoom / 100;
-
-    // if (this.props.member) {
-    //   avatarPreviewStyle.backgroundImage = `url("data:image/jpeg;base64,${this.props.member.pictures[0]}")`;
-    // }
-
-    // if (this.state.avatarPreviewUrl) {
-    //   // The user upload a new picture.
-    //   avatarPreviewStyle.backgroundImage = `url('${this.state.avatarPreviewUrl}')`;
-    // }
-
-    // avatarPreviewStyle.transform = `scale(${zoomScale})`;
-    // if (this.state.pictureRotateDegrees) {
-    //   avatarPreviewStyle.transform += ` rotate(${this.state.pictureRotateDegrees}deg)`;
-    // }
     return (
       <Form>
         <div className="modal-body">
@@ -358,7 +364,9 @@ module.exports = class Member extends React.PureComponent {
                             <div
                               className="avatar-img"
                               style={{
-                                transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) rotate(${avatar[1].avatarPreviewStyle.transform.rotate}deg)`,
+                                transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
+                                            rotate(${avatar[1].avatarPreviewStyle.transform.rotate}deg)
+                                            translate(${avatar[1].photoOffset.x}px, ${avatar[1].photoOffset.y}px`,
                                 backgroundImage: avatar[1].avatarPreviewStyle.background
                               }}
                               onClick={() => {
@@ -571,17 +579,14 @@ module.exports = class Member extends React.PureComponent {
             <button
               className="btn btn-danger btn-block m-0 rounded-pill"
               type="button"
-              onClick={this.onHideEditModal}
+              onClick={this.onDeleteAvatar}
             >
               {_('Delete ')}
             </button>
-            <button
-              className="btn btn-outline-primary btn-block m-0 rounded-pill"
-              type="button"
-              onClick={this.onHideEditModal}
-            >
+            <label className="btn btn-outline-primary btn-block m-0 rounded-pill">
+              <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar(this.state.avatarToEdit)}/>
               {_('Change Photo')}
-            </button>
+            </label>
             <button
               className="btn btn-primary btn-block m-0 rounded-pill"
               type="button"
