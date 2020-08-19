@@ -61,7 +61,7 @@ module.exports = class Member extends React.PureComponent {
     this.state.avatarPreviewUrl = null;
     this.state.wrapperSize = null;
     this.state.isShowEditModal = false;
-    this.state.itemToEdit = '';
+    this.state.itemToEdit = 'Primary';
     this.state.boundary = {
       left: 0,
       top: 0,
@@ -71,6 +71,7 @@ module.exports = class Member extends React.PureComponent {
     this.state.photoList = {
       Primary: {
         boundary: {},
+        photoOffset: {},
         avatarPreviewStyle: {
           transform: {
             scale: 1,
@@ -80,6 +81,7 @@ module.exports = class Member extends React.PureComponent {
       },
       'Photo 1': {
         boundary: {},
+        photoOffset: {},
         avatarPreviewStyle: {
           transform: {
             scale: 1,
@@ -89,6 +91,7 @@ module.exports = class Member extends React.PureComponent {
       },
       'Photo 2': {
         boundary: {},
+        photoOffset: {},
         avatarPreviewStyle: {
           transform: {
             scale: 1,
@@ -98,6 +101,7 @@ module.exports = class Member extends React.PureComponent {
       },
       'Photo 3': {
         boundary: {},
+        photoOffset: {},
         avatarPreviewStyle: {
           transform: {
             scale: 1,
@@ -107,6 +111,7 @@ module.exports = class Member extends React.PureComponent {
       },
       'Photo 4': {
         boundary: {},
+        photoOffset: {},
         avatarPreviewStyle: {
           transform: {
             scale: 1,
@@ -186,9 +191,10 @@ module.exports = class Member extends React.PureComponent {
         const conditionedImage = data.image;
         conditionedImage.toBlob(blob => {
           this.avatarFile = blob;
-          // if (this.state.avatarPreviewUrl) {
-          //   window.URL.revokeObjectURL(this.state.avatarPreviewUrl);
-          // }
+          if (this.state.photoList[itemName].avatarPreviewStyle.background) {
+            window.URL.revokeObjectURL(this.state.photoList[itemName].avatarPreviewStyle.background);
+          }
+
           const newState = update(this.state, {photoList: {[itemName]: {avatarPreviewStyle: {background: {$set: `url('${window.URL.createObjectURL(blob)}')`}}}}});
           this.setState(newState);
         }, `${conditionedImage.type}`);
@@ -206,12 +212,19 @@ module.exports = class Member extends React.PureComponent {
   };
 
   onDraggingMaskArea = (event, data) => {
-    this.setState({
-      photoOffset: {
-        x: data.x,
-        y: data.y
+    const newState = update(this.state, {
+      photoList: {
+        [this.state.itemToEdit]: {
+          photoOffset: {
+            $set: {
+              x: data.x,
+              y: data.y
+            }
+          }
+        }
       }
     });
+    this.setState(newState);
   };
 
   updateBoundary = zoomScale => {
@@ -313,7 +326,7 @@ module.exports = class Member extends React.PureComponent {
 
   formRender = ({errors, touched, values}) => {
     const {isApiProcessing} = this.props;
-    const {boundary, photoList, isShowEditModal} = this.state;
+    const {photoList, isShowEditModal, itemToEdit} = this.state;
     // const avatarPreviewStyle = {backgroundImage: `url('${this.props.defaultPictureUrl || defaultAvatar}')`};
     const zoomScale = values.zoom / 100;
 
@@ -330,6 +343,7 @@ module.exports = class Member extends React.PureComponent {
     // if (this.state.pictureRotateDegrees) {
     //   avatarPreviewStyle.transform += ` rotate(${this.state.pictureRotateDegrees}deg)`;
     // }
+
     return (
       <Form>
         <div className="modal-body">
@@ -346,10 +360,10 @@ module.exports = class Member extends React.PureComponent {
                               className="avatar-img"
                               style={{
                                 transform: `scale(${item[1].avatarPreviewStyle.transform.scale}) rotate(${item[1].avatarPreviewStyle.transform.rotate}deg)`,
-                                background: item[1].avatarPreviewStyle.background
+                                backgroundImage: item[1].avatarPreviewStyle.background
                               }}
                               onClick={() => {
-                                this.onShowEditModal(item[1]);
+                                this.onShowEditModal(item[0]);
                               }}
                             >
                               <div className="edit-icon-mask"><i className="fas fa-pen fa-lg fa-fw"/></div>
@@ -513,13 +527,19 @@ module.exports = class Member extends React.PureComponent {
           <Modal.Body>
             <div className="avatar-uploader d-flex flex-column align-items-center">
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
-                <div style={{transform: `scale(${photoList.Primary.avatarPreviewStyle.transform.scale}) rotate(${photoList.Primary.avatarPreviewStyle.transform.rotate}deg)`}}>
+                <div style={{transform: `scale(${photoList[itemToEdit].avatarPreviewStyle.transform.scale}) rotate(${photoList[itemToEdit].avatarPreviewStyle.transform.rotate}deg)`}}>
                   <Draggable
-                    bounds={boundary}
+                    bounds={photoList[itemToEdit].boundary}
                     scale={zoomScale}
                     onDrag={this.onDraggingMaskArea}
                   >
-                    <div className="avatar-img" style={photoList.Primary.avatarPreviewStyle}/>
+                    <div
+                      className="avatar-img"
+                      style={{
+                        transform: `scale(${photoList[itemToEdit].avatarPreviewStyle.transform.scale}) rotate(${photoList[itemToEdit].avatarPreviewStyle.transform.rotate}deg)`,
+                        backgroundImage: photoList[itemToEdit].avatarPreviewStyle.background
+                      }}
+                    />
                   </Draggable>
                 </div>
                 <div className="avatar-mask">
