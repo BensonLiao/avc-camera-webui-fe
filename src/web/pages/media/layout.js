@@ -38,6 +38,13 @@ module.exports = class Media extends Base {
               {_('Stream Settings')}
             </Link>
             <Link
+              to="/media/hdmi"
+              title={_('HDMI')}
+              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.hdmi'})}
+            >
+              HDMI
+            </Link>
+            <Link
               to="/media/rtsp"
               title={_('RTSP')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.rtsp'})}

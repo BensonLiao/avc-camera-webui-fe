@@ -211,6 +211,11 @@ module.exports = {
           quality: '15'
         }
       },
+      hdmiSettings: {
+        isEnableHDMI: true,
+        resolution: StreamResolution['0'],
+        frameRate: '30'
+      },
       audioSettings: {
         isEnableInput: true,
         isEnableOutput: false,

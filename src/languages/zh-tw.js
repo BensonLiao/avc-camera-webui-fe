@@ -433,6 +433,11 @@ if (!window.languageResource['zh-tw']) {
     'External Microphone': '外接麥克風',
     'Audio Out': '聲音輸出',
 
+    // /media/hdmi
+    'Are you sure you want to update hdmi settings?': '您即將更改HDMI設定，確認是否繼續？',
+    'HDMI Settings': 'HDMI設定',
+    'Updating hdmi settings': '更新HDMI設定',
+
     // /media/rtsp
     'Enable Audio over RTSP': '將聲音記錄至串流',
     'Require Authentication': '連線時需帳號密碼認證',
