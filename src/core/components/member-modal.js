@@ -61,11 +61,19 @@ module.exports = class Member extends React.PureComponent {
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
     this.state.wrapperSize = null;
+    this.state.isShowEditModal = false;
     this.state.boundary = {
       left: 0,
       top: 0,
       right: 0,
       bottom: 0
+    };
+    this.state.photoList = {
+      Primary: {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}},
+      'Photo 1': {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}},
+      'Photo 3': {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}},
+      'Photo 2': {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}},
+      'Photo 4': {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}}
     };
   }
 
@@ -94,6 +102,18 @@ module.exports = class Member extends React.PureComponent {
       note: '',
       zoom: 100
     };
+  };
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
+
+  onHideEditModal = () => {
+    this.setState({isShowEditModal: false});
+  };
+
+  onShowEditModal = () => {
+    this.setState({isShowEditModal: true});
   };
 
   generateRotatePictureHandler = isClockwise => event => {
@@ -370,6 +390,78 @@ module.exports = class Member extends React.PureComponent {
             {_('Close')}
           </button>
         </div>
+        <Modal
+          autoFocus={false}
+          show={isShowEditModal}
+          className="edit-modal"
+          backdrop="static"
+        >
+          <Modal.Header className="d-flex justify-content-between align-items-center">
+            <Modal.Title as="h5">{_('Photo Editor')}</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <div className="avatar-uploader d-flex flex-column align-items-center">
+              <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
+                <div style={{transform: photoList.Primary.avatarPreviewStyle.transform}}>
+                  <Draggable
+                    bounds={boundary}
+                    scale={zoomScale}
+                    onDrag={this.onDraggingMaskArea}
+                  >
+                    <div className="avatar-img" style={photoList.Primary.avatarPreviewStyle}/>
+                  </Draggable>
+                </div>
+                <div className="avatar-mask">
+                  <img src={avatarMask}/>
+                </div>
+              </label>
+
+              <label className="btn btn-outline-primary mt-2">
+                <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar}/>
+                {_('Upload Image')}
+              </label>
+
+              <p className={classNames('text-center text-size-14 mb-1', this.state.isIncorrectPicture ? 'text-danger' : 'text-muted')}>
+                {_('Please upload your face photo.')}
+              </p>
+              <div className="d-flex justify-content-center align-items-center">
+                <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(false)}>
+                  <i className="fas fa-undo fa-fw"/>
+                </button>
+                <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(true)}>
+                  <i className="fas fa-redo fa-fw"/>
+                </button>
+                <i className="far fa-image fa-fw fa-sm ml-3"/>
+                <div className="form-group mb-0 ml-2">
+                  <div className="none-selection">
+                    <Field
+                      name="zoom"
+                      component={Slider}
+                      step={20}
+                      min={100}
+                      max={300}
+                      onChangeInput={() => {
+                        this.updateBoundary(zoomScale);
+                      }}
+                    />
+                  </div>
+                </div>
+                <i className="far fa-image fa-fw fa-lg ml-2"/>
+              </div>
+            </div>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <button
+              className="btn btn-info btn-block m-0 rounded-pill"
+              type="button"
+              onClick={this.onHideEditModal}
+            >
+              {_('Close')}
+            </button>
+          </Modal.Footer>
+        </Modal>
       </Form>
     );
   };
@@ -378,7 +470,13 @@ module.exports = class Member extends React.PureComponent {
     const {isShowModal, member, onHide} = this.props;
 
     return (
-      <Modal autoFocus={false} show={isShowModal} onHide={onHide}>
+      <Modal
+        autoFocus={false}
+        show={isShowModal}
+        className="member-modal"
+        backdrop="static"
+        onHide={onHide}
+      >
         <Modal.Header className="d-flex justify-content-between align-items-center">
           <Modal.Title as="h5">{member ? _('Modify Member') : _('New Member')}</Modal.Title>
         </Modal.Header>

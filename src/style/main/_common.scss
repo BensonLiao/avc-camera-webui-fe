@@ -641,6 +641,92 @@ body {
   }
 }
 
+.member-modal {
+  // Allow backdrop over 1st Modal
+  z-index: 1040;
+
+  .modal-dialog {
+    max-width: 604px;
+
+    hr {
+      margin: 1rem -1.5rem;
+    }
+
+    .multi-photo-uploader {
+      .container {
+        border: 1px solid $secondary-300;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        padding: 0;
+
+        .individual-item {
+          width: 104px;
+          height: 150px;
+
+          &:first-child {
+            border-right: 1px solid $secondary-300;
+            width: 120px;
+
+            .photo-wrapper {
+              margin: 16px;
+            }
+          }
+
+          &:nth-child(2) {
+            width: 112px;
+            padding-left: 8px;
+          }
+
+          &:last-child {
+            width: 112px;
+            padding-right: 8px;
+          }
+
+          .photo-wrapper {
+            width: 88px;
+            height: 88px;
+            margin: 16px 8px;
+
+            &.dashed-border {
+              border: 1px dashed $secondary-300;
+              border-radius: 100px;
+            }
+
+            label {
+              display: flex;
+              justify-content: center;
+              align-content: center;
+              width: 100%;
+              height: 100%;
+            }
+
+            .avatar-img {
+              width: 88px;
+              height: 88px;
+              background-size: cover;
+              background-repeat: no-repeat;
+              background-position: center center;
+              border-radius: 100px;
+            }
+
+            i {
+              margin: auto;
+              color: $secondary-300;
+              font-size: 1.5rem;
+            }
+          }
+
+          span {
+            text-align: center;
+            margin: 0 auto;
+            font-size: 0.9em;
+          }
+        }
+      }
+    }
+  }
+}
+
 .avatar-uploader {
   padding-bottom: 16px;
   margin-bottom: 25px;
