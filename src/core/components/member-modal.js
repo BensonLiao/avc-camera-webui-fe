@@ -62,6 +62,8 @@ module.exports = class Member extends React.PureComponent {
     this.state.wrapperSize = null;
     this.state.isShowEditModal = false;
     this.state.avatarToEdit = 'Primary';
+    this.editWrapperSize = 128;
+    this.listWrapperSize = 88;
     this.state.boundary = {
       left: 0,
       top: 0,
@@ -251,7 +253,7 @@ module.exports = class Member extends React.PureComponent {
   updateBoundary = zoomScale => {
     const wrapperSize = document.getElementById('avatar-wrapper').clientHeight;
     const {avatarToEdit} = this.state;
-    const calculateBoundary = ((wrapperSize * zoomScale) - wrapperSize) / zoomScale / 2;
+    const calculateBoundary = ((this.editWrapperSize * zoomScale) - this.editWrapperSize) / zoomScale / 2;
     const newState = update(this.state, {
       avatarList: {
         [avatarToEdit]: {
@@ -285,7 +287,7 @@ module.exports = class Member extends React.PureComponent {
           zoomFactor,
           pictureRotateDegrees,
           photoOffset,
-          wrapperSize
+          this.editWrapperSize
         )
       );
     } else if (member && (pictureRotateDegrees || zoomFactor !== 1 || photoOffset)) {
@@ -296,7 +298,7 @@ module.exports = class Member extends React.PureComponent {
           zoomFactor,
           pictureRotateDegrees,
           photoOffset,
-          wrapperSize
+          this.editWrapperSize
         )
       );
     } else if (member) {
@@ -310,7 +312,7 @@ module.exports = class Member extends React.PureComponent {
           zoomFactor,
           pictureRotateDegrees,
           photoOffset,
-          wrapperSize
+          this.editWrapperSize
         )
       );
     }
@@ -349,6 +351,8 @@ module.exports = class Member extends React.PureComponent {
     const {isApiProcessing} = this.props;
     const {avatarList, isShowEditModal, avatarToEdit} = this.state;
     const zoomScale = values.zoom / 100;
+    // previewReductionRatio = avatarList preview window size / edit preview window size
+    const previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
     return (
       <Form>
         <div className="modal-body">
@@ -357,25 +361,24 @@ module.exports = class Member extends React.PureComponent {
               {Object.entries(avatarList).map(avatar => {
                 return (
                   <div key={avatar[0]} className={classNames('individual-item d-flex flex-column')}>
-                    <div className={classNames('photo-wrapper', {'dashed-border': !avatar[1].avatarPreviewStyle.background})}>
+                    <div id="photo-wrapper" className={classNames('photo-wrapper', {'dashed-border': !avatar[1].avatarPreviewStyle.background})}>
+                      <i className={classNames('fas fa-pen fa-lg fa-fw', {'d-none': !avatar[1].avatarPreviewStyle.background})}/>
                       { avatar[1].avatarPreviewStyle.background ?
                         (
-                          <>
-                            <div
-                              className="avatar-img"
-                              style={{
+                          <div
+                            className="avatar-img"
+                            style={{
+                              transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
                                 transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
+                              transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
                                             rotate(${avatar[1].avatarPreviewStyle.transform.rotate}deg)
-                                            translate(${avatar[1].photoOffset.x}px, ${avatar[1].photoOffset.y}px`,
-                                backgroundImage: avatar[1].avatarPreviewStyle.background
-                              }}
-                              onClick={() => {
-                                this.onShowEditModal(avatar[0]);
-                              }}
-                            >
-                              <div className="edit-icon-mask"><i className="fas fa-pen fa-lg fa-fw"/></div>
-                            </div>
-                          </>
+                                            translate(${avatar[1].photoOffset.x * previewReductionRatio}px, ${avatar[1].photoOffset.y * previewReductionRatio}px`,
+                              backgroundImage: avatar[1].avatarPreviewStyle.background
+                            }}
+                            onClick={() => {
+                              this.onShowEditModal(avatar[0]);
+                            }}
+                          />
                         ) : (
                           <label className="btn">
                             <i className="fas fa-plus"/>
