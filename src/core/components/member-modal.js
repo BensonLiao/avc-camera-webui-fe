@@ -323,7 +323,7 @@ module.exports = class Member extends React.PureComponent {
             <Field
               name="organization"
               type="text"
-              placeholder={_('Enter the organization')}
+              placeholder={_('Enter Your Organization')}
               maxLength={MemberSchema.organization.max}
               className={classNames('form-control', {'is-invalid': errors.organization && touched.organization})}
             />
