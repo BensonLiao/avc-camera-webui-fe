@@ -6,6 +6,7 @@ const loadImage = require('blueimp-load-image');
 const {Formik, Form, Field} = require('formik');
 const Draggable = require('react-draggable').default;
 const Modal = require('react-bootstrap/Modal').default;
+const update = require('immutability-helper');
 const MemberSchema = require('webserver-form-schema/member-schema');
 const avatarMask = require('../../resource/avatar-mask.png');
 const SelectField = require('./fields/select-field');
@@ -121,8 +122,10 @@ module.exports = class Member extends React.PureComponent {
 
   generateRotatePictureHandler = isClockwise => event => {
     event.preventDefault();
+    const {itemToEdit, photoList} = this.state;
     const degrees = isClockwise ? 90 : -90;
-    this.setState(prevState => ({pictureRotateDegrees: prevState.pictureRotateDegrees + degrees}));
+    const newState = update(this.state, {photoList: {[itemToEdit]: {avatarPreviewStyle: {transform: {rotate: {$set: photoList[itemToEdit].avatarPreviewStyle.transform.rotate + degrees}}}}}});
+    this.setState(newState);
   };
 
   onChangeAvatar = itemName => event => {
@@ -147,17 +150,9 @@ module.exports = class Member extends React.PureComponent {
           // if (this.state.avatarPreviewUrl) {
           //   window.URL.revokeObjectURL(this.state.avatarPreviewUrl);
           // }
-          this.setState(({photoList}) => ({
-            photoList: {
-              ...photoList,
-              [itemName]: {
-                ...photoList[itemName],
-                avatarPreviewStyle: {
-                  ...photoList[itemName].avatarPreviewStyle,
-                  background: `url('${window.URL.createObjectURL(blob)}')`
-                }
-              }
-            }
+          const newState = update(this.state, {photoList: {[itemName]: {avatarPreviewStyle: {background: {$set: `url('${window.URL.createObjectURL(blob)}')`}}}}});
+          this.setState(newState);
+        }, `${conditionedImage.type}`);
           }));
         }, `${conditionedImage.type}`);
       })
