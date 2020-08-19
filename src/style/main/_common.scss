@@ -701,12 +701,52 @@ body {
             }
 
             .avatar-img {
+              position: relative;
               width: 88px;
               height: 88px;
               background-size: cover;
               background-repeat: no-repeat;
               background-position: center center;
               border-radius: 100px;
+              transition: 0.3s;
+
+              &::before {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                border-radius: 100px;
+                transition: 0.3s;
+                opacity: 0;
+              }
+
+              .edit-icon-mask {
+                position: absolute;
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: inherit;
+              }
+
+              &:hover {
+                cursor: pointer;
+
+                &::before {
+                  background: rgba(0, 0, 0, 0.3);
+                  opacity: 1;
+                }
+
+                .edit-icon-mask {
+                  opacity: 1;
+                }
+              }
             }
 
             i {

@@ -7,7 +7,6 @@ const {Formik, Form, Field} = require('formik');
 const Draggable = require('react-draggable').default;
 const Modal = require('react-bootstrap/Modal').default;
 const MemberSchema = require('webserver-form-schema/member-schema');
-const defaultAvatar = require('../../resource/default-avatar@2x.png');
 const avatarMask = require('../../resource/avatar-mask.png');
 const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
@@ -62,6 +61,7 @@ module.exports = class Member extends React.PureComponent {
     this.avatarFile = null;
     this.state.wrapperSize = null;
     this.state.isShowEditModal = false;
+    this.state.itemToEdit = '';
     this.state.boundary = {
       left: 0,
       top: 0,
@@ -112,8 +112,11 @@ module.exports = class Member extends React.PureComponent {
     this.setState({isShowEditModal: false});
   };
 
-  onShowEditModal = () => {
-    this.setState({isShowEditModal: true});
+  onShowEditModal = itemName => {
+    this.setState({
+      isShowEditModal: true,
+      itemToEdit: itemName
+    });
   };
 
   generateRotatePictureHandler = isClockwise => event => {
@@ -122,7 +125,7 @@ module.exports = class Member extends React.PureComponent {
     this.setState(prevState => ({pictureRotateDegrees: prevState.pictureRotateDegrees + degrees}));
   };
 
-  onChangeAvatar = event => {
+  onChangeAvatar = itemName => event => {
     const file = event.target.files[0];
 
     if (!file) {
@@ -141,11 +144,21 @@ module.exports = class Member extends React.PureComponent {
         const conditionedImage = data.image;
         conditionedImage.toBlob(blob => {
           this.avatarFile = blob;
-          if (this.state.avatarPreviewUrl) {
-            window.URL.revokeObjectURL(this.state.avatarPreviewUrl);
-          }
-
-          this.setState({avatarPreviewUrl: window.URL.createObjectURL(blob)});
+          // if (this.state.avatarPreviewUrl) {
+          //   window.URL.revokeObjectURL(this.state.avatarPreviewUrl);
+          // }
+          this.setState(({photoList}) => ({
+            photoList: {
+              ...photoList,
+              [itemName]: {
+                ...photoList[itemName],
+                avatarPreviewStyle: {
+                  ...photoList[itemName].avatarPreviewStyle,
+                  background: `url('${window.URL.createObjectURL(blob)}')`
+                }
+              }
+            }
+          }));
         }, `${conditionedImage.type}`);
       })
       .catch(err => {
@@ -253,28 +266,68 @@ module.exports = class Member extends React.PureComponent {
 
   formRender = ({errors, touched, values}) => {
     const {isApiProcessing} = this.props;
-    const {boundary} = this.state;
-    const avatarPreviewStyle = {backgroundImage: `url('${this.props.defaultPictureUrl || defaultAvatar}')`};
+    const {boundary, photoList, isShowEditModal} = this.state;
+    // const avatarPreviewStyle = {backgroundImage: `url('${this.props.defaultPictureUrl || defaultAvatar}')`};
     const zoomScale = values.zoom / 100;
 
-    if (this.props.member) {
-      avatarPreviewStyle.backgroundImage = `url("data:image/jpeg;base64,${this.props.member.pictures[0]}")`;
-    }
+    // if (this.props.member) {
+    //   avatarPreviewStyle.backgroundImage = `url("data:image/jpeg;base64,${this.props.member.pictures[0]}")`;
+    // }
 
-    if (this.state.avatarPreviewUrl) {
-      // The user upload a new picture.
-      avatarPreviewStyle.backgroundImage = `url('${this.state.avatarPreviewUrl}')`;
-    }
+    // if (this.state.avatarPreviewUrl) {
+    //   // The user upload a new picture.
+    //   avatarPreviewStyle.backgroundImage = `url('${this.state.avatarPreviewUrl}')`;
+    // }
 
-    avatarPreviewStyle.transform = `scale(${zoomScale})`;
-    if (this.state.pictureRotateDegrees) {
-      avatarPreviewStyle.transform += ` rotate(${this.state.pictureRotateDegrees}deg)`;
-    }
+    // avatarPreviewStyle.transform = `scale(${zoomScale})`;
+    // if (this.state.pictureRotateDegrees) {
+    //   avatarPreviewStyle.transform += ` rotate(${this.state.pictureRotateDegrees}deg)`;
+    // }
 
     return (
       <Form>
         <div className="modal-body">
-          <div className="avatar-uploader d-flex flex-column align-items-center">
+          <div className="multi-photo-uploader">
+            <div className="container d-flex flex-row justify-content-space-between">
+              {Object.entries(photoList).map(item => {
+                return (
+                  <div key={item[0]} className={classNames('individual-item d-flex flex-column')}>
+                    <div className={classNames('photo-wrapper', {'dashed-border': !item[1].avatarPreviewStyle.background})}>
+                      { item[1].avatarPreviewStyle.background ?
+                        (
+                          <>
+                            <div
+                              className="avatar-img"
+                              style={item[1].avatarPreviewStyle}
+                              onClick={() => {
+                                this.onShowEditModal(item[1]);
+                              }}
+                            >
+                              <div className="edit-icon-mask"><i className="fas fa-pen fa-lg fa-fw"/></div>
+                            </div>
+                          </>
+                        ) : (
+                          <label className="btn">
+                            <i className="fas fa-plus"/>
+                            <input
+                              className="d-none"
+                              type="file"
+                              accept=".jpg,.png"
+                              onChange={this.onChangeAvatar(item[0])}
+                            />
+                          </label>
+                        )}
+                    </div>
+                    <span>
+                      {item[0]}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <hr/>
+          {/* <div className="avatar-uploader d-flex flex-column align-items-center">
             <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
               <div style={{transform: avatarPreviewStyle.transform}}>
                 <Draggable
@@ -322,7 +375,7 @@ module.exports = class Member extends React.PureComponent {
               </div>
               <i className="far fa-image fa-fw fa-lg ml-2"/>
             </div>
-          </div>
+          </div> */}
           <div className="form-group">
             <label>{_('Name')}</label>
             <Field
@@ -377,6 +430,14 @@ module.exports = class Member extends React.PureComponent {
           </div>
         </div>
         <div className="modal-footer flex-column">
+          <button
+            className="btn btn-info btn-block m-0 rounded-pill"
+            type="button"
+            onClick={this.onShowEditModal}
+          >
+            {_('Open Modal')}
+          </button>
+
           <div className="form-group w-100 mx-0">
             <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
               {this.props.member ? _('Confirm') : _('New')}
@@ -416,12 +477,6 @@ module.exports = class Member extends React.PureComponent {
                   <img src={avatarMask}/>
                 </div>
               </label>
-
-              <label className="btn btn-outline-primary mt-2">
-                <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar}/>
-                {_('Upload Image')}
-              </label>
-
               <p className={classNames('text-center text-size-14 mb-1', this.state.isIncorrectPicture ? 'text-danger' : 'text-muted')}>
                 {_('Please upload your face photo.')}
               </p>
