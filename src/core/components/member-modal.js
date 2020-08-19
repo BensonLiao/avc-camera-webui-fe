@@ -117,11 +117,11 @@ module.exports = class Member extends React.PureComponent {
     };
   }
 
-  componentDidMount() {
-    if (document.getElementById('avatar-wrapper')) {
-      this.setState({wrapperSize: document.getElementById('avatar-wrapper').clientHeight});
-    }
-  }
+  // componentDidMount() {
+  //   if (document.getElementById('avatar-wrapper')) {
+  //     this.setState({wrapperSize: document.getElementById('avatar-wrapper').clientHeight});
+  //   }
+  // }
 
   generateInitialValue = member => {
     if (member) {
@@ -167,7 +167,7 @@ module.exports = class Member extends React.PureComponent {
     this.setState(newState);
   };
 
-  onChangeAvatar = itemName => event => {
+  onChangeAvatar = (itemName, callback) => event => {
     const file = event.target.files[0];
 
     if (!file) {
@@ -192,8 +192,12 @@ module.exports = class Member extends React.PureComponent {
           const newState = update(this.state, {photoList: {[itemName]: {avatarPreviewStyle: {background: {$set: `url('${window.URL.createObjectURL(blob)}')`}}}}});
           this.setState(newState);
         }, `${conditionedImage.type}`);
-          }));
-        }, `${conditionedImage.type}`);
+      })
+      .then(() => {
+        // Open
+        if (callback) {
+          callback(itemName);
+        }
       })
       .catch(err => {
         // Handling image loading errors
@@ -211,16 +215,25 @@ module.exports = class Member extends React.PureComponent {
   };
 
   updateBoundary = zoomScale => {
-    const {wrapperSize} = this.state;
+    const wrapperSize = document.getElementById('avatar-wrapper').clientHeight;
+    const {itemToEdit} = this.state;
     const calculateBoundary = ((wrapperSize * zoomScale) - wrapperSize) / zoomScale / 2;
-    this.setState({
-      boundary: {
-        left: -calculateBoundary,
-        top: -calculateBoundary,
-        right: calculateBoundary,
-        bottom: calculateBoundary
+    const newState = update(this.state, {
+      photoList: {
+        [itemToEdit]: {
+          boundary: {
+            $set: {
+              left: -calculateBoundary,
+              top: -calculateBoundary,
+              right: calculateBoundary,
+              bottom: calculateBoundary
+            }
+          },
+          avatarPreviewStyle: {transform: {scale: {$set: zoomScale}}}
+        }
       }
     });
+    this.setState(newState);
   }
 
   onSubmitForm = values => {
@@ -317,7 +330,6 @@ module.exports = class Member extends React.PureComponent {
     // if (this.state.pictureRotateDegrees) {
     //   avatarPreviewStyle.transform += ` rotate(${this.state.pictureRotateDegrees}deg)`;
     // }
-
     return (
       <Form>
         <div className="modal-body">
@@ -332,7 +344,10 @@ module.exports = class Member extends React.PureComponent {
                           <>
                             <div
                               className="avatar-img"
-                              style={item[1].avatarPreviewStyle}
+                              style={{
+                                transform: `scale(${item[1].avatarPreviewStyle.transform.scale}) rotate(${item[1].avatarPreviewStyle.transform.rotate}deg)`,
+                                background: item[1].avatarPreviewStyle.background
+                              }}
                               onClick={() => {
                                 this.onShowEditModal(item[1]);
                               }}
@@ -347,7 +362,7 @@ module.exports = class Member extends React.PureComponent {
                               className="d-none"
                               type="file"
                               accept=".jpg,.png"
-                              onChange={this.onChangeAvatar(item[0])}
+                              onChange={this.onChangeAvatar(item[0], this.onShowEditModal)}
                             />
                           </label>
                         )}
@@ -498,7 +513,7 @@ module.exports = class Member extends React.PureComponent {
           <Modal.Body>
             <div className="avatar-uploader d-flex flex-column align-items-center">
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
-                <div style={{transform: photoList.Primary.avatarPreviewStyle.transform}}>
+                <div style={{transform: `scale(${photoList.Primary.avatarPreviewStyle.transform.scale}) rotate(${photoList.Primary.avatarPreviewStyle.transform.rotate}deg)`}}>
                   <Draggable
                     bounds={boundary}
                     scale={zoomScale}
@@ -511,9 +526,6 @@ module.exports = class Member extends React.PureComponent {
                   <img src={avatarMask}/>
                 </div>
               </label>
-              <p className={classNames('text-center text-size-14 mb-1', this.state.isIncorrectPicture ? 'text-danger' : 'text-muted')}>
-                {_('Please upload your face photo.')}
-              </p>
               <div className="d-flex justify-content-center align-items-center">
                 <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(false)}>
                   <i className="fas fa-undo fa-fw"/>
@@ -543,11 +555,25 @@ module.exports = class Member extends React.PureComponent {
 
           <Modal.Footer>
             <button
-              className="btn btn-info btn-block m-0 rounded-pill"
+              className="btn btn-danger btn-block m-0 rounded-pill"
               type="button"
               onClick={this.onHideEditModal}
             >
-              {_('Close')}
+              {_('Delete ')}
+            </button>
+            <button
+              className="btn btn-outline-primary btn-block m-0 rounded-pill"
+              type="button"
+              onClick={this.onHideEditModal}
+            >
+              {_('Change Photo')}
+            </button>
+            <button
+              className="btn btn-primary btn-block m-0 rounded-pill"
+              type="button"
+              onClick={this.onHideEditModal}
+            >
+              {_('Save')}
             </button>
           </Modal.Footer>
         </Modal>
