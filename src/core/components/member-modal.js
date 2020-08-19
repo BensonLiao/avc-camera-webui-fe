@@ -50,16 +50,15 @@ module.exports = class Member extends React.PureComponent {
     };
   }
 
-  state = {
-    pictureRotateDegrees: 0,
-    isIncorrectPicture: null,
-    avatarPreviewUrl: null
-  };
+  state={}
 
   constructor(props) {
     super(props);
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
+    this.state.pictureRotateDegrees = 0;
+    this.state.isIncorrectPicture = null;
+    this.state.avatarPreviewUrl = null;
     this.state.wrapperSize = null;
     this.state.isShowEditModal = false;
     this.state.itemToEdit = '';
@@ -70,11 +69,51 @@ module.exports = class Member extends React.PureComponent {
       bottom: 0
     };
     this.state.photoList = {
-      Primary: {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}},
-      'Photo 1': {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}},
-      'Photo 3': {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}},
-      'Photo 2': {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}},
-      'Photo 4': {avatarPreviewStyle: {transform: 'scale(1) rotate(0deg)'}}
+      Primary: {
+        boundary: {},
+        avatarPreviewStyle: {
+          transform: {
+            scale: 1,
+            rotate: 0
+          }
+        }
+      },
+      'Photo 1': {
+        boundary: {},
+        avatarPreviewStyle: {
+          transform: {
+            scale: 1,
+            rotate: 0
+          }
+        }
+      },
+      'Photo 2': {
+        boundary: {},
+        avatarPreviewStyle: {
+          transform: {
+            scale: 1,
+            rotate: 0
+          }
+        }
+      },
+      'Photo 3': {
+        boundary: {},
+        avatarPreviewStyle: {
+          transform: {
+            scale: 1,
+            rotate: 0
+          }
+        }
+      },
+      'Photo 4': {
+        boundary: {},
+        avatarPreviewStyle: {
+          transform: {
+            scale: 1,
+            rotate: 0
+          }
+        }
+      }
     };
   }
 
