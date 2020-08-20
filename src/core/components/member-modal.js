@@ -78,7 +78,7 @@ module.exports = class Member extends React.PureComponent {
       'Photo 3': {},
       'Photo 4': {}
     };
-    this.state.avatarList = Object.assign({}, ...Object.keys(nameList).map(item => ({
+    this.state.avatarList = Object.assign({}, ...Object.keys(nameList).map((item, index) => ({
       [item]: {
         boundary: {
           left: 0,
@@ -94,7 +94,8 @@ module.exports = class Member extends React.PureComponent {
           transform: {
             scale: 1,
             rotate: 0
-          }
+          },
+          background: props.member.pictures[index] ? `url("data:image/jpeg;base64,${props.member.pictures[index]}")` : null
         }
       }
     })));
@@ -210,7 +211,8 @@ module.exports = class Member extends React.PureComponent {
               transform: {
                 scale: 1,
                 rotate: 0
-              }
+              },
+              background: null
             }
           }
         }
