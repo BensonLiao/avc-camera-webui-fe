@@ -59,7 +59,6 @@ module.exports = class Member extends React.PureComponent {
     this.state.pictureRotateDegrees = 0;
     this.state.isIncorrectPicture = null;
     this.state.avatarPreviewUrl = null;
-    this.state.wrapperSize = null;
     this.state.isShowEditModal = false;
     this.state.avatarToEdit = 'Primary';
     this.editWrapperSize = 128;
@@ -70,50 +69,27 @@ module.exports = class Member extends React.PureComponent {
       right: 0,
       bottom: 0
     };
-    this.state.avatarList = {
-      Primary: {
-        boundary: {},
-        photoOffset: {},
-        avatarPreviewStyle: {
-          transform: {
-            scale: 1,
-            rotate: 0
-          }
-        }
-      },
-      'Photo 1': {
-        boundary: {},
-        photoOffset: {},
-        avatarPreviewStyle: {
-          transform: {
-            scale: 1,
-            rotate: 0
-          }
-        }
-      },
-      'Photo 2': {
-        boundary: {},
-        photoOffset: {},
-        avatarPreviewStyle: {
-          transform: {
-            scale: 1,
-            rotate: 0
-          }
-        }
-      },
-      'Photo 3': {
-        boundary: {},
-        photoOffset: {},
-        avatarPreviewStyle: {
-          transform: {
-            scale: 1,
-            rotate: 0
-          }
-        }
-      },
-      'Photo 4': {
-        boundary: {},
-        photoOffset: {},
+
+    // Initialise avatarList state object
+    const nameList = {
+      Primary: {},
+      'Photo 1': {},
+      'Photo 2': {},
+      'Photo 3': {},
+      'Photo 4': {}
+    };
+    this.state.avatarList = Object.assign({}, ...Object.keys(nameList).map(item => ({
+      [item]: {
+        boundary: {
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: 0
+        },
+        photoOffset: {
+          x: 0,
+          y: 0
+        },
         avatarPreviewStyle: {
           transform: {
             scale: 1,
@@ -121,14 +97,8 @@ module.exports = class Member extends React.PureComponent {
           }
         }
       }
-    };
+    })));
   }
-
-  // componentDidMount() {
-  //   if (document.getElementById('avatar-wrapper')) {
-  //     this.setState({wrapperSize: document.getElementById('avatar-wrapper').clientHeight});
-  //   }
-  // }
 
   generateInitialValue = member => {
     if (member) {
@@ -170,7 +140,24 @@ module.exports = class Member extends React.PureComponent {
     event.preventDefault();
     const {avatarToEdit, avatarList} = this.state;
     const degrees = isClockwise ? 90 : -90;
-    const newState = update(this.state, {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {rotate: {$set: avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate + degrees}}}}}});
+    const newState = update(this.state,
+      {
+        avatarList:
+         {
+           [avatarToEdit]:
+            {
+              avatarPreviewStyle:
+               {
+                 transform:
+                  {
+                    rotate:
+                     {$set: avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate + degrees}
+                  }
+               }
+            }
+         }
+      }
+    );
     this.setState(newState);
   };
 
@@ -247,11 +234,9 @@ module.exports = class Member extends React.PureComponent {
       }
     });
     this.setState(newState);
-    console.log(newState.avatarList.Primary);
   };
 
   updateBoundary = zoomScale => {
-    const wrapperSize = document.getElementById('avatar-wrapper').clientHeight;
     const {avatarToEdit} = this.state;
     const calculateBoundary = ((this.editWrapperSize * zoomScale) - this.editWrapperSize) / zoomScale / 2;
     const newState = update(this.state, {
@@ -278,7 +263,6 @@ module.exports = class Member extends React.PureComponent {
     const {defaultPictureUrl, member, onSubmitted} = this.props;
     const zoomFactor = values.zoom / 100;
     const tasks = [];
-    const wrapperSize = document.getElementById('avatar-wrapper').clientHeight;
 
     if (this.avatarFile) {
       // The user upload a file.
@@ -368,8 +352,6 @@ module.exports = class Member extends React.PureComponent {
                           <div
                             className="avatar-img"
                             style={{
-                              transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
-                                transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
                               transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
                                             rotate(${avatar[1].avatarPreviewStyle.transform.rotate}deg)
                                             translate(${avatar[1].photoOffset.x * previewReductionRatio}px, ${avatar[1].photoOffset.y * previewReductionRatio}px`,
