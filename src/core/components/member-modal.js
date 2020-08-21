@@ -220,8 +220,16 @@ module.exports = class Member extends React.PureComponent {
         avatarList: {
           [this.state.avatarToEdit]: {
             $set: {
-              boundary: {},
-              photoOffset: {},
+              boundary: {
+                left: 0,
+                top: 0,
+                right: 0,
+                bottom: 0
+              },
+              photoOffset: {
+                x: 0,
+                y: 0
+              },
               avatarPreviewStyle: {
                 transform: {
                   scale: 1,
@@ -364,9 +372,9 @@ module.exports = class Member extends React.PureComponent {
             this.editWrapperSize
           )
         );
-      } else if (member) {
+      } else if (member && item[1].avatarPreviewStyle.background) {
         // The user didn't modify the picture.
-        data.pictures = member.pictures[index];
+        tasks.push(member.pictures[index]);
       } else if (defaultPictureUrl) {
         // Register a member from the event.
         tasks.push(
@@ -383,7 +391,7 @@ module.exports = class Member extends React.PureComponent {
 
     progress.start();
     Promise.all(tasks).then(imageData => {
-      data.pictures = [imageData];
+      data.pictures = imageData;
       if (member) {
         // Update the member.
         return api.member.updateMember(data).then(onSubmitted);
