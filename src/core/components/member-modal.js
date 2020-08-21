@@ -21,7 +21,8 @@ module.exports = class Member extends React.PureComponent {
     return {
       isApiProcessing: PropTypes.bool.isRequired,
       isShowModal: PropTypes.bool.isRequired,
-      onSubmitted: PropTypes.func.isRequired, // The form submitted callback.
+      // The form submitted callback.
+      onSubmitted: PropTypes.func.isRequired,
       onHide: PropTypes.func.isRequired,
       defaultPictureUrl: PropTypes.string,
       groups: PropTypes.shape({
@@ -96,7 +97,7 @@ module.exports = class Member extends React.PureComponent {
             scale: 1,
             rotate: 0
           },
-          background: props.member.pictures[index] ? `url("data:image/jpeg;base64,${props.member.pictures[index]}")` : null
+          background: props.member.pictures[index] ? `data:image/jpeg;base64,${props.member.pictures[index]}` : null
         },
         avatarFile: null,
         // null - yet to be verified
@@ -151,7 +152,7 @@ module.exports = class Member extends React.PureComponent {
     const resetIfAroundTheWorld = avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate === 360 ?
       0 :
       avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate;
-    const newState = update(this.state,
+    const updateRotation = update(this.state,
       {
         avatarList:
          {
@@ -169,7 +170,7 @@ module.exports = class Member extends React.PureComponent {
          }
       }
     );
-    this.setState(newState);
+    this.setState(updateRotation);
   };
 
   onChangeAvatar = (avatarName, callback) => event => {
@@ -189,14 +190,16 @@ module.exports = class Member extends React.PureComponent {
       .then(data => {
         const conditionedImage = data.image;
         conditionedImage.toBlob(blob => {
-          const updateAvatarFile = update(this.state, {avatarList: {[avatarName]: {avatarFile: {$set: blob}}}});
+          const updateAvatarFile = update(this.state,
+            {avatarList: {[avatarName]: {avatarFile: {$set: blob}}}});
           this.setState(updateAvatarFile);
           if (this.state.avatarList[avatarName].avatarPreviewStyle.background) {
             window.URL.revokeObjectURL(this.state.avatarList[avatarName].avatarPreviewStyle.background);
           }
 
-          const newState = update(this.state, {avatarList: {[avatarName]: {avatarPreviewStyle: {background: {$set: `url('${window.URL.createObjectURL(blob)}')`}}}}});
-          this.setState(newState);
+          const updateAvatarURL = update(this.state,
+            {avatarList: {[avatarName]: {avatarPreviewStyle: {background: {$set: window.URL.createObjectURL(blob)}}}}});
+          this.setState(updateAvatarURL);
         }, `${conditionedImage.type}`);
       })
       .then(() => {
@@ -212,62 +215,66 @@ module.exports = class Member extends React.PureComponent {
   };
 
   onDeleteAvatar = () => {
-    const newState = update(this.state, {
-      avatarList: {
-        [this.state.avatarToEdit]: {
-          $set: {
-            boundary: {},
-            photoOffset: {},
-            avatarPreviewStyle: {
-              transform: {
-                scale: 1,
-                rotate: 0
-              },
-              background: null
+    const deleteAvatar = update(this.state,
+      {
+        avatarList: {
+          [this.state.avatarToEdit]: {
+            $set: {
+              boundary: {},
+              photoOffset: {},
+              avatarPreviewStyle: {
+                transform: {
+                  scale: 1,
+                  rotate: 0
+                },
+                background: null
+              }
             }
           }
         }
-      }
-    });
-    this.setState(newState);
+      });
+    this.setState(deleteAvatar);
     this.onHideEditModal();
   }
 
   onDraggingMaskArea = (event, data) => {
-    const newState = update(this.state, {
-      avatarList: {
-        [this.state.avatarToEdit]: {
-          photoOffset: {
-            $set: {
-              x: data.x,
-              y: data.y
+    const updatePhotoOffset = update(this.state,
+      {
+        avatarList: {
+          [this.state.avatarToEdit]: {
+            photoOffset: {
+              $set: {
+                x: data.x,
+                y: data.y
+              }
             }
           }
         }
-      }
-    });
-    this.setState(newState);
+      });
+    this.setState(updatePhotoOffset);
   };
 
-  updateBoundary = zoomScale => {
+  updateBoundary = values => {
+    const zoomScale = values.zoom / 100;
     const {avatarToEdit} = this.state;
-    const calculateBoundary = ((this.editWrapperSize * zoomScale) - this.editWrapperSize) / zoomScale / 2;
-    const newState = update(this.state, {
-      avatarList: {
-        [avatarToEdit]: {
-          boundary: {
-            $set: {
-              left: -calculateBoundary,
-              top: -calculateBoundary,
-              right: calculateBoundary,
-              bottom: calculateBoundary
-            }
-          },
-          avatarPreviewStyle: {transform: {scale: {$set: zoomScale}}}
+    const calculateBoundary = ((this.editWrapperSize * zoomScale) - this.editWrapperSize) / zoomScale / 4;
+    const updateBoundary = update(this.state,
+      {
+        avatarList: {
+          [avatarToEdit]: {
+            boundary: {
+              $set: {
+                left: -calculateBoundary,
+                top: -calculateBoundary,
+                right: calculateBoundary,
+                bottom: calculateBoundary
+              }
+            },
+            avatarPreviewStyle: {transform: {scale: {$set: zoomScale}}}
+          }
         }
-      }
-    });
-    this.setState(newState);
+      });
+    this.setState(updateBoundary);
   }
 
   verifyPhoto = () => {
@@ -283,7 +290,8 @@ module.exports = class Member extends React.PureComponent {
               avatarList[avatarToEdit].photoOffset.y !== 0
           ))
       ) {
-        const updateIsVerifying = update(this.state, {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
+        const updateIsVerifying = update(this.state,
+          {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
         this.setState(updateIsVerifying, () => {
           const verifyQueue = [];
           verifyQueue.push(new Promise((resolve, reject) => {
@@ -295,25 +303,27 @@ module.exports = class Member extends React.PureComponent {
           }));
           Promise.all(verifyQueue)
             .then(() => {
-              const updateAvatarVerification = update(this.state, {
-                avatarList: {
-                  [avatarToEdit]: {
-                    verified: {$set: true},
-                    isVerifying: {$set: false}
+              const updateAvatarVerification = update(this.state,
+                {
+                  avatarList: {
+                    [avatarToEdit]: {
+                      verified: {$set: true},
+                      isVerifying: {$set: false}
+                    }
                   }
-                }
-              });
+                });
               this.setState(updateAvatarVerification);
               console.log('success');
             }).catch(() => {
-              const updateAvatarVerification = update(this.state, {
-                avatarList: {
-                  [avatarToEdit]: {
-                    verified: {$set: false},
-                    isVerifying: {$set: false}
+              const updateAvatarVerification = update(this.state,
+                {
+                  avatarList: {
+                    [avatarToEdit]: {
+                      verified: {$set: false},
+                      isVerifying: {$set: false}
+                    }
                   }
-                }
-              });
+                });
               this.setState(updateAvatarVerification);
               console.log('fail');
             });
@@ -324,67 +334,56 @@ module.exports = class Member extends React.PureComponent {
 
   onSubmitForm = values => {
     const data = {...values};
-    const {avatarPreviewUrl, pictureRotateDegrees, photoOffset, isIncorrectPicture} = this.state;
+    const {avatarList} = this.state;
     const {defaultPictureUrl, member, onSubmitted} = this.props;
-    const zoomFactor = values.zoom / 100;
     const tasks = [];
-
-    if (this.avatarFile) {
-      // The user upload a file.
-      tasks.push(
-        utils.convertPicture(avatarPreviewUrl,
-          zoomFactor,
-          pictureRotateDegrees,
-          photoOffset,
-          this.editWrapperSize
-        )
-      );
-    } else if (member && (pictureRotateDegrees || zoomFactor !== 1 || photoOffset)) {
-      // The user modify the exist picture.
-      tasks.push(
-        utils.convertPicture(
-          `data:image/jpeg;base64,${member.pictures[0]}`,
-          zoomFactor,
-          pictureRotateDegrees,
-          photoOffset,
-          this.editWrapperSize
-        )
-      );
-    } else if (member) {
-      // The user didn't modify the picture.
-      data.pictures = member.pictures;
-    } else if (defaultPictureUrl) {
-      // Register a member from the event.
-      tasks.push(
-        utils.convertPicture(
-          defaultPictureUrl,
-          zoomFactor,
-          pictureRotateDegrees,
-          photoOffset,
-          this.editWrapperSize
-        )
-      );
-    }
+    Object.entries(avatarList).forEach((item, index) => {
+      if (item[1].avatarFile) {
+        // The user upload a file.
+        tasks.push(
+          utils.convertPicture(item[1].avatarPreviewStyle.background,
+            item[1].avatarPreviewStyle.transform.scale,
+            item[1].avatarPreviewStyle.transform.rotate,
+            item[1].photoOffset,
+            this.editWrapperSize
+          )
+        );
+      } else if (member && (
+        item[1].avatarPreviewStyle.transform.rotate !== 0 ||
+         item[1].avatarPreviewStyle.transform.scale !== 1 ||
+         item[1].photoOffset.x !== 0 ||
+         item[1].photoOffset.y !== 0
+      )) {
+        // The user modify the exist picture.
+        tasks.push(
+          utils.convertPicture(
+            item[1].avatarPreviewStyle.background,
+            item[1].avatarPreviewStyle.transform.scale,
+            item[1].avatarPreviewStyle.transform.rotate,
+            item[1].photoOffset,
+            this.editWrapperSize
+          )
+        );
+      } else if (member) {
+        // The user didn't modify the picture.
+        data.pictures = member.pictures[index];
+      } else if (defaultPictureUrl) {
+        // Register a member from the event.
+        tasks.push(
+          utils.convertPicture(
+            defaultPictureUrl,
+            item[1].avatarPreviewStyle.transform.scale,
+            item[1].avatarPreviewStyle.transform.rotate,
+            item[1].photoOffset,
+            this.editWrapperSize
+          )
+        );
+      }
+    });
 
     progress.start();
-    Promise.all(tasks).then(([imageData]) => {
-      if (imageData) {
-        data.pictures = [imageData];
-      }
-
-      if (data.pictures && data.pictures.length) {
-        if (isIncorrectPicture) {
-          this.setState({isIncorrectPicture: null});
-        }
-      } else {
-        // Incorrect picture.
-        if (!isIncorrectPicture) {
-          this.setState({isIncorrectPicture: true});
-        }
-
-        return;
-      }
-
+    Promise.all(tasks).then(imageData => {
+      data.pictures = [imageData];
       if (member) {
         // Update the member.
         return api.member.updateMember(data).then(onSubmitted);
@@ -394,13 +393,82 @@ module.exports = class Member extends React.PureComponent {
       return api.member.addMember(data).then(onSubmitted);
     })
       .finally(progress.done);
+    // const {avatarPreviewUrl, pictureRotateDegrees, photoOffset, isIncorrectPicture} = this.state;
+    // const {defaultPictureUrl, member, onSubmitted} = this.props;
+    // const zoomFactor = values.zoom / 100;
+    // const tasks = [];
+
+    // if (this.avatarFile) {
+    //   // The user upload a file.
+    //   tasks.push(
+    //     utils.convertPicture(avatarPreviewUrl,
+    //       zoomFactor,
+    //       pictureRotateDegrees,
+    //       photoOffset,
+    //       this.editWrapperSize
+    //     )
+    //   );
+    // } else if (member && (pictureRotateDegrees || zoomFactor !== 1 || photoOffset)) {
+    //   // The user modify the exist picture.
+    //   tasks.push(
+    //     utils.convertPicture(
+    //       `data:image/jpeg;base64,${member.pictures[0]}`,
+    //       zoomFactor,
+    //       pictureRotateDegrees,
+    //       photoOffset,
+    //       this.editWrapperSize
+    //     )
+    //   );
+    // } else if (member) {
+    //   // The user didn't modify the picture.
+    //   data.pictures = member.pictures;
+    // } else if (defaultPictureUrl) {
+    //   // Register a member from the event.
+    //   tasks.push(
+    //     utils.convertPicture(
+    //       defaultPictureUrl,
+    //       zoomFactor,
+    //       pictureRotateDegrees,
+    //       photoOffset,
+    //       this.editWrapperSize
+    //     )
+    //   );
+    // }
+
+    // progress.start();
+    // Promise.all(tasks).then(([imageData]) => {
+    //   if (imageData) {
+    //     data.pictures = [imageData];
+    //   }
+
+    //   if (data.pictures && data.pictures.length) {
+    //     if (isIncorrectPicture) {
+    //       this.setState({isIncorrectPicture: null});
+    //     }
+    //   } else {
+    //     // Incorrect picture.
+    //     if (!isIncorrectPicture) {
+    //       this.setState({isIncorrectPicture: true});
+    //     }
+
+    //     return;
+    //   }
+
+    //   if (member) {
+    //     // Update the member.
+    //     return api.member.updateMember(data).then(onSubmitted);
+    //   }
+
+    //   // Add a new member.
+    //   return api.member.addMember(data).then(onSubmitted);
+    // })
+    //   .finally(progress.done);
   };
 
   formRender = ({errors, touched, values}) => {
     const {isApiProcessing} = this.props;
     const {avatarList, isShowEditModal, avatarToEdit} = this.state;
-    const zoomScale = values.zoom / 100;
-    // previewReductionRatio = avatarList preview window size / edit preview window size
+    // const zoomScale = values.zoom / 100;
     const previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
     return (
       <Form>
@@ -432,7 +500,7 @@ module.exports = class Member extends React.PureComponent {
                                 {'is-verifying': avatar[1].isVerifying}
                               )}
                               style={{
-                                backgroundImage: avatar[1].avatarPreviewStyle.background,
+                                backgroundImage: `url("${avatar[1].avatarPreviewStyle.background}")`,
                                 transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
                                             rotate(${avatar[1].avatarPreviewStyle.transform.rotate}deg)
                                             translate(${avatar[1].photoOffset.x * previewReductionRatio}px, ${avatar[1].photoOffset.y * previewReductionRatio}px`
@@ -614,7 +682,7 @@ module.exports = class Member extends React.PureComponent {
                       className="avatar-img"
                       style={{
                         transform: `scale(${avatarList[avatarToEdit].avatarPreviewStyle.transform.scale}) rotate(${avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate}deg)`,
-                        backgroundImage: avatarList[avatarToEdit].avatarPreviewStyle.background
+                        backgroundImage: `url("${avatarList[avatarToEdit].avatarPreviewStyle.background}")`
                       }}
                     />
                   </Draggable>
