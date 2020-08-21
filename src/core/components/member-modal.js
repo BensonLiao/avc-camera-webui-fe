@@ -434,8 +434,6 @@ module.exports = class Member extends React.PureComponent {
                               style={{
                                 backgroundImage: avatar[1].avatarPreviewStyle.background,
                                 transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
-                              transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
-                                transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
                                             rotate(${avatar[1].avatarPreviewStyle.transform.rotate}deg)
                                             translate(${avatar[1].photoOffset.x * previewReductionRatio}px, ${avatar[1].photoOffset.y * previewReductionRatio}px`
                               }}
@@ -645,7 +643,7 @@ module.exports = class Member extends React.PureComponent {
                       min={100}
                       max={300}
                       onChangeInput={() => {
-                        this.updateBoundary(zoomScale);
+                        this.updateBoundary(values);
                       }}
                     />
                   </div>
