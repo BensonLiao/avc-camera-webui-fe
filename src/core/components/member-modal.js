@@ -116,7 +116,7 @@ module.exports = class Member extends React.PureComponent {
         organization: member.organization || '',
         group: member.groupId,
         note: member.note || '',
-        zoom: 100
+        zoom: this.state.avatarList[this.state.avatarToEdit].avatarPreviewStyle.transform.scale * 100
       };
     }
 
@@ -148,6 +148,9 @@ module.exports = class Member extends React.PureComponent {
     event.preventDefault();
     const {avatarToEdit, avatarList} = this.state;
     const degrees = isClockwise ? 90 : -90;
+    const resetIfAroundTheWorld = avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate === 360 ?
+      0 :
+      avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate;
     const newState = update(this.state,
       {
         avatarList:
@@ -159,7 +162,7 @@ module.exports = class Member extends React.PureComponent {
                  transform:
                   {
                     rotate:
-                     {$set: avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate + degrees}
+                     {$set: resetIfAroundTheWorld + degrees}
                   }
                }
             }
@@ -270,54 +273,53 @@ module.exports = class Member extends React.PureComponent {
   verifyPhoto = () => {
     const {avatarList, avatarToEdit} = this.state;
     const {member} = this.props;
+    this.setState({isShowEditModal: false}, () => {
     // Verify if user uploads or edit the photo
-    if (avatarList[avatarToEdit].avatarFile ||
-   (member && (
-     avatarList[avatarToEdit].avatarPreviewStyle.transform.scale !== 1 ||
-      avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate !== 0 ||
-      avatarList[avatarToEdit].photoOffset.x !== 0 ||
-      avatarList[avatarToEdit].photoOffset.y !== 0
-   ))
-    ) {
-      const updateIsVerifying = update(this.state, {
-        isShowEditModal: {$set: false},
-        avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}
-      });
-      this.setState(updateIsVerifying, () => {
-        const verifyQueue = [];
-        verifyQueue.push(new Promise((resolve, reject) => {
-          if ((Math.floor(Math.random() * 7) === 0)) {
-            setTimeout(resolve, 3000);
-          } else {
-            setTimeout(reject, 3000);
-          }
-        }));
-        Promise.all(verifyQueue)
-          .then(() => {
-            const updateAvatarVerification = update(this.state, {
-              avatarList: {
-                [avatarToEdit]: {
-                  verified: {$set: true},
-                  isVerifying: {$set: false}
+      if (avatarList[avatarToEdit].avatarFile ||
+          (member && (
+            avatarList[avatarToEdit].avatarPreviewStyle.transform.scale !== 1 ||
+              avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate !== 0 ||
+              avatarList[avatarToEdit].photoOffset.x !== 0 ||
+              avatarList[avatarToEdit].photoOffset.y !== 0
+          ))
+      ) {
+        const updateIsVerifying = update(this.state, {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
+        this.setState(updateIsVerifying, () => {
+          const verifyQueue = [];
+          verifyQueue.push(new Promise((resolve, reject) => {
+            if ((Math.floor(Math.random() * 7) === 0)) {
+              setTimeout(resolve, 3000);
+            } else {
+              setTimeout(reject, 3000);
+            }
+          }));
+          Promise.all(verifyQueue)
+            .then(() => {
+              const updateAvatarVerification = update(this.state, {
+                avatarList: {
+                  [avatarToEdit]: {
+                    verified: {$set: true},
+                    isVerifying: {$set: false}
+                  }
                 }
-              }
-            });
-            this.setState(updateAvatarVerification);
-            console.log('success');
-          }).catch(() => {
-            const updateAvatarVerification = update(this.state, {
-              avatarList: {
-                [avatarToEdit]: {
-                  verified: {$set: false},
-                  isVerifying: {$set: false}
+              });
+              this.setState(updateAvatarVerification);
+              console.log('success');
+            }).catch(() => {
+              const updateAvatarVerification = update(this.state, {
+                avatarList: {
+                  [avatarToEdit]: {
+                    verified: {$set: false},
+                    isVerifying: {$set: false}
+                  }
                 }
-              }
+              });
+              this.setState(updateAvatarVerification);
+              console.log('fail');
             });
-            this.setState(updateAvatarVerification);
-            console.log('fail');
-          });
-      });
-    }
+        });
+      }
+    });
   }
 
   onSubmitForm = values => {
@@ -693,6 +695,7 @@ module.exports = class Member extends React.PureComponent {
           <Modal.Title as="h5">{member ? _('Modify Member') : _('New Member')}</Modal.Title>
         </Modal.Header>
         <Formik
+          enableReinitialize
           initialValues={this.generateInitialValue(member)}
           validate={utils.makeFormikValidator(MemberValidator)}
           onSubmit={this.onSubmitForm}
