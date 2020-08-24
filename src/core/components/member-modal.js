@@ -424,76 +424,6 @@ module.exports = class Member extends React.PureComponent {
       return api.member.addMember(data).then(onSubmitted);
     })
       .finally(progress.done);
-    // const {avatarPreviewUrl, pictureRotateDegrees, photoOffset, isIncorrectPicture} = this.state;
-    // const {defaultPictureUrl, member, onSubmitted} = this.props;
-    // const zoomFactor = values.zoom / 100;
-    // const tasks = [];
-
-    // if (this.avatarFile) {
-    //   // The user upload a file.
-    //   tasks.push(
-    //     utils.convertPicture(avatarPreviewUrl,
-    //       zoomFactor,
-    //       pictureRotateDegrees,
-    //       photoOffset,
-    //       this.editWrapperSize
-    //     )
-    //   );
-    // } else if (member && (pictureRotateDegrees || zoomFactor !== 1 || photoOffset)) {
-    //   // The user modify the exist picture.
-    //   tasks.push(
-    //     utils.convertPicture(
-    //       `data:image/jpeg;base64,${member.pictures[0]}`,
-    //       zoomFactor,
-    //       pictureRotateDegrees,
-    //       photoOffset,
-    //       this.editWrapperSize
-    //     )
-    //   );
-    // } else if (member) {
-    //   // The user didn't modify the picture.
-    //   data.pictures = member.pictures;
-    // } else if (defaultPictureUrl) {
-    //   // Register a member from the event.
-    //   tasks.push(
-    //     utils.convertPicture(
-    //       defaultPictureUrl,
-    //       zoomFactor,
-    //       pictureRotateDegrees,
-    //       photoOffset,
-    //       this.editWrapperSize
-    //     )
-    //   );
-    // }
-
-    // progress.start();
-    // Promise.all(tasks).then(([imageData]) => {
-    //   if (imageData) {
-    //     data.pictures = [imageData];
-    //   }
-
-    //   if (data.pictures && data.pictures.length) {
-    //     if (isIncorrectPicture) {
-    //       this.setState({isIncorrectPicture: null});
-    //     }
-    //   } else {
-    //     // Incorrect picture.
-    //     if (!isIncorrectPicture) {
-    //       this.setState({isIncorrectPicture: true});
-    //     }
-
-    //     return;
-    //   }
-
-    //   if (member) {
-    //     // Update the member.
-    //     return api.member.updateMember(data).then(onSubmitted);
-    //   }
-
-    //   // Add a new member.
-    //   return api.member.addMember(data).then(onSubmitted);
-    // })
-    //   .finally(progress.done);
   };
 
   formRender = ({errors, touched, values}) => {
@@ -587,55 +517,6 @@ module.exports = class Member extends React.PureComponent {
           })}
 
           <hr/>
-          {/* <div className="avatar-uploader d-flex flex-column align-items-center">
-            <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
-              <div style={{transform: avatarPreviewStyle.transform}}>
-                <Draggable
-                  bounds={boundary}
-                  scale={zoomScale}
-                  onDrag={this.onDraggingMaskArea}
-                >
-                  <div className="avatar-img" style={avatarPreviewStyle}/>
-                </Draggable>
-              </div>
-              <div className="avatar-mask">
-                <img src={avatarMask}/>
-              </div>
-            </label>
-
-            <label className="btn btn-outline-primary mt-2">
-              <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar}/>
-              {_('Upload Image')}
-            </label>
-
-            <p className={classNames('text-center text-size-14 mb-1', this.state.isIncorrectPicture ? 'text-danger' : 'text-muted')}>
-              {_('Please upload your face photo.')}
-            </p>
-            <div className="d-flex justify-content-center align-items-center">
-              <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(false)}>
-                <i className="fas fa-undo fa-fw"/>
-              </button>
-              <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(true)}>
-                <i className="fas fa-redo fa-fw"/>
-              </button>
-              <i className="far fa-image fa-fw fa-sm ml-3"/>
-              <div className="form-group mb-0 ml-2">
-                <div className="none-selection">
-                  <Field
-                    name="zoom"
-                    component={Slider}
-                    step={20}
-                    min={100}
-                    max={300}
-                    onChangeInput={() => {
-                      this.updateBoundary(zoomScale);
-                    }}
-                  />
-                </div>
-              </div>
-              <i className="far fa-image fa-fw fa-lg ml-2"/>
-            </div>
-          </div> */}
           <div className="form-group">
             <label>{_('Name')}</label>
             <Field
