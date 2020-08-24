@@ -97,7 +97,7 @@ module.exports = class Member extends React.PureComponent {
             scale: 1,
             rotate: 0
           },
-          background: props.member.pictures[index] ? `data:image/jpeg;base64,${props.member.pictures[index]}` : null
+          background: props.member ? props.member.pictures[index] ? `data:image/jpeg;base64,${props.member.pictures[index]}` : null : null
         },
         avatarFile: null,
         // null - yet to be verified
@@ -110,6 +110,7 @@ module.exports = class Member extends React.PureComponent {
   }
 
   generateInitialValue = member => {
+    const {avatarList, avatarToEdit} = this.state;
     if (member) {
       return {
         id: member.id,
@@ -117,7 +118,7 @@ module.exports = class Member extends React.PureComponent {
         organization: member.organization || '',
         group: member.groupId,
         note: member.note || '',
-        zoom: this.state.avatarList[this.state.avatarToEdit].avatarPreviewStyle.transform.scale * 100
+        zoom: avatarList[avatarToEdit].avatarPreviewStyle.transform.scale * 100
       };
     }
 
@@ -179,6 +180,7 @@ module.exports = class Member extends React.PureComponent {
       return;
     }
 
+    const {avatarList} = this.state;
     // Ensure correct orientation
     // Orientation info:
     // https://sirv.com/help/articles/rotate-photos-to-be-upright/
@@ -193,8 +195,8 @@ module.exports = class Member extends React.PureComponent {
           const updateAvatarFile = update(this.state,
             {avatarList: {[avatarName]: {avatarFile: {$set: blob}}}});
           this.setState(updateAvatarFile);
-          if (this.state.avatarList[avatarName].avatarPreviewStyle.background) {
-            window.URL.revokeObjectURL(this.state.avatarList[avatarName].avatarPreviewStyle.background);
+          if (avatarList[avatarName].avatarPreviewStyle.background) {
+            window.URL.revokeObjectURL(avatarList[avatarName].avatarPreviewStyle.background);
           }
 
           const updateAvatarURL = update(this.state,
@@ -264,12 +266,11 @@ module.exports = class Member extends React.PureComponent {
 
   updateBoundary = values => {
     const zoomScale = values.zoom / 100;
-    const {avatarToEdit} = this.state;
     const calculateBoundary = ((this.editWrapperSize * zoomScale) - this.editWrapperSize) / zoomScale / 4;
     const updateBoundary = update(this.state,
       {
         avatarList: {
-          [avatarToEdit]: {
+          [this.state.avatarToEdit]: {
             boundary: {
               $set: {
                 left: -calculateBoundary,
@@ -501,6 +502,7 @@ module.exports = class Member extends React.PureComponent {
                       />
                       { avatar[1].avatarPreviewStyle.background ?
                         (
+                          // Display photo preview and edit button
                           <>
                             <div
                               className={classNames(
@@ -529,6 +531,7 @@ module.exports = class Member extends React.PureComponent {
                             </div>
                           </>
                         ) : (
+                          // Display upload area
                           <label className="btn">
                             <i className="fas fa-plus"/>
                             <input
@@ -730,15 +733,17 @@ module.exports = class Member extends React.PureComponent {
           </Modal.Body>
 
           <Modal.Footer>
-            <button
-              className="btn btn-danger btn-block m-0 rounded-pill"
-              type="button"
-              onClick={this.onDeleteAvatar}
-            >
-              {_('Delete ')}
-            </button>
+            { avatarToEdit !== 'Primary' && (
+              <button
+                className="btn btn-danger btn-block m-0 rounded-pill"
+                type="button"
+                onClick={this.onDeleteAvatar}
+              >
+                {_('Delete ')}
+              </button>
+            )}
             <label className="btn btn-outline-primary btn-block m-0 rounded-pill">
-              <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar(this.state.avatarToEdit)}/>
+              <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar(avatarToEdit)}/>
               {_('Change Photo')}
             </label>
             <button
