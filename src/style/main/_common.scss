@@ -663,25 +663,6 @@ body {
           width: 104px;
           height: 150px;
 
-          &:first-child {
-            border-right: 1px solid $secondary-300;
-            width: 120px;
-
-            .photo-wrapper {
-              margin: 16px;
-            }
-          }
-
-          &:nth-child(2) {
-            width: 112px;
-            padding-left: 8px;
-          }
-
-          &:last-child {
-            width: 112px;
-            padding-right: 8px;
-          }
-
           .photo-wrapper {
             width: 88px;
             height: 88px;
@@ -710,7 +691,7 @@ body {
               cursor: pointer;
 
               &::before {
-                background: rgba(0, 0, 0, 0.3);
+                background: rgba(0, 0, 0, 0.5);
                 opacity: 1;
               }
 
@@ -721,6 +702,14 @@ body {
 
             &.dashed-border {
               border: 1px dashed $secondary-300;
+
+              &.available {
+                border-color: $primary-500;
+
+                .fa-plus {
+                  color: $primary-500;
+                }
+              }
             }
 
             &.failed-check {
@@ -850,6 +839,33 @@ body {
               color: $secondary-300;
               font-size: 1.5rem;
             }
+          }
+
+          &:first-child {
+            border-right: 1px solid $secondary-300;
+            width: 120px;
+
+            .photo-wrapper {
+              margin: 16px;
+            }
+
+            .dashed-border {
+              border-color: $primary-500;
+
+              .fa-plus {
+                color: $primary-500;
+              }
+            }
+          }
+
+          &:nth-child(2) {
+            width: 112px;
+            padding-left: 8px;
+          }
+
+          &:last-child {
+            width: 112px;
+            padding-right: 8px;
           }
 
           span {

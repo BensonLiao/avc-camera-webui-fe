@@ -337,6 +337,18 @@ module.exports = class Member extends React.PureComponent {
               this.setState(updateAvatarVerification);
             });
         });
+      } else if (member && !avatarList[avatarToEdit].verified) {
+        // Photo was edited but restored back to original state, skip verification and reset error message
+        const updateAvatarVerification = update(this.state,
+          {
+            avatarList: {
+              [avatarToEdit]: {
+                verified: {$set: true},
+                errorMessage: {$set: null}
+              }
+            }
+          });
+        this.setState(updateAvatarVerification);
       }
     });
   }
@@ -493,6 +505,7 @@ module.exports = class Member extends React.PureComponent {
                       className={classNames(
                         'photo-wrapper',
                         {'dashed-border': !avatar[1].avatarPreviewStyle.background},
+                        avatarList.Primary.avatarPreviewStyle.background && 'available',
                         {'failed-check': avatar[1].verified === false}
                       )}
                     >
@@ -536,6 +549,7 @@ module.exports = class Member extends React.PureComponent {
                           <label className="btn">
                             <i className="fas fa-plus"/>
                             <input
+                              disabled={(avatar[0] !== 'Primary') && !avatarList.Primary.avatarPreviewStyle.background}
                               className="d-none"
                               type="file"
                               accept=".jpg,.png"
@@ -666,7 +680,14 @@ module.exports = class Member extends React.PureComponent {
         </div>
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
-            <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
+            <button
+            // disable if api is processing, photo verification errors or photos are verifying
+              disabled={isApiProcessing ||
+                        !(errorMessages.length === 0) ||
+                        Object.entries(avatarList).filter(item => Boolean(item[1].isVerifying)).length}
+              type="submit"
+              className="btn btn-primary btn-block rounded-pill"
+            >
               {this.props.member ? _('Confirm') : _('New')}
             </button>
           </div>
