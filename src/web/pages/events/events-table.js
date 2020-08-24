@@ -164,10 +164,7 @@ module.exports = class EventsTable extends React.PureComponent {
             }
             {
               events.items.map((event, index) => {
-                const item = event.confidences[0];
-                const lengthCheck = event.confidences.length;
-                const ifExists = lengthCheck > 0 && item.member;
-                const isEnrolled = lengthCheck > 0 && item.enrollStatus === EnrollStatus.registered;
+                const isEnrolled = event.enrollStatus === EnrollStatus.registered;
                 if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
                   event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
                 } else {
@@ -208,42 +205,42 @@ module.exports = class EventsTable extends React.PureComponent {
                       </div>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      {ifExists ? (
+                      {event.member ? (
                         <img
                           className="rounded-circle"
-                          src={`data:image/jpeg;base64,${item.member.pictures[0]}`}
+                          src={`data:image/jpeg;base64,${event.member.pictures[0]}`}
                           style={{height: '56px'}}
                         />
                       ) : '-'}
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={ifExists ? item.member.name : ''}>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.name : ''}>
                         <div>
-                          {ifExists ? item.member.name : '-'}
+                          {event.member ? event.member.name : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={ifExists ? (this.findGroup(item.member.groupId) || {name: '-'}).name : ''}>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.group || '-' : ''}>
                         <div>
-                          {ifExists ? (this.findGroup(item.member.groupId) || {name: '-'}).name : '-'}
+                          {event.member ? event.member.group || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={ifExists ? item.member.organization || '-' : ''}>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.organization || '-' : ''}>
                         <div>
-                          {ifExists ? item.member.organization || '-' : '-'}
+                          {event.member ? event.member.organization || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      {lengthCheck > 0 ? _(`confidence-${item.confidence}`) : '-'}
+                      {event.confidences.length > 0 ? _(`confidence-${event.confidence}`) : '-'}
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
                       {
-                        lengthCheck > 0 && (
-                          <CustomTooltip title={item.score}>
+                        event.confidences.length > 0 && (
+                          <CustomTooltip title={event.confidence.score}>
                             <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
                               {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
                             </span>
@@ -252,9 +249,9 @@ module.exports = class EventsTable extends React.PureComponent {
                       }
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={ifExists ? item.member.note || '-' : ''}>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.note || '-' : ''}>
                         <div>
-                          {ifExists ? item.member.note || '-' : '-'}
+                          {event.member ? event.member.note || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
@@ -263,7 +260,7 @@ module.exports = class EventsTable extends React.PureComponent {
                         <button
                           className="btn btn-link"
                           type="button"
-                          onClick={isEnrolled ? modifyMemberHandler(item.member) : modifyMemberHandler(null, event.pictureThumbUrl)}
+                          onClick={isEnrolled ? modifyMemberHandler(event.member) : modifyMemberHandler(null, event.pictureThumbUrl)}
                         >
                           <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
                         </button>
