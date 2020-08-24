@@ -329,14 +329,13 @@ module.exports = class Member extends React.PureComponent {
                   });
                 this.setState(updateAvatarVerification);
               }).catch(error => {
-                console.log(error);
                 const updateAvatarVerification = update(this.state,
                   {
                     avatarList: {
                       [avatarToEdit]: {
                         verifyStatus: {$set: false},
                         isVerifying: {$set: false},
-                        errorMessage: {$set: error.message}
+                        errorMessage: {$set: error.response.data.message.replace('Error: ', '')}
                       }
                     }
                   });
