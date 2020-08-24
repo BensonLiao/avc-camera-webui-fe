@@ -15,6 +15,7 @@ const _ = require('../../languages');
 const MemberValidator = require('../../web/validations/members/member-validator');
 const utils = require('../utils');
 const api = require('../apis/web-api');
+const CustomNotifyModal = require('./custom-notify-modal');
 
 module.exports = class Member extends React.PureComponent {
   static get propTypes() {
@@ -62,6 +63,7 @@ module.exports = class Member extends React.PureComponent {
     this.state.pictureRotateDegrees = 0;
     this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
+    this.state.isShowCloseModal = false;
     this.state.avatarToEdit = 'Primary';
     this.editWrapperSize = 128;
     this.listWrapperSize = 88;
@@ -136,6 +138,10 @@ module.exports = class Member extends React.PureComponent {
   onHideEditModal = () => {
     this.setState({isShowEditModal: false});
   };
+
+  onHideConfirmModal = () => {
+    this.setState({isShowCloseModal: false});
+  }
 
   onShowEditModal = avatarName => {
     this.setState({
@@ -460,8 +466,8 @@ module.exports = class Member extends React.PureComponent {
   };
 
   formRender = ({errors, touched, values}) => {
-    const {isApiProcessing} = this.props;
-    const {avatarList, isShowEditModal, avatarToEdit} = this.state;
+    const {isApiProcessing, onHide} = this.props;
+    const {avatarList, isShowEditModal, avatarToEdit, isShowCloseModal} = this.state;
     // const zoomScale = values.zoom / 100;
     const previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
@@ -621,11 +627,26 @@ module.exports = class Member extends React.PureComponent {
           <button
             className="btn btn-info btn-block m-0 rounded-pill"
             type="button"
-            onClick={this.props.onHide}
+            onClick={() => {
+              this.setState({isShowCloseModal: true});
+            }}
           >
             {_('Close')}
           </button>
         </div>
+        <CustomNotifyModal
+          backdrop="static"
+          isShowModal={isShowCloseModal}
+          modalTitle=""
+          modalBody={_('Are you sure you want to close this window? Any changes you have made will be lost.')}
+          onHide={() => {
+            this.onHideConfirmModal();
+          }}
+          onConfirm={() => {
+            onHide();
+          }}
+        />
+
         <Modal
           autoFocus={false}
           show={isShowEditModal}
@@ -724,6 +745,7 @@ module.exports = class Member extends React.PureComponent {
 
     return (
       <Modal
+        keyboard={false}
         autoFocus={false}
         show={isShowModal}
         className="member-modal"
