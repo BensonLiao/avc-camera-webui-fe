@@ -100,7 +100,7 @@ module.exports = class Member extends React.PureComponent {
           background: props.member ? props.member.pictures[index] ? `data:image/jpeg;base64,${props.member.pictures[index]}` : null : null
         },
         avatarFile: null,
-        verified: null,
+        verifyStatus: null,
         isVerifying: false,
         errorMessage: null
       }
@@ -316,7 +316,7 @@ module.exports = class Member extends React.PureComponent {
                 {
                   avatarList: {
                     [avatarToEdit]: {
-                      verified: {$set: true},
+                      verifyStatus: {$set: true},
                       isVerifying: {$set: false},
                       errorMessage: {$set: null}
                     }
@@ -328,7 +328,7 @@ module.exports = class Member extends React.PureComponent {
                 {
                   avatarList: {
                     [avatarToEdit]: {
-                      verified: {$set: false},
+                      verifyStatus: {$set: false},
                       isVerifying: {$set: false},
                       errorMessage: {$set: error.message}
                     }
@@ -337,13 +337,13 @@ module.exports = class Member extends React.PureComponent {
               this.setState(updateAvatarVerification);
             });
         });
-      } else if (member && !avatarList[avatarToEdit].verified) {
+      } else if (member && !avatarList[avatarToEdit].verifyStatus) {
         // Photo was edited but restored back to original state, skip verification and reset error message
         const updateAvatarVerification = update(this.state,
           {
             avatarList: {
               [avatarToEdit]: {
-                verified: {$set: true},
+                verifyStatus: {$set: true},
                 errorMessage: {$set: null}
               }
             }
@@ -354,11 +354,21 @@ module.exports = class Member extends React.PureComponent {
   }
 
   onSubmitForm = values => {
-    const data = {...values};
     const {avatarList} = this.state;
+
+    const avatarListArray = Object.entries(avatarList);
+    // Fallback check if photos have failed verification or is still verifying
+    if (
+      avatarListArray.filter(avatar => Boolean(avatar[1].isVerifying)).length ||
+      !avatarListArray.some(avatar => avatar[1].verifyStatus)
+    ) {
+      return;
+    }
+
+    const data = {...values};
     const {defaultPictureUrl, member, onSubmitted} = this.props;
     const tasks = [];
-    Object.entries(avatarList).forEach((item, index) => {
+    avatarListArray.forEach((item, index) => {
       if (item[1].avatarFile) {
         // The user upload a file.
         tasks.push(
@@ -506,7 +516,7 @@ module.exports = class Member extends React.PureComponent {
                         'photo-wrapper',
                         {'dashed-border': !avatar[1].avatarPreviewStyle.background},
                         avatarList.Primary.avatarPreviewStyle.background && 'available',
-                        {'failed-check': avatar[1].verified === false}
+                        {'failed-check': avatar[1].verifyStatus === false}
                       )}
                     >
                       <i className={classNames(
@@ -683,9 +693,11 @@ module.exports = class Member extends React.PureComponent {
           <div className="form-group w-100 mx-0">
             <button
             // disable if api is processing, photo verification errors or photos are verifying
-              disabled={isApiProcessing ||
-                        !(errorMessages.length === 0) ||
-                        Object.entries(avatarList).filter(item => Boolean(item[1].isVerifying)).length}
+              disabled={
+                isApiProcessing ||
+                !(errorMessages.length === 0) ||
+                Object.entries(avatarList).filter(item => Boolean(item[1].isVerifying)).length
+              }
               type="submit"
               className="btn btn-primary btn-block rounded-pill"
             >
