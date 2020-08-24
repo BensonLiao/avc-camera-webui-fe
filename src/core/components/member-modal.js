@@ -100,11 +100,9 @@ module.exports = class Member extends React.PureComponent {
           background: props.member ? props.member.pictures[index] ? `data:image/jpeg;base64,${props.member.pictures[index]}` : null : null
         },
         avatarFile: null,
-        // null - yet to be verified
-        // false - failed photo check
-        // true - passed
         verified: null,
-        isVerifying: false
+        isVerifying: false,
+        errorMessage: null
       }
     })));
   }
@@ -290,24 +288,26 @@ module.exports = class Member extends React.PureComponent {
     const {avatarList, avatarToEdit} = this.state;
     const {member} = this.props;
     this.setState({isShowEditModal: false}, () => {
-    // Verify if user uploads or edit the photo
       if (avatarList[avatarToEdit].avatarFile ||
           (member && (
             avatarList[avatarToEdit].avatarPreviewStyle.transform.scale !== 1 ||
-              avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate !== 0 ||
-              avatarList[avatarToEdit].photoOffset.x !== 0 ||
-              avatarList[avatarToEdit].photoOffset.y !== 0
-          ))
+            avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate !== 0 ||
+            avatarList[avatarToEdit].photoOffset.x !== 0 ||
+            avatarList[avatarToEdit].photoOffset.y !== 0)
+          )
       ) {
+        // User uploads a new photo or existing photo was edited
         const updateIsVerifying = update(this.state,
           {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
         this.setState(updateIsVerifying, () => {
           const verifyQueue = [];
           verifyQueue.push(new Promise((resolve, reject) => {
-            if ((Math.floor(Math.random() * 7) === 0)) {
+            if ((Math.floor(Math.random() * 2) === 0)) {
               setTimeout(resolve, 3000);
             } else {
-              setTimeout(reject, 3000);
+              setTimeout(() => {
+                reject(new Error('Something failed'));
+              }, 3000);
             }
           }));
           Promise.all(verifyQueue)
@@ -317,24 +317,24 @@ module.exports = class Member extends React.PureComponent {
                   avatarList: {
                     [avatarToEdit]: {
                       verified: {$set: true},
-                      isVerifying: {$set: false}
+                      isVerifying: {$set: false},
+                      errorMessage: {$set: null}
                     }
                   }
                 });
               this.setState(updateAvatarVerification);
-              console.log('success');
-            }).catch(() => {
+            }).catch(error => {
               const updateAvatarVerification = update(this.state,
                 {
                   avatarList: {
                     [avatarToEdit]: {
                       verified: {$set: false},
-                      isVerifying: {$set: false}
+                      isVerifying: {$set: false},
+                      errorMessage: {$set: error.message}
                     }
                   }
                 });
               this.setState(updateAvatarVerification);
-              console.log('fail');
             });
         });
       }
@@ -479,6 +479,7 @@ module.exports = class Member extends React.PureComponent {
     const {avatarList, isShowEditModal, avatarToEdit} = this.state;
     // const zoomScale = values.zoom / 100;
     const previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
+    const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
     return (
       <Form>
         <div className="modal-body">
@@ -551,6 +552,15 @@ module.exports = class Member extends React.PureComponent {
               })}
             </div>
           </div>
+          {/* Error message from photo validation */}
+          {errorMessages.map(item => {
+            return (
+              <p key={item[0]} className={classNames('text-size-14 mb-1', 'text-danger')}>
+                {`${_(item[0])}: ${_(item[1].errorMessage)}`}
+              </p>
+            );
+          })}
+
           <hr/>
           {/* <div className="avatar-uploader d-flex flex-column align-items-center">
             <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
