@@ -570,6 +570,7 @@ module.exports = class Member extends React.PureComponent {
           {errorMessages.map(item => {
             return (
               <p key={item[0]} className={classNames('text-size-14 mb-1', 'text-danger')}>
+                <i className="fas fa-exclamation-triangle mr-1"/>
                 {`${_(item[0])}: ${_(item[1].errorMessage)}`}
               </p>
             );
