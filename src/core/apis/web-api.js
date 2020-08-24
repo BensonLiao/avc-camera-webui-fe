@@ -1316,6 +1316,17 @@ module.exports = {
       url: `/api/members/${memberId}`
     }),
     /**
+     * @param {String} picture
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - vectors {String}
+     */
+    validatePicture: picture => api({
+      method: 'post',
+      url: '/api/members/validate-picture',
+      data: {picture}
+    }),
+    /**
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - password {String}

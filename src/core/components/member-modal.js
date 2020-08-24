@@ -301,41 +301,75 @@ module.exports = class Member extends React.PureComponent {
           {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
         this.setState(updateIsVerifying, () => {
           const verifyQueue = [];
-          verifyQueue.push(new Promise((resolve, reject) => {
-            if ((Math.floor(Math.random() * 2) === 0)) {
-              setTimeout(resolve, 3000);
-            } else {
-              setTimeout(() => {
-                reject(new Error('Something failed'));
-              }, 3000);
-            }
-          }));
-          Promise.all(verifyQueue)
-            .then(() => {
-              const updateAvatarVerification = update(this.state,
-                {
-                  avatarList: {
-                    [avatarToEdit]: {
-                      verifyStatus: {$set: true},
-                      isVerifying: {$set: false},
-                      errorMessage: {$set: null}
+          verifyQueue.push(new Promise((resolve, _) => {
+            // if ((Math.floor(Math.random() * 2) === 0)) {
+            //   setTimeout(resolve, 3000);
+            // } else {
+            //   setTimeout(() => {
+            //     reject(new Error('Something failed'));
+            //   }, 3000);
+            // }
+            resolve(utils.convertPicture(avatarList[avatarToEdit].avatarPreviewStyle.background,
+              avatarList[avatarToEdit].avatarPreviewStyle.transform.scale,
+              avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate,
+              avatarList[avatarToEdit].photoOffset,
+              this.editWrapperSize));
+          }).then(data => {
+            api.member.validatePicture(data)
+              .then(() => {
+                const updateAvatarVerification = update(this.state,
+                  {
+                    avatarList: {
+                      [avatarToEdit]: {
+                        verifyStatus: {$set: true},
+                        isVerifying: {$set: false},
+                        errorMessage: {$set: null}
+                      }
                     }
-                  }
-                });
-              this.setState(updateAvatarVerification);
-            }).catch(error => {
-              const updateAvatarVerification = update(this.state,
-                {
-                  avatarList: {
-                    [avatarToEdit]: {
-                      verifyStatus: {$set: false},
-                      isVerifying: {$set: false},
-                      errorMessage: {$set: error.message}
+                  });
+                this.setState(updateAvatarVerification);
+              }).catch(error => {
+                console.log(error);
+                const updateAvatarVerification = update(this.state,
+                  {
+                    avatarList: {
+                      [avatarToEdit]: {
+                        verifyStatus: {$set: false},
+                        isVerifying: {$set: false},
+                        errorMessage: {$set: error.message}
+                      }
                     }
-                  }
-                });
-              this.setState(updateAvatarVerification);
-            });
+                  });
+                this.setState(updateAvatarVerification);
+              });
+          })
+          );
+          Promise.all(verifyQueue);
+          // .then(() => {
+          //   const updateAvatarVerification = update(this.state,
+          //     {
+          //       avatarList: {
+          //         [avatarToEdit]: {
+          //           verifyStatus: {$set: true},
+          //           isVerifying: {$set: false},
+          //           errorMessage: {$set: null}
+          //         }
+          //       }
+          //     });
+          //   this.setState(updateAvatarVerification);
+          // }).catch(error => {
+          //   const updateAvatarVerification = update(this.state,
+          //     {
+          //       avatarList: {
+          //         [avatarToEdit]: {
+          //           verifyStatus: {$set: false},
+          //           isVerifying: {$set: false},
+          //           errorMessage: {$set: error.message}
+          //         }
+          //       }
+          //     });
+          //   this.setState(updateAvatarVerification);
+          // });
         });
       } else if (member && !avatarList[avatarToEdit].verifyStatus) {
         // Photo was edited but restored back to original state, skip verification and reset error message

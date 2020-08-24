@@ -361,6 +361,11 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     db.get('members').remove({id: itemId}).write();
     return mockResponseWithLog(config, [204, {}]);
   })
+  .onPost('/api/members/validate-picture').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      resolve(mockResponseWithLog(config, [200, {vectors: 'HF8W4Ad2saSf33nNS'}]));
+    }, 3000);
+  }))
   .onGet('/api/face-events').reply(config => {
     const data = db.get('faceEvents')
       .filter(value => {
