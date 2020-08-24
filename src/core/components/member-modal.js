@@ -779,24 +779,26 @@ module.exports = class Member extends React.PureComponent {
           <Modal.Footer>
             { avatarToEdit !== 'Primary' && (
               <button
-                className="btn btn-danger btn-block m-0 rounded-pill"
+                className="btn btn-danger btn-block rounded-pill my-0"
                 type="button"
                 onClick={this.onDeleteAvatar}
               >
-                {_('Delete ')}
+                {_('Delete')}
               </button>
             )}
-            <label className="btn btn-outline-primary btn-block m-0 rounded-pill">
-              <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar(avatarToEdit)}/>
-              {_('Change Photo')}
-            </label>
-            <button
-              className="btn btn-primary btn-block m-0 rounded-pill"
-              type="button"
-              onClick={this.verifyPhoto}
-            >
-              {_('Save')}
-            </button>
+            <div>
+              <label className="btn btn-outline-primary btn-block rounded-pill my-0 mr-2">
+                <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar(avatarToEdit)}/>
+                {_('Change Photo')}
+              </label>
+              <button
+                className="btn btn-primary btn-block rounded-pill my-0"
+                type="button"
+                onClick={this.verifyPhoto}
+              >
+                {_('Save')}
+              </button>
+            </div>
           </Modal.Footer>
         </Modal>
       </Form>

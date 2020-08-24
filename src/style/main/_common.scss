@@ -879,6 +879,30 @@ body {
   }
 }
 
+.edit-modal {
+  .modal-dialog {
+    max-width: 540px;
+
+    .modal-footer {
+      div {
+        display: flex;
+        justify-content: center;
+        margin-left: auto;
+      }
+
+      button {
+        width: auto;
+        min-width: 104px;
+      }
+
+      label {
+        width: auto;
+        min-width: 150px;
+      }
+    }
+  }
+}
+
 .avatar-uploader {
   margin-bottom: 25px;
 
