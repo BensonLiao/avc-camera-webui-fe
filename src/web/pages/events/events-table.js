@@ -208,7 +208,7 @@ module.exports = class EventsTable extends React.PureComponent {
                       {event.member ? (
                         <img
                           className="rounded-circle"
-                          src={`data:image/jpeg;base64,${event.member.pictures[0]}`}
+                          src={`data:image/jpeg;base64,${event.member.picture}`}
                           style={{height: '56px'}}
                         />
                       ) : '-'}
