@@ -16,6 +16,7 @@ const MemberValidator = require('../../web/validations/members/member-validator'
 const utils = require('../utils');
 const api = require('../apis/web-api');
 const CustomNotifyModal = require('./custom-notify-modal');
+const CustomTooltip = require('./tooltip');
 
 module.exports = class Member extends React.PureComponent {
   static get propTypes() {
@@ -532,16 +533,20 @@ module.exports = class Member extends React.PureComponent {
                           </>
                         ) : (
                           // Display upload area for new photo
-                          <label className="btn">
-                            <i className="fas fa-plus"/>
-                            <input
-                              disabled={(avatar[0] !== 'Primary') && !primaryBackground}
-                              className="d-none"
-                              type="file"
-                              accept=".jpg,.png"
-                              onChange={this.onChangeAvatar(avatar[0], this.onShowEditModal)}
-                            />
-                          </label>
+                          <CustomTooltip show={(avatar[0] !== 'Primary') && !primaryBackground} title={_('Upload Primary First')}>
+
+                            <label className="btn">
+                              <i className="fas fa-plus"/>
+                              <input
+                                disabled={(avatar[0] !== 'Primary') && !primaryBackground}
+                                className="d-none"
+                                type="file"
+                                accept=".jpg,.png"
+                                onChange={this.onChangeAvatar(avatar[0], this.onShowEditModal)}
+                              />
+                            </label>
+                          </CustomTooltip>
+
                         )}
                     </div>
                     <span>

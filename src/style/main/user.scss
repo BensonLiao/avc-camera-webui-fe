@@ -95,7 +95,7 @@
 
             &:not(.available) {
               label {
-                cursor: default;
+                cursor: not-allowed;
               }
             }
 
