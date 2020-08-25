@@ -99,7 +99,15 @@ module.exports = class Member extends React.PureComponent {
             scale: 1,
             rotate: 0
           },
-          background: props.member ? props.member.pictures[index] ? `data:image/jpeg;base64,${props.member.pictures[index]}` : null : null
+          // Get photo from event, only add to primary avatar (add new member)
+          background: props.defaultPictureUrl && index === 0 ?
+            props.defaultPictureUrl :
+            props.member ?
+              props.member.pictures[index] ?
+              // Get photo from existing member
+                `data:image/jpeg;base64,${props.member.pictures[index]}` :
+                null :
+              null
         },
         avatarFile: null,
         verifyStatus: null,

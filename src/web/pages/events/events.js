@@ -42,6 +42,7 @@ module.exports = class Events extends Base {
     this.state.defaultMemberPictureUrl = null;
     this.state.isShowStartDatePicker = false;
     this.state.isShowEndDatePicker = false;
+    this.state.updateMemberModal = false;
   }
 
   /**
@@ -72,11 +73,12 @@ module.exports = class Events extends Base {
    */
   generateMemberModifyHandler = (member, defaultPictureUrl) => event => {
     event.preventDefault();
-    this.setState({
+    this.setState(prevState => ({
       isShowMemberModal: true,
       currentMember: member,
-      defaultMemberPictureUrl: defaultPictureUrl
-    });
+      defaultMemberPictureUrl: defaultPictureUrl,
+      updateMemberModal: !prevState.updateMemberModal
+    }));
   };
 
   onSubmittedMemberForm = () => {
@@ -161,6 +163,7 @@ module.exports = class Events extends Base {
             </div>
           </div>
           <MemberModal
+            key={this.state.updateMemberModal}
             isApiProcessing={$isApiProcessing}
             isShowModal={isShowMemberModal}
             groups={groups}
