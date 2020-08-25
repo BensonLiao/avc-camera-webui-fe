@@ -63,7 +63,7 @@ module.exports = class Member extends React.PureComponent {
     this.state.pictureRotateDegrees = 0;
     this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
-    this.state.isShowCloseModal = false;
+    this.state.isShowConfirmModal = false;
     this.state.avatarToEdit = 'Primary';
     this.editWrapperSize = 128;
     this.listWrapperSize = 88;
@@ -140,7 +140,7 @@ module.exports = class Member extends React.PureComponent {
   };
 
   onHideConfirmModal = () => {
-    this.setState({isShowCloseModal: false});
+    this.setState({isShowConfirmModal: false});
   }
 
   onShowEditModal = avatarName => {
@@ -148,34 +148,6 @@ module.exports = class Member extends React.PureComponent {
       isShowEditModal: true,
       avatarToEdit: avatarName
     });
-  };
-
-  generateRotatePictureHandler = isClockwise => event => {
-    event.preventDefault();
-    const {avatarToEdit, avatarList} = this.state;
-    const degrees = isClockwise ? 90 : -90;
-    const resetIfAroundTheWorld = avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate === 360 ?
-      0 :
-      avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate;
-    const updateRotation = update(this.state,
-      {
-        avatarList:
-         {
-           [avatarToEdit]:
-            {
-              avatarPreviewStyle:
-               {
-                 transform:
-                  {
-                    rotate:
-                     {$set: resetIfAroundTheWorld + degrees}
-                  }
-               }
-            }
-         }
-      }
-    );
-    this.setState(updateRotation);
   };
 
   onChangeAvatar = (avatarName, callback) => event => {
@@ -270,7 +242,7 @@ module.exports = class Member extends React.PureComponent {
 
   updateBoundary = values => {
     const zoomScale = values.zoom / 100;
-    const calculateBoundary = ((this.editWrapperSize * zoomScale) - this.editWrapperSize) / zoomScale / 4;
+    const calculateBoundary = ((this.editWrapperSize * zoomScale) - this.editWrapperSize) / zoomScale / 2;
     const updateBoundary = update(this.state,
       {
         avatarList: {
@@ -290,16 +262,55 @@ module.exports = class Member extends React.PureComponent {
     this.setState(updateBoundary);
   }
 
+  generateRotatePictureHandler = isClockwise => event => {
+    event.preventDefault();
+    const {
+      avatarToEdit,
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {rotate}}}}
+    } = this.state;
+    const degrees = isClockwise ? 90 : -90;
+    const resetIfAroundTheWorld = rotate === 360 ?
+      0 :
+      rotate;
+    const updateRotation = update(this.state,
+      {
+        avatarList:
+         {
+           [avatarToEdit]:
+            {
+              avatarPreviewStyle:
+               {
+                 transform:
+                  {
+                    rotate:
+                     {$set: resetIfAroundTheWorld + degrees}
+                  }
+               }
+            }
+         }
+      }
+    );
+    this.setState(updateRotation);
+  };
+
   verifyPhoto = () => {
-    const {avatarList, avatarToEdit} = this.state;
+    const {
+      avatarToEdit,
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {scale}}}},
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {rotate}}}},
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {background}}},
+      avatarList: {[avatarToEdit]: {photoOffset}},
+      avatarList: {[avatarToEdit]: {avatarFile}},
+      avatarList: {[avatarToEdit]: {verifyStatus}}
+    } = this.state;
     const {member} = this.props;
     this.setState({isShowEditModal: false}, () => {
-      if (avatarList[avatarToEdit].avatarFile ||
+      if (avatarFile ||
           (member && (
-            avatarList[avatarToEdit].avatarPreviewStyle.transform.scale !== 1 ||
-            avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate !== 0 ||
-            avatarList[avatarToEdit].photoOffset.x !== 0 ||
-            avatarList[avatarToEdit].photoOffset.y !== 0)
+            scale !== 1 ||
+            rotate !== 0 ||
+            photoOffset.x !== 0 ||
+            photoOffset.y !== 0)
           )
       ) {
         // User uploads a new photo or existing photo was edited
@@ -315,10 +326,10 @@ module.exports = class Member extends React.PureComponent {
             //     reject(new Error('Something failed'));
             //   }, 3000);
             // }
-            resolve(utils.convertPicture(avatarList[avatarToEdit].avatarPreviewStyle.background,
-              avatarList[avatarToEdit].avatarPreviewStyle.transform.scale,
-              avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate,
-              avatarList[avatarToEdit].photoOffset,
+            resolve(utils.convertPicture(background,
+              scale,
+              rotate,
+              photoOffset,
               this.editWrapperSize));
           }).then(data => {
             api.member.validatePicture(data)
@@ -376,7 +387,7 @@ module.exports = class Member extends React.PureComponent {
           //   this.setState(updateAvatarVerification);
           // });
         });
-      } else if (member && !avatarList[avatarToEdit].verifyStatus) {
+      } else if (member && !verifyStatus) {
         // Photo was edited but restored back to original state, skip verification and reset error message
         const updateAvatarVerification = update(this.state,
           {
@@ -408,33 +419,40 @@ module.exports = class Member extends React.PureComponent {
     const {defaultPictureUrl, member, onSubmitted} = this.props;
     const tasks = [];
     avatarListArray.forEach((item, index) => {
-      if (item[1].avatarFile) {
+      const {
+        avatarPreviewStyle: {background},
+        avatarPreviewStyle: {transform: {scale}},
+        avatarPreviewStyle: {transform: {rotate}},
+        photoOffset,
+        avatarFile
+      } = item[1];
+      if (avatarFile) {
         // The user upload a file.
         tasks.push(
-          utils.convertPicture(item[1].avatarPreviewStyle.background,
-            item[1].avatarPreviewStyle.transform.scale,
-            item[1].avatarPreviewStyle.transform.rotate,
-            item[1].photoOffset,
+          utils.convertPicture(background,
+            scale,
+            rotate,
+            photoOffset,
             this.editWrapperSize
           )
         );
       } else if (member && (
-        item[1].avatarPreviewStyle.transform.rotate !== 0 ||
-         item[1].avatarPreviewStyle.transform.scale !== 1 ||
-         item[1].photoOffset.x !== 0 ||
-         item[1].photoOffset.y !== 0
+        rotate !== 0 ||
+         scale !== 1 ||
+         photoOffset.x !== 0 ||
+         photoOffset.y !== 0
       )) {
         // The user modify the exist picture.
         tasks.push(
           utils.convertPicture(
-            item[1].avatarPreviewStyle.background,
-            item[1].avatarPreviewStyle.transform.scale,
-            item[1].avatarPreviewStyle.transform.rotate,
-            item[1].photoOffset,
+            background,
+            scale,
+            rotate,
+            photoOffset,
             this.editWrapperSize
           )
         );
-      } else if (member && item[1].avatarPreviewStyle.background) {
+      } else if (member && background) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
       } else if (defaultPictureUrl) {
@@ -442,9 +460,9 @@ module.exports = class Member extends React.PureComponent {
         tasks.push(
           utils.convertPicture(
             defaultPictureUrl,
-            item[1].avatarPreviewStyle.transform.scale,
-            item[1].avatarPreviewStyle.transform.rotate,
-            item[1].photoOffset,
+            scale,
+            rotate,
+            photoOffset,
             this.editWrapperSize
           )
         );
@@ -467,8 +485,16 @@ module.exports = class Member extends React.PureComponent {
 
   formRender = ({errors, touched, values}) => {
     const {isApiProcessing, onHide} = this.props;
-    const {avatarList, isShowEditModal, avatarToEdit, isShowCloseModal} = this.state;
-    // const zoomScale = values.zoom / 100;
+    const {
+      isShowEditModal,
+      isShowConfirmModal,
+      avatarList,
+      avatarToEdit,
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle}},
+      avatarList: {[avatarToEdit]: {photoOffset}},
+      avatarList: {[avatarToEdit]: {boundary}}
+    } = this.state;
+    const {background: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
     return (
@@ -477,36 +503,44 @@ module.exports = class Member extends React.PureComponent {
           <div className="multi-photo-uploader">
             <div className="container d-flex flex-row justify-content-space-between">
               {Object.entries(avatarList).map(avatar => {
+                const {
+                  verifyStatus,
+                  isVerifying,
+                  photoOffset,
+                  avatarPreviewStyle: {background},
+                  avatarPreviewStyle: {transform: {scale}},
+                  avatarPreviewStyle: {transform: {rotate}}
+                } = avatar[1];
                 return (
                   <div key={avatar[0]} className={classNames('individual-item d-flex flex-column')}>
                     <div
                       id="photo-wrapper"
                       className={classNames(
                         'photo-wrapper',
-                        {'dashed-border': !avatar[1].avatarPreviewStyle.background},
-                        avatarList.Primary.avatarPreviewStyle.background && 'available',
-                        {'failed-check': avatar[1].verifyStatus === false}
+                        {'dashed-border': !background},
+                        primaryBackground && 'available',
+                        {'failed-check': verifyStatus === false}
                       )}
                     >
                       <i className={classNames(
                         'fas fa-pen fa-lg fa-fw',
-                        {'d-none': !avatar[1].avatarPreviewStyle.background}
+                        {'d-none': !background}
                       )}
                       />
-                      { avatar[1].avatarPreviewStyle.background ?
+                      { background ?
                         (
                           // Display photo preview and edit button
                           <>
                             <div
                               className={classNames(
                                 'avatar-img',
-                                {'is-verifying': avatar[1].isVerifying}
+                                {'is-verifying': isVerifying}
                               )}
                               style={{
-                                backgroundImage: `url("${avatar[1].avatarPreviewStyle.background}")`,
-                                transform: `scale(${avatar[1].avatarPreviewStyle.transform.scale}) 
-                                            rotate(${avatar[1].avatarPreviewStyle.transform.rotate}deg)
-                                            translate(${avatar[1].photoOffset.x * previewReductionRatio}px, ${avatar[1].photoOffset.y * previewReductionRatio}px`
+                                backgroundImage: `url("${background}")`,
+                                transform: `scale(${scale}) 
+                                            rotate(${rotate}deg)
+                                            translate(${photoOffset.x * previewReductionRatio}px, ${photoOffset.y * previewReductionRatio}px`
                               }}
                               onClick={() => {
                                 this.onShowEditModal(avatar[0]);
@@ -514,7 +548,7 @@ module.exports = class Member extends React.PureComponent {
                             />
                             <div className={classNames(
                               'loading-dots',
-                              {'d-none': !avatar[1].isVerifying}
+                              {'d-none': !isVerifying}
                             )}
                             >
                               <div className="spinner">
@@ -528,7 +562,7 @@ module.exports = class Member extends React.PureComponent {
                           <label className="btn">
                             <i className="fas fa-plus"/>
                             <input
-                              disabled={(avatar[0] !== 'Primary') && !avatarList.Primary.avatarPreviewStyle.background}
+                              disabled={(avatar[0] !== 'Primary') && !primaryBackground}
                               className="d-none"
                               type="file"
                               accept=".jpg,.png"
@@ -628,7 +662,7 @@ module.exports = class Member extends React.PureComponent {
             className="btn btn-info btn-block m-0 rounded-pill"
             type="button"
             onClick={() => {
-              this.setState({isShowCloseModal: true});
+              this.setState({isShowConfirmModal: true});
             }}
           >
             {_('Close')}
@@ -636,8 +670,8 @@ module.exports = class Member extends React.PureComponent {
         </div>
         <CustomNotifyModal
           backdrop="static"
-          isShowModal={isShowCloseModal}
-          modalTitle=""
+          isShowModal={isShowConfirmModal}
+          modalTitle={_('Member')}
           modalBody={_('Are you sure you want to close this window? Any changes you have made will be lost.')}
           onHide={() => {
             this.onHideConfirmModal();
@@ -661,18 +695,23 @@ module.exports = class Member extends React.PureComponent {
           <Modal.Body>
             <div className="avatar-uploader d-flex flex-column align-items-center">
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
-                <div style={{transform: `scale(${avatarList[avatarToEdit].avatarPreviewStyle.transform.scale}) rotate(${avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate}deg)`}}>
+                <div style={{
+                  transform: `scale(${avatarPreviewStyle.transform.scale}) 
+                              rotate(${avatarPreviewStyle.transform.rotate}deg)`
+                }}
+                >
                   <Draggable
-                    bounds={avatarList[avatarToEdit].boundary}
-                    scale={avatarList[avatarToEdit].avatarPreviewStyle.transform.scale}
-                    positionOffset={avatarList[avatarToEdit].photoOffset}
+                    bounds={boundary}
+                    scale={avatarPreviewStyle.transform.scale}
                     onDrag={this.onDraggingMaskArea}
                   >
                     <div
                       className="avatar-img"
                       style={{
-                        transform: `scale(${avatarList[avatarToEdit].avatarPreviewStyle.transform.scale}) rotate(${avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate}deg)`,
-                        backgroundImage: `url("${avatarList[avatarToEdit].avatarPreviewStyle.background}")`
+                        backgroundImage: `url("${avatarPreviewStyle.background}")`,
+                        transform: `scale(${avatarPreviewStyle.transform.scale})
+                                    rotate(${avatarPreviewStyle.transform.rotate}deg)
+                                    translate(${photoOffset.x}px, ${photoOffset.y}px`
                       }}
                     />
                   </Draggable>
