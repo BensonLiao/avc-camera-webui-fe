@@ -76,12 +76,16 @@
               z-index: 9;
             }
 
-            &:hover {
+            &.available:hover {
               cursor: pointer;
 
               &::before {
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.1);
                 opacity: 1;
+              }
+
+              &.has-background::before {
+                background: rgba(0, 0, 0, 0.3);
               }
 
               .fa-pen {
@@ -89,7 +93,13 @@
               }
             }
 
-            &.dashed-border {
+            &:not(.available) {
+              label {
+                cursor: default;
+              }
+            }
+
+            &:not(.has-background) {
               border: 1px dashed $secondary-300;
 
               &.available {
@@ -226,7 +236,12 @@
             i {
               margin: auto;
               color: $secondary-300;
-              font-size: 1.5rem;
+              font-size: 1.75rem;
+
+              &.fa-pen {
+                color: white;
+                font-size: 1.3rem;
+              }
             }
           }
 

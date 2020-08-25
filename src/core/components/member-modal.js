@@ -490,8 +490,8 @@ module.exports = class Member extends React.PureComponent {
                       id="photo-wrapper"
                       className={classNames(
                         'photo-wrapper',
-                        {'dashed-border': !background},
-                        primaryBackground && 'available',
+                        {'has-background': background},
+                        {available: (avatar[0] === 'Primary') || primaryBackground},
                         {'failed-check': verifyStatus === false}
                       )}
                     >
