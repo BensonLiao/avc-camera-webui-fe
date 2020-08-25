@@ -643,6 +643,7 @@ module.exports = class Member extends React.PureComponent {
             this.onHideConfirmModal();
           }}
           onConfirm={() => {
+            this.onHideConfirmModal();
             onHide();
           }}
         />
