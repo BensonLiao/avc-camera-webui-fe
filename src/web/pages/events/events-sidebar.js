@@ -74,10 +74,10 @@ module.exports = class EventsSidebar extends React.PureComponent {
    */
   toggleFilterHandler = (paramKey, value) => () => {
     const params = this.convertArrayParams(this.props.params[paramKey]);
-    const indexOfSimilaritys = params.indexOf(value);
+    const indexOfConfidences = params.indexOf(value);
 
-    if (indexOfSimilaritys >= 0) {
-      params.splice(indexOfSimilaritys, 1);
+    if (indexOfConfidences >= 0) {
+      params.splice(indexOfConfidences, 1);
     } else {
       params.push(value);
     }
