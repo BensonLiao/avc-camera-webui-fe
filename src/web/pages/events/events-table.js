@@ -226,7 +226,7 @@ module.exports = class EventsTable extends React.PureComponent {
                       {event.confidences.length > 0 ? _(`confidence-${event.confidences[0].similarity}`) : '-'}
                     </td>
                     <td>
-                      <CustomTooltip title={event.confidences && event.confidences[0].score && event.confidences[0].score}>
+                      <CustomTooltip title={event.confidences.length > 0 ? event.confidences[0].score || '' : ''}>
                         <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
                           {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
                         </span>
