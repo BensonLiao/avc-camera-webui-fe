@@ -223,7 +223,11 @@ module.exports = class Member extends React.PureComponent {
                   rotate: 0
                 },
                 background: null
-              }
+              },
+              avatarFile: null,
+              verifyStatus: null,
+              isVerifying: false,
+              errorMessage: null
             }
           }
         }
@@ -384,7 +388,7 @@ module.exports = class Member extends React.PureComponent {
     // Fallback check if photos have failed verification or is still verifying
     if (
       avatarListArray.filter(avatar => Boolean(avatar[1].isVerifying)).length ||
-      !avatarListArray.some(avatar => avatar[1].verifyStatus)
+      avatarListArray.some(avatar => avatar[1].verifyStatus === false)
     ) {
       return;
     }
@@ -429,7 +433,7 @@ module.exports = class Member extends React.PureComponent {
       } else if (member && background) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
-      } else if (defaultPictureUrl) {
+      } else if (defaultPictureUrl && index === 0) {
         // Register a member from the event.
         tasks.push(
           utils.convertPicture(
