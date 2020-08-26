@@ -140,6 +140,13 @@ module.exports = class Member extends React.PureComponent {
     };
   };
 
+  componentDidMount() {
+    // Validate event photo on initial load
+    if (this.props.defaultPictureUrl) {
+      this.verifyPhoto();
+    }
+  }
+
   hideApiProcessModal = () => {
     this.setState({isShowApiProcessModal: false});
   };
@@ -316,9 +323,10 @@ module.exports = class Member extends React.PureComponent {
       avatarList: {[avatarToEdit]: {avatarFile}},
       avatarList: {[avatarToEdit]: {verifyStatus}}
     } = this.state;
-    const {member} = this.props;
+    const {member, defaultPictureUrl} = this.props;
     this.setState({isShowEditModal: false}, () => {
       if (avatarFile ||
+          (defaultPictureUrl && background === defaultPictureUrl) ||
           (member && (
             scale !== 1 ||
             rotate !== 0 ||
@@ -326,7 +334,7 @@ module.exports = class Member extends React.PureComponent {
             photoOffset.y !== 0)
           )
       ) {
-        // User uploads a new photo or existing photo was edited
+        // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
         const updateIsVerifying = update(this.state,
           {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
         this.setState(updateIsVerifying, () => {
