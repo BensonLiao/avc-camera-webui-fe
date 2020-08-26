@@ -206,7 +206,7 @@ module.exports = class EventsTable extends React.PureComponent {
                       </div>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      {event.member ? (
+                      {event.member && event.member.picture ? (
                         <img
                           className="rounded-circle"
                           src={`data:image/jpeg;base64,${event.member.picture}`}
@@ -215,21 +215,21 @@ module.exports = class EventsTable extends React.PureComponent {
                       ) : '-'}
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={event.member ? event.member.name : ''}>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.name || '' : ''}>
                         <div>
-                          {event.member ? event.member.name : '-'}
+                          {event.member ? event.member.name || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={event.member ? event.member.group || '-' : ''}>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.group || '' : ''}>
                         <div>
                           {event.member ? event.member.group || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={event.member ? event.member.organization || '-' : ''}>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.organization || '' : ''}>
                         <div>
                           {event.member ? event.member.organization || '-' : '-'}
                         </div>
@@ -250,7 +250,7 @@ module.exports = class EventsTable extends React.PureComponent {
                       }
                     </td>
                     <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={event.member ? event.member.note || '-' : ''}>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.note || '' : ''}>
                         <div>
                           {event.member ? event.member.note || '-' : '-'}
                         </div>
