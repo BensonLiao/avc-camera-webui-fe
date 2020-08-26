@@ -57,8 +57,6 @@ module.exports = class Member extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.state.isIncorrectPicture = null;
-
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
     this.state.pictureRotateDegrees = 0;
@@ -389,7 +387,7 @@ module.exports = class Member extends React.PureComponent {
     });
   }
 
-  onSubmitForm = values => {
+  onSubmitForm = ({validateForm, errors, values}) => {
     const {avatarList} = this.state;
     const avatarListArray = Object.entries(avatarList);
 
@@ -397,14 +395,15 @@ module.exports = class Member extends React.PureComponent {
     if (!avatarList.Primary.avatarPreviewStyle.background) {
       const updateErrorMessage = update(this.state,
         {avatarList: {Primary: {errorMessage: {$set: `${_('Photo is required')}`}}}});
-      this.setState(updateErrorMessage);
+      validateForm().then(this.setState(updateErrorMessage));
       return;
     }
 
-    // Fallback check if photos have failed verification or is still verifying
+    // Fallback check if photos have failed verification, is still verifying, or there are Formik validation errors
     if (
       avatarListArray.filter(avatar => Boolean(avatar[1].isVerifying)).length ||
-      avatarListArray.some(avatar => avatar[1].verifyStatus === false)
+      avatarListArray.some(avatar => avatar[1].verifyStatus === false) ||
+      !utils.isObjectEmpty(errors)
     ) {
       return;
     }
@@ -477,7 +476,7 @@ module.exports = class Member extends React.PureComponent {
       .finally(progress.done);
   };
 
-  formRender = ({errors, touched, values}) => {
+  formRender = ({errors, touched, values, validateForm}) => {
     const {isApiProcessing, onHide} = this.props;
     const {
       isShowEditModal,
@@ -649,8 +648,17 @@ module.exports = class Member extends React.PureComponent {
                 !(errorMessages.length === 0) ||
                 Object.entries(avatarList).filter(item => Boolean(item[1].isVerifying)).length
               }
-              type="submit"
+              type="button"
               className="btn btn-primary btn-block rounded-pill"
+              onClick={() => {
+                // Manually trigger validate form for synchronous error messages
+                touched.name = true;
+                this.onSubmitForm({
+                  validateForm,
+                  errors,
+                  values
+                });
+              }}
             >
               {this.props.member ? _('Confirm') : _('New')}
             </button>
