@@ -151,7 +151,7 @@ module.exports = class EventsTable extends React.PureComponent {
               )
             }
             {
-              events.items.map((event, index) => {
+              events.items.map(event => {
                 const isEnrolled = event.enrollStatus === EnrollStatus.registered;
                 if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
                   event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
@@ -239,7 +239,7 @@ module.exports = class EventsTable extends React.PureComponent {
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
+                    <td className="text-left">
                       <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
                         <button
                           className="btn btn-link"
