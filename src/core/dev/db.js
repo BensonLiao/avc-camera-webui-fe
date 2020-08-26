@@ -419,7 +419,7 @@ module.exports = {
           member: members[0],
           confidences: [
             {
-              score: 50,
+              score: '50',
               similarity: Similarity.low
             }
           ],
@@ -432,7 +432,7 @@ module.exports = {
           enrollStatus: EnrollStatus.unknown,
           confidences: [
             {
-              score: 49,
+              score: '49',
               similarity: Similarity.low
             }
           ],
@@ -446,7 +446,7 @@ module.exports = {
           member: members[1],
           confidences: [
             {
-              score: 56,
+              score: '56',
               similarity: Similarity.medium
             }
           ],
@@ -460,7 +460,7 @@ module.exports = {
           member: members[2],
           confidences: [
             {
-              score: 70,
+              score: '70',
               similarity: Similarity.high
             }
           ],
