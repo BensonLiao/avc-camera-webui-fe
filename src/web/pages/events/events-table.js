@@ -239,15 +239,11 @@ module.exports = class EventsTable extends React.PureComponent {
                       {event.confidences.length > 0 ? _(`confidence-${event.confidences[0].similarity}`) : '-'}
                     </td>
                     <td>
-                      {
-                        event.confidences.length > 0 && (
-                          <CustomTooltip title={event.confidences[0].score}>
-                            <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
-                              {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
-                            </span>
-                          </CustomTooltip>
-                        )
-                      }
+                      <CustomTooltip title={event.confidences && event.confidences[0].score && event.confidences[0].score}>
+                        <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
+                          {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
+                        </span>
+                      </CustomTooltip>
                     </td>
                     <td>
                       <CustomTooltip placement="top-start" title={event.member ? event.member.note || '' : ''}>
