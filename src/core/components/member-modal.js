@@ -68,6 +68,7 @@ module.exports = class Member extends React.PureComponent {
     this.state.avatarToEdit = 'Primary';
     this.editWrapperSize = 128;
     this.listWrapperSize = 88;
+    this.previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
     this.state.boundary = {
       left: 0,
       top: 0,
@@ -76,14 +77,8 @@ module.exports = class Member extends React.PureComponent {
     };
 
     // Initialise avatarList state object
-    const nameList = {
-      Primary: {},
-      'Photo 1': {},
-      'Photo 2': {},
-      'Photo 3': {},
-      'Photo 4': {}
-    };
-    this.state.avatarList = Object.assign({}, ...Object.keys(nameList).map((item, index) => ({
+    const nameList = ['Primary', 'Photo 1', 'Photo 2', 'Photo 3', 'Photo 4'];
+    this.state.avatarList = Object.assign({}, ...nameList.map((item, index) => ({
       [item]: {
         boundary: {
           left: 0,
@@ -166,7 +161,7 @@ module.exports = class Member extends React.PureComponent {
     });
   };
 
-  onChangeAvatar = (avatarName, callback) => event => {
+  onChangeAvatar = (avatarName, loadEditModal) => event => {
     const file = event.target.files[0];
     if (!file) {
       return;
@@ -197,9 +192,9 @@ module.exports = class Member extends React.PureComponent {
         }, `${conditionedImage.type}`);
       })
       .then(() => {
-        // Open
-        if (callback) {
-          callback(avatarName);
+        // Open edit modal for the file user just uploaded
+        if (loadEditModal) {
+          loadEditModal(avatarName);
         }
       })
       .catch(err => {
@@ -391,7 +386,6 @@ module.exports = class Member extends React.PureComponent {
 
   onSubmitForm = values => {
     const {avatarList} = this.state;
-
     const avatarListArray = Object.entries(avatarList);
     // Fallback check if photos have failed verification or is still verifying
     if (
@@ -481,7 +475,6 @@ module.exports = class Member extends React.PureComponent {
       avatarList: {[avatarToEdit]: {boundary}}
     } = this.state;
     const {background: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
-    const previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
     return (
       <Form>
@@ -526,7 +519,7 @@ module.exports = class Member extends React.PureComponent {
                                 backgroundImage: `url("${background}")`,
                                 transform: `scale(${scale}) 
                                             rotate(${rotate}deg)
-                                            translate(${photoOffset.x * previewReductionRatio}px, ${photoOffset.y * previewReductionRatio}px`
+                                            translate(${photoOffset.x * this.previewReductionRatio}px, ${photoOffset.y * this.previewReductionRatio}px`
                               }}
                               onClick={() => {
                                 this.onShowEditModal(avatar[0]);
@@ -570,7 +563,7 @@ module.exports = class Member extends React.PureComponent {
             </div>
           </div>
           {/* Error message from photo validation */}
-          {errorMessages.map(item => {
+          {errorMessages.length !== 0 && errorMessages.map(item => {
             return (
               <p key={item[0]} className={classNames('text-size-14 mb-1', 'text-danger')}>
                 <i className="fas fa-exclamation-triangle mr-1"/>
