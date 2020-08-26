@@ -243,7 +243,10 @@ module.exports = class EventsTable extends React.PureComponent {
                         <button
                           className="btn btn-link"
                           type="button"
-                          onClick={isEnrolled ? modifyMemberHandler(event.member) : modifyMemberHandler(null, event.pictureThumbUrl)}
+                          onClick={isEnrolled ? modifyMemberHandler({
+                            ...event.member,
+                            pictures: [event.member.picture]
+                          }) : modifyMemberHandler(null, event.pictureThumbUrl)}
                         >
                           <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
                         </button>
