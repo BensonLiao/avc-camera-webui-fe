@@ -376,13 +376,6 @@ module.exports = new Router({
         document.title = `${_('Smart Search')} - ${_title}`;
       },
       resolve: {
-        groups: params => {
-          if ((params.type || 'face-recognition') !== 'face-recognition') {
-            return null;
-          }
-
-          return api.group.getGroups().then(response => response.data);
-        },
         faceEvents: params => {
           if ((params.type || 'face-recognition') !== 'face-recognition') {
             return null;

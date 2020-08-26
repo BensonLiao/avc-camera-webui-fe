@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const {getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
-const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
@@ -22,30 +22,23 @@ module.exports = class EventsTable extends React.PureComponent {
           id: PropTypes.string.isRequired,
           pictureThumbUrl: PropTypes.string.isRequired,
           time: PropTypes.string.isRequired,
+          enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
+          member: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            organization: PropTypes.string,
+            groupId: PropTypes.string,
+            note: PropTypes.string,
+            picture: PropTypes.string.isRequired
+          }),
           confidences: PropTypes.arrayOf(PropTypes.shape({
-            score: PropTypes.number.isRequired,
-            confidence: PropTypes.oneOf(Confidence.all()).isRequired,
-            enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
-            member: PropTypes.shape({
-              id: PropTypes.string.isRequired,
-              name: PropTypes.string.isRequired,
-              organization: PropTypes.string,
-              groupId: PropTypes.string,
-              note: PropTypes.string,
-              pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-            })
+            score: PropTypes.string.isRequired,
+            similarity: PropTypes.oneOf(Similarity.all()).isRequired
           }).isRequired).isRequired
         }).isRequired).isRequired
       }).isRequired,
       filterHandler: PropTypes.func.isRequired,
       modifyMemberHandler: PropTypes.func.isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string
-        }).isRequired).isRequired
-      }).isRequired,
       systemDateTime: PropTypes.shape({
         ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
@@ -57,15 +50,6 @@ module.exports = class EventsTable extends React.PureComponent {
     super(props);
     this.currentRoute = getRouter().findRouteByName('web.users.events');
   }
-
-  /**
-   * Find group with its id.
-   * @param {Number} groupId
-   * @returns {Object}
-   */
-  findGroup = groupId => {
-    return this.props.groups.items.find(x => x.id === groupId);
-  };
 
   render() {
     const {params, events, filterHandler, modifyMemberHandler, systemDateTime} = this.props;
@@ -142,10 +126,13 @@ module.exports = class EventsTable extends React.PureComponent {
           <thead>
             <tr className="shadow">
               {tableField.map(item => {
-                const render = item.handler ? (<><a href="#" onClick={item.handler}>{item.title}</a><i className={item.icon}/></>) : item.title;
                 return (
                   <th key={item.title} style={item.width}>
-                    {render}
+                    {
+                      item.handler ?
+                        <><a href="#" onClick={item.handler}>{item.title}</a><i className={item.icon}/></> :
+                        item.title
+                    }
                   </th>
                 );
               })}
@@ -163,11 +150,8 @@ module.exports = class EventsTable extends React.PureComponent {
               )
             }
             {
-              events.items.map((event, index) => {
-                const item = event.confidences[0];
-                const lengthCheck = event.confidences.length;
-                const ifExists = lengthCheck > 0 && item.member;
-                const isEnrolled = lengthCheck > 0 && item.enrollStatus === EnrollStatus.registered;
+              events.items.map(event => {
+                const isEnrolled = event.enrollStatus === EnrollStatus.registered;
                 if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
                   event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
                 } else {
@@ -176,10 +160,10 @@ module.exports = class EventsTable extends React.PureComponent {
 
                 return (
                   <tr key={event.id}>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       {utils.formatDate(event.time, {withSecond: true})}
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       <div style={{
                         width: 56,
                         height: 56
@@ -207,63 +191,62 @@ module.exports = class EventsTable extends React.PureComponent {
                         </div>
                       </div>
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      {ifExists ? (
+                    <td>
+                      {event.member && event.member.picture ? (
                         <img
                           className="rounded-circle"
-                          src={`data:image/jpeg;base64,${item.member.pictures[0]}`}
+                          src={`data:image/jpeg;base64,${event.member.picture}`}
                           style={{height: '56px'}}
                         />
                       ) : '-'}
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={ifExists ? item.member.name : ''}>
+                    <td>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.name || '' : ''}>
                         <div>
-                          {ifExists ? item.member.name : '-'}
+                          {event.member ? event.member.name || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={ifExists ? (this.findGroup(item.member.groupId) || {name: '-'}).name : ''}>
+                    <td>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.group || '' : ''}>
                         <div>
-                          {ifExists ? (this.findGroup(item.member.groupId) || {name: '-'}).name : '-'}
+                          {event.member ? event.member.group || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={ifExists ? item.member.organization || '-' : ''}>
+                    <td>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.organization || '' : ''}>
                         <div>
-                          {ifExists ? item.member.organization || '-' : '-'}
+                          {event.member ? event.member.organization || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      {lengthCheck > 0 ? _(`confidence-${item.confidence}`) : '-'}
+                    <td>
+                      {event.confidences.length > 0 ? _(`confidence-${event.confidences[0].similarity}`) : '-'}
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      {
-                        lengthCheck > 0 && (
-                          <CustomTooltip title={item.score}>
-                            <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
-                              {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
-                            </span>
-                          </CustomTooltip>
-                        )
-                      }
+                    <td>
+                      <CustomTooltip title={event.confidences.length > 0 ? event.confidences[0].score || '' : ''}>
+                        <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
+                          {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
+                        </span>
+                      </CustomTooltip>
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
-                      <CustomTooltip placement="top-start" title={ifExists ? item.member.note || '-' : ''}>
+                    <td>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member.note || '' : ''}>
                         <div>
-                          {ifExists ? item.member.note || '-' : '-'}
+                          {event.member ? event.member.note || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames('text-left', {'border-bottom': index === events.items.length - 1})}>
+                    <td className="text-left">
                       <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
                         <button
                           className="btn btn-link"
                           type="button"
-                          onClick={isEnrolled ? modifyMemberHandler(item.member) : modifyMemberHandler(null, event.pictureThumbUrl)}
+                          onClick={isEnrolled ? modifyMemberHandler({
+                            ...event.member,
+                            pictures: [event.member.picture]
+                          }) : modifyMemberHandler(null, event.pictureThumbUrl)}
                         >
                           <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
                         </button>

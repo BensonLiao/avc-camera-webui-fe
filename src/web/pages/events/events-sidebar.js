@@ -3,7 +3,7 @@ const {Link, getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
 const _ = require('../../../languages');
-const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 
 module.exports = class EventsSidebar extends React.PureComponent {
@@ -12,8 +12,8 @@ module.exports = class EventsSidebar extends React.PureComponent {
       params: PropTypes.shape({
         type: PropTypes.oneOf(['face-recognition', 'age-gender', 'humanoid-detection']),
         confidence: PropTypes.oneOfType([
-          PropTypes.oneOf(Confidence.all()),
-          PropTypes.arrayOf(PropTypes.oneOf(Confidence.all()))
+          PropTypes.oneOf(Similarity.all()),
+          PropTypes.arrayOf(PropTypes.oneOf(Similarity.all()))
         ]),
         enrollStatus: PropTypes.oneOfType([
           PropTypes.oneOf(EnrollStatus.all()),
@@ -98,15 +98,15 @@ module.exports = class EventsSidebar extends React.PureComponent {
     const enrollStatus = this.convertArrayParams(params.enrollStatus);
     const similarityRender = [
       {
-        confidence: Confidence.low,
+        confidence: Similarity.low,
         id: 'input-checkbox-low-similar'
       },
       {
-        confidence: Confidence.medium,
+        confidence: Similarity.medium,
         id: 'input-checkbox-medium-similar'
       },
       {
-        confidence: Confidence.high,
+        confidence: Similarity.high,
         id: 'input-checkbox-high-similar'
       }
     ];

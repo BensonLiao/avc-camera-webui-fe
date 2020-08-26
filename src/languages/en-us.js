@@ -11,9 +11,9 @@ if (!window.languageResource['en-us']) {
     'certificate-type-1': 'Upload Certificate',
     'certificate-type-2': 'Generate Certificate on This Device',
 
-    'confidence-1': 'Low',
-    'confidence-2': 'Medium',
-    'confidence-3': 'High',
+    'confidence-0': 'Low',
+    'confidence-1': 'Medium',
+    'confidence-2': 'High',
 
     'enroll-status-1': 'Registered',
     'enroll-status-2': 'Unknown',

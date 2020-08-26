@@ -25,9 +25,9 @@ if (!window.languageResource['zh-tw']) {
     'certificate-type-1': '自行上傳您的憑證',
     'certificate-type-2': '在此裝置上產生憑證',
 
-    'confidence-1': '低',
-    'confidence-2': '中',
-    'confidence-3': '高',
+    'confidence-0': '低',
+    'confidence-1': '中',
+    'confidence-2': '高',
 
     'enroll-status-1': '成功',
     'enroll-status-2': '未知',
