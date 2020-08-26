@@ -365,7 +365,7 @@ module.exports = class Member extends React.PureComponent {
                         [avatarToEdit]: {
                           verifyStatus: {$set: false},
                           isVerifying: {$set: false},
-                          errorMessage: {$set: error.response.data.message.replace('Error: ', '')}
+                          errorMessage: {$set: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')}
                         }
                       }
                     });
@@ -396,7 +396,7 @@ module.exports = class Member extends React.PureComponent {
     // Output error message if primary photo is missing
     if (!avatarList.Primary.avatarPreviewStyle.background) {
       const updateErrorMessage = update(this.state,
-        {avatarList: {Primary: {errorMessage: {$set: `${_('Primary photo is required')}`}}}});
+        {avatarList: {Primary: {errorMessage: {$set: `${_('Photo is required')}`}}}});
       this.setState(updateErrorMessage);
       return;
     }
