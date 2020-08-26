@@ -40,13 +40,6 @@ module.exports = class EventsTable extends React.PureComponent {
       }).isRequired,
       filterHandler: PropTypes.func.isRequired,
       modifyMemberHandler: PropTypes.func.isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string
-        }).isRequired).isRequired
-      }).isRequired,
       systemDateTime: PropTypes.shape({
         ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
@@ -58,15 +51,6 @@ module.exports = class EventsTable extends React.PureComponent {
     super(props);
     this.currentRoute = getRouter().findRouteByName('web.users.events');
   }
-
-  /**
-   * Find group with its id.
-   * @param {Number} groupId
-   * @returns {Object}
-   */
-  findGroup = groupId => {
-    return this.props.groups.items.find(x => x.id === groupId);
-  };
 
   render() {
     const {params, events, filterHandler, modifyMemberHandler, systemDateTime} = this.props;
