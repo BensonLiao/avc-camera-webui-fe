@@ -174,10 +174,10 @@ module.exports = class EventsTable extends React.PureComponent {
 
                 return (
                   <tr key={event.id}>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       {utils.formatDate(event.time, {withSecond: true})}
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       <div style={{
                         width: 56,
                         height: 56
@@ -205,7 +205,7 @@ module.exports = class EventsTable extends React.PureComponent {
                         </div>
                       </div>
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       {event.member && event.member.picture ? (
                         <img
                           className="rounded-circle"
@@ -214,31 +214,31 @@ module.exports = class EventsTable extends React.PureComponent {
                         />
                       ) : '-'}
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       <CustomTooltip placement="top-start" title={event.member ? event.member.name || '' : ''}>
                         <div>
                           {event.member ? event.member.name || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       <CustomTooltip placement="top-start" title={event.member ? event.member.group || '' : ''}>
                         <div>
                           {event.member ? event.member.group || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       <CustomTooltip placement="top-start" title={event.member ? event.member.organization || '' : ''}>
                         <div>
                           {event.member ? event.member.organization || '-' : '-'}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       {event.confidences.length > 0 ? _(`confidence-${event.confidences[0].similarity}`) : '-'}
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       {
                         event.confidences.length > 0 && (
                           <CustomTooltip title={event.confidences[0].score}>
@@ -249,7 +249,7 @@ module.exports = class EventsTable extends React.PureComponent {
                         )
                       }
                     </td>
-                    <td className={classNames({'border-bottom': index === events.items.length - 1})}>
+                    <td>
                       <CustomTooltip placement="top-start" title={event.member ? event.member.note || '' : ''}>
                         <div>
                           {event.member ? event.member.note || '-' : '-'}
