@@ -319,7 +319,13 @@ module.exports = class Member extends React.PureComponent {
       avatarList: {[avatarToEdit]: {verifyStatus}}
     } = this.state;
     const {member, defaultPictureUrl} = this.props;
-    this.setState({isShowEditModal: false}, () => {
+    const resetErrorMessage = update(this.state,
+      {
+        isShowEditModal: {$set: false},
+        avatarList: {[avatarToEdit]: {errorMessage: {$set: null}}}
+      });
+
+    this.setState(resetErrorMessage, () => {
       if (avatarFile ||
           (defaultPictureUrl && background === defaultPictureUrl) ||
           (member && (
@@ -387,6 +393,15 @@ module.exports = class Member extends React.PureComponent {
   onSubmitForm = values => {
     const {avatarList} = this.state;
     const avatarListArray = Object.entries(avatarList);
+
+    // Output error message if primary photo is missing
+    if (!avatarList.Primary.avatarPreviewStyle.background) {
+      const updateErrorMessage = update(this.state,
+        {avatarList: {Primary: {errorMessage: {$set: `${_('Primary photo is required')}`}}}});
+      this.setState(updateErrorMessage);
+      return;
+    }
+
     // Fallback check if photos have failed verification or is still verifying
     if (
       avatarListArray.filter(avatar => Boolean(avatar[1].isVerifying)).length ||
