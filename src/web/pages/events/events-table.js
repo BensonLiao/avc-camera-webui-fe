@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const {getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
-const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
@@ -22,19 +22,20 @@ module.exports = class EventsTable extends React.PureComponent {
           id: PropTypes.string.isRequired,
           pictureThumbUrl: PropTypes.string.isRequired,
           time: PropTypes.string.isRequired,
+          enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
           confidences: PropTypes.arrayOf(PropTypes.shape({
             score: PropTypes.number.isRequired,
-            confidence: PropTypes.oneOf(Confidence.all()).isRequired,
-            enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
+            similarity: PropTypes.oneOf(Similarity.all()).isRequired,
             member: PropTypes.shape({
               id: PropTypes.string.isRequired,
               name: PropTypes.string.isRequired,
               organization: PropTypes.string,
               groupId: PropTypes.string,
               note: PropTypes.string,
-              pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+              picture: PropTypes.string.isRequired
             })
-          }).isRequired).isRequired
+          }).isRequired).isRequired,
+          isFake: PropTypes.bool.isRequired
         }).isRequired).isRequired
       }).isRequired,
       filterHandler: PropTypes.func.isRequired,

@@ -11,6 +11,8 @@ const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
+const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const defaultPhotos = require('./default-photos');
 
 const adapter = new LocalStorage('db');
@@ -41,7 +43,8 @@ const members = [
     note: '"Let me put you on hold."',
     pictures: [
       defaultPhotos.user.scarlett
-    ]
+    ],
+    picture: defaultPhotos.user.scarlett
   },
   {
     id: uuidv4(),
@@ -51,7 +54,8 @@ const members = [
     note: 'Has No Nuclear Weapon',
     pictures: [
       defaultPhotos.user.kim
-    ]
+    ],
+    picture: defaultPhotos.user.kim
   },
   {
     id: uuidv4(),
@@ -61,7 +65,8 @@ const members = [
     note: 'Iron Man',
     pictures: [
       defaultPhotos.user.elon
-    ]
+    ],
+    picture: defaultPhotos.user.elon
   }
 ];
 
@@ -410,52 +415,57 @@ module.exports = {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.scarlett,
           time: '2019-10-02T12:00:00.000Z',
+          enrollStatus: EnrollStatus.registered,
+          member: members[0],
           confidences: [
             {
               score: 50,
-              confidence: '1',
-              enrollStatus: '1',
-              member: members[0]
+              similarity: Similarity.low
             }
-          ]
+          ],
+          isFake: false
         },
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.jackman,
           time: '2020-01-02T12:00:00.000Z',
+          enrollStatus: EnrollStatus.unknown,
           confidences: [
             {
               score: 49,
-              confidence: '1',
-              enrollStatus: '2'
+              similarity: Similarity.low
             }
-          ]
+          ],
+          isFake: false
         },
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.kim,
           time: '2020-02-02T12:00:00.000Z',
+          enrollStatus: EnrollStatus.registered,
+          member: members[1],
           confidences: [
             {
               score: 56,
-              confidence: '2',
-              enrollStatus: '1',
+              similarity: Similarity.medium,
               member: members[1]
             }
-          ]
+          ],
+          isFake: false
         },
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.elon,
           time: '2020-03-03T12:00:00.000Z',
+          enrollStatus: EnrollStatus.registered,
+          member: members[2],
           confidences: [
             {
               score: 70,
-              confidence: '3',
-              enrollStatus: '1',
-              member: members[2]
+              similarity: Similarity.high
             }
-          ]
+          ],
+          isFake: false
         }
       ],
       users: [

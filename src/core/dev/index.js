@@ -1,7 +1,7 @@
 const axios = require('axios');
 const MockAdapter = require('axios-mock-adapter');
 const uuidv4 = require('uuid/v4');
-const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 
 /**
@@ -377,44 +377,44 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
             switch (config.params.confidence) {
               default:
                 return true;
-              case Confidence.low:
+              case Similarity.low:
                 return value.confidences[0].score < 55;
-              case Confidence.medium:
+              case Similarity.medium:
                 return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
-              case Confidence.high:
+              case Similarity.high:
                 return value.confidences[0].score >= 65;
             }
           }
 
           if (isArray(config.params.confidence)) {
-            if (config.params.confidence.length === Confidence.all().length) {
+            if (config.params.confidence.length === Similarity.all().length) {
               return true;
             }
 
-            if (config.params.confidence.indexOf(Confidence.low) > 0 &&
-            config.params.confidence.indexOf(Confidence.medium) > 0) {
+            if (config.params.confidence.indexOf(Similarity.low) > 0 &&
+            config.params.confidence.indexOf(Similarity.medium) > 0) {
               return value.confidences[0].score < 65;
             }
 
-            if (config.params.confidence.indexOf(Confidence.low) > 0 &&
-            config.params.confidence.indexOf(Confidence.high) > 0) {
+            if (config.params.confidence.indexOf(Similarity.low) > 0 &&
+            config.params.confidence.indexOf(Similarity.high) > 0) {
               return value.confidences[0].score < 55 || value.confidences[0].score >= 65;
             }
 
-            if (config.params.confidence.indexOf(Confidence.medium) > 0 &&
-            config.params.confidence.indexOf(Confidence.high) > 0) {
+            if (config.params.confidence.indexOf(Similarity.medium) > 0 &&
+            config.params.confidence.indexOf(Similarity.high) > 0) {
               return value.confidences[0].score >= 55;
             }
 
-            if (config.params.confidence.indexOf(Confidence.low) > 0) {
+            if (config.params.confidence.indexOf(Similarity.low) > 0) {
               return value.confidences[0].score < 55;
             }
 
-            if (config.params.confidence.indexOf(Confidence.medium) > 0) {
+            if (config.params.confidence.indexOf(Similarity.medium) > 0) {
               return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
             }
 
-            if (config.params.confidence.indexOf(Confidence.high) > 0) {
+            if (config.params.confidence.indexOf(Similarity.high) > 0) {
               return value.confidences[0].score >= 65;
             }
           }
