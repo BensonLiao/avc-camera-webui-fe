@@ -23,17 +23,17 @@ module.exports = class EventsTable extends React.PureComponent {
           pictureThumbUrl: PropTypes.string.isRequired,
           time: PropTypes.string.isRequired,
           enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
+          member: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            organization: PropTypes.string,
+            groupId: PropTypes.string,
+            note: PropTypes.string,
+            picture: PropTypes.string.isRequired
+          }),
           confidences: PropTypes.arrayOf(PropTypes.shape({
             score: PropTypes.number.isRequired,
-            similarity: PropTypes.oneOf(Similarity.all()).isRequired,
-            member: PropTypes.shape({
-              id: PropTypes.string.isRequired,
-              name: PropTypes.string.isRequired,
-              organization: PropTypes.string,
-              groupId: PropTypes.string,
-              note: PropTypes.string,
-              picture: PropTypes.string.isRequired
-            })
+            similarity: PropTypes.oneOf(Similarity.all()).isRequired
           }).isRequired).isRequired,
           isFake: PropTypes.bool.isRequired
         }).isRequired).isRequired

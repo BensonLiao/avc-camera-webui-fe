@@ -447,8 +447,7 @@ module.exports = {
           confidences: [
             {
               score: 56,
-              similarity: Similarity.medium,
-              member: members[1]
+              similarity: Similarity.medium
             }
           ],
           isFake: false
