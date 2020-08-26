@@ -34,8 +34,7 @@ module.exports = class EventsTable extends React.PureComponent {
           confidences: PropTypes.arrayOf(PropTypes.shape({
             score: PropTypes.string.isRequired,
             similarity: PropTypes.oneOf(Similarity.all()).isRequired
-          }).isRequired).isRequired,
-          isFake: PropTypes.bool.isRequired
+          }).isRequired).isRequired
         }).isRequired).isRequired
       }).isRequired,
       filterHandler: PropTypes.func.isRequired,
