@@ -3,7 +3,7 @@ const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
 const loadImage = require('blueimp-load-image');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Draggable = require('react-draggable').default;
 const Modal = require('react-bootstrap/Modal').default;
 const update = require('immutability-helper');
@@ -595,11 +595,7 @@ module.exports = class Member extends React.PureComponent {
               maxLength={MemberSchema.name.max}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
             />
-            {
-              errors.name && touched.name && (
-                <div className="invalid-feedback">{errors.name}</div>
-              )
-            }
+            <ErrorMessage component="div" name="name" className="invalid-feedback"/>
           </div>
           <div className="form-group">
             <label>{_('Organization')}</label>
@@ -610,11 +606,7 @@ module.exports = class Member extends React.PureComponent {
               maxLength={MemberSchema.organization.max}
               className={classNames('form-control', {'is-invalid': errors.organization && touched.organization})}
             />
-            {
-              errors.organization && touched.organization && (
-                <div className="invalid-feedback">{errors.organization}</div>
-              )
-            }
+            <ErrorMessage component="div" name="organization" className="invalid-feedback"/>
             <small className="form-text text-muted">{_('Letters within 32 characters.')}</small>
           </div>
           <SelectField labelName={_('Group')} wrapperClassName="px-2" name="group">
@@ -632,11 +624,7 @@ module.exports = class Member extends React.PureComponent {
               maxLength={MemberSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
             />
-            {
-              errors.note && touched.note && (
-                <div className="invalid-feedback">{errors.note}</div>
-              )
-            }
+            <ErrorMessage component="div" name="note" className="invalid-feedback"/>
           </div>
         </div>
         <div className="modal-footer flex-column">
