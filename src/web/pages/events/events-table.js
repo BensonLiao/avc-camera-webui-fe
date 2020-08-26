@@ -127,10 +127,13 @@ module.exports = class EventsTable extends React.PureComponent {
           <thead>
             <tr className="shadow">
               {tableField.map(item => {
-                const render = item.handler ? (<><a href="#" onClick={item.handler}>{item.title}</a><i className={item.icon}/></>) : item.title;
                 return (
                   <th key={item.title} style={item.width}>
-                    {render}
+                    {
+                      item.handler ?
+                        <><a href="#" onClick={item.handler}>{item.title}</a><i className={item.icon}/></> :
+                        item.title
+                    }
                   </th>
                 );
               })}
