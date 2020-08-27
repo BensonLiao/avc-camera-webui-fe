@@ -63,6 +63,7 @@ module.exports = class Member extends React.PureComponent {
     this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
     this.state.isShowConfirmModal = false;
+    this.state.preEditState = null;
     this.state.avatarToEdit = 'Primary';
     this.editWrapperSize = 128;
     this.listWrapperSize = 88;
@@ -144,8 +145,13 @@ module.exports = class Member extends React.PureComponent {
     this.setState({isShowApiProcessModal: false});
   };
 
-  onHideEditModal = () => {
-    this.setState({isShowEditModal: false});
+  onHideEditModalAndRevertChanges = () => {
+    const updateState = update(this.state,
+      {
+        isShowEditModal: {$set: false},
+        avatarList: {[this.state.avatarToEdit]: {$set: this.state.preEditState}}
+      });
+    this.setState(updateState);
   };
 
   onHideConfirmModal = () => {
@@ -153,10 +159,13 @@ module.exports = class Member extends React.PureComponent {
   }
 
   onShowEditModal = avatarName => {
-    this.setState({
-      isShowEditModal: true,
-      avatarToEdit: avatarName
-    });
+    const updateState = update(this.state,
+      {
+        isShowEditModal: {$set: true},
+        avatarToEdit: {$set: avatarName},
+        preEditState: {$set: this.state.avatarList[avatarName]}
+      });
+    this.setState(updateState);
   };
 
   onChangeAvatar = (avatarName, loadEditModal) => event => {
@@ -204,6 +213,7 @@ module.exports = class Member extends React.PureComponent {
   onDeleteAvatar = () => {
     const deleteAvatar = update(this.state,
       {
+        isShowEditModal: {$set: false},
         avatarList: {
           [this.state.avatarToEdit]: {
             $set: {
@@ -233,7 +243,6 @@ module.exports = class Member extends React.PureComponent {
         }
       });
     this.setState(deleteAvatar);
-    this.onHideEditModal();
   }
 
   onDraggingMaskArea = (event, data) => {
@@ -399,10 +408,11 @@ module.exports = class Member extends React.PureComponent {
       return;
     }
 
-    // Fallback check if photos have failed verification, is still verifying, or there are Formik validation errors
+    // Fallback check if photos have failed verification, is still verifying, not yet verified, or there are Formik validation errors
     if (
       avatarListArray.filter(avatar => Boolean(avatar[1].isVerifying)).length ||
       avatarListArray.some(avatar => avatar[1].verifyStatus === false) ||
+      avatarListArray.some(avatar => (avatar[1].verifyStatus === null && avatar[1].avatarPreviewStyle.background)) ||
       !utils.isObjectEmpty(errors)
     ) {
       return;
@@ -667,9 +677,7 @@ module.exports = class Member extends React.PureComponent {
           isShowModal={isShowConfirmModal}
           modalTitle={_('Member')}
           modalBody={_('Are you sure you want to close this window? Any changes you have made will be lost.')}
-          onHide={() => {
-            this.onHideConfirmModal();
-          }}
+          onHide={this.onHideConfirmModal}
           onConfirm={() => {
             this.onHideConfirmModal();
             onHide();
@@ -681,7 +689,7 @@ module.exports = class Member extends React.PureComponent {
           show={isShowEditModal}
           className="edit-modal"
           backdrop="static"
-          onHide={this.onHideEditModal}
+          onHide={this.onHideEditModalAndRevertChanges}
         >
           <Modal.Header closeButton className="d-flex justify-content-between align-items-center">
             <Modal.Title as="h5">{_('Photo Editor')}</Modal.Title>
