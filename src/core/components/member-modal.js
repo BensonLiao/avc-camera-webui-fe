@@ -291,9 +291,7 @@ module.exports = class Member extends React.PureComponent {
       avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {rotate}}}}
     } = this.state;
     const degrees = isClockwise ? 90 : -90;
-    const resetIfAroundTheWorld = rotate === 360 ?
-      0 :
-      rotate;
+    const resetIfAroundTheWorld = rotate === 360 ? 0 : rotate;
     const updateRotation = update(this.state,
       {
         avatarList:
@@ -700,7 +698,8 @@ module.exports = class Member extends React.PureComponent {
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
                 <div style={{
                   transform: `scale(${avatarPreviewStyle.transform.scale}) 
-                              rotate(${avatarPreviewStyle.transform.rotate}deg)`
+                              rotate(${avatarPreviewStyle.transform.rotate}deg)`,
+                  transition: '0.2s'
                 }}
                 >
                   <Draggable
