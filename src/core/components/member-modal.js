@@ -410,7 +410,7 @@ module.exports = class Member extends React.PureComponent {
     if (
       avatarListArray.filter(avatar => Boolean(avatar[1].isVerifying)).length ||
       avatarListArray.some(avatar => avatar[1].verifyStatus === false) ||
-      avatarListArray.some(avatar => (avatar[1].verifyStatus === null && avatar[1].avatarPreviewStyle.background)) ||
+      avatarListArray.some(avatar => (avatar[1].verifyStatus === null && avatar[1].avatarFile)) ||
       !utils.isObjectEmpty(errors)
     ) {
       return;
@@ -699,7 +699,7 @@ module.exports = class Member extends React.PureComponent {
                 <div style={{
                   transform: `scale(${avatarPreviewStyle.transform.scale}) 
                               rotate(${avatarPreviewStyle.transform.rotate}deg)`,
-                  transition: '0.2s'
+                  transition: '0.1s'
                 }}
                 >
                   <Draggable
