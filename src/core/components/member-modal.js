@@ -291,7 +291,6 @@ module.exports = class Member extends React.PureComponent {
       avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {rotate}}}}
     } = this.state;
     const degrees = isClockwise ? 90 : -90;
-    const resetIfAroundTheWorld = rotate === 360 ? 0 : rotate;
     const updateRotation = update(this.state,
       {
         avatarList:
@@ -303,7 +302,8 @@ module.exports = class Member extends React.PureComponent {
                  transform:
                   {
                     rotate:
-                     {$set: resetIfAroundTheWorld + degrees}
+                    // reset rotation if photo rotates a full circle
+                     {$set: rotate + degrees === 360 || rotate + degrees === -360 ? 0 : rotate + degrees}
                   }
                }
             }
