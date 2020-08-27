@@ -698,23 +698,18 @@ module.exports = class Member extends React.PureComponent {
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
                 <div style={{
                   transform: `scale(${avatarPreviewStyle.transform.scale}) 
-                              rotate(${avatarPreviewStyle.transform.rotate}deg)`,
-                  transition: '0.1s'
+                              rotate(${avatarPreviewStyle.transform.rotate}deg)`
                 }}
                 >
                   <Draggable
                     bounds={boundary}
                     scale={avatarPreviewStyle.transform.scale}
+                    defaultPosition={photoOffset}
                     onDrag={this.onDraggingMaskArea}
                   >
                     <div
                       className="avatar-img"
-                      style={{
-                        backgroundImage: `url("${avatarPreviewStyle.background}")`,
-                        transform: `scale(${avatarPreviewStyle.transform.scale})
-                                    rotate(${avatarPreviewStyle.transform.rotate}deg)
-                                    translate(${photoOffset.x}px, ${photoOffset.y}px`
-                      }}
+                      style={{backgroundImage: `url("${avatarPreviewStyle.background}")`}}
                     />
                   </Draggable>
                 </div>
