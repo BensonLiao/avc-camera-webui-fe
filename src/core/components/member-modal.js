@@ -316,12 +316,7 @@ module.exports = class Member extends React.PureComponent {
   verifyPhoto = () => {
     const {
       avatarToEdit,
-      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {scale}}}},
-      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {rotate}}}},
-      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {background}}},
-      avatarList: {[avatarToEdit]: {photoOffset}},
-      avatarList: {[avatarToEdit]: {avatarFile}},
-      avatarList: {[avatarToEdit]: {verifyStatus}}
+      avatarList: {[avatarToEdit]: {avatarFile, verifyStatus, photoOffset, avatarPreviewStyle: {background, transform: {rotate, scale}}}}
     } = this.state;
     const {member, defaultPictureUrl} = this.props;
     const resetErrorMessage = update(this.state,
@@ -421,9 +416,7 @@ module.exports = class Member extends React.PureComponent {
     const tasks = [];
     avatarListArray.forEach((item, index) => {
       const {
-        avatarPreviewStyle: {background},
-        avatarPreviewStyle: {transform: {scale}},
-        avatarPreviewStyle: {transform: {rotate}},
+        avatarPreviewStyle: {background, transform: {scale, rotate}},
         photoOffset,
         avatarFile
       } = item[1];
@@ -491,9 +484,7 @@ module.exports = class Member extends React.PureComponent {
       isShowConfirmModal,
       avatarList,
       avatarToEdit,
-      avatarList: {[avatarToEdit]: {avatarPreviewStyle}},
-      avatarList: {[avatarToEdit]: {photoOffset}},
-      avatarList: {[avatarToEdit]: {boundary}}
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle, photoOffset, boundary}}
     } = this.state;
     const {background: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
@@ -507,9 +498,7 @@ module.exports = class Member extends React.PureComponent {
                   verifyStatus,
                   isVerifying,
                   photoOffset,
-                  avatarPreviewStyle: {background},
-                  avatarPreviewStyle: {transform: {scale}},
-                  avatarPreviewStyle: {transform: {rotate}}
+                  avatarPreviewStyle: {background, transform: {scale, rotate}}
                 } = avatar[1];
                 return (
                   <div key={avatar[0]} className={classNames('individual-item d-flex flex-column')}>
