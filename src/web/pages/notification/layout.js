@@ -48,14 +48,6 @@ module.exports = class Notification extends Base {
               </a>
               <div id="basic-settings" className="collapse show" data-parent="#accordion-notification-menu">
                 <Link
-                  className={classNames('nav-link', {active: currentRouteName === 'web.notification.app'})}
-                  to="/notification/app"
-                  title={_('App')}
-                >
-                  {_('App')}
-                </Link>
-
-                <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.notification.smtp'})}
                   to="/notification/smtp"
                   title={_('Mail')}
