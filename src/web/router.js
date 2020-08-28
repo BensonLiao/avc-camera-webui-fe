@@ -194,18 +194,6 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.notification.app',
-      uri: '/app',
-      onEnter: () => {
-        document.title = `${_('Notification settings')} - ${_title}`;
-      },
-      resolve: {appSettings: () => api.notification.getAppSettings().then(response => response.data)},
-      loadComponent: () => import(
-        /* webpackChunkName: "page-notification" */
-        './pages/notification/app'
-      )
-    },
-    {
       name: 'web.smart',
       uri: '/analytic',
       onEnter: () => {
