@@ -1,7 +1,7 @@
 const React = require('react');
 const progress = require('nprogress');
 const PropTypes = require('prop-types');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form} = require('formik');
 const {Link, getRouter} = require('capybara-router');
 const Base = require('../shared/base');
 const HDMISettingsSchema = require('webserver-form-schema/hdmi-settings-schema');
