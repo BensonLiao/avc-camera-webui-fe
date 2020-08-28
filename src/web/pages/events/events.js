@@ -7,6 +7,7 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
 const Pagination = require('../../../core/components/pagination');
+const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const EventsSidebar = require('./events-sidebar');
 const EventsSearchForm = require('./event-search-form');
@@ -65,18 +66,33 @@ module.exports = class Events extends Base {
   };
 
   /**
-   * Generate the handler to modify `member`.
-   * @param {Object} member
+   * Generate the handler to add `member`.
    * @param {*} defaultPictureUrl
    * @returns {Function} The handler.
    */
-  generateMemberModifyHandler = (member, defaultPictureUrl) => event => {
+  generateMemberAddHandler = defaultPictureUrl => event => {
     event.preventDefault();
     this.setState({
       isShowMemberModal: true,
-      currentMember: member,
+      currentMember: null,
       defaultMemberPictureUrl: defaultPictureUrl
     });
+  };
+
+  /**
+   * Generate the handler to modify `member`.
+   * @param {String} memberId
+   * @returns {Function} The handler.
+   */
+  generateMemberModifyHandler = memberId => event => {
+    event.preventDefault();
+    api.member.getMember(memberId)
+      .then(response => {
+        this.setState({
+          isShowMemberModal: true,
+          currentMember: response.data
+        });
+      });
   };
 
   onSubmittedMemberForm = () => {
@@ -148,6 +164,7 @@ module.exports = class Events extends Base {
                   groups={groups}
                   systemDateTime={systemDateTime}
                   filterHandler={this.generateChangeFilterHandler}
+                  addMemberHandler={this.generateMemberAddHandler}
                   modifyMemberHandler={this.generateMemberModifyHandler}
                 />
                 <Pagination

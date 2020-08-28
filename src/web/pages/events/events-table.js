@@ -38,6 +38,7 @@ module.exports = class EventsTable extends React.PureComponent {
         }).isRequired).isRequired
       }).isRequired,
       filterHandler: PropTypes.func.isRequired,
+      addMemberHandler: PropTypes.func.isRequired,
       modifyMemberHandler: PropTypes.func.isRequired,
       systemDateTime: PropTypes.shape({
         ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
@@ -52,7 +53,14 @@ module.exports = class EventsTable extends React.PureComponent {
   }
 
   render() {
-    const {params, events, filterHandler, modifyMemberHandler, systemDateTime} = this.props;
+    const {
+      params,
+      events,
+      filterHandler,
+      addMemberHandler,
+      modifyMemberHandler,
+      systemDateTime
+    } = this.props;
     const defaultIconClass = 'fas fa-fw text-muted ml-3';
     const tableField = [
       {
@@ -243,10 +251,7 @@ module.exports = class EventsTable extends React.PureComponent {
                         <button
                           className="btn btn-link"
                           type="button"
-                          onClick={isEnrolled ? modifyMemberHandler({
-                            ...event.member,
-                            pictures: [event.member.picture]
-                          }) : modifyMemberHandler(null, event.pictureThumbUrl)}
+                          onClick={isEnrolled ? modifyMemberHandler(event.member.id) : addMemberHandler(event.pictureThumbUrl)}
                         >
                           <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
                         </button>
