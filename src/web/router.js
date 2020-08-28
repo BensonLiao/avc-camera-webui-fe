@@ -104,6 +104,18 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.media.hdmi',
+      uri: '/hdmi',
+      onEnter: () => {
+        document.title = `${_('HDMI Settings')} - ${_('Multimedia Settings')} - ${_title}`;
+      },
+      resolve: {hdmiSettings: () => api.multimedia.getHDMISettings().then(response => response.data)},
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/hdmi'
+      )
+    },
+    {
       name: 'web.media.word',
       uri: '/word',
       onEnter: () => {
@@ -179,18 +191,6 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-notification" */
         './pages/notification/cards'
-      )
-    },
-    {
-      name: 'web.notification.app',
-      uri: '/app',
-      onEnter: () => {
-        document.title = `${_('Notification settings')} - ${_title}`;
-      },
-      resolve: {appSettings: () => api.notification.getAppSettings().then(response => response.data)},
-      loadComponent: () => import(
-        /* webpackChunkName: "page-notification" */
-        './pages/notification/app'
       )
     },
     {
@@ -364,13 +364,6 @@ module.exports = new Router({
         document.title = `${_('Smart Search')} - ${_title}`;
       },
       resolve: {
-        groups: params => {
-          if ((params.type || 'face-recognition') !== 'face-recognition') {
-            return null;
-          }
-
-          return api.group.getGroups().then(response => response.data);
-        },
         faceEvents: params => {
           if ((params.type || 'face-recognition') !== 'face-recognition') {
             return null;

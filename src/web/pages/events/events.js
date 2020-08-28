@@ -1,7 +1,7 @@
 const PropTypes = require('prop-types');
 const React = require('react');
 const {getRouter} = require('capybara-router');
-const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
@@ -18,8 +18,8 @@ module.exports = class Events extends Base {
       params: PropTypes.shape({
         type: PropTypes.oneOf(['face-recognition', 'age-gender', 'humanoid-detection']),
         confidence: PropTypes.oneOfType([
-          PropTypes.oneOf(Confidence.all()),
-          PropTypes.arrayOf(PropTypes.oneOf(Confidence.all()))
+          PropTypes.oneOf(Similarity.all()),
+          PropTypes.arrayOf(PropTypes.oneOf(Similarity.all()))
         ]),
         enrollStatus: PropTypes.oneOfType([
           PropTypes.oneOf(EnrollStatus.all()),

@@ -106,8 +106,7 @@ module.exports = class TCPIP extends Base {
           utils.pingToCheckShutdown(resolve, 1000);
         }))
         .then(() => {
-        // Keep modal and update the title.
-          this.setState({apiProcessModalTitle: _('Device Rebooting')});
+        // Check startup and reload
           utils.pingToCheckStartupAndReload(1000, 'web');
         })
         .catch(() => {

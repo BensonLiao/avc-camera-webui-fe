@@ -25,9 +25,9 @@ if (!window.languageResource['zh-tw']) {
     'certificate-type-1': '自行上傳您的憑證',
     'certificate-type-2': '在此裝置上產生憑證',
 
-    'confidence-1': '低',
-    'confidence-2': '中',
-    'confidence-3': '高',
+    'confidence-0': '低',
+    'confidence-1': '中',
+    'confidence-2': '高',
 
     'enroll-status-1': '成功',
     'enroll-status-2': '未知',
@@ -340,10 +340,8 @@ if (!window.languageResource['zh-tw']) {
     'City Name': '城市名稱',
     'Please enter the city name.': '請輸入您的城市名稱',
     'Organization Name': '組織名稱',
-    'Please enter the organization name.': '請輸入您的組織名稱',
     'The company.': '公司',
     'Organization Unit Name': '組織部門名稱',
-    'Please enter the organization unit name.': '請輸入您的組織部門名稱',
     'Email Address': '電子信箱',
     'Please enter the email address.': '請輸入電子信箱',
     Domain: '域名',
@@ -432,6 +430,11 @@ if (!window.languageResource['zh-tw']) {
     'Internal Microphone': '內建式麥克風',
     'External Microphone': '外接麥克風',
     'Audio Out': '聲音輸出',
+
+    // /media/hdmi
+    'Are you sure you want to update hdmi settings?': '您即將更改HDMI設定，確認是否繼續？',
+    'HDMI Settings': 'HDMI設定',
+    'Updating hdmi settings': '更新HDMI設定',
 
     // /media/rtsp
     'Enable Audio over RTSP': '將聲音記錄至串流',
@@ -568,7 +571,7 @@ if (!window.languageResource['zh-tw']) {
     'New Member': '新增成員',
     'Please upload your face photo.': '請上傳正面照片',
     Organization: '組織',
-    'Enter the organization': '請輸入您的組織',
+    'Enter Your Organization': '請輸入您的組織',
     'Letters within 32 characters.': '32 字元以內的中英文大寫或小寫',
     Group: '群組',
     'N/A': '無',
