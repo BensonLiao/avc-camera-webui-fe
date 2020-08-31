@@ -47,7 +47,9 @@ module.exports = class CardsForm extends React.PureComponent {
         isTop: PropTypes.bool.isRequired,
         timePeriods: PropTypes.array.isRequired,
         title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired
+        type: PropTypes.string.isRequired,
+        senderSubject: PropTypes.string,
+        senderContent: PropTypes.string
       }),
       groups: PropTypes.shape(CardsFormRule.propTypes.groups.items).isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
@@ -183,11 +185,11 @@ module.exports = class CardsForm extends React.PureComponent {
                   <div className="select-wrapper border rounded-pill overflow-hidden">
                     <Field name="type" component="select" className="form-control border-0">
                       {
-                        NotificationCardType.all().filter(faceRecognition => (
-                          faceRecognition === '0' || faceRecognition === '3' || faceRecognition === '5'
+                        NotificationCardType.all().filter(type => (
+                          type === '0' || type === '3' || type === '5'
                         )).map(
-                          faceRecognition => {
-                            return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
+                          type => {
+                            return <option key={type} value={type}>{_(`notification-card-${type}`)}</option>;
                           }
                         )
                       }
