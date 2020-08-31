@@ -4,7 +4,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const _ = require('../../../languages');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 
 module.exports = class EventsSidebar extends React.PureComponent {
   static get propTypes() {
@@ -16,8 +16,8 @@ module.exports = class EventsSidebar extends React.PureComponent {
           PropTypes.arrayOf(PropTypes.oneOf(Similarity.all()))
         ]),
         enrollStatus: PropTypes.oneOfType([
-          PropTypes.oneOf(EnrollStatus.all()),
-          PropTypes.arrayOf(PropTypes.oneOf(EnrollStatus.all()))
+          PropTypes.oneOf(RecognitionType.all()),
+          PropTypes.arrayOf(PropTypes.oneOf(RecognitionType.all()))
         ])
       }).isRequired,
       authStatus: PropTypes.shape({
@@ -112,11 +112,11 @@ module.exports = class EventsSidebar extends React.PureComponent {
     ];
     const resultRender = [
       {
-        status: EnrollStatus.registered,
+        status: RecognitionType.registered,
         id: 'input-checkbox-register'
       },
       {
-        status: EnrollStatus.unknown,
+        status: RecognitionType.unknown,
         id: 'input-checkbox-anonymous'
       }
     ];
