@@ -25,11 +25,11 @@ module.exports = class EventsTable extends React.PureComponent {
           recognitionType: PropTypes.oneOf(RecognitionType.all()).isRequired,
           member: PropTypes.shape({
             id: PropTypes.string.isRequired,
+            picture: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
+            group: PropTypes.string,
             organization: PropTypes.string,
-            groupId: PropTypes.string,
-            note: PropTypes.string,
-            picture: PropTypes.string.isRequired
+            note: PropTypes.string
           }),
           confidences: PropTypes.arrayOf(PropTypes.shape({
             score: PropTypes.string.isRequired,
