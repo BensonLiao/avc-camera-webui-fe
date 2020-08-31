@@ -43,8 +43,7 @@ const members = [
     note: '"Let me put you on hold."',
     pictures: [
       defaultPhotos.user.scarlett
-    ],
-    picture: defaultPhotos.user.scarlett
+    ]
   },
   {
     id: uuidv4(),
@@ -54,8 +53,7 @@ const members = [
     note: 'Has No Nuclear Weapon',
     pictures: [
       defaultPhotos.user.kim
-    ],
-    picture: defaultPhotos.user.kim
+    ]
   },
   {
     id: uuidv4(),
@@ -65,8 +63,7 @@ const members = [
     note: 'Iron Man',
     pictures: [
       defaultPhotos.user.elon
-    ],
-    picture: defaultPhotos.user.elon
+    ]
   }
 ];
 
@@ -423,8 +420,7 @@ module.exports = {
               score: '50',
               similarity: Similarity.low
             }
-          ],
-          isFake: false
+          ]
         },
         {
           id: uuidv4(),
@@ -437,8 +433,7 @@ module.exports = {
               score: '49',
               similarity: Similarity.low
             }
-          ],
-          isFake: false
+          ]
         },
         {
           id: uuidv4(),
@@ -452,8 +447,7 @@ module.exports = {
               score: '56',
               similarity: Similarity.medium
             }
-          ],
-          isFake: false
+          ]
         },
         {
           id: uuidv4(),
@@ -467,8 +461,7 @@ module.exports = {
               score: '70',
               similarity: Similarity.high
             }
-          ],
-          isFake: false
+          ]
         }
       ],
       users: [

@@ -4,7 +4,7 @@ const Modal = require('react-bootstrap/Modal').default;
 const PropTypes = require('prop-types');
 const React = require('react');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
@@ -23,14 +23,14 @@ module.exports = class EventsTable extends React.PureComponent {
           id: PropTypes.string.isRequired,
           pictureThumbUrl: PropTypes.string.isRequired,
           time: PropTypes.string.isRequired,
-          enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
+          recognitionType: PropTypes.oneOf(RecognitionType.all()).isRequired,
           member: PropTypes.shape({
             id: PropTypes.string.isRequired,
+            picture: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
+            group: PropTypes.string,
             organization: PropTypes.string,
-            groupId: PropTypes.string,
-            note: PropTypes.string,
-            picture: PropTypes.string.isRequired
+            note: PropTypes.string
           }),
           confidences: PropTypes.arrayOf(PropTypes.shape({
             score: PropTypes.string.isRequired,
@@ -39,6 +39,7 @@ module.exports = class EventsTable extends React.PureComponent {
         }).isRequired).isRequired
       }).isRequired,
       filterHandler: PropTypes.func.isRequired,
+      addMemberHandler: PropTypes.func.isRequired,
       modifyMemberHandler: PropTypes.func.isRequired,
       systemDateTime: PropTypes.shape({
         ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
@@ -73,7 +74,14 @@ module.exports = class EventsTable extends React.PureComponent {
   }
 
   render() {
-    const {params, events, filterHandler, modifyMemberHandler, systemDateTime} = this.props;
+    const {
+      params,
+      events,
+      filterHandler,
+      addMemberHandler,
+      modifyMemberHandler,
+      systemDateTime
+    } = this.props;
     const defaultIconClass = 'fas fa-fw text-muted ml-3';
     const tableField = [
       {
@@ -172,7 +180,7 @@ module.exports = class EventsTable extends React.PureComponent {
             }
             {
               events.items.map(event => {
-                const isEnrolled = event.enrollStatus === EnrollStatus.registered;
+                const isEnrolled = event.recognitionType === RecognitionType.registered;
                 if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
                   event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
                 } else {
@@ -251,12 +259,12 @@ module.exports = class EventsTable extends React.PureComponent {
                       </CustomTooltip>
                     </td>
                     <td>
-                      {event.confidences.length > 0 ? _(`confidence-${event.confidences[0].similarity}`) : '-'}
+                      {event.confidences ? _(`confidence-${event.confidences.similarity}`) : '-'}
                     </td>
                     <td>
-                      <CustomTooltip title={event.confidences.length > 0 ? event.confidences[0].score || '' : ''}>
+                      <CustomTooltip title={event.confidences ? event.confidences.score || '' : ''}>
                         <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
-                          {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
+                          {isEnrolled ? _(`enroll-status-${RecognitionType.registered}`) : _(`enroll-status-${RecognitionType.unknown}`)}
                         </span>
                       </CustomTooltip>
                     </td>
@@ -272,10 +280,7 @@ module.exports = class EventsTable extends React.PureComponent {
                         <button
                           className="btn btn-link"
                           type="button"
-                          onClick={isEnrolled ? modifyMemberHandler({
-                            ...event.member,
-                            pictures: [event.member.picture]
-                          }) : modifyMemberHandler(null, event.pictureThumbUrl)}
+                          onClick={isEnrolled ? modifyMemberHandler(event.member.id) : addMemberHandler(event.pictureThumbUrl)}
                         >
                           <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
                         </button>
