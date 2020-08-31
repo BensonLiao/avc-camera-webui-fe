@@ -453,6 +453,11 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       items: data
     }]);
   })
+  .onGet('api/event-snapshot').reply(config => {
+    const params = JSON.parse(config.data);
+    console.log(params.eventId);
+    return mockResponseWithLog(config, [200, db.get('faceEvents').find({id: params.eventId}).value()]);
+  })
   .onGet('/api/users').reply(config => {
     const data = db.get('users').value();
     delete data.birthday;
