@@ -135,9 +135,9 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    )
                  ))}
                </SelectField>
-               <hr/>
+               <hr className={classNames({'d-none': values.type === NotificationCardType.digitalInput})}/>
                <div className="form-group mb-4">
-                 <label className="text-size-16">Subject :</label>
+                 <label className="text-size-16">{_('Subject :')}</label>
                  <Field
                    name="senderSubject"
                    type="text"
@@ -146,7 +146,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                  />
                </div>
                <div className="form-group mb-4">
-                 <label className="text-size-16">Content :</label>
+                 <label className="text-size-16">{_('Content :')}</label>
                  <Field
                    name="senderContent"
                    type="text"
