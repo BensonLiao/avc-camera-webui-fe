@@ -15,8 +15,9 @@ if (!window.languageResource['en-us']) {
     'confidence-1': 'Medium',
     'confidence-2': 'High',
 
-    'enroll-status-1': 'Registered',
-    'enroll-status-2': 'Unknown',
+    'enroll-status-0': 'Fake',
+    'enroll-status-1': 'Unknown',
+    'enroll-status-2': 'Registered',
 
     auto: 'Auto',
     off: 'Off',
