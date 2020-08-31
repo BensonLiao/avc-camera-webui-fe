@@ -510,7 +510,6 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     const newItem = JSON.parse(config.data);
     const maxId = db.get('users').sortBy('id').takeRight(1).value()[0].id;
     newItem.id = maxId + 1;
-    newItem.permission = parseInt(newItem.permission, 10);
     return mockResponseWithLog(config, [200, db.get('users').push(newItem).write()]);
   })
   .onDelete(/api\/users\/\d+$/).reply(config => {
