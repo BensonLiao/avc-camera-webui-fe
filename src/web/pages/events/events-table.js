@@ -4,6 +4,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
@@ -159,7 +160,7 @@ module.exports = class EventsTable extends React.PureComponent {
             }
             {
               events.items.map(event => {
-                const isEnrolled = event.enrollStatus === EnrollStatus.registered;
+                const isEnrolled = event.recognitionType === RecognitionType.registered;
                 if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
                   event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
                 } else {
@@ -235,7 +236,7 @@ module.exports = class EventsTable extends React.PureComponent {
                     <td>
                       <CustomTooltip title={event.confidences ? event.confidences.score || '' : ''}>
                         <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
-                          {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
+                          {isEnrolled ? _(`enroll-status-${RecognitionType.registered}`) : _(`enroll-status-${RecognitionType.unknown}`)}
                         </span>
                       </CustomTooltip>
                     </td>

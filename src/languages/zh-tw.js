@@ -29,8 +29,9 @@ if (!window.languageResource['zh-tw']) {
     'confidence-1': '中',
     'confidence-2': '高',
 
-    'enroll-status-1': '成功',
-    'enroll-status-2': '未知',
+    'enroll-status-0': '假臉',
+    'enroll-status-1': '未知',
+    'enroll-status-2': '成功',
 
     max: '最大',
     outdoor: '戶外',
