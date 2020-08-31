@@ -3,7 +3,6 @@ const {getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
@@ -23,7 +22,7 @@ module.exports = class EventsTable extends React.PureComponent {
           id: PropTypes.string.isRequired,
           pictureThumbUrl: PropTypes.string.isRequired,
           time: PropTypes.string.isRequired,
-          enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
+          recognitionType: PropTypes.oneOf(RecognitionType.all()).isRequired,
           member: PropTypes.shape({
             id: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
