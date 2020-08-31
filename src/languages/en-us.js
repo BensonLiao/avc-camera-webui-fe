@@ -157,7 +157,7 @@ if (!window.languageResource['en-us']) {
     'validation-stringContainsLowerCaseLatter': 'This field must contain the lower case letter.',
     'validation-stringContainsUpperCaseLatter': 'This field must contain the upper case letter.',
     'validation-stringContainsNumber': 'This field must contain the number.',
-    'validation-stringAbortSpecialCharacters': 'This field cannot contain these symbol (#, %, &, `, “, \\, <, >).',
+    'validation-stringAbortSpecialCharacters': 'This field cannot contain these symbol (#, %, &, `, “, \\, <, >, and space).',
     'validation-stringAcceptSpecialCharacters': 'This field must contain at least one symbol',
     'validation-stringEnum': 'This field does not match any of the allowed values.',
     'validation-number': 'This field must be a number.',

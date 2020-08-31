@@ -162,7 +162,7 @@ if (!window.languageResource['zh-tw']) {
     'validation-stringContainsLowerCaseLatter': '此欄位必須輸入包含小寫英文字母。',
     'validation-stringContainsUpperCaseLatter': '此欄位必須輸入包含大寫英文字母。',
     'validation-stringContainsNumber': '此欄位必須輸入包含數字。',
-    'validation-stringAbortSpecialCharacters': '此欄位禁用特殊符號(#, %, &, `, “, \\, <, >)。',
+    'validation-stringAbortSpecialCharacters': '此欄位禁用特殊符號(#, %, &, `, “, \\, <, >, 跟空白)。',
     'validation-stringAcceptSpecialCharacters': '此欄必須至少有一個特殊符號。',
     'validation-stringEnum': '此欄位與要求的內容不符合。',
     'validation-number': '此欄位必須是數字。',
@@ -302,7 +302,7 @@ if (!window.languageResource['zh-tw']) {
     // /setup
     'INITIAL PASSWORD SETUP': '初始密碼設定',
     'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
-    '8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space': '8-16個字元，至少包含1個大寫和小寫字母，1個數字，1個符號。 請勿使用＃，％，＆，`，\\，<，>和空格',
+    '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, “, \\, <, > and space': '8-16個字元內， 必須包含英文大寫和小寫字元、數字和符號，但符號不能為 # % & ` “ \\ < >全形半形， 跟空白',
     Welcome: '歡 迎',
     'For a better experience,': '為了使您有更好的體驗，',
     'please press continue to complete the simple three-step installation setup!': '請您先按下繼續來完成簡單三步驟的安裝設定！',
