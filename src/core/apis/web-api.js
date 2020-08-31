@@ -1630,21 +1630,6 @@ module.exports = {
         end,
         sort
       }
-    }),
-    /**
-     * @param {String} eventId Uuid of the event
-     * @param {String} size Size of the photo
-     * @returns {Promise<response>}
-     * @response 200 {Object}
-     * - event photo {String} The base64 string of jpeg image.
-     */
-    getEventSnapshot: ({eventId, size}) => api({
-      method: 'get',
-      url: '/api/event-snapshot',
-      data: {
-        eventId,
-        size
-      }
     })
   },
   authKey: {

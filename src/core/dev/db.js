@@ -414,6 +414,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.scarlett,
+          pictureLargeUrl: defaultPhotos.event.scarlett,
           time: '2019-10-02T12:00:00.000Z',
           enrollStatus: EnrollStatus.registered,
           member: members[0],
@@ -428,6 +429,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.jackman,
+          pictureLargeUrl: defaultPhotos.event.jackman,
           time: '2020-01-02T12:00:00.000Z',
           enrollStatus: EnrollStatus.unknown,
           confidences: [
@@ -441,6 +443,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.kim,
+          pictureLargeUrl: defaultPhotos.event.kim,
           time: '2020-02-02T12:00:00.000Z',
           enrollStatus: EnrollStatus.registered,
           member: members[1],
@@ -455,6 +458,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.elon,
+          pictureLargeUrl: defaultPhotos.event.elon,
           time: '2020-03-03T12:00:00.000Z',
           enrollStatus: EnrollStatus.registered,
           member: members[2],

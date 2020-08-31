@@ -10,7 +10,6 @@ const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time
 const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
-const api = require('../../../core/apis/web-api');
 
 module.exports = class EventsTable extends React.PureComponent {
   static get propTypes() {
@@ -66,15 +65,10 @@ module.exports = class EventsTable extends React.PureComponent {
     this.setState({isShowEnlargeModal: false});
   }
 
-  generateEnlargePhotoHandler = eventId => {
-    api.event.getEventSnapshot({
-      eventId,
-      size: 'full'
-    }).then(res => {
-      this.setState({
-        enlargePhoto: res.data.pictureThumbUrl,
-        isShowEnlargeModal: true
-      });
+  generateEnlargePhotoHandler = eventPhoto => {
+    this.setState({
+      enlargePhoto: eventPhoto,
+      isShowEnlargeModal: true
     });
   }
 
@@ -207,7 +201,7 @@ module.exports = class EventsTable extends React.PureComponent {
                           {event.pictureThumbUrl && (
                             <a
                               onClick={() => {
-                                this.generateEnlargePhotoHandler(event.id);
+                                this.generateEnlargePhotoHandler(event.pictureLargeUrl);
                               }}
                             >
                               <div style={{
