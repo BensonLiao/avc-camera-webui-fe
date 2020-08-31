@@ -14,6 +14,7 @@ const CardsFormSchedule = require('./cards-form-schedule');
 const CardsFormRule = require('./cards-form-rule');
 const CardsFormSubject = require('./cards-form-subject');
 const CustomTooltip = require('../../../core/components/tooltip');
+const FormikEffect = require('../../../core/components/formik-effect');
 const ContentEditable = require('@benson.liao/react-content-editable').default;
 
 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
@@ -52,6 +53,7 @@ module.exports = class CardsForm extends React.PureComponent {
         senderContent: PropTypes.string
       }),
       groups: PropTypes.shape(CardsFormRule.propTypes.groups.items).isRequired,
+      modelName: PropTypes.string.isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
       isShowCardDetailsModal: PropTypes.bool.isRequired,
       isTop: PropTypes.bool.isRequired,
@@ -94,8 +96,7 @@ module.exports = class CardsForm extends React.PureComponent {
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
-        senderSubject: card.senderSubject,
-        senderContent: card.senderContent,
+        senderSubject: card.senderSubject || this.defaultSubjectTitle(card.type),
         isEnableFaceRecognition: card.isEnableFaceRecognition,
         isEnableApp: card.isEnableApp
       };
@@ -118,12 +119,32 @@ module.exports = class CardsForm extends React.PureComponent {
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
-      senderSubject: '',
+      senderSubject: `${_('Face Recognition Event [{0}]', this.props.modelName)}`,
       senderContent: '',
       isEnableFaceRecognition: false,
       isEnableApp: false
     };
   };
+
+  onChangeCardForm = ({nextValues, prevValues, formik}) => {
+    if (prevValues.type !== nextValues.type && !this.props.cardDetails.senderSubject) {
+      this.defaultSubjectTitle(nextValues.type, formik);
+    }
+  }
+
+  defaultSubjectTitle = (type, formik = null) => {
+    const {modelName} = this.props;
+    switch (type) {
+      case '0':
+        return formik ? formik.setFieldValue('senderSubject', `${_('Face Recognition Event [{0}]', modelName)}`) : `${_('Face Recognition Event [{0}]', modelName)}`;
+      case '3':
+        return formik ? formik.setFieldValue('senderSubject', `${_('Motion Detection Event [{0}]', modelName)}`) : `${_('Motion Detection Event [{0}]', modelName)}`;
+      case '5':
+        return formik ? formik.setFieldValue('senderSubject', `${_('Digital Input Event [{0}]', modelName)}`) : `${_('Digital Input Event [{0}]', modelName)}`;
+      default:
+        break;
+    }
+  }
 
   render() {
     const {
@@ -137,7 +158,6 @@ module.exports = class CardsForm extends React.PureComponent {
       toggleIsTop,
       sanitizeInput
     } = this.props;
-
     return (
       <Modal
         autoFocus={false}
@@ -160,6 +180,7 @@ module.exports = class CardsForm extends React.PureComponent {
 
             return (
               <Form className="modal-content">
+                <FormikEffect onChange={this.onChangeCardForm}/>
                 <div className="modal-body d-flex justify-content-between align-content-center pb-2">
                   <div className="d-flex align-content-center">
                     <CustomTooltip title={isTop ? _('Unpin Card') : _('Pin Card')}>

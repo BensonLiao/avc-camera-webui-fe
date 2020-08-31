@@ -17,7 +17,8 @@ module.exports = class Cards extends Base {
   static get propTypes() {
     return {
       cards: PropTypes.shape({items: PropTypes.arrayOf(CardsForm.propTypes.cardDetails)}).isRequired,
-      groups: PropTypes.shape(CardsForm.propTypes.groups.items).isRequired
+      groups: PropTypes.shape(CardsForm.propTypes.groups.items).isRequired,
+      systemInformation: PropTypes.shape({modelName: PropTypes.string}).isRequired
     };
   }
 
@@ -173,7 +174,7 @@ module.exports = class Cards extends Base {
 
   render() {
     const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, $isApiProcessing, isTop} = this.state;
-    const {groups} = this.props;
+    const {groups, systemInformation: {modelName}} = this.props;
     return (
       <>
         <div className="main-content left-menu-active  fixed-top-horizontal-scroll">
@@ -214,6 +215,7 @@ module.exports = class Cards extends Base {
             <CardsForm
               groups={groups}
               cardDetails={cardDetails}
+              modelName={modelName}
               isApiProcessing={$isApiProcessing}
               isShowCardDetailsModal={isShowCardDetailsModal}
               isTop={isTop}
