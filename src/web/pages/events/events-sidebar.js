@@ -110,7 +110,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
         id: 'input-checkbox-high-similar'
       }
     ];
-    const resultRender = [
+    const recognitionTypeRender = [
       {
         status: RecognitionType.registered,
         id: 'input-checkbox-register'
@@ -118,6 +118,10 @@ module.exports = class EventsSidebar extends React.PureComponent {
       {
         status: RecognitionType.unknown,
         id: 'input-checkbox-anonymous'
+      },
+      {
+        status: RecognitionType.fake,
+        id: 'input-checkbox-fake'
       }
     ];
     return (
@@ -142,8 +146,8 @@ module.exports = class EventsSidebar extends React.PureComponent {
         </div>
         <span>{_('Recognition Result')}</span>
         <div className="checkbox-group mt-3 mb-2 pl-2">
-          {resultRender.map(item => (
-            <div key={item.id} className={classNames('form-check', {'mb-3': item.status === '1'})}>
+          {recognitionTypeRender.map((item, idx) => (
+            <div key={item.id} className={classNames('form-check', {'mb-3': idx < recognitionTypeRender.length - 1})}>
               <input
                 type="checkbox"
                 className="form-check-input"
