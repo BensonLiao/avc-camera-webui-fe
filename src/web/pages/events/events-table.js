@@ -1,5 +1,6 @@
 const classNames = require('classnames');
 const {getRouter} = require('capybara-router');
+const Modal = require('react-bootstrap/Modal').default;
 const PropTypes = require('prop-types');
 const React = require('react');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
@@ -9,6 +10,7 @@ const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time
 const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
+const api = require('../../../core/apis/web-api');
 
 module.exports = class EventsTable extends React.PureComponent {
   static get propTypes() {
@@ -46,9 +48,34 @@ module.exports = class EventsTable extends React.PureComponent {
     };
   }
 
+  state = {
+    isShowEnlargeModal: false,
+    enlargePhoto: null
+  }
+
   constructor(props) {
     super(props);
     this.currentRoute = getRouter().findRouteByName('web.users.events');
+  }
+
+  showEnlargeModal = () => {
+    this.setState({isShowEnlargeModal: true});
+  }
+
+  hideEnlargeModal = () => {
+    this.setState({isShowEnlargeModal: false});
+  }
+
+  generateEnlargePhotoHandler = eventId => {
+    api.event.getEventSnapshot({
+      eventId,
+      size: 'full'
+    }).then(res => {
+      this.setState({
+        enlargePhoto: res.data.pictureThumbUrl,
+        isShowEnlargeModal: true
+      });
+    });
   }
 
   render() {
@@ -177,17 +204,25 @@ module.exports = class EventsTable extends React.PureComponent {
                             position: 'relative'
                           }}
                         >
-                          <div style={{
-                            background: '50%',
-                            backgroundSize: 'cover',
-                            width: '100%',
-                            height: '100%',
-                            position: 'absolute',
-                            left: 0,
-                            top: 0,
-                            backgroundImage: `url('${event.pictureThumbUrl}')`
-                          }}
-                          />
+                          {event.pictureThumbUrl && (
+                            <a
+                              onClick={() => {
+                                this.generateEnlargePhotoHandler(event.id);
+                              }}
+                            >
+                              <div style={{
+                                background: '50%',
+                                backgroundSize: 'cover',
+                                width: '100%',
+                                height: '100%',
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                backgroundImage: `url('${event.pictureThumbUrl}')`
+                              }}
+                              />
+                            </a>
+                          )}
                         </div>
                       </div>
                     </td>
@@ -258,6 +293,25 @@ module.exports = class EventsTable extends React.PureComponent {
             }
           </tbody>
         </table>
+        <Modal
+          show={this.state.isShowEnlargeModal}
+          autoFocus={false}
+          onHide={this.hideEnlargeModal}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{_('Event Snapshot')}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body> <div
+            style={{
+              background: '50%',
+              backgroundSize: 'cover',
+              height: '50vh',
+              width: 'auto',
+              backgroundImage: `url('${this.state.enlargePhoto}')`
+            }}
+          />
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }
