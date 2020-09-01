@@ -335,7 +335,8 @@ module.exports = {
         isEnableFaceRecognition: false,
         faceRecognitionCondition: '1',
         senderSubject: '',
-        senderContent: ''
+        senderContent: '',
+        emailContentPosition: '0'
       },
       {
         id: 2,
@@ -382,7 +383,8 @@ module.exports = {
         isEnableFaceRecognition: false,
         faceRecognitionCondition: '0',
         senderSubject: '',
-        senderContent: ''
+        senderContent: '',
+        emailContentPosition: '1'
       },
       {
         id: 3,
@@ -409,7 +411,8 @@ module.exports = {
         isEnableFaceRecognition: true,
         faceRecognitionCondition: '0',
         senderSubject: '',
-        senderContent: ''
+        senderContent: '',
+        emailContentPosition: '0'
       }],
       groups: memberGroups,
       members,
