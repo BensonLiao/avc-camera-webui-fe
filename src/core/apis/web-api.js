@@ -179,15 +179,14 @@ module.exports = {
      * - account {String}
      * - permission {String}
      */
-    updateUser: ({id, account, permission, password, newPassword, birthday}) => api({
+    updateUser: ({id, account, permission, password, newPassword}) => api({
       method: 'put',
       url: `/api/users/${id}`,
       data: {
         account,
         permission,
         password,
-        newPassword,
-        birthday
+        newPassword
       }
     }),
     /**
