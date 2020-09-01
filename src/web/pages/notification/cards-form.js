@@ -50,7 +50,8 @@ module.exports = class CardsForm extends React.PureComponent {
         title: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
         senderSubject: PropTypes.string,
-        senderContent: PropTypes.string
+        senderContent: PropTypes.string,
+        emailContentPosition: PropTypes.string.isRequired
       }),
       groups: PropTypes.shape(CardsFormRule.propTypes.groups.items).isRequired,
       modelName: PropTypes.string.isRequired,
@@ -97,6 +98,8 @@ module.exports = class CardsForm extends React.PureComponent {
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
         senderSubject: card.senderSubject || this.defaultSubjectTitle(card.type),
+        senderContent: card.senderContent,
+        emailContentPosition: card.emailContentPosition,
         isEnableFaceRecognition: card.isEnableFaceRecognition,
         isEnableApp: card.isEnableApp
       };
@@ -121,6 +124,7 @@ module.exports = class CardsForm extends React.PureComponent {
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
       senderSubject: `${_('Face Recognition Event [{0}]', this.props.modelName)}`,
       senderContent: '',
+      emailContentPosition: 0,
       isEnableFaceRecognition: false,
       isEnableApp: false
     };
