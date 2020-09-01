@@ -1599,7 +1599,7 @@ module.exports = {
   event: {
     /**
      * @param {Array<String>|String} enrollStatus webserver-form-schema/constants/event-filters/recognition-type
-     * @param {Array<String>|String} confidence webserver-form-schema/constants/event-filters/confidence
+     * @param {Array<String>|String} confidence webserver-form-schema/constants/event-filters/similarity
      * @param {Number} index
      * @param {String} keyword
      * @param {Date|null} start The start time.
