@@ -2,7 +2,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const {getRouter} = require('capybara-router');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
@@ -23,8 +23,8 @@ module.exports = class Events extends Base {
           PropTypes.arrayOf(PropTypes.oneOf(Similarity.all()))
         ]),
         enrollStatus: PropTypes.oneOfType([
-          PropTypes.oneOf(EnrollStatus.all()),
-          PropTypes.arrayOf(PropTypes.oneOf(EnrollStatus.all()))
+          PropTypes.oneOf(RecognitionType.all()),
+          PropTypes.arrayOf(PropTypes.oneOf(RecognitionType.all()))
         ])
       }).isRequired,
       authStatus: PropTypes.shape(EventsSidebar.propTypes.authStatus).isRequired,

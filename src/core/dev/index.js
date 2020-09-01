@@ -2,7 +2,7 @@ const axios = require('axios');
 const MockAdapter = require('axios-mock-adapter');
 const uuidv4 = require('uuid/v4');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 
 /**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
@@ -430,20 +430,42 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       .filter(value => {
         if (config.params.enrollStatus && config.params.enrollStatus.length > 0) {
           if (typeof config.params.enrollStatus === 'string') {
-            return config.params.enrollStatus === value.confidences[0].enrollStatus;
+            return config.params.enrollStatus === value.recognitionType;
           }
 
           if (isArray(config.params.enrollStatus)) {
-            if (config.params.enrollStatus.length === EnrollStatus.all().length) {
+            if (config.params.enrollStatus.length === RecognitionType.all().length) {
               return true;
             }
 
-            if (config.params.enrollStatus.indexOf(EnrollStatus.registered) > 0) {
-              return EnrollStatus.registered === value.confidences[0].enrollStatus;
+            if (config.params.enrollStatus.indexOf(RecognitionType.registered) >= 0 &&
+            config.params.enrollStatus.indexOf(RecognitionType.unknown) >= 0) {
+              return RecognitionType.registered === value.recognitionType ||
+                RecognitionType.unknown === value.recognitionType;
             }
 
-            if (config.params.enrollStatus.indexOf(EnrollStatus.unknown) > 0) {
-              return EnrollStatus.unknown === value.confidences[0].enrollStatus;
+            if (config.params.enrollStatus.indexOf(RecognitionType.registered) >= 0 &&
+            config.params.enrollStatus.indexOf(RecognitionType.fake) >= 0) {
+              return RecognitionType.registered === value.recognitionType ||
+                RecognitionType.fake === value.recognitionType;
+            }
+
+            if (config.params.enrollStatus.indexOf(RecognitionType.fake) >= 0 &&
+            config.params.enrollStatus.indexOf(RecognitionType.unknown) >= 0) {
+              return RecognitionType.fake === value.recognitionType ||
+                RecognitionType.unknown === value.recognitionType;
+            }
+
+            if (config.params.enrollStatus.indexOf(RecognitionType.registered) >= 0) {
+              return RecognitionType.registered === value.recognitionType;
+            }
+
+            if (config.params.enrollStatus.indexOf(RecognitionType.unknown) >= 0) {
+              return RecognitionType.unknown === value.recognitionType;
+            }
+
+            if (config.params.enrollStatus.indexOf(RecognitionType.fake) >= 0) {
+              return RecognitionType.fake === value.recognitionType;
             }
           }
         }
