@@ -79,13 +79,19 @@ module.exports = class Layout extends Base {
       .finally(progress.done);
   }
 
-  onClickApiProcessing = event => {
+  // Override default onClick in Capybara-Router, in order to add $isApiProcessing to prevent navigation.
+  onClickLink = event => {
     const {$isApiProcessing} = this.state;
-    if ($isApiProcessing) {
-      event.preventDefault();
-      event.returnValue = '';
+    event.preventDefault();
+
+    if (event.metaKey || $isApiProcessing) {
+      return;
+    }
+
+    if (event.target.src) {
+      getRouter().go(event.target.parentNode.pathname);
     } else {
-      event.returnValue = '';
+      getRouter().go(event.target.pathname);
     }
   }
 
@@ -195,47 +201,47 @@ module.exports = class Layout extends Base {
         { isAdmin && (
           <div className="left-navigation fixed-top">
             <CustomTooltip title={_('Home')}>
-              <Link className={classTable.home} to="/" onClick={this.onClickApiProcessing}>
+              <Link className={classTable.home} to="/" onClick={this.onClickLink}>
                 <img src={iconHome}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Video')}>
-              <Link className={classTable.media} to="/media/stream" onClick={this.onClickApiProcessing}>
+              <Link className={classTable.media} to="/media/stream" onClick={this.onClickLink}>
                 <img src={iconMedia}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Audio')}>
-              <Link className={classTable.audio} to="/audio" onClick={this.onClickApiProcessing}>
+              <Link className={classTable.audio} to="/audio" onClick={this.onClickLink}>
                 <img src={iconAudio}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Notification Settings')}>
-              <Link className={classTable.notification} to="/notification/smtp" onClick={this.onClickApiProcessing}>
+              <Link className={classTable.notification} to="/notification/smtp" onClick={this.onClickLink}>
                 <img src={iconNotification}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('User Management')}>
-              <Link className={classTable.users} to="/users/members" onClick={this.onClickApiProcessing}>
+              <Link className={classTable.users} to="/users/members" onClick={this.onClickLink}>
                 <img src={iconUserManagement}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Analytic')}>
-              <Link className={classTable.smart} to="/analytic/face-recognition" onClick={this.onClickApiProcessing}>
+              <Link className={classTable.smart} to="/analytic/face-recognition" onClick={this.onClickLink}>
                 <img src={iconAnalytic}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Network')}>
-              <Link className={classTable.network} to="/network/settings" onClick={this.onClickApiProcessing}>
+              <Link className={classTable.network} to="/network/settings" onClick={this.onClickLink}>
                 <img src={iconNetwork}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('System')}>
-              <Link className={classTable.system} to="/system/datetime" onClick={this.onClickApiProcessing}>
+              <Link className={classTable.system} to="/system/datetime" onClick={this.onClickLink}>
                 <img src={iconSystem}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('SD Card')}>
-              <Link className={classTable.sdCard} to="/sd-card" onClick={this.onClickApiProcessing}>
+              <Link className={classTable.sdCard} to="/sd-card" onClick={this.onClickLink}>
                 <img src={iconSDCard}/>
               </Link>
             </CustomTooltip>
