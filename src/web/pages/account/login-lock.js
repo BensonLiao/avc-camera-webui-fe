@@ -1,3 +1,4 @@
+const dayjs = require('dayjs');
 const React = require('react');
 const {Link} = require('capybara-router');
 const classNames = require('classnames');
@@ -12,8 +13,8 @@ module.exports = class LoginLock extends Base {
     return {
       params: function (props, propName, componentName) {
         if (
-          !props[propName].loginLockExpiredTime ||
-          Number.isNaN((new Date(props[propName].loginLockExpiredTime)).getTime())
+          !props[propName].loginLockRemainingMs ||
+          Number.isNaN(props[propName].loginLockRemainingMs)
         ) {
           return new Error(
             `Invalid prop "${propName}.loginLockExpiredTime" supplied to ${componentName}. Validation failed.`
@@ -25,16 +26,13 @@ module.exports = class LoginLock extends Base {
 
   constructor(props) {
     super(props);
-    const now = new Date();
-    const time = new Date(new Date(props.params.loginLockExpiredTime) - now);
-    this.state.displayTime = `${time.getMinutes()}:${time.getSeconds().toString().padStart(2, '0')}`;
+    this.state.displayTime = dayjs(props.params.loginLockRemainingMs).format('mm:ss');
     this.state.disableLoginLink = true;
 
     this.timerId = setInterval(() => {
-      const now = new Date();
-      const time = new Date(new Date(props.params.loginLockExpiredTime) - now);
-      if (time >= 0) {
-        this.setState({displayTime: `${time.getMinutes()}:${time.getSeconds().toString().padStart(2, '0')}`});
+      props.params.loginLockRemainingMs -= 1000;
+      if (props.params.loginLockRemainingMs >= 0) {
+        this.setState({displayTime: dayjs(props.params.loginLockRemainingMs).format('mm:ss')});
       } else {
         clearInterval(this.timerId);
         this.timerId = null;
