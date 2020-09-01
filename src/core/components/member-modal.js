@@ -17,6 +17,7 @@ const utils = require('../utils');
 const api = require('../apis/web-api');
 const CustomNotifyModal = require('./custom-notify-modal');
 const CustomTooltip = require('./tooltip');
+const FormikEffect = require('./formik-effect');
 
 module.exports = class Member extends React.PureComponent {
   static get propTypes() {
@@ -63,6 +64,7 @@ module.exports = class Member extends React.PureComponent {
     this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
     this.state.isShowConfirmModal = false;
+    this.state.isFormTouched = false;
     this.state.preEditState = null;
     this.state.avatarToEdit = 'Primary';
     this.editWrapperSize = 128;
@@ -139,6 +141,10 @@ module.exports = class Member extends React.PureComponent {
     if (this.props.defaultPictureUrl) {
       this.verifyPhoto();
     }
+  }
+
+  onChangeFormValues = () => {
+    this.setState({isFormTouched: true});
   }
 
   hideApiProcessModal = () => {
@@ -486,14 +492,17 @@ module.exports = class Member extends React.PureComponent {
     const {
       isShowEditModal,
       isShowConfirmModal,
+      isFormTouched,
       avatarList,
       avatarToEdit,
-      avatarList: {[avatarToEdit]: {avatarPreviewStyle, photoOffset, boundary}}
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle, photoOffset, boundary}},
+      preEditState
     } = this.state;
     const {background: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
     return (
       <Form>
+        <FormikEffect onChange={this.onChangeFormValues}/>
         <div className="modal-body">
           <div className="multi-photo-uploader">
             <div className="container d-flex flex-row justify-content-space-between">
@@ -655,7 +664,7 @@ module.exports = class Member extends React.PureComponent {
           <button
             className="btn btn-info btn-block m-0 rounded-pill"
             type="button"
-            onClick={this.onShowConfirmModal}
+            onClick={isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
           >
             {_('Close')}
           </button>
@@ -768,7 +777,8 @@ module.exports = class Member extends React.PureComponent {
   };
 
   render() {
-    const {isShowModal, member} = this.props;
+    const {isShowModal, member, onHide} = this.props;
+    const {isFormTouched, preEditState} = this.state;
 
     return (
       <Modal
@@ -776,7 +786,7 @@ module.exports = class Member extends React.PureComponent {
         autoFocus={false}
         show={isShowModal}
         className="member-modal"
-        onHide={this.onShowConfirmModal}
+        onHide={isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
           <Modal.Title as="h5">{member ? _('Modify Member') : _('New Member')}</Modal.Title>
