@@ -664,7 +664,7 @@ module.exports = class Member extends React.PureComponent {
           <button
             className="btn btn-info btn-block m-0 rounded-pill"
             type="button"
-            onClick={isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
+            onClick={isFormTouched || preEditState || isApiProcessing ? this.onShowConfirmModal : onHide}
           >
             {_('Close')}
           </button>
@@ -777,7 +777,7 @@ module.exports = class Member extends React.PureComponent {
   };
 
   render() {
-    const {isShowModal, member, onHide} = this.props;
+    const {isApiProcessing, isShowModal, member, onHide} = this.props;
     const {isFormTouched, preEditState} = this.state;
 
     return (
@@ -786,7 +786,7 @@ module.exports = class Member extends React.PureComponent {
         autoFocus={false}
         show={isShowModal}
         className="member-modal"
-        onHide={isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
+        onHide={isApiProcessing || isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
           <Modal.Title as="h5">{member ? _('Modify Member') : _('New Member')}</Modal.Title>
