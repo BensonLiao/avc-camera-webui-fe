@@ -642,40 +642,6 @@ body {
   }
 }
 
-.avatar-uploader {
-  padding-bottom: 16px;
-  margin-bottom: 25px;
-  border-bottom: 1px #dee2e6 solid;
-
-  .avatar-wrapper {
-    cursor: pointer;
-    position: relative;
-    display: block;
-    margin: 0 auto;
-    width: 128px;
-    height: 128px;
-    overflow: hidden;
-
-    .avatar-img {
-      width: 128px;
-      height: 128px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center center;
-    }
-
-    .avatar-mask {
-      position: absolute;
-      top: 0;
-      pointer-events: none;
-    }
-  }
-
-  .slider {
-    width: 160px !important;
-  }
-}
-
 $chips-sum-extra-width: 50px;
 
 .chips-wrapper {

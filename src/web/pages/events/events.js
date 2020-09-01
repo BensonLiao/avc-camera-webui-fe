@@ -2,7 +2,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const {getRouter} = require('capybara-router');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
@@ -23,8 +23,8 @@ module.exports = class Events extends Base {
           PropTypes.arrayOf(PropTypes.oneOf(Similarity.all()))
         ]),
         enrollStatus: PropTypes.oneOfType([
-          PropTypes.oneOf(EnrollStatus.all()),
-          PropTypes.arrayOf(PropTypes.oneOf(EnrollStatus.all()))
+          PropTypes.oneOf(RecognitionType.all()),
+          PropTypes.arrayOf(PropTypes.oneOf(RecognitionType.all()))
         ])
       }).isRequired,
       authStatus: PropTypes.shape(EventsSidebar.propTypes.authStatus).isRequired,
@@ -43,6 +43,7 @@ module.exports = class Events extends Base {
     this.state.defaultMemberPictureUrl = null;
     this.state.isShowStartDatePicker = false;
     this.state.isShowEndDatePicker = false;
+    this.state.updateMemberModal = false;
   }
 
   /**
@@ -72,11 +73,12 @@ module.exports = class Events extends Base {
    */
   generateMemberAddHandler = defaultPictureUrl => event => {
     event.preventDefault();
-    this.setState({
+    this.setState(prevState => ({
       isShowMemberModal: true,
       currentMember: null,
-      defaultMemberPictureUrl: defaultPictureUrl
-    });
+      defaultMemberPictureUrl: defaultPictureUrl,
+      updateMemberModal: !prevState.updateMemberModal
+    }));
   };
 
   /**
@@ -88,10 +90,11 @@ module.exports = class Events extends Base {
     event.preventDefault();
     api.member.getMember(memberId)
       .then(response => {
-        this.setState({
+        this.setState(prevState => ({
           isShowMemberModal: true,
-          currentMember: response.data
-        });
+          currentMember: response.data,
+          updateMemberModal: !prevState.updateMemberModal
+        }));
       });
   };
 
@@ -178,6 +181,7 @@ module.exports = class Events extends Base {
             </div>
           </div>
           <MemberModal
+            key={this.state.updateMemberModal}
             isApiProcessing={$isApiProcessing}
             isShowModal={isShowMemberModal}
             groups={groups}

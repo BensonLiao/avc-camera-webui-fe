@@ -67,6 +67,19 @@ const members = [
       defaultPhotos.user.elon
     ],
     picture: defaultPhotos.user.elon
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom',
+    organization: 'Avengers',
+    groupId: memberGroups[0].id,
+    note: 'I rock!',
+    pictures: [
+      defaultPhotos.user.tom[0],
+      defaultPhotos.user.tom[1],
+      defaultPhotos.user.tom[2],
+      defaultPhotos.user.tom[3]
+    ]
   }
 ];
 
