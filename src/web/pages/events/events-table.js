@@ -9,7 +9,7 @@ const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time
 const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
-
+const wrappedApi = require('../../../core/apis');
 module.exports = class EventsTable extends React.PureComponent {
   static get propTypes() {
     return {
@@ -50,6 +50,17 @@ module.exports = class EventsTable extends React.PureComponent {
   constructor(props) {
     super(props);
     this.currentRoute = getRouter().findRouteByName('web.users.events');
+  }
+
+  generateEnlargePhotoHandler = eventPhotoUrl => {
+    wrappedApi({
+      method: 'get',
+      url: eventPhotoUrl,
+      responseType: 'blob'
+    })
+      .then(response => {
+        window.open(window.URL.createObjectURL(response.data), '_blank', 'rel=noopener noreferrer');
+      });
   }
 
   render() {
@@ -185,17 +196,25 @@ module.exports = class EventsTable extends React.PureComponent {
                             position: 'relative'
                           }}
                         >
-                          <div style={{
-                            background: '50%',
-                            backgroundSize: 'cover',
-                            width: '100%',
-                            height: '100%',
-                            position: 'absolute',
-                            left: 0,
-                            top: 0,
-                            backgroundImage: `url('${event.pictureThumbUrl}')`
-                          }}
-                          />
+                          {event.pictureThumbUrl && (
+                            <a
+                              onClick={() => {
+                                this.generateEnlargePhotoHandler(event.pictureLargeUrl);
+                              }}
+                            >
+                              <div style={{
+                                background: '50%',
+                                backgroundSize: 'cover',
+                                width: '100%',
+                                height: '100%',
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                backgroundImage: `url('${event.pictureThumbUrl}')`
+                              }}
+                              />
+                            </a>
+                          )}
                         </div>
                       </div>
                     </td>

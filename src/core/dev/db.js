@@ -414,6 +414,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.scarlett,
+          pictureLargeUrl: defaultPhotos.event.scarlett,
           time: '2019-10-02T12:00:00.000Z',
           recognitionType: RecognitionType.registered,
           member: members[0],
@@ -425,6 +426,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.jackman,
+          pictureLargeUrl: defaultPhotos.event.jackman,
           time: '2020-09-02T12:00:00.000Z',
           recognitionType: RecognitionType.fake,
           confidences: {
@@ -435,6 +437,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.kim,
+          pictureLargeUrl: defaultPhotos.event.kim,
           time: '2020-07-02T12:00:00.000Z',
           recognitionType: RecognitionType.registered,
           member: members[1],
@@ -446,6 +449,7 @@ module.exports = {
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.elon,
+          pictureLargeUrl: defaultPhotos.event.elon,
           time: '2020-04-03T12:00:00.000Z',
           recognitionType: RecognitionType.registered,
           member: members[2],
