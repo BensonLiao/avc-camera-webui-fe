@@ -179,7 +179,7 @@ module.exports = class User extends Base {
                   }}
                 />
                 <small className="text-info">
-                  {_('8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space')}
+                  {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
                 </small>
                 {
                   errors.newPassword && touched.newPassword && (

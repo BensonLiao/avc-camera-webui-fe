@@ -153,7 +153,9 @@ module.exports = class MembersDatabase extends React.PureComponent {
                 placeholder: _('Enter your password')
               }}
             />
-            <small className="form-text text-muted">{_('8-16 characters, letters, numbers and/or symbols')}</small>
+            <small className="form-text text-muted">
+              {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+            </small>
             {
               errors.newPassword && touched.newPassword && (
                 <div className="invalid-feedback">{errors.newPassword}</div>
