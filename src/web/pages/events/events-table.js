@@ -3,13 +3,13 @@ const {getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
-
+const wrappedApi = require('../../../core/apis');
 module.exports = class EventsTable extends React.PureComponent {
   static get propTypes() {
     return {
@@ -22,22 +22,23 @@ module.exports = class EventsTable extends React.PureComponent {
           id: PropTypes.string.isRequired,
           pictureThumbUrl: PropTypes.string.isRequired,
           time: PropTypes.string.isRequired,
-          enrollStatus: PropTypes.oneOf(EnrollStatus.all()).isRequired,
+          recognitionType: PropTypes.oneOf(RecognitionType.all()).isRequired,
           member: PropTypes.shape({
             id: PropTypes.string.isRequired,
+            picture: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
+            group: PropTypes.string,
             organization: PropTypes.string,
-            groupId: PropTypes.string,
-            note: PropTypes.string,
-            picture: PropTypes.string.isRequired
+            note: PropTypes.string
           }),
-          confidences: PropTypes.arrayOf(PropTypes.shape({
+          confidences: PropTypes.shape({
             score: PropTypes.string.isRequired,
             similarity: PropTypes.oneOf(Similarity.all()).isRequired
-          }).isRequired).isRequired
+          }).isRequired
         }).isRequired).isRequired
       }).isRequired,
       filterHandler: PropTypes.func.isRequired,
+      addMemberHandler: PropTypes.func.isRequired,
       modifyMemberHandler: PropTypes.func.isRequired,
       systemDateTime: PropTypes.shape({
         ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
@@ -51,8 +52,26 @@ module.exports = class EventsTable extends React.PureComponent {
     this.currentRoute = getRouter().findRouteByName('web.users.events');
   }
 
+  generateEnlargePhotoHandler = eventPhotoUrl => {
+    wrappedApi({
+      method: 'get',
+      url: eventPhotoUrl,
+      responseType: 'blob'
+    })
+      .then(response => {
+        window.open(window.URL.createObjectURL(response.data), '_blank', 'rel=noopener noreferrer');
+      });
+  }
+
   render() {
-    const {params, events, filterHandler, modifyMemberHandler, systemDateTime} = this.props;
+    const {
+      params,
+      events,
+      filterHandler,
+      addMemberHandler,
+      modifyMemberHandler,
+      systemDateTime
+    } = this.props;
     const defaultIconClass = 'fas fa-fw text-muted ml-3';
     const tableField = [
       {
@@ -151,7 +170,7 @@ module.exports = class EventsTable extends React.PureComponent {
             }
             {
               events.items.map(event => {
-                const isEnrolled = event.enrollStatus === EnrollStatus.registered;
+                const isEnrolled = event.recognitionType === RecognitionType.registered;
                 if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
                   event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
                 } else {
@@ -177,17 +196,25 @@ module.exports = class EventsTable extends React.PureComponent {
                             position: 'relative'
                           }}
                         >
-                          <div style={{
-                            background: '50%',
-                            backgroundSize: 'cover',
-                            width: '100%',
-                            height: '100%',
-                            position: 'absolute',
-                            left: 0,
-                            top: 0,
-                            backgroundImage: `url('${event.pictureThumbUrl}')`
-                          }}
-                          />
+                          {event.pictureThumbUrl && (
+                            <a
+                              onClick={() => {
+                                this.generateEnlargePhotoHandler(event.pictureLargeUrl);
+                              }}
+                            >
+                              <div style={{
+                                background: '50%',
+                                backgroundSize: 'cover',
+                                width: '100%',
+                                height: '100%',
+                                position: 'absolute',
+                                left: 0,
+                                top: 0,
+                                backgroundImage: `url('${event.pictureThumbUrl}')`
+                              }}
+                              />
+                            </a>
+                          )}
                         </div>
                       </div>
                     </td>
@@ -222,12 +249,14 @@ module.exports = class EventsTable extends React.PureComponent {
                       </CustomTooltip>
                     </td>
                     <td>
-                      {event.confidences.length > 0 ? _(`confidence-${event.confidences[0].similarity}`) : '-'}
+                      {event.confidences ? _(`confidence-${event.confidences.similarity}`) : '-'}
                     </td>
                     <td>
-                      <CustomTooltip title={event.confidences.length > 0 ? event.confidences[0].score || '' : ''}>
-                        <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
-                          {isEnrolled ? _(`enroll-status-${EnrollStatus.registered}`) : _(`enroll-status-${EnrollStatus.unknown}`)}
+                      <CustomTooltip title={event.confidences ? event.confidences.score || '' : ''}>
+                        <span className={classNames('badge badge-pill', {'badge-success': event.recognitionType === RecognitionType.registered}, {'badge-danger': event.recognitionType === RecognitionType.unknown}, {'badge-warning': event.recognitionType === RecognitionType.fake}
+                        )}
+                        >
+                          {_(`enroll-status-${event.recognitionType}`)}
                         </span>
                       </CustomTooltip>
                     </td>
@@ -239,18 +268,17 @@ module.exports = class EventsTable extends React.PureComponent {
                       </CustomTooltip>
                     </td>
                     <td className="text-left">
-                      <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
-                        <button
-                          className="btn btn-link"
-                          type="button"
-                          onClick={isEnrolled ? modifyMemberHandler({
-                            ...event.member,
-                            pictures: [event.member.picture]
-                          }) : modifyMemberHandler(null, event.pictureThumbUrl)}
-                        >
-                          <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
-                        </button>
-                      </CustomTooltip>
+                      {event.recognitionType === RecognitionType.fake ? '-' : (
+                        <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
+                          <button
+                            className="btn btn-link"
+                            type="button"
+                            onClick={isEnrolled ? modifyMemberHandler(event.member.id) : addMemberHandler(event.pictureThumbUrl)}
+                          >
+                            <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
+                          </button>
+                        </CustomTooltip>
+                      )}
                     </td>
                   </tr>
                 );

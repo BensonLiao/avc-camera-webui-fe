@@ -1617,17 +1617,18 @@ module.exports = {
      * - items[].pictureThumbUrl {String}
      * - items[].pictureLargeUrl {String}
      * - items[].time {String} ISO8601 "2019-10-02T02:00:00.000Z"
-     * - items[].confidences {Array<Object>}
-     * - items[].confidences[].score {Number}
-     * - items[].confidences[].confidence {String}
-     * - items[].confidences[].enrollStatus {String}
-     * - items[].confidences[].member {Object|null}
+     * - items[].recognitionType {String}
+     * - items[].enrollStatus {String}
+     * - items[].member {Object|null}
      * - - id {String}
-     * - - name {String}
-     * - - organization {String}
-     * - - groupId {String} The group id.
-     * - - note {String}
-     * - - pictures {Array<String>} The base64 string of jpeg images.
+     * - - picture {String} The base64 string of jpeg images.
+     * - - name {String} The member's name.
+     * - - group {String} The group's name.
+     * - - organization {String} The organization's name.
+     * - - note {String} The member's note.
+     * - items[].confidences {Array<Object>}
+     * - items[].confidences[].score {String}
+     * - items[].confidences[].similarity {String}
      */
     getFaceEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
       method: 'get',
