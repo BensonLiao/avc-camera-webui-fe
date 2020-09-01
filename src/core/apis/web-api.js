@@ -762,6 +762,7 @@ module.exports = {
       emailAttachmentType,
       senderSubject,
       senderContent,
+      emailContentPosition,
       groups,
       isEnableFaceRecognition,
       faceRecognitionCondition
@@ -785,6 +786,7 @@ module.exports = {
         emailAttachmentType,
         senderSubject,
         senderContent,
+        emailContentPosition,
         groups,
         isEnableFaceRecognition,
         faceRecognitionCondition
@@ -808,6 +810,7 @@ module.exports = {
       emailAttachmentType,
       senderSubject,
       senderContent,
+      emailContentPosition,
       groups,
       isEnableFaceRecognition,
       faceRecognitionCondition
@@ -831,6 +834,7 @@ module.exports = {
         emailAttachmentType,
         senderSubject,
         senderContent,
+        emailContentPosition,
         groups,
         isEnableFaceRecognition,
         faceRecognitionCondition
