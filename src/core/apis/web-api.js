@@ -149,19 +149,21 @@ module.exports = {
      * @param {String} account
      * @param {String} permission
      * @param {String} password
+     * @param {String} birthday
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - id {Number}
      * - account {String}
      * - permission {String}
      */
-    addUser: ({account, permission, password}) => api({
+    addUser: ({account, permission, password, birthday}) => api({
       method: 'post',
       url: '/api/users',
       data: {
         account,
         permission,
-        password
+        password,
+        birthday
       }
     }),
     /**
@@ -170,20 +172,22 @@ module.exports = {
      * @param {String} permission
      * @param {String} password The old password.
      * @param {String} newPassword
+     * @param {String} birthday
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - id {Number}
      * - account {String}
      * - permission {String}
      */
-    updateUser: ({id, account, permission, password, newPassword}) => api({
+    updateUser: ({id, account, permission, password, newPassword, birthday}) => api({
       method: 'put',
       url: `/api/users/${id}`,
       data: {
         account,
         permission,
         password,
-        newPassword
+        newPassword,
+        birthday
       }
     }),
     /**
