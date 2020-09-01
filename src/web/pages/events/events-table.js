@@ -1,6 +1,5 @@
 const classNames = require('classnames');
 const {getRouter} = require('capybara-router');
-const Modal = require('react-bootstrap/Modal').default;
 const PropTypes = require('prop-types');
 const React = require('react');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
@@ -48,22 +47,9 @@ module.exports = class EventsTable extends React.PureComponent {
     };
   }
 
-  state = {
-    isShowEnlargeModal: false,
-    enlargePhoto: null
-  }
-
   constructor(props) {
     super(props);
     this.currentRoute = getRouter().findRouteByName('web.users.events');
-  }
-
-  showEnlargeModal = () => {
-    this.setState({isShowEnlargeModal: true});
-  }
-
-  hideEnlargeModal = () => {
-    this.setState({isShowEnlargeModal: false});
   }
 
   generateEnlargePhotoHandler = eventPhotoUrl => {
@@ -296,25 +282,6 @@ module.exports = class EventsTable extends React.PureComponent {
             }
           </tbody>
         </table>
-        <Modal
-          show={this.state.isShowEnlargeModal}
-          autoFocus={false}
-          onHide={this.hideEnlargeModal}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>{_('Event Snapshot')}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body> <div
-            style={{
-              background: '50%',
-              backgroundSize: 'cover',
-              height: '50vh',
-              width: 'auto',
-              backgroundImage: `url('${this.state.enlargePhoto}')`
-            }}
-          />
-          </Modal.Body>
-        </Modal>
       </div>
     );
   }
