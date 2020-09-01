@@ -154,6 +154,10 @@ module.exports = class Member extends React.PureComponent {
     this.setState(updateState);
   };
 
+  onShowConfirmModal = () => {
+    this.setState({isShowConfirmModal: true});
+  }
+
   onHideConfirmModal = () => {
     this.setState({isShowConfirmModal: false});
   }
@@ -651,9 +655,7 @@ module.exports = class Member extends React.PureComponent {
           <button
             className="btn btn-info btn-block m-0 rounded-pill"
             type="button"
-            onClick={() => {
-              this.setState({isShowConfirmModal: true});
-            }}
+            onClick={this.onShowConfirmModal}
           >
             {_('Close')}
           </button>
@@ -766,7 +768,7 @@ module.exports = class Member extends React.PureComponent {
   };
 
   render() {
-    const {isShowModal, member, onHide} = this.props;
+    const {isShowModal, member} = this.props;
 
     return (
       <Modal
@@ -774,8 +776,7 @@ module.exports = class Member extends React.PureComponent {
         autoFocus={false}
         show={isShowModal}
         className="member-modal"
-        backdrop="static"
-        onHide={onHide}
+        onHide={this.onShowConfirmModal}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
           <Modal.Title as="h5">{member ? _('Modify Member') : _('New Member')}</Modal.Title>
