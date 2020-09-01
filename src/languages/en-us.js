@@ -141,6 +141,10 @@ if (!window.languageResource['en-us']) {
     'email-attachment-type-1': 'Screenshot',
     'email-attachment-type-2': 'None',
 
+    // 通知信件內容位置
+    'email-content-position-0': 'Head',
+    'email-content-position-1': 'Tail',
+
     // Validations
     'validation-required': 'This field is required.',
     'validation-string': 'This field must be a string.',
