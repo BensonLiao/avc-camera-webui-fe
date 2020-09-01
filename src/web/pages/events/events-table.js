@@ -10,7 +10,7 @@ const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time
 const _ = require('../../../languages');
 const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
-
+const wrappedApi = require('../../../core/apis');
 module.exports = class EventsTable extends React.PureComponent {
   static get propTypes() {
     return {
@@ -66,21 +66,15 @@ module.exports = class EventsTable extends React.PureComponent {
     this.setState({isShowEnlargeModal: false});
   }
 
-  generateEnlargePhotoHandler = eventPhoto => {
-    const imageUrl = window.URL.createObjectURL(this.b64toBlob(eventPhoto));
-    window.open(imageUrl, '_blank', 'rel=noopener noreferrer');
-  }
-
-  b64toBlob = dataURI => {
-    var byteString = atob(dataURI.split(',')[1]);
-    var ab = new ArrayBuffer(byteString.length);
-    var ia = new Uint8Array(ab);
-
-    for (var i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([ab], {type: 'image/jpeg'});
+  generateEnlargePhotoHandler = eventPhotoUrl => {
+    wrappedApi({
+      method: 'get',
+      url: eventPhotoUrl,
+      responseType: 'blob'
+    })
+      .then(response => {
+        window.open(window.URL.createObjectURL(response.data), '_blank', 'rel=noopener noreferrer');
+      });
   }
 
   render() {
