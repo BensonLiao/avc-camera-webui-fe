@@ -11,7 +11,7 @@ const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const defaultPhotos = require('./default-photos');
 
@@ -43,7 +43,8 @@ const members = [
     note: '"Let me put you on hold."',
     pictures: [
       defaultPhotos.user.scarlett
-    ]
+    ],
+    picture: defaultPhotos.user.scarlett
   },
   {
     id: uuidv4(),
@@ -53,7 +54,8 @@ const members = [
     note: 'Has No Nuclear Weapon',
     pictures: [
       defaultPhotos.user.kim
-    ]
+    ],
+    picture: defaultPhotos.user.kim
   },
   {
     id: uuidv4(),
@@ -63,7 +65,8 @@ const members = [
     note: 'Iron Man',
     pictures: [
       defaultPhotos.user.elon
-    ]
+    ],
+    picture: defaultPhotos.user.elon
   }
 ];
 
@@ -413,55 +416,67 @@ module.exports = {
           pictureThumbUrl: defaultPhotos.event.scarlett,
           pictureLargeUrl: defaultPhotos.event.scarlett,
           time: '2019-10-02T12:00:00.000Z',
-          enrollStatus: EnrollStatus.registered,
+          recognitionType: RecognitionType.registered,
           member: members[0],
-          confidences: [
-            {
-              score: '50',
-              similarity: Similarity.low
-            }
-          ]
+          confidences: {
+            score: '50',
+            similarity: Similarity.low
+          }
         },
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.jackman,
           pictureLargeUrl: defaultPhotos.event.jackman,
-          time: '2020-01-02T12:00:00.000Z',
-          enrollStatus: EnrollStatus.unknown,
-          confidences: [
-            {
-              score: '49',
-              similarity: Similarity.low
-            }
-          ]
+          time: '2020-09-02T12:00:00.000Z',
+          recognitionType: RecognitionType.fake,
+          confidences: {
+            score: '4.9',
+            similarity: Similarity.low
+          }
         },
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.kim,
           pictureLargeUrl: defaultPhotos.event.kim,
-          time: '2020-02-02T12:00:00.000Z',
-          enrollStatus: EnrollStatus.registered,
+          time: '2020-07-02T12:00:00.000Z',
+          recognitionType: RecognitionType.registered,
           member: members[1],
-          confidences: [
-            {
-              score: '56',
-              similarity: Similarity.medium
-            }
-          ]
+          confidences: {
+            score: '56',
+            similarity: Similarity.medium
+          }
         },
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.elon,
           pictureLargeUrl: defaultPhotos.event.elon,
-          time: '2020-03-03T12:00:00.000Z',
-          enrollStatus: EnrollStatus.registered,
+          time: '2020-04-03T12:00:00.000Z',
+          recognitionType: RecognitionType.registered,
           member: members[2],
-          confidences: [
-            {
-              score: '70',
-              similarity: Similarity.high
-            }
-          ]
+          confidences: {
+            score: '70',
+            similarity: Similarity.high
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: defaultPhotos.event.kim,
+          time: '2020-02-04T12:00:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          confidences: {
+            score: '49',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: defaultPhotos.event.jackman,
+          time: '2020-01-05T12:00:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          confidences: {
+            score: '49',
+            similarity: Similarity.low
+          }
         }
       ],
       users: [

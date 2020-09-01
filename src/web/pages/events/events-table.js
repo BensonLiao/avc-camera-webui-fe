@@ -31,10 +31,10 @@ module.exports = class EventsTable extends React.PureComponent {
             organization: PropTypes.string,
             note: PropTypes.string
           }),
-          confidences: PropTypes.arrayOf(PropTypes.shape({
+          confidences: PropTypes.shape({
             score: PropTypes.string.isRequired,
             similarity: PropTypes.oneOf(Similarity.all()).isRequired
-          }).isRequired).isRequired
+          }).isRequired
         }).isRequired).isRequired
       }).isRequired,
       filterHandler: PropTypes.func.isRequired,
@@ -253,8 +253,10 @@ module.exports = class EventsTable extends React.PureComponent {
                     </td>
                     <td>
                       <CustomTooltip title={event.confidences ? event.confidences.score || '' : ''}>
-                        <span className={classNames('badge badge-pill', {'badge-success': isEnrolled}, {'badge-danger': !isEnrolled})}>
-                          {isEnrolled ? _(`enroll-status-${RecognitionType.registered}`) : _(`enroll-status-${RecognitionType.unknown}`)}
+                        <span className={classNames('badge badge-pill', {'badge-success': event.recognitionType === RecognitionType.registered}, {'badge-danger': event.recognitionType === RecognitionType.unknown}, {'badge-warning': event.recognitionType === RecognitionType.fake}
+                        )}
+                        >
+                          {_(`enroll-status-${event.recognitionType}`)}
                         </span>
                       </CustomTooltip>
                     </td>
@@ -266,15 +268,17 @@ module.exports = class EventsTable extends React.PureComponent {
                       </CustomTooltip>
                     </td>
                     <td className="text-left">
-                      <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
-                        <button
-                          className="btn btn-link"
-                          type="button"
-                          onClick={isEnrolled ? modifyMemberHandler(event.member.id) : addMemberHandler(event.pictureThumbUrl)}
-                        >
-                          <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
-                        </button>
-                      </CustomTooltip>
+                      {event.recognitionType === RecognitionType.fake ? '-' : (
+                        <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
+                          <button
+                            className="btn btn-link"
+                            type="button"
+                            onClick={isEnrolled ? modifyMemberHandler(event.member.id) : addMemberHandler(event.pictureThumbUrl)}
+                          >
+                            <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
+                          </button>
+                        </CustomTooltip>
+                      )}
                     </td>
                   </tr>
                 );
