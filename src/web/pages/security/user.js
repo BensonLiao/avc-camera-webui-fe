@@ -57,6 +57,7 @@ module.exports = class User extends Base {
         id: user.id,
         permission: user.permission === UserPermission.viewer ? UserPermission.guest : user.permission,
         account: user.account,
+        birthday: user.birthday,
         password: '',
         newPassword: '',
         confirmPassword: ''
@@ -66,6 +67,7 @@ module.exports = class User extends Base {
     return {
       permission: UserPermission.root,
       account: '',
+      birthday: '',
       password: '',
       confirmPassword: ''
     };
@@ -146,12 +148,25 @@ module.exports = class User extends Base {
             />
             <ErrorMessage component="div" name="account" className="invalid-feedback"/>
           </div>
-            {
-              errors.account && touched.account && (
-                <div className="invalid-feedback">{errors.account}</div>
-              )
-            }
-          </div>
+          {
+            !user && (
+              <div className="form-group has-feedback">
+                <label>{_('Birthday')}</label>
+                <Field
+                  name="birthday"
+                  component={Password}
+                  inputProps={{
+                    placeholder: _('Enter Your Birthday'),
+                    className: classNames(
+                      'form-control', {'is-invalid': errors.birthday && touched.birthday}
+                    )
+                  }}
+                />
+                <ErrorMessage component="div" name="birthday" className="invalid-feedback"/>
+                <small className="form-text text-muted">{_('This is used for resetting password. ex. 19890312')}</small>
+              </div>
+            )
+          }
           <div className="form-group has-feedback">
             <label>{_(user ? 'Old Password' : 'Password')}</label>
             <Field
