@@ -1598,37 +1598,36 @@ module.exports = {
   },
   event: {
     /**
-     * @param {Array<String>|String} enrollStatus webserver-form-schema/constants/event-filters/enroll-status
+     * @param {Array<String>|String} enrollStatus webserver-form-schema/constants/event-filters/recognition-type
      * @param {Array<String>|String} confidence webserver-form-schema/constants/event-filters/confidence
      * @param {Number} index
      * @param {String} keyword
      * @param {Date|null} start The start time.
      * @param {Date|null} end The end time.
-     * @param {String} sort "time", "-time", "name", "-name", "organization", "-organization", "group", "-group"
-     * "time": Sorting by time with ASC.
-     * "-time": Sorting by time with DESC.
+     * @param {String} sort `time`, `-time`, `name`, `-name`, `organization`, `-organization`, `group`, `-group`
+     * `time`: Sorting by time with ASC.
+     * `-time`: Sorting by time with DESC.
      * @returns {Promise<response>}
      * @response 200 {Object}
-     * - index {Number} The current page index.
-     * - size {Number} The current page size.
-     * - total {Number} The total item quantity.
-     * - items {Array<Object>}
-     * - items[].id {String}
-     * - items[].pictureThumbUrl {String}
-     * - items[].pictureLargeUrl {String}
-     * - items[].time {String} ISO8601 "2019-10-02T02:00:00.000Z"
-     * - items[].recognitionType {String}
-     * - items[].enrollStatus {String}
-     * - items[].member {Object|null}
-     * - - id {String}
-     * - - picture {String} The base64 string of jpeg images.
-     * - - name {String} The member's name.
-     * - - group {String} The group's name.
-     * - - organization {String} The organization's name.
-     * - - note {String} The member's note.
-     * - items[].confidences {Array<Object>}
-     * - items[].confidences[].score {String}
-     * - items[].confidences[].similarity {String}
+     * - index: {Number} The current page index.
+     * - size: {Number} The current page size.
+     * - total: {Number} The total item quantity.
+     * - items: {Array<Object>}
+     * - - id: {String}
+     * - - pictureThumbUrl: {String}
+     * - - pictureLargeUrl: {String}
+     * - - time: {String} ISO8601 `2019-10-02T02:00:00.000Z`
+     * - - recognitionType: {String} The result of recognition. `0`:`fake`, `1`:`unknown`, `2`:`registered`
+     * - - member: {Object|null}
+     * - - - id: {String}
+     * - - - picture {String} The base64 string of jpeg image.
+     * - - - name: {String} The member name.
+     * - - - group: {String} The group name.
+     * - - - organization: {String} The organization name.
+     * - - - note: {String} The member note.
+     * - - confidences: {Object}
+     * - - - score: {String}
+     * - - - similarity: {String}
      */
     getFaceEvents: ({enrollStatus, confidence, index, keyword, start, end, sort}) => api({
       method: 'get',

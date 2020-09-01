@@ -67,8 +67,8 @@ module.exports = class Member extends React.PureComponent {
     this.state.isFormTouched = false;
     this.state.preEditState = null;
     this.state.avatarToEdit = 'Primary';
-    this.editWrapperSize = 128;
-    this.listWrapperSize = 88;
+    this.editWrapperSize = 128; // px
+    this.listWrapperSize = 88; // px
     this.previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
     this.state.boundary = {
       left: 0,
