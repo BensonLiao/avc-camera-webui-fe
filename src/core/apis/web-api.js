@@ -737,6 +737,9 @@ module.exports = {
      * - faceRecognitionVMSEvent {string}
      * - emails {Array<string>}
      * - emailAttachmentType {string}
+     * - senderSubject {string}
+     * - senderContent {string}
+     * - emailContentPosition {string}
      * - groups {Array<string>}
      * - isEnableFaceRecognition {boolean}
      * - faceRecognitionCondition {string}
