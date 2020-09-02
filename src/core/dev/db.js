@@ -268,6 +268,7 @@ module.exports = {
       faceRecognitionStatus: {isEnable: true},
       faceRecognitionSettings: {
         isEnable: true,
+        isEnableSpoofing: false,
         confidenceLevel: '0',
         isShowMember: true,
         isShowGroup: false,
