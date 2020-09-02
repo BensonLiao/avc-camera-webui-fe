@@ -1,14 +1,14 @@
 const classNames = require('classnames');
+require('cropperjs/dist/cropper.min.css');
+const Cropper = require('react-cropper').default;
 const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
 const loadImage = require('blueimp-load-image');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
-const Draggable = require('react-draggable').default;
 const Modal = require('react-bootstrap/Modal').default;
 const update = require('immutability-helper');
 const MemberSchema = require('webserver-form-schema/member-schema');
-const avatarMask = require('../../resource/avatar-mask.png');
 const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
 const _ = require('../../languages');
@@ -56,6 +56,8 @@ module.exports = class Member extends React.PureComponent {
 
   state={}
 
+  cropper = null;
+
   constructor(props) {
     super(props);
     this.avatarWrapperRef = React.createRef();
@@ -67,7 +69,7 @@ module.exports = class Member extends React.PureComponent {
     this.state.isFormTouched = false;
     this.state.preEditState = null;
     this.state.avatarToEdit = 'Primary';
-    this.editWrapperSize = 128; // px
+    this.editWrapperSize = 300; // px
     this.listWrapperSize = 88; // px
     this.previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
     this.state.boundary = {
@@ -112,6 +114,15 @@ module.exports = class Member extends React.PureComponent {
         errorMessage: null
       }
     })));
+  }
+
+  _crop = () => {
+    // image in dataUrl
+    console.log(this.cropper.getCroppedCanvas());
+  }
+
+  onCropperInit = cropper => {
+    this.cropper = cropper;
   }
 
   generateInitialValue = member => {
@@ -301,6 +312,7 @@ module.exports = class Member extends React.PureComponent {
       avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {rotate}}}}
     } = this.state;
     const degrees = isClockwise ? 90 : -90;
+    this.cropper.rotate(degrees);
     const updateRotation = update(this.state,
       {
         avatarList:
@@ -495,7 +507,7 @@ module.exports = class Member extends React.PureComponent {
       isFormTouched,
       avatarList,
       avatarToEdit,
-      avatarList: {[avatarToEdit]: {avatarPreviewStyle, photoOffset, boundary}},
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle}},
       preEditState
     } = this.state;
     const {background: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
@@ -696,26 +708,19 @@ module.exports = class Member extends React.PureComponent {
           <Modal.Body>
             <div className="avatar-uploader d-flex flex-column align-items-center">
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
-                <div style={{
-                  transform: `scale(${avatarPreviewStyle.transform.scale}) 
-                              rotate(${avatarPreviewStyle.transform.rotate}deg)`
-                }}
-                >
-                  <Draggable
-                    bounds={boundary}
-                    scale={avatarPreviewStyle.transform.scale}
-                    defaultPosition={photoOffset}
-                    onDrag={this.onDraggingMaskArea}
-                  >
-                    <div
-                      className="avatar-img"
-                      style={{backgroundImage: `url("${avatarPreviewStyle.background}")`}}
-                    />
-                  </Draggable>
-                </div>
-                <div className="avatar-mask">
-                  <img src={avatarMask}/>
-                </div>
+                <Cropper
+                  src={avatarPreviewStyle.background}
+                  style={{
+                    height: this.editWrapperSize,
+                    width: this.editWrapperSize
+                  }}
+                  // Cropper.js options
+                  initialAspectRatio={1 / 1}
+                  viewMode={2}
+                  guides={false}
+                  crop={this._crop}
+                  onInitialized={this.onCropperInit}
+                />
               </label>
               <p className="text-center mb-1">
                 {_('Drag to reposition photo')}
