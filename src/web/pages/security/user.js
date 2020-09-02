@@ -2,7 +2,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const {getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const UserSchema = require('webserver-form-schema/user-schema');
@@ -66,6 +66,7 @@ module.exports = class User extends Base {
     return {
       permission: UserPermission.root,
       account: '',
+      birthday: '',
       password: '',
       confirmPassword: ''
     };
@@ -144,12 +145,27 @@ module.exports = class User extends Base {
               validate={this.checkDuplicate}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
             />
-            {
-              errors.account && touched.account && (
-                <div className="invalid-feedback">{errors.account}</div>
-              )
-            }
+            <ErrorMessage component="div" name="account" className="invalid-feedback"/>
           </div>
+          {
+            !user && (
+              <div className="form-group has-feedback">
+                <label>{_('Birthday')}</label>
+                <Field
+                  name="birthday"
+                  component={Password}
+                  inputProps={{
+                    placeholder: _('Enter Your Birthday'),
+                    className: classNames(
+                      'form-control', {'is-invalid': errors.birthday && touched.birthday}
+                    )
+                  }}
+                />
+                <ErrorMessage component="div" name="birthday" className="invalid-feedback"/>
+                <small className="form-text text-muted">{_('This is used for resetting password. ex. 19890312')}</small>
+              </div>
+            )
+          }
           <div className="form-group has-feedback">
             <label>{_(user ? 'Old Password' : 'Password')}</label>
             <Field
@@ -160,11 +176,7 @@ module.exports = class User extends Base {
                 className: classNames('form-control', {'is-invalid': errors.password && touched.password})
               }}
             />
-            {
-              errors.password && touched.password && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )
-            }
+            <ErrorMessage component="div" name="password" className="invalid-feedback"/>
           </div>
           {
             user && (
@@ -181,11 +193,7 @@ module.exports = class User extends Base {
                 <small className="text-info">
                   {_('8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space')}
                 </small>
-                {
-                  errors.newPassword && touched.newPassword && (
-                    <div className="invalid-feedback">{errors.newPassword}</div>
-                  )
-                }
+                <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
               </div>
             )
           }
@@ -199,11 +207,7 @@ module.exports = class User extends Base {
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
               }}
             />
-            {
-              errors.confirmPassword && touched.confirmPassword && (
-                <div className="invalid-feedback">{errors.confirmPassword}</div>
-              )
-            }
+            <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
           </div>
         </div>
         <div className="modal-footer flex-column">
