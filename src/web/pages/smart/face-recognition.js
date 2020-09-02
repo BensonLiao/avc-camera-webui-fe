@@ -18,6 +18,7 @@ module.exports = class FaceRecognition extends Base {
         isShowMember: PropTypes.bool.isRequired,
         isShowGroup: PropTypes.bool.isRequired,
         isShowUnknown: PropTypes.bool.isRequired,
+        isShowFake: PropTypes.bool.isRequired,
         triggerArea: PropTypes.shape({
           x: PropTypes.number.isRequired,
           y: PropTypes.number.isRequired,
@@ -66,13 +67,15 @@ module.exports = class FaceRecognition extends Base {
       if (
         values.isShowMember !== faceRecognitionSettings.isShowMember ||
         values.isShowGroup !== faceRecognitionSettings.isShowGroup ||
-        values.isShowUnknown !== faceRecognitionSettings.isShowUnknown
+        values.isShowUnknown !== faceRecognitionSettings.isShowUnknown ||
+        values.isShowFake !== faceRecognitionSettings.isShowFake
       ) {
         promises.push(api.smartFunction.updateFREnrollDisplaySetting({
           ...values,
           isShowMember: values.isShowMember,
           isShowGroup: values.isShowGroup,
-          isShowUnknown: values.isShowUnknown
+          isShowUnknown: values.isShowUnknown,
+          isShowFake: values.isShowFake
         }));
       }
 
@@ -259,7 +262,7 @@ module.exports = class FaceRecognition extends Base {
                   />
                   <label className="form-check-label" htmlFor="input-show-register-group">{_('Display Group')}</label>
                 </div>
-                <div className="form-check">
+                <div className="form-check mb-3">
                   <Field
                     name="isShowUnknown"
                     checked={values.isShowUnknown}
@@ -268,6 +271,16 @@ module.exports = class FaceRecognition extends Base {
                     id="input-show-unknown-personal"
                   />
                   <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Display "Unknown"')}</label>
+                </div>
+                <div className="form-check">
+                  <Field
+                    name="isShowFake"
+                    checked={values.isShowFake}
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input-show-fake"
+                  />
+                  <label className="form-check-label" htmlFor="input-show-fake">{_('Display "Fake"')}</label>
                 </div>
               </div>
 
