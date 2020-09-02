@@ -88,11 +88,7 @@ module.exports = class Layout extends Base {
       return;
     }
 
-    if (event.target.src) {
-      getRouter().go(event.target.parentNode.pathname);
-    } else {
-      getRouter().go(event.target.pathname);
-    }
+    getRouter().go(event.target.src ? event.target.parentNode.pathname : event.target.pathname);
   }
 
   render() {
