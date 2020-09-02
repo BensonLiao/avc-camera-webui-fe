@@ -20,6 +20,7 @@ const CustomTooltip = require('../../core/components/tooltip');
 module.exports = class VideoSetting extends React.PureComponent {
   static get propTypes() {
     return {
+      isApiProcessing: PropTypes.bool.isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired, // 除霧
         irEnabled: PropTypes.string.isRequired, // 紅外線燈
@@ -123,7 +124,7 @@ module.exports = class VideoSetting extends React.PureComponent {
       this.setState({updateFocalLengthField: true});
     }
 
-    if (this.state.$isApiProcessing) {
+    if (this.props.isApiProcessing) {
       this.setState({focalLengthQueue: nextValues.focalLength});
     } else {
       api.video.updateFocusSettings(nextValues)
@@ -249,7 +250,8 @@ module.exports = class VideoSetting extends React.PureComponent {
 
   videoSettingsFormRender = form => {
     const {values} = form;
-    const {$isApiProcessing, updateFocalLengthField} = this.state;
+    const {updateFocalLengthField} = this.state;
+    const {isApiProcessing} = this.props;
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
@@ -356,7 +358,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={$isApiProcessing || updateFocalLengthField}
+                  disabled={isApiProcessing || updateFocalLengthField}
                   type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
@@ -365,7 +367,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                 </button>
                 <button
                   type="button"
-                  disabled={$isApiProcessing || updateFocalLengthField}
+                  disabled={isApiProcessing || updateFocalLengthField}
                   className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
@@ -701,7 +703,7 @@ module.exports = class VideoSetting extends React.PureComponent {
         <hr className="my-0"/>
         <div className="card-body pt-0 mt-5">
           <button
-            disabled={$isApiProcessing || updateFocalLengthField}
+            disabled={isApiProcessing || updateFocalLengthField}
             type="button"
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler()}

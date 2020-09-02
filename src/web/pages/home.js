@@ -280,6 +280,7 @@ module.exports = class Home extends Base {
                     <VideoSetting
                       videoSettings={videoSettings}
                       systemDateTime={systemDateTime}
+                      isApiProcessing={this.state.$isApiProcessing}
                     />
                   </div>
                 </div>
