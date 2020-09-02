@@ -1071,19 +1071,22 @@ module.exports = {
      * @param {boolean} isShowMember
      * @param {boolean} isShowGroup
      * @param {boolean} isShowUnknown
+     * @param {boolean} isShowFake
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isShowMember {boolean}
      * - isShowGroup {boolean}
      * - isShowUnknown {boolean}
+     * - isShowFake {boolean}
      */
-    updateFREnrollDisplaySetting: ({isShowMember, isShowGroup, isShowUnknown}) => api({
+    updateFREnrollDisplaySetting: ({isShowMember, isShowGroup, isShowUnknown, isShowFake}) => api({
       method: 'put',
       url: '/api/face-recognition/enrolldisplay',
       data: {
         isShowMember,
         isShowGroup,
-        isShowUnknown
+        isShowUnknown,
+        isShowFake
       }
     }),
     /**

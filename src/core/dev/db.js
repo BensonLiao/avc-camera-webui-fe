@@ -273,6 +273,7 @@ module.exports = {
         isShowMember: true,
         isShowGroup: false,
         isShowUnknown: false,
+        isShowFake: true,
         triggerArea: {
           x: 0,
           y: 0,
