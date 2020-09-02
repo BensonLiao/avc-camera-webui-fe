@@ -715,7 +715,8 @@ module.exports = class Member extends React.PureComponent {
                     width: this.editWrapperSize
                   }}
                   // Cropper.js options
-                  initialAspectRatio={1 / 1}
+                  initialAspectRatio={1}
+                  aspectRatio={1}
                   viewMode={2}
                   guides={false}
                   crop={this._crop}
