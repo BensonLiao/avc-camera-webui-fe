@@ -57,7 +57,6 @@ module.exports = class User extends Base {
         id: user.id,
         permission: user.permission === UserPermission.viewer ? UserPermission.guest : user.permission,
         account: user.account,
-        birthday: user.birthday,
         password: '',
         newPassword: '',
         confirmPassword: ''

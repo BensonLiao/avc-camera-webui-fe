@@ -155,6 +155,7 @@ module.exports = {
      * - id {Number}
      * - account {String}
      * - permission {String}
+     * - birthday {String}
      */
     addUser: ({account, permission, password, birthday}) => api({
       method: 'post',
