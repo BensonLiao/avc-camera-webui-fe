@@ -72,6 +72,11 @@ module.exports = class CardsForm extends React.PureComponent {
   constructor(props) {
     super(props);
     this.cardFormTitleRef = React.createRef();
+    this.defaultSubject = {
+      faceRecognition: `${_('Face Recognition Event [{0}]', props.modelName)}`,
+      motionDetection: `${_('Motion Detection Event [{0}]', props.modelName)}`,
+      digitalInput: `${_('Digital Input Event [{0}]', props.modelName)}`
+    };
   }
 
   generateCardInitialValues = card => {
@@ -131,20 +136,19 @@ module.exports = class CardsForm extends React.PureComponent {
   };
 
   onChangeCardForm = ({nextValues, prevValues, formik}) => {
-    if (prevValues.type !== nextValues.type && !this.props.cardDetails.senderSubject) {
+    if (prevValues.type !== nextValues.type && !(this.props.cardDetails && this.props.cardDetails.senderSubject)) {
       this.defaultSubjectTitle(nextValues.type, formik);
     }
   }
 
   defaultSubjectTitle = (type, formik = null) => {
-    const {modelName} = this.props;
     switch (type) {
       case '0':
-        return formik ? formik.setFieldValue('senderSubject', `${_('Face Recognition Event [{0}]', modelName)}`) : `${_('Face Recognition Event [{0}]', modelName)}`;
+        return formik ? formik.setFieldValue('senderSubject', this.defaultSubject.faceRecognition) : this.defaultSubject.faceRecognition;
       case '3':
-        return formik ? formik.setFieldValue('senderSubject', `${_('Motion Detection Event [{0}]', modelName)}`) : `${_('Motion Detection Event [{0}]', modelName)}`;
+        return formik ? formik.setFieldValue('senderSubject', this.defaultSubject.motionDetection) : this.defaultSubject.motionDetection;
       case '5':
-        return formik ? formik.setFieldValue('senderSubject', `${_('Digital Input Event [{0}]', modelName)}`) : `${_('Digital Input Event [{0}]', modelName)}`;
+        return formik ? formik.setFieldValue('senderSubject', this.defaultSubject.digitalInput) : this.defaultSubject.digitalInput;
       default:
         break;
     }
