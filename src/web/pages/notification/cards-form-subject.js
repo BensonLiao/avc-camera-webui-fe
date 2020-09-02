@@ -4,6 +4,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
+const NotificationEmailContentPosition = require('webserver-form-schema/constants/notification-email-content-position');
 const {NOTIFY_CARDS_EMAIL_MAX} = require('../../../core/constants');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
@@ -135,9 +136,9 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    )
                  ))}
                </SelectField>
-               <hr/>
+               <hr className={classNames({'d-none': values.type === NotificationCardType.digitalInput})}/>
                <div className="form-group mb-4">
-                 <label className="text-size-16">Subject :</label>
+                 <label className="text-size-16">{_('Subject :')}</label>
                  <Field
                    name="senderSubject"
                    type="text"
@@ -146,13 +147,28 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                  />
                </div>
                <div className="form-group mb-4">
-                 <label className="text-size-16">Content :</label>
+                 <label className="text-size-16">{_('Content :')}</label>
                  <Field
                    name="senderContent"
                    type="text"
                    className="form-control"
                    placeholder={_('Append your message to notification emails.')}
                  />
+               </div>
+               <div className="form-group mb-4">
+                 <SelectField
+                   labelName={_('Email Content Order')}
+                   labelClassName="text-size-16"
+                   name="emailContentPosition"
+                 >
+                   {NotificationEmailContentPosition.all().map(position => (
+                     <option
+                       key={position}
+                       value={position}
+                     >{_(`email-content-position-${position}`)}
+                     </option>
+                   ))}
+                 </SelectField>
                </div>
                <div className="form-group mb-3">
                  <label className="text-size-16 mb-0">{_('Receiver')} :</label>

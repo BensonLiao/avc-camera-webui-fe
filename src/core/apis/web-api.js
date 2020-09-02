@@ -737,6 +737,9 @@ module.exports = {
      * - faceRecognitionVMSEvent {string}
      * - emails {Array<string>}
      * - emailAttachmentType {string}
+     * - senderSubject {string}
+     * - senderContent {string}
+     * - emailContentPosition {string}
      * - groups {Array<string>}
      * - isEnableFaceRecognition {boolean}
      * - faceRecognitionCondition {string}
@@ -762,6 +765,7 @@ module.exports = {
       emailAttachmentType,
       senderSubject,
       senderContent,
+      emailContentPosition,
       groups,
       isEnableFaceRecognition,
       faceRecognitionCondition
@@ -785,6 +789,7 @@ module.exports = {
         emailAttachmentType,
         senderSubject,
         senderContent,
+        emailContentPosition,
         groups,
         isEnableFaceRecognition,
         faceRecognitionCondition
@@ -808,6 +813,7 @@ module.exports = {
       emailAttachmentType,
       senderSubject,
       senderContent,
+      emailContentPosition,
       groups,
       isEnableFaceRecognition,
       faceRecognitionCondition
@@ -831,6 +837,7 @@ module.exports = {
         emailAttachmentType,
         senderSubject,
         senderContent,
+        emailContentPosition,
         groups,
         isEnableFaceRecognition,
         faceRecognitionCondition

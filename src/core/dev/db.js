@@ -349,7 +349,10 @@ module.exports = {
         emailAttachmentType: '0',
         groups: [],
         isEnableFaceRecognition: false,
-        faceRecognitionCondition: '1'
+        faceRecognitionCondition: '1',
+        senderSubject: '',
+        senderContent: '',
+        emailContentPosition: '0'
       },
       {
         id: 2,
@@ -394,7 +397,10 @@ module.exports = {
         emailAttachmentType: '0',
         groups: [],
         isEnableFaceRecognition: false,
-        faceRecognitionCondition: '0'
+        faceRecognitionCondition: '0',
+        senderSubject: '',
+        senderContent: '',
+        emailContentPosition: '1'
       },
       {
         id: 3,
@@ -419,7 +425,10 @@ module.exports = {
         emailAttachmentType: '0',
         groups: [memberGroups[0].id],
         isEnableFaceRecognition: true,
-        faceRecognitionCondition: '0'
+        faceRecognitionCondition: '0',
+        senderSubject: '',
+        senderContent: '',
+        emailContentPosition: '0'
       }],
       groups: memberGroups,
       members,
