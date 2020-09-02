@@ -131,6 +131,7 @@ if (!window.languageResource['en-us']) {
     'face-recognition-condition-0': 'Always',
     'face-recognition-condition-1': 'Success',
     'face-recognition-condition-2': 'Unknown',
+    'face-recognition-condition-3': 'Fake',
 
     // VMS類型
     'notification-vms-event-0': 'Video Motion Detection Event',

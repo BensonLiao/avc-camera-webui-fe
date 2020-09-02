@@ -18,6 +18,7 @@ module.exports = class FaceRecognition extends Base {
         isShowMember: PropTypes.bool.isRequired,
         isShowGroup: PropTypes.bool.isRequired,
         isShowUnknown: PropTypes.bool.isRequired,
+        isShowFake: PropTypes.bool.isRequired,
         triggerArea: PropTypes.shape({
           x: PropTypes.number.isRequired,
           y: PropTypes.number.isRequired,
@@ -55,6 +56,10 @@ module.exports = class FaceRecognition extends Base {
         promises.push(api.smartFunction.updateFRSetting(values));
       }
 
+      if (values.isEnableSpoofing !== faceRecognitionSettings.isEnableSpoofing) {
+        promises.push(api.smartFunction.updateFRSpoofing(values));
+      }
+
       if (values.confidenceLevel !== faceRecognitionSettings.confidenceLevel) {
         promises.push(api.smartFunction.updateFRConfidenceLevel(values));
       }
@@ -62,13 +67,15 @@ module.exports = class FaceRecognition extends Base {
       if (
         values.isShowMember !== faceRecognitionSettings.isShowMember ||
         values.isShowGroup !== faceRecognitionSettings.isShowGroup ||
-        values.isShowUnknown !== faceRecognitionSettings.isShowUnknown
+        values.isShowUnknown !== faceRecognitionSettings.isShowUnknown ||
+        values.isShowFake !== faceRecognitionSettings.isShowFake
       ) {
         promises.push(api.smartFunction.updateFREnrollDisplaySetting({
           ...values,
           isShowMember: values.isShowMember,
           isShowGroup: values.isShowGroup,
-          isShowUnknown: values.isShowUnknown
+          isShowUnknown: values.isShowUnknown,
+          isShowFake: values.isShowFake
         }));
       }
 
@@ -149,23 +156,46 @@ module.exports = class FaceRecognition extends Base {
                   </label>
                 </div>
               </div>
-              <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Level of Accuracy')}</label>
-                <div className="btn-group">
-                  {ConfidenceLevel.all().map(confidenceLevel => (
-                    <button
-                      key={confidenceLevel}
-                      type="button"
-                      className={classNames(
-                        'btn triple-wrapper btn-sm outline-success px-2 py-1',
-                        {active: values.confidenceLevel === confidenceLevel}
-                      )}
-                      onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
-                    >
-                      {_(`confidence-level-${confidenceLevel}`)}
-                    </button>
-                  ))}
+              <div className="form-group">
+                <div className="card">
+                  <div className="card-body">
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                      <label className="mb-0">{_('Photo Spoofing')}</label>
+                      <div className="custom-control custom-switch">
+                        <Field
+                          name="isEnableSpoofing"
+                          type="checkbox"
+                          checked={values.isEnableSpoofing}
+                          className="custom-control-input"
+                          id="switch-face-recognition-spoofing"
+                        />
+                        <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
+                          <span>{_('ON')}</span>
+                          <span>{_('OFF')}</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <label className="mb-0">{_('Level of Accuracy')}</label>
+                      <div className="btn-group">
+                        {ConfidenceLevel.all().map(confidenceLevel => (
+                          <button
+                            key={confidenceLevel}
+                            type="button"
+                            className={classNames(
+                              'btn triple-wrapper btn-sm outline-success px-2 py-1',
+                              {active: values.confidenceLevel === confidenceLevel}
+                            )}
+                            onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
+                          >
+                            {_(`confidence-level-${confidenceLevel}`)}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
               </div>
 
               <hr/>
@@ -232,7 +262,7 @@ module.exports = class FaceRecognition extends Base {
                   />
                   <label className="form-check-label" htmlFor="input-show-register-group">{_('Display Group')}</label>
                 </div>
-                <div className="form-check">
+                <div className="form-check mb-3">
                   <Field
                     name="isShowUnknown"
                     checked={values.isShowUnknown}
@@ -241,6 +271,16 @@ module.exports = class FaceRecognition extends Base {
                     id="input-show-unknown-personal"
                   />
                   <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Display "Unknown"')}</label>
+                </div>
+                <div className="form-check">
+                  <Field
+                    name="isShowFake"
+                    checked={values.isShowFake}
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input-show-fake"
+                  />
+                  <label className="form-check-label" htmlFor="input-show-fake">{_('Display "Fake"')}</label>
                 </div>
               </div>
 

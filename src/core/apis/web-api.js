@@ -1021,6 +1021,7 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isEnable {boolean}
+     * - isEnableSpoofing {boolean}
      * - confidenceLevel {string}
      * - isShowMember {boolean}
      * - isShowGroup {boolean}
@@ -1070,19 +1071,22 @@ module.exports = {
      * @param {boolean} isShowMember
      * @param {boolean} isShowGroup
      * @param {boolean} isShowUnknown
+     * @param {boolean} isShowFake
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isShowMember {boolean}
      * - isShowGroup {boolean}
      * - isShowUnknown {boolean}
+     * - isShowFake {boolean}
      */
-    updateFREnrollDisplaySetting: ({isShowMember, isShowGroup, isShowUnknown}) => api({
+    updateFREnrollDisplaySetting: ({isShowMember, isShowGroup, isShowUnknown, isShowFake}) => api({
       method: 'put',
       url: '/api/face-recognition/enrolldisplay',
       data: {
         isShowMember,
         isShowGroup,
-        isShowUnknown
+        isShowUnknown,
+        isShowFake
       }
     }),
     /**
@@ -1112,6 +1116,18 @@ module.exports = {
         isEnableFaceFrame,
         faceFrame
       }
+    }),
+    /**
+     * Schema: webserver-form-schema/face-recognition-settings-schema
+     * @param {boolean} isEnableSpoofing
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableSpoofing {boolean}
+     */
+    updateFRSpoofing: ({isEnableSpoofing}) => api({
+      method: 'put',
+      url: '/api/face-recognition/spoofing',
+      data: {isEnableSpoofing}
     }),
     /**
      * @returns {Promise<response>}

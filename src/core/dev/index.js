@@ -536,6 +536,10 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     const settings = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
   })
+  .onPut('/api/face-recognition/spoofing').reply(config => {
+    const settings = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
+  })
   .onPut('/api/face-recognition/confidencelevel').reply(config => {
     const settings = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
