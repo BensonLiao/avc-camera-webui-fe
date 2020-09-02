@@ -55,6 +55,10 @@ module.exports = class FaceRecognition extends Base {
         promises.push(api.smartFunction.updateFRSetting(values));
       }
 
+      if (values.isEnableSpoofing !== faceRecognitionSettings.isEnableSpoofing) {
+        promises.push(api.smartFunction.updateFRSpoofing(values));
+      }
+
       if (values.confidenceLevel !== faceRecognitionSettings.confidenceLevel) {
         promises.push(api.smartFunction.updateFRConfidenceLevel(values));
       }
