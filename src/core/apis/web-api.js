@@ -1021,6 +1021,7 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - isEnable {boolean}
+     * - isEnableSpoofing {boolean}
      * - confidenceLevel {string}
      * - isShowMember {boolean}
      * - isShowGroup {boolean}
@@ -1112,6 +1113,18 @@ module.exports = {
         isEnableFaceFrame,
         faceFrame
       }
+    }),
+    /**
+     * Schema: webserver-form-schema/face-recognition-settings-schema
+     * @param {boolean} isEnableSpoofing
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - isEnableSpoofing {boolean}
+     */
+    updateFRSpoofing: ({isEnableSpoofing}) => api({
+      method: 'put',
+      url: '/api/face-recognition/spoofing',
+      data: {isEnableSpoofing}
     }),
     /**
      * @returns {Promise<response>}
