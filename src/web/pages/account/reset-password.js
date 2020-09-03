@@ -107,7 +107,7 @@ module.exports = class ResetPassword extends Base {
 
   render() {
     return (
-      <div className="page-login bg-secondary">
+      <div className="page-reset-password bg-secondary">
         <div className="navbar primary">
           { !window.isNoBrand &&
             <img src={logo}/>}

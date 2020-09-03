@@ -9,7 +9,7 @@ const Base = require('../shared/base');
 module.exports = class ResetPasswordSuccess extends Base {
   render() {
     return (
-      <div className="page-reset-password-success">
+      <div className="page-reset-password-success bg-secondary">
         <img src={logo} className="logo" alt="AndroVideo"/>
         <img src={decoration} className="decoration"/>
         <div className="container">

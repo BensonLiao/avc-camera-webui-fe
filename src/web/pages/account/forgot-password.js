@@ -117,7 +117,7 @@ module.exports = class ForgotPassword extends Base {
 
   render() {
     return (
-      <div className="page-login bg-secondary">
+      <div className="page-forgot-password bg-secondary">
         <div className="navbar primary">
           { !window.isNoBrand &&
             <img src={logo}/>}
