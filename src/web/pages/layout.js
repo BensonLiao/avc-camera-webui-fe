@@ -83,7 +83,7 @@ module.exports = class Layout extends Base {
   onClickLink = event => {
     const {$isApiProcessing} = this.state;
     event.preventDefault();
-
+    console.log('$isApiProcessing :>> ', $isApiProcessing);
     if (event.metaKey || $isApiProcessing) {
       return;
     }
