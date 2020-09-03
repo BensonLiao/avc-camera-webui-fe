@@ -2,13 +2,14 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const {getRouter} = require('capybara-router');
-const logo = require('../../../resource/logo-01.svg');
-const decoration = require('../../../resource/decoration-01.svg');
+const logo = require('../../../resource/logo-avc-secondary.svg');
+const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
+const Password = require('../../../core/components/fields/password');
 const resetPasswordValidator = require('../../validations/account/reset-password-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
@@ -23,13 +24,6 @@ module.exports = class ResetPassword extends Base {
     };
   }
 
-  constructor(props) {
-    super(props);
-
-    this.onSubmitResetPasswordForm = this.onSubmitResetPasswordForm.bind(this);
-    this.resetPasswordFormRender = this.resetPasswordFormRender.bind(this);
-  }
-
   /**
    * Handler on user submit the reset password form.
    * @param {Object} values
@@ -37,12 +31,13 @@ module.exports = class ResetPassword extends Base {
    * @property {String} confirmPassword
    * @returns {void}
    */
-  onSubmitResetPasswordForm(values) {
+  onSubmitResetPasswordForm = values => {
+    const {params: {account, birthday}} = this.props;
     progress.start();
     api.account.changePasswordWithBirthday({
       ...values,
-      account: this.props.params.account,
-      birthday: this.props.params.birthday
+      account: account,
+      birthday: birthday
     })
       .then(() => {
         getRouter().go('/reset-password-success', {replace: true});
@@ -53,65 +48,55 @@ module.exports = class ResetPassword extends Base {
       });
   }
 
-  resetPasswordFormRender({errors, submitCount}) {
-    const isSubmitted = submitCount > 0;
+  resetPasswordFormRender = ({errors, touched}) => {
     const classTable = {
-      passwordGroupText: classNames(
-        'input-group-text',
-        {'border-danger': errors.password && isSubmitted}
-      ),
-      password: classNames(
-        'form-control rounded-circle-right',
-        {'is-invalid': errors.password && isSubmitted}
-      ),
-      confirmPasswordGroupText: classNames(
-        'input-group-text',
-        {'border-danger': errors.confirmPassword && isSubmitted}
+      newPassword: classNames(
+        'form-control',
+        {'is-invalid': errors.newPassword && touched.newPassword}
       ),
       confirmPassword: classNames(
-        'form-control rounded-circle-right',
-        {'is-invalid': errors.confirmPassword && isSubmitted}
+        'form-control',
+        {'is-invalid': errors.confirmPassword && touched.confirmPassword}
       )
     };
 
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <Once>
-            <h5 className="card-title text-primary">{_('Reset password')}</h5>
-          </Once>
-          <div className="form-group">
-            <label>{_('New password')}</label>
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className={classTable.passwordGroupText}><i className="fas fa-lock"/></span>
-              </div>
-              <Field autoFocus name="password" maxLength="1024" type="password" className={classTable.password} placeholder={_('Please enter your new password.')}/>
-              {
-                errors.password && isSubmitted && (
-                  <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
-                    {errors.password}
-                  </div>
-                )
-              }
-            </div>
+          <h3 className="card-title text-primary">{_('RESET PASSWORD')}</h3>
+          <div className="card-sub-title text-info">
+            {_('Enter Your New Password')}
           </div>
-          <div className="form-group">
-            <label>{_('Confirm password')}</label>
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <span className={classTable.confirmPasswordGroupText}><i className="fas fa-lock"/></span>
-              </div>
-              <Field name="confirmPassword" maxLength="12" type="password" className={classTable.confirmPassword} placeholder={_('Please enter your new password again.')}/>
-              {
-                (errors.confirmPassword && isSubmitted) && (
-                  <div className="invalid-feedback" style={{paddingLeft: '40px'}}>
-                    {errors.confirmPassword}
-                  </div>
-                )
-              }
-            </div>
+
+          <div className="form-group has-feedback">
+            <label>{_('New Password')}</label>
+            <Field
+              name="newPassword"
+              component={Password}
+              inputProps={{
+                placeholder: _('Enter your new password'),
+                className: classTable.newPassword
+              }}
+            />
+            <small className="text-info">
+              {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+            </small>
+            <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
           </div>
+
+          <div className="form-group has-feedback">
+            <label>{_('Confirm New Password')}</label>
+            <Field
+              name="confirmPassword"
+              component={Password}
+              inputProps={{
+                placeholder: _('Confirm your new password'),
+                className: classTable.confirmPassword
+              }}
+            />
+            <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
+          </div>
+
           <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
             <Once>{_('Reset password')}</Once>
           </button>
@@ -122,21 +107,25 @@ module.exports = class ResetPassword extends Base {
 
   render() {
     return (
-      <div className="page-reset-password">
-        <img src={logo} className="logo" alt="AndroVideo"/>
-        <img src={decoration} className="decoration"/>
-        <div className="container">
+      <div className="page-login bg-secondary">
+        <div className="navbar primary">
+          { !window.isNoBrand &&
+            <img src={logo}/>}
+        </div>
+        <div className="container-fluid">
           <div className="row justify-content-center">
-            <div className="col-12">
-              <p className="text-light text-center text-welcome"/>
-            </div>
-            <div className="col-card">
+            { !window.isNoBrand && (
+              <div className="col-12 bg-white logo">
+                <img src={logoWithTitle}/>
+              </div>
+            )}
+            <div className={classNames('col-center', {'mt-5': window.isNoBrand})}>
               <Formik
                 initialValues={{
-                  password: '',
+                  newPassword: '',
                   confirmPassword: ''
                 }}
-                validate={utils.makeFormikValidator(resetPasswordValidator, ['password', 'confirmPassword'])}
+                validate={utils.makeFormikValidator(resetPasswordValidator, ['newPassword', 'confirmPassword'])}
                 onSubmit={this.onSubmitResetPasswordForm}
               >
                 {this.resetPasswordFormRender}
