@@ -81,8 +81,9 @@ module.exports = class Layout extends Base {
 
   // Override default onClick in Capybara-Router, in order to add $isApiProcessing to prevent navigation.
   onClickLink = event => {
-    const {$isApiProcessing} = this.state;
+    const {$isApiProcessing, $updateFocalLengthField} = this.state;
     event.preventDefault();
+    console.log('$updateFocalLengthField :>> ', $updateFocalLengthField);
     console.log('$isApiProcessing :>> ', $isApiProcessing);
     if (event.metaKey || $isApiProcessing) {
       return;

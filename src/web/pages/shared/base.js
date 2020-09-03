@@ -5,7 +5,8 @@ module.exports = class Base extends React.Component {
   state = {
     $isApiProcessing: store.get('$isApiProcessing'),
     $user: store.get('$user'),
-    $expires: store.get('$expires')
+    $expires: store.get('$expires'),
+    $updateFocalLengthField: store.get('$updateFocalLengthField')
   };
 
   constructor(props) {
@@ -17,6 +18,13 @@ module.exports = class Base extends React.Component {
           this.setState({$isApiProcessing: data});
         } else {
           this.state.$isApiProcessing = data;
+        }
+      }),
+      store.subscribe('$updateFocalLengthField', (msg, data) => {
+        if (this.$isMounted) {
+          this.setState({$updateFocalLengthField: data});
+        } else {
+          this.state.$updateFocalLengthField = data;
         }
       }),
       store.subscribe('$user', (msg, data) => {
