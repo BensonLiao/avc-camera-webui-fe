@@ -9,6 +9,7 @@ const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
 const update = require('immutability-helper');
 const MemberSchema = require('webserver-form-schema/member-schema');
+const avatarMask = require('../../resource/avatar-mask.png');
 const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
 const _ = require('../../languages');
@@ -130,6 +131,16 @@ module.exports = class Member extends React.PureComponent {
 
   onCropperInit = cropper => {
     this.cropper = cropper;
+  }
+
+  onCropperReady = () => {
+    const mask = document.createElement('img');
+    mask.src = avatarMask;
+    mask.id = 'cropper-mask';
+    mask.style = `position: absolute;
+      top: 0;
+      pointer-events: none;`;
+    this.cropper.cropBox.appendChild(mask);
   }
 
   generateOnCropEndHandler = avatarName => _ => {
@@ -717,6 +728,8 @@ module.exports = class Member extends React.PureComponent {
                   zoomOnTouch={false}
                   crop={this._crop}
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
+                  ready={this.onCropperReady}
+                  test={1}
                   onInitialized={this.onCropperInit}
                 />
               </label>
