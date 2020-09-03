@@ -3,7 +3,7 @@ const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const Cookies = require('js-cookie');
-const {getRouter} = require('capybara-router');
+const {getRouter, Link} = require('capybara-router');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Password = require('../../../core/components/fields/password');
@@ -110,6 +110,10 @@ module.exports = class Login extends Base {
               )
             }
           </div>
+          <div className="text-right">
+            <Link to="/forgot-password">{_('Forgot password?')}</Link>
+          </div>
+
           <button
             disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)}
             type="submit"
