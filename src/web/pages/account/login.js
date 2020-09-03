@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const React = require('react');
 const progress = require('nprogress');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Cookies = require('js-cookie');
 const {getRouter, Link} = require('capybara-router');
 const _ = require('../../../languages');
@@ -88,11 +88,7 @@ module.exports = class Login extends Base {
               placeholder={_('Enter Your Username')}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
             />
-            {
-              errors.account && touched.account && (
-                <div className="invalid-feedback">{errors.account}</div>
-              )
-            }
+            <ErrorMessage component="div" name="account" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
@@ -104,11 +100,7 @@ module.exports = class Login extends Base {
                 className: classNames('form-control', {'is-invalid': errors.password && touched.password})
               }}
             />
-            {
-              errors.password && touched.password && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )
-            }
+            <ErrorMessage component="div" name="password" className="invalid-feedback"/>
           </div>
           <div className="text-right">
             <Link to="/forgot-password">{_('Forgot password?')}</Link>
