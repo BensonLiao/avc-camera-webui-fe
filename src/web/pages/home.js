@@ -281,6 +281,7 @@ module.exports = class Home extends Base {
                       videoSettings={videoSettings}
                       systemDateTime={systemDateTime}
                       isApiProcessing={this.state.$isApiProcessing}
+                      updateFocalLengthField={this.state.$updateFocalLengthField}
                     />
                   </div>
                 </div>
