@@ -73,6 +73,15 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   .onPost('/api/system/_setup').reply(config => {
     return mockResponseWithLog(config, [200, {}]);
   })
+  .onPost('/api/_validate/account-birthday').reply(config => {
+    return mockResponseWithLog(config, [200, {}]);
+  })
+  .onPost('/api/_validate/account-birthday').reply(config => {
+    return mockResponseWithLog(config, [200, {}]);
+  })
+  .onPost('/api/account/_change-password').reply(config => {
+    return mockResponseWithLog(config, [200, {}]);
+  })
   .onGet('/api/system/information').reply(config => {
     return mockResponseWithLog(config, [200, db.get('system').value()]);
   })

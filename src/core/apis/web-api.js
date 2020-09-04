@@ -90,17 +90,17 @@ module.exports = {
      * Change the password with the birthday.
      * @param {String} account
      * @param {String} birthday e.g. "19900101"
-     * @param {String} password
+     * @param {String} newPassword
      * @returns {Promise<response>}
      * @response 200 {UserModel}
      */
-    changePasswordWithBirthday: ({account, birthday, password}) => api({
+    changePasswordWithBirthday: ({account, birthday, newPassword}) => api({
       method: 'post',
       url: '/api/account/_change-password',
       data: {
         account,
         birthday,
-        password
+        newPassword
       }
     }),
     /**
