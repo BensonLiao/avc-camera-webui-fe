@@ -3,8 +3,6 @@ const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
 const {getRouter} = require('capybara-router');
-const logo = require('../../../resource/logo-avc-secondary.svg');
-const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
@@ -13,6 +11,7 @@ const UserSchema = require('webserver-form-schema/user-schema');
 const forgotPasswordValidator = require('../../validations/account/forgot-password-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
+const {default: AccountContainer} = require('./account-container');
 
 module.exports = class ForgotPassword extends Base {
   constructor(props) {
@@ -117,33 +116,18 @@ module.exports = class ForgotPassword extends Base {
 
   render() {
     return (
-      <div className="page-forgot-password bg-secondary">
-        <div className="navbar primary">
-          { !window.isNoBrand &&
-            <img src={logo}/>}
-        </div>
-        <div className="container-fluid">
-          <div className="row justify-content-center">
-            { !window.isNoBrand && (
-              <div className="col-12 bg-white logo">
-                <img src={logoWithTitle}/>
-              </div>
-            )}
-            <div className={classNames('col-center', {'mt-5': window.isNoBrand})}>
-              <Formik
-                initialValues={{
-                  account: '',
-                  birthday: ''
-                }}
-                validate={utils.makeFormikValidator(forgotPasswordValidator)}
-                onSubmit={this.onSubmitForgotPasswordForm}
-              >
-                {this.forgotPasswordFormRender}
-              </Formik>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AccountContainer page="page-forgot-password">
+        <Formik
+          initialValues={{
+            account: '',
+            birthday: ''
+          }}
+          validate={utils.makeFormikValidator(forgotPasswordValidator)}
+          onSubmit={this.onSubmitForgotPasswordForm}
+        >
+          {this.forgotPasswordFormRender}
+        </Formik>
+      </AccountContainer>
     );
   }
 };

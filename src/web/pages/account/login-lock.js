@@ -1,12 +1,10 @@
 const dayjs = require('dayjs');
 const React = require('react');
 const {Link} = require('capybara-router');
-const classNames = require('classnames');
-const logo = require('../../../resource/logo-avc-secondary.svg');
-const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
+const {default: AccountContainer} = require('./account-container');
 
 module.exports = class LoginLock extends Base {
   static get propTypes() {
@@ -50,51 +48,36 @@ module.exports = class LoginLock extends Base {
 
   render() {
     return (
-      <div className="page-login-lock bg-secondary">
-        <div className="navbar primary">
-          { !window.isNoBrand &&
-          <img src={logo}/>}
-        </div>
-        <div className="container-fluid">
-          <div className="row justify-content-center">
-            { !window.isNoBrand && (
-              <div className="col-12 bg-white logo">
-                <img src={logoWithTitle}/>
+      <AccountContainer page="page-login-lock">
+        <div className="card shadow mb-5">
+          <div className="card-body text-dark text-center">
+            <Once>
+              <div style={{margin: '5rem 0'}}>
+                <p className="font-weight-bold m-0">
+                  {_('Too Many Login Attempts!')}
+                </p>
+                <p>
+                  {_('Please try again in 5 minutes.')}
+                </p>
               </div>
-            )}
-            <div className={classNames('col-center', {'mt-5': window.isNoBrand})}>
-              <div className="card shadow mb-5">
-                <div className="card-body text-dark text-center">
-                  <Once>
-                    <div style={{margin: '5rem 0'}}>
-                      <p className="font-weight-bold m-0">
-                        {_('Too Many Login Attempts!')}
-                      </p>
-                      <p>
-                        {_('Please try again in 5 minutes.')}
-                      </p>
-                    </div>
-                  </Once>
+            </Once>
 
-                  {
-                    this.state.disableLoginLink ? (
-                      <a href="#disabled" className="btn btn-primary btn-block rounded-pill mt-4 disabled">
-                        {_('{0} Remaining', [this.state.displayTime])}
-                      </a>
-                    ) : (
-                      <Once>
-                        <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-4">
-                          {_('Login Again')}
-                        </Link>
-                      </Once>
-                    )
-                  }
-                </div>
-              </div>
-            </div>
+            {
+              this.state.disableLoginLink ? (
+                <a href="#disabled" className="btn btn-primary btn-block rounded-pill mt-4 disabled">
+                  {_('{0} Remaining', [this.state.displayTime])}
+                </a>
+              ) : (
+                <Once>
+                  <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-4">
+                    {_('Login Again')}
+                  </Link>
+                </Once>
+              )
+            }
           </div>
         </div>
-      </div>
+      </AccountContainer>
     );
   }
 };

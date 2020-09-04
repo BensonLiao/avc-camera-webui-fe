@@ -29,8 +29,10 @@ const AccountContainer = props => {
 };
 
 AccountContainer.propTypes = {
-  page: PropTypes.string.isRequired,
+  page: PropTypes.string,
   children: PropTypes.node.isRequired
 };
+
+AccountContainer.defaultProps = {page: ''};
 
 export default AccountContainer;

@@ -4,8 +4,6 @@ const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
 const {getRouter} = require('capybara-router');
-const logo = require('../../../resource/logo-avc-secondary.svg');
-const logoWithTitle = require('../../../resource/logo-avc-title.svg');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
@@ -13,6 +11,7 @@ const Password = require('../../../core/components/fields/password');
 const resetPasswordValidator = require('../../validations/account/reset-password-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
+const {default: AccountContainer} = require('./account-container');
 
 module.exports = class ResetPassword extends Base {
   static get propTypes() {
@@ -107,33 +106,18 @@ module.exports = class ResetPassword extends Base {
 
   render() {
     return (
-      <div className="page-reset-password bg-secondary">
-        <div className="navbar primary">
-          { !window.isNoBrand &&
-            <img src={logo}/>}
-        </div>
-        <div className="container-fluid">
-          <div className="row justify-content-center">
-            { !window.isNoBrand && (
-              <div className="col-12 bg-white logo">
-                <img src={logoWithTitle}/>
-              </div>
-            )}
-            <div className={classNames('col-center', {'mt-5': window.isNoBrand})}>
-              <Formik
-                initialValues={{
-                  newPassword: '',
-                  confirmPassword: ''
-                }}
-                validate={utils.makeFormikValidator(resetPasswordValidator, ['newPassword', 'confirmPassword'])}
-                onSubmit={this.onSubmitResetPasswordForm}
-              >
-                {this.resetPasswordFormRender}
-              </Formik>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AccountContainer page="page-reset-password">
+        <Formik
+          initialValues={{
+            newPassword: '',
+            confirmPassword: ''
+          }}
+          validate={utils.makeFormikValidator(resetPasswordValidator, ['newPassword', 'confirmPassword'])}
+          onSubmit={this.onSubmitResetPasswordForm}
+        >
+          {this.resetPasswordFormRender}
+        </Formik>
+      </AccountContainer>
     );
   }
 };
