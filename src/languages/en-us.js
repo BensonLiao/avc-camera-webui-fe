@@ -146,6 +146,10 @@ if (!window.languageResource['en-us']) {
     'email-content-position-0': 'Head',
     'email-content-position-1': 'Tail',
 
+    // Auth key FR license
+    'face-recognition-key-thirtyThousand': 'Face Recognition 30k',
+    'face-recognition-key-threeThousand': 'Face Recognition 3k',
+
     // Validations
     'validation-required': 'This field is required.',
     'validation-string': 'This field must be a string.',

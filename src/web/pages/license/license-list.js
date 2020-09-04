@@ -2,6 +2,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
+const authKeyFaceRecognitionType = require('webserver-form-schema/constants/auth-key-fr');
 
 module.exports = class LicenseList extends React.PureComponent {
   static get propTypes() {
@@ -14,7 +15,7 @@ module.exports = class LicenseList extends React.PureComponent {
             name: PropTypes.string.isRequired
           }).isRequired,
           authKey: PropTypes.string.isRequired,
-          isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+          isEnableFaceRecognitionKey: PropTypes.string.isRequired,
           isEnableAgeGenderKey: PropTypes.bool.isRequired,
           isEnableHumanoidDetectionKey: PropTypes.bool.isRequired,
           isEnable: PropTypes.bool.isRequired
@@ -25,6 +26,8 @@ module.exports = class LicenseList extends React.PureComponent {
 
   render() {
     const {authKeys} = this.props;
+    // console.log(_('fr-{0}', [authKeyFaceRecognitionType[authKeys.items[0].isEnableFaceRecognitionKey]]));
+    // console.log('license page', _('face-recognition-key-{0}', ['thirtyThousand']));
     return (
       <table className="table custom-style">
         <thead>
@@ -45,9 +48,9 @@ module.exports = class LicenseList extends React.PureComponent {
               <td>{authKey.user.name}</td>
               <td>{authKey.authKey}</td>
               <td>
-                {authKey.isEnableFaceRecognitionKey && (
+                {authKey.isEnableFaceRecognitionKey !== '0' && (
                   <span className="badge badge-primary badge-pill">
-                    {_('Facial Recognition')}
+                    {_('face-recognition-key-{0}', [authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]])}
                   </span>
                 )}
                 {authKey.isEnableAgeGenderKey && (
