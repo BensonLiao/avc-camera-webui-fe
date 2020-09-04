@@ -534,19 +534,31 @@ module.exports = {
             name: 'ChiChi'
           },
           authKey: 'GVHBNJLKBHVYIUON:KJLBNK',
-          isEnableFaceRecognitionKey: true,
+          isEnableFaceRecognitionKey: '1',
           isEnableAgeGenderKey: true,
           isEnableHumanoidDetectionKey: false,
           isEnable: true
         },
         {
-          time: '2019-10-02T08:00:00.000Z',
+          time: '2019-10-05T12:00:00.000Z',
+          user: {
+            id: 1,
+            name: 'ChiChi'
+          },
+          authKey: 'GVHBNJLKBHVYIUON:KJLBNK',
+          isEnableFaceRecognitionKey: '2',
+          isEnableAgeGenderKey: true,
+          isEnableHumanoidDetectionKey: false,
+          isEnable: true
+        },
+        {
+          time: '2020-03-21T08:00:00.000Z',
           user: {
             id: 2,
             name: 'Ben'
           },
           authKey: 'VGHBJNKBIVHBKJLNK:MPOIBJ',
-          isEnableFaceRecognitionKey: false,
+          isEnableFaceRecognitionKey: '0',
           isEnableAgeGenderKey: false,
           isEnableHumanoidDetectionKey: true,
           isEnable: true
