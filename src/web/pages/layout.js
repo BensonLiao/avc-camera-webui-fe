@@ -83,9 +83,7 @@ module.exports = class Layout extends Base {
   onClickLink = event => {
     const {$isApiProcessing, $updateFocalLengthField} = this.state;
     event.preventDefault();
-    console.log('$updateFocalLengthField :>> ', $updateFocalLengthField);
-    console.log('$isApiProcessing :>> ', $isApiProcessing);
-    if (event.metaKey || $isApiProcessing) {
+    if (event.metaKey || $isApiProcessing || $updateFocalLengthField) {
       return;
     }
 
