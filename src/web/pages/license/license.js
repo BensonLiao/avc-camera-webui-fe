@@ -75,12 +75,6 @@ module.exports = class License extends Base {
           });
           getRouter().reload();
         })
-        .catch(() => {
-          notify.showErrorNotification({
-            title: _('Activation Failed'),
-            message: _('Authorization failed!')
-          });
-        })
         .finally(progress.done);
     }
   };

@@ -2,6 +2,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
+// const authKeyFaceRecognitionType = require('webserver-form-schema/constants/auth-key-fr');
 
 module.exports = class LicenseList extends React.PureComponent {
   static get propTypes() {
@@ -14,7 +15,7 @@ module.exports = class LicenseList extends React.PureComponent {
             name: PropTypes.string.isRequired
           }).isRequired,
           authKey: PropTypes.string.isRequired,
-          isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+          isEnableFaceRecognitionKey: PropTypes.string.isRequired,
           isEnableAgeGenderKey: PropTypes.bool.isRequired,
           isEnableHumanoidDetectionKey: PropTypes.bool.isRequired,
           isEnable: PropTypes.bool.isRequired
@@ -45,18 +46,21 @@ module.exports = class LicenseList extends React.PureComponent {
               <td>{authKey.user.name}</td>
               <td>{authKey.authKey}</td>
               <td>
-                {authKey.isEnableFaceRecognitionKey && (
+                {authKey.isEnableFaceRecognitionKey !== '0' && (
                   <span className="badge badge-primary badge-pill">
-                    {_('Facial Recognition')}
+                    {/* Language resource buggy, using temp. solution until fix is found */}
+                    {/* {_('face-recognition-key-{0}', [authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]])} */}
+                    {authKey.isEnableFaceRecognitionKey === '1' && _('face-recognition-key-thirtyThousand')}
+                    {authKey.isEnableFaceRecognitionKey === '2' && _('face-recognition-key-threeThousand')}
                   </span>
                 )}
                 {authKey.isEnableAgeGenderKey && (
-                  <span className="badge badge-primary badge-pill ml-1">
+                  <span className="badge badge-primary badge-pill">
                     {_('Age Gender')}
                   </span>
                 )}
                 {authKey.isEnableHumanoidDetectionKey && (
-                  <span className="badge badge-primary badge-pill ml-1">
+                  <span className="badge badge-primary badge-pill">
                     {_('Human Detection')}
                   </span>
                 )}
