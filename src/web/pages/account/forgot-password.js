@@ -12,6 +12,7 @@ const forgotPasswordValidator = require('../../validations/account/forgot-passwo
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const {default: AccountContainer} = require('./account-container');
+const {default: AccountTitle} = require('./account-title');
 
 module.exports = class ForgotPassword extends Base {
   constructor(props) {
@@ -69,11 +70,7 @@ module.exports = class ForgotPassword extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <h3 className="card-title text-primary">{_('FORGOT PASSWORD')}</h3>
-          <div className="card-sub-title text-info">
-            {_('Enter Your Username and Birthday')}
-          </div>
-
+          <AccountTitle title={_('FORGOT PASSWORD')} subtitle={_('Enter Your Username and Birthday')}/>
           <div className="form-group">
             <label>{_('Username')}</label>
             <Field

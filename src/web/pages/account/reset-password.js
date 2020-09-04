@@ -12,6 +12,7 @@ const resetPasswordValidator = require('../../validations/account/reset-password
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const {default: AccountContainer} = require('./account-container');
+const {default: AccountTitle} = require('./account-title');
 
 module.exports = class ResetPassword extends Base {
   static get propTypes() {
@@ -62,11 +63,7 @@ module.exports = class ResetPassword extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <h3 className="card-title text-primary">{_('RESET PASSWORD')}</h3>
-          <div className="card-sub-title text-info">
-            {_('Enter Your New Password')}
-          </div>
-
+          <AccountTitle title={_('RESET PASSWORD')} subtitle={_('Enter Your New Password')}/>
           <div className="form-group has-feedback">
             <label>{_('New Password')}</label>
             <Field

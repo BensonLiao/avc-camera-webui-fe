@@ -13,6 +13,7 @@ const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const constants = require('../../../core/constants');
 const {default: AccountContainer} = require('./account-container');
+const {default: AccountTitle} = require('./account-title');
 
 module.exports = class Login extends Base {
   redirectPage = () => {
@@ -74,10 +75,7 @@ module.exports = class Login extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <h3 className="card-title text-primary">{_('ACCOUNT LOGIN')}</h3>
-          <div className="card-sub-title text-info">
-            {_('Enter Your Username and Password')}
-          </div>
+          <AccountTitle title={_('ACCOUNT LOGIN')} subtitle={_('Enter Your Username and Password')}/>
           <div className="form-group">
             <label>{_('Username')}</label>
             <Field
