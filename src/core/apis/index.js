@@ -9,11 +9,13 @@ try {
 } catch (_) {}
 
 const unloadAlert = e => {
-  // Cancel the event
-  // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-  e.preventDefault();
-  // Chrome requires returnValue to be set
-  e.returnValue = '';
+  if (store.get(constants.store.UPDATE_FOCAL_LENGTH_FIELD) || store.get(constants.store.IS_API_PROCESSING)) {
+    // Cancel the event
+    // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+    e.preventDefault();
+    // Chrome requires returnValue to be set
+    e.returnValue = '';
+  }
 };
 
 const _pool = {};
