@@ -55,12 +55,12 @@ module.exports = class LicenseList extends React.PureComponent {
                   </span>
                 )}
                 {authKey.isEnableAgeGenderKey && (
-                  <span className="badge badge-primary badge-pill ml-1">
+                  <span className="badge badge-primary badge-pill">
                     {_('Age Gender')}
                   </span>
                 )}
                 {authKey.isEnableHumanoidDetectionKey && (
-                  <span className="badge badge-primary badge-pill ml-1">
+                  <span className="badge badge-primary badge-pill">
                     {_('Human Detection')}
                   </span>
                 )}
