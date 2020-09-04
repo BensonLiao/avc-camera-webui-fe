@@ -144,15 +144,22 @@ module.exports = class Member extends React.PureComponent {
 
     // Add mouse wheel event to scale cropper instead of default zoom function
     this.cropper.cropBox.addEventListener('wheel', event => {
+      let newScale = this.cropper.imageData.scaleX;
       if (event.deltaY < 0) {
-        const newScale = this.cropper.imageData.scaleX + 0.1 > 2 ? 2 : this.cropper.imageData.scaleX + 0.1;
+        newScale = newScale + 0.1 > 2 ? 2 : newScale + 0.1;
         this.cropper.scale(newScale, newScale);
       }
 
       if (event.deltaY > 0) {
-        const newScale = this.cropper.imageData.scaleX - 0.1 < 1 ? 1 : this.cropper.imageData.scaleX - 0.1;
+        newScale = newScale - 0.1 < 1 ? 1 : newScale - 0.1;
         this.cropper.scale(newScale, newScale);
       }
+
+      const newCropBoxState = update(
+        this.state,
+        {avatarList: {[this.state.avatarToEdit]: {avatarPreviewStyle: {transform: {scale: {$set: newScale}}}}}}
+      );
+      this.setState(newCropBoxState);
     });
   }
 
