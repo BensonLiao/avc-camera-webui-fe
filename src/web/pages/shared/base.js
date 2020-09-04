@@ -44,11 +44,24 @@ module.exports = class Base extends React.Component {
     ];
   }
 
+  unloadAlert = e => {
+    const {$isApiProcessing, $updateFocalLengthField} = this.state;
+    if ($isApiProcessing || $updateFocalLengthField) {
+      // Cancel the event
+      // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+      e.preventDefault();
+      // Chrome requires returnValue to be set
+      e.returnValue = '';
+    }
+  };
+
   componentDidMount() {
     this.$isMounted = true;
+    window.addEventListener('beforeunload', this.unloadAlert);
   }
 
   componentWillUnmount() {
     this.$listens.forEach(x => x());
+    window.removeEventListener('beforeunload', this.unloadAlert);
   }
 };

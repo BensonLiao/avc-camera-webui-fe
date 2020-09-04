@@ -8,16 +8,6 @@ try {
   require('../dev/index.js');
 } catch (_) {}
 
-const unloadAlert = e => {
-  if (store.get(constants.store.UPDATE_FOCAL_LENGTH_FIELD) || store.get(constants.store.IS_API_PROCESSING)) {
-    // Cancel the event
-    // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-    e.preventDefault();
-    // Chrome requires returnValue to be set
-    e.returnValue = '';
-  }
-};
-
 const _pool = {};
 /**
  * Update store.$isApiProcessing.
@@ -28,11 +18,9 @@ const _updateApiStatus = () => {
   if (Object.keys(_pool).length) {
     if (!store.get(constants.store.IS_API_PROCESSING)) {
       store.set(constants.store.IS_API_PROCESSING, true);
-      window.addEventListener('beforeunload', unloadAlert);
     }
   } else if (store.get(constants.store.IS_API_PROCESSING)) {
     store.set(constants.store.IS_API_PROCESSING, false);
-    window.removeEventListener('beforeunload', unloadAlert);
   }
 };
 
