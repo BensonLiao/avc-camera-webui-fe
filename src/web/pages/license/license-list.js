@@ -2,7 +2,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
-const authKeyFaceRecognitionType = require('webserver-form-schema/constants/auth-key-fr');
+// const authKeyFaceRecognitionType = require('webserver-form-schema/constants/auth-key-fr');
 
 module.exports = class LicenseList extends React.PureComponent {
   static get propTypes() {
@@ -26,8 +26,6 @@ module.exports = class LicenseList extends React.PureComponent {
 
   render() {
     const {authKeys} = this.props;
-    // console.log(_('fr-{0}', [authKeyFaceRecognitionType[authKeys.items[0].isEnableFaceRecognitionKey]]));
-    // console.log('license page', _('face-recognition-key-{0}', ['thirtyThousand']));
     return (
       <table className="table custom-style">
         <thead>
@@ -50,7 +48,10 @@ module.exports = class LicenseList extends React.PureComponent {
               <td>
                 {authKey.isEnableFaceRecognitionKey !== '0' && (
                   <span className="badge badge-primary badge-pill">
-                    {_('face-recognition-key-{0}', [authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]])}
+                    {/* Language resource buggy, using temp. solution until fix is found */}
+                    {/* {_('face-recognition-key-{0}', [authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]])} */}
+                    {authKey.isEnableFaceRecognitionKey === '1' && _('face-recognition-key-thirtyThousand')}
+                    {authKey.isEnableFaceRecognitionKey === '2' && _('face-recognition-key-threeThousand')}
                   </span>
                 )}
                 {authKey.isEnableAgeGenderKey && (
