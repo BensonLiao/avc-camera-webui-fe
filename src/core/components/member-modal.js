@@ -141,6 +141,19 @@ module.exports = class Member extends React.PureComponent {
       top: 0;
       pointer-events: none;`;
     this.cropper.cropBox.appendChild(mask);
+
+    // Add mouse wheel event to scale cropper instead of default zoom function
+    this.cropper.cropBox.addEventListener('wheel', event => {
+      if (event.deltaY < 0) {
+        const newScale = this.cropper.imageData.scaleX + 0.1 > 2 ? 2 : this.cropper.imageData.scaleX + 0.1;
+        this.cropper.scale(newScale, newScale);
+      }
+
+      if (event.deltaY > 0) {
+        const newScale = this.cropper.imageData.scaleX - 0.1 < 1 ? 1 : this.cropper.imageData.scaleX - 0.1;
+        this.cropper.scale(newScale, newScale);
+      }
+    });
   }
 
   generateOnCropEndHandler = avatarName => _ => {
@@ -149,6 +162,11 @@ module.exports = class Member extends React.PureComponent {
       {avatarList: {[avatarName]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL('image/jpeg')}}}}}
     );
     this.setState(newCropBoxState);
+  }
+
+  zoomCropper = values => {
+    const zoomScale = values.zoom;
+    this.cropper.scale(zoomScale, zoomScale);
   }
 
   generateInitialValue = member => {
@@ -160,7 +178,7 @@ module.exports = class Member extends React.PureComponent {
         organization: member.organization || '',
         group: member.groupId,
         note: member.note || '',
-        zoom: avatarList[avatarToEdit].avatarPreviewStyle.transform.scale * 100
+        zoom: avatarList[avatarToEdit].avatarPreviewStyle.transform.scale
       };
     }
 
@@ -169,7 +187,7 @@ module.exports = class Member extends React.PureComponent {
       organization: '',
       group: '',
       note: '',
-      zoom: 100
+      zoom: avatarList[avatarToEdit].avatarPreviewStyle.transform.scale
     };
   };
 
@@ -728,8 +746,8 @@ module.exports = class Member extends React.PureComponent {
                   zoomOnTouch={false}
                   crop={this._crop}
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
+                  zoom={event => event.preventDefault()}
                   ready={this.onCropperReady}
-                  test={1}
                   onInitialized={this.onCropperInit}
                 />
               </label>
@@ -749,12 +767,10 @@ module.exports = class Member extends React.PureComponent {
                     <Field
                       name="zoom"
                       component={Slider}
-                      step={20}
-                      min={100}
-                      max={300}
-                      onChangeInput={() => {
-                        this.updateBoundary(values);
-                      }}
+                      step={0.1}
+                      min={1}
+                      max={2}
+                      onChangeInput={() => this.zoomCropper(values)}
                     />
                   </div>
                 </div>
