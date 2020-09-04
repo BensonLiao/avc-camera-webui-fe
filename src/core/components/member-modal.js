@@ -751,6 +751,7 @@ module.exports = class Member extends React.PureComponent {
                   aspectRatio={1}
                   viewMode={2}
                   zoomOnTouch={false}
+                  cropBoxResizable={false}
                   crop={this._crop}
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
                   zoom={event => event.preventDefault()}
