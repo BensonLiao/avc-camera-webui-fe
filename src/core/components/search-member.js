@@ -1,24 +1,24 @@
 import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
-import {getRouter, Link} from 'capybara-router';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import _ from '../../languages';
 import CustomTooltip from './tooltip';
 // import api from '../../../core/apis/web-api';
 
 const SearchMember = props => {
-  const {name, members, isApiProcessing, isShowModal, onHide} = props;
-
-  const searchMemberInitialValues = {keyword: name || ''};
-
+  const {memberName, isApiProcessing, isShowModal, onHide} = props;
+  const [members, setMember] = useState();
+  console.log('member state', members);
+  const searchMemberInitialValues = {keyword: memberName || ''};
+  console.log('in modal');
   return (
     <Modal
       keyboard={false}
       autoFocus={false}
       show={isShowModal}
-      className="member-modal"
+      className="events-photo-modal"
       onHide={onHide}
     >
       <Modal.Header className="d-flex justify-content-between align-items-center">
@@ -27,7 +27,9 @@ const SearchMember = props => {
 
       <Formik
         initialValues={searchMemberInitialValues}
-        onSubmit={onSubmit}
+        onSubmit={() => {
+          onSearch(setMember);
+        }}
       >
         <Form>
           <div className="form-row mt-4">
@@ -57,7 +59,7 @@ const SearchMember = props => {
           <tbody>
             {
               /* Empty Search Message */
-              !members.items.length && (
+              members && !members.items.length && (
                 <tr>
                   <td className="text-size-20 text-center" colSpan="10">
                     <i className="fas fa-frown-open fa-fw text-dark"/> {_('Can\'t find any member.')}
@@ -66,7 +68,7 @@ const SearchMember = props => {
               )
             }
             {
-              members.items.map((member, index) => {
+              members && members.items.map((member, index) => {
                 const tdClass = classNames({
                   'border-bottom':
                 index >= members.items.length - 1
@@ -91,18 +93,9 @@ const SearchMember = props => {
 
                     <td className={classNames('text-left group-btn', tdClass)}>
                       <CustomTooltip title={_('Edit Member: {0}', [member.name])}>
-                        <Link
-                          className="btn btn-link"
-                          // to={{
-                          //   name: 'web.users.members.details',
-                          //   params: {
-                          //     ...params,
-                          //     memberId: member.id
-                          //   }
-                          // }}
-                        >
+                        <button type="submit">
                           <i className="fas fa-pen fa-lg fa-fw"/>
-                        </Link>
+                        </button>
                       </CustomTooltip>
                     </td>
                   </tr>
@@ -112,51 +105,22 @@ const SearchMember = props => {
           </tbody>
         </table>
       </div>
-
     </Modal>
   );
 };
 
-/**
-   * Generate the handler to change filter.
-   * @param {String} value The filter value. Pass null to remove the param.
-   * @param {Number} index Page number
-   * @returns {Function} The handler.
-   */
-const onSubmit = (value, index) => event => {
-  event.preventDefault();
-  getRouter().go({
-    name: this.currentRoute.name,
-    params: {
-      index: index || undefined,
-      keyword: value
-    }
-  });
+const onSearch = setMember => {
+  console.log('search!');
+  setMember('member');
 };
 
 SearchMember.propTypes = {
-  name: PropTypes.string,
-  members: PropTypes.shape({
-    index: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-    total: PropTypes.number.isRequired,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      organization: PropTypes.string,
-      groupId: PropTypes.string,
-      note: PropTypes.string,
-      pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-    }).isRequired).isRequired
-  }),
+  memberName: PropTypes.string,
   isShowModal: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
   isApiProcessing: PropTypes.bool.isRequired
 };
 
-SearchMember.defaultProps = {
-  name: null,
-  members: []
-};
+SearchMember.defaultProps = {memberName: null};
 
 export default SearchMember;

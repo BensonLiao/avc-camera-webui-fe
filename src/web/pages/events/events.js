@@ -7,11 +7,11 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
 const Pagination = require('../../../core/components/pagination');
-const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const EventsSidebar = require('./events-sidebar');
 const EventsSearchForm = require('./event-search-form');
 const EventsTable = require('./events-table');
+const {default: SearchMember} = require('../../../core/components/search-member');
 
 module.exports = class Events extends Base {
   static get propTypes() {
@@ -39,6 +39,7 @@ module.exports = class Events extends Base {
     this.currentRoute = getRouter().findRouteByName('web.users.events');
     this.state.type = props.params.type || 'face-recognition';
     this.state.isShowMemberModal = false;
+    this.state.isShowSearchMemberModal = false;
     this.state.currentMember = null;
     this.state.defaultMemberPictureUrl = null;
     this.state.isShowStartDatePicker = false;
@@ -82,20 +83,16 @@ module.exports = class Events extends Base {
   };
 
   /**
-   * Generate the handler to modify `member`.
-   * @param {String} memberId
+   * Generate the handler to add photo to current member.
+   * @param {String} memberName
    * @returns {Function} The handler.
    */
-  generateMemberModifyHandler = memberId => event => {
+  generateMemberModifyHandler = memberName => event => {
     event.preventDefault();
-    api.member.getMember(memberId)
-      .then(response => {
-        this.setState(prevState => ({
-          isShowMemberModal: true,
-          currentMember: response.data,
-          updateMemberModal: !prevState.updateMemberModal
-        }));
-      });
+    this.setState({
+      isShowSearchMemberModal: true,
+      currentMember: memberName
+    });
   };
 
   onSubmittedMemberForm = () => {
@@ -118,8 +115,15 @@ module.exports = class Events extends Base {
     });
   };
 
+  onHideSearchMemberModal = () => {
+    this.setState({
+      isShowSearchMemberModal: false,
+      currentMember: null
+    });
+  };
+
   render() {
-    const {$isApiProcessing, type, isShowMemberModal, currentMember, defaultMemberPictureUrl} = this.state;
+    const {$isApiProcessing, type, isShowMemberModal, isShowSearchMemberModal, currentMember, defaultMemberPictureUrl} = this.state;
     const {params, authStatus, groups, faceEvents, systemDateTime} = this.props;
     let events;
     if (type === 'face-recognition') {
@@ -189,6 +193,12 @@ module.exports = class Events extends Base {
             defaultPictureUrl={defaultMemberPictureUrl}
             onHide={this.onHideMemberModal}
             onSubmitted={this.onSubmittedMemberForm}
+          />
+          <SearchMember
+            isApiProcessing={$isApiProcessing}
+            memberName={currentMember}
+            isShowModal={isShowSearchMemberModal}
+            onHide={this.onHideSearchMemberModal}
           />
         </div>
       </>
