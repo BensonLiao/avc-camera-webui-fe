@@ -96,6 +96,8 @@ module.exports = class Member extends React.PureComponent {
         },
         avatarPreviewStyle: {
           transform: {
+            x: 0,
+            y: 0,
             scale: 1,
             rotate: 0
           },
@@ -134,6 +136,7 @@ module.exports = class Member extends React.PureComponent {
   }
 
   onCropperReady = () => {
+    const {avatarList, avatarToEdit} = this.state;
     const mask = document.createElement('img');
     mask.src = avatarMask;
     mask.id = 'cropper-mask';
@@ -141,6 +144,9 @@ module.exports = class Member extends React.PureComponent {
       top: 0;
       pointer-events: none;`;
     this.cropper.cropBox.appendChild(mask);
+
+    // Restore to the lastest cropper status if exist
+    this.cropper.setData(avatarList[avatarToEdit].avatarPreviewStyle.transform);
 
     // Add mouse wheel event to scale cropper instead of default zoom function
     this.cropper.cropBox.addEventListener('wheel', event => {
@@ -164,9 +170,24 @@ module.exports = class Member extends React.PureComponent {
   }
 
   generateOnCropEndHandler = avatarName => _ => {
+    const cropperData = this.cropper.getData();
     const newCropBoxState = update(
       this.state,
-      {avatarList: {[avatarName]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL('image/jpeg')}}}}}
+      {
+        avatarList: {
+          [avatarName]: {
+            avatarPreviewStyle: {
+              transform: {
+                x: {$set: cropperData.x},
+                y: {$set: cropperData.y},
+                scale: {$set: cropperData.scaleX},
+                rotate: {$set: cropperData.rotate}
+              },
+              croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL('image/jpeg')}
+            }
+          }
+        }
+      }
     );
     this.setState(newCropBoxState);
   }
@@ -315,6 +336,8 @@ module.exports = class Member extends React.PureComponent {
               },
               avatarPreviewStyle: {
                 transform: {
+                  x: 0,
+                  y: 0,
                   scale: 1,
                   rotate: 0
                 },
