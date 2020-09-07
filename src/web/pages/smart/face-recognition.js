@@ -99,6 +99,7 @@ module.exports = class FaceRecognition extends Base {
   }
 
   faceRecognitionSettingsFormRender = form => {
+    const {faceRecognitionSettings: {isEnable}} = this.props;
     const {$isApiProcessing, isShowDetectionZone} = this.state;
     const {values, setFieldValue} = form;
 
@@ -135,7 +136,6 @@ module.exports = class FaceRecognition extends Base {
             }
           </div>
         </div>
-
         <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
             <div className="card-header">{_('Facial Recognition')}</div>
@@ -156,47 +156,48 @@ module.exports = class FaceRecognition extends Base {
                   </label>
                 </div>
               </div>
-              <div className="form-group">
-                <div className="card">
-                  <div className="card-body">
-                    <div className="d-flex justify-content-between align-items-center mb-3">
-                      <label className="mb-0">{_('Photo Spoofing')}</label>
-                      <div className="custom-control custom-switch">
-                        <Field
-                          name="isEnableSpoofing"
-                          type="checkbox"
-                          checked={values.isEnableSpoofing}
-                          className="custom-control-input"
-                          id="switch-face-recognition-spoofing"
-                        />
-                        <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
-                          <span>{_('ON')}</span>
-                          <span>{_('OFF')}</span>
-                        </label>
+              { isEnable && (
+                <div className="form-group">
+                  <div className="card">
+                    <div className="card-body">
+                      <div className="d-flex justify-content-between align-items-center mb-3">
+                        <label className="mb-0">{_('Photo Spoofing')}</label>
+                        <div className="custom-control custom-switch">
+                          <Field
+                            name="isEnableSpoofing"
+                            type="checkbox"
+                            checked={values.isEnableSpoofing}
+                            className="custom-control-input"
+                            id="switch-face-recognition-spoofing"
+                          />
+                          <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
+                            <span>{_('ON')}</span>
+                            <span>{_('OFF')}</span>
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <label className="mb-0">{_('Level of Accuracy')}</label>
-                      <div className="btn-group">
-                        {ConfidenceLevel.all().map(confidenceLevel => (
-                          <button
-                            key={confidenceLevel}
-                            type="button"
-                            className={classNames(
-                              'btn triple-wrapper btn-sm outline-success px-2 py-1',
-                              {active: values.confidenceLevel === confidenceLevel}
-                            )}
-                            onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
-                          >
-                            {_(`confidence-level-${confidenceLevel}`)}
-                          </button>
-                        ))}
+                      <div className="d-flex justify-content-between align-items-center">
+                        <label className="mb-0">{_('Level of Accuracy')}</label>
+                        <div className="btn-group">
+                          {ConfidenceLevel.all().map(confidenceLevel => (
+                            <button
+                              key={confidenceLevel}
+                              type="button"
+                              className={classNames(
+                                'btn triple-wrapper btn-sm outline-success px-2 py-1',
+                                {active: values.confidenceLevel === confidenceLevel}
+                              )}
+                              onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
+                            >
+                              {_(`confidence-level-${confidenceLevel}`)}
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-              </div>
+              )}
 
               <hr/>
 
