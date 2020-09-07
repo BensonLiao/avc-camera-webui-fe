@@ -307,7 +307,7 @@ if (!window.languageResource['zh-tw']) {
     'For a better experience,': '為了使您有更好的體驗，',
     'please press continue to complete the simple three-step installation setup!': '請您先按下繼續來完成簡單三步驟的安裝設定！',
     Continue: '繼續',
-    Submit: '註冊',
+    Submit: '確認',
 
     // /setup/language
     'Setup Language': '選擇語言',
