@@ -380,6 +380,19 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.users.events.photo',
+      uri: '/events/member-search?keyword?index?sort?type?confidence?enrollStatus?start?end',
+      dismissalDelay: 300,
+      onEnter: () => {
+        document.title = `${_('Add Photo From Event')} - ${_title}`;
+      },
+      resolve: {members: params => api.member.getMembers(params).then(response => response.data)},
+      loadComponent: () => import(
+        /* webpackChunkName: "page-events" */
+        './pages/events/photo'
+      )
+    },
+    {
       name: 'web.network',
       uri: '/network',
       onEnter: () => {
