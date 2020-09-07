@@ -1,19 +1,30 @@
-const classNames = require('classnames');
+import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
-const {getRouter, Link} = require('capybara-router');
+import {getRouter, Link} from 'capybara-router';
+import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from '../../../languages';
-const CustomTooltip = require('../../../core/components/tooltip');
+import _ from '../../languages';
+import CustomTooltip from './tooltip';
 // import api from '../../../core/apis/web-api';
 
 const SearchMember = props => {
-  const {name, members, isApiProcessing} = props;
+  const {name, members, isApiProcessing, isShowModal, onHide} = props;
 
   const searchMemberInitialValues = {keyword: name || ''};
 
   return (
-    <>
+    <Modal
+      keyboard={false}
+      autoFocus={false}
+      show={isShowModal}
+      className="member-modal"
+      onHide={onHide}
+    >
+      <Modal.Header className="d-flex justify-content-between align-items-center">
+        <Modal.Title as="h5">{_('Add Photo')}</Modal.Title>
+      </Modal.Header>
+
       <Formik
         initialValues={searchMemberInitialValues}
         onSubmit={onSubmit}
@@ -102,7 +113,7 @@ const SearchMember = props => {
         </table>
       </div>
 
-    </>
+    </Modal>
   );
 };
 
@@ -138,6 +149,8 @@ SearchMember.propTypes = {
       pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
     }).isRequired).isRequired
   }),
+  isShowModal: PropTypes.bool.isRequired,
+  onHide: PropTypes.func.isRequired,
   isApiProcessing: PropTypes.bool.isRequired
 };
 
