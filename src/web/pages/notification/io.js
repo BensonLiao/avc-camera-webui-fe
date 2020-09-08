@@ -38,8 +38,22 @@ module.exports = class IO extends Base {
     };
   }
 
+  constructor(props) {
+    super(props);
+    this.state.currentTab = localStorage.getItem('currentTab') || 'tab-input';
+  }
+
+  componentDidMount() {
+    localStorage.removeItem('currentTab');
+  }
+
+  setCurrentTab = event => {
+    this.setState({currentTab: event});
+  };
+
   generateIOOutSettingsSubmitHandler = index => values => {
     progress.start();
+    localStorage.setItem('currentTab', this.state.currentTab);
     api.notification.updateIOOutSettings(index, values)
       .then(getRouter().reload)
       .finally(progress.done);
@@ -152,6 +166,7 @@ module.exports = class IO extends Base {
 
   onSubmitIOInSettingsForm = values => {
     progress.start();
+    localStorage.setItem('currentTab', this.state.currentTab);
     api.notification.updateIOInSettings(values)
       .then(getRouter().reload)
       .finally(progress.done);
@@ -202,6 +217,7 @@ module.exports = class IO extends Base {
 
   render() {
     const {ioInSettings, ioOutASettings, ioOutBSettings} = this.props;
+    const {currentTab} = this.state;
 
     return (
       <div className="main-content left-menu-active">
@@ -225,8 +241,8 @@ module.exports = class IO extends Base {
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Input and Output Setting')}</div>
-                  <Tab.Container defaultActiveKey="tab-input">
-                    <Nav>
+                  <Tab.Container activeKey={currentTab}>
+                    <Nav onSelect={this.setCurrentTab}>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="tab-input"
