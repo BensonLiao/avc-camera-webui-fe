@@ -170,7 +170,6 @@ module.exports = class EventsTable extends React.PureComponent {
             }
             {
               events.items.map(event => {
-                const isEnrolled = event.recognitionType === RecognitionType.registered;
                 if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
                   event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
                 } else {
@@ -267,17 +266,28 @@ module.exports = class EventsTable extends React.PureComponent {
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className="text-left">
+                    <td>
                       {event.recognitionType === RecognitionType.fake ? '-' : (
-                        <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
-                          <button
-                            className="btn btn-link"
-                            type="button"
-                            onClick={isEnrolled ? modifyMemberHandler(event.member.name, event.pictureThumbUrl) : addMemberHandler(event.pictureThumbUrl)}
-                          >
-                            <i className="fas fa-plus text-size-20"/>
-                          </button>
-                        </CustomTooltip>
+                        <>
+                          <div>
+                            <button className="btn text-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                              <i className="fas fa-plus text-size-20"/>
+                            </button>
+                            <div className="dropdown-menu dropdown-menu-right shadow">
+                              <a
+                                className="dropdown-item"
+                                onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
+                              >{_('Search')}
+                              </a>
+                              <a
+                                className="dropdown-item"
+                                onClick={addMemberHandler(event.pictureThumbUrl)}
+                              >{_('Add New')}
+                              </a>
+                            </div>
+                          </div>
+
+                        </>
                       )}
                     </td>
                   </tr>
