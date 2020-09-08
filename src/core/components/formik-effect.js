@@ -16,7 +16,11 @@ const FormikEffect = ({onChange, formik}) => {
   useEffect(() => {
     // Don't run effect on form init
     if (prevValues) {
-      onChange({prevValues, nextValues: values, formik});
+      onChange({
+        prevValues,
+        nextValues: values,
+        formik
+      });
     }
   }, [values]);
 

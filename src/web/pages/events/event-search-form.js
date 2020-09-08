@@ -3,6 +3,8 @@ const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const PropTypes = require('prop-types');
 const React = require('react');
+const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
+const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 
@@ -13,6 +15,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
         keyword: PropTypes.string,
         start: PropTypes.any,
         end: PropTypes.any
+      }).isRequired,
+      systemDateTime: PropTypes.shape({
+        ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
+        syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
       }).isRequired,
       currentRouteName: PropTypes.string.isRequired,
       isApiProcessing: PropTypes.bool.isRequired
@@ -46,6 +52,33 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     this.setState({isShowEndDatePicker: false});
   }
 
+  convertTime = (time, method) => {
+    const {systemDateTime} = this.props;
+    if (method === 'add') {
+      time = new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
+    }
+
+    if (method === 'subtract') {
+      time = new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
+    }
+
+    if (this.props.systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
+      const timeZoneDifference = systemDateTime.syncTimeOption === SyncTimeOption.ntp ?
+        new Date(time.toLocaleString('en-US', {timeZone: 'utc'})) -
+        new Date(time.toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone})) :
+        0;
+      if (method === 'add') {
+        time = new Date(time.getTime() + timeZoneDifference);
+      }
+
+      if (method === 'subtract') {
+        time = new Date(time.getTime() - timeZoneDifference);
+      }
+    }
+
+    return time;
+  }
+
   /**
    * Handler on user submit the search form.
    * @param {String} keyword
@@ -60,8 +93,8 @@ module.exports = class EventsSearchForm extends React.PureComponent {
         ...this.props.params,
         index: undefined,
         keyword,
-        start: start ? start.toJSON() : undefined,
-        end: end ? end.toJSON() : undefined
+        start: start ? this.convertTime(start, 'add').toJSON() : undefined,
+        end: end ? this.convertTime(end, 'add').toJSON() : undefined
       }
     });
   };
@@ -71,12 +104,13 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     const {params, isApiProcessing} = this.props;
     const searchFromInitialValues = {
       keyword: params.keyword || '',
-      start: params.start ? new Date(params.start) : null,
-      end: params.end ? new Date(params.end) : null
+      start: params.start ? this.convertTime(new Date(params.start), 'subtract') : null,
+      end: params.end ? this.convertTime(new Date(params.end), 'subtract') : null
     };
 
     return (
-      <Formik initialValues={searchFromInitialValues}
+      <Formik
+        initialValues={searchFromInitialValues}
         onSubmit={this.onSubmitSearchForm}
       >
         <Form>

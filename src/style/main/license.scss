@@ -1,6 +1,7 @@
 .page-license {
   padding: 48px 33px;
   min-width: 1000px;
+
   &.page-bottom {
     // 32px equals padding-bottom pixel minus boostrap's default border width
     padding-bottom: calc(32px + #{$license-status-top-offset} + #{$license-status-height});
@@ -20,8 +21,9 @@
 
       &.active {
         border-width: 2px !important;
+
         .img-wrapper {
-          background-color: #E5F5FF;
+          background-color: #e5f5ff;
         }
       }
 
@@ -42,5 +44,11 @@
 
   .table.custom-style {
     margin-top: 103px;
+
+    span {
+      &:not(:nth-of-type(1)) {
+        margin-left: 0.25rem;
+      }
+    }
   }
 }

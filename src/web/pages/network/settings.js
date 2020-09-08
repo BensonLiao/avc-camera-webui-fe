@@ -246,7 +246,8 @@ module.exports = class NetworkSettings extends Base {
           onHide={this.hideModal('applyConfirm')}
           onConfirm={() => {
             this.onSubmit(values);
-          }}/>
+          }}
+        />
       </Form>
     );
   };
@@ -387,7 +388,8 @@ module.exports = class NetworkSettings extends Base {
                     modalBody={modalBody}
                     isConfirmDisable={isConfirmDisable}
                     onConfirm={onConfirm}
-                    onHide={this.hideModal('info')}/>
+                    onHide={this.hideModal('info')}
+                  />
                 </div>
               </div>
             </div>

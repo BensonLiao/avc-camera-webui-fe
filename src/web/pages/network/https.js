@@ -6,12 +6,13 @@ const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const Base = require('../shared/base');
-const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
-const CustomTooltip = require('../../../core/components/tooltip');
 const _ = require('../../../languages');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {DEFAULT_PORTS} = require('../../../core/constants');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const CustomTooltip = require('../../../core/components/tooltip');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class HTTPS extends Base {
   static get propTypes() {
@@ -35,7 +36,7 @@ module.exports = class HTTPS extends Base {
   constructor(props) {
     super(props);
     this.state.isShowModal = false;
-    this.state.modalBody = _('Please Redirect Manually to the New Address.');
+    this.state.modalBody = _('Please Redirect Manually to the New Address');
   }
 
   hideModal = () => {
@@ -48,7 +49,10 @@ module.exports = class HTTPS extends Base {
 
     let checkDefaultPortList = Object.keys(defaultPorts)
       .filter(items => items !== 'HTTPS')
-      .reduce((obj, key) => ({...obj, [key]: defaultPorts[key]}), {});
+      .reduce((obj, key) => ({
+        ...obj,
+        [key]: defaultPorts[key]
+      }), {});
 
     checkDefaultPortList = utils.duplicateCheck(Object.values(checkDefaultPortList), values);
     // Check if using http port
@@ -71,7 +75,7 @@ module.exports = class HTTPS extends Base {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         this.setState({
           isShowModal: true,
-          modalBody: [_('Please Redirect Manually to the New Address:'), newAddress]
+          modalBody: [`${_('Please Redirect Manually to the New Address')} :`, newAddress]
         });
       })
       .finally(progress.done);
@@ -99,7 +103,8 @@ module.exports = class HTTPS extends Base {
             name="port"
             type="text"
             validate={this.checkValidatePort}
-            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}/>
+            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
+          />
           {
             errors.port && touched.port && (
               <div className="invalid-feedback">{errors.port}</div>
@@ -107,20 +112,17 @@ module.exports = class HTTPS extends Base {
           }
           <p className="text-size-14 text-muted mt-2">{_('1024 - 65535, except for 5555, 8080, 8554, 17300.')}</p>
         </div>
-        <div className="form-group">
-          <label>{_('Certificate')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="certificateType" component="select" className="form-control border-0">
-              <option value={CertificateType.selfSigned}>
-                {_(`certificate-type-${CertificateType.selfSigned}`)}
-              </option>
-            </Field>
-          </div>
-        </div>
+        <SelectField labelName={_('Certificate')} name="certificateType">
+          <option value={CertificateType.selfSigned}>{_(`certificate-type-${CertificateType.selfSigned}`)}</option>
+        </SelectField>
         <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={_('Please Enable HTTPS')}>
           <div>
             <button
-              disabled={$isApiProcessing || !utils.isObjectEmpty(errors) || ((httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false)}
+              disabled={
+                $isApiProcessing ||
+                !utils.isObjectEmpty(errors) ||
+                ((httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false)
+              }
               className="btn btn-primary btn-block rounded-pill"
               type="submit"
               style={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false ? {pointerEvents: 'none'} : {}}
@@ -130,12 +132,14 @@ module.exports = class HTTPS extends Base {
           </div>
         </CustomTooltip>
         <CustomNotifyModal
-          modalType="info"
+          isShowAllBtns={false}
+          backdrop="static"
           isShowModal={isShowModal}
           modalTitle={_('Success')}
           modalBody={modalBody}
           onConfirm={this.hideModal}
-          onHide={this.hideModal}/>
+          onHide={this.hideModal}
+        />
       </Form>
     );
   };

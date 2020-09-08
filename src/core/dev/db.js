@@ -11,6 +11,8 @@ const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const defaultPhotos = require('./default-photos');
 
 const adapter = new LocalStorage('db');
@@ -41,7 +43,8 @@ const members = [
     note: '"Let me put you on hold."',
     pictures: [
       defaultPhotos.user.scarlett
-    ]
+    ],
+    picture: defaultPhotos.user.scarlett
   },
   {
     id: uuidv4(),
@@ -51,7 +54,8 @@ const members = [
     note: 'Has No Nuclear Weapon',
     pictures: [
       defaultPhotos.user.kim
-    ]
+    ],
+    picture: defaultPhotos.user.kim
   },
   {
     id: uuidv4(),
@@ -61,6 +65,20 @@ const members = [
     note: 'Iron Man',
     pictures: [
       defaultPhotos.user.elon
+    ],
+    picture: defaultPhotos.user.elon
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom',
+    organization: 'Avengers',
+    groupId: memberGroups[0].id,
+    note: 'I rock!',
+    pictures: [
+      defaultPhotos.user.tom[0],
+      defaultPhotos.user.tom[1],
+      defaultPhotos.user.tom[2],
+      defaultPhotos.user.tom[3]
     ]
   }
 ];
@@ -131,14 +149,14 @@ module.exports = {
         modelName: 'AV02CLD-100',
         firmware: '35110.4',
         sdEnabled: false,
-        sdStatus: 1,
+        sdStatus: 0,
         sdFormat: 'FAT32',
-        sdTotal: 31250000,
-        sdUsage: 12178048,
+        sdTotal: 10000000,
+        sdUsage: 3200000,
         sdAlertEnabled: false
       },
       systemDateTime: {
-        deviceTime: '2019-04-17 23:48:45',
+        deviceTime: '2020-07-29  10:01:45',
         ntpTimeZone: 'Asia/Taipei',
         ntpIP: 'tw.pool.ntp.org',
         syncTimeOption: '0',
@@ -166,9 +184,7 @@ module.exports = {
         ddnsRefreshStatus: false,
         ddnsHostStatus: false
       },
-      httpSettings: {
-        port: '8080'
-      },
+      httpSettings: {port: '8080'},
       httpsSettings: {
         isEnable: true,
         port: '8443',
@@ -213,6 +229,11 @@ module.exports = {
           quality: '15'
         }
       },
+      hdmiSettings: {
+        isEnableHDMI: true,
+        resolution: StreamResolution['0'],
+        frameRate: '30'
+      },
       audioSettings: {
         isEnableInput: true,
         isEnableOutput: false,
@@ -244,15 +265,15 @@ module.exports = {
         position: '1',
         type: '0'
       },
-      faceRecognitionStatus: {
-        isEnable: true
-      },
+      faceRecognitionStatus: {isEnable: true},
       faceRecognitionSettings: {
         isEnable: true,
+        isEnableSpoofing: false,
         confidenceLevel: '0',
         isShowMember: true,
         isShowGroup: false,
         isShowUnknown: false,
+        isShowFake: true,
         triggerArea: {
           x: 0,
           y: 0,
@@ -307,62 +328,179 @@ module.exports = {
         isEnableLoginNotification: false,
         isEnableAuth: true
       },
-      notificationCards: [{id: 1, type: '0', title: 'FR', isTop: false, isEnableTime: true, timePeriods: [{id: 'xx9urlxa87q', start: '2020-06-01T02:01:43.172Z', end: '2020-06-04T02:01:43.172Z', isRepeat: false}], isEnableGPIO: false, isEnableGPIO1: false, isEnableGPIO2: false, isEnableApp: false, isEnableEmail: false, isEnableVMS: true, faceRecognitionVMSEvent: '0', emails: ['test@a.com'], emailAttachmentType: '0', groups: [], isEnableFaceRecognition: false, faceRecognitionCondition: '1'},
-        {id: 2, type: '3', title: 'Motion Detection', isTop: true, isEnableTime: true, timePeriods: [{id: 'u14iphxq2n', start: '2020-06-03T02:04:09.439Z', end: '2020-06-23T02:04:09.440Z', isRepeat: false}, {id: '82n5o8kcmf3', start: '2020-06-10T02:04:09.439Z', end: '2020-06-16T02:04:09.440Z', isRepeat: false}, {id: 'zbvd5d2hywt', start: '2020-08-07T02:04:09.439Z', end: '2020-09-18T02:04:09.440Z', isRepeat: false}, {id: 'fsri48cr4n', start: '2020-08-05T02:04:09.439Z', end: '2020-09-03T02:04:09.440Z', isRepeat: false}, {id: 'xovlkrg8so', start: '2020-08-05T02:04:09.439Z', end: '2020-09-29T02:04:09.440Z', isRepeat: false}], isEnableGPIO: true, isEnableGPIO1: true, isEnableGPIO2: false, isEnableApp: false, isEnableEmail: true, isEnableVMS: true, faceRecognitionVMSEvent: '0', emails: ['test1@b.com', 'test2@c.com'], emailAttachmentType: '0', groups: [], isEnableFaceRecognition: false, faceRecognitionCondition: '0'},
-        {id: 3, type: '0', title: 'FR2', isTop: true, isEnableTime: true, timePeriods: [{id: 'vam1qo63kb', start: '2020-06-09T02:06:17.274Z', end: '2020-06-12T02:06:17.275Z', isRepeat: false}], isEnableGPIO: true, isEnableGPIO1: true, isEnableGPIO2: true, isEnableApp: false, isEnableEmail: true, isEnableVMS: true, faceRecognitionVMSEvent: '0', emails: ['testd@abc.com'], emailAttachmentType: '0', groups: [memberGroups[0].id], isEnableFaceRecognition: true, faceRecognitionCondition: '0'}],
+      notificationCards: [{
+        id: 1,
+        type: '0',
+        title: 'FR',
+        isTop: false,
+        isEnableTime: true,
+        timePeriods: [{
+          id: 'xx9urlxa87q',
+          start: '2020-06-01T02:01:43.172Z',
+          end: '2020-06-04T02:01:43.172Z',
+          isRepeat: false
+        }],
+        isEnableGPIO: false,
+        isEnableGPIO1: false,
+        isEnableGPIO2: false,
+        isEnableApp: false,
+        isEnableEmail: false,
+        isEnableVMS: true,
+        faceRecognitionVMSEvent: '0',
+        emails: ['test@a.com'],
+        emailAttachmentType: '0',
+        groups: [],
+        isEnableFaceRecognition: false,
+        faceRecognitionCondition: '1',
+        senderSubject: '',
+        senderContent: '',
+        emailContentPosition: '0'
+      },
+      {
+        id: 2,
+        type: '3',
+        title: 'Motion Detection',
+        isTop: true,
+        isEnableTime: true,
+        timePeriods: [{
+          id: 'u14iphxq2n',
+          start: '2020-06-03T02:04:09.439Z',
+          end: '2020-06-23T02:04:09.440Z',
+          isRepeat: false
+        }, {
+          id: '82n5o8kcmf3',
+          start: '2020-06-10T02:04:09.439Z',
+          end: '2020-06-16T02:04:09.440Z',
+          isRepeat: false
+        }, {
+          id: 'zbvd5d2hywt',
+          start: '2020-08-07T02:04:09.439Z',
+          end: '2020-09-18T02:04:09.440Z',
+          isRepeat: false
+        }, {
+          id: 'fsri48cr4n',
+          start: '2020-08-05T02:04:09.439Z',
+          end: '2020-09-03T02:04:09.440Z',
+          isRepeat: false
+        }, {
+          id: 'xovlkrg8so',
+          start: '2020-08-05T02:04:09.439Z',
+          end: '2020-09-29T02:04:09.440Z',
+          isRepeat: false
+        }],
+        isEnableGPIO: true,
+        isEnableGPIO1: true,
+        isEnableGPIO2: false,
+        isEnableApp: false,
+        isEnableEmail: true,
+        isEnableVMS: true,
+        faceRecognitionVMSEvent: '0',
+        emails: ['test1@b.com', 'test2@c.com'],
+        emailAttachmentType: '0',
+        groups: [],
+        isEnableFaceRecognition: false,
+        faceRecognitionCondition: '0',
+        senderSubject: '',
+        senderContent: '',
+        emailContentPosition: '1'
+      },
+      {
+        id: 3,
+        type: '0',
+        title: 'FR2',
+        isTop: true,
+        isEnableTime: true,
+        timePeriods: [{
+          id: 'vam1qo63kb',
+          start: '2020-06-09T02:06:17.274Z',
+          end: '2020-06-12T02:06:17.275Z',
+          isRepeat: false
+        }],
+        isEnableGPIO: true,
+        isEnableGPIO1: true,
+        isEnableGPIO2: true,
+        isEnableApp: false,
+        isEnableEmail: true,
+        isEnableVMS: true,
+        faceRecognitionVMSEvent: '0',
+        emails: ['testd@abc.com'],
+        emailAttachmentType: '0',
+        groups: [memberGroups[0].id],
+        isEnableFaceRecognition: true,
+        faceRecognitionCondition: '0',
+        senderSubject: '',
+        senderContent: '',
+        emailContentPosition: '0'
+      }],
       groups: memberGroups,
       members,
       faceEvents: [
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.scarlett,
+          pictureLargeUrl: defaultPhotos.event.scarlett,
           time: '2019-10-02T12:00:00.000Z',
-          confidences: [
-            {
-              score: 50,
-              confidence: '1',
-              enrollStatus: '1',
-              member: members[0]
-            }
-          ]
+          recognitionType: RecognitionType.registered,
+          member: members[0],
+          confidences: {
+            score: '50',
+            similarity: Similarity.low
+          }
         },
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.jackman,
-          time: '2020-01-02T12:00:00.000Z',
-          confidences: [
-            {
-              score: 49,
-              confidence: '1',
-              enrollStatus: '2'
-            }
-          ]
+          pictureLargeUrl: defaultPhotos.event.jackman,
+          time: '2020-09-02T12:00:00.000Z',
+          recognitionType: RecognitionType.fake,
+          confidences: {
+            score: '4.9',
+            similarity: Similarity.low
+          }
         },
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.kim,
-          time: '2020-02-02T12:00:00.000Z',
-          confidences: [
-            {
-              score: 56,
-              confidence: '2',
-              enrollStatus: '1',
-              member: members[1]
-            }
-          ]
+          pictureLargeUrl: defaultPhotos.event.kim,
+          time: '2020-07-02T12:00:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[1],
+          confidences: {
+            score: '56',
+            similarity: Similarity.medium
+          }
         },
         {
           id: uuidv4(),
           pictureThumbUrl: defaultPhotos.event.elon,
-          time: '2020-03-03T12:00:00.000Z',
-          confidences: [
-            {
-              score: 70,
-              confidence: '3',
-              enrollStatus: '1',
-              member: members[2]
-            }
-          ]
+          pictureLargeUrl: defaultPhotos.event.elon,
+          time: '2020-04-03T12:00:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[2],
+          confidences: {
+            score: '70',
+            similarity: Similarity.high
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: defaultPhotos.event.kim,
+          time: '2020-02-04T12:00:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          confidences: {
+            score: '49',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: defaultPhotos.event.jackman,
+          time: '2020-01-05T12:00:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          confidences: {
+            score: '49',
+            similarity: Similarity.low
+          }
         }
       ],
       users: [
@@ -396,19 +534,31 @@ module.exports = {
             name: 'ChiChi'
           },
           authKey: 'GVHBNJLKBHVYIUON:KJLBNK',
-          isEnableFaceRecognitionKey: true,
+          isEnableFaceRecognitionKey: '1',
           isEnableAgeGenderKey: true,
           isEnableHumanoidDetectionKey: false,
           isEnable: true
         },
         {
-          time: '2019-10-02T08:00:00.000Z',
+          time: '2019-10-05T12:00:00.000Z',
+          user: {
+            id: 1,
+            name: 'ChiChi'
+          },
+          authKey: 'GVHBNJLKBHVYIUON:KJLBNK',
+          isEnableFaceRecognitionKey: '2',
+          isEnableAgeGenderKey: true,
+          isEnableHumanoidDetectionKey: false,
+          isEnable: true
+        },
+        {
+          time: '2020-03-21T08:00:00.000Z',
           user: {
             id: 2,
             name: 'Ben'
           },
           authKey: 'VGHBJNKBIVHBKJLNK:MPOIBJ',
-          isEnableFaceRecognitionKey: false,
+          isEnableFaceRecognitionKey: '0',
           isEnableAgeGenderKey: false,
           isEnableHumanoidDetectionKey: true,
           isEnable: true

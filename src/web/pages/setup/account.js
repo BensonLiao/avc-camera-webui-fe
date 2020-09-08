@@ -1,11 +1,10 @@
 const classNames = require('classnames');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
-const logo = require('../../../resource/logo-01.svg');
-const decoration = require('../../../resource/decoration-01.svg');
+const logo = require('../../../resource/logo-avc-secondary.svg');
 const setupStep02 = require('../../../resource/setup-step-02.png');
 const setupStep02x2 = require('../../../resource/setup-step-02@2x.png');
 const _ = require('../../../languages');
@@ -14,6 +13,7 @@ const Password = require('../../../core/components/fields/password');
 const store = require('../../../core/store');
 const setupAccountValidator = require('../../validations/setup/account-validator');
 const utils = require('../../../core/utils');
+const {default: ProgressBar} = require('./progress-bar');
 
 module.exports = class SetupAccount extends Base {
   constructor(props) {
@@ -47,15 +47,12 @@ module.exports = class SetupAccount extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <div className="steps">
-            <div className="d-flex justify-content-between">
-              <p className="text-primary">{_('Language')}</p>
-              <p className="text-primary">{_('SETUP-Account')}</p>
-              <p>{_('HTTPS')}</p>
-            </div>
-            <img src={setupStep02} srcSet={`${setupStep02x2} 2x`}/>
-            <Link to="/setup/language" className="go-back"><i className="fas fa-chevron-left"/></Link>
-          </div>
+          <ProgressBar
+            step={2}
+            progressBarImage={setupStep02}
+            progressBarImagex2={setupStep02x2}
+          />
+
           <div className="form-group">
             <label>{_('Permission')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
@@ -75,38 +72,50 @@ module.exports = class SetupAccount extends Base {
           </div>
           <div className="form-group has-feedback">
             <label>{_('Birthday')}</label>
-            <Field name="birthday" component={Password} inputProps={{
-              placeholder: _('Enter your Birthday'),
-              className: classTable.birthday
-            }}/>
+            <Field
+              name="birthday"
+              component={Password}
+              inputProps={{
+                placeholder: '19900101',
+                className: classTable.birthday
+              }}
+            />
             {
               errors.birthday && touched && (
                 <div className="invalid-feedback">{errors.birthday}</div>
               )
             }
-            <small className="form-text text-muted">{_('This value is for resetting password, such as 19900101.')}</small>
+            <small className="form-text text-muted">{_('This is used for resetting password.')}</small>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
-            <Field name="password" component={Password} inputProps={{
-              placeholder: _('Enter your password'),
-              className: classTable.password
-            }}/>
+            <Field
+              name="password"
+              component={Password}
+              inputProps={{
+                placeholder: _('Enter your password'),
+                className: classTable.password
+              }}
+            />
             {
               errors.password && touched && (
                 <div className="invalid-feedback">{errors.password}</div>
               )
             }
             <small className="text-info">
-              {_('8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space')}
+              {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
             </small>
           </div>
           <div className="form-group has-feedback">
-            <label>{_('Confirm password')}</label>
-            <Field name="confirmPassword" component={Password} inputProps={{
-              placeholder: _('Confirm your password'),
-              className: classTable.confirmPassword
-            }}/>
+            <label>{_('Confirm Password')}</label>
+            <Field
+              name="confirmPassword"
+              component={Password}
+              inputProps={{
+                placeholder: _('Confirm your password'),
+                className: classTable.confirmPassword
+              }}
+            />
             {
               errors.confirmPassword && touched && (
                 <div className="invalid-feedback">{errors.confirmPassword}</div>
@@ -126,10 +135,12 @@ module.exports = class SetupAccount extends Base {
     const initialValue = store.get('$setup').account;
 
     return (
-      <div className="page-setup-account">
-        <img src={logo} className="logo" alt="AndroVideo"/>
-        <img src={decoration} className="decoration"/>
-        <div className="container">
+      <div className="page-setup-account bg-secondary">
+        <div className="navbar primary">
+          { !window.isNoBrand &&
+          <img src={logo}/>}
+        </div>
+        <div className="container-fluid">
           <div className="row justify-content-center">
             <div className="col-card">
               <Formik

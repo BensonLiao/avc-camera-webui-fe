@@ -5,7 +5,6 @@ const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
 const Overlay = require('react-bootstrap/Overlay').default;
 const dayjs = require('dayjs');
-const leftPad = require('left-pad');
 const utils = require('../../utils');
 const _ = require('../../../languages');
 
@@ -47,7 +46,11 @@ module.exports = class DatePicker extends React.PureComponent {
     };
   }
 
-  state = {};
+  state = {
+    tabKey: null,
+    displayDate: null,
+    currentMeridiem: 'AM'
+  };
 
   constructor(props) {
     super(props);
@@ -57,27 +60,42 @@ module.exports = class DatePicker extends React.PureComponent {
       minutes: [null, null, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, null, null],
       meridiemItems: [null, null, 'PM', 'AM', null, null],
       hoursRef: React.createRef(),
+      currentHourItem: null,
       minutesRef: React.createRef(),
+      currentMinuteItem: null,
       meridiemItemsRef: React.createRef(),
       tuneHoursScrollTimeout: null,
       tuneMinutesScrollTimeout: null,
       tuneMeridiemItemsScrollTimeout: null
     };
-    if (props.field.value) {
-      this.state.displayDate = new Date(props.field.value);
-      if (isNaN(this.state.displayDate.getTime())) {
-        this.state.displayDate = new Date();
-      }
+  }
+
+  componentDidMount() {
+    const {field, dateTabText} = this.props;
+    this.setTabKey('tab-datepicker-time');
+    if (dateTabText) {
+      this.setTabKey('tab-datepicker-date');
+    }
+
+    if (field.value && utils.isDate(field.value)) {
+      this.setState({displayDate: new Date(field.value)}, () => {
+        this.state.displayDate.setDate(1);
+        if (this.state.displayDate.getHours() >= 12) {
+          this.setState({currentMeridiem: 'PM'});
+        }
+      });
     } else {
-      this.state.displayDate = new Date();
+      this.setState({displayDate: new Date()}, () => {
+        this.state.displayDate.setDate(1);
+        if (this.state.displayDate.getHours() >= 12) {
+          this.setState({currentMeridiem: 'PM'});
+        }
+      });
     }
+  }
 
-    this.state.currentMeridiem = 'AM';
-    if (this.state.displayDate.getHours() >= 12) {
-      this.state.currentMeridiem = 'PM';
-    }
-
-    this.state.displayDate.setDate(1);
+  setTabKey = key => {
+    this.setState({tabKey: key});
   }
 
   /**
@@ -92,6 +110,119 @@ module.exports = class DatePicker extends React.PureComponent {
     }
 
     return utils.formatDate(a, {format: 'YYYYMMDD'}) === utils.formatDate(b, {format: 'YYYYMMDD'});
+  };
+
+  scrollTopAnimatePromise = (target, scrollPos) => {
+    return $(target).animate({scrollTop: scrollPos}, 200).promise();
+  }
+
+  /**
+   * Check if hour are less than start date's hour or greater than end date's hour.
+   * @param {Number} hour
+   * @returns {Boolean}
+   */
+  isInvalidHour = hour => {
+    const {
+      field,
+      form: {values},
+      endDateFieldName,
+      startDateFieldName
+    } = this.props;
+    const {
+      [startDateFieldName]: startDate,
+      [endDateFieldName]: endDate
+    } = values;
+    const {currentMeridiem} = this.state;
+
+    if (startDate) {
+      return dayjs(startDate).isSame(dayjs(field.value), 'date') &&
+        dayjs(startDate).hour() > (currentMeridiem === 'PM' ?
+          (hour === 12 ? hour : hour + 12) :
+          (hour === 12 ? hour - 12 : hour));
+    }
+
+    if (endDate) {
+      return dayjs(endDate).isSame(dayjs(field.value), 'date') &&
+        dayjs(endDate).hour() < (currentMeridiem === 'PM' ?
+          (hour === 12 ? hour : hour + 12) :
+          (hour === 12 ? hour - 12 : hour));
+    }
+
+    return false;
+  };
+
+  /**
+   * Get the valid hour item index, for scroll positioning.
+   * @param {String} meridiem - AM/PM
+   * @param {String|Date|Number} date - Date to check
+   * @returns {Number}
+   */
+  getValidHourItemIdx = (meridiem, date) => {
+    return meridiem === 'PM' ?
+      dayjs(date).hour() - 12 :
+      dayjs(date).hour();
+  };
+
+  /**
+   * Check if minute are less than start date's minute or greater than end date's minute.
+   * @param {Number} minute
+   * @returns {Boolean}
+   */
+  isInvalidMinute = minute => {
+    const {
+      field,
+      form: {values},
+      endDateFieldName,
+      startDateFieldName
+    } = this.props;
+    const {
+      [startDateFieldName]: startDate,
+      [endDateFieldName]: endDate
+    } = values;
+
+    if (startDate) {
+      return dayjs(startDate).isSame(dayjs(field.value), 'date') &&
+        dayjs(startDate).isSame(dayjs(field.value), 'hour') &&
+        dayjs(startDate).minute() > minute;
+    }
+
+    if (endDate) {
+      return dayjs(endDate).isSame(dayjs(field.value), 'date') &&
+        dayjs(endDate).isSame(dayjs(field.value), 'hour') &&
+        dayjs(endDate).minute() < minute;
+    }
+
+    return false;
+  };
+
+  /**
+   * Check if meridiem are invalid. e.g. start date hour is greater than 12 and end date picker's meridiem is `AM`
+   * @param {Number} meridiem
+   * @returns {Boolean}
+   */
+  isInvalidMeridiem = meridiem => {
+    const {
+      field,
+      form: {values},
+      endDateFieldName,
+      startDateFieldName
+    } = this.props;
+    const {
+      [startDateFieldName]: startDate,
+      [endDateFieldName]: endDate
+    } = values;
+
+    if (startDate) {
+      return dayjs(startDate).isSame(dayjs(field.value), 'date') &&
+        (meridiem === 'AM' && dayjs(startDate).hour() >= 12);
+    }
+
+    if (endDate) {
+      return dayjs(endDate).isSame(dayjs(field.value), 'date') &&
+        (meridiem === 'PM' && dayjs(endDate).hour() < 12);
+    }
+
+    return false;
   };
 
   setDateValue = (date = new Date(), {skipTime} = {}) => {
@@ -171,61 +302,130 @@ module.exports = class DatePicker extends React.PureComponent {
     return result;
   };
 
-  onSwitchToClock = () => {
-    const {field} = this.props;
-
-    if (field.value == null) {
-      this.setDateValue();
+  onSwitchToClock = date => {
+    const {field, dateTabText} = this.props;
+    const isDate = utils.isDate(date);
+    if (this.props.dateTabText) {
+      this.setDateValue(isDate ? date : (field.value ? field.value : new Date()), {skipTime: isDate});
     }
 
     setTimeout(() => {
-      $(this.clockData.hoursRef.current).scrollTop(
+      const isHourDisabled = this.isInvalidHour(this.clockData.currentHourItem);
+      this.scrollTopAnimatePromise(
+        this.clockData.hoursRef.current,
         (this.props.field.value.getHours() % 12) * CLOCK_ITEM_HEIGHT
-      );
-      $(this.clockData.minutesRef.current).scrollTop(
+      )
+        .then(() => {
+          if (dateTabText && isHourDisabled) {
+            const meridiemScrollPos = $(this.clockData.meridiemItemsRef.current).scrollTop();
+            this.scrollTopAnimatePromise(
+              this.clockData.meridiemItemsRef.current,
+              meridiemScrollPos + (meridiemScrollPos === 0 ? 1 : -1)
+            );
+          }
+        });
+
+      const isMinuteDisabled = this.isInvalidMinute(this.clockData.currentMinuteItem);
+      this.scrollTopAnimatePromise(
+        this.clockData.minutesRef.current,
         this.props.field.value.getMinutes() * CLOCK_ITEM_HEIGHT
-      );
-      $(this.clockData.meridiemItemsRef.current).scrollTop(
+      )
+        .then(() => {
+          const minuteScrollPos = $(this.clockData.minutesRef.current).scrollTop();
+          if (dateTabText && !isHourDisabled && isMinuteDisabled) {
+            this.scrollTopAnimatePromise(
+              this.clockData.minutesRef.current,
+              minuteScrollPos + (minuteScrollPos === 0 ? 1 : -1)
+            );
+          }
+        });
+      this.scrollTopAnimatePromise(
+        this.clockData.meridiemItemsRef.current,
         (this.props.field.value.getHours() >= 12 ? 0 : 1) * CLOCK_ITEM_HEIGHT
       );
     }, 200);
   };
 
   hoursScrollHandler = event => {
-    const {field} = this.props;
-    const positionY = $(event.target).scrollTop();
-    const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
-    const hours = this.clockData.hours[index + 2];
+    const {
+      field,
+      form: {values},
+      endDateFieldName,
+      startDateFieldName
+    } = this.props;
+    const {
+      [startDateFieldName]: startDate,
+      [endDateFieldName]: endDate
+    } = values;
     const {currentMeridiem} = this.state;
+    const positionY = $(event.target).scrollTop();
+    let index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
+    this.clockData.currentHourItem = this.clockData.hours[index + 2];
+    const isDisabled = this.isInvalidHour(this.clockData.currentHourItem);
+    let validItemIdx = 0;
+    if (startDate) {
+      validItemIdx = this.getValidHourItemIdx(currentMeridiem, startDate);
+    } else if (endDate) {
+      validItemIdx = this.getValidHourItemIdx(currentMeridiem, endDate);
+    }
+
+    if (isDisabled) {
+      index = validItemIdx;
+    }
+
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneHoursScrollTimeout);
-    if (expectPositionY === positionY) {
+
+    if (expectPositionY === positionY && !isDisabled) {
       const date = new Date(field.value);
-      if (hours === 12) {
-        date.setHours(currentMeridiem === 'PM' ? hours : hours - 12);
+      if (this.clockData.currentHourItem === 12) {
+        date.setHours(currentMeridiem === 'PM' ? this.clockData.currentHourItem : this.clockData.currentHourItem - 12);
       } else {
-        date.setHours(currentMeridiem === 'PM' ? hours + 12 : hours);
+        date.setHours(currentMeridiem === 'PM' ? this.clockData.currentHourItem + 12 : this.clockData.currentHourItem);
       }
 
       this.setDateValue(date);
     } else {
       this.clockData.tuneHoursScrollTimeout = setTimeout(() => {
         $(this.clockData.hoursRef.current).animate({scrollTop: expectPositionY}, 200);
+        const minuteScrollPos = $(this.clockData.minutesRef.current).scrollTop();
+        $(this.clockData.minutesRef.current).animate({scrollTop: minuteScrollPos + (minuteScrollPos === 0 ? 1 : -1)}, 200);
       }, 300);
     }
   };
 
   minutesScrollHandler = event => {
-    const {field} = this.props;
+    const {
+      field,
+      form: {values},
+      endDateFieldName,
+      startDateFieldName
+    } = this.props;
+    const {
+      [startDateFieldName]: startDate,
+      [endDateFieldName]: endDate
+    } = values;
     const positionY = $(event.target).scrollTop();
-    const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
-    const minutes = this.clockData.minutes[index + 2];
+    let index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
+    this.clockData.currentMinuteItem = this.clockData.minutes[index + 2];
+    let isDisabled = this.isInvalidMinute(this.clockData.currentMinuteItem);
+    let validItemIdx = 0;
+    if (startDate) {
+      validItemIdx = dayjs(startDate).minute();
+    } else if (endDate) {
+      validItemIdx = dayjs(endDate).minute();
+    }
+
+    if (isDisabled) {
+      index = validItemIdx;
+    }
+
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneMinutesScrollTimeout);
-    if (expectPositionY === positionY) {
+    if (expectPositionY === positionY && !isDisabled) {
       const date = new Date(field.value);
-      if (field.value.getMinutes() !== minutes) {
-        date.setMinutes(minutes);
+      if (field.value.getMinutes() !== this.clockData.currentMinuteItem) {
+        date.setMinutes(this.clockData.currentMinuteItem);
       }
 
       this.setDateValue(date);
@@ -237,22 +437,77 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   meridiemItemsScrollHandler = event => {
-    const {field} = this.props;
+    const {
+      field,
+      form: {values},
+      endDateFieldName,
+      startDateFieldName
+    } = this.props;
+    const {
+      [startDateFieldName]: startDate,
+      [endDateFieldName]: endDate
+    } = values;
     const positionY = $(event.target).scrollTop();
-    const index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
-    const item = this.clockData.meridiemItems[index + 2];
+    let index = Math.round(positionY / CLOCK_ITEM_HEIGHT);
+    const meridiem = this.clockData.meridiemItems[index + 2];
+    const isDisabled = this.isInvalidMeridiem(meridiem);
+    if (isDisabled) {
+      index = meridiem === 'PM' ? 1 : 0;
+    }
+
     const expectPositionY = index * CLOCK_ITEM_HEIGHT;
     clearTimeout(this.clockData.tuneMeridiemItemsScrollTimeout);
-    if (expectPositionY === positionY) {
+    if (expectPositionY === positionY && !isDisabled) {
       const date = new Date(field.value);
-      if (item === 'AM' && field.value.getHours() >= 12) {
+      if (meridiem === 'AM' && field.value.getHours() >= 12) {
         date.setHours(date.getHours() - 12);
-      } else if (item === 'PM' && field.value.getHours() < 12) {
+      } else if (meridiem === 'PM' && field.value.getHours() < 12) {
         date.setHours(date.getHours() + 12);
       }
 
       this.setDateValue(date);
-      this.setState({currentMeridiem: item});
+      this.setState({currentMeridiem: meridiem}, () => {
+        // Do cross validation between hour and meridiem scroller
+        const isHourDisabled = this.isInvalidHour(this.clockData.currentHourItem);
+        let validHourItemIdx = 0;
+        if (startDate) {
+          validHourItemIdx = this.getValidHourItemIdx(meridiem, startDate);
+        } else if (endDate) {
+          validHourItemIdx = this.getValidHourItemIdx(meridiem, endDate);
+        }
+
+        if (isHourDisabled) {
+          this.clockData.tuneHoursScrollTimeout = setTimeout(() => {
+            this.scrollTopAnimatePromise(
+              this.clockData.hoursRef.current,
+              validHourItemIdx * CLOCK_ITEM_HEIGHT
+            )
+              .then(() => {
+                // Scroll minute a little bit to get minute scroll helper works
+                const minuteScrollPos = $(this.clockData.minutesRef.current).scrollTop();
+                return this.scrollTopAnimatePromise(
+                  this.clockData.minutesRef.current,
+                  minuteScrollPos + (minuteScrollPos === 0 ? 1 : -1)
+                );
+              });
+          }, 300);
+        }
+
+        // Do cross validation between minute and meridiem scroller
+        const isMinuteDisabled = this.isInvalidMinute(this.clockData.currentMinuteItem);
+        let validMinuteItemIdx = 0;
+        if (startDate) {
+          validMinuteItemIdx = dayjs(startDate).minute();
+        } else if (endDate) {
+          validMinuteItemIdx = dayjs(endDate).minute();
+        }
+
+        if (isMinuteDisabled) {
+          this.clockData.tuneMinutesScrollTimeout = setTimeout(() => {
+            $(this.clockData.minutesRef.current).animate({scrollTop: validMinuteItemIdx * CLOCK_ITEM_HEIGHT}, 200);
+          }, 300);
+        }
+      });
     } else {
       this.clockData.tuneMeridiemItemsScrollTimeout = setTimeout(() => {
         $(this.clockData.meridiemItemsRef.current).animate({scrollTop: expectPositionY}, 200);
@@ -264,17 +519,24 @@ module.exports = class DatePicker extends React.PureComponent {
     $(this.clockData.hoursRef.current).scroll(this.hoursScrollHandler);
     $(this.clockData.minutesRef.current).scroll(this.minutesScrollHandler);
     $(this.clockData.meridiemItemsRef.current).scroll(this.meridiemItemsScrollHandler);
+    if (!this.props.dateTabText) {
+      this.onSwitchToClock();
+    }
   };
 
   onExitPicker = () => {
     $(this.clockData.hoursRef.current).off('scroll', this.hoursScrollHandler);
     $(this.clockData.minutesRef.current).off('scroll', this.minutesScrollHandler);
     $(this.clockData.meridiemItemsRef.current).off('scroll', this.meridiemItemsScrollHandler);
+    if (this.props.dateTabText) {
+      this.setTabKey('tab-datepicker-date');
+    }
   };
 
   generateClickDateHandler = date => event => {
     event.preventDefault();
-    this.setDateValue(date, {skipTime: true});
+    this.setTabKey('tab-datepicker-time');
+    this.onSwitchToClock(date);
   };
 
   generateChangeDisplayMonthHandler = date => event => {
@@ -323,7 +585,9 @@ module.exports = class DatePicker extends React.PureComponent {
                 displayMonthDropdownItems.map(date => {
                   const key = utils.formatDate(date, {format: 'YYYYMM'});
                   return (
-                    <a key={key} href={`#${key}`}
+                    <a
+                      key={key}
+                      href={`#${key}`}
                       className="dropdown-item"
                       onClick={this.generateChangeDisplayMonthHandler(date)}
                     >
@@ -335,12 +599,16 @@ module.exports = class DatePicker extends React.PureComponent {
             </div>
           </div>
           <div>
-            <button className="btn btn-link previous-month" type="button"
+            <button
+              className="btn btn-link previous-month"
+              type="button"
               onClick={this.generateChangeDisplayMonthHandler(previousMonthDisplayDate)}
             >
               <i className="fas fa-chevron-left"/>
             </button>
-            <button className="btn btn-link next-month" type="button"
+            <button
+              className="btn btn-link next-month"
+              type="button"
               onClick={this.generateChangeDisplayMonthHandler(nextMonthDisplayDate)}
             >
               <i className="fas fa-chevron-right"/>
@@ -369,9 +637,9 @@ module.exports = class DatePicker extends React.PureComponent {
                         const key = utils.formatDate(item.date, {format: 'YYYYMMDD'});
                         let isDateDisabled = false;
                         if (startDate) {
-                          isDateDisabled = dayjs(item.date).isBefore(dayjs(startDate));
+                          isDateDisabled = dayjs(item.date).isBefore(dayjs(startDate), 'date');
                         } else if (endDate) {
-                          isDateDisabled = dayjs(item.date).isAfter(dayjs(endDate));
+                          isDateDisabled = dayjs(item.date).isAfter(dayjs(endDate), 'date');
                         }
 
                         if (item.isDisplayMonth && !isDateDisabled) {
@@ -412,11 +680,13 @@ module.exports = class DatePicker extends React.PureComponent {
           <div className="divider"/>
           <div ref={this.clockData.hoursRef} className="item-container">
             {
-              hours.map((hour, index) => (
-                <a key={hour || `none-${index}`} className="item">
-                  {hour == null ? '' : leftPad(hour, 2, '0')}
-                </a>
-              ))
+              hours.map((hour, index) => {
+                return (
+                  <a key={hour || `none-${index}`} className={classNames('item', {disabled: this.isInvalidHour(hour)})}>
+                    {hour == null ? '' : `${hour}`.padStart(2, '0')}
+                  </a>
+                );
+              })
             }
           </div>
         </div>
@@ -424,11 +694,13 @@ module.exports = class DatePicker extends React.PureComponent {
           <div className="divider"/>
           <div ref={this.clockData.minutesRef} className="item-container">
             {
-              minutes.map((minute, index) => (
-                <a key={minute || `none-${index}`} className="item">
-                  {minute == null ? '' : leftPad(minute, 2, '0')}
-                </a>
-              ))
+              minutes.map((minute, index) => {
+                return (
+                  <a key={minute || `none-${index}`} className={classNames('item', {disabled: this.isInvalidMinute(minute)})}>
+                    {minute == null ? '' : `${minute}`.padStart(2, '0')}
+                  </a>
+                );
+              })
             }
           </div>
         </div>
@@ -436,11 +708,13 @@ module.exports = class DatePicker extends React.PureComponent {
           <div className="divider"/>
           <div ref={this.clockData.meridiemItemsRef} className="item-container">
             {
-              meridiemItems.map((item, index) => (
-                <a key={item || `none-${index}`} className="item">
-                  {item || ''}
-                </a>
-              ))
+              meridiemItems.map((meridiem, index) => {
+                return (
+                  <a key={meridiem || `none-${index}`} className={classNames('item', {disabled: this.isInvalidMeridiem(meridiem)})}>
+                    {meridiem || ''}
+                  </a>
+                );
+              })
             }
           </div>
         </div>
@@ -461,7 +735,10 @@ module.exports = class DatePicker extends React.PureComponent {
       <div className="datepicker-wrapper">
         <div className="datepicker" {...props}>
 
-          <Tab.Container defaultActiveKey="tab-datepicker-date">
+          <Tab.Container
+            activeKey={this.state.tabKey}
+            onSelect={key => this.setTabKey(key)}
+          >
             <Nav>
               {dateTabText && (
                 <Nav.Item className="flex-fill">
@@ -474,7 +751,6 @@ module.exports = class DatePicker extends React.PureComponent {
                 </Nav.Item>
               )}
               <Nav.Item className="flex-fill">
-                {!dateTabText && this.onSwitchToClock()}
                 <Nav.Link
                   className="text-center mr-0"
                   eventKey="tab-datepicker-time"

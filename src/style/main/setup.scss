@@ -1,0 +1,42 @@
+.page-welcome,
+.page-setup-language,
+.page-setup-https,
+.page-setup-account {
+  min-height: 100vh;
+
+  .navbar {
+    margin-bottom: 48px;
+  }
+
+  .card {
+    border-radius: 8px;
+
+    .card-body {
+      padding: 40px;
+
+      .steps {
+        margin-bottom: 56px;
+
+        img {
+          position: absolute;
+        }
+
+        .go-back {
+          position: absolute;
+          z-index: 1;
+          margin-top: 32px;
+        }
+      }
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .card-sub-title {
+      margin-bottom: 40px;
+    }
+  }
+}

@@ -1,4 +1,3 @@
-/* eslint-disable capitalized-comments */
 const {Router} = require('capybara-router');
 const history = require('history');
 const _ = require('../languages');
@@ -70,9 +69,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Stream Settings')} - ${_('Multimedia Settings')} - ${_title}`;
       },
-      resolve: {
-        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
-      },
+      resolve: {streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
         './pages/media/stream'
@@ -84,9 +81,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Privacy Mask')} - ${_('Multimedia Settings')} - ${_title}`;
       },
-      resolve: {
-        privacyMaskSettings: () => api.multimedia.getPrivacyMaskSettings().then(response => response.data)
-      },
+      resolve: {privacyMaskSettings: () => api.multimedia.getPrivacyMaskSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
         './pages/media/privacy-mask'
@@ -109,14 +104,24 @@ module.exports = new Router({
       )
     },
     {
+      name: 'web.media.hdmi',
+      uri: '/hdmi',
+      onEnter: () => {
+        document.title = `${_('HDMI Settings')} - ${_('Multimedia Settings')} - ${_title}`;
+      },
+      resolve: {hdmiSettings: () => api.multimedia.getHDMISettings().then(response => response.data)},
+      loadComponent: () => import(
+        /* webpackChunkName: "page-media" */
+        './pages/media/hdmi'
+      )
+    },
+    {
       name: 'web.media.word',
       uri: '/word',
       onEnter: () => {
         document.title = `${_('Text Stickers')} - ${_('Multimedia Settings')} - ${_title}`;
       },
-      resolve: {
-        wordSettings: () => api.multimedia.getWordSettings().then(response => response.data)
-      },
+      resolve: {wordSettings: () => api.multimedia.getWordSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
         './pages/media/word'
@@ -128,9 +133,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Audio Settings')} - ${_title}`;
       },
-      resolve: {
-        audioSettings: () => api.multimedia.getAudioSettings().then(response => response.data)
-      },
+      resolve: {audioSettings: () => api.multimedia.getAudioSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
         './pages/media/audio'
@@ -153,9 +156,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Notification Settings')} - ${_title}`;
       },
-      resolve: {
-        smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)
-      },
+      resolve: {smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-notification" */
         './pages/notification/smtp'
@@ -193,20 +194,6 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.notification.app',
-      uri: '/app',
-      onEnter: () => {
-        document.title = `${_('Notification settings')} - ${_title}`;
-      },
-      resolve: {
-        appSettings: () => api.notification.getAppSettings().then(response => response.data)
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-notification" */
-        './pages/notification/app'
-      )
-    },
-    {
       name: 'web.smart',
       uri: '/analytic',
       onEnter: () => {
@@ -223,9 +210,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Facial Recognition')} - ${_('Analytic')} - ${_title}`;
       },
-      resolve: {
-        faceRecognitionSettings: () => api.smartFunction.getFaceRecognitionSettings().then(response => response.data)
-      },
+      resolve: {faceRecognitionSettings: () => api.smartFunction.getFaceRecognitionSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-smart-face-recognition" */
         './pages/smart/face-recognition'
@@ -237,9 +222,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Motion Detection')} - ${_('Analytic')} - ${_title}`;
       },
-      resolve: {
-        motionDetectionSettings: () => api.smartFunction.getMotionDetectionSettings().then(response => response.data)
-      },
+      resolve: {motionDetectionSettings: () => api.smartFunction.getMotionDetectionSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-smart-motion-detection" */
         './pages/smart/motion-detection'
@@ -293,9 +276,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Member')} - ${_title}`;
       },
-      resolve: {
-        member: params => api.member.getMember(params.memberId).then(response => response.data)
-      },
+      resolve: {member: params => api.member.getMember(params.memberId).then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-member" */
         './pages/members/member'
@@ -308,9 +289,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('New Member')} - ${_title}`;
       },
-      resolve: {
-        member: () => null
-      },
+      resolve: {member: () => null},
       loadComponent: () => import(
         /* webpackChunkName: "page-member" */
         './pages/members/member'
@@ -322,9 +301,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Members')} - ${_title}`;
       },
-      resolve: {
-        group: () => null
-      },
+      resolve: {group: () => null},
       loadComponent: () => import(
         /* webpackChunkName: "page-group" */
         './pages/members/group'
@@ -336,9 +313,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Members')} - ${_title}`;
       },
-      resolve: {
-        group: params => api.group.getGroup(params.group).then(response => response.data)
-      },
+      resolve: {group: params => api.group.getGroup(params.group).then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-group" */
         './pages/members/group'
@@ -350,9 +325,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
       },
-      resolve: {
-        users: () => api.user.getUsers().then(response => response.data)
-      },
+      resolve: {users: () => api.user.getUsers().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
         './pages/security/users'
@@ -365,9 +338,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Security')} - ${_title}`;
       },
-      resolve: {
-        user: params => api.user.getUser(params.userId).then(response => response.data)
-      },
+      resolve: {user: params => api.user.getUser(params.userId).then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
         './pages/security/user'
@@ -380,9 +351,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('New User')} - ${_title}`;
       },
-      resolve: {
-        user: () => null
-      },
+      resolve: {user: () => null},
       loadComponent: () => import(
         /* webpackChunkName: "page-security" */
         './pages/security/user'
@@ -395,13 +364,6 @@ module.exports = new Router({
         document.title = `${_('Smart Search')} - ${_title}`;
       },
       resolve: {
-        groups: params => {
-          if ((params.type || 'face-recognition') !== 'face-recognition') {
-            return null;
-          }
-
-          return api.group.getGroups().then(response => response.data);
-        },
         faceEvents: params => {
           if ((params.type || 'face-recognition') !== 'face-recognition') {
             return null;
@@ -409,7 +371,8 @@ module.exports = new Router({
 
           return api.event.getFaceEvents(params).then(response => response.data);
         },
-        authStatus: () => api.authKey.getAuthStatus().then(response => response.data)
+        authStatus: () => api.authKey.getAuthStatus().then(response => response.data),
+        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-events" */
@@ -433,9 +396,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Network')} - ${_title}`;
       },
-      resolve: {
-        networkSettings: () => api.system.getNetworkSettings().then(response => response.data)
-      },
+      resolve: {networkSettings: () => api.system.getNetworkSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-network" */
         './pages/network/settings'
@@ -491,9 +452,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('System')} - ${_title}`;
       },
-      resolve: {
-        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)
-      },
+      resolve: {systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-system" */
         './pages/system/datetime'
@@ -527,9 +486,7 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('SD Card Settings')} - ${_title}`;
       },
-      resolve: {
-        smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)
-      },
+      resolve: {smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */
         './pages/sdcard/sd-card'
@@ -632,6 +589,39 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-login-lock" */
         './pages/account/login-lock'
+      )
+    },
+    {
+      name: 'forgot-password',
+      uri: '/forgot-password',
+      onEnter: () => {
+        document.title = `${_('Forgot password')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-forgot-password" */
+        './pages/account/forgot-password'
+      )
+    },
+    {
+      name: 'reset-password',
+      uri: '/reset-password?account?birthday',
+      onEnter: () => {
+        document.title = `${_('Reset password')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-reset-password" */
+        './pages/account/reset-password'
+      )
+    },
+    {
+      name: 'reset-password-success',
+      uri: '/reset-password-success',
+      onEnter: () => {
+        document.title = `${_('Reset password success.')} - ${_title}`;
+      },
+      loadComponent: () => import(
+        /* webpackChunkName: "page-reset-password-success" */
+        './pages/account/reset-password-success'
       )
     },
     {

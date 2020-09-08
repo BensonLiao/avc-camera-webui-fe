@@ -17,9 +17,7 @@ module.exports = class DropdownField extends React.Component {
         name: PropTypes.string.isRequired,
         value: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
       }).isRequired,
-      form: PropTypes.shape({
-        setFieldValue: PropTypes.func.isRequired
-      }).isRequired
+      form: PropTypes.shape({setFieldValue: PropTypes.func.isRequired}).isRequired
     };
   }
 
@@ -69,7 +67,10 @@ module.exports = class DropdownField extends React.Component {
         <div className={menuClass}>
           {
             this.props.items.map(item => (
-              <a key={item.value} className="dropdown-item" href={`#${item.value}`}
+              <a
+                key={item.value}
+                className="dropdown-item"
+                href={`#${item.value}`}
                 onClick={this.generateClickItemHandler(item.value)}
               >
                 {item.label}

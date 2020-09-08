@@ -1,44 +1,29 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const {Link, getRouter} = require('capybara-router');
 const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
+const {Link, getRouter} = require('capybara-router');
 const progress = require('nprogress');
+const PropTypes = require('prop-types');
+const React = require('react');
 const Base = require('../shared/base');
+const LicenseList = require('./license-list');
+const LicenseStatus = require('./license-status');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
+const AuthKeySchema = require('webserver-form-schema/auth-key-schema');
+const iconFaceRecognitionEnable = require('../../../resource/face-recognition-enable-100px.svg');
+const iconFaceRecognitionDisable = require('../../../resource/face-recognition-disable-100px.svg');
+const iconAgeGenderEnable = require('../../../resource/age-gender-enable-100px.svg');
+const iconAgeGenderDisable = require('../../../resource/age-gender-disable-100px.svg');
+const iconHumanoidDetectionEnable = require('../../../resource/human-detection-enable-100px.svg');
+const iconHumanoidDetectionDisable = require('../../../resource/human-detection-disable-100px.svg');
+const notify = require('../../../core/notify');
 const utils = require('../../../core/utils');
-const iconFaceRecognitionEnable =
-  require('../../../resource/face-recognition-enable-100px.svg');
-const iconFaceRecognitionDisable =
-  require('../../../resource/face-recognition-disable-100px.svg');
-const iconAgeGenderEnable =
-  require('../../../resource/age-gender-enable-100px.svg');
-const iconAgeGenderDisable =
-  require('../../../resource/age-gender-disable-100px.svg');
-const iconHumanoidDetectionEnable =
-  require('../../../resource/human-detection-enable-100px.svg');
-const iconHumanoidDetectionDisable =
-  require('../../../resource/human-detection-disable-100px.svg');
 
 module.exports = class License extends Base {
   static get propTypes() {
     return {
-      authKeys: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          time: PropTypes.string.isRequired,
-          user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-          }).isRequired,
-          authKey: PropTypes.string.isRequired,
-          isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
-          isEnableAgeGenderKey: PropTypes.bool.isRequired,
-          isEnableHumanoidDetectionKey: PropTypes.bool.isRequired,
-          isEnable: PropTypes.bool.isRequired
-        }).isRequired).isRequired
-      }).isRequired,
+      authKeys: PropTypes.shape(LicenseList.propTypes.authKeys).isRequired,
       authStatus: PropTypes.shape({
         isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
         isEnableAgeGenderKey: PropTypes.bool.isRequired,
@@ -57,9 +42,9 @@ module.exports = class License extends Base {
     const keyList = this.props.authKeys.items.map(key => key.authKey);
     const check = utils.duplicateCheck(keyList, authKey);
     if (check) {
-      utils.showErrorNotification({
+      notify.showErrorNotification({
         title: _('Activation Failed'),
-        message: _('Key already registered!')
+        message: _('Key Already Registered!')
       });
     }
 
@@ -67,7 +52,7 @@ module.exports = class License extends Base {
       progress.start();
       api.authKey.addAuthKey(authKey)
         .then(response => {
-          utils.showSuccessNotification({
+          notify.showSuccessNotification({
             title: _('Activated Successfully'),
             message: _('{0} authorized successfully!', [
               (() => {
@@ -90,12 +75,6 @@ module.exports = class License extends Base {
           });
           getRouter().reload();
         })
-        .catch(() => {
-          utils.showErrorNotification({
-            title: _('Activation Failed'),
-            message: _('Authorization failed!')
-          });
-        })
         .finally(progress.done);
     }
   };
@@ -112,14 +91,10 @@ module.exports = class License extends Base {
               className={classNames('form-control', {'is-invalid': errors.authKey && isSubmitted})}
               name="authKey"
               type="text"
+              maxLength={AuthKeySchema.authKey.max}
               placeholder={_('Enter your authentication key')}
               style={{width: '312px'}}
             />
-            {
-              errors.authKey && touched.authKey && (
-                <div className="invalid-feedback">{errors.authKey}</div>
-              )
-            }
           </div>
           <div className="col-auto my-1">
             <button
@@ -131,16 +106,27 @@ module.exports = class License extends Base {
             </button>
           </div>
         </div>
+        <div className="form-row">
+          <div className="col-auto">
+            {
+              errors.authKey && touched.authKey && isSubmitted && (
+                <div className="invalid-feedback d-block mt-0">{errors.authKey}</div>
+              )
+            }
+          </div>
+        </div>
       </Form>
     );
   };
 
   render() {
-    const {authStatus: {
-      isEnableFaceRecognitionKey,
-      isEnableAgeGenderKey,
-      isEnableHumanoidDetectionKey
-    }, authKeys} = this.props;
+    const {
+      authStatus: {
+        isEnableFaceRecognitionKey,
+        isEnableAgeGenderKey,
+        isEnableHumanoidDetectionKey
+      }, authKeys
+    } = this.props;
     return (
       <div className="bg-white">
         <div className="page-license bg-gray" style={{height: '522px'}}>
@@ -158,7 +144,8 @@ module.exports = class License extends Base {
               </div>
               <div className="col-12">
                 <h3 className="mb-4">{_('License')}</h3>
-                <Formik initialValues={{authKey: ''}}
+                <Formik
+                  initialValues={{authKey: ''}}
                   validate={authKeyValidator}
                   onSubmit={this.onSubmit}
                 >
@@ -174,173 +161,28 @@ module.exports = class License extends Base {
             <div className="row">
               <div className="col-12">
                 <div className="status d-flex">
-                  <div className={classNames(
-                    'border text-center bg-white',
-                    {'active shadow border-success': isEnableFaceRecognitionKey}
-                  )}
-                  >
-                    <div className="img-wrapper">
-                      <img src={isEnableFaceRecognitionKey ? iconFaceRecognitionEnable :
-                        iconFaceRecognitionDisable}/>
-                    </div>
-                    <h4 className={classNames(
-                      'text-size-20 mt-3',
-                      isEnableFaceRecognitionKey ?
-                        'text-primary' :
-                        'text-muted'
-                    )}
-                    >
-                      {_('Facial Recognition')}
-                    </h4>
-                    <div className="bottom">
-                      <hr/>
-                      <span className={classNames(
-                        'border rounded-pill p-1 pr-2',
-                        isEnableFaceRecognitionKey ?
-                          'border-success text-success' :
-                          'border-danger text-danger'
-                      )}
-                      >
-                        <i className={classNames(
-                          'fas',
-                          isEnableFaceRecognitionKey ?
-                            'fa-check-circle' :
-                            'fa-minus-circle'
-                        )}/>
-                        {isEnableFaceRecognitionKey ? _('Activated') : _('Inactivated')}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className={classNames(
-                    'border text-center bg-white',
-                    {'active shadow border-success': isEnableAgeGenderKey}
-                  )}
-                  >
-                    <div className="img-wrapper">
-                      <img src={isEnableAgeGenderKey ? iconAgeGenderEnable :
-                        iconAgeGenderDisable}/>
-                    </div>
-                    <h4 className={classNames(
-                      'text-size-20 mt-3',
-                      isEnableAgeGenderKey ?
-                        'text-primary' :
-                        'text-muted'
-                    )}
-                    >
-                      {_('Age Gender')}
-                    </h4>
-                    <div className="bottom">
-                      <hr/>
-                      <span className={classNames(
-                        'border rounded-pill p-1 pr-2',
-                        isEnableAgeGenderKey ?
-                          'border-success text-success' :
-                          'border-danger text-danger'
-                      )}
-                      >
-                        <i className={classNames(
-                          'fas',
-                          isEnableAgeGenderKey ?
-                            'fa-check-circle' :
-                            'fa-minus-circle'
-                        )}/>
-                        {isEnableAgeGenderKey ? _('Activated') : _('Inactivated')}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className={classNames(
-                    'border text-center bg-white',
-                    {'active shadow border-success': isEnableHumanoidDetectionKey}
-                  )}
-                  >
-                    <div className="img-wrapper">
-                      <img src={isEnableHumanoidDetectionKey ? iconHumanoidDetectionEnable :
-                        iconHumanoidDetectionDisable}/>
-                    </div>
-                    <h4 className={classNames(
-                      'text-size-20 mt-3',
-                      isEnableHumanoidDetectionKey ?
-                        'text-primary' :
-                        'text-muted'
-                    )}
-                    >
-                      {_('Human Detection')}
-                    </h4>
-                    <div className="bottom">
-                      <hr/>
-                      <span className={classNames(
-                        'border rounded-pill p-1 pr-2',
-                        isEnableHumanoidDetectionKey ?
-                          'border-success text-success' :
-                          'border-danger text-danger'
-                      )}
-                      >
-                        <i className={classNames(
-                          'fas',
-                          isEnableHumanoidDetectionKey ?
-                            'fa-check-circle' :
-                            'fa-minus-circle'
-                        )}/>
-                        {isEnableHumanoidDetectionKey ? _('Activated') : _('Inactivated')}
-                      </span>
-                    </div>
-                  </div>
+                  <LicenseStatus
+                    licenseName={_('Facial Recognition')}
+                    licenseKeyStatus={isEnableFaceRecognitionKey}
+                    licenseEnableImg={iconFaceRecognitionEnable}
+                    licenseDisableImg={iconFaceRecognitionDisable}
+                  />
+                  <LicenseStatus
+                    licenseName={_('Age Gender')}
+                    licenseKeyStatus={isEnableAgeGenderKey}
+                    licenseEnableImg={iconAgeGenderEnable}
+                    licenseDisableImg={iconAgeGenderDisable}
+                  />
+                  <LicenseStatus
+                    licenseName={_('Human Detection')}
+                    licenseKeyStatus={isEnableHumanoidDetectionKey}
+                    licenseEnableImg={iconHumanoidDetectionEnable}
+                    licenseDisableImg={iconHumanoidDetectionDisable}
+                  />
                 </div>
-
-                <table className="table custom-style">
-                  <thead>
-                    <tr className="shadow">
-                      <th/>
-                      <th>{_('Time')}</th>
-                      <th>{_('Activate User')}</th>
-                      <th>{_('Authentication Key')}</th>
-                      <th>{_('Activate Functions')}</th>
-                      <th>{_('Enable Status')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {authKeys.items.map((authKey, index) => (
-                      <tr key={authKey.time}>
-                        <td>
-                          {index + 1}
-                        </td>
-                        <td>
-                          {utils.formatDate(authKey.time)}
-                        </td>
-                        <td>
-                          {authKey.user.name}
-                        </td>
-                        <td>
-                          {authKey.authKey}
-                        </td>
-                        <td>
-                          {authKey.isEnableFaceRecognitionKey && (
-                            <span className="badge badge-primary badge-pill">
-                              {_('Facial Recognition')}
-                            </span>
-                          )}
-                          {authKey.isEnableAgeGenderKey && (
-                            <span className="badge badge-primary badge-pill ml-1">
-                              {_('Age Gender')}
-                            </span>
-                          )}
-                          {authKey.isEnableHumanoidDetectionKey && (
-                            <span className="badge badge-primary badge-pill ml-1">
-                              {_('Human Detection')}
-                            </span>
-                          )}
-                        </td>
-                        <td>
-                          {authKey.isEnable && (
-                            <i className="fas fa-check-circle fa-lg fa-fw text-success"/>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <LicenseList
+                  authKeys={authKeys}
+                />
               </div>
             </div>
           </div>

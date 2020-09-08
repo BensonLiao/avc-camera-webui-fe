@@ -30,17 +30,23 @@ module.exports = class Network extends Base {
         <div className="left-menu fixed-top">
           <h2>{_('Internet/Network Settings')}</h2>
           <nav className="nav flex-column">
-            <Link to="/network/settings" title="Network Settings"
+            <Link
+              to="/network/settings"
+              title="Network Settings"
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.settings'})}
             >
               {_('Network Settings')}
             </Link>
-            <Link to="/network/tcp-ip" title="TCP/IP"
+            <Link
+              to="/network/tcp-ip"
+              title="TCP/IP"
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.tcp-ip'})}
             >
               TCP/IP
             </Link>
-            <Link to="/network/https" title="HTTPS"
+            <Link
+              to="/network/https"
+              title="HTTPS"
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.https'})}
             >
               HTTPS

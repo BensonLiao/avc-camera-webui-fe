@@ -5,10 +5,13 @@ const progress = require('nprogress');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const StageProgress = require('../../../core/components/stage-progress');
 const constants = require('../../../core/constants');
+const isRunTest = false; // Set as `true` to run test on submit
+const isMockUpgradeError = false; // Set as `true` to mock upgrade firmware error, only works if `isRunTest` is `true`
 
 module.exports = class Upgrade extends Base {
   constructor(props) {
@@ -16,7 +19,7 @@ module.exports = class Upgrade extends Base {
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Device Processing');
-    this.state.apiProcessModalBody = _('Please do not close tab or browser while upgrading');
+    this.state.apiProcessModalBody = _('※ Please do not close browser or tab during upgrade');
     this.state.progressStatus = {
       uploadFirmware: 'initial',
       upgradeFirmware: 'initial',
@@ -29,43 +32,42 @@ module.exports = class Upgrade extends Base {
     };
   }
 
-  componentDidMount = () => {
-    // FOTA testing script
-    // this.testScript();
-  }
-
   // Test Script for FOTA process
   testScript = () => {
     let count = 0;
     new Promise(resolve => {
-      this.updateProgressStatus('uploadFirmware', 'start');
       this.setState({
         isShowApiProcessModal: true,
-        apiProcessModalTitle: _('Uploading Firmware')
+        apiProcessModalTitle: _('Uploading Firmware'),
+        progressStatus: {
+          uploadFirmware: 'start',
+          upgradeFirmware: 'initial',
+          deviceShutdown: 'initial',
+          deviceRestart: 'initial'
+        }
       }, () => {
         let interval = setInterval(() => {
           this.updateProgress('uploadFirmware', count);
           if (++count === 101) {
+            clearInterval(interval);
             this.updateProgressStatus('uploadFirmware', 'done');
             this.updateProgressStatus('upgradeFirmware', 'start');
-            clearInterval(interval);
             resolve();
           }
         }, 50);
       });
     })
-      .then(() => new Promise(resolve => {
+      .then(() => new Promise((resolve, reject) => {
         count = 0;
         this.setState({apiProcessModalTitle: _('Installing Firmware')},
           () => {
             let interval2 = setInterval(() => {
               this.updateProgress('upgradeFirmware', count);
               // Progress fail test
-              // if (count === 55) {
-              //   clearInterval(interval2);
-              //   this.updateProgressStatus('upgradeFirmware', 'fail');
-              //   require('../../../core/utils').showErrorNotification({message: 'upgrade firmware fail'});
-              // }
+              if (isMockUpgradeError && count === 55) {
+                clearInterval(interval2);
+                reject();
+              }
 
               if (++count === 101) {
                 clearInterval(interval2);
@@ -77,6 +79,11 @@ module.exports = class Upgrade extends Base {
           }
         );
       }))
+      .catch(() => {
+        this.updateProgressStatus('upgradeFirmware', 'fail');
+        require('../../../core//notify').showErrorNotification({message: 'upgrade firmware fail'});
+        return new Promise(() => {});
+      })
       .then(() => new Promise(resolve => {
         this.setState({apiProcessModalTitle: _('Device Shutting Down')},
           () => {
@@ -103,9 +110,7 @@ module.exports = class Upgrade extends Base {
           () => {
             let countdown = constants.REDIRECT_COUNTDOWN;
             this.countdownID = setInterval(() => {
-              this.setState({
-                apiProcessModalBody: _('Redirect to login page in {0} seconds', [--countdown])
-              });
+              this.setState({apiProcessModalBody: _('Redirect to login page in {0} seconds', [--countdown])});
             }, 1000);
             this.countdownTimerID = setTimeout(() => {
               clearInterval(this.countdownID);
@@ -145,14 +150,16 @@ module.exports = class Upgrade extends Base {
   onSubmitForm = () => {
     const {file} = this.state;
     progress.start();
-    this.setState(prevState => ({
+    this.setState({
       isShowApiProcessModal: true,
       apiProcessModalTitle: _('Uploading Firmware'),
       progressStatus: {
-        ...prevState.progressStatus,
-        uploadFirmware: 'start'
+        uploadFirmware: 'start',
+        upgradeFirmware: 'initial',
+        deviceShutdown: 'initial',
+        deviceRestart: 'initial'
       }
-    }),
+    },
     () => {
       api.system.uploadFirmware(file, this.updateProgress)
         .then(response => new Promise(resolve => {
@@ -168,18 +175,7 @@ module.exports = class Upgrade extends Base {
                   this.updateProgressStatus('deviceShutdown', 'start');
                   // Keep modal and update the title and body.
                   this.setState({apiProcessModalTitle: _('Device Shutting Down')});
-                  // Check the server was shutdown, if success then shutdown was failed and retry.
-                  const test = () => {
-                    api.ping('web')
-                      .then(() => {
-                        setTimeout(test, 1000);
-                      })
-                      .catch(() => {
-                        resolve();
-                      });
-                  };
-
-                  test();
+                  utils.pingToCheckShutdown(resolve, 1000);
                 } else {
                   this.updateProgress('upgradeFirmware', response.data.updateProgress);
                   setTimeout(() => {
@@ -210,9 +206,7 @@ module.exports = class Upgrade extends Base {
                   () => {
                     let countdown = constants.REDIRECT_COUNTDOWN;
                     this.countdownID = setInterval(() => {
-                      this.setState({
-                        apiProcessModalBody: _('Redirect to login page in {0} seconds', [--countdown])
-                      });
+                      this.setState({apiProcessModalBody: _('Redirect to login page in {0} seconds', [--countdown])});
                     }, 1000);
                     this.countdownTimerID = setTimeout(() => {
                       clearInterval(this.countdownID);
@@ -247,7 +241,13 @@ module.exports = class Upgrade extends Base {
           </small>
           <div>
             <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
-              <input disabled={isShowApiProcessModal || $isApiProcessing} type="file" className="d-none" accept=".zip" onChange={this.onChangeFile}/>{_('Select File')}
+              <input
+                disabled={isShowApiProcessModal || $isApiProcessing}
+                type="file"
+                className="d-none"
+                accept=".zip"
+                onChange={this.onChangeFile}
+              />{_('Select File')}
             </label>
             {
               file ?
@@ -259,12 +259,12 @@ module.exports = class Upgrade extends Base {
         <CustomTooltip show={!file} title={_('Please Select a File First')}>
           <div>
             <button
-              disabled={isShowApiProcessModal || $isApiProcessing || !file}
+              disabled={(isShowApiProcessModal || $isApiProcessing || !file) && !isRunTest}
               className="btn btn-primary btn-block rounded-pill"
               type="submit"
-              style={file ? {} : {pointerEvents: 'none'}}
+              style={file || isRunTest ? {} : {pointerEvents: 'none'}}
             >
-              {_('Firmware Upgrade')}
+              {_(isRunTest ? 'Run Test' : 'Firmware Upgrade')}
             </button>
           </div>
         </CustomTooltip>
@@ -307,28 +307,28 @@ module.exports = class Upgrade extends Base {
                   </div>,
                   <StageProgress
                     key="stage 1"
-                    stage="Stage 01"
-                    title="Upload Firmware"
+                    stage={_('Stage 01')}
+                    title={_('Upload Firmware')}
                     progressStatus={progressStatus.uploadFirmware}
                     progressPercentage={progressPercentage.uploadFirmware}
                   />,
                   <StageProgress
                     key="stage 2"
-                    stage="Stage 02"
-                    title="Install Firmware"
+                    stage={_('Stage 02')}
+                    title={_('Install Firmware')}
                     progressStatus={progressStatus.upgradeFirmware}
                     progressPercentage={progressPercentage.upgradeFirmware}
                   />,
                   <StageProgress
                     key="stage 3"
-                    stage="Stage 03"
-                    title="Device Shutdown"
+                    stage={_('Stage 03')}
+                    title={_('Shutdown Device')}
                     progressStatus={progressStatus.deviceShutdown}
                   />,
                   <StageProgress
                     key="stage 4"
-                    stage="Stage 04"
-                    title="Device Restart"
+                    stage={_('Stage 04')}
+                    title={_('Restart Device')}
                     progressStatus={progressStatus.deviceRestart}
                   />
                 ]}
@@ -338,7 +338,7 @@ module.exports = class Upgrade extends Base {
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Firmware Upgrade')}</div>
-                  <Formik initialValues={{}} onSubmit={this.onSubmitForm}>
+                  <Formik initialValues={{}} onSubmit={isRunTest ? this.testScript : this.onSubmitForm}>
                     {this.formRender}
                   </Formik>
                 </div>

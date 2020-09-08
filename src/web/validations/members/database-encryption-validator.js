@@ -1,4 +1,5 @@
 const {validator} = require('../../../core/validations');
+const UserSchema = require('webserver-form-schema/user-schema');
 
 module.exports = validator.compile({
   password: {
@@ -7,13 +8,7 @@ module.exports = validator.compile({
     empty: false,
     max: 32
   },
-  newPassword: {
-    optional: false,
-    type: 'string',
-    empty: false,
-    min: 8,
-    max: 16
-  },
+  newPassword: UserSchema.password,
   confirmPassword: {
     type: 'confirmEqual',
     field: 'newPassword'

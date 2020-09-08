@@ -4,45 +4,67 @@
 
   .card {
     border-radius: 16px;
+
     table {
       width: 100%;
+
       thead {
-        color: #FFFFFF;
+        color: #fff;
+
         th {
-          background-color: #666666;
+          background-color: #666;
+
           &:first-child {
             border-top-left-radius: 16px;
           }
+
           &:last-child {
             border-top-right-radius: 16px;
           }
         }
       }
+
       th {
         padding: 10px 24px;
         font-size: 20px;
       }
+
       td {
         padding: 32px 24px;
         font-size: 16px;
+
         .badge {
           font-size: 16px;
         }
       }
     }
   }
+
   .card-header {
-    background-color: #666666;
+    background-color: #666;
     border-radius: 16px 16px 0 0;
     padding: 12px 24px;
-    color: #FFFFFF;
+    color: #fff;
     font-size: 20px;
     font-weight: bold;
   }
+
   .card-body {
     padding: 24px;
+
     .tip {
       height: 32px;
+    }
+
+    .focal-length .btn {
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      &:hover:not(:disabled) {
+        color: $select;
+      }
     }
   }
 
@@ -50,68 +72,82 @@
     h2 {
       padding: 0;
       margin: 0;
+
       .tip {
         height: 32px;
         margin-top: 5px;
       }
+
       .collapsed + .tip {
         display: none;
       }
+
       > .btn-link {
         padding: 5px 0 25px;
         font-size: 20px;
         font-weight: bold;
-        color: #666666;
+        color: #666;
         text-decoration: none;
+
         i {
           font-size: 16px !important;
           width: 16px !important;
           margin-right: 16px;
-          color: #CCCCCC;
+          color: #ccc;
+
           @extend .transition-transform;
         }
+
         .tip {
           position: absolute; // To avoid height up the button.
           font-size: 14px;
           font-weight: normal;
-          border: 1px #CCCCCC solid;
+          border: 1px #ccc solid;
           border-radius: 6px;
           padding: 4px 8px;
           margin-left: 16px;
         }
+
         &.collapsed {
           .fa-chevron-up {
             transform: rotate(180deg);
           }
+
           .tip {
             display: none;
           }
         }
       }
     }
-    .collapsing, .collapse {
+
+    .collapsing,
+    .collapse {
       .form-group {
-        > div.d-flex { 
+        > div.d-flex {
           height: 1.5rem;
         }
+
         label {
           font-size: 16px;
           font-weight: normal;
           margin-bottom: 0;
         }
+
         .dropdown .btn-link {
           font-size: 16px;
           font-weight: normal;
         }
+
         .well {
           height: 5rem;
           border-radius: 6px;
-          background-color: #F2F2F2;
+          background-color: #f2f2f2;
           padding: 16px;
         }
       }
     }
   }
+
   .select-readonly {
     pointer-events: none;
     background-color: $disable;
@@ -119,24 +155,27 @@
 
   .form-group {
     position: relative;
+
     .cover {
       height: 40px;
       width: 40px;
       background-color: $disable;
-      border: 1px #DFE2E6 solid;
-      border-left: 0px;
+      border: 1px #dfe2e6 solid;
+      border-left: 0;
       border-radius: 0 20px 20px 0;
       margin-top: 38px;
-      right: 0px;
+      right: 0;
       position: absolute;
     }
   }
 
   .video-wrapper {
-    .img-fluid{
+    .img-fluid {
       width: 100%;
     }
-    .btn-play:focus, .btn-action:focus{
+
+    .btn-play:focus,
+    .btn-action:focus {
       outline: none;
     }
   }

@@ -3,28 +3,29 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
 const Clock = require('react-live-clock');
-const {Link, getRouter} = require('capybara-router');
+const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const NTPTimeZone = require('webserver-form-schema/constants/system-sync-time-ntp-timezone');
+const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
 const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP} = require('../../../core/constants');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const DateTimePicker = require('../../../core/components/fields/datetime-picker');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class DateTime extends Base {
   static get propTypes() {
     return {
-      systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired
-      }).isRequired,
+      systemInformation: PropTypes.shape({languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired}).isRequired,
       systemDateTime: PropTypes.shape({
         deviceTime: PropTypes.string.isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,
-        ntpTimeZone: PropTypes.oneOf(NTPTimeZone.all()).isRequired,
+        ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
         ntpIP: PropTypes.string.isRequired,
         ntpTimeOption: PropTypes.oneOf(NTPTimeOption.all()).isRequired,
         ntpUpdateTime: PropTypes.number.isRequired,
@@ -40,6 +41,28 @@ module.exports = class DateTime extends Base {
       ntpUpdateTime: false,
       manualTime: false
     };
+    this.state.isShowModal = false;
+    this.state.isShowApiProcessModal = false;
+    this.state.apiProcessModalTitle = _('Updating Date & Region');
+  }
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
+
+  showModal = () => {
+    this.setState({isShowModal: true});
+  };
+
+  hideModal = () => {
+    this.setState({isShowModal: false});
+  };
+
+  getMatchedValue = (list, value) => {
+    return Object.entries(list).filter(key => key.includes(value)).reduce((obj, [key, value]) => ({
+      key,
+      value
+    }), {});
   }
 
   toggleDateTimePicker = name => event => {
@@ -60,30 +83,44 @@ module.exports = class DateTime extends Base {
     const {systemInformation: {languageCode}} = this.props;
     const isLanguageUpdate = languageCode !== values.language;
     progress.start();
-    if (values.syncTimeOption === SyncTimeOption.local) {
-      values.manualTime = new Date();
-      values.ntpTimeZoneAuto = TIMEZONE_OFFSET_MAP[values.manualTime.getTimezoneOffset() / 60];
-    }
+    this.setState({
+      isShowApiProcessModal: true,
+      isShowModal: false
+    }, () => {
+      if (values.syncTimeOption === SyncTimeOption.local) {
+        values.manualTime = new Date();
+        values.ntpTimeZoneAuto = TIMEZONE_OFFSET_MAP[values.manualTime.getTimezoneOffset() / 60];
+      }
 
-    if (isLanguageUpdate) {
-      api.system.updateLanguage(values.language)
-        .then(() => {
-          location.reload();
-        })
-        .finally(progress.done);
-    } else {
-      values.manualTime.setSeconds(0);
-      values.manualTime = values.manualTime.getTime() - (new Date(values.manualTime).getTimezoneOffset() * 60 * 1000);
-      values.ntpUpdateTime = values.ntpUpdateTime.getTime() - (new Date(values.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
-      api.system.updateSystemDateTime(values)
-        .then(getRouter().reload)
-        .finally(progress.done);
-    }
+      if (isLanguageUpdate) {
+        api.system.updateLanguage(values.language)
+          .then(() => {
+            location.reload();
+          })
+          .finally(progress.done);
+      } else {
+        values.manualTime.setSeconds(0);
+        values.ntpTimeZone = this.getMatchedValue(NTPTimeZoneList, this.getMatchedValue(NTPTimeZone, values.ntpTimeZone).key).value;
+        values.manualTime = values.manualTime.getTime() - (new Date(values.manualTime).getTimezoneOffset() * 60 * 1000);
+        values.ntpUpdateTime = values.ntpUpdateTime.getTime() - (new Date(values.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
+        api.system.updateSystemDateTime(values)
+          .then(() => {
+            location.href = '/login';
+          })
+          .catch(() => {
+            this.hideApiProcessModal();
+          })
+          .finally(progress.done);
+      }
+    });
   };
 
-  formRender = () => {
+  formRender = ({values}) => {
     const {systemDateTime: {deviceTime}} = this.props;
-    const {showDateTimePicker} = this.state;
+    const {$isApiProcessing, showDateTimePicker, isShowModal} = this.state;
+
+    // For browser compatibility, condition string for react-live-clock to work on Chrome, Firefox and Safari
+    const conditionedDeviceTime = deviceTime.replace('  ', ' ').replace(/-/g, '/');
     return (
       <Form className="card-body">
         <div className="card form-group">
@@ -91,143 +128,197 @@ module.exports = class DateTime extends Base {
             <div className="form-group d-flex justify-content-between align-items-center mb-0">
               <label className="mb-0">{_('Date and Time of the Device')}</label>
               <label className="text-primary mb-0">
-                <Clock
-                  ticking
-                  date={deviceTime}
-                  format="YYYY-MM-DD, hh:mm:ss A"
-                />
+                <Clock ticking date={conditionedDeviceTime} format="YYYY-MM-DD, hh:mm:ss A"/>
               </label>
             </div>
           </div>
         </div>
-        <div className="form-group">
-          <label>{_('Language')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="language" component="select" className="form-control border-0">
-              <option value={window.navigator.userLanguage || window.navigator.language}>{_('Default')}</option>
-              <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
-              <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
-            </Field>
-          </div>
-        </div>
-        <div className="form-group">
-          <label>{_('Time Zone')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="ntpTimeZone" component="select" className="form-control border-0">
-              {NTPTimeZone.all().map(v => {
-                return (
-                  <option key={v} value={v}>{v}</option>
-                );
-              })}
-            </Field>
-          </div>
-        </div>
-        <div className="form-group">
-          <div className="form-check mb-3">
-            <Field name="syncTimeOption" className="form-check-input" type="radio" id={`system-date-sync-option-${SyncTimeOption.ntp}`} value={SyncTimeOption.ntp}/>
-            <label className="form-check-label" htmlFor={`system-date-sync-option-${SyncTimeOption.ntp}`}>
-              {_('Sync with network time server (NTP)')}
+        <SelectField hide labelName={_('Language')} name="language">
+          <option value={window.navigator.userLanguage || window.navigator.language}>{_('Default')}</option>
+          <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
+          <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
+        </SelectField>
+        <div className="form-group mb-5">
+          <div className="form-check mb-4">
+            <Field
+              name="syncTimeOption"
+              className="form-check-input"
+              type="radio"
+              id={`system-date-sync-option-${SyncTimeOption.ntp}`}
+              value={SyncTimeOption.ntp}
+            />
+            <label
+              className="form-check-label text-size-16"
+              htmlFor={`system-date-sync-option-${SyncTimeOption.ntp}`}
+            >
+              {_('Sync with Network Time Server (NTP)')}
             </label>
           </div>
-          <div className="pl-4 mb-3">
-            <div className="d-flex align-items-center mb-3">
-              <span className="text-size-14">
-                {_('Host Name and IP Address:')}
-              </span>
-              <Field
-                className="form-control flex-grow-1"
-                type="text"
-                name="ntpIP"
-                placeholder={_('Enter your IP address')}
-              />
-            </div>
-            <div className="d-flex align-items-center mb-3">
-              <div className="form-check">
-                <Field name="ntpTimeOption" className="form-check-input" type="radio" id={`system-date-sync-time-option-${NTPTimeOption.updateTime}`} value={NTPTimeOption.updateTime}/>
-                <label className="form-check-label" htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}>
-                  {_('Update Time')}
-                </label>
-              </div>
-              <div className="form-row datepicker-wrapper">
-                <Field
-                  name="ntpUpdateTime"
-                  component={DateTimePicker}
-                  timeTabText={_('Update Time')}
-                  inputProps={{
-                    className: classNames(
-                      'btn date px-4',
-                      {active: showDateTimePicker.ntpUpdateTime}
-                    ),
-                    placeholder: _('Update Time'),
-                    style: {whiteSpace: 'nowrap'}
-                  }}
-                  isShowPicker={showDateTimePicker.ntpUpdateTime}
-                  onClickInput={this.toggleDateTimePicker('ntpUpdateTime')}
-                  onHide={this.onHideDateTimePicker('ntpUpdateTime')}
-                />
-              </div>
-            </div>
+          <div className="card mb-4">
+            <div className="card-body">
+              <div>
+                <div className="d-flex form-group align-items-center">
+                  <div className="text-size-14 text-nowrap mr-3">{`${_('Select Time Zone')} :`}</div>
+                  <div className="select-wrapper border rounded-pill overflow-hidden">
+                    <Field
+                      name="ntpTimeZone"
+                      component="select"
+                      className="form-control border-0"
+                    >
+                      {NTPTimeZone.all().map(v => {
+                        return (<option key={v} value={v}>{v}</option>);
+                      })}
+                    </Field>
+                  </div>
+                </div>
+                <div className="d-flex form-group align-items-center">
+                  <div className="text-size-14 text-nowrap mr-3">{`${_('Host Name and IP Address')} :`}</div>
+                  <Field
+                    className="form-control flex-grow-1"
+                    type="text"
+                    name="ntpIP"
+                    placeholder={_('Enter Your IP Address')}
+                  />
+                </div>
+                <hr className="my-4"/>
+                <div className="d-flex align-items-center mb-3">
+                  <div className="form-check">
+                    <Field
+                      name="ntpTimeOption"
+                      className="form-check-input"
+                      type="radio"
+                      id={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
+                      value={NTPTimeOption.updateTime}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
+                    >
+                      {`${_('Update Time')} :`}
+                    </label>
+                  </div>
+                  <div className="form-row datepicker-wrapper">
+                    <Field
+                      name="ntpUpdateTime"
+                      component={DateTimePicker}
+                      timeTabText={_('Update Time')}
+                      inputProps={{
+                        className: classNames(
+                          'btn date px-4',
+                          {active: showDateTimePicker.ntpUpdateTime}
+                        ),
+                        placeholder: _('Update Time'),
+                        style: {whiteSpace: 'nowrap'}
+                      }}
+                      isShowPicker={showDateTimePicker.ntpUpdateTime}
+                      onClickInput={this.toggleDateTimePicker('ntpUpdateTime')}
+                      onHide={this.onHideDateTimePicker('ntpUpdateTime')}
+                    />
+                  </div>
+                </div>
 
-            <div className="d-flex align-items-center mb-3">
-              <div className="form-check">
-                <Field name="ntpTimeOption" className="form-check-input" type="radio" id={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`} value={NTPTimeOption.updateTimeRate}/>
-                <label className="form-check-label" htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}>
-                  {_('Update Frequency')}
-                </label>
+                <div className="d-flex align-items-center">
+                  <div className="form-check">
+                    <Field
+                      name="ntpTimeOption"
+                      className="form-check-input"
+                      type="radio"
+                      id={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
+                      value={NTPTimeOption.updateTimeRate}
+                    />
+                    <label
+                      className="form-check-label mr-3"
+                      htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
+                    >
+                      {`${_('Update Frequency (Minutes)')} :`}
+                    </label>
+                  </div>
+                  <div className="select-wrapper border rounded-pill overflow-hidden">
+                    <Field
+                      name="ntpUpdateTimeRate"
+                      component="select"
+                      className="form-control border-0"
+                    >
+                      {NTPTimeRateOption.all().map(v => {
+                        return (
+                          <option key={v} value={v}>{v}</option>
+                        );
+                      })}
+                    </Field>
+                  </div>
+                </div>
               </div>
-              <div className="select-wrapper border rounded-pill overflow-hidden ml-3">
-                <Field name="ntpUpdateTimeRate" component="select" className="form-control border-0">
-                  {NTPTimeRateOption.all().map(v => {
-                    return (
-                      <option key={v} value={v}>{v}</option>
-                    );
-                  })}
-                </Field>
-              </div>
-              <span className="ml-2">{_('Minutes')}</span>
             </div>
           </div>
-
-          <div className="form-check mb-3">
-            <Field name="syncTimeOption" className="form-check-input" type="radio" id={`system-date-sync-option-${SyncTimeOption.local}`} value={SyncTimeOption.local}/>
-            <label className="form-check-label" htmlFor={`system-date-sync-option-${SyncTimeOption.local}`}>
+          <div className="form-check mb-4">
+            <Field
+              name="syncTimeOption"
+              className="form-check-input"
+              type="radio"
+              id={`system-date-sync-option-${SyncTimeOption.local}`}
+              value={SyncTimeOption.local}
+            />
+            <label
+              className="form-check-label text-size-16"
+              htmlFor={`system-date-sync-option-${SyncTimeOption.local}`}
+            >
               {_('Sync with Computer')}
             </label>
           </div>
-
-          <div className="form-check mb-3">
-            <Field name="syncTimeOption" className="form-check-input" type="radio" id={`system-date-sync-option-${SyncTimeOption.manual}`} value={SyncTimeOption.manual}/>
-            <label className="form-check-label" htmlFor={`system-date-sync-option-${SyncTimeOption.manual}`}>
-              {_('Setup the Date/Time Manually')}
-            </label>
-          </div>
-          <div className="form-row datepicker-wrapper">
-            <Field
-              name="manualTime"
-              component={DateTimePicker}
-              dateTabText={_('Manual Date')}
-              timeTabText={_('Manual Time')}
-              inputProps={{
-                className: classNames(
-                  'btn date px-4',
-                  {active: showDateTimePicker.manualTime}
-                ),
-                placeholder: _('Manual DateTime'),
-                style: {whiteSpace: 'nowrap'}
-              }}
-              isShowPicker={showDateTimePicker.manualTime}
-              onClickInput={this.toggleDateTimePicker('manualTime')}
-              onHide={this.onHideDateTimePicker('manualTime')}
-            />
+          <div className="d-flex align-items-center">
+            <div className="form-check">
+              <Field
+                name="syncTimeOption"
+                className="form-check-input"
+                type="radio"
+                id={`system-date-sync-option-${SyncTimeOption.manual}`}
+                value={SyncTimeOption.manual}
+              />
+              <label
+                className="form-check-label text-size-16"
+                htmlFor={`system-date-sync-option-${SyncTimeOption.manual}`}
+              >
+                {`${_('Set Date/Time Manually')} :`}
+              </label>
+            </div>
+            <div className="form-row datepicker-wrapper">
+              <Field
+                name="manualTime"
+                component={DateTimePicker}
+                dateTabText={_('Manual Date')}
+                timeTabText={_('Manual Time')}
+                inputProps={{
+                  className: classNames(
+                    'btn date px-4',
+                    {active: showDateTimePicker.manualTime}
+                  ),
+                  placeholder: _('Manual DateTime'),
+                  style: {whiteSpace: 'nowrap'}
+                }}
+                isShowPicker={showDateTimePicker.manualTime}
+                onClickInput={this.toggleDateTimePicker('manualTime')}
+                onHide={this.onHideDateTimePicker('manualTime')}
+              />
+            </div>
           </div>
         </div>
-
         <button
           className="btn btn-block btn-primary rounded-pill"
-          type="submit"
+          type="button"
+          onClick={this.showModal}
         >
           {_('Apply')}
         </button>
+        <CustomNotifyModal
+          isShowModal={isShowModal}
+          modalTitle={_('Update Settings')}
+          modalBody={_('Update date & region need to log in again. Are you sure you want to continue?')}
+          isConfirmDisable={$isApiProcessing}
+          onHide={this.hideModal}
+          onConfirm={() => {
+            this.onSubmit(values);
+          }}
+        />
       </Form>
     );
   };
@@ -261,6 +352,7 @@ module.exports = class DateTime extends Base {
                   <Formik
                     initialValues={{
                       ...systemDateTime,
+                      ntpTimeZone: this.getMatchedValue(NTPTimeZone, this.getMatchedValue(NTPTimeZoneList, systemDateTime.ntpTimeZone).key).value,
                       ntpUpdateTime: new Date(ntpUpdateTimeAdjust),
                       manualTime: systemDateTime.manualTime ?
                         new Date(systemDateTime.manualTime) : new Date(),
@@ -274,6 +366,13 @@ module.exports = class DateTime extends Base {
               </div>
             </div>
           </div>
+          <CustomNotifyModal
+            modalType="process"
+            backdrop="static"
+            isShowModal={this.state.isShowApiProcessModal}
+            modalTitle={this.state.apiProcessModalTitle}
+            onHide={this.hideApiProcessModal}
+          />
         </div>
       </div>
     );

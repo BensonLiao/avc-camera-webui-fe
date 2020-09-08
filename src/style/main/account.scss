@@ -1,9 +1,15 @@
-.page-login, .page-login-lock, .page-forgot-password, .page-reset-password, .page-reset-password-success {
+.page-login,
+.page-login-lock,
+.page-forgot-password,
+.page-reset-password,
+.page-reset-password-success,
+.page-welcome {
   min-height: 100vh;
 
   .logo {
     height: 208px;
     margin-bottom: 32px;
+
     > img {
       position: absolute;
       margin: auto;
@@ -13,18 +19,83 @@
       bottom: 0;
     }
   }
+
   .card {
     border-radius: 8px;
+
     .card-body {
       padding: 40px;
     }
+
     .card-title {
       font-size: 22px;
       font-weight: bold;
       margin-bottom: 8px;
     }
+
     .card-sub-title {
       margin-bottom: 40px;
+    }
+  }
+
+  // Success Checkmark
+  $icon-size: 5rem;
+
+  .loading-spinners {
+    width: $icon-size;
+    height: $icon-size;
+
+    .checkmark {
+      width: $icon-size;
+      height: $icon-size;
+      border-radius: 50%;
+      stroke-width: 2;
+      stroke: #fff;
+      stroke-miterlimit: 10;
+      box-shadow: inset 0 0 0 #7ac142;
+      animation:
+        check-fill 0.4s ease-in-out 0.4s forwards,
+        check-scale 0.3s ease-in-out 0.9s both;
+
+      .checkmark-circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: #7ac142;
+        fill: none;
+        animation: check-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+      }
+
+      .checkmark-check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: check-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+      }
+
+      @keyframes check-stroke {
+        100% {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes check-scale {
+        0%,
+        100% {
+          transform: none;
+        }
+
+        50% {
+          transform: scale3d(1.1, 1.1, 1);
+        }
+      }
+
+      @keyframes check-fill {
+        100% {
+          box-shadow: inset 0 0 0 $icon-size #7ac142;
+        }
+      }
     }
   }
 }

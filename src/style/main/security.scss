@@ -6,16 +6,20 @@
   .card-body .card {
     border-radius: 8px;
   }
+
   .table.custom-style {
     th {
-      color: #1A1A1A;
+      color: #1a1a1a;
     }
   }
+
   .badge {
     color: #fff;
+
     &.badge-guest {
       background-color: $info;
     }
+
     &.badge-admin {
       background-color: $primary;
     }

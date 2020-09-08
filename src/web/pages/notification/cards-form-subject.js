@@ -4,10 +4,12 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
+const NotificationEmailContentPosition = require('webserver-form-schema/constants/notification-email-content-position');
 const {NOTIFY_CARDS_EMAIL_MAX} = require('../../../core/constants');
 const _ = require('../../../languages');
-const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
+const CustomTooltip = require('../../../core/components/tooltip');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class CardsFormSubject extends React.PureComponent {
   static get propTypes() {
@@ -21,7 +23,8 @@ module.exports = class CardsFormSubject extends React.PureComponent {
       setFieldValue: PropTypes.func.isRequired,
       validateField: PropTypes.func.isRequired,
       errors: PropTypes.object.isRequired,
-      touched: PropTypes.object.isRequired};
+      touched: PropTypes.object.isRequired
+    };
   }
 
     onClickAddEmail = event => {
@@ -117,43 +120,55 @@ module.exports = class CardsFormSubject extends React.PureComponent {
          <div className="form-group">
            <div className="card">
              <div className="card-body">
-               <div className={classNames('form-group mb-2', {'d-none': values.type === NotificationCardType.digitalInput})}>
-                 <label className="text-size-16 mb-3">{_('Email Attachment')}</label>
-                 <div className="select-wrapper border rounded-pill overflow-hidden">
-                   <Field
-                     name="emailAttachmentType"
-                     component="select"
-                     className="form-control border-0"
-                   >
-                     {
-                       NotificationEmailAttachmentType.all().map(attachmentType => (
-                         !(values.type === NotificationCardType.motionDetection && attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
-                           <option
-                             key={attachmentType}
-                             value={attachmentType}
-                           >{_(`email-attachment-type-${attachmentType}`)}
-                           </option>)
-                       ))
-                     }
-                   </Field>
-                 </div>
-                 <hr/>
-               </div>
+               <SelectField
+                 hide={values.type === NotificationCardType.digitalInput}
+                 labelName={_('Email Attachment')}
+                 labelClassName="text-size-16 mb-3"
+                 name="emailAttachmentType"
+               >
+                 {NotificationEmailAttachmentType.all().map(attachmentType => (
+                   !(values.type === NotificationCardType.motionDetection && attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
+                     <option
+                       key={attachmentType}
+                       value={attachmentType}
+                     >{_(`email-attachment-type-${attachmentType}`)}
+                     </option>
+                   )
+                 ))}
+               </SelectField>
+               <hr className={classNames({'d-none': values.type === NotificationCardType.digitalInput})}/>
                <div className="form-group mb-4">
-                 <label className="text-size-16">Subject :</label>
+                 <label className="text-size-16">{_('Subject :')}</label>
                  <Field
                    name="senderSubject"
                    type="text"
                    className="form-control"
-                   placeholder={_('Specify the subject of notification emails.')}/>
+                   placeholder={_('Specify the subject of notification emails.')}
+                 />
                </div>
                <div className="form-group mb-4">
-                 <label className="text-size-16">Content :</label>
+                 <label className="text-size-16">{_('Content :')}</label>
                  <Field
                    name="senderContent"
                    type="text"
                    className="form-control"
-                   placeholder={_('Append your message to notification emails.')}/>
+                   placeholder={_('Append your message to notification emails.')}
+                 />
+               </div>
+               <div className="form-group mb-4">
+                 <SelectField
+                   labelName={_('Email Content Order')}
+                   labelClassName="text-size-16"
+                   name="emailContentPosition"
+                 >
+                   {NotificationEmailContentPosition.all().map(position => (
+                     <option
+                       key={position}
+                       value={position}
+                     >{_(`email-content-position-${position}`)}
+                     </option>
+                   ))}
+                 </SelectField>
                </div>
                <div className="form-group mb-3">
                  <label className="text-size-16 mb-0">{_('Receiver')} :</label>
@@ -173,7 +188,8 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                          type="text"
                          className={classNames('form-control', 'notification-email', {'is-invalid': errors.$email && touched.$email})}
                          validate={this.validateEmail}
-                         placeholder={_('Enter email address')}/>
+                         placeholder={_('Enter email address')}
+                       />
                      </div>
                    </div>
                    <CustomTooltip show={!values.$email} title={_('Please Enter an Email Address')}>
@@ -208,7 +224,10 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                  values.emails.map((email, index) => {
                    const key = `${index}${email}`;
                    return (
-                     <div key={key} className="border border-primary rounded-pill text-primary d-flex justify-content-between align-items-center filter-item mb-3">
+                     <div
+                       key={key}
+                       className="border border-primary rounded-pill text-primary d-flex justify-content-between align-items-center filter-item mb-3"
+                     >
                        <div>{email}</div>
                        <a href="#" onClick={this.generateDeleteEmailHandler(index)}>
                          <i className="fas fa-times-circle fa-lg"/>

@@ -6,6 +6,7 @@
     .card {
       border-radius: 8px;
     }
+
     table {
       tr {
         border-color: #ccc !important;
@@ -19,13 +20,14 @@
   }
 
   .card-store {
-    border-color: #D9D9D9;
+    border-color: #d9d9d9;
     border-radius: 8px;
+
     .card-header {
       border-top-left-radius: 7px;
       border-top-right-radius: 7px;
-      border-color: #D9D9D9;
-      background-color: #D9D9D9;
+      border-color: #d9d9d9;
+      background-color: #d9d9d9;
       color: #666;
       font-weight: bold;
     }
@@ -43,16 +45,18 @@
       background-color: #fff;
       padding: 0 4px;
     }
+
     > .form-control:not(:last-child) {
       border-right: none;
       padding-right: 5px;
     }
+
     .input-group-prepend:last-child > .input-group-text {
       border-top-right-radius: 50rem;
       border-bottom-right-radius: 50rem;
       border-left: none;
       background-color: transparent;
-      color: #CED4DA;
+      color: #ced4da;
     }
   }
 }

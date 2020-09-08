@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('config');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -20,11 +21,7 @@ module.exports = (env = {}) => {
     target: 'web',
     mode: env.mode || 'development',
     entry: {
-      'en-us': path.join(__dirname, 'src', 'languages', 'en-us.js'),
-      'es-es': path.join(__dirname, 'src', 'languages', 'es-es.js'),
-      'ja-jp': path.join(__dirname, 'src', 'languages', 'ja-jp.js'),
-      'zh-tw': path.join(__dirname, 'src', 'languages', 'zh-tw.js'),
-      'zh-cn': path.join(__dirname, 'src', 'languages', 'zh-cn.js'),
+      lang: path.join(__dirname, 'src', 'languages', 'index.js'),
       web: path.join(__dirname, 'src', 'web', 'index.js')
     },
     devServer: {
@@ -35,11 +32,11 @@ module.exports = (env = {}) => {
         'Access-Control-Max-Age': '3000',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         'Access-Control-Allow-Methods': 'GET'
-      }
+      },
+      proxy: {'/': `http://${config.webpackDevServer.host}:${config.expressServer.port}/`},
+      open: true
     },
-    resolve: {
-      extensions: ['.js']
-    },
+    resolve: {extensions: ['.js']},
     output: {
       path: path.join(__dirname, buildFolder),
       publicPath: isDebug ?
@@ -122,6 +119,19 @@ module.exports = (env = {}) => {
     },
     plugins: (() => {
       const result = [
+        new HtmlWebpackPlugin({
+          filename: path.join(__dirname, buildFolder, 'express', 'index.html'),
+          meta: {
+            charset: 'utf-8',
+            'X-UA-Compatible': 'IE=Edge',
+            expires: '0',
+            'cache-control': 'no-cache, no-store, must-revalidate',
+            pragma: 'no-cache, no-store, must-revalidate'
+          },
+          favicon: './favicon.ico',
+          template: path.join(__dirname, 'src', 'express', 'base.hbs'),
+          hash: true
+        }),
         new MiniCssExtractPlugin({
           filename: '[name].css',
           chunkFilename: '[id].css'
@@ -144,11 +154,7 @@ module.exports = (env = {}) => {
           result.push(new BundleAnalyzerPlugin());
         }
 
-        result.push(new OptimizeCSSAssetsPlugin({
-          cssProcessorOptions: {
-            discardComments: {removeAll: true}
-          }
-        }));
+        result.push(new OptimizeCSSAssetsPlugin({cssProcessorOptions: {discardComments: {removeAll: true}}}));
         result.push(
           new ImageminPlugin({
             test: /\.png$/i,

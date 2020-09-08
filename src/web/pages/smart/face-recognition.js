@@ -18,6 +18,7 @@ module.exports = class FaceRecognition extends Base {
         isShowMember: PropTypes.bool.isRequired,
         isShowGroup: PropTypes.bool.isRequired,
         isShowUnknown: PropTypes.bool.isRequired,
+        isShowFake: PropTypes.bool.isRequired,
         triggerArea: PropTypes.shape({
           x: PropTypes.number.isRequired,
           y: PropTypes.number.isRequired,
@@ -55,6 +56,10 @@ module.exports = class FaceRecognition extends Base {
         promises.push(api.smartFunction.updateFRSetting(values));
       }
 
+      if (values.isEnableSpoofing !== faceRecognitionSettings.isEnableSpoofing) {
+        promises.push(api.smartFunction.updateFRSpoofing(values));
+      }
+
       if (values.confidenceLevel !== faceRecognitionSettings.confidenceLevel) {
         promises.push(api.smartFunction.updateFRConfidenceLevel(values));
       }
@@ -62,13 +67,15 @@ module.exports = class FaceRecognition extends Base {
       if (
         values.isShowMember !== faceRecognitionSettings.isShowMember ||
         values.isShowGroup !== faceRecognitionSettings.isShowGroup ||
-        values.isShowUnknown !== faceRecognitionSettings.isShowUnknown
+        values.isShowUnknown !== faceRecognitionSettings.isShowUnknown ||
+        values.isShowFake !== faceRecognitionSettings.isShowFake
       ) {
         promises.push(api.smartFunction.updateFREnrollDisplaySetting({
           ...values,
           isShowMember: values.isShowMember,
           isShowGroup: values.isShowGroup,
-          isShowUnknown: values.isShowUnknown
+          isShowUnknown: values.isShowUnknown,
+          isShowFake: values.isShowFake
         }));
       }
 
@@ -103,16 +110,26 @@ module.exports = class FaceRecognition extends Base {
             {
               isShowDetectionZone && (
                 <div className="draggable-wrapper" tabIndex={-1}>
-                  <Field name="triggerArea" component={MaskArea} text={_('Detection Zone')}
-                    className="border-black" parentElementId="fr-video-wrapper"/>
+                  <Field
+                    name="triggerArea"
+                    component={MaskArea}
+                    text={_('Detection Zone')}
+                    className="bounding-black"
+                    parentElementId="fr-video-wrapper"
+                  />
                 </div>
               )
             }
             {
               values.isEnableFaceFrame && (
                 <div className="draggable-wrapper" tabIndex={-1}>
-                  <Field name="faceFrame" component={MaskArea} text={_('Facial Detection Size')}
-                    className="border-green" parentElementId="fr-video-wrapper"/>
+                  <Field
+                    name="faceFrame"
+                    component={MaskArea}
+                    text={_('Facial Detection Size')}
+                    className="bounding-primary"
+                    parentElementId="fr-video-wrapper"
+                  />
                 </div>
               )
             }
@@ -126,25 +143,59 @@ module.exports = class FaceRecognition extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('On/Off')}</label>
                 <div className="custom-control custom-switch">
-                  <Field name="isEnable" type="checkbox" checked={values.isEnable} className="custom-control-input" id="switch-face-recognition"/>
+                  <Field
+                    name="isEnable"
+                    type="checkbox"
+                    checked={values.isEnable}
+                    className="custom-control-input"
+                    id="switch-face-recognition"
+                  />
                   <label className="custom-control-label" htmlFor="switch-face-recognition">
                     <span>{_('ON')}</span>
                     <span>{_('OFF')}</span>
                   </label>
                 </div>
               </div>
-              <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Level of Accuracy')}</label>
-                <div className="btn-group">
-                  {ConfidenceLevel.all().map(confidenceLevel => (
-                    <button key={confidenceLevel} type="button"
-                      className={classNames('btn triple-wrapper btn-sm outline-success px-2 py-1', {active: values.confidenceLevel === confidenceLevel})}
-                      onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
-                    >
-                      {_(`confidence-level-${confidenceLevel}`)}
-                    </button>
-                  ))}
+              <div className="form-group">
+                <div className="card">
+                  <div className="card-body">
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                      <label className="mb-0">{_('Photo Spoofing')}</label>
+                      <div className="custom-control custom-switch">
+                        <Field
+                          name="isEnableSpoofing"
+                          type="checkbox"
+                          checked={values.isEnableSpoofing}
+                          className="custom-control-input"
+                          id="switch-face-recognition-spoofing"
+                        />
+                        <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
+                          <span>{_('ON')}</span>
+                          <span>{_('OFF')}</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <label className="mb-0">{_('Level of Accuracy')}</label>
+                      <div className="btn-group">
+                        {ConfidenceLevel.all().map(confidenceLevel => (
+                          <button
+                            key={confidenceLevel}
+                            type="button"
+                            className={classNames(
+                              'btn triple-wrapper btn-sm outline-success px-2 py-1',
+                              {active: values.confidenceLevel === confidenceLevel}
+                            )}
+                            onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
+                          >
+                            {_(`confidence-level-${confidenceLevel}`)}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
               </div>
 
               <hr/>
@@ -157,8 +208,10 @@ module.exports = class FaceRecognition extends Base {
                   </div>
                   <CustomTooltip title={_('Show/Hide Detection Zone')}>
                     <div className="custom-control custom-switch">
-                      <a className="form-control-feedback text-muted"
-                        tabIndex={-1} onClick={this.onToggleDetectionZone}
+                      <a
+                        className="form-control-feedback text-muted"
+                        tabIndex={-1}
+                        onClick={this.onToggleDetectionZone}
                       >
                         <i className={classNames('fas', isShowDetectionZone ? 'fa-eye' : 'fa-eye-slash')}/>
                       </a>
@@ -172,7 +225,13 @@ module.exports = class FaceRecognition extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('Facial Detection Size')}</label>
                 <div className="custom-control custom-switch">
-                  <Field name="isEnableFaceFrame" type="checkbox" checked={values.isEnableFaceFrame} className="custom-control-input" id="switch-face-size"/>
+                  <Field
+                    name="isEnableFaceFrame"
+                    type="checkbox"
+                    checked={values.isEnableFaceFrame}
+                    className="custom-control-input"
+                    id="switch-face-size"
+                  />
                   <label className="custom-control-label" htmlFor="switch-face-size">
                     <span>{_('ON')}</span>
                     <span>{_('OFF')}</span>
@@ -184,16 +243,44 @@ module.exports = class FaceRecognition extends Base {
 
               <div className="form-group">
                 <div className="form-check mb-3">
-                  <Field name="isShowMember" checked={values.isShowMember} className="form-check-input" type="checkbox" id="input-show-all"/>
+                  <Field
+                    name="isShowMember"
+                    checked={values.isShowMember}
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input-show-all"
+                  />
                   <label className="form-check-label" htmlFor="input-show-all">{_('Display Name')}</label>
                 </div>
                 <div className="form-check mb-3">
-                  <Field name="isShowGroup" checked={values.isShowGroup} className="form-check-input" type="checkbox" id="input-show-register-group"/>
+                  <Field
+                    name="isShowGroup"
+                    checked={values.isShowGroup}
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input-show-register-group"
+                  />
                   <label className="form-check-label" htmlFor="input-show-register-group">{_('Display Group')}</label>
                 </div>
-                <div className="form-check">
-                  <Field name="isShowUnknown" checked={values.isShowUnknown} className="form-check-input" type="checkbox" id="input-show-unknown-personal"/>
+                <div className="form-check mb-3">
+                  <Field
+                    name="isShowUnknown"
+                    checked={values.isShowUnknown}
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input-show-unknown-personal"
+                  />
                   <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Display "Unknown"')}</label>
+                </div>
+                <div className="form-check">
+                  <Field
+                    name="isShowFake"
+                    checked={values.isShowFake}
+                    className="form-check-input"
+                    type="checkbox"
+                    id="input-show-fake"
+                  />
+                  <label className="form-check-label" htmlFor="input-show-fake">{_('Display "Fake"')}</label>
                 </div>
               </div>
 

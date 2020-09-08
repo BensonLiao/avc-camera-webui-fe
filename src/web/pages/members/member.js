@@ -8,13 +8,7 @@ module.exports = class Member extends Base {
   static get propTypes() {
     return {
       params: PropTypes.object.isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string
-        }).isRequired).isRequired
-      }),
+      groups: PropTypes.shape(MemberModal.propTypes.groups.items),
       member: PropTypes.shape({
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
@@ -44,10 +38,16 @@ module.exports = class Member extends Base {
   onSubmittedMemberForm = () => {
     if (this.props.member) {
       // Updated the member.
-      getRouter().go({name: 'web.users.members', params: this.props.params}, {reload: true});
+      getRouter().go({
+        name: 'web.users.members',
+        params: this.props.params
+      }, {reload: true});
     } else {
       // Created a new member.
-      getRouter().go({name: 'web.users.members', params: {}}, {reload: true});
+      getRouter().go({
+        name: 'web.users.members',
+        params: {}
+      }, {reload: true});
     }
   };
 
@@ -69,7 +69,8 @@ module.exports = class Member extends Base {
         groups={groups}
         member={member}
         onHide={this.onHideModal}
-        onSubmitted={this.onSubmittedMemberForm}/>
+        onSubmitted={this.onSubmittedMemberForm}
+      />
     );
   }
 };

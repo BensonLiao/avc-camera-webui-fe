@@ -1,6 +1,5 @@
 
 const classNames = require('classnames');
-const ContentEditable = require('react-contenteditable').default;
 const {Formik, Form, Field} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
 const {Nav, Tab} = require('react-bootstrap');
@@ -15,6 +14,20 @@ const CardsFormSchedule = require('./cards-form-schedule');
 const CardsFormRule = require('./cards-form-rule');
 const CardsFormSubject = require('./cards-form-subject');
 const CustomTooltip = require('../../../core/components/tooltip');
+const FormikEffect = require('../../../core/components/formik-effect');
+const ContentEditable = require('@benson.liao/react-content-editable').default;
+
+const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+const CustomNormalWrapper = (
+  <div style={{
+    fontSize: '20px',
+    fontWeight: 'bold',
+    marginLeft: '1rem',
+    cursor: 'pointer',
+    color: primaryColor
+  }}
+  />
+);
 
 module.exports = class CardsForm extends React.PureComponent {
   static get propTypes() {
@@ -35,15 +48,13 @@ module.exports = class CardsForm extends React.PureComponent {
         isTop: PropTypes.bool.isRequired,
         timePeriods: PropTypes.array.isRequired,
         title: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired
+        type: PropTypes.string.isRequired,
+        senderSubject: PropTypes.string,
+        senderContent: PropTypes.string,
+        emailContentPosition: PropTypes.string.isRequired
       }),
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string.isRequired
-        }).isRequired)
-      }).isRequired,
+      groups: PropTypes.shape(CardsFormRule.propTypes.groups.items).isRequired,
+      modelName: PropTypes.string.isRequired,
       isApiProcessing: PropTypes.bool.isRequired,
       isShowCardDetailsModal: PropTypes.bool.isRequired,
       isTop: PropTypes.bool.isRequired,
@@ -61,25 +72,12 @@ module.exports = class CardsForm extends React.PureComponent {
   constructor(props) {
     super(props);
     this.cardFormTitleRef = React.createRef();
+    this.defaultSubject = {
+      faceRecognition: `${_('Face Recognition Event [{0}]', props.modelName)}`,
+      motionDetection: `${_('Motion Detection Event [{0}]', props.modelName)}`,
+      digitalInput: `${_('Digital Input Event [{0}]', props.modelName)}`
+    };
   }
-
-  state = {
-    isCardTitleOnFocus: false
-  };
-
-  onFocusCardTitle = () => {
-    this.setState({isCardTitleOnFocus: true});
-  }
-
-  onBlurCardTitle = () => {
-    this.setState({isCardTitleOnFocus: false});
-  }
-
-  onKeyDownCardTitle = event => {
-    if (event.target.innerHTML.length > NotificationCardSchema.title.max) {
-      event.preventDefault();
-    }
-  };
 
   generateCardInitialValues = card => {
     if (card) {
@@ -91,7 +89,10 @@ module.exports = class CardsForm extends React.PureComponent {
         isEnableTime: card.isEnableTime,
         $start: null,
         $end: null,
-        timePeriods: card.timePeriods.map(x => ({...x, id: Math.random().toString(36).substr(2)})),
+        timePeriods: card.timePeriods.map(x => ({
+          ...x,
+          id: Math.random().toString(36).substr(2)
+        })),
         $groups: card.groups.length > 0 ? card.groups[0] : '',
         faceRecognitionCondition: card.faceRecognitionCondition,
         isEnableGPIO: card.isEnableGPIO,
@@ -101,8 +102,9 @@ module.exports = class CardsForm extends React.PureComponent {
         $email: '',
         emails: card.emails,
         emailAttachmentType: card.emailAttachmentType,
-        senderSubject: card.senderSubject,
+        senderSubject: card.senderSubject || this.defaultSubjectTitle(card.type),
         senderContent: card.senderContent,
+        emailContentPosition: card.emailContentPosition,
         isEnableFaceRecognition: card.isEnableFaceRecognition,
         isEnableApp: card.isEnableApp
       };
@@ -125,15 +127,36 @@ module.exports = class CardsForm extends React.PureComponent {
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
-      senderSubject: '',
+      senderSubject: `${_('Face Recognition Event [{0}]', this.props.modelName)}`,
       senderContent: '',
+      emailContentPosition: 0,
       isEnableFaceRecognition: false,
       isEnableApp: false
     };
   };
 
+  onChangeCardForm = ({nextValues, prevValues, formik}) => {
+    if (prevValues.type !== nextValues.type && !(this.props.cardDetails && this.props.cardDetails.senderSubject)) {
+      this.defaultSubjectTitle(nextValues.type, formik);
+    }
+  }
+
+  defaultSubjectTitle = (type, formik = null) => {
+    switch (type) {
+      case '0':
+        return formik ? formik.setFieldValue('senderSubject', this.defaultSubject.faceRecognition) : this.defaultSubject.faceRecognition;
+      case '3':
+        return formik ? formik.setFieldValue('senderSubject', this.defaultSubject.motionDetection) : this.defaultSubject.motionDetection;
+      case '5':
+        return formik ? formik.setFieldValue('senderSubject', this.defaultSubject.digitalInput) : this.defaultSubject.digitalInput;
+      default:
+        break;
+    }
+  }
+
   render() {
-    const {isApiProcessing,
+    const {
+      isApiProcessing,
       groups,
       isShowCardDetailsModal,
       onSubmit,
@@ -141,9 +164,8 @@ module.exports = class CardsForm extends React.PureComponent {
       onHideCardModal,
       isTop,
       toggleIsTop,
-      sanitizeInput} = this.props;
-    const {isCardTitleOnFocus} = this.state;
-
+      sanitizeInput
+    } = this.props;
     return (
       <Modal
         autoFocus={false}
@@ -158,19 +180,15 @@ module.exports = class CardsForm extends React.PureComponent {
           onSubmit={onSubmit}
         >
           {({errors, touched, values, setFieldValue, validateField}) => {
-            const onClickTitleEditButton = event => {
-              event.preventDefault();
-              this.cardFormTitleRef.current.focus();
-            };
-
-            const onChangeTitle = event => {
-              if (event.target.value) {
-                setFieldValue('title', sanitizeInput(event.target.value));
+            const onChangeTitle = value => {
+              if (value) {
+                setFieldValue('title', sanitizeInput(value));
               }
             };
 
             return (
               <Form className="modal-content">
+                <FormikEffect onChange={this.onChangeCardForm}/>
                 <div className="modal-body d-flex justify-content-between align-content-center pb-2">
                   <div className="d-flex align-content-center">
                     <CustomTooltip title={isTop ? _('Unpin Card') : _('Pin Card')}>
@@ -183,29 +201,26 @@ module.exports = class CardsForm extends React.PureComponent {
                       </button>
                     </CustomTooltip>
                     <ContentEditable
+                      ellipseOnBlur
                       innerRef={this.cardFormTitleRef}
-                      html={values.title}
-                      tagName="p"
-                      className={classNames(
-                        'title text-primary ml-3 my-0',
-                        {'text-truncate': !isCardTitleOnFocus}
-                      )}
-                      onKeyDown={this.onKeyDownCardTitle}
-                      onFocus={this.onFocusCardTitle}
-                      onBlur={this.onBlurCardTitle}
+                      tag="p"
+                      width="240px"
+                      maxLength={NotificationCardSchema.title.max}
+                      value={values.title}
+                      customWrapper={CustomNormalWrapper}
                       onChange={onChangeTitle}
                     />
-
-                    <a className="btn-edit-title ml-3" href="#" onClick={onClickTitleEditButton}>
-                      <i className="fas fa-pen"/>
-                    </a>
                   </div>
                   <div className="select-wrapper border rounded-pill overflow-hidden">
                     <Field name="type" component="select" className="form-control border-0">
                       {
-                        NotificationCardType.all().filter(faceRecognition => (faceRecognition === '0' || faceRecognition === '3' || faceRecognition === '5')).map(faceRecognition => {
-                          return <option key={faceRecognition} value={faceRecognition}>{_(`notification-card-${faceRecognition}`)}</option>;
-                        })
+                        NotificationCardType.all().filter(type => (
+                          type === '0' || type === '3' || type === '5'
+                        )).map(
+                          type => {
+                            return <option key={type} value={type}>{_(`notification-card-${type}`)}</option>;
+                          }
+                        )
                       }
                     </Field>
                   </div>
@@ -250,6 +265,7 @@ module.exports = class CardsForm extends React.PureComponent {
                       <Tab.Pane eventKey="tab-notification-condition">
                         {/* Rule settings */}
                         <CardsFormRule
+                          faceRecognitionCondition={values.faceRecognitionCondition}
                           isEnableFaceRecognition={values.isEnableFaceRecognition}
                           groups={groups}
                         />

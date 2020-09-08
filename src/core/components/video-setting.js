@@ -1,14 +1,3 @@
-const axios = require('axios');
-axios.interceptors.response.use(
-  config => config,
-  error => {
-    if (error.response.status === 408 || error.code === 'ECONNABORTED') {
-      console.log(`A timeout happend on url ${error.config.url}`);
-    }
-
-    return Promise.reject(error);
-  }
-);
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
@@ -26,6 +15,7 @@ const Slider = require('./fields/slider');
 const Dropdown = require('./fields/dropdown');
 const FormikEffect = require('./formik-effect');
 const {getRouter} = require('capybara-router');
+const CustomTooltip = require('../../core/components/tooltip');
 
 module.exports = class VideoSetting extends React.PureComponent {
   static get propTypes() {
@@ -55,27 +45,23 @@ module.exports = class VideoSetting extends React.PureComponent {
         focusType: PropTypes.oneOf(FocusType.all()).isRequired,
         isAutoFocusAfterZoom: PropTypes.bool.isRequired
       }).isRequired,
-      systemDateTime: PropTypes.shape({
-        deviceTime: PropTypes.string.isRequired
-      }).isRequired
+      systemDateTime: PropTypes.shape({deviceTime: PropTypes.string.isRequired}).isRequired
     };
   }
 
-state = {
-  isAutoFocusProcessing: false,
-  focalLengthQueue: null,
-  updateFocalLengthField: false
-}
+  state = {
+    isAutoFocusProcessing: false,
+    focalLengthQueue: null,
+    updateFocalLengthField: false
+  }
 
-constructor(props) {
-  super(props);
-  this.streamPlayerRef = React.createRef();
-  this.submitPromise = Promise.resolve();
-  this.fetchSnapshotTimeoutId = null;
-  this.state.isAutoFocusProcessing = false;
-  this.state.focalLengthQueue = null;
-  this.state.updateFocalLengthField = false;
-}
+  constructor(props) {
+    super(props);
+    this.submitPromise = Promise.resolve();
+    this.state.isAutoFocusProcessing = false;
+    this.state.focalLengthQueue = null;
+    this.state.updateFocalLengthField = false;
+  }
 
   generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
     event.preventDefault();
@@ -114,10 +100,27 @@ constructor(props) {
     ]
   });
 
+  varyFocus = (form, step) => {
+    let newFocalLength = step + form.values.focalLength;
+    if (newFocalLength < videoFocusSettingsSchema.focalLength.min) {
+      newFocalLength = videoFocusSettingsSchema.focalLength.min;
+    }
+
+    if (newFocalLength > videoFocusSettingsSchema.focalLength.max) {
+      newFocalLength = videoFocusSettingsSchema.focalLength.max;
+    }
+
+    form.setFieldValue('focalLength', newFocalLength);
+  }
+
   // Queues user input during api processing
   recursiveFocusPromise = ({nextValues, prevValues, formik}) => {
     if (!nextValues) {
       return;
+    }
+
+    if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
+      this.setState({updateFocalLengthField: true});
     }
 
     if (this.state.$isApiProcessing) {
@@ -128,38 +131,48 @@ constructor(props) {
           if (this.state.focalLengthQueue) {
             this.setState(
               {focalLengthQueue: null},
-              this.recursiveFocusPromise({nextValues: {...nextValues, focalLength: this.state.focalLengthQueue}, prevValues, formik})
+              this.recursiveFocusPromise({
+                nextValues: {
+                  ...nextValues,
+                  focalLength: this.state.focalLengthQueue
+                },
+                prevValues,
+                formik
+              })
             );
           } else {
             return Promise.resolve();
           }
         })
         .then(() => {
-          if (nextValues.isAutoFocusAfterZoom && prevValues.zoom !== nextValues.zoom) {
-            let prevFocalLength;
-            this.setState({updateFocalLengthField: true}, () => {
-              // Refresh focal length until previous value matches current value
-              const refreshFocalLength = () => {
-                api.video.getFocalLength()
-                  .then(response => {
-                    if (prevFocalLength === response.data.focalLength) {
-                      this.setState({updateFocalLengthField: false});
-                    } else {
-                      prevFocalLength = response.data.focalLength;
-                      // Refresh focal length at 1hz
-                      setTimeout(refreshFocalLength, 1000);
-                    }
+          // Trigger react update to get the latest global state
+          this.setState({updateFocalLengthField: false}, () => {
+            if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
+              let prevFocalLength;
+              this.setState({updateFocalLengthField: true}, () => {
+                // Refresh focal length until previous value matches current value
+                const refreshFocalLength = () => {
+                  api.video.getFocalLength()
+                    .then(response => {
+                      if (prevFocalLength === response.data.focalLength) {
+                        this.setState({updateFocalLengthField: false});
+                      } else {
+                        prevFocalLength = response.data.focalLength;
+                        // Refresh focal length at 1hz
+                        setTimeout(refreshFocalLength, 1000);
+                      }
 
-                    return response.data.focalLength;
-                  })
-                  .then(focalLength => {
-                    formik.setFieldValue('focalLength', focalLength);
-                  });
-              };
+                      return response.data.focalLength;
+                    })
+                    .then(focalLength => {
+                      formik.setFieldValue('focalLength', focalLength);
+                    });
+                };
 
-              refreshFocalLength();
-            });
-          }
+                refreshFocalLength();
+              });
+            }
+          });
         });
     }
   }
@@ -176,7 +189,11 @@ constructor(props) {
       prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom
     ) {
       // Change focus settings with user input queue.
-      this.recursiveFocusPromise({nextValues, prevValues, formik});
+      this.recursiveFocusPromise({
+        nextValues,
+        prevValues,
+        formik
+      });
     } else {
       // Change other settings.
       const values = {
@@ -202,38 +219,37 @@ constructor(props) {
 
   generateClickAutoFocusButtonHandler = form => event => {
     event.preventDefault();
-    this.setState({isAutoFocusProcessing: true});
+    this.setState({updateFocalLengthField: true});
     this.submitPromise = this.submitPromise
       .then(api.video.startAutoFocus)
       .then(() => {
         let prevFocalLength;
-        this.setState({updateFocalLengthField: true}, () => {
-          // Refresh focal length until previous value matches current value
-          const refreshFocalLength = () => {
-            api.video.getFocalLength()
-              .then(response => {
-                if (prevFocalLength === response.data.focalLength) {
-                  this.setState({updateFocalLengthField: false});
-                } else {
-                  prevFocalLength = response.data.focalLength;
-                  // Refresh focal length at 1hz
-                  setTimeout(refreshFocalLength, 1000);
-                }
+        // Refresh focal length until previous value matches current value
+        const refreshFocalLength = () => {
+          api.video.getFocalLength()
+            .then(response => {
+              if (prevFocalLength === response.data.focalLength) {
+                this.setState({updateFocalLengthField: false});
+              } else {
+                prevFocalLength = response.data.focalLength;
+                // Refresh focal length at 1hz
+                setTimeout(refreshFocalLength, 1000);
+              }
 
-                return response.data.focalLength;
-              })
-              .then(focalLength => {
-                form.setFieldValue('focalLength', focalLength);
-              });
-          };
+              return response.data.focalLength;
+            })
+            .then(focalLength => {
+              form.setFieldValue('focalLength', focalLength);
+            });
+        };
 
-          refreshFocalLength();
-        });
+        refreshFocalLength();
       });
   };
 
   videoSettingsFormRender = form => {
     const {values} = form;
+    const {$isApiProcessing, updateFocalLengthField} = this.state;
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
@@ -246,7 +262,13 @@ constructor(props) {
               <div className="col-12 my-1 d-flex justify-content-between align-items-center">
                 <span className="text-size-20">{_('WDR')}</span>
                 <div className="custom-control custom-switch d-inline-block ml-2">
-                  <Field name="hdrEnabled" type="checkbox" checked={values.hdrEnabled === 'true' ? true : undefined} className="custom-control-input" id="switch-hdr-enabled"/>
+                  <Field
+                    name="hdrEnabled"
+                    type="checkbox"
+                    checked={values.hdrEnabled === 'true' ? true : undefined}
+                    className="custom-control-input"
+                    id="switch-hdr-enabled"
+                  />
                   <label className="custom-control-label" htmlFor="switch-hdr-enabled">
                     <span>{_('ON')}</span>
                     <span>{_('OFF')}</span>
@@ -271,40 +293,56 @@ constructor(props) {
                   <label>{_('Brightness')}</label>
                   <span className="text-primary text-size-14">{values.brightness}</span>
                 </div>
-                <Field updateFieldOnStop name="brightness" component={Slider}
+                <Field
+                  updateFieldOnStop
+                  name="brightness"
+                  component={Slider}
                   step={1}
                   min={videoSettingsSchema.brightness.min}
-                  max={videoSettingsSchema.brightness.max}/>
+                  max={videoSettingsSchema.brightness.max}
+                />
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Contrast')}</label>
                   <span className="text-primary text-size-14">{values.contrast}</span>
                 </div>
-                <Field updateFieldOnStop name="contrast" component={Slider}
+                <Field
+                  updateFieldOnStop
+                  name="contrast"
+                  component={Slider}
                   step={1}
                   min={videoSettingsSchema.contrast.min}
-                  max={videoSettingsSchema.contrast.max}/>
+                  max={videoSettingsSchema.contrast.max}
+                />
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Sharpness')}</label>
                   <span className="text-primary text-size-14">{values.sharpness}</span>
                 </div>
-                <Field updateFieldOnStop name="sharpness" component={Slider}
+                <Field
+                  updateFieldOnStop
+                  name="sharpness"
+                  component={Slider}
                   step={1}
                   min={videoSettingsSchema.sharpness.min}
-                  max={videoSettingsSchema.sharpness.max}/>
+                  max={videoSettingsSchema.sharpness.max}
+                />
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Saturation')}</label>
                   <span className="text-primary text-size-14">{values.saturation}</span>
                 </div>
-                <Field updateFieldOnStop name="saturation" component={Slider}
+                <Field
+                  updateFieldOnStop
+                  name="saturation"
+                  component={Slider}
                   step={1}
                   min={videoSettingsSchema.saturation.min}
-                  max={videoSettingsSchema.saturation.max}/>
+                  max={videoSettingsSchema.saturation.max}
+                />
               </div>
             </div>
           </div>
@@ -318,49 +356,100 @@ constructor(props) {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={this.state.$isApiProcessing || this.state.updateFocalLengthField}
+                  disabled={$isApiProcessing || updateFocalLengthField}
                   type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
-                  {_(values.focusType === FocusType.fullRange ? 'Full-range Focus' : 'Short-range Focus')}
+                  {_(values.focusType === FocusType.fullRange ? 'Full-Range Focus' : 'Short-Range Focus')}
                 </button>
                 <button
                   type="button"
-                  disabled={this.state.$isApiProcessing || this.state.updateFocalLengthField}
+                  disabled={$isApiProcessing || updateFocalLengthField}
                   className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span className="sr-only">Select focus type</span>
+                  <span className="sr-only">{_('Select Focus Type')}</span>
                 </button>
                 <div className="dropdown-menu">
                   <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.fullRange)}>
-                    {_('Full-range Focus')}
+                    {_('Full-Range Focus')}
                   </button>
                   <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.shortRange)}>
-                    {_('Short-range Focus')}
+                    {_('Short-Range Focus')}
                   </button>
                 </div>
               </div>
             </h2>
 
+            {/* Focus */}
             <div id="color" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Focus')}</label>
                   <span className="d-none text-primary text-size-14">{values.focalLength}</span>
                 </div>
-                <Field
-                  updateFieldOnStop
-                  enableArrowKey
-                  name="focalLength"
-                  component={Slider}
-                  step={1}
-                  min={videoFocusSettingsSchema.focalLength.min}
-                  max={videoFocusSettingsSchema.focalLength.max}
-                />
+                <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
+                  <div>
+                    <CustomTooltip title="-5">
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, -5)}
+                      >
+                        <i type="button" className="fa fa-angle-double-left text-size-16"/>
+                      </button>
+                    </CustomTooltip>
+                    <CustomTooltip title="-1">
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, -1)}
+                      >
+                        <i className="fas fa-minus text-size-16"/>
+                      </button>
+                    </CustomTooltip>
+                  </div>
+                  <div className="flex-grow-1">
+                    <Field
+                      updateFieldOnStop
+                      enableArrowKey
+                      disabled={updateFocalLengthField}
+                      name="focalLength"
+                      component={Slider}
+                      step={1}
+                      min={videoFocusSettingsSchema.focalLength.min}
+                      max={videoFocusSettingsSchema.focalLength.max}
+                    />
+                  </div>
+
+                  <div>
+                    <CustomTooltip title="+1">
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, 1)}
+                      >
+                        <i className="fas fa-plus text-size-16"/>
+                      </button>
+                    </CustomTooltip>
+                    <CustomTooltip title="+5">
+                      <button
+                        disabled={updateFocalLengthField}
+                        className="btn text-secondary-700"
+                        type="button"
+                        onClick={() => this.varyFocus(form, 5)}
+                      >
+                        <i className="fa fa-angle-double-right text-size-16"/>
+                      </button>
+                    </CustomTooltip>
+                  </div>
+                </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
@@ -370,7 +459,7 @@ constructor(props) {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={values.isAutoFocusProcessing}
+                  disabled={updateFocalLengthField}
                   name="zoom"
                   component={Slider}
                   step={0.1}
@@ -379,12 +468,14 @@ constructor(props) {
                 />
               </div>
               <div className="form-group form-check">
-                <Field id="input-check-auto-focus-after-zoom"
+                <Field
+                  id="input-check-auto-focus-after-zoom"
                   type="checkbox"
-                  disabled={values.isAutoFocusProcessing}
+                  disabled={updateFocalLengthField}
                   className="form-check-input"
                   name="isAutoFocusAfterZoom"
-                  checked={values.isAutoFocusAfterZoom}/>
+                  checked={values.isAutoFocusAfterZoom}
+                />
                 <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
                   {_('Auto Focus after Zoom')}
                 </label>
@@ -392,19 +483,31 @@ constructor(props) {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Iris')}</label>
-                  <Field name="aperture" component={Dropdown}
+                  <Field
+                    name="aperture"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.aperture.enum.map(x => ({value: x, label: _(`aperture-${x}`)}))}/>
+                    items={videoSettingsSchema.aperture.enum.map(x => ({
+                      value: x,
+                      label: _(`aperture-${x}`)
+                    }))}
+                  />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Shutter Speed')}</label>
-                  <Field name="shutterSpeed" component={Dropdown}
+                  <Field
+                    name="shutterSpeed"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({value: x, label: _(`shutter-speed-${x}`)}))}/>
+                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({
+                      value: x,
+                      label: _(`shutter-speed-${x}`)
+                    }))}
+                  />
                 </div>
               </div>
             </div>
@@ -423,10 +526,16 @@ constructor(props) {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
                   <label>{_('Auto White Balance')}</label>
-                  <Field name="whiteblanceMode" component={Dropdown}
+                  <Field
+                    name="whiteblanceMode"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({value: x, label: _(`white-balance-${x}`)}))}/>
+                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({
+                      value: x,
+                      label: _(`white-balance-${x}`)
+                    }))}
+                  />
                 </div>
                 {
                   values.whiteblanceMode === WhiteBalanceType.manual && (
@@ -435,10 +544,14 @@ constructor(props) {
                         <label>{_('Color Temperature')}</label>
                         <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
                       </div>
-                      <Field updateFieldOnStop name="whiteblanceManual" component={Slider}
+                      <Field
+                        updateFieldOnStop
+                        name="whiteblanceManual"
+                        component={Slider}
                         step={1000}
                         min={videoSettingsSchema.whiteblanceManual.min}
-                        max={videoSettingsSchema.whiteblanceManual.max}/>
+                        max={videoSettingsSchema.whiteblanceManual.max}
+                      />
                     </div>
                   )
                 }
@@ -452,7 +565,10 @@ constructor(props) {
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
                     items={utils.capitalizeObjKeyValuePairs(IREnableType).map(
-                      x => ({value: x.value, label: _(x.key)})
+                      x => ({
+                        value: x.value,
+                        label: _(x.key)
+                      })
                     )}
                   />
                 </div>
@@ -464,10 +580,14 @@ constructor(props) {
                         <span className="text-primary text-size-14">{values.irBrightness}</span>
                       </div>
                       {/* Slider step are still under review */}
-                      <Field updateFieldOnStop name="irBrightness" component={Slider}
+                      <Field
+                        updateFieldOnStop
+                        name="irBrightness"
+                        component={Slider}
                         step={15}
                         min={videoSettingsSchema.irBrightness.min}
-                        max={videoSettingsSchema.irBrightness.max}/>
+                        max={videoSettingsSchema.irBrightness.max}
+                      />
                     </div>
                   )
                 }
@@ -475,10 +595,16 @@ constructor(props) {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
                   <label>{_('D/N')}</label>
-                  <Field name="daynightMode" component={Dropdown}
+                  <Field
+                    name="daynightMode"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.daynightMode.enum.map(x => ({value: x, label: _(`daynight-mode-${x}`)}))}/>
+                    items={videoSettingsSchema.daynightMode.enum.map(x => ({
+                      value: x,
+                      label: _(`daynight-mode-${x}`)
+                    }))}
+                  />
                 </div>
                 {
                   values.daynightMode === DaynightType.auto && (
@@ -487,10 +613,14 @@ constructor(props) {
                         <label>{_('Sensitivity')}</label>
                         <span className="text-primary text-size-14">{values.sensitivity}</span>
                       </div>
-                      <Field updateFieldOnStop name="sensitivity" component={Slider}
+                      <Field
+                        updateFieldOnStop
+                        name="sensitivity"
+                        component={Slider}
                         step={1}
                         min={videoSettingsSchema.sensitivity.min}
-                        max={videoSettingsSchema.sensitivity.max}/>
+                        max={videoSettingsSchema.sensitivity.max}
+                      />
                     </div>
                   )
                 }
@@ -503,11 +633,15 @@ constructor(props) {
                           {utils.formatTimeRange(values.dnDuty)}
                         </span>
                       </div>
-                      <Field updateFieldOnStop name="dnDuty" component={Slider}
+                      <Field
+                        updateFieldOnStop
+                        name="dnDuty"
+                        component={Slider}
                         mode="range"
                         step={0.5}
                         min={videoSettingsSchema.timePeriodStart.min}
-                        max={videoSettingsSchema.timePeriodEnd.max}/>
+                        max={videoSettingsSchema.timePeriodEnd.max}
+                      />
                     </div>
                   )
                 }
@@ -515,29 +649,49 @@ constructor(props) {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Rotation')}</label>
-                  <Field name="orientation" component={Dropdown}
+                  <Field
+                    name="orientation"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.orientation.enum.map(x => ({value: x, label: _(`orientation-${x}`)}))}/>
+                    items={videoSettingsSchema.orientation.enum.map(x => ({
+                      value: x,
+                      label: _(`orientation-${x}`)
+                    }))}
+                  />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Defog')}</label>
-                  <Field name="defoggingEnabled" component={Dropdown}
+                  <Field
+                    name="defoggingEnabled"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={[{value: 'true', label: _('On')}, {value: 'false', label: _('Off')}]}
+                    items={[{
+                      value: 'true',
+                      label: _('On')
+                    }, {
+                      value: 'false',
+                      label: _('Off')
+                    }]}
                   />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{_('Lighting Compensation Frequency (Hz)')}</label>
-                  <Field name="refreshRate" component={Dropdown}
+                  <Field
+                    name="refreshRate"
+                    component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.refreshRate.enum.map(x => ({value: x, label: _(`refresh-rate-${x}`)}))}/>
+                    items={videoSettingsSchema.refreshRate.enum.map(x => ({
+                      value: x,
+                      label: _(`refresh-rate-${x}`)
+                    }))}
+                  />
                 </div>
               </div>
             </div>
@@ -547,7 +701,7 @@ constructor(props) {
         <hr className="my-0"/>
         <div className="card-body pt-0 mt-5">
           <button
-            disabled={this.state.$isApiProcessing || this.state.updateFocalLengthField}
+            disabled={$isApiProcessing || updateFocalLengthField}
             type="button"
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler()}

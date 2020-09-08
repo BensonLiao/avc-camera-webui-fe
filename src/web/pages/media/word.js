@@ -12,6 +12,7 @@ const WordSettingsSchema = require('webserver-form-schema/word-settings-schema')
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class Word extends Base {
   static get propTypes() {
@@ -60,7 +61,9 @@ module.exports = class Word extends Base {
             <img className="img-fluid" draggable={false} src="/api/snapshot"/>
             {
               values.position !== WordPosition.leftTop && (
-                <button className="btn btn-top-left" type="button"
+                <button
+                  className="btn btn-top-left"
+                  type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.leftTop)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -69,7 +72,9 @@ module.exports = class Word extends Base {
             }
             {
               values.position !== WordPosition.rightTop && (
-                <button className="btn btn-top-right" type="button"
+                <button
+                  className="btn btn-top-right"
+                  type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.rightTop)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -78,7 +83,9 @@ module.exports = class Word extends Base {
             }
             {
               values.position !== WordPosition.leftBottom && (
-                <button className="btn btn-bottom-left" type="button"
+                <button
+                  className="btn btn-bottom-left"
+                  type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.leftBottom)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -87,7 +94,9 @@ module.exports = class Word extends Base {
             }
             {
               values.position !== WordPosition.rightBottom && (
-                <button className="btn btn-bottom-right" type="button"
+                <button
+                  className="btn btn-bottom-right"
+                  type="button"
                   onClick={this.generatePositionButtonHandler(form, WordPosition.rightBottom)}
                 >
                   <i className="fas fa-arrow-up"/>
@@ -116,7 +125,9 @@ module.exports = class Word extends Base {
                 <div className="btn-group">
                   {
                     WordFontSize.all().map(size => (
-                      <button key={size} type="button"
+                      <button
+                        key={size}
+                        type="button"
                         className={classNames(
                           'btn triple-wrapper btn-sm outline-success px-2 py-1',
                           {active: values.fontSize === size}
@@ -132,7 +143,8 @@ module.exports = class Word extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('Color')}</label>
                 <div>
-                  <button type="button"
+                  <button
+                    type="button"
                     className={classNames(
                       'btn-black',
                       {active: values.color === WordColor.black}
@@ -142,7 +154,8 @@ module.exports = class Word extends Base {
                     &nbsp;
                   </button>
                   &nbsp;
-                  <button type="button"
+                  <button
+                    type="button"
                     className={classNames(
                       'btn-white',
                       {active: values.color === WordColor.white}
@@ -157,24 +170,19 @@ module.exports = class Word extends Base {
                 <label>{_('Position')}</label>
                 <p className="text-primary">{_('Select Position')}</p>
               </div>
-              <div className="form-group">
-                <label>{_('Text Overlay')}</label>
-                <div className="select-wrapper border rounded-pill overflow-hidden">
-                  <Field
-                    name="type"
-                    component="select"
-                    className="form-control border-0"
-                  >
-                    {
-                      WordType.all().map(type => (
-                        <option key={type} value={type}>{_(`word-type-${type}`)}</option>
-                      ))
-                    }
-                  </Field>
-                </div>
-              </div>
+              <SelectField labelName={_('Text Overlay')} name="type">
+                {WordType.all().map(type => (
+                  <option key={type} value={type}>{_(`word-type-${type}`)}</option>
+                ))}
+              </SelectField>
               <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
-                <Field name="customText" type="text" placeholder={_('Enter Custom Text')} maxLength={WordSettingsSchema.customText.max} className="form-control"/>
+                <Field
+                  name="customText"
+                  type="text"
+                  placeholder={_('Enter Custom Text')}
+                  maxLength={WordSettingsSchema.customText.max}
+                  className="form-control"
+                />
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
                 {_('Apply')}

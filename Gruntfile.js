@@ -39,9 +39,7 @@ module.exports = grunt => {
 
   grunt.config.init({
     config: gruntConfig,
-    clean: {
-      dist: ['dist']
-    },
+    clean: {dist: ['dist']},
     ect: {
       express: {
         options: {
@@ -70,7 +68,7 @@ module.exports = grunt => {
       build: {
         tasks: [
           {
-            // Run webpack.
+            // Run webpack production build.
             stream: true,
             cmd: 'node',
             args: (() => {
@@ -95,6 +93,23 @@ module.exports = grunt => {
               grunt: true,
               stream: true,
               args: ['watch']
+            },
+            {
+              // Run webpack development build.
+              stream: true,
+              cmd: 'node',
+              args: (() => {
+                const result = [
+                  path.join('node_modules', 'webpack', 'bin', 'webpack.js'),
+                  '--env.mode=development',
+                  '--env.buildFolder=<%= config.buildFolder %>'
+                ];
+                if (grunt.option('analyze')) {
+                  result.push('--env.analyzeBuild=true');
+                }
+
+                return result;
+              })()
             },
             {
               // Run webpack dev server.

@@ -15,7 +15,7 @@ module.exports = class Log extends Base {
     this.state.file = null;
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Downloading system log');
+    this.state.apiProcessModalTitle = _('Downloading System Log');
     this.state.progressStatus = 'start';
     this.state.progressPercentage = 0;
   }
@@ -103,8 +103,8 @@ module.exports = class Log extends Base {
                         <CustomNotifyModal
                           modalType="default"
                           isShowModal={isShowModal}
-                          modalTitle={_('Delete System Log File Record')}
-                          modalBody={_('Are you sure you want to Delete Record?')}
+                          modalTitle={_('Delete System Log File')}
+                          modalBody={_('Are you sure you want to delete record?')}
                           onHide={this.hideModal}
                           onConfirm={this.onClickClearLog}
                         />
@@ -124,9 +124,11 @@ module.exports = class Log extends Base {
                               key="stage 1"
                               title="System log loading"
                               progressStatus={this.state.progressStatus}
-                              progressPercentage={this.state.progressPercentage}/>
+                              progressPercentage={this.state.progressPercentage}
+                            />
                           ]}
-                          onHide={this.hideApiProcessModal}/>
+                          onHide={this.hideApiProcessModal}
+                        />
                       </div>
                     </div>
                   </div>

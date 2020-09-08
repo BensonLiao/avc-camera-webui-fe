@@ -125,11 +125,15 @@ module.exports = class CardsFormSchedule extends React.PureComponent {
              {(() => {
                let statusCheck = !values.$start || !values.$end || values.timePeriods.length >= 5;
                return (
-                 <CustomTooltip show={statusCheck} title={values.timePeriods.length >= 5 ? _('Maximum Allowed Number of Schedule is 5') : _('Please Enter Start and End Datetime')}>
+                 <CustomTooltip
+                   show={statusCheck}
+                   title={values.timePeriods.length >= 5 ? _('Maximum Allowed Number of Schedule is 5') : _('Please Enter Start and End Datetime')}
+                 >
                    <div className="col-auto my-1">
                      <button
                        disabled={statusCheck}
-                       className="btn btn-primary rounded-circle" type="button"
+                       className="btn btn-primary rounded-circle"
+                       type="button"
                        style={statusCheck ? {pointerEvents: 'none'} : {}}
                        onClick={this.onClickAddTimePeriod}
                      >

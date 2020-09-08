@@ -1,12 +1,12 @@
 const axios = require('axios');
-const React = require('react');
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
 const dayjs = require('dayjs');
-const {store} = require('react-notifications-component');
 const _ = require('../languages');
+const api = require('../core/apis/web-api');
 const {validator} = require('../core/validations');
 const {RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
+const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 
 /**
  * Format time range.
@@ -148,90 +148,7 @@ exports.renderError = error => {
 };
 
 exports.validateStreamBitRate = () => values => {
-  const bitRateSchema = {
-    bitRate: {
-      optional: false,
-      type: 'custom',
-      pattern: /^[\d]+$/,
-      min: 2048,
-      max: 20480,
-      check: function (value, schema) {
-        if (schema.optional && (value == null || value === '')) {
-          return true;
-        }
-
-        if (typeof value !== 'string') {
-          return this.makeError('string', null, value);
-        }
-
-        if (!schema.pattern.test(value)) {
-          return this.makeError('stringPattern', schema.pattern, value);
-        }
-
-        const number = Number(value);
-        if (number < schema.min) {
-          return this.makeError('numberMin', schema.min, value);
-        }
-
-        if (number > schema.max) {
-          return this.makeError('numberMax', schema.max, value);
-        }
-
-        return true;
-      }
-    }
-  };
-  return validator.validateField({bitRate: values}, bitRateSchema);
-};
-
-/**
- * @param {string} title - The success title.
- * @param {string} message - The success message.
- * @returns {undefined}
- */
-exports.showSuccessNotification = ({title, message}) => {
-  store.addNotification({
-    type: 'default',
-    insert: 'top',
-    container: 'top-right',
-    animationIn: ['animated', 'faster', 'slideInRight'],
-    animationOut: ['animated', 'faster', 'slideOutRight'],
-    dismiss: {duration: 5000},
-    content: () => (
-      <div className="d-flex bg-white rounded p-3">
-        <div><i className="fas fa-check-circle fa-lg text-success"/></div>
-        <div className="d-flex flex-column ml-3">
-          <div><strong>{title || _('Success')}</strong></div>
-          <div className="text-muted">{message || _('Server Process Success')}</div>
-        </div>
-      </div>
-    )
-  });
-};
-
-/**
- * @param {string} title - The error title.
- * @param {string} message - The error message.
- * @returns {undefined}
- */
-exports.showErrorNotification = ({title, message}) => {
-  store.addNotification({
-    type: 'default',
-    insert: 'top',
-    container: 'top-right',
-    animationIn: ['animated', 'faster', 'slideInRight'],
-    animationOut: ['animated', 'faster', 'slideOutRight'],
-    dismiss: {duration: 5000},
-    content: () => (
-      <div className="d-flex bg-white rounded p-3">
-        <div><i className="fas fa-times-circle fa-lg text-danger"/></div>
-        <div className="d-flex flex-column ml-3">
-          <div><strong>{title || _('Error')}</strong></div>
-          <div className="text-muted">{message || _('Internal Server Error')}</div>
-        </div>
-      </div>
-    )
-  });
+  return validator.validateField({bitRate: values}, {bitRate: StreamSettingsSchema.channelA.props.bitRate});
 };
 
 /**
@@ -265,8 +182,8 @@ exports.convertPicture = (imgSrc, zoomFactor, pictureRotateDegrees, offset, wrap
     img.height = Math.round(img.height * zoomFactor);
 
     // Offset amount
-    const offsetX = ((img.height - size) / 2) * (offset ? offset.x / maxOffset : 0);
-    const offsetY = ((img.height - size) / 2) * (offset ? offset.y / maxOffset : 0);
+    const offsetX = ((img.width - size) / 2) * (offset ? offset.x && (offset.x / maxOffset) : 0);
+    const offsetY = ((img.height - size) / 2) * (offset ? offset.y && (offset.y / maxOffset) : 0);
 
     canvas.width = size;
     canvas.height = size;
@@ -325,22 +242,6 @@ exports.getPrecision = num => {
 };
 
 /**
- * Log mock XHR like axios with console.groupCollapsed() and return mock response.
- * @param {Object} req XHR request instance, or if we use library like axios then `req` is the axios request config and contains things like `url`.
- * @see https://github.com/axios/axios#request-config
- * @param {Array<Number, ?Object, ?Object>} res Accept any type of response, or if we use library like axios-mock-adapter then this will be an array in the form of [status, data, headers].
- * @see https://github.com/ctimmerm/axios-mock-adapter
- * @returns {Array<Number, ?Object, ?Object>} Same object as `res`.
- */
-exports.mockResponseWithLog = (req, res) => {
-  console.groupCollapsed(`[${res[0]}] ${req.method} ${req.url}`);
-  console.log('request config:', req);
-  console.log('response: [status, data, headers]', res);
-  console.groupEnd();
-  return res;
-};
-
-/**
  * Check for duplicate value.
  * @param {array} array - The array to check.
  * @param {string} value - The string to compare with.
@@ -383,9 +284,10 @@ exports.validatedPortCheck = (value, error) => {
   return check;
 };
 
-module.exports.isArray = arg => {
-  return Object.prototype.toString.call(arg) === '[object Array]';
-};
+module.exports.isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
+
+module.exports.isDate = arg => Object.prototype.toString.call(arg) === '[object Date]' &&
+  !isNaN(arg.getTime());
 
 module.exports.pingAndRedirectPage = url => {
   const test = () => {
@@ -395,6 +297,47 @@ module.exports.pingAndRedirectPage = url => {
       })
       .catch(() => {
         setTimeout(test, 500);
+      });
+  };
+
+  test();
+};
+
+/**
+ * Check if the server has shutdown; Device has not shutdown if ping succeeds, proceed if ping fails.
+ * @param {func} resolve - Resolve for Promise to proceed after shutdown.
+ * @param {number} interval - Duration of the timeout interval.
+ * @param {string} type - Ping type.
+ * @returns {object} - A Promise resolve object if shutdown is successful.
+ */
+module.exports.pingToCheckShutdown = (resolve, interval, type = 'web') => {
+  const test = () => {
+    api.ping(type)
+      .then(() => {
+        setTimeout(test, interval);
+      })
+      .catch(() => {
+        resolve();
+      });
+  };
+
+  test();
+};
+
+/**
+ * Check if the server has started up; Device has not started up if ping fails, proceed if ping succeeds.
+ * @param {number} interval - Duration of the timeout.
+ * @param {string} type - Ping type.
+ * @returns {redirect} - Reloads after device has started up.
+ */
+module.exports.pingToCheckStartupAndReload = (interval, type = 'app') => {
+  const test = () => {
+    api.ping(type)
+      .then(() => {
+        location.reload();
+      })
+      .catch(() => {
+        setTimeout(test, interval);
       });
   };
 

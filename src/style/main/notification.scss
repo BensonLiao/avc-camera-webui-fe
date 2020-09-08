@@ -1,19 +1,22 @@
 .btn-star {
-  width: 40px;
+  min-width: 40px;
   height: 40px;
   padding: 0;
   color: $primary;
-  background-color: #E5F5FF;
+  background-color: #e5f5ff;
   border: none;
   box-shadow: none;
+
   &.btn-secondary {
     color: $secondary-400;
     background-color: $secondary-50;
   }
+
   &.btn:hover {
     filter: brightness(0.8);
   }
 }
+
 .page-notification {
   padding: 48px;
 
@@ -22,14 +25,17 @@
     margin: 0 -48px 49px 0;
     background-color: #fff;
     border-bottom-left-radius: 32px;
+
     label {
       font-size: 20px;
       font-weight: bold;
-      color: #666666;
+      color: #666;
     }
+
     .btn {
       padding-left: 24px;
       padding-right: 24px;
+
       &:not(.active) {
         border-color: #ccc;
       }
@@ -40,15 +46,18 @@
     font-size: 20px;
     color: #666;
   }
+
   hr {
-    border-color: #6C757D;
+    border-color: #6c757d;
   }
 
-  @mixin grid_container_padding() { 
+  @mixin grid_container_padding() {
     padding: 48px 1.5%;
+
     @media (max-width: 1440px) and (min-width: 1366px) {
       padding: 48px 0.5%;
     }
+
     @media (max-width: 1365px) {
       padding: 48px 0.01%;
     }
@@ -58,31 +67,40 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+
     @include grid_container_padding();
+
     .card {
       flex: 0 0 440px;
       margin: 14px;
       border: none;
+
       &:hover {
         .card-body {
           background-color: $secondary-50;
         }
+
         .btn-delete {
           display: block;
         }
       }
     }
+
     .card-title {
       padding: 24px 24px 8px 24px;
       margin-bottom: 0;
+
       .icons .icon {
         @extend .btn-star;
+
         background-color: #fff;
         border: 1px solid #ccc;
       }
     }
+
     .card-body {
       padding: 8px 24px 24px 24px;
+
       .btn-delete {
         height: $notify-card-btn-delete-height;
         width: $notify-card-btn-delete-height;
@@ -92,8 +110,9 @@
         position: absolute;
         right: 24px;
         bottom: 24px;
+
         &:hover {
-          background-color: #4D4D4D;
+          background-color: #4d4d4d;
         }
       }
 
@@ -101,23 +120,29 @@
         tr {
           height: 32px;
         }
-        th, td {
-          padding: 4px 8px 4px 0px;
+
+        th,
+        td {
+          padding: 4px 8px 4px 0;
         }
+
         th {
-          color: #1A1A1A;
+          color: #1a1a1a;
         }
+
         td {
           font-size: 14px;
-          color: #666666;
+          color: #666;
+
           &:not(.no-seperator) {
             &::before {
               content: "|";
               font-weight: bold;
-              color: #1A1A1A;
+              color: #1a1a1a;
               padding-right: 8px;
             }
           }
+
           &.no-seperator {
             &::before {
               content: "";
@@ -131,11 +156,13 @@
 
   .fixed-actions-section {
     padding-left: 336px;
+
     .btn {
-      .fa-plus{
+      .fa-plus {
         transition: 0.5s;
       }
-      &:hover .fa-plus{
+
+      &:hover .fa-plus {
         transform: rotate(90deg);
       }
     }
@@ -149,62 +176,75 @@
     font-weight: bold;
     max-width: 240px;
   }
+
   .btn-edit-title {
     line-height: 40px;
   }
+
   .btn-new-row {
-    background-color: #E6E6E6;
-    color: #CCC;
+    background-color: #e6e6e6;
+    color: #ccc;
     border: none;
   }
+
   hr {
     border-color: #ccc;
     margin: 24px -16px 24px -16px;
   }
+
   .select-wrapper {
     max-height: 2.5rem;
+
     i {
       margin: 0 8px 0 8px;
       color: $info;
     }
   }
+
   .text-desh {
-    color: #E6E6E6;
+    color: #e6e6e6;
     font-weight: bold;
     line-height: 40px;
   }
+
   .select-wrapper select {
     min-width: 100px;
   }
+
   .filter-item {
-    background-color: #E5F5FF;
+    background-color: #e5f5ff;
     height: 40px;
     padding: 0 13px 0 24px;
     font-size: 14px;
+
     .btn {
       width: 18px;
       height: 18px;
     }
   }
+
   .form-group .card {
     border-radius: 8px;
   }
+
   .input-group {
     .input-group-prepend + .form-control {
       border-left: none;
       padding-left: 5px;
     }
+
     .input-group-text {
       border-right: none;
       background-color: transparent;
-      color: #CED4DA;
+      color: #ced4da;
     }
   }
+
   .notification-email {
     border-radius: 50rem;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     width: 260px;
-    flex: 0 0 auto
+    flex: 0 0 auto;
   }
 }

@@ -2,11 +2,12 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const sanitizeHtml = require('sanitize-html');
+const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const Base = require('../shared/base');
 const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
-const utils = require('../../../core/utils');
+const notify = require('../../../core/notify');
 const CardsFilter = require('./cards-filter');
 const CardsForm = require('./cards-form');
 const CardsList = require('./cards-list');
@@ -15,33 +16,9 @@ const CustomTooltip = require('../../../core/components/tooltip');
 module.exports = class Cards extends Base {
   static get propTypes() {
     return {
-      cards: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          emailAttachmentType: PropTypes.string.isRequired,
-          emails: PropTypes.array.isRequired,
-          faceRecognitionCondition: PropTypes.string.isRequired,
-          groups: PropTypes.array.isRequired,
-          id: PropTypes.number.isRequired,
-          isEnableApp: PropTypes.bool.isRequired,
-          isEnableEmail: PropTypes.bool.isRequired,
-          isEnableFaceRecognition: PropTypes.bool.isRequired,
-          isEnableGPIO: PropTypes.bool.isRequired,
-          isEnableGPIO1: PropTypes.bool.isRequired,
-          isEnableGPIO2: PropTypes.bool.isRequired,
-          isEnableTime: PropTypes.bool.isRequired,
-          isTop: PropTypes.bool.isRequired,
-          timePeriods: PropTypes.array.isRequired,
-          title: PropTypes.string.isRequired,
-          type: PropTypes.string.isRequired
-        })).isRequired
-      }).isRequired,
-      groups: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          note: PropTypes.string.isRequired
-        }).isRequired)
-      }).isRequired
+      cards: PropTypes.shape({items: PropTypes.arrayOf(CardsForm.propTypes.cardDetails)}).isRequired,
+      groups: PropTypes.shape(CardsForm.propTypes.groups.items).isRequired,
+      systemInformation: PropTypes.shape({modelName: PropTypes.string}).isRequired
     };
   }
 
@@ -63,9 +40,9 @@ module.exports = class Cards extends Base {
   };
 
   cardLimitError = () => { // Over card limit 32
-    utils.showErrorNotification({
+    notify.showErrorNotification({
       title: _('Cards Limit Error'),
-      message: _('Cannot create more than {0} cards', [NOTIFY_CARDS_MAX])
+      message: _('Cannot Create More Than {0} Cards', [NOTIFY_CARDS_MAX])
     });
   }
 
@@ -140,14 +117,19 @@ module.exports = class Cards extends Base {
   };
 
   sanitizeInput = input => {
-    return sanitizeHtml(input, {allowedTags: [], allowedAttributes: {}});
+    return sanitizeHtml(input, {
+      allowedTags: [],
+      allowedAttributes: {}
+    });
   }
 
   onSubmitCardForm = values => {
     const data = {
       ...values,
       isTop: this.state.isTop,
-      groups: values.$groups ? [values.$groups] : [],
+      groups: values.faceRecognitionCondition === NotificationFaceRecognitionCondition.success ?
+        (values.$groups ? [values.$groups] : []) :
+        [],
       title: this.sanitizeInput(values.title)
     };
 
@@ -164,7 +146,10 @@ module.exports = class Cards extends Base {
           this.setState(prevState => {
             const cards = [...prevState.cards];
             cards.push(response.data);
-            return {cards, isShowCardDetailsModal: false};
+            return {
+              cards,
+              isShowCardDetailsModal: false
+            };
           });
         })
         .finally(progress.done);
@@ -177,7 +162,10 @@ module.exports = class Cards extends Base {
             const cards = [...prevState.cards];
             const index = cards.findIndex(x => x.id === data.id);
             cards.splice(index, 1, response.data);
-            return {cards, isShowCardDetailsModal: false};
+            return {
+              cards,
+              isShowCardDetailsModal: false
+            };
           });
         })
         .finally(progress.done);
@@ -186,7 +174,7 @@ module.exports = class Cards extends Base {
 
   render() {
     const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, $isApiProcessing, isTop} = this.state;
-    const {groups} = this.props;
+    const {groups, systemInformation: {modelName}} = this.props;
     return (
       <>
         <div className="main-content left-menu-active  fixed-top-horizontal-scroll">
@@ -227,6 +215,7 @@ module.exports = class Cards extends Base {
             <CardsForm
               groups={groups}
               cardDetails={cardDetails}
+              modelName={modelName}
               isApiProcessing={$isApiProcessing}
               isShowCardDetailsModal={isShowCardDetailsModal}
               isTop={isTop}

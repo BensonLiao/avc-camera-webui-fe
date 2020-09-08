@@ -20,6 +20,7 @@
     window.user = JSON.parse(base64DecodeUnicode('{{ archive user }}'));
     window.currentLanguageCode = '{{ languageCode }}';
     window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));
+    window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ archive skuID }}')) === 'NoBrand';
     window.error = JSON.parse(base64DecodeUnicode('{{ archive error }}'));
     var isDebug = '{{ isDebug }}';
     // Append css resource
@@ -56,13 +57,13 @@
 <div id="root">
   <div class="page-loading d-flex justify-content-center align-items-center">
     <div class="spinner-container">
-      <div class="spinner-wrapper text-primary">
-        <div class="spinner-border">
-          <span class="sr-only">Loading...</span>
-        </div>
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
       </div>
       <div class="description">
-        <p>{{ loadingText }}<span class="dotty"></span></p>
+        <p class="mt-4">{{ loadingText }}</p>
       </div>
     </div>
   </div>

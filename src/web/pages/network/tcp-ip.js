@@ -8,9 +8,11 @@ const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
+const notify = require('../../../core/notify');
 const _ = require('../../../languages');
 const {DEFAULT_PORTS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class TCPIP extends Base {
   static get propTypes() {
@@ -28,9 +30,7 @@ module.exports = class TCPIP extends Base {
         port: PropTypes.string.isRequired,
         port2: PropTypes.string
       }).isRequired,
-      httpsSettings: PropTypes.shape({
-        port: PropTypes.string.isRequired
-      }).isRequired,
+      httpsSettings: PropTypes.shape({port: PropTypes.string.isRequired}).isRequired,
       rtspSettings: PropTypes.shape({
         tcpPort: PropTypes.string.isRequired,
         udpPort: PropTypes.string.isRequired
@@ -41,7 +41,7 @@ module.exports = class TCPIP extends Base {
   constructor(props) {
     super(props);
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Device processing');
+    this.state.apiProcessModalTitle = _('Device Processing');
   }
 
   hideApiProcessModal = () => {
@@ -54,7 +54,10 @@ module.exports = class TCPIP extends Base {
 
     let checkDefaultPortList = Object.keys(defaultPorts)
       .filter(items => items !== 'HTTP')
-      .reduce((obj, key) => ({...obj, [key]: defaultPorts[key]}), {});
+      .reduce((obj, key) => ({
+        ...obj,
+        [key]: defaultPorts[key]
+      }), {});
 
     checkDefaultPortList = utils.duplicateCheck(Object.values(checkDefaultPortList), values);
     // Check if using http port
@@ -64,7 +67,7 @@ module.exports = class TCPIP extends Base {
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
       values === httpsSettings.port) {
-      return _('This is a reserved port or is in use, please try another port.');
+      return _('This is A Reserved Port or is In Use, Please Try Another Port.');
     }
 
     return utils.validatedPortCheck(values);
@@ -75,14 +78,14 @@ module.exports = class TCPIP extends Base {
     api.system.updateDDNSInfo(values)
       .then(response => {
         if (response.data.ddnsHostStatus) {
-          utils.showSuccessNotification({
+          notify.showSuccessNotification({
             title: _('Setting Success'),
-            message: _('DDNS setting success!')
+            message: _('DDNS Setting Success!')
           });
         } else {
-          utils.showErrorNotification({
+          notify.showErrorNotification({
             title: _('Setting Failed'),
-            message: _('DDNS setting failed!')
+            message: _('DDNS Setting Failed!')
           });
         }
 
@@ -95,48 +98,18 @@ module.exports = class TCPIP extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Updating http settings')
+      apiProcessModalTitle: _('Updating Http Settings')
     },
     () => {
       api.system.updateHttpInfo(values)
+        .then(() => new Promise(resolve => {
+          utils.pingToCheckShutdown(resolve, 1000);
+        }))
         .then(() => {
-          api.system.deviceReboot()
-            .then(() => new Promise(resolve => {
-              // Check the server was shut down, if success then shutdown was failed and retry.
-              const test = () => {
-                api.ping('web')
-                  .then(() => {
-                    setTimeout(test, 500);
-                  })
-                  .catch(() => {
-                    resolve();
-                  });
-              };
-
-              test();
-            }))
-            .then(() => {
-              // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: _('Device Rebooting')});
-              // Check the server was start up, if success then startup was failed and retry.
-              const test = () => {
-                api.ping('app')
-                  .then(() => {
-                    location.reload();
-                  })
-                  .catch(() => {
-                    setTimeout(test, 1000);
-                  });
-              };
-
-              test();
-            })
-            .finally(() => {
-              progress.done();
-              this.hideApiProcessModal();
-            });
+        // Check startup and reload
+          utils.pingToCheckStartupAndReload(1000, 'web');
         })
-        .finally(() => {
+        .catch(() => {
           progress.done();
           this.hideApiProcessModal();
         });
@@ -160,14 +133,9 @@ module.exports = class TCPIP extends Base {
                 </label>
               </div>
             </div>
-            <div className="form-group">
-              <label>{_('Server Provider')}</label>
-              <div className="select-wrapper border rounded-pill overflow-hidden">
-                <Field name="ddnsProvider" component="select" className="form-control border-0">
-                  <option value="dyn-dns">DynDNS.org</option>
-                </Field>
-              </div>
-            </div>
+            <SelectField labelName={_('Server Provider')} name="ddnsProvider">
+              <option value="dyn-dns">DynDNS.org</option>
+            </SelectField>
             <div className="form-group">
               <label>{_('Host Name')}</label>
               <Field
@@ -263,7 +231,8 @@ module.exports = class TCPIP extends Base {
                 backdrop="static"
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
-                onHide={this.hideApiProcessModal}/>
+                onHide={this.hideApiProcessModal}
+              />
 
               <div className="col-center">
                 <div className="card shadow">
@@ -274,12 +243,12 @@ module.exports = class TCPIP extends Base {
                     <Nav>
                       <Nav.Item>
                         <Nav.Link eventKey="tab-ddns">
-                          {_('LAN Configuration')}
+                          {_('DDNS')}
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link eventKey="tab-http">
-                          {_('Network Status')}
+                          {_('HTTP')}
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>

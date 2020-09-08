@@ -3,8 +3,8 @@ const {Link, getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
 const _ = require('../../../languages');
-const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 
 module.exports = class EventsSidebar extends React.PureComponent {
   static get propTypes() {
@@ -12,12 +12,12 @@ module.exports = class EventsSidebar extends React.PureComponent {
       params: PropTypes.shape({
         type: PropTypes.oneOf(['face-recognition', 'age-gender', 'humanoid-detection']),
         confidence: PropTypes.oneOfType([
-          PropTypes.oneOf(Confidence.all()),
-          PropTypes.arrayOf(PropTypes.oneOf(Confidence.all()))
+          PropTypes.oneOf(Similarity.all()),
+          PropTypes.arrayOf(PropTypes.oneOf(Similarity.all()))
         ]),
         enrollStatus: PropTypes.oneOfType([
-          PropTypes.oneOf(EnrollStatus.all()),
-          PropTypes.arrayOf(PropTypes.oneOf(EnrollStatus.all()))
+          PropTypes.oneOf(RecognitionType.all()),
+          PropTypes.arrayOf(PropTypes.oneOf(RecognitionType.all()))
         ])
       }).isRequired,
       authStatus: PropTypes.shape({
@@ -97,13 +97,32 @@ module.exports = class EventsSidebar extends React.PureComponent {
     const confidence = this.convertArrayParams(params.confidence);
     const enrollStatus = this.convertArrayParams(params.enrollStatus);
     const similarityRender = [
-      {confidence: Confidence.low, id: 'input-checkbox-low-similar'},
-      {confidence: Confidence.medium, id: 'input-checkbox-medium-similar'},
-      {confidence: Confidence.high, id: 'input-checkbox-high-similar'}
+      {
+        confidence: Similarity.low,
+        id: 'input-checkbox-low-similar'
+      },
+      {
+        confidence: Similarity.medium,
+        id: 'input-checkbox-medium-similar'
+      },
+      {
+        confidence: Similarity.high,
+        id: 'input-checkbox-high-similar'
+      }
     ];
-    const resultRender = [
-      {status: EnrollStatus.registered, id: 'input-checkbox-register'},
-      {status: EnrollStatus.unknown, id: 'input-checkbox-anonymous'}
+    const recognitionTypeRender = [
+      {
+        status: RecognitionType.registered,
+        id: 'input-checkbox-register'
+      },
+      {
+        status: RecognitionType.unknown,
+        id: 'input-checkbox-anonymous'
+      },
+      {
+        status: RecognitionType.fake,
+        id: 'input-checkbox-fake'
+      }
     ];
     return (
       <div className="card-body">
@@ -111,10 +130,14 @@ module.exports = class EventsSidebar extends React.PureComponent {
         <div className="checkbox-group mt-3 pl-2">
           {similarityRender.map(item => (
             <div key={item.id} className="form-check mb-3">
-              <input type="checkbox" className="form-check-input" id={item.id}
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id={item.id}
                 disabled={isApiProcessing}
                 checked={confidence.indexOf(item.confidence) >= 0}
-                onChange={this.toggleFilterHandler('confidence', item.confidence)}/>
+                onChange={this.toggleFilterHandler('confidence', item.confidence)}
+              />
               <label className="form-check-label" htmlFor={item.id}>
                 {_(`confidence-${item.confidence}`)}
               </label>
@@ -123,12 +146,16 @@ module.exports = class EventsSidebar extends React.PureComponent {
         </div>
         <span>{_('Recognition Result')}</span>
         <div className="checkbox-group mt-3 mb-2 pl-2">
-          {resultRender.map(item => (
-            <div key={item.id} className={classNames('form-check', {'mb-3': item.status === '1'})}>
-              <input type="checkbox" className="form-check-input" id={item.id}
+          {recognitionTypeRender.map((item, idx) => (
+            <div key={item.id} className={classNames('form-check', {'mb-3': idx < recognitionTypeRender.length - 1})}>
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id={item.id}
                 disabled={isApiProcessing}
                 checked={enrollStatus.indexOf(item.status) >= 0}
-                onChange={this.toggleFilterHandler('enrollStatus', item.status)}/>
+                onChange={this.toggleFilterHandler('enrollStatus', item.status)}
+              />
               <label className="form-check-label" htmlFor={item.id}>
                 {_(`enroll-status-${item.status}`)}
               </label>
@@ -153,58 +180,75 @@ module.exports = class EventsSidebar extends React.PureComponent {
             <span>{_('Filters')}</span>
             <a className="text-primary font-weight-bold" href="#" onClick={this.onClickClearFilters}>{_('Clear')}</a>
           </div>
-
+          {/* Facial Filter */}
+          {/* AVN only have facial */}
           <div className={classNames('card sub mb-3', {active: type === 'face-recognition' && isEnableFaceRecognitionKey})}>
             <div className="card-header text-truncate">
               {
-                isEnableFaceRecognitionKey ?
+                isEnableFaceRecognitionKey ? (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
+                    {/* Remove arrow in AVN */}
                     <i className="fas fa-chevron-up"/>
-                  </a> :
+                  </a>
+                ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span> <i className="fas fa-chevron-down"/>
+                    <span className="badge badge-danger badge-pill">{_('Inactive')}</span>
+                    <i className="fas fa-chevron-down"/>
                   </a>
+                )
               }
             </div>
             {type === 'face-recognition' && isEnableFaceRecognitionKey && this.faceRecognitionFilterRender()}
           </div>
-
+          {/* Age Gender Filter */}
           <div className={classNames('card sub mb-3 d-none', {active: type === 'age-gender' && isEnableAgeGenderKey})}>
             <div className="card-header text-truncate">
               {
-                isEnableAgeGenderKey ?
-                  <Link to={{name: currentRouteName, params: {type: 'age-gender'}}}
+                isEnableAgeGenderKey ? (
+                  <Link
+                    to={{
+                      name: currentRouteName,
+                      params: {type: 'age-gender'}
+                    }}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
                     <span>{_('Age Gender')}</span>
                     <i className="fas fa-chevron-down"/>
-                  </Link> :
+                  </Link>
+                ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Age Gender')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactive')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
+                )
               }
             </div>
           </div>
-
+          {/* Human Detection Filter */}
           <div className={classNames('card sub mb-3 d-none', {active: type === 'humanoid-detection' && isEnableHumanoidDetectionKey})}>
             <div className="card-header text-truncate">
               {
-                isEnableHumanoidDetectionKey ?
-                  <Link to={{name: currentRouteName, params: {type: 'humanoid-detection'}}}
+                isEnableHumanoidDetectionKey ? (
+                  <Link
+                    to={{
+                      name: currentRouteName,
+                      params: {type: 'humanoid-detection'}
+                    }}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
                     <span>{_('Human Detection')}</span>
                     <i className="fas fa-chevron-down"/>
-                  </Link> :
+                  </Link>
+                ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Human Detection')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactivated')}</span>
+                    <span className="badge badge-danger badge-pill">{_('Inactive')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
+                )
               }
             </div>
           </div>

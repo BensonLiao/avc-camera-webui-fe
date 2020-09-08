@@ -141,20 +141,26 @@ module.exports = class MotionDetection extends Base {
 
         <div className="col-7 pl-3 pr-0">
           <div ref={this.videoWrapperRef} id="md-video-wrapper" className="video-wrapper">
-            <img className="img-fluid" draggable={false} src="/api/snapshot"
-              onMouseDown={this.generateVideoWrapperMouseDownHandler(form)}/>
+            <img
+              className="img-fluid"
+              draggable={false}
+              src="/api/snapshot"
+              onMouseDown={this.generateVideoWrapperMouseDownHandler(form)}
+            />
             {
               maskAreaItems.map(index => (
-                maskAreaStates[index].isVisible ?
+                maskAreaStates[index].isVisible ? (
                   <div key={index} className="draggable-wrapper" tabIndex={-1} onKeyDown={this.generateDeleteMaskAreaHandler(index)}>
                     <Field
                       rightBottomCornerRef={this.maskAreaRefs[index]}
                       name={`areas.${index}`}
                       component={MaskArea}
                       text={_('Detection Zone')}
-                      className="border-green"
-                      parentElementId="md-video-wrapper"/>
-                  </div> :
+                      className="bounding-primary"
+                      parentElementId="md-video-wrapper"
+                    />
+                  </div>
+                ) :
                   <div key={index}/>
               ))
             }
@@ -186,9 +192,13 @@ module.exports = class MotionDetection extends Base {
                   <label>{_('Sensitivity')}</label>
                   <span className="text-primary text-size-14">{values.sensibility}</span>
                 </div>
-                <Field name="sensibility" component={Slider} step={1}
+                <Field
+                  name="sensibility"
+                  component={Slider}
+                  step={1}
                   min={MotionDetectionSettingsSchema.sensibility.min}
-                  max={MotionDetectionSettingsSchema.sensibility.max}/>
+                  max={MotionDetectionSettingsSchema.sensibility.max}
+                />
               </div>
               <div className="form-group">
                 <div className="card-header l-24 light text-size-18">{_('Note Area')}</div>

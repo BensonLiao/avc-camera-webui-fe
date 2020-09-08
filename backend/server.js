@@ -4,7 +4,6 @@ const config = require('config');
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
-const leftPad = require('left-pad');
 const handlebars = require('handlebars');
 const errors = require('./models/errors');
 const webRouter = require('./routers/web-router');
@@ -46,7 +45,7 @@ app.use((req, res, next) => {
     originEndFunc.apply(this, arguments);
     const now = new Date();
     const processTime = `${now - req.startTime}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    console.log(`[${res.statusCode}] ${leftPad(processTime, 7)}ms ${(req.method + '      ').substr(0, 6)} ${req.originalUrl}`);
+    console.log(`[${res.statusCode}] ${processTime.padStart(7)}ms ${(req.method + '      ').substr(0, 6)} ${req.originalUrl}`);
     if (res.error) {
       console.error(res.error.message);
       console.error(res.error.stack);

@@ -1,11 +1,10 @@
 const classNames = require('classnames');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
-const logo = require('../../../resource/logo-01.svg');
-const decoration = require('../../../resource/decoration-01.svg');
+const logo = require('../../../resource/logo-avc-secondary.svg');
 const setupStep03 = require('../../../resource/setup-step-03.png');
 const setupStep03x2 = require('../../../resource/setup-step-03@2x.png');
 const _ = require('../../../languages');
@@ -14,6 +13,7 @@ const store = require('../../../core/store');
 const uploadCertificateValidator = require('../../validations/setup/https-upload-certificate-validator');
 const generateCertificateValidator = require('../../validations/setup/https-generate-certificate-validator');
 const api = require('../../../core/apis/web-api');
+const {default: ProgressBar} = require('./progress-bar');
 
 module.exports = class SetupHTTPS extends Base {
   constructor(props) {
@@ -107,19 +107,17 @@ module.exports = class SetupHTTPS extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <div className="steps">
-            <div className="d-flex justify-content-between">
-              <p className="text-primary">{_('Language')}</p>
-              <p className="text-primary">{_('SETUP-Account')}</p>
-              <p className="text-primary">{_('HTTPS')}</p>
-            </div>
-            <img src={setupStep03} srcSet={`${setupStep03x2} 2x`}/>
-            <Link to="/setup/account" className="go-back"><i className="fas fa-chevron-left"/></Link>
-          </div>
+          <ProgressBar
+            step={3}
+            progressBarImage={setupStep03}
+            progressBarImagex2={setupStep03x2}
+          />
           <div className="form-group">
             <label>{_('Certificate type')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-              <Field name="certificateType" component="select"
+              <Field
+                name="certificateType"
+                component="select"
                 className="form-control border-0"
                 onChange={this.generateChangeCertificateTypeHandler(handleChange)}
               >
@@ -242,10 +240,12 @@ module.exports = class SetupHTTPS extends Base {
     const initialValue = store.get('$setup').https;
 
     return (
-      <div className="page-setup-https">
-        <img src={logo} className="logo" alt="AndroVideo"/>
-        <img src={decoration} className="decoration"/>
-        <div className="container">
+      <div className="page-setup-https bg-secondary">
+        <div className="navbar primary">
+          { !window.isNoBrand &&
+          <img src={logo}/>}
+        </div>
+        <div className="container-fluid">
           <div className="row justify-content-center">
             <div className="col-card">
               <Formik

@@ -11,9 +11,7 @@ exports.login = (req, res) => {
       permission: 'admin'
     });
   } else {
-    throw new errors.Http400('incorrect account or password.', {
-      loginFailedRemainingTimes: req.rateLimit.remaining
-    });
+    throw new errors.Http400('incorrect account or password.', {loginFailedRemainingTimes: req.rateLimit.remaining});
   }
 };
 

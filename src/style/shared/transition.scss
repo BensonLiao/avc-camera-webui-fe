@@ -1,7 +1,9 @@
 $transition-time: 0.2s;
 
 .transition {
-  transition: opacity $transition-time linear, visibility $transition-time linear;
+  transition:
+    opacity $transition-time linear,
+    visibility $transition-time linear;
 }
 
 .transition-transform {

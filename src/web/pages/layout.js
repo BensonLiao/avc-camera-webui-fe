@@ -6,6 +6,7 @@ const {RouterView} = require('capybara-router');
 const Base = require('./shared/base');
 const {Link, getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Loading = require('../../core/components/loading');
 const iconHome = require('../../resource/left-navigation-home.svg');
 const iconMedia = require('../../resource/left-navigation-media.svg');
@@ -18,10 +19,8 @@ const iconSystem = require('../../resource/left-navigation-system.svg');
 const iconSDCard = require('../../resource/left-navigation-sd-card.svg');
 const logo = require('../../resource/logo-avc.svg');
 const CustomTooltip = require('../../core/components/tooltip');
-const CustomNotifyModal = require('../../core/components/custom-notify-modal');
+const SessionExpireModal = require('../../core/components/session-expire-modal');
 const api = require('../../core/apis/web-api');
-const store = require('../../core/store');
-const Timer = require('../../core/timer');
 const _ = require('../../languages');
 const constants = require('../../core/constants');
 
@@ -36,9 +35,7 @@ module.exports = class Layout extends Base {
         modelName: PropTypes.string.isRequired,
         firmware: PropTypes.string.isRequired
       }).isRequired,
-      networkSettings: PropTypes.shape({
-        mac: PropTypes.string.isRequired
-      }).isRequired
+      networkSettings: PropTypes.shape({mac: PropTypes.string.isRequired}).isRequired
     };
   }
 
@@ -48,42 +45,10 @@ module.exports = class Layout extends Base {
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
-        this.setState({
-          currentRouteName: toState.name
-        });
+        this.setState({currentRouteName: toState.name});
       })
     );
     this.state.isShowAboutModal = false;
-    this.state.isShowExpireModal = false;
-    this.state.expireModalBody = _('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN]);
-    this.countdownTimerID = null;
-    this.countdownID = null;
-  }
-
-  componentDidMount() {
-    const expires = localStorage.getItem(constants.store.EXPIRES) || null;
-    if (expires) {
-      const expiresTimer = new Timer(
-        () => {
-          this.setState(
-            {isShowExpireModal: true},
-            () => {
-              let countdown = constants.REDIRECT_COUNTDOWN;
-              this.countdownID = setInterval(() => {
-                this.setState({expireModalBody: _('Your session has expired, redirect in {0} seconds', [--countdown])});
-              }, 1000);
-              this.countdownTimerID = setTimeout(() => {
-                clearInterval(this.countdownID);
-                location.href = '/login';
-              }, constants.REDIRECT_COUNTDOWN * 1000);
-            }
-          );
-        },
-        expires
-      );
-      expiresTimer.start();
-      store.set(constants.store.EXPIRES_TIMER, expiresTimer);
-    }
   }
 
   showAboutModal = () => {
@@ -92,6 +57,16 @@ module.exports = class Layout extends Base {
 
   hideAboutModal = () => {
     this.setState({isShowAboutModal: false});
+  };
+
+  generateChangeLanguageHandler = languageCode => event => {
+    event.preventDefault();
+    progress.start();
+    api.system.updateLanguage(languageCode)
+      .then(() => {
+        location.reload();
+      })
+      .catch(progress.done);
   };
 
   onClickLogout = event => {
@@ -106,7 +81,8 @@ module.exports = class Layout extends Base {
 
   render() {
     const {systemInformation, networkSettings} = this.props;
-    const {$user, currentRouteName, isShowAboutModal, isShowExpireModal, expireModalBody} = this.state;
+    const {$user, currentRouteName, isShowAboutModal} = this.state;
+    const isAdmin = $user.permission === UserPermission.root || $user.permission === UserPermission.superAdmin;
     const classTable = {
       home: classNames(
         'btn d-flex justify-content-center align-items-center',
@@ -122,16 +98,16 @@ module.exports = class Layout extends Base {
             'web.media.word',
             'web.media.privacy-mask'
           ].indexOf(currentRouteName) >= 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       audio: classNames(
         'btn',
         {
           active: currentRouteName === 'web.audio',
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       notification: classNames(
@@ -143,8 +119,8 @@ module.exports = class Layout extends Base {
             'web.notification.smtp',
             'web.notification.cards'
           ].indexOf(currentRouteName) >= 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       users: classNames(
@@ -161,8 +137,8 @@ module.exports = class Layout extends Base {
             'web.users.accounts.new-user',
             'web.users.events'
           ].indexOf(currentRouteName) >= 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       smart: classNames(
@@ -174,39 +150,39 @@ module.exports = class Layout extends Base {
             'web.smart.motion-detection',
             'web.smart.license'
           ].indexOf(currentRouteName) >= 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       network: classNames(
         'btn',
         {
           active: currentRouteName.indexOf('web.network') === 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       system: classNames(
         'btn',
         {
           active: currentRouteName.indexOf('web.system') === 0,
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       ),
       sdCard: classNames(
         'btn',
         {
           active: currentRouteName === 'web.sd-card',
-          'd-flex justify-content-center align-items-center': $user.permission === '0',
-          'd-none': $user.permission !== '0'
+          'd-flex justify-content-center align-items-center': isAdmin,
+          'd-none': !isAdmin
         }
       )
     };
 
     return (
       <>
-        { $user.permission === '0' && (
+        { isAdmin && (
           <div className="left-navigation fixed-top">
             <CustomTooltip title={_('Home')}>
               <Link className={classTable.home} to="/">
@@ -258,7 +234,7 @@ module.exports = class Layout extends Base {
 
         <nav className="navbar navbar-expand fixed-top">
           <Link className="navbar-brand py-0 mx-0" to="/">
-            <img src={logo} className="logo"/>
+            {!window.isNoBrand && <img src={logo} className="logo"/>}
           </Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation">
             <span className="navbar-toggler-icon"/>
@@ -266,42 +242,33 @@ module.exports = class Layout extends Base {
           <div className="collapse navbar-collapse" id="navigation">
             <ul className="navbar-nav mr-auto"/>
             <form className="form-row text-right">
+
+              <div className="col">
+                <div className="dropdown">
+                  <button className="btn border-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
+                  </button>
+                  <div className="dropdown-menu dropdown-menu-right">
+                    {
+                      constants.AVAILABLE_LANGUAGE_CODES.map(languageCode => (
+                        <a
+                          key={languageCode}
+                          className="dropdown-item"
+                          href={`#${languageCode}`}
+                          onClick={this.generateChangeLanguageHandler(languageCode)}
+                        >
+                          {window.config.languages[languageCode].title}
+                        </a>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+
               <div className="col d-none d-sm-block">
                 <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
                   <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
                 </button>
-              </div>
-
-              <div className="col">
-                <div className="dropdown">
-                  <button className="btn text-primary border-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i className="fas fa-question-circle text-primary text-size-20" style={{width: '20px', marginRight: '4px'}}/>
-                  </button>
-                  <div className="dropdown-menu dropdown-menu-right">
-                    <h5 className="dropdown-header text-primary"> {_('Support')}</h5>
-                    <a className="dropdown-item" href="http://www.androvideo.com/contact.aspx" target="_blank" rel="noopener noreferrer">
-                      {_('Online Support Request')}
-                    </a>
-                    <a className="dropdown-item" href="http://www.androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
-                      {_('Firmware Downloads')}
-                    </a>
-                    <a className="dropdown-item" href="http://www.androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
-                      {_('Software Downloads')}
-                    </a>
-                    <a className="dropdown-item" href="http://www.androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
-                      {_('Downloads')}
-                    </a>
-                    <a className="dropdown-item" href="http://www.androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
-                      {_('Product Selector')}
-                    </a>
-                    <a className="dropdown-item" href="http://www.androvideo.com/home.aspx" target="_blank" rel="noopener noreferrer">
-                      {_('Technical Updates')}
-                    </a>
-                    <a className="dropdown-item" href="http://www.androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
-                      {_('Resources')}
-                    </a>
-                  </div>
-                </div>
               </div>
 
               <div className="col">
@@ -355,27 +322,7 @@ module.exports = class Layout extends Base {
           </div>
         </Modal>
 
-        <CustomNotifyModal
-          backdrop="static"
-          modalType="info"
-          isShowModal={isShowExpireModal}
-          modalTitle={_('Session Expired')}
-          modalBody={expireModalBody}
-          confirmBtnTitle={_('Resume Session')}
-          onConfirm={() => {
-            api.account.refresh()
-              .finally(() => {
-                clearTimeout(this.countdownTimerID);
-                clearInterval(this.countdownID);
-                this.setState({
-                  isShowExpireModal: false,
-                  expireModalBody: _('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN])
-                });
-              });
-          }}
-          onHide={() => {
-            this.setState({isShowExpireModal: false});
-          }}/>
+        <SessionExpireModal/>
 
         <RouterView>
           <Loading/>

@@ -39,9 +39,13 @@ module.exports = class App extends Base {
       <Form className="card-body">
         <div className="form-group">
           <label>{_('Device token')}</label>
-          <Field autoFocus name="deviceToken" type="text"
+          <Field
+            autoFocus
+            name="deviceToken"
+            type="text"
             placeholder={_('Please enter your device token.')}
-            className={classNames('form-control', {'is-invalid': errors.deviceToken && touched.deviceToken})}/>
+            className={classNames('form-control', {'is-invalid': errors.deviceToken && touched.deviceToken})}
+          />
           {
             errors.deviceToken && touched.deviceToken && (
               <div className="invalid-feedback">{errors.deviceToken}</div>
@@ -50,8 +54,12 @@ module.exports = class App extends Base {
         </div>
         <div className="form-group">
           <label>{_('Device id')}</label>
-          <Field name="deviceId" type="text" placeholder={_('Please enter your device id.')}
-            className={classNames('form-control', {'is-invalid': errors.deviceId && touched.deviceId})}/>
+          <Field
+            name="deviceId"
+            type="text"
+            placeholder={_('Please enter your device id.')}
+            className={classNames('form-control', {'is-invalid': errors.deviceId && touched.deviceId})}
+          />
           {
             errors.deviceId && touched.deviceId && (
               <div className="invalid-feedback">{errors.deviceId}</div>
@@ -60,8 +68,12 @@ module.exports = class App extends Base {
         </div>
         <div className="form-group">
           <label>{_('Notification interval (seconds)')}</label>
-          <Field name="interval" type="text" placeholder={_('Please enter your notification interval.')}
-            className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}/>
+          <Field
+            name="interval"
+            type="text"
+            placeholder={_('Please enter your notification interval.')}
+            className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
+          />
           {
             errors.interval && touched.interval && (
               <div className="invalid-feedback">{errors.interval}</div>

@@ -1,33 +1,20 @@
-const axios = require('axios');
-axios.interceptors.response.use(
-  config => config,
-  error => {
-    if (error.response.status === 408 || error.code === 'ECONNABORTED') {
-      console.log(`A timeout happend on url ${error.config.url}`);
-    }
-
-    return Promise.reject(error);
-  }
-);
-const download = require('downloadjs');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const {getRouter} = require('capybara-router');
 const React = require('react');
 const progress = require('nprogress');
-const filesize = require('filesize');
 const {Formik, Form, Field} = require('formik');
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
-const defaultVideoBackground = require('../../resource/video-bg.jpg');
 const Base = require('./shared/base');
 const _ = require('../../languages');
-const store = require('../../core/store');
 const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
-const CustomTooltip = require('../../core/components/tooltip');
+const VolumeProgressBar = require('../../core/components/volume-progress-bar');
+const LiveView = require('../../core/components/live-view');
 
 module.exports = class Home extends Base {
   static get propTypes() {
@@ -79,46 +66,24 @@ module.exports = class Home extends Base {
           gov: PropTypes.string.isRequired
         }).isRequired
       }).isRequired,
-      systemDateTime: PropTypes.shape({
-        deviceTime: PropTypes.string.isRequired
-      }).isRequired,
+      systemDateTime: PropTypes.shape({deviceTime: PropTypes.string.isRequired}).isRequired,
       authStatus: PropTypes.shape({
         isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
         isEnableAgeGenderKey: PropTypes.bool.isRequired,
         isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
       }).isRequired,
-      faceRecognitionStatus: PropTypes.shape({
-        isEnable: PropTypes.bool.isRequired
-      }).isRequired
+      faceRecognitionStatus: PropTypes.shape({isEnable: PropTypes.bool.isRequired}).isRequired
     };
   }
 
   constructor(props) {
     super(props);
-    this.streamPlayerRef = React.createRef();
     this.submitPromise = Promise.resolve();
-    this.fetchSnapshotTimeoutId = null;
     this.state.deviceName = props.systemInformation.deviceName || '';
-    this.state.isPlayStream = true;
-    store.set(`${this.constructor.name}.isPlayStream`, true);
-    this.state.streamImageUrl = null;
     this.state.isAutoFocusProcessing = false;
   }
 
-  componentDidMount() {
-    if (this.state.isPlayStream) {
-      this.fetchSnapshot();
-    }
-  }
-
   componentWillUnmount() {
-    if (this.state.streamImageUrl) {
-      window.URL.revokeObjectURL(this.state.streamImageUrl);
-    }
-
-    store.set(`${this.constructor.name}.isPlayStream`, false);
-    clearTimeout(this.fetchSnapshotTimeoutId);
-
     super.componentWillUnmount();
   }
 
@@ -129,102 +94,6 @@ module.exports = class Home extends Base {
       videoSettings.timePeriodEnd
     ]
   });
-
-  onChangeVideoSettings = ({nextValues, prevValues}) => {
-    if (prevValues.focalLength !== nextValues.focalLength || prevValues.zoom !== nextValues.zoom) {
-      // Change focus settings.
-      this.submitPromise = this.submitPromise
-        .then(() => {
-          api.video.updateFocusSettings(nextValues);
-        });
-    } else {
-      // Change other settings.
-      const values = {
-        ...nextValues,
-        hdrEnabled: `${nextValues.hdrEnabled}`,
-        timePeriodStart: nextValues.dnDuty[0],
-        timePeriodEnd: nextValues.dnDuty[1]
-      };
-
-      this.submitPromise = this.submitPromise
-        .then(() => {
-          api.video.updateSettings(values);
-        });
-    }
-  };
-
-  fetchSnapshot = () => {
-    axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
-      .then(response => {
-        if (this.state.streamImageUrl) {
-          window.URL.revokeObjectURL(this.state.streamImageUrl);
-        }
-
-        if (this.state.isPlayStream) {
-          const imageUrl = window.URL.createObjectURL(response.data);
-          this.setState({streamImageUrl: imageUrl}, this.fetchSnapshot);
-        }
-      })
-      .catch(error => {
-        if (error && error.response && error.response.status === 401) {
-          location.href = '/login';
-          return;
-        }
-
-        if (store.get(`${this.constructor.name}.isPlayStream`) &&
-          (this.state.isPlayStream || error.code === 'ECONNABORTED')) {
-          // Wait 500ms to retry.
-          this.fetchSnapshotTimeoutId = setTimeout(this.fetchSnapshot, 500);
-        }
-      });
-  };
-
-  onTogglePlayStream = event => {
-    event.preventDefault();
-    this.setState(prevState => {
-      if (prevState.isPlayStream) {
-        // Stop play stream.
-        if (prevState.streamImageUrl) {
-          window.URL.revokeObjectURL(prevState.streamImageUrl);
-        }
-
-        return {isPlayStream: false, streamImageUrl: null};
-      }
-
-      // Start play stream.
-      this.fetchSnapshot();
-      return {isPlayStream: true};
-    });
-  };
-
-  onClickDownloadImage = event => {
-    event.preventDefault();
-    api.system.getSystemDateTime().then(({data}) => {
-      const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
-      axios.get('/api/snapshot', {timeout: 1500, responseType: 'blob'})
-        .then(response => {
-          download(response.data, `${dateTime}.jpg`);
-        })
-        .catch(error => {
-          progress.done();
-          utils.showErrorNotification({
-            title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
-          });
-        });
-    });
-  };
-
-  onClickRequestFullScreen = event => {
-    event.preventDefault();
-    if (this.streamPlayerRef.current.requestFullScreen) {
-      this.streamPlayerRef.current.requestFullScreen();
-    } else if (this.streamPlayerRef.current.mozRequestFullScreen) {
-      this.streamPlayerRef.current.mozRequestFullScreen();
-    } else if (this.streamPlayerRef.current.webkitRequestFullScreen) {
-      this.streamPlayerRef.current.webkitRequestFullScreen();
-    }
-  };
 
   generateClickResetButtonHandler = ({resetForm}) => event => {
     event.preventDefault();
@@ -264,19 +133,25 @@ module.exports = class Home extends Base {
   };
 
   onBlurDeviceNameForm = event => {
-    progress.start();
-    api.system.updateDeviceName(event.target.value)
-      .then(getRouter().reload)
-      .finally(progress.done);
+    // Update device name only if the value has changed
+    if (event.target.value !== this.props.systemInformation.deviceName) {
+      progress.start();
+      api.system.updateDeviceName(event.target.value)
+        .then(getRouter().reload)
+        .finally(progress.done);
+    }
   };
 
   deviceNameFormRender = ({errors, touched}) => {
     return (
       <Form className="form-group">
-        <Field name="deviceName" type="text"
+        <Field
+          name="deviceName"
+          type="text"
           maxLength={DEVICE_NAME_CHAR_MAX}
           className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}
-          onBlur={this.onBlurDeviceNameForm}/>
+          onBlur={this.onBlurDeviceNameForm}
+        />
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
     );
@@ -290,21 +165,21 @@ module.exports = class Home extends Base {
   }
 
   render() {
-    const {systemInformation: {
-      sdUsage,
-      sdTotal,
-      sdStatus,
-      deviceStatus
-    },
-    authStatus: {
-      isEnableFaceRecognitionKey,
-      isEnableAgeGenderKey,
-      isEnableHumanoidDetectionKey
-    }, systemDateTime, videoSettings, faceRecognitionStatus} = this.props;
-    const {$user, streamImageUrl, isPlayStream, deviceName} = this.state;
-    const usedDiskPercentage = Math.ceil((sdUsage / sdTotal) * 100);
-    const freeDiskVolume = sdTotal - sdUsage;
-    const freeDiskPercentage = 100 - usedDiskPercentage;
+    const {
+      systemInformation: {
+        sdUsage,
+        sdTotal,
+        sdStatus,
+        deviceStatus
+      },
+      authStatus: {
+        isEnableFaceRecognitionKey,
+        isEnableAgeGenderKey,
+        isEnableHumanoidDetectionKey
+      }, systemDateTime, videoSettings, faceRecognitionStatus
+    } = this.props;
+    const {$user, deviceName} = this.state;
+    const isAdmin = $user.permission === UserPermission.root || $user.permission === UserPermission.superAdmin;
     const classTable = {
       faceRecognitionState: classNames({
         'text-success': faceRecognitionStatus.isEnable && isEnableFaceRecognitionKey,
@@ -321,48 +196,16 @@ module.exports = class Home extends Base {
     };
 
     return (
-      <div className={classNames('main-content', $user.permission === '0' ? '' : 'pl-0')}>
+      <div className={classNames('main-content', isAdmin ? '' : 'pl-0')}>
         <div className="page-home">
           <div className="container-fluid">
-            <div className={classNames($user.permission === '0' ? 'row' : 'd-flex justify-content-center')}>
+            <div className={classNames(isAdmin ? 'row' : 'd-flex justify-content-center')}>
               <div className="col-8 pr-24">
                 {/* The video */}
-                <div className="video-wrapper mb-4">
-                  <div ref={this.streamPlayerRef}>
-                    <img
-                      className="img-fluid" draggable={false} src={streamImageUrl || defaultVideoBackground}
-                      onClick={this.onTogglePlayStream}/>
-                    <div className={classNames('cover d-flex justify-content-center align-items-center', {pause: isPlayStream})} onClick={this.onTogglePlayStream}>
-                      <button className="btn-play" type="button">
-                        <i className="fas fa-play fa-fw"/>
-                      </button>
-                    </div>
-                    {
-                      isPlayStream && !streamImageUrl && (
-                        <div className="cover d-flex justify-content-center align-items-center text-muted"
-                          onClick={this.onTogglePlayStream}
-                        >
-                          <div className="spinner-border">
-                            <span className="sr-only">Loading...</span>
-                          </div>
-                        </div>
-                      )
-                    }
-                  </div>
-                  <div className="controls d-flex justify-content-end align-items-center">
-                    <div>
-                      <button className="btn-action" type="button" onClick={this.onClickDownloadImage}>
-                        <i className="fas fa-camera"/>
-                      </button>
-                      <button className="btn-action" type="button" onClick={this.onClickRequestFullScreen}>
-                        <i className="fas fa-expand-arrows-alt"/>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <LiveView/>
 
                 {/* System information */}
-                { $user.permission === '0' && (
+                { isAdmin && (
                   <div className="card border-0 shadow">
                     <table>
                       <thead>
@@ -417,35 +260,10 @@ module.exports = class Home extends Base {
                             )}
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? '' : 'd-none')}>
-                            <div className="progress">
-                              {
-                                isNaN(usedDiskPercentage) ?
-                                  <div className="progress-bar"/> :
-                                  <>
-                                    <CustomTooltip title={_('Used: {0}', [filesize(sdUsage)])}>
-                                      <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
-                                        {`${usedDiskPercentage}%`}
-                                      </div>
-                                    </CustomTooltip>
-                                    {usedDiskPercentage && (
-                                      <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
-
-                                        <div className="progress-bar" style={{width: `${freeDiskPercentage}%`, backgroundColor: '#e9ecef', color: 'var(--gray-dark)'}}>
-                                          {`${freeDiskPercentage}%`}
-                                        </div>
-                                      </CustomTooltip>)}
-                                  </>
-                              }
-                            </div>
-                            <p>
-                              {
-                                _('Free: {0}, Total: {1}', [
-                                  filesize(freeDiskVolume),
-                                  filesize(sdTotal)
-                                ])
-                              }
-
-                            </p>
+                            <VolumeProgressBar
+                              total={sdTotal}
+                              usage={sdUsage}
+                            />
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? 'd-none' : '')}>
                             <label>{_(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}</label>
@@ -456,7 +274,7 @@ module.exports = class Home extends Base {
                   </div>
                 )}
               </div>
-              { $user.permission === '0' && (
+              { isAdmin && (
                 <div className="col-4 pl-0">
                   <div className="card shadow">
                     <VideoSetting

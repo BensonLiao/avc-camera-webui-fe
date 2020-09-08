@@ -6,6 +6,7 @@ const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 
@@ -70,18 +71,7 @@ module.exports = class Maintain extends Base {
     }), () => {
       api.system.deviceReboot()
         .then(() => new Promise(resolve => {
-          // Check the server was shut down, if success then shutdown was failed and retry.
-          const test = () => {
-            api.ping('web')
-              .then(() => {
-                setTimeout(test, 500);
-              })
-              .catch(() => {
-                resolve();
-              });
-          };
-
-          test();
+          utils.pingToCheckShutdown(resolve, 1000);
         }))
         .then(() => {
           // Keep modal and update the title.
@@ -126,18 +116,7 @@ module.exports = class Maintain extends Base {
       api.system.deviceReset(resetIP)
         .then(() => {
           new Promise(resolve => {
-            // Check the server was shut down, if success then shutdown was failed and retry.
-            const test = () => {
-              api.ping('web')
-                .then(() => {
-                  setTimeout(test, 500);
-                })
-                .catch(() => {
-                  resolve();
-                });
-            };
-
-            test();
+            utils.pingToCheckShutdown(resolve, 1000);
           })
             .then(() => {
               if (resetIP) {
@@ -149,29 +128,28 @@ module.exports = class Maintain extends Base {
                   finishModalBody: _('Please follow the user manual to access your camera.'),
                   onConfirm: this.hideFinishModal
                 });
-                return;
-              }
-
-              // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: _('Device Rebooting')});
-              // Check the server was start up, if success then startup was failed and retry.
-              const test = () => {
-                api.ping('app')
-                  .then(() => {
-                    progress.done();
-                    this.hideApiProcessModal();
-                    this.setState({
-                      isShowFinishModal: true,
-                      finishModalTitle: _('System Reset'),
-                      finishModalBody: _('Device has reset. Please log in again.')
+              } else {
+                // Keep modal and update the title.
+                this.setState({apiProcessModalTitle: _('Device Rebooting')});
+                // Check the server was start up, if success then startup was failed and retry.
+                const test = () => {
+                  api.ping('app')
+                    .then(() => {
+                      progress.done();
+                      this.hideApiProcessModal();
+                      this.setState({
+                        isShowFinishModal: true,
+                        finishModalTitle: _('System Reset'),
+                        finishModalBody: _('Device has reset. Please log in again.')
+                      });
+                    })
+                    .catch(() => {
+                      setTimeout(test, 1000);
                     });
-                  })
-                  .catch(() => {
-                    setTimeout(test, 1000);
-                  });
-              };
+                };
 
-              test();
+                test();
+              }
             });
         })
         .catch(() => {
@@ -199,17 +177,7 @@ module.exports = class Maintain extends Base {
           api.system.deviceReboot()
             .then(() => new Promise(resolve => {
               // Check the server was shut down, if success then shutdown was failed and retry.
-              const test = () => {
-                api.ping('web')
-                  .then(() => {
-                    setTimeout(test, 500);
-                  })
-                  .catch(() => {
-                    resolve();
-                  });
-              };
-
-              test();
+              utils.pingToCheckShutdown(resolve, 1000);
             }))
             .then(() => {
               // Keep modal and update the title.
@@ -270,20 +238,20 @@ module.exports = class Maintain extends Base {
             isShowModal={this.state.isShowSelectModal.reset}
             modalTitle={values.resetIP ? _('Restore All Settings') : _('Restore to Default Settings')}
             modalBody={values.resetIP ?
-              _('The system will return to factory default settings. Any data and configurations you have saved will be overwritten.') :
-              [_(`The system will reset the device. All configurations are overwritten and 
-              settings go back to default except the following:`),
-              _('• Members and Groups'),
-              _('• System Accounts'),
-              _('• Focus and Zoom settings of the Image'),
-              _('• RTSP settings'),
-              _('• Internet/Network settings'),
-              _('• SD Card settings.')]}
+              _('The system will revert to factory default settings. Any data and configurations you have saved will be overwritten.') :
+              [`${_('The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following')} :`,
+                _('• Members and Groups'),
+                _('• System Accounts'),
+                _('• Focus and Zoom settings of the Image'),
+                _('• RTSP settings'),
+                _('• Internet/Network settings'),
+                _('• SD Card settings.')]}
             isConfirmDisable={this.state.$isApiProcessing}
             onHide={this.hideModal('reset')}
             onConfirm={() => {
               this.onSubmitDeviceReset(values);
-            }}/>
+            }}
+          />
           <div>
             <button
               className="btn btn-outline-primary rounded-pill px-5"
@@ -370,14 +338,16 @@ module.exports = class Maintain extends Base {
                 backdrop="static"
                 isShowModal={isShowApiProcessModal}
                 modalTitle={apiProcessModalTitle}
-                onHide={this.hideApiProcessModal}/>
+                onHide={this.hideApiProcessModal}
+              />
               <CustomNotifyModal
                 modalType="info"
                 isShowModal={isShowFinishModal}
                 modalTitle={finishModalTitle}
                 modalBody={finishModalBody}
                 onHide={this.hideFinishModal}
-                onConfirm={onConfirm}/>
+                onConfirm={onConfirm}
+              />
 
               <div className="col-center">
                 <div className="card shadow">
@@ -401,7 +371,8 @@ module.exports = class Maintain extends Base {
                       modalBody={_('Are you sure you want to reboot the system?')}
                       isConfirmDisable={$isApiProcessing}
                       onHide={this.hideModal('reboot')}
-                      onConfirm={this.onSubmitDeviceReboot}/>
+                      onConfirm={this.onSubmitDeviceReboot}
+                    />
                     <Formik
                       initialValues={{resetIP: false}}
                       onSubmit={this.onSubmitDeviceReset}

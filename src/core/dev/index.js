@@ -1,9 +1,29 @@
 const axios = require('axios');
 const MockAdapter = require('axios-mock-adapter');
 const uuidv4 = require('uuid/v4');
-const {mockResponseWithLog, isArray} = require('../utils');
-const Confidence = require('webserver-form-schema/constants/event-filters/confidence');
-const EnrollStatus = require('webserver-form-schema/constants/event-filters/enroll-status');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
+
+/**
+ * Log mock XHR like axios with console.groupCollapsed() and return mock response.
+ * @param {Object} req XHR request instance,
+ * or if we use library like axios then `req` is the axios request config and contains things like `url`.
+ * @see https://github.com/axios/axios#request-config
+ * @param {Array<Number, ?Object, ?Object>} res Accept any type of response,
+ * or if we use library like axios-mock-adapter then this will be an array in the form of [status, data, headers].
+ * @see https://github.com/ctimmerm/axios-mock-adapter
+ * @returns {Array<Number, ?Object, ?Object>} Same object as `res`.
+ */
+const mockResponseWithLog = (req, res) => {
+  console.groupCollapsed(`[${res[0]}] ${req.method} ${req.url}`);
+  console.log('request config:', req);
+  console.log('response: [status, data, headers]', res);
+  console.groupEnd();
+  return res;
+};
+
+const isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
+
 const mockDB = require('./db');
 const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);
@@ -53,6 +73,15 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   .onPost('/api/system/_setup').reply(config => {
     return mockResponseWithLog(config, [200, {}]);
   })
+  .onPost('/api/_validate/account-birthday').reply(config => {
+    return mockResponseWithLog(config, [200, {}]);
+  })
+  .onPost('/api/_validate/account-birthday').reply(config => {
+    return mockResponseWithLog(config, [200, {}]);
+  })
+  .onPost('/api/account/_change-password').reply(config => {
+    return mockResponseWithLog(config, [200, {}]);
+  })
   .onGet('/api/system/information').reply(config => {
     return mockResponseWithLog(config, [200, db.get('system').value()]);
   })
@@ -78,7 +107,10 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     return mockResponseWithLog(config, [200, db.get('networkSettings').assign(data).write()]);
   })
   .onPost('/api/system/network/testdhcp').reply(config => {
-    return mockResponseWithLog(config, [200, {success: 1, resultIP: '19.168.88.99'}]);
+    return mockResponseWithLog(config, [200, {
+      success: 1,
+      resultIP: '19.168.88.99'
+    }]);
   })
   .onGet('/api/system/network/tcpip/ddns').reply(config => {
     return mockResponseWithLog(config, [200, db.get('ddnsSettings').value()]);
@@ -162,6 +194,14 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   .onGet('/api/multimedia/audio/settings').reply(config => {
     return mockResponseWithLog(config, [200, db.get('audioSettings').value()]);
   })
+  .onGet('/api/multimedia/hdmi/settings').reply(config => {
+    return mockResponseWithLog(config, [200, db.get('hdmiSettings').value()]
+    );
+  })
+  .onPut('/api/multimedia/hdmi/settings').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('hdmiSettings').assign(newItem).write()]);
+  })
   .onPut('/api/multimedia/audio/settings').reply(config => {
     const newItem = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('audioSettings').assign(newItem).write()]);
@@ -233,14 +273,20 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   })
   .onPost('/api/notification/cards').reply(config => {
     const cards = db.get('notificationCards').value();
-    const card = {id: (cards.sort((a, b) => b.id - a.id)[0] || {id: 0}).id + 1, ...JSON.parse(config.data)};
+    const card = {
+      id: (cards.sort((a, b) => b.id - a.id)[0] || {id: 0}).id + 1,
+      ...JSON.parse(config.data)
+    };
     cards.push(card);
     db.get('notificationCards').assign(cards).write();
     return mockResponseWithLog(config, [200, card]);
   })
   .onPut(/api\/notification\/cards\/\d+$/).reply(config => {
     const id = parseInt(config.url.replace('/api/notification/cards/', ''), 10);
-    const card = {id, ...JSON.parse(config.data)};
+    const card = {
+      id,
+      ...JSON.parse(config.data)
+    };
     return mockResponseWithLog(config, [200, db.get('notificationCards').find({id}).assign(card).write()]);
   })
   .onDelete(/api\/notification\/cards\/\d+$/).reply(config => {
@@ -249,9 +295,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/groups').reply(config => {
-    return mockResponseWithLog(config, [200, {
-      items: db.get('groups').value()
-    }]);
+    return mockResponseWithLog(config, [200, {items: db.get('groups').value()}]);
   })
   .onGet(/api\/groups\/[a-f0-9-]{36}$/).reply(config => {
     const itemId = config.url.replace('/api/groups/', '');
@@ -334,6 +378,11 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     db.get('members').remove({id: itemId}).write();
     return mockResponseWithLog(config, [204, {}]);
   })
+  .onPost('/api/members/validate-picture').reply(config => new Promise((resolve, _) => {
+    setTimeout(() => {
+      resolve(mockResponseWithLog(config, [200, {vectors: '-1.5556641|0.6513672|0.98339844|1.7167969|0.31469727|1.0039062|1.2324219|-1.2900391|-1.1025391|-0.06774902|-0.18640137|-0.2388916|0.98876953|1.1708984|0.46679688|0.33325195|-0.54345703|1.1679688|-1.3925781|-0.29174805|1.2333984|0.33618164|0.27563477|0.68603516|1.0507812|-0.82958984|1.1220703|-0.92578125|-1.0791016|0.8652344|1.1513672|-0.05999756|-0.031707764|-0.39208984|0.62060547|-0.71240234|1.2998047|-0.38549805|-0.6254883|-0.359375|1.0605469|-0.69384766|1.9082031|0.31445312|1.3095703|0.48291016|1.8291016|-0.32861328|-0.6567383|0.078063965|-0.52197266|-2.1015625|-1.4453125|-0.80371094|-0.1665039|1.4375|-2.4394531|0.5449219|-1.6035156|0.5317383|0.6411133|0.3203125|-0.35595703|1.0898438|-0.95996094|-0.7402344|-0.4765625|0.38134766|0.26611328|0.17626953|-0.11102295|0.8515625|1.5234375|0.9892578|1.6708984|-0.3564453|-0.55615234|0.5288086|1.4619141|-0.1640625|-1.0332031|-0.0014228821|1.0800781|0.2788086|0.31640625|-1.4296875|-0.8125|-1.6435547|0.97558594|0.9394531|0.8100586|0.52685547|-0.5361328|0.107299805|-0.9482422|-2.0664062|0.42773438|-1.1542969|-0.80810547|1.1025391|0.6010742|0.74902344|0.19067383|-0.25927734|-0.80566406|-1.5957031|0.4230957|-0.36572266|-0.55566406|0.38916016|0.7861328|0.7001953|-0.64208984|0.4489746|0.3762207|0.37646484|-1.0|0.6508789|-0.20788574|-1.0849609|0.6430664|1.2910156|0.9926758|0.5888672|-1.4609375|0.071777344|-1.0644531|0.22192383|'}]));
+    }, 2500);
+  }))
   .onGet('/api/face-events').reply(config => {
     const data = db.get('faceEvents')
       .filter(value => {
@@ -342,44 +391,44 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
             switch (config.params.confidence) {
               default:
                 return true;
-              case Confidence.low:
+              case Similarity.low:
                 return value.confidences[0].score < 55;
-              case Confidence.medium:
+              case Similarity.medium:
                 return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
-              case Confidence.high:
+              case Similarity.high:
                 return value.confidences[0].score >= 65;
             }
           }
 
           if (isArray(config.params.confidence)) {
-            if (config.params.confidence.length === Confidence.all().length) {
+            if (config.params.confidence.length === Similarity.all().length) {
               return true;
             }
 
-            if (config.params.confidence.indexOf(Confidence.low) > 0 &&
-            config.params.confidence.indexOf(Confidence.medium) > 0) {
+            if (config.params.confidence.indexOf(Similarity.low) > 0 &&
+            config.params.confidence.indexOf(Similarity.medium) > 0) {
               return value.confidences[0].score < 65;
             }
 
-            if (config.params.confidence.indexOf(Confidence.low) > 0 &&
-            config.params.confidence.indexOf(Confidence.high) > 0) {
+            if (config.params.confidence.indexOf(Similarity.low) > 0 &&
+            config.params.confidence.indexOf(Similarity.high) > 0) {
               return value.confidences[0].score < 55 || value.confidences[0].score >= 65;
             }
 
-            if (config.params.confidence.indexOf(Confidence.medium) > 0 &&
-            config.params.confidence.indexOf(Confidence.high) > 0) {
+            if (config.params.confidence.indexOf(Similarity.medium) > 0 &&
+            config.params.confidence.indexOf(Similarity.high) > 0) {
               return value.confidences[0].score >= 55;
             }
 
-            if (config.params.confidence.indexOf(Confidence.low) > 0) {
+            if (config.params.confidence.indexOf(Similarity.low) > 0) {
               return value.confidences[0].score < 55;
             }
 
-            if (config.params.confidence.indexOf(Confidence.medium) > 0) {
+            if (config.params.confidence.indexOf(Similarity.medium) > 0) {
               return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
             }
 
-            if (config.params.confidence.indexOf(Confidence.high) > 0) {
+            if (config.params.confidence.indexOf(Similarity.high) > 0) {
               return value.confidences[0].score >= 65;
             }
           }
@@ -390,20 +439,42 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       .filter(value => {
         if (config.params.enrollStatus && config.params.enrollStatus.length > 0) {
           if (typeof config.params.enrollStatus === 'string') {
-            return config.params.enrollStatus === value.confidences[0].enrollStatus;
+            return config.params.enrollStatus === value.recognitionType;
           }
 
           if (isArray(config.params.enrollStatus)) {
-            if (config.params.enrollStatus.length === EnrollStatus.all().length) {
+            if (config.params.enrollStatus.length === RecognitionType.all().length) {
               return true;
             }
 
-            if (config.params.enrollStatus.indexOf(EnrollStatus.registered) > 0) {
-              return EnrollStatus.registered === value.confidences[0].enrollStatus;
+            if (config.params.enrollStatus.indexOf(RecognitionType.registered) >= 0 &&
+            config.params.enrollStatus.indexOf(RecognitionType.unknown) >= 0) {
+              return RecognitionType.registered === value.recognitionType ||
+                RecognitionType.unknown === value.recognitionType;
             }
 
-            if (config.params.enrollStatus.indexOf(EnrollStatus.unknown) > 0) {
-              return EnrollStatus.unknown === value.confidences[0].enrollStatus;
+            if (config.params.enrollStatus.indexOf(RecognitionType.registered) >= 0 &&
+            config.params.enrollStatus.indexOf(RecognitionType.fake) >= 0) {
+              return RecognitionType.registered === value.recognitionType ||
+                RecognitionType.fake === value.recognitionType;
+            }
+
+            if (config.params.enrollStatus.indexOf(RecognitionType.fake) >= 0 &&
+            config.params.enrollStatus.indexOf(RecognitionType.unknown) >= 0) {
+              return RecognitionType.fake === value.recognitionType ||
+                RecognitionType.unknown === value.recognitionType;
+            }
+
+            if (config.params.enrollStatus.indexOf(RecognitionType.registered) >= 0) {
+              return RecognitionType.registered === value.recognitionType;
+            }
+
+            if (config.params.enrollStatus.indexOf(RecognitionType.unknown) >= 0) {
+              return RecognitionType.unknown === value.recognitionType;
+            }
+
+            if (config.params.enrollStatus.indexOf(RecognitionType.fake) >= 0) {
+              return RecognitionType.fake === value.recognitionType;
             }
           }
         }
@@ -448,7 +519,6 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     const newItem = JSON.parse(config.data);
     const maxId = db.get('users').sortBy('id').takeRight(1).value()[0].id;
     newItem.id = maxId + 1;
-    newItem.permission = parseInt(newItem.permission, 10);
     return mockResponseWithLog(config, [200, db.get('users').push(newItem).write()]);
   })
   .onDelete(/api\/users\/\d+$/).reply(config => {
@@ -457,14 +527,10 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/members/database-encryption-settings').reply(config => {
-    return mockResponseWithLog(config, [200, {
-      password: '0000'
-    }]);
+    return mockResponseWithLog(config, [200, {password: '0000'}]);
   })
   .onPut('/api/members/database-encryption-settings').reply(config => {
-    return mockResponseWithLog(config, [200, {
-      password: '0000'
-    }]);
+    return mockResponseWithLog(config, [200, {password: '0000'}]);
   })
   .onPost('/api/members/database').reply(config => {
     return mockResponseWithLog(config, [204]);
@@ -476,6 +542,10 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     return mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]);
   })
   .onPut('/api/face-recognition/fr').reply(config => {
+    const settings = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
+  })
+  .onPut('/api/face-recognition/spoofing').reply(config => {
     const settings = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
   })

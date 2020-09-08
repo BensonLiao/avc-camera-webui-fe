@@ -1,7 +1,6 @@
 @import "./shared/bootstrap";
 @import "./shared/overwrite-bootstrap";
 @import "./shared/progress-circles.scss";
-
 @import "./main/error";
 @import "./main/history";
 @import "./main/variables";
@@ -15,6 +14,7 @@
 @import "./main/license";
 @import "./main/loading";
 @import "./main/account";
+@import "./main/setup.scss";
 @import "./main/smart";
 @import "./main/system";
 @import "./main/user";

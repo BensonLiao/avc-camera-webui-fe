@@ -2,7 +2,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const {getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const UserSchema = require('webserver-form-schema/user-schema');
@@ -11,10 +11,11 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const UserValidator = require('../../validations/users/user-validator');
 const NewUserValidator = require('../../validations/users/new-user-validator');
-const Password = require('../../../core/components/fields/password');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const {SECURITY_USERS_MAX} = require('../../../core/constants');
+const Password = require('../../../core/components/fields/password');
+const SelectField = require('../../../core/components/fields/select-field');
 
 module.exports = class User extends Base {
   static get propTypes() {
@@ -22,13 +23,13 @@ module.exports = class User extends Base {
       users: PropTypes.shape({
         items: PropTypes.arrayOf(PropTypes.shape({
           id: PropTypes.number.isRequired,
-          permission: PropTypes.number.isRequired,
+          permission: PropTypes.string.isRequired,
           account: PropTypes.string.isRequired
         })).isRequired
       }),
       user: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        permission: PropTypes.number.isRequired,
+        permission: PropTypes.string.isRequired,
         account: PropTypes.string.isRequired
       })
     };
@@ -54,7 +55,7 @@ module.exports = class User extends Base {
     if (user) {
       return {
         id: user.id,
-        permission: user.permission,
+        permission: user.permission === UserPermission.viewer ? UserPermission.guest : user.permission,
         account: user.account,
         password: '',
         newPassword: '',
@@ -65,22 +66,26 @@ module.exports = class User extends Base {
     return {
       permission: UserPermission.root,
       account: '',
+      birthday: '',
       password: '',
       confirmPassword: ''
     };
   };
 
   hideModal = (reload = false) => {
-    getRouter().go({
-      name: 'web.users.accounts'
-    }, {reload});
+    getRouter().go({name: 'web.users.accounts'}, {reload});
   };
 
   onSubmitForm = values => {
     progress.start();
     if (this.props.user) {
       // Update the user.
-      api.user.updateUser(values)
+      let submitValues = {...values};
+      if (this.props.user.permission === UserPermission.viewer) {
+        submitValues.permission = UserPermission.viewer;
+      }
+
+      api.user.updateUser(submitValues)
         .then(() => {
           this.hideModal(true);
         })
@@ -110,84 +115,105 @@ module.exports = class User extends Base {
 
   formRender = ({errors, touched}) => {
     const {users: {items}, user} = this.props;
+    const {$isApiProcessing} = this.state;
+    const isSuperAdmin = user && (user.permission === UserPermission.superAdmin);
     const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
+    const permissionList = UserPermission.all().reduce((permissionList, permission) => {
+      if (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) {
+        permissionList.push(
+          <option key={permission} value={permission}>
+            {_(`permission-${permission}`)}
+          </option>);
+      }
+
+      return permissionList;
+    }, []);
     return (
       <Form>
         <div className="modal-body">
-          <div className="form-group">
-            <label>{_('Permission')}</label>
-            <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-              <Field name="permission" component="select" className="form-control border-0">
-                {
-                  UserPermission.all().map(permission => (
-                    <option key={permission} value={permission}>
-                      {_(`permission-${permission}`)}
-                    </option>
-                  ))
-                }
-              </Field>
-            </div>
-          </div>
+          <SelectField readOnly={isSuperAdmin} labelName={_('Permission')} name="permission" wrapperClassName="px-2">
+            {permissionList}
+          </SelectField>
           <div className="form-group">
             <label>{_('Account')}</label>
-            <Field name="account" type="text" placeholder={_('Enter your account')}
+            <Field
+              name="account"
+              type="text"
+              placeholder={_('Enter your account')}
+              disabled={isSuperAdmin}
               maxLength={UserSchema.account.max}
               validate={this.checkDuplicate}
-              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}/>
-            {
-              errors.account && touched.account && (
-                <div className="invalid-feedback">{errors.account}</div>
-              )
-            }
+              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
+            />
+            <ErrorMessage component="div" name="account" className="invalid-feedback"/>
           </div>
+          {
+            !user && (
+              <div className="form-group has-feedback">
+                <label>{_('Birthday')}</label>
+                <Field
+                  name="birthday"
+                  component={Password}
+                  inputProps={{
+                    placeholder: _('Enter Your Birthday'),
+                    className: classNames(
+                      'form-control', {'is-invalid': errors.birthday && touched.birthday}
+                    )
+                  }}
+                />
+                <ErrorMessage component="div" name="birthday" className="invalid-feedback"/>
+                <small className="form-text text-muted">{_('This is used for resetting password. ex. 19890312')}</small>
+              </div>
+            )
+          }
           <div className="form-group has-feedback">
-            <label>{_(this.props.user ? 'Old Password' : 'Password')}</label>
-            <Field name="password" component={Password} inputProps={{
-              placeholder: _(this.props.user ? 'Enter your old password' : 'Enter your password'),
-              className: classNames('form-control', {'is-invalid': errors.password && touched.password})
-            }}/>
-            {
-              errors.password && touched.password && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )
-            }
+            <label>{_(user ? 'Old Password' : 'Password')}</label>
+            <Field
+              name="password"
+              component={Password}
+              inputProps={{
+                placeholder: _(user ? 'Enter your old password' : 'Enter your password'),
+                className: classNames('form-control', {'is-invalid': errors.password && touched.password})
+              }}
+            />
+            <ErrorMessage component="div" name="password" className="invalid-feedback"/>
           </div>
           {
             user && (
               <div className="form-group has-feedback">
                 <label>{_('New Password')}</label>
-                <Field name="newPassword" component={Password} inputProps={{
-                  placeholder: _('Enter your new password'),
-                  className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
-                }}/>
+                <Field
+                  name="newPassword"
+                  component={Password}
+                  inputProps={{
+                    placeholder: _('Enter your new password'),
+                    className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
+                  }}
+                />
                 <small className="text-info">
-                  {_('8-16 characters, contain at least 1 upper and lowercase, 1 number, 1 symbol. Do not use #, %, &, `, “, \\, <, > and space')}
+                  {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
                 </small>
-                {
-                  errors.newPassword && touched.newPassword && (
-                    <div className="invalid-feedback">{errors.newPassword}</div>
-                  )
-                }
+                <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
               </div>
             )
           }
           <div className="form-group has-feedback">
             <label>{_(user ? 'Confirm New Password' : 'Confirm Password')}</label>
-            <Field name="confirmPassword" component={Password} inputProps={{
-              placeholder: _(user ? 'Confirm your new password' : 'Confirm your password'),
-              className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
-            }}/>
-            {
-              errors.confirmPassword && touched.confirmPassword && (
-                <div className="invalid-feedback">{errors.confirmPassword}</div>
-              )
-            }
+            <Field
+              name="confirmPassword"
+              component={Password}
+              inputProps={{
+                placeholder: _(user ? 'Confirm your new password' : 'Confirm your password'),
+                className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
+              }}
+            />
+            <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
           </div>
         </div>
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
             <button
-              disabled={this.state.$isApiProcessing || isAddUserDisabled}
+              disabled={$isApiProcessing || isAddUserDisabled}
               type="submit"
               className="btn btn-primary btn-block rounded-pill"
             >
@@ -195,7 +221,7 @@ module.exports = class User extends Base {
             </button>
           </div>
           <button
-            disabled={this.state.$isApiProcessing}
+            disabled={$isApiProcessing}
             className="btn btn-info btn-block m-0 rounded-pill"
             type="button"
             onClick={this.hideModal}
@@ -209,10 +235,11 @@ module.exports = class User extends Base {
 
   render() {
     const {user} = this.props;
+    const {$isApiProcessing, isShowModal} = this.state;
     const validator = user ? UserValidator : NewUserValidator;
 
     return (
-      <Modal autoFocus={false} show={this.state.isShowModal} backdrop={this.state.$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
+      <Modal autoFocus={false} show={isShowModal} backdrop={$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
           <Modal.Title as="h5">{user ? _('Modify User') : _('New User')}</Modal.Title>
         </Modal.Header>
