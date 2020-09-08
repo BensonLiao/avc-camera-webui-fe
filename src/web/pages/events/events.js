@@ -11,7 +11,7 @@ const utils = require('../../../core/utils');
 const EventsSidebar = require('./events-sidebar');
 const EventsSearchForm = require('./event-search-form');
 const EventsTable = require('./events-table');
-const {default: SearchMember} = require('../../../core/components/search-member');
+const SearchMember = require('../../../core/components/search-member').default;
 
 module.exports = class Events extends Base {
   static get propTypes() {
@@ -41,6 +41,7 @@ module.exports = class Events extends Base {
     this.state.isShowMemberModal = false;
     this.state.isShowSearchMemberModal = false;
     this.state.currentMember = null;
+    this.state.currentMemberName = null;
     this.state.eventPictureUrl = null;
     this.state.isShowStartDatePicker = false;
     this.state.isShowEndDatePicker = false;
@@ -77,7 +78,6 @@ module.exports = class Events extends Base {
     this.setState(prevState => ({
       isShowMemberModal: true,
       currentMember: null,
-      currentMemberName: null,
       eventPictureUrl: defaultPictureUrl,
       updateMemberModal: !prevState.updateMemberModal
     }));
@@ -126,7 +126,7 @@ module.exports = class Events extends Base {
   };
 
   render() {
-    const {$isApiProcessing, type, isShowMemberModal, isShowSearchMemberModal, currentMember, eventPictureUrl} = this.state;
+    const {$isApiProcessing, type, isShowMemberModal, isShowSearchMemberModal, currentMember, currentMemberName, eventPictureUrl} = this.state;
     const {params, authStatus, groups, faceEvents, systemDateTime} = this.props;
     let events;
     if (type === 'face-recognition') {
@@ -199,7 +199,7 @@ module.exports = class Events extends Base {
           />
           <SearchMember
             isApiProcessing={$isApiProcessing}
-            memberName={currentMember}
+            memberName={currentMemberName}
             eventPictureUrl={eventPictureUrl}
             isShowModal={isShowSearchMemberModal}
             onHide={this.onHideSearchMemberModal}
