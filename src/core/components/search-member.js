@@ -164,7 +164,7 @@ class SearchMember extends React.PureComponent {
                 </thead>
                 <tbody>
                   {
-                  /* Inital Message */
+                  /* Inital message */
                     !members && (
                       <tr>
                         <td className="text-size-20 text-center" colSpan="10">
@@ -174,8 +174,8 @@ class SearchMember extends React.PureComponent {
                     )
                   }
                   {
-                  /* Empty Search Message */
-                    members && !members.items.length && (
+                  /* Empty search message */
+                    members && !members.items.length && members.items.length === 0 && (
                       <tr>
                         <td className="text-size-20 text-center" colSpan="10">
                           <i className="fas fa-frown-open fa-fw text-dark"/> {_('Can\'t find any member.')}
@@ -225,6 +225,16 @@ class SearchMember extends React.PureComponent {
                         </tr>
                       );
                     })
+                  }
+                  {
+                  /* End of search */
+                    members && members.index === maxIndex && (
+                      <tr>
+                        <td className="text-size-20 text-center" colSpan="10">
+                          {_('End of Result')}
+                        </td>
+                      </tr>
+                    )
                   }
                 </tbody>
               </table>
