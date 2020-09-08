@@ -1,4 +1,4 @@
-const FastestFormikValidator = require('./FastestFormikValidator');
+const FastestFormikValidator = require('./fastest-formik-validator');
 const _ = require('../../languages');
 
 const customValidator = new FastestFormikValidator({
