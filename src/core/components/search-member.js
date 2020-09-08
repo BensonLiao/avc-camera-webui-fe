@@ -24,7 +24,17 @@ class SearchMember extends React.PureComponent {
 
   state={
     members: null,
-    isShowApiProcessModal: false
+    isShowApiProcessModal: false,
+    maxIndex: 0,
+    isFetching: false
+  }
+
+  addScrollListener = containerRef => {
+    if (containerRef) {
+      containerRef.addEventListener('scroll', () => {
+        this.handleScroll(containerRef);
+      });
+    }
   }
 
   generateInitialValues = memberName => {
@@ -56,12 +66,16 @@ class SearchMember extends React.PureComponent {
     });
   };
 
-  getMembers = keyword => api.member.getMembers({
-    group: null,
-    keyword: keyword,
-    index: null,
-    sort: null
-  }).then(response => this.setState({members: response.data}));
+  handleScroll = containerRef => {
+    if (Math.ceil(containerRef.offsetHeight + containerRef.scrollTop) !== containerRef.scrollHeight || this.state.isFetching) {
+      return;
+    }
+
+    const {members, maxIndex} = this.state;
+    if (members && (members.index + 1) < maxIndex) {
+      this.setState({isFetching: true});
+    }
+  };
 
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
@@ -99,6 +113,7 @@ class SearchMember extends React.PureComponent {
               </Formik>
             </div>
             <div
+              ref={this.addScrollListener}
               className="col-12 mb-5"
               style={{
                 maxHeight: '550px',
