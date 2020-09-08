@@ -48,7 +48,12 @@ class SearchMember extends React.PureComponent {
   };
 
   onSearch = values => {
-    this.getMembers(values.keyword);
+    this.setState({keyword: values.keyword});
+    this.getMembers(values.keyword)
+      .then(response => this.setState({
+        members: response.data,
+        maxIndex: Math.ceil(response.data.total / response.data.size)
+      }));
   };
 
   getMembers = (keyword = null, index = 0) => new Promise((resolve, _) => resolve(
