@@ -148,7 +148,6 @@ exports.renderError = error => {
 };
 
 exports.validateStreamBitRate = () => values => {
-  let result;
   const bitRateSchema = {
     bitRate: {
       optional: false,
@@ -182,8 +181,7 @@ exports.validateStreamBitRate = () => values => {
       }
     }
   };
-  result = validator.validate({bitRate: values}, bitRateSchema);
-  return (result === true ? '' : result[0].message);
+  return validator.validateField({bitRate: values}, bitRateSchema);
 };
 
 /**

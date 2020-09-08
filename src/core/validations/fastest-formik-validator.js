@@ -24,4 +24,15 @@ module.exports = class FastestFormikValidator extends Validator {
       return {};
     };
   }
+
+  validateField(value, schema) {
+    const check = super.compile(schema);
+    const checkResult = check(value);
+
+    if (checkResult !== true) {
+      return checkResult[0].message;
+    }
+
+    return '';
+  }
 };
