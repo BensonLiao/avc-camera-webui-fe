@@ -55,19 +55,24 @@ class SearchMember extends React.PureComponent {
     this.containerRef.scrollTo(0, 0);
     this.getMembers(values.keyword)
       .then(response => this.setState({
+        isFetching: false,
         members: response.data,
         maxIndex: Math.ceil(response.data.total / response.data.size)
       }));
   };
 
-  getMembers = (keyword = null, index = 0) => new Promise((resolve, _) => resolve(
-    api.member.getMembers({
-      group: null,
-      keyword: keyword,
-      index: index,
-      sort: null
-    })
-  ))
+  getMembers = (keyword = null, index = 0) => new Promise((resolve, _) => {
+    resolve(
+      this.setState({isFetching: true}));
+  })
+    .then(() => (
+      api.member.getMembers({
+        group: null,
+        keyword: keyword,
+        index: index,
+        sort: null
+      })
+    ))
 
   handleScroll = () => {
     if (Math.ceil(this.containerRef.offsetHeight + this.containerRef.scrollTop) !== this.containerRef.scrollHeight || this.state.isFetching) {
@@ -76,9 +81,7 @@ class SearchMember extends React.PureComponent {
 
     const {members, maxIndex} = this.state;
     if (members && (members.index) < maxIndex) {
-      this.setState({isFetching: true}, () => {
-        this.appendMemberList(members.index + 1);
-      });
+      this.appendMemberList(members.index + 1);
     }
   };
 
@@ -118,6 +121,7 @@ class SearchMember extends React.PureComponent {
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
     const {members, maxIndex, isFetching} = this.state;
+    console.log(this.state);
     return (
       <>
         <Modal
@@ -171,7 +175,7 @@ class SearchMember extends React.PureComponent {
                 <tbody>
                   {
                   /* Inital message */
-                    !members && (
+                    !members && !isFetching && (
                       <tr>
                         <td className="text-size-20 text-center" colSpan="10">
                           <i className="fas fa-search fa-fw"/> {_('Please Search Keyword')}
@@ -234,7 +238,7 @@ class SearchMember extends React.PureComponent {
                   }
                   {
                     // Loading
-                    members && isFetching && (
+                    ((members && isFetching) || isFetching) && (
                       <tr>
                         <td colSpan="10">
                           <div className="spinner">
