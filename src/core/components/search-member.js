@@ -49,6 +49,24 @@ class SearchMember extends React.PureComponent {
     this.getMembers(values.keyword);
   };
 
+  getMembers = keyword => api.member.getMembers({
+    group: null,
+    keyword: keyword,
+    index: null,
+    sort: null
+  }).then(response => this.setState({members: response.data}));
+
+  handleScroll = containerRef => {
+    if (Math.ceil(containerRef.offsetHeight + containerRef.scrollTop) !== containerRef.scrollHeight || this.state.isFetching) {
+      return;
+    }
+
+    const {members, maxIndex} = this.state;
+    if (members && (members.index + 1) < maxIndex) {
+      this.setState({isFetching: true});
+    }
+  };
+
   addToMember = ({id, eventPictureUrl}) => {
     // hide search modal
     this.props.onHide();
@@ -64,17 +82,6 @@ class SearchMember extends React.PureComponent {
         this.hideApiProcessModal();
       });
     });
-  };
-
-  handleScroll = containerRef => {
-    if (Math.ceil(containerRef.offsetHeight + containerRef.scrollTop) !== containerRef.scrollHeight || this.state.isFetching) {
-      return;
-    }
-
-    const {members, maxIndex} = this.state;
-    if (members && (members.index + 1) < maxIndex) {
-      this.setState({isFetching: true});
-    }
   };
 
   render() {
