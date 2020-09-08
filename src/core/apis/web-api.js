@@ -1354,6 +1354,21 @@ module.exports = {
       data: {picture}
     }),
     /**
+     * @param {String} picture
+     * @param {String} id
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - pictureCount {Number}
+     */
+    addPhoto: ({picture, id}) => api({
+      method: 'post',
+      url: '/api/members/add-photo',
+      data: {
+        picture,
+        id
+      }
+    }),
+    /**
      * @returns {Promise<response>}
      * @response 200 {Object}
      * - password {String}

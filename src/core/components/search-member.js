@@ -31,8 +31,13 @@ class SearchMember extends React.PureComponent {
     this.getMembers(values.keyword);
   };
 
-  addToMember = eventPictureUrl => {
-    console.log('added photo', eventPictureUrl);
+  addToMember = ({id, eventPictureUrl}) => {
+    // console.log('added photo', eventPictureUrl);
+    // console.log('id', id);
+    api.member.addPhoto({
+      id,
+      picture: eventPictureUrl
+    });
   };
 
   getMembers = keyword => api.member.getMembers({
@@ -87,9 +92,7 @@ class SearchMember extends React.PureComponent {
               <thead>
                 <tr className="shadow">
                   <th className="text-center" style={{width: '30%'}}>{_('User Picture')}</th>
-                  <th style={{width: '50%'}}>
-                    <a href="#name">{_('Name')}</a>
-                  </th>
+                  <th style={{width: '50%'}}>{_('Name')}</th>
                   <th style={{width: '20%'}}>{_('Actions')}</th>
                 </tr>
               </thead>
@@ -135,14 +138,17 @@ class SearchMember extends React.PureComponent {
                           </CustomTooltip>
                         </td>
                         <td className={classNames('text-left group-btn', tdClass)}>
-                          <CustomTooltip title={member.pictures.length >= 5 ? _('Photo Limit Reached') : _('Edit Member: {0}', [member.name])}>
+                          <CustomTooltip title={member.pictures.length >= 5 ? _('Photo Limit Reached') : _('Add to {0}', [member.name])}>
                             <div>
                               <button
                                 disabled={member.pictures.length >= 5}
                                 className="btn btn-link"
                                 type="button"
                                 onClick={() => {
-                                  this.addToMember(eventPictureUrl);
+                                  this.addToMember({
+                                    id: member.id,
+                                    eventPictureUrl
+                                  });
                                 }}
                               >
                                 <i className="fas fa-plus fa-lg fa-fw"/>
