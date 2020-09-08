@@ -7,6 +7,7 @@ import _ from '../../languages';
 import CustomTooltip from './tooltip';
 import api from '../apis/web-api';
 import CustomNotifyModal from './custom-notify-modal';
+import update from 'immutability-helper';
 
 class SearchMember extends React.PureComponent {
   static propTypes = {
@@ -26,6 +27,7 @@ class SearchMember extends React.PureComponent {
     members: null,
     isShowApiProcessModal: false,
     maxIndex: 0,
+    keyword: null,
     isFetching: false
   }
 
@@ -64,10 +66,28 @@ class SearchMember extends React.PureComponent {
     }
 
     const {members, maxIndex} = this.state;
-    if (members && (members.index + 1) < maxIndex) {
-      this.setState({isFetching: true});
+    if (members && (members.index) < maxIndex) {
+      this.setState({isFetching: true}, () => {
+        this.appendMemberList(members.index + 1);
+      });
     }
   };
+
+  appendMemberList = index => {
+    this.getMembers(this.state.keyword, index)
+      .then(response => {
+        const {members} = this.state;
+        const updateState = update(this.state, {
+          members: {
+            index: {$set: members.index + 1},
+            items: {$set: members ? [...members.items, ...response.data.items] : response.data.items}
+          },
+          isFetching: {$set: false}
+        });
+
+        this.setState(updateState);
+      });
+  }
 
   addToMember = ({id, eventPictureUrl}) => {
     // hide search modal
