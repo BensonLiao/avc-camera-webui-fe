@@ -159,7 +159,7 @@ module.exports = class License extends Base {
               <div className="col-12">
                 <h3 className="mb-4">{_('License')}</h3>
                 <Formik initialValues={{authKey: ''}}
-                  validate={utils.makeFormikValidator(authKeyValidator)}
+                  validate={authKeyValidator}
                   onSubmit={this.onSubmit}
                 >
                   {this.addLicenseFormRender}

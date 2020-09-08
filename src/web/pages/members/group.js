@@ -162,7 +162,7 @@ module.exports = class Group extends Base {
       >
         <Formik
           initialValues={initialValues}
-          validate={utils.makeFormikValidator(groupValidator)}
+          validate={groupValidator}
           onSubmit={this.onSubmitGroupForm}
         >
           {this.groupFormRender}

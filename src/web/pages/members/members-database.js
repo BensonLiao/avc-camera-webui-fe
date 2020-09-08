@@ -222,7 +222,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
         >
           <Formik
             initialValues={databaseInitialValues}
-            validate={utils.makeFormikValidator(databaseEncryptionValidator, ['newPassword', 'confirmPassword'])}
+            validate={databaseEncryptionValidator}
             onSubmit={this.onSubmitDatabaseForm}
           >
             {this.databaseEncryptionFormRender}

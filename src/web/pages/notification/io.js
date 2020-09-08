@@ -236,7 +236,7 @@ module.exports = class IO extends Base {
 
                       <Formik
                         initialValues={ioOutASettings}
-                        validate={utils.makeFormikValidator(ioOutSettingsValidator)}
+                        validate={ioOutSettingsValidator}
                         onSubmit={this.generateIOOutSettingsSubmitHandler(0)}
                       >
                         {this.generateIOOutSettingsFormRender(0)}
@@ -244,7 +244,7 @@ module.exports = class IO extends Base {
 
                       <Formik
                         initialValues={ioOutBSettings}
-                        validate={utils.makeFormikValidator(ioOutSettingsValidator)}
+                        validate={ioOutSettingsValidator}
                         onSubmit={this.generateIOOutSettingsSubmitHandler(1)}
                       >
                         {this.generateIOOutSettingsFormRender(1)}

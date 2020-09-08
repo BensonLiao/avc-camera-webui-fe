@@ -33,9 +33,9 @@ module.exports = class SetupHTTPS extends Base {
   generateValidator = () => {
     switch (this.state.certificateType) {
       case CertificateType.uploadCertificate:
-        return utils.makeFormikValidator(uploadCertificateValidator);
+        return uploadCertificateValidator;
       case CertificateType.generateCertificate:
-        return utils.makeFormikValidator(generateCertificateValidator);
+        return generateCertificateValidator;
       default:
         return null;
     }

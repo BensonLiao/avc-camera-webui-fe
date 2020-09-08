@@ -378,7 +378,7 @@ module.exports = class Home extends Base {
                           <td className="align-top">
                             <Formik
                               initialValues={{deviceName: deviceName}}
-                              validate={utils.makeFormikValidator(deviceNameValidator)}
+                              validate={deviceNameValidator}
                               onSubmit={this.onSubmitDeviceNameForm}
                             >
                               {this.deviceNameFormRender}

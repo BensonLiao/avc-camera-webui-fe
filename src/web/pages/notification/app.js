@@ -102,7 +102,7 @@ module.exports = class App extends Base {
                 <div className="card shadow">
                   <div className="card-header">{_('App')}</div>
                   <Formik
-                    validate={utils.makeFormikValidator(appSettingsValidator)}
+                    validate={appSettingsValidator}
                     initialValues={appSettings}
                     onSubmit={this.onSubmitAppSettingsForm}
                   >

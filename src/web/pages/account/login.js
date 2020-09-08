@@ -127,7 +127,7 @@ module.exports = class Login extends Base {
             <div className="col-center">
               <Formik
                 initialValues={{account: '', password: '', maxAge: '3600000'}}
-                validate={utils.makeFormikValidator(loginValidator)}
+                validate={loginValidator}
                 onSubmit={this.onSubmitLoginForm}
               >
                 {this.loginFormRender}

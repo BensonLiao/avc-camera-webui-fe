@@ -9,5 +9,8 @@ module.exports = validator.compile({
     isNeedUpperCase: false,
     isNeedNumber: false
   },
-  newPassword: UserSchema.password
+  confirmPassword: {
+    type: 'confirmEqual',
+    field: 'newPassword'
+  }
 });

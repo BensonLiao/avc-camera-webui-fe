@@ -15,10 +15,7 @@ module.exports = validator.compile({
     max: 16
   },
   confirmPassword: {
-    optional: false,
-    type: 'string',
-    empty: false,
-    min: 8,
-    max: 16
+    type: 'confirmEqual',
+    field: 'newPassword'
   }
 });

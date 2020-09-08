@@ -292,7 +292,7 @@ module.exports = class SMTP extends Base {
               <div className="col-center">
                 <Formik
                   initialValues={this.generateSMTPSettingsInitialValues(smtpSettings)}
-                  validate={utils.makeFormikValidator(smtpSettingsValidator)}
+                  validate={smtpSettingsValidator}
                   onSubmit={this.onSubmitSMTPSettingsForm}
                 >
                   {this.smtpSettingsFormRender}
@@ -306,7 +306,7 @@ module.exports = class SMTP extends Base {
               <h5 className="modal-title">{_('Email and login settings')}</h5>
             </div>
             <Formik
-              validate={utils.makeFormikValidator(smtpAccountSettingsValidator)}
+              validate={smtpSettingsValidator}
               initialValues={this.generateAccountSettingsInitialValues(accountSettings)}
               onSubmit={this.onSubmitAccountSettingsForm}
             >

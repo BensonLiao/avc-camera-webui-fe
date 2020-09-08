@@ -1,7 +1,7 @@
-const Validator = require('fastest-validator');
+const FastestFormikValidator = require('./FastestFormikValidator');
 const _ = require('../../languages');
 
-exports.validator = new Validator({
+const customValidator = new FastestFormikValidator({
   messages: {
     required: _('validation-required'),
     string: _('validation-string'),
@@ -35,6 +35,7 @@ exports.validator = new Validator({
     forbidden: _('validation-forbidden'),
     email: _('validation-email'),
     url: _('validation-url'),
+    confirmEqual: 'The confirm input of \'{field}\' must be matched! Actual: {actual}, Expected: {expected}',
 
     stringContainsLowerCaseLatter: _('validation-stringContainsLowerCaseLatter'),
     stringContainsUpperCaseLatter: _('validation-stringContainsUpperCaseLatter'),
@@ -45,3 +46,17 @@ exports.validator = new Validator({
     countryCode: _('validation-countryCode')
   }
 });
+
+customValidator.add('confirmEqual', (value, schema, currentFieldName, fullObjectValue) => {
+  if (!schema.field) {
+    throw Error(`type '${schema.type}' must specific a field to compare with.`);
+  }
+
+  if (value !== fullObjectValue[schema.field]) {
+    return customValidator.makeError('confirmEqual', value.input, value.confirm);
+  }
+
+  return true;
+});
+
+exports.validator = customValidator;
