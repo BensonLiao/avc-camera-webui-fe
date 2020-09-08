@@ -10,7 +10,6 @@ const GateType = require('webserver-form-schema/constants/gate-type');
 const ioOutSettingsValidator = require('../../validations/notifications/io-out-settings-validator');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
-const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
 module.exports = class IO extends Base {

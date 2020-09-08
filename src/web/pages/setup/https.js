@@ -11,7 +11,6 @@ const setupStep03x2 = require('../../../resource/setup-step-03@2x.png');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const store = require('../../../core/store');
-const utils = require('../../../core/utils');
 const uploadCertificateValidator = require('../../validations/setup/https-upload-certificate-validator');
 const generateCertificateValidator = require('../../validations/setup/https-generate-certificate-validator');
 const api = require('../../../core/apis/web-api');

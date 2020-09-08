@@ -306,7 +306,7 @@ module.exports = class SMTP extends Base {
               <h5 className="modal-title">{_('Email and login settings')}</h5>
             </div>
             <Formik
-              validate={smtpSettingsValidator}
+              validate={smtpAccountSettingsValidator}
               initialValues={this.generateAccountSettingsInitialValues(accountSettings)}
               onSubmit={this.onSubmitAccountSettingsForm}
             >

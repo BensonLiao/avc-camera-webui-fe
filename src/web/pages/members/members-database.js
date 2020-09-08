@@ -13,7 +13,6 @@ const CustomTooltip = require('../../../core/components/tooltip');
 const databaseEncryptionValidator = require('../../validations/members/database-encryption-validator');
 const iconLock = require('../../../resource/lock-24px.svg');
 const Password = require('../../../core/components/fields/password');
-const utils = require('../../../core/utils');
 const wrappedApi = require('../../../core/apis');
 
 module.exports = class MembersDatabase extends React.PureComponent {
