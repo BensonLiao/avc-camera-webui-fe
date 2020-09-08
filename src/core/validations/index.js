@@ -53,7 +53,7 @@ customValidator.add('confirmEqual', (value, schema, currentFieldName, fullObject
   }
 
   if (value !== fullObjectValue[schema.field]) {
-    return customValidator.makeError('confirmEqual', value.input, value.confirm);
+    return this.validator.makeError('confirmEqual', value.input, value.confirm);
   }
 
   return true;
