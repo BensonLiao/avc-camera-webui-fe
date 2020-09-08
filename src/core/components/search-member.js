@@ -113,7 +113,7 @@ class SearchMember extends React.PureComponent {
 
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
-    const {members} = this.state;
+    const {members, maxIndex, isFetching} = this.state;
     return (
       <>
         <Modal
@@ -159,7 +159,7 @@ class SearchMember extends React.PureComponent {
                   <tr className="shadow">
                     <th className="text-center" style={{width: '30%'}}>{_('User Picture')}</th>
                     <th style={{width: '50%'}}>{_('Name')}</th>
-                    <th style={{width: '20%'}}>{_('Actions')}</th>
+                    <th style={{width: '20%'}}>{_('Add')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -227,7 +227,21 @@ class SearchMember extends React.PureComponent {
                     })
                   }
                   {
-                  /* End of search */
+                    // Loading
+                    members && isFetching && (
+                      <tr>
+                        <td colSpan="10">
+                          <div className="spinner">
+                            <div className="bounce1"/>
+                            <div className="bounce2"/>
+                            <div className="bounce3"/>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  }
+                  {
+                  // End of search
                     members && members.index === maxIndex && (
                       <tr>
                         <td className="text-size-20 text-center" colSpan="10">
