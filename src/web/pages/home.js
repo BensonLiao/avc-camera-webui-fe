@@ -80,7 +80,6 @@ module.exports = class Home extends Base {
     super(props);
     this.submitPromise = Promise.resolve();
     this.state.deviceName = props.systemInformation.deviceName || '';
-    this.state.isAutoFocusProcessing = false;
   }
 
   componentWillUnmount() {
@@ -104,22 +103,6 @@ module.exports = class Home extends Base {
         resetForm({values: this.generateInitialValues(response.data)});
       })
       .finally(progress.done);
-  };
-
-  generateClickAutoFocusButtonHandler = ({resetForm}) => event => {
-    event.preventDefault();
-    progress.start();
-    this.setState({isAutoFocusProcessing: true});
-    this.submitPromise = this.submitPromise
-      .then(api.video.startAutoFocus)
-      .then(api.video.getSettings)
-      .then(response => {
-        resetForm({values: this.generateInitialValues(response.data)});
-      })
-      .finally(() => {
-        progress.done();
-        this.setState({isAutoFocusProcessing: false});
-      });
   };
 
   onSubmitDeviceNameForm = ({deviceName}, {resetForm}) => {
@@ -280,6 +263,8 @@ module.exports = class Home extends Base {
                     <VideoSetting
                       videoSettings={videoSettings}
                       systemDateTime={systemDateTime}
+                      isApiProcessing={this.state.$isApiProcessing}
+                      updateFocalLengthField={this.state.$updateFocalLengthField}
                     />
                   </div>
                 </div>

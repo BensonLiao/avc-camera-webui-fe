@@ -16,10 +16,13 @@ const Dropdown = require('./fields/dropdown');
 const FormikEffect = require('./formik-effect');
 const {getRouter} = require('capybara-router');
 const CustomTooltip = require('../../core/components/tooltip');
-
+const constants = require('../constants');
+const store = require('../store');
 module.exports = class VideoSetting extends React.PureComponent {
   static get propTypes() {
     return {
+      updateFocalLengthField: PropTypes.bool.isRequired,
+      isApiProcessing: PropTypes.bool.isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired, // 除霧
         irEnabled: PropTypes.string.isRequired, // 紅外線燈
@@ -50,45 +53,42 @@ module.exports = class VideoSetting extends React.PureComponent {
   }
 
   state = {
-    isAutoFocusProcessing: false,
-    focalLengthQueue: null,
-    updateFocalLengthField: false
+    // isAutoFocusProcessing: false,
+    focalLengthQueue: null
   }
 
   constructor(props) {
     super(props);
     this.submitPromise = Promise.resolve();
-    this.state.isAutoFocusProcessing = false;
+    // this.state.isAutoFocusProcessing = false;
     this.state.focalLengthQueue = null;
-    this.state.updateFocalLengthField = false;
   }
 
   generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
     event.preventDefault();
     form.setFieldValue('focusType', autoFocusType).then(() => {
       let prevFocalLength;
-      this.setState({updateFocalLengthField: true}, () => {
-        // Refresh focal length until previous value matches current value
-        const refreshFocalLength = () => {
-          api.video.getFocalLength()
-            .then(response => {
-              if (prevFocalLength === response.data.focalLength) {
-                this.setState({updateFocalLengthField: false});
-              } else {
-                prevFocalLength = response.data.focalLength;
-                // Refresh focal length at 1hz
-                setTimeout(refreshFocalLength, 1000);
-              }
+      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+      // Refresh focal length until previous value matches current value
+      const refreshFocalLength = () => {
+        api.video.getFocalLength()
+          .then(response => {
+            if (prevFocalLength === response.data.focalLength) {
+              store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
+            } else {
+              prevFocalLength = response.data.focalLength;
+              // Refresh focal length at 1hz
+              setTimeout(refreshFocalLength, 1000);
+            }
 
-              return response.data.focalLength;
-            })
-            .then(focalLength => {
-              form.setFieldValue('focalLength', focalLength);
-            });
-        };
+            return response.data.focalLength;
+          })
+          .then(focalLength => {
+            form.setFieldValue('focalLength', focalLength);
+          });
+      };
 
-        refreshFocalLength();
-      });
+      refreshFocalLength();
     });
   }
 
@@ -120,10 +120,10 @@ module.exports = class VideoSetting extends React.PureComponent {
     }
 
     if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
-      this.setState({updateFocalLengthField: true});
+      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
     }
 
-    if (this.state.$isApiProcessing) {
+    if (this.props.isApiProcessing) {
       this.setState({focalLengthQueue: nextValues.focalLength});
     } else {
       api.video.updateFocusSettings(nextValues)
@@ -146,39 +146,37 @@ module.exports = class VideoSetting extends React.PureComponent {
         })
         .then(() => {
           // Trigger react update to get the latest global state
-          this.setState({updateFocalLengthField: false}, () => {
-            if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
-              let prevFocalLength;
-              this.setState({updateFocalLengthField: true}, () => {
-                // Refresh focal length until previous value matches current value
-                const refreshFocalLength = () => {
-                  api.video.getFocalLength()
-                    .then(response => {
-                      if (prevFocalLength === response.data.focalLength) {
-                        this.setState({updateFocalLengthField: false});
-                      } else {
-                        prevFocalLength = response.data.focalLength;
-                        // Refresh focal length at 1hz
-                        setTimeout(refreshFocalLength, 1000);
-                      }
+          store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
+          if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
+            let prevFocalLength;
+            store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+            // Refresh focal length until previous value matches current value
+            const refreshFocalLength = () => {
+              api.video.getFocalLength()
+                .then(response => {
+                  if (prevFocalLength === response.data.focalLength) {
+                    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
+                  } else {
+                    prevFocalLength = response.data.focalLength;
+                    // Refresh focal length at 1hz
+                    setTimeout(refreshFocalLength, 1000);
+                  }
 
-                      return response.data.focalLength;
-                    })
-                    .then(focalLength => {
-                      formik.setFieldValue('focalLength', focalLength);
-                    });
-                };
+                  return response.data.focalLength;
+                })
+                .then(focalLength => {
+                  formik.setFieldValue('focalLength', focalLength);
+                });
+            };
 
-                refreshFocalLength();
-              });
-            }
-          });
+            refreshFocalLength();
+          }
         });
     }
   }
 
   onChangeVideoSettings = ({nextValues, prevValues, formik}) => {
-    if (!nextValues || this.state.updateFocalLengthField) {
+    if (!nextValues || this.props.updateFocalLengthField) {
       return;
     }
 
@@ -219,7 +217,7 @@ module.exports = class VideoSetting extends React.PureComponent {
 
   generateClickAutoFocusButtonHandler = form => event => {
     event.preventDefault();
-    this.setState({updateFocalLengthField: true});
+    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
     this.submitPromise = this.submitPromise
       .then(api.video.startAutoFocus)
       .then(() => {
@@ -229,7 +227,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           api.video.getFocalLength()
             .then(response => {
               if (prevFocalLength === response.data.focalLength) {
-                this.setState({updateFocalLengthField: false});
+                store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
               } else {
                 prevFocalLength = response.data.focalLength;
                 // Refresh focal length at 1hz
@@ -249,7 +247,7 @@ module.exports = class VideoSetting extends React.PureComponent {
 
   videoSettingsFormRender = form => {
     const {values} = form;
-    const {$isApiProcessing, updateFocalLengthField} = this.state;
+    const {isApiProcessing, updateFocalLengthField} = this.props;
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
@@ -356,7 +354,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={$isApiProcessing || updateFocalLengthField}
+                  disabled={isApiProcessing || updateFocalLengthField}
                   type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
@@ -365,7 +363,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                 </button>
                 <button
                   type="button"
-                  disabled={$isApiProcessing || updateFocalLengthField}
+                  disabled={isApiProcessing || updateFocalLengthField}
                   className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
@@ -701,7 +699,7 @@ module.exports = class VideoSetting extends React.PureComponent {
         <hr className="my-0"/>
         <div className="card-body pt-0 mt-5">
           <button
-            disabled={$isApiProcessing || updateFocalLengthField}
+            disabled={isApiProcessing || updateFocalLengthField}
             type="button"
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler()}

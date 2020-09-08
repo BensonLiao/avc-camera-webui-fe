@@ -3,7 +3,8 @@ module.exports = {
     CHANGE: 'STORE_CHANGE_',
     IS_API_PROCESSING: '$isApiProcessing',
     EXPIRES: '$expires',
-    EXPIRES_TIMER: '$expiresTimer'
+    EXPIRES_TIMER: '$expiresTimer',
+    UPDATE_FOCAL_LENGTH_FIELD: '$updateFocalLengthField'
   },
   AVAILABLE_LANGUAGE_CODES: ['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es'],
   MEMBERS_PAGE_GROUPS_MAX: 32,
