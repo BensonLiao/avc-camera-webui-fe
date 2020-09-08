@@ -8,7 +8,6 @@ const UserPermission = require('webserver-form-schema/constants/user-permission'
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const Base = require('./shared/base');
 const _ = require('../../languages');
-const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');

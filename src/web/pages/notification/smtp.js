@@ -12,7 +12,6 @@ const smtpSettingsValidator = require('../../validations/notifications/smtp-sett
 const smtpAccountSettingsValidator = require('../../validations/notifications/smtp-account-settings-validator');
 const Password = require('../../../core/components/fields/password');
 const _ = require('../../../languages');
-const utils = require('../../../core/utils');
 const notify = require('../../../core/notify');
 const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
