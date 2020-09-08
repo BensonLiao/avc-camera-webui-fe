@@ -28,11 +28,13 @@ class SearchMember extends React.PureComponent {
     isShowApiProcessModal: false,
     maxIndex: 0,
     keyword: null,
+    // for lazy loading get member api
     isFetching: false
   }
 
   constructor() {
     super();
+    // used to calculate list window height for scroll listener
     this.containerRef = React.createRef();
   }
 
@@ -49,10 +51,12 @@ class SearchMember extends React.PureComponent {
       keyword: values.keyword,
       members: null
     });
+
+    // bind scroll event listner
     this.containerRef.addEventListener('scroll', () => {
       this.handleScroll();
     });
-    this.containerRef.scrollTo(0, 0);
+
     this.getMembers(values.keyword)
       .then(response => this.setState({
         isFetching: false,
@@ -75,11 +79,13 @@ class SearchMember extends React.PureComponent {
     ))
 
   handleScroll = () => {
+    // skip if user hasn't scrolled to the bottom of list or api is still fetching
     if (Math.ceil(this.containerRef.offsetHeight + this.containerRef.scrollTop) !== this.containerRef.scrollHeight || this.state.isFetching) {
       return;
     }
 
     const {members, maxIndex} = this.state;
+    // check if there are more pages to laod
     if (members && (members.index) < maxIndex) {
       this.appendMemberList(members.index + 1);
     }
@@ -91,7 +97,9 @@ class SearchMember extends React.PureComponent {
         const {members} = this.state;
         const updateState = update(this.state, {
           members: {
+            // increase current page by 1
             index: {$set: members.index + 1},
+            // join previous member list with new list
             items: {$set: members ? [...members.items, ...response.data.items] : response.data.items}
           },
           isFetching: {$set: false}
@@ -121,7 +129,6 @@ class SearchMember extends React.PureComponent {
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
     const {members, maxIndex, isFetching} = this.state;
-    console.log(this.state);
     return (
       <>
         <Modal
@@ -265,6 +272,8 @@ class SearchMember extends React.PureComponent {
             </div>
           </Modal.Body>
         </Modal>
+
+        {/* add photo api processing modal */}
         <CustomNotifyModal
           modalType="process"
           backdrop="static"
