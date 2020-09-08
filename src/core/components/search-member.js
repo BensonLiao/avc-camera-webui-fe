@@ -54,16 +54,16 @@ class SearchMember extends React.PureComponent {
         onHide={onHide}
       >
         <Modal.Header closeButton className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{_('Add Photo')}</Modal.Title>
+          <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="col-12 mb-5">
+          <div className="col-12 mb-3">
             <Formik
               initialValues={this.generateInitialValues(memberName)}
               onSubmit={this.onSearch}
             >
               <Form>
-                <div className="form-row mt-4">
+                <div className="form-row">
                   <div className="col-auto px-0">
                     <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
                   </div>
@@ -76,7 +76,13 @@ class SearchMember extends React.PureComponent {
               </Form>
             </Formik>
           </div>
-          <div className="col-12 mb-5">
+          <div
+            className="col-12 mb-5"
+            style={{
+              maxHeight: '550px',
+              overflowY: 'scroll'
+            }}
+          >
             <table className="table custom-style" style={{tableLayout: 'fixed'}}>
               <thead>
                 <tr className="shadow">
@@ -89,6 +95,16 @@ class SearchMember extends React.PureComponent {
               </thead>
               <tbody>
                 {
+                  /* Inital Message */
+                  !members && (
+                    <tr>
+                      <td className="text-size-20 text-center" colSpan="10">
+                        <i className="fas fa-search fa-fw"/> {_('Please Search Keyword')}
+                      </td>
+                    </tr>
+                  )
+                }
+                {
                   /* Empty Search Message */
                   members && !members.items.length && (
                     <tr>
@@ -100,10 +116,7 @@ class SearchMember extends React.PureComponent {
                 }
                 {
                   members && members.items.map((member, index) => {
-                    const tdClass = classNames({
-                      'border-bottom':
-                index >= members.items.length - 1
-                    });
+                    const tdClass = classNames({'border-bottom': index >= members.items.length - 1});
 
                     return (
                       <tr key={member.id}>
