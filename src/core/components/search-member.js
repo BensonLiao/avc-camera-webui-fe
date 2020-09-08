@@ -40,11 +40,19 @@ class SearchMember extends React.PureComponent {
   };
 
   addToMember = ({id, eventPictureUrl}) => {
-    // console.log('added photo', eventPictureUrl);
-    // console.log('id', id);
-    api.member.addPhoto({
-      id,
-      picture: eventPictureUrl
+    // hide search modal
+    this.props.onHide();
+    // show api processing modal and reset search results
+    this.setState({
+      isShowApiProcessModal: true,
+      members: null
+    }, () => {
+      api.member.addPhoto({
+        id,
+        picture: eventPictureUrl
+      }).finally(() => {
+        this.hideApiProcessModal();
+      });
     });
   };
 
