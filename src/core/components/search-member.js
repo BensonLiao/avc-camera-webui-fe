@@ -31,12 +31,9 @@ class SearchMember extends React.PureComponent {
     isFetching: false
   }
 
-  addScrollListener = containerRef => {
-    if (containerRef) {
-      containerRef.addEventListener('scroll', () => {
-        this.handleScroll(containerRef);
-      });
-    }
+  constructor() {
+    super();
+    this.containerRef = React.createRef();
   }
 
   generateInitialValues = memberName => {
@@ -65,8 +62,8 @@ class SearchMember extends React.PureComponent {
     })
   ))
 
-  handleScroll = containerRef => {
-    if (Math.ceil(containerRef.offsetHeight + containerRef.scrollTop) !== containerRef.scrollHeight || this.state.isFetching) {
+  handleScroll = () => {
+    if (Math.ceil(this.containerRef.offsetHeight + this.containerRef.scrollTop) !== this.containerRef.scrollHeight || this.state.isFetching) {
       return;
     }
 
@@ -147,7 +144,9 @@ class SearchMember extends React.PureComponent {
               </Formik>
             </div>
             <div
-              ref={this.addScrollListener}
+              ref={element => {
+                this.containerRef = element;
+              }}
               className="col-12 mb-5"
               style={{
                 maxHeight: '550px',
