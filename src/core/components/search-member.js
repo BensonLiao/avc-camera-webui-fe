@@ -134,18 +134,20 @@ class SearchMember extends React.PureComponent {
                             </div>
                           </CustomTooltip>
                         </td>
-
                         <td className={classNames('text-left group-btn', tdClass)}>
-                          <CustomTooltip title={_('Edit Member: {0}', [member.name])}>
-                            <button
-                              className="btn btn-link"
-                              type="button"
-                              onClick={() => {
-                                this.addToMember(eventPictureUrl);
-                              }}
-                            >
-                              <i className="fas fa-plus fa-lg fa-fw"/>
-                            </button>
+                          <CustomTooltip title={member.pictures.length >= 5 ? _('Photo Limit Reached') : _('Edit Member: {0}', [member.name])}>
+                            <div>
+                              <button
+                                disabled={member.pictures.length >= 5}
+                                className="btn btn-link"
+                                type="button"
+                                onClick={() => {
+                                  this.addToMember(eventPictureUrl);
+                                }}
+                              >
+                                <i className="fas fa-plus fa-lg fa-fw"/>
+                              </button>
+                            </div>
                           </CustomTooltip>
                         </td>
                       </tr>
