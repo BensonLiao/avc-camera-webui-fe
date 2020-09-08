@@ -45,7 +45,14 @@ class SearchMember extends React.PureComponent {
   };
 
   onSearch = values => {
-    this.setState({keyword: values.keyword});
+    this.setState({
+      keyword: values.keyword,
+      members: null
+    });
+    this.containerRef.addEventListener('scroll', () => {
+      this.handleScroll();
+    });
+    this.containerRef.scrollTo(0, 0);
     this.getMembers(values.keyword)
       .then(response => this.setState({
         members: response.data,
