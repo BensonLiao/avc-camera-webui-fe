@@ -29,7 +29,8 @@ class SearchMember extends React.PureComponent {
     maxIndex: 0,
     keyword: null,
     // for lazy loading get member api
-    isFetching: false
+    isFetching: false,
+    isVerifying: true
   }
 
   constructor() {
@@ -109,6 +110,13 @@ class SearchMember extends React.PureComponent {
       });
   }
 
+  verifyPhoto = photo => {
+    api.member.validatePicture(photo)
+      .then(() => {
+        console.log('passed');
+      });
+  }
+
   addToMember = ({id, eventPictureUrl}) => {
     // hide search modal
     this.props.onHide();
@@ -128,7 +136,8 @@ class SearchMember extends React.PureComponent {
 
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
-    const {members, maxIndex, isFetching} = this.state;
+    const {members, maxIndex, isFetching, isVerifying} = this.state;
+    console.log(this.state);
     return (
       <>
         <Modal
@@ -146,24 +155,38 @@ class SearchMember extends React.PureComponent {
             <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="col-12 mb-4">
+            <div className="d-flex flex-row justify-content-between mb-4 px-3">
               <Formik
                 initialValues={this.generateInitialValues(memberName)}
                 onSubmit={this.onSearch}
               >
-                <Form>
-                  <div className="form-row">
-                    <div className="col-auto px-0">
-                      <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
-                    </div>
-                    <div className="col-auto px-0 ml-3">
-                      <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
-                        <i className="fas fa-search fa-fw"/> {_('Search')}
-                      </button>
-                    </div>
+                <Form className="d-flex flex-row">
+                  <div className="px-0">
+                    <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
+                  </div>
+                  <div className="px-0 ml-3">
+                    <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
+                      <i className="fas fa-search fa-fw"/> {_('Search')}
+                    </button>
                   </div>
                 </Form>
               </Formik>
+              <div className="event-photo">
+                <img
+                  src={eventPictureUrl}
+                  className="rounded-circle"
+                />
+                <div className={classNames(
+                  'loading-dots',
+                  {'d-none': !isVerifying}
+                )}
+                >
+                  <div className="spinner">
+                    <div className="double-bounce1"/>
+                    <div className="double-bounce2"/>
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               ref={element => {
