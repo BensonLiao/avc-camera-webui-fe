@@ -70,7 +70,7 @@ const members = [
   },
   {
     id: uuidv4(),
-    name: 'Tom',
+    name: 'Tom Holland',
     organization: 'Avengers',
     groupId: memberGroups[0].id,
     note: 'I rock!',
@@ -79,6 +79,20 @@ const members = [
       defaultPhotos.user.tom[1],
       defaultPhotos.user.tom[2],
       defaultPhotos.user.tom[3]
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom Hiddlestone',
+    organization: 'God',
+    groupId: '',
+    note: 'There are no men like me.',
+    pictures: [
+      defaultPhotos.user.hiddleston[0],
+      defaultPhotos.user.hiddleston[1],
+      defaultPhotos.user.hiddleston[2],
+      defaultPhotos.user.hiddleston[3],
+      defaultPhotos.user.hiddleston[4]
     ]
   }
 ];
