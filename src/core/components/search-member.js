@@ -174,9 +174,9 @@ class SearchMember extends React.PureComponent {
               <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
-                    <th className="text-center" style={{width: '30%'}}>{_('User Picture')}</th>
-                    <th style={{width: '50%'}}>{_('Name')}</th>
-                    <th style={{width: '20%'}}>{_('Add')}</th>
+                    <th className="text-center" style={{width: '40%'}}>{_('User Picture')}</th>
+                    <th style={{width: '45%'}}>{_('Name')}</th>
+                    <th style={{width: '15%'}}>{_('Add')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -207,11 +207,17 @@ class SearchMember extends React.PureComponent {
                       return (
                         <tr key={member.id}>
                           <td className={classNames('text-center', tdClass)}>
-                            <img
-                              className="rounded-circle"
-                              style={{height: '56px'}}
-                              src={`data:image/jpeg;base64,${member.pictures[0]}`}
-                            />
+                            {member.pictures.map((picture, index) => {
+                              // declaration to bypass eslint `no index in key`
+                              const uniqueKey = member.id + index;
+                              return (
+                                <img
+                                  key={uniqueKey}
+                                  className="rounded-circle"
+                                  src={`data:image/jpeg;base64,${picture}`}
+                                />
+                              );
+                            })}
                           </td>
                           <td className={tdClass}>
                             <CustomTooltip placement="top-start" title={member.name}>
