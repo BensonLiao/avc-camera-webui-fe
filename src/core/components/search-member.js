@@ -133,10 +133,14 @@ class SearchMember extends React.PureComponent {
       <>
         <Modal
           keyboard={false}
+          backdrop="static"
           autoFocus={false}
           show={isShowModal}
           className="events-search-member-modal"
-          onHide={onHide}
+          onHide={() => {
+            this.setState({members: null});
+            onHide();
+          }}
         >
           <Modal.Header closeButton className="d-flex justify-content-between align-items-center">
             <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
