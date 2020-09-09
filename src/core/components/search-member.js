@@ -142,11 +142,11 @@ class SearchMember extends React.PureComponent {
             onHide();
           }}
         >
-          <Modal.Header closeButton className="d-flex justify-content-between align-items-center">
+          <Modal.Header closeButton={!isFetching} className="d-flex justify-content-between align-items-center">
             <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="col-12 mb-3">
+            <div className="col-12 mb-4">
               <Formik
                 initialValues={this.generateInitialValues(memberName)}
                 onSubmit={this.onSearch}
@@ -188,7 +188,7 @@ class SearchMember extends React.PureComponent {
                   /* Inital message */
                     !members && !isFetching && (
                       <tr>
-                        <td className="text-size-20 text-center" colSpan="10">
+                        <td className="text-size-20 text-center pt-3" colSpan="10">
                           <i className="fas fa-search fa-fw"/> {_('Please Search Keyword')}
                         </td>
                       </tr>
