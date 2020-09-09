@@ -26,7 +26,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
     databaseInitialValues: null,
     databaseFile: null,
     isShowApiProcessModal: false,
-    apiProcessModalTitle: _('Updating members')
+    apiProcessModalTitle: _('Updating Members')
   }
 
   hideDatabaseModal = () => {
@@ -59,7 +59,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Exporting member database')
+      apiProcessModalTitle: _('Exporting Member Database')
     },
     () => {
       wrappedApi({

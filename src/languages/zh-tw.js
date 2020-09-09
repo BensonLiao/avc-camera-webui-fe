@@ -570,6 +570,8 @@ if (!window.languageResource['zh-tw']) {
     'Database Encryption': '資料庫加密',
     Modify: '修改',
     'Upload Image': '上傳照片',
+    'Updating Members': '更新成員中',
+    'Exporting Member Database': '導出成員資料庫中',
 
     // /members/details
     'New Member': '新增成員',
