@@ -269,7 +269,7 @@ class SearchMember extends React.PureComponent {
                   }
                   {
                   // End of search
-                    members && members.index === maxIndex && (
+                    members && members.index === maxIndex && members.items.length !== 0 && (
                       <tr>
                         <td className="text-size-20 text-center" colSpan="10">
                           {_('End of Result')}
