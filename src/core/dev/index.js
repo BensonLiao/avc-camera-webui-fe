@@ -326,7 +326,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
         const groups = db.get('groups').find({id: value.groupId}).value();
         return value.name.indexOf(config.params.keyword) >= 0 ||
         value.organization.indexOf(config.params.keyword) >= 0 ||
-        groups.name.indexOf(config.params.keyword) >= 0 ||
+        (groups && groups.name.indexOf(config.params.keyword) >= 0) ||
         value.note.indexOf(config.params.keyword) >= 0;
       });
     }
