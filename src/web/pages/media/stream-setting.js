@@ -55,6 +55,8 @@ module.exports = class StreamSetting extends Base {
     this.setState({isShowApiProcessModal: false});
   };
 
+  // call this function to update options for channelA and channelB,
+  // this function should be called when a value in a depends on b or vice versa
   processRenderOptions = values => {
     this.channelAOptions = {
       codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({
@@ -236,8 +238,30 @@ module.exports = class StreamSetting extends Base {
           }
         });
         setFieldValue('channelB.resolution', this.channelBOptions.resolution[0].value);
+        this.processRenderOptions({
+          ...allValues,
+          channelB: {
+            ...allValues.channelB,
+            resolution: this.channelBOptions.resolution[0].value
+          }
+        });
+        const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
+        setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[maxFrameRateOptionB].value);
       }
 
+      if (fieldNamePrefix === 'channelA') {
+        this.processRenderOptions({
+          ...allValues,
+          channelA: {
+            ...allValues.channelA,
+            resolution: newResValue
+          }
+        });
+        const maxFrameRateOptionA = this.channelAOptions.frameRate.length - 1;
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelAOptions.frameRate[maxFrameRateOptionA].value);
+      }
+
+      // Update FPS field
       if (fieldNamePrefix === 'channelB') {
         this.processRenderOptions({
           ...allValues,
@@ -247,12 +271,8 @@ module.exports = class StreamSetting extends Base {
           }
         });
 
-        // Update FPS field
-        const maxFrameRate = this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value;
-        const currentFrameRateValue = allValues.channelB.frameRate;
-        if (fieldNamePrefix === 'channelB' && currentFrameRateValue > maxFrameRate) {
-          setFieldValue(`${fieldNamePrefix}.frameRate`, options.frameRate[0].value);
-        }
+        const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[maxFrameRateOptionB].value);
       }
     };
 
@@ -260,8 +280,44 @@ module.exports = class StreamSetting extends Base {
     const onUpdateCodecField = event => {
       event.persist();
       const newCodecValue = event.target.value;
-      setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
+      if (fieldNamePrefix === 'channelA') {
+        setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
+        this.processRenderOptions({
+          ...allValues,
+          channelA: {
+            ...allValues.channelA,
+            codec: newCodecValue
+          }
+        });
+        const maxFrameRateOptionA = this.channelAOptions.frameRate.length - 1;
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelAOptions.frameRate[maxFrameRateOptionA].value);
+        setFieldValue(`${fieldNamePrefix}.resolution`, this.channelAOptions.resolution[0].value);
+        const prev = Number(allValues.channelA.resolution);
+        const current = Number(this.channelAOptions.resolution[0].value);
+        if (this.hasResolutionChanged(prev, current)) {
+          // channelB res and channelB fps both need to change here with updated options
+          this.processRenderOptions({
+            ...allValues,
+            channelA: {
+              ...allValues.channelA,
+              resolution: this.channelAOptions.resolution[0].value
+            }
+          });
+          setFieldValue('channelB.resolution', this.channelBOptions.resolution[0].value);
+          this.processRenderOptions({
+            ...allValues,
+            channelB: {
+              ...allValues.channelB,
+              resolution: this.channelBOptions.resolution[0].value
+            }
+          });
+          const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
+          setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[maxFrameRateOptionB].value);
+        }
+      }
+
       if (fieldNamePrefix === 'channelB') {
+        setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
         this.processRenderOptions({
           ...allValues,
           channelB: {
@@ -278,11 +334,8 @@ module.exports = class StreamSetting extends Base {
             resolution: this.channelBOptions.resolution[0].value
           }
         });
-        const maxFrameRate = this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value;
-        const currentFrameRateValue = values.frameRate;
-        if (fieldNamePrefix === 'channelB' && newCodecValue === StreamCodec.mjpeg && currentFrameRateValue > maxFrameRate) {
-          setFieldValue(`${fieldNamePrefix}.frameRate`, options.frameRate[0].value);
-        }
+        const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[maxFrameRateOptionB].value);
       }
     };
 
