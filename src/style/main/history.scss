@@ -74,6 +74,13 @@
     min-width: 700px;
   }
 
+  tbody {
+    tr:nth-last-child(2) {
+      // height of an tr item
+      margin-bottom: 80px;
+    }
+  }
+
   .spinner {
     width: 100%;
     text-align: center;
