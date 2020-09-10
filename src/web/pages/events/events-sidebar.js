@@ -188,8 +188,6 @@ module.exports = class EventsSidebar extends React.PureComponent {
                 isEnableFaceRecognitionKey ? (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{_('Facial Recognition')}</span>
-                    {/* Remove arrow in AVN */}
-                    <i className="fas fa-chevron-up"/>
                   </a>
                 ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
