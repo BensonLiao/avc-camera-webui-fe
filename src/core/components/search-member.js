@@ -191,6 +191,38 @@ class SearchMember extends React.PureComponent {
                   </div>
                 </div>
               </div>
+              {/* test buttons */}
+              <button
+                className="btn btn-outline-success rounded-pill"
+                type="button"
+                onClick={() => {
+                  this.setState({
+                    verifyStatus: true,
+                    isVerifying: false
+                  });
+                }}
+              >success
+              </button>
+              <button
+                className="btn btn-outline-danger rounded-pill"
+                type="button"
+                onClick={() => {
+                  this.setState({
+                    verifyStatus: false,
+                    isVerifying: false
+                  });
+                }}
+              >fail
+              </button>
+              <button
+                className="btn btn-outline-warning rounded-pill"
+                type="button"
+                onClick={() => {
+                  this.setState({isVerifying: true});
+                }}
+              >Verify
+              </button>
+
               <Formik
                 initialValues={this.generateInitialValues(memberName)}
                 onSubmit={this.onSearch}
