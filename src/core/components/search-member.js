@@ -8,6 +8,7 @@ import _ from '../../languages';
 import api from '../apis/web-api';
 import CustomNotifyModal from './custom-notify-modal';
 import CustomTooltip from './tooltip';
+import notify from '../notify';
 import utils from '../utils';
 
 class SearchMember extends React.PureComponent {
@@ -124,7 +125,7 @@ class SearchMember extends React.PureComponent {
         api.member.validatePicture(data)
           .then(() => {
             this.setState({
-              verifyStatus: false,
+              verifyStatus: true,
               convertedPicture: data
             });
           })
@@ -142,7 +143,7 @@ class SearchMember extends React.PureComponent {
     });
   }
 
-  addToMember = ({id, convertedPicture}) => {
+  addToMember = ({member, convertedPicture}) => {
     // hide search modal
     this.props.onHide();
     // show api processing modal and reset search results
@@ -151,8 +152,13 @@ class SearchMember extends React.PureComponent {
       members: null
     }, () => {
       api.member.addPhoto({
-        id,
+        id: member.id,
         picture: convertedPicture
+      }).then(() => {
+        notify.showSuccessNotification({
+          title: _('Setting Success'),
+          message: _('Added Photo to {0} Successfully!', [member.name])
+        });
       }).finally(() => {
         this.hideApiProcessModal();
       });
@@ -319,7 +325,7 @@ class SearchMember extends React.PureComponent {
                                   type="button"
                                   onClick={() => {
                                     this.addToMember({
-                                      id: member.id,
+                                      member: member,
                                       convertedPicture
                                     });
                                   }}
