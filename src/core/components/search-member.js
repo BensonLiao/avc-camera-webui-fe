@@ -8,6 +8,7 @@ import CustomTooltip from './tooltip';
 import api from '../apis/web-api';
 import CustomNotifyModal from './custom-notify-modal';
 import update from 'immutability-helper';
+import utils from '../utils';
 
 class SearchMember extends React.PureComponent {
   static propTypes = {
@@ -32,7 +33,9 @@ class SearchMember extends React.PureComponent {
     isFetching: false,
     isVerifying: true,
     verifyStatus: false,
-    errorMessage: 'Test error message here...'
+    errorMessage: null,
+    // base64 of event photo
+    convertedPicture: null
   }
 
   constructor() {
@@ -117,24 +120,29 @@ class SearchMember extends React.PureComponent {
       isVerifying: true,
       verifyStatus: false
     }, () => {
-      api.member.validatePicture(photo)
-        .then(() => {
-          this.setState({verifyStatus: true});
-        })
-        .catch(error => {
-          this.setState({
-            verifyStatus: false,
-            errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
-          });
-        })
-        .finally(() => {
+      utils.convertPicture(photo).then(data => {
+        api.member.validatePicture(data)
+          .then(() => {
+            this.setState({
+              verifyStatus: true,
+              convertedPicture: data
+            });
+          })
+          .catch(error => {
+            this.setState({
+              verifyStatus: false,
+              errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+            });
+          })
+          .finally(() => {
           // hide verifying spinners regardless of success or error
-          this.setState({isVerifying: false});
-        });
+            this.setState({isVerifying: false});
+          });
+      });
     });
   }
 
-  addToMember = ({id, eventPictureUrl}) => {
+  addToMember = ({id, convertedPicture}) => {
     // hide search modal
     this.props.onHide();
     // show api processing modal and reset search results
@@ -144,7 +152,7 @@ class SearchMember extends React.PureComponent {
     }, () => {
       api.member.addPhoto({
         id,
-        picture: eventPictureUrl
+        picture: convertedPicture
       }).finally(() => {
         this.hideApiProcessModal();
       });
@@ -153,7 +161,7 @@ class SearchMember extends React.PureComponent {
 
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
-    const {members, maxIndex, isFetching, isVerifying, verifyStatus, errorMessage} = this.state;
+    const {members, maxIndex, isFetching, isVerifying, verifyStatus, errorMessage, convertedPicture} = this.state;
     console.log(this.state);
     return (
       <>
@@ -308,7 +316,7 @@ class SearchMember extends React.PureComponent {
                                   onClick={() => {
                                     this.addToMember({
                                       id: member.id,
-                                      eventPictureUrl
+                                      convertedPicture
                                     });
                                   }}
                                 >
