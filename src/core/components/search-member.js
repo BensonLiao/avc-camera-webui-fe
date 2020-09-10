@@ -32,7 +32,7 @@ class SearchMember extends React.PureComponent {
     isFetching: false,
     isVerifying: true,
     verifyStatus: false,
-    errorMessage: 'Test Error Message Here...'
+    errorMessage: 'Test error message here...'
   }
 
   constructor() {
@@ -247,8 +247,8 @@ class SearchMember extends React.PureComponent {
                   /* Inital message */
                     !members && !isFetching && (
                       <tr>
-                        <td className="text-size-20 text-center pt-3" colSpan="10">
-                          <i className="fas fa-search fa-fw"/> {_('Please Search Keyword')}
+                        <td className="text-size-16 text-center pt-3" colSpan="10">
+                          <i className="fas fa-search fa-fw"/> {_('Enter keyword for search')}
                         </td>
                       </tr>
                     )
@@ -257,8 +257,8 @@ class SearchMember extends React.PureComponent {
                   /* Empty search message */
                     members && !members.items.length && members.items.length === 0 && (
                       <tr>
-                        <td className="text-size-20 text-center" colSpan="10">
-                          <i className="fas fa-frown-open fa-fw text-dark"/> {_('Can\'t find any member.')}
+                        <td className="text-size-16 text-center" colSpan="10">
+                          <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {_('Can\'t find any data.')}
                         </td>
                       </tr>
                     )
@@ -292,12 +292,12 @@ class SearchMember extends React.PureComponent {
                           <td className={classNames('text-left group-btn', tdClass)}>
                             <CustomTooltip title={
                               isVerifying ?
-                                _('Verifying Photo') :
+                                _('Verifying photo') :
                                 verifyStatus ?
                                   (member.pictures.length >= 5 ?
-                                    _('Photo Limit Reached') :
+                                    _('Photo limit reached') :
                                     _('Add to {0}', [member.name])) :
-                                  _('Invalid Photo')
+                                  _('Invalid photo')
                             }
                             >
                               <div>
@@ -339,8 +339,8 @@ class SearchMember extends React.PureComponent {
                   // End of search
                     members && members.index === maxIndex && members.items.length !== 0 && (
                       <tr>
-                        <td className="text-size-20 text-center" colSpan="10">
-                          {_('End of Result')}
+                        <td className="text-size-16 text-center" colSpan="10">
+                          {_('End of result')}
                         </td>
                       </tr>
                     )
