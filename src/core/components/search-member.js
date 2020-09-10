@@ -200,7 +200,12 @@ class SearchMember extends React.PureComponent {
                     <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
                   </div>
                   <div className="px-0 ml-3">
-                    <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
+                    <button
+                      className="btn btn-outline-primary rounded-pill px-3"
+                      type="submit"
+                      // allow search during photo verification
+                      disabled={isApiProcessing && !isVerifying}
+                    >
                       <i className="fas fa-search fa-fw"/> {_('Search')}
                     </button>
                   </div>
