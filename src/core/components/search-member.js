@@ -155,22 +155,7 @@ class SearchMember extends React.PureComponent {
             <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="d-flex flex-row justify-content-between mb-4 px-3">
-              <Formik
-                initialValues={this.generateInitialValues(memberName)}
-                onSubmit={this.onSearch}
-              >
-                <Form className="d-flex flex-row">
-                  <div className="px-0">
-                    <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
-                  </div>
-                  <div className="px-0 ml-3">
-                    <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
-                      <i className="fas fa-search fa-fw"/> {_('Search')}
-                    </button>
-                  </div>
-                </Form>
-              </Formik>
+            <div className="d-flex flex-row justify-content-between align-items-center mb-4 px-4">
               <div className="event-photo">
                 <img
                   src={eventPictureUrl}
@@ -187,6 +172,21 @@ class SearchMember extends React.PureComponent {
                   </div>
                 </div>
               </div>
+              <Formik
+                initialValues={this.generateInitialValues(memberName)}
+                onSubmit={this.onSearch}
+              >
+                <Form className="d-flex flex-row">
+                  <div className="px-0">
+                    <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
+                  </div>
+                  <div className="px-0 ml-3">
+                    <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
+                      <i className="fas fa-search fa-fw"/> {_('Search')}
+                    </button>
+                  </div>
+                </Form>
+              </Formik>
             </div>
             <div
               ref={element => {
@@ -280,7 +280,7 @@ class SearchMember extends React.PureComponent {
                     // Loading
                     ((members && isFetching) || isFetching) && (
                       <tr>
-                        <td colSpan="10">
+                        <td className="loading" colSpan="10">
                           <div className="spinner">
                             <div className="bounce1"/>
                             <div className="bounce2"/>
