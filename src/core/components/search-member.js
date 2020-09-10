@@ -225,9 +225,9 @@ class SearchMember extends React.PureComponent {
               <table className="table custom-style" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
-                    <th className="text-center" style={{width: '40%'}}>{_('User Picture')}</th>
-                    <th style={{width: '45%'}}>{_('Name')}</th>
-                    <th style={{width: '15%'}}>{_('Add')}</th>
+                    <th style={{width: '40%'}}>{_('User Picture')}</th>
+                    <th style={{width: '40%'}}>{_('Name')}</th>
+                    <th style={{width: '20%'}}>{_('Actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -257,7 +257,7 @@ class SearchMember extends React.PureComponent {
 
                       return (
                         <tr key={member.id}>
-                          <td className={classNames('text-center', tdClass)}>
+                          <td className={classNames(tdClass)}>
                             {member.pictures.map((picture, index) => {
                               // declaration to bypass eslint `no index in key`
                               const uniqueKey = member.id + index;
@@ -278,7 +278,16 @@ class SearchMember extends React.PureComponent {
                             </CustomTooltip>
                           </td>
                           <td className={classNames('text-left group-btn', tdClass)}>
-                            <CustomTooltip title={member.pictures.length >= 5 ? _('Photo Limit Reached') : _('Add to {0}', [member.name])}>
+                            <CustomTooltip title={
+                              isVerifying ?
+                                _('Verifying Photo') :
+                                (
+                                  member.pictures.length >= 5 ?
+                                    _('Photo Limit Reached') :
+                                    _('Add to {0}', [member.name])
+                                )
+                            }
+                            >
                               <div>
                                 <button
                                   disabled={member.pictures.length >= 5 || verifyStatus === false}
@@ -291,7 +300,7 @@ class SearchMember extends React.PureComponent {
                                     });
                                   }}
                                 >
-                                  <i className="fas fa-plus fa-lg fa-fw"/>
+                                  {_('Add')}
                                 </button>
                               </div>
                             </CustomTooltip>
