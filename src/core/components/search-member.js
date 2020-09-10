@@ -3,11 +3,11 @@ import {Formik, Form, Field} from 'formik';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
+import update from 'immutability-helper';
 import _ from '../../languages';
-import CustomTooltip from './tooltip';
 import api from '../apis/web-api';
 import CustomNotifyModal from './custom-notify-modal';
-import update from 'immutability-helper';
+import CustomTooltip from './tooltip';
 import utils from '../utils';
 
 class SearchMember extends React.PureComponent {
@@ -124,7 +124,7 @@ class SearchMember extends React.PureComponent {
         api.member.validatePicture(data)
           .then(() => {
             this.setState({
-              verifyStatus: true,
+              verifyStatus: false,
               convertedPicture: data
             });
           })
@@ -175,7 +175,11 @@ class SearchMember extends React.PureComponent {
             this.verifyPhoto(eventPictureUrl);
           }}
           onHide={() => {
-            this.setState({members: null});
+            this.setState({
+              members: null,
+              isVerifying: false,
+              errorMessage: null
+            });
             onHide();
           }}
         >
@@ -190,7 +194,7 @@ class SearchMember extends React.PureComponent {
                     src={eventPictureUrl}
                     className={classNames(
                       'rounded-circle',
-                      {'failed-check': verifyStatus === false && !isVerifying}
+                      {'failed-check': verifyStatus === false && !isVerifying && errorMessage}
                     )}
                   />
                   <div className={classNames(
