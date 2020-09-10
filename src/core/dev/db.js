@@ -83,7 +83,7 @@ const members = [
   },
   {
     id: uuidv4(),
-    name: 'Tom Hiddlestone',
+    name: 'Tom Hiddleston',
     organization: 'God',
     groupId: '',
     note: 'There are no men like me.',
@@ -98,7 +98,7 @@ const members = [
   // test data
   {
     id: uuidv4(),
-    name: 'Tom Hiddlestone 2',
+    name: 'Tom Hiddleston 2',
     organization: 'God',
     groupId: '',
     note: 'There are no men like me.',
@@ -123,7 +123,7 @@ const members = [
   },
   {
     id: uuidv4(),
-    name: 'Tom Hiddlestone 3',
+    name: 'Tom Hiddleston 3',
     organization: 'God',
     groupId: '',
     note: 'There are no men like me.',
@@ -137,7 +137,7 @@ const members = [
   },
   {
     id: uuidv4(),
-    name: 'Tom Hiddlestone 4',
+    name: 'Tom Hiddleston 4',
     organization: 'God',
     groupId: '',
     note: 'There are no men like me.',
@@ -184,7 +184,7 @@ const members = [
   },
   {
     id: uuidv4(),
-    name: 'Tom Hiddlestone 5',
+    name: 'Tom Hiddleston 5',
     organization: 'God',
     groupId: '',
     note: 'There are no men like me.',
@@ -198,7 +198,7 @@ const members = [
   },
   {
     id: uuidv4(),
-    name: 'Tom Hiddlestone 6',
+    name: 'Tom Hiddleston 6',
     organization: 'God',
     groupId: '',
     note: 'There are no men like me.',

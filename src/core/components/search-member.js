@@ -31,7 +31,8 @@ class SearchMember extends React.PureComponent {
     // for lazy loading get member api
     isFetching: false,
     isVerifying: true,
-    verifyStatus: false
+    verifyStatus: false,
+    errorMessage: 'Test Error Message Here...'
   }
 
   constructor() {
@@ -120,8 +121,11 @@ class SearchMember extends React.PureComponent {
         .then(() => {
           this.setState({verifyStatus: true});
         })
-        .catch(() => {
-          this.setState({verifyStatus: false});
+        .catch(error => {
+          this.setState({
+            verifyStatus: false,
+            errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+          });
         })
         .finally(() => {
           // hide verifying spinners regardless of success or error
@@ -149,7 +153,7 @@ class SearchMember extends React.PureComponent {
 
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
-    const {members, maxIndex, isFetching, isVerifying, verifyStatus} = this.state;
+    const {members, maxIndex, isFetching, isVerifying, verifyStatus, errorMessage} = this.state;
     console.log(this.state);
     return (
       <>
@@ -171,58 +175,34 @@ class SearchMember extends React.PureComponent {
             <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="d-flex flex-row justify-content-between align-items-center mb-4 pl-5 pr-3">
-              <div className="event-photo">
-                <img
-                  src={eventPictureUrl}
-                  className={classNames(
-                    'rounded-circle',
-                    {'failed-check': verifyStatus === false && !isVerifying}
+            <div className="d-flex flex-row justify-content-between align-items-end mb-4 pl-5 pr-3">
+              <div className="d-flex flex-row align-items-end">
+                <div className="event-photo">
+                  <img
+                    src={eventPictureUrl}
+                    className={classNames(
+                      'rounded-circle',
+                      {'failed-check': verifyStatus === false && !isVerifying}
+                    )}
+                  />
+                  <div className={classNames(
+                    'loading-dots',
+                    {'d-none': !isVerifying}
                   )}
-                />
-                <div className={classNames(
-                  'loading-dots',
-                  {'d-none': !isVerifying}
-                )}
-                >
-                  <div className="spinner">
-                    <div className="double-bounce1"/>
-                    <div className="double-bounce2"/>
+                  >
+                    <div className="spinner">
+                      <div className="double-bounce1"/>
+                      <div className="double-bounce2"/>
+                    </div>
                   </div>
                 </div>
+                { errorMessage && (
+                  <p className="text-size-14 mb-1 text-danger validate-error-message">
+                    <i className="fas fa-exclamation-triangle mr-1"/>
+                    {`${_(errorMessage)}`}
+                  </p>
+                )}
               </div>
-              {/* test buttons */}
-              <button
-                className="btn btn-outline-success rounded-pill"
-                type="button"
-                onClick={() => {
-                  this.setState({
-                    verifyStatus: true,
-                    isVerifying: false
-                  });
-                }}
-              >success
-              </button>
-              <button
-                className="btn btn-outline-danger rounded-pill"
-                type="button"
-                onClick={() => {
-                  this.setState({
-                    verifyStatus: false,
-                    isVerifying: false
-                  });
-                }}
-              >fail
-              </button>
-              <button
-                className="btn btn-outline-warning rounded-pill"
-                type="button"
-                onClick={() => {
-                  this.setState({isVerifying: true});
-                }}
-              >Verify
-              </button>
-
               <Formik
                 initialValues={this.generateInitialValues(memberName)}
                 onSubmit={this.onSearch}
