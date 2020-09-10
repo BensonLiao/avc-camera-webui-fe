@@ -171,7 +171,7 @@ class SearchMember extends React.PureComponent {
             <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="d-flex flex-row justify-content-between align-items-center mb-4 px-4">
+            <div className="d-flex flex-row justify-content-between align-items-center mb-4 pl-5 pr-3">
               <div className="event-photo">
                 <img
                   src={eventPictureUrl}
@@ -281,11 +281,11 @@ class SearchMember extends React.PureComponent {
                             <CustomTooltip title={
                               isVerifying ?
                                 _('Verifying Photo') :
-                                (
-                                  member.pictures.length >= 5 ?
+                                verifyStatus ?
+                                  (member.pictures.length >= 5 ?
                                     _('Photo Limit Reached') :
-                                    _('Add to {0}', [member.name])
-                                )
+                                    _('Add to {0}', [member.name])) :
+                                  _('Invalid Photo')
                             }
                             >
                               <div>
