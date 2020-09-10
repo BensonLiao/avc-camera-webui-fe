@@ -77,12 +77,10 @@
 
   .event-photo {
     position: relative;
-    width: 56px;
-    height: 56px;
 
     img {
-      width: 56px;
-      height: 56px;
+      width: 88px;
+      height: 88px;
 
       &.failed-check {
         box-shadow: 0 0 2pt 2pt #dd2b0e;
@@ -96,8 +94,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 56px;
-      height: 56px;
+      width: 88px;
+      height: 88px;
       transition: ease-out 1s;
       transition-delay: 0.3s;
       z-index: 1050;
