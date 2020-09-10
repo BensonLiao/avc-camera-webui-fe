@@ -30,7 +30,8 @@ class SearchMember extends React.PureComponent {
     keyword: null,
     // for lazy loading get member api
     isFetching: false,
-    isVerifying: true
+    isVerifying: true,
+    verifyStatus: false
   }
 
   constructor() {
@@ -111,10 +112,22 @@ class SearchMember extends React.PureComponent {
   }
 
   verifyPhoto = photo => {
-    api.member.validatePicture(photo)
-      .then(() => {
-        console.log('passed');
-      });
+    this.setState({
+      isVerifying: true,
+      verifyStatus: false
+    }, () => {
+      api.member.validatePicture(photo)
+        .then(() => {
+          this.setState({verifyStatus: true});
+        })
+        .catch(() => {
+          this.setState({verifyStatus: false});
+        })
+        .finally(() => {
+          // hide verifying spinners regardless of success or error
+          this.setState({isVerifying: false});
+        });
+    });
   }
 
   addToMember = ({id, eventPictureUrl}) => {
@@ -136,7 +149,7 @@ class SearchMember extends React.PureComponent {
 
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
-    const {members, maxIndex, isFetching, isVerifying} = this.state;
+    const {members, maxIndex, isFetching, isVerifying, verifyStatus} = this.state;
     console.log(this.state);
     return (
       <>
@@ -146,6 +159,9 @@ class SearchMember extends React.PureComponent {
           autoFocus={false}
           show={isShowModal}
           className="events-search-member-modal"
+          onEntered={() => {
+            this.verifyPhoto(eventPictureUrl);
+          }}
           onHide={() => {
             this.setState({members: null});
             onHide();
@@ -159,7 +175,10 @@ class SearchMember extends React.PureComponent {
               <div className="event-photo">
                 <img
                   src={eventPictureUrl}
-                  className="rounded-circle"
+                  className={classNames(
+                    'rounded-circle',
+                    {'failed-check': verifyStatus === false && !isVerifying}
+                  )}
                 />
                 <div className={classNames(
                   'loading-dots',
@@ -257,7 +276,7 @@ class SearchMember extends React.PureComponent {
                             <CustomTooltip title={member.pictures.length >= 5 ? _('Photo Limit Reached') : _('Add to {0}', [member.name])}>
                               <div>
                                 <button
-                                  disabled={member.pictures.length >= 5}
+                                  disabled={member.pictures.length >= 5 || verifyStatus === false}
                                   className="btn btn-link"
                                   type="button"
                                   onClick={() => {

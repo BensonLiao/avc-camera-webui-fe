@@ -83,6 +83,10 @@
     img {
       width: 56px;
       height: 56px;
+
+      &.failed-check {
+        box-shadow: 0 0 2pt 2pt #dd2b0e;
+      }
     }
 
     .loading-dots {
