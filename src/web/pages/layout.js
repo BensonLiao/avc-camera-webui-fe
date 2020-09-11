@@ -292,7 +292,7 @@ module.exports = class Layout extends Base {
                     <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
                       {_('Product Use')}
                     </a>
-                    <a className="dropdown-item" href="mailto:support@androvideo.com" target="_blank" rel="noopener noreferrer">
+                    <a className="dropdown-item" href="mailto:support@androvideo.com">
                       {_('Technical Support')}
                     </a>
                     <a className="dropdown-item" href="http://androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
