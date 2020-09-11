@@ -276,6 +276,12 @@ module.exports = class Layout extends Base {
                 </div>
               </div>
 
+              <div className="col d-none d-sm-block">
+                <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
+                  <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
+                </button>
+              </div>
+
               <div className="col">
                 <div className="dropdown">
                   <button className="btn border-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -294,12 +300,6 @@ module.exports = class Layout extends Base {
                     </a>
                   </div>
                 </div>
-              </div>
-
-              <div className="col d-none d-sm-block">
-                <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
-                  <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
-                </button>
               </div>
 
               <div className="col">
