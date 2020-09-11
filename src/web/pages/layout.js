@@ -283,9 +283,15 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h6 className="dropdown-header">{_('Support')}</h6>
-                    <a className="dropdown-item" href="http://androvideo.com/download.aspx">{_('Product Use')}</a>
-                    <a className="dropdown-item" href="mailto:support@androvideo.com">{_('Technical Support')}</a>
-                    <a className="dropdown-item" href="http://androvideo.com/products.aspx">{_('Product Information')}</a>
+                    <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
+                      {_('Product Use')}
+                    </a>
+                    <a className="dropdown-item" href="mailto:support@androvideo.com" target="_blank" rel="noopener noreferrer">
+                      {_('Technical Support')}
+                    </a>
+                    <a className="dropdown-item" href="http://androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
+                      {_('Product Information')}
+                    </a>
                   </div>
                 </div>
               </div>
