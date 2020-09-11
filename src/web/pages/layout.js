@@ -284,6 +284,26 @@ module.exports = class Layout extends Base {
 
               <div className="col">
                 <div className="dropdown">
+                  <button className="btn border-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i className="fas fa-question-circle text-size-20 mr-0 fa-fw"/>
+                  </button>
+                  <div className="dropdown-menu dropdown-menu-right">
+                    <h6 className="dropdown-header">{_('Support')}</h6>
+                    <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
+                      {_('Product Use')}
+                    </a>
+                    <a className="dropdown-item" href="mailto:support@androvideo.com">
+                      {_('Technical Support')}
+                    </a>
+                    <a className="dropdown-item" href="http://androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
+                      {_('Product Information')}
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col">
+                <div className="dropdown">
                   <button className="btn bg-primary border-primary text-white dropdown-toggle" type="button" data-toggle="dropdown">
                     <i className="fas fa-user text-white"/>
                   </button>

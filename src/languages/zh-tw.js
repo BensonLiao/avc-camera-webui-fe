@@ -14,6 +14,10 @@ if (!window.languageResource['zh-tw']) {
     'Product Selector': '產品選擇',
     'Technical Updates': '技術更新',
     Resources: '資源',
+    // App Bar/Support
+    'Product Use': '產品使用',
+    'Technical Support': '技術問題信箱',
+    'Product Information': '其他產品資訊',
 
     // Constants
     'permission-0': '管理者',
