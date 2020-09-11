@@ -253,7 +253,7 @@ class SearchMember extends React.PureComponent {
                 overflowY: 'scroll'
               }}
             >
-              <table className="table custom-style" style={{tableLayout: 'fixed'}}>
+              <table className="table custom-style mb-4" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
                     <th style={{width: '40%'}}>{_('User Picture')}</th>
@@ -354,17 +354,17 @@ class SearchMember extends React.PureComponent {
                       </tr>
                     )
                   }
-                  { members && (
-                    <Pagination
-                      index={members.index}
-                      size={members.size}
-                      total={members.total}
-                      itemQuantity={members.items.length}
-                      onSearch={this.onSearch}
-                    />
-                  )}
                 </tbody>
               </table>
+              { members && (
+                <Pagination
+                  index={members.index}
+                  size={members.size}
+                  total={members.total}
+                  itemQuantity={members.items.length}
+                  onSearch={this.onSearch}
+                />
+              )}
             </div>
           </Modal.Body>
         </Modal>
@@ -397,6 +397,8 @@ class Pagination extends React.PureComponent {
     super(props);
     this.maxGotoIndex = Math.ceil(this.props.total / this.props.size);
   }
+
+  state = {gotoIndex: 0};
 
    onChangeGotoIndex = event => {
      let validateValue = event.currentTarget.value;
@@ -441,7 +443,9 @@ class Pagination extends React.PureComponent {
        numbers.push({
          key: `pagination-${idx}`,
          pageNumber: idx + 1,
-         onClick: this.props.onSearch(idx),
+         onClick: () => {
+           onSearch(idx);
+         },
          className: classNames('page-item', {disabled: idx === index})
        });
      }
@@ -462,6 +466,7 @@ class Pagination extends React.PureComponent {
              <li className={classNames('page-item', {disabled: !hasPrevious})}>
                <a
                  className="page-link prev"
+                 tabIndex={0}
                  onClick={() => {
                    onSearch(index - 1);
                  }}
@@ -472,7 +477,11 @@ class Pagination extends React.PureComponent {
              {
                numbers.map(number => (
                  <li key={number.key} className={number.className}>
-                   <a className="page-link" onClick={number.onClick}>
+                   <a
+                     className="page-link"
+                     tabIndex={0}
+                     onClick={number.onClick}
+                   >
                      {number.pageNumber}
                    </a>
                  </li>
@@ -481,6 +490,7 @@ class Pagination extends React.PureComponent {
              <li className={classNames('page-item', {disabled: !hasNext})}>
                <a
                  className="page-link next"
+                 tabIndex={0}
                  onClick={hasNext ? () => {
                    onSearch(index + 1);
                  } : ''}
@@ -501,6 +511,7 @@ class Pagination extends React.PureComponent {
              <li className="page-item">
                <a
                  className="page-link go"
+                 tabIndex={0}
                  onClick={() => {
                    onSearch(gotoIndex);
                  }}
