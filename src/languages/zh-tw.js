@@ -25,7 +25,7 @@ if (!window.languageResource['zh-tw']) {
     'permission-2': '訪客',
     'permission-99': '管理者', // Super-Admin, for easier backend permission control, no difference for UI
 
-    'certificate-type-0': 'AV Costar 自簽憑證',
+    'certificate-type-0': 'AndroVideo Inc. 自簽憑證',
     'certificate-type-1': '自行上傳您的憑證',
     'certificate-type-2': '在此裝置上產生憑證',
 
@@ -33,7 +33,7 @@ if (!window.languageResource['zh-tw']) {
     'confidence-1': '中',
     'confidence-2': '高',
 
-    'enroll-status-0': '假臉',
+    'enroll-status-0': '非活體',
     'enroll-status-1': '未知',
     'enroll-status-2': '成功',
 
@@ -150,6 +150,7 @@ if (!window.languageResource['zh-tw']) {
     'face-recognition-condition-0': '不限',
     'face-recognition-condition-1': '成功',
     'face-recognition-condition-2': '未知',
+    'face-recognition-condition-3': '非活體',
 
     // 通知附件檔案
     'email-attachment-type-0': '臉部快照',
@@ -217,7 +218,7 @@ if (!window.languageResource['zh-tw']) {
     OFF: '關',
 
     // CustomTooltip - Begin
-    'Please Enter Start and End Datetime': '請輸入開始與結束時間',
+    'Please Enter Start and End Datetime': '請先選擇開始與結束時間',
     // - Internet/Network Settings
     'No Values Have Changed': '數值沒有更動',
     'Please Enable HTTPS': '請開啟HTTPS功能',
@@ -230,7 +231,7 @@ if (!window.languageResource['zh-tw']) {
     'This Account is Protected': '此帳戶不可刪除',
     'Cannot Delete Account That is Currently Logged In': '無法刪除正在使用的帳號',
     'Maximum Allowed Number of Schedule is 5': '最多可輸入5個通知時間',
-    'Please Enter an Email Address': '請輸入Email',
+    'Please Enter an Email Address': '請先輸入電子郵件',
     'Email: On': '電子郵件: 開',
     'Output: On': '數位輸出: 開',
     'VMS: On': '影像管理系統(VMS): 開',
@@ -269,7 +270,6 @@ if (!window.languageResource['zh-tw']) {
     'Enter Your Username and Password': '請輸入您的帳號與密碼',
     'Enter Your Username': '請輸入您的帳號',
     'Password Reset': '重置密碼',
-    'Need Help? Call AV Costar Technical Support at +1.818.937.0700 and select option #1': '需要幫忙嗎？請撥打AV Costar的支援專線+1.818.937.0700#1',
 
     // /login-error
     'Password Incorrect': '密碼輸入錯誤',
@@ -459,7 +459,7 @@ if (!window.languageResource['zh-tw']) {
     Size: '大小',
     Position: '位置',
     'Word Position': '貼圖顯示位置',
-    'Select Position': '請於畫面中點選文字顯示位置。',
+    'Select Position': '請於畫面中點選文字顯示位置',
     'Text Overlay': '文字覆蓋',
 
     // /notification/card
@@ -513,9 +513,9 @@ if (!window.languageResource['zh-tw']) {
     Port: '埠',
     Encryption: '加密',
     'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': '有些網路郵件供應商為了提高安全性， 可能會需要應用程式密碼，例如Google和Yahoo奇摩電子信箱帳號。請依照您郵件供應商的指示產生並使用應用程式密碼。',
-    'Mail Setting Success!': '電子郵件設定成功！',
-    'Mail Setting Failed!': '電子郵件設定失敗！',
-    'Test Mail Sent!': '測試郵件已寄出',
+    'Mail Setting Success': '電子郵件設定成功',
+    'Mail Setting Failed': '電子郵件設定失敗',
+    'Test Mail Sent': '測試郵件已寄出',
     'Account Auth is Off, Test Mail not Sent.': '登入認證設定為關閉，測試郵件未寄出',
 
     // /notification/cards
@@ -539,8 +539,16 @@ if (!window.languageResource['zh-tw']) {
     Recognition: '辨識',
     'Cards Limit Error': '通知卡數量限制',
     'Cannot Create More Than {0} Cards': '無法新增超過 {0} 張卡',
+    'Subject :': '主旨：',
+    'Content :': '內容：',
+    'Append Your Message to Notification Emails.': '輸入置放於通知郵件中的內文',
+    'Email Content Order': '內文位置',
 
-    // /smart/face-recognition
+    // 通知信件內容位置
+    'email-content-position-0': '置於開頭前',
+    'email-content-position-1': '置於結尾後',
+
+    // /analytic/face-recognition
     'Detection Zone': '觸發區域',
     'Facial Detection Size': '人臉大小',
     'Level of Accuracy': '相似度層級',
@@ -550,6 +558,7 @@ if (!window.languageResource['zh-tw']) {
     'Display Name': '顯示人名',
     'Display Group': '顯示已註冊群組',
     'Display "Unknown"': '顯示 "Unknown"',
+    'Display "Fake"': '顯示 "Fake"',
 
     // /smart/motion-detection
     'Motion Detection': '動作偵測',
@@ -614,7 +623,7 @@ if (!window.languageResource['zh-tw']) {
     'Modify Group': '編輯群組',
     Confirm: '確認',
 
-    // /events
+    // /users/events
     Events: '智慧搜尋',
     Total: '總筆數',
     Time: '時間',
@@ -635,9 +644,10 @@ if (!window.languageResource['zh-tw']) {
     'End Time': '結束時間',
     'End Datetime': '結束日期時間',
 
-    // /security/account
+    // /users/accounts
     Accounts: '帳號管理',
     Username: '帳號',
+    'New User': '創建使用者',
     'All Accounts': '所有帳號',
     'Off Line Record': '斷線錄影',
     'Modify User': '編輯帳號',
@@ -649,7 +659,7 @@ if (!window.languageResource['zh-tw']) {
     'Delete Account': '刪除帳號',
     'Are you sure to delete account {0}?': '您即將刪除 {0}，確認要刪除這個帳號嗎？',
 
-    // Internet/Network Settings
+    // /network/settings
     'Internet/Network Settings': '網路',
     'Network Settings': '連線設定',
     'LAN Configuration': 'LAN組態',
@@ -672,7 +682,7 @@ if (!window.languageResource['zh-tw']) {
     'Web Server Port Settings': '網頁服務埠設定',
     'Enter Your Server Port Settings': '請輸入您的服務埠',
 
-    // Internet/Network Settings/TCP/IP
+    // /network/tcp-ip
     'DDNS Server': 'DDNS 伺服器',
     'Server Provider': '服務提供',
     'Host Name': '主機名稱',
@@ -686,7 +696,7 @@ if (!window.languageResource['zh-tw']) {
     'Device Rebooting': '裝置重新開機',
     'Device Processing': '裝置處理中',
 
-    // Internet/Network Settings/HTTPS
+    // /network/https
     'Click Confirm to Redirect to the New Address': '請按確認重新導向新的網址',
     'Please Redirect Manually to the New Address': '請自行手動重新導向新的網址',
     'This is A Reserved Port or is In Use, Please Try Another Port.': '請設定非使用中或預留的服務埠',
@@ -701,9 +711,9 @@ if (!window.languageResource['zh-tw']) {
     'No Files Selected': '未選任何檔案',
 
     // /system/datetime
-    'Date & Region': '語言與時區',
+    'Date & Region': '日期與時區',
+    'Time Zone': '時區',
     'Date and Time of the Device': '裝置的日期與時間',
-    'Select Time Zone': '選擇時區',
     'Sync with Network Time Server (NTP)': '與網路時間伺服器 (NTP) 同步',
     'Host Name and IP Address': '主機名稱或 IP 位址',
     'Update Time': '更新時間',
@@ -712,8 +722,10 @@ if (!window.languageResource['zh-tw']) {
     'Update Frequency (Minutes)': '更新頻率 (分)',
     'Sync with Computer': '與電腦同步',
     'Set Date/Time Manually': '手動編輯日期與時間',
+    'Update date & region need to log in again. Are you sure you want to continue?': '更新日期與時區需要重新登入，確認是否繼續？',
 
-    // /system/Device Maintain
+    // /system/maintain
+    'Restore All Settings': '還原所有設定',
     'Device Maintenace': '裝置維護',
     'System Reboot': '重新啟動裝置',
     'Are you sure you want to reboot the system?': '您即將要重新啟動裝置，確認是否繼續？',
@@ -733,7 +745,7 @@ if (!window.languageResource['zh-tw']) {
     '• Internet/Network settings': '• 網路設定',
     '• SD Card settings.': '• SD卡設定',
 
-    // /system/Upgrade
+    // /system/upgrade
     'Upload Firmware': '上傳韌體',
     'Install Firmware': '安裝韌體',
     'Shutdown Device': '關閉裝置',
@@ -750,7 +762,7 @@ if (!window.languageResource['zh-tw']) {
     'Firmware Upgrade Success': '韌體升級成功',
     'Redirect to login page in {0} seconds': '於 {0} 秒後重新導向至登入頁面',
 
-    // /system/System Information
+    // /system/log
     'System Information': '資訊',
     Information: '裝置資訊',
     'System Log': 'Log 紀錄',
@@ -759,6 +771,9 @@ if (!window.languageResource['zh-tw']) {
     'Are you sure you want to delete record?': '您即將刪除系統 Log 檔紀錄，確認是否繼續？',
     'Delete Record': '刪除紀錄',
     Download: '下載',
+    // /system/information
+    'Build Version': '開發版號',
+    'S/N Code': 'S/N 碼',
 
     // /license
     License: '智慧授權',
@@ -777,6 +792,8 @@ if (!window.languageResource['zh-tw']) {
     'Key Already Registered!': '授權碼已註冊!',
 
     // /sd-card
+    'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
+    'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
     'SD Card Settings': 'SD卡設定',
     'SD Card Operation': '操作',
     Format: '格式化',

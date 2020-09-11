@@ -143,7 +143,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    name="senderSubject"
                    type="text"
                    className="form-control"
-                   placeholder={_('Specify the subject of notification emails.')}
+                   placeholder={_('Specify the Subject of Notification Emails.')}
                  />
                </div>
                <div className="form-group mb-4">
@@ -152,7 +152,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    name="senderContent"
                    type="text"
                    className="form-control"
-                   placeholder={_('Append your message to notification emails.')}
+                   placeholder={_('Append Your Message to Notification Emails.')}
                  />
                </div>
                <div className="form-group mb-4">
@@ -188,7 +188,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                          type="text"
                          className={classNames('form-control', 'notification-email', {'is-invalid': errors.$email && touched.$email})}
                          validate={this.validateEmail}
-                         placeholder={_('Enter email address')}
+                         placeholder={_('Enter Email Address')}
                        />
                      </div>
                    </div>

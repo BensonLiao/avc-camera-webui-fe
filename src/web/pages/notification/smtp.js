@@ -86,7 +86,7 @@ module.exports = class SMTP extends Base {
       .then(response => {
         notify.showSuccessNotification({
           title: _('Mail Setting Success'),
-          message: _(response.data.isTestMailSent ? 'Test Mail Sent!' : 'Account Auth is Off, Test Mail not Sent.')
+          message: _(response.data.isTestMailSent ? 'Test Mail Sent' : 'Account Auth is Off, Test Mail not Sent.')
         });
       })
       .then(getRouter().reload)

@@ -311,7 +311,7 @@ module.exports = class DateTime extends Base {
         </button>
         <CustomNotifyModal
           isShowModal={isShowModal}
-          modalTitle={_('Update Settings')}
+          modalTitle={_('Date & Region')}
           modalBody={_('Update date & region need to log in again. Are you sure you want to continue?')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
