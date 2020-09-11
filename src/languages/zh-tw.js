@@ -25,7 +25,7 @@ if (!window.languageResource['zh-tw']) {
     'permission-2': '訪客',
     'permission-99': '管理者', // Super-Admin, for easier backend permission control, no difference for UI
 
-    'certificate-type-0': 'AV Costar 自簽憑證',
+    'certificate-type-0': 'AndroVideo Inc. 自簽憑證',
     'certificate-type-1': '自行上傳您的憑證',
     'certificate-type-2': '在此裝置上產生憑證',
 
