@@ -281,12 +281,12 @@ module.exports = class EventsTable extends React.PureComponent {
                             <div className="dropdown-menu dropdown-menu-right shadow">
                               <a
                                 className="dropdown-item px-3"
-                                onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
+                                onClick={addMemberHandler(event.pictureThumbUrl)}
                               >{_('Add as New Member')}
                               </a>
                               <a
                                 className="dropdown-item px-3"
-                                onClick={addMemberHandler(event.pictureThumbUrl)}
+                                onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
                               >{_('Add to Existing Member')}
                               </a>
                             </div>
