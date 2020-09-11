@@ -286,7 +286,6 @@ module.exports = class Layout extends Base {
                     <a className="dropdown-item" href="http://androvideo.com/download.aspx">{_('Product Use')}</a>
                     <a className="dropdown-item" href="mailto:support@androvideo.com">{_('Technical Support')}</a>
                     <a className="dropdown-item" href="http://androvideo.com/products.aspx">{_('Product Information')}</a>
-                    <a href="//www.mylink.com" target="_blank"> mylink </a>
                   </div>
                 </div>
               </div>
