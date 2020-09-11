@@ -1,3 +1,19 @@
+const abbrs = {
+  EST: ' Eastern Standard Time',
+  EDT: ' Eastern Daylight Time',
+  CST: ' Central Standard Time',
+  CDT: ' Central Daylight Time',
+  MST: ' Mountain Standard Time',
+  MDT: ' Mountain Daylight Time',
+  PST: ' Pacific Standard Time',
+  PDT: ' Pacific Daylight Time'
+};
+const moment = require('moment-timezone');
+moment.fn.zoneName = function () {
+  const abbr = this.zoneAbbr();
+  return abbrs[abbr] || (Number.isNaN(Number(abbr)) ? ' ' + abbr : '');
+};
+
 module.exports = {
   store: {
     CHANGE: 'STORE_CHANGE_',
@@ -136,5 +152,65 @@ module.exports = {
     '+9': 'Pacific/Gambier',
     '+10': 'Pacific/Tahiti',
     '+11': 'Pacific/Midway'
-  }
+  },
+  TIMEZONE_LIST: (() => {
+    const tzOptions = moment.tz
+      .names()
+      .map(name => {
+        const zone = moment.tz.zone(name);
+        return {
+          name,
+          label: name.substring(name.lastIndexOf('/') + 1, name.length),
+          offset: zone ? `${zone.utcOffset(Date.now())}` : '0'
+        };
+      })
+      .sort((a, b) =>
+        b.offset === a.offset ?
+          b.name.localeCompare(a.name) :
+          b.offset - a.offset
+      )
+      .map(zone => {
+        const offset = `UTC${moment.tz(zone.name).format('Z')}`;
+        const zoneName = moment.tz(zone.name).format('zz');
+        return {
+          value: zone.name,
+          label: `(${offset}) ${zone.label}${zoneName}`
+        };
+      });
+    // const tzOptions = Object.values(moment.tz
+    //   .names()
+    //   .map(name => {
+    //     const zone = moment.tz.zone(name);
+    //     return {
+    //       name,
+    //       label: name.substring(name.lastIndexOf('/') + 1, name.length),
+    //       offset: zone ? `${zone.utcOffset(Date.now())}` : '0'
+    //     };
+    //   })
+    //   .reduce((acc, cur) => {
+    //     const sameOffset = Object.keys(acc).indexOf(cur.offset) > -1;
+    //     if (sameOffset) {
+    //       acc[cur.offset] = {
+    //         name: cur.name,
+    //         label: `${acc[cur.offset].label} ${cur.label}`,
+    //         offset: cur.offset
+    //       };
+    //     } else {
+    //       acc[cur.offset] = cur;
+    //     }
+
+    //     return acc;
+    //   }, {}))
+    //   .sort((a, b) => b.offset - a.offset)
+    //   .map(zone => {
+    //     const offset = `UTC${moment.tz(zone.name).format('Z')}`;
+    //     return {
+    //       value: zone.name,
+    //       label: `(${offset}) ${zone.label}`
+    //     };
+    //   });
+    // console.log('tzOptions', tzOptions);
+    return tzOptions;
+  })(),
+  VMS_CAMERA_LINK: 'cameralink'
 };

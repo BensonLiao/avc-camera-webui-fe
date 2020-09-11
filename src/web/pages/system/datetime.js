@@ -15,7 +15,7 @@ const NTPTimeZone = require('webserver-form-schema/constants/system-sync-time-nt
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
-const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP} = require('../../../core/constants');
+const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP, TIMEZONE_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -144,9 +144,9 @@ module.exports = class DateTime extends Base {
           <label>{_('Time Zone')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="ntpTimeZone" component="select" className="form-control border-0">
-              {NTPTimeZone.all().map(v => {
+              {TIMEZONE_LIST.map(v => {
                 return (
-                  <option key={v} value={v}>{v}</option>
+                  <option key={v.value} value={v.value}>{v.label}</option>
                 );
               })}
             </Field>
