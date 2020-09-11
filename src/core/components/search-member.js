@@ -54,17 +54,18 @@ class SearchMember extends React.PureComponent {
   };
 
   onSearch = values => {
-    this.setState({
-      keyword: values.keyword,
+    this.setState(prevState => ({
+      ...prevState,
+      keyword: values.keyword || prevState.keyword,
       members: null
-    });
+    }));
 
-    // bind scroll event listner
-    this.containerRef.addEventListener('scroll', () => {
-      this.handleScroll();
-    });
-
-    this.getMembers(values.keyword)
+    this.getMembers(
+      // keyword
+      values.keyword ? values.keyword : this.state.keyword,
+      // index
+      values.keyword || values.keyword === '' ? null : values
+    )
       .then(response => this.setState({
         isFetching: false,
         members: response.data,
@@ -72,7 +73,7 @@ class SearchMember extends React.PureComponent {
       }));
   };
 
-  getMembers = (keyword = null, index = 0) => new Promise((resolve, _) => {
+  getMembers = (keyword, index = null) => new Promise((resolve, _) => {
     resolve(
       this.setState({isFetching: true}));
   })
