@@ -539,9 +539,10 @@ if (!window.languageResource['zh-tw']) {
     Recognition: '辨識',
     'Cards Limit Error': '通知卡數量限制',
     'Cannot Create More Than {0} Cards': '無法新增超過 {0} 張卡',
-    'Subject :': '主旨：',
-    'Content :': '內容：',
-    'Append Your Message to Notification Emails.': '輸入置放於通知郵件中的內文',
+    'Subject :': '主旨 :',
+    'Content :': '內文 :',
+    'Specify the Subject of Notification Emails': '請輸入通知郵件主旨',
+    'Append Your Message to Notification Emails': '請輸入通知郵件內文',
     'Email Content Order': '內文位置',
 
     // 通知信件內容位置
