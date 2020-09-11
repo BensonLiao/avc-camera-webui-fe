@@ -3,7 +3,6 @@ import {Formik, Form, Field} from 'formik';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import update from 'immutability-helper';
 import _ from '../../languages';
 import api from '../apis/web-api';
 import CustomNotifyModal from './custom-notify-modal';
@@ -28,7 +27,6 @@ class SearchMember extends React.PureComponent {
   state={
     members: null,
     isShowApiProcessModal: false,
-    maxIndex: 0,
     keyword: null,
     // for lazy loading get member api
     isFetching: false,
@@ -37,12 +35,6 @@ class SearchMember extends React.PureComponent {
     errorMessage: null,
     // base64 of event photo
     convertedPicture: null
-  }
-
-  constructor() {
-    super();
-    // used to calculate list window height for scroll listener
-    this.containerRef = React.createRef();
   }
 
   generateInitialValues = memberName => {
@@ -54,23 +46,19 @@ class SearchMember extends React.PureComponent {
   };
 
   onSearch = values => {
+    const keyword = values.keyword || values.keyword === '' ? values.keyword : this.state.keyword;
+    const index = values.keyword || values.keyword === '' ? null : values;
     this.setState(prevState => ({
       ...prevState,
-      keyword: values.keyword || prevState.keyword,
+      keyword: keyword,
       members: null
-    }));
-
-    this.getMembers(
-      // keyword
-      values.keyword ? values.keyword : this.state.keyword,
-      // index
-      values.keyword || values.keyword === '' ? null : values
-    )
-      .then(response => this.setState({
-        isFetching: false,
-        members: response.data,
-        maxIndex: Math.ceil(response.data.total / response.data.size)
-      }));
+    }), () => {
+      this.getMembers(keyword, index)
+        .then(response => this.setState({
+          isFetching: false,
+          members: response.data
+        }));
+    });
   };
 
   getMembers = (keyword, index = null) => new Promise((resolve, _) => {
@@ -85,37 +73,6 @@ class SearchMember extends React.PureComponent {
         sort: null
       })
     ))
-
-  handleScroll = () => {
-    // skip if user hasn't scrolled to the bottom of list or api is still fetching
-    if (Math.ceil(this.containerRef.offsetHeight + this.containerRef.scrollTop) !== this.containerRef.scrollHeight || this.state.isFetching) {
-      return;
-    }
-
-    const {members, maxIndex} = this.state;
-    // check if there are more pages to laod
-    if (members && (members.index) < maxIndex) {
-      this.appendMemberList(members.index + 1);
-    }
-  };
-
-  appendMemberList = index => {
-    this.getMembers(this.state.keyword, index)
-      .then(response => {
-        const {members} = this.state;
-        const updateState = update(this.state, {
-          members: {
-            // increase current page by 1
-            index: {$set: members.index + 1},
-            // join previous member list with new list
-            items: {$set: members ? [...members.items, ...response.data.items] : response.data.items}
-          },
-          isFetching: {$set: false}
-        });
-
-        this.setState(updateState);
-      });
-  }
 
   verifyPhoto = photo => {
     this.setState({
@@ -471,7 +428,7 @@ class Pagination extends React.PureComponent {
                    onSearch(index - 1);
                  }}
                >
-         &laquo;
+                &laquo;
                </a>
              </li>
              {
@@ -493,9 +450,9 @@ class Pagination extends React.PureComponent {
                  tabIndex={0}
                  onClick={hasNext ? () => {
                    onSearch(index + 1);
-                 } : ''}
+                 } : null}
                >
-         &raquo;
+                &raquo;
                </a>
              </li>
              <li className="page-item">
@@ -516,7 +473,7 @@ class Pagination extends React.PureComponent {
                    onSearch(gotoIndex);
                  }}
                >
-         Go
+                Go
                </a>
              </li>
            </ul>
