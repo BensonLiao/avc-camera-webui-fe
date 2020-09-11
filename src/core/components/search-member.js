@@ -126,7 +126,6 @@ class SearchMember extends React.PureComponent {
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
     const {members, isFetching, isVerifying, verifyStatus, errorMessage, convertedPicture} = this.state;
-    console.log(this.state);
     return (
       <>
         <Modal
@@ -147,7 +146,7 @@ class SearchMember extends React.PureComponent {
             onHide();
           }}
         >
-          <Modal.Header closeButton={!isFetching} className="d-flex justify-content-between align-items-center">
+          <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying)} className="d-flex justify-content-between align-items-center">
             <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -185,7 +184,7 @@ class SearchMember extends React.PureComponent {
               >
                 <Form className="d-flex flex-row">
                   <div className="px-0">
-                    <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
+                    <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keyword')}/>
                   </div>
                   <div className="px-0 ml-3">
                     <button
@@ -219,101 +218,101 @@ class SearchMember extends React.PureComponent {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                  /* Inital message */
-                    !members && !isFetching && (
-                      <tr>
-                        <td className="text-size-16 text-center pt-3" colSpan="10">
-                          <i className="fas fa-search fa-fw"/> {_('Enter keyword for search')}
-                        </td>
-                      </tr>
-                    )
-                  }
-                  {
-                  /* Empty search message */
-                    members && !members.items.length && members.items.length === 0 && (
-                      <tr>
-                        <td className="text-size-16 text-center" colSpan="10">
-                          <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {_('Can\'t find any data.')}
-                        </td>
-                      </tr>
-                    )
-                  }
-                  {
-                    members && members.items.map((member, index) => {
-                      const tdClass = classNames({'border-bottom': index >= members.items.length - 1});
 
-                      return (
-                        <tr key={member.id}>
-                          <td className={classNames(tdClass)}>
-                            {member.pictures.map((picture, index) => {
-                              // declaration to bypass eslint `no index in key`
-                              const uniqueKey = member.id + index;
-                              return (
-                                <img
-                                  key={uniqueKey}
-                                  className="rounded-circle"
-                                  src={`data:image/jpeg;base64,${picture}`}
-                                />
-                              );
-                            })}
-                          </td>
-                          <td className={tdClass}>
-                            <CustomTooltip placement="top-start" title={member.name}>
-                              <div>
-                                {member.name}
-                              </div>
-                            </CustomTooltip>
-                          </td>
-                          <td className={classNames('text-left group-btn', tdClass)}>
-                            <CustomTooltip title={
-                              isVerifying ?
-                                _('Verifying photo') :
-                                verifyStatus ?
-                                  (member.pictures.length >= 5 ?
-                                    _('Photo limit reached') :
-                                    _('Add to {0}', [member.name])) :
-                                  _('Invalid photo')
-                            }
-                            >
-                              <div>
-                                <button
-                                  disabled={member.pictures.length >= 5 || verifyStatus === false}
-                                  className="btn btn-link"
-                                  type="button"
-                                  onClick={() => {
-                                    this.addToMember({
-                                      member: member,
-                                      convertedPicture
-                                    });
-                                  }}
-                                >
-                                  {_('Add')}
-                                </button>
-                              </div>
-                            </CustomTooltip>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  }
-                  {
-                    // Loading
-                    ((members && isFetching) || isFetching) && (
-                      <tr>
-                        <td className="loading" colSpan="10">
-                          <div className="spinner">
-                            <div className="bounce1"/>
-                            <div className="bounce2"/>
-                            <div className="bounce3"/>
-                          </div>
+                  {/* Inital message  */}
+                  {!members && !isFetching && (
+                    <tr>
+                      <td className="text-size-16 text-center pt-3" colSpan="10">
+                        <i className="fas fa-search fa-fw"/> {_('Enter Keyword For Search')}
+                      </td>
+                    </tr>
+                  )}
+
+                  {/* Empty search message */}
+                  { members && !members.items.length && members.items.length === 0 && (
+                    <tr>
+                      <td className="text-size-16 text-center" colSpan="10">
+                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {_('Can\'t find any data.')}
+                      </td>
+                    </tr>
+                  )}
+
+                  {/* Search result list */}
+                  {members && members.items.map((member, index) => {
+                    const tdClass = classNames({'border-bottom': index >= members.items.length - 1});
+
+                    return (
+                      <tr key={member.id}>
+                        <td className={classNames(tdClass)}>
+                          {member.pictures.map((picture, index) => {
+                            // declaration to bypass eslint `no index in key`
+                            const uniqueKey = member.id + index;
+                            return (
+                              <img
+                                key={uniqueKey}
+                                className="rounded-circle"
+                                src={`data:image/jpeg;base64,${picture}`}
+                              />
+                            );
+                          })}
+                        </td>
+                        <td className={tdClass}>
+                          <CustomTooltip placement="top-start" title={member.name}>
+                            <div>
+                              {member.name}
+                            </div>
+                          </CustomTooltip>
+                        </td>
+                        <td className={classNames('text-left group-btn', tdClass)}>
+                          <CustomTooltip title={
+                            isVerifying ?
+                              _('Verifying Photo') :
+                              verifyStatus ?
+                                (member.pictures.length >= 5 ?
+                                  _('Photo Limit Reached') :
+                                  _('Add to {0}', [member.name])) :
+                                _('Invalid Photo')
+                          }
+                          >
+                            <div>
+                              <button
+                                disabled={member.pictures.length >= 5 || verifyStatus === false}
+                                className="btn btn-link"
+                                type="button"
+                                onClick={() => {
+                                  this.addToMember({
+                                    member: member,
+                                    convertedPicture
+                                  });
+                                }}
+                              >
+                                {_('Add')}
+                              </button>
+                            </div>
+                          </CustomTooltip>
                         </td>
                       </tr>
-                    )
-                  }
+                    );
+                  })}
+
+                  {/* Loading indicator */}
+                  {((members && isFetching) || isFetching) && (
+                    <tr>
+                      <td className="loading" colSpan="10">
+                        <div className="spinner">
+                          <div className="bounce1"/>
+                          <div className="bounce2"/>
+                          <div className="bounce3"/>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+
                 </tbody>
               </table>
-              { members && (
+
+              {/* Custom pagination component */}
+              { members && members.items.length !== 0 && (
                 <Pagination
                   index={members.index}
                   size={members.size}
@@ -322,6 +321,7 @@ class SearchMember extends React.PureComponent {
                   onSearch={this.onSearch}
                 />
               )}
+
             </div>
           </Modal.Body>
         </Modal>
@@ -338,8 +338,6 @@ class SearchMember extends React.PureComponent {
     );
   }
 }
-
-export default SearchMember;
 
 class Pagination extends React.PureComponent {
   static propTypes = {
@@ -375,16 +373,7 @@ class Pagination extends React.PureComponent {
    }
 
    render() {
-     const {
-       index,
-       size,
-       total,
-       itemQuantity,
-       onSearch
-     } = this.props;
-     if (total === 0) {
-       return <></>;
-     }
+     const {index, size, total, itemQuantity, onSearch} = this.props;
 
      const numbers = [];
      const hasPrevious = index > 0;
@@ -486,3 +475,4 @@ class Pagination extends React.PureComponent {
    }
 }
 
+export default SearchMember;
