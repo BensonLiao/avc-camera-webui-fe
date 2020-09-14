@@ -132,6 +132,7 @@ module.exports = class HTTPS extends Base {
           </div>
         </CustomTooltip>
         <CustomNotifyModal
+          isRedirectLink
           isShowAllBtns={false}
           backdrop="static"
           isShowModal={isShowModal}
