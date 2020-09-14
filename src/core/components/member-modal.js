@@ -780,6 +780,7 @@ module.exports = class Member extends React.PureComponent {
                   aspectRatio={1}
                   viewMode={2}
                   dragMode="move"
+                  toggleDragModeOnDblclick={false}
                   zoomOnTouch={false}
                   cropBoxResizable={false}
                   crop={this._crop}
