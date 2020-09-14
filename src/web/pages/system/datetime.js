@@ -11,11 +11,10 @@ const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
-const NTPTimeZone = require('webserver-form-schema/constants/system-sync-time-ntp-timezone');
-const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
 const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP, TIMEZONE_LIST} = require('../../../core/constants');
+const TIMEZONE_LIST_NAMES = TIMEZONE_LIST.map(zone => zone.name);
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -27,7 +26,7 @@ module.exports = class DateTime extends Base {
       systemDateTime: PropTypes.shape({
         deviceTime: PropTypes.string.isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,
-        ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
+        ntpTimeZone: PropTypes.oneOf(TIMEZONE_LIST_NAMES).isRequired,
         ntpIP: PropTypes.string.isRequired,
         ntpTimeOption: PropTypes.oneOf(NTPTimeOption.all()).isRequired,
         ntpUpdateTime: PropTypes.number.isRequired,
@@ -102,7 +101,6 @@ module.exports = class DateTime extends Base {
           .finally(progress.done);
       } else {
         values.manualTime.setSeconds(0);
-        values.ntpTimeZone = this.getMatchedValue(NTPTimeZoneList, this.getMatchedValue(NTPTimeZone, values.ntpTimeZone).key).value;
         values.manualTime = values.manualTime.getTime() - (new Date(values.manualTime).getTimezoneOffset() * 60 * 1000);
         values.ntpUpdateTime = values.ntpUpdateTime.getTime() - (new Date(values.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
         api.system.updateSystemDateTime(values)
@@ -144,9 +142,9 @@ module.exports = class DateTime extends Base {
           <label>{_('Time Zone')}</label>
           <div className="select-wrapper border rounded-pill overflow-hidden">
             <Field name="ntpTimeZone" component="select" className="form-control border-0">
-              {TIMEZONE_LIST.map(v => {
+              {TIMEZONE_LIST.map(zone => {
                 return (
-                  <option key={v.value} value={v.value}>{v.label}</option>
+                  <option key={zone.name} value={zone.name}>{zone.currentTimeFormat}</option>
                 );
               })}
             </Field>
@@ -352,7 +350,6 @@ module.exports = class DateTime extends Base {
                   <Formik
                     initialValues={{
                       ...systemDateTime,
-                      ntpTimeZone: this.getMatchedValue(NTPTimeZone, this.getMatchedValue(NTPTimeZoneList, systemDateTime.ntpTimeZone).key).value,
                       ntpUpdateTime: new Date(ntpUpdateTimeAdjust),
                       manualTime: systemDateTime.manualTime ?
                         new Date(systemDateTime.manualTime) : new Date(),
