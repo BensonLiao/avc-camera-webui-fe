@@ -6,8 +6,8 @@ module.exports = class Base extends React.Component {
     $isApiProcessing: store.get('$isApiProcessing'),
     $user: store.get('$user'),
     $expires: store.get('$expires'),
-    $updateFocalLengthField: store.get('$updateFocalLengthField'),
-    $isNotCallUnloadAlert: store.get('$isNotCallUnloadAlert')
+    $updateFocalLengthField: store.get('$updateFocalLengthField') || false,
+    $isNotCallUnloadAlert: store.get('$isNotCallUnloadAlert') || false
   };
 
   constructor(props) {
