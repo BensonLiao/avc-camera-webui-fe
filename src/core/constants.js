@@ -138,7 +138,14 @@ module.exports = {
     '+11': 'Pacific/Midway'
   },
   TIMEZONE_LIST: (() => {
-    const tzOptions = require('@vvo/tzdb').getTimeZones();
+    const tzOptions = require('@vvo/tzdb')
+      .getTimeZones()
+      .map(zone => {
+        return {
+          ...zone,
+          label: `UTC${zone.currentTimeFormat}`
+        };
+      });
     return tzOptions;
   })(),
   VMS_CAMERA_LINK: 'cameralink'

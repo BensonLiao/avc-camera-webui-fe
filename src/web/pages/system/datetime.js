@@ -137,7 +137,7 @@ module.exports = class DateTime extends Base {
             <Field name="ntpTimeZone" component="select" className="form-control border-0">
               {TIMEZONE_LIST.map(zone => {
                 return (
-                  <option key={zone.name} value={zone.name}>{zone.currentTimeFormat}</option>
+                  <option key={zone.name} value={zone.name}>{zone.label}</option>
                 );
               })}
             </Field>
