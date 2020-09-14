@@ -71,6 +71,7 @@ module.exports = class Member extends React.PureComponent {
     this.state.preEditState = null;
     this.state.avatarToEdit = 'Primary';
     this.editWrapperSize = 300; // px
+    this.editCropBoxSize = 128; // px
     this.listWrapperSize = 88; // px
     this.previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
     this.state.boundary = {
@@ -96,8 +97,10 @@ module.exports = class Member extends React.PureComponent {
         },
         avatarPreviewStyle: {
           transform: {
-            x: 0,
-            y: 0,
+            left: 0,
+            top: 0,
+            width: this.editWrapperSize,
+            height: this.editWrapperSize,
             scale: 1,
             rotate: 0
           },
@@ -146,7 +149,17 @@ module.exports = class Member extends React.PureComponent {
     this.cropper.cropBox.appendChild(mask);
 
     // Restore to the lastest cropper status if exist
-    this.cropper.setData(avatarList[avatarToEdit].avatarPreviewStyle.transform);
+    this.cropper.setData({
+      rotate: avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate,
+      scale: avatarList[avatarToEdit].avatarPreviewStyle.transform.scale
+    });
+    this.cropper.setCanvasData(avatarList[avatarToEdit].avatarPreviewStyle.transform);
+
+    // Set crop box size to a fixed size
+    this.cropper.setCropBoxData({
+      width: this.editCropBoxSize,
+      height: this.editCropBoxSize
+    });
 
     // Add mouse wheel event to scale cropper instead of default zoom function
     this.cropper.cropBox.addEventListener('wheel', event => {
@@ -171,15 +184,18 @@ module.exports = class Member extends React.PureComponent {
 
   generateOnCropEndHandler = avatarName => _ => {
     const cropperData = this.cropper.getData();
-    const newCropBoxState = update(
+    const cropperCanvasData = this.cropper.getCanvasData();
+    const newCropperState = update(
       this.state,
       {
         avatarList: {
           [avatarName]: {
             avatarPreviewStyle: {
               transform: {
-                x: {$set: cropperData.x},
-                y: {$set: cropperData.y},
+                left: {$set: cropperCanvasData.left},
+                top: {$set: cropperCanvasData.top},
+                width: {$set: cropperCanvasData.width},
+                height: {$set: cropperCanvasData.height},
                 scale: {$set: cropperData.scaleX},
                 rotate: {$set: cropperData.rotate}
               },
@@ -189,7 +205,7 @@ module.exports = class Member extends React.PureComponent {
         }
       }
     );
-    this.setState(newCropBoxState);
+    this.setState(newCropperState);
   }
 
   zoomCropper = values => {
@@ -336,8 +352,8 @@ module.exports = class Member extends React.PureComponent {
               },
               avatarPreviewStyle: {
                 transform: {
-                  x: 0,
-                  y: 0,
+                  left: 0,
+                  top: 0,
                   scale: 1,
                   rotate: 0
                 },
@@ -577,8 +593,7 @@ module.exports = class Member extends React.PureComponent {
                 const {
                   verifyStatus,
                   isVerifying,
-                  photoOffset,
-                  avatarPreviewStyle: {croppedImage, transform: {scale, rotate}}
+                  avatarPreviewStyle: {croppedImage}
                 } = avatar[1];
                 return (
                   <div key={avatar[0]} className={classNames('individual-item d-flex flex-column')}>
@@ -605,12 +620,7 @@ module.exports = class Member extends React.PureComponent {
                                 'avatar-img',
                                 {'is-verifying': isVerifying}
                               )}
-                              style={{
-                                backgroundImage: `url("${croppedImage}")`,
-                                transform: `scale(${scale}) 
-                                            rotate(${rotate}deg)
-                                            translate(${photoOffset.x * this.previewReductionRatio}px, ${photoOffset.y * this.previewReductionRatio}px`
-                              }}
+                              style={{backgroundImage: `url("${croppedImage}")`}}
                               onClick={() => {
                                 this.onShowEditModal(avatar[0]);
                               }}
@@ -765,14 +775,11 @@ module.exports = class Member extends React.PureComponent {
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
                 <Cropper
                   src={avatarPreviewStyle.originalImage}
-                  style={{
-                    height: this.editWrapperSize,
-                    width: this.editWrapperSize
-                  }}
                   // Cropper.js options
                   initialAspectRatio={1}
                   aspectRatio={1}
                   viewMode={2}
+                  dragMode="move"
                   zoomOnTouch={false}
                   cropBoxResizable={false}
                   crop={this._crop}
