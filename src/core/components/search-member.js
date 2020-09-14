@@ -28,7 +28,6 @@ class SearchMember extends React.PureComponent {
     members: null,
     isShowApiProcessModal: false,
     keyword: null,
-    // for lazy loading get member api
     isFetching: false,
     isVerifying: true,
     verifyStatus: false,
@@ -37,13 +36,9 @@ class SearchMember extends React.PureComponent {
     convertedPicture: null
   }
 
-  generateInitialValues = memberName => {
-    return {keyword: memberName || ''};
-  };
+  generateInitialValues = memberName => ({keyword: memberName || ''})
 
-  hideApiProcessModal = () => {
-    this.setState({isShowApiProcessModal: false});
-  };
+  hideApiProcessModal = () => this.setState({isShowApiProcessModal: false})
 
   onSearch = values => {
     const keyword = values.keyword || values.keyword === '' ? values.keyword : this.state.keyword;
@@ -53,7 +48,7 @@ class SearchMember extends React.PureComponent {
       keyword: keyword,
       members: null,
       isFetching: true
-    }), () => {
+    }), () =>
       api.member.getMembers({
         group: null,
         keyword: keyword,
@@ -63,36 +58,32 @@ class SearchMember extends React.PureComponent {
         .then(response => this.setState({
           isFetching: false,
           members: response.data
-        }));
-    });
+        }))
+    );
   };
 
-  verifyPhoto = photo => {
+  verifyPhoto = photo =>
     this.setState({
       isVerifying: true,
       verifyStatus: false
-    }, () => {
-      utils.convertPicture(photo).then(data => {
+    }, () =>
+      utils.convertPicture(photo).then(data =>
         api.member.validatePicture(data)
-          .then(() => {
+          .then(() =>
             this.setState({
               verifyStatus: true,
               convertedPicture: data
-            });
-          })
-          .catch(error => {
+            })
+          )
+          .catch(error =>
             this.setState({
               verifyStatus: false,
               errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
-            });
-          })
-          .finally(() => {
-          // hide verifying spinners regardless of success or error
-            this.setState({isVerifying: false});
-          });
-      });
-    });
-  }
+            })
+          )
+          .finally(() => this.setState({isVerifying: false}))
+      )
+    );
 
   addToMember = ({member, convertedPicture}) => {
     // hide search modal
@@ -101,19 +92,17 @@ class SearchMember extends React.PureComponent {
     this.setState({
       isShowApiProcessModal: true,
       members: null
-    }, () => {
+    }, () =>
       api.member.addPhoto({
         id: member.id,
         picture: convertedPicture
-      }).then(() => {
+      }).then(() =>
         notify.showSuccessNotification({
           title: _('Setting Success'),
           message: _('Added Photo to {0} Successfully!', [member.name])
-        });
-      }).finally(() => {
-        this.hideApiProcessModal();
-      });
-    });
+        })
+      ).finally(() => this.hideApiProcessModal())
+    );
   };
 
   render() {
@@ -127,9 +116,7 @@ class SearchMember extends React.PureComponent {
           autoFocus={false}
           show={isShowModal}
           className="events-search-member-modal"
-          onEntered={() => {
-            this.verifyPhoto(eventPictureUrl);
-          }}
+          onEntered={() => this.verifyPhoto(eventPictureUrl)}
           onHide={() => {
             this.setState({
               members: null,
@@ -153,11 +140,7 @@ class SearchMember extends React.PureComponent {
                       {'failed-check': verifyStatus === false && !isVerifying && errorMessage}
                     )}
                   />
-                  <div className={classNames(
-                    'loading-dots',
-                    {'d-none': !isVerifying}
-                  )}
-                  >
+                  <div className={classNames('loading-dots', {'d-none': !isVerifying})}>
                     <div className="spinner">
                       <div className="double-bounce1"/>
                       <div className="double-bounce2"/>
@@ -193,9 +176,6 @@ class SearchMember extends React.PureComponent {
               </Formik>
             </div>
             <div
-              ref={element => {
-                this.containerRef = element;
-              }}
               className="col-12 mb-5"
               style={{
                 maxHeight: '550px',
@@ -272,12 +252,10 @@ class SearchMember extends React.PureComponent {
                                 disabled={member.pictures.length >= 5 || verifyStatus === false}
                                 className="btn btn-link"
                                 type="button"
-                                onClick={() => {
-                                  this.addToMember({
-                                    member: member,
-                                    convertedPicture
-                                  });
-                                }}
+                                onClick={() => this.addToMember({
+                                  member: member,
+                                  convertedPicture
+                                })}
                               >
                                 {_('Add')}
                               </button>
@@ -289,7 +267,7 @@ class SearchMember extends React.PureComponent {
                   })}
 
                   {/* Loading indicator */}
-                  {((members && isFetching) || isFetching) && (
+                  {isFetching && (
                     <tr>
                       <td className="loading" colSpan="10">
                         <div className="spinner">
@@ -382,9 +360,7 @@ class Pagination extends React.PureComponent {
        numbers.push({
          key: `pagination-${idx}`,
          pageNumber: idx + 1,
-         onClick: () => {
-           onSearch(idx);
-         },
+         onClick: () => onSearch(idx),
          className: classNames('page-item', {disabled: idx === index})
        });
      }
@@ -403,37 +379,21 @@ class Pagination extends React.PureComponent {
            </p>
            <ul className="pagination my-auto">
              <li className={classNames('page-item', {disabled: !hasPrevious})}>
-               <a
-                 className="page-link prev"
-                 tabIndex={0}
-                 onClick={() => {
-                   onSearch(index - 1);
-                 }}
-               >
+               <a className="page-link prev" tabIndex={0} onClick={() => onSearch(index - 1)}>
                 &laquo;
                </a>
              </li>
              {
                numbers.map(number => (
                  <li key={number.key} className={number.className}>
-                   <a
-                     className="page-link"
-                     tabIndex={0}
-                     onClick={number.onClick}
-                   >
+                   <a className="page-link" tabIndex={0} onClick={number.onClick}>
                      {number.pageNumber}
                    </a>
                  </li>
                ))
              }
              <li className={classNames('page-item', {disabled: !hasNext})}>
-               <a
-                 className="page-link next"
-                 tabIndex={0}
-                 onClick={hasNext ? () => {
-                   onSearch(index + 1);
-                 } : null}
-               >
+               <a className="page-link next" tabIndex={0} onClick={() => onSearch(index + 1)}>
                 &raquo;
                </a>
              </li>
@@ -448,13 +408,7 @@ class Pagination extends React.PureComponent {
                />
              </li>
              <li className="page-item">
-               <a
-                 className="page-link go"
-                 tabIndex={0}
-                 onClick={() => {
-                   onSearch(gotoIndex);
-                 }}
-               >
+               <a className="page-link go" tabIndex={0} onClick={() => onSearch(gotoIndex)}>
                 Go
                </a>
              </li>
