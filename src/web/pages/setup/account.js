@@ -69,6 +69,9 @@ module.exports = class SetupAccount extends Base {
                 <div className="invalid-feedback">{errors.account}</div>
               )
             }
+            <small className="text-info">
+              {_('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space')}
+            </small>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Birthday')}</label>
