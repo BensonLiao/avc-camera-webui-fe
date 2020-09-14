@@ -51,28 +51,21 @@ class SearchMember extends React.PureComponent {
     this.setState(prevState => ({
       ...prevState,
       keyword: keyword,
-      members: null
+      members: null,
+      isFetching: true
     }), () => {
-      this.getMembers(keyword, index)
-        .then(response => this.setState({
-          isFetching: false,
-          members: response.data
-        }));
-    });
-  };
-
-  getMembers = (keyword, index = null) => new Promise((resolve, _) => {
-    resolve(
-      this.setState({isFetching: true}));
-  })
-    .then(() => (
       api.member.getMembers({
         group: null,
         keyword: keyword,
         index: index,
         sort: null
       })
-    ))
+        .then(response => this.setState({
+          isFetching: false,
+          members: response.data
+        }));
+    });
+  };
 
   verifyPhoto = photo => {
     this.setState({
