@@ -45,7 +45,7 @@ module.exports = class DateTime extends Base {
     };
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Updating Date & Region');
+    this.state.apiProcessModalTitle = _('Updating Date & Time');
   }
 
   hideApiProcessModal = () => {
@@ -311,8 +311,8 @@ module.exports = class DateTime extends Base {
         </button>
         <CustomNotifyModal
           isShowModal={isShowModal}
-          modalTitle={_('Date & Region')}
-          modalBody={_('Update date & region need to log in again. Are you sure you want to continue?')}
+          modalTitle={_('Date & Time')}
+          modalBody={_('Update date & time need to log in again. Are you sure you want to continue?')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
           onConfirm={() => {
@@ -341,14 +341,14 @@ module.exports = class DateTime extends Base {
                     <li className="breadcrumb-item active">
                       <Link to="/system/date">{_('Settings')}</Link>
                     </li>
-                    <li className="breadcrumb-item">{_('Date & Region')}</li>
+                    <li className="breadcrumb-item">{_('Date & Time')}</li>
                   </ol>
                 </nav>
               </div>
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Date & Region')}</div>
+                  <div className="card-header">{_('Date & Time')}</div>
                   <Formik
                     initialValues={{
                       ...systemDateTime,

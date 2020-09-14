@@ -584,7 +584,7 @@ if (!window.languageResource['zh-tw']) {
     'Database Encryption': '資料庫加密',
     Modify: '修改',
     'Upload Image': '上傳照片',
-    'Updating Members': '更新成員中',
+    'Updating Members': '更新成員',
     'Exporting Member Database': '導出成員資料庫中',
 
     // /members/details
@@ -698,9 +698,9 @@ if (!window.languageResource['zh-tw']) {
     'Device Processing': '裝置處理中',
 
     // /network/https
-    'Click Confirm to Redirect to the New Address': '請按確認重新導向新的網址',
+    'The website has been redirected to this address:': '網站已重新導向新的網址 :',
     'Please Redirect Manually to the New Address': '請自行手動重新導向新的網址',
-    'This is A Reserved Port or is In Use, Please Try Another Port.': '請設定非使用中或預留的服務埠',
+    'The specified port is reserved by system or in use!': '輸入的連接埠為系統預留或使用中!',
     Success: '成功',
 
     // /system
@@ -712,7 +712,7 @@ if (!window.languageResource['zh-tw']) {
     'No Files Selected': '未選任何檔案',
 
     // /system/datetime
-    'Date & Region': '日期與時區',
+    'Date & Time': '日期與時間',
     'Time Zone': '時區',
     'Date and Time of the Device': '裝置的日期與時間',
     'Sync with Network Time Server (NTP)': '與網路時間伺服器 (NTP) 同步',
@@ -723,7 +723,8 @@ if (!window.languageResource['zh-tw']) {
     'Update Frequency (Minutes)': '更新頻率 (分)',
     'Sync with Computer': '與電腦同步',
     'Set Date/Time Manually': '手動編輯日期與時間',
-    'Update date & region need to log in again. Are you sure you want to continue?': '更新日期與時區需要重新登入，確認是否繼續？',
+    'Updating Date & Time': '更新日期與時間',
+    'Update date & time need to log in again. Are you sure you want to continue?': '更新日期與時區需要重新登入，確認是否繼續？',
 
     // /system/maintain
     'Restore All Settings': '還原所有設定',

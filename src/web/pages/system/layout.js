@@ -58,9 +58,9 @@ module.exports = class System extends Base {
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.datetime'})}
                   to="/system/datetime"
-                  title={_('Date & Region')}
+                  title={_('Date & Time')}
                 >
-                  {_('Date & Region')}
+                  {_('Date & Time')}
                 </Link>
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.maintain'})}
