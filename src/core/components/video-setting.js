@@ -395,7 +395,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   <div>
                     <CustomTooltip title="-5">
                       <button
-                        disabled={updateFocalLengthField || isApiProcessing}
+                        disabled={disableInput}
                         className="btn text-secondary-700"
                         type="button"
                         onClick={() => this.varyFocus(form, -5)}
@@ -405,7 +405,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     </CustomTooltip>
                     <CustomTooltip title="-1">
                       <button
-                        disabled={updateFocalLengthField || isApiProcessing}
+                        disabled={disableInput}
                         className="btn text-secondary-700"
                         type="button"
                         onClick={() => this.varyFocus(form, -1)}
@@ -418,7 +418,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     <Field
                       updateFieldOnStop
                       enableArrowKey
-                      disabled={updateFocalLengthField || isApiProcessing}
+                      disabled={disableInput}
                       name="focalLength"
                       component={Slider}
                       step={1}
@@ -429,7 +429,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   <div>
                     <CustomTooltip title="+1">
                       <button
-                        disabled={updateFocalLengthField || isApiProcessing}
+                        disabled={disableInput}
                         className="btn text-secondary-700"
                         type="button"
                         onClick={() => this.varyFocus(form, 1)}
@@ -439,7 +439,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     </CustomTooltip>
                     <CustomTooltip title="+5">
                       <button
-                        disabled={updateFocalLengthField || isApiProcessing}
+                        disabled={disableInput}
                         className="btn text-secondary-700"
                         type="button"
                         onClick={() => this.varyFocus(form, 5)}
@@ -458,7 +458,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={updateFocalLengthField || isApiProcessing}
+                  disabled={disableInput}
                   name="zoom"
                   component={Slider}
                   step={0.1}
@@ -470,7 +470,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                 <Field
                   id="input-check-auto-focus-after-zoom"
                   type="checkbox"
-                  disabled={updateFocalLengthField || isApiProcessing}
+                  disabled={disableInput}
                   className="form-check-input"
                   name="isAutoFocusAfterZoom"
                   checked={values.isAutoFocusAfterZoom}
