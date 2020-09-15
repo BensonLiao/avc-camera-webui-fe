@@ -223,14 +223,7 @@ module.exports = class Maintain extends Base {
             <label className="form-check-label" htmlFor="input-checkbox-reset-all">
               {_('Restore All Settings')}
             </label>
-            <CustomTooltip title={_(`Check or clear this option to overwrite or preserve these settings: 
-            Members and Groups, 
-            System Accounts, 
-            Focus and Zoom settings of Image, 
-            RTSP settings, 
-            Internet/Network settings, 
-            and data on the SD Card.`)}
-            >
+            <CustomTooltip title={_('Check or clear this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD Card.')}>
               <i className="fas fa-question-circle text-primary"/>
             </CustomTooltip>
           </div>

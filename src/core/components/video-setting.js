@@ -258,7 +258,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           <div className="card-body">
             <div className="form-row">
               <div className="col-12 my-1 d-flex justify-content-between align-items-center">
-                <span className="text-size-20">{_('WDR')}</span>
+                <span className="text-size-20">{_('HDR')}</span>
                 <div className="custom-control custom-switch d-inline-block ml-2">
                   <Field
                     name="hdrEnabled"
