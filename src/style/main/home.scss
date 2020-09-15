@@ -65,6 +65,10 @@
       &:hover:not(:disabled) {
         color: $select;
       }
+
+      &:hover:disabled {
+        cursor: not-allowed;
+      }
     }
   }
 
