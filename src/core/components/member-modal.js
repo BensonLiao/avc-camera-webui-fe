@@ -290,7 +290,10 @@ module.exports = class Member extends React.PureComponent {
     loadImage(file, {
       orientation: 1,
       canvas: true,
-      meta: true
+      meta: true,
+      // Depends on modal width and scale it to 16:9 ratio
+      minHeight: 300,
+      maxHeight: 300
     })
       .then(data => {
         const conditionedImage = data.image;
@@ -354,6 +357,8 @@ module.exports = class Member extends React.PureComponent {
                 transform: {
                   left: 0,
                   top: 0,
+                  width: this.editWrapperSize,
+                  height: this.editWrapperSize,
                   scale: 1,
                   rotate: 0
                 },
