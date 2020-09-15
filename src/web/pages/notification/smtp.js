@@ -153,7 +153,7 @@ module.exports = class SMTP extends Base {
               {_('Apply')}
             </button>
           </div>
-          <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.onHideModal}>
+          <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.onHideAccountSettingsModal}>
             {_('Close')}
           </button>
         </div>
@@ -212,7 +212,7 @@ module.exports = class SMTP extends Base {
                       className={classNames('mr-2', {'disable-link': !isEnableAuth})}
                       onClick={event => {
                         event.preventDefault();
-                        return values.isEnableAuth && this.onShowAccountSettingsModal();
+                        return isEnableAuth && this.onShowAccountSettingsModal();
                       }}
                     >
                       {_('Edit account and password')}
