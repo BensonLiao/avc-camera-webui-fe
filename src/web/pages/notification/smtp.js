@@ -61,8 +61,12 @@ module.exports = class SMTP extends Base {
     };
   };
 
-  onClickAccountSettingsButton = event => {
+  onClickAccountSettingsButton = (event, values) => {
     event.preventDefault();
+    if (!values.isEnableAuth) {
+      return;
+    }
+
     this.setState({isShowModal: true});
   };
 
@@ -182,43 +186,19 @@ module.exports = class SMTP extends Base {
 
   smtpSettingsFormRender = ({values, errors, touched}) => {
     const {$isApiProcessing} = this.state;
-
+    const {isEnableAuth} = values;
     return (
       <Form className="card shadow">
         <div className="card-header">
           {_('SMTP Server')}
         </div>
         <div className="card-body">
-          <div className="form-group">
-            <label>{_('Host Address')}</label>
-            <Field
-              autoFocus
-              name="host"
-              type="text"
-              className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-              placeholder={_('Enter your Host Address')}
-            />
-            {
-              errors.host && touched.host && (
-                <div className="invalid-feedback">{errors.host}</div>
-              )
-            }
-          </div>
           <div className="form-group d-flex justify-content-between align-items-center">
-            <div>
-              <label className="mb-0">{_('SMTP Account Settings')}</label>
-              <br/>
-              <a className="mr-2" href="#" onClick={this.onClickAccountSettingsButton}>
-                {_('Edit account and password')}
-              </a>
-              <CustomTooltip title={_('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
-                <i className="fas fa-question-circle text-primary"/>
-              </CustomTooltip>
-            </div>
+            <label>{_('On/Off')}</label>
             <div className="custom-control custom-switch">
               <Field
                 name="isEnableAuth"
-                checked={values.isEnableAuth}
+                checked={isEnableAuth}
                 type="checkbox"
                 className="custom-control-input"
                 id="switch-auth"
@@ -229,73 +209,119 @@ module.exports = class SMTP extends Base {
               </label>
             </div>
           </div>
-          <div className="form-group d-flex justify-content-between align-items-center">
-            <label>{_('Login Notification')}</label>
-            <div className="custom-control custom-switch">
-              <Field
-                name="isEnableLoginNotification"
-                checked={values.isEnableLoginNotification}
-                type="checkbox"
-                className="custom-control-input"
-                id="switch-login-notification"
-              />
-              <label className="custom-control-label" htmlFor="switch-login-notification">
-                <span>{_('ON')}</span>
-                <span>{_('OFF')}</span>
-              </label>
+          <div className="card">
+            <div className="card-body">
+              <div className="form-group">
+                <label>{_('Host Address')}</label>
+                <Field
+                  autoFocus
+                  disabled={!isEnableAuth}
+                  name="host"
+                  type="text"
+                  className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
+                  placeholder={_('Enter your Host Address')}
+                />
+                {
+                  errors.host && touched.host && (
+                    <div className="invalid-feedback">{errors.host}</div>
+                  )
+                }
+              </div>
+              <div className="form-group d-flex justify-content-between align-items-center">
+                <div>
+                  <label className="mb-0">{_('SMTP Account Settings')}</label>
+                  <br/>
+                </div>
+                <div>
+                  <CustomTooltip show={!isEnableAuth} title={_('Please Enable Email Notifications')}>
+                    <a
+                      href="#"
+                      className={classNames('mr-2', {'disable-link': !isEnableAuth})}
+                      onClick={event => this.onClickAccountSettingsButton(event, values)}
+                    >
+                      {_('Edit account and password')}
+                    </a>
+                  </CustomTooltip>
+                  <CustomTooltip title={_('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
+                    <i className="fas fa-question-circle text-primary"/>
+                  </CustomTooltip>
+                </div>
+              </div>
+              <div className="form-group d-flex justify-content-between align-items-center">
+                <label>{_('Login Notification')}</label>
+                <CustomTooltip show={!isEnableAuth} title={_('Please Enable Email Notifications')}>
+                  <div className="custom-control custom-switch">
+                    <Field
+                      disabled={!isEnableAuth}
+                      name="isEnableLoginNotification"
+                      checked={values.isEnableLoginNotification}
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="switch-login-notification"
+                    />
+                    <label className="custom-control-label" htmlFor="switch-login-notification">
+                      <span>{_('ON')}</span>
+                      <span>{_('OFF')}</span>
+                    </label>
+                  </div>
+                </CustomTooltip>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="card-header rounded-0">
+          {/* <div className="card-header rounded-0">
           {_('Sender')}
-        </div>
-        <div className="card-body">
-          <div className="form-group">
-            <label>{_('Name')}</label>
-            <Field
-              name="senderName"
-              type="text"
-              className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
-              placeholder={_('Enter Your Name')}
-            />
-            {
-              errors.senderName && touched.senderName && (
-                <div className="invalid-feedback">{errors.senderName}</div>
-              )
-            }
+        </div> */}
+          <div className="card-body">
+            <div className="form-group">
+              <label>{_('Name')}</label>
+              <Field
+                disabled={!isEnableAuth}
+                name="senderName"
+                type="text"
+                className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
+                placeholder={_('Enter Your Name')}
+              />
+              {
+                errors.senderName && touched.senderName && (
+                  <div className="invalid-feedback">{errors.senderName}</div>
+                )
+              }
+            </div>
+            <div className="form-group">
+              <label>{_('Email')}</label>
+              <Field
+                disabled={!isEnableAuth}
+                name="senderEmail"
+                type="text"
+                className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
+                placeholder={_('Enter your email')}
+              />
+              {
+                errors.senderEmail && touched.senderEmail && (
+                  <div className="invalid-feedback">{errors.senderEmail}</div>
+                )
+              }
+            </div>
+            <div className="form-group">
+              <label>{_('Notification Interval (Seconds)')}</label>
+              <Field
+                disabled={!isEnableAuth}
+                name="interval"
+                type="text"
+                className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
+                placeholder={_('Enter your notification interval')}
+              />
+              {
+                errors.interval && touched.interval && (
+                  <div className="invalid-feedback">{errors.interval}</div>
+                )
+              }
+              <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
+            </div>
+            <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+              {_('Apply')}
+            </button>
           </div>
-          <div className="form-group">
-            <label>{_('Email')}</label>
-            <Field
-              name="senderEmail"
-              type="text"
-              className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
-              placeholder={_('Enter your email')}
-            />
-            {
-              errors.senderEmail && touched.senderEmail && (
-                <div className="invalid-feedback">{errors.senderEmail}</div>
-              )
-            }
-          </div>
-          <div className="form-group">
-            <label>{_('Notification Interval (Seconds)')}</label>
-            <Field
-              name="interval"
-              type="text"
-              className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
-              placeholder={_('Enter your notification interval')}
-            />
-            {
-              errors.interval && touched.interval && (
-                <div className="invalid-feedback">{errors.interval}</div>
-              )
-            }
-            <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
-          </div>
-          <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-            {_('Apply')}
-          </button>
         </div>
       </Form>
     );

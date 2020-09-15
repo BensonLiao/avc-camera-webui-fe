@@ -248,3 +248,8 @@
     flex: 0 0 auto;
   }
 }
+
+.disable-link {
+  cursor: not-allowed;
+  text-decoration: none !important;
+}
