@@ -14,7 +14,7 @@ const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
 const _ = require('../../languages');
 const MemberValidator = require('../../web/validations/members/member-validator');
-const {PHOTO_SCALE_MIN, PHOTO_SCALE_MAX} = require('../constants');
+const {MEMBER_PHOTO_SCALE_MIN, MEMBER_PHOTO_SCALE_MAX} = require('../constants');
 const utils = require('../utils');
 const api = require('../apis/web-api');
 const CustomNotifyModal = require('./custom-notify-modal');
@@ -160,12 +160,12 @@ module.exports = class Member extends React.PureComponent {
     this.cropper.cropBox.addEventListener('wheel', event => {
       let newScale = this.cropper.imageData.scaleX;
       if (event.deltaY < 0) {
-        newScale = newScale + 0.1 > PHOTO_SCALE_MAX ? PHOTO_SCALE_MAX : newScale + 0.1;
+        newScale = newScale + 0.1 > MEMBER_PHOTO_SCALE_MAX ? MEMBER_PHOTO_SCALE_MAX : newScale + 0.1;
         this.cropper.scale(newScale, newScale);
       }
 
       if (event.deltaY > 0) {
-        newScale = newScale - 0.1 < PHOTO_SCALE_MIN ? PHOTO_SCALE_MIN : newScale - 0.1;
+        newScale = newScale - 0.1 < MEMBER_PHOTO_SCALE_MIN ? MEMBER_PHOTO_SCALE_MIN : newScale - 0.1;
         this.cropper.scale(newScale, newScale);
       }
 
@@ -806,8 +806,8 @@ module.exports = class Member extends React.PureComponent {
                       name="zoom"
                       component={Slider}
                       step={0.1}
-                      min={PHOTO_SCALE_MIN}
-                      max={PHOTO_SCALE_MAX}
+                      min={MEMBER_PHOTO_SCALE_MIN}
+                      max={MEMBER_PHOTO_SCALE_MAX}
                       onChangeInput={() => this.zoomCropper(values)}
                     />
                   </div>
