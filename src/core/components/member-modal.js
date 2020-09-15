@@ -370,45 +370,6 @@ module.exports = class Member extends React.PureComponent {
     this.setState(deleteAvatar);
   }
 
-  onDraggingMaskArea = (event, data) => {
-    const updatePhotoOffset = update(this.state,
-      {
-        avatarList: {
-          [this.state.avatarToEdit]: {
-            photoOffset: {
-              $set: {
-                x: data.x,
-                y: data.y
-              }
-            }
-          }
-        }
-      });
-    this.setState(updatePhotoOffset);
-  };
-
-  updateBoundary = values => {
-    const zoomScale = values.zoom / 100;
-    const calculateBoundary = ((this.editWrapperSize * zoomScale) - this.editWrapperSize) / zoomScale / 2;
-    const updateBoundary = update(this.state,
-      {
-        avatarList: {
-          [this.state.avatarToEdit]: {
-            boundary: {
-              $set: {
-                left: -calculateBoundary,
-                top: -calculateBoundary,
-                right: calculateBoundary,
-                bottom: calculateBoundary
-              }
-            },
-            avatarPreviewStyle: {cropper: {scale: {$set: zoomScale}}}
-          }
-        }
-      });
-    this.setState(updateBoundary);
-  }
-
   generateRotatePictureHandler = isClockwise => event => {
     event.preventDefault();
     const {
