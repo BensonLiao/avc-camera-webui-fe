@@ -561,6 +561,7 @@ if (!window.languageResource['zh-tw']) {
     'Display Group': '顯示已註冊群組',
     'Display "Unknown"': '顯示 "Unknown"',
     'Display "Fake"': '顯示 "Fake"',
+    'Face-Recognition is Disabled': '辨識功能已關閉',
 
     // /smart/motion-detection
     'Motion Detection': '動作偵測',
