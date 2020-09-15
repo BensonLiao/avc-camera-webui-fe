@@ -31,16 +31,16 @@ module.exports = class SetupAccount extends Base {
   setupAccountFormRender = ({errors, touched}) => {
     const classTable = {
       account: classNames(
-        'form-control', {'is-invalid': errors.account && touched}
+        'form-control', {'is-invalid': errors.account && touched.account}
       ),
       birthday: classNames(
-        'form-control', {'is-invalid': errors.birthday && touched}
+        'form-control', {'is-invalid': errors.birthday && touched.birthday}
       ),
       password: classNames(
-        'form-control', {'is-invalid': errors.password && touched}
+        'form-control', {'is-invalid': errors.password && touched.pasword}
       ),
       confirmPassword: classNames(
-        'form-control', {'is-invalid': errors.confirmPassword && touched}
+        'form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}
       )
     };
 
