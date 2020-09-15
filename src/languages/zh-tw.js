@@ -212,6 +212,9 @@ if (!window.languageResource['zh-tw']) {
     // The loading component.
     Loading: '載入中',
 
+    // API processing modal
+    'Please wait': '請稍候',
+
     // Switch component
     'On/Off': '開/關',
     ON: '開',
@@ -219,9 +222,6 @@ if (!window.languageResource['zh-tw']) {
 
     // CustomTooltip - Begin
     'Please Enter Start and End Datetime': '請先選擇開始與結束時間',
-    // - Internet/Network Settings
-    'No Values Have Changed': '數值沒有更動',
-    'Please Enable HTTPS': '請開啟HTTPS功能',
     // - Device Maintain
     'Please Select a File': '請先選擇一個檔案',
     'Check or uncheck this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD card.': '勾選或不勾選此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像中對焦跟Zoom的設定、RTSP設定、網路設定及SD卡的資料',
@@ -682,6 +682,9 @@ if (!window.languageResource['zh-tw']) {
     'Secondary DNS (Optional)': '其他 DNS (選填)',
     'Web Server Port Settings': '網頁服務埠設定',
     'Enter Your Server Port Settings': '請輸入您的服務埠',
+    'No Values Have Changed': '數值沒有更動',
+    'Please Enable HTTPS': '請開啟HTTPS功能',
+    'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
 
     // /network/tcp-ip
     'DDNS Server': 'DDNS 伺服器',
