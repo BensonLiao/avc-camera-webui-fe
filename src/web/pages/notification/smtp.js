@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
 const {Link, getRouter} = require('capybara-router');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
 const SMTPEncryptionType = require('webserver-form-schema/constants/smtp-encryption-type');
 const SMTPPort = require('webserver-form-schema/constants/smtp-port');
@@ -109,11 +109,7 @@ module.exports = class SMTP extends Base {
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
               placeholder={_('Enter your account')}
             />
-            {
-              errors.account && touched.account && (
-                <div className="invalid-feedback">{errors.account}</div>
-              )
-            }
+            <ErrorMessage component="div" name="account" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
@@ -125,11 +121,7 @@ module.exports = class SMTP extends Base {
                 placeholder: _('Enter your password')
               }}
             />
-            {
-              errors.password && touched.password && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )
-            }
+            <ErrorMessage component="div" name="password" className="invalid-feedback"/>
           </div>
           <div className="form-group">
             <label>{_('Port')}</label>
@@ -221,11 +213,7 @@ module.exports = class SMTP extends Base {
                   className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
                   placeholder={_('Enter your Host Address')}
                 />
-                {
-                  errors.host && touched.host && (
-                    <div className="invalid-feedback">{errors.host}</div>
-                  )
-                }
+                <ErrorMessage component="div" name="host" className="invalid-feedback"/>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
                 <div>
@@ -281,11 +269,7 @@ module.exports = class SMTP extends Base {
                 className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
                 placeholder={_('Enter Your Name')}
               />
-              {
-                errors.senderName && touched.senderName && (
-                  <div className="invalid-feedback">{errors.senderName}</div>
-                )
-              }
+              <ErrorMessage component="div" name="senderName" className="invalid-feedback"/>
             </div>
             <div className="form-group">
               <label>{_('Email')}</label>
@@ -296,11 +280,7 @@ module.exports = class SMTP extends Base {
                 className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
                 placeholder={_('Enter your email')}
               />
-              {
-                errors.senderEmail && touched.senderEmail && (
-                  <div className="invalid-feedback">{errors.senderEmail}</div>
-                )
-              }
+              <ErrorMessage component="div" name="senderEmail" className="invalid-feedback"/>
             </div>
             <div className="form-group">
               <label>{_('Notification Interval (Seconds)')}</label>
@@ -311,11 +291,7 @@ module.exports = class SMTP extends Base {
                 className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
                 placeholder={_('Enter your notification interval')}
               />
-              {
-                errors.interval && touched.interval && (
-                  <div className="invalid-feedback">{errors.interval}</div>
-                )
-              }
+              <ErrorMessage component="div" name="interval" className="invalid-feedback"/>
               <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
             </div>
             <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
