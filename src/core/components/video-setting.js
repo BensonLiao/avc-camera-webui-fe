@@ -248,6 +248,7 @@ module.exports = class VideoSetting extends React.PureComponent {
   videoSettingsFormRender = form => {
     const {values} = form;
     const {isApiProcessing, updateFocalLengthField} = this.props;
+    const disableInput = isApiProcessing || updateFocalLengthField;
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
@@ -266,6 +267,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     checked={values.hdrEnabled === 'true' ? true : undefined}
                     className="custom-control-input"
                     id="switch-hdr-enabled"
+                    disabled={disableInput}
                   />
                   <label className="custom-control-label" htmlFor="switch-hdr-enabled">
                     <span>{_('ON')}</span>
@@ -280,7 +282,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
-              <button className="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#lightness">
+              <button className="btn btn-link btn-block text-left" type="button" disabled={disableInput} data-toggle="collapse" data-target="#lightness">
                 <i className="fas fa-chevron-up"/>{_('Picture')}
               </button>
             </h2>
@@ -354,7 +356,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={isApiProcessing || updateFocalLengthField}
+                  disabled={disableInput}
                   type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
@@ -363,7 +365,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                 </button>
                 <button
                   type="button"
-                  disabled={isApiProcessing || updateFocalLengthField}
+                  disabled={disableInput}
                   className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
@@ -514,7 +516,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#video">
+              <button className="btn btn-link btn-block text-left collapsed" type="button" disabled={disableInput} data-toggle="collapse" data-target="#video">
                 <i className="fas fa-chevron-up"/>{_('Image Configuration')}
               </button>
             </h2>
@@ -698,7 +700,7 @@ module.exports = class VideoSetting extends React.PureComponent {
         <hr className="my-0"/>
         <div className="card-body pt-0 mt-5">
           <button
-            disabled={isApiProcessing || updateFocalLengthField}
+            disabled={disableInput}
             type="button"
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler()}
