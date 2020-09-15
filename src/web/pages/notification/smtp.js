@@ -57,16 +57,9 @@ module.exports = class SMTP extends Base {
     encryption: settings.encryption || SMTPEncryptionType.none
   });
 
-  onClickAccountSettingsButton = (event, values) => {
-    event.preventDefault();
-    if (!values.isEnableAuth) {
-      return;
-    }
+  onShowAccountSettingsModal = () => this.setState({isShowModal: true});
 
-    this.setState({isShowModal: true});
-  };
-
-  onHideModal = () => this.setState({isShowModal: false});
+  onHideAccountSettingsModal = () => this.setState({isShowModal: false});
 
   onSubmitAccountSettingsForm = values => this.setState({
     accountSettings: values,
@@ -217,7 +210,10 @@ module.exports = class SMTP extends Base {
                     <a
                       href="#"
                       className={classNames('mr-2', {'disable-link': !isEnableAuth})}
-                      onClick={event => this.onClickAccountSettingsButton(event, values)}
+                      onClick={event => {
+                        event.preventDefault();
+                        return values.isEnableAuth && this.onShowAccountSettingsModal();
+                      }}
                     >
                       {_('Edit account and password')}
                     </a>
@@ -330,7 +326,7 @@ module.exports = class SMTP extends Base {
             </div>
           </div>
 
-          <Modal autoFocus={false} show={isShowModal} onHide={this.onHideModal}>
+          <Modal autoFocus={false} show={isShowModal} onHide={this.onHideAccountSettingsModal}>
             <div className="modal-header">
               <h5 className="modal-title">{_('Email and login settings')}</h5>
             </div>
