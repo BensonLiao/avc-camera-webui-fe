@@ -14,7 +14,6 @@ const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
 const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP, TIMEZONE_LIST} = require('../../../core/constants');
-const TIMEZONE_LIST_NAMES = TIMEZONE_LIST.map(zone => zone.name);
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -26,7 +25,7 @@ module.exports = class DateTime extends Base {
       systemDateTime: PropTypes.shape({
         deviceTime: PropTypes.string.isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,
-        ntpTimeZone: PropTypes.oneOf(TIMEZONE_LIST_NAMES).isRequired,
+        ntpTimeZone: PropTypes.oneOf(TIMEZONE_LIST.map(zone => zone.name)).isRequired,
         ntpIP: PropTypes.string.isRequired,
         ntpTimeOption: PropTypes.oneOf(NTPTimeOption.all()).isRequired,
         ntpUpdateTime: PropTypes.number.isRequired,
