@@ -41,25 +41,21 @@ module.exports = class SMTP extends Base {
     this.state.accountSettings = this.generateAccountSettingsInitialValues(props.smtpSettings);
   }
 
-  generateSMTPSettingsInitialValues = settings => {
-    return {
-      host: settings.host,
-      senderName: settings.senderName,
-      senderEmail: settings.senderEmail,
-      interval: settings.interval,
-      isEnableLoginNotification: settings.isEnableLoginNotification,
-      isEnableAuth: settings.isEnableAuth
-    };
-  };
+  generateSMTPSettingsInitialValues = settings => ({
+    host: settings.host,
+    senderName: settings.senderName,
+    senderEmail: settings.senderEmail,
+    interval: settings.interval,
+    isEnableLoginNotification: settings.isEnableLoginNotification,
+    isEnableAuth: settings.isEnableAuth
+  });
 
-  generateAccountSettingsInitialValues = settings => {
-    return {
-      account: settings.account,
-      password: settings.password,
-      port: settings.port || SMTPPort['25'],
-      encryption: settings.encryption || SMTPEncryptionType.none
-    };
-  };
+  generateAccountSettingsInitialValues = settings => ({
+    account: settings.account,
+    password: settings.password,
+    port: settings.port || SMTPPort['25'],
+    encryption: settings.encryption || SMTPEncryptionType.none
+  });
 
   onClickAccountSettingsButton = (event, values) => {
     event.preventDefault();
@@ -70,16 +66,12 @@ module.exports = class SMTP extends Base {
     this.setState({isShowModal: true});
   };
 
-  onHideModal = () => {
-    this.setState({isShowModal: false});
-  };
+  onHideModal = () => this.setState({isShowModal: false});
 
-  onSubmitAccountSettingsForm = values => {
-    this.setState({
-      accountSettings: values,
-      isShowModal: false
-    });
-  };
+  onSubmitAccountSettingsForm = values => this.setState({
+    accountSettings: values,
+    isShowModal: false
+  });
 
   onSubmitSMTPSettingsForm = values => {
     progress.start();
