@@ -96,11 +96,11 @@ module.exports = class Member extends React.PureComponent {
           y: 0
         },
         avatarPreviewStyle: {
-          transform: {
-            left: 0,
-            top: 0,
-            width: this.editWrapperSize,
-            height: this.editWrapperSize,
+          cropper: {
+            x: 0,
+            y: 0,
+            width: this.editCropBoxSize,
+            height: this.editCropBoxSize,
             scale: 1,
             rotate: 0
           },
@@ -150,15 +150,9 @@ module.exports = class Member extends React.PureComponent {
 
     // Restore to the lastest cropper status if exist
     this.cropper.setData({
-      rotate: avatarList[avatarToEdit].avatarPreviewStyle.transform.rotate,
-      scale: avatarList[avatarToEdit].avatarPreviewStyle.transform.scale
-    });
-    this.cropper.setCanvasData(avatarList[avatarToEdit].avatarPreviewStyle.transform);
-
-    // Set crop box size to a fixed size
-    this.cropper.setCropBoxData({
-      width: this.editCropBoxSize,
-      height: this.editCropBoxSize
+      ...avatarList[avatarToEdit].avatarPreviewStyle.cropper,
+      scaleX: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale,
+      scaleY: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
     });
 
     // Add mouse wheel event to scale cropper instead of default zoom function
@@ -176,26 +170,25 @@ module.exports = class Member extends React.PureComponent {
 
       const newCropBoxState = update(
         this.state,
-        {avatarList: {[this.state.avatarToEdit]: {avatarPreviewStyle: {transform: {scale: {$set: newScale}}}}}}
+        {avatarList: {[this.state.avatarToEdit]: {avatarPreviewStyle: {cropper: {scale: {$set: newScale}}}}}}
       );
       this.setState(newCropBoxState);
     });
   }
 
   generateOnCropEndHandler = avatarName => _ => {
-    const cropperData = this.cropper.getData();
-    const cropperCanvasData = this.cropper.getCanvasData();
+    const cropperData = this.cropper.getData(true);
     const newCropperState = update(
       this.state,
       {
         avatarList: {
           [avatarName]: {
             avatarPreviewStyle: {
-              transform: {
-                left: {$set: cropperCanvasData.left},
-                top: {$set: cropperCanvasData.top},
-                width: {$set: cropperCanvasData.width},
-                height: {$set: cropperCanvasData.height},
+              cropper: {
+                x: {$set: cropperData.x},
+                y: {$set: cropperData.y},
+                width: {$set: cropperData.width},
+                height: {$set: cropperData.height},
                 scale: {$set: cropperData.scaleX},
                 rotate: {$set: cropperData.rotate}
               },
@@ -222,7 +215,7 @@ module.exports = class Member extends React.PureComponent {
         organization: member.organization || '',
         group: member.groupId,
         note: member.note || '',
-        zoom: avatarList[avatarToEdit].avatarPreviewStyle.transform.scale
+        zoom: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
       };
     }
 
@@ -231,7 +224,7 @@ module.exports = class Member extends React.PureComponent {
       organization: '',
       group: '',
       note: '',
-      zoom: avatarList[avatarToEdit].avatarPreviewStyle.transform.scale
+      zoom: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
     };
   };
 
@@ -354,11 +347,11 @@ module.exports = class Member extends React.PureComponent {
                 y: 0
               },
               avatarPreviewStyle: {
-                transform: {
-                  left: 0,
-                  top: 0,
-                  width: this.editWrapperSize,
-                  height: this.editWrapperSize,
+                cropper: {
+                  x: 0,
+                  y: 0,
+                  width: this.editCropBoxSize,
+                  height: this.editCropBoxSize,
                   scale: 1,
                   rotate: 0
                 },
@@ -408,7 +401,7 @@ module.exports = class Member extends React.PureComponent {
                 bottom: calculateBoundary
               }
             },
-            avatarPreviewStyle: {transform: {scale: {$set: zoomScale}}}
+            avatarPreviewStyle: {cropper: {scale: {$set: zoomScale}}}
           }
         }
       });
@@ -419,7 +412,7 @@ module.exports = class Member extends React.PureComponent {
     event.preventDefault();
     const {
       avatarToEdit,
-      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {transform: {rotate}}}}
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {cropper: {rotate}}}}
     } = this.state;
     const degrees = isClockwise ? 90 : -90;
     this.cropper.rotate(degrees);
@@ -431,7 +424,7 @@ module.exports = class Member extends React.PureComponent {
             {
               avatarPreviewStyle:
                {
-                 transform:
+                 cropper:
                   {
                     rotate:
                     // reset rotation if photo rotates a full circle
@@ -534,7 +527,7 @@ module.exports = class Member extends React.PureComponent {
     const tasks = [];
     avatarListArray.forEach((item, index) => {
       const {
-        avatarPreviewStyle: {originalImage, croppedImage, transform: {scale, rotate}},
+        avatarPreviewStyle: {originalImage, croppedImage, cropper: {scale, rotate}},
         photoOffset,
         avatarFile
       } = item[1];
