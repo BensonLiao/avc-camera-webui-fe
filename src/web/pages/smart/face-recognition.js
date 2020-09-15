@@ -162,18 +162,23 @@ module.exports = class FaceRecognition extends Base {
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <label className="mb-0">{_('Photo Spoofing')}</label>
                       <div className="custom-control custom-switch">
-                        <Field
-                          name="isEnableSpoofing"
-                          type="checkbox"
-                          checked={values.isEnableSpoofing}
-                          disabled={!isEnable}
-                          className="custom-control-input"
-                          id="switch-face-recognition-spoofing"
-                        />
-                        <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
-                          <span>{_('ON')}</span>
-                          <span>{_('OFF')}</span>
-                        </label>
+                        <CustomTooltip show={!isEnable} title={_('Face-Recognition is Disabled')}>
+                          <span>
+                            <Field
+                              name="isEnableSpoofing"
+                              type="checkbox"
+                              checked={values.isEnableSpoofing}
+                              disabled={!isEnable}
+                              style={isEnable ? {} : {pointerEvents: 'none'}}
+                              className="custom-control-input"
+                              id="switch-face-recognition-spoofing"
+                            />
+                            <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
+                              <span>{_('ON')}</span>
+                              <span>{_('OFF')}</span>
+                            </label>
+                          </span>
+                        </CustomTooltip>
                       </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center">

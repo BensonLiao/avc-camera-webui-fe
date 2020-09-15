@@ -543,6 +543,7 @@ if (!window.languageResource['zh-tw']) {
     'Display Name': '顯示人名',
     'Display Group': '顯示已註冊群組',
     'Display "Unknown"': '顯示 "Unknown"',
+    'Face-Recognition is Disabled': '辨識功能已關閉',
 
     // /smart/motion-detection
     'Motion Detection': '動作偵測',
