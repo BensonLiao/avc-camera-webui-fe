@@ -1,6 +1,5 @@
 .page-histories {
-  padding: calc(48px + #{$top-sub-navigation-height}) 33px;
-  min-width: 1500px;
+  padding: calc(48px + #{$top-sub-navigation-height}) 33px;  
 
   .input-group {
     input.form-control[readonly] {
@@ -44,6 +43,7 @@
 
   .table {
     th {
+      white-space:nowrap;
       padding: 12px !important;
       color: #1a1a1a !important;
 

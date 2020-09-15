@@ -1,10 +1,10 @@
 .page-users {
   padding: 48px 33px;
-  min-width: 1500px;
   min-height: calc(100vh - #{$top-navigation-height});
 
   .table {
     th {
+      white-space:nowrap;
       color: #1a1a1a !important;
 
       a {

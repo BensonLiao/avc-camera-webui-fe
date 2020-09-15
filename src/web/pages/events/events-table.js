@@ -140,8 +140,8 @@ module.exports = class EventsTable extends React.PureComponent {
       }
     ];
     return (
-      <div className="col-12 mb-5">
-        <table className="table custom-style" style={{tableLayout: 'fixed'}}>
+      <div className="col-12 mb-5 table-responsive">
+        <table className="table custom-style">
           <thead>
             <tr className="shadow">
               {tableField.map(item => {
