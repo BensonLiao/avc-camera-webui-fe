@@ -1255,14 +1255,15 @@ module.exports = {
      * - items[].pictures {Array<String>} The base64 string of jpeg images.
      * - items[].id {String}
      */
-    getMembers: ({index, keyword, group, sort}) => api({
+    getMembers: ({index, keyword, group, sort, size = null}) => api({
       method: 'get',
       url: '/api/members',
       params: {
         index,
         keyword,
         group,
-        sort
+        sort,
+        size
       }
     }),
     /**

@@ -53,7 +53,8 @@ class SearchMember extends React.PureComponent {
         group: null,
         keyword: keyword,
         index: index,
-        sort: null
+        sort: null,
+        size: 6
       })
         .then(response => this.setState({
           isFetching: false,

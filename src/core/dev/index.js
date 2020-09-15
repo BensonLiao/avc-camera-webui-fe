@@ -320,7 +320,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   .onGet('/api/members').reply(config =>
     new Promise((resolve, _) => {
       const itemChunkIndex = Number(config.params.index) || 0;
-      const itemChunkSize = 8;
+      const itemChunkSize = Number(config.params.size) || 10;
       let data = db.get('members').value();
       if (config.params.keyword) {
         data = data.filter(value => {
