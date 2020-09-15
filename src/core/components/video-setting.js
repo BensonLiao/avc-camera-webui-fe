@@ -424,7 +424,6 @@ module.exports = class VideoSetting extends React.PureComponent {
                       max={videoFocusSettingsSchema.focalLength.max}
                     />
                   </div>
-
                   <div>
                     <CustomTooltip title="+1">
                       <button
