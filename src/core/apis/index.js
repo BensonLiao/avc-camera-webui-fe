@@ -67,7 +67,7 @@ module.exports = config => {
     .finally(() => {
       delete _pool[id];
       _updateApiStatus();
-      if (expiresTimer && typeof expiresTimer.resume === 'function') {
+      if (expiresTimer && typeof expiresTimer.resetAndResume === 'function') {
         expiresTimer.resetAndResume();
       }
     });

@@ -12,7 +12,7 @@ exports.baseView = (req, res) => {
       permission: '0'
     },
     cameraName: 'IP Camera',
-    skuID: '',
+    skuID: process.env.SKU_ID || '',
     isDebug: 'y',
     error: res.error ? {
       status: res.error.status,

@@ -26,7 +26,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
     databaseInitialValues: null,
     databaseFile: null,
     isShowApiProcessModal: false,
-    apiProcessModalTitle: _('Updating members')
+    apiProcessModalTitle: _('Updating Members')
   }
 
   hideDatabaseModal = () => {
@@ -59,7 +59,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Exporting member database')
+      apiProcessModalTitle: _('Exporting Member Database')
     },
     () => {
       wrappedApi({
@@ -82,8 +82,13 @@ module.exports = class MembersDatabase extends React.PureComponent {
     });
   };
 
+  onClickImportButton = event => {
+    event.target.value = null;
+  }
+
   onChangeDatabaseFile = event => {
     const file = event.target.files[0];
+
     if (!file || this.state.$isApiProcessing) {
       return;
     }
@@ -223,7 +228,13 @@ module.exports = class MembersDatabase extends React.PureComponent {
             </button>
           </div>
           <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}>
-            <input type="file" className="d-none" accept=".zip" onChange={this.onChangeDatabaseFile}/>{_('Import')}
+            <input
+              type="file"
+              className="d-none"
+              accept=".zip"
+              onClick={this.onClickImportButton}
+              onChange={this.onChangeDatabaseFile}
+            />{_('Import')}
           </label>
         </div>
 

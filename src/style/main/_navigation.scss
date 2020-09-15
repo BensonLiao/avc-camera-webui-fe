@@ -56,11 +56,13 @@ nav.navbar.fixed-top {
 }
 
 .left-navigation {
+  @extend .hidden-scrollbar;
+
   padding-top: $top-navigation-height;
   width: $left-navigation-width;
   height: 100vh;
-  -ms-overflow-style: none;
   overflow-y: scroll;
+  overflow-x: hidden;
   background-color: $primary;
 
   .btn {
@@ -87,13 +89,12 @@ nav.navbar.fixed-top {
 }
 
 .left-menu {
+  @extend .hidden-scrollbar;
+
   padding-top: $top-navigation-height;
   margin-left: $left-navigation-width;
   width: $left-sub-navigation-width;
   height: 100vh;
-
-  @extend .hidden-scrollbar;
-
   overflow-y: scroll;
   overflow-x: hidden;
   background-color: #666;

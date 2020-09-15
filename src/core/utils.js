@@ -299,7 +299,7 @@ exports.validatedPortCheck = (value, error) => {
     (Number(value) < PORT_NUMBER_MIN) ||
     (Number(value) > PORT_NUMBER_MAX) ||
     RESTRICTED_PORTS.some(val => val === value);
-  let errorMsg = error || _('Not a valid port number, please use another number.');
+  let errorMsg = error || _('The specified port is reserved by system or in use!');
   if (value === '') {
     errorMsg = _('The port number must not empty.');
     return errorMsg;

@@ -1,6 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
+const dayjs = require('dayjs');
 const progress = require('nprogress');
 const Clock = require('react-live-clock');
 const {Link} = require('capybara-router');
@@ -8,6 +9,7 @@ const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const utils = require('../../../core/utils');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const NTPTimeZone = require('webserver-form-schema/constants/system-sync-time-ntp-timezone');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
@@ -43,7 +45,7 @@ module.exports = class DateTime extends Base {
     };
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Updating Date & Region');
+    this.state.apiProcessModalTitle = _('Updating Date & Time');
   }
 
   hideApiProcessModal = () => {
@@ -120,7 +122,7 @@ module.exports = class DateTime extends Base {
     const {$isApiProcessing, showDateTimePicker, isShowModal} = this.state;
 
     // For browser compatibility, condition string for react-live-clock to work on Chrome, Firefox and Safari
-    const conditionedDeviceTime = deviceTime.replace('  ', ' ').replace(/-/g, '/');
+    const formattedDatetime = utils.formatDate(dayjs(deviceTime));
     return (
       <Form className="card-body">
         <div className="card form-group">
@@ -128,7 +130,7 @@ module.exports = class DateTime extends Base {
             <div className="form-group d-flex justify-content-between align-items-center mb-0">
               <label className="mb-0">{_('Date and Time of the Device')}</label>
               <label className="text-primary mb-0">
-                <Clock ticking date={conditionedDeviceTime} format="YYYY-MM-DD, hh:mm:ss A"/>
+                <Clock ticking date={formattedDatetime} format="YYYY-MM-DD, hh:mm:ss A ZZ"/>
               </label>
             </div>
           </div>
@@ -138,6 +140,18 @@ module.exports = class DateTime extends Base {
           <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
           <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
         </SelectField>
+        <div className="form-group">
+          <label>{_('Time Zone')}</label>
+          <div className="select-wrapper border rounded-pill overflow-hidden">
+            <Field name="ntpTimeZone" component="select" className="form-control border-0">
+              {NTPTimeZone.all().map(v => {
+                return (
+                  <option key={v} value={v}>{v}</option>
+                );
+              })}
+            </Field>
+          </div>
+        </div>
         <div className="form-group mb-5">
           <div className="form-check mb-4">
             <Field
@@ -157,20 +171,6 @@ module.exports = class DateTime extends Base {
           <div className="card mb-4">
             <div className="card-body">
               <div>
-                <div className="d-flex form-group align-items-center">
-                  <div className="text-size-14 text-nowrap mr-3">{`${_('Select Time Zone')} :`}</div>
-                  <div className="select-wrapper border rounded-pill overflow-hidden">
-                    <Field
-                      name="ntpTimeZone"
-                      component="select"
-                      className="form-control border-0"
-                    >
-                      {NTPTimeZone.all().map(v => {
-                        return (<option key={v} value={v}>{v}</option>);
-                      })}
-                    </Field>
-                  </div>
-                </div>
                 <div className="d-flex form-group align-items-center">
                   <div className="text-size-14 text-nowrap mr-3">{`${_('Host Name and IP Address')} :`}</div>
                   <Field
@@ -311,8 +311,8 @@ module.exports = class DateTime extends Base {
         </button>
         <CustomNotifyModal
           isShowModal={isShowModal}
-          modalTitle={_('Update Settings')}
-          modalBody={_('Update date & region need to log in again. Are you sure you want to continue?')}
+          modalTitle={_('Date & Time')}
+          modalBody={_('Update date & time need to log in again. Are you sure you want to continue?')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
           onConfirm={() => {
@@ -341,14 +341,14 @@ module.exports = class DateTime extends Base {
                     <li className="breadcrumb-item active">
                       <Link to="/system/date">{_('Settings')}</Link>
                     </li>
-                    <li className="breadcrumb-item">{_('Date & Region')}</li>
+                    <li className="breadcrumb-item">{_('Date & Time')}</li>
                   </ol>
                 </nav>
               </div>
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Date & Region')}</div>
+                  <div className="card-header">{_('Date & Time')}</div>
                   <Formik
                     initialValues={{
                       ...systemDateTime,

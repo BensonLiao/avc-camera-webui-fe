@@ -67,7 +67,7 @@ module.exports = class TCPIP extends Base {
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
       values === httpsSettings.port) {
-      return _('This is A Reserved Port or is In Use, Please Try Another Port.');
+      return _('The specified port is reserved by system or in use!');
     }
 
     return utils.validatedPortCheck(values);

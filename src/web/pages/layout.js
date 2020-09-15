@@ -79,6 +79,17 @@ module.exports = class Layout extends Base {
       .finally(progress.done);
   }
 
+  // Override default onClick in Capybara-Router, in order to add $isApiProcessing to prevent navigation.
+  onClickLink = event => {
+    const {$isApiProcessing, $updateFocalLengthField} = this.state;
+    event.preventDefault();
+    if (event.metaKey || $isApiProcessing || $updateFocalLengthField) {
+      return;
+    }
+
+    getRouter().go(event.target.src ? event.target.parentNode.pathname : event.target.pathname);
+  }
+
   render() {
     const {systemInformation, networkSettings} = this.props;
     const {$user, currentRouteName, isShowAboutModal} = this.state;
@@ -185,47 +196,47 @@ module.exports = class Layout extends Base {
         { isAdmin && (
           <div className="left-navigation fixed-top">
             <CustomTooltip title={_('Home')}>
-              <Link className={classTable.home} to="/">
+              <Link className={classTable.home} to="/" onClick={this.onClickLink}>
                 <img src={iconHome}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Video')}>
-              <Link className={classTable.media} to="/media/stream">
+              <Link className={classTable.media} to="/media/stream" onClick={this.onClickLink}>
                 <img src={iconMedia}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Audio')}>
-              <Link className={classTable.audio} to="/audio">
+              <Link className={classTable.audio} to="/audio" onClick={this.onClickLink}>
                 <img src={iconAudio}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Notification Settings')}>
-              <Link className={classTable.notification} to="/notification/smtp">
+              <Link className={classTable.notification} to="/notification/smtp" onClick={this.onClickLink}>
                 <img src={iconNotification}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('User Management')}>
-              <Link className={classTable.users} to="/users/members">
+              <Link className={classTable.users} to="/users/members" onClick={this.onClickLink}>
                 <img src={iconUserManagement}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Analytic')}>
-              <Link className={classTable.smart} to="/analytic/face-recognition">
+              <Link className={classTable.smart} to="/analytic/face-recognition" onClick={this.onClickLink}>
                 <img src={iconAnalytic}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('Network')}>
-              <Link className={classTable.network} to="/network/settings">
+              <Link className={classTable.network} to="/network/settings" onClick={this.onClickLink}>
                 <img src={iconNetwork}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('System')}>
-              <Link className={classTable.system} to="/system/datetime">
+              <Link className={classTable.system} to="/system/datetime" onClick={this.onClickLink}>
                 <img src={iconSystem}/>
               </Link>
             </CustomTooltip>
             <CustomTooltip title={_('SD Card')}>
-              <Link className={classTable.sdCard} to="/sd-card">
+              <Link className={classTable.sdCard} to="/sd-card" onClick={this.onClickLink}>
                 <img src={iconSDCard}/>
               </Link>
             </CustomTooltip>
@@ -269,6 +280,26 @@ module.exports = class Layout extends Base {
                 <button className="btn text-primary border-primary" type="button" onClick={this.showAboutModal}>
                   <i className="fas fa-info-circle text-primary text-size-20 mr-0" style={{width: '20px'}}/>
                 </button>
+              </div>
+
+              <div className="col">
+                <div className="dropdown">
+                  <button className="btn border-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <i className="fas fa-question-circle text-size-20 mr-0 fa-fw"/>
+                  </button>
+                  <div className="dropdown-menu dropdown-menu-right">
+                    <h6 className="dropdown-header">{_('Support')}</h6>
+                    <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
+                      {_('Product Use')}
+                    </a>
+                    <a className="dropdown-item" href="mailto:support@androvideo.com">
+                      {_('Technical Support')}
+                    </a>
+                    <a className="dropdown-item" href="http://androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
+                      {_('Product Information')}
+                    </a>
+                  </div>
+                </div>
               </div>
 
               <div className="col">
