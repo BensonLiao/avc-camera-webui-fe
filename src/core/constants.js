@@ -12,6 +12,8 @@ module.exports = {
   NOTIFY_CARDS_MAX: 256,
   NOTIFY_CARDS_EMAIL_MAX: 64,
   REDIRECT_COUNTDOWN: 5,
+  PHOTO_SCALE_MIN: 1,
+  PHOTO_SCALE_MAX: 2,
   RESTRICTED_PORTS: [
     '0', // Reserved
     '1', // Tcpmux
