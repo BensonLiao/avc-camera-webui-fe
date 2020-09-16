@@ -80,10 +80,6 @@ module.exports = class Member extends React.PureComponent {
       [item]: {
         avatarPreviewStyle: {
           cropper: {
-            x: 0,
-            y: 0,
-            width: this.editCropBoxSize,
-            height: this.editCropBoxSize,
             scale: 1,
             rotate: 0
           },
@@ -709,6 +705,7 @@ module.exports = class Member extends React.PureComponent {
                   toggleDragModeOnDblclick={false}
                   zoomOnTouch={false}
                   minCropBoxWidth={120}
+                  autoCropArea={1}
                   crop={this._crop}
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
                   zoom={event => event.preventDefault()}
