@@ -384,8 +384,12 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     }, 2500);
   }))
   .onGet('/api/members/total-count').reply(config => {
-    return mockResponseWithLog(config, [200, {totalCount: 3000}]);
-    // return mockResponseWithLog(config, [200, db.get('members').find({id: itemId}).value()]);
+    const totalPhotos = db.get('members').value().reduce((total, elem) => {
+      return total + elem.pictures.length;
+    }, 0);
+
+    return mockResponseWithLog(config, [200, {totalCount: totalPhotos}]);
+    // return mockResponseWithLog(config, [200, {totalCount: 30000}]);
   })
   .onGet('/api/face-events').reply(config => {
     const data = db.get('faceEvents')
