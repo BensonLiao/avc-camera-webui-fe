@@ -18,7 +18,8 @@ module.exports = class Members extends Base {
     return {
       params: PropTypes.shape({group: PropTypes.string}).isRequired,
       groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
-      members: PropTypes.shape(MembersTable.propTypes.members).isRequired
+      members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
+      totalCount: PropTypes.number.isRequired
     };
   }
 
@@ -182,7 +183,7 @@ module.exports = class Members extends Base {
         index: undefined
       }
     );
-
+    console.log(this.props);
     return (
       <>
         {/* Left menu */}

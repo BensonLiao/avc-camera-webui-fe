@@ -262,7 +262,8 @@ module.exports = new Router({
       },
       resolve: {
         groups: () => api.group.getGroups().then(response => response.data),
-        members: params => api.member.getMembers(params).then(response => response.data)
+        members: params => api.member.getMembers(params).then(response => response.data),
+        totalCount: () => api.member.totalCount().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-members" */
