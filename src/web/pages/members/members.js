@@ -2,7 +2,6 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
 const {RouterView, Link, getRouter} = require('capybara-router');
-const authKeyFaceRecognitionType = require('webserver-form-schema/constants/auth-key-fr');
 const iconDescription = require('../../../resource/description-20px.svg');
 const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
@@ -20,21 +19,7 @@ module.exports = class Members extends Base {
       params: PropTypes.shape({group: PropTypes.string}).isRequired,
       groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
       members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
-      totalPictureCount: PropTypes.shape({totalCount: PropTypes.number}).isRequired,
-      authKeys: PropTypes.shape({
-        items: PropTypes.arrayOf(PropTypes.shape({
-          time: PropTypes.string.isRequired,
-          user: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired
-          }).isRequired,
-          authKey: PropTypes.string.isRequired,
-          isEnableFaceRecognitionKey: PropTypes.string.isRequired,
-          isEnableAgeGenderKey: PropTypes.bool.isRequired,
-          isEnableHumanoidDetectionKey: PropTypes.bool.isRequired,
-          isEnable: PropTypes.bool.isRequired
-        }).isRequired).isRequired
-      }).isRequired
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
@@ -48,23 +33,6 @@ module.exports = class Members extends Base {
       deleteGroup: false,
       deleteMember: false
     };
-    this.remainingAllowedPhotos = (() => {
-      const faceRecognitionKeyTypes = props.authKeys.items.reduce((list, current) => {
-        list.push(current.isEnableFaceRecognitionKey);
-        return list;
-      }, []);
-      if (faceRecognitionKeyTypes.indexOf(Object.keys(authKeyFaceRecognitionType)[1]) >= 0) {
-      // 30,000 license
-        return 30000 - props.totalPictureCount.totalCount;
-      }
-
-      if (faceRecognitionKeyTypes.indexOf(Object.keys(authKeyFaceRecognitionType)[2]) >= 0) {
-      // 3,000 license
-        return 3000 - props.totalPictureCount.totalCount;
-      }
-
-      return null;
-    })();
   }
 
   showModal = selectedModal => event => {
@@ -206,9 +174,9 @@ module.exports = class Members extends Base {
   };
 
   render() {
-    const {groups, members, params} = this.props;
+    const {groups, members, params, remainingPictureCount} = this.props;
     const {selectedGroup, $isApiProcessing} = this.state;
-    const isOverPhotoLimit = this.remainingAllowedPhotos <= 0 && this.remainingAllowedPhotos !== null;
+    const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
       {
