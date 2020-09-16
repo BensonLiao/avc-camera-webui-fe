@@ -70,8 +70,8 @@ module.exports = class MembersTable extends React.PureComponent {
       }
     };
     return (
-      <div className="col-12 mb-5">
-        <table className="table custom-style" style={{tableLayout: 'fixed'}}>
+      <div className="col-12 mb-5 table-responsive">
+        <table className="table custom-style">
           <thead>
             <tr className="shadow">
               <th className="text-center" style={{width: '20%'}}>{_('User Picture')}</th>
