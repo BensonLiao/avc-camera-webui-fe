@@ -103,7 +103,7 @@ module.exports = class NetworkSettings extends Base {
               },
               isUpdating: false,
               modalTitle: _('Success'),
-              modalBody: [_('The website has been redirected to this address:'), `${_('IP Address')}: ${resultIP}`],
+              modalBody: [_('Click confirm to redirect to the new address:'), `${_('IP Address')}: ${resultIP}`],
               onConfirm: () => {
                 this.setState({isConfirmDisable: true});
                 utils.pingAndRedirectPage(`${location.protocol}//${resultIP}:${location.port}`);
