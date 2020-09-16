@@ -556,7 +556,7 @@ if (!window.languageResource['zh-tw']) {
     'Level of Accuracy': '相似度層級',
     'Recognition Function': '辨識功能',
     'Default is Fullscreen': '預設為全畫面',
-    'Recognition Name': '顯示辨識名稱',
+    'Display Recognition Name': '顯示辨識名稱',
     // Name/Group already defined elsewhere, but may is subject to change
     // Name: '名稱',
     // Group: '群組',
