@@ -1356,6 +1356,15 @@ module.exports = {
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}
+     * - totalCount {String} Total number of photos in database
+     */
+    totalCount: () => api({
+      method: 'get',
+      url: '/api/members/total-count'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
      * - password {String}
      */
     getDatabaseEncryptionSettings: () => api({
