@@ -23,9 +23,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       backdrop: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
       isLoading: PropTypes.bool,
       // For showing buttons at all
-      isShowAllBtns: PropTypes.bool,
-      // To show modalBody.length - 1 as a link
-      isRedirectLink: PropTypes.bool
+      isShowAllBtns: PropTypes.bool
     };
   }
 
@@ -39,8 +37,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       isConfirmDisable: false,
       backdrop: true,
       isLoading: false,
-      isShowAllBtns: true,
-      isRedirectLink: false
+      isShowAllBtns: true
     };
   }
 
@@ -56,8 +53,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       isConfirmDisable,
       backdrop,
       isLoading,
-      isShowAllBtns,
-      isRedirectLink
+      isShowAllBtns
     } = this.props;
     return (
       <Modal
@@ -73,24 +69,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
           <Modal.Title as="h4" className={classNames({'modal-loading': isLoading})}>{modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {utils.isArray(modalBody) && isRedirectLink ? (
-            modalBody.map((element, idx) => {
-              const isLink = modalBody.length - 1;
-              return typeof element === 'string' && isLink !== idx ? (
-                <p key={String(idx)} className={classNames({'modal-loading': modalType === 'process'})}>
-                  {element}
-                </p>
-              ) : typeof element === 'string' && isLink === idx ? (
-                <a key={String(idx)} href={element} className={classNames({'modal-loading': modalType === 'process'})}>
-                  {element}
-                </a>
-              ) : (
-                <React.Fragment key={String(idx)}>
-                  {element}
-                </React.Fragment>
-              );
-            })
-          ) : utils.isArray(modalBody) && !isRedirectLink ? (
+          {utils.isArray(modalBody) ? (
             modalBody.map((element, idx) => {
               return typeof element === 'string' ? (
                 <p key={String(idx)} className={classNames({'modal-loading': modalType === 'process'})}>
