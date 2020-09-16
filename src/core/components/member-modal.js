@@ -284,10 +284,7 @@ module.exports = class Member extends React.PureComponent {
     loadImage(file, {
       orientation: 1,
       canvas: true,
-      meta: true,
-      // Depends on modal width and scale it to 16:9 ratio
-      minHeight: 300,
-      maxHeight: 300
+      meta: true
     })
       .then(data => {
         const conditionedImage = data.image;
@@ -735,6 +732,8 @@ module.exports = class Member extends React.PureComponent {
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
                 <Cropper
                   src={avatarPreviewStyle.originalImage}
+                  // Depends on modal width and style container to 16:9 ratio
+                  style={{height: 300}}
                   // Cropper.js options
                   initialAspectRatio={1}
                   aspectRatio={1}
