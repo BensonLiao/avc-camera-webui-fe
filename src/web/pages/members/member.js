@@ -16,7 +16,8 @@ module.exports = class Member extends Base {
         groupId: PropTypes.string,
         note: PropTypes.string,
         pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-      })
+      }),
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
@@ -59,7 +60,7 @@ module.exports = class Member extends Base {
   };
 
   render() {
-    const {groups, member} = this.props;
+    const {groups, member, remainingPictureCount} = this.props;
     const {$isApiProcessing} = this.state;
 
     return (
@@ -68,6 +69,7 @@ module.exports = class Member extends Base {
         isShowModal={this.state.isShowModal}
         groups={groups}
         member={member}
+        remainingPictureCount={remainingPictureCount}
         onHide={this.onHideModal}
         onSubmitted={this.onSubmittedMemberForm}
       />

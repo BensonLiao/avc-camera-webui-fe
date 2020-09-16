@@ -42,7 +42,8 @@ module.exports = class Member extends React.PureComponent {
         groupId: PropTypes.string,
         note: PropTypes.string,
         pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-      })
+      }),
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
@@ -488,7 +489,7 @@ module.exports = class Member extends React.PureComponent {
   };
 
   formRender = ({errors, touched, values, validateForm}) => {
-    const {isApiProcessing, onHide} = this.props;
+    const {isApiProcessing, onHide, remainingPictureCount} = this.props;
     const {
       isShowEditModal,
       isShowConfirmModal,
