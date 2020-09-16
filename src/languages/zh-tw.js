@@ -646,6 +646,14 @@ if (!window.languageResource['zh-tw']) {
     'End Date': '結束日期',
     'End Time': '結束時間',
     'End Datetime': '結束日期時間',
+    'Add to Existing Member': '新增至現有成員',
+    'Add Photo to Member': '新增照片至成員',
+    'Enter Keyword For Search': '請輸入關鍵字以便搜尋',
+    'Enter Keyword': '輸入關鍵字',
+    'Add to {0}': '新增至 {0}',
+    'Photo Limit Reached': '已達照片上限',
+    'Verifying Photo': '照片驗證中',
+    'Invalid Photo': '照片不合格',
 
     // /users/accounts
     Accounts: '帳號管理',
