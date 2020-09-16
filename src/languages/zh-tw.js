@@ -561,7 +561,7 @@ if (!window.languageResource['zh-tw']) {
     // Name: '名稱',
     // Group: '群組',
     Unknown: '未知',
-    'Image Spoof': '圖像偽造',
+    'Image Spoof': '圖像偽裝',
     'Face-Recognition is Disabled': '辨識功能已關閉',
     'Anti-Photo Spoof': '防止照片偽裝',
     'Live View Display:': '即時影像顯示：',
