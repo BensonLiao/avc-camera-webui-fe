@@ -416,6 +416,7 @@ if (!window.languageResource['zh-tw']) {
     'VBR Max Bitrate': '最佳可變位元速率 (VBR Max Bitrate)',
     'CBR Bitrate': '固定位元速率 (CBR)',
     'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
+    'Changing stream 1 resolution ratio will also update stream 2 resolution settings, click confirm to continue.': '改變串流1的解析度比例會造成串流2的解析度設定被改變, 請確認是否繼續',
 
     // /media/privacy-mask
     'Drag a Mask Area.': '請拖曳新增遮罩',

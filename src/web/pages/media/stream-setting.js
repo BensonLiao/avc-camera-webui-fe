@@ -34,6 +34,7 @@ module.exports = class StreamSetting extends Base {
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Updating Stream Settings');
+    this.state.hasResolutionRatioChanged = false;
     // Enum to test for changing resolution aspect ratio
     this.fourByThree = [
       Number(StreamResolution['5']),
@@ -230,6 +231,7 @@ module.exports = class StreamSetting extends Base {
       const prev = Number(allValues.channelA.resolution);
       const current = Number(newResValue);
       if (fieldNamePrefix === 'channelA' && this.hasResolutionChanged(prev, current)) {
+        this.setState({hasResolutionRatioChanged: true});
         this.processRenderOptions({
           ...allValues,
           channelA: {
@@ -249,7 +251,7 @@ module.exports = class StreamSetting extends Base {
         setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[maxFrameRateOptionB].value);
       }
 
-      if (fieldNamePrefix === 'channelA') {
+      if (fieldNamePrefix === 'channelA' && !this.hasResolutionChanged(prev, current)) {
         this.processRenderOptions({
           ...allValues,
           channelA: {
@@ -295,6 +297,7 @@ module.exports = class StreamSetting extends Base {
         const prev = Number(allValues.channelA.resolution);
         const current = Number(this.channelAOptions.resolution[0].value);
         if (this.hasResolutionChanged(prev, current)) {
+          this.setState({hasResolutionRatioChanged: true});
           // channelB res and channelB fps both need to change here with updated options
           this.processRenderOptions({
             ...allValues,
@@ -478,7 +481,9 @@ module.exports = class StreamSetting extends Base {
         <CustomNotifyModal
           isShowModal={isShowModal}
           modalTitle={_('Stream Settings')}
-          modalBody={_('Are you sure you want to update stream settings?')}
+          modalBody={this.state.hasResolutionRatioChanged ?
+            _('Changing stream 1 resolution ratio will also update stream 2 resolution settings, click confirm to continue.') :
+            _('Are you sure you want to update stream settings?')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
           onConfirm={() => {
