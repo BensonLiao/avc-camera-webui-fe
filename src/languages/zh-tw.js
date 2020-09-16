@@ -556,12 +556,15 @@ if (!window.languageResource['zh-tw']) {
     'Level of Accuracy': '相似度層級',
     'Recognition Function': '辨識功能',
     'Default is Fullscreen': '預設為全畫面',
-    'Display Recognition Name': '顯示辨識名稱',
-    'Display Name': '顯示人名',
-    'Display Group': '顯示已註冊群組',
-    'Display "Unknown"': '顯示 "Unknown"',
-    'Display "Fake"': '顯示 "Fake"',
+    'Recognition Name': '顯示辨識名稱',
+    // Name/Group already defined elsewhere, but may is subject to change
+    // Name: '名稱',
+    // Group: '群組',
+    Unknown: '未知',
+    'Image Spoof': '圖像偽造',
     'Face-Recognition is Disabled': '辨識功能已關閉',
+    'Anti-Photo Spoof': '防止照片偽裝',
+    'Live View Display:': '即時影像顯示：',
 
     // /smart/motion-detection
     'Motion Detection': '動作偵測',
