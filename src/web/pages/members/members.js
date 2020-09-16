@@ -19,7 +19,7 @@ module.exports = class Members extends Base {
       params: PropTypes.shape({group: PropTypes.string}).isRequired,
       groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
       members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
-      totalCount: PropTypes.number.isRequired
+      totalPictureCount: PropTypes.shape({totalCount: PropTypes.number}).isRequired
     };
   }
 
