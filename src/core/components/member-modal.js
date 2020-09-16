@@ -74,28 +74,10 @@ module.exports = class Member extends React.PureComponent {
     this.editWrapperSize = 300; // px
     this.editCropBoxSize = 128; // px
     this.listWrapperSize = 88; // px
-    this.previewReductionRatio = this.listWrapperSize / this.editWrapperSize;
-    this.state.boundary = {
-      left: 0,
-      top: 0,
-      right: 0,
-      bottom: 0
-    };
-
     // Initialise avatarList state object
     const nameList = ['Primary', 'Photo 1', 'Photo 2', 'Photo 3', 'Photo 4'];
     this.state.avatarList = Object.assign({}, ...nameList.map((item, index) => ({
       [item]: {
-        boundary: {
-          left: 0,
-          top: 0,
-          right: 0,
-          bottom: 0
-        },
-        photoOffset: {
-          x: 0,
-          y: 0
-        },
         avatarPreviewStyle: {
           cropper: {
             x: 0,
@@ -338,16 +320,6 @@ module.exports = class Member extends React.PureComponent {
         avatarList: {
           [this.state.avatarToEdit]: {
             $set: {
-              boundary: {
-                left: 0,
-                top: 0,
-                right: 0,
-                bottom: 0
-              },
-              photoOffset: {
-                x: 0,
-                y: 0
-              },
               avatarPreviewStyle: {
                 cropper: {
                   x: 0,
@@ -490,8 +462,7 @@ module.exports = class Member extends React.PureComponent {
     const tasks = [];
     avatarListArray.forEach((item, index) => {
       const {
-        avatarPreviewStyle: {originalImage, croppedImage, cropper: {scale, rotate}},
-        photoOffset,
+        avatarPreviewStyle: {originalImage, croppedImage},
         avatarFile
       } = item[1];
       if (avatarFile && croppedImage) {
@@ -505,15 +476,7 @@ module.exports = class Member extends React.PureComponent {
         tasks.push(member.pictures[index]);
       } else if (defaultPictureUrl && index === 0) {
         // Register a member from the event.
-        tasks.push(
-          utils.convertPicture(
-            defaultPictureUrl,
-            scale,
-            rotate,
-            photoOffset,
-            this.editWrapperSize
-          )
-        );
+        tasks.push(croppedImage.replace('data:image/jpeg;base64,', ''));
       }
     });
 
