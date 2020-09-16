@@ -741,7 +741,7 @@ module.exports = class Member extends React.PureComponent {
                   dragMode="move"
                   toggleDragModeOnDblclick={false}
                   zoomOnTouch={false}
-                  minCropBoxWidth={48}
+                  minCropBoxWidth={80}
                   crop={this._crop}
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
                   zoom={event => event.preventDefault()}
