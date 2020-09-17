@@ -23,6 +23,7 @@ const SessionExpireModal = require('../../core/components/session-expire-modal')
 const api = require('../../core/apis/web-api');
 const _ = require('../../languages');
 const constants = require('../../core/constants');
+const store = require('../../core/store');
 
 module.exports = class Layout extends Base {
   static get propTypes() {
@@ -71,6 +72,7 @@ module.exports = class Layout extends Base {
 
   onClickLogout = event => {
     event.preventDefault();
+    store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);
     progress.start();
     api.account.logout()
       .then(() => {

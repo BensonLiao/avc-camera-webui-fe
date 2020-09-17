@@ -39,6 +39,7 @@ module.exports = config => {
 
   return axios(config)
     .catch(error => {
+      store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);
       if (error.response && error.response.status === 401) {
         location.href = '/login';
         return new Promise(() => {}); // Lock the promise chain.
