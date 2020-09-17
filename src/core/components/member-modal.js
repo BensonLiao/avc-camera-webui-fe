@@ -500,7 +500,8 @@ module.exports = class Member extends React.PureComponent {
       avatarList,
       avatarToEdit,
       avatarList: {[avatarToEdit]: {avatarPreviewStyle}},
-      preEditState
+      preEditState,
+      remainingPictureQuota
     } = this.state;
     const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
