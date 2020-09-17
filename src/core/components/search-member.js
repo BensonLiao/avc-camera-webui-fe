@@ -131,7 +131,7 @@ class SearchMember extends React.PureComponent {
             <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="d-flex flex-row justify-content-between align-items-end mb-4 pl-5 pr-3">
+            <div className="d-flex flex-row justify-content-between align-items-end mb-4 px-3">
               <div className="d-flex flex-row align-items-end">
                 <div className="event-photo">
                   <img
