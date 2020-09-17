@@ -65,6 +65,7 @@ module.exports = class Member extends React.PureComponent {
     super(props);
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
+    this.state.remainingPictureQuota = props.remainingPictureCount < 5 ? props.remainingPictureCount : null;
     this.state.pictureRotateDegrees = 0;
     this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
@@ -216,6 +217,19 @@ module.exports = class Member extends React.PureComponent {
     // Validate event photo on initial load
     if (this.props.defaultPictureUrl) {
       this.verifyPhoto();
+    }
+  }
+
+  updatePictureCount() {
+    if (this.state.remainingPictureQuota !== null) {
+      let pictureCount = Object.entries(this.state.avatarList).reduce((count, item) => {
+        count += item[1].avatarPreviewStyle.originalImage ? 1 : 0;
+        return count;
+      }, 0);
+      this.setState(prevState => ({
+        ...prevState,
+        remainingPictureQuota: prevState.remainingPictureQuota - pictureCount
+      }));
     }
   }
 
