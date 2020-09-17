@@ -218,6 +218,8 @@ module.exports = class Member extends React.PureComponent {
     if (this.props.defaultPictureUrl) {
       this.verifyPhoto();
     }
+
+    this.updatePictureCount();
   }
 
   updatePictureCount() {
@@ -506,7 +508,7 @@ module.exports = class Member extends React.PureComponent {
   };
 
   formRender = ({errors, touched, values, validateForm}) => {
-    const {isApiProcessing, onHide, remainingPictureCount} = this.props;
+    const {isApiProcessing, onHide} = this.props;
     const {
       isShowEditModal,
       isShowConfirmModal,
@@ -519,6 +521,7 @@ module.exports = class Member extends React.PureComponent {
     } = this.state;
     const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
+    console.log('formRender -> remainingPictureQuota', remainingPictureQuota);
     return (
       <Form>
         <FormikEffect onChange={this.onChangeFormValues}/>
@@ -574,12 +577,14 @@ module.exports = class Member extends React.PureComponent {
                           </>
                         ) : (
                           // Display upload area for new photo
-                          <CustomTooltip show={(avatar[0] !== 'Primary') && !primaryBackground} title={_('Upload Primary First')}>
-
+                          <CustomTooltip
+                            show={((avatar[0] !== 'Primary') && !primaryBackground) || remainingPictureQuota <= 0}
+                            title={remainingPictureQuota <= 0 ? _('Photo Limit Reached') : _('Upload Primary First')}
+                          >
                             <label className="btn">
                               <i className="fas fa-plus"/>
                               <input
-                                disabled={(avatar[0] !== 'Primary') && !primaryBackground}
+                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) || remainingPictureQuota <= 0}
                                 className="d-none"
                                 type="file"
                                 accept=".jpg,.png"
