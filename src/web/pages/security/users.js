@@ -133,7 +133,7 @@ module.exports = class Users extends Base {
         </div>
 
         {/* Main content */}
-        <div className="main-content left-menu-active">
+        <div className="main-content left-menu-active sub">
           <div className="page-security bg-white">
             <div className="container-fluid">
               <div className="row">
