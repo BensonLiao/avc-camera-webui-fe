@@ -557,11 +557,14 @@ if (!window.languageResource['zh-tw']) {
     'Recognition Function': '辨識功能',
     'Default is Fullscreen': '預設為全畫面',
     'Display Recognition Name': '顯示辨識名稱',
-    'Display Name': '顯示人名',
-    'Display Group': '顯示已註冊群組',
-    'Display "Unknown"': '顯示 "Unknown"',
-    'Display "Fake"': '顯示 "Fake"',
+    // Name/Group already defined elsewhere, but may is subject to change
+    // Name: '名稱',
+    // Group: '群組',
+    Unknown: '未知',
+    'Image Spoof': '圖像偽裝',
     'Face-Recognition is Disabled': '辨識功能已關閉',
+    'Anti-Photo Spoof': '防止照片偽裝',
+    'Live View Display:': '即時影像顯示：',
 
     // /smart/motion-detection
     'Motion Detection': '動作偵測',
@@ -646,6 +649,14 @@ if (!window.languageResource['zh-tw']) {
     'End Date': '結束日期',
     'End Time': '結束時間',
     'End Datetime': '結束日期時間',
+    'Add to Existing Member': '新增至現有成員',
+    'Add Photo to Member': '新增照片至成員',
+    'Enter Keyword For Search': '請輸入關鍵字以便搜尋',
+    'Enter Keyword': '輸入關鍵字',
+    'Add to {0}': '新增至 {0}',
+    'Photo Limit Reached': '已達照片上限',
+    'Verifying Photo': '照片驗證中',
+    'Invalid Photo': '照片不合格',
 
     // /users/accounts
     Accounts: '帳號管理',

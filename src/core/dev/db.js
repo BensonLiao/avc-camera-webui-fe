@@ -70,7 +70,7 @@ const members = [
   },
   {
     id: uuidv4(),
-    name: 'Tom',
+    name: 'Tom Holland',
     organization: 'Avengers',
     groupId: memberGroups[0].id,
     note: 'I rock!',
@@ -80,6 +80,214 @@ const members = [
       defaultPhotos.user.tom[2],
       defaultPhotos.user.tom[3]
     ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom Hiddleston',
+    organization: 'God',
+    groupId: '',
+    note: 'There are no men like me.',
+    pictures: [
+      defaultPhotos.user.hiddleston[0],
+      defaultPhotos.user.hiddleston[1],
+      defaultPhotos.user.hiddleston[2],
+      defaultPhotos.user.hiddleston[3],
+      defaultPhotos.user.hiddleston[4]
+    ]
+  },
+  // test data
+  {
+    id: uuidv4(),
+    name: 'Tom Hiddleston 2',
+    organization: 'God',
+    groupId: '',
+    note: 'There are no men like me.',
+    pictures: [
+      defaultPhotos.user.hiddleston[0],
+      defaultPhotos.user.hiddleston[1],
+      defaultPhotos.user.hiddleston[2],
+      defaultPhotos.user.hiddleston[3],
+      defaultPhotos.user.hiddleston[4]
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Scarlett Johannson 2',
+    organization: 'Godess',
+    groupId: memberGroups[0].id,
+    note: '"Let me put you on hold."',
+    pictures: [
+      defaultPhotos.user.scarlett
+    ],
+    picture: defaultPhotos.user.scarlett
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom Hiddleston 3',
+    organization: 'God',
+    groupId: '',
+    note: 'There are no men like me.',
+    pictures: [
+      defaultPhotos.user.hiddleston[0],
+      defaultPhotos.user.hiddleston[1],
+      defaultPhotos.user.hiddleston[2],
+      defaultPhotos.user.hiddleston[3],
+      defaultPhotos.user.hiddleston[4]
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom Hiddleston 4',
+    organization: 'God',
+    groupId: '',
+    note: 'There are no men like me.',
+    pictures: [
+      defaultPhotos.user.hiddleston[0],
+      defaultPhotos.user.hiddleston[1],
+      defaultPhotos.user.hiddleston[2],
+      defaultPhotos.user.hiddleston[3],
+      defaultPhotos.user.hiddleston[4]
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Elon Musk 2',
+    organization: 'SpaceX',
+    groupId: memberGroups[2].id,
+    note: 'Iron Man',
+    pictures: [
+      defaultPhotos.user.elon
+    ],
+    picture: defaultPhotos.user.elon
+  },
+  {
+    id: uuidv4(),
+    name: 'Elon Musk 3',
+    organization: 'SpaceX',
+    groupId: memberGroups[2].id,
+    note: 'Iron Man',
+    pictures: [
+      defaultPhotos.user.elon
+    ],
+    picture: defaultPhotos.user.elon
+  },
+  {
+    id: uuidv4(),
+    name: 'Scarlett Johannson 3',
+    organization: 'Godess',
+    groupId: memberGroups[0].id,
+    note: '"Let me put you on hold."',
+    pictures: [
+      defaultPhotos.user.scarlett
+    ],
+    picture: defaultPhotos.user.scarlett
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom Hiddleston 5',
+    organization: 'God',
+    groupId: '',
+    note: 'There are no men like me.',
+    pictures: [
+      defaultPhotos.user.hiddleston[0],
+      defaultPhotos.user.hiddleston[1],
+      defaultPhotos.user.hiddleston[2],
+      defaultPhotos.user.hiddleston[3],
+      defaultPhotos.user.hiddleston[4]
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom Hiddleston 6',
+    organization: 'God',
+    groupId: '',
+    note: 'There are no men like me.',
+    pictures: [
+      defaultPhotos.user.hiddleston[0],
+      defaultPhotos.user.hiddleston[1],
+      defaultPhotos.user.hiddleston[2],
+      defaultPhotos.user.hiddleston[3],
+      defaultPhotos.user.hiddleston[4]
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Elon Musk 4',
+    organization: 'SpaceX',
+    groupId: memberGroups[2].id,
+    note: 'Iron Man',
+    pictures: [
+      defaultPhotos.user.elon
+    ],
+    picture: defaultPhotos.user.elon
+  },
+  {
+    id: uuidv4(),
+    name: 'Kim Jung Un 2',
+    organization: 'Psych Ward',
+    groupId: memberGroups[1].id,
+    note: 'Has No Nuclear Weapon',
+    pictures: [
+      defaultPhotos.user.kim
+    ],
+    picture: defaultPhotos.user.kim
+  },
+  {
+    id: uuidv4(),
+    name: 'Elon Musk 5',
+    organization: 'SpaceX',
+    groupId: memberGroups[2].id,
+    note: 'Iron Man',
+    pictures: [
+      defaultPhotos.user.elon
+    ],
+    picture: defaultPhotos.user.elon
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom Holland 2',
+    organization: 'Avengers',
+    groupId: memberGroups[0].id,
+    note: 'I rock!',
+    pictures: [
+      defaultPhotos.user.tom[0],
+      defaultPhotos.user.tom[1],
+      defaultPhotos.user.tom[2],
+      defaultPhotos.user.tom[3]
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Kim Jung Un 3',
+    organization: 'Psych Ward',
+    groupId: memberGroups[1].id,
+    note: 'Has No Nuclear Weapon',
+    pictures: [
+      defaultPhotos.user.kim
+    ],
+    picture: defaultPhotos.user.kim
+  },
+  {
+    id: uuidv4(),
+    name: 'Elon Musk 6',
+    organization: 'SpaceX',
+    groupId: memberGroups[2].id,
+    note: 'Iron Man',
+    pictures: [
+      defaultPhotos.user.elon
+    ],
+    picture: defaultPhotos.user.elon
+  },
+  {
+    id: uuidv4(),
+    name: 'Scarlett Johannson 4',
+    organization: 'Godess',
+    groupId: memberGroups[0].id,
+    note: '"Let me put you on hold."',
+    pictures: [
+      defaultPhotos.user.scarlett
+    ],
+    picture: defaultPhotos.user.scarlett
   }
 ];
 

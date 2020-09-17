@@ -160,7 +160,7 @@ module.exports = class FaceRecognition extends Base {
                 <div className="card">
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                      <label className="mb-0">{_('Photo Spoofing')}</label>
+                      <label className="mb-0">{_('Anti-Photo Spoof')}</label>
                       <div className="custom-control custom-switch">
                         <CustomTooltip show={!isEnable} title={_('Face-Recognition is Disabled')}>
                           <span>
@@ -247,6 +247,7 @@ module.exports = class FaceRecognition extends Base {
               <hr/>
 
               <div className="form-group">
+                <label className="mb-3">{_('Live View Display:')}</label>
                 <div className="form-check mb-3">
                   <Field
                     name="isShowMember"
@@ -255,7 +256,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-all"
                   />
-                  <label className="form-check-label" htmlFor="input-show-all">{_('Display Name')}</label>
+                  <label className="form-check-label" htmlFor="input-show-all">{_('Name')}</label>
                 </div>
                 <div className="form-check mb-3">
                   <Field
@@ -265,7 +266,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-register-group"
                   />
-                  <label className="form-check-label" htmlFor="input-show-register-group">{_('Display Group')}</label>
+                  <label className="form-check-label" htmlFor="input-show-register-group">{_('Group')}</label>
                 </div>
                 <div className="form-check mb-3">
                   <Field
@@ -275,7 +276,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-unknown-personal"
                   />
-                  <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Display "Unknown"')}</label>
+                  <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Unknown')}</label>
                 </div>
                 <div className="form-check">
                   <Field
@@ -285,7 +286,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-fake"
                   />
-                  <label className="form-check-label" htmlFor="input-show-fake">{_('Display "Fake"')}</label>
+                  <label className="form-check-label" htmlFor="input-show-fake">{_('Image Spoof')}</label>
                 </div>
               </div>
 

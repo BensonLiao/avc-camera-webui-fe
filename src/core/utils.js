@@ -187,7 +187,14 @@ exports.validateStreamBitRate = () => values => {
  * @param {number} wrapperSize - size of the photo container
  * @returns {Promise<string>} - The base64 jpeg string.
  */
-exports.convertPicture = (imgSrc, zoomFactor, pictureRotateDegrees, offset, wrapperSize) => new Promise((resolve, reject) => {
+exports.convertPicture = (imgSrc,
+  zoomFactor = 1,
+  pictureRotateDegrees = 0,
+  offset = {
+    x: 0,
+    y: 0
+  },
+  wrapperSize = 88) => new Promise((resolve, reject) => {
   const img = document.createElement('img');
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');

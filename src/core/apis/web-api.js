@@ -1255,14 +1255,15 @@ module.exports = {
      * - items[].pictures {Array<String>} The base64 string of jpeg images.
      * - items[].id {String}
      */
-    getMembers: ({index, keyword, group, sort}) => api({
+    getMembers: ({index, keyword, group, sort, size = null}) => api({
       method: 'get',
       url: '/api/members',
       params: {
         index,
         keyword,
         group,
-        sort
+        sort,
+        size
       }
     }),
     /**
@@ -1352,6 +1353,21 @@ module.exports = {
       method: 'post',
       url: '/api/members/validate-picture',
       data: {picture}
+    }),
+    /**
+     * @param {String} picture
+     * @param {String} id
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - pictureCount {Number}
+     */
+    addPhoto: ({picture, id}) => api({
+      method: 'post',
+      url: '/api/members/add-photo',
+      data: {
+        picture,
+        id
+      }
     }),
     /**
      * @returns {Promise<response>}

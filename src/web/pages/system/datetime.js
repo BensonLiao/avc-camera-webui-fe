@@ -9,11 +9,10 @@ const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const utils = require('../../../core/utils');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
-const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_OFFSET_MAP, TIMEZONE_LIST} = require('../../../core/constants');
+const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -82,7 +81,7 @@ module.exports = class DateTime extends Base {
     }, () => {
       if (values.syncTimeOption === SyncTimeOption.local) {
         values.manualTime = new Date();
-        values.ntpTimeZoneAuto = TIMEZONE_OFFSET_MAP[values.manualTime.getTimezoneOffset() / 60];
+        values.ntpTimeZone = dayjs.tz.guess();
       }
 
       if (isLanguageUpdate) {
@@ -110,9 +109,6 @@ module.exports = class DateTime extends Base {
   formRender = ({values}) => {
     const {systemDateTime: {deviceTime}} = this.props;
     const {$isApiProcessing, showDateTimePicker, isShowModal} = this.state;
-
-    // For browser compatibility, condition string for react-live-clock to work on Chrome, Firefox and Safari
-    const formattedDatetime = utils.formatDate(dayjs(deviceTime));
     return (
       <Form className="card-body">
         <div className="card form-group">
@@ -120,7 +116,7 @@ module.exports = class DateTime extends Base {
             <div className="form-group d-flex justify-content-between align-items-center mb-0">
               <label className="mb-0">{_('Date and Time of the Device')}</label>
               <label className="text-primary mb-0">
-                <Clock ticking date={formattedDatetime} format="YYYY-MM-DD, hh:mm:ss A ZZ"/>
+                <Clock ticking date={deviceTime} timezone={values.ntpTimeZone} format="YYYY-MM-DD, hh:mm:ss A Z"/>
               </label>
             </div>
           </div>

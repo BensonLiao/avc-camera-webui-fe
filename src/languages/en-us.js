@@ -3,7 +3,7 @@ if (!window.languageResource['en-us']) {
 
     // Constants
     'permission-0': 'Admin',
-    'permission-1': 'Viewer',
+    'permission-1': 'Guest',
     'permission-2': 'Viewer',
     'permission-99': 'Admin', // Super-Admin, for easier backend permission control, no difference for UI
 
