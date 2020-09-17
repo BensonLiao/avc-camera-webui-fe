@@ -152,8 +152,7 @@ module.exports = class Home extends Base {
       systemInformation: {
         sdUsage,
         sdTotal,
-        sdStatus,
-        deviceStatus
+        sdStatus
       },
       authStatus: {
         isEnableFaceRecognitionKey,
