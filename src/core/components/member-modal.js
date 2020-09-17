@@ -224,14 +224,12 @@ module.exports = class Member extends React.PureComponent {
 
   updatePictureCount() {
     if (this.state.remainingPictureQuota !== null) {
+      // eslint-disable-next-line react/no-access-state-in-setstate
       let pictureCount = Object.entries(this.state.avatarList).reduce((count, item) => {
         count += item[1].avatarPreviewStyle.originalImage ? 1 : 0;
         return count;
       }, 0);
-      this.setState(prevState => ({
-        ...prevState,
-        remainingPictureQuota: prevState.remainingPictureQuota - pictureCount
-      }));
+      this.setState({remainingPictureQuota: this.props.remainingPictureCount - pictureCount});
     }
   }
 
@@ -353,7 +351,9 @@ module.exports = class Member extends React.PureComponent {
           }
         }
       });
-    this.setState(deleteAvatar);
+    this.setState(deleteAvatar, () => {
+      this.updatePictureCount();
+    });
   }
 
   generateRotatePictureHandler = isClockwise => event => {
@@ -445,6 +445,8 @@ module.exports = class Member extends React.PureComponent {
           });
         this.setState(updateAvatarVerification);
       }
+
+      this.updatePictureCount();
     });
   }
 
@@ -541,7 +543,10 @@ module.exports = class Member extends React.PureComponent {
                       className={classNames(
                         'photo-wrapper',
                         {'has-background': croppedImage},
-                        {available: (avatar[0] === 'Primary') || primaryBackground},
+                        {
+                          available: ((avatar[0] === 'Primary') || primaryBackground) &&
+                                     (remainingPictureQuota > 0 || remainingPictureQuota === null)
+                        },
                         {'failed-check': verifyStatus === false}
                       )}
                     >
@@ -578,13 +583,15 @@ module.exports = class Member extends React.PureComponent {
                         ) : (
                           // Display upload area for new photo
                           <CustomTooltip
-                            show={((avatar[0] !== 'Primary') && !primaryBackground) || remainingPictureQuota <= 0}
+                            show={((avatar[0] !== 'Primary') && !primaryBackground) ||
+                                  (remainingPictureQuota <= 0 && remainingPictureQuota !== null)}
                             title={remainingPictureQuota <= 0 ? _('Photo Limit Reached') : _('Upload Primary First')}
                           >
                             <label className="btn">
                               <i className="fas fa-plus"/>
                               <input
-                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) || remainingPictureQuota <= 0}
+                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) ||
+                                          (remainingPictureQuota <= 0 && remainingPictureQuota !== null)}
                                 className="d-none"
                                 type="file"
                                 accept=".jpg,.png"
