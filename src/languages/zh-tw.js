@@ -714,7 +714,7 @@ if (!window.languageResource['zh-tw']) {
     'Device Processing': '裝置處理中',
 
     // /network/https
-    'The website has been redirected to this address:': '網站已重新導向新的網址 :',
+    'Click confirm to redirect to the new address:': '按確認重新導向新的網址 :',
     'Please Redirect Manually to the New Address': '請自行手動重新導向新的網址',
     'The specified port is reserved by system or in use!': '輸入的連接埠為系統預留或使用中!',
     Success: '成功',
@@ -808,6 +808,9 @@ if (!window.languageResource['zh-tw']) {
     'Activation Failed': '啟用失敗',
     'Authorization failed!': '授權失敗！',
     'Key Already Registered!': '授權碼已註冊!',
+    // Auth key FR license
+    'face-recognition-key-thirtyThousand': '臉部辨識 30k',
+    'face-recognition-key-threeThousand': '臉部辨識 3k',
 
     // /sd-card
     'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
