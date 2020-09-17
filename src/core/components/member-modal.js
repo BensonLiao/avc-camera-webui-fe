@@ -119,6 +119,8 @@ module.exports = class Member extends React.PureComponent {
 
   onCropperReady = () => {
     const {avatarList, avatarToEdit} = this.state;
+    const {defaultPictureUrl} = this.props;
+
     const mask = document.createElement('img');
     mask.src = avatarMask;
     mask.id = 'cropper-mask';
@@ -133,6 +135,14 @@ module.exports = class Member extends React.PureComponent {
       scaleX: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale,
       scaleY: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
     });
+
+    if (defaultPictureUrl) {
+      const newCropperState = update(
+        this.state,
+        {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL('image/jpeg')}}}}}
+      );
+      this.setState(newCropperState);
+    }
 
     // Add mouse wheel event to scale cropper instead of default zoom function
     this.cropper.cropBox.addEventListener('wheel', event => {
@@ -454,7 +464,7 @@ module.exports = class Member extends React.PureComponent {
     }
 
     const data = {...values};
-    const {defaultPictureUrl, member, onSubmitted} = this.props;
+    const {member, onSubmitted} = this.props;
     const tasks = [];
     avatarListArray.forEach((item, index) => {
       const {
@@ -470,8 +480,11 @@ module.exports = class Member extends React.PureComponent {
       } else if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
-      } else if (defaultPictureUrl && index === 0) {
-        // Register a member from the event.
+      } else if (croppedImage && croppedImage.indexOf('/api') > -1) {
+        // Register a member from the event with original image url.
+        tasks.push(utils.convertPicture(croppedImage));
+      } else if (croppedImage) {
+        // Register a member from the event and cropper has opened.
         tasks.push(croppedImage.replace('data:image/jpeg;base64,', ''));
       }
     });
