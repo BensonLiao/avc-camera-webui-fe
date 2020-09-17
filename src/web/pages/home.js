@@ -152,8 +152,7 @@ module.exports = class Home extends Base {
       systemInformation: {
         sdUsage,
         sdTotal,
-        sdStatus,
-        deviceStatus
+        sdStatus
       },
       authStatus: {
         isEnableFaceRecognitionKey,
@@ -195,7 +194,6 @@ module.exports = class Home extends Base {
                         <tr>
                           <th>{_('Device Name')}</th>
                           <th>{_('Analytic')}</th>
-                          <th>{_('Device Status')}</th>
                           <th>{_('SD Card')}</th>
                         </tr>
                       </thead>
@@ -232,14 +230,6 @@ module.exports = class Home extends Base {
                                   {_(`${isEnableHumanoidDetectionKey ? 'On' : 'Off'}`)}
                                 </span>
                               </div>
-                            )}
-                          </td>
-                          <td className="align-top">
-                            {deviceStatus === 0 && (
-                              <span className="badge badge-pill badge-danger">{_('Error')}</span>
-                            )}
-                            {deviceStatus === 1 && (
-                              <span className="badge badge-pill badge-success">{_('Normal')}</span>
                             )}
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? '' : 'd-none')}>
