@@ -431,7 +431,7 @@ module.exports = class Member extends React.PureComponent {
     });
   }
 
-  onSubmitForm = ({validateForm, errors, values}) => {
+  onSubmitForm = ({errors, values}) => {
     const {avatarList} = this.state;
     const avatarListArray = Object.entries(avatarList);
 
@@ -439,7 +439,7 @@ module.exports = class Member extends React.PureComponent {
     if (!avatarList.Primary.avatarPreviewStyle.croppedImage) {
       const updateErrorMessage = update(this.state,
         {avatarList: {Primary: {errorMessage: {$set: `${_('Photo is required')}`}}}});
-      validateForm().then(this.setState(updateErrorMessage));
+      this.setState(updateErrorMessage);
       return;
     }
 
@@ -648,10 +648,11 @@ module.exports = class Member extends React.PureComponent {
               onClick={() => {
                 // Manually trigger validate form for synchronous error messages
                 touched.name = true;
-                this.onSubmitForm({
-                  validateForm,
-                  errors,
-                  values
+                validateForm().then(errors => {
+                  this.onSubmitForm({
+                    errors,
+                    values
+                  });
                 });
               }}
             >
