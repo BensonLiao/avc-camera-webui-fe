@@ -180,6 +180,7 @@ exports.validateStreamBitRate = () => values => {
 };
 
 /**
+ * Convert from a regular img url to base64 encoded data url.
  * @param {string} imgSrc - The src of the img element.
  * @param {number} zoomFactor - Zoom factor as a number, `2` is 2x.
  * @param {number} pictureRotateDegrees - The rotate degrees. 0 ~ 360
