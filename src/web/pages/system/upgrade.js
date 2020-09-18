@@ -285,7 +285,7 @@ module.exports = class Upgrade extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/system">{_('System')}</Link>
+                      <Link to="/system/datetime">{_('System')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
                       <Link to="/system/datetime">{_('Settings')}</Link>
