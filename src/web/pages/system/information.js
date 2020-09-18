@@ -29,7 +29,7 @@ module.exports = class Information extends Base {
                       <Link to="/system">{_('System')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
-                      <Link to="/system/date">{_('Settings')}</Link>
+                      <Link to="/system/datetime">{_('Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('Information')}</li>
                   </ol>
