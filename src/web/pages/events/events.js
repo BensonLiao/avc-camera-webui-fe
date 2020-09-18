@@ -30,7 +30,8 @@ module.exports = class Events extends Base {
       authStatus: PropTypes.shape(EventsSidebar.propTypes.authStatus).isRequired,
       groups: PropTypes.shape(EventsSidebar.propTypes.groups),
       faceEvents: PropTypes.shape(EventsTable.events).isRequired,
-      systemDateTime: PropTypes.shape(EventsSearchForm.propTypes.systemDateTime).isRequired
+      systemDateTime: PropTypes.shape(EventsSearchForm.propTypes.systemDateTime).isRequired,
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
@@ -127,7 +128,7 @@ module.exports = class Events extends Base {
 
   render() {
     const {$isApiProcessing, type, isShowMemberModal, isShowSearchMemberModal, currentMember, currentMemberName, eventPictureUrl} = this.state;
-    const {params, authStatus, groups, faceEvents, systemDateTime} = this.props;
+    const {params, authStatus, groups, faceEvents, systemDateTime, remainingPictureCount} = this.props;
     let events;
     if (type === 'face-recognition') {
       events = faceEvents;
@@ -173,6 +174,7 @@ module.exports = class Events extends Base {
                   events={events}
                   groups={groups}
                   systemDateTime={systemDateTime}
+                  remainingPictureCount={remainingPictureCount}
                   filterHandler={this.generateChangeFilterHandler}
                   addMemberHandler={this.generateMemberAddHandler}
                   modifyMemberHandler={this.generateMemberModifyHandler}
@@ -193,6 +195,7 @@ module.exports = class Events extends Base {
             isShowModal={isShowMemberModal}
             groups={groups}
             member={currentMember}
+            remainingPictureCount={remainingPictureCount}
             defaultPictureUrl={eventPictureUrl}
             onHide={this.onHideMemberModal}
             onSubmitted={this.onSubmittedMemberForm}
