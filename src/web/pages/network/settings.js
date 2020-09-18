@@ -5,6 +5,7 @@ const {Link} = require('capybara-router');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const {default: SettingsLan} = require('./settings-lan');
+const {default: SettingsStatus} = require('./settings-status');
 
 module.exports = class NetworkSettings extends Base {
   static get propTypes() {
@@ -21,75 +22,6 @@ module.exports = class NetworkSettings extends Base {
       }).isRequired
     };
   }
-
-  networkStatusRender = () => {
-    const {
-      networkInterface,
-      ipType,
-      mac,
-      ipAddress,
-      primaryDNS,
-      secondaryDNS,
-      subnetMask,
-      gateway
-    } = this.props.networkSettings;
-    return (
-      <table className="w-100">
-        <tbody>
-          <tr className="border-bottom">
-            <th className="text-size-20 pb-3 pl-4 text-muted">{_('Interface')}</th>
-            <th className="text-size-20 pb-3 pr-4 text-primary text-right">
-              {_(networkInterface === '0' ? 'Wired' : 'Wifi')}
-            </th>
-          </tr>
-          <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">{_('IP Status')}</th>
-            <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {_(ipType === '0' ? 'Static' : 'Dynamic')}
-            </th>
-          </tr>
-          <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">
-              {_('MAC Address')}
-            </th>
-            <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {mac}
-            </th>
-          </tr>
-          <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">{_('IP Address')}</th>
-            <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {ipAddress}
-            </th>
-          </tr>
-          <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">{_('Subnet Mask')}</th>
-            <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {subnetMask}
-            </th>
-          </tr>
-          <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">{_('Router/Gateway')}</th>
-            <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {gateway}
-            </th>
-          </tr>
-          <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">{_('Primary DNS')}</th>
-            <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {primaryDNS}
-            </th>
-          </tr>
-          <tr className="border-bottom">
-            <th className="text-size-20 py-3 pl-4 text-muted">{_('Secondary DNS')}</th>
-            <th className="text-size-20 py-3 pr-4 text-primary text-right">
-              {secondaryDNS}
-            </th>
-          </tr>
-        </tbody>
-      </table>
-    );
-  };
 
   render() {
     const {networkSettings} = this.props;
@@ -149,7 +81,9 @@ module.exports = class NetworkSettings extends Base {
                       </Tab.Content>
                       <Tab.Content>
                         <Tab.Pane eventKey="tab-network-status">
-                          {this.networkStatusRender()}
+                          <SettingsStatus
+                            networkSettings={networkSettings}
+                          />
                         </Tab.Pane>
                       </Tab.Content>
                     </div>
