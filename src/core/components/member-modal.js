@@ -480,7 +480,7 @@ module.exports = class Member extends React.PureComponent {
       } else if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
-      } else if (croppedImage && croppedImage.indexOf('/api') > -1) {
+      } else if (croppedImage && croppedImage.indexOf('data:image/jpeg;base64,') !== 0) {
         // Register a member from the event with original image url.
         tasks.push(utils.convertPicture(croppedImage));
       } else if (croppedImage) {
