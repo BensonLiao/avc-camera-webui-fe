@@ -81,7 +81,7 @@ module.exports = class Log extends Base {
                       <Link to="/system">{_('System')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
-                      <Link to="/system/datetime">{_('Settings')}</Link>
+                      <Link to="/system/log">{_('System Information')}</Link>
                     </li>
                     <li className="breadcrumb-item">{_('System Log')}</li>
                   </ol>
