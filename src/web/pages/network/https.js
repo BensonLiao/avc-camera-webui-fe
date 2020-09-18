@@ -157,7 +157,7 @@ module.exports = class HTTPS extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/network/https">{_('Internet/Network Settings')}</Link>
+                      <Link to="/network/settings">{_('Internet/Network Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item">HTTPS</li>
                   </ol>

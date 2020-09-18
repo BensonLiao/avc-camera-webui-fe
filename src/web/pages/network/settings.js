@@ -333,7 +333,7 @@ module.exports = class NetworkSettings extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/network/setting">
+                      <Link to="/network/settings">
                         {_('Internet/Network Settings')}
                       </Link>
                     </li>

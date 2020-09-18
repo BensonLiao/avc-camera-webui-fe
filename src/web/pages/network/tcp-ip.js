@@ -218,7 +218,7 @@ module.exports = class TCPIP extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/network/tcp-ip">{_('Internet/Network Settings')}</Link>
+                      <Link to="/network/settings">{_('Internet/Network Settings')}</Link>
                     </li>
 
                     <li className="breadcrumb-item">{_('TCP/IP')}</li>
