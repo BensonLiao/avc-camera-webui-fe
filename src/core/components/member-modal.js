@@ -392,7 +392,18 @@ module.exports = class Member extends React.PureComponent {
       });
 
     this.setState(resetErrorMessage, () => {
-      if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
+      if (croppedImage.length / 1000 > 500) {
+        const updateErrorMessage = update(this.state,
+          {
+            avatarList: {
+              [avatarToEdit]: {
+                verifyStatus: {$set: false},
+                errorMessage: {$set: `${_('Cropped image has reached the size limit')}`}
+              }
+            }
+          });
+        this.setState(updateErrorMessage);
+      } else if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
         // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
         const updateIsVerifying = update(this.state,
           {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
