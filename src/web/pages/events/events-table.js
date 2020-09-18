@@ -43,7 +43,8 @@ module.exports = class EventsTable extends React.PureComponent {
       systemDateTime: PropTypes.shape({
         ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
-      }).isRequired
+      }).isRequired,
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
@@ -70,8 +71,10 @@ module.exports = class EventsTable extends React.PureComponent {
       filterHandler,
       addMemberHandler,
       modifyMemberHandler,
-      systemDateTime
+      systemDateTime,
+      remainingPictureCount
     } = this.props;
+    const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
     const defaultIconClass = 'fas fa-fw text-muted ml-3';
     const tableField = [
       {
@@ -271,13 +274,17 @@ module.exports = class EventsTable extends React.PureComponent {
                     </td>
                     <td>
                       {event.recognitionType === RecognitionType.fake ? '-' : (
-                        <>
+                        <CustomTooltip show={isOverPhotoLimit} title={_('Photo Limit Reached')}>
                           <div className="d-flex justify-content-center">
                             <button
+                              disabled={isOverPhotoLimit}
                               className="btn text-primary dropdown-toggle p-0"
                               type="button"
                               data-toggle="dropdown"
-                              style={{boxShadow: 'none'}}
+                              style={{
+                                boxShadow: 'none',
+                                pointerEvents: isOverPhotoLimit ? 'none' : 'auto'
+                              }}
                             >
                               {_('Add')}
                             </button>
@@ -294,7 +301,7 @@ module.exports = class EventsTable extends React.PureComponent {
                               </a>
                             </div>
                           </div>
-                        </>
+                        </CustomTooltip>
                       )}
                     </td>
                   </tr>

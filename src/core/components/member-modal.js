@@ -44,7 +44,8 @@ module.exports = class Member extends React.PureComponent {
         groupId: PropTypes.string,
         note: PropTypes.string,
         pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-      })
+      }),
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
@@ -64,6 +65,8 @@ module.exports = class Member extends React.PureComponent {
     super(props);
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
+    // Only determine remaining quota if count is less than 5
+    this.state.remainingPictureQuota = props.remainingPictureCount < 5 ? props.remainingPictureCount : null;
     this.state.pictureRotateDegrees = 0;
     this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
@@ -226,6 +229,21 @@ module.exports = class Member extends React.PureComponent {
     if (this.props.defaultPictureUrl) {
       this.verifyPhoto();
     }
+
+    this.updatePictureCount();
+  }
+
+  updatePictureCount() {
+    if (this.state.remainingPictureQuota !== null) {
+      // Update remaining picture quota if user uploads or deletes a photo
+      this.setState(prevState => ({
+        ...prevState,
+        remainingPictureQuota: this.props.remainingPictureCount - Object.entries(prevState.avatarList).reduce((count, item) => {
+          count += item[1].avatarPreviewStyle.originalImage ? 1 : 0;
+          return count;
+        }, 0)
+      }));
+    }
   }
 
   onChangeFormValues = () => {
@@ -346,7 +364,9 @@ module.exports = class Member extends React.PureComponent {
           }
         }
       });
-    this.setState(deleteAvatar);
+    this.setState(deleteAvatar, () => {
+      this.updatePictureCount();
+    });
   }
 
   generateRotatePictureHandler = isClockwise => event => {
@@ -438,6 +458,8 @@ module.exports = class Member extends React.PureComponent {
           });
         this.setState(updateAvatarVerification);
       }
+
+      this.updatePictureCount();
     });
   }
 
@@ -512,10 +534,12 @@ module.exports = class Member extends React.PureComponent {
       avatarList,
       avatarToEdit,
       avatarList: {[avatarToEdit]: {avatarPreviewStyle}},
-      preEditState
+      preEditState,
+      remainingPictureQuota
     } = this.state;
     const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
+    const isOverPhotoLimit = remainingPictureQuota <= 0 && remainingPictureQuota !== null;
     return (
       <Form>
         <FormikEffect onChange={this.onChangeFormValues}/>
@@ -535,7 +559,12 @@ module.exports = class Member extends React.PureComponent {
                       className={classNames(
                         'photo-wrapper',
                         {'has-background': croppedImage},
-                        {available: (avatar[0] === 'Primary') || primaryBackground},
+                        {
+                          // Allow upload if it is Primary or Primary photo exists
+                          available: ((avatar[0] === 'Primary') || primaryBackground) &&
+                          // Allow upload if remaining picture quota is not at limit based on FR license type
+                                     (croppedImage || remainingPictureQuota > 0 || remainingPictureQuota === null)
+                        },
                         {'failed-check': verifyStatus === false}
                       )}
                     >
@@ -571,12 +600,14 @@ module.exports = class Member extends React.PureComponent {
                           </>
                         ) : (
                           // Display upload area for new photo
-                          <CustomTooltip show={(avatar[0] !== 'Primary') && !primaryBackground} title={_('Upload Primary First')}>
-
+                          <CustomTooltip
+                            show={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                            title={isOverPhotoLimit ? _('Photo Limit Reached') : _('Upload Primary First')}
+                          >
                             <label className="btn">
                               <i className="fas fa-plus"/>
                               <input
-                                disabled={(avatar[0] !== 'Primary') && !primaryBackground}
+                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
                                 className="d-none"
                                 type="file"
                                 accept=".jpg,.png"
