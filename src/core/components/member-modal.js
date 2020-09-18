@@ -234,12 +234,14 @@ module.exports = class Member extends React.PureComponent {
 
   updatePictureCount() {
     if (this.state.remainingPictureQuota !== null) {
-      // eslint-disable-next-line react/no-access-state-in-setstate
-      let pictureCount = Object.entries(this.state.avatarList).reduce((count, item) => {
-        count += item[1].avatarPreviewStyle.originalImage ? 1 : 0;
-        return count;
-      }, 0);
-      this.setState({remainingPictureQuota: this.props.remainingPictureCount - pictureCount});
+      // Update remaining picture quota if user uploads or deletes a photo
+      this.setState(prevState => ({
+        ...prevState,
+        remainingPictureQuota: this.props.remainingPictureCount - Object.entries(prevState.avatarList).reduce((count, item) => {
+          count += item[1].avatarPreviewStyle.originalImage ? 1 : 0;
+          return count;
+        }, 0)
+      }));
     }
   }
 
@@ -536,7 +538,7 @@ module.exports = class Member extends React.PureComponent {
     } = this.state;
     const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
-    console.log('formRender -> remainingPictureQuota', remainingPictureQuota);
+    const isOverPhotoLimit = remainingPictureQuota <= 0 && remainingPictureQuota !== null;
     return (
       <Form>
         <FormikEffect onChange={this.onChangeFormValues}/>
@@ -557,8 +559,10 @@ module.exports = class Member extends React.PureComponent {
                         'photo-wrapper',
                         {'has-background': croppedImage},
                         {
+                          // Allow upload if it is Primary or Primary photo exists
                           available: ((avatar[0] === 'Primary') || primaryBackground) &&
-                                     (remainingPictureQuota > 0 || remainingPictureQuota === null)
+                          // Allow upload if remaining picture quota is not at limit based on FR license type
+                                     (croppedImage || remainingPictureQuota > 0 || remainingPictureQuota === null)
                         },
                         {'failed-check': verifyStatus === false}
                       )}
@@ -596,15 +600,13 @@ module.exports = class Member extends React.PureComponent {
                         ) : (
                           // Display upload area for new photo
                           <CustomTooltip
-                            show={((avatar[0] !== 'Primary') && !primaryBackground) ||
-                                  (remainingPictureQuota <= 0 && remainingPictureQuota !== null)}
-                            title={remainingPictureQuota <= 0 ? _('Photo Limit Reached') : _('Upload Primary First')}
+                            show={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                            title={isOverPhotoLimit ? _('Photo Limit Reached') : _('Upload Primary First')}
                           >
                             <label className="btn">
                               <i className="fas fa-plus"/>
                               <input
-                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) ||
-                                          (remainingPictureQuota <= 0 && remainingPictureQuota !== null)}
+                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
                                 className="d-none"
                                 type="file"
                                 accept=".jpg,.png"
