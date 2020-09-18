@@ -488,7 +488,7 @@ module.exports = class Member extends React.PureComponent {
         tasks.push(member.pictures[index]);
       } else if (croppedImage && croppedImage.indexOf(Base64DataURLPrefix) !== 0) {
         // Register a member from the event with original image url.
-        tasks.push(utils.convertPicture(croppedImage));
+        tasks.push(utils.convertPictureURL(croppedImage));
       } else if (croppedImage) {
         // Register a member from the event and cropper has opened.
         tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
