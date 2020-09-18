@@ -5,7 +5,7 @@ const dayjs = require('dayjs');
 const _ = require('../languages');
 const api = require('../core/apis/web-api');
 const {validator} = require('../core/validations');
-const {RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
+const {MEMBER_PHOTO_MIME_TYPE, RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 
 /**
@@ -227,7 +227,7 @@ exports.convertPicture = (imgSrc,
     context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
     context.restore();
 
-    resolve(canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', ''));
+    resolve(canvas.toDataURL(MEMBER_PHOTO_MIME_TYPE).replace(`data:${MEMBER_PHOTO_MIME_TYPE};base64,`, ''));
   };
 
   img.src = imgSrc;
