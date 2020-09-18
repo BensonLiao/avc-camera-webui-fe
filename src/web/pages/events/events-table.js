@@ -43,7 +43,8 @@ module.exports = class EventsTable extends React.PureComponent {
       systemDateTime: PropTypes.shape({
         ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
-      }).isRequired
+      }).isRequired,
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
