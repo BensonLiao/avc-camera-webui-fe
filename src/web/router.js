@@ -277,7 +277,10 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Member')} - ${_title}`;
       },
-      resolve: {member: params => api.member.getMember(params.memberId).then(response => response.data)},
+      resolve: {
+        member: params => api.member.getMember(params.memberId).then(response => response.data),
+        remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data)
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-member" */
         './pages/members/member'
