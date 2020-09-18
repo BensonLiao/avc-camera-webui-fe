@@ -5,7 +5,7 @@ const dayjs = require('dayjs');
 const _ = require('../languages');
 const api = require('../core/apis/web-api');
 const {validator} = require('../core/validations');
-const {RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
+const {MEMBER_PHOTO_MIME_TYPE, RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 
 /**
@@ -180,6 +180,7 @@ exports.validateStreamBitRate = () => values => {
 };
 
 /**
+ * Convert from a regular img url to base64 encoded data url.
  * @param {string} imgSrc - The src of the img element.
  * @param {number} zoomFactor - Zoom factor as a number, `2` is 2x.
  * @param {number} pictureRotateDegrees - The rotate degrees. 0 ~ 360
@@ -187,14 +188,16 @@ exports.validateStreamBitRate = () => values => {
  * @param {number} wrapperSize - size of the photo container
  * @returns {Promise<string>} - The base64 jpeg string.
  */
-exports.convertPicture = (imgSrc,
+exports.convertPictureURL = (
+  imgSrc,
   zoomFactor = 1,
   pictureRotateDegrees = 0,
   offset = {
     x: 0,
     y: 0
   },
-  wrapperSize = 88) => new Promise((resolve, reject) => {
+  wrapperSize = 88
+) => new Promise((resolve, reject) => {
   const img = document.createElement('img');
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
@@ -227,7 +230,7 @@ exports.convertPicture = (imgSrc,
     context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
     context.restore();
 
-    resolve(canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', ''));
+    resolve(canvas.toDataURL(MEMBER_PHOTO_MIME_TYPE).replace(`data:${MEMBER_PHOTO_MIME_TYPE};base64,`, ''));
   };
 
   img.src = imgSrc;

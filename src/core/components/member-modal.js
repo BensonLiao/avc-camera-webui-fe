@@ -14,12 +14,18 @@ const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
 const _ = require('../../languages');
 const MemberValidator = require('../../web/validations/members/member-validator');
-const {MEMBER_PHOTO_SCALE_STEP, MEMBER_PHOTO_SCALE_MIN, MEMBER_PHOTO_SCALE_MAX} = require('../constants');
+const {
+  MEMBER_PHOTO_MIME_TYPE,
+  MEMBER_PHOTO_SCALE_STEP,
+  MEMBER_PHOTO_SCALE_MIN,
+  MEMBER_PHOTO_SCALE_MAX
+} = require('../constants');
 const utils = require('../utils');
 const api = require('../apis/web-api');
 const CustomNotifyModal = require('./custom-notify-modal');
 const CustomTooltip = require('./tooltip');
 const FormikEffect = require('./formik-effect');
+const Base64DataURLPrefix = `data:${MEMBER_PHOTO_MIME_TYPE};base64,`;
 
 module.exports = class Member extends React.PureComponent {
   static get propTypes() {
@@ -91,7 +97,7 @@ module.exports = class Member extends React.PureComponent {
             props.member ?
               props.member.pictures[index] ?
               // Get photo from existing member
-                `data:image/jpeg;base64,${props.member.pictures[index]}` :
+                Base64DataURLPrefix + props.member.pictures[index] :
                 null :
               null,
           // Get photo from event, only add to primary avatar (add new member)
@@ -100,7 +106,7 @@ module.exports = class Member extends React.PureComponent {
             props.member ?
               props.member.pictures[index] ?
               // Get photo from existing member
-                `data:image/jpeg;base64,${props.member.pictures[index]}` :
+                Base64DataURLPrefix + props.member.pictures[index] :
                 null :
               null
         },
@@ -142,7 +148,7 @@ module.exports = class Member extends React.PureComponent {
     if (defaultPictureUrl) {
       const newCropperState = update(
         this.state,
-        {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL('image/jpeg')}}}}}
+        {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}}}}}
       );
       this.setState(newCropperState);
     }
@@ -188,7 +194,7 @@ module.exports = class Member extends React.PureComponent {
                 scale: {$set: cropperData.scaleX},
                 rotate: {$set: cropperData.rotate}
               },
-              croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL('image/jpeg')}
+              croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}
             }
           }
         }
@@ -323,7 +329,7 @@ module.exports = class Member extends React.PureComponent {
               });
             this.setState(updateAvatarURL);
           };
-        }, 'image/jpeg');
+        }, MEMBER_PHOTO_MIME_TYPE);
       })
       .then(() => {
         // Open edit modal for the file user just uploaded
@@ -417,7 +423,7 @@ module.exports = class Member extends React.PureComponent {
         const updateIsVerifying = update(this.state,
           {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
         this.setState(updateIsVerifying, () => {
-          api.member.validatePicture(croppedImage.replace('data:image/jpeg;base64,', ''))
+          api.member.validatePicture(croppedImage.replace(Base64DataURLPrefix, ''))
             .then(() => {
               const updateAvatarVerification = update(this.state,
                 {
@@ -495,19 +501,19 @@ module.exports = class Member extends React.PureComponent {
       } = item[1];
       if (avatarFile && croppedImage) {
         // The user upload a file.
-        tasks.push(croppedImage.replace('data:image/jpeg;base64,', ''));
+        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
       } else if (member && croppedImage && croppedImage !== originalImage) {
         // The user modify the exist picture.
-        tasks.push(croppedImage.replace('data:image/jpeg;base64,', ''));
+        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
       } else if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
-      } else if (croppedImage && croppedImage.indexOf('/api') > -1) {
+      } else if (croppedImage && croppedImage.indexOf(Base64DataURLPrefix) !== 0) {
         // Register a member from the event with original image url.
-        tasks.push(utils.convertPicture(croppedImage));
+        tasks.push(utils.convertPictureURL(croppedImage));
       } else if (croppedImage) {
         // Register a member from the event and cropper has opened.
-        tasks.push(croppedImage.replace('data:image/jpeg;base64,', ''));
+        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
       }
     });
 

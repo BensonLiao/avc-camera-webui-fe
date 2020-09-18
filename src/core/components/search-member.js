@@ -69,7 +69,7 @@ class SearchMember extends React.PureComponent {
       isVerifying: true,
       verifyStatus: false
     }, () =>
-      utils.convertPicture(photo).then(data =>
+      utils.convertPictureURL(photo).then(data =>
         api.member.validatePicture(data)
           .then(() =>
             this.setState({
