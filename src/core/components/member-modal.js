@@ -392,7 +392,9 @@ module.exports = class Member extends React.PureComponent {
       });
 
     this.setState(resetErrorMessage, () => {
-      if (croppedImage.length / 1000 > 500) {
+      // Reference from error: Upload Size Limit (90kb)
+      // http://192.168.100.137/cloud/webserver/-/blob/master/src/models/errors.js#L85
+      if (croppedImage.length / 1000 > 90) {
         const updateErrorMessage = update(this.state,
           {
             avatarList: {
