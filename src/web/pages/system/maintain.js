@@ -1,7 +1,6 @@
 const download = require('downloadjs');
 const React = require('react');
 const progress = require('nprogress');
-const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
@@ -9,6 +8,7 @@ const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class Maintain extends Base {
   constructor(props) {
@@ -312,20 +312,10 @@ module.exports = class Maintain extends Base {
         <div className="page-system">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/system/datetime">{_('System')}</Link>
-                    </li>
-                    <li className="breadcrumb-item active">
-                      <Link to="/system/datetime">{_('Settings')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Device Maintenace')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                path={[_('System'), _('Settings'), _('Device Maintenace')]}
+                routes={['/system/datetime', '/system/datetime']}
+              />
               <CustomNotifyModal
                 modalType="process"
                 backdrop="static"

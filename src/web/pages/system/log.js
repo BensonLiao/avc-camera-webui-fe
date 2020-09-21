@@ -1,5 +1,5 @@
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
@@ -8,6 +8,7 @@ const wrappedApi = require('../../../core/apis');
 const download = require('downloadjs');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const StageProgress = require('../../../core/components/stage-progress');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class Log extends Base {
   constructor(props) {
@@ -74,19 +75,11 @@ module.exports = class Log extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/system/datetime">{_('System')}</Link>
-                    </li>
-                    <li className="breadcrumb-item active">
-                      <Link to="/system/log">{_('System Information')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('System Log')}</li>
-                  </ol>
-                </nav>
-              </div>
+              <BreadCrumb
+                className="px-0"
+                path={[_('System'), _('System Information'), _('System Log')]}
+                routes={['/system/datetime', '/system/log']}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('System Log')}</div>
