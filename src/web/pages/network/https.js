@@ -1,7 +1,6 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Link} = require('capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
@@ -13,6 +12,7 @@ const {DEFAULT_PORTS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const SelectField = require('../../../core/components/fields/select-field');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class HTTPS extends Base {
   static get propTypes() {
@@ -153,17 +153,11 @@ module.exports = class HTTPS extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/network/settings">{_('Internet/Network Settings')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">HTTPS</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('Internet/Network Settings'), 'HTTPS']}
+                routes={['/network/settings']}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">HTTPS</div>
