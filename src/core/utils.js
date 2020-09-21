@@ -181,17 +181,23 @@ exports.validateStreamBitRate = () => values => {
 
 /**
  * @param {string} str - The base64 jpeg string.
- * @returns {number} - The size of base64 jpeg string in bytes.
+ * @param {string} unit - The base64 jpeg string size unit. default is `byte`
+ * @returns {number} - The size of base64 jpeg string in bytes, rounded to nearest integer.
  */
-exports.getBase64Size = str => {
+exports.getBase64Size = (str, unit = 'byte') => {
   if (typeof str !== 'string') {
-    return 0;
+    throw Error('Base64 encoded data must be string.');
   }
 
-  const padding = str.endsWith('==') ? 2 :
-    (str.endsWith('=') ? 1 : 0);
+  if (unit !== 'byte' && unit !== 'kb') {
+    throw Error('File size unit must be byte or kb.');
+  }
 
-  return (str.length * (3 / 4)) - padding;
+  // Ref: https://en.wikipedia.org/wiki/Base64#Padding
+  const padding = str.endsWith('==') ? 2 : (str.endsWith('=') ? 1 : 0);
+  let fileSize = (str.length * (3 / 4)) - padding;
+  fileSize = unit === 'kb' ? fileSize / 1000 : fileSize;
+  return Math.round(fileSize);
 };
 
 /**
