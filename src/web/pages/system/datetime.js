@@ -129,7 +129,7 @@ module.exports = class DateTime extends Base {
         <div className="form-group">
           <label>{_('Time Zone')}</label>
           <div className="select-wrapper rounded-pill overflow-hidden">
-            <Field disabled={values.syncTimeOption !== SyncTimeOption.ntp} name="ntpTimeZone" component="select" className="form-control">
+            <Field disabled={values.syncTimeOption === SyncTimeOption.local} name="ntpTimeZone" component="select" className="form-control">
               {TIMEZONE_LIST.map(zone => {
                 return (
                   <option key={zone.name} value={zone.name}>{zone.label}</option>
@@ -173,13 +173,13 @@ module.exports = class DateTime extends Base {
                     <Field
                       disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                       name="ntpTimeOption"
-                      className="form-check-input"
+                      className={classNames('form-check-input', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
                       type="radio"
                       id={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
                       value={NTPTimeOption.updateTime}
                     />
                     <label
-                      className="form-check-label"
+                      className={classNames('form-check-label', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
                       htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
                     >
                       {`${_('Update Time')} :`}
@@ -194,13 +194,14 @@ module.exports = class DateTime extends Base {
                       inputProps={{
                         className: classNames(
                           'btn date px-4',
-                          {active: showDateTimePicker.ntpUpdateTime && values.syncTimeOption === SyncTimeOption.ntp}
+                          {active: showDateTimePicker.ntpUpdateTime && values.syncTimeOption === SyncTimeOption.ntp},
+                          {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp}
                         ),
                         placeholder: _('Update Time'),
                         style: {whiteSpace: 'nowrap'}
                       }}
-                      isShowPicker={showDateTimePicker.ntpUpdateTime}
-                      onClickInput={this.toggleDateTimePicker('ntpUpdateTime')}
+                      isShowPicker={showDateTimePicker.ntpUpdateTime && values.syncTimeOption === SyncTimeOption.ntp}
+                      onClickInput={values.syncTimeOption === SyncTimeOption.ntp && this.toggleDateTimePicker('ntpUpdateTime')}
                       onHide={this.onHideDateTimePicker('ntpUpdateTime')}
                     />
                   </div>
@@ -211,13 +212,13 @@ module.exports = class DateTime extends Base {
                     <Field
                       disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                       name="ntpTimeOption"
-                      className="form-check-input"
+                      className={classNames('form-check-input', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
                       type="radio"
                       id={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
                       value={NTPTimeOption.updateTimeRate}
                     />
                     <label
-                      className="form-check-label mr-3"
+                      className={classNames('form-check-label mr-3', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
                       htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
                     >
                       {`${_('Update Frequency (Minutes)')} :`}
@@ -228,7 +229,7 @@ module.exports = class DateTime extends Base {
                       disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                       name="ntpUpdateTimeRate"
                       component="select"
-                      className="form-control"
+                      className={classNames('form-control', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
                     >
                       {NTPTimeRateOption.all().map(v => {
                         return (
