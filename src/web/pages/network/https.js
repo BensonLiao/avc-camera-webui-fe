@@ -75,7 +75,7 @@ module.exports = class HTTPS extends Base {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         this.setState({
           isShowModal: true,
-          modalBody: [`${_('Please Redirect Manually to the New Address')} :`, newAddress]
+          modalBody: [`${_('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
         });
       })
       .finally(progress.done);
