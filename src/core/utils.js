@@ -196,7 +196,7 @@ exports.getBase64Size = (str, unit = 'byte') => {
   // Ref: https://en.wikipedia.org/wiki/Base64#Padding
   const padding = str.endsWith('==') ? 2 : (str.endsWith('=') ? 1 : 0);
   let fileSize = (str.length * (3 / 4)) - padding;
-  fileSize = unit === 'kb' ? fileSize / 1000 : fileSize;
+  fileSize = unit === 'kb' ? fileSize / 1024 : fileSize;
   return Math.round(fileSize);
 };
 
