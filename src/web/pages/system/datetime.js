@@ -16,6 +16,7 @@ const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_LIST} = require('../../../core/constan
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
+const CustomTooltip = require('../../../core/components/tooltip');
 
 module.exports = class DateTime extends Base {
   static get propTypes() {
@@ -109,6 +110,7 @@ module.exports = class DateTime extends Base {
   formRender = ({values}) => {
     const {systemDateTime: {deviceTime}} = this.props;
     const {$isApiProcessing, showDateTimePicker, isShowModal} = this.state;
+    const isNotNTP = values.syncTimeOption !== SyncTimeOption.ntp;
     return (
       <Form className="card-body">
         <div className="card form-group">
@@ -126,10 +128,19 @@ module.exports = class DateTime extends Base {
           <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
           <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
         </SelectField>
-        <div className="form-group">
-          <label>{_('Time Zone')}</label>
-          <div className="select-wrapper rounded-pill overflow-hidden">
-            <Field disabled={values.syncTimeOption === SyncTimeOption.local} name="ntpTimeZone" component="select" className="form-control">
+        <CustomTooltip
+          show={values.syncTimeOption === SyncTimeOption.local}
+          title={_('Option not available for Sync with Computer')}
+          placement="bottom-end"
+        >
+          <div className="form-group">
+            <label>{_('Time Zone')}</label>
+            <Field
+              disabled={values.syncTimeOption === SyncTimeOption.local}
+              name="ntpTimeZone"
+              component="select"
+              className={classNames('form-control', {'cursor-disabled': values.syncTimeOption === SyncTimeOption.local}, {'cursor-pointer': values.syncTimeOption !== SyncTimeOption.local})}
+            >
               {TIMEZONE_LIST.map(zone => {
                 return (
                   <option key={zone.name} value={zone.name}>{zone.label}</option>
@@ -137,7 +148,7 @@ module.exports = class DateTime extends Base {
               })}
             </Field>
           </div>
-        </div>
+        </CustomTooltip>
         <div className="form-group mb-5">
           <div className="form-check mb-4">
             <Field
@@ -159,35 +170,39 @@ module.exports = class DateTime extends Base {
               <div>
                 <div className="d-flex form-group align-items-center">
                   <div className="text-size-14 text-nowrap mr-3">{`${_('Host Name and IP Address')} :`}</div>
-                  <Field
-                    disabled={values.syncTimeOption !== SyncTimeOption.ntp}
-                    className="form-control flex-grow-1"
-                    type="text"
-                    name="ntpIP"
-                    placeholder={_('Enter Your IP Address')}
-                  />
+                  <CustomTooltip show={isNotNTP} title={_('Select NTP to enable this field')}>
+                    <Field
+                      disabled={isNotNTP}
+                      className="form-control flex-grow-1"
+                      type="text"
+                      name="ntpIP"
+                      placeholder={_('Enter Your IP Address')}
+                    />
+                  </CustomTooltip>
                 </div>
                 <hr className="my-4"/>
                 <div className="d-flex align-items-center mb-3">
-                  <div className="form-check">
-                    <Field
-                      disabled={values.syncTimeOption !== SyncTimeOption.ntp}
-                      name="ntpTimeOption"
-                      className={classNames('form-check-input', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
-                      type="radio"
-                      id={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
-                      value={NTPTimeOption.updateTime}
-                    />
-                    <label
-                      className={classNames('form-check-label', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
-                      htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
-                    >
-                      {`${_('Update Time')} :`}
-                    </label>
-                  </div>
+                  <CustomTooltip show={isNotNTP} title={_('Select NTP to enable this field')}>
+                    <div className="form-check">
+                      <Field
+                        disabled={isNotNTP}
+                        name="ntpTimeOption"
+                        className={classNames('form-check-input', {'cursor-disabled': isNotNTP})}
+                        type="radio"
+                        id={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
+                        value={NTPTimeOption.updateTime}
+                      />
+                      <label
+                        className={classNames('form-check-label', {'cursor-disabled': isNotNTP})}
+                        htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
+                      >
+                        {`${_('Update Time')} :`}
+                      </label>
+                    </div>
+                  </CustomTooltip>
                   <div className="form-row datepicker-wrapper">
                     <Field
-                      disabled={values.syncTimeOption !== SyncTimeOption.ntp}
+                      disabled={isNotNTP}
                       name="ntpUpdateTime"
                       component={DateTimePicker}
                       timeTabText={_('Update Time')}
@@ -195,41 +210,43 @@ module.exports = class DateTime extends Base {
                         className: classNames(
                           'btn date px-4',
                           {active: showDateTimePicker.ntpUpdateTime && values.syncTimeOption === SyncTimeOption.ntp},
-                          {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp}
+                          {'cursor-disabled': isNotNTP}
                         ),
                         placeholder: _('Update Time'),
                         style: {whiteSpace: 'nowrap'}
                       }}
                       isShowPicker={showDateTimePicker.ntpUpdateTime && values.syncTimeOption === SyncTimeOption.ntp}
-                      onClickInput={values.syncTimeOption === SyncTimeOption.ntp && this.toggleDateTimePicker('ntpUpdateTime')}
+                      onClickInput={values.syncTimeOption === SyncTimeOption.ntp ? this.toggleDateTimePicker('ntpUpdateTime') : () => {}}
                       onHide={this.onHideDateTimePicker('ntpUpdateTime')}
                     />
                   </div>
                 </div>
 
                 <div className="d-flex align-items-center">
-                  <div className="form-check">
-                    <Field
-                      disabled={values.syncTimeOption !== SyncTimeOption.ntp}
-                      name="ntpTimeOption"
-                      className={classNames('form-check-input', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
-                      type="radio"
-                      id={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
-                      value={NTPTimeOption.updateTimeRate}
-                    />
-                    <label
-                      className={classNames('form-check-label mr-3', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
-                      htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
-                    >
-                      {`${_('Update Frequency (Minutes)')} :`}
-                    </label>
-                  </div>
+                  <CustomTooltip show={isNotNTP} title={_('Select NTP to enable this field')}>
+                    <div className="form-check">
+                      <Field
+                        disabled={isNotNTP}
+                        name="ntpTimeOption"
+                        className={classNames('form-check-input', {'cursor-disabled': isNotNTP})}
+                        type="radio"
+                        id={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
+                        value={NTPTimeOption.updateTimeRate}
+                      />
+                      <label
+                        className={classNames('form-check-label mr-3', {'cursor-disabled': isNotNTP})}
+                        htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
+                      >
+                        {`${_('Update Frequency (Minutes)')} :`}
+                      </label>
+                    </div>
+                  </CustomTooltip>
                   <div className="select-wrapper rounded-pill overflow-hidden">
                     <Field
-                      disabled={values.syncTimeOption !== SyncTimeOption.ntp}
+                      disabled={isNotNTP}
                       name="ntpUpdateTimeRate"
                       component="select"
-                      className={classNames('form-control', {'cursor-disabled': values.syncTimeOption !== SyncTimeOption.ntp})}
+                      className={classNames('form-control', {'cursor-disabled': isNotNTP})}
                     >
                       {NTPTimeRateOption.all().map(v => {
                         return (
