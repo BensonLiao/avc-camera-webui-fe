@@ -180,6 +180,21 @@ exports.validateStreamBitRate = () => values => {
 };
 
 /**
+ * @param {string} str - The base64 jpeg string.
+ * @returns {number} - The size of base64 jpeg string in bytes.
+ */
+exports.getBase64Size = str => {
+  if (typeof str !== 'string') {
+    return 0;
+  }
+
+  const padding = str.endsWith('==') ? 2 :
+    (str.endsWith('=') ? 1 : 0);
+
+  return (str.length * (3 / 4)) - padding;
+};
+
+/**
  * @param {string} imgSrc - The src of the img element.
  * @param {number} zoomFactor - Zoom factor as a number, `2` is 2x.
  * @param {number} pictureRotateDegrees - The rotate degrees. 0 ~ 360
