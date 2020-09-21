@@ -3,8 +3,15 @@ import {Link} from 'capybara-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const BreadCrumb = props => {
-  const {path, routes, className} = props;
+/**
+ * Component for showing breadcrumbs for the current page.
+ * @typedef {object} Props
+ * @prop {string} className - additional classnames
+ * @prop {array} path - string of path names, in order
+ * @prop {array} routes - string of routes to link to, in order
+ * @returns {component}
+ */
+const BreadCrumb = ({className, path, routes}) => {
   return (
     <div className={classNames('col-12', className)}>
       <nav>
