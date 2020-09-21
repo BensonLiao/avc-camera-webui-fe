@@ -128,8 +128,8 @@ module.exports = class DateTime extends Base {
         </SelectField>
         <div className="form-group">
           <label>{_('Time Zone')}</label>
-          <div className="select-wrapper border rounded-pill overflow-hidden">
-            <Field name="ntpTimeZone" component="select" className="form-control border-0">
+          <div className="select-wrapper rounded-pill overflow-hidden">
+            <Field disabled={values.syncTimeOption !== SyncTimeOption.ntp} name="ntpTimeZone" component="select" className="form-control">
               {TIMEZONE_LIST.map(zone => {
                 return (
                   <option key={zone.name} value={zone.name}>{zone.label}</option>
@@ -160,6 +160,7 @@ module.exports = class DateTime extends Base {
                 <div className="d-flex form-group align-items-center">
                   <div className="text-size-14 text-nowrap mr-3">{`${_('Host Name and IP Address')} :`}</div>
                   <Field
+                    disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                     className="form-control flex-grow-1"
                     type="text"
                     name="ntpIP"
@@ -170,6 +171,7 @@ module.exports = class DateTime extends Base {
                 <div className="d-flex align-items-center mb-3">
                   <div className="form-check">
                     <Field
+                      disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                       name="ntpTimeOption"
                       className="form-check-input"
                       type="radio"
@@ -185,13 +187,14 @@ module.exports = class DateTime extends Base {
                   </div>
                   <div className="form-row datepicker-wrapper">
                     <Field
+                      disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                       name="ntpUpdateTime"
                       component={DateTimePicker}
                       timeTabText={_('Update Time')}
                       inputProps={{
                         className: classNames(
                           'btn date px-4',
-                          {active: showDateTimePicker.ntpUpdateTime}
+                          {active: showDateTimePicker.ntpUpdateTime && values.syncTimeOption === SyncTimeOption.ntp}
                         ),
                         placeholder: _('Update Time'),
                         style: {whiteSpace: 'nowrap'}
@@ -206,6 +209,7 @@ module.exports = class DateTime extends Base {
                 <div className="d-flex align-items-center">
                   <div className="form-check">
                     <Field
+                      disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                       name="ntpTimeOption"
                       className="form-check-input"
                       type="radio"
@@ -219,11 +223,12 @@ module.exports = class DateTime extends Base {
                       {`${_('Update Frequency (Minutes)')} :`}
                     </label>
                   </div>
-                  <div className="select-wrapper border rounded-pill overflow-hidden">
+                  <div className="select-wrapper rounded-pill overflow-hidden">
                     <Field
+                      disabled={values.syncTimeOption !== SyncTimeOption.ntp}
                       name="ntpUpdateTimeRate"
                       component="select"
-                      className="form-control border-0"
+                      className="form-control"
                     >
                       {NTPTimeRateOption.all().map(v => {
                         return (
@@ -276,7 +281,7 @@ module.exports = class DateTime extends Base {
                 inputProps={{
                   className: classNames(
                     'btn date px-4',
-                    {active: showDateTimePicker.manualTime}
+                    {active: showDateTimePicker.manualTime && values.syncTimeOption === SyncTimeOption.manual}
                   ),
                   placeholder: _('Manual DateTime'),
                   style: {whiteSpace: 'nowrap'}
