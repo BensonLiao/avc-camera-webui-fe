@@ -1,11 +1,11 @@
 const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
-const {Link} = require('capybara-router');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const {default: SettingsLan} = require('./settings-lan');
 const {default: SettingsStatus} = require('./settings-status');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class NetworkSettings extends Base {
   static get propTypes() {
@@ -19,18 +19,11 @@ module.exports = class NetworkSettings extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/network/settings">
-                        {_('Internet/Network Settings')}
-                      </Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Network Settings')}</li>
-                  </ol>
-                </nav>
-              </div>
+              <BreadCrumb
+                className="px-0"
+                path={[_('Internet/Network Settings'), _('Network Settings')]}
+                routes={['/network/settings']}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Network Settings')}</div>
