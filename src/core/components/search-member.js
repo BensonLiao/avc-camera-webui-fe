@@ -73,8 +73,8 @@ class SearchMember extends React.PureComponent {
         api.member.validatePicture(data)
           .then(() =>
             this.setState({
-              verifyStatus: false,
-              errorMessage: 'error.response.data.message.replace replace replace replace replace replace replace replace'
+              verifyStatus: true,
+              convertedPicture: data
             })
           )
           .catch(error =>
