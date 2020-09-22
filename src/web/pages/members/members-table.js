@@ -104,19 +104,15 @@ module.exports = class MembersTable extends React.PureComponent {
             }
             {
               members.items.map((member, index) => {
-                const tdClass = classNames({
-                  'border-bottom':
-                index >= members.items.length - 1
-                });
-
+                const tdClass = classNames({'border-bottom': index >= members.items.length - 1});
                 return (
                   <tr key={member.id}>
-                    <td className={classNames('text-center', tdClass)}>
-                      <img
-                        className="rounded-circle"
-                        style={{height: '56px'}}
-                        src={`data:image/jpeg;base64,${member.pictures[0]}`}
-                      />
+                    <td className={'text-center ' + tdClass}>
+                      <div className="thumbnail-wrapper">
+                        <div className="rounded-circle overflow-hidden circle-crop">
+                          <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${member.pictures[0]}')`}}/>
+                        </div>
+                      </div>
                     </td>
                     <td className={tdClass}>
                       <CustomTooltip placement="top-start" title={member.name}>

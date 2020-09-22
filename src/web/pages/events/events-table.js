@@ -185,36 +185,15 @@ module.exports = class EventsTable extends React.PureComponent {
                       {utils.formatDate(event.time, {withSecond: true})}
                     </td>
                     <td>
-                      <div style={{
-                        width: 56,
-                        height: 56
-                      }}
-                      >
-                        <div
-                          className="rounded-circle overflow-hidden"
-                          style={{
-                            margin: 0,
-                            padding: '0 0 100%',
-                            position: 'relative'
-                          }}
-                        >
+                      <div className="thumbnail-wrapper">
+                        <div className="rounded-circle overflow-hidden circle-crop">
                           {event.pictureThumbUrl && (
                             <a
                               onClick={() => {
                                 this.generateEnlargePhotoHandler(event.pictureLargeUrl);
                               }}
                             >
-                              <div style={{
-                                background: '50%',
-                                backgroundSize: 'cover',
-                                width: '100%',
-                                height: '100%',
-                                position: 'absolute',
-                                left: 0,
-                                top: 0,
-                                backgroundImage: `url('${event.pictureThumbUrl}')`
-                              }}
-                              />
+                              <div className="thumbnail" style={{backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
                             </a>
                           )}
                         </div>
@@ -222,11 +201,11 @@ module.exports = class EventsTable extends React.PureComponent {
                     </td>
                     <td>
                       {event.member && event.member.picture ? (
-                        <img
-                          className="rounded-circle"
-                          src={`data:image/jpeg;base64,${event.member.picture}`}
-                          style={{height: '56px'}}
-                        />
+                        <div className="thumbnail-wrapper">
+                          <div className="rounded-circle overflow-hidden circle-crop">
+                            <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${event.member.picture}')`}}/>
+                          </div>
+                        </div>
                       ) : '-'}
                     </td>
                     <td>
