@@ -128,27 +128,27 @@ module.exports = class DateTime extends Base {
           <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
           <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
         </SelectField>
-        <div className="form-group">
-          <CustomTooltip
-            show={values.syncTimeOption === SyncTimeOption.local}
-            title={_('Option not available for Sync with Computer')}
-            placement="bottom-end"
+        <CustomTooltip
+          show={values.syncTimeOption === SyncTimeOption.local}
+          title={_('Option not available for Sync with Computer')}
+          placement="bottom-end"
+        >
+          <div
+            className={classNames({'cursor-disabled': values.syncTimeOption === SyncTimeOption.local}, {'cursor-pointer': values.syncTimeOption !== SyncTimeOption.local})}
           >
-            <label>{_('Time Zone')}</label>
-          </CustomTooltip>
-          <Field
-            disabled={values.syncTimeOption === SyncTimeOption.local}
-            name="ntpTimeZone"
-            component="select"
-            className={classNames('form-control', {'cursor-disabled': values.syncTimeOption === SyncTimeOption.local}, {'cursor-pointer': values.syncTimeOption !== SyncTimeOption.local})}
-          >
-            {TIMEZONE_LIST.map(zone => {
-              return (
-                <option key={zone.name} value={zone.name}>{zone.label}</option>
-              );
-            })}
-          </Field>
-        </div>
+            <SelectField
+              labelName={_('Time Zone')}
+              readOnly={values.syncTimeOption === SyncTimeOption.local}
+              name="ntpTimeZone"
+            >
+              {TIMEZONE_LIST.map(zone => {
+                return (
+                  <option key={zone.name} value={zone.name}>{zone.label}</option>
+                );
+              })}
+            </SelectField>
+          </div>
+        </CustomTooltip>
         <div className="form-group mb-5">
           <div className="form-check mb-4">
             <Field
