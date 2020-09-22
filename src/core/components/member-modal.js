@@ -616,7 +616,7 @@ module.exports = class Member extends React.PureComponent {
                                 disabled={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
                                 className="d-none"
                                 type="file"
-                                accept=".jpg,.png"
+                                accept="image/png,image/jpeg"
                                 onChange={this.onChangeAvatar(avatar[0], this.onShowEditModal)}
                               />
                             </label>
@@ -804,7 +804,7 @@ module.exports = class Member extends React.PureComponent {
             )}
             <div>
               <label className="btn btn-outline-primary btn-block rounded-pill my-0 mr-2">
-                <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar(avatarToEdit)}/>
+                <input className="d-none" type="file" accept="image/png,image/jpeg" onChange={this.onChangeAvatar(avatarToEdit)}/>
                 {_('Change Photo')}
               </label>
               <button
