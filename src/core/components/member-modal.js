@@ -148,20 +148,7 @@ module.exports = class Member extends React.PureComponent {
     if (defaultPictureUrl) {
       const newCropperState = update(
         this.state,
-        {
-          avatarList:
-          {
-            [avatarToEdit]:
-            {
-              avatarPreviewStyle:
-              {
-                croppedImage:
-                {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}
-              }
-            }
-          }
-        }
-      );
+        {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}}}}});
       this.setState(newCropperState);
     }
 
