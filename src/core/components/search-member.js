@@ -73,8 +73,8 @@ class SearchMember extends React.PureComponent {
         api.member.validatePicture(data)
           .then(() =>
             this.setState({
-              verifyStatus: true,
-              convertedPicture: data
+              verifyStatus: false,
+              errorMessage: 'error.response.data.message.replace replace replace replace replace replace replace replace'
             })
           )
           .catch(error =>
@@ -162,7 +162,10 @@ class SearchMember extends React.PureComponent {
                 onSubmit={this.onSearch}
               >
                 <Form className="d-flex flex-row">
-                  <div className="px-0">
+                  <div
+                    className="px-0"
+                    style={{width: '200px'}}
+                  >
                     <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keyword')}/>
                   </div>
                   <div className="px-0 ml-3">
@@ -179,10 +182,10 @@ class SearchMember extends React.PureComponent {
               </Formik>
             </div>
             <div
-              className="col-12 mb-5"
+              className="col-12 mb-2"
               style={{
-                maxHeight: '550px',
-                overflowY: 'scroll'
+                maxHeight: 'calc(100vh - 328px)',
+                overflowY: 'auto'
               }}
             >
               <table className="table custom-style mb-4" style={{tableLayout: 'fixed'}}>
@@ -284,19 +287,17 @@ class SearchMember extends React.PureComponent {
 
                 </tbody>
               </table>
-
-              {/* Custom pagination component */}
-              { members && members.items.length !== 0 && (
-                <Pagination
-                  index={members.index}
-                  size={members.size}
-                  total={members.total}
-                  itemQuantity={members.items.length}
-                  onSearch={this.onSearch}
-                />
-              )}
-
             </div>
+            {/* Custom pagination component */}
+            { members && members.items.length !== 0 && (
+              <Pagination
+                index={members.index}
+                size={members.size}
+                total={members.total}
+                itemQuantity={members.items.length}
+                onSearch={this.onSearch}
+              />
+            )}
           </Modal.Body>
         </Modal>
 
