@@ -14,12 +14,18 @@ const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
 const _ = require('../../languages');
 const MemberValidator = require('../../web/validations/members/member-validator');
-const {MEMBER_PHOTO_SCALE_STEP, MEMBER_PHOTO_SCALE_MIN, MEMBER_PHOTO_SCALE_MAX} = require('../constants');
+const {
+  MEMBER_PHOTO_MIME_TYPE,
+  MEMBER_PHOTO_SCALE_STEP,
+  MEMBER_PHOTO_SCALE_MIN,
+  MEMBER_PHOTO_SCALE_MAX
+} = require('../constants');
 const utils = require('../utils');
 const api = require('../apis/web-api');
 const CustomNotifyModal = require('./custom-notify-modal');
 const CustomTooltip = require('./tooltip');
 const FormikEffect = require('./formik-effect');
+const Base64DataURLPrefix = `data:${MEMBER_PHOTO_MIME_TYPE};base64,`;
 
 module.exports = class Member extends React.PureComponent {
   static get propTypes() {
@@ -44,7 +50,8 @@ module.exports = class Member extends React.PureComponent {
         groupId: PropTypes.string,
         note: PropTypes.string,
         pictures: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-      })
+      }),
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
@@ -64,6 +71,8 @@ module.exports = class Member extends React.PureComponent {
     super(props);
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
+    // Only determine remaining quota if count is less than 5
+    this.state.remainingPictureQuota = props.remainingPictureCount < 5 ? props.remainingPictureCount : null;
     this.state.pictureRotateDegrees = 0;
     this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
@@ -88,7 +97,7 @@ module.exports = class Member extends React.PureComponent {
             props.member ?
               props.member.pictures[index] ?
               // Get photo from existing member
-                `data:image/jpeg;base64,${props.member.pictures[index]}` :
+                Base64DataURLPrefix + props.member.pictures[index] :
                 null :
               null,
           // Get photo from event, only add to primary avatar (add new member)
@@ -97,7 +106,7 @@ module.exports = class Member extends React.PureComponent {
             props.member ?
               props.member.pictures[index] ?
               // Get photo from existing member
-                `data:image/jpeg;base64,${props.member.pictures[index]}` :
+                Base64DataURLPrefix + props.member.pictures[index] :
                 null :
               null
         },
@@ -139,7 +148,7 @@ module.exports = class Member extends React.PureComponent {
     if (defaultPictureUrl) {
       const newCropperState = update(
         this.state,
-        {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL('image/jpeg')}}}}}
+        {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}}}}}
       );
       this.setState(newCropperState);
     }
@@ -185,7 +194,7 @@ module.exports = class Member extends React.PureComponent {
                 scale: {$set: cropperData.scaleX},
                 rotate: {$set: cropperData.rotate}
               },
-              croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL('image/jpeg')}
+              croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}
             }
           }
         }
@@ -225,6 +234,21 @@ module.exports = class Member extends React.PureComponent {
     // Validate event photo on initial load
     if (this.props.defaultPictureUrl) {
       this.verifyPhoto();
+    }
+
+    this.updatePictureCount();
+  }
+
+  updatePictureCount() {
+    if (this.state.remainingPictureQuota !== null) {
+      // Update remaining picture quota if user uploads or deletes a photo
+      this.setState(prevState => ({
+        ...prevState,
+        remainingPictureQuota: this.props.remainingPictureCount - Object.entries(prevState.avatarList).reduce((count, item) => {
+          count += item[1].avatarPreviewStyle.originalImage ? 1 : 0;
+          return count;
+        }, 0)
+      }));
     }
   }
 
@@ -305,7 +329,7 @@ module.exports = class Member extends React.PureComponent {
               });
             this.setState(updateAvatarURL);
           };
-        }, 'image/jpeg');
+        }, MEMBER_PHOTO_MIME_TYPE);
       })
       .then(() => {
         // Open edit modal for the file user just uploaded
@@ -346,7 +370,9 @@ module.exports = class Member extends React.PureComponent {
           }
         }
       });
-    this.setState(deleteAvatar);
+    this.setState(deleteAvatar, () => {
+      this.updatePictureCount();
+    });
   }
 
   generateRotatePictureHandler = isClockwise => event => {
@@ -410,7 +436,7 @@ module.exports = class Member extends React.PureComponent {
         const updateIsVerifying = update(this.state,
           {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
         this.setState(updateIsVerifying, () => {
-          api.member.validatePicture(croppedImage.replace('data:image/jpeg;base64,', ''))
+          api.member.validatePicture(croppedImage.replace(Base64DataURLPrefix, ''))
             .then(() => {
               const updateAvatarVerification = update(this.state,
                 {
@@ -451,6 +477,8 @@ module.exports = class Member extends React.PureComponent {
           });
         this.setState(updateAvatarVerification);
       }
+
+      this.updatePictureCount();
     });
   }
 
@@ -486,19 +514,19 @@ module.exports = class Member extends React.PureComponent {
       } = item[1];
       if (avatarFile && croppedImage) {
         // The user upload a file.
-        tasks.push(croppedImage.replace('data:image/jpeg;base64,', ''));
+        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
       } else if (member && croppedImage && croppedImage !== originalImage) {
         // The user modify the exist picture.
-        tasks.push(croppedImage.replace('data:image/jpeg;base64,', ''));
+        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
       } else if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
-      } else if (croppedImage && croppedImage.indexOf('/api') > -1) {
+      } else if (croppedImage && croppedImage.indexOf(Base64DataURLPrefix) !== 0) {
         // Register a member from the event with original image url.
-        tasks.push(utils.convertPicture(croppedImage));
+        tasks.push(utils.convertPictureURL(croppedImage));
       } else if (croppedImage) {
         // Register a member from the event and cropper has opened.
-        tasks.push(croppedImage.replace('data:image/jpeg;base64,', ''));
+        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
       }
     });
 
@@ -525,10 +553,12 @@ module.exports = class Member extends React.PureComponent {
       avatarList,
       avatarToEdit,
       avatarList: {[avatarToEdit]: {avatarPreviewStyle}},
-      preEditState
+      preEditState,
+      remainingPictureQuota
     } = this.state;
     const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
+    const isOverPhotoLimit = remainingPictureQuota <= 0 && remainingPictureQuota !== null;
     return (
       <Form>
         <FormikEffect onChange={this.onChangeFormValues}/>
@@ -548,7 +578,12 @@ module.exports = class Member extends React.PureComponent {
                       className={classNames(
                         'photo-wrapper',
                         {'has-background': croppedImage},
-                        {available: (avatar[0] === 'Primary') || primaryBackground},
+                        {
+                          // Allow upload if it is Primary or Primary photo exists
+                          available: ((avatar[0] === 'Primary') || primaryBackground) &&
+                          // Allow upload if remaining picture quota is not at limit based on FR license type
+                                     (croppedImage || remainingPictureQuota > 0 || remainingPictureQuota === null)
+                        },
                         {'failed-check': verifyStatus === false}
                       )}
                     >
@@ -584,12 +619,14 @@ module.exports = class Member extends React.PureComponent {
                           </>
                         ) : (
                           // Display upload area for new photo
-                          <CustomTooltip show={(avatar[0] !== 'Primary') && !primaryBackground} title={_('Upload Primary First')}>
-
+                          <CustomTooltip
+                            show={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                            title={isOverPhotoLimit ? _('Photo Limit Reached') : _('Upload Primary First')}
+                          >
                             <label className="btn">
                               <i className="fas fa-plus"/>
                               <input
-                                disabled={(avatar[0] !== 'Primary') && !primaryBackground}
+                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
                                 className="d-none"
                                 type="file"
                                 accept=".jpg,.png"

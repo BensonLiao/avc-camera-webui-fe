@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
+import {getRouter} from 'capybara-router';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -68,7 +69,7 @@ class SearchMember extends React.PureComponent {
       isVerifying: true,
       verifyStatus: false
     }, () =>
-      utils.convertPicture(photo).then(data =>
+      utils.convertPictureURL(photo).then(data =>
         api.member.validatePicture(data)
           .then(() =>
             this.setState({
@@ -101,8 +102,9 @@ class SearchMember extends React.PureComponent {
         notify.showSuccessNotification({
           title: _('Setting Success'),
           message: _('Added Photo to {0} Successfully!', [member.name])
-        })
-      ).finally(() => this.hideApiProcessModal())
+        }))
+        .then(getRouter().reload)
+        .finally(() => this.hideApiProcessModal())
     );
   };
 

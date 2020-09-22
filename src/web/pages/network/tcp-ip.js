@@ -3,7 +3,7 @@ const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
@@ -13,6 +13,7 @@ const _ = require('../../../languages');
 const {DEFAULT_PORTS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const SelectField = require('../../../core/components/fields/select-field');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class TCPIP extends Base {
   static get propTypes() {
@@ -214,18 +215,11 @@ module.exports = class TCPIP extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/network/tcp-ip">{_('Internet/Network Settings')}</Link>
-                    </li>
-
-                    <li className="breadcrumb-item">{_('TCP/IP')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('Internet/Network Settings'), _('TCP/IP')]}
+                routes={['/network/settings']}
+              />
               <CustomNotifyModal
                 modalType="process"
                 backdrop="static"

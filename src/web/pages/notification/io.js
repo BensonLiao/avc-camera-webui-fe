@@ -1,9 +1,9 @@
 const PropTypes = require('prop-types');
 const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
-const {Link} = require('capybara-router');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 const IoInput = require('./io-input').default;
 const IoOutput = require('./io-output').default;
 
@@ -38,20 +38,11 @@ module.exports = class IO extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Notification Setting')}</Link>
-                    </li>
-                    <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Basic Setting')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Input and Output Setting')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('Notification Setting'), _('Basic Setting'), _('Input and Output Setting')]}
+                routes={['/notification/smtp', '/notification/smtp']}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Input and Output Setting')}</div>

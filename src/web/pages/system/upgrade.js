@@ -1,5 +1,4 @@
 const React = require('react');
-const {Link} = require('capybara-router');
 const {Formik, Form} = require('formik');
 const progress = require('nprogress');
 const Base = require('../shared/base');
@@ -10,6 +9,7 @@ const CustomNotifyModal = require('../../../core/components/custom-notify-modal'
 const CustomTooltip = require('../../../core/components/tooltip');
 const StageProgress = require('../../../core/components/stage-progress');
 const constants = require('../../../core/constants');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 const isRunTest = false; // Set as `true` to run test on submit
 const isMockUpgradeError = false; // Set as `true` to mock upgrade firmware error, only works if `isRunTest` is `true`
 
@@ -281,20 +281,11 @@ module.exports = class Upgrade extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/system">{_('System')}</Link>
-                    </li>
-                    <li className="breadcrumb-item active">
-                      <Link to="/system/date">{_('Settings')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Firmware Upgrade')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('System'), _('Settings'), _('Firmware Upgrade')]}
+                routes={['/system/datetime', '/system/datetime']}
+              />
               <CustomNotifyModal
                 modalType="process"
                 loading={isLoading}
