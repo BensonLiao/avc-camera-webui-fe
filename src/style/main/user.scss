@@ -37,11 +37,11 @@
 
   .modal-body {
     max-height: calc(100vh - 280px);
-    overflow: overlay;
+    overflow: auto;
   }
 
   .modal-dialog {
-    min-width: 604px;
+    min-width: 616px;
 
     hr {
       margin: 1rem -1.5rem;
