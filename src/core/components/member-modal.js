@@ -68,7 +68,7 @@ module.exports = class Member extends React.PureComponent {
   cropper = null;
 
   constructor(props) {
-    super(props);
+    super();
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
     // Only determine remaining quota if count is less than 5
@@ -81,7 +81,6 @@ module.exports = class Member extends React.PureComponent {
     this.state.preEditState = null;
     this.state.avatarToEdit = 'Primary';
     this.editWrapperSize = 300; // px
-    this.editCropBoxSize = 128; // px
     this.listWrapperSize = 88; // px
     // Initialise avatarList state object
     const nameList = ['Primary', 'Photo 1', 'Photo 2', 'Photo 3', 'Photo 4'];
@@ -354,8 +353,6 @@ module.exports = class Member extends React.PureComponent {
                 cropper: {
                   x: 0,
                   y: 0,
-                  width: this.editCropBoxSize,
-                  height: this.editCropBoxSize,
                   scale: 1,
                   rotate: 0
                 },
