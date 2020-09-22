@@ -34,8 +34,13 @@
   // Allow backdrop over 1st Modal
   z-index: 1040;
 
+  .modal-body {
+    max-height: calc(100vh - 280px);
+    overflow: overlay;
+  }
+
   .modal-dialog {
-    max-width: 604px;
+    min-width: 604px;
 
     hr {
       margin: 1rem -1.5rem;
