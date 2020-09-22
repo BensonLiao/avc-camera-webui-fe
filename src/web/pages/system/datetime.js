@@ -241,19 +241,18 @@ module.exports = class DateTime extends Base {
                       </label>
                     </div>
                   </CustomTooltip>
-                  <div className="select-wrapper rounded-pill overflow-hidden">
-                    <Field
-                      disabled={isNotNTP}
+                  <div className={classNames('select-wrapper rounded-pill overflow-hidden', {'cursor-disabled': isNotNTP})}>
+                    <SelectField
+                      readOnly={isNotNTP}
                       name="ntpUpdateTimeRate"
-                      component="select"
-                      className={classNames('form-control', {'cursor-disabled': isNotNTP})}
+                      className={classNames('form-control')}
                     >
                       {NTPTimeRateOption.all().map(v => {
                         return (
                           <option key={v} value={v}>{v}</option>
                         );
                       })}
-                    </Field>
+                    </SelectField>
                   </div>
                 </div>
               </div>
