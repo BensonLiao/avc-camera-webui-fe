@@ -514,10 +514,10 @@ module.exports = class Member extends React.PureComponent {
       } = item[1];
       if (avatarFile && croppedImage) {
         // The user upload a file.
-        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
+        tasks.push(utils.convertPictureURL(croppedImage));
       } else if (member && croppedImage && croppedImage !== originalImage) {
         // The user modify the exist picture.
-        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
+        tasks.push(utils.convertPictureURL(croppedImage));
       } else if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
@@ -526,7 +526,7 @@ module.exports = class Member extends React.PureComponent {
         tasks.push(utils.convertPictureURL(croppedImage));
       } else if (croppedImage) {
         // Register a member from the event and cropper has opened.
-        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
+        tasks.push(utils.convertPictureURL(croppedImage));
       }
     });
 
