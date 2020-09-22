@@ -1,13 +1,13 @@
 .page-users {
-  padding: calc(48px + #{$top-sub-navigation-height}) 33px;
-  min-width: 640px;
+  padding: $top-table-height 33px;
   min-height: calc(100vh - #{$top-navigation-height});
+  min-width: 800px;
 
   .card-body .card {
     border-radius: 8px;
   }
 
-  .table.custom-style {
+  .table .custom-style {
     th {
       color: #1a1a1a;
     }

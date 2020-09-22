@@ -143,7 +143,10 @@ module.exports = class EventsTable extends React.PureComponent {
       }
     ];
     return (
-      <div className="col-12 mb-5 table-responsive">
+      <div
+        className="col-12 mb-5 table-responsive"
+        style={{overflowY: 'hidden'}}
+      >
         <table className="table custom-style">
           <thead>
             <tr className="shadow">

@@ -1,5 +1,7 @@
 .page-events {
-  padding: calc(48px + #{$top-sub-navigation-height}) 33px;
+  padding: $top-table-height 33px;
+  min-height: calc(100vh - #{$top-navigation-height});
+  min-width: 800px;
 
   .input-group {
     input.form-control[readonly] {
