@@ -418,67 +418,70 @@ module.exports = class Member extends React.PureComponent {
       });
 
     this.setState(resetErrorMessage, () => {
-      // Reference from error: Upload Size Limit (90kb)
-      // http://192.168.100.137/cloud/webserver/-/blob/master/src/models/errors.js#L85
-      if (utils.getBase64Size(croppedImage, 'kb') > 90) {
-        const updateErrorMessage = update(this.state,
-          {
-            avatarList: {
-              [avatarToEdit]: {
-                verifyStatus: {$set: false},
-                errorMessage: {$set: `${_('Cropped image has reached the size limit')}`}
-              }
-            }
-          });
-        this.setState(updateErrorMessage);
-      } else if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
-        // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
-        const updateIsVerifying = update(this.state,
-          {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
-        this.setState(updateIsVerifying, () => {
-          api.member.validatePicture(croppedImage.replace(Base64DataURLPrefix, ''))
-            .then(() => {
-              const updateAvatarVerification = update(this.state,
-                {
-                  avatarList: {
-                    [avatarToEdit]: {
-                      verifyStatus: {$set: true},
-                      isVerifying: {$set: false},
-                      errorMessage: {$set: null}
-                    }
+      utils.convertPictureURL(croppedImage)
+        .then(image => {
+          // Reference from error: Upload Size Limit (90kb)
+          // http://192.168.100.137/cloud/webserver/-/blob/master/src/models/errors.js#L85
+          if (utils.getBase64Size(image, 'kb') > 90) {
+            const updateErrorMessage = update(this.state,
+              {
+                avatarList: {
+                  [avatarToEdit]: {
+                    verifyStatus: {$set: false},
+                    errorMessage: {$set: `${_('Cropped image has reached the size limit')}`}
                   }
+                }
+              });
+            this.setState(updateErrorMessage);
+          } else if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
+            // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
+            const updateIsVerifying = update(this.state,
+              {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
+            this.setState(updateIsVerifying, () => {
+              api.member.validatePicture(croppedImage.replace(Base64DataURLPrefix, ''))
+                .then(() => {
+                  const updateAvatarVerification = update(this.state,
+                    {
+                      avatarList: {
+                        [avatarToEdit]: {
+                          verifyStatus: {$set: true},
+                          isVerifying: {$set: false},
+                          errorMessage: {$set: null}
+                        }
+                      }
+                    });
+                  this.setState(updateAvatarVerification);
+                })
+                .catch(error => {
+                  const updateAvatarVerification = update(this.state,
+                    {
+                      avatarList: {
+                        [avatarToEdit]: {
+                          verifyStatus: {$set: false},
+                          isVerifying: {$set: false},
+                          errorMessage: {$set: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')}
+                        }
+                      }
+                    });
+                  this.setState(updateAvatarVerification);
                 });
-              this.setState(updateAvatarVerification);
-            })
-            .catch(error => {
-              const updateAvatarVerification = update(this.state,
-                {
-                  avatarList: {
-                    [avatarToEdit]: {
-                      verifyStatus: {$set: false},
-                      isVerifying: {$set: false},
-                      errorMessage: {$set: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')}
-                    }
-                  }
-                });
-              this.setState(updateAvatarVerification);
             });
-        });
-      } else if (member && !verifyStatus) {
-        // Photo was edited but restored back to original state, skip verification and reset error message
-        const updateAvatarVerification = update(this.state,
-          {
-            avatarList: {
-              [avatarToEdit]: {
-                verifyStatus: {$set: true},
-                errorMessage: {$set: null}
-              }
-            }
-          });
-        this.setState(updateAvatarVerification);
-      }
+          } else if (member && !verifyStatus) {
+            // Photo was edited but restored back to original state, skip verification and reset error message
+            const updateAvatarVerification = update(this.state,
+              {
+                avatarList: {
+                  [avatarToEdit]: {
+                    verifyStatus: {$set: true},
+                    errorMessage: {$set: null}
+                  }
+                }
+              });
+            this.setState(updateAvatarVerification);
+          }
 
-      this.updatePictureCount();
+          this.updatePictureCount();
+        });
     });
   }
 
