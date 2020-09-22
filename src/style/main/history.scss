@@ -131,7 +131,14 @@
   }
 
   .validate-error-message {
-    max-width: 260px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+    margin-left: 8px;
+    max-width: 248px;
   }
 
   tbody {
