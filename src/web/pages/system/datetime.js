@@ -136,20 +136,18 @@ module.exports = class DateTime extends Base {
           >
             <label>{_('Time Zone')}</label>
           </CustomTooltip>
-          <div>
-            <Field
-              disabled={values.syncTimeOption === SyncTimeOption.local}
-              name="ntpTimeZone"
-              component="select"
-              className={classNames('form-control', {'cursor-disabled': values.syncTimeOption === SyncTimeOption.local}, {'cursor-pointer': values.syncTimeOption !== SyncTimeOption.local})}
-            >
-              {TIMEZONE_LIST.map(zone => {
-                return (
-                  <option key={zone.name} value={zone.name}>{zone.label}</option>
-                );
-              })}
-            </Field>
-          </div>
+          <Field
+            disabled={values.syncTimeOption === SyncTimeOption.local}
+            name="ntpTimeZone"
+            component="select"
+            className={classNames('form-control', {'cursor-disabled': values.syncTimeOption === SyncTimeOption.local}, {'cursor-pointer': values.syncTimeOption !== SyncTimeOption.local})}
+          >
+            {TIMEZONE_LIST.map(zone => {
+              return (
+                <option key={zone.name} value={zone.name}>{zone.label}</option>
+              );
+            })}
+          </Field>
         </div>
         <div className="form-group mb-5">
           <div className="form-check mb-4">
