@@ -128,13 +128,15 @@ module.exports = class DateTime extends Base {
           <option value={AVAILABLE_LANGUAGE_CODES[0]}>{_('English')}</option>
           <option value={AVAILABLE_LANGUAGE_CODES[1]}>{_('Traditional Chinese')}</option>
         </SelectField>
-        <CustomTooltip
-          show={values.syncTimeOption === SyncTimeOption.local}
-          title={_('Option not available for Sync with Computer')}
-          placement="bottom-end"
-        >
-          <div className="form-group">
+        <div className="form-group">
+          <CustomTooltip
+            show={values.syncTimeOption === SyncTimeOption.local}
+            title={_('Option not available for Sync with Computer')}
+            placement="bottom-end"
+          >
             <label>{_('Time Zone')}</label>
+          </CustomTooltip>
+          <div>
             <Field
               disabled={values.syncTimeOption === SyncTimeOption.local}
               name="ntpTimeZone"
@@ -148,7 +150,7 @@ module.exports = class DateTime extends Base {
               })}
             </Field>
           </div>
-        </CustomTooltip>
+        </div>
         <div className="form-group mb-5">
           <div className="form-check mb-4">
             <Field
