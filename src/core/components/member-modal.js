@@ -569,6 +569,10 @@ module.exports = class Member extends React.PureComponent {
                         },
                         {'failed-check': verifyStatus === false}
                       )}
+                      style={{
+                        width: this.listWrapperSize,
+                        height: this.listWrapperSize
+                      }}
                     >
                       <i className={classNames('fas fa-pen fa-lg fa-fw', {'d-none': !croppedImage})}/>
                       { croppedImage ?
@@ -577,12 +581,22 @@ module.exports = class Member extends React.PureComponent {
                           <>
                             <div
                               className={classNames('avatar-img', {'is-verifying': isVerifying})}
-                              style={{backgroundImage: `url("${croppedImage}")`}}
+                              style={{
+                                backgroundImage: `url("${croppedImage}")`,
+                                width: this.listWrapperSize,
+                                height: this.listWrapperSize
+                              }}
                               onClick={() => {
                                 this.onShowEditModal(avatar[0]);
                               }}
                             />
-                            <div className={classNames('loading-dots', {'d-none': !isVerifying})}>
+                            <div
+                              className={classNames('loading-dots', {'d-none': !isVerifying})}
+                              style={{
+                                width: this.listWrapperSize,
+                                height: this.listWrapperSize
+                              }}
+                            >
                               <div className="spinner">
                                 <div className="double-bounce1"/>
                                 <div className="double-bounce2"/>
