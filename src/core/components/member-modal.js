@@ -222,6 +222,7 @@ module.exports = class Member extends React.PureComponent {
     if (defaultPictureUrl) {
       const newCropperState = update(
         this.state,
+        // eslint-disable-next-line max-len
         {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}}}}}
       );
       this.setState(newCropperState);
@@ -280,6 +281,7 @@ module.exports = class Member extends React.PureComponent {
   zoomCropper = values => {
     const zoomScale = values.zoom;
     this.cropper.scale(zoomScale, zoomScale);
+    this.generateOnCropEndHandler(this.state.avatarToEdit)(_);
   }
 
   generateRotatePictureHandler = isClockwise => event => {
@@ -310,6 +312,7 @@ module.exports = class Member extends React.PureComponent {
       }
     );
     this.setState(updateRotation);
+    this.generateOnCropEndHandler(this.state.avatarToEdit)(_);
   };
 
   onChangeAvatar = (avatarName, loadEditModal) => event => {
