@@ -242,6 +242,7 @@ module.exports = class DateTime extends Base {
                   <CustomTooltip show={isNotNTP} title={_('Select NTP to enable this field')}>
                     <div className={classNames('select-wrapper rounded-pill overflow-hidden', {'cursor-disabled': isNotNTP})}>
                       <SelectField
+                        labelName=""
                         readOnly={isNotNTP}
                         name="ntpUpdateTimeRate"
                         className={classNames('form-control')}
