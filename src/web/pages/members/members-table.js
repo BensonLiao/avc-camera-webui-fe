@@ -103,46 +103,45 @@ module.exports = class MembersTable extends React.PureComponent {
               )
             }
             {
-              members.items.map((member, index) => {
-                const tdClass = classNames({'border-bottom': index >= members.items.length - 1});
+              members.items.map(member => {
                 return (
                   <tr key={member.id}>
-                    <td className={'text-center ' + tdClass}>
+                    <td className="text-center">
                       <div className="thumbnail-wrapper">
                         <div className="rounded-circle overflow-hidden circle-crop">
                           <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${member.pictures[0]}')`}}/>
                         </div>
                       </div>
                     </td>
-                    <td className={tdClass}>
+                    <td>
                       <CustomTooltip placement="top-start" title={member.name}>
                         <div>
                           {member.name}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={tdClass}>
+                    <td>
                       <CustomTooltip placement="top-start" title={member.organization}>
                         <div>
                           {member.organization || _('N/A')}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={tdClass}>
+                    <td>
                       <CustomTooltip placement="top-start" title={(groups.items.find(x => x.id === member.groupId) || {}).name || ''}>
                         <div>
                           {(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={tdClass}>
+                    <td>
                       <CustomTooltip placement="top-start" title={member.note}>
                         <div>
                           {member.note || _('N/A')}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames('text-left group-btn', tdClass)}>
+                    <td className="text-left group-btn">
                       <CustomTooltip title={_('Edit Member: {0}', [member.name])}>
                         <Link
                           className="btn btn-link"
