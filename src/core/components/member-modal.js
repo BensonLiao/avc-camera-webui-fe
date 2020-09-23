@@ -93,22 +93,23 @@ module.exports = class Member extends React.PureComponent {
             rotate: 0
           },
           originalImage: props.defaultPictureUrl && index === 0 ?
+            // Get photo from event, only add to primary avatar (add new member)
             props.defaultPictureUrl :
             props.member ?
               props.member.pictures[index] ?
-              // Get photo from existing member
+                // Get photo from existing member
                 Base64DataURLPrefix + props.member.pictures[index] :
                 null :
               null,
-          // Get photo from event, only add to primary avatar (add new member)
           croppedImage: props.defaultPictureUrl && index === 0 ?
             props.defaultPictureUrl :
             props.member ?
               props.member.pictures[index] ?
-              // Get photo from existing member
                 Base64DataURLPrefix + props.member.pictures[index] :
                 null :
-              null
+              null,
+          // Will update on verify suceess, use it on save member
+          convertedImage: null
         },
         avatarFile: null,
         verifyStatus: null,
@@ -422,54 +423,71 @@ module.exports = class Member extends React.PureComponent {
       });
 
     this.setState(resetErrorMessage, () => {
-      if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
-        // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
-        const updateIsVerifying = update(this.state,
-          {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
-        this.setState(updateIsVerifying, () => {
-          api.member.validatePicture(croppedImage.replace(Base64DataURLPrefix, ''))
-            .then(() => {
-              const updateAvatarVerification = update(this.state,
-                {
-                  avatarList: {
-                    [avatarToEdit]: {
-                      verifyStatus: {$set: true},
-                      isVerifying: {$set: false},
-                      errorMessage: {$set: null}
-                    }
+      utils.convertCropperImage(croppedImage)
+        .then(image => {
+          // Reference from error: Upload Size Limit (90kb)
+          // http://192.168.100.137/cloud/webserver/-/blob/master/src/models/errors.js#L85
+          if (utils.getBase64Size(image, 'kb') > 90) {
+            const updateErrorMessage = update(this.state,
+              {
+                avatarList: {
+                  [avatarToEdit]: {
+                    verifyStatus: {$set: false},
+                    errorMessage: {$set: `${_('Cropped image has reached the size limit')}`}
                   }
+                }
+              });
+            this.setState(updateErrorMessage);
+          } else if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
+            // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
+            const updateIsVerifying = update(this.state,
+              {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
+            this.setState(updateIsVerifying, () => {
+              api.member.validatePicture(image)
+                .then(() => {
+                  const updateAvatarVerification = update(this.state,
+                    {
+                      avatarList: {
+                        [avatarToEdit]: {
+                          verifyStatus: {$set: true},
+                          isVerifying: {$set: false},
+                          errorMessage: {$set: null},
+                          avatarPreviewStyle: {convertedImage: {$set: image}}
+                        }
+                      }
+                    });
+                  this.setState(updateAvatarVerification);
+                })
+                .catch(error => {
+                  const updateAvatarVerification = update(this.state,
+                    {
+                      avatarList: {
+                        [avatarToEdit]: {
+                          verifyStatus: {$set: false},
+                          isVerifying: {$set: false},
+                          errorMessage: {$set: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')}
+                        }
+                      }
+                    });
+                  this.setState(updateAvatarVerification);
                 });
-              this.setState(updateAvatarVerification);
-            })
-            .catch(error => {
-              const updateAvatarVerification = update(this.state,
-                {
-                  avatarList: {
-                    [avatarToEdit]: {
-                      verifyStatus: {$set: false},
-                      isVerifying: {$set: false},
-                      errorMessage: {$set: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')}
-                    }
-                  }
-                });
-              this.setState(updateAvatarVerification);
             });
-        });
-      } else if (member && !verifyStatus) {
-        // Photo was edited but restored back to original state, skip verification and reset error message
-        const updateAvatarVerification = update(this.state,
-          {
-            avatarList: {
-              [avatarToEdit]: {
-                verifyStatus: {$set: true},
-                errorMessage: {$set: null}
-              }
-            }
-          });
-        this.setState(updateAvatarVerification);
-      }
+          } else if (member && !verifyStatus) {
+            // Photo was edited but restored back to original state, skip verification and reset error message
+            const updateAvatarVerification = update(this.state,
+              {
+                avatarList: {
+                  [avatarToEdit]: {
+                    verifyStatus: {$set: true},
+                    errorMessage: {$set: null}
+                  }
+                }
+              });
+            this.setState(updateAvatarVerification);
+          }
 
-      this.updatePictureCount();
+          this.updatePictureCount();
+        });
     });
   }
 
@@ -499,25 +517,12 @@ module.exports = class Member extends React.PureComponent {
     const {member, onSubmitted} = this.props;
     const tasks = [];
     avatarListArray.forEach((item, index) => {
-      const {
-        avatarPreviewStyle: {originalImage, croppedImage},
-        avatarFile
-      } = item[1];
-      if (avatarFile && croppedImage) {
-        // The user upload a file.
-        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
-      } else if (member && croppedImage && croppedImage !== originalImage) {
-        // The user modify the exist picture.
-        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
-      } else if (member && croppedImage && croppedImage === originalImage) {
+      const {avatarPreviewStyle: {originalImage, croppedImage, convertedImage}} = item[1];
+      if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
-      } else if (croppedImage && croppedImage.indexOf(Base64DataURLPrefix) !== 0) {
-        // Register a member from the event with original image url.
-        tasks.push(utils.convertPictureURL(croppedImage));
-      } else if (croppedImage) {
-        // Register a member from the event and cropper has opened.
-        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
+      } else if (convertedImage) {
+        tasks.push(convertedImage);
       }
     });
 
