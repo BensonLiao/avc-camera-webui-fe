@@ -250,7 +250,7 @@ module.exports = class SMTP extends Base {
         </div> */}
           <div className="card-body">
             <div className="form-group">
-              <label>{_('Name')}</label>
+              <label>{_('Sender')}</label>
               <Field
                 disabled={!isEnableAuth}
                 name="senderName"
