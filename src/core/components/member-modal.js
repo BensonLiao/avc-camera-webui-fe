@@ -438,7 +438,7 @@ module.exports = class Member extends React.PureComponent {
             const updateIsVerifying = update(this.state,
               {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
             this.setState(updateIsVerifying, () => {
-              api.member.validatePicture(croppedImage.replace(Base64DataURLPrefix, ''))
+              api.member.validatePicture(image)
                 .then(() => {
                   const updateAvatarVerification = update(this.state,
                     {
