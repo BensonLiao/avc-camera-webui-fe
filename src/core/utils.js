@@ -201,6 +201,34 @@ exports.getBase64Size = (str, unit = 'byte') => {
 };
 
 /**
+ * Convert cropper image to specific size.
+ * @param {string} imgSrc - The base64 jpeg string.
+ * @param {number} wrapperSize - size of the photo container. default is `300px`
+ * @returns {Promise<string>} - The converted base64 jpeg string.
+ */
+exports.convertCropperImage = (imgSrc, wrapperSize = 300) => new Promise((resolve, reject) => {
+  const img = document.createElement('img');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  img.onerror = reject;
+  img.onload = () => {
+    img.width = wrapperSize;
+    img.height = wrapperSize;
+    canvas.width = wrapperSize;
+    canvas.height = wrapperSize;
+
+    context.translate(canvas.width / 2, canvas.height / 2);
+    context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
+    context.restore();
+
+    resolve(canvas.toDataURL(MEMBER_PHOTO_MIME_TYPE).replace(`data:${MEMBER_PHOTO_MIME_TYPE};base64,`, ''));
+  };
+
+  img.src = imgSrc;
+});
+
+/**
  * @param {string} imgSrc - The src of the img element.
  * @param {number} zoomFactor - Zoom factor as a number, `2` is 2x.
  * @param {number} pictureRotateDegrees - The rotate degrees. 0 ~ 360

@@ -418,7 +418,7 @@ module.exports = class Member extends React.PureComponent {
       });
 
     this.setState(resetErrorMessage, () => {
-      utils.convertPictureURL(croppedImage)
+      utils.convertCropperImage(croppedImage)
         .then(image => {
           // Reference from error: Upload Size Limit (90kb)
           // http://192.168.100.137/cloud/webserver/-/blob/master/src/models/errors.js#L85
@@ -517,19 +517,19 @@ module.exports = class Member extends React.PureComponent {
       } = item[1];
       if (avatarFile && croppedImage) {
         // The user upload a file.
-        tasks.push(utils.convertPictureURL(croppedImage));
+        tasks.push(utils.convertCropperImage(croppedImage));
       } else if (member && croppedImage && croppedImage !== originalImage) {
         // The user modify the exist picture.
-        tasks.push(utils.convertPictureURL(croppedImage));
+        tasks.push(utils.convertCropperImage(croppedImage));
       } else if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
       } else if (croppedImage && croppedImage.indexOf(Base64DataURLPrefix) !== 0) {
         // Register a member from the event with original image url.
-        tasks.push(utils.convertPictureURL(croppedImage));
+        tasks.push(utils.convertCropperImage(croppedImage));
       } else if (croppedImage) {
         // Register a member from the event and cropper has opened.
-        tasks.push(utils.convertPictureURL(croppedImage));
+        tasks.push(utils.convertCropperImage(croppedImage));
       }
     });
 
