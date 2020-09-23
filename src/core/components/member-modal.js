@@ -245,7 +245,7 @@ module.exports = class Member extends React.PureComponent {
       this.setState(prevState => ({
         ...prevState,
         remainingPictureQuota: this.props.remainingPictureCount - Object.entries(prevState.avatarList).reduce((count, item) => {
-          count += item[1].avatarPreviewStyle.originalImage ? 1 : 0;
+          count += item[1].avatarFile ? 1 : 0;
           return count;
         }, 0)
       }));
