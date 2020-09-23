@@ -94,8 +94,8 @@ module.exports = class DateTime extends Base {
           .finally(progress.done);
       } else {
         values.manualTime.setSeconds(0);
-        values.manualTime = utils.addTimezoneOffset(values.manualTime);
-        values.ntpUpdateTime = utils.addTimezoneOffset(values.ntpUpdateTime);
+        values.manualTime = utils.addTimezoneOffset(values.manualTime).getTime();
+        values.ntpUpdateTime = utils.addTimezoneOffset(values.ntpUpdateTime).getTime();
         api.system.updateSystemDateTime(values)
           .then(() => {
             location.href = '/login';
@@ -351,7 +351,7 @@ module.exports = class DateTime extends Base {
                   <Formik
                     initialValues={{
                       ...systemDateTime,
-                      ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime),
+                      ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime).getTime(),
                       manualTime: systemDateTime.manualTime ?
                         new Date(systemDateTime.manualTime) : new Date(),
                       language: languageCode
