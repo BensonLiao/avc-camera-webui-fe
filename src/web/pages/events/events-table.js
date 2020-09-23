@@ -71,7 +71,6 @@ module.exports = class EventsTable extends React.PureComponent {
       filterHandler,
       addMemberHandler,
       modifyMemberHandler,
-      systemDateTime,
       remainingPictureCount
     } = this.props;
     const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
