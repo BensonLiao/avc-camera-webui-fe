@@ -399,6 +399,10 @@ body {
     background-color: #f2f2f2;
     transition: background-color 0.25s linear;
 
+    &.btn-date-time {
+      transition: none !important;
+    }
+
     &.triple-wrapper {
       border: 1px solid $secondary;
     }
