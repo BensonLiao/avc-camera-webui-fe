@@ -1,6 +1,7 @@
-.page-users {
-  padding: 48px 33px;
+.page-members {
+  padding: $top-table-height 33px;
   min-height: calc(100vh - #{$top-navigation-height});
+  min-width: 800px;
 
   .table {
     th {
@@ -34,8 +35,13 @@
   // Allow backdrop over 1st Modal
   z-index: 1040;
 
+  .modal-body {
+    max-height: calc(100vh - 280px);
+    overflow: auto;
+  }
+
   .modal-dialog {
-    max-width: 604px;
+    min-width: 616px;
 
     hr {
       margin: 1rem -1.5rem;
@@ -53,8 +59,6 @@
           height: 150px;
 
           .photo-wrapper {
-            width: 88px;
-            height: 88px;
             margin: 16px 8px;
             overflow: hidden;
             border-radius: 100px;
@@ -147,8 +151,6 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              width: 88px;
-              height: 88px;
               transition: ease-out 1s;
               transition-delay: 0.3s;
               z-index: 1001;
@@ -182,8 +184,6 @@
 
             .avatar-img {
               position: relative;
-              width: 88px;
-              height: 88px;
               background-size: cover;
               background-repeat: no-repeat;
               background-position: center center;

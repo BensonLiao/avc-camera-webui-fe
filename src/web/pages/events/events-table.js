@@ -71,7 +71,6 @@ module.exports = class EventsTable extends React.PureComponent {
       filterHandler,
       addMemberHandler,
       modifyMemberHandler,
-      systemDateTime,
       remainingPictureCount
     } = this.props;
     const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
@@ -143,7 +142,10 @@ module.exports = class EventsTable extends React.PureComponent {
       }
     ];
     return (
-      <div className="col-12 mb-5 table-responsive">
+      <div
+        className="col-12 mb-5 table-responsive"
+        style={{overflowY: 'hidden'}}
+      >
         <table className="table custom-style">
           <thead>
             <tr className="shadow">
@@ -173,48 +175,24 @@ module.exports = class EventsTable extends React.PureComponent {
             }
             {
               events.items.map(event => {
-                if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
-                  event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
-                } else {
-                  event.time = (new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000)));
-                }
-
                 return (
                   <tr key={event.id}>
                     <td>
-                      {utils.formatDate(event.time, {withSecond: true})}
+                      {utils.formatDate(
+                        new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000)),
+                        {withSecond: true}
+                      )}
                     </td>
                     <td>
-                      <div style={{
-                        width: 56,
-                        height: 56
-                      }}
-                      >
-                        <div
-                          className="rounded-circle overflow-hidden"
-                          style={{
-                            margin: 0,
-                            padding: '0 0 100%',
-                            position: 'relative'
-                          }}
-                        >
+                      <div className="thumbnail-wrapper">
+                        <div className="rounded-circle overflow-hidden circle-crop">
                           {event.pictureThumbUrl && (
                             <a
                               onClick={() => {
                                 this.generateEnlargePhotoHandler(event.pictureLargeUrl);
                               }}
                             >
-                              <div style={{
-                                background: '50%',
-                                backgroundSize: 'cover',
-                                width: '100%',
-                                height: '100%',
-                                position: 'absolute',
-                                left: 0,
-                                top: 0,
-                                backgroundImage: `url('${event.pictureThumbUrl}')`
-                              }}
-                              />
+                              <div className="thumbnail" style={{backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
                             </a>
                           )}
                         </div>
@@ -222,11 +200,11 @@ module.exports = class EventsTable extends React.PureComponent {
                     </td>
                     <td>
                       {event.member && event.member.picture ? (
-                        <img
-                          className="rounded-circle"
-                          src={`data:image/jpeg;base64,${event.member.picture}`}
-                          style={{height: '56px'}}
-                        />
+                        <div className="thumbnail-wrapper">
+                          <div className="rounded-circle overflow-hidden circle-crop">
+                            <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${event.member.picture}')`}}/>
+                          </div>
+                        </div>
                       ) : '-'}
                     </td>
                     <td>

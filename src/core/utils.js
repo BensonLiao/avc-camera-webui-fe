@@ -180,7 +180,55 @@ exports.validateStreamBitRate = () => values => {
 };
 
 /**
- * Convert from a regular img url to base64 encoded data url.
+ * @param {string} str - The base64 jpeg string.
+ * @param {string} unit - The base64 jpeg string size unit. default is `byte`
+ * @returns {number} - The size of base64 jpeg string in bytes, rounded to nearest integer.
+ */
+exports.getBase64Size = (str, unit = 'byte') => {
+  if (typeof str !== 'string') {
+    throw Error('Base64 encoded data must be string.');
+  }
+
+  if (unit !== 'byte' && unit !== 'kb') {
+    throw Error('File size unit must be byte or kb.');
+  }
+
+  // Ref: https://en.wikipedia.org/wiki/Base64#Padding
+  const padding = str.endsWith('==') ? 2 : (str.endsWith('=') ? 1 : 0);
+  let fileSize = (str.length * (3 / 4)) - padding;
+  fileSize = unit === 'kb' ? fileSize / 1024 : fileSize;
+  return Math.round(fileSize);
+};
+
+/**
+ * Convert cropper image to specific size.
+ * @param {string} imgSrc - The base64 jpeg string or a url to image src.
+ * @param {number} wrapperSize - size of the photo container. default is `300px`
+ * @returns {Promise<string>} - The converted base64 jpeg string.
+ */
+exports.convertCropperImage = (imgSrc, wrapperSize = 300) => new Promise((resolve, reject) => {
+  const img = document.createElement('img');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  img.onerror = reject;
+  img.onload = () => {
+    img.width = wrapperSize;
+    img.height = wrapperSize;
+    canvas.width = wrapperSize;
+    canvas.height = wrapperSize;
+
+    context.translate(canvas.width / 2, canvas.height / 2);
+    context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
+    context.restore();
+
+    resolve(canvas.toDataURL(MEMBER_PHOTO_MIME_TYPE).replace(`data:${MEMBER_PHOTO_MIME_TYPE};base64,`, ''));
+  };
+
+  img.src = imgSrc;
+});
+
+/**
  * @param {string} imgSrc - The src of the img element.
  * @param {number} zoomFactor - Zoom factor as a number, `2` is 2x.
  * @param {number} pictureRotateDegrees - The rotate degrees. 0 ~ 360

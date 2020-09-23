@@ -1,5 +1,7 @@
-.page-histories {
-  padding: calc(48px + #{$top-sub-navigation-height}) 33px;
+.page-events {
+  padding: $top-table-height 33px;
+  min-height: calc(100vh - #{$top-navigation-height});
+  min-width: 800px;
 
   .input-group {
     input.form-control[readonly] {
@@ -129,7 +131,14 @@
   }
 
   .validate-error-message {
-    max-width: 260px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+    margin-left: 8px;
+    max-width: 256px;
   }
 
   tbody {

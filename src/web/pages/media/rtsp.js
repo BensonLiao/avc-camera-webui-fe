@@ -3,13 +3,14 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const Base = require('../shared/base');
 const rtspSettingsValidator = require('../../validations/media/rtsp-settings-validator');
 const {DEFAULT_PORTS} = require('../../../core/constants');
 const utils = require('../../../core/utils');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class RTSP extends Base {
   static get propTypes() {
@@ -154,17 +155,11 @@ module.exports = class RTSP extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/media/stream">{_('Video')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('RTSP')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('Video'), _('RTSP')]}
+                routes={['/media/stream']}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">

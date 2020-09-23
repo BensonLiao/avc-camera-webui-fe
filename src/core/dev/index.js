@@ -402,7 +402,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
 
     return mockResponseWithLog(config, [200, {totalCount: totalPhotos}]);
   })
-  .onGet('/api/members/remaining-picture-count').reply(config => mockResponseWithLog(config, [200, 3]))
+  .onGet('/api/members/remaining-picture-count').reply(config => mockResponseWithLog(config, [200, 3000]))
   .onGet('/api/face-events').reply(config => {
     const data = db.get('faceEvents')
       .filter(value => {

@@ -10,6 +10,7 @@ const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
 const CustomTooltip = require('../../../core/components/tooltip');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class Audio extends Base {
   static get propTypes() {
@@ -71,14 +72,10 @@ module.exports = class Audio extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <div className="row justify-content-center">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item">{_('Audio')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('Audio')]}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Audio Settings')}</div>

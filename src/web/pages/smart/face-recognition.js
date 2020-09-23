@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const ConfidenceLevel = require('webserver-form-schema/constants/face-recognition-confidence-level');
@@ -10,6 +10,7 @@ const api = require('../../../core/apis/web-api');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const CustomTooltip = require('../../../core/components/tooltip');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 module.exports = class FaceRecognition extends Base {
   static get propTypes() {
     return {
@@ -307,17 +308,10 @@ module.exports = class FaceRecognition extends Base {
       <div className="page-smart">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-12">
-              <nav>
-                <ol className="breadcrumb rounded-pill">
-                  <li className="breadcrumb-item active">
-                    <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
-                  </li>
-                  <li className="breadcrumb-item">{_('Facial Recognition')}</li>
-                </ol>
-              </nav>
-            </div>
-
+            <BreadCrumb
+              path={[_('Analytic'), _('Facial Recognition')]}
+              routes={['/analytic/face-recognition']}
+            />
             <Formik
               initialValues={initialValues}
               onSubmit={values => this.onSubmitFaceRecognitionSettingsForm(values, initialValues)}

@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
 const SMTPEncryptionType = require('webserver-form-schema/constants/smtp-encryption-type');
@@ -16,6 +16,7 @@ const utils = require('../../../core/utils');
 const notify = require('../../../core/notify');
 const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class SMTP extends Base {
   static get propTypes() {
@@ -300,20 +301,11 @@ module.exports = class SMTP extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Notification Setting')}</Link>
-                    </li>
-                    <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Basic Setting')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Mail')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('Notification Setting'), _('Basic Setting'), _('Mail')]}
+                routes={['/notification/smtp', '/notification/smtp']}
+              />
               <div className="col-center">
                 <Formik
                   initialValues={this.generateSMTPSettingsInitialValues(smtpSettings)}

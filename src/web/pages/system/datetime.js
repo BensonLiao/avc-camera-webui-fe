@@ -4,7 +4,6 @@ const classNames = require('classnames');
 const dayjs = require('dayjs');
 const progress = require('nprogress');
 const Clock = require('react-live-clock');
-const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
@@ -13,6 +12,7 @@ const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
 const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_LIST} = require('../../../core/constants');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -341,20 +341,10 @@ module.exports = class DateTime extends Base {
         <div className="page-system">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/system">{_('System')}</Link>
-                    </li>
-                    <li className="breadcrumb-item active">
-                      <Link to="/system/date">{_('Settings')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Date & Time')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                path={[_('System'), _('Settings'), _('Date & Time')]}
+                routes={['/system/datetime', '/system/datetime']}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Date & Time')}</div>
