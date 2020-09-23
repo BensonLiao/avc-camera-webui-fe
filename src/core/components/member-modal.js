@@ -93,22 +93,23 @@ module.exports = class Member extends React.PureComponent {
             rotate: 0
           },
           originalImage: props.defaultPictureUrl && index === 0 ?
+            // Get photo from event, only add to primary avatar (add new member)
             props.defaultPictureUrl :
             props.member ?
               props.member.pictures[index] ?
-              // Get photo from existing member
+                // Get photo from existing member
                 Base64DataURLPrefix + props.member.pictures[index] :
                 null :
               null,
-          // Get photo from event, only add to primary avatar (add new member)
           croppedImage: props.defaultPictureUrl && index === 0 ?
             props.defaultPictureUrl :
             props.member ?
               props.member.pictures[index] ?
-              // Get photo from existing member
                 Base64DataURLPrefix + props.member.pictures[index] :
                 null :
-              null
+              null,
+          // Will update on verify suceess, use it on save member
+          convertedImage: null
         },
         avatarFile: null,
         verifyStatus: null,
@@ -446,7 +447,8 @@ module.exports = class Member extends React.PureComponent {
                         [avatarToEdit]: {
                           verifyStatus: {$set: true},
                           isVerifying: {$set: false},
-                          errorMessage: {$set: null}
+                          errorMessage: {$set: null},
+                          avatarPreviewStyle: {convertedImage: {$set: image}}
                         }
                       }
                     });
@@ -511,12 +513,12 @@ module.exports = class Member extends React.PureComponent {
     const {member, onSubmitted} = this.props;
     const tasks = [];
     avatarListArray.forEach((item, index) => {
-      const {avatarPreviewStyle: {originalImage, croppedImage}} = item[1];
+      const {avatarPreviewStyle: {originalImage, croppedImage, convertedImage}} = item[1];
       if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
-      } else if (croppedImage) {
-        tasks.push(utils.convertCropperImage(croppedImage));
+      } else if (convertedImage) {
+        tasks.push(convertedImage);
       }
     });
 
