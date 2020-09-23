@@ -551,7 +551,7 @@ module.exports = class Member extends React.PureComponent {
         <FormikEffect onChange={this.onChangeFormValues}/>
         <div className="modal-body">
           <div className="multi-photo-uploader">
-            <div className="container d-flex flex-row justify-content-space-between">
+            <div className="container d-flex flex-row justify-content-between">
               {Object.entries(avatarList).map(avatar => {
                 const {
                   verifyStatus,
