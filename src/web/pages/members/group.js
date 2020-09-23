@@ -82,8 +82,9 @@ module.exports = class Group extends Base {
   };
 
   checkDuplicate = groupName => {
+    const {group} = this.props;
     // Perform check when creating a new group or editing a group and name has changed
-    if (!this.props.group || (this.props.group && this.props.group.name !== groupName)) {
+    if (!group || (group && group.name !== groupName)) {
       return utils.duplicateCheck(
         this.state.groupsName,
         groupName,
