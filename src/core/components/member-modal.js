@@ -511,24 +511,11 @@ module.exports = class Member extends React.PureComponent {
     const {member, onSubmitted} = this.props;
     const tasks = [];
     avatarListArray.forEach((item, index) => {
-      const {
-        avatarPreviewStyle: {originalImage, croppedImage},
-        avatarFile
-      } = item[1];
-      if (avatarFile && croppedImage) {
-        // The user upload a file.
-        tasks.push(utils.convertCropperImage(croppedImage));
-      } else if (member && croppedImage && croppedImage !== originalImage) {
-        // The user modify the exist picture.
-        tasks.push(utils.convertCropperImage(croppedImage));
-      } else if (member && croppedImage && croppedImage === originalImage) {
+      const {avatarPreviewStyle: {originalImage, croppedImage}} = item[1];
+      if (member && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
-      } else if (croppedImage && croppedImage.indexOf(Base64DataURLPrefix) !== 0) {
-        // Register a member from the event with original image url.
-        tasks.push(utils.convertCropperImage(croppedImage));
       } else if (croppedImage) {
-        // Register a member from the event and cropper has opened.
         tasks.push(utils.convertCropperImage(croppedImage));
       }
     });
