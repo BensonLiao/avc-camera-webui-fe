@@ -133,7 +133,7 @@ class SearchMember extends React.PureComponent {
             <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="d-flex flex-row justify-content-between align-items-end mb-4 pl-5 pr-3">
+            <div className="d-flex flex-row justify-content-between align-items-end mb-4 px-3">
               <div className="d-flex flex-row align-items-end">
                 <div className="event-photo">
                   <img
@@ -162,7 +162,10 @@ class SearchMember extends React.PureComponent {
                 onSubmit={this.onSearch}
               >
                 <Form className="d-flex flex-row">
-                  <div className="px-0">
+                  <div
+                    className="px-0"
+                    style={{width: '200px'}}
+                  >
                     <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keyword')}/>
                   </div>
                   <div className="px-0 ml-3">
@@ -179,10 +182,10 @@ class SearchMember extends React.PureComponent {
               </Formik>
             </div>
             <div
-              className="col-12 mb-5"
+              className="col-12 mb-2"
               style={{
-                maxHeight: '550px',
-                overflowY: 'scroll'
+                maxHeight: 'calc(100vh - 328px)',
+                overflowY: 'auto'
               }}
             >
               <table className="table custom-style mb-4" style={{tableLayout: 'fixed'}}>
@@ -284,19 +287,17 @@ class SearchMember extends React.PureComponent {
 
                 </tbody>
               </table>
-
-              {/* Custom pagination component */}
-              { members && members.items.length !== 0 && (
-                <Pagination
-                  index={members.index}
-                  size={members.size}
-                  total={members.total}
-                  itemQuantity={members.items.length}
-                  onSearch={this.onSearch}
-                />
-              )}
-
             </div>
+            {/* Custom pagination component */}
+            { members && members.items.length !== 0 && (
+              <Pagination
+                index={members.index}
+                size={members.size}
+                total={members.total}
+                itemQuantity={members.items.length}
+                onSearch={this.onSearch}
+              />
+            )}
           </Modal.Body>
         </Modal>
 

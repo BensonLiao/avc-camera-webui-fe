@@ -196,7 +196,7 @@ module.exports = class Members extends Base {
         />
         {/* Main content */}
         <div className="main-content left-menu-active sub">
-          <div className="page-users bg-white">
+          <div className="page-members bg-white">
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12 d-flex justify-content-between align-items-center mb-4">
