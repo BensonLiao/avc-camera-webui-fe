@@ -207,12 +207,15 @@ module.exports = class DateTime extends Base {
                         timeTabText={_('Update Time')}
                         inputProps={{
                           className: classNames(
-                            'btn date px-4',
+                            'btn border date px-4 btn-date-time',
                             {active: showDateTimePicker.ntpUpdateTime && values.syncTimeOption === SyncTimeOption.ntp},
                             {'cursor-disabled': isNotNTP}
                           ),
                           placeholder: _('Update Time'),
-                          style: {whiteSpace: 'nowrap'}
+                          style: {
+                            whiteSpace: 'nowrap',
+                            backgroundColor: values.syncTimeOption === SyncTimeOption.ntp ? '#fff' : '#e9ecef'
+                          }
                         }}
                         isShowPicker={showDateTimePicker.ntpUpdateTime && values.syncTimeOption === SyncTimeOption.ntp}
                         onClickInput={values.syncTimeOption === SyncTimeOption.ntp ? this.toggleDateTimePicker('ntpUpdateTime') : () => {}}
