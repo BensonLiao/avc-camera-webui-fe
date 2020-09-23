@@ -49,6 +49,22 @@ exports.formatDate = (date, {withSecond, withoutTime, format} = {}) => {
 };
 
 /**
+ * Get time with offset.
+ * this is used to normalise the UTC time from server
+ * @param {Date} time - e.g. 9/21 11:00am GMT+8
+ * @returns {Date} - e.g. 9/21 7:00pm GMT+8
+ */
+exports.addTimezoneOffset = time => new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
+
+/**
+ * Get time without offset (UTC).
+ * this is used to condition time to UTC for server
+ * @param {Date} time - e.g. 9/21 7:00pm GMT+8
+ * @returns {Date} - e.g. 9/21 11:00am GMT+8
+ */
+exports.subtractTimezoneOffset = time => new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
+
+/**
  * Get hours from time.
  * @param {String} time - e.g. "12:23"
  * @returns {Number} e.g. 12
