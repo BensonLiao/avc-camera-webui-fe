@@ -19,7 +19,25 @@ if (!window.languageResource['zh-tw']) {
     'enroll-status-1': '未知',
     'enroll-status-2': '成功',
 
-    // Navigation
+    // Component
+    // Component / Button
+    Apply: '套用',
+    // Component / Loading Spinner
+    Loading: '載入中',
+    // Component / Date Picker
+    Su: '日',
+    Mo: '一',
+    Tu: '二',
+    We: '三',
+    Th: '四',
+    Fr: '五',
+    Sa: '六',
+    // Component / API Processing Modal
+    'Please wait': '請稍候',
+    // Component / Switch component
+    ON: '開',
+    OFF: '關',
+    // Component / Navigation
     Home: '首頁',
     Image: '圖像',
     Video: '影像設定',
@@ -30,8 +48,7 @@ if (!window.languageResource['zh-tw']) {
     Network: '網路',
     System: '系統',
     SDCard: 'SD卡',
-
-    // App Bar
+    // Component / App Bar
     About: '關於',
     'Model Name': '裝置名稱',
     Firmware: '韌體版本',
@@ -44,13 +61,13 @@ if (!window.languageResource['zh-tw']) {
     'Product Selector': '產品選擇',
     'Technical Updates': '技術更新',
     Resources: '資源',
-    // App Bar / Support
+    // Component / App Bar / Support
     'Product Use': '產品使用',
     'Technical Support': '技術問題信箱',
     'Product Information': '其他產品資訊',
     'Sign Out': '登出',
 
-    // home
+    // /home
     'Image Settings': '圖像設定',
     'Device Name': '裝置名稱',
     'Device Status': '裝置狀態',
@@ -88,17 +105,16 @@ if (!window.languageResource['zh-tw']) {
     'Lighting Compensation Frequency (Hz)': '刷新頻率',
     'Auto Focus': '自動對焦',
     'Focal Length': '焦距',
-    Apply: '套用',
     'Reset to Default Settings': '恢復預設',
-    // home / Constans
+    // /home / Constans
     Auto: '自動',
     On: '開',
     Off: '關',
     Max: '最大',
-    // home / Constans / Iris
+    // /home / Constans / Iris
     'aperture-0': '自動',
     'aperture-1': '最大',
-    // home / Constans / Shutter speed
+    // /home / Constans / Shutter speed
     'shutter-speed-0': '自動',
     'shutter-speed-1': '1/30',
     'shutter-speed-2': '1/50',
@@ -110,23 +126,23 @@ if (!window.languageResource['zh-tw']) {
     'shutter-speed-8': '1/2,000',
     'shutter-speed-9': '1/4,000',
     'shutter-speed-10': '1/8,000',
-    // home / Constans / White balance
+    // /home / Constans / White balance
     'white-balance-0': '自動',
     'white-balance-1': '戶外',
     'white-balance-2': '日光燈',
     'white-balance-3': '白熱燈泡',
     'white-balance-4': '手動調整',
-    // home / Constans / Day/Night
+    // /home / Constans / Day/Night
     'daynight-mode-0': '自動',
     'daynight-mode-1': '彩色',
     'daynight-mode-2': '黑白',
     'daynight-mode-3': '指定時段',
-    // home / Constans / Rotation
+    // /home / Constans / Rotation
     'orientation-0': '正常',
     'orientation-1': '垂直翻轉',
     'orientation-2': '水平翻轉',
     'orientation-3': '180 度翻轉',
-    // home / Constans / Lighting Compensation Frequency (Hz)
+    // /home / Constans / Lighting Compensation Frequency (Hz)
     'refresh-rate-0': '自動',
     'refresh-rate-1': '50Hz',
     'refresh-rate-2': '60Hz',
@@ -135,9 +151,9 @@ if (!window.languageResource['zh-tw']) {
     'Stream Settings': '串流設定',
     OSD: '顯示資訊',
     'Privacy Mask': '隱私遮罩',
-    Settings: '設定',
 
     // /media/stream
+    Settings: '設定',
     'Stream {0}': '串流 {0}',
     Codec: '影像格式',
     Resolution: '解析度',
@@ -182,64 +198,171 @@ if (!window.languageResource['zh-tw']) {
     'Are you sure you want to update hdmi settings?': '您即將更改HDMI設定，確認是否繼續？',
 
     // /media/word
-    Function: '功能',
-    Word: '文字',
+    'On/Off': '開/關',
     Size: '大小',
+    Color: '顏色',
+    Word: '文字',
     Position: '位置',
-    'Word Position': '貼圖顯示位置',
     'Select Position': '請於畫面中點選文字顯示位置',
     'Text Overlay': '文字浮水印',
-
-    // /audio
-    'Multimedia Streaming': '多媒體串流',
-    'Audio Settings': '聲音設定',
-    'Audio Quality': '聲音品質',
-    'Input Source': '聲音輸入來源',
-    'Internal Microphone': '內建式麥克風',
-    'External Microphone': '外接麥克風',
-    'Audio Out': '聲音輸出',
-
-    // 相似度層級
-    'confidence-level-0': '低',
-    'confidence-level-1': '中',
-    'confidence-level-2': '高',
-
-    // 聲音品質
-    'Audio In': '聲音輸入',
-    'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
-    'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
-
-    // 文字大小
+    // /media/word / Constants / Size
     'font-size-0': '小',
     'font-size-1': '中',
     'font-size-2': '大',
-
-    // 文字貼圖
+    // /media/word / Constants / Text Overlay
     'word-type-0': '時間',
     'word-type-1': '相機名稱',
     'word-type-2': '相機名稱+時間',
     'word-type-3': '自訂文字',
     'Enter Custom Text': '輸入自訂文字',
 
-    // 通知類型
+    // /media/privacy-mask
+    'Drag a Mask Area.': '請拖曳新增遮罩',
+    'Mask Area': '遮罩區域',
+    'Note Area': '說明',
+    Drag: '拖曳',
+    'Set a Mask.': '新增遮罩',
+    'Erase a Mask.': '刪除遮罩',
+    'Up to 4 Mask Areas.': '最多至4個遮罩',
+
+    // /audio
+    'Audio In': '聲音輸入',
+    'Audio Settings': '聲音設定',
+    'Audio Quality': '聲音品質',
+    'Input Source': '聲音輸入來源',
+    'Internal Microphone': '內建式麥克風',
+    'External Microphone': '外接麥克風',
+    'Audio Out': '聲音輸出',
+    // /audio / Constans / Audio Quality
+    'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
+    'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
+
+    // /notification
+    'Notification Setting': '通知設定',
+    'Basic Setting': '基本設定',
+    App: 'APP設定',
+    Mail: '郵件設定',
+    'I/O': 'I/O設定',
+    'Smart Notification': '智慧通知',
+
+    // /notification/app
+    'Device Token': '裝置金鑰',
+    'Please enter your device token.': '請輸入您的金鑰',
+    'Device Id': '裝置編碼',
+    'Please enter your device id.': '請輸入您的編碼',
+    'Notification Interval (Seconds)': '通知時間間隔 (秒)',
+    'Enter your notification interval': '請輸入通知時間',
+    '5 - 1,800 Seconds': '5 - 1800 秒',
+
+    // /notification/smtp
+    None: '無',
+    'SMTP Server': 'SMTP 伺服器',
+    'Host Address': 'HOST位址',
+    'Enter Your Host Address': '請輸入您的 Host 位址',
+    'SMTP Account Settings': '電子郵件登入認證',
+    'Edit Account and Password': '編輯帳號密碼',
+    'Login Notification': '登入通知信',
+    Sender: '寄件人顯示',
+    Email: '電子郵件',
+    'Enter Your Email': '請輸入您的電子郵件',
+    'Email and login settings': '電子郵件登入認證設定',
+    Port: '埠',
+    Encryption: '加密',
+    'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': '有些網路郵件供應商為了提高安全性， 可能會需要應用程式密碼，例如Google和Yahoo奇摩電子信箱帳號。請依照您郵件供應商的指示產生並使用應用程式密碼。',
+    'Mail Setting Success': '電子郵件設定成功',
+    'Mail Setting Failed': '電子郵件設定失敗',
+    'Test Mail Sent': '測試郵件已寄出',
+    'Account Auth is Off, Test Mail not Sent.': '登入認證設定為關閉，測試郵件未寄出',
+
+    // /notification/io
+    'Input and Output Setting': 'I/O設定',
+    Input: '硬體輸入',
+    'Normal State': '平常狀態',
+    'Normally Closed': '常關',
+    'Normally Open': '常開',
+    'Output {0}': '硬體輸出 {0}',
+    Type: '輸出類型',
+    Normal: '一般',
+    Buffer: '緩衝',
+    'Pulse Time (Seconds)': '訊號緩衝時間 (秒)',
+    'Delay Time (Seconds)': '延後間隔時間 (秒)',
+    'Enter Seconds': '請輸入秒數',
+    '{0} - {1} Seconds': '{0} - {1} 秒',
+
+    // /notification/cards
+    'Notification Filters': '通知篩選',
+    Pinned: '置頂項目',
+    Others: '其他項目',
+    'Enter Your Title': '輸入通知名稱',
+    Schedule: '通知時間',
+    Rule: '通知條件',
+    Condition: '條件',
+    Subject: '通知對象',
+    'All Groups': '所有群組',
+    Everyone: '所有人',
+    'Email Attachment': '附件檔案',
+    Receiver: '收件人',
+    'Enter Email Address': '請輸入電子郵件',
+    'Add New Notification Card': '增加新通知卡',
+    Add: '新增',
+    Cancel: '取消',
+    Recognition: '辨識',
+    'Cards Limit Error': '通知卡數量限制',
+    'Cannot Create More Than {0} Cards': '無法新增超過 {0} 張卡',
+    'Subject :': '主旨 :',
+    'Content :': '內文 :',
+    'Specify the Subject of Notification Emails': '請輸入通知郵件主旨',
+    'Append Your Message to Notification Emails': '請輸入通知郵件內文',
+    'Email Content Order': '內文位置',
+    // /notification/card (AVN)
+    'Video Management System': '影像管理系統(VMS)',
+    Method: '傳送方式',
+    // /notification/card / Constants / VMS (AVN)
+    'notification-vms-event-0': '影像動態偵測事件',
+    'notification-vms-event-1': '智慧分析事件',
+    // /notification/cards / Constants / Notification Filters
+    'notification-card-filter-all': '所有通知',
     'notification-card-0': '臉部辨識',
     'notification-card-1': '性別年齡',
     'notification-card-2': '人形偵測',
     'notification-card-3': '動作偵測',
     'notification-card-4': '破壞警報',
     'notification-card-5': '數位輸出',
-
-    // 辨識通知條件
+    // /notification/cards / Constants / Face Recognition Condition
     'Group Type': '群組類型',
     'face-recognition-condition-0': '不限',
     'face-recognition-condition-1': '成功',
     'face-recognition-condition-2': '未知',
     'face-recognition-condition-3': '非活體',
-
-    // 通知附件檔案
+    // /notification/cards / Constants / Email Attachment
     'email-attachment-type-0': '臉部快照',
     'email-attachment-type-1': '完整快照',
     'email-attachment-type-2': '不傳附件',
+    // /notification/cards / Constants / Email Content Order
+    'email-content-position-0': '置於開頭前',
+    'email-content-position-1': '置於結尾後',
+
+    // /analytic/face-recognition
+    'Anti-Photo Spoof': '防止照片偽裝',
+    'Level of Accuracy': '相似度層級',
+    'Detection Zone': '觸發區域',
+    'Default is Fullscreen': '預設為全畫面',
+    'Facial Detection Size': '人臉大小',
+    'Live View Display:': '即時影像顯示：',
+    Unknown: '未知',
+    'Image Spoof': '圖像偽裝',
+    'Facial Recognition is Disabled': '辨識功能已關閉',
+    // /analytic/face-recognition / Constants / Level of Accuracy
+    'confidence-level-0': '低',
+    'confidence-level-1': '中',
+    'confidence-level-2': '高',
+
+    // /analytic/motion-detection
+    'Motion Detection': '動作偵測',
+    'Set a Zone.': '新增區域',
+    'Erase a Zone.': '刪除區域',
+    'Up to 4 Zone Areas.': '最多至4個觸發區域',
+    'Please Drag a Detection Zone Area.': '請拖曳新增觸發區域',
 
     // Validations
     'Incorrect confirm password.': '兩次密碼不一致。',
@@ -283,26 +406,6 @@ if (!window.languageResource['zh-tw']) {
     'validation-birthday': '請使用正確的生日格式。',
     'validation-countryCode': '國家代碼錯誤。',
     'Same name found, please use a different name.': '名字重複，請使用不同的名字',
-
-    // Date picker
-    Su: '日',
-    Mo: '一',
-    Tu: '二',
-    We: '三',
-    Th: '四',
-    Fr: '五',
-    Sa: '六',
-
-    // The loading component.
-    Loading: '載入中',
-
-    // API processing modal
-    'Please wait': '請稍候',
-
-    // Switch component
-    'On/Off': '開/關',
-    ON: '開',
-    OFF: '關',
 
     // CustomTooltip - Begin
     'Please Enter Start and End Datetime': '請先選擇開始與結束時間',
@@ -427,125 +530,6 @@ if (!window.languageResource['zh-tw']) {
     Domain: '域名',
     'Please enter the domain.': '請輸入域名',
     '1024 - 65535, except for 5555, 8080, 8554, 17300.': '1024 - 65535，除了5555、8080、8554, 17300.',
-
-    // /media/privacy-mask
-    'Drag a Mask Area.': '請拖曳新增遮罩',
-    'Mask Area': '遮罩區域',
-    'Note Area': '說明',
-    Drag: '拖曳',
-    'Set a Mask.': '新增遮罩',
-    'Erase a Mask.': '刪除遮罩',
-    'Up to 4 Mask Areas.': '最多至4個遮罩',
-
-    // /notification/card
-    'Notification Setting': '通知設定',
-    'Video Management System': '影像管理系統(VMS)',
-    Method: '傳送方式',
-    'notification-vms-event-0': '影像動態偵測事件',
-    'notification-vms-event-1': '智慧分析事件',
-
-    // /notification/app
-    'Basic Setting': '基本設定',
-    App: 'APP設定',
-    Mail: '電子郵件設定',
-    'I/O': 'I/O設定',
-    'Smart Notification': '智慧通知',
-    'Device Token': '裝置金鑰',
-    'Please enter your device token.': '請輸入您的金鑰',
-    'Device Id': '裝置編碼',
-    'Please enter your device id.': '請輸入您的編碼',
-    'Notification Interval (Seconds)': '通知時間間隔 (秒)',
-    'Enter your notification interval': '請輸入通知時間',
-    '5 - 1,800 Seconds': '5 - 1800 秒',
-
-    // /notification/io
-    'Input and Output Setting': 'I/O設定',
-    Input: '硬體輸入',
-    'Normal State': '平常狀態',
-    'Normally Closed': '常關',
-    'Normally Open': '常開',
-    'Output {0}': '硬體輸出 {0}',
-    Type: '輸出類型',
-    Normal: '一般',
-    Buffer: '緩衝',
-    'Pulse Time (Seconds)': '訊號緩衝時間 (秒)',
-    'Delay Time (Seconds)': '延後間隔時間 (秒)',
-    'Enter Seconds': '請輸入秒數',
-    '{0} - {1} Seconds': '{0} - {1} 秒',
-
-    // /notification/smtp
-    None: '無',
-    'SMTP Server': 'SMTP 伺服器',
-    'Host Address': 'HOST位址',
-    'Enter your Host Address': '請輸入您的 Host 位址',
-    'SMTP Account Settings': '電子郵件登入認證',
-    'Edit account and password': '編輯帳號密碼',
-    'Login Notification': '登入通知信',
-    Sender: '寄件人顯示',
-    Email: '電子郵件',
-    'Enter your email': '請輸入您的電子郵件',
-    'Email and login settings': '電子郵件登入認證設定',
-    Port: '埠',
-    Encryption: '加密',
-    'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': '有些網路郵件供應商為了提高安全性， 可能會需要應用程式密碼，例如Google和Yahoo奇摩電子信箱帳號。請依照您郵件供應商的指示產生並使用應用程式密碼。',
-    'Mail Setting Success': '電子郵件設定成功',
-    'Mail Setting Failed': '電子郵件設定失敗',
-    'Test Mail Sent': '測試郵件已寄出',
-    'Account Auth is Off, Test Mail not Sent.': '登入認證設定為關閉，測試郵件未寄出',
-
-    // /notification/cards
-    'notification-card-filter-all': '所有通知',
-    'Notification Filters': '通知篩選',
-    'Enter Your Title': '輸入通知名稱',
-    Pinned: '置頂項目',
-    Others: '其他項目',
-    Schedule: '通知時間',
-    Rule: '通知條件',
-    Condition: '條件',
-    Subject: '通知對象',
-    'All Groups': '所有群組',
-    Everyone: '所有人',
-    'Email Attachment': '附件檔案',
-    Receiver: '收件人',
-    'Enter Email Address': '請輸入電子郵件',
-    'Add New Notification Card': '增加新通知卡',
-    Add: '新增',
-    Cancel: '取消',
-    Recognition: '辨識',
-    'Cards Limit Error': '通知卡數量限制',
-    'Cannot Create More Than {0} Cards': '無法新增超過 {0} 張卡',
-    'Subject :': '主旨 :',
-    'Content :': '內文 :',
-    'Specify the Subject of Notification Emails': '請輸入通知郵件主旨',
-    'Append Your Message to Notification Emails': '請輸入通知郵件內文',
-    'Email Content Order': '內文位置',
-
-    // 通知信件內容位置
-    'email-content-position-0': '置於開頭前',
-    'email-content-position-1': '置於結尾後',
-
-    // /analytic/face-recognition
-    'Detection Zone': '觸發區域',
-    'Facial Detection Size': '人臉大小',
-    'Level of Accuracy': '相似度層級',
-    'Recognition Function': '辨識功能',
-    'Default is Fullscreen': '預設為全畫面',
-    'Display Recognition Name': '顯示辨識名稱',
-    // Name/Group already defined elsewhere, but may is subject to change
-    // Name: '名稱',
-    // Group: '群組',
-    Unknown: '未知',
-    'Image Spoof': '圖像偽裝',
-    'Face-Recognition is Disabled': '辨識功能已關閉',
-    'Anti-Photo Spoof': '防止照片偽裝',
-    'Live View Display:': '即時影像顯示：',
-
-    // /smart/motion-detection
-    'Motion Detection': '動作偵測',
-    'Set a Zone.': '新增區域',
-    'Erase a Zone.': '刪除區域',
-    'Up to 4 Zone Areas.': '最多至4個觸發區域',
-    'Please Drag a Detection Zone Area.': '請拖曳新增觸發區域',
 
     // /members
     Members: '成員管理',
@@ -801,7 +785,7 @@ if (!window.languageResource['zh-tw']) {
     'Free: {0}': '{0} 可用',
     'Used: {0}': '{0} 已使用',
     Status: '狀態',
-    // /sd-card/status
+    // /sd-card / Status
     // 0 - MOUNTED:
     Functioning: '正常',
     // 1 - UNMOUNTED:
@@ -816,5 +800,6 @@ if (!window.languageResource['zh-tw']) {
     'Unknown Error': '未知錯誤',
     // /sd-card/file format
     Unrecognized: '無法識別'
+
   };
 }

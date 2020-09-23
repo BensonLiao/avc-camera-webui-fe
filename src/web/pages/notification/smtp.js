@@ -197,7 +197,7 @@ module.exports = class SMTP extends Base {
                   name="host"
                   type="text"
                   className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-                  placeholder={_('Enter your Host Address')}
+                  placeholder={_('Enter Your Host Address')}
                 />
                 <ErrorMessage component="div" name="host" className="invalid-feedback"/>
               </div>
@@ -216,7 +216,7 @@ module.exports = class SMTP extends Base {
                         return isEnableAuth && this.onShowAccountSettingsModal();
                       }}
                     >
-                      {_('Edit account and password')}
+                      {_('Edit Account and Password')}
                     </a>
                   </CustomTooltip>
                   <CustomTooltip title={_('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
@@ -267,7 +267,7 @@ module.exports = class SMTP extends Base {
                 name="senderEmail"
                 type="text"
                 className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
-                placeholder={_('Enter your email')}
+                placeholder={_('Enter Your Email')}
               />
               <ErrorMessage component="div" name="senderEmail" className="invalid-feedback"/>
             </div>
