@@ -207,7 +207,7 @@ module.exports = class SMTP extends Base {
                   <br/>
                 </div>
                 <div>
-                  <CustomTooltip show={!isEnableAuth} title={_('Please Enable Email Notifications')}>
+                  <CustomTooltip show={!isEnableAuth} title={_('Please Enable SMTP Server')}>
                     <a
                       href="#"
                       className={classNames('mr-2', {'disable-link': !isEnableAuth})}
@@ -226,7 +226,7 @@ module.exports = class SMTP extends Base {
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label>{_('Login Notification')}</label>
-                <CustomTooltip show={!isEnableAuth} title={_('Please Enable Email Notifications')}>
+                <CustomTooltip show={!isEnableAuth} title={_('Please Enable SMTP Server')}>
                   <div className="custom-control custom-switch">
                     <Field
                       disabled={!isEnableAuth}
