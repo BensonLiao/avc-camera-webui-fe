@@ -53,27 +53,12 @@ module.exports = class EventsSearchForm extends React.PureComponent {
   }
 
   convertTime = (time, method) => {
-    const {systemDateTime} = this.props;
     if (method === 'add') {
       time = new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
     }
 
     if (method === 'subtract') {
       time = new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
-    }
-
-    if (this.props.systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
-      const timeZoneDifference = systemDateTime.syncTimeOption === SyncTimeOption.ntp ?
-        new Date(time.toLocaleString('en-US', {timeZone: 'utc'})) -
-        new Date(time.toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone})) :
-        0;
-      if (method === 'add') {
-        time = new Date(time.getTime() + timeZoneDifference);
-      }
-
-      if (method === 'subtract') {
-        time = new Date(time.getTime() - timeZoneDifference);
-      }
     }
 
     return time;
@@ -124,7 +109,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 inputProps={{
                   className: classNames('btn start-date px-4', {active: isShowStartDatePicker}),
                   placeholder: _('Start Datetime'),
-                  style: {whiteSpace: 'nowrap'}
+                  style: {
+                    whiteSpace: 'nowrap',
+                    boxShadow: 'none'
+                  }
                 }}
                 endDateFieldName="end"
                 isShowPicker={isShowStartDatePicker}
@@ -139,7 +127,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 inputProps={{
                   className: classNames('btn end-date px-4', {active: isShowEndDatePicker}),
                   placeholder: _('End Datetime'),
-                  style: {whiteSpace: 'nowrap'}
+                  style: {
+                    whiteSpace: 'nowrap',
+                    boxShadow: 'none'
+                  }
                 }}
                 startDateFieldName="start"
                 isShowPicker={isShowEndDatePicker}
