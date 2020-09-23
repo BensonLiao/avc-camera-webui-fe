@@ -838,7 +838,7 @@ module.exports = class Member extends React.PureComponent {
         onHide={isApiProcessing || isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{member ? _('Modify Member') : _('New Member')}</Modal.Title>
+          <Modal.Title as="h5">{member ? _('Edit Member') : _('New Member')}</Modal.Title>
         </Modal.Header>
         <Formik
           enableReinitialize

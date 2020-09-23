@@ -370,18 +370,19 @@ if (!window.languageResource['zh-tw']) {
     'Edit Group': '編輯群組',
     'User Picture': '註冊照片',
     Actions: '操作',
-    '{0}-{1} items. Total: {2}': '目前 {0}-{1} 筆，總筆數 {2} 筆',
     'Delete Member: {0}': '刪除成員: {0}',
     'Delete Member': '刪除成員',
     'Are you sure you want to delete member {0}?': '您即將刪除成員 {0}，確認要刪除嗎？',
-    Modify: '修改',
-    'Upload Image': '上傳照片',
+    'Edit Member: {0}': '編輯成員: {0}',
+    'Edit Member': '編輯成員',
+    '{0}-{1} items. Total: {2}': '目前 {0}-{1} 筆，總筆數 {2} 筆',
     'Updating Members': '更新成員',
     'Exporting Member Database': '導出成員資料庫中',
     'New Member': '新增成員',
     'Please upload your face photo.': '請上傳正面照片',
     'Are you sure you want to delete group {0}?': '您即將刪除 {0} 群組，確認要刪除嗎？',
-    'Edit Member: {0}': '編輯成員: {0}',
+    // /users/members (AVN)
+    'Upload Image': '上傳照片',
     Delete: '刪除',
 
     // /users/members/new-group
@@ -398,9 +399,6 @@ if (!window.languageResource['zh-tw']) {
     'Letters within 32 characters.': '32 字元以內的中英文大寫或小寫',
     Group: '群組',
     'N/A': '無',
-
-    // /members/:memberId
-    'Modify Member': '編輯成員',
 
     // /members/modify-group
     'Modify Group': '編輯群組',
@@ -487,8 +485,6 @@ if (!window.languageResource['zh-tw']) {
     'Please Setup Email Notifications': '請設定電子郵件通知',
     'Hide Password': '隱藏密碼',
     'Show Password': '顯示密碼',
-    'Edit Current Member': '編輯成員',
-    'Add as New Member': '新增為成員',
 
     // The error pages.
     'Not Found': '找不到此網頁',
@@ -599,19 +595,19 @@ if (!window.languageResource['zh-tw']) {
     'Can\'t find any data.': '查無相符資料，請重新搜尋。',
     Filters: '篩選條件',
     Clear: '清除條件',
-    'Facial Recognition': '臉部辨識',
-    'Age Gender': '性別年齡',
-    'Human Detection': '人形偵測',
-    Similarity: '相似度',
-    'Recognition Result': '辨識狀態',
     'Start Date': '開始日期',
     'Start Time': '開始時間',
     'Start Datetime': '開始日期時間',
     'End Date': '結束日期',
     'End Time': '結束時間',
+    'Facial Recognition': '臉部辨識',
+    'Age Gender': '性別年齡',
+    'Human Detection': '人形偵測',
+    Similarity: '相似度',
+    'Recognition Result': '辨識狀態',
     'End Datetime': '結束日期時間',
+    'Add as New Member': '新增為新成員',
     'Add to Existing Member': '新增至現有成員',
-    'Add Photo to Member': '新增照片至成員',
     'Enter Keyword For Search': '請輸入關鍵字以便搜尋',
     'Enter Keyword': '輸入關鍵字',
     'Add to {0}': '新增至 {0}',
