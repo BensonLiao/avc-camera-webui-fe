@@ -9,7 +9,6 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
-const CustomTooltip = require('../../../core/components/tooltip');
 const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class Audio extends Base {
