@@ -179,7 +179,7 @@ module.exports = class EventsTable extends React.PureComponent {
                   <tr key={event.id}>
                     <td>
                       {utils.formatDate(
-                        new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000)),
+                        utils.subtractTimezoneOffset(new Date(event.time)),
                         {withSecond: true}
                       )}
                     </td>
