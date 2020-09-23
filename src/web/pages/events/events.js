@@ -152,7 +152,7 @@ module.exports = class Events extends Base {
           currentRouteName={this.currentRoute.name}
         />
         <div className="main-content left-menu-active sub">
-          <div className="page-histories bg-white">
+          <div className="page-events bg-white">
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12 mb-4">
