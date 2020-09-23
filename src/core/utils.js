@@ -54,7 +54,11 @@ exports.formatDate = (date, {withSecond, withoutTime, format} = {}) => {
  * @param {Date} time - e.g. 9/21 11:00am GMT+8
  * @returns {Date} - e.g. 9/21 7:00pm GMT+8
  */
-exports.addTimezoneOffset = time => new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
+exports.addTimezoneOffset = time => {
+  const isTimeEpoch = typeof time === 'number';
+  return new Date(isTimeEpoch ? time : time.getTime() -
+  (isTimeEpoch ? new Date(time) : time.getTimezoneOffset() * 60 * 1000));
+};
 
 /**
  * Get time without offset (UTC).
@@ -62,7 +66,11 @@ exports.addTimezoneOffset = time => new Date(time.getTime() - (time.getTimezoneO
  * @param {Date} time - e.g. 9/21 7:00pm GMT+8
  * @returns {Date} - e.g. 9/21 11:00am GMT+8
  */
-exports.subtractTimezoneOffset = time => new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
+exports.subtractTimezoneOffset = time => {
+  const isTimeEpoch = typeof time === 'number';
+  return new Date(isTimeEpoch ? time : time.getTime() +
+  (isTimeEpoch ? new Date(time) : time.getTimezoneOffset() * 60 * 1000));
+};
 
 /**
  * Get hours from time.
