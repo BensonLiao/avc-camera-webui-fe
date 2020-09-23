@@ -227,8 +227,19 @@ module.exports = class Member extends React.PureComponent {
     if (defaultPictureUrl) {
       const newCropperState = update(
         this.state,
-        // eslint-disable-next-line max-len
-        {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}}}}}
+        {
+          avatarList:
+          {
+            [avatarToEdit]:
+            {
+              avatarPreviewStyle:
+              {
+                croppedImage:
+                {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}
+              }
+            }
+          }
+        }
       );
       this.setState(newCropperState);
     }
@@ -309,7 +320,7 @@ module.exports = class Member extends React.PureComponent {
                   {
                     rotate:
                     // reset rotation if photo rotates a full circle
-                     {$set: rotate + degrees === 360 || rotate + degrees === -360 ? 0 : rotate + degrees}
+                    {$set: rotate + degrees === 360 || rotate + degrees === -360 ? 0 : rotate + degrees}
                   }
                }
             }
@@ -763,7 +774,6 @@ module.exports = class Member extends React.PureComponent {
                   zoomOnTouch={false}
                   minCropBoxWidth={120}
                   autoCropArea={1}
-                  crop={this._crop}
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
                   zoom={event => event.preventDefault()}
                   ready={this.onCropperReady}
