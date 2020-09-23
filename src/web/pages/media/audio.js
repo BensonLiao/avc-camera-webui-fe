@@ -43,20 +43,12 @@ module.exports = class Audio extends Base {
             </label>
           </div>
         </div>
-        <CustomTooltip placement="bottom-end" show={!values.isEnableInput} title={_('Please enable Audio In')}>
-          <div>
-            <SelectField readOnly={!values.isEnableInput} labelName={_('Audio Quality')} name="inputQuality">
-              <option value={AudioInputQuality.low}>{_(`audio-quality-${AudioInputQuality.low}`)}</option>
-            </SelectField>
-          </div>
-        </CustomTooltip>
-        <CustomTooltip placement="bottom-end" show={!values.isEnableInput} title={_('Please enable Audio In')}>
-          <div>
-            <SelectField readOnly={!values.isEnableInput} labelName={_('Input Source')} name="inputQuality">
-              <option value={AudioInputSource.lineIn}>{_('External Microphone')}</option>
-            </SelectField>
-          </div>
-        </CustomTooltip>
+        <SelectField readOnly labelName={_('Audio Quality')} name="inputQuality">
+          <option value={AudioInputQuality.low}>{_(`audio-quality-${AudioInputQuality.low}`)}</option>
+        </SelectField>
+        <SelectField readOnly labelName={_('Input Source')} name="inputQuality">
+          <option value={AudioInputSource.lineIn}>{_('External Microphone')}</option>
+        </SelectField>
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
           {_('Apply')}
         </button>
