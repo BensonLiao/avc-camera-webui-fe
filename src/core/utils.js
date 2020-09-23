@@ -202,7 +202,7 @@ exports.getBase64Size = (str, unit = 'byte') => {
 
 /**
  * Convert cropper image to specific size.
- * @param {string} imgSrc - The base64 jpeg string.
+ * @param {string} imgSrc - The base64 jpeg string or a url to image src.
  * @param {number} wrapperSize - size of the photo container. default is `300px`
  * @returns {Promise<string>} - The converted base64 jpeg string.
  */
