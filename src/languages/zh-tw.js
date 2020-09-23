@@ -2,11 +2,6 @@ if (!window.languageResource['zh-tw']) {
   window.languageResource['zh-tw'] = {
 
     // Constants
-    'permission-0': '管理者',
-    'permission-1': '訪客',
-    'permission-2': '訪客',
-    'permission-99': '管理者', // Super-Admin, for easier backend permission control, no difference for UI
-
     'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} 自簽憑證`,
     'certificate-type-1': '上傳您的憑證',
     'certificate-type-2': '在此裝置上產生憑證',
@@ -20,10 +15,13 @@ if (!window.languageResource['zh-tw']) {
     'enroll-status-2': '成功',
 
     // Component
+
     // Component / Button
     Apply: '套用',
+
     // Component / Loading Spinner
     Loading: '載入中',
+
     // Component / Date Picker
     Su: '日',
     Mo: '一',
@@ -34,9 +32,11 @@ if (!window.languageResource['zh-tw']) {
     Sa: '六',
     // Component / API Processing Modal
     'Please wait': '請稍候',
+
     // Component / Switch component
     ON: '開',
     OFF: '關',
+
     // Component / Navigation
     Home: '首頁',
     Image: '圖像',
@@ -48,6 +48,7 @@ if (!window.languageResource['zh-tw']) {
     Network: '網路',
     System: '系統',
     SDCard: 'SD卡',
+
     // Component / App Bar
     About: '關於',
     'Model Name': '裝置名稱',
@@ -61,11 +62,109 @@ if (!window.languageResource['zh-tw']) {
     'Product Selector': '產品選擇',
     'Technical Updates': '技術更新',
     Resources: '資源',
+
     // Component / App Bar / Support
     'Product Use': '產品使用',
     'Technical Support': '技術問題信箱',
     'Product Information': '其他產品資訊',
     'Sign Out': '登出',
+
+    // /setup
+    'INITIAL PASSWORD SETUP': '初始密碼設定',
+    'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
+    '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字元：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
+    '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字元：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
+    Welcome: '歡迎',
+    'For a better experience,': '為了使您有更好的體驗，',
+    'please press continue to complete the simple three-step installation setup!': '請您先按下繼續來完成簡單三步驟的安裝設定！',
+    Continue: '繼續',
+    Submit: '確認',
+
+    // /setup/language
+    'Setup Language': '選擇語言',
+    Language: '選擇語言',
+    'SETUP-Account': '帳號密碼',
+    HTTPS: '安全傳輸方式',
+    Next: '下一步',
+
+    // /setup/account
+    'Setup Account': '初始帳號設定',
+    Account: '帳號',
+    'Please enter your account.': '請輸入您的帳號名稱',
+    Permission: '權限',
+    Password: '密碼',
+    Birthday: '生日',
+    'This is used for resetting password.': '生日將會用於重置密碼',
+    'Enter your account': '請輸入您的帳號',
+    'Enter your password': '請輸入您的密碼',
+    'Confirm Your Password': '請再次輸入您的密碼',
+    // /setup/account / Constants / Permission
+    'permission-0': '管理者',
+    'permission-1': '訪客',
+    'permission-2': '訪客',
+    'permission-99': '管理者', // Super-Admin, for easier backend permission control, no difference for UI
+
+    // /setup/https
+    'Certificate Type': '憑證方式',
+    'SSL certificate.': 'SSL 憑證方式',
+    Certificate: '憑證',
+    'Private Key': '私鑰',
+    'Country Name': '國家名稱',
+    'Please enter the country code.': '請輸入您的國家代碼',
+    'Two letters.': '2 位字母代碼',
+    'State or province name': '州或省名稱',
+    'Please enter the state or province name.': '請輸入您的州或省名稱',
+    'City Name': '城市名稱',
+    'Please enter the city name.': '請輸入您的城市名稱',
+    'Organization Name': '組織名稱',
+    'The company.': '公司',
+    'Organization Unit Name': '組織部門名稱',
+    'Email Address': '電子信箱',
+    'Please enter the email address.': '請輸入電子信箱',
+    Domain: '域名',
+    'Please enter the domain.': '請輸入域名',
+    '1024 - 65535, except for 5555, 8080, 8554, 17300.': '1024 - 65535，除了5555、8080、8554, 17300.',
+
+    // /login
+    Login: '登入',
+    'ACCOUNT LOGIN': '帳號登入',
+    'Enter Your Username and Password': '請輸入您的帳號與密碼',
+    'Enter Your Username': '請輸入您的帳號',
+    'Password Reset': '重置密碼',
+
+    // /login-error
+    'Password Incorrect': '密碼輸入錯誤',
+    'You have {0} attemps remaining...': '您尚可嘗試 {0} 次...',
+    'Incorrect password x {0}': '密碼錯誤 x {0}',
+    'Expires in 10 minutes': '10 分鐘後過期',
+    'Expires in 30 minutes': '30 分鐘後過期',
+    'Expires in 1 hour': '1 小時後過期',
+    'Expires in 12 hours': '12 小時後過期',
+
+    // /login-lock
+    'Too Many Login Attempts!': '密碼嘗試輸入錯誤次數過多！',
+    'Please try again in 5 minutes.': '請於五分鐘後再次登入',
+    'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
+    'Login Lock': '登入鎖定',
+    'Forgot password?': '忘記密碼？',
+    'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
+    '{0} Remaining': '還剩 {0}',
+    'Login Again': '重新登入',
+
+    // /forgot-password
+    'Forgot Password': '忘記密碼',
+    OK: '確定',
+
+    // /reset-password
+    'Reset Password': '重設密碼',
+    'New Password': '新密碼',
+    'Enter Your New Password': '請輸入您的新密碼',
+    'Confirm Password': '確認密碼',
+    'Enter Your New Password Again': '請再次輸入您的新密碼',
+
+    // /reset-password-success
+    'Reset password success.': '重設密碼成功',
+    Done: '完成',
 
     // /home
     'Image Settings': '圖像設定',
@@ -361,13 +460,14 @@ if (!window.languageResource['zh-tw']) {
     Export: '匯出',
     Import: '匯入',
     'Database Encryption': '資料庫加密',
+    'Current Password': '舊密碼',
+    'Enter your Current password': '請輸入您的舊密碼',
     'Enter Keywords': '輸入關鍵字',
     Search: '搜尋',
     New: '新增',
-    'Add a New Member': '自行新增',
+    'Add a New Member': '新增成員',
     'Add a Member from Events': '從事件新增',
     'Edit Group: {0}': '編輯群組: {0}',
-    'Edit Group': '編輯群組',
     'User Picture': '註冊照片',
     Actions: '操作',
     'Delete Member: {0}': '刪除成員: {0}',
@@ -393,16 +493,63 @@ if (!window.languageResource['zh-tw']) {
     Create: '新增',
     Close: '關閉',
 
+    // /users/members/modify-group
+    'Edit Group': '編輯群組',
+    'Modify Group': '編輯群組',
+    Confirm: '確認',
+
     // /users/members/new
+    Primary: '主照片',
+    'Photo 1': '照片1',
+    'Photo 2': '照片2',
+    'Photo 3': '照片3',
+    'Photo 4': '照片4',
     Organization: '組織',
     'Enter Your Organization': '請輸入您的組織',
     'Letters within 32 characters.': '32 字元以內的中英文大寫或小寫',
     Group: '群組',
     'N/A': '無',
 
-    // /members/modify-group
-    'Modify Group': '編輯群組',
-    Confirm: '確認',
+    // /users/accounts
+    Accounts: '帳號管理',
+    Username: '帳號',
+    'New User': '創建使用者',
+    'All Accounts': '所有帳號',
+    'Off Line Record': '斷線錄影',
+    'Modify User': '編輯帳號',
+    'Confirm New Password': '確認新密碼',
+    'Confirm Your New Password': '請再次輸入您的新密碼',
+    'Delete Account': '刪除帳號',
+    'Are you sure to delete account {0}?': '您即將刪除 {0}，確認要刪除這個帳號嗎？',
+
+    // /users/events
+    Events: '智慧搜尋',
+    Total: '總筆數',
+    Time: '時間',
+    Capture: '辨識照片',
+    Confidence: '相似度',
+    'Can\'t find any data.': '查無相符資料，請重新搜尋。',
+    Filters: '篩選條件',
+    Clear: '清除條件',
+    'Start Date': '開始日期',
+    'Start Time': '開始時間',
+    'Start Datetime': '開始日期時間',
+    'End Date': '結束日期',
+    'End Time': '結束時間',
+    'Facial Recognition': '臉部辨識',
+    'Age Gender': '性別年齡',
+    'Human Detection': '人形偵測',
+    Similarity: '相似度',
+    'Recognition Result': '辨識狀態',
+    'End Datetime': '結束日期時間',
+    'Add as New Member': '新增為新成員',
+    'Add to Existing Member': '新增至現有成員',
+    'Enter Keyword For Search': '請輸入關鍵字以便搜尋',
+    'Enter Keyword': '輸入關鍵字',
+    'Add to {0}': '新增至 {0}',
+    'Photo Limit Reached': '已達照片上限',
+    'Verifying Photo': '照片驗證中',
+    'Invalid Photo': '照片不合格',
 
     // /analytic/face-recognition
     'Anti-Photo Spoof': '防止照片偽裝',
@@ -492,143 +639,6 @@ if (!window.languageResource['zh-tw']) {
     'Back to Home': '回首頁',
     'Internal Server Error': '內部伺服器問題',
     'Sorry for your inconvenience, we are actively process with it!': '造成您的不便不好意思，我們正在積極處理中！',
-
-    // /login
-    Login: '登入',
-    'ACCOUNT LOGIN': '帳號登入',
-    'Enter Your Username and Password': '請輸入您的帳號與密碼',
-    'Enter Your Username': '請輸入您的帳號',
-    'Password Reset': '重置密碼',
-
-    // /login-error
-    'Password Incorrect': '密碼輸入錯誤',
-    'You have {0} attemps remaining...': '您尚可嘗試 {0} 次...',
-    'Incorrect password x {0}': '密碼錯誤 x {0}',
-    'Expires in 10 minutes': '10 分鐘後過期',
-    'Expires in 30 minutes': '30 分鐘後過期',
-    'Expires in 1 hour': '1 小時後過期',
-    'Expires in 12 hours': '12 小時後過期',
-
-    // /login-lock
-    'Too Many Login Attempts!': '密碼嘗試輸入錯誤次數過多！',
-    'Please try again in 5 minutes.': '請於五分鐘後再次登入',
-    'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
-    'Login Lock': '登入鎖定',
-    'Forgot password?': '忘記密碼？',
-    'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
-    '{0} Remaining': '還剩 {0}',
-    'Login Again': '重新登入',
-
-    // /forgot-password
-    'Forgot Password': '忘記密碼',
-    Account: '帳號',
-    OK: '確定',
-
-    // /reset-password
-    'Reset Password': '重設密碼',
-    'New Password': '新密碼',
-    'Confirm Password': '確認密碼',
-    'Enter your new password': '請輸入您的新密碼',
-    'Enter your new password again': '請再次輸入您的新密碼',
-
-    // /reset-password-success
-    'Reset password success.': '重設密碼成功',
-    Done: '完成',
-
-    // /setup
-    'INITIAL PASSWORD SETUP': '初始密碼設定',
-    'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
-    '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字元：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
-    '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字元：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
-    Welcome: '歡 迎',
-    'For a better experience,': '為了使您有更好的體驗，',
-    'please press continue to complete the simple three-step installation setup!': '請您先按下繼續來完成簡單三步驟的安裝設定！',
-    Continue: '繼續',
-    Submit: '確認',
-
-    // /setup/language
-    'Setup Language': '選擇語言',
-    Language: '選擇語言',
-    'SETUP-Account': '帳號密碼',
-    HTTPS: '安全傳輸方式',
-    Next: '下一步',
-
-    // /setup/account
-    'Setup Account': '初始帳號設定',
-    'Please enter your account.': '請輸入您的帳號名稱',
-    Permission: '權限',
-    Password: '密碼',
-    Birthday: '生日',
-    'This is used for resetting password.': '生日將會用於重置密碼',
-    'Enter your account': '請輸入您的帳號',
-    'Enter your password': '請輸入您的密碼',
-    'Please enter letters between 8 and 12.': '8~12 字元的大寫或小寫',
-    'Enter your password again': '請再次輸入您的密碼',
-
-    // /setup/https
-    'Certificate Type': '憑證方式',
-    'SSL certificate.': 'SSL 憑證方式',
-    Certificate: '憑證',
-    'Private Key': '私鑰',
-    'Country Name': '國家名稱',
-    'Please enter the country code.': '請輸入您的國家代碼',
-    'Two letters.': '2 位字母代碼',
-    'State or province name': '州或省名稱',
-    'Please enter the state or province name.': '請輸入您的州或省名稱',
-    'City Name': '城市名稱',
-    'Please enter the city name.': '請輸入您的城市名稱',
-    'Organization Name': '組織名稱',
-    'The company.': '公司',
-    'Organization Unit Name': '組織部門名稱',
-    'Email Address': '電子信箱',
-    'Please enter the email address.': '請輸入電子信箱',
-    Domain: '域名',
-    'Please enter the domain.': '請輸入域名',
-    '1024 - 65535, except for 5555, 8080, 8554, 17300.': '1024 - 65535，除了5555、8080、8554, 17300.',
-
-    // /users/events
-    Events: '智慧搜尋',
-    Total: '總筆數',
-    Time: '時間',
-    Capture: '辨識照片',
-    Confidence: '相似度',
-    'Can\'t find any data.': '查無相符資料，請重新搜尋。',
-    Filters: '篩選條件',
-    Clear: '清除條件',
-    'Start Date': '開始日期',
-    'Start Time': '開始時間',
-    'Start Datetime': '開始日期時間',
-    'End Date': '結束日期',
-    'End Time': '結束時間',
-    'Facial Recognition': '臉部辨識',
-    'Age Gender': '性別年齡',
-    'Human Detection': '人形偵測',
-    Similarity: '相似度',
-    'Recognition Result': '辨識狀態',
-    'End Datetime': '結束日期時間',
-    'Add as New Member': '新增為新成員',
-    'Add to Existing Member': '新增至現有成員',
-    'Enter Keyword For Search': '請輸入關鍵字以便搜尋',
-    'Enter Keyword': '輸入關鍵字',
-    'Add to {0}': '新增至 {0}',
-    'Photo Limit Reached': '已達照片上限',
-    'Verifying Photo': '照片驗證中',
-    'Invalid Photo': '照片不合格',
-
-    // /users/accounts
-    Accounts: '帳號管理',
-    Username: '帳號',
-    'New User': '創建使用者',
-    'All Accounts': '所有帳號',
-    'Off Line Record': '斷線錄影',
-    'Modify User': '編輯帳號',
-    'Confirm New Password': '確認新密碼',
-    'Confirm your new password': '請再次輸入您的新密碼',
-    'Confirm your password': '請再次輸入您的密碼',
-    'Old Password': '舊密碼',
-    'Enter your old password': '請輸入您的舊密碼',
-    'Delete Account': '刪除帳號',
-    'Are you sure to delete account {0}?': '您即將刪除 {0}，確認要刪除這個帳號嗎？',
 
     // /network/settings
     'Internet/Network Settings': '網路',

@@ -130,7 +130,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
         </div>
         <div className="modal-body">
           <div className="form-group has-feedback">
-            <label>{_('Old Password')}</label>
+            <label>{_('Current Password')}</label>
             <Field
               name="password"
               component={Password}
@@ -174,7 +174,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
               component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                placeholder: _('Confirm your password')
+                placeholder: _('Confirm Your New Password')
               }}
             />
             {

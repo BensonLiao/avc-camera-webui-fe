@@ -629,7 +629,7 @@ module.exports = class Member extends React.PureComponent {
                         )}
                     </div>
                     <span>
-                      {avatar[0]}
+                      {_(avatar[0])}
                     </span>
                   </div>
                 );
