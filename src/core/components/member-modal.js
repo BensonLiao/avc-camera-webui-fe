@@ -512,7 +512,7 @@ module.exports = class Member extends React.PureComponent {
     const tasks = [];
     avatarListArray.forEach((item, index) => {
       const {avatarPreviewStyle: {originalImage, croppedImage}} = item[1];
-      if (member && croppedImage === originalImage) {
+      if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
       } else if (croppedImage) {
