@@ -19,6 +19,18 @@ if (!window.languageResource['zh-tw']) {
     'enroll-status-1': '未知',
     'enroll-status-2': '成功',
 
+    // Navigation
+    Home: '首頁',
+    Image: '圖像',
+    Video: '影像設定',
+    Audio: '聲音',
+    'Notification Settings': '通知設定',
+    'User Management': '用戶管理',
+    Analytic: '智慧分析',
+    Network: '網路',
+    System: '系統',
+    SDCard: 'SD卡',
+
     // App Bar
     About: '關於',
     'Model Name': '裝置名稱',
@@ -36,27 +48,57 @@ if (!window.languageResource['zh-tw']) {
     'Product Use': '產品使用',
     'Technical Support': '技術問題信箱',
     'Product Information': '其他產品資訊',
+    'Sign Out': '登出',
 
-    // Index
-    // Device Information
-    'Stream {0}': '串流 {0}',
+    // home
+    'Image Settings': '圖像設定',
     'Device Name': '裝置名稱',
     'Device Status': '裝置狀態',
     'SD Card': 'SD卡',
     'Please enter letters between 1 and 32.': '請輸入1-32字元',
+    Unlicensed: '未授權',
     'Facial Recognition: ': '臉部辨識 : ',
     'Age Gender: ': '性別年齡 : ',
     'Human Detection: ': '人形偵測 : ',
     'Free: {0}, Total: {1}': '{0} 可用 (共 {1})',
-    // Image Settings
-    auto: '自動',
-    on: '開',
-    off: '關',
-    max: '最大',
-    // Lens Control / Iris
+    Picture: '圖像調整',
+    Brightness: '亮度',
+    Contrast: '對比',
+    Sharpness: '銳利度',
+    Saturation: '飽和度',
+    'Lens Control': '鏡頭控制',
+    'Select Focus Type': '選擇對焦方式',
+    'Full-Range Focus': '全範圍對焦',
+    'Short-Range Focus': '短距離對焦',
+    Focus: '對焦',
+    Zoom: '焦距',
+    'Auto Focus after Zoom': '調整焦距時自動對焦',
+    Iris: '光圈',
+    'Shutter Speed': '快門速度',
+    'Image Configuration': '影像屬性',
+    'White Balance': '白平衡',
+    'Color Temperature': '色溫',
+    'IR Control': '紅外線燈',
+    Level: '強度',
+    'D/N': '黑白模式',
+    Sensitivity: '靈敏度',
+    'Day Mode': '啟動時段',
+    Rotation: '影像方向',
+    Defog: '除霧',
+    'Lighting Compensation Frequency (Hz)': '刷新頻率',
+    'Auto Focus': '自動對焦',
+    'Focal Length': '焦距',
+    Apply: '套用',
+    'Reset to Default Settings': '恢復預設',
+    // home / Constans
+    Auto: '自動',
+    On: '開',
+    Off: '關',
+    Max: '最大',
+    // home / Constans / Iris
     'aperture-0': '自動',
     'aperture-1': '最大',
-    // Lens Control / Shutter speed
+    // home / Constans / Shutter speed
     'shutter-speed-0': '自動',
     'shutter-speed-1': '1/30',
     'shutter-speed-2': '1/50',
@@ -68,34 +110,42 @@ if (!window.languageResource['zh-tw']) {
     'shutter-speed-8': '1/2,000',
     'shutter-speed-9': '1/4,000',
     'shutter-speed-10': '1/8,000',
-    // Image Configuration / White balance
-    'White Balance': '白平衡',
-    // White balance / Constants
+    // home / Constans / White balance
     'white-balance-0': '自動',
     'white-balance-1': '戶外',
     'white-balance-2': '日光燈',
     'white-balance-3': '白熱燈泡',
     'white-balance-4': '手動調整',
-    // Image Configuration / Day/Night
-    'D/N': '黑白模式',
-    // Day/Night / Constants
+    // home / Constans / Day/Night
     'daynight-mode-0': '自動',
     'daynight-mode-1': '彩色',
     'daynight-mode-2': '黑白',
     'daynight-mode-3': '指定時段',
-
-    // Orientation/Rotation
+    // home / Constans / Rotation
     'orientation-0': '正常',
     'orientation-1': '垂直翻轉',
     'orientation-2': '水平翻轉',
     'orientation-3': '180 度翻轉',
-
-    // Refresh rate/Lighting Compensation Frequency (Hz)
+    // home / Constans / Lighting Compensation Frequency (Hz)
     'refresh-rate-0': '自動',
     'refresh-rate-1': '50Hz',
     'refresh-rate-2': '60Hz',
 
-    // 解析度
+    // /media
+    'Stream Settings': '串流設定',
+    OSD: '顯示資訊',
+    'Privacy Mask': '隱私遮罩',
+    Settings: '設定',
+
+    // /media/stream
+    'Stream {0}': '串流 {0}',
+    Codec: '影像格式',
+    Resolution: '解析度',
+    'Frame Rate (FPS)': '每秒傳送張數 (FPS)',
+    'Bandwidth Management': '頻寬管理',
+    Quality: '影像品質',
+    'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
+    // /media/stream / Constans / Resolution
     'stream-resolution-0': '3840*2160(16:9)',
     'stream-resolution-1': '2560*1440(16:9)',
     'stream-resolution-2': '1920*1080(16:9)',
@@ -108,23 +158,46 @@ if (!window.languageResource['zh-tw']) {
     'stream-resolution-9': '1024*768(4:3)',
     'stream-resolution-10': '640*480(4:3)',
     'stream-resolution-11': '320*240(4:3)',
-
-    // Quality
+    // /media/stream / Constans / Bandwidth Management
+    'stream-bandwidth-management-0': '最佳位元速率 (MBR)',
+    'stream-bandwidth-management-1': '可變位元速率 (VBR)',
+    'stream-bandwidth-management-2': '固定位元速率 (CBR)',
+    // /media/stream / Constans / Quality
     'quality-30': '低',
     'quality-50': '中',
     'quality-80': '高',
 
-    // Bandwidth Management
-    'stream-bandwidth-management-0': '最佳位元速率 (MBR)',
-    'stream-bandwidth-management-1': '可變位元速率 (VBR)',
-    'stream-bandwidth-management-2': '固定位元速率 (CBR)',
+    // /media/rtsp
+    'Enable Audio over RTSP': '將聲音記錄至串流',
+    'Require Authentication': '連線時需帳號密碼認證',
+    'RTSP/TCP Port': 'RTSP/TCP 連接埠',
+    '1024 - 65535, except for 5555, 8080, 8443, 17300.': '1024 - 65535，除了5555、8080、8443、17300',
+    'RTSP/UDP Port': 'RTSP/UDP 連接埠',
+    '1024 - 65535, except for 5555, 8080, 8443, 8554.': '1024 - 65535，除了5555、8080、8443、8554',
+    'Maximum Number of Connection': '最大連接數',
 
-    // 可變位元速率 (VBR)
-    'stream-vbr-bit-rate-level-0': '最好',
-    'stream-vbr-bit-rate-level-1': '完整',
-    'stream-vbr-bit-rate-level-2': '較佳',
-    'stream-vbr-bit-rate-level-3': '一般',
-    'stream-vbr-bit-rate-level-4': '不足',
+    // /media/hdmi
+    'HDMI Settings': 'HDMI設定',
+    'Updating hdmi settings': '更新HDMI設定',
+    'Are you sure you want to update hdmi settings?': '您即將更改HDMI設定，確認是否繼續？',
+
+    // /media/word
+    Function: '功能',
+    Word: '文字',
+    Size: '大小',
+    Position: '位置',
+    'Word Position': '貼圖顯示位置',
+    'Select Position': '請於畫面中點選文字顯示位置',
+    'Text Overlay': '文字浮水印',
+
+    // /audio
+    'Multimedia Streaming': '多媒體串流',
+    'Audio Settings': '聲音設定',
+    'Audio Quality': '聲音品質',
+    'Input Source': '聲音輸入來源',
+    'Internal Microphone': '內建式麥克風',
+    'External Microphone': '外接麥克風',
+    'Audio Out': '聲音輸出',
 
     // 相似度層級
     'confidence-level-0': '低',
@@ -262,19 +335,6 @@ if (!window.languageResource['zh-tw']) {
     'Internal Server Error': '內部伺服器問題',
     'Sorry for your inconvenience, we are actively process with it!': '造成您的不便不好意思，我們正在積極處理中！',
 
-    // Navigation
-    Home: '首頁',
-    Image: '圖像',
-    Video: '影像設定',
-    Audio: '聲音',
-    'Notification Settings': '通知設定',
-    'User Management': '用戶管理',
-    Analytic: '智慧分析',
-    Network: '網路',
-    System: '系統',
-    SDCard: 'SD卡',
-    'Sign Out': '登出',
-
     // /login
     Login: '登入',
     'ACCOUNT LOGIN': '帳號登入',
@@ -368,59 +428,6 @@ if (!window.languageResource['zh-tw']) {
     'Please enter the domain.': '請輸入域名',
     '1024 - 65535, except for 5555, 8080, 8554, 17300.': '1024 - 65535，除了5555、8080、8554, 17300.',
 
-    // /home
-
-    Defog: '除霧',
-    'IR Control': '紅外線燈',
-    Auto: '自動',
-    Off: '關閉',
-    On: '開啟',
-    Brightness: '亮度',
-    Contrast: '對比',
-    'Shutter Speed': '快門速度',
-    Iris: '光圈',
-    Apply: '套用',
-    'Reset to Default Settings': '恢復預設',
-    Color: '顏色',
-    'Lens Control': '鏡頭控制',
-    'Select Focus Type': '選擇對焦方式',
-    'Short-Range Focus': '短距離對焦',
-    'Full-Range Focus': '全範圍對焦',
-    'Auto Focus after Zoom': '調整Zoom時自動對焦',
-    Saturation: '飽和度',
-    'Color Temperature': '色溫',
-    'Day Mode': '啟動時段',
-    Sensitivity: '靈敏度',
-    Sharpness: '銳利度',
-    Rotation: '影像方向',
-    'Lighting Compensation Frequency (Hz)': '刷新頻率',
-    Focus: '對焦',
-    'Auto Focus': '自動對焦',
-    'Focal Length': '焦距',
-    Unlicensed: '未授權',
-
-    // /image
-    'Image Settings': '圖像設定',
-    Picture: '圖像調整',
-    'Image Configuration': '影像屬性',
-
-    // /media
-    OSD: '文字貼圖',
-    'Privacy Mask': '隱私遮罩',
-    'Sound Settings': '聲音設定',
-
-    // /media/stream
-    'Stream Settings': '串流設定',
-    Settings: '設定',
-    Codec: '影像格式',
-    Resolution: '解析度',
-    'Frame Rate (FPS)': '每秒傳送張數 (FPS)',
-    'Bandwidth Management': '頻寬管理',
-    'VBR Bitrate Level': '可變位元速率 (VBR)',
-    'VBR Max Bitrate': '最佳可變位元速率 (VBR Max Bitrate)',
-    'CBR Bitrate': '固定位元速率 (CBR)',
-    'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
-
     // /media/privacy-mask
     'Drag a Mask Area.': '請拖曳新增遮罩',
     'Mask Area': '遮罩區域',
@@ -429,38 +436,6 @@ if (!window.languageResource['zh-tw']) {
     'Set a Mask.': '新增遮罩',
     'Erase a Mask.': '刪除遮罩',
     'Up to 4 Mask Areas.': '最多至4個遮罩',
-
-    // /media/audio
-    'Multimedia Streaming': '多媒體串流',
-    'Audio Settings': '聲音設定',
-    'Audio Quality': '聲音品質',
-    'Input Source': '聲音輸入來源',
-    'Internal Microphone': '內建式麥克風',
-    'External Microphone': '外接麥克風',
-    'Audio Out': '聲音輸出',
-
-    // /media/hdmi
-    'Are you sure you want to update hdmi settings?': '您即將更改HDMI設定，確認是否繼續？',
-    'HDMI Settings': 'HDMI設定',
-    'Updating hdmi settings': '更新HDMI設定',
-
-    // /media/rtsp
-    'Enable Audio over RTSP': '將聲音記錄至串流',
-    'Require Authentication': '連線時需帳號密碼認證',
-    'RTSP/TCP Port': 'RTSP/TCP 連接埠',
-    'RTSP/UDP Port': 'RTSP/UDP 連接埠',
-    'Maximum Number of Connection': '最大連接數',
-    '1024 - 65535, except for 5555, 8080, 8443, 17300.': '1024 - 65535，除了5555、8080、8443、17300',
-    '1024 - 65535, except for 5555, 8080, 8443, 8554.': '1024 - 65535，除了5555、8080、8443、8554',
-
-    // /media/word
-    Function: '功能',
-    Word: '文字',
-    Size: '大小',
-    Position: '位置',
-    'Word Position': '貼圖顯示位置',
-    'Select Position': '請於畫面中點選文字顯示位置',
-    'Text Overlay': '文字覆蓋',
 
     // /notification/card
     'Notification Setting': '通知設定',

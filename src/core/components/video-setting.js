@@ -452,7 +452,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>Zoom</label>
+                  <label>{_('Zoom')}</label>
                   <span className="text-primary text-size-14">{values.zoom}{('X')}</span>
                 </div>
                 <Field

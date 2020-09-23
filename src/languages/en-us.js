@@ -19,18 +19,22 @@ if (!window.languageResource['en-us']) {
     'enroll-status-1': 'Unknown',
     'enroll-status-2': 'Registered',
 
+    // Navigation (None)
+
     // App Bar (None)
 
-    // Index
-    // Image Settings
+    // Home
+    // Home / Device Information (None)
+
+    // Home / Image Settings
     auto: 'Auto',
     on: 'On',
     off: 'Off',
     max: 'Max',
-    // Lens Control / Iris
+    // Home / Image Settings / Lens Control / Iris
     'aperture-0': 'Auto',
     'aperture-1': 'Max',
-    // Lens Control / Shutter speed
+    // Home / Image Settings / Lens Control / Shutter speed
     'shutter-speed-0': 'Auto',
     'shutter-speed-1': '1/30',
     'shutter-speed-2': '1/50',
@@ -42,13 +46,13 @@ if (!window.languageResource['en-us']) {
     'shutter-speed-8': '1/2,000',
     'shutter-speed-9': '1/4,000',
     'shutter-speed-10': '1/8,000',
-    // Image Configuration / White balance / Constants
+    // Home / Image Settings / Image Configuration / White balance / Constants
     'white-balance-0': 'Auto',
     'white-balance-1': 'Outdoor',
     'white-balance-2': 'Fluorescent',
     'white-balance-3': 'Incandescent',
     'white-balance-4': 'Manual',
-    // Image Configuration / Day/Night
+    // Home / Image Settings / Image Configuration / Day/Night
     'D/N': 'Day/Night',
     // Day/Night / Constants
     'daynight-mode-0': 'Auto',
@@ -90,13 +94,6 @@ if (!window.languageResource['en-us']) {
     'stream-bandwidth-management-0': 'Maximum Bitrate',
     'stream-bandwidth-management-1': 'Variable Bitrate',
     'stream-bandwidth-management-2': 'Constant Bitrate',
-
-    // 可變比特率 (VBR)
-    'stream-vbr-bit-rate-level-0': 'Best',
-    'stream-vbr-bit-rate-level-1': 'Complete',
-    'stream-vbr-bit-rate-level-2': 'Good',
-    'stream-vbr-bit-rate-level-3': 'Normal',
-    'stream-vbr-bit-rate-level-4': 'Bad',
 
     // 相似度層級
     'confidence-level-0': 'Low',
