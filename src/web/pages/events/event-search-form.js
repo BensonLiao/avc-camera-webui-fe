@@ -124,7 +124,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 inputProps={{
                   className: classNames('btn start-date px-4', {active: isShowStartDatePicker}),
                   placeholder: _('Start Datetime'),
-                  style: {whiteSpace: 'nowrap'}
+                  style: {
+                    whiteSpace: 'nowrap',
+                    boxShadow: 'none'
+                  }
                 }}
                 endDateFieldName="end"
                 isShowPicker={isShowStartDatePicker}
@@ -139,7 +142,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 inputProps={{
                   className: classNames('btn end-date px-4', {active: isShowEndDatePicker}),
                   placeholder: _('End Datetime'),
-                  style: {whiteSpace: 'nowrap'}
+                  style: {
+                    whiteSpace: 'nowrap',
+                    boxShadow: 'none'
+                  }
                 }}
                 startDateFieldName="start"
                 isShowPicker={isShowEndDatePicker}
