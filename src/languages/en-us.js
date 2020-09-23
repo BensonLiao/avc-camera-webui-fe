@@ -8,7 +8,6 @@ if (!window.languageResource['en-us']) {
     'permission-99': 'Admin', // Super-Admin, for easier backend permission control, no difference for UI
 
     'certificate-type-0': `${window.isNoBrand ? 'Manufacturer' : 'AndroVideo'} Self-signed Certificate`,
-
     'certificate-type-1': 'Upload Your Certificate',
     'certificate-type-2': 'Generate a Certificate on the Device',
 
@@ -20,15 +19,18 @@ if (!window.languageResource['en-us']) {
     'enroll-status-1': 'Unknown',
     'enroll-status-2': 'Registered',
 
+    // App Bar (None)
+
+    // Index
+    // Image Settings
     auto: 'Auto',
+    on: 'On',
     off: 'Off',
     max: 'Max',
-    outdoor: 'Outdoor',
-    fluorescent: 'Fluorescent',
-    incandescent: 'Incandescent',
-    manual: 'Nanual',
-
-    // Shutter speed
+    // Lens Control / Iris
+    'aperture-0': 'Auto',
+    'aperture-1': 'Max',
+    // Lens Control / Shutter speed
     'shutter-speed-0': 'Auto',
     'shutter-speed-1': '1/30',
     'shutter-speed-2': '1/50',
@@ -40,19 +42,15 @@ if (!window.languageResource['en-us']) {
     'shutter-speed-8': '1/2,000',
     'shutter-speed-9': '1/4,000',
     'shutter-speed-10': '1/8,000',
-
-    // Aperture (Iris)
-    'aperture-0': 'Auto',
-    'aperture-1': 'Max',
-
-    // White balance
+    // Image Configuration / White balance / Constants
     'white-balance-0': 'Auto',
     'white-balance-1': 'Outdoor',
     'white-balance-2': 'Fluorescent',
     'white-balance-3': 'Incandescent',
     'white-balance-4': 'Manual',
-
-    // D/N
+    // Image Configuration / Day/Night
+    'D/N': 'Day/Night',
+    // Day/Night / Constants
     'daynight-mode-0': 'Auto',
     'daynight-mode-1': 'Color',
     'daynight-mode-2': 'Black and White',

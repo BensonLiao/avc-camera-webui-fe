@@ -524,7 +524,7 @@ module.exports = class VideoSetting extends React.PureComponent {
             <div id="video" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('Auto White Balance')}</label>
+                  <label>{_('White Balance')}</label>
                   <Field
                     name="whiteblanceMode"
                     component={Dropdown}

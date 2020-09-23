@@ -1,24 +1,6 @@
 if (!window.languageResource['zh-tw']) {
   window.languageResource['zh-tw'] = {
 
-    // App Bar
-    About: '關於',
-    'Model Name': '裝置名稱',
-    Firmware: '韌體版本',
-    'Serial Number': '產品序號',
-    Support: '支援',
-    'Online Support Request': '線上支援',
-    'Firmware Downloads': '韌體下載',
-    'Software Downloads': '軟體下載',
-    Downloads: '下載中心',
-    'Product Selector': '產品選擇',
-    'Technical Updates': '技術更新',
-    Resources: '資源',
-    // App Bar/Support
-    'Product Use': '產品使用',
-    'Technical Support': '技術問題信箱',
-    'Product Information': '其他產品資訊',
-
     // Constants
     'permission-0': '管理者',
     'permission-1': '訪客',
@@ -37,13 +19,44 @@ if (!window.languageResource['zh-tw']) {
     'enroll-status-1': '未知',
     'enroll-status-2': '成功',
 
-    max: '最大',
-    outdoor: '戶外',
-    fluorescent: '日光燈',
-    incandescent: '白熱燈泡',
-    manual: '手動調整',
+    // App Bar
+    About: '關於',
+    'Model Name': '裝置名稱',
+    Firmware: '韌體版本',
+    'Serial Number': '產品序號',
+    Support: '支援',
+    'Online Support Request': '線上支援',
+    'Firmware Downloads': '韌體下載',
+    'Software Downloads': '軟體下載',
+    Downloads: '下載中心',
+    'Product Selector': '產品選擇',
+    'Technical Updates': '技術更新',
+    Resources: '資源',
+    // App Bar / Support
+    'Product Use': '產品使用',
+    'Technical Support': '技術問題信箱',
+    'Product Information': '其他產品資訊',
 
-    // Shutter speed
+    // Index
+    // Device Information
+    'Stream {0}': '串流 {0}',
+    'Device Name': '裝置名稱',
+    'Device Status': '裝置狀態',
+    'SD Card': 'SD卡',
+    'Please enter letters between 1 and 32.': '請輸入1-32字元',
+    'Facial Recognition: ': '臉部辨識 : ',
+    'Age Gender: ': '性別年齡 : ',
+    'Human Detection: ': '人形偵測 : ',
+    'Free: {0}, Total: {1}': '{0} 可用 (共 {1})',
+    // Image Settings
+    auto: '自動',
+    on: '開',
+    off: '關',
+    max: '最大',
+    // Lens Control / Iris
+    'aperture-0': '自動',
+    'aperture-1': '最大',
+    // Lens Control / Shutter speed
     'shutter-speed-0': '自動',
     'shutter-speed-1': '1/30',
     'shutter-speed-2': '1/50',
@@ -55,19 +68,17 @@ if (!window.languageResource['zh-tw']) {
     'shutter-speed-8': '1/2,000',
     'shutter-speed-9': '1/4,000',
     'shutter-speed-10': '1/8,000',
-
-    // Aperture
-    'aperture-0': '自動',
-    'aperture-1': '最大',
-
-    // White balance
+    // Image Configuration / White balance
+    'White Balance': '白平衡',
+    // White balance / Constants
     'white-balance-0': '自動',
     'white-balance-1': '戶外',
     'white-balance-2': '日光燈',
     'white-balance-3': '白熱燈泡',
     'white-balance-4': '手動調整',
-
-    // D/N
+    // Image Configuration / Day/Night
+    'D/N': '黑白模式',
+    // Day/Night / Constants
     'daynight-mode-0': '自動',
     'daynight-mode-1': '彩色',
     'daynight-mode-2': '黑白',
@@ -358,17 +369,7 @@ if (!window.languageResource['zh-tw']) {
     '1024 - 65535, except for 5555, 8080, 8554, 17300.': '1024 - 65535，除了5555、8080、8554, 17300.',
 
     // /home
-    'Stream {0}': '串流 {0}',
-    'Device Name': '裝置名稱',
-    'Device Status': '裝置狀態',
-    'SD Card': 'SD卡',
-    'Please enter letters between 1 and 32.': '請輸入1-32字元',
-    'Facial Recognition: ': '臉部辨識 : ',
-    'Age Gender: ': '性別年齡 : ',
-    'Human Detection: ': '人形偵測 : ',
-    Green: '正常',
-    Error: '異常',
-    'Free: {0}, Total: {1}': '{0} 可用 (共 {1})',
+
     Defog: '除霧',
     'IR Control': '紅外線燈',
     Auto: '自動',
@@ -387,9 +388,7 @@ if (!window.languageResource['zh-tw']) {
     'Full-Range Focus': '全範圍對焦',
     'Auto Focus after Zoom': '調整Zoom時自動對焦',
     Saturation: '飽和度',
-    'Auto White Balance': '白平衡',
     'Color Temperature': '色溫',
-    'D/N': '黑白模式',
     'Day Mode': '啟動時段',
     Sensitivity: '靈敏度',
     Sharpness: '銳利度',
