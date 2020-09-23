@@ -102,7 +102,11 @@ module.exports = class LiveView extends React.PureComponent {
     event.preventDefault();
     api.system.getSystemDateTime()
       .then(({data}) => {
-        const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
+        const dateTime = new Date(data.deviceTime)
+          .toISOString()
+          .replace(/:|-/g, '')
+          .replace('T', '-')
+          .replace(/\..+/g, '');
         axios.get('/api/snapshot', {
           timeout: 1500,
           responseType: 'blob'
