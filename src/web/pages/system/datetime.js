@@ -17,6 +17,7 @@ const CustomNotifyModal = require('../../../core/components/custom-notify-modal'
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
 const CustomTooltip = require('../../../core/components/tooltip');
+const utils = require('../../../core/utils');
 
 module.exports = class DateTime extends Base {
   static get propTypes() {
@@ -93,8 +94,8 @@ module.exports = class DateTime extends Base {
           .finally(progress.done);
       } else {
         values.manualTime.setSeconds(0);
-        values.manualTime = values.manualTime.getTime() - (new Date(values.manualTime).getTimezoneOffset() * 60 * 1000);
-        values.ntpUpdateTime = values.ntpUpdateTime.getTime() - (new Date(values.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
+        values.manualTime = utils.addTimezoneOffset(values.manualTime);
+        values.ntpUpdateTime = utils.addTimezoneOffset(values.ntpUpdateTime);
         api.system.updateSystemDateTime(values)
           .then(() => {
             location.href = '/login';
@@ -333,8 +334,7 @@ module.exports = class DateTime extends Base {
   };
 
   render() {
-    const {systemDateTime, systemInformation: {languageCode}} = this.props;
-    const ntpUpdateTimeAdjust = systemDateTime.ntpUpdateTime + (new Date(systemDateTime.ntpUpdateTime).getTimezoneOffset() * 60 * 1000);
+    const {systemDateTime, systemDateTime: {ntpUpdateTime}, systemInformation: {languageCode}} = this.props;
 
     return (
       <div className="main-content left-menu-active">
@@ -351,7 +351,7 @@ module.exports = class DateTime extends Base {
                   <Formik
                     initialValues={{
                       ...systemDateTime,
-                      ntpUpdateTime: new Date(ntpUpdateTimeAdjust),
+                      ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime),
                       manualTime: systemDateTime.manualTime ?
                         new Date(systemDateTime.manualTime) : new Date(),
                       language: languageCode

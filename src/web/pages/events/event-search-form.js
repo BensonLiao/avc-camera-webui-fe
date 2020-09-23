@@ -7,6 +7,7 @@ const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-tim
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
+const utils = require('../../../core/utils');
 
 module.exports = class EventsSearchForm extends React.PureComponent {
   static get propTypes() {
@@ -52,18 +53,6 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     this.setState({isShowEndDatePicker: false});
   }
 
-  convertTime = (time, method) => {
-    if (method === 'add') {
-      time = new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
-    }
-
-    if (method === 'subtract') {
-      time = new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
-    }
-
-    return time;
-  }
-
   /**
    * Handler on user submit the search form.
    * @param {String} keyword
@@ -78,8 +67,8 @@ module.exports = class EventsSearchForm extends React.PureComponent {
         ...this.props.params,
         index: undefined,
         keyword,
-        start: start ? this.convertTime(start, 'add').toJSON() : undefined,
-        end: end ? this.convertTime(end, 'add').toJSON() : undefined
+        start: start ? utils.addTimezoneOffset(start).toJSON() : undefined,
+        end: end ? utils.addTimezoneOffset(end).toJSON() : undefined
       }
     });
   };
@@ -89,8 +78,8 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     const {params, isApiProcessing} = this.props;
     const searchFromInitialValues = {
       keyword: params.keyword || '',
-      start: params.start ? this.convertTime(new Date(params.start), 'subtract') : null,
-      end: params.end ? this.convertTime(new Date(params.end), 'subtract') : null
+      start: params.start ? utils.subtractTimezoneOffset(new Date(params.start)) : null,
+      end: params.end ? utils.subtractTimezoneOffset(new Date(params.end)) : null
     };
 
     return (
