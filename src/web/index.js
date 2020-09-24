@@ -128,9 +128,6 @@ const renderWeb = () => {
       'login',
       'login-lock',
       'login-error',
-      'forgot-password',
-      'reset-password',
-      'reset-password-success',
       'not-found'
     ];
     const allowGuestRoutes = [
