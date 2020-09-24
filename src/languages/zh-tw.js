@@ -10,7 +10,7 @@ if (!window.languageResource['zh-tw']) {
     'confidence-1': '中',
     'confidence-2': '高',
 
-    // Component
+    // -- Component -- START --
 
     // Component / Button
     Apply: '套用',
@@ -64,6 +64,69 @@ if (!window.languageResource['zh-tw']) {
     'Technical Support': '技術問題信箱',
     'Product Information': '其他產品資訊',
     'Sign Out': '登出',
+
+    // Compoenet / Input / Validations
+    'Incorrect confirm password.': '兩次密碼不一致。',
+    'validation-required': '此欄位必填。',
+    'validation-string': '此欄位必須是字串。',
+    'validation-stringEmpty': '此欄位必填。',
+    'validation-stringMin': '此欄位必須輸入 {expected} 個以上的字元。',
+    'validation-stringMax': '此欄位必須輸入 {expected} 個以下的字元。',
+    'validation-stringLength': '此欄位必須輸入 {expected} 個字元。',
+    'validation-stringPattern': '此欄位與要求的格式不符合。',
+    'validation-stringContains': '此欄位必須輸入包含 {expected} 的文字。',
+    'validation-stringContainsLowerCaseLatter': '此欄位必須輸入包含小寫英文字母。',
+    'validation-stringContainsUpperCaseLatter': '此欄位必須輸入包含大寫英文字母。',
+    'validation-stringContainsNumber': '此欄位必須輸入包含數字。',
+    'validation-stringAbortSpecialCharacters': '此欄位禁用全形或半形特殊符號(#, %, &, `, “, \\, <, >, 跟空白)。',
+    'validation-stringAcceptSpecialCharacters': '此欄必須至少有一個特殊符號。',
+    'validation-stringEnum': '此欄位與要求的內容不符合。',
+    'validation-number': '此欄位必須是數字。',
+    'validation-numberMin': '此欄位必須為 {expected} 以上的數字。',
+    'validation-numberMax': '此欄位必須為 {expected} 以下的數字。',
+    'validation-numberEqual': '此欄位必須為等於 {expected} 的數字。',
+    'validation-numberNotEqual': '此欄位不可輸入等於 {expected} 的數字。',
+    'validation-numberInteger': '此欄位必須為整數。',
+    'validation-numberPositive': '此欄位必須為正數。',
+    'validation-numberNegative': '此欄位必須為負數。',
+    'validation-array': '此欄位必須為陣列。',
+    'validation-arrayEmpty': '此欄位不可為空陣列。',
+    'validation-arrayMin': '此欄位最少包含 {expected} 個項目。',
+    'validation-arrayMax': '此欄位最多包含 {expected} 個項目。',
+    'validation-arrayLength': '此欄位只必須為 {expected} 個項目。',
+    'validation-arrayContains': '此欄位必須包含 {expected} 項目。',
+    'validation-arrayEnum': '此欄位使用了不允許的項目 {expected}。',
+    'validation-boolean': '此欄位必須為布林值。',
+    'validation-function': '此欄位必須為函數。',
+    'validation-date': '此欄位必須為日期。',
+    'validation-dateMin': '此欄位必須為 {expected} 以後的日期。',
+    'validation-dateMax': '此欄位必須為 {expected} 以前的日期。',
+    'validation-forbidden': '此欄位為隱藏欄位。',
+    'validation-email': '請使用正確的電子信箱格式。',
+    'validation-url': '請使用正確的網址格式。',
+    'validation-birthday': '請使用正確的生日格式。',
+    'validation-countryCode': '國家代碼錯誤。',
+    'Same name found, please use a different name.': '名字重複，請使用不同的名字',
+
+    // Component / CustomTooltip
+    'Please Enter Start and End Datetime': '請先選擇開始與結束時間',
+    // /system/maintain
+    'Please Select a File': '請先選擇一個檔案',
+    'Check or uncheck this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD card.': '勾選或不勾選此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像中對焦跟Zoom的設定、RTSP設定、網路設定及SD卡的資料',
+    // /sd-card
+    'Please Disable SD Card First': '請先關掉SD卡',
+    'Group Limit Reached': '已達群組數量限制',
+    'This Account is Protected': '此帳戶不可刪除',
+    'Cannot Delete Account That is Currently Logged In': '無法刪除正在使用的帳號',
+    'Maximum Allowed Number of Schedule is 5': '最多可輸入5個通知時間',
+    'Please Enter an Email Address': '請先輸入電子郵件',
+    'Please Setup Email Notifications': '請設定電子郵件通知',
+    'Hide Password': '隱藏密碼',
+    'Show Password': '顯示密碼',
+
+    // -- Component -- END --
+
+    // -- Page -- START --
 
     // /setup
     'INITIAL PASSWORD SETUP': '初始密碼設定',
@@ -442,8 +505,8 @@ if (!window.languageResource['zh-tw']) {
     'email-attachment-type-1': '完整快照',
     'email-attachment-type-2': '不傳附件',
     // /notification/cards / Constants / Email Content Order
-    'email-content-position-0': '置於開頭前',
-    'email-content-position-1': '置於結尾後',
+    'email-content-position-0': '置於開頭',
+    'email-content-position-1': '置於結尾',
 
     // /users/members
     Members: '成員管理',
@@ -512,7 +575,6 @@ if (!window.languageResource['zh-tw']) {
     'All Accounts': '所有帳號',
     Username: '帳號',
     'New User': '創建使用者',
-    'Off Line Record': '斷線錄影',
     'Modify User': '編輯帳號',
     'Confirm New Password': '確認新密碼',
     'Confirm Your New Password': '請再次輸入您的新密碼',
@@ -571,71 +633,24 @@ if (!window.languageResource['zh-tw']) {
     'Up to 4 Zone Areas.': '最多至4個觸發區域',
     'Please Drag a Detection Zone Area.': '請拖曳新增觸發區域',
 
-    // Validations
-    'Incorrect confirm password.': '兩次密碼不一致。',
-    'validation-required': '此欄位必填。',
-    'validation-string': '此欄位必須是字串。',
-    'validation-stringEmpty': '此欄位必填。',
-    'validation-stringMin': '此欄位必須輸入 {expected} 個以上的字元。',
-    'validation-stringMax': '此欄位必須輸入 {expected} 個以下的字元。',
-    'validation-stringLength': '此欄位必須輸入 {expected} 個字元。',
-    'validation-stringPattern': '此欄位與要求的格式不符合。',
-    'validation-stringContains': '此欄位必須輸入包含 {expected} 的文字。',
-    'validation-stringContainsLowerCaseLatter': '此欄位必須輸入包含小寫英文字母。',
-    'validation-stringContainsUpperCaseLatter': '此欄位必須輸入包含大寫英文字母。',
-    'validation-stringContainsNumber': '此欄位必須輸入包含數字。',
-    'validation-stringAbortSpecialCharacters': '此欄位禁用全形或半形特殊符號(#, %, &, `, “, \\, <, >, 跟空白)。',
-    'validation-stringAcceptSpecialCharacters': '此欄必須至少有一個特殊符號。',
-    'validation-stringEnum': '此欄位與要求的內容不符合。',
-    'validation-number': '此欄位必須是數字。',
-    'validation-numberMin': '此欄位必須為 {expected} 以上的數字。',
-    'validation-numberMax': '此欄位必須為 {expected} 以下的數字。',
-    'validation-numberEqual': '此欄位必須為等於 {expected} 的數字。',
-    'validation-numberNotEqual': '此欄位不可輸入等於 {expected} 的數字。',
-    'validation-numberInteger': '此欄位必須為整數。',
-    'validation-numberPositive': '此欄位必須為正數。',
-    'validation-numberNegative': '此欄位必須為負數。',
-    'validation-array': '此欄位必須為陣列。',
-    'validation-arrayEmpty': '此欄位不可為空陣列。',
-    'validation-arrayMin': '此欄位最少包含 {expected} 個項目。',
-    'validation-arrayMax': '此欄位最多包含 {expected} 個項目。',
-    'validation-arrayLength': '此欄位只必須為 {expected} 個項目。',
-    'validation-arrayContains': '此欄位必須包含 {expected} 項目。',
-    'validation-arrayEnum': '此欄位使用了不允許的項目 {expected}。',
-    'validation-boolean': '此欄位必須為布林值。',
-    'validation-function': '此欄位必須為函數。',
-    'validation-date': '此欄位必須為日期。',
-    'validation-dateMin': '此欄位必須為 {expected} 以後的日期。',
-    'validation-dateMax': '此欄位必須為 {expected} 以前的日期。',
-    'validation-forbidden': '此欄位為隱藏欄位。',
-    'validation-email': '請使用正確的電子信箱格式。',
-    'validation-url': '請使用正確的網址格式。',
-    'validation-birthday': '請使用正確的生日格式。',
-    'validation-countryCode': '國家代碼錯誤。',
-    'Same name found, please use a different name.': '名字重複，請使用不同的名字',
-
-    // CustomTooltip - Begin
-    'Please Enter Start and End Datetime': '請先選擇開始與結束時間',
-    // - Device Maintain
-    'Please Select a File': '請先選擇一個檔案',
-    'Check or uncheck this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD card.': '勾選或不勾選此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像中對焦跟Zoom的設定、RTSP設定、網路設定及SD卡的資料',
-    // - SD Card
-    'Please Disable SD Card First': '請先關掉SD卡',
-    'Group Limit Reached': '已達群組數量限制',
-    'This Account is Protected': '此帳戶不可刪除',
-    'Cannot Delete Account That is Currently Logged In': '無法刪除正在使用的帳號',
-    'Maximum Allowed Number of Schedule is 5': '最多可輸入5個通知時間',
-    'Please Enter an Email Address': '請先輸入電子郵件',
-    'Please Setup Email Notifications': '請設定電子郵件通知',
-    'Hide Password': '隱藏密碼',
-    'Show Password': '顯示密碼',
-
-    // The error pages.
-    'Not Found': '找不到此網頁',
-    'Please click the button to go back to home!': '您可以從下面按鈕回首頁！',
-    'Back to Home': '回首頁',
-    'Internal Server Error': '內部伺服器問題',
-    'Sorry for your inconvenience, we are actively process with it!': '造成您的不便不好意思，我們正在積極處理中！',
+    // /analytic/license
+    License: '智慧授權',
+    'Enter your authentication key': '請輸入授權碼',
+    Activate: '啟用',
+    Activated: '已啟用',
+    Inactive: '未啟用',
+    'Activate User': '啟用者',
+    'Authentication Key': '授權碼',
+    'Activate Functions': '啟用功能',
+    'Enable Status': '狀態',
+    'Activated Successfully': '啟用成功',
+    '{0} authorized successfully!': '{0}已授權成功！',
+    'Activation Failed': '啟用失敗',
+    'Authorization failed!': '授權失敗！',
+    'Key Already Registered!': '授權碼已註冊!',
+    // /analytic/license / Constants / FR Auth key
+    'face-recognition-key-thirtyThousand': '臉部辨識 30k',
+    'face-recognition-key-threeThousand': '臉部辨識 3k',
 
     // /network/settings
     'Internet/Network Settings': '網路',
@@ -757,26 +772,8 @@ if (!window.languageResource['zh-tw']) {
     'Build Version': '開發版號',
     'S/N Code': 'S/N 碼',
 
-    // /license
-    License: '智慧授權',
-    'Enter your authentication key': '請輸入授權碼',
-    Activate: '啟用',
-    Activated: '已啟用',
-    Inactive: '未啟用',
-    'Activate User': '啟用者',
-    'Authentication Key': '授權碼',
-    'Activate Functions': '啟用功能',
-    'Enable Status': '狀態',
-    'Activated Successfully': '啟用成功',
-    '{0} authorized successfully!': '{0}已授權成功！',
-    'Activation Failed': '啟用失敗',
-    'Authorization failed!': '授權失敗！',
-    'Key Already Registered!': '授權碼已註冊!',
-    // Auth key FR license
-    'face-recognition-key-thirtyThousand': '臉部辨識 30k',
-    'face-recognition-key-threeThousand': '臉部辨識 3k',
-
     // /sd-card
+    'Off Line Record': '斷線錄影',
     'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
     'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
     'SD Card Settings': 'SD卡設定',
@@ -790,22 +787,23 @@ if (!window.languageResource['zh-tw']) {
     'Storage Space': '儲存空間',
     'Free: {0}': '{0} 可用',
     'Used: {0}': '{0} 已使用',
+    Unrecognized: '無法識別',
     Status: '狀態',
     // /sd-card / Status
-    // 0 - MOUNTED:
-    Functioning: '正常',
-    // 1 - UNMOUNTED:
-    Unmounted: '未掛載',
-    // 2 - SDCARDNOTEXIST:
-    'Empty Slot': '未插卡',
-    // 3 - ABNORMAL:
-    Nonfunctioning: '不正常',
-    // 4 - READONLY:
-    'Read-only Access': '唯獨',
-    // 5 - UNKNOWN:
-    'Unknown Error': '未知錯誤',
-    // /sd-card/file format
-    Unrecognized: '無法識別'
+    Functioning: '正常', // 0 - MOUNTED
+    Unmounted: '未掛載', // 1 - UNMOUNTED
+    'Empty Slot': '未插卡', // 2 - SDCARDNOTEXIST
+    Nonfunctioning: '不正常', // 3 - ABNORMAL
+    'Read-only Access': '唯獨', // 4 - READONLY
+    'Unknown Error': '未知錯誤', // 5 - UNKNOWN
 
+    // The error pages.
+    'Not Found': '找不到此網頁',
+    'Please click the button to go back to home!': '您可以從下面按鈕回首頁！',
+    'Back to Home': '回首頁',
+    'Internal Server Error': '內部伺服器問題',
+    'Sorry for your inconvenience, we are actively process with it!': '造成您的不便不好意思，我們正在積極處理中！'
+
+    // -- Page -- END --
   };
 }
