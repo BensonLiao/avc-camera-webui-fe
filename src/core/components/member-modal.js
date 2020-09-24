@@ -725,7 +725,7 @@ module.exports = class Member extends React.PureComponent {
         <CustomNotifyModal
           backdrop="static"
           isShowModal={isShowConfirmModal}
-          modalTitle={_('Member')}
+          modalTitle={this.props.member ? _('Edit Member') : _('New Member')}
           modalBody={_('Are you sure you want to close this window? Any changes you have made will be lost.')}
           onHide={this.onHideConfirmModal}
           onConfirm={() => {

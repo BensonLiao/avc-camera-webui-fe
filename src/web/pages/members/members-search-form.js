@@ -33,7 +33,7 @@ module.exports = class MembersSearchForm extends React.PureComponent {
       >
         <Form className="form-row">
           <div className="col-auto">
-            <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
+            <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keywords')}/>
           </div>
           <div className="col-auto">
             <button

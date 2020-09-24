@@ -1,15 +1,6 @@
 if (!window.languageResource['zh-tw']) {
   window.languageResource['zh-tw'] = {
 
-    // Constants
-    'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} 自簽憑證`,
-    'certificate-type-1': '上傳您的憑證',
-    'certificate-type-2': '在此裝置上產生憑證',
-
-    'confidence-0': '低',
-    'confidence-1': '中',
-    'confidence-2': '高',
-
     // -- Component -- START --
 
     // Component / Button
@@ -113,7 +104,7 @@ if (!window.languageResource['zh-tw']) {
     // Component / CustomTooltip
     'Please Enter Start and End Datetime': '請先選擇開始與結束時間',
     // /system/maintain
-    'Please Select a File': '請先選擇一個檔案',
+    'Please Select a File First': '請先選擇一個檔案',
     'Check or uncheck this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD card.': '勾選或不勾選此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像中對焦跟Zoom的設定、RTSP設定、網路設定及SD卡的資料',
     // /sd-card
     'Please Disable SD Card First': '請先關掉SD卡',
@@ -524,7 +515,7 @@ if (!window.languageResource['zh-tw']) {
     'Database Encryption': '資料庫加密',
     'Current Password': '舊密碼',
     'Enter your Current password': '請輸入您的舊密碼',
-    'Enter Keywords': '輸入關鍵字',
+    'Enter Keywords': '請輸入關鍵字',
     Search: '搜尋',
     New: '新增',
     'Add a New Member': '新增成員',
@@ -566,11 +557,13 @@ if (!window.languageResource['zh-tw']) {
     'Photo 2': '照片2',
     'Photo 3': '照片3',
     'Photo 4': '照片4',
+    'Upload Primary First': '請先上傳主照片',
     Organization: '組織',
     'Enter Your Organization': '請輸入您的組織',
     'Letters within 32 characters.': '32 字元以內的中英文大寫或小寫',
     Group: '群組',
     'N/A': '無',
+    'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何成員資料，確認要離開嗎？',
 
     // /users/accounts
     Accounts: '帳號管理',
@@ -606,15 +599,20 @@ if (!window.languageResource['zh-tw']) {
     'Add as New Member': '新增為新成員',
     'Add to Existing Member': '新增至現有成員',
     'Enter Keyword For Search': '請輸入關鍵字以便搜尋',
-    'Enter Keyword': '輸入關鍵字',
     'Add to {0}': '新增至 {0}',
     'Photo Limit Reached': '已達照片上限',
     'Verifying Photo': '照片驗證中',
     'Invalid Photo': '照片不合格',
+    'Updating Member': '更新成員',
+    'Added Photo to {0} Successfully!': '新增照片至 {0} 成功!',
     // /users/events / Constants / Status
     'enroll-status-0': '偽裝',
     'enroll-status-1': '未知',
     'enroll-status-2': '註冊',
+    // /users/events / Constants / Confidence
+    'confidence-0': '低',
+    'confidence-1': '中',
+    'confidence-2': '高',
 
     // /analytic/face-recognition
     'Anti-Image Spoof': '防止圖像偽裝',
@@ -702,6 +700,10 @@ if (!window.languageResource['zh-tw']) {
     'Please Redirect Manually to the New Address': '請自行手動重新導向新的網址',
     'The specified port is reserved by system or in use!': '輸入的連接埠為系統預留或使用中!',
     Success: '成功',
+    // /network/https / Constants / Certificate
+    'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} 自簽憑證`,
+    'certificate-type-1': '上傳您的憑證',
+    'certificate-type-2': '在此裝置上產生憑證',
 
     // /system
     'System Settings': '系統設定',
