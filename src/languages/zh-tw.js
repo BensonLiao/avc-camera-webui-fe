@@ -10,10 +10,6 @@ if (!window.languageResource['zh-tw']) {
     'confidence-1': '中',
     'confidence-2': '高',
 
-    'enroll-status-0': '非活體',
-    'enroll-status-1': '未知',
-    'enroll-status-2': '成功',
-
     // Component
 
     // Component / Button
@@ -198,7 +194,7 @@ if (!window.languageResource['zh-tw']) {
     Level: '強度',
     'D/N': '黑白模式',
     Sensitivity: '靈敏度',
-    'Day Mode': '啟動時段',
+    'Day Mode': '日光時段',
     Rotation: '影像方向',
     Defog: '除霧',
     'Lighting Compensation Frequency (Hz)': '刷新頻率',
@@ -439,7 +435,7 @@ if (!window.languageResource['zh-tw']) {
     'face-recognition-condition-0': '不限',
     'face-recognition-condition-1': '成功',
     'face-recognition-condition-2': '未知',
-    'face-recognition-condition-3': '非活體',
+    'face-recognition-condition-3': '偽裝',
     // /notification/cards / Constants / Email Attachment
     'email-attachment-type-0': '臉部快照',
     'email-attachment-type-1': '完整快照',
@@ -512,9 +508,9 @@ if (!window.languageResource['zh-tw']) {
 
     // /users/accounts
     Accounts: '帳號管理',
+    'All Accounts': '所有帳號',
     Username: '帳號',
     'New User': '創建使用者',
-    'All Accounts': '所有帳號',
     'Off Line Record': '斷線錄影',
     'Modify User': '編輯帳號',
     'Confirm New Password': '確認新密碼',
@@ -552,7 +548,7 @@ if (!window.languageResource['zh-tw']) {
     'Invalid Photo': '照片不合格',
 
     // /analytic/face-recognition
-    'Anti-Photo Spoof': '防止照片偽裝',
+    'Anti-Image Spoof': '防止圖像偽裝',
     'Level of Accuracy': '相似度層級',
     'Detection Zone': '觸發區域',
     'Show/Hide Detection Zone': '顯示/隱藏觸發區域',
