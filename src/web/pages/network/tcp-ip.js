@@ -225,7 +225,7 @@ module.exports = class TCPIP extends Base {
               <CustomNotifyModal
                 isShowAllBtns={false}
                 backdrop="static"
-                modalType={this.state.$isApiProcessing ? 'progress' : 'default'}
+                modalType={this.state.$isApiProcessing ? 'process' : 'default'}
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
                 modalBody={this.state.modalBody}

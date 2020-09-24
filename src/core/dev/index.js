@@ -122,10 +122,12 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   .onGet('/api/system/network/tcpip/http').reply(config => {
     return mockResponseWithLog(config, [200, db.get('httpSettings').value()]);
   })
-  .onPut('/api/system/network/tcpip/http').reply(config => {
+  .onPut('/api/system/network/tcpip/http').reply(config => new Promise((resolve, _) => {
     const data = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('httpSettings').assign(data).write()]);
-  })
+    setTimeout(() => {
+      resolve(mockResponseWithLog(config, [200, db.get('httpSettings').assign(data).write()]));
+    }, 2000);
+  }))
   .onGet('/api/system/https').reply(config => {
     return mockResponseWithLog(config, [200, db.get('httpsSettings').value()]);
   })
