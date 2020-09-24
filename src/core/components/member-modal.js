@@ -207,7 +207,6 @@ module.exports = class Member extends React.PureComponent {
 
   onCropperReady = () => {
     const {avatarList, avatarToEdit} = this.state;
-    const {defaultPictureUrl} = this.props;
 
     const mask = document.createElement('img');
     mask.src = avatarMask;
@@ -224,25 +223,23 @@ module.exports = class Member extends React.PureComponent {
       scaleY: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
     });
 
-    if (defaultPictureUrl) {
-      const newCropperState = update(
-        this.state,
+    const newCropperState = update(
+      this.state,
+      {
+        avatarList:
         {
-          avatarList:
+          [avatarToEdit]:
           {
-            [avatarToEdit]:
+            avatarPreviewStyle:
             {
-              avatarPreviewStyle:
-              {
-                croppedImage:
-                {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}
-              }
+              croppedImage:
+              {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}
             }
           }
         }
-      );
-      this.setState(newCropperState);
-    }
+      }
+    );
+    this.setState(newCropperState);
 
     // Add mouse wheel event to scale cropper instead of default zoom function
     this.cropper.cropBox.addEventListener('wheel', event => {
