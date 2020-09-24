@@ -611,6 +611,10 @@ if (!window.languageResource['zh-tw']) {
     'Photo Limit Reached': '已達照片上限',
     'Verifying Photo': '照片驗證中',
     'Invalid Photo': '照片不合格',
+    // /users/events / Constants / Status
+    'enroll-status-0': '偽裝',
+    'enroll-status-1': '未知',
+    'enroll-status-2': '註冊',
 
     // /analytic/face-recognition
     'Anti-Image Spoof': '防止圖像偽裝',
