@@ -65,7 +65,7 @@ if (!window.languageResource['zh-tw']) {
     'Product Information': '其他產品資訊',
     'Sign Out': '登出',
 
-    // Compoenet / Input / Validations
+    // Compoenet / Input / Validations (By Pages)
     'Incorrect confirm password.': '兩次密碼不一致。',
     'validation-required': '此欄位必填。',
     'validation-string': '此欄位必須是字串。',
@@ -107,6 +107,8 @@ if (!window.languageResource['zh-tw']) {
     'validation-birthday': '請使用正確的生日格式。',
     'validation-countryCode': '國家代碼錯誤。',
     'Same name found, please use a different name.': '名字重複，請使用不同的名字',
+    // /network/tcp-ip
+    'The port number must not empty.': '網頁服務埠不能為空',
 
     // Component / CustomTooltip
     'Please Enter Start and End Datetime': '請先選擇開始與結束時間',
@@ -236,7 +238,7 @@ if (!window.languageResource['zh-tw']) {
     'Age Gender: ': '性別年齡 : ',
     'Human Detection: ': '人形偵測 : ',
     'Free: {0}, Total: {1}': '{0} 可用 (共 {1})',
-    Picture: '圖像調整',
+    'Image Adjustment': '圖像調整',
     Brightness: '亮度',
     Contrast: '對比',
     Sharpness: '銳利度',
@@ -628,10 +630,10 @@ if (!window.languageResource['zh-tw']) {
 
     // /analytic/motion-detection
     'Motion Detection': '動作偵測',
+    'Please Drag a Detection Zone Area.': '請拖曳新增觸發區域',
     'Set a Zone.': '新增區域',
     'Erase a Zone.': '刪除區域',
     'Up to 4 Zone Areas.': '最多至4個觸發區域',
-    'Please Drag a Detection Zone Area.': '請拖曳新增觸發區域',
 
     // /analytic/license
     License: '智慧授權',
@@ -663,17 +665,15 @@ if (!window.languageResource['zh-tw']) {
     'DHCP Testing Failed!': 'DHCP 測試失敗！',
     'Fixed IP Address': '固定IP位址',
     'Enter a Fixed IP Address': '請輸入固定IP位址',
-    Interface: '介面',
-    'IP Status': 'IP 取得方式',
     'IP Address': 'IP 位址',
     'MAC Address': '網路卡硬體位址',
     'Subnet Mask': '子網路遮罩',
     'Router/Gateway': '路由器/閘道',
     'Primary DNS': '慣用 DNS',
-    'Secondary DNS': '其他 DNS',
     'Secondary DNS (Optional)': '其他 DNS (選填)',
-    'Web Server Port Settings': '網頁服務埠設定',
-    'Enter Your Server Port Settings': '請輸入您的服務埠',
+    Interface: '介面',
+    'IP Status': 'IP 取得方式',
+    'Secondary DNS': '其他 DNS',
     'No Values Have Changed': '數值沒有更動',
     'Please Enable HTTPS': '請開啟HTTPS功能',
     'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
@@ -683,6 +683,7 @@ if (!window.languageResource['zh-tw']) {
     'Server Provider': '服務提供',
     'Host Name': '主機名稱',
     'Secondary Web Server Port': '次網頁服務埠',
+    'Enter Your Secondary Server Port': '請輸入您的服務埠',
     '1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.': '1024 - 65535，除了5555、8443、8554、17300，預設主要埠為80',
     'Setting Success': '設定成功',
     'Setting Failed': '設定失敗',

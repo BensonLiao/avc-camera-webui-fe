@@ -278,12 +278,12 @@ module.exports = class VideoSetting extends React.PureComponent {
             </div>
           </div>
 
-          {/* Picture */}
+          {/* Image Adjustment */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
               <button className="btn btn-link btn-block text-left" type="button" disabled={disableInput} data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>{_('Picture')}
+                <i className="fas fa-chevron-up"/>{_('Image Adjustment')}
               </button>
             </h2>
 
