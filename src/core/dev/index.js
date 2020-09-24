@@ -319,16 +319,22 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   })
   .onGet('/api/members').reply(config =>
     new Promise((resolve, _) => {
-      const itemChunkIndex = Number(config.params.index) || 0;
-      const itemChunkSize = Number(config.params.size) || 10;
+      const {index, size, group, keyword} = config.params;
+      console.log('config.params', config.params);
+      const itemChunkIndex = Number(index) || 0;
+      const itemChunkSize = Number(size) || 10;
       let data = db.get('members').value();
-      if (config.params.keyword) {
+      if (group) {
+        data = data.filter(value => value.groupId === group);
+      }
+
+      if (keyword) {
         data = data.filter(value => {
           const groups = db.get('groups').find({id: value.groupId}).value();
-          return value.name.indexOf(config.params.keyword) >= 0 ||
-                 value.organization.indexOf(config.params.keyword) >= 0 ||
-                 (groups && groups.name.indexOf(config.params.keyword) >= 0) ||
-                 value.note.indexOf(config.params.keyword) >= 0;
+          return value.name.indexOf(keyword) >= 0 ||
+                 value.organization.indexOf(keyword) >= 0 ||
+                 (groups && groups.name.indexOf(keyword) >= 0) ||
+                 value.note.indexOf(keyword) >= 0;
         });
       }
 
@@ -343,7 +349,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
           total: data.length,
           items: pageData
         }]));
-      }, 500);
+      }, 0);
     })
   )
   .onGet(/api\/members\/[a-f0-9-]{36}$/).reply(config => {
