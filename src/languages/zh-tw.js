@@ -256,6 +256,7 @@ if (!window.languageResource['zh-tw']) {
     'Bandwidth Management': '頻寬管理',
     Quality: '影像品質',
     'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
+    'Updating Stream Settings': '更新串流設定',
     // /media/stream / Constans / Resolution
     'stream-resolution-0': '3840*2160(16:9)',
     'stream-resolution-1': '2560*1440(16:9)',
