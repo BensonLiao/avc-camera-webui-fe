@@ -319,8 +319,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   })
   .onGet('/api/members').reply(config =>
     new Promise((resolve, _) => {
-      const {index, size, group, keyword} = config.params;
-      console.log('config.params', config.params);
+      const {index, size, group, keyword, sort} = config.params;
       const itemChunkIndex = Number(index) || 0;
       const itemChunkSize = Number(size) || 10;
       let data = db.get('members').value();
@@ -336,6 +335,23 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
                  (groups && groups.name.indexOf(keyword) >= 0) ||
                  value.note.indexOf(keyword) >= 0;
         });
+      }
+
+      if (!sort || sort === '-name') {
+        data.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      if (sort) {
+        if (sort.indexOf('organization') >= 0) {
+          data.sort((a, b) => a.organization.localeCompare(b.organization));
+        } else if ((sort.indexOf('group')) >= 0) {
+          const groups = db.get('groups').value();
+          data.forEach((member, index) => {
+            data[index].groupName = (groups.find(x => x.id === member.groupId) || {}).name || '';
+            return data[index];
+          });
+          data.sort((a, b) => a.groupName.localeCompare(b.groupName));
+        }
       }
 
       const pageData = data.slice(
