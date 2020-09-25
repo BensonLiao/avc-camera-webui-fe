@@ -71,7 +71,6 @@ module.exports = class EventsTable extends React.PureComponent {
       filterHandler,
       addMemberHandler,
       modifyMemberHandler,
-      systemDateTime,
       remainingPictureCount
     } = this.props;
     const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
@@ -176,16 +175,13 @@ module.exports = class EventsTable extends React.PureComponent {
             }
             {
               events.items.map(event => {
-                if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
-                  event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
-                } else {
-                  event.time = (new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000)));
-                }
-
                 return (
                   <tr key={event.id}>
                     <td>
-                      {utils.formatDate(event.time, {withSecond: true})}
+                      {utils.formatDate(
+                        utils.subtractTimezoneOffset(new Date(event.time)),
+                        {withSecond: true}
+                      )}
                     </td>
                     <td>
                       <div className="thumbnail-wrapper">

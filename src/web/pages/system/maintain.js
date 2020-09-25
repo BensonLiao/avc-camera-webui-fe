@@ -268,7 +268,7 @@ module.exports = class Maintain extends Base {
         <small className="form-text text-muted my-2">{_('Only .Zip File Supported')}</small>
         <div>
           <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
-            <input type="file" className="d-none" accept=".zip" onChange={this.onChangeFile}/>
+            <input type="file" className="d-none" accept="application/zip" onChange={this.onChangeFile}/>
             {_('Select File')}
           </label>
           {

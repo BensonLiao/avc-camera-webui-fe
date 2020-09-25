@@ -231,7 +231,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
             <input
               type="file"
               className="d-none"
-              accept=".zip"
+              accept="application/zip"
               onClick={this.onClickImportButton}
               onChange={this.onChangeDatabaseFile}
             />{_('Import')}

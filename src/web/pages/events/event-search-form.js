@@ -7,6 +7,7 @@ const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-tim
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
+const utils = require('../../../core/utils');
 
 module.exports = class EventsSearchForm extends React.PureComponent {
   static get propTypes() {
@@ -52,33 +53,6 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     this.setState({isShowEndDatePicker: false});
   }
 
-  convertTime = (time, method) => {
-    const {systemDateTime} = this.props;
-    if (method === 'add') {
-      time = new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
-    }
-
-    if (method === 'subtract') {
-      time = new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
-    }
-
-    if (this.props.systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
-      const timeZoneDifference = systemDateTime.syncTimeOption === SyncTimeOption.ntp ?
-        new Date(time.toLocaleString('en-US', {timeZone: 'utc'})) -
-        new Date(time.toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone})) :
-        0;
-      if (method === 'add') {
-        time = new Date(time.getTime() + timeZoneDifference);
-      }
-
-      if (method === 'subtract') {
-        time = new Date(time.getTime() - timeZoneDifference);
-      }
-    }
-
-    return time;
-  }
-
   /**
    * Handler on user submit the search form.
    * @param {String} keyword
@@ -93,8 +67,8 @@ module.exports = class EventsSearchForm extends React.PureComponent {
         ...this.props.params,
         index: undefined,
         keyword,
-        start: start ? this.convertTime(start, 'add').toJSON() : undefined,
-        end: end ? this.convertTime(end, 'add').toJSON() : undefined
+        start: start ? utils.addTimezoneOffset(start).toJSON() : undefined,
+        end: end ? utils.addTimezoneOffset(end).toJSON() : undefined
       }
     });
   };
@@ -104,8 +78,8 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     const {params, isApiProcessing} = this.props;
     const searchFromInitialValues = {
       keyword: params.keyword || '',
-      start: params.start ? this.convertTime(new Date(params.start), 'subtract') : null,
-      end: params.end ? this.convertTime(new Date(params.end), 'subtract') : null
+      start: params.start ? utils.subtractTimezoneOffset(new Date(params.start)) : null,
+      end: params.end ? utils.subtractTimezoneOffset(new Date(params.end)) : null
     };
 
     return (
@@ -124,7 +98,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 inputProps={{
                   className: classNames('btn start-date px-4', {active: isShowStartDatePicker}),
                   placeholder: _('Start Datetime'),
-                  style: {whiteSpace: 'nowrap'}
+                  style: {
+                    whiteSpace: 'nowrap',
+                    boxShadow: 'none'
+                  }
                 }}
                 endDateFieldName="end"
                 isShowPicker={isShowStartDatePicker}
@@ -139,7 +116,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 inputProps={{
                   className: classNames('btn end-date px-4', {active: isShowEndDatePicker}),
                   placeholder: _('End Datetime'),
-                  style: {whiteSpace: 'nowrap'}
+                  style: {
+                    whiteSpace: 'nowrap',
+                    boxShadow: 'none'
+                  }
                 }}
                 startDateFieldName="start"
                 isShowPicker={isShowEndDatePicker}

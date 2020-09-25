@@ -68,7 +68,7 @@ module.exports = class Member extends React.PureComponent {
   cropper = null;
 
   constructor(props) {
-    super(props);
+    super();
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
     // Only determine remaining quota if count is less than 5
@@ -81,7 +81,6 @@ module.exports = class Member extends React.PureComponent {
     this.state.preEditState = null;
     this.state.avatarToEdit = 'Primary';
     this.editWrapperSize = 300; // px
-    this.editCropBoxSize = 128; // px
     this.listWrapperSize = 88; // px
     // Initialise avatarList state object
     const nameList = ['Primary', 'Photo 1', 'Photo 2', 'Photo 3', 'Photo 4'];
@@ -93,22 +92,23 @@ module.exports = class Member extends React.PureComponent {
             rotate: 0
           },
           originalImage: props.defaultPictureUrl && index === 0 ?
+            // Get photo from event, only add to primary avatar (add new member)
             props.defaultPictureUrl :
             props.member ?
               props.member.pictures[index] ?
-              // Get photo from existing member
+                // Get photo from existing member
                 Base64DataURLPrefix + props.member.pictures[index] :
                 null :
               null,
-          // Get photo from event, only add to primary avatar (add new member)
           croppedImage: props.defaultPictureUrl && index === 0 ?
             props.defaultPictureUrl :
             props.member ?
               props.member.pictures[index] ?
-              // Get photo from existing member
                 Base64DataURLPrefix + props.member.pictures[index] :
                 null :
-              null
+              null,
+          // Will update on verify suceess, use it on save member
+          convertedImage: null
         },
         avatarFile: null,
         verifyStatus: null,
@@ -118,9 +118,88 @@ module.exports = class Member extends React.PureComponent {
     })));
   }
 
-  _crop() {
-    // image in dataUrl
+  componentDidMount() {
+    // Validate event photo on initial load
+    if (this.props.defaultPictureUrl) {
+      this.verifyPhoto();
+    }
+
+    this.updatePictureCount();
   }
+
+  generateInitialValue = member => {
+    const {avatarList, avatarToEdit} = this.state;
+    if (member) {
+      return {
+        id: member.id,
+        name: member.name,
+        organization: member.organization || '',
+        group: member.groupId,
+        note: member.note || '',
+        zoom: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
+      };
+    }
+
+    return {
+      name: '',
+      organization: '',
+      group: '',
+      note: '',
+      zoom: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
+    };
+  };
+
+  updatePictureCount() {
+    if (this.state.remainingPictureQuota !== null) {
+      const {remainingPictureCount, defaultPictureUrl} = this.props;
+      // Update remaining picture quota if user uploads or deletes a photo
+      this.setState(prevState => ({
+        ...prevState,
+        remainingPictureQuota: (
+          // Subtract 1 if adding photo from event
+          defaultPictureUrl ? remainingPictureCount - 1 : remainingPictureCount
+        ) - Object.entries(prevState.avatarList).reduce((count, item) => {
+          count += item[1].avatarFile ? 1 : 0;
+          return count;
+        }, 0)
+      }));
+    }
+  }
+
+  onChangeFormValues = () => {
+    this.setState({isFormTouched: true});
+  }
+
+  hideApiProcessModal = () => {
+    this.setState({isShowApiProcessModal: false});
+  };
+
+  onHideEditModalAndRevertChanges = () => {
+    const updateState = update(this.state,
+      {
+        isShowEditModal: {$set: false},
+        avatarList: {[this.state.avatarToEdit]: {$set: this.state.preEditState}}
+      });
+    this.setState(updateState);
+  };
+
+  onShowConfirmModal = () => {
+    this.setState({isShowConfirmModal: true});
+  }
+
+  onHideConfirmModal = () => {
+    this.setState({isShowConfirmModal: false});
+  }
+
+  onShowEditModal = avatarName => {
+    const updateState = update(this.state,
+      {
+        isShowEditModal: {$set: true},
+        avatarToEdit: {$set: avatarName},
+        preEditState: {$set: this.state.avatarList[avatarName]}
+      });
+    this.setState(updateState);
+  };
 
   onCropperInit = cropper => {
     this.cropper = cropper;
@@ -128,7 +207,6 @@ module.exports = class Member extends React.PureComponent {
 
   onCropperReady = () => {
     const {avatarList, avatarToEdit} = this.state;
-    const {defaultPictureUrl} = this.props;
 
     const mask = document.createElement('img');
     mask.src = avatarMask;
@@ -145,13 +223,23 @@ module.exports = class Member extends React.PureComponent {
       scaleY: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
     });
 
-    if (defaultPictureUrl) {
-      const newCropperState = update(
-        this.state,
-        {avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}}}}}
-      );
-      this.setState(newCropperState);
-    }
+    const newCropperState = update(
+      this.state,
+      {
+        avatarList:
+        {
+          [avatarToEdit]:
+          {
+            avatarPreviewStyle:
+            {
+              croppedImage:
+              {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}
+            }
+          }
+        }
+      }
+    );
+    this.setState(newCropperState);
 
     // Add mouse wheel event to scale cropper instead of default zoom function
     this.cropper.cropBox.addEventListener('wheel', event => {
@@ -206,89 +294,38 @@ module.exports = class Member extends React.PureComponent {
   zoomCropper = values => {
     const zoomScale = values.zoom;
     this.cropper.scale(zoomScale, zoomScale);
+    this.generateOnCropEndHandler(this.state.avatarToEdit)(_);
   }
 
-  generateInitialValue = member => {
-    const {avatarList, avatarToEdit} = this.state;
-    if (member) {
-      return {
-        id: member.id,
-        name: member.name,
-        organization: member.organization || '',
-        group: member.groupId,
-        note: member.note || '',
-        zoom: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
-      };
-    }
-
-    return {
-      name: '',
-      organization: '',
-      group: '',
-      note: '',
-      zoom: avatarList[avatarToEdit].avatarPreviewStyle.cropper.scale
-    };
-  };
-
-  componentDidMount() {
-    // Validate event photo on initial load
-    if (this.props.defaultPictureUrl) {
-      this.verifyPhoto();
-    }
-
-    this.updatePictureCount();
-  }
-
-  updatePictureCount() {
-    if (this.state.remainingPictureQuota !== null) {
-      const {remainingPictureCount, defaultPictureUrl} = this.props;
-      // Update remaining picture quota if user uploads or deletes a photo
-      this.setState(prevState => ({
-        ...prevState,
-        remainingPictureQuota: (
-          // Subtract 1 if adding photo from event
-          defaultPictureUrl ? remainingPictureCount - 1 : remainingPictureCount
-        ) - Object.entries(prevState.avatarList).reduce((count, item) => {
-          count += item[1].avatarFile ? 1 : 0;
-          return count;
-        }, 0)
-      }));
-    }
-  }
-
-  onChangeFormValues = () => {
-    this.setState({isFormTouched: true});
-  }
-
-  hideApiProcessModal = () => {
-    this.setState({isShowApiProcessModal: false});
-  };
-
-  onHideEditModalAndRevertChanges = () => {
-    const updateState = update(this.state,
+  generateRotatePictureHandler = isClockwise => event => {
+    event.preventDefault();
+    const {
+      avatarToEdit,
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {cropper: {rotate}}}}
+    } = this.state;
+    const degrees = isClockwise ? 90 : -90;
+    this.cropper.rotate(degrees);
+    const updateRotation = update(this.state,
       {
-        isShowEditModal: {$set: false},
-        avatarList: {[this.state.avatarToEdit]: {$set: this.state.preEditState}}
-      });
-    this.setState(updateState);
-  };
-
-  onShowConfirmModal = () => {
-    this.setState({isShowConfirmModal: true});
-  }
-
-  onHideConfirmModal = () => {
-    this.setState({isShowConfirmModal: false});
-  }
-
-  onShowEditModal = avatarName => {
-    const updateState = update(this.state,
-      {
-        isShowEditModal: {$set: true},
-        avatarToEdit: {$set: avatarName},
-        preEditState: {$set: this.state.avatarList[avatarName]}
-      });
-    this.setState(updateState);
+        avatarList:
+         {
+           [avatarToEdit]:
+            {
+              avatarPreviewStyle:
+               {
+                 cropper:
+                  {
+                    rotate:
+                    // reset rotation if photo rotates a full circle
+                    {$set: rotate + degrees === 360 || rotate + degrees === -360 ? 0 : rotate + degrees}
+                  }
+               }
+            }
+         }
+      }
+    );
+    this.setState(updateRotation);
+    this.generateOnCropEndHandler(this.state.avatarToEdit)(_);
   };
 
   onChangeAvatar = (avatarName, loadEditModal) => event => {
@@ -358,8 +395,6 @@ module.exports = class Member extends React.PureComponent {
                 cropper: {
                   x: 0,
                   y: 0,
-                  width: this.editCropBoxSize,
-                  height: this.editCropBoxSize,
                   scale: 1,
                   rotate: 0
                 },
@@ -379,36 +414,6 @@ module.exports = class Member extends React.PureComponent {
     });
   }
 
-  generateRotatePictureHandler = isClockwise => event => {
-    event.preventDefault();
-    const {
-      avatarToEdit,
-      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {cropper: {rotate}}}}
-    } = this.state;
-    const degrees = isClockwise ? 90 : -90;
-    this.cropper.rotate(degrees);
-    const updateRotation = update(this.state,
-      {
-        avatarList:
-         {
-           [avatarToEdit]:
-            {
-              avatarPreviewStyle:
-               {
-                 cropper:
-                  {
-                    rotate:
-                    // reset rotation if photo rotates a full circle
-                     {$set: rotate + degrees === 360 || rotate + degrees === -360 ? 0 : rotate + degrees}
-                  }
-               }
-            }
-         }
-      }
-    );
-    this.setState(updateRotation);
-  };
-
   verifyPhoto = () => {
     const {
       avatarToEdit,
@@ -422,54 +427,71 @@ module.exports = class Member extends React.PureComponent {
       });
 
     this.setState(resetErrorMessage, () => {
-      if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
-        // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
-        const updateIsVerifying = update(this.state,
-          {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
-        this.setState(updateIsVerifying, () => {
-          api.member.validatePicture(croppedImage.replace(Base64DataURLPrefix, ''))
-            .then(() => {
-              const updateAvatarVerification = update(this.state,
-                {
-                  avatarList: {
-                    [avatarToEdit]: {
-                      verifyStatus: {$set: true},
-                      isVerifying: {$set: false},
-                      errorMessage: {$set: null}
-                    }
+      utils.convertCropperImage(croppedImage)
+        .then(image => {
+          // Reference from error: Upload Size Limit (90kb)
+          // http://192.168.100.137/cloud/webserver/-/blob/master/src/models/errors.js#L85
+          if (utils.getBase64Size(image, 'kb') > 90) {
+            const updateErrorMessage = update(this.state,
+              {
+                avatarList: {
+                  [avatarToEdit]: {
+                    verifyStatus: {$set: false},
+                    errorMessage: {$set: `${_('Cropped image has reached the size limit')}`}
                   }
+                }
+              });
+            this.setState(updateErrorMessage);
+          } else if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
+            // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
+            const updateIsVerifying = update(this.state,
+              {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
+            this.setState(updateIsVerifying, () => {
+              api.member.validatePicture(image)
+                .then(() => {
+                  const updateAvatarVerification = update(this.state,
+                    {
+                      avatarList: {
+                        [avatarToEdit]: {
+                          verifyStatus: {$set: true},
+                          isVerifying: {$set: false},
+                          errorMessage: {$set: null},
+                          avatarPreviewStyle: {convertedImage: {$set: image}}
+                        }
+                      }
+                    });
+                  this.setState(updateAvatarVerification);
+                })
+                .catch(error => {
+                  const updateAvatarVerification = update(this.state,
+                    {
+                      avatarList: {
+                        [avatarToEdit]: {
+                          verifyStatus: {$set: false},
+                          isVerifying: {$set: false},
+                          errorMessage: {$set: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')}
+                        }
+                      }
+                    });
+                  this.setState(updateAvatarVerification);
                 });
-              this.setState(updateAvatarVerification);
-            })
-            .catch(error => {
-              const updateAvatarVerification = update(this.state,
-                {
-                  avatarList: {
-                    [avatarToEdit]: {
-                      verifyStatus: {$set: false},
-                      isVerifying: {$set: false},
-                      errorMessage: {$set: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')}
-                    }
-                  }
-                });
-              this.setState(updateAvatarVerification);
             });
-        });
-      } else if (member && !verifyStatus) {
-        // Photo was edited but restored back to original state, skip verification and reset error message
-        const updateAvatarVerification = update(this.state,
-          {
-            avatarList: {
-              [avatarToEdit]: {
-                verifyStatus: {$set: true},
-                errorMessage: {$set: null}
-              }
-            }
-          });
-        this.setState(updateAvatarVerification);
-      }
+          } else if (member && !verifyStatus) {
+            // Photo was edited but restored back to original state, skip verification and reset error message
+            const updateAvatarVerification = update(this.state,
+              {
+                avatarList: {
+                  [avatarToEdit]: {
+                    verifyStatus: {$set: true},
+                    errorMessage: {$set: null}
+                  }
+                }
+              });
+            this.setState(updateAvatarVerification);
+          }
 
-      this.updatePictureCount();
+          this.updatePictureCount();
+        });
     });
   }
 
@@ -499,25 +521,12 @@ module.exports = class Member extends React.PureComponent {
     const {member, onSubmitted} = this.props;
     const tasks = [];
     avatarListArray.forEach((item, index) => {
-      const {
-        avatarPreviewStyle: {originalImage, croppedImage},
-        avatarFile
-      } = item[1];
-      if (avatarFile && croppedImage) {
-        // The user upload a file.
-        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
-      } else if (member && croppedImage && croppedImage !== originalImage) {
-        // The user modify the exist picture.
-        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
-      } else if (member && croppedImage && croppedImage === originalImage) {
+      const {avatarPreviewStyle: {originalImage, croppedImage, convertedImage}} = item[1];
+      if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
-      } else if (croppedImage && croppedImage.indexOf(Base64DataURLPrefix) !== 0) {
-        // Register a member from the event with original image url.
-        tasks.push(utils.convertPictureURL(croppedImage));
-      } else if (croppedImage) {
-        // Register a member from the event and cropper has opened.
-        tasks.push(croppedImage.replace(Base64DataURLPrefix, ''));
+      } else if (convertedImage) {
+        tasks.push(convertedImage);
       }
     });
 
@@ -577,30 +586,33 @@ module.exports = class Member extends React.PureComponent {
                         },
                         {'failed-check': verifyStatus === false}
                       )}
+                      style={{
+                        width: this.listWrapperSize,
+                        height: this.listWrapperSize
+                      }}
                     >
-                      <i className={classNames(
-                        'fas fa-pen fa-lg fa-fw',
-                        {'d-none': !croppedImage}
-                      )}
-                      />
+                      <i className={classNames('fas fa-pen fa-lg fa-fw', {'d-none': !croppedImage})}/>
                       { croppedImage ?
                         (
                           // Display photo preview and edit button for existing photo
                           <>
                             <div
-                              className={classNames(
-                                'avatar-img',
-                                {'is-verifying': isVerifying}
-                              )}
-                              style={{backgroundImage: `url("${croppedImage}")`}}
+                              className={classNames('avatar-img', {'is-verifying': isVerifying})}
+                              style={{
+                                backgroundImage: `url("${croppedImage}")`,
+                                width: this.listWrapperSize,
+                                height: this.listWrapperSize
+                              }}
                               onClick={() => {
                                 this.onShowEditModal(avatar[0]);
                               }}
                             />
-                            <div className={classNames(
-                              'loading-dots',
-                              {'d-none': !isVerifying}
-                            )}
+                            <div
+                              className={classNames('loading-dots', {'d-none': !isVerifying})}
+                              style={{
+                                width: this.listWrapperSize,
+                                height: this.listWrapperSize
+                              }}
                             >
                               <div className="spinner">
                                 <div className="double-bounce1"/>
@@ -620,7 +632,7 @@ module.exports = class Member extends React.PureComponent {
                                 disabled={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
                                 className="d-none"
                                 type="file"
-                                accept=".jpg,.png"
+                                accept="image/png,image/jpeg"
                                 onChange={this.onChangeAvatar(avatar[0], this.onShowEditModal)}
                               />
                             </label>
@@ -761,7 +773,6 @@ module.exports = class Member extends React.PureComponent {
                   zoomOnTouch={false}
                   minCropBoxWidth={120}
                   autoCropArea={1}
-                  crop={this._crop}
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
                   zoom={event => event.preventDefault()}
                   ready={this.onCropperReady}
@@ -798,24 +809,16 @@ module.exports = class Member extends React.PureComponent {
           <Modal.Footer>
             {/* Hide delete button if it is Primary photo */}
             { avatarToEdit !== 'Primary' && (
-              <button
-                className="btn btn-danger btn-block rounded-pill my-0"
-                type="button"
-                onClick={this.onDeleteAvatar}
-              >
+              <button className="btn btn-danger btn-block rounded-pill my-0" type="button" onClick={this.onDeleteAvatar}>
                 {_('Delete')}
               </button>
             )}
             <div>
               <label className="btn btn-outline-primary btn-block rounded-pill my-0 mr-2">
-                <input className="d-none" type="file" accept=".jpg,.png" onChange={this.onChangeAvatar(avatarToEdit)}/>
+                <input className="d-none" type="file" accept="image/png,image/jpeg" onChange={this.onChangeAvatar(avatarToEdit)}/>
                 {_('Change Photo')}
               </label>
-              <button
-                className="btn btn-primary btn-block rounded-pill my-0"
-                type="button"
-                onClick={this.verifyPhoto}
-              >
+              <button className="btn btn-primary btn-block rounded-pill my-0" type="button" onClick={this.verifyPhoto}>
                 {_('Save')}
               </button>
             </div>

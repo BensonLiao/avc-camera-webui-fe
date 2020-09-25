@@ -245,7 +245,7 @@ module.exports = class Upgrade extends Base {
                 disabled={isShowApiProcessModal || $isApiProcessing}
                 type="file"
                 className="d-none"
-                accept=".zip"
+                accept="application/zip"
                 onChange={this.onChangeFile}
               />{_('Select File')}
             </label>
