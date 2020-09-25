@@ -352,6 +352,10 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
           });
           data.sort((a, b) => a.groupName.localeCompare(b.groupName));
         }
+
+        if (sort.indexOf('-') === 0) {
+          data.reverse();
+        }
       }
 
       const pageData = data.slice(
