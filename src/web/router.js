@@ -369,11 +369,27 @@ module.exports = new Router({
       },
       resolve: {
         faceEvents: params => {
-          if ((params.type || 'face-recognition') !== 'face-recognition') {
-            return null;
-          }
+          return new Promise((resolve, _) => resolve(
+            api.system.getSystemDateTime().then(response => {
+              if ((params.type || 'face-recognition') !== 'face-recognition') {
+                return null;
+              }
 
-          return api.event.getFaceEvents(params).then(response => response.data);
+              const {deviceTime, ntpTimeZone} = response.data;
+              if (!params.end) {
+                const convertedDeviceTime = new Date(deviceTime);
+                const timeZoneDiff = new Date(convertedDeviceTime.toLocaleString('en-US', {timeZone: 'utc'})) - new Date(convertedDeviceTime.toLocaleString('en-US', {timeZone: ntpTimeZone}));
+                params.end = new Date(convertedDeviceTime.getTime() - timeZoneDiff).getTime();
+                return api.event.getFaceEvents(params).then(response => response.data);
+              }
+
+              if (params.end) {
+                params.end = new Date(params.end).getTime();
+              }
+
+              return api.event.getFaceEvents(params).then(response => response.data);
+            })
+          ));
         },
         authStatus: () => api.authKey.getAuthStatus().then(response => response.data),
         systemDateTime: () => api.system.getSystemDateTime().then(response => response.data),
