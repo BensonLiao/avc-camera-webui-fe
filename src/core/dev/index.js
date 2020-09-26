@@ -430,11 +430,13 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   })
   .onGet('/api/members/remaining-picture-count').reply(config => mockResponseWithLog(config, [200, 3000]))
   .onGet('/api/face-events').reply(config => {
-    const {index, size, group, keyword, sort} = config.params;
+    const {index, size, keyword, sort} = config.params;
+    console.log('config.params', config.params);
     const itemChunkIndex = Number(index) || 0;
     const itemChunkSize = Number(size) || 10;
 
     let data = db.get('faceEvents')
+    // filter by similarity
       .filter(value => {
         if (config.params.confidence && config.params.confidence.length > 0) {
           if (typeof config.params.confidence === 'string') {
@@ -486,6 +488,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
 
         return true;
       })
+      // filter by status
       .filter(value => {
         if (config.params.enrollStatus && config.params.enrollStatus.length > 0) {
           if (typeof config.params.enrollStatus === 'string') {
@@ -533,6 +536,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       })
       .value();
 
+    // filter by keyword
     if (keyword) {
       data = data.filter(value => {
         if (value.member) {
@@ -545,6 +549,31 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
 
         return false;
       });
+    }
+
+    // sort time by default
+    data.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+    if (sort) {
+      if (sort.indexOf('organization') >= 0) {
+        data.sort((a, b) => a.member.organization.localeCompare(b.member.organization));
+      } else if ((sort.indexOf('group')) >= 0) {
+        const groups = db.get('groups').value();
+        data.forEach((member, index) => {
+          data[index].member.groupName = (groups.find(x => x.id === member.groupId) || {}).name || '';
+          return data[index];
+        });
+        data.sort((a, b) => a.member.groupName.localeCompare(b.member.groupName));
+      } else if (sort.indexOf('name') >= 0) {
+        data.sort((a, b) => {
+          return a.member ? a.member.name.localeCompare(b.member && b.member.name) : 1;
+        });
+      }
+
+      // reverse sort
+      if (sort.indexOf('-') === 0 || sort === 'time') {
+        data = data.slice().reverse();
+      }
     }
 
     const pageData = data.slice(
