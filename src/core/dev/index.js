@@ -430,7 +430,11 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   })
   .onGet('/api/members/remaining-picture-count').reply(config => mockResponseWithLog(config, [200, 3000]))
   .onGet('/api/face-events').reply(config => {
-    const data = db.get('faceEvents')
+    const {index, size, group, keyword, sort} = config.params;
+    const itemChunkIndex = Number(index) || 0;
+    const itemChunkSize = Number(size) || 10;
+
+    let data = db.get('faceEvents')
       .filter(value => {
         if (config.params.confidence && config.params.confidence.length > 0) {
           if (typeof config.params.confidence === 'string') {
@@ -528,11 +532,31 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
         return true;
       })
       .value();
+
+    if (keyword) {
+      data = data.filter(value => {
+        if (value.member) {
+          const groups = db.get('groups').find({id: value.member.groupId}).value();
+          return value.member.name.indexOf(keyword) >= 0 ||
+                   value.member.organization.indexOf(keyword) >= 0 ||
+                   (groups && groups.name.indexOf(keyword) >= 0) ||
+                   value.member.note.indexOf(keyword) >= 0;
+        }
+
+        return false;
+      });
+    }
+
+    const pageData = data.slice(
+      itemChunkIndex * itemChunkSize,
+      (itemChunkIndex + 1) * itemChunkSize
+    );
+
     return mockResponseWithLog(config, [200, {
-      index: 0,
-      size: 20,
+      index: itemChunkIndex,
+      size: itemChunkSize,
       total: data.length,
-      items: data
+      items: pageData
     }]);
   })
   .onGet('/api/users').reply(config => {
