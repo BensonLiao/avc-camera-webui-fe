@@ -438,11 +438,11 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
               default:
                 return true;
               case Similarity.low:
-                return value.confidences[0].score < 55;
+                return value.confidences.score < 55;
               case Similarity.medium:
-                return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
+                return value.confidences.score >= 55 && value.confidences.score < 65;
               case Similarity.high:
-                return value.confidences[0].score >= 65;
+                return value.confidences.score >= 65;
             }
           }
 
@@ -451,31 +451,31 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
               return true;
             }
 
-            if (config.params.confidence.indexOf(Similarity.low) > 0 &&
+            if (config.params.confidence.indexOf(Similarity.low) >= 0 &&
             config.params.confidence.indexOf(Similarity.medium) > 0) {
-              return value.confidences[0].score < 65;
+              return value.confidences.score < 65;
             }
 
-            if (config.params.confidence.indexOf(Similarity.low) > 0 &&
+            if (config.params.confidence.indexOf(Similarity.low) >= 0 &&
             config.params.confidence.indexOf(Similarity.high) > 0) {
-              return value.confidences[0].score < 55 || value.confidences[0].score >= 65;
+              return value.confidences.score < 55 || value.confidences.score >= 65;
             }
 
-            if (config.params.confidence.indexOf(Similarity.medium) > 0 &&
+            if (config.params.confidence.indexOf(Similarity.medium) >= 0 &&
             config.params.confidence.indexOf(Similarity.high) > 0) {
-              return value.confidences[0].score >= 55;
+              return value.confidences.score >= 55;
             }
 
-            if (config.params.confidence.indexOf(Similarity.low) > 0) {
-              return value.confidences[0].score < 55;
+            if (config.params.confidence.indexOf(Similarity.low) >= 0) {
+              return value.confidences.score < 55;
             }
 
-            if (config.params.confidence.indexOf(Similarity.medium) > 0) {
-              return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
+            if (config.params.confidence.indexOf(Similarity.medium) >= 0) {
+              return value.confidences.score >= 55 && value.confidences.score < 65;
             }
 
-            if (config.params.confidence.indexOf(Similarity.high) > 0) {
-              return value.confidences[0].score >= 65;
+            if (config.params.confidence.indexOf(Similarity.high) >= 0) {
+              return value.confidences.score >= 65;
             }
           }
         }
