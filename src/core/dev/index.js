@@ -556,14 +556,16 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
 
     if (sort) {
       if (sort.indexOf('organization') >= 0) {
-        data.sort((a, b) => a.member.organization.localeCompare(b.member.organization));
+        data.sort((a, b) => a.member ? a.member.organization.localeCompare(b.member && b.member.organization) : 1);
       } else if ((sort.indexOf('group')) >= 0) {
         const groups = db.get('groups').value();
-        data.forEach((member, index) => {
-          data[index].member.groupName = (groups.find(x => x.id === member.groupId) || {}).name || '';
-          return data[index];
+        data.forEach((event, index) => {
+          if (event.member) {
+            data[index].member.groupName = (groups.find(x => x.id === event.member.groupId) || {}).name || '';
+            return data[index];
+          }
         });
-        data.sort((a, b) => a.member.groupName.localeCompare(b.member.groupName));
+        data.sort((a, b) => a.member ? a.member.groupName.localeCompare(b.member && b.member.groupName) : 1);
       } else if (sort.indexOf('name') >= 0) {
         data.sort((a, b) => {
           return a.member ? a.member.name.localeCompare(b.member && b.member.name) : 1;
