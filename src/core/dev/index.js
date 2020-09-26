@@ -551,6 +551,15 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       });
     }
 
+    // populate group names for member details
+    const groups = db.get('groups').value();
+    data.forEach((event, index) => {
+      if (event.member) {
+        data[index].member.group = (groups.find(x => x.id === event.member.groupId) || {}).name || '';
+        return data[index];
+      }
+    });
+
     // sort time by default
     data.sort((a, b) => new Date(b.time) - new Date(a.time));
 
@@ -558,14 +567,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       if (sort.indexOf('organization') >= 0) {
         data.sort((a, b) => a.member ? a.member.organization.localeCompare(b.member && b.member.organization) : 1);
       } else if ((sort.indexOf('group')) >= 0) {
-        const groups = db.get('groups').value();
-        data.forEach((event, index) => {
-          if (event.member) {
-            data[index].member.groupName = (groups.find(x => x.id === event.member.groupId) || {}).name || '';
-            return data[index];
-          }
-        });
-        data.sort((a, b) => a.member ? a.member.groupName.localeCompare(b.member && b.member.groupName) : 1);
+        data.sort((a, b) => a.member ? a.member.group.localeCompare(b.member && b.member.group) : 1);
       } else if (sort.indexOf('name') >= 0) {
         data.sort((a, b) => {
           return a.member ? a.member.name.localeCompare(b.member && b.member.name) : 1;
@@ -582,6 +584,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       itemChunkIndex * itemChunkSize,
       (itemChunkIndex + 1) * itemChunkSize
     );
+    console.log('pageData', pageData);
 
     return mockResponseWithLog(config, [200, {
       index: itemChunkIndex,
