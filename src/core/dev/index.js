@@ -430,8 +430,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   })
   .onGet('/api/members/remaining-picture-count').reply(config => mockResponseWithLog(config, [200, 3000]))
   .onGet('/api/face-events').reply(config => {
-    const {index, size, keyword, sort} = config.params;
-    console.log('config.params', config.params);
+    const {index, size, keyword, sort, start, end} = config.params;
     const itemChunkIndex = Number(index) || 0;
     const itemChunkSize = Number(size) || 10;
 
@@ -533,8 +532,15 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
         }
 
         return true;
-      })
-      .value();
+      }).value();
+
+    // filter by time
+    if (start || end) {
+      // assign default time if not given
+      const endTime = end ? new Date(end) : new Date();
+      const startTime = start ? new Date(start) : new Date(0);
+      data = data.filter(event => (new Date(event.time) >= startTime) && (new Date(event.time) <= endTime));
+    }
 
     // filter by keyword
     if (keyword) {
@@ -563,6 +569,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     // sort time by default
     data.sort((a, b) => new Date(b.time) - new Date(a.time));
 
+    // sort by selected category
     if (sort) {
       if (sort.indexOf('organization') >= 0) {
         data.sort((a, b) => a.member ? a.member.organization.localeCompare(b.member && b.member.organization) : 1);
@@ -574,7 +581,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
         });
       }
 
-      // reverse sort
+      // reverse sort if required
       if (sort.indexOf('-') === 0 || sort === 'time') {
         data = data.slice().reverse();
       }
@@ -584,7 +591,6 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       itemChunkIndex * itemChunkSize,
       (itemChunkIndex + 1) * itemChunkSize
     );
-    console.log('pageData', pageData);
 
     return mockResponseWithLog(config, [200, {
       index: itemChunkIndex,
