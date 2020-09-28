@@ -744,7 +744,7 @@ if (!window.languageResource['zh-tw']) {
 
     // /system/maintain
     'Restore All Settings': '還原所有設定',
-    'Device Maintenace': '裝置維護',
+    'Device Maintenance': '裝置維護',
     'System Reboot': '重新啟動裝置',
     'Are you sure you want to reboot the system?': '您即將要重新啟動裝置，確認是否繼續？',
     Reboot: '重啟',
