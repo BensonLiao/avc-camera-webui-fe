@@ -14,6 +14,7 @@ const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const defaultPhotos = require('./default-photos');
+const userPhotos = require('./photos/users/photos');
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
@@ -42,9 +43,9 @@ const members = [
     groupId: memberGroups[0].id,
     note: '"Let me put you on hold."',
     pictures: [
-      defaultPhotos.user.scarlett
+      userPhotos.scarlett1
     ],
-    picture: defaultPhotos.user.scarlett
+    picture: userPhotos.scarlett1
   },
   {
     id: uuidv4(),
@@ -53,9 +54,9 @@ const members = [
     groupId: memberGroups[1].id,
     note: 'Has No Nuclear Weapon',
     pictures: [
-      defaultPhotos.user.kim
+      userPhotos.kim1
     ],
-    picture: defaultPhotos.user.kim
+    picture: userPhotos.kim1
   },
   {
     id: uuidv4(),
@@ -64,9 +65,9 @@ const members = [
     groupId: memberGroups[2].id,
     note: 'Iron Man',
     pictures: [
-      defaultPhotos.user.elon
+      userPhotos.elon1
     ],
-    picture: defaultPhotos.user.elon
+    picture: userPhotos.elon1
   },
   {
     id: uuidv4(),
@@ -75,10 +76,10 @@ const members = [
     groupId: memberGroups[0].id,
     note: 'I rock!',
     pictures: [
-      defaultPhotos.user.tom[0],
-      defaultPhotos.user.tom[1],
-      defaultPhotos.user.tom[2],
-      defaultPhotos.user.tom[3]
+      userPhotos.tom1,
+      userPhotos.tom2,
+      userPhotos.tom3,
+      userPhotos.tom4,
     ]
   },
   {
@@ -88,11 +89,11 @@ const members = [
     groupId: '',
     note: 'There are no men like me.',
     pictures: [
-      defaultPhotos.user.hiddleston[0],
-      defaultPhotos.user.hiddleston[1],
-      defaultPhotos.user.hiddleston[2],
-      defaultPhotos.user.hiddleston[3],
-      defaultPhotos.user.hiddleston[4]
+      userPhotos.hiddleston1,
+      userPhotos.hiddleston2,
+      userPhotos.hiddleston3,
+      userPhotos.hiddleston4,
+      userPhotos.hiddleston5
     ]
   },
   // test data
@@ -103,11 +104,11 @@ const members = [
     groupId: '',
     note: 'There are no men like me.',
     pictures: [
-      defaultPhotos.user.hiddleston[0],
-      defaultPhotos.user.hiddleston[1],
-      defaultPhotos.user.hiddleston[2],
-      defaultPhotos.user.hiddleston[3],
-      defaultPhotos.user.hiddleston[4]
+      userPhotos.hiddleston1,
+      userPhotos.hiddleston2,
+      userPhotos.hiddleston3,
+      userPhotos.hiddleston4,
+      userPhotos.hiddleston5
     ]
   },
   {
@@ -128,11 +129,11 @@ const members = [
     groupId: '',
     note: 'There are no men like me.',
     pictures: [
-      defaultPhotos.user.hiddleston[0],
-      defaultPhotos.user.hiddleston[1],
-      defaultPhotos.user.hiddleston[2],
-      defaultPhotos.user.hiddleston[3],
-      defaultPhotos.user.hiddleston[4]
+      userPhotos.hiddleston1,
+      userPhotos.hiddleston2,
+      userPhotos.hiddleston3,
+      userPhotos.hiddleston4,
+      userPhotos.hiddleston5
     ]
   },
   {
@@ -142,11 +143,11 @@ const members = [
     groupId: '',
     note: 'There are no men like me.',
     pictures: [
-      defaultPhotos.user.hiddleston[0],
-      defaultPhotos.user.hiddleston[1],
-      defaultPhotos.user.hiddleston[2],
-      defaultPhotos.user.hiddleston[3],
-      defaultPhotos.user.hiddleston[4]
+      userPhotos.hiddleston1,
+      userPhotos.hiddleston2,
+      userPhotos.hiddleston3,
+      userPhotos.hiddleston4,
+      userPhotos.hiddleston5
     ]
   },
   {
@@ -156,9 +157,9 @@ const members = [
     groupId: memberGroups[2].id,
     note: 'Iron Man',
     pictures: [
-      defaultPhotos.user.elon
+      userPhotos.elon1
     ],
-    picture: defaultPhotos.user.elon
+    picture: userPhotos.elon1
   },
   {
     id: uuidv4(),
@@ -167,9 +168,9 @@ const members = [
     groupId: memberGroups[2].id,
     note: 'Iron Man',
     pictures: [
-      defaultPhotos.user.elon
+      userPhotos.elon1
     ],
-    picture: defaultPhotos.user.elon
+    picture: userPhotos.elon1
   },
   {
     id: uuidv4(),
@@ -189,11 +190,11 @@ const members = [
     groupId: '',
     note: 'There are no men like me.',
     pictures: [
-      defaultPhotos.user.hiddleston[0],
-      defaultPhotos.user.hiddleston[1],
-      defaultPhotos.user.hiddleston[2],
-      defaultPhotos.user.hiddleston[3],
-      defaultPhotos.user.hiddleston[4]
+      userPhotos.hiddleston1,
+      userPhotos.hiddleston2,
+      userPhotos.hiddleston3,
+      userPhotos.hiddleston4,
+      userPhotos.hiddleston5
     ]
   },
   {
@@ -203,11 +204,11 @@ const members = [
     groupId: '',
     note: 'There are no men like me.',
     pictures: [
-      defaultPhotos.user.hiddleston[0],
-      defaultPhotos.user.hiddleston[1],
-      defaultPhotos.user.hiddleston[2],
-      defaultPhotos.user.hiddleston[3],
-      defaultPhotos.user.hiddleston[4]
+      userPhotos.hiddleston1,
+      userPhotos.hiddleston2,
+      userPhotos.hiddleston3,
+      userPhotos.hiddleston4,
+      userPhotos.hiddleston5
     ]
   },
   {
@@ -217,9 +218,9 @@ const members = [
     groupId: memberGroups[2].id,
     note: 'Iron Man',
     pictures: [
-      defaultPhotos.user.elon
+      userPhotos.elon1
     ],
-    picture: defaultPhotos.user.elon
+    picture: userPhotos.elon1
   },
   {
     id: uuidv4(),
@@ -228,9 +229,9 @@ const members = [
     groupId: memberGroups[1].id,
     note: 'Has No Nuclear Weapon',
     pictures: [
-      defaultPhotos.user.kim
+      userPhotos.kim1
     ],
-    picture: defaultPhotos.user.kim
+    picture: userPhotos.kim1
   },
   {
     id: uuidv4(),
@@ -239,9 +240,9 @@ const members = [
     groupId: memberGroups[2].id,
     note: 'Iron Man',
     pictures: [
-      defaultPhotos.user.elon
+      userPhotos.elon1
     ],
-    picture: defaultPhotos.user.elon
+    picture: userPhotos.elon1
   },
   {
     id: uuidv4(),
@@ -250,10 +251,10 @@ const members = [
     groupId: memberGroups[0].id,
     note: 'I rock!',
     pictures: [
-      defaultPhotos.user.tom[0],
-      defaultPhotos.user.tom[1],
-      defaultPhotos.user.tom[2],
-      defaultPhotos.user.tom[3]
+      userPhotos.tom1,
+      userPhotos.tom2,
+      userPhotos.tom3,
+      userPhotos.tom4
     ]
   },
   {
@@ -263,9 +264,9 @@ const members = [
     groupId: memberGroups[1].id,
     note: 'Has No Nuclear Weapon',
     pictures: [
-      defaultPhotos.user.kim
+      userPhotos.kim1
     ],
-    picture: defaultPhotos.user.kim
+    picture: userPhotos.kim1
   },
   {
     id: uuidv4(),
@@ -274,9 +275,9 @@ const members = [
     groupId: memberGroups[2].id,
     note: 'Iron Man',
     pictures: [
-      defaultPhotos.user.elon
+      userPhotos.elon1
     ],
-    picture: defaultPhotos.user.elon
+    picture: userPhotos.elon1
   },
   {
     id: uuidv4(),
