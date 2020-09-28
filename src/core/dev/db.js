@@ -21,21 +21,6 @@ const db = low(adapter);
 const memberGroups = [
   {
     id: uuidv4(),
-    name: '暗殺部',
-    note: ''
-  },
-  {
-    id: uuidv4(),
-    name: '精神病院',
-    note: ''
-  },
-  {
-    id: uuidv4(),
-    name: '火星太空站',
-    note: ''
-  },
-  {
-    id: uuidv4(),
     name: 'Avengers',
     note: 'Marvels'
   },
@@ -61,7 +46,7 @@ const members = [
     id: uuidv4(),
     name: 'Scarlett Johannson',
     organization: 'Godess',
-    groupId: memberGroups[3].id,
+    groupId: memberGroups[0].id,
     note: '"Let me put you on hold."',
     pictures: [
       userPhotos.scarlett1
@@ -71,8 +56,8 @@ const members = [
   {
     id: uuidv4(),
     name: 'Tom Holland',
-    organization: 'Avengers',
-    groupId: memberGroups[3].id,
+    organization: 'Bronx High School',
+    groupId: memberGroups[0].id,
     note: 'I rock!',
     pictures: [
       userPhotos.tom1,
@@ -86,7 +71,7 @@ const members = [
     id: uuidv4(),
     name: 'Tom Hiddleston',
     organization: 'God',
-    groupId: memberGroups[6].id,
+    groupId: memberGroups[3].id,
     note: 'There are no men like me.',
     pictures: [
       userPhotos.hiddleston1,
@@ -100,8 +85,8 @@ const members = [
   {
     id: uuidv4(),
     name: 'Jeremy Renners',
-    organization: 'Avengers',
-    groupId: memberGroups[3].id,
+    organization: 'Bird Watching Society',
+    groupId: memberGroups[0].id,
     note: 'The City Is Flying, We\'re Fighting An Army Of Robots, And I Have A Bow And Arrow. None Of This Makes Sense.',
     pictures: [
       userPhotos.renner1,
@@ -113,7 +98,7 @@ const members = [
     id: uuidv4(),
     name: 'Benedict Cumberbatch',
     organization: '',
-    groupId: memberGroups[5].id,
+    groupId: memberGroups[2].id,
     note: 'Dormammu, I\'ve Come To Bargain.',
     pictures: [
       userPhotos.cumberbatch1,
@@ -127,7 +112,7 @@ const members = [
     id: uuidv4(),
     name: 'Chris Hemsworth',
     organization: 'God^2',
-    groupId: memberGroups[6].id,
+    groupId: memberGroups[3].id,
     note: 'I notice you\'ve copied my beard.',
     pictures: [
       userPhotos.hemsworth1,
@@ -138,8 +123,8 @@ const members = [
   {
     id: uuidv4(),
     name: 'Thanos',
-    organization: '',
-    groupId: memberGroups[4].id,
+    organization: 'Titan',
+    groupId: memberGroups[1].id,
     note: 'You should have gone for the head.',
     pictures: [
       userPhotos.thanos1
@@ -150,7 +135,7 @@ const members = [
     id: uuidv4(),
     name: 'Rocket',
     organization: 'Zoo',
-    groupId: memberGroups[3].id,
+    groupId: memberGroups[0].id,
     note: 'Ain\'t nothin\' like me, cept\' me.',
     pictures: [
       userPhotos.rocket1
@@ -161,7 +146,7 @@ const members = [
     id: uuidv4(),
     name: 'Chris Evans',
     organization: 'Best Ass in America',
-    groupId: memberGroups[3].id,
+    groupId: memberGroups[0].id,
     note: 'I can do this all day.',
     pictures: [
       userPhotos.evans1
@@ -172,7 +157,7 @@ const members = [
     id: uuidv4(),
     name: 'Iron Man',
     organization: 'Stark Industries',
-    groupId: memberGroups[3].id,
+    groupId: memberGroups[0].id,
     note: 'I am Iron Man.',
     pictures: [
       userPhotos.downey1,
@@ -185,7 +170,7 @@ const members = [
     id: uuidv4(),
     name: 'Chris Pratt',
     organization: 'Star Lord',
-    groupId: memberGroups[3].id,
+    groupId: memberGroups[0].id,
     note: 'Let\'s talk about this plan of yours.',
     pictures: [
       userPhotos.pratt1
@@ -536,7 +521,7 @@ module.exports = {
         faceRecognitionVMSEvent: '0',
         emails: ['testd@abc.com'],
         emailAttachmentType: '0',
-        groups: [memberGroups[0].id],
+        groups: [memberGroups[3].id],
         isEnableFaceRecognition: true,
         faceRecognitionCondition: '0',
         senderSubject: '',
@@ -703,7 +688,7 @@ module.exports = {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.groot,
           pictureLargeUrl: eventPhotos.groot,
-          time: '2020-11-23T02:38:00.000Z',
+          time: '2020-04-23T02:38:00.000Z',
           recognitionType: RecognitionType.unknown,
           member: members[10],
           confidences: {

@@ -330,10 +330,10 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
       if (keyword) {
         data = data.filter(value => {
           const groups = db.get('groups').find({id: value.groupId}).value();
-          return value.name.indexOf(keyword) >= 0 ||
-                 value.organization.indexOf(keyword) >= 0 ||
-                 (groups && groups.name.indexOf(keyword) >= 0) ||
-                 value.note.indexOf(keyword) >= 0;
+          return value.name.toLowerCase().indexOf(keyword.toLowerCase()) >= 0 ||
+                 value.organization.toLowerCase().indexOf(keyword.toLowerCase()) >= 0 ||
+                 (groups && groups.name.toLowerCase().indexOf(keyword.toLowerCase()) >= 0) ||
+                 value.note.toLowerCase().indexOf(keyword.toLowerCase()) >= 0;
         });
       }
 
@@ -438,6 +438,11 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     // filter by similarity
       .filter(value => {
         if (config.params.confidence && config.params.confidence.length > 0) {
+          // Remove fake for any similarity filter
+          if (value.recognitionType === RecognitionType.fake) {
+            return false;
+          }
+
           if (typeof config.params.confidence === 'string') {
             switch (config.params.confidence) {
               default:
