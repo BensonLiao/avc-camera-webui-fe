@@ -20,5 +20,10 @@ module.exports = {
   cumberbatch3: require('./cumberbatch-3').default,
   cumberbatch4: require('./cumberbatch-4').default,
   rocket1: require('./rocket-1').default,
-  thanos1: require('./thanos-1').default
+  thanos1: require('./thanos-1').default,
+  downey1: require('./downey-1').default,
+  downey2: require('./downey-2').default,
+  downey3: require('./downey-3').default,
+  evans1: require('./evans-1').default,
+  pratt1: require('./pratt-1').default
 };
