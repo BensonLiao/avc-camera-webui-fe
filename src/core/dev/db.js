@@ -69,28 +69,6 @@ const members = [
   },
   {
     id: uuidv4(),
-    name: 'Kim Jung Un',
-    organization: 'Psych Ward',
-    groupId: memberGroups[1].id,
-    note: 'Has No Nuclear Weapon',
-    pictures: [
-      userPhotos.kim1
-    ],
-    picture: userPhotos.kim1
-  },
-  {
-    id: uuidv4(),
-    name: 'Elon Musk',
-    organization: 'SpaceX',
-    groupId: memberGroups[2].id,
-    note: 'Iron Man',
-    pictures: [
-      userPhotos.elon1
-    ],
-    picture: userPhotos.elon1
-  },
-  {
-    id: uuidv4(),
     name: 'Tom Holland',
     organization: 'Avengers',
     groupId: memberGroups[3].id,
@@ -553,30 +531,6 @@ module.exports = {
           confidences: {
             score: '4.9',
             similarity: Similarity.low
-          }
-        },
-        {
-          id: uuidv4(),
-          pictureThumbUrl: eventPhotos.kim,
-          pictureLargeUrl: eventPhotos.kim,
-          time: '2020-07-02T12:00:00.000Z',
-          recognitionType: RecognitionType.registered,
-          member: members[1],
-          confidences: {
-            score: '56',
-            similarity: Similarity.medium
-          }
-        },
-        {
-          id: uuidv4(),
-          pictureThumbUrl: eventPhotos.elon,
-          pictureLargeUrl: eventPhotos.elon,
-          time: '2020-04-03T12:00:00.000Z',
-          recognitionType: RecognitionType.registered,
-          member: members[2],
-          confidences: {
-            score: '70',
-            similarity: Similarity.high
           }
         },
         {
