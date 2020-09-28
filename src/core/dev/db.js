@@ -22,12 +22,12 @@ const memberGroups = [
   {
     id: uuidv4(),
     name: '暗殺部',
-    note: '#主要執行AVC與AB的相關業務部門'
+    note: ''
   },
   {
     id: uuidv4(),
     name: '精神病院',
-    note: '#主要執行AVC與AB的研究開發'
+    note: ''
   },
   {
     id: uuidv4(),
@@ -47,7 +47,7 @@ const memberGroups = [
   {
     id: uuidv4(),
     name: 'Mystic Arts',
-    note: ''
+    note: 'Kathmandu'
   },
   {
     id: uuidv4(),
@@ -55,6 +55,7 @@ const memberGroups = [
     note: 'Home of Odin'
   }
 ];
+
 const members = [
   {
     id: uuidv4(),
@@ -155,6 +156,41 @@ const members = [
       userPhotos.rocket1
     ],
     picture: userPhotos.rocket1
+  },
+  {
+    id: uuidv4(),
+    name: 'Chris Evans',
+    organization: 'Best Ass in America',
+    groupId: memberGroups[3].id,
+    note: 'I can do this all day.',
+    pictures: [
+      userPhotos.evans1
+    ],
+    picture: userPhotos.evans1
+  },
+  {
+    id: uuidv4(),
+    name: 'Iron Man',
+    organization: 'Stark Industries',
+    groupId: memberGroups[3].id,
+    note: 'I am Iron Man.',
+    pictures: [
+      userPhotos.downey1,
+      userPhotos.downey2,
+      userPhotos.downey3
+    ],
+    picture: userPhotos.downey1
+  },
+  {
+    id: uuidv4(),
+    name: 'Chris Pratt',
+    organization: 'Star Lord',
+    groupId: memberGroups[3].id,
+    note: 'Let\'s talk about this plan of yours.',
+    pictures: [
+      userPhotos.pratt1
+    ],
+    picture: userPhotos.pratt1
   }
 ];
 
@@ -524,22 +560,11 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: eventPhotos.jackman,
-          pictureLargeUrl: eventPhotos.jackman,
-          time: '2020-09-02T12:00:00.000Z',
-          recognitionType: RecognitionType.fake,
-          confidences: {
-            score: '4.9',
-            similarity: Similarity.low
-          }
-        },
-        {
-          id: uuidv4(),
           pictureThumbUrl: eventPhotos.cumberbatch,
           pictureLargeUrl: eventPhotos.cumberbatch,
           time: '2020-03-21T09:42:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[6],
+          member: members[4],
           confidences: {
             score: '89',
             similarity: Similarity.high
@@ -549,9 +574,9 @@ module.exports = {
           id: uuidv4(),
           pictureThumbUrl: eventPhotos.hemsworth,
           pictureLargeUrl: eventPhotos.hemsworth,
-          time: '2020-03-04T11:03:00.000Z',
+          time: '2020-09-04T11:03:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[7],
+          member: members[5],
           confidences: {
             score: '72',
             similarity: Similarity.high
@@ -563,7 +588,7 @@ module.exports = {
           pictureLargeUrl: eventPhotos.renner,
           time: '2020-05-21T19:40:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[5],
+          member: members[3],
           confidences: {
             score: '21',
             similarity: Similarity.low
@@ -575,7 +600,7 @@ module.exports = {
           pictureLargeUrl: eventPhotos.rocket,
           time: '2020-07-31T04:12:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[9],
+          member: members[7],
           confidences: {
             score: '61',
             similarity: Similarity.medium
@@ -587,10 +612,127 @@ module.exports = {
           pictureLargeUrl: eventPhotos.thanos,
           time: '2020-02-28T21:40:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[8],
+          member: members[6],
           confidences: {
             score: '99',
             similarity: Similarity.high
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.pratt,
+          pictureLargeUrl: eventPhotos.pratt,
+          time: '2020-06-18T06:20:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[10],
+          confidences: {
+            score: '84',
+            similarity: Similarity.high
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.evans,
+          pictureLargeUrl: eventPhotos.evans,
+          time: '2020-01-25T16:12:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[8],
+          confidences: {
+            score: '10',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.downey,
+          pictureLargeUrl: eventPhotos.downey,
+          time: '2020-09-11T11:11:11.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[9],
+          confidences: {
+            score: '16',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.fury,
+          pictureLargeUrl: eventPhotos.fury,
+          time: '2020-05-09T09:11:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          confidences: {
+            score: '43',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.potts,
+          pictureLargeUrl: eventPhotos.potts,
+          time: '2020-02-14T14:12:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[0],
+          confidences: {
+            score: '10',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.nebula,
+          pictureLargeUrl: eventPhotos.nebula,
+          time: '2020-06-30T19:52:00.000Z',
+          recognitionType: RecognitionType.fake,
+          confidences: {
+            score: '24',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.hulk,
+          pictureLargeUrl: eventPhotos.hulk,
+          time: '2020-08-22T22:08:00.000Z',
+          recognitionType: RecognitionType.fake,
+          confidences: {
+            score: '52',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.groot,
+          pictureLargeUrl: eventPhotos.groot,
+          time: '2020-11-23T02:38:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[10],
+          confidences: {
+            score: '64',
+            similarity: Similarity.medium
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.coulson,
+          pictureLargeUrl: eventPhotos.coulson,
+          time: '2020-07-12T12:27:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[3],
+          confidences: {
+            score: '43',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.ant,
+          pictureLargeUrl: eventPhotos.ant,
+          time: '2020-01-22T15:47:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[9],
+          confidences: {
+            score: '62',
+            similarity: Similarity.medium
           }
         }
       ],
@@ -660,8 +802,7 @@ module.exports = {
         isEnableAgeGenderKey: false,
         isEnableHumanoidDetectionKey: false
       }
-    })
-      .write();
+    }).write();
     return db;
   }
 };
