@@ -24,7 +24,7 @@ module.exports = class DateTime extends Base {
     return {
       systemInformation: PropTypes.shape({languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired}).isRequired,
       systemDateTime: PropTypes.shape({
-        deviceTime: PropTypes.string.isRequired,
+        deviceTime: PropTypes.number.isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,
         ntpTimeZone: PropTypes.oneOf(TIMEZONE_LIST.map(zone => zone.name)).isRequired,
         ntpIP: PropTypes.string.isRequired,

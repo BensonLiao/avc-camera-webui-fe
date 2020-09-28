@@ -319,17 +319,43 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   })
   .onGet('/api/members').reply(config =>
     new Promise((resolve, _) => {
-      const itemChunkIndex = Number(config.params.index) || 0;
-      const itemChunkSize = Number(config.params.size) || 10;
+      const {index, size, group, keyword, sort} = config.params;
+      const itemChunkIndex = Number(index) || 0;
+      const itemChunkSize = Number(size) || 10;
       let data = db.get('members').value();
-      if (config.params.keyword) {
+      if (group) {
+        data = data.filter(value => value.groupId === group);
+      }
+
+      if (keyword) {
         data = data.filter(value => {
           const groups = db.get('groups').find({id: value.groupId}).value();
-          return value.name.indexOf(config.params.keyword) >= 0 ||
-                 value.organization.indexOf(config.params.keyword) >= 0 ||
-                 (groups && groups.name.indexOf(config.params.keyword) >= 0) ||
-                 value.note.indexOf(config.params.keyword) >= 0;
+          return value.name.toLowerCase().indexOf(keyword.toLowerCase()) >= 0 ||
+                 value.organization.toLowerCase().indexOf(keyword.toLowerCase()) >= 0 ||
+                 (groups && groups.name.toLowerCase().indexOf(keyword.toLowerCase()) >= 0) ||
+                 value.note.toLowerCase().indexOf(keyword.toLowerCase()) >= 0;
         });
+      }
+
+      if (!sort || sort === '-name') {
+        data.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      if (sort) {
+        if (sort.indexOf('organization') >= 0) {
+          data.sort((a, b) => a.organization.localeCompare(b.organization));
+        } else if ((sort.indexOf('group')) >= 0) {
+          const groups = db.get('groups').value();
+          data.forEach((member, index) => {
+            data[index].groupName = (groups.find(x => x.id === member.groupId) || {}).name || '';
+            return data[index];
+          });
+          data.sort((a, b) => a.groupName.localeCompare(b.groupName));
+        }
+
+        if (sort.indexOf('-') === 0) {
+          data.reverse();
+        }
       }
 
       const pageData = data.slice(
@@ -343,7 +369,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
           total: data.length,
           items: pageData
         }]));
-      }, 500);
+      }, 0);
     })
   )
   .onGet(/api\/members\/[a-f0-9-]{36}$/).reply(config => {
@@ -404,19 +430,29 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
   })
   .onGet('/api/members/remaining-picture-count').reply(config => mockResponseWithLog(config, [200, 3000]))
   .onGet('/api/face-events').reply(config => {
-    const data = db.get('faceEvents')
+    const {index, size, keyword, sort, start, end} = config.params;
+    const itemChunkIndex = Number(index) || 0;
+    const itemChunkSize = Number(size) || 10;
+
+    let data = db.get('faceEvents')
+    // filter by similarity
       .filter(value => {
         if (config.params.confidence && config.params.confidence.length > 0) {
+          // Remove fake for any similarity filter
+          if (value.recognitionType === RecognitionType.fake) {
+            return false;
+          }
+
           if (typeof config.params.confidence === 'string') {
             switch (config.params.confidence) {
               default:
                 return true;
               case Similarity.low:
-                return value.confidences[0].score < 55;
+                return value.confidences.score < 55;
               case Similarity.medium:
-                return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
+                return value.confidences.score >= 55 && value.confidences.score < 65;
               case Similarity.high:
-                return value.confidences[0].score >= 65;
+                return value.confidences.score >= 65;
             }
           }
 
@@ -425,37 +461,38 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
               return true;
             }
 
-            if (config.params.confidence.indexOf(Similarity.low) > 0 &&
+            if (config.params.confidence.indexOf(Similarity.low) >= 0 &&
             config.params.confidence.indexOf(Similarity.medium) > 0) {
-              return value.confidences[0].score < 65;
+              return value.confidences.score < 65;
             }
 
-            if (config.params.confidence.indexOf(Similarity.low) > 0 &&
+            if (config.params.confidence.indexOf(Similarity.low) >= 0 &&
             config.params.confidence.indexOf(Similarity.high) > 0) {
-              return value.confidences[0].score < 55 || value.confidences[0].score >= 65;
+              return value.confidences.score < 55 || value.confidences.score >= 65;
             }
 
-            if (config.params.confidence.indexOf(Similarity.medium) > 0 &&
+            if (config.params.confidence.indexOf(Similarity.medium) >= 0 &&
             config.params.confidence.indexOf(Similarity.high) > 0) {
-              return value.confidences[0].score >= 55;
+              return value.confidences.score >= 55;
             }
 
-            if (config.params.confidence.indexOf(Similarity.low) > 0) {
-              return value.confidences[0].score < 55;
+            if (config.params.confidence.indexOf(Similarity.low) >= 0) {
+              return value.confidences.score < 55;
             }
 
-            if (config.params.confidence.indexOf(Similarity.medium) > 0) {
-              return value.confidences[0].score >= 55 && value.confidences[0].score < 65;
+            if (config.params.confidence.indexOf(Similarity.medium) >= 0) {
+              return value.confidences.score >= 55 && value.confidences.score < 65;
             }
 
-            if (config.params.confidence.indexOf(Similarity.high) > 0) {
-              return value.confidences[0].score >= 65;
+            if (config.params.confidence.indexOf(Similarity.high) >= 0) {
+              return value.confidences.score >= 65;
             }
           }
         }
 
         return true;
       })
+      // filter by status
       .filter(value => {
         if (config.params.enrollStatus && config.params.enrollStatus.length > 0) {
           if (typeof config.params.enrollStatus === 'string') {
@@ -500,13 +537,71 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
         }
 
         return true;
-      })
-      .value();
+      }).value();
+
+    // filter by time
+    if (start || end) {
+      // assign default time if not given
+      const endTime = end ? new Date(end) : new Date();
+      const startTime = start ? new Date(start) : new Date(0);
+      data = data.filter(event => (new Date(event.time) >= startTime) && (new Date(event.time) <= endTime));
+    }
+
+    // filter by keyword
+    if (keyword) {
+      data = data.filter(value => {
+        if (value.member) {
+          const groups = db.get('groups').find({id: value.member.groupId}).value();
+          return value.member.name.indexOf(keyword) >= 0 ||
+                   value.member.organization.indexOf(keyword) >= 0 ||
+                   (groups && groups.name.indexOf(keyword) >= 0) ||
+                   value.member.note.indexOf(keyword) >= 0;
+        }
+
+        return false;
+      });
+    }
+
+    // populate group names for member details
+    const groups = db.get('groups').value();
+    data.forEach((event, index) => {
+      if (event.member) {
+        data[index].member.group = (groups.find(x => x.id === event.member.groupId) || {}).name || '';
+        return data[index];
+      }
+    });
+
+    // sort time by default
+    data.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+    // sort by selected category
+    if (sort) {
+      if (sort.indexOf('organization') >= 0) {
+        data.sort((a, b) => a.member ? a.member.organization.localeCompare(b.member && b.member.organization) : 1);
+      } else if ((sort.indexOf('group')) >= 0) {
+        data.sort((a, b) => a.member ? a.member.group.localeCompare(b.member && b.member.group) : 1);
+      } else if (sort.indexOf('name') >= 0) {
+        data.sort((a, b) => {
+          return a.member ? a.member.name.localeCompare(b.member && b.member.name) : 1;
+        });
+      }
+
+      // reverse sort if required
+      if (sort.indexOf('-') === 0 || sort === 'time') {
+        data = data.slice().reverse();
+      }
+    }
+
+    const pageData = data.slice(
+      itemChunkIndex * itemChunkSize,
+      (itemChunkIndex + 1) * itemChunkSize
+    );
+
     return mockResponseWithLog(config, [200, {
-      index: 0,
-      size: 20,
+      index: itemChunkIndex,
+      size: itemChunkSize,
       total: data.length,
-      items: data
+      items: pageData
     }]);
   })
   .onGet('/api/users').reply(config => {
