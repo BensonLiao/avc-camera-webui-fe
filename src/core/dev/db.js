@@ -33,6 +33,26 @@ const memberGroups = [
     id: uuidv4(),
     name: '火星太空站',
     note: ''
+  },
+  {
+    id: uuidv4(),
+    name: 'Avengers',
+    note: 'Marvels'
+  },
+  {
+    id: uuidv4(),
+    name: 'Infinity Inc.',
+    note: ''
+  },
+  {
+    id: uuidv4(),
+    name: 'Mystic Arts',
+    note: ''
+  },
+  {
+    id: uuidv4(),
+    name: 'Asgard',
+    note: 'Home of Odin'
   }
 ];
 const members = [
@@ -40,7 +60,7 @@ const members = [
     id: uuidv4(),
     name: 'Scarlett Johannson',
     organization: 'Godess',
-    groupId: memberGroups[0].id,
+    groupId: memberGroups[3].id,
     note: '"Let me put you on hold."',
     pictures: [
       userPhotos.scarlett1
@@ -73,20 +93,21 @@ const members = [
     id: uuidv4(),
     name: 'Tom Holland',
     organization: 'Avengers',
-    groupId: memberGroups[0].id,
+    groupId: memberGroups[3].id,
     note: 'I rock!',
     pictures: [
       userPhotos.tom1,
       userPhotos.tom2,
       userPhotos.tom3,
       userPhotos.tom4
-    ]
+    ],
+    picture: userPhotos.tom1
   },
   {
     id: uuidv4(),
     name: 'Tom Hiddleston',
     organization: 'God',
-    groupId: '',
+    groupId: memberGroups[6].id,
     note: 'There are no men like me.',
     pictures: [
       userPhotos.hiddleston1,
@@ -94,62 +115,68 @@ const members = [
       userPhotos.hiddleston3,
       userPhotos.hiddleston4,
       userPhotos.hiddleston5
-    ]
+    ],
+    picture: userPhotos.hiddleston1
   },
   {
     id: uuidv4(),
     name: 'Jeremy Renners',
     organization: 'Avengers',
-    groupId: '',
-    note: 'The City Is Flying, We’re Fighting An Army Of Robots, And I Have A Bow And Arrow. None Of This Makes Sense.',
+    groupId: memberGroups[3].id,
+    note: 'The City Is Flying, We\'re Fighting An Army Of Robots, And I Have A Bow And Arrow. None Of This Makes Sense.',
     pictures: [
       userPhotos.renner1,
       userPhotos.renner2
-    ]
+    ],
+    picture: userPhotos.renner1
   },
   {
     id: uuidv4(),
     name: 'Benedict Cumberbatch',
-    organization: 'Mystic Arts',
-    groupId: '',
+    organization: '',
+    groupId: memberGroups[5].id,
     note: 'Dormammu, I\'ve Come To Bargain.',
     pictures: [
       userPhotos.cumberbatch1,
       userPhotos.cumberbatch2,
       userPhotos.cumberbatch3,
       userPhotos.cumberbatch4
-    ]
+    ],
+    picture: userPhotos.cumberbatch1
   },
   {
     id: uuidv4(),
     name: 'Chris Hemsworth',
     organization: 'God^2',
-    groupId: '',
+    groupId: memberGroups[6].id,
     note: 'I notice you\'ve copied my beard.',
     pictures: [
       userPhotos.hemsworth1,
       userPhotos.hemsworth2
-    ]
+    ],
+    picture: userPhotos.hemsworth1
   },
   {
     id: uuidv4(),
     name: 'Thanos',
     organization: '',
-    groupId: '',
+    groupId: memberGroups[4].id,
     note: 'You should have gone for the head.',
     pictures: [
       userPhotos.thanos1
-    ]
+    ],
+    picture: userPhotos.thanos1
   },
   {
     id: uuidv4(),
     name: 'Rocket',
     organization: 'Zoo',
-    groupId: '',
+    groupId: memberGroups[3].id,
     note: 'Ain\'t nothin\' like me, cept\' me.',
     pictures: [
       userPhotos.rocket1
-    ]
+    ],
+    picture: userPhotos.rocket1
   }
 ];
 
