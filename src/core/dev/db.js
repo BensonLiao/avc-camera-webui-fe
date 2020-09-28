@@ -95,6 +95,61 @@ const members = [
       userPhotos.hiddleston4,
       userPhotos.hiddleston5
     ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Jeremy Renners',
+    organization: 'Avengers',
+    groupId: '',
+    note: 'The City Is Flying, We’re Fighting An Army Of Robots, And I Have A Bow And Arrow. None Of This Makes Sense.',
+    pictures: [
+      userPhotos.renner1,
+      userPhotos.renner2
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Benedict Cumberbatch',
+    organization: 'Mystic Arts',
+    groupId: '',
+    note: 'Dormammu, I\'ve Come To Bargain.',
+    pictures: [
+      userPhotos.cumberbatch1,
+      userPhotos.cumberbatch2,
+      userPhotos.cumberbatch3,
+      userPhotos.cumberbatch4
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Chris Hemsworth',
+    organization: 'God^2',
+    groupId: '',
+    note: 'I notice you\'ve copied my beard.',
+    pictures: [
+      userPhotos.hemsworth1,
+      userPhotos.hemsworth2
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Thanos',
+    organization: '',
+    groupId: '',
+    note: 'You should have gone for the head.',
+    pictures: [
+      userPhotos.thanos1
+    ]
+  },
+  {
+    id: uuidv4(),
+    name: 'Rocket',
+    organization: 'Zoo',
+    groupId: '',
+    note: 'Ain\'t nothin\' like me, cept\' me.',
+    pictures: [
+      userPhotos.rocket1
+    ]
   }
 ];
 
@@ -499,22 +554,62 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: eventPhotos.kim,
-          time: '2020-02-04T12:00:00.000Z',
-          recognitionType: RecognitionType.unknown,
+          pictureThumbUrl: eventPhotos.cumberbatch,
+          pictureLargeUrl: eventPhotos.cumberbatch,
+          time: '2020-03-21T09:42:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[6],
           confidences: {
-            score: '49',
+            score: '89',
+            similarity: Similarity.high
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.hemsworth,
+          pictureLargeUrl: eventPhotos.hemsworth,
+          time: '2020-03-04T11:03:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[7],
+          confidences: {
+            score: '72',
+            similarity: Similarity.high
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.renner,
+          pictureLargeUrl: eventPhotos.renner,
+          time: '2020-05-21T19:40:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[5],
+          confidences: {
+            score: '21',
             similarity: Similarity.low
           }
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: eventPhotos.jackman,
-          time: '2020-01-05T12:00:00.000Z',
-          recognitionType: RecognitionType.unknown,
+          pictureThumbUrl: eventPhotos.rocket,
+          pictureLargeUrl: eventPhotos.rocket,
+          time: '2020-07-31T04:12:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[9],
           confidences: {
-            score: '49',
-            similarity: Similarity.low
+            score: '61',
+            similarity: Similarity.medium
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.thanos,
+          pictureLargeUrl: eventPhotos.thanos,
+          time: '2020-02-28T21:40:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[8],
+          confidences: {
+            score: '99',
+            similarity: Similarity.high
           }
         }
       ],
