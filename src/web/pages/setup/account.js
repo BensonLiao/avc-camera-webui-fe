@@ -103,7 +103,7 @@ module.exports = class SetupAccount extends Base {
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: _('Confirm your password'),
+                placeholder: _('Confirm Your Password'),
                 className: classTable.confirmPassword
               }}
             />

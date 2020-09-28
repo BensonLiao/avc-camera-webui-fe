@@ -161,9 +161,9 @@ module.exports = class FaceRecognition extends Base {
                 <div className="card">
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                      <label className="mb-0">{_('Anti-Photo Spoof')}</label>
+                      <label className="mb-0">{_('Anti-Image Spoof')}</label>
                       <div className="custom-control custom-switch">
-                        <CustomTooltip show={!isEnable} title={_('Face-Recognition is Disabled')}>
+                        <CustomTooltip show={!isEnable} title={_('Facial Recognition is Disabled')}>
                           <span>
                             <Field
                               name="isEnableSpoofing"

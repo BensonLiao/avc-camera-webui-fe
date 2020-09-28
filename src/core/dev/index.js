@@ -621,7 +621,7 @@ mockAxios.onGet('/api/ping/web').reply(config => new Promise((resolve, _) => {
     const currentItem = db.get('users').find({id: itemId}).value();
     const newItem = JSON.parse(config.data);
     if (currentItem.password !== '' && currentItem.password !== newItem.password) {
-      return mockResponseWithLog(config, [204, {messsage: 'Your old password is incorrect.'}]);
+      return mockResponseWithLog(config, [204, {messsage: 'Your current password is incorrect.'}]);
     }
 
     newItem.id = itemId;

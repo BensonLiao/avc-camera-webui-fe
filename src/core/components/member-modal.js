@@ -545,7 +545,7 @@ module.exports = class Member extends React.PureComponent {
   };
 
   formRender = ({errors, touched, values, validateForm}) => {
-    const {isApiProcessing, onHide} = this.props;
+    const {isApiProcessing, onHide, member, groups} = this.props;
     const {
       isShowEditModal,
       isShowConfirmModal,
@@ -640,7 +640,9 @@ module.exports = class Member extends React.PureComponent {
 
                         )}
                     </div>
-                    <span>{avatar[0]}</span>
+                    <span>
+                      {_(avatar[0])}
+                    </span>
                   </div>
                 );
               })}
@@ -682,7 +684,7 @@ module.exports = class Member extends React.PureComponent {
           </div>
           <SelectField labelName={_('Group')} wrapperClassName="px-2" name="group">
             <option value="">{_('N/A')}</option>
-            {this.props.groups.items.map(group => (
+            {groups.items.map(group => (
               <option key={group.id} value={group.id}>{group.name}</option>
             ))}
           </SelectField>
@@ -720,7 +722,7 @@ module.exports = class Member extends React.PureComponent {
                 });
               }}
             >
-              {this.props.member ? _('Confirm') : _('New')}
+              {member ? _('Confirm') : _('New')}
             </button>
           </div>
           <button
@@ -735,7 +737,7 @@ module.exports = class Member extends React.PureComponent {
         <CustomNotifyModal
           backdrop="static"
           isShowModal={isShowConfirmModal}
-          modalTitle={_('Member')}
+          modalTitle={member ? _('Edit Member') : _('New Member')}
           modalBody={_('Are you sure you want to close this window? Any changes you have made will be lost.')}
           onHide={this.onHideConfirmModal}
           onConfirm={() => {
@@ -839,7 +841,7 @@ module.exports = class Member extends React.PureComponent {
         onHide={isApiProcessing || isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{member ? _('Modify Member') : _('New Member')}</Modal.Title>
+          <Modal.Title as="h5">{member ? _('Edit Member') : _('New Member')}</Modal.Title>
         </Modal.Header>
         <Formik
           enableReinitialize
