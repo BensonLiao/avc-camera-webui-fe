@@ -13,8 +13,8 @@ const StreamBandwidthManagement = require('webserver-form-schema/constants/strea
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const defaultPhotos = require('./default-photos');
-const userPhotos = require('./photos/users/photos');
+const userPhotos = require('./photos/users/_photos');
+const eventPhotos = require('./photos/events/_photos');
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
@@ -452,8 +452,8 @@ module.exports = {
       faceEvents: [
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.scarlett,
-          pictureLargeUrl: defaultPhotos.event.scarlett,
+          pictureThumbUrl: eventPhotos.scarlett,
+          pictureLargeUrl: eventPhotos.scarlett,
           time: '2019-10-02T12:00:00.000Z',
           recognitionType: RecognitionType.registered,
           member: members[0],
@@ -464,8 +464,8 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.jackman,
-          pictureLargeUrl: defaultPhotos.event.jackman,
+          pictureThumbUrl: eventPhotos.jackman,
+          pictureLargeUrl: eventPhotos.jackman,
           time: '2020-09-02T12:00:00.000Z',
           recognitionType: RecognitionType.fake,
           confidences: {
@@ -475,8 +475,8 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.kim,
-          pictureLargeUrl: defaultPhotos.event.kim,
+          pictureThumbUrl: eventPhotos.kim,
+          pictureLargeUrl: eventPhotos.kim,
           time: '2020-07-02T12:00:00.000Z',
           recognitionType: RecognitionType.registered,
           member: members[1],
@@ -487,8 +487,8 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.elon,
-          pictureLargeUrl: defaultPhotos.event.elon,
+          pictureThumbUrl: eventPhotos.elon,
+          pictureLargeUrl: eventPhotos.elon,
           time: '2020-04-03T12:00:00.000Z',
           recognitionType: RecognitionType.registered,
           member: members[2],
@@ -499,7 +499,7 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.kim,
+          pictureThumbUrl: eventPhotos.kim,
           time: '2020-02-04T12:00:00.000Z',
           recognitionType: RecognitionType.unknown,
           confidences: {
@@ -509,7 +509,7 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.jackman,
+          pictureThumbUrl: eventPhotos.jackman,
           time: '2020-01-05T12:00:00.000Z',
           recognitionType: RecognitionType.unknown,
           confidences: {
