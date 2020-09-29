@@ -33,9 +33,6 @@ module.exports = class SetupAccount extends Base {
       account: classNames(
         'form-control', {'is-invalid': errors.account && touched.account}
       ),
-      birthday: classNames(
-        'form-control', {'is-invalid': errors.birthday && touched.birthday}
-      ),
       password: classNames(
         'form-control', {'is-invalid': errors.password && touched.password}
       ),
@@ -68,19 +65,6 @@ module.exports = class SetupAccount extends Base {
             <small className="text-info">
               {_('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space')}
             </small>
-          </div>
-          <div className="form-group has-feedback">
-            <label>{_('Birthday')}</label>
-            <Field
-              name="birthday"
-              component={Password}
-              inputProps={{
-                placeholder: '19900101',
-                className: classTable.birthday
-              }}
-            />
-            <ErrorMessage component="div" name="birthday" className="invalid-feedback"/>
-            <small className="form-text text-muted">{_('This is used for resetting password.')}</small>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
