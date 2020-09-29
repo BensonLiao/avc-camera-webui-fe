@@ -167,7 +167,7 @@ module.exports = class User extends Base {
                   name="newPassword"
                   component={Password}
                   inputProps={{
-                    placeholder: _('Enter your new password'),
+                    placeholder: _('Enter Your New Password'),
                     className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
                   }}
                 />
@@ -184,7 +184,7 @@ module.exports = class User extends Base {
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: _(user ? 'Confirm your new password' : 'Confirm your password'),
+                placeholder: _(user ? 'Confirm Your New Password' : 'Confirm Your Password'),
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
               }}
             />

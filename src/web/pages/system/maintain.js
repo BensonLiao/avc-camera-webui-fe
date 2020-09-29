@@ -313,7 +313,7 @@ module.exports = class Maintain extends Base {
           <div className="container-fluid">
             <div className="row">
               <BreadCrumb
-                path={[_('System'), _('Settings'), _('Device Maintenace')]}
+                path={[_('System'), _('Settings'), _('Device Maintenance')]}
                 routes={['/system/datetime', '/system/datetime']}
               />
               <CustomNotifyModal
@@ -334,7 +334,7 @@ module.exports = class Maintain extends Base {
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Device Maintenace')}</div>
+                  <div className="card-header">{_('Device Maintenance')}</div>
                   <div className="card-body">
                     <div className="form-group">
                       <label>{_('System Reboot')}</label>
