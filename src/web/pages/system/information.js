@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import _ from '../../../languages';
+import BreadCrumb from '../../../core/components/fields/breadcrumb';
 
 const Information = ({networkSettings: {mac}, systemInformation: {firmware, serialNumber}}) => {
   const list = [
