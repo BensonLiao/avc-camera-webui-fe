@@ -40,7 +40,6 @@ const setDelay = (func, delay) => {
 };
 
 const mockDB = require('./db');
-const {Utils} = require('handlebars');
 const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);
 mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(config, [config.params.mock ? 500 : 200]), 1000))
