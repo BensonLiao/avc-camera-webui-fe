@@ -1,6 +1,6 @@
 const classNames = require('classnames');
 const download = require('downloadjs');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const {getRouter} = require('capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const progress = require('nprogress');
@@ -145,11 +145,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
                 )
               }}
             />
-            {
-              errors.password && touched.password && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )
-            }
+            <ErrorMessage component="div" name="password" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
             <label>{_('New Password')}</label>
@@ -164,11 +160,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
             <small className="form-text text-muted">
               {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
             </small>
-            {
-              errors.newPassword && touched.newPassword && (
-                <div className="invalid-feedback">{errors.newPassword}</div>
-              )
-            }
+            <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Confirm Password')}</label>
@@ -180,11 +172,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
                 placeholder: _('Confirm Your New Password')
               }}
             />
-            {
-              errors.confirmPassword && touched.confirmPassword && (
-                <div className="invalid-feedback">{errors.confirmPassword}</div>
-              )
-            }
+            <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
           </div>
         </div>
         <div className="modal-footer flex-column">
