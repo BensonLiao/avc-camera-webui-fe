@@ -39,7 +39,7 @@ module.exports = class User extends Base {
     super(props);
     const router = getRouter();
     this.state.isShowModal = true;
-    this.state.usersName = this.props.users.items.map(user => user.account);
+    this.state.usersName = props.users.items.map(user => user.account);
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
         const isShowModal = [
@@ -156,6 +156,9 @@ module.exports = class User extends Base {
                   className: classNames('form-control', {'is-invalid': errors.password && touched.password})
                 }}
               />
+              <small className="text-info">
+                {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+              </small>
               <ErrorMessage component="div" name="password" className="invalid-feedback"/>
             </div>
           )}
