@@ -1,52 +1,40 @@
-const React = require('react');
-const classNames = require('classNames');
-const PropTypes = require('prop-types');
-const Base = require('../shared/base');
-const _ = require('../../../languages');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import BreadCrumb from '../../../core/components/fields/breadcrumb';
+import _ from '../../../languages';
 
-module.exports = class Information extends Base {
-  static get propTypes() {
-    return {
-      systemInformation: PropTypes.shape({
-        serialNumber: PropTypes.string.isRequired,
-        firmware: PropTypes.string.isRequired
-      }).isRequired,
-      networkSettings: PropTypes.shape({mac: PropTypes.string.isRequired}).isRequired
-    };
-  }
-
-  render() {
-    const {networkSettings: {mac}, systemInformation: {firmware, serialNumber}} = this.props;
-    const list = [
-      {
-        name: _('Build Version'),
-        data: firmware
-      },
-      {
-        name: _('S/N Code'),
-        data: serialNumber
-      },
-      {
-        name: _('MAC Address'),
-        data: mac
-      }
-    ];
-    return (
-      <div className="main-content left-menu-active">
-        <div className="section-media">
-          <div className="container-fluid">
-            <div className="row">
-              <BreadCrumb
-                className="px-0"
-                path={[_('System'), _('System Information'), _('Information')]}
-                routes={['/system/datetime', '/system/log']}
-              />
-              <div className="col-center">
-                <div className="card shadow">
-                  <div className="card-header">{_('Information')}</div>
-                  <div className="card-body">
-                    <table className="w-100">
+const Information = ({networkSettings: {mac}, systemInformation: {firmware, serialNumber}}) => {
+  const list = [
+    {
+      name: _('Build Version'),
+      data: firmware
+    },
+    {
+      name: _('S/N Code'),
+      data: serialNumber
+    },
+    {
+      name: _('MAC Address'),
+      data: mac
+    }
+  ];
+  return (
+    <div className="main-content left-menu-active">
+      <div className="section-media">
+        <div className="container-fluid">
+          <div className="row">
+            <BreadCrumb
+              className="px-0"
+              path={[_('System'), _('System Information'), _('Information')]}
+              routes={['/system/datetime', '/system/log']}
+            />
+            <div className="col-center">
+              <div className="card shadow">
+                <div className="card-header">{_('Information')}</div>
+                <div className="card-body">
+                  <table className="w-100">
+                    <tbody>
                       {list.map((value, index) => {
                         return (
                           <tr key={value.name} className="border-bottom">
@@ -57,14 +45,24 @@ module.exports = class Information extends Base {
                           </tr>
                         );
                       })}
-                    </table>
-                  </div>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
+
+Information.propTypes = {
+  systemInformation: PropTypes.shape({
+    serialNumber: PropTypes.string.isRequired,
+    firmware: PropTypes.string.isRequired
+  }).isRequired,
+  networkSettings: PropTypes.shape({mac: PropTypes.string.isRequired}).isRequired
+};
+
+export default Information;
