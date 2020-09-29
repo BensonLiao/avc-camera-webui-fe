@@ -28,8 +28,13 @@ module.exports = class EventsSearchForm extends React.PureComponent {
 
   state = {
     isShowStartDatePicker: false,
-    isShowEndDatePicker: false
+    isShowEndDatePicker: false,
+    clickSearch: localStorage.getItem('clickSearch') || false
   };
+
+  componentDidMount() {
+    localStorage.removeItem('clickSearch');
+  }
 
   toggleStartDatePicker = () => {
     this.setState(prevState => ({
@@ -61,6 +66,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
    * @returns {void}
    */
   onSubmitSearchForm = ({keyword, start, end}) => {
+    localStorage.setItem('clickSearch', false);
     getRouter().go({
       name: this.props.currentRouteName,
       params: {
@@ -74,12 +80,12 @@ module.exports = class EventsSearchForm extends React.PureComponent {
   };
 
   render() {
-    const {isShowStartDatePicker, isShowEndDatePicker} = this.state;
+    const {isShowStartDatePicker, isShowEndDatePicker, clickSearch} = this.state;
     const {params, isApiProcessing} = this.props;
     const searchFromInitialValues = {
       keyword: params.keyword || '',
       start: params.start ? utils.subtractTimezoneOffset(new Date(params.start)) : null,
-      end: params.end ? utils.subtractTimezoneOffset(new Date(params.end)) : null
+      end: params.end && clickSearch ? utils.subtractTimezoneOffset(new Date(params.end)) : null
     };
 
     return (
@@ -130,7 +136,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
           </div>
           <div className="form-row mt-4">
             <div className="col-auto px-0">
-              <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
+              <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keywords')}/>
             </div>
             <div className="col-auto px-0 ml-3">
               <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>

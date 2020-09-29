@@ -278,12 +278,12 @@ module.exports = class VideoSetting extends React.PureComponent {
             </div>
           </div>
 
-          {/* Picture */}
+          {/* Image Adjustment */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
               <button className="btn btn-link btn-block text-left" type="button" disabled={disableInput} data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>{_('Picture')}
+                <i className="fas fa-chevron-up"/>{_('Image Adjustment')}
               </button>
             </h2>
 
@@ -452,7 +452,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>Zoom</label>
+                  <label>{_('Zoom')}</label>
                   <span className="text-primary text-size-14">{values.zoom}{('X')}</span>
                 </div>
                 <Field
@@ -524,7 +524,7 @@ module.exports = class VideoSetting extends React.PureComponent {
             <div id="video" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('Auto White Balance')}</label>
+                  <label>{_('White Balance')}</label>
                   <Field
                     name="whiteblanceMode"
                     component={Dropdown}

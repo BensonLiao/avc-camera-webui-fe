@@ -70,7 +70,7 @@ module.exports = class ResetPassword extends Base {
               name="newPassword"
               component={Password}
               inputProps={{
-                placeholder: _('Enter your new password'),
+                placeholder: _('Enter Your New Password'),
                 className: classTable.newPassword
               }}
             />
@@ -86,7 +86,7 @@ module.exports = class ResetPassword extends Base {
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: _('Confirm your new password'),
+                placeholder: _('Confirm Your New Password'),
                 className: classTable.confirmPassword
               }}
             />

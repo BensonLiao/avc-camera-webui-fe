@@ -166,7 +166,7 @@ class SearchMember extends React.PureComponent {
                     className="px-0"
                     style={{width: '200px'}}
                   >
-                    <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keyword')}/>
+                    <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keywords')}/>
                   </div>
                   <div className="px-0 ml-3">
                     <button

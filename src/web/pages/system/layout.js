@@ -67,7 +67,7 @@ module.exports = class System extends Base {
                   to="/system/maintain"
                   title={_('Device Maintain')}
                 >
-                  {_('Device Maintenace')}
+                  {_('Device Maintenance')}
                 </Link>
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.upgrade'})}
