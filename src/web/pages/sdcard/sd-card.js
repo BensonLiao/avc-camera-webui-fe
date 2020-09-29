@@ -12,6 +12,7 @@ const {SD_STATUS_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const VolumeProgressBar = require('../../../core/components/volume-progress-bar');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class SDCard extends Base {
   static get propTypes() {
@@ -271,13 +272,10 @@ module.exports = class SDCard extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <div className="row justify-content-center">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item">{_('SD Card')}</li>
-                  </ol>
-                </nav>
-              </div>
+              <BreadCrumb
+                className="px-0"
+                path={[_('SD Card Settings')]}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('SD Card Settings')}</div>

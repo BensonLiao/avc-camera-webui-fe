@@ -11,8 +11,8 @@ module.exports = class LoginLock extends Base {
     return {
       params: function (props, propName, componentName) {
         if (
-          !props[propName].loginLockRemainingMs ||
-          Number.isNaN(props[propName].loginLockRemainingMs)
+          !props[propName].loginLockExpiredTime ||
+          Number.isNaN(props[propName].loginLockExpiredTime)
         ) {
           return new Error(
             `Invalid prop "${propName}.loginLockExpiredTime" supplied to ${componentName}. Validation failed.`
@@ -24,13 +24,20 @@ module.exports = class LoginLock extends Base {
 
   constructor(props) {
     super(props);
-    this.state.displayTime = dayjs(props.params.loginLockRemainingMs).format('mm:ss');
+    this.state.loginLockRemainingMs = props.params.loginLockExpiredTime - Date.now();
     this.state.disableLoginLink = true;
 
+    this.timerId = null;
+  }
+
+  componentDidMount() {
+    let remainingMs = this.state.loginLockRemainingMs;
+
     this.timerId = setInterval(() => {
-      props.params.loginLockRemainingMs -= 1000;
-      if (props.params.loginLockRemainingMs >= 0) {
-        this.setState({displayTime: dayjs(props.params.loginLockRemainingMs).format('mm:ss')});
+      remainingMs -= 1000;
+
+      if (remainingMs >= 0) {
+        this.setState({loginLockRemainingMs: remainingMs});
       } else {
         clearInterval(this.timerId);
         this.timerId = null;
@@ -47,6 +54,8 @@ module.exports = class LoginLock extends Base {
   }
 
   render() {
+    const formatedLoginLockTime = dayjs(this.state.loginLockRemainingMs).format('mm:ss');
+
     return (
       <AccountContainer page="page-login-lock">
         <div className="card shadow mb-5">
@@ -65,7 +74,7 @@ module.exports = class LoginLock extends Base {
             {
               this.state.disableLoginLink ? (
                 <a href="#disabled" className="btn btn-primary btn-block rounded-pill mt-4 disabled">
-                  {_('{0} Remaining', [this.state.displayTime])}
+                  {_('{0} Remaining', [formatedLoginLockTime])}
                 </a>
               ) : (
                 <Once>

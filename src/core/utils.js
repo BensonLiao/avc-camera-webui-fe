@@ -5,7 +5,7 @@ const dayjs = require('dayjs');
 const _ = require('../languages');
 const api = require('../core/apis/web-api');
 const {validator} = require('../core/validations');
-const {RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
+const {MEMBER_PHOTO_MIME_TYPE, RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 
 /**
@@ -46,6 +46,30 @@ exports.formatDate = (date, {withSecond, withoutTime, format} = {}) => {
   }
 
   return `${dayjs(date).format(formats[0])} ${dayjs(date).format(formats[1])}`;
+};
+
+/**
+ * Get time with offset.
+ * this is used to normalise the UTC time from server
+ * @param {Date} time - e.g. 9/21 11:00am GMT+8
+ * @returns {Date} - e.g. 9/21 7:00pm GMT+8
+ */
+exports.addTimezoneOffset = time => {
+  const isTimeEpoch = typeof time === 'number';
+  return new Date(isTimeEpoch ? time : time.getTime() -
+  ((isTimeEpoch ? new Date(time) : time).getTimezoneOffset() * 60 * 1000));
+};
+
+/**
+ * Get time without offset (UTC).
+ * this is used to condition time to UTC for server
+ * @param {Date} time - e.g. 9/21 7:00pm GMT+8
+ * @returns {Date} - e.g. 9/21 11:00am GMT+8
+ */
+exports.subtractTimezoneOffset = time => {
+  const isTimeEpoch = typeof time === 'number';
+  return new Date(isTimeEpoch ? time : time.getTime() +
+  ((isTimeEpoch ? new Date(time) : time).getTimezoneOffset() * 60 * 1000));
 };
 
 /**
@@ -152,6 +176,55 @@ exports.validateStreamBitRate = () => values => {
 };
 
 /**
+ * @param {string} str - The base64 jpeg string.
+ * @param {string} unit - The base64 jpeg string size unit. default is `byte`
+ * @returns {number} - The size of base64 jpeg string in bytes, rounded to nearest integer.
+ */
+exports.getBase64Size = (str, unit = 'byte') => {
+  if (typeof str !== 'string') {
+    throw Error('Base64 encoded data must be string.');
+  }
+
+  if (unit !== 'byte' && unit !== 'kb') {
+    throw Error('File size unit must be byte or kb.');
+  }
+
+  // Ref: https://en.wikipedia.org/wiki/Base64#Padding
+  const padding = str.endsWith('==') ? 2 : (str.endsWith('=') ? 1 : 0);
+  let fileSize = (str.length * (3 / 4)) - padding;
+  fileSize = unit === 'kb' ? fileSize / 1024 : fileSize;
+  return Math.round(fileSize);
+};
+
+/**
+ * Convert cropper image to specific size.
+ * @param {string} imgSrc - The base64 jpeg string or a url to image src.
+ * @param {number} wrapperSize - size of the photo container. default is `300px`
+ * @returns {Promise<string>} - The converted base64 jpeg string.
+ */
+exports.convertCropperImage = (imgSrc, wrapperSize = 300) => new Promise((resolve, reject) => {
+  const img = document.createElement('img');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  img.onerror = reject;
+  img.onload = () => {
+    img.width = wrapperSize;
+    img.height = wrapperSize;
+    canvas.width = wrapperSize;
+    canvas.height = wrapperSize;
+
+    context.translate(canvas.width / 2, canvas.height / 2);
+    context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
+    context.restore();
+
+    resolve(canvas.toDataURL(MEMBER_PHOTO_MIME_TYPE).replace(`data:${MEMBER_PHOTO_MIME_TYPE};base64,`, ''));
+  };
+
+  img.src = imgSrc;
+});
+
+/**
  * @param {string} imgSrc - The src of the img element.
  * @param {number} zoomFactor - Zoom factor as a number, `2` is 2x.
  * @param {number} pictureRotateDegrees - The rotate degrees. 0 ~ 360
@@ -159,7 +232,16 @@ exports.validateStreamBitRate = () => values => {
  * @param {number} wrapperSize - size of the photo container
  * @returns {Promise<string>} - The base64 jpeg string.
  */
-exports.convertPicture = (imgSrc, zoomFactor, pictureRotateDegrees, offset, wrapperSize) => new Promise((resolve, reject) => {
+exports.convertPictureURL = (
+  imgSrc,
+  zoomFactor = 1,
+  pictureRotateDegrees = 0,
+  offset = {
+    x: 0,
+    y: 0
+  },
+  wrapperSize = 88
+) => new Promise((resolve, reject) => {
   const img = document.createElement('img');
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
@@ -192,7 +274,7 @@ exports.convertPicture = (imgSrc, zoomFactor, pictureRotateDegrees, offset, wrap
     context.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
     context.restore();
 
-    resolve(canvas.toDataURL('image/jpeg', 0.9).replace('data:image/jpeg;base64,', ''));
+    resolve(canvas.toDataURL(MEMBER_PHOTO_MIME_TYPE).replace(`data:${MEMBER_PHOTO_MIME_TYPE};base64,`, ''));
   };
 
   img.src = imgSrc;
@@ -271,7 +353,7 @@ exports.validatedPortCheck = (value, error) => {
     (Number(value) < PORT_NUMBER_MIN) ||
     (Number(value) > PORT_NUMBER_MAX) ||
     RESTRICTED_PORTS.some(val => val === value);
-  let errorMsg = error || _('Not a valid port number, please use another number.');
+  let errorMsg = error || _('The specified port is reserved by system or in use!');
   if (value === '') {
     errorMsg = _('The port number must not empty.');
     return errorMsg;

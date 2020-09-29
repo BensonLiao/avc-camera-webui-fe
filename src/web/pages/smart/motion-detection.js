@@ -3,7 +3,7 @@ const React = require('react');
 const progress = require('nprogress');
 const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const iconHotkeyBackspace = require('../../../resource/hotkey-backspace-32px.svg');
 const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');
 const iconCursor = require('../../../resource/cursor-24px.svg');
@@ -13,6 +13,7 @@ const Slider = require('../../../core/components/fields/slider');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class MotionDetection extends Base {
   static get propTypes() {
@@ -128,17 +129,10 @@ module.exports = class MotionDetection extends Base {
 
     return (
       <Form className="row">
-        <div className="col-12">
-          <nav>
-            <ol className="breadcrumb rounded-pill">
-              <li className="breadcrumb-item active">
-                <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
-              </li>
-              <li className="breadcrumb-item">{_('Motion Detection')}</li>
-            </ol>
-          </nav>
-        </div>
-
+        <BreadCrumb
+          path={[_('Analytic'), _('Motion Detection')]}
+          routes={['/analytic/face-recognition']}
+        />
         <div className="col-7 pl-3 pr-0">
           <div ref={this.videoWrapperRef} id="md-video-wrapper" className="video-wrapper">
             <img
@@ -169,7 +163,7 @@ module.exports = class MotionDetection extends Base {
 
         <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
-            <div className="card-header">{_('Motion Detection Recognition')}</div>
+            <div className="card-header">{_('Motion Detection')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{_('On/Off')}</label>

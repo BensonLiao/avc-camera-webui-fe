@@ -7,6 +7,7 @@ const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-tim
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const _ = require('../../../languages');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
+const utils = require('../../../core/utils');
 
 module.exports = class EventsSearchForm extends React.PureComponent {
   static get propTypes() {
@@ -27,8 +28,13 @@ module.exports = class EventsSearchForm extends React.PureComponent {
 
   state = {
     isShowStartDatePicker: false,
-    isShowEndDatePicker: false
+    isShowEndDatePicker: false,
+    clickSearch: localStorage.getItem('clickSearch') || false
   };
+
+  componentDidMount() {
+    localStorage.removeItem('clickSearch');
+  }
 
   toggleStartDatePicker = () => {
     this.setState(prevState => ({
@@ -52,33 +58,6 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     this.setState({isShowEndDatePicker: false});
   }
 
-  convertTime = (time, method) => {
-    const {systemDateTime} = this.props;
-    if (method === 'add') {
-      time = new Date(time.getTime() - (time.getTimezoneOffset() * 60 * 1000));
-    }
-
-    if (method === 'subtract') {
-      time = new Date(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
-    }
-
-    if (this.props.systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
-      const timeZoneDifference = systemDateTime.syncTimeOption === SyncTimeOption.ntp ?
-        new Date(time.toLocaleString('en-US', {timeZone: 'utc'})) -
-        new Date(time.toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone})) :
-        0;
-      if (method === 'add') {
-        time = new Date(time.getTime() + timeZoneDifference);
-      }
-
-      if (method === 'subtract') {
-        time = new Date(time.getTime() - timeZoneDifference);
-      }
-    }
-
-    return time;
-  }
-
   /**
    * Handler on user submit the search form.
    * @param {String} keyword
@@ -87,25 +66,26 @@ module.exports = class EventsSearchForm extends React.PureComponent {
    * @returns {void}
    */
   onSubmitSearchForm = ({keyword, start, end}) => {
+    localStorage.setItem('clickSearch', false);
     getRouter().go({
       name: this.props.currentRouteName,
       params: {
         ...this.props.params,
         index: undefined,
         keyword,
-        start: start ? this.convertTime(start, 'add').toJSON() : undefined,
-        end: end ? this.convertTime(end, 'add').toJSON() : undefined
+        start: start ? utils.addTimezoneOffset(start).toJSON() : undefined,
+        end: end ? utils.addTimezoneOffset(end).toJSON() : undefined
       }
     });
   };
 
   render() {
-    const {isShowStartDatePicker, isShowEndDatePicker} = this.state;
+    const {isShowStartDatePicker, isShowEndDatePicker, clickSearch} = this.state;
     const {params, isApiProcessing} = this.props;
     const searchFromInitialValues = {
       keyword: params.keyword || '',
-      start: params.start ? this.convertTime(new Date(params.start), 'subtract') : null,
-      end: params.end ? this.convertTime(new Date(params.end), 'subtract') : null
+      start: params.start ? utils.subtractTimezoneOffset(new Date(params.start)) : null,
+      end: params.end && clickSearch ? utils.subtractTimezoneOffset(new Date(params.end)) : null
     };
 
     return (
@@ -124,7 +104,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 inputProps={{
                   className: classNames('btn start-date px-4', {active: isShowStartDatePicker}),
                   placeholder: _('Start Datetime'),
-                  style: {whiteSpace: 'nowrap'}
+                  style: {
+                    whiteSpace: 'nowrap',
+                    boxShadow: 'none'
+                  }
                 }}
                 endDateFieldName="end"
                 isShowPicker={isShowStartDatePicker}
@@ -139,7 +122,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 inputProps={{
                   className: classNames('btn end-date px-4', {active: isShowEndDatePicker}),
                   placeholder: _('End Datetime'),
-                  style: {whiteSpace: 'nowrap'}
+                  style: {
+                    whiteSpace: 'nowrap',
+                    boxShadow: 'none'
+                  }
                 }}
                 startDateFieldName="start"
                 isShowPicker={isShowEndDatePicker}
@@ -150,7 +136,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
           </div>
           <div className="form-row mt-4">
             <div className="col-auto px-0">
-              <Field name="keyword" className="form-control" type="search" placeholder={_('Enter keywords')}/>
+              <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keywords')}/>
             </div>
             <div className="col-auto px-0 ml-3">
               <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>

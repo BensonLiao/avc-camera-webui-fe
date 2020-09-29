@@ -49,7 +49,7 @@ module.exports = class Login extends Base {
             ) {
               getRouter().go({
                 name: 'login-lock',
-                params: {loginLockRemainingMs: error.response.data.extra.loginLockRemainingMs}
+                params: {loginLockExpiredTime: Date.now() + error.response.data.extra.loginLockRemainingMs}
               });
               return;
             }

@@ -5,7 +5,9 @@ module.exports = class Base extends React.Component {
   state = {
     $isApiProcessing: store.get('$isApiProcessing'),
     $user: store.get('$user'),
-    $expires: store.get('$expires')
+    $expires: store.get('$expires'),
+    $updateFocalLengthField: store.get('$updateFocalLengthField') || false,
+    $isNotCallUnloadAlert: store.get('$isNotCallUnloadAlert') || false
   };
 
   constructor(props) {
@@ -17,6 +19,20 @@ module.exports = class Base extends React.Component {
           this.setState({$isApiProcessing: data});
         } else {
           this.state.$isApiProcessing = data;
+        }
+      }),
+      store.subscribe('$isNotCallUnloadAlert', (msg, data) => {
+        if (this.$isMounted) {
+          this.setState({$isNotCallUnloadAlert: data});
+        } else {
+          this.state.$isNotCallUnloadAlert = data;
+        }
+      }),
+      store.subscribe('$updateFocalLengthField', (msg, data) => {
+        if (this.$isMounted) {
+          this.setState({$updateFocalLengthField: data});
+        } else {
+          this.state.$updateFocalLengthField = data;
         }
       }),
       store.subscribe('$user', (msg, data) => {
@@ -36,11 +52,24 @@ module.exports = class Base extends React.Component {
     ];
   }
 
+  unloadAlert = e => {
+    const {$isApiProcessing, $updateFocalLengthField, $isNotCallUnloadAlert} = this.state;
+    if (($isApiProcessing || $updateFocalLengthField) && !$isNotCallUnloadAlert) {
+      // Cancel the event
+      // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+      e.preventDefault();
+      // Chrome requires returnValue to be set
+      e.returnValue = '';
+    }
+  };
+
   componentDidMount() {
     this.$isMounted = true;
+    window.addEventListener('beforeunload', this.unloadAlert);
   }
 
   componentWillUnmount() {
     this.$listens.forEach(x => x());
+    window.removeEventListener('beforeunload', this.unloadAlert);
   }
 };

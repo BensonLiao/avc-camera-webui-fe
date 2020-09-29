@@ -1,7 +1,6 @@
 const download = require('downloadjs');
 const React = require('react');
 const progress = require('nprogress');
-const {Link} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
@@ -9,6 +8,7 @@ const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class Maintain extends Base {
   constructor(props) {
@@ -223,14 +223,7 @@ module.exports = class Maintain extends Base {
             <label className="form-check-label" htmlFor="input-checkbox-reset-all">
               {_('Restore All Settings')}
             </label>
-            <CustomTooltip title={_(`Check or clear this option to overwrite or preserve these settings: 
-            Members and Groups, 
-            System Accounts, 
-            Focus and Zoom settings of Image, 
-            RTSP settings, 
-            Internet/Network settings, 
-            and data on the SD Card.`)}
-            >
+            <CustomTooltip title={_('Check or clear this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD Card.')}>
               <i className="fas fa-question-circle text-primary"/>
             </CustomTooltip>
           </div>
@@ -275,7 +268,7 @@ module.exports = class Maintain extends Base {
         <small className="form-text text-muted my-2">{_('Only .Zip File Supported')}</small>
         <div>
           <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
-            <input type="file" className="d-none" accept=".zip" onChange={this.onChangeFile}/>
+            <input type="file" className="d-none" accept="application/zip" onChange={this.onChangeFile}/>
             {_('Select File')}
           </label>
           {
@@ -319,20 +312,10 @@ module.exports = class Maintain extends Base {
         <div className="page-system">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/system">{_('System')}</Link>
-                    </li>
-                    <li className="breadcrumb-item active">
-                      <Link to="/system/date">{_('Settings')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Device Maintenace')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                path={[_('System'), _('Settings'), _('Device Maintenance')]}
+                routes={['/system/datetime', '/system/datetime']}
+              />
               <CustomNotifyModal
                 modalType="process"
                 backdrop="static"
@@ -351,7 +334,7 @@ module.exports = class Maintain extends Base {
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Device Maintenace')}</div>
+                  <div className="card-header">{_('Device Maintenance')}</div>
                   <div className="card-body">
                     <div className="form-group">
                       <label>{_('System Reboot')}</label>

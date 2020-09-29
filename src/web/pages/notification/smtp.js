@@ -2,8 +2,8 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
-const {Link, getRouter} = require('capybara-router');
-const {Formik, Form, Field} = require('formik');
+const {getRouter} = require('capybara-router');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Modal = require('react-bootstrap/Modal').default;
 const SMTPEncryptionType = require('webserver-form-schema/constants/smtp-encryption-type');
 const SMTPPort = require('webserver-form-schema/constants/smtp-port');
@@ -15,6 +15,7 @@ const _ = require('../../../languages');
 const notify = require('../../../core/notify');
 const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class SMTP extends Base {
   static get propTypes() {
@@ -40,41 +41,30 @@ module.exports = class SMTP extends Base {
     this.state.accountSettings = this.generateAccountSettingsInitialValues(props.smtpSettings);
   }
 
-  generateSMTPSettingsInitialValues = settings => {
-    return {
-      host: settings.host,
-      senderName: settings.senderName,
-      senderEmail: settings.senderEmail,
-      interval: settings.interval,
-      isEnableLoginNotification: settings.isEnableLoginNotification,
-      isEnableAuth: settings.isEnableAuth
-    };
-  };
+  generateSMTPSettingsInitialValues = settings => ({
+    host: settings.host,
+    senderName: settings.senderName,
+    senderEmail: settings.senderEmail,
+    interval: settings.interval,
+    isEnableLoginNotification: settings.isEnableLoginNotification,
+    isEnableAuth: settings.isEnableAuth
+  });
 
-  generateAccountSettingsInitialValues = settings => {
-    return {
-      account: settings.account,
-      password: settings.password,
-      port: settings.port || SMTPPort['25'],
-      encryption: settings.encryption || SMTPEncryptionType.none
-    };
-  };
+  generateAccountSettingsInitialValues = settings => ({
+    account: settings.account,
+    password: settings.password,
+    port: settings.port || SMTPPort['25'],
+    encryption: settings.encryption || SMTPEncryptionType.none
+  });
 
-  onClickAccountSettingsButton = event => {
-    event.preventDefault();
-    this.setState({isShowModal: true});
-  };
+  onShowAccountSettingsModal = () => this.setState({isShowModal: true});
 
-  onHideModal = () => {
-    this.setState({isShowModal: false});
-  };
+  onHideAccountSettingsModal = () => this.setState({isShowModal: false});
 
-  onSubmitAccountSettingsForm = values => {
-    this.setState({
-      accountSettings: values,
-      isShowModal: false
-    });
-  };
+  onSubmitAccountSettingsForm = values => this.setState({
+    accountSettings: values,
+    isShowModal: false
+  });
 
   onSubmitSMTPSettingsForm = values => {
     progress.start();
@@ -85,7 +75,7 @@ module.exports = class SMTP extends Base {
       .then(response => {
         notify.showSuccessNotification({
           title: _('Mail Setting Success'),
-          message: _(response.data.isTestMailSent ? 'Test Mail Sent!' : 'Account Auth is Off, Test Mail not Sent.')
+          message: _(response.data.isTestMailSent ? 'Test Mail Sent' : 'Account Auth is Off, Test Mail not Sent.')
         });
       })
       .then(getRouter().reload)
@@ -104,11 +94,7 @@ module.exports = class SMTP extends Base {
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
               placeholder={_('Enter your account')}
             />
-            {
-              errors.account && touched.account && (
-                <div className="invalid-feedback">{errors.account}</div>
-              )
-            }
+            <ErrorMessage component="div" name="account" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
@@ -120,11 +106,7 @@ module.exports = class SMTP extends Base {
                 placeholder: _('Enter your password')
               }}
             />
-            {
-              errors.password && touched.password && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )
-            }
+            <ErrorMessage component="div" name="password" className="invalid-feedback"/>
           </div>
           <div className="form-group">
             <label>{_('Port')}</label>
@@ -171,7 +153,7 @@ module.exports = class SMTP extends Base {
               {_('Apply')}
             </button>
           </div>
-          <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.onHideModal}>
+          <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.onHideAccountSettingsModal}>
             {_('Close')}
           </button>
         </div>
@@ -181,43 +163,19 @@ module.exports = class SMTP extends Base {
 
   smtpSettingsFormRender = ({values, errors, touched}) => {
     const {$isApiProcessing} = this.state;
-
+    const {isEnableAuth} = values;
     return (
       <Form className="card shadow">
         <div className="card-header">
           {_('SMTP Server')}
         </div>
         <div className="card-body">
-          <div className="form-group">
-            <label>{_('Host Address')}</label>
-            <Field
-              autoFocus
-              name="host"
-              type="text"
-              className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-              placeholder={_('Enter your Host Address')}
-            />
-            {
-              errors.host && touched.host && (
-                <div className="invalid-feedback">{errors.host}</div>
-              )
-            }
-          </div>
           <div className="form-group d-flex justify-content-between align-items-center">
-            <div>
-              <label className="mb-0">{_('SMTP Account Settings')}</label>
-              <br/>
-              <a className="mr-2" href="#" onClick={this.onClickAccountSettingsButton}>
-                {_('Edit account and password')}
-              </a>
-              <CustomTooltip title={_('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
-                <i className="fas fa-question-circle text-primary"/>
-              </CustomTooltip>
-            </div>
+            <label>{_('On/Off')}</label>
             <div className="custom-control custom-switch">
               <Field
                 name="isEnableAuth"
-                checked={values.isEnableAuth}
+                checked={isEnableAuth}
                 type="checkbox"
                 className="custom-control-input"
                 id="switch-auth"
@@ -228,73 +186,106 @@ module.exports = class SMTP extends Base {
               </label>
             </div>
           </div>
-          <div className="form-group d-flex justify-content-between align-items-center">
-            <label>{_('Login Notification')}</label>
-            <div className="custom-control custom-switch">
-              <Field
-                name="isEnableLoginNotification"
-                checked={values.isEnableLoginNotification}
-                type="checkbox"
-                className="custom-control-input"
-                id="switch-login-notification"
-              />
-              <label className="custom-control-label" htmlFor="switch-login-notification">
-                <span>{_('ON')}</span>
-                <span>{_('OFF')}</span>
-              </label>
+          <div className="card">
+            <div className="card-body">
+              <div className="form-group">
+                <label>{_('Host Address')}</label>
+                <Field
+                  autoFocus
+                  disabled={!isEnableAuth}
+                  name="host"
+                  type="text"
+                  className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
+                  placeholder={_('Enter Your Host Address')}
+                />
+                <ErrorMessage component="div" name="host" className="invalid-feedback"/>
+              </div>
+              <div className="form-group d-flex justify-content-between align-items-center">
+                <div>
+                  <label className="mb-0">{_('SMTP Account Settings')}</label>
+                  <br/>
+                </div>
+                <div>
+                  <CustomTooltip show={!isEnableAuth} title={_('Please Enable SMTP Server')}>
+                    <a
+                      href="#"
+                      className={classNames('mr-2', {'disable-link': !isEnableAuth})}
+                      onClick={event => {
+                        event.preventDefault();
+                        return isEnableAuth && this.onShowAccountSettingsModal();
+                      }}
+                    >
+                      {_('Edit Account and Password')}
+                    </a>
+                  </CustomTooltip>
+                  <CustomTooltip title={_('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
+                    <i className="fas fa-question-circle text-primary"/>
+                  </CustomTooltip>
+                </div>
+              </div>
+              <div className="form-group d-flex justify-content-between align-items-center">
+                <label>{_('Login Notification')}</label>
+                <CustomTooltip show={!isEnableAuth} title={_('Please Enable SMTP Server')}>
+                  <div className="custom-control custom-switch">
+                    <Field
+                      disabled={!isEnableAuth}
+                      name="isEnableLoginNotification"
+                      checked={values.isEnableLoginNotification}
+                      type="checkbox"
+                      className="custom-control-input"
+                      id="switch-login-notification"
+                    />
+                    <label className="custom-control-label" htmlFor="switch-login-notification">
+                      <span>{_('ON')}</span>
+                      <span>{_('OFF')}</span>
+                    </label>
+                  </div>
+                </CustomTooltip>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="card-header rounded-0">
+          {/* <div className="card-header rounded-0">
           {_('Sender')}
-        </div>
-        <div className="card-body">
-          <div className="form-group">
-            <label>{_('Name')}</label>
-            <Field
-              name="senderName"
-              type="text"
-              className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
-              placeholder={_('Enter Your Name')}
-            />
-            {
-              errors.senderName && touched.senderName && (
-                <div className="invalid-feedback">{errors.senderName}</div>
-              )
-            }
+        </div> */}
+          <div className="card-body">
+            <div className="form-group">
+              <label>{_('Sender')}</label>
+              <Field
+                disabled={!isEnableAuth}
+                name="senderName"
+                type="text"
+                className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
+                placeholder={_('Enter Your Name')}
+              />
+              <ErrorMessage component="div" name="senderName" className="invalid-feedback"/>
+            </div>
+            <div className="form-group">
+              <label>{_('Email')}</label>
+              <Field
+                disabled={!isEnableAuth}
+                name="senderEmail"
+                type="text"
+                className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
+                placeholder={_('Enter Your Email')}
+              />
+              <ErrorMessage component="div" name="senderEmail" className="invalid-feedback"/>
+            </div>
+            <div className="form-group">
+              <label>{_('Notification Interval (Seconds)')}</label>
+              <Field
+                disabled={!isEnableAuth}
+                name="interval"
+                type="text"
+                className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
+                placeholder={_('Enter your notification interval')}
+              />
+              <ErrorMessage component="div" name="interval" className="invalid-feedback"/>
+              <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
+            </div>
+            <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+              {_('Apply')}
+            </button>
           </div>
-          <div className="form-group">
-            <label>{_('Email')}</label>
-            <Field
-              name="senderEmail"
-              type="text"
-              className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
-              placeholder={_('Enter your email')}
-            />
-            {
-              errors.senderEmail && touched.senderEmail && (
-                <div className="invalid-feedback">{errors.senderEmail}</div>
-              )
-            }
-          </div>
-          <div className="form-group">
-            <label>{_('Notification Interval (Seconds)')}</label>
-            <Field
-              name="interval"
-              type="text"
-              className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
-              placeholder={_('Enter your notification interval')}
-            />
-            {
-              errors.interval && touched.interval && (
-                <div className="invalid-feedback">{errors.interval}</div>
-              )
-            }
-            <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
-          </div>
-          <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-            {_('Apply')}
-          </button>
         </div>
       </Form>
     );
@@ -309,20 +300,11 @@ module.exports = class SMTP extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Notification Setting')}</Link>
-                    </li>
-                    <li className="breadcrumb-item active">
-                      <Link to="/notification/smtp">{_('Basic Setting')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Mail')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('Notification Setting'), _('Basic Setting'), _('Mail')]}
+                routes={['/notification/smtp', '/notification/smtp']}
+              />
               <div className="col-center">
                 <Formik
                   initialValues={this.generateSMTPSettingsInitialValues(smtpSettings)}
@@ -335,7 +317,7 @@ module.exports = class SMTP extends Base {
             </div>
           </div>
 
-          <Modal autoFocus={false} show={isShowModal} onHide={this.onHideModal}>
+          <Modal autoFocus={false} show={isShowModal} onHide={this.onHideAccountSettingsModal}>
             <div className="modal-header">
               <h5 className="modal-title">{_('Email and login settings')}</h5>
             </div>

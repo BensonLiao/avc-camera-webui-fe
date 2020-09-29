@@ -70,8 +70,8 @@ module.exports = class MembersTable extends React.PureComponent {
       }
     };
     return (
-      <div className="col-12 mb-5">
-        <table className="table custom-style" style={{tableLayout: 'fixed'}}>
+      <div className="col-12 mb-5 table-responsive">
+        <table className="table custom-style">
           <thead>
             <tr className="shadow">
               <th className="text-center" style={{width: '20%'}}>{_('User Picture')}</th>
@@ -103,50 +103,45 @@ module.exports = class MembersTable extends React.PureComponent {
               )
             }
             {
-              members.items.map((member, index) => {
-                const tdClass = classNames({
-                  'border-bottom':
-                index >= members.items.length - 1
-                });
-
+              members.items.map(member => {
                 return (
                   <tr key={member.id}>
-                    <td className={classNames('text-center', tdClass)}>
-                      <img
-                        className="rounded-circle"
-                        style={{height: '56px'}}
-                        src={`data:image/jpeg;base64,${member.pictures[0]}`}
-                      />
+                    <td className="text-center">
+                      <div className="thumbnail-wrapper">
+                        <div className="rounded-circle overflow-hidden circle-crop">
+                          <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${member.pictures[0]}')`}}/>
+                        </div>
+                      </div>
                     </td>
-                    <td className={tdClass}>
+                    <td>
                       <CustomTooltip placement="top-start" title={member.name}>
                         <div>
                           {member.name}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={tdClass}>
+                    <td>
                       <CustomTooltip placement="top-start" title={member.organization}>
                         <div>
                           {member.organization || _('N/A')}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={tdClass}>
+                    <td>
                       <CustomTooltip placement="top-start" title={(groups.items.find(x => x.id === member.groupId) || {}).name || ''}>
                         <div>
                           {(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={tdClass}>
+                    <td>
                       <CustomTooltip placement="top-start" title={member.note}>
                         <div>
                           {member.note || _('N/A')}
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className={classNames('text-left group-btn', tdClass)}>
+                    <td className="text-left group-btn">
                       <CustomTooltip title={_('Edit Member: {0}', [member.name])}>
                         <Link
                           className="btn btn-link"

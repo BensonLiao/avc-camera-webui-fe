@@ -16,10 +16,13 @@ const Dropdown = require('./fields/dropdown');
 const FormikEffect = require('./formik-effect');
 const {getRouter} = require('capybara-router');
 const CustomTooltip = require('../../core/components/tooltip');
-
+const constants = require('../constants');
+const store = require('../store');
 module.exports = class VideoSetting extends React.PureComponent {
   static get propTypes() {
     return {
+      updateFocalLengthField: PropTypes.bool.isRequired,
+      isApiProcessing: PropTypes.bool.isRequired,
       videoSettings: PropTypes.shape({
         defoggingEnabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired, // 除霧
         irEnabled: PropTypes.string.isRequired, // 紅外線燈
@@ -50,45 +53,42 @@ module.exports = class VideoSetting extends React.PureComponent {
   }
 
   state = {
-    isAutoFocusProcessing: false,
-    focalLengthQueue: null,
-    updateFocalLengthField: false
+    // isAutoFocusProcessing: false,
+    focalLengthQueue: null
   }
 
   constructor(props) {
     super(props);
     this.submitPromise = Promise.resolve();
-    this.state.isAutoFocusProcessing = false;
+    // this.state.isAutoFocusProcessing = false;
     this.state.focalLengthQueue = null;
-    this.state.updateFocalLengthField = false;
   }
 
   generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
     event.preventDefault();
     form.setFieldValue('focusType', autoFocusType).then(() => {
       let prevFocalLength;
-      this.setState({updateFocalLengthField: true}, () => {
-        // Refresh focal length until previous value matches current value
-        const refreshFocalLength = () => {
-          api.video.getFocalLength()
-            .then(response => {
-              if (prevFocalLength === response.data.focalLength) {
-                this.setState({updateFocalLengthField: false});
-              } else {
-                prevFocalLength = response.data.focalLength;
-                // Refresh focal length at 1hz
-                setTimeout(refreshFocalLength, 1000);
-              }
+      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+      // Refresh focal length until previous value matches current value
+      const refreshFocalLength = () => {
+        api.video.getFocalLength()
+          .then(response => {
+            if (prevFocalLength === response.data.focalLength) {
+              store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
+            } else {
+              prevFocalLength = response.data.focalLength;
+              // Refresh focal length at 1hz
+              setTimeout(refreshFocalLength, 1000);
+            }
 
-              return response.data.focalLength;
-            })
-            .then(focalLength => {
-              form.setFieldValue('focalLength', focalLength);
-            });
-        };
+            return response.data.focalLength;
+          })
+          .then(focalLength => {
+            form.setFieldValue('focalLength', focalLength);
+          });
+      };
 
-        refreshFocalLength();
-      });
+      refreshFocalLength();
     });
   }
 
@@ -120,10 +120,10 @@ module.exports = class VideoSetting extends React.PureComponent {
     }
 
     if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
-      this.setState({updateFocalLengthField: true});
+      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
     }
 
-    if (this.state.$isApiProcessing) {
+    if (this.props.isApiProcessing) {
       this.setState({focalLengthQueue: nextValues.focalLength});
     } else {
       api.video.updateFocusSettings(nextValues)
@@ -146,39 +146,37 @@ module.exports = class VideoSetting extends React.PureComponent {
         })
         .then(() => {
           // Trigger react update to get the latest global state
-          this.setState({updateFocalLengthField: false}, () => {
-            if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
-              let prevFocalLength;
-              this.setState({updateFocalLengthField: true}, () => {
-                // Refresh focal length until previous value matches current value
-                const refreshFocalLength = () => {
-                  api.video.getFocalLength()
-                    .then(response => {
-                      if (prevFocalLength === response.data.focalLength) {
-                        this.setState({updateFocalLengthField: false});
-                      } else {
-                        prevFocalLength = response.data.focalLength;
-                        // Refresh focal length at 1hz
-                        setTimeout(refreshFocalLength, 1000);
-                      }
+          store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
+          if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
+            let prevFocalLength;
+            store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+            // Refresh focal length until previous value matches current value
+            const refreshFocalLength = () => {
+              api.video.getFocalLength()
+                .then(response => {
+                  if (prevFocalLength === response.data.focalLength) {
+                    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
+                  } else {
+                    prevFocalLength = response.data.focalLength;
+                    // Refresh focal length at 1hz
+                    setTimeout(refreshFocalLength, 1000);
+                  }
 
-                      return response.data.focalLength;
-                    })
-                    .then(focalLength => {
-                      formik.setFieldValue('focalLength', focalLength);
-                    });
-                };
+                  return response.data.focalLength;
+                })
+                .then(focalLength => {
+                  formik.setFieldValue('focalLength', focalLength);
+                });
+            };
 
-                refreshFocalLength();
-              });
-            }
-          });
+            refreshFocalLength();
+          }
         });
     }
   }
 
   onChangeVideoSettings = ({nextValues, prevValues, formik}) => {
-    if (!nextValues || this.state.updateFocalLengthField) {
+    if (!nextValues || this.props.updateFocalLengthField) {
       return;
     }
 
@@ -219,7 +217,7 @@ module.exports = class VideoSetting extends React.PureComponent {
 
   generateClickAutoFocusButtonHandler = form => event => {
     event.preventDefault();
-    this.setState({updateFocalLengthField: true});
+    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
     this.submitPromise = this.submitPromise
       .then(api.video.startAutoFocus)
       .then(() => {
@@ -229,7 +227,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           api.video.getFocalLength()
             .then(response => {
               if (prevFocalLength === response.data.focalLength) {
-                this.setState({updateFocalLengthField: false});
+                store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
               } else {
                 prevFocalLength = response.data.focalLength;
                 // Refresh focal length at 1hz
@@ -249,7 +247,8 @@ module.exports = class VideoSetting extends React.PureComponent {
 
   videoSettingsFormRender = form => {
     const {values} = form;
-    const {$isApiProcessing, updateFocalLengthField} = this.state;
+    const {isApiProcessing, updateFocalLengthField} = this.props;
+    const disableInput = isApiProcessing || updateFocalLengthField;
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
@@ -260,7 +259,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           <div className="card-body">
             <div className="form-row">
               <div className="col-12 my-1 d-flex justify-content-between align-items-center">
-                <span className="text-size-20">{_('WDR')}</span>
+                <span className="text-size-20">{_('HDR')}</span>
                 <div className="custom-control custom-switch d-inline-block ml-2">
                   <Field
                     name="hdrEnabled"
@@ -268,6 +267,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     checked={values.hdrEnabled === 'true' ? true : undefined}
                     className="custom-control-input"
                     id="switch-hdr-enabled"
+                    disabled={disableInput}
                   />
                   <label className="custom-control-label" htmlFor="switch-hdr-enabled">
                     <span>{_('ON')}</span>
@@ -278,12 +278,12 @@ module.exports = class VideoSetting extends React.PureComponent {
             </div>
           </div>
 
-          {/* Picture */}
+          {/* Image Adjustment */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
-              <button className="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>{_('Picture')}
+              <button className="btn btn-link btn-block text-left" type="button" disabled={disableInput} data-toggle="collapse" data-target="#lightness">
+                <i className="fas fa-chevron-up"/>{_('Image Adjustment')}
               </button>
             </h2>
 
@@ -356,7 +356,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </button>
               <div className="btn-group tip">
                 <button
-                  disabled={$isApiProcessing || updateFocalLengthField}
+                  disabled={disableInput}
                   type="button"
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
@@ -365,7 +365,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                 </button>
                 <button
                   type="button"
-                  disabled={$isApiProcessing || updateFocalLengthField}
+                  disabled={disableInput}
                   className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
                   data-toggle="dropdown"
                   aria-haspopup="true"
@@ -395,7 +395,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   <div>
                     <CustomTooltip title="-5">
                       <button
-                        disabled={updateFocalLengthField}
+                        disabled={disableInput}
                         className="btn text-secondary-700"
                         type="button"
                         onClick={() => this.varyFocus(form, -5)}
@@ -405,7 +405,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     </CustomTooltip>
                     <CustomTooltip title="-1">
                       <button
-                        disabled={updateFocalLengthField}
+                        disabled={disableInput}
                         className="btn text-secondary-700"
                         type="button"
                         onClick={() => this.varyFocus(form, -1)}
@@ -418,7 +418,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     <Field
                       updateFieldOnStop
                       enableArrowKey
-                      disabled={updateFocalLengthField}
+                      disabled={disableInput}
                       name="focalLength"
                       component={Slider}
                       step={1}
@@ -426,11 +426,10 @@ module.exports = class VideoSetting extends React.PureComponent {
                       max={videoFocusSettingsSchema.focalLength.max}
                     />
                   </div>
-
                   <div>
                     <CustomTooltip title="+1">
                       <button
-                        disabled={updateFocalLengthField}
+                        disabled={disableInput}
                         className="btn text-secondary-700"
                         type="button"
                         onClick={() => this.varyFocus(form, 1)}
@@ -440,7 +439,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     </CustomTooltip>
                     <CustomTooltip title="+5">
                       <button
-                        disabled={updateFocalLengthField}
+                        disabled={disableInput}
                         className="btn text-secondary-700"
                         type="button"
                         onClick={() => this.varyFocus(form, 5)}
@@ -453,13 +452,13 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>Zoom</label>
+                  <label>{_('Zoom')}</label>
                   <span className="text-primary text-size-14">{values.zoom}{('X')}</span>
                 </div>
                 <Field
                   updateFieldOnStop
                   enableArrowKey
-                  disabled={updateFocalLengthField}
+                  disabled={disableInput}
                   name="zoom"
                   component={Slider}
                   step={0.1}
@@ -471,7 +470,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                 <Field
                   id="input-check-auto-focus-after-zoom"
                   type="checkbox"
-                  disabled={updateFocalLengthField}
+                  disabled={disableInput}
                   className="form-check-input"
                   name="isAutoFocusAfterZoom"
                   checked={values.isAutoFocusAfterZoom}
@@ -517,7 +516,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
-              <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#video">
+              <button className="btn btn-link btn-block text-left collapsed" type="button" disabled={disableInput} data-toggle="collapse" data-target="#video">
                 <i className="fas fa-chevron-up"/>{_('Image Configuration')}
               </button>
             </h2>
@@ -525,7 +524,7 @@ module.exports = class VideoSetting extends React.PureComponent {
             <div id="video" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('Auto White Balance')}</label>
+                  <label>{_('White Balance')}</label>
                   <Field
                     name="whiteblanceMode"
                     component={Dropdown}
@@ -701,7 +700,7 @@ module.exports = class VideoSetting extends React.PureComponent {
         <hr className="my-0"/>
         <div className="card-body pt-0 mt-5">
           <button
-            disabled={$isApiProcessing || updateFocalLengthField}
+            disabled={disableInput}
             type="button"
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler()}

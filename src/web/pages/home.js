@@ -79,7 +79,6 @@ module.exports = class Home extends Base {
     super(props);
     this.submitPromise = Promise.resolve();
     this.state.deviceName = props.systemInformation.deviceName || '';
-    this.state.isAutoFocusProcessing = false;
   }
 
   componentWillUnmount() {
@@ -103,22 +102,6 @@ module.exports = class Home extends Base {
         resetForm({values: this.generateInitialValues(response.data)});
       })
       .finally(progress.done);
-  };
-
-  generateClickAutoFocusButtonHandler = ({resetForm}) => event => {
-    event.preventDefault();
-    progress.start();
-    this.setState({isAutoFocusProcessing: true});
-    this.submitPromise = this.submitPromise
-      .then(api.video.startAutoFocus)
-      .then(api.video.getSettings)
-      .then(response => {
-        resetForm({values: this.generateInitialValues(response.data)});
-      })
-      .finally(() => {
-        progress.done();
-        this.setState({isAutoFocusProcessing: false});
-      });
   };
 
   onSubmitDeviceNameForm = ({deviceName}, {resetForm}) => {
@@ -168,8 +151,7 @@ module.exports = class Home extends Base {
       systemInformation: {
         sdUsage,
         sdTotal,
-        sdStatus,
-        deviceStatus
+        sdStatus
       },
       authStatus: {
         isEnableFaceRecognitionKey,
@@ -211,7 +193,6 @@ module.exports = class Home extends Base {
                         <tr>
                           <th>{_('Device Name')}</th>
                           <th>{_('Analytic')}</th>
-                          <th>{_('Device Status')}</th>
                           <th>{_('SD Card')}</th>
                         </tr>
                       </thead>
@@ -250,14 +231,6 @@ module.exports = class Home extends Base {
                               </div>
                             )}
                           </td>
-                          <td className="align-top">
-                            {deviceStatus === 0 && (
-                              <span className="badge badge-pill badge-danger">{_('Error')}</span>
-                            )}
-                            {deviceStatus === 1 && (
-                              <span className="badge badge-pill badge-success">{_('Normal')}</span>
-                            )}
-                          </td>
                           <td className={classNames('align-top', sdStatus === 0 ? '' : 'd-none')}>
                             <VolumeProgressBar
                               total={sdTotal}
@@ -279,6 +252,8 @@ module.exports = class Home extends Base {
                     <VideoSetting
                       videoSettings={videoSettings}
                       systemDateTime={systemDateTime}
+                      isApiProcessing={this.state.$isApiProcessing}
+                      updateFocalLengthField={this.state.$updateFocalLengthField}
                     />
                   </div>
                 </div>

@@ -1,8 +1,8 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {Link} = require('capybara-router');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class Information extends Base {
   static get propTypes() {
@@ -22,20 +22,11 @@ module.exports = class Information extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/system">{_('System')}</Link>
-                    </li>
-                    <li className="breadcrumb-item active">
-                      <Link to="/system/date">{_('Settings')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Information')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('System'), _('System Information'), _('Information')]}
+                routes={['/system/datetime', '/system/log']}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{_('Information')}</div>

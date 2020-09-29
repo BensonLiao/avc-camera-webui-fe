@@ -10,6 +10,7 @@ axios.interceptors.response.use(
   }
 );
 const classNames = require('classnames');
+const dayjs = require('dayjs');
 const download = require('downloadjs');
 const progress = require('nprogress');
 const React = require('react');
@@ -102,13 +103,13 @@ module.exports = class LiveView extends React.PureComponent {
     event.preventDefault();
     api.system.getSystemDateTime()
       .then(({data}) => {
-        const dateTime = data.deviceTime.replace(/:|-/g, '').replace(/\s+/g, '-');
+        const fileName = dayjs(data.deviceTime).tz(data.ntpTimeZone).format('YYYYMMDD-HHmmss');
         axios.get('/api/snapshot', {
           timeout: 1500,
           responseType: 'blob'
         })
           .then(response => {
-            download(response.data, `${dateTime}.jpg`);
+            download(response.data, `${fileName}.jpg`);
           })
           .catch(error => {
             progress.done();

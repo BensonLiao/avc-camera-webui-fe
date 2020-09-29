@@ -19,13 +19,17 @@ module.exports = class SessionExpireModal extends React.PureComponent {
       const expiresTimer = new Timer(
         () => {
           this.setState(
-            {isShowModal: true},
+            {
+              isShowModal: true,
+              modalBody: _('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN])
+            },
             () => {
               let countdown = constants.REDIRECT_COUNTDOWN;
               this.countdownID = setInterval(() => {
                 this.setState({modalBody: _('Your session has expired, redirect in {0} seconds', [--countdown])});
               }, 1000);
               this.countdownTimerID = setTimeout(() => {
+                store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);
                 clearInterval(this.countdownID);
                 api.account.logout()
                   .then(() => {

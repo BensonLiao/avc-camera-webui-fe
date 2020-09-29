@@ -18,7 +18,8 @@ module.exports = class Members extends Base {
     return {
       params: PropTypes.shape({group: PropTypes.string}).isRequired,
       groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
-      members: PropTypes.shape(MembersTable.propTypes.members).isRequired
+      members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
@@ -173,8 +174,9 @@ module.exports = class Members extends Base {
   };
 
   render() {
-    const {groups, members, params} = this.props;
+    const {groups, members, params, remainingPictureCount} = this.props;
     const {selectedGroup, $isApiProcessing} = this.state;
+    const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
     const hrefTemplate = getRouter().generateUri(
       this.currentRoute,
       {
@@ -182,7 +184,6 @@ module.exports = class Members extends Base {
         index: undefined
       }
     );
-
     return (
       <>
         {/* Left menu */}
@@ -195,7 +196,7 @@ module.exports = class Members extends Base {
         />
         {/* Main content */}
         <div className="main-content left-menu-active sub">
-          <div className="page-users bg-white">
+          <div className="page-members bg-white">
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12 d-flex justify-content-between align-items-center mb-4">
@@ -204,23 +205,31 @@ module.exports = class Members extends Base {
                     currentRouteName={this.currentRoute.name}
                     params={params}
                   />
-                  <div className="dropdown">
-                    <button className="btn border-primary text-primary rounded-pill dropdown-toggle" type="button" data-toggle="dropdown">
-                      <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
-                    </button>
-                    <div className="dropdown-menu dropdown-menu-right shadow">
-                      <Link
-                        className="dropdown-item"
-                        to={{
-                          name: 'web.users.members.new-member',
-                          params: params
-                        }}
+                  <CustomTooltip show={isOverPhotoLimit} title={_('Photo Limit Reached')}>
+                    <div className="dropdown">
+                      <button
+                        className="btn border-primary text-primary rounded-pill dropdown-toggle"
+                        type="button"
+                        disabled={isOverPhotoLimit}
+                        style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
+                        data-toggle="dropdown"
                       >
-                        {_('Add a New Member')}
-                      </Link>
-                      <Link className="dropdown-item" to="/users/events">{_('Add a Member from Events')}</Link>
+                        <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
+                      </button>
+                      <div className="dropdown-menu dropdown-menu-right shadow">
+                        <Link
+                          className="dropdown-item"
+                          to={{
+                            name: 'web.users.members.new-member',
+                            params: params
+                          }}
+                        >
+                          {_('Add a New Member')}
+                        </Link>
+                        <Link className="dropdown-item" to="/users/events">{_('Add a Member from Events')}</Link>
+                      </div>
                     </div>
-                  </div>
+                  </CustomTooltip>
                 </div>
                 {
                   selectedGroup && (
