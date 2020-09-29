@@ -26,7 +26,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
     databaseInitialValues: null,
     databaseFile: null,
     isShowApiProcessModal: false,
-    apiProcessModalTitle: _('Updating Members')
+    apiProcessModalTitle: ''
   }
 
   hideDatabaseModal = () => {
@@ -94,7 +94,10 @@ module.exports = class MembersDatabase extends React.PureComponent {
     }
 
     progress.start();
-    this.setState({isShowApiProcessModal: true}, () => {
+    this.setState({
+      isShowApiProcessModal: true,
+      apiProcessModalTitle: _('Updating Members')
+    }, () => {
       api.member.uploadDatabaseFile(file)
         .then(() => {
           getRouter().go(
