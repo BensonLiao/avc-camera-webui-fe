@@ -44,15 +44,9 @@ const mockAxios = new MockAdapter(axios);
 mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(config, [config.params.mock ? 500 : 200]), 1000))
   .onGet('/api/ping/app').reply(config => setDelay(mockResponseWithLog(config, [200])), 3000)
   .onGet('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').value()]))
-  .onPut('/api/system/adbconfig').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('adbConfig').assign(newItem).write()]);
-  })
+  .onPut('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/video/settings').reply(config => mockResponseWithLog(config, [200, db.get('video').value()]))
-  .onPut('/api/video/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('video').assign(newItem).write()]);
-  })
+  .onPut('/api/video/settings').reply(config => mockResponseWithLog(config, [200, db.get('video').assign(JSON.parse(config.data)).write()]))
   .onPut('/api/video/settings/focus').reply(config => {
     const data = {
       ...db.get('video').value(),
@@ -71,10 +65,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onPost('/api/account/_change-password').reply(config => mockResponseWithLog(config, [200, {}]))
   .onGet('/api/system/information').reply(config => mockResponseWithLog(config, [200, db.get('system').value()]))
   .onGet('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').value()]))
-  .onPut('/api/system/datetime').reply(config => {
-    const data = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('systemDateTime').assign(data).write()]);
-  })
+  .onPut('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').assign(JSON.parse(config.data)).write()]))
   .onPut('/api/system/language').reply(config => {
     const data = {
       ...db.get('system').value(),
@@ -83,10 +74,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
     return mockResponseWithLog(config, [200, db.get('system').assign(data).write()]);
   })
   .onGet('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').value()]))
-  .onPut('/api/system/network').reply(config => {
-    const data = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('networkSettings').assign(data).write()]);
-  })
+  .onPut('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/network/testdhcp').reply(config => {
     const result = mockResponseWithLog(config, [200, {
       success: 1,
@@ -95,15 +83,9 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
     return setDelay(result, 1000);
   })
   .onGet('/api/system/network/tcpip/ddns').reply(config => mockResponseWithLog(config, [200, db.get('ddnsSettings').value()]))
-  .onPut('/api/system/network/tcpip/ddns').reply(config => {
-    const data = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('ddnsSettings').assign(data).write()]);
-  })
+  .onPut('/api/system/network/tcpip/ddns').reply(config => mockResponseWithLog(config, [200, db.get('ddnsSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/system/network/tcpip/http').reply(config => mockResponseWithLog(config, [200, db.get('httpSettings').value()]))
-  .onPut('/api/system/network/tcpip/http').reply(config => {
-    const data = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('httpSettings').assign(data).write()]);
-  })
+  .onPut('/api/system/network/tcpip/http').reply(config => mockResponseWithLog(config, [200, db.get('httpSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').value()]))
   .onPost('/api/system/systeminfo/sdcard').reply(config => {
     const data = {
@@ -121,63 +103,30 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   })
   .onPost('/api/system/systeminfo/sdcard/format').reply(config => mockResponseWithLog(config, [200]))
   .onPost('/api/system/systeminfo/sdcard/unmount').reply(config => mockResponseWithLog(config, [200]))
-  .onPut('/api/system/https').reply(config => {
-    const data = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('httpsSettings').assign(data).write()]);
-  })
+  .onPut('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/reboot').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000))
   .onPost('/api/system/resetdefault').reply(config => mockResponseWithLog(config, [204, {}]))
   .onPost('/api/system/importsettings').reply(config => mockResponseWithLog(config, [204, {}]))
-  .onPut('/api/system/device-name').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('system').assign(newItem).write()]);
-  })
+  .onPut('/api/system/device-name').reply(config => mockResponseWithLog(config, [200, db.get('system').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/system/systeminfo/log.zip').reply(config => mockResponseWithLog(config, [200, new Blob()]))
   .onPost('/api/system/systeminfo/clearLog').reply(config => mockResponseWithLog(config, [204, {}]))
   .onGet('/api/multimedia/stream/settings').reply(config => mockResponseWithLog(config, [200, db.get('stream').value()]))
-  .onPut('/api/multimedia/stream/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('stream').assign(newItem).write()]);
-  })
-  .onPost('/api/multimedia/stream/settings/_reset').reply(config => {
-    const defaultItem = db.get('streamDefault').value();
-    return mockResponseWithLog(config, [200, db.get('stream').assign(defaultItem).write()]);
-  })
+  .onPut('/api/multimedia/stream/settings').reply(config => mockResponseWithLog(config, [200, db.get('stream').assign(JSON.parse(config.data)).write()]))
+  .onPost('/api/multimedia/stream/settings/_reset').reply(config => mockResponseWithLog(config, [200, db.get('stream').assign(db.get('streamDefault').value()).write()]))
   .onGet('/api/multimedia/audio/settings').reply(config => mockResponseWithLog(config, [200, db.get('audioSettings').value()]))
   .onGet('/api/multimedia/hdmi/settings').reply(config => mockResponseWithLog(config, [200, db.get('hdmiSettings').value()]))
-  .onPut('/api/multimedia/hdmi/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('hdmiSettings').assign(newItem).write()]);
-  })
-  .onPut('/api/multimedia/audio/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('audioSettings').assign(newItem).write()]);
-  })
+  .onPut('/api/multimedia/hdmi/settings').reply(config => mockResponseWithLog(config, [200, db.get('hdmiSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/multimedia/audio/settings').reply(config => mockResponseWithLog(config, [200, db.get('audioSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/multimedia/rtsp/settings').reply(config => mockResponseWithLog(config, [200, db.get('rtspSettings').value()]))
-  .onPut('/api/multimedia/rtsp/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('rtspSettings').assign(newItem).write()]);
-  })
+  .onPut('/api/multimedia/rtsp/settings').reply(config => mockResponseWithLog(config, [200, db.get('rtspSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/multimedia/privacy-mask/settings').reply(config => mockResponseWithLog(config, [200, db.get('privacyMaskSettings').value()]))
-  .onPut('/api/multimedia/privacy-mask/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('privacyMaskSettings').assign(newItem).write()]);
-  })
+  .onPut('/api/multimedia/privacy-mask/settings').reply(config => mockResponseWithLog(config, [200, db.get('privacyMaskSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/multimedia/word/settings').reply(config => mockResponseWithLog(config, [200, db.get('wordSettings').value()]))
-  .onPut('/api/multimedia/word/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('wordSettings').assign(newItem).write()]);
-  })
+  .onPut('/api/multimedia/word/settings').reply(config => mockResponseWithLog(config, [200, db.get('wordSettings').assign(config.data).write()]))
   .onGet('/api/notification/app/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationAppSettings').value()]))
-  .onPut('/api/notification/app/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('notificationAppSettings').assign(newItem).write()]);
-  })
+  .onPut('/api/notification/app/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationAppSettings').assign(config.data).write()]))
   .onGet('/api/notification/io-in/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationIOInSettings').value()]))
-  .onPut('/api/notification/io-in/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('notificationIOInSettings').assign(newItem).write()]);
-  })
+  .onPut('/api/notification/io-in/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationIOInSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/notification/io-out/0/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationIOOutSettings').value()[0]]))
   .onPut('/api/notification/io-out/0/settings').reply(config => {
     const data = [
@@ -195,10 +144,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
     return mockResponseWithLog(config, [200, db.get('notificationIOOutSettings').assign(data).write()]);
   })
   .onGet('/api/notification/smtp/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationSMTPSettings').value()]))
-  .onPut('/api/notification/smtp/settings').reply(config => {
-    const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('notificationSMTPSettings').assign(newItem).write()]);
-  })
+  .onPut('/api/notification/smtp/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationSMTPSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/notification/cards').reply(config => mockResponseWithLog(config, [200, {items: db.get('notificationCards').value()}]))
   .onPost('/api/notification/cards').reply(config => {
     const cards = db.get('notificationCards').value();
@@ -568,31 +514,13 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onPost('/api/members/database').reply(config => mockResponseWithLog(config, [204]))
   .onGet('/api/face-recognition/settings').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').value()]))
   .onGet('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]))
-  .onPut('/api/face-recognition/fr').reply(config => {
-    const settings = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
-  })
-  .onPut('/api/face-recognition/spoofing').reply(config => {
-    const settings = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
-  })
-  .onPut('/api/face-recognition/confidencelevel').reply(config => {
-    const settings = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
-  })
-  .onPut('/api/face-recognition/enrolldisplay').reply(config => {
-    const settings = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
-  })
-  .onPut('/api/face-recognition/roi').reply(config => {
-    const settings = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(settings).write()]);
-  })
+  .onPut('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/face-recognition/spoofing').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/face-recognition/confidencelevel').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/face-recognition/enrolldisplay').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/face-recognition/roi').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/motion-detection/settings').reply(config => mockResponseWithLog(config, [200, db.get('motionDetectionSettings').value()]))
-  .onPut('/api/motion-detection/settings').reply(config => {
-    const settings = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('motionDetectionSettings').assign(settings).write()]);
-  })
+  .onPut('/api/motion-detection/settings').reply(config => mockResponseWithLog(config, [200, db.get('motionDetectionSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/auth-keys').reply(config => {
     const data = db.get('authKeys').value();
     return mockResponseWithLog(config, [200, {
