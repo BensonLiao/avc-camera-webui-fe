@@ -3,7 +3,7 @@ const MockAdapter = require('axios-mock-adapter');
 const uuidv4 = require('uuid/v4');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
-const utils = require('../../core/utils');
+const utils = require('./utils');
 
 /**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
