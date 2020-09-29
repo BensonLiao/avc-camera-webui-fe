@@ -1,4 +1,5 @@
 const React = require('react');
+const classNames = require('classNames');
 const PropTypes = require('prop-types');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
@@ -16,7 +17,21 @@ module.exports = class Information extends Base {
   }
 
   render() {
-    const {systemInformation, networkSettings} = this.props;
+    const {networkSettings: {mac}, systemInformation: {firmware, serialNumber}} = this.props;
+    const list = [
+      {
+        name: _('Build Version'),
+        data: firmware
+      },
+      {
+        name: _('S/N Code'),
+        data: serialNumber
+      },
+      {
+        name: _('MAC Address'),
+        data: mac
+      }
+    ];
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
@@ -32,20 +47,16 @@ module.exports = class Information extends Base {
                   <div className="card-header">{_('Information')}</div>
                   <div className="card-body">
                     <table className="w-100">
-                      <tbody>
-                        <tr className="border-bottom">
-                          <th className="text-size-20 pt-2 pb-2 text-muted">{_('Build Version')}</th>
-                          <th className="text-size-20 pt-2 pb-2 text-primary text-right">{systemInformation.firmware}</th>
-                        </tr>
-                        <tr className="border-bottom">
-                          <th className="text-size-20 pt-4 pb-2 text-muted">{_('S/N Code')}</th>
-                          <th className="text-size-20 pt-4 pb-2 text-primary text-right">{systemInformation.serialNumber}</th>
-                        </tr>
-                        <tr className="border-bottom">
-                          <th className="text-size-20 pt-4 pb-2 text-muted">{_('MAC Address')}</th>
-                          <th className="text-size-20 pt-4 pb-2 text-primary text-right">{networkSettings.mac}</th>
-                        </tr>
-                      </tbody>
+                      {list.map((value, index) => {
+                        return (
+                          <tr key={value.name} className="border-bottom">
+                            <th className={classNames('text-size-20 pb-2 text-muted', index === 0 ? 'pt-2' : 'pt-4')}>{value.name}</th>
+                            <th className={classNames('text-size-20 pb-2 text-primary text-right', index === 0 ? 'pt-2' : 'pt-4')}>
+                              {value.data}
+                            </th>
+                          </tr>
+                        );
+                      })}
                     </table>
                   </div>
                 </div>
