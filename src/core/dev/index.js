@@ -24,6 +24,20 @@ const mockResponseWithLog = (req, res) => {
 
 const isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
 
+/**
+ * Delay a function for a determined time to simulate server process time
+ * @param {function} func - function to exeute and return
+ * @param {number} delay - in ms
+ * @return {Promise}
+ */
+const setDelay = (func, delay) => {
+  return new Promise((resolve, _) => {
+    setTimeout(() => {
+      resolve(func);
+    }, delay);
+  });
+};
+
 const mockDB = require('./db');
 const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);
