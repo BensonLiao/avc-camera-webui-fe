@@ -99,21 +99,23 @@ module.exports = class TCPIP extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Updating Http Settings')
+      apiProcessModalTitle: _('Updating Http Settings'),
+      modalBody: _('Please wait')
     },
     () => {
       api.system.updateHttpInfo(values)
-        .then(() => new Promise(resolve => {
-          utils.pingToCheckShutdown(resolve, 1000);
-        }))
         .then(() => {
-        // Check startup and reload
-          utils.pingToCheckStartupAndReload(1000, 'web');
+          const newAddress = `http://${location.hostname}:${values.port}`;
+          this.setState({
+            apiProcessModalTitle: _('Success'),
+            modalBody: [`${_('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
+          });
         })
         .catch(() => {
           progress.done();
           this.hideApiProcessModal();
-        });
+        })
+        .finally(progress.done);
     });
   }
 
@@ -221,10 +223,12 @@ module.exports = class TCPIP extends Base {
                 routes={['/network/settings']}
               />
               <CustomNotifyModal
-                modalType="process"
+                isShowAllBtns={false}
                 backdrop="static"
+                modalType={this.state.$isApiProcessing ? 'process' : 'default'}
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
+                modalBody={this.state.modalBody}
                 onHide={this.hideApiProcessModal}
               />
 

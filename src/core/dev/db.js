@@ -278,7 +278,7 @@ module.exports = {
         ddnsAccount: 'aa',
         ddnsPassword: 'aa',
         ddnsRefreshStatus: false,
-        ddnsHostStatus: false
+        ddnsHostStatus: true
       },
       httpSettings: {port: '8080'},
       httpsSettings: {
