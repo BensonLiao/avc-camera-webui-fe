@@ -54,10 +54,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
     };
     return setDelay(mockResponseWithLog(config, [200, db.get('video').assign(data).write()]), 1000);
   })
-  .onPost('/api/video/settings/_reset').reply(config => {
-    const defaultItem = db.get('videoDefault').value();
-    return mockResponseWithLog(config, [200, db.get('video').assign(defaultItem).write()]);
-  })
+  .onPost('/api/video/settings/_reset').reply(config => mockResponseWithLog(config, [200, db.get('video').assign(db.get('videoDefault').value()).write()]))
   .onPost('/api/video/settings/_auto-focus').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000)) // The real api is delay 45s.
   .onPost('/api/system/_setup').reply(config => mockResponseWithLog(config, [200, {}]))
   .onPost('/api/_validate/account-birthday').reply(config => mockResponseWithLog(config, [200, {}]))
@@ -281,8 +278,10 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
     db.get('members').remove({id: itemId}).write();
     return mockResponseWithLog(config, [204, {}]);
   })
-  .onPost('/api/members/validate-picture').reply(config => setDelay(mockResponseWithLog(config, [200, {vectors: '-1.5556641|0.6513672|0.98339844|1.7167969|0.31469727|1.0039062|1.2324219|-1.2900391|-1.1025391|-0.06774902|-0.18640137|-0.2388916|0.98876953|1.1708984|0.46679688|0.33325195|-0.54345703|1.1679688|-1.3925781|-0.29174805|1.2333984|0.33618164|0.27563477|0.68603516|1.0507812|-0.82958984|1.1220703|-0.92578125|-1.0791016|0.8652344|1.1513672|-0.05999756|-0.031707764|-0.39208984|0.62060547|-0.71240234|1.2998047|-0.38549805|-0.6254883|-0.359375|1.0605469|-0.69384766|1.9082031|0.31445312|1.3095703|0.48291016|1.8291016|-0.32861328|-0.6567383|0.078063965|-0.52197266|-2.1015625|-1.4453125|-0.80371094|-0.1665039|1.4375|-2.4394531|0.5449219|-1.6035156|0.5317383|0.6411133|0.3203125|-0.35595703|1.0898438|-0.95996094|-0.7402344|-0.4765625|0.38134766|0.26611328|0.17626953|-0.11102295|0.8515625|1.5234375|0.9892578|1.6708984|-0.3564453|-0.55615234|0.5288086|1.4619141|-0.1640625|-1.0332031|-0.0014228821|1.0800781|0.2788086|0.31640625|-1.4296875|-0.8125|-1.6435547|0.97558594|0.9394531|0.8100586|0.52685547|-0.5361328|0.107299805|-0.9482422|-2.0664062|0.42773438|-1.1542969|-0.80810547|1.1025391|0.6010742|0.74902344|0.19067383|-0.25927734|-0.80566406|-1.5957031|0.4230957|-0.36572266|-0.55566406|0.38916016|0.7861328|0.7001953|-0.64208984|0.4489746|0.3762207|0.37646484|-1.0|0.6508789|-0.20788574|-1.0849609|0.6430664|1.2910156|0.9926758|0.5888672|-1.4609375|0.071777344|-1.0644531|0.22192383|'}]))
-    , 2000)
+  .onPost('/api/members/validate-picture').reply(config => {
+    const vector = {vectors: '-1.5556641|0.6513672|0.98339844|1.7167969|0.31469727|1.0039062|1.2324219|-1.2900391|-1.1025391|-0.06774902|-0.18640137|-0.2388916|0.98876953|1.1708984|0.46679688|0.33325195|-0.54345703|1.1679688|-1.3925781|-0.29174805|1.2333984|0.33618164|0.27563477|0.68603516|1.0507812|-0.82958984|1.1220703|-0.92578125|-1.0791016|0.8652344|1.1513672|-0.05999756|-0.031707764|-0.39208984|0.62060547|-0.71240234|1.2998047|-0.38549805|-0.6254883|-0.359375|1.0605469|-0.69384766|1.9082031|0.31445312|1.3095703|0.48291016|1.8291016|-0.32861328|-0.6567383|0.078063965|-0.52197266|-2.1015625|-1.4453125|-0.80371094|-0.1665039|1.4375|-2.4394531|0.5449219|-1.6035156|0.5317383|0.6411133|0.3203125|-0.35595703|1.0898438|-0.95996094|-0.7402344|-0.4765625|0.38134766|0.26611328|0.17626953|-0.11102295|0.8515625|1.5234375|0.9892578|1.6708984|-0.3564453|-0.55615234|0.5288086|1.4619141|-0.1640625|-1.0332031|-0.0014228821|1.0800781|0.2788086|0.31640625|-1.4296875|-0.8125|-1.6435547|0.97558594|0.9394531|0.8100586|0.52685547|-0.5361328|0.107299805|-0.9482422|-2.0664062|0.42773438|-1.1542969|-0.80810547|1.1025391|0.6010742|0.74902344|0.19067383|-0.25927734|-0.80566406|-1.5957031|0.4230957|-0.36572266|-0.55566406|0.38916016|0.7861328|0.7001953|-0.64208984|0.4489746|0.3762207|0.37646484|-1.0|0.6508789|-0.20788574|-1.0849609|0.6430664|1.2910156|0.9926758|0.5888672|-1.4609375|0.071777344|-1.0644531|0.22192383|'};
+    return setDelay(mockResponseWithLog(config, [200, vector]), 2000);
+  })
   .onPost('/api/members/add-photo').reply(config => {
     const data = JSON.parse(config.data);
     const member = db.get('members').find({id: data.id}).value();
@@ -290,10 +289,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
     return setDelay(mockResponseWithLog(config, [200, db.get('members').find({id: config.data.id}).assign(member).write()]), 2000);
   })
   .onGet('/api/members/total-count').reply(config => {
-    const totalPhotos = db.get('members').value().reduce((total, elem) => {
-      return total + elem.pictures.length;
-    }, 0);
-
+    const totalPhotos = db.get('members').value().reduce((total, elem) => total + elem.pictures.length, 0);
     return mockResponseWithLog(config, [200, {totalCount: totalPhotos}]);
   })
   .onGet('/api/members/remaining-picture-count').reply(config => mockResponseWithLog(config, [200, 3000]))
