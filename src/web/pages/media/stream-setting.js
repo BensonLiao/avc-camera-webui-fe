@@ -223,7 +223,7 @@ module.exports = class StreamSetting extends Base {
     const {homePage} = this.props;
 
     // Logic for Resolution field change, updates field value to first option if options are updated
-    // Solves dependent field value are not updated when provider has changed
+    // Solves dependent field values are not updated when provider has changed
     const onUpdateResField = event => {
       event.persist();
       const newResValue = event.target.value;
@@ -232,7 +232,6 @@ module.exports = class StreamSetting extends Base {
       const current = Number(newResValue);
       if (fieldNamePrefix === 'channelA' && this.hasResolutionChanged(prev, current)) {
         this.setState({hasResolutionRatioChanged: true});
-        console.log('resolution ratio changed');
         this.processRenderOptions({
           ...allValues,
           channelA: {
@@ -274,9 +273,6 @@ module.exports = class StreamSetting extends Base {
         const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
         setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[maxFrameRateOptionB].value);
       }
-
-      console.log('this.channelAOptions :>> ', this.channelAOptions);
-      console.log('this.channelBOptions :>> ', this.channelBOptions);
     };
 
     // Logic for Codec field change
@@ -298,7 +294,6 @@ module.exports = class StreamSetting extends Base {
         const prev = Number(allValues.channelA.resolution);
         const current = Number(this.channelAOptions.resolution[0].value);
         if (this.hasResolutionChanged(prev, current)) {
-          console.log('resolution ratio changed');
           this.setState({hasResolutionRatioChanged: true});
           this.processRenderOptions({
             ...allValues,
@@ -332,9 +327,6 @@ module.exports = class StreamSetting extends Base {
         const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
         setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[maxFrameRateOptionB].value);
       }
-
-      console.log('this.channelAOptions :>> ', this.channelAOptions);
-      console.log('this.channelBOptions :>> ', this.channelBOptions);
     };
 
     return (
@@ -475,9 +467,9 @@ module.exports = class StreamSetting extends Base {
         </button>
         <CustomNotifyModal
           isShowModal={isShowModal}
-          modalTitle={this.state.hasResolutionRatioChanged ? _('Stream Settings') + ' - ' + _('WARNING') : _('Stream Settings')}
+          modalTitle={_('Stream Settings')}
           modalBody={this.state.hasResolutionRatioChanged ?
-            _('Changing stream 1 resolution ratio will also update stream 2 settings.') + ' ' + _('Are you sure you want to update stream settings?') :
+            _('Changing stream 1 resolution ratio will also update stream 2 resolution settings.') :
             _('Are you sure you want to update stream settings?')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
