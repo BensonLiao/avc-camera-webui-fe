@@ -4,7 +4,8 @@ module.exports = {
     IS_API_PROCESSING: '$isApiProcessing',
     EXPIRES: '$expires',
     EXPIRES_TIMER: '$expiresTimer',
-    UPDATE_FOCAL_LENGTH_FIELD: '$updateFocalLengthField'
+    UPDATE_FOCAL_LENGTH_FIELD: '$updateFocalLengthField',
+    IS_NOT_CALL_UNLOAD_ALERT: '$isNotCallUnloadAlert'
   },
   AVAILABLE_LANGUAGE_CODES: ['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es'],
   MEMBERS_PAGE_GROUPS_MAX: 32,
@@ -13,6 +14,10 @@ module.exports = {
   NOTIFY_CARDS_MAX: 256,
   NOTIFY_CARDS_EMAIL_MAX: 64,
   REDIRECT_COUNTDOWN: 5,
+  MEMBER_PHOTO_SCALE_STEP: 0.1,
+  MEMBER_PHOTO_SCALE_MIN: 1,
+  MEMBER_PHOTO_SCALE_MAX: 2,
+  MEMBER_PHOTO_MIME_TYPE: 'image/jpeg',
   RESTRICTED_PORTS: [
     '0', // Reserved
     '1', // Tcpmux
@@ -105,35 +110,16 @@ module.exports = {
     // 5 - UNKNOWN: Unknown storage state, such as when a path isn't backed by known storage media.
     'Unknown Error'
   ],
-  // How many hours ahead(-n) or behind(+n) GMT/UTC
-  // Note. the only method to get client's timezone is Date.prototype.getTimezoneOffset(),
-  // it will return in minutes (e.g. -60 => +1) and its not constant because it doesn't count the daylight saving.
-  TIMEZONE_OFFSET_MAP: {
-    0: 'UTC',
-    '-1': 'Europe/Amsterdam',
-    '-2': 'Africa/Cairo',
-    '-3': 'Asia/Qatar',
-    '-4': 'Asia/Dubai',
-    '-5': 'Indian/Kerguelen',
-    '-6': 'Asia/Urumqi',
-    '-7': 'Asia/Bangkok',
-    '-8': 'Asia/Taipei',
-    '-9': 'Asia/Seoul',
-    '-10': 'Australia/Sydney',
-    '-11': 'Pacific/Pohnpei',
-    '-12': 'Pacific/Fiji',
-    '-13': 'Pacific/Apia',
-    '-14': 'Pacific/Kiritimati',
-    '+1': 'Atlantic/Azores',
-    '+2': 'America/Noronha',
-    '+3': 'America/Cayenne',
-    '+4': 'America/Dominica',
-    '+5': 'America/Detroit',
-    '+6': 'America/Chicago',
-    '+7': 'America/Denver',
-    '+8': 'America/Los_Angeles',
-    '+9': 'Pacific/Gambier',
-    '+10': 'Pacific/Tahiti',
-    '+11': 'Pacific/Midway'
-  }
+  TIMEZONE_LIST: (() => {
+    const tzOptions = require('@vvo/tzdb')
+      .getTimeZones()
+      .map(zone => {
+        return {
+          ...zone,
+          label: `UTC${zone.currentTimeFormat}`
+        };
+      });
+    return tzOptions;
+  })(),
+  VMS_CAMERA_LINK: 'cameralink'
 };

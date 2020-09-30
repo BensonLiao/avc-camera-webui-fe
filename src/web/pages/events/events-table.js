@@ -43,7 +43,8 @@ module.exports = class EventsTable extends React.PureComponent {
       systemDateTime: PropTypes.shape({
         ntpTimeZone: PropTypes.oneOf(NTPTimeZoneList.all()).isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired
-      }).isRequired
+      }).isRequired,
+      remainingPictureCount: PropTypes.number.isRequired
     };
   }
 
@@ -70,8 +71,9 @@ module.exports = class EventsTable extends React.PureComponent {
       filterHandler,
       addMemberHandler,
       modifyMemberHandler,
-      systemDateTime
+      remainingPictureCount
     } = this.props;
+    const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
     const defaultIconClass = 'fas fa-fw text-muted ml-3';
     const tableField = [
       {
@@ -140,8 +142,11 @@ module.exports = class EventsTable extends React.PureComponent {
       }
     ];
     return (
-      <div className="col-12 mb-5">
-        <table className="table custom-style" style={{tableLayout: 'fixed'}}>
+      <div
+        className="col-12 mb-5 table-responsive"
+        style={{overflowY: 'hidden'}}
+      >
+        <table className="table custom-style">
           <thead>
             <tr className="shadow">
               {tableField.map(item => {
@@ -170,49 +175,24 @@ module.exports = class EventsTable extends React.PureComponent {
             }
             {
               events.items.map(event => {
-                const isEnrolled = event.recognitionType === RecognitionType.registered;
-                if (systemDateTime.syncTimeOption === SyncTimeOption.ntp) {
-                  event.time = new Date(event.time).toLocaleString('en-US', {timeZone: systemDateTime.ntpTimeZone});
-                } else {
-                  event.time = (new Date(new Date(event.time).getTime() + (new Date(event.time).getTimezoneOffset() * 60 * 1000)));
-                }
-
                 return (
                   <tr key={event.id}>
                     <td>
-                      {utils.formatDate(event.time, {withSecond: true})}
+                      {utils.formatDate(
+                        utils.subtractTimezoneOffset(new Date(event.time)),
+                        {withSecond: true}
+                      )}
                     </td>
                     <td>
-                      <div style={{
-                        width: 56,
-                        height: 56
-                      }}
-                      >
-                        <div
-                          className="rounded-circle overflow-hidden"
-                          style={{
-                            margin: 0,
-                            padding: '0 0 100%',
-                            position: 'relative'
-                          }}
-                        >
+                      <div className="thumbnail-wrapper">
+                        <div className="rounded-circle overflow-hidden circle-crop">
                           {event.pictureThumbUrl && (
                             <a
                               onClick={() => {
                                 this.generateEnlargePhotoHandler(event.pictureLargeUrl);
                               }}
                             >
-                              <div style={{
-                                background: '50%',
-                                backgroundSize: 'cover',
-                                width: '100%',
-                                height: '100%',
-                                position: 'absolute',
-                                left: 0,
-                                top: 0,
-                                backgroundImage: `url('${event.pictureThumbUrl}')`
-                              }}
-                              />
+                              <div className="thumbnail" style={{backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
                             </a>
                           )}
                         </div>
@@ -220,11 +200,11 @@ module.exports = class EventsTable extends React.PureComponent {
                     </td>
                     <td>
                       {event.member && event.member.picture ? (
-                        <img
-                          className="rounded-circle"
-                          src={`data:image/jpeg;base64,${event.member.picture}`}
-                          style={{height: '56px'}}
-                        />
+                        <div className="thumbnail-wrapper">
+                          <div className="rounded-circle overflow-hidden circle-crop">
+                            <div className="thumbnail" style={{backgroundImage: `url('data:image/jpeg;base64,${event.member.picture}')`}}/>
+                          </div>
+                        </div>
                       ) : '-'}
                     </td>
                     <td>
@@ -270,16 +250,35 @@ module.exports = class EventsTable extends React.PureComponent {
                         </div>
                       </CustomTooltip>
                     </td>
-                    <td className="text-left">
+                    <td>
                       {event.recognitionType === RecognitionType.fake ? '-' : (
-                        <CustomTooltip title={isEnrolled ? _('Edit Current Member') : _('Add as New Member')}>
-                          <button
-                            className="btn btn-link"
-                            type="button"
-                            onClick={isEnrolled ? modifyMemberHandler(event.member.id) : addMemberHandler(event.pictureThumbUrl)}
-                          >
-                            <i className={classNames('fas', {'fa-pen fa-fw': isEnrolled}, {'fa-plus text-size-20': !isEnrolled})}/>
-                          </button>
+                        <CustomTooltip show={isOverPhotoLimit} title={_('Photo Limit Reached')}>
+                          <div className="d-flex justify-content-center">
+                            <button
+                              disabled={isOverPhotoLimit}
+                              className="btn text-primary dropdown-toggle p-0"
+                              type="button"
+                              data-toggle="dropdown"
+                              style={{
+                                boxShadow: 'none',
+                                pointerEvents: isOverPhotoLimit ? 'none' : 'auto'
+                              }}
+                            >
+                              {_('Add')}
+                            </button>
+                            <div className="dropdown-menu dropdown-menu-right shadow">
+                              <a
+                                className="dropdown-item px-3"
+                                onClick={addMemberHandler(event.pictureThumbUrl)}
+                              >{_('Add as New Member')}
+                              </a>
+                              <a
+                                className="dropdown-item px-3"
+                                onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
+                              >{_('Add to Existing Member')}
+                              </a>
+                            </div>
+                          </div>
                         </CustomTooltip>
                       )}
                     </td>

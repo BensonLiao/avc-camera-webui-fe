@@ -3,7 +3,7 @@ const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
@@ -13,6 +13,7 @@ const _ = require('../../../languages');
 const {DEFAULT_PORTS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const SelectField = require('../../../core/components/fields/select-field');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class TCPIP extends Base {
   static get propTypes() {
@@ -67,7 +68,7 @@ module.exports = class TCPIP extends Base {
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
       values === httpsSettings.port) {
-      return _('This is A Reserved Port or is In Use, Please Try Another Port.');
+      return _('The specified port is reserved by system or in use!');
     }
 
     return utils.validatedPortCheck(values);
@@ -98,21 +99,23 @@ module.exports = class TCPIP extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Updating Http Settings')
+      apiProcessModalTitle: _('Updating Http Settings'),
+      modalBody: _('Please wait')
     },
     () => {
       api.system.updateHttpInfo(values)
-        .then(() => new Promise(resolve => {
-          utils.pingToCheckShutdown(resolve, 1000);
-        }))
         .then(() => {
-        // Check startup and reload
-          utils.pingToCheckStartupAndReload(1000, 'web');
+          const newAddress = `http://${location.hostname}:${values.port}`;
+          this.setState({
+            apiProcessModalTitle: _('Success'),
+            modalBody: [`${_('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
+          });
         })
         .catch(() => {
           progress.done();
           this.hideApiProcessModal();
-        });
+        })
+        .finally(progress.done);
     });
   }
 
@@ -214,23 +217,18 @@ module.exports = class TCPIP extends Base {
         <div className="page-notification">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/network/tcp-ip">{_('Internet/Network Settings')}</Link>
-                    </li>
-
-                    <li className="breadcrumb-item">{_('TCP/IP')}</li>
-                  </ol>
-                </nav>
-              </div>
-
+              <BreadCrumb
+                className="px-0"
+                path={[_('Internet/Network Settings'), _('TCP/IP')]}
+                routes={['/network/settings']}
+              />
               <CustomNotifyModal
-                modalType="process"
+                isShowAllBtns={false}
                 backdrop="static"
+                modalType={this.state.$isApiProcessing ? 'process' : 'default'}
                 isShowModal={this.state.isShowApiProcessModal}
                 modalTitle={this.state.apiProcessModalTitle}
+                modalBody={this.state.modalBody}
                 onHide={this.hideApiProcessModal}
               />
 

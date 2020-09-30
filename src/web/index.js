@@ -15,6 +15,8 @@ const Cookies = require('js-cookie');
 const {RouterView} = require('capybara-router');
 const progress = require('nprogress');
 const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc'); // dependent on utc plugin
+const timezone = require('dayjs/plugin/timezone');
 const LocalizedFormat = require('dayjs/plugin/localizedFormat');
 const dayjsZhTW = require('dayjs/locale/zh-tw');
 const dayjsZhCN = require('dayjs/locale/zh-cn');
@@ -44,6 +46,8 @@ if ('scrollRestoration' in history) {
 // Setup nprogress
 progress.configure({showSpinner: false});
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
 dayjs.extend(LocalizedFormat);
 switch (window.currentLanguageCode) {
   case 'zh-tw':
@@ -124,9 +128,6 @@ const renderWeb = () => {
       'login',
       'login-lock',
       'login-error',
-      'forgot-password',
-      'reset-password',
-      'reset-password-success',
       'not-found'
     ];
     const allowGuestRoutes = [

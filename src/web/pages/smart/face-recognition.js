@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const ConfidenceLevel = require('webserver-form-schema/constants/face-recognition-confidence-level');
@@ -10,6 +10,7 @@ const api = require('../../../core/apis/web-api');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const CustomTooltip = require('../../../core/components/tooltip');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 module.exports = class FaceRecognition extends Base {
   static get propTypes() {
     return {
@@ -99,6 +100,7 @@ module.exports = class FaceRecognition extends Base {
   }
 
   faceRecognitionSettingsFormRender = form => {
+    const {faceRecognitionSettings: {isEnable}} = this.props;
     const {$isApiProcessing, isShowDetectionZone} = this.state;
     const {values, setFieldValue} = form;
 
@@ -135,7 +137,6 @@ module.exports = class FaceRecognition extends Base {
             }
           </div>
         </div>
-
         <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
             <div className="card-header">{_('Facial Recognition')}</div>
@@ -160,19 +161,25 @@ module.exports = class FaceRecognition extends Base {
                 <div className="card">
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                      <label className="mb-0">{_('Photo Spoofing')}</label>
+                      <label className="mb-0">{_('Anti-Image Spoof')}</label>
                       <div className="custom-control custom-switch">
-                        <Field
-                          name="isEnableSpoofing"
-                          type="checkbox"
-                          checked={values.isEnableSpoofing}
-                          className="custom-control-input"
-                          id="switch-face-recognition-spoofing"
-                        />
-                        <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
-                          <span>{_('ON')}</span>
-                          <span>{_('OFF')}</span>
-                        </label>
+                        <CustomTooltip show={!isEnable} title={_('Facial Recognition is Disabled')}>
+                          <span>
+                            <Field
+                              name="isEnableSpoofing"
+                              type="checkbox"
+                              checked={values.isEnableSpoofing}
+                              disabled={!isEnable}
+                              style={isEnable ? {} : {pointerEvents: 'none'}}
+                              className="custom-control-input"
+                              id="switch-face-recognition-spoofing"
+                            />
+                            <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
+                              <span>{_('ON')}</span>
+                              <span>{_('OFF')}</span>
+                            </label>
+                          </span>
+                        </CustomTooltip>
                       </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
@@ -195,7 +202,6 @@ module.exports = class FaceRecognition extends Base {
                     </div>
                   </div>
                 </div>
-
               </div>
 
               <hr/>
@@ -242,6 +248,7 @@ module.exports = class FaceRecognition extends Base {
               <hr/>
 
               <div className="form-group">
+                <label className="mb-3">{_('Live View Display:')}</label>
                 <div className="form-check mb-3">
                   <Field
                     name="isShowMember"
@@ -250,7 +257,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-all"
                   />
-                  <label className="form-check-label" htmlFor="input-show-all">{_('Display Name')}</label>
+                  <label className="form-check-label" htmlFor="input-show-all">{_('Name')}</label>
                 </div>
                 <div className="form-check mb-3">
                   <Field
@@ -260,7 +267,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-register-group"
                   />
-                  <label className="form-check-label" htmlFor="input-show-register-group">{_('Display Group')}</label>
+                  <label className="form-check-label" htmlFor="input-show-register-group">{_('Group')}</label>
                 </div>
                 <div className="form-check mb-3">
                   <Field
@@ -270,7 +277,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-unknown-personal"
                   />
-                  <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Display "Unknown"')}</label>
+                  <label className="form-check-label" htmlFor="input-show-unknown-personal">{_('Unknown')}</label>
                 </div>
                 <div className="form-check">
                   <Field
@@ -280,7 +287,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-fake"
                   />
-                  <label className="form-check-label" htmlFor="input-show-fake">{_('Display "Fake"')}</label>
+                  <label className="form-check-label" htmlFor="input-show-fake">{_('Image Spoof')}</label>
                 </div>
               </div>
 
@@ -301,17 +308,10 @@ module.exports = class FaceRecognition extends Base {
       <div className="page-smart">
         <div className="container-fluid">
           <div className="row">
-            <div className="col-12">
-              <nav>
-                <ol className="breadcrumb rounded-pill">
-                  <li className="breadcrumb-item active">
-                    <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
-                  </li>
-                  <li className="breadcrumb-item">{_('Facial Recognition')}</li>
-                </ol>
-              </nav>
-            </div>
-
+            <BreadCrumb
+              path={[_('Analytic'), _('Facial Recognition')]}
+              routes={['/analytic/face-recognition']}
+            />
             <Formik
               initialValues={initialValues}
               onSubmit={values => this.onSubmitFaceRecognitionSettingsForm(values, initialValues)}

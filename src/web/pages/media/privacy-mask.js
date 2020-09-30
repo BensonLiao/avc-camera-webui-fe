@@ -1,7 +1,7 @@
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const iconHotkeyBackspace = require('../../../resource/hotkey-backspace-32px.svg');
 const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');
@@ -10,6 +10,7 @@ const Base = require('../shared/base');
 const MaskArea = require('../../../core/components/fields/mask-area');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class PrivacyMask extends Base {
   static get propTypes() {
@@ -119,17 +120,11 @@ module.exports = class PrivacyMask extends Base {
 
     return (
       <Form className="row">
-        <div className="col-12 px-0">
-          <nav>
-            <ol className="breadcrumb rounded-pill">
-              <li className="breadcrumb-item active">
-                <Link to="/media/stream">{_('Video')}</Link>
-              </li>
-              <li className="breadcrumb-item">{_('Privacy Mask')}</li>
-            </ol>
-          </nav>
-        </div>
-
+        <BreadCrumb
+          className="px-0"
+          path={[_('Video'), _('Privacy Mask')]}
+          routes={['/media/stream']}
+        />
         <div className="col-7 px-0">
           <div ref={this.videoWrapperRef} id="pm-video-wrapper" className="video-wrapper">
             <img

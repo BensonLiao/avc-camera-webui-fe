@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const WordFontSize = require('webserver-form-schema/constants/word-font-size');
 const WordColor = require('webserver-form-schema/constants/word-color');
@@ -13,6 +13,7 @@ const Base = require('../shared/base');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class Word extends Base {
   static get propTypes() {
@@ -45,17 +46,11 @@ module.exports = class Word extends Base {
 
     return (
       <Form className="row">
-        <div className="col-12 px-0">
-          <nav>
-            <ol className="breadcrumb rounded-pill">
-              <li className="breadcrumb-item active">
-                <Link to="/media/stream">{_('Video')}</Link>
-              </li>
-              <li className="breadcrumb-item">{_('OSD')}</li>
-            </ol>
-          </nav>
-        </div>
-
+        <BreadCrumb
+          className="px-0"
+          path={[_('Video'), _('OSD')]}
+          routes={['/media/stream']}
+        />
         <div className="col-7 px-0">
           <div className="video-wrapper">
             <img className="img-fluid" draggable={false} src="/api/snapshot"/>

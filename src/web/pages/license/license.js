@@ -1,6 +1,6 @@
 const classNames = require('classnames');
 const {Formik, Form, Field} = require('formik');
-const {Link, getRouter} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
@@ -19,6 +19,7 @@ const iconHumanoidDetectionEnable = require('../../../resource/human-detection-e
 const iconHumanoidDetectionDisable = require('../../../resource/human-detection-disable-100px.svg');
 const notify = require('../../../core/notify');
 const utils = require('../../../core/utils');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class License extends Base {
   static get propTypes() {
@@ -132,16 +133,10 @@ module.exports = class License extends Base {
         <div className="page-license bg-gray" style={{height: '522px'}}>
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/analytic/face-recognition">{_('Analytic')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('License')}</li>
-                  </ol>
-                </nav>
-              </div>
+              <BreadCrumb
+                path={[_('Analytic'), _('License')]}
+                routes={['/analytic/face-recognition']}
+              />
               <div className="col-12">
                 <h3 className="mb-4">{_('License')}</h3>
                 <Formik

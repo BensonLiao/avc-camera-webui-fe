@@ -13,27 +13,35 @@ const StreamBandwidthManagement = require('webserver-form-schema/constants/strea
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const defaultPhotos = require('./default-photos');
+const userPhotos = require('./photos/users/_photos');
+const eventPhotos = require('./photos/events/_photos');
+const triggerAreaRawData = require('./trigger-area').default;
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
 const memberGroups = [
   {
     id: uuidv4(),
-    name: '暗殺部',
-    note: '#主要執行AVC與AB的相關業務部門'
+    name: 'Avengers',
+    note: 'Marvels'
   },
   {
     id: uuidv4(),
-    name: '精神病院',
-    note: '#主要執行AVC與AB的研究開發'
-  },
-  {
-    id: uuidv4(),
-    name: '火星太空站',
+    name: 'Infinity Inc.',
     note: ''
+  },
+  {
+    id: uuidv4(),
+    name: 'Mystic Arts',
+    note: 'Kathmandu'
+  },
+  {
+    id: uuidv4(),
+    name: 'Asgard',
+    note: 'Home of Odin'
   }
 ];
+
 const members = [
   {
     id: uuidv4(),
@@ -42,44 +50,133 @@ const members = [
     groupId: memberGroups[0].id,
     note: '"Let me put you on hold."',
     pictures: [
-      defaultPhotos.user.scarlett
+      userPhotos.scarlett1
     ],
-    picture: defaultPhotos.user.scarlett
+    picture: userPhotos.scarlett1
   },
   {
     id: uuidv4(),
-    name: 'Kim Jung Un',
-    organization: 'Psych Ward',
-    groupId: memberGroups[1].id,
-    note: 'Has No Nuclear Weapon',
-    pictures: [
-      defaultPhotos.user.kim
-    ],
-    picture: defaultPhotos.user.kim
-  },
-  {
-    id: uuidv4(),
-    name: 'Elon Musk',
-    organization: 'SpaceX',
-    groupId: memberGroups[2].id,
-    note: 'Iron Man',
-    pictures: [
-      defaultPhotos.user.elon
-    ],
-    picture: defaultPhotos.user.elon
-  },
-  {
-    id: uuidv4(),
-    name: 'Tom',
-    organization: 'Avengers',
+    name: 'Tom Holland',
+    organization: 'Bronx High School',
     groupId: memberGroups[0].id,
     note: 'I rock!',
     pictures: [
-      defaultPhotos.user.tom[0],
-      defaultPhotos.user.tom[1],
-      defaultPhotos.user.tom[2],
-      defaultPhotos.user.tom[3]
-    ]
+      userPhotos.tom1,
+      userPhotos.tom2,
+      userPhotos.tom3,
+      userPhotos.tom4
+    ],
+    picture: userPhotos.tom1
+  },
+  {
+    id: uuidv4(),
+    name: 'Tom Hiddleston',
+    organization: 'God',
+    groupId: memberGroups[3].id,
+    note: 'There are no men like me.',
+    pictures: [
+      userPhotos.hiddleston1,
+      userPhotos.hiddleston2,
+      userPhotos.hiddleston3,
+      userPhotos.hiddleston4,
+      userPhotos.hiddleston5
+    ],
+    picture: userPhotos.hiddleston1
+  },
+  {
+    id: uuidv4(),
+    name: 'Jeremy Renners',
+    organization: 'Bird Watching Society',
+    groupId: memberGroups[0].id,
+    note: 'The City Is Flying, We\'re Fighting An Army Of Robots, And I Have A Bow And Arrow. None Of This Makes Sense.',
+    pictures: [
+      userPhotos.renner1,
+      userPhotos.renner2
+    ],
+    picture: userPhotos.renner1
+  },
+  {
+    id: uuidv4(),
+    name: 'Benedict Cumberbatch',
+    organization: '',
+    groupId: memberGroups[2].id,
+    note: 'Dormammu, I\'ve Come To Bargain.',
+    pictures: [
+      userPhotos.cumberbatch1,
+      userPhotos.cumberbatch2,
+      userPhotos.cumberbatch3,
+      userPhotos.cumberbatch4
+    ],
+    picture: userPhotos.cumberbatch1
+  },
+  {
+    id: uuidv4(),
+    name: 'Chris Hemsworth',
+    organization: 'God^2',
+    groupId: memberGroups[3].id,
+    note: 'I notice you\'ve copied my beard.',
+    pictures: [
+      userPhotos.hemsworth1,
+      userPhotos.hemsworth2
+    ],
+    picture: userPhotos.hemsworth1
+  },
+  {
+    id: uuidv4(),
+    name: 'Thanos',
+    organization: 'Titan',
+    groupId: memberGroups[1].id,
+    note: 'You should have gone for the head.',
+    pictures: [
+      userPhotos.thanos1
+    ],
+    picture: userPhotos.thanos1
+  },
+  {
+    id: uuidv4(),
+    name: 'Rocket',
+    organization: 'Zoo',
+    groupId: memberGroups[0].id,
+    note: 'Ain\'t nothin\' like me, cept\' me.',
+    pictures: [
+      userPhotos.rocket1
+    ],
+    picture: userPhotos.rocket1
+  },
+  {
+    id: uuidv4(),
+    name: 'Chris Evans',
+    organization: 'Best Ass in America',
+    groupId: memberGroups[0].id,
+    note: 'I can do this all day.',
+    pictures: [
+      userPhotos.evans1
+    ],
+    picture: userPhotos.evans1
+  },
+  {
+    id: uuidv4(),
+    name: 'Iron Man',
+    organization: 'Stark Industries',
+    groupId: memberGroups[0].id,
+    note: 'I am Iron Man.',
+    pictures: [
+      userPhotos.downey1,
+      userPhotos.downey2,
+      userPhotos.downey3
+    ],
+    picture: userPhotos.downey1
+  },
+  {
+    id: uuidv4(),
+    name: 'Chris Pratt',
+    organization: 'Star Lord',
+    groupId: memberGroups[0].id,
+    note: 'Let\'s talk about this plan of yours.',
+    pictures: [
+      userPhotos.pratt1
+    ],
+    picture: userPhotos.pratt1
   }
 ];
 
@@ -156,7 +253,7 @@ module.exports = {
         sdAlertEnabled: false
       },
       systemDateTime: {
-        deviceTime: '2020-07-29  10:01:45',
+        deviceTime: new Date().getTime(),
         ntpTimeZone: 'Asia/Taipei',
         ntpIP: 'tw.pool.ntp.org',
         syncTimeOption: '0',
@@ -182,7 +279,7 @@ module.exports = {
         ddnsAccount: 'aa',
         ddnsPassword: 'aa',
         ddnsRefreshStatus: false,
-        ddnsHostStatus: false
+        ddnsHostStatus: true
       },
       httpSettings: {port: '8080'},
       httpsSettings: {
@@ -274,12 +371,7 @@ module.exports = {
         isShowGroup: false,
         isShowUnknown: false,
         isShowFake: true,
-        triggerArea: {
-          x: 0,
-          y: 0,
-          width: 100,
-          height: 100
-        },
+        triggerArea: triggerAreaRawData,
         isEnableFaceFrame: true,
         faceFrame: {
           x: 10,
@@ -425,7 +517,7 @@ module.exports = {
         faceRecognitionVMSEvent: '0',
         emails: ['testd@abc.com'],
         emailAttachmentType: '0',
-        groups: [memberGroups[0].id],
+        groups: [memberGroups[3].id],
         isEnableFaceRecognition: true,
         faceRecognitionCondition: '0',
         senderSubject: '',
@@ -437,8 +529,8 @@ module.exports = {
       faceEvents: [
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.scarlett,
-          pictureLargeUrl: defaultPhotos.event.scarlett,
+          pictureThumbUrl: eventPhotos.scarlett,
+          pictureLargeUrl: eventPhotos.scarlett,
           time: '2019-10-02T12:00:00.000Z',
           recognitionType: RecognitionType.registered,
           member: members[0],
@@ -449,57 +541,179 @@ module.exports = {
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.jackman,
-          pictureLargeUrl: defaultPhotos.event.jackman,
-          time: '2020-09-02T12:00:00.000Z',
-          recognitionType: RecognitionType.fake,
-          confidences: {
-            score: '4.9',
-            similarity: Similarity.low
-          }
-        },
-        {
-          id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.kim,
-          pictureLargeUrl: defaultPhotos.event.kim,
-          time: '2020-07-02T12:00:00.000Z',
+          pictureThumbUrl: eventPhotos.cumberbatch,
+          pictureLargeUrl: eventPhotos.cumberbatch,
+          time: '2020-03-21T09:42:00.000Z',
           recognitionType: RecognitionType.registered,
-          member: members[1],
+          member: members[4],
           confidences: {
-            score: '56',
-            similarity: Similarity.medium
-          }
-        },
-        {
-          id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.elon,
-          pictureLargeUrl: defaultPhotos.event.elon,
-          time: '2020-04-03T12:00:00.000Z',
-          recognitionType: RecognitionType.registered,
-          member: members[2],
-          confidences: {
-            score: '70',
+            score: '89',
             similarity: Similarity.high
           }
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.kim,
-          time: '2020-02-04T12:00:00.000Z',
-          recognitionType: RecognitionType.unknown,
+          pictureThumbUrl: eventPhotos.hemsworth,
+          pictureLargeUrl: eventPhotos.hemsworth,
+          time: '2020-09-04T11:03:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[5],
           confidences: {
-            score: '49',
+            score: '72',
+            similarity: Similarity.high
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.renner,
+          pictureLargeUrl: eventPhotos.renner,
+          time: '2020-05-21T19:40:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[3],
+          confidences: {
+            score: '21',
             similarity: Similarity.low
           }
         },
         {
           id: uuidv4(),
-          pictureThumbUrl: defaultPhotos.event.jackman,
-          time: '2020-01-05T12:00:00.000Z',
+          pictureThumbUrl: eventPhotos.rocket,
+          pictureLargeUrl: eventPhotos.rocket,
+          time: '2020-07-31T04:12:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[7],
+          confidences: {
+            score: '61',
+            similarity: Similarity.medium
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.thanos,
+          pictureLargeUrl: eventPhotos.thanos,
+          time: '2020-02-28T21:40:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[6],
+          confidences: {
+            score: '99',
+            similarity: Similarity.high
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.pratt,
+          pictureLargeUrl: eventPhotos.pratt,
+          time: '2020-06-18T06:20:00.000Z',
+          recognitionType: RecognitionType.registered,
+          member: members[10],
+          confidences: {
+            score: '84',
+            similarity: Similarity.high
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.evans,
+          pictureLargeUrl: eventPhotos.evans,
+          time: '2020-01-25T16:12:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[8],
+          confidences: {
+            score: '10',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.downey,
+          pictureLargeUrl: eventPhotos.downey,
+          time: '2020-09-11T11:11:11.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[9],
+          confidences: {
+            score: '16',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.fury,
+          pictureLargeUrl: eventPhotos.fury,
+          time: '2020-05-09T09:11:00.000Z',
           recognitionType: RecognitionType.unknown,
           confidences: {
-            score: '49',
+            score: '43',
             similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.potts,
+          pictureLargeUrl: eventPhotos.potts,
+          time: '2020-02-14T14:12:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[0],
+          confidences: {
+            score: '10',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.nebula,
+          pictureLargeUrl: eventPhotos.nebula,
+          time: '2020-06-30T19:52:00.000Z',
+          recognitionType: RecognitionType.fake,
+          confidences: {
+            score: '24',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.hulk,
+          pictureLargeUrl: eventPhotos.hulk,
+          time: '2020-08-22T22:08:00.000Z',
+          recognitionType: RecognitionType.fake,
+          confidences: {
+            score: '52',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.groot,
+          pictureLargeUrl: eventPhotos.groot,
+          time: '2020-04-23T02:38:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[10],
+          confidences: {
+            score: '64',
+            similarity: Similarity.medium
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.coulson,
+          pictureLargeUrl: eventPhotos.coulson,
+          time: '2020-07-12T12:27:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[3],
+          confidences: {
+            score: '43',
+            similarity: Similarity.low
+          }
+        },
+        {
+          id: uuidv4(),
+          pictureThumbUrl: eventPhotos.ant,
+          pictureLargeUrl: eventPhotos.ant,
+          time: '2020-01-22T15:47:00.000Z',
+          recognitionType: RecognitionType.unknown,
+          member: members[9],
+          confidences: {
+            score: '62',
+            similarity: Similarity.medium
           }
         }
       ],
@@ -569,8 +783,7 @@ module.exports = {
         isEnableAgeGenderKey: false,
         isEnableHumanoidDetectionKey: false
       }
-    })
-      .write();
+    }).write();
     return db;
   }
 };

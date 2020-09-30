@@ -6,7 +6,8 @@ module.exports = class Base extends React.Component {
     $isApiProcessing: store.get('$isApiProcessing'),
     $user: store.get('$user'),
     $expires: store.get('$expires'),
-    $updateFocalLengthField: store.get('$updateFocalLengthField')
+    $updateFocalLengthField: store.get('$updateFocalLengthField') || false,
+    $isNotCallUnloadAlert: store.get('$isNotCallUnloadAlert') || false
   };
 
   constructor(props) {
@@ -18,6 +19,13 @@ module.exports = class Base extends React.Component {
           this.setState({$isApiProcessing: data});
         } else {
           this.state.$isApiProcessing = data;
+        }
+      }),
+      store.subscribe('$isNotCallUnloadAlert', (msg, data) => {
+        if (this.$isMounted) {
+          this.setState({$isNotCallUnloadAlert: data});
+        } else {
+          this.state.$isNotCallUnloadAlert = data;
         }
       }),
       store.subscribe('$updateFocalLengthField', (msg, data) => {
@@ -45,8 +53,8 @@ module.exports = class Base extends React.Component {
   }
 
   unloadAlert = e => {
-    const {$isApiProcessing, $updateFocalLengthField} = this.state;
-    if ($isApiProcessing || $updateFocalLengthField) {
+    const {$isApiProcessing, $updateFocalLengthField, $isNotCallUnloadAlert} = this.state;
+    if (($isApiProcessing || $updateFocalLengthField) && !$isNotCallUnloadAlert) {
       // Cancel the event
       // If you prevent default behavior in Mozilla Firefox prompt will always be shown
       e.preventDefault();

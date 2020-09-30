@@ -40,6 +40,7 @@ module.exports = config => {
   return axios(config)
     .catch(error => {
       if (error.response && error.response.status === 401) {
+        store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);
         location.href = '/login';
         return new Promise(() => {}); // Lock the promise chain.
       }
@@ -67,7 +68,7 @@ module.exports = config => {
     .finally(() => {
       delete _pool[id];
       _updateApiStatus();
-      if (expiresTimer && typeof expiresTimer.resume === 'function') {
+      if (expiresTimer && typeof expiresTimer.resetAndResume === 'function') {
         expiresTimer.resetAndResume();
       }
     });

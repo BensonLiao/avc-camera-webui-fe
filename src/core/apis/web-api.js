@@ -26,23 +26,6 @@ module.exports = {
       quality
     }
   }),
-  validation: {
-    /**
-     * Validate the birthday of the account.
-     * @param {String} account User's account to be reference.
-     * @param {String} birthday User's birth day to be validate.
-     * @returns {Promise<response>}
-     * @response 204
-     */
-    accountBirthday: ({account, birthday}) => api({
-      method: 'post',
-      url: '/api/_validate/account-birthday',
-      data: {
-        account,
-        birthday
-      }
-    })
-  },
   account: {
     /**
      * Do authentication with account and password.
@@ -85,23 +68,6 @@ module.exports = {
     refresh: () => api({
       method: 'post',
       url: '/api/account/_refresh'
-    }),
-    /**
-     * Change the password with the birthday.
-     * @param {String} account
-     * @param {String} birthday e.g. "19900101"
-     * @param {String} newPassword
-     * @returns {Promise<response>}
-     * @response 200 {UserModel}
-     */
-    changePasswordWithBirthday: ({account, birthday, newPassword}) => api({
-      method: 'post',
-      url: '/api/account/_change-password',
-      data: {
-        account,
-        birthday,
-        newPassword
-      }
     }),
     /**
      * Change my password.
@@ -1255,14 +1221,15 @@ module.exports = {
      * - items[].pictures {Array<String>} The base64 string of jpeg images.
      * - items[].id {String}
      */
-    getMembers: ({index, keyword, group, sort}) => api({
+    getMembers: ({index, keyword, group, sort, size = null}) => api({
       method: 'get',
       url: '/api/members',
       params: {
         index,
         keyword,
         group,
-        sort
+        sort,
+        size
       }
     }),
     /**
@@ -1352,6 +1319,39 @@ module.exports = {
       method: 'post',
       url: '/api/members/validate-picture',
       data: {picture}
+    }),
+    /**
+     * @param {String} picture
+     * @param {String} id
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - pictureCount {Number}
+     */
+    addPhoto: ({picture, id}) => api({
+      method: 'post',
+      url: '/api/members/add-photo',
+      data: {
+        picture,
+        id
+      }
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - totalCount {String} Total number of photos in database
+     */
+    totalCount: () => api({
+      method: 'get',
+      url: '/api/members/total-count'
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - remainingPictureCount {String} Number of photos allowed based on license key
+     */
+    remainingPictureCount: () => api({
+      method: 'get',
+      url: '/api/members/remaining-picture-count'
     }),
     /**
      * @returns {Promise<response>}

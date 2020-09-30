@@ -262,7 +262,8 @@ module.exports = new Router({
       },
       resolve: {
         groups: () => api.group.getGroups().then(response => response.data),
-        members: params => api.member.getMembers(params).then(response => response.data)
+        members: params => api.member.getMembers(params).then(response => response.data),
+        remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-members" */
@@ -276,7 +277,10 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${_('Member')} - ${_title}`;
       },
-      resolve: {member: params => api.member.getMember(params.memberId).then(response => response.data)},
+      resolve: {
+        member: params => api.member.getMember(params.memberId).then(response => response.data),
+        remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data)
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-member" */
         './pages/members/member'
@@ -365,14 +369,31 @@ module.exports = new Router({
       },
       resolve: {
         faceEvents: params => {
-          if ((params.type || 'face-recognition') !== 'face-recognition') {
-            return null;
-          }
+          return new Promise((resolve, _) => resolve(
+            api.system.getSystemDateTime().then(response => {
+              if ((params.type || 'face-recognition') !== 'face-recognition') {
+                return null;
+              }
 
-          return api.event.getFaceEvents(params).then(response => response.data);
+              const {deviceTime, ntpTimeZone} = response.data;
+              if (!params.end) {
+                const convertedDeviceTime = new Date(deviceTime);
+                const timeZoneDiff = new Date(convertedDeviceTime.toLocaleString('en-US', {timeZone: 'utc'})) - new Date(convertedDeviceTime.toLocaleString('en-US', {timeZone: ntpTimeZone}));
+                params.end = new Date(convertedDeviceTime.getTime() - timeZoneDiff).getTime();
+                return api.event.getFaceEvents(params).then(response => response.data);
+              }
+
+              if (params.end) {
+                params.end = new Date(params.end).getTime();
+              }
+
+              return api.event.getFaceEvents(params).then(response => response.data);
+            })
+          ));
         },
         authStatus: () => api.authKey.getAuthStatus().then(response => response.data),
-        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)
+        systemDateTime: () => api.system.getSystemDateTime().then(response => response.data),
+        remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-events" */
@@ -589,39 +610,6 @@ module.exports = new Router({
       loadComponent: () => import(
         /* webpackChunkName: "page-login-lock" */
         './pages/account/login-lock'
-      )
-    },
-    {
-      name: 'forgot-password',
-      uri: '/forgot-password',
-      onEnter: () => {
-        document.title = `${_('Forgot password')} - ${_title}`;
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-forgot-password" */
-        './pages/account/forgot-password'
-      )
-    },
-    {
-      name: 'reset-password',
-      uri: '/reset-password?account?birthday',
-      onEnter: () => {
-        document.title = `${_('Reset password')} - ${_title}`;
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-reset-password" */
-        './pages/account/reset-password'
-      )
-    },
-    {
-      name: 'reset-password-success',
-      uri: '/reset-password-success',
-      onEnter: () => {
-        document.title = `${_('Reset password success.')} - ${_title}`;
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-reset-password-success" */
-        './pages/account/reset-password-success'
       )
     },
     {

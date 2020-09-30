@@ -3,7 +3,7 @@ const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Cookies = require('js-cookie');
-const {getRouter, Link} = require('capybara-router');
+const {getRouter} = require('capybara-router');
 const _ = require('../../../languages');
 const Base = require('../shared/base');
 const Password = require('../../../core/components/fields/password');
@@ -49,7 +49,7 @@ module.exports = class Login extends Base {
             ) {
               getRouter().go({
                 name: 'login-lock',
-                params: {loginLockRemainingMs: error.response.data.extra.loginLockRemainingMs}
+                params: {loginLockExpiredTime: Date.now() + error.response.data.extra.loginLockRemainingMs}
               });
               return;
             }
@@ -98,9 +98,6 @@ module.exports = class Login extends Base {
               }}
             />
             <ErrorMessage component="div" name="password" className="invalid-feedback"/>
-          </div>
-          <div className="text-right">
-            <Link to="/forgot-password">{_('Forgot password?')}</Link>
           </div>
 
           <button

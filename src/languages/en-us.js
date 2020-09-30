@@ -3,13 +3,14 @@ if (!window.languageResource['en-us']) {
 
     // Constants
     'permission-0': 'Admin',
-    'permission-1': 'Viewer',
+    'permission-1': 'Guest',
     'permission-2': 'Viewer',
     'permission-99': 'Admin', // Super-Admin, for easier backend permission control, no difference for UI
 
-    'certificate-type-0': 'AndroVideo Self-signed',
-    'certificate-type-1': 'Upload Certificate',
-    'certificate-type-2': 'Generate Certificate on This Device',
+    'certificate-type-0': `${window.isNoBrand ? 'Manufacturer' : 'AndroVideo'} Self-signed Certificate`,
+
+    'certificate-type-1': 'Upload Your Certificate',
+    'certificate-type-2': 'Generate a Certificate on the Device',
 
     'confidence-0': 'Low',
     'confidence-1': 'Medium',

@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const React = require('react');
 const {getRouter} = require('capybara-router');
-const {Formik, Form, Field} = require('formik');
+const {Formik, Form, Field, ErrorMessage} = require('formik');
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const logo = require('../../../resource/logo-avc-secondary.svg');
@@ -31,16 +31,13 @@ module.exports = class SetupAccount extends Base {
   setupAccountFormRender = ({errors, touched}) => {
     const classTable = {
       account: classNames(
-        'form-control', {'is-invalid': errors.account && touched}
-      ),
-      birthday: classNames(
-        'form-control', {'is-invalid': errors.birthday && touched}
+        'form-control', {'is-invalid': errors.account && touched.account}
       ),
       password: classNames(
-        'form-control', {'is-invalid': errors.password && touched}
+        'form-control', {'is-invalid': errors.password && touched.password}
       ),
       confirmPassword: classNames(
-        'form-control', {'is-invalid': errors.confirmPassword && touched}
+        'form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}
       )
     };
 
@@ -64,28 +61,10 @@ module.exports = class SetupAccount extends Base {
           <div className="form-group">
             <label>{_('Account')}</label>
             <Field autoFocus name="account" maxLength={UserSchema.account.max} type="text" className={classTable.account} placeholder={_('Please enter your account.')}/>
-            {
-              errors.account && touched && (
-                <div className="invalid-feedback">{errors.account}</div>
-              )
-            }
-          </div>
-          <div className="form-group has-feedback">
-            <label>{_('Birthday')}</label>
-            <Field
-              name="birthday"
-              component={Password}
-              inputProps={{
-                placeholder: '19900101',
-                className: classTable.birthday
-              }}
-            />
-            {
-              errors.birthday && touched && (
-                <div className="invalid-feedback">{errors.birthday}</div>
-              )
-            }
-            <small className="form-text text-muted">{_('This is used for resetting password.')}</small>
+            <ErrorMessage component="div" name="account" className="invalid-feedback"/>
+            <small className="text-info">
+              {_('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space')}
+            </small>
           </div>
           <div className="form-group has-feedback">
             <label>{_('Password')}</label>
@@ -97,11 +76,7 @@ module.exports = class SetupAccount extends Base {
                 className: classTable.password
               }}
             />
-            {
-              errors.password && touched && (
-                <div className="invalid-feedback">{errors.password}</div>
-              )
-            }
+            <ErrorMessage component="div" name="password" className="invalid-feedback"/>
             <small className="text-info">
               {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
             </small>
@@ -112,15 +87,11 @@ module.exports = class SetupAccount extends Base {
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: _('Confirm your password'),
+                placeholder: _('Confirm Your Password'),
                 className: classTable.confirmPassword
               }}
             />
-            {
-              errors.confirmPassword && touched && (
-                <div className="invalid-feedback">{errors.confirmPassword}</div>
-              )
-            }
+            <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
           </div>
 
           <button disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill">

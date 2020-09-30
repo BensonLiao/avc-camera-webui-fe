@@ -1,9 +1,9 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const {Link} = require('capybara-router');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
 const StreamSetting = require('./stream-setting');
+const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class Stream extends Base {
   static get propTypes() {
@@ -36,16 +36,11 @@ module.exports = class Stream extends Base {
         <section className="section-media">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 px-0">
-                <nav>
-                  <ol className="breadcrumb rounded-pill">
-                    <li className="breadcrumb-item active">
-                      <Link to="/media/stream">{_('Video')}</Link>
-                    </li>
-                    <li className="breadcrumb-item">{_('Stream Settings')}</li>
-                  </ol>
-                </nav>
-              </div>
+              <BreadCrumb
+                className="px-0"
+                path={[_('Video'), _('Stream Settings')]}
+                routes={['/media/stream']}
+              />
               <div className="col-center">
                 <div className="card shadow">
                   <StreamSetting streamSettings={this.props.streamSettings}/>

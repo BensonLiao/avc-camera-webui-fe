@@ -42,7 +42,7 @@ module.exports = class LicenseList extends React.PureComponent {
           {authKeys.items.map((authKey, index) => (
             <tr key={authKey.time}>
               <td>{index + 1}</td>
-              <td>{utils.formatDate(authKey.time)}</td>
+              <td>{utils.formatDate(utils.subtractTimezoneOffset(new Date(authKey.time)))}</td>
               <td>{authKey.user.name}</td>
               <td>{authKey.authKey}</td>
               <td>

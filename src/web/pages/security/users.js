@@ -96,45 +96,31 @@ module.exports = class Users extends Base {
             <div className="sub-title py-1 px-4">
               <h3>{_('Permission')}</h3>
             </div>
-
-            <div
-              className={classNames(
-                'group-item d-flex justify-content-between align-items-center',
-                {active: permissionFilter === UserPermission.root},
-                {'bg-light': permissionFilter === UserPermission.root}
-              )}
-            >
-              <a
-                className="w-100 text-truncate d-flex align-items-center"
-                href={`#${UserPermission.root}`}
-                onClick={this.generateChangePermissionFilterHandler(UserPermission.root)}
+            {[UserPermission.root, UserPermission.guest].map(type => (
+              <div
+                key={type}
+                className={classNames(
+                  'group-item d-flex justify-content-between align-items-center',
+                  {active: permissionFilter === type},
+                  {'bg-light': permissionFilter === type}
+                )}
               >
-                <img src={iconUserShield}/>
-                <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.root}`)}</span>
-              </a>
-            </div>
-            <div
-              className={classNames(
-                'group-item d-flex justify-content-between align-items-center',
-                {active: permissionFilter === UserPermission.guest},
-                {'bg-light': permissionFilter === UserPermission.guest}
-              )}
-            >
-              <a
-                className="w-100 text-truncate d-flex align-items-center"
-                href={`#${UserPermission.guest}`}
-                onClick={this.generateChangePermissionFilterHandler(UserPermission.guest)}
-              >
-                <img src={iconUser}/>
-                <span className="text-truncate text-size-14 pl-4">{_(`permission-${UserPermission.guest}`)}</span>
-              </a>
-            </div>
+                <a
+                  className="w-100 text-truncate d-flex align-items-center"
+                  href={`#${type}`}
+                  onClick={this.generateChangePermissionFilterHandler(type)}
+                >
+                  <img src={type === UserPermission.root ? iconUserShield : iconUser}/>
+                  <span className="text-truncate text-size-14 pl-4">{_(`permission-${type}`)}</span>
+                </a>
+              </div>
+            ))}
           </div>
         </div>
 
         {/* Main content */}
-        <div className="main-content left-menu-active">
-          <div className="page-security bg-white">
+        <div className="main-content left-menu-active sub">
+          <div className="page-users bg-white">
             <div className="container-fluid">
               <div className="row">
                 <div className="col-12 text-right mr-32px mb-4">
