@@ -313,7 +313,7 @@ if (!window.languageResource['zh-tw']) {
     Quality: '影像品質',
     'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
     'Updating Stream Settings': '更新串流設定',
-    'Changing stream 1 resolution ratio will also update stream 2 resolution settings.': '改變串流1的解析度比例會造成串流2的解析度設定被改變, 請確認是否繼續。',
+    'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': '改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？',
     // /media/stream / Constans / Resolution
     'stream-resolution-0': '3840*2160(16:9)',
     'stream-resolution-1': '2560*1440(16:9)',
