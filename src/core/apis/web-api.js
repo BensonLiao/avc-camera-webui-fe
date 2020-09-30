@@ -26,23 +26,6 @@ module.exports = {
       quality
     }
   }),
-  validation: {
-    /**
-     * Validate the birthday of the account.
-     * @param {String} account User's account to be reference.
-     * @param {String} birthday User's birth day to be validate.
-     * @returns {Promise<response>}
-     * @response 204
-     */
-    accountBirthday: ({account, birthday}) => api({
-      method: 'post',
-      url: '/api/_validate/account-birthday',
-      data: {
-        account,
-        birthday
-      }
-    })
-  },
   account: {
     /**
      * Do authentication with account and password.
@@ -85,23 +68,6 @@ module.exports = {
     refresh: () => api({
       method: 'post',
       url: '/api/account/_refresh'
-    }),
-    /**
-     * Change the password with the birthday.
-     * @param {String} account
-     * @param {String} birthday e.g. "19900101"
-     * @param {String} newPassword
-     * @returns {Promise<response>}
-     * @response 200 {UserModel}
-     */
-    changePasswordWithBirthday: ({account, birthday, newPassword}) => api({
-      method: 'post',
-      url: '/api/account/_change-password',
-      data: {
-        account,
-        birthday,
-        newPassword
-      }
     }),
     /**
      * Change my password.

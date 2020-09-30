@@ -6,7 +6,6 @@ const assetHandler = require('../handlers/asset-handler');
 const baseHandler = require('../handlers/base-handler');
 const snapshotHandler = require('../handlers/snapshot-handler');
 const systemHandler = require('../handlers/system-handler');
-const validationHandler = require('../handlers/validation-handler');
 
 class CustomRouter {
   constructor(router) {
@@ -77,7 +76,6 @@ class CustomRouter {
 module.exports = new express.Router();
 const router = new CustomRouter(module.exports);
 
-router.post('/api/_validate/account-birthday', validationHandler.validateAccountBirthday);
 router.post(
   '/api/account/_login',
   rateLimit({
@@ -96,7 +94,6 @@ router.post(
   accountHandler.login
 );
 router.post('/api/account/_logout', accountHandler.logout);
-router.post('/api/account/_change-password', accountHandler.changePasswordWithBirthday);
 router.put('/api/me/password', accountHandler.changeMyPassword);
 router.put('/api/system/language', systemHandler.updateLanguage);
 router.get('/api/snapshot', snapshotHandler.getSnapshot);
