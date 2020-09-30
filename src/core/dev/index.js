@@ -505,7 +505,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   })
   .onGet('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPut('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
-  .onPost('/api/members/database').reply(config => mockResponseWithLog(config, [204]))
+  .onPost('/api/members/database').reply(config => setDelay(mockResponseWithLog(config, [204]), 2000))
   .onGet('/api/face-recognition/settings').reply(config => {
     const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
     // get with converMapping to percentage util function (mocking real server)
