@@ -15,6 +15,7 @@ const RecognitionType = require('webserver-form-schema/constants/event-filters/r
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const userPhotos = require('./photos/users/_photos');
 const eventPhotos = require('./photos/events/_photos');
+const triggerAreaRawData = require('./trigger-area').default;
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
@@ -370,12 +371,7 @@ module.exports = {
         isShowGroup: false,
         isShowUnknown: false,
         isShowFake: true,
-        triggerArea: {
-          x: 0,
-          y: 0,
-          width: 100,
-          height: 100
-        },
+        triggerArea: triggerAreaRawData,
         isEnableFaceFrame: true,
         faceFrame: {
           x: 10,

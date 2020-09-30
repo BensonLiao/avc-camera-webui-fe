@@ -3,6 +3,7 @@ const MockAdapter = require('axios-mock-adapter');
 const uuidv4 = require('uuid/v4');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
+const utils = require('./utils');
 
 /**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
@@ -505,13 +506,23 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onGet('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPut('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPost('/api/members/database').reply(config => mockResponseWithLog(config, [204]))
-  .onGet('/api/face-recognition/settings').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').value()]))
+  .onGet('/api/face-recognition/settings').reply(config => {
+    const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
+    // get with converMapping to percentage util function (mocking real server)
+    faceRecognitionSettings.triggerArea = utils.convertMappingToPercentage(faceRecognitionSettings.triggerArea);
+    return mockResponseWithLog(config, [200, faceRecognitionSettings]);
+  })
   .onGet('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]))
   .onPut('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
   .onPut('/api/face-recognition/spoofing').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
   .onPut('/api/face-recognition/confidencelevel').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
   .onPut('/api/face-recognition/enrolldisplay').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
-  .onPut('/api/face-recognition/roi').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/face-recognition/roi').reply(config => {
+    const newROI = JSON.parse(config.data);
+    // update with convertPercentage to mapping util function (mocking real server)
+    newROI.triggerArea = utils.convertPercentageToMapping(newROI.triggerArea);
+    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(newROI).write()]);
+  })
   .onGet('/api/motion-detection/settings').reply(config => mockResponseWithLog(config, [200, db.get('motionDetectionSettings').value()]))
   .onPut('/api/motion-detection/settings').reply(config => mockResponseWithLog(config, [200, db.get('motionDetectionSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/auth-keys').reply(config => {
