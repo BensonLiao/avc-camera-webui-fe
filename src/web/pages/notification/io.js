@@ -59,14 +59,14 @@ module.exports = class IO extends Base {
                         <Nav.Link
                           eventKey="tab-output-1"
                         >
-                          {i18n.t('Output {0}', [1])}
+                          {i18n.t('Output {{0}}', {0: 1})}
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="tab-output-2"
                         >
-                          {i18n.t('Output {0}', [2])}
+                          {i18n.t('Output {{0}}', {0: 2})}
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>

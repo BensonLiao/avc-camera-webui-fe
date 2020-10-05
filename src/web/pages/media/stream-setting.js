@@ -362,7 +362,7 @@ module.exports = withTranslation()(class StreamSetting extends Base {
               </div>
             </div>
             <small className="text-info mb-3">
-              {i18n.t('{0} - {1} Kbps', {
+              {i18n.t('{{0}} - {{1}} Kbps', {
                 0: StreamSettingsSchema.channelA.props.bitRate.min,
                 1: StreamSettingsSchema.channelA.props.bitRate.max
               })}

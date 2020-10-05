@@ -101,7 +101,7 @@ class SearchMember extends React.PureComponent {
       }).then(() =>
         notify.showSuccessNotification({
           title: i18n.t('Setting Success'),
-          message: i18n.t('Added Photo to {0} Successfully!', [member.name])
+          message: i18n.t('Added Photo to {{0}} Successfully!', {0: member.name})
         }))
         .then(getRouter().reload)
         .finally(() => this.hideApiProcessModal())
@@ -249,7 +249,7 @@ class SearchMember extends React.PureComponent {
                               verifyStatus ?
                                 (member.pictures.length >= 5 ?
                                   i18n.t('Photo Limit Reached') :
-                                  i18n.t('Add to {0}', [member.name])) :
+                                  i18n.t('Add to {{0}}', {0: member.name})) :
                                 i18n.t('Invalid Photo')
                           }
                           >
@@ -379,7 +379,11 @@ class Pagination extends React.PureComponent {
            }}
          >
            <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-             {i18n.t('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
+             {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+               0: startItem,
+               1: endItem,
+               2: total
+             })}
            </p>
            <ul className="pagination my-auto">
              <li className={classNames('page-item', {disabled: !hasPrevious})}>
@@ -418,7 +422,11 @@ class Pagination extends React.PureComponent {
              </li>
            </ul>
            <p className="text-size-14 text-muted mb-0 ml-auto">
-             {i18n.t('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
+             {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+               0: startItem,
+               1: endItem,
+               2: total
+             })}
            </p>
          </nav>
        </div>

@@ -35,7 +35,7 @@ const IoOutput = props => {
           <Tab.Pane eventKey={`tab-output-${index + 1}`}>
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{i18n.t('Output {0}', [index + 1])}</label>
+                <label>{i18n.t('Output {{0}}', {0: index + 1})}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
                   <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
@@ -97,7 +97,10 @@ const IoOutput = props => {
                     )
                   }
                   <small className="form-text text-muted">
-                    {i18n.t('{0} - {1} Seconds', [NotificationIOOutSchema.pulse.min, NotificationIOOutSchema.pulse.max])}
+                    {i18n.t('{{0}} - {{1}} Seconds', {
+                      0: NotificationIOOutSchema.pulse.min,
+                      1: NotificationIOOutSchema.pulse.max
+                    })}
                   </small>
                 </div>
                 <div className="form-group">
@@ -114,7 +117,10 @@ const IoOutput = props => {
                     )
                   }
                   <small className="form-text text-muted">
-                    {i18n.t('{0} - {1} Seconds', [NotificationIOOutSchema.delay.min, NotificationIOOutSchema.delay.max])}
+                    {i18n.t('{{0}} - {{1}} Seconds', {
+                      0: NotificationIOOutSchema.delay.min,
+                      1: NotificationIOOutSchema.delay.max
+                    })}
                   </small>
                 </div>
               </div>

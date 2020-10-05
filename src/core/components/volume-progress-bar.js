@@ -26,10 +26,10 @@ module.exports = class VolumeProgressBar extends React.PureComponent {
       <>
         <p>
           {
-            i18n.t('Free: {0}, Total: {1}', [
-              filesize(freeDiskVolume),
-              filesize(total)
-            ])
+            i18n.t('Free: {{0}}, Total: {{1}}', {
+              0: filesize(freeDiskVolume),
+              1: filesize(total)
+            })
           }
         </p>
         <div className="progress">
@@ -37,13 +37,13 @@ module.exports = class VolumeProgressBar extends React.PureComponent {
             isNaN(usedDiskPercentage) ?
               <div className="progress-bar"/> : (
                 <>
-                  <CustomTooltip title={i18n.t('Used: {0}', [filesize(usage)])}>
+                  <CustomTooltip title={i18n.t('Used: {{0}}', {0: filesize(usage)})}>
                     <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
                       {usedDiskPercentage > percentageToHideText ? `${usedDiskPercentage}%` : ''}
                     </div>
                   </CustomTooltip>
                   {usedDiskPercentage && (
-                    <CustomTooltip title={i18n.t('Free: {0}', [filesize(freeDiskVolume)])}>
+                    <CustomTooltip title={i18n.t('Free: {{0}}', {0: filesize(freeDiskVolume)})}>
 
                       <div
                         className="progress-bar"

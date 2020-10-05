@@ -142,7 +142,7 @@ module.exports = class MembersTable extends React.PureComponent {
                       </CustomTooltip>
                     </td>
                     <td className="text-left group-btn">
-                      <CustomTooltip title={i18n.t('Edit Member: {0}', [member.name])}>
+                      <CustomTooltip title={i18n.t('Edit Member: {{0}}', {0: member.name})}>
                         <Link
                           className="btn btn-link"
                           to={{
@@ -156,7 +156,7 @@ module.exports = class MembersTable extends React.PureComponent {
                           <i className="fas fa-pen fa-lg fa-fw"/>
                         </Link>
                       </CustomTooltip>
-                      <CustomTooltip title={i18n.t('Delete Member: {0}', [member.name])}>
+                      <CustomTooltip title={i18n.t('Delete Member: {{0}}', {0: member.name})}>
                         <button
                           className="btn btn-link"
                           type="button"

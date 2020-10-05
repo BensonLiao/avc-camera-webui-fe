@@ -49,7 +49,7 @@ module.exports = class LicenseList extends React.PureComponent {
                 {authKey.isEnableFaceRecognitionKey !== '0' && (
                   <span className="badge badge-primary badge-pill">
                     {/* Language resource buggy, using temp. solution until fix is found */}
-                    {/* {i18n.t('face-recognition-key-{0}', [authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]])} */}
+                    {/* {i18n.t('face-recognition-key-{{0}}', {0: authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]})} */}
                     {authKey.isEnableFaceRecognitionKey === '1' && i18n.t('face-recognition-key-thirtyThousand')}
                     {authKey.isEnableFaceRecognitionKey === '2' && i18n.t('face-recognition-key-threeThousand')}
                   </span>

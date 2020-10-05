@@ -10,7 +10,7 @@ const constants = require('../constants');
 module.exports = class SessionExpireModal extends React.PureComponent {
   state = {
     isShowModal: false,
-    modalBody: i18n.t('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN])
+    modalBody: i18n.t('Your session has expired, redirect in {{0}} seconds', {0: constants.REDIRECT_COUNTDOWN})
   }
 
   componentDidMount() {
@@ -21,12 +21,12 @@ module.exports = class SessionExpireModal extends React.PureComponent {
           this.setState(
             {
               isShowModal: true,
-              modalBody: i18n.t('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN])
+              modalBody: i18n.t('Your session has expired, redirect in {{0}} seconds', {0: constants.REDIRECT_COUNTDOWN})
             },
             () => {
               let countdown = constants.REDIRECT_COUNTDOWN;
               this.countdownID = setInterval(() => {
-                this.setState({modalBody: i18n.t('Your session has expired, redirect in {0} seconds', [--countdown])});
+                this.setState({modalBody: i18n.t('Your session has expired, redirect in {{0}} seconds', {0: --countdown})});
               }, 1000);
               this.countdownTimerID = setTimeout(() => {
                 store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);

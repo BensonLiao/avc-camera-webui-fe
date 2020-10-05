@@ -110,7 +110,7 @@ module.exports = class Upgrade extends Base {
           () => {
             let countdown = constants.REDIRECT_COUNTDOWN;
             this.countdownID = setInterval(() => {
-              this.setState({apiProcessModalBody: i18n.t('Redirect to login page in {0} seconds', [--countdown])});
+              this.setState({apiProcessModalBody: i18n.t('Redirect to login page in {{0}} seconds', {0: --countdown})});
             }, 1000);
             this.countdownTimerID = setTimeout(() => {
               clearInterval(this.countdownID);
@@ -206,7 +206,7 @@ module.exports = class Upgrade extends Base {
                   () => {
                     let countdown = constants.REDIRECT_COUNTDOWN;
                     this.countdownID = setInterval(() => {
-                      this.setState({apiProcessModalBody: i18n.t('Redirect to login page in {0} seconds', [--countdown])});
+                      this.setState({apiProcessModalBody: i18n.t('Redirect to login page in {{0}} seconds', {0: --countdown})});
                     }, 1000);
                     this.countdownTimerID = setTimeout(() => {
                       clearInterval(this.countdownID);

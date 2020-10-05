@@ -214,7 +214,7 @@ module.exports = class Users extends Base {
           <CustomNotifyModal
             isShowModal={isShowDeleteUserModal}
             modalTitle={i18n.t('Delete Account')}
-            modalBody={i18n.t('Are you sure to delete account {0}?', [deleteUserTarget && deleteUserTarget.account])}
+            modalBody={i18n.t('Are you sure to delete account {{0}}?', {0: deleteUserTarget && deleteUserTarget.account})}
             isConfirmDisable={$isApiProcessing}
             onHide={this.hideDeleteUserModal}
             onConfirm={this.confirmDeleteUser}

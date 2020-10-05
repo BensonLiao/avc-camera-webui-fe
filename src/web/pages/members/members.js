@@ -67,14 +67,14 @@ module.exports = class Members extends Base {
         hideModal: this.hideModal(mode),
         modalOnSubmit: this.confirmDeleteGroup,
         modalTitle: i18n.t('Delete Group'),
-        modalBody: i18n.t('Are you sure you want to delete group {0}?', [deleteGroupTarget && deleteGroupTarget.name])
+        modalBody: i18n.t('Are you sure you want to delete group {{0}}?', {0: deleteGroupTarget && deleteGroupTarget.name})
       },
       deleteMember: {
         showModal: isShowModal,
         hideModal: this.hideModal(mode),
         modalOnSubmit: this.confirmDeleteMember,
         modalTitle: i18n.t('Delete Member'),
-        modalBody: i18n.t('Are you sure you want to delete member {0}?', [deleteMemberTarget && deleteMemberTarget.name])
+        modalBody: i18n.t('Are you sure you want to delete member {{0}}?', {0: deleteMemberTarget && deleteMemberTarget.name})
       }
     };
     return (
@@ -259,7 +259,7 @@ module.exports = class Members extends Base {
                           </CustomTooltip>
                         )
                       }
-                      <CustomTooltip title={i18n.t('Edit Group: {0}', [selectedGroup.name])}>
+                      <CustomTooltip title={i18n.t('Edit Group: {{0}}', {0: selectedGroup.name})}>
                         <Link
                           className="ml-32px"
                           to={{

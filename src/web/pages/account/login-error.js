@@ -30,7 +30,7 @@ module.exports = class LoginError extends Base {
                   {i18n.t('Password Incorrect')}
                 </p>
                 <p className="text-dark">
-                  {i18n.t('You have {0} attemps remaining...', [loginFailedRemainingTimes])}
+                  {i18n.t('You have {{0}} attemps remaining...', {0: loginFailedRemainingTimes})}
                 </p>
               </div>
               <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-5">

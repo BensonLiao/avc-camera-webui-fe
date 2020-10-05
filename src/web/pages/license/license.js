@@ -55,8 +55,8 @@ module.exports = class License extends Base {
         .then(response => {
           notify.showSuccessNotification({
             title: i18n.t('Activated Successfully'),
-            message: i18n.t('{0} authorized successfully!', [
-              (() => {
+            message: i18n.t('{{0}} authorized successfully!', {
+              0: (() => {
                 const result = [];
                 if (response.data.isEnableFaceRecognitionKey) {
                   result.push(i18n.t('Facial Recognition'));
@@ -72,7 +72,7 @@ module.exports = class License extends Base {
 
                 return result.join(', ');
               })()
-            ])
+            })
           });
           getRouter().reload();
         })
