@@ -492,7 +492,7 @@ if (!window.languageResource['zh-tw']) {
     'face-recognition-condition-0': '不限',
     'face-recognition-condition-1': '成功',
     'face-recognition-condition-2': '未知',
-    'face-recognition-condition-3': '圖像偽造',
+    'face-recognition-condition-3': '圖像偽裝',
     // /notification/cards / Constants / Email Attachment
     'email-attachment-type-0': '臉部快照',
     'email-attachment-type-1': '完整快照',
