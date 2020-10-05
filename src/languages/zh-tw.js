@@ -606,7 +606,7 @@ if (!window.languageResource['zh-tw']) {
     'Updating Member': '更新成員',
     'Added Photo to {0} Successfully!': '新增照片至 {0} 成功!',
     // /users/events / Constants / Status
-    'enroll-status-0': '圖像偽造',
+    'enroll-status-0': '圖像偽裝',
     'enroll-status-1': '未知',
     'enroll-status-2': '註冊',
     // /users/events / Constants / Confidence
@@ -623,7 +623,7 @@ if (!window.languageResource['zh-tw']) {
     'Facial Detection Size': '人臉大小',
     'Live View Display:': '即時影像顯示：',
     Unknown: '未知',
-    'Image Spoof': '圖像偽造',
+    'Image Spoof': '圖像偽裝',
     'Facial Recognition is Disabled': '辨識功能已關閉',
     // /analytic/face-recognition / Constants / Level of Accuracy
     'confidence-level-0': '低',
