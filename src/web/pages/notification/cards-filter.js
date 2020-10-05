@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const React = require('react');
 const PropTypes = require('prop-types');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 
 module.exports = class CardsFilter extends React.PureComponent {
@@ -23,7 +23,7 @@ module.exports = class CardsFilter extends React.PureComponent {
     return (
 
       <div className="filter d-flex align-items-center text-nowrap mb-0">
-        <label className="mb-0">{_('Notification Filters')}</label>
+        <label className="mb-0">{i18n.t('Notification Filters')}</label>
         <button
           className={classNames(
             'btn rounded-pill chips-outline shadow-sm ml-4',
@@ -31,7 +31,7 @@ module.exports = class CardsFilter extends React.PureComponent {
           )}
           type="button"
           onClick={changeCardTypeFilter('all')}
-        >{_('notification-card-filter-all')}
+        >{i18n.t('notification-card-filter-all')}
         </button>
         <button
           className={classNames(
@@ -40,7 +40,7 @@ module.exports = class CardsFilter extends React.PureComponent {
           )}
           type="button"
           onClick={changeCardTypeFilter(NotificationCardType.faceRecognition)}
-        >{_(`notification-card-${NotificationCardType.faceRecognition}`)}
+        >{i18n.t(`notification-card-${NotificationCardType.faceRecognition}`)}
         </button>
         <button
           className={classNames(
@@ -49,7 +49,7 @@ module.exports = class CardsFilter extends React.PureComponent {
           )}
           type="button"
           onClick={changeCardTypeFilter(NotificationCardType.motionDetection)}
-        >{_(`notification-card-${NotificationCardType.motionDetection}`)}
+        >{i18n.t(`notification-card-${NotificationCardType.motionDetection}`)}
         </button>
         <button
           className={classNames(
@@ -58,7 +58,7 @@ module.exports = class CardsFilter extends React.PureComponent {
           )}
           type="button"
           onClick={changeCardTypeFilter(NotificationCardType.digitalInput)}
-        >{_(`notification-card-${NotificationCardType.digitalInput}`)}
+        >{i18n.t(`notification-card-${NotificationCardType.digitalInput}`)}
         </button>
       </div>
 

@@ -5,7 +5,7 @@ const imageCode404 = require('../../../resource/icon-error-404.svg');
 const imageCode500 = require('../../../resource/icon-error-500.svg');
 const bgCode404 = require('../../../resource/bg-error-404-clip.png');
 const bgCode500 = require('../../../resource/bg-error-500-clip.png');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 
 module.exports = class ErrorPage extends React.Component {
   static get propTypes() {
@@ -20,14 +20,14 @@ module.exports = class ErrorPage extends React.Component {
 
   constructor(props) {
     super(props);
-    document.title = `${_('Error')} - ${window.cameraName} Web-Manager`;
+    document.title = `${i18n.t('Error')} - ${window.cameraName} Web-Manager`;
     this.state.status = props.error.status || 500;
     this.state.message = props.error.message ? props.error.message : `${props.error}`;
   }
 
   render() {
     const classTable = {page: classNames('error-page', `error-${this.state.status}`)};
-    const messageTitle = this.state.status === 404 ? _('Not Found') : _('The Server Error');
+    const messageTitle = this.state.status === 404 ? i18n.t('Not Found') : i18n.t('The Server Error');
 
     return (
       <div className={classTable.page}>
@@ -41,7 +41,7 @@ module.exports = class ErrorPage extends React.Component {
                 <h2 className="message-status mb-0">{this.state.status}</h2>
                 <h3 className="message-title">{messageTitle}</h3>
                 <a className="btn btn-primary text-light rounded-pill mt-5" href="/">
-                  {_('Back to Home')}
+                  {i18n.t('Back to Home')}
                 </a>
               </div>
             </div>

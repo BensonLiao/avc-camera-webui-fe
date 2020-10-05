@@ -6,7 +6,7 @@ const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const appSettingsValidator = require('../../validations/notifications/app-settings-validator');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
@@ -38,12 +38,12 @@ module.exports = class App extends Base {
     return (
       <Form className="card-body">
         <div className="form-group">
-          <label>{_('Device token')}</label>
+          <label>{i18n.t('Device token')}</label>
           <Field
             autoFocus
             name="deviceToken"
             type="text"
-            placeholder={_('Please enter your device token.')}
+            placeholder={i18n.t('Please enter your device token.')}
             className={classNames('form-control', {'is-invalid': errors.deviceToken && touched.deviceToken})}
           />
           {
@@ -53,11 +53,11 @@ module.exports = class App extends Base {
           }
         </div>
         <div className="form-group">
-          <label>{_('Device id')}</label>
+          <label>{i18n.t('Device id')}</label>
           <Field
             name="deviceId"
             type="text"
-            placeholder={_('Please enter your device id.')}
+            placeholder={i18n.t('Please enter your device id.')}
             className={classNames('form-control', {'is-invalid': errors.deviceId && touched.deviceId})}
           />
           {
@@ -67,11 +67,11 @@ module.exports = class App extends Base {
           }
         </div>
         <div className="form-group">
-          <label>{_('Notification interval (seconds)')}</label>
+          <label>{i18n.t('Notification interval (seconds)')}</label>
           <Field
             name="interval"
             type="text"
-            placeholder={_('Please enter your notification interval.')}
+            placeholder={i18n.t('Please enter your notification interval.')}
             className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
           />
           {
@@ -79,10 +79,10 @@ module.exports = class App extends Base {
               <div className="invalid-feedback">{errors.interval}</div>
             )
           }
-          <small className="form-text text-muted">{_('5 - 1,800 seconds')}</small>
+          <small className="form-text text-muted">{i18n.t('5 - 1,800 seconds')}</small>
         </div>
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
-          {_('Apply')}
+          {i18n.t('Apply')}
         </button>
       </Form>
     );
@@ -100,19 +100,19 @@ module.exports = class App extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{_('Notification Settings')}</Link>
+                      <Link to="/notification/app">{i18n.t('Notification Settings')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{_('Basic Settings')}</Link>
+                      <Link to="/notification/app">{i18n.t('Basic Settings')}</Link>
                     </li>
-                    <li className="breadcrumb-item">{_('App')}</li>
+                    <li className="breadcrumb-item">{i18n.t('App')}</li>
                   </ol>
                 </nav>
               </div>
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('App')}</div>
+                  <div className="card-header">{i18n.t('App')}</div>
                   <Formik
                     validate={utils.makeFormikValidator(appSettingsValidator)}
                     initialValues={appSettings}

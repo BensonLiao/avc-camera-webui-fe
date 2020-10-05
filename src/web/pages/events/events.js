@@ -3,7 +3,7 @@ const React = require('react');
 const {getRouter} = require('capybara-router');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
 const Pagination = require('../../../core/components/pagination');
@@ -159,7 +159,7 @@ module.exports = class Events extends Base {
                   <div className="card quantity-wrapper float-right">
                     <div className="card-body">
                       <div className="quantity">{utils.formatNumber(events.total)}</div>
-                      <div className="description">{_('Total')}</div>
+                      <div className="description">{i18n.t('Total')}</div>
                     </div>
                   </div>
                   <EventsSearchForm

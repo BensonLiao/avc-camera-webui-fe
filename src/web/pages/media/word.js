@@ -10,7 +10,7 @@ const WordPosition = require('webserver-form-schema/constants/word-position');
 const WordType = require('webserver-form-schema/constants/word-type');
 const WordSettingsSchema = require('webserver-form-schema/word-settings-schema');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
 const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
@@ -48,7 +48,7 @@ module.exports = class Word extends Base {
       <Form className="row">
         <BreadCrumb
           className="px-0"
-          path={[_('Video'), _('OSD')]}
+          path={[i18n.t('Video'), i18n.t('OSD')]}
           routes={['/media/stream']}
         />
         <div className="col-7 px-0">
@@ -103,20 +103,20 @@ module.exports = class Word extends Base {
 
         <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
-            <div className="card-header">{_('OSD')}</div>
+            <div className="card-header">{i18n.t('OSD')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('On/Off')}</label>
+                <label className="mb-0">{i18n.t('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">
-                    <span>{_('ON')}</span>
-                    <span>{_('OFF')}</span>
+                    <span>{i18n.t('ON')}</span>
+                    <span>{i18n.t('OFF')}</span>
                   </label>
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Size')}</label>
+                <label className="mb-0">{i18n.t('Size')}</label>
                 <div className="btn-group">
                   {
                     WordFontSize.all().map(size => (
@@ -129,14 +129,14 @@ module.exports = class Word extends Base {
                         )}
                         onClick={() => setFieldValue('fontSize', size)}
                       >
-                        {_(`font-size-${size}`)}
+                        {i18n.t(`font-size-${size}`)}
                       </button>
                     ))
                   }
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('Color')}</label>
+                <label className="mb-0">{i18n.t('Color')}</label>
                 <div>
                   <button
                     type="button"
@@ -162,25 +162,25 @@ module.exports = class Word extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{_('Position')}</label>
-                <p className="text-primary">{_('Select Position')}</p>
+                <label>{i18n.t('Position')}</label>
+                <p className="text-primary">{i18n.t('Select Position')}</p>
               </div>
-              <SelectField labelName={_('Text Overlay')} name="type">
+              <SelectField labelName={i18n.t('Text Overlay')} name="type">
                 {WordType.all().map(type => (
-                  <option key={type} value={type}>{_(`word-type-${type}`)}</option>
+                  <option key={type} value={type}>{i18n.t(`word-type-${type}`)}</option>
                 ))}
               </SelectField>
               <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
                 <Field
                   name="customText"
                   type="text"
-                  placeholder={_('Enter Custom Text')}
+                  placeholder={i18n.t('Enter Custom Text')}
                   maxLength={WordSettingsSchema.customText.max}
                   className="form-control"
                 />
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-                {_('Apply')}
+                {i18n.t('Apply')}
               </button>
             </div>
           </div>

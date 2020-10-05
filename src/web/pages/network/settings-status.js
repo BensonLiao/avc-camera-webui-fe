@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from '../../../languages';
+import i18n from '../../i18n';
 
 class SettingsStatus extends React.PureComponent {
   static propTypes = {
@@ -30,35 +30,35 @@ class SettingsStatus extends React.PureComponent {
     } = this.props.networkSettings;
     const list = [
       {
-        name: _('Interface'),
-        data: _(networkInterface === '0' ? 'Wired' : 'Wifi')
+        name: i18n.t('Interface'),
+        data: i18n.t(networkInterface === '0' ? 'Wired' : 'Wifi')
       },
       {
-        name: _('IP Status'),
-        data: _(ipType === '0' ? 'Static' : 'Dynamic')
+        name: i18n.t('IP Status'),
+        data: i18n.t(ipType === '0' ? 'Static' : 'Dynamic')
       },
       {
-        name: _('MAC Address'),
+        name: i18n.t('MAC Address'),
         data: mac
       },
       {
-        name: _('IP Address'),
+        name: i18n.t('IP Address'),
         data: ipAddress
       },
       {
-        name: _('Subnet Mask'),
+        name: i18n.t('Subnet Mask'),
         data: subnetMask
       },
       {
-        name: _('Router/Gateway'),
+        name: i18n.t('Router/Gateway'),
         data: gateway
       },
       {
-        name: _('Primary DNS'),
+        name: i18n.t('Primary DNS'),
         data: primaryDNS
       },
       {
-        name: _('Secondary DNS'),
+        name: i18n.t('Secondary DNS'),
         data: secondaryDNS
       }
     ];

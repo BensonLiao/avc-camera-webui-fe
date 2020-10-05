@@ -1,7 +1,7 @@
 const PropTypes = require('prop-types');
 const React = require('react');
 const Modal = require('react-bootstrap/Modal').default;
-const _ = require('../../languages');
+const {default: i18n} = require('../../web/i18n');
 const utils = require('../../core/utils');
 const classNames = require('classnames');
 
@@ -30,9 +30,9 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
   static get defaultProps() {
     return {
       // Default is for processing modal only. All other modals should have a body message
-      modalBody: _('Please wait'),
+      modalBody: i18n.t('Please wait'),
       modalType: 'default',
-      confirmBtnTitle: _('Confirm'),
+      confirmBtnTitle: i18n.t('Confirm'),
       onConfirm: null,
       isConfirmDisable: false,
       backdrop: true,
@@ -105,7 +105,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
                 className="btn btn-info btn-block rounded-pill"
                 onClick={onHide}
               >
-                {_('Cancel')}
+                {i18n.t('Cancel')}
               </button>
             )}
           </Modal.Footer>

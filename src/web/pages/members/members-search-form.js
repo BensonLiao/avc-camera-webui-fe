@@ -2,7 +2,7 @@ const {Formik, Form, Field} = require('formik');
 const {getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 
 module.exports = class MembersSearchForm extends React.PureComponent {
   static get propTypes() {
@@ -33,7 +33,7 @@ module.exports = class MembersSearchForm extends React.PureComponent {
       >
         <Form className="form-row">
           <div className="col-auto">
-            <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keywords')}/>
+            <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('Enter Keywords')}/>
           </div>
           <div className="col-auto">
             <button
@@ -41,7 +41,7 @@ module.exports = class MembersSearchForm extends React.PureComponent {
               className="btn btn-outline-primary rounded-pill px-3"
               type="submit"
             >
-              <i className="fas fa-search fa-fw"/> {_('Search')}
+              <i className="fas fa-search fa-fw"/> {i18n.t('Search')}
             </button>
           </div>
         </Form>

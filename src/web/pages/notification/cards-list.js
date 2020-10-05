@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const CardsListSingleCard = require('./cards-list-single-card');
 
 module.exports = class CardsList extends React.PureComponent {
@@ -28,7 +28,7 @@ module.exports = class CardsList extends React.PureComponent {
         {
           topCards.length > 0 && (
             <>
-              <h3 className="mb-2">{_('Pinned')}</h3>
+              <h3 className="mb-2">{i18n.t('Pinned')}</h3>
               <hr className="my-1"/>
               <div className="card-container">
                 {topCards.map(card => (
@@ -46,7 +46,7 @@ module.exports = class CardsList extends React.PureComponent {
             </>
           )
         }
-        <h3 className="mb-2">{_('Others')}</h3>
+        <h3 className="mb-2">{i18n.t('Others')}</h3>
         <hr className="my-1"/>
         <div className="card-container mb-4">
           {normalCards.map(card => (

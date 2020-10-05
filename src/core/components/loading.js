@@ -1,5 +1,5 @@
 const React = require('react');
-const _ = require('../../languages');
+const {default: i18n} = require('../../web/i18n');
 
 module.exports = class Loading extends React.Component {
   shouldComponentUpdate() {
@@ -16,7 +16,7 @@ module.exports = class Loading extends React.Component {
             <div className="bounce3"/>
           </div>
           <div className="description">
-            <p className="mt-4">{_('Loading')}</p>
+            <p className="mt-4">{i18n.t('Loading')}</p>
           </div>
         </div>
       </div>

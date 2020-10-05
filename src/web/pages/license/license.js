@@ -7,7 +7,7 @@ const React = require('react');
 const Base = require('../shared/base');
 const LicenseList = require('./license-list');
 const LicenseStatus = require('./license-status');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
 const AuthKeySchema = require('webserver-form-schema/auth-key-schema');
@@ -44,8 +44,8 @@ module.exports = class License extends Base {
     const check = utils.duplicateCheck(keyList, authKey);
     if (check) {
       notify.showErrorNotification({
-        title: _('Activation Failed'),
-        message: _('Key Already Registered!')
+        title: i18n.t('Activation Failed'),
+        message: i18n.t('Key Already Registered!')
       });
     }
 
@@ -54,20 +54,20 @@ module.exports = class License extends Base {
       api.authKey.addAuthKey(authKey)
         .then(response => {
           notify.showSuccessNotification({
-            title: _('Activated Successfully'),
-            message: _('{0} authorized successfully!', [
+            title: i18n.t('Activated Successfully'),
+            message: i18n.t('{0} authorized successfully!', [
               (() => {
                 const result = [];
                 if (response.data.isEnableFaceRecognitionKey) {
-                  result.push(_('Facial Recognition'));
+                  result.push(i18n.t('Facial Recognition'));
                 }
 
                 if (response.data.isEnableAgeGenderKey) {
-                  result.push(_('Age Gender'));
+                  result.push(i18n.t('Age Gender'));
                 }
 
                 if (response.data.isEnableHumanoidDetectionKey) {
-                  result.push(_('Human Detection'));
+                  result.push(i18n.t('Human Detection'));
                 }
 
                 return result.join(', ');
@@ -93,7 +93,7 @@ module.exports = class License extends Base {
               name="authKey"
               type="text"
               maxLength={AuthKeySchema.authKey.max}
-              placeholder={_('Enter your authentication key')}
+              placeholder={i18n.t('Enter your authentication key')}
               style={{width: '312px'}}
             />
           </div>
@@ -103,7 +103,7 @@ module.exports = class License extends Base {
               type="submit"
               disabled={this.state.$isApiProcessing}
             >
-              {_('Activate')}
+              {i18n.t('Activate')}
             </button>
           </div>
         </div>
@@ -134,11 +134,11 @@ module.exports = class License extends Base {
           <div className="container-fluid">
             <div className="row">
               <BreadCrumb
-                path={[_('Analytic'), _('License')]}
+                path={[i18n.t('Analytic'), i18n.t('License')]}
                 routes={['/analytic/face-recognition']}
               />
               <div className="col-12">
-                <h3 className="mb-4">{_('License')}</h3>
+                <h3 className="mb-4">{i18n.t('License')}</h3>
                 <Formik
                   initialValues={{authKey: ''}}
                   validate={utils.makeFormikValidator(authKeyValidator)}
@@ -157,19 +157,19 @@ module.exports = class License extends Base {
               <div className="col-12">
                 <div className="status d-flex">
                   <LicenseStatus
-                    licenseName={_('Facial Recognition')}
+                    licenseName={i18n.t('Facial Recognition')}
                     licenseKeyStatus={isEnableFaceRecognitionKey}
                     licenseEnableImg={iconFaceRecognitionEnable}
                     licenseDisableImg={iconFaceRecognitionDisable}
                   />
                   <LicenseStatus
-                    licenseName={_('Age Gender')}
+                    licenseName={i18n.t('Age Gender')}
                     licenseKeyStatus={isEnableAgeGenderKey}
                     licenseEnableImg={iconAgeGenderEnable}
                     licenseDisableImg={iconAgeGenderDisable}
                   />
                   <LicenseStatus
-                    licenseName={_('Human Detection')}
+                    licenseName={i18n.t('Human Detection')}
                     licenseKeyStatus={isEnableHumanoidDetectionKey}
                     licenseEnableImg={iconHumanoidDetectionEnable}
                     licenseDisableImg={iconHumanoidDetectionDisable}

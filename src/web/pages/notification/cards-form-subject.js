@@ -6,7 +6,7 @@ const NotificationCardType = require('webserver-form-schema/constants/notificati
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
 const NotificationEmailContentPosition = require('webserver-form-schema/constants/notification-email-content-position');
 const {NOTIFY_CARDS_EMAIL_MAX} = require('../../../core/constants');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const utils = require('../../../core/utils');
 const CustomTooltip = require('../../../core/components/tooltip');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -44,15 +44,15 @@ module.exports = class CardsFormSubject extends React.PureComponent {
      const {values} = this.props;
      if (values.$email) {
        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.$email)) {
-         return _('Invalid email address');
+         return i18n.t('Invalid email address');
        }
 
        const emails = [...values.emails];
        if (emails.length > NOTIFY_CARDS_EMAIL_MAX - 1) {
-         return _('Number of receiver E-mails limit is 64');
+         return i18n.t('Number of receiver E-mails limit is 64');
        }
 
-       return utils.duplicateCheck(emails, values.$email, _('Duplicate E-mail found'));
+       return utils.duplicateCheck(emails, values.$email, i18n.t('Duplicate E-mail found'));
      }
    };
 
@@ -74,8 +74,8 @@ module.exports = class CardsFormSubject extends React.PureComponent {
            <div className="custom-control custom-switch">
              <Field name="isEnableGPIO" type="checkbox" className="custom-control-input" id="switch-notification-target-io"/>
              <label className="custom-control-label" htmlFor="switch-notification-target-io">
-               <span>{_('ON')}</span>
-               <span>{_('OFF')}</span>
+               <span>{i18n.t('ON')}</span>
+               <span>{i18n.t('OFF')}</span>
              </label>
            </div>
          </div>
@@ -83,22 +83,22 @@ module.exports = class CardsFormSubject extends React.PureComponent {
            <div className="card">
              <div className="card-body">
                <div className="form-group d-flex justify-content-between align-items-center">
-                 <label className="mb-0">{_('Output {0}', ['1'])}</label>
+                 <label className="mb-0">{i18n.t('Output {0}', ['1'])}</label>
                  <div className="custom-control custom-switch">
                    <Field name="isEnableGPIO1" type="checkbox" className="custom-control-input" id="switch-notification-target-output-1"/>
                    <label className="custom-control-label" htmlFor="switch-notification-target-output-1">
-                     <span>{_('ON')}</span>
-                     <span>{_('OFF')}</span>
+                     <span>{i18n.t('ON')}</span>
+                     <span>{i18n.t('OFF')}</span>
                    </label>
                  </div>
                </div>
                <div className="d-flex justify-content-between align-items-center">
-                 <label className="mb-0">{_('Output {0}', ['2'])}</label>
+                 <label className="mb-0">{i18n.t('Output {0}', ['2'])}</label>
                  <div className="custom-control custom-switch">
                    <Field name="isEnableGPIO2" type="checkbox" className="custom-control-input" id="switch-notification-target-output-2"/>
                    <label className="custom-control-label" htmlFor="switch-notification-target-output-2">
-                     <span>{_('ON')}</span>
-                     <span>{_('OFF')}</span>
+                     <span>{i18n.t('ON')}</span>
+                     <span>{i18n.t('OFF')}</span>
                    </label>
                  </div>
                </div>
@@ -108,12 +108,12 @@ module.exports = class CardsFormSubject extends React.PureComponent {
          <hr/>
          {/* E-mail Notification */}
          <div className="form-group d-flex justify-content-between align-items-center">
-           <label className="mb-0">{_('Email')}</label>
+           <label className="mb-0">{i18n.t('Email')}</label>
            <div className="custom-control custom-switch">
              <Field name="isEnableEmail" type="checkbox" className="custom-control-input" id="switch-notification-target-mail"/>
              <label className="custom-control-label" htmlFor="switch-notification-target-mail">
-               <span>{_('ON')}</span>
-               <span>{_('OFF')}</span>
+               <span>{i18n.t('ON')}</span>
+               <span>{i18n.t('OFF')}</span>
              </label>
            </div>
          </div>
@@ -122,7 +122,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
              <div className="card-body">
                <SelectField
                  hide={values.type === NotificationCardType.digitalInput}
-                 labelName={_('Email Attachment')}
+                 labelName={i18n.t('Email Attachment')}
                  labelClassName="text-size-16 mb-3"
                  name="emailAttachmentType"
                >
@@ -131,33 +131,33 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                      <option
                        key={attachmentType}
                        value={attachmentType}
-                     >{_(`email-attachment-type-${attachmentType}`)}
+                     >{i18n.t(`email-attachment-type-${attachmentType}`)}
                      </option>
                    )
                  ))}
                </SelectField>
                <hr className={classNames({'d-none': values.type === NotificationCardType.digitalInput})}/>
                <div className="form-group mb-4">
-                 <label className="text-size-16">{_('Subject :')}</label>
+                 <label className="text-size-16">{i18n.t('Subject :')}</label>
                  <Field
                    name="senderSubject"
                    type="text"
                    className="form-control"
-                   placeholder={_('Specify the Subject of Notification Emails')}
+                   placeholder={i18n.t('Specify the Subject of Notification Emails')}
                  />
                </div>
                <div className="form-group mb-4">
-                 <label className="text-size-16">{_('Content :')}</label>
+                 <label className="text-size-16">{i18n.t('Content :')}</label>
                  <Field
                    name="senderContent"
                    type="text"
                    className="form-control"
-                   placeholder={_('Append Your Message to Notification Emails')}
+                   placeholder={i18n.t('Append Your Message to Notification Emails')}
                  />
                </div>
                <div className="form-group mb-4">
                  <SelectField
-                   labelName={_('Email Content Order')}
+                   labelName={i18n.t('Email Content Order')}
                    labelClassName="text-size-16"
                    name="emailContentPosition"
                  >
@@ -165,13 +165,13 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                      <option
                        key={position}
                        value={position}
-                     >{_(`email-content-position-${position}`)}
+                     >{i18n.t(`email-content-position-${position}`)}
                      </option>
                    ))}
                  </SelectField>
                </div>
                <div className="form-group mb-3">
-                 <label className="text-size-16 mb-0">{_('Receiver')} :</label>
+                 <label className="text-size-16 mb-0">{i18n.t('Receiver')} :</label>
                  <div className="form-row">
                    <div className="col-auto my-1">
                      <div className="input-group">
@@ -188,11 +188,11 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                          type="text"
                          className={classNames('form-control', 'notification-email', {'is-invalid': errors.$email && touched.$email})}
                          validate={this.validateEmail}
-                         placeholder={_('Enter Email Address')}
+                         placeholder={i18n.t('Enter Email Address')}
                        />
                      </div>
                    </div>
-                   <CustomTooltip show={!values.$email} title={_('Please Enter an Email Address')}>
+                   <CustomTooltip show={!values.$email} title={i18n.t('Please Enter an Email Address')}>
                      <div className="col-auto my-1">
                        <button
                          disabled={!values.$email}

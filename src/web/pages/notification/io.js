@@ -2,7 +2,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 const IoInput = require('./io-input').default;
 const IoOutput = require('./io-output').default;
@@ -40,33 +40,33 @@ module.exports = class IO extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('Notification Setting'), _('Basic Setting'), _('Input and Output Setting')]}
+                path={[i18n.t('Notification Setting'), i18n.t('Basic Setting'), i18n.t('Input and Output Setting')]}
                 routes={['/notification/smtp', '/notification/smtp']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Input and Output Setting')}</div>
+                  <div className="card-header">{i18n.t('Input and Output Setting')}</div>
                   <Tab.Container activeKey={currentTab}>
                     <Nav onSelect={this.setCurrentTab}>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="tab-input"
                         >
-                          {_('Input')}
+                          {i18n.t('Input')}
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="tab-output-1"
                         >
-                          {_('Output {0}', [1])}
+                          {i18n.t('Output {0}', [1])}
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="tab-output-2"
                         >
-                          {_('Output {0}', [2])}
+                          {i18n.t('Output {0}', [2])}
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>

@@ -15,7 +15,7 @@ switch (languageCode) {
     require('./zh-tw');
     break;
   default:
-    require('./en-us');
+    // require('./en-us');
     break;
 }
 

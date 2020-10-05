@@ -1,7 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const {Link} = require('capybara-router');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
 const {default: AccountContainer} = require('./account-container');
@@ -27,14 +27,14 @@ module.exports = class LoginError extends Base {
             <Once>
               <div className="text-center" style={{margin: '8rem 0'}}>
                 <p className="text-dark font-weight-bold m-0">
-                  {_('Password Incorrect')}
+                  {i18n.t('Password Incorrect')}
                 </p>
                 <p className="text-dark">
-                  {_('You have {0} attemps remaining...', [loginFailedRemainingTimes])}
+                  {i18n.t('You have {0} attemps remaining...', [loginFailedRemainingTimes])}
                 </p>
               </div>
               <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-5">
-                {_('Login Again')}
+                {i18n.t('Login Again')}
               </Link>
             </Once>
           </div>

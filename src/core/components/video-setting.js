@@ -8,7 +8,7 @@ const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-settings-schema');
-const _ = require('../../languages');
+const {default: i18n} = require('../../web/i18n');
 const utils = require('../utils');
 const api = require('../apis/web-api');
 const Slider = require('./fields/slider');
@@ -252,14 +252,14 @@ module.exports = class VideoSetting extends React.PureComponent {
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{_('Image Settings')}</div>
+        <div className="card-header">{i18n.t('Image Settings')}</div>
         <div className="accordion" id="accordion-video-properties">
           {/* WDR */}
           <hr className="my-0"/>
           <div className="card-body">
             <div className="form-row">
               <div className="col-12 my-1 d-flex justify-content-between align-items-center">
-                <span className="text-size-20">{_('HDR')}</span>
+                <span className="text-size-20">{i18n.t('HDR')}</span>
                 <div className="custom-control custom-switch d-inline-block ml-2">
                   <Field
                     name="hdrEnabled"
@@ -270,8 +270,8 @@ module.exports = class VideoSetting extends React.PureComponent {
                     disabled={disableInput}
                   />
                   <label className="custom-control-label" htmlFor="switch-hdr-enabled">
-                    <span>{_('ON')}</span>
-                    <span>{_('OFF')}</span>
+                    <span>{i18n.t('ON')}</span>
+                    <span>{i18n.t('OFF')}</span>
                   </label>
                 </div>
               </div>
@@ -283,14 +283,14 @@ module.exports = class VideoSetting extends React.PureComponent {
           <div className="card-body pb-0">
             <h2>
               <button className="btn btn-link btn-block text-left" type="button" disabled={disableInput} data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>{_('Image Adjustment')}
+                <i className="fas fa-chevron-up"/>{i18n.t('Image Adjustment')}
               </button>
             </h2>
 
             <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Brightness')}</label>
+                  <label>{i18n.t('Brightness')}</label>
                   <span className="text-primary text-size-14">{values.brightness}</span>
                 </div>
                 <Field
@@ -304,7 +304,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Contrast')}</label>
+                  <label>{i18n.t('Contrast')}</label>
                   <span className="text-primary text-size-14">{values.contrast}</span>
                 </div>
                 <Field
@@ -318,7 +318,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Sharpness')}</label>
+                  <label>{i18n.t('Sharpness')}</label>
                   <span className="text-primary text-size-14">{values.sharpness}</span>
                 </div>
                 <Field
@@ -332,7 +332,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Saturation')}</label>
+                  <label>{i18n.t('Saturation')}</label>
                   <span className="text-primary text-size-14">{values.saturation}</span>
                 </div>
                 <Field
@@ -352,7 +352,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           <div className="card-body pb-0">
             <h2 className="d-flex justify-content-between">
               <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
-                <i className="fas fa-chevron-up"/>{_('Lens Control')}
+                <i className="fas fa-chevron-up"/>{i18n.t('Lens Control')}
               </button>
               <div className="btn-group tip">
                 <button
@@ -361,7 +361,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
-                  {_(values.focusType === FocusType.fullRange ? 'Full-Range Focus' : 'Short-Range Focus')}
+                  {i18n.t(values.focusType === FocusType.fullRange ? 'Full-Range Focus' : 'Short-Range Focus')}
                 </button>
                 <button
                   type="button"
@@ -371,14 +371,14 @@ module.exports = class VideoSetting extends React.PureComponent {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span className="sr-only">{_('Select Focus Type')}</span>
+                  <span className="sr-only">{i18n.t('Select Focus Type')}</span>
                 </button>
                 <div className="dropdown-menu">
                   <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.fullRange)}>
-                    {_('Full-Range Focus')}
+                    {i18n.t('Full-Range Focus')}
                   </button>
                   <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.shortRange)}>
-                    {_('Short-Range Focus')}
+                    {i18n.t('Short-Range Focus')}
                   </button>
                 </div>
               </div>
@@ -388,7 +388,7 @@ module.exports = class VideoSetting extends React.PureComponent {
             <div id="color" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Focus')}</label>
+                  <label>{i18n.t('Focus')}</label>
                   <span className="d-none text-primary text-size-14">{values.focalLength}</span>
                 </div>
                 <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
@@ -452,7 +452,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Zoom')}</label>
+                  <label>{i18n.t('Zoom')}</label>
                   <span className="text-primary text-size-14">{values.zoom}{('X')}</span>
                 </div>
                 <Field
@@ -476,12 +476,12 @@ module.exports = class VideoSetting extends React.PureComponent {
                   checked={values.isAutoFocusAfterZoom}
                 />
                 <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
-                  {_('Auto Focus after Zoom')}
+                  {i18n.t('Auto Focus after Zoom')}
                 </label>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Iris')}</label>
+                  <label>{i18n.t('Iris')}</label>
                   <Field
                     name="aperture"
                     component={Dropdown}
@@ -489,14 +489,14 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.aperture.enum.map(x => ({
                       value: x,
-                      label: _(`aperture-${x}`)
+                      label: i18n.t(`aperture-${x}`)
                     }))}
                   />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Shutter Speed')}</label>
+                  <label>{i18n.t('Shutter Speed')}</label>
                   <Field
                     name="shutterSpeed"
                     component={Dropdown}
@@ -504,7 +504,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.shutterSpeed.enum.map(x => ({
                       value: x,
-                      label: _(`shutter-speed-${x}`)
+                      label: i18n.t(`shutter-speed-${x}`)
                     }))}
                   />
                 </div>
@@ -517,14 +517,14 @@ module.exports = class VideoSetting extends React.PureComponent {
           <div className="card-body pb-0">
             <h2>
               <button className="btn btn-link btn-block text-left collapsed" type="button" disabled={disableInput} data-toggle="collapse" data-target="#video">
-                <i className="fas fa-chevron-up"/>{_('Image Configuration')}
+                <i className="fas fa-chevron-up"/>{i18n.t('Image Configuration')}
               </button>
             </h2>
 
             <div id="video" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('White Balance')}</label>
+                  <label>{i18n.t('White Balance')}</label>
                   <Field
                     name="whiteblanceMode"
                     component={Dropdown}
@@ -532,7 +532,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({
                       value: x,
-                      label: _(`white-balance-${x}`)
+                      label: i18n.t(`white-balance-${x}`)
                     }))}
                   />
                 </div>
@@ -540,7 +540,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   values.whiteblanceMode === WhiteBalanceType.manual && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Color Temperature')}</label>
+                        <label>{i18n.t('Color Temperature')}</label>
                         <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
                       </div>
                       <Field
@@ -557,7 +557,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('IR Control')}</label>
+                  <label>{i18n.t('IR Control')}</label>
                   <Field
                     name="irEnabled"
                     component={Dropdown}
@@ -566,7 +566,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     items={utils.capitalizeObjKeyValuePairs(IREnableType).map(
                       x => ({
                         value: x.value,
-                        label: _(x.key)
+                        label: i18n.t(x.key)
                       })
                     )}
                   />
@@ -575,7 +575,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   values.irEnabled === IREnableType.on && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Level')}</label>
+                        <label>{i18n.t('Level')}</label>
                         <span className="text-primary text-size-14">{values.irBrightness}</span>
                       </div>
                       {/* Slider step are still under review */}
@@ -593,7 +593,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('D/N')}</label>
+                  <label>{i18n.t('D/N')}</label>
                   <Field
                     name="daynightMode"
                     component={Dropdown}
@@ -601,7 +601,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.daynightMode.enum.map(x => ({
                       value: x,
-                      label: _(`daynight-mode-${x}`)
+                      label: i18n.t(`daynight-mode-${x}`)
                     }))}
                   />
                 </div>
@@ -609,7 +609,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   values.daynightMode === DaynightType.auto && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Sensitivity')}</label>
+                        <label>{i18n.t('Sensitivity')}</label>
                         <span className="text-primary text-size-14">{values.sensitivity}</span>
                       </div>
                       <Field
@@ -627,7 +627,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   values.daynightMode === DaynightType.manual && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Day Mode')}</label>
+                        <label>{i18n.t('Day Mode')}</label>
                         <span className="text-primary text-size-14">
                           {utils.formatTimeRange(values.dnDuty)}
                         </span>
@@ -647,7 +647,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Rotation')}</label>
+                  <label>{i18n.t('Rotation')}</label>
                   <Field
                     name="orientation"
                     component={Dropdown}
@@ -655,14 +655,14 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.orientation.enum.map(x => ({
                       value: x,
-                      label: _(`orientation-${x}`)
+                      label: i18n.t(`orientation-${x}`)
                     }))}
                   />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Defog')}</label>
+                  <label>{i18n.t('Defog')}</label>
                   <Field
                     name="defoggingEnabled"
                     component={Dropdown}
@@ -670,17 +670,17 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={[{
                       value: 'true',
-                      label: _('On')
+                      label: i18n.t('On')
                     }, {
                       value: 'false',
-                      label: _('Off')
+                      label: i18n.t('Off')
                     }]}
                   />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Lighting Compensation Frequency (Hz)')}</label>
+                  <label>{i18n.t('Lighting Compensation Frequency (Hz)')}</label>
                   <Field
                     name="refreshRate"
                     component={Dropdown}
@@ -688,7 +688,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.refreshRate.enum.map(x => ({
                       value: x,
-                      label: _(`refresh-rate-${x}`)
+                      label: i18n.t(`refresh-rate-${x}`)
                     }))}
                   />
                 </div>
@@ -705,7 +705,7 @@ module.exports = class VideoSetting extends React.PureComponent {
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler()}
           >
-            {_('Reset to Default Settings')}
+            {i18n.t('Reset to Default Settings')}
           </button>
         </div>
       </Form>

@@ -11,7 +11,7 @@ const Base = require('../shared/base');
 const smtpSettingsValidator = require('../../validations/notifications/smtp-settings-validator');
 const smtpAccountSettingsValidator = require('../../validations/notifications/smtp-account-settings-validator');
 const Password = require('../../../core/components/fields/password');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const utils = require('../../../core/utils');
 const notify = require('../../../core/notify');
 const api = require('../../../core/apis/web-api');
@@ -75,8 +75,8 @@ module.exports = class SMTP extends Base {
     })
       .then(response => {
         notify.showSuccessNotification({
-          title: _('Mail Setting Success'),
-          message: _(response.data.isTestMailSent ? 'Test Mail Sent' : 'Account Auth is Off, Test Mail not Sent.')
+          title: i18n.t('Mail Setting Success'),
+          message: i18n.t(response.data.isTestMailSent ? 'Test Mail Sent' : 'Account Auth is Off, Test Mail not Sent.')
         });
       })
       .then(getRouter().reload)
@@ -88,29 +88,29 @@ module.exports = class SMTP extends Base {
       <Form>
         <div className="modal-body">
           <div className="form-group">
-            <label>{_('Account')}</label>
+            <label>{i18n.t('Account')}</label>
             <Field
               name="account"
               type="text"
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
-              placeholder={_('Enter your account')}
+              placeholder={i18n.t('Enter your account')}
             />
             <ErrorMessage component="div" name="account" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
-            <label>{_('Password')}</label>
+            <label>{i18n.t('Password')}</label>
             <Field
               name="password"
               component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.password && touched.password}),
-                placeholder: _('Enter your password')
+                placeholder: i18n.t('Enter your password')
               }}
             />
             <ErrorMessage component="div" name="password" className="invalid-feedback"/>
           </div>
           <div className="form-group">
-            <label>{_('Port')}</label>
+            <label>{i18n.t('Port')}</label>
             <div className="d-flex align-items-center">
               <div className="form-check">
                 <Field checked={values.port === SMTPPort['25']} name="port" className="form-check-input" type="radio" id="input-port-25" value={SMTPPort['25']}/>
@@ -131,11 +131,11 @@ module.exports = class SMTP extends Base {
             </div>
           </div>
           <div className="form-group">
-            <label>{_('Encryption')}</label>
+            <label>{i18n.t('Encryption')}</label>
             <div className="d-flex align-items-center">
               <div className="form-check">
                 <Field checked={values.encryption === SMTPEncryptionType.none} name="encryption" className="form-check-input" type="radio" id="input-encryption-none" value={SMTPEncryptionType.none}/>
-                <label className="form-check-label" htmlFor="input-encryption-none">{_('None')}</label>
+                <label className="form-check-label" htmlFor="input-encryption-none">{i18n.t('None')}</label>
               </div>
               <div className="form-check ml-5">
                 <Field checked={values.encryption === SMTPEncryptionType.ssl} name="encryption" className="form-check-input" type="radio" id="input-encryption-ssl" value={SMTPEncryptionType.ssl}/>
@@ -151,11 +151,11 @@ module.exports = class SMTP extends Base {
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
             <button type="submit" className="btn btn-primary btn-block rounded-pill">
-              {_('Apply')}
+              {i18n.t('Apply')}
             </button>
           </div>
           <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={this.onHideAccountSettingsModal}>
-            {_('Close')}
+            {i18n.t('Close')}
           </button>
         </div>
       </Form>
@@ -168,11 +168,11 @@ module.exports = class SMTP extends Base {
     return (
       <Form className="card shadow">
         <div className="card-header">
-          {_('SMTP Server')}
+          {i18n.t('SMTP Server')}
         </div>
         <div className="card-body">
           <div className="form-group d-flex justify-content-between align-items-center">
-            <label>{_('On/Off')}</label>
+            <label>{i18n.t('On/Off')}</label>
             <div className="custom-control custom-switch">
               <Field
                 name="isEnableAuth"
@@ -182,32 +182,32 @@ module.exports = class SMTP extends Base {
                 id="switch-auth"
               />
               <label className="custom-control-label" htmlFor="switch-auth">
-                <span>{_('ON')}</span>
-                <span>{_('OFF')}</span>
+                <span>{i18n.t('ON')}</span>
+                <span>{i18n.t('OFF')}</span>
               </label>
             </div>
           </div>
           <div className="card">
             <div className="card-body">
               <div className="form-group">
-                <label>{_('Host Address')}</label>
+                <label>{i18n.t('Host Address')}</label>
                 <Field
                   autoFocus
                   disabled={!isEnableAuth}
                   name="host"
                   type="text"
                   className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-                  placeholder={_('Enter Your Host Address')}
+                  placeholder={i18n.t('Enter Your Host Address')}
                 />
                 <ErrorMessage component="div" name="host" className="invalid-feedback"/>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
                 <div>
-                  <label className="mb-0">{_('SMTP Account Settings')}</label>
+                  <label className="mb-0">{i18n.t('SMTP Account Settings')}</label>
                   <br/>
                 </div>
                 <div>
-                  <CustomTooltip show={!isEnableAuth} title={_('Please Enable SMTP Server')}>
+                  <CustomTooltip show={!isEnableAuth} title={i18n.t('Please Enable SMTP Server')}>
                     <a
                       href="#"
                       className={classNames('mr-2', {'disable-link': !isEnableAuth})}
@@ -216,17 +216,17 @@ module.exports = class SMTP extends Base {
                         return isEnableAuth && this.onShowAccountSettingsModal();
                       }}
                     >
-                      {_('Edit Account and Password')}
+                      {i18n.t('Edit Account and Password')}
                     </a>
                   </CustomTooltip>
-                  <CustomTooltip title={_('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
+                  <CustomTooltip title={i18n.t('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
                     <i className="fas fa-question-circle text-primary"/>
                   </CustomTooltip>
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{_('Login Notification')}</label>
-                <CustomTooltip show={!isEnableAuth} title={_('Please Enable SMTP Server')}>
+                <label>{i18n.t('Login Notification')}</label>
+                <CustomTooltip show={!isEnableAuth} title={i18n.t('Please Enable SMTP Server')}>
                   <div className="custom-control custom-switch">
                     <Field
                       disabled={!isEnableAuth}
@@ -237,8 +237,8 @@ module.exports = class SMTP extends Base {
                       id="switch-login-notification"
                     />
                     <label className="custom-control-label" htmlFor="switch-login-notification">
-                      <span>{_('ON')}</span>
-                      <span>{_('OFF')}</span>
+                      <span>{i18n.t('ON')}</span>
+                      <span>{i18n.t('OFF')}</span>
                     </label>
                   </div>
                 </CustomTooltip>
@@ -246,45 +246,45 @@ module.exports = class SMTP extends Base {
             </div>
           </div>
           {/* <div className="card-header rounded-0">
-          {_('Sender')}
+          {i18n.t('Sender')}
         </div> */}
           <div className="card-body">
             <div className="form-group">
-              <label>{_('Sender')}</label>
+              <label>{i18n.t('Sender')}</label>
               <Field
                 disabled={!isEnableAuth}
                 name="senderName"
                 type="text"
                 className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
-                placeholder={_('Enter Your Name')}
+                placeholder={i18n.t('Enter Your Name')}
               />
               <ErrorMessage component="div" name="senderName" className="invalid-feedback"/>
             </div>
             <div className="form-group">
-              <label>{_('Email')}</label>
+              <label>{i18n.t('Email')}</label>
               <Field
                 disabled={!isEnableAuth}
                 name="senderEmail"
                 type="text"
                 className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
-                placeholder={_('Enter Your Email')}
+                placeholder={i18n.t('Enter Your Email')}
               />
               <ErrorMessage component="div" name="senderEmail" className="invalid-feedback"/>
             </div>
             <div className="form-group">
-              <label>{_('Notification Interval (Seconds)')}</label>
+              <label>{i18n.t('Notification Interval (Seconds)')}</label>
               <Field
                 disabled={!isEnableAuth}
                 name="interval"
                 type="text"
                 className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
-                placeholder={_('Enter your notification interval')}
+                placeholder={i18n.t('Enter your notification interval')}
               />
               <ErrorMessage component="div" name="interval" className="invalid-feedback"/>
-              <small className="form-text text-muted">{_('5 - 1,800 Seconds')}</small>
+              <small className="form-text text-muted">{i18n.t('5 - 1,800 Seconds')}</small>
             </div>
             <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-              {_('Apply')}
+              {i18n.t('Apply')}
             </button>
           </div>
         </div>
@@ -303,7 +303,7 @@ module.exports = class SMTP extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('Notification Setting'), _('Basic Setting'), _('Mail')]}
+                path={[i18n.t('Notification Setting'), i18n.t('Basic Setting'), i18n.t('Mail')]}
                 routes={['/notification/smtp', '/notification/smtp']}
               />
               <div className="col-center">
@@ -320,7 +320,7 @@ module.exports = class SMTP extends Base {
 
           <Modal autoFocus={false} show={isShowModal} onHide={this.onHideAccountSettingsModal}>
             <div className="modal-header">
-              <h5 className="modal-title">{_('Email and login settings')}</h5>
+              <h5 className="modal-title">{i18n.t('Email and login settings')}</h5>
             </div>
             <Formik
               validate={utils.makeFormikValidator(smtpAccountSettingsValidator)}

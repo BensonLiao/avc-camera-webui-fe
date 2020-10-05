@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const CustomTooltip = require('../../../core/components/tooltip');
 const outputIcon = require('../../../resource/icon-output-40px.svg');
 const utils = require('../../../core/utils');
@@ -48,7 +48,7 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
         <div key={card.id} className="card shadow overflow-hidden" onClick={clickCardHandler(card.id)}>
           <div className="card-title d-flex justify-content-between align-items-center">
             <div className="title text-truncate">
-              <CustomTooltip title={card.isTop ? _('Unpin Card') : _('Pin Card')}>
+              <CustomTooltip title={card.isTop ? i18n.t('Unpin Card') : i18n.t('Pin Card')}>
                 <button
                   disabled={isApiProcessing}
                   type="button"
@@ -64,7 +64,7 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
             <div className="icons d-flex justify-content-end">
               {
                 card.isEnableEmail && (
-                  <CustomTooltip title={_('Email: On')}>
+                  <CustomTooltip title={i18n.t('Email: On')}>
                     <div className="icon rounded-pill d-flex justify-content-center align-items-center">
                       <i className="fas fa-envelope fa-fw fa-lg"/>
                     </div>
@@ -73,7 +73,7 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
               }
               {
                 card.isEnableGPIO && (
-                  <CustomTooltip title={_('Output: On')}>
+                  <CustomTooltip title={i18n.t('Output: On')}>
                     <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
                       <img src={outputIcon}/>
                     </div>
@@ -86,8 +86,8 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
             <table>
               <tbody>
                 <tr>
-                  <th>{_('Analytic')}</th>
-                  <td>{_(`notification-card-${card.type}`)}</td>
+                  <th>{i18n.t('Analytic')}</th>
+                  <td>{i18n.t(`notification-card-${card.type}`)}</td>
                 </tr>
                 {
                   card.timePeriods.map((timePeriod, index) => {
@@ -95,15 +95,15 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
 
                     return (
                       <tr key={key}>
-                        <th>{index === 0 ? _('Schedule') : ''}</th>
+                        <th>{index === 0 ? i18n.t('Schedule') : ''}</th>
                         <td>{`${utils.formatDate(timePeriod.start)} - ${utils.formatDate(timePeriod.end)}`}</td>
                       </tr>
                     );
                   })
                 }
                 <tr>
-                  <th>{_('Rule')}</th>
-                  <td>{_(`face-recognition-condition-${card.faceRecognitionCondition}`)}</td>
+                  <th>{i18n.t('Rule')}</th>
+                  <td>{i18n.t(`face-recognition-condition-${card.faceRecognitionCondition}`)}</td>
                 </tr>
               </tbody>
             </table>

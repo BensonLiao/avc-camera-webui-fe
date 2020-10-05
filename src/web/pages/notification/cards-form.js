@@ -9,7 +9,7 @@ const NotificationCardSchema = require('webserver-form-schema/notification-card-
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const CardsFormSchedule = require('./cards-form-schedule');
 const CardsFormRule = require('./cards-form-rule');
 const CardsFormSubject = require('./cards-form-subject');
@@ -73,9 +73,9 @@ module.exports = class CardsForm extends React.PureComponent {
     super(props);
     this.cardFormTitleRef = React.createRef();
     this.defaultSubject = {
-      faceRecognition: `${_('Face Recognition Event [{0}]', props.modelName)}`,
-      motionDetection: `${_('Motion Detection Event [{0}]', props.modelName)}`,
-      digitalInput: `${_('Digital Input Event [{0}]', props.modelName)}`
+      faceRecognition: `${i18n.t('Face Recognition Event [{0}]', props.modelName)}`,
+      motionDetection: `${i18n.t('Motion Detection Event [{0}]', props.modelName)}`,
+      digitalInput: `${i18n.t('Digital Input Event [{0}]', props.modelName)}`
     };
   }
 
@@ -112,7 +112,7 @@ module.exports = class CardsForm extends React.PureComponent {
 
     return {
       type: NotificationCardType.faceRecognition,
-      title: _('Enter Your Title'),
+      title: i18n.t('Enter Your Title'),
       isTop: false,
       isEnableTime: false,
       $start: null,
@@ -127,7 +127,7 @@ module.exports = class CardsForm extends React.PureComponent {
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
-      senderSubject: `${_('Face Recognition Event [{0}]', this.props.modelName)}`,
+      senderSubject: `${i18n.t('Face Recognition Event [{0}]', this.props.modelName)}`,
       senderContent: '',
       emailContentPosition: 0,
       isEnableFaceRecognition: false,
@@ -191,7 +191,7 @@ module.exports = class CardsForm extends React.PureComponent {
                 <FormikEffect onChange={this.onChangeCardForm}/>
                 <div className="modal-body d-flex justify-content-between align-content-center pb-2">
                   <div className="d-flex align-content-center">
-                    <CustomTooltip title={isTop ? _('Unpin Card') : _('Pin Card')}>
+                    <CustomTooltip title={isTop ? i18n.t('Unpin Card') : i18n.t('Pin Card')}>
                       <button
                         type="button"
                         className={classNames('btn btn-star rounded-pill', {'btn-secondary': !isTop})}
@@ -218,7 +218,7 @@ module.exports = class CardsForm extends React.PureComponent {
                           type === '0' || type === '3' || type === '5'
                         )).map(
                           type => {
-                            return <option key={type} value={type}>{_(`notification-card-${type}`)}</option>;
+                            return <option key={type} value={type}>{i18n.t(`notification-card-${type}`)}</option>;
                           }
                         )
                       }
@@ -231,7 +231,7 @@ module.exports = class CardsForm extends React.PureComponent {
                       <Nav.Link
                         eventKey="tab-notification-time"
                       >
-                        {_('Schedule')}
+                        {i18n.t('Schedule')}
                       </Nav.Link>
                     </Nav.Item>
                     {values.type === NotificationCardType.faceRecognition && (
@@ -239,7 +239,7 @@ module.exports = class CardsForm extends React.PureComponent {
                         <Nav.Link
                           eventKey="tab-notification-condition"
                         >
-                          {_('Rule')}
+                          {i18n.t('Rule')}
                         </Nav.Link>
                       </Nav.Item>
                     )}
@@ -247,7 +247,7 @@ module.exports = class CardsForm extends React.PureComponent {
                       <Nav.Link
                         eventKey="tab-notification-target"
                       >
-                        {_('Subject')}
+                        {i18n.t('Subject')}
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>
@@ -292,7 +292,7 @@ module.exports = class CardsForm extends React.PureComponent {
                       type="submit"
                       className="btn btn-primary btn-block rounded-pill"
                     >
-                      {cardDetails ? _('Confirm') : _('Add')}
+                      {cardDetails ? i18n.t('Confirm') : i18n.t('Add')}
                     </button>
                   </div>
                   <button
@@ -300,7 +300,7 @@ module.exports = class CardsForm extends React.PureComponent {
                     className="btn btn-info btn-block m-0 rounded-pill"
                     onClick={onHideCardModal}
                   >
-                    {_('Close')}
+                    {i18n.t('Close')}
                   </button>
                 </div>
               </Form>

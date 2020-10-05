@@ -1,7 +1,7 @@
 const dayjs = require('dayjs');
 const React = require('react');
 const {Link} = require('capybara-router');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
 const {default: AccountContainer} = require('./account-container');
@@ -63,10 +63,10 @@ module.exports = class LoginLock extends Base {
             <Once>
               <div style={{margin: '5rem 0'}}>
                 <p className="font-weight-bold m-0">
-                  {_('Too Many Login Attempts!')}
+                  {i18n.t('Too Many Login Attempts!')}
                 </p>
                 <p>
-                  {_('Please try again in 5 minutes.')}
+                  {i18n.t('Please try again in 5 minutes.')}
                 </p>
               </div>
             </Once>
@@ -74,12 +74,12 @@ module.exports = class LoginLock extends Base {
             {
               this.state.disableLoginLink ? (
                 <a href="#disabled" className="btn btn-primary btn-block rounded-pill mt-4 disabled">
-                  {_('{0} Remaining', [formatedLoginLockTime])}
+                  {i18n.t('{0} Remaining', [formatedLoginLockTime])}
                 </a>
               ) : (
                 <Once>
                   <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-4">
-                    {_('Login Again')}
+                    {i18n.t('Login Again')}
                   </Link>
                 </Once>
               )

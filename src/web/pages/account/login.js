@@ -4,7 +4,7 @@ const progress = require('nprogress');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const Base = require('../shared/base');
 const Password = require('../../../core/components/fields/password');
 const UserSchema = require('webserver-form-schema/user-schema');
@@ -75,25 +75,25 @@ module.exports = class Login extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <AccountTitle title={_('ACCOUNT LOGIN')} subtitle={_('Enter Your Username and Password')}/>
+          <AccountTitle title={i18n.t('ACCOUNT LOGIN')} subtitle={i18n.t('Enter Your Username and Password')}/>
           <div className="form-group">
-            <label>{_('Username')}</label>
+            <label>{i18n.t('Username')}</label>
             <Field
               name="account"
               type="text"
               maxLength={UserSchema.account.max}
-              placeholder={_('Enter Your Username')}
+              placeholder={i18n.t('Enter Your Username')}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
             />
             <ErrorMessage component="div" name="account" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
-            <label>{_('Password')}</label>
+            <label>{i18n.t('Password')}</label>
             <Field
               name="password"
               component={Password}
               inputProps={{
-                placeholder: _('Enter your password'),
+                placeholder: i18n.t('Enter your password'),
                 className: classNames('form-control', {'is-invalid': errors.password && touched.password})
               }}
             />
@@ -105,7 +105,7 @@ module.exports = class Login extends Base {
             type="submit"
             className="btn btn-primary btn-block rounded-pill mt-5"
           >
-            {_('Login')}
+            {i18n.t('Login')}
           </button>
         </div>
       </Form>

@@ -1,7 +1,7 @@
 const filesize = require('filesize');
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../languages');
+const {default: i18n} = require('../../web/i18n');
 const CustomTooltip = require('./tooltip');
 
 module.exports = class VolumeProgressBar extends React.PureComponent {
@@ -26,7 +26,7 @@ module.exports = class VolumeProgressBar extends React.PureComponent {
       <>
         <p>
           {
-            _('Free: {0}, Total: {1}', [
+            i18n.t('Free: {0}, Total: {1}', [
               filesize(freeDiskVolume),
               filesize(total)
             ])
@@ -37,13 +37,13 @@ module.exports = class VolumeProgressBar extends React.PureComponent {
             isNaN(usedDiskPercentage) ?
               <div className="progress-bar"/> : (
                 <>
-                  <CustomTooltip title={_('Used: {0}', [filesize(usage)])}>
+                  <CustomTooltip title={i18n.t('Used: {0}', [filesize(usage)])}>
                     <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
                       {usedDiskPercentage > percentageToHideText ? `${usedDiskPercentage}%` : ''}
                     </div>
                   </CustomTooltip>
                   {usedDiskPercentage && (
-                    <CustomTooltip title={_('Free: {0}', [filesize(freeDiskVolume)])}>
+                    <CustomTooltip title={i18n.t('Free: {0}', [filesize(freeDiskVolume)])}>
 
                       <div
                         className="progress-bar"

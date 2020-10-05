@@ -1,7 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const StreamSetting = require('./stream-setting');
 const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
@@ -38,7 +38,7 @@ module.exports = class Stream extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('Video'), _('Stream Settings')]}
+                path={[i18n.t('Video'), i18n.t('Stream Settings')]}
                 routes={['/media/stream']}
               />
               <div className="col-center">

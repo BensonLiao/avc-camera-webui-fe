@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const CustomTooltip = require('../../../core/components/tooltip');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 const MembersDatabase = require('./members-database');
@@ -30,24 +30,24 @@ module.exports = class MembersSidebar extends React.PureComponent {
     return (
       <>
         <div className="left-menu fixed-top sub">
-          <h2>{_('Members')}</h2>
+          <h2>{i18n.t('Members')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/users/members"
-              title={_('All Members')}
+              title={i18n.t('All Members')}
               className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
                 {active: !params.group},
                 {'bg-light': !params.group}
               )}
             >
-              <i className="fas fa-user-friends pl-2 pr-4"/>{_('All Members')}
+              <i className="fas fa-user-friends pl-2 pr-4"/>{i18n.t('All Members')}
             </Link>
           </nav>
           <hr/>
           <div className="groups">
             <div className="sub-title py-1 px-4">
-              <h3>{_('Groups')}</h3>
-              <CustomTooltip title={isAddGroupDisabled ? _('Group Limit Reached') : _('Create a Group')}>
+              <h3>{i18n.t('Groups')}</h3>
+              <CustomTooltip title={isAddGroupDisabled ? i18n.t('Group Limit Reached') : i18n.t('Create a Group')}>
                 <span>
                   <Link
                     to={{
@@ -80,7 +80,7 @@ module.exports = class MembersSidebar extends React.PureComponent {
                     <i className="far fa-folder text-size-20"/>
                     <span className="text-truncate text-size-14 pl-3">{group.name}</span>
                   </a>
-                  <CustomTooltip title={_('Delete Group: {0}', [group.name])}>
+                  <CustomTooltip title={i18n.t('Delete Group: {0}', [group.name])}>
                     <button
                       className="btn btn-link btn-delete text-info"
                       type="button"

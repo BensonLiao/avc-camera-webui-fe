@@ -1,7 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
 
 module.exports = class Information extends Base {
@@ -24,25 +24,25 @@ module.exports = class Information extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('System'), _('System Information'), _('Information')]}
+                path={[i18n.t('System'), i18n.t('System Information'), i18n.t('Information')]}
                 routes={['/system/datetime', '/system/log']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Information')}</div>
+                  <div className="card-header">{i18n.t('Information')}</div>
                   <div className="card-body">
                     <table className="w-100">
                       <tbody>
                         <tr className="border-bottom">
-                          <th className="text-size-20 pt-2 pb-2 text-muted">{_('Build Version')}</th>
+                          <th className="text-size-20 pt-2 pb-2 text-muted">{i18n.t('Build Version')}</th>
                           <th className="text-size-20 pt-2 pb-2 text-primary text-right">{systemInformation.firmware}</th>
                         </tr>
                         <tr className="border-bottom">
-                          <th className="text-size-20 pt-4 pb-2 text-muted">{_('S/N Code')}</th>
+                          <th className="text-size-20 pt-4 pb-2 text-muted">{i18n.t('S/N Code')}</th>
                           <th className="text-size-20 pt-4 pb-2 text-primary text-right">{systemInformation.serialNumber}</th>
                         </tr>
                         <tr className="border-bottom">
-                          <th className="text-size-20 pt-4 pb-2 text-muted">{_('MAC Address')}</th>
+                          <th className="text-size-20 pt-4 pb-2 text-muted">{i18n.t('MAC Address')}</th>
                           <th className="text-size-20 pt-4 pb-2 text-primary text-right">{networkSettings.mac}</th>
                         </tr>
                       </tbody>

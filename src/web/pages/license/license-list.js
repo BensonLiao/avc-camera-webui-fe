@@ -1,6 +1,6 @@
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const utils = require('../../../core/utils');
 // const authKeyFaceRecognitionType = require('webserver-form-schema/constants/auth-key-fr');
 
@@ -31,11 +31,11 @@ module.exports = class LicenseList extends React.PureComponent {
         <thead>
           <tr className="shadow">
             <th/>
-            <th>{_('Time')}</th>
-            <th>{_('Activate User')}</th>
-            <th>{_('Authentication Key')}</th>
-            <th>{_('Activate Functions')}</th>
-            <th>{_('Enable Status')}</th>
+            <th>{i18n.t('Time')}</th>
+            <th>{i18n.t('Activate User')}</th>
+            <th>{i18n.t('Authentication Key')}</th>
+            <th>{i18n.t('Activate Functions')}</th>
+            <th>{i18n.t('Enable Status')}</th>
           </tr>
         </thead>
         <tbody>
@@ -49,19 +49,19 @@ module.exports = class LicenseList extends React.PureComponent {
                 {authKey.isEnableFaceRecognitionKey !== '0' && (
                   <span className="badge badge-primary badge-pill">
                     {/* Language resource buggy, using temp. solution until fix is found */}
-                    {/* {_('face-recognition-key-{0}', [authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]])} */}
-                    {authKey.isEnableFaceRecognitionKey === '1' && _('face-recognition-key-thirtyThousand')}
-                    {authKey.isEnableFaceRecognitionKey === '2' && _('face-recognition-key-threeThousand')}
+                    {/* {i18n.t('face-recognition-key-{0}', [authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]])} */}
+                    {authKey.isEnableFaceRecognitionKey === '1' && i18n.t('face-recognition-key-thirtyThousand')}
+                    {authKey.isEnableFaceRecognitionKey === '2' && i18n.t('face-recognition-key-threeThousand')}
                   </span>
                 )}
                 {authKey.isEnableAgeGenderKey && (
                   <span className="badge badge-primary badge-pill">
-                    {_('Age Gender')}
+                    {i18n.t('Age Gender')}
                   </span>
                 )}
                 {authKey.isEnableHumanoidDetectionKey && (
                   <span className="badge badge-primary badge-pill">
-                    {_('Human Detection')}
+                    {i18n.t('Human Detection')}
                   </span>
                 )}
               </td>

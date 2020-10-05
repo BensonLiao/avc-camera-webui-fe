@@ -9,7 +9,7 @@ const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const notify = require('../../../core/notify');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const {DEFAULT_PORTS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -42,7 +42,7 @@ module.exports = class TCPIP extends Base {
   constructor(props) {
     super(props);
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Device Processing');
+    this.state.apiProcessModalTitle = i18n.t('Device Processing');
   }
 
   hideApiProcessModal = () => {
@@ -68,7 +68,7 @@ module.exports = class TCPIP extends Base {
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
       values === httpsSettings.port) {
-      return _('The specified port is reserved by system or in use!');
+      return i18n.t('The specified port is reserved by system or in use!');
     }
 
     return utils.validatedPortCheck(values);
@@ -80,13 +80,13 @@ module.exports = class TCPIP extends Base {
       .then(response => {
         if (response.data.ddnsHostStatus) {
           notify.showSuccessNotification({
-            title: _('Setting Success'),
-            message: _('DDNS Setting Success!')
+            title: i18n.t('Setting Success'),
+            message: i18n.t('DDNS Setting Success!')
           });
         } else {
           notify.showErrorNotification({
-            title: _('Setting Failed'),
-            message: _('DDNS Setting Failed!')
+            title: i18n.t('Setting Failed'),
+            message: i18n.t('DDNS Setting Failed!')
           });
         }
 
@@ -99,16 +99,16 @@ module.exports = class TCPIP extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Updating Http Settings'),
-      modalBody: _('Please wait')
+      apiProcessModalTitle: i18n.t('Updating Http Settings'),
+      modalBody: i18n.t('Please wait')
     },
     () => {
       api.system.updateHttpInfo(values)
         .then(() => {
           const newAddress = `http://${location.hostname}:${values.port}`;
           this.setState({
-            apiProcessModalTitle: _('Success'),
-            modalBody: [`${_('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
+            apiProcessModalTitle: i18n.t('Success'),
+            modalBody: [`${i18n.t('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
           });
         })
         .catch(() => {
@@ -127,47 +127,47 @@ module.exports = class TCPIP extends Base {
           <Form>
 
             <div className="form-group d-flex justify-content-between align-items-center">
-              <label className="mb-0">{_('DDNS Server')}</label>
+              <label className="mb-0">{i18n.t('DDNS Server')}</label>
               <div className="custom-control custom-switch">
                 <Field name="isEnableDDNS" checked={values.isEnableDDNS} type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
                 <label className="custom-control-label" htmlFor="switch-ddns-enable">
-                  <span>{_('ON')}</span>
-                  <span>{_('OFF')}</span>
+                  <span>{i18n.t('ON')}</span>
+                  <span>{i18n.t('OFF')}</span>
                 </label>
               </div>
             </div>
-            <SelectField labelName={_('Server Provider')} name="ddnsProvider">
+            <SelectField labelName={i18n.t('Server Provider')} name="ddnsProvider">
               <option value="dyn-dns">DynDNS.org</option>
             </SelectField>
             <div className="form-group">
-              <label>{_('Host Name')}</label>
+              <label>{i18n.t('Host Name')}</label>
               <Field
                 className="form-control"
                 type="text"
                 name="ddnsHost"
-                placeholder={_('Enter DDNS Host')}
+                placeholder={i18n.t('Enter DDNS Host')}
                 value={values.ddnsHost}
                 disabled={!values.isEnableDDNS}
               />
             </div>
             <div className="form-group">
-              <label>{_('Account')}</label>
+              <label>{i18n.t('Account')}</label>
               <Field
                 className="form-control"
                 type="text"
                 name="ddnsAccount"
-                placeholder={_('Enter DDNS Account')}
+                placeholder={i18n.t('Enter DDNS Account')}
                 value={values.ddnsAccount}
                 disabled={!values.isEnableDDNS}
               />
             </div>
             <div className="form-group">
-              <label>{_('Password')}</label>
+              <label>{i18n.t('Password')}</label>
               <Field
                 className="form-control"
                 type="text"
                 name="ddnsPassword"
-                placeholder={_('Enter DDNS Password')}
+                placeholder={i18n.t('Enter DDNS Password')}
                 value={values.ddnsPassword}
                 disabled={!values.isEnableDDNS}
               />
@@ -176,7 +176,7 @@ module.exports = class TCPIP extends Base {
               type="submit"
               className="btn btn-primary btn-block rounded-pill"
               disabled={$isApiProcessing || isShowApiProcessModal}
-            >{_('Apply')}
+            >{i18n.t('Apply')}
             </button>
           </Form>
         </Tab.Pane>
@@ -190,19 +190,19 @@ module.exports = class TCPIP extends Base {
         <Tab.Pane eventKey="tab-http">
           <Form>
             <div className="form-group mb-5">
-              <label>{_('Secondary Web Server Port')}</label>
+              <label>{i18n.t('Secondary Web Server Port')}</label>
               <Field
                 name="port"
                 className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
                 type="text"
                 validate={this.checkValidatePort}
-                placeholder={_('Enter Your Secondary Server Port')}
+                placeholder={i18n.t('Enter Your Secondary Server Port')}
                 value={values.port}
               />
               {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
-              <p className="text-size-14 text-muted mt-2">{_('1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.')}</p>
+              <p className="text-size-14 text-muted mt-2">{i18n.t('1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.')}</p>
             </div>
-            <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{_('Apply')}</button>
+            <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{i18n.t('Apply')}</button>
           </Form>
         </Tab.Pane>
       </Tab.Content>
@@ -219,7 +219,7 @@ module.exports = class TCPIP extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('Internet/Network Settings'), _('TCP/IP')]}
+                path={[i18n.t('Internet/Network Settings'), i18n.t('TCP/IP')]}
                 routes={['/network/settings']}
               />
               <CustomNotifyModal
@@ -235,18 +235,18 @@ module.exports = class TCPIP extends Base {
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">
-                    {_('TCP/IP')}
+                    {i18n.t('TCP/IP')}
                   </div>
                   <Tab.Container defaultActiveKey="tab-ddns">
                     <Nav>
                       <Nav.Item>
                         <Nav.Link eventKey="tab-ddns">
-                          {_('DDNS')}
+                          {i18n.t('DDNS')}
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link eventKey="tab-http">
-                          {_('HTTP')}
+                          {i18n.t('HTTP')}
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>

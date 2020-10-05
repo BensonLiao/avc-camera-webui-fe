@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const format = require('string-template');
 const {Link, getRouter} = require('capybara-router');
-const _ = require('../../languages');
+const {default: i18n} = require('../../web/i18n');
 
 module.exports = class Pagination extends React.PureComponent {
   static get propTypes() {
@@ -83,7 +83,7 @@ module.exports = class Pagination extends React.PureComponent {
           }}
         >
           <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-            {_('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
+            {i18n.t('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
           </p>
           <ul className="pagination my-auto">
             <li className={classNames('page-item', {disabled: !hasPrevious})}>
@@ -131,7 +131,7 @@ module.exports = class Pagination extends React.PureComponent {
             </li>
           </ul>
           <p className="text-size-14 text-muted mb-0 ml-auto">
-            {_('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
+            {i18n.t('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
           </p>
         </nav>
       </div>

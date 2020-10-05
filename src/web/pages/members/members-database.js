@@ -6,7 +6,7 @@ const Modal = require('react-bootstrap/Modal').default;
 const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const api = require('../../../core/apis/web-api');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
@@ -59,7 +59,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Exporting Member Database')
+      apiProcessModalTitle: i18n.t('Exporting Member Database')
     },
     () => {
       wrappedApi({
@@ -96,7 +96,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Updating Members')
+      apiProcessModalTitle: i18n.t('Updating Members')
     }, () => {
       api.member.uploadDatabaseFile(file)
         .then(() => {
@@ -129,11 +129,11 @@ module.exports = class MembersDatabase extends React.PureComponent {
     return (
       <Form className="modal-content">
         <div className="modal-header">
-          <h5 className="modal-title">{_('Database Encryption')}</h5>
+          <h5 className="modal-title">{i18n.t('Database Encryption')}</h5>
         </div>
         <div className="modal-body">
           <div className="form-group has-feedback">
-            <label>{_('Current Password')}</label>
+            <label>{i18n.t('Current Password')}</label>
             <Field
               name="password"
               component={Password}
@@ -148,28 +148,28 @@ module.exports = class MembersDatabase extends React.PureComponent {
             <ErrorMessage component="div" name="password" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
-            <label>{_('New Password')}</label>
+            <label>{i18n.t('New Password')}</label>
             <Field
               name="newPassword"
               component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
-                placeholder: _('Enter your password')
+                placeholder: i18n.t('Enter your password')
               }}
             />
             <small className="form-text text-muted">
-              {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+              {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
             </small>
             <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
-            <label>{_('Confirm Password')}</label>
+            <label>{i18n.t('Confirm Password')}</label>
             <Field
               name="confirmPassword"
               component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                placeholder: _('Confirm Your New Password')
+                placeholder: i18n.t('Confirm Your New Password')
               }}
             />
             <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
@@ -178,7 +178,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
             <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
-              {_('Modify')}
+              {i18n.t('Modify')}
             </button>
           </div>
           <button
@@ -186,7 +186,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
             className="btn btn-info btn-block m-0 rounded-pill"
             onClick={this.hideDatabaseModal}
           >
-            {_('Close')}
+            {i18n.t('Close')}
           </button>
         </div>
       </Form>
@@ -200,8 +200,8 @@ module.exports = class MembersDatabase extends React.PureComponent {
     return (
       <>
         <div className="sub-title py-2 px-4">
-          <h3>{_('Database')}</h3>
-          <CustomTooltip title={_('Encryption Settings')}>
+          <h3>{i18n.t('Database')}</h3>
+          <CustomTooltip title={i18n.t('Encryption Settings')}>
             <button className="btn btn-link p-0" type="button" onClick={this.showDatabaseModal}>
               <img src={iconLock}/>
             </button>
@@ -215,7 +215,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
               className="btn btn-outline-primary btn-block rounded-pill"
               onClick={this.onClickExportDatabase}
             >
-              {_('Export')}
+              {i18n.t('Export')}
             </button>
           </div>
           <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}>
@@ -225,7 +225,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
               accept="application/zip"
               onClick={this.onClickImportButton}
               onChange={this.onChangeDatabaseFile}
-            />{_('Import')}
+            />{i18n.t('Import')}
           </label>
         </div>
 

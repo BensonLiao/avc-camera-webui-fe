@@ -1,3 +1,8 @@
+// const mockDB = require('../../src/core/dev/db');
+// const db = mockDB.init();
+
+// console.log('>>>>>>>>', db.get('system').value());
+
 exports.baseView = (req, res) => {
   /*
   [web] GET /.*

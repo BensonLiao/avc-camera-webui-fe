@@ -6,7 +6,7 @@ const {Formik, Form, Field} = require('formik');
 const AudioInputQuality = require('webserver-form-schema/constants/audio-input-quality');
 const AudioInputSource = require('webserver-form-schema/constants/audio-input-source');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const {default: i18n} = require('../../i18n');
 const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
 const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
@@ -33,23 +33,23 @@ module.exports = class Audio extends Base {
     return (
       <Form className="card-body">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{_('Audio In')}</label>
+          <label className="mb-0">{i18n.t('Audio In')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnableInput" checked={values.isEnableInput} type="checkbox" className="custom-control-input" id="switch-sound"/>
             <label className="custom-control-label" htmlFor="switch-sound">
-              <span>{_('ON')}</span>
-              <span>{_('OFF')}</span>
+              <span>{i18n.t('ON')}</span>
+              <span>{i18n.t('OFF')}</span>
             </label>
           </div>
         </div>
-        <SelectField readOnly labelName={_('Audio Quality')} name="inputQuality">
-          <option value={AudioInputQuality.low}>{_(`audio-quality-${AudioInputQuality.low}`)}</option>
+        <SelectField readOnly labelName={i18n.t('Audio Quality')} name="inputQuality">
+          <option value={AudioInputQuality.low}>{i18n.t(`audio-quality-${AudioInputQuality.low}`)}</option>
         </SelectField>
-        <SelectField readOnly labelName={_('Input Source')} name="inputQuality">
-          <option value={AudioInputSource.lineIn}>{_('External Microphone')}</option>
+        <SelectField readOnly labelName={i18n.t('Input Source')} name="inputQuality">
+          <option value={AudioInputSource.lineIn}>{i18n.t('External Microphone')}</option>
         </SelectField>
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-          {_('Apply')}
+          {i18n.t('Apply')}
         </button>
       </Form>
     );
@@ -65,11 +65,11 @@ module.exports = class Audio extends Base {
             <div className="row justify-content-center">
               <BreadCrumb
                 className="px-0"
-                path={[_('Audio')]}
+                path={[i18n.t('Audio')]}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Audio Settings')}</div>
+                  <div className="card-header">{i18n.t('Audio Settings')}</div>
                   <Formik
                     initialValues={audioSettings}
                     onSubmit={this.onSubmitAudioSettingsForm}
