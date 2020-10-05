@@ -275,9 +275,6 @@ module.exports = class StreamSetting extends Base {
         const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
         setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[maxFrameRateOptionB].value);
       }
-
-      console.log('this.channelBOptions :>> ', this.channelBOptions);
-      console.log('this.channelAOptions :>> ', this.channelAOptions);
     };
 
     // Logic for Codec field change
