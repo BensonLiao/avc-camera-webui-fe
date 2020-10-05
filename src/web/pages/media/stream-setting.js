@@ -362,7 +362,10 @@ module.exports = withTranslation()(class StreamSetting extends Base {
               </div>
             </div>
             <small className="text-info mb-3">
-              {i18n.t('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
+              {i18n.t('{0} - {1} Kbps', {
+                0: StreamSettingsSchema.channelA.props.bitRate.min,
+                1: StreamSettingsSchema.channelA.props.bitRate.max
+              })}
             </small>
             {!(values.bandwidthManagement === StreamBandwidthManagement.vbr) && (
               <div style={{display: 'block'}} className="invalid-feedback">
@@ -438,7 +441,6 @@ module.exports = withTranslation()(class StreamSetting extends Base {
 
   render() {
     const {streamSettings, homePage, t} = this.props;
-    console.log(t('Stream 01'));
     return (
       <>
         <div className={classNames('card-header', (homePage && 'd-flex align-items-center justify-content-between rounded-0'))}>
