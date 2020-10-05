@@ -243,6 +243,8 @@ module.exports = class StreamSetting extends Base {
             resolution: this.channelBOptions.resolution[0].value
           }
         });
+        const maxFrameRateOptionA = this.channelAOptions.frameRate.length - 1;
+        setFieldValue('channelA.frameRate', this.channelAOptions.frameRate[maxFrameRateOptionA].value);
         setFieldValue('channelB.resolution', this.channelBOptions.resolution[0].value);
         const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
         setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[maxFrameRateOptionB].value);
@@ -273,6 +275,9 @@ module.exports = class StreamSetting extends Base {
         const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
         setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[maxFrameRateOptionB].value);
       }
+
+      console.log('this.channelBOptions :>> ', this.channelBOptions);
+      console.log('this.channelAOptions :>> ', this.channelAOptions);
     };
 
     // Logic for Codec field change
@@ -315,6 +320,14 @@ module.exports = class StreamSetting extends Base {
 
       if (fieldNamePrefix === 'channelB') {
         setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
+        this.processRenderOptions({
+          ...allValues,
+          channelB: {
+            ...allValues.channelB,
+            codec: newCodecValue,
+            resolution: this.channelBOptions.resolution[0].value
+          }
+        });
         setFieldValue(`${fieldNamePrefix}.resolution`, this.channelBOptions.resolution[0].value);
         this.processRenderOptions({
           ...allValues,
