@@ -1,7 +1,6 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const format = require('string-template');
 const {Link, getRouter} = require('capybara-router');
 const {default: i18n} = require('../../web/i18n');
 
@@ -37,7 +36,7 @@ module.exports = class Pagination extends React.PureComponent {
   onKeyPress = event => {
     if (event.charCode === 13) {
       const {gotoIndex} = this.state;
-      getRouter().go(format(this.props.hrefTemplate, {index: gotoIndex}));
+      getRouter().go(this.props.hrefTemplate + gotoIndex);
     }
   }
 
@@ -68,7 +67,7 @@ module.exports = class Pagination extends React.PureComponent {
       numbers.push({
         key: `pagination-${idx}`,
         pageNumber: idx + 1,
-        href: format(hrefTemplate, {index: idx}),
+        href: hrefTemplate + idx,
         className: classNames('page-item', {disabled: idx === index})
       });
     }
@@ -92,7 +91,7 @@ module.exports = class Pagination extends React.PureComponent {
           <ul className="pagination my-auto">
             <li className={classNames('page-item', {disabled: !hasPrevious})}>
               <Link
-                to={hasPrevious ? format(hrefTemplate, {index: index - 1}) : ''}
+                to={hasPrevious ? hrefTemplate + (index - 1) : ''}
                 className="page-link prev"
               >
                 &laquo;
@@ -109,7 +108,7 @@ module.exports = class Pagination extends React.PureComponent {
             }
             <li className={classNames('page-item', {disabled: !hasNext})}>
               <Link
-                to={hasNext ? format(hrefTemplate, {index: index + 1}) : ''}
+                to={hasNext ? hrefTemplate + (index + 1) : ''}
                 className="page-link next"
               >
                 &raquo;
@@ -127,7 +126,7 @@ module.exports = class Pagination extends React.PureComponent {
             </li>
             <li className="page-item">
               <Link
-                to={format(hrefTemplate, {index: gotoIndex})}
+                to={hrefTemplate + gotoIndex}
                 className="page-link go"
               >
                 Go

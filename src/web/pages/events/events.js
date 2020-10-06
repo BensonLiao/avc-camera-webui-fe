@@ -184,7 +184,7 @@ module.exports = class Events extends Base {
                   size={faceEvents.size}
                   total={faceEvents.total}
                   itemQuantity={faceEvents.items.length}
-                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index={index}` : `${hrefTemplate}?index={index}`}
+                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index=` : `${hrefTemplate}?index=`}
                 />
               </div>
             </div>

@@ -286,8 +286,8 @@ module.exports = class Members extends Base {
                   total={members.total}
                   itemQuantity={members.items.length}
                   hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
-                    `${hrefTemplate}&index={index}` :
-                    `${hrefTemplate}?index={index}`}
+                    `${hrefTemplate}&index=` :
+                    `${hrefTemplate}?index=`}
                 />
               </div>
             </div>
