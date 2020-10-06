@@ -57,7 +57,7 @@ module.exports = class StreamSetting extends Base {
   };
 
   // call this function to update options for channelA and channelB,
-  // this function should be called when a value in a depends on b or vice versa
+  // this function should be called when a value in A depends on B or vice versa
   processRenderOptions = values => {
     this.channelAOptions = {
       codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({
@@ -226,116 +226,68 @@ module.exports = class StreamSetting extends Base {
     // Solves dependent field values are not updated when provider has changed
     const onUpdateResField = event => {
       event.persist();
+      const formValues = JSON.parse(JSON.stringify(allValues));
       const newResValue = event.target.value;
       setFieldValue(`${fieldNamePrefix}.resolution`, newResValue);
       const prev = Number(allValues.channelA.resolution);
       const current = Number(newResValue);
       if (fieldNamePrefix === 'channelA' && this.hasResolutionChanged(prev, current)) {
         this.setState({hasResolutionRatioChanged: true});
-        this.processRenderOptions({
-          ...allValues,
-          channelA: {
-            ...allValues.channelA,
-            resolution: newResValue
-          },
-          channelB: {
-            ...allValues.channelB,
-            resolution: this.channelBOptions.resolution[0].value
-          }
-        });
-        const maxFrameRateOptionA = this.channelAOptions.frameRate.length - 1;
-        setFieldValue('channelA.frameRate', this.channelAOptions.frameRate[maxFrameRateOptionA].value);
+        formValues.channelA.resolution = newResValue;
+        formValues.channelB.resolution = this.channelBOptions.resolution[0].value;
+        this.processRenderOptions(formValues);
+        setFieldValue('channelA.frameRate', this.channelAOptions.frameRate[this.channelAOptions.frameRate.length - 1].value);
+        setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value);
         setFieldValue('channelB.resolution', this.channelBOptions.resolution[0].value);
-        const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
-        setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[maxFrameRateOptionB].value);
       }
 
       if (fieldNamePrefix === 'channelA' && !this.hasResolutionChanged(prev, current)) {
-        this.processRenderOptions({
-          ...allValues,
-          channelA: {
-            ...allValues.channelA,
-            resolution: newResValue
-          }
-        });
-        const maxFrameRateOptionA = this.channelAOptions.frameRate.length - 1;
-        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelAOptions.frameRate[maxFrameRateOptionA].value);
+        formValues.channelA.resolution = newResValue;
+        this.processRenderOptions(formValues);
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelAOptions.frameRate[this.channelAOptions.frameRate.length - 1].value);
       }
 
       // Update FPS field
       if (fieldNamePrefix === 'channelB') {
-        this.processRenderOptions({
-          ...allValues,
-          channelB: {
-            ...allValues.channelB,
-            resolution: newResValue
-          }
-        });
-
-        const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
-        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[maxFrameRateOptionB].value);
+        formValues.channelB.resolution = newResValue;
+        this.processRenderOptions(formValues);
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value);
       }
     };
 
     // Logic for Codec field change
     const onUpdateCodecField = event => {
       event.persist();
+      const formValues = JSON.parse(JSON.stringify(allValues));
       const newCodecValue = event.target.value;
       if (fieldNamePrefix === 'channelA') {
         setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
-        this.processRenderOptions({
-          ...allValues,
-          channelA: {
-            ...allValues.channelA,
-            codec: newCodecValue
-          }
-        });
-        const maxFrameRateOptionA = this.channelAOptions.frameRate.length - 1;
-        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelAOptions.frameRate[maxFrameRateOptionA].value);
+        formValues.channelA.codec = newCodecValue;
+        this.processRenderOptions(formValues);
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelAOptions.frameRate[this.channelAOptions.frameRate.length - 1].value);
         setFieldValue(`${fieldNamePrefix}.resolution`, this.channelAOptions.resolution[0].value);
         const prev = Number(allValues.channelA.resolution);
         const current = Number(this.channelAOptions.resolution[0].value);
         if (this.hasResolutionChanged(prev, current)) {
           this.setState({hasResolutionRatioChanged: true});
-          this.processRenderOptions({
-            ...allValues,
-            channelA: {
-              ...allValues.channelA,
-              codec: newCodecValue,
-              resolution: this.channelAOptions.resolution[0].value
-            },
-            channelB: {
-              ...allValues.channelB,
-              resolution: this.channelBOptions.resolution[0].value
-            }
-          });
+          formValues.channelA.codec = newCodecValue;
+          formValues.channelA.resolution = this.channelAOptions.resolution[0].value;
+          formValues.channelB.resolution = this.channelBOptions.resolution[0].value;
+          this.processRenderOptions(formValues);
           setFieldValue('channelB.resolution', this.channelBOptions.resolution[0].value);
-          const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
-          setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[maxFrameRateOptionB].value);
+          setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value);
         }
       }
 
       if (fieldNamePrefix === 'channelB') {
+        this.setState({hasResolutionRatioChanged: true});
+        formValues.channelB.codec = newCodecValue;
+        this.processRenderOptions(formValues);
+        formValues.channelB.resolution = this.channelBOptions.resolution[0].value;
+        this.processRenderOptions(formValues);
         setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
-        this.processRenderOptions({
-          ...allValues,
-          channelB: {
-            ...allValues.channelB,
-            codec: newCodecValue,
-            resolution: this.channelBOptions.resolution[0].value
-          }
-        });
         setFieldValue(`${fieldNamePrefix}.resolution`, this.channelBOptions.resolution[0].value);
-        this.processRenderOptions({
-          ...allValues,
-          channelB: {
-            ...allValues.channelB,
-            codec: newCodecValue,
-            resolution: this.channelBOptions.resolution[0].value
-          }
-        });
-        const maxFrameRateOptionB = this.channelBOptions.frameRate.length - 1;
-        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[maxFrameRateOptionB].value);
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value);
       }
     };
 
