@@ -18,8 +18,7 @@ const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const Dropdown = require('../../../core/components/fields/dropdown');
 const SelectField = require('../../../core/components/fields/select-field');
-const {withTranslation} = require('react-i18next');
-module.exports = withTranslation()(class StreamSetting extends Base {
+module.exports = class StreamSetting extends Base {
   static get propTypes() {
     // Make form ui for home page or not
     return {homePage: PropTypes.bool};
@@ -440,7 +439,7 @@ module.exports = withTranslation()(class StreamSetting extends Base {
   };
 
   render() {
-    const {streamSettings, homePage, t} = this.props;
+    const {streamSettings, homePage} = this.props;
     return (
       <>
         <div className={classNames('card-header', (homePage && 'd-flex align-items-center justify-content-between rounded-0'))}>
@@ -467,7 +466,7 @@ module.exports = withTranslation()(class StreamSetting extends Base {
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="tab-channel-b">
-                {t('Stream 02')}
+                {i18n.t('Stream 02')}
               </Nav.Link>
             </Nav.Item>
           </Nav>
@@ -488,4 +487,4 @@ module.exports = withTranslation()(class StreamSetting extends Base {
       </>
     );
   }
-});
+};
