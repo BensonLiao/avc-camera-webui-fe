@@ -6,19 +6,19 @@ let languageCode = window.currentLanguageCode;
 
 switch (languageCode) {
   case 'es-es':
-    require('./es-es');
+    require('../languages/es-es');
     break;
   case 'ja-jp':
-    require('./ja-jp');
+    require('../languages/ja-jp');
     break;
   case 'zh-cn':
-    require('./zh-cn');
+    require('../languages/zh-cn');
     break;
   case 'zh-tw':
-    require('./zh-tw');
+    require('../languages/zh-tw');
     break;
   default:
-    require('./en-us');
+    require('../languages/en-us');
     break;
 }
 
