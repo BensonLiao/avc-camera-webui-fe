@@ -3,7 +3,7 @@ const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 const IoInput = require('./io-input').default;
 const IoOutput = require('./io-output').default;
 

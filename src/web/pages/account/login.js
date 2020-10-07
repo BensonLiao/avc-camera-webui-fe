@@ -12,8 +12,8 @@ const loginValidator = require('../../validations/account/login-validator');
 const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const constants = require('../../../core/constants');
-const {default: AccountContainer} = require('./account-container');
-const {default: AccountTitle} = require('./account-title');
+const AccountContainer = require('./account-container').default;
+const AccountTitle = require('./account-title').default;
 
 module.exports = class Login extends Base {
   redirectPage = () => {

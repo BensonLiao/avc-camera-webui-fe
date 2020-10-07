@@ -8,7 +8,7 @@ const wrappedApi = require('../../../core/apis');
 const download = require('downloadjs');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const StageProgress = require('../../../core/components/stage-progress');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class Log extends Base {
   constructor(props) {

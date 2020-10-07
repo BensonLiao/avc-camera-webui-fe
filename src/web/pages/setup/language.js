@@ -8,7 +8,7 @@ const _ = require('../../../languages');
 const Base = require('../shared/base');
 const store = require('../../../core/store');
 const utils = require('../../../core/utils');
-const {default: ProgressBar} = require('./progress-bar');
+const ProgressBar = require('./progress-bar').default;
 
 module.exports = class SetupLanguage extends Base {
   constructor(props) {

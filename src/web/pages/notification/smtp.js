@@ -16,7 +16,7 @@ const utils = require('../../../core/utils');
 const notify = require('../../../core/notify');
 const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class SMTP extends Base {
   static get propTypes() {
