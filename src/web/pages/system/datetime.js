@@ -45,6 +45,7 @@ module.exports = class DateTime extends Base {
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Updating Date & Time');
+    this.isNoNTPTooltip = _('Please Enable Sync with Network Time Server (NTP)');
   }
 
   hideApiProcessModal = () => {
@@ -131,7 +132,7 @@ module.exports = class DateTime extends Base {
         </SelectField>
         <CustomTooltip
           show={values.syncTimeOption === SyncTimeOption.local}
-          title={_('Option not available for Sync with Computer')}
+          title={_('Time Zone Disabled when Sync with Computer')}
           placement="bottom-end"
         >
           <div
@@ -171,7 +172,7 @@ module.exports = class DateTime extends Base {
               <div>
                 <div className="d-flex form-group align-items-center">
                   <div className="text-size-14 text-nowrap mr-3">{`${_('Host Name and IP Address')} :`}</div>
-                  <CustomTooltip show={isNotNTP} title={_('Select NTP to enable this field')}>
+                  <CustomTooltip show={isNotNTP} title={this.isNoNTPTooltip}>
                     <Field
                       disabled={isNotNTP}
                       className="form-control flex-grow-1"
@@ -199,7 +200,7 @@ module.exports = class DateTime extends Base {
                       {`${_('Update Time')} :`}
                     </label>
                   </div>
-                  <CustomTooltip show={isNotNTP} title={_('Select NTP to enable this field')}>
+                  <CustomTooltip show={isNotNTP} title={this.isNoNTPTooltip}>
                     <div className="form-row datepicker-wrapper">
                       <Field
                         disabled={isNotNTP}
@@ -243,7 +244,7 @@ module.exports = class DateTime extends Base {
                       {`${_('Update Frequency (Minutes)')} :`}
                     </label>
                   </div>
-                  <CustomTooltip show={isNotNTP} title={_('Select NTP to enable this field')}>
+                  <CustomTooltip show={isNotNTP} title={this.isNoNTPTooltip}>
                     <div className={classNames('select-wrapper rounded-pill overflow-hidden', {'cursor-disabled': isNotNTP})}>
                       <SelectField
                         labelName=""

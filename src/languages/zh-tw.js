@@ -727,6 +727,8 @@ if (!window.languageResource['zh-tw']) {
     'Set Date/Time Manually': '手動編輯日期與時間',
     'Updating Date & Time': '更新日期與時間',
     'Update date & time need to log in again. Are you sure you want to continue?': '更新日期與時區需要重新登入，確認是否繼續？',
+    'Please Enable Sync with Network Time Server (NTP)': '請啟用與網路時間伺服器 (NTP) 同步',
+    'Time Zone Disabled when Sync with Computer': '與電腦同步時時區將停用',
 
     // /system/maintain
     'Restore All Settings': '還原所有設定',
