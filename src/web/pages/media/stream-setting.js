@@ -35,6 +35,7 @@ module.exports = class StreamSetting extends Base {
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = _('Updating Stream Settings');
     this.state.hasResolutionRatioChanged = false;
+    this.state.channelOptions = this.processRenderOptions(this.props.streamSettings);
     // Enum to test for changing resolution aspect ratio
     this.fourByThree = [
       Number(StreamResolution['5']),
@@ -48,8 +49,6 @@ module.exports = class StreamSetting extends Base {
       Number(StreamResolution['2']),
       Number(StreamResolution['3'])
     ];
-    this.channelAOptions = null;
-    this.channelBOptions = null;
   }
 
   hideApiProcessModal = () => {
@@ -59,115 +58,119 @@ module.exports = class StreamSetting extends Base {
   // call this function to update options for channelA and channelB,
   // this function should be called when a value in A depends on B or vice versa
   processRenderOptions = values => {
-    this.channelAOptions = {
-      codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({
-        label: x,
-        value: x
-      })),
-      resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({
-        label: _(`stream-resolution-${x}`),
-        value: x
-      })),
-      frameRate: (() => {
-        const result = [];
-        for (let index = StreamSettingsSchema.channelA.props.frameRate.min; index <= StreamSettingsSchema.channelA.props.frameRate.max; index += 1) {
-          result.push({
-            label: `${index}`,
-            value: `${index}`
-          });
-        }
-
-        return result;
-      })(),
-      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-        label: _(`stream-bandwidth-management-${x}`),
-        value: x
-      })),
-      gov: StreamGOV.all().map(x => ({
-        label: x,
-        value: x
-      }))
-    };
-    this.channelBOptions = {
-      codec: StreamCodec.all().filter(x => x !== StreamCodec.h265).map(x => ({
-        label: x,
-        value: x
-      })),
-      resolution: (() => {
-        let options;
-        if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
-          options = [
-            StreamResolution['3'],
-            StreamResolution['4']
-          ];
-        } else {
-          options = [
-            StreamResolution['9'],
-            StreamResolution['10'],
-            StreamResolution['11']
-          ];
-        }
-
-        if (values.channelB.codec === StreamCodec.mjpeg) {
-          if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
-            options = [
-              StreamResolution['2'],
-              StreamResolution['3']
-            ];
-          } else {
-            options = [
-              StreamResolution['7'],
-              StreamResolution['8']
-            ];
-          }
-        }
-
-        return options.map(x => ({
+    return {
+      chA: {
+        codec: StreamCodec.all().filter(x => x !== StreamCodec.mjpeg && x !== StreamCodec.off).map(x => ({
+          label: x,
+          value: x
+        })),
+        resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({
           label: _(`stream-resolution-${x}`),
           value: x
-        }));
-      })(),
-      frameRate: (() => {
-        const result = [];
-        let min;
-        let max;
-        if (values.channelB.codec === StreamCodec.mjpeg) {
-          if (
-            Number(values.channelB.resolution) === Number(StreamResolution['2']) ||
-            Number(values.channelB.resolution) === Number(StreamResolution['7'])
-          ) {
-            min = 5;
-            max = 10;
-          } else {
-            min = 5;
-            max = 15;
+        })),
+        frameRate: (() => {
+          const result = [];
+          for (let index = StreamSettingsSchema.channelA.props.frameRate.min;
+            index <= StreamSettingsSchema.channelA.props.frameRate.max;
+            index += 1) {
+            result.push({
+              label: `${index}`,
+              value: `${index}`
+            });
           }
-        } else {
-          min = StreamSettingsSchema.channelB.props.frameRate.min;
-          max = StreamSettingsSchema.channelB.props.frameRate.max;
-        }
 
-        for (let index = min; index <= max; index += 1) {
-          result.push({
-            label: `${index}`,
-            value: `${index}`
-          });
-        }
+          return result;
+        })(),
+        bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
+          label: _(`stream-bandwidth-management-${x}`),
+          value: x
+        })),
+        gov: StreamGOV.all().map(x => ({
+          label: x,
+          value: x
+        }))
+      },
+      chB: {
+        codec: StreamCodec.all().filter(x => x !== StreamCodec.h265).map(x => ({
+          label: x,
+          value: x
+        })),
+        resolution: (() => {
+          let options;
+          if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
+            options = [
+              StreamResolution['3'],
+              StreamResolution['4']
+            ];
+          } else {
+            options = [
+              StreamResolution['9'],
+              StreamResolution['10'],
+              StreamResolution['11']
+            ];
+          }
 
-        return result;
-      })(),
-      bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-        label: _(`stream-bandwidth-management-${x}`),
-        value: x
-      })),
-      gov: StreamGOV.all().map(x => ({
-        label: x,
-        value: x
-      })),
-      quality: StreamQuality.all().map(x => ({
-        label: _(`quality-${x}`),
-        value: x
-      }))
+          if (values.channelB.codec === StreamCodec.mjpeg) {
+            if (Number(values.channelA.resolution) <= Number(StreamResolution['4'])) {
+              options = [
+                StreamResolution['2'],
+                StreamResolution['3']
+              ];
+            } else {
+              options = [
+                StreamResolution['7'],
+                StreamResolution['8']
+              ];
+            }
+          }
+
+          return options.map(x => ({
+            label: _(`stream-resolution-${x}`),
+            value: x
+          }));
+        })(),
+        frameRate: (() => {
+          const result = [];
+          let min;
+          let max;
+          if (values.channelB.codec === StreamCodec.mjpeg) {
+            if (
+              Number(values.channelB.resolution) === Number(StreamResolution['2']) ||
+                  Number(values.channelB.resolution) === Number(StreamResolution['7'])
+            ) {
+              min = 5;
+              max = 10;
+            } else {
+              min = 5;
+              max = 15;
+            }
+          } else {
+            min = StreamSettingsSchema.channelB.props.frameRate.min;
+            max = StreamSettingsSchema.channelB.props.frameRate.max;
+          }
+
+          for (let index = min; index <= max; index += 1) {
+            result.push({
+              label: `${index}`,
+              value: `${index}`
+            });
+          }
+
+          return result;
+        })(),
+        bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
+          label: _(`stream-bandwidth-management-${x}`),
+          value: x
+        })),
+        gov: StreamGOV.all().map(x => ({
+          label: x,
+          value: x
+        })),
+        quality: StreamQuality.all().map(x => ({
+          label: _(`quality-${x}`),
+          value: x
+        }))
+      }
     };
   }
 
@@ -219,12 +222,52 @@ module.exports = class StreamSetting extends Base {
     return true;
   };
 
-  fieldsRender = (fieldNamePrefix, options, values, setFieldValue, allValues) => {
-    const {homePage} = this.props;
+  // Logic for Codec field change
+  onUpdateCodecField = (event, fieldNamePrefix, allValues, setFieldValue) => {
+    event.persist();
+    const formValues = JSON.parse(JSON.stringify(allValues));
+    const newCodecValue = event.target.value;
+    if (fieldNamePrefix === 'channelA') {
+      setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
+      formValues.channelA.codec = newCodecValue;
+      this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
+        const {frameRate: frameRateA, resolution} = this.state.channelOptions.chA;
+        setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateA[frameRateA.length - 1].value);
+        setFieldValue(`${fieldNamePrefix}.resolution`, resolution[0].value);
+      });
+      const prev = Number(allValues.channelA.resolution);
+      const current = Number(this.state.channelOptions.chA.resolution[0].value);
+      if (this.hasResolutionChanged(prev, current)) {
+        this.setState({hasResolutionRatioChanged: true});
+        formValues.channelA.codec = newCodecValue;
+        formValues.channelA.resolution = this.state.channelOptions.chA.resolution[0].value;
+        formValues.channelB.resolution = this.state.channelOptions.chB.resolution[0].value;
+        this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
+          const {frameRate: frameRateB, resolution} = this.state.channelOptions.chB;
+          setFieldValue('channelB.resolution', resolution[0].value);
+          setFieldValue('channelB.frameRate', frameRateB[frameRateB.length - 1].value);
+        });
+      }
+    }
+
+    if (fieldNamePrefix === 'channelB') {
+      this.setState({hasResolutionRatioChanged: true});
+      formValues.channelB.codec = newCodecValue;
+      this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
+        formValues.channelB.resolution = this.state.channelOptions.chB.resolution[0].value;
+        this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
+          const {frameRate: frameRateB} = this.state.channelOptions.chB;
+          setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
+          setFieldValue(`${fieldNamePrefix}.resolution`, this.state.channelOptions.chB.resolution[0].value);
+          setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateB[frameRateB.length - 1].value);
+        });
+      });
+    }
+  };
 
     // Logic for Resolution field change, updates field value to first option if options are updated
     // Solves dependent field values are not updated when provider has changed
-    const onUpdateResField = event => {
+    onUpdateResField = (event, fieldNamePrefix, allValues, setFieldValue) => {
       event.persist();
       const formValues = JSON.parse(JSON.stringify(allValues));
       const newResValue = event.target.value;
@@ -234,62 +277,36 @@ module.exports = class StreamSetting extends Base {
       if (fieldNamePrefix === 'channelA' && this.hasResolutionChanged(prev, current)) {
         this.setState({hasResolutionRatioChanged: true});
         formValues.channelA.resolution = newResValue;
-        formValues.channelB.resolution = this.channelBOptions.resolution[0].value;
-        this.processRenderOptions(formValues);
-        setFieldValue('channelA.frameRate', this.channelAOptions.frameRate[this.channelAOptions.frameRate.length - 1].value);
-        setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value);
-        setFieldValue('channelB.resolution', this.channelBOptions.resolution[0].value);
+        formValues.channelB.resolution = this.state.channelOptions.chB.resolution[0].value;
+        this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
+          const {frameRate: frameRateA} = this.state.channelOptions.chA;
+          const {frameRate: frameRateB, resolution: resolutionB} = this.state.channelOptions.chB;
+          setFieldValue('channelA.frameRate', frameRateA[frameRateA.length - 1].value);
+          setFieldValue('channelB.frameRate', frameRateB[frameRateB.length - 1].value);
+          setFieldValue('channelB.resolution', resolutionB[0].value);
+        });
       }
 
       if (fieldNamePrefix === 'channelA' && !this.hasResolutionChanged(prev, current)) {
         formValues.channelA.resolution = newResValue;
-        this.processRenderOptions(formValues);
-        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelAOptions.frameRate[this.channelAOptions.frameRate.length - 1].value);
+        this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
+          const {frameRate: frameRateA} = this.state.channelOptions.chA;
+          setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateA[frameRateA.length - 1].value);
+        });
       }
 
       // Update FPS field
       if (fieldNamePrefix === 'channelB') {
         formValues.channelB.resolution = newResValue;
-        this.processRenderOptions(formValues);
-        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value);
+        this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
+          const {frameRate: frameRateB} = this.state.channelOptions.chB;
+          setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateB[frameRateB.length - 1].value);
+        });
       }
     };
 
-    // Logic for Codec field change
-    const onUpdateCodecField = event => {
-      event.persist();
-      const formValues = JSON.parse(JSON.stringify(allValues));
-      const newCodecValue = event.target.value;
-      if (fieldNamePrefix === 'channelA') {
-        setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
-        formValues.channelA.codec = newCodecValue;
-        this.processRenderOptions(formValues);
-        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelAOptions.frameRate[this.channelAOptions.frameRate.length - 1].value);
-        setFieldValue(`${fieldNamePrefix}.resolution`, this.channelAOptions.resolution[0].value);
-        const prev = Number(allValues.channelA.resolution);
-        const current = Number(this.channelAOptions.resolution[0].value);
-        if (this.hasResolutionChanged(prev, current)) {
-          this.setState({hasResolutionRatioChanged: true});
-          formValues.channelA.codec = newCodecValue;
-          formValues.channelA.resolution = this.channelAOptions.resolution[0].value;
-          formValues.channelB.resolution = this.channelBOptions.resolution[0].value;
-          this.processRenderOptions(formValues);
-          setFieldValue('channelB.resolution', this.channelBOptions.resolution[0].value);
-          setFieldValue('channelB.frameRate', this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value);
-        }
-      }
-
-      if (fieldNamePrefix === 'channelB') {
-        this.setState({hasResolutionRatioChanged: true});
-        formValues.channelB.codec = newCodecValue;
-        this.processRenderOptions(formValues);
-        formValues.channelB.resolution = this.channelBOptions.resolution[0].value;
-        this.processRenderOptions(formValues);
-        setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
-        setFieldValue(`${fieldNamePrefix}.resolution`, this.channelBOptions.resolution[0].value);
-        setFieldValue(`${fieldNamePrefix}.frameRate`, this.channelBOptions.frameRate[this.channelBOptions.frameRate.length - 1].value);
-      }
-    };
+  fieldsRender = (fieldNamePrefix, options, values, setFieldValue, allValues) => {
+    const {homePage} = this.props;
 
     return (
       <>
@@ -297,7 +314,7 @@ module.exports = class StreamSetting extends Base {
           labelName={_('Codec')}
           readOnly={homePage}
           name={`${fieldNamePrefix}.codec`}
-          onChange={event => onUpdateCodecField(event)}
+          onChange={event => this.onUpdateCodecField(event, fieldNamePrefix, allValues, setFieldValue)}
         >
           {options.codec.map(option => (
             <option key={option.value} value={option.value}>{option.label}</option>
@@ -307,7 +324,7 @@ module.exports = class StreamSetting extends Base {
           labelName={_('Resolution')}
           readOnly={homePage}
           name={`${fieldNamePrefix}.resolution`}
-          onChange={event => onUpdateResField(event)}
+          onChange={event => this.onUpdateResField(event, fieldNamePrefix, allValues, setFieldValue)}
         >
           {options.resolution.map(option => (
             <option key={option.value} value={option.value}>{option.label}</option>
@@ -390,20 +407,19 @@ module.exports = class StreamSetting extends Base {
 
   formRender = ({values, setFieldValue, errors}) => {
     const {isShowModal, $isApiProcessing} = this.state;
-    this.processRenderOptions(values);
+    const {chA, chB} = this.state.channelOptions;
 
     return (
       <Form className="card-body">
-
         <Tab.Content>
           <Tab.Pane eventKey="tab-channel-a">
-            {this.fieldsRender('channelA', this.channelAOptions, values.channelA, setFieldValue, values)}
+            {this.fieldsRender('channelA', chA, values.channelA, setFieldValue, values)}
           </Tab.Pane>
         </Tab.Content>
 
         <Tab.Content>
           <Tab.Pane eventKey="tab-channel-b">
-            {this.fieldsRender('channelB', this.channelBOptions, values.channelB, setFieldValue, values)}
+            {this.fieldsRender('channelB', chB, values.channelB, setFieldValue, values)}
           </Tab.Pane>
         </Tab.Content>
 
