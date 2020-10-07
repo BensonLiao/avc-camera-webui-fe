@@ -485,7 +485,7 @@ if (!window.languageResource['zh-tw']) {
     'notification-card-0': '臉部辨識',
     'notification-card-1': '性別年齡',
     'notification-card-2': '人形偵測',
-    'notification-card-3': '動作偵測',
+    'notification-card-3': '移動偵測',
     'notification-card-4': '破壞警報',
     'notification-card-5': '數位輸出',
     // /notification/cards / Constants / Face Recognition Condition
@@ -493,7 +493,7 @@ if (!window.languageResource['zh-tw']) {
     'face-recognition-condition-0': '不限',
     'face-recognition-condition-1': '成功',
     'face-recognition-condition-2': '未知',
-    'face-recognition-condition-3': '偽裝',
+    'face-recognition-condition-3': '圖像偽裝',
     // /notification/cards / Constants / Email Attachment
     'email-attachment-type-0': '臉部快照',
     'email-attachment-type-1': '完整快照',
@@ -607,7 +607,7 @@ if (!window.languageResource['zh-tw']) {
     'Updating Member': '更新成員',
     'Added Photo to {0} Successfully!': '新增照片至 {0} 成功!',
     // /users/events / Constants / Status
-    'enroll-status-0': '偽裝',
+    'enroll-status-0': '圖像偽裝',
     'enroll-status-1': '未知',
     'enroll-status-2': '註冊',
     // /users/events / Constants / Confidence
@@ -632,7 +632,7 @@ if (!window.languageResource['zh-tw']) {
     'confidence-level-2': '高',
 
     // /analytic/motion-detection
-    'Motion Detection': '動作偵測',
+    'Motion Detection': '移動偵測',
     'Please Drag a Detection Zone Area.': '請拖曳新增觸發區域',
     'Set a Zone.': '新增區域',
     'Erase a Zone.': '刪除區域',
