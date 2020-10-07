@@ -594,7 +594,7 @@ if (!window.languageResource['zh-tw']) {
     'Age Gender': '性別年齡',
     'Human Detection': '人形偵測',
     Similarity: '相似度',
-    Status: '辨識狀態',
+    'Recognition Result': '辨識狀態',
     'End Datetime': '結束日期時間',
     'Add as New Member': '新增為新成員',
     'Add to Existing Member': '新增至現有成員',

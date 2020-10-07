@@ -144,7 +144,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
             </div>
           ))}
         </div>
-        <span>{_('Status')}</span>
+        <span>{_('Recognition Result')}</span>
         <div className="checkbox-group mt-3 mb-2 pl-2">
           {recognitionTypeRender.map((item, idx) => (
             <div key={item.id} className={classNames('form-check', {'mb-3': idx < recognitionTypeRender.length - 1})}>

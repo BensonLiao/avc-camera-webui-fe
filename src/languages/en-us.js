@@ -209,6 +209,9 @@ if (!window.languageResource['en-us']) {
     // /members
     Database: 'Database',
 
+    // /events
+    'Recognition Result': 'Status',
+
     // /license
     'Enable Status': 'Status',
 
