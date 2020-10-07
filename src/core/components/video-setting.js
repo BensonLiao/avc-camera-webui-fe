@@ -48,7 +48,7 @@ module.exports = class VideoSetting extends React.PureComponent {
         focusType: PropTypes.oneOf(FocusType.all()).isRequired,
         isAutoFocusAfterZoom: PropTypes.bool.isRequired
       }).isRequired,
-      systemDateTime: PropTypes.shape({deviceTime: PropTypes.string.isRequired}).isRequired
+      systemDateTime: PropTypes.shape({deviceTime: PropTypes.number.isRequired}).isRequired
     };
   }
 
