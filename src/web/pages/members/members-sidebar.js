@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {default: i18n} = require('../../i18n');
+const i18n = require('../../i18n').default;
 const CustomTooltip = require('../../../core/components/tooltip');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
 const MembersDatabase = require('./members-database');

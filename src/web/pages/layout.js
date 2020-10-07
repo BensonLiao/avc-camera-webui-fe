@@ -21,7 +21,7 @@ const logo = require('../../resource/logo-avc.svg');
 const CustomTooltip = require('../../core/components/tooltip');
 const SessionExpireModal = require('../../core/components/session-expire-modal');
 const api = require('../../core/apis/web-api');
-const {default: i18n} = require('../../web/i18n');
+const i18n = require('../../web/i18n').default;
 const constants = require('../../core/constants');
 const store = require('../../core/store');
 

@@ -1,6 +1,6 @@
 const React = require('react');
 const {store} = require('react-notifications-component');
-const {default: i18n} = require('../web/i18n');
+const i18n = require('../web/i18n').default;
 
 module.exports = {
   /**

@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {default: i18n} = require('../../i18n');
+const i18n = require('../../i18n').default;
 
 module.exports = class LicenseStatus extends React.PureComponent {
   static get propTypes() {

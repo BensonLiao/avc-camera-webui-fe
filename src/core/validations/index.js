@@ -1,5 +1,5 @@
 const Validator = require('fastest-validator');
-const {default: i18n} = require('../../web/i18n');
+const i18n = require('../../web/i18n').default;
 
 exports.validator = new Validator({
   messages: {

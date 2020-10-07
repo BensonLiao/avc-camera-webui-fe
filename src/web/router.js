@@ -1,6 +1,7 @@
 const {Router} = require('capybara-router');
 const history = require('history');
-const {default: i18n} = require('../web/i18n');
+const i18n = require('../web/i18n').default;
+
 const api = require('../core/apis/web-api');
 
 const _title = `${window.cameraName} Web-Manager`;

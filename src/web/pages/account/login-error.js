@@ -1,7 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const {Link} = require('capybara-router');
-const {default: i18n} = require('../../i18n');
+const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
 const AccountContainer = require('./account-container').default;

@@ -2,7 +2,7 @@ const {Formik, Form, Field} = require('formik');
 const {getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {default: i18n} = require('../../i18n');
+const i18n = require('../../i18n').default;
 
 module.exports = class MembersSearchForm extends React.PureComponent {
   static get propTypes() {

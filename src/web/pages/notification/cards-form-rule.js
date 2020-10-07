@@ -2,7 +2,7 @@ const {Field} = require('formik');
 const PropTypes = require('prop-types');
 const React = require('react');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
-const {default: i18n} = require('../../i18n');
+const i18n = require('../../i18n').default;
 
 module.exports = class CardsFormRule extends React.PureComponent {
   static get propTypes() {

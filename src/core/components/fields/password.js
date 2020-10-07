@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {default: i18n} = require('../../../web/i18n');
+const i18n = require('../../../web/i18n').default;
 const CustomTooltip = require('../tooltip');
 
 module.exports = class Password extends React.PureComponent {

@@ -1,5 +1,5 @@
 const React = require('react');
-const {default: i18n} = require('../../web/i18n');
+const i18n = require('../../web/i18n').default;
 
 module.exports = class Loading extends React.Component {
   shouldComponentUpdate() {

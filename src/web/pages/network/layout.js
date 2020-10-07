@@ -3,7 +3,7 @@ const {Link, RouterView, getRouter} = require('capybara-router');
 const React = require('react');
 const Base = require('../shared/base');
 const Loading = require('../../../core/components/loading');
-const {default: i18n} = require('../../i18n');
+const i18n = require('../../i18n').default;
 
 module.exports = class Network extends Base {
   constructor(props) {

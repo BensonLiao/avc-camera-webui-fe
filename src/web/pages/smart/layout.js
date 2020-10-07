@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const React = require('react');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Loading = require('../../../core/components/loading');
-const {default: i18n} = require('../../i18n');
+const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
 
 module.exports = class Smart extends Base {

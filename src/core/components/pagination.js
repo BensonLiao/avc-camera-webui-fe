@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const {Link, getRouter} = require('capybara-router');
-const {default: i18n} = require('../../web/i18n');
+const i18n = require('../../web/i18n').default;
 
 module.exports = class Pagination extends React.PureComponent {
   static get propTypes() {
