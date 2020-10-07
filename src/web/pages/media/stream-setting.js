@@ -55,8 +55,8 @@ module.exports = class StreamSetting extends Base {
     this.setState({isShowApiProcessModal: false});
   };
 
-  // call this function to update options for channelA and channelB,
-  // this function should be called when a value in A depends on B or vice versa
+  // Generate options based on selected value for channelA and channelB,
+  // function is called when a value in Ch. A depends on Ch. B or vice versa has changed
   processRenderOptions = values => {
     return {
       chA: {
