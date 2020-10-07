@@ -14,7 +14,7 @@ const utils = require('../../../core/utils');
 const uploadCertificateValidator = require('../../validations/setup/https-upload-certificate-validator');
 const generateCertificateValidator = require('../../validations/setup/https-generate-certificate-validator');
 const api = require('../../../core/apis/web-api');
-const {default: ProgressBar} = require('./progress-bar');
+const ProgressBar = require('./progress-bar').default;
 
 module.exports = class SetupHTTPS extends Base {
   constructor(props) {

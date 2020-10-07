@@ -13,7 +13,7 @@ const Base = require('../shared/base');
 const {default: i18n} = require('../../i18n');
 const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class Word extends Base {
   static get propTypes() {

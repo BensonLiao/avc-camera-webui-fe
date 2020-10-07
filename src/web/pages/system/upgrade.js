@@ -9,7 +9,7 @@ const CustomNotifyModal = require('../../../core/components/custom-notify-modal'
 const CustomTooltip = require('../../../core/components/tooltip');
 const StageProgress = require('../../../core/components/stage-progress');
 const constants = require('../../../core/constants');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 const isRunTest = false; // Set as `true` to run test on submit
 const isMockUpgradeError = false; // Set as `true` to mock upgrade firmware error, only works if `isRunTest` is `true`
 

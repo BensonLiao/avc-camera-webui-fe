@@ -10,6 +10,11 @@ const {default: i18n} = require('../../i18n');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 
+// eslint-disable-next-line valid-jsdoc
+/**
+ * This page will move to event manager in the future
+ * @deprecated
+ */
 module.exports = class App extends Base {
   static get propTypes() {
     return {

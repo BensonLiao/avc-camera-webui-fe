@@ -4,9 +4,6 @@ const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
-const Base = require('../shared/base');
-const LicenseList = require('./license-list');
-const LicenseStatus = require('./license-status');
 const {default: i18n} = require('../../i18n');
 const api = require('../../../core/apis/web-api');
 const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
@@ -19,7 +16,10 @@ const iconHumanoidDetectionEnable = require('../../../resource/human-detection-e
 const iconHumanoidDetectionDisable = require('../../../resource/human-detection-disable-100px.svg');
 const notify = require('../../../core/notify');
 const utils = require('../../../core/utils');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const Base = require('../shared/base');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+const LicenseList = require('./license-list').default;
+const LicenseStatus = require('./license-status');
 
 module.exports = class License extends Base {
   static get propTypes() {

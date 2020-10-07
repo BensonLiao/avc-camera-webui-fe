@@ -2,8 +2,8 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
 const Base = require('../shared/base');
-const {default: i18n} = require('../../i18n');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const i18n = require('../../i18n').default;
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 const IoInput = require('./io-input').default;
 const IoOutput = require('./io-output').default;
 

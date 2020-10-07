@@ -139,7 +139,8 @@ module.exports = (env = {}) => {
           'process.env.VERSION': JSON.stringify(packageInformation.version)
         }),
         new CopyWebpackPlugin([
-          {from: './favicon.ico'}
+          {from: './favicon.ico'},
+          {from: './favicon-nobrand.ico'}
         ])
       ];
       if (isDisableMockServer) {

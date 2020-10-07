@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const Base = require('../shared/base');
 const {default: i18n} = require('../../i18n');
 const StreamSetting = require('./stream-setting');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class Stream extends Base {
   static get propTypes() {

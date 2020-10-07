@@ -12,7 +12,7 @@ const {SD_STATUS_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const VolumeProgressBar = require('../../../core/components/volume-progress-bar');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class SDCard extends Base {
   static get propTypes() {

@@ -20,7 +20,7 @@ module.exports = class DatePicker extends React.PureComponent {
       timeFormat: PropTypes.string,
       field: PropTypes.shape({
         name: PropTypes.string.isRequired,
-        value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string])
+        value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string, PropTypes.number])
       }).isRequired,
       form: PropTypes.shape({
         setFieldValue: PropTypes.func.isRequired,

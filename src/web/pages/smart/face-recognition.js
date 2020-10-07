@@ -10,7 +10,7 @@ const api = require('../../../core/apis/web-api');
 const {default: i18n} = require('../../i18n');
 const Base = require('../shared/base');
 const CustomTooltip = require('../../../core/components/tooltip');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 module.exports = class FaceRecognition extends Base {
   static get propTypes() {
     return {

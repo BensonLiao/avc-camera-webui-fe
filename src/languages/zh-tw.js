@@ -313,6 +313,7 @@ if (!window.languageResource['zh-tw']) {
     Quality: '影像品質',
     'Are you sure you want to update stream settings?': '您即將更改串流設定，確認是否繼續？',
     'Updating Stream Settings': '更新串流設定',
+    'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': '改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？',
     // /media/stream / Constans / Resolution
     'stream-resolution-0': '3840*2160(16:9)',
     'stream-resolution-1': '2560*1440(16:9)',
@@ -484,7 +485,7 @@ if (!window.languageResource['zh-tw']) {
     'notification-card-0': '臉部辨識',
     'notification-card-1': '性別年齡',
     'notification-card-2': '人形偵測',
-    'notification-card-3': '動作偵測',
+    'notification-card-3': '移動偵測',
     'notification-card-4': '破壞警報',
     'notification-card-5': '數位輸出',
     // /notification/cards / Constants / Face Recognition Condition
@@ -492,7 +493,7 @@ if (!window.languageResource['zh-tw']) {
     'face-recognition-condition-0': '不限',
     'face-recognition-condition-1': '成功',
     'face-recognition-condition-2': '未知',
-    'face-recognition-condition-3': '偽裝',
+    'face-recognition-condition-3': '圖像偽裝',
     // /notification/cards / Constants / Email Attachment
     'email-attachment-type-0': '臉部快照',
     'email-attachment-type-1': '完整快照',
@@ -606,7 +607,7 @@ if (!window.languageResource['zh-tw']) {
     'Updating Member': '更新成員',
     'Added Photo to {{0}} Successfully!': '新增照片至 {{0}} 成功!',
     // /users/events / Constants / Status
-    'enroll-status-0': '偽裝',
+    'enroll-status-0': '圖像偽裝',
     'enroll-status-1': '未知',
     'enroll-status-2': '註冊',
     // /users/events / Constants / Confidence
@@ -631,7 +632,7 @@ if (!window.languageResource['zh-tw']) {
     'confidence-level-2': '高',
 
     // /analytic/motion-detection
-    'Motion Detection': '動作偵測',
+    'Motion Detection': '移動偵測',
     'Please Drag a Detection Zone Area.': '請拖曳新增觸發區域',
     'Set a Zone.': '新增區域',
     'Erase a Zone.': '刪除區域',
@@ -727,6 +728,8 @@ if (!window.languageResource['zh-tw']) {
     'Set Date/Time Manually': '手動編輯日期與時間',
     'Updating Date & Time': '更新日期與時間',
     'Update date & time need to log in again. Are you sure you want to continue?': '更新日期與時區需要重新登入，確認是否繼續？',
+    'Please Enable Sync with Network Time Server (NTP)': '請啟用與網路時間伺服器 (NTP) 同步',
+    'Time Zone Disabled when Sync with Computer': '與電腦同步時時區將停用',
 
     // /system/maintain
     'Restore All Settings': '還原所有設定',

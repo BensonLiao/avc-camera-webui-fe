@@ -6,13 +6,13 @@ const progress = require('nprogress');
 const Clock = require('react-live-clock');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
-const {default: i18n} = require('../../i18n');
+const i18n = require('../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
 const NTPTimeRateOption = require('webserver-form-schema/constants/system-sync-time-ntp-rate');
 const {AVAILABLE_LANGUAGE_CODES, TIMEZONE_LIST} = require('../../../core/constants');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -45,6 +45,7 @@ module.exports = class DateTime extends Base {
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Updating Date & Time');
+    this.isNoNTPTooltip = i18n.t('Please Enable Sync with Network Time Server (NTP)');
   }
 
   hideApiProcessModal = () => {
@@ -131,7 +132,7 @@ module.exports = class DateTime extends Base {
         </SelectField>
         <CustomTooltip
           show={values.syncTimeOption === SyncTimeOption.local}
-          title={i18n.t('Option not available for Sync with Computer')}
+          title={i18n.t('Time Zone Disabled when Sync with Computer')}
           placement="bottom-end"
         >
           <div
@@ -171,7 +172,7 @@ module.exports = class DateTime extends Base {
               <div>
                 <div className="d-flex form-group align-items-center">
                   <div className="text-size-14 text-nowrap mr-3">{`${i18n.t('Host Name and IP Address')} :`}</div>
-                  <CustomTooltip show={isNotNTP} title={i18n.t('Select NTP to enable this field')}>
+                  <CustomTooltip show={isNotNTP} title={this.isNoNTPTooltip}>
                     <Field
                       disabled={isNotNTP}
                       className="form-control flex-grow-1"
@@ -199,7 +200,7 @@ module.exports = class DateTime extends Base {
                       {`${i18n.t('Update Time')} :`}
                     </label>
                   </div>
-                  <CustomTooltip show={isNotNTP} title={i18n.t('Select NTP to enable this field')}>
+                  <CustomTooltip show={isNotNTP} title={this.isNoNTPTooltip}>
                     <div className="form-row datepicker-wrapper">
                       <Field
                         disabled={isNotNTP}
@@ -243,7 +244,7 @@ module.exports = class DateTime extends Base {
                       {`${i18n.t('Update Frequency (Minutes)')} :`}
                     </label>
                   </div>
-                  <CustomTooltip show={isNotNTP} title={i18n.t('Select NTP to enable this field')}>
+                  <CustomTooltip show={isNotNTP} title={this.isNoNTPTooltip}>
                     <div className={classNames('select-wrapper rounded-pill overflow-hidden', {'cursor-disabled': isNotNTP})}>
                       <SelectField
                         labelName=""

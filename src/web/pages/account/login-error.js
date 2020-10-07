@@ -4,7 +4,7 @@ const {Link} = require('capybara-router');
 const {default: i18n} = require('../../i18n');
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
-const {default: AccountContainer} = require('./account-container');
+const AccountContainer = require('./account-container').default;
 
 module.exports = class LoginError extends Base {
   static get propTypes() {

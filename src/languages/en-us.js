@@ -16,7 +16,7 @@ if (!window.languageResource['en-us']) {
     'confidence-1': 'Medium',
     'confidence-2': 'High',
 
-    'enroll-status-0': 'Fake',
+    'enroll-status-0': 'Image Spoof',
     'enroll-status-1': 'Unknown',
     'enroll-status-2': 'Registered',
 
@@ -132,7 +132,7 @@ if (!window.languageResource['en-us']) {
     'face-recognition-condition-0': 'Always',
     'face-recognition-condition-1': 'Success',
     'face-recognition-condition-2': 'Unknown',
-    'face-recognition-condition-3': 'Fake',
+    'face-recognition-condition-3': 'Image Spoof',
 
     // VMS類型
     'notification-vms-event-0': 'Video Motion Detection Event',

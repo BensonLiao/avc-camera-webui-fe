@@ -66,7 +66,7 @@ module.exports = class Home extends Base {
           gov: PropTypes.string.isRequired
         }).isRequired
       }).isRequired,
-      systemDateTime: PropTypes.shape({deviceTime: PropTypes.string.isRequired}).isRequired,
+      systemDateTime: PropTypes.shape({deviceTime: PropTypes.number.isRequired}).isRequired,
       authStatus: PropTypes.shape({
         isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
         isEnableAgeGenderKey: PropTypes.bool.isRequired,

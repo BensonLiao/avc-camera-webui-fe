@@ -13,7 +13,7 @@ const Password = require('../../../core/components/fields/password');
 const store = require('../../../core/store');
 const setupAccountValidator = require('../../validations/setup/account-validator');
 const utils = require('../../../core/utils');
-const {default: ProgressBar} = require('./progress-bar');
+const ProgressBar = require('./progress-bar').default;
 
 module.exports = class SetupAccount extends Base {
   constructor(props) {
