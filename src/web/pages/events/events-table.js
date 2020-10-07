@@ -129,7 +129,7 @@ module.exports = class EventsTable extends React.PureComponent {
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-recognitionResult'},
           {'fa-caret-up': params.sort === 'recognitionResult'}),
-        title: _('Recognition Result'),
+        title: _('Status'),
         width: {width: '8%'}
       },
       {
