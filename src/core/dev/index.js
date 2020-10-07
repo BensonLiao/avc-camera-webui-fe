@@ -509,8 +509,11 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onGet('/api/face-recognition/settings').reply(config => {
     const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
     // get with converMapping to percentage util function (mocking real server)
-    faceRecognitionSettings.triggerArea = utils.convertMappingToPercentage(faceRecognitionSettings.triggerArea);
-    return mockResponseWithLog(config, [200, faceRecognitionSettings]);
+    const triggerArea = utils.convertMappingToPercentage(faceRecognitionSettings.triggerArea);
+    return mockResponseWithLog(config, [200, {
+      ...faceRecognitionSettings,
+      triggerArea: triggerArea
+    }]);
   })
   .onGet('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]))
   .onPut('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
