@@ -17,8 +17,8 @@ const iconHumanoidDetectionDisable = require('../../../resource/human-detection-
 const notify = require('../../../core/notify');
 const utils = require('../../../core/utils');
 const Base = require('../shared/base');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
-const {default: LicenseList} = require('./license-list');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+const LicenseList = require('./license-list').default;
 const LicenseStatus = require('./license-status');
 
 module.exports = class License extends Base {
