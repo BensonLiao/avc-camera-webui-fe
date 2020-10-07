@@ -10,7 +10,7 @@ const Base = require('../shared/base');
 const MaskArea = require('../../../core/components/fields/mask-area');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class PrivacyMask extends Base {
   static get propTypes() {

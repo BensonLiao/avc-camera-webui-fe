@@ -10,7 +10,7 @@ const {DEFAULT_PORTS} = require('../../../core/constants');
 const utils = require('../../../core/utils');
 const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class RTSP extends Base {
   static get propTypes() {

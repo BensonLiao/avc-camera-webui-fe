@@ -3,9 +3,9 @@ const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
 const Base = require('../shared/base');
 const _ = require('../../../languages');
-const {default: SettingsLan} = require('./settings-lan');
-const {default: SettingsStatus} = require('./settings-status');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const SettingsLan = require('./settings-lan').default;
+const SettingsStatus = require('./settings-status').default;
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class NetworkSettings extends Base {
   static get propTypes() {
