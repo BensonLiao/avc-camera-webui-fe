@@ -114,7 +114,7 @@ module.exports = class SetupHTTPS extends Base {
             progressBarImagex2={setupStep03x2}
           />
           <div className="form-group">
-            <label>{_('Certificate type')}</label>
+            <label>{_('Certificate Type')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
               <Field
                 name="certificateType"
