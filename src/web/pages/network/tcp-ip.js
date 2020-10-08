@@ -42,7 +42,8 @@ module.exports = class TCPIP extends Base {
   constructor(props) {
     super(props);
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Device Processing');
+    this.state.apiProcessModalTitle = _('Updating Http Settings');
+    this.state.modalBody = _('Please wait');
   }
 
   hideApiProcessModal = () => {
@@ -97,26 +98,22 @@ module.exports = class TCPIP extends Base {
 
   onSubmitHTTPForm = values => {
     progress.start();
-    this.setState({
-      isShowApiProcessModal: true,
-      apiProcessModalTitle: _('Updating Http Settings'),
-      modalBody: _('Please wait')
-    },
-    () => {
-      api.system.updateHttpInfo(values)
-        .then(() => {
-          const newAddress = `http://${location.hostname}:${values.port}`;
-          this.setState({
-            apiProcessModalTitle: _('Success'),
-            modalBody: [`${_('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
-          });
-        })
-        .catch(() => {
-          progress.done();
-          this.hideApiProcessModal();
-        })
-        .finally(progress.done);
-    });
+    this.setState({isShowApiProcessModal: true},
+      () => {
+        api.system.updateHttpInfo(values)
+          .then(() => {
+            const newAddress = `http://${location.hostname}:${values.port}`;
+            this.setState({
+              apiProcessModalTitle: _('Success'),
+              modalBody: [`${_('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
+            });
+          })
+          .catch(() => {
+            progress.done();
+            this.hideApiProcessModal();
+          })
+          .finally(progress.done);
+      });
   }
 
   ddnsFormRender = ({values}) => {
