@@ -391,6 +391,7 @@ module.exports = new Router({
             })
           ));
         },
+        groups: () => api.group.getGroups().then(response => response.data),
         authStatus: () => api.authKey.getAuthStatus().then(response => response.data),
         systemDateTime: () => api.system.getSystemDateTime().then(response => response.data),
         remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data)
