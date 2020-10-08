@@ -694,7 +694,6 @@ if (!window.languageResource['zh-tw']) {
     'DDNS Setting Failed!': 'DDNS 設定失敗！',
     'Updating Http Settings': '更新HTTP設定',
     'Device Rebooting': '裝置重新開機',
-    'Device Processing': '裝置處理中',
 
     // /network/https
     'Click confirm to redirect to the new address:': '按確認重新導向新的網址 :',
