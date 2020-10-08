@@ -135,7 +135,6 @@ if (!window.languageResource['zh-tw']) {
     // /setup/language
     'Setup Language': '選擇語言',
     Language: '選擇語言',
-    'SETUP-Account': '帳號密碼',
     HTTPS: '安全傳輸方式',
     Next: '下一步',
 
