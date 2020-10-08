@@ -782,6 +782,8 @@ if (!window.languageResource['zh-tw']) {
     'S/N Code': 'S/N 碼',
 
     // /sd-card
+    'Disable SD Card': '關閉 SD Card',
+    'Event photos will not be available after disabling SD card. Are you sure you want to continute?': '關閉 SD Card 卡後事件照片將無法顯示，確認是否繼續？',
     'Off Line Record': '斷線錄影',
     'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
     'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
