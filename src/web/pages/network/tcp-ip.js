@@ -142,7 +142,7 @@ module.exports = class TCPIP extends Base {
                 className="form-control"
                 type="text"
                 name="ddnsHost"
-                placeholder={_('Enter DDNS Host')}
+                placeholder={_('Enter DDNS host name.')}
                 value={values.ddnsHost}
                 disabled={!values.isEnableDDNS}
               />
@@ -153,7 +153,7 @@ module.exports = class TCPIP extends Base {
                 className="form-control"
                 type="text"
                 name="ddnsAccount"
-                placeholder={_('Enter DDNS Account')}
+                placeholder={_('Enter DDNS username.')}
                 value={values.ddnsAccount}
                 disabled={!values.isEnableDDNS}
               />
@@ -164,7 +164,7 @@ module.exports = class TCPIP extends Base {
                 className="form-control"
                 type="text"
                 name="ddnsPassword"
-                placeholder={_('Enter DDNS Password')}
+                placeholder={_('Enter DDNS password.')}
                 value={values.ddnsPassword}
                 disabled={!values.isEnableDDNS}
               />
