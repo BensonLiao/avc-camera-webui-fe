@@ -564,6 +564,10 @@ if (!window.languageResource['zh-tw']) {
     Group: '群組',
     'N/A': '無',
     'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何成員資料，確認要離開嗎？',
+    'Showing no face.': '照片中無人臉',
+    'More than one face in the photo.': '照片中超過1張人臉',
+    'Poor photo quality.': '照片品質不佳',
+    'Limitation of yaw and pitch angles should be 30 degrees and 20 degrees respectively.': '人臉的偏移角度不可超過上下20度和左右30度',
     'Photo size should be less than 90 KB.': '照片大小不可超過90 KB',
 
     // /users/accounts
