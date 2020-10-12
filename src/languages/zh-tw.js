@@ -249,7 +249,7 @@ if (!window.languageResource['zh-tw']) {
     Level: '強度',
     'D/N': '黑白模式',
     Sensitivity: '靈敏度',
-    'Day Mode': '日光時段',
+    'Day Mode': '日光模式',
     Rotation: '影像方向',
     Defog: '除霧',
     'Lighting Compensation Frequency (Hz)': '刷新頻率',
