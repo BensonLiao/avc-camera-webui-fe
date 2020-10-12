@@ -3,7 +3,7 @@ const {Link, RouterView, getRouter} = require('capybara-router');
 const React = require('react');
 const Base = require('../shared/base');
 const Loading = require('../../../core/components/loading');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 
 module.exports = class Network extends Base {
   constructor(props) {
@@ -28,14 +28,14 @@ module.exports = class Network extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{_('Internet/Network Settings')}</h2>
+          <h2>{i18n.t('Internet/Network Settings')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/network/settings"
               title="Network Settings"
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.settings'})}
             >
-              {_('Network Settings')}
+              {i18n.t('Network Settings')}
             </Link>
             <Link
               to="/network/tcp-ip"

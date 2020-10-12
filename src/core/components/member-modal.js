@@ -12,7 +12,7 @@ const MemberSchema = require('webserver-form-schema/member-schema');
 const avatarMask = require('../../resource/avatar-mask.png');
 const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
-const _ = require('../../languages');
+const i18n = require('../../web/i18n').default;
 const MemberValidator = require('../../web/validations/members/member-validator');
 const {
   MEMBER_PHOTO_MIME_TYPE,
@@ -294,7 +294,7 @@ module.exports = class Member extends React.PureComponent {
   zoomCropper = values => {
     const zoomScale = values.zoom;
     this.cropper.scale(zoomScale, zoomScale);
-    this.generateOnCropEndHandler(this.state.avatarToEdit)(_);
+    this.generateOnCropEndHandler(this.state.avatarToEdit)(null);
   }
 
   generateRotatePictureHandler = isClockwise => event => {
@@ -325,7 +325,7 @@ module.exports = class Member extends React.PureComponent {
       }
     );
     this.setState(updateRotation);
-    this.generateOnCropEndHandler(this.state.avatarToEdit)(_);
+    this.generateOnCropEndHandler(this.state.avatarToEdit)(null);
   };
 
   onChangeAvatar = (avatarName, loadEditModal) => event => {
@@ -437,7 +437,7 @@ module.exports = class Member extends React.PureComponent {
                 avatarList: {
                   [avatarToEdit]: {
                     verifyStatus: {$set: false},
-                    errorMessage: {$set: `${_('Photo size should be less than 90 KB.')}`}
+                    errorMessage: {$set: `${i18n.t('Photo size should be less than 90 KB.')}`}
                   }
                 }
               });
@@ -502,7 +502,7 @@ module.exports = class Member extends React.PureComponent {
     // Output error message if primary photo is missing
     if (!avatarList.Primary.avatarPreviewStyle.croppedImage) {
       const updateErrorMessage = update(this.state,
-        {avatarList: {Primary: {errorMessage: {$set: `${_('Photo is required')}`}}}});
+        {avatarList: {Primary: {errorMessage: {$set: `${i18n.t('Photo is required')}`}}}});
       this.setState(updateErrorMessage);
       return;
     }
@@ -624,7 +624,7 @@ module.exports = class Member extends React.PureComponent {
                           // Display upload area for new photo
                           <CustomTooltip
                             show={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
-                            title={isOverPhotoLimit ? _('Photo Limit Reached') : _('Upload Primary First')}
+                            title={isOverPhotoLimit ? i18n.t('Photo Limit Reached') : i18n.t('Upload Primary First')}
                           >
                             <label className="btn">
                               <i className="fas fa-plus"/>
@@ -641,7 +641,7 @@ module.exports = class Member extends React.PureComponent {
                         )}
                     </div>
                     <span>
-                      {_(avatar[0])}
+                      {i18n.t(avatar[0])}
                     </span>
                   </div>
                 );
@@ -653,47 +653,47 @@ module.exports = class Member extends React.PureComponent {
             return (
               <p key={item[0]} className={classNames('text-size-14 mb-1', 'text-danger')}>
                 <i className="fas fa-exclamation-triangle mr-1"/>
-                {`${_(item[0])}: ${_(item[1].errorMessage)}`}
+                {`${i18n.t(item[0])}: ${i18n.t(item[1].errorMessage)}`}
               </p>
             );
           })}
 
           <hr/>
           <div className="form-group">
-            <label>{_('Name')}</label>
+            <label>{i18n.t('Name')}</label>
             <Field
               name="name"
               type="text"
-              placeholder={_('Enter Your Name')}
+              placeholder={i18n.t('Enter Your Name')}
               maxLength={MemberSchema.name.max}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
             />
             <ErrorMessage component="div" name="name" className="invalid-feedback"/>
           </div>
           <div className="form-group">
-            <label>{_('Organization')}</label>
+            <label>{i18n.t('Organization')}</label>
             <Field
               name="organization"
               type="text"
-              placeholder={_('Enter Your Organization')}
+              placeholder={i18n.t('Enter Your Organization')}
               maxLength={MemberSchema.organization.max}
               className={classNames('form-control', {'is-invalid': errors.organization && touched.organization})}
             />
             <ErrorMessage component="div" name="organization" className="invalid-feedback"/>
-            <small className="form-text text-muted">{_('Letters within 32 characters.')}</small>
+            <small className="form-text text-muted">{i18n.t('Letters within 32 characters.')}</small>
           </div>
-          <SelectField labelName={_('Group')} wrapperClassName="px-2" name="group">
-            <option value="">{_('N/A')}</option>
+          <SelectField labelName={i18n.t('Group')} wrapperClassName="px-2" name="group">
+            <option value="">{i18n.t('N/A')}</option>
             {groups.items.map(group => (
               <option key={group.id} value={group.id}>{group.name}</option>
             ))}
           </SelectField>
           <div className="form-group">
-            <label>{_('Note')}</label>
+            <label>{i18n.t('Note')}</label>
             <Field
               name="note"
               type="text"
-              placeholder={_('Enter Your Note')}
+              placeholder={i18n.t('Enter Your Note')}
               maxLength={MemberSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
             />
@@ -722,7 +722,7 @@ module.exports = class Member extends React.PureComponent {
                 });
               }}
             >
-              {member ? _('Confirm') : _('New')}
+              {member ? i18n.t('Confirm') : i18n.t('New')}
             </button>
           </div>
           <button
@@ -730,15 +730,15 @@ module.exports = class Member extends React.PureComponent {
             type="button"
             onClick={isFormTouched || preEditState || isApiProcessing ? this.onShowConfirmModal : onHide}
           >
-            {_('Close')}
+            {i18n.t('Close')}
           </button>
         </div>
         {/* Close modal confirmation */}
         <CustomNotifyModal
           backdrop="static"
           isShowModal={isShowConfirmModal}
-          modalTitle={member ? _('Edit Member') : _('New Member')}
-          modalBody={_('Are you sure you want to close this window? Any changes you have made will be lost.')}
+          modalTitle={member ? i18n.t('Edit Member') : i18n.t('New Member')}
+          modalBody={i18n.t('Are you sure you want to close this window? Any changes you have made will be lost.')}
           onHide={this.onHideConfirmModal}
           onConfirm={() => {
             this.onHideConfirmModal();
@@ -754,7 +754,7 @@ module.exports = class Member extends React.PureComponent {
           onHide={this.onHideEditModalAndRevertChanges}
         >
           <Modal.Header closeButton className="d-flex justify-content-between align-items-center">
-            <Modal.Title as="h5">{_('Photo Editor')}</Modal.Title>
+            <Modal.Title as="h5">{i18n.t('Photo Editor')}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -780,7 +780,7 @@ module.exports = class Member extends React.PureComponent {
                 />
               </label>
               <p className="text-center mb-1">
-                {_('Drag to reposition photo')}
+                {i18n.t('Drag to reposition photo')}
               </p>
               <div className="d-flex justify-content-center align-items-center">
                 <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(false)}>
@@ -810,16 +810,16 @@ module.exports = class Member extends React.PureComponent {
             {/* Hide delete button if it is Primary photo */}
             { avatarToEdit !== 'Primary' && (
               <button className="btn btn-danger btn-block rounded-pill my-0" type="button" onClick={this.onDeleteAvatar}>
-                {_('Delete')}
+                {i18n.t('Delete')}
               </button>
             )}
             <div>
               <label className="btn btn-outline-primary btn-block rounded-pill my-0 mr-2">
                 <input className="d-none" type="file" accept="image/png,image/jpeg" onChange={this.onChangeAvatar(avatarToEdit)}/>
-                {_('Change Photo')}
+                {i18n.t('Change Photo')}
               </label>
               <button className="btn btn-primary btn-block rounded-pill my-0" type="button" onClick={this.verifyPhoto}>
-                {_('Save')}
+                {i18n.t('Save')}
               </button>
             </div>
           </Modal.Footer>
@@ -841,7 +841,7 @@ module.exports = class Member extends React.PureComponent {
         onHide={isApiProcessing || isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{member ? _('Edit Member') : _('New Member')}</Modal.Title>
+          <Modal.Title as="h5">{member ? i18n.t('Edit Member') : i18n.t('New Member')}</Modal.Title>
         </Modal.Header>
         <Formik
           enableReinitialize

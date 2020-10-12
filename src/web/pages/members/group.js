@@ -8,7 +8,7 @@ const {Formik, Form, Field} = require('formik');
 const GroupSchema = require('webserver-form-schema/group-schema');
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const groupValidator = require('../../validations/groups/group-validator');
 const Base = require('../shared/base');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
@@ -88,7 +88,7 @@ module.exports = class Group extends Base {
       return utils.duplicateCheck(
         this.state.groupsName,
         groupName,
-        _('Same name found, please use a different name.')
+        i18n.t('Same name found, please use a different name.')
       );
     }
   }
@@ -100,15 +100,15 @@ module.exports = class Group extends Base {
     return (
       <Form>
         <div className="modal-header">
-          <h5 className="modal-title">{group ? _('Edit Group') : _('Create a Group')}</h5>
+          <h5 className="modal-title">{group ? i18n.t('Edit Group') : i18n.t('Create a Group')}</h5>
         </div>
         <div className="modal-body">
           <div className="form-group">
-            <label>{_('Name')}</label>
+            <label>{i18n.t('Name')}</label>
             <Field
               name="name"
               type="text"
-              placeholder={_('Enter Your Group Name')}
+              placeholder={i18n.t('Enter Your Group Name')}
               maxLength={GroupSchema.name.max}
               validate={this.checkDuplicate}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
@@ -118,14 +118,14 @@ module.exports = class Group extends Base {
                 <div className="invalid-feedback">{errors.name}</div>
               )
             }
-            <small className="form-text text-muted">{_('Letters within 32 characters.')}</small>
+            <small className="form-text text-muted">{i18n.t('Letters within 32 characters.')}</small>
           </div>
           <div className="form-group">
-            <label>{_('Note')}</label>
+            <label>{i18n.t('Note')}</label>
             <Field
               name="note"
               type="text"
-              placeholder={_('Enter Your Note')}
+              placeholder={i18n.t('Enter Your Note')}
               maxLength={GroupSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
             />
@@ -143,7 +143,7 @@ module.exports = class Group extends Base {
               type="submit"
               className="btn btn-primary btn-block rounded-pill"
             >
-              {group ? _('Confirm') : _('Create')}
+              {group ? i18n.t('Confirm') : i18n.t('Create')}
             </button>
           </div>
           <button
@@ -152,7 +152,7 @@ module.exports = class Group extends Base {
             className="btn btn-info btn-block m-0 rounded-pill"
             onClick={this.hideModal}
           >
-            {_('Close')}
+            {i18n.t('Close')}
           </button>
         </div>
       </Form>

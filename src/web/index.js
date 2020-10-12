@@ -35,6 +35,7 @@ const Loading = require('../core/components/loading');
 const api = require('../core/apis/web-api');
 const utils = require('../core/utils');
 const config = require('../../config/default');
+require('./i18n');
 
 const simpleCrypto = new SimpleCrypto(SimpleCrypto.generateRandom);
 window.rootPassword = simpleCrypto.encrypt(config.rootPassword);

@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../../languages');
+const i18n = require('../../../web/i18n').default;
 const CustomTooltip = require('../tooltip');
 
 module.exports = class Password extends React.PureComponent {
@@ -36,7 +36,7 @@ module.exports = class Password extends React.PureComponent {
           tabIndex={-1}
           onClick={this.onTogglePassword}
         >
-          <CustomTooltip title={isShowPassword ? _('Hide Password') : _('Show Password')}>
+          <CustomTooltip title={isShowPassword ? i18n.t('Hide Password') : i18n.t('Show Password')}>
             <i className={classNames('fas', isShowPassword ? 'fa-eye' : 'fa-eye-slash')}/>
           </CustomTooltip>
         </a>

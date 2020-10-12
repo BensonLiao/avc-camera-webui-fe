@@ -1,6 +1,7 @@
 const {Router} = require('capybara-router');
 const history = require('history');
-const _ = require('../languages');
+const i18n = require('../web/i18n').default;
+
 const api = require('../core/apis/web-api');
 
 const _title = `${window.cameraName} Web-Manager`;
@@ -41,7 +42,7 @@ module.exports = new Router({
       name: 'web.home',
       uri: '/',
       onEnter: () => {
-        document.title = `${_('Home')} - ${_title}`;
+        document.title = `${i18n.t('Home')} - ${_title}`;
       },
       resolve: {
         videoSettings: () => api.video.getSettings().then(response => response.data),
@@ -56,7 +57,7 @@ module.exports = new Router({
       name: 'web.media',
       uri: '/media',
       onEnter: () => {
-        document.title = `${_('Multimedia Settings')} - ${_title}`;
+        document.title = `${i18n.t('Multimedia Settings')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
@@ -67,7 +68,7 @@ module.exports = new Router({
       name: 'web.media.stream',
       uri: '/stream',
       onEnter: () => {
-        document.title = `${_('Stream Settings')} - ${_('Multimedia Settings')} - ${_title}`;
+        document.title = `${i18n.t('Stream Settings')} - ${i18n.t('Multimedia Settings')} - ${_title}`;
       },
       resolve: {streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)},
       loadComponent: () => import(
@@ -79,7 +80,7 @@ module.exports = new Router({
       name: 'web.media.privacy-mask',
       uri: '/privacy-mask',
       onEnter: () => {
-        document.title = `${_('Privacy Mask')} - ${_('Multimedia Settings')} - ${_title}`;
+        document.title = `${i18n.t('Privacy Mask')} - ${i18n.t('Multimedia Settings')} - ${_title}`;
       },
       resolve: {privacyMaskSettings: () => api.multimedia.getPrivacyMaskSettings().then(response => response.data)},
       loadComponent: () => import(
@@ -91,7 +92,7 @@ module.exports = new Router({
       name: 'web.media.rtsp',
       uri: '/rtsp',
       onEnter: () => {
-        document.title = `${_('Rtsp Settings')} - ${_('Multimedia Settings')} - ${_title}`;
+        document.title = `${i18n.t('Rtsp Settings')} - ${i18n.t('Multimedia Settings')} - ${_title}`;
       },
       resolve: {
         rtspSettings: () => api.multimedia.getRTSPSettings().then(response => response.data),
@@ -107,7 +108,7 @@ module.exports = new Router({
       name: 'web.media.hdmi',
       uri: '/hdmi',
       onEnter: () => {
-        document.title = `${_('HDMI Settings')} - ${_('Multimedia Settings')} - ${_title}`;
+        document.title = `${i18n.t('HDMI Settings')} - ${i18n.t('Multimedia Settings')} - ${_title}`;
       },
       resolve: {hdmiSettings: () => api.multimedia.getHDMISettings().then(response => response.data)},
       loadComponent: () => import(
@@ -119,7 +120,7 @@ module.exports = new Router({
       name: 'web.media.word',
       uri: '/word',
       onEnter: () => {
-        document.title = `${_('Text Stickers')} - ${_('Multimedia Settings')} - ${_title}`;
+        document.title = `${i18n.t('Text Stickers')} - ${i18n.t('Multimedia Settings')} - ${_title}`;
       },
       resolve: {wordSettings: () => api.multimedia.getWordSettings().then(response => response.data)},
       loadComponent: () => import(
@@ -131,7 +132,7 @@ module.exports = new Router({
       name: 'web.audio',
       uri: '/audio',
       onEnter: () => {
-        document.title = `${_('Audio Settings')} - ${_title}`;
+        document.title = `${i18n.t('Audio Settings')} - ${_title}`;
       },
       resolve: {audioSettings: () => api.multimedia.getAudioSettings().then(response => response.data)},
       loadComponent: () => import(
@@ -143,7 +144,7 @@ module.exports = new Router({
       name: 'web.notification',
       uri: '/notification',
       onEnter: () => {
-        document.title = `${_('Notification Settings')} - ${_title}`;
+        document.title = `${i18n.t('Notification Settings')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-notification" */
@@ -154,7 +155,7 @@ module.exports = new Router({
       name: 'web.notification.smtp',
       uri: '/smtp',
       onEnter: () => {
-        document.title = `${_('Notification Settings')} - ${_title}`;
+        document.title = `${i18n.t('Notification Settings')} - ${_title}`;
       },
       resolve: {smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)},
       loadComponent: () => import(
@@ -166,7 +167,7 @@ module.exports = new Router({
       name: 'web.notification.io',
       uri: '/io',
       onEnter: () => {
-        document.title = `${_('Notification Settings')} - ${_title}`;
+        document.title = `${i18n.t('Notification Settings')} - ${_title}`;
       },
       resolve: {
         ioInSettings: () => api.notification.getIOInSettings().then(response => response.data),
@@ -182,7 +183,7 @@ module.exports = new Router({
       name: 'web.notification.cards',
       uri: '/cards',
       onEnter: () => {
-        document.title = `${_('Notification Settings')} - ${_title}`;
+        document.title = `${i18n.t('Notification Settings')} - ${_title}`;
       },
       resolve: {
         groups: () => api.group.getGroups().then(response => response.data),
@@ -197,7 +198,7 @@ module.exports = new Router({
       name: 'web.smart',
       uri: '/analytic',
       onEnter: () => {
-        document.title = `${_('Analytic')} - ${_title}`;
+        document.title = `${i18n.t('Analytic')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-smart" */
@@ -208,7 +209,7 @@ module.exports = new Router({
       name: 'web.smart.face-recognition',
       uri: '/face-recognition',
       onEnter: () => {
-        document.title = `${_('Facial Recognition')} - ${_('Analytic')} - ${_title}`;
+        document.title = `${i18n.t('Facial Recognition')} - ${i18n.t('Analytic')} - ${_title}`;
       },
       resolve: {faceRecognitionSettings: () => api.smartFunction.getFaceRecognitionSettings().then(response => response.data)},
       loadComponent: () => import(
@@ -220,7 +221,7 @@ module.exports = new Router({
       name: 'web.smart.motion-detection',
       uri: '/motion-detection',
       onEnter: () => {
-        document.title = `${_('Motion Detection')} - ${_('Analytic')} - ${_title}`;
+        document.title = `${i18n.t('Motion Detection')} - ${i18n.t('Analytic')} - ${_title}`;
       },
       resolve: {motionDetectionSettings: () => api.smartFunction.getMotionDetectionSettings().then(response => response.data)},
       loadComponent: () => import(
@@ -232,7 +233,7 @@ module.exports = new Router({
       name: 'web.smart.license',
       uri: '/license',
       onEnter: () => {
-        document.title = `${_('License')} - ${_('Analytic')} - ${_title}`;
+        document.title = `${i18n.t('License')} - ${i18n.t('Analytic')} - ${_title}`;
       },
       resolve: {
         authKeys: () => api.authKey.getAuthKeys().then(response => response.data),
@@ -247,7 +248,7 @@ module.exports = new Router({
       name: 'web.users',
       uri: '/users',
       onEnter: () => {
-        document.title = `${_('User Management')} - ${_title}`;
+        document.title = `${i18n.t('User Management')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-users" */
@@ -258,7 +259,7 @@ module.exports = new Router({
       name: 'web.users.members',
       uri: '/members?group?keyword?index?sort',
       onEnter: () => {
-        document.title = `${_('Members')} - ${_title}`;
+        document.title = `${i18n.t('Members')} - ${_title}`;
       },
       resolve: {
         groups: () => api.group.getGroups().then(response => response.data),
@@ -275,7 +276,7 @@ module.exports = new Router({
       uri: '/{memberId:[a-f0-9-]{36}}',
       dismissalDelay: 300,
       onEnter: () => {
-        document.title = `${_('Member')} - ${_title}`;
+        document.title = `${i18n.t('Member')} - ${_title}`;
       },
       resolve: {
         member: params => api.member.getMember(params.memberId).then(response => response.data),
@@ -291,7 +292,7 @@ module.exports = new Router({
       uri: '/new',
       dismissalDelay: 300,
       onEnter: () => {
-        document.title = `${_('New Member')} - ${_title}`;
+        document.title = `${i18n.t('New Member')} - ${_title}`;
       },
       resolve: {member: () => null},
       loadComponent: () => import(
@@ -303,7 +304,7 @@ module.exports = new Router({
       name: 'web.users.members.new-group',
       uri: '/new-group',
       onEnter: () => {
-        document.title = `${_('Members')} - ${_title}`;
+        document.title = `${i18n.t('Members')} - ${_title}`;
       },
       resolve: {group: () => null},
       loadComponent: () => import(
@@ -315,7 +316,7 @@ module.exports = new Router({
       name: 'web.users.members.modify-group',
       uri: '/modify-group',
       onEnter: () => {
-        document.title = `${_('Members')} - ${_title}`;
+        document.title = `${i18n.t('Members')} - ${_title}`;
       },
       resolve: {group: params => api.group.getGroup(params.group).then(response => response.data)},
       loadComponent: () => import(
@@ -327,7 +328,7 @@ module.exports = new Router({
       name: 'web.users.accounts',
       uri: '/accounts',
       onEnter: () => {
-        document.title = `${_('Security')} - ${_title}`;
+        document.title = `${i18n.t('Security')} - ${_title}`;
       },
       resolve: {users: () => api.user.getUsers().then(response => response.data)},
       loadComponent: () => import(
@@ -340,7 +341,7 @@ module.exports = new Router({
       uri: '/{userId:\\d+}',
       dismissalDelay: 300,
       onEnter: () => {
-        document.title = `${_('Security')} - ${_title}`;
+        document.title = `${i18n.t('Security')} - ${_title}`;
       },
       resolve: {user: params => api.user.getUser(params.userId).then(response => response.data)},
       loadComponent: () => import(
@@ -353,7 +354,7 @@ module.exports = new Router({
       uri: '/new',
       dismissalDelay: 300,
       onEnter: () => {
-        document.title = `${_('New User')} - ${_title}`;
+        document.title = `${i18n.t('New User')} - ${_title}`;
       },
       resolve: {user: () => null},
       loadComponent: () => import(
@@ -365,7 +366,7 @@ module.exports = new Router({
       name: 'web.users.events',
       uri: '/events?keyword?index?sort?type?confidence?enrollStatus?start?end',
       onEnter: () => {
-        document.title = `${_('Smart Search')} - ${_title}`;
+        document.title = `${i18n.t('Smart Search')} - ${_title}`;
       },
       resolve: {
         faceEvents: params => {
@@ -405,7 +406,7 @@ module.exports = new Router({
       name: 'web.network',
       uri: '/network',
       onEnter: () => {
-        document.title = `${_('Network')} - ${_title}`;
+        document.title = `${i18n.t('Network')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-network" */
@@ -416,7 +417,7 @@ module.exports = new Router({
       name: 'web.network.settings',
       uri: '/settings',
       onEnter: () => {
-        document.title = `${_('Network')} - ${_title}`;
+        document.title = `${i18n.t('Network')} - ${_title}`;
       },
       resolve: {networkSettings: () => api.system.getNetworkSettings().then(response => response.data)},
       loadComponent: () => import(
@@ -428,7 +429,7 @@ module.exports = new Router({
       name: 'web.network.tcp-ip',
       uri: '/tcp-ip',
       onEnter: () => {
-        document.title = `${_('Network')} - ${_title}`;
+        document.title = `${i18n.t('Network')} - ${_title}`;
       },
       resolve: {
         ddnsInfo: () => api.system.getDDNSInfo().then(response => response.data),
@@ -445,7 +446,7 @@ module.exports = new Router({
       name: 'web.network.https',
       uri: '/https',
       onEnter: () => {
-        document.title = `${_('Network')} - ${_title}`;
+        document.title = `${i18n.t('Network')} - ${_title}`;
       },
       resolve: {
         httpsSettings: () => api.system.getHttpsSettings().then(response => response.data),
@@ -461,7 +462,7 @@ module.exports = new Router({
       name: 'web.system',
       uri: '/system',
       onEnter: () => {
-        document.title = `${_('System')} - ${_title}`;
+        document.title = `${i18n.t('System')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-system" */
@@ -472,7 +473,7 @@ module.exports = new Router({
       name: 'web.system.datetime',
       uri: '/datetime',
       onEnter: () => {
-        document.title = `${_('System')} - ${_title}`;
+        document.title = `${i18n.t('System')} - ${_title}`;
       },
       resolve: {systemDateTime: () => api.system.getSystemDateTime().then(response => response.data)},
       loadComponent: () => import(
@@ -484,7 +485,7 @@ module.exports = new Router({
       name: 'web.system.upgrade',
       uri: '/upgrade',
       onEnter: () => {
-        document.title = `${_('System')} - ${_title}`;
+        document.title = `${i18n.t('System')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-system" */
@@ -495,7 +496,7 @@ module.exports = new Router({
       name: 'web.system.maintain',
       uri: '/maintain',
       onEnter: () => {
-        document.title = `${_('Device Maintain')} - ${_('System')} - ${_title}`;
+        document.title = `${i18n.t('Device Maintain')} - ${i18n.t('System')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-system" */
@@ -506,7 +507,7 @@ module.exports = new Router({
       name: 'web.sd-card',
       uri: '/sd-card',
       onEnter: () => {
-        document.title = `${_('SD Card Settings')} - ${_title}`;
+        document.title = `${i18n.t('SD Card Settings')} - ${_title}`;
       },
       resolve: {smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)},
       loadComponent: () => import(
@@ -518,7 +519,7 @@ module.exports = new Router({
       name: 'web.system.log',
       uri: '/log',
       onEnter: () => {
-        document.title = `${_('System')} - ${_title}`;
+        document.title = `${i18n.t('System')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-system" */
@@ -529,7 +530,7 @@ module.exports = new Router({
       name: 'web.system.information',
       uri: '/information',
       onEnter: () => {
-        document.title = `${_('System')} - ${_title}`;
+        document.title = `${i18n.t('System')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-system" */
@@ -540,7 +541,7 @@ module.exports = new Router({
       name: 'setup-welcome',
       uri: '/setup',
       onEnter: () => {
-        document.title = `${_('Welcome')} - ${_title}`;
+        document.title = `${i18n.t('Welcome')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-setup-welcome" */
@@ -551,7 +552,7 @@ module.exports = new Router({
       name: 'setup-language',
       uri: '/setup/language',
       onEnter: () => {
-        document.title = `${_('Setup language')} - ${_title}`;
+        document.title = `${i18n.t('Setup language')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-setup-language" */
@@ -562,7 +563,7 @@ module.exports = new Router({
       name: 'setup-account',
       uri: '/setup/account',
       onEnter: () => {
-        document.title = `${_('Setup account')} - ${_title}`;
+        document.title = `${i18n.t('Setup account')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-setup-account" */
@@ -573,7 +574,7 @@ module.exports = new Router({
       name: 'setup-https',
       uri: '/setup/https',
       onEnter: () => {
-        document.title = `${_('Setup HTTPS')} - ${_title}`;
+        document.title = `${i18n.t('Setup HTTPS')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-setup-https" */
@@ -584,7 +585,7 @@ module.exports = new Router({
       name: 'login',
       uri: '/login',
       onEnter: () => {
-        document.title = `${_('Login')} - ${_title}`;
+        document.title = `${i18n.t('Login')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login" */
@@ -595,7 +596,7 @@ module.exports = new Router({
       name: 'login-error',
       uri: '/login-error?loginFailedRemainingTimes',
       onEnter: () => {
-        document.title = `${_('Login Error')} - ${_title}`;
+        document.title = `${i18n.t('Login Error')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login-error" */
@@ -606,7 +607,7 @@ module.exports = new Router({
       name: 'login-lock',
       uri: '/login-lock?loginLockExpiredTime',
       onEnter: () => {
-        document.title = `${_('Login Lock')} - ${_title}`;
+        document.title = `${i18n.t('Login Lock')} - ${_title}`;
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-login-lock" */

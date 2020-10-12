@@ -2,7 +2,8 @@ const axios = require('axios');
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
 const dayjs = require('dayjs');
-const _ = require('../languages');
+const i18n = require('../web/i18n').default;
+
 const api = require('../core/apis/web-api');
 const {validator} = require('../core/validations');
 const {MEMBER_PHOTO_MIME_TYPE, RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
@@ -175,7 +176,7 @@ exports.makeFormikValidator = (validator, passwordFields) => values => {
   const checkResult = validator(values);
 
   if (passwordFields && values[passwordFields[0]] !== values[passwordFields[1]]) {
-    result[passwordFields[1]] = _('Incorrect confirm password.');
+    result[passwordFields[1]] = i18n.t('Incorrect confirm password.');
   }
 
   if (checkResult === true) {
@@ -381,9 +382,9 @@ exports.validatedPortCheck = (value, error) => {
     (Number(value) < PORT_NUMBER_MIN) ||
     (Number(value) > PORT_NUMBER_MAX) ||
     RESTRICTED_PORTS.some(val => val === value);
-  let errorMsg = error || _('The specified port is reserved by system or in use!');
+  let errorMsg = error || i18n.t('The specified port is reserved by system or in use!');
   if (value === '') {
-    errorMsg = _('The port number must not empty.');
+    errorMsg = i18n.t('The port number must not empty.');
     return errorMsg;
   }
 

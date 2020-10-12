@@ -2,7 +2,7 @@ const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const SettingsLan = require('./settings-lan').default;
 const SettingsStatus = require('./settings-status').default;
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
@@ -21,26 +21,26 @@ module.exports = class NetworkSettings extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('Internet/Network Settings'), _('Network Settings')]}
+                path={[i18n.t('Internet/Network Settings'), i18n.t('Network Settings')]}
                 routes={['/network/settings']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('Network Settings')}</div>
+                  <div className="card-header">{i18n.t('Network Settings')}</div>
                   <Tab.Container defaultActiveKey="tab-local-network">
                     <Nav>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="tab-local-network"
                         >
-                          {_('LAN Configuration')}
+                          {i18n.t('LAN Configuration')}
                         </Nav.Link>
                       </Nav.Item>
                       <Nav.Item>
                         <Nav.Link
                           eventKey="tab-network-status"
                         >
-                          {_('Network Status')}
+                          {i18n.t('Network Status')}
                         </Nav.Link>
                       </Nav.Item>
                     </Nav>

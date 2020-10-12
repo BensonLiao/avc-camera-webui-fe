@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const progress = require('nprogress');
 const sanitizeHtml = require('sanitize-html');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const Base = require('../shared/base');
 const {NOTIFY_CARDS_MAX} = require('../../../core/constants');
@@ -41,8 +41,8 @@ module.exports = class Cards extends Base {
 
   cardLimitError = () => { // Over card limit 32
     notify.showErrorNotification({
-      title: _('Cards Limit Error'),
-      message: _('Cannot Create More Than {0} Cards', [NOTIFY_CARDS_MAX])
+      title: i18n.t('Cards Limit Error'),
+      message: i18n.t('Cannot Create More Than {{0}} Cards', {0: NOTIFY_CARDS_MAX})
     });
   }
 
@@ -200,7 +200,7 @@ module.exports = class Cards extends Base {
                 deleteCardHandler={this.deleteCardHandler}
               />
               <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
-                <CustomTooltip title={_('Add New Notification Card')}>
+                <CustomTooltip title={i18n.t('Add New Notification Card')}>
                   <button
                     className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"
                     type="button"

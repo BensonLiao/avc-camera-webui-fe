@@ -8,7 +8,7 @@ const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');
 const iconCursor = require('../../../resource/cursor-24px.svg');
 const Base = require('../shared/base');
 const MaskArea = require('../../../core/components/fields/mask-area');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
@@ -122,7 +122,7 @@ module.exports = class PrivacyMask extends Base {
       <Form className="row">
         <BreadCrumb
           className="px-0"
-          path={[_('Video'), _('Privacy Mask')]}
+          path={[i18n.t('Video'), i18n.t('Privacy Mask')]}
           routes={['/media/stream']}
         />
         <div className="col-7 px-0">
@@ -141,7 +141,7 @@ module.exports = class PrivacyMask extends Base {
                       rightBottomCornerRef={this.maskAreaRefs[index]}
                       name={`maskAreas.${index}`}
                       component={MaskArea}
-                      text={_('Mask Area')}
+                      text={i18n.t('Mask Area')}
                       className="bounding-primary"
                       parentElementId="pm-video-wrapper"
                     />
@@ -155,46 +155,46 @@ module.exports = class PrivacyMask extends Base {
 
         <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
-            <div className="card-header">{_('Privacy Mask')}</div>
+            <div className="card-header">{i18n.t('Privacy Mask')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{_('On/Off')}</label>
+                <label className="mb-0">{i18n.t('On/Off')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">
-                    <span>{_('ON')}</span>
-                    <span>{_('OFF')}</span>
+                    <span>{i18n.t('ON')}</span>
+                    <span>{i18n.t('OFF')}</span>
                   </label>
                 </div>
               </div>
               <div className="form-group mb-5">
-                <span className="form-text text-primary">{_('Drag a Mask Area.')}</span>
+                <span className="form-text text-primary">{i18n.t('Drag a Mask Area.')}</span>
               </div>
               <div className="form-group">
-                <div className="card-header l-24 light text-size-18">{_('Note Area')}</div>
+                <div className="card-header l-24 light text-size-18">{i18n.t('Note Area')}</div>
                 <div className="card-body l-32 light px-3 py-3">
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{_('Set a Mask.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('Set a Mask.')}</span>
                     <div className="d-flex align-items-center drag-icon">
                       <img src={iconCursor}/>
-                      <span className="text-size-12">{_('Drag')}</span>
+                      <span className="text-size-12">{i18n.t('Drag')}</span>
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{_('Erase a Mask.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('Erase a Mask.')}</span>
                     <div className="d-flex justify-content-end align-items-center flex-wrap">
                       <img src={iconHotkeyBackspace}/>
-                      <span className="font-italic text-size-14 mx-2">{_('or')}</span>
+                      <span className="font-italic text-size-14 mx-2">{i18n.t('or')}</span>
                       <img src={iconHotkeyDeleted}/>
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{_('Up to 4 Mask Areas.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('Up to 4 Mask Areas.')}</span>
                   </div>
                 </div>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-                {_('Apply')}
+                {i18n.t('Apply')}
               </button>
             </div>
           </div>

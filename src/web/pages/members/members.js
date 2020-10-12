@@ -5,7 +5,7 @@ const {RouterView, Link, getRouter} = require('capybara-router');
 const iconDescription = require('../../../resource/description-20px.svg');
 const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
@@ -66,15 +66,15 @@ module.exports = class Members extends Base {
         showModal: isShowModal,
         hideModal: this.hideModal(mode),
         modalOnSubmit: this.confirmDeleteGroup,
-        modalTitle: _('Delete Group'),
-        modalBody: _('Are you sure you want to delete group {0}?', [deleteGroupTarget && deleteGroupTarget.name])
+        modalTitle: i18n.t('Delete Group'),
+        modalBody: i18n.t('Are you sure you want to delete group {{0}}?', {0: deleteGroupTarget && deleteGroupTarget.name})
       },
       deleteMember: {
         showModal: isShowModal,
         hideModal: this.hideModal(mode),
         modalOnSubmit: this.confirmDeleteMember,
-        modalTitle: _('Delete Member'),
-        modalBody: _('Are you sure you want to delete member {0}?', [deleteMemberTarget && deleteMemberTarget.name])
+        modalTitle: i18n.t('Delete Member'),
+        modalBody: i18n.t('Are you sure you want to delete member {{0}}?', {0: deleteMemberTarget && deleteMemberTarget.name})
       }
     };
     return (
@@ -205,7 +205,7 @@ module.exports = class Members extends Base {
                     currentRouteName={this.currentRoute.name}
                     params={params}
                   />
-                  <CustomTooltip show={isOverPhotoLimit} title={_('Photo Limit Reached')}>
+                  <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit Reached')}>
                     <div className="dropdown">
                       <button
                         className="btn border-primary text-primary rounded-pill dropdown-toggle"
@@ -214,7 +214,7 @@ module.exports = class Members extends Base {
                         style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
                         data-toggle="dropdown"
                       >
-                        <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
+                        <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('New')}
                       </button>
                       <div className="dropdown-menu dropdown-menu-right shadow">
                         <Link
@@ -224,9 +224,9 @@ module.exports = class Members extends Base {
                             params: params
                           }}
                         >
-                          {_('Add a New Member')}
+                          {i18n.t('Add a New Member')}
                         </Link>
-                        <Link className="dropdown-item" to="/users/events">{_('Add a Member from Events')}</Link>
+                        <Link className="dropdown-item" to="/users/events">{i18n.t('Add a Member from Events')}</Link>
                       </div>
                     </div>
                   </CustomTooltip>
@@ -259,7 +259,7 @@ module.exports = class Members extends Base {
                           </CustomTooltip>
                         )
                       }
-                      <CustomTooltip title={_('Edit Group: {0}', [selectedGroup.name])}>
+                      <CustomTooltip title={i18n.t('Edit Group: {{0}}', {0: selectedGroup.name})}>
                         <Link
                           className="ml-32px"
                           to={{
@@ -286,8 +286,8 @@ module.exports = class Members extends Base {
                   total={members.total}
                   itemQuantity={members.items.length}
                   hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
-                    `${hrefTemplate}&index={index}` :
-                    `${hrefTemplate}?index={index}`}
+                    `${hrefTemplate}&index=` :
+                    `${hrefTemplate}?index=`}
                 />
               </div>
             </div>
