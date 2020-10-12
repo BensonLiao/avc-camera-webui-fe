@@ -137,7 +137,10 @@ class SearchMember extends React.PureComponent {
               <div className="d-flex flex-row align-items-end">
                 <div className="event-photo">
                   <div
-                    className="thumbnail-wrapper"
+                    className={classNames(
+                      'rounded-circle thumbnail-wrapper',
+                      {'failed-check': verifyStatus === false && !isVerifying && errorMessage}
+                    )}
                     style={{
                       width: '88px',
                       height: '88px'
@@ -147,13 +150,6 @@ class SearchMember extends React.PureComponent {
                       <div className="thumbnail" style={{backgroundImage: `url('${eventPictureUrl}')`}}/>
                     </div>
                   </div>
-                  {/* <img
-                    src={eventPictureUrl}
-                    className={classNames(
-                      'rounded-circle',
-                      {'failed-check': verifyStatus === false && !isVerifying && errorMessage}
-                    )}
-                  /> */}
                   <div className={classNames('loading-dots', {'d-none': !isVerifying})}>
                     <div className="spinner">
                       <div className="double-bounce1"/>
