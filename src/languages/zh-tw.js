@@ -671,7 +671,6 @@ if (!window.languageResource['zh-tw']) {
     'DHCP Testing Success!': 'DHCP 測試成功！',
     'DHCP Testing Failed!': 'DHCP 測試失敗！',
     'Fixed IP Address': '固定IP位址',
-    'Enter a Fixed IP Address': '請輸入固定IP位址',
     'IP Address': 'IP 位址',
     'MAC Address': '網路卡硬體位址',
     'Subnet Mask': '子網路遮罩',

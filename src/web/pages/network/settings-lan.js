@@ -164,9 +164,6 @@ class SettingsLan extends React.PureComponent {
                     >
                       {_('Fixed IP Address')}
                     </label>
-                    <span className="border rounded text-muted text-size-14 ml-3 p-1">
-                      {_('Enter a Fixed IP Address')}
-                    </span>
                   </div>
                 </div>
                 <div className="form-group">
