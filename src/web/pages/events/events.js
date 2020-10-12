@@ -27,8 +27,14 @@ module.exports = class Events extends Base {
           PropTypes.arrayOf(PropTypes.oneOf(RecognitionType.all()))
         ])
       }).isRequired,
+      groups: PropTypes.shape({
+        items: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          note: PropTypes.string
+        }).isRequired).isRequired
+      }),
       authStatus: PropTypes.shape(EventsSidebar.propTypes.authStatus).isRequired,
-      groups: PropTypes.shape(EventsSidebar.propTypes.groups),
       faceEvents: PropTypes.shape(EventsTable.events).isRequired,
       systemDateTime: PropTypes.shape(EventsSearchForm.propTypes.systemDateTime).isRequired,
       remainingPictureCount: PropTypes.number.isRequired
