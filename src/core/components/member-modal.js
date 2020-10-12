@@ -437,7 +437,7 @@ module.exports = class Member extends React.PureComponent {
                 avatarList: {
                   [avatarToEdit]: {
                     verifyStatus: {$set: false},
-                    errorMessage: {$set: `${_('Cropped image has reached the size limit')}`}
+                    errorMessage: {$set: `${_('Photo size should be less than 90 KB.')}`}
                   }
                 }
               });
