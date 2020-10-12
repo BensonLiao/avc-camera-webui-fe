@@ -7,7 +7,7 @@ const CertificateType = require('webserver-form-schema/constants/certificate-typ
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const setupStep03 = require('../../../resource/setup-step-03.png');
 const setupStep03x2 = require('../../../resource/setup-step-03@2x.png');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
 const store = require('../../../core/store');
 const utils = require('../../../core/utils');
@@ -114,7 +114,7 @@ module.exports = class SetupHTTPS extends Base {
             progressBarImagex2={setupStep03x2}
           />
           <div className="form-group">
-            <label>{_('Certificate type')}</label>
+            <label>{i18n.t('Certificate type')}</label>
             <div className="select-wrapper border rounded-pill overflow-hidden px-2">
               <Field
                 name="certificateType"
@@ -122,12 +122,12 @@ module.exports = class SetupHTTPS extends Base {
                 className="form-control border-0"
                 onChange={this.generateChangeCertificateTypeHandler(handleChange)}
               >
-                <option value={CertificateType.selfSigned}>{_(`certificate-type-${CertificateType.selfSigned}`)}</option>
-                <option value={CertificateType.uploadCertificate}>{_(`certificate-type-${CertificateType.uploadCertificate}`)}</option>
-                <option value={CertificateType.generateCertificate}>{_(`certificate-type-${CertificateType.generateCertificate}`)}</option>
+                <option value={CertificateType.selfSigned}>{i18n.t(`certificate-type-${CertificateType.selfSigned}`)}</option>
+                <option value={CertificateType.uploadCertificate}>{i18n.t(`certificate-type-${CertificateType.uploadCertificate}`)}</option>
+                <option value={CertificateType.generateCertificate}>{i18n.t(`certificate-type-${CertificateType.generateCertificate}`)}</option>
               </Field>
             </div>
-            <small className="form-text text-muted">{_('SSL certificate.')}</small>
+            <small className="form-text text-muted">{i18n.t('SSL certificate.')}</small>
           </div>
 
           {
@@ -135,7 +135,7 @@ module.exports = class SetupHTTPS extends Base {
             values.certificateType === CertificateType.uploadCertificate && (
               <>
                 <div className="form-group">
-                  <label>{_('Certificate')}</label>
+                  <label>{i18n.t('Certificate')}</label>
                   <Field name="certificate" component="textarea" className={classTable.certificate} rows="5" maxLength="10240" placeholder="-----BEGIN CERTIFICATE-----"/>
                   {
                     errors.certificate && isSubmitted && (
@@ -144,7 +144,7 @@ module.exports = class SetupHTTPS extends Base {
                   }
                 </div>
                 <div className="form-group">
-                  <label>{_('Private key')}</label>
+                  <label>{i18n.t('Private key')}</label>
                   <Field name="privateKey" component="textarea" className={classTable.privateKey} rows="5" maxLength="1024" placeholder="-----BEGIN PRIVATE KEY-----"/>
                   {
                     errors.privateKey && isSubmitted && (
@@ -161,18 +161,18 @@ module.exports = class SetupHTTPS extends Base {
             values.certificateType === CertificateType.generateCertificate && (
               <>
                 <div className="form-group">
-                  <label>{_('Country name')}</label>
-                  <Field name="country" maxLength="2" className={classTable.country} placeholder={_('Please enter the country code.')}/>
+                  <label>{i18n.t('Country name')}</label>
+                  <Field name="country" maxLength="2" className={classTable.country} placeholder={i18n.t('Please enter the country code.')}/>
                   {
                     errors.country && isSubmitted && (
                       <div className="invalid-feedback">{errors.country}</div>
                     )
                   }
-                  <small className="form-text text-muted">{_('Two letters.')}</small>
+                  <small className="form-text text-muted">{i18n.t('Two letters.')}</small>
                 </div>
                 <div className="form-group">
-                  <label>{_('State or province name')}</label>
-                  <Field name="state" maxLength="1024" className={classTable.state} placeholder={_('Please enter the state or province name.')}/>
+                  <label>{i18n.t('State or province name')}</label>
+                  <Field name="state" maxLength="1024" className={classTable.state} placeholder={i18n.t('Please enter the state or province name.')}/>
                   {
                     errors.state && isSubmitted && (
                       <div className="invalid-feedback">{errors.state}</div>
@@ -180,8 +180,8 @@ module.exports = class SetupHTTPS extends Base {
                   }
                 </div>
                 <div className="form-group">
-                  <label>{_('City name')}</label>
-                  <Field name="city" maxLength="1024" className={classTable.city} placeholder={_('Please enter the city name.')}/>
+                  <label>{i18n.t('City name')}</label>
+                  <Field name="city" maxLength="1024" className={classTable.city} placeholder={i18n.t('Please enter the city name.')}/>
                   {
                     errors.city && isSubmitted && (
                       <div className="invalid-feedback">{errors.city}</div>
@@ -189,18 +189,18 @@ module.exports = class SetupHTTPS extends Base {
                   }
                 </div>
                 <div className="form-group">
-                  <label>{_('Organization name')}</label>
-                  <Field name="organization" maxLength="1024" className={classTable.organization} placeholder={_('Please enter the organization name.')}/>
+                  <label>{i18n.t('Organization name')}</label>
+                  <Field name="organization" maxLength="1024" className={classTable.organization} placeholder={i18n.t('Please enter the organization name.')}/>
                   {
                     errors.organization && isSubmitted && (
                       <div className="invalid-feedback">{errors.organization}</div>
                     )
                   }
-                  <small className="form-text text-muted">{_('The company.')}</small>
+                  <small className="form-text text-muted">{i18n.t('The company.')}</small>
                 </div>
                 <div className="form-group">
-                  <label>{_('Organization unit name')}</label>
-                  <Field name="organizationUnit" maxLength="1024" className={classTable.organizationUnit} placeholder={_('Please enter the organization unit name.')}/>
+                  <label>{i18n.t('Organization unit name')}</label>
+                  <Field name="organizationUnit" maxLength="1024" className={classTable.organizationUnit} placeholder={i18n.t('Please enter the organization unit name.')}/>
                   {
                     errors.organizationUnit && isSubmitted && (
                       <div className="invalid-feedback">{errors.organizationUnit}</div>
@@ -208,8 +208,8 @@ module.exports = class SetupHTTPS extends Base {
                   }
                 </div>
                 <div className="form-group">
-                  <label>{_('Email address')}</label>
-                  <Field name="email" maxLength="1024" className={classTable.email} placeholder={_('Please enter the email address.')}/>
+                  <label>{i18n.t('Email address')}</label>
+                  <Field name="email" maxLength="1024" className={classTable.email} placeholder={i18n.t('Please enter the email address.')}/>
                   {
                     errors.email && isSubmitted && (
                       <div className="invalid-feedback">{errors.email}</div>
@@ -217,8 +217,8 @@ module.exports = class SetupHTTPS extends Base {
                   }
                 </div>
                 <div className="form-group">
-                  <label>{_('Domain')}</label>
-                  <Field name="domain" maxLength="1024" className={classTable.domain} placeholder={_('Please enter the domain.')}/>
+                  <label>{i18n.t('Domain')}</label>
+                  <Field name="domain" maxLength="1024" className={classTable.domain} placeholder={i18n.t('Please enter the domain.')}/>
                   {
                     errors.domain && isSubmitted && (
                       <div className="invalid-feedback">{errors.domain}</div>
@@ -230,7 +230,7 @@ module.exports = class SetupHTTPS extends Base {
           }
 
           <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
-            {_('Done')}
+            {i18n.t('Done')}
           </button>
         </div>
       </Form>

@@ -1,21 +1,21 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import _ from '../../../languages';
+import i18n from '../../i18n';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 
 const Information = ({networkSettings: {mac}, systemInformation: {firmware, serialNumber}}) => {
   const list = [
     {
-      name: _('Build Version'),
+      name: i18n.t('Build Version'),
       data: firmware
     },
     {
-      name: _('S/N Code'),
+      name: i18n.t('S/N Code'),
       data: serialNumber
     },
     {
-      name: _('MAC Address'),
+      name: i18n.t('MAC Address'),
       data: mac
     }
   ];
@@ -26,12 +26,12 @@ const Information = ({networkSettings: {mac}, systemInformation: {firmware, seri
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[_('System'), _('System Information'), _('Information')]}
+              path={[i18n.t('System'), i18n.t('System Information'), i18n.t('Information')]}
               routes={['/system/datetime', '/system/log']}
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{_('Information')}</div>
+                <div className="card-header">{i18n.t('Information')}</div>
                 <div className="card-body">
                   <table className="w-100">
                     <tbody>

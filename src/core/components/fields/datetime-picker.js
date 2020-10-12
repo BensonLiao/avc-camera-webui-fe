@@ -6,7 +6,7 @@ const {Nav, Tab} = require('react-bootstrap');
 const Overlay = require('react-bootstrap/Overlay').default;
 const dayjs = require('dayjs');
 const utils = require('../../utils');
-const _ = require('../../../languages');
+const i18n = require('../../../web/i18n').default;
 
 const CLOCK_ITEM_HEIGHT = 40;
 
@@ -618,13 +618,13 @@ module.exports = class DatePicker extends React.PureComponent {
         <table>
           <thead>
             <tr>
-              <th>{_('Su')}</th>
-              <th>{_('Mo')}</th>
-              <th>{_('Tu')}</th>
-              <th>{_('We')}</th>
-              <th>{_('Th')}</th>
-              <th>{_('Fr')}</th>
-              <th>{_('Sa')}</th>
+              <th>{i18n.t('Su')}</th>
+              <th>{i18n.t('Mo')}</th>
+              <th>{i18n.t('Tu')}</th>
+              <th>{i18n.t('We')}</th>
+              <th>{i18n.t('Th')}</th>
+              <th>{i18n.t('Fr')}</th>
+              <th>{i18n.t('Sa')}</th>
             </tr>
           </thead>
           <tbody>

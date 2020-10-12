@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const {Link} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const CustomTooltip = require('../../../core/components/tooltip');
 
 module.exports = class MembersTable extends React.PureComponent {
@@ -74,21 +74,21 @@ module.exports = class MembersTable extends React.PureComponent {
         <table className="table custom-style">
           <thead>
             <tr className="shadow">
-              <th className="text-center" style={{width: '20%'}}>{_('User Picture')}</th>
+              <th className="text-center" style={{width: '20%'}}>{i18n.t('User Picture')}</th>
               <th style={{width: '15%'}}>
-                <a href="#name" onClick={sort.name.handler}>{_('Name')}</a>
+                <a href="#name" onClick={sort.name.handler}>{i18n.t('Name')}</a>
                 <i className={sort.name.icon}/>
               </th>
               <th style={{width: '15%'}}>
-                <a href="#organization" onClick={sort.organization.handler}>{_('Organization')}</a>
+                <a href="#organization" onClick={sort.organization.handler}>{i18n.t('Organization')}</a>
                 <i className={sort.organization.icon}/>
               </th>
               <th style={{width: '15%'}}>
-                <a href="#group" onClick={sort.group.handler}>{_('Group')}</a>
+                <a href="#group" onClick={sort.group.handler}>{i18n.t('Group')}</a>
                 <i className={sort.group.icon}/>
               </th>
-              <th style={{width: '20%'}}>{_('Note')}</th>
-              <th style={{width: '15%'}}>{_('Actions')}</th>
+              <th style={{width: '20%'}}>{i18n.t('Note')}</th>
+              <th style={{width: '15%'}}>{i18n.t('Actions')}</th>
             </tr>
           </thead>
           <tbody>
@@ -97,7 +97,7 @@ module.exports = class MembersTable extends React.PureComponent {
               !members.items.length && (
                 <tr>
                   <td className="text-size-20 text-center" colSpan="10">
-                    <i className="fas fa-frown-open fa-fw text-dark"/> {_('Can\'t find any data.')}
+                    <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('Can\'t find any data.')}
                   </td>
                 </tr>
               )
@@ -123,26 +123,26 @@ module.exports = class MembersTable extends React.PureComponent {
                     <td>
                       <CustomTooltip placement="top-start" title={member.organization}>
                         <div>
-                          {member.organization || _('N/A')}
+                          {member.organization || i18n.t('N/A')}
                         </div>
                       </CustomTooltip>
                     </td>
                     <td>
                       <CustomTooltip placement="top-start" title={(groups.items.find(x => x.id === member.groupId) || {}).name || ''}>
                         <div>
-                          {(groups.items.find(x => x.id === member.groupId) || {}).name || _('N/A')}
+                          {(groups.items.find(x => x.id === member.groupId) || {}).name || i18n.t('N/A')}
                         </div>
                       </CustomTooltip>
                     </td>
                     <td>
                       <CustomTooltip placement="top-start" title={member.note}>
                         <div>
-                          {member.note || _('N/A')}
+                          {member.note || i18n.t('N/A')}
                         </div>
                       </CustomTooltip>
                     </td>
                     <td className="text-left group-btn">
-                      <CustomTooltip title={_('Edit Member: {0}', [member.name])}>
+                      <CustomTooltip title={i18n.t('Edit Member: {{0}}', {0: member.name})}>
                         <Link
                           className="btn btn-link"
                           to={{
@@ -156,7 +156,7 @@ module.exports = class MembersTable extends React.PureComponent {
                           <i className="fas fa-pen fa-lg fa-fw"/>
                         </Link>
                       </CustomTooltip>
-                      <CustomTooltip title={_('Delete Member: {0}', [member.name])}>
+                      <CustomTooltip title={i18n.t('Delete Member: {{0}}', {0: member.name})}>
                         <button
                           className="btn btn-link"
                           type="button"

@@ -8,11 +8,11 @@ const iconUser = require('../../../resource/user-24px.svg');
 const iconUserShield = require('../../../resource/user-shield-24px.svg');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
 const api = require('../../../core/apis/web-api');
 const {SECURITY_USERS_MAX} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
+const i18n = require('../../i18n').default;
 module.exports = class Users extends Base {
   static get propTypes() {
     return {
@@ -78,23 +78,23 @@ module.exports = class Users extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top sub">
-          <h2>{_('Accounts')}</h2>
+          <h2>{i18n.t('Accounts')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/users/accounts"
-              title={_('All Accounts')}
+              title={i18n.t('All Accounts')}
               className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
                 {active: permissionFilter === 'all'},
                 {'bg-light': permissionFilter === 'all'}
               )}
             >
-              <img className="pl-2 pr-4" src={iconUsers}/>{_('All Accounts')}
+              <img className="pl-2 pr-4" src={iconUsers}/>{i18n.t('All Accounts')}
             </Link>
           </nav>
           <hr/>
           <div className="groups">
             <div className="sub-title py-1 px-4">
-              <h3>{_('Permission')}</h3>
+              <h3>{i18n.t('Permission')}</h3>
             </div>
             {[UserPermission.root, UserPermission.guest].map(type => (
               <div
@@ -111,7 +111,7 @@ module.exports = class Users extends Base {
                   onClick={this.generateChangePermissionFilterHandler(type)}
                 >
                   <img src={type === UserPermission.root ? iconUserShield : iconUser}/>
-                  <span className="text-truncate text-size-14 pl-4">{_(`permission-${type}`)}</span>
+                  <span className="text-truncate text-size-14 pl-4">{i18n.t(`permission-${type}`)}</span>
                 </a>
               </div>
             ))}
@@ -135,7 +135,7 @@ module.exports = class Users extends Base {
                       {disabled: isAddUserDisabled}
                     )}
                   >
-                    <i className="fas fa-plus fa-fw"/> {_('New')}
+                    <i className="fas fa-plus fa-fw"/> {i18n.t('New')}
                   </Link>
                 </div>
 
@@ -143,9 +143,9 @@ module.exports = class Users extends Base {
                   <table className="table custom-style">
                     <thead>
                       <tr className="shadow">
-                        <th style={{width: '33%'}}>{_('Permission')}</th>
-                        <th style={{width: '34%'}}>{_('Username')}</th>
-                        <th style={{width: '33%'}}>{_('Actions')}</th>
+                        <th style={{width: '33%'}}>{i18n.t('Permission')}</th>
+                        <th style={{width: '34%'}}>{i18n.t('Username')}</th>
+                        <th style={{width: '33%'}}>{i18n.t('Actions')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -162,7 +162,7 @@ module.exports = class Users extends Base {
                                     (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest'
                                   )}
                                 >
-                                  {_(`permission-${user.permission}`)}
+                                  {i18n.t(`permission-${user.permission}`)}
                                 </span>
                               </td>
                               <td className={tdClass}>{user.account}</td>
@@ -182,7 +182,7 @@ module.exports = class Users extends Base {
                                 { !isSuperAdmin && (
                                   <CustomTooltip
                                     show={user.account === account}
-                                    title={_('Cannot Delete Account That is Currently Logged In')}
+                                    title={i18n.t('Cannot Delete Account That is Currently Logged In')}
                                   >
                                     <span>
                                       <button
@@ -213,8 +213,8 @@ module.exports = class Users extends Base {
           {/* Delete user modal */}
           <CustomNotifyModal
             isShowModal={isShowDeleteUserModal}
-            modalTitle={_('Delete Account')}
-            modalBody={_('Are you sure to delete account {0}?', [deleteUserTarget && deleteUserTarget.account])}
+            modalTitle={i18n.t('Delete Account')}
+            modalBody={i18n.t('Are you sure to delete account {{0}}?', {0: deleteUserTarget && deleteUserTarget.account})}
             isConfirmDisable={$isApiProcessing}
             onHide={this.hideDeleteUserModal}
             onConfirm={this.confirmDeleteUser}

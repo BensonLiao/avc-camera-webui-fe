@@ -4,7 +4,7 @@ const progress = require('nprogress');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const setupStep01 = require('../../../resource/setup-step-01.png');
 const setupStep01x2 = require('../../../resource/setup-step-01@2x.png');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
 const store = require('../../../core/store');
 const utils = require('../../../core/utils');
@@ -63,7 +63,7 @@ module.exports = class SetupLanguage extends Base {
                   </div>
 
                   <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onSubmit}>
-                    {_('Next')}
+                    {i18n.t('Next')}
                   </button>
                 </div>
               </form>

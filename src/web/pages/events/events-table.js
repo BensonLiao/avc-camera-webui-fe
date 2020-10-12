@@ -6,7 +6,7 @@ const Similarity = require('webserver-form-schema/constants/event-filters/simila
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
 const wrappedApi = require('../../../core/apis');
@@ -81,15 +81,15 @@ module.exports = class EventsTable extends React.PureComponent {
         icon: classNames(defaultIconClass,
           {'fa-caret-down': (params.sort || '-time') === '-time'},
           {'fa-caret-up': params.sort === 'time'}),
-        title: _('Time'),
+        title: i18n.t('Time'),
         width: {width: '14%'}
       },
       {
-        title: _('Capture'),
+        title: i18n.t('Capture'),
         width: {width: '10%'}
       },
       {
-        title: _('User Picture'),
+        title: i18n.t('User Picture'),
         width: {width: '10%'}
       },
       {
@@ -97,7 +97,7 @@ module.exports = class EventsTable extends React.PureComponent {
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-name'},
           {'fa-caret-up': params.sort === 'name'}),
-        title: _('Name'),
+        title: i18n.t('Name'),
         width: {width: '10%'}
       },
       {
@@ -105,7 +105,7 @@ module.exports = class EventsTable extends React.PureComponent {
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-group'},
           {'fa-caret-up': params.sort === 'group'}),
-        title: _('Group'),
+        title: i18n.t('Group'),
         width: {width: '8%'}
       },
       {
@@ -113,7 +113,7 @@ module.exports = class EventsTable extends React.PureComponent {
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-organization'},
           {'fa-caret-up': params.sort === 'organization'}),
-        title: _('Organization'),
+        title: i18n.t('Organization'),
         width: {width: '14%'}
       },
       {
@@ -121,7 +121,7 @@ module.exports = class EventsTable extends React.PureComponent {
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-confidence'},
           {'fa-caret-up': params.sort === 'confidence'}),
-        title: _('Similarity'),
+        title: i18n.t('Similarity'),
         width: {width: '10%'}
       },
       {
@@ -129,15 +129,15 @@ module.exports = class EventsTable extends React.PureComponent {
         icon: classNames(defaultIconClass,
           {'fa-caret-down': params.sort === '-recognitionResult'},
           {'fa-caret-up': params.sort === 'recognitionResult'}),
-        title: _('Recognition Result'),
+        title: i18n.t('Recognition Result'),
         width: {width: '8%'}
       },
       {
-        title: _('Note'),
+        title: i18n.t('Note'),
         width: {width: '10%'}
       },
       {
-        title: _('Actions'),
+        title: i18n.t('Actions'),
         width: {width: '6%'}
       }
     ];
@@ -168,7 +168,7 @@ module.exports = class EventsTable extends React.PureComponent {
               !events.items.length && (
                 <tr>
                   <td className="text-size-20 text-center" colSpan="10">
-                    <i className="fas fa-frown-open fa-fw text-dark"/> {_('Can\'t find any data.')}
+                    <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('Can\'t find any data.')}
                   </td>
                 </tr>
               )
@@ -229,7 +229,7 @@ module.exports = class EventsTable extends React.PureComponent {
                       </CustomTooltip>
                     </td>
                     <td>
-                      {event.confidences && event.recognitionType !== RecognitionType.fake ? _(`confidence-${event.confidences.similarity}`) : '-'}
+                      {event.confidences && event.recognitionType !== RecognitionType.fake ? i18n.t(`confidence-${event.confidences.similarity}`) : '-'}
                     </td>
                     <td>
                       <CustomTooltip title={event.confidences ? event.confidences.score || '' : ''}>
@@ -239,7 +239,7 @@ module.exports = class EventsTable extends React.PureComponent {
                           {'badge-warning': event.recognitionType === RecognitionType.fake}
                         )}
                         >
-                          {_(`enroll-status-${event.recognitionType}`)}
+                          {i18n.t(`enroll-status-${event.recognitionType}`)}
                         </span>
                       </CustomTooltip>
                     </td>
@@ -252,7 +252,7 @@ module.exports = class EventsTable extends React.PureComponent {
                     </td>
                     <td>
                       {event.recognitionType === RecognitionType.fake ? '-' : (
-                        <CustomTooltip show={isOverPhotoLimit} title={_('Photo Limit Reached')}>
+                        <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit Reached')}>
                           <div className="d-flex justify-content-center">
                             <button
                               disabled={isOverPhotoLimit}
@@ -264,18 +264,18 @@ module.exports = class EventsTable extends React.PureComponent {
                                 pointerEvents: isOverPhotoLimit ? 'none' : 'auto'
                               }}
                             >
-                              {_('Add')}
+                              {i18n.t('Add')}
                             </button>
                             <div className="dropdown-menu dropdown-menu-right shadow">
                               <a
                                 className="dropdown-item px-3"
                                 onClick={addMemberHandler(event.pictureThumbUrl)}
-                              >{_('Add as New Member')}
+                              >{i18n.t('Add as New Member')}
                               </a>
                               <a
                                 className="dropdown-item px-3"
                                 onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
-                              >{_('Add to Existing Member')}
+                              >{i18n.t('Add to Existing Member')}
                               </a>
                             </div>
                           </div>

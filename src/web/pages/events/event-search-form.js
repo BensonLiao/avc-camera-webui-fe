@@ -5,7 +5,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const utils = require('../../../core/utils');
 
@@ -99,11 +99,11 @@ module.exports = class EventsSearchForm extends React.PureComponent {
               <Field
                 name="start"
                 component={DateTimePicker}
-                dateTabText={_('Start Date')}
-                timeTabText={_('Start Time')}
+                dateTabText={i18n.t('Start Date')}
+                timeTabText={i18n.t('Start Time')}
                 inputProps={{
                   className: classNames('btn start-date px-4', {active: isShowStartDatePicker}),
-                  placeholder: _('Start Datetime'),
+                  placeholder: i18n.t('Start Datetime'),
                   style: {
                     whiteSpace: 'nowrap',
                     boxShadow: 'none'
@@ -117,11 +117,11 @@ module.exports = class EventsSearchForm extends React.PureComponent {
               <Field
                 name="end"
                 component={DateTimePicker}
-                dateTabText={_('End Date')}
-                timeTabText={_('End Time')}
+                dateTabText={i18n.t('End Date')}
+                timeTabText={i18n.t('End Time')}
                 inputProps={{
                   className: classNames('btn end-date px-4', {active: isShowEndDatePicker}),
-                  placeholder: _('End Datetime'),
+                  placeholder: i18n.t('End Datetime'),
                   style: {
                     whiteSpace: 'nowrap',
                     boxShadow: 'none'
@@ -136,11 +136,11 @@ module.exports = class EventsSearchForm extends React.PureComponent {
           </div>
           <div className="form-row mt-4">
             <div className="col-auto px-0">
-              <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keywords')}/>
+              <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('Enter Keywords')}/>
             </div>
             <div className="col-auto px-0 ml-3">
               <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
-                <i className="fas fa-search fa-fw"/> {_('Search')}
+                <i className="fas fa-search fa-fw"/> {i18n.t('Search')}
               </button>
             </div>
           </div>

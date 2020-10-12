@@ -6,7 +6,7 @@ const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const FormikEffect = require('../../../core/components/formik-effect');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const {SD_STATUS_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
@@ -103,20 +103,20 @@ module.exports = class SDCard extends Base {
       format: {
         showModal: this.state.showSelectModal.isShowFormatModal,
         modalOnSubmit: this.onSubmitFormatSDCard,
-        modalTitle: _('Format'),
-        modalBody: _('Are you sure you want to format the Micro SD card?')
+        modalTitle: i18n.t('Format'),
+        modalBody: i18n.t('Are you sure you want to format the Micro SD card?')
       },
       unmount: {
         showModal: this.state.showSelectModal.isShowUnmountModal,
         modalOnSubmit: this.onSubmitUnmountSDCard,
-        modalTitle: _('Unmount'),
-        modalBody: _('Are you sure you want to unmount the Micro SD card?')
+        modalTitle: i18n.t('Unmount'),
+        modalBody: i18n.t('Are you sure you want to unmount the Micro SD card?')
       },
       disable: {
         showModal: this.state.showSelectModal.isShowDisableModal,
         modalOnSubmit: this.onSubmitDisableSDCard,
-        modalTitle: _('Disable'),
-        modalBody: [_('• Are you sure you want to disable the Micro SD card?'), _('• Event photos will not be available after disabling')]
+        modalTitle: i18n.t('Disable'),
+        modalBody: [i18n.t('• Are you sure you want to disable the Micro SD card?'), i18n.t('• Event photos will not be available after disabling')]
       }
     };
     return (
@@ -145,7 +145,7 @@ module.exports = class SDCard extends Base {
       <Form className="card-body sdcard">
         <FormikEffect onChange={this.onChangeSdCardSetting}/>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{_('SD Card')}</label>
+          <label className="mb-0">{i18n.t('SD Card')}</label>
           <div className="custom-control custom-switch">
             <Field
               name="sdEnabled"
@@ -154,17 +154,17 @@ module.exports = class SDCard extends Base {
               id="switch-sound"
             />
             <label className="custom-control-label" htmlFor="switch-sound">
-              <span>{_('ON')}</span>
-              <span>{_('OFF')}</span>
+              <span>{i18n.t('ON')}</span>
+              <span>{i18n.t('OFF')}</span>
             </label>
           </div>
         </div>
         <div className="form-group">
           <div className="card">
             <div className="card-body">
-              <label>{_('SD Card Operation')}</label>
+              <label>{i18n.t('SD Card Operation')}</label>
               <div>
-                <CustomTooltip show={sdEnabled} title={_('Please Disable SD Card First')}>
+                <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
                   <span>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5 mr-3"
@@ -173,12 +173,12 @@ module.exports = class SDCard extends Base {
                       style={sdEnabled ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowFormatModal')}
                     >
-                      {_('Format')}
+                      {i18n.t('Format')}
                     </button>
                     {this.sdcardModalRender('format')}
                   </span>
                 </CustomTooltip>
-                <CustomTooltip show={sdEnabled} title={_('Please Disable SD Card First')}>
+                <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
                   <span>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5"
@@ -187,7 +187,7 @@ module.exports = class SDCard extends Base {
                       style={sdEnabled ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowUnmountModal')}
                     >
-                      {_('Unmount')}
+                      {i18n.t('Unmount')}
                     </button>
                     {this.sdcardModalRender('unmount')}
                   </span>
@@ -203,15 +203,15 @@ module.exports = class SDCard extends Base {
           <div className="card">
             <div className="card-body">
               <div className="form-group align-items-center mb-0">
-                <label className="mb-0 mr-3">{_('SD Card Notification')}</label>
+                <label className="mb-0 mr-3">{i18n.t('SD Card Notification')}</label>
                 <span>
                   {
                     isEnableAuth ?
-                      <a className="text-success">{_('Email Notification Set')}</a> :
-                      <Link className="text-danger" to="/notification/smtp">{_('Setup Email Notifications')}</Link>
+                      <a className="text-success">{i18n.t('Email Notification Set')}</a> :
+                      <Link className="text-danger" to="/notification/smtp">{i18n.t('Setup Email Notifications')}</Link>
                   }
                 </span>
-                <CustomTooltip show={!isEnableAuth} title={_('Please Setup Email Notifications')}>
+                <CustomTooltip show={!isEnableAuth} title={i18n.t('Please Setup Email Notifications')}>
                   <div className="custom-control custom-switch float-right">
                     <Field
                       disabled={!isEnableAuth}
@@ -222,8 +222,8 @@ module.exports = class SDCard extends Base {
                       id="switch-output"
                     />
                     <label className="custom-control-label" htmlFor="switch-output">
-                      <span>{_('ON')}</span>
-                      <span>{_('OFF')}</span>
+                      <span>{i18n.t('ON')}</span>
+                      <span>{i18n.t('OFF')}</span>
                     </label>
                   </div>
                 </CustomTooltip>
@@ -233,13 +233,13 @@ module.exports = class SDCard extends Base {
         </div>
         <div className="form-group px-3">
           <div className="d-flex justify-content-between align-items-center mb-0">
-            <label className="mb-o">{_('Status')}</label>
-            <label className="mb-o text-primary">{_(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}
+            <label className="mb-o">{i18n.t('Status')}</label>
+            <label className="mb-o text-primary">{i18n.t(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}
             </label>
           </div>
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
-            <label className="mb-o">{_('File Format')}</label>
+            <label className="mb-o">{i18n.t('File Format')}</label>
             <label className="mb-o text-primary">{sdFormat}</label>
           </div>
           <hr/>
@@ -247,11 +247,11 @@ module.exports = class SDCard extends Base {
         <div className={classNames('form-group', sdStatus === 0 ? '' : 'd-none')}>
           <div className="card">
             <div className="card-header sd-card-round">
-              {_('Storage Space')}
+              {i18n.t('Storage Space')}
             </div>
             <div className="card-body">
               <div className="form-group mb-0">
-                <label className="mb-3">{_('SD Card')}</label>
+                <label className="mb-3">{i18n.t('SD Card')}</label>
                 <VolumeProgressBar
                   total={sdTotal}
                   usage={sdUsage}
@@ -274,11 +274,11 @@ module.exports = class SDCard extends Base {
             <div className="row justify-content-center">
               <BreadCrumb
                 className="px-0"
-                path={[_('SD Card Settings')]}
+                path={[i18n.t('SD Card Settings')]}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('SD Card Settings')}</div>
+                  <div className="card-header">{i18n.t('SD Card Settings')}</div>
                   <Formik
                     initialValues={systemInformation}
                   >
