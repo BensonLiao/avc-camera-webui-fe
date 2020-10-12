@@ -9,9 +9,7 @@ import IOType from 'webserver-form-schema/constants/io-type';
 import i18n from '../../i18n';
 import api from '../../../core/apis/web-api';
 
-const IoInput = props => {
-  const {isApiProcessing, currentTab, isEnableIoIn, ioInSettings} = props;
-
+const IoInput = ({isApiProcessing, currentTab, isEnableIoIn, ioInSettings}) => {
   const onSubmitIOInSettingsForm = values => {
     progress.start();
     localStorage.setItem('currentTab', currentTab);
