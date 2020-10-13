@@ -102,21 +102,6 @@ module.exports = class HDMI extends Base {
                   >
                     {({values}) => (
                       <Form className="card-body">
-                        {/* <div className="form-group d-flex justify-content-between align-items-center">
-                          <label className="mb-0">{i18n.t('On/Off')}</label>
-                          <div className="custom-control custom-switch">
-                            <Field
-                              name="isEnableHDMI"
-                              type="checkbox"
-                              className="custom-control-input"
-                              id="switch-hdmi"
-                            />
-                            <label className="custom-control-label" htmlFor="switch-hdmi">
-                              <span>{i18n.t('ON')}</span>
-                              <span>{i18n.t('OFF')}</span>
-                            </label>
-                          </div>
-                        </div> */}
                         <SelectField
                           labelName={i18n.t('Resolution')}
                           name="resolution"
