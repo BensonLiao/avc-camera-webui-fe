@@ -20,10 +20,7 @@ module.exports = (env = {}) => {
   return {
     target: 'web',
     mode: env.mode || 'development',
-    entry: {
-      lang: path.join(__dirname, 'src', 'languages', 'index.js'),
-      web: path.join(__dirname, 'src', 'web', 'index.js')
-    },
+    entry: {web: path.join(__dirname, 'src', 'web', 'index.js')},
     devServer: {
       host: config.webpackDevServer.host,
       port: config.webpackDevServer.port,

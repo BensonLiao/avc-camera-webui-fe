@@ -21,7 +21,7 @@ const logo = require('../../resource/logo-avc.svg');
 const CustomTooltip = require('../../core/components/tooltip');
 const SessionExpireModal = require('../../core/components/session-expire-modal');
 const api = require('../../core/apis/web-api');
-const _ = require('../../languages');
+const i18n = require('../../web/i18n').default;
 const constants = require('../../core/constants');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
@@ -41,8 +41,8 @@ module.exports = class Layout extends Base {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     const router = getRouter();
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
@@ -210,47 +210,47 @@ module.exports = class Layout extends Base {
       <>
         { isAdmin && (
           <div className="left-navigation fixed-top">
-            <CustomTooltip title={_('Home')}>
+            <CustomTooltip title={i18n.t('Home')}>
               <Link className={classTable.home} to="/" onClick={this.onClickLink}>
                 <img src={iconHome}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={_('Video')}>
+            <CustomTooltip title={i18n.t('Video')}>
               <Link className={classTable.media} to="/media/stream" onClick={this.onClickLink}>
                 <img src={iconMedia}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={_('Audio')}>
+            <CustomTooltip title={i18n.t('Audio')}>
               <Link className={classTable.audio} to="/audio" onClick={this.onClickLink}>
                 <img src={iconAudio}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={_('Notification Settings')}>
+            <CustomTooltip title={i18n.t('Notification Settings')}>
               <Link className={classTable.notification} to="/notification/smtp" onClick={this.onClickLink}>
                 <img src={iconNotification}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={_('User Management')}>
+            <CustomTooltip title={i18n.t('User Management')}>
               <Link className={classTable.users} to="/users/members" onClick={this.onClickLink}>
                 <img src={iconUserManagement}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={_('Analytic')}>
+            <CustomTooltip title={i18n.t('Analytic')}>
               <Link className={classTable.smart} to="/analytic/face-recognition" onClick={this.onClickLink}>
                 <img src={iconAnalytic}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={_('Network')}>
+            <CustomTooltip title={i18n.t('Network')}>
               <Link className={classTable.network} to="/network/settings" onClick={this.onClickLink}>
                 <img src={iconNetwork}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={_('System')}>
+            <CustomTooltip title={i18n.t('System')}>
               <Link className={classTable.system} to="/system/datetime" onClick={this.onClickLink}>
                 <img src={iconSystem}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={_('SD Card')}>
+            <CustomTooltip title={i18n.t('SD Card')}>
               <Link className={classTable.sdCard} to="/sd-card" onClick={this.onClickLink}>
                 <img src={iconSDCard}/>
               </Link>
@@ -303,15 +303,15 @@ module.exports = class Layout extends Base {
                     <i className="fas fa-question-circle text-size-20 mr-0 fa-fw"/>
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    <h6 className="dropdown-header">{_('Support')}</h6>
+                    <h6 className="dropdown-header">{i18n.t('Support')}</h6>
                     <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
-                      {_('Product Use')}
+                      {i18n.t('Product Use')}
                     </a>
                     <a className="dropdown-item" href="mailto:support@androvideo.com">
-                      {_('Technical Support')}
+                      {i18n.t('Technical Support')}
                     </a>
                     <a className="dropdown-item" href="http://androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
-                      {_('Product Information')}
+                      {i18n.t('Product Information')}
                     </a>
                   </div>
                 </div>
@@ -324,12 +324,12 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h5 className="dropdown-header text-primary">
-                      {_(`permission-${$user.permission}`)}
+                      {i18n.t(`permission-${$user.permission}`)}
                     </h5>
                     <span className="dropdown-item-text font-weight-bold">{$user.account}</span>
                     <div className="dropdown-divider"/>
                     <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>
-                      {_('Sign Out')}
+                      {i18n.t('Sign Out')}
                     </a>
                   </div>
                 </div>
@@ -356,19 +356,19 @@ module.exports = class Layout extends Base {
             ${systemInformation.mac}`)}
             onMouseLeave={this.onAboutModalHoverOut}
           >
-            <h5 className="modal-title">{_('About')}</h5>
+            <h5 className="modal-title">{i18n.t('About')}</h5>
           </div>
           <div
             ref={this.modelNameRef}
             className="modal-body"
           >
-            <div className="text-info mt-2">{_('Model Name')} :</div>
+            <div className="text-info mt-2">{i18n.t('Model Name')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.modelName}</div>
-            <div className="text-info mt-3">{_('Firmware')} :</div>
+            <div className="text-info mt-3">{i18n.t('Firmware')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.firmware}</div>
-            <div className="text-info mt-3">{_('Serial Number')} :</div>
+            <div className="text-info mt-3">{i18n.t('Serial Number')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.serialNumber}</div>
-            <div className="text-info mt-3">{_('MAC Address')} :</div>
+            <div className="text-info mt-3">{i18n.t('MAC Address')} :</div>
             <div className="text-primary font-weight-bold">{networkSettings.mac}</div>
           </div>
           <div className="modal-footer flex-column">
@@ -377,7 +377,7 @@ module.exports = class Layout extends Base {
               className="btn btn-info btn-block m-0 rounded-pill"
               onClick={this.hideAboutModal}
             >
-              {_('Close')}
+              {i18n.t('Close')}
             </button>
           </div>
         </Modal>

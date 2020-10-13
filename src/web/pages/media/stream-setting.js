@@ -13,12 +13,11 @@ const StreamResolution = require('webserver-form-schema/constants/stream-resolut
 const StreamBandwidthManagement = require('webserver-form-schema/constants/stream-bandwidth-management');
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const StreamQuality = require('webserver-form-schema/constants/stream-quality');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const Dropdown = require('../../../core/components/fields/dropdown');
 const SelectField = require('../../../core/components/fields/select-field');
-
 module.exports = class StreamSetting extends Base {
   static get propTypes() {
     // Make form ui for home page or not
@@ -30,12 +29,12 @@ module.exports = class StreamSetting extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Updating Stream Settings');
+    this.state.apiProcessModalTitle = i18n.t('Updating Stream Settings');
     this.state.hasResolutionRatioChanged = false;
-    this.state.channelOptions = this.processRenderOptions(this.props.streamSettings);
+    this.state.channelOptions = this.processRenderOptions(props.streamSettings);
     // Enum to test for changing resolution aspect ratio
     this.fourByThree = [
       Number(StreamResolution['5']),
@@ -65,7 +64,7 @@ module.exports = class StreamSetting extends Base {
           value: x
         })),
         resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({
-          label: _(`stream-resolution-${x}`),
+          label: i18n.t(`stream-resolution-${x}`),
           value: x
         })),
         frameRate: (() => {
@@ -82,7 +81,7 @@ module.exports = class StreamSetting extends Base {
           return result;
         })(),
         bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-          label: _(`stream-bandwidth-management-${x}`),
+          label: i18n.t(`stream-bandwidth-management-${x}`),
           value: x
         })),
         gov: StreamGOV.all().map(x => ({
@@ -125,7 +124,7 @@ module.exports = class StreamSetting extends Base {
           }
 
           return options.map(x => ({
-            label: _(`stream-resolution-${x}`),
+            label: i18n.t(`stream-resolution-${x}`),
             value: x
           }));
         })(),
@@ -159,7 +158,7 @@ module.exports = class StreamSetting extends Base {
           return result;
         })(),
         bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-          label: _(`stream-bandwidth-management-${x}`),
+          label: i18n.t(`stream-bandwidth-management-${x}`),
           value: x
         })),
         gov: StreamGOV.all().map(x => ({
@@ -167,7 +166,7 @@ module.exports = class StreamSetting extends Base {
           value: x
         })),
         quality: StreamQuality.all().map(x => ({
-          label: _(`quality-${x}`),
+          label: i18n.t(`quality-${x}`),
           value: x
         }))
       }
@@ -232,7 +231,7 @@ module.exports = class StreamSetting extends Base {
       formValues.channelA.codec = newCodecValue;
       this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
         const {frameRate: frameRateA, resolution} = this.state.channelOptions.chA;
-        setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateA[frameRateA.length - 1].value);
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.lastIndexValue(frameRateA));
         setFieldValue(`${fieldNamePrefix}.resolution`, resolution[0].value);
       });
       const prev = Number(allValues.channelA.resolution);
@@ -245,7 +244,7 @@ module.exports = class StreamSetting extends Base {
         this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
           const {frameRate: frameRateB, resolution} = this.state.channelOptions.chB;
           setFieldValue('channelB.resolution', resolution[0].value);
-          setFieldValue('channelB.frameRate', frameRateB[frameRateB.length - 1].value);
+          setFieldValue('channelB.frameRate', this.lastIndexValue(frameRateB));
         });
       }
     }
@@ -259,7 +258,7 @@ module.exports = class StreamSetting extends Base {
           const {frameRate: frameRateB} = this.state.channelOptions.chB;
           setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
           setFieldValue(`${fieldNamePrefix}.resolution`, this.state.channelOptions.chB.resolution[0].value);
-          setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateB[frameRateB.length - 1].value);
+          setFieldValue(`${fieldNamePrefix}.frameRate`, this.lastIndexValue(frameRateB));
         });
       });
     }
@@ -281,8 +280,8 @@ module.exports = class StreamSetting extends Base {
         this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
           const {frameRate: frameRateA} = this.state.channelOptions.chA;
           const {frameRate: frameRateB, resolution: resolutionB} = this.state.channelOptions.chB;
-          setFieldValue('channelA.frameRate', frameRateA[frameRateA.length - 1].value);
-          setFieldValue('channelB.frameRate', frameRateB[frameRateB.length - 1].value);
+          setFieldValue('channelA.frameRate', this.lastIndexValue(frameRateA));
+          setFieldValue('channelB.frameRate', this.lastIndexValue(frameRateB));
           setFieldValue('channelB.resolution', resolutionB[0].value);
         });
       }
@@ -291,7 +290,7 @@ module.exports = class StreamSetting extends Base {
         formValues.channelA.resolution = newResValue;
         this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
           const {frameRate: frameRateA} = this.state.channelOptions.chA;
-          setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateA[frameRateA.length - 1].value);
+          setFieldValue(`${fieldNamePrefix}.frameRate`, this.lastIndexValue(frameRateA));
         });
       }
 
@@ -300,9 +299,13 @@ module.exports = class StreamSetting extends Base {
         formValues.channelB.resolution = newResValue;
         this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
           const {frameRate: frameRateB} = this.state.channelOptions.chB;
-          setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateB[frameRateB.length - 1].value);
+          setFieldValue(`${fieldNamePrefix}.frameRate`, this.lastIndexValue(frameRateB));
         });
       }
+    };
+
+    lastIndexValue = array => {
+      return array[array.length - 1].value;
     };
 
   fieldsRender = (fieldNamePrefix, options, values, setFieldValue, allValues) => {
@@ -311,7 +314,7 @@ module.exports = class StreamSetting extends Base {
     return (
       <>
         <SelectField
-          labelName={_('Codec')}
+          labelName={i18n.t('Codec')}
           readOnly={homePage}
           name={`${fieldNamePrefix}.codec`}
           onChange={event => this.onUpdateCodecField(event, fieldNamePrefix, allValues, setFieldValue)}
@@ -321,7 +324,7 @@ module.exports = class StreamSetting extends Base {
           ))}
         </SelectField>
         <SelectField
-          labelName={_('Resolution')}
+          labelName={i18n.t('Resolution')}
           readOnly={homePage}
           name={`${fieldNamePrefix}.resolution`}
           onChange={event => this.onUpdateResField(event, fieldNamePrefix, allValues, setFieldValue)}
@@ -330,13 +333,13 @@ module.exports = class StreamSetting extends Base {
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </SelectField>
-        <SelectField labelName={_('Frame Rate (FPS)')} name={`${fieldNamePrefix}.frameRate`}>
+        <SelectField labelName={i18n.t('Frame Rate (FPS)')} name={`${fieldNamePrefix}.frameRate`}>
           {options.frameRate.map(option => (
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </SelectField>
         {values.codec === StreamCodec.mjpeg && (
-          <SelectField labelName={_('Quality')} name={`${fieldNamePrefix}.quality`}>
+          <SelectField labelName={i18n.t('Quality')} name={`${fieldNamePrefix}.quality`}>
             {options.quality.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
@@ -344,7 +347,7 @@ module.exports = class StreamSetting extends Base {
         )}
         {values.codec !== StreamCodec.mjpeg && (
           <div className="form-group">
-            <label>{_('Bandwidth Management')}</label>
+            <label>{i18n.t('Bandwidth Management')}</label>
             <div className="input-group">
               <div className="input-group-prepend">
                 <Field
@@ -384,7 +387,10 @@ module.exports = class StreamSetting extends Base {
               </div>
             </div>
             <small className="text-info mb-3">
-              {_('{0} - {1} Kbps', [StreamSettingsSchema.channelA.props.bitRate.min, StreamSettingsSchema.channelA.props.bitRate.max])}
+              {i18n.t('{{0}} - {{1}} Kbps', {
+                0: StreamSettingsSchema.channelA.props.bitRate.min,
+                1: StreamSettingsSchema.channelA.props.bitRate.max
+              })}
             </small>
             {!(values.bandwidthManagement === StreamBandwidthManagement.vbr) && (
               <div style={{display: 'block'}} className="invalid-feedback">
@@ -395,7 +401,7 @@ module.exports = class StreamSetting extends Base {
         )}
         {values.codec !== StreamCodec.mjpeg && (
         /* GOP is same as GOV */
-          <SelectField hide={homePage} readOnly={homePage} labelName={_('GOP')} name={`${fieldNamePrefix}.gov`}>
+          <SelectField hide={homePage} readOnly={homePage} labelName={i18n.t('GOP')} name={`${fieldNamePrefix}.gov`}>
             {options.gov.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
@@ -432,7 +438,7 @@ module.exports = class StreamSetting extends Base {
               (errors.channelB && !(values.channelB.bandwidthManagement === StreamBandwidthManagement.vbr))}
             onClick={this.showModal}
           >
-            {_('Apply')}
+            {i18n.t('Apply')}
           </button>
         </div>
         <button
@@ -441,14 +447,14 @@ module.exports = class StreamSetting extends Base {
           disabled={this.state.$isApiProcessing}
           onClick={this.onClickResetButton}
         >
-          {_('Reset to Default Settings')}
+          {i18n.t('Reset to Default Settings')}
         </button>
         <CustomNotifyModal
           isShowModal={isShowModal}
-          modalTitle={_('Stream Settings')}
+          modalTitle={i18n.t('Stream Settings')}
           modalBody={this.state.hasResolutionRatioChanged ?
-            _('Changing stream 1 resolution ratio will also update stream 2 resolution settings.') :
-            _('Are you sure you want to update stream settings?')}
+            i18n.t('Changing stream 1 resolution ratio will also update stream 2 resolution settings.') :
+            i18n.t('Are you sure you want to update stream settings?')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
           onConfirm={() => {
@@ -464,7 +470,7 @@ module.exports = class StreamSetting extends Base {
     return (
       <>
         <div className={classNames('card-header', (homePage && 'd-flex align-items-center justify-content-between rounded-0'))}>
-          {homePage ? (_('Stream Settings')) : (_('Settings'))}
+          {homePage ? (i18n.t('Stream Settings')) : (i18n.t('Settings'))}
           {
             homePage && (
               <button
@@ -473,7 +479,7 @@ module.exports = class StreamSetting extends Base {
                 disabled={this.state.$isApiProcessing}
                 onClick={this.onClickResetButton}
               >
-                {_('Reset to Default Settings')}
+                {i18n.t('Reset to Default Settings')}
               </button>
             )
           }
@@ -482,12 +488,12 @@ module.exports = class StreamSetting extends Base {
           <Nav>
             <Nav.Item>
               <Nav.Link eventKey="tab-channel-a">
-                {_('Stream {0}', '01')}
+                {i18n.t('Stream 01')}
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="tab-channel-b">
-                {_('Stream {0}', '02')}
+                {i18n.t('Stream 02')}
               </Nav.Link>
             </Nav.Item>
           </Nav>

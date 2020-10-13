@@ -4,12 +4,12 @@ import {getRouter} from 'capybara-router';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from '../../languages';
 import api from '../apis/web-api';
 import CustomNotifyModal from './custom-notify-modal';
 import CustomTooltip from './tooltip';
 import notify from '../notify';
 import utils from '../utils';
+import i18n from '../../web/i18n';
 
 class SearchMember extends React.PureComponent {
   static propTypes = {
@@ -100,8 +100,8 @@ class SearchMember extends React.PureComponent {
         picture: convertedPicture
       }).then(() =>
         notify.showSuccessNotification({
-          title: _('Setting Success'),
-          message: _('Added Photo to {0} Successfully!', [member.name])
+          title: i18n.t('Setting Success'),
+          message: i18n.t('Added Photo to {{0}} Successfully!', {0: member.name})
         }))
         .then(getRouter().reload)
         .finally(() => this.hideApiProcessModal())
@@ -130,7 +130,7 @@ class SearchMember extends React.PureComponent {
           }}
         >
           <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying)} className="d-flex justify-content-between align-items-center">
-            <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
+            <Modal.Title as="h5">{i18n.t('Add Photo To Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="d-flex flex-row justify-content-between align-items-end mb-4 px-3">
@@ -153,7 +153,7 @@ class SearchMember extends React.PureComponent {
                 { errorMessage && (
                   <p className="text-size-14 mb-1 text-danger validate-error-message">
                     <i className="fas fa-exclamation-triangle mr-1"/>
-                    {`${_(errorMessage)}`}
+                    {`${i18n.t(errorMessage)}`}
                   </p>
                 )}
               </div>
@@ -166,7 +166,7 @@ class SearchMember extends React.PureComponent {
                     className="px-0"
                     style={{width: '200px'}}
                   >
-                    <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keywords')}/>
+                    <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('Enter Keywords')}/>
                   </div>
                   <div className="px-0 ml-3">
                     <button
@@ -175,7 +175,7 @@ class SearchMember extends React.PureComponent {
                       // allow search during photo verification
                       disabled={isApiProcessing && !isVerifying}
                     >
-                      <i className="fas fa-search fa-fw"/> {_('Search')}
+                      <i className="fas fa-search fa-fw"/> {i18n.t('Search')}
                     </button>
                   </div>
                 </Form>
@@ -191,9 +191,9 @@ class SearchMember extends React.PureComponent {
               <table className="table custom-style mb-4" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
-                    <th style={{width: '40%'}}>{_('User Picture')}</th>
-                    <th style={{width: '40%'}}>{_('Name')}</th>
-                    <th style={{width: '20%'}}>{_('Actions')}</th>
+                    <th style={{width: '40%'}}>{i18n.t('User Picture')}</th>
+                    <th style={{width: '40%'}}>{i18n.t('Name')}</th>
+                    <th style={{width: '20%'}}>{i18n.t('Actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -202,7 +202,7 @@ class SearchMember extends React.PureComponent {
                   {!members && !isFetching && (
                     <tr>
                       <td className="text-size-16 text-center pt-3" colSpan="10">
-                        <i className="fas fa-search fa-fw"/> {_('Enter Keyword For Search')}
+                        <i className="fas fa-search fa-fw"/> {i18n.t('Enter Keyword For Search')}
                       </td>
                     </tr>
                   )}
@@ -211,7 +211,7 @@ class SearchMember extends React.PureComponent {
                   { members && !members.items.length && members.items.length === 0 && (
                     <tr>
                       <td className="text-size-16 text-center" colSpan="10">
-                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {_('Can\'t find any data.')}
+                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('Can\'t find any data.')}
                       </td>
                     </tr>
                   )}
@@ -245,12 +245,12 @@ class SearchMember extends React.PureComponent {
                         <td className={classNames('text-left group-btn', tdClass)}>
                           <CustomTooltip title={
                             isVerifying ?
-                              _('Verifying Photo') :
+                              i18n.t('Verifying Photo') :
                               verifyStatus ?
                                 (member.pictures.length >= 5 ?
-                                  _('Photo Limit Reached') :
-                                  _('Add to {0}', [member.name])) :
-                                _('Invalid Photo')
+                                  i18n.t('Photo Limit Reached') :
+                                  i18n.t('Add to {{0}}', {0: member.name})) :
+                                i18n.t('Invalid Photo')
                           }
                           >
                             <div>
@@ -263,7 +263,7 @@ class SearchMember extends React.PureComponent {
                                   convertedPicture
                                 })}
                               >
-                                {_('Add')}
+                                {i18n.t('Add')}
                               </button>
                             </div>
                           </CustomTooltip>
@@ -306,7 +306,7 @@ class SearchMember extends React.PureComponent {
           modalType="process"
           backdrop="static"
           isShowModal={this.state.isShowApiProcessModal}
-          modalTitle={_('Updating Member')}
+          modalTitle={i18n.t('Updating Member')}
           onHide={this.hideApiProcessModal}
         />
       </>
@@ -324,8 +324,8 @@ class Pagination extends React.PureComponent {
   }
 
   constructor(props) {
-    super(props);
-    this.maxGotoIndex = Math.ceil(this.props.total / this.props.size);
+    super();
+    this.maxGotoIndex = Math.ceil(props.total / props.size);
   }
 
   state = {gotoIndex: 0};
@@ -379,7 +379,11 @@ class Pagination extends React.PureComponent {
            }}
          >
            <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-             {_('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
+             {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+               0: startItem,
+               1: endItem,
+               2: total
+             })}
            </p>
            <ul className="pagination my-auto">
              <li className={classNames('page-item', {disabled: !hasPrevious})}>
@@ -418,7 +422,11 @@ class Pagination extends React.PureComponent {
              </li>
            </ul>
            <p className="text-size-14 text-muted mb-0 ml-auto">
-             {_('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
+             {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+               0: startItem,
+               1: endItem,
+               2: total
+             })}
            </p>
          </nav>
        </div>

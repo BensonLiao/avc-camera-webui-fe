@@ -14,8 +14,8 @@ axios.interceptors.response.use(
 );
 
 module.exports = class H264 extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state.streamImageUrl = null;
   }
 

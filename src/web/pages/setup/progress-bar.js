@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'capybara-router';
-import _ from '../../../languages';
+import i18n from '../../i18n';
 
-const ProgressBar = props => {
-  const {step, hasPreviousPage, progressBarImage, progressBarImagex2} = props;
+const ProgressBar = ({step, hasPreviousPage, progressBarImage, progressBarImagex2}) => {
   return (
     <div className="steps d-flex">
       <div className="d-flex flex-grow-1 justify-content-between">
-        <p className="text-primary">{_('Language')}</p>
-        <p className={step > 1 && 'text-primary'}>{_('Setup Account')}</p>
-        <p className={step > 2 && 'text-primary'}>{_('HTTPS')}</p>
+        <p className="text-primary">{i18n.t('Language')}</p>
+        <p className={step > 1 && 'text-primary'}>{i18n.t('Setup Account')}</p>
+        <p className={step > 2 && 'text-primary'}>{i18n.t('HTTPS')}</p>
       </div>
       <img src={progressBarImage} srcSet={`${progressBarImagex2} 2x`}/>
       { hasPreviousPage && (

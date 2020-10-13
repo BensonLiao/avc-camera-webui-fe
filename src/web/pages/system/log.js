@@ -2,7 +2,7 @@ const React = require('react');
 const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const wrappedApi = require('../../../core/apis');
 const download = require('downloadjs');
@@ -11,12 +11,12 @@ const StageProgress = require('../../../core/components/stage-progress');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class Log extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state.file = null;
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Downloading System Log');
+    this.state.apiProcessModalTitle = i18n.t('Downloading System Log');
     this.state.progressStatus = 'start';
     this.state.progressPercentage = 0;
   }
@@ -77,27 +77,27 @@ module.exports = class Log extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('System'), _('System Information'), _('System Log')]}
+                path={[i18n.t('System'), i18n.t('System Information'), i18n.t('System Log')]}
                 routes={['/system/datetime', '/system/log']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('System Log')}</div>
+                  <div className="card-header">{i18n.t('System Log')}</div>
                   <div className="card-body">
                     <div className="form-group">
-                      <label className="mb-0 my-3">{_('System Log File Record')}</label>
+                      <label className="mb-0 my-3">{i18n.t('System Log File Record')}</label>
                       <div>
                         <button
                           className="btn btn-outline-primary rounded-pill px-5"
                           type="button"
                           onClick={this.showModal}
-                        >{_('Delete Record')}
+                        >{i18n.t('Delete Record')}
                         </button>
                         <CustomNotifyModal
                           modalType="default"
                           isShowModal={isShowModal}
-                          modalTitle={_('Delete System Log File')}
-                          modalBody={_('Are you sure you want to delete record?')}
+                          modalTitle={i18n.t('Delete System Log File')}
+                          modalBody={i18n.t('Are you sure you want to delete record?')}
                           onHide={this.hideModal}
                           onConfirm={this.onClickClearLog}
                         />
@@ -105,7 +105,7 @@ module.exports = class Log extends Base {
                           className="btn btn-outline-primary rounded-pill px-5 ml-3"
                           type="button"
                           onClick={this.onClickDownloadLog}
-                        >{_('Download')}
+                        >{i18n.t('Download')}
                         </button>
                         <CustomNotifyModal
                           modalType="process"

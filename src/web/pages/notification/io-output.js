@@ -8,14 +8,12 @@ import {Tab} from 'react-bootstrap';
 import IOType from 'webserver-form-schema/constants/io-type';
 import GateType from 'webserver-form-schema/constants/gate-type';
 import NotificationIOOutSchema from 'webserver-form-schema/notification-io-out-schema';
-import _ from '../../../languages';
+import i18n from '../../i18n';
 import api from '../../../core/apis/web-api';
 import ioOutSettingsValidator from '../../validations/notifications/io-out-settings-validator';
 import utils from '../../../core/utils';
 
-const IoOutput = props => {
-  const {isApiProcessing, currentTab, index, ioOutSettings, isEnableIoOutput} = props;
-
+const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIoOutput}) => {
   const generateIOOutSettingsSubmitHandler = index => values => {
     progress.start();
     localStorage.setItem('currentTab', currentTab);
@@ -35,18 +33,18 @@ const IoOutput = props => {
           <Tab.Pane eventKey={`tab-output-${index + 1}`}>
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{_('Output {0}', [index + 1])}</label>
+                <label>{i18n.t('Output {{0}}', {0: index + 1})}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
                   <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
-                    <span>{_('ON')}</span>
-                    <span>{_('OFF')}</span>
+                    <span>{i18n.t('ON')}</span>
+                    <span>{i18n.t('OFF')}</span>
                   </label>
                 </div>
               </div>
               <div className={classNames(isEnableIoOutput ? '' : 'd-none')}>
                 <div className="form-group">
-                  <label>{_('Normal State')}</label>
+                  <label>{i18n.t('Normal State')}</label>
                   <div className="d-flex align-items-center">
                     <div className="form-check">
                       <Field
@@ -56,7 +54,7 @@ const IoOutput = props => {
                         id={`input-output${index}-normally-open`}
                         value={IOType.normallyOpen}
                       />
-                      <label className="form-check-label" htmlFor={`input-output${index}-normally-open`}>{_('Normally Open')}</label>
+                      <label className="form-check-label" htmlFor={`input-output${index}-normally-open`}>{i18n.t('Normally Open')}</label>
                     </div>
                     <div className="form-check ml-5">
                       <Field
@@ -66,30 +64,30 @@ const IoOutput = props => {
                         id={`input-output${index}-normally-closed`}
                         value={IOType.normallyClosed}
                       />
-                      <label className="form-check-label" htmlFor={`input-output${index}-normally-closed`}>{_('Normally Closed')}</label>
+                      <label className="form-check-label" htmlFor={`input-output${index}-normally-closed`}>{i18n.t('Normally Closed')}</label>
                     </div>
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>{_('Type')}</label>
+                  <label>{i18n.t('Type')}</label>
                   <div className="d-flex align-items-center">
                     <div className="form-check">
                       <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-normal`} value={GateType.normal}/>
-                      <label className="form-check-label" htmlFor={`input-output${index}-normal`}>{_('Normal')}</label>
+                      <label className="form-check-label" htmlFor={`input-output${index}-normal`}>{i18n.t('Normal')}</label>
                     </div>
                     <div className="form-check ml-5">
                       <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-debounce`} value={GateType.buffer}/>
-                      <label className="form-check-label" htmlFor={`input-output${index}-debounce`}>{_('Buffer')}</label>
+                      <label className="form-check-label" htmlFor={`input-output${index}-debounce`}>{i18n.t('Buffer')}</label>
                     </div>
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>{_('Pulse Time (Seconds)')}</label>
+                  <label>{i18n.t('Pulse Time (Seconds)')}</label>
                   <Field
                     name="pulse"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
-                    placeholder={_('Enter Seconds')}
+                    placeholder={i18n.t('Enter Seconds')}
                   />
                   {
                     errors.pulse && touched.pulse && (
@@ -97,16 +95,19 @@ const IoOutput = props => {
                     )
                   }
                   <small className="form-text text-muted">
-                    {_('{0} - {1} Seconds', [NotificationIOOutSchema.pulse.min, NotificationIOOutSchema.pulse.max])}
+                    {i18n.t('{{0}} - {{1}} Seconds', {
+                      0: NotificationIOOutSchema.pulse.min,
+                      1: NotificationIOOutSchema.pulse.max
+                    })}
                   </small>
                 </div>
                 <div className="form-group">
-                  <label>{_('Delay Time (Seconds)')}</label>
+                  <label>{i18n.t('Delay Time (Seconds)')}</label>
                   <Field
                     name="delay"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
-                    placeholder={_('Enter Seconds')}
+                    placeholder={i18n.t('Enter Seconds')}
                   />
                   {
                     errors.delay && touched.delay && (
@@ -114,12 +115,15 @@ const IoOutput = props => {
                     )
                   }
                   <small className="form-text text-muted">
-                    {_('{0} - {1} Seconds', [NotificationIOOutSchema.delay.min, NotificationIOOutSchema.delay.max])}
+                    {i18n.t('{{0}} - {{1}} Seconds', {
+                      0: NotificationIOOutSchema.delay.min,
+                      1: NotificationIOOutSchema.delay.max
+                    })}
                   </small>
                 </div>
               </div>
               <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-                {_('Apply')}
+                {i18n.t('Apply')}
               </button>
             </Form>
           </Tab.Pane>

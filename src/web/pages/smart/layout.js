@@ -2,12 +2,12 @@ const classNames = require('classnames');
 const React = require('react');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Loading = require('../../../core/components/loading');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
 
 module.exports = class Smart extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     const router = getRouter();
 
     this.state.currentRouteName = router.currentRoute.name;
@@ -30,28 +30,28 @@ module.exports = class Smart extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{_('Analytic')}</h2>
+          <h2>{i18n.t('Analytic')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/analytic/face-recognition"
-              title={_('Facial Recognition')}
+              title={i18n.t('Facial Recognition')}
               className={classNames('nav-link', {active: currentRouteName === 'web.smart.face-recognition'})}
             >
-              {_('Facial Recognition')}
+              {i18n.t('Facial Recognition')}
             </Link>
             <Link
               to="/analytic/motion-detection"
-              title={_('Motion Detection')}
+              title={i18n.t('Motion Detection')}
               className={classNames('nav-link', {active: currentRouteName === 'web.smart.motion-detection'})}
             >
-              {_('Motion Detection')}
+              {i18n.t('Motion Detection')}
             </Link>
             <Link
               to="/analytic/license"
-              title={_('License')}
+              title={i18n.t('License')}
               className={classNames('nav-link', {active: currentRouteName === 'web.smart.license'})}
             >
-              {_('License')}
+              {i18n.t('License')}
             </Link>
           </nav>
         </div>

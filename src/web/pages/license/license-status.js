@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 
 module.exports = class LicenseStatus extends React.PureComponent {
   static get propTypes() {
@@ -46,7 +46,7 @@ module.exports = class LicenseStatus extends React.PureComponent {
               'fas',
               licenseKeyStatus ? 'fa-check-circle' : 'fa-minus-circle')}
             />
-            {licenseKeyStatus ? _('Activated') : _('Inactive')}
+            {licenseKeyStatus ? i18n.t('Activated') : i18n.t('Inactive')}
           </span>
         </div>
       </div>

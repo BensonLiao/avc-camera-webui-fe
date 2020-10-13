@@ -1,13 +1,13 @@
 const classNames = require('classnames');
 const React = require('react');
 const {Link, RouterView, getRouter} = require('capybara-router');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const Loading = require('../../../core/components/loading');
 const Base = require('../shared/base');
 
 module.exports = class System extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     const router = getRouter();
 
     this.state.currentRouteName = router.currentRoute.name;
@@ -30,14 +30,14 @@ module.exports = class System extends Base {
     return (
       <>
         <div className="left-menu fixed-top">
-          <h2>{_('System')}</h2>
+          <h2>{i18n.t('System')}</h2>
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-setting-menu">
               <a
                 href="#"
                 data-toggle="collapse"
                 data-target="#basic-settings"
-                title={_('Settings')}
+                title={i18n.t('Settings')}
                 className={classNames(
                   'nav-link collapse d-flex justify-content-between align-items-center',
                   {
@@ -51,37 +51,37 @@ module.exports = class System extends Base {
                   {collapsed: !topSubNav}
                 )}
               >
-                <span className="text-truncate">{_('Settings')}</span>
+                <span className="text-truncate">{i18n.t('Settings')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-settings" className={classNames('collapse', {show: topSubNav})} data-parent="#accordion-setting-menu">
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.datetime'})}
                   to="/system/datetime"
-                  title={_('Date & Time')}
+                  title={i18n.t('Date & Time')}
                 >
-                  {_('Date & Time')}
+                  {i18n.t('Date & Time')}
                 </Link>
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.maintain'})}
                   to="/system/maintain"
-                  title={_('Device Maintain')}
+                  title={i18n.t('Device Maintain')}
                 >
-                  {_('Device Maintenance')}
+                  {i18n.t('Device Maintenance')}
                 </Link>
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.upgrade'})}
                   to="/system/upgrade"
-                  title={_('Firmware Upgrade')}
+                  title={i18n.t('Firmware Upgrade')}
                 >
-                  {_('Firmware Upgrade')}
+                  {i18n.t('Firmware Upgrade')}
                 </Link>
               </div>
               <a
                 href="#"
                 data-toggle="collapse"
                 data-target="#basic-information"
-                title={_('System Information')}
+                title={i18n.t('System Information')}
                 className={classNames(
                   'nav-link collapse d-flex justify-content-between align-items-center',
                   {
@@ -94,23 +94,23 @@ module.exports = class System extends Base {
                   {collapsed: !bottomSubNav}
                 )}
               >
-                <span className="text-truncate">{_('System Information')}</span>
+                <span className="text-truncate">{i18n.t('System Information')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-information" className={classNames('collapse', {show: bottomSubNav})} data-parent="#accordion-setting-menu">
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.log'})}
                   to="/system/log"
-                  title={_('System Log')}
+                  title={i18n.t('System Log')}
                 >
-                  {_('System Log')}
+                  {i18n.t('System Log')}
                 </Link>
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.information'})}
                   to="/system/information"
-                  title={_('System information')}
+                  title={i18n.t('System information')}
                 >
-                  {_('Information')}
+                  {i18n.t('Information')}
                 </Link>
               </div>
             </div>

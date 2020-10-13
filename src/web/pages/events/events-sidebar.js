@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const {Link, getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 
@@ -31,8 +31,8 @@ module.exports = class EventsSidebar extends React.PureComponent {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.currentRoute = getRouter().findRouteByName('web.users.events');
   }
 
@@ -126,7 +126,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
     ];
     return (
       <div className="card-body">
-        <span>{_('Similarity')}</span>
+        <span>{i18n.t('Similarity')}</span>
         <div className="checkbox-group mt-3 pl-2">
           {similarityRender.map(item => (
             <div key={item.id} className="form-check mb-3">
@@ -139,12 +139,12 @@ module.exports = class EventsSidebar extends React.PureComponent {
                 onChange={this.toggleFilterHandler('confidence', item.confidence)}
               />
               <label className="form-check-label" htmlFor={item.id}>
-                {_(`confidence-${item.confidence}`)}
+                {i18n.t(`confidence-${item.confidence}`)}
               </label>
             </div>
           ))}
         </div>
-        <span>{_('Recognition Result')}</span>
+        <span>{i18n.t('Recognition Result')}</span>
         <div className="checkbox-group mt-3 mb-2 pl-2">
           {recognitionTypeRender.map((item, idx) => (
             <div key={item.id} className={classNames('form-check', {'mb-3': idx < recognitionTypeRender.length - 1})}>
@@ -157,7 +157,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
                 onChange={this.toggleFilterHandler('enrollStatus', item.status)}
               />
               <label className="form-check-label" htmlFor={item.id}>
-                {_(`enroll-status-${item.status}`)}
+                {i18n.t(`enroll-status-${item.status}`)}
               </label>
             </div>
           ))}
@@ -174,11 +174,11 @@ module.exports = class EventsSidebar extends React.PureComponent {
     } = this.props;
     return (
       <div className="left-menu fixed-top sub shadow-sm">
-        <h2>{_('Events')}</h2>
+        <h2>{i18n.t('Events')}</h2>
         <div className="filter-wrapper">
           <div className="header d-flex justify-content-between align-items-center  text-size-12">
-            <span>{_('Filters')}</span>
-            <a className="text-primary font-weight-bold" href="#" onClick={this.onClickClearFilters}>{_('Clear')}</a>
+            <span>{i18n.t('Filters')}</span>
+            <a className="text-primary font-weight-bold" href="#" onClick={this.onClickClearFilters}>{i18n.t('Clear')}</a>
           </div>
           {/* Facial Filter */}
           {/* AVN only have facial */}
@@ -187,14 +187,14 @@ module.exports = class EventsSidebar extends React.PureComponent {
               {
                 isEnableFaceRecognitionKey ? (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Facial Recognition')}</span>
+                    <span>{i18n.t('Facial Recognition')}</span>
                     {/* Remove arrow until more smart functions are available */}
                     {/* <i className="fas fa-chevron-up"/> */}
                   </a>
                 ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Facial Recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactive')}</span>
+                    <span>{i18n.t('Facial Recognition')}</span>
+                    <span className="badge badge-danger badge-pill">{i18n.t('Inactive')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
                 )
@@ -214,13 +214,13 @@ module.exports = class EventsSidebar extends React.PureComponent {
                     }}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Age Gender')}</span>
+                    <span>{i18n.t('Age Gender')}</span>
                     <i className="fas fa-chevron-down"/>
                   </Link>
                 ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Age Gender')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactive')}</span>
+                    <span>{i18n.t('Age Gender')}</span>
+                    <span className="badge badge-danger badge-pill">{i18n.t('Inactive')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
                 )
@@ -239,13 +239,13 @@ module.exports = class EventsSidebar extends React.PureComponent {
                     }}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{_('Human Detection')}</span>
+                    <span>{i18n.t('Human Detection')}</span>
                     <i className="fas fa-chevron-down"/>
                   </Link>
                 ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{_('Human Detection')}</span>
-                    <span className="badge badge-danger badge-pill">{_('Inactive')}</span>
+                    <span>{i18n.t('Human Detection')}</span>
+                    <span className="badge badge-danger badge-pill">{i18n.t('Inactive')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
                 )

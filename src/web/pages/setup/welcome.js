@@ -2,7 +2,7 @@ const React = require('react');
 const {Link} = require('capybara-router');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const smileWinkSolid = require('../../../resource/smile-wink-solid.svg');
-const _ = require('../../../languages');
+const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
 
@@ -23,16 +23,16 @@ module.exports = class Welcome extends Base {
                     <h5 className="card-title"/>
                     <div className="text-center mb-5">
                       <img src={smileWinkSolid} className="mb-4" width="120" height="120"/>
-                      <h3 className="text-primary mb-3" style={{fontSize: '39px'}}>{_('Welcome')}</h3>
+                      <h3 className="text-primary mb-3" style={{fontSize: '39px'}}>{i18n.t('Welcome')}</h3>
                       <p>
-                        {_('For a better experience,')}
+                        {i18n.t('For a better experience,')}
                         <br/>
-                        {_('please press continue to complete the simple three-step installation setup!')}
+                        {i18n.t('please press continue to complete the simple three-step installation setup!')}
                       </p>
                     </div>
 
                     <Link to="/setup/language" className="btn btn-primary btn-block rounded-pill">
-                      {_('Continue')}
+                      {i18n.t('Continue')}
                     </Link>
                   </div>
                 </form>
