@@ -45,7 +45,7 @@ module.exports = class HDMI extends Base {
       StreamResolution.all()
         .filter(x => Number(x) <= 8 &&
                      Number(x) !== 4 &&
-                     !(this.props.systemInformation.sensorResolution === SensorResolution['2K'] && Number(x) === 0)
+                     !(`${this.props.systemInformation.sensorResolution}` === SensorResolution['2K'] && Number(x) === 0)
         )
         .map(x => ({
           label: i18n.t(`stream-resolution-${x}`),
