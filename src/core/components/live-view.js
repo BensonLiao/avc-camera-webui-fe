@@ -28,7 +28,7 @@ module.exports = class LiveView extends React.PureComponent {
   }
 
   state = {
-    isPlayStream: true,
+    isPlayStream: window.isDebug !== 'y',
     streamImageUrl: null
   };
 
