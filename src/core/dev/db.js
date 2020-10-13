@@ -242,6 +242,7 @@ module.exports = {
         languageCode: 'en-us',
         deviceName: 'IP Camera',
         deviceStatus: 1,
+        sensorResolution: 0,
         serialNumber: '181000723',
         modelName: 'AV02CLD-100',
         firmware: '35110.4',
