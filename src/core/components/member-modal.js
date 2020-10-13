@@ -793,6 +793,7 @@ module.exports = class Member extends React.PureComponent {
                 <div className="form-group mb-0 ml-2">
                   <div className="none-selection">
                     <Field
+                      disableStepper
                       name="zoom"
                       component={Slider}
                       step={MEMBER_PHOTO_SCALE_STEP}

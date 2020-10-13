@@ -188,6 +188,7 @@ module.exports = class MotionDetection extends Base {
                   <span className="text-primary text-size-14">{values.sensibility}</span>
                 </div>
                 <Field
+                  disableStepper
                   name="sensibility"
                   component={Slider}
                   step={1}

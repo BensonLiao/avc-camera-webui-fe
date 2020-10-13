@@ -20,7 +20,7 @@ module.exports = class SliderField extends React.PureComponent {
       updateFieldOnStop: PropTypes.bool,
       enableArrowKey: PropTypes.bool,
       onChangeInput: PropTypes.func,
-      isRemoveStepper: PropTypes.bool
+      disableStepper: PropTypes.bool
     };
   }
 
@@ -30,7 +30,7 @@ module.exports = class SliderField extends React.PureComponent {
       updateFieldOnStop: false,
       enableArrowKey: false,
       onChangeInput: null,
-      isRemoveStepper: false
+      disableStepper: false
     };
   }
 
@@ -106,8 +106,8 @@ module.exports = class SliderField extends React.PureComponent {
   }
 
   render() {
-    const {isRemoveStepper, disabled, step, field: {value}} = this.props;
-    return isRemoveStepper || isArray(value) ? (
+    const {disableStepper, disabled, step, field: {value}} = this.props;
+    return disableStepper || isArray(value) ? (
       <div className="left-selection">
         <input ref={this.ref} type="text"/>
       </div>
