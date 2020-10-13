@@ -8,7 +8,7 @@ const BreadCrumb = require('../../../core/components/fields/breadcrumb').default
 module.exports = class Stream extends Base {
   static get propTypes() {
     return {
-      systemInformation: PropTypes.shape({sensorResolution: PropTypes.string.isRequired}).isRequired,
+      systemInformation: PropTypes.shape({sensorResolution: PropTypes.number.isRequired}).isRequired,
       streamSettings: PropTypes.shape({
         channelA: PropTypes.shape({
           codec: PropTypes.string.isRequired,

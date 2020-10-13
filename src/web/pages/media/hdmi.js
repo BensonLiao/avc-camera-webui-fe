@@ -21,7 +21,7 @@ module.exports = class HDMI extends Base {
         resolution: PropTypes.string.isRequired,
         frameRate: PropTypes.string.isRequired
       }).isRequired,
-      systemInformation: PropTypes.shape({sensorResolution: PropTypes.string.isRequired}).isRequired
+      systemInformation: PropTypes.shape({sensorResolution: PropTypes.number.isRequired}).isRequired
     };
   }
 
