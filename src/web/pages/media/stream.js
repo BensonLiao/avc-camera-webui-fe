@@ -1,6 +1,5 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const SensorResolution = require('webserver-form-schema/constants/sensor-resolution');
 const Base = require('../shared/base');
 const i18n = require('../../i18n').default;
 const StreamSetting = require('./stream-setting');
