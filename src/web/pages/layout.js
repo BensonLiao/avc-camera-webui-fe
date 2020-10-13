@@ -24,6 +24,7 @@ const api = require('../../core/apis/web-api');
 const i18n = require('../../web/i18n').default;
 const constants = require('../../core/constants');
 const store = require('../../core/store');
+const utils = require('../../core/utils');
 
 module.exports = class Layout extends Base {
   static get propTypes() {
@@ -50,6 +51,8 @@ module.exports = class Layout extends Base {
       })
     );
     this.state.isShowAboutModal = false;
+    this.modelNameRef = React.createRef();
+    this.countdownTimerID = null;
   }
 
   showAboutModal = () => {
@@ -90,6 +93,16 @@ module.exports = class Layout extends Base {
     }
 
     getRouter().go(event.target.src ? event.target.parentNode.pathname : event.target.pathname);
+  }
+
+  onAboutModalHover = text => _ => {
+    this.countdownTimerID = setTimeout(() => {
+      utils.generate3DText(text, this.modelNameRef.current);
+    }, 3 * 1000);
+  }
+
+  onAboutModalHoverOut = () => {
+    clearTimeout(this.countdownTimerID);
   }
 
   render() {
@@ -331,10 +344,24 @@ module.exports = class Layout extends Base {
           autoFocus={false}
           onHide={this.hideAboutModal}
         >
-          <div className="modal-header">
+          <div
+            className="modal-header"
+            onMouseEnter={this.onAboutModalHover(`            Model Name:
+            ${systemInformation.modelName}
+            Firmware:
+            ${systemInformation.firmware}
+            Serial Number:
+            ${systemInformation.serialNumber}
+            MAC Address:
+            ${systemInformation.mac}`)}
+            onMouseLeave={this.onAboutModalHoverOut}
+          >
             <h5 className="modal-title">{i18n.t('About')}</h5>
           </div>
-          <div className="modal-body">
+          <div
+            ref={this.modelNameRef}
+            className="modal-body"
+          >
             <div className="text-info mt-2">{i18n.t('Model Name')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.modelName}</div>
             <div className="text-info mt-3">{i18n.t('Firmware')} :</div>
