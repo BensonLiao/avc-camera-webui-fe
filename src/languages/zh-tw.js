@@ -512,6 +512,7 @@ if (!window.languageResource['zh-tw']) {
     'Encryption Settings': '加密設定',
     Export: '匯出',
     Import: '匯入',
+    'Member Database Updating': '成員資料更新中',
     'Database Encryption': '資料庫加密',
     'Current Password': '舊密碼',
     'Enter your Current password': '請輸入您的舊密碼',
