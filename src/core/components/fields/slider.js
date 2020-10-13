@@ -2,6 +2,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const Slider = require('bootstrap-slider');
+const CustomTooltip = require('../tooltip');
 const {getPrecision} = require('../../utils');
 
 module.exports = class SliderField extends React.PureComponent {
@@ -18,7 +19,8 @@ module.exports = class SliderField extends React.PureComponent {
       disabled: PropTypes.bool,
       updateFieldOnStop: PropTypes.bool,
       enableArrowKey: PropTypes.bool,
-      onChangeInput: PropTypes.func
+      onChangeInput: PropTypes.func,
+      isRemoveStepper: PropTypes.bool
     };
   }
 
@@ -27,7 +29,8 @@ module.exports = class SliderField extends React.PureComponent {
       disabled: false,
       updateFieldOnStop: false,
       enableArrowKey: false,
-      onChangeInput: null
+      onChangeInput: null,
+      isRemoveStepper: false
     };
   }
 
@@ -35,6 +38,20 @@ module.exports = class SliderField extends React.PureComponent {
     super();
     this.ref = React.createRef();
     this.slider = null;
+  }
+
+  varyStep = step => {
+    const {form, field: {name, value}, min, max} = this.props;
+    let newValue = step + value;
+    if (newValue < min) {
+      newValue = min;
+    }
+
+    if (newValue > max) {
+      newValue = max;
+    }
+
+    form.setFieldValue(name, newValue);
   }
 
   componentDidMount() {
@@ -89,9 +106,62 @@ module.exports = class SliderField extends React.PureComponent {
   }
 
   render() {
-    return (
+    const {isRemoveStepper, disabled, step} = this.props;
+    return isRemoveStepper ? (
       <div className="left-selection">
         <input ref={this.ref} type="text"/>
+      </div>
+    ) : (
+      <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
+        <div>
+          <CustomTooltip title={`${-step * 5}`}>
+            <button
+              disabled={disabled}
+              className="btn text-secondary-700"
+              type="button"
+              onClick={() => this.varyStep(-step * 5)}
+            >
+              <i type="button" className="fa fa-angle-double-left text-size-16"/>
+            </button>
+          </CustomTooltip>
+          <CustomTooltip title="-1">
+            <button
+              disabled={disabled}
+              className="btn text-secondary-700"
+              type="button"
+              onClick={() => this.varyStep(-step)}
+            >
+              <i className="fas fa-minus text-size-16"/>
+            </button>
+          </CustomTooltip>
+        </div>
+        <div className="flex-grow-1">
+          <div className="left-selection">
+            <input ref={this.ref} type="text"/>
+          </div>
+        </div>
+        <div>
+          <CustomTooltip title={`+${step}`}>
+            <button
+              disabled={disabled}
+              className="btn text-secondary-700"
+              type="button"
+              onClick={() => this.varyStep(step)}
+            >
+              <i className="fas fa-plus text-size-16"/>
+            </button>
+          </CustomTooltip>
+          <CustomTooltip title={`+${step * 5}`}>
+            <button
+              disabled={disabled}
+              className="btn text-secondary-700"
+              type="button"
+              onClick={() => this.varyStep(step * 5)}
+            >
+              <i className="fa fa-angle-double-right text-size-16"/>
+            </button>
+          </CustomTooltip>
+        </div>
       </div>
     );
   }
