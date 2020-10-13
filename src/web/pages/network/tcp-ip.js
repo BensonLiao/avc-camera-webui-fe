@@ -39,8 +39,8 @@ module.exports = class TCPIP extends Base {
     };
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Device Processing');
   }

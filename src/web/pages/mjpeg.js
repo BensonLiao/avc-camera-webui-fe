@@ -28,8 +28,8 @@ module.exports = class Mjpeg extends Base {
     };
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state.streamImageUrl = null;
     this.state.isShowAboutModal = false;
     store.set(`${this.constructor.name}.isPlayStream`, true);

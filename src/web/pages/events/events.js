@@ -42,7 +42,7 @@ module.exports = class Events extends Base {
   }
 
   constructor(props) {
-    super();
+    super(props);
     this.currentRoute = getRouter().findRouteByName('web.users.events');
     this.state.type = props.params.type || 'face-recognition';
     this.state.isShowMemberModal = false;

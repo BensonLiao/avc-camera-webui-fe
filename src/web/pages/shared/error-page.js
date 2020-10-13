@@ -19,7 +19,7 @@ module.exports = class ErrorPage extends React.Component {
   state = {};
 
   constructor(props) {
-    super();
+    super(props);
     document.title = `${i18n.t('Error')} - ${window.cameraName} Web-Manager`;
     this.state.status = props.error.status || 500;
     this.state.message = props.error.message ? props.error.message : `${props.error}`;

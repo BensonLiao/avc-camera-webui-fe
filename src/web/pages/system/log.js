@@ -11,8 +11,8 @@ const StageProgress = require('../../../core/components/stage-progress');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class Log extends Base {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state.file = null;
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;

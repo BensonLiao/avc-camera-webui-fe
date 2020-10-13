@@ -10,8 +10,8 @@ module.exports = class Base extends React.Component {
     $isNotCallUnloadAlert: store.get('$isNotCallUnloadAlert') || false
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.$isMounted = false;
     this.$listens = [
       store.subscribe('$isApiProcessing', (msg, data) => {

@@ -36,8 +36,8 @@ module.exports = class DateTime extends Base {
     };
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state.showDateTimePicker = {
       ntpUpdateTime: false,
       manualTime: false

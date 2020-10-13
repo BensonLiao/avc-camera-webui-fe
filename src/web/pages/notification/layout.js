@@ -6,8 +6,8 @@ const Base = require('../shared/base');
 const i18n = require('../../i18n').default;
 
 module.exports = class Notification extends Base {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     const router = getRouter();
 
     this.state.currentRouteName = router.currentRoute.name;

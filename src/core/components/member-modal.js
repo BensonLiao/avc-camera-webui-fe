@@ -68,7 +68,7 @@ module.exports = class Member extends React.PureComponent {
   cropper = null;
 
   constructor(props) {
-    super();
+    super(props);
     this.avatarWrapperRef = React.createRef();
     this.avatarFile = null;
     // Only determine remaining quota if count is less than 5
