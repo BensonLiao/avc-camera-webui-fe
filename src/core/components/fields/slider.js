@@ -124,7 +124,7 @@ module.exports = class SliderField extends React.PureComponent {
               <i type="button" className="fa fa-angle-double-left text-size-16"/>
             </button>
           </CustomTooltip>
-          <CustomTooltip title="-1">
+          <CustomTooltip title={`${-step}`}>
             <button
               disabled={disabled}
               className="btn text-secondary-700"
