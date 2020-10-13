@@ -3,7 +3,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const Slider = require('bootstrap-slider');
 const CustomTooltip = require('../tooltip');
-const {getPrecision} = require('../../utils');
+const {getPrecision, isArray} = require('../../utils');
 
 module.exports = class SliderField extends React.PureComponent {
   static get propTypes() {
@@ -55,7 +55,6 @@ module.exports = class SliderField extends React.PureComponent {
   }
 
   componentDidMount() {
-    const precisionDigit = getPrecision(this.props.step);
     this.slider = new Slider(this.ref.current, {
       min: this.props.min,
       max: this.props.max,
@@ -64,6 +63,7 @@ module.exports = class SliderField extends React.PureComponent {
       focus: this.props.enableArrowKey,
       natural_arrow_keys: this.props.enableArrowKey
     });
+    const precisionDigit = getPrecision(this.props.step);
     if (this.props.updateFieldOnStop) {
       this.slider.on('slideStop', value => {
         this.props.form.setFieldValue(
@@ -106,8 +106,8 @@ module.exports = class SliderField extends React.PureComponent {
   }
 
   render() {
-    const {isRemoveStepper, disabled, step} = this.props;
-    return isRemoveStepper ? (
+    const {isRemoveStepper, disabled, step, field: {value}} = this.props;
+    return isRemoveStepper || isArray(value) ? (
       <div className="left-selection">
         <input ref={this.ref} type="text"/>
       </div>

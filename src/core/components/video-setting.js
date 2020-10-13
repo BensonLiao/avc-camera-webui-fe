@@ -587,7 +587,6 @@ module.exports = class VideoSetting extends React.PureComponent {
                         updateFieldOnStop
                         name="dnDuty"
                         component={Slider}
-                        mode="range"
                         step={0.5}
                         min={videoSettingsSchema.timePeriodStart.min}
                         max={videoSettingsSchema.timePeriodEnd.max}
