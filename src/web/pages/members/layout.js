@@ -7,7 +7,7 @@ const Loading = require('../../../core/components/loading');
 
 module.exports = class Users extends Base {
   constructor(props) {
-    super();
+    super(props);
     const router = getRouter();
 
     this.state.currentRouteName = router.currentRoute.name;

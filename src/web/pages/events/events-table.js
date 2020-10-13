@@ -48,8 +48,8 @@ module.exports = class EventsTable extends React.PureComponent {
     };
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.currentRoute = getRouter().findRouteByName('web.users.events');
   }
 

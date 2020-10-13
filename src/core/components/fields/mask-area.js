@@ -62,8 +62,8 @@ module.exports = class MaskArea extends React.PureComponent {
     }
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.erd = store.get('$erd');
     this.draggingCorner = null; // "right-bottom", "right-top", "left-bottom", "left-top"
   }

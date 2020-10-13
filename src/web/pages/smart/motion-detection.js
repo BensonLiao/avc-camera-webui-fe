@@ -32,7 +32,7 @@ module.exports = class MotionDetection extends Base {
   }
 
   constructor(props) {
-    super();
+    super(props);
     this.videoWrapperRef = React.createRef();
     this.maskAreaRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
     const {motionDetectionSettings: {areas, isEnable}} = props;

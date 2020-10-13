@@ -29,7 +29,7 @@ module.exports = class StreamSetting extends Base {
   }
 
   constructor(props) {
-    super();
+    super(props);
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Updating Stream Settings');

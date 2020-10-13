@@ -57,8 +57,8 @@ module.exports = class VideoSetting extends React.PureComponent {
     focalLengthQueue: null
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.submitPromise = Promise.resolve();
     // this.state.isAutoFocusProcessing = false;
     this.state.focalLengthQueue = null;

@@ -33,7 +33,7 @@ module.exports = class Group extends Base {
   }
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       isShowModal: true,
       groupsName: props.groups.items.map(group => group.name)

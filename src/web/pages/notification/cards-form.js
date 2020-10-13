@@ -70,7 +70,7 @@ module.exports = class CardsForm extends React.PureComponent {
   }
 
   constructor(props) {
-    super();
+    super(props);
     this.cardFormTitleRef = React.createRef();
     const {modelName} = props;
     this.defaultSubject = {

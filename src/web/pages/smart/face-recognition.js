@@ -37,8 +37,8 @@ module.exports = class FaceRecognition extends Base {
     };
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     // Show or hide trigger area
     this.state.isShowDetectionZone = true;
   }

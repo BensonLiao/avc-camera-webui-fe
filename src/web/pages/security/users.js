@@ -26,8 +26,8 @@ module.exports = class Users extends Base {
     };
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state.isShowDeleteUserModal = false;
     this.state.deleteUserTarget = null;
     this.state.permissionFilter = 'all';
