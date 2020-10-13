@@ -16,6 +16,7 @@
     window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));
     window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ archive skuID }}')) === 'NoBrand';
     window.error = JSON.parse(base64DecodeUnicode('{{ archive error }}'));
+    window.isDebug = '{{ isDebug }}';
   </script>
 </head>
 <body class="{{ languageCode }}">
