@@ -13,9 +13,7 @@ import api from '../../../core/apis/web-api';
 import ioOutSettingsValidator from '../../validations/notifications/io-out-settings-validator';
 import utils from '../../../core/utils';
 
-const IoOutput = props => {
-  const {isApiProcessing, currentTab, index, ioOutSettings, isEnableIoOutput} = props;
-
+const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIoOutput}) => {
   const generateIOOutSettingsSubmitHandler = index => values => {
     progress.start();
     localStorage.setItem('currentTab', currentTab);

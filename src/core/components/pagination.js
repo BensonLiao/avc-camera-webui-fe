@@ -16,8 +16,8 @@ module.exports = class Pagination extends React.PureComponent {
   }
 
   constructor(props) {
-    super(props);
-    this.maxGotoIndex = Math.ceil(this.props.total / this.props.size);
+    super();
+    this.maxGotoIndex = Math.ceil(props.total / props.size);
   }
 
   state = {gotoIndex: 0};

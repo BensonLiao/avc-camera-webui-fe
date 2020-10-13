@@ -70,12 +70,13 @@ module.exports = class CardsForm extends React.PureComponent {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.cardFormTitleRef = React.createRef();
+    const {modelName} = props;
     this.defaultSubject = {
-      faceRecognition: `${i18n.t('Face Recognition Event [{{0}}]', {0: props.modelName})}`,
-      motionDetection: `${i18n.t('Motion Detection Event [{{0}}]', {0: props.modelName})}`,
-      digitalInput: `${i18n.t('Digital Input Event [{{0}}]', {0: props.modelName})}`
+      faceRecognition: `${i18n.t('Face Recognition Event [{{0}}]', {0: modelName})}`,
+      motionDetection: `${i18n.t('Motion Detection Event [{{0}}]', {0: modelName})}`,
+      digitalInput: `${i18n.t('Digital Input Event [{{0}}]', {0: modelName})}`
     };
   }
 

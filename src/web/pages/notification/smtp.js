@@ -37,7 +37,7 @@ module.exports = class SMTP extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.state.isShowModal = false;
     this.state.accountSettings = this.generateAccountSettingsInitialValues(props.smtpSettings);
   }
@@ -245,9 +245,6 @@ module.exports = class SMTP extends Base {
               </div>
             </div>
           </div>
-          {/* <div className="card-header rounded-0">
-          {i18n.t('Sender')}
-        </div> */}
           <div className="card-body">
             <div className="form-group">
               <label>{i18n.t('Sender')}</label>

@@ -17,8 +17,8 @@ const api = require('../../../core/apis/web-api');
 const ProgressBar = require('./progress-bar').default;
 
 module.exports = class SetupHTTPS extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state.certificateType = store.get('$setup').https.certificateType;
   }
 

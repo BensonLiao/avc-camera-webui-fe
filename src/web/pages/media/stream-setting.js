@@ -29,12 +29,12 @@ module.exports = class StreamSetting extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Updating Stream Settings');
     this.state.hasResolutionRatioChanged = false;
-    this.state.channelOptions = this.processRenderOptions(this.props.streamSettings);
+    this.state.channelOptions = this.processRenderOptions(props.streamSettings);
     // Enum to test for changing resolution aspect ratio
     this.fourByThree = [
       Number(StreamResolution['5']),
@@ -231,7 +231,7 @@ module.exports = class StreamSetting extends Base {
       formValues.channelA.codec = newCodecValue;
       this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
         const {frameRate: frameRateA, resolution} = this.state.channelOptions.chA;
-        setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateA[frameRateA.length - 1].value);
+        setFieldValue(`${fieldNamePrefix}.frameRate`, this.lastIndexValue(frameRateA));
         setFieldValue(`${fieldNamePrefix}.resolution`, resolution[0].value);
       });
       const prev = Number(allValues.channelA.resolution);
@@ -244,7 +244,7 @@ module.exports = class StreamSetting extends Base {
         this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
           const {frameRate: frameRateB, resolution} = this.state.channelOptions.chB;
           setFieldValue('channelB.resolution', resolution[0].value);
-          setFieldValue('channelB.frameRate', frameRateB[frameRateB.length - 1].value);
+          setFieldValue('channelB.frameRate', this.lastIndexValue(frameRateB));
         });
       }
     }
@@ -258,7 +258,7 @@ module.exports = class StreamSetting extends Base {
           const {frameRate: frameRateB} = this.state.channelOptions.chB;
           setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
           setFieldValue(`${fieldNamePrefix}.resolution`, this.state.channelOptions.chB.resolution[0].value);
-          setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateB[frameRateB.length - 1].value);
+          setFieldValue(`${fieldNamePrefix}.frameRate`, this.lastIndexValue(frameRateB));
         });
       });
     }
@@ -280,8 +280,8 @@ module.exports = class StreamSetting extends Base {
         this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
           const {frameRate: frameRateA} = this.state.channelOptions.chA;
           const {frameRate: frameRateB, resolution: resolutionB} = this.state.channelOptions.chB;
-          setFieldValue('channelA.frameRate', frameRateA[frameRateA.length - 1].value);
-          setFieldValue('channelB.frameRate', frameRateB[frameRateB.length - 1].value);
+          setFieldValue('channelA.frameRate', this.lastIndexValue(frameRateA));
+          setFieldValue('channelB.frameRate', this.lastIndexValue(frameRateB));
           setFieldValue('channelB.resolution', resolutionB[0].value);
         });
       }
@@ -290,7 +290,7 @@ module.exports = class StreamSetting extends Base {
         formValues.channelA.resolution = newResValue;
         this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
           const {frameRate: frameRateA} = this.state.channelOptions.chA;
-          setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateA[frameRateA.length - 1].value);
+          setFieldValue(`${fieldNamePrefix}.frameRate`, this.lastIndexValue(frameRateA));
         });
       }
 
@@ -299,9 +299,13 @@ module.exports = class StreamSetting extends Base {
         formValues.channelB.resolution = newResValue;
         this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
           const {frameRate: frameRateB} = this.state.channelOptions.chB;
-          setFieldValue(`${fieldNamePrefix}.frameRate`, frameRateB[frameRateB.length - 1].value);
+          setFieldValue(`${fieldNamePrefix}.frameRate`, this.lastIndexValue(frameRateB));
         });
       }
+    };
+
+    lastIndexValue = array => {
+      return array[array.length - 1].value;
     };
 
   fieldsRender = (fieldNamePrefix, options, values, setFieldValue, allValues) => {

@@ -6,8 +6,8 @@ const Loading = require('../../../core/components/loading');
 const Base = require('../shared/base');
 
 module.exports = class System extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     const router = getRouter();
 
     this.state.currentRouteName = router.currentRoute.name;

@@ -52,8 +52,8 @@ module.exports = class DatePicker extends React.PureComponent {
     currentMeridiem: 'AM'
   };
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.inputRef = React.createRef();
     this.clockData = {
       hours: [null, null, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, null, null],

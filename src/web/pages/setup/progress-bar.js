@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'capybara-router';
 import i18n from '../../i18n';
 
-const ProgressBar = props => {
-  const {step, hasPreviousPage, progressBarImage, progressBarImagex2} = props;
+const ProgressBar = ({step, hasPreviousPage, progressBarImage, progressBarImagex2}) => {
   return (
     <div className="steps d-flex">
       <div className="d-flex flex-grow-1 justify-content-between">

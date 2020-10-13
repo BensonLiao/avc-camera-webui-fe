@@ -33,8 +33,8 @@ module.exports = class HTTPS extends Base {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state.isShowModal = false;
     this.state.modalBody = i18n.t('Please Redirect Manually to the New Address');
   }

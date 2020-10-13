@@ -16,8 +16,8 @@ const utils = require('../../../core/utils');
 const ProgressBar = require('./progress-bar').default;
 
 module.exports = class SetupAccount extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state.languageCode = store.get('$setup').language;
   }
 

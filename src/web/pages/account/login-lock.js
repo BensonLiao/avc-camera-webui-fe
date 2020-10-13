@@ -23,7 +23,7 @@ module.exports = class LoginLock extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.state.loginLockRemainingMs = props.params.loginLockExpiredTime - Date.now();
     this.state.disableLoginLink = true;
 

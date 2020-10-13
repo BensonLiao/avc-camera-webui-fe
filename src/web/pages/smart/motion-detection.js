@@ -32,14 +32,15 @@ module.exports = class MotionDetection extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.videoWrapperRef = React.createRef();
     this.maskAreaRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
+    const {motionDetectionSettings: {areas, isEnable}} = props;
     this.state.maskAreaStates = [
-      {isVisible: Boolean(props.motionDetectionSettings.areas[0]) && this.props.motionDetectionSettings.isEnable},
-      {isVisible: Boolean(props.motionDetectionSettings.areas[1]) && this.props.motionDetectionSettings.isEnable},
-      {isVisible: Boolean(props.motionDetectionSettings.areas[2]) && this.props.motionDetectionSettings.isEnable},
-      {isVisible: Boolean(props.motionDetectionSettings.areas[3]) && this.props.motionDetectionSettings.isEnable}
+      {isVisible: Boolean(areas[0]) && isEnable},
+      {isVisible: Boolean(areas[1]) && isEnable},
+      {isVisible: Boolean(areas[2]) && isEnable},
+      {isVisible: Boolean(areas[3]) && isEnable}
     ];
   }
 

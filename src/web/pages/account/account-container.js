@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import logo from '../../../resource/logo-avc-secondary.svg';
 import logoWithTitle from '../../../resource/logo-avc-title.svg';
 
-const AccountContainer = props => {
-  const {page, children} = props;
+const AccountContainer = ({page, children}) => {
   return (
     <div className={classNames('bg-secondary', page)}>
       <div className="navbar primary">

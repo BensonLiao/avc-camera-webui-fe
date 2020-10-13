@@ -11,8 +11,8 @@ const CustomTooltip = require('../../../core/components/tooltip');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class Maintain extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Device processing');

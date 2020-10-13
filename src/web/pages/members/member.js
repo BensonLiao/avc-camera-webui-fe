@@ -21,8 +21,8 @@ module.exports = class Member extends Base {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state.isShowModal = true;
     this.$listens.push(
