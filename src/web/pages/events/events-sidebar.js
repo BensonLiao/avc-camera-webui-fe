@@ -31,8 +31,8 @@ module.exports = class EventsSidebar extends React.PureComponent {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.currentRoute = getRouter().findRouteByName('web.users.events');
   }
 

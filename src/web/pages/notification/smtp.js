@@ -37,7 +37,7 @@ module.exports = class SMTP extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.state.isShowModal = false;
     this.state.accountSettings = this.generateAccountSettingsInitialValues(props.smtpSettings);
   }

@@ -29,12 +29,12 @@ module.exports = class StreamSetting extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Updating Stream Settings');
     this.state.hasResolutionRatioChanged = false;
-    this.state.channelOptions = this.processRenderOptions(this.props.streamSettings);
+    this.state.channelOptions = this.processRenderOptions(props.streamSettings);
     // Enum to test for changing resolution aspect ratio
     this.fourByThree = [
       Number(StreamResolution['5']),

@@ -36,7 +36,7 @@ module.exports = class User extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     const router = getRouter();
     this.state.isShowModal = true;
     this.state.usersName = props.users.items.map(user => user.account);

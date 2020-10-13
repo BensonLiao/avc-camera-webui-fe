@@ -40,8 +40,8 @@ module.exports = class Layout extends Base {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     const router = getRouter();
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(

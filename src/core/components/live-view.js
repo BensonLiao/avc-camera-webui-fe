@@ -19,8 +19,8 @@ const defaultVideoBackground = require('../../resource/video-bg.jpg');
 const notify = require('../../core/notify');
 
 module.exports = class LiveView extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.streamPlayerRef = React.createRef();
     this.fetchSnapshotTimeoutId = null;
     // To prevent memory leak on unmount

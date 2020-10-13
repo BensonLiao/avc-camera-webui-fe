@@ -7,7 +7,7 @@ const Loading = require('../../../core/components/loading');
 
 module.exports = class Users extends Base {
   constructor(props) {
-    super(props);
+    super();
     const router = getRouter();
 
     this.state.currentRouteName = router.currentRoute.name;
@@ -20,7 +20,7 @@ module.exports = class Users extends Base {
       setTimeout(() => {
         router.go({
           name: 'web.users.members',
-          params: this.props.params
+          params: props.params
         });
       });
     }

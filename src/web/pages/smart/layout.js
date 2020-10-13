@@ -6,8 +6,8 @@ const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
 
 module.exports = class Smart extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     const router = getRouter();
 
     this.state.currentRouteName = router.currentRoute.name;

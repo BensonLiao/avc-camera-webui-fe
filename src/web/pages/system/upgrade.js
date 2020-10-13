@@ -14,8 +14,8 @@ const isRunTest = false; // Set as `true` to run test on submit
 const isMockUpgradeError = false; // Set as `true` to mock upgrade firmware error, only works if `isRunTest` is `true`
 
 module.exports = class Upgrade extends Base {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Device Processing');

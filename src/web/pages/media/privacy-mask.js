@@ -28,14 +28,15 @@ module.exports = class PrivacyMask extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.videoWrapperRef = React.createRef();
     this.maskAreaRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
+    const {privacyMaskSettings: {maskAreas, isEnable}} = props;
     this.state.maskAreaStates = [
-      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[0]) && this.props.privacyMaskSettings.isEnable},
-      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[1]) && this.props.privacyMaskSettings.isEnable},
-      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[2]) && this.props.privacyMaskSettings.isEnable},
-      {isVisible: Boolean(props.privacyMaskSettings.maskAreas[3]) && this.props.privacyMaskSettings.isEnable}
+      {isVisible: Boolean(maskAreas[0]) && isEnable},
+      {isVisible: Boolean(maskAreas[1]) && isEnable},
+      {isVisible: Boolean(maskAreas[2]) && isEnable},
+      {isVisible: Boolean(maskAreas[3]) && isEnable}
     ];
   }
 

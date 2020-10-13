@@ -23,8 +23,8 @@ module.exports = class HDMI extends Base {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Updating hdmi settings');

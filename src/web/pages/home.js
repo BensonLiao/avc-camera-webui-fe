@@ -77,7 +77,7 @@ module.exports = class Home extends Base {
   }
 
   constructor(props) {
-    super(props);
+    super();
     this.submitPromise = Promise.resolve();
     this.state.deviceName = props.systemInformation.deviceName || '';
   }

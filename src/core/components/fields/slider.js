@@ -31,8 +31,8 @@ module.exports = class SliderField extends React.PureComponent {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.ref = React.createRef();
     this.slider = null;
   }
