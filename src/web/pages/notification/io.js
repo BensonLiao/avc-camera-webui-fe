@@ -16,8 +16,8 @@ module.exports = class IO extends Base {
     };
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state.currentTab = localStorage.getItem('currentTab') || 'tab-input';
   }
 

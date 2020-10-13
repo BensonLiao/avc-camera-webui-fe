@@ -24,7 +24,7 @@ module.exports = class Members extends Base {
   }
 
   constructor(props) {
-    super();
+    super(props);
     this.currentRoute = getRouter().findRouteByName('web.users.members');
     this.state.deleteGroupTarget = null;
     this.state.selectedGroup = props.groups.items.find(x => x.id === props.params.group);

@@ -29,8 +29,8 @@ module.exports = class SDCard extends Base {
     };
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state.sdEnabled = null;
     this.state.file = null;
     this.state.showSelectModal = {

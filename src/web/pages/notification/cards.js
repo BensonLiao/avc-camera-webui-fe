@@ -23,7 +23,7 @@ module.exports = class Cards extends Base {
   }
 
   constructor(props) {
-    super();
+    super(props);
     this.state.cards = props.cards.items;
     this.state.isShowCardDetailsModal = false;
     this.state.cardDetails = null;

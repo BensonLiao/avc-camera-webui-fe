@@ -6,8 +6,8 @@ const i18n = require('../../i18n').default;
 const Loading = require('../../../core/components/loading');
 
 module.exports = class Media extends Base {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     const router = getRouter();
 
     this.state.currentRouteName = router.currentRoute.name;
