@@ -131,7 +131,7 @@ module.exports = class SliderField extends React.PureComponent {
               type="button"
               onClick={() => this.varyStep(-step)}
             >
-              <i className="fas fa-minus text-size-16"/>
+              <i className="fas fa-angle-left text-size-16"/>
             </button>
           </CustomTooltip>
         </div>
@@ -148,7 +148,7 @@ module.exports = class SliderField extends React.PureComponent {
               type="button"
               onClick={() => this.varyStep(step)}
             >
-              <i className="fas fa-plus text-size-16"/>
+              <i className="fas fa-angle-right text-size-16"/>
             </button>
           </CustomTooltip>
           <CustomTooltip title={`+${step * 5}`}>
