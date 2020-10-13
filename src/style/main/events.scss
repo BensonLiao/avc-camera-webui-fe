@@ -80,13 +80,8 @@
   .event-photo {
     position: relative;
 
-    img {
-      width: 88px;
-      height: 88px;
-
-      &.failed-check {
-        box-shadow: 0 0 2pt 2pt #dd2b0e;
-      }
+    .failed-check {
+      box-shadow: 0 0 2pt 2pt #dd2b0e;
     }
 
     .loading-dots {

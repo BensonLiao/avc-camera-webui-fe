@@ -136,13 +136,20 @@ class SearchMember extends React.PureComponent {
             <div className="d-flex flex-row justify-content-between align-items-end mb-4 px-3">
               <div className="d-flex flex-row align-items-end">
                 <div className="event-photo">
-                  <img
-                    src={eventPictureUrl}
+                  <div
                     className={classNames(
-                      'rounded-circle',
+                      'rounded-circle thumbnail-wrapper',
                       {'failed-check': verifyStatus === false && !isVerifying && errorMessage}
                     )}
-                  />
+                    style={{
+                      width: '88px',
+                      height: '88px'
+                    }}
+                  >
+                    <div className="rounded-circle overflow-hidden circle-crop">
+                      <div className="thumbnail" style={{backgroundImage: `url('${eventPictureUrl}')`}}/>
+                    </div>
+                  </div>
                   <div className={classNames('loading-dots', {'d-none': !isVerifying})}>
                     <div className="spinner">
                       <div className="double-bounce1"/>
