@@ -7,6 +7,150 @@ const api = require('../core/apis/web-api');
 const {validator} = require('../core/validations');
 const {MEMBER_PHOTO_MIME_TYPE, RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
+const THREE = require('three');
+const OrbitControls = require('three/examples/jsm/controls/OrbitControls').OrbitControls;
+const helvetikerRegular = require('./helvetiker_regular').default;
+let camera;
+let scene;
+let renderer;
+let controls;
+
+exports.generate3DText = (text = 'Hello three.js!', container = document.body) => {
+  const existCanvas = document.getElementById('3dtext');
+  if (existCanvas) {
+    container.removeChild(existCanvas);
+  }
+
+  const innerBoxSize = this.getInnerBoxSize(container);
+  const init = () => {
+    camera = new THREE.PerspectiveCamera(45, innerBoxSize.height / innerBoxSize.width, 1, 10000);
+    camera.position.set(-400, -200, 600);
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf0f0f0);
+    // const galaxyTexure = new THREE.TextureLoader('../resource/galaxy.jpg');
+    // scene.background = galaxyTexure;
+
+    const loader = new THREE.FontLoader();
+    loader.load(
+      `data:text/plain;base64,${helvetikerRegular}`,
+      font => {
+        let xMid;
+        let yMid;
+
+        const color = 0x006699;
+
+        const matDark = new THREE.LineBasicMaterial({
+          color: color,
+          side: THREE.DoubleSide
+        });
+
+        const matLite = new THREE.MeshBasicMaterial({
+          color: color,
+          transparent: true,
+          opacity: 0.4,
+          side: THREE.DoubleSide
+        });
+
+        const shapes = font.generateShapes(text, 30);
+
+        const geometry = new THREE.ShapeBufferGeometry(shapes);
+
+        geometry.computeBoundingBox();
+
+        xMid = -0.9 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
+        yMid = 0.5 * (geometry.boundingBox.max.y - geometry.boundingBox.min.y);
+
+        geometry.translate(xMid, yMid, 0);
+
+        // make shape ( N.B. edge view not visible )
+
+        const textMesh = new THREE.Mesh(geometry, matLite);
+        textMesh.position.z = -150;
+        scene.add(textMesh);
+
+        // make line shape ( N.B. edge view remains visible )
+
+        const holeShapes = [];
+
+        for (let i = 0; i < shapes.length; i++) {
+          const shape = shapes[i];
+
+          if (shape.holes && shape.holes.length > 0) {
+            for (let j = 0; j < shape.holes.length; j++) {
+              const hole = shape.holes[j];
+              holeShapes.push(hole);
+            }
+          }
+        }
+
+        shapes.push.apply(shapes, holeShapes);
+
+        const lineText = new THREE.Object3D();
+
+        for (let i = 0; i < shapes.length; i++) {
+          const shape = shapes[i];
+
+          const points = shape.getPoints();
+          const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+          geometry.translate(xMid, yMid, 0);
+
+          const lineMesh = new THREE.Line(geometry, matDark);
+          lineText.add(lineMesh);
+        }
+
+        scene.add(lineText);
+      },
+      null,
+      err => {
+        console.error('Error: ', err);
+      }
+    );
+
+    renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      autoClear: true
+    });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(innerBoxSize.width, innerBoxSize.height);
+    renderer.domElement.id = '3dtext';
+    container.appendChild(renderer.domElement);
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    // controls.update() must be called after any manual changes to the camera's transform
+    controls.update();
+  };
+
+  const animate = () => {
+    requestAnimationFrame(animate);
+    // required if controls.enableDamping or controls.autoRotate are set to true
+    controls.update();
+    render();
+  };
+
+  const render = () => {
+    renderer.render(scene, camera);
+  };
+
+  init();
+  animate();
+};
+
+exports.getInnerBoxSize = element => {
+  const computedStyle = window.getComputedStyle(element);
+
+  let elementHeight = element.clientHeight; // height with padding
+  let elementWidth = element.clientWidth; // width with padding
+
+  elementHeight -= parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+  elementWidth -= parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
+
+  return {
+    width: elementWidth,
+    height: elementHeight
+  };
+};
 
 /**
  * Format time range.
