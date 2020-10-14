@@ -68,7 +68,9 @@ module.exports = class StreamSetting extends Base {
           .filter(x => Number(x) <= 8 &&
                        Number(x) !== 4 &&
                        // Remove 4K option if detected sensor is 2K
-                       !(`${this.props.systemInformation.sensorResolution}` === SensorResolution['2K'] && Number(x) === 0)
+                       !(`${this.props.systemInformation.sensorResolution}` === SensorResolution['2K'] &&
+                        (Number(x) === 0 || Number(x) === 5 || Number(x) === 6)
+                       )
           )
           .map(x => ({
             label: i18n.t(`stream-resolution-${x}`),
