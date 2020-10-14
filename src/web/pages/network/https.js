@@ -72,12 +72,25 @@ module.exports = class HTTPS extends Base {
     progress.start();
     // Set delay time and wait for nodejs restart complete
     // Note. this is not a reliable solution cause the waiting time may vary from different environment
-    api.system.updateHttpsSettings(values, {delayMs: 10 * 1000})
+    api.system.updateHttpsSettings(values)
       .then(() => {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         this.setState({
           isShowModal: true,
-          modalBody: [`${i18n.t('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
+          modalBody: [
+            `${i18n.t('Please Redirect Manually to the New Address')} :`,
+            <div key="redirect" className="d-flex">
+              <div className="loading-spinners">
+                <div className="loading-dots">
+                  <div className="spinner">
+                    <div className="double-bounce1"/>
+                    <div className="double-bounce2"/>
+                  </div>
+                </div>
+              </div>
+              <a href={newAddress}>{newAddress}</a>
+            </div>
+          ]
         });
       })
       .finally(progress.done);
