@@ -15,7 +15,7 @@ module.exports = class Maintain extends Base {
     super(props);
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = i18n.t('Device processing');
+    this.state.apiProcessModalTitle = '';
     this.state.isShowFinishModal = false;
     this.state.finishModalTitle = i18n.t('Process finished');
     this.state.finishModalBody = '';
@@ -64,6 +64,7 @@ module.exports = class Maintain extends Base {
     progress.start();
     this.setState(prevState => ({
       isShowApiProcessModal: true,
+      apiProcessModalTitle: i18n.t('Device Rebooting'),
       isShowSelectModal: {
         ...prevState.isShowSelectModal,
         reboot: false
@@ -74,8 +75,6 @@ module.exports = class Maintain extends Base {
           utils.pingToCheckShutdown(resolve, 1000);
         }))
         .then(() => {
-          // Keep modal and update the title.
-          this.setState({apiProcessModalTitle: i18n.t('Device Rebooting')});
           // Check the server was start up, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')

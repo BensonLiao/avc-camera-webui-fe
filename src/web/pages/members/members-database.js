@@ -250,7 +250,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
           backdrop="static"
           isShowModal={isShowApiProcessModal}
           modalTitle={apiProcessModalTitle}
-          modalBody="Member Database Updating"
+          modalBody={i18n.t('Member Database Updating')}
           onHide={this.hideApiProcessModal}
         />
       </>

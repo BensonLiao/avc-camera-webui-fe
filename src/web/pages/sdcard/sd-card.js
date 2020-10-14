@@ -115,8 +115,8 @@ module.exports = class SDCard extends Base {
       disable: {
         showModal: this.state.showSelectModal.isShowDisableModal,
         modalOnSubmit: this.onSubmitDisableSDCard,
-        modalTitle: i18n.t('Disable'),
-        modalBody: [i18n.t('• Are you sure you want to disable the Micro SD card?'), i18n.t('• Event photos will not be available after disabling')]
+        modalTitle: i18n.t('Disable SD Card'),
+        modalBody: [i18n.t('Event photos will not be available after disabling the SD card. Are you sure you want to continue?')]
       }
     };
     return (

@@ -135,7 +135,6 @@ if (!window.languageResource['zh-tw']) {
     // /setup/language
     'Setup Language': '選擇語言',
     Language: '選擇語言',
-    'SETUP-Account': '帳號密碼',
     HTTPS: '安全傳輸方式',
     Next: '下一步',
 
@@ -250,7 +249,7 @@ if (!window.languageResource['zh-tw']) {
     Level: '強度',
     'D/N': '黑白模式',
     Sensitivity: '靈敏度',
-    'Day Mode': '日光時段',
+    'Day Mode': '日光模式',
     Rotation: '影像方向',
     Defog: '除霧',
     'Lighting Compensation Frequency (Hz)': '刷新頻率',
@@ -513,6 +512,7 @@ if (!window.languageResource['zh-tw']) {
     'Encryption Settings': '加密設定',
     Export: '匯出',
     Import: '匯入',
+    'Member Database Updating': '成員資料更新中',
     'Database Encryption': '資料庫加密',
     'Current Password': '舊密碼',
     'Enter your Current password': '請輸入您的舊密碼',
@@ -565,6 +565,11 @@ if (!window.languageResource['zh-tw']) {
     Group: '群組',
     'N/A': '無',
     'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何成員資料，確認要離開嗎？',
+    'Showing no face.': '照片中無人臉',
+    'More than one face in the photo.': '照片中超過1張人臉',
+    'Poor photo quality.': '照片品質不佳',
+    'Limitation of yaw and pitch angles should be 30 degrees and 20 degrees respectively.': '人臉的偏移角度不可超過上下20度和左右30度',
+    'Photo size should be less than 90 KB.': '照片大小不可超過90 KB',
 
     // /users/accounts
     Accounts: '帳號管理',
@@ -667,7 +672,6 @@ if (!window.languageResource['zh-tw']) {
     'DHCP Testing Success!': 'DHCP 測試成功！',
     'DHCP Testing Failed!': 'DHCP 測試失敗！',
     'Fixed IP Address': '固定IP位址',
-    'Enter a Fixed IP Address': '請輸入固定IP位址',
     'IP Address': 'IP 位址',
     'MAC Address': '網路卡硬體位址',
     'Subnet Mask': '子網路遮罩',
@@ -685,6 +689,9 @@ if (!window.languageResource['zh-tw']) {
     'DDNS Server': 'DDNS 伺服器',
     'Server Provider': '服務提供',
     'Host Name': '主機名稱',
+    'Enter DDNS host name.': '請輸入 DDNS 主機名稱',
+    'Enter DDNS username.': '請輸入 DDNS 使用者名稱',
+    'Enter DDNS password.': '請輸入 DDNS 密碼',
     'Secondary Web Server Port': '次網頁服務埠',
     'Enter Your Secondary Server Port': '請輸入您的服務埠',
     '1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.': '1024 - 65535，除了5555、8443、8554、17300，預設主要埠為80',
@@ -694,7 +701,6 @@ if (!window.languageResource['zh-tw']) {
     'DDNS Setting Failed!': 'DDNS 設定失敗！',
     'Updating Http Settings': '更新HTTP設定',
     'Device Rebooting': '裝置重新開機',
-    'Device Processing': '裝置處理中',
 
     // /network/https
     'Click confirm to redirect to the new address:': '按確認重新導向新的網址 :',
@@ -783,6 +789,8 @@ if (!window.languageResource['zh-tw']) {
     'S/N Code': 'S/N 碼',
 
     // /sd-card
+    'Disable SD Card': '關閉 SD Card',
+    'Event photos will not be available after disabling the SD card. Are you sure you want to continue?': '關閉 SD Card 卡後事件照片將無法顯示，確認是否繼續？',
     'Off Line Record': '斷線錄影',
     'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
     'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',

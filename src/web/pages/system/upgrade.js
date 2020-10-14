@@ -18,7 +18,7 @@ module.exports = class Upgrade extends Base {
     super(props);
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = i18n.t('Device Processing');
+    this.state.apiProcessModalTitle = i18n.t('Uploading Firmware');
     this.state.apiProcessModalBody = i18n.t('※ Please do not close browser or tab during upgrade');
     this.state.progressStatus = {
       uploadFirmware: 'initial',
@@ -152,7 +152,6 @@ module.exports = class Upgrade extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Uploading Firmware'),
       progressStatus: {
         uploadFirmware: 'start',
         upgradeFirmware: 'initial',

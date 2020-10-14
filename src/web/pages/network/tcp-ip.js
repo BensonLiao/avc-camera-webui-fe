@@ -42,7 +42,8 @@ module.exports = class TCPIP extends Base {
   constructor(props) {
     super(props);
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = i18n.t('Device Processing');
+    this.state.apiProcessModalTitle = i18n.t('Updating Http Settings');
+    this.state.modalBody = i18n.t('Please wait');
   }
 
   hideApiProcessModal = () => {
@@ -97,26 +98,22 @@ module.exports = class TCPIP extends Base {
 
   onSubmitHTTPForm = values => {
     progress.start();
-    this.setState({
-      isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Updating Http Settings'),
-      modalBody: i18n.t('Please wait')
-    },
-    () => {
-      api.system.updateHttpInfo(values)
-        .then(() => {
-          const newAddress = `http://${location.hostname}:${values.port}`;
-          this.setState({
-            apiProcessModalTitle: i18n.t('Success'),
-            modalBody: [`${i18n.t('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
-          });
-        })
-        .catch(() => {
-          progress.done();
-          this.hideApiProcessModal();
-        })
-        .finally(progress.done);
-    });
+    this.setState({isShowApiProcessModal: true},
+      () => {
+        api.system.updateHttpInfo(values)
+          .then(() => {
+            const newAddress = `http://${location.hostname}:${values.port}`;
+            this.setState({
+              apiProcessModalTitle: i18n.t('Success'),
+              modalBody: [`${i18n.t('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
+            });
+          })
+          .catch(() => {
+            progress.done();
+            this.hideApiProcessModal();
+          })
+          .finally(progress.done);
+      });
   }
 
   ddnsFormRender = ({values}) => {
@@ -145,7 +142,7 @@ module.exports = class TCPIP extends Base {
                 className="form-control"
                 type="text"
                 name="ddnsHost"
-                placeholder={i18n.t('Enter DDNS Host')}
+                placeholder={i18n.t('Enter DDNS host name.')}
                 value={values.ddnsHost}
                 disabled={!values.isEnableDDNS}
               />
@@ -156,7 +153,7 @@ module.exports = class TCPIP extends Base {
                 className="form-control"
                 type="text"
                 name="ddnsAccount"
-                placeholder={i18n.t('Enter DDNS Account')}
+                placeholder={i18n.t('Enter DDNS username.')}
                 value={values.ddnsAccount}
                 disabled={!values.isEnableDDNS}
               />
@@ -167,7 +164,7 @@ module.exports = class TCPIP extends Base {
                 className="form-control"
                 type="text"
                 name="ddnsPassword"
-                placeholder={i18n.t('Enter DDNS Password')}
+                placeholder={i18n.t('Enter DDNS password.')}
                 value={values.ddnsPassword}
                 disabled={!values.isEnableDDNS}
               />
