@@ -7,6 +7,7 @@ const progress = require('nprogress');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Base = require('../shared/base');
 const api = require('../../../core/apis/web-api');
+const SensorResolution = require('webserver-form-schema/constants/sensor-resolution');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 const StreamCodec = require('webserver-form-schema/constants/stream-codec');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
@@ -63,10 +64,16 @@ module.exports = class StreamSetting extends Base {
           label: x,
           value: x
         })),
-        resolution: StreamResolution.all().filter(x => Number(x) <= 8 && Number(x) !== 4).map(x => ({
-          label: i18n.t(`stream-resolution-${x}`),
-          value: x
-        })),
+        resolution: StreamResolution.all()
+          .filter(x => Number(x) <= 8 &&
+                       Number(x) !== 4 &&
+                       // Remove 4K option if detected sensor is 2K
+                       !(`${this.props.systemInformation.sensorResolution}` === SensorResolution['2K'] && Number(x) === 0)
+          )
+          .map(x => ({
+            label: i18n.t(`stream-resolution-${x}`),
+            value: x
+          })),
         frameRate: (() => {
           const result = [];
           for (let index = StreamSettingsSchema.channelA.props.frameRate.min;

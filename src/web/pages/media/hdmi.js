@@ -5,6 +5,7 @@ const {Formik, Form} = require('formik');
 const {getRouter} = require('capybara-router');
 const Base = require('../shared/base');
 const HDMISettingsSchema = require('webserver-form-schema/hdmi-settings-schema');
+const SensorResolution = require('webserver-form-schema/constants/sensor-resolution');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const i18n = require('../../i18n').default;
 const api = require('../../../core/apis/web-api');
@@ -19,7 +20,8 @@ module.exports = class HDMI extends Base {
         isEnableHDMI: PropTypes.bool.isRequired,
         resolution: PropTypes.string.isRequired,
         frameRate: PropTypes.string.isRequired
-      }).isRequired
+      }).isRequired,
+      systemInformation: PropTypes.shape({sensorResolution: PropTypes.number.isRequired}).isRequired
     };
   }
 
@@ -41,7 +43,10 @@ module.exports = class HDMI extends Base {
     })());
     this.resolution =
       StreamResolution.all()
-        .filter(x => Number(x) <= 8 && Number(x) !== 4)
+        .filter(x => Number(x) <= 8 &&
+                     Number(x) !== 4 &&
+                     !(`${this.props.systemInformation.sensorResolution}` === SensorResolution['2K'] && Number(x) === 0)
+        )
         .map(x => ({
           label: i18n.t(`stream-resolution-${x}`),
           value: x

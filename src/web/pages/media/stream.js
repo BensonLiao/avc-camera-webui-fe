@@ -8,6 +8,7 @@ const BreadCrumb = require('../../../core/components/fields/breadcrumb').default
 module.exports = class Stream extends Base {
   static get propTypes() {
     return {
+      systemInformation: PropTypes.shape({sensorResolution: PropTypes.number.isRequired}).isRequired,
       streamSettings: PropTypes.shape({
         channelA: PropTypes.shape({
           codec: PropTypes.string.isRequired,
@@ -31,6 +32,7 @@ module.exports = class Stream extends Base {
   }
 
   render() {
+    const {streamSettings, systemInformation} = this.props;
     return (
       <div className="main-content left-menu-active">
         <section className="section-media">
@@ -43,7 +45,7 @@ module.exports = class Stream extends Base {
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <StreamSetting streamSettings={this.props.streamSettings}/>
+                  <StreamSetting streamSettings={streamSettings} systemInformation={systemInformation}/>
                 </div>
               </div>
             </div>
