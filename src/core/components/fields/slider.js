@@ -108,11 +108,11 @@ module.exports = class SliderField extends React.PureComponent {
   render() {
     const {disableStepper, disabled, step, field: {value}} = this.props;
     return disableStepper || isArray(value) ? (
-      <div className="left-selection">
+      <div className="custom-slider">
         <input ref={this.ref} type="text"/>
       </div>
     ) : (
-      <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
+      <div className="d-flex align-items-center justify-content-between custom-slider">
         <div>
           <CustomTooltip title={`${-step * 5}`}>
             <button
@@ -136,9 +136,7 @@ module.exports = class SliderField extends React.PureComponent {
           </CustomTooltip>
         </div>
         <div className="flex-grow-1">
-          <div className="left-selection">
-            <input ref={this.ref} type="text"/>
-          </div>
+          <input ref={this.ref} type="text"/>
         </div>
         <div>
           <CustomTooltip title={`+${step}`}>

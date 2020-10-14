@@ -55,21 +55,6 @@
     .tip {
       height: 32px;
     }
-
-    .focal-length .btn {
-      &:focus {
-        outline: none;
-        box-shadow: none;
-      }
-
-      &:hover:not(:disabled) {
-        color: $select;
-      }
-
-      &:hover:disabled {
-        cursor: not-allowed;
-      }
-    }
   }
 
   .accordion {
@@ -147,6 +132,11 @@
           border-radius: 6px;
           background-color: #f2f2f2;
           padding: 16px;
+
+          .custom-slider {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+          }
         }
       }
     }

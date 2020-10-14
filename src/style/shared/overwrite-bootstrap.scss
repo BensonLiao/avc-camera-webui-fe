@@ -41,13 +41,30 @@ $switch-input-color-checked: $success;
   }
 }
 
-.left-selection {
+.custom-slider {
+  margin-top: 0.5rem;
+
   .slider {
     height: 24px;
   }
 
   .slider-selection {
     background: $primary;
+  }
+
+  .btn {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &:hover:not(:disabled) {
+      color: $select;
+    }
+
+    &:hover:disabled {
+      cursor: not-allowed;
+    }
   }
 }
 
