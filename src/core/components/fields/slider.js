@@ -2,7 +2,8 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const Slider = require('bootstrap-slider');
-const {getPrecision} = require('../../utils');
+const CustomTooltip = require('../tooltip');
+const {getPrecision, isArray} = require('../../utils');
 
 module.exports = class SliderField extends React.PureComponent {
   static get propTypes() {
@@ -18,7 +19,8 @@ module.exports = class SliderField extends React.PureComponent {
       disabled: PropTypes.bool,
       updateFieldOnStop: PropTypes.bool,
       enableArrowKey: PropTypes.bool,
-      onChangeInput: PropTypes.func
+      onChangeInput: PropTypes.func,
+      disableStepper: PropTypes.bool
     };
   }
 
@@ -27,7 +29,8 @@ module.exports = class SliderField extends React.PureComponent {
       disabled: false,
       updateFieldOnStop: false,
       enableArrowKey: false,
-      onChangeInput: null
+      onChangeInput: null,
+      disableStepper: false
     };
   }
 
@@ -37,8 +40,21 @@ module.exports = class SliderField extends React.PureComponent {
     this.slider = null;
   }
 
+  varyStep = step => {
+    const {form, field: {name, value}, min, max} = this.props;
+    let newValue = step + value;
+    if (newValue < min) {
+      newValue = min;
+    }
+
+    if (newValue > max) {
+      newValue = max;
+    }
+
+    form.setFieldValue(name, newValue);
+  }
+
   componentDidMount() {
-    const precisionDigit = getPrecision(this.props.step);
     this.slider = new Slider(this.ref.current, {
       min: this.props.min,
       max: this.props.max,
@@ -47,6 +63,7 @@ module.exports = class SliderField extends React.PureComponent {
       focus: this.props.enableArrowKey,
       natural_arrow_keys: this.props.enableArrowKey
     });
+    const precisionDigit = getPrecision(this.props.step);
     if (this.props.updateFieldOnStop) {
       this.slider.on('slideStop', value => {
         this.props.form.setFieldValue(
@@ -89,9 +106,60 @@ module.exports = class SliderField extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div className="left-selection">
+    const {disableStepper, disabled, step, field: {value}} = this.props;
+    return disableStepper || isArray(value) ? (
+      <div className="custom-slider">
         <input ref={this.ref} type="text"/>
+      </div>
+    ) : (
+      <div className="d-flex align-items-center justify-content-between custom-slider">
+        <div>
+          <CustomTooltip title={`${-step * 5}`}>
+            <button
+              disabled={disabled}
+              className="btn text-secondary-700"
+              type="button"
+              onClick={() => this.varyStep(-step * 5)}
+            >
+              <i type="button" className="fa fa-angle-double-left text-size-16"/>
+            </button>
+          </CustomTooltip>
+          <CustomTooltip title={`${-step}`}>
+            <button
+              disabled={disabled}
+              className="btn text-secondary-700"
+              type="button"
+              onClick={() => this.varyStep(-step)}
+            >
+              <i className="fas fa-angle-left text-size-16"/>
+            </button>
+          </CustomTooltip>
+        </div>
+        <div className="flex-grow-1">
+          <input ref={this.ref} type="text"/>
+        </div>
+        <div>
+          <CustomTooltip title={`+${step}`}>
+            <button
+              disabled={disabled}
+              className="btn text-secondary-700"
+              type="button"
+              onClick={() => this.varyStep(step)}
+            >
+              <i className="fas fa-angle-right text-size-16"/>
+            </button>
+          </CustomTooltip>
+          <CustomTooltip title={`+${step * 5}`}>
+            <button
+              disabled={disabled}
+              className="btn text-secondary-700"
+              type="button"
+              onClick={() => this.varyStep(step * 5)}
+            >
+              <i className="fa fa-angle-double-right text-size-16"/>
+            </button>
+          </CustomTooltip>
+        </div>
       </div>
     );
   }

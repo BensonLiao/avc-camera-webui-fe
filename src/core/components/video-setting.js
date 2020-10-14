@@ -15,7 +15,6 @@ const Slider = require('./fields/slider');
 const Dropdown = require('./fields/dropdown');
 const FormikEffect = require('./formik-effect');
 const {getRouter} = require('capybara-router');
-const CustomTooltip = require('../../core/components/tooltip');
 const constants = require('../constants');
 const store = require('../store');
 module.exports = class VideoSetting extends React.PureComponent {
@@ -389,66 +388,18 @@ module.exports = class VideoSetting extends React.PureComponent {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{i18n.t('Focus')}</label>
-                  <span className="d-none text-primary text-size-14">{values.focalLength}</span>
+                  <span className="text-primary text-size-14">{values.focalLength}</span>
                 </div>
-                <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
-                  <div>
-                    <CustomTooltip title="-5">
-                      <button
-                        disabled={disableInput}
-                        className="btn text-secondary-700"
-                        type="button"
-                        onClick={() => this.varyFocus(form, -5)}
-                      >
-                        <i type="button" className="fa fa-angle-double-left text-size-16"/>
-                      </button>
-                    </CustomTooltip>
-                    <CustomTooltip title="-1">
-                      <button
-                        disabled={disableInput}
-                        className="btn text-secondary-700"
-                        type="button"
-                        onClick={() => this.varyFocus(form, -1)}
-                      >
-                        <i className="fas fa-minus text-size-16"/>
-                      </button>
-                    </CustomTooltip>
-                  </div>
-                  <div className="flex-grow-1">
-                    <Field
-                      updateFieldOnStop
-                      enableArrowKey
-                      disabled={disableInput}
-                      name="focalLength"
-                      component={Slider}
-                      step={1}
-                      min={videoFocusSettingsSchema.focalLength.min}
-                      max={videoFocusSettingsSchema.focalLength.max}
-                    />
-                  </div>
-                  <div>
-                    <CustomTooltip title="+1">
-                      <button
-                        disabled={disableInput}
-                        className="btn text-secondary-700"
-                        type="button"
-                        onClick={() => this.varyFocus(form, 1)}
-                      >
-                        <i className="fas fa-plus text-size-16"/>
-                      </button>
-                    </CustomTooltip>
-                    <CustomTooltip title="+5">
-                      <button
-                        disabled={disableInput}
-                        className="btn text-secondary-700"
-                        type="button"
-                        onClick={() => this.varyFocus(form, 5)}
-                      >
-                        <i className="fa fa-angle-double-right text-size-16"/>
-                      </button>
-                    </CustomTooltip>
-                  </div>
-                </div>
+                <Field
+                  updateFieldOnStop
+                  enableArrowKey
+                  disabled={disableInput}
+                  name="focalLength"
+                  component={Slider}
+                  step={1}
+                  min={videoFocusSettingsSchema.focalLength.min}
+                  max={videoFocusSettingsSchema.focalLength.max}
+                />
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
@@ -636,7 +587,6 @@ module.exports = class VideoSetting extends React.PureComponent {
                         updateFieldOnStop
                         name="dnDuty"
                         component={Slider}
-                        mode="range"
                         step={0.5}
                         min={videoSettingsSchema.timePeriodStart.min}
                         max={videoSettingsSchema.timePeriodEnd.max}
