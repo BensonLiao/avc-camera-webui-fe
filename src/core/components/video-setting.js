@@ -388,7 +388,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <label>{i18n.t('Focus')}</label>
-                  <span className="d-none text-primary text-size-14">{values.focalLength}</span>
+                  <span className="text-primary text-size-14">{values.focalLength}</span>
                 </div>
                 <Field
                   updateFieldOnStop
