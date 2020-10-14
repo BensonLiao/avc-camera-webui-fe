@@ -201,7 +201,7 @@ exports.formatDate = (date, {withSecond, withoutTime, format} = {}) => {
  */
 exports.addTimezoneOffset = time => {
   const isTimeEpoch = typeof time === 'number';
-  return new Date(isTimeEpoch ? time : time.getTime() -
+  return new Date((isTimeEpoch ? time : time.getTime()) -
   ((isTimeEpoch ? new Date(time) : time).getTimezoneOffset() * 60 * 1000));
 };
 
@@ -213,7 +213,7 @@ exports.addTimezoneOffset = time => {
  */
 exports.subtractTimezoneOffset = time => {
   const isTimeEpoch = typeof time === 'number';
-  return new Date(isTimeEpoch ? time : time.getTime() +
+  return new Date((isTimeEpoch ? time : time.getTime()) +
   ((isTimeEpoch ? new Date(time) : time).getTimezoneOffset() * 60 * 1000));
 };
 
