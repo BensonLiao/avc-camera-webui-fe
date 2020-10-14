@@ -70,7 +70,9 @@ module.exports = class HTTPS extends Base {
 
   onSubmitForm = values => {
     progress.start();
-    api.system.updateHttpsSettings(values)
+    // Set delay time and wait for nodejs restart complete
+    // Note. this is not a reliable solution cause the waiting time may vary from different environment
+    api.system.updateHttpsSettings(values, {delayMs: 10 * 1000})
       .then(() => {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         this.setState({
