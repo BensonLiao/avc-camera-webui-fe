@@ -75,29 +75,30 @@ module.exports = class DateTime extends Base {
   }
 
   onSubmit = values => {
+    const formValues = {...values};
     const {systemInformation: {languageCode}} = this.props;
-    const isLanguageUpdate = languageCode !== values.language;
+    const isLanguageUpdate = languageCode !== formValues.language;
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
       isShowModal: false
     }, () => {
-      if (values.syncTimeOption === SyncTimeOption.local) {
-        values.manualTime = new Date();
-        values.ntpTimeZone = dayjs.tz.guess();
+      if (formValues.syncTimeOption === SyncTimeOption.local) {
+        formValues.manualTime = new Date();
+        formValues.ntpTimeZone = dayjs.tz.guess();
       }
 
       if (isLanguageUpdate) {
-        api.system.updateLanguage(values.language)
+        api.system.updateLanguage(formValues.language)
           .then(() => {
             location.reload();
           })
           .finally(progress.done);
       } else {
-        values.manualTime.setSeconds(0);
-        values.manualTime = utils.addTimezoneOffset(values.manualTime).getTime();
-        values.ntpUpdateTime = utils.addTimezoneOffset(values.ntpUpdateTime).getTime();
-        api.system.updateSystemDateTime(values)
+        formValues.manualTime.setSeconds(0);
+        formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
+        formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
+        api.system.updateSystemDateTime(formValues)
           .then(() => {
             location.href = '/login';
           })
