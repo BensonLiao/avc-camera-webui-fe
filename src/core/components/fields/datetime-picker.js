@@ -60,9 +60,9 @@ module.exports = class DatePicker extends React.PureComponent {
       minutes: [null, null, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, null, null],
       meridiemItems: [null, null, 'PM', 'AM', null, null],
       hoursRef: React.createRef(),
-      currentHourItem: null,
+      currentHourItem: 12,
       minutesRef: React.createRef(),
-      currentMinuteItem: null,
+      currentMinuteItem: 0,
       meridiemItemsRef: React.createRef(),
       tuneHoursScrollTimeout: null,
       tuneMinutesScrollTimeout: null,
@@ -303,10 +303,36 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   onSwitchToClock = date => {
-    const {field, dateTabText} = this.props;
+    const {
+      field,
+      form: {values},
+      endDateFieldName,
+      startDateFieldName, dateTabText
+    } = this.props;
+    const {
+      [startDateFieldName]: startDate,
+      [endDateFieldName]: endDate
+    } = values;
     const isDate = utils.isDate(date);
     if (this.props.dateTabText) {
-      this.setDateValue(isDate ? date : (field.value ? field.value : new Date()), {skipTime: isDate});
+      let clockDatetime = isDate ? date : (field.value ? field.value : new Date());
+      if (startDate) {
+        clockDatetime = dayjs(clockDatetime)
+          .minute(dayjs(startDate).minute())
+          .hour(dayjs(startDate).hour())
+          .date(dayjs(startDate).date())
+          .month(dayjs(startDate).month())
+          .year(dayjs(startDate).year());
+      } else if (endDate) {
+        clockDatetime = dayjs(clockDatetime)
+          .minute(dayjs(endDate).minute())
+          .hour(dayjs(endDate).hour())
+          .date(dayjs(endDate).date())
+          .month(dayjs(endDate).month())
+          .year(dayjs(endDate).year());
+      }
+
+      this.setDateValue(new Date(clockDatetime), {skipTime: isDate});
     }
 
     setTimeout(() => {
