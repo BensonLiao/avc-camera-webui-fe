@@ -379,11 +379,19 @@ exports.convertCropperImage = (imgSrc, wrapperSize = 300) => new Promise((resolv
   const img = document.createElement('img');
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
+  let ratio;
 
   img.onerror = reject;
   img.onload = () => {
-    img.width = wrapperSize;
-    img.height = wrapperSize;
+    ratio = img.height / img.width;
+    if (img.width < img.height) {
+      img.width = wrapperSize;
+      img.height = Math.round(img.width * ratio);
+    } else {
+      img.height = wrapperSize;
+      img.width = Math.round(img.height / ratio);
+    }
+
     canvas.width = wrapperSize;
     canvas.height = wrapperSize;
 
@@ -398,6 +406,8 @@ exports.convertCropperImage = (imgSrc, wrapperSize = 300) => new Promise((resolv
 });
 
 /**
+ * @deprecated - old photo editor convert tool
+ *
  * @param {string} imgSrc - The src of the img element.
  * @param {number} zoomFactor - Zoom factor as a number, `2` is 2x.
  * @param {number} pictureRotateDegrees - The rotate degrees. 0 ~ 360

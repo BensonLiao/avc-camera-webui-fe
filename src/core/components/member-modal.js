@@ -417,9 +417,8 @@ module.exports = class Member extends React.PureComponent {
   verifyPhoto = () => {
     const {
       avatarToEdit,
-      avatarList: {[avatarToEdit]: {avatarFile, verifyStatus, avatarPreviewStyle: {croppedImage}}}
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage}}}
     } = this.state;
-    const {member, defaultPictureUrl} = this.props;
     const resetErrorMessage = update(this.state,
       {
         isShowEditModal: {$set: false},
@@ -442,7 +441,7 @@ module.exports = class Member extends React.PureComponent {
                 }
               });
             this.setState(updateErrorMessage);
-          } else if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
+          } else {
             // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
             const updateIsVerifying = update(this.state,
               {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
@@ -476,18 +475,6 @@ module.exports = class Member extends React.PureComponent {
                   this.setState(updateAvatarVerification);
                 });
             });
-          } else if (member && !verifyStatus) {
-            // Photo was edited but restored back to original state, skip verification and reset error message
-            const updateAvatarVerification = update(this.state,
-              {
-                avatarList: {
-                  [avatarToEdit]: {
-                    verifyStatus: {$set: true},
-                    errorMessage: {$set: null}
-                  }
-                }
-              });
-            this.setState(updateAvatarVerification);
           }
 
           this.updatePictureCount();
@@ -559,6 +546,8 @@ module.exports = class Member extends React.PureComponent {
     const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
     const isOverPhotoLimit = remainingPictureQuota <= 0 && remainingPictureQuota !== null;
+
+    console.log(this.state);
     return (
       <Form>
         <FormikEffect onChange={this.onChangeFormValues}/>
