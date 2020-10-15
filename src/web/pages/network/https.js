@@ -108,7 +108,7 @@ module.exports = class HTTPS extends Base {
                 </div>
               ]
             });
-          }, 3000);
+          }, 10 * 1000);
         });
       })
       .finally(progress.done);
