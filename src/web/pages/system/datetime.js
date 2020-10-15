@@ -343,7 +343,6 @@ module.exports = class DateTime extends Base {
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">{i18n.t('Date & Region')}</div>
-
                   <div className="card-body">
                     <div className="card form-group">
                       <div className="card-body">
