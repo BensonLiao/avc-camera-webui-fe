@@ -329,8 +329,7 @@ module.exports = class DateTime extends Base {
   };
 
   render() {
-    const {systemDateTime, systemDateTime: {ntpUpdateTime, ntpTimeZone}, systemInformation: {languageCode}, deviceTime} = this.props;
-
+    const {systemDateTime, systemDateTime: {ntpUpdateTime, ntpTimeZone, deviceTime}, systemInformation: {languageCode}} = this.props;
     return (
       <div className="main-content left-menu-active">
         <div className="page-system">
