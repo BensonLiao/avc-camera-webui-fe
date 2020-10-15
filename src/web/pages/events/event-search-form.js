@@ -29,11 +29,11 @@ module.exports = class EventsSearchForm extends React.PureComponent {
   state = {
     isShowStartDatePicker: false,
     isShowEndDatePicker: false,
-    clickSearch: localStorage.getItem('clickSearch') || false
+    inputEndTime: localStorage.getItem('inputEndTime') || false
   };
 
   componentDidMount() {
-    localStorage.removeItem('clickSearch');
+    localStorage.removeItem('inputEndTime');
   }
 
   toggleStartDatePicker = () => {
@@ -66,7 +66,10 @@ module.exports = class EventsSearchForm extends React.PureComponent {
    * @returns {void}
    */
   onSubmitSearchForm = ({keyword, start, end}) => {
-    localStorage.setItem('clickSearch', false);
+    if (end) {
+      localStorage.setItem('inputEndTime', true);
+    }
+
     getRouter().go({
       name: this.props.currentRouteName,
       params: {
@@ -80,12 +83,12 @@ module.exports = class EventsSearchForm extends React.PureComponent {
   };
 
   render() {
-    const {isShowStartDatePicker, isShowEndDatePicker, clickSearch} = this.state;
+    const {isShowStartDatePicker, isShowEndDatePicker, inputEndTime} = this.state;
     const {params, isApiProcessing} = this.props;
     const searchFromInitialValues = {
       keyword: params.keyword || '',
       start: params.start ? utils.subtractTimezoneOffset(new Date(params.start)) : null,
-      end: params.end && clickSearch ? utils.subtractTimezoneOffset(new Date(params.end)) : null
+      end: params.end && inputEndTime ? utils.subtractTimezoneOffset(new Date(params.end)) : null
     };
 
     return (
