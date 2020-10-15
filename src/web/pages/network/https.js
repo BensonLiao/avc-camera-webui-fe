@@ -13,6 +13,7 @@ const CustomNotifyModal = require('../../../core/components/custom-notify-modal'
 const CustomTooltip = require('../../../core/components/tooltip');
 const SelectField = require('../../../core/components/fields/select-field');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+const infoColor = getComputedStyle(document.documentElement).getPropertyValue('--info');
 
 module.exports = class HTTPS extends Base {
   static get propTypes() {
@@ -70,12 +71,44 @@ module.exports = class HTTPS extends Base {
 
   onSubmitForm = values => {
     progress.start();
+    // Set delay time and wait for nodejs restart complete
+    // Note. this is not a reliable solution cause the waiting time may vary from different environment
     api.system.updateHttpsSettings(values)
       .then(() => {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         this.setState({
           isShowModal: true,
-          modalBody: [`${i18n.t('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
+          modalBody: [
+            `${i18n.t('Please Redirect Manually to the New Address')} :`,
+            <div key="redirect" className="d-flex">
+              <div className="loading-spinners ml-0">
+                <div className="loading-dots">
+                  <div className="spinner">
+                    <div className="double-bounce1"/>
+                    <div className="double-bounce2"/>
+                  </div>
+                </div>
+              </div>
+              <span style={{color: infoColor}}>{newAddress}</span>
+            </div>
+          ]
+        }, () => {
+          setTimeout(() => {
+            this.setState({
+              modalBody: [
+                `${i18n.t('Please Redirect Manually to the New Address')} :`,
+                <div key="redirect" className="d-flex">
+                  <div className="loading-spinners ml-0">
+                    <svg className="checkmark show" viewBox="0 0 52 52">
+                      <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                      <path className="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                  </div>
+                  <a href={newAddress}>{newAddress}</a>
+                </div>
+              ]
+            });
+          }, 10 * 1000);
         });
       })
       .finally(progress.done);
