@@ -546,8 +546,6 @@ module.exports = class Member extends React.PureComponent {
     const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
     const isOverPhotoLimit = remainingPictureQuota <= 0 && remainingPictureQuota !== null;
-
-    console.log(this.state);
     return (
       <Form>
         <FormikEffect onChange={this.onChangeFormValues}/>
