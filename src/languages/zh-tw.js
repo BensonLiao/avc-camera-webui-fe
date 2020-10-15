@@ -486,7 +486,7 @@ if (!window.languageResource['zh-tw']) {
     'notification-card-2': '人形偵測',
     'notification-card-3': '移動偵測',
     'notification-card-4': '破壞警報',
-    'notification-card-5': '數位輸出',
+    'notification-card-5': '數位輸入',
     // /notification/cards / Constants / Face Recognition Condition
     'Group Type': '群組類型',
     'face-recognition-condition-0': '不限',
