@@ -111,21 +111,11 @@ module.exports = class DateTime extends Base {
   };
 
   formRender = ({values}) => {
-    const {systemDateTime: {deviceTime}} = this.props;
     const {$isApiProcessing, showDateTimePicker, isShowModal} = this.state;
     const isNotNTP = values.syncTimeOption !== SyncTimeOption.ntp;
     return (
-      <Form className="card-body">
-        <div className="card form-group">
-          <div className="card-body">
-            <div className="form-group d-flex justify-content-between align-items-center mb-0">
-              <label className="mb-0">{i18n.t('Date and Time of the Device')}</label>
-              <label className="text-primary mb-0">
-                <Clock ticking date={deviceTime} timezone={values.ntpTimeZone} format="YYYY-MM-DD, hh:mm:ss A Z"/>
-              </label>
-            </div>
-          </div>
-        </div>
+      <Form>
+        {/* Remove language in AVN version */}
         <SelectField hide labelName={i18n.t('Language')} name="language">
           <option value={window.navigator.userLanguage || window.navigator.language}>{i18n.t('Default')}</option>
           <option value={AVAILABLE_LANGUAGE_CODES[0]}>{i18n.t('English')}</option>
@@ -339,7 +329,7 @@ module.exports = class DateTime extends Base {
   };
 
   render() {
-    const {systemDateTime, systemDateTime: {ntpUpdateTime}, systemInformation: {languageCode}} = this.props;
+    const {systemDateTime, systemDateTime: {ntpUpdateTime, ntpTimeZone}, systemInformation: {languageCode}, deviceTime} = this.props;
 
     return (
       <div className="main-content left-menu-active">
@@ -352,19 +342,32 @@ module.exports = class DateTime extends Base {
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{i18n.t('Date & Time')}</div>
-                  <Formik
-                    initialValues={{
-                      ...systemDateTime,
-                      ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime).getTime(),
-                      manualTime: systemDateTime.manualTime ?
-                        new Date(systemDateTime.manualTime) : new Date(),
-                      language: languageCode
-                    }}
-                    onSubmit={this.onSubmit}
-                  >
-                    {this.formRender}
-                  </Formik>
+                  <div className="card-header">{i18n.t('Date & Region')}</div>
+
+                  <div className="card-body">
+                    <div className="card form-group">
+                      <div className="card-body">
+                        <div className="form-group d-flex justify-content-between align-items-center mb-0">
+                          <label className="mb-0">{i18n.t('Date and Time of the Device')}</label>
+                          <label className="text-primary mb-0">
+                            <Clock ticking date={deviceTime} timezone={ntpTimeZone} format="YYYY-MM-DD, hh:mm:ss A Z"/>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <Formik
+                      initialValues={{
+                        ...systemDateTime,
+                        ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime).getTime(),
+                        manualTime: systemDateTime.manualTime ?
+                          new Date(systemDateTime.manualTime) : new Date(),
+                        language: languageCode
+                      }}
+                      onSubmit={this.onSubmit}
+                    >
+                      {this.formRender}
+                    </Formik>
+                  </div>
                 </div>
               </div>
             </div>
