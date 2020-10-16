@@ -16,7 +16,6 @@ const BreadCrumb = require('../../../core/components/fields/breadcrumb').default
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
-const CustomTooltip = require('../../../core/components/tooltip');
 const utils = require('../../../core/utils');
 
 module.exports = class DateTime extends Base {
