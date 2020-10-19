@@ -13,7 +13,7 @@ const CustomNotifyModal = require('../../../core/components/custom-notify-modal'
 const CustomTooltip = require('../../../core/components/tooltip');
 const SelectField = require('../../../core/components/fields/select-field');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
-const LoadingIndicator = require('../../../core/components/loading-indicator').default;
+const ProgressIndicator = require('../../../core/components/progress-indicator').default;
 
 const infoColor = getComputedStyle(document.documentElement).getPropertyValue('--info');
 
@@ -83,7 +83,7 @@ module.exports = class HTTPS extends Base {
           modalBody: [
             `${i18n.t('Please Redirect Manually to the New Address')} :`,
             <div key="redirect" className="d-flex">
-              <LoadingIndicator
+              <ProgressIndicator
                 className="ml-0"
                 status="start"
               />
@@ -96,7 +96,7 @@ module.exports = class HTTPS extends Base {
               modalBody: [
                 `${i18n.t('Please Redirect Manually to the New Address')} :`,
                 <div key="redirect" className="d-flex">
-                  <LoadingIndicator
+                  <ProgressIndicator
                     className="ml-0"
                     status="done"
                   />

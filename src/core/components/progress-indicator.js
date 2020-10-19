@@ -10,7 +10,7 @@ import React from 'react';
  * @prop {string} status - status of the progress, could be: `start`, `done`, or `fail`
  * @returns {component}
  */
-const LoadingIndicator = ({className, isDetermined, percentage, status}) => {
+const ProgressIndicator = ({className, isDetermined, percentage, status}) => {
   return (
     <div className={classNames('loading-spinners', className)}>
       <svg className={classNames('checkmark', {show: status === 'done'})} viewBox="0 0 52 52">
@@ -35,18 +35,18 @@ const LoadingIndicator = ({className, isDetermined, percentage, status}) => {
   );
 };
 
-LoadingIndicator.propTypes = {
+ProgressIndicator.propTypes = {
   className: PropTypes.string,
   isDetermined: PropTypes.bool,
   percentage: PropTypes.number,
   status: PropTypes.oneOf(['start', 'done', 'fail'])
 };
 
-LoadingIndicator.defaultProps = {
+ProgressIndicator.defaultProps = {
   className: '',
   isDetermined: false,
   percentage: 0,
   status: 'start'
 };
 
-export default LoadingIndicator;
+export default ProgressIndicator;

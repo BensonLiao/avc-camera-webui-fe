@@ -1,7 +1,7 @@
 const PropTypes = require('prop-types');
 const React = require('react');
 const classNames = require('classnames');
-const LoadingIndicator = require('../components/loading-indicator').default;
+const ProgressIndicator = require('./progress-indicator').default;
 
 module.exports = class StageProgress extends React.PureComponent {
   static get propTypes() {
@@ -31,7 +31,7 @@ module.exports = class StageProgress extends React.PureComponent {
     return (
       <div className={classNames('stage-progress', {draw: progressStatus === 'done'})}>
         <div className="rounded-border-container">
-          <LoadingIndicator
+          <ProgressIndicator
             isDetermined={progressPercentage !== -1}
             percentage={progressPercentage}
             status={progressStatus}
