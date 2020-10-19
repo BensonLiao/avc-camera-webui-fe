@@ -63,17 +63,21 @@ module.exports = class VideoSetting extends React.PureComponent {
     this.state.focalLengthQueue = null;
   }
 
+  updateFocalLengthStore = bool => {
+    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, bool);
+  }
+
   generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
     event.preventDefault();
     form.setFieldValue('focusType', autoFocusType).then(() => {
       let prevFocalLength;
-      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+      this.updateFocalLengthStore(true);
       // Refresh focal length until previous value matches current value
       const refreshFocalLength = () => {
         api.video.getFocalLength()
           .then(response => {
             if (prevFocalLength === response.data.focalLength) {
-              store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
+              this.updateFocalLengthStore(false);
             } else {
               prevFocalLength = response.data.focalLength;
               // Refresh focal length at 1hz
@@ -121,7 +125,7 @@ module.exports = class VideoSetting extends React.PureComponent {
     const hasChanged = (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength;
 
     if (hasChanged) {
-      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+      this.updateFocalLengthStore(true);
     }
 
     if (this.props.isApiProcessing) {
@@ -148,13 +152,13 @@ module.exports = class VideoSetting extends React.PureComponent {
         .then(() => {
           if (hasChanged) {
             let prevFocalLength;
-            store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+            this.updateFocalLengthStore(true);
             // Refresh focal length until previous value matches current value
             const refreshFocalLength = () => {
               api.video.getFocalLength()
                 .then(response => {
                   if (prevFocalLength === response.data.focalLength) {
-                    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
+                    this.updateFocalLengthStore(false);
                   } else {
                     prevFocalLength = response.data.focalLength;
                     // Refresh focal length at 1hz
@@ -216,7 +220,7 @@ module.exports = class VideoSetting extends React.PureComponent {
 
   generateClickAutoFocusButtonHandler = form => event => {
     event.preventDefault();
-    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+    this.updateFocalLengthStore(true);
     this.submitPromise = this.submitPromise
       .then(api.video.startAutoFocus)
       .then(() => {
@@ -226,7 +230,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           api.video.getFocalLength()
             .then(response => {
               if (prevFocalLength === response.data.focalLength) {
-                store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
+                this.updateFocalLengthStore(false);
               } else {
                 prevFocalLength = response.data.focalLength;
                 // Refresh focal length at 1hz
