@@ -56,7 +56,7 @@ if (!window.languageResource['zh-tw']) {
     'Product Information': '其他產品資訊',
     'Sign Out': '登出',
 
-    // Compoenet / Input / Validations (By Pages)
+    // Compoenet / Input / Validations
     'Incorrect confirm password.': '兩次密碼不一致。',
     'validation-required': '此欄位必填。',
     'validation-string': '此欄位必須是字串。',
@@ -98,7 +98,6 @@ if (!window.languageResource['zh-tw']) {
     'validation-birthday': '請使用正確的生日格式。',
     'validation-countryCode': '國家代碼錯誤。',
     'Same name found, please use a different name.': '名字重複，請使用不同的名字',
-    // /network/tcp-ip
     'The port number must not empty.': '網頁服務埠不能為空',
 
     // Component / CustomTooltip
@@ -453,6 +452,7 @@ if (!window.languageResource['zh-tw']) {
     'VMS: On': '影像管理系統(VMS): 開',
     Schedule: '通知時間',
     Rule: '通知條件',
+    'Group Type': '群組類型',
     Condition: '條件',
     Subject: '通知對象',
     'All Groups': '所有群組',
@@ -486,7 +486,6 @@ if (!window.languageResource['zh-tw']) {
     'notification-card-4': '破壞警報',
     'notification-card-5': '數位輸入',
     // /notification/cards / Constants / Face Recognition Condition
-    'Group Type': '群組類型',
     'face-recognition-condition-0': '不限',
     'face-recognition-condition-1': '成功',
     'face-recognition-condition-2': '未知',
