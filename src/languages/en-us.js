@@ -88,17 +88,10 @@ if (!window.languageResource['en-us']) {
     'quality-50': 'Medium',
     'quality-80': 'High',
 
-    // Bandwidth Management
+    // /media/stream / Constans / Bandwidth Management
     'stream-bandwidth-management-0': 'Maximum Bitrate',
     'stream-bandwidth-management-1': 'Variable Bitrate',
     'stream-bandwidth-management-2': 'Constant Bitrate',
-
-    // 可變比特率 (VBR)
-    'stream-vbr-bit-rate-level-0': 'Best',
-    'stream-vbr-bit-rate-level-1': 'Complete',
-    'stream-vbr-bit-rate-level-2': 'Good',
-    'stream-vbr-bit-rate-level-3': 'Normal',
-    'stream-vbr-bit-rate-level-4': 'Bad',
 
     // 相似度層級
     'confidence-level-0': 'Low',
