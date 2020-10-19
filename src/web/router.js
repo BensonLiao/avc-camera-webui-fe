@@ -385,7 +385,7 @@ module.exports = new Router({
               }
 
               if (params.end) {
-                params.end = new Date(params.end).getTime();
+                params.end = new Date(Number(params.end) || params.end).getTime();
               }
 
               return api.event.getFaceEvents(params).then(response => response.data);
