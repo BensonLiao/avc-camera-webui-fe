@@ -159,9 +159,9 @@ module.exports = class SDCard extends Base {
               type="checkbox"
               className="custom-control-input"
               id="switch-sound"
-              disabled={sdStatus === 1}
+              disabled={sdStatus !== 0}
             />
-            <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus === 1})} htmlFor="switch-sound">
+            <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus !== 0})} htmlFor="switch-sound">
               <span>{i18n.t('ON')}</span>
               <span>{i18n.t('OFF')}</span>
             </label>
@@ -173,12 +173,12 @@ module.exports = class SDCard extends Base {
               <label>{i18n.t('SD Card Operation')}</label>
               <div>
                 <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
-                  <span style={sdEnabled || sdStatus === 1 ? {cursor: 'not-allowed'} : {}}>
+                  <span style={sdEnabled || sdStatus !== 0 ? {cursor: 'not-allowed'} : {}}>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5 mr-3"
                       type="button"
-                      disabled={sdEnabled || sdStatus === 1}
-                      style={sdEnabled || sdStatus === 1 ? {pointerEvents: 'none'} : {}}
+                      disabled={sdEnabled || sdStatus !== 0}
+                      style={sdEnabled || sdStatus !== 0 ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowFormatModal')}
                     >
                       {i18n.t('Format')}
@@ -191,7 +191,7 @@ module.exports = class SDCard extends Base {
                     <button
                       className="btn btn-outline-primary rounded-pill px-5"
                       type="button"
-                      disabled={sdEnabled}
+                      disabled={sdEnabled || this.state.$isApiProcessing}
                       style={sdEnabled ? {pointerEvents: 'none'} : {}}
                       onClick={sdStatus === 0 ? this.showModal('isShowUnmountModal') : this.onSubmitMountSDCard}
                     >
