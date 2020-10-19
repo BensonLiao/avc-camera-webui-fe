@@ -284,6 +284,58 @@ label.btn {
     }
   }
 
+  .custom-control-label-disabled {
+    margin-top: -5px;
+
+    &::before {
+      cursor: not-allowed;
+      width: $switch-width;
+      height: $switch-height;
+      border-color: #ccc;
+      border-radius: 50rem;
+      background-color: $switch-input-color-default;
+    }
+
+    span {
+      cursor: not-allowed;
+      white-space: nowrap;
+      display: none;
+      color: #fff;
+      position: absolute;
+      line-height: $switch-height;
+      font-size: 14px;
+      top: 4px;
+      left: -($switch-height - 2px);
+      width: $switch-height;
+
+      @extend .text-center;
+    }
+
+    span + span {
+      cursor: not-allowed;
+      white-space: nowrap;
+      display: inline;
+      color: #fff;
+      position: absolute;
+      line-height: $switch-height;
+      top: 4px;
+      left: -2px;
+      width: $switch-height;
+
+      @extend .text-center;
+    }
+
+    &::after {
+      cursor: not-allowed;
+      background-color: #fff;
+      border-radius: 50rem;
+      height: $switch-height - 2px;
+      width: $switch-height - 2px;
+      top: 5px;
+      left: -$switch-height - 3px;
+    }
+  }
+
   .custom-control-input:focus:not(:checked) ~ .custom-control-label {
     &::before {
       border-color: $switch-input-color-default;

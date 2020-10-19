@@ -57,6 +57,13 @@ module.exports = class SDCard extends Base {
       .finally(progress.done);
   };
 
+  onSubmitMountSDCard = () => {
+    progress.start();
+    api.system.mountSDCard()
+      .then(getRouter().reload)
+      .finally(progress.done);
+  };
+
   onSubmitUnmountSDCard = () => {
     progress.start();
     api.system.unmountSDCard()
@@ -152,8 +159,9 @@ module.exports = class SDCard extends Base {
               type="checkbox"
               className="custom-control-input"
               id="switch-sound"
+              disabled={sdStatus === 1}
             />
-            <label className="custom-control-label" htmlFor="switch-sound">
+            <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus === 1})} htmlFor="switch-sound">
               <span>{i18n.t('ON')}</span>
               <span>{i18n.t('OFF')}</span>
             </label>
@@ -165,12 +173,12 @@ module.exports = class SDCard extends Base {
               <label>{i18n.t('SD Card Operation')}</label>
               <div>
                 <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
-                  <span>
+                  <span style={sdEnabled || sdStatus === 1 ? {cursor: 'not-allowed'} : {}}>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5 mr-3"
                       type="button"
-                      disabled={sdEnabled}
-                      style={sdEnabled ? {pointerEvents: 'none'} : {}}
+                      disabled={sdEnabled || sdStatus === 1}
+                      style={sdEnabled || sdStatus === 1 ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowFormatModal')}
                     >
                       {i18n.t('Format')}
@@ -179,15 +187,15 @@ module.exports = class SDCard extends Base {
                   </span>
                 </CustomTooltip>
                 <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
-                  <span>
+                  <span style={sdEnabled ? {cursor: 'not-allowed'} : {}}>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5"
                       type="button"
                       disabled={sdEnabled}
                       style={sdEnabled ? {pointerEvents: 'none'} : {}}
-                      onClick={this.showModal('isShowUnmountModal')}
+                      onClick={sdStatus === 0 ? this.showModal('isShowUnmountModal') : this.onSubmitMountSDCard}
                     >
-                      {i18n.t('Unmount')}
+                      {sdStatus === 0 ? i18n.t('Unmount') : i18n.t('Mount')}
                     </button>
                     {this.sdcardModalRender('unmount')}
                   </span>

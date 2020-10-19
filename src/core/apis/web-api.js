@@ -417,6 +417,10 @@ module.exports = {
       method: 'post',
       url: '/api/system/systeminfo/sdcard/unmount'
     }),
+    mountSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard/mount'
+    }),
     /**
      * Clears system log
      * @returns {Promise<Response>}

@@ -97,7 +97,18 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
     return (mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
   })
   .onPost('/api/system/systeminfo/sdcard/format').reply(config => mockResponseWithLog(config, [200]))
-  .onPost('/api/system/systeminfo/sdcard/unmount').reply(config => mockResponseWithLog(config, [200]))
+  .onPost('/api/system/systeminfo/sdcard/unmount').reply(config => {
+    const systemSettings = db.get('system').value();
+    systemSettings.sdStatus = 1;
+    const data = {...systemSettings};
+    return (mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
+  })
+  .onPost('/api/system/systeminfo/sdcard/mount').reply(config => {
+    const systemSettings = db.get('system').value();
+    systemSettings.sdStatus = 0;
+    const data = {...systemSettings};
+    return (mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
+  })
   .onPut('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/reboot').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000))
   .onPost('/api/system/resetdefault').reply(config => mockResponseWithLog(config, [204, {}]))
