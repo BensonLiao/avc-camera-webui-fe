@@ -209,8 +209,10 @@ module.exports = class FaceRecognition extends Base {
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex align-items-center">
-                    <label className="mb-0">{i18n.t('Detection Zone')}</label>
-                    <i className="fas fa-info-circle text-size-14 text-primary pl-2"/>
+                    <label className="mb-0 mr-2">{i18n.t('Detection Zone')}</label>
+                    <CustomTooltip title={i18n.t('Default is fullscreen.')}>
+                      <i className="fas fa-question-circle text-primary"/>
+                    </CustomTooltip>
                   </div>
                   <CustomTooltip title={i18n.t('Show/Hide Detection Zone')}>
                     <div className="custom-control custom-switch">
@@ -224,9 +226,6 @@ module.exports = class FaceRecognition extends Base {
                     </div>
                   </CustomTooltip>
                 </div>
-                <span className="text-size-16 text-primary">
-                  {i18n.t('Default is Fullscreen')}
-                </span>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{i18n.t('Facial Detection Size')}</label>

@@ -219,7 +219,7 @@ module.exports = class Maintain extends Base {
           <label>{i18n.t('Restore to Default Setting')}</label>
           <div className="form-check mb-2">
             <Field type="checkbox" name="resetIP" className="form-check-input" id="input-checkbox-reset-all"/>
-            <label className="form-check-label" htmlFor="input-checkbox-reset-all">
+            <label className="form-check-label mr-2" htmlFor="input-checkbox-reset-all">
               {i18n.t('Restore All Settings')}
             </label>
             <CustomTooltip title={i18n.t('Check or clear this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD Card.')}>
