@@ -112,6 +112,31 @@ module.exports = class VideoSetting extends React.PureComponent {
     form.setFieldValue('focalLength', newFocalLength);
   }
 
+  matchFocalLength = formik => {
+    let prevFocalLength;
+    this.updateFocalLengthStore(true);
+    // Refresh focal length until previous value matches current value
+    const refreshFocalLength = () => {
+      api.video.getFocalLength()
+        .then(response => {
+          if (prevFocalLength === response.data.focalLength) {
+            this.updateFocalLengthStore(false);
+          } else {
+            prevFocalLength = response.data.focalLength;
+            // Refresh focal length at 1hz
+            setTimeout(refreshFocalLength, 1000);
+          }
+
+          return response.data.focalLength;
+        })
+        .then(focalLength => {
+          formik.setFieldValue('focalLength', focalLength);
+        });
+    };
+
+    refreshFocalLength();
+  }
+
   // Queues user input during api processing
   focusQueue = ({nextValues, prevValues, formik}) => {
     if (!nextValues) {
@@ -147,28 +172,7 @@ module.exports = class VideoSetting extends React.PureComponent {
         })
         .then(() => {
           if (hasChanged) {
-            let prevFocalLength;
-            this.updateFocalLengthStore(true);
-            // Refresh focal length until previous value matches current value
-            const refreshFocalLength = () => {
-              api.video.getFocalLength()
-                .then(response => {
-                  if (prevFocalLength === response.data.focalLength) {
-                    this.updateFocalLengthStore(false);
-                  } else {
-                    prevFocalLength = response.data.focalLength;
-                    // Refresh focal length at 1hz
-                    setTimeout(refreshFocalLength, 1000);
-                  }
-
-                  return response.data.focalLength;
-                })
-                .then(focalLength => {
-                  formik.setFieldValue('focalLength', focalLength);
-                });
-            };
-
-            refreshFocalLength();
+            this.matchFocalLength(formik);
           }
         });
     }
@@ -220,27 +224,7 @@ module.exports = class VideoSetting extends React.PureComponent {
     this.submitPromise = this.submitPromise
       .then(api.video.startAutoFocus)
       .then(() => {
-        let prevFocalLength;
-        // Refresh focal length until previous value matches current value
-        const refreshFocalLength = () => {
-          api.video.getFocalLength()
-            .then(response => {
-              if (prevFocalLength === response.data.focalLength) {
-                this.updateFocalLengthStore(false);
-              } else {
-                prevFocalLength = response.data.focalLength;
-                // Refresh focal length at 1hz
-                setTimeout(refreshFocalLength, 1000);
-              }
-
-              return response.data.focalLength;
-            })
-            .then(focalLength => {
-              form.setFieldValue('focalLength', focalLength);
-            });
-        };
-
-        refreshFocalLength();
+        this.matchFocalLength(form);
       });
   };
 
