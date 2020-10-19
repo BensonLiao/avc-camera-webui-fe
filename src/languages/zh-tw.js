@@ -105,7 +105,6 @@ if (!window.languageResource['zh-tw']) {
     'Please Enter Start and End Datetime': '請先選擇開始與結束時間',
     // /system/maintain
     'Please Select a File First': '請先選擇一個檔案',
-    'Check or uncheck this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD card.': '勾選或不勾選此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像中對焦跟Zoom的設定、RTSP設定、網路設定及SD卡的資料',
     // /sd-card
     'Please Disable SD Card First': '請先關掉SD卡',
     'Group Limit Reached': '已達群組數量限制',
@@ -222,7 +221,6 @@ if (!window.languageResource['zh-tw']) {
     'Device Name': '裝置名稱',
     'Device Status': '裝置狀態',
     'SD Card': 'SD卡',
-    'Please enter letters between 1 and 32.': '請輸入1-32字元',
     Unlicensed: '未授權',
     'Facial Recognition: ': '臉部辨識 : ',
     'Age Gender: ': '性別年齡 : ',
