@@ -116,9 +116,16 @@ module.exports = {
       .map(zone => {
         return {
           ...zone,
-          label: `UTC${zone.currentTimeFormat}`
+          label: `UTC${zone.rawFormat}`
         };
       });
+    tzOptions.sort((a, b) => {
+      if (a.rawFormat[0] === '-') {
+        return b.rawFormat.localeCompare(a.rawFormat);
+      }
+
+      return a.rawFormat.localeCompare(b.rawFormat);
+    });
     return tzOptions;
   })(),
   VMS_CAMERA_LINK: 'cameralink'
