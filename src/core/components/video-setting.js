@@ -118,7 +118,9 @@ module.exports = class VideoSetting extends React.PureComponent {
       return;
     }
 
-    if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
+    const hasChanged = (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength;
+
+    if (hasChanged) {
       store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
     }
 
@@ -144,9 +146,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           }
         })
         .then(() => {
-          // Trigger react update to get the latest global state
-          store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
-          if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
+          if (hasChanged) {
             let prevFocalLength;
             store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
             // Refresh focal length until previous value matches current value
