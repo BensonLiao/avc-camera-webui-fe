@@ -113,7 +113,7 @@ module.exports = class VideoSetting extends React.PureComponent {
   }
 
   // Queues user input during api processing
-  recursiveFocusPromise = ({nextValues, prevValues, formik}) => {
+  focusQueue = ({nextValues, prevValues, formik}) => {
     if (!nextValues) {
       return;
     }
@@ -130,7 +130,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           if (this.state.focalLengthQueue) {
             this.setState(
               {focalLengthQueue: null},
-              this.recursiveFocusPromise({
+              this.focusQueue({
                 nextValues: {
                   ...nextValues,
                   focalLength: this.state.focalLengthQueue
@@ -186,7 +186,7 @@ module.exports = class VideoSetting extends React.PureComponent {
       prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom
     ) {
       // Change focus settings with user input queue.
-      this.recursiveFocusPromise({
+      this.focusQueue({
         nextValues,
         prevValues,
         formik
