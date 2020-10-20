@@ -64,13 +64,14 @@ module.exports = class VideoSetting extends React.PureComponent {
   }
 
   varyFocus = (form, step) => {
+    const {focalLength: {min, max}} = videoFocusSettingsSchema;
     let newFocalLength = step + form.values.focalLength;
-    if (newFocalLength < videoFocusSettingsSchema.focalLength.min) {
-      newFocalLength = videoFocusSettingsSchema.focalLength.min;
+    if (newFocalLength < min) {
+      newFocalLength = min;
     }
 
-    if (newFocalLength > videoFocusSettingsSchema.focalLength.max) {
-      newFocalLength = videoFocusSettingsSchema.focalLength.max;
+    if (newFocalLength > max) {
+      newFocalLength = max;
     }
 
     form.setFieldValue('focalLength', newFocalLength);
