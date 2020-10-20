@@ -56,7 +56,7 @@ if (!window.languageResource['zh-tw']) {
     'Product Information': '其他產品資訊',
     'Sign Out': '登出',
 
-    // Compoenet / Input / Validations (By Pages)
+    // Compoenet / Input / Validations
     'Incorrect confirm password.': '兩次密碼不一致。',
     'validation-required': '此欄位必填。',
     'validation-string': '此欄位必須是字串。',
@@ -98,14 +98,12 @@ if (!window.languageResource['zh-tw']) {
     'validation-birthday': '請使用正確的生日格式。',
     'validation-countryCode': '國家代碼錯誤。',
     'Same name found, please use a different name.': '名字重複，請使用不同的名字',
-    // /network/tcp-ip
     'The port number must not empty.': '網頁服務埠不能為空',
 
     // Component / CustomTooltip
     'Please Enter Start and End Datetime': '請先選擇開始與結束時間',
     // /system/maintain
     'Please Select a File First': '請先選擇一個檔案',
-    'Check or uncheck this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD card.': '勾選或不勾選此選項以清除或保留以下的設定：成員及群組、系統帳號、圖像中對焦跟Zoom的設定、RTSP設定、網路設定及SD卡的資料',
     // /sd-card
     'Please Disable SD Card First': '請先關掉SD卡',
     'Group Limit Reached': '已達群組數量限制',
@@ -222,7 +220,6 @@ if (!window.languageResource['zh-tw']) {
     'Device Name': '裝置名稱',
     'Device Status': '裝置狀態',
     'SD Card': 'SD卡',
-    'Please enter letters between 1 and 32.': '請輸入1-32字元',
     Unlicensed: '未授權',
     'Facial Recognition: ': '臉部辨識 : ',
     'Age Gender: ': '性別年齡 : ',
@@ -455,6 +452,7 @@ if (!window.languageResource['zh-tw']) {
     'VMS: On': '影像管理系統(VMS): 開',
     Schedule: '通知時間',
     Rule: '通知條件',
+    'Group Type': '群組類型',
     Condition: '條件',
     Subject: '通知對象',
     'All Groups': '所有群組',
@@ -488,7 +486,6 @@ if (!window.languageResource['zh-tw']) {
     'notification-card-4': '破壞警報',
     'notification-card-5': '數位輸入',
     // /notification/cards / Constants / Face Recognition Condition
-    'Group Type': '群組類型',
     'face-recognition-condition-0': '不限',
     'face-recognition-condition-1': '成功',
     'face-recognition-condition-2': '未知',
