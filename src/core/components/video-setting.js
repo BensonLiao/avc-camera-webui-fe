@@ -63,21 +63,6 @@ module.exports = class VideoSetting extends React.PureComponent {
     store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, bool);
   }
 
-  generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
-    event.preventDefault();
-    form.setFieldValue('focusType', autoFocusType).then(() => {
-      this.matchFocalLength(form);
-    });
-  }
-
-  generateInitialValues = videoSettings => ({
-    ...videoSettings,
-    dnDuty: [
-      videoSettings.timePeriodStart,
-      videoSettings.timePeriodEnd
-    ]
-  });
-
   varyFocus = (form, step) => {
     let newFocalLength = step + form.values.focalLength;
     if (newFocalLength < videoFocusSettingsSchema.focalLength.min) {
@@ -189,6 +174,14 @@ module.exports = class VideoSetting extends React.PureComponent {
     }
   };
 
+  generateInitialValues = videoSettings => ({
+    ...videoSettings,
+    dnDuty: [
+      videoSettings.timePeriodStart,
+      videoSettings.timePeriodEnd
+    ]
+  });
+
   generateClickResetButtonHandler = () => event => {
     event.preventDefault();
     progress.start();
@@ -206,6 +199,13 @@ module.exports = class VideoSetting extends React.PureComponent {
         this.matchFocalLength(form);
       });
   };
+
+  generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
+    event.preventDefault();
+    form.setFieldValue('focusType', autoFocusType).then(() => {
+      this.matchFocalLength(form);
+    });
+  }
 
   videoSettingsFormRender = form => {
     const {values} = form;
