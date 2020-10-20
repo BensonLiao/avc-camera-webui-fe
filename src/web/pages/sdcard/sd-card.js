@@ -50,9 +50,10 @@ module.exports = class SDCard extends Base {
     }));
   };
 
-  callApi = apiFunction => {
+  callApi = (apiFunction, value = '') => {
     progress.start();
-    api.system[apiFunction]()
+    console.log('SDCard -> callApi -> value', value);
+    api.system[apiFunction](value)
       .then(getRouter().reload)
       .finally(progress.done);
   }
@@ -70,10 +71,7 @@ module.exports = class SDCard extends Base {
   };
 
   onSubmitDisableSDCard = () => {
-    progress.start();
-    api.system.enableSD({sdEnabled: false})
-      .then(getRouter().reload)
-      .finally(progress.done);
+    this.callApi('enableSD', {sdEnabled: false});
   };
 
   onChangeSdCardSetting = ({nextValues, prevValues}) => {
@@ -87,17 +85,11 @@ module.exports = class SDCard extends Base {
     }
 
     if (!prevValues.sdEnabled && nextValues.sdEnabled) {
-      progress.start();
-      api.system.enableSD(nextValues)
-        .then(getRouter().reload)
-        .finally(progress.done);
+      this.callApi('enableSD', nextValues);
     }
 
     if (`${prevValues.sdAlertEnabled}` !== `${nextValues.sdAlertEnabled}`) {
-      progress.start();
-      api.system.sdCardAlert(nextValues)
-        .then(getRouter().reload)
-        .finally(progress.done);
+      this.callApi('sdCardAlert', nextValues);
     }
   };
 
