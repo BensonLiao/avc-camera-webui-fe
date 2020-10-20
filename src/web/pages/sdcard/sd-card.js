@@ -161,7 +161,7 @@ module.exports = class SDCard extends Base {
               id="switch-sound"
               disabled={sdStatus !== 0}
             />
-            <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus !== 0})} htmlFor="switch-sound">
+            <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
               <span>{i18n.t('ON')}</span>
               <span>{i18n.t('OFF')}</span>
             </label>
