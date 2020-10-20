@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
+// Must use commonjs way for the following dynamic language resource import
 const {AVAILABLE_LANGUAGE_CODES} = require('../core/constants');
 
 window.languageResource = {};
