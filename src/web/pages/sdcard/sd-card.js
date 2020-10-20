@@ -58,22 +58,6 @@ module.exports = class SDCard extends Base {
       .finally(progress.done);
   }
 
-  onSubmitFormatSDCard = () => {
-    this.callApi('formatSDCard');
-  };
-
-  onSubmitMountSDCard = () => {
-    this.callApi('mountSDCard');
-  };
-
-  onSubmitUnmountSDCard = () => {
-    this.callApi('unmountSDCard');
-  };
-
-  onSubmitDisableSDCard = () => {
-    this.callApi('enableSD', {sdEnabled: false});
-  };
-
   onChangeSdCardSetting = ({nextValues, prevValues}) => {
     if (prevValues.sdEnabled && !nextValues.sdEnabled) {
       this.setState(prevState => ({
@@ -85,11 +69,11 @@ module.exports = class SDCard extends Base {
     }
 
     if (!prevValues.sdEnabled && nextValues.sdEnabled) {
-      this.callApi('enableSD', nextValues);
+      return this.callApi('enableSD', nextValues);
     }
 
     if (`${prevValues.sdAlertEnabled}` !== `${nextValues.sdAlertEnabled}`) {
-      this.callApi('sdCardAlert', nextValues);
+      return this.callApi('sdCardAlert', nextValues);
     }
   };
 
@@ -99,19 +83,19 @@ module.exports = class SDCard extends Base {
     const modalType = {
       format: {
         showModal: isShowFormatModal,
-        modalOnSubmit: this.onSubmitFormatSDCard,
+        modalOnSubmit: () => this.callApi('formatSDCard'),
         modalTitle: i18n.t('Format'),
         modalBody: i18n.t('Are you sure you want to format the Micro SD card?')
       },
       unmount: {
         showModal: isShowUnmountModal,
-        modalOnSubmit: this.onSubmitUnmountSDCard,
+        modalOnSubmit: () => this.callApi('unmountSDCard'),
         modalTitle: i18n.t('Unmount'),
         modalBody: i18n.t('Are you sure you want to unmount the Micro SD card?')
       },
       disable: {
         showModal: isShowDisableModal,
-        modalOnSubmit: this.onSubmitDisableSDCard,
+        modalOnSubmit: () => this.callApi('enableSD', {sdEnabled: false}),
         modalTitle: i18n.t('Disable SD Card'),
         modalBody: [i18n.t('Event photos will not be available after disabling the SD card. Are you sure you want to continue?')]
       }
@@ -183,7 +167,7 @@ module.exports = class SDCard extends Base {
                       type="button"
                       disabled={sdEnabled || this.state.$isApiProcessing}
                       style={sdEnabled ? {pointerEvents: 'none'} : {}}
-                      onClick={sdStatus === 0 ? this.showModal('isShowUnmountModal') : this.onSubmitMountSDCard}
+                      onClick={sdStatus === 0 ? this.showModal('isShowUnmountModal') : () => this.callApi('mountSDCard')}
                     >
                       {sdStatus === 0 ? i18n.t('Unmount') : i18n.t('Mount')}
                     </button>
