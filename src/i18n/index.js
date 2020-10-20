@@ -3,9 +3,8 @@ import {initReactI18next} from 'react-i18next';
 const {AVAILABLE_LANGUAGE_CODES} = require('../core/constants');
 
 window.languageResource = {};
-let languageCode = window.currentLanguageCode;
-
-switch (languageCode) {
+// Assign resource to window.languageResource depends on current language code
+switch (window.currentLanguageCode) {
   case AVAILABLE_LANGUAGE_CODES[4]:
     require(`../languages/${AVAILABLE_LANGUAGE_CODES[4]}`);
     break;
@@ -35,7 +34,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: languageCode,
+    lng: window.currentLanguageCode,
     fallbackLng: 'en',
     lowerCaseLng: true, // all lowercase for third-part library / frontend / backend consistency
     nsSeparator: false, // disable separator ':'
