@@ -3,7 +3,7 @@ import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React from 'react';
 import NetworkIPType from 'webserver-form-schema/constants/system-network-ip-type';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';

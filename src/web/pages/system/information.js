@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 
 const Information = ({networkSettings: {mac}, systemInformation: {firmware, serialNumber}}) => {

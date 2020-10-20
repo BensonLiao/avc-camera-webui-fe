@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const React = require('react');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Base = require('../shared/base');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const Loading = require('../../../core/components/loading');
 
 module.exports = class Media extends Base {

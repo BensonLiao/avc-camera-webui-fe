@@ -2,7 +2,7 @@ const React = require('react');
 const {Link} = require('capybara-router');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const smileWinkSolid = require('../../../resource/smile-wink-solid.svg');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const Base = require('../shared/base');
 const Once = require('../../../core/components/one-time-render');
 

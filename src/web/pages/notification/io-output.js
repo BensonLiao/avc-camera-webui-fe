@@ -8,7 +8,7 @@ import {Tab} from 'react-bootstrap';
 import IOType from 'webserver-form-schema/constants/io-type';
 import GateType from 'webserver-form-schema/constants/gate-type';
 import NotificationIOOutSchema from 'webserver-form-schema/notification-io-out-schema';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import ioOutSettingsValidator from '../../validations/notifications/io-out-settings-validator';
 import utils from '../../../core/utils';

@@ -1,6 +1,6 @@
 const {Router} = require('capybara-router');
 const history = require('history');
-const i18n = require('../web/i18n').default;
+const i18n = require('../i18n').default;
 
 const api = require('../core/apis/web-api');
 

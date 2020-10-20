@@ -6,7 +6,7 @@ const {Link, getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const appSettingsValidator = require('../../validations/notifications/app-settings-validator');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 

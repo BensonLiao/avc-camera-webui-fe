@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const CardsListSingleCard = require('./cards-list-single-card');
 
 module.exports = class CardsList extends React.PureComponent {

@@ -8,7 +8,7 @@ const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');
 const iconCursor = require('../../../resource/cursor-24px.svg');
 const Base = require('../shared/base');
 const MaskArea = require('../../../core/components/fields/mask-area');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 

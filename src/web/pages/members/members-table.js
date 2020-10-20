@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const {Link} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const CustomTooltip = require('../../../core/components/tooltip');
 
 module.exports = class MembersTable extends React.PureComponent {
