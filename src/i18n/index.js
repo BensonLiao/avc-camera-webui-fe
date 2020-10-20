@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
+import {AVAILABLE_LANGUAGE_CODES} from '../core/constants';
 
 window.languageResource = {};
 let languageCode = window.currentLanguageCode;
@@ -22,17 +23,13 @@ switch (languageCode) {
     break;
 }
 
-// Capitalise country code, remove after updating backend AVC api string
-languageCode = languageCode.substring(0, 3) + languageCode.substring(3, 5).toUpperCase();
-
-// Translations
-const resources = {
-  'en-US': {translation: window.languageResource['en-us']},
-  'zh-TW': {translation: window.languageResource['zh-tw']},
-  'zh-CN': {translation: window.languageResource['zh-cn']},
-  'ja-JP': {translation: window.languageResource['ja-jp']},
-  'es-ES': {translation: window.languageResource['es-es']}
-};
+// Generate translation resources from pre-defined list
+const resources = AVAILABLE_LANGUAGE_CODES.reduce((acc, cur) => {
+  return {
+    ...acc,
+    [cur]: {translation: window.languageResource[cur]}
+  };
+}, {});
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -40,6 +37,7 @@ i18n
     resources,
     lng: languageCode,
     fallbackLng: 'en',
+    lowerCaseLng: true, // all lowercase for third-part library / frontend / backend consistency
     nsSeparator: false, // disable separator ':'
     keySeparator: false, // we do not use keys in form messages.welcome
     interpolation: {escapeValue: false} // react already safes from xss
