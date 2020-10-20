@@ -571,17 +571,6 @@ module.exports = new Router({
       )
     },
     {
-      name: 'setup-https',
-      uri: '/setup/https',
-      onEnter: () => {
-        document.title = `${i18n.t('Setup HTTPS')} - ${_title}`;
-      },
-      loadComponent: () => import(
-        /* webpackChunkName: "page-setup-https" */
-        './pages/setup/https'
-      )
-    },
-    {
       name: 'login',
       uri: '/login',
       onEnter: () => {
