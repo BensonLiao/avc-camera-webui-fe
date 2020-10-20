@@ -14,6 +14,9 @@ const {DEFAULT_PORTS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const SelectField = require('../../../core/components/fields/select-field');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+const ProgressIndicator = require('../../../core/components/progress-indicator').default;
+
+const infoColor = getComputedStyle(document.documentElement).getPropertyValue('--info');
 
 module.exports = class TCPIP extends Base {
   static get propTypes() {
@@ -105,7 +108,31 @@ module.exports = class TCPIP extends Base {
             const newAddress = `http://${location.hostname}:${values.port}`;
             this.setState({
               apiProcessModalTitle: i18n.t('Success'),
-              modalBody: [`${i18n.t('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
+              modalBody: [
+                `${i18n.t('Please Redirect Manually to the New Address')} :`,
+                <div key="redirect" className="d-flex">
+                  <ProgressIndicator
+                    className="ml-0"
+                    status="start"
+                  />
+                  <span style={{color: infoColor}}>{newAddress}</span>
+                </div>
+              ]
+            }, () => {
+              setTimeout(() => {
+                this.setState({
+                  modalBody: [
+                    `${i18n.t('Please Redirect Manually to the New Address')} :`,
+                    <div key="redirect" className="d-flex">
+                      <ProgressIndicator
+                        className="ml-0"
+                        status="done"
+                      />
+                      <a href={newAddress}>{newAddress}</a>
+                    </div>
+                  ]
+                });
+              }, 10 * 1000);
             });
           })
           .catch(() => {
