@@ -66,28 +66,7 @@ module.exports = class VideoSetting extends React.PureComponent {
   generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
     event.preventDefault();
     form.setFieldValue('focusType', autoFocusType).then(() => {
-      let prevFocalLength;
-      this.updateFocalLengthStore(true);
-      // Refresh focal length until previous value matches current value
-      const refreshFocalLength = () => {
-        api.video.getFocalLength()
-          .then(response => {
-            if (prevFocalLength === response.data.focalLength) {
-              this.updateFocalLengthStore(false);
-            } else {
-              prevFocalLength = response.data.focalLength;
-              // Refresh focal length at 1hz
-              setTimeout(refreshFocalLength, 1000);
-            }
-
-            return response.data.focalLength;
-          })
-          .then(focalLength => {
-            form.setFieldValue('focalLength', focalLength);
-          });
-      };
-
-      refreshFocalLength();
+      this.matchFocalLength(form);
     });
   }
 
