@@ -110,16 +110,21 @@ module.exports = {
     // 5 - UNKNOWN: Unknown storage state, such as when a path isn't backed by known storage media.
     'Unknown Error'
   ],
-  TIMEZONE_LIST: (() => {
-    const tzOptions = require('@vvo/tzdb')
-      .getTimeZones()
-      .map(zone => {
-        return {
-          ...zone,
-          label: `UTC${zone.currentTimeFormat}`
-        };
-      });
-    return tzOptions;
-  })(),
+  TIMEZONE_LIST: (() => require('@vvo/tzdb')
+    .getTimeZones()
+    .map(zone => {
+      return {
+        ...zone,
+        label: `UTC${zone.rawFormat}`
+      };
+    })
+    .sort((a, b) => {
+      if (a.rawFormat[0] === '-') {
+        return b.rawFormat.localeCompare(a.rawFormat);
+      }
+
+      return a.rawFormat.localeCompare(b.rawFormat);
+    })
+  )(),
   VMS_CAMERA_LINK: 'cameralink'
 };
