@@ -50,25 +50,23 @@ module.exports = class SDCard extends Base {
     }));
   };
 
-  onSubmitFormatSDCard = () => {
+  callApi = apiFunction => {
     progress.start();
-    api.system.formatSDCard()
+    api.system[apiFunction]()
       .then(getRouter().reload)
       .finally(progress.done);
+  }
+
+  onSubmitFormatSDCard = () => {
+    this.callApi('formatSDCard');
   };
 
   onSubmitMountSDCard = () => {
-    progress.start();
-    api.system.mountSDCard()
-      .then(getRouter().reload)
-      .finally(progress.done);
+    this.callApi('mountSDCard');
   };
 
   onSubmitUnmountSDCard = () => {
-    progress.start();
-    api.system.unmountSDCard()
-      .then(getRouter().reload)
-      .finally(progress.done);
+    this.callApi('unmountSDCard');
   };
 
   onSubmitDisableSDCard = () => {
