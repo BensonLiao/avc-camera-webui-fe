@@ -1,25 +1,25 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
-import {AVAILABLE_LANGUAGE_CODES} from '../core/constants';
+const {AVAILABLE_LANGUAGE_CODES} = require('../core/constants');
 
 window.languageResource = {};
 let languageCode = window.currentLanguageCode;
 
 switch (languageCode) {
-  case 'es-es':
-    require('../languages/es-es');
+  case AVAILABLE_LANGUAGE_CODES[4]:
+    require(`../languages/${AVAILABLE_LANGUAGE_CODES[4]}`);
     break;
-  case 'ja-jp':
-    require('../languages/ja-jp');
+  case AVAILABLE_LANGUAGE_CODES[3]:
+    require(`../languages/${AVAILABLE_LANGUAGE_CODES[3]}`);
     break;
-  case 'zh-cn':
-    require('../languages/zh-cn');
+  case AVAILABLE_LANGUAGE_CODES[2]:
+    require(`../languages/${AVAILABLE_LANGUAGE_CODES[2]}`);
     break;
-  case 'zh-tw':
-    require('../languages/zh-tw');
+  case AVAILABLE_LANGUAGE_CODES[1]:
+    require(`../languages/${AVAILABLE_LANGUAGE_CODES[1]}`);
     break;
   default:
-    require('../languages/en-us');
+    require(`../languages/${AVAILABLE_LANGUAGE_CODES[0]}`);
     break;
 }
 
