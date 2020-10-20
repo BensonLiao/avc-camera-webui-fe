@@ -13,6 +13,8 @@ const CustomNotifyModal = require('../../../core/components/custom-notify-modal'
 const CustomTooltip = require('../../../core/components/tooltip');
 const SelectField = require('../../../core/components/fields/select-field');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+const ProgressIndicator = require('../../../core/components/progress-indicator').default;
+
 const infoColor = getComputedStyle(document.documentElement).getPropertyValue('--info');
 
 module.exports = class HTTPS extends Base {
@@ -81,14 +83,10 @@ module.exports = class HTTPS extends Base {
           modalBody: [
             `${i18n.t('Please Redirect Manually to the New Address')} :`,
             <div key="redirect" className="d-flex">
-              <div className="loading-spinners ml-0">
-                <div className="loading-dots">
-                  <div className="spinner">
-                    <div className="double-bounce1"/>
-                    <div className="double-bounce2"/>
-                  </div>
-                </div>
-              </div>
+              <ProgressIndicator
+                className="ml-0"
+                status="start"
+              />
               <span style={{color: infoColor}}>{newAddress}</span>
             </div>
           ]
@@ -98,12 +96,10 @@ module.exports = class HTTPS extends Base {
               modalBody: [
                 `${i18n.t('Please Redirect Manually to the New Address')} :`,
                 <div key="redirect" className="d-flex">
-                  <div className="loading-spinners ml-0">
-                    <svg className="checkmark show" viewBox="0 0 52 52">
-                      <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
-                      <path className="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                    </svg>
-                  </div>
+                  <ProgressIndicator
+                    className="ml-0"
+                    status="done"
+                  />
                   <a href={newAddress}>{newAddress}</a>
                 </div>
               ]
