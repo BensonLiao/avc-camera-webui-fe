@@ -8,7 +8,7 @@ const Base = require('../shared/base');
 const i18n = require('../../i18n').default;
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
-const {DEFAULT_PORTS} = require('../../../core/constants');
+const {DEFAULT_PORTS, NODE_SERVER_RESTART_DELAY} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -104,7 +104,7 @@ module.exports = class HTTPS extends Base {
                 </div>
               ]
             });
-          }, 10 * 1000);
+          }, NODE_SERVER_RESTART_DELAY);
         });
       })
       .finally(progress.done);
