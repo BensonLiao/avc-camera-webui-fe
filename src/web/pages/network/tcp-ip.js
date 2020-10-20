@@ -10,7 +10,7 @@ const api = require('../../../core/apis/web-api');
 const utils = require('../../../core/utils');
 const notify = require('../../../core/notify');
 const i18n = require('../../i18n').default;
-const {DEFAULT_PORTS, NODE_SERVER_RESTART_DELAY} = require('../../../core/constants');
+const {DEFAULT_PORTS, NODE_SERVER_RESTART_DELAY_MS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const SelectField = require('../../../core/components/fields/select-field');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
@@ -132,7 +132,7 @@ module.exports = class TCPIP extends Base {
                     </div>
                   ]
                 });
-              }, NODE_SERVER_RESTART_DELAY);
+              }, NODE_SERVER_RESTART_DELAY_MS);
             });
           })
           .catch(() => {

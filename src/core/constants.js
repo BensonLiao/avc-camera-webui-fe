@@ -18,7 +18,7 @@ module.exports = {
   MEMBER_PHOTO_SCALE_MIN: 1,
   MEMBER_PHOTO_SCALE_MAX: 2,
   MEMBER_PHOTO_MIME_TYPE: 'image/jpeg',
-  NODE_SERVER_RESTART_DELAY: 10 * 1000,
+  NODE_SERVER_RESTART_DELAY_MS: 10 * 1000,
   RESTRICTED_PORTS: [
     '0', // Reserved
     '1', // Tcpmux
