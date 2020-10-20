@@ -52,7 +52,6 @@ module.exports = class SDCard extends Base {
 
   callApi = (apiFunction, value = '') => {
     progress.start();
-    console.log('SDCard -> callApi -> value', value);
     api.system[apiFunction](value)
       .then(getRouter().reload)
       .finally(progress.done);
@@ -60,7 +59,7 @@ module.exports = class SDCard extends Base {
 
   onChangeSdCardSetting = ({nextValues, prevValues}) => {
     if (prevValues.sdEnabled && !nextValues.sdEnabled) {
-      this.setState(prevState => ({
+      return this.setState(prevState => ({
         showSelectModal: {
           ...prevState.showSelectModal,
           isShowDisableModal: true
@@ -69,11 +68,11 @@ module.exports = class SDCard extends Base {
     }
 
     if (!prevValues.sdEnabled && nextValues.sdEnabled) {
-      return this.callApi('enableSD', nextValues);
+      return this.callApi('enableSD', {sdEnabled: nextValues.sdEnabled});
     }
 
     if (`${prevValues.sdAlertEnabled}` !== `${nextValues.sdAlertEnabled}`) {
-      return this.callApi('sdCardAlert', nextValues);
+      return this.callApi('sdCardAlert', {sdAlertEnabled: nextValues.sdAlertEnabled});
     }
   };
 
@@ -167,7 +166,7 @@ module.exports = class SDCard extends Base {
                       type="button"
                       disabled={sdEnabled || this.state.$isApiProcessing}
                       style={sdEnabled ? {pointerEvents: 'none'} : {}}
-                      onClick={sdStatus === 0 ? this.showModal('isShowUnmountModal') : () => this.callApi('mountSDCard')}
+                      onClick={sdStatus === 0 ? this.showModal('isShowUnmountModal') : () => (this.callApi('mountSDCard'))}
                     >
                       {sdStatus === 0 ? i18n.t('Unmount') : i18n.t('Mount')}
                     </button>
