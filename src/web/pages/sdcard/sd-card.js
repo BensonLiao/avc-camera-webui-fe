@@ -132,7 +132,7 @@ module.exports = class SDCard extends Base {
               type="checkbox"
               className="custom-control-input"
               id="switch-sound"
-              disabled={sdStatus !== 0}
+              disabled={sdStatus}
             />
             <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
               <span>{i18n.t('ON')}</span>
@@ -146,12 +146,12 @@ module.exports = class SDCard extends Base {
               <label>{i18n.t('SD Card Operation')}</label>
               <div>
                 <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
-                  <span style={sdEnabled || sdStatus !== 0 ? {cursor: 'not-allowed'} : {}}>
+                  <span style={sdEnabled || sdStatus ? {cursor: 'not-allowed'} : {}}>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5 mr-3"
                       type="button"
-                      disabled={sdEnabled || sdStatus !== 0}
-                      style={sdEnabled || sdStatus !== 0 ? {pointerEvents: 'none'} : {}}
+                      disabled={sdEnabled || sdStatus}
+                      style={sdEnabled || sdStatus ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowFormatModal')}
                     >
                       {i18n.t('Format')}
@@ -166,9 +166,9 @@ module.exports = class SDCard extends Base {
                       type="button"
                       disabled={sdEnabled || this.state.$isApiProcessing}
                       style={sdEnabled ? {pointerEvents: 'none'} : {}}
-                      onClick={sdStatus === 0 ? this.showModal('isShowUnmountModal') : () => (this.callApi('mountSDCard'))}
+                      onClick={sdStatus ? () => (this.callApi('mountSDCard')) : this.showModal('isShowUnmountModal')}
                     >
-                      {sdStatus === 0 ? i18n.t('Unmount') : i18n.t('Mount')}
+                      {sdStatus ? i18n.t('Mount') : i18n.t('Unmount')}
                     </button>
                     {this.sdcardModalRender('unmount')}
                   </span>
@@ -225,7 +225,7 @@ module.exports = class SDCard extends Base {
           </div>
           <hr/>
         </div>
-        <div className={classNames('form-group', sdStatus === 0 ? '' : 'd-none')}>
+        <div className={classNames('form-group', sdStatus ? 'd-none' : '')}>
           <div className="card">
             <div className="card-header sd-card-round">
               {i18n.t('Storage Space')}
