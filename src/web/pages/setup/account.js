@@ -1,12 +1,13 @@
 const classNames = require('classnames');
+const progress = require('nprogress');
 const React = require('react');
-const {getRouter} = require('capybara-router');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const setupStep02 = require('../../../resource/setup-step-02.png');
 const setupStep02x2 = require('../../../resource/setup-step-02@2x.png');
+const api = require('../../../core/apis/web-api');
 const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
 const Password = require('../../../core/components/fields/password');
@@ -21,11 +22,22 @@ module.exports = class SetupAccount extends Base {
     this.state.languageCode = store.get('$setup').language;
   }
 
-  onSubmitSetupAccountForm = values => {
+  /**
+   * @param {Object} values
+   * @returns {void}
+   */
+  onSubmitSetupForm = values => {
     const $setup = store.get('$setup');
-    $setup.account = values;
-    store.set('$setup', $setup);
-    getRouter().go('/setup/https');
+
+    progress.start();
+    api.system.setup({
+      language: $setup.language,
+      account: values
+    })
+      .then(() => {
+        location.href = '/';
+      })
+      .finally(progress.done);
   };
 
   setupAccountFormRender = ({errors, touched}) => {
@@ -95,7 +107,7 @@ module.exports = class SetupAccount extends Base {
           </div>
 
           <button disabled={this.state.$isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill">
-            {i18n.t('Next')}
+            {i18n.t('Done')}
           </button>
         </div>
       </Form>
@@ -117,7 +129,7 @@ module.exports = class SetupAccount extends Base {
               <Formik
                 initialValues={initialValue}
                 validate={utils.makeFormikValidator(setupAccountValidator, ['password', 'confirmPassword'])}
-                onSubmit={this.onSubmitSetupAccountForm}
+                onSubmit={this.onSubmitSetupForm}
               >
                 {this.setupAccountFormRender}
               </Formik>
