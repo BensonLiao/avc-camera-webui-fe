@@ -104,23 +104,23 @@ module.exports = class SDCard extends Base {
   };
 
   sdcardModalRender = mode => {
-    const {$isApiProcessing} = this.state;
+    const {$isApiProcessing, showSelectModal: {isShowFormatModal, isShowUnmountModal, isShowDisableModal}} = this.state;
 
     const modalType = {
       format: {
-        showModal: this.state.showSelectModal.isShowFormatModal,
+        showModal: isShowFormatModal,
         modalOnSubmit: this.onSubmitFormatSDCard,
         modalTitle: i18n.t('Format'),
         modalBody: i18n.t('Are you sure you want to format the Micro SD card?')
       },
       unmount: {
-        showModal: this.state.showSelectModal.isShowUnmountModal,
+        showModal: isShowUnmountModal,
         modalOnSubmit: this.onSubmitUnmountSDCard,
         modalTitle: i18n.t('Unmount'),
         modalBody: i18n.t('Are you sure you want to unmount the Micro SD card?')
       },
       disable: {
-        showModal: this.state.showSelectModal.isShowDisableModal,
+        showModal: isShowDisableModal,
         modalOnSubmit: this.onSubmitDisableSDCard,
         modalTitle: i18n.t('Disable SD Card'),
         modalBody: [i18n.t('Event photos will not be available after disabling the SD card. Are you sure you want to continue?')]
