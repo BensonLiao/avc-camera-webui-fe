@@ -50,30 +50,16 @@ module.exports = class SDCard extends Base {
     }));
   };
 
-  onSubmitFormatSDCard = () => {
+  callApi = (apiFunction, value = '') => {
     progress.start();
-    api.system.formatSDCard()
+    api.system[apiFunction](value)
       .then(getRouter().reload)
       .finally(progress.done);
-  };
-
-  onSubmitUnmountSDCard = () => {
-    progress.start();
-    api.system.unmountSDCard()
-      .then(getRouter().reload)
-      .finally(progress.done);
-  };
-
-  onSubmitDisableSDCard = () => {
-    progress.start();
-    api.system.enableSD({sdEnabled: false})
-      .then(getRouter().reload)
-      .finally(progress.done);
-  };
+  }
 
   onChangeSdCardSetting = ({nextValues, prevValues}) => {
     if (prevValues.sdEnabled && !nextValues.sdEnabled) {
-      this.setState(prevState => ({
+      return this.setState(prevState => ({
         showSelectModal: {
           ...prevState.showSelectModal,
           isShowDisableModal: true
@@ -82,39 +68,33 @@ module.exports = class SDCard extends Base {
     }
 
     if (!prevValues.sdEnabled && nextValues.sdEnabled) {
-      progress.start();
-      api.system.enableSD(nextValues)
-        .then(getRouter().reload)
-        .finally(progress.done);
+      return this.callApi('enableSD', {sdEnabled: nextValues.sdEnabled});
     }
 
     if (`${prevValues.sdAlertEnabled}` !== `${nextValues.sdAlertEnabled}`) {
-      progress.start();
-      api.system.sdCardAlert(nextValues)
-        .then(getRouter().reload)
-        .finally(progress.done);
+      return this.callApi('sdCardAlert', {sdAlertEnabled: nextValues.sdAlertEnabled});
     }
   };
 
   sdcardModalRender = mode => {
-    const {$isApiProcessing} = this.state;
+    const {$isApiProcessing, showSelectModal: {isShowFormatModal, isShowUnmountModal, isShowDisableModal}} = this.state;
 
     const modalType = {
       format: {
-        showModal: this.state.showSelectModal.isShowFormatModal,
-        modalOnSubmit: this.onSubmitFormatSDCard,
+        showModal: isShowFormatModal,
+        modalOnSubmit: () => this.callApi('formatSDCard'),
         modalTitle: i18n.t('Format'),
         modalBody: i18n.t('Are you sure you want to format the Micro SD card?')
       },
       unmount: {
-        showModal: this.state.showSelectModal.isShowUnmountModal,
-        modalOnSubmit: this.onSubmitUnmountSDCard,
+        showModal: isShowUnmountModal,
+        modalOnSubmit: () => this.callApi('unmountSDCard'),
         modalTitle: i18n.t('Unmount'),
         modalBody: i18n.t('Are you sure you want to unmount the Micro SD card?')
       },
       disable: {
-        showModal: this.state.showSelectModal.isShowDisableModal,
-        modalOnSubmit: this.onSubmitDisableSDCard,
+        showModal: isShowDisableModal,
+        modalOnSubmit: () => this.callApi('enableSD', {sdEnabled: false}),
         modalTitle: i18n.t('Disable SD Card'),
         modalBody: [i18n.t('Event photos will not be available after disabling the SD card. Are you sure you want to continue?')]
       }
@@ -152,8 +132,9 @@ module.exports = class SDCard extends Base {
               type="checkbox"
               className="custom-control-input"
               id="switch-sound"
+              disabled={sdStatus !== 0}
             />
-            <label className="custom-control-label" htmlFor="switch-sound">
+            <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
               <span>{i18n.t('ON')}</span>
               <span>{i18n.t('OFF')}</span>
             </label>
@@ -165,12 +146,12 @@ module.exports = class SDCard extends Base {
               <label>{i18n.t('SD Card Operation')}</label>
               <div>
                 <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
-                  <span>
+                  <span style={sdEnabled || sdStatus !== 0 ? {cursor: 'not-allowed'} : {}}>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5 mr-3"
                       type="button"
-                      disabled={sdEnabled}
-                      style={sdEnabled ? {pointerEvents: 'none'} : {}}
+                      disabled={sdEnabled || sdStatus !== 0}
+                      style={sdEnabled || sdStatus !== 0 ? {pointerEvents: 'none'} : {}}
                       onClick={this.showModal('isShowFormatModal')}
                     >
                       {i18n.t('Format')}
@@ -179,15 +160,15 @@ module.exports = class SDCard extends Base {
                   </span>
                 </CustomTooltip>
                 <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
-                  <span>
+                  <span style={sdEnabled ? {cursor: 'not-allowed'} : {}}>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5"
                       type="button"
-                      disabled={sdEnabled}
+                      disabled={sdEnabled || this.state.$isApiProcessing}
                       style={sdEnabled ? {pointerEvents: 'none'} : {}}
-                      onClick={this.showModal('isShowUnmountModal')}
+                      onClick={sdStatus === 0 ? this.showModal('isShowUnmountModal') : () => (this.callApi('mountSDCard'))}
                     >
-                      {i18n.t('Unmount')}
+                      {sdStatus === 0 ? i18n.t('Unmount') : i18n.t('Mount')}
                     </button>
                     {this.sdcardModalRender('unmount')}
                   </span>
