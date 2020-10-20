@@ -3,7 +3,6 @@ const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const setupStep01 = require('../../../resource/setup-step-01.png');
-const setupStep01x2 = require('../../../resource/setup-step-01@2x.png');
 const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
 const store = require('../../../core/store');
@@ -46,7 +45,6 @@ module.exports = class SetupLanguage extends Base {
                     hasPreviousPage={false}
                     step={1}
                     progressBarImage={setupStep01}
-                    progressBarImagex2={setupStep01x2}
                   />
                   <div className="form-group">
                     <div className="select-wrapper border rounded-pill overflow-hidden px-2">

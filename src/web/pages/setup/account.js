@@ -6,7 +6,6 @@ const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const setupStep02 = require('../../../resource/setup-step-02.png');
-const setupStep02x2 = require('../../../resource/setup-step-02@2x.png');
 const api = require('../../../core/apis/web-api');
 const i18n = require('../../i18n').default;
 const Base = require('../shared/base');
@@ -59,7 +58,6 @@ module.exports = class SetupAccount extends Base {
           <ProgressBar
             step={2}
             progressBarImage={setupStep02}
-            progressBarImagex2={setupStep02x2}
           />
 
           <div className="form-group">
