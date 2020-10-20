@@ -250,62 +250,24 @@ module.exports = class VideoSetting extends React.PureComponent {
             </h2>
 
             <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{i18n.t('Brightness')}</label>
-                  <span className="text-primary text-size-14">{values.brightness}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="brightness"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.brightness.min}
-                  max={videoSettingsSchema.brightness.max}
-                />
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{i18n.t('Contrast')}</label>
-                  <span className="text-primary text-size-14">{values.contrast}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="contrast"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.contrast.min}
-                  max={videoSettingsSchema.contrast.max}
-                />
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{i18n.t('Sharpness')}</label>
-                  <span className="text-primary text-size-14">{values.sharpness}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="sharpness"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.sharpness.min}
-                  max={videoSettingsSchema.sharpness.max}
-                />
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{i18n.t('Saturation')}</label>
-                  <span className="text-primary text-size-14">{values.saturation}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="saturation"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.saturation.min}
-                  max={videoSettingsSchema.saturation.max}
-                />
-              </div>
+              {
+                ['brightness', 'contrast', 'sharpness', 'saturation'].map(imageControls => (
+                  <div key={imageControls} className="form-group">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <label>{i18n.t(imageControls.charAt(0).toUpperCase() + imageControls.slice(1))}</label>
+                      <span className="text-primary text-size-14">{values[imageControls]}</span>
+                    </div>
+                    <Field
+                      updateFieldOnStop
+                      name={imageControls}
+                      component={Slider}
+                      step={1}
+                      min={videoSettingsSchema[imageControls].min}
+                      max={videoSettingsSchema[imageControls].max}
+                    />
+                  </div>
+                ))
+              }
             </div>
           </div>
 
