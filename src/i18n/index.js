@@ -1,30 +1,30 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 // Must use commonjs way for the following dynamic language resource import
-const {AVAILABLE_LANGUAGE_CODES} = require('../core/constants');
+const SUPPORTED_LANGUAGE_CODES = require('./supported-codes');
 
 window.languageResource = {};
 // Assign resource to window.languageResource depends on current language code
 switch (window.currentLanguageCode) {
-  case AVAILABLE_LANGUAGE_CODES[4]:
-    require(`../languages/${AVAILABLE_LANGUAGE_CODES[4]}`);
+  case SUPPORTED_LANGUAGE_CODES[4]:
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[4]}`);
     break;
-  case AVAILABLE_LANGUAGE_CODES[3]:
-    require(`../languages/${AVAILABLE_LANGUAGE_CODES[3]}`);
+  case SUPPORTED_LANGUAGE_CODES[3]:
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[3]}`);
     break;
-  case AVAILABLE_LANGUAGE_CODES[2]:
-    require(`../languages/${AVAILABLE_LANGUAGE_CODES[2]}`);
+  case SUPPORTED_LANGUAGE_CODES[2]:
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[2]}`);
     break;
-  case AVAILABLE_LANGUAGE_CODES[1]:
-    require(`../languages/${AVAILABLE_LANGUAGE_CODES[1]}`);
+  case SUPPORTED_LANGUAGE_CODES[1]:
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[1]}`);
     break;
   default:
-    require(`../languages/${AVAILABLE_LANGUAGE_CODES[0]}`);
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[0]}`);
     break;
 }
 
 // Generate translation resources from pre-defined list
-const resources = AVAILABLE_LANGUAGE_CODES.reduce((acc, cur) => {
+const resources = SUPPORTED_LANGUAGE_CODES.reduce((acc, cur) => {
   return {
     ...acc,
     [cur]: {translation: window.languageResource[cur]}
