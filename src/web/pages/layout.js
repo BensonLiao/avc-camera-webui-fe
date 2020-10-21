@@ -273,7 +273,7 @@ module.exports = class Layout extends Base {
               <div className="col">
                 <div className="dropdown">
                   <button className="btn border-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
+                    <i className="fas fa-globe fa-fw"/> {i18n.options.langCodesTitle[window.currentLanguageCode].title}
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     {
@@ -284,7 +284,7 @@ module.exports = class Layout extends Base {
                           href={`#${languageCode}`}
                           onClick={this.generateChangeLanguageHandler(languageCode)}
                         >
-                          {window.config.languages[languageCode].title}
+                          {i18n.options.langCodesTitle[languageCode].title}
                         </a>
                       ))
                     }

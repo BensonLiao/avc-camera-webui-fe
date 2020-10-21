@@ -1,7 +1,13 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
-// Must use commonjs way for the following dynamic language resource import
 const SUPPORTED_LANGUAGE_CODES = ['en', 'zh-tw', 'zh-cn', 'ja', 'es'];
+const LANGUAGE_CODES_TITLE = {
+  en: {title: 'English'},
+  'zh-tw': {title: '中文(繁體)'},
+  'zh-cn': {title: '中文(简体)'},
+  ja: {title: '日本語'},
+  es: {title: 'Spanish'}
+};
 
 window.languageResource = {};
 // Assign resource to window.languageResource depends on current language code
@@ -40,8 +46,9 @@ i18n
     lowerCaseLng: true, // all lowercase for third-part library / frontend / backend consistency
     nsSeparator: false, // disable separator ':'
     keySeparator: false, // we do not use keys in form messages.welcome
-    interpolation: {escapeValue: false}, // react already safes from xss,
-    supportedLangCodes: SUPPORTED_LANGUAGE_CODES // we don't use `supportedLngs` option cause it inject unwanted `cimode`
+    interpolation: {escapeValue: false}, // react already safes from xss
+    supportedLangCodes: SUPPORTED_LANGUAGE_CODES, // we don't use `supportedLngs` option cause it inject unwanted `cimode`
+    langCodesTitle: LANGUAGE_CODES_TITLE // for UI display
   });
 
 export default i18n;
