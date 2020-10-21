@@ -12,7 +12,6 @@ const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
-const SUPPORTED_LANGUAGE_CODES = i18n.options.supportedLangCodes;
 const VideoSetting = require('../../core/components/video-setting');
 const VolumeProgressBar = require('../../core/components/volume-progress-bar');
 const LiveView = require('../../core/components/live-view');
@@ -21,7 +20,7 @@ module.exports = class Home extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(SUPPORTED_LANGUAGE_CODES).isRequired,
+        languageCode: PropTypes.oneOf(i18n.options.supportedLangCodes).isRequired,
         deviceName: PropTypes.string.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         sdUsage: PropTypes.number.isRequired,

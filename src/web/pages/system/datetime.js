@@ -7,7 +7,6 @@ const Clock = require('react-live-clock');
 const {Formik, Form, Field} = require('formik');
 const Base = require('../shared/base');
 const i18n = require('../../../i18n').default;
-const SUPPORTED_LANGUAGE_CODES = i18n.options.supportedLangCodes;
 const api = require('../../../core/apis/web-api');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
 const NTPTimeOption = require('webserver-form-schema/constants/system-sync-time-ntp-option');
@@ -22,7 +21,7 @@ const utils = require('../../../core/utils');
 module.exports = class DateTime extends Base {
   static get propTypes() {
     return {
-      systemInformation: PropTypes.shape({languageCode: PropTypes.oneOf(SUPPORTED_LANGUAGE_CODES).isRequired}).isRequired,
+      systemInformation: PropTypes.shape({languageCode: PropTypes.oneOf(i18n.options.supportedLangCodes).isRequired}).isRequired,
       systemDateTime: PropTypes.shape({
         deviceTime: PropTypes.number.isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,
@@ -118,8 +117,8 @@ module.exports = class DateTime extends Base {
         {/* Remove language in AVN version */}
         <SelectField hide labelName={i18n.t('Language')} name="language">
           <option value={window.navigator.userLanguage || window.navigator.language}>{i18n.t('Default')}</option>
-          <option value={SUPPORTED_LANGUAGE_CODES[0]}>{i18n.t('English')}</option>
-          <option value={SUPPORTED_LANGUAGE_CODES[1]}>{i18n.t('Traditional Chinese')}</option>
+          <option value={i18n.options.supportedLangCodes[0]}>{i18n.t('English')}</option>
+          <option value={i18n.options.supportedLangCodes[1]}>{i18n.t('Traditional Chinese')}</option>
         </SelectField>
         <div
           className="cursor-pointer"

@@ -22,7 +22,6 @@ const CustomTooltip = require('../../core/components/tooltip');
 const SessionExpireModal = require('../../core/components/session-expire-modal');
 const api = require('../../core/apis/web-api');
 const i18n = require('../../i18n').default;
-const SUPPORTED_LANGUAGE_CODES = i18n.options.supportedLangCodes;
 const constants = require('../../core/constants');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
@@ -31,7 +30,7 @@ module.exports = class Layout extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(SUPPORTED_LANGUAGE_CODES).isRequired,
+        languageCode: PropTypes.oneOf(i18n.options.supportedLangCodes).isRequired,
         deviceName: PropTypes.string.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         serialNumber: PropTypes.string.isRequired,
@@ -277,7 +276,7 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     {
-                      SUPPORTED_LANGUAGE_CODES.map(languageCode => (
+                      i18n.options.supportedLangCodes.map(languageCode => (
                         <a
                           key={languageCode}
                           className="dropdown-item"
