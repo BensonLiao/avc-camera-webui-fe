@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../i18n';
 import utils from '../../../core/utils';
-// const authKeyFaceRecognitionType = require('webserver-form-schema/constants/auth-key-fr');
+import authKeyFaceRecognitionType from 'webserver-form-schema/constants/auth-key-fr';
 
 const LicenseList = ({authKeys}) => {
   return (
@@ -27,10 +27,7 @@ const LicenseList = ({authKeys}) => {
             <td>
               {authKey.isEnableFaceRecognitionKey !== '0' && (
                 <span className="badge badge-primary badge-pill">
-                  {/* Language resource buggy, using temp. solution until fix is found */}
-                  {/* {i18n.t('face-recognition-key-{{0}}', {0: authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]})} */}
-                  {authKey.isEnableFaceRecognitionKey === '1' && i18n.t('face-recognition-key-thirtyThousand')}
-                  {authKey.isEnableFaceRecognitionKey === '2' && i18n.t('face-recognition-key-threeThousand')}
+                  {i18n.t(`face-recognition-key-${authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]}`)}
                 </span>
               )}
               {authKey.isEnableAgeGenderKey && (
