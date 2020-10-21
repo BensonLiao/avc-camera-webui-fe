@@ -48,7 +48,7 @@ module.exports = class Word extends Base {
       <Form className="row">
         <BreadCrumb
           className="px-0"
-          path={[i18n.t('Video'), i18n.t('OSD')]}
+          path={[i18n.t('Video Settings'), i18n.t('OSD')]}
           routes={['/media/stream']}
         />
         <div className="col-7 px-0">
@@ -106,7 +106,7 @@ module.exports = class Word extends Base {
             <div className="card-header">{i18n.t('OSD')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('On/Off')}</label>
+                <label className="mb-0">{i18n.t('Enable On-Screen Display')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">
@@ -174,7 +174,7 @@ module.exports = class Word extends Base {
                 <Field
                   name="customText"
                   type="text"
-                  placeholder={i18n.t('Enter Custom Text')}
+                  placeholder={i18n.t('Enter custom text')}
                   maxLength={WordSettingsSchema.customText.max}
                   className="form-control"
                 />

@@ -11,9 +11,9 @@ const LicenseList = ({authKeys}) => {
         <tr className="shadow">
           <th/>
           <th>{i18n.t('Time')}</th>
-          <th>{i18n.t('Activate User')}</th>
+          <th>{i18n.t('Activated By')}</th>
           <th>{i18n.t('Authentication Key')}</th>
-          <th>{i18n.t('Activate Functions')}</th>
+          <th>{i18n.t('Activated Functions')}</th>
           <th>{i18n.t('Enable Status')}</th>
         </tr>
       </thead>
@@ -35,7 +35,7 @@ const LicenseList = ({authKeys}) => {
               )}
               {authKey.isEnableAgeGenderKey && (
                 <span className="badge badge-primary badge-pill">
-                  {i18n.t('Age Gender')}
+                  {i18n.t('Age & Gender')}
                 </span>
               )}
               {authKey.isEnableHumanoidDetectionKey && (

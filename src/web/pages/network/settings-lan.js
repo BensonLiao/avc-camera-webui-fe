@@ -72,8 +72,8 @@ class SettingsLan extends React.PureComponent {
             dhcpTestIp: response.data.resultIP,
             modalTitle: i18n.t('DHCP TEST'),
             modalBody: response.data.success ?
-              [i18n.t('DHCP Testing Success!'), `${i18n.t('IP Address')}: ${response.data.resultIP}`] :
-              i18n.t('DHCP Testing Failed!')
+              [i18n.t('DHCP Testing Success'), `${i18n.t('IP Address')}: ${response.data.resultIP}`] :
+              i18n.t('DHCP Testing Failed')
           }), () => {
             if (!this.state.dhcpTestResult) {
               setFieldValue('ipAddress', '192.168.1.168');
@@ -136,7 +136,7 @@ class SettingsLan extends React.PureComponent {
                       className="form-check-label"
                       htmlFor={`network-ip-type-${NetworkIPType.dynamic}`}
                     >
-                      {i18n.t('Enable DHCP')}
+                      {i18n.t('DHCP')}
                     </label>
                   </div>
                   <button
@@ -221,7 +221,7 @@ class SettingsLan extends React.PureComponent {
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
-                <CustomTooltip show={JSON.stringify(this.props.networkSettings) === JSON.stringify(values)} title={i18n.t('No Values Have Changed')}>
+                <CustomTooltip show={JSON.stringify(this.props.networkSettings) === JSON.stringify(values)} title={i18n.t('No changes were made.')}>
 
                   <div>
                     <button
@@ -241,7 +241,7 @@ class SettingsLan extends React.PureComponent {
                 <CustomNotifyModal
                   backdrop="static"
                   isShowModal={isShowSelectModal.applyConfirm}
-                  modalTitle={i18n.t('Network Settings')}
+                  modalTitle={i18n.t('Network')}
                   modalBody={i18n.t('Are you sure you want to update network settings?')}
                   isConfirmDisable={isApiProcessing || isUpdating}
                   onHide={this.hideModal('applyConfirm')}

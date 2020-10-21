@@ -75,8 +75,8 @@ module.exports = class SMTP extends Base {
     })
       .then(response => {
         notify.showSuccessNotification({
-          title: i18n.t('Mail Setting Success'),
-          message: i18n.t(response.data.isTestMailSent ? 'Test Mail Sent' : 'Account Auth is Off, Test Mail not Sent.')
+          title: i18n.t('Email Setting Success'),
+          message: i18n.t(response.data.isTestMailSent ? 'Sending Test Email' : 'Disabling Outgoing Email')
         });
       })
       .then(getRouter().reload)
@@ -168,11 +168,11 @@ module.exports = class SMTP extends Base {
     return (
       <Form className="card shadow">
         <div className="card-header">
-          {i18n.t('SMTP Server')}
+          {i18n.t('Email')}
         </div>
         <div className="card-body">
           <div className="form-group d-flex justify-content-between align-items-center">
-            <label>{i18n.t('On/Off')}</label>
+            <label>{i18n.t('Enable Outgoing Email')}</label>
             <div className="custom-control custom-switch">
               <Field
                 name="isEnableAuth"
@@ -187,24 +187,26 @@ module.exports = class SMTP extends Base {
               </label>
             </div>
           </div>
-          <div className="card">
+          <div className="card mb-3">
             <div className="card-body">
               <div className="form-group">
-                <label>{i18n.t('Host Address')}</label>
+                <label>{i18n.t('SMTP Server Address')}</label>
                 <Field
                   autoFocus
                   disabled={!isEnableAuth}
                   name="host"
                   type="text"
                   className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-                  placeholder={i18n.t('Enter Your Host Address')}
+                  placeholder={i18n.t('Enter server address')}
                 />
                 <ErrorMessage component="div" name="host" className="invalid-feedback"/>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
                 <div>
-                  <label className="mb-0">{i18n.t('SMTP Account Settings')}</label>
-                  <br/>
+                  <label className="mb-0 mr-2">{i18n.t('SMTP Logon Settings')}</label>
+                  <CustomTooltip title={i18n.t('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
+                    <i className="fas fa-question-circle text-primary"/>
+                  </CustomTooltip>
                 </div>
                 <div>
                   <CustomTooltip show={!isEnableAuth} title={i18n.t('Please Enable SMTP Server')}>
@@ -216,16 +218,13 @@ module.exports = class SMTP extends Base {
                         return isEnableAuth && this.onShowAccountSettingsModal();
                       }}
                     >
-                      {i18n.t('Edit Account and Password')}
+                      {i18n.t('Edit')}
                     </a>
-                  </CustomTooltip>
-                  <CustomTooltip title={i18n.t('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
-                    <i className="fas fa-question-circle text-primary"/>
                   </CustomTooltip>
                 </div>
               </div>
-              <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{i18n.t('Login Notification')}</label>
+              <div className="mb-0 form-group d-flex justify-content-between align-items-center">
+                <label>{i18n.t('Enable Device Login Notification')}</label>
                 <CustomTooltip show={!isEnableAuth} title={i18n.t('Please Enable SMTP Server')}>
                   <div className="custom-control custom-switch">
                     <Field
@@ -245,45 +244,43 @@ module.exports = class SMTP extends Base {
               </div>
             </div>
           </div>
-          <div className="card-body">
-            <div className="form-group">
-              <label>{i18n.t('Sender')}</label>
-              <Field
-                disabled={!isEnableAuth}
-                name="senderName"
-                type="text"
-                className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
-                placeholder={i18n.t('Enter Your Name')}
-              />
-              <ErrorMessage component="div" name="senderName" className="invalid-feedback"/>
-            </div>
-            <div className="form-group">
-              <label>{i18n.t('Email')}</label>
-              <Field
-                disabled={!isEnableAuth}
-                name="senderEmail"
-                type="text"
-                className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
-                placeholder={i18n.t('Enter Your Email')}
-              />
-              <ErrorMessage component="div" name="senderEmail" className="invalid-feedback"/>
-            </div>
-            <div className="form-group">
-              <label>{i18n.t('Notification Interval (Seconds)')}</label>
-              <Field
-                disabled={!isEnableAuth}
-                name="interval"
-                type="text"
-                className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
-                placeholder={i18n.t('Enter your notification interval')}
-              />
-              <ErrorMessage component="div" name="interval" className="invalid-feedback"/>
-              <small className="form-text text-muted">{i18n.t('5 - 1,800 Seconds')}</small>
-            </div>
-            <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-              {i18n.t('Apply')}
-            </button>
+          <div className="form-group">
+            <label>{i18n.t('Sender Information')}</label>
+            <Field
+              disabled={!isEnableAuth}
+              name="senderName"
+              type="text"
+              className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
+              placeholder={i18n.t('Enter sender\'s name')}
+            />
+            <ErrorMessage component="div" name="senderName" className="invalid-feedback"/>
           </div>
+          <div className="form-group">
+            <label>{i18n.t('Email')}</label>
+            <Field
+              disabled={!isEnableAuth}
+              name="senderEmail"
+              type="text"
+              className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
+              placeholder={i18n.t('Enter sender\'s email')}
+            />
+            <ErrorMessage component="div" name="senderEmail" className="invalid-feedback"/>
+          </div>
+          <div className="form-group">
+            <label>{i18n.t('Notification Interval (seconds)')}</label>
+            <Field
+              disabled={!isEnableAuth}
+              name="interval"
+              type="text"
+              className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
+              placeholder={i18n.t('Specify notification interval')}
+            />
+            <ErrorMessage component="div" name="interval" className="invalid-feedback"/>
+            <small className="form-text text-muted">{i18n.t('5-1,800 Seconds')}</small>
+          </div>
+          <button disabled={$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
+            {i18n.t('Apply')}
+          </button>
         </div>
       </Form>
     );
@@ -300,7 +297,7 @@ module.exports = class SMTP extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('Notification Setting'), i18n.t('Basic Setting'), i18n.t('Mail')]}
+                path={[i18n.t('Notification Settings'), i18n.t('Notification Method'), i18n.t('Email')]}
                 routes={['/notification/smtp', '/notification/smtp']}
               />
               <div className="col-center">
@@ -317,7 +314,7 @@ module.exports = class SMTP extends Base {
 
           <Modal autoFocus={false} show={isShowModal} onHide={this.onHideAccountSettingsModal}>
             <div className="modal-header">
-              <h5 className="modal-title">{i18n.t('Email and login settings')}</h5>
+              <h5 className="modal-title">{i18n.t('SMTP Logon Settings')}</h5>
             </div>
             <Formik
               validate={utils.makeFormikValidator(smtpAccountSettingsValidator)}

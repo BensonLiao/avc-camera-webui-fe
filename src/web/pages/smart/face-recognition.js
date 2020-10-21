@@ -128,7 +128,7 @@ module.exports = class FaceRecognition extends Base {
                   <Field
                     name="faceFrame"
                     component={MaskArea}
-                    text={i18n.t('Facial Detection Size')}
+                    text={i18n.t('Min. Facial Detection Size')}
                     className="bounding-primary"
                     parentElementId="fr-video-wrapper"
                   />
@@ -142,7 +142,7 @@ module.exports = class FaceRecognition extends Base {
             <div className="card-header">{i18n.t('Facial Recognition')}</div>
             <Form className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('On/Off')}</label>
+                <label className="mb-0">{i18n.t('Enable Facial Recognition')}</label>
                 <div className="custom-control custom-switch">
                   <Field
                     name="isEnable"
@@ -210,7 +210,7 @@ module.exports = class FaceRecognition extends Base {
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex align-items-center">
                     <label className="mb-0 mr-2">{i18n.t('Detection Zone')}</label>
-                    <CustomTooltip title={i18n.t('Default is fullscreen.')}>
+                    <CustomTooltip title={i18n.t('The default in the whole live view screen.')}>
                       <i className="fas fa-question-circle text-primary"/>
                     </CustomTooltip>
                   </div>
@@ -228,7 +228,7 @@ module.exports = class FaceRecognition extends Base {
                 </div>
               </div>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('Facial Detection Size')}</label>
+                <label className="mb-0">{i18n.t('Enable Facial Detection Size')}</label>
                 <div className="custom-control custom-switch">
                   <Field
                     name="isEnableFaceFrame"
@@ -256,7 +256,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-all"
                   />
-                  <label className="form-check-label" htmlFor="input-show-all">{i18n.t('Name')}</label>
+                  <label className="form-check-label" htmlFor="input-show-all">{i18n.t('Display Name')}</label>
                 </div>
                 <div className="form-check mb-3">
                   <Field
@@ -266,7 +266,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-register-group"
                   />
-                  <label className="form-check-label" htmlFor="input-show-register-group">{i18n.t('Group')}</label>
+                  <label className="form-check-label" htmlFor="input-show-register-group">{i18n.t('Display Group')}</label>
                 </div>
                 <div className="form-check mb-3">
                   <Field
@@ -276,7 +276,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-unknown-personal"
                   />
-                  <label className="form-check-label" htmlFor="input-show-unknown-personal">{i18n.t('Unknown')}</label>
+                  <label className="form-check-label" htmlFor="input-show-unknown-personal">{i18n.t('Display Unknown')}</label>
                 </div>
                 <div className="form-check">
                   <Field
@@ -286,7 +286,7 @@ module.exports = class FaceRecognition extends Base {
                     type="checkbox"
                     id="input-show-fake"
                   />
-                  <label className="form-check-label" htmlFor="input-show-fake">{i18n.t('Image Spoof')}</label>
+                  <label className="form-check-label" htmlFor="input-show-fake">{i18n.t('Display Image Spoof')}</label>
                 </div>
               </div>
 
@@ -308,7 +308,7 @@ module.exports = class FaceRecognition extends Base {
         <div className="container-fluid">
           <div className="row">
             <BreadCrumb
-              path={[i18n.t('Analytic'), i18n.t('Facial Recognition')]}
+              path={[i18n.t('Analytics Settings'), i18n.t('Facial Recognition')]}
               routes={['/analytic/face-recognition']}
             />
             <Formik

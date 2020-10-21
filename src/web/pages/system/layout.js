@@ -37,7 +37,7 @@ module.exports = class System extends Base {
                 href="#"
                 data-toggle="collapse"
                 data-target="#basic-settings"
-                title={i18n.t('Settings')}
+                title={i18n.t('Administration')}
                 className={classNames(
                   'nav-link collapse d-flex justify-content-between align-items-center',
                   {
@@ -51,7 +51,7 @@ module.exports = class System extends Base {
                   {collapsed: !topSubNav}
                 )}
               >
-                <span className="text-truncate">{i18n.t('Settings')}</span>
+                <span className="text-truncate">{i18n.t('Administration')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-settings" className={classNames('collapse', {show: topSubNav})} data-parent="#accordion-setting-menu">
@@ -72,16 +72,16 @@ module.exports = class System extends Base {
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.upgrade'})}
                   to="/system/upgrade"
-                  title={i18n.t('Firmware Upgrade')}
+                  title={i18n.t('Software Upgrade')}
                 >
-                  {i18n.t('Firmware Upgrade')}
+                  {i18n.t('Software Upgrade')}
                 </Link>
               </div>
               <a
                 href="#"
                 data-toggle="collapse"
                 data-target="#basic-information"
-                title={i18n.t('System Information')}
+                title={i18n.t('Status')}
                 className={classNames(
                   'nav-link collapse d-flex justify-content-between align-items-center',
                   {
@@ -94,7 +94,7 @@ module.exports = class System extends Base {
                   {collapsed: !bottomSubNav}
                 )}
               >
-                <span className="text-truncate">{i18n.t('System Information')}</span>
+                <span className="text-truncate">{i18n.t('Status')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-information" className={classNames('collapse', {show: bottomSubNav})} data-parent="#accordion-setting-menu">
@@ -108,7 +108,7 @@ module.exports = class System extends Base {
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.information'})}
                   to="/system/information"
-                  title={i18n.t('System information')}
+                  title={i18n.t('Status')}
                 >
                   {i18n.t('Information')}
                 </Link>

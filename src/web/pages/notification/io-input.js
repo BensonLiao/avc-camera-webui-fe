@@ -38,7 +38,7 @@ const IoInput = ({isApiProcessing, currentTab, isEnableIoIn, ioInSettings}) => {
                 </div>
               </div>
               <div className={classNames('form-group', isEnableIoIn ? '' : 'd-none')}>
-                <label>{i18n.t('Type')}</label>
+                <label>{i18n.t('Normal State')}</label>
                 <div className="d-flex align-items-center">
                   <div className="form-check">
                     <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-open" value={IOType.normallyOpen}/>

@@ -28,14 +28,14 @@ module.exports = class Network extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{i18n.t('Internet/Network Settings')}</h2>
+          <h2>{i18n.t('Internet & Network Settings')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/network/settings"
               title="Network Settings"
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.settings'})}
             >
-              {i18n.t('Network Settings')}
+              {i18n.t('Network')}
             </Link>
             <Link
               to="/network/tcp-ip"
@@ -49,7 +49,7 @@ module.exports = class Network extends Base {
               title="HTTPS"
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.https'})}
             >
-              HTTPS
+              {i18n.t('HTTPS')}
             </Link>
           </nav>
         </div>

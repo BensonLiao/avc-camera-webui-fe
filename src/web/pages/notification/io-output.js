@@ -82,12 +82,12 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>{i18n.t('Pulse Time (Seconds)')}</label>
+                  <label>{i18n.t('Pulse Time (seconds)')}</label>
                   <Field
                     name="pulse"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
-                    placeholder={i18n.t('Enter Seconds')}
+                    placeholder={i18n.t('Enter seconds')}
                   />
                   {
                     errors.pulse && touched.pulse && (
@@ -95,19 +95,19 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                     )
                   }
                   <small className="form-text text-muted">
-                    {i18n.t('{{0}} - {{1}} Seconds', {
+                    {i18n.t('{{0}}-{{1}} Seconds', {
                       0: NotificationIOOutSchema.pulse.min,
                       1: NotificationIOOutSchema.pulse.max
                     })}
                   </small>
                 </div>
                 <div className="form-group">
-                  <label>{i18n.t('Delay Time (Seconds)')}</label>
+                  <label>{i18n.t('Delay Time (seconds)')}</label>
                   <Field
                     name="delay"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
-                    placeholder={i18n.t('Enter Seconds')}
+                    placeholder={i18n.t('Enter seconds')}
                   />
                   {
                     errors.delay && touched.delay && (
@@ -115,7 +115,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                     )
                   }
                   <small className="form-text text-muted">
-                    {i18n.t('{{0}} - {{1}} Seconds', {
+                    {i18n.t('{{0}}-{{1}} Seconds', {
                       0: NotificationIOOutSchema.delay.min,
                       1: NotificationIOOutSchema.delay.max
                     })}

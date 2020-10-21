@@ -64,7 +64,7 @@ module.exports = class Maintain extends Base {
     progress.start();
     this.setState(prevState => ({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Device Rebooting'),
+      apiProcessModalTitle: i18n.t('Rebooting'),
       isShowSelectModal: {
         ...prevState.isShowSelectModal,
         reboot: false
@@ -84,7 +84,7 @@ module.exports = class Maintain extends Base {
                 this.setState({
                   isShowFinishModal: true,
                   finishModalTitle: i18n.t('System Reboot'),
-                  finishModalBody: i18n.t('Device has rebooted. Please log in again.')
+                  finishModalBody: i18n.t('The device has rebooted. Please log in again.')
                 });
               })
               .catch(() => {
@@ -129,7 +129,7 @@ module.exports = class Maintain extends Base {
                 });
               } else {
                 // Keep modal and update the title.
-                this.setState({apiProcessModalTitle: i18n.t('Device Rebooting')});
+                this.setState({apiProcessModalTitle: i18n.t('Rebooting')});
                 // Check the server was start up, if success then startup was failed and retry.
                 const test = () => {
                   api.ping('app')
@@ -180,7 +180,7 @@ module.exports = class Maintain extends Base {
             }))
             .then(() => {
               // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: i18n.t('Device Rebooting')});
+              this.setState({apiProcessModalTitle: i18n.t('Rebooting')});
               // Check the server was start up, if success then startup was failed and retry.
               const test = () => {
                 api.ping('app')
@@ -216,13 +216,13 @@ module.exports = class Maintain extends Base {
     return (
       <Form>
         <div className="form-group">
-          <label>{i18n.t('Restore to Default Setting')}</label>
+          <label>{i18n.t('Restore to Default Settings')}</label>
           <div className="form-check mb-2">
             <Field type="checkbox" name="resetIP" className="form-check-input" id="input-checkbox-reset-all"/>
             <label className="form-check-label mr-2" htmlFor="input-checkbox-reset-all">
               {i18n.t('Restore All Settings')}
             </label>
-            <CustomTooltip title={i18n.t('Check or clear this option to overwrite or preserve these settings: Members and Groups, System Accounts, Focus and Zoom settings of Image, RTSP settings, Internet/Network settings, and data on the SD Card.')}>
+            <CustomTooltip title={i18n.t('Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.')}>
               <i className="fas fa-question-circle text-primary"/>
             </CustomTooltip>
           </div>
@@ -230,14 +230,14 @@ module.exports = class Maintain extends Base {
             isShowModal={this.state.isShowSelectModal.reset}
             modalTitle={values.resetIP ? i18n.t('Restore All Settings') : i18n.t('Restore to Default Settings')}
             modalBody={values.resetIP ?
-              i18n.t('The system will revert to factory default settings. Any data and configurations you have saved will be overwritten.') :
+              i18n.t('The system will revert to factory default settings. All data and configurations you have saved will be overwritten.') :
               [`${i18n.t('The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following')} :`,
                 i18n.t('• Members and Groups'),
                 i18n.t('• System Accounts'),
-                i18n.t('• Focus and Zoom settings of the Image'),
+                i18n.t('• Focus and Zoom of Image settings'),
                 i18n.t('• RTSP settings'),
-                i18n.t('• Internet/Network settings'),
-                i18n.t('• SD Card settings.')]}
+                i18n.t('• Internet & Network settings'),
+                i18n.t('• Data on the SD Card')]}
             isConfirmDisable={this.state.$isApiProcessing}
             onHide={this.hideModal('reset')}
             onConfirm={() => {
@@ -264,7 +264,7 @@ module.exports = class Maintain extends Base {
     return (
       <div className="form-group">
         <label className="mb-0">{i18n.t('Import System Settings')}</label>
-        <small className="form-text text-muted my-2">{i18n.t('Only .Zip File Supported')}</small>
+        <small className="form-text text-muted my-2">{i18n.t('Only ZIP file format is supported')}</small>
         <div>
           <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
             <input type="file" className="d-none" accept="application/zip" onChange={this.onChangeFile}/>
@@ -273,7 +273,7 @@ module.exports = class Maintain extends Base {
           {
             file ?
               <span className="text-size-14 text-muted ml-3">{i18n.t(file.name)}</span> :
-              <span className="text-size-14 text-muted ml-3">{i18n.t('No Files Selected')}</span>
+              <span className="text-size-14 text-muted ml-3">{i18n.t('No file selected.')}</span>
           }
         </div>
         <div>
@@ -312,7 +312,7 @@ module.exports = class Maintain extends Base {
           <div className="container-fluid">
             <div className="row">
               <BreadCrumb
-                path={[i18n.t('System'), i18n.t('Settings'), i18n.t('Device Maintenance')]}
+                path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Device Maintenance')]}
                 routes={['/system/datetime', '/system/datetime']}
               />
               <CustomNotifyModal
@@ -350,7 +350,7 @@ module.exports = class Maintain extends Base {
                     <CustomNotifyModal
                       isShowModal={isShowSelectModal.reboot}
                       modalTitle={i18n.t('System Reboot')}
-                      modalBody={i18n.t('Are you sure you want to reboot the system?')}
+                      modalBody={i18n.t('Are you sure you want to reboot the device?')}
                       isConfirmDisable={$isApiProcessing}
                       onHide={this.hideModal('reboot')}
                       onConfirm={this.onSubmitDeviceReboot}

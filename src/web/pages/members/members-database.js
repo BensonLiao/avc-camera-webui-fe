@@ -96,7 +96,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Updating Members')
+      apiProcessModalTitle: i18n.t('Importing Member Database')
     }, () => {
       api.member.uploadDatabaseFile(file)
         .then(() => {
@@ -154,7 +154,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
               component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
-                placeholder: i18n.t('Enter your password')
+                placeholder: i18n.t('Enter a new password')
               }}
             />
             <small className="form-text text-muted">
@@ -169,7 +169,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
               component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                placeholder: i18n.t('Confirm Your New Password')
+                placeholder: i18n.t('Confirm your new password')
               }}
             />
             <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
@@ -250,7 +250,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
           backdrop="static"
           isShowModal={isShowApiProcessModal}
           modalTitle={apiProcessModalTitle}
-          modalBody={i18n.t('Member Database Updating')}
+          modalBody={i18n.t('Updating Member Database')}
           onHide={this.hideApiProcessModal}
         />
       </>

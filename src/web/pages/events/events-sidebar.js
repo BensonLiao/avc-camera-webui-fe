@@ -194,7 +194,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
                 ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{i18n.t('Facial Recognition')}</span>
-                    <span className="badge badge-danger badge-pill">{i18n.t('Inactive')}</span>
+                    <span className="badge badge-danger badge-pill">{i18n.t('Activation Required')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
                 )
@@ -202,7 +202,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
             </div>
             {type === 'face-recognition' && isEnableFaceRecognitionKey && this.faceRecognitionFilterRender()}
           </div>
-          {/* Age Gender Filter */}
+          {/* Age & Gender Filter */}
           <div className={classNames('card sub mb-3 d-none', {active: type === 'age-gender' && isEnableAgeGenderKey})}>
             <div className="card-header text-truncate">
               {
@@ -214,13 +214,13 @@ module.exports = class EventsSidebar extends React.PureComponent {
                     }}
                     className="text-decoration-none d-flex justify-content-between align-items-center"
                   >
-                    <span>{i18n.t('Age Gender')}</span>
+                    <span>{i18n.t('Age & Gender')}</span>
                     <i className="fas fa-chevron-down"/>
                   </Link>
                 ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                    <span>{i18n.t('Age Gender')}</span>
-                    <span className="badge badge-danger badge-pill">{i18n.t('Inactive')}</span>
+                    <span>{i18n.t('Age & Gender')}</span>
+                    <span className="badge badge-danger badge-pill">{i18n.t('Activation Required')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
                 )
@@ -245,7 +245,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
                 ) : (
                   <a className="text-decoration-none d-flex justify-content-between align-items-center">
                     <span>{i18n.t('Human Detection')}</span>
-                    <span className="badge badge-danger badge-pill">{i18n.t('Inactive')}</span>
+                    <span className="badge badge-danger badge-pill">{i18n.t('Activation Required')}</span>
                     <i className="fas fa-chevron-down"/>
                   </a>
                 )
