@@ -1,1 +1,1 @@
-module.exports = ['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es'];
+module.exports = ['en', 'zh-tw', 'zh-cn', 'ja', 'es'];

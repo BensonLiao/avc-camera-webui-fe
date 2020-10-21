@@ -1,5 +1,5 @@
-if (!window.languageResource['en-us']) {
-  window.languageResource['en-us'] = {
+if (!window.languageResource.en) {
+  window.languageResource.en = {
 
     // Constants
     'permission-0': 'Admin',
