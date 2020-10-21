@@ -645,8 +645,8 @@ if (!window.languageResource['zh-tw']) {
     'Enable Motion Detection': '開啟移動偵測',
     'Motion Detection': '移動偵測',
     'Create detection zones on the preview window.': '請在預覽窗格新增觸發區域',
-    'Set a Zone.': '新增區域',
-    'Erase a Zone.': '刪除區域',
+    'To set a zone:': '新增區域',
+    'To erase a zone:': '刪除區域',
     'Up to 4 detection zones can be set.': '最多4個區域',
 
     // /analytic/license
