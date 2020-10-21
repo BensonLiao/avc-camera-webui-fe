@@ -40,12 +40,12 @@ module.exports = class IO extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('Notification Setting'), i18n.t('Basic Setting'), i18n.t('Input and Output Setting')]}
+                path={[i18n.t('Notification Settings'), i18n.t('Notification Method'), i18n.t('Input & Output')]}
                 routes={['/notification/smtp', '/notification/smtp']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{i18n.t('Input and Output Setting')}</div>
+                  <div className="card-header">{i18n.t('Input & Output')}</div>
                   <Tab.Container activeKey={currentTab}>
                     <Nav onSelect={this.setCurrentTab}>
                       <Nav.Item>

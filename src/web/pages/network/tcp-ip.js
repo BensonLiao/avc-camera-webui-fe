@@ -45,7 +45,7 @@ module.exports = class TCPIP extends Base {
   constructor(props) {
     super(props);
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = i18n.t('Updating Http Settings');
+    this.state.apiProcessModalTitle = i18n.t('Updating HTTP Settings');
     this.state.modalBody = i18n.t('Please wait');
   }
 
@@ -85,12 +85,12 @@ module.exports = class TCPIP extends Base {
         if (response.data.ddnsHostStatus) {
           notify.showSuccessNotification({
             title: i18n.t('Setting Success'),
-            message: i18n.t('DDNS Setting Success!')
+            message: i18n.t('DDNS Setting Success')
           });
         } else {
           notify.showErrorNotification({
             title: i18n.t('Setting Failed'),
-            message: i18n.t('DDNS Setting Failed!')
+            message: i18n.t('DDNS Setting Failed')
           });
         }
 
@@ -107,9 +107,9 @@ module.exports = class TCPIP extends Base {
           .then(() => {
             const newAddress = `http://${location.hostname}:${values.port}`;
             this.setState({
-              apiProcessModalTitle: i18n.t('Success'),
+              apiProcessModalTitle: i18n.t('Redirection Success'),
               modalBody: [
-                `${i18n.t('Please Redirect Manually to the New Address')} :`,
+                `${i18n.t('The website has been redirected to the new address')} :`,
                 <div key="redirect" className="d-flex">
                   <ProgressIndicator
                     className="ml-0"
@@ -122,7 +122,7 @@ module.exports = class TCPIP extends Base {
               setTimeout(() => {
                 this.setState({
                   modalBody: [
-                    `${i18n.t('Please Redirect Manually to the New Address')} :`,
+                    `${i18n.t('The website has been redirected to the new address')} :`,
                     <div key="redirect" className="d-flex">
                       <ProgressIndicator
                         className="ml-0"
@@ -151,7 +151,7 @@ module.exports = class TCPIP extends Base {
           <Form>
 
             <div className="form-group d-flex justify-content-between align-items-center">
-              <label className="mb-0">{i18n.t('DDNS Server')}</label>
+              <label className="mb-0">{i18n.t('Enable DDNS')}</label>
               <div className="custom-control custom-switch">
                 <Field name="isEnableDDNS" checked={values.isEnableDDNS} type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
                 <label className="custom-control-label" htmlFor="switch-ddns-enable">
@@ -160,7 +160,7 @@ module.exports = class TCPIP extends Base {
                 </label>
               </div>
             </div>
-            <SelectField labelName={i18n.t('Server Provider')} name="ddnsProvider">
+            <SelectField labelName={i18n.t('Service Provider')} name="ddnsProvider">
               <option value="dyn-dns">DynDNS.org</option>
             </SelectField>
             <div className="form-group">
@@ -214,17 +214,17 @@ module.exports = class TCPIP extends Base {
         <Tab.Pane eventKey="tab-http">
           <Form>
             <div className="form-group mb-5">
-              <label>{i18n.t('Secondary Web Server Port')}</label>
+              <label>{i18n.t('Secondary HTTP Port')}</label>
               <Field
                 name="port"
                 className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
                 type="text"
                 validate={this.checkValidatePort}
-                placeholder={i18n.t('Enter Your Secondary Server Port')}
+                placeholder={i18n.t('8080')}
                 value={values.port}
               />
               {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
-              <p className="text-size-14 text-muted mt-2">{i18n.t('1024 - 65535, except for 5555, 8443, 8554, 17300. Default primary port is 80.')}</p>
+              <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8080')}</p>
             </div>
             <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onClick}>{i18n.t('Apply')}</button>
           </Form>
@@ -243,7 +243,7 @@ module.exports = class TCPIP extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('Internet/Network Settings'), i18n.t('TCP/IP')]}
+                path={[i18n.t('Internet & Network Settings'), i18n.t('TCP/IP')]}
                 routes={['/network/settings']}
               />
               <CustomNotifyModal

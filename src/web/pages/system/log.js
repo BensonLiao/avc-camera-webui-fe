@@ -77,7 +77,7 @@ module.exports = class Log extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('System'), i18n.t('System Information'), i18n.t('System Log')]}
+                path={[i18n.t('System'), i18n.t('Status'), i18n.t('System Log')]}
                 routes={['/system/datetime', '/system/log']}
               />
               <div className="col-center">
@@ -85,19 +85,19 @@ module.exports = class Log extends Base {
                   <div className="card-header">{i18n.t('System Log')}</div>
                   <div className="card-body">
                     <div className="form-group">
-                      <label className="mb-0 my-3">{i18n.t('System Log File Record')}</label>
+                      <label className="mb-0 my-3">{i18n.t('System Log File')}</label>
                       <div>
                         <button
                           className="btn btn-outline-primary rounded-pill px-5"
                           type="button"
                           onClick={this.showModal}
-                        >{i18n.t('Delete Record')}
+                        >{i18n.t('Delete logs')}
                         </button>
                         <CustomNotifyModal
                           modalType="default"
                           isShowModal={isShowModal}
                           modalTitle={i18n.t('Delete System Log File')}
-                          modalBody={i18n.t('Are you sure you want to delete record?')}
+                          modalBody={i18n.t('Are you sure you want to delete system logs?')}
                           onHide={this.hideModal}
                           onConfirm={this.onClickClearLog}
                         />

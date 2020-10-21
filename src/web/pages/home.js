@@ -193,7 +193,7 @@ module.exports = class Home extends Base {
                       <thead>
                         <tr>
                           <th>{i18n.t('Device Name')}</th>
-                          <th>{i18n.t('Analytic')}</th>
+                          <th>{i18n.t('Analytics')}</th>
                           <th>{i18n.t('SD Card')}</th>
                         </tr>
                       </thead>
@@ -212,12 +212,12 @@ module.exports = class Home extends Base {
                             <div>
                               <span>{i18n.t('Facial Recognition: ')}</span>
                               <span className={classTable.faceRecognitionState}>
-                                {i18n.t(`${isEnableFaceRecognitionKey ? faceRecognitionStatus.isEnable ? 'On' : 'Off' : 'Unlicensed'}`)}
+                                {i18n.t(`${isEnableFaceRecognitionKey ? faceRecognitionStatus.isEnable ? 'On' : 'Off' : 'Authentication Required'}`)}
                               </span>
                             </div>
                             {isEnableAgeGenderKey && (
                               <div>
-                                <span>{i18n.t('Age Gender: ')}</span>
+                                <span>{i18n.t('Age & Gender: ')}</span>
                                 <span className={classTable.ageGenderState}>
                                   {i18n.t(`${isEnableAgeGenderKey ? 'On' : 'Off'}`)}
                                 </span>

@@ -182,7 +182,7 @@ module.exports = class Users extends Base {
                                 { !isSuperAdmin && (
                                   <CustomTooltip
                                     show={user.account === account}
-                                    title={i18n.t('Cannot Delete Account That is Currently Logged In')}
+                                    title={i18n.t('This account cannot be deleted because it is currently logged in to the device.')}
                                   >
                                     <span>
                                       <button
@@ -214,7 +214,7 @@ module.exports = class Users extends Base {
           <CustomNotifyModal
             isShowModal={isShowDeleteUserModal}
             modalTitle={i18n.t('Delete Account')}
-            modalBody={i18n.t('Are you sure to delete account {{0}}?', {0: deleteUserTarget && deleteUserTarget.account})}
+            modalBody={i18n.t('Are you sure you want to delete account {{0}}?', {0: deleteUserTarget && deleteUserTarget.account})}
             isConfirmDisable={$isApiProcessing}
             onHide={this.hideDeleteUserModal}
             onConfirm={this.confirmDeleteUser}

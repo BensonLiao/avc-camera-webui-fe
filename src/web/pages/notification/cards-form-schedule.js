@@ -127,7 +127,7 @@ module.exports = class CardsFormSchedule extends React.PureComponent {
                return (
                  <CustomTooltip
                    show={statusCheck}
-                   title={values.timePeriods.length >= 5 ? i18n.t('Maximum Allowed Number of Schedule is 5') : i18n.t('Please Enter Start and End Datetime')}
+                   title={values.timePeriods.length >= 5 ? i18n.t('The maximum number of allowed schedules is 5.') : i18n.t('Please enter start and end time.')}
                  >
                    <div className="col-auto my-1">
                      <button

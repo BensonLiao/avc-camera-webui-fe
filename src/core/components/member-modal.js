@@ -651,7 +651,7 @@ module.exports = class Member extends React.PureComponent {
             <Field
               name="name"
               type="text"
-              placeholder={i18n.t('Enter Your Name')}
+              placeholder={i18n.t('Enter a name for this member')}
               maxLength={MemberSchema.name.max}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
             />
@@ -662,12 +662,12 @@ module.exports = class Member extends React.PureComponent {
             <Field
               name="organization"
               type="text"
-              placeholder={i18n.t('Enter Your Organization')}
+              placeholder={i18n.t('Enter an organization for this member')}
               maxLength={MemberSchema.organization.max}
               className={classNames('form-control', {'is-invalid': errors.organization && touched.organization})}
             />
             <ErrorMessage component="div" name="organization" className="invalid-feedback"/>
-            <small className="form-text text-muted">{i18n.t('Letters within 32 characters.')}</small>
+            <small className="form-text text-muted">{i18n.t('Maximum length: 32 characters')}</small>
           </div>
           <SelectField labelName={i18n.t('Group')} wrapperClassName="px-2" name="group">
             <option value="">{i18n.t('N/A')}</option>
@@ -680,7 +680,7 @@ module.exports = class Member extends React.PureComponent {
             <Field
               name="note"
               type="text"
-              placeholder={i18n.t('Enter Your Note')}
+              placeholder={i18n.t('Enter a note')}
               maxLength={MemberSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
             />
@@ -767,7 +767,7 @@ module.exports = class Member extends React.PureComponent {
                 />
               </label>
               <p className="text-center mb-1">
-                {i18n.t('Drag to reposition photo')}
+                {i18n.t('Drag the image to position it correctly.')}
               </p>
               <div className="d-flex justify-content-center align-items-center">
                 <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(false)}>
