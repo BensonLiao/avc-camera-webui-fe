@@ -316,20 +316,10 @@ module.exports = class DatePicker extends React.PureComponent {
     const isDate = utils.isDate(date);
     if (this.props.dateTabText) {
       let clockDatetime = isDate ? date : (field.value ? field.value : new Date());
-      if (startDate) {
-        clockDatetime = dayjs(clockDatetime)
-          .minute(dayjs(startDate).minute())
-          .hour(dayjs(startDate).hour())
-          .date(dayjs(startDate).date())
-          .month(dayjs(startDate).month())
-          .year(dayjs(startDate).year());
-      } else if (endDate) {
-        clockDatetime = dayjs(clockDatetime)
-          .minute(dayjs(endDate).minute())
-          .hour(dayjs(endDate).hour())
-          .date(dayjs(endDate).date())
-          .month(dayjs(endDate).month())
-          .year(dayjs(endDate).year());
+      if (startDate && dayjs(startDate).isAfter(clockDatetime)) {
+        clockDatetime = dayjs(startDate);
+      } else if (endDate && dayjs(endDate).isBefore(clockDatetime)) {
+        clockDatetime = dayjs(endDate);
       }
 
       this.setDateValue(new Date(clockDatetime), {skipTime: isDate});

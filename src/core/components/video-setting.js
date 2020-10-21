@@ -51,75 +51,67 @@ module.exports = class VideoSetting extends React.PureComponent {
     };
   }
 
-  state = {
-    // isAutoFocusProcessing: false,
-    focalLengthQueue: null
-  }
+  state = {focalLengthQueue: null}
 
   constructor(props) {
     super(props);
     this.submitPromise = Promise.resolve();
-    // this.state.isAutoFocusProcessing = false;
     this.state.focalLengthQueue = null;
   }
 
-  generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
-    event.preventDefault();
-    form.setFieldValue('focusType', autoFocusType).then(() => {
-      let prevFocalLength;
-      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
-      // Refresh focal length until previous value matches current value
-      const refreshFocalLength = () => {
-        api.video.getFocalLength()
-          .then(response => {
-            if (prevFocalLength === response.data.focalLength) {
-              store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
-            } else {
-              prevFocalLength = response.data.focalLength;
-              // Refresh focal length at 1hz
-              setTimeout(refreshFocalLength, 1000);
-            }
-
-            return response.data.focalLength;
-          })
-          .then(focalLength => {
-            form.setFieldValue('focalLength', focalLength);
-          });
-      };
-
-      refreshFocalLength();
-    });
+  updateFocalLengthStore = bool => {
+    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, bool);
   }
 
-  generateInitialValues = videoSettings => ({
-    ...videoSettings,
-    dnDuty: [
-      videoSettings.timePeriodStart,
-      videoSettings.timePeriodEnd
-    ]
-  });
-
   varyFocus = (form, step) => {
+    const {focalLength: {min, max}} = videoFocusSettingsSchema;
     let newFocalLength = step + form.values.focalLength;
-    if (newFocalLength < videoFocusSettingsSchema.focalLength.min) {
-      newFocalLength = videoFocusSettingsSchema.focalLength.min;
+    if (newFocalLength < min) {
+      newFocalLength = min;
     }
 
-    if (newFocalLength > videoFocusSettingsSchema.focalLength.max) {
-      newFocalLength = videoFocusSettingsSchema.focalLength.max;
+    if (newFocalLength > max) {
+      newFocalLength = max;
     }
 
     form.setFieldValue('focalLength', newFocalLength);
   }
 
+  matchFocalLength = formik => {
+    let prevFocalLength;
+    this.updateFocalLengthStore(true);
+    // Refresh focal length until previous value matches current value
+    const refreshFocalLength = () => {
+      api.video.getFocalLength()
+        .then(response => {
+          if (prevFocalLength === response.data.focalLength) {
+            this.updateFocalLengthStore(false);
+          } else {
+            prevFocalLength = response.data.focalLength;
+            // Refresh focal length at 1hz
+            setTimeout(refreshFocalLength, 1000);
+          }
+
+          return response.data.focalLength;
+        })
+        .then(focalLength => {
+          formik.setFieldValue('focalLength', focalLength);
+        });
+    };
+
+    refreshFocalLength();
+  }
+
   // Queues user input during api processing
-  recursiveFocusPromise = ({nextValues, prevValues, formik}) => {
+  focusQueue = ({nextValues, prevValues, formik}) => {
     if (!nextValues) {
       return;
     }
 
-    if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
-      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+    const hasChanged = (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength;
+
+    if (hasChanged) {
+      this.updateFocalLengthStore(true);
     }
 
     if (this.props.isApiProcessing) {
@@ -130,7 +122,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           if (this.state.focalLengthQueue) {
             this.setState(
               {focalLengthQueue: null},
-              this.recursiveFocusPromise({
+              this.focusQueue({
                 nextValues: {
                   ...nextValues,
                   focalLength: this.state.focalLengthQueue
@@ -144,31 +136,8 @@ module.exports = class VideoSetting extends React.PureComponent {
           }
         })
         .then(() => {
-          // Trigger react update to get the latest global state
-          store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
-          if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
-            let prevFocalLength;
-            store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
-            // Refresh focal length until previous value matches current value
-            const refreshFocalLength = () => {
-              api.video.getFocalLength()
-                .then(response => {
-                  if (prevFocalLength === response.data.focalLength) {
-                    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
-                  } else {
-                    prevFocalLength = response.data.focalLength;
-                    // Refresh focal length at 1hz
-                    setTimeout(refreshFocalLength, 1000);
-                  }
-
-                  return response.data.focalLength;
-                })
-                .then(focalLength => {
-                  formik.setFieldValue('focalLength', focalLength);
-                });
-            };
-
-            refreshFocalLength();
+          if (hasChanged) {
+            this.matchFocalLength(formik);
           }
         });
     }
@@ -186,7 +155,7 @@ module.exports = class VideoSetting extends React.PureComponent {
       prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom
     ) {
       // Change focus settings with user input queue.
-      this.recursiveFocusPromise({
+      this.focusQueue({
         nextValues,
         prevValues,
         formik
@@ -206,6 +175,14 @@ module.exports = class VideoSetting extends React.PureComponent {
     }
   };
 
+  generateInitialValues = videoSettings => ({
+    ...videoSettings,
+    dnDuty: [
+      videoSettings.timePeriodStart,
+      videoSettings.timePeriodEnd
+    ]
+  });
+
   generateClickResetButtonHandler = () => event => {
     event.preventDefault();
     progress.start();
@@ -216,33 +193,20 @@ module.exports = class VideoSetting extends React.PureComponent {
 
   generateClickAutoFocusButtonHandler = form => event => {
     event.preventDefault();
-    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+    this.updateFocalLengthStore(true);
     this.submitPromise = this.submitPromise
       .then(api.video.startAutoFocus)
       .then(() => {
-        let prevFocalLength;
-        // Refresh focal length until previous value matches current value
-        const refreshFocalLength = () => {
-          api.video.getFocalLength()
-            .then(response => {
-              if (prevFocalLength === response.data.focalLength) {
-                store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
-              } else {
-                prevFocalLength = response.data.focalLength;
-                // Refresh focal length at 1hz
-                setTimeout(refreshFocalLength, 1000);
-              }
-
-              return response.data.focalLength;
-            })
-            .then(focalLength => {
-              form.setFieldValue('focalLength', focalLength);
-            });
-        };
-
-        refreshFocalLength();
+        this.matchFocalLength(form);
       });
   };
+
+  generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
+    event.preventDefault();
+    form.setFieldValue('focusType', autoFocusType).then(() => {
+      this.matchFocalLength(form);
+    });
+  }
 
   videoSettingsFormRender = form => {
     const {values} = form;
@@ -287,62 +251,24 @@ module.exports = class VideoSetting extends React.PureComponent {
             </h2>
 
             <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{i18n.t('Brightness')}</label>
-                  <span className="text-primary text-size-14">{values.brightness}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="brightness"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.brightness.min}
-                  max={videoSettingsSchema.brightness.max}
-                />
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{i18n.t('Contrast')}</label>
-                  <span className="text-primary text-size-14">{values.contrast}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="contrast"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.contrast.min}
-                  max={videoSettingsSchema.contrast.max}
-                />
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{i18n.t('Sharpness')}</label>
-                  <span className="text-primary text-size-14">{values.sharpness}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="sharpness"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.sharpness.min}
-                  max={videoSettingsSchema.sharpness.max}
-                />
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{i18n.t('Saturation')}</label>
-                  <span className="text-primary text-size-14">{values.saturation}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="saturation"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.saturation.min}
-                  max={videoSettingsSchema.saturation.max}
-                />
-              </div>
+              {
+                ['brightness', 'contrast', 'sharpness', 'saturation'].map(imageControls => (
+                  <div key={imageControls} className="form-group">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <label>{i18n.t(imageControls.charAt(0).toUpperCase() + imageControls.slice(1))}</label>
+                      <span className="text-primary text-size-14">{values[imageControls]}</span>
+                    </div>
+                    <Field
+                      updateFieldOnStop
+                      name={imageControls}
+                      component={Slider}
+                      step={1}
+                      min={videoSettingsSchema[imageControls].min}
+                      max={videoSettingsSchema[imageControls].max}
+                    />
+                  </div>
+                ))
+              }
             </div>
           </div>
 
