@@ -46,6 +46,7 @@ module.exports = class CustomTooltip extends React.PureComponent {
     const {title, placement, delay, children, show} = this.props;
     return (
       <OverlayTrigger
+        rootClose
         placement={placement}
         delay={delay}
         popperConfig={{modifiers: {preventOverflow: {boundariesElement: 'window'}}}}
