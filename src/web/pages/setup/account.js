@@ -31,7 +31,10 @@ module.exports = class SetupAccount extends Base {
     progress.start();
     api.system.setup({
       language: $setup.language,
-      account: values
+      account: {
+        account: values.account,
+        password: values.password
+      }
     })
       .then(() => {
         location.href = '/';
