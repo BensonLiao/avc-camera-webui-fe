@@ -8,7 +8,7 @@ const ProgressBar = ({step, hasPreviousPage, progressBarImage}) => {
     <div className="steps d-flex">
       <div className="d-flex flex-grow-1 justify-content-between">
         <p className="text-primary">{i18n.t('Language')}</p>
-        <p className={step > 1 && 'text-primary'}>{i18n.t('Setup Account')}</p>
+        <p className={`${step > 1 ? 'text-primary' : ''}`}>{i18n.t('Setup Account')}</p>
       </div>
       <img src={progressBarImage}/>
       { hasPreviousPage && (
