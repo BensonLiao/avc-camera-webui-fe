@@ -61,20 +61,17 @@ module.exports = class IO extends Base {
                     <div className="card-body tab-content">
                       <IoInput
                         ioInSettings={ioInSettings}
-                        isEnableIoIn={ioInSettings.isEnable}
                         currentTab={currentTab}
                         isApiProcessing={$isApiProcessing}
                       />
                       <IoOutput
                         ioOutSettings={ioOutASettings}
-                        isEnableIoOutput={ioOutASettings.isEnable}
                         index={1}
                         currentTab={currentTab}
                         isApiProcessing={$isApiProcessing}
                       />
                       <IoOutput
                         ioOutSettings={ioOutBSettings}
-                        isEnableIoOutput={ioOutBSettings.isEnable}
                         index={2}
                         currentTab={currentTab}
                         isApiProcessing={$isApiProcessing}

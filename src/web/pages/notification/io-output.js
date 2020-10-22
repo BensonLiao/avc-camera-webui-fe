@@ -13,11 +13,11 @@ import api from '../../../core/apis/web-api';
 import ioOutSettingsValidator from '../../validations/notifications/io-out-settings-validator';
 import utils from '../../../core/utils';
 
-const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIoOutput}) => {
+const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings}) => {
   const generateIOOutSettingsSubmitHandler = index => values => {
     progress.start();
     localStorage.setItem('currentTab', currentTab);
-    api.notification.updateIOOutSettings(index, values)
+    api.notification.updateIOOutSettings(index - 1, values)
       .then(getRouter().reload)
       .finally(progress.done);
   };
@@ -28,7 +28,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
       validate={utils.makeFormikValidator(ioOutSettingsValidator)}
       onSubmit={generateIOOutSettingsSubmitHandler(index)}
     >
-      {({errors, touched}) => (
+      {({values, errors, touched}) => (
         <Tab.Content>
           <Tab.Pane eventKey={`Output ${index}`}>
             <Form>
@@ -48,7 +48,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                   <div className="d-flex align-items-center">
                     <div className="form-check">
                       <Field
-                        disabled={!isEnableIoOutput}
+                        disabled={!values.isEnable}
                         name="ioType"
                         className="form-check-input"
                         type="radio"
@@ -59,7 +59,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                     </div>
                     <div className="form-check ml-5">
                       <Field
-                        disabled={!isEnableIoOutput}
+                        disabled={!values.isEnable}
                         name="ioType"
                         className="form-check-input"
                         type="radio"
@@ -75,7 +75,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                   <div className="d-flex align-items-center">
                     <div className="form-check">
                       <Field
-                        disabled={!isEnableIoOutput}
+                        disabled={!values.isEnable}
                         name="gateType"
                         className="form-check-input"
                         type="radio"
@@ -86,7 +86,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                     </div>
                     <div className="form-check ml-5">
                       <Field
-                        disabled={!isEnableIoOutput}
+                        disabled={!values.isEnable}
                         name="gateType"
                         className="form-check-input"
                         type="radio"
@@ -100,7 +100,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                 <div className="form-group">
                   <label>{i18n.t('Pulse Time (seconds)')}</label>
                   <Field
-                    disabled={!isEnableIoOutput}
+                    disabled={!values.isEnable}
                     name="pulse"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
@@ -121,7 +121,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                 <div className="form-group">
                   <label>{i18n.t('Delay Time (seconds)')}</label>
                   <Field
-                    disabled={!isEnableIoOutput}
+                    disabled={!values.isEnable}
                     name="delay"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
@@ -160,7 +160,6 @@ IoOutput.propTypes = {
     delay: PropTypes.string.isRequired
   }).isRequired,
   currentTab: PropTypes.string.isRequired,
-  isEnableIoOutput: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
   isApiProcessing: PropTypes.bool.isRequired
 };
