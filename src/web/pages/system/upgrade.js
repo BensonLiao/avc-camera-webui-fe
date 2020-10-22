@@ -19,7 +19,7 @@ module.exports = class Upgrade extends Base {
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Uploading Software');
-    this.state.apiProcessModalBody = i18n.t('※ Please do not close browser during upgrade');
+    this.state.apiProcessModalBody = i18n.t('※ Please do not close your browser during upgrade.');
     this.state.progressStatus = {
       uploadFirmware: 'initial',
       upgradeFirmware: 'initial',
@@ -106,7 +106,7 @@ module.exports = class Upgrade extends Base {
         );
       }))
       .then(() => {
-        this.setState({apiProcessModalTitle: i18n.t('Firmware Upgrade Success')},
+        this.setState({apiProcessModalTitle: i18n.t('Software Upgrade Success')},
           () => {
             let countdown = constants.REDIRECT_COUNTDOWN;
             this.countdownID = setInterval(() => {
@@ -201,7 +201,7 @@ module.exports = class Upgrade extends Base {
               .then(response => {
                 console.log('ping app response(userinitiated)', response);
                 this.updateProgressStatus('deviceRestart', 'done');
-                this.setState({apiProcessModalTitle: i18n.t('Firmware Upgrade Success')},
+                this.setState({apiProcessModalTitle: i18n.t('Software Upgrade Success')},
                   () => {
                     let countdown = constants.REDIRECT_COUNTDOWN;
                     this.countdownID = setInterval(() => {
