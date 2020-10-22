@@ -804,6 +804,7 @@ if (!window.languageResource['zh-tw']) {
     'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
     Operation: '操作',
     Format: '格式化',
+    Mount: '掛載',
     Unmount: '卸載',
     'Error Notification': '異常通報',
     'Email Notification Set': '已設定電子郵件',
