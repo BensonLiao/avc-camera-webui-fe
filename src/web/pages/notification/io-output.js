@@ -28,14 +28,14 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
       validate={utils.makeFormikValidator(ioOutSettingsValidator)}
       onSubmit={generateIOOutSettingsSubmitHandler(index)}
     >
-      {({values, errors, touched}) => (
+      {({errors, touched}) => (
         <Tab.Content>
           <Tab.Pane eventKey={`tab-output-${index + 1}`}>
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label>{i18n.t('Enable Digital Output {{0}}', {0: index + 1})}</label>
                 <div className="custom-control custom-switch">
-                  <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
+                  <Field name="isEnable" type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
                   <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
                     <span>{i18n.t('ON')}</span>
                     <span>{i18n.t('OFF')}</span>
