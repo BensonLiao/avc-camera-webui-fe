@@ -22,9 +22,10 @@ module.exports = class SetupLanguage extends Base {
     location.reload();
   }
 
-  onSubmit = values => {
+  onSubmit = event => {
+    event.preventDefault();
     const $setup = store.get('$setup');
-    $setup.language = values.language;
+    $setup.language = window.currentLanguageCode;
     store.set('$setup', $setup);
     getRouter().go('/setup/account');
   };
