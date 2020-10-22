@@ -85,7 +85,7 @@ module.exports = class SetupAccount extends Base {
               name="password"
               component={Password}
               inputProps={{
-                placeholder: i18n.t('Enter your password'),
+                placeholder: i18n.t('Enter a new password'),
                 className: classTable.password
               }}
             />
@@ -100,7 +100,7 @@ module.exports = class SetupAccount extends Base {
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: i18n.t('Confirm Your Password'),
+                placeholder: i18n.t('Confirm new password'),
                 className: classTable.confirmPassword
               }}
             />

@@ -42,6 +42,7 @@ module.exports = class SliderField extends React.PureComponent {
 
   varyStep = step => {
     const {form, field: {name, value}, min, max} = this.props;
+    const precisionDigit = getPrecision(step);
     let newValue = step + value;
     if (newValue < min) {
       newValue = min;
@@ -51,6 +52,7 @@ module.exports = class SliderField extends React.PureComponent {
       newValue = max;
     }
 
+    newValue = Number(newValue.toFixed(precisionDigit));
     form.setFieldValue(name, newValue);
   }
 

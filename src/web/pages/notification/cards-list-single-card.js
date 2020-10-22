@@ -48,7 +48,7 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
         <div key={card.id} className="card shadow overflow-hidden" onClick={clickCardHandler(card.id)}>
           <div className="card-title d-flex justify-content-between align-items-center">
             <div className="title text-truncate">
-              <CustomTooltip title={card.isTop ? i18n.t('Unpin Card') : i18n.t('Pin Card')}>
+              <CustomTooltip title={card.isTop ? i18n.t('Unpin Card') : i18n.t('Pin this card')}>
                 <button
                   disabled={isApiProcessing}
                   type="button"
@@ -86,7 +86,7 @@ module.exports = class CardsListSingleCard extends React.PureComponent {
             <table>
               <tbody>
                 <tr>
-                  <th>{i18n.t('Analytic')}</th>
+                  <th>{i18n.t('Analytics')}</th>
                   <td>{i18n.t(`notification-card-${card.type}`)}</td>
                 </tr>
                 {

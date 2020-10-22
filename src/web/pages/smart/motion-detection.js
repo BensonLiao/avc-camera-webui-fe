@@ -131,7 +131,7 @@ module.exports = class MotionDetection extends Base {
     return (
       <Form className="row">
         <BreadCrumb
-          path={[i18n.t('Analytic'), i18n.t('Motion Detection')]}
+          path={[i18n.t('Analytics Settings'), i18n.t('Motion Detection')]}
           routes={['/analytic/face-recognition']}
         />
         <div className="col-7 pl-3 pr-0">
@@ -167,7 +167,7 @@ module.exports = class MotionDetection extends Base {
             <div className="card-header">{i18n.t('Motion Detection')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('On/Off')}</label>
+                <label className="mb-0">{i18n.t('Enable Motion Detection')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-motion-detection"/>
                   <label className="custom-control-label" htmlFor="switch-motion-detection">
@@ -177,7 +177,7 @@ module.exports = class MotionDetection extends Base {
                 </div>
               </div>
               <div className="form-group mb-3">
-                <span className="form-text text-primary">{i18n.t('Please Drag a Detection Zone Area.')}</span>
+                <span className="form-text text-primary">{i18n.t('Create detection zones on the preview window.')}</span>
               </div>
 
               <hr/>
@@ -200,14 +200,14 @@ module.exports = class MotionDetection extends Base {
                 <div className="card-header l-24 light text-size-18">{i18n.t('Note Area')}</div>
                 <div className="card-body l-32 light px-3 py-3">
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('Set a Zone.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('To set a zone:')}</span>
                     <div className="d-flex align-items-center drag-icon">
                       <img src={iconCursor}/>
                       <span className="text-size-12">{i18n.t('Drag')}</span>
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('Erase a Zone.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('To erase a zone:')}</span>
                     <div className="d-flex justify-content-end align-items-center flex-wrap">
                       <img src={iconHotkeyBackspace}/>
                       <span className="font-italic text-size-14 mx-2">{i18n.t('or')}</span>
@@ -215,7 +215,7 @@ module.exports = class MotionDetection extends Base {
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('Up to 4 Zone Areas.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('Up to 4 detection zones can be set.')}</span>
                   </div>
                 </div>
               </div>

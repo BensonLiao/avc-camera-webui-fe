@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../i18n';
 import utils from '../../../core/utils';
-// const authKeyFaceRecognitionType = require('webserver-form-schema/constants/auth-key-fr');
+import authKeyFaceRecognitionType from 'webserver-form-schema/constants/auth-key-fr';
 
 const LicenseList = ({authKeys}) => {
   return (
@@ -11,9 +11,9 @@ const LicenseList = ({authKeys}) => {
         <tr className="shadow">
           <th/>
           <th>{i18n.t('Time')}</th>
-          <th>{i18n.t('Activate User')}</th>
+          <th>{i18n.t('Activated By')}</th>
           <th>{i18n.t('Authentication Key')}</th>
-          <th>{i18n.t('Activate Functions')}</th>
+          <th>{i18n.t('Activated Functions')}</th>
           <th>{i18n.t('Enable Status')}</th>
         </tr>
       </thead>
@@ -27,15 +27,12 @@ const LicenseList = ({authKeys}) => {
             <td>
               {authKey.isEnableFaceRecognitionKey !== '0' && (
                 <span className="badge badge-primary badge-pill">
-                  {/* Language resource buggy, using temp. solution until fix is found */}
-                  {/* {i18n.t('face-recognition-key-{{0}}', {0: authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]})} */}
-                  {authKey.isEnableFaceRecognitionKey === '1' && i18n.t('face-recognition-key-thirtyThousand')}
-                  {authKey.isEnableFaceRecognitionKey === '2' && i18n.t('face-recognition-key-threeThousand')}
+                  {i18n.t(`face-recognition-key-${authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]}`)}
                 </span>
               )}
               {authKey.isEnableAgeGenderKey && (
                 <span className="badge badge-primary badge-pill">
-                  {i18n.t('Age Gender')}
+                  {i18n.t('Age & Gender')}
                 </span>
               )}
               {authKey.isEnableHumanoidDetectionKey && (

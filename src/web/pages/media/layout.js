@@ -28,14 +28,14 @@ module.exports = class Media extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{i18n.t('Video')}</h2>
+          <h2>{i18n.t('Video Settings')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/media/stream"
-              title={i18n.t('Stream Settings')}
+              title={i18n.t('Streams')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.stream'})}
             >
-              {i18n.t('Stream Settings')}
+              {i18n.t('Streams')}
             </Link>
             <Link
               to="/media/rtsp"

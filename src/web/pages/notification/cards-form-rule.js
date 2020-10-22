@@ -24,7 +24,7 @@ module.exports = class CardsFormRule extends React.PureComponent {
     return (
       <>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{i18n.t('Recognition')}</label>
+          <label className="mb-0">{i18n.t('Notify by Recognition Result')}</label>
           <div className="custom-control custom-switch">
             <Field
               name="isEnableFaceRecognition"
@@ -62,7 +62,7 @@ module.exports = class CardsFormRule extends React.PureComponent {
             <div className="card">
               <div className="card-body px-4 py-4">
                 <div className="form-group">
-                  <label className="text-size-16 mb-0">{i18n.t('Group Type')}</label>
+                  <label className="text-size-16 mb-0">{i18n.t('Group')}</label>
                 </div>
                 <div className="col-auto px-0">
                   <div className="select-wrapper border rounded-pill overflow-hidden d-flex align-items-center">
