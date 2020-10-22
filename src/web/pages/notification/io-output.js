@@ -33,7 +33,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
           <Tab.Pane eventKey={`tab-output-${index + 1}`}>
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{i18n.t('Output {{0}}', {0: index + 1})}</label>
+                <label>{i18n.t('Enable Digital Output {{0}}', {0: index + 1})}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
                   <label className="custom-control-label" htmlFor={`switch-output-${index}`}>

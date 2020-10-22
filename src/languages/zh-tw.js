@@ -430,10 +430,12 @@ if (!window.languageResource['zh-tw']) {
     // /notification/io
     'Input & Output': '數位輸出及輸入',
     Input: '數位輸入',
+    'Enable Digital Input': '開啟數位輸入',
     'Normal State': '平常狀態',
     'Normally Closed': '常關',
     'Normally Open': '常開',
     'Output {{0}}': '數位輸出 {{0}}',
+    'Enable Digital Output {{0}}': '開啟數位輸出 {{0}}',
     Type: '輸出類型',
     Normal: '一般',
     Buffer: '緩衝',

@@ -28,7 +28,7 @@ const IoInput = ({isApiProcessing, currentTab, isEnableIoIn, ioInSettings}) => {
           <Tab.Pane eventKey="tab-input">
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{i18n.t('Input')}</label>
+                <label>{i18n.t('Enable Digital Input')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-input"/>
                   <label className="custom-control-label" htmlFor="switch-input">
