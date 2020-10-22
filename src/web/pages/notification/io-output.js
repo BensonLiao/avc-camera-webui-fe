@@ -42,12 +42,13 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                   </label>
                 </div>
               </div>
-              <div className={classNames(isEnableIoOutput ? '' : 'd-none')}>
+              <div>
                 <div className="form-group">
                   <label>{i18n.t('Normal State')}</label>
                   <div className="d-flex align-items-center">
                     <div className="form-check">
                       <Field
+                        disabled={!isEnableIoOutput}
                         name="ioType"
                         className="form-check-input"
                         type="radio"
@@ -58,6 +59,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                     </div>
                     <div className="form-check ml-5">
                       <Field
+                        disabled={!isEnableIoOutput}
                         name="ioType"
                         className="form-check-input"
                         type="radio"
@@ -72,11 +74,25 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                   <label>{i18n.t('Type')}</label>
                   <div className="d-flex align-items-center">
                     <div className="form-check">
-                      <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-normal`} value={GateType.normal}/>
+                      <Field
+                        disabled={!isEnableIoOutput}
+                        name="gateType"
+                        className="form-check-input"
+                        type="radio"
+                        id={`input-output${index}-normal`}
+                        value={GateType.normal}
+                      />
                       <label className="form-check-label" htmlFor={`input-output${index}-normal`}>{i18n.t('Normal')}</label>
                     </div>
                     <div className="form-check ml-5">
-                      <Field name="gateType" className="form-check-input" type="radio" id={`input-output${index}-debounce`} value={GateType.buffer}/>
+                      <Field
+                        disabled={!isEnableIoOutput}
+                        name="gateType"
+                        className="form-check-input"
+                        type="radio"
+                        id={`input-output${index}-debounce`}
+                        value={GateType.buffer}
+                      />
                       <label className="form-check-label" htmlFor={`input-output${index}-debounce`}>{i18n.t('Buffer')}</label>
                     </div>
                   </div>
@@ -84,6 +100,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                 <div className="form-group">
                   <label>{i18n.t('Pulse Time (seconds)')}</label>
                   <Field
+                    disabled={!isEnableIoOutput}
                     name="pulse"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
@@ -104,6 +121,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
                 <div className="form-group">
                   <label>{i18n.t('Delay Time (seconds)')}</label>
                   <Field
+                    disabled={!isEnableIoOutput}
                     name="delay"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
