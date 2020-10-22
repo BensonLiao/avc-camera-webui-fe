@@ -30,7 +30,7 @@ const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings, isEnableIo
     >
       {({errors, touched}) => (
         <Tab.Content>
-          <Tab.Pane eventKey={`tab-output-${index + 1}`}>
+          <Tab.Pane eventKey={`Output ${index}`}>
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label>{i18n.t('Enable Digital Output {{0}}', {0: index + 1})}</label>

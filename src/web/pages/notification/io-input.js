@@ -24,7 +24,7 @@ const IoInput = ({isApiProcessing, currentTab, isEnableIoIn, ioInSettings}) => {
       onSubmit={onSubmitIOInSettingsForm}
     >
       <Tab.Content>
-        <Tab.Pane eventKey="tab-input">
+        <Tab.Pane eventKey="Input">
           <Form>
             <div className="form-group d-flex justify-content-between align-items-center">
               <label>{i18n.t('Enable Digital Input')}</label>
