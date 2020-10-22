@@ -1,31 +1,24 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
-const SUPPORTED_LANGUAGE_CODES = ['en', 'zh-tw', 'zh-cn', 'ja', 'es'];
-const LANGUAGE_CODES_TITLE = {
-  en: {title: 'English'},
-  'zh-tw': {title: '中文(繁體)'},
-  'zh-cn': {title: '中文(简体)'},
-  ja: {title: '日本語'},
-  es: {title: 'Spanish'}
-};
+const SUPPORTED_LANGUAGE_CODES = require('webserver-form-schema/constants/i18n-supported-code');
 
 window.languageResource = {};
 // Assign resource to window.languageResource depends on current language code
 switch (window.currentLanguageCode) {
-  case SUPPORTED_LANGUAGE_CODES[4]:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[4]}`);
+  case SUPPORTED_LANGUAGE_CODES[4].code:
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[4].code}`);
     break;
-  case SUPPORTED_LANGUAGE_CODES[3]:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[3]}`);
+  case SUPPORTED_LANGUAGE_CODES[3].code:
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[3].code}`);
     break;
-  case SUPPORTED_LANGUAGE_CODES[2]:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[2]}`);
+  case SUPPORTED_LANGUAGE_CODES[2].code:
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[2].code}`);
     break;
-  case SUPPORTED_LANGUAGE_CODES[1]:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[1]}`);
+  case SUPPORTED_LANGUAGE_CODES[1].code:
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[1].code}`);
     break;
   default:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[0]}`);
+    require(`../languages/${SUPPORTED_LANGUAGE_CODES[0].code}`);
     break;
 }
 
@@ -33,7 +26,7 @@ switch (window.currentLanguageCode) {
 const resources = SUPPORTED_LANGUAGE_CODES.reduce((acc, cur) => {
   return {
     ...acc,
-    [cur]: {translation: window.languageResource[cur]}
+    [cur.code]: {translation: window.languageResource[cur.code]}
   };
 }, {});
 
@@ -47,8 +40,8 @@ i18n
     nsSeparator: false, // disable separator ':'
     keySeparator: false, // we do not use keys in form messages.welcome
     interpolation: {escapeValue: false}, // react already safes from xss
-    supportedLangCodes: SUPPORTED_LANGUAGE_CODES, // we don't use `supportedLngs` option cause it inject unwanted `cimode`
-    langCodesTitle: LANGUAGE_CODES_TITLE // for UI display
+    supportedLangCodes: SUPPORTED_LANGUAGE_CODES.map(locale => locale.code), // we don't use `supportedLngs` option cause it inject unwanted `cimode`
+    langCodesTitle: SUPPORTED_LANGUAGE_CODES // for UI display
   });
 
 export default i18n;
