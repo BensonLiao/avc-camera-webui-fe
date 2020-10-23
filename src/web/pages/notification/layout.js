@@ -1,9 +1,9 @@
+import {Link, RouterView, getRouter} from 'capybara-router';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Link, RouterView, getRouter} from 'capybara-router';
-import Loading from '../../../core/components/loading';
 import i18n from '../../i18n';
+import Loading from '../../../core/components/loading';
 import withGlobalStatus from '../../withGlobalStatus';
 
 const router = getRouter();
