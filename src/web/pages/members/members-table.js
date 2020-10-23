@@ -1,9 +1,9 @@
-import React from 'react';
+import {Link} from 'capybara-router';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import React from 'react';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../i18n';
-import {Link} from 'capybara-router';
 
 const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal}) => {
   const sort = {
