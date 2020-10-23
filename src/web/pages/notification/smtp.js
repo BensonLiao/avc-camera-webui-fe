@@ -18,23 +18,24 @@ import Password from '../../../core/components/fields/password';
 import utils from '../../../core/utils';
 import withGlobalStatus from '../../withGlobalStatus';
 
-module.exports = class SMTP extends Base {
-  static get propTypes() {
-    return {
-      smtpSettings: PropTypes.shape({
-        encryption: PropTypes.oneOf(SMTPEncryptionType.all()),
-        host: PropTypes.string.isRequired,
-        port: PropTypes.oneOf(SMTPPort.all()),
-        account: PropTypes.string.isRequired,
-        password: PropTypes.string.isRequired,
-        senderName: PropTypes.string.isRequired,
-        senderEmail: PropTypes.string.isRequired,
-        interval: PropTypes.string.isRequired,
-        isEnableLoginNotification: PropTypes.bool.isRequired,
-        isEnableAuth: PropTypes.bool.isRequired
-      }).isRequired
-    };
-  }
+export default withGlobalStatus(
+  class SMTP extends Component {
+    static get propTypes() {
+      return {
+        smtpSettings: PropTypes.shape({
+          encryption: PropTypes.oneOf(SMTPEncryptionType.all()),
+          host: PropTypes.string.isRequired,
+          port: PropTypes.oneOf(SMTPPort.all()),
+          account: PropTypes.string.isRequired,
+          password: PropTypes.string.isRequired,
+          senderName: PropTypes.string.isRequired,
+          senderEmail: PropTypes.string.isRequired,
+          interval: PropTypes.string.isRequired,
+          isEnableLoginNotification: PropTypes.bool.isRequired,
+          isEnableAuth: PropTypes.bool.isRequired
+        }).isRequired
+      };
+    }
 
   generateSMTPSettingsInitialValues = settings => ({
     host: settings.host,
@@ -327,4 +328,4 @@ module.exports = class SMTP extends Base {
       </div>
     );
   }
-};
+  });
