@@ -7,8 +7,8 @@ import IoInput from './io-input';
 import IoOutput from './io-output';
 import baseHOC from '../../base';
 
-const IO = baseHOC(
-  class extends React.Component {
+export default baseHOC(
+  class extends Component {
     static get propTypes() {
       return {
         ioInSettings: PropTypes.shape(IoInput.propTypes.ioInSettings).isRequired,
@@ -102,5 +102,3 @@ const IO = baseHOC(
     }
   }
 );
-
-export default IO;
