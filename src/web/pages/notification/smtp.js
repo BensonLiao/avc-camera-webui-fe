@@ -36,12 +36,6 @@ module.exports = class SMTP extends Base {
     };
   }
 
-  constructor(props) {
-    super(props);
-    this.state.isShowModal = false;
-    this.state.accountSettings = this.generateAccountSettingsInitialValues(props.smtpSettings);
-  }
-
   generateSMTPSettingsInitialValues = settings => ({
     host: settings.host,
     senderName: settings.senderName,
@@ -57,6 +51,11 @@ module.exports = class SMTP extends Base {
     port: settings.port || SMTPPort['25'],
     encryption: settings.encryption || SMTPEncryptionType.none
   });
+
+    state = {
+      isShowModal: false,
+      accountSettings: this.generateAccountSettingsInitialValues(this.props.smtpSettings)
+    }
 
   onShowAccountSettingsModal = () => this.setState({isShowModal: true});
 
