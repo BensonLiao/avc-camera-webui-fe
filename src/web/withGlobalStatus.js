@@ -45,6 +45,14 @@ const withGlobalStatus = WrappedComponent => {
       ];
     }
 
+    storeValues = {
+      $isApiProcessing: store.get('$isApiProcessing'),
+      $user: store.get('$user'),
+      $expires: store.get('$expires'),
+      $updateFocalLengthField: store.get('$updateFocalLengthField') || false,
+      $isNotCallUnloadAlert: store.get('$isNotCallUnloadAlert') || false
+    }
+
     unloadAlert = e => {
       const {$isApiProcessing, $updateFocalLengthField, $isNotCallUnloadAlert} = this.state;
       if (($isApiProcessing || $updateFocalLengthField) && !$isNotCallUnloadAlert) {
@@ -69,14 +77,12 @@ const withGlobalStatus = WrappedComponent => {
     render() {
       return (
         <div>
-          <WrappedComponent {...{
-            ...this.props,
-            $isApiProcessing: store.get('$isApiProcessing'),
-            $user: store.get('$user'),
-            $expires: store.get('$expires'),
-            $updateFocalLengthField: store.get('$updateFocalLengthField') || false,
-            $isNotCallUnloadAlert: store.get('$isNotCallUnloadAlert') || false
-          }}
+          <WrappedComponent
+            {...{
+              $listens: this.$listens,
+              ...this.props,
+              ...this.storeValues
+            }}
           />
         </div>
       );
