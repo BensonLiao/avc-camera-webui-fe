@@ -39,11 +39,11 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
     }
   };
 
-  const tableItems = (tooltipTitle, child = (tooltipTitle || i18n.t('N/A'))) => (
+  const tableItems = title => (
     <td>
-      <CustomTooltip placement="top-start" title={tooltipTitle}>
+      <CustomTooltip placement="top-start" title={title}>
         <div>
-          {child}
+          {title || i18n.t('N/A')}
         </div>
       </CustomTooltip>
     </td>
