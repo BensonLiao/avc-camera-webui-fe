@@ -309,7 +309,7 @@ if (!window.languageResource['zh-tw']) {
     Resolution: '解析度',
     'Frame Rate (FPS)': '每秒幀數',
     'Bandwidth Management': '位元率管理',
-    Quality: '影像品質',
+    Quality: '品質',
     'Are you sure you want to update stream settings?': '您確定要更改串流設定嗎？',
     'Updating Stream Settings': '更新串流設定',
     'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': '改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？',
