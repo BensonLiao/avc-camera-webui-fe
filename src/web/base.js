@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import store from '../core/store';
 
-const Base = WrappedComponent =>
-  class extends Component {
+const withGlobalStatus = WrappedComponent => {
+  class WithGlobalStatusHOC extends Component {
     constructor(props) {
       super(props);
       this.$isMounted = false;
@@ -45,42 +45,45 @@ const Base = WrappedComponent =>
       ];
     }
 
-      unloadAlert = e => {
-        const {$isApiProcessing, $updateFocalLengthField, $isNotCallUnloadAlert} = this.state;
-        if (($isApiProcessing || $updateFocalLengthField) && !$isNotCallUnloadAlert) {
-          // Cancel the event
-          // If you prevent default behavior in Mozilla Firefox prompt will always be shown
-          e.preventDefault();
-          // Chrome requires returnValue to be set
-          e.returnValue = '';
-        }
-      };
-
-      componentDidMount() {
-        this.$isMounted = true;
-        window.addEventListener('beforeunload', this.unloadAlert);
+    unloadAlert = e => {
+      const {$isApiProcessing, $updateFocalLengthField, $isNotCallUnloadAlert} = this.state;
+      if (($isApiProcessing || $updateFocalLengthField) && !$isNotCallUnloadAlert) {
+        // Cancel the event
+        // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+        e.preventDefault();
+        // Chrome requires returnValue to be set
+        e.returnValue = '';
       }
+    };
 
-      componentWillUnmount() {
-        this.$listens.forEach(x => x());
-        window.removeEventListener('beforeunload', this.unloadAlert);
-      }
+    componentDidMount() {
+      this.$isMounted = true;
+      window.addEventListener('beforeunload', this.unloadAlert);
+    }
 
-      render() {
-        return (
-          <div>
-            <WrappedComponent {...{
-              ...this.props,
-              $isApiProcessing: store.get('$isApiProcessing'),
-              $user: store.get('$user'),
-              $expires: store.get('$expires'),
-              $updateFocalLengthField: store.get('$updateFocalLengthField') || false,
-              $isNotCallUnloadAlert: store.get('$isNotCallUnloadAlert') || false
-            }}
-            />
-          </div>
-        );
-      }
-  };
+    componentWillUnmount() {
+      this.$listens.forEach(x => x());
+      window.removeEventListener('beforeunload', this.unloadAlert);
+    }
 
-export default Base;
+    render() {
+      return (
+        <div>
+          <WrappedComponent {...{
+            ...this.props,
+            $isApiProcessing: store.get('$isApiProcessing'),
+            $user: store.get('$user'),
+            $expires: store.get('$expires'),
+            $updateFocalLengthField: store.get('$updateFocalLengthField') || false,
+            $isNotCallUnloadAlert: store.get('$isNotCallUnloadAlert') || false
+          }}
+          />
+        </div>
+      );
+    }
+  }
+
+  return WithGlobalStatusHOC;
+};
+
+export default withGlobalStatus;

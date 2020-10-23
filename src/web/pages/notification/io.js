@@ -5,10 +5,10 @@ import i18n from '../../i18n';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import IoInput from './io-input';
 import IoOutput from './io-output';
-import baseHOC from '../../base';
+import withGlobalStatus from '../../base';
 
-export default baseHOC(
-  class extends Component {
+export default withGlobalStatus(
+  class IO extends Component {
     static get propTypes() {
       return {
         ioInSettings: PropTypes.shape(IoInput.propTypes.ioInSettings).isRequired,
