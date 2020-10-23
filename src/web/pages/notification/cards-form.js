@@ -113,7 +113,7 @@ module.exports = class CardsForm extends React.PureComponent {
 
     return {
       type: NotificationCardType.faceRecognition,
-      title: i18n.t('Enter Your Title'),
+      title: i18n.t('Enter card title'),
       isTop: false,
       isEnableTime: false,
       $start: null,
@@ -192,7 +192,7 @@ module.exports = class CardsForm extends React.PureComponent {
                 <FormikEffect onChange={this.onChangeCardForm}/>
                 <div className="modal-body d-flex justify-content-between align-content-center pb-2">
                   <div className="d-flex align-content-center">
-                    <CustomTooltip title={isTop ? i18n.t('Unpin Card') : i18n.t('Pin Card')}>
+                    <CustomTooltip title={isTop ? i18n.t('Unpin Card') : i18n.t('Pin this card')}>
                       <button
                         type="button"
                         className={classNames('btn btn-star rounded-pill', {'btn-secondary': !isTop})}
@@ -248,7 +248,7 @@ module.exports = class CardsForm extends React.PureComponent {
                       <Nav.Link
                         eventKey="tab-notification-target"
                       >
-                        {i18n.t('Subject')}
+                        {i18n.t('Method')}
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>

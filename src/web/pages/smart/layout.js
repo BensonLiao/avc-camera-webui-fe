@@ -30,7 +30,7 @@ module.exports = class Smart extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{i18n.t('Analytic')}</h2>
+          <h2>{i18n.t('Analytics Settings')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/analytic/face-recognition"

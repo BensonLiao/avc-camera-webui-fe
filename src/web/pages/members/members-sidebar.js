@@ -47,7 +47,7 @@ module.exports = class MembersSidebar extends React.PureComponent {
           <div className="groups">
             <div className="sub-title py-1 px-4">
               <h3>{i18n.t('Groups')}</h3>
-              <CustomTooltip title={isAddGroupDisabled ? i18n.t('Group Limit Reached') : i18n.t('Create a Group')}>
+              <CustomTooltip title={isAddGroupDisabled ? i18n.t('Group number limit exceeded.') : i18n.t('Create a Group')}>
                 <span>
                   <Link
                     to={{

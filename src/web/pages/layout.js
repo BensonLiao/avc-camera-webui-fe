@@ -225,7 +225,7 @@ module.exports = class Layout extends Base {
                 <img src={iconAudio}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Notification Settings')}>
+            <CustomTooltip title={i18n.t('Notification')}>
               <Link className={classTable.notification} to="/notification/smtp" onClick={this.onClickLink}>
                 <img src={iconNotification}/>
               </Link>
@@ -235,7 +235,7 @@ module.exports = class Layout extends Base {
                 <img src={iconUserManagement}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Analytic')}>
+            <CustomTooltip title={i18n.t('Analytics')}>
               <Link className={classTable.smart} to="/analytic/face-recognition" onClick={this.onClickLink}>
                 <img src={iconAnalytic}/>
               </Link>
@@ -306,7 +306,7 @@ module.exports = class Layout extends Base {
                   <div className="dropdown-menu dropdown-menu-right">
                     <h6 className="dropdown-header">{i18n.t('Support')}</h6>
                     <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
-                      {i18n.t('Product Use')}
+                      {i18n.t('Device Help')}
                     </a>
                     <a className="dropdown-item" href="mailto:support@androvideo.com">
                       {i18n.t('Technical Support')}
@@ -365,7 +365,7 @@ module.exports = class Layout extends Base {
           >
             <div className="text-info mt-2">{i18n.t('Model Name')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.modelName}</div>
-            <div className="text-info mt-3">{i18n.t('Firmware')} :</div>
+            <div className="text-info mt-3">{i18n.t('Software')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.firmware}</div>
             <div className="text-info mt-3">{i18n.t('Serial Number')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.serialNumber}</div>

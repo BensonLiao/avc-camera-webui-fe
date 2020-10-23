@@ -154,7 +154,7 @@ module.exports = class DateTime extends Base {
             <div className="card-body">
               <div>
                 <div className="d-flex form-group align-items-center">
-                  <div className="text-size-14 text-nowrap mr-3">{`${i18n.t('Host Name and IP Address')} :`}</div>
+                  <div className="text-size-14 text-nowrap mr-3">{`${i18n.t('Host Name or IP Address')} :`}</div>
                   <Field
                     className="form-control flex-grow-1"
                     type="text"
@@ -176,20 +176,20 @@ module.exports = class DateTime extends Base {
                       className={classNames('form-check-label')}
                       htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
                     >
-                      {`${i18n.t('Update Time')} :`}
+                      {`${i18n.t('Sync Time')} :`}
                     </label>
                   </div>
                   <div className="form-row datepicker-wrapper">
                     <Field
                       name="ntpUpdateTime"
                       component={DateTimePicker}
-                      timeTabText={i18n.t('Update Time')}
+                      timeTabText={i18n.t('Sync Time')}
                       inputProps={{
                         className: classNames(
                           'btn border date px-4 btn-date-time',
                           {active: showDateTimePicker.ntpUpdateTime}
                         ),
-                        placeholder: i18n.t('Update Time'),
+                        placeholder: i18n.t('Sync Time'),
                         style: {whiteSpace: 'nowrap'}
                       }}
                       isShowPicker={showDateTimePicker.ntpUpdateTime}
@@ -212,7 +212,7 @@ module.exports = class DateTime extends Base {
                       className={classNames('form-check-label mr-3')}
                       htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
                     >
-                      {`${i18n.t('Update Frequency (Minutes)')} :`}
+                      {`${i18n.t('Sync Interval (minutes)')} :`}
                     </label>
                   </div>
                   <div className={classNames('select-wrapper rounded-pill overflow-hidden')}>
@@ -244,7 +244,7 @@ module.exports = class DateTime extends Base {
               className="form-check-label text-size-16"
               htmlFor={`system-date-sync-option-${SyncTimeOption.local}`}
             >
-              {i18n.t('Sync with Computer')}
+              {i18n.t('Sync with Your Computer')}
             </label>
           </div>
           <div className="d-flex align-items-center">
@@ -260,7 +260,7 @@ module.exports = class DateTime extends Base {
                 className="form-check-label text-size-16"
                 htmlFor={`system-date-sync-option-${SyncTimeOption.manual}`}
               >
-                {`${i18n.t('Set Date/Time Manually')} :`}
+                {`${i18n.t('Set the Date & Time Manually')} :`}
               </label>
             </div>
             <div className="form-row datepicker-wrapper">
@@ -294,7 +294,7 @@ module.exports = class DateTime extends Base {
         <CustomNotifyModal
           isShowModal={isShowModal}
           modalTitle={i18n.t('Date & Time')}
-          modalBody={i18n.t('Update date & time need to log in again. Are you sure you want to continue?')}
+          modalBody={i18n.t('Updating date & time requires you to log in again. Are you sure you want to continue?')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
           onConfirm={() => {
@@ -313,7 +313,7 @@ module.exports = class DateTime extends Base {
           <div className="container-fluid">
             <div className="row">
               <BreadCrumb
-                path={[i18n.t('System'), i18n.t('Settings'), i18n.t('Date & Time')]}
+                path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Date & Time')]}
                 routes={['/system/datetime', '/system/datetime']}
               />
               <div className="col-center">

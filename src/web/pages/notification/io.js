@@ -18,7 +18,7 @@ module.exports = class IO extends Base {
 
   constructor(props) {
     super(props);
-    this.state.currentTab = localStorage.getItem('currentTab') || 'tab-input';
+    this.state.currentTab = localStorage.getItem('currentTab') || 'Input';
   }
 
   componentDidMount() {
@@ -40,54 +40,39 @@ module.exports = class IO extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('Notification Setting'), i18n.t('Basic Setting'), i18n.t('Input and Output Setting')]}
+                path={[i18n.t('Notification Settings'), i18n.t('Notification Method'), i18n.t('Input & Output')]}
                 routes={['/notification/smtp', '/notification/smtp']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{i18n.t('Input and Output Setting')}</div>
+                  <div className="card-header">{i18n.t('Input & Output')}</div>
                   <Tab.Container activeKey={currentTab}>
                     <Nav onSelect={this.setCurrentTab}>
-                      <Nav.Item>
-                        <Nav.Link
-                          eventKey="tab-input"
-                        >
-                          {i18n.t('Input')}
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link
-                          eventKey="tab-output-1"
-                        >
-                          {i18n.t('Output {{0}}', {0: 1})}
-                        </Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link
-                          eventKey="tab-output-2"
-                        >
-                          {i18n.t('Output {{0}}', {0: 2})}
-                        </Nav.Link>
-                      </Nav.Item>
+                      {['Input', 'Output 1', 'Output 2'].map(ioType => (
+                        <Nav.Item key={ioType}>
+                          <Nav.Link
+                            eventKey={ioType}
+                          >
+                            {i18n.t(ioType)}
+                          </Nav.Link>
+                        </Nav.Item>
+                      ))}
                     </Nav>
                     <div className="card-body tab-content">
                       <IoInput
                         ioInSettings={ioInSettings}
-                        isEnableIoIn={ioInSettings.isEnable}
                         currentTab={currentTab}
                         isApiProcessing={$isApiProcessing}
                       />
                       <IoOutput
                         ioOutSettings={ioOutASettings}
-                        isEnableIoOutput={ioOutASettings.isEnable}
-                        index={0}
+                        index={1}
                         currentTab={currentTab}
                         isApiProcessing={$isApiProcessing}
                       />
                       <IoOutput
                         ioOutSettings={ioOutBSettings}
-                        isEnableIoOutput={ioOutBSettings.isEnable}
-                        index={1}
+                        index={2}
                         currentTab={currentTab}
                         isApiProcessing={$isApiProcessing}
                       />

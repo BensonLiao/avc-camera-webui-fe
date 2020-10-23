@@ -270,7 +270,7 @@ module.exports = class EventsTable extends React.PureComponent {
                               <a
                                 className="dropdown-item px-3"
                                 onClick={addMemberHandler(event.pictureThumbUrl)}
-                              >{i18n.t('Add as New Member')}
+                              >{i18n.t('Add a New Member')}
                               </a>
                               <a
                                 className="dropdown-item px-3"

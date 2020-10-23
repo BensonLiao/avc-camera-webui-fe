@@ -41,8 +41,8 @@ module.exports = class Cards extends Base {
 
   cardLimitError = () => { // Over card limit 32
     notify.showErrorNotification({
-      title: i18n.t('Cards Limit Error'),
-      message: i18n.t('Cannot Create More Than {{0}} Cards', {0: NOTIFY_CARDS_MAX})
+      title: i18n.t('Card Number Limit Exceeded'),
+      message: i18n.t('Cannot create more than {{0}} cards', {0: NOTIFY_CARDS_MAX})
     });
   }
 
@@ -200,7 +200,7 @@ module.exports = class Cards extends Base {
                 deleteCardHandler={this.deleteCardHandler}
               />
               <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
-                <CustomTooltip title={i18n.t('Add New Notification Card')}>
+                <CustomTooltip title={i18n.t('Add a New Notification Card')}>
                   <button
                     className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"
                     type="button"

@@ -70,7 +70,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
        <>
          {/* I/O Notification */}
          <div className="form-group d-flex justify-content-between align-items-center">
-           <label className="mb-0">I/O</label>
+           <label className="mb-0">{i18n.t('I/O')}</label>
            <div className="custom-control custom-switch">
              <Field name="isEnableGPIO" type="checkbox" className="custom-control-input" id="switch-notification-target-io"/>
              <label className="custom-control-label" htmlFor="switch-notification-target-io">
@@ -157,7 +157,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                </div>
                <div className="form-group mb-4">
                  <SelectField
-                   labelName={i18n.t('Email Content Order')}
+                   labelName={i18n.t('Content Placement')}
                    labelClassName="text-size-16"
                    name="emailContentPosition"
                  >
@@ -188,11 +188,11 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                          type="text"
                          className={classNames('form-control', 'notification-email', {'is-invalid': errors.$email && touched.$email})}
                          validate={this.validateEmail}
-                         placeholder={i18n.t('Enter Email Address')}
+                         placeholder={i18n.t('Enter email address')}
                        />
                      </div>
                    </div>
-                   <CustomTooltip show={!values.$email} title={i18n.t('Please Enter an Email Address')}>
+                   <CustomTooltip show={!values.$email} title={i18n.t('Please enter an email address.')}>
                      <div className="col-auto my-1">
                        <button
                          disabled={!values.$email}

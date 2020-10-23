@@ -27,7 +27,7 @@ module.exports = {
       'validation-stringContainsLowerCaseLatter': 'This field must contain the lower case letter.',
       'validation-stringContainsUpperCaseLatter': 'This field must contain the upper case letter.',
       'validation-stringContainsNumber': 'This field must contain the number.',
-      'validation-stringAbortSpecialCharacters': 'This field cannot contain these symbols (#, %, &, `, ", \\, <, >, and space).',
+      'validation-stringAbortSpecialCharacters': 'This field cannot contain these symbols: #, %, &, `, ", /, \\, <, >, and space.',
       'validation-stringAcceptSpecialCharacters': 'This field must contain at least one symbol',
       'validation-stringEnum': 'This field does not match any of the allowed values.',
       'validation-number': 'This field must be a number.',
@@ -125,8 +125,8 @@ module.exports = {
       'font-size-2': 'Large',
       // /media/word / Constants / Text Overlay
       'word-type-0': 'Time',
-      'word-type-1': 'Camera Name',
-      'word-type-2': 'Camera Name and Time',
+      'word-type-1': 'Device Name',
+      'word-type-2': 'Device Name and Time',
       'word-type-3': 'Custom',
 
       // /media/privacy-mask
@@ -145,13 +145,13 @@ module.exports = {
       // /notification/cards / Constants / Notification Filters
       'notification-card-filter-all': 'All',
       'notification-card-0': 'Facial Recognition',
-      'notification-card-1': 'Age Gender',
+      'notification-card-1': 'Age & Gender',
       'notification-card-2': 'Humanoid Detection',
       'notification-card-3': 'Motion Detection',
       'notification-card-4': 'Tamper Alarm',
       'notification-card-5': 'Digital Input',
       // /notification/cards / Constants / Face Recognition Condition
-      'face-recognition-condition-0': 'Always',
+      'face-recognition-condition-0': 'All',
       'face-recognition-condition-1': 'Success',
       'face-recognition-condition-2': 'Unknown',
       'face-recognition-condition-3': 'Image Spoof',
@@ -159,7 +159,7 @@ module.exports = {
       'email-attachment-type-0': 'Face Thumbnail',
       'email-attachment-type-1': 'Screenshot',
       'email-attachment-type-2': 'None',
-      // /notification/cards / Constants / Email Content Order
+      // /notification/cards / Constants / Content Placement
       'email-content-position-0': 'Head',
       'email-content-position-1': 'Tail',
 
@@ -168,6 +168,12 @@ module.exports = {
 
       // /users/events
       'Recognition Result': 'Status',
+      'Start Datetime': 'Start Time',
+      'End Datetime': 'End Time',
+      'Start Date': 'Date',
+      'End Date': 'Date',
+      'Start Time': 'Time',
+      'End Time': 'Time',
       // /users/events / Constants / Status
       'enroll-status-0': 'Image Spoof',
       'enroll-status-1': 'Unknown',
@@ -178,6 +184,10 @@ module.exports = {
       'confidence-2': 'High',
 
       // /analytic/face-recognition
+      'Display Name': 'Name',
+      'Display Group': 'Group',
+      'Display Unknown': 'Unknown',
+      'Display Image Spoof': 'Image Spoof',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': 'Low',
       'confidence-level-1': 'Medium',
@@ -193,10 +203,7 @@ module.exports = {
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? 'Manufacturer' : 'AndroVideo'} Self-signed Certificate`,
       'certificate-type-1': 'Upload Your Certificate',
-      'certificate-type-2': 'Generate a Certificate on the Device',
-
-      // /sd-card
-      'SD Card Notification': 'Notification'
+      'certificate-type-2': 'Generate a Certificate on the Device'
     }
   }
 };

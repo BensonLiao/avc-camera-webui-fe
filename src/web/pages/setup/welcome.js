@@ -27,7 +27,7 @@ module.exports = class Welcome extends Base {
                       <p>
                         {i18n.t('For a better experience,')}
                         <br/>
-                        {i18n.t('please press continue to complete the simple three-step installation setup!')}
+                        {i18n.t('Please click Continue to complete the initial setup!')}
                       </p>
                     </div>
 

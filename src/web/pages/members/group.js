@@ -88,7 +88,7 @@ module.exports = class Group extends Base {
       return utils.duplicateCheck(
         this.state.groupsName,
         groupName,
-        i18n.t('Same name found, please use a different name.')
+        i18n.t('This name already exists in the system. Please use a different name.')
       );
     }
   }
@@ -108,7 +108,7 @@ module.exports = class Group extends Base {
             <Field
               name="name"
               type="text"
-              placeholder={i18n.t('Enter Your Group Name')}
+              placeholder={i18n.t('Enter a name for this group')}
               maxLength={GroupSchema.name.max}
               validate={this.checkDuplicate}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
@@ -118,14 +118,14 @@ module.exports = class Group extends Base {
                 <div className="invalid-feedback">{errors.name}</div>
               )
             }
-            <small className="form-text text-muted">{i18n.t('Letters within 32 characters.')}</small>
+            <small className="form-text text-muted">{i18n.t('Maximum length: 32 characters')}</small>
           </div>
           <div className="form-group">
             <label>{i18n.t('Note')}</label>
             <Field
               name="note"
               type="text"
-              placeholder={i18n.t('Enter Your Note')}
+              placeholder={i18n.t('Enter a note')}
               maxLength={GroupSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
             />

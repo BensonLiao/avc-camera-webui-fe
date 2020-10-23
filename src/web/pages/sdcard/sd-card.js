@@ -95,8 +95,8 @@ module.exports = class SDCard extends Base {
       disable: {
         showModal: isShowDisableModal,
         modalOnSubmit: () => this.callApi('enableSD', {sdEnabled: false}),
-        modalTitle: i18n.t('Disable SD Card'),
-        modalBody: [i18n.t('Event photos will not be available after disabling the SD card. Are you sure you want to continue?')]
+        modalTitle: i18n.t('Disabling SD Card'),
+        modalBody: [i18n.t('Event photos will not be available after the SD card is disabled. Are you sure you want to continue?')]
       }
     };
     return (
@@ -125,7 +125,7 @@ module.exports = class SDCard extends Base {
       <Form className="card-body sdcard">
         <FormikEffect onChange={this.onChangeSdCardSetting}/>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{i18n.t('SD Card')}</label>
+          <label className="mb-0">{i18n.t('Enable SD Card')}</label>
           <div className="custom-control custom-switch">
             <Field
               name="sdEnabled"
@@ -143,9 +143,9 @@ module.exports = class SDCard extends Base {
         <div className="form-group">
           <div className="card">
             <div className="card-body">
-              <label>{i18n.t('SD Card Operation')}</label>
+              <label>{i18n.t('Operation')}</label>
               <div>
-                <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
+                <CustomTooltip show={sdEnabled} title={i18n.t('Please disable the SD card first.')}>
                   <span style={sdEnabled || sdStatus ? {cursor: 'not-allowed'} : {}}>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5 mr-3"
@@ -159,7 +159,7 @@ module.exports = class SDCard extends Base {
                     {this.sdcardModalRender('format')}
                   </span>
                 </CustomTooltip>
-                <CustomTooltip show={sdEnabled} title={i18n.t('Please Disable SD Card First')}>
+                <CustomTooltip show={sdEnabled} title={i18n.t('Please disable the SD card first.')}>
                   <span style={sdEnabled ? {cursor: 'not-allowed'} : {}}>
                     <button
                       className="btn btn-outline-primary rounded-pill px-5"
@@ -184,15 +184,15 @@ module.exports = class SDCard extends Base {
           <div className="card">
             <div className="card-body">
               <div className="form-group align-items-center mb-0">
-                <label className="mb-0 mr-3">{i18n.t('SD Card Notification')}</label>
+                <label className="mb-0 mr-3">{i18n.t('Error Notification')}</label>
                 <span>
                   {
                     isEnableAuth ?
                       <a className="text-success">{i18n.t('Email Notification Set')}</a> :
-                      <Link className="text-danger" to="/notification/smtp">{i18n.t('Setup Email Notifications')}</Link>
+                      <Link className="text-danger" to="/notification/smtp">{i18n.t('Enable Outgoing Email')}</Link>
                   }
                 </span>
-                <CustomTooltip show={!isEnableAuth} title={i18n.t('Please Setup Email Notifications')}>
+                <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable outgoing email first.')}>
                   <div className="custom-control custom-switch float-right">
                     <Field
                       disabled={!isEnableAuth}
@@ -220,7 +220,7 @@ module.exports = class SDCard extends Base {
           </div>
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
-            <label className="mb-o">{i18n.t('File Format')}</label>
+            <label className="mb-o">{i18n.t('Filesystem')}</label>
             <label className="mb-o text-primary">{sdFormat}</label>
           </div>
           <hr/>
@@ -255,11 +255,11 @@ module.exports = class SDCard extends Base {
             <div className="row justify-content-center">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('SD Card Settings')]}
+                path={[i18n.t('SD Card')]}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{i18n.t('SD Card Settings')}</div>
+                  <div className="card-header">{i18n.t('SD Card')}</div>
                   <Formik
                     initialValues={systemInformation}
                   >

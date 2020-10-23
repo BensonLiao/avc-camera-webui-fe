@@ -29,7 +29,7 @@ module.exports = class HDMI extends Base {
     super(props);
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = i18n.t('Updating hdmi settings');
+    this.state.apiProcessModalTitle = i18n.t('Updating HDMI settings');
     this.frameRate = ((() => {
       const result = [];
       for (let index = HDMISettingsSchema.frameRate.min; index <= HDMISettingsSchema.frameRate.max; index += 1) {
@@ -96,7 +96,7 @@ module.exports = class HDMI extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('Video'), i18n.t('HDMI')]}
+                path={[i18n.t('Video Settings'), i18n.t('HDMI')]}
                 routes={['/media/stream']}
               />
               <div className="col-center">
@@ -133,8 +133,8 @@ module.exports = class HDMI extends Base {
                         </button>
                         <CustomNotifyModal
                           isShowModal={isShowModal}
-                          modalTitle={i18n.t('HDMI Settings')}
-                          modalBody={i18n.t('Are you sure you want to update hdmi settings?')}
+                          modalTitle={i18n.t('HDMI')}
+                          modalBody={i18n.t('Are you sure you want to update HDMI settings?')}
                           isConfirmDisable={$isApiProcessing}
                           onHide={this.hideModal}
                           onConfirm={() => {

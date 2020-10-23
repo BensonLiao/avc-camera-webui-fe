@@ -72,11 +72,11 @@ module.exports = class App extends Base {
           }
         </div>
         <div className="form-group">
-          <label>{i18n.t('Notification interval (seconds)')}</label>
+          <label>{i18n.t('Notification Interval (seconds)')}</label>
           <Field
             name="interval"
             type="text"
-            placeholder={i18n.t('Please enter your notification interval.')}
+            placeholder={i18n.t('Specify notification interval.')}
             className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
           />
           {
@@ -84,7 +84,7 @@ module.exports = class App extends Base {
               <div className="invalid-feedback">{errors.interval}</div>
             )
           }
-          <small className="form-text text-muted">{i18n.t('5 - 1,800 seconds')}</small>
+          <small className="form-text text-muted">{i18n.t('5-1,800 Seconds')}</small>
         </div>
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
           {i18n.t('Apply')}
@@ -105,10 +105,10 @@ module.exports = class App extends Base {
                 <nav>
                   <ol className="breadcrumb rounded-pill">
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{i18n.t('Notification Settings')}</Link>
+                      <Link to="/notification/app">{i18n.t('Notification')}</Link>
                     </li>
                     <li className="breadcrumb-item active">
-                      <Link to="/notification/app">{i18n.t('Basic Settings')}</Link>
+                      <Link to="/notification/app">{i18n.t('Notification Method')}</Link>
                     </li>
                     <li className="breadcrumb-item">{i18n.t('App')}</li>
                   </ol>

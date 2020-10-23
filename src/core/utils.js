@@ -320,7 +320,7 @@ exports.makeFormikValidator = (validator, passwordFields) => values => {
   const checkResult = validator(values);
 
   if (passwordFields && values[passwordFields[0]] !== values[passwordFields[1]]) {
-    result[passwordFields[1]] = i18n.t('Incorrect confirm password.');
+    result[passwordFields[1]] = i18n.t('These passwords didn\'t match.');
   }
 
   if (checkResult === true) {
@@ -538,7 +538,7 @@ exports.validatedPortCheck = (value, error) => {
     RESTRICTED_PORTS.some(val => val === value);
   let errorMsg = error || i18n.t('The specified port is reserved by system or in use!');
   if (value === '') {
-    errorMsg = i18n.t('The port number must not empty.');
+    errorMsg = i18n.t('The port number must not be empty.');
     return errorMsg;
   }
 

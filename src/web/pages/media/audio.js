@@ -33,7 +33,7 @@ module.exports = class Audio extends Base {
     return (
       <Form className="card-body">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{i18n.t('Audio In')}</label>
+          <label className="mb-0">{i18n.t('Enable Audio Input')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnableInput" checked={values.isEnableInput} type="checkbox" className="custom-control-input" id="switch-sound"/>
             <label className="custom-control-label" htmlFor="switch-sound">
@@ -69,7 +69,7 @@ module.exports = class Audio extends Base {
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{i18n.t('Audio Settings')}</div>
+                  <div className="card-header">{i18n.t('Audio')}</div>
                   <Formik
                     initialValues={audioSettings}
                     onSubmit={this.onSubmitAudioSettingsForm}

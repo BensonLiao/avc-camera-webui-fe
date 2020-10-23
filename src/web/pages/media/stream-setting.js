@@ -396,7 +396,7 @@ module.exports = class StreamSetting extends Base {
               </div>
             </div>
             <small className="text-info mb-3">
-              {i18n.t('{{0}} - {{1}} Kbps', {
+              {i18n.t('{{0}}-{{1}} Kbps', {
                 0: StreamSettingsSchema.channelA.props.bitRate.min,
                 1: StreamSettingsSchema.channelA.props.bitRate.max
               })}
@@ -438,7 +438,7 @@ module.exports = class StreamSetting extends Base {
           </Tab.Pane>
         </Tab.Content>
 
-        <div className="form-group mt-5">
+        <div className="form-group mb-0 mt-5">
           <button
             type="button"
             className="btn btn-block btn-primary rounded-pill"
@@ -460,7 +460,7 @@ module.exports = class StreamSetting extends Base {
         </button>
         <CustomNotifyModal
           isShowModal={isShowModal}
-          modalTitle={i18n.t('Stream Settings')}
+          modalTitle={i18n.t('Streams')}
           modalBody={this.state.hasResolutionRatioChanged ?
             i18n.t('Changing stream 1 resolution ratio will also update stream 2 resolution settings.') :
             i18n.t('Are you sure you want to update stream settings?')}
@@ -479,7 +479,7 @@ module.exports = class StreamSetting extends Base {
     return (
       <>
         <div className={classNames('card-header', (homePage && 'd-flex align-items-center justify-content-between rounded-0'))}>
-          {homePage ? (i18n.t('Stream Settings')) : (i18n.t('Settings'))}
+          {i18n.t('Streams')}
           {
             homePage && (
               <button

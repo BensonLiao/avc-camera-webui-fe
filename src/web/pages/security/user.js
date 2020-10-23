@@ -107,7 +107,7 @@ module.exports = class User extends Base {
     return utils.duplicateCheck(
       nameList || this.state.usersName,
       values,
-      i18n.t('Same name found, please use a different name.')
+      i18n.t('This name already exists in the system. Please use a different name.')
     );
   }
 
@@ -133,11 +133,11 @@ module.exports = class User extends Base {
             {permissionList}
           </SelectField>
           <div className="form-group">
-            <label>{i18n.t('Account')}</label>
+            <label>{i18n.t('Username')}</label>
             <Field
               name="account"
               type="text"
-              placeholder={i18n.t('Enter your account')}
+              placeholder={i18n.t('Enter a name for this account')}
               disabled={isSuperAdmin}
               maxLength={UserSchema.account.max}
               validate={this.checkDuplicate}
@@ -152,7 +152,7 @@ module.exports = class User extends Base {
                 name="password"
                 component={Password}
                 inputProps={{
-                  placeholder: i18n.t('Enter your password'),
+                  placeholder: i18n.t('Enter a password'),
                   className: classNames('form-control', {'is-invalid': errors.password && touched.password})
                 }}
               />
@@ -170,7 +170,7 @@ module.exports = class User extends Base {
                   name="newPassword"
                   component={Password}
                   inputProps={{
-                    placeholder: i18n.t('Enter Your New Password'),
+                    placeholder: i18n.t('Enter a new password'),
                     className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
                   }}
                 />
@@ -187,7 +187,7 @@ module.exports = class User extends Base {
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: i18n.t(user ? 'Confirm Your New Password' : 'Confirm Your Password'),
+                placeholder: i18n.t(user ? 'Enter the new password again' : 'Enter the password again'),
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
               }}
             />

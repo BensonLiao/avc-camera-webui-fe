@@ -11,7 +11,7 @@ const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const MembersSearchForm = require('./members-search-form');
 const MembersSidebar = require('./members-sidebar');
-const MembersTable = require('./members-table');
+const MembersTable = require('./members-table').default;
 
 module.exports = class Members extends Base {
   static get propTypes() {

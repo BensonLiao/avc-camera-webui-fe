@@ -123,7 +123,7 @@ module.exports = class PrivacyMask extends Base {
       <Form className="row">
         <BreadCrumb
           className="px-0"
-          path={[i18n.t('Video'), i18n.t('Privacy Mask')]}
+          path={[i18n.t('Video Settings'), i18n.t('Privacy Mask')]}
           routes={['/media/stream']}
         />
         <div className="col-7 px-0">
@@ -159,7 +159,7 @@ module.exports = class PrivacyMask extends Base {
             <div className="card-header">{i18n.t('Privacy Mask')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('On/Off')}</label>
+                <label className="mb-0">{i18n.t('Enable Privacy Mask')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">
@@ -169,20 +169,20 @@ module.exports = class PrivacyMask extends Base {
                 </div>
               </div>
               <div className="form-group mb-5">
-                <span className="form-text text-primary">{i18n.t('Drag a Mask Area.')}</span>
+                <span className="form-text text-primary">{i18n.t('Create mask areas on the preview window.')}</span>
               </div>
               <div className="form-group">
                 <div className="card-header l-24 light text-size-18">{i18n.t('Note Area')}</div>
                 <div className="card-body l-32 light px-3 py-3">
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('Set a Mask.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('To set a mask:')}</span>
                     <div className="d-flex align-items-center drag-icon">
                       <img src={iconCursor}/>
                       <span className="text-size-12">{i18n.t('Drag')}</span>
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('Erase a Mask.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('To erase a mask:')}</span>
                     <div className="d-flex justify-content-end align-items-center flex-wrap">
                       <img src={iconHotkeyBackspace}/>
                       <span className="font-italic text-size-14 mx-2">{i18n.t('or')}</span>
@@ -190,7 +190,7 @@ module.exports = class PrivacyMask extends Base {
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('Up to 4 Mask Areas.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('Up to 4 mask areas can be set.')}</span>
                   </div>
                 </div>
               </div>

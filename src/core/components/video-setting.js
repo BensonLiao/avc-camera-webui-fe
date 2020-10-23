@@ -63,20 +63,6 @@ module.exports = class VideoSetting extends React.PureComponent {
     store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, bool);
   }
 
-  varyFocus = (form, step) => {
-    const {focalLength: {min, max}} = videoFocusSettingsSchema;
-    let newFocalLength = step + form.values.focalLength;
-    if (newFocalLength < min) {
-      newFocalLength = min;
-    }
-
-    if (newFocalLength > max) {
-      newFocalLength = max;
-    }
-
-    form.setFieldValue('focalLength', newFocalLength);
-  }
-
   matchFocalLength = formik => {
     let prevFocalLength;
     this.updateFocalLengthStore(true);
@@ -215,14 +201,14 @@ module.exports = class VideoSetting extends React.PureComponent {
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{i18n.t('Image Settings')}</div>
+        <div className="card-header">{i18n.t('Image')}</div>
         <div className="accordion" id="accordion-video-properties">
-          {/* WDR */}
+          {/* HDR */}
           <hr className="my-0"/>
           <div className="card-body">
             <div className="form-row">
               <div className="col-12 my-1 d-flex justify-content-between align-items-center">
-                <span className="text-size-20">{i18n.t('HDR')}</span>
+                <span className="text-size-20">{i18n.t('Enable HDR')}</span>
                 <div className="custom-control custom-switch d-inline-block ml-2">
                   <Field
                     name="hdrEnabled"
@@ -241,12 +227,12 @@ module.exports = class VideoSetting extends React.PureComponent {
             </div>
           </div>
 
-          {/* Image Adjustment */}
+          {/* Adjustments */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
               <button className="btn btn-link btn-block text-left" type="button" disabled={disableInput} data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>{i18n.t('Image Adjustment')}
+                <i className="fas fa-chevron-up"/>{i18n.t('Adjustments')}
               </button>
             </h2>
 
@@ -389,12 +375,12 @@ module.exports = class VideoSetting extends React.PureComponent {
             </div>
           </div>
 
-          {/* Image Configuration */}
+          {/* Advanced */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
               <button className="btn btn-link btn-block text-left collapsed" type="button" disabled={disableInput} data-toggle="collapse" data-target="#video">
-                <i className="fas fa-chevron-up"/>{i18n.t('Image Configuration')}
+                <i className="fas fa-chevron-up"/>{i18n.t('Advanced')}
               </button>
             </h2>
 
@@ -470,7 +456,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{i18n.t('D/N')}</label>
+                  <label>{i18n.t('Day/Night')}</label>
                   <Field
                     name="daynightMode"
                     component={Dropdown}

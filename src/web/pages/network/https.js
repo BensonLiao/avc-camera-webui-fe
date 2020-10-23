@@ -39,7 +39,7 @@ module.exports = class HTTPS extends Base {
   constructor(props) {
     super(props);
     this.state.isShowModal = false;
-    this.state.modalBody = i18n.t('Please Redirect Manually to the New Address');
+    this.state.modalBody = i18n.t('The website has been redirected to the new address');
   }
 
   hideModal = () => {
@@ -81,7 +81,7 @@ module.exports = class HTTPS extends Base {
         this.setState({
           isShowModal: true,
           modalBody: [
-            `${i18n.t('Please Redirect Manually to the New Address')} :`,
+            `${i18n.t('The website has been redirected to the new address')} :`,
             <div key="redirect" className="d-flex">
               <ProgressIndicator
                 className="ml-0"
@@ -94,7 +94,7 @@ module.exports = class HTTPS extends Base {
           setTimeout(() => {
             this.setState({
               modalBody: [
-                `${i18n.t('Please Redirect Manually to the New Address')} :`,
+                `${i18n.t('The website has been redirected to the new address')} :`,
                 <div key="redirect" className="d-flex">
                   <ProgressIndicator
                     className="ml-0"
@@ -117,7 +117,7 @@ module.exports = class HTTPS extends Base {
     return (
       <Form className="card-body">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label>HTTPS</label>
+          <label>{i18n.t('Enable HTTPS')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-enable"/>
             <label className="custom-control-label" htmlFor="switch-enable">
@@ -139,12 +139,12 @@ module.exports = class HTTPS extends Base {
               <div className="invalid-feedback">{errors.port}</div>
             )
           }
-          <p className="text-size-14 text-muted mt-2">{i18n.t('1024 - 65535, except for 5555, 8080, 8554, 17300.')}</p>
+          <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8443')}</p>
         </div>
         <SelectField labelName={i18n.t('Certificate')} name="certificateType">
           <option value={CertificateType.selfSigned}>{i18n.t(`certificate-type-${CertificateType.selfSigned}`)}</option>
         </SelectField>
-        <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={i18n.t('Please Enable HTTPS')}>
+        <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={i18n.t('Please enable HTTPS first.')}>
           <div>
             <button
               disabled={
@@ -164,7 +164,7 @@ module.exports = class HTTPS extends Base {
           isShowAllBtns={false}
           backdrop="static"
           isShowModal={isShowModal}
-          modalTitle={i18n.t('Success')}
+          modalTitle={i18n.t('Redirection Success')}
           modalBody={modalBody}
           onConfirm={this.hideModal}
           onHide={this.hideModal}
@@ -184,12 +184,12 @@ module.exports = class HTTPS extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('Internet/Network Settings'), 'HTTPS']}
+                path={[i18n.t('Internet & Network Settings'), i18n.t('HTTPS')]}
                 routes={['/network/settings']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">HTTPS</div>
+                  <div className="card-header">{i18n.t('HTTPS')}</div>
                   <Formik
                     initialValues={httpsSettings}
                     validate={validator}

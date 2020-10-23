@@ -18,8 +18,8 @@ module.exports = class Upgrade extends Base {
     super(props);
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = i18n.t('Uploading Firmware');
-    this.state.apiProcessModalBody = i18n.t('※ Please do not close browser or tab during upgrade');
+    this.state.apiProcessModalTitle = i18n.t('Uploading Software');
+    this.state.apiProcessModalBody = i18n.t('※ Please do not close your browser during upgrade.');
     this.state.progressStatus = {
       uploadFirmware: 'initial',
       upgradeFirmware: 'initial',
@@ -38,7 +38,7 @@ module.exports = class Upgrade extends Base {
     new Promise(resolve => {
       this.setState({
         isShowApiProcessModal: true,
-        apiProcessModalTitle: i18n.t('Uploading Firmware'),
+        apiProcessModalTitle: i18n.t('Uploading Software'),
         progressStatus: {
           uploadFirmware: 'start',
           upgradeFirmware: 'initial',
@@ -59,7 +59,7 @@ module.exports = class Upgrade extends Base {
     })
       .then(() => new Promise((resolve, reject) => {
         count = 0;
-        this.setState({apiProcessModalTitle: i18n.t('Installing Firmware')},
+        this.setState({apiProcessModalTitle: i18n.t('Installing Software')},
           () => {
             let interval2 = setInterval(() => {
               this.updateProgress('upgradeFirmware', count);
@@ -85,7 +85,7 @@ module.exports = class Upgrade extends Base {
         return new Promise(() => {});
       })
       .then(() => new Promise(resolve => {
-        this.setState({apiProcessModalTitle: i18n.t('Device Shutting Down')},
+        this.setState({apiProcessModalTitle: i18n.t('Shutting Down')},
           () => {
             setTimeout(() => {
               this.updateProgressStatus('deviceRestart', 'start');
@@ -96,7 +96,7 @@ module.exports = class Upgrade extends Base {
       }))
       .then(() => new Promise(resolve => {
         this.updateProgressStatus('deviceShutdown', 'done');
-        this.setState({apiProcessModalTitle: i18n.t('Device Restarting')},
+        this.setState({apiProcessModalTitle: i18n.t('Restarting')},
           () => {
             setTimeout(() => {
               this.updateProgressStatus('deviceRestart', 'done');
@@ -106,11 +106,11 @@ module.exports = class Upgrade extends Base {
         );
       }))
       .then(() => {
-        this.setState({apiProcessModalTitle: i18n.t('Firmware Upgrade Success')},
+        this.setState({apiProcessModalTitle: i18n.t('Software Upgrade Success')},
           () => {
             let countdown = constants.REDIRECT_COUNTDOWN;
             this.countdownID = setInterval(() => {
-              this.setState({apiProcessModalBody: i18n.t('Redirect to login page in {{0}} seconds', {0: --countdown})});
+              this.setState({apiProcessModalBody: i18n.t('Redirect to the login page in {{0}} seconds', {0: --countdown})});
             }, 1000);
             this.countdownTimerID = setTimeout(() => {
               clearInterval(this.countdownID);
@@ -164,7 +164,7 @@ module.exports = class Upgrade extends Base {
         .then(response => new Promise(resolve => {
           this.updateProgressStatus('uploadFirmware', 'done');
           this.updateProgressStatus('upgradeFirmware', 'start');
-          this.setState({apiProcessModalTitle: i18n.t('Installing Firmware')});
+          this.setState({apiProcessModalTitle: i18n.t('Installing Software')});
           const upgrade = init => {
             api.system.upgradeFirmware(init ? response.data.filename : null)
               .then(response => {
@@ -173,7 +173,7 @@ module.exports = class Upgrade extends Base {
                   this.updateProgressStatus('upgradeFirmware', 'done');
                   this.updateProgressStatus('deviceShutdown', 'start');
                   // Keep modal and update the title and body.
-                  this.setState({apiProcessModalTitle: i18n.t('Device Shutting Down')});
+                  this.setState({apiProcessModalTitle: i18n.t('Shutting Down')});
                   utils.pingToCheckShutdown(resolve, 1000);
                 } else {
                   this.updateProgress('upgradeFirmware', response.data.updateProgress);
@@ -194,18 +194,18 @@ module.exports = class Upgrade extends Base {
           // Keep modal and update the title and body.
           this.updateProgressStatus('deviceShutdown', 'done');
           this.updateProgressStatus('deviceRestart', 'start');
-          this.setState({apiProcessModalTitle: i18n.t('Device Restarting')});
+          this.setState({apiProcessModalTitle: i18n.t('Restarting')});
           // Check the server was startup, if success then startup was failed and retry.
           const test = () => {
             api.ping('app')
               .then(response => {
                 console.log('ping app response(userinitiated)', response);
                 this.updateProgressStatus('deviceRestart', 'done');
-                this.setState({apiProcessModalTitle: i18n.t('Firmware Upgrade Success')},
+                this.setState({apiProcessModalTitle: i18n.t('Software Upgrade Success')},
                   () => {
                     let countdown = constants.REDIRECT_COUNTDOWN;
                     this.countdownID = setInterval(() => {
-                      this.setState({apiProcessModalBody: i18n.t('Redirect to login page in {{0}} seconds', {0: --countdown})});
+                      this.setState({apiProcessModalBody: i18n.t('Redirect to the login page in {{0}} seconds', {0: --countdown})});
                     }, 1000);
                     this.countdownTimerID = setTimeout(() => {
                       clearInterval(this.countdownID);
@@ -236,7 +236,7 @@ module.exports = class Upgrade extends Base {
         <div className="form-group">
           <label className="mb-0">{i18n.t('Import File')}</label>
           <small className="form-text text-muted my-2">
-            {i18n.t('Only .Zip File Supported')}
+            {i18n.t('Only ZIP file format is supported')}
           </small>
           <div>
             <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
@@ -251,7 +251,7 @@ module.exports = class Upgrade extends Base {
             {
               file ?
                 <span className="text-size-14 text-muted ml-3">{i18n.t(file.name)}</span> :
-                <span className="text-size-14 text-muted ml-3">{i18n.t('No Files Selected')}</span>
+                <span className="text-size-14 text-muted ml-3">{i18n.t('No file selected.')}</span>
             }
           </div>
         </div>
@@ -263,7 +263,7 @@ module.exports = class Upgrade extends Base {
               type="submit"
               style={file || isRunTest ? {} : {pointerEvents: 'none'}}
             >
-              {i18n.t(isRunTest ? 'Run Test' : 'Firmware Upgrade')}
+              {i18n.t(isRunTest ? 'Run Test' : 'Software Upgrade')}
             </button>
           </div>
         </CustomTooltip>
@@ -282,7 +282,7 @@ module.exports = class Upgrade extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('System'), i18n.t('Settings'), i18n.t('Firmware Upgrade')]}
+                path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Software Upgrade')]}
                 routes={['/system/datetime', '/system/datetime']}
               />
               <CustomNotifyModal
@@ -298,14 +298,14 @@ module.exports = class Upgrade extends Base {
                   <StageProgress
                     key="stage 1"
                     stage={i18n.t('Stage 01')}
-                    title={i18n.t('Upload Firmware')}
+                    title={i18n.t('Upload Software')}
                     progressStatus={progressStatus.uploadFirmware}
                     progressPercentage={progressPercentage.uploadFirmware}
                   />,
                   <StageProgress
                     key="stage 2"
                     stage={i18n.t('Stage 02')}
-                    title={i18n.t('Install Firmware')}
+                    title={i18n.t('Install Software')}
                     progressStatus={progressStatus.upgradeFirmware}
                     progressPercentage={progressPercentage.upgradeFirmware}
                   />,
@@ -327,7 +327,7 @@ module.exports = class Upgrade extends Base {
 
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{i18n.t('Firmware Upgrade')}</div>
+                  <div className="card-header">{i18n.t('Software Upgrade')}</div>
                   <Formik initialValues={{}} onSubmit={isRunTest ? this.testScript : this.onSubmitForm}>
                     {this.formRender}
                   </Formik>

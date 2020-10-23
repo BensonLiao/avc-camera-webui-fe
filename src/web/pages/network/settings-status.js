@@ -14,7 +14,7 @@ const SettingsStatus = ({
       data: i18n.t(networkInterface === '0' ? 'Wired' : 'Wifi')
     },
     {
-      name: i18n.t('IP Status'),
+      name: i18n.t('IP Assignment'),
       data: i18n.t(ipType === '0' ? 'Static' : 'Dynamic')
     },
     {

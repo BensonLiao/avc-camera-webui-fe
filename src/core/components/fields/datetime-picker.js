@@ -634,13 +634,13 @@ module.exports = class DatePicker extends React.PureComponent {
         <table>
           <thead>
             <tr>
-              <th>{i18n.t('Su')}</th>
-              <th>{i18n.t('Mo')}</th>
-              <th>{i18n.t('Tu')}</th>
-              <th>{i18n.t('We')}</th>
-              <th>{i18n.t('Th')}</th>
-              <th>{i18n.t('Fr')}</th>
-              <th>{i18n.t('Sa')}</th>
+              <th>{i18n.t('Sun')}</th>
+              <th>{i18n.t('Mon')}</th>
+              <th>{i18n.t('Tue')}</th>
+              <th>{i18n.t('Wed')}</th>
+              <th>{i18n.t('Thu')}</th>
+              <th>{i18n.t('Fri')}</th>
+              <th>{i18n.t('Sat')}</th>
             </tr>
           </thead>
           <tbody>

@@ -107,7 +107,7 @@ module.exports = class RTSP extends Base {
               <div className="invalid-feedback">{errors.tcpPort}</div>
             )
           }
-          <span className="form-text text-muted">{i18n.t('1024 - 65535, except for 5555, 8080, 8443, 17300.')}</span>
+          <span className="form-text text-muted">{i18n.t('Range: 1024-65535 Default: 8554')}</span>
         </div>
         <div className="form-group">
           <label>{i18n.t('RTSP/UDP Port')}</label>
@@ -123,10 +123,10 @@ module.exports = class RTSP extends Base {
               <div className="invalid-feedback">{errors.udpPort}</div>
             )
           }
-          <span className="form-text text-muted">{i18n.t('1024 - 65535, except for 5555, 8080, 8443, 8554.')}</span>
+          <span className="form-text text-muted">{i18n.t('Range: 1024-65535 Default: 17300')}</span>
         </div>
         <div className="form-group">
-          <label>{i18n.t('Maximum Number of Connection')}</label>
+          <label>{i18n.t('Maximum Number of Concurrent Connections')}</label>
           <Field
             name="connectionLimit"
             type="text"
@@ -157,7 +157,7 @@ module.exports = class RTSP extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('Video'), i18n.t('RTSP')]}
+                path={[i18n.t('Video Settings'), i18n.t('RTSP')]}
                 routes={['/media/stream']}
               />
               <div className="col-center">

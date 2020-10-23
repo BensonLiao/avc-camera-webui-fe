@@ -46,7 +46,7 @@ module.exports = class LicenseStatus extends React.PureComponent {
               'fas',
               licenseKeyStatus ? 'fa-check-circle' : 'fa-minus-circle')}
             />
-            {licenseKeyStatus ? i18n.t('Activated') : i18n.t('Inactive')}
+            {licenseKeyStatus ? i18n.t('Activated') : i18n.t('Activation Required')}
           </span>
         </div>
       </div>

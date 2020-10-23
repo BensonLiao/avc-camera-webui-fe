@@ -82,7 +82,7 @@ module.exports = class Login extends Base {
               name="account"
               type="text"
               maxLength={UserSchema.account.max}
-              placeholder={i18n.t('Enter Your Username')}
+              placeholder={i18n.t('Enter your username')}
               className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
             />
             <ErrorMessage component="div" name="account" className="invalid-feedback"/>

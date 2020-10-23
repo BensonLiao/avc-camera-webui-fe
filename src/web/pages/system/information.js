@@ -26,7 +26,7 @@ const Information = ({networkSettings: {mac}, systemInformation: {firmware, seri
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('System'), i18n.t('System Information'), i18n.t('Information')]}
+              path={[i18n.t('System'), i18n.t('Status'), i18n.t('Information')]}
               routes={['/system/datetime', '/system/log']}
             />
             <div className="col-center">

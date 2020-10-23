@@ -45,7 +45,7 @@ module.exports = class License extends Base {
     if (check) {
       notify.showErrorNotification({
         title: i18n.t('Activation Failed'),
-        message: i18n.t('Key Already Registered!')
+        message: i18n.t('Key Already Registered')
       });
     }
 
@@ -54,7 +54,7 @@ module.exports = class License extends Base {
       api.authKey.addAuthKey(authKey)
         .then(response => {
           notify.showSuccessNotification({
-            title: i18n.t('Activated Successfully'),
+            title: i18n.t('Activated Success'),
             message: i18n.t('{{0}} authorized successfully!', {
               0: (() => {
                 const result = [];
@@ -63,7 +63,7 @@ module.exports = class License extends Base {
                 }
 
                 if (response.data.isEnableAgeGenderKey) {
-                  result.push(i18n.t('Age Gender'));
+                  result.push(i18n.t('Age & Gender'));
                 }
 
                 if (response.data.isEnableHumanoidDetectionKey) {
@@ -134,7 +134,7 @@ module.exports = class License extends Base {
           <div className="container-fluid">
             <div className="row">
               <BreadCrumb
-                path={[i18n.t('Analytic'), i18n.t('License')]}
+                path={[i18n.t('Analytics Settings'), i18n.t('License')]}
                 routes={['/analytic/face-recognition']}
               />
               <div className="col-12">
@@ -163,7 +163,7 @@ module.exports = class License extends Base {
                     licenseDisableImg={iconFaceRecognitionDisable}
                   />
                   <LicenseStatus
-                    licenseName={i18n.t('Age Gender')}
+                    licenseName={i18n.t('Age & Gender')}
                     licenseKeyStatus={isEnableAgeGenderKey}
                     licenseEnableImg={iconAgeGenderEnable}
                     licenseDisableImg={iconAgeGenderDisable}
