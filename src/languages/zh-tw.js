@@ -573,7 +573,7 @@ if (!window.languageResource['zh-tw']) {
     'Modify User': '編輯帳號',
     'Enter a name for this account': '輸入帳號名稱',
     'Enter a password': '輸入密碼',
-    'Enter a new password': '請輸入您的新密碼',
+    'Enter a new password': '輸入新密碼',
     'New Password': '新密碼',
     'Confirm New Password': '確認新密碼',
     'Confirm Password': '確認密碼',
