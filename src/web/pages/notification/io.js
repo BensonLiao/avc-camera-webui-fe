@@ -5,7 +5,7 @@ import i18n from '../../i18n';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import IoInput from './io-input';
 import IoOutput from './io-output';
-import withGlobalStatus from '../../base';
+import withGlobalStatus from '../../withGlobalStatus';
 
 export default withGlobalStatus(
   class IO extends Component {
