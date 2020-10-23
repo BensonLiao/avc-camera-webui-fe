@@ -164,22 +164,22 @@ module.exports = class Word extends Base {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label>{i18n.t('Position')}</label>
                 {
-                  values.position !== WordPosition.leftTop || (
+                  values.position === WordPosition.leftTop && (
                     <p className="text-primary">{i18n.t('Left Top')}</p>
                   )
                 }
                 {
-                  values.position !== WordPosition.rightTop || (
+                  values.position === WordPosition.rightTop && (
                     <p className="text-primary">{i18n.t('Right Top')}</p>
                   )
                 }
                 {
-                  values.position !== WordPosition.leftBottom || (
+                  values.position === WordPosition.leftBottom && (
                     <p className="text-primary">{i18n.t('Left Bottom')}</p>
                   )
                 }
                 {
-                  values.position !== WordPosition.rightBottom || (
+                  values.position === WordPosition.rightBottom && (
                     <p className="text-primary">{i18n.t('Right Bottom')}</p>
                   )
                 }
