@@ -5,20 +5,20 @@ const SUPPORTED_LANGUAGE_CODES = require('webserver-form-schema/constants/i18n-s
 window.languageResource = {};
 // Assign resource to window.languageResource depends on current language code
 switch (window.currentLanguageCode) {
-  case SUPPORTED_LANGUAGE_CODES[4].code:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[4].code}`);
+  case SUPPORTED_LANGUAGE_CODES.es:
+    require('../languages/es');
     break;
-  case SUPPORTED_LANGUAGE_CODES[3].code:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[3].code}`);
+  case SUPPORTED_LANGUAGE_CODES['zh-tw']:
+    require('../languages/zh-tw');
     break;
-  case SUPPORTED_LANGUAGE_CODES[2].code:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[2].code}`);
+  case SUPPORTED_LANGUAGE_CODES['zh-cn']:
+    require('../languages/zh-cn');
     break;
-  case SUPPORTED_LANGUAGE_CODES[1].code:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[1].code}`);
+  case SUPPORTED_LANGUAGE_CODES.ja:
+    require('../languages/ja');
     break;
   default:
-    require(`../languages/${SUPPORTED_LANGUAGE_CODES[0].code}`);
+    require('../languages/en');
     break;
 }
 
