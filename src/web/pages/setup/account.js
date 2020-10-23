@@ -59,8 +59,8 @@ module.exports = class SetupAccount extends Base {
             </div>
           </div>
           <div className="form-group">
-            <label>{i18n.t('Account')}</label>
-            <Field autoFocus name="account" maxLength={UserSchema.account.max} type="text" className={classTable.account} placeholder={i18n.t('Please enter your account.')}/>
+            <label>{i18n.t('Username')}</label>
+            <Field autoFocus name="account" maxLength={UserSchema.account.max} type="text" className={classTable.account} placeholder={i18n.t('Enter a name for this account')}/>
             <ErrorMessage component="div" name="account" className="invalid-feedback"/>
             <small className="text-info">
               {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space')}
@@ -72,7 +72,7 @@ module.exports = class SetupAccount extends Base {
               name="password"
               component={Password}
               inputProps={{
-                placeholder: i18n.t('Enter a new password'),
+                placeholder: i18n.t('Enter a password'),
                 className: classTable.password
               }}
             />
@@ -87,7 +87,7 @@ module.exports = class SetupAccount extends Base {
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: i18n.t('Confirm new password'),
+                placeholder: i18n.t('Enter the password again'),
                 className: classTable.confirmPassword
               }}
             />
