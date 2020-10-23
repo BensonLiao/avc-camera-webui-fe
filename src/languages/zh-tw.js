@@ -769,7 +769,7 @@ if (!window.languageResource['zh-tw']) {
     // /system/upgrade
     'Upload Software': '上傳軟體',
     'Install Software': '安裝軟體',
-    'Shutdown Device': '關閉裝置',
+    'Shutdown Device': '關閉裝置',
     'Restart Device': '重新啟動裝置',
     'Stage 01': '階段 1',
     'Stage 02': '階段 2',
