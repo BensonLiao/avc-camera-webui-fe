@@ -1,11 +1,11 @@
-const PropTypes = require('prop-types');
-const React = require('react');
-const {Nav, Tab} = require('react-bootstrap');
-const i18n = require('../../i18n').default;
-const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
-const IoInput = require('./io-input').default;
-const IoOutput = require('./io-output').default;
-const baseHOC = require('../../base').default;
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import {Nav, Tab} from 'react-bootstrap';
+import i18n from '../../i18n';
+import BreadCrumb from '../../../core/components/fields/breadcrumb';
+import IoInput from './io-input';
+import IoOutput from './io-output';
+import baseHOC from '../../base';
 
 const IO = baseHOC(
   class extends React.Component {
