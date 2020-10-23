@@ -1,3 +1,1 @@
-if (!window.languageResource.es) {
-  window.languageResource.es = {};
-}
+module.exports = {es: {translation: {}}};
