@@ -123,7 +123,7 @@ module.exports = class MembersTable extends React.PureComponent {
                     <td>
                       <CustomTooltip placement="top-start" title={member.organization}>
                         <div>
-                          {member.organization || i18n.t('N/A')}
+                          {member.organization}
                         </div>
                       </CustomTooltip>
                     </td>
@@ -137,7 +137,7 @@ module.exports = class MembersTable extends React.PureComponent {
                     <td>
                       <CustomTooltip placement="top-start" title={member.note}>
                         <div>
-                          {member.note || i18n.t('N/A')}
+                          {member.note}
                         </div>
                       </CustomTooltip>
                     </td>
