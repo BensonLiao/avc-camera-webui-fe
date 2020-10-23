@@ -1,22 +1,22 @@
-const classNames = require('classnames');
-const PropTypes = require('prop-types');
-const React = require('react');
-const progress = require('nprogress');
-const {getRouter} = require('capybara-router');
-const {Formik, Form, Field, ErrorMessage} = require('formik');
-const Modal = require('react-bootstrap/Modal').default;
-const SMTPEncryptionType = require('webserver-form-schema/constants/smtp-encryption-type');
-const SMTPPort = require('webserver-form-schema/constants/smtp-port');
-const Base = require('../shared/base');
-const smtpSettingsValidator = require('../../validations/notifications/smtp-settings-validator');
-const smtpAccountSettingsValidator = require('../../validations/notifications/smtp-account-settings-validator');
-const Password = require('../../../core/components/fields/password');
-const i18n = require('../../i18n').default;
-const utils = require('../../../core/utils');
-const notify = require('../../../core/notify');
-const api = require('../../../core/apis/web-api');
-const CustomTooltip = require('../../../core/components/tooltip');
-const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+import {getRouter} from 'capybara-router';
+import classNames from 'classnames';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import progress from 'nprogress';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
+import Modal from 'react-bootstrap/Modal';
+import SMTPEncryptionType from 'webserver-form-schema/constants/smtp-encryption-type';
+import SMTPPort from 'webserver-form-schema/constants/smtp-port';
+import api from '../../../core/apis/web-api';
+import BreadCrumb from '../../../core/components/fields/breadcrumb';
+import CustomTooltip from '../../../core/components/tooltip';
+import i18n from '../../i18n';
+import notify from '../../../core/notify';
+import smtpAccountSettingsValidator from '../../validations/notifications/smtp-account-settings-validator';
+import smtpSettingsValidator from '../../validations/notifications/smtp-settings-validator';
+import Password from '../../../core/components/fields/password';
+import utils from '../../../core/utils';
+import withGlobalStatus from '../../withGlobalStatus';
 
 module.exports = class SMTP extends Base {
   static get propTypes() {
