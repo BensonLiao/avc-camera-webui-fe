@@ -1,9 +1,9 @@
-const classNames = require('classnames');
-const PropTypes = require('prop-types');
-const React = require('react');
-const {Link, RouterView, getRouter} = require('capybara-router');
-const Loading = require('../../../core/components/loading');
-const i18n = require('../../i18n').default;
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {Link, RouterView, getRouter} from 'capybara-router';
+import Loading from '../../../core/components/loading';
+import i18n from '../../i18n';
 import withGlobalStatus from '../../withGlobalStatus';
 
 const router = getRouter();
