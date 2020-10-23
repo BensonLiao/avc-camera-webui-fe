@@ -163,13 +163,13 @@ module.exports = class MembersDatabase extends React.PureComponent {
             <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
-            <label>{i18n.t('Confirm Password')}</label>
+            <label>{i18n.t('Confirm New Password')}</label>
             <Field
               name="confirmPassword"
               component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                placeholder: i18n.t('Confirm your new password')
+                placeholder: i18n.t('Enter the new password again')
               }}
             />
             <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
