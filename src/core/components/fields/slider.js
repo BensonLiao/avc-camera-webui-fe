@@ -116,7 +116,7 @@ module.exports = class SliderField extends React.PureComponent {
     ) : (
       <div className="d-flex align-items-center justify-content-between custom-slider">
         <div>
-          <CustomTooltip title={`${-step * 5}`}>
+          <CustomTooltip title={`${-step * 5}`} delay={0}>
             <button
               disabled={disabled}
               className="btn text-secondary-700"
@@ -126,7 +126,7 @@ module.exports = class SliderField extends React.PureComponent {
               <i type="button" className="fa fa-angle-double-left text-size-16"/>
             </button>
           </CustomTooltip>
-          <CustomTooltip title={`${-step}`}>
+          <CustomTooltip title={`${-step}`} delay={0}>
             <button
               disabled={disabled}
               className="btn text-secondary-700"
@@ -141,7 +141,7 @@ module.exports = class SliderField extends React.PureComponent {
           <input ref={this.ref} type="text"/>
         </div>
         <div>
-          <CustomTooltip title={`+${step}`}>
+          <CustomTooltip title={`+${step}`} delay={0}>
             <button
               disabled={disabled}
               className="btn text-secondary-700"
@@ -151,7 +151,7 @@ module.exports = class SliderField extends React.PureComponent {
               <i className="fas fa-angle-right text-size-16"/>
             </button>
           </CustomTooltip>
-          <CustomTooltip title={`+${step * 5}`}>
+          <CustomTooltip title={`+${step * 5}`} delay={0}>
             <button
               disabled={disabled}
               className="btn text-secondary-700"
