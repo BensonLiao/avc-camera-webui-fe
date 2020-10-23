@@ -19,7 +19,8 @@ export default withGlobalStatus(
       return {
         cards: PropTypes.shape({items: PropTypes.arrayOf(CardsForm.propTypes.cardDetails)}).isRequired,
         groups: PropTypes.shape(CardsForm.propTypes.groups.items).isRequired,
-        systemInformation: PropTypes.shape({modelName: PropTypes.string}).isRequired
+        systemInformation: PropTypes.shape({modelName: PropTypes.string}).isRequired,
+        $isApiProcessing: PropTypes.bool.isRequired
       };
     }
 
@@ -173,8 +174,8 @@ export default withGlobalStatus(
     };
 
     render() {
-      const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, $isApiProcessing, isTop} = this.state;
-      const {groups, systemInformation: {modelName}} = this.props;
+      const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, isTop} = this.state;
+      const {$isApiProcessing, groups, systemInformation: {modelName}} = this.props;
       return (
         <>
           <div className="main-content left-menu-active  fixed-top-horizontal-scroll">
