@@ -47,13 +47,14 @@ export default withGlobalStatus(
                   title={i18n.t('Notification Method')}
                   className={classNames(
                     'nav-link collapse show d-flex justify-content-between align-items-center',
-                    {active: ['web.notification.smtp', 'web.notification.io'].indexOf(currentRouteName) >= 0}
+                    {active: ['web.notification.smtp', 'web.notification.io'].indexOf(currentRouteName) >= 0},
+                    {collapsed: currentRouteName === 'web.notification.cards'}
                   )}
                 >
                   <span className="text-truncate">{i18n.t('Notification Method')}</span>
                   <i className="fas fa-chevron-up"/>
                 </a>
-                <div id="basic-settings" className="collapse show" data-parent="#accordion-notification-menu">
+                <div id="basic-settings" className={classNames('collapse', {show: currentRouteName !== 'web.notification.cards'})} data-parent="#accordion-notification-menu">
                   <Link
                     className={classNames('nav-link', {active: currentRouteName === 'web.notification.smtp'})}
                     to="/notification/smtp"
