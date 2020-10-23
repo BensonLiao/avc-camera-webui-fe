@@ -150,7 +150,6 @@ if (!window.languageResource['zh-tw']) {
     'This is used for resetting password.': '生日將會用於重置密碼',
     'Enter your account': '請輸入您的帳號',
     'Enter your password': '請輸入您的密碼',
-    'Confirm new password': '確認新密碼',
     // /setup/account / Constants / Permission
     'permission-0': '管理者',
     'permission-1': '訪客',
@@ -578,8 +577,8 @@ if (!window.languageResource['zh-tw']) {
     'New Password': '新密碼',
     'Confirm New Password': '確認新密碼',
     'Confirm Password': '確認密碼',
-    'Confirm your new password': '再次輸入新密碼',
-    'Confirm the password': '確認密碼',
+    'Enter the new password again': '再次輸入新密碼',
+    'Enter the password again': '再次輸入密碼',
     'Delete Account': '刪除帳號',
     'Are you sure you want to delete account {{0}}?': '您確定要刪除帳號 {{0}} 嗎？',
 

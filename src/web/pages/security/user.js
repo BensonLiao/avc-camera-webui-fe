@@ -187,7 +187,7 @@ module.exports = class User extends Base {
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: i18n.t(user ? 'Confirm new password' : 'Confirm the password'),
+                placeholder: i18n.t(user ? 'Enter the new password again' : 'Enter the password again'),
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
               }}
             />
