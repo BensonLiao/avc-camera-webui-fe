@@ -39,6 +39,16 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
     }
   };
 
+  const tableItems = (tooltipTitle, child = (tooltipTitle || i18n.t('N/A'))) => (
+    <td>
+      <CustomTooltip placement="top-start" title={tooltipTitle}>
+        <div>
+          {child}
+        </div>
+      </CustomTooltip>
+    </td>
+  );
+
   return (
     <div className="col-12 mb-5 table-responsive">
       <table className="table custom-style">
@@ -83,34 +93,10 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
                       </div>
                     </div>
                   </td>
-                  <td>
-                    <CustomTooltip placement="top-start" title={member.name}>
-                      <div>
-                        {member.name}
-                      </div>
-                    </CustomTooltip>
-                  </td>
-                  <td>
-                    <CustomTooltip placement="top-start" title={member.organization}>
-                      <div>
-                        {member.organization || i18n.t('N/A')}
-                      </div>
-                    </CustomTooltip>
-                  </td>
-                  <td>
-                    <CustomTooltip placement="top-start" title={(groups.items.find(x => x.id === member.groupId) || {}).name || ''}>
-                      <div>
-                        {(groups.items.find(x => x.id === member.groupId) || {}).name || i18n.t('N/A')}
-                      </div>
-                    </CustomTooltip>
-                  </td>
-                  <td>
-                    <CustomTooltip placement="top-start" title={member.note}>
-                      <div>
-                        {member.note || i18n.t('N/A')}
-                      </div>
-                    </CustomTooltip>
-                  </td>
+                  {tableItems(member.name)}
+                  {tableItems(member.organization)}
+                  {tableItems((groups.items.find(x => x.id === member.groupId) || {}).name || '')}
+                  {tableItems(member.note)}
                   <td className="text-left group-btn">
                     <CustomTooltip title={i18n.t('Edit Member: {{0}}', {0: member.name})}>
                       <Link
