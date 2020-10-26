@@ -563,36 +563,6 @@ module.exports = {
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}
-     * - deviceToken {string}
-     * - deviceId {string}
-     * - interval {string}
-     */
-    getAppSettings: () => api({
-      method: 'get',
-      url: '/api/notification/app/settings'
-    }),
-    /**
-     * @param {string} deviceToken
-     * @param {string} deviceId
-     * @param {string} interval
-     * @returns {Promise<response>}
-     * @response 200 {Object}
-     * - deviceToken {string}
-     * - deviceId {string}
-     * - interval {string}
-     */
-    updateAppSettings: ({deviceToken, deviceId, interval}) => api({
-      method: 'put',
-      url: '/api/notification/app/settings',
-      data: {
-        deviceToken,
-        deviceId,
-        interval
-      }
-    }),
-    /**
-     * @returns {Promise<response>}
-     * @response 200 {Object}
      * - isEnable {boolean}
      * - ioType {string}
      */
