@@ -11,7 +11,7 @@ const MotionDetectionSettingsSchema = require('webserver-form-schema/motion-dete
 const MaskArea = require('../../../core/components/fields/mask-area');
 const Slider = require('../../../core/components/fields/slider');
 const Base = require('../shared/base');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 

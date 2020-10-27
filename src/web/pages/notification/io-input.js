@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Tab} from 'react-bootstrap';
 import IOType from 'webserver-form-schema/constants/io-type';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 
 const IoInput = ({isApiProcessing, currentTab, ioInSettings}) => {

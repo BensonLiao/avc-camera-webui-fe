@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const React = require('react');
 const PropTypes = require('prop-types');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 
 module.exports = class CardsFilter extends React.PureComponent {

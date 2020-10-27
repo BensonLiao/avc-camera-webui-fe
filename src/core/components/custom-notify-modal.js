@@ -1,7 +1,7 @@
 const PropTypes = require('prop-types');
 const React = require('react');
 const Modal = require('react-bootstrap/Modal').default;
-const i18n = require('../../web/i18n').default;
+const i18n = require('../../i18n').default;
 const utils = require('../../core/utils');
 const classNames = require('classnames');
 
