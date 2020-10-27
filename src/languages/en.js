@@ -464,7 +464,6 @@ module.exports = {
       Group: 'Group',
       Condition: 'Condition',
       Method: 'Method',
-      'All Groups': 'All Groups',
       Everyone: 'Everyone',
       'Email Attachment': 'Email Attachment',
       Receiver: 'Receiver',
@@ -496,6 +495,7 @@ module.exports = {
       'face-recognition-condition-0': 'Always',
       'face-recognition-condition-1': 'Success',
       'face-recognition-condition-2': 'Unknown',
+      'face-recognition-condition-3': 'Image Spoof',
       // /notification/cards / Constants / Email Attachment
       'email-attachment-type-0': 'Face Thumbnail',
       'email-attachment-type-1': 'Screenshot',

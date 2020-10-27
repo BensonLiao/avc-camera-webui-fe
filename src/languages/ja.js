@@ -28,7 +28,7 @@ module.exports = {
       // Component / Navigation
       Home: '首頁',
       Image: '圖像',
-      Video: '影像',
+      Video: '映像',
       Audio: '聲音',
       Notification: '通報',
       'User Management': '人員',
