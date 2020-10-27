@@ -115,7 +115,7 @@ module.exports = class Log extends Base {
                           modalBody={[
                             <StageProgress
                               key="stage 1"
-                              title="System log loading"
+                              title="Download in progress"
                               progressStatus={this.state.progressStatus}
                               progressPercentage={this.state.progressPercentage}
                             />

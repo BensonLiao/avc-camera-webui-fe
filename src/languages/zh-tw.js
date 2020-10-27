@@ -781,7 +781,7 @@ module.exports = {
       'Stage 02': '階段 2',
       'Stage 03': '階段 3',
       'Stage 04': '階段 4',
-      '※ Please do not close your browser during upgrade.': '※ 升級時請勿關閉瀏覽器',
+      '※ Please do not close your browser during the upgrade.': '※ 升級時請勿關閉瀏覽器',
       'Uploading Software': '軟體上傳中',
       'Installing Software': '軟體安裝中',
       'Shutting Down': '裝置關閉中',
@@ -800,6 +800,8 @@ module.exports = {
       // /system/information
       'Build Version': '開發版號',
       'S/N Code': 'S/N 碼',
+      'Downloading System Log': 'Downloading System Log',
+      'Download in progress': 'Download in progress',
 
       // /sd-card
       'Enable SD Card': '開啟記憶卡',

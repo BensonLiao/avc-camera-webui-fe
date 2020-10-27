@@ -781,7 +781,7 @@ module.exports = {
       'Stage 02': 'Stage 2',
       'Stage 03': 'Stage 3',
       'Stage 04': 'Stage 4',
-      '※ Please do not close your browser during upgrade.': '※ Please do not close your browser during upgrade.',
+      '※ Please do not close your browser during the upgrade.': '※ Please do not close your browser during the upgrade.',
       'Uploading Software': 'Uploading Software',
       'Installing Software': 'Installing Software',
       'Shutting Down': 'Shutting Down',
@@ -800,6 +800,8 @@ module.exports = {
       // /system/information
       'Build Version': 'Build Version',
       'S/N Code': 'S/N Code',
+      'Downloading System Log': 'Downloading System Log',
+      'Download in progress': 'Download in progress',
 
       // /sd-card
       'Enable SD Card': 'Enable SD Card',
