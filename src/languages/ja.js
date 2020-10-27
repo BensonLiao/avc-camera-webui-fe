@@ -27,15 +27,15 @@ module.exports = {
 
       // Component / Navigation
       Home: '首頁',
-      Image: '圖像',
+      Image: '画像設定',
       Video: '映像',
-      Audio: '聲音',
-      Notification: '通報',
-      'User Management': '人員',
-      Analytics: '影像分析',
+      Audio: 'オーディオ設定',
+      Notification: '通知',
+      'User Management': 'ユーザー管理',
+      Analytics: '映像分析',
       Network: '網路',
       System: '系統',
-      SDCard: 'SD卡',
+      SDCard: 'SDカード',
 
       // Component / App Bar
       About: '關於',
@@ -99,7 +99,7 @@ module.exports = {
       'validation-birthday': '請使用正確的生日格式。',
       'validation-countryCode': '國家代碼錯誤。',
       'This name already exists in the system. Please use a different name.': '名稱重複，請使用不同名稱',
-      'The port number must not be empty.': '此欄位必需輸入',
+      'The port number must not be empty.': 'この項目の入力は必須です',
 
       // Component / CustomTooltip
       'Hide Password': '隱藏密碼',
@@ -128,7 +128,7 @@ module.exports = {
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
       'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8～16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “  \\ / < >',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Welcome: '歡迎',
       'For a better experience,': '為了使您有更好的體驗，',
@@ -176,7 +176,7 @@ module.exports = {
       'Please enter the email address.': '請輸入電子信箱',
       Domain: '域名',
       'Please enter the domain.': '請輸入域名',
-      'Range: 1024-65535 Default: 8443': '範圍：1024-65535, 預設：8443',
+      'Range: 1024-65535 Default: 8443': '入力範囲: 1024-65535, デフォルト: 8443',
 
       // /login
       Login: '登入',
@@ -194,12 +194,12 @@ module.exports = {
       'Expires in 12 hours': '12 小時後過期',
 
       // /login-lock
-      'Too Many Login Attempts!': '登入帳號密碼錯誤5次以上',
-      'Please try again in 5 minutes.': '請5分鐘後再嘗試登入',
+      'Too Many Login Attempts!': 'アカウントやパスワードの入力間違い回数は５回以上に達しました',
+      'Please try again in 5 minutes.': '5分後再度ログインを試みてください',
       'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
-      'Login locked': '鎖定登入',
+      'Login locked': 'ログインがロックされました',
       'Forgot password?': '忘記密碼？',
-      '{{0}} Remaining': '還需 {{0}} 才能再次登入',
+      '{{0}} Remaining': 'ログインするため {{0}} が必要です',
       'Login Again': '重新登入',
 
       // Deprecated
@@ -218,38 +218,38 @@ module.exports = {
       // /home
       'Device Name': '裝置名稱',
       'Device Status': '裝置狀態',
-      'SD Card': '記憶卡',
-      'Authentication Required': '未啟用',
+      'SD Card': 'SDカード',
+      'Authentication Required': '無効',
       'Facial Recognition: ': '臉部辨識 : ',
       'Age & Gender: ': '性別年齡 : ',
       'Human Detection: ': '人形偵測 : ',
       'Free: {{0}}, Total: {{1}}': '{{0}} 可用 (共 {{1}})',
       'Enable HDR': '開啟HDR',
-      Adjustments: '屬性',
+      Adjustments: '属性',
       Brightness: '亮度',
       Contrast: '對比',
       Sharpness: '銳利度',
       Saturation: '飽和度',
-      'Lens Control': '鏡頭',
+      'Lens Control': 'レンズ',
       'Select Focus Type': '選擇對焦方式',
       'Full-Range Focus': '全範圍對焦',
       'Short-Range Focus': '短距離對焦',
       Focus: '對焦',
       Zoom: '焦距',
-      'Auto Focus after Zoom': '縮放時自動對焦',
+      'Auto Focus after Zoom': 'ズーム調整するとき、自動フォーカスする',
       Iris: '光圈',
       'Shutter Speed': '快門速度',
-      Advanced: '進階',
+      Advanced: '高度な設定',
       'White Balance': '白平衡',
       'Color Temperature': '色溫',
       'IR Control': '紅外線燈',
       Level: '強度',
-      'Day/Night': '日間/夜間模式',
+      'Day/Night': 'デイナイト機能',
       Sensitivity: '靈敏度',
       'Day Mode': '日間模式',
       Rotation: '旋轉',
       Defog: '除霧',
-      'Lighting Compensation Frequency (Hz)': '電源頻率',
+      'Lighting Compensation Frequency (Hz)': '更新周波数(Hz)',
       'Auto Focus': '自動對焦',
       'Focal Length': '焦距',
       'Reset to Default Settings': '恢復預設值',
@@ -296,7 +296,7 @@ module.exports = {
 
       // /media
       'Video Settings': '影像',
-      Streams: '串流',
+      Streams: 'ストリーム',
       OSD: '文字貼圖',
       'Privacy Mask': '隱私遮罩',
 
@@ -304,12 +304,12 @@ module.exports = {
       Settings: '設定',
       'Stream 01': '串流 01',
       'Stream 02': '串流 02',
-      Codec: '影像編碼',
+      Codec: 'コーデック',
       Resolution: '解析度',
-      'Frame Rate (FPS)': '每秒幀數',
-      'Bandwidth Management': '位元率管理',
+      'Frame Rate (FPS)': 'フレームレート (FPS)',
+      'Bandwidth Management': 'ビットレート制御',
       Quality: '品質',
-      'Are you sure you want to update stream settings?': '您確定要更改串流設定嗎？',
+      'Are you sure you want to update stream settings?': 'ストリーム設定を変更しますか？',
       'Updating Stream Settings': '更新串流設定',
       'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': '改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？',
       // /media/stream / Constans / Resolution
@@ -337,31 +337,32 @@ module.exports = {
       '{{0}} - {{1}} Kbps': '{{0}} - {{1}} Kbps',
 
       // /media/rtsp
-      'Enable Audio over RTSP': '開啟將聲音紀錄至串流',
-      'Require Authentication': '開啟帳號密碼認證',
-      'RTSP/TCP Port': 'RTSP/TCP 連接埠',
-      'Range: 1024-65535 Default: 8554': '範圍：1024-65535, 預設：8554',
-      'RTSP/UDP Port': 'RTSP/UDP 連接埠',
-      'Range: 1024-65535 Default: 17300': '範圍：1024-65535, 預設：17300',
-      'Maximum Number of Concurrent Connections': '同時最大連接數',
+      'Enable Audio over RTSP': 'RTSPでのオーディオ出力を有効する',
+      'Require Authentication': 'アカウント認証を有効にする',
+      'RTSP/TCP Port': 'RTSP/TCPポート',
+      'Range: 1024-65535 Default: 8554': '入力範囲：1024-65535、デフォルト：8554',
+      'RTSP/UDP Port': 'RTSP/UDPポート',
+      'Range: 1024-65535 Default: 17300': '入力範囲：1024-65535、デフォルト：17300',
+      'Maximum Number of Concurrent Connections': '最大同時接続クライアント数',
 
       // /media/hdmi
       HDMI: 'HDMI',
+      'HDMI Title': 'HDMI設定',
       'Updating HDMI settings': '更新HDMI設定',
       'Are you sure you want to update HDMI settings?': '您即將更改HDMI設定，確認是否繼續？',
 
       // /media/word
       'Enable On-Screen Display': '開啟文字貼圖',
-      Size: '文字大小',
+      Size: '文字サイズ',
       Color: '顏色',
       Word: '文字',
-      Position: '位置',
+      Position: '表示位置',
       'Click the arrow on the preview window.': '請在預覽窗格中點選箭頭',
       'Left Top': '左上',
       'Right Top': '右上',
       'Left Bottom': '左下',
       'Right Bottom': '右下',
-      'Text Overlay': '內容',
+      'Text Overlay': 'テキスト',
       // /media/word / Constants / Size
       'font-size-0': '小',
       'font-size-1': '中',
@@ -375,18 +376,18 @@ module.exports = {
 
       // /media/privacy-mask
       'Enable Privacy Mask': '開啟隱私遮罩',
-      'Create mask areas on the preview window.': '請在預覽窗格新增隱私遮罩',
+      'Create mask areas on the preview window.': 'プレビューウィンドにマスクを追加してください',
       'Mask Area': '遮罩區域',
       'Note Area': '說明',
       Drag: '拖曳',
       'To set a mask:': '新增遮罩',
       'To erase a mask:': '刪除遮罩',
-      'Up to 4 mask areas can be set.': '最多4個遮罩',
+      'Up to 4 mask areas can be set.': 'マスクは最大四ヶ所まで設定可能です',
 
       // /audio
       'Enable Audio Input': 'オーディオ入力を有効にする',
-      'Audio Quality': '品質',
-      'Input Source': '輸入來源',
+      'Audio Quality': 'オーディオ品質',
+      'Input Source': '入力ソース',
       'Internal Microphone': '內建式麥克風',
       'External Microphone': '外接麥克風',
       'Audio Out': '聲音輸出',
@@ -395,7 +396,7 @@ module.exports = {
       'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
 
       // /notification
-      'Notification Settings': '通報',
+      'Notification Settings': '通知設定',
       'Notification Method': '通報方式',
       App: 'APP設定',
       Email: '電子郵件',
@@ -656,13 +657,13 @@ module.exports = {
       'Up to 4 detection zones can be set.': '最多4個區域',
 
       // /analytic/license
-      License: '智慧分析授權',
-      'Enter your authentication key': '請輸入啟用碼',
+      License: '映像分析ライセンス',
+      'Enter your authentication key': 'ライセンスキーを入力してください',
       Activate: '啟用',
       Activated: '已啟用',
       'Activation Required': '未啟用',
       'Activated By': '啟用者',
-      'Authentication Key': '啟用碼',
+      'Authentication Key': 'ライセンスキー',
       'Activated Functions': '啟用功能',
       'Enable Status': '狀態',
       'Activated Success': '啟用成功',
@@ -770,7 +771,7 @@ module.exports = {
       '• RTSP settings': '• RTSP設定',
       '• Internet & Network settings': '• 網路設定',
       '• Data on the SD Card': '• SDカード内のデータ',
-      'The device has rebooted. Please log in again.': '裝置已重新啟動，請重新登入',
+      'The device has rebooted. Please log in again.': 'デバイスは再起動しましたため、再度ログインしてください',
 
       // /system/upgrade
       'Upload Software': 'ソフトウェアのアップロード',
@@ -815,8 +816,8 @@ module.exports = {
       Mount: '掛載',
       Unmount: '卸載',
       'Error Notification': '異常通報',
-      'Email Notification Set': '已設定電子郵件',
-      Filesystem: '檔案系統格式',
+      'Email Notification Set': 'メールアドレスが設定されました',
+      Filesystem: 'ファイルシステム形式',
       'Storage Space': '儲存空間',
       'Free: {{0}}': '{{0}} 可用',
       'Used: {{0}}': '{{0}} 已使用',
@@ -926,7 +927,7 @@ module.exports = {
       // 9045
       'Non-existent Photo': '事件截圖不存在',
       // 9046
-      'Invalid Key': '啟用失敗, 錯誤的啟動碼',
+      'Invalid Key': '無効なライセンスキー',
       // 9047
       'Duplicate Key': '啟用失敗, 重複的啟動碼',
       // 9048

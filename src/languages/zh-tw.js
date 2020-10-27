@@ -176,7 +176,7 @@ module.exports = {
       'Please enter the email address.': '請輸入電子信箱',
       Domain: '域名',
       'Please enter the domain.': '請輸入域名',
-      'Range: 1024-65535 Default: 8443': '範圍：1024-65535, 預設：8443',
+      'Range: 1024-65535 Default: 8443': '範圍：1024-65535，預設：8443',
 
       // /login
       Login: '登入',
@@ -340,13 +340,14 @@ module.exports = {
       'Enable Audio over RTSP': '開啟將聲音紀錄至串流',
       'Require Authentication': '開啟帳號密碼認證',
       'RTSP/TCP Port': 'RTSP/TCP 連接埠',
-      'Range: 1024-65535 Default: 8554': '範圍：1024-65535, 預設：8554',
+      'Range: 1024-65535 Default: 8554': '範圍：1024-65535，預設：8554',
       'RTSP/UDP Port': 'RTSP/UDP 連接埠',
-      'Range: 1024-65535 Default: 17300': '範圍：1024-65535, 預設：17300',
+      'Range: 1024-65535 Default: 17300': '範圍：1024-65535，預設：17300',
       'Maximum Number of Concurrent Connections': '同時最大連接數',
 
       // /media/hdmi
       HDMI: 'HDMI',
+      'HDMI Title': 'HDMI',
       'Updating HDMI settings': '更新HDMI設定',
       'Are you sure you want to update HDMI settings?': '您即將更改HDMI設定，確認是否繼續？',
 
@@ -706,7 +707,7 @@ module.exports = {
       'Enter DDNS password.': '請輸入 DDNS 密碼',
       'Secondary HTTP Port': 'HTTP 次要連接埠',
       'Enter Your Secondary Server Port': '請輸入您的服務埠',
-      'Range: 1024-65535 Default: 8080': '範圍：1024-65535, 預設：8080',
+      'Range: 1024-65535 Default: 8080': '範圍：1024-65535，預設：8080',
       'Setting Success': '設定成功',
       'Setting Failed': '設定失敗',
       'DDNS Setting Success': 'DDNS 設定成功！',

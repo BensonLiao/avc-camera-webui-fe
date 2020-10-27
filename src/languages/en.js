@@ -142,7 +142,7 @@ module.exports = {
       Next: 'Next',
 
       // /setup/account
-      'Setup Account': '初始Setup Account帳號設定',
+      'Setup Account': 'Setup Account',
       Account: 'Account',
       'Please enter your account.': 'Please enter your account.',
       Permission: 'Permission',
@@ -150,7 +150,7 @@ module.exports = {
       Birthday: 'Birthday',
       'This is used for resetting password.': 'This is used for resetting password.',
       'Enter your account': 'Enter your account',
-      'Enter your password': '請輸Enter your password入您的密碼',
+      'Enter your password': 'Enter your password',
       // /setup/account / Constants / Permission
       'permission-0': 'Admin',
       'permission-1': 'Viewer',
@@ -347,6 +347,7 @@ module.exports = {
 
       // /media/hdmi
       HDMI: 'HDMI',
+      'HDMI Title': 'HDMI',
       'Updating HDMI settings': 'Updating HDMI settings',
       'Are you sure you want to update HDMI settings?': 'Are you sure you want to update HDMI settings?',
 
@@ -599,12 +600,12 @@ module.exports = {
       'Can\'t find any data.': 'Can\'t find any data.',
       Filters: 'Filters',
       Clear: 'Clear',
-      'Start Date': 'Start Date',
-      'Start Time': 'Start Time',
-      'Start Datetime': 'Start Datetime',
-      'End Date': 'End Date',
-      'End Time': 'End Time',
-      'End Datetime': 'End Datetime',
+      'Start Date': 'Date',
+      'Start Time': 'Time',
+      'Start Datetime': 'Start Time',
+      'End Date': 'Date',
+      'End Time': 'Time',
+      'End Datetime': 'End Time',
       'Facial Recognition': 'Facial Recognition',
       'Age & Gender': 'Age & Gender',
       'Human Detection': 'Human Detection',
@@ -741,8 +742,8 @@ module.exports = {
       'Sync with Network Time Server (NTP)': 'Sync with Network Time Server (NTP)',
       'Host Name or IP Address': 'Host Name or IP Address',
       'Sync Time': 'Sync Time',
-      'Manual Date': 'Manual Date',
-      'Manual Time': 'Manual Time',
+      'Manual Date': 'Date',
+      'Manual Time': 'Time',
       'Sync Interval (minutes)': 'Sync Interval (minutes)',
       'Sync with Your Computer': 'Sync with Your Computer',
       'Set the Date & Time Manually': 'Set the Date & Time Manually',
