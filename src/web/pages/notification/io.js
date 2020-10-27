@@ -13,8 +13,7 @@ export default withGlobalStatus(
       return {
         ioInSettings: PropTypes.shape(IoInput.propTypes.ioInSettings).isRequired,
         ioOutASettings: PropTypes.shape(IoOutput.propTypes.ioOutSettings).isRequired,
-        ioOutBSettings: PropTypes.shape(IoOutput.propTypes.ioOutSettings).isRequired,
-        $isApiProcessing: PropTypes.bool.isRequired
+        ioOutBSettings: PropTypes.shape(IoOutput.propTypes.ioOutSettings).isRequired
       };
     }
 
@@ -29,7 +28,7 @@ export default withGlobalStatus(
     };
 
     render() {
-      const {ioInSettings, ioOutASettings, ioOutBSettings, $isApiProcessing} = this.props;
+      const {ioInSettings, ioOutASettings, ioOutBSettings} = this.props;
       const {currentTab} = this.state;
 
       return (
@@ -61,19 +60,16 @@ export default withGlobalStatus(
                         <IoInput
                           ioInSettings={ioInSettings}
                           currentTab={currentTab}
-                          isApiProcessing={$isApiProcessing}
                         />
                         <IoOutput
                           ioOutSettings={ioOutASettings}
                           index={1}
                           currentTab={currentTab}
-                          isApiProcessing={$isApiProcessing}
                         />
                         <IoOutput
                           ioOutSettings={ioOutBSettings}
                           index={2}
                           currentTab={currentTab}
-                          isApiProcessing={$isApiProcessing}
                         />
                       </div>
                     </Tab.Container>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import store from '../core/store';
+import {StateProvider} from './stateProvider';
 
 const withGlobalStatus = WrappedComponent => {
   class WithGlobalStatusHOC extends Component {
@@ -75,8 +76,9 @@ const withGlobalStatus = WrappedComponent => {
     }
 
     render() {
+      const isApiProcessing = store.get('$isApiProcessing');
       return (
-        <div>
+        <StateProvider initialState={{isApiProcessing}}>
           <WrappedComponent
             {...{
               $listens: this.$listens,
@@ -84,7 +86,7 @@ const withGlobalStatus = WrappedComponent => {
               ...this.storeValues
             }}
           />
-        </div>
+        </StateProvider>
       );
     }
   }
