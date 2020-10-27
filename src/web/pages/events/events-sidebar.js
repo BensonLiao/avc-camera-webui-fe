@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const {Link, getRouter} = require('capybara-router');
 const PropTypes = require('prop-types');
 const React = require('react');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 

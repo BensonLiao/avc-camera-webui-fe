@@ -6,7 +6,7 @@ const {Nav, Tab} = require('react-bootstrap');
 const Overlay = require('react-bootstrap/Overlay').default;
 const dayjs = require('dayjs');
 const utils = require('../../utils');
-const i18n = require('../../../web/i18n').default;
+const i18n = require('../../../i18n').default;
 
 const CLOCK_ITEM_HEIGHT = 40;
 

@@ -1,5 +1,5 @@
 const React = require('react');
-const i18n = require('../../web/i18n').default;
+const i18n = require('../../i18n').default;
 const api = require('../apis/web-api');
 const notify = require('../notify');
 const store = require('../store');

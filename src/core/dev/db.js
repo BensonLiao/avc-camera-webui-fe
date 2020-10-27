@@ -239,7 +239,7 @@ module.exports = {
         isAutoFocusAfterZoom: false
       },
       system: {
-        languageCode: 'en-us',
+        languageCode: 'en',
         deviceName: 'IP Camera',
         deviceStatus: 1,
         sensorResolution: 1,
@@ -385,11 +385,6 @@ module.exports = {
         isEnable: false,
         sensibility: 1,
         areas: []
-      },
-      notificationAppSettings: {
-        deviceToken: '',
-        deviceId: '',
-        interval: ''
       },
       notificationIOInSettings: {
         isEnable: false,

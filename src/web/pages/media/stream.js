@@ -1,7 +1,7 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const Base = require('../shared/base');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const StreamSetting = require('./stream-setting');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 

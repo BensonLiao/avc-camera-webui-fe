@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {Nav, Tab} from 'react-bootstrap';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import IoInput from './io-input';
 import IoOutput from './io-output';

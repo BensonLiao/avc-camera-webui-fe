@@ -10,7 +10,7 @@ import SMTPPort from 'webserver-form-schema/constants/smtp-port';
 import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomTooltip from '../../../core/components/tooltip';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import notify from '../../../core/notify';
 import smtpAccountSettingsValidator from '../../validations/notifications/smtp-account-settings-validator';
 import smtpSettingsValidator from '../../validations/notifications/smtp-settings-validator';

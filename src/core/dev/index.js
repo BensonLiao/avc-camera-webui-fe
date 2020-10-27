@@ -61,13 +61,6 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onGet('/api/system/information').reply(config => mockResponseWithLog(config, [200, db.get('system').value()]))
   .onGet('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').value()]))
   .onPut('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').assign(JSON.parse(config.data)).write()]))
-  .onPut('/api/system/language').reply(config => {
-    const data = {
-      ...db.get('system').value(),
-      languageCode: JSON.parse(config.data).language
-    };
-    return mockResponseWithLog(config, [200, db.get('system').assign(data).write()]);
-  })
   .onGet('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').value()]))
   .onPut('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/network/testdhcp').reply(config => {
@@ -129,8 +122,6 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onPut('/api/multimedia/privacy-mask/settings').reply(config => mockResponseWithLog(config, [200, db.get('privacyMaskSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/multimedia/word/settings').reply(config => mockResponseWithLog(config, [200, db.get('wordSettings').value()]))
   .onPut('/api/multimedia/word/settings').reply(config => mockResponseWithLog(config, [200, db.get('wordSettings').assign(config.data).write()]))
-  .onGet('/api/notification/app/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationAppSettings').value()]))
-  .onPut('/api/notification/app/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationAppSettings').assign(config.data).write()]))
   .onGet('/api/notification/io-in/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationIOInSettings').value()]))
   .onPut('/api/notification/io-in/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationIOInSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/notification/io-out/0/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationIOOutSettings').value()[0]]))

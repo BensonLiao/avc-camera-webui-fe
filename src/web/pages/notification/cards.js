@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import progress from 'nprogress';
 import sanitizeHtml from 'sanitize-html';
 import NotificationFaceRecognitionCondition from 'webserver-form-schema/constants/notification-face-recognition-condition';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import {NOTIFY_CARDS_MAX} from '../../../core/constants';
 import notify from '../../../core/notify';
