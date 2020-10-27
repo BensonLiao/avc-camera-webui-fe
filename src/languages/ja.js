@@ -5,19 +5,19 @@ module.exports = {
       // -- Component -- START --
 
       // Component / Button
-      Apply: '套用',
+      Apply: '適用',
 
       // Component / Loading Spinner
-      Loading: '載入中',
+      Loading: 'ロードしています',
 
       // Component / Date Picker
       Sun: '日',
-      Mon: '一',
-      Tue: '二',
-      Wed: '三',
-      Thu: '四',
-      Fri: '五',
-      Sat: '六',
+      Mon: '月',
+      Tue: '火',
+      Wed: '水',
+      Thu: '木',
+      Fri: '金',
+      Sat: '土',
 
       // Component / API Processing Modal
       'Please wait': 'しばらくお待ちください',
@@ -182,7 +182,7 @@ module.exports = {
       'Please enter the email address.': '請輸入電子信箱',
       Domain: '域名',
       'Please enter the domain.': '請輸入域名',
-      'Range: 1024-65535 Default: 8443': '入力範囲: 1024-65535, デフォルト: 8443',
+      'Range: 1024-65535 Default: 8443': '入力範囲：1024-65535 デフォルト：8443',
 
       // /login
       Login: '登入',
@@ -346,9 +346,9 @@ module.exports = {
       'Enable Audio over RTSP': 'RTSPでのオーディオ出力を有効する',
       'Require Authentication': 'アカウント認証を有効にする',
       'RTSP/TCP Port': 'RTSP/TCPポート',
-      'Range: 1024-65535 Default: 8554': '入力範囲：1024-65535、デフォルト：8554',
+      'Range: 1024-65535 Default: 8554': '入力範囲：1024-65535 デフォルト：8554',
       'RTSP/UDP Port': 'RTSP/UDPポート',
-      'Range: 1024-65535 Default: 17300': '入力範囲：1024-65535、デフォルト：17300',
+      'Range: 1024-65535 Default: 17300': '入力範囲：1024-65535 デフォルト：17300',
       'Maximum Number of Concurrent Connections': '最大同時接続クライアント数',
 
       // /media/hdmi
@@ -720,7 +720,7 @@ module.exports = {
       'Enter DDNS password.': '請輸入 DDNS 密碼',
       'Secondary HTTP Port': 'HTTPセカンダリーポート',
       'Enter Your Secondary Server Port': '請輸入您的服務埠',
-      'Range: 1024-65535 Default: 8080': '入力範囲: 1024-65535, デフォルト: 8080',
+      'Range: 1024-65535 Default: 8080': '入力範囲：1024-65535 デフォルト：8080',
       'Setting Success': '設定が成功しました',
       'Setting Failed': '設定が失敗しました',
       'DDNS Setting Success': 'DDNS 設定が成功しました',
