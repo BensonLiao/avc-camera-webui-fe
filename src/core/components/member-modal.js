@@ -685,6 +685,7 @@ module.exports = class Member extends React.PureComponent {
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
             />
             <ErrorMessage component="div" name="note" className="invalid-feedback"/>
+            <small className="form-text text-muted">{i18n.t('Maximum length: 256 characters')}</small>
           </div>
         </div>
         <div className="modal-footer flex-column">

@@ -18,8 +18,14 @@ module.exports = {
       Thu: 'Thu',
       Fri: 'Fri',
       Sat: 'Sat',
+
       // Component / API Processing Modal
       'Please wait': 'Please wait',
+
+      // Component / Session Expired Modal
+      'Session Expired': 'Session Expired',
+      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': 'Your session has expired. You will be redirected to the login page in {{0}} second(s).',
+      'Renew Session': 'Renew Session',
 
       // Component / Switch component
       ON: 'ON',
@@ -431,6 +437,7 @@ module.exports = {
       'Mail Setting Failed': 'Mail Setting Failed',
       'Sending Test Email': 'Sending Test Email',
       'Disabling Outgoing Email': 'Disabling Outgoing Email',
+      'Email Title': 'Email',
 
       // /notification/io
       'Input & Output': 'Input & Output',
@@ -454,7 +461,7 @@ module.exports = {
       'Notification Filters': 'Filters',
       Pinned: 'Pinned',
       Others: 'Others',
-      'Unpin Card': 'Unpin Card',
+      'Unpin Card': 'Unpin this card',
       'Pin this card': 'Pin this card',
       'Enter card title': 'Enter card title',
       'Email: On': 'Email: On',
@@ -548,6 +555,7 @@ module.exports = {
       'Enter a name for this group': 'Enter a name for this group',
       Note: 'Note',
       'Enter a note': 'Enter a note',
+      'Maximum length: 256 characters': 'Maximum length: 256 characters',
       Create: 'Create',
       Close: 'Close',
 
@@ -697,6 +705,11 @@ module.exports = {
       'No changes were made.': 'No changes were made.',
       'Please enable HTTPS first.': 'Please enable HTTPS first.',
       'Are you sure you want to update network settings?': 'Are you sure you want to update network settings?',
+      'Enter a fixed IP address': 'Enter a fixed IP address',
+      'Enter Subnet Mask': 'Enter Subnet Mask',
+      'Enter Router/Gateway': 'Enter Router/Gateway',
+      'Enter a primary DNS': 'Enter a primary DNS',
+      'Enter a secondary DNS': 'Enter a secondary DNS',
 
       // /network/tcp-ip
       'Enable DDNS': 'Enable DDNS',
@@ -817,6 +830,7 @@ module.exports = {
       Unmount: 'Unmount',
       'Error Notification': 'Error Notification',
       'Email Notification Set': 'Email Notification Set',
+      'SD Card Enable Outgoing Email': 'Enable Outgoing Email',
       Filesystem: 'Filesystem',
       'Storage Space': 'Storage Space',
       'Free: {{0}}': 'Free: {{0}}',

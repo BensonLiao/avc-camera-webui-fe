@@ -10,7 +10,7 @@ const constants = require('../constants');
 module.exports = class SessionExpireModal extends React.PureComponent {
   state = {
     isShowModal: false,
-    modalBody: i18n.t('Your session has expired, redirect in {{0}} seconds', {0: constants.REDIRECT_COUNTDOWN})
+    modalBody: i18n.t('Your session has expired. You will be redirected to the login page in {{0}} second(s).', {0: constants.REDIRECT_COUNTDOWN})
   }
 
   componentDidMount() {
@@ -21,12 +21,12 @@ module.exports = class SessionExpireModal extends React.PureComponent {
           this.setState(
             {
               isShowModal: true,
-              modalBody: i18n.t('Your session has expired, redirect in {{0}} seconds', {0: constants.REDIRECT_COUNTDOWN})
+              modalBody: i18n.t('Your session has expired. You will be redirected to the login page in {{0}} second(s).', {0: constants.REDIRECT_COUNTDOWN})
             },
             () => {
               let countdown = constants.REDIRECT_COUNTDOWN;
               this.countdownID = setInterval(() => {
-                this.setState({modalBody: i18n.t('Your session has expired, redirect in {{0}} seconds', {0: --countdown})});
+                this.setState({modalBody: i18n.t('Your session has expired. You will be redirected to the login page in {{0}} second(s).', {0: --countdown})});
               }, 1000);
               this.countdownTimerID = setTimeout(() => {
                 store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);
@@ -55,7 +55,7 @@ module.exports = class SessionExpireModal extends React.PureComponent {
         isShowModal={isShowModal}
         modalTitle={i18n.t('Session Expired')}
         modalBody={modalBody}
-        confirmBtnTitle={i18n.t('Resume Session')}
+        confirmBtnTitle={i18n.t('Renew Session')}
         onConfirm={() => {
           api.account.refresh()
             .then(() => {

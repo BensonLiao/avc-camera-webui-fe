@@ -18,8 +18,14 @@ module.exports = {
       Thu: '四',
       Fri: '五',
       Sat: '六',
+
       // Component / API Processing Modal
       'Please wait': '請稍候',
+
+      // Component / Session Expired Modal
+      'Session Expired': '自動登出',
+      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': '閒置時間過長，{{0}} 秒後登出並重新導向登入頁面',
+      'Renew Session': '未閒置',
 
       // Component / Switch component
       ON: '開啟',
@@ -419,7 +425,7 @@ module.exports = {
       Port: '連接埠',
       Encryption: '加密方式',
       None: '無',
-      'Enable Device Login Notification': '登入通知信',
+      'Enable Device Login Notification': '開啟裝置登入通報',
       'Please Enable SMTP Server': '請先開啟SMTP伺服器',
       'Sender Information': '寄件人資訊',
       'Enter sender\'s name': '輸入寄件人名稱',
@@ -431,6 +437,7 @@ module.exports = {
       'Mail Setting Failed': '電子郵件設定失敗',
       'Sending Test Email': '測試郵件已寄出',
       'Disabling Outgoing Email': '設定成功',
+      'Email Title': '電子郵件',
 
       // /notification/io
       'Input & Output': '數位輸出及輸入',
@@ -548,6 +555,7 @@ module.exports = {
       'Enter a name for this group': '輸入群組名稱',
       Note: '備註',
       'Enter a note': '輸入備註',
+      'Maximum length: 256 characters': '最多256個字',
       Create: '新增',
       Close: '關閉',
 
@@ -691,16 +699,21 @@ module.exports = {
       'Router/Gateway': '路由器/閘道',
       'Primary DNS': '主要 DNS',
       'Secondary DNS (Optional)': '次要 DNS (選填)',
-      Interface: '介面',
+      Interface: '連接方式',
       'IP Assignment': 'IP 取得方式',
       'Secondary DNS': '次要 DNS',
       'No changes were made.': '沒有設定被更改',
       'Please enable HTTPS first.': '請先開啟 HTTPS 功能',
       'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
+      'Enter a fixed IP address': '請輸入固定IP位址',
+      'Enter Subnet Mask': '請輸入子網路遮罩',
+      'Enter Router/Gateway': '請輸入路由器/閘道',
+      'Enter a primary DNS': '請輸入主要DNS',
+      'Enter a secondary DNS': '請輸入次要DNS',
 
       // /network/tcp-ip
       'Enable DDNS': '開啟 DDNS 服務',
-      'Service Provider': '服務提供',
+      'Service Provider': '服務提供者',
       'Host Name': '主機名稱',
       'Enter DDNS host name.': '請輸入 DDNS 主機名稱',
       'Enter DDNS username.': '請輸入 DDNS 使用者名稱',
@@ -817,6 +830,7 @@ module.exports = {
       Unmount: '卸載',
       'Error Notification': '異常通報',
       'Email Notification Set': '已設定電子郵件',
+      'SD Card Enable Outgoing Email': '設定電子郵件',
       Filesystem: '檔案系統格式',
       'Storage Space': '儲存空間',
       'Free: {{0}}': '{{0}} 可用',

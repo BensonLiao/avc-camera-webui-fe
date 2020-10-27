@@ -168,7 +168,7 @@ module.exports = class SMTP extends Base {
     return (
       <Form className="card shadow">
         <div className="card-header">
-          {i18n.t('Email')}
+          {i18n.t('Email Title')}
         </div>
         <div className="card-body">
           <div className="form-group d-flex justify-content-between align-items-center">

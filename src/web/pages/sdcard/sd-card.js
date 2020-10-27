@@ -189,7 +189,7 @@ module.exports = class SDCard extends Base {
                   {
                     isEnableAuth ?
                       <a className="text-success">{i18n.t('Email Notification Set')}</a> :
-                      <Link className="text-danger" to="/notification/smtp">{i18n.t('Enable Outgoing Email')}</Link>
+                      <Link className="text-danger" to="/notification/smtp">{i18n.t('SD Card Enable Outgoing Email')}</Link>
                   }
                 </span>
                 <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable outgoing email first.')}>
