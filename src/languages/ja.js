@@ -193,11 +193,11 @@ module.exports = {
 
       // /login-error
       'Incorrect Password': '密碼輸入錯誤',
-      'You have {{0}} attempt(s) remaining...': '您尚可嘗試 {{0}} 次...',
-      'Expires in 10 minutes': '10 分鐘後過期',
-      'Expires in 30 minutes': '30 分鐘後過期',
-      'Expires in 1 hour': '1 小時後過期',
-      'Expires in 12 hours': '12 小時後過期',
+      'You have {{0}} attempt(s) remaining...': 'リトライ可能回数は残り {{0}} 回...',
+      'Expires in 10 minutes': '10 分後期限切れ',
+      'Expires in 30 minutes': '30 分後期限切れ',
+      'Expires in 1 hour': '1 時間後期限切れ',
+      'Expires in 12 hours': '12 時間後期限切れ',
 
       // /login-lock
       'Too Many Login Attempts!': 'アカウントやパスワードの入力間違い回数は５回以上に達しました',
