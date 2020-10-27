@@ -61,13 +61,6 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onGet('/api/system/information').reply(config => mockResponseWithLog(config, [200, db.get('system').value()]))
   .onGet('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').value()]))
   .onPut('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').assign(JSON.parse(config.data)).write()]))
-  .onPut('/api/system/language').reply(config => {
-    const data = {
-      ...db.get('system').value(),
-      languageCode: JSON.parse(config.data).language
-    };
-    return mockResponseWithLog(config, [200, db.get('system').assign(data).write()]);
-  })
   .onGet('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').value()]))
   .onPut('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/network/testdhcp').reply(config => {
