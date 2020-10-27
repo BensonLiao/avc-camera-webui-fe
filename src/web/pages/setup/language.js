@@ -52,9 +52,9 @@ module.exports = class SetupLanguage extends Base {
                     <div className="select-wrapper border rounded-pill overflow-hidden px-2">
                       <select name="language" value={window.currentLanguageCode} className="form-control border-0" onChange={this.onChangeLanguage}>
                         {
-                          i18n.options.langCodesTitle.map(locale => (
-                            <option key={locale.code} value={locale.code}>
-                              {locale.title}
+                          Object.keys(i18n.options.langCodesTitle).map(code => (
+                            <option key={code} value={code}>
+                              {i18n.options.langCodesTitle[code].title}
                             </option>
                           ))
                         }
