@@ -1,3 +1,1 @@
-if (!window.languageResource['zh-cn']) {
-  window.languageResource['zh-cn'] = {};
-}
+module.exports = {'zh-cn': {translation: {}}};

@@ -21,7 +21,7 @@ const logo = require('../../resource/logo-avc.svg');
 const CustomTooltip = require('../../core/components/tooltip');
 const SessionExpireModal = require('../../core/components/session-expire-modal');
 const api = require('../../core/apis/web-api');
-const i18n = require('../../web/i18n').default;
+const i18n = require('../../i18n').default;
 const constants = require('../../core/constants');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
@@ -30,7 +30,7 @@ module.exports = class Layout extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(constants.AVAILABLE_LANGUAGE_CODES).isRequired,
+        languageCode: PropTypes.oneOf(i18n.options.supportedLangCodes).isRequired,
         deviceName: PropTypes.string.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         serialNumber: PropTypes.string.isRequired,
@@ -272,18 +272,19 @@ module.exports = class Layout extends Base {
               <div className="col">
                 <div className="dropdown">
                   <button className="btn border-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                    <i className="fas fa-globe fa-fw"/> {window.config.languages[window.currentLanguageCode].title}
+                    <i className="fas fa-globe fa-fw"/>
+                    {i18n.options.langCodesTitle[window.currentLanguageCode].title}
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     {
-                      constants.AVAILABLE_LANGUAGE_CODES.map(languageCode => (
+                      Object.keys(i18n.options.langCodesTitle).map(code => (
                         <a
-                          key={languageCode}
+                          key={code}
                           className="dropdown-item"
-                          href={`#${languageCode}`}
-                          onClick={this.generateChangeLanguageHandler(languageCode)}
+                          href={`#${code}`}
+                          onClick={this.generateChangeLanguageHandler(code)}
                         >
-                          {window.config.languages[languageCode].title}
+                          {i18n.options.langCodesTitle[code].title}
                         </a>
                       ))
                     }

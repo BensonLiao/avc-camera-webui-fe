@@ -8,7 +8,7 @@ const Base = require('../shared/base');
 const rtspSettingsValidator = require('../../validations/media/rtsp-settings-validator');
 const {DEFAULT_PORTS} = require('../../../core/constants');
 const utils = require('../../../core/utils');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 

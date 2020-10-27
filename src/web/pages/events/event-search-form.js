@@ -5,7 +5,7 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
 const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const utils = require('../../../core/utils');
 

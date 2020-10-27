@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import utils from '../../../core/utils';
 import authKeyFaceRecognitionType from 'webserver-form-schema/constants/auth-key-fr';
 
