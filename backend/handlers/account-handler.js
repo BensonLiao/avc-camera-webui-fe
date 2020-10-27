@@ -33,6 +33,6 @@ exports.changeMyPassword = (req, res) => {
       permission: 'admin'
     });
   } else {
-    throw new errors.Http400('incorrect password.');
+    throw new errors.Http400('Incorrect Password');
   }
 };

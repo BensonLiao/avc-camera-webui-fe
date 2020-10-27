@@ -188,7 +188,6 @@ module.exports = {
       // /login-error
       'Incorrect Password': '密碼輸入錯誤',
       'You have {{0}} attempt(s) remaining...': '您尚可嘗試 {{0}} 次...',
-      'Incorrect password x {{0}}': '密碼錯誤 x {{0}}',
       'Expires in 10 minutes': '10 分鐘後過期',
       'Expires in 30 minutes': '30 分鐘後過期',
       'Expires in 1 hour': '1 小時後過期',
@@ -200,7 +199,6 @@ module.exports = {
       'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
       'Login locked': '鎖定登入',
       'Forgot password?': '忘記密碼？',
-      'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
       '{{0}} Remaining': '還需 {{0}} 才能再次登入',
       'Login Again': '重新登入',
 
@@ -335,6 +333,8 @@ module.exports = {
       'quality-30': '低',
       'quality-50': '中',
       'quality-80': '高',
+      // /media/stream / Constans / Bitrate
+      '{{0}} - {{1}} Kbps': '{{0}} - {{1}} Kbps',
 
       // /media/rtsp
       'Enable Audio over RTSP': '開啟將聲音紀錄至串流',
@@ -763,7 +763,7 @@ module.exports = {
       'Export System Settings': '匯出系統設定值',
       'Import System Settings': '匯入系統設定值',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': '裝置將還原成原廠設定，所有資料和設定將會被清除',
-      'The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following': '所有設定將被清除並回復成出廠預設值，但將保留以下設定',
+      'The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following': '裝置將還原成原廠設定，除了下列項目，其他所有的資料和設定將會被清除',
       '• Members and Groups': '• 成員清單和成員群組資料',
       '• System Accounts': '• 帳號資料',
       '• Focus and Zoom of Image settings': '• 對焦及縮放設定',
@@ -775,8 +775,8 @@ module.exports = {
       // /system/upgrade
       'Upload Software': '上傳軟體',
       'Install Software': '安裝軟體',
-      'Shutdown Device': '關閉裝置',
-      'Restart Device': '重新啟動裝置',
+      'Shut Down': '關閉裝置',
+      Restart: '重新啟動裝置',
       'Stage 01': '階段 1',
       'Stage 02': '階段 2',
       'Stage 03': '階段 3',

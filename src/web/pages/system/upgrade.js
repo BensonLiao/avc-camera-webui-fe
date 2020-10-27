@@ -312,13 +312,13 @@ module.exports = class Upgrade extends Base {
                   <StageProgress
                     key="stage 3"
                     stage={i18n.t('Stage 03')}
-                    title={i18n.t('Shutdown Device')}
+                    title={i18n.t('Shut Down')}
                     progressStatus={progressStatus.deviceShutdown}
                   />,
                   <StageProgress
                     key="stage 4"
                     stage={i18n.t('Stage 04')}
-                    title={i18n.t('Restart Device')}
+                    title={i18n.t('Restart')}
                     progressStatus={progressStatus.deviceRestart}
                   />
                 ]}

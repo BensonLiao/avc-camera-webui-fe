@@ -116,7 +116,7 @@ module.exports = {
       'This Account is Protected': '此帳戶不可刪除',
       'This account cannot be deleted because it is currently logged in to the device.': '無法刪除正在使用的帳號',
       // CustomTooltip / /system/maintain
-      'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': '勾選此項目會清除並還原成員及群組、系統帳號、縮放及對焦、RTSP、網路、應用程式、儲存在記憶卡的資料...等，所有資料和設定',
+      'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': '本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります',
       // CustomTooltip / /sd-card
       'Please disable the SD card first.': '請先關閉記憶卡功能',
       'Please enable outgoing email first.': 'メールアドレスを設定するのは必須です',
@@ -125,19 +125,230 @@ module.exports = {
 
       // -- Page -- START --
 
+      // /setup
+      'INITIAL PASSWORD SETUP': '初始密碼設定',
+      'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
+      Welcome: '歡迎',
+      'For a better experience,': '為了使您有更好的體驗，',
+      'Please click Continue to complete the initial setup!': '按繼續開始初始設定',
+      Continue: '繼續',
+      Submit: '確認',
+
+      // /setup/language
+      Language: '選擇語言',
+      HTTPS: '安全傳輸方式',
+      Next: '下一步',
+
+      // /setup/account
+      'Setup Account': '初始帳號設定',
+      Account: '帳號',
+      'Please enter your account.': '請輸入您的帳號名稱',
+      Permission: '權限',
+      Password: '密碼',
+      Birthday: '生日',
+      'This is used for resetting password.': '生日將會用於重置密碼',
+      'Enter your account': '請輸入您的帳號',
+      'Enter your password': '請輸入您的密碼',
+      // /setup/account / Constants / Permission
+      'permission-0': '管理者',
+      'permission-1': '訪客',
+      'permission-2': '訪客',
+      'permission-99': '管理者', // Super-Admin, for easier backend permission control, no difference for UI
+
+      // /setup/https
+      'Certificate Type': '憑證方式',
+      'SSL certificate.': 'SSL 憑證方式',
+      Certificate: '憑證',
+      'Private Key': '私鑰',
+      'Country Name': '國家名稱',
+      'Please enter the country code.': '請輸入您的國家代碼',
+      'Two letters.': '2 位字母代碼',
+      'State or province name': '州或省名稱',
+      'Please enter the state or province name.': '請輸入您的州或省名稱',
+      'City Name': '城市名稱',
+      'Please enter the city name.': '請輸入您的城市名稱',
+      'Organization Name': '組織名稱',
+      'The company.': '公司',
+      'Organization Unit Name': '組織部門名稱',
+      'Email Address': '電子信箱',
+      'Please enter the email address.': '請輸入電子信箱',
+      Domain: '域名',
+      'Please enter the domain.': '請輸入域名',
+      'Range: 1024-65535 Default: 8443': '範圍：1024-65535, 預設：8443',
+
+      // /login
+      Login: '登入',
+      'ACCOUNT LOGIN': '帳號登入',
+      'Enter Your Username and Password': '請輸入您的帳號與密碼',
+      'Enter your username': '請輸入您的帳號',
+      'Password Reset': '重置密碼',
+
+      // /login-error
+      'Incorrect Password': '密碼輸入錯誤',
+      'You have {{0}} attempt(s) remaining...': '您尚可嘗試 {{0}} 次...',
+      'Expires in 10 minutes': '10 分鐘後過期',
+      'Expires in 30 minutes': '30 分鐘後過期',
+      'Expires in 1 hour': '1 小時後過期',
+      'Expires in 12 hours': '12 小時後過期',
+
+      // /login-lock
+      'Too Many Login Attempts!': '登入帳號密碼錯誤5次以上',
+      'Please try again in 5 minutes.': '請5分鐘後再嘗試登入',
+      'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
+      'Login locked': '鎖定登入',
+      'Forgot password?': '忘記密碼？',
+      '{{0}} Remaining': '還需 {{0}} 才能再次登入',
+      'Login Again': '重新登入',
+
+      // Deprecated
+      // /forgot-password
+      'Forgot Password': '忘記密碼',
+      OK: '確定',
+
+      // Deprecated
+      // /reset-password
+      'Reset Password': '重設密碼',
+
+      // /reset-password-success
+      'Reset password success.': '重設密碼成功',
+      Done: '完成',
+
       // /home
+      'Device Name': '裝置名稱',
+      'Device Status': '裝置狀態',
+      'SD Card': '記憶卡',
+      'Authentication Required': '未啟用',
+      'Facial Recognition: ': '臉部辨識 : ',
+      'Age & Gender: ': '性別年齡 : ',
+      'Human Detection: ': '人形偵測 : ',
+      'Free: {{0}}, Total: {{1}}': '{{0}} 可用 (共 {{1}})',
+      'Enable HDR': '開啟HDR',
+      Adjustments: '屬性',
+      Brightness: '亮度',
+      Contrast: '對比',
+      Sharpness: '銳利度',
+      Saturation: '飽和度',
+      'Lens Control': '鏡頭',
+      'Select Focus Type': '選擇對焦方式',
+      'Full-Range Focus': '全範圍對焦',
+      'Short-Range Focus': '短距離對焦',
+      Focus: '對焦',
+      Zoom: '焦距',
+      'Auto Focus after Zoom': '縮放時自動對焦',
+      Iris: '光圈',
+      'Shutter Speed': '快門速度',
+      Advanced: '進階',
+      'White Balance': '白平衡',
+      'Color Temperature': '色溫',
+      'IR Control': '紅外線燈',
+      Level: '強度',
+      'Day/Night': '日間/夜間模式',
+      Sensitivity: '靈敏度',
+      'Day Mode': '日間模式',
+      Rotation: '旋轉',
+      Defog: '除霧',
+      'Lighting Compensation Frequency (Hz)': '電源頻率',
+      'Auto Focus': '自動對焦',
+      'Focal Length': '焦距',
+      'Reset to Default Settings': '恢復預設值',
+      // /home / Constans
+      Auto: '自動',
+      On: '開',
+      Off: '關',
+      Max: '最大',
+      // /home / Constans / Iris
+      'aperture-0': '自動',
+      'aperture-1': '最大',
+      // /home / Constans / Shutter speed
+      'shutter-speed-0': '自動',
+      'shutter-speed-1': '1/30',
+      'shutter-speed-2': '1/50',
+      'shutter-speed-3': '1/60',
+      'shutter-speed-4': '1/100',
+      'shutter-speed-5': '1/125',
+      'shutter-speed-6': '1/500',
+      'shutter-speed-7': '1/1,000',
+      'shutter-speed-8': '1/2,000',
+      'shutter-speed-9': '1/4,000',
+      'shutter-speed-10': '1/8,000',
       // /home / Constans / White balance
       'white-balance-0': '自動',
       'white-balance-1': '戶外',
       'white-balance-2': '蛍光灯',
       'white-balance-3': '白熱灯',
       'white-balance-4': '手動調整',
+      // /home / Constans / Day/Night
+      'daynight-mode-0': '自動',
+      'daynight-mode-1': '彩色',
+      'daynight-mode-2': '黑白',
+      'daynight-mode-3': '指定時段',
+      // /home / Constans / Rotation
+      'orientation-0': '正常',
+      'orientation-1': '垂直翻轉',
+      'orientation-2': '水平翻轉',
+      'orientation-3': '180 度翻轉',
+      // /home / Constans / Lighting Compensation Frequency (Hz)
+      'refresh-rate-0': '自動',
+      'refresh-rate-1': '50Hz',
+      'refresh-rate-2': '60Hz',
+
+      // /media
+      'Video Settings': '影像',
+      Streams: '串流',
+      OSD: '文字貼圖',
+      'Privacy Mask': '隱私遮罩',
 
       // /media/stream
+      Settings: '設定',
+      'Stream 01': '串流 01',
+      'Stream 02': '串流 02',
+      Codec: '影像編碼',
+      Resolution: '解析度',
+      'Frame Rate (FPS)': '每秒幀數',
+      'Bandwidth Management': '位元率管理',
+      Quality: '品質',
+      'Are you sure you want to update stream settings?': '您確定要更改串流設定嗎？',
+      'Updating Stream Settings': '更新串流設定',
+      'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': '改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？',
+      // /media/stream / Constans / Resolution
+      'stream-resolution-0': '3840*2160 (16:9)',
+      'stream-resolution-1': '2560*1440 (16:9)',
+      'stream-resolution-2': '1920*1080 (16:9)',
+      'stream-resolution-3': '1280*720 (16:9)',
+      'stream-resolution-4': '640*360 (16:9)',
+      'stream-resolution-5': '2560*1920 (4:3)',
+      'stream-resolution-6': '2048*1536 (4:3)',
+      'stream-resolution-7': '1600*1200 (4:3)',
+      'stream-resolution-8': '1280*960 (4:3)',
+      'stream-resolution-9': '1024*768 (4:3)',
+      'stream-resolution-10': '640*480 (4:3)',
+      'stream-resolution-11': '320*240 (4:3)',
       // /media/stream / Constans / Bandwidth Management
       'stream-bandwidth-management-0': '最大ビットレート',
       'stream-bandwidth-management-1': '可変ビットレート',
       'stream-bandwidth-management-2': '固定ビットレート',
+      // /media/stream / Constans / Quality
+      'quality-30': '低',
+      'quality-50': '中',
+      'quality-80': '高',
+      // /media/stream / Constans / Bitrate
+      '{{0}} - {{1}} Kbps': '{{0}} - {{1}} Kbps',
+
+      // /media/rtsp
+      'Enable Audio over RTSP': '開啟將聲音紀錄至串流',
+      'Require Authentication': '開啟帳號密碼認證',
+      'RTSP/TCP Port': 'RTSP/TCP 連接埠',
+      'Range: 1024-65535 Default: 8554': '範圍：1024-65535, 預設：8554',
+      'RTSP/UDP Port': 'RTSP/UDP 連接埠',
+      'Range: 1024-65535 Default: 17300': '範圍：1024-65535, 預設：17300',
+      'Maximum Number of Concurrent Connections': '同時最大連接數',
+
+      // /media/hdmi
+      HDMI: 'HDMI',
+      'Updating HDMI settings': '更新HDMI設定',
+      'Are you sure you want to update HDMI settings?': '您即將更改HDMI設定，確認是否繼續？',
 
       // /media/word
       'Enable On-Screen Display': '開啟文字貼圖',
@@ -162,6 +373,16 @@ module.exports = {
       'word-type-3': '自訂文字',
       'Enter custom text': '輸入自訂文字',
 
+      // /media/privacy-mask
+      'Enable Privacy Mask': '開啟隱私遮罩',
+      'Create mask areas on the preview window.': '請在預覽窗格新增隱私遮罩',
+      'Mask Area': '遮罩區域',
+      'Note Area': '說明',
+      Drag: '拖曳',
+      'To set a mask:': '新增遮罩',
+      'To erase a mask:': '刪除遮罩',
+      'Up to 4 mask areas can be set.': '最多4個遮罩',
+
       // /audio
       'Enable Audio Input': 'オーディオ入力を有効にする',
       'Audio Quality': '品質',
@@ -172,6 +393,61 @@ module.exports = {
       // /audio / Constans / Audio Quality
       'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
       'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
+
+      // /notification
+      'Notification Settings': '通報',
+      'Notification Method': '通報方式',
+      App: 'APP設定',
+      Email: '電子郵件',
+      'I/O': '數位輸出及輸入',
+      'Smart Notification': '智慧通知',
+
+      // /notification/app
+      'Device Token': '裝置金鑰',
+      'Please enter your device token.': '請輸入您的金鑰',
+      'Device Id': '裝置編碼',
+      'Please enter your device id.': '請輸入您的編碼',
+
+      // /notification/smtp
+      'Enable Outgoing Email': '開啟電子郵件傳輸',
+      'SMTP Server Address': '外送伺服器位址',
+      'Enter server address': '輸入伺服器位址',
+      'SMTP Logon Settings': '外送伺服器登入設定',
+      Edit: '編輯',
+      'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': '有些網路郵件供應商為了提高安全性， 可能會需要應用程式密碼，例如Google和Yahoo奇摩電子信箱帳號。請依照您郵件供應商的指示產生並使用應用程式密碼。',
+      Port: '連接埠',
+      Encryption: '加密方式',
+      None: '無',
+      'Enable Device Login Notification': '登入通知信',
+      'Please Enable SMTP Server': '請先開啟SMTP伺服器',
+      'Sender Information': '寄件人資訊',
+      'Enter sender\'s name': '輸入寄件人名稱',
+      'Enter sender\'s email': '輸入寄件人電子郵件',
+      'Notification Interval (seconds)': '通報間隔 (秒)',
+      'Specify notification interval': '輸入秒數',
+      '5-1,800 Seconds': '5-1800 秒',
+      'Email Setting Success': '電子郵件設定成功',
+      'Mail Setting Failed': '電子郵件設定失敗',
+      'Sending Test Email': '測試郵件已寄出',
+      'Disabling Outgoing Email': '設定成功',
+
+      // /notification/io
+      'Input & Output': '數位輸出及輸入',
+      Input: '數位輸入',
+      'Enable Digital Input': '開啟數位輸入',
+      'Normal State': '平常狀態',
+      'Normally Closed': '常關',
+      'Normally Open': '常開',
+      'Output 1': '數位輸出 1',
+      'Output 2': '數位輸出 2',
+      'Enable Digital Output {{0}}': '開啟數位輸出 {{0}}',
+      Type: '輸出類型',
+      Normal: '一般',
+      Buffer: '緩衝',
+      'Pulse Time (seconds)': '訊號緩衝時間 (秒)',
+      'Delay Time (seconds)': '延後間隔時間 (秒)',
+      'Enter seconds': '請輸入秒數',
+      '{{0}}-{{1}} Seconds': '{{0}}-{{1}} 秒',
 
       // /notification/cards
       'Notification Filters': '篩選通報卡',
@@ -371,6 +647,33 @@ module.exports = {
       'confidence-level-1': '中',
       'confidence-level-2': '高',
 
+      // /analytic/motion-detection
+      'Enable Motion Detection': '開啟移動偵測',
+      'Motion Detection': '移動偵測',
+      'Create detection zones on the preview window.': '請在預覽窗格新增觸發區域',
+      'To set a zone:': '新增區域',
+      'To erase a zone:': '刪除區域',
+      'Up to 4 detection zones can be set.': '最多4個區域',
+
+      // /analytic/license
+      License: '智慧分析授權',
+      'Enter your authentication key': '請輸入啟用碼',
+      Activate: '啟用',
+      Activated: '已啟用',
+      'Activation Required': '未啟用',
+      'Activated By': '啟用者',
+      'Authentication Key': '啟用碼',
+      'Activated Functions': '啟用功能',
+      'Enable Status': '狀態',
+      'Activated Success': '啟用成功',
+      '{{0}} authorized successfully!': '{{0}}已授權成功！',
+      'Activation Failed': '啟用失敗',
+      'Authorization failed!': '授權失敗！',
+      'Key Already Registered': '重複輸入啟用碼',
+      // /analytic/license / Constants / FR Auth key
+      'face-recognition-key-thirtyThousand': '臉部辨識 30k',
+      'face-recognition-key-threeThousand': '臉部辨識 3k',
+
       // /network/settings
       Success: '成功',
       'Internet & Network Settings': 'インターネット/ネットワーク設定',
@@ -409,18 +712,127 @@ module.exports = {
       'DDNS Setting Success': 'DDNS 設定成功！',
       'DDNS Setting Failed': 'DDNS 設定失敗！',
       'Updating HTTP Settings': '更新HTTP設定',
-      Rebooting: '重新啟動裝置中',
+      Rebooting: 'デバイス再起動しています',
 
       // /network/https
       'Enable HTTPS': '開啟 HTTPS',
       'Click confirm to redirect to the new address:': '按確認重新導向新的網址 :',
-      'The website has been redirected to the new address': '請利用下列網址重新登入',
-      'The specified port is reserved by system or in use!': '此連接埠為系統預留或使用中',
-      'Redirection Success': '重新導向',
+      'The website has been redirected to the new address': '下記のURLへアクセスして再度ログインしてください',
+      'The specified port is reserved by system or in use!': '本ポートはシステム予備用または使用されています',
+      'Redirection Success': '再ダイレクト',
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} 自簽憑證`,
       'certificate-type-1': '上傳您的憑證',
       'certificate-type-2': '在此裝置上產生憑證',
+
+      // /system
+      'System Settings': '系統設定',
+      'Software Upgrade': 'ソフトウェアアップグレード',
+      'Import File': '匯入設定檔',
+      'Only ZIP file format is supported': '僅支援 .zip 檔案格式',
+      'Select File': '選擇檔案',
+      'No file selected.': '選択されたファイルがありません',
+
+      // /system/datetime
+      Administration: '管理',
+      'Date & Time': '日付と時間',
+      'Time Zone': '時區',
+      'Date and Time of the Device': '裝置時間',
+      'Sync with Network Time Server (NTP)': '與網路時間伺服器 (NTP) 同步',
+      'Host Name or IP Address': 'サーバーアドレス',
+      'Sync Time': '時間同期',
+      'Manual Date': '日付',
+      'Manual Time': '時間',
+      'Sync Interval (minutes)': '更新頻率 (分)',
+      'Sync with Your Computer': '與您的電腦同步',
+      'Set the Date & Time Manually': '手動設定',
+      'Updating Date & Time': '更新日期與時間',
+      'Updating date & time requires you to log in again. Are you sure you want to continue?': '您確定要更裝置時間嗎? 更改裝置時間必須重新登入',
+      'Please Enable Sync with Network Time Server (NTP)': '請啟用與網路時間伺服器 (NTP) 同步',
+      'Time Zone is disabled when syncing with your computer': '與電腦同步時時區將停用',
+
+      // /system/maintain
+      'Restore All Settings': '還原所有設定',
+      'Device Maintenance': 'メンテナンス',
+      'System Reboot': '重新啟動裝置',
+      'Are you sure you want to reboot the device?': 'デバイスを再起動しますか？',
+      Reboot: '再起動する',
+      'Restore to Default Settings': '設定を初期値に戻す',
+      'Restore to Factory Default Settings (Includes Network Settings)': '將所有設定恢復為預設值(包含IP位址)',
+      Reset: '初期化',
+      'Export System Settings': '匯出系統設定值',
+      'Import System Settings': '匯入系統設定值',
+      'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます',
+      'The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following': 'デバイスは出荷時の初期設定に戻り、下記の項目を除き、すべてのデータと設定は削除されます',
+      '• Members and Groups': '• メンバーリストとグループデータ',
+      '• System Accounts': '• アカウント設定',
+      '• Focus and Zoom of Image settings': '• フォーカスとズーム設定',
+      '• RTSP settings': '• RTSP設定',
+      '• Internet & Network settings': '• 網路設定',
+      '• Data on the SD Card': '• SDカード内のデータ',
+      'The device has rebooted. Please log in again.': '裝置已重新啟動，請重新登入',
+
+      // /system/upgrade
+      'Upload Software': 'ソフトウェアのアップロード',
+      'Install Software': 'ソフトウェアのインストール',
+      'Shut Down': 'デバイスをシャットダウンする',
+      Restart: 'デバイスを再起動する',
+      'Stage 01': '階段 1',
+      'Stage 02': '階段 2',
+      'Stage 03': '階段 3',
+      'Stage 04': '階段 4',
+      '※ Please do not close your browser during upgrade.': '※ 升級時請勿關閉瀏覽器',
+      'Uploading Software': 'ソフトウェアをアップロードしています',
+      'Installing Software': 'ソフトウェアをインストールしています',
+      'Shutting Down': 'デバイスをシャットダウンしています',
+      Restarting: 'デバイスを再起動しています',
+      'Software Upgrade Success': 'ソフトウェアアップグレードは成功しました',
+      'Redirect to the login page in {{0}} seconds': '於 {{0}} 秒後重新導向至登入頁面',
+
+      // /system/log
+      Information: '裝置資訊',
+      'System Log': 'システムログ',
+      'System Log File': 'システムログファイル',
+      'Delete System Log File': 'システムログファイルを削除する',
+      'Are you sure you want to delete system logs?': 'システムログファイルを削除しますか？',
+      'Delete logs': '削除',
+      Download: '下載',
+      // /system/information
+      'Build Version': '開發版號',
+      'S/N Code': 'S/N 碼',
+
+      // /sd-card
+      'Enable SD Card': '開啟記憶卡',
+      'Disabling SD Card': '關閉記憶卡',
+      'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': '您確定要關閉記憶卡嗎? 事件截圖將不會被儲存',
+      'Off Line Record': '斷線錄影',
+      'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
+      'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
+      Operation: '操作',
+      Format: '格式化',
+      Mount: '掛載',
+      Unmount: '卸載',
+      'Error Notification': '異常通報',
+      'Email Notification Set': '已設定電子郵件',
+      Filesystem: '檔案系統格式',
+      'Storage Space': '儲存空間',
+      'Free: {{0}}': '{{0}} 可用',
+      'Used: {{0}}': '{{0}} 已使用',
+      Unrecognized: '無法識別',
+      Status: '狀態',
+      // /sd-card / Status
+      Functioning: '正常', // 0 - MOUNTED
+      Unmounted: '未掛載', // 1 - UNMOUNTED
+      'Empty Slot': '未插卡', // 2 - SDCARDNOTEXIST
+      Nonfunctioning: '不正常', // 3 - ABNORMAL
+      'Read-only Access': '唯獨', // 4 - READONLY
+      'Unknown Error': '未知錯誤', // 5 - UNKNOWN
+
+      // The error pages.
+      'Not Found': '此網頁不存在',
+      'Back to Home': '回首頁',
+      'Internal Server Error': '內部伺服器問題',
+      'Sorry for your inconvenience, we are actively process with it!': '造成您的不便不好意思，我們正在積極處理中！',
 
       // Server error codes
       // 9001

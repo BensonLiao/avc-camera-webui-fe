@@ -1,6 +1,7 @@
 module.exports = {
   en: {
     translation: {
+
       // -- Component -- START --
 
       // Component / Button
@@ -8,6 +9,15 @@ module.exports = {
 
       // Component / Loading Spinner
       Loading: 'Loading',
+
+      // Component / Date Picker
+      Sun: 'Sun',
+      Mon: 'Mon',
+      Tue: 'Tue',
+      Wed: 'Wed',
+      Thu: 'Thu',
+      Fri: 'Fri',
+      Sat: 'Sat',
       // Component / API Processing Modal
       'Please wait': 'Please wait',
 
@@ -120,7 +130,16 @@ module.exports = {
       'Prior to accessing this device for the first time a unique admin password must be created': 'Prior to accessing this device for the first time a unique admin password must be created',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space',
+      Welcome: 'Welcome',
+      'For a better experience,': 'For a better experience,',
+      'Please click Continue to complete the initial setup!': 'Please click Continue to complete the initial setup!',
+      Continue: 'Continue',
       Submit: 'Submit',
+
+      // /setup/language
+      Language: 'Language',
+      HTTPS: 'HTTPS',
+      Next: 'Next',
 
       // /setup/account
       'Setup Account': '初始Setup Account帳號設定',
@@ -481,6 +500,9 @@ module.exports = {
       'email-attachment-type-0': 'Face Thumbnail',
       'email-attachment-type-1': 'Screenshot',
       'email-attachment-type-2': 'None',
+      // /notification/cards / Constants / Content Placement
+      'email-content-position-0': 'Beginning',
+      'email-content-position-1': 'End',
 
       // /users/members
       Members: 'Members',
@@ -648,6 +670,9 @@ module.exports = {
       'Activation Failed': 'Activation Failed',
       'Authorization failed!': 'Authorization failed!',
       'Key Already Registered': 'Key Already Registered',
+      // /analytic/license / Constants / FR Auth key
+      'face-recognition-key-thirtyThousand': 'Face Recognition 30k',
+      'face-recognition-key-threeThousand': 'Face Recognition 3k',
 
       // /network/settings
       Success: 'Success',
@@ -750,8 +775,8 @@ module.exports = {
       // /system/upgrade
       'Upload Software': 'Upload Software',
       'Install Software': 'Install Software',
-      'Shutdown Device': 'Shutdown Device',
-      'Restart Device': 'Restart Device',
+      'Shut Down': 'Shut Down',
+      Restart: 'Restart',
       'Stage 01': 'Stage 1',
       'Stage 02': 'Stage 2',
       'Stage 03': 'Stage 3',
