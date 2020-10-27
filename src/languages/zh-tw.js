@@ -70,7 +70,7 @@ module.exports = {
       'validation-stringContainsLowerCaseLatter': '必須包含小寫英文字母',
       'validation-stringContainsUpperCaseLatter': '必須包含大寫英文字母',
       'validation-stringContainsNumber': '必須包含數字',
-      'validation-stringAbortSpecialCharacters': '禁用全形或半形符號: # %  & ` “ \\ / < > 和空白',
+      'validation-stringAbortSpecialCharacters': '禁用全形或半形符號: # % & ` “ \\ / < > 和空白',
       'validation-stringAcceptSpecialCharacters': '必須包含符號',
       'validation-stringEnum': '不符合內容要求',
       'validation-number': '必須為數字',
@@ -464,7 +464,6 @@ module.exports = {
       Group: '群組',
       Condition: '條件',
       Method: '通報方式',
-      'All Groups': '所有群組',
       Everyone: '所有人，不限定群組',
       'Email Attachment': '附件檔案',
       Receiver: '收件人',
@@ -568,7 +567,7 @@ module.exports = {
       Organization: '組織',
       'Enter a name for this member': '輸入成員名稱',
       'Enter an organization for this member': '輸入組織名稱',
-      'Maximum length: 32 characters': '1-32個字元: 可包含字母, 數字以及符號, 但符號不能為 # %  & ` “ \\ / < >和空白',
+      'Maximum length: 32 characters': '最多32個字',
       'N/A': '無',
       'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何成員資料，確認要離開嗎？',
       'Photo size should be less than 90 KB.': '照片大小不可以超過90 KB',
@@ -695,7 +694,7 @@ module.exports = {
       'IP Assignment': 'IP 取得方式',
       'Secondary DNS': '次要 DNS',
       'No changes were made.': '沒有設定被更改',
-      'Please enable HTTPS first.': '請先開啟HTTPS功能',
+      'Please enable HTTPS first.': '請先開啟 HTTPS 功能',
       'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
 
       // /network/tcp-ip
@@ -837,7 +836,7 @@ module.exports = {
 
       // Server error codes
       // 9001
-      'Duplicate Member Names': '名稱重複, 請使用不同名稱',
+      'Duplicate Member Names': '名稱重複，請使用不同名稱',
       // 9002
       'Login Failed': '帳號或密碼錯誤',
       // 9003
