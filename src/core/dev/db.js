@@ -386,11 +386,6 @@ module.exports = {
         sensibility: 1,
         areas: []
       },
-      notificationAppSettings: {
-        deviceToken: '',
-        deviceId: '',
-        interval: ''
-      },
       notificationIOInSettings: {
         isEnable: false,
         ioType: '0'
