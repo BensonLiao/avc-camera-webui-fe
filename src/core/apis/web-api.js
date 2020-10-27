@@ -299,13 +299,12 @@ module.exports = {
      * @response 200 {Object}
      * - account {String}
      */
-    setup: ({language, account, https}) => api({
+    setup: ({language, account}) => api({
       method: 'post',
       url: '/api/system/_setup',
       data: {
         language,
-        account,
-        https
+        account
       }
     }),
     /**
