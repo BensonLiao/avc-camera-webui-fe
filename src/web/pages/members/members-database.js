@@ -6,7 +6,7 @@ const Modal = require('react-bootstrap/Modal').default;
 const progress = require('nprogress');
 const PropTypes = require('prop-types');
 const React = require('react');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
@@ -163,13 +163,13 @@ module.exports = class MembersDatabase extends React.PureComponent {
             <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
           </div>
           <div className="form-group has-feedback">
-            <label>{i18n.t('Confirm Password')}</label>
+            <label>{i18n.t('Confirm New Password')}</label>
             <Field
               name="confirmPassword"
               component={Password}
               inputProps={{
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                placeholder: i18n.t('Confirm your new password')
+                placeholder: i18n.t('Enter the new password again')
               }}
             />
             <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>

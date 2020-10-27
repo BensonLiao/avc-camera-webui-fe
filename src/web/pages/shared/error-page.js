@@ -5,7 +5,7 @@ const imageCode404 = require('../../../resource/icon-error-404.svg');
 const imageCode500 = require('../../../resource/icon-error-500.svg');
 const bgCode404 = require('../../../resource/bg-error-404-clip.png');
 const bgCode500 = require('../../../resource/bg-error-500-clip.png');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 
 module.exports = class ErrorPage extends React.Component {
   static get propTypes() {

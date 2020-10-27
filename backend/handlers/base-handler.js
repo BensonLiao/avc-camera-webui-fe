@@ -1,10 +1,12 @@
+const cache = require('memory-cache');
+
 exports.baseView = (req, res) => {
   /*
   [web] GET /.*
    */
   res.render('index', {
     htmlLang: 'en',
-    languageCode: 'en-us',
+    languageCode: cache.get('language') || 'en',
     loadingText: 'Loading',
     user: {
       id: 1,

@@ -18,10 +18,6 @@ const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc'); // dependent on utc plugin
 const timezone = require('dayjs/plugin/timezone');
 const LocalizedFormat = require('dayjs/plugin/localizedFormat');
-const dayjsZhTW = require('dayjs/locale/zh-tw');
-const dayjsZhCN = require('dayjs/locale/zh-cn');
-const dayjsEs = require('dayjs/locale/es');
-const dayjsJa = require('dayjs/locale/ja');
 const elementResizeDetectorMaker = require('element-resize-detector');
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -35,7 +31,12 @@ const Loading = require('../core/components/loading');
 const api = require('../core/apis/web-api');
 const utils = require('../core/utils');
 const config = require('../../config/default');
-require('./i18n');
+require('../i18n');
+// We have to manually load all supported locale module except dayjs default for now, otherwise webpack will throw a warning
+require('dayjs/locale/es');
+require('dayjs/locale/ja');
+require('dayjs/locale/zh-cn');
+require('dayjs/locale/zh-tw');
 
 const simpleCrypto = new SimpleCrypto(SimpleCrypto.generateRandom);
 window.rootPassword = simpleCrypto.encrypt(config.rootPassword);
@@ -50,21 +51,7 @@ progress.configure({showSpinner: false});
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(LocalizedFormat);
-switch (window.currentLanguageCode) {
-  case 'zh-tw':
-    dayjs.locale('zh-tw', dayjsZhTW);
-    break;
-  case 'zh-cn':
-    dayjs.locale('zh-cn', dayjsZhCN);
-    break;
-  case 'ja-jp':
-    dayjs.locale('ja', dayjsJa);
-    break;
-  case 'es-es':
-    dayjs.locale('es', dayjsEs);
-    break;
-  default:
-}
+dayjs.locale(window.currentLanguageCode);
 
 // Setup initial data
 store.set('$user', window.user);

@@ -5,13 +5,13 @@ const {RouterView, Link, getRouter} = require('capybara-router');
 const iconDescription = require('../../../resource/description-20px.svg');
 const Base = require('../shared/base');
 const Pagination = require('../../../core/components/pagination');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const MembersSearchForm = require('./members-search-form');
 const MembersSidebar = require('./members-sidebar');
-const MembersTable = require('./members-table');
+const MembersTable = require('./members-table').default;
 
 module.exports = class Members extends Base {
   static get propTypes() {

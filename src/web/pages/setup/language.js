@@ -3,7 +3,8 @@ const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const setupStep01 = require('../../../resource/setup-step-01.png');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
+
 const Base = require('../shared/base');
 const store = require('../../../core/store');
 const utils = require('../../../core/utils');
@@ -51,9 +52,9 @@ module.exports = class SetupLanguage extends Base {
                     <div className="select-wrapper border rounded-pill overflow-hidden px-2">
                       <select name="language" value={window.currentLanguageCode} className="form-control border-0" onChange={this.onChangeLanguage}>
                         {
-                          Object.keys(window.config.languages).map(languageCode => (
-                            <option key={languageCode} value={languageCode}>
-                              {window.config.languages[languageCode].title}
+                          i18n.options.langCodesTitle.map(locale => (
+                            <option key={locale.code} value={locale.code}>
+                              {locale.title}
                             </option>
                           ))
                         }

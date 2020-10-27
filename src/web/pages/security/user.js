@@ -8,7 +8,7 @@ const Modal = require('react-bootstrap/Modal').default;
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Base = require('../shared/base');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const UserValidator = require('../../validations/users/user-validator');
 const NewUserValidator = require('../../validations/users/new-user-validator');
 const utils = require('../../../core/utils');
@@ -187,7 +187,7 @@ module.exports = class User extends Base {
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: i18n.t(user ? 'Confirm new password' : 'Confirm the password'),
+                placeholder: i18n.t(user ? 'Enter the new password again' : 'Enter the password again'),
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
               }}
             />

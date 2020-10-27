@@ -10,7 +10,7 @@ const WordPosition = require('webserver-form-schema/constants/word-position');
 const WordType = require('webserver-form-schema/constants/word-type');
 const WordSettingsSchema = require('webserver-form-schema/word-settings-schema');
 const Base = require('../shared/base');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
@@ -161,9 +161,31 @@ module.exports = class Word extends Base {
                   </button>
                 </div>
               </div>
-              <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{i18n.t('Position')}</label>
-                <p className="text-primary">{i18n.t('Select Position')}</p>
+              <div className="form-group">
+                <div className="form-group d-flex justify-content-between align-items-center mb-0">
+                  <label className="mb-0">{i18n.t('Position')}</label>
+                  {
+                    values.position === WordPosition.leftTop && (
+                      <p className="text-primary mb-0">{i18n.t('Left Top')}</p>
+                    )
+                  }
+                  {
+                    values.position === WordPosition.rightTop && (
+                      <p className="text-primary mb-0">{i18n.t('Right Top')}</p>
+                    )
+                  }
+                  {
+                    values.position === WordPosition.leftBottom && (
+                      <p className="text-primary mb-0">{i18n.t('Left Bottom')}</p>
+                    )
+                  }
+                  {
+                    values.position === WordPosition.rightBottom && (
+                      <p className="text-primary mb-0">{i18n.t('Right Bottom')}</p>
+                    )
+                  }
+                </div>
+                <small className="mt-0 form-text text-muted">{i18n.t('Click the arrow on the preview window.')}</small>
               </div>
               <SelectField labelName={i18n.t('Text Overlay')} name="type">
                 {WordType.all().map(type => (

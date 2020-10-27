@@ -12,7 +12,7 @@ const MemberSchema = require('webserver-form-schema/member-schema');
 const avatarMask = require('../../resource/avatar-mask.png');
 const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
-const i18n = require('../../web/i18n').default;
+const i18n = require('../../i18n').default;
 const MemberValidator = require('../../web/validations/members/member-validator');
 const {
   MEMBER_PHOTO_MIME_TYPE,

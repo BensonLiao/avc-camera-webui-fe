@@ -12,7 +12,7 @@ const api = require('../../../core/apis/web-api');
 const {SECURITY_USERS_MAX} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
-const i18n = require('../../i18n').default;
+const i18n = require('../../../i18n').default;
 module.exports = class Users extends Base {
   static get propTypes() {
     return {

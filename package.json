@@ -42,7 +42,7 @@
     "config": "3.2.4",
     "cropperjs": "1.5.7",
     "css-loader": "3.2.0",
-    "dayjs": "1.8.35",
+    "dayjs": "1.9.3",
     "downloadjs": "1.4.7",
     "element-resize-detector": "1.1.15",
     "fastest-validator": "0.6.19",
@@ -86,7 +86,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#771942bf92ad37dc03903ad76000cdd065668faa"
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#8ad7c09186bb362620c50140c738cf95653aba0f"
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",
@@ -105,6 +105,7 @@
     "handlebars": "4.5.3",
     "html-webpack-plugin": "4.3.0",
     "lowdb": "1.0.0",
+    "memory-cache": "0.2.0",
     "nodemon": "1.19.4",
     "npm-check-updates": "3.2.1",
     "stylelint": "13.6.1",

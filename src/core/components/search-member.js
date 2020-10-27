@@ -9,7 +9,7 @@ import CustomNotifyModal from './custom-notify-modal';
 import CustomTooltip from './tooltip';
 import notify from '../notify';
 import utils from '../utils';
-import i18n from '../../web/i18n';
+import i18n from '../../i18n';
 
 class SearchMember extends React.PureComponent {
   static propTypes = {
