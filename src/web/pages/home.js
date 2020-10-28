@@ -13,7 +13,7 @@ const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
-const VolumeProgressBar = require('../../core/components/volume-progress-bar');
+const VolumeProgressBar = require('../../core/components/volume-progress-bar').default;
 const LiveView = require('../../core/components/live-view');
 
 module.exports = class Home extends Base {
