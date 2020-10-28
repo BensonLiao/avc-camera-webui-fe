@@ -342,7 +342,7 @@ module.exports = {
       '{{0}} - {{1}} Kbps': '{{0}} - {{1}} Kbps',
 
       // /media/rtsp
-      'Enable Audio over RTSP': 'RTSPでのオーディオ出力を有効する',
+      'Enable Audio over RTSP': 'RTSPでのオーディオ出力を有効にする',
       'Require Authentication': 'アカウント認証を有効にする',
       'RTSP/TCP Port': 'RTSP/TCPポート',
       'Range: 1024-65535 Default: 8554': '入力範囲：1024-65535 デフォルト：8554',
@@ -440,7 +440,7 @@ module.exports = {
       // /notification/io
       'Input & Output': 'デジタル入力および出力',
       Input: 'デジタル入力',
-      'Enable Digital Input': '開啟數位輸入',
+      'Enable Digital Input': 'デジタル入力を有効にする',
       'Normal State': '一般状態',
       'Normally Closed': '常時閉',
       'Normally Open': '常時開',
@@ -467,6 +467,7 @@ module.exports = {
       'Output: On': '出力: 有効',
       'VMS: On': '影像管理系統(VMS): 開',
       Schedule: 'スケジュール',
+      'Enable Schedule': 'スケジュールを有効にする',
       Rule: 'ルール',
       Group: 'グループ',
       Condition: '條件',

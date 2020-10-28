@@ -467,6 +467,7 @@ module.exports = {
       'Output: On': 'Output: On',
       'VMS: On': 'VMS: On',
       Schedule: 'Schedule',
+      'Enable Schedule': 'Enable Schedule',
       Rule: 'Rule',
       Group: 'Group',
       Condition: 'Condition',

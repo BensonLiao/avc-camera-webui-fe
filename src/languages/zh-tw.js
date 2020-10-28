@@ -467,6 +467,7 @@ module.exports = {
       'Output: On': '數位輸出: 開啟',
       'VMS: On': '影像管理系統(VMS): 開',
       Schedule: '排程',
+      'Enable Schedule': '開啟排程',
       Rule: '規則',
       Group: '群組',
       Condition: '條件',
