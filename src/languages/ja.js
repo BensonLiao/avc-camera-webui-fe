@@ -502,7 +502,7 @@ module.exports = {
       'face-recognition-condition-0': 'すべて',
       'face-recognition-condition-1': '成功',
       'face-recognition-condition-2': '未登録者',
-      'face-recognition-condition-3': '圖像偽裝',
+      'face-recognition-condition-3': 'なりすまし防止',
       // /notification/cards / Constants / Email Attachment
       'email-attachment-type-0': '顔ショット',
       'email-attachment-type-1': 'スクリーンショット',
@@ -534,7 +534,7 @@ module.exports = {
       'Edit Group: {{0}}': 'グループを編集する：{{0}}',
       'User Picture': '登録用写真',
       Actions: '操作',
-      'Delete Member: {{0}}': '刪除成員: {{0}}',
+      'Delete Member: {{0}}': 'グループを削除する：{{0}}',
       'Delete Member': 'メンバーを削除する',
       'Are you sure you want to delete member {{0}}?': 'メンバー {{0}} を削除しますか？',
       'Edit Member: {{0}}': 'メンバーを編集する：{{0}}',
@@ -559,8 +559,8 @@ module.exports = {
       Close: '閉じる',
 
       // /users/members/modify-group
-      'Edit Group': '編輯群組',
-      'Modify Group': '編輯群組',
+      'Edit Group': 'グループを編集する',
+      'Modify Group': 'グループを編集する',
       Confirm: '確認',
 
       // /users/members/new
@@ -576,7 +576,7 @@ module.exports = {
       'Enter a name for this member': 'メンバー名を入力してください',
       'Enter an organization for this member': '組織名を入力してください',
       'Maximum length: 32 characters': '最大32文字まで入力可能です',
-      'N/A': '無',
+      'N/A': 'なし',
       'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何成員資料，確認要離開嗎？',
       'Photo size should be less than 90 KB.': '写真サイズは90 KBを超えることができません',
 
@@ -594,7 +594,7 @@ module.exports = {
       'Confirm Password': 'パスワードを確認する',
       'Enter the new password again': '新しいパスワードを再度入力してください',
       'Enter the password again': 'パスワードを再度入力してください',
-      'Delete Account': '刪除帳號',
+      'Delete Account': 'アカウントを削除する',
       'Are you sure you want to delete account {{0}}?': 'アカウント {{0}} を削除しますか？',
 
       // /users/events
