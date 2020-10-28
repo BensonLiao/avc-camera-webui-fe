@@ -43,7 +43,7 @@ module.exports = class LicenseStatus extends React.PureComponent {
             licenseKeyStatus ? 'border-success text-success' : 'border-danger text-danger')}
           >
             <i className={classNames(
-              'fas',
+              'fas mr-1',
               licenseKeyStatus ? 'fa-check-circle' : 'fa-minus-circle')}
             />
             {licenseKeyStatus ? i18n.t('Activated') : i18n.t('Activation Required')}
