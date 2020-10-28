@@ -151,7 +151,7 @@ module.exports = {
       'Setup Account': 'アカウント初期設定',
       Account: '帳號',
       'Please enter your account.': 'アカウント名を入力してください',
-      Permission: '權限',
+      Permission: '権限',
       Password: 'パスワード',
       Birthday: '生日',
       'This is used for resetting password.': '生日將會用於重置密碼',
@@ -165,7 +165,7 @@ module.exports = {
       // /setup/https
       'Certificate Type': '憑證方式',
       'SSL certificate.': 'SSL 憑證方式',
-      Certificate: '憑證',
+      Certificate: '署名証明書',
       'Private Key': '私鑰',
       'Country Name': '國家名稱',
       'Please enter the country code.': '請輸入您的國家代碼',
@@ -221,47 +221,47 @@ module.exports = {
       Done: '完成',
 
       // /home
-      'Device Name': '裝置名稱',
-      'Device Status': '裝置狀態',
+      'Device Name': 'デバイス名',
+      'Device Status': 'ステータス',
       'SD Card': 'SDカード',
       'Authentication Required': '無効',
-      'Facial Recognition: ': '臉部辨識 : ',
-      'Age & Gender: ': '性別年齡 : ',
-      'Human Detection: ': '人形偵測 : ',
-      'Free: {{0}}, Total: {{1}}': '{{0}} 可用 (共 {{1}})',
+      'Facial Recognition: ': '顔認証 : ',
+      'Age & Gender: ': '性別年齢推定 : ',
+      'Human Detection: ': '人体検知 : ',
+      'Free: {{0}}, Total: {{1}}': '{{0}} 使用可能 (合計 {{1}})',
       'Enable HDR': 'HDRを有効にする',
       Adjustments: '属性',
-      Brightness: '亮度',
-      Contrast: '對比',
-      Sharpness: '銳利度',
-      Saturation: '飽和度',
+      Brightness: '明るさ',
+      Contrast: 'コントラスト',
+      Sharpness: 'シャープネス',
+      Saturation: '飽和',
       'Lens Control': 'レンズ',
       'Select Focus Type': '選擇對焦方式',
-      'Full-Range Focus': '全範圍對焦',
-      'Short-Range Focus': '短距離對焦',
-      Focus: '對焦',
+      'Full-Range Focus': '全範囲フォーカス',
+      'Short-Range Focus': '短距離フォーカス',
+      Focus: 'フォーカス',
       Zoom: '焦距',
       'Auto Focus after Zoom': 'ズーム調整するとき、自動フォーカスする',
-      Iris: '光圈',
-      'Shutter Speed': '快門速度',
+      Iris: 'Iris',
+      'Shutter Speed': 'シャッタースピード',
       Advanced: '高度な設定',
-      'White Balance': '白平衡',
-      'Color Temperature': '色溫',
-      'IR Control': '紅外線燈',
+      'White Balance': 'ホワイトバランス',
+      'Color Temperature': '色温度',
+      'IR Control': 'IR制御',
       Level: '強度',
       'Day/Night': 'デイナイト機能',
-      Sensitivity: '靈敏度',
-      'Day Mode': '日間模式',
-      Rotation: '旋轉',
-      Defog: '除霧',
+      Sensitivity: '感度',
+      'Day Mode': 'デイモード',
+      Rotation: '映像方向',
+      Defog: '霧補正',
       'Lighting Compensation Frequency (Hz)': '更新周波数(Hz)',
-      'Auto Focus': '自動對焦',
+      'Auto Focus': '自動フォーカス',
       'Focal Length': '焦距',
-      'Reset to Default Settings': '恢復預設值',
+      'Reset to Default Settings': 'デフォルト設定へ戻る',
       // /home / Constans
       Auto: '自動',
-      On: '開',
-      Off: '關',
+      On: '有効',
+      Off: '無効',
       Max: '最大',
       // /home / Constans / Iris
       'aperture-0': '自動',
@@ -359,7 +359,7 @@ module.exports = {
       // /media/word
       'Enable On-Screen Display': 'OSDを有効にする',
       Size: '文字サイズ',
-      Color: '顏色',
+      Color: 'カラー',
       Word: '文字',
       Position: '表示位置',
       'Click the arrow on the preview window.': 'プレビュー画面中の青印をクリックして下さい',
@@ -382,11 +382,11 @@ module.exports = {
       // /media/privacy-mask
       'Enable Privacy Mask': 'プライバシーマスクを有効にする',
       'Create mask areas on the preview window.': 'プレビューウィンドにマスクを追加してください',
-      'Mask Area': '遮罩區域',
-      'Note Area': '說明',
-      Drag: '拖曳',
-      'To set a mask:': '新增遮罩',
-      'To erase a mask:': '刪除遮罩',
+      'Mask Area': 'マスクエリア',
+      'Note Area': '説明',
+      Drag: 'ドラッグ',
+      'To set a mask:': 'マスクを追加する',
+      'To erase a mask:': 'マスクを削除する',
       'Up to 4 mask areas can be set.': 'マスクは最大四ヶ所まで設定可能です',
 
       // /audio
@@ -450,7 +450,7 @@ module.exports = {
       Type: '輸出類型',
       Normal: '一般',
       Buffer: 'バッファ',
-      'Pulse Time (seconds)': '訊號緩衝時間 (秒)',
+      'Pulse Time (seconds)': 'パルス時間 (秒)',
       'Delay Time (seconds)': '間隔時間 (秒)',
       'Enter seconds': '秒数を入力してください',
       '{{0}}-{{1}} Seconds': '{{0}}-{{1}} 秒',
@@ -525,8 +525,8 @@ module.exports = {
       'Database Encryption': '資料庫加密',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
-      'Enter Keywords': '請輸入關鍵字',
-      Search: '搜尋',
+      'Enter Keywords': 'キーワードを入力してください',
+      Search: '検索',
       New: '新增',
       'Add a New Member': '新規メンバーを追加する',
       'Add a Member from Events': '從事件新增',
@@ -640,7 +640,7 @@ module.exports = {
       'Level of Accuracy': '認証成功率',
       'Detection Zone': '検知区域',
       'Show/Hide Detection Zone': '認証区域を表示/非表示にする',
-      'The default is the whole live view screen.': 'デフォルト：フルスクリーン',
+      'The default is the whole live view screen.': 'デフォルトはフルスクリーン',
       'Enable Facial Detection Size': '顔検知サイズフィルターを有効します',
       'Min. Facial Detection Size': '最小検知顔サイズ',
       'Live View Display': 'ライブ画面表示',
@@ -829,7 +829,7 @@ module.exports = {
       'Error Notification': '異常通知',
       'Email Notification Set': 'メールアドレスが設定されました',
       'SD Card Enable Outgoing Email': 'メールアドレスを設定する',
-      Filesystem: 'ファイルシステム形式',
+      Filesystem: 'ファイルシステム',
       'Storage Space': 'ストレージ容量',
       'Free: {{0}}': '{{0}} 使用可能',
       'Used: {{0}}': '{{0}} 使用されています',
@@ -917,7 +917,7 @@ module.exports = {
       // 9034
       // Outgoing Email being Disabled	不支援此UI
       // 9035
-      'Absent or Unmounted SD Card': '記憶卡異常,無法正常操作',
+      'Absent or Unmounted SD Card': 'SDカードが挿入されていません',
       // 9036
       // Maximum Field Length Exceeded	不支援此UI
       // 9037
@@ -927,7 +927,7 @@ module.exports = {
       // 9039
       // Maximum Photo Number Exceeded	不支援此UI
       // 9040
-      'Showing No Face': '照片中沒有人臉',
+      'Showing No Face': '写真には顔が存在していません',
       // 9041
       'Poor Photo Quality': '写真の品質が足りません',
       // 9042
@@ -937,13 +937,13 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': '写真には顔が一個以上存在しています',
       // 9045
-      'Non-existent Photo': '事件截圖不存在',
+      'Non-existent Photo': '存在しない顔ショット',
       // 9046
       'Invalid Key': '無効なライセンスキー',
       // 9047
-      'Duplicate Key': '啟用失敗, 重複的啟動碼',
+      'Duplicate Key': 'アクティベーションに失敗しました。ライセンスキーが重複してます',
       // 9048
-      'Cannot Support Database Downgrade from 30,000 to 3000 People': '啟用失敗, 不支援臉部辨識成員上限從30,000人下降到3,000人'
+      'Cannot Support Database Downgrade from 30,000 to 3000 People': 'アクティベーションに失敗しました。顔認証メンバー上限を30,000人から3,000人に下げることに対応していません'
 
       // -- Page -- END --
     }

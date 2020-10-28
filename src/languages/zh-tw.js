@@ -525,7 +525,7 @@ module.exports = {
       'Database Encryption': '資料庫加密',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
-      'Enter Keywords': '請輸入關鍵字',
+      'Enter Keywords': '輸入關鍵字',
       Search: '搜尋',
       New: '新增',
       'Add a New Member': '新增成員',
@@ -863,7 +863,7 @@ module.exports = {
       // 9007
       'Card Number Limit Exceeded': '已達數量限制',
       // 9008
-      'Non-existent Card': '記憶卡異常, 無法正常操作',
+      'Non-existent Card': '記憶卡異常，無法正常操作',
       // 9009
       'Database Size Limit (3 GB) Exceeded': '已達儲存限制',
       // 9010
@@ -897,9 +897,9 @@ module.exports = {
       // 9024
       // Maximum Field Length Exceeded	不支援此UI
       // 9025
-      'Duplicate Member Name': '名稱重複,請使用不同名稱',
+      'Duplicate Member Name': '名稱重複，請使用不同名稱',
       // 9026
-      'Duplicate Card Name': '名稱重複,請使用不同名稱',
+      'Duplicate Card Name': '名稱重複，請使用不同名稱',
       // 9027
       // VMS Reserved Port	AVN
       // 9028
@@ -931,7 +931,7 @@ module.exports = {
       // 9041
       'Poor Photo Quality': '照片品質不佳',
       // 9042
-      'Limitation of Yaw Angle is 30 Degrees': '人臉角度超過上下20度或左右30度',
+      'Limitation of Yaw Angle is 30 Degrees': '人臉角度超ㄍㄨㄛ過上下20度或左右30度',
       // 9043
       'Limitation of Pitch Angle is 20 Degrees': '人臉角度超過上下20度或左右30度',
       // 9044
@@ -939,11 +939,11 @@ module.exports = {
       // 9045
       'Non-existent Photo': '事件截圖不存在',
       // 9046
-      'Invalid Key': '啟用失敗, 錯誤的啟動碼',
+      'Invalid Key': '啟用失敗，錯誤的啟動碼',
       // 9047
-      'Duplicate Key': '啟用失敗, 重複的啟動碼',
+      'Duplicate Key': '啟用失敗，重複的啟動碼',
       // 9048
-      'Cannot Support Database Downgrade from 30,000 to 3000 People': '啟用失敗, 不支援臉部辨識成員上限從30,000人下降到3,000人'
+      'Cannot Support Database Downgrade from 30,000 to 3000 People': '啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人'
 
     // -- Page -- END --
     }
