@@ -472,7 +472,7 @@ module.exports = class Member extends React.PureComponent {
 
   onSubmitForm = ({errors, values}) => {
     const {avatarList} = this.state;
-    const avatarListArray = Object.entries(avatarList);
+    const avatarListArray = Object.values(avatarList);
 
     // Output error message if primary photo is missing
     if (!avatarList.Primary.avatarPreviewStyle.croppedImage) {
@@ -484,9 +484,9 @@ module.exports = class Member extends React.PureComponent {
 
     // Fallback check if photos have failed verification, is still verifying, not yet verified, or there are Formik validation errors
     if (
-      avatarListArray.filter(avatar => Boolean(avatar[1].isVerifying)).length ||
-      avatarListArray.some(avatar => avatar[1].verifyStatus === false) ||
-      avatarListArray.some(avatar => (avatar[1].verifyStatus === null && avatar[1].avatarFile)) ||
+      avatarListArray.filter(avatar => Boolean(avatar.isVerifying)).length ||
+      avatarListArray.some(avatar => avatar.verifyStatus === false) ||
+      avatarListArray.some(avatar => (avatar.verifyStatus === null && avatar.avatarFile)) ||
       !utils.isObjectEmpty(errors)
     ) {
       return;
@@ -496,7 +496,7 @@ module.exports = class Member extends React.PureComponent {
     const {member, onSubmitted} = this.props;
     const tasks = [];
     avatarListArray.forEach((item, index) => {
-      const {avatarPreviewStyle: {originalImage, croppedImage, convertedImage}} = item[1];
+      const {avatarPreviewStyle: {originalImage, croppedImage, convertedImage}} = item;
       if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
@@ -682,7 +682,7 @@ module.exports = class Member extends React.PureComponent {
               disabled={
                 isApiProcessing ||
                 !(errorMessages.length === 0) ||
-                Object.entries(avatarList).filter(item => Boolean(item[1].isVerifying)).length
+                Object.values(avatarList).filter(item => Boolean(item.isVerifying)).length
               }
               type="button"
               className="btn btn-primary btn-block rounded-pill"
