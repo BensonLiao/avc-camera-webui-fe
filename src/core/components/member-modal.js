@@ -73,8 +73,6 @@ module.exports = class Member extends React.PureComponent {
     this.avatarFile = null;
     // Only determine remaining quota if count is less than 5
     this.state.remainingPictureQuota = props.remainingPictureCount < 5 ? props.remainingPictureCount : null;
-    this.state.pictureRotateDegrees = 0;
-    this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
     this.state.isShowConfirmModal = false;
     this.state.isFormTouched = false;
