@@ -628,7 +628,7 @@ module.exports = {
       // /users/events / Constants / Status
       'enroll-status-0': '圖像偽裝',
       'enroll-status-1': '未知',
-      'enroll-status-2': '註冊',
+      'enroll-status-2': '成功',
       // /users/events / Constants / Confidence
       'confidence-0': '低',
       'confidence-1': '中',

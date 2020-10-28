@@ -628,7 +628,7 @@ module.exports = {
       // /users/events / Constants / Status
       'enroll-status-0': 'なりすまし防止',
       'enroll-status-1': '未登録者',
-      'enroll-status-2': '註冊',
+      'enroll-status-2': '登録者',
       // /users/events / Constants / Confidence
       'confidence-0': '低',
       'confidence-1': '中',
@@ -649,7 +649,7 @@ module.exports = {
       'Display Group': 'メンバーグループ',
       'Display Unknown': '未登録者',
       'Display Image Spoof': 'なりすまし防止',
-      'Facial Recognition is Disabled': '辨識功能已關閉',
+      'Facial Recognition is Disabled': '臉部辨識已關閉',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',
@@ -688,11 +688,11 @@ module.exports = {
       'IP Addressing': 'IP設定',
       'Network Status': 'ネットワークステータス',
       DHCP: 'DHCP',
-      'Test DHCP': '測試DHCP',
+      'Test DHCP': 'DHCPをテストする',
       'DHCP Testing Success': 'DHCPテストに成功しました',
       'DHCP Testing Failed': 'DHCPテストに失敗しました',
       'Fixed IP Address': '固定IPアドレス',
-      'IP Address': 'IP 位址',
+      'IP Address': 'IPアドレス',
       'MAC Address': 'MACアドレス',
       'Subnet Mask': 'サブネットマスク',
       'Router/Gateway': 'ルーター/ゲートウェイ',
@@ -728,7 +728,7 @@ module.exports = {
       Rebooting: 'デバイス再起動しています',
 
       // /network/https
-      'Enable HTTPS': '開啟 HTTPS',
+      'Enable HTTPS': 'HTTPSサービスを有効にする',
       'Click confirm to redirect to the new address:': '確認をクリックして新しいアドレスにリダイレクトします：',
       'The website has been redirected to the new address': '下記のURLへアクセスして再度ログインしてください',
       'The specified port is reserved by system or in use!': '本ポートはシステム予備用または使用されています',
@@ -739,7 +739,7 @@ module.exports = {
       'certificate-type-2': '本デバイスの署名証明書を生成する',
 
       // /system
-      'System Settings': '系統設定',
+      'System Settings': 'システム設定',
       'Software Upgrade': 'ソフトウェアアップグレード',
       'Import File': '設定ファイルをインポートする',
       'Only ZIP file format is supported': '.zipファイルのみサポートしています',
