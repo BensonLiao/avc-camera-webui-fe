@@ -86,7 +86,8 @@ module.exports = {
     '6666', // Alternate IRC [Apple addition]
     '6667', // Standard IRC [Apple addition]
     '6668', // Alternate IRC [Apple addition]
-    '6669' // Alternate IRC [Apple addition]
+    '6669', // Alternate IRC [Apple addition]
+    '12728' // Postman
   ],
   PORT_NUMBER_MIN: 1024,
   PORT_NUMBER_MAX: 65535,
