@@ -446,6 +446,7 @@ module.exports = {
       'Normally Open': '常開',
       'Output 1': '數位輸出 1',
       'Output 2': '數位輸出 2',
+      'Output {{0}}': '數位輸出 {{0}}',
       'Enable Digital Output {{0}}': '開啟數位輸出 {{0}}',
       Type: '輸出類型',
       Normal: '一般',
@@ -812,8 +813,8 @@ module.exports = {
       // /system/information
       'Build Version': '開發版號',
       'S/N Code': 'S/N 碼',
-      'Downloading System Log': 'Downloading System Log',
-      'Download in progress': 'Download in progress',
+      'Downloading System Log File': '下載系統紀錄檔案',
+      'Download progress': '下載進度',
 
       // /sd-card
       'Enable SD Card': '開啟記憶卡',
@@ -903,7 +904,7 @@ module.exports = {
       // 9027
       // VMS Reserved Port	AVN
       // 9028
-      'Software Upgrade Failed': '軟體更新成功',
+      'Software Upgrade Failed': '軟體更新失敗',
       // 9029
       'Unable to Complete the Format': '記憶卡格式化失敗',
       // 9030
@@ -945,7 +946,7 @@ module.exports = {
       // 9048
       'Cannot Support Database Downgrade from 30,000 to 3000 People': '啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人'
 
-    // -- Page -- END --
+      // -- Page -- END --
     }
   }
 };

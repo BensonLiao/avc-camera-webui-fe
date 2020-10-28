@@ -446,6 +446,7 @@ module.exports = {
       'Normally Open': 'Normally Open',
       'Output 1': 'Output 1',
       'Output 2': 'Output 2',
+      'Output {{0}}': 'Output {{0}}',
       'Enable Digital Output {{0}}': 'Enable Digital Output {{0}}',
       Type: 'Type',
       Normal: 'Normal',
@@ -812,8 +813,8 @@ module.exports = {
       // /system/information
       'Build Version': 'Build Version',
       'S/N Code': 'S/N Code',
-      'Downloading System Log': 'Downloading System Log',
-      'Download in progress': 'Download in progress',
+      'Downloading System Log File': 'Downloading System Log File',
+      'Download progress': 'Download progress',
 
       // /sd-card
       'Enable SD Card': 'Enable SD Card',

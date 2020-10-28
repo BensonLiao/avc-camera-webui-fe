@@ -124,7 +124,7 @@ module.exports = {
       // CustomTooltip / /system/maintain
       'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': '本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります',
       // CustomTooltip / /sd-card
-      'Please disable the SD card first.': '請先關閉記憶卡功能',
+      'Please disable the SD card first.': '先にSDカードの機能を無効にしてください',
       'Please enable outgoing email first.': 'メールアドレスを設定するのは必須です',
 
       // -- Component -- END --
@@ -446,6 +446,7 @@ module.exports = {
       'Normally Open': '常時開',
       'Output 1': 'デジタル出力 1',
       'Output 2': 'デジタル出力 2',
+      'Output {{0}}': 'デジタル出力 {{0}}',
       'Enable Digital Output {{0}}': '開啟數位輸出 {{0}}',
       Type: '輸出類型',
       Normal: '一般',
@@ -483,7 +484,7 @@ module.exports = {
       'Content :': '內文 :',
       'Specify the Subject of Notification Emails': '請輸入通知郵件主旨',
       'Append Your Message to Notification Emails': '請輸入通知郵件內文',
-      'Content Placement': '內文位置',
+      'Content Placement': '内容の位置',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -513,49 +514,49 @@ module.exports = {
       // /users/members
       Members: 'メンバー',
       'All Members': '全メンバー表示',
-      Groups: '群組',
-      'Create a Group': '新增群組',
-      'Delete Group: {{0}}': '刪除群組: {{0}}',
-      'Delete Group': '刪除群組',
-      Database: '資料庫檔案',
+      Groups: 'グループ',
+      'Create a Group': 'グループを追加する',
+      'Delete Group: {{0}}': 'グループを削除する：{{0}}',
+      'Delete Group': 'グループを削除する',
+      Database: 'データベースファイル',
       'Encryption Settings': '加密設定',
-      Export: '匯出',
-      Import: '匯入',
+      Export: 'エクスポート',
+      Import: 'インポート',
       'Updating Member Database': 'メンバーデータベースを更新します',
-      'Database Encryption': '資料庫加密',
+      'Database Encryption': 'データベース暗号化',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
       'Enter Keywords': 'キーワードを入力してください',
       Search: '検索',
-      New: '新增',
-      'Add a New Member': '新規メンバーを追加する',
-      'Add a Member from Events': '從事件新增',
-      'Edit Group: {{0}}': '編輯群組: {{0}}',
-      'User Picture': '註冊照片',
+      New: '追加',
+      'Add a New Member': '新規追加',
+      'Add a Member from Events': 'イベントから追加',
+      'Edit Group: {{0}}': 'グループを編集する：{{0}}',
+      'User Picture': '登録用写真',
       Actions: '操作',
       'Delete Member: {{0}}': '刪除成員: {{0}}',
-      'Delete Member': '刪除成員',
+      'Delete Member': 'メンバーを削除する',
       'Are you sure you want to delete member {{0}}?': 'メンバー {{0}} を削除しますか？',
-      'Edit Member: {{0}}': '編輯成員: {{0}}',
-      'Edit Member': '編輯成員',
+      'Edit Member: {{0}}': 'メンバーを編集する：{{0}}',
+      'Edit Member': 'メンバーを編集する',
       '{{0}}-{{1}} items. Total: {{2}}': '{{0}}-{{1}}個データ、合計: {{2}}',
       'Importing Member Database': 'メンバーデータベースをインポートします',
       'Exporting Member Database': 'メンバーデータベースをエクスポートします',
-      'New Member': '新增成員',
+      'New Member': 'メンバーを追加する',
       'Please upload your face photo.': '請上傳正面照片',
       'Are you sure you want to delete group {{0}}?': 'グループ {{0}} を削除しますか？',
       // /users/members (AVN)
-      'Upload Image': '上傳照片',
-      Delete: '刪除',
+      'Upload Image': '写真をアップロードする',
+      Delete: '削除',
 
       // /users/members/new-group
-      Name: '名稱',
+      Name: '名称',
       'Enter a name for this group': 'グループ名を入力してください',
-      Note: '備註',
+      Note: '備考',
       'Enter a note': '備考を入力してください',
       'Maximum length: 256 characters': '最大256文字まで入力可能です',
-      Create: '新增',
-      Close: '關閉',
+      Create: '追加',
+      Close: '閉じる',
 
       // /users/members/modify-group
       'Edit Group': '編輯群組',
@@ -569,8 +570,8 @@ module.exports = {
       'Photo 3': '照片3',
       'Photo 4': '照片4',
       'Upload Primary First': '請先上傳主照片',
-      'Photo Editor': '編輯',
-      'Drag the image to position it correctly.': '拖曳調整照片',
+      'Photo Editor': '写真編集',
+      'Drag the image to position it correctly.': '写真をドラッグして調整してください',
       Organization: '組織',
       'Enter a name for this member': 'メンバー名を入力してください',
       'Enter an organization for this member': '組織名を入力してください',
@@ -584,7 +585,7 @@ module.exports = {
       'All Accounts': '全アカウント表示',
       Username: 'ユーザー名',
       'New User': '創建使用者',
-      'Modify User': '編輯帳號',
+      'Modify User': 'アカウントを編集する',
       'Enter a name for this account': 'アカウント名を入力してください',
       'Enter a password': 'パスワードを入力してください',
       'Enter a new password': '新しいパスワードを入力してください',
@@ -604,18 +605,18 @@ module.exports = {
       Capture: 'キャプチャー',
       Confidence: '相似度',
       'Can\'t find any data.': '一致するデータが見つかりません再検索して下さい',
-      Filters: '篩選條件',
-      Clear: '清除條件',
+      Filters: 'フィルター条件',
+      Clear: 'クリア',
       'Start Date': '日付',
       'Start Time': '時間',
       'Start Datetime': '開始時間',
       'End Date': '日付',
       'End Time': '時間',
       'End Datetime': '終了時間',
-      'Facial Recognition': '臉部辨識',
-      'Age & Gender': '性別年齡',
-      'Human Detection': '人形偵測',
-      Similarity: '相似度',
+      'Facial Recognition': '顔認証',
+      'Age & Gender': '性別年齢推定',
+      'Human Detection': '人体検知',
+      Similarity: '相似性',
       'Recognition Result': '認証結果',
       'Add to Existing Member': '新增至現有成員',
       'Enter Keyword For Search': '請輸入關鍵字以便搜尋',
@@ -676,10 +677,10 @@ module.exports = {
       '{{0}} authorized successfully!': '{{0}} 許可されました',
       'Activation Failed': 'アクティベーションに失敗しました',
       'Authorization failed!': '許可されませんでした',
-      'Key Already Registered': '重複輸入啟用碼',
+      'Key Already Registered': 'ライセンスキーが使われています',
       // /analytic/license / Constants / FR Auth key
-      'face-recognition-key-thirtyThousand': '臉部辨識 30k',
-      'face-recognition-key-threeThousand': '臉部辨識 3k',
+      'face-recognition-key-thirtyThousand': '顔認証 30k',
+      'face-recognition-key-threeThousand': '顔認証 3k',
 
       // /network/settings
       Success: '成功',
@@ -704,10 +705,10 @@ module.exports = {
       'Please enable HTTPS first.': '先にHTTPS機能を有効にしてください',
       'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
       'Enter a fixed IP address': '固定IPアドレスを入力してください',
-      'Enter Subnet Mask': '請輸入子網路遮罩',
-      'Enter Router/Gateway': '請輸入路由器/閘道',
-      'Enter a primary DNS': '請輸入主要DNS',
-      'Enter a secondary DNS': '請輸入次要DNS',
+      'Enter Subnet Mask': 'サブネットマスクを入力してください',
+      'Enter Router/Gateway': 'ルーター/ゲートウェイを入力してください',
+      'Enter a primary DNS': 'プライマリーDNSを入力してください',
+      'Enter a secondary DNS': 'セカンダリーDNSを入力してください',
 
       // /network/tcp-ip
       'Enable DDNS': 'DDNSサービスを有効にする',
@@ -759,7 +760,7 @@ module.exports = {
       'Sync with Your Computer': 'コンピューターと同期する',
       'Set the Date & Time Manually': '手動設定',
       'Updating Date & Time': '更新日期與時間',
-      'Updating date & time requires you to log in again. Are you sure you want to continue?': '您確定要更裝置時間嗎? 更改裝置時間必須重新登入',
+      'Updating date & time requires you to log in again. Are you sure you want to continue?': 'デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります',
       'Please Enable Sync with Network Time Server (NTP)': '請啟用與網路時間伺服器 (NTP) 同步',
       'Time Zone is disabled when syncing with your computer': '與電腦同步時時區將停用',
 
@@ -812,8 +813,8 @@ module.exports = {
       // /system/information
       'Build Version': '開發版號',
       'S/N Code': 'S/N 碼',
-      'Downloading System Log': 'Downloading System Log',
-      'Download in progress': 'Download in progress',
+      'Downloading System Log File': 'システムログをダウンロード',
+      'Download progress': 'ダウンロードの進行状況',
 
       // /sd-card
       'Enable SD Card': '開啟記憶卡',
@@ -853,43 +854,43 @@ module.exports = {
       // 9001
       'Duplicate Member Names': '名称が重複しています。別の名称をご使用ください',
       // 9002
-      'Login Failed': '帳號或密碼錯誤',
+      'Login Failed': 'アカウントまたはパスワードが間違っています',
       // 9003
-      'Empty Member Database': '匯入錯誤的資料庫檔案',
+      'Empty Member Database': '間違ったデータベースファイルがインポートされています',
       // 9004
       // Unable to reset a forgotten password	AVN
       // 9005
       // Unable to reset a password	不支援此功能
       // 9007
-      'Card Number Limit Exceeded': '通知カード数は上限に達しました',
+      'Card Number Limit Exceeded': '通知カード数の上限に達しました',
       // 9008
-      'Non-existent Card': '記憶卡異常, 無法正常操作',
+      'Non-existent Card': '通知カードが存在していません',
       // 9009
-      'Database Size Limit (3 GB) Exceeded': '已達儲存限制',
+      'Database Size Limit (3 GB) Exceeded': 'メンバー保存容量の上限に達しました',
       // 9010
       // Invalid Member Photo 不支援此功能
       // 9011
       // Unable to Process the Request (invalid token).	UI不支援此功能, 支援在工程模式
       // 9012
-      'Group Number Limit Exceeded': '已達數量限制',
+      'Group Number Limit Exceeded': 'グループ数の上限に達しました',
       // 9013
       // Incorrect Password	不支援此功能
       // 9014
-      'Wrong Password for Database File': '資料庫解壓縮密碼錯誤',
+      'Wrong Password for Database File': 'データベースファイル解凍パスワードが間違っています',
       // 9015
-      'Wrong File Format': '檔案格式錯誤',
+      'Wrong File Format': 'ファイルの形式が間違っています',
       // 9016
-      'Corrupted Zip File': '檔案毀損',
+      'Corrupted Zip File': 'ファイルが破損しています',
       // 9017
-      'Photo Limit of Member Database Exceeded': '已達數量限制',
+      'Photo Limit of Member Database Exceeded': '写真数の上限に達しました',
       // 9018
       // Photo Size Limit Exceeded	不支援此功能
       // 9019
       // Invalid or Absent Photo	不支援此功能
       // 9020
-      'Non-existent Group': '成員群組不存在',
+      'Non-existent Group': 'グループが存在していません',
       // 9021
-      'Non-existent Member': '成員名稱不存在',
+      'Non-existent Member': 'メンバーが存在していません',
       // 9022
       // Maximum Field Length Exceeded	不支援此UI
       // 9023
@@ -897,23 +898,23 @@ module.exports = {
       // 9024
       // Maximum Field Length Exceeded	不支援此UI
       // 9025
-      'Duplicate Member Name': '名稱重複,請使用不同名稱',
+      'Duplicate Member Name': 'メンバー名が重複しています。別の名称をご使用ください',
       // 9026
-      'Duplicate Card Name': '名稱重複,請使用不同名稱',
+      'Duplicate Card Name': '通知カード名が重複しています。別の名称をご使用ください',
       // 9027
       // VMS Reserved Port	AVN
       // 9028
-      'Software Upgrade Failed': '軟體更新成功',
+      'Software Upgrade Failed': 'ソフトウェア更新失敗',
       // 9029
-      'Unable to Complete the Format': '記憶卡格式化失敗',
+      'Unable to Complete the Format': 'SDカードのフォーマットが失敗しました',
       // 9030
-      'Empty SMTP Server Address': '必須輸入外送伺服器位址',
+      'Empty SMTP Server Address': 'SMTPサーバーアドレスを入力してください',
       // 9031
-      'Empty SMTP Account': '必須輸入帳號和密碼',
+      'Empty SMTP Account': 'SMTPアカウントを入力してください',
       // 9032
-      'Empty SMTP Account Password ': '必須輸入帳號和密碼',
+      'Empty SMTP Account Password ': 'SMTPパスワードを入力してください',
       // 9033
-      'Empty Sender Email': '必須輸入寄件人資訊',
+      'Empty Sender Email': '差出人情報を入力してください',
       // 9034
       // Outgoing Email being Disabled	不支援此UI
       // 9035

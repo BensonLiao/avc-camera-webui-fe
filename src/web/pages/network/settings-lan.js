@@ -97,7 +97,7 @@ class SettingsLan extends React.PureComponent {
                 info: true
               },
               isUpdating: false,
-              modalTitle: i18n.t('Success'),
+              modalTitle: i18n.t('Redirection Success'),
               modalBody: [i18n.t('Click confirm to redirect to the new address:'), `${i18n.t('IP Address')}: ${resultIP}`],
               onConfirm: () => {
                 this.setState({isConfirmDisable: true});
