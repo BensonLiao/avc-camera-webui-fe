@@ -156,27 +156,15 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                       </div>
                     ) : '-'}
                   </td>
-                  <td>
-                    <CustomTooltip placement="top-start" title={event.member ? event.member.name || '' : ''}>
-                      <div>
-                        {event.member ? event.member.name || '-' : '-'}
-                      </div>
-                    </CustomTooltip>
-                  </td>
-                  <td>
-                    <CustomTooltip placement="top-start" title={event.member ? event.member.group || '' : ''}>
-                      <div>
-                        {event.member ? event.member.group || '-' : '-'}
-                      </div>
-                    </CustomTooltip>
-                  </td>
-                  <td>
-                    <CustomTooltip placement="top-start" title={event.member ? event.member.organization || '' : ''}>
-                      <div>
-                        {event.member ? event.member.organization || '-' : '-'}
-                      </div>
-                    </CustomTooltip>
-                  </td>
+                  {['name', 'group', 'organization'].map(memberDetail => (
+                    <td key={memberDetail}>
+                      <CustomTooltip placement="top-start" title={event.member ? event.member[memberDetail] || '' : ''}>
+                        <div>
+                          {event.member ? event.member[memberDetail] || '-' : '-'}
+                        </div>
+                      </CustomTooltip>
+                    </td>
+                  ))}
                   <td>
                     {event.confidences && event.recognitionType !== RecognitionType.fake ? i18n.t(`confidence-${event.confidences.similarity}`) : '-'}
                   </td>
