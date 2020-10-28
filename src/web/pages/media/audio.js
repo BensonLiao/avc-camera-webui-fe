@@ -69,7 +69,7 @@ module.exports = class Audio extends Base {
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{i18n.t('Audio')}</div>
+                  <div className="card-header">{i18n.t('Audio Title')}</div>
                   <Formik
                     initialValues={audioSettings}
                     onSubmit={this.onSubmitAudioSettingsForm}

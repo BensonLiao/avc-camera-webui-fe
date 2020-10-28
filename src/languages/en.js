@@ -156,7 +156,6 @@ module.exports = {
       Birthday: 'Birthday',
       'This is used for resetting password.': 'This is used for resetting password.',
       'Enter your account': 'Enter your account',
-      'Enter your password': 'Enter your password',
       // /setup/account / Constants / Permission
       'permission-0': 'Admin',
       'permission-1': 'Viewer',
@@ -391,12 +390,12 @@ module.exports = {
       'Up to 4 mask areas can be set.': 'Up to 4 mask areas can be set.',
 
       // /audio
+      'Audio Title': 'Audio',
       'Enable Audio Input': 'Enable Audio Input',
       'Audio Quality': 'Audio Quality',
       'Input Source': 'Input Source',
       'Internal Microphone': 'Internal Microphone',
       'External Microphone': 'External Microphone',
-      'Audio Out': 'Audio Out',
       // /audio / Constans / Audio Quality
       'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
       'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
@@ -404,7 +403,6 @@ module.exports = {
       // /notification
       'Notification Settings': 'Notification Settings',
       'Notification Method': 'Notification Method',
-      App: 'App',
       Email: 'Email',
       'I/O': 'I/O',
       'Smart Notification': 'Smart Notification',
@@ -642,10 +640,10 @@ module.exports = {
       'Level of Accuracy': 'Level of Accuracy',
       'Detection Zone': 'Detection Zone',
       'Show/Hide Detection Zone': 'Show/Hide Detection Zone',
-      'The default in the whole live view screen.': 'The default in the whole live view screen.',
+      'The default is the whole live view screen.': 'The default is the whole live view screen.',
       'Enable Facial Detection Size': 'Enable Facial Detection Size',
       'Min. Facial Detection Size': 'Min. Facial Detection Size',
-      'Live View Display:': 'Live View Display:',
+      'Live View Display': 'Live View Display',
       'Display Name': 'Display Name',
       'Display Group': 'Display Group',
       'Display Unknown': 'Display Unknown',
@@ -849,7 +847,7 @@ module.exports = {
       'Not Found': 'Not Found',
       'Back to Home': 'Back to Home',
       'Internal Server Error': 'Internal Server Error',
-      'Sorry for your inconvenience, we are actively process with it!': 'Sorry for your inconvenience, we are actively process with it!',
+      'Sorry for any inconvenience, we are fixing this problem.': 'Sorry for any inconvenience, we are fixing this problem.',
 
       // Server error codes
       // 9001

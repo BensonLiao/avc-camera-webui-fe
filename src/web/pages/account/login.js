@@ -93,7 +93,7 @@ module.exports = class Login extends Base {
               name="password"
               component={Password}
               inputProps={{
-                placeholder: i18n.t('Enter your password'),
+                placeholder: i18n.t('Enter a password'),
                 className: classNames('form-control', {'is-invalid': errors.password && touched.password})
               }}
             />

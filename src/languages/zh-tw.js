@@ -59,7 +59,7 @@ module.exports = {
 
       // Component / App Bar / Support
       'Device Help': '裝置使用幫助',
-      'Technical Support': '技術問題信箱',
+      'Technical Support': '裝置使用幫助',
       'Product Information': '其他產品資訊',
       'Sign Out': '登出',
 
@@ -89,8 +89,8 @@ module.exports = {
       'validation-numberNegative': '必須為負數',
       'validation-array': '必須為陣列',
       'validation-arrayEmpty': '不可為空陣列',
-      'validation-arrayMin': '此欄位最少包含 {expected} 個項目。',
-      'validation-arrayMax': '此欄位最多包含 {expected} 個項目。',
+      'validation-arrayMin': '此欄位最少包含 {expected} 個項目',
+      'validation-arrayMax': '此欄位最多包含 {expected} 個項目',
       'validation-arrayLength': '必須為 {expected} 個項目',
       'validation-arrayContains': '必須包含 {expected} 個項目',
       'validation-arrayEnum': '使用了不允許的項目{expected}',
@@ -100,10 +100,10 @@ module.exports = {
       'validation-dateMin': '必須為{expected}以後的日期',
       'validation-dateMax': '必須為{expected}以前的日期',
       'validation-forbidden': '隱藏欄位。',
-      'validation-email': '請使用正確的電子信箱格式。',
-      'validation-url': '請使用正確的網址格式。',
-      'validation-birthday': '請使用正確的生日格式。',
-      'validation-countryCode': '國家代碼錯誤。',
+      'validation-email': '請使用正確的電子信箱格式',
+      'validation-url': '請使用正確的網址格式',
+      'validation-birthday': '請使用正確的生日格式',
+      'validation-countryCode': '國家代碼錯誤',
       'This name already exists in the system. Please use a different name.': '名稱重複，請使用不同名稱',
       'The port number must not be empty.': '此欄位必需輸入',
 
@@ -156,10 +156,9 @@ module.exports = {
       Birthday: '生日',
       'This is used for resetting password.': '生日將會用於重置密碼',
       'Enter your account': '請輸入您的帳號',
-      'Enter your password': '請輸入您的密碼',
       // /setup/account / Constants / Permission
       'permission-0': '管理者',
-      'permission-1': '訪客',
+      'permission-1': '來賓',
       'permission-2': '訪客',
       'permission-99': '管理者', // Super-Admin, for easier backend permission control, no difference for UI
 
@@ -226,9 +225,9 @@ module.exports = {
       'Device Status': '裝置狀態',
       'SD Card': '記憶卡',
       'Authentication Required': '未啟用',
-      'Facial Recognition: ': '臉部辨識 : ',
-      'Age & Gender: ': '性別年齡 : ',
-      'Human Detection: ': '人形偵測 : ',
+      'Facial Recognition: ': '臉部辨識：',
+      'Age & Gender: ': '性別年齡：',
+      'Human Detection: ': '人形偵測：',
       'Free: {{0}}, Total: {{1}}': '{{0}} 可用 (共 {{1}})',
       'Enable HDR': '開啟HDR',
       Adjustments: '屬性',
@@ -391,12 +390,12 @@ module.exports = {
       'Up to 4 mask areas can be set.': '最多4個遮罩',
 
       // /audio
+      'Audio Title': '聲音',
       'Enable Audio Input': '開啟聲音輸入',
       'Audio Quality': '品質',
       'Input Source': '輸入來源',
       'Internal Microphone': '內建式麥克風',
       'External Microphone': '外接麥克風',
-      'Audio Out': '聲音輸出',
       // /audio / Constans / Audio Quality
       'audio-quality-0': 'G.711, 8kHz, 64kbps, 單聲道',
       'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
@@ -404,7 +403,6 @@ module.exports = {
       // /notification
       'Notification Settings': '通報',
       'Notification Method': '通報方式',
-      App: 'APP設定',
       Email: '電子郵件',
       'I/O': '數位輸出及輸入',
       'Smart Notification': '智慧通知',
@@ -605,7 +603,7 @@ module.exports = {
       Time: '時間',
       Capture: '臉部截圖',
       Confidence: '相似度',
-      'Can\'t find any data.': '查無相符資料，請重新搜尋。',
+      'Can\'t find any data.': '沒有符合的資料, 請重新設置條件',
       Filters: '篩選條件',
       Clear: '清除條件',
       'Start Date': '日期',
@@ -642,15 +640,15 @@ module.exports = {
       'Level of Accuracy': '辨識成功閥值',
       'Detection Zone': '觸發區域',
       'Show/Hide Detection Zone': '顯示或隱藏區域',
-      'The default in the whole live view screen.': '預設為全畫面',
+      'The default is the whole live view screen.': '預設為全畫面',
       'Enable Facial Detection Size': '開啟最小臉部尺寸',
       'Min. Facial Detection Size': '最小臉部尺寸',
-      'Live View Display:': '即時影像顯示:',
+      'Live View Display': '即時影像顯示',
       'Display Name': '成員名稱',
       'Display Group': '成員群組',
       'Display Unknown': '辨識結果：未知',
       'Display Image Spoof': '辨識結果：圖像偽裝',
-      'Facial Recognition is Disabled': '辨識功能已關閉',
+      'Facial Recognition is Disabled': '臉部辨識已關閉',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',
@@ -675,9 +673,9 @@ module.exports = {
       'Activated Functions': '啟用功能',
       'Enable Status': '狀態',
       'Activated Success': '啟用成功',
-      '{{0}} authorized successfully!': '{{0}}已授權成功！',
+      '{{0}} authorized successfully!': '{{0}} 啟用成功',
       'Activation Failed': '啟用失敗',
-      'Authorization failed!': '授權失敗！',
+      'Authorization failed!': '啟用失敗',
       'Key Already Registered': '重複輸入啟用碼',
       // /analytic/license / Constants / FR Auth key
       'face-recognition-key-thirtyThousand': '臉部辨識 30k',
@@ -715,9 +713,9 @@ module.exports = {
       'Enable DDNS': '開啟 DDNS 服務',
       'Service Provider': '服務提供者',
       'Host Name': '主機名稱',
-      'Enter DDNS host name.': '請輸入 DDNS 主機名稱',
-      'Enter DDNS username.': '請輸入 DDNS 使用者名稱',
-      'Enter DDNS password.': '請輸入 DDNS 密碼',
+      'Enter DDNS host name.': '輸入 DDNS 主機名稱',
+      'Enter DDNS username.': '輸入 DDNS 使用者名稱',
+      'Enter DDNS password.': '輸入 DDNS 密碼',
       'Secondary HTTP Port': 'HTTP 次要連接埠',
       'Enter Your Secondary Server Port': '請輸入您的服務埠',
       'Range: 1024-65535 Default: 8080': '範圍：1024-65535，預設：8080',
@@ -730,7 +728,7 @@ module.exports = {
 
       // /network/https
       'Enable HTTPS': '開啟 HTTPS',
-      'Click confirm to redirect to the new address:': '按確認重新導向新的網址 :',
+      'Click confirm to redirect to the new address:': '請按確認導向新的網址：',
       'The website has been redirected to the new address': '請利用下列網址重新登入',
       'The specified port is reserved by system or in use!': '此連接埠為系統預留或使用中',
       'Redirection Success': '重新導向',
@@ -742,7 +740,7 @@ module.exports = {
       // /system
       'System Settings': '系統設定',
       'Software Upgrade': '軟體更新',
-      'Import File': '匯入設定檔',
+      'Import File': '軟體檔案',
       'Only ZIP file format is supported': '僅支援 .zip 檔案格式',
       'Select File': '選擇檔案',
       'No file selected.': '未選擇任何檔案',
@@ -849,7 +847,7 @@ module.exports = {
       'Not Found': '此網頁不存在',
       'Back to Home': '回首頁',
       'Internal Server Error': '內部伺服器問題',
-      'Sorry for your inconvenience, we are actively process with it!': '造成您的不便不好意思，我們正在積極處理中！',
+      'Sorry for any inconvenience, we are fixing this problem.': '抱歉造您的不便，正在處理中',
 
       // Server error codes
       // 9001
