@@ -540,14 +540,14 @@ module.exports = class Member extends React.PureComponent {
         <div className="modal-body">
           <div className="multi-photo-uploader">
             <div className="container d-flex flex-row justify-content-between">
-              {Object.entries(avatarList).map(avatar => {
+              {Object.entries(avatarList).map(([photoKey, avatar]) => {
                 const {
                   verifyStatus,
                   isVerifying,
                   avatarPreviewStyle: {croppedImage}
-                } = avatar[1];
+                } = avatar;
                 return (
-                  <div key={avatar[0]} className={classNames('individual-item d-flex flex-column')}>
+                  <div key={photoKey} className={classNames('individual-item d-flex flex-column')}>
                     <div
                       id="photo-wrapper"
                       className={classNames(
@@ -555,7 +555,7 @@ module.exports = class Member extends React.PureComponent {
                         {'has-background': croppedImage},
                         {
                           // Allow upload if it is Primary or Primary photo exists
-                          available: ((avatar[0] === 'Primary') || primaryBackground) &&
+                          available: ((photoKey === 'Primary') || primaryBackground) &&
                           // Allow upload if remaining picture quota is not at limit based on FR license type
                                      (croppedImage || remainingPictureQuota > 0 || remainingPictureQuota === null)
                         },
@@ -579,7 +579,7 @@ module.exports = class Member extends React.PureComponent {
                                 height: this.listWrapperSize
                               }}
                               onClick={() => {
-                                this.onShowEditModal(avatar[0]);
+                                this.onShowEditModal(photoKey);
                               }}
                             />
                             <div
@@ -598,17 +598,17 @@ module.exports = class Member extends React.PureComponent {
                         ) : (
                           // Display upload area for new photo
                           <CustomTooltip
-                            show={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                            show={((photoKey !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
                             title={isOverPhotoLimit ? i18n.t('Photo Limit Reached') : i18n.t('Upload Primary First')}
                           >
                             <label className="btn">
                               <i className="fas fa-plus"/>
                               <input
-                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                                disabled={((photoKey !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
                                 className="d-none"
                                 type="file"
                                 accept="image/png,image/jpeg"
-                                onChange={this.onChangeAvatar(avatar[0], this.onShowEditModal)}
+                                onChange={this.onChangeAvatar(photoKey, this.onShowEditModal)}
                               />
                             </label>
                           </CustomTooltip>
@@ -616,7 +616,7 @@ module.exports = class Member extends React.PureComponent {
                         )}
                     </div>
                     <span>
-                      {i18n.t(avatar[0])}
+                      {i18n.t(photoKey)}
                     </span>
                   </div>
                 );
