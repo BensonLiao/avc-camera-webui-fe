@@ -158,8 +158,8 @@ module.exports = class Member extends React.PureComponent {
         remainingPictureQuota: (
           // Subtract 1 if adding photo from event
           defaultPictureUrl ? remainingPictureCount - 1 : remainingPictureCount
-        ) - Object.entries(prevState.avatarList).reduce((count, item) => {
-          count += item[1].avatarFile ? 1 : 0;
+        ) - Object.values(prevState.avatarList).reduce((count, item) => {
+          count += item.avatarFile ? 1 : 0;
           return count;
         }, 0)
       }));
@@ -546,6 +546,7 @@ module.exports = class Member extends React.PureComponent {
     const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
     const isOverPhotoLimit = remainingPictureQuota <= 0 && remainingPictureQuota !== null;
+    console.log('formRender -> remainingPictureQuota', remainingPictureQuota);
     return (
       <Form>
         <FormikEffect onChange={this.onChangeFormValues}/>
