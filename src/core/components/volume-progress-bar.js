@@ -1,8 +1,8 @@
-const filesize = require('filesize');
-const PropTypes = require('prop-types');
-const React = require('react');
-const i18n = require('../../i18n').default;
-const CustomTooltip = require('./tooltip');
+import filesize from 'filesize';
+import PropTypes from 'prop-types';
+import React from 'react';
+import i18n from '../../i18n';
+import CustomTooltip from './tooltip';
 
 const VolumeProgressBar = ({total, usage, percentageToHideText}) => {
   const usedDiskPercentage = Math.ceil((usage / total) * 100);
