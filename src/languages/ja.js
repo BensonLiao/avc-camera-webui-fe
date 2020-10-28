@@ -749,7 +749,7 @@ module.exports = {
       // /system/datetime
       Administration: '管理',
       'Date & Time': '日付と時間',
-      'Time Zone': '時區',
+      'Time Zone': 'タイムゾーン',
       'Date and Time of the Device': 'デバイス時間',
       'Sync with Network Time Server (NTP)': 'ネットワークタイムサーバー (NTP)と同期する',
       'Host Name or IP Address': 'サーバーアドレス',
@@ -765,7 +765,7 @@ module.exports = {
       'Time Zone is disabled when syncing with your computer': '與電腦同步時時區將停用',
 
       // /system/maintain
-      'Restore All Settings': '還原所有設定',
+      'Restore All Settings': '設定を初期値に戻す',
       'Device Maintenance': 'メンテナンス',
       'System Reboot': 'デバイスを再起動する',
       'Are you sure you want to reboot the device?': 'デバイスを再起動しますか？',
@@ -817,9 +817,9 @@ module.exports = {
       'Download progress': 'ダウンロードの進行状況',
 
       // /sd-card
-      'Enable SD Card': '開啟記憶卡',
-      'Disabling SD Card': '關閉記憶卡',
-      'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': '您確定要關閉記憶卡嗎? 事件截圖將不會被儲存',
+      'Enable SD Card': 'SDカードを有効にする',
+      'Disabling SD Card': 'SDカードを取り外します',
+      'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': 'SDカードを取り外しますか？イベントによるキャプチャが保存されません',
       'Off Line Record': '斷線錄影',
       'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
       'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
@@ -834,7 +834,7 @@ module.exports = {
       'Storage Space': 'ストレージ容量',
       'Free: {{0}}': '{{0}} 使用可能',
       'Used: {{0}}': '{{0}} 使用されています',
-      Unrecognized: '無法識別',
+      Unrecognized: '不明なファイルシステム',
       Status: 'ステータス',
       // /sd-card / Status
       Functioning: '正常', // 0 - MOUNTED
