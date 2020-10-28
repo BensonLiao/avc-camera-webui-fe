@@ -102,8 +102,12 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
               return (
                 <th key={item.title} style={item.width}>
                   {
-                    item.handler ?
-                      <><a href="#" onClick={item.handler}>{item.title}</a><i className={item.icon}/></> :
+                    item.handler ? (
+                      <>
+                        <a href="#" onClick={item.handler}>{item.title}</a>
+                        <i className={item.icon}/>
+                      </>
+                    ) :
                       item.title
                   }
                 </th>
@@ -136,11 +140,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                     <div className="thumbnail-wrapper">
                       <div className="rounded-circle overflow-hidden circle-crop">
                         {event.pictureThumbUrl && (
-                          <a
-                            onClick={() => {
-                              generateEnlargePhotoHandler(event.pictureLargeUrl);
-                            }}
-                          >
+                          <a onClick={() => generateEnlargePhotoHandler(event.pictureLargeUrl)}>
                             <div className="thumbnail" style={{backgroundImage: `url('${event.pictureThumbUrl}')`}}/>
                           </a>
                         )}
