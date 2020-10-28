@@ -1,14 +1,14 @@
-const classNames = require('classnames');
-const PropTypes = require('prop-types');
-const React = require('react');
-const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
-const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
-const NTPTimeZoneList = require('webserver-form-schema/constants/system-sync-time-ntp-timezone-list');
-const SyncTimeOption = require('webserver-form-schema/constants/system-sync-time');
-const i18n = require('../../../i18n').default;
-const CustomTooltip = require('../../../core/components/tooltip');
-const utils = require('../../../core/utils');
-const wrappedApi = require('../../../core/apis');
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Similarity from 'webserver-form-schema/constants/event-filters/similarity';
+import RecognitionType from 'webserver-form-schema/constants/event-filters/recognition-type';
+import NTPTimeZoneList from 'webserver-form-schema/constants/system-sync-time-ntp-timezone-list';
+import SyncTimeOption from 'webserver-form-schema/constants/system-sync-time';
+import i18n from '../../../i18n';
+import CustomTooltip from '../../../core/components/tooltip';
+import utils from '../../../core/utils';
+import wrappedApi from '../../../core/apis';
 
 const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMemberHandler, remainingPictureCount}) => {
   const generateEnlargePhotoHandler = eventPhotoUrl => {
