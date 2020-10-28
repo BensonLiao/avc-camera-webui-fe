@@ -166,13 +166,7 @@ module.exports = class Member extends React.PureComponent {
     }
   }
 
-  onChangeFormValues = () => {
-    this.setState({isFormTouched: true});
-  }
-
-  hideApiProcessModal = () => {
-    this.setState({isShowApiProcessModal: false});
-  };
+  onChangeFormValues = () => this.setState({isFormTouched: true});
 
   onHideEditModalAndRevertChanges = () => {
     const updateState = update(this.state,
@@ -183,13 +177,9 @@ module.exports = class Member extends React.PureComponent {
     this.setState(updateState);
   };
 
-  onShowConfirmModal = () => {
-    this.setState({isShowConfirmModal: true});
-  }
+  onShowConfirmModal = () => this.setState({isShowConfirmModal: true});
 
-  onHideConfirmModal = () => {
-    this.setState({isShowConfirmModal: false});
-  }
+  onHideConfirmModal = () => this.setState({isShowConfirmModal: false});
 
   onShowEditModal = avatarName => {
     const updateState = update(this.state,
@@ -546,7 +536,6 @@ module.exports = class Member extends React.PureComponent {
     const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
     const isOverPhotoLimit = remainingPictureQuota <= 0 && remainingPictureQuota !== null;
-    console.log('formRender -> remainingPictureQuota', remainingPictureQuota);
     return (
       <Form>
         <FormikEffect onChange={this.onChangeFormValues}/>
