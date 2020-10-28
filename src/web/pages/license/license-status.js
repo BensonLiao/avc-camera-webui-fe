@@ -41,7 +41,7 @@ LicenseStatus.propTypes = {
   isEnabled: PropTypes.bool.isRequired,
   licenseEnableImg: PropTypes.string.isRequired,
   licenseDisableImg: PropTypes.string.isRequired,
-  // Option to isHide license component for specific camera models
+  // Option to hide license component for specific camera models
   isHide: PropTypes.bool
 };
 
