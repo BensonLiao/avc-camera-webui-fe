@@ -740,7 +740,7 @@ module.exports = class Member extends React.PureComponent {
                 <Cropper
                   src={avatarPreviewStyle.originalImage}
                   // Depends on modal width and style container to 16:9 ratio
-                  style={{height: 300}}
+                  style={{height: this.editWrapperSize}}
                   // Cropper.js options
                   initialAspectRatio={1}
                   aspectRatio={1}
