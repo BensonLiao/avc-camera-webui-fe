@@ -12,8 +12,10 @@ import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import ioOutSettingsValidator from '../../validations/notifications/io-out-settings-validator';
 import utils from '../../../core/utils';
+import {useContextState} from '../../stateProvider';
 
-const IoOutput = ({isApiProcessing, currentTab, index, ioOutSettings}) => {
+const IoOutput = ({currentTab, index, ioOutSettings}) => {
+  const {isApiProcessing} = useContextState();
   const generateIOOutSettingsSubmitHandler = index => values => {
     progress.start();
     localStorage.setItem('currentTab', currentTab);
@@ -160,8 +162,7 @@ IoOutput.propTypes = {
     delay: PropTypes.string.isRequired
   }).isRequired,
   currentTab: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  isApiProcessing: PropTypes.bool.isRequired
+  index: PropTypes.number.isRequired
 };
 
 export default IoOutput;
