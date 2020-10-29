@@ -299,13 +299,12 @@ module.exports = {
      * @response 200 {Object}
      * - account {String}
      */
-    setup: ({language, account, https}) => api({
+    setup: ({language, account}) => api({
       method: 'post',
       url: '/api/system/_setup',
       data: {
         language,
-        account,
-        https
+        account
       }
     }),
     /**
@@ -560,36 +559,6 @@ module.exports = {
     })
   },
   notification: {
-    /**
-     * @returns {Promise<response>}
-     * @response 200 {Object}
-     * - deviceToken {string}
-     * - deviceId {string}
-     * - interval {string}
-     */
-    getAppSettings: () => api({
-      method: 'get',
-      url: '/api/notification/app/settings'
-    }),
-    /**
-     * @param {string} deviceToken
-     * @param {string} deviceId
-     * @param {string} interval
-     * @returns {Promise<response>}
-     * @response 200 {Object}
-     * - deviceToken {string}
-     * - deviceId {string}
-     * - interval {string}
-     */
-    updateAppSettings: ({deviceToken, deviceId, interval}) => api({
-      method: 'put',
-      url: '/api/notification/app/settings',
-      data: {
-        deviceToken,
-        deviceId,
-        interval
-      }
-    }),
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}

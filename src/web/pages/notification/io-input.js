@@ -8,8 +8,10 @@ import {Tab} from 'react-bootstrap';
 import IOType from 'webserver-form-schema/constants/io-type';
 import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
+import {useContextState} from '../../stateProvider';
 
-const IoInput = ({isApiProcessing, currentTab, ioInSettings}) => {
+const IoInput = ({currentTab, ioInSettings}) => {
+  const {isApiProcessing} = useContextState();
   const onSubmitIOInSettingsForm = values => {
     progress.start();
     localStorage.setItem('currentTab', currentTab);
@@ -71,8 +73,7 @@ IoInput.propTypes = {
     isEnable: PropTypes.bool.isRequired,
     ioType: PropTypes.oneOf(IOType.all()).isRequired
   }).isRequired,
-  currentTab: PropTypes.string.isRequired,
-  isApiProcessing: PropTypes.bool.isRequired
+  currentTab: PropTypes.string.isRequired
 };
 
 export default IoInput;
