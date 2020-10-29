@@ -255,7 +255,7 @@ class SearchMember extends React.PureComponent {
                               i18n.t('Verifying Photo') :
                               verifyStatus ?
                                 (member.pictures.length >= 5 ?
-                                  i18n.t('Photo Limit Reached') :
+                                  i18n.t('Photo Limit of Member Database Exceeded') :
                                   i18n.t('Add to {{0}}', {0: member.name})) :
                                 i18n.t('Invalid Photo')
                           }

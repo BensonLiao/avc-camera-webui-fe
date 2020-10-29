@@ -252,7 +252,7 @@ module.exports = class EventsTable extends React.PureComponent {
                     </td>
                     <td>
                       {event.recognitionType === RecognitionType.fake ? '-' : (
-                        <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit Reached')}>
+                        <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit of Member Database Exceeded')}>
                           <div className="d-flex justify-content-center">
                             <button
                               disabled={isOverPhotoLimit}

@@ -205,7 +205,7 @@ module.exports = class Members extends Base {
                     currentRouteName={this.currentRoute.name}
                     params={params}
                   />
-                  <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit Reached')}>
+                  <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit of Member Database Exceeded')}>
                     <div className="dropdown">
                       <button
                         className="btn border-primary text-primary rounded-pill dropdown-toggle"
