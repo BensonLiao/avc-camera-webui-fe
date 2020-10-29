@@ -933,7 +933,7 @@ module.exports = {
       // 9041
       'Poor Photo Quality': '照片品質不佳',
       // 9042
-      'Limitation of Yaw Angle is 30 Degrees': '人臉角度超ㄍㄨㄛ過上下20度或左右30度',
+      'Limitation of Yaw Angle is 30 Degrees': '人臉角度超過上下20度或左右30度',
       // 9043
       'Limitation of Pitch Angle is 20 Degrees': '人臉角度超過上下20度或左右30度',
       // 9044
