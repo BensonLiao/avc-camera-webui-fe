@@ -622,7 +622,7 @@ module.exports = {
       Similarity: '相似度',
       'Recognition Result': '結果',
       'Add to Existing Member': '新增至現有成員',
-      'Enter Keyword in the input field to search for members.': '請輸入關鍵字以便搜尋',
+      'Enter keywords in the input field to search for members.': '請輸入關鍵字以便搜尋',
       'Add to {{0}}': '新增至 {{0}}',
       'Verifying Photo': '照片驗證中',
       'Invalid Photo': '照片不合格',

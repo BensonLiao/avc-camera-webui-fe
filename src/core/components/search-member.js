@@ -209,7 +209,7 @@ class SearchMember extends React.PureComponent {
                   {!members && !isFetching && (
                     <tr>
                       <td className="text-size-16 text-center pt-3" colSpan="10">
-                        <i className="fas fa-search fa-fw"/> {i18n.t('Enter Keyword in the input field to search for members.')}
+                        <i className="fas fa-search fa-fw"/> {i18n.t('Enter keywords in the input field to search for members.')}
                       </td>
                     </tr>
                   )}

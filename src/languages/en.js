@@ -622,7 +622,7 @@ module.exports = {
       Similarity: 'Similarity',
       'Recognition Result': 'Status',
       'Add to Existing Member': 'Add to Existing Member',
-      'Enter Keyword in the input field to search for members.': 'Enter Keyword in the input field to search for members.',
+      'Enter keywords in the input field to search for members.': 'Enter keywords in the input field to search for members.',
       'Add to {{0}}': 'Add to {{0}}',
       'Verifying Photo': 'Verifying Photo',
       'Invalid Photo': 'Invalid Photo',
