@@ -19,7 +19,7 @@ const utils = require('../../../core/utils');
 const Base = require('../shared/base');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 const LicenseList = require('./license-list').default;
-const LicenseStatus = require('./license-status');
+const LicenseStatus = require('./license-status').default;
 
 module.exports = class License extends Base {
   static get propTypes() {
@@ -158,19 +158,19 @@ module.exports = class License extends Base {
                 <div className="status d-flex">
                   <LicenseStatus
                     licenseName={i18n.t('Facial Recognition')}
-                    licenseKeyStatus={isEnableFaceRecognitionKey}
+                    isEnabled={isEnableFaceRecognitionKey}
                     licenseEnableImg={iconFaceRecognitionEnable}
                     licenseDisableImg={iconFaceRecognitionDisable}
                   />
                   <LicenseStatus
                     licenseName={i18n.t('Age & Gender')}
-                    licenseKeyStatus={isEnableAgeGenderKey}
+                    isEnabled={isEnableAgeGenderKey}
                     licenseEnableImg={iconAgeGenderEnable}
                     licenseDisableImg={iconAgeGenderDisable}
                   />
                   <LicenseStatus
                     licenseName={i18n.t('Human Detection')}
-                    licenseKeyStatus={isEnableHumanoidDetectionKey}
+                    isEnabled={isEnableHumanoidDetectionKey}
                     licenseEnableImg={iconHumanoidDetectionEnable}
                     licenseDisableImg={iconHumanoidDetectionDisable}
                   />

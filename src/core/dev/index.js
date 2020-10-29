@@ -42,7 +42,7 @@ const setDelay = (func, delay) => {
 const mockDB = require('./db');
 const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);
-mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(config, [config.params.mock ? 500 : 200]), 1000))
+mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(config, [config.params.mock ? 500 : 200]), 10))
   .onGet('/api/ping/app').reply(config => setDelay(mockResponseWithLog(config, [200])), 3000)
   .onGet('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').value()]))
   .onPut('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').assign(JSON.parse(config.data)).write()]))
