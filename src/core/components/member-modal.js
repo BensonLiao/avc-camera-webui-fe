@@ -166,12 +166,12 @@ module.exports = class Member extends React.PureComponent {
     }
   }
 
-  onChangeFormValues = () => {
-    this.setState({isFormTouched: true});
-  }
-
-  hideApiProcessModal = () => {
-    this.setState({isShowApiProcessModal: false});
+  onChangeFormValues = ({nextValues}) => {
+    this.setState({isFormTouched: true}, () => {
+      console.log('nextValues.zoom', nextValues.zoom);
+      this.cropper.scale(nextValues.zoom, nextValues.zoom);
+      this.generateOnCropEndHandler(this.state.avatarToEdit)(null);
+    });
   };
 
   onHideEditModalAndRevertChanges = () => {
@@ -239,31 +239,55 @@ module.exports = class Member extends React.PureComponent {
         }
       }
     );
-    this.setState(newCropperState);
+    this.setState(newCropperState, () => {
+      // Add mouse wheel event to scale cropper instead of default zoom function
+      this.cropper.cropBox.addEventListener('wheel', event => {
+        let newScale = this.cropper.imageData.scaleX;
+        if (event.deltaY < 0) {
+          newScale = newScale + MEMBER_PHOTO_SCALE_STEP > MEMBER_PHOTO_SCALE_MAX ?
+            MEMBER_PHOTO_SCALE_MAX :
+            newScale + MEMBER_PHOTO_SCALE_STEP;
+          this.cropper.scale(newScale, newScale);
+        }
 
-    // Add mouse wheel event to scale cropper instead of default zoom function
-    this.cropper.cropBox.addEventListener('wheel', event => {
+        if (event.deltaY > 0) {
+          newScale = newScale - MEMBER_PHOTO_SCALE_STEP < MEMBER_PHOTO_SCALE_MIN ?
+            MEMBER_PHOTO_SCALE_MIN :
+            newScale - MEMBER_PHOTO_SCALE_STEP;
+          this.cropper.scale(newScale, newScale);
+        }
+
+        // const newCropBoxState = update(
+        //   this.state,
+        //   {avatarList: {[this.state.avatarToEdit]: {avatarPreviewStyle: {cropper: {scale: {$set: newScale}}}}}}
+        // );
+        // this.setState(newCropBoxState);
+      });
+    });
+  }
+
+  generateOnZoomHandler = avatarName => event => {
+    if (event.detail.originalEvent && event.detail.originalEvent.type === 'wheel') {
+      event.preventDefault();
       let newScale = this.cropper.imageData.scaleX;
       if (event.deltaY < 0) {
         newScale = newScale + MEMBER_PHOTO_SCALE_STEP > MEMBER_PHOTO_SCALE_MAX ?
           MEMBER_PHOTO_SCALE_MAX :
           newScale + MEMBER_PHOTO_SCALE_STEP;
-        this.cropper.scale(newScale, newScale);
       }
 
       if (event.deltaY > 0) {
         newScale = newScale - MEMBER_PHOTO_SCALE_STEP < MEMBER_PHOTO_SCALE_MIN ?
           MEMBER_PHOTO_SCALE_MIN :
           newScale - MEMBER_PHOTO_SCALE_STEP;
-        this.cropper.scale(newScale, newScale);
       }
 
       const newCropBoxState = update(
         this.state,
-        {avatarList: {[this.state.avatarToEdit]: {avatarPreviewStyle: {cropper: {scale: {$set: newScale}}}}}}
+        {avatarList: {[avatarName]: {avatarPreviewStyle: {cropper: {scale: {$set: newScale}}}}}}
       );
       this.setState(newCropBoxState);
-    });
+    }
   }
 
   generateOnCropEndHandler = avatarName => _ => {
@@ -294,7 +318,6 @@ module.exports = class Member extends React.PureComponent {
   zoomCropper = values => {
     const zoomScale = values.zoom;
     this.cropper.scale(zoomScale, zoomScale);
-    this.generateOnCropEndHandler(this.state.avatarToEdit)(null);
   }
 
   generateRotatePictureHandler = isClockwise => event => {
@@ -761,7 +784,7 @@ module.exports = class Member extends React.PureComponent {
                   minCropBoxWidth={120}
                   autoCropArea={1}
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
-                  zoom={event => event.preventDefault()}
+                  zoom={this.generateOnZoomHandler(avatarToEdit)}
                   ready={this.onCropperReady}
                   onInitialized={this.onCropperInit}
                 />
@@ -786,7 +809,6 @@ module.exports = class Member extends React.PureComponent {
                       step={MEMBER_PHOTO_SCALE_STEP}
                       min={MEMBER_PHOTO_SCALE_MIN}
                       max={MEMBER_PHOTO_SCALE_MAX}
-                      onChangeInput={() => this.zoomCropper(values)}
                     />
                   </div>
                 </div>
