@@ -483,8 +483,8 @@ module.exports = {
       'Cannot create more than {{0}} cards': 'カードを {{0}} 以上に追加することができません',
       'Subject :': '主旨 :',
       'Content :': '內文 :',
-      'Specify the Subject of Notification Emails': '請輸入通知郵件主旨',
-      'Append Your Message to Notification Emails': '請輸入通知郵件內文',
+      'Specify the subject': '請輸入通知郵件主旨',
+      'Add your message': '請輸入通知郵件內文',
       'Content Placement': '内容の位置',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',

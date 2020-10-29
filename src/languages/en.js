@@ -483,8 +483,8 @@ module.exports = {
       'Cannot create more than {{0}} cards': 'Cannot create more than {{0}} cards',
       'Subject :': 'Subject :',
       'Content :': 'Content :',
-      'Specify the Subject of Notification Emails': 'Specify the Subject of Notification Emails',
-      'Append Your Message to Notification Emails': 'Append Your Message to Notification Emails',
+      'Specify the subject': 'Specify the subject',
+      'Add your message': 'Add your message',
       'Content Placement': 'Content Placement',
       // /notification/card (AVN)
       'Video Management System': 'Video Management System',

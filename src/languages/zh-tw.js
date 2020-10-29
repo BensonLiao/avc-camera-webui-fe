@@ -483,8 +483,8 @@ module.exports = {
       'Cannot create more than {{0}} cards': '無法新增超過 {{0}} 張卡',
       'Subject :': '主旨 :',
       'Content :': '內文 :',
-      'Specify the Subject of Notification Emails': '請輸入通知郵件主旨',
-      'Append Your Message to Notification Emails': '請輸入通知郵件內文',
+      'Specify the subject': '輸入主旨',
+      'Add your message': '輸入內文',
       'Content Placement': '內文位置',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',

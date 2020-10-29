@@ -143,7 +143,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    name="senderSubject"
                    type="text"
                    className="form-control"
-                   placeholder={i18n.t('Specify the Subject of Notification Emails')}
+                   placeholder={i18n.t('Specify the subject')}
                  />
                </div>
                <div className="form-group mb-4">
@@ -152,7 +152,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    name="senderContent"
                    type="text"
                    className="form-control"
-                   placeholder={i18n.t('Append Your Message to Notification Emails')}
+                   placeholder={i18n.t('Add your message')}
                  />
                </div>
                <div className="form-group mb-4">
