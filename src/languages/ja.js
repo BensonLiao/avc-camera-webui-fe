@@ -149,7 +149,7 @@ module.exports = {
 
       // /setup/account
       'Setup Account': 'アカウント初期設定',
-      Account: '帳號',
+      Account: 'アカウント',
       'Please enter your account.': 'アカウント名を入力してください',
       Permission: '権限',
       Password: 'パスワード',
