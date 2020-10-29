@@ -211,7 +211,7 @@ module.exports = class FaceRecognition extends Base {
                   <div className="d-flex align-items-center">
                     <label className="mb-0 mr-2">{i18n.t('Detection Zone')}</label>
                     <CustomTooltip title={i18n.t('The default is the whole live view screen.')}>
-                      <i className="fas fa-question-circle text-primary"/>
+                      <i className="fas fa-question-circle helper-text text-primary"/>
                     </CustomTooltip>
                   </div>
                   <CustomTooltip title={i18n.t('Show/Hide Detection Zone')}>
