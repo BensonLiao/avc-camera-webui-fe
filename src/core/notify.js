@@ -20,8 +20,8 @@ module.exports = {
         <div className="d-flex bg-white rounded p-3">
           <div><i className="fas fa-check-circle fa-lg text-success"/></div>
           <div className="d-flex flex-column ml-3">
-            <div><strong>{title || i18n.t('Success')}</strong></div>
-            <div className="text-muted">{message || i18n.t('Server Process Success')}</div>
+            <div><strong>{i18n.t(title || 'Success')}</strong></div>
+            <div className="text-muted">{i18n.t(message || 'Server Process Success')}</div>
           </div>
         </div>
       )
@@ -45,8 +45,8 @@ module.exports = {
         <div className="d-flex bg-white rounded p-3">
           <div><i className="fas fa-times-circle fa-lg text-danger"/></div>
           <div className="d-flex flex-column ml-3">
-            <div><strong>{title || i18n.t('Error')}</strong></div>
-            <div className="text-muted">{message || i18n.t('Internal Server Error')}</div>
+            <div><strong>{i18n.t(title || 'Error')}</strong></div>
+            <div className="text-muted">{i18n.t(message || 'Internal Server Error')}</div>
           </div>
         </div>
       )
