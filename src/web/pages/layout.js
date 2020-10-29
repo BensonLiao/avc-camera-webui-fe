@@ -121,6 +121,7 @@ module.exports = class Layout extends Base {
             'web.media',
             'web.media.stream',
             'web.media.rtsp',
+            'web.media.hdmi',
             'web.media.word',
             'web.media.privacy-mask'
           ].indexOf(currentRouteName) >= 0,
