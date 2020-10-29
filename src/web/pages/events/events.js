@@ -10,7 +10,7 @@ const Pagination = require('../../../core/components/pagination');
 const utils = require('../../../core/utils');
 const EventsSidebar = require('./events-sidebar');
 const EventsSearchForm = require('./event-search-form');
-const EventsTable = require('./events-table');
+const EventsTable = require('./events-table').default;
 const SearchMember = require('../../../core/components/search-member').default;
 
 module.exports = class Events extends Base {
