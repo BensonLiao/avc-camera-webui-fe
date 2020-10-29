@@ -461,7 +461,7 @@ module.exports = {
       Pinned: 'トップに移動する',
       Others: 'その他',
       'Unpin Card': '固定解除',
-      'Pin this card': '置頂',
+      'Pin this card': '固定',
       'Enter card title': '通知カード名称を入力してください',
       'Email: On': 'メール: 有効',
       'Output: On': '出力: 有効',
