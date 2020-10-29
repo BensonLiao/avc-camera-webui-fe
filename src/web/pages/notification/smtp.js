@@ -83,53 +83,6 @@ export default withGlobalStatus(
         .finally(progress.done);
     };
 
-<<<<<<< HEAD
-  accountSettingsFormRender = ({values, errors, touched}) => {
-    return (
-      <Form>
-        <div className="modal-body">
-          <div className="form-group">
-            <label>{i18n.t('Account')}</label>
-            <Field
-              name="account"
-              type="text"
-              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
-              placeholder={i18n.t('Enter your account')}
-            />
-            <ErrorMessage component="div" name="account" className="invalid-feedback"/>
-          </div>
-          <div className="form-group has-feedback">
-            <label>{i18n.t('Password')}</label>
-            <Field
-              name="password"
-              component={Password}
-              inputProps={{
-                className: classNames('form-control', {'is-invalid': errors.password && touched.password}),
-                placeholder: i18n.t('Enter a password')
-              }}
-            />
-            <ErrorMessage component="div" name="password" className="invalid-feedback"/>
-          </div>
-          <div className="form-group">
-            <label>{i18n.t('Port')}</label>
-            <div className="d-flex align-items-center">
-              <div className="form-check">
-                <Field checked={values.port === SMTPPort['25']} name="port" className="form-check-input" type="radio" id="input-port-25" value={SMTPPort['25']}/>
-                <label className="form-check-label" htmlFor="input-port-25">25</label>
-              </div>
-              <div className="form-check ml-5">
-                <Field checked={values.port === SMTPPort['465']} name="port" className="form-check-input" type="radio" id="input-port-465" value={SMTPPort['465']}/>
-                <label className="form-check-label" htmlFor="input-port-465">465</label>
-              </div>
-              <div className="form-check ml-5">
-                <Field checked={values.port === SMTPPort['587']} name="port" className="form-check-input" type="radio" id="input-port-587" value={SMTPPort['587']}/>
-                <label className="form-check-label" htmlFor="input-port-587">587</label>
-              </div>
-              <div className="form-check ml-5">
-                <Field checked={values.port === SMTPPort['2525']} name="port" className="form-check-input" type="radio" id="input-port-2525" value={SMTPPort['2525']}/>
-                <label className="form-check-label" htmlFor="input-port-2525">2525</label>
-              </div>
-=======
     accountSettingsFormRender = ({values, errors, touched}) => {
       return (
         <Form>
@@ -143,7 +96,6 @@ export default withGlobalStatus(
                 placeholder={i18n.t('Enter your account')}
               />
               <ErrorMessage component="div" name="account" className="invalid-feedback"/>
->>>>>>> master
             </div>
             <div className="form-group has-feedback">
               <label>{i18n.t('Password')}</label>
@@ -210,32 +162,6 @@ export default withGlobalStatus(
       );
     };
 
-<<<<<<< HEAD
-  smtpSettingsFormRender = ({values, errors, touched}) => {
-    const {$isApiProcessing} = this.state;
-    const {isEnableAuth} = values;
-    return (
-      <Form className="card shadow">
-        <div className="card-header">
-          {i18n.t('Email Title')}
-        </div>
-        <div className="card-body">
-          <div className="form-group d-flex justify-content-between align-items-center">
-            <label>{i18n.t('Enable Outgoing Email')}</label>
-            <div className="custom-control custom-switch">
-              <Field
-                name="isEnableAuth"
-                checked={isEnableAuth}
-                type="checkbox"
-                className="custom-control-input"
-                id="switch-auth"
-              />
-              <label className="custom-control-label" htmlFor="switch-auth">
-                <span>{i18n.t('ON')}</span>
-                <span>{i18n.t('OFF')}</span>
-              </label>
-            </div>
-=======
     smtpSettingsFormRender = ({values, errors, touched}) => {
       const {$isApiProcessing} = this.state;
       const {isEnableAuth} = values;
@@ -243,7 +169,6 @@ export default withGlobalStatus(
         <Form className="card shadow">
           <div className="card-header">
             {i18n.t('Email')}
->>>>>>> master
           </div>
           <div className="card-body">
             <div className="form-group d-flex justify-content-between align-items-center">
