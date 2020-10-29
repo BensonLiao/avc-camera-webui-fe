@@ -360,7 +360,7 @@ module.exports = {
       'Enable On-Screen Display': 'Enable On-Screen Display',
       Size: 'Size',
       Color: 'Color',
-      Word: 'Word',
+      Word: 'Word', // deprecated
       Position: 'Position',
       'Click the arrow on the preview window.': 'Click the arrow on the preview window.',
       'Left Top': 'Left Top',
@@ -624,7 +624,7 @@ module.exports = {
       'Add to {{0}}': 'Add to {{0}}',
       'Verifying Photo': 'Verifying Photo',
       'Invalid Photo': 'Invalid Photo',
-      'Updating Member': 'Updating Membe',
+      'Updating Member': 'Updating Member',
       'Added Photo to {{0}} Successfully!': 'Added Photo to {{0}} Successfully!',
       // /users/events / Constants / Status
       'enroll-status-0': 'Fake',
