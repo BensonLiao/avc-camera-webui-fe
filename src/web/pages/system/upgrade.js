@@ -19,7 +19,7 @@ module.exports = class Upgrade extends Base {
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Uploading Software');
-    this.state.apiProcessModalBody = i18n.t('※ Please do not close your browser during upgrade.');
+    this.state.apiProcessModalBody = i18n.t('※ Please do not close your browser during the upgrade.');
     this.state.progressStatus = {
       uploadFirmware: 'initial',
       upgradeFirmware: 'initial',
@@ -312,13 +312,13 @@ module.exports = class Upgrade extends Base {
                   <StageProgress
                     key="stage 3"
                     stage={i18n.t('Stage 03')}
-                    title={i18n.t('Shutdown Device')}
+                    title={i18n.t('Shut Down')}
                     progressStatus={progressStatus.deviceShutdown}
                   />,
                   <StageProgress
                     key="stage 4"
                     stage={i18n.t('Stage 04')}
-                    title={i18n.t('Restart Device')}
+                    title={i18n.t('Restart')}
                     progressStatus={progressStatus.deviceRestart}
                   />
                 ]}

@@ -1,6 +1,7 @@
 module.exports = {
   en: {
     translation: {
+
       // -- Component -- START --
 
       // Component / Button
@@ -8,8 +9,23 @@ module.exports = {
 
       // Component / Loading Spinner
       Loading: 'Loading',
+
+      // Component / Date Picker
+      Sun: 'Sun',
+      Mon: 'Mon',
+      Tue: 'Tue',
+      Wed: 'Wed',
+      Thu: 'Thu',
+      Fri: 'Fri',
+      Sat: 'Sat',
+
       // Component / API Processing Modal
       'Please wait': 'Please wait',
+
+      // Component / Session Expired Modal
+      'Session Expired': 'Session Expired',
+      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': 'Your session has expired. You will be redirected to the login page in {{0}} second(s).',
+      'Renew Session': 'Renew Session',
 
       // Component / Switch component
       ON: 'ON',
@@ -120,10 +136,19 @@ module.exports = {
       'Prior to accessing this device for the first time a unique admin password must be created': 'Prior to accessing this device for the first time a unique admin password must be created',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space',
+      Welcome: 'Welcome',
+      'For a better experience,': 'For a better experience,',
+      'Please click Continue to complete the initial setup!': 'Please click Continue to complete the initial setup!',
+      Continue: 'Continue',
       Submit: 'Submit',
 
+      // /setup/language
+      Language: 'Language',
+      HTTPS: 'HTTPS',
+      Next: 'Next',
+
       // /setup/account
-      'Setup Account': '初始Setup Account帳號設定',
+      'Setup Account': 'Setup Account',
       Account: 'Account',
       'Please enter your account.': 'Please enter your account.',
       Permission: 'Permission',
@@ -131,7 +156,6 @@ module.exports = {
       Birthday: 'Birthday',
       'This is used for resetting password.': 'This is used for resetting password.',
       'Enter your account': 'Enter your account',
-      'Enter your password': '請輸Enter your password入您的密碼',
       // /setup/account / Constants / Permission
       'permission-0': 'Admin',
       'permission-1': 'Viewer',
@@ -328,6 +352,7 @@ module.exports = {
 
       // /media/hdmi
       HDMI: 'HDMI',
+      'HDMI Title': 'HDMI',
       'Updating HDMI settings': 'Updating HDMI settings',
       'Are you sure you want to update HDMI settings?': 'Are you sure you want to update HDMI settings?',
 
@@ -335,7 +360,7 @@ module.exports = {
       'Enable On-Screen Display': 'Enable On-Screen Display',
       Size: 'Size',
       Color: 'Color',
-      Word: 'Word',
+      Word: 'Word', // deprecated
       Position: 'Position',
       'Click the arrow on the preview window.': 'Click the arrow on the preview window.',
       'Left Top': 'Left Top',
@@ -365,12 +390,12 @@ module.exports = {
       'Up to 4 mask areas can be set.': 'Up to 4 mask areas can be set.',
 
       // /audio
+      'Audio Title': 'Audio',
       'Enable Audio Input': 'Enable Audio Input',
       'Audio Quality': 'Audio Quality',
       'Input Source': 'Input Source',
       'Internal Microphone': 'Internal Microphone',
       'External Microphone': 'External Microphone',
-      'Audio Out': 'Audio Out',
       // /audio / Constans / Audio Quality
       'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
       'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
@@ -378,7 +403,6 @@ module.exports = {
       // /notification
       'Notification Settings': 'Notification Settings',
       'Notification Method': 'Notification Method',
-      App: 'App',
       Email: 'Email',
       'I/O': 'I/O',
       'Smart Notification': 'Smart Notification',
@@ -411,6 +435,7 @@ module.exports = {
       'Mail Setting Failed': 'Mail Setting Failed',
       'Sending Test Email': 'Sending Test Email',
       'Disabling Outgoing Email': 'Disabling Outgoing Email',
+      'Email Title': 'Email',
 
       // /notification/io
       'Input & Output': 'Input & Output',
@@ -421,6 +446,7 @@ module.exports = {
       'Normally Open': 'Normally Open',
       'Output 1': 'Output 1',
       'Output 2': 'Output 2',
+      'Output {{0}}': 'Output {{0}}',
       'Enable Digital Output {{0}}': 'Enable Digital Output {{0}}',
       Type: 'Type',
       Normal: 'Normal',
@@ -434,18 +460,18 @@ module.exports = {
       'Notification Filters': 'Filters',
       Pinned: 'Pinned',
       Others: 'Others',
-      'Unpin Card': 'Unpin Card',
+      'Unpin Card': 'Unpin this card',
       'Pin this card': 'Pin this card',
       'Enter card title': 'Enter card title',
       'Email: On': 'Email: On',
       'Output: On': 'Output: On',
       'VMS: On': 'VMS: On',
       Schedule: 'Schedule',
+      'Enable Schedule': 'Enable Schedule',
       Rule: 'Rule',
       Group: 'Group',
       Condition: 'Condition',
       Method: 'Method',
-      'All Groups': 'All Groups',
       Everyone: 'Everyone',
       'Email Attachment': 'Email Attachment',
       Receiver: 'Receiver',
@@ -457,8 +483,8 @@ module.exports = {
       'Cannot create more than {{0}} cards': 'Cannot create more than {{0}} cards',
       'Subject :': 'Subject :',
       'Content :': 'Content :',
-      'Specify the Subject of Notification Emails': 'Specify the Subject of Notification Emails',
-      'Append Your Message to Notification Emails': 'Append Your Message to Notification Emails',
+      'Specify the subject': 'Specify the subject',
+      'Add your message': 'Add your message',
       'Content Placement': 'Content Placement',
       // /notification/card (AVN)
       'Video Management System': 'Video Management System',
@@ -477,10 +503,14 @@ module.exports = {
       'face-recognition-condition-0': 'Always',
       'face-recognition-condition-1': 'Success',
       'face-recognition-condition-2': 'Unknown',
+      'face-recognition-condition-3': 'Image Spoof',
       // /notification/cards / Constants / Email Attachment
       'email-attachment-type-0': 'Face Thumbnail',
       'email-attachment-type-1': 'Screenshot',
       'email-attachment-type-2': 'None',
+      // /notification/cards / Constants / Content Placement
+      'email-content-position-0': 'Beginning',
+      'email-content-position-1': 'End',
 
       // /users/members
       Members: 'Members',
@@ -525,6 +555,7 @@ module.exports = {
       'Enter a name for this group': 'Enter a name for this group',
       Note: 'Note',
       'Enter a note': 'Enter a note',
+      'Maximum length: 256 characters': 'Maximum length: 256 characters',
       Create: 'Create',
       Close: 'Close',
 
@@ -549,6 +580,8 @@ module.exports = {
       'N/A': 'N/A',
       'Are you sure you want to close this window? Any changes you have made will be lost.': 'Are you sure you want to close this window? Any changes you have made will be lost.',
       'Photo size should be less than 90 KB.': 'Photo size should be less than 90 KB.',
+      Save: 'Save',
+      'Change Photo': 'Change Photo',
 
       // /users/accounts
       Accounts: 'Accounts',
@@ -577,23 +610,23 @@ module.exports = {
       'Can\'t find any data.': 'Can\'t find any data.',
       Filters: 'Filters',
       Clear: 'Clear',
-      'Start Date': 'Start Date',
-      'Start Time': 'Start Time',
-      'Start Datetime': 'Start Datetime',
-      'End Date': 'End Date',
-      'End Time': 'End Time',
-      'End Datetime': 'End Datetime',
+      'Start Date': 'Date',
+      'Start Time': 'Time',
+      'Start Datetime': 'Start Time',
+      'End Date': 'Date',
+      'End Time': 'Time',
+      'End Datetime': 'End Time',
       'Facial Recognition': 'Facial Recognition',
       'Age & Gender': 'Age & Gender',
       'Human Detection': 'Human Detection',
       Similarity: 'Similarity',
       'Recognition Result': 'Status',
       'Add to Existing Member': 'Add to Existing Member',
-      'Enter Keyword For Search': 'Enter Keyword For Search',
+      'Enter keywords in the input field to search for members.': 'Enter keywords in the input field to search for members.',
       'Add to {{0}}': 'Add to {{0}}',
       'Verifying Photo': 'Verifying Photo',
       'Invalid Photo': 'Invalid Photo',
-      'Updating Member': 'Updating Membe',
+      'Updating Member': 'Updating Member',
       'Added Photo to {{0}} Successfully!': 'Added Photo to {{0}} Successfully!',
       // /users/events / Constants / Status
       'enroll-status-0': 'Fake',
@@ -611,15 +644,15 @@ module.exports = {
       'Level of Accuracy': 'Level of Accuracy',
       'Detection Zone': 'Detection Zone',
       'Show/Hide Detection Zone': 'Show/Hide Detection Zone',
-      'The default in the whole live view screen.': 'The default in the whole live view screen.',
+      'The default is the whole live view screen.': 'The default is the whole live view screen.',
       'Enable Facial Detection Size': 'Enable Facial Detection Size',
       'Min. Facial Detection Size': 'Min. Facial Detection Size',
-      'Live View Display:': 'Live View Display:',
+      'Live View Display': 'Live View Display',
       'Display Name': 'Display Name',
       'Display Group': 'Display Group',
       'Display Unknown': 'Display Unknown',
       'Display Image Spoof': 'Display Image Spoof',
-      'Facial Recognition is Disabled': 'Facial Recognition is Disabled',
+      'Facial Recognition is disabled.': 'Facial Recognition is disabled.',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': 'Low',
       'confidence-level-1': 'Medium',
@@ -648,6 +681,9 @@ module.exports = {
       'Activation Failed': 'Activation Failed',
       'Authorization failed!': 'Authorization failed!',
       'Key Already Registered': 'Key Already Registered',
+      // /analytic/license / Constants / FR Auth key
+      'face-recognition-key-thirtyThousand': 'Face Recognition 30k',
+      'face-recognition-key-threeThousand': 'Face Recognition 3k',
 
       // /network/settings
       Success: 'Success',
@@ -671,6 +707,11 @@ module.exports = {
       'No changes were made.': 'No changes were made.',
       'Please enable HTTPS first.': 'Please enable HTTPS first.',
       'Are you sure you want to update network settings?': 'Are you sure you want to update network settings?',
+      'Enter a fixed IP address': 'Enter a fixed IP address',
+      'Enter Subnet Mask': 'Enter Subnet Mask',
+      'Enter Router/Gateway': 'Enter Router/Gateway',
+      'Enter a primary DNS': 'Enter a primary DNS',
+      'Enter a secondary DNS': 'Enter a secondary DNS',
 
       // /network/tcp-ip
       'Enable DDNS': 'Enable DDNS',
@@ -716,8 +757,8 @@ module.exports = {
       'Sync with Network Time Server (NTP)': 'Sync with Network Time Server (NTP)',
       'Host Name or IP Address': 'Host Name or IP Address',
       'Sync Time': 'Sync Time',
-      'Manual Date': 'Manual Date',
-      'Manual Time': 'Manual Time',
+      'Manual Date': 'Date',
+      'Manual Time': 'Time',
       'Sync Interval (minutes)': 'Sync Interval (minutes)',
       'Sync with Your Computer': 'Sync with Your Computer',
       'Set the Date & Time Manually': 'Set the Date & Time Manually',
@@ -750,13 +791,13 @@ module.exports = {
       // /system/upgrade
       'Upload Software': 'Upload Software',
       'Install Software': 'Install Software',
-      'Shutdown Device': 'Shutdown Device',
-      'Restart Device': 'Restart Device',
+      'Shut Down': 'Shut Down',
+      Restart: 'Restart',
       'Stage 01': 'Stage 1',
       'Stage 02': 'Stage 2',
       'Stage 03': 'Stage 3',
       'Stage 04': 'Stage 4',
-      '※ Please do not close your browser during upgrade.': '※ Please do not close your browser during upgrade.',
+      '※ Please do not close your browser during the upgrade.': '※ Please do not close your browser during the upgrade.',
       'Uploading Software': 'Uploading Software',
       'Installing Software': 'Installing Software',
       'Shutting Down': 'Shutting Down',
@@ -775,6 +816,8 @@ module.exports = {
       // /system/information
       'Build Version': 'Build Version',
       'S/N Code': 'S/N Code',
+      'Downloading System Log File': 'Downloading System Log File',
+      'Download progress': 'Download progress',
 
       // /sd-card
       'Enable SD Card': 'Enable SD Card',
@@ -789,6 +832,7 @@ module.exports = {
       Unmount: 'Unmount',
       'Error Notification': 'Error Notification',
       'Email Notification Set': 'Email Notification Set',
+      'SD Card Enable Outgoing Email': 'Enable Outgoing Email',
       Filesystem: 'Filesystem',
       'Storage Space': 'Storage Space',
       'Free: {{0}}': 'Free: {{0}}',
@@ -807,7 +851,7 @@ module.exports = {
       'Not Found': 'Not Found',
       'Back to Home': 'Back to Home',
       'Internal Server Error': 'Internal Server Error',
-      'Sorry for your inconvenience, we are actively process with it!': 'Sorry for your inconvenience, we are actively process with it!',
+      'Sorry for any inconvenience, we are fixing this problem.': 'Sorry for any inconvenience, we are fixing this problem.',
 
       // Server error codes
       // 9001

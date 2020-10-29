@@ -102,7 +102,7 @@ module.exports = class HDMI extends Base {
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">
-                    {i18n.t('HDMI')}
+                    {i18n.t('HDMI Title')}
                   </div>
                   <Formik
                     initialValues={hdmiSettings}

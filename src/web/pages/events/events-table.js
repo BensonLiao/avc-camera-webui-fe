@@ -189,7 +189,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                   </td>
                   <td>
                     {event.recognitionType === RecognitionType.fake ? '-' : (
-                      <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit Reached')}>
+                      <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit of Member Database Exceeded')}>
                         <div className="d-flex justify-content-center">
                           <button
                             disabled={isOverPhotoLimit}

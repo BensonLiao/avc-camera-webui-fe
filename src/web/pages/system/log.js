@@ -16,7 +16,7 @@ module.exports = class Log extends Base {
     this.state.file = null;
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = i18n.t('Downloading System Log');
+    this.state.apiProcessModalTitle = i18n.t('Downloading System Log File');
     this.state.progressStatus = 'start';
     this.state.progressPercentage = 0;
   }
@@ -115,7 +115,7 @@ module.exports = class Log extends Base {
                           modalBody={[
                             <StageProgress
                               key="stage 1"
-                              title="System log loading"
+                              title="Download progress"
                               progressStatus={this.state.progressStatus}
                               progressPercentage={this.state.progressPercentage}
                             />
