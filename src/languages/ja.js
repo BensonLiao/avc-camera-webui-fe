@@ -154,7 +154,7 @@ module.exports = {
       Permission: '権限',
       Password: 'パスワード',
       Birthday: '生日',
-      'This is used for resetting password.': '生日將會用於重置密碼',
+      'This is used for resetting password.': 'この項目はパスワード再設定する際に使われます',
       'Enter your account': 'アカウントを入力してください',
       // /setup/account / Constants / Permission
       'permission-0': '管理者',
@@ -163,32 +163,32 @@ module.exports = {
       'permission-99': '管理者', // Super-Admin, for easier backend permission control, no difference for UI
 
       // /setup/https
-      'Certificate Type': '憑證方式',
-      'SSL certificate.': 'SSL 憑證方式',
+      'Certificate Type': '認証タイプ',
+      'SSL certificate.': 'SSL認証',
       Certificate: '署名証明書',
-      'Private Key': '私鑰',
-      'Country Name': '國家名稱',
-      'Please enter the country code.': '請輸入您的國家代碼',
-      'Two letters.': '2 位字母代碼',
-      'State or province name': '州或省名稱',
-      'Please enter the state or province name.': '請輸入您的州或省名稱',
-      'City Name': '城市名稱',
-      'Please enter the city name.': '請輸入您的城市名稱',
-      'Organization Name': '組織名稱',
-      'The company.': '公司',
-      'Organization Unit Name': '組織部門名稱',
-      'Email Address': '電子信箱',
-      'Please enter the email address.': '請輸入電子信箱',
-      Domain: '域名',
-      'Please enter the domain.': '請輸入域名',
+      'Private Key': 'プライベートキー',
+      'Country Name': '国名',
+      'Please enter the country code.': '国コードを入力してください',
+      'Two letters.': 'コードは二桁です',
+      'State or province name': '州または県名',
+      'Please enter the state or province name.': '州または県名を入力してください',
+      'City Name': '市名',
+      'Please enter the city name.': '市名を入力してください',
+      'Organization Name': '組織名',
+      'The company.': '会社名',
+      'Organization Unit Name': '部署名',
+      'Email Address': 'メールアドレス',
+      'Please enter the email address.': 'メールアドレスを入力してください',
+      Domain: 'ドメイン',
+      'Please enter the domain.': 'ドメインを入力してください',
       'Range: 1024-65535 Default: 8443': '入力範囲：1024-65535 デフォルト：8443',
 
       // /login
       Login: 'ログイン',
       'ACCOUNT LOGIN': 'アカウントログイン',
-      'Enter Your Username and Password': '請輸入您的帳號與密碼',
+      'Enter Your Username and Password': '名前とパスワードを入力してください',
       'Enter your username': 'アカウントを入力してください',
-      'Password Reset': '重置密碼',
+      'Password Reset': 'パスワードの再設定',
 
       // /login-error
       'Incorrect Password': 'パスワードが間違っています',
@@ -203,7 +203,7 @@ module.exports = {
       'Please try again in 5 minutes.': '5分後再度ログインを試みてください',
       'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
       'Login locked': 'ログインがロックされました',
-      'Forgot password?': '忘記密碼？',
+      'Forgot password?': 'パスワードを忘れましたか?',
       '{{0}} Remaining': 'ログインするため {{0}} が必要です',
       'Login Again': '再度ログインする',
 
@@ -214,11 +214,11 @@ module.exports = {
 
       // Deprecated
       // /reset-password
-      'Reset Password': '重設密碼',
+      'Reset Password': 'パスワードを再設定する',
 
       // /reset-password-success
-      'Reset password success.': '重設密碼成功',
-      Done: '完成',
+      'Reset password success.': 'パスワード再設定に成功しました',
+      Done: '完了しました',
 
       // /home
       'Device Name': 'デバイス名',
