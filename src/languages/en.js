@@ -580,6 +580,8 @@ module.exports = {
       'N/A': 'N/A',
       'Are you sure you want to close this window? Any changes you have made will be lost.': 'Are you sure you want to close this window? Any changes you have made will be lost.',
       'Photo size should be less than 90 KB.': 'Photo size should be less than 90 KB.',
+      Save: 'Save',
+      'Change Photo': 'Change Photo',
 
       // /users/accounts
       Accounts: 'Accounts',

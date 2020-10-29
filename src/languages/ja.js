@@ -580,6 +580,8 @@ module.exports = {
       'N/A': 'なし',
       'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何成員資料，確認要離開嗎？',
       'Photo size should be less than 90 KB.': '写真サイズは90 KBを超えることができません',
+      Save: 'Save',
+      'Change Photo': 'Change Photo',
 
       // /users/accounts
       Accounts: 'アカウント',
