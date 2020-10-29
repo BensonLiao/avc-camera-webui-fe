@@ -652,7 +652,7 @@ module.exports = {
       'Display Group': '成員群組',
       'Display Unknown': '辨識結果：未知',
       'Display Image Spoof': '辨識結果：圖像偽裝',
-      'Facial Recognition is Disabled': '臉部辨識已關閉',
+      'Facial Recognition is disabled.': '臉部辨識已關閉',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',

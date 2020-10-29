@@ -652,7 +652,7 @@ module.exports = {
       'Display Group': 'Display Group',
       'Display Unknown': 'Display Unknown',
       'Display Image Spoof': 'Display Image Spoof',
-      'Facial Recognition is Disabled': 'Facial Recognition is Disabled',
+      'Facial Recognition is disabled.': 'Facial Recognition is disabled.',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': 'Low',
       'confidence-level-1': 'Medium',
