@@ -189,7 +189,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                   </td>
                   <td>
                     {event.recognitionType === RecognitionType.fake ? '-' : (
-                      <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit Reached')}>
+                      <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit of Member Database Exceeded')}>
                         <div className="d-flex justify-content-center">
                           <button
                             disabled={isOverPhotoLimit}
@@ -217,50 +217,6 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                           </div>
                         </div>
                       </CustomTooltip>
-<<<<<<< HEAD
-                    </td>
-                    <td>
-                      {event.recognitionType === RecognitionType.fake ? '-' : (
-                        <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit of Member Database Exceeded')}>
-                          <div className="d-flex justify-content-center">
-                            <button
-                              disabled={isOverPhotoLimit}
-                              className="btn text-primary dropdown-toggle p-0"
-                              type="button"
-                              data-toggle="dropdown"
-                              style={{
-                                boxShadow: 'none',
-                                pointerEvents: isOverPhotoLimit ? 'none' : 'auto'
-                              }}
-                            >
-                              {i18n.t('Add')}
-                            </button>
-                            <div className="dropdown-menu dropdown-menu-right shadow">
-                              <a
-                                className="dropdown-item px-3"
-                                onClick={addMemberHandler(event.pictureThumbUrl)}
-                              >{i18n.t('Add a New Member')}
-                              </a>
-                              <a
-                                className="dropdown-item px-3"
-                                onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
-                              >{i18n.t('Add to Existing Member')}
-                              </a>
-                            </div>
-                          </div>
-                        </CustomTooltip>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })
-            }
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-=======
                     )}
                   </td>
                 </tr>
@@ -271,7 +227,6 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
       </table>
     </div>
   );
->>>>>>> master
 };
 
 EventsTable.propTypes = {
