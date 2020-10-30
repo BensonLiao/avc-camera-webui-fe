@@ -99,7 +99,7 @@ module.exports = {
       'validation-date': '必須為日期',
       'validation-dateMin': '必須為{expected}以後的日期',
       'validation-dateMax': '必須為{expected}以前的日期',
-      'validation-forbidden': '隱藏欄位。',
+      'validation-forbidden': '隱藏欄位',
       'validation-email': '請使用正確的電子信箱格式',
       'validation-url': '請使用正確的網址格式',
       'validation-birthday': '請使用正確的生日格式',
@@ -642,7 +642,7 @@ module.exports = {
       'Detection Zone': '觸發區域',
       'Show/Hide Detection Zone': '顯示或隱藏區域',
       'The default is the whole live view screen.': '預設為全畫面',
-      'Enable Facial Detection Size': '開啟最小臉部尺寸',
+      'Enable Facial Detection Size': '開啟最小辯識尺寸',
       'Min. Facial Detection Size': '最小臉部尺寸',
       'Live View Display': '即時影像顯示',
       'Display Name': '成員名稱',
@@ -728,7 +728,7 @@ module.exports = {
       Rebooting: '重新啟動裝置中',
 
       // /network/https
-      'Enable HTTPS': '開啟 HTTPS',
+      'Enable HTTPS': '開啟HTTPS服務',
       'Click confirm to redirect to the new address:': '請按確認導向新的網址：',
       'The website has been redirected to the new address': '請利用下列網址重新登入',
       'The specified port is reserved by system or in use!': '此連接埠為系統預留或使用中',

@@ -464,7 +464,7 @@ module.exports = {
       'Output: On': '出力: 有効',
       'VMS: On': '影像管理系統(VMS): 開',
       Schedule: 'スケジュール',
-      'Enable Schedule': 'スケジュールを有効にする',
+      'Enable Schedule': 'スケジュール管理を有効にする',
       Rule: 'ルール',
       Group: 'グループ',
       Condition: '條件',

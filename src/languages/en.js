@@ -645,9 +645,9 @@ module.exports = {
       'Enable Facial Detection Size': 'Enable Facial Detection Size',
       'Min. Facial Detection Size': 'Min. Facial Detection Size',
       'Live View Display': 'Live View Display',
-      'Display Name': 'Display Name',
-      'Display Group': 'Display Group',
-      'Display Unknown': 'Display Unknown',
+      'Display Name': 'Name',
+      'Display Group': 'Group',
+      'Display Unknown': 'Unknown',
       'Display Image Spoof': 'Display Image Spoof',
       'Facial Recognition is disabled.': 'Facial Recognition is disabled.',
       // /analytic/face-recognition / Constants / Level of Accuracy
