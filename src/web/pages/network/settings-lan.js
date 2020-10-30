@@ -54,8 +54,8 @@ class SettingsLan extends React.PureComponent {
     dhcpTestIp: null,
     modalTitle: '',
     modalBody: '',
+    modalBackdrop: true,
     isConfirmDisable: false,
-    onConfirm: this.hideModal('info'),
     isUpdating: false,
     redirectIP: false
   }
@@ -101,6 +101,7 @@ class SettingsLan extends React.PureComponent {
                 applyConfirm: false,
                 info: true
               },
+              modalBackdrop: 'static',
               modalTitle: i18n.t('Redirection Success'),
               redirectIP: true,
               modalBody: [
@@ -138,7 +139,7 @@ class SettingsLan extends React.PureComponent {
 
   render() {
     const {networkSettings, isApiProcessing} = this.props;
-    const {isShowSelectModal, isUpdating, modalBody, modalTitle, isConfirmDisable, onConfirm, redirectIP} = this.state;
+    const {isShowSelectModal, isUpdating, modalBody, modalTitle, isConfirmDisable, redirectIP, modalBackdrop} = this.state;
 
     return (
       <>
@@ -285,8 +286,9 @@ class SettingsLan extends React.PureComponent {
           isShowModal={isShowSelectModal.info}
           modalTitle={modalTitle}
           modalBody={modalBody}
+          backdrop={modalBackdrop}
           isConfirmDisable={isConfirmDisable}
-          onConfirm={onConfirm}
+          onConfirm={this.hideModal('info')}
           onHide={this.hideModal('info')}
         />
       </>
