@@ -388,7 +388,7 @@ module.exports = {
       'Up to 4 mask areas can be set.': 'Hasta 4 mascarillas',
 
       // /audio
-      'Audio Title': '聲音',
+      'Audio Title': 'sonido',
       'Enable Audio Input': 'Habilitar entrada de voz',
       'Audio Quality': 'calidad',
       'Input Source': 'Fuente de entrada',
@@ -399,10 +399,10 @@ module.exports = {
       'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
 
       // /notification
-      'Notification Settings': '通報',
-      'Notification Method': '通報方式',
-      Email: '電子郵件',
-      'I/O': '數位輸出及輸入',
+      'Notification Settings': 'Anunciar',
+      'Notification Method': 'Método de notificación',
+      Email: 'correo electrónico',
+      'I/O': 'Entrada y salida digital',
       'Smart Notification': '智慧通知',
 
       // /notification/app
@@ -416,7 +416,7 @@ module.exports = {
       'SMTP Server Address': '外送伺服器位址',
       'Enter server address': '輸入伺服器位址',
       'SMTP Logon Settings': '外送伺服器登入設定',
-      Edit: '編輯',
+      Edit: 'editar',
       'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': '有些網路郵件供應商為了提高安全性， 可能會需要應用程式密碼，例如Google和Yahoo奇摩電子信箱帳號。請依照您郵件供應商的指示產生並使用應用程式密碼。',
       Port: '連接埠',
       Encryption: '加密方式',
@@ -425,17 +425,17 @@ module.exports = {
       'Sender Information': '寄件人資訊',
       'Enter sender\'s name': '輸入寄件人名稱',
       'Enter sender\'s email': '輸入寄件人電子郵件',
-      'Notification Interval (seconds)': '通報間隔 (秒)',
-      'Specify notification interval': '輸入秒數',
+      'Notification Interval (seconds)': 'Intervalo de notificación (segundos)',
+      'Specify notification interval': 'Ingrese el número de segundos',
       '5-1,800 Seconds': '5-1800 秒',
       'Email Setting Success': '電子郵件設定成功',
       'Mail Setting Failed': '電子郵件設定失敗',
       'Sending Test Email': '測試郵件已寄出',
       'Disabling Outgoing Email': '設定成功',
-      'Email Title': '電子郵件',
+      'Email Title': 'correo electrónico',
 
       // /notification/io
-      'Input & Output': '數位輸出及輸入',
+      'Input & Output': 'Entrada y salida digital',
       Input: '數位輸入',
       'Enable Digital Input': '開啟數位輸入',
       'Normal State': '平常狀態',
