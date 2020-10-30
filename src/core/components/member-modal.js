@@ -70,6 +70,7 @@ module.exports = class Member extends React.PureComponent {
   constructor(props) {
     super(props);
     this.avatarWrapperRef = React.createRef();
+    this.cropperRef = React.createRef();
     this.avatarFile = null;
     // Only determine remaining quota if count is less than 5
     this.state.remainingPictureQuota = props.remainingPictureCount < 5 ? props.remainingPictureCount : null;
@@ -168,7 +169,7 @@ module.exports = class Member extends React.PureComponent {
 
   onChangeFormValues = ({nextValues}) => {
     this.setState({isFormTouched: true}, () => {
-      console.log('nextValues.zoom', nextValues.zoom);
+      // We call cropper scale and state update after form values changes to prevent infinite set state hell
       this.cropper.scale(nextValues.zoom, nextValues.zoom);
       this.generateOnCropEndHandler(this.state.avatarToEdit)(null);
     });
@@ -203,6 +204,27 @@ module.exports = class Member extends React.PureComponent {
 
   onCropperInit = cropper => {
     this.cropper = cropper;
+    // Add mouse wheel event to scale cropper instead of default zoom function
+    this.cropperRef.current.addEventListener('zoom', event => {
+      if (event.detail.originalEvent && event.detail.originalEvent.type === 'wheel') {
+        let newScale = this.cropper.imageData.scaleX;
+        if (event.detail.originalEvent.deltaY < 0) {
+          newScale = newScale + MEMBER_PHOTO_SCALE_STEP > MEMBER_PHOTO_SCALE_MAX ?
+            MEMBER_PHOTO_SCALE_MAX :
+            newScale + MEMBER_PHOTO_SCALE_STEP;
+        }
+
+        if (event.detail.originalEvent.deltaY > 0) {
+          newScale = newScale - MEMBER_PHOTO_SCALE_STEP < MEMBER_PHOTO_SCALE_MIN ?
+            MEMBER_PHOTO_SCALE_MIN :
+            newScale - MEMBER_PHOTO_SCALE_STEP;
+        }
+
+        this.cropper.options.setFieldValue('zoom', newScale);
+      } else {
+        event.preventDefault();
+      }
+    });
   }
 
   onCropperReady = () => {
@@ -239,55 +261,7 @@ module.exports = class Member extends React.PureComponent {
         }
       }
     );
-    this.setState(newCropperState, () => {
-      // Add mouse wheel event to scale cropper instead of default zoom function
-      this.cropper.cropBox.addEventListener('wheel', event => {
-        let newScale = this.cropper.imageData.scaleX;
-        if (event.deltaY < 0) {
-          newScale = newScale + MEMBER_PHOTO_SCALE_STEP > MEMBER_PHOTO_SCALE_MAX ?
-            MEMBER_PHOTO_SCALE_MAX :
-            newScale + MEMBER_PHOTO_SCALE_STEP;
-          this.cropper.scale(newScale, newScale);
-        }
-
-        if (event.deltaY > 0) {
-          newScale = newScale - MEMBER_PHOTO_SCALE_STEP < MEMBER_PHOTO_SCALE_MIN ?
-            MEMBER_PHOTO_SCALE_MIN :
-            newScale - MEMBER_PHOTO_SCALE_STEP;
-          this.cropper.scale(newScale, newScale);
-        }
-
-        // const newCropBoxState = update(
-        //   this.state,
-        //   {avatarList: {[this.state.avatarToEdit]: {avatarPreviewStyle: {cropper: {scale: {$set: newScale}}}}}}
-        // );
-        // this.setState(newCropBoxState);
-      });
-    });
-  }
-
-  generateOnZoomHandler = avatarName => event => {
-    if (event.detail.originalEvent && event.detail.originalEvent.type === 'wheel') {
-      event.preventDefault();
-      let newScale = this.cropper.imageData.scaleX;
-      if (event.deltaY < 0) {
-        newScale = newScale + MEMBER_PHOTO_SCALE_STEP > MEMBER_PHOTO_SCALE_MAX ?
-          MEMBER_PHOTO_SCALE_MAX :
-          newScale + MEMBER_PHOTO_SCALE_STEP;
-      }
-
-      if (event.deltaY > 0) {
-        newScale = newScale - MEMBER_PHOTO_SCALE_STEP < MEMBER_PHOTO_SCALE_MIN ?
-          MEMBER_PHOTO_SCALE_MIN :
-          newScale - MEMBER_PHOTO_SCALE_STEP;
-      }
-
-      const newCropBoxState = update(
-        this.state,
-        {avatarList: {[avatarName]: {avatarPreviewStyle: {cropper: {scale: {$set: newScale}}}}}}
-      );
-      this.setState(newCropBoxState);
-    }
+    this.setState(newCropperState);
   }
 
   generateOnCropEndHandler = avatarName => _ => {
@@ -554,7 +528,7 @@ module.exports = class Member extends React.PureComponent {
       .finally(progress.done);
   };
 
-  formRender = ({errors, touched, values, validateForm}) => {
+  formRender = ({errors, touched, values, validateForm, setFieldValue}) => {
     const {isApiProcessing, onHide, member, groups} = this.props;
     const {
       isShowEditModal,
@@ -771,6 +745,8 @@ module.exports = class Member extends React.PureComponent {
             <div className="avatar-uploader d-flex flex-column align-items-center">
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
                 <Cropper
+                  // Pass ref to add custom native event listener properly
+                  ref={this.cropperRef}
                   src={avatarPreviewStyle.originalImage}
                   // Depends on modal width and style container to 16:9 ratio
                   style={{height: 300}}
@@ -784,8 +760,9 @@ module.exports = class Member extends React.PureComponent {
                   minCropBoxWidth={120}
                   autoCropArea={1}
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
-                  zoom={this.generateOnZoomHandler(avatarToEdit)}
+                  zoom={event => event.preventDefault()}
                   ready={this.onCropperReady}
+                  setFieldValue={setFieldValue}
                   onInitialized={this.onCropperInit}
                 />
               </label>

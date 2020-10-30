@@ -354,7 +354,7 @@ module.exports = class Layout extends Base {
             ${i18n.t('Serial Number')}:
             ${systemInformation.serialNumber}
             ${i18n.t('MAC Address')}:
-            ${systemInformation.mac}`)}
+            ${networkSettings.mac}`)}
             onMouseLeave={this.onAboutModalHoverOut}
           >
             <h5 className="modal-title">{i18n.t('About')}</h5>
