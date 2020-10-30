@@ -554,6 +554,9 @@ module.exports.isArray = arg => Object.prototype.toString.call(arg) === '[object
 module.exports.isDate = arg => Object.prototype.toString.call(arg) === '[object Date]' &&
   !isNaN(arg.getTime());
 
+/**
+ *  Deprecated
+ *
 module.exports.pingAndRedirectPage = url => {
   const test = () => {
     axios.get(url, {responseType: 'document'})
@@ -567,6 +570,7 @@ module.exports.pingAndRedirectPage = url => {
 
   test();
 };
+*/
 
 /**
  * Check if the server has shutdown; Device has not shutdown if ping succeeds, proceed if ping fails.
