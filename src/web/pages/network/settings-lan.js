@@ -7,7 +7,10 @@ import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
-import utils from '../../../core/utils';
+import ProgressIndicator from '../../../core/components/progress-indicator';
+import {NODE_SERVER_RESTART_DELAY_MS} from '../../../core/constants';
+
+const infoColor = getComputedStyle(document.documentElement).getPropertyValue('--info');
 
 class SettingsLan extends React.PureComponent {
   static propTypes = {
@@ -53,7 +56,8 @@ class SettingsLan extends React.PureComponent {
     modalBody: '',
     isConfirmDisable: false,
     onConfirm: this.hideModal('info'),
-    isUpdating: false
+    isUpdating: false,
+    redirectIP: false
   }
 
   onClickTestDHCPButton = setFieldValue => event => {
@@ -91,19 +95,41 @@ class SettingsLan extends React.PureComponent {
         api.system.updateNetworkSettings(values)
           .then(response => {
             const resultIP = values.ipType === NetworkIPType.dynamic ? response.data.ipAddress : values.ipAddress;
-            this.setState(prevState => ({
+            const newAddress = `${location.protocol}//${resultIP}:${location.port}`;
+            this.setState({
               isShowSelectModal: {
-                ...prevState.isShowSelectModal,
+                applyConfirm: false,
                 info: true
               },
-              isUpdating: false,
               modalTitle: i18n.t('Redirection Success'),
-              modalBody: [i18n.t('Click confirm to redirect to the new address:'), `${i18n.t('IP Address')}: ${resultIP}`],
-              onConfirm: () => {
-                this.setState({isConfirmDisable: true});
-                utils.pingAndRedirectPage(`${location.protocol}//${resultIP}:${location.port}`);
-              }
-            }));
+              redirectIP: true,
+              modalBody: [
+                `${i18n.t('The website has been redirected to the new address')} :`,
+                <div key="redirect" className="d-flex">
+                  <ProgressIndicator
+                    className="ml-0"
+                    status="start"
+                  />
+                  <span style={{color: infoColor}}>{newAddress}</span>
+                </div>
+              ]
+            }, () => {
+              setTimeout(() => {
+                this.setState({
+                  isUpdating: false,
+                  modalBody: [
+                    `${i18n.t('The website has been redirected to the new address')} :`,
+                    <div key="redirect" className="d-flex">
+                      <ProgressIndicator
+                        className="ml-0"
+                        status="done"
+                      />
+                      <a href={newAddress}>{newAddress}</a>
+                    </div>
+                  ]
+                });
+              }, NODE_SERVER_RESTART_DELAY_MS);
+            });
           })
           .finally(progress.done);
       }
@@ -112,7 +138,7 @@ class SettingsLan extends React.PureComponent {
 
   render() {
     const {networkSettings, isApiProcessing} = this.props;
-    const {isShowSelectModal, isUpdating, modalBody, modalTitle, isConfirmDisable, onConfirm} = this.state;
+    const {isShowSelectModal, isUpdating, modalBody, modalTitle, isConfirmDisable, onConfirm, redirectIP} = this.state;
 
     return (
       <>
@@ -254,6 +280,7 @@ class SettingsLan extends React.PureComponent {
           }}
         </Formik>
         <CustomNotifyModal
+          isShowAllBtns={!redirectIP}
           modalType="info"
           isShowModal={isShowSelectModal.info}
           modalTitle={modalTitle}
