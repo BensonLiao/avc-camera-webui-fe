@@ -424,7 +424,6 @@ module.exports = {
       Encryption: '加密方式',
       None: '無',
       'Enable Device Login Notification': '開啟裝置登入通報',
-      'Please Enable SMTP Server': '請先開啟SMTP伺服器',
       'Sender Information': '寄件人資訊',
       'Enter sender\'s name': '輸入寄件人名稱',
       'Enter sender\'s email': '輸入寄件人電子郵件',
@@ -776,6 +775,7 @@ module.exports = {
       'Restore to Default Settings': '還原成原廠設定',
       'Restore to Factory Default Settings (Includes Network Settings)': '將所有設定恢復為預設值(包含IP位址)',
       Reset: '清除資料',
+      Resetting: '清除資料中',
       'Export System Settings': '匯出系統設定值',
       'Import System Settings': '匯入系統設定值',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': '裝置將還原成原廠設定，所有資料和設定將會被清除',
@@ -787,6 +787,8 @@ module.exports = {
       '• Internet & Network settings': '• 網路設定',
       '• Data on the SD Card': '• 記憶卡儲存資料',
       'The device has rebooted. Please log in again.': '裝置已重新啟動，請重新登入',
+      'Device Resetting to Factory Default': 'Device Resetting to Factory Default',
+      'Please follow the user manual to access your camera.': 'Please follow the user manual to access your camera.',
 
       // /system/upgrade
       'Upload Software': '上傳軟體',

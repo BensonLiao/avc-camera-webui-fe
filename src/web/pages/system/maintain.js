@@ -109,7 +109,7 @@ module.exports = class Maintain extends Base {
         ...prevState.isShowSelectModal,
         reset: false
       },
-      apiProcessModalTitle: i18n.t('Device Resetting')
+      apiProcessModalTitle: i18n.t('Resetting')
     }),
     () => {
       api.system.deviceReset(resetIP)

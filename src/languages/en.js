@@ -775,6 +775,7 @@ module.exports = {
       'Restore to Default Settings': 'Restore to Default Settings',
       'Restore to Factory Default Settings (Includes Network Settings)': 'Restore to Factory Default Settings (Includes Network Settings)',
       Reset: 'Reset',
+      Resetting: 'Resetting',
       'Export System Settings': 'Export System Settings',
       'Import System Settings': 'Import System Settings',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.',
@@ -786,6 +787,8 @@ module.exports = {
       '• Internet & Network settings': '• Internet & Network settings',
       '• Data on the SD Card': '• Data on the SD Card',
       'The device has rebooted. Please log in again.': 'The device has rebooted. Please log in again.',
+      'Device Resetting to Factory Default': 'Device Resetting to Factory Default',
+      'Please follow the user manual to access your camera.': 'Please follow the user manual to access your camera.',
 
       // /system/upgrade
       'Upload Software': 'Upload Software',
