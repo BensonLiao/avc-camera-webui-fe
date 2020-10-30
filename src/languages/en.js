@@ -125,7 +125,7 @@ module.exports = {
       'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': 'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.',
       // CustomTooltip / /sd-card
       'Please disable the SD card first.': 'Please disable the SD card first.',
-      'Please enable outgoing email first.': 'Please enable outgoing email first.',
+      'Please enable Outgoing Email first.': 'Please enable Outgoing Email first.',
 
       // -- Component -- END --
 
@@ -424,7 +424,6 @@ module.exports = {
       Encryption: 'Encryption',
       None: 'None',
       'Enable Device Login Notification': 'Enable Device Login Notification',
-      'Please Enable SMTP Server': 'Please Enable SMTP Server',
       'Sender Information': 'Sender Information',
       'Enter sender\'s name': 'Enter sender\'s name',
       'Enter sender\'s email': 'Enter sender\'s email',

@@ -125,7 +125,7 @@ module.exports = {
       'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': '勾選此項目會清除並還原成員及群組、系統帳號、縮放及對焦、RTSP、網路、應用程式、儲存在記憶卡的資料...等，所有資料和設定',
       // CustomTooltip / /sd-card
       'Please disable the SD card first.': '請先關閉記憶卡功能',
-      'Please enable outgoing email first.': '必須設定電子郵件',
+      'Please enable Outgoing Email first.': '必須設定電子郵件',
 
       // -- Component -- END --
 

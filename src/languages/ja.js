@@ -125,7 +125,7 @@ module.exports = {
       'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': '本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります',
       // CustomTooltip / /sd-card
       'Please disable the SD card first.': '先にSDカードの機能を無効にしてください',
-      'Please enable outgoing email first.': 'メールアドレスを設定するのは必須です',
+      'Please enable Outgoing Email first.': 'メールアドレスを設定するのは必須です',
 
       // -- Component -- END --
 
@@ -424,7 +424,6 @@ module.exports = {
       Encryption: '暗号化方式',
       None: 'なし',
       'Enable Device Login Notification': 'カメラログイン通知を有効にする',
-      'Please Enable SMTP Server': '請先開啟SMTP伺服器',
       'Sender Information': '差出人情報',
       'Enter sender\'s name': '差出人名を入力してください',
       'Enter sender\'s email': '差出人のメールアドレスを入力してください',
@@ -824,8 +823,8 @@ module.exports = {
       'Disabling SD Card': 'SDカードを取り外します',
       'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': 'SDカードを取り外しますか？イベントによるキャプチャが保存されません',
       'Off Line Record': '斷線錄影',
-      'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
-      'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
+      'Are you sure you want to format the Micro SD card?': 'Micro SDカードをフォーマットしてもよろしいですか？',
+      'Are you sure you want to unmount the Micro SD card?': 'Micro SDカードをア取り外してよろしいですか？',
       Operation: '操作',
       Format: 'フォーマット',
       Mount: 'マウント',

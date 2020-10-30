@@ -209,7 +209,7 @@ export default withGlobalStatus(
                     </CustomTooltip>
                   </div>
                   <div>
-                    <CustomTooltip show={!isEnableAuth} title={i18n.t('Please Enable SMTP Server')}>
+                    <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable Outgoing Email first.')}>
                       <a
                         href="#"
                         className={classNames('mr-2', {'disable-link': !isEnableAuth})}
@@ -225,7 +225,7 @@ export default withGlobalStatus(
                 </div>
                 <div className="mb-0 form-group d-flex justify-content-between align-items-center">
                   <label>{i18n.t('Enable Device Login Notification')}</label>
-                  <CustomTooltip show={!isEnableAuth} title={i18n.t('Please Enable SMTP Server')}>
+                  <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable Outgoing Email first.')}>
                     <div className="custom-control custom-switch">
                       <Field
                         disabled={!isEnableAuth}
