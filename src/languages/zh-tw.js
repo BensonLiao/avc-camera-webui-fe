@@ -255,7 +255,6 @@ module.exports = {
       Defog: '除霧',
       'Lighting Compensation Frequency (Hz)': '電源頻率',
       'Auto Focus': '自動對焦',
-      'Focal Length': '焦距',
       'Reset to Default Settings': '恢復預設值',
       // /home / Constans
       Auto: '自動',

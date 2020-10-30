@@ -255,7 +255,6 @@ module.exports = {
       Defog: 'Defog',
       'Lighting Compensation Frequency (Hz)': 'Lighting Compensation Frequency (Hz)',
       'Auto Focus': 'Auto Focus',
-      'Focal Length': 'Focal Length',
       'Reset to Default Settings': 'Reset to Default Settings',
       // /home / Constans
       Auto: 'Auto',
