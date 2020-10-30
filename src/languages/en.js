@@ -785,8 +785,8 @@ module.exports = {
       '• Internet & Network settings': '• Internet & Network settings',
       '• Data on the SD Card': '• Data on the SD Card',
       'The device has rebooted. Please log in again.': 'The device has rebooted. Please log in again.',
-      'Device Resetting to Factory Default': 'Device Resetting to Factory Default',
-      'Please follow the user manual to access your camera.': 'Please follow the user manual to access your camera.',
+      'Reset Success': 'Reset Success',
+      'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.',
 
       // /system/upgrade
       'Upload Software': 'Upload Software',

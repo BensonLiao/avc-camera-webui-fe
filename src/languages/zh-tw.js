@@ -133,7 +133,7 @@ module.exports = {
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
       'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8 - 16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Welcome: '歡迎',
       'For a better experience,': '為了使您有更好的體驗，',
@@ -785,8 +785,8 @@ module.exports = {
       '• Internet & Network settings': '• 網路設定',
       '• Data on the SD Card': '• 記憶卡儲存資料',
       'The device has rebooted. Please log in again.': '裝置已重新啟動，請重新登入',
-      'Device Resetting to Factory Default': 'Device Resetting to Factory Default',
-      'Please follow the user manual to access your camera.': 'Please follow the user manual to access your camera.',
+      'Reset Success': '重設成功',
+      'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': '請參閱安裝說明執行初始設定',
 
       // /system/upgrade
       'Upload Software': '上傳軟體',

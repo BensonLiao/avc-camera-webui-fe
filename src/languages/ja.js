@@ -133,8 +133,8 @@ module.exports = {
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
       'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8～16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` " \\ /< >とスペースを使用できません',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` " \\ /< >とスペースを使用できません',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません',
       Welcome: 'ようこそ',
       'For a better experience,': 'よりいい使用体験のために、',
       'Please click Continue to complete the initial setup!': '[続行]をクリックして、初期設定を完了してください',
@@ -785,8 +785,8 @@ module.exports = {
       '• Internet & Network settings': '• インターネット/ネットワーク設定',
       '• Data on the SD Card': '• SDカード内のデータ',
       'The device has rebooted. Please log in again.': 'デバイスは再起動しましたため、再度ログインしてください',
-      'Device Resetting to Factory Default': 'Device Resetting to Factory Default',
-      'Please follow the user manual to access your camera.': 'Please follow the user manual to access your camera.',
+      'Reset Success': '初期化完了',
+      'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'クイックインストールガイドを参照して初期設定を行って下さい',
 
       // /system/upgrade
       'Upload Software': 'ソフトウェアのアップロード',

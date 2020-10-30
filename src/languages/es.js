@@ -785,8 +785,8 @@ module.exports = {
       '• Internet & Network settings': '• 網路設定',
       '• Data on the SD Card': '• 記憶卡儲存資料',
       'The device has rebooted. Please log in again.': '裝置已重新啟動，請重新登入',
-      'Device Resetting to Factory Default': 'Device Resetting to Factory Default',
-      'Please follow the user manual to access your camera.': 'Please follow the user manual to access your camera.',
+      'Reset Success': 'Reset Success',
+      'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.',
 
       // /system/upgrade
       'Upload Software': '上傳軟體',
