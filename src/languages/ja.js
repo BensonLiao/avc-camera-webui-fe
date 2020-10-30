@@ -705,7 +705,7 @@ module.exports = {
       'Secondary DNS': 'セカンダリーDNS (選択)',
       'No changes were made.': '変更がありません',
       'Please enable HTTPS first.': '先にHTTPS機能を有効にしてください',
-      'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
+      'Are you sure you want to update network settings?': 'ネットワーク設定を更新してもよろしいですか？',
       'Enter a fixed IP address': '固定IPアドレスを入力してください',
       'Enter Subnet Mask': 'サブネットマスクを入力してください',
       'Enter Router/Gateway': 'ルーター/ゲートウェイを入力してください',

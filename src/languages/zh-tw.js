@@ -706,7 +706,7 @@ module.exports = {
       'Secondary DNS': '次要 DNS',
       'No changes were made.': '沒有設定被更改',
       'Please enable HTTPS first.': '請先開啟 HTTPS 功能',
-      'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
+      'Are you sure you want to update network settings?': '您確定要更改網路設定嗎？',
       'Enter a fixed IP address': '請輸入固定IP位址',
       'Enter Subnet Mask': '請輸入子網路遮罩',
       'Enter Router/Gateway': '請輸入路由器/閘道',
