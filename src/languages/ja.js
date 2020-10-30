@@ -133,7 +133,7 @@ module.exports = {
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
       'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8～16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “  \\ / < >',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8～16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` " \\ /< >とスペースを使用できません',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Welcome: 'ようこそ',
       'For a better experience,': 'よりいい使用体験のために、',

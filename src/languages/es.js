@@ -28,26 +28,26 @@ module.exports = {
       'Renew Session': '未閒置',
 
       // Component / Switch component
-      ON: '開啟',
-      OFF: '關閉',
+      ON: 'Habilitar',
+      OFF: 'apagar',
 
       // Component / Navigation
       Home: '首頁',
-      Image: '圖像',
-      Video: '影像',
-      Audio: '聲音',
-      Notification: '通報',
-      'User Management': '人員',
-      Analytics: '影像分析',
+      Image: 'imagen',
+      Video: 'imagen',
+      Audio: 'sonido',
+      Notification: 'Anunciar',
+      'User Management': 'usuarios',
+      Analytics: 'Análisis de imagen',
       Network: '網路',
       System: '系統',
-      SDCard: 'SD卡',
+      SDCard: 'Tarjeta de memoria',
 
       // Component / App Bar
       About: '關於',
       'Model Name': '裝置名稱',
-      Software: '軟體版本',
-      'Serial Number': '裝置序號',
+      Software: 'Versión del software',
+      'Serial Number': 'Número de serie del dispositivo',
       Support: '支援',
       'Online Support Request': '線上支援',
       'Firmware Downloads': '韌體下載',
@@ -58,14 +58,14 @@ module.exports = {
       Resources: '資源',
 
       // Component / App Bar / Support
-      'Device Help': '裝置使用幫助',
+      'Device Help': 'Ayuda para el uso del dispositivo',
       'Technical Support': '裝置使用幫助',
       'Product Information': '其他產品資訊',
       'Sign Out': '登出',
 
       // Compoenet / Input / Validations
       'These passwords didn\'t match.': '兩次密碼不一致',
-      'validation-required': '必須輸入',
+      'validation-required': 'Este campo es obligatorio',
       'validation-string': '必須是字串',
       'validation-stringEmpty': '必須輸入',
       'validation-stringMin': '必須輸入{expected}個以上的字',
@@ -76,7 +76,7 @@ module.exports = {
       'validation-stringContainsLowerCaseLatter': '必須包含小寫英文字母',
       'validation-stringContainsUpperCaseLatter': '必須包含大寫英文字母',
       'validation-stringContainsNumber': '必須包含數字',
-      'validation-stringAbortSpecialCharacters': '禁用全形或半形符號: # % & ` “ \\ / < > 和空白',
+      'validation-stringAbortSpecialCharacters': 'Deshabilitar los símbolos de ancho completo o medio ancho: # % & ` " \\ / < > y espacio',
       'validation-stringAcceptSpecialCharacters': '必須包含符號',
       'validation-stringEnum': '不符合內容要求',
       'validation-number': '必須為數字',
@@ -91,7 +91,7 @@ module.exports = {
       'validation-arrayEmpty': '不可為空陣列',
       'validation-arrayMin': '此欄位最少包含 {expected} 個項目',
       'validation-arrayMax': '此欄位最多包含 {expected} 個項目',
-      'validation-arrayLength': '必須為 {expected} 個項目',
+      'validation-arrayLength': 'Deben ser elementos {expected}',
       'validation-arrayContains': '必須包含 {expected} 個項目',
       'validation-arrayEnum': '使用了不允許的項目{expected}',
       'validation-boolean': '必須為布林值',
@@ -104,7 +104,7 @@ module.exports = {
       'validation-url': '請使用正確的網址格式',
       'validation-birthday': '請使用正確的生日格式',
       'validation-countryCode': '國家代碼錯誤',
-      'This name already exists in the system. Please use a different name.': '名稱重複，請使用不同名稱',
+      'This name already exists in the system. Please use a different name.': 'Nombre duplicado, por favorutilice un nombre diferente',
       'The port number must not be empty.': '此欄位必需輸入',
 
       // Component / CustomTooltip
@@ -112,9 +112,9 @@ module.exports = {
       'Show Password': '顯示密碼',
       'Please Select a File First': '請先選擇一個檔案',
       // CustomTooltip / /notification/cards
-      'Please enter start and end time.': '必須選擇起始和終止日期時間',
-      'The maximum number of allowed schedules is 5.': '已達數量限制',
-      'Please enter an email address.': '請輸入電子郵件地址',
+      'Please enter start and end time.': 'Debe elegir la fecha y hora de inicio y finalización',
+      'The maximum number of allowed schedules is 5.': 'Límite de cantidad alcanzado',
+      'Please enter an email address.': 'Ingrese la dirección de correo electrónico',
       // CustomTooltip / /users/members
       'Group number limit exceeded.': '已達數量限制',
       // CustomTooltip / /users/accounts
@@ -123,8 +123,8 @@ module.exports = {
       // CustomTooltip / /system/maintain
       'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': '勾選此項目會清除並還原成員及群組、系統帳號、縮放及對焦、RTSP、網路、應用程式、儲存在記憶卡的資料...等，所有資料和設定',
       // CustomTooltip / /sd-card
-      'Please disable the SD card first.': '請先關閉記憶卡功能',
-      'Please enable Outgoing Email first.': '必須設定電子郵件',
+      'Please disable the SD card first.': 'Primero apague la función de la tarjeta SD',
+      'Please enable Outgoing Email first.': 'El correo electrónico debe estar configurado',
 
       // -- Component -- END --
 
@@ -133,7 +133,7 @@ module.exports = {
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
       'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Welcome: '歡迎',
       'For a better experience,': '為了使您有更好的體驗，',
@@ -180,7 +180,7 @@ module.exports = {
       'Please enter the email address.': '請輸入電子信箱',
       Domain: '域名',
       'Please enter the domain.': '請輸入域名',
-      'Range: 1024-65535 Default: 8443': '範圍：1024-65535，預設：8443',
+      'Range: 1024-65535 Default: 8443': 'Rango: 1024-65535 preestablecido: 8443',
 
       // /login
       Login: '登入',
@@ -198,12 +198,12 @@ module.exports = {
       'Expires in 12 hours': '12 小時後過期',
 
       // /login-lock
-      'Too Many Login Attempts!': '登入帳號密碼錯誤5次以上',
-      'Please try again in 5 minutes.': '請5分鐘後再嘗試登入',
+      'Too Many Login Attempts!': 'Contraseña de cuenta de inicio de sesión incorrecta por más de 5 veces',
+      'Please try again in 5 minutes.': 'Intente iniciar la sesión nuevamente en 5 minutos',
       'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
-      'Login locked': '鎖定登入',
+      'Login locked': 'Bloquear inicio de sesión',
       'Forgot password?': '忘記密碼？',
-      '{{0}} Remaining': '還需 {{0}} 才能再次登入',
+      '{{0}} Remaining': '{0} es necesario para iniciar sesión nuevamente',
       'Login Again': '重新登入',
 
       // Deprecated
@@ -222,38 +222,38 @@ module.exports = {
       // /home
       'Device Name': '裝置名稱',
       'Device Status': '裝置狀態',
-      'SD Card': '記憶卡',
-      'Authentication Required': '未啟用',
+      'SD Card': 'Tarjeta de memoria',
+      'Authentication Required': 'No esta activado',
       'Facial Recognition: ': '臉部辨識：',
       'Age & Gender: ': '性別年齡：',
       'Human Detection: ': '人形偵測：',
       'Free: {{0}}, Total: {{1}}': '{{0}} 可用 (共 {{1}})',
       'Enable HDR': '開啟HDR',
-      Adjustments: '屬性',
+      Adjustments: 'Atributos',
       Brightness: '亮度',
       Contrast: '對比',
       Sharpness: '銳利度',
       Saturation: '飽和度',
-      'Lens Control': '鏡頭',
+      'Lens Control': 'Lente',
       'Select Focus Type': '選擇對焦方式',
       'Full-Range Focus': '全範圍對焦',
       'Short-Range Focus': '短距離對焦',
       Focus: '對焦',
       Zoom: '焦距',
-      'Auto Focus after Zoom': '縮放時自動對焦',
+      'Auto Focus after Zoom': 'Enfoque automático al hacer zoom',
       Iris: '光圈',
       'Shutter Speed': '快門速度',
-      Advanced: '進階',
+      Advanced: 'Avanzado',
       'White Balance': '白平衡',
       'Color Temperature': '色溫',
       'IR Control': '紅外線燈',
       Level: '強度',
-      'Day/Night': '日間/夜間模式',
+      'Day/Night': 'Modo día/noche',
       Sensitivity: '靈敏度',
       'Day Mode': '日間模式',
       Rotation: '旋轉',
       Defog: '除霧',
-      'Lighting Compensation Frequency (Hz)': '電源頻率',
+      'Lighting Compensation Frequency (Hz)': 'Frecuencia de actualización',
       'Auto Focus': '自動對焦',
       'Focal Length': '焦距',
       'Reset to Default Settings': '恢復預設值',
@@ -280,8 +280,8 @@ module.exports = {
       // /home / Constans / White balance
       'white-balance-0': '自動',
       'white-balance-1': '戶外',
-      'white-balance-2': '螢光燈',
-      'white-balance-3': '白熾燈',
+      'white-balance-2': 'Lámpara fluorescente',
+      'white-balance-3': 'Lampara incandescente',
       'white-balance-4': '手動調整',
       // /home / Constans / Day/Night
       'daynight-mode-0': '自動',
@@ -300,7 +300,7 @@ module.exports = {
 
       // /media
       'Video Settings': '影像',
-      Streams: '串流',
+      Streams: 'Stream',
       OSD: '文字貼圖',
       'Privacy Mask': '隱私遮罩',
 
@@ -308,12 +308,12 @@ module.exports = {
       Settings: '設定',
       'Stream 01': '串流 01',
       'Stream 02': '串流 02',
-      Codec: '影像編碼',
+      Codec: 'Codificación de imágenes',
       Resolution: '解析度',
-      'Frame Rate (FPS)': '每秒幀數',
-      'Bandwidth Management': '位元率管理',
+      'Frame Rate (FPS)': 'Cuadros por segundo',
+      'Bandwidth Management': 'Gestión de la tasa de bits',
       Quality: '品質',
-      'Are you sure you want to update stream settings?': '您確定要更改串流設定嗎？',
+      'Are you sure you want to update stream settings?': '¿Está seguro de que desea cambiar la configuración de Stream?',
       'Updating Stream Settings': '更新串流設定',
       'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': '改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？',
       // /media/stream / Constans / Resolution
@@ -330,9 +330,9 @@ module.exports = {
       'stream-resolution-10': '640*480 (4:3)',
       'stream-resolution-11': '320*240 (4:3)',
       // /media/stream / Constans / Bandwidth Management
-      'stream-bandwidth-management-0': '最大位元速率',
-      'stream-bandwidth-management-1': '可變位元速率',
-      'stream-bandwidth-management-2': '固定位元速率',
+      'stream-bandwidth-management-0': 'Tasa de bits máxima',
+      'stream-bandwidth-management-1': 'Tasa de bits variable',
+      'stream-bandwidth-management-2': 'Tasa de bits fija',
       // /media/stream / Constans / Quality
       'quality-30': '低',
       'quality-50': '中',
@@ -341,13 +341,13 @@ module.exports = {
       '{{0}} - {{1}} Kbps': '{{0}} - {{1}} Kbps',
 
       // /media/rtsp
-      'Enable Audio over RTSP': '開啟將聲音紀錄至串流',
-      'Require Authentication': '開啟帳號密碼認證',
-      'RTSP/TCP Port': 'RTSP/TCP 連接埠',
-      'Range: 1024-65535 Default: 8554': '範圍：1024-65535，預設：8554',
-      'RTSP/UDP Port': 'RTSP/UDP 連接埠',
-      'Range: 1024-65535 Default: 17300': '範圍：1024-65535，預設：17300',
-      'Maximum Number of Concurrent Connections': '同時最大連接數',
+      'Enable Audio over RTSP': 'Habilitar grabación de sonido para Stream',
+      'Require Authentication': 'Habilitar autenticación de contraseña de la cuenta',
+      'RTSP/TCP Port': 'Puerto RTSP/TCP',
+      'Range: 1024-65535 Default: 8554': 'Rango: 1024-65535, preestablecido: 8554',
+      'RTSP/UDP Port': 'Puerto RTSP/UDP',
+      'Range: 1024-65535 Default: 17300': 'Rango: 1024-65535, preestablecido: 17300',
+      'Maximum Number of Concurrent Connections': 'Número máximo de conexiones simultáneas',
 
       // /media/hdmi
       HDMI: 'HDMI',
@@ -357,11 +357,11 @@ module.exports = {
 
       // /media/word
       'Enable On-Screen Display': '開啟文字貼圖',
-      Size: '文字大小',
+      Size: 'tamaño de fuente',
       Color: '顏色',
       Word: '文字',
-      Position: '位置',
-      'Click the arrow on the preview window.': '請在預覽窗格中點選箭頭',
+      Position: 'posición',
+      'Click the arrow on the preview window.': 'Haga clic en {flecha} para establecer la posición',
       'Left Top': '左上',
       'Right Top': '右上',
       'Left Bottom': '左下',
@@ -373,26 +373,26 @@ module.exports = {
       'font-size-2': '大',
       // /media/word / Constants / Text Overlay
       'word-type-0': '時間',
-      'word-type-1': '裝置名稱',
-      'word-type-2': '裝置名稱和時間',
+      'word-type-1': 'Nombre del dispositivo',
+      'word-type-2': 'Nombre y hora del dispositivo',
       'word-type-3': '自訂文字',
       'Enter custom text': '輸入自訂文字',
 
       // /media/privacy-mask
       'Enable Privacy Mask': '開啟隱私遮罩',
-      'Create mask areas on the preview window.': '請在預覽窗格新增隱私遮罩',
+      'Create mask areas on the preview window.': 'Agregue una máscara de privacidad en el panel de vista previa',
       'Mask Area': '遮罩區域',
       'Note Area': '說明',
       Drag: '拖曳',
       'To set a mask:': '新增遮罩',
       'To erase a mask:': '刪除遮罩',
-      'Up to 4 mask areas can be set.': '最多4個遮罩',
+      'Up to 4 mask areas can be set.': 'Hasta 4 mascarillas',
 
       // /audio
       'Audio Title': '聲音',
-      'Enable Audio Input': '開啟聲音輸入',
-      'Audio Quality': '品質',
-      'Input Source': '輸入來源',
+      'Enable Audio Input': 'Habilitar entrada de voz',
+      'Audio Quality': 'calidad',
+      'Input Source': 'Fuente de entrada',
       'Internal Microphone': '內建式麥克風',
       'External Microphone': '外接麥克風',
       // /audio / Constans / Audio Quality
@@ -461,13 +461,13 @@ module.exports = {
       'Unpin Card': '解除置頂',
       'Pin this card': '置頂',
       'Enter card title': '輸入通報卡名稱',
-      'Email: On': '電子郵件: 開啟',
-      'Output: On': '數位輸出: 開啟',
+      'Email: On': 'Correo electrónico: Habilitado',
+      'Output: On': 'Salida digital: Habilitado',
       'VMS: On': '影像管理系統(VMS): 開',
       Schedule: '排程',
       'Enable Schedule': '開啟排程',
       Rule: '規則',
-      Group: '群組',
+      Group: 'Grupo',
       Condition: '條件',
       Method: '通報方式',
       Everyone: '所有人，不限定群組',
@@ -498,14 +498,14 @@ module.exports = {
       'notification-card-4': '破壞警報',
       'notification-card-5': '數位輸入',
       // /notification/cards / Constants / Face Recognition Condition
-      'face-recognition-condition-0': '所有類型',
+      'face-recognition-condition-0': 'Todos los tipos',
       'face-recognition-condition-1': '成功',
       'face-recognition-condition-2': '未知',
       'face-recognition-condition-3': '圖像偽裝',
       // /notification/cards / Constants / Email Attachment
-      'email-attachment-type-0': '臉部截圖',
-      'email-attachment-type-1': '全畫面截圖',
-      'email-attachment-type-2': '無',
+      'email-attachment-type-0': 'Captura de pantalla de la cara',
+      'email-attachment-type-1': 'Captura de pantalla completa',
+      'email-attachment-type-2': 'ninguno',
       // /notification/cards / Constants / Content Placement
       'email-content-position-0': '置於開頭',
       'email-content-position-1': '置於結尾',
@@ -528,7 +528,7 @@ module.exports = {
       'Enter Keywords': '輸入關鍵字',
       Search: '搜尋',
       New: '新增',
-      'Add a New Member': '新增成員',
+      'Add a New Member': 'Añadir miembro',
       'Add a Member from Events': '從事件新增',
       'Edit Group: {{0}}': '編輯群組: {{0}}',
       'User Picture': '註冊照片',
@@ -627,7 +627,7 @@ module.exports = {
       'Updating Member': '更新成員',
       'Added Photo to {{0}} Successfully!': '新增照片至 {{0}} 成功!',
       // /users/events / Constants / Status
-      'enroll-status-0': '圖像偽裝',
+      'enroll-status-0': 'Camuflaje de imagen',
       'enroll-status-1': '未知',
       'enroll-status-2': '成功',
       // /users/events / Constants / Confidence
@@ -641,7 +641,7 @@ module.exports = {
       'Anti-Image Spoof': '開啟防止圖片偽裝',
       'Level of Accuracy': '辨識成功閥值',
       'Detection Zone': '觸發區域',
-      'Show/Hide Detection Zone': '顯示或隱藏區域',
+      'Show/Hide Detection Zone': 'Mostrar o ocultar área',
       'The default is the whole live view screen.': '預設為全畫面',
       'Enable Facial Detection Size': '開啟最小臉部尺寸',
       'Min. Facial Detection Size': '最小臉部尺寸',
@@ -694,7 +694,7 @@ module.exports = {
       'DHCP Testing Failed': 'DHCP 測試失敗',
       'Fixed IP Address': '固定IP位址',
       'IP Address': 'IP 位址',
-      'MAC Address': '實體位址',
+      'MAC Address': 'Dirección física',
       'Subnet Mask': '子網路遮罩',
       'Router/Gateway': '路由器/閘道',
       'Primary DNS': '主要 DNS',
@@ -702,8 +702,8 @@ module.exports = {
       Interface: '連接方式',
       'IP Assignment': 'IP 取得方式',
       'Secondary DNS': '次要 DNS',
-      'No changes were made.': '沒有設定被更改',
-      'Please enable HTTPS first.': '請先開啟 HTTPS 功能',
+      'No changes were made.': 'No se ha cambiado ninguna configuración',
+      'Please enable HTTPS first.': 'Habilite primero la función HTTPS',
       'Are you sure you want to update network settings?': '您確定要更改網路設定嗎？',
       'Enter a fixed IP address': '請輸入固定IP位址',
       'Enter Subnet Mask': '請輸入子網路遮罩',
@@ -876,7 +876,7 @@ module.exports = {
       // 9011
       // Unable to Process the Request (invalid token).	UI不支援此功能, 支援在工程模式
       // 9012
-      'Group Number Limit Exceeded': '已達數量限制',
+      'Group Number Limit Exceeded': 'Límite de grupo alcanzado',
       // 9013
       // Incorrect Password	不支援此功能
       // 9014
