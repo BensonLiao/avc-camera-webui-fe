@@ -636,7 +636,7 @@ module.exports = {
 
       // /analytic/face-recognition
       'Analytics Settings': 'Análisis inteligente',
-      'Enable Facial Recognition': '開啟臉部辨識',
+      'Enable Facial Recognition': 'Habilitar reconocimiento facial',
       'Anti-Image Spoof': 'Habilitar Camuflaje Anti-Image S',
       'Level of Accuracy': 'éxito de identificación de Límite',
       'Detection Zone': '觸發區域',
@@ -711,7 +711,7 @@ module.exports = {
       'Enter a secondary DNS': '請輸入次要DNS',
 
       // /network/tcp-ip
-      'Enable DDNS': '開啟 DDNS 服務',
+      'Enable DDNS': 'Habilitar Servicio DDNS',
       'Service Provider': 'proveedor de servicio',
       'Host Name': 'Nombre de host',
       'Enter DDNS host name.': 'Ingrese el nombre de host DDNS',
