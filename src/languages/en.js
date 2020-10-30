@@ -117,7 +117,6 @@ module.exports = {
       'Please enter an email address.': 'Please enter an email address.',
       // CustomTooltip / /users/members
       'Group number limit exceeded.': 'Group number limit exceeded.',
-      'Photo Limit Reached': 'Photo Limit Reached',
       // CustomTooltip / /users/accounts
       'This Account is Protected': 'This Account is Protected',
       'This account cannot be deleted because it is currently logged in to the device.': 'This account cannot be deleted because it is currently logged in to the device.',

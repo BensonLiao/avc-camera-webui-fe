@@ -117,7 +117,6 @@ module.exports = {
       'Please enter an email address.': 'メールアドレスを入力してください',
       // CustomTooltip / /users/members
       'Group number limit exceeded.': 'グループの数量は上限に達しました',
-      'Photo Limit Reached': '已達照片上限',
       // CustomTooltip / /users/accounts
       'This Account is Protected': '此帳戶不可刪除',
       'This account cannot be deleted because it is currently logged in to the device.': '使用中のアカウントを削除することができません',
