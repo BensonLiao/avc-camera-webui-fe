@@ -1,4 +1,3 @@
-const axios = require('axios');
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
 const dayjs = require('dayjs');
