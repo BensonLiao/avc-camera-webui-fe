@@ -214,7 +214,7 @@ module.exports = {
 
       // /reset-password-success
       'Reset password success.': '重設密碼成功',
-      Done: '完成',
+      Done: 'terminado',
 
       // /home
       'Device Name': 'Nombre del dispositivo',
@@ -411,7 +411,7 @@ module.exports = {
       // /notification/smtp
       'Enable Outgoing Email': 'Habilitar transmisión de correo electrónico',
       'SMTP Server Address': 'Dirección del servidor SMTP',
-      'Enter server address': 'Enter server address',
+      'Enter server address': 'Dirección del servidor de entrada',
       'SMTP Logon Settings': 'Configuración de inicio de sesión del servidor SMTP',
       Edit: 'editar',
       'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': 'Algunos proveedores de correo de Internet pueden requerir contraseñas de aplicaciones para mejorar la seguridad, como las cuentas de correo electrónico de Google y Yahoo. Favor siga las instrucciones de su proveedor de correo electrónico para generar y utilizar una contraseña de aplicación.',
