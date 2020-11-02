@@ -20,12 +20,12 @@ module.exports = {
       Sat: 'Sáb',
 
       // Component / API Processing Modal
-      'Please wait': '請稍候',
+      'Please wait': 'Por favor espera',
 
       // Component / Session Expired Modal
-      'Session Expired': '自動登出',
-      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': '閒置時間過長，{{0}} 秒後登出並重新導向登入頁面',
-      'Renew Session': '未閒置',
+      'Session Expired': 'Automáticamente Cerrar Sesión',
+      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': 'El tiempo de inactividad es demasiado largo, cierre sesión después de {{0}} segundos y redirija a la página de inicio de sesión.',
+      'Renew Session': 'No estás Inactivo',
 
       // Component / Switch component
       ON: 'Habilitar',
@@ -239,7 +239,7 @@ module.exports = {
       'Full-Range Focus': 'Enfoque de rango completo',
       'Short-Range Focus': 'Enfoque a corto rango',
       Focus: 'Foco',
-      Zoom: '焦距',
+      Zoom: 'Enfocar',
       'Auto Focus after Zoom': 'Enfoque automático al hacer zoom',
       Iris: 'Iris',
       'Shutter Speed': 'Velocidad de obturación',
@@ -247,7 +247,7 @@ module.exports = {
       'White Balance': 'Balance de blancos',
       'Color Temperature': 'Temperatura del color',
       'IR Control': 'Luz infrarroja',
-      Level: '強度',
+      Level: 'Nivel',
       'Day/Night': 'Modo día/noche',
       Sensitivity: 'Sensibilidad',
       'Day Mode': 'Modo día',
@@ -431,7 +431,7 @@ module.exports = {
       'Email Setting Success': 'éxito la configuración del correo electrónico',
       'Mail Setting Failed': 'Falló la configuración del correo electrónico',
       'Sending Test Email': 'Ha enviado un correo de prueba',
-      'Disabling Outgoing Email': '設定成功',
+      'Disabling Outgoing Email': 'Disabling Outgoing Email',
       'Email Title': 'correo electrónico',
 
       // /notification/io
@@ -444,7 +444,7 @@ module.exports = {
       'Output 1': 'Salida digital 1',
       'Output 2': 'Salida digital 2',
       'Output {{0}}': 'Salida digital {{0}}',
-      'Enable Digital Output {{0}}': '開啟數位輸出 {{0}}',
+      'Enable Digital Output {{0}}': 'Habilitar la salida digital {{0}}',
       Type: 'Tipo de salida',
       Normal: 'general',
       Buffer: 'buffer',
@@ -520,7 +520,7 @@ module.exports = {
       'Encryption Settings': '加密設定',
       Export: 'Exportar',
       Import: 'Importar',
-      'Updating Member Database': '更新成員資料',
+      'Updating Member Database': 'Actualizar perfil de Usuarios',
       'Database Encryption': 'Cifrado de base de datos',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
@@ -538,8 +538,8 @@ module.exports = {
       'Edit Member: {{0}}': 'Editar miembro: {{0}}',
       'Edit Member': 'Editar miembro',
       '{{0}}-{{1}} items. Total: {{2}}': '{{0}}-{{1}} registros. Total: {{2}}',
-      'Importing Member Database': '匯入成員資料庫',
-      'Exporting Member Database': '匯出成員資料庫',
+      'Importing Member Database': 'Importar base de datos de Usuarios',
+      'Exporting Member Database': 'Exportar base de datos de Usuarios',
       'New Member': 'Nuevo miembro',
       'Please upload your face photo.': '請上傳正面照片',
       'Are you sure you want to delete group {{0}}?': '¿Está seguro de que desea borrar el grupo {{0}} ?',
@@ -703,7 +703,7 @@ module.exports = {
       'Secondary DNS': 'DNS secundario',
       'No changes were made.': 'No se ha cambiado ninguna configuración',
       'Please enable HTTPS first.': 'Habilite primero la función HTTPS',
-      'Are you sure you want to update network settings?': '您確定要更改網路設定嗎？',
+      'Are you sure you want to update network settings?': '¿Está seguro de que desea cambiar la configuración de red?',
       'Enter a fixed IP address': 'Introduzca una dirección IP fija',
       'Enter Subnet Mask': '請輸入子網路遮罩',
       'Enter Router/Gateway': '請輸入路由器/閘道',
@@ -718,9 +718,8 @@ module.exports = {
       'Enter DDNS username.': 'Ingrese el nombre de usuario de DDNS',
       'Enter DDNS password.': 'Ingrese la contraseña de DDNS',
       'Secondary HTTP Port': 'Puerto secundario HTTP',
-      'Enter Your Secondary Server Port': '請輸入您的服務埠',
       'Range: 1024-65535 Default: 8080': 'Rango: 1024-65535, preestablecido: 8080',
-      'Setting Success': 'Configuración existosa',
+      'Setting Success': 'Configuración Exitosa',
       'Setting Failed': 'Configuración fallida',
       'DDNS Setting Success': '¡configuración de DDNS exitosa!',
       'DDNS Setting Failed': '¡configuración de DDNS fallida！',
@@ -739,7 +738,6 @@ module.exports = {
       'certificate-type-2': '在此裝置上產生憑證',
 
       // /system
-      'System Settings': '系統設定',
       'Software Upgrade': 'Actualización de software',
       'Import File': 'Importar perfil',
       'Only ZIP file format is supported': 'Solo admite formato de archivo .zip',
@@ -759,10 +757,8 @@ module.exports = {
       'Sync Interval (minutes)': 'Frecuencia de actualización (minutos)',
       'Sync with Your Computer': ' Sincronizar con su computadora',
       'Set the Date & Time Manually': 'Ajuste manual',
-      'Updating Date & Time': '更新日期與時間',
-      'Updating date & time requires you to log in again. Are you sure you want to continue?': '您確定要更裝置時間嗎? 更改裝置時間必須重新登入',
-      'Please Enable Sync with Network Time Server (NTP)': '請啟用與網路時間伺服器 (NTP) 同步',
-      'Time Zone is disabled when syncing with your computer': '與電腦同步時時區將停用',
+      'Updating Date & Time': 'Updating Date & Time',
+      'Updating date and time requires you to log in again. Are you sure you want to continue?': '¿Estás seguro de que deseas cambiar la hora del dispositivo? Debes iniciar sesión nuevamente para cambiar la hora del dispositivo',
 
       // /system/maintain
       'Restore All Settings': 'Restaurar todas las configuraciones a los valores predeterminados',
@@ -771,7 +767,6 @@ module.exports = {
       'Are you sure you want to reboot the device?': '¿Estás seguro de que deseas reiniciar el dispositivo?',
       Reboot: 'Reiniciar',
       'Restore to Default Settings': 'Restaurar a la configuración original de fábrica',
-      'Restore to Factory Default Settings (Includes Network Settings)': '將所有設定恢復為預設值(包含IP位址)',
       Reset: 'Borrar datos',
       Resetting: '清除資料中',
       'Export System Settings': 'Exportar configuración del sistema',
@@ -907,7 +902,7 @@ module.exports = {
       // 9027
       // VMS Reserved Port	AVN
       // 9028
-      'Software Upgrade Failed': 'Actualización del software se realizó correctamente',
+      'Software Upgrade Failed': 'Error en la actualización de software',
       // 9029
       'Unable to Complete the Format': 'Error al formatear la tarjeta de memoria',
       // 9030

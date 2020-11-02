@@ -718,7 +718,6 @@ module.exports = {
       'Enter DDNS username.': 'Enter DDNS username.',
       'Enter DDNS password.': 'Enter DDNS password.',
       'Secondary HTTP Port': 'Secondary HTTP Port',
-      'Enter Your Secondary Server Port': 'Enter Your Secondary Server Port',
       'Range: 1024-65535 Default: 8080': 'Range: 1024-65535 Default: 8080',
       'Setting Success': 'Setting Success',
       'Setting Failed': 'Setting Failed',
@@ -739,7 +738,6 @@ module.exports = {
       'certificate-type-2': 'Generate Certificate on This Device',
 
       // /system
-      'System Settings': 'System Settings',
       'Software Upgrade': 'Software Upgrade',
       'Import File': 'Import File',
       'Only ZIP file format is supported': 'Only ZIP file format is supported',
@@ -759,10 +757,8 @@ module.exports = {
       'Sync Interval (minutes)': 'Sync Interval (minutes)',
       'Sync with Your Computer': 'Sync with Your Computer',
       'Set the Date & Time Manually': 'Set the Date & Time Manually',
-      'Updating Date & Time': '更新日Updating Date & Time期與時間',
-      'Updating date & time requires you to log in again. Are you sure you want to continue?': 'Updating date & time requires you to log in again. Are you sure you want to continue?',
-      'Please Enable Sync with Network Time Server (NTP)': 'Please Enable Sync with Network Time Server (NTP)',
-      'Time Zone is disabled when syncing with your computer': 'Time Zone is disabled when syncing with your computer',
+      'Updating Date & Time': 'Updating Date & Time',
+      'Updating date and time requires you to log in again. Are you sure you want to continue?': 'Updating date and time requires you to log in again. Are you sure you want to continue?',
 
       // /system/maintain
       'Restore All Settings': 'Restore All Settings',
@@ -771,7 +767,6 @@ module.exports = {
       'Are you sure you want to reboot the device?': 'Are you sure you want to reboot the device?',
       Reboot: 'Reboot',
       'Restore to Default Settings': 'Restore to Default Settings',
-      'Restore to Factory Default Settings (Includes Network Settings)': 'Restore to Factory Default Settings (Includes Network Settings)',
       Reset: 'Reset',
       Resetting: 'Resetting',
       'Export System Settings': 'Export System Settings',

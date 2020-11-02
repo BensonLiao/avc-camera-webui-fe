@@ -718,7 +718,6 @@ module.exports = {
       'Enter DDNS username.': '輸入 DDNS 使用者名稱',
       'Enter DDNS password.': '輸入 DDNS 密碼',
       'Secondary HTTP Port': 'HTTP 次要連接埠',
-      'Enter Your Secondary Server Port': '請輸入您的服務埠',
       'Range: 1024-65535 Default: 8080': '範圍：1024-65535，預設：8080',
       'Setting Success': '設定成功',
       'Setting Failed': '設定失敗',
@@ -739,7 +738,6 @@ module.exports = {
       'certificate-type-2': '在此裝置上產生憑證',
 
       // /system
-      'System Settings': '系統設定',
       'Software Upgrade': '軟體更新',
       'Import File': '軟體檔案',
       'Only ZIP file format is supported': '僅支援 .zip 檔案格式',
@@ -760,9 +758,7 @@ module.exports = {
       'Sync with Your Computer': '與您的電腦同步',
       'Set the Date & Time Manually': '手動調整',
       'Updating Date & Time': '更新日期與時間',
-      'Updating date & time requires you to log in again. Are you sure you want to continue?': '您確定要更裝置時間嗎? 更改裝置時間必須重新登入',
-      'Please Enable Sync with Network Time Server (NTP)': '請啟用與網路時間伺服器 (NTP) 同步',
-      'Time Zone is disabled when syncing with your computer': '與電腦同步時時區將停用',
+      'Updating date and time requires you to log in again. Are you sure you want to continue?': '您確定要更裝置時間嗎? 更改裝置時間必須重新登入',
 
       // /system/maintain
       'Restore All Settings': '還原所有設定',
@@ -771,7 +767,6 @@ module.exports = {
       'Are you sure you want to reboot the device?': '您確定要重新啟動裝置嗎？',
       Reboot: '重新啟動',
       'Restore to Default Settings': '還原成原廠設定',
-      'Restore to Factory Default Settings (Includes Network Settings)': '將所有設定恢復為預設值(包含IP位址)',
       Reset: '清除資料',
       Resetting: '清除資料中',
       'Export System Settings': '匯出系統設定值',
