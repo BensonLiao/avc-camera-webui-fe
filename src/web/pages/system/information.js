@@ -7,11 +7,11 @@ import BreadCrumb from '../../../core/components/fields/breadcrumb';
 const Information = ({networkSettings: {mac}, systemInformation: {firmware, serialNumber}}) => {
   const list = [
     {
-      name: i18n.t('Build Version'),
+      name: i18n.t('Software'),
       data: firmware
     },
     {
-      name: i18n.t('S/N Code'),
+      name: i18n.t('Serial Number'),
       data: serialNumber
     },
     {

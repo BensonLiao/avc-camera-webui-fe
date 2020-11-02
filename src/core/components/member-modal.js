@@ -74,8 +74,6 @@ module.exports = class Member extends React.PureComponent {
     this.avatarFile = null;
     // Only determine remaining quota if count is less than 5
     this.state.remainingPictureQuota = props.remainingPictureCount < 5 ? props.remainingPictureCount : null;
-    this.state.pictureRotateDegrees = 0;
-    this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
     this.state.isShowConfirmModal = false;
     this.state.isFormTouched = false;
@@ -159,8 +157,8 @@ module.exports = class Member extends React.PureComponent {
         remainingPictureQuota: (
           // Subtract 1 if adding photo from event
           defaultPictureUrl ? remainingPictureCount - 1 : remainingPictureCount
-        ) - Object.entries(prevState.avatarList).reduce((count, item) => {
-          count += item[1].avatarFile ? 1 : 0;
+        ) - Object.values(prevState.avatarList).reduce((count, item) => {
+          count += item.avatarFile ? 1 : 0;
           return count;
         }, 0)
       }));
@@ -184,13 +182,9 @@ module.exports = class Member extends React.PureComponent {
     this.setState(updateState);
   };
 
-  onShowConfirmModal = () => {
-    this.setState({isShowConfirmModal: true});
-  }
+  onShowConfirmModal = () => this.setState({isShowConfirmModal: true});
 
-  onHideConfirmModal = () => {
-    this.setState({isShowConfirmModal: false});
-  }
+  onHideConfirmModal = () => this.setState({isShowConfirmModal: false});
 
   onShowEditModal = avatarName => {
     const updateState = update(this.state,
@@ -485,7 +479,7 @@ module.exports = class Member extends React.PureComponent {
 
   onSubmitForm = ({errors, values}) => {
     const {avatarList} = this.state;
-    const avatarListArray = Object.entries(avatarList);
+    const avatarListArray = Object.values(avatarList);
 
     // Output error message if primary photo is missing
     if (!avatarList.Primary.avatarPreviewStyle.croppedImage) {
@@ -497,9 +491,9 @@ module.exports = class Member extends React.PureComponent {
 
     // Fallback check if photos have failed verification, is still verifying, not yet verified, or there are Formik validation errors
     if (
-      avatarListArray.filter(avatar => Boolean(avatar[1].isVerifying)).length ||
-      avatarListArray.some(avatar => avatar[1].verifyStatus === false) ||
-      avatarListArray.some(avatar => (avatar[1].verifyStatus === null && avatar[1].avatarFile)) ||
+      avatarListArray.filter(avatar => Boolean(avatar.isVerifying)).length ||
+      avatarListArray.some(avatar => avatar.verifyStatus === false) ||
+      avatarListArray.some(avatar => (avatar.verifyStatus === null && avatar.avatarFile)) ||
       !utils.isObjectEmpty(errors)
     ) {
       return;
@@ -509,7 +503,7 @@ module.exports = class Member extends React.PureComponent {
     const {member, onSubmitted} = this.props;
     const tasks = [];
     avatarListArray.forEach((item, index) => {
-      const {avatarPreviewStyle: {originalImage, croppedImage, convertedImage}} = item[1];
+      const {avatarPreviewStyle: {originalImage, croppedImage, convertedImage}} = item;
       if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
@@ -553,14 +547,14 @@ module.exports = class Member extends React.PureComponent {
         <div className="modal-body">
           <div className="multi-photo-uploader">
             <div className="container d-flex flex-row justify-content-between">
-              {Object.entries(avatarList).map(avatar => {
+              {Object.entries(avatarList).map(([photoKey, avatar]) => {
                 const {
                   verifyStatus,
                   isVerifying,
                   avatarPreviewStyle: {croppedImage}
-                } = avatar[1];
+                } = avatar;
                 return (
-                  <div key={avatar[0]} className={classNames('individual-item d-flex flex-column')}>
+                  <div key={photoKey} className={classNames('individual-item d-flex flex-column')}>
                     <div
                       id="photo-wrapper"
                       className={classNames(
@@ -568,7 +562,7 @@ module.exports = class Member extends React.PureComponent {
                         {'has-background': croppedImage},
                         {
                           // Allow upload if it is Primary or Primary photo exists
-                          available: ((avatar[0] === 'Primary') || primaryBackground) &&
+                          available: ((photoKey === 'Primary') || primaryBackground) &&
                           // Allow upload if remaining picture quota is not at limit based on FR license type
                                      (croppedImage || remainingPictureQuota > 0 || remainingPictureQuota === null)
                         },
@@ -592,7 +586,7 @@ module.exports = class Member extends React.PureComponent {
                                 height: this.listWrapperSize
                               }}
                               onClick={() => {
-                                this.onShowEditModal(avatar[0]);
+                                this.onShowEditModal(photoKey);
                               }}
                             />
                             <div
@@ -611,17 +605,17 @@ module.exports = class Member extends React.PureComponent {
                         ) : (
                           // Display upload area for new photo
                           <CustomTooltip
-                            show={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
-                            title={isOverPhotoLimit ? i18n.t('Photo Limit Reached') : i18n.t('Upload Primary First')}
+                            show={((photoKey !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                            title={isOverPhotoLimit ? i18n.t('Photo Limit of Member Database Exceeded') : i18n.t('Upload Primary First')}
                           >
                             <label className="btn">
                               <i className="fas fa-plus"/>
                               <input
-                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                                disabled={((photoKey !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
                                 className="d-none"
                                 type="file"
                                 accept="image/png,image/jpeg"
-                                onChange={this.onChangeAvatar(avatar[0], this.onShowEditModal)}
+                                onChange={this.onChangeAvatar(photoKey, this.onShowEditModal)}
                               />
                             </label>
                           </CustomTooltip>
@@ -629,7 +623,7 @@ module.exports = class Member extends React.PureComponent {
                         )}
                     </div>
                     <span>
-                      {i18n.t(avatar[0])}
+                      {i18n.t(photoKey)}
                     </span>
                   </div>
                 );
@@ -686,6 +680,7 @@ module.exports = class Member extends React.PureComponent {
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
             />
             <ErrorMessage component="div" name="note" className="invalid-feedback"/>
+            <small className="form-text text-muted">{i18n.t('Maximum length: 256 characters')}</small>
           </div>
         </div>
         <div className="modal-footer flex-column">
@@ -695,7 +690,7 @@ module.exports = class Member extends React.PureComponent {
               disabled={
                 isApiProcessing ||
                 !(errorMessages.length === 0) ||
-                Object.entries(avatarList).filter(item => Boolean(item[1].isVerifying)).length
+                Object.values(avatarList).filter(item => Boolean(item.isVerifying)).length
               }
               type="button"
               className="btn btn-primary btn-block rounded-pill"
@@ -753,7 +748,7 @@ module.exports = class Member extends React.PureComponent {
                   ref={this.cropperRef}
                   src={avatarPreviewStyle.originalImage}
                   // Depends on modal width and style container to 16:9 ratio
-                  style={{height: 300}}
+                  style={{height: this.editWrapperSize}}
                   // Cropper.js options
                   initialAspectRatio={1}
                   aspectRatio={1}

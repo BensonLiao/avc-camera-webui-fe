@@ -75,6 +75,7 @@ module.exports = class EventsSidebar extends React.PureComponent {
   toggleFilterHandler = (paramKey, value) => () => {
     const params = this.convertArrayParams(this.props.params[paramKey]);
     const indexOfConfidences = params.indexOf(value);
+    localStorage.setItem('inputEndTime', true);
 
     if (indexOfConfidences >= 0) {
       params.splice(indexOfConfidences, 1);

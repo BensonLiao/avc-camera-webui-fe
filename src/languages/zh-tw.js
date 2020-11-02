@@ -18,8 +18,14 @@ module.exports = {
       Thu: '四',
       Fri: '五',
       Sat: '六',
+
       // Component / API Processing Modal
       'Please wait': '請稍候',
+
+      // Component / Session Expired Modal
+      'Session Expired': '自動登出',
+      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': '閒置時間過長，{{0}} 秒後登出並重新導向登入頁面',
+      'Renew Session': '未閒置',
 
       // Component / Switch component
       ON: '開啟',
@@ -53,7 +59,7 @@ module.exports = {
 
       // Component / App Bar / Support
       'Device Help': '裝置使用幫助',
-      'Technical Support': '技術問題信箱',
+      'Technical Support': '裝置使用幫助',
       'Product Information': '其他產品資訊',
       'Sign Out': '登出',
 
@@ -70,7 +76,7 @@ module.exports = {
       'validation-stringContainsLowerCaseLatter': '必須包含小寫英文字母',
       'validation-stringContainsUpperCaseLatter': '必須包含大寫英文字母',
       'validation-stringContainsNumber': '必須包含數字',
-      'validation-stringAbortSpecialCharacters': '禁用全形或半形符號: # %  & ` “ \\ / < > 和空白',
+      'validation-stringAbortSpecialCharacters': '禁用全形或半形符號: # % & ` “ \\ / < > 和空白',
       'validation-stringAcceptSpecialCharacters': '必須包含符號',
       'validation-stringEnum': '不符合內容要求',
       'validation-number': '必須為數字',
@@ -83,8 +89,8 @@ module.exports = {
       'validation-numberNegative': '必須為負數',
       'validation-array': '必須為陣列',
       'validation-arrayEmpty': '不可為空陣列',
-      'validation-arrayMin': '此欄位最少包含 {expected} 個項目。',
-      'validation-arrayMax': '此欄位最多包含 {expected} 個項目。',
+      'validation-arrayMin': '此欄位最少包含 {expected} 個項目',
+      'validation-arrayMax': '此欄位最多包含 {expected} 個項目',
       'validation-arrayLength': '必須為 {expected} 個項目',
       'validation-arrayContains': '必須包含 {expected} 個項目',
       'validation-arrayEnum': '使用了不允許的項目{expected}',
@@ -94,10 +100,10 @@ module.exports = {
       'validation-dateMin': '必須為{expected}以後的日期',
       'validation-dateMax': '必須為{expected}以前的日期',
       'validation-forbidden': '隱藏欄位。',
-      'validation-email': '請使用正確的電子信箱格式。',
-      'validation-url': '請使用正確的網址格式。',
-      'validation-birthday': '請使用正確的生日格式。',
-      'validation-countryCode': '國家代碼錯誤。',
+      'validation-email': '請使用正確的電子信箱格式',
+      'validation-url': '請使用正確的網址格式',
+      'validation-birthday': '請使用正確的生日格式',
+      'validation-countryCode': '國家代碼錯誤',
       'This name already exists in the system. Please use a different name.': '名稱重複，請使用不同名稱',
       'The port number must not be empty.': '此欄位必需輸入',
 
@@ -150,10 +156,9 @@ module.exports = {
       Birthday: '生日',
       'This is used for resetting password.': '生日將會用於重置密碼',
       'Enter your account': '請輸入您的帳號',
-      'Enter your password': '請輸入您的密碼',
       // /setup/account / Constants / Permission
       'permission-0': '管理者',
-      'permission-1': '訪客',
+      'permission-1': '來賓',
       'permission-2': '訪客',
       'permission-99': '管理者', // Super-Admin, for easier backend permission control, no difference for UI
 
@@ -176,7 +181,7 @@ module.exports = {
       'Please enter the email address.': '請輸入電子信箱',
       Domain: '域名',
       'Please enter the domain.': '請輸入域名',
-      'Range: 1024-65535 Default: 8443': '範圍：1024-65535, 預設：8443',
+      'Range: 1024-65535 Default: 8443': '範圍：1024-65535，預設：8443',
 
       // /login
       Login: '登入',
@@ -188,7 +193,6 @@ module.exports = {
       // /login-error
       'Incorrect Password': '密碼輸入錯誤',
       'You have {{0}} attempt(s) remaining...': '您尚可嘗試 {{0}} 次...',
-      'Incorrect password x {{0}}': '密碼錯誤 x {{0}}',
       'Expires in 10 minutes': '10 分鐘後過期',
       'Expires in 30 minutes': '30 分鐘後過期',
       'Expires in 1 hour': '1 小時後過期',
@@ -200,7 +204,6 @@ module.exports = {
       'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
       'Login locked': '鎖定登入',
       'Forgot password?': '忘記密碼？',
-      'Incorrect password 5 times! Please wait for 5 minutes.': '密碼錯誤五次囉！請於五分鐘後再登入。',
       '{{0}} Remaining': '還需 {{0}} 才能再次登入',
       'Login Again': '重新登入',
 
@@ -222,9 +225,9 @@ module.exports = {
       'Device Status': '裝置狀態',
       'SD Card': '記憶卡',
       'Authentication Required': '未啟用',
-      'Facial Recognition: ': '臉部辨識 : ',
-      'Age & Gender: ': '性別年齡 : ',
-      'Human Detection: ': '人形偵測 : ',
+      'Facial Recognition: ': '臉部辨識：',
+      'Age & Gender: ': '性別年齡：',
+      'Human Detection: ': '人形偵測：',
       'Free: {{0}}, Total: {{1}}': '{{0}} 可用 (共 {{1}})',
       'Enable HDR': '開啟HDR',
       Adjustments: '屬性',
@@ -335,18 +338,21 @@ module.exports = {
       'quality-30': '低',
       'quality-50': '中',
       'quality-80': '高',
+      // /media/stream / Constans / Bitrate
+      '{{0}} - {{1}} Kbps': '{{0}} - {{1}} Kbps',
 
       // /media/rtsp
       'Enable Audio over RTSP': '開啟將聲音紀錄至串流',
       'Require Authentication': '開啟帳號密碼認證',
       'RTSP/TCP Port': 'RTSP/TCP 連接埠',
-      'Range: 1024-65535 Default: 8554': '範圍：1024-65535, 預設：8554',
+      'Range: 1024-65535 Default: 8554': '範圍：1024-65535，預設：8554',
       'RTSP/UDP Port': 'RTSP/UDP 連接埠',
-      'Range: 1024-65535 Default: 17300': '範圍：1024-65535, 預設：17300',
+      'Range: 1024-65535 Default: 17300': '範圍：1024-65535，預設：17300',
       'Maximum Number of Concurrent Connections': '同時最大連接數',
 
       // /media/hdmi
       HDMI: 'HDMI',
+      'HDMI Title': 'HDMI',
       'Updating HDMI settings': '更新HDMI設定',
       'Are you sure you want to update HDMI settings?': '您即將更改HDMI設定，確認是否繼續？',
 
@@ -384,12 +390,12 @@ module.exports = {
       'Up to 4 mask areas can be set.': '最多4個遮罩',
 
       // /audio
+      'Audio Title': '聲音',
       'Enable Audio Input': '開啟聲音輸入',
       'Audio Quality': '品質',
       'Input Source': '輸入來源',
       'Internal Microphone': '內建式麥克風',
       'External Microphone': '外接麥克風',
-      'Audio Out': '聲音輸出',
       // /audio / Constans / Audio Quality
       'audio-quality-0': 'G.711, 8kHz, 64kbps, 單聲道',
       'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
@@ -397,7 +403,6 @@ module.exports = {
       // /notification
       'Notification Settings': '通報',
       'Notification Method': '通報方式',
-      App: 'APP設定',
       Email: '電子郵件',
       'I/O': '數位輸出及輸入',
       'Smart Notification': '智慧通知',
@@ -418,7 +423,7 @@ module.exports = {
       Port: '連接埠',
       Encryption: '加密方式',
       None: '無',
-      'Enable Device Login Notification': '登入通知信',
+      'Enable Device Login Notification': '開啟裝置登入通報',
       'Please Enable SMTP Server': '請先開啟SMTP伺服器',
       'Sender Information': '寄件人資訊',
       'Enter sender\'s name': '輸入寄件人名稱',
@@ -430,6 +435,7 @@ module.exports = {
       'Mail Setting Failed': '電子郵件設定失敗',
       'Sending Test Email': '測試郵件已寄出',
       'Disabling Outgoing Email': '設定成功',
+      'Email Title': '電子郵件',
 
       // /notification/io
       'Input & Output': '數位輸出及輸入',
@@ -440,6 +446,7 @@ module.exports = {
       'Normally Open': '常開',
       'Output 1': '數位輸出 1',
       'Output 2': '數位輸出 2',
+      'Output {{0}}': '數位輸出 {{0}}',
       'Enable Digital Output {{0}}': '開啟數位輸出 {{0}}',
       Type: '輸出類型',
       Normal: '一般',
@@ -460,11 +467,11 @@ module.exports = {
       'Output: On': '數位輸出: 開啟',
       'VMS: On': '影像管理系統(VMS): 開',
       Schedule: '排程',
+      'Enable Schedule': '開啟排程',
       Rule: '規則',
       Group: '群組',
       Condition: '條件',
       Method: '通報方式',
-      'All Groups': '所有群組',
       Everyone: '所有人，不限定群組',
       'Email Attachment': '附件檔案',
       Receiver: '收件人',
@@ -476,8 +483,8 @@ module.exports = {
       'Cannot create more than {{0}} cards': '無法新增超過 {{0}} 張卡',
       'Subject :': '主旨 :',
       'Content :': '內文 :',
-      'Specify the Subject of Notification Emails': '請輸入通知郵件主旨',
-      'Append Your Message to Notification Emails': '請輸入通知郵件內文',
+      'Specify the subject': '輸入主旨',
+      'Add your message': '輸入內文',
       'Content Placement': '內文位置',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
@@ -520,7 +527,7 @@ module.exports = {
       'Database Encryption': '資料庫加密',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
-      'Enter Keywords': '請輸入關鍵字',
+      'Enter Keywords': '輸入關鍵字',
       Search: '搜尋',
       New: '新增',
       'Add a New Member': '新增成員',
@@ -548,6 +555,7 @@ module.exports = {
       'Enter a name for this group': '輸入群組名稱',
       Note: '備註',
       'Enter a note': '輸入備註',
+      'Maximum length: 256 characters': '最多256個字',
       Create: '新增',
       Close: '關閉',
 
@@ -568,10 +576,12 @@ module.exports = {
       Organization: '組織',
       'Enter a name for this member': '輸入成員名稱',
       'Enter an organization for this member': '輸入組織名稱',
-      'Maximum length: 32 characters': '1-32個字元: 可包含字母, 數字以及符號, 但符號不能為 # %  & ` “ \\ / < >和空白',
+      'Maximum length: 32 characters': '最多32個字',
       'N/A': '無',
-      'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何成員資料，確認要離開嗎？',
+      'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？',
       'Photo size should be less than 90 KB.': '照片大小不可以超過90 KB',
+      Save: '儲存',
+      'Change Photo': '更換照片',
 
       // /users/accounts
       Accounts: '帳號',
@@ -597,7 +607,7 @@ module.exports = {
       Time: '時間',
       Capture: '臉部截圖',
       Confidence: '相似度',
-      'Can\'t find any data.': '查無相符資料，請重新搜尋。',
+      'Can\'t find any data.': '沒有符合的資料, 請重新設置條件',
       Filters: '篩選條件',
       Clear: '清除條件',
       'Start Date': '日期',
@@ -612,7 +622,7 @@ module.exports = {
       Similarity: '相似度',
       'Recognition Result': '結果',
       'Add to Existing Member': '新增至現有成員',
-      'Enter Keyword For Search': '請輸入關鍵字以便搜尋',
+      'Enter keywords in the input field to search for members.': '請輸入關鍵字以便搜尋',
       'Add to {{0}}': '新增至 {{0}}',
       'Verifying Photo': '照片驗證中',
       'Invalid Photo': '照片不合格',
@@ -621,7 +631,7 @@ module.exports = {
       // /users/events / Constants / Status
       'enroll-status-0': '圖像偽裝',
       'enroll-status-1': '未知',
-      'enroll-status-2': '註冊',
+      'enroll-status-2': '成功',
       // /users/events / Constants / Confidence
       'confidence-0': '低',
       'confidence-1': '中',
@@ -634,15 +644,15 @@ module.exports = {
       'Level of Accuracy': '辨識成功閥值',
       'Detection Zone': '觸發區域',
       'Show/Hide Detection Zone': '顯示或隱藏區域',
-      'The default in the whole live view screen.': '預設為全畫面',
+      'The default is the whole live view screen.': '預設為全畫面',
       'Enable Facial Detection Size': '開啟最小臉部尺寸',
       'Min. Facial Detection Size': '最小臉部尺寸',
-      'Live View Display:': '即時影像顯示:',
+      'Live View Display': '即時影像顯示',
       'Display Name': '成員名稱',
       'Display Group': '成員群組',
       'Display Unknown': '辨識結果：未知',
       'Display Image Spoof': '辨識結果：圖像偽裝',
-      'Facial Recognition is Disabled': '辨識功能已關閉',
+      'Facial Recognition is disabled.': '臉部辨識已關閉',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',
@@ -667,9 +677,9 @@ module.exports = {
       'Activated Functions': '啟用功能',
       'Enable Status': '狀態',
       'Activated Success': '啟用成功',
-      '{{0}} authorized successfully!': '{{0}}已授權成功！',
+      '{{0}} authorized successfully!': '{{0}} 啟用成功',
       'Activation Failed': '啟用失敗',
-      'Authorization failed!': '授權失敗！',
+      'Authorization failed!': '啟用失敗',
       'Key Already Registered': '重複輸入啟用碼',
       // /analytic/license / Constants / FR Auth key
       'face-recognition-key-thirtyThousand': '臉部辨識 30k',
@@ -691,23 +701,28 @@ module.exports = {
       'Router/Gateway': '路由器/閘道',
       'Primary DNS': '主要 DNS',
       'Secondary DNS (Optional)': '次要 DNS (選填)',
-      Interface: '介面',
+      Interface: '連接方式',
       'IP Assignment': 'IP 取得方式',
       'Secondary DNS': '次要 DNS',
       'No changes were made.': '沒有設定被更改',
-      'Please enable HTTPS first.': '請先開啟HTTPS功能',
+      'Please enable HTTPS first.': '請先開啟 HTTPS 功能',
       'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
+      'Enter a fixed IP address': '請輸入固定IP位址',
+      'Enter Subnet Mask': '請輸入子網路遮罩',
+      'Enter Router/Gateway': '請輸入路由器/閘道',
+      'Enter a primary DNS': '請輸入主要DNS',
+      'Enter a secondary DNS': '請輸入次要DNS',
 
       // /network/tcp-ip
       'Enable DDNS': '開啟 DDNS 服務',
-      'Service Provider': '服務提供',
+      'Service Provider': '服務提供者',
       'Host Name': '主機名稱',
-      'Enter DDNS host name.': '請輸入 DDNS 主機名稱',
-      'Enter DDNS username.': '請輸入 DDNS 使用者名稱',
-      'Enter DDNS password.': '請輸入 DDNS 密碼',
+      'Enter DDNS host name.': '輸入 DDNS 主機名稱',
+      'Enter DDNS username.': '輸入 DDNS 使用者名稱',
+      'Enter DDNS password.': '輸入 DDNS 密碼',
       'Secondary HTTP Port': 'HTTP 次要連接埠',
       'Enter Your Secondary Server Port': '請輸入您的服務埠',
-      'Range: 1024-65535 Default: 8080': '範圍：1024-65535, 預設：8080',
+      'Range: 1024-65535 Default: 8080': '範圍：1024-65535，預設：8080',
       'Setting Success': '設定成功',
       'Setting Failed': '設定失敗',
       'DDNS Setting Success': 'DDNS 設定成功！',
@@ -717,7 +732,7 @@ module.exports = {
 
       // /network/https
       'Enable HTTPS': '開啟 HTTPS',
-      'Click confirm to redirect to the new address:': '按確認重新導向新的網址 :',
+      'Click confirm to redirect to the new address:': '請按確認導向新的網址：',
       'The website has been redirected to the new address': '請利用下列網址重新登入',
       'The specified port is reserved by system or in use!': '此連接埠為系統預留或使用中',
       'Redirection Success': '重新導向',
@@ -729,7 +744,7 @@ module.exports = {
       // /system
       'System Settings': '系統設定',
       'Software Upgrade': '軟體更新',
-      'Import File': '匯入設定檔',
+      'Import File': '軟體檔案',
       'Only ZIP file format is supported': '僅支援 .zip 檔案格式',
       'Select File': '選擇檔案',
       'No file selected.': '未選擇任何檔案',
@@ -764,7 +779,7 @@ module.exports = {
       'Export System Settings': '匯出系統設定值',
       'Import System Settings': '匯入系統設定值',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': '裝置將還原成原廠設定，所有資料和設定將會被清除',
-      'The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following': '所有設定將被清除並回復成出廠預設值，但將保留以下設定',
+      'The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following': '裝置將還原成原廠設定，除了下列項目，其他所有的資料和設定將會被清除',
       '• Members and Groups': '• 成員清單和成員群組資料',
       '• System Accounts': '• 帳號資料',
       '• Focus and Zoom of Image settings': '• 對焦及縮放設定',
@@ -776,13 +791,13 @@ module.exports = {
       // /system/upgrade
       'Upload Software': '上傳軟體',
       'Install Software': '安裝軟體',
-      'Shutdown Device': '關閉裝置',
-      'Restart Device': '重新啟動裝置',
+      'Shut Down': '關閉裝置',
+      Restart: '重新啟動裝置',
       'Stage 01': '階段 1',
       'Stage 02': '階段 2',
       'Stage 03': '階段 3',
       'Stage 04': '階段 4',
-      '※ Please do not close your browser during upgrade.': '※ 升級時請勿關閉瀏覽器',
+      '※ Please do not close your browser during the upgrade.': '※ 升級時請勿關閉瀏覽器',
       'Uploading Software': '軟體上傳中',
       'Installing Software': '軟體安裝中',
       'Shutting Down': '裝置關閉中',
@@ -801,6 +816,8 @@ module.exports = {
       // /system/information
       'Build Version': '開發版號',
       'S/N Code': 'S/N 碼',
+      'Downloading System Log File': '下載系統紀錄檔案',
+      'Download progress': '下載進度',
 
       // /sd-card
       'Enable SD Card': '開啟記憶卡',
@@ -815,6 +832,7 @@ module.exports = {
       Unmount: '卸載',
       'Error Notification': '異常通報',
       'Email Notification Set': '已設定電子郵件',
+      'SD Card Enable Outgoing Email': '設定電子郵件',
       Filesystem: '檔案系統格式',
       'Storage Space': '儲存空間',
       'Free: {{0}}': '{{0}} 可用',
@@ -833,11 +851,11 @@ module.exports = {
       'Not Found': '此網頁不存在',
       'Back to Home': '回首頁',
       'Internal Server Error': '內部伺服器問題',
-      'Sorry for your inconvenience, we are actively process with it!': '造成您的不便不好意思，我們正在積極處理中！',
+      'Sorry for any inconvenience, we are fixing this problem.': '抱歉造您的不便，正在處理中',
 
       // Server error codes
       // 9001
-      'Duplicate Member Names': '名稱重複, 請使用不同名稱',
+      'Duplicate Member Names': '名稱重複，請使用不同名稱',
       // 9002
       'Login Failed': '帳號或密碼錯誤',
       // 9003
@@ -849,7 +867,7 @@ module.exports = {
       // 9007
       'Card Number Limit Exceeded': '已達數量限制',
       // 9008
-      'Non-existent Card': '記憶卡異常, 無法正常操作',
+      'Non-existent Card': '記憶卡異常，無法正常操作',
       // 9009
       'Database Size Limit (3 GB) Exceeded': '已達儲存限制',
       // 9010
@@ -883,13 +901,13 @@ module.exports = {
       // 9024
       // Maximum Field Length Exceeded	不支援此UI
       // 9025
-      'Duplicate Member Name': '名稱重複,請使用不同名稱',
+      'Duplicate Member Name': '名稱重複，請使用不同名稱',
       // 9026
-      'Duplicate Card Name': '名稱重複,請使用不同名稱',
+      'Duplicate Card Name': '名稱重複，請使用不同名稱',
       // 9027
       // VMS Reserved Port	AVN
       // 9028
-      'Software Upgrade Failed': '軟體更新成功',
+      'Software Upgrade Failed': '軟體更新失敗',
       // 9029
       'Unable to Complete the Format': '記憶卡格式化失敗',
       // 9030
@@ -925,13 +943,13 @@ module.exports = {
       // 9045
       'Non-existent Photo': '事件截圖不存在',
       // 9046
-      'Invalid Key': '啟用失敗, 錯誤的啟動碼',
+      'Invalid Key': '啟用失敗，錯誤的啟動碼',
       // 9047
-      'Duplicate Key': '啟用失敗, 重複的啟動碼',
+      'Duplicate Key': '啟用失敗，重複的啟動碼',
       // 9048
-      'Cannot Support Database Downgrade from 30,000 to 3000 People': '啟用失敗, 不支援臉部辨識成員上限從30,000人下降到3,000人'
+      'Cannot Support Database Downgrade from 30,000 to 3000 People': '啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人'
 
-    // -- Page -- END --
+      // -- Page -- END --
     }
   }
 };

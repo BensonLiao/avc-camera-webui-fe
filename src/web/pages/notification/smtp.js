@@ -104,7 +104,7 @@ export default withGlobalStatus(
                 component={Password}
                 inputProps={{
                   className: classNames('form-control', {'is-invalid': errors.password && touched.password}),
-                  placeholder: i18n.t('Enter your password')
+                  placeholder: i18n.t('Enter a password')
                 }}
               />
               <ErrorMessage component="div" name="password" className="invalid-feedback"/>
@@ -205,7 +205,7 @@ export default withGlobalStatus(
                   <div>
                     <label className="mb-0 mr-2">{i18n.t('SMTP Logon Settings')}</label>
                     <CustomTooltip title={i18n.t('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
-                      <i className="fas fa-question-circle text-primary"/>
+                      <i className="fas fa-question-circle helper-text text-primary"/>
                     </CustomTooltip>
                   </div>
                   <div>

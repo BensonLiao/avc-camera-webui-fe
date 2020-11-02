@@ -178,7 +178,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
         <div className="modal-footer flex-column">
           <div className="form-group w-100 mx-0">
             <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
-              {i18n.t('Modify')}
+              {i18n.t('Confirm')}
             </button>
           </div>
           <button

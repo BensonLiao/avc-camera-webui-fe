@@ -252,4 +252,9 @@
 .disable-link {
   cursor: not-allowed;
   text-decoration: none !important;
+  color: $secondary-300;
+
+  &:hover {
+    color: $secondary-300;
+  }
 }

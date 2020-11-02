@@ -73,7 +73,7 @@ module.exports = class CardsFormSchedule extends React.PureComponent {
        <>
          {/* face-recognition */}
          <div className="form-group d-flex justify-content-between align-items-center">
-           <label className="mb-0">{i18n.t('Schedule')}</label>
+           <label className="mb-0">{i18n.t('Enable Schedule')}</label>
            <div className="custom-control custom-switch">
              <Field name="isEnableTime" checked={values.isEnableTime} type="checkbox" className="custom-control-input" id="switch-notification-time"/>
              <label className="custom-control-label" htmlFor="switch-notification-time">

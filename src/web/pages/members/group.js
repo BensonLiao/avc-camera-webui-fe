@@ -134,6 +134,7 @@ module.exports = class Group extends Base {
                 <div className="invalid-feedback">{errors.note}</div>
               )
             }
+            <small className="form-text text-muted">{i18n.t('Maximum length: 256 characters')}</small>
           </div>
         </div>
         <div className="modal-footer flex-column">

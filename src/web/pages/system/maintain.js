@@ -223,7 +223,7 @@ module.exports = class Maintain extends Base {
               {i18n.t('Restore All Settings')}
             </label>
             <CustomTooltip title={i18n.t('Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.')}>
-              <i className="fas fa-question-circle text-primary"/>
+              <i className="fas fa-question-circle helper-text text-primary"/>
             </CustomTooltip>
           </div>
           <CustomNotifyModal

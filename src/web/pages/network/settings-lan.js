@@ -97,7 +97,7 @@ class SettingsLan extends React.PureComponent {
                 info: true
               },
               isUpdating: false,
-              modalTitle: i18n.t('Success'),
+              modalTitle: i18n.t('Redirection Success'),
               modalBody: [i18n.t('Click confirm to redirect to the new address:'), `${i18n.t('IP Address')}: ${resultIP}`],
               onConfirm: () => {
                 this.setState({isConfirmDisable: true});
@@ -172,7 +172,7 @@ class SettingsLan extends React.PureComponent {
                     className="form-control"
                     type="text"
                     name="ipAddress"
-                    placeholder={i18n.t('Enter IP Address')}
+                    placeholder={i18n.t('Enter a fixed IP address')}
                     value={values.ipAddress}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
@@ -205,7 +205,7 @@ class SettingsLan extends React.PureComponent {
                     className="form-control"
                     type="text"
                     name="primaryDNS"
-                    placeholder={i18n.t('Enter Primary DNS')}
+                    placeholder={i18n.t('Enter a primary DNS')}
                     value={values.primaryDNS}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
@@ -216,7 +216,7 @@ class SettingsLan extends React.PureComponent {
                     className="form-control"
                     type="text"
                     name="secondaryDNS"
-                    placeholder={i18n.t('Enter Secondary DNS')}
+                    placeholder={i18n.t('Enter a secondary DNS')}
                     value={values.secondaryDNS || i18n.t('None')}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />

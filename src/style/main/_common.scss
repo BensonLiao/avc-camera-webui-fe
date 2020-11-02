@@ -1124,3 +1124,8 @@ $stage-spacer: 32px;
     }
   }
 }
+
+.helper-text:hover {
+  font-weight: 400;
+  transition-delay: 250ms;
+}

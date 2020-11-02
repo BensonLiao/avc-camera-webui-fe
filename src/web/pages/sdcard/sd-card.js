@@ -11,7 +11,7 @@ const api = require('../../../core/apis/web-api');
 const {SD_STATUS_LIST} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
-const VolumeProgressBar = require('../../../core/components/volume-progress-bar');
+const VolumeProgressBar = require('../../../core/components/volume-progress-bar').default;
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class SDCard extends Base {
@@ -189,7 +189,7 @@ module.exports = class SDCard extends Base {
                   {
                     isEnableAuth ?
                       <a className="text-success">{i18n.t('Email Notification Set')}</a> :
-                      <Link className="text-danger" to="/notification/smtp">{i18n.t('Enable Outgoing Email')}</Link>
+                      <Link className="text-danger" to="/notification/smtp">{i18n.t('SD Card Enable Outgoing Email')}</Link>
                   }
                 </span>
                 <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable outgoing email first.')}>

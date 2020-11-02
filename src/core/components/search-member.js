@@ -130,7 +130,7 @@ class SearchMember extends React.PureComponent {
           }}
         >
           <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying)} className="d-flex justify-content-between align-items-center">
-            <Modal.Title as="h5">{i18n.t('Add Photo To Member')}</Modal.Title>
+            <Modal.Title as="h5">{i18n.t('Add to Existing Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="d-flex flex-row justify-content-between align-items-end mb-4 px-3">
@@ -209,7 +209,7 @@ class SearchMember extends React.PureComponent {
                   {!members && !isFetching && (
                     <tr>
                       <td className="text-size-16 text-center pt-3" colSpan="10">
-                        <i className="fas fa-search fa-fw"/> {i18n.t('Enter Keyword For Search')}
+                        <i className="fas fa-search fa-fw"/> {i18n.t('Enter keywords in the input field to search for members.')}
                       </td>
                     </tr>
                   )}
@@ -255,7 +255,7 @@ class SearchMember extends React.PureComponent {
                               i18n.t('Verifying Photo') :
                               verifyStatus ?
                                 (member.pictures.length >= 5 ?
-                                  i18n.t('Photo Limit Reached') :
+                                  i18n.t('Photo Limit of Member Database Exceeded') :
                                   i18n.t('Add to {{0}}', {0: member.name})) :
                                 i18n.t('Invalid Photo')
                           }

@@ -163,7 +163,7 @@ module.exports = class FaceRecognition extends Base {
                     <div className="d-flex justify-content-between align-items-center mb-3">
                       <label className="mb-0">{i18n.t('Anti-Image Spoof')}</label>
                       <div className="custom-control custom-switch">
-                        <CustomTooltip show={!isEnable} title={i18n.t('Facial Recognition is Disabled')}>
+                        <CustomTooltip show={!isEnable} title={i18n.t('Facial Recognition is disabled.')}>
                           <span>
                             <Field
                               name="isEnableSpoofing"
@@ -210,8 +210,8 @@ module.exports = class FaceRecognition extends Base {
                 <div className="d-flex justify-content-between align-items-center">
                   <div className="d-flex align-items-center">
                     <label className="mb-0 mr-2">{i18n.t('Detection Zone')}</label>
-                    <CustomTooltip title={i18n.t('The default in the whole live view screen.')}>
-                      <i className="fas fa-question-circle text-primary"/>
+                    <CustomTooltip title={i18n.t('The default is the whole live view screen.')}>
+                      <i className="fas fa-question-circle helper-text text-primary"/>
                     </CustomTooltip>
                   </div>
                   <CustomTooltip title={i18n.t('Show/Hide Detection Zone')}>
@@ -247,7 +247,7 @@ module.exports = class FaceRecognition extends Base {
               <hr/>
 
               <div className="form-group">
-                <label className="mb-3">{i18n.t('Live View Display:')}</label>
+                <label className="mb-3">{i18n.t('Live View Display')}</label>
                 <div className="form-check mb-3">
                   <Field
                     name="isShowMember"
