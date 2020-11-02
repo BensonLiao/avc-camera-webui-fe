@@ -441,7 +441,7 @@ module.exports = {
       'Output 1': 'デジタル出力 1',
       'Output 2': 'デジタル出力 2',
       'Output {{0}}': 'デジタル出力 {{0}}',
-      'Enable Digital Output {{0}}': '開啟數位輸出 {{0}}',
+      'Enable Digital Output {{0}}': 'デジタル出力 {{0}} を有効にする',
       Type: '出力タイプ',
       Normal: '一般',
       Buffer: 'バッファ',
