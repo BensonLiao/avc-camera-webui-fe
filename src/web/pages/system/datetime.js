@@ -44,7 +44,6 @@ module.exports = class DateTime extends Base {
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = i18n.t('Updating Date & Time');
-    this.isNoNTPTooltip = i18n.t('Please Enable Sync with Network Time Server (NTP)');
   }
 
   hideApiProcessModal = () => {
@@ -294,7 +293,7 @@ module.exports = class DateTime extends Base {
         <CustomNotifyModal
           isShowModal={isShowModal}
           modalTitle={i18n.t('Date & Time')}
-          modalBody={i18n.t('Updating date & time requires you to log in again. Are you sure you want to continue?')}
+          modalBody={i18n.t('Updating date and time requires you to log in again. Are you sure you want to continue?')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
           onConfirm={() => {

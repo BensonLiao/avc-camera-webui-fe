@@ -212,7 +212,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                             <a
                               className="dropdown-item px-3"
                               onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
-                            >{i18n.t('Add to Existing Member')}
+                            >{i18n.t('Add to an Existing Member')}
                             </a>
                           </div>
                         </div>

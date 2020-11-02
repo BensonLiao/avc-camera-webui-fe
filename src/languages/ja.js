@@ -117,7 +117,6 @@ module.exports = {
       'Please enter an email address.': 'メールアドレスを入力してください',
       // CustomTooltip / /users/members
       'Group number limit exceeded.': 'グループの数量は上限に達しました',
-      'Photo Limit Reached': '已達照片上限',
       // CustomTooltip / /users/accounts
       'This Account is Protected': '此帳戶不可刪除',
       'This account cannot be deleted because it is currently logged in to the device.': '使用中のアカウントを削除することができません',
@@ -125,7 +124,7 @@ module.exports = {
       'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': '本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります',
       // CustomTooltip / /sd-card
       'Please disable the SD card first.': '先にSDカードの機能を無効にしてください',
-      'Please enable outgoing email first.': 'メールアドレスを設定するのは必須です',
+      'Please enable Outgoing Email first.': 'メールアドレスを設定するのは必須です',
 
       // -- Component -- END --
 
@@ -133,14 +132,12 @@ module.exports = {
 
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
-      'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8～16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “  \\ / < >',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` " \\ /< >とスペースを使用できません',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません',
       Welcome: 'ようこそ',
       'For a better experience,': 'よりいい使用体験のために、',
       'Please click Continue to complete the initial setup!': '[続行]をクリックして、初期設定を完了してください',
       Continue: '続行',
-      Submit: '確認',
 
       // /setup/language
       Language: '言語を選択する',
@@ -186,7 +183,6 @@ module.exports = {
       // /login
       Login: 'ログイン',
       'ACCOUNT LOGIN': 'アカウントログイン',
-      'Enter Your Username and Password': '名前とパスワードを入力してください',
       'Enter your username': 'アカウントを入力してください',
       'Password Reset': 'パスワードの再設定',
 
@@ -240,7 +236,7 @@ module.exports = {
       'Full-Range Focus': '全範囲フォーカス',
       'Short-Range Focus': '短距離フォーカス',
       Focus: 'フォーカス',
-      Zoom: '焦距',
+      Zoom: 'ズーム',
       'Auto Focus after Zoom': 'ズーム調整するとき、自動フォーカスする',
       Iris: 'Iris',
       'Shutter Speed': 'シャッタースピード',
@@ -248,7 +244,7 @@ module.exports = {
       'White Balance': 'ホワイトバランス',
       'Color Temperature': '色温度',
       'IR Control': 'IR制御',
-      Level: '強度',
+      Level: 'レベル',
       'Day/Night': 'デイナイト機能',
       Sensitivity: '感度',
       'Day Mode': 'デイモード',
@@ -256,7 +252,6 @@ module.exports = {
       Defog: '霧補正',
       'Lighting Compensation Frequency (Hz)': '更新周波数(Hz)',
       'Auto Focus': '自動フォーカス',
-      'Focal Length': '焦距',
       'Reset to Default Settings': 'デフォルト設定へ戻る',
       // /home / Constans
       Auto: '自動',
@@ -315,8 +310,8 @@ module.exports = {
       'Bandwidth Management': 'ビットレート制御',
       Quality: '品質',
       'Are you sure you want to update stream settings?': 'ストリーム設定を変更しますか？',
-      'Updating Stream Settings': '更新串流設定',
-      'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': '改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？',
+      'Updating Stream Settings': 'ストリーム設定の更新',
+      'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': 'ストリーム1のアスペクト比を変更すると、ストリーム2の設定も更新されます。続行してもよろしいですか？',
       // /media/stream / Constans / Resolution
       'stream-resolution-0': '3840*2160 (16:9)',
       'stream-resolution-1': '2560*1440 (16:9)',
@@ -365,8 +360,8 @@ module.exports = {
       'Click the arrow on the preview window.': 'プレビュー画面中の青印をクリックして下さい',
       'Left Top': '左上',
       'Right Top': '右上',
-      'Left Bottom': '左下',
-      'Right Bottom': '右下',
+      'Bottom Left': '左下',
+      'Bottom Right': '右下',
       'Text Overlay': 'テキスト',
       // /media/word / Constants / Size
       'font-size-0': '小',
@@ -424,7 +419,6 @@ module.exports = {
       Encryption: '暗号化方式',
       None: 'なし',
       'Enable Device Login Notification': 'カメラログイン通知を有効にする',
-      'Please Enable SMTP Server': '請先開啟SMTP伺服器',
       'Sender Information': '差出人情報',
       'Enter sender\'s name': '差出人名を入力してください',
       'Enter sender\'s email': '差出人のメールアドレスを入力してください',
@@ -448,7 +442,7 @@ module.exports = {
       'Output 2': 'デジタル出力 2',
       'Output {{0}}': 'デジタル出力 {{0}}',
       'Enable Digital Output {{0}}': '開啟數位輸出 {{0}}',
-      Type: '輸出類型',
+      Type: '出力タイプ',
       Normal: '一般',
       Buffer: 'バッファ',
       'Pulse Time (seconds)': 'パルス時間 (秒)',
@@ -467,7 +461,7 @@ module.exports = {
       'Output: On': '出力: 有効',
       'VMS: On': '影像管理系統(VMS): 開',
       Schedule: 'スケジュール',
-      'Enable Schedule': 'スケジュールを有効にする',
+      'Enable Schedule': 'スケジュール管理を有効にする',
       Rule: 'ルール',
       Group: 'グループ',
       Condition: '條件',
@@ -481,10 +475,10 @@ module.exports = {
       Add: '追加',
       Cancel: 'キャンセル',
       'Cannot create more than {{0}} cards': 'カードを {{0}} 以上に追加することができません',
-      'Subject :': '主旨 :',
-      'Content :': '內文 :',
-      'Specify the subject': '請輸入通知郵件主旨',
-      'Add your message': '請輸入通知郵件內文',
+      'Subject :': '件名：',
+      'Content :': '内容：',
+      'Specify the subject': '件名を指定してください',
+      'Add your message': 'メッセージを追加する',
       'Content Placement': '内容の位置',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
@@ -509,8 +503,8 @@ module.exports = {
       'email-attachment-type-1': 'スクリーンショット',
       'email-attachment-type-2': 'なし',
       // /notification/cards / Constants / Content Placement
-      'email-content-position-0': '置於開頭',
-      'email-content-position-1': '置於結尾',
+      'email-content-position-0': '最初に置く',
+      'email-content-position-1': '最後に置く',
 
       // /users/members
       Members: 'メンバー',
@@ -520,7 +514,7 @@ module.exports = {
       'Delete Group: {{0}}': 'グループを削除する：{{0}}',
       'Delete Group': 'グループを削除する',
       Database: 'データベースファイル',
-      'Encryption Settings': '加密設定',
+      'Encryption Settings': '暗号化設定',
       Export: 'エクスポート',
       Import: 'インポート',
       'Updating Member Database': 'メンバーデータベースを更新します',
@@ -565,12 +559,12 @@ module.exports = {
       Confirm: '確認',
 
       // /users/members/new
-      Primary: '主照片',
-      'Photo 1': '照片1',
-      'Photo 2': '照片2',
-      'Photo 3': '照片3',
-      'Photo 4': '照片4',
-      'Upload Primary First': '請先上傳主照片',
+      Primary: 'メイン写真',
+      'Photo 1': '写真 1',
+      'Photo 2': '写真 2',
+      'Photo 3': '写真 3',
+      'Photo 4': '写真 4',
+      'Upload Primary First': '最初はメイン写真をアップロードして下さい',
       'Photo Editor': '写真編集',
       'Drag the image to position it correctly.': '写真をドラッグして調整してください',
       Organization: '組織',
@@ -578,16 +572,16 @@ module.exports = {
       'Enter an organization for this member': '組織名を入力してください',
       'Maximum length: 32 characters': '最大32文字まで入力可能です',
       'N/A': 'なし',
-      'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何成員資料，確認要離開嗎？',
+      'Are you sure you want to close this window? Any changes you have made will be lost.': 'このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます',
       'Photo size should be less than 90 KB.': '写真サイズは90 KBを超えることができません',
-      Save: 'Save',
-      'Change Photo': 'Change Photo',
+      Save: '保存する',
+      'Change Photo': '写真を変更する',
 
       // /users/accounts
       Accounts: 'アカウント',
       'All Accounts': '全アカウント表示',
       Username: 'ユーザー名',
-      'New User': '創建使用者',
+      'New User': '新規ユーザー',
       'Modify User': 'アカウントを編集する',
       'Enter a name for this account': 'アカウント名を入力してください',
       'Enter a password': 'パスワードを入力してください',
@@ -621,13 +615,13 @@ module.exports = {
       'Human Detection': '人体検知',
       Similarity: '相似性',
       'Recognition Result': '認証結果',
-      'Add to Existing Member': '新增至現有成員',
-      'Enter keywords in the input field to search for members.': '請輸入關鍵字以便搜尋',
-      'Add to {{0}}': '新增至 {{0}}',
-      'Verifying Photo': '照片驗證中',
-      'Invalid Photo': '照片不合格',
-      'Updating Member': '更新成員',
-      'Added Photo to {{0}} Successfully!': '新增照片至 {{0}} 成功!',
+      'Add to an Existing Member': '既存のメンバーに追加',
+      'Enter keywords in the input field to search for members.': '入力フィールドにキーワードを入力して、メンバーを検索します',
+      'Add to {{0}}': '{{0}} に追加',
+      'Verifying Photo': '写真検証中',
+      'Invalid Photo': '無効な写真',
+      'Updating Member': 'メンバー更新',
+      'Added Photo to {{0}} Successfully!': '写真が {{0}} に追加されました',
       // /users/events / Constants / Status
       'enroll-status-0': 'なりすまし防止',
       'enroll-status-1': '未登録者',
@@ -652,7 +646,7 @@ module.exports = {
       'Display Group': 'メンバーグループ',
       'Display Unknown': '未登録者',
       'Display Image Spoof': 'なりすまし防止',
-      'Facial Recognition is disabled.': '臉部辨識已關閉',
+      'Facial Recognition is disabled.': '顔認証を無効になっています',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',
@@ -706,7 +700,7 @@ module.exports = {
       'Secondary DNS': 'セカンダリーDNS (選択)',
       'No changes were made.': '変更がありません',
       'Please enable HTTPS first.': '先にHTTPS機能を有効にしてください',
-      'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
+      'Are you sure you want to update network settings?': 'ネットワーク設定を更新してもよろしいですか？',
       'Enter a fixed IP address': '固定IPアドレスを入力してください',
       'Enter Subnet Mask': 'サブネットマスクを入力してください',
       'Enter Router/Gateway': 'ルーター/ゲートウェイを入力してください',
@@ -721,7 +715,6 @@ module.exports = {
       'Enter DDNS username.': 'DDNSユーザー名を入力してください',
       'Enter DDNS password.': 'DDNSパスワードを入力してください',
       'Secondary HTTP Port': 'HTTPセカンダリーポート',
-      'Enter Your Secondary Server Port': '請輸入您的服務埠',
       'Range: 1024-65535 Default: 8080': '入力範囲：1024-65535 デフォルト：8080',
       'Setting Success': '設定が成功しました',
       'Setting Failed': '設定が失敗しました',
@@ -742,7 +735,6 @@ module.exports = {
       'certificate-type-2': '本デバイスの署名証明書を生成する',
 
       // /system
-      'System Settings': 'システム設定',
       'Software Upgrade': 'ソフトウェアアップグレード',
       'Import File': '設定ファイルをインポートする',
       'Only ZIP file format is supported': '.zipファイルのみサポートしています',
@@ -762,10 +754,8 @@ module.exports = {
       'Sync Interval (minutes)': '更新頻度 (分)',
       'Sync with Your Computer': 'コンピューターと同期する',
       'Set the Date & Time Manually': '手動設定',
-      'Updating Date & Time': '更新日期與時間',
-      'Updating date & time requires you to log in again. Are you sure you want to continue?': 'デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります',
-      'Please Enable Sync with Network Time Server (NTP)': '請啟用與網路時間伺服器 (NTP) 同步',
-      'Time Zone is disabled when syncing with your computer': '與電腦同步時時區將停用',
+      'Updating Date & Time': '日付＆時刻を更新',
+      'Updating date and time requires you to log in again. Are you sure you want to continue?': 'デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります',
 
       // /system/maintain
       'Restore All Settings': '設定を初期値に戻す',
@@ -774,8 +764,8 @@ module.exports = {
       'Are you sure you want to reboot the device?': 'デバイスを再起動しますか？',
       Reboot: '再起動する',
       'Restore to Default Settings': '設定を初期値に戻す',
-      'Restore to Factory Default Settings (Includes Network Settings)': '將所有設定恢復為預設值(包含IP位址)',
       Reset: '初期化',
+      Resetting: '初期化',
       'Export System Settings': 'システム設定ファイルをエクスポートする',
       'Import System Settings': 'システム設定ファイルをインポートする',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます',
@@ -787,6 +777,8 @@ module.exports = {
       '• Internet & Network settings': '• インターネット/ネットワーク設定',
       '• Data on the SD Card': '• SDカード内のデータ',
       'The device has rebooted. Please log in again.': 'デバイスは再起動しましたため、再度ログインしてください',
+      'Reset Success': '初期化完了',
+      'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'クイックインストールガイドを参照して初期設定を行って下さい',
 
       // /system/upgrade
       'Upload Software': 'ソフトウェアのアップロード',
@@ -824,8 +816,8 @@ module.exports = {
       'Disabling SD Card': 'SDカードを取り外します',
       'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': 'SDカードを取り外しますか？イベントによるキャプチャが保存されません',
       'Off Line Record': '斷線錄影',
-      'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
-      'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
+      'Are you sure you want to format the Micro SD card?': 'Micro SDカードをフォーマットしてもよろしいですか？',
+      'Are you sure you want to unmount the Micro SD card?': 'Micro SDカードをア取り外してよろしいですか？',
       Operation: '操作',
       Format: 'フォーマット',
       Mount: 'マウント',

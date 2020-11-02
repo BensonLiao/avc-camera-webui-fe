@@ -192,7 +192,7 @@ module.exports = class SDCard extends Base {
                       <Link className="text-danger" to="/notification/smtp">{i18n.t('SD Card Enable Outgoing Email')}</Link>
                   }
                 </span>
-                <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable outgoing email first.')}>
+                <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable Outgoing Email first.')}>
                   <div className="custom-control custom-switch float-right">
                     <Field
                       disabled={!isEnableAuth}

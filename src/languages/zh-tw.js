@@ -99,7 +99,7 @@ module.exports = {
       'validation-date': '必須為日期',
       'validation-dateMin': '必須為{expected}以後的日期',
       'validation-dateMax': '必須為{expected}以前的日期',
-      'validation-forbidden': '隱藏欄位。',
+      'validation-forbidden': '隱藏欄位',
       'validation-email': '請使用正確的電子信箱格式',
       'validation-url': '請使用正確的網址格式',
       'validation-birthday': '請使用正確的生日格式',
@@ -117,7 +117,6 @@ module.exports = {
       'Please enter an email address.': '請輸入電子郵件地址',
       // CustomTooltip / /users/members
       'Group number limit exceeded.': '已達數量限制',
-      'Photo Limit Reached': '已達照片上限',
       // CustomTooltip / /users/accounts
       'This Account is Protected': '此帳戶不可刪除',
       'This account cannot be deleted because it is currently logged in to the device.': '無法刪除正在使用的帳號',
@@ -125,7 +124,7 @@ module.exports = {
       'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': '勾選此項目會清除並還原成員及群組、系統帳號、縮放及對焦、RTSP、網路、應用程式、儲存在記憶卡的資料...等，所有資料和設定',
       // CustomTooltip / /sd-card
       'Please disable the SD card first.': '請先關閉記憶卡功能',
-      'Please enable outgoing email first.': '必須設定電子郵件',
+      'Please enable Outgoing Email first.': '必須設定電子郵件',
 
       // -- Component -- END --
 
@@ -133,14 +132,12 @@ module.exports = {
 
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
-      'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Welcome: '歡迎',
       'For a better experience,': '為了使您有更好的體驗，',
       'Please click Continue to complete the initial setup!': '按繼續開始初始設定',
       Continue: '繼續',
-      Submit: '確認',
 
       // /setup/language
       Language: '選擇語言',
@@ -186,7 +183,6 @@ module.exports = {
       // /login
       Login: '登入',
       'ACCOUNT LOGIN': '帳號登入',
-      'Enter Your Username and Password': '請輸入您的帳號與密碼',
       'Enter your username': '請輸入您的帳號',
       'Password Reset': '重置密碼',
 
@@ -256,7 +252,6 @@ module.exports = {
       Defog: '除霧',
       'Lighting Compensation Frequency (Hz)': '電源頻率',
       'Auto Focus': '自動對焦',
-      'Focal Length': '焦距',
       'Reset to Default Settings': '恢復預設值',
       // /home / Constans
       Auto: '自動',
@@ -365,8 +360,8 @@ module.exports = {
       'Click the arrow on the preview window.': '請在預覽窗格中點選箭頭',
       'Left Top': '左上',
       'Right Top': '右上',
-      'Left Bottom': '左下',
-      'Right Bottom': '右下',
+      'Bottom Left': '左下',
+      'Bottom Right': '右下',
       'Text Overlay': '內容',
       // /media/word / Constants / Size
       'font-size-0': '小',
@@ -424,7 +419,6 @@ module.exports = {
       Encryption: '加密方式',
       None: '無',
       'Enable Device Login Notification': '開啟裝置登入通報',
-      'Please Enable SMTP Server': '請先開啟SMTP伺服器',
       'Sender Information': '寄件人資訊',
       'Enter sender\'s name': '輸入寄件人名稱',
       'Enter sender\'s email': '輸入寄件人電子郵件',
@@ -621,7 +615,7 @@ module.exports = {
       'Human Detection': '人形偵測',
       Similarity: '相似度',
       'Recognition Result': '結果',
-      'Add to Existing Member': '新增至現有成員',
+      'Add to an Existing Member': '新增至現有成員',
       'Enter keywords in the input field to search for members.': '請輸入關鍵字以便搜尋',
       'Add to {{0}}': '新增至 {{0}}',
       'Verifying Photo': '照片驗證中',
@@ -645,7 +639,7 @@ module.exports = {
       'Detection Zone': '觸發區域',
       'Show/Hide Detection Zone': '顯示或隱藏區域',
       'The default is the whole live view screen.': '預設為全畫面',
-      'Enable Facial Detection Size': '開啟最小臉部尺寸',
+      'Enable Facial Detection Size': '開啟最小辯識尺寸',
       'Min. Facial Detection Size': '最小臉部尺寸',
       'Live View Display': '即時影像顯示',
       'Display Name': '成員名稱',
@@ -706,7 +700,7 @@ module.exports = {
       'Secondary DNS': '次要 DNS',
       'No changes were made.': '沒有設定被更改',
       'Please enable HTTPS first.': '請先開啟 HTTPS 功能',
-      'Are you sure you want to update network settings?': '您即將要更改連線設定，確認是否繼續？',
+      'Are you sure you want to update network settings?': '您確定要更改網路設定嗎？',
       'Enter a fixed IP address': '請輸入固定IP位址',
       'Enter Subnet Mask': '請輸入子網路遮罩',
       'Enter Router/Gateway': '請輸入路由器/閘道',
@@ -721,7 +715,6 @@ module.exports = {
       'Enter DDNS username.': '輸入 DDNS 使用者名稱',
       'Enter DDNS password.': '輸入 DDNS 密碼',
       'Secondary HTTP Port': 'HTTP 次要連接埠',
-      'Enter Your Secondary Server Port': '請輸入您的服務埠',
       'Range: 1024-65535 Default: 8080': '範圍：1024-65535，預設：8080',
       'Setting Success': '設定成功',
       'Setting Failed': '設定失敗',
@@ -731,7 +724,7 @@ module.exports = {
       Rebooting: '重新啟動裝置中',
 
       // /network/https
-      'Enable HTTPS': '開啟 HTTPS',
+      'Enable HTTPS': '開啟HTTPS服務',
       'Click confirm to redirect to the new address:': '請按確認導向新的網址：',
       'The website has been redirected to the new address': '請利用下列網址重新登入',
       'The specified port is reserved by system or in use!': '此連接埠為系統預留或使用中',
@@ -742,7 +735,6 @@ module.exports = {
       'certificate-type-2': '在此裝置上產生憑證',
 
       // /system
-      'System Settings': '系統設定',
       'Software Upgrade': '軟體更新',
       'Import File': '軟體檔案',
       'Only ZIP file format is supported': '僅支援 .zip 檔案格式',
@@ -763,9 +755,7 @@ module.exports = {
       'Sync with Your Computer': '與您的電腦同步',
       'Set the Date & Time Manually': '手動調整',
       'Updating Date & Time': '更新日期與時間',
-      'Updating date & time requires you to log in again. Are you sure you want to continue?': '您確定要更裝置時間嗎? 更改裝置時間必須重新登入',
-      'Please Enable Sync with Network Time Server (NTP)': '請啟用與網路時間伺服器 (NTP) 同步',
-      'Time Zone is disabled when syncing with your computer': '與電腦同步時時區將停用',
+      'Updating date and time requires you to log in again. Are you sure you want to continue?': '您確定要更裝置時間嗎? 更改裝置時間必須重新登入',
 
       // /system/maintain
       'Restore All Settings': '還原所有設定',
@@ -774,8 +764,8 @@ module.exports = {
       'Are you sure you want to reboot the device?': '您確定要重新啟動裝置嗎？',
       Reboot: '重新啟動',
       'Restore to Default Settings': '還原成原廠設定',
-      'Restore to Factory Default Settings (Includes Network Settings)': '將所有設定恢復為預設值(包含IP位址)',
       Reset: '清除資料',
+      Resetting: '清除資料中',
       'Export System Settings': '匯出系統設定值',
       'Import System Settings': '匯入系統設定值',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': '裝置將還原成原廠設定，所有資料和設定將會被清除',
@@ -787,6 +777,8 @@ module.exports = {
       '• Internet & Network settings': '• 網路設定',
       '• Data on the SD Card': '• 記憶卡儲存資料',
       'The device has rebooted. Please log in again.': '裝置已重新啟動，請重新登入',
+      'Reset Success': '重設成功',
+      'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': '請參閱安裝說明執行初始設定',
 
       // /system/upgrade
       'Upload Software': '上傳軟體',

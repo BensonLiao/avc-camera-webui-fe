@@ -71,7 +71,7 @@ module.exports = {
       'validation-stringMin': 'This field length must be greater than or equal to {expected} characters long.',
       'validation-stringMax': 'This field length must be less than or equal to {expected} characters long.',
       'validation-stringLength': 'This field length must be {expected} characters long.',
-      'validation-stringPattern': 'This field fails to match the required pattern.',
+      'validation-stringPattern': 'This field contains invalid characters.',
       'validation-stringContains': 'This field must contain the {expected} text.',
       'validation-stringContainsLowerCaseLatter': 'This field must contain the lower case letter.',
       'validation-stringContainsUpperCaseLatter': 'This field must contain the upper case letter.',
@@ -117,7 +117,6 @@ module.exports = {
       'Please enter an email address.': 'Please enter an email address.',
       // CustomTooltip / /users/members
       'Group number limit exceeded.': 'Group number limit exceeded.',
-      'Photo Limit Reached': 'Photo Limit Reached',
       // CustomTooltip / /users/accounts
       'This Account is Protected': 'This Account is Protected',
       'This account cannot be deleted because it is currently logged in to the device.': 'This account cannot be deleted because it is currently logged in to the device.',
@@ -125,7 +124,7 @@ module.exports = {
       'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': 'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.',
       // CustomTooltip / /sd-card
       'Please disable the SD card first.': 'Please disable the SD card first.',
-      'Please enable outgoing email first.': 'Please enable outgoing email first.',
+      'Please enable Outgoing Email first.': 'Please enable Outgoing Email first.',
 
       // -- Component -- END --
 
@@ -133,14 +132,12 @@ module.exports = {
 
       // /setup
       'INITIAL PASSWORD SETUP': 'INITIAL PASSWORD SETUP',
-      'Prior to accessing this device for the first time a unique admin password must be created': 'Prior to accessing this device for the first time a unique admin password must be created',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space',
       Welcome: 'Welcome',
       'For a better experience,': 'For a better experience,',
       'Please click Continue to complete the initial setup!': 'Please click Continue to complete the initial setup!',
       Continue: 'Continue',
-      Submit: 'Submit',
 
       // /setup/language
       Language: 'Language',
@@ -186,7 +183,6 @@ module.exports = {
       // /login
       Login: 'Login',
       'ACCOUNT LOGIN': 'ACCOUNT LOGIN',
-      'Enter Your Username and Password': 'Enter Your Username and Password',
       'Enter your username': 'Enter your username',
       'Password Reset': 'Password Reset',
 
@@ -256,7 +252,6 @@ module.exports = {
       Defog: 'Defog',
       'Lighting Compensation Frequency (Hz)': 'Lighting Compensation Frequency (Hz)',
       'Auto Focus': 'Auto Focus',
-      'Focal Length': 'Focal Length',
       'Reset to Default Settings': 'Reset to Default Settings',
       // /home / Constans
       Auto: 'Auto',
@@ -365,8 +360,8 @@ module.exports = {
       'Click the arrow on the preview window.': 'Click the arrow on the preview window.',
       'Left Top': 'Left Top',
       'Right Top': 'Right Top',
-      'Left Bottom': 'Left Bottom',
-      'Right Bottom': 'Right Bottom',
+      'Bottom Left': 'Bottom Left',
+      'Bottom Right': 'Bottom Right',
       'Text Overlay': 'Text Overlay',
       // /media/word / Constants / Size
       'font-size-0': 'Small',
@@ -424,7 +419,6 @@ module.exports = {
       Encryption: 'Encryption',
       None: 'None',
       'Enable Device Login Notification': 'Enable Device Login Notification',
-      'Please Enable SMTP Server': 'Please Enable SMTP Server',
       'Sender Information': 'Sender Information',
       'Enter sender\'s name': 'Enter sender\'s name',
       'Enter sender\'s email': 'Enter sender\'s email',
@@ -621,7 +615,7 @@ module.exports = {
       'Human Detection': 'Human Detection',
       Similarity: 'Similarity',
       'Recognition Result': 'Status',
-      'Add to Existing Member': 'Add to Existing Member',
+      'Add to an Existing Member': 'Add to an Existing Member',
       'Enter keywords in the input field to search for members.': 'Enter keywords in the input field to search for members.',
       'Add to {{0}}': 'Add to {{0}}',
       'Verifying Photo': 'Verifying Photo',
@@ -648,9 +642,9 @@ module.exports = {
       'Enable Facial Detection Size': 'Enable Facial Detection Size',
       'Min. Facial Detection Size': 'Min. Facial Detection Size',
       'Live View Display': 'Live View Display',
-      'Display Name': 'Display Name',
-      'Display Group': 'Display Group',
-      'Display Unknown': 'Display Unknown',
+      'Display Name': 'Name',
+      'Display Group': 'Group',
+      'Display Unknown': 'Unknown',
       'Display Image Spoof': 'Display Image Spoof',
       'Facial Recognition is disabled.': 'Facial Recognition is disabled.',
       // /analytic/face-recognition / Constants / Level of Accuracy
@@ -721,7 +715,6 @@ module.exports = {
       'Enter DDNS username.': 'Enter DDNS username.',
       'Enter DDNS password.': 'Enter DDNS password.',
       'Secondary HTTP Port': 'Secondary HTTP Port',
-      'Enter Your Secondary Server Port': 'Enter Your Secondary Server Port',
       'Range: 1024-65535 Default: 8080': 'Range: 1024-65535 Default: 8080',
       'Setting Success': 'Setting Success',
       'Setting Failed': 'Setting Failed',
@@ -742,7 +735,6 @@ module.exports = {
       'certificate-type-2': 'Generate Certificate on This Device',
 
       // /system
-      'System Settings': 'System Settings',
       'Software Upgrade': 'Software Upgrade',
       'Import File': 'Import File',
       'Only ZIP file format is supported': 'Only ZIP file format is supported',
@@ -762,10 +754,8 @@ module.exports = {
       'Sync Interval (minutes)': 'Sync Interval (minutes)',
       'Sync with Your Computer': 'Sync with Your Computer',
       'Set the Date & Time Manually': 'Set the Date & Time Manually',
-      'Updating Date & Time': '更新日Updating Date & Time期與時間',
-      'Updating date & time requires you to log in again. Are you sure you want to continue?': 'Updating date & time requires you to log in again. Are you sure you want to continue?',
-      'Please Enable Sync with Network Time Server (NTP)': 'Please Enable Sync with Network Time Server (NTP)',
-      'Time Zone is disabled when syncing with your computer': 'Time Zone is disabled when syncing with your computer',
+      'Updating Date & Time': 'Updating Date & Time',
+      'Updating date and time requires you to log in again. Are you sure you want to continue?': 'Updating date and time requires you to log in again. Are you sure you want to continue?',
 
       // /system/maintain
       'Restore All Settings': 'Restore All Settings',
@@ -774,8 +764,8 @@ module.exports = {
       'Are you sure you want to reboot the device?': 'Are you sure you want to reboot the device?',
       Reboot: 'Reboot',
       'Restore to Default Settings': 'Restore to Default Settings',
-      'Restore to Factory Default Settings (Includes Network Settings)': 'Restore to Factory Default Settings (Includes Network Settings)',
       Reset: 'Reset',
+      Resetting: 'Resetting',
       'Export System Settings': 'Export System Settings',
       'Import System Settings': 'Import System Settings',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.',
@@ -787,6 +777,8 @@ module.exports = {
       '• Internet & Network settings': '• Internet & Network settings',
       '• Data on the SD Card': '• Data on the SD Card',
       'The device has rebooted. Please log in again.': 'The device has rebooted. Please log in again.',
+      'Reset Success': 'Reset Success',
+      'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.',
 
       // /system/upgrade
       'Upload Software': 'Upload Software',
