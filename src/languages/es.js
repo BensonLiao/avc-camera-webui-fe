@@ -143,7 +143,7 @@ module.exports = {
 
       // /setup/language
       Language: 'Elija un idioma',
-      HTTPS: 'Método de transmisión seguro',
+      HTTPS: 'HTTPS',
       Next: 'Próximo',
 
       // /setup/account
@@ -360,7 +360,7 @@ module.exports = {
       Color: 'color',
       Word: '文字',
       Position: 'posición',
-      'Click the arrow on the preview window.': 'Haga clic en {flecha} para establecer la posición',
+      'Click the arrow on the preview window.': 'Haga clic en flecha para establecer la posición',
       'Left Top': 'arriba a la izquierda',
       'Right Top': 'Superior derecha',
       'Bottom Left': 'Abajo a la izquierda',
@@ -412,7 +412,7 @@ module.exports = {
       'Please enter your device id.': '請輸入您的編碼',
 
       // /notification/smtp
-      'Habilitar transmisión de correo electrónico': '開啟電子郵件傳輸',
+      'Enable Outgoing Email': 'Habilitar transmisión de correo electrónico',
       'SMTP Server Address': '外送伺服器位址',
       'Enter server address': '輸入伺服器位址',
       'SMTP Logon Settings': '外送伺服器登入設定',
@@ -734,7 +734,7 @@ module.exports = {
       'The specified port is reserved by system or in use!': 'Este puerto está reservado o en uso para el sistema',
       'Redirection Success': 'redirección',
       // /network/https / Constants / Certificate
-      'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} 自簽憑證`,
+      'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} Certificado autofirmado`,
       'certificate-type-1': '上傳您的憑證',
       'certificate-type-2': '在此裝置上產生憑證',
 
