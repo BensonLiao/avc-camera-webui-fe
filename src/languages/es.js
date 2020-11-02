@@ -138,7 +138,6 @@ module.exports = {
       'For a better experience,': 'Para que tengas una mejor experiencia',
       'Please click Continue to complete the initial setup!': 'presione continuar para iniciar la configuración inicial',
       Continue: 'Continuar',
-      Submit: '確認',
 
       // /setup/language
       Language: 'Elija un idioma',
@@ -411,9 +410,9 @@ module.exports = {
 
       // /notification/smtp
       'Enable Outgoing Email': 'Habilitar transmisión de correo electrónico',
-      'SMTP Server Address': '外送伺服器位址',
+      'SMTP Server Address': 'Dirección del servidor SMTP',
       'Enter server address': '輸入伺服器位址',
-      'SMTP Logon Settings': '外送伺服器登入設定',
+      'SMTP Logon Settings': 'Configuración de inicio de sesión del servidor SMTP',
       Edit: 'editar',
       'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': 'Algunos proveedores de correo de Internet pueden requerir contraseñas de aplicaciones para mejorar la seguridad, como las cuentas de correo electrónico de Google y Yahoo. Favor siga las instrucciones de su proveedor de correo electrónico para generar y utilizar una contraseña de aplicación.',
       Port: 'Puerto',
@@ -550,7 +549,7 @@ module.exports = {
       'Enter a name for this group': 'Ingrese el nombre del grupo',
       Note: 'Observaciones',
       'Enter a note': 'Ingrese nota',
-      'Maximum length: 256 characters': '最多256個字',
+      'Maximum length: 256 characters': 'Maximum length: 256 characters',
       Create: 'Nuevo',
       Close: 'Cerrar',
 
@@ -571,7 +570,7 @@ module.exports = {
       Organization: 'organización',
       'Enter a name for this member': 'Ingrese el nombre del miembro',
       'Enter an organization for this member': 'Ingrese el nombre de la organización',
-      'Maximum length: 32 characters': '最多32個字',
+      'Maximum length: 32 characters': 'Maximum length: 32 characters',
       'N/A': 'ninguno',
       'Are you sure you want to close this window? Any changes you have made will be lost.': 'Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?',
       'Photo size should be less than 90 KB.': 'El tamaño de la foto no puede superar los 90KB',

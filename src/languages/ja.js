@@ -138,7 +138,6 @@ module.exports = {
       'For a better experience,': 'よりいい使用体験のために、',
       'Please click Continue to complete the initial setup!': '[続行]をクリックして、初期設定を完了してください',
       Continue: '続行',
-      Submit: '確認',
 
       // /setup/language
       Language: '言語を選択する',

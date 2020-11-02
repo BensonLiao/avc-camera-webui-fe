@@ -138,7 +138,6 @@ module.exports = {
       'For a better experience,': 'For a better experience,',
       'Please click Continue to complete the initial setup!': 'Please click Continue to complete the initial setup!',
       Continue: 'Continue',
-      Submit: 'Submit',
 
       // /setup/language
       Language: 'Language',
