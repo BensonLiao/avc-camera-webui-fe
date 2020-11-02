@@ -363,8 +363,8 @@ module.exports = {
       'Click the arrow on the preview window.': '請在預覽窗格中點選箭頭',
       'Left Top': '左上',
       'Right Top': '右上',
-      'Left Bottom': '左下',
-      'Right Bottom': '右下',
+      'Bottom Left': '左下',
+      'Bottom Right': '右下',
       'Text Overlay': '內容',
       // /media/word / Constants / Size
       'font-size-0': '小',

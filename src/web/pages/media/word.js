@@ -176,12 +176,12 @@ module.exports = class Word extends Base {
                   }
                   {
                     values.position === WordPosition.leftBottom && (
-                      <p className="text-primary mb-0">{i18n.t('Left Bottom')}</p>
+                      <p className="text-primary mb-0">{i18n.t('Bottom Left')}</p>
                     )
                   }
                   {
                     values.position === WordPosition.rightBottom && (
-                      <p className="text-primary mb-0">{i18n.t('Right Bottom')}</p>
+                      <p className="text-primary mb-0">{i18n.t('Bottom Right')}</p>
                     )
                   }
                 </div>

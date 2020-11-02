@@ -311,7 +311,7 @@ module.exports = {
       Resolution: 'Resolución',
       'Frame Rate (FPS)': 'Cuadros por segundo',
       'Bandwidth Management': 'Gestión de la tasa de bits',
-      Quality: '品質',
+      Quality: 'Calidad',
       'Are you sure you want to update stream settings?': '¿Está seguro de que desea cambiar la configuración de Stream?',
       'Updating Stream Settings': '更新串流設定',
       'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': '改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？',
@@ -361,10 +361,10 @@ module.exports = {
       Word: '文字',
       Position: 'posición',
       'Click the arrow on the preview window.': 'Haga clic en {flecha} para establecer la posición',
-      'Left Top': '左上',
-      'Right Top': '右上',
-      'Left Bottom': '左下',
-      'Right Bottom': '右下',
+      'Left Top': 'arriba a la izquierda',
+      'Right Top': 'Superior derecha',
+      'Bottom Left': 'Abajo a la izquierda',
+      'Bottom Right': 'Inferior derecha',
       'Text Overlay': '內容',
       // /media/word / Constants / Size
       'font-size-0': 'pequeña',
@@ -423,8 +423,8 @@ module.exports = {
       None: '無',
       'Enable Device Login Notification': 'Habilitar notificación de inicio de sesión de cámara',
       'Sender Information': 'Información del remitente',
-      'Enter sender\'s name': '輸入寄件人名稱',
-      'Enter sender\'s email': '輸入寄件人電子郵件',
+      'Enter sender\'s name': 'Ingrese el nombre del remitente',
+      'Enter sender\'s email': 'Ingrese la dirección de correo electrónico del remitente',
       'Notification Interval (seconds)': 'Intervalo de notificación (segundos)',
       'Specify notification interval': 'Ingrese el número de segundos',
       '5-1,800 Seconds': '5-1800 segundos',
@@ -479,7 +479,7 @@ module.exports = {
       Cancel: 'Cancelar',
       'Cannot create more than {{0}} cards': 'No se pueden crear más de {{0}} tarjetas',
       'Subject :': '主旨 :',
-      'Content :': '內文 :',
+      'Content :': 'contenido :',
       'Specify the subject': '輸入主旨',
       'Add your message': '輸入內文',
       'Content Placement': 'Posición del texto',
@@ -568,8 +568,8 @@ module.exports = {
       'Photo 3': '照片3',
       'Photo 4': '照片4',
       'Upload Primary First': '請先上傳主照片',
-      'Photo Editor': '編輯',
-      'Drag the image to position it correctly.': '拖曳調整照片',
+      'Photo Editor': 'editar',
+      'Drag the image to position it correctly.': 'Arraste para ajustar las fotos',
       Organization: 'organización',
       'Enter a name for this member': 'Ingrese el nombre del miembro',
       'Enter an organization for this member': 'Ingrese el nombre de la organización',
@@ -588,8 +588,8 @@ module.exports = {
       'Modify User': 'Editar cuenta',
       'Enter a name for this account': 'Ingrese el nombre de la cuenta',
       'Enter a password': '輸入密碼',
-      'Enter a new password': '輸入新密碼',
-      'New Password': '新密碼',
+      'Enter a new password': 'Introduzca una nueva contraseña',
+      'New Password': 'nueva contraseña',
       'Confirm New Password': '確認新密碼',
       'Confirm Password': '確認密碼',
       'Enter the new password again': '再次輸入新密碼',
@@ -677,7 +677,7 @@ module.exports = {
       '{{0}} authorized successfully!': '{{0}} se ha autorizado correctamente',
       'Activation Failed': 'Activación fallida',
       'Authorization failed!': '¡Autorización fallida',
-      'Key Already Registered': '重複輸入啟用碼',
+      'Key Already Registered': 'Repita el código de activación',
       // /analytic/license / Constants / FR Auth key
       'face-recognition-key-thirtyThousand': '臉部辨識 30k',
       'face-recognition-key-threeThousand': '臉部辨識 3k',
@@ -821,14 +821,14 @@ module.exports = {
 
       // /sd-card
       'Enable SD Card': '開啟記憶卡',
-      'Disabling SD Card': '關閉記憶卡',
-      'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': '您確定要關閉記憶卡嗎? 事件截圖將不會被儲存',
+      'Disabling SD Card': 'Borrar la tarjeta de memoria',
+      'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': '¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento.',
       'Off Line Record': '斷線錄影',
       'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
       'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
       Operation: 'Operación',
       Format: 'formato',
-      Mount: '掛載',
+      Mount: 'Montar',
       Unmount: 'Desinstalar',
       'Error Notification': 'Notificación de anormalidad',
       'Email Notification Set': 'Conjunto de correo electrónico',
@@ -855,11 +855,11 @@ module.exports = {
 
       // Server error codes
       // 9001
-      'Duplicate Member Names': '名稱重複，請使用不同名稱',
+      'Duplicate Member Names': 'Nombre duplicado, utilice un nombre diferente',
       // 9002
-      'Login Failed': '帳號或密碼錯誤',
+      'Login Failed': 'cuenta o contraseña incorrecta',
       // 9003
-      'Empty Member Database': '匯入錯誤的資料庫檔案',
+      'Empty Member Database': 'Importar el archivo de base de datos incorrecto',
       // 9004
       // Unable to reset a forgotten password	AVN
       // 9005
@@ -869,7 +869,7 @@ module.exports = {
       // 9008
       'Non-existent Card': '記憶卡異常，無法正常操作',
       // 9009
-      'Database Size Limit (3 GB) Exceeded': '已達儲存限制',
+      'Database Size Limit (3 GB) Exceeded': 'Alcanzó el límite de almacenamiento',
       // 9010
       // Invalid Member Photo 不支援此功能
       // 9011
@@ -879,21 +879,21 @@ module.exports = {
       // 9013
       // Incorrect Password	不支援此功能
       // 9014
-      'Wrong Password for Database File': '資料庫解壓縮密碼錯誤',
+      'Wrong Password for Database File': 'Corrupción de archivos',
       // 9015
-      'Wrong File Format': '檔案格式錯誤',
+      'Wrong File Format': 'Error de formato de archivo',
       // 9016
-      'Corrupted Zip File': '檔案毀損',
+      'Corrupted Zip File': 'Corrupción de archivos',
       // 9017
-      'Photo Limit of Member Database Exceeded': '已達數量限制',
+      'Photo Limit of Member Database Exceeded': 'Límite de cantidad alcanzado',
       // 9018
       // Photo Size Limit Exceeded	不支援此功能
       // 9019
       // Invalid or Absent Photo	不支援此功能
       // 9020
-      'Non-existent Group': '成員群組不存在',
+      'Non-existent Group': 'El grupo de miembros no existe',
       // 9021
-      'Non-existent Member': '成員名稱不存在',
+      'Non-existent Member': 'El grupo de miembros no existe',
       // 9022
       // Maximum Field Length Exceeded	不支援此UI
       // 9023
@@ -901,27 +901,27 @@ module.exports = {
       // 9024
       // Maximum Field Length Exceeded	不支援此UI
       // 9025
-      'Duplicate Member Name': '名稱重複，請使用不同名稱',
+      'Duplicate Member Name': 'Nombre duplicado, utilice un nombre diferente',
       // 9026
-      'Duplicate Card Name': '名稱重複，請使用不同名稱',
+      'Duplicate Card Name': 'Nombre duplicado, utilice un nombre diferente',
       // 9027
       // VMS Reserved Port	AVN
       // 9028
-      'Software Upgrade Failed': '軟體更新失敗',
+      'Software Upgrade Failed': 'Actualización del software se realizó correctamente',
       // 9029
-      'Unable to Complete the Format': '記憶卡格式化失敗',
+      'Unable to Complete the Format': 'Error al formatear la tarjeta de memoria',
       // 9030
       'Empty SMTP Server Address': '必須輸入外送伺服器位址',
       // 9031
-      'Empty SMTP Account': '必須輸入帳號和密碼',
+      'Empty SMTP Account': 'Debe ingresar cuenta y contraseña',
       // 9032
-      'Empty SMTP Account Password ': '必須輸入帳號和密碼',
+      'Empty SMTP Account Password ': 'Debe ingresar cuenta y contraseña',
       // 9033
-      'Empty Sender Email': '必須輸入寄件人資訊',
+      'Empty Sender Email': 'Debe ingresar la información del remitente',
       // 9034
       // Outgoing Email being Disabled	不支援此UI
       // 9035
-      'Absent or Unmounted SD Card': '記憶卡異常,無法正常操作',
+      'Absent or Unmounted SD Card': 'La tarjeta de memoria es anormal y no puede funcionar normalmente',
       // 9036
       // Maximum Field Length Exceeded	不支援此UI
       // 9037
@@ -931,23 +931,23 @@ module.exports = {
       // 9039
       // Maximum Photo Number Exceeded	不支援此UI
       // 9040
-      'Showing No Face': '照片中沒有人臉',
+      'Showing No Face': 'No hay rostro en la foto',
       // 9041
-      'Poor Photo Quality': '照片品質不佳',
+      'Poor Photo Quality': 'Mala calidad de la foto',
       // 9042
-      'Limitation of Yaw Angle is 30 Degrees': '人臉角度超過上下20度或左右30度',
+      'Limitation of Yaw Angle is 30 Degrees': 'El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha',
       // 9043
-      'Limitation of Pitch Angle is 20 Degrees': '人臉角度超過上下20度或左右30度',
+      'Limitation of Pitch Angle is 20 Degrees': 'El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha',
       // 9044
-      'More Than One Face in the Photo': '照片中超過1張人臉',
+      'More Than One Face in the Photo': 'Más de 1 rostro en la foto',
       // 9045
       'Non-existent Photo': '事件截圖不存在',
       // 9046
-      'Invalid Key': 'Código habilitador no es válido',
+      'Invalid Key': 'Activación fallida, código de activación incorrecto',
       // 9047
       'Duplicate Key': '啟用失敗，重複的啟動碼',
       // 9048
-      'Cannot Support Database Downgrade from 30,000 to 3000 People': '啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人'
+      'Cannot Support Database Downgrade from 30,000 to 3000 People': 'No se pudo activar, el número máximo de miembros que no admiten el reconocimiento facial se redujo de 30.000 a 3.000'
 
       // -- Page -- END --
     }

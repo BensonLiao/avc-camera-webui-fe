@@ -363,8 +363,8 @@ module.exports = {
       'Click the arrow on the preview window.': 'Click the arrow on the preview window.',
       'Left Top': 'Left Top',
       'Right Top': 'Right Top',
-      'Left Bottom': 'Left Bottom',
-      'Right Bottom': 'Right Bottom',
+      'Bottom Left': 'Bottom Left',
+      'Bottom Right': 'Bottom Right',
       'Text Overlay': 'Text Overlay',
       // /media/word / Constants / Size
       'font-size-0': 'Small',
