@@ -220,7 +220,11 @@ module.exports = class Member extends React.PureComponent {
             newScale - MEMBER_PHOTO_SCALE_STEP;
         }
 
-        this.cropper.options.setFieldValue('zoom', newScale);
+        // Check if it is a function and its signature
+        if (typeof this.cropper.options.setScaleFieldValue === 'function' &&
+        this.cropper.options.setScaleFieldValue.length === 1) {
+          this.cropper.options.setScaleFieldValue(newScale);
+        }
       } else {
         event.preventDefault();
       }
@@ -762,7 +766,8 @@ module.exports = class Member extends React.PureComponent {
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
                   zoom={event => event.preventDefault()}
                   ready={this.onCropperReady}
-                  setFieldValue={setFieldValue}
+                  // Sync behavior between on wheel event and other control like slider
+                  setScaleFieldValue={value => setFieldValue('zoom', value)}
                   onInitialized={this.onCropperInit}
                 />
               </label>
