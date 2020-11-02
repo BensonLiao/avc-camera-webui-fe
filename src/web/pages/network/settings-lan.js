@@ -129,7 +129,7 @@ class SettingsLan extends React.PureComponent {
                     </div>
                   ]
                 });
-              }, NODE_SERVER_RESTART_DELAY_MS);
+              }, NODE_SERVER_RESTART_DELAY_MS / 2);
             });
           })
           .finally(progress.done);

@@ -7,6 +7,12 @@
     height: 208px;
     margin-bottom: 32px;
 
+    &.motion-blur {
+      height: 48px;
+      width: 245px;
+      margin-top: 80px;
+    }
+
     > img {
       position: absolute;
       margin: auto;

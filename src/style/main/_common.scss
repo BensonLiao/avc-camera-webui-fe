@@ -1129,3 +1129,36 @@ $stage-spacer: 32px;
   font-weight: 400;
   transition-delay: 250ms;
 }
+
+.motion-blur {
+  &:hover .blur-me {
+    transform: rotate(360deg);
+    left: 75%;
+  }
+
+  .blur-me {
+    position: absolute;
+    transform: rotate(0deg);
+    transition: all 0.75s cubic-bezier(0.71, 0, 0.33, 1.56) 0ms;
+
+    &.two {
+      opacity: 0.1;
+      transition-delay: 3ms;
+    }
+
+    &.three {
+      opacity: 0.1;
+      transition-delay: 9ms;
+    }
+
+    &.four {
+      opacity: 0.1;
+      transition-delay: 15ms;
+    }
+
+    &.five {
+      opacity: 0.1;
+      transition-delay: 21ms;
+    }
+  }
+}
