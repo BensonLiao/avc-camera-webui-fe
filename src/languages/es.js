@@ -70,7 +70,7 @@ module.exports = {
       'validation-stringEmpty': 'Este campo es requerido',
       'validation-stringMin': 'Debe ingresar más caracteres {expected}',
       'validation-stringMax': 'Debe ingresar menos caracteres {expected}',
-      'validation-stringLength': '必須輸入{expected}個字',
+      'validation-stringLength': 'Debe ingresar los caracteres {expected}',
       'validation-stringPattern': '不符合格式要求',
       'validation-stringContains': 'Debe contener texto {expected}',
       'validation-stringContainsLowerCaseLatter': 'Debe contener letras minúsculas en inglés',
@@ -116,7 +116,7 @@ module.exports = {
       'The maximum number of allowed schedules is 5.': 'Límite de cantidad alcanzado',
       'Please enter an email address.': 'Ingrese la dirección de correo electrónico',
       // CustomTooltip / /users/members
-      'Group number limit exceeded.': '已達數量限制',
+      'Group number limit exceeded.': 'Límite de cantidad alcanzado',
       // CustomTooltip / /users/accounts
       'This Account is Protected': '此帳戶不可刪除',
       'This account cannot be deleted because it is currently logged in to the device.': 'No se puede borrar la cuenta en uso',
@@ -221,10 +221,10 @@ module.exports = {
 
       // /home
       'Device Name': 'Nombre del dispositivo',
-      'Device Status': '裝置狀態',
+      'Device Status': 'Estado del dispositivo',
       'SD Card': 'Tarjeta de memoria',
       'Authentication Required': 'No esta activado',
-      'Facial Recognition: ': '臉部辨識：',
+      'Facial Recognition: ': 'Reconocimiento facial：',
       'Age & Gender: ': 'Age & Gender：',
       'Human Detection: ': 'Detección humanoide：',
       'Free: {{0}}, Total: {{1}}': '{{0}} disponible (total {{1}})',
@@ -437,7 +437,7 @@ module.exports = {
       // /notification/io
       'Input & Output': 'Entrada y salida digital',
       Input: 'Entrada digital',
-      'Enable Digital Input': '開啟數位輸入',
+      'Enable Digital Input': 'Habilitar la entrada digital',
       'Normal State': 'Estado normal',
       'Normally Closed': 'Normalmente cerrado',
       'Normally Open': 'Normalmente abierto',
@@ -464,7 +464,7 @@ module.exports = {
       'Output: On': 'Salida digital: Habilitado',
       'VMS: On': '影像管理系統(VMS): 開',
       Schedule: 'calendario',
-      'Enable Schedule': '開啟排程',
+      'Enable Schedule': 'Habilitar horario',
       Rule: 'regla',
       Group: 'Grupo',
       Condition: '條件',
@@ -765,7 +765,7 @@ module.exports = {
       'Time Zone is disabled when syncing with your computer': '與電腦同步時時區將停用',
 
       // /system/maintain
-      'Restore All Settings': '還原所有設定',
+      'Restore All Settings': 'Restaurar todas las configuraciones a los valores predeterminados',
       'Device Maintenance': 'mantenimiento',
       'System Reboot': 'Reiniciar el dispositivo',
       'Are you sure you want to reboot the device?': '¿Estás seguro de que deseas reiniciar el dispositivo?',
@@ -820,7 +820,7 @@ module.exports = {
       'Download progress': '下載進度',
 
       // /sd-card
-      'Enable SD Card': '開啟記憶卡',
+      'Enable SD Card': 'Habilite Tarjeta de memoria',
       'Disabling SD Card': 'Borrar la tarjeta de memoria',
       'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': '¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento.',
       'Off Line Record': '斷線錄影',
