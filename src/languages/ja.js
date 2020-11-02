@@ -185,7 +185,6 @@ module.exports = {
       // /login
       Login: 'ログイン',
       'ACCOUNT LOGIN': 'アカウントログイン',
-      'Enter Your Username and Password': '名前とパスワードを入力してください',
       'Enter your username': 'アカウントを入力してください',
       'Password Reset': 'パスワードの再設定',
 

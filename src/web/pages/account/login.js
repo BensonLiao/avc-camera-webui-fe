@@ -75,7 +75,7 @@ module.exports = class Login extends Base {
     return (
       <Form className="card shadow mb-5">
         <div className="card-body">
-          <AccountTitle title={i18n.t('ACCOUNT LOGIN')} subtitle={i18n.t('Enter Your Username and Password')}/>
+          <AccountTitle title={i18n.t('ACCOUNT LOGIN')}/>
           <div className="form-group">
             <label>{i18n.t('Username')}</label>
             <Field

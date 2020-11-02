@@ -185,7 +185,6 @@ module.exports = {
       // /login
       Login: '登入',
       'ACCOUNT LOGIN': '帳號登入',
-      'Enter Your Username and Password': '請輸入您的帳號與密碼',
       'Enter your username': '請輸入您的帳號',
       'Password Reset': '重置密碼',
 

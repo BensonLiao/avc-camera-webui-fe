@@ -185,7 +185,6 @@ module.exports = {
       // /login
       Login: 'Login',
       'ACCOUNT LOGIN': 'ACCOUNT LOGIN',
-      'Enter Your Username and Password': 'Enter Your Username and Password',
       'Enter your username': 'Enter your username',
       'Password Reset': 'Password Reset',
 

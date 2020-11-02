@@ -135,10 +135,10 @@ module.exports = {
       'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
-      Welcome: '歡迎',
-      'For a better experience,': '為了使您有更好的體驗，',
-      'Please click Continue to complete the initial setup!': '按繼續開始初始設定',
-      Continue: '繼續',
+      Welcome: 'Bienvenido',
+      'For a better experience,': 'Para que tengas una mejor experiencia',
+      'Please click Continue to complete the initial setup!': 'presione continuar para iniciar la configuración inicial',
+      Continue: 'Continuar',
       Submit: '確認',
 
       // /setup/language
@@ -147,8 +147,8 @@ module.exports = {
       Next: 'Próximo',
 
       // /setup/account
-      'Setup Account': '初始帳號設定',
-      Account: '帳號',
+      'Setup Account': 'número de cuenta',
+      Account: 'número de cuenta',
       'Please enter your account.': 'Por favor ingrese su nombre de cuenta',
       Permission: 'Permiso',
       Password: '密碼',
@@ -185,7 +185,6 @@ module.exports = {
       // /login
       Login: 'Registrarse',
       'ACCOUNT LOGIN': 'Cuenta de Ingreso',
-      'Enter Your Username and Password': '請輸入您的帳號與密碼',
       'Enter your username': 'Por favor ingrese su número de cuenta',
       'Password Reset': '重置密碼',
 
@@ -378,7 +377,7 @@ module.exports = {
       'Enter custom text': 'Ingresar texto personalizado',
 
       // /media/privacy-mask
-      'Enable Privacy Mask': 'Habilitar Máscara de privacidad',
+      'Enable Privacy Mask': 'Habilitar máscara de privacidad',
       'Create mask areas on the preview window.': 'Agregue una máscara de privacidad en el panel de vista previa',
       'Mask Area': 'Área de máscara',
       'Note Area': 'Descripción',
@@ -431,7 +430,7 @@ module.exports = {
       'Email Setting Success': 'éxito la configuración del correo electrónico',
       'Mail Setting Failed': 'Falló la configuración del correo electrónico',
       'Sending Test Email': 'Ha enviado un correo de prueba',
-      'Disabling Outgoing Email': 'Disabling Outgoing Email',
+      'Disabling Outgoing Email': 'Desactivar la transmisión de correo electrónico',
       'Email Title': 'correo electrónico',
 
       // /notification/io
@@ -711,7 +710,7 @@ module.exports = {
       'Enter a secondary DNS': '請輸入次要DNS',
 
       // /network/tcp-ip
-      'Enable DDNS': 'Habilitar Servicio DDNS',
+      'Enable DDNS': 'Habilitar servicio DDNS',
       'Service Provider': 'proveedor de servicio',
       'Host Name': 'Nombre de host',
       'Enter DDNS host name.': 'Ingrese el nombre de host DDNS',
@@ -727,7 +726,7 @@ module.exports = {
       Rebooting: 'Reinicio del dispositivo',
 
       // /network/https
-      'Enable HTTPS': 'Habilite primero la función HTTPS',
+      'Enable HTTPS': 'Habilitar servicio HTTPS',
       'Click confirm to redirect to the new address:': 'Por favor presione confirmar para redirigir a la nueva URL:',
       'The website has been redirected to the new address': 'Vuelva a iniciar sesión con la siguiente URL',
       'The specified port is reserved by system or in use!': 'Este puerto está reservado o en uso para el sistema',
@@ -815,7 +814,7 @@ module.exports = {
       'Download progress': '下載進度',
 
       // /sd-card
-      'Enable SD Card': 'Habilite Tarjeta de memoria',
+      'Enable SD Card': 'Habilitar tarjeta SD',
       'Disabling SD Card': 'Borrar la tarjeta de memoria',
       'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': '¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento.',
       'Off Line Record': '斷線錄影',
