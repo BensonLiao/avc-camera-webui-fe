@@ -389,10 +389,10 @@ module.exports = {
       'Enable Audio Input': 'Habilitar entrada de voz',
       'Audio Quality': 'calidad',
       'Input Source': 'Fuente de entrada',
-      'Internal Microphone': '內建式麥克風',
+      'Internal Microphone': 'Internal Microphone',
       'External Microphone': 'Micrófono externo',
       // /audio / Constans / Audio Quality
-      'audio-quality-0': 'G.711, 8kHz, 64kbps, 單聲道',
+      'audio-quality-0': 'G.711, 8kHz, 64kbps, Mono',
       'audio-quality-1': 'AAC, 16kHz, 96kbps, Mono',
 
       // /notification
@@ -411,13 +411,13 @@ module.exports = {
       // /notification/smtp
       'Enable Outgoing Email': 'Habilitar transmisión de correo electrónico',
       'SMTP Server Address': 'Dirección del servidor SMTP',
-      'Enter server address': '輸入伺服器位址',
+      'Enter server address': 'Enter server address',
       'SMTP Logon Settings': 'Configuración de inicio de sesión del servidor SMTP',
       Edit: 'editar',
       'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': 'Algunos proveedores de correo de Internet pueden requerir contraseñas de aplicaciones para mejorar la seguridad, como las cuentas de correo electrónico de Google y Yahoo. Favor siga las instrucciones de su proveedor de correo electrónico para generar y utilizar una contraseña de aplicación.',
       Port: 'Puerto',
       Encryption: 'Cifrado',
-      None: '無',
+      None: 'ninguno',
       'Enable Device Login Notification': 'Habilitar notificación de inicio de sesión de cámara',
       'Sender Information': 'Información del remitente',
       'Enter sender\'s name': 'Ingrese el nombre del remitente',
