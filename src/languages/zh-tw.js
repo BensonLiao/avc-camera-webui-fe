@@ -132,7 +132,6 @@ module.exports = {
 
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
-      'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Welcome: '歡迎',
@@ -617,7 +616,7 @@ module.exports = {
       'Human Detection': '人形偵測',
       Similarity: '相似度',
       'Recognition Result': '結果',
-      'Add to Existing Member': '新增至現有成員',
+      'Add to an Existing Member': '新增至現有成員',
       'Enter keywords in the input field to search for members.': '請輸入關鍵字以便搜尋',
       'Add to {{0}}': '新增至 {{0}}',
       'Verifying Photo': '照片驗證中',

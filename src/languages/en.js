@@ -71,7 +71,7 @@ module.exports = {
       'validation-stringMin': 'This field length must be greater than or equal to {expected} characters long.',
       'validation-stringMax': 'This field length must be less than or equal to {expected} characters long.',
       'validation-stringLength': 'This field length must be {expected} characters long.',
-      'validation-stringPattern': 'This field fails to match the required pattern.',
+      'validation-stringPattern': 'This field contains invalid characters.',
       'validation-stringContains': 'This field must contain the {expected} text.',
       'validation-stringContainsLowerCaseLatter': 'This field must contain the lower case letter.',
       'validation-stringContainsUpperCaseLatter': 'This field must contain the upper case letter.',
@@ -132,7 +132,6 @@ module.exports = {
 
       // /setup
       'INITIAL PASSWORD SETUP': 'INITIAL PASSWORD SETUP',
-      'Prior to accessing this device for the first time a unique admin password must be created': 'Prior to accessing this device for the first time a unique admin password must be created',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space',
       Welcome: 'Welcome',
@@ -617,7 +616,7 @@ module.exports = {
       'Human Detection': 'Human Detection',
       Similarity: 'Similarity',
       'Recognition Result': 'Status',
-      'Add to Existing Member': 'Add to Existing Member',
+      'Add to an Existing Member': 'Add to an Existing Member',
       'Enter keywords in the input field to search for members.': 'Enter keywords in the input field to search for members.',
       'Add to {{0}}': 'Add to {{0}}',
       'Verifying Photo': 'Verifying Photo',

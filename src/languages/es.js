@@ -49,13 +49,13 @@ module.exports = {
       Software: 'Versión del software',
       'Serial Number': 'Número de serie del dispositivo',
       Support: 'apoyo',
-      'Online Support Request': '線上支援',
-      'Firmware Downloads': '韌體下載',
-      'Software Downloads': '軟體下載',
-      Downloads: '下載中心',
-      'Product Selector': '產品選擇',
-      'Technical Updates': '技術更新',
-      Resources: '資源',
+      'Online Support Request': 'Online Support Request',
+      'Firmware Downloads': 'Firmware Downloads',
+      'Software Downloads': 'Software Downloads',
+      Downloads: 'Downloads',
+      'Product Selector': 'Product Selector',
+      'Technical Updates': 'Technical Updates',
+      Resources: 'Resources',
 
       // Component / App Bar / Support
       'Device Help': 'Ayuda para el uso del dispositivo',
@@ -71,7 +71,7 @@ module.exports = {
       'validation-stringMin': 'Debe ingresar más caracteres {expected}',
       'validation-stringMax': 'Debe ingresar menos caracteres {expected}',
       'validation-stringLength': 'Debe ingresar los caracteres {expected}',
-      'validation-stringPattern': '不符合格式要求',
+      'validation-stringPattern': 'This field contains invalid characters.',
       'validation-stringContains': 'Debe contener texto {expected}',
       'validation-stringContainsLowerCaseLatter': 'Debe contener letras minúsculas en inglés',
       'validation-stringContainsUpperCaseLatter': 'Debe contener letras mayúsculas en inglés',
@@ -124,7 +124,7 @@ module.exports = {
       'Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.': 'Al marcar este elemento, se borrarán y restaurarán miembros y grupos, cuentas del sistema, zoom y enfoque, RTSP, red, aplicaciones, datos almacenados en la tarjeta de memoria ... etc., todos los datos y configuraciones',
       // CustomTooltip / /sd-card
       'Please disable the SD card first.': 'Primero apague la función de la tarjeta SD',
-      'Please enable Outgoing Email first.': 'El correo electrónico debe estar configurado',
+      'Please enable Outgoing Email first.': 'El correo electrónico debe estar configurado.',
 
       // -- Component -- END --
 
@@ -132,7 +132,6 @@ module.exports = {
 
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
-      'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
       Welcome: 'Bienvenido',
@@ -151,7 +150,7 @@ module.exports = {
       Account: 'número de cuenta',
       'Please enter your account.': 'Por favor ingrese su nombre de cuenta',
       Permission: 'Permiso',
-      Password: '密碼',
+      Password: 'Contraseña',
       Birthday: '生日',
       'This is used for resetting password.': '生日將會用於重置密碼',
       'Enter your account': 'Por favor ingrese su número de cuenta',
@@ -223,10 +222,10 @@ module.exports = {
       'Device Status': 'Estado del dispositivo',
       'SD Card': 'Tarjeta de memoria',
       'Authentication Required': 'No esta activado',
-      'Facial Recognition: ': 'Reconocimiento facial：',
-      'Age & Gender: ': 'Age & Gender：',
-      'Human Detection: ': 'Detección humanoide：',
-      'Free: {{0}}, Total: {{1}}': '{{0}} disponible (total {{1}})',
+      'Facial Recognition: ': 'Reconocimiento facial: ',
+      'Age & Gender: ': 'Género y edad: ',
+      'Human Detection: ': 'Detección humanoide: ',
+      'Free: {{0}}, Total: {{1}}': '{{0}} disponible total {{1}}',
       'Enable HDR': 'Habilitar HDR',
       Adjustments: 'Atributos',
       Brightness: 'brillo',
@@ -234,7 +233,7 @@ module.exports = {
       Sharpness: 'Nitidez',
       Saturation: 'saturación',
       'Lens Control': 'Lente',
-      'Select Focus Type': '選擇對焦方式',
+      'Select Focus Type': 'Seleccionar método de enfoque',
       'Full-Range Focus': 'Enfoque de rango completo',
       'Short-Range Focus': 'Enfoque a corto rango',
       Focus: 'Foco',
@@ -303,7 +302,7 @@ module.exports = {
       'Privacy Mask': 'Máscara de privacidad',
 
       // /media/stream
-      Settings: '設定',
+      Settings: 'Settings',
       'Stream 01': 'Stream 01',
       'Stream 02': 'Stream 02',
       Codec: 'Codificación de imágenes',
@@ -312,8 +311,8 @@ module.exports = {
       'Bandwidth Management': 'Gestión de la tasa de bits',
       Quality: 'Calidad',
       'Are you sure you want to update stream settings?': '¿Está seguro de que desea cambiar la configuración de Stream?',
-      'Updating Stream Settings': '更新串流設定',
-      'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': '改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？',
+      'Updating Stream Settings': 'Actualización de la configuración de Stream',
+      'Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?': ' Si cambia la relación de aspecto de la resolución de la Stream 1, también se cambiará la configuración de la Stream 2. ¿Confirmar para continuar?',
       // /media/stream / Constans / Resolution
       'stream-resolution-0': '3840*2160 (16:9)',
       'stream-resolution-1': '2560*1440 (16:9)',
@@ -332,9 +331,9 @@ module.exports = {
       'stream-bandwidth-management-1': 'Tasa de bits variable',
       'stream-bandwidth-management-2': 'Tasa de bits fija',
       // /media/stream / Constans / Quality
-      'quality-30': '低',
-      'quality-50': '中',
-      'quality-80': '高',
+      'quality-30': 'bajo',
+      'quality-50': 'medio',
+      'quality-80': 'alto',
       // /media/stream / Constans / Bitrate
       '{{0}} - {{1}} Kbps': '{{0}} - {{1}} Kbps',
 
@@ -357,14 +356,14 @@ module.exports = {
       'Enable On-Screen Display': 'Habilitar mapa de texto',
       Size: 'tamaño de fuente',
       Color: 'color',
-      Word: '文字',
+      Word: 'Word',
       Position: 'posición',
       'Click the arrow on the preview window.': 'Haga clic en flecha para establecer la posición',
       'Left Top': 'arriba a la izquierda',
       'Right Top': 'Superior derecha',
       'Bottom Left': 'Abajo a la izquierda',
       'Bottom Right': 'Inferior derecha',
-      'Text Overlay': '內容',
+      'Text Overlay': 'Texto',
       // /media/word / Constants / Size
       'font-size-0': 'pequeña',
       'font-size-1': 'medio',
@@ -444,7 +443,7 @@ module.exports = {
       'Output 2': 'Salida digital 2',
       'Output {{0}}': 'Salida digital {{0}}',
       'Enable Digital Output {{0}}': 'Habilitar la salida digital {{0}}',
-      Type: 'Tipo de salida',
+      Type: 'Tipo',
       Normal: 'general',
       Buffer: 'buffer',
       'Pulse Time (seconds)': 'Tiempo de búfer de señal (segundos)',
@@ -477,10 +476,10 @@ module.exports = {
       Add: 'Añadir',
       Cancel: 'Cancelar',
       'Cannot create more than {{0}} cards': 'No se pueden crear más de {{0}} tarjetas',
-      'Subject :': '主旨 :',
-      'Content :': 'contenido :',
-      'Specify the subject': '輸入主旨',
-      'Add your message': '輸入內文',
+      'Subject :': 'Tema :',
+      'Content :': 'Texto :',
+      'Specify the subject': 'Ingrese Tema',
+      'Add your message': 'Ingrese Texto',
       'Content Placement': 'Posición del texto',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
@@ -499,14 +498,14 @@ module.exports = {
       'face-recognition-condition-0': 'Todos los tipos',
       'face-recognition-condition-1': 'éxito',
       'face-recognition-condition-2': 'desconocido',
-      'face-recognition-condition-3': '圖像偽裝',
+      'face-recognition-condition-3': 'Camuflaje de imagen',
       // /notification/cards / Constants / Email Attachment
       'email-attachment-type-0': 'Captura de pantalla de la cara',
       'email-attachment-type-1': 'Captura de pantalla completa',
       'email-attachment-type-2': 'ninguno',
       // /notification/cards / Constants / Content Placement
-      'email-content-position-0': '置於開頭',
-      'email-content-position-1': '置於結尾',
+      'email-content-position-0': 'Poner al principio',
+      'email-content-position-1': 'Poner al final',
 
       // /users/members
       Members: 'miembro',
@@ -516,7 +515,7 @@ module.exports = {
       'Delete Group: {{0}}': 'Borrar grupo: {{0}}',
       'Delete Group': 'Borrar grupo',
       Database: 'Archivo de base de datos',
-      'Encryption Settings': '加密設定',
+      'Encryption Settings': 'Configuración de cifrado',
       Export: 'Exportar',
       Import: 'Importar',
       'Updating Member Database': 'Actualizar perfil de Usuarios',
@@ -556,53 +555,53 @@ module.exports = {
       Close: 'Cerrar',
 
       // /users/members/modify-group
-      'Edit Group': '編輯群組',
+      'Edit Group': 'Editar grupo',
       'Modify Group': 'Editar grupo',
       Confirm: 'Confirmar',
 
       // /users/members/new
-      Primary: '主照片',
-      'Photo 1': '照片1',
-      'Photo 2': '照片2',
-      'Photo 3': '照片3',
-      'Photo 4': '照片4',
-      'Upload Primary First': '請先上傳主照片',
+      Primary: 'Foto principal',
+      'Photo 1': 'Foto 1',
+      'Photo 2': 'Foto 2',
+      'Photo 3': 'Foto 3',
+      'Photo 4': 'Foto 4',
+      'Upload Primary First': 'Sube la foto principal primero',
       'Photo Editor': 'editar',
       'Drag the image to position it correctly.': 'Arraste para ajustar las fotos',
       Organization: 'organización',
       'Enter a name for this member': 'Ingrese el nombre del miembro',
       'Enter an organization for this member': 'Ingrese el nombre de la organización',
       'Maximum length: 32 characters': '最多32個字',
-      'N/A': '無',
-      'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？',
-      'Photo size should be less than 90 KB.': '照片大小不可以超過90 KB',
-      Save: '儲存',
-      'Change Photo': '更換照片',
+      'N/A': 'ninguno',
+      'Are you sure you want to close this window? Any changes you have made will be lost.': 'Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?',
+      'Photo size should be less than 90 KB.': 'El tamaño de la foto no puede superar los 90KB',
+      Save: 'Salvar',
+      'Change Photo': 'Cambiar foto',
 
       // /users/accounts
       Accounts: 'cuentas',
       'All Accounts': 'Lista de cuentas',
       Username: 'Nombre',
-      'New User': '創建使用者',
+      'New User': 'Nuevo Usuario',
       'Modify User': 'Editar cuenta',
       'Enter a name for this account': 'Ingrese el nombre de la cuenta',
-      'Enter a password': '輸入密碼',
+      'Enter a password': 'introducir la contraseña',
       'Enter a new password': 'Introduzca una nueva contraseña',
       'New Password': 'nueva contraseña',
-      'Confirm New Password': '確認新密碼',
-      'Confirm Password': '確認密碼',
-      'Enter the new password again': '再次輸入新密碼',
-      'Enter the password again': '再次輸入密碼',
+      'Confirm New Password': 'Confirm New Password',
+      'Confirm Password': 'Confirmar contraseña',
+      'Enter the new password again': 'Enter the new password again',
+      'Enter the password again': 'Ingrese la contraseña nuevamente',
       'Delete Account': 'Borrar cuenta',
       'Are you sure you want to delete account {{0}}?': '¿Está seguro de que desea borrar la cuenta {{0}} ?',
 
       // /users/events
-      Unknown: '未知',
+      Unknown: 'desconocido',
       Events: 'eventos',
       Total: 'Datos',
       Time: 'hora',
       Capture: 'Captura de pantalla de la cara',
-      Confidence: '相似度',
+      Confidence: 'Confidence',
       'Can\'t find any data.': 'Verifique que no haya datos coincidentes y busque nuevamente.,',
       Filters: 'Condiciones de filtro',
       Clear: 'Condiciones de claridad',
@@ -617,13 +616,13 @@ module.exports = {
       'Human Detection': 'Detección humanoide',
       Similarity: 'Semejanza',
       'Recognition Result': 'resultado',
-      'Add to Existing Member': '新增至現有成員',
-      'Enter keywords in the input field to search for members.': '請輸入關鍵字以便搜尋',
-      'Add to {{0}}': '新增至 {{0}}',
-      'Verifying Photo': '照片驗證中',
-      'Invalid Photo': '照片不合格',
-      'Updating Member': '更新成員',
-      'Added Photo to {{0}} Successfully!': '新增照片至 {{0}} 成功!',
+      'Add to an Existing Member': 'Agregar a Usuario Existente',
+      'Enter keywords in the input field to search for members.': 'Ingrese palabras clave en el campo de entrada para buscar usuarios.',
+      'Add to {{0}}': 'Agregar a {{0}}',
+      'Verifying Photo': 'Verificación de fotos',
+      'Invalid Photo': 'Foto inválida',
+      'Updating Member': 'Actualización de Usuario',
+      'Added Photo to {{0}} Successfully!': '¡Se agregaron fotos a {{0}} correctamente!',
       // /users/events / Constants / Status
       'enroll-status-0': 'Camuflaje de imagen',
       'enroll-status-1': 'desconocido',
@@ -638,24 +637,24 @@ module.exports = {
       'Enable Facial Recognition': 'Habilitar reconocimiento facial',
       'Anti-Image Spoof': 'Habilitar Camuflaje Anti-Image S',
       'Level of Accuracy': 'éxito de identificación de Límite',
-      'Detection Zone': '觸發區域',
+      'Detection Zone': 'Área de activación',
       'Show/Hide Detection Zone': 'Mostrar o ocultar área',
       'The default is the whole live view screen.': 'El valor predeterminado es pantalla completa',
-      'Enable Facial Detection Size': '開啟最小臉部尺寸',
-      'Min. Facial Detection Size': '最小臉部尺寸',
+      'Enable Facial Detection Size': 'Habilitar tamaño de la cara',
+      'Min. Facial Detection Size': 'Tamaño mínimo de la cara',
       'Live View Display': 'Visualización de imagen en vivo',
       'Display Name': 'Nombre de miembro',
       'Display Group': 'Grupo de miembro',
       'Display Unknown': 'desconocido',
       'Display Image Spoof': 'Camuflaje de imagen',
-      'Facial Recognition is disabled.': '臉部辨識已關閉',
+      'Facial Recognition is disabled.': 'Reconocimiento facial está desactivado.',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': 'bajo',
       'confidence-level-1': 'medio',
       'confidence-level-2': 'alto',
 
       // /analytic/motion-detection
-      'Enable Motion Detection': '開啟移動偵測',
+      'Enable Motion Detection': 'Habilitar detección de movimiento',
       'Motion Detection': 'Detección de movimiento',
       'Create detection zones on the preview window.': 'Agregue un área de activación en el panel de vista previa',
       'To set a zone:': 'Añadir Área:',
@@ -678,12 +677,12 @@ module.exports = {
       'Authorization failed!': '¡Autorización fallida',
       'Key Already Registered': 'Repita el código de activación',
       // /analytic/license / Constants / FR Auth key
-      'face-recognition-key-thirtyThousand': '臉部辨識 30k',
-      'face-recognition-key-threeThousand': '臉部辨識 3k',
+      'face-recognition-key-thirtyThousand': 'Reconocimiento facial 30k',
+      'face-recognition-key-threeThousand': 'Reconocimiento facial 3k',
 
       // /network/settings
       Success: '成功',
-      'Internet & Network Settings': '網路',
+      'Internet & Network Settings': 'Configuración de Internet y red',
       'IP Addressing': 'Red de área local',
       'Network Status': 'Estado de la red',
       DHCP: 'DHCP',
@@ -704,10 +703,10 @@ module.exports = {
       'Please enable HTTPS first.': 'Habilite primero la función HTTPS',
       'Are you sure you want to update network settings?': '¿Está seguro de que desea cambiar la configuración de red?',
       'Enter a fixed IP address': 'Introduzca una dirección IP fija',
-      'Enter Subnet Mask': '請輸入子網路遮罩',
-      'Enter Router/Gateway': '請輸入路由器/閘道',
-      'Enter a primary DNS': '請輸入主要DNS',
-      'Enter a secondary DNS': '請輸入次要DNS',
+      'Enter Subnet Mask': 'Máscara de subred',
+      'Enter Router/Gateway': 'Enrutador/Puerta de enlace',
+      'Enter a primary DNS': 'Ingrese DNS Primario',
+      'Enter a secondary DNS': 'Ingrese DNS Secundario',
 
       // /network/tcp-ip
       'Enable DDNS': 'Habilitar servicio DDNS',
@@ -746,7 +745,7 @@ module.exports = {
       // /system/datetime
       Administration: 'administración',
       'Date & Time': 'Fecha y hora',
-      'Time Zone': '時區',
+      'Time Zone': 'Zona horaria',
       'Date and Time of the Device': 'Tiempo de instalación',
       'Sync with Network Time Server (NTP)': 'Sincronizar con Network Time Server (NTP)',
       'Host Name or IP Address': 'Dirección del servidor',
@@ -767,7 +766,7 @@ module.exports = {
       Reboot: 'Reiniciar',
       'Restore to Default Settings': 'Restaurar a la configuración original de fábrica',
       Reset: 'Borrar datos',
-      Resetting: '清除資料中',
+      Resetting: 'Borrar datos',
       'Export System Settings': 'Exportar configuración del sistema',
       'Import System Settings': 'Importar configuración del sistema',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán',
@@ -779,8 +778,8 @@ module.exports = {
       '• Internet & Network settings': '• Configuración de la red',
       '• Data on the SD Card': '• Tarjeta de memoria para almacenar datos',
       'The device has rebooted. Please log in again.': 'El dispositivo se reinició, inicie la sesión nuevamente',
-      'Reset Success': 'Reset Success',
-      'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.',
+      'Reset Success': 'Restablecer Existosa',
+      'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.',
 
       // /system/upgrade
       'Upload Software': 'Cargar software',
@@ -808,18 +807,18 @@ module.exports = {
       'Delete logs': 'Borrar',
       Download: 'descargar',
       // /system/information
-      'Build Version': '開發版號',
-      'S/N Code': 'S/N 碼',
-      'Downloading System Log File': '下載系統紀錄檔案',
-      'Download progress': '下載進度',
+      'Build Version': 'Build Version',
+      'S/N Code': 'S/N Code',
+      'Downloading System Log File': 'Descargar el archivo de registro del sistema',
+      'Download progress': 'Progreso de Descarga',
 
       // /sd-card
       'Enable SD Card': 'Habilitar tarjeta SD',
       'Disabling SD Card': 'Borrar la tarjeta de memoria',
       'Event photos will not be available after the SD card is disabled. Are you sure you want to continue?': '¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento.',
-      'Off Line Record': '斷線錄影',
-      'Are you sure you want to format the Micro SD card?': '您即將格式化 Micro SD 卡，確認是否繼續？',
-      'Are you sure you want to unmount the Micro SD card?': '您即將卸除 Micro SD 卡，確認是否繼續？',
+      'Off Line Record': 'Off Line Record',
+      'Are you sure you want to format the Micro SD card?': 'Estás a punto de formatear la tarjeta Micro SD. ¿Quieres continuar?',
+      'Are you sure you want to unmount the Micro SD card?': 'Estás a punto de retirar la tarjeta Micro SD. ¿Quieres continuar?',
       Operation: 'Operación',
       Format: 'formato',
       Mount: 'Montar',
@@ -861,7 +860,7 @@ module.exports = {
       // 9007
       'Card Number Limit Exceeded': 'Límite de cantidad alcanzado',
       // 9008
-      'Non-existent Card': '記憶卡異常，無法正常操作',
+      'Non-existent Card': 'Non-existent Card',
       // 9009
       'Database Size Limit (3 GB) Exceeded': 'Alcanzó el límite de almacenamiento',
       // 9010
@@ -905,7 +904,7 @@ module.exports = {
       // 9029
       'Unable to Complete the Format': 'Error al formatear la tarjeta de memoria',
       // 9030
-      'Empty SMTP Server Address': '必須輸入外送伺服器位址',
+      'Empty SMTP Server Address': 'Empty SMTP Server Address',
       // 9031
       'Empty SMTP Account': 'Debe ingresar cuenta y contraseña',
       // 9032
@@ -935,11 +934,11 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': 'Más de 1 rostro en la foto',
       // 9045
-      'Non-existent Photo': '事件截圖不存在',
+      'Non-existent Photo': 'Non-existent Photo',
       // 9046
       'Invalid Key': 'Activación fallida, código de activación incorrecto',
       // 9047
-      'Duplicate Key': '啟用失敗，重複的啟動碼',
+      'Duplicate Key': 'Duplicate Key',
       // 9048
       'Cannot Support Database Downgrade from 30,000 to 3000 People': 'No se pudo activar, el número máximo de miembros que no admiten el reconocimiento facial se redujo de 30.000 a 3.000'
 

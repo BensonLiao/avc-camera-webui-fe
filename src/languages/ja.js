@@ -132,7 +132,6 @@ module.exports = {
 
       // /setup
       'INITIAL PASSWORD SETUP': '初始密碼設定',
-      'Prior to accessing this device for the first time a unique admin password must be created': '首次使用時，請先創建一個管理員密碼',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` " \\ /< >とスペースを使用できません',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません',
       Welcome: 'ようこそ',
@@ -617,7 +616,7 @@ module.exports = {
       'Human Detection': '人体検知',
       Similarity: '相似性',
       'Recognition Result': '認証結果',
-      'Add to Existing Member': '既存のメンバーに追加',
+      'Add to an Existing Member': '既存のメンバーに追加',
       'Enter keywords in the input field to search for members.': '入力フィールドにキーワードを入力して、メンバーを検索します',
       'Add to {{0}}': '{{0}} に追加',
       'Verifying Photo': '写真検証中',
