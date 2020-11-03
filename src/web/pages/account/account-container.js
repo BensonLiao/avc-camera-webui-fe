@@ -15,13 +15,7 @@ const AccountContainer = ({page, children}) => {
         <div className="row justify-content-center">
           {!window.isNoBrand && (
             <div className="col-12 logo bg-white">
-              <div className="col-center logo motion-blur">
-                <img src={logoWithTitle} className="blur-me"/>
-                <img src={logoWithTitle} className="blur-me two"/>
-                <img src={logoWithTitle} className="blur-me three"/>
-                <img src={logoWithTitle} className="blur-me four"/>
-                <img src={logoWithTitle} className="blur-me five"/>
-              </div>
+              <img src={logoWithTitle}/>
             </div>
           )}
           <div className={classNames('col-center', {'mt-5': window.isNoBrand})}>

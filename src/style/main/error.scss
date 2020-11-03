@@ -3,6 +3,11 @@
 .error-page {
   .row {
     background-color: #fff;
+
+    .motion-blur {
+      height: 48px;
+      width: 235px;
+    }
   }
 
   .message-container {

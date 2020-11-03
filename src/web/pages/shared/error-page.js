@@ -1,4 +1,3 @@
-const classNames = require('classnames');
 const React = require('react');
 const PropTypes = require('prop-types');
 const imageCode404 = require('../../../resource/icon-error-404.svg');
@@ -26,17 +25,23 @@ module.exports = class ErrorPage extends React.Component {
   }
 
   render() {
-    const classTable = {page: classNames('error-page', `error-${this.state.status}`)};
-    const messageTitle = this.state.status === 404 ? i18n.t('Not Found') : i18n.t('The Server Error');
+    const messageTitle = this.state.status === 404 ? i18n.t('Not Found') : i18n.t('Internal Server Error');
 
     return (
-      <div className={classTable.page}>
+      <div className="error-page">
         <img className="mw-100" src={this.state.status === 404 ? bgCode404 : bgCode500}/>
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-12 justify-content-center text-center mt-5">
-              { !window.isNoBrand &&
-              <img src={this.state.status === 404 ? imageCode404 : imageCode500}/>}
+          <div className="row justify-content-center">
+            <div className="col-12 text-center mt-5">
+              {!window.isNoBrand && (
+                <div className="col-center motion-blur">
+                  <img src={this.state.status === 404 ? imageCode404 : imageCode500} className="blur-me"/>
+                  <img src={this.state.status === 404 ? imageCode404 : imageCode500} className="blur-me two"/>
+                  <img src={this.state.status === 404 ? imageCode404 : imageCode500} className="blur-me three"/>
+                  <img src={this.state.status === 404 ? imageCode404 : imageCode500} className="blur-me four"/>
+                  <img src={this.state.status === 404 ? imageCode404 : imageCode500} className="blur-me five"/>
+                </div>
+              )}
               <div className="message-container mt-5">
                 <h2 className="message-status mb-0">{this.state.status}</h2>
                 <h3 className="message-title">{messageTitle}</h3>
