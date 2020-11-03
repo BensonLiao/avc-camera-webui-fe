@@ -97,9 +97,7 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 }}
                 endDateFieldName="end"
                 isShowPicker={isShowStartDatePicker}
-                onClickInput={() => {
-                  this.toggleDatePicker('Start');
-                }}
+                onClickInput={this.toggleStartDatePicker}
                 onHide={this.onHideStartDatePicker}
               />
               <Field
