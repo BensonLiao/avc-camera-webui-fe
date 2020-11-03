@@ -357,7 +357,7 @@ module.exports = {
       Color: '顏色',
       Word: '文字',
       Position: '位置',
-      'Click the arrow on the preview window.': '請在預覽窗格中點選箭頭',
+      'Click the arrow on the live view screen.': '請在預覽窗格中點選箭頭',
       'Left Top': '左上',
       'Right Top': '右上',
       'Bottom Left': '左下',
@@ -480,6 +480,9 @@ module.exports = {
       'Specify the subject': '輸入主旨',
       'Add your message': '輸入內文',
       'Content Placement': '內文位置',
+      'Face Recognition Event on [{{0}}]': '臉部辨識事件 [{{0}}]',
+      'Motion Detection Event on [{{0}}]': '移動偵測事件 [{{0}}]',
+      'Digital Input Event on [{{0}}]': '數位輸入事件 [{{0}}]',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -655,7 +658,7 @@ module.exports = {
       // /analytic/motion-detection
       'Enable Motion Detection': '開啟移動偵測',
       'Motion Detection': '移動偵測',
-      'Create detection zones on the preview window.': '請在預覽窗格新增觸發區域',
+      'Create detection zones on the live view screen.': '請在預覽窗格新增觸發區域',
       'To set a zone:': '新增區域',
       'To erase a zone:': '刪除區域',
       'Up to 4 detection zones can be set.': '最多4個區域',

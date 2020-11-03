@@ -357,7 +357,7 @@ module.exports = {
       Color: 'カラー',
       Word: '文字',
       Position: '表示位置',
-      'Click the arrow on the preview window.': 'プレビュー画面中の青印をクリックして下さい',
+      'Click the arrow on the live view screen.': 'プレビュー画面中の青印をクリックして下さい',
       'Left Top': '左上',
       'Right Top': '右上',
       'Bottom Left': '左下',
@@ -480,6 +480,9 @@ module.exports = {
       'Specify the subject': '件名を指定してください',
       'Add your message': 'メッセージを追加する',
       'Content Placement': '内容の位置',
+      'Face Recognition Event on [{{0}}]': '顔認証イベント [{{0}}]',
+      'Motion Detection Event on [{{0}}]': '動体検知イベント [{{0}}]',
+      'Digital Input Event on [{{0}}]': 'デジタル入力イベント [{{0}}]',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -655,7 +658,7 @@ module.exports = {
       // /analytic/motion-detection
       'Enable Motion Detection': '動作検知を有効します',
       'Motion Detection': '動作検知',
-      'Create detection zones on the preview window.': 'プレビューウィンドに検知エリアを追加してください',
+      'Create detection zones on the live view screen.': 'プレビューウィンドに検知エリアを追加してください',
       'To set a zone:': 'エリアを追加する',
       'To erase a zone:': 'エリアを削除する',
       'Up to 4 detection zones can be set.': '検知エリアは最大四ヶ所まで設定可能です',

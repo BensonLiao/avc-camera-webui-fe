@@ -185,7 +185,7 @@ module.exports = class Word extends Base {
                     )
                   }
                 </div>
-                <small className="mt-0 form-text text-muted">{i18n.t('Click the arrow on the preview window.')}</small>
+                <small className="mt-0 form-text text-muted">{i18n.t('Click the arrow on the live view screen.')}</small>
               </div>
               <SelectField labelName={i18n.t('Text Overlay')} name="type">
                 {WordType.all().map(type => (

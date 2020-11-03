@@ -357,7 +357,7 @@ module.exports = {
       Color: 'Color',
       Word: 'Word', // deprecated
       Position: 'Position',
-      'Click the arrow on the preview window.': 'Click the arrow on the preview window.',
+      'Click the arrow on the live view screen.': 'Click the arrow on the live view screen.',
       'Left Top': 'Left Top',
       'Right Top': 'Right Top',
       'Bottom Left': 'Bottom Left',
@@ -480,6 +480,9 @@ module.exports = {
       'Specify the subject': 'Specify the subject',
       'Add your message': 'Add your message',
       'Content Placement': 'Content Placement',
+      'Face Recognition Event on [{{0}}]': 'Face Recognition Event on [{{0}}]',
+      'Motion Detection Event on [{{0}}]': 'Motion Detection Event on [{{0}}]',
+      'Digital Input Event on [{{0}}]': 'Digital Input Event on [{{0}}]',
       // /notification/card (AVN)
       'Video Management System': 'Video Management System',
       // /notification/card / Constants / VMS (AVN)
@@ -655,7 +658,7 @@ module.exports = {
       // /analytic/motion-detection
       'Enable Motion Detection': 'Enable Motion Detection',
       'Motion Detection': 'Motion Detection',
-      'Create detection zones on the preview window.': 'Create detection zones on the preview window.',
+      'Create detection zones on the live view screen.': 'Create detection zones on the live view screen.',
       'To set a zone:': 'To set a zone:',
       'To erase a zone:': 'To erase a zone:',
       'Up to 4 detection zones can be set.': 'Up to 4 detection zones can be set.',

@@ -357,7 +357,7 @@ module.exports = {
       Color: 'color',
       Word: 'Word',
       Position: 'posición',
-      'Click the arrow on the preview window.': 'Haga clic en flecha para establecer la posición',
+      'Click the arrow on the live view screen.': 'Haga clic en flecha para establecer la posición',
       'Left Top': 'arriba a la izquierda',
       'Right Top': 'Superior derecha',
       'Bottom Left': 'Abajo a la izquierda',
@@ -480,6 +480,9 @@ module.exports = {
       'Specify the subject': 'Ingrese Tema',
       'Add your message': 'Ingrese Texto',
       'Content Placement': 'Posición del texto',
+      'Face Recognition Event on [{{0}}]': 'Evento de reconocimiento facial [{{0}}]',
+      'Motion Detection Event on [{{0}}]': 'Evento de detección de movimiento [{{0}}]',
+      'Digital Input Event on [{{0}}]': 'Evento de entrada digital [{{0}}]',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -655,7 +658,7 @@ module.exports = {
       // /analytic/motion-detection
       'Enable Motion Detection': 'Habilitar detección de movimiento',
       'Motion Detection': 'Detección de movimiento',
-      'Create detection zones on the preview window.': 'Agregue un área de activación en el panel de vista previa',
+      'Create detection zones on the live view screen.': 'Agregue un área de activación en el panel de vista previa',
       'To set a zone:': 'Añadir Área:',
       'To erase a zone:': 'Borrar Área',
       'Up to 4 detection zones can be set.': 'Hasta 4 áreas',
