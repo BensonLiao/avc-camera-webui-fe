@@ -1,9 +1,8 @@
-const ErrorPage = require('./error-page');
+import React from 'react';
+import ErrorPage from './error-page';
 
-module.exports = class NotFound extends ErrorPage {
-  constructor(props) {
-    super(props);
-    this.state.status = 404;
-    this.state.message = 'Not Found';
-  }
+const NotFound = () => {
+  return <ErrorPage status={404} message="Not Found"/>;
 };
+
+export default NotFound;
