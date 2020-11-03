@@ -12,7 +12,7 @@ module.exports = class ErrorPage extends React.Component {
   }
 
   static get defaultProps() {
-    return {error: 'Error'};
+    return {error: 'Internal Server Error'};
   }
 
   state = {};
@@ -25,8 +25,6 @@ module.exports = class ErrorPage extends React.Component {
   }
 
   render() {
-    const messageTitle = this.state.status === 404 ? i18n.t('Not Found') : i18n.t('Internal Server Error');
-
     return (
       <div className="error-page">
         <img className="mw-100" src={this.state.status === 404 ? bgCode404 : bgCode500}/>
@@ -44,7 +42,7 @@ module.exports = class ErrorPage extends React.Component {
               )}
               <div className="message-container mt-5">
                 <h2 className="message-status mb-0">{this.state.status}</h2>
-                <h3 className="message-title">{messageTitle}</h3>
+                <h3 className="message-title">{i18n.t(this.state.message)}</h3>
                 <a className="btn btn-primary text-light rounded-pill mt-5" href="/">
                   {i18n.t('Back to Home')}
                 </a>

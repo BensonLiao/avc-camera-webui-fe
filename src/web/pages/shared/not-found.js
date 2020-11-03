@@ -4,6 +4,6 @@ module.exports = class NotFound extends ErrorPage {
   constructor(props) {
     super(props);
     this.state.status = 404;
-    this.state.message = 'resource not found';
+    this.state.message = 'Not Found';
   }
 };
