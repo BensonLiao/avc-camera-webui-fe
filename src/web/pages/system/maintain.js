@@ -109,7 +109,7 @@ module.exports = class Maintain extends Base {
         ...prevState.isShowSelectModal,
         reset: false
       },
-      apiProcessModalTitle: i18n.t('Device Resetting')
+      apiProcessModalTitle: i18n.t('Resetting')
     }),
     () => {
       api.system.deviceReset(resetIP)
@@ -123,8 +123,8 @@ module.exports = class Maintain extends Base {
                 this.hideApiProcessModal();
                 this.setState({
                   isShowFinishModal: true,
-                  finishModalTitle: i18n.t('Device Resetting to Factory Default'),
-                  finishModalBody: i18n.t('Please follow the user manual to access your camera.'),
+                  finishModalTitle: i18n.t('Reset Success'),
+                  finishModalBody: i18n.t('Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.'),
                   onConfirm: this.hideFinishModal
                 });
               } else {

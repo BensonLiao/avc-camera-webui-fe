@@ -133,7 +133,7 @@ module.exports = class MembersDatabase extends React.PureComponent {
         </div>
         <div className="modal-body">
           <div className="form-group has-feedback">
-            <label>{i18n.t('Current Password')}</label>
+            <label>{i18n.t('Password')}</label>
             <Field
               name="password"
               component={Password}

@@ -130,7 +130,7 @@ class SearchMember extends React.PureComponent {
           }}
         >
           <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying)} className="d-flex justify-content-between align-items-center">
-            <Modal.Title as="h5">{i18n.t('Add to Existing Member')}</Modal.Title>
+            <Modal.Title as="h5">{i18n.t('Add to an Existing Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="d-flex flex-row justify-content-between align-items-end mb-4 px-3">

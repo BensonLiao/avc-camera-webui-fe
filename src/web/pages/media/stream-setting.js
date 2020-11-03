@@ -384,7 +384,7 @@ module.exports = class StreamSetting extends Base {
                 readOnly
                 type="text"
                 className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})}
-                placeholder="Auto"
+                placeholder={i18n.t('Auto')}
               />
               <Field
                 type="text"
