@@ -6,7 +6,7 @@ import bgCode404 from '../../../resource/bg-error-404-clip.png';
 import bgCode500 from '../../../resource/bg-error-500-clip.png';
 import i18n from '../../../i18n';
 
-const ErrorPage = ({status, message}) => {
+const ErrorPage = ({error: {status, message}}) => {
   document.title = `${i18n.t('Error')} - ${window.cameraName} Web-Manager`;
   return (
     <div className="error-page">
@@ -38,13 +38,17 @@ const ErrorPage = ({status, message}) => {
 };
 
 ErrorPage.propTypes = {
-  status: PropTypes.number,
-  message: PropTypes.string
+  error: PropTypes.shape({
+    status: PropTypes.number,
+    message: PropTypes.string
+  })
 };
 
 ErrorPage.defaultProps = {
-  status: 500,
-  message: 'Internal Server Error'
+  error: {
+    status: 500,
+    message: 'Internal Server Error'
+  }
 };
 
 export default ErrorPage;
