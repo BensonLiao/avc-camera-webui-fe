@@ -13,8 +13,8 @@ const AccountContainer = ({page, children}) => {
       </div>
       <div className="container-fluid">
         <div className="row justify-content-center">
-          { !window.isNoBrand && (
-            <div className="col-12 bg-white logo">
+          {!window.isNoBrand && (
+            <div className="col-12 logo bg-white">
               <img src={logoWithTitle}/>
             </div>
           )}

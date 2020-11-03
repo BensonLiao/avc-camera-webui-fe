@@ -1,4 +1,3 @@
-const axios = require('axios');
 const Cookies = require('js-cookie');
 const {getRouter} = require('capybara-router');
 const dayjs = require('dayjs');
@@ -554,7 +553,13 @@ module.exports.isArray = arg => Object.prototype.toString.call(arg) === '[object
 module.exports.isDate = arg => Object.prototype.toString.call(arg) === '[object Date]' &&
   !isNaN(arg.getTime());
 
+/**
+ * @deprecated
+ * @param {string} url
+ * @returns {void}
+ */
 module.exports.pingAndRedirectPage = url => {
+  const axios = require('axios');
   const test = () => {
     axios.get(url, {responseType: 'document'})
       .then(() => {

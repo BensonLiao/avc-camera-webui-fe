@@ -584,8 +584,8 @@ module.exports = new Router({
     {
       name: 'not-found',
       uri: '.*',
-      component: require('./pages/shared/not-found')
+      component: require('./pages/shared/not-found').default
     }
   ],
-  errorComponent: require('./pages/shared/error-page')
+  errorComponent: require('./pages/shared/error-page').default
 });
