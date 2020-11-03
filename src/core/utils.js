@@ -554,9 +554,12 @@ module.exports.isDate = arg => Object.prototype.toString.call(arg) === '[object 
   !isNaN(arg.getTime());
 
 /**
- *  Deprecated
- *
+ * @deprecated
+ * @param {string} url
+ * @returns {void}
+ */
 module.exports.pingAndRedirectPage = url => {
+  const axios = require('axios');
   const test = () => {
     axios.get(url, {responseType: 'document'})
       .then(() => {
@@ -569,7 +572,6 @@ module.exports.pingAndRedirectPage = url => {
 
   test();
 };
-*/
 
 /**
  * Check if the server has shutdown; Device has not shutdown if ping succeeds, proceed if ping fails.
