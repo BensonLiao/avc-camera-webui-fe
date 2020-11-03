@@ -38,15 +38,15 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     }));
   }
 
-  onHideStartDatePicker = () => {
-    this.setState({isShowStartDatePicker: false});
-  }
-
   toggleEndDatePicker = () => {
     this.setState(prevState => ({
       isShowEndDatePicker: !prevState.isShowEndDatePicker,
       isShowStartDatePicker: false
     }));
+  }
+
+  onHideStartDatePicker = () => {
+    this.setState({isShowStartDatePicker: false});
   }
 
   onHideEndDatePicker = () => {
@@ -105,7 +105,9 @@ module.exports = class EventsSearchForm extends React.PureComponent {
                 }}
                 endDateFieldName="end"
                 isShowPicker={isShowStartDatePicker}
-                onClickInput={this.toggleStartDatePicker}
+                onClickInput={() => {
+                  this.toggleDatePicker('Start');
+                }}
                 onHide={this.onHideStartDatePicker}
               />
               <Field
