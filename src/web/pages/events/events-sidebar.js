@@ -31,27 +31,12 @@ module.exports = class EventsSidebar extends React.PureComponent {
     };
   }
 
-  constructor(props) {
-    super(props);
-    this.currentRoute = getRouter().findRouteByName('web.users.events');
-  }
-
   /**
    * Convert router params to an array.
    * @param {Array<String>|String|null} param
    * @returns {Array<String>}
    */
-  convertArrayParams = param => {
-    let result = [];
-
-    if (Array.isArray(param)) {
-      result = [...param];
-    } else if (param) {
-      result = [param];
-    }
-
-    return result;
-  };
+  convertArrayParams = param => Array.isArray(param) ? [...param] : (param ? [param] : []);
 
   /**
    * Clear filter on user clicks.

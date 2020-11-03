@@ -30,18 +30,14 @@ module.exports = class CardsFormSchedule extends React.PureComponent {
     isShowEndDatePicker: false
   }));
 
-  onHideStartDatePicker = () => {
-    this.setState({isShowStartDatePicker: false});
-  };
-
   toggleEndDatePicker = () => this.setState(prevState => ({
     isShowEndDatePicker: !prevState.isShowEndDatePicker,
     isShowStartDatePicker: false
   }));
 
-  onHideEndDatePicker = () => {
-    this.setState({isShowEndDatePicker: false});
-  };
+  onHideStartDatePicker = () => this.setState({isShowStartDatePicker: false});
+
+  onHideEndDatePicker = () => this.setState({isShowEndDatePicker: false});
 
    onClickAddTimePeriod = event => {
      const {values, setFieldValue} = this.props;
