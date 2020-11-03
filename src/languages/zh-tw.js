@@ -808,6 +808,7 @@ module.exports = {
       'Are you sure you want to delete system logs?': '您確定要刪除系統紀錄檔案嗎？',
       'Delete logs': '刪除',
       Download: '下載',
+
       // /system/information
       'Build Version': '開發版號',
       'S/N Code': 'S/N 碼',

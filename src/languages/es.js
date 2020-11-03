@@ -808,6 +808,7 @@ module.exports = {
       'Are you sure you want to delete system logs?': '¿Está seguro de que desea borrar el archivo de registro del sistema?',
       'Delete logs': 'Borrar',
       Download: 'descargar',
+
       // /system/information
       'Build Version': 'Build Version',
       'S/N Code': 'S/N Code',
