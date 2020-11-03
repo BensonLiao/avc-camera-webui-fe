@@ -31,27 +31,19 @@ module.exports = class EventsSearchForm extends React.PureComponent {
     isShowEndDatePicker: false
   };
 
-  toggleStartDatePicker = () => {
-    this.setState(prevState => ({
-      isShowStartDatePicker: !prevState.isShowStartDatePicker,
-      isShowEndDatePicker: false
-    }));
-  }
+  toggleStartDatePicker = () => this.setState(prevState => ({
+    isShowStartDatePicker: !prevState.isShowStartDatePicker,
+    isShowEndDatePicker: false
+  }));
 
-  toggleEndDatePicker = () => {
-    this.setState(prevState => ({
-      isShowEndDatePicker: !prevState.isShowEndDatePicker,
-      isShowStartDatePicker: false
-    }));
-  }
+  toggleEndDatePicker = () => this.setState(prevState => ({
+    isShowEndDatePicker: !prevState.isShowEndDatePicker,
+    isShowStartDatePicker: false
+  }));
 
-  onHideStartDatePicker = () => {
-    this.setState({isShowStartDatePicker: false});
-  }
+  onHideStartDatePicker = () => this.setState({isShowStartDatePicker: false});
 
-  onHideEndDatePicker = () => {
-    this.setState({isShowEndDatePicker: false});
-  }
+  onHideEndDatePicker = () => this.setState({isShowEndDatePicker: false});
 
   /**
    * Handler on user submit the search form.
