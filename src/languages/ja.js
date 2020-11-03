@@ -942,7 +942,7 @@ module.exports = {
       // 9047
       'Duplicate Key': 'アクティベーションに失敗しました。ライセンスキーが重複してます',
       // 9048
-      'Cannot Support Database Downgrade from 30,000 to 3000 People': 'アクティベーションに失敗しました。顔認証メンバー上限を30,000人から3,000人に下げることに対応していません'
+      'Cannot Support Database Downgrade from 30,000 to 3000 People': '顔認証メンバー上限を30,000人から3,000人に下げることに対応していません'
 
       // -- Page -- END --
     }
