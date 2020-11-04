@@ -77,7 +77,7 @@ module.exports = {
       'validation-stringContainsUpperCaseLatter': 'This field must contain at least one uppercase letter.',
       'validation-stringContainsNumber': 'This field must contain at least one number.',
       'validation-stringAbortSpecialCharacters': 'This field cannot contain these symbols: #, %, &, `, ", \\, <, >, and space.',
-      'validation-stringAcceptSpecialCharacters': 'This field must contain at least one symbol',
+      'validation-stringAcceptSpecialCharacters': 'This field must contain at least one symbol.',
       'validation-stringEnum': 'This field does not match any of the allowed values.',
       'validation-number': 'This field must be a number.',
       'validation-numberMin': 'This field must be greater than or equal to {expected}.',
