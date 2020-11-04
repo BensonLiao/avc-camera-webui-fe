@@ -131,9 +131,6 @@ module.exports = {
       // -- Page -- START --
 
       // /setup
-      'INITIAL PASSWORD SETUP': 'INITIAL PASSWORD SETUP',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space',
       Welcome: 'Welcome',
       'For a better experience,': 'For a better experience,',
       'Please click Continue to complete the initial setup!': 'Please click Continue to complete the initial setup!',
@@ -150,8 +147,8 @@ module.exports = {
       'Enter a name for this account': 'Enter a name for this account',
       Permission: 'Permission',
       Password: 'Password',
-      Birthday: 'Birthday',
-      'This is used for resetting password.': 'This is used for resetting password.',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space',
       Done: 'Done',
       // /setup/account / Constants / Permission
       'permission-0': 'Admin',

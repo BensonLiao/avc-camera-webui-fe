@@ -131,9 +131,6 @@ module.exports = {
       // -- Page -- START --
 
       // /setup
-      'INITIAL PASSWORD SETUP': '初始密碼設定',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
       Welcome: 'Bienvenido',
       'For a better experience,': 'Para que tengas una mejor experiencia',
       'Please click Continue to complete the initial setup!': 'presione continuar para iniciar la configuración inicial',
@@ -150,8 +147,8 @@ module.exports = {
       'Enter a name for this account': 'Ingrese el nombre de la cuenta',
       Permission: 'Permiso',
       Password: 'Contraseña',
-      Birthday: '生日',
-      'This is used for resetting password.': '生日將會用於重置密碼',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
       Done: 'terminado',
       // /setup/account / Constants / Permission
       'permission-0': 'administrador',

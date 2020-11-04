@@ -131,9 +131,6 @@ module.exports = {
       // -- Page -- START --
 
       // /setup
-      'INITIAL PASSWORD SETUP': '初始密碼設定',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Welcome: '歡迎',
       'For a better experience,': '為了使您有更好的體驗，',
       'Please click Continue to complete the initial setup!': '按繼續開始初始設定',
@@ -150,8 +147,8 @@ module.exports = {
       'Enter a name for this account': '輸入帳號名稱',
       Permission: '權限',
       Password: '密碼',
-      Birthday: '生日',
-      'This is used for resetting password.': '生日將會用於重置密碼',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Done: '完成',
       // /setup/account / Constants / Permission
       'permission-0': '管理者',
