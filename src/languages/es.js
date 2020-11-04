@@ -41,7 +41,7 @@ module.exports = {
       Analytics: 'Análisis de imagen',
       Network: 'red',
       System: 'sistema',
-      SDCard: 'Tarjeta de memoria',
+      'SD Card': 'Tarjeta de memoria',
 
       // Component / App Bar
       About: 'soporte',
@@ -110,7 +110,7 @@ module.exports = {
       // Component / CustomTooltip
       'Hide Password': 'Contraseña oculta',
       'Show Password': 'mostrar contraseña',
-      'Please Select a File First': 'Seleccione primero un archivo',
+      'Please select a file first.': 'Seleccione primero un archivo',
       // CustomTooltip / /notification/cards
       'Please enter start and end time.': 'Debe elegir la fecha y hora de inicio y finalización',
       'The maximum number of allowed schedules is 5.': 'Límite de cantidad alcanzado',
@@ -131,9 +131,6 @@ module.exports = {
       // -- Page -- START --
 
       // /setup
-      'INITIAL PASSWORD SETUP': '初始密碼設定',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
       Welcome: 'Bienvenido',
       'For a better experience,': 'Para que tengas una mejor experiencia',
       'Please click Continue to complete the initial setup!': 'presione continuar para iniciar la configuración inicial',
@@ -147,12 +144,12 @@ module.exports = {
       // /setup/account
       'Setup Account': 'número de cuenta',
       Account: 'número de cuenta',
-      'Please enter your account.': 'Por favor ingrese su nombre de cuenta',
+      'Enter a name for this account': 'Ingrese el nombre de la cuenta',
       Permission: 'Permiso',
       Password: 'Contraseña',
-      Birthday: '生日',
-      'This is used for resetting password.': '生日將會用於重置密碼',
-      'Enter your account': 'Por favor ingrese su número de cuenta',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
+      Done: 'terminado',
       // /setup/account / Constants / Permission
       'permission-0': 'administrador',
       'permission-1': 'invitado',
@@ -185,6 +182,7 @@ module.exports = {
       'ACCOUNT LOGIN': 'Cuenta de Ingreso',
       'Enter your username': 'Por favor ingrese su número de cuenta',
       'Password Reset': '重置密碼',
+      'Enter your password': 'Por favor ingrese su número de cuenta',
 
       // /login-error
       'Incorrect Password': 'Contraseña incorrecta',
@@ -214,12 +212,10 @@ module.exports = {
 
       // /reset-password-success
       'Reset password success.': '重設密碼成功',
-      Done: 'terminado',
 
       // /home
       'Device Name': 'Nombre del dispositivo',
       'Device Status': 'Estado del dispositivo',
-      'SD Card': 'Tarjeta de memoria',
       'Authentication Required': 'No esta activado',
       'Facial Recognition: ': 'Reconocimiento facial: ',
       'Age & Gender: ': 'Género y edad: ',
@@ -357,7 +353,7 @@ module.exports = {
       Color: 'color',
       Word: 'Word',
       Position: 'posición',
-      'Click the arrow on the preview window.': 'Haga clic en flecha para establecer la posición',
+      'Click the arrow on the live view screen.': 'Haga clic en flecha para establecer la posición',
       'Left Top': 'arriba a la izquierda',
       'Right Top': 'Superior derecha',
       'Bottom Left': 'Abajo a la izquierda',
@@ -415,6 +411,7 @@ module.exports = {
       'SMTP Logon Settings': 'Configuración de inicio de sesión del servidor SMTP',
       Edit: 'editar',
       'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': 'Algunos proveedores de correo de Internet pueden requerir contraseñas de aplicaciones para mejorar la seguridad, como las cuentas de correo electrónico de Google y Yahoo. Favor siga las instrucciones de su proveedor de correo electrónico para generar y utilizar una contraseña de aplicación.',
+      'Enter your account': 'Por favor ingrese su número de cuenta',
       Port: 'Puerto',
       Encryption: 'Cifrado',
       None: 'ninguno',
@@ -480,6 +477,9 @@ module.exports = {
       'Specify the subject': 'Ingrese Tema',
       'Add your message': 'Ingrese Texto',
       'Content Placement': 'Posición del texto',
+      'Face Recognition Event on [{{0}}]': 'Evento de reconocimiento facial [{{0}}]',
+      'Motion Detection Event on [{{0}}]': 'Evento de detección de movimiento [{{0}}]',
+      'Digital Input Event on [{{0}}]': 'Evento de entrada digital [{{0}}]',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -583,7 +583,6 @@ module.exports = {
       Username: 'Nombre',
       'New User': 'Nuevo Usuario',
       'Modify User': 'Editar cuenta',
-      'Enter a name for this account': 'Ingrese el nombre de la cuenta',
       'Enter a password': 'introducir la contraseña',
       'Enter a new password': 'Introduzca una nueva contraseña',
       'New Password': 'nueva contraseña',
@@ -655,7 +654,7 @@ module.exports = {
       // /analytic/motion-detection
       'Enable Motion Detection': 'Habilitar detección de movimiento',
       'Motion Detection': 'Detección de movimiento',
-      'Create detection zones on the preview window.': 'Agregue un área de activación en el panel de vista previa',
+      'Create detection zones on the live view screen.': 'Agregue un área de activación en el panel de vista previa',
       'To set a zone:': 'Añadir Área:',
       'To erase a zone:': 'Borrar Área',
       'Up to 4 detection zones can be set.': 'Hasta 4 áreas',
@@ -680,7 +679,6 @@ module.exports = {
       'face-recognition-key-threeThousand': 'Reconocimiento facial 3k',
 
       // /network/settings
-      Success: '成功',
       'Internet & Network Settings': 'Configuración de Internet y red',
       'IP Addressing': 'Red de área local',
       'Network Status': 'Estado de la red',
@@ -730,7 +728,7 @@ module.exports = {
       'The specified port is reserved by system or in use!': 'Este puerto está reservado o en uso para el sistema',
       'Redirection Success': 'redirección',
       // /network/https / Constants / Certificate
-      'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} Certificado autofirmado`,
+      'certificate-type-0': `${window.isNoBrand ? 'Fabricante' : 'AndroVideo'} Certificado autofirmado`,
       'certificate-type-1': '上傳您的憑證',
       'certificate-type-2': '在此裝置上產生憑證',
 
@@ -805,6 +803,7 @@ module.exports = {
       'Are you sure you want to delete system logs?': '¿Está seguro de que desea borrar el archivo de registro del sistema?',
       'Delete logs': 'Borrar',
       Download: 'descargar',
+
       // /system/information
       'Build Version': 'Build Version',
       'S/N Code': 'S/N Code',

@@ -41,7 +41,7 @@ module.exports = {
       Analytics: '映像分析',
       Network: 'ネットワーク',
       System: 'システム',
-      SDCard: 'SDカード',
+      'SD Card': 'SDカード',
 
       // Component / App Bar
       About: '情報',
@@ -110,7 +110,7 @@ module.exports = {
       // Component / CustomTooltip
       'Hide Password': 'パスワードを非表示する',
       'Show Password': 'パスワードを表示する',
-      'Please Select a File First': 'ファイルを選択してください',
+      'Please select a file first.': 'ファイルを選択してください',
       // CustomTooltip / /notification/cards
       'Please enter start and end time.': '開始および終了日および時間を選択してください',
       'The maximum number of allowed schedules is 5.': '最大スケジュール数は5です',
@@ -131,9 +131,6 @@ module.exports = {
       // -- Page -- START --
 
       // /setup
-      'INITIAL PASSWORD SETUP': '初始密碼設定',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` " \\ /< >とスペースを使用できません',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません',
       Welcome: 'ようこそ',
       'For a better experience,': 'よりいい使用体験のために、',
       'Please click Continue to complete the initial setup!': '[続行]をクリックして、初期設定を完了してください',
@@ -147,12 +144,12 @@ module.exports = {
       // /setup/account
       'Setup Account': 'アカウント初期設定',
       Account: 'アカウント',
-      'Please enter your account.': 'アカウント名を入力してください',
+      'Enter a name for this account': 'アカウント名を入力してください',
       Permission: '権限',
       Password: 'パスワード',
-      Birthday: '生日',
-      'This is used for resetting password.': 'この項目はパスワード再設定する際に使われます',
-      'Enter your account': 'アカウントを入力してください',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` " \\ /< >とスペースを使用できません',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません',
+      Done: '完了しました',
       // /setup/account / Constants / Permission
       'permission-0': '管理者',
       'permission-1': 'ゲスト',
@@ -185,6 +182,7 @@ module.exports = {
       'ACCOUNT LOGIN': 'アカウントログイン',
       'Enter your username': 'アカウントを入力してください',
       'Password Reset': 'パスワードの再設定',
+      'Enter your password': 'パスワードを入力してください',
 
       // /login-error
       'Incorrect Password': 'パスワードが間違っています',
@@ -214,12 +212,10 @@ module.exports = {
 
       // /reset-password-success
       'Reset password success.': 'パスワード再設定に成功しました',
-      Done: '完了しました',
 
       // /home
       'Device Name': 'デバイス名',
       'Device Status': 'ステータス',
-      'SD Card': 'SDカード',
       'Authentication Required': '無効',
       'Facial Recognition: ': '顔認証 : ',
       'Age & Gender: ': '性別年齢推定 : ',
@@ -357,7 +353,7 @@ module.exports = {
       Color: 'カラー',
       Word: '文字',
       Position: '表示位置',
-      'Click the arrow on the preview window.': 'プレビュー画面中の青印をクリックして下さい',
+      'Click the arrow on the live view screen.': 'プレビュー画面中の青印をクリックして下さい',
       'Left Top': '左上',
       'Right Top': '右上',
       'Bottom Left': '左下',
@@ -415,6 +411,7 @@ module.exports = {
       'SMTP Logon Settings': 'SMTPサーバーログイン設定',
       Edit: '編集',
       'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': 'ウェブメールプロバイダーのセキュリティー性向上対策により、アプリケーションのパスワード（例：GoogleまたはYahooのメールアカウントとパスワード）が要求される場合があります。プロバイダーの指示に従ってアプリケーションのパスワードの生成と使用を行ってください。',
+      'Enter your account': 'アカウントを入力してください',
       Port: 'ポート',
       Encryption: '暗号化方式',
       None: 'なし',
@@ -441,7 +438,7 @@ module.exports = {
       'Output 1': 'デジタル出力 1',
       'Output 2': 'デジタル出力 2',
       'Output {{0}}': 'デジタル出力 {{0}}',
-      'Enable Digital Output {{0}}': '開啟數位輸出 {{0}}',
+      'Enable Digital Output {{0}}': 'デジタル出力 {{0}} を有効にする',
       Type: '出力タイプ',
       Normal: '一般',
       Buffer: 'バッファ',
@@ -480,6 +477,9 @@ module.exports = {
       'Specify the subject': '件名を指定してください',
       'Add your message': 'メッセージを追加する',
       'Content Placement': '内容の位置',
+      'Face Recognition Event on [{{0}}]': '顔認証イベント [{{0}}]',
+      'Motion Detection Event on [{{0}}]': '動体検知イベント [{{0}}]',
+      'Digital Input Event on [{{0}}]': 'デジタル入力イベント [{{0}}]',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -583,7 +583,6 @@ module.exports = {
       Username: 'ユーザー名',
       'New User': '新規ユーザー',
       'Modify User': 'アカウントを編集する',
-      'Enter a name for this account': 'アカウント名を入力してください',
       'Enter a password': 'パスワードを入力してください',
       'Enter a new password': '新しいパスワードを入力してください',
       'New Password': '新しいパスワード',
@@ -655,7 +654,7 @@ module.exports = {
       // /analytic/motion-detection
       'Enable Motion Detection': '動作検知を有効します',
       'Motion Detection': '動作検知',
-      'Create detection zones on the preview window.': 'プレビューウィンドに検知エリアを追加してください',
+      'Create detection zones on the live view screen.': 'プレビューウィンドに検知エリアを追加してください',
       'To set a zone:': 'エリアを追加する',
       'To erase a zone:': 'エリアを削除する',
       'Up to 4 detection zones can be set.': '検知エリアは最大四ヶ所まで設定可能です',
@@ -680,7 +679,6 @@ module.exports = {
       'face-recognition-key-threeThousand': '顔認証 3k',
 
       // /network/settings
-      Success: '成功',
       'Internet & Network Settings': 'インターネット/ネットワーク設定',
       'IP Addressing': 'IP設定',
       'Network Status': 'ネットワークステータス',
@@ -730,7 +728,7 @@ module.exports = {
       'The specified port is reserved by system or in use!': '本ポートはシステム予備用または使用されています',
       'Redirection Success': '再ダイレクト',
       // /network/https / Constants / Certificate
-      'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} 自己署名証明書`,
+      'certificate-type-0': `${window.isNoBrand ? 'メーカー' : 'AndroVideo'} 自己署名証明書`,
       'certificate-type-1': '署名証明書をアップロードする',
       'certificate-type-2': '本デバイスの署名証明書を生成する',
 
@@ -805,6 +803,7 @@ module.exports = {
       'Are you sure you want to delete system logs?': 'システムログファイルを削除しますか？',
       'Delete logs': '削除',
       Download: 'ダウンロード',
+
       // /system/information
       'Build Version': '開發版號',
       'S/N Code': 'S/N 碼',
@@ -939,7 +938,7 @@ module.exports = {
       // 9047
       'Duplicate Key': 'アクティベーションに失敗しました。ライセンスキーが重複してます',
       // 9048
-      'Cannot Support Database Downgrade from 30,000 to 3000 People': 'アクティベーションに失敗しました。顔認証メンバー上限を30,000人から3,000人に下げることに対応していません'
+      'Cannot Support Database Downgrade from 30,000 to 3000 People': '顔認証メンバー上限を30,000人から3,000人に下げることに対応していません'
 
       // -- Page -- END --
     }

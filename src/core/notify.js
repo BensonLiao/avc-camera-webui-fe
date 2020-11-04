@@ -20,7 +20,7 @@ module.exports = {
         <div className="d-flex bg-white rounded p-3">
           <div><i className="fas fa-check-circle fa-lg text-success"/></div>
           <div className="d-flex flex-column ml-3">
-            <div><strong>{i18n.t(title || 'Success')}</strong></div>
+            <div><strong>{i18n.t(title || 'Setting Success')}</strong></div>
             <div className="text-muted">{i18n.t(message || 'Server Process Success')}</div>
           </div>
         </div>

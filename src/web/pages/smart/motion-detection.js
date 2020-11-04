@@ -177,7 +177,7 @@ module.exports = class MotionDetection extends Base {
                 </div>
               </div>
               <div className="form-group mb-3">
-                <span className="form-text text-primary">{i18n.t('Create detection zones on the preview window.')}</span>
+                <span className="form-text text-primary">{i18n.t('Create detection zones on the live view screen.')}</span>
               </div>
 
               <hr/>

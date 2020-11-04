@@ -74,9 +74,9 @@ module.exports = class CardsForm extends React.PureComponent {
     this.cardFormTitleRef = React.createRef();
     const {modelName} = props;
     this.defaultSubject = {
-      faceRecognition: `${i18n.t('Face Recognition Event [{{0}}]', {0: modelName})}`,
-      motionDetection: `${i18n.t('Motion Detection Event [{{0}}]', {0: modelName})}`,
-      digitalInput: `${i18n.t('Digital Input Event [{{0}}]', {0: modelName})}`
+      faceRecognition: `${i18n.t('Face Recognition Event on [{{0}}]', {0: modelName})}`,
+      motionDetection: `${i18n.t('Motion Detection Event on [{{0}}]', {0: modelName})}`,
+      digitalInput: `${i18n.t('Digital Input Event on [{{0}}]', {0: modelName})}`
     };
   }
 
@@ -128,7 +128,7 @@ module.exports = class CardsForm extends React.PureComponent {
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
-      senderSubject: `${i18n.t('Face Recognition Event [{{0}}]', {0: this.props.modelName})}`,
+      senderSubject: `${i18n.t('Face Recognition Event on [{{0}}]', {0: this.props.modelName})}`,
       senderContent: '',
       emailContentPosition: 0,
       isEnableFaceRecognition: false,

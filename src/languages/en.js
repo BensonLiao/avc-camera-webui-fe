@@ -41,7 +41,7 @@ module.exports = {
       Analytics: 'Analytics',
       Network: 'Network',
       System: 'System',
-      SDCard: 'SDCard',
+      'SD Card': 'SD Card',
 
       // Component / App Bar
       About: 'About',
@@ -68,22 +68,22 @@ module.exports = {
       'validation-required': 'This field is required.',
       'validation-string': 'This field must be a string.',
       'validation-stringEmpty': 'This field is required.',
-      'validation-stringMin': 'This field length must be greater than or equal to {expected} characters long.',
-      'validation-stringMax': 'This field length must be less than or equal to {expected} characters long.',
-      'validation-stringLength': 'This field length must be {expected} characters long.',
+      'validation-stringMin': 'This field must be at least {expected} characters long.',
+      'validation-stringMax': 'This field must be at most {expected} characters long.',
+      'validation-stringLength': 'This field must be {expected} characters long.',
       'validation-stringPattern': 'This field contains invalid characters.',
       'validation-stringContains': 'This field must contain the {expected} text.',
-      'validation-stringContainsLowerCaseLatter': 'This field must contain the lower case letter.',
-      'validation-stringContainsUpperCaseLatter': 'This field must contain the upper case letter.',
-      'validation-stringContainsNumber': 'This field must contain the number.',
-      'validation-stringAbortSpecialCharacters': 'This field cannot contain these symbols (#, %, &, `, ", \\, <, >, and space).',
-      'validation-stringAcceptSpecialCharacters': 'This field must contain at least one symbol',
+      'validation-stringContainsLowerCaseLatter': 'This field must contain at least one lowercase letter.',
+      'validation-stringContainsUpperCaseLatter': 'This field must contain at least one uppercase letter.',
+      'validation-stringContainsNumber': 'This field must contain at least one number.',
+      'validation-stringAbortSpecialCharacters': 'This field cannot contain these symbols: #, %, &, `, ", \\, <, >, and space.',
+      'validation-stringAcceptSpecialCharacters': 'This field must contain at least one symbol.',
       'validation-stringEnum': 'This field does not match any of the allowed values.',
       'validation-number': 'This field must be a number.',
       'validation-numberMin': 'This field must be greater than or equal to {expected}.',
       'validation-numberMax': 'This field must be less than or equal to {expected}.',
-      'validation-numberEqual': 'This field must be equal with {expected}.',
-      'validation-numberNotEqual': 'This field can\'t be equal with {expected}.',
+      'validation-numberEqual': 'This field must be equal to {expected}.',
+      'validation-numberNotEqual': 'This field can\'t be equal to {expected}.',
       'validation-numberInteger': 'This field must be an integer.',
       'validation-numberPositive': 'This field must be a positive number.',
       'validation-numberNegative': 'This field must be a negative number.',
@@ -96,11 +96,11 @@ module.exports = {
       'validation-arrayEnum': 'This field value {expected} does not match any of the allowed values.',
       'validation-boolean': 'This field must be a boolean.',
       'validation-function': 'This field must be a function.',
-      'validation-date': 'This field must be a Date.',
+      'validation-date': 'This field must be a date.',
       'validation-dateMin': 'This field must be greater than or equal to {expected}.',
       'validation-dateMax': 'This field must be less than or equal to {expected}.',
-      'validation-forbidden': 'This field is forbidden.',
-      'validation-email': 'This field must be a valid e-mail.',
+      'validation-forbidden': 'This field is inactive.',
+      'validation-email': 'This field must be a valid email.',
       'validation-url': 'This field must be a valid URL.',
       'validation-birthday': 'This field must be a valid birthday.',
       'validation-countryCode': 'This field must be a valid country code.',
@@ -110,7 +110,7 @@ module.exports = {
       // Component / CustomTooltip
       'Hide Password': 'Hide Password',
       'Show Password': 'Show Password',
-      'Please Select a File First': 'Please Select a File First',
+      'Please select a file first.': 'Please select a file first.',
       // CustomTooltip / /notification/cards
       'Please enter start and end time.': 'Please enter start and end time.',
       'The maximum number of allowed schedules is 5.': 'The maximum number of allowed schedules is 5.',
@@ -131,9 +131,6 @@ module.exports = {
       // -- Page -- START --
 
       // /setup
-      'INITIAL PASSWORD SETUP': 'INITIAL PASSWORD SETUP',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space',
       Welcome: 'Welcome',
       'For a better experience,': 'For a better experience,',
       'Please click Continue to complete the initial setup!': 'Please click Continue to complete the initial setup!',
@@ -147,12 +144,12 @@ module.exports = {
       // /setup/account
       'Setup Account': 'Setup Account',
       Account: 'Account',
-      'Please enter your account.': 'Please enter your account.',
+      'Enter a name for this account': 'Enter a name for this account',
       Permission: 'Permission',
       Password: 'Password',
-      Birthday: 'Birthday',
-      'This is used for resetting password.': 'This is used for resetting password.',
-      'Enter your account': 'Enter your account',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space',
+      Done: 'Done',
       // /setup/account / Constants / Permission
       'permission-0': 'Admin',
       'permission-1': 'Viewer',
@@ -185,6 +182,7 @@ module.exports = {
       'ACCOUNT LOGIN': 'ACCOUNT LOGIN',
       'Enter your username': 'Enter your username',
       'Password Reset': 'Password Reset',
+      'Enter your password': 'Enter your password',
 
       // /login-error
       'Incorrect Password': 'Incorrect Password',
@@ -214,12 +212,10 @@ module.exports = {
 
       // /reset-password-success
       'Reset password success.': 'Reset password success.',
-      Done: 'Done',
 
       // /home
       'Device Name': 'Device Name',
       'Device Status': 'Status',
-      'SD Card': 'SD Card',
       'Authentication Required': 'Authentication Required',
       'Facial Recognition: ': 'Facial Recognition: ',
       'Age & Gender: ': 'Age & Gender: ',
@@ -357,7 +353,7 @@ module.exports = {
       Color: 'Color',
       Word: 'Word', // deprecated
       Position: 'Position',
-      'Click the arrow on the preview window.': 'Click the arrow on the preview window.',
+      'Click the arrow on the live view screen.': 'Click the arrow on the live view screen.',
       'Left Top': 'Left Top',
       'Right Top': 'Right Top',
       'Bottom Left': 'Bottom Left',
@@ -415,6 +411,7 @@ module.exports = {
       'SMTP Logon Settings': 'SMTP Logon Settings',
       Edit: 'Edit',
       'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': 'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.',
+      'Enter your account': 'Enter your account',
       Port: 'Port',
       Encryption: 'Encryption',
       None: 'None',
@@ -480,6 +477,9 @@ module.exports = {
       'Specify the subject': 'Specify the subject',
       'Add your message': 'Add your message',
       'Content Placement': 'Content Placement',
+      'Face Recognition Event on [{{0}}]': 'Face Recognition Event on [{{0}}]',
+      'Motion Detection Event on [{{0}}]': 'Motion Detection Event on [{{0}}]',
+      'Digital Input Event on [{{0}}]': 'Digital Input Event on [{{0}}]',
       // /notification/card (AVN)
       'Video Management System': 'Video Management System',
       // /notification/card / Constants / VMS (AVN)
@@ -583,7 +583,6 @@ module.exports = {
       Username: 'Username',
       'New User': 'New User',
       'Modify User': 'Modify User',
-      'Enter a name for this account': 'Enter a name for this account',
       'Enter a password': 'Enter a password',
       'Enter a new password': 'Enter a new password',
       'New Password': 'New Password',
@@ -623,7 +622,7 @@ module.exports = {
       'Updating Member': 'Updating Member',
       'Added Photo to {{0}} Successfully!': 'Added Photo to {{0}} Successfully!',
       // /users/events / Constants / Status
-      'enroll-status-0': 'Fake',
+      'enroll-status-0': 'Image Spoof',
       'enroll-status-1': 'Unknown',
       'enroll-status-2': 'Registered',
       // /users/events / Constants / Confidence
@@ -655,7 +654,7 @@ module.exports = {
       // /analytic/motion-detection
       'Enable Motion Detection': 'Enable Motion Detection',
       'Motion Detection': 'Motion Detection',
-      'Create detection zones on the preview window.': 'Create detection zones on the preview window.',
+      'Create detection zones on the live view screen.': 'Create detection zones on the live view screen.',
       'To set a zone:': 'To set a zone:',
       'To erase a zone:': 'To erase a zone:',
       'Up to 4 detection zones can be set.': 'Up to 4 detection zones can be set.',
@@ -680,7 +679,6 @@ module.exports = {
       'face-recognition-key-threeThousand': 'Face Recognition 3k',
 
       // /network/settings
-      Success: 'Success',
       'Internet & Network Settings': 'Internet & Network Settings',
       'IP Addressing': 'IP Addressing',
       'Network Status': 'Network Status',
@@ -730,7 +728,7 @@ module.exports = {
       'The specified port is reserved by system or in use!': 'The specified port is reserved by system or in use!',
       'Redirection Success': 'Redirection Success',
       // /network/https / Constants / Certificate
-      'certificate-type-0': 'AV Costar Self-signed',
+      'certificate-type-0': `${window.isNoBrand ? 'Manufacturer' : 'AndroVideo'} Self-signed`,
       'certificate-type-1': 'Upload Certificate',
       'certificate-type-2': 'Generate Certificate on This Device',
 
@@ -805,6 +803,7 @@ module.exports = {
       'Are you sure you want to delete system logs?': 'Are you sure you want to delete system logs?',
       'Delete logs': 'Delete logs',
       Download: 'Download',
+
       // /system/information
       'Build Version': 'Build Version',
       'S/N Code': 'S/N Code',

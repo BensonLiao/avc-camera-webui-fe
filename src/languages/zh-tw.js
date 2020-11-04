@@ -41,7 +41,7 @@ module.exports = {
       Analytics: '影像分析',
       Network: '網路',
       System: '系統',
-      SDCard: 'SD卡',
+      'SD Card': '記憶卡',
 
       // Component / App Bar
       About: '關於',
@@ -110,7 +110,7 @@ module.exports = {
       // Component / CustomTooltip
       'Hide Password': '隱藏密碼',
       'Show Password': '顯示密碼',
-      'Please Select a File First': '請先選擇一個檔案',
+      'Please select a file first.': '請先選擇一個檔案',
       // CustomTooltip / /notification/cards
       'Please enter start and end time.': '必須選擇起始和終止日期時間',
       'The maximum number of allowed schedules is 5.': '已達數量限制',
@@ -131,9 +131,6 @@ module.exports = {
       // -- Page -- START --
 
       // /setup
-      'INITIAL PASSWORD SETUP': '初始密碼設定',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Welcome: '歡迎',
       'For a better experience,': '為了使您有更好的體驗，',
       'Please click Continue to complete the initial setup!': '按繼續開始初始設定',
@@ -147,12 +144,12 @@ module.exports = {
       // /setup/account
       'Setup Account': '初始帳號設定',
       Account: '帳號',
-      'Please enter your account.': '請輸入您的帳號名稱',
+      'Enter a name for this account': '輸入帳號名稱',
       Permission: '權限',
       Password: '密碼',
-      Birthday: '生日',
-      'This is used for resetting password.': '生日將會用於重置密碼',
-      'Enter your account': '請輸入您的帳號',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
+      Done: '完成',
       // /setup/account / Constants / Permission
       'permission-0': '管理者',
       'permission-1': '來賓',
@@ -185,6 +182,7 @@ module.exports = {
       'ACCOUNT LOGIN': '帳號登入',
       'Enter your username': '請輸入您的帳號',
       'Password Reset': '重置密碼',
+      'Enter your password': '請輸入您的密碼',
 
       // /login-error
       'Incorrect Password': '密碼輸入錯誤',
@@ -214,12 +212,10 @@ module.exports = {
 
       // /reset-password-success
       'Reset password success.': '重設密碼成功',
-      Done: '完成',
 
       // /home
       'Device Name': '裝置名稱',
       'Device Status': '裝置狀態',
-      'SD Card': '記憶卡',
       'Authentication Required': '未啟用',
       'Facial Recognition: ': '臉部辨識：',
       'Age & Gender: ': '性別年齡：',
@@ -357,7 +353,7 @@ module.exports = {
       Color: '顏色',
       Word: '文字',
       Position: '位置',
-      'Click the arrow on the preview window.': '請在預覽窗格中點選箭頭',
+      'Click the arrow on the live view screen.': '請在預覽窗格中點選箭頭',
       'Left Top': '左上',
       'Right Top': '右上',
       'Bottom Left': '左下',
@@ -415,6 +411,7 @@ module.exports = {
       'SMTP Logon Settings': '外送伺服器登入設定',
       Edit: '編輯',
       'Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.': '有些網路郵件供應商為了提高安全性， 可能會需要應用程式密碼，例如Google和Yahoo奇摩電子信箱帳號。請依照您郵件供應商的指示產生並使用應用程式密碼。',
+      'Enter your account': '請輸入您的帳號',
       Port: '連接埠',
       Encryption: '加密方式',
       None: '無',
@@ -480,6 +477,9 @@ module.exports = {
       'Specify the subject': '輸入主旨',
       'Add your message': '輸入內文',
       'Content Placement': '內文位置',
+      'Face Recognition Event on [{{0}}]': '臉部辨識事件 [{{0}}]',
+      'Motion Detection Event on [{{0}}]': '移動偵測事件 [{{0}}]',
+      'Digital Input Event on [{{0}}]': '數位輸入事件 [{{0}}]',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -583,7 +583,6 @@ module.exports = {
       Username: '名稱',
       'New User': '創建使用者',
       'Modify User': '編輯帳號',
-      'Enter a name for this account': '輸入帳號名稱',
       'Enter a password': '輸入密碼',
       'Enter a new password': '輸入新密碼',
       'New Password': '新密碼',
@@ -655,7 +654,7 @@ module.exports = {
       // /analytic/motion-detection
       'Enable Motion Detection': '開啟移動偵測',
       'Motion Detection': '移動偵測',
-      'Create detection zones on the preview window.': '請在預覽窗格新增觸發區域',
+      'Create detection zones on the live view screen.': '請在預覽窗格新增觸發區域',
       'To set a zone:': '新增區域',
       'To erase a zone:': '刪除區域',
       'Up to 4 detection zones can be set.': '最多4個區域',
@@ -680,7 +679,6 @@ module.exports = {
       'face-recognition-key-threeThousand': '臉部辨識 3k',
 
       // /network/settings
-      Success: '成功',
       'Internet & Network Settings': '網路',
       'IP Addressing': 'LAN 組態',
       'Network Status': '網路狀態',
@@ -805,6 +803,7 @@ module.exports = {
       'Are you sure you want to delete system logs?': '您確定要刪除系統紀錄檔案嗎？',
       'Delete logs': '刪除',
       Download: '下載',
+
       // /system/information
       'Build Version': '開發版號',
       'S/N Code': 'S/N 碼',
