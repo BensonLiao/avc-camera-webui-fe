@@ -73,7 +73,7 @@ module.exports = {
       'validation-stringLength': 'This field must be {expected} characters long.',
       'validation-stringPattern': 'This field contains invalid characters.',
       'validation-stringContains': 'This field must contain the {expected} text.',
-      'validation-stringContainsLowerCaseLatter': 'This field must contain at least one lowercase letter',
+      'validation-stringContainsLowerCaseLatter': 'This field must contain at least one lowercase letter.',
       'validation-stringContainsUpperCaseLatter': 'This field must contain at least one uppercase letter.',
       'validation-stringContainsNumber': 'This field must contain at least one number.',
       'validation-stringAbortSpecialCharacters': 'This field cannot contain these symbols: #, %, &, `, ", \\, <, >, and space.',
