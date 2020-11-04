@@ -41,7 +41,7 @@ module.exports = {
       Analytics: '映像分析',
       Network: 'ネットワーク',
       System: 'システム',
-      SDCard: 'SDカード',
+      'SD Card': 'SDカード',
 
       // Component / App Bar
       About: '情報',
@@ -220,7 +220,6 @@ module.exports = {
       // /home
       'Device Name': 'デバイス名',
       'Device Status': 'ステータス',
-      'SD Card': 'SDカード',
       'Authentication Required': '無効',
       'Facial Recognition: ': '顔認証 : ',
       'Age & Gender: ': '性別年齢推定 : ',

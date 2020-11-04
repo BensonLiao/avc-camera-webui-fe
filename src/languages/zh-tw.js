@@ -41,7 +41,7 @@ module.exports = {
       Analytics: '影像分析',
       Network: '網路',
       System: '系統',
-      SDCard: 'SD卡',
+      'SD Card': '記憶卡',
 
       // Component / App Bar
       About: '關於',
@@ -220,7 +220,6 @@ module.exports = {
       // /home
       'Device Name': '裝置名稱',
       'Device Status': '裝置狀態',
-      'SD Card': '記憶卡',
       'Authentication Required': '未啟用',
       'Facial Recognition: ': '臉部辨識：',
       'Age & Gender: ': '性別年齡：',

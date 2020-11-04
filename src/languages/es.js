@@ -41,7 +41,7 @@ module.exports = {
       Analytics: 'Análisis de imagen',
       Network: 'red',
       System: 'sistema',
-      SDCard: 'Tarjeta de memoria',
+      'SD Card': 'Tarjeta de memoria',
 
       // Component / App Bar
       About: 'soporte',
@@ -220,7 +220,6 @@ module.exports = {
       // /home
       'Device Name': 'Nombre del dispositivo',
       'Device Status': 'Estado del dispositivo',
-      'SD Card': 'Tarjeta de memoria',
       'Authentication Required': 'No esta activado',
       'Facial Recognition: ': 'Reconocimiento facial: ',
       'Age & Gender: ': 'Género y edad: ',

@@ -41,7 +41,7 @@ module.exports = {
       Analytics: 'Analytics',
       Network: 'Network',
       System: 'System',
-      SDCard: 'SDCard',
+      'SD Card': 'SD Card',
 
       // Component / App Bar
       About: 'About',
@@ -220,7 +220,6 @@ module.exports = {
       // /home
       'Device Name': 'Device Name',
       'Device Status': 'Status',
-      'SD Card': 'SD Card',
       'Authentication Required': 'Authentication Required',
       'Facial Recognition: ': 'Facial Recognition: ',
       'Age & Gender: ': 'Age & Gender: ',
