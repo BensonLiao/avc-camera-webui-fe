@@ -110,7 +110,7 @@ module.exports = {
       // Component / CustomTooltip
       'Hide Password': '隱藏密碼',
       'Show Password': '顯示密碼',
-      'Please Select a File First': '請先選擇一個檔案',
+      'Please select a file first.': '請先選擇一個檔案',
       // CustomTooltip / /notification/cards
       'Please enter start and end time.': '必須選擇起始和終止日期時間',
       'The maximum number of allowed schedules is 5.': '已達數量限制',

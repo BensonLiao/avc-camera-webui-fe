@@ -255,7 +255,7 @@ module.exports = class Upgrade extends Base {
             }
           </div>
         </div>
-        <CustomTooltip show={!file} title={i18n.t('Please Select a File First')}>
+        <CustomTooltip show={!file} title={i18n.t('Please select a file first.')}>
           <div>
             <button
               disabled={(isShowApiProcessModal || $isApiProcessing || !file) && !isRunTest}

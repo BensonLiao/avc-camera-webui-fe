@@ -110,7 +110,7 @@ module.exports = {
       // Component / CustomTooltip
       'Hide Password': 'パスワードを非表示する',
       'Show Password': 'パスワードを表示する',
-      'Please Select a File First': 'ファイルを選択してください',
+      'Please select a file first.': 'ファイルを選択してください',
       // CustomTooltip / /notification/cards
       'Please enter start and end time.': '開始および終了日および時間を選択してください',
       'The maximum number of allowed schedules is 5.': '最大スケジュール数は5です',

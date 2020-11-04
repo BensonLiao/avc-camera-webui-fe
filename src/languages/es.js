@@ -110,7 +110,7 @@ module.exports = {
       // Component / CustomTooltip
       'Hide Password': 'Contraseña oculta',
       'Show Password': 'mostrar contraseña',
-      'Please Select a File First': 'Seleccione primero un archivo',
+      'Please select a file first.': 'Seleccione primero un archivo',
       // CustomTooltip / /notification/cards
       'Please enter start and end time.': 'Debe elegir la fecha y hora de inicio y finalización',
       'The maximum number of allowed schedules is 5.': 'Límite de cantidad alcanzado',
