@@ -679,7 +679,6 @@ module.exports = {
       'face-recognition-key-threeThousand': '顔認証 3k',
 
       // /network/settings
-      Success: '成功',
       'Internet & Network Settings': 'インターネット/ネットワーク設定',
       'IP Addressing': 'IP設定',
       'Network Status': 'ネットワークステータス',

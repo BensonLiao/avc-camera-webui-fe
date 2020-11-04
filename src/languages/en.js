@@ -679,7 +679,6 @@ module.exports = {
       'face-recognition-key-threeThousand': 'Face Recognition 3k',
 
       // /network/settings
-      Success: 'Success',
       'Internet & Network Settings': 'Internet & Network Settings',
       'IP Addressing': 'IP Addressing',
       'Network Status': 'Network Status',
