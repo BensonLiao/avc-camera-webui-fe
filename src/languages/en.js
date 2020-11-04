@@ -734,7 +734,7 @@ module.exports = {
       'The specified port is reserved by system or in use!': 'The specified port is reserved by system or in use!',
       'Redirection Success': 'Redirection Success',
       // /network/https / Constants / Certificate
-      'certificate-type-0': 'AV Costar Self-signed',
+      'certificate-type-0': `${window.isNoBrand ? 'Manufacturer' : 'AndroVideo'} Self-signed`,
       'certificate-type-1': 'Upload Certificate',
       'certificate-type-2': 'Generate Certificate on This Device',
 

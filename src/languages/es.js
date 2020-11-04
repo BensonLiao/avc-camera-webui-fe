@@ -734,7 +734,7 @@ module.exports = {
       'The specified port is reserved by system or in use!': 'Este puerto está reservado o en uso para el sistema',
       'Redirection Success': 'redirección',
       // /network/https / Constants / Certificate
-      'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} Certificado autofirmado`,
+      'certificate-type-0': `${window.isNoBrand ? 'Fabricante' : 'AndroVideo'} Certificado autofirmado`,
       'certificate-type-1': '上傳您的憑證',
       'certificate-type-2': '在此裝置上產生憑證',
 

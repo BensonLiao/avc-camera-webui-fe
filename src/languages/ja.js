@@ -734,7 +734,7 @@ module.exports = {
       'The specified port is reserved by system or in use!': '本ポートはシステム予備用または使用されています',
       'Redirection Success': '再ダイレクト',
       // /network/https / Constants / Certificate
-      'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} 自己署名証明書`,
+      'certificate-type-0': `${window.isNoBrand ? 'メーカー' : 'AndroVideo'} 自己署名証明書`,
       'certificate-type-1': '署名証明書をアップロードする',
       'certificate-type-2': '本デバイスの署名証明書を生成する',
 
