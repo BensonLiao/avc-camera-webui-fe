@@ -153,6 +153,7 @@ module.exports = {
       Birthday: 'Birthday',
       'This is used for resetting password.': 'This is used for resetting password.',
       'Enter your account': 'Enter your account',
+      Done: 'Done',
       // /setup/account / Constants / Permission
       'permission-0': 'Admin',
       'permission-1': 'Viewer',
@@ -214,7 +215,6 @@ module.exports = {
 
       // /reset-password-success
       'Reset password success.': 'Reset password success.',
-      Done: 'Done',
 
       // /home
       'Device Name': 'Device Name',

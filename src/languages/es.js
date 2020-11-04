@@ -153,6 +153,7 @@ module.exports = {
       Birthday: '生日',
       'This is used for resetting password.': '生日將會用於重置密碼',
       'Enter your account': 'Por favor ingrese su número de cuenta',
+      Done: 'terminado',
       // /setup/account / Constants / Permission
       'permission-0': 'administrador',
       'permission-1': 'invitado',
@@ -214,7 +215,6 @@ module.exports = {
 
       // /reset-password-success
       'Reset password success.': '重設密碼成功',
-      Done: 'terminado',
 
       // /home
       'Device Name': 'Nombre del dispositivo',

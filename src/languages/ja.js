@@ -153,6 +153,7 @@ module.exports = {
       Birthday: '生日',
       'This is used for resetting password.': 'この項目はパスワード再設定する際に使われます',
       'Enter your account': 'アカウントを入力してください',
+      Done: '完了しました',
       // /setup/account / Constants / Permission
       'permission-0': '管理者',
       'permission-1': 'ゲスト',
@@ -214,7 +215,6 @@ module.exports = {
 
       // /reset-password-success
       'Reset password success.': 'パスワード再設定に成功しました',
-      Done: '完了しました',
 
       // /home
       'Device Name': 'デバイス名',
