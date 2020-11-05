@@ -599,7 +599,7 @@ module.exports = {
       Time: '時間',
       Capture: 'キャプチャー',
       Confidence: '相似度',
-      'Can\'t find any data.': '一致するデータが見つかりません再検索して下さい',
+      'Couldn\'t find any data.': '一致するデータが見つかりません再検索して下さい',
       Filters: 'フィルター条件',
       Clear: 'クリア',
       'Start Date': '日付',
@@ -619,7 +619,7 @@ module.exports = {
       'Verifying Photo': '写真検証中',
       'Invalid Photo': '無効な写真',
       'Updating Member': 'メンバー更新',
-      'Added Photo to {{0}} Successfully!': '写真が {{0}} に追加されました',
+      'Photo Has Been Added to {{0}}': '写真が {{0}} に追加されました',
       // /users/events / Constants / Status
       'enroll-status-0': 'なりすまし防止',
       'enroll-status-1': '未登録者',

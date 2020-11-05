@@ -290,7 +290,7 @@ module.exports = {
       'refresh-rate-2': '60Hz',
 
       // /media
-      'Video Settings': 'imagen',
+      'Video Settings': 'Video',
       Streams: 'Stream',
       OSD: 'Mapa de texto',
       'Privacy Mask': 'Máscara de privacidad',
@@ -599,7 +599,7 @@ module.exports = {
       Time: 'hora',
       Capture: 'Captura',
       Confidence: 'Confidence',
-      'Can\'t find any data.': 'Verifique que no haya datos coincidentes y busque nuevamente.,',
+      'Couldn\'t find any data.': 'Verifique que no haya datos coincidentes y busque nuevamente.,',
       Filters: 'Filtros',
       Clear: 'Claridad',
       'Start Date': 'fecha',
@@ -619,7 +619,7 @@ module.exports = {
       'Verifying Photo': 'Verificación de fotos',
       'Invalid Photo': 'Foto inválida',
       'Updating Member': 'Actualización de Usuario',
-      'Added Photo to {{0}} Successfully!': '¡Se agregaron fotos a {{0}} correctamente!',
+      'Photo Has Been Added to {{0}}': '¡Se agregaron fotos a {{0}} correctamente!',
       // /users/events / Constants / Status
       'enroll-status-0': 'Camuflaje de imagen',
       'enroll-status-1': 'desconocido',

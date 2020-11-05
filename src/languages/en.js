@@ -599,7 +599,7 @@ module.exports = {
       Time: 'Time',
       Capture: 'Capture',
       Confidence: 'Confidence',
-      'Can\'t find any data.': 'Can\'t find any data.',
+      'Couldn\'t find any data.': 'Couldn\'t find any data.',
       Filters: 'Filters',
       Clear: 'Clear',
       'Start Date': 'Date',
@@ -619,7 +619,7 @@ module.exports = {
       'Verifying Photo': 'Verifying Photo',
       'Invalid Photo': 'Invalid Photo',
       'Updating Member': 'Updating Member',
-      'Added Photo to {{0}} Successfully!': 'Added Photo to {{0}} Successfully!',
+      'Photo Has Been Added to {{0}}': 'Photo Has Been Added to {{0}}',
       // /users/events / Constants / Status
       'enroll-status-0': 'Image Spoof',
       'enroll-status-1': 'Unknown',

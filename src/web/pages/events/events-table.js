@@ -121,7 +121,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
             !events.items.length && (
               <tr>
                 <td className="text-size-20 text-center" colSpan="10">
-                  <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('Can\'t find any data.')}
+                  <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('Couldn\'t find any data.')}
                 </td>
               </tr>
             )

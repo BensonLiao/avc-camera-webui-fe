@@ -599,7 +599,7 @@ module.exports = {
       Time: '時間',
       Capture: '臉部截圖',
       Confidence: '相似度',
-      'Can\'t find any data.': '沒有符合的資料, 請重新設置條件',
+      'Couldn\'t find any data.': '沒有符合的資料, 請重新設置條件',
       Filters: '篩選條件',
       Clear: '清除條件',
       'Start Date': '日期',
@@ -619,7 +619,7 @@ module.exports = {
       'Verifying Photo': '照片驗證中',
       'Invalid Photo': '照片不合格',
       'Updating Member': '更新成員',
-      'Added Photo to {{0}} Successfully!': '新增照片至 {{0}} 成功!',
+      'Photo Has Been Added to {{0}}': '新增照片至 {{0}} 成功!',
       // /users/events / Constants / Status
       'enroll-status-0': '圖像偽裝',
       'enroll-status-1': '未知',
