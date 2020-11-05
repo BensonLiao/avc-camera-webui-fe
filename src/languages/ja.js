@@ -633,7 +633,7 @@ module.exports = {
       // /analytic/face-recognition
       'Analytics Settings': '知能分析',
       'Enable Facial Recognition': '顔認証を有効します',
-      'Anti-Image Spoof': 'なりすまし防止機能を有効する',
+      'Enable Anti-Image Spoof': 'なりすまし防止機能を有効する',
       'Level of Accuracy': '認証成功率',
       'Detection Zone': '検知区域',
       'Show/Hide Detection Zone': '認証区域を表示/非表示にする',
@@ -932,7 +932,7 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': '写真には顔が一個以上存在しています',
       // 9045
-      'Non-existent Photo': '存在しない顔ショット',
+      'Non-existent Face Thumbnail': '存在しない顔ショット',
       // 9046
       'Invalid Key': '無効なライセンスキー',
       // 9047

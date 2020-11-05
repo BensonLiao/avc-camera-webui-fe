@@ -633,12 +633,12 @@ module.exports = {
       // /analytic/face-recognition
       'Analytics Settings': '智慧分析',
       'Enable Facial Recognition': '開啟臉部辨識',
-      'Anti-Image Spoof': '開啟防止圖片偽裝',
+      'Enable Anti-Image Spoof': '開啟防止圖片偽裝',
       'Level of Accuracy': '辨識成功閥值',
       'Detection Zone': '觸發區域',
       'Show/Hide Detection Zone': '顯示或隱藏區域',
       'The default is the whole live view screen.': '預設為全畫面',
-      'Enable Facial Detection Size': '開啟最小辯識尺寸',
+      'Enable Facial Detection Size': '開啟最小辨識尺寸',
       'Min. Facial Detection Size': '最小臉部尺寸',
       'Live View Display': '即時影像顯示',
       'Display Name': '成員名稱',
@@ -932,7 +932,7 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': '照片中超過1張人臉',
       // 9045
-      'Non-existent Photo': '事件截圖不存在',
+      'Non-existent Face Thumbnail': '事件截圖不存在',
       // 9046
       'Invalid Key': '啟用失敗，錯誤的啟動碼',
       // 9047

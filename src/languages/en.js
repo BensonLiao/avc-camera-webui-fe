@@ -932,7 +932,7 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': 'More Than One Face in the Photo',
       // 9045
-      'Non-existent Photo': 'Non-existent Photo',
+      'Non-existent Photo': 'Non-existent Face Thumbnail',
       // 9046
       'Invalid Key': 'Invalid Key',
       // 9047
