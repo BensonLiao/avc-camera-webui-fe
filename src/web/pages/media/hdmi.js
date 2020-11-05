@@ -111,12 +111,12 @@ module.exports = class HDMI extends Base {
                     {({values}) => (
                       <Form className="card-body">
                         <SelectField
+                          readOnly
                           labelName={i18n.t('Resolution')}
                           name="resolution"
                         >
-                          {this.resolution.map(option => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                          ))}
+                          <option value={this.resolution[2].value}>{this.resolution[2].label}</option>
+                          ))
                         </SelectField>
                         <SelectField labelName={i18n.t('Frame Rate (FPS)')} name="frameRate">
                           {this.frameRate.map(option => (
@@ -138,7 +138,10 @@ module.exports = class HDMI extends Base {
                           isConfirmDisable={$isApiProcessing}
                           onHide={this.hideModal}
                           onConfirm={() => {
-                            this.onSubmitHDMISettingsForm(values);
+                            this.onSubmitHDMISettingsForm({
+                              ...values,
+                              resolution: this.resolution[2].value
+                            });
                           }}
                         />
                       </Form>
