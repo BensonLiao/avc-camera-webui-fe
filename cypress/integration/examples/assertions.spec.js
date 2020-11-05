@@ -1,3 +1,5 @@
+/* eslint-disable valid-jsdoc */
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 /// <reference types="cypress" />
 
