@@ -175,7 +175,6 @@ module.exports = {
       'Please enter the email address.': '請輸入電子信箱',
       Domain: '域名',
       'Please enter the domain.': '請輸入域名',
-      'Range: 1024-65535 Default: 8443': '範圍：1024-65535，預設：8443',
 
       // /login
       Login: '登入',
@@ -727,6 +726,7 @@ module.exports = {
       'The website has been redirected to the new address': '請利用下列網址重新登入',
       'The specified port is reserved by system or in use!': '此連接埠為系統預留或使用中',
       'Redirection Success': '重新導向',
+      'Range: 1024-65535 Default: 8443': '範圍：1024-65535，預設：8443',
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} 自簽憑證`,
       'certificate-type-1': '上傳您的憑證',

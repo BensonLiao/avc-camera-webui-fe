@@ -175,7 +175,6 @@ module.exports = {
       'Please enter the email address.': 'Please enter the email address.',
       Domain: 'Domain',
       'Please enter the domain.': 'Please enter the domain.',
-      'Range: 1024-65535 Default: 8443': 'Range: 1024-65535 Default: 8443',
 
       // /login
       Login: 'Login',
@@ -727,6 +726,7 @@ module.exports = {
       'The website has been redirected to the new address': 'The website has been redirected to the new address',
       'The specified port is reserved by system or in use!': 'The specified port is reserved by system or in use!',
       'Redirection Success': 'Redirection Success',
+      'Range: 1024-65535 Default: 8443': 'Range: 1024-65535 Default: 8443',
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? 'Manufacturer' : 'AndroVideo'} Self-signed`,
       'certificate-type-1': 'Upload Certificate',

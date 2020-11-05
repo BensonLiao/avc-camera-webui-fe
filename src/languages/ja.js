@@ -175,7 +175,6 @@ module.exports = {
       'Please enter the email address.': 'メールアドレスを入力してください',
       Domain: 'ドメイン',
       'Please enter the domain.': 'ドメインを入力してください',
-      'Range: 1024-65535 Default: 8443': '入力範囲：1024-65535 デフォルト：8443',
 
       // /login
       Login: 'ログイン',
@@ -727,6 +726,7 @@ module.exports = {
       'The website has been redirected to the new address': '下記のURLへアクセスして再度ログインしてください',
       'The specified port is reserved by system or in use!': '本ポートはシステム予備用または使用されています',
       'Redirection Success': '再ダイレクト',
+      'Range: 1024-65535 Default: 8443': '入力範囲：1024-65535 デフォルト：8443',
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? 'メーカー' : 'AndroVideo'} 自己署名証明書`,
       'certificate-type-1': '署名証明書をアップロードする',
