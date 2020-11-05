@@ -95,7 +95,7 @@ class SettingsLan extends React.PureComponent {
         api.system.updateNetworkSettings(values)
           .then(response => {
             const resultIP = values.ipType === NetworkIPType.dynamic ? response.data.ipAddress : values.ipAddress;
-            const newAddress = `${location.protocol}//${resultIP}${location.port ? ':' + location.port : ''}`;
+            const newAddress = `${location.protocol}//${resultIP}${location.port ? `:${location.port}` : ''}`;
             this.setState({
               isShowSelectModal: {
                 applyConfirm: false,
