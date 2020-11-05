@@ -115,7 +115,7 @@ module.exports = class HDMI extends Base {
                           labelName={i18n.t('Resolution')}
                           name="resolution"
                         >
-                          <option checked={this.resolution[2].value} value={this.resolution[2].value}>{this.resolution[2].label}</option>
+                          <option value={this.resolution[2].value}>{this.resolution[2].label}</option>
                           ))
                         </SelectField>
                         <SelectField labelName={i18n.t('Frame Rate (FPS)')} name="frameRate">
@@ -138,7 +138,10 @@ module.exports = class HDMI extends Base {
                           isConfirmDisable={$isApiProcessing}
                           onHide={this.hideModal}
                           onConfirm={() => {
-                            this.onSubmitHDMISettingsForm(values);
+                            this.onSubmitHDMISettingsForm({
+                              ...values,
+                              resolution: this.resolution[2].value
+                            });
                           }}
                         />
                       </Form>
