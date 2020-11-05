@@ -10,7 +10,8 @@
     "eslint": "node_modules/eslint/bin/eslint.js backend config src Gruntfile.js webpack.config.js",
     "stylelint": "node_modules/stylelint/bin/stylelint.js '**/*.scss'",
     "ncu": "node_modules/npm-check-updates/bin/ncu",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:run": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -92,6 +93,8 @@
     "axios-mock-adapter": "1.17.0",
     "body-parser": "1.19.0",
     "copy-webpack-plugin": "5.0.0",
+    "cypress": "^5.5.0",
+    "cypress-react-selector": "^2.2.0",
     "eslint": "6.6.0",
     "eslint-config-xo": "0.27.2",
     "eslint-config-xo-react": "0.20.0",

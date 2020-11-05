@@ -1,0 +1,10 @@
+{
+    "baseUrl": "http://localhost:8002",
+    "integrationFolder": "tests/e2e/integration",
+    "screenshotsFolder": "tests/e2e/screenshots",
+    "supportFile": false,
+    "pluginsFile": false,
+    "video": false,
+    "viewportWidth": 2000,
+    "viewportHeight": 1320
+  }
