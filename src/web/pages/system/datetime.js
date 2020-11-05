@@ -74,7 +74,7 @@ module.exports = class DateTime extends Base {
 
   onSubmit = values => {
     const formValues = {...values};
-    const {systemInformation: {languageCode}} = this.props;
+    const {systemInformation: {languageCode}, systemDateTime: {syncTimeOption}} = this.props;
     const isLanguageUpdate = languageCode !== formValues.language;
     progress.start();
     this.setState({
@@ -83,7 +83,10 @@ module.exports = class DateTime extends Base {
     }, () => {
       if (formValues.syncTimeOption === SyncTimeOption.local) {
         formValues.manualTime = new Date();
-        formValues.ntpTimeZone = dayjs.tz.guess();
+        // Auto fill timezone when switching to `sync with your computer` for the first time
+        if (formValues.syncTimeOption !== syncTimeOption) {
+          formValues.ntpTimeZone = dayjs.tz.guess();
+        }
       }
 
       if (isLanguageUpdate) {
