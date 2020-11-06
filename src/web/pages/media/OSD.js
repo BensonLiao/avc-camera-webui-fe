@@ -34,14 +34,14 @@ module.exports = class OSD extends Base {
     form.setFieldValue('position', position);
   };
 
-  onSubmitWordSettingsForm = values => {
+  onSubmitOSDSettingsForm = values => {
     progress.start();
-    api.multimedia.updateWordSettings(values)
+    api.multimedia.updateOSDSettings(values)
       .then(getRouter().reload)
       .finally(progress.done);
   };
 
-  wordSettingsFormRender = form => {
+  OSDSettingsFormRender = form => {
     const {values, setFieldValue} = form;
 
     return (
@@ -220,8 +220,8 @@ module.exports = class OSD extends Base {
       <div className="main-content left-menu-active">
         <div className="section-media">
           <div className="container-fluid">
-            <Formik initialValues={wordSettings} onSubmit={this.onSubmitWordSettingsForm}>
-              {this.wordSettingsFormRender}
+            <Formik initialValues={wordSettings} onSubmit={this.onSubmitOSDSettingsForm}>
+              {this.OSDSettingsFormRender}
             </Formik>
           </div>
         </div>
