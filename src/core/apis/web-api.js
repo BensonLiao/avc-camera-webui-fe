@@ -1565,9 +1565,9 @@ module.exports = {
      * - type {string}
      * - customText {string}
      */
-    getWordSettings: () => api({
+    getOSDSettings: () => api({
       method: 'get',
-      url: '/api/multimedia/word/settings'
+      url: '/api/multimedia/osd/settings'
     }),
     /**
      * @param {boolean} isEnable
@@ -1585,9 +1585,9 @@ module.exports = {
      * - type {string}
      * - customText {string}
      */
-    updateWordSettings: ({isEnable, fontSize, color, position, type, customText}) => api({
+    updateOSDSettings: ({isEnable, fontSize, color, position, type, customText}) => api({
       method: 'put',
-      url: '/api/multimedia/word/settings',
+      url: '/api/multimedia/osd/settings',
       data: {
         isEnable,
         fontSize,

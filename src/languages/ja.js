@@ -346,11 +346,10 @@ module.exports = {
       'Updating HDMI settings': 'HDMI設定を更新する',
       'Are you sure you want to update HDMI settings?': 'HDMI設定を変更しますか？',
 
-      // /media/word
+      // /media/osd
       'Enable On-Screen Display': 'OSDを有効にする',
       Size: '文字サイズ',
       Color: 'カラー',
-      Word: '文字',
       Position: '表示位置',
       'Click the arrow on the live view screen.': 'プレビュー画面中の青印をクリックして下さい',
       'Left Top': '左上',
@@ -358,15 +357,15 @@ module.exports = {
       'Bottom Left': '左下',
       'Bottom Right': '右下',
       'Text Overlay': 'テキスト',
-      // /media/word / Constants / Size
+      // /media/osd / Constants / Size
       'font-size-0': '小',
       'font-size-1': '中',
       'font-size-2': '大',
-      // /media/word / Constants / Text Overlay
-      'word-type-0': '時間',
-      'word-type-1': 'デバイス名',
-      'word-type-2': 'デバイス名と時間',
-      'word-type-3': 'カスタム',
+      // /media/osd / Constants / Text Overlay
+      'osd-type-0': '時間',
+      'osd-type-1': 'デバイス名',
+      'osd-type-2': 'デバイス名と時間',
+      'osd-type-3': 'カスタム',
       'Enter custom text': 'カスタム内容を入力します',
 
       // /media/privacy-mask

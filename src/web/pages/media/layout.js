@@ -52,9 +52,9 @@ module.exports = class Media extends Base {
               HDMI
             </Link>
             <Link
-              to="/media/word"
+              to="/media/osd"
               title={i18n.t('OSD')}
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.word'})}
+              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.osd'})}
             >
               {i18n.t('OSD')}
             </Link>

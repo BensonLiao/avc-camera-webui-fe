@@ -356,7 +356,7 @@ module.exports = {
           }
         ]
       },
-      wordSettings: {
+      osdSettings: {
         isEnable: true,
         fontSize: '1',
         color: '0',

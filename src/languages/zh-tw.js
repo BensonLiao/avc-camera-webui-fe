@@ -346,11 +346,10 @@ module.exports = {
       'Updating HDMI settings': '更新HDMI設定',
       'Are you sure you want to update HDMI settings?': '您即將更改HDMI設定，確認是否繼續？',
 
-      // /media/word
+      // /media/osd
       'Enable On-Screen Display': '開啟文字貼圖',
       Size: '文字大小',
       Color: '顏色',
-      Word: '文字',
       Position: '位置',
       'Click the arrow on the live view screen.': '請在預覽窗格中點選箭頭',
       'Left Top': '左上',
@@ -358,15 +357,15 @@ module.exports = {
       'Bottom Left': '左下',
       'Bottom Right': '右下',
       'Text Overlay': '內容',
-      // /media/word / Constants / Size
+      // /media/osd / Constants / Size
       'font-size-0': '小',
       'font-size-1': '中',
       'font-size-2': '大',
-      // /media/word / Constants / Text Overlay
-      'word-type-0': '時間',
-      'word-type-1': '裝置名稱',
-      'word-type-2': '裝置名稱和時間',
-      'word-type-3': '自訂文字',
+      // /media/osd / Constants / Text Overlay
+      'osd-type-0': '時間',
+      'osd-type-1': '裝置名稱',
+      'osd-type-2': '裝置名稱和時間',
+      'osd-type-3': '自訂文字',
       'Enter custom text': '輸入自訂文字',
 
       // /media/privacy-mask

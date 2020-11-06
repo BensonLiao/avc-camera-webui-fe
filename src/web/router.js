@@ -117,15 +117,15 @@ module.exports = new Router({
       )
     },
     {
-      name: 'web.media.word',
-      uri: '/word',
+      name: 'web.media.osd',
+      uri: '/osd',
       onEnter: () => {
         document.title = `${i18n.t('OSD')} - ${i18n.t('Video Settings')} - ${_title}`;
       },
-      resolve: {wordSettings: () => api.multimedia.getWordSettings().then(response => response.data)},
+      resolve: {osdSettings: () => api.multimedia.getOSDSettings().then(response => response.data)},
       loadComponent: () => import(
         /* webpackChunkName: "page-media" */
-        './pages/media/word'
+        './pages/media/osd'
       )
     },
     {

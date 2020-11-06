@@ -4,26 +4,26 @@ const React = require('react');
 const progress = require('nprogress');
 const {getRouter} = require('capybara-router');
 const {Formik, Form, Field} = require('formik');
-const WordFontSize = require('webserver-form-schema/constants/word-font-size');
-const WordColor = require('webserver-form-schema/constants/word-color');
-const WordPosition = require('webserver-form-schema/constants/word-position');
-const WordType = require('webserver-form-schema/constants/word-type');
-const WordSettingsSchema = require('webserver-form-schema/word-settings-schema');
+const OSDFontSize = require('webserver-form-schema/constants/osd-font-size');
+const OSDColor = require('webserver-form-schema/constants/osd-color');
+const OSDPosition = require('webserver-form-schema/constants/osd-position');
+const OSDType = require('webserver-form-schema/constants/osd-type');
+const OSDSettingsSchema = require('webserver-form-schema/osd-settings-schema');
 const Base = require('../shared/base');
 const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
-module.exports = class Word extends Base {
+module.exports = class OSD extends Base {
   static get propTypes() {
     return {
-      wordSettings: PropTypes.shape({
+      osdSettings: PropTypes.shape({
         isEnable: PropTypes.bool.isRequired,
-        fontSize: PropTypes.oneOf(WordFontSize.all()).isRequired,
-        color: PropTypes.oneOf(WordColor.all()).isRequired,
-        position: PropTypes.oneOf(WordPosition.all()).isRequired,
-        type: PropTypes.oneOf(WordType.all()).isRequired,
+        fontSize: PropTypes.oneOf(OSDFontSize.all()).isRequired,
+        color: PropTypes.oneOf(OSDColor.all()).isRequired,
+        position: PropTypes.oneOf(OSDPosition.all()).isRequired,
+        type: PropTypes.oneOf(OSDType.all()).isRequired,
         customText: PropTypes.string
       }).isRequired
     };
@@ -34,14 +34,14 @@ module.exports = class Word extends Base {
     form.setFieldValue('position', position);
   };
 
-  onSubmitWordSettingsForm = values => {
+  onSubmitOSDSettingsForm = values => {
     progress.start();
-    api.multimedia.updateWordSettings(values)
+    api.multimedia.updateOSDSettings(values)
       .then(getRouter().reload)
       .finally(progress.done);
   };
 
-  wordSettingsFormRender = form => {
+  OSDSettingsFormRender = form => {
     const {values, setFieldValue} = form;
 
     return (
@@ -55,44 +55,44 @@ module.exports = class Word extends Base {
           <div className="video-wrapper">
             <img className="img-fluid" draggable={false} src="/api/snapshot"/>
             {
-              values.position !== WordPosition.leftTop && (
+              values.position !== OSDPosition.leftTop && (
                 <button
                   className="btn btn-top-left"
                   type="button"
-                  onClick={this.generatePositionButtonHandler(form, WordPosition.leftTop)}
+                  onClick={this.generatePositionButtonHandler(form, OSDPosition.leftTop)}
                 >
                   <i className="fas fa-arrow-up"/>
                 </button>
               )
             }
             {
-              values.position !== WordPosition.rightTop && (
+              values.position !== OSDPosition.rightTop && (
                 <button
                   className="btn btn-top-right"
                   type="button"
-                  onClick={this.generatePositionButtonHandler(form, WordPosition.rightTop)}
+                  onClick={this.generatePositionButtonHandler(form, OSDPosition.rightTop)}
                 >
                   <i className="fas fa-arrow-up"/>
                 </button>
               )
             }
             {
-              values.position !== WordPosition.leftBottom && (
+              values.position !== OSDPosition.leftBottom && (
                 <button
                   className="btn btn-bottom-left"
                   type="button"
-                  onClick={this.generatePositionButtonHandler(form, WordPosition.leftBottom)}
+                  onClick={this.generatePositionButtonHandler(form, OSDPosition.leftBottom)}
                 >
                   <i className="fas fa-arrow-up"/>
                 </button>
               )
             }
             {
-              values.position !== WordPosition.rightBottom && (
+              values.position !== OSDPosition.rightBottom && (
                 <button
                   className="btn btn-bottom-right"
                   type="button"
-                  onClick={this.generatePositionButtonHandler(form, WordPosition.rightBottom)}
+                  onClick={this.generatePositionButtonHandler(form, OSDPosition.rightBottom)}
                 >
                   <i className="fas fa-arrow-up"/>
                 </button>
@@ -119,7 +119,7 @@ module.exports = class Word extends Base {
                 <label className="mb-0">{i18n.t('Size')}</label>
                 <div className="btn-group">
                   {
-                    WordFontSize.all().map(size => (
+                    OSDFontSize.all().map(size => (
                       <button
                         key={size}
                         type="button"
@@ -142,9 +142,9 @@ module.exports = class Word extends Base {
                     type="button"
                     className={classNames(
                       'btn-black',
-                      {active: values.color === WordColor.black}
+                      {active: values.color === OSDColor.black}
                     )}
-                    onClick={() => setFieldValue('color', WordColor.black)}
+                    onClick={() => setFieldValue('color', OSDColor.black)}
                   >
                     &nbsp;
                   </button>
@@ -153,9 +153,9 @@ module.exports = class Word extends Base {
                     type="button"
                     className={classNames(
                       'btn-white',
-                      {active: values.color === WordColor.white}
+                      {active: values.color === OSDColor.white}
                     )}
-                    onClick={() => setFieldValue('color', WordColor.white)}
+                    onClick={() => setFieldValue('color', OSDColor.white)}
                   >
                     &nbsp;
                   </button>
@@ -165,22 +165,22 @@ module.exports = class Word extends Base {
                 <div className="form-group d-flex justify-content-between align-items-center mb-0">
                   <label className="mb-0">{i18n.t('Position')}</label>
                   {
-                    values.position === WordPosition.leftTop && (
+                    values.position === OSDPosition.leftTop && (
                       <p className="text-primary mb-0">{i18n.t('Left Top')}</p>
                     )
                   }
                   {
-                    values.position === WordPosition.rightTop && (
+                    values.position === OSDPosition.rightTop && (
                       <p className="text-primary mb-0">{i18n.t('Right Top')}</p>
                     )
                   }
                   {
-                    values.position === WordPosition.leftBottom && (
+                    values.position === OSDPosition.leftBottom && (
                       <p className="text-primary mb-0">{i18n.t('Bottom Left')}</p>
                     )
                   }
                   {
-                    values.position === WordPosition.rightBottom && (
+                    values.position === OSDPosition.rightBottom && (
                       <p className="text-primary mb-0">{i18n.t('Bottom Right')}</p>
                     )
                   }
@@ -188,16 +188,16 @@ module.exports = class Word extends Base {
                 <small className="mt-0 form-text text-muted">{i18n.t('Click the arrow on the live view screen.')}</small>
               </div>
               <SelectField labelName={i18n.t('Text Overlay')} name="type">
-                {WordType.all().map(type => (
-                  <option key={type} value={type}>{i18n.t(`word-type-${type}`)}</option>
+                {OSDType.all().map(type => (
+                  <option key={type} value={type}>{i18n.t(`osd-type-${type}`)}</option>
                 ))}
               </SelectField>
-              <div className={classNames('form-group', {'d-none': values.type !== WordType.custom})}>
+              <div className={classNames('form-group', {'d-none': values.type !== OSDType.custom})}>
                 <Field
                   name="customText"
                   type="text"
                   placeholder={i18n.t('Enter custom text')}
-                  maxLength={WordSettingsSchema.customText.max}
+                  maxLength={OSDSettingsSchema.customText.max}
                   className="form-control"
                 />
               </div>
@@ -213,15 +213,15 @@ module.exports = class Word extends Base {
   };
 
   render() {
-    const {wordSettings} = this.props;
+    const {osdSettings} = this.props;
 
-    wordSettings.customText = wordSettings.customText || '';
+    osdSettings.customText = osdSettings.customText || '';
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
           <div className="container-fluid">
-            <Formik initialValues={wordSettings} onSubmit={this.onSubmitWordSettingsForm}>
-              {this.wordSettingsFormRender}
+            <Formik initialValues={osdSettings} onSubmit={this.onSubmitOSDSettingsForm}>
+              {this.OSDSettingsFormRender}
             </Formik>
           </div>
         </div>
