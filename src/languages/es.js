@@ -346,11 +346,10 @@ module.exports = {
       'Updating HDMI settings': 'Actualizar la configuración de HDMI',
       'Are you sure you want to update HDMI settings?': '¿Está seguro de que desea cambiar la configuración de HDMI?',
 
-      // /media/word
+      // /media/osd
       'Enable On-Screen Display': 'Habilitar mapa de texto',
       Size: 'tamaño de fuente',
       Color: 'color',
-      Word: 'Word',
       Position: 'posición',
       'Click the arrow on the live view screen.': 'Clic flecha en panel de vista previa',
       'Left Top': 'arriba a la izquierda',
@@ -358,11 +357,11 @@ module.exports = {
       'Bottom Left': 'Abajo a la izquierda',
       'Bottom Right': 'Inferior derecha',
       'Text Overlay': 'Texto',
-      // /media/word / Constants / Size
+      // /media/osd / Constants / Size
       'font-size-0': 'pequeña',
       'font-size-1': 'medio',
       'font-size-2': 'Grande',
-      // /media/word / Constants / Text Overlay
+      // /media/osd / Constants / Text Overlay
       'word-type-0': 'hora',
       'word-type-1': 'Nombre del dispositivo',
       'word-type-2': 'Nombre y hora del dispositivo',
