@@ -15,7 +15,7 @@ const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
-module.exports = class Word extends Base {
+module.exports = class OSD extends Base {
   static get propTypes() {
     return {
       wordSettings: PropTypes.shape({
