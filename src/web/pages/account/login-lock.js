@@ -74,9 +74,9 @@ LoginLock.propTypes = {
         `Invalid prop "${propName}.loginLockExpiredTime" supplied to ${componentName}. Validation failed.`
       );
     }
-  }
+  }.isRequired
 };
 
-LoginLock.defaultProps = {params: undefined};
+LoginLock.defaultProps = {};
 
 export default withGlobalStatus(LoginLock);
