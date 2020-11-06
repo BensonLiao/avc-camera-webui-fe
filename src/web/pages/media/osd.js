@@ -213,7 +213,7 @@ module.exports = class OSD extends Base {
   };
 
   render() {
-    const {wordSettings: osdSettings} = this.props;
+    const {osdSettings} = this.props;
 
     osdSettings.customText = osdSettings.customText || '';
     return (
