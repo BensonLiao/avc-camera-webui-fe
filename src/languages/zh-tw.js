@@ -362,10 +362,10 @@ module.exports = {
       'font-size-1': '中',
       'font-size-2': '大',
       // /media/osd / Constants / Text Overlay
-      'word-type-0': '時間',
-      'word-type-1': '裝置名稱',
-      'word-type-2': '裝置名稱和時間',
-      'word-type-3': '自訂文字',
+      'osd-type-0': '時間',
+      'osd-type-1': '裝置名稱',
+      'osd-type-2': '裝置名稱和時間',
+      'osd-type-3': '自訂文字',
       'Enter custom text': '輸入自訂文字',
 
       // /media/privacy-mask

@@ -362,10 +362,10 @@ module.exports = {
       'font-size-1': '中',
       'font-size-2': '大',
       // /media/osd / Constants / Text Overlay
-      'word-type-0': '時間',
-      'word-type-1': 'デバイス名',
-      'word-type-2': 'デバイス名と時間',
-      'word-type-3': 'カスタム',
+      'osd-type-0': '時間',
+      'osd-type-1': 'デバイス名',
+      'osd-type-2': 'デバイス名と時間',
+      'osd-type-3': 'カスタム',
       'Enter custom text': 'カスタム内容を入力します',
 
       // /media/privacy-mask

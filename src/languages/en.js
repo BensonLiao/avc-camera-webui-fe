@@ -362,10 +362,10 @@ module.exports = {
       'font-size-1': 'Medium',
       'font-size-2': 'Large',
       // /media/osd / Constants / Text Overlay
-      'word-type-0': 'Time',
-      'word-type-1': 'Camera Name',
-      'word-type-2': 'Camera Name and Time',
-      'word-type-3': 'Custom',
+      'osd-type-0': 'Time',
+      'osd-type-1': 'Camera Name',
+      'osd-type-2': 'Camera Name and Time',
+      'osd-type-3': 'Custom',
       'Enter custom text': 'Enter custom text',
 
       // /media/privacy-mask

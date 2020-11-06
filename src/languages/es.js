@@ -362,10 +362,10 @@ module.exports = {
       'font-size-1': 'medio',
       'font-size-2': 'Grande',
       // /media/osd / Constants / Text Overlay
-      'word-type-0': 'hora',
-      'word-type-1': 'Nombre del dispositivo',
-      'word-type-2': 'Nombre y hora del dispositivo',
-      'word-type-3': 'Texto personalizado',
+      'osd-type-0': 'hora',
+      'osd-type-1': 'Nombre del dispositivo',
+      'osd-type-2': 'Nombre y hora del dispositivo',
+      'osd-type-3': 'Texto personalizado',
       'Enter custom text': 'Ingresar texto personalizado',
 
       // /media/privacy-mask
