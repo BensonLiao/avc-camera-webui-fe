@@ -175,7 +175,6 @@ module.exports = {
       'Please enter the email address.': 'Please enter the email address.',
       Domain: 'Domain',
       'Please enter the domain.': 'Please enter the domain.',
-      'Range: 1024-65535 Default: 8443': 'Range: 1024-65535 Default: 8443',
 
       // /login
       Login: 'Login',
@@ -600,7 +599,7 @@ module.exports = {
       Time: 'Time',
       Capture: 'Capture',
       Confidence: 'Confidence',
-      'Can\'t find any data.': 'Can\'t find any data.',
+      'Couldn\'t find any data.': 'Couldn\'t find any data.',
       Filters: 'Filters',
       Clear: 'Clear',
       'Start Date': 'Date',
@@ -620,7 +619,7 @@ module.exports = {
       'Verifying Photo': 'Verifying Photo',
       'Invalid Photo': 'Invalid Photo',
       'Updating Member': 'Updating Member',
-      'Added Photo to {{0}} Successfully!': 'Added Photo to {{0}} Successfully!',
+      'Photo Has Been Added to {{0}}': 'Photo Has Been Added to {{0}}',
       // /users/events / Constants / Status
       'enroll-status-0': 'Image Spoof',
       'enroll-status-1': 'Unknown',
@@ -727,6 +726,7 @@ module.exports = {
       'The website has been redirected to the new address': 'The website has been redirected to the new address',
       'The specified port is reserved by system or in use!': 'The specified port is reserved by system or in use!',
       'Redirection Success': 'Redirection Success',
+      'Range: 1024-65535 Default: 8443': 'Range: 1024-65535 Default: 8443',
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? 'Manufacturer' : 'AndroVideo'} Self-signed`,
       'certificate-type-1': 'Upload Certificate',
@@ -932,7 +932,7 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': 'More Than One Face in the Photo',
       // 9045
-      'Non-existent Photo': 'Non-existent Photo',
+      'Non-existent Photo': 'Non-existent Face Thumbnail',
       // 9046
       'Invalid Key': 'Invalid Key',
       // 9047

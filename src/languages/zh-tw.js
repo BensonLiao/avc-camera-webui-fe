@@ -147,7 +147,7 @@ module.exports = {
       'Enter a name for this account': '輸入帳號名稱',
       Permission: '權限',
       Password: '密碼',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8-16個字：必須包含英文大寫和小寫字元、數字和符號，但符號不能為 #, %, &, `, “, \\, <, >跟空白',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '8 - 16個字: 必須包含英文大寫和小寫字元, 數字和符號, 但符號不能為 # % & ` “ \\ / < > 和空白',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ < >跟空白',
       Done: '完成',
       // /setup/account / Constants / Permission
@@ -175,7 +175,6 @@ module.exports = {
       'Please enter the email address.': '請輸入電子信箱',
       Domain: '域名',
       'Please enter the domain.': '請輸入域名',
-      'Range: 1024-65535 Default: 8443': '範圍：1024-65535，預設：8443',
 
       // /login
       Login: '登入',
@@ -600,7 +599,7 @@ module.exports = {
       Time: '時間',
       Capture: '臉部截圖',
       Confidence: '相似度',
-      'Can\'t find any data.': '沒有符合的資料, 請重新設置條件',
+      'Couldn\'t find any data.': '沒有符合的資料, 請重新設置條件',
       Filters: '篩選條件',
       Clear: '清除條件',
       'Start Date': '日期',
@@ -620,7 +619,7 @@ module.exports = {
       'Verifying Photo': '照片驗證中',
       'Invalid Photo': '照片不合格',
       'Updating Member': '更新成員',
-      'Added Photo to {{0}} Successfully!': '新增照片至 {{0}} 成功!',
+      'Photo Has Been Added to {{0}}': '新增照片至 {{0}} 成功!',
       // /users/events / Constants / Status
       'enroll-status-0': '圖像偽裝',
       'enroll-status-1': '未知',
@@ -633,12 +632,12 @@ module.exports = {
       // /analytic/face-recognition
       'Analytics Settings': '智慧分析',
       'Enable Facial Recognition': '開啟臉部辨識',
-      'Anti-Image Spoof': '開啟防止圖片偽裝',
+      'Enable Anti-Image Spoof': '開啟防止圖片偽裝',
       'Level of Accuracy': '辨識成功閥值',
       'Detection Zone': '觸發區域',
       'Show/Hide Detection Zone': '顯示或隱藏區域',
       'The default is the whole live view screen.': '預設為全畫面',
-      'Enable Facial Detection Size': '開啟最小辯識尺寸',
+      'Enable Facial Detection Size': '開啟最小辨識尺寸',
       'Min. Facial Detection Size': '最小臉部尺寸',
       'Live View Display': '即時影像顯示',
       'Display Name': '成員名稱',
@@ -727,6 +726,7 @@ module.exports = {
       'The website has been redirected to the new address': '請利用下列網址重新登入',
       'The specified port is reserved by system or in use!': '此連接埠為系統預留或使用中',
       'Redirection Success': '重新導向',
+      'Range: 1024-65535 Default: 8443': '範圍：1024-65535，預設：8443',
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? '製造商' : 'AndroVideo'} 自簽憑證`,
       'certificate-type-1': '上傳您的憑證',
@@ -932,7 +932,7 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': '照片中超過1張人臉',
       // 9045
-      'Non-existent Photo': '事件截圖不存在',
+      'Non-existent Face Thumbnail': '事件截圖不存在',
       // 9046
       'Invalid Key': '啟用失敗，錯誤的啟動碼',
       // 9047

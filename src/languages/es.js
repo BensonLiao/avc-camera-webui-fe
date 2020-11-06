@@ -25,20 +25,20 @@ module.exports = {
       // Component / Session Expired Modal
       'Session Expired': 'Automáticamente Cerrar Sesión',
       'Your session has expired. You will be redirected to the login page in {{0}} second(s).': 'El tiempo de inactividad es demasiado largo, cierre sesión después de {{0}} segundos y redirija a la página de inicio de sesión.',
-      'Renew Session': 'No estás Inactivo',
+      'Renew Session': 'Renovar Sesión',
 
       // Component / Switch component
-      ON: 'Habilitar',
-      OFF: 'apagar',
+      ON: 'ON',
+      OFF: 'OFF',
 
       // Component / Navigation
-      Home: 'Casa',
+      Home: 'Página de Inicio',
       Image: 'imagen',
-      Video: 'imagen',
+      Video: 'Video',
       Audio: 'sonido',
       Notification: 'Anunciar',
       'User Management': 'usuarios',
-      Analytics: 'Análisis de imagen',
+      Analytics: 'Análisis',
       Network: 'red',
       System: 'sistema',
       'SD Card': 'Tarjeta de memoria',
@@ -71,7 +71,7 @@ module.exports = {
       'validation-stringMin': 'Debe ingresar más caracteres {expected}',
       'validation-stringMax': 'Debe ingresar menos caracteres {expected}',
       'validation-stringLength': 'Debe ingresar los caracteres {expected}',
-      'validation-stringPattern': 'This field contains invalid characters.',
+      'validation-stringPattern': 'Este campo contiene caracteres no válidos.',
       'validation-stringContains': 'Debe contener texto {expected}',
       'validation-stringContainsLowerCaseLatter': 'Debe contener letras minúsculas en inglés',
       'validation-stringContainsUpperCaseLatter': 'Debe contener letras mayúsculas en inglés',
@@ -143,7 +143,7 @@ module.exports = {
 
       // /setup/account
       'Setup Account': 'número de cuenta',
-      Account: 'número de cuenta',
+      Account: 'Cuenta',
       'Enter a name for this account': 'Ingrese el nombre de la cuenta',
       Permission: 'Permiso',
       Password: 'Contraseña',
@@ -152,9 +152,9 @@ module.exports = {
       Done: 'terminado',
       // /setup/account / Constants / Permission
       'permission-0': 'administrador',
-      'permission-1': 'invitado',
-      'permission-2': '訪客',
-      'permission-99': '管理者', // Super-Admin, for easier backend permission control, no difference for UI
+      'permission-1': 'Invitado',
+      'permission-2': 'Invitado',
+      'permission-99': 'administrador', // Super-Admin, for easier backend permission control, no difference for UI
 
       // /setup/https
       'Certificate Type': '憑證方式',
@@ -175,7 +175,6 @@ module.exports = {
       'Please enter the email address.': '請輸入電子信箱',
       Domain: '域名',
       'Please enter the domain.': '請輸入域名',
-      'Range: 1024-65535 Default: 8443': 'Rango: 1024-65535, preestablecido: 8443',
 
       // /login
       Login: 'Registrarse',
@@ -198,7 +197,7 @@ module.exports = {
       'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
       'Login locked': 'Bloquear inicio de sesión',
       'Forgot password?': '忘記密碼？',
-      '{{0}} Remaining': '{0} es necesario para iniciar sesión nuevamente',
+      '{{0}} Remaining': '{{0}} es necesario para iniciar sesión nuevamente',
       'Login Again': 'ingresar de nuevo',
 
       // Deprecated
@@ -291,7 +290,7 @@ module.exports = {
       'refresh-rate-2': '60Hz',
 
       // /media
-      'Video Settings': 'imagen',
+      'Video Settings': 'Video',
       Streams: 'Stream',
       OSD: 'Mapa de texto',
       'Privacy Mask': 'Máscara de privacidad',
@@ -353,7 +352,7 @@ module.exports = {
       Color: 'color',
       Word: 'Word',
       Position: 'posición',
-      'Click the arrow on the live view screen.': 'Haga clic en flecha para establecer la posición',
+      'Click the arrow on the live view screen.': 'Clic flecha en panel de vista previa',
       'Left Top': 'arriba a la izquierda',
       'Right Top': 'Superior derecha',
       'Bottom Left': 'Abajo a la izquierda',
@@ -448,7 +447,7 @@ module.exports = {
       '{{0}}-{{1}} Seconds': '{{0}}-{{1}} segundos',
 
       // /notification/cards
-      'Notification Filters': 'Tarjeta de notificación de detección',
+      'Notification Filters': 'Filtros',
       Pinned: 'Parte superior',
       Others: 'otro',
       'Unpin Card': 'Desanclar Pin Card',
@@ -513,7 +512,7 @@ module.exports = {
       'Create a Group': 'Añadir grupo',
       'Delete Group: {{0}}': 'Borrar grupo: {{0}}',
       'Delete Group': 'Borrar grupo',
-      Database: 'Archivo de base de datos',
+      Database: 'Base de Datos',
       'Encryption Settings': 'Configuración de cifrado',
       Export: 'Exportar',
       Import: 'Importar',
@@ -549,7 +548,7 @@ module.exports = {
       'Enter a name for this group': 'Ingrese el nombre del grupo',
       Note: 'Observaciones',
       'Enter a note': 'Ingrese nota',
-      'Maximum length: 256 characters': 'Maximum length: 256 characters',
+      'Maximum length: 256 characters': 'Extension máxima: 256 caracteres',
       Create: 'Nuevo',
       Close: 'Cerrar',
 
@@ -570,7 +569,7 @@ module.exports = {
       Organization: 'organización',
       'Enter a name for this member': 'Ingrese el nombre del miembro',
       'Enter an organization for this member': 'Ingrese el nombre de la organización',
-      'Maximum length: 32 characters': 'Maximum length: 32 characters',
+      'Maximum length: 32 characters': 'Extension máxima: 32 caracteres',
       'N/A': 'ninguno',
       'Are you sure you want to close this window? Any changes you have made will be lost.': 'Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?',
       'Photo size should be less than 90 KB.': 'El tamaño de la foto no puede superar los 90KB',
@@ -586,9 +585,9 @@ module.exports = {
       'Enter a password': 'introducir la contraseña',
       'Enter a new password': 'Introduzca una nueva contraseña',
       'New Password': 'nueva contraseña',
-      'Confirm New Password': 'Confirm New Password',
+      'Confirm New Password': 'Confirmar Nueva Contraseña',
       'Confirm Password': 'Confirmar contraseña',
-      'Enter the new password again': 'Enter the new password again',
+      'Enter the new password again': 'Ingrese la nueva contraseña nuevamente',
       'Enter the password again': 'Ingrese la contraseña nuevamente',
       'Delete Account': 'Borrar cuenta',
       'Are you sure you want to delete account {{0}}?': '¿Está seguro de que desea borrar la cuenta {{0}} ?',
@@ -598,11 +597,11 @@ module.exports = {
       Events: 'eventos',
       Total: 'Datos',
       Time: 'hora',
-      Capture: 'Captura de pantalla de la cara',
+      Capture: 'Captura',
       Confidence: 'Confidence',
-      'Can\'t find any data.': 'Verifique que no haya datos coincidentes y busque nuevamente.,',
-      Filters: 'Condiciones de filtro',
-      Clear: 'Condiciones de claridad',
+      'Couldn\'t find any data.': 'Verifique que no haya datos coincidentes y busque nuevamente.,',
+      Filters: 'Filtros',
+      Clear: 'Claridad',
       'Start Date': 'fecha',
       'Start Time': 'hora',
       'Start Datetime': 'Hora de inicio',
@@ -620,7 +619,7 @@ module.exports = {
       'Verifying Photo': 'Verificación de fotos',
       'Invalid Photo': 'Foto inválida',
       'Updating Member': 'Actualización de Usuario',
-      'Added Photo to {{0}} Successfully!': '¡Se agregaron fotos a {{0}} correctamente!',
+      'Photo Has Been Added to {{0}}': '¡Se agregaron fotos a {{0}} correctamente!',
       // /users/events / Constants / Status
       'enroll-status-0': 'Camuflaje de imagen',
       'enroll-status-1': 'desconocido',
@@ -633,7 +632,7 @@ module.exports = {
       // /analytic/face-recognition
       'Analytics Settings': 'Análisis inteligente',
       'Enable Facial Recognition': 'Habilitar reconocimiento facial',
-      'Anti-Image Spoof': 'Habilitar Camuflaje Anti-Image S',
+      'Enable Anti-Image Spoof': 'Habilitar anti-disfraz de imagen',
       'Level of Accuracy': 'éxito de identificación de Límite',
       'Detection Zone': 'Área de activación',
       'Show/Hide Detection Zone': 'Mostrar o ocultar área',
@@ -727,6 +726,7 @@ module.exports = {
       'The website has been redirected to the new address': 'Vuelva a iniciar sesión con la siguiente URL',
       'The specified port is reserved by system or in use!': 'Este puerto está reservado o en uso para el sistema',
       'Redirection Success': 'redirección',
+      'Range: 1024-65535 Default: 8443': 'Rango: 1024-65535, preestablecido: 8443',
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? 'Fabricante' : 'AndroVideo'} Certificado autofirmado`,
       'certificate-type-1': '上傳您的憑證',
@@ -752,11 +752,11 @@ module.exports = {
       'Sync Interval (minutes)': 'Frecuencia de actualización (minutos)',
       'Sync with Your Computer': ' Sincronizar con su computadora',
       'Set the Date & Time Manually': 'Ajuste manual',
-      'Updating Date & Time': 'Updating Date & Time',
+      'Updating Date & Time': 'Actualización de Fecha y Hora',
       'Updating date and time requires you to log in again. Are you sure you want to continue?': '¿Estás seguro de que deseas cambiar la hora del dispositivo? Debes iniciar sesión nuevamente para cambiar la hora del dispositivo',
 
       // /system/maintain
-      'Restore All Settings': 'Restaurar todas las configuraciones a los valores predeterminados',
+      'Restore All Settings': 'Restaurar todas las config',
       'Device Maintenance': 'mantenimiento',
       'System Reboot': 'Reiniciar el dispositivo',
       'Are you sure you want to reboot the device?': '¿Estás seguro de que deseas reiniciar el dispositivo?',
@@ -856,9 +856,9 @@ module.exports = {
       // 9005
       // Unable to reset a password	不支援此功能
       // 9007
-      'Card Number Limit Exceeded': 'Límite de cantidad alcanzado',
+      'Card Number Limit Exceeded': 'Límite de número de tarjetas excedido',
       // 9008
-      'Non-existent Card': 'Non-existent Card',
+      'Non-existent Card': 'Tarjeta inexistente',
       // 9009
       'Database Size Limit (3 GB) Exceeded': 'Alcanzó el límite de almacenamiento',
       // 9010
@@ -902,7 +902,7 @@ module.exports = {
       // 9029
       'Unable to Complete the Format': 'Error al formatear la tarjeta de memoria',
       // 9030
-      'Empty SMTP Server Address': 'Empty SMTP Server Address',
+      'Empty SMTP Server Address': 'Dirección de servidor SMTP vacía',
       // 9031
       'Empty SMTP Account': 'Debe ingresar cuenta y contraseña',
       // 9032
@@ -932,13 +932,13 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': 'Más de 1 rostro en la foto',
       // 9045
-      'Non-existent Photo': 'Non-existent Photo',
+      'Non-existent Face Thumbnail': 'Miniatura de Cara inexistente',
       // 9046
       'Invalid Key': 'Activación fallida, código de activación incorrecto',
       // 9047
-      'Duplicate Key': 'Duplicate Key',
+      'Duplicate Key': 'Activación fallida, código de activación repetido',
       // 9048
-      'Cannot Support Database Downgrade from 30,000 to 3000 People': 'No se pudo activar, el número máximo de miembros que no admiten el reconocimiento facial se redujo de 30.000 a 3.000'
+      'Cannot Support Database Downgrade from 30,000 to 3000 People': 'Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros'
 
       // -- Page -- END --
     }

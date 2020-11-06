@@ -101,7 +101,7 @@ class SearchMember extends React.PureComponent {
       }).then(() =>
         notify.showSuccessNotification({
           title: i18n.t('Setting Success'),
-          message: i18n.t('Added Photo to {{0}} Successfully!', {0: member.name})
+          message: i18n.t('Photo Has Been Added to {{0}}', {0: member.name})
         }))
         .then(getRouter().reload)
         .finally(() => this.hideApiProcessModal())
@@ -218,7 +218,7 @@ class SearchMember extends React.PureComponent {
                   { members && !members.items.length && members.items.length === 0 && (
                     <tr>
                       <td className="text-size-16 text-center" colSpan="10">
-                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('Can\'t find any data.')}
+                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('Couldn\'t find any data.')}
                       </td>
                     </tr>
                   )}
