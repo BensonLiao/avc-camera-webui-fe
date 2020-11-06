@@ -18,7 +18,7 @@ const BreadCrumb = require('../../../core/components/fields/breadcrumb').default
 module.exports = class OSD extends Base {
   static get propTypes() {
     return {
-      wordSettings: PropTypes.shape({
+      osdSettings: PropTypes.shape({
         isEnable: PropTypes.bool.isRequired,
         fontSize: PropTypes.oneOf(WordFontSize.all()).isRequired,
         color: PropTypes.oneOf(WordColor.all()).isRequired,
@@ -213,14 +213,14 @@ module.exports = class OSD extends Base {
   };
 
   render() {
-    const {wordSettings} = this.props;
+    const {wordSettings: osdSettings} = this.props;
 
-    wordSettings.customText = wordSettings.customText || '';
+    osdSettings.customText = osdSettings.customText || '';
     return (
       <div className="main-content left-menu-active">
         <div className="section-media">
           <div className="container-fluid">
-            <Formik initialValues={wordSettings} onSubmit={this.onSubmitOSDSettingsForm}>
+            <Formik initialValues={osdSettings} onSubmit={this.onSubmitOSDSettingsForm}>
               {this.OSDSettingsFormRender}
             </Formik>
           </div>
