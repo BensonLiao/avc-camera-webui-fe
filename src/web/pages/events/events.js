@@ -124,6 +124,7 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
       index: undefined
     }
   );
+
   return (
     <>
       <EventsSidebar
@@ -212,12 +213,11 @@ Events.propTypes = {
       name: PropTypes.string.isRequired,
       note: PropTypes.string
     }).isRequired).isRequired
-  }),
+  }).isRequired,
   authStatus: PropTypes.shape(EventsSidebar.propTypes.authStatus).isRequired,
   faceEvents: PropTypes.shape(EventsTable.events).isRequired,
   systemDateTime: PropTypes.shape(EventsSearchForm.propTypes.systemDateTime).isRequired,
   remainingPictureCount: PropTypes.number.isRequired
 };
-Events.defaultProps = {groups: '-'};
 
 export default withGlobalStatus(Events);
