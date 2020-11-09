@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const config = require('config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,7 +8,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
-const packageInformation = JSON.parse(fs.readFileSync('package.json'));
+const packageInformation = require('./package.json');
 
 module.exports = (env = {}) => {
   const isDebug = (env.mode || 'development') === 'development';
