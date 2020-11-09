@@ -33,9 +33,15 @@ const EventsSearchForm = ({params, isApiProcessing, currentRouteName}) => {
     isShowStartDatePicker: false
   }));
 
-  const onHideStartDatePicker = () => setState({isShowStartDatePicker: false});
+  const onHideStartDatePicker = () => setState({
+    ...state,
+    isShowStartDatePicker: false
+  });
 
-  const onHideEndDatePicker = () => setState({isShowEndDatePicker: false});
+  const onHideEndDatePicker = () => setState({
+    ...state,
+    isShowEndDatePicker: false
+  });
 
   /**
    * Handler on user submit the search form.
