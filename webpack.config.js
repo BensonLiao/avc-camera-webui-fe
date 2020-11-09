@@ -117,11 +117,15 @@ module.exports = (env = {}) => {
       const result = [
         new HtmlWebpackPlugin({
           filename: path.join(__dirname, buildFolder, 'express', 'index.html'),
-          meta: {
+          meta: isDebug ? {
             charset: 'utf-8',
             'X-UA-Compatible': 'IE=Edge',
-            'cache-control': isDebug ? 'max-age=31536000' : 'no-cache',
-            pragma: isDebug ? 'max-age=31536000' : 'no-cache'
+            'cache-control': 'no-store',
+            // only for backwards compatibility with HTTP/1.0 clients
+            pragma: 'no-store'
+          } : {
+            charset: 'utf-8',
+            'X-UA-Compatible': 'IE=Edge'
           },
           favicon: './favicon.ico',
           template: path.join(__dirname, 'src', 'express', 'base.hbs'),
