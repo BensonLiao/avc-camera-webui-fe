@@ -55,48 +55,21 @@ module.exports = class OSD extends Base {
           <div className="video-wrapper">
             <img className="img-fluid" draggable={false} src="/api/snapshot"/>
             {
-              values.position !== OSDPosition.leftTop && (
-                <button
-                  className="btn btn-top-left"
-                  type="button"
-                  onClick={this.generatePositionButtonHandler(form, OSDPosition.leftTop)}
-                >
-                  <i className="fas fa-arrow-up"/>
-                </button>
-              )
-            }
-            {
-              values.position !== OSDPosition.rightTop && (
-                <button
-                  className="btn btn-top-right"
-                  type="button"
-                  onClick={this.generatePositionButtonHandler(form, OSDPosition.rightTop)}
-                >
-                  <i className="fas fa-arrow-up"/>
-                </button>
-              )
-            }
-            {
-              values.position !== OSDPosition.leftBottom && (
-                <button
-                  className="btn btn-bottom-left"
-                  type="button"
-                  onClick={this.generatePositionButtonHandler(form, OSDPosition.leftBottom)}
-                >
-                  <i className="fas fa-arrow-up"/>
-                </button>
-              )
-            }
-            {
-              values.position !== OSDPosition.rightBottom && (
-                <button
-                  className="btn btn-bottom-right"
-                  type="button"
-                  onClick={this.generatePositionButtonHandler(form, OSDPosition.rightBottom)}
-                >
-                  <i className="fas fa-arrow-up"/>
-                </button>
-              )
+              [{leftTop: 'top-left'}, {rightTop: 'top-right'}, {leftBottom: 'bottom-left'}, {rightBottom: 'bottom-right'}].map(direction => {
+                const [key, value] = Object.entries(direction)[0];
+                return (
+                  values.position !== OSDPosition[key] && (
+                    <button
+                      key={key}
+                      className={`btn btn-${value}`}
+                      type="button"
+                      onClick={this.generatePositionButtonHandler(form, OSDPosition[key])}
+                    >
+                      <i className="fas fa-arrow-up"/>
+                    </button>
+                  )
+                );
+              })
             }
           </div>
         </div>
