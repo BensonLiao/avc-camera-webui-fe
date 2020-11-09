@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import {getRouter} from 'capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
@@ -120,11 +120,7 @@ const License = ({
                       </div>
                       <div className="form-row">
                         <div className="col-auto">
-                          {
-                            errors.authKey && (
-                              <div className="invalid-feedback d-block mt-0">{errors.authKey}</div>
-                            )
-                          }
+                          <ErrorMessage component="div" name="authKey" className="invalid-feedback d-block mt-0"/>
                         </div>
                       </div>
                     </Form>
