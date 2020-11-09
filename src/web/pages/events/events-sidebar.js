@@ -235,6 +235,5 @@ EventsSidebar.propTypes = {
   currentRouteName: PropTypes.string.isRequired,
   isApiProcessing: PropTypes.bool.isRequired
 };
-EventsSidebar.defaultProps = {};
 
 export default EventsSidebar;
