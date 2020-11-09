@@ -112,11 +112,6 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
     });
   };
 
-  let events;
-  if (type === 'face-recognition') {
-    events = faceEvents;
-  }
-
   const hrefTemplate = getRouter().generateUri(
     currentRoute,
     {
@@ -141,7 +136,7 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
               <div className="col-12 mb-4">
                 <div className="card quantity-wrapper float-right">
                   <div className="card-body">
-                    <div className="quantity">{utils.formatNumber(events.total)}</div>
+                    <div className="quantity">{utils.formatNumber(faceEvents.total)}</div>
                     <div className="description">{i18n.t('Total')}</div>
                   </div>
                 </div>
@@ -154,7 +149,7 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
               </div>
               <EventsTable
                 params={params}
-                events={events}
+                events={faceEvents}
                 groups={groups}
                 systemDateTime={systemDateTime}
                 remainingPictureCount={remainingPictureCount}
