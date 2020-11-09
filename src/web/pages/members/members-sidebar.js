@@ -4,7 +4,7 @@ const React = require('react');
 const i18n = require('../../../i18n').default;
 const CustomTooltip = require('../../../core/components/tooltip');
 const {MEMBERS_PAGE_GROUPS_MAX} = require('../../../core/constants');
-const MembersDatabase = require('./members-database');
+const MembersDatabase = require('./members-database').default;
 const {Link} = require('capybara-router');
 
 module.exports = class MembersSidebar extends React.PureComponent {
