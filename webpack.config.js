@@ -81,16 +81,7 @@ module.exports = (env = {}) => {
           ]
         },
         {
-          test: /\.(eot|svg|woff|woff2|ttf)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {name: 'resources/[name].[ext]'}
-            }
-          ]
-        },
-        {
-          test: /\.(png|jpg)$/,
+          test: /\.(png|jpg|svg|eot|woff|woff2|ttf)$/,
           use: [
             {
               loader: 'file-loader',
