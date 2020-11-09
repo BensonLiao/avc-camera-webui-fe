@@ -120,9 +120,8 @@ module.exports = (env = {}) => {
           meta: {
             charset: 'utf-8',
             'X-UA-Compatible': 'IE=Edge',
-            expires: '0',
-            'cache-control': 'no-cache, no-store, must-revalidate',
-            pragma: 'no-cache, no-store, must-revalidate'
+            'cache-control': isDebug ? 'max-age=31536000' : 'no-cache',
+            pragma: isDebug ? 'max-age=31536000' : 'no-cache'
           },
           favicon: './favicon.ico',
           template: path.join(__dirname, 'src', 'express', 'base.hbs'),
