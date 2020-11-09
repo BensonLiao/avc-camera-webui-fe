@@ -90,19 +90,17 @@ const License = ({
               <h3 className="mb-4">{i18n.t('License')}</h3>
               <Formik
                 initialValues={{authKey: ''}}
+                validateOnBlur={false}
                 validate={utils.makeFormikValidator(authKeyValidator)}
                 onSubmit={onSubmit}
               >
-                {({errors, touched, submitCount}) => {
-                  const isSubmitted = submitCount > 0;
-
+                {({errors}) => {
                   return (
                     <Form>
                       <div className="form-row">
                         <div className="col-auto my-1">
                           <Field
-                            autoFocus
-                            className={classNames('form-control', {'is-invalid': errors.authKey && isSubmitted})}
+                            className={classNames('form-control', {'is-invalid': errors.authKey})}
                             name="authKey"
                             type="text"
                             maxLength={AuthKeySchema.authKey.max}
@@ -123,7 +121,7 @@ const License = ({
                       <div className="form-row">
                         <div className="col-auto">
                           {
-                            errors.authKey && touched.authKey && isSubmitted && (
+                            errors.authKey && (
                               <div className="invalid-feedback d-block mt-0">{errors.authKey}</div>
                             )
                           }
