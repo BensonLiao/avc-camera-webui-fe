@@ -29,9 +29,9 @@ module.exports = class OSD extends Base {
     };
   }
 
-  generatePositionButtonHandler = (form, position) => event => {
+  generatePositionButtonHandler = (setFieldValue, position) => event => {
     event.preventDefault();
-    form.setFieldValue('position', position);
+    setFieldValue('position', position);
   };
 
   onSubmitOSDSettingsForm = values => {
@@ -39,177 +39,6 @@ module.exports = class OSD extends Base {
     api.multimedia.updateOSDSettings(values)
       .then(getRouter().reload)
       .finally(progress.done);
-  };
-
-  OSDSettingsFormRender = form => {
-    const {values, setFieldValue} = form;
-
-    return (
-      <Form className="row">
-        <BreadCrumb
-          className="px-0"
-          path={[i18n.t('Video Settings'), i18n.t('OSD')]}
-          routes={['/media/stream']}
-        />
-        <div className="col-7 px-0">
-          <div className="video-wrapper">
-            <img className="img-fluid" draggable={false} src="/api/snapshot"/>
-            {
-              values.position !== OSDPosition.leftTop && (
-                <button
-                  className="btn btn-top-left"
-                  type="button"
-                  onClick={this.generatePositionButtonHandler(form, OSDPosition.leftTop)}
-                >
-                  <i className="fas fa-arrow-up"/>
-                </button>
-              )
-            }
-            {
-              values.position !== OSDPosition.rightTop && (
-                <button
-                  className="btn btn-top-right"
-                  type="button"
-                  onClick={this.generatePositionButtonHandler(form, OSDPosition.rightTop)}
-                >
-                  <i className="fas fa-arrow-up"/>
-                </button>
-              )
-            }
-            {
-              values.position !== OSDPosition.leftBottom && (
-                <button
-                  className="btn btn-bottom-left"
-                  type="button"
-                  onClick={this.generatePositionButtonHandler(form, OSDPosition.leftBottom)}
-                >
-                  <i className="fas fa-arrow-up"/>
-                </button>
-              )
-            }
-            {
-              values.position !== OSDPosition.rightBottom && (
-                <button
-                  className="btn btn-bottom-right"
-                  type="button"
-                  onClick={this.generatePositionButtonHandler(form, OSDPosition.rightBottom)}
-                >
-                  <i className="fas fa-arrow-up"/>
-                </button>
-              )
-            }
-          </div>
-        </div>
-
-        <div className="col-5 pl-4 pr-0">
-          <div className="card shadow">
-            <div className="card-header">{i18n.t('OSD')}</div>
-            <div className="card-body">
-              <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('Enable On-Screen Display')}</label>
-                <div className="custom-control custom-switch">
-                  <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
-                  <label className="custom-control-label" htmlFor="switch-function">
-                    <span>{i18n.t('ON')}</span>
-                    <span>{i18n.t('OFF')}</span>
-                  </label>
-                </div>
-              </div>
-              <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('Size')}</label>
-                <div className="btn-group">
-                  {
-                    OSDFontSize.all().map(size => (
-                      <button
-                        key={size}
-                        type="button"
-                        className={classNames(
-                          'btn triple-wrapper btn-sm outline-success px-2 py-1',
-                          {active: values.fontSize === size}
-                        )}
-                        onClick={() => setFieldValue('fontSize', size)}
-                      >
-                        {i18n.t(`font-size-${size}`)}
-                      </button>
-                    ))
-                  }
-                </div>
-              </div>
-              <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('Color')}</label>
-                <div>
-                  <button
-                    type="button"
-                    className={classNames(
-                      'btn-black',
-                      {active: values.color === OSDColor.black}
-                    )}
-                    onClick={() => setFieldValue('color', OSDColor.black)}
-                  >
-                    &nbsp;
-                  </button>
-                  &nbsp;
-                  <button
-                    type="button"
-                    className={classNames(
-                      'btn-white',
-                      {active: values.color === OSDColor.white}
-                    )}
-                    onClick={() => setFieldValue('color', OSDColor.white)}
-                  >
-                    &nbsp;
-                  </button>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="form-group d-flex justify-content-between align-items-center mb-0">
-                  <label className="mb-0">{i18n.t('Position')}</label>
-                  {
-                    values.position === OSDPosition.leftTop && (
-                      <p className="text-primary mb-0">{i18n.t('Left Top')}</p>
-                    )
-                  }
-                  {
-                    values.position === OSDPosition.rightTop && (
-                      <p className="text-primary mb-0">{i18n.t('Right Top')}</p>
-                    )
-                  }
-                  {
-                    values.position === OSDPosition.leftBottom && (
-                      <p className="text-primary mb-0">{i18n.t('Bottom Left')}</p>
-                    )
-                  }
-                  {
-                    values.position === OSDPosition.rightBottom && (
-                      <p className="text-primary mb-0">{i18n.t('Bottom Right')}</p>
-                    )
-                  }
-                </div>
-                <small className="mt-0 form-text text-muted">{i18n.t('Click the arrow on the live view screen.')}</small>
-              </div>
-              <SelectField labelName={i18n.t('Text Overlay')} name="type">
-                {OSDType.all().map(type => (
-                  <option key={type} value={type}>{i18n.t(`osd-type-${type}`)}</option>
-                ))}
-              </SelectField>
-              <div className={classNames('form-group', {'d-none': values.type !== OSDType.custom})}>
-                <Field
-                  name="customText"
-                  type="text"
-                  placeholder={i18n.t('Enter custom text')}
-                  maxLength={OSDSettingsSchema.customText.max}
-                  className="form-control"
-                />
-              </div>
-              <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-                {i18n.t('Apply')}
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </Form>
-    );
   };
 
   render() {
@@ -221,7 +50,135 @@ module.exports = class OSD extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <Formik initialValues={osdSettings} onSubmit={this.onSubmitOSDSettingsForm}>
-              {this.OSDSettingsFormRender}
+              {({values, setFieldValue}) => {
+                return (
+                  <Form className="row">
+                    <BreadCrumb
+                      className="px-0"
+                      path={[i18n.t('Video Settings'), i18n.t('OSD')]}
+                      routes={['/media/stream']}
+                    />
+                    <div className="col-7 px-0">
+                      <div className="video-wrapper">
+                        <img className="img-fluid" draggable={false} src="/api/snapshot"/>
+                        {
+                          [{leftTop: 'top-left'}, {rightTop: 'top-right'}, {leftBottom: 'bottom-left'}, {rightBottom: 'bottom-right'}].map(direction => {
+                            const [key, value] = Object.entries(direction)[0];
+                            return (
+                              values.position !== OSDPosition[key] && (
+                                <button
+                                  key={key}
+                                  className={`btn btn-${value}`}
+                                  type="button"
+                                  onClick={this.generatePositionButtonHandler(setFieldValue, OSDPosition[key])}
+                                >
+                                  <i className="fas fa-arrow-up"/>
+                                </button>
+                              )
+                            );
+                          })
+                        }
+                      </div>
+                    </div>
+                    <div className="col-5 pl-4 pr-0">
+                      <div className="card shadow">
+                        <div className="card-header">{i18n.t('OSD')}</div>
+                        <div className="card-body">
+                          <div className="form-group d-flex justify-content-between align-items-center">
+                            <label className="mb-0">{i18n.t('Enable On-Screen Display')}</label>
+                            <div className="custom-control custom-switch">
+                              <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
+                              <label className="custom-control-label" htmlFor="switch-function">
+                                <span>{i18n.t('ON')}</span>
+                                <span>{i18n.t('OFF')}</span>
+                              </label>
+                            </div>
+                          </div>
+                          <div className="form-group d-flex justify-content-between align-items-center">
+                            <label className="mb-0">{i18n.t('Size')}</label>
+                            <div className="btn-group">
+                              {
+                                OSDFontSize.all().map(size => (
+                                  <button
+                                    key={size}
+                                    type="button"
+                                    className={classNames(
+                                      'btn triple-wrapper btn-sm outline-success px-2 py-1',
+                                      {active: values.fontSize === size}
+                                    )}
+                                    onClick={() => setFieldValue('fontSize', size)}
+                                  >
+                                    {i18n.t(`font-size-${size}`)}
+                                  </button>
+                                ))
+                              }
+                            </div>
+                          </div>
+                          <div className="form-group d-flex justify-content-between align-items-center">
+                            <label className="mb-0">{i18n.t('Color')}</label>
+                            <div>
+                              <button
+                                type="button"
+                                className={classNames(
+                                  'btn-black',
+                                  {active: values.color === OSDColor.black}
+                                )}
+                                onClick={() => setFieldValue('color', OSDColor.black)}
+                              >
+                                &nbsp;
+                              </button>
+                              &nbsp;
+                              <button
+                                type="button"
+                                className={classNames(
+                                  'btn-white',
+                                  {active: values.color === OSDColor.white}
+                                )}
+                                onClick={() => setFieldValue('color', OSDColor.white)}
+                              >
+                                &nbsp;
+                              </button>
+                            </div>
+                          </div>
+                          <div className="form-group">
+                            <div className="form-group d-flex justify-content-between align-items-center mb-0">
+                              <label className="mb-0">{i18n.t('Position')}</label>
+                              {
+                                [{leftTop: 'Left Top'}, {rightTop: 'Right Top'}, {leftBottom: 'Bottom Left'}, {rightBottom: 'Bottom Right'}].map(direction => {
+                                  const [key, value] = Object.entries(direction)[0];
+                                  return (
+                                    values.position === OSDPosition[key] && (
+                                      <p key={value} className="text-primary mb-0">{i18n.t(value)}</p>
+                                    )
+                                  );
+                                })
+                              }
+                            </div>
+                            <small className="mt-0 form-text text-muted">{i18n.t('Click the arrow on the live view screen.')}</small>
+                          </div>
+                          <SelectField labelName={i18n.t('Text Overlay')} name="type">
+                            {OSDType.all().map(type => (
+                              <option key={type} value={type}>{i18n.t(`osd-type-${type}`)}</option>
+                            ))}
+                          </SelectField>
+                          <div className={classNames('form-group', {'d-none': values.type !== OSDType.custom})}>
+                            <Field
+                              name="customText"
+                              type="text"
+                              placeholder={i18n.t('Enter custom text')}
+                              maxLength={OSDSettingsSchema.customText.max}
+                              className="form-control"
+                            />
+                          </div>
+                          <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
+                            {i18n.t('Apply')}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Form>
+                );
+              }}
             </Formik>
           </div>
         </div>
