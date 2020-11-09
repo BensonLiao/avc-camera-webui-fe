@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import {getRouter} from 'capybara-router';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import GroupSchema from 'webserver-form-schema/group-schema';
 import utils from '../../../core/utils';
 import api from '../../../core/apis/web-api';
@@ -120,11 +120,7 @@ const Group = ({groups, group, params}) => {
                     validate={checkDuplicate}
                     className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
                   />
-                  {
-                    errors.name && touched.name && (
-                      <div className="invalid-feedback">{errors.name}</div>
-                    )
-                  }
+                  <ErrorMessage component="div" name="name" className="invalid-feedback"/>
                   <small className="form-text text-muted">{i18n.t('Maximum length: 32 characters')}</small>
                 </div>
                 <div className="form-group">
@@ -136,11 +132,7 @@ const Group = ({groups, group, params}) => {
                     maxLength={GroupSchema.note.max}
                     className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
                   />
-                  {
-                    errors.note && touched.note && (
-                      <div className="invalid-feedback">{errors.note}</div>
-                    )
-                  }
+                  <ErrorMessage component="div" name="note" className="invalid-feedback"/>
                   <small className="form-text text-muted">{i18n.t('Maximum length: 256 characters')}</small>
                 </div>
               </div>
