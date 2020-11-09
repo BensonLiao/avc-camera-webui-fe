@@ -29,9 +29,9 @@ module.exports = class OSD extends Base {
     };
   }
 
-  generatePositionButtonHandler = (form, position) => event => {
+  generatePositionButtonHandler = (setFieldValue, position) => event => {
     event.preventDefault();
-    form.setFieldValue('position', position);
+    setFieldValue('position', position);
   };
 
   onSubmitOSDSettingsForm = values => {
@@ -50,8 +50,7 @@ module.exports = class OSD extends Base {
         <div className="section-media">
           <div className="container-fluid">
             <Formik initialValues={osdSettings} onSubmit={this.onSubmitOSDSettingsForm}>
-              {form => {
-                const {values, setFieldValue} = form;
+              {({values, setFieldValue}) => {
                 return (
                   <Form className="row">
                     <BreadCrumb
@@ -71,7 +70,7 @@ module.exports = class OSD extends Base {
                                   key={key}
                                   className={`btn btn-${value}`}
                                   type="button"
-                                  onClick={this.generatePositionButtonHandler(form, OSDPosition[key])}
+                                  onClick={this.generatePositionButtonHandler(setFieldValue, OSDPosition[key])}
                                 >
                                   <i className="fas fa-arrow-up"/>
                                 </button>
