@@ -138,24 +138,14 @@ module.exports = class OSD extends Base {
                 <div className="form-group d-flex justify-content-between align-items-center mb-0">
                   <label className="mb-0">{i18n.t('Position')}</label>
                   {
-                    values.position === OSDPosition.leftTop && (
-                      <p className="text-primary mb-0">{i18n.t('Left Top')}</p>
-                    )
-                  }
-                  {
-                    values.position === OSDPosition.rightTop && (
-                      <p className="text-primary mb-0">{i18n.t('Right Top')}</p>
-                    )
-                  }
-                  {
-                    values.position === OSDPosition.leftBottom && (
-                      <p className="text-primary mb-0">{i18n.t('Bottom Left')}</p>
-                    )
-                  }
-                  {
-                    values.position === OSDPosition.rightBottom && (
-                      <p className="text-primary mb-0">{i18n.t('Bottom Right')}</p>
-                    )
+                    [{leftTop: 'Left Top'}, {rightTop: 'Right Top'}, {leftBottom: 'Bottom Left'}, {rightBottom: 'Bottom Right'}].map(direction => {
+                      const [key, value] = Object.entries(direction)[0];
+                      return (
+                        values.position === OSDPosition[key] && (
+                          <p key={value} className="text-primary mb-0">{i18n.t(value)}</p>
+                        )
+                      );
+                    })
                   }
                 </div>
                 <small className="mt-0 form-text text-muted">{i18n.t('Click the arrow on the live view screen.')}</small>
