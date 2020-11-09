@@ -1,46 +1,43 @@
-const classNames = require('classnames');
-const {Formik, Form, Field} = require('formik');
-const {getRouter} = require('capybara-router');
-const progress = require('nprogress');
-const PropTypes = require('prop-types');
-const React = require('react');
-const i18n = require('../../../i18n').default;
-const api = require('../../../core/apis/web-api');
-const authKeyValidator = require('../../validations/auth-keys/auth-key-validator');
-const AuthKeySchema = require('webserver-form-schema/auth-key-schema');
-const iconFaceRecognitionEnable = require('../../../resource/face-recognition-enable-100px.svg');
-const iconFaceRecognitionDisable = require('../../../resource/face-recognition-disable-100px.svg');
-const iconAgeGenderEnable = require('../../../resource/age-gender-enable-100px.svg');
-const iconAgeGenderDisable = require('../../../resource/age-gender-disable-100px.svg');
-const iconHumanoidDetectionEnable = require('../../../resource/human-detection-enable-100px.svg');
-const iconHumanoidDetectionDisable = require('../../../resource/human-detection-disable-100px.svg');
-const notify = require('../../../core/notify');
-const utils = require('../../../core/utils');
-const Base = require('../shared/base');
-const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
-const LicenseList = require('./license-list').default;
-const LicenseStatus = require('./license-status').default;
+import classNames from 'classnames';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {getRouter} from 'capybara-router';
+import progress from 'nprogress';
+import PropTypes from 'prop-types';
+import React from 'react';
+import i18n from '../../../i18n';
+import api from '../../../core/apis/web-api';
+import authKeyValidator from '../../validations/auth-keys/auth-key-validator';
+import AuthKeySchema from 'webserver-form-schema/auth-key-schema';
+import iconFaceRecognitionEnable from '../../../resource/face-recognition-enable-100px.svg';
+import iconFaceRecognitionDisable from '../../../resource/face-recognition-disable-100px.svg';
+import iconAgeGenderEnable from '../../../resource/age-gender-enable-100px.svg';
+import iconAgeGenderDisable from '../../../resource/age-gender-disable-100px.svg';
+import iconHumanoidDetectionEnable from '../../../resource/human-detection-enable-100px.svg';
+import iconHumanoidDetectionDisable from '../../../resource/human-detection-disable-100px.svg';
+import notify from '../../../core/notify';
+import utils from '../../../core/utils';
+import BreadCrumb from '../../../core/components/fields/breadcrumb';
+import LicenseList from './license-list';
+import LicenseStatus from './license-status';
+import withGlobalStatus from '../../withGlobalStatus';
+import {useContextState} from '../../stateProvider';
 
-module.exports = class License extends Base {
-  static get propTypes() {
-    return {
-      authKeys: PropTypes.shape(LicenseList.propTypes.authKeys).isRequired,
-      authStatus: PropTypes.shape({
-        isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
-        isEnableAgeGenderKey: PropTypes.bool.isRequired,
-        isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
-      }).isRequired
-    };
-  }
-
+const License = ({
+  authStatus: {
+    isEnableFaceRecognitionKey,
+    isEnableAgeGenderKey,
+    isEnableHumanoidDetectionKey
+  }, authKeys
+}) => {
+  const {isApiProcessing} = useContextState();
   /**
    * Handler on user submit the add auth key form.
    * Reload the router or render error page.
    * @param {String} authKey
    * @returns {void}
    */
-  onSubmit = ({authKey}) => {
-    const keyList = this.props.authKeys.items.map(key => key.authKey);
+  const onSubmit = ({authKey}) => {
+    const keyList = authKeys.items.map(key => key.authKey);
     const check = utils.duplicateCheck(keyList, authKey);
     if (check) {
       notify.showErrorNotification({
@@ -80,109 +77,103 @@ module.exports = class License extends Base {
     }
   };
 
-  addLicenseFormRender = ({errors, touched, submitCount}) => {
-    const isSubmitted = submitCount > 0;
-
-    return (
-      <Form>
-        <div className="form-row">
-          <div className="col-auto my-1">
-            <Field
-              autoFocus
-              className={classNames('form-control', {'is-invalid': errors.authKey && isSubmitted})}
-              name="authKey"
-              type="text"
-              maxLength={AuthKeySchema.authKey.max}
-              placeholder={i18n.t('Enter your authentication key')}
-              style={{width: '312px'}}
+  return (
+    <div className="bg-white">
+      <div className="page-license bg-gray" style={{height: '522px'}}>
+        <div className="container-fluid">
+          <div className="row">
+            <BreadCrumb
+              path={[i18n.t('Analytics Settings'), i18n.t('License')]}
+              routes={['/analytic/face-recognition']}
             />
-          </div>
-          <div className="col-auto my-1">
-            <button
-              className="btn btn-primary rounded-pill px-4"
-              type="submit"
-              disabled={this.state.$isApiProcessing}
-            >
-              {i18n.t('Activate')}
-            </button>
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="col-auto">
-            {
-              errors.authKey && touched.authKey && isSubmitted && (
-                <div className="invalid-feedback d-block mt-0">{errors.authKey}</div>
-              )
-            }
-          </div>
-        </div>
-      </Form>
-    );
-  };
-
-  render() {
-    const {
-      authStatus: {
-        isEnableFaceRecognitionKey,
-        isEnableAgeGenderKey,
-        isEnableHumanoidDetectionKey
-      }, authKeys
-    } = this.props;
-    return (
-      <div className="bg-white">
-        <div className="page-license bg-gray" style={{height: '522px'}}>
-          <div className="container-fluid">
-            <div className="row">
-              <BreadCrumb
-                path={[i18n.t('Analytics Settings'), i18n.t('License')]}
-                routes={['/analytic/face-recognition']}
-              />
-              <div className="col-12">
-                <h3 className="mb-4">{i18n.t('License')}</h3>
-                <Formik
-                  initialValues={{authKey: ''}}
-                  validate={utils.makeFormikValidator(authKeyValidator)}
-                  onSubmit={this.onSubmit}
-                >
-                  {this.addLicenseFormRender}
-                </Formik>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="page-license pt-0 page-bottom">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-12">
-                <div className="status d-flex">
-                  <LicenseStatus
-                    licenseName={i18n.t('Facial Recognition')}
-                    isEnabled={isEnableFaceRecognitionKey}
-                    licenseEnableImg={iconFaceRecognitionEnable}
-                    licenseDisableImg={iconFaceRecognitionDisable}
-                  />
-                  <LicenseStatus
-                    licenseName={i18n.t('Age & Gender')}
-                    isEnabled={isEnableAgeGenderKey}
-                    licenseEnableImg={iconAgeGenderEnable}
-                    licenseDisableImg={iconAgeGenderDisable}
-                  />
-                  <LicenseStatus
-                    licenseName={i18n.t('Human Detection')}
-                    isEnabled={isEnableHumanoidDetectionKey}
-                    licenseEnableImg={iconHumanoidDetectionEnable}
-                    licenseDisableImg={iconHumanoidDetectionDisable}
-                  />
-                </div>
-                <LicenseList
-                  authKeys={authKeys}
-                />
-              </div>
+            <div className="col-12">
+              <h3 className="mb-4">{i18n.t('License')}</h3>
+              <Formik
+                initialValues={{authKey: ''}}
+                validateOnBlur={false}
+                validate={utils.makeFormikValidator(authKeyValidator)}
+                onSubmit={onSubmit}
+              >
+                {({errors}) => {
+                  return (
+                    <Form>
+                      <div className="form-row">
+                        <div className="col-auto my-1">
+                          <Field
+                            className={classNames('form-control', {'is-invalid': errors.authKey})}
+                            name="authKey"
+                            type="text"
+                            maxLength={AuthKeySchema.authKey.max}
+                            placeholder={i18n.t('Enter your authentication key')}
+                            style={{width: '312px'}}
+                          />
+                        </div>
+                        <div className="col-auto my-1">
+                          <button
+                            className="btn btn-primary rounded-pill px-4"
+                            type="submit"
+                            disabled={isApiProcessing}
+                          >
+                            {i18n.t('Activate')}
+                          </button>
+                        </div>
+                      </div>
+                      <div className="form-row">
+                        <div className="col-auto">
+                          <ErrorMessage component="div" name="authKey" className="invalid-feedback d-block mt-0"/>
+                        </div>
+                      </div>
+                    </Form>
+                  );
+                }}
+              </Formik>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+
+      <div className="page-license pt-0 page-bottom">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12">
+              <div className="status d-flex">
+                <LicenseStatus
+                  licenseName={i18n.t('Facial Recognition')}
+                  isEnabled={isEnableFaceRecognitionKey}
+                  licenseEnableImg={iconFaceRecognitionEnable}
+                  licenseDisableImg={iconFaceRecognitionDisable}
+                />
+                <LicenseStatus
+                  licenseName={i18n.t('Age & Gender')}
+                  isEnabled={isEnableAgeGenderKey}
+                  licenseEnableImg={iconAgeGenderEnable}
+                  licenseDisableImg={iconAgeGenderDisable}
+                />
+                <LicenseStatus
+                  licenseName={i18n.t('Human Detection')}
+                  isEnabled={isEnableHumanoidDetectionKey}
+                  licenseEnableImg={iconHumanoidDetectionEnable}
+                  licenseDisableImg={iconHumanoidDetectionDisable}
+                />
+              </div>
+              <LicenseList
+                authKeys={authKeys}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
+
+License.propTypes = {
+  authKeys: PropTypes.shape(LicenseList.propTypes.authKeys).isRequired,
+  authStatus: PropTypes.shape({
+    isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
+    isEnableAgeGenderKey: PropTypes.bool.isRequired,
+    isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
+  }).isRequired
+};
+
+export default withGlobalStatus(License);
