@@ -55,7 +55,10 @@ const withGlobalStatus = WrappedComponent => {
     }
 
     unloadAlert = e => {
-      const {$isApiProcessing, $updateFocalLengthField, $isNotCallUnloadAlert} = this.state;
+      // const {$isApiProcessing, $updateFocalLengthField, $isNotCallUnloadAlert} = this.state;
+      const $isApiProcessing = store.get('$isApiProcessing');
+      const $updateFocalLengthField = store.get('$updateFocalLengthField');
+      const $isNotCallUnloadAlert = store.get('$isNotCallUnloadAlert');
       if (($isApiProcessing || $updateFocalLengthField) && !$isNotCallUnloadAlert) {
         // Cancel the event
         // If you prevent default behavior in Mozilla Firefox prompt will always be shown
