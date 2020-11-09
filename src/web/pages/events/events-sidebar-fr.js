@@ -70,6 +70,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
       id: 'input-checkbox-fake'
     }
   ];
+
   return (
 
     <div className="card-body">

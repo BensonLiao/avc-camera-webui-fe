@@ -113,16 +113,18 @@ const EventsSidebar = ({
   );
 };
 
+/* eslint-disable react/require-default-props */
+// ESLint does not recognise extending proptypes from child
 EventsSidebar.propTypes = {
-  params: PropTypes.shape(EventsSidebarFR.propTypes.params).isRequired,
+  params: EventsSidebarFR.propTypes.params,
+  currentRouteName: EventsSidebarFR.propTypes.currentRouteName,
+  isApiProcessing: EventsSidebarFR.propTypes.isApiProcessing,
   authStatus: PropTypes.shape({
     isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
     isEnableAgeGenderKey: PropTypes.bool.isRequired,
     isEnableHumanoidDetectionKey: PropTypes.bool.isRequired
   }).isRequired,
-  type: PropTypes.string.isRequired,
-  currentRouteName: PropTypes.shape(EventsSidebarFR.propTypes.currentRouteName).isRequired,
-  isApiProcessing: PropTypes.bool.isRequired
+  type: PropTypes.string.isRequired
 };
 
 export default EventsSidebar;
