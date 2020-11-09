@@ -38,6 +38,5 @@ LoginError.propTypes = {
     ]).isRequired
   }).isRequired
 };
-LoginError.defaultProps = {};
 
 export default withGlobalStatus(LoginError);

@@ -128,8 +128,4 @@ const Login = () => {
   );
 };
 
-Login.propTypes = {};
-
-Login.defaultProps = {};
-
 export default withGlobalStatus(Login);

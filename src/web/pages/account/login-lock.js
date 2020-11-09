@@ -77,6 +77,4 @@ LoginLock.propTypes = {
   }.isRequired
 };
 
-LoginLock.defaultProps = {};
-
 export default withGlobalStatus(LoginLock);
