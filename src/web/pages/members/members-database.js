@@ -121,7 +121,7 @@ const MembersDatabase = ({isApiProcessing}) => {
       });
   };
 
-  const onSubmitDatabaseForm = values => {
+  const onSubmitDatabaseEncryptionForm = values => {
     progress.start();
     api.member.updateDatabaseEncryptionSettings(values)
       .then(() => {
@@ -174,7 +174,7 @@ const MembersDatabase = ({isApiProcessing}) => {
         <Formik
           initialValues={databaseInitialValues}
           validate={utils.makeFormikValidator(databaseEncryptionValidator, ['newPassword', 'confirmPassword'])}
-          onSubmit={onSubmitDatabaseForm}
+          onSubmit={onSubmitDatabaseEncryptionForm}
         >
           {({errors, touched}) => (
             <Form className="modal-content">
