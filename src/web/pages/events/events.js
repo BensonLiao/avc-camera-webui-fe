@@ -24,8 +24,6 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
     currentMember: null,
     currentMemberName: null,
     eventPictureUrl: null,
-    isShowStartDatePicker: false,
-    isShowEndDatePicker: false,
     updateMemberModal: false
   });
   const {type, updateMemberModal, isShowMemberModal, isShowSearchMemberModal, currentMember, currentMemberName, eventPictureUrl} = state;
