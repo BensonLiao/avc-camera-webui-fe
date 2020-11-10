@@ -9,7 +9,7 @@ const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
-const MembersSearchForm = require('./members-search-form');
+const MembersSearchForm = require('./members-search-form').default;
 const MembersSidebar = require('./members-sidebar');
 const MembersTable = require('./members-table').default;
 
