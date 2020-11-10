@@ -200,7 +200,6 @@ class SettingsLan extends React.PureComponent {
                     type="text"
                     name="ipAddress"
                     placeholder={i18n.t('Enter a fixed IP address')}
-                    value={values.ipAddress}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
@@ -211,7 +210,6 @@ class SettingsLan extends React.PureComponent {
                     type="text"
                     name="subnetMask"
                     placeholder={i18n.t('Enter Subnet Mask')}
-                    value={values.subnetMask}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
@@ -222,7 +220,6 @@ class SettingsLan extends React.PureComponent {
                     type="text"
                     name="gateway"
                     placeholder={i18n.t('Enter Router/Gateway')}
-                    value={values.gateway}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
@@ -233,7 +230,6 @@ class SettingsLan extends React.PureComponent {
                     type="text"
                     name="primaryDNS"
                     placeholder={i18n.t('Enter a primary DNS')}
-                    value={values.primaryDNS}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
