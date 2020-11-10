@@ -8,6 +8,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import GroupSchema from 'webserver-form-schema/group-schema';
 import utils from '../../../core/utils';
 import api from '../../../core/apis/web-api';
+import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import groupValidator from '../../validations/groups/group-validator';
 import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
@@ -137,15 +138,18 @@ const Group = ({groups, group, params}) => {
                 </div>
               </div>
               <div className="modal-footer flex-column">
-                <div className="form-group w-100 mx-0">
-                  <button
-                    disabled={isApiProcessing || isAddGroupDisabled}
-                    type="submit"
-                    className="btn btn-primary btn-block rounded-pill"
-                  >
-                    {group ? i18n.t('Confirm') : i18n.t('Create')}
-                  </button>
-                </div>
+                <CustomTooltip show={isAddGroupDisabled} title={i18n.t('Group number limit exceeded.')}>
+                  <div className="form-group w-100 mx-0">
+                    <button
+                      disabled={isApiProcessing || isAddGroupDisabled}
+                      type="submit"
+                      className="btn btn-primary btn-block rounded-pill"
+                      style={isAddGroupDisabled ? {pointerEvents: 'none'} : {}}
+                    >
+                      {group ? i18n.t('Confirm') : i18n.t('Create')}
+                    </button>
+                  </div>
+                </CustomTooltip>
                 <button
                   disabled={isApiProcessing}
                   type="button"
