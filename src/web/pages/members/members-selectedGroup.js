@@ -52,7 +52,7 @@ const MembersSelectedGroup = ({selectedGroup, params}) => {
 };
 
 MembersSelectedGroup.propTypes = {
-  params: PropTypes.shape({sort: PropTypes.string}).isRequired,
+  params: PropTypes.shape({group: PropTypes.string}).isRequired,
   selectedGroup: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
