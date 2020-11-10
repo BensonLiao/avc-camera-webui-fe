@@ -244,7 +244,6 @@ class SettingsLan extends React.PureComponent {
                     type="text"
                     name="secondaryDNS"
                     placeholder={i18n.t('Enter a secondary DNS')}
-                    value={values.secondaryDNS || i18n.t('None')}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
