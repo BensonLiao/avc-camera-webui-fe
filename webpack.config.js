@@ -30,7 +30,11 @@ module.exports = (env = {}) => {
         'Access-Control-Allow-Methods': 'GET'
       },
       proxy: {'/': `http://${config.webpackDevServer.host}:${config.expressServer.port}/`},
-      open: true
+      open: true,
+      overlay: {
+        warnings: true,
+        errors: true
+      }
     },
     resolve: {extensions: ['.js']},
     output: {
