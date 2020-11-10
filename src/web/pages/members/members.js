@@ -18,7 +18,6 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
   const currentRoute = getRouter().findRouteByName('web.users.members');
   const [state, setState] = useState({
     deleteGroupTarget: null,
-    selectedGroup: groups.items.find(x => x.id === params.group),
     deleteMemberTarget: null,
     isShowSelectModal: {
       deleteGroup: false,
@@ -27,7 +26,7 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
   });
 
   const {isApiProcessing} = useContextState();
-  const {deleteGroupTarget, selectedGroup, deleteMemberTarget} = state;
+  const {deleteGroupTarget, deleteMemberTarget} = state;
   const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
   const hrefTemplate = getRouter().generateUri(
     currentRoute,
@@ -210,7 +209,7 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
                 </CustomTooltip>
               </div>
               <MembersSelectedGroup
-                selectedGroup={selectedGroup}
+                selectedGroup={groups.items.find(x => x.id === params.group)}
                 params={params}
               />
               <MembersTable
