@@ -38,3 +38,20 @@ if (COMMAND_DELAY > 0) {
     });
   }
 }
+
+Cypress.Commands.add('login', (account, password) => {
+  Cypress.log({
+    name: 'login',
+    message: `${account} | ${password}`
+  });
+
+  return cy.request({
+    method: 'POST',
+    url: '/api/account/_login',
+    body: {
+      account,
+      password,
+      maxAge: 300000 // will deprecated in the future
+    }
+  });
+});
