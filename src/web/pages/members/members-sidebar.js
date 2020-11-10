@@ -4,7 +4,7 @@ import React from 'react';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
-import MembersDatabase from './members-database';
+import MembersDatabase from './members-sidebar-database';
 import {Link} from 'capybara-router';
 
 const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteGroupHandler}) => {
