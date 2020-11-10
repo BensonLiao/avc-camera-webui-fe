@@ -46,25 +46,22 @@ const Group = ({groups, group, params}) => {
     progress.start();
     if (group) {
       // Update group.
-      api.group.updateGroup(values)
-        .then(() => {
-          getRouter().go({
-            name: 'web.users.members',
-            params: params
-          }, {reload: true});
-        })
-        .finally(progress.done);
+      submitGroupAPI('updateGroup', values);
     } else {
       // Add group.
-      api.group.addGroup(values)
-        .then(() => {
-          getRouter().go({
-            name: 'web.users.members',
-            params: params
-          }, {reload: true});
-        })
-        .finally(progress.done);
+      submitGroupAPI('addGroup', values);
     }
+  };
+
+  const submitGroupAPI = (type, values) => {
+    api.group[type](values)
+      .then(() => {
+        getRouter().go({
+          name: 'web.users.members',
+          params: params
+        }, {reload: true});
+      })
+      .finally(progress.done);
   };
 
   const checkDuplicate = groupName => {
