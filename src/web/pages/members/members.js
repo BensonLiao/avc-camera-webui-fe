@@ -10,7 +10,7 @@ const api = require('../../../core/apis/web-api');
 const CustomTooltip = require('../../../core/components/tooltip');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const MembersSearchForm = require('./members-search-form').default;
-const MembersSidebar = require('./members-sidebar');
+const MembersSidebar = require('./members-sidebar').default;
 const MembersTable = require('./members-table').default;
 
 module.exports = class Members extends Base {
