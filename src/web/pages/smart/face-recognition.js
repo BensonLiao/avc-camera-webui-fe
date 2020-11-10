@@ -9,6 +9,7 @@ const MaskArea = require('../../../core/components/fields/mask-area');
 const api = require('../../../core/apis/web-api');
 const i18n = require('../../../i18n').default;
 const Base = require('../shared/base');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 module.exports = class FaceRecognition extends Base {
@@ -41,6 +42,7 @@ module.exports = class FaceRecognition extends Base {
     super(props);
     // Show or hide trigger area
     this.state.isShowDetectionZone = true;
+    this.state.isShowModal = false;
   }
 
   onToggleDetectionZone = () => {
@@ -99,8 +101,22 @@ module.exports = class FaceRecognition extends Base {
       .finally(progress.done);
   }
 
+  showModal = () => {
+    this.setState({isShowModal: true});
+  };
+
+  hideModal = () => {
+    this.setState({isShowModal: false});
+  };
+
+  confirmEnableSpoof = isEnableSpoofing => {
+    if (!isEnableSpoofing) {
+      this.setState({isShowModal: true});
+    }
+  }
+
   faceRecognitionSettingsFormRender = ({values, setFieldValue}) => {
-    const {$isApiProcessing, isShowDetectionZone} = this.state;
+    const {$isApiProcessing, isShowDetectionZone, isShowModal} = this.state;
 
     return (
       <>
@@ -171,6 +187,7 @@ module.exports = class FaceRecognition extends Base {
                               style={values.isEnable ? {} : {pointerEvents: 'none'}}
                               className="custom-control-input"
                               id="switch-face-recognition-spoofing"
+                              onClick={() => this.confirmEnableSpoof(values.isEnableSpoofing)}
                             />
                             <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
                               <span>{i18n.t('ON')}</span>
@@ -178,6 +195,16 @@ module.exports = class FaceRecognition extends Base {
                             </label>
                           </span>
                         </CustomTooltip>
+                        <CustomNotifyModal
+                          isShowModal={isShowModal}
+                          modalTitle={i18n.t('Enable Anti-Image Spoof')}
+                          modalBody={i18n.t('Are you sure you want to update stream settings?')}
+                          onHide={() => {
+                            this.hideModal();
+                            setFieldValue('isEnableSpoofing', false);
+                          }}
+                          onConfirm={this.hideModal}
+                        />
                       </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
