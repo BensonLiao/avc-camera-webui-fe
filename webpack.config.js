@@ -31,10 +31,7 @@ module.exports = (env = {}) => {
       },
       proxy: {'/': `http://${config.webpackDevServer.host}:${config.expressServer.port}/`},
       open: true,
-      overlay: {
-        warnings: true,
-        errors: true
-      }
+      overlay: true // show only compiler errors as a full-screen overlay
     },
     resolve: {extensions: ['.js']},
     output: {
