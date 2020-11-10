@@ -52,7 +52,6 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
     }));
   };
 
-  // add useEffect for setState callback
   const onClickTestDHCPButton = setFieldValue => event => {
     event.preventDefault();
     progress.start();
@@ -71,69 +70,63 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
             modalBody: response.data.success ?
               [i18n.t('DHCP Testing Success'), `${i18n.t('IP Address')}: ${response.data.resultIP}`] :
               i18n.t('DHCP Testing Failed')
-          }), () => {
-            if (!dhcpTestResult) {
-              setFieldValue('ipAddress', '192.168.1.168');
-            }
-          });
+          }));
+          if (!dhcpTestResult) {
+            setFieldValue('ipAddress', '192.168.1.168');
+          }
         }
       })
       .finally(progress.done);
   };
 
-  // add useEffect for setState callback
   const onSubmit = values => {
     progress.start();
     setState({
       ...state,
       isUpdating: true
-    },
-    () => {
-      api.system.updateNetworkSettings(values)
-        .then(response => {
-          const resultIP = values.ipType === NetworkIPType.dynamic ? response.data.ipAddress : values.ipAddress;
-          const newAddress = `${location.protocol}//${resultIP}${location.port ? `:${location.port}` : ''}`;
+    });
+    api.system.updateNetworkSettings(values)
+      .then(response => {
+        const resultIP = values.ipType === NetworkIPType.dynamic ? response.data.ipAddress : values.ipAddress;
+        const newAddress = `${location.protocol}//${resultIP}${location.port ? `:${location.port}` : ''}`;
+        setState({
+          ...state,
+          isShowSelectModal: {
+            applyConfirm: false,
+            info: true
+          },
+          modalBackdrop: 'static',
+          modalTitle: i18n.t('Redirection Success'),
+          redirectIP: true,
+          modalBody: [
+            `${i18n.t('The website has been redirected to the new address')} :`,
+            <div key="redirect" className="d-flex">
+              <ProgressIndicator
+                className="ml-0"
+                status="start"
+              />
+              <span style={{color: infoColor}}>{newAddress}</span>
+            </div>
+          ]
+        });
+        setTimeout(() => {
           setState({
             ...state,
-            isShowSelectModal: {
-              applyConfirm: false,
-              info: true
-            },
-            modalBackdrop: 'static',
-            modalTitle: i18n.t('Redirection Success'),
-            redirectIP: true,
+            isUpdating: false,
             modalBody: [
               `${i18n.t('The website has been redirected to the new address')} :`,
               <div key="redirect" className="d-flex">
                 <ProgressIndicator
                   className="ml-0"
-                  status="start"
+                  status="done"
                 />
-                <span style={{color: infoColor}}>{newAddress}</span>
+                <a href={newAddress}>{newAddress}</a>
               </div>
             ]
-          }, () => {
-            setTimeout(() => {
-              setState({
-                ...state,
-                isUpdating: false,
-                modalBody: [
-                  `${i18n.t('The website has been redirected to the new address')} :`,
-                  <div key="redirect" className="d-flex">
-                    <ProgressIndicator
-                      className="ml-0"
-                      status="done"
-                    />
-                    <a href={newAddress}>{newAddress}</a>
-                  </div>
-                ]
-              });
-            }, NODE_SERVER_RESTART_DELAY_MS / 2);
           });
-        })
-        .finally(progress.done);
-    }
-    );
+        }, NODE_SERVER_RESTART_DELAY_MS / 2);
+      })
+      .finally(progress.done);
   };
 
   return (
