@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 /* eslint-disable react/jsx-pascal-case */
 import React, {useState} from 'react';
 import {Nav, Tab} from 'react-bootstrap';
