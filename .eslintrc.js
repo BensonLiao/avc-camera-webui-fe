@@ -8,7 +8,9 @@ module.exports = {
   extends: [
     'xo',
     'xo-space',
-    'xo-react/space'
+    'xo-react/space',
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
   globals: {},
   parser: 'babel-eslint',
@@ -86,9 +88,9 @@ module.exports = {
 
     // https://github.com/yannickcr/eslint-plugin-react/issues/2396#issuecomment-539184761
     // Default props in functional component should be defined with ES6 standard using object destructure
-    "react/require-default-props": ["error", {
-      "ignoreFunctionalComponents": true
-    }],
+    // "react/require-default-props": ["error", {
+    //   "ignoreFunctionalComponents": true
+    // }],
 
     eqeqeq: ["error", "always", {"null": "ignore"}],
     'valid-jsdoc': ["error", {
