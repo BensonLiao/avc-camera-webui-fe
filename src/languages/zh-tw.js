@@ -905,7 +905,7 @@ module.exports = {
       // 9031
       'Empty SMTP Account': '必須輸入帳號和密碼',
       // 9032
-      'Empty SMTP Account Password ': '必須輸入帳號和密碼',
+      'Empty SMTP Account Password': '必須輸入帳號和密碼',
       // 9033
       'Empty Sender Email': '必須輸入寄件人資訊',
       // 9034

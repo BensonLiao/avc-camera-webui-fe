@@ -905,7 +905,7 @@ module.exports = {
       // 9031
       'Empty SMTP Account': 'SMTPアカウントを入力してください',
       // 9032
-      'Empty SMTP Account Password ': 'SMTPパスワードを入力してください',
+      'Empty SMTP Account Password': 'SMTPパスワードを入力してください',
       // 9033
       'Empty Sender Email': '差出人情報を入力してください',
       // 9034
