@@ -9,13 +9,11 @@ import {DEFAULT_PORTS} from '../../../core/constants';
 
 const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, onSubmitHTTPForm}) => {
   const checkValidatePort = values => {
-    let defaultPorts = DEFAULT_PORTS;
-
-    let checkDefaultPortList = Object.keys(defaultPorts)
+    let checkDefaultPortList = Object.keys(DEFAULT_PORTS)
       .filter(items => items !== 'HTTP')
       .reduce((obj, key) => ({
         ...obj,
-        [key]: defaultPorts[key]
+        [key]: DEFAULT_PORTS[key]
       }), {});
 
     checkDefaultPortList = utils.duplicateCheck(Object.values(checkDefaultPortList), values);

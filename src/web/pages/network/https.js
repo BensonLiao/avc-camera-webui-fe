@@ -36,13 +36,11 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
   };
 
   const checkValidatePort = values => {
-    let defaultPorts = DEFAULT_PORTS;
-
-    let checkDefaultPortList = Object.keys(defaultPorts)
+    let checkDefaultPortList = Object.keys(DEFAULT_PORTS)
       .filter(items => items !== 'HTTPS')
       .reduce((obj, key) => ({
         ...obj,
-        [key]: defaultPorts[key]
+        [key]: DEFAULT_PORTS[key]
       }), {});
 
     checkDefaultPortList = utils.duplicateCheck(Object.values(checkDefaultPortList), values);
