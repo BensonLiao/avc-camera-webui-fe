@@ -690,7 +690,7 @@ module.exports = {
       'Subnet Mask': '子網路遮罩',
       'Router/Gateway': '路由器/閘道',
       'Primary DNS': '主要 DNS',
-      'Secondary DNS (Optional)': '次要 DNS (選填)',
+      'Secondary DNS (Optional)': '次要 DNS',
       Interface: '連接方式',
       'IP Assignment': 'IP 取得方式',
       'Secondary DNS': '次要 DNS',
