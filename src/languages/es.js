@@ -562,7 +562,7 @@ module.exports = {
       'Photo 2': 'Foto 2',
       'Photo 3': 'Foto 3',
       'Photo 4': 'Foto 4',
-      'Upload Primary First': 'Sube la foto principal primero',
+      'Upload the Primary Photo First': 'Sube la foto principal primero',
       'Photo Editor': 'editar',
       'Drag the image to position it correctly.': 'Arraste para ajustar las fotos',
       Organization: 'organización',
@@ -570,7 +570,7 @@ module.exports = {
       'Enter an organization for this member': 'Ingrese el nombre de la organización',
       'Maximum length: 32 characters': 'Extension máxima: 32 caracteres',
       'N/A': 'ninguno',
-      'Are you sure you want to close this window? Any changes you have made will be lost.': 'Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?',
+      'Are you sure you want to close this window? All changes you have made will be lost.': 'Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?',
       'Photo size should be less than 90 KB.': 'El tamaño de la foto no puede superar los 90KB',
       Save: 'Salvar',
       'Change Photo': 'Cambiar foto',
@@ -906,7 +906,7 @@ module.exports = {
       // 9031
       'Empty SMTP Account': 'Debe ingresar cuenta y contraseña',
       // 9032
-      'Empty SMTP Account Password ': 'Debe ingresar cuenta y contraseña',
+      'Empty SMTP Account Password': 'Debe ingresar cuenta y contraseña',
       // 9033
       'Empty Sender Email': 'Debe ingresar la información del remitente',
       // 9034
