@@ -175,7 +175,6 @@ module.exports = {
       'Please enter the email address.': 'Please enter the email address.',
       Domain: 'Domain',
       'Please enter the domain.': 'Please enter the domain.',
-      'Range: 1024-65535 Default: 8443': 'Range: 1024-65535 Default: 8443',
 
       // /login
       Login: 'Login',
@@ -347,11 +346,10 @@ module.exports = {
       'Updating HDMI settings': 'Updating HDMI settings',
       'Are you sure you want to update HDMI settings?': 'Are you sure you want to update HDMI settings?',
 
-      // /media/word
+      // /media/osd
       'Enable On-Screen Display': 'Enable On-Screen Display',
       Size: 'Size',
       Color: 'Color',
-      Word: 'Word', // deprecated
       Position: 'Position',
       'Click the arrow on the live view screen.': 'Click the arrow on the live view screen.',
       'Left Top': 'Left Top',
@@ -359,15 +357,15 @@ module.exports = {
       'Bottom Left': 'Bottom Left',
       'Bottom Right': 'Bottom Right',
       'Text Overlay': 'Text Overlay',
-      // /media/word / Constants / Size
+      // /media/osd / Constants / Size
       'font-size-0': 'Small',
       'font-size-1': 'Medium',
       'font-size-2': 'Large',
-      // /media/word / Constants / Text Overlay
-      'word-type-0': 'Time',
-      'word-type-1': 'Camera Name',
-      'word-type-2': 'Camera Name and Time',
-      'word-type-3': 'Custom',
+      // /media/osd / Constants / Text Overlay
+      'osd-type-0': 'Time',
+      'osd-type-1': 'Camera Name',
+      'osd-type-2': 'Camera Name and Time',
+      'osd-type-3': 'Custom',
       'Enter custom text': 'Enter custom text',
 
       // /media/privacy-mask
@@ -600,7 +598,7 @@ module.exports = {
       Time: 'Time',
       Capture: 'Capture',
       Confidence: 'Confidence',
-      'Can\'t find any data.': 'Can\'t find any data.',
+      'Couldn\'t find any data.': 'Couldn\'t find any data.',
       Filters: 'Filters',
       Clear: 'Clear',
       'Start Date': 'Date',
@@ -620,7 +618,7 @@ module.exports = {
       'Verifying Photo': 'Verifying Photo',
       'Invalid Photo': 'Invalid Photo',
       'Updating Member': 'Updating Member',
-      'Added Photo to {{0}} Successfully!': 'Added Photo to {{0}} Successfully!',
+      'Photo Has Been Added to {{0}}': 'Photo Has Been Added to {{0}}',
       // /users/events / Constants / Status
       'enroll-status-0': 'Image Spoof',
       'enroll-status-1': 'Unknown',
@@ -727,6 +725,7 @@ module.exports = {
       'The website has been redirected to the new address': 'The website has been redirected to the new address',
       'The specified port is reserved by system or in use!': 'The specified port is reserved by system or in use!',
       'Redirection Success': 'Redirection Success',
+      'Range: 1024-65535 Default: 8443': 'Range: 1024-65535 Default: 8443',
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? 'Manufacturer' : 'AndroVideo'} Self-signed`,
       'certificate-type-1': 'Upload Certificate',
@@ -932,7 +931,7 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': 'More Than One Face in the Photo',
       // 9045
-      'Non-existent Photo': 'Non-existent Photo',
+      'Non-existent Photo': 'Non-existent Face Thumbnail',
       // 9046
       'Invalid Key': 'Invalid Key',
       // 9047

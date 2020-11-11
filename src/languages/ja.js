@@ -175,7 +175,6 @@ module.exports = {
       'Please enter the email address.': 'メールアドレスを入力してください',
       Domain: 'ドメイン',
       'Please enter the domain.': 'ドメインを入力してください',
-      'Range: 1024-65535 Default: 8443': '入力範囲：1024-65535 デフォルト：8443',
 
       // /login
       Login: 'ログイン',
@@ -347,11 +346,10 @@ module.exports = {
       'Updating HDMI settings': 'HDMI設定を更新する',
       'Are you sure you want to update HDMI settings?': 'HDMI設定を変更しますか？',
 
-      // /media/word
+      // /media/osd
       'Enable On-Screen Display': 'OSDを有効にする',
       Size: '文字サイズ',
       Color: 'カラー',
-      Word: '文字',
       Position: '表示位置',
       'Click the arrow on the live view screen.': 'プレビュー画面中の青印をクリックして下さい',
       'Left Top': '左上',
@@ -359,15 +357,15 @@ module.exports = {
       'Bottom Left': '左下',
       'Bottom Right': '右下',
       'Text Overlay': 'テキスト',
-      // /media/word / Constants / Size
+      // /media/osd / Constants / Size
       'font-size-0': '小',
       'font-size-1': '中',
       'font-size-2': '大',
-      // /media/word / Constants / Text Overlay
-      'word-type-0': '時間',
-      'word-type-1': 'デバイス名',
-      'word-type-2': 'デバイス名と時間',
-      'word-type-3': 'カスタム',
+      // /media/osd / Constants / Text Overlay
+      'osd-type-0': '時間',
+      'osd-type-1': 'デバイス名',
+      'osd-type-2': 'デバイス名と時間',
+      'osd-type-3': 'カスタム',
       'Enter custom text': 'カスタム内容を入力します',
 
       // /media/privacy-mask
@@ -600,7 +598,7 @@ module.exports = {
       Time: '時間',
       Capture: 'キャプチャー',
       Confidence: '相似度',
-      'Can\'t find any data.': '一致するデータが見つかりません再検索して下さい',
+      'Couldn\'t find any data.': '一致するデータが見つかりません再検索して下さい',
       Filters: 'フィルター条件',
       Clear: 'クリア',
       'Start Date': '日付',
@@ -620,7 +618,7 @@ module.exports = {
       'Verifying Photo': '写真検証中',
       'Invalid Photo': '無効な写真',
       'Updating Member': 'メンバー更新',
-      'Added Photo to {{0}} Successfully!': '写真が {{0}} に追加されました',
+      'Photo Has Been Added to {{0}}': '写真が {{0}} に追加されました',
       // /users/events / Constants / Status
       'enroll-status-0': 'なりすまし防止',
       'enroll-status-1': '未登録者',
@@ -633,7 +631,7 @@ module.exports = {
       // /analytic/face-recognition
       'Analytics Settings': '知能分析',
       'Enable Facial Recognition': '顔認証を有効します',
-      'Anti-Image Spoof': 'なりすまし防止機能を有効する',
+      'Enable Anti-Image Spoof': 'なりすまし防止機能を有効する',
       'Level of Accuracy': '認証成功率',
       'Detection Zone': '検知区域',
       'Show/Hide Detection Zone': '認証区域を表示/非表示にする',
@@ -727,6 +725,7 @@ module.exports = {
       'The website has been redirected to the new address': '下記のURLへアクセスして再度ログインしてください',
       'The specified port is reserved by system or in use!': '本ポートはシステム予備用または使用されています',
       'Redirection Success': '再ダイレクト',
+      'Range: 1024-65535 Default: 8443': '入力範囲：1024-65535 デフォルト：8443',
       // /network/https / Constants / Certificate
       'certificate-type-0': `${window.isNoBrand ? 'メーカー' : 'AndroVideo'} 自己署名証明書`,
       'certificate-type-1': '署名証明書をアップロードする',
@@ -932,7 +931,7 @@ module.exports = {
       // 9044
       'More Than One Face in the Photo': '写真には顔が一個以上存在しています',
       // 9045
-      'Non-existent Photo': '存在しない顔ショット',
+      'Non-existent Face Thumbnail': '存在しない顔ショット',
       // 9046
       'Invalid Key': '無効なライセンスキー',
       // 9047

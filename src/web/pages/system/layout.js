@@ -65,7 +65,7 @@ module.exports = class System extends Base {
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.maintain'})}
                   to="/system/maintain"
-                  title={i18n.t('Device Maintain')}
+                  title={i18n.t('Device Maintenance')}
                 >
                   {i18n.t('Device Maintenance')}
                 </Link>

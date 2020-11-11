@@ -168,8 +168,10 @@ module.exports = class Member extends React.PureComponent {
   onChangeFormValues = ({nextValues}) => {
     this.setState({isFormTouched: true}, () => {
       // We call cropper scale and state update after form values changes to prevent infinite set state hell
-      this.cropper.scale(nextValues.zoom, nextValues.zoom);
-      this.generateOnCropEndHandler(this.state.avatarToEdit)(null);
+      if (this.cropper) {
+        this.cropper.scale(nextValues.zoom, nextValues.zoom);
+        this.generateOnCropEndHandler(this.state.avatarToEdit)(null);
+      }
     });
   };
 
