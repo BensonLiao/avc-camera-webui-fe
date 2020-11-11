@@ -1,13 +1,34 @@
-import React from 'react';
-import {Tab} from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import utils from '../../../core/utils';
-import i18n from '../../../i18n';
+import PropTypes from 'prop-types';
+import progress from 'nprogress';
+import React, {useState} from 'react';
+import {Tab} from 'react-bootstrap';
+import api from '../../../core/apis/web-api';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import {DEFAULT_PORTS} from '../../../core/constants';
+import i18n from '../../../i18n';
+import {NODE_SERVER_RESTART_DELAY_MS} from '../../../core/constants';
+import ProgressIndicator from '../../../core/components/progress-indicator';
+import utils from '../../../core/utils';
 
-const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, onSubmitHTTPForm}) => {
+const infoColor = getComputedStyle(document.documentElement).getPropertyValue('--info');
+
+const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => {
+  const [state, setState] = useState({
+    isShowApiProcessModal: false,
+    apiProcessModalTitle: i18n.t('Updating HTTP Settings'),
+    modalBody: i18n.t('Please wait')
+  });
+  const {apiProcessModalTitle, isShowApiProcessModal, modalBody} = state;
+
+  const hideApiProcessModal = () => {
+    setState({
+      ...state,
+      isShowApiProcessModal: false
+    });
+  };
+
   const checkValidatePort = values => {
     let checkDefaultPortList = Object.keys(DEFAULT_PORTS)
       .filter(items => items !== 'HTTP')
@@ -30,34 +51,91 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, onSubmitHTTPForm}) =>
     return utils.validatedPortCheck(values);
   };
 
-  return (
-    <Formik
-      initialValues={httpInfo}
-      onSubmit={onSubmitHTTPForm}
-    >
-      {({values, errors, touched}) => (
-        <Tab.Content>
-          <Tab.Pane eventKey="tab-http">
-            <Form>
-              <div className="form-group mb-5">
-                <label>{i18n.t('Secondary HTTP Port')}</label>
-                <Field
-                  name="port"
-                  className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
-                  type="text"
-                  validate={checkValidatePort}
-                  placeholder={i18n.t('8080')}
-                  value={values.port}
+  const onSubmitHTTPForm = values => {
+    progress.start();
+    setState({
+      ...state,
+      isShowApiProcessModal: true
+    });
+    api.system.updateHttpInfo(values)
+      .then(() => {
+        const newAddress = `http://${location.hostname}:${values.port}`;
+        setState({
+          ...state,
+          apiProcessModalTitle: i18n.t('Redirection Success'),
+          modalBody: [
+            `${i18n.t('The website has been redirected to the new address')} :`,
+            <div key="redirect" className="d-flex">
+              <ProgressIndicator
+                className="ml-0"
+                status="start"
+              />
+              <span style={{color: infoColor}}>{newAddress}</span>
+            </div>
+          ]
+        });
+        setTimeout(() => {
+          setState({
+            ...state,
+            modalBody: [
+              `${i18n.t('The website has been redirected to the new address')} :`,
+              <div key="redirect" className="d-flex">
+                <ProgressIndicator
+                  className="ml-0"
+                  status="done"
                 />
-                <ErrorMessage component="div" name="port" className="invalid-feedback"/>
-                <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8080')}</p>
+                <a href={newAddress}>{newAddress}</a>
               </div>
-              <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={onSubmitHTTPForm}>{i18n.t('Apply')}</button>
-            </Form>
-          </Tab.Pane>
-        </Tab.Content>
-      )}
-    </Formik>
+            ]
+          });
+        }, NODE_SERVER_RESTART_DELAY_MS);
+      })
+      .catch(() => {
+        progress.done();
+        hideApiProcessModal();
+      })
+      .finally(progress.done);
+  };
+
+  return (
+    <>
+      <Formik
+        initialValues={httpInfo}
+        onSubmit={onSubmitHTTPForm}
+      >
+        {({values, errors, touched}) => (
+          <Tab.Content>
+            <Tab.Pane eventKey="tab-http">
+              <Form>
+                <div className="form-group mb-5">
+                  <label>{i18n.t('Secondary HTTP Port')}</label>
+                  <Field
+                    name="port"
+                    className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
+                    type="text"
+                    validate={checkValidatePort}
+                    placeholder={i18n.t('8080')}
+                    value={values.port}
+                  />
+                  <ErrorMessage component="div" name="port" className="invalid-feedback"/>
+                  <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8080')}</p>
+                </div>
+                <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={onSubmitHTTPForm}>{i18n.t('Apply')}</button>
+              </Form>
+            </Tab.Pane>
+          </Tab.Content>
+        )}
+      </Formik>
+      <CustomNotifyModal
+        isShowAllBtns={false}
+        backdrop="static"
+        modalType={isApiProcessing ? 'process' : 'default'}
+        isShowModal={isShowApiProcessModal}
+        modalTitle={apiProcessModalTitle}
+        modalBody={modalBody}
+        onHide={hideApiProcessModal}
+      />
+    </>
   );
 };
 
@@ -71,7 +149,7 @@ TCPIPHTTP.propTypes = {
     tcpPort: PropTypes.string.isRequired,
     udpPort: PropTypes.string.isRequired
   }).isRequired,
-  onSubmitHTTPForm: PropTypes.func.isRequired
+  isApiProcessing: PropTypes.bool.isRequired
 };
 
 export default TCPIPHTTP;
