@@ -84,6 +84,10 @@ module.exports = {
     // https://eslint.org/docs/rules/max-params
     'max-params': ["warn", 5],
 
+    // https://github.com/yannickcr/eslint-plugin-react/issues/2396#issuecomment-539184761
+    // Default props in functional component should be defined with ES6 standard using object destructure
+    "require-default-props": ["enabled", {ignoreFunctionalComponents: true }],
+
     eqeqeq: ["error", "always", {"null": "ignore"}],
     'valid-jsdoc': ["error", {
       "requireParamDescription": false,
