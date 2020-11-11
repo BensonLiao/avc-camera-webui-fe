@@ -175,7 +175,10 @@ module.exports = class FaceRecognition extends Base {
                 <div className="card">
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                      <label className="mb-0">{i18n.t('Enable Anti-Image Spoof')}</label>
+                      <span>
+                        <label className="mb-0 mr-2">{i18n.t('Enable Anti-Image Spoof')}</label>
+                        <span className="badge badge-outline">Alpha</span>
+                      </span>
                       <div className="custom-control custom-switch">
                         <CustomTooltip show={!values.isEnable} title={i18n.t('Facial Recognition is disabled.')}>
                           <span style={values.isEnable ? {} : {cursor: 'not-allowed'}}>
@@ -198,7 +201,7 @@ module.exports = class FaceRecognition extends Base {
                         <CustomNotifyModal
                           isShowModal={isShowModal}
                           modalTitle={i18n.t('Enable Anti-Image Spoof')}
-                          modalBody={i18n.t('Are you sure you want to update stream settings?')}
+                          modalBody={i18n.t('analytic.face-recognition.modal.spoofing')}
                           onHide={() => {
                             this.hideModal();
                             setFieldValue('isEnableSpoofing', false);

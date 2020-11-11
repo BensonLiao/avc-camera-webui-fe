@@ -644,6 +644,7 @@ module.exports = {
       'Display Unknown': '辨識結果：未知',
       'Display Image Spoof': '辨識結果：圖像偽裝',
       'Facial Recognition is disabled.': '臉部辨識已關閉',
+      'analytic.face-recognition.modal.spoofing': '您確定要開啟Alpha版防止圖像偽裝嗎? 圖像偽裝是一個Alpha版的功能, 判定成圖像偽裝的人臉不會被辯識, 我們會在之後的軟體更新優化並完善此功能',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',

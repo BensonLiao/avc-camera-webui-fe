@@ -644,6 +644,7 @@ module.exports = {
       'Display Unknown': 'Unknown',
       'Display Image Spoof': 'Display Image Spoof',
       'Facial Recognition is disabled.': 'Facial Recognition is disabled.',
+      'analytic.face-recognition.modal.spoofing': 'Are you sure you want to enable the Alpha version of image spoofing? It is an Alpha version. Faces judged to be image spoof will not be recognized. We will optimize and improve this feature in future software updates.',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': 'Low',
       'confidence-level-1': 'Medium',

@@ -644,6 +644,7 @@ module.exports = {
       'Display Unknown': 'desconocido',
       'Display Image Spoof': 'Camuflaje de imagen',
       'Facial Recognition is disabled.': 'Reconocimiento facial está desactivado.',
+      'analytic.face-recognition.modal.spoofing': '¿Está seguro de que desea habilitar la versión Alfa de la suplantación de imágenes? Es una versión Alpha. No se reconocerán los rostros que se consideren falsos. Optimizaremos y mejoraremos esta función en futuras actualizaciones de software.',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': 'bajo',
       'confidence-level-1': 'medio',
