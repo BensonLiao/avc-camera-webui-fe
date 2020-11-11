@@ -337,108 +337,108 @@ class Pagination extends React.PureComponent {
 
   state = {gotoIndex: 0};
 
-   onChangeGotoIndex = event => {
-     let validateValue = event.currentTarget.value;
-     if (Number(event.currentTarget.value)) {
-       validateValue = event.currentTarget.value >= this.maxGotoIndex ?
-         this.maxGotoIndex :
-         event.currentTarget.value;
-       validateValue = validateValue < 1 ? 1 : validateValue;
-       this.setState({gotoIndex: validateValue - 1});
-     }
-   }
+  onChangeGotoIndex = event => {
+    let validateValue = event.currentTarget.value;
+    if (Number(event.currentTarget.value)) {
+      validateValue = event.currentTarget.value >= this.maxGotoIndex ?
+        this.maxGotoIndex :
+        event.currentTarget.value;
+      validateValue = validateValue < 1 ? 1 : validateValue;
+      this.setState({gotoIndex: validateValue - 1});
+    }
+  }
 
-   onKeyPress = event => {
-     if (event.charCode === 13) {
-       this.props.onSearch(this.state.gotoIndex);
-     }
-   }
+  onKeyPress = event => {
+    if (event.charCode === 13) {
+      this.props.onSearch(this.state.gotoIndex);
+    }
+  }
 
-   render() {
-     const {index, size, total, itemQuantity, onSearch} = this.props;
+  render() {
+    const {index, size, total, itemQuantity, onSearch} = this.props;
 
-     const numbers = [];
-     const hasPrevious = index > 0;
-     const hasNext = total > (index + 1) * size;
-     const startItem = (index * size) + 1;
-     const endItem = startItem + itemQuantity - 1;
-     const {gotoIndex} = this.state;
-     for (let idx = index - 3; idx < index + 3; idx += 1) {
-       if (idx < 0 || idx >= this.maxGotoIndex) {
-         continue;
-       }
+    const numbers = [];
+    const hasPrevious = index > 0;
+    const hasNext = total > (index + 1) * size;
+    const startItem = (index * size) + 1;
+    const endItem = startItem + itemQuantity - 1;
+    const {gotoIndex} = this.state;
+    for (let idx = index - 3; idx < index + 3; idx += 1) {
+      if (idx < 0 || idx >= this.maxGotoIndex) {
+        continue;
+      }
 
-       numbers.push({
-         key: `pagination-${idx}`,
-         pageNumber: idx + 1,
-         onClick: () => onSearch(idx),
-         className: classNames('page-item', {disabled: idx === index})
-       });
-     }
+      numbers.push({
+        key: `pagination-${idx}`,
+        pageNumber: idx + 1,
+        onClick: () => onSearch(idx),
+        className: classNames('page-item', {disabled: idx === index})
+      });
+    }
 
-     return (
-       <div className="col-12">
-         <nav
-           className="d-flex justify-content-center align-items-center"
-           style={{
-             padding: '0px 2px',
-             height: '36px'
-           }}
-         >
-           <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-             {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
-               0: startItem,
-               1: endItem,
-               2: total
-             })}
-           </p>
-           <ul className="pagination my-auto">
-             <li className={classNames('page-item', {disabled: !hasPrevious})}>
-               <a className="page-link prev" tabIndex={0} onClick={() => onSearch(index - 1)}>
+    return (
+      <div className="col-12">
+        <nav
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            padding: '0px 2px',
+            height: '36px'
+          }}
+        >
+          <p className="text-size-14 text-muted mb-0 mr-auto invisible">
+            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+              0: startItem,
+              1: endItem,
+              2: total
+            })}
+          </p>
+          <ul className="pagination my-auto">
+            <li className={classNames('page-item', {disabled: !hasPrevious})}>
+              <a className="page-link prev" tabIndex={0} onClick={() => onSearch(index - 1)}>
                 &laquo;
-               </a>
-             </li>
-             {
-               numbers.map(number => (
-                 <li key={number.key} className={number.className}>
-                   <a className="page-link" tabIndex={0} onClick={number.onClick}>
-                     {number.pageNumber}
-                   </a>
-                 </li>
-               ))
-             }
-             <li className={classNames('page-item', {disabled: !hasNext})}>
-               <a className="page-link next" tabIndex={0} onClick={() => onSearch(index + 1)}>
+              </a>
+            </li>
+            {
+              numbers.map(number => (
+                <li key={number.key} className={number.className}>
+                  <a className="page-link" tabIndex={0} onClick={number.onClick}>
+                    {number.pageNumber}
+                  </a>
+                </li>
+              ))
+            }
+            <li className={classNames('page-item', {disabled: !hasNext})}>
+              <a className="page-link next" tabIndex={0} onClick={() => onSearch(index + 1)}>
                 &raquo;
-               </a>
-             </li>
-             <li className="page-item">
-               <input
-                 type="number"
-                 className="page-input"
-                 min={1}
-                 max={this.maxGotoIndex}
-                 onChange={this.onChangeGotoIndex}
-                 onKeyPress={this.onKeyPress}
-               />
-             </li>
-             <li className="page-item">
-               <a className="page-link go" tabIndex={0} onClick={() => onSearch(gotoIndex)}>
+              </a>
+            </li>
+            <li className="page-item">
+              <input
+                type="number"
+                className="page-input"
+                min={1}
+                max={this.maxGotoIndex}
+                onChange={this.onChangeGotoIndex}
+                onKeyPress={this.onKeyPress}
+              />
+            </li>
+            <li className="page-item">
+              <a className="page-link go" tabIndex={0} onClick={() => onSearch(gotoIndex)}>
                 Go
-               </a>
-             </li>
-           </ul>
-           <p className="text-size-14 text-muted mb-0 ml-auto">
-             {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
-               0: startItem,
-               1: endItem,
-               2: total
-             })}
-           </p>
-         </nav>
-       </div>
-     );
-   }
+              </a>
+            </li>
+          </ul>
+          <p className="text-size-14 text-muted mb-0 ml-auto">
+            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+              0: startItem,
+              1: endItem,
+              2: total
+            })}
+          </p>
+        </nav>
+      </div>
+    );
+  }
 }
 
 export default SearchMember;

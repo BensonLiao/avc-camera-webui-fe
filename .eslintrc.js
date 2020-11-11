@@ -88,9 +88,13 @@ module.exports = {
 
     // https://github.com/yannickcr/eslint-plugin-react/issues/2396#issuecomment-539184761
     // Default props in functional component should be defined with ES6 standard using object destructure
-    // "react/require-default-props": ["error", {
-    //   "ignoreFunctionalComponents": true
-    // }],
+    "react/require-default-props": ["error", {
+      "ignoreFunctionalComponents": true
+    }],
+
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md
+    // Prevent missing displayName in a React component definition
+    "react/display-name": 0,
 
     eqeqeq: ["error", "always", {"null": "ignore"}],
     'valid-jsdoc': ["error", {
