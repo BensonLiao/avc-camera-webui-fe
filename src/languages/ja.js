@@ -562,7 +562,7 @@ module.exports = {
       'Photo 2': '写真 2',
       'Photo 3': '写真 3',
       'Photo 4': '写真 4',
-      'Upload Primary First': '最初はメイン写真をアップロードして下さい',
+      'Upload the Primary Photo First': '最初はメイン写真をアップロードして下さい',
       'Photo Editor': '写真編集',
       'Drag the image to position it correctly.': '写真をドラッグして調整してください',
       Organization: '組織',

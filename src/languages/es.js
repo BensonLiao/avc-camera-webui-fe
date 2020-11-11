@@ -562,7 +562,7 @@ module.exports = {
       'Photo 2': 'Foto 2',
       'Photo 3': 'Foto 3',
       'Photo 4': 'Foto 4',
-      'Upload Primary First': 'Sube la foto principal primero',
+      'Upload the Primary Photo First': 'Sube la foto principal primero',
       'Photo Editor': 'editar',
       'Drag the image to position it correctly.': 'Arraste para ajustar las fotos',
       Organization: 'organización',

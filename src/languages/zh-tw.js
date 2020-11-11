@@ -562,7 +562,7 @@ module.exports = {
       'Photo 2': '照片2',
       'Photo 3': '照片3',
       'Photo 4': '照片4',
-      'Upload Primary First': '請先上傳主照片',
+      'Upload the Primary Photo First': '請先上傳主照片',
       'Photo Editor': '編輯',
       'Drag the image to position it correctly.': '拖曳調整照片',
       Organization: '組織',
