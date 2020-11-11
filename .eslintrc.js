@@ -8,7 +8,9 @@ module.exports = {
   extends: [
     'xo',
     'xo-space',
-    'xo-react/space'
+    'xo-react/space',
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
   globals: {},
   parser: 'babel-eslint',
@@ -83,6 +85,16 @@ module.exports = {
     // Enforce a maximum number of parameters in function definitions (max-params)
     // https://eslint.org/docs/rules/max-params
     'max-params': ["warn", 5],
+
+    // https://github.com/yannickcr/eslint-plugin-react/issues/2396#issuecomment-539184761
+    // Default props in functional component should be defined with ES6 standard using object destructure
+    "react/require-default-props": ["error", {
+      "ignoreFunctionalComponents": true
+    }],
+
+    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md
+    // Prevent missing displayName in a React component definition
+    "react/display-name": 0,
 
     eqeqeq: ["error", "always", {"null": "ignore"}],
     'valid-jsdoc': ["error", {
