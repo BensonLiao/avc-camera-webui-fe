@@ -11,7 +11,7 @@
     "stylelint": "node_modules/stylelint/bin/stylelint.js '**/*.scss'",
     "ncu": "node_modules/npm-check-updates/bin/ncu",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cy:i": "npm i -E -D cypress@5.5.0 cypress-react-selector@2.2.0",
+    "cy:i": "npm i --no-save cypress@5.5.0 cypress-react-selector@2.2.0",
     "//": "if you haven't install cypress yet, run cy:i before run cy/cy:prod",
     "cy": "cypress open",
     "cy:prod": "cypress open --config baseUrl=http://localhost,integrationFolder=tests/e2e/integration/prod"
@@ -96,8 +96,6 @@
     "axios-mock-adapter": "1.17.0",
     "body-parser": "1.19.0",
     "copy-webpack-plugin": "5.0.0",
-    "cypress": "5.5.0",
-    "cypress-react-selector": "2.2.0",
     "eslint": "7.13.0",
     "eslint-config-xo": "0.27.2",
     "eslint-config-xo-react": "0.20.0",
