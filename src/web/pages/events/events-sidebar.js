@@ -113,7 +113,6 @@ const EventsSidebar = ({
   );
 };
 
-/* eslint-disable react/require-default-props */
 // ESLint does not recognise extending proptypes from child
 EventsSidebar.propTypes = {
   params: EventsSidebarFR.propTypes.params,
