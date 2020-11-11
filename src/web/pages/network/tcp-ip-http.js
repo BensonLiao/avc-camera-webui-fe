@@ -32,37 +32,33 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, onSubmitHTTPForm}) =>
     return utils.validatedPortCheck(values);
   };
 
-  const httpFormRender = (values, errors, touched) => {
-    return (
-      <Tab.Content>
-        <Tab.Pane eventKey="tab-http">
-          <Form>
-            <div className="form-group mb-5">
-              <label>{i18n.t('Secondary HTTP Port')}</label>
-              <Field
-                name="port"
-                className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
-                type="text"
-                validate={checkValidatePort}
-                placeholder={i18n.t('8080')}
-                value={values.port}
-              />
-              {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
-              <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8080')}</p>
-            </div>
-            <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={onSubmitHTTPForm}>{i18n.t('Apply')}</button>
-          </Form>
-        </Tab.Pane>
-      </Tab.Content>
-    );
-  };
-
   return (
     <Formik
       initialValues={httpInfo}
       onSubmit={onSubmitHTTPForm}
     >
-      {({values, errors, touched}) => httpFormRender(values, errors, touched)}
+      {({values, errors, touched}) => (
+        <Tab.Content>
+          <Tab.Pane eventKey="tab-http">
+            <Form>
+              <div className="form-group mb-5">
+                <label>{i18n.t('Secondary HTTP Port')}</label>
+                <Field
+                  name="port"
+                  className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
+                  type="text"
+                  validate={checkValidatePort}
+                  placeholder={i18n.t('8080')}
+                  value={values.port}
+                />
+                {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
+                <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8080')}</p>
+              </div>
+              <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={onSubmitHTTPForm}>{i18n.t('Apply')}</button>
+            </Form>
+          </Tab.Pane>
+        </Tab.Content>
+      )}
     </Formik>
   );
 };
