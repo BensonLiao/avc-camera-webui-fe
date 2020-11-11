@@ -24,24 +24,26 @@ const EventsSearchForm = ({params, isApiProcessing, currentRouteName}) => {
   };
 
   const toggleStartDatePicker = () => setState(prevState => ({
+    ...prevState,
     isShowStartDatePicker: !prevState.isShowStartDatePicker,
     isShowEndDatePicker: false
   }));
 
   const toggleEndDatePicker = () => setState(prevState => ({
+    ...prevState,
     isShowEndDatePicker: !prevState.isShowEndDatePicker,
     isShowStartDatePicker: false
   }));
 
-  const onHideStartDatePicker = () => setState({
-    ...state,
+  const onHideStartDatePicker = () => setState(prevState => ({
+    ...prevState,
     isShowStartDatePicker: false
-  });
+  }));
 
-  const onHideEndDatePicker = () => setState({
-    ...state,
+  const onHideEndDatePicker = () => setState(prevState => ({
+    ...prevState,
     isShowEndDatePicker: false
-  });
+  }));
 
   /**
    * Handler on user submit the search form.
