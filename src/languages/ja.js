@@ -570,7 +570,7 @@ module.exports = {
       'Enter an organization for this member': '組織名を入力してください',
       'Maximum length: 32 characters': '最大32文字まで入力可能です',
       'N/A': 'なし',
-      'Are you sure you want to close this window? Any changes you have made will be lost.': 'このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます',
+      'Are you sure you want to close this window? All changes you have made will be lost.': 'このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます',
       'Photo size should be less than 90 KB.': '写真サイズは90 KBを超えることができません',
       Save: '保存する',
       'Change Photo': '写真を変更する',

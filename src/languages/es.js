@@ -570,7 +570,7 @@ module.exports = {
       'Enter an organization for this member': 'Ingrese el nombre de la organización',
       'Maximum length: 32 characters': 'Extension máxima: 32 caracteres',
       'N/A': 'ninguno',
-      'Are you sure you want to close this window? Any changes you have made will be lost.': 'Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?',
+      'Are you sure you want to close this window? All changes you have made will be lost.': 'Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?',
       'Photo size should be less than 90 KB.': 'El tamaño de la foto no puede superar los 90KB',
       Save: 'Salvar',
       'Change Photo': 'Cambiar foto',

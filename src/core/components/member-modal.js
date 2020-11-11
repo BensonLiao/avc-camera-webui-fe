@@ -723,7 +723,7 @@ module.exports = class Member extends React.PureComponent {
           backdrop="static"
           isShowModal={isShowConfirmModal}
           modalTitle={member ? i18n.t('Edit Member') : i18n.t('New Member')}
-          modalBody={i18n.t('Are you sure you want to close this window? Any changes you have made will be lost.')}
+          modalBody={i18n.t('Are you sure you want to close this window? All changes you have made will be lost.')}
           onHide={this.onHideConfirmModal}
           onConfirm={() => {
             this.onHideConfirmModal();
