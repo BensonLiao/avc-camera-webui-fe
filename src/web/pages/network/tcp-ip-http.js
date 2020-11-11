@@ -2,7 +2,7 @@ import React from 'react';
 import {Tab} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import utils from '../../../core/utils';
 import i18n from '../../../i18n';
 import {DEFAULT_PORTS} from '../../../core/constants';
@@ -51,7 +51,7 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, onSubmitHTTPForm}) =>
                   placeholder={i18n.t('8080')}
                   value={values.port}
                 />
-                {errors.port && touched.port && (<div className="invalid-feedback">{errors.port}</div>)}
+                <ErrorMessage component="div" name="port" className="invalid-feedback"/>
                 <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8080')}</p>
               </div>
               <button type="submit" className="btn btn-primary btn-block rounded-pill" onClick={onSubmitHTTPForm}>{i18n.t('Apply')}</button>
