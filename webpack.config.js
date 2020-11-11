@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const config = require('config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,7 +8,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
-const packageInformation = JSON.parse(fs.readFileSync('package.json'));
+const packageInformation = require('./package.json');
 
 module.exports = (env = {}) => {
   const isDebug = (env.mode || 'development') === 'development';
@@ -31,7 +30,8 @@ module.exports = (env = {}) => {
         'Access-Control-Allow-Methods': 'GET'
       },
       proxy: {'/': `http://${config.webpackDevServer.host}:${config.expressServer.port}/`},
-      open: true
+      open: true,
+      overlay: true // show only compiler errors as a full-screen overlay
     },
     resolve: {extensions: ['.js']},
     output: {
@@ -82,16 +82,7 @@ module.exports = (env = {}) => {
           ]
         },
         {
-          test: /\.(eot|svg|woff|woff2|ttf)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {name: 'resources/[name].[ext]'}
-            }
-          ]
-        },
-        {
-          test: /\.(png|jpg)$/,
+          test: /\.(png|jpg|svg|eot|woff|woff2|ttf)$/,
           use: [
             {
               loader: 'file-loader',
@@ -118,12 +109,15 @@ module.exports = (env = {}) => {
       const result = [
         new HtmlWebpackPlugin({
           filename: path.join(__dirname, buildFolder, 'express', 'index.html'),
-          meta: {
+          meta: isDebug ? {
             charset: 'utf-8',
             'X-UA-Compatible': 'IE=Edge',
-            expires: '0',
-            'cache-control': 'no-cache, no-store, must-revalidate',
-            pragma: 'no-cache, no-store, must-revalidate'
+            'cache-control': 'no-store',
+            // only for backwards compatibility with HTTP/1.0 clients
+            pragma: 'no-store'
+          } : {
+            charset: 'utf-8',
+            'X-UA-Compatible': 'IE=Edge'
           },
           favicon: './favicon.ico',
           template: path.join(__dirname, 'src', 'express', 'base.hbs'),
