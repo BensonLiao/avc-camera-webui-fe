@@ -31,12 +31,15 @@ const TCPIPDDNS = ({isApiProcessing, ddnsInfo, isShowApiProcessModal}) => {
       .finally(progress.done);
   };
 
-  const ddnsFormRender = values => {
-    return (
+  return (
+    <Formik
+      initialValues={ddnsInfo}
+      onSubmit={onSubmitDDNSForm}
+    >
+      {({values}) => 
       <Tab.Content>
         <Tab.Pane eventKey="tab-ddns">
           <Form>
-
             <div className="form-group d-flex justify-content-between align-items-center">
               <label className="mb-0">{i18n.t('Enable DDNS')}</label>
               <div className="custom-control custom-switch">
@@ -91,16 +94,7 @@ const TCPIPDDNS = ({isApiProcessing, ddnsInfo, isShowApiProcessModal}) => {
             </button>
           </Form>
         </Tab.Pane>
-      </Tab.Content>
-    );
-  };
-
-  return (
-    <Formik
-      initialValues={ddnsInfo}
-      onSubmit={onSubmitDDNSForm}
-    >
-      {({values}) => ddnsFormRender(values)}
+      </Tab.Content>}
     </Formik>
   );
 };
