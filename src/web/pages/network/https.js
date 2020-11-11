@@ -29,10 +29,10 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
   const {isShowModal, modalBody} = state;
 
   const hideModal = () => {
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowModal: false
-    });
+    }));
   };
 
   const checkValidatePort = values => {
@@ -64,8 +64,8 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
     api.system.updateHttpsSettings(values)
       .then(() => {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
-        setState({
-          ...state,
+        setState(prevState => ({
+          ...prevState,
           isShowModal: true,
           modalBody: [
             `${i18n.t('The website has been redirected to the new address')} :`,
@@ -77,7 +77,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
               <span style={{color: infoColor}}>{newAddress}</span>
             </div>
           ]
-        }, () => {
+        }));
           setTimeout(() => {
             setState({
               ...state,
@@ -93,7 +93,6 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
               ]
             });
           }, NODE_SERVER_RESTART_DELAY_MS);
-        });
       })
       .finally(progress.done);
   };
