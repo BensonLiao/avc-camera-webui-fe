@@ -644,6 +644,7 @@ module.exports = {
       'Display Unknown': '未登録者',
       'Display Image Spoof': 'なりすまし防止',
       'Facial Recognition is disabled.': '顔認証を無効になっています',
+      'analytic.face-recognition.modal.spoofing': 'アルファ版の画像スプーフィングを有効にしてもよろしいですか？ アルファ版です。 画像のなりすましと判断された顔は認識されません。 今後のソフトウェアアップデートで、この機能を最適化および改善する予定です',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',
