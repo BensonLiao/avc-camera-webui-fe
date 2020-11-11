@@ -1,12 +1,12 @@
 {
-    "baseUrl": "http://localhost:8002",
-    "integrationFolder": "tests/e2e/integration/dev",
-    "screenshotsFolder": "tests/e2e/screenshots",
-    "pluginsFile": false,
-    "video": false,
-    "viewportWidth": 2000,
-    "viewportHeight": 1320,
-    "env": {
-      "COMMAND_DELAY": 1000
-    }
+  "baseUrl": "http://localhost:8002",
+  "integrationFolder": "tests/e2e/integration/dev",
+  "screenshotsFolder": "tests/e2e/screenshots",
+  "pluginsFile": false,
+  "video": false,
+  "viewportWidth": 2000,
+  "viewportHeight": 1320,
+  "env": {
+    "COMMAND_DELAY": 0
   }
+}
