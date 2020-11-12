@@ -221,7 +221,7 @@ module.exports = class SDCard extends Base {
           <hr/>
           <div className="d-flex justify-content-between align-items-center mb-0">
             <label className="mb-o">{i18n.t('Filesystem')}</label>
-            <label className="mb-o text-primary">{sdFormat}</label>
+            <label className="mb-o text-primary">{i18n.t(sdFormat)}</label>
           </div>
           <hr/>
         </div>

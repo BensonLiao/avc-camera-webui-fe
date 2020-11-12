@@ -9,6 +9,7 @@ const MaskArea = require('../../../core/components/fields/mask-area');
 const api = require('../../../core/apis/web-api');
 const i18n = require('../../../i18n').default;
 const Base = require('../shared/base');
+const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 module.exports = class FaceRecognition extends Base {
@@ -41,6 +42,7 @@ module.exports = class FaceRecognition extends Base {
     super(props);
     // Show or hide trigger area
     this.state.isShowDetectionZone = true;
+    this.state.isShowModal = false;
   }
 
   onToggleDetectionZone = () => {
@@ -99,10 +101,22 @@ module.exports = class FaceRecognition extends Base {
       .finally(progress.done);
   }
 
-  faceRecognitionSettingsFormRender = form => {
-    const {faceRecognitionSettings: {isEnable}} = this.props;
-    const {$isApiProcessing, isShowDetectionZone} = this.state;
-    const {values, setFieldValue} = form;
+  showModal = () => {
+    this.setState({isShowModal: true});
+  };
+
+  hideModal = () => {
+    this.setState({isShowModal: false});
+  };
+
+  confirmEnableSpoof = isEnableSpoofing => {
+    if (!isEnableSpoofing) {
+      this.setState({isShowModal: true});
+    }
+  }
+
+  faceRecognitionSettingsFormRender = ({values, setFieldValue}) => {
+    const {$isApiProcessing, isShowDetectionZone, isShowModal} = this.state;
 
     return (
       <>
@@ -161,18 +175,22 @@ module.exports = class FaceRecognition extends Base {
                 <div className="card">
                   <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                      <label className="mb-0">{i18n.t('Enable Anti-Image Spoof')}</label>
+                      <span>
+                        <label className="mb-0 mr-2">{i18n.t('Enable Anti-Image Spoof')}</label>
+                        <span className="badge badge-outline">Alpha</span>
+                      </span>
                       <div className="custom-control custom-switch">
-                        <CustomTooltip show={!isEnable} title={i18n.t('Facial Recognition is disabled.')}>
-                          <span>
+                        <CustomTooltip show={!values.isEnable} title={i18n.t('Facial Recognition is disabled.')}>
+                          <span style={values.isEnable ? {} : {cursor: 'not-allowed'}}>
                             <Field
                               name="isEnableSpoofing"
                               type="checkbox"
                               checked={values.isEnableSpoofing}
-                              disabled={!isEnable}
-                              style={isEnable ? {} : {pointerEvents: 'none'}}
+                              disabled={!values.isEnable}
+                              style={values.isEnable ? {} : {pointerEvents: 'none'}}
                               className="custom-control-input"
                               id="switch-face-recognition-spoofing"
+                              onClick={() => this.confirmEnableSpoof(values.isEnableSpoofing)}
                             />
                             <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
                               <span>{i18n.t('ON')}</span>
@@ -180,25 +198,39 @@ module.exports = class FaceRecognition extends Base {
                             </label>
                           </span>
                         </CustomTooltip>
+                        <CustomNotifyModal
+                          isShowModal={isShowModal}
+                          modalTitle={i18n.t('Enable Anti-Image Spoof')}
+                          modalBody={i18n.t('analytic.face-recognition.modal.spoofing')}
+                          onHide={() => {
+                            this.hideModal();
+                            setFieldValue('isEnableSpoofing', false);
+                          }}
+                          onConfirm={this.hideModal}
+                        />
                       </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center">
                       <label className="mb-0">{i18n.t('Level of Accuracy')}</label>
-                      <div className="btn-group">
-                        {ConfidenceLevel.all().map(confidenceLevel => (
-                          <button
-                            key={confidenceLevel}
-                            type="button"
-                            className={classNames(
-                              'btn triple-wrapper btn-sm outline-success px-2 py-1',
-                              {active: values.confidenceLevel === confidenceLevel}
-                            )}
-                            onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
-                          >
-                            {i18n.t(`confidence-level-${confidenceLevel}`)}
-                          </button>
-                        ))}
-                      </div>
+                      <CustomTooltip show={!values.isEnable} title={i18n.t('Facial Recognition is disabled.')}>
+                        <div className="btn-group" style={values.isEnable ? {} : {cursor: 'not-allowed'}}>
+                          {ConfidenceLevel.all().map(confidenceLevel => (
+                            <button
+                              key={confidenceLevel}
+                              type="button"
+                              className={classNames(
+                                'btn triple-wrapper btn-sm outline-success px-2 py-1',
+                                {active: values.confidenceLevel === confidenceLevel}
+                              )}
+                              disabled={!values.isEnable}
+                              style={values.isEnable ? {} : {pointerEvents: 'none'}}
+                              onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
+                            >
+                              {i18n.t(`confidence-level-${confidenceLevel}`)}
+                            </button>
+                          ))}
+                        </div>
+                      </CustomTooltip>
                     </div>
                   </div>
                 </div>

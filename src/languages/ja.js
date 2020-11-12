@@ -562,7 +562,7 @@ module.exports = {
       'Photo 2': '写真 2',
       'Photo 3': '写真 3',
       'Photo 4': '写真 4',
-      'Upload Primary First': '最初はメイン写真をアップロードして下さい',
+      'Upload the Primary Photo First': '最初はメイン写真をアップロードして下さい',
       'Photo Editor': '写真編集',
       'Drag the image to position it correctly.': '写真をドラッグして調整してください',
       Organization: '組織',
@@ -570,7 +570,7 @@ module.exports = {
       'Enter an organization for this member': '組織名を入力してください',
       'Maximum length: 32 characters': '最大32文字まで入力可能です',
       'N/A': 'なし',
-      'Are you sure you want to close this window? Any changes you have made will be lost.': 'このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます',
+      'Are you sure you want to close this window? All changes you have made will be lost.': 'このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます',
       'Photo size should be less than 90 KB.': '写真サイズは90 KBを超えることができません',
       Save: '保存する',
       'Change Photo': '写真を変更する',
@@ -644,6 +644,7 @@ module.exports = {
       'Display Unknown': '未登録者',
       'Display Image Spoof': 'なりすまし防止',
       'Facial Recognition is disabled.': '顔認証を無効になっています',
+      'analytic.face-recognition.modal.spoofing': 'アルファ版の画像スプーフィングを有効にしてもよろしいですか？ アルファ版です。 画像のなりすましと判断された顔は認識されません。 今後のソフトウェアアップデートで、この機能を最適化および改善する予定です',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',
@@ -905,7 +906,7 @@ module.exports = {
       // 9031
       'Empty SMTP Account': 'SMTPアカウントを入力してください',
       // 9032
-      'Empty SMTP Account Password ': 'SMTPパスワードを入力してください',
+      'Empty SMTP Account Password': 'SMTPパスワードを入力してください',
       // 9033
       'Empty Sender Email': '差出人情報を入力してください',
       // 9034
