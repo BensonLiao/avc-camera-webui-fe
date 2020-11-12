@@ -562,7 +562,7 @@ module.exports = {
       'Photo 2': '照片2',
       'Photo 3': '照片3',
       'Photo 4': '照片4',
-      'Upload Primary First': '請先上傳主照片',
+      'Upload the Primary Photo First': '請先上傳主照片',
       'Photo Editor': '編輯',
       'Drag the image to position it correctly.': '拖曳調整照片',
       Organization: '組織',
@@ -570,7 +570,7 @@ module.exports = {
       'Enter an organization for this member': '輸入組織名稱',
       'Maximum length: 32 characters': '最多32個字',
       'N/A': '無',
-      'Are you sure you want to close this window? Any changes you have made will be lost.': '關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？',
+      'Are you sure you want to close this window? All changes you have made will be lost.': '關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？',
       'Photo size should be less than 90 KB.': '照片大小不可以超過90 KB',
       Save: '儲存',
       'Change Photo': '更換照片',
@@ -644,6 +644,7 @@ module.exports = {
       'Display Unknown': '辨識結果：未知',
       'Display Image Spoof': '辨識結果：圖像偽裝',
       'Facial Recognition is disabled.': '臉部辨識已關閉',
+      'analytic.face-recognition.modal.spoofing': '您確定要開啟Alpha版防止圖像偽裝嗎? 圖像偽裝是一個Alpha版的功能, 判定成圖像偽裝的人臉不會被辯識, 我們會在之後的軟體更新優化並完善此功能',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',
@@ -690,7 +691,7 @@ module.exports = {
       'Subnet Mask': '子網路遮罩',
       'Router/Gateway': '路由器/閘道',
       'Primary DNS': '主要 DNS',
-      'Secondary DNS (Optional)': '次要 DNS (選填)',
+      'Secondary DNS (Optional)': '次要 DNS',
       Interface: '連接方式',
       'IP Assignment': 'IP 取得方式',
       'Secondary DNS': '次要 DNS',
@@ -905,7 +906,7 @@ module.exports = {
       // 9031
       'Empty SMTP Account': '必須輸入帳號和密碼',
       // 9032
-      'Empty SMTP Account Password ': '必須輸入帳號和密碼',
+      'Empty SMTP Account Password': '必須輸入帳號和密碼',
       // 9033
       'Empty Sender Email': '必須輸入寄件人資訊',
       // 9034

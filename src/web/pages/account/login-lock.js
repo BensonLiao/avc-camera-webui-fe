@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'capybara-router';
 import i18n from '../../../i18n';
 import Once from '../../../core/components/one-time-render';
@@ -30,6 +30,7 @@ const LoginLock = ({params}) => {
       }
     };
   }, [loginLockRemainingMs]);
+
   return (
     <AccountContainer page="page-login-lock">
       <div className="card shadow mb-5">
@@ -68,7 +69,7 @@ LoginLock.propTypes = {
   params: function (props, propName, componentName) {
     if (
       !props[propName].loginLockExpiredTime ||
-    Number.isNaN(props[propName].loginLockExpiredTime)
+      Number.isNaN(props[propName].loginLockExpiredTime)
     ) {
       return new Error(
         `Invalid prop "${propName}.loginLockExpiredTime" supplied to ${componentName}. Validation failed.`

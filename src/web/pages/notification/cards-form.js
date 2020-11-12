@@ -301,7 +301,7 @@ module.exports = class CardsForm extends React.PureComponent {
                     className="btn btn-info btn-block m-0 rounded-pill"
                     onClick={onHideCardModal}
                   >
-                    {i18n.t('Close')}
+                    {i18n.t('Cancel')}
                   </button>
                 </div>
               </Form>

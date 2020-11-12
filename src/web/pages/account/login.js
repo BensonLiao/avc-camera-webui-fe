@@ -38,7 +38,7 @@ const Login = () => {
           if (error.response.status === 429) {
             if (
               error.response.data && error.response.data.extra &&
-             error.response.data.extra.loginLockRemainingMs
+              error.response.data.extra.loginLockRemainingMs
             ) {
               getRouter().go({
                 name: 'login-lock',
@@ -51,7 +51,7 @@ const Login = () => {
           if (error.response.status === 400) {
             if (
               error.response.data && error.response.data.extra &&
-             error.response.data.extra.loginFailedRemainingTimes >= 0
+              error.response.data.extra.loginFailedRemainingTimes >= 0
             ) {
               getRouter().go({
                 name: 'login-error',
