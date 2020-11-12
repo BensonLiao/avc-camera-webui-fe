@@ -25,10 +25,10 @@ const Group = ({groups, group, params}) => {
   const {groupsName, isShowModal} = state;
 
   const hideModal = () => {
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowModal: false
-    });
+    }));
   };
 
   const hiddenModal = () => {

@@ -27,10 +27,10 @@ const MembersDatabase = ({isApiProcessing}) => {
   const {isShowApiProcessModal, apiProcessModalTitle, databaseInitialValues, isShowDatabaseModal} = state;
 
   const hideDatabaseModal = () => {
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowDatabaseModal: false
-    });
+    }));
   };
 
   const showDatabaseModal = event => {
@@ -38,34 +38,34 @@ const MembersDatabase = ({isApiProcessing}) => {
     progress.start();
     api.member.getDatabaseEncryptionSettings()
       .then(response => {
-        setState({
-          ...state,
+        setState(prevState => ({
+          ...prevState,
           isShowDatabaseModal: true,
           databaseInitialValues: {
             password: response.data.password,
             newPassword: '',
             confirmPassword: ''
           }
-        });
+        }));
       })
       .finally(progress.done);
   };
 
   const hideApiProcessModal = () => {
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowApiProcessModal: false
-    });
+    }));
   };
 
   const onClickExportDatabase = event => {
     event.preventDefault();
     progress.start();
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Exporting Member Database')
-    });
+    }));
     wrappedApi({
       method: 'get',
       url: '/api/members/database.zip',
@@ -73,10 +73,10 @@ const MembersDatabase = ({isApiProcessing}) => {
       responseType: 'blob',
       onDownloadProgress: progressEvent => {
         // Do whatever you want with the native progress event
-        setState({
-          ...state,
+        setState(prevState => ({
+          ...prevState,
           progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)
-        });
+        }));
       }
     })
       .then(response => {
@@ -100,11 +100,11 @@ const MembersDatabase = ({isApiProcessing}) => {
     }
 
     progress.start();
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Importing Member Database')
-    });
+    }));
     api.member.uploadDatabaseFile(file)
       .then(() => {
         getRouter().go(
@@ -125,10 +125,10 @@ const MembersDatabase = ({isApiProcessing}) => {
     progress.start();
     api.member.updateDatabaseEncryptionSettings(values)
       .then(() => {
-        setState({
-          ...state,
+        setState(prevState => ({
+          ...prevState,
           isShowDatabaseModal: false
-        });
+        }));
       })
       .finally(progress.done);
   };
