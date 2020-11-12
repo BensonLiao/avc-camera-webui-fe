@@ -743,7 +743,7 @@ module.exports = {
       Administration: 'administración',
       'Date & Time': 'Fecha y hora',
       'Time Zone': 'Zona horaria',
-      'Date and Time of the Device': 'Tiempo de instalación',
+      'Date and Time of the Device': 'Hora del dispositivo',
       'Sync with Network Time Server (NTP)': 'Sincronizar con Network Time Server (NTP)',
       'Host Name or IP Address': 'Dirección del servidor',
       'Sync Time': 'Hora de actualización diaria',
