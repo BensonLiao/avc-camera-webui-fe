@@ -137,7 +137,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
       >
         {({setFieldValue, values}) => {
           const isDisable = values.ipType === NetworkIPType.dynamic;
-          const renderField = ({label, name, placeholder}) => (
+          const renderField = (label, name, placeholder) => (
             <div className="form-group">
               <label>{label}</label>
               <Field
@@ -194,31 +194,11 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                   </label>
                 </div>
               </div>
-              {renderField({
-                label: i18n.t('IP Address'),
-                name: 'ipAddress',
-                placeholder: i18n.t('Enter a fixed IP address')
-              })}
-              {renderField({
-                label: i18n.t('Subnet Mask'),
-                name: 'subnetMask',
-                placeholder: i18n.t('Enter Subnet Mask')
-              })}
-              {renderField({
-                label: i18n.t('Router/Gateway'),
-                name: 'gateway',
-                placeholder: i18n.t('Enter Router/Gateway')
-              })}
-              {renderField({
-                label: i18n.t('Primary DNS'),
-                name: 'primaryDNS',
-                placeholder: i18n.t('Enter a primary DNS')
-              })}
-              {renderField({
-                label: i18n.t('Secondary DNS (Optional)'),
-                name: 'secondaryDNS',
-                placeholder: i18n.t('Enter a secondary DNS')
-              })}
+              {renderField(i18n.t('IP Address'), 'ipAddress', i18n.t('Enter a fixed IP address'))}
+              {renderField(i18n.t('Subnet Mask'), 'subnetMask', i18n.t('Enter Subnet Mask'))}
+              {renderField(i18n.t('Router/Gateway'), 'gateway', i18n.t('Enter Router/Gateway'))}
+              {renderField(i18n.t('Primary DNS'), 'primaryDNS', i18n.t('Enter a primary DNS'))}
+              {renderField(i18n.t('Secondary DNS (Optional)'), 'secondaryDNS', i18n.t('Enter a secondary DNS'))}
               <CustomTooltip show={JSON.stringify(networkSettings) === JSON.stringify(values)} title={i18n.t('No changes were made.')}>
 
                 <div>
