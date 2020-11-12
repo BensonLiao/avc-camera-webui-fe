@@ -344,7 +344,7 @@ module.exports = {
       HDMI: 'HDMI',
       'HDMI Title': 'HDMI',
       'Updating HDMI settings': '更新HDMI設定',
-      'Are you sure you want to update HDMI settings?': '您即將更改HDMI設定，確認是否繼續？',
+      'Are you sure you want to update HDMI settings?': '您確定要更改 HDMI 設定嗎?',
 
       // /media/osd
       'Enable On-Screen Display': '開啟文字貼圖',
