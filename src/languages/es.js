@@ -231,7 +231,7 @@ module.exports = {
       'Full-Range Focus': 'Enfoque de rango completo',
       'Short-Range Focus': 'Enfoque a corto rango',
       Focus: 'Foco',
-      Zoom: 'Enfocar',
+      Zoom: 'Zoom',
       'Auto Focus after Zoom': 'Enfoque automático al hacer zoom',
       Iris: 'Iris',
       'Shutter Speed': 'Velocidad de obturación',
