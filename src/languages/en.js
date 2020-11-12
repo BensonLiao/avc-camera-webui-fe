@@ -278,7 +278,7 @@ module.exports = {
       'daynight-mode-0': 'Auto',
       'daynight-mode-1': 'Day Mode',
       'daynight-mode-2': 'Night Mode',
-      'daynight-mode-3': 'Schedule Day Mode',
+      'daynight-mode-3': 'Manual',
       // /home / Constans / Rotation
       'orientation-0': '0°',
       'orientation-1': 'Flip Vertical',

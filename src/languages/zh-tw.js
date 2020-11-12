@@ -278,7 +278,7 @@ module.exports = {
       'daynight-mode-0': '自動',
       'daynight-mode-1': '彩色',
       'daynight-mode-2': '黑白',
-      'daynight-mode-3': '指定時段',
+      'daynight-mode-3': '手動調整',
       // /home / Constans / Rotation
       'orientation-0': '正常',
       'orientation-1': '垂直翻轉',
