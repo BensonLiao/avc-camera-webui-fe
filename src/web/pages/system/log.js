@@ -114,8 +114,8 @@ module.exports = class Log extends Base {
                           modalTitle={this.state.apiProcessModalTitle}
                           modalBody={[
                             <StageProgress
-                              key="stage 1"
-                              title="Download progress"
+                              key={i18n.t('stage 1')}
+                              title={i18n.t('Download progress')}
                               progressStatus={this.state.progressStatus}
                               progressPercentage={this.state.progressPercentage}
                             />
