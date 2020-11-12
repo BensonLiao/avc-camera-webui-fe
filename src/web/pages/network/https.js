@@ -79,8 +79,8 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
           ]
         }));
         setTimeout(() => {
-          setState({
-            ...state,
+          setState(prevState => ({
+            ...prevState,
             modalBody: [
               `${i18n.t('The website has been redirected to the new address')} :`,
               <div key="redirect" className="d-flex">
@@ -91,7 +91,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                 <a href={newAddress}>{newAddress}</a>
               </div>
             ]
-          });
+          }));
         }, NODE_SERVER_RESTART_DELAY_MS);
       })
       .finally(progress.done);

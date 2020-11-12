@@ -81,16 +81,16 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
 
   const onSubmit = values => {
     progress.start();
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isUpdating: true
-    });
+    }));
     api.system.updateNetworkSettings(values)
       .then(response => {
         const resultIP = values.ipType === NetworkIPType.dynamic ? response.data.ipAddress : values.ipAddress;
         const newAddress = `${location.protocol}//${resultIP}${location.port ? `:${location.port}` : ''}`;
-        setState({
-          ...state,
+        setState(prevState => ({
+          ...prevState,
           isShowSelectModal: {
             applyConfirm: false,
             info: true
@@ -108,10 +108,10 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
               <span style={{color: infoColor}}>{newAddress}</span>
             </div>
           ]
-        });
+        }));
         setTimeout(() => {
-          setState({
-            ...state,
+          setState(prevState => ({
+            ...prevState,
             isUpdating: false,
             modalBody: [
               `${i18n.t('The website has been redirected to the new address')} :`,
@@ -123,7 +123,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                 <a href={newAddress}>{newAddress}</a>
               </div>
             ]
-          });
+          }));
         }, NODE_SERVER_RESTART_DELAY_MS / 2);
       })
       .finally(progress.done);
