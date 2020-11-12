@@ -78,21 +78,21 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
             </div>
           ]
         }));
-          setTimeout(() => {
-            setState({
-              ...state,
-              modalBody: [
-                `${i18n.t('The website has been redirected to the new address')} :`,
-                <div key="redirect" className="d-flex">
-                  <ProgressIndicator
-                    className="ml-0"
-                    status="done"
-                  />
-                  <a href={newAddress}>{newAddress}</a>
-                </div>
-              ]
-            });
-          }, NODE_SERVER_RESTART_DELAY_MS);
+        setTimeout(() => {
+          setState({
+            ...state,
+            modalBody: [
+              `${i18n.t('The website has been redirected to the new address')} :`,
+              <div key="redirect" className="d-flex">
+                <ProgressIndicator
+                  className="ml-0"
+                  status="done"
+                />
+                <a href={newAddress}>{newAddress}</a>
+              </div>
+            ]
+          });
+        }, NODE_SERVER_RESTART_DELAY_MS);
       })
       .finally(progress.done);
   };
