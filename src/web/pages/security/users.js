@@ -8,11 +8,11 @@ const iconUser = require('../../../resource/user-24px.svg');
 const iconUserShield = require('../../../resource/user-shield-24px.svg');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Base = require('../shared/base');
+const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const {SECURITY_USERS_MAX} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
-const i18n = require('../../../i18n').default;
 module.exports = class Users extends Base {
   static get propTypes() {
     return {

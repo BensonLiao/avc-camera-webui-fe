@@ -83,7 +83,7 @@ export default withGlobalStatus(
         .finally(progress.done);
     };
 
-    accountSettingsFormRender = ({values, errors, touched}) => {
+    accountSettingsFormRender = ({errors, touched}) => {
       return (
         <Form>
           <div className="modal-body">
@@ -113,19 +113,19 @@ export default withGlobalStatus(
               <label>{i18n.t('Port')}</label>
               <div className="d-flex align-items-center">
                 <div className="form-check">
-                  <Field checked={values.port === SMTPPort['25']} name="port" className="form-check-input" type="radio" id="input-port-25" value={SMTPPort['25']}/>
+                  <Field name="port" className="form-check-input" type="radio" id="input-port-25" value={SMTPPort['25']}/>
                   <label className="form-check-label" htmlFor="input-port-25">25</label>
                 </div>
                 <div className="form-check ml-5">
-                  <Field checked={values.port === SMTPPort['465']} name="port" className="form-check-input" type="radio" id="input-port-465" value={SMTPPort['465']}/>
+                  <Field name="port" className="form-check-input" type="radio" id="input-port-465" value={SMTPPort['465']}/>
                   <label className="form-check-label" htmlFor="input-port-465">465</label>
                 </div>
                 <div className="form-check ml-5">
-                  <Field checked={values.port === SMTPPort['587']} name="port" className="form-check-input" type="radio" id="input-port-587" value={SMTPPort['587']}/>
+                  <Field name="port" className="form-check-input" type="radio" id="input-port-587" value={SMTPPort['587']}/>
                   <label className="form-check-label" htmlFor="input-port-587">587</label>
                 </div>
                 <div className="form-check ml-5">
-                  <Field checked={values.port === SMTPPort['2525']} name="port" className="form-check-input" type="radio" id="input-port-2525" value={SMTPPort['2525']}/>
+                  <Field name="port" className="form-check-input" type="radio" id="input-port-2525" value={SMTPPort['2525']}/>
                   <label className="form-check-label" htmlFor="input-port-2525">2525</label>
                 </div>
               </div>
@@ -134,15 +134,15 @@ export default withGlobalStatus(
               <label>{i18n.t('Encryption')}</label>
               <div className="d-flex align-items-center">
                 <div className="form-check">
-                  <Field checked={values.encryption === SMTPEncryptionType.none} name="encryption" className="form-check-input" type="radio" id="input-encryption-none" value={SMTPEncryptionType.none}/>
+                  <Field name="encryption" className="form-check-input" type="radio" id="input-encryption-none" value={SMTPEncryptionType.none}/>
                   <label className="form-check-label" htmlFor="input-encryption-none">{i18n.t('None')}</label>
                 </div>
                 <div className="form-check ml-5">
-                  <Field checked={values.encryption === SMTPEncryptionType.ssl} name="encryption" className="form-check-input" type="radio" id="input-encryption-ssl" value={SMTPEncryptionType.ssl}/>
+                  <Field name="encryption" className="form-check-input" type="radio" id="input-encryption-ssl" value={SMTPEncryptionType.ssl}/>
                   <label className="form-check-label" htmlFor="input-encryption-ssl">SSL</label>
                 </div>
                 <div className="form-check ml-5">
-                  <Field checked={values.encryption === SMTPEncryptionType.tls} name="encryption" className="form-check-input" type="radio" id="input-encryption-tls" value={SMTPEncryptionType.tls}/>
+                  <Field name="encryption" className="form-check-input" type="radio" id="input-encryption-tls" value={SMTPEncryptionType.tls}/>
                   <label className="form-check-label" htmlFor="input-encryption-tls">TLS</label>
                 </div>
               </div>

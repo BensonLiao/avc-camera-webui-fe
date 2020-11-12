@@ -4,44 +4,44 @@ const i18n = require('../../i18n').default;
 exports.validator = new Validator({
   messages: {
     required: i18n.t('validation-required'),
-    string: i18n.t('validation-string'),
-    stringEmpty: i18n.t('validation-stringEmpty'),
+    string: i18n.t('validation-string'), // deprecated
+    stringEmpty: i18n.t('validation-stringEmpty'), // deprecated
     stringMin: i18n.t('validation-stringMin'),
     stringMax: i18n.t('validation-stringMax'),
-    stringLength: i18n.t('validation-stringLength'),
+    stringLength: i18n.t('validation-stringLength'), // deprecated
     stringPattern: i18n.t('validation-stringPattern'),
-    stringContains: i18n.t('validation-stringContains'),
-    stringEnum: i18n.t('validation-stringEnum'),
-    number: i18n.t('validation-number'),
-    numberMin: i18n.t('validation-numberMin'),
-    numberMax: i18n.t('validation-numberMax'),
-    numberEqual: i18n.t('validation-numberEqual'),
-    numberNotEqual: i18n.t('validation-numberNotEqual'),
-    numberInteger: i18n.t('validation-numberInteger'),
-    numberPositive: i18n.t('validation-numberPositive'),
-    numberNegative: i18n.t('validation-numberNegative'),
-    array: i18n.t('validation-array'),
-    arrayEmpty: i18n.t('validation-arrayEmpty'),
-    arrayMin: i18n.t('validation-arrayMin'),
-    arrayMax: i18n.t('validation-arrayMax'),
-    arrayLength: i18n.t('validation-arrayLength'),
-    arrayContains: i18n.t('validation-arrayContains'),
-    arrayEnum: i18n.t('validation-arrayEnum'),
-    boolean: i18n.t('validation-boolean'),
-    function: i18n.t('validation-function'),
-    date: i18n.t('validation-date'),
-    dateMin: i18n.t('validation-dateMin'),
-    dateMax: i18n.t('validation-dateMax'),
-    forbidden: i18n.t('validation-forbidden'),
-    email: i18n.t('validation-email'),
-    url: i18n.t('validation-url'),
+    stringContains: i18n.t('validation-stringContains'), // deprecated
+    stringEnum: i18n.t('validation-stringEnum'), // deprecated
+    number: i18n.t('validation-number'), // deprecated
+    numberMin: i18n.t('validation-numberMin'), // deprecated
+    numberMax: i18n.t('validation-numberMax'), // deprecated
+    numberEqual: i18n.t('validation-numberEqual'), // deprecated
+    numberNotEqual: i18n.t('validation-numberNotEqual'), // deprecated
+    numberInteger: i18n.t('validation-numberInteger'), // deprecated
+    numberPositive: i18n.t('validation-numberPositive'), // deprecated
+    numberNegative: i18n.t('validation-numberNegative'), // deprecated
+    array: i18n.t('validation-array'), // deprecated
+    arrayEmpty: i18n.t('validation-arrayEmpty'), // deprecated
+    arrayMin: i18n.t('validation-arrayMin'), // deprecated
+    arrayMax: i18n.t('validation-arrayMax'), // deprecated
+    arrayLength: i18n.t('validation-arrayLength'), // deprecated
+    arrayContains: i18n.t('validation-arrayContains'), // deprecated
+    arrayEnum: i18n.t('validation-arrayEnum'), // deprecated
+    boolean: i18n.t('validation-boolean'), // deprecated
+    function: i18n.t('validation-function'), // deprecated
+    date: i18n.t('validation-date'), // deprecated
+    dateMin: i18n.t('validation-dateMin'), // deprecated
+    dateMax: i18n.t('validation-dateMax'), // deprecated
+    forbidden: i18n.t('validation-forbidden'), // deprecated
+    email: i18n.t('validation-email'), // reserved
+    url: i18n.t('validation-url'), // deprecated
 
     stringContainsLowerCaseLatter: i18n.t('validation-stringContainsLowerCaseLatter'),
     stringContainsUpperCaseLatter: i18n.t('validation-stringContainsUpperCaseLatter'),
     stringContainsNumber: i18n.t('validation-stringContainsNumber'),
     stringAbortSpecialCharacters: i18n.t('validation-stringAbortSpecialCharacters'),
     stringAcceptSpecialCharacters: i18n.t('validation-stringAcceptSpecialCharacters'),
-    birthday: i18n.t('validation-birthday'),
-    countryCode: i18n.t('validation-countryCode')
+    birthday: i18n.t('validation-birthday'), // deprecated
+    countryCode: i18n.t('validation-countryCode') // reserved
   }
 });
