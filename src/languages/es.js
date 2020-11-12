@@ -35,7 +35,7 @@ module.exports = {
       Home: 'Página de Inicio',
       Image: 'imagen',
       Video: 'Video',
-      Audio: 'sonido',
+      Audio: 'Audio',
       Notification: 'Anunciar',
       'User Management': 'usuarios',
       Analytics: 'Análisis',
@@ -379,7 +379,7 @@ module.exports = {
       'Up to 4 mask areas can be set.': 'Hasta 4 mascarillas',
 
       // /audio
-      'Audio Title': 'sonido',
+      'Audio Title': 'Audio',
       'Enable Audio Input': 'Habilitar entrada de voz',
       'Audio Quality': 'calidad',
       'Input Source': 'Fuente de entrada',
