@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import progress from 'nprogress';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import CertificateType from 'webserver-form-schema/constants/certificate-type';
 import i18n from '../../../i18n';
 import utils from '../../../core/utils';
@@ -118,11 +118,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                             validate={checkValidatePort}
                             className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
                           />
-                          {
-                            errors.port && touched.port && (
-                              <div className="invalid-feedback">{errors.port}</div>
-                            )
-                          }
+                          <ErrorMessage component="div" name="port" className="invalid-feedback"/>
                           <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8443')}</p>
                         </div>
                         <SelectField labelName={i18n.t('Certificate')} name="certificateType">
