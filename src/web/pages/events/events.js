@@ -56,7 +56,7 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
   const generateMemberAddHandler = defaultPictureUrl => event => {
     event.preventDefault();
     setState(prevState => ({
-      ...state,
+      ...prevState,
       isShowMemberModal: true,
       currentMember: null,
       eventPictureUrl: defaultPictureUrl,
@@ -72,21 +72,21 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
    */
   const generateMemberModifyHandler = (memberName, defaultPictureUrl) => event => {
     event.preventDefault();
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowSearchMemberModal: true,
       currentMemberName: memberName,
       eventPictureUrl: defaultPictureUrl
-    });
+    }));
   };
 
   const onSubmittedMemberForm = () => {
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowMemberModal: false,
       currentMember: null,
       eventPictureUrl: null
-    });
+    }));
     getRouter().go({
       name: currentRoute.name,
       params: params
@@ -94,20 +94,20 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
   };
 
   const onHideMemberModal = () => {
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowMemberModal: false,
       currentMember: null,
       eventPictureUrl: null
-    });
+    }));
   };
 
   const onHideSearchMemberModal = () => {
-    setState({
-      ...state,
+    setState(prevState => ({
+      ...prevState,
       isShowSearchMemberModal: false,
       currentMemberName: null
-    });
+    }));
   };
 
   const hrefTemplate = getRouter().generateUri(
