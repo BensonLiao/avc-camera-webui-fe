@@ -52,19 +52,6 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
     }));
   };
 
-  const renderField = ({label, name, placeholder, isDisable}) => (
-    <div className="form-group">
-      <label>{label}</label>
-      <Field
-        className="form-control"
-        type="text"
-        name={name}
-        placeholder={placeholder}
-        disabled={isDisable}
-      />
-    </div>
-  );
-
   const onClickTestDHCPButton = setFieldValue => event => {
     event.preventDefault();
     progress.start();
@@ -150,6 +137,18 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
       >
         {({setFieldValue, values}) => {
           const isDisable = values.ipType === NetworkIPType.dynamic;
+          const renderField = ({label, name, placeholder}) => (
+            <div className="form-group">
+              <label>{label}</label>
+              <Field
+                className="form-control"
+                type="text"
+                name={name}
+                placeholder={placeholder}
+                disabled={isDisable}
+              />
+            </div>
+          );
           return (
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
@@ -198,32 +197,27 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
               {renderField({
                 label: i18n.t('IP Address'),
                 name: 'ipAddress',
-                placeholder: i18n.t('Enter a fixed IP address'),
-                isDisable
+                placeholder: i18n.t('Enter a fixed IP address')
               })}
               {renderField({
                 label: i18n.t('Subnet Mask'),
                 name: 'subnetMask',
-                placeholder: i18n.t('Enter Subnet Mask'),
-                isDisable
+                placeholder: i18n.t('Enter Subnet Mask')
               })}
               {renderField({
                 label: i18n.t('Router/Gateway'),
                 name: 'gateway',
-                placeholder: i18n.t('Enter Router/Gateway'),
-                isDisable
+                placeholder: i18n.t('Enter Router/Gateway')
               })}
               {renderField({
                 label: i18n.t('Primary DNS'),
                 name: 'primaryDNS',
-                placeholder: i18n.t('Enter a primary DNS'),
-                isDisable
+                placeholder: i18n.t('Enter a primary DNS')
               })}
               {renderField({
                 label: i18n.t('Secondary DNS (Optional)'),
                 name: 'secondaryDNS',
-                placeholder: i18n.t('Enter a secondary DNS'),
-                isDisable
+                placeholder: i18n.t('Enter a secondary DNS')
               })}
               <CustomTooltip show={JSON.stringify(networkSettings) === JSON.stringify(values)} title={i18n.t('No changes were made.')}>
 
