@@ -149,6 +149,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
         onSubmit={onSubmit}
       >
         {({setFieldValue, values}) => {
+          const isDisable = values.ipType === NetworkIPType.dynamic;
           return (
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
@@ -194,56 +195,36 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                   </label>
                 </div>
               </div>
-              <div className="form-group">
-                <label>{i18n.t('IP Address')}</label>
-                <Field
-                  className="form-control"
-                  type="text"
-                  name="ipAddress"
-                  placeholder={i18n.t('Enter a fixed IP address')}
-                  disabled={values.ipType === NetworkIPType.dynamic}
-                />
-              </div>
-              <div className="form-group">
-                <label>{i18n.t('Subnet Mask')}</label>
-                <Field
-                  className="form-control"
-                  type="text"
-                  name="subnetMask"
-                  placeholder={i18n.t('Enter Subnet Mask')}
-                  disabled={values.ipType === NetworkIPType.dynamic}
-                />
-              </div>
-              <div className="form-group">
-                <label>{i18n.t('Router/Gateway')}</label>
-                <Field
-                  className="form-control"
-                  type="text"
-                  name="gateway"
-                  placeholder={i18n.t('Enter Router/Gateway')}
-                  disabled={values.ipType === NetworkIPType.dynamic}
-                />
-              </div>
-              <div className="form-group">
-                <label>{i18n.t('Primary DNS')}</label>
-                <Field
-                  className="form-control"
-                  type="text"
-                  name="primaryDNS"
-                  placeholder={i18n.t('Enter a primary DNS')}
-                  disabled={values.ipType === NetworkIPType.dynamic}
-                />
-              </div>
-              <div className="form-group">
-                <label>{i18n.t('Secondary DNS (Optional)')}</label>
-                <Field
-                  className="form-control"
-                  type="text"
-                  name="secondaryDNS"
-                  placeholder={i18n.t('Enter a secondary DNS')}
-                  disabled={values.ipType === NetworkIPType.dynamic}
-                />
-              </div>
+              {renderField({
+                label: i18n.t('IP Address'),
+                name: 'ipAddress',
+                placeholder: i18n.t('Enter a fixed IP address'),
+                isDisable
+              })}
+              {renderField({
+                label: i18n.t('Subnet Mask'),
+                name: 'subnetMask',
+                placeholder: i18n.t('Enter Subnet Mask'),
+                isDisable
+              })}
+              {renderField({
+                label: i18n.t('Router/Gateway'),
+                name: 'gateway',
+                placeholder: i18n.t('Enter Router/Gateway'),
+                isDisable
+              })}
+              {renderField({
+                label: i18n.t('Primary DNS'),
+                name: 'primaryDNS',
+                placeholder: i18n.t('Enter a primary DNS'),
+                isDisable
+              })}
+              {renderField({
+                label: i18n.t('Secondary DNS (Optional)'),
+                name: 'secondaryDNS',
+                placeholder: i18n.t('Enter a secondary DNS'),
+                isDisable
+              })}
               <CustomTooltip show={JSON.stringify(networkSettings) === JSON.stringify(values)} title={i18n.t('No changes were made.')}>
 
                 <div>
