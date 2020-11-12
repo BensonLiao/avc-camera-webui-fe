@@ -358,7 +358,7 @@ module.exports = {
       'Bottom Right': 'Inferior derecha',
       'Text Overlay': 'Texto',
       // /media/osd / Constants / Size
-      'font-size-0': 'pequeña',
+      'font-size-0': 'pequeño',
       'font-size-1': 'medio',
       'font-size-2': 'Grande',
       // /media/osd / Constants / Text Overlay
