@@ -16,7 +16,7 @@ const MembersSelectedGroup = ({selectedGroup, params}) => {
         </span>
         <img className="ml-32px" src={iconDescription}/>
         {
-          selectedGroup.note.length > 0 && (
+          selectedGroup.note && selectedGroup.note.length > 0 && (
             <CustomTooltip title={selectedGroup.note}>
               <div
                 className="text-size-14 text-muted ml-2"
