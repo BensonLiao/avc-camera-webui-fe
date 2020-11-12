@@ -103,7 +103,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                         <div className="form-group d-flex justify-content-between align-items-center">
                           <label>{i18n.t('Enable HTTPS')}</label>
                           <div className="custom-control custom-switch">
-                            <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-enable"/>
+                            <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-enable"/>
                             <label className="custom-control-label" htmlFor="switch-enable">
                               <span>{i18n.t('ON')}</span>
                               <span>{i18n.t('OFF')}</span>
