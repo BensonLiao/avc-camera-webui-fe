@@ -24,7 +24,6 @@ module.exports = class MembersDatabase extends React.PureComponent {
   state = {
     isShowDatabaseModal: false,
     databaseInitialValues: null,
-    databaseFile: null,
     isShowApiProcessModal: false,
     apiProcessModalTitle: ''
   }
@@ -66,11 +65,11 @@ module.exports = class MembersDatabase extends React.PureComponent {
         method: 'get',
         url: '/api/members/database.zip',
         timeout: 3 * 60 * 1000,
-        responseType: 'blob',
-        onDownloadProgress: progressEvent => {
-          // Do whatever you want with the native progress event
-          this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
-        }
+        responseType: 'blob'
+        // onDownloadProgress: progressEvent => {
+        //   // Do whatever you want with the native progress event
+        //   this.setState({progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)});
+        // }
       })
         .then(response => {
           download(response.data, 'database');
