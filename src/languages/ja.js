@@ -527,7 +527,7 @@ module.exports = {
       'Edit Group: {{0}}': 'グループを編集する：{{0}}',
       'User Picture': '登録用写真',
       Actions: '操作',
-      'Delete Member: {{0}}': 'グループを削除する：{{0}}',
+      'Delete Member: {{0}}': 'メンバーを削除する：{{0}}',
       'Delete Member': 'メンバーを削除する',
       'Are you sure you want to delete member {{0}}?': 'メンバー {{0}} を削除しますか？',
       'Edit Member: {{0}}': 'メンバーを編集する：{{0}}',
