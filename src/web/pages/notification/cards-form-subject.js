@@ -197,7 +197,6 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                        <button
                          disabled={!values.$email}
                          style={values.$email ? {} : {pointerEvents: 'none'}}
-
                          type="button"
                          className="btn btn-primary rounded-circle"
                          onClick={this.onClickAddEmail}
