@@ -230,7 +230,7 @@ module.exports = {
       'Select Focus Type': 'Seleccionar método de enfoque',
       'Full-Range Focus': 'Enfoque de rango completo',
       'Short-Range Focus': 'Enfoque a corto rango',
-      Focus: 'Foco',
+      Focus: 'Encofar',
       Zoom: 'Zoom',
       'Auto Focus after Zoom': 'Enfoque automático al hacer zoom',
       Iris: 'Iris',
