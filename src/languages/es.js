@@ -439,7 +439,7 @@ module.exports = {
       'Enable Digital Output {{0}}': 'Habilitar la salida digital {{0}}',
       Type: 'Tipo',
       Normal: 'general',
-      Buffer: 'buffer',
+      Buffer: 'Búfer',
       'Pulse Time (seconds)': 'Tiempo de búfer de señal (segundos)',
       'Delay Time (seconds)': 'Tiempo de intervalo de retardo (segundos)',
       'Enter seconds': 'Introduzca el número de segundos',
