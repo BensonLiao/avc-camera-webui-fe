@@ -20,7 +20,6 @@ const MembersDatabase = ({isApiProcessing}) => {
   const [state, setState] = useState({
     isShowDatabaseModal: false,
     databaseInitialValues: null,
-    databaseFile: null,
     isShowApiProcessModal: false,
     apiProcessModalTitle: ''
   });
