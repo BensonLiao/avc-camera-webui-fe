@@ -278,7 +278,7 @@ module.exports = {
       'daynight-mode-0': '自動',
       'daynight-mode-1': '彩色',
       'daynight-mode-2': '黑白',
-      'daynight-mode-3': '指定時段',
+      'daynight-mode-3': '手動調整',
       // /home / Constans / Rotation
       'orientation-0': '正常',
       'orientation-1': '垂直翻轉',
@@ -344,7 +344,7 @@ module.exports = {
       HDMI: 'HDMI',
       'HDMI Title': 'HDMI',
       'Updating HDMI settings': '更新HDMI設定',
-      'Are you sure you want to update HDMI settings?': '您即將更改HDMI設定，確認是否繼續？',
+      'Are you sure you want to update HDMI settings?': '您確定要更改 HDMI 設定嗎?',
 
       // /media/osd
       'Enable On-Screen Display': '開啟文字貼圖',
