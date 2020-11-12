@@ -15,7 +15,7 @@ import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
 
-const Group = ({groups, group, params}) => {
+const Group = ({group, groups, params}) => {
   const [state, setState] = useState({
     isShowModal: true,
     groupsName: groups.items.map(group => group.name)
@@ -55,13 +55,12 @@ const Group = ({groups, group, params}) => {
   };
 
   const submitGroupAPI = (type, values) => {
-    api.group[type](values)
-      .then(() => {
-        getRouter().go({
-          name: 'web.users.members',
-          params: params
-        }, {reload: true});
-      })
+    api.group[type](values).then(() => {
+      getRouter().go({
+        name: 'web.users.members',
+        params
+      }, {reload: true});
+    })
       .finally(progress.done);
   };
 

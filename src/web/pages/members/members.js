@@ -15,7 +15,17 @@ import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
 
 const Members = ({groups, members, params, remainingPictureCount}) => {
+  const {isApiProcessing} = useContextState();
   const currentRoute = getRouter().findRouteByName('web.users.members');
+
+  const hrefTemplate = getRouter().generateUri(
+    currentRoute,
+    {
+      ...params,
+      index: undefined
+    }
+  );
+
   const [state, setState] = useState({
     deleteGroupTarget: null,
     deleteMemberTarget: null,
@@ -25,16 +35,8 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
     }
   });
 
-  const {isApiProcessing} = useContextState();
   const {deleteGroupTarget, deleteMemberTarget} = state;
   const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
-  const hrefTemplate = getRouter().generateUri(
-    currentRoute,
-    {
-      ...params,
-      index: undefined
-    }
-  );
 
   const hideModal = selectedModal => () => {
     return setState(prevState => ({

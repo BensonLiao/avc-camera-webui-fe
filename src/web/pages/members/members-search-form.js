@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../../i18n';
 
-const MembersSearchForm = ({isApiProcessing, params, currentRouteName}) => {
+const MembersSearchForm = ({isApiProcessing, currentRouteName, params}) => {
   const onSubmitSearchForm = ({keyword}) => {
     getRouter().go({
       name: currentRouteName,
