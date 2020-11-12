@@ -20,20 +20,9 @@ const infoColor = getComputedStyle(document.documentElement).getPropertyValue('-
 
 const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
   const {isApiProcessing} = useContextState();
-
-  const [state, setState] = useState({
-    isShowModal: false,
-    modalBody: i18n.t('The website has been redirected to the new address')
-  });
-
-  const {isShowModal, modalBody} = state;
-
-  const hideModal = () => {
-    setState(prevState => ({
-      ...prevState,
-      isShowModal: false
-    }));
-  };
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [modalBody, setModalBody] = useState(i18n.t('The website has been redirected to the new address'));
+  const hideModal = () => setIsShowModal(false);
 
   const checkValidatePort = values => {
     let checkDefaultPortList = Object.keys(DEFAULT_PORTS)
@@ -64,34 +53,28 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
     api.system.updateHttpsSettings(values)
       .then(() => {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
-        setState(prevState => ({
-          ...prevState,
-          isShowModal: true,
-          modalBody: [
+        setIsShowModal(true);
+        setModalBody([
+          `${i18n.t('The website has been redirected to the new address')} :`,
+          <div key="redirect" className="d-flex">
+            <ProgressIndicator
+              className="ml-0"
+              status="start"
+            />
+            <span style={{color: infoColor}}>{newAddress}</span>
+          </div>
+        ]);
+        setTimeout(() => {
+          setModalBody([
             `${i18n.t('The website has been redirected to the new address')} :`,
             <div key="redirect" className="d-flex">
               <ProgressIndicator
                 className="ml-0"
-                status="start"
+                status="done"
               />
-              <span style={{color: infoColor}}>{newAddress}</span>
+              <a href={newAddress}>{newAddress}</a>
             </div>
-          ]
-        }));
-        setTimeout(() => {
-          setState(prevState => ({
-            ...prevState,
-            modalBody: [
-              `${i18n.t('The website has been redirected to the new address')} :`,
-              <div key="redirect" className="d-flex">
-                <ProgressIndicator
-                  className="ml-0"
-                  status="done"
-                />
-                <a href={newAddress}>{newAddress}</a>
-              </div>
-            ]
-          }));
+          ]);
         }, NODE_SERVER_RESTART_DELAY_MS);
       })
       .finally(progress.done);
