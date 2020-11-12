@@ -52,6 +52,19 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
     }));
   };
 
+  const renderField = ({label, name, placeholder, isDisable}) => (
+    <div className="form-group">
+      <label>{label}</label>
+      <Field
+        className="form-control"
+        type="text"
+        name={name}
+        placeholder={placeholder}
+        disabled={isDisable}
+      />
+    </div>
+  );
+
   const onClickTestDHCPButton = setFieldValue => event => {
     event.preventDefault();
     progress.start();
