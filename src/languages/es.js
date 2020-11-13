@@ -332,7 +332,7 @@ module.exports = {
       '{{0}} - {{1}} Kbps': '{{0}} - {{1}} Kbps',
 
       // /media/rtsp
-      'Enable Audio over RTSP': 'Habilitar grabación de sonido para Stream',
+      'Enable Audio over RTSP': 'Habilitar grabación de audio para Stream',
       'Require Authentication': 'Habilitar autenticación de contraseña de la cuenta',
       'RTSP/TCP Port': 'Puerto RTSP/TCP',
       'Range: 1024-65535 Default: 8554': 'Rango: 1024-65535, preestablecido: 8554',
