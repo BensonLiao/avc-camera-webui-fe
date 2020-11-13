@@ -662,7 +662,7 @@ module.exports = {
       License: 'Autorización de análisis inteligente',
       'Enter your authentication key': 'Ingrese el código de activación',
       Activate: 'Habilitar',
-      Activated: 'activado',
+      Activated: 'activada',
       'Activation Required': 'No esta activado',
       'Activated by': 'Activada por',
       'Authentication Key': 'Habilitar código',
