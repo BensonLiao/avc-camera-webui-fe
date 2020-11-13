@@ -231,7 +231,7 @@ module.exports = {
       'Full-Range Focus': '全範圍對焦',
       'Short-Range Focus': '短距離對焦',
       Focus: '對焦',
-      Zoom: '焦距',
+      Zoom: '縮放',
       'Auto Focus after Zoom': '縮放時自動對焦',
       Iris: '光圈',
       'Shutter Speed': '快門速度',
