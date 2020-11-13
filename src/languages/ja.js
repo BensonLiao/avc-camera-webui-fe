@@ -519,7 +519,7 @@ module.exports = {
       'Database Encryption': 'データベース暗号化',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
-      'Enter Keywords': 'キーワードを入力してください',
+      'Enter Keywords': 'キーワードを入力',
       Search: '検索',
       New: '追加',
       'Add a New Member': '新規メンバーを追加する',
