@@ -35,7 +35,7 @@ const customValidator = new FastestFormikValidator({
     forbidden: i18n.t('validation-forbidden'), // deprecated
     email: i18n.t('validation-email'), // reserved
     url: i18n.t('validation-url'), // deprecated
-    confirmEqual: 'The confirm input of \'{field}\' must be matched! Actual: {{actual}}, Expected: {{expected}}',
+    confirmEqual: i18n.t('These passwords didn\'t match.'),
 
     stringContainsLowerCaseLatter: i18n.t('validation-stringContainsLowerCaseLatter'),
     stringContainsUpperCaseLatter: i18n.t('validation-stringContainsUpperCaseLatter'),
@@ -53,7 +53,7 @@ customValidator.add('confirmEqual', (value, schema, currentFieldName, fullObject
   }
 
   if (value !== fullObjectValue[schema.field]) {
-    return this.validator.makeError('confirmEqual', value.input, value.confirm);
+    return this.validator.makeError('confirmEqual');
   }
 
   return true;
