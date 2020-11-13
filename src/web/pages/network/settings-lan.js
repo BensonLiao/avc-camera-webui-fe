@@ -200,7 +200,6 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
               {renderField(i18n.t('Primary DNS'), 'primaryDNS', i18n.t('Enter a primary DNS'))}
               {renderField(i18n.t('Secondary DNS (Optional)'), 'secondaryDNS', i18n.t('Enter a secondary DNS'))}
               <CustomTooltip show={JSON.stringify(networkSettings) === JSON.stringify(values)} title={i18n.t('No changes were made.')}>
-
                 <div>
                   <button
                     type="button"
@@ -215,7 +214,6 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                   </button>
                 </div>
               </CustomTooltip>
-
               <CustomNotifyModal
                 backdrop="static"
                 isShowModal={isShowSelectModal.applyConfirm}

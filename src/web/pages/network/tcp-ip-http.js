@@ -10,11 +10,14 @@ import {DEFAULT_PORTS} from '../../../core/constants';
 import i18n from '../../../i18n';
 import {NODE_SERVER_RESTART_DELAY_MS} from '../../../core/constants';
 import ProgressIndicator from '../../../core/components/progress-indicator';
+import {useContextState} from '../../stateProvider';
 import utils from '../../../core/utils';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const infoColor = getComputedStyle(document.documentElement).getPropertyValue('--info');
 
-const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => {
+const TCPIPHTTP = withGlobalStatus(({httpInfo, rtspSettings, httpsSettings}) => {
+  const {isApiProcessing} = useContextState();
   const [state, setState] = useState({
     isShowApiProcessModal: false,
     apiProcessModalTitle: i18n.t('Updating HTTP Settings'),
@@ -137,7 +140,7 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
       />
     </>
   );
-};
+});
 
 TCPIPHTTP.propTypes = {
   httpInfo: PropTypes.shape({
@@ -148,8 +151,7 @@ TCPIPHTTP.propTypes = {
   rtspSettings: PropTypes.shape({
     tcpPort: PropTypes.string.isRequired,
     udpPort: PropTypes.string.isRequired
-  }).isRequired,
-  isApiProcessing: PropTypes.bool.isRequired
+  }).isRequired
 };
 
 export default TCPIPHTTP;

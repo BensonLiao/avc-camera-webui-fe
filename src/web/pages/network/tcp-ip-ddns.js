@@ -8,8 +8,11 @@ import api from '../../../core/apis/web-api';
 import i18n from '../../../i18n';
 import notify from '../../../core/notify';
 import SelectField from '../../../core/components/fields/select-field';
+import {useContextState} from '../../stateProvider';
+import withGlobalStatus from '../../withGlobalStatus';
 
-const TCPIPDDNS = ({isApiProcessing, ddnsInfo}) => {
+const TCPIPDDNS = withGlobalStatus(({ddnsInfo}) => {
+  const {isApiProcessing} = useContextState();
   const onSubmitDDNSForm = values => {
     progress.start();
     api.system.updateDDNSInfo(values)
@@ -43,7 +46,7 @@ const TCPIPDDNS = ({isApiProcessing, ddnsInfo}) => {
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{i18n.t('Enable DDNS')}</label>
                 <div className="custom-control custom-switch">
-                  <Field name="isEnableDDNS" checked={values.isEnableDDNS} type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
+                  <Field name="isEnableDDNS" type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
                   <label className="custom-control-label" htmlFor="switch-ddns-enable">
                     <span>{i18n.t('ON')}</span>
                     <span>{i18n.t('OFF')}</span>
@@ -60,7 +63,6 @@ const TCPIPDDNS = ({isApiProcessing, ddnsInfo}) => {
                   type="text"
                   name="ddnsHost"
                   placeholder={i18n.t('Enter DDNS host name.')}
-                  value={values.ddnsHost}
                   disabled={!values.isEnableDDNS}
                 />
               </div>
@@ -71,7 +73,6 @@ const TCPIPDDNS = ({isApiProcessing, ddnsInfo}) => {
                   type="text"
                   name="ddnsAccount"
                   placeholder={i18n.t('Enter DDNS username.')}
-                  value={values.ddnsAccount}
                   disabled={!values.isEnableDDNS}
                 />
               </div>
@@ -82,7 +83,6 @@ const TCPIPDDNS = ({isApiProcessing, ddnsInfo}) => {
                   type="text"
                   name="ddnsPassword"
                   placeholder={i18n.t('Enter DDNS password.')}
-                  value={values.ddnsPassword}
                   disabled={!values.isEnableDDNS}
                 />
               </div>
@@ -98,10 +98,9 @@ const TCPIPDDNS = ({isApiProcessing, ddnsInfo}) => {
       )}
     </Formik>
   );
-};
+});
 
 TCPIPDDNS.propTypes = {
-  isApiProcessing: PropTypes.bool.isRequired,
   ddnsInfo: PropTypes.shape({
     isEnableDDNS: PropTypes.bool.isRequired,
     ddnsProvider: PropTypes.string.isRequired,

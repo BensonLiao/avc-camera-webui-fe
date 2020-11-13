@@ -3,14 +3,10 @@ import {Nav, Tab} from 'react-bootstrap';
 import React from 'react';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import i18n from '../../../i18n';
-import {useContextState} from '../../stateProvider';
-import withGlobalStatus from '../../withGlobalStatus';
 import TCPIPDDNS from './tcp-ip-ddns';
 import TCPIPHTTP from './tcp-ip-http';
 
 const TCPIP = ({ddnsInfo, httpInfo, httpsSettings, rtspSettings}) => {
-  const {isApiProcessing} = useContextState();
-
   return (
     <div className="main-content left-menu-active">
       <div className="page-notification">
@@ -41,11 +37,9 @@ const TCPIP = ({ddnsInfo, httpInfo, httpsSettings, rtspSettings}) => {
                   </Nav>
                   <div className="card-body">
                     <TCPIPDDNS
-                      isApiProcessing={isApiProcessing}
                       ddnsInfo={ddnsInfo}
                     />
                     <TCPIPHTTP
-                      isApiProcessing={isApiProcessing}
                       httpInfo={httpInfo}
                       rtspSettings={rtspSettings}
                       httpsSettings={httpsSettings}
@@ -68,4 +62,4 @@ TCPIP.propTypes = {
   rtspSettings: TCPIPHTTP.propTypes.rtspSettings
 };
 
-export default withGlobalStatus(TCPIP);
+export default TCPIP;
