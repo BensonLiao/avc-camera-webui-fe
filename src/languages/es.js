@@ -195,7 +195,7 @@ module.exports = {
       'Too Many Login Attempts!': 'Contraseña de cuenta de inicio de sesión incorrecta por más de 5 veces',
       'Please try again in 5 minutes.': 'Intente iniciar la sesión nuevamente en 5 minutos',
       'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
-      'Login locked': 'Bloquear inicio de sesión',
+      'Login locked': 'El inicio de sesión está bloqueado',
       'Forgot password?': '忘記密碼？',
       '{{0}} Remaining': 'Iniciar sesión nuevamente en {{0}}',
       'Login Again': 'ingresar de nuevo',
