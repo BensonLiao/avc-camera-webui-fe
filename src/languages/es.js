@@ -495,7 +495,7 @@ module.exports = {
       'face-recognition-condition-0': 'Todos los tipos',
       'face-recognition-condition-1': 'éxito',
       'face-recognition-condition-2': 'desconocido',
-      'face-recognition-condition-3': 'Camuflaje de imagen',
+      'face-recognition-condition-3': 'Imagen Falso',
       // /notification/cards / Constants / Email Attachment
       'email-attachment-type-0': 'Captura de pantalla de la cara',
       'email-attachment-type-1': 'Captura de pantalla completa',
