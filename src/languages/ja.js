@@ -632,7 +632,7 @@ module.exports = {
       'Analytics Settings': '知能分析',
       'Enable Facial Recognition': '顔認証を有効します',
       'Enable Anti-Image Spoof': 'なりすまし防止機能を有効する',
-      'Level of Accuracy': '認証成功率',
+      'Level of Accuracy': '認証成功閾',
       'Detection Zone': '検知区域',
       'Show/Hide Detection Zone': '認証区域を表示/非表示にする',
       'The default is the whole live view screen.': 'デフォルトはフルスクリーン',

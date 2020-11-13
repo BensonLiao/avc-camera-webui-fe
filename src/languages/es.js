@@ -598,7 +598,7 @@ module.exports = {
       Time: 'hora',
       Capture: 'Captura',
       Confidence: 'Confidence',
-      'Couldn\'t find any data.': 'Verifique que no haya datos coincidentes y busque nuevamente.,',
+      'Couldn\'t find any data.': 'Ningún dato encontrado, por favor revise de nuevo!',
       Filters: 'Filtros',
       Clear: 'Claridad',
       'Start Date': 'fecha',
