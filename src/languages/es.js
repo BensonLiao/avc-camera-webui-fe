@@ -448,7 +448,7 @@ module.exports = {
       // /notification/cards
       'Notification Filters': 'Filtros',
       Pinned: 'Parte superior',
-      Others: 'otro',
+      Others: 'Otros',
       'Unpin Card': 'Desanclar Pin Card',
       'Pin this card': 'Parte superior',
       'Enter card title': 'Ingrese el nombre de la tarjeta de notificación',
