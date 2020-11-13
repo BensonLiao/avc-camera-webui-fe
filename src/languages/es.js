@@ -622,7 +622,7 @@ module.exports = {
       // /users/events / Constants / Status
       'enroll-status-0': 'Camuflaje de imagen',
       'enroll-status-1': 'desconocido',
-      'enroll-status-2': 'éxito',
+      'enroll-status-2': 'Registrado',
       // /users/events / Constants / Confidence
       'confidence-0': 'bajo',
       'confidence-1': 'medio',
