@@ -225,7 +225,7 @@ module.exports = {
       Brightness: 'brillo',
       Contrast: 'Contraste',
       Sharpness: 'Nitidez',
-      Saturation: 'saturación',
+      Saturation: 'Saturación',
       'Lens Control': 'Lente',
       'Select Focus Type': 'Seleccionar método de enfoque',
       'Full-Range Focus': 'Enfoque de rango completo',
