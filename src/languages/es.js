@@ -600,7 +600,7 @@ module.exports = {
       Confidence: 'Confidence',
       'Couldn\'t find any data.': 'Ningún dato encontrado, por favor revise de nuevo!',
       Filters: 'Filtros',
-      Clear: 'Claridad',
+      Clear: 'Borrar',
       'Start Date': 'fecha',
       'Start Time': 'hora',
       'Start Datetime': 'Hora de inicio',
