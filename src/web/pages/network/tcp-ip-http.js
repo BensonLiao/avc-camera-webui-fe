@@ -40,10 +40,10 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
     // Check if using http port
     if (
       checkDefaultPortList ||
-          values === rtspSettings.udpPort ||
-          values === rtspSettings.tcpPort ||
-          values === httpInfo.port2 ||
-          values === httpsSettings.port) {
+      values === rtspSettings.udpPort ||
+      values === rtspSettings.tcpPort ||
+      values === httpInfo.port2 ||
+      values === httpsSettings.port) {
       return i18n.t('The specified port is reserved by system or in use!');
     }
 
