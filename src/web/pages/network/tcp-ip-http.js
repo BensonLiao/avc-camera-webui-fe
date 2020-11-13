@@ -8,6 +8,7 @@ import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import {DEFAULT_PORTS} from '../../../core/constants';
 import i18n from '../../../i18n';
+import httpSettingsValidator from '../../validations/network/http-settings-validator';
 import {NODE_SERVER_RESTART_DELAY_MS} from '../../../core/constants';
 import ProgressIndicator from '../../../core/components/progress-indicator';
 import {useContextState} from '../../stateProvider';
@@ -104,6 +105,7 @@ const TCPIPHTTP = withGlobalStatus(({httpInfo, rtspSettings, httpsSettings}) => 
     <>
       <Formik
         initialValues={httpInfo}
+        validate={utils.makeFormikValidator(httpSettingsValidator)}
         onSubmit={onSubmitHTTPForm}
       >
         {({values, errors, touched}) => (
