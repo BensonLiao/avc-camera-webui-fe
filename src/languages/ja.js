@@ -522,7 +522,7 @@ module.exports = {
       'Enter Keywords': 'キーワードを入力してください',
       Search: '検索',
       New: '追加',
-      'Add a New Member': '新規追加',
+      'Add a New Member': '新規メンバーを追加する',
       'Add a Member from Events': 'イベントから追加',
       'Edit Group: {{0}}': 'グループを編集する：{{0}}',
       'User Picture': '登録用写真',
