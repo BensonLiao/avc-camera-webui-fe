@@ -381,7 +381,7 @@ module.exports = {
       // /audio
       'Audio Title': 'Audio',
       'Enable Audio Input': 'Habilitar entrada de voz',
-      'Audio Quality': 'calidad',
+      'Audio Quality': 'Calidad',
       'Input Source': 'Fuente de entrada',
       'Internal Microphone': 'Internal Microphone',
       'External Microphone': 'Micrófono externo',
