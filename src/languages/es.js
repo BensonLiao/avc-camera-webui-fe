@@ -197,7 +197,7 @@ module.exports = {
       'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
       'Login locked': 'Bloquear inicio de sesión',
       'Forgot password?': '忘記密碼？',
-      '{{0}} Remaining': '{{0}} es necesario para iniciar sesión nuevamente',
+      '{{0}} Remaining': 'Iniciar sesión nuevamente en {{0}}',
       'Login Again': 'ingresar de nuevo',
 
       // Deprecated
