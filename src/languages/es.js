@@ -181,7 +181,7 @@ module.exports = {
       'ACCOUNT LOGIN': 'Cuenta de Ingreso',
       'Enter your username': 'Por favor ingrese su número de cuenta',
       'Password Reset': '重置密碼',
-      'Enter your password': 'Por favor ingrese su número de cuenta',
+      'Enter your password': 'Por favor ingrese su contraseña',
 
       // /login-error
       'Incorrect Password': 'Contraseña incorrecta',
