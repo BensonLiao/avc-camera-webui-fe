@@ -663,7 +663,7 @@ module.exports = {
       'Enter your authentication key': 'Ingrese el código de activación',
       Activate: 'Habilitar',
       Activated: 'activada',
-      'Activation Required': 'No esta activado',
+      'Activation Required': 'no está activada',
       'Activated by': 'Activada por',
       'Authentication Key': 'Habilitar código',
       'Activated Functions': 'funciónes activadas',
