@@ -606,7 +606,7 @@ module.exports = {
       'Start Datetime': 'Hora de inicio',
       'End Date': 'fecha',
       'End Time': 'hora',
-      'End Datetime': 'Terminar el tiempo',
+      'End Datetime': 'Hora de fin',
       'Facial Recognition': 'Reconocimiento facial',
       'Age & Gender': 'Género y edad',
       'Human Detection': 'Detección humanoide',
