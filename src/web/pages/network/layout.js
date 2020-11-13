@@ -24,6 +24,7 @@ module.exports = class Network extends Base {
   }
 
   render() {
+    const {currentRouteName} = this.state;
     return (
       <>
         {/* Left menu */}
@@ -33,21 +34,21 @@ module.exports = class Network extends Base {
             <Link
               to="/network/settings"
               title="Network Settings"
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.settings'})}
+              className={classNames('nav-link', {active: currentRouteName === 'web.network.settings'})}
             >
               {i18n.t('Network')}
             </Link>
             <Link
               to="/network/tcp-ip"
               title="TCP/IP"
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.tcp-ip'})}
+              className={classNames('nav-link', {active: currentRouteName === 'web.network.tcp-ip'})}
             >
               TCP/IP
             </Link>
             <Link
               to="/network/https"
               title="HTTPS"
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.network.https'})}
+              className={classNames('nav-link', {active: currentRouteName === 'web.network.https'})}
             >
               {i18n.t('HTTPS')}
             </Link>
