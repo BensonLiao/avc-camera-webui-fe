@@ -762,7 +762,7 @@ module.exports = {
       'Are you sure you want to reboot the device?': '¿Estás seguro de que deseas reiniciar el dispositivo?',
       Reboot: 'Reiniciar',
       'Restore to Default Settings': 'Restaurar a la configuración original de fábrica',
-      Reset: 'Borrar datos',
+      Reset: 'Restaurar',
       Resetting: 'Está restaurando',
       'Export System Settings': 'Exportar configuración del sistema',
       'Import System Settings': 'Importar configuración del sistema',
