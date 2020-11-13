@@ -76,7 +76,7 @@ body {
 
 .col-center {
   margin: 0 auto;
-  width: 720px;
+  width: 712px;
 }
 
 .pr-24 {
@@ -623,6 +623,7 @@ body {
     padding-right: 32px;
     color: #666;
     border-bottom: 1px #dee2e6 solid;
+    max-width: 15rem;
 
     div {
       white-space: nowrap;
@@ -875,119 +876,59 @@ $stage-spacer: 32px;
       0% $finish-border-width,
       $finish-border-width 0%;
   }
+}
 
-  // Progress status icon
-  .loading-spinners {
-    margin: 0 1.5rem;
+// Progress status icon
+.loading-spinners {
+  margin: 0 1.5rem;
+  width: $progress-stage-icon-size;
+  height: $progress-stage-icon-size;
+  position: relative;
+
+  // Finished checkmark
+  .checkmark {
+    position: absolute;
+    left: 0;
     width: $progress-stage-icon-size;
     height: $progress-stage-icon-size;
-    position: relative;
+    border-radius: 50%;
+    stroke-width: 2;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0 0 0 #7ac142;
+    animation:
+      check-fill 0.4s ease-in-out 0.4s forwards,
+      check-scale 0.3s ease-in-out 0.9s both;
+    display: none;
 
-    // Finished checkmark
-    .checkmark {
-      position: absolute;
-      left: 0;
-      width: $progress-stage-icon-size;
-      height: $progress-stage-icon-size;
-      border-radius: 50%;
-      stroke-width: 2;
-      stroke: #fff;
-      stroke-miterlimit: 10;
-      box-shadow: inset 0 0 0 #7ac142;
-      animation:
-        check-fill 0.4s ease-in-out 0.4s forwards,
-        check-scale 0.3s ease-in-out 0.9s both;
-      display: none;
-
-      &.show {
-        display: block;
-      }
-
-      .checkmark-circle {
-        stroke-dasharray: 166;
-        stroke-dashoffset: 166;
-        stroke-width: 2;
-        stroke-miterlimit: 10;
-        stroke: #7ac142;
-        fill: none;
-        animation: check-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-      }
-
-      .checkmark-check {
-        transform-origin: 50% 50%;
-        stroke-dasharray: 48;
-        stroke-dashoffset: 48;
-        animation: check-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-      }
-
-      @keyframes check-stroke {
-        100% {
-          stroke-dashoffset: 0;
-        }
-      }
-
-      @keyframes check-scale {
-        0%,
-        100% {
-          transform: none;
-        }
-
-        50% {
-          transform: scale3d(1.1, 1.1, 1);
-        }
-      }
-
-      @keyframes check-fill {
-        100% {
-          box-shadow: inset 0 0 0 30px #7ac142;
-        }
-      }
+    &.show {
+      display: block;
     }
 
-    // Failed Crossmark
-    .crossmark {
-      width: $progress-stage-icon-size;
-      height: $progress-stage-icon-size;
-      border-radius: 50%;
-      stroke-width: 2;
-      stroke: #fff;
-      stroke-miterlimit: 10;
-      margin: 10% auto;
-      box-shadow: inset 0 0 0 red;
-      animation:
-        cross-fill 0.4s ease-in-out 0.4s forwards,
-        cross-scale 0.3s ease-in-out 0.9s both;
-      display: none;
-
-      &.show {
-        display: block;
-      }
-    }
-
-    .crossmark-circle {
+    .checkmark-circle {
       stroke-dasharray: 166;
       stroke-dashoffset: 166;
       stroke-width: 2;
       stroke-miterlimit: 10;
-      stroke: red;
+      stroke: #7ac142;
       fill: none;
-      animation: cross-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+      animation: check-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
     }
 
-    .crossmark-cross {
+    .checkmark-check {
       transform-origin: 50% 50%;
-      stroke-dasharray: 29;
-      stroke-dashoffset: 29;
-      animation: cross-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: check-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
     }
 
-    @keyframes cross-stroke {
+    @keyframes check-stroke {
       100% {
         stroke-dashoffset: 0;
       }
     }
 
-    @keyframes cross-scale {
+    @keyframes check-scale {
       0%,
       100% {
         transform: none;
@@ -998,74 +939,134 @@ $stage-spacer: 32px;
       }
     }
 
-    @keyframes cross-fill {
+    @keyframes check-fill {
       100% {
-        box-shadow: inset 0 0 0 30px red;
+        box-shadow: inset 0 0 0 30px #7ac142;
       }
     }
+  }
 
-    // Loading spinner
-    .loading-dots {
-      display: flex;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: ease-out 1s;
-      transition-delay: 0.3s;
+  // Failed Crossmark
+  .crossmark {
+    width: $progress-stage-icon-size;
+    height: $progress-stage-icon-size;
+    border-radius: 50%;
+    stroke-width: 2;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    margin: 10% auto;
+    box-shadow: inset 0 0 0 red;
+    animation:
+      cross-fill 0.4s ease-in-out 0.4s forwards,
+      cross-scale 0.3s ease-in-out 0.9s both;
+    display: none;
 
-      &.hide-loading {
-        opacity: 0;
-        transition: ease-out 0.6s;
+    &.show {
+      display: block;
+    }
+  }
 
-        .double-bounce1,
-        .double-bounce2 {
-          transition: ease-out 0.3s;
-          background-color: #7ac142;
-        }
-      }
+  .crossmark-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: red;
+    fill: none;
+    animation: cross-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  }
 
-      .spinner {
-        width: $progress-stage-icon-size;
-        height: $progress-stage-icon-size;
-        position: relative;
-      }
+  .crossmark-cross {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 29;
+    stroke-dashoffset: 29;
+    animation: cross-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+  }
+
+  @keyframes cross-stroke {
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes cross-scale {
+    0%,
+    100% {
+      transform: none;
+    }
+
+    50% {
+      transform: scale3d(1.1, 1.1, 1);
+    }
+  }
+
+  @keyframes cross-fill {
+    100% {
+      box-shadow: inset 0 0 0 30px red;
+    }
+  }
+
+  // Loading spinner
+  .loading-dots {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: ease-out 1s;
+    transition-delay: 0.3s;
+
+    &.hide-loading {
+      opacity: 0;
+      transition: ease-out 0.6s;
 
       .double-bounce1,
       .double-bounce2 {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background-color: $info;
-        opacity: 0.5;
-        position: absolute;
-        top: 0;
-        left: 0;
-        -webkit-animation: sk-bounce 2s infinite ease-in-out;
-        animation: sk-bounce 2s infinite ease-in-out;
+        transition: ease-out 0.3s;
+        background-color: #7ac142;
+      }
+    }
+
+    .spinner {
+      width: $progress-stage-icon-size;
+      height: $progress-stage-icon-size;
+      position: relative;
+    }
+
+    .double-bounce1,
+    .double-bounce2 {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: $info;
+      opacity: 0.5;
+      position: absolute;
+      top: 0;
+      left: 0;
+      -webkit-animation: sk-bounce 2s infinite ease-in-out;
+      animation: sk-bounce 2s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+      -webkit-animation-delay: -1s;
+      animation-delay: -1s;
+    }
+
+    @-webkit-keyframes sk-bounce {
+      0%,
+      100% { -webkit-transform: scale(0); }
+      50% { -webkit-transform: scale(1); }
+    }
+
+    @keyframes sk-bounce {
+      0%,
+      100% {
+        transform: scale(0);
+        -webkit-transform: scale(0);
       }
 
-      .double-bounce2 {
-        -webkit-animation-delay: -1s;
-        animation-delay: -1s;
-      }
-
-      @-webkit-keyframes sk-bounce {
-        0%,
-        100% { -webkit-transform: scale(0); }
-        50% { -webkit-transform: scale(1); }
-      }
-
-      @keyframes sk-bounce {
-        0%,
-        100% {
-          transform: scale(0);
-          -webkit-transform: scale(0);
-        }
-
-        50% {
-          transform: scale(1);
-          -webkit-transform: scale(1);
-        }
+      50% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
       }
     }
   }
@@ -1120,6 +1121,52 @@ $stage-spacer: 32px;
       position: absolute;
       left: 0;
       top: 0;
+    }
+  }
+}
+
+.helper-text:hover {
+  font-weight: 400;
+  transition-delay: 250ms;
+}
+
+.motion-blur {
+  position: relative;
+  width: 100%;
+
+  &:hover .blur-me {
+    transform: rotate(360deg);
+    left: 20vw;
+  }
+
+  .blur-me {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: rotate(0deg);
+    transition: all 0.75s cubic-bezier(0.71, 0, 0.33, 1.56) 0ms;
+
+    &.two {
+      opacity: 0.1;
+      transition-delay: 3ms;
+    }
+
+    &.three {
+      opacity: 0.1;
+      transition-delay: 9ms;
+    }
+
+    &.four {
+      opacity: 0.1;
+      transition-delay: 15ms;
+    }
+
+    &.five {
+      opacity: 0.1;
+      transition-delay: 21ms;
     }
   }
 }

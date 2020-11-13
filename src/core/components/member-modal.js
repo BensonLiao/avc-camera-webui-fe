@@ -12,7 +12,7 @@ const MemberSchema = require('webserver-form-schema/member-schema');
 const avatarMask = require('../../resource/avatar-mask.png');
 const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
-const _ = require('../../languages');
+const i18n = require('../../i18n').default;
 const MemberValidator = require('../../web/validations/members/member-validator');
 const {
   MEMBER_PHOTO_MIME_TYPE,
@@ -68,13 +68,12 @@ module.exports = class Member extends React.PureComponent {
   cropper = null;
 
   constructor(props) {
-    super();
+    super(props);
     this.avatarWrapperRef = React.createRef();
+    this.cropperRef = React.createRef();
     this.avatarFile = null;
     // Only determine remaining quota if count is less than 5
     this.state.remainingPictureQuota = props.remainingPictureCount < 5 ? props.remainingPictureCount : null;
-    this.state.pictureRotateDegrees = 0;
-    this.state.avatarPreviewUrl = null;
     this.state.isShowEditModal = false;
     this.state.isShowConfirmModal = false;
     this.state.isFormTouched = false;
@@ -158,20 +157,22 @@ module.exports = class Member extends React.PureComponent {
         remainingPictureQuota: (
           // Subtract 1 if adding photo from event
           defaultPictureUrl ? remainingPictureCount - 1 : remainingPictureCount
-        ) - Object.entries(prevState.avatarList).reduce((count, item) => {
-          count += item[1].avatarFile ? 1 : 0;
+        ) - Object.values(prevState.avatarList).reduce((count, item) => {
+          count += item.avatarFile ? 1 : 0;
           return count;
         }, 0)
       }));
     }
   }
 
-  onChangeFormValues = () => {
-    this.setState({isFormTouched: true});
-  }
-
-  hideApiProcessModal = () => {
-    this.setState({isShowApiProcessModal: false});
+  onChangeFormValues = ({nextValues}) => {
+    this.setState({isFormTouched: true}, () => {
+      // We call cropper scale and state update after form values changes to prevent infinite set state hell
+      if (this.cropper) {
+        this.cropper.scale(nextValues.zoom, nextValues.zoom);
+        this.generateOnCropEndHandler(this.state.avatarToEdit)(null);
+      }
+    });
   };
 
   onHideEditModalAndRevertChanges = () => {
@@ -183,13 +184,9 @@ module.exports = class Member extends React.PureComponent {
     this.setState(updateState);
   };
 
-  onShowConfirmModal = () => {
-    this.setState({isShowConfirmModal: true});
-  }
+  onShowConfirmModal = () => this.setState({isShowConfirmModal: true});
 
-  onHideConfirmModal = () => {
-    this.setState({isShowConfirmModal: false});
-  }
+  onHideConfirmModal = () => this.setState({isShowConfirmModal: false});
 
   onShowEditModal = avatarName => {
     const updateState = update(this.state,
@@ -203,6 +200,31 @@ module.exports = class Member extends React.PureComponent {
 
   onCropperInit = cropper => {
     this.cropper = cropper;
+    // Add mouse wheel event to scale cropper instead of default zoom function
+    this.cropperRef.current.addEventListener('zoom', event => {
+      if (event.detail.originalEvent && event.detail.originalEvent.type === 'wheel') {
+        let newScale = this.cropper.imageData.scaleX;
+        if (event.detail.originalEvent.deltaY < 0) {
+          newScale = newScale + MEMBER_PHOTO_SCALE_STEP > MEMBER_PHOTO_SCALE_MAX ?
+            MEMBER_PHOTO_SCALE_MAX :
+            newScale + MEMBER_PHOTO_SCALE_STEP;
+        }
+
+        if (event.detail.originalEvent.deltaY > 0) {
+          newScale = newScale - MEMBER_PHOTO_SCALE_STEP < MEMBER_PHOTO_SCALE_MIN ?
+            MEMBER_PHOTO_SCALE_MIN :
+            newScale - MEMBER_PHOTO_SCALE_STEP;
+        }
+
+        // Check if it is a function and its signature
+        if (typeof this.cropper.options.setScaleFieldValue === 'function' &&
+        this.cropper.options.setScaleFieldValue.length === 1) {
+          this.cropper.options.setScaleFieldValue(newScale);
+        }
+      } else {
+        event.preventDefault();
+      }
+    });
   }
 
   onCropperReady = () => {
@@ -240,30 +262,6 @@ module.exports = class Member extends React.PureComponent {
       }
     );
     this.setState(newCropperState);
-
-    // Add mouse wheel event to scale cropper instead of default zoom function
-    this.cropper.cropBox.addEventListener('wheel', event => {
-      let newScale = this.cropper.imageData.scaleX;
-      if (event.deltaY < 0) {
-        newScale = newScale + MEMBER_PHOTO_SCALE_STEP > MEMBER_PHOTO_SCALE_MAX ?
-          MEMBER_PHOTO_SCALE_MAX :
-          newScale + MEMBER_PHOTO_SCALE_STEP;
-        this.cropper.scale(newScale, newScale);
-      }
-
-      if (event.deltaY > 0) {
-        newScale = newScale - MEMBER_PHOTO_SCALE_STEP < MEMBER_PHOTO_SCALE_MIN ?
-          MEMBER_PHOTO_SCALE_MIN :
-          newScale - MEMBER_PHOTO_SCALE_STEP;
-        this.cropper.scale(newScale, newScale);
-      }
-
-      const newCropBoxState = update(
-        this.state,
-        {avatarList: {[this.state.avatarToEdit]: {avatarPreviewStyle: {cropper: {scale: {$set: newScale}}}}}}
-      );
-      this.setState(newCropBoxState);
-    });
   }
 
   generateOnCropEndHandler = avatarName => _ => {
@@ -294,7 +292,6 @@ module.exports = class Member extends React.PureComponent {
   zoomCropper = values => {
     const zoomScale = values.zoom;
     this.cropper.scale(zoomScale, zoomScale);
-    this.generateOnCropEndHandler(this.state.avatarToEdit)(_);
   }
 
   generateRotatePictureHandler = isClockwise => event => {
@@ -325,7 +322,7 @@ module.exports = class Member extends React.PureComponent {
       }
     );
     this.setState(updateRotation);
-    this.generateOnCropEndHandler(this.state.avatarToEdit)(_);
+    this.generateOnCropEndHandler(this.state.avatarToEdit)(null);
   };
 
   onChangeAvatar = (avatarName, loadEditModal) => event => {
@@ -417,9 +414,8 @@ module.exports = class Member extends React.PureComponent {
   verifyPhoto = () => {
     const {
       avatarToEdit,
-      avatarList: {[avatarToEdit]: {avatarFile, verifyStatus, avatarPreviewStyle: {croppedImage}}}
+      avatarList: {[avatarToEdit]: {avatarPreviewStyle: {croppedImage}}}
     } = this.state;
-    const {member, defaultPictureUrl} = this.props;
     const resetErrorMessage = update(this.state,
       {
         isShowEditModal: {$set: false},
@@ -437,12 +433,12 @@ module.exports = class Member extends React.PureComponent {
                 avatarList: {
                   [avatarToEdit]: {
                     verifyStatus: {$set: false},
-                    errorMessage: {$set: `${_('Cropped image has reached the size limit')}`}
+                    errorMessage: {$set: `${i18n.t('Photo size should be less than 90 KB.')}`}
                   }
                 }
               });
             this.setState(updateErrorMessage);
-          } else if (avatarFile || (defaultPictureUrl && croppedImage === defaultPictureUrl) || member) {
+          } else {
             // Verify photo if user uploads a new photo, photo was grabbed from event or existing photo was edited
             const updateIsVerifying = update(this.state,
               {avatarList: {[avatarToEdit]: {isVerifying: {$set: true}}}});
@@ -476,18 +472,6 @@ module.exports = class Member extends React.PureComponent {
                   this.setState(updateAvatarVerification);
                 });
             });
-          } else if (member && !verifyStatus) {
-            // Photo was edited but restored back to original state, skip verification and reset error message
-            const updateAvatarVerification = update(this.state,
-              {
-                avatarList: {
-                  [avatarToEdit]: {
-                    verifyStatus: {$set: true},
-                    errorMessage: {$set: null}
-                  }
-                }
-              });
-            this.setState(updateAvatarVerification);
           }
 
           this.updatePictureCount();
@@ -497,21 +481,21 @@ module.exports = class Member extends React.PureComponent {
 
   onSubmitForm = ({errors, values}) => {
     const {avatarList} = this.state;
-    const avatarListArray = Object.entries(avatarList);
+    const avatarListArray = Object.values(avatarList);
 
     // Output error message if primary photo is missing
     if (!avatarList.Primary.avatarPreviewStyle.croppedImage) {
       const updateErrorMessage = update(this.state,
-        {avatarList: {Primary: {errorMessage: {$set: `${_('Photo is required')}`}}}});
+        {avatarList: {Primary: {errorMessage: {$set: `${i18n.t('Photo is required')}`}}}});
       this.setState(updateErrorMessage);
       return;
     }
 
     // Fallback check if photos have failed verification, is still verifying, not yet verified, or there are Formik validation errors
     if (
-      avatarListArray.filter(avatar => Boolean(avatar[1].isVerifying)).length ||
-      avatarListArray.some(avatar => avatar[1].verifyStatus === false) ||
-      avatarListArray.some(avatar => (avatar[1].verifyStatus === null && avatar[1].avatarFile)) ||
+      avatarListArray.filter(avatar => Boolean(avatar.isVerifying)).length ||
+      avatarListArray.some(avatar => avatar.verifyStatus === false) ||
+      avatarListArray.some(avatar => (avatar.verifyStatus === null && avatar.avatarFile)) ||
       !utils.isObjectEmpty(errors)
     ) {
       return;
@@ -521,7 +505,7 @@ module.exports = class Member extends React.PureComponent {
     const {member, onSubmitted} = this.props;
     const tasks = [];
     avatarListArray.forEach((item, index) => {
-      const {avatarPreviewStyle: {originalImage, croppedImage, convertedImage}} = item[1];
+      const {avatarPreviewStyle: {originalImage, croppedImage, convertedImage}} = item;
       if (member && croppedImage && croppedImage === originalImage) {
         // The user didn't modify the picture.
         tasks.push(member.pictures[index]);
@@ -544,7 +528,7 @@ module.exports = class Member extends React.PureComponent {
       .finally(progress.done);
   };
 
-  formRender = ({errors, touched, values, validateForm}) => {
+  formRender = ({errors, touched, values, validateForm, setFieldValue}) => {
     const {isApiProcessing, onHide, member, groups} = this.props;
     const {
       isShowEditModal,
@@ -565,14 +549,14 @@ module.exports = class Member extends React.PureComponent {
         <div className="modal-body">
           <div className="multi-photo-uploader">
             <div className="container d-flex flex-row justify-content-between">
-              {Object.entries(avatarList).map(avatar => {
+              {Object.entries(avatarList).map(([photoKey, avatar]) => {
                 const {
                   verifyStatus,
                   isVerifying,
                   avatarPreviewStyle: {croppedImage}
-                } = avatar[1];
+                } = avatar;
                 return (
-                  <div key={avatar[0]} className={classNames('individual-item d-flex flex-column')}>
+                  <div key={photoKey} className={classNames('individual-item d-flex flex-column')}>
                     <div
                       id="photo-wrapper"
                       className={classNames(
@@ -580,7 +564,7 @@ module.exports = class Member extends React.PureComponent {
                         {'has-background': croppedImage},
                         {
                           // Allow upload if it is Primary or Primary photo exists
-                          available: ((avatar[0] === 'Primary') || primaryBackground) &&
+                          available: ((photoKey === 'Primary') || primaryBackground) &&
                           // Allow upload if remaining picture quota is not at limit based on FR license type
                                      (croppedImage || remainingPictureQuota > 0 || remainingPictureQuota === null)
                         },
@@ -604,7 +588,7 @@ module.exports = class Member extends React.PureComponent {
                                 height: this.listWrapperSize
                               }}
                               onClick={() => {
-                                this.onShowEditModal(avatar[0]);
+                                this.onShowEditModal(photoKey);
                               }}
                             />
                             <div
@@ -623,17 +607,17 @@ module.exports = class Member extends React.PureComponent {
                         ) : (
                           // Display upload area for new photo
                           <CustomTooltip
-                            show={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
-                            title={isOverPhotoLimit ? _('Photo Limit Reached') : _('Upload Primary First')}
+                            show={((photoKey !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                            title={isOverPhotoLimit ? i18n.t('Photo Limit of Member Database Exceeded') : i18n.t('Upload the Primary Photo First')}
                           >
                             <label className="btn">
                               <i className="fas fa-plus"/>
                               <input
-                                disabled={((avatar[0] !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                                disabled={((photoKey !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
                                 className="d-none"
                                 type="file"
                                 accept="image/png,image/jpeg"
-                                onChange={this.onChangeAvatar(avatar[0], this.onShowEditModal)}
+                                onChange={this.onChangeAvatar(photoKey, this.onShowEditModal)}
                               />
                             </label>
                           </CustomTooltip>
@@ -641,7 +625,7 @@ module.exports = class Member extends React.PureComponent {
                         )}
                     </div>
                     <span>
-                      {_(avatar[0])}
+                      {i18n.t(photoKey)}
                     </span>
                   </div>
                 );
@@ -653,51 +637,52 @@ module.exports = class Member extends React.PureComponent {
             return (
               <p key={item[0]} className={classNames('text-size-14 mb-1', 'text-danger')}>
                 <i className="fas fa-exclamation-triangle mr-1"/>
-                {`${_(item[0])}: ${_(item[1].errorMessage)}`}
+                {`${i18n.t(item[0])}: ${i18n.t(item[1].errorMessage)}`}
               </p>
             );
           })}
 
           <hr/>
           <div className="form-group">
-            <label>{_('Name')}</label>
+            <label>{i18n.t('Name')}</label>
             <Field
               name="name"
               type="text"
-              placeholder={_('Enter Your Name')}
+              placeholder={i18n.t('Enter a name for this member')}
               maxLength={MemberSchema.name.max}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
             />
             <ErrorMessage component="div" name="name" className="invalid-feedback"/>
           </div>
           <div className="form-group">
-            <label>{_('Organization')}</label>
+            <label>{i18n.t('Organization')}</label>
             <Field
               name="organization"
               type="text"
-              placeholder={_('Enter Your Organization')}
+              placeholder={i18n.t('Enter an organization for this member')}
               maxLength={MemberSchema.organization.max}
               className={classNames('form-control', {'is-invalid': errors.organization && touched.organization})}
             />
             <ErrorMessage component="div" name="organization" className="invalid-feedback"/>
-            <small className="form-text text-muted">{_('Letters within 32 characters.')}</small>
+            <small className="form-text text-muted">{i18n.t('Maximum length: 32 characters')}</small>
           </div>
-          <SelectField labelName={_('Group')} wrapperClassName="px-2" name="group">
-            <option value="">{_('N/A')}</option>
+          <SelectField labelName={i18n.t('Group')} wrapperClassName="px-2" name="group">
+            <option value="">{i18n.t('N/A')}</option>
             {groups.items.map(group => (
               <option key={group.id} value={group.id}>{group.name}</option>
             ))}
           </SelectField>
           <div className="form-group">
-            <label>{_('Note')}</label>
+            <label>{i18n.t('Note')}</label>
             <Field
               name="note"
               type="text"
-              placeholder={_('Enter Your Note')}
+              placeholder={i18n.t('Enter a note')}
               maxLength={MemberSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
             />
             <ErrorMessage component="div" name="note" className="invalid-feedback"/>
+            <small className="form-text text-muted">{i18n.t('Maximum length: 256 characters')}</small>
           </div>
         </div>
         <div className="modal-footer flex-column">
@@ -707,7 +692,7 @@ module.exports = class Member extends React.PureComponent {
               disabled={
                 isApiProcessing ||
                 !(errorMessages.length === 0) ||
-                Object.entries(avatarList).filter(item => Boolean(item[1].isVerifying)).length
+                Object.values(avatarList).filter(item => Boolean(item.isVerifying)).length
               }
               type="button"
               className="btn btn-primary btn-block rounded-pill"
@@ -722,7 +707,7 @@ module.exports = class Member extends React.PureComponent {
                 });
               }}
             >
-              {member ? _('Confirm') : _('New')}
+              {member ? i18n.t('Confirm') : i18n.t('New')}
             </button>
           </div>
           <button
@@ -730,15 +715,15 @@ module.exports = class Member extends React.PureComponent {
             type="button"
             onClick={isFormTouched || preEditState || isApiProcessing ? this.onShowConfirmModal : onHide}
           >
-            {_('Close')}
+            {i18n.t('Close')}
           </button>
         </div>
         {/* Close modal confirmation */}
         <CustomNotifyModal
           backdrop="static"
           isShowModal={isShowConfirmModal}
-          modalTitle={member ? _('Edit Member') : _('New Member')}
-          modalBody={_('Are you sure you want to close this window? Any changes you have made will be lost.')}
+          modalTitle={member ? i18n.t('Edit Member') : i18n.t('New Member')}
+          modalBody={i18n.t('Are you sure you want to close this window? All changes you have made will be lost.')}
           onHide={this.onHideConfirmModal}
           onConfirm={() => {
             this.onHideConfirmModal();
@@ -754,16 +739,18 @@ module.exports = class Member extends React.PureComponent {
           onHide={this.onHideEditModalAndRevertChanges}
         >
           <Modal.Header closeButton className="d-flex justify-content-between align-items-center">
-            <Modal.Title as="h5">{_('Photo Editor')}</Modal.Title>
+            <Modal.Title as="h5">{i18n.t('Photo Editor')}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
             <div className="avatar-uploader d-flex flex-column align-items-center">
               <label ref={this.avatarWrapperRef} className="avatar-wrapper" id="avatar-wrapper">
                 <Cropper
+                  // Pass ref to add custom native event listener properly
+                  ref={this.cropperRef}
                   src={avatarPreviewStyle.originalImage}
                   // Depends on modal width and style container to 16:9 ratio
-                  style={{height: 300}}
+                  style={{height: this.editWrapperSize}}
                   // Cropper.js options
                   initialAspectRatio={1}
                   aspectRatio={1}
@@ -776,11 +763,13 @@ module.exports = class Member extends React.PureComponent {
                   cropend={this.generateOnCropEndHandler(avatarToEdit)}
                   zoom={event => event.preventDefault()}
                   ready={this.onCropperReady}
+                  // Sync behavior between on wheel event and other control like slider
+                  setScaleFieldValue={value => setFieldValue('zoom', value)}
                   onInitialized={this.onCropperInit}
                 />
               </label>
               <p className="text-center mb-1">
-                {_('Drag to reposition photo')}
+                {i18n.t('Drag the image to position it correctly.')}
               </p>
               <div className="d-flex justify-content-center align-items-center">
                 <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(false)}>
@@ -793,12 +782,12 @@ module.exports = class Member extends React.PureComponent {
                 <div className="form-group mb-0 ml-2">
                   <div className="none-selection">
                     <Field
+                      disableStepper
                       name="zoom"
                       component={Slider}
                       step={MEMBER_PHOTO_SCALE_STEP}
                       min={MEMBER_PHOTO_SCALE_MIN}
                       max={MEMBER_PHOTO_SCALE_MAX}
-                      onChangeInput={() => this.zoomCropper(values)}
                     />
                   </div>
                 </div>
@@ -810,16 +799,16 @@ module.exports = class Member extends React.PureComponent {
             {/* Hide delete button if it is Primary photo */}
             { avatarToEdit !== 'Primary' && (
               <button className="btn btn-danger btn-block rounded-pill my-0" type="button" onClick={this.onDeleteAvatar}>
-                {_('Delete')}
+                {i18n.t('Delete')}
               </button>
             )}
             <div>
               <label className="btn btn-outline-primary btn-block rounded-pill my-0 mr-2">
                 <input className="d-none" type="file" accept="image/png,image/jpeg" onChange={this.onChangeAvatar(avatarToEdit)}/>
-                {_('Change Photo')}
+                {i18n.t('Change Photo')}
               </label>
               <button className="btn btn-primary btn-block rounded-pill my-0" type="button" onClick={this.verifyPhoto}>
-                {_('Save')}
+                {i18n.t('Save')}
               </button>
             </div>
           </Modal.Footer>
@@ -841,7 +830,7 @@ module.exports = class Member extends React.PureComponent {
         onHide={isApiProcessing || isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{member ? _('Edit Member') : _('New Member')}</Modal.Title>
+          <Modal.Title as="h5">{member ? i18n.t('Edit Member') : i18n.t('New Member')}</Modal.Title>
         </Modal.Header>
         <Formik
           enableReinitialize

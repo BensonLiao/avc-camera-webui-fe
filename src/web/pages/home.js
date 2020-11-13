@@ -7,19 +7,19 @@ const {Formik, Form, Field} = require('formik');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const Base = require('./shared/base');
-const _ = require('../../languages');
+const i18n = require('../../i18n').default;
 const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
-const {AVAILABLE_LANGUAGE_CODES, DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
+const {DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
-const VolumeProgressBar = require('../../core/components/volume-progress-bar');
+const VolumeProgressBar = require('../../core/components/volume-progress-bar').default;
 const LiveView = require('../../core/components/live-view');
 
 module.exports = class Home extends Base {
   static get propTypes() {
     return {
       systemInformation: PropTypes.shape({
-        languageCode: PropTypes.oneOf(AVAILABLE_LANGUAGE_CODES).isRequired,
+        languageCode: PropTypes.oneOf(i18n.options.supportedLangCodes).isRequired,
         deviceName: PropTypes.string.isRequired,
         deviceStatus: PropTypes.oneOf([0, 1]).isRequired,
         sdUsage: PropTypes.number.isRequired,
@@ -65,7 +65,7 @@ module.exports = class Home extends Base {
           gov: PropTypes.string.isRequired
         }).isRequired
       }).isRequired,
-      systemDateTime: PropTypes.shape({deviceTime: PropTypes.string.isRequired}).isRequired,
+      systemDateTime: PropTypes.shape({deviceTime: PropTypes.number.isRequired}).isRequired,
       authStatus: PropTypes.shape({
         isEnableFaceRecognitionKey: PropTypes.bool.isRequired,
         isEnableAgeGenderKey: PropTypes.bool.isRequired,
@@ -191,9 +191,9 @@ module.exports = class Home extends Base {
                     <table>
                       <thead>
                         <tr>
-                          <th>{_('Device Name')}</th>
-                          <th>{_('Analytic')}</th>
-                          <th>{_('SD Card')}</th>
+                          <th>{i18n.t('Device Name')}</th>
+                          <th>{i18n.t('Analytics')}</th>
+                          <th>{i18n.t('SD Card')}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -209,24 +209,24 @@ module.exports = class Home extends Base {
                           </td>
                           <td className="align-top">
                             <div>
-                              <span>{_('Facial Recognition: ')}</span>
+                              <span>{i18n.t('Facial Recognition: ')}</span>
                               <span className={classTable.faceRecognitionState}>
-                                {_(`${isEnableFaceRecognitionKey ? faceRecognitionStatus.isEnable ? 'On' : 'Off' : 'Unlicensed'}`)}
+                                {i18n.t(`${isEnableFaceRecognitionKey ? faceRecognitionStatus.isEnable ? 'On' : 'Off' : 'Authentication Required'}`)}
                               </span>
                             </div>
                             {isEnableAgeGenderKey && (
                               <div>
-                                <span>{_('Age Gender: ')}</span>
+                                <span>{i18n.t('Age & Gender: ')}</span>
                                 <span className={classTable.ageGenderState}>
-                                  {_(`${isEnableAgeGenderKey ? 'On' : 'Off'}`)}
+                                  {i18n.t(`${isEnableAgeGenderKey ? 'On' : 'Off'}`)}
                                 </span>
                               </div>
                             )}
                             {isEnableHumanoidDetectionKey && (
                               <div>
-                                <span>{_('Human Detection: ')}</span>
+                                <span>{i18n.t('Human Detection: ')}</span>
                                 <span className={classTable.humanoidDetectionState}>
-                                  {_(`${isEnableHumanoidDetectionKey ? 'On' : 'Off'}`)}
+                                  {i18n.t(`${isEnableHumanoidDetectionKey ? 'On' : 'Off'}`)}
                                 </span>
                               </div>
                             )}
@@ -238,7 +238,7 @@ module.exports = class Home extends Base {
                             />
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? 'd-none' : '')}>
-                            <label>{_(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}</label>
+                            <label>{i18n.t(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}</label>
                           </td>
                         </tr>
                       </tbody>

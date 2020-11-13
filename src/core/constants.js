@@ -7,7 +7,6 @@ module.exports = {
     UPDATE_FOCAL_LENGTH_FIELD: '$updateFocalLengthField',
     IS_NOT_CALL_UNLOAD_ALERT: '$isNotCallUnloadAlert'
   },
-  AVAILABLE_LANGUAGE_CODES: ['en-us', 'zh-tw', 'zh-cn', 'ja-jp', 'es-es'],
   MEMBERS_PAGE_GROUPS_MAX: 32,
   SECURITY_USERS_MAX: 20,
   DEVICE_NAME_CHAR_MAX: 32,
@@ -18,6 +17,7 @@ module.exports = {
   MEMBER_PHOTO_SCALE_MIN: 1,
   MEMBER_PHOTO_SCALE_MAX: 2,
   MEMBER_PHOTO_MIME_TYPE: 'image/jpeg',
+  NODE_SERVER_RESTART_DELAY_MS: 10 * 1000,
   RESTRICTED_PORTS: [
     '0', // Reserved
     '1', // Tcpmux
@@ -86,7 +86,8 @@ module.exports = {
     '6666', // Alternate IRC [Apple addition]
     '6667', // Standard IRC [Apple addition]
     '6668', // Alternate IRC [Apple addition]
-    '6669' // Alternate IRC [Apple addition]
+    '6669', // Alternate IRC [Apple addition]
+    '12728' // Postman
   ],
   PORT_NUMBER_MIN: 1024,
   PORT_NUMBER_MAX: 65535,
@@ -110,16 +111,21 @@ module.exports = {
     // 5 - UNKNOWN: Unknown storage state, such as when a path isn't backed by known storage media.
     'Unknown Error'
   ],
-  TIMEZONE_LIST: (() => {
-    const tzOptions = require('@vvo/tzdb')
-      .getTimeZones()
-      .map(zone => {
-        return {
-          ...zone,
-          label: `UTC${zone.currentTimeFormat}`
-        };
-      });
-    return tzOptions;
-  })(),
+  TIMEZONE_LIST: (() => require('@vvo/tzdb')
+    .getTimeZones()
+    .map(zone => {
+      return {
+        ...zone,
+        label: `UTC${zone.rawFormat}`
+      };
+    })
+    .sort((a, b) => {
+      if (a.rawFormat[0] === '-') {
+        return b.rawFormat.localeCompare(a.rawFormat);
+      }
+
+      return a.rawFormat.localeCompare(b.rawFormat);
+    })
+  )(),
   VMS_CAMERA_LINK: 'cameralink'
 };

@@ -3,6 +3,7 @@ const MockAdapter = require('axios-mock-adapter');
 const uuidv4 = require('uuid/v4');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
+const utils = require('./utils');
 
 /**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
@@ -41,7 +42,7 @@ const setDelay = (func, delay) => {
 const mockDB = require('./db');
 const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);
-mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(config, [config.params.mock ? 500 : 200]), 1000))
+mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(config, [config.params.mock ? 500 : 200]), 10))
   .onGet('/api/ping/app').reply(config => setDelay(mockResponseWithLog(config, [200])), 3000)
   .onGet('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').value()]))
   .onPut('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').assign(JSON.parse(config.data)).write()]))
@@ -57,19 +58,9 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onPost('/api/video/settings/_reset').reply(config => mockResponseWithLog(config, [200, db.get('video').assign(db.get('videoDefault').value()).write()]))
   .onPost('/api/video/settings/_auto-focus').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000)) // The real api is delay 45s.
   .onPost('/api/system/_setup').reply(config => mockResponseWithLog(config, [200, {}]))
-  .onPost('/api/_validate/account-birthday').reply(config => mockResponseWithLog(config, [200, {}]))
-  .onPost('/api/_validate/account-birthday').reply(config => mockResponseWithLog(config, [200, {}]))
-  .onPost('/api/account/_change-password').reply(config => mockResponseWithLog(config, [200, {}]))
   .onGet('/api/system/information').reply(config => mockResponseWithLog(config, [200, db.get('system').value()]))
   .onGet('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').value()]))
   .onPut('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').assign(JSON.parse(config.data)).write()]))
-  .onPut('/api/system/language').reply(config => {
-    const data = {
-      ...db.get('system').value(),
-      languageCode: JSON.parse(config.data).language
-    };
-    return mockResponseWithLog(config, [200, db.get('system').assign(data).write()]);
-  })
   .onGet('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').value()]))
   .onPut('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/network/testdhcp').reply(config => {
@@ -82,7 +73,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onGet('/api/system/network/tcpip/ddns').reply(config => mockResponseWithLog(config, [200, db.get('ddnsSettings').value()]))
   .onPut('/api/system/network/tcpip/ddns').reply(config => mockResponseWithLog(config, [200, db.get('ddnsSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/system/network/tcpip/http').reply(config => mockResponseWithLog(config, [200, db.get('httpSettings').value()]))
-  .onPut('/api/system/network/tcpip/http').reply(config => mockResponseWithLog(config, [200, db.get('httpSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/system/network/tcpip/http').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('httpSettings').assign(JSON.parse(config.data)).write()]), 2000))
   .onGet('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').value()]))
   .onPost('/api/system/systeminfo/sdcard').reply(config => {
     const data = {
@@ -99,7 +90,18 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
     return (mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
   })
   .onPost('/api/system/systeminfo/sdcard/format').reply(config => mockResponseWithLog(config, [200]))
-  .onPost('/api/system/systeminfo/sdcard/unmount').reply(config => mockResponseWithLog(config, [200]))
+  .onPost('/api/system/systeminfo/sdcard/unmount').reply(config => {
+    const systemSettings = db.get('system').value();
+    systemSettings.sdStatus = 1;
+    const data = {...systemSettings};
+    return (mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
+  })
+  .onPost('/api/system/systeminfo/sdcard/mount').reply(config => {
+    const systemSettings = db.get('system').value();
+    systemSettings.sdStatus = 0;
+    const data = {...systemSettings};
+    return (mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
+  })
   .onPut('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/reboot').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000))
   .onPost('/api/system/resetdefault').reply(config => mockResponseWithLog(config, [204, {}]))
@@ -118,10 +120,8 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onPut('/api/multimedia/rtsp/settings').reply(config => mockResponseWithLog(config, [200, db.get('rtspSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/multimedia/privacy-mask/settings').reply(config => mockResponseWithLog(config, [200, db.get('privacyMaskSettings').value()]))
   .onPut('/api/multimedia/privacy-mask/settings').reply(config => mockResponseWithLog(config, [200, db.get('privacyMaskSettings').assign(JSON.parse(config.data)).write()]))
-  .onGet('/api/multimedia/word/settings').reply(config => mockResponseWithLog(config, [200, db.get('wordSettings').value()]))
-  .onPut('/api/multimedia/word/settings').reply(config => mockResponseWithLog(config, [200, db.get('wordSettings').assign(config.data).write()]))
-  .onGet('/api/notification/app/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationAppSettings').value()]))
-  .onPut('/api/notification/app/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationAppSettings').assign(config.data).write()]))
+  .onGet('/api/multimedia/osd/settings').reply(config => mockResponseWithLog(config, [200, db.get('osdSettings').value()]))
+  .onPut('/api/multimedia/osd/settings').reply(config => mockResponseWithLog(config, [200, db.get('osdSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/notification/io-in/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationIOInSettings').value()]))
   .onPut('/api/notification/io-in/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationIOInSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/notification/io-out/0/settings').reply(config => mockResponseWithLog(config, [200, db.get('notificationIOOutSettings').value()[0]]))
@@ -507,14 +507,27 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   })
   .onGet('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPut('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
-  .onPost('/api/members/database').reply(config => mockResponseWithLog(config, [204]))
-  .onGet('/api/face-recognition/settings').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').value()]))
+  .onPost('/api/members/database').reply(config => setDelay(mockResponseWithLog(config, [204]), 2000))
+  .onGet('/api/face-recognition/settings').reply(config => {
+    const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
+    // get with converMapping to percentage util function (mocking real server)
+    const triggerArea = utils.convertMappingToPercentage(faceRecognitionSettings.triggerArea);
+    return mockResponseWithLog(config, [200, {
+      ...faceRecognitionSettings,
+      triggerArea: triggerArea
+    }]);
+  })
   .onGet('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]))
   .onPut('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
   .onPut('/api/face-recognition/spoofing').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
   .onPut('/api/face-recognition/confidencelevel').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
   .onPut('/api/face-recognition/enrolldisplay').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
-  .onPut('/api/face-recognition/roi').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/face-recognition/roi').reply(config => {
+    const newROI = JSON.parse(config.data);
+    // update with convertPercentage to mapping util function (mocking real server)
+    newROI.triggerArea = utils.convertPercentageToMapping(newROI.triggerArea);
+    return mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(newROI).write()]);
+  })
   .onGet('/api/motion-detection/settings').reply(config => mockResponseWithLog(config, [200, db.get('motionDetectionSettings').value()]))
   .onPut('/api/motion-detection/settings').reply(config => mockResponseWithLog(config, [200, db.get('motionDetectionSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/auth-keys').reply(config => {

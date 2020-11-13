@@ -15,6 +15,7 @@ const RecognitionType = require('webserver-form-schema/constants/event-filters/r
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const userPhotos = require('./photos/users/_photos');
 const eventPhotos = require('./photos/events/_photos');
+const triggerAreaRawData = require('./trigger-area').default;
 
 const adapter = new LocalStorage('db');
 const db = low(adapter);
@@ -238,9 +239,10 @@ module.exports = {
         isAutoFocusAfterZoom: false
       },
       system: {
-        languageCode: 'en-us',
+        languageCode: 'en',
         deviceName: 'IP Camera',
         deviceStatus: 1,
+        sensorResolution: 1,
         serialNumber: '181000723',
         modelName: 'AV02CLD-100',
         firmware: '35110.4',
@@ -278,7 +280,7 @@ module.exports = {
         ddnsAccount: 'aa',
         ddnsPassword: 'aa',
         ddnsRefreshStatus: false,
-        ddnsHostStatus: false
+        ddnsHostStatus: true
       },
       httpSettings: {port: '8080'},
       httpsSettings: {
@@ -354,7 +356,7 @@ module.exports = {
           }
         ]
       },
-      wordSettings: {
+      osdSettings: {
         isEnable: true,
         fontSize: '1',
         color: '0',
@@ -370,12 +372,7 @@ module.exports = {
         isShowGroup: false,
         isShowUnknown: false,
         isShowFake: true,
-        triggerArea: {
-          x: 0,
-          y: 0,
-          width: 100,
-          height: 100
-        },
+        triggerArea: triggerAreaRawData,
         isEnableFaceFrame: true,
         faceFrame: {
           x: 10,
@@ -388,11 +385,6 @@ module.exports = {
         isEnable: false,
         sensibility: 1,
         areas: []
-      },
-      notificationAppSettings: {
-        deviceToken: '',
-        deviceId: '',
-        interval: ''
       },
       notificationIOInSettings: {
         isEnable: false,

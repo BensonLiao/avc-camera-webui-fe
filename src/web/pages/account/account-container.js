@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import logo from '../../../resource/logo-avc-secondary.svg';
 import logoWithTitle from '../../../resource/logo-avc-title.svg';
 
-const AccountContainer = props => {
-  const {page, children} = props;
+const AccountContainer = ({page, children}) => {
   return (
     <div className={classNames('bg-secondary', page)}>
       <div className="navbar primary">
@@ -14,8 +13,8 @@ const AccountContainer = props => {
       </div>
       <div className="container-fluid">
         <div className="row justify-content-center">
-          { !window.isNoBrand && (
-            <div className="col-12 bg-white logo">
+          {!window.isNoBrand && (
+            <div className="col-12 logo bg-white">
               <img src={logoWithTitle}/>
             </div>
           )}

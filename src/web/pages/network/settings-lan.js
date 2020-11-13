@@ -3,11 +3,14 @@ import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React from 'react';
 import NetworkIPType from 'webserver-form-schema/constants/system-network-ip-type';
-import _ from '../../../languages';
+import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
-import utils from '../../../core/utils';
+import ProgressIndicator from '../../../core/components/progress-indicator';
+import {NODE_SERVER_RESTART_DELAY_MS} from '../../../core/constants';
+
+const infoColor = getComputedStyle(document.documentElement).getPropertyValue('--info');
 
 class SettingsLan extends React.PureComponent {
   static propTypes = {
@@ -51,9 +54,10 @@ class SettingsLan extends React.PureComponent {
     dhcpTestIp: null,
     modalTitle: '',
     modalBody: '',
+    modalBackdrop: true,
     isConfirmDisable: false,
-    onConfirm: this.hideModal('info'),
-    isUpdating: false
+    isUpdating: false,
+    redirectIP: false
   }
 
   onClickTestDHCPButton = setFieldValue => event => {
@@ -70,10 +74,10 @@ class SettingsLan extends React.PureComponent {
             },
             dhcpTestResult: response.data.success,
             dhcpTestIp: response.data.resultIP,
-            modalTitle: _('DHCP TEST'),
+            modalTitle: i18n.t('Test DHCP'),
             modalBody: response.data.success ?
-              [_('DHCP Testing Success!'), `${_('IP Address')}: ${response.data.resultIP}`] :
-              _('DHCP Testing Failed!')
+              [i18n.t('DHCP Testing Success'), `${i18n.t('IP Address')}: ${response.data.resultIP}`] :
+              i18n.t('DHCP Testing Failed')
           }), () => {
             if (!this.state.dhcpTestResult) {
               setFieldValue('ipAddress', '192.168.1.168');
@@ -91,19 +95,42 @@ class SettingsLan extends React.PureComponent {
         api.system.updateNetworkSettings(values)
           .then(response => {
             const resultIP = values.ipType === NetworkIPType.dynamic ? response.data.ipAddress : values.ipAddress;
-            this.setState(prevState => ({
+            const newAddress = `${location.protocol}//${resultIP}${location.port ? `:${location.port}` : ''}`;
+            this.setState({
               isShowSelectModal: {
-                ...prevState.isShowSelectModal,
+                applyConfirm: false,
                 info: true
               },
-              isUpdating: false,
-              modalTitle: _('Success'),
-              modalBody: [_('Click confirm to redirect to the new address:'), `${_('IP Address')}: ${resultIP}`],
-              onConfirm: () => {
-                this.setState({isConfirmDisable: true});
-                utils.pingAndRedirectPage(`${location.protocol}//${resultIP}:${location.port}`);
-              }
-            }));
+              modalBackdrop: 'static',
+              modalTitle: i18n.t('Redirection Success'),
+              redirectIP: true,
+              modalBody: [
+                `${i18n.t('The website has been redirected to the new address')} :`,
+                <div key="redirect" className="d-flex">
+                  <ProgressIndicator
+                    className="ml-0"
+                    status="start"
+                  />
+                  <span style={{color: infoColor}}>{newAddress}</span>
+                </div>
+              ]
+            }, () => {
+              setTimeout(() => {
+                this.setState({
+                  isUpdating: false,
+                  modalBody: [
+                    `${i18n.t('The website has been redirected to the new address')} :`,
+                    <div key="redirect" className="d-flex">
+                      <ProgressIndicator
+                        className="ml-0"
+                        status="done"
+                      />
+                      <a href={newAddress}>{newAddress}</a>
+                    </div>
+                  ]
+                });
+              }, NODE_SERVER_RESTART_DELAY_MS / 2);
+            });
           })
           .finally(progress.done);
       }
@@ -112,7 +139,7 @@ class SettingsLan extends React.PureComponent {
 
   render() {
     const {networkSettings, isApiProcessing} = this.props;
-    const {isShowSelectModal, isUpdating, modalBody, modalTitle, isConfirmDisable, onConfirm} = this.state;
+    const {isShowSelectModal, isUpdating, modalBody, modalTitle, isConfirmDisable, redirectIP, modalBackdrop} = this.state;
 
     return (
       <>
@@ -136,7 +163,7 @@ class SettingsLan extends React.PureComponent {
                       className="form-check-label"
                       htmlFor={`network-ip-type-${NetworkIPType.dynamic}`}
                     >
-                      {_('Enable DHCP')}
+                      {i18n.t('DHCP')}
                     </label>
                   </div>
                   <button
@@ -146,7 +173,7 @@ class SettingsLan extends React.PureComponent {
                     disabled={isApiProcessing}
                     onClick={this.onClickTestDHCPButton(setFieldValue)}
                   >
-                    {_('Test DHCP')}
+                    {i18n.t('Test DHCP')}
                   </button>
                 </div>
                 <div className="form-group">
@@ -162,69 +189,61 @@ class SettingsLan extends React.PureComponent {
                       className="form-check-label"
                       htmlFor={`network-ip-type-${NetworkIPType.fixed}`}
                     >
-                      {_('Fixed IP Address')}
+                      {i18n.t('Fixed IP Address')}
                     </label>
-                    <span className="border rounded text-muted text-size-14 ml-3 p-1">
-                      {_('Enter a Fixed IP Address')}
-                    </span>
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>{_('IP Address')}</label>
+                  <label>{i18n.t('IP Address')}</label>
                   <Field
                     className="form-control"
                     type="text"
                     name="ipAddress"
-                    placeholder={_('Enter IP Address')}
-                    value={values.ipAddress}
+                    placeholder={i18n.t('Enter a fixed IP address')}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
                 <div className="form-group">
-                  <label>{_('Subnet Mask')}</label>
+                  <label>{i18n.t('Subnet Mask')}</label>
                   <Field
                     className="form-control"
                     type="text"
                     name="subnetMask"
-                    placeholder={_('Enter Subnet Mask')}
-                    value={values.subnetMask}
+                    placeholder={i18n.t('Enter Subnet Mask')}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
                 <div className="form-group">
-                  <label>{_('Router/Gateway')}</label>
+                  <label>{i18n.t('Router/Gateway')}</label>
                   <Field
                     className="form-control"
                     type="text"
                     name="gateway"
-                    placeholder={_('Enter Router/Gateway')}
-                    value={values.gateway}
+                    placeholder={i18n.t('Enter Router/Gateway')}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
                 <div className="form-group">
-                  <label>{_('Primary DNS')}</label>
+                  <label>{i18n.t('Primary DNS')}</label>
                   <Field
                     className="form-control"
                     type="text"
                     name="primaryDNS"
-                    placeholder={_('Enter Primary DNS')}
-                    value={values.primaryDNS}
+                    placeholder={i18n.t('Enter a primary DNS')}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
                 <div className="form-group">
-                  <label>{_('Secondary DNS (Optional)')}</label>
+                  <label>{i18n.t('Secondary DNS (Optional)')}</label>
                   <Field
                     className="form-control"
                     type="text"
                     name="secondaryDNS"
-                    placeholder={_('Enter Secondary DNS')}
-                    value={values.secondaryDNS || _('None')}
+                    placeholder={i18n.t('Enter a secondary DNS')}
                     disabled={values.ipType === NetworkIPType.dynamic}
                   />
                 </div>
-                <CustomTooltip show={JSON.stringify(this.props.networkSettings) === JSON.stringify(values)} title={_('No Values Have Changed')}>
+                <CustomTooltip show={JSON.stringify(this.props.networkSettings) === JSON.stringify(values)} title={i18n.t('No changes were made.')}>
 
                   <div>
                     <button
@@ -236,7 +255,7 @@ class SettingsLan extends React.PureComponent {
                         this.showModal('applyConfirm');
                       }}
                     >
-                      {_('Apply')}
+                      {i18n.t('Apply')}
                     </button>
                   </div>
                 </CustomTooltip>
@@ -244,8 +263,8 @@ class SettingsLan extends React.PureComponent {
                 <CustomNotifyModal
                   backdrop="static"
                   isShowModal={isShowSelectModal.applyConfirm}
-                  modalTitle={_('Network Settings')}
-                  modalBody={_('Are you sure you want to update network settings?')}
+                  modalTitle={i18n.t('Network')}
+                  modalBody={i18n.t('Are you sure you want to update network settings?')}
                   isConfirmDisable={isApiProcessing || isUpdating}
                   onHide={this.hideModal('applyConfirm')}
                   onConfirm={() => {
@@ -257,12 +276,14 @@ class SettingsLan extends React.PureComponent {
           }}
         </Formik>
         <CustomNotifyModal
+          isShowAllBtns={!redirectIP}
           modalType="info"
           isShowModal={isShowSelectModal.info}
           modalTitle={modalTitle}
           modalBody={modalBody}
+          backdrop={modalBackdrop}
           isConfirmDisable={isConfirmDisable}
-          onConfirm={onConfirm}
+          onConfirm={this.hideModal('info')}
           onHide={this.hideModal('info')}
         />
       </>

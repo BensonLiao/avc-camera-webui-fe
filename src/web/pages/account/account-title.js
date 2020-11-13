@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AccountTitle = props => {
-  const {title, subtitle} = props;
+const AccountTitle = ({title, subtitle = ''}) => {
   return (
     <>
       <h3 className="card-title text-primary">{title}</h3>
@@ -15,7 +14,5 @@ AccountTitle.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string
 };
-
-AccountTitle.defaultProps = {subtitle: ''};
 
 export default AccountTitle;

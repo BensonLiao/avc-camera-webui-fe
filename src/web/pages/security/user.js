@@ -8,7 +8,7 @@ const Modal = require('react-bootstrap/Modal').default;
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const i18n = require('../../../i18n').default;
 const UserValidator = require('../../validations/users/user-validator');
 const NewUserValidator = require('../../validations/users/new-user-validator');
 const utils = require('../../../core/utils');
@@ -39,7 +39,7 @@ module.exports = class User extends Base {
     super(props);
     const router = getRouter();
     this.state.isShowModal = true;
-    this.state.usersName = this.props.users.items.map(user => user.account);
+    this.state.usersName = props.users.items.map(user => user.account);
     this.$listens.push(
       router.listen('ChangeStart', (action, toState) => {
         const isShowModal = [
@@ -57,7 +57,6 @@ module.exports = class User extends Base {
         id: user.id,
         permission: user.permission === UserPermission.viewer ? UserPermission.guest : user.permission,
         account: user.account,
-        password: '',
         newPassword: '',
         confirmPassword: ''
       };
@@ -66,7 +65,6 @@ module.exports = class User extends Base {
     return {
       permission: UserPermission.root,
       account: '',
-      birthday: '',
       password: '',
       confirmPassword: ''
     };
@@ -109,7 +107,7 @@ module.exports = class User extends Base {
     return utils.duplicateCheck(
       nameList || this.state.usersName,
       values,
-      _('Same name found, please use a different name.')
+      i18n.t('This name already exists in the system. Please use a different name.')
     );
   }
 
@@ -122,7 +120,7 @@ module.exports = class User extends Base {
       if (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) {
         permissionList.push(
           <option key={permission} value={permission}>
-            {_(`permission-${permission}`)}
+            {i18n.t(`permission-${permission}`)}
           </option>);
       }
 
@@ -131,15 +129,15 @@ module.exports = class User extends Base {
     return (
       <Form>
         <div className="modal-body">
-          <SelectField readOnly={isSuperAdmin} labelName={_('Permission')} name="permission" wrapperClassName="px-2">
+          <SelectField readOnly={isSuperAdmin} labelName={i18n.t('Permission')} name="permission" wrapperClassName="px-2">
             {permissionList}
           </SelectField>
           <div className="form-group">
-            <label>{_('Account')}</label>
+            <label>{i18n.t('Username')}</label>
             <Field
               name="account"
               type="text"
-              placeholder={_('Enter your account')}
+              placeholder={i18n.t('Enter a name for this account')}
               disabled={isSuperAdmin}
               maxLength={UserSchema.account.max}
               validate={this.checkDuplicate}
@@ -147,63 +145,49 @@ module.exports = class User extends Base {
             />
             <ErrorMessage component="div" name="account" className="invalid-feedback"/>
           </div>
-          {
-            !user && (
-              <div className="form-group has-feedback">
-                <label>{_('Birthday')}</label>
-                <Field
-                  name="birthday"
-                  component={Password}
-                  inputProps={{
-                    placeholder: _('Enter Your Birthday'),
-                    className: classNames(
-                      'form-control', {'is-invalid': errors.birthday && touched.birthday}
-                    )
-                  }}
-                />
-                <ErrorMessage component="div" name="birthday" className="invalid-feedback"/>
-                <small className="form-text text-muted">{_('This is used for resetting password. ex. 19890312')}</small>
-              </div>
-            )
-          }
-          <div className="form-group has-feedback">
-            <label>{_(user ? 'Current Password' : 'Password')}</label>
-            <Field
-              name="password"
-              component={Password}
-              inputProps={{
-                placeholder: _(user ? 'Enter your current password' : 'Enter your password'),
-                className: classNames('form-control', {'is-invalid': errors.password && touched.password})
-              }}
-            />
-            <ErrorMessage component="div" name="password" className="invalid-feedback"/>
-          </div>
+          { !user && (
+            <div className="form-group has-feedback">
+              <label>{i18n.t('Password')}</label>
+              <Field
+                name="password"
+                component={Password}
+                inputProps={{
+                  placeholder: i18n.t('Enter a password'),
+                  className: classNames('form-control', {'is-invalid': errors.password && touched.password})
+                }}
+              />
+              <small className="text-info">
+                {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+              </small>
+              <ErrorMessage component="div" name="password" className="invalid-feedback"/>
+            </div>
+          )}
           {
             user && (
               <div className="form-group has-feedback">
-                <label>{_('New Password')}</label>
+                <label>{i18n.t('New Password')}</label>
                 <Field
                   name="newPassword"
                   component={Password}
                   inputProps={{
-                    placeholder: _('Enter Your New Password'),
+                    placeholder: i18n.t('Enter a new password'),
                     className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
                   }}
                 />
                 <small className="text-info">
-                  {_('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                  {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
                 </small>
                 <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
               </div>
             )
           }
           <div className="form-group has-feedback">
-            <label>{_(user ? 'Confirm New Password' : 'Confirm Password')}</label>
+            <label>{i18n.t(user ? 'Confirm New Password' : 'Confirm Password')}</label>
             <Field
               name="confirmPassword"
               component={Password}
               inputProps={{
-                placeholder: _(user ? 'Confirm Your New Password' : 'Confirm Your Password'),
+                placeholder: i18n.t(user ? 'Enter the new password again' : 'Enter the password again'),
                 className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
               }}
             />
@@ -217,7 +201,7 @@ module.exports = class User extends Base {
               type="submit"
               className="btn btn-primary btn-block rounded-pill"
             >
-              {user ? _('Confirm') : _('New')}
+              {user ? i18n.t('Confirm') : i18n.t('New')}
             </button>
           </div>
           <button
@@ -226,7 +210,7 @@ module.exports = class User extends Base {
             type="button"
             onClick={this.hideModal}
           >
-            {_('Close')}
+            {i18n.t('Close')}
           </button>
         </div>
       </Form>
@@ -241,7 +225,7 @@ module.exports = class User extends Base {
     return (
       <Modal autoFocus={false} show={isShowModal} backdrop={$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{user ? _('Modify User') : _('New User')}</Modal.Title>
+          <Modal.Title as="h5">{user ? i18n.t('Modify User') : i18n.t('New User')}</Modal.Title>
         </Modal.Header>
         <Formik
           initialValues={this.generateInitialValue(user)}

@@ -7,6 +7,5 @@ module.exports = validator.compile({
   confirmPassword: {
     type: 'confirmEqual',
     field: 'password'
-  },
-  birthday: UserSchema.birthday
+  }
 });

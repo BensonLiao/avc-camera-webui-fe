@@ -2,13 +2,13 @@ const React = require('react');
 const {getRouter} = require('capybara-router');
 const progress = require('nprogress');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const wrappedApi = require('../../../core/apis');
 const download = require('downloadjs');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const StageProgress = require('../../../core/components/stage-progress');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class Log extends Base {
   constructor(props) {
@@ -16,7 +16,7 @@ module.exports = class Log extends Base {
     this.state.file = null;
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = _('Downloading System Log');
+    this.state.apiProcessModalTitle = i18n.t('Downloading System Log File');
     this.state.progressStatus = 'start';
     this.state.progressPercentage = 0;
   }
@@ -77,27 +77,27 @@ module.exports = class Log extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('System'), _('System Information'), _('System Log')]}
+                path={[i18n.t('System'), i18n.t('Status'), i18n.t('System Log')]}
                 routes={['/system/datetime', '/system/log']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">{_('System Log')}</div>
+                  <div className="card-header">{i18n.t('System Log')}</div>
                   <div className="card-body">
                     <div className="form-group">
-                      <label className="mb-0 my-3">{_('System Log File Record')}</label>
+                      <label className="mb-0 my-3">{i18n.t('System Log File')}</label>
                       <div>
                         <button
                           className="btn btn-outline-primary rounded-pill px-5"
                           type="button"
                           onClick={this.showModal}
-                        >{_('Delete Record')}
+                        >{i18n.t('Delete logs')}
                         </button>
                         <CustomNotifyModal
                           modalType="default"
                           isShowModal={isShowModal}
-                          modalTitle={_('Delete System Log File')}
-                          modalBody={_('Are you sure you want to delete record?')}
+                          modalTitle={i18n.t('Delete System Log File')}
+                          modalBody={i18n.t('Are you sure you want to delete system logs?')}
                           onHide={this.hideModal}
                           onConfirm={this.onClickClearLog}
                         />
@@ -105,7 +105,7 @@ module.exports = class Log extends Base {
                           className="btn btn-outline-primary rounded-pill px-5 ml-3"
                           type="button"
                           onClick={this.onClickDownloadLog}
-                        >{_('Download')}
+                        >{i18n.t('Download')}
                         </button>
                         <CustomNotifyModal
                           modalType="process"
@@ -114,8 +114,8 @@ module.exports = class Log extends Base {
                           modalTitle={this.state.apiProcessModalTitle}
                           modalBody={[
                             <StageProgress
-                              key="stage 1"
-                              title="System log loading"
+                              key={i18n.t('stage 1')}
+                              title={i18n.t('Download progress')}
                               progressStatus={this.state.progressStatus}
                               progressPercentage={this.state.progressPercentage}
                             />

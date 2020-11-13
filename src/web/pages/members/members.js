@@ -1,52 +1,46 @@
-const PropTypes = require('prop-types');
-const React = require('react');
-const progress = require('nprogress');
-const {RouterView, Link, getRouter} = require('capybara-router');
-const iconDescription = require('../../../resource/description-20px.svg');
-const Base = require('../shared/base');
-const Pagination = require('../../../core/components/pagination');
-const _ = require('../../../languages');
-const api = require('../../../core/apis/web-api');
-const CustomTooltip = require('../../../core/components/tooltip');
-const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
-const MembersSearchForm = require('./members-search-form');
-const MembersSidebar = require('./members-sidebar');
-const MembersTable = require('./members-table');
+import PropTypes from 'prop-types';
+import React, {useState} from 'react';
+import progress from 'nprogress';
+import {RouterView, Link, getRouter} from 'capybara-router';
+import Pagination from '../../../core/components/pagination';
+import i18n from '../../../i18n';
+import api from '../../../core/apis/web-api';
+import CustomTooltip from '../../../core/components/tooltip';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import MembersSearchForm from './members-search-form';
+import MembersSidebar from './members-sidebar';
+import MembersTable from './members-table';
+import MembersSelectedGroup from './members-selectedGroup';
+import withGlobalStatus from '../../withGlobalStatus';
+import {useContextState} from '../../stateProvider';
 
-module.exports = class Members extends Base {
-  static get propTypes() {
-    return {
-      params: PropTypes.shape({group: PropTypes.string}).isRequired,
-      groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
-      members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
-      remainingPictureCount: PropTypes.number.isRequired
-    };
-  }
+const Members = ({groups, members, params, remainingPictureCount}) => {
+  const {isApiProcessing} = useContextState();
+  const currentRoute = getRouter().findRouteByName('web.users.members');
 
-  constructor(props) {
-    super(props);
-    this.currentRoute = getRouter().findRouteByName('web.users.members');
-    this.state.deleteGroupTarget = null;
-    this.state.selectedGroup = props.groups.items.find(x => x.id === props.params.group);
-    this.state.deleteMemberTarget = null;
-    this.state.isShowSelectModal = {
+  const hrefTemplate = getRouter().generateUri(
+    currentRoute,
+    {
+      ...params,
+      index: undefined
+    }
+  );
+
+  const [state, setState] = useState({
+    deleteGroupTarget: null,
+    deleteMemberTarget: null,
+    isShowSelectModal: {
       deleteGroup: false,
       deleteMember: false
-    };
-  }
+    }
+  });
 
-  showModal = selectedModal => event => {
-    event.preventDefault();
-    return this.setState(prevState => ({
-      isShowSelectModal: {
-        ...prevState.isShowSelectModal,
-        [selectedModal]: true
-      }
-    }));
-  };
+  const {deleteGroupTarget, deleteMemberTarget} = state;
+  const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
 
-  hideModal = selectedModal => () => {
-    return this.setState(prevState => ({
+  const hideModal = selectedModal => () => {
+    return setState(prevState => ({
+      ...prevState,
       isShowSelectModal: {
         ...prevState.isShowSelectModal,
         [selectedModal]: false
@@ -54,27 +48,23 @@ module.exports = class Members extends Base {
     }));
   };
 
-  memberCardModalRender = mode => {
-    const {
-      deleteGroupTarget,
-      deleteMemberTarget,
-      $isApiProcessing,
-      isShowSelectModal: {[mode]: isShowModal}
-    } = this.state;
+  const memberCardModalRender = mode => {
+    const {isShowSelectModal: {[mode]: isShowModal}} = state;
+
     const modalType = {
       deleteGroup: {
         showModal: isShowModal,
-        hideModal: this.hideModal(mode),
-        modalOnSubmit: this.confirmDeleteGroup,
-        modalTitle: _('Delete Group'),
-        modalBody: _('Are you sure you want to delete group {0}?', [deleteGroupTarget && deleteGroupTarget.name])
+        hideModal: hideModal(mode),
+        modalOnSubmit: confirmDeleteGroup,
+        modalTitle: i18n.t('Delete Group'),
+        modalBody: i18n.t('Are you sure you want to delete group {{0}}?', {0: deleteGroupTarget && deleteGroupTarget.name})
       },
       deleteMember: {
         showModal: isShowModal,
-        hideModal: this.hideModal(mode),
-        modalOnSubmit: this.confirmDeleteMember,
-        modalTitle: _('Delete Member'),
-        modalBody: _('Are you sure you want to delete member {0}?', [deleteMemberTarget && deleteMemberTarget.name])
+        hideModal: hideModal(mode),
+        modalOnSubmit: confirmDeleteMember,
+        modalTitle: i18n.t('Delete Member'),
+        modalBody: i18n.t('Are you sure you want to delete member {{0}}?', {0: deleteMemberTarget && deleteMemberTarget.name})
       }
     };
     return (
@@ -82,17 +72,17 @@ module.exports = class Members extends Base {
         isShowModal={modalType[mode].showModal}
         modalTitle={modalType[mode].modalTitle}
         modalBody={modalType[mode].modalBody}
-        isConfirmDisable={$isApiProcessing}
+        isConfirmDisable={isApiProcessing}
         onHide={modalType[mode].hideModal}
         onConfirm={modalType[mode].modalOnSubmit}
       />
     );
-  }
+  };
 
-  generateShowDeleteGroupModalHandler = group => {
+  const generateShowDeleteGroupModalHandler = group => {
     return event => {
       event.preventDefault();
-      this.setState(prevState => ({
+      setState(prevState => ({
         ...prevState,
         isShowSelectModal: {
           ...prevState.isShowSelectModal,
@@ -103,10 +93,10 @@ module.exports = class Members extends Base {
     };
   };
 
-  generateShowDeleteMemberModalHandler = member => {
+  const generateShowDeleteMemberModalHandler = member => {
     return event => {
       event.preventDefault();
-      this.setState(prevState => ({
+      setState(prevState => ({
         ...prevState,
         isShowSelectModal: {
           ...prevState.isShowSelectModal,
@@ -117,29 +107,29 @@ module.exports = class Members extends Base {
     };
   };
 
-  confirmDeleteMember = event => {
+  const confirmDeleteMember = event => {
     event.preventDefault();
     progress.start();
-    api.member.deleteMember(this.state.deleteMemberTarget.id)
+    api.member.deleteMember(deleteMemberTarget.id)
       .then(() => {
-        this.hideModal('deleteMember');
+        hideModal('deleteMember');
         getRouter().reload();
       })
       .finally(progress.done);
   };
 
-  confirmDeleteGroup = event => {
+  const confirmDeleteGroup = event => {
     event.preventDefault();
     progress.start();
-    api.group.deleteGroup(this.state.deleteGroupTarget.id)
+    api.group.deleteGroup(deleteGroupTarget.id)
       .then(() => {
-        this.hideModal('deleteGroup');
-        if (this.state.deleteGroupTarget.id === this.props.params.group) {
+        hideModal('deleteGroup');
+        if (deleteGroupTarget.id === params.group) {
           getRouter().go(
             {
               name: 'web.users.members',
               params: {
-                ...this.props.params,
+                ...params,
                 group: undefined,
                 index: undefined
               }
@@ -159,12 +149,12 @@ module.exports = class Members extends Base {
    * @param {*} value The filter value. Pass null to remove the param.
    * @returns {Function} The handler.
    */
-  generateChangeFilterHandler = (paramKey, value) => event => {
+  const generateChangeFilterHandler = (paramKey, value) => event => {
     event.preventDefault();
     getRouter().go({
-      name: this.currentRoute.name,
+      name: currentRoute.name,
       params: {
-        ...this.props.params,
+        ...params,
         index: undefined,
         [paramKey]: value === undefined ?
           event.target.value :
@@ -173,132 +163,91 @@ module.exports = class Members extends Base {
     });
   };
 
-  render() {
-    const {groups, members, params, remainingPictureCount} = this.props;
-    const {selectedGroup, $isApiProcessing} = this.state;
-    const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
-    const hrefTemplate = getRouter().generateUri(
-      this.currentRoute,
-      {
-        ...params,
-        index: undefined
-      }
-    );
-    return (
-      <>
-        {/* Left menu */}
-        <MembersSidebar
-          isApiProcessing={$isApiProcessing}
-          params={params}
-          groups={groups}
-          filterHandler={this.generateChangeFilterHandler}
-          deleteGroupHandler={this.generateShowDeleteGroupModalHandler}
-        />
-        {/* Main content */}
-        <div className="main-content left-menu-active sub">
-          <div className="page-members bg-white">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-12 d-flex justify-content-between align-items-center mb-4">
-                  <MembersSearchForm
-                    isApiProcessing={$isApiProcessing}
-                    currentRouteName={this.currentRoute.name}
-                    params={params}
-                  />
-                  <CustomTooltip show={isOverPhotoLimit} title={_('Photo Limit Reached')}>
-                    <div className="dropdown">
-                      <button
-                        className="btn border-primary text-primary rounded-pill dropdown-toggle"
-                        type="button"
-                        disabled={isOverPhotoLimit}
-                        style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
-                        data-toggle="dropdown"
-                      >
-                        <i className="fas fa-plus fa-fw text-primary"/>{_('New')}
-                      </button>
-                      <div className="dropdown-menu dropdown-menu-right shadow">
-                        <Link
-                          className="dropdown-item"
-                          to={{
-                            name: 'web.users.members.new-member',
-                            params: params
-                          }}
-                        >
-                          {_('Add a New Member')}
-                        </Link>
-                        <Link className="dropdown-item" to="/users/events">{_('Add a Member from Events')}</Link>
-                      </div>
-                    </div>
-                  </CustomTooltip>
-                </div>
-                {
-                  selectedGroup && (
-                    <div className="col-12 mb-4">
-                      <i className="far fa-folder fa-fw fa-lg text-primary"/>
-                      <span className="text-size-16 text-muted ml-3">
-                        {selectedGroup.name}
-                      </span>
-                      <img className="ml-32px" src={iconDescription}/>
-                      {
-                        selectedGroup.note.length > 0 && (
-                          <CustomTooltip title={selectedGroup.note}>
-                            <div
-                              className="text-size-14 text-muted ml-2"
-                              style={{
-                                display: 'inline-block',
-                                lineHeight: 'initial',
-                                wordWrap: 'break-word',
-                                textOverflow: 'ellipsis',
-                                overflow: 'hidden',
-                                whiteSpace: 'nowrap',
-                                maxWidth: '50%'
-                              }}
-                            >
-                              {selectedGroup.note}
-                            </div>
-                          </CustomTooltip>
-                        )
-                      }
-                      <CustomTooltip title={_('Edit Group: {0}', [selectedGroup.name])}>
-                        <Link
-                          className="ml-32px"
-                          to={{
-                            name: 'web.users.members.modify-group',
-                            params: params
-                          }}
-                        >
-                          <i className="fas fa-pen fa-fw"/>
-                        </Link>
-                      </CustomTooltip>
-                    </div>
-                  )
-                }
-                <MembersTable
+  return (
+    <>
+      {/* Left menu */}
+      <MembersSidebar
+        isApiProcessing={isApiProcessing}
+        params={params}
+        groups={groups}
+        filterHandler={generateChangeFilterHandler}
+        deleteGroupHandler={generateShowDeleteGroupModalHandler}
+      />
+      {/* Main content */}
+      <div className="main-content left-menu-active sub">
+        <div className="page-members bg-white">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-12 d-flex justify-content-between align-items-center mb-4">
+                <MembersSearchForm
+                  isApiProcessing={isApiProcessing}
+                  currentRouteName={currentRoute.name}
                   params={params}
-                  members={members}
-                  groups={groups}
-                  filterHandler={this.generateChangeFilterHandler}
-                  deleteMemberModal={this.generateShowDeleteMemberModalHandler}
                 />
-                <Pagination
-                  index={members.index}
-                  size={members.size}
-                  total={members.total}
-                  itemQuantity={members.items.length}
-                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
-                    `${hrefTemplate}&index={index}` :
-                    `${hrefTemplate}?index={index}`}
-                />
+                <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit of Member Database Exceeded')}>
+                  <div className="dropdown">
+                    <button
+                      className="btn border-primary text-primary rounded-pill dropdown-toggle"
+                      type="button"
+                      disabled={isOverPhotoLimit}
+                      style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
+                      data-toggle="dropdown"
+                    >
+                      <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('New')}
+                    </button>
+                    <div className="dropdown-menu dropdown-menu-right shadow">
+                      <Link
+                        className="dropdown-item"
+                        to={{
+                          name: 'web.users.members.new-member',
+                          params: params
+                        }}
+                      >
+                        {i18n.t('Add a New Member')}
+                      </Link>
+                      <Link className="dropdown-item" to="/users/events">{i18n.t('Add a Member from Events')}</Link>
+                    </div>
+                  </div>
+                </CustomTooltip>
               </div>
+              <MembersSelectedGroup
+                selectedGroup={groups.items.find(x => x.id === params.group)}
+                params={params}
+              />
+              <MembersTable
+                params={params}
+                members={members}
+                groups={groups}
+                filterHandler={generateChangeFilterHandler}
+                deleteMemberModal={generateShowDeleteMemberModalHandler}
+              />
+              <Pagination
+                index={members.index}
+                size={members.size}
+                total={members.total}
+                itemQuantity={members.items.length}
+                hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
+                  `${hrefTemplate}&index=` :
+                  `${hrefTemplate}?index=`}
+              />
             </div>
-            <RouterView/>
           </div>
+          <RouterView/>
         </div>
-        {/* Delete group modal */}
-        {this.memberCardModalRender('deleteGroup')}
-        {/* Delete member modal */}
-        {this.memberCardModalRender('deleteMember')}
-      </>
-    );
-  }
+      </div>
+      {/* Delete group modal */}
+      {memberCardModalRender('deleteGroup')}
+      {/* Delete member modal */}
+      {memberCardModalRender('deleteMember')}
+    </>
+  );
 };
+
+Members.propTypes = {
+  params: PropTypes.shape({group: PropTypes.string}).isRequired,
+  groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
+  members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
+  remainingPictureCount: PropTypes.number.isRequired
+};
+
+export default withGlobalStatus(Members);

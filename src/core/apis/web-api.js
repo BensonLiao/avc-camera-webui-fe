@@ -26,23 +26,6 @@ module.exports = {
       quality
     }
   }),
-  validation: {
-    /**
-     * Validate the birthday of the account.
-     * @param {String} account User's account to be reference.
-     * @param {String} birthday User's birth day to be validate.
-     * @returns {Promise<response>}
-     * @response 204
-     */
-    accountBirthday: ({account, birthday}) => api({
-      method: 'post',
-      url: '/api/_validate/account-birthday',
-      data: {
-        account,
-        birthday
-      }
-    })
-  },
   account: {
     /**
      * Do authentication with account and password.
@@ -85,23 +68,6 @@ module.exports = {
     refresh: () => api({
       method: 'post',
       url: '/api/account/_refresh'
-    }),
-    /**
-     * Change the password with the birthday.
-     * @param {String} account
-     * @param {String} birthday e.g. "19900101"
-     * @param {String} newPassword
-     * @returns {Promise<response>}
-     * @response 200 {UserModel}
-     */
-    changePasswordWithBirthday: ({account, birthday, newPassword}) => api({
-      method: 'post',
-      url: '/api/account/_change-password',
-      data: {
-        account,
-        birthday,
-        newPassword
-      }
     }),
     /**
      * Change my password.
@@ -296,9 +262,10 @@ module.exports = {
      * @param {string} certificateType
      * @param {string} certificate
      * @param {string} privateKey
+     * @param {number} delayMs The delaying time in milliseconds before response, default is `0`.
      * @returns {Promise<response>}
      */
-    updateHttpsSettings: ({isEnable, port, certificateType, certificate, privateKey}) => api({
+    updateHttpsSettings: ({isEnable, port, certificateType, certificate, privateKey}, {delayMs} = {delayMs: 0}) => api({
       method: 'put',
       url: '/api/system/https',
       data: {
@@ -307,7 +274,8 @@ module.exports = {
         certificateType,
         certificate,
         privateKey
-      }
+      },
+      delay: delayMs
     }),
     /**
      * @param {String} deviceName
@@ -331,13 +299,12 @@ module.exports = {
      * @response 200 {Object}
      * - account {String}
      */
-    setup: ({language, account, https}) => api({
+    setup: ({language, account}) => api({
       method: 'post',
       url: '/api/system/_setup',
       data: {
         language,
-        account,
-        https
+        account
       }
     }),
     /**
@@ -448,6 +415,10 @@ module.exports = {
     unmountSDCard: () => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard/unmount'
+    }),
+    mountSDCard: () => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard/mount'
     }),
     /**
      * Clears system log
@@ -588,36 +559,6 @@ module.exports = {
     })
   },
   notification: {
-    /**
-     * @returns {Promise<response>}
-     * @response 200 {Object}
-     * - deviceToken {string}
-     * - deviceId {string}
-     * - interval {string}
-     */
-    getAppSettings: () => api({
-      method: 'get',
-      url: '/api/notification/app/settings'
-    }),
-    /**
-     * @param {string} deviceToken
-     * @param {string} deviceId
-     * @param {string} interval
-     * @returns {Promise<response>}
-     * @response 200 {Object}
-     * - deviceToken {string}
-     * - deviceId {string}
-     * - interval {string}
-     */
-    updateAppSettings: ({deviceToken, deviceId, interval}) => api({
-      method: 'put',
-      url: '/api/notification/app/settings',
-      data: {
-        deviceToken,
-        deviceId,
-        interval
-      }
-    }),
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}
@@ -1624,9 +1565,9 @@ module.exports = {
      * - type {string}
      * - customText {string}
      */
-    getWordSettings: () => api({
+    getOSDSettings: () => api({
       method: 'get',
-      url: '/api/multimedia/word/settings'
+      url: '/api/multimedia/osd/settings'
     }),
     /**
      * @param {boolean} isEnable
@@ -1644,9 +1585,9 @@ module.exports = {
      * - type {string}
      * - customText {string}
      */
-    updateWordSettings: ({isEnable, fontSize, color, position, type, customText}) => api({
+    updateOSDSettings: ({isEnable, fontSize, color, position, type, customText}) => api({
       method: 'put',
-      url: '/api/multimedia/word/settings',
+      url: '/api/multimedia/osd/settings',
       data: {
         isEnable,
         fontSize,

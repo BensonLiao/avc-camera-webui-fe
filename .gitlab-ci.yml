@@ -4,10 +4,8 @@ stages:
 build:
   stage: build
   tags:
-    - build-server-android-app-docker-ndk-r17b
+    - build-server-node-docker-12.x-ubuntu18.04
   script:
-    - curl -sL https://deb.nodesource.com/setup_12.x | bash -
-    - apt-get install -y nodejs
     - npm install -g grunt-cli
     - npm install
     - npm run eslint

@@ -8,14 +8,13 @@ const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-settings-schema');
-const _ = require('../../languages');
+const i18n = require('../../i18n').default;
 const utils = require('../utils');
 const api = require('../apis/web-api');
 const Slider = require('./fields/slider');
 const Dropdown = require('./fields/dropdown');
 const FormikEffect = require('./formik-effect');
 const {getRouter} = require('capybara-router');
-const CustomTooltip = require('../../core/components/tooltip');
 const constants = require('../constants');
 const store = require('../store');
 module.exports = class VideoSetting extends React.PureComponent {
@@ -48,79 +47,57 @@ module.exports = class VideoSetting extends React.PureComponent {
         focusType: PropTypes.oneOf(FocusType.all()).isRequired,
         isAutoFocusAfterZoom: PropTypes.bool.isRequired
       }).isRequired,
-      systemDateTime: PropTypes.shape({deviceTime: PropTypes.string.isRequired}).isRequired
+      systemDateTime: PropTypes.shape({deviceTime: PropTypes.number.isRequired}).isRequired
     };
   }
 
-  state = {
-    // isAutoFocusProcessing: false,
-    focalLengthQueue: null
-  }
+  state = {focalLengthQueue: null}
 
   constructor(props) {
     super(props);
     this.submitPromise = Promise.resolve();
-    // this.state.isAutoFocusProcessing = false;
     this.state.focalLengthQueue = null;
   }
 
-  generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
-    event.preventDefault();
-    form.setFieldValue('focusType', autoFocusType).then(() => {
-      let prevFocalLength;
-      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
-      // Refresh focal length until previous value matches current value
-      const refreshFocalLength = () => {
-        api.video.getFocalLength()
-          .then(response => {
-            if (prevFocalLength === response.data.focalLength) {
-              store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
-            } else {
-              prevFocalLength = response.data.focalLength;
-              // Refresh focal length at 1hz
-              setTimeout(refreshFocalLength, 1000);
-            }
-
-            return response.data.focalLength;
-          })
-          .then(focalLength => {
-            form.setFieldValue('focalLength', focalLength);
-          });
-      };
-
-      refreshFocalLength();
-    });
+  updateFocalLengthStore = bool => {
+    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, bool);
   }
 
-  generateInitialValues = videoSettings => ({
-    ...videoSettings,
-    dnDuty: [
-      videoSettings.timePeriodStart,
-      videoSettings.timePeriodEnd
-    ]
-  });
+  matchFocalLength = formik => {
+    let prevFocalLength;
+    this.updateFocalLengthStore(true);
+    // Refresh focal length until previous value matches current value
+    const refreshFocalLength = () => {
+      api.video.getFocalLength()
+        .then(response => {
+          if (prevFocalLength === response.data.focalLength) {
+            this.updateFocalLengthStore(false);
+          } else {
+            prevFocalLength = response.data.focalLength;
+            // Refresh focal length at 1hz
+            setTimeout(refreshFocalLength, 1000);
+          }
 
-  varyFocus = (form, step) => {
-    let newFocalLength = step + form.values.focalLength;
-    if (newFocalLength < videoFocusSettingsSchema.focalLength.min) {
-      newFocalLength = videoFocusSettingsSchema.focalLength.min;
-    }
+          return response.data.focalLength;
+        })
+        .then(focalLength => {
+          formik.setFieldValue('focalLength', focalLength);
+        });
+    };
 
-    if (newFocalLength > videoFocusSettingsSchema.focalLength.max) {
-      newFocalLength = videoFocusSettingsSchema.focalLength.max;
-    }
-
-    form.setFieldValue('focalLength', newFocalLength);
+    refreshFocalLength();
   }
 
   // Queues user input during api processing
-  recursiveFocusPromise = ({nextValues, prevValues, formik}) => {
+  focusQueue = ({nextValues, prevValues, formik}) => {
     if (!nextValues) {
       return;
     }
 
-    if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
-      store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+    const hasChanged = (nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength;
+
+    if (hasChanged) {
+      this.updateFocalLengthStore(true);
     }
 
     if (this.props.isApiProcessing) {
@@ -131,7 +108,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           if (this.state.focalLengthQueue) {
             this.setState(
               {focalLengthQueue: null},
-              this.recursiveFocusPromise({
+              this.focusQueue({
                 nextValues: {
                   ...nextValues,
                   focalLength: this.state.focalLengthQueue
@@ -145,31 +122,8 @@ module.exports = class VideoSetting extends React.PureComponent {
           }
         })
         .then(() => {
-          // Trigger react update to get the latest global state
-          store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
-          if ((nextValues.isAutoFocusAfterZoom || prevValues.zoom !== nextValues.zoom) && prevValues.focalLength === nextValues.focalLength) {
-            let prevFocalLength;
-            store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
-            // Refresh focal length until previous value matches current value
-            const refreshFocalLength = () => {
-              api.video.getFocalLength()
-                .then(response => {
-                  if (prevFocalLength === response.data.focalLength) {
-                    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
-                  } else {
-                    prevFocalLength = response.data.focalLength;
-                    // Refresh focal length at 1hz
-                    setTimeout(refreshFocalLength, 1000);
-                  }
-
-                  return response.data.focalLength;
-                })
-                .then(focalLength => {
-                  formik.setFieldValue('focalLength', focalLength);
-                });
-            };
-
-            refreshFocalLength();
+          if (hasChanged) {
+            this.matchFocalLength(formik);
           }
         });
     }
@@ -187,7 +141,7 @@ module.exports = class VideoSetting extends React.PureComponent {
       prevValues.isAutoFocusAfterZoom !== nextValues.isAutoFocusAfterZoom
     ) {
       // Change focus settings with user input queue.
-      this.recursiveFocusPromise({
+      this.focusQueue({
         nextValues,
         prevValues,
         formik
@@ -207,6 +161,14 @@ module.exports = class VideoSetting extends React.PureComponent {
     }
   };
 
+  generateInitialValues = videoSettings => ({
+    ...videoSettings,
+    dnDuty: [
+      videoSettings.timePeriodStart,
+      videoSettings.timePeriodEnd
+    ]
+  });
+
   generateClickResetButtonHandler = () => event => {
     event.preventDefault();
     progress.start();
@@ -217,33 +179,20 @@ module.exports = class VideoSetting extends React.PureComponent {
 
   generateClickAutoFocusButtonHandler = form => event => {
     event.preventDefault();
-    store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, true);
+    this.updateFocalLengthStore(true);
     this.submitPromise = this.submitPromise
       .then(api.video.startAutoFocus)
       .then(() => {
-        let prevFocalLength;
-        // Refresh focal length until previous value matches current value
-        const refreshFocalLength = () => {
-          api.video.getFocalLength()
-            .then(response => {
-              if (prevFocalLength === response.data.focalLength) {
-                store.set(constants.store.UPDATE_FOCAL_LENGTH_FIELD, false);
-              } else {
-                prevFocalLength = response.data.focalLength;
-                // Refresh focal length at 1hz
-                setTimeout(refreshFocalLength, 1000);
-              }
-
-              return response.data.focalLength;
-            })
-            .then(focalLength => {
-              form.setFieldValue('focalLength', focalLength);
-            });
-        };
-
-        refreshFocalLength();
+        this.matchFocalLength(form);
       });
   };
+
+  generateOnChangeAutoFocusType = (form, autoFocusType) => event => {
+    event.preventDefault();
+    form.setFieldValue('focusType', autoFocusType).then(() => {
+      this.matchFocalLength(form);
+    });
+  }
 
   videoSettingsFormRender = form => {
     const {values} = form;
@@ -252,14 +201,14 @@ module.exports = class VideoSetting extends React.PureComponent {
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{_('Image Settings')}</div>
+        <div className="card-header">{i18n.t('Image')}</div>
         <div className="accordion" id="accordion-video-properties">
-          {/* WDR */}
+          {/* HDR */}
           <hr className="my-0"/>
           <div className="card-body">
             <div className="form-row">
               <div className="col-12 my-1 d-flex justify-content-between align-items-center">
-                <span className="text-size-20">{_('HDR')}</span>
+                <span className="text-size-20">{i18n.t('Enable HDR')}</span>
                 <div className="custom-control custom-switch d-inline-block ml-2">
                   <Field
                     name="hdrEnabled"
@@ -270,80 +219,42 @@ module.exports = class VideoSetting extends React.PureComponent {
                     disabled={disableInput}
                   />
                   <label className="custom-control-label" htmlFor="switch-hdr-enabled">
-                    <span>{_('ON')}</span>
-                    <span>{_('OFF')}</span>
+                    <span>{i18n.t('ON')}</span>
+                    <span>{i18n.t('OFF')}</span>
                   </label>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Image Adjustment */}
+          {/* Adjustments */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
               <button className="btn btn-link btn-block text-left" type="button" disabled={disableInput} data-toggle="collapse" data-target="#lightness">
-                <i className="fas fa-chevron-up"/>{_('Image Adjustment')}
+                <i className="fas fa-chevron-up"/>{i18n.t('Adjustments')}
               </button>
             </h2>
 
             <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Brightness')}</label>
-                  <span className="text-primary text-size-14">{values.brightness}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="brightness"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.brightness.min}
-                  max={videoSettingsSchema.brightness.max}
-                />
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Contrast')}</label>
-                  <span className="text-primary text-size-14">{values.contrast}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="contrast"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.contrast.min}
-                  max={videoSettingsSchema.contrast.max}
-                />
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Sharpness')}</label>
-                  <span className="text-primary text-size-14">{values.sharpness}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="sharpness"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.sharpness.min}
-                  max={videoSettingsSchema.sharpness.max}
-                />
-              </div>
-              <div className="form-group">
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Saturation')}</label>
-                  <span className="text-primary text-size-14">{values.saturation}</span>
-                </div>
-                <Field
-                  updateFieldOnStop
-                  name="saturation"
-                  component={Slider}
-                  step={1}
-                  min={videoSettingsSchema.saturation.min}
-                  max={videoSettingsSchema.saturation.max}
-                />
-              </div>
+              {
+                ['brightness', 'contrast', 'sharpness', 'saturation'].map(imageControls => (
+                  <div key={imageControls} className="form-group">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <label>{i18n.t(imageControls.charAt(0).toUpperCase() + imageControls.slice(1))}</label>
+                      <span className="text-primary text-size-14">{values[imageControls]}</span>
+                    </div>
+                    <Field
+                      updateFieldOnStop
+                      name={imageControls}
+                      component={Slider}
+                      step={1}
+                      min={videoSettingsSchema[imageControls].min}
+                      max={videoSettingsSchema[imageControls].max}
+                    />
+                  </div>
+                ))
+              }
             </div>
           </div>
 
@@ -352,7 +263,7 @@ module.exports = class VideoSetting extends React.PureComponent {
           <div className="card-body pb-0">
             <h2 className="d-flex justify-content-between">
               <button className="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#color">
-                <i className="fas fa-chevron-up"/>{_('Lens Control')}
+                <i className="fas fa-chevron-up"/>{i18n.t('Lens Control')}
               </button>
               <div className="btn-group tip">
                 <button
@@ -361,7 +272,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
-                  {_(values.focusType === FocusType.fullRange ? 'Full-Range Focus' : 'Short-Range Focus')}
+                  {i18n.t(values.focusType === FocusType.fullRange ? 'Full-Range Focus' : 'Short-Range Focus')}
                 </button>
                 <button
                   type="button"
@@ -371,14 +282,14 @@ module.exports = class VideoSetting extends React.PureComponent {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span className="sr-only">{_('Select Focus Type')}</span>
+                  <span className="sr-only">{i18n.t('Select Focus Type')}</span>
                 </button>
                 <div className="dropdown-menu">
                   <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.fullRange)}>
-                    {_('Full-Range Focus')}
+                    {i18n.t('Full-Range Focus')}
                   </button>
                   <button type="button" className="dropdown-item" onClick={this.generateOnChangeAutoFocusType(form, FocusType.shortRange)}>
-                    {_('Short-Range Focus')}
+                    {i18n.t('Short-Range Focus')}
                   </button>
                 </div>
               </div>
@@ -388,71 +299,23 @@ module.exports = class VideoSetting extends React.PureComponent {
             <div id="color" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Focus')}</label>
-                  <span className="d-none text-primary text-size-14">{values.focalLength}</span>
+                  <label>{i18n.t('Focus')}</label>
+                  <span className="text-primary text-size-14">{values.focalLength}</span>
                 </div>
-                <div className="mt-2 d-flex align-items-center justify-content-between focal-length">
-                  <div>
-                    <CustomTooltip title="-5">
-                      <button
-                        disabled={disableInput}
-                        className="btn text-secondary-700"
-                        type="button"
-                        onClick={() => this.varyFocus(form, -5)}
-                      >
-                        <i type="button" className="fa fa-angle-double-left text-size-16"/>
-                      </button>
-                    </CustomTooltip>
-                    <CustomTooltip title="-1">
-                      <button
-                        disabled={disableInput}
-                        className="btn text-secondary-700"
-                        type="button"
-                        onClick={() => this.varyFocus(form, -1)}
-                      >
-                        <i className="fas fa-minus text-size-16"/>
-                      </button>
-                    </CustomTooltip>
-                  </div>
-                  <div className="flex-grow-1">
-                    <Field
-                      updateFieldOnStop
-                      enableArrowKey
-                      disabled={disableInput}
-                      name="focalLength"
-                      component={Slider}
-                      step={1}
-                      min={videoFocusSettingsSchema.focalLength.min}
-                      max={videoFocusSettingsSchema.focalLength.max}
-                    />
-                  </div>
-                  <div>
-                    <CustomTooltip title="+1">
-                      <button
-                        disabled={disableInput}
-                        className="btn text-secondary-700"
-                        type="button"
-                        onClick={() => this.varyFocus(form, 1)}
-                      >
-                        <i className="fas fa-plus text-size-16"/>
-                      </button>
-                    </CustomTooltip>
-                    <CustomTooltip title="+5">
-                      <button
-                        disabled={disableInput}
-                        className="btn text-secondary-700"
-                        type="button"
-                        onClick={() => this.varyFocus(form, 5)}
-                      >
-                        <i className="fa fa-angle-double-right text-size-16"/>
-                      </button>
-                    </CustomTooltip>
-                  </div>
-                </div>
+                <Field
+                  updateFieldOnStop
+                  enableArrowKey
+                  disabled={disableInput}
+                  name="focalLength"
+                  component={Slider}
+                  step={1}
+                  min={videoFocusSettingsSchema.focalLength.min}
+                  max={videoFocusSettingsSchema.focalLength.max}
+                />
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Zoom')}</label>
+                  <label>{i18n.t('Zoom')}</label>
                   <span className="text-primary text-size-14">{values.zoom}{('X')}</span>
                 </div>
                 <Field
@@ -476,12 +339,12 @@ module.exports = class VideoSetting extends React.PureComponent {
                   checked={values.isAutoFocusAfterZoom}
                 />
                 <label className="form-check-label" htmlFor="input-check-auto-focus-after-zoom">
-                  {_('Auto Focus after Zoom')}
+                  {i18n.t('Auto Focus after Zoom')}
                 </label>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Iris')}</label>
+                  <label>{i18n.t('Iris')}</label>
                   <Field
                     name="aperture"
                     component={Dropdown}
@@ -489,14 +352,14 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.aperture.enum.map(x => ({
                       value: x,
-                      label: _(`aperture-${x}`)
+                      label: i18n.t(`aperture-${x}`)
                     }))}
                   />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Shutter Speed')}</label>
+                  <label>{i18n.t('Shutter Speed')}</label>
                   <Field
                     name="shutterSpeed"
                     component={Dropdown}
@@ -504,7 +367,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.shutterSpeed.enum.map(x => ({
                       value: x,
-                      label: _(`shutter-speed-${x}`)
+                      label: i18n.t(`shutter-speed-${x}`)
                     }))}
                   />
                 </div>
@@ -512,19 +375,19 @@ module.exports = class VideoSetting extends React.PureComponent {
             </div>
           </div>
 
-          {/* Image Configuration */}
+          {/* Advanced */}
           <hr className="my-0"/>
           <div className="card-body pb-0">
             <h2>
               <button className="btn btn-link btn-block text-left collapsed" type="button" disabled={disableInput} data-toggle="collapse" data-target="#video">
-                <i className="fas fa-chevron-up"/>{_('Image Configuration')}
+                <i className="fas fa-chevron-up"/>{i18n.t('Advanced')}
               </button>
             </h2>
 
             <div id="video" className="collapse" data-parent="#accordion-video-properties">
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('White Balance')}</label>
+                  <label>{i18n.t('White Balance')}</label>
                   <Field
                     name="whiteblanceMode"
                     component={Dropdown}
@@ -532,7 +395,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({
                       value: x,
-                      label: _(`white-balance-${x}`)
+                      label: i18n.t(`white-balance-${x}`)
                     }))}
                   />
                 </div>
@@ -540,7 +403,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   values.whiteblanceMode === WhiteBalanceType.manual && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Color Temperature')}</label>
+                        <label>{i18n.t('Color Temperature')}</label>
                         <span className="text-primary text-size-14">{values.whiteblanceManual}</span>
                       </div>
                       <Field
@@ -557,7 +420,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('IR Control')}</label>
+                  <label>{i18n.t('IR Control')}</label>
                   <Field
                     name="irEnabled"
                     component={Dropdown}
@@ -566,7 +429,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     items={utils.capitalizeObjKeyValuePairs(IREnableType).map(
                       x => ({
                         value: x.value,
-                        label: _(x.key)
+                        label: i18n.t(x.key)
                       })
                     )}
                   />
@@ -575,7 +438,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   values.irEnabled === IREnableType.on && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Level')}</label>
+                        <label>{i18n.t('Level')}</label>
                         <span className="text-primary text-size-14">{values.irBrightness}</span>
                       </div>
                       {/* Slider step are still under review */}
@@ -593,7 +456,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
-                  <label>{_('D/N')}</label>
+                  <label>{i18n.t('Day/Night')}</label>
                   <Field
                     name="daynightMode"
                     component={Dropdown}
@@ -601,7 +464,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.daynightMode.enum.map(x => ({
                       value: x,
-                      label: _(`daynight-mode-${x}`)
+                      label: i18n.t(`daynight-mode-${x}`)
                     }))}
                   />
                 </div>
@@ -609,7 +472,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   values.daynightMode === DaynightType.auto && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Sensitivity')}</label>
+                        <label>{i18n.t('Sensitivity')}</label>
                         <span className="text-primary text-size-14">{values.sensitivity}</span>
                       </div>
                       <Field
@@ -627,7 +490,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   values.daynightMode === DaynightType.manual && (
                     <div className="well">
                       <div className="d-flex justify-content-between align-items-center">
-                        <label>{_('Day Mode')}</label>
+                        <label>{i18n.t('Day Mode')}</label>
                         <span className="text-primary text-size-14">
                           {utils.formatTimeRange(values.dnDuty)}
                         </span>
@@ -636,7 +499,6 @@ module.exports = class VideoSetting extends React.PureComponent {
                         updateFieldOnStop
                         name="dnDuty"
                         component={Slider}
-                        mode="range"
                         step={0.5}
                         min={videoSettingsSchema.timePeriodStart.min}
                         max={videoSettingsSchema.timePeriodEnd.max}
@@ -647,7 +509,7 @@ module.exports = class VideoSetting extends React.PureComponent {
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Rotation')}</label>
+                  <label>{i18n.t('Rotation')}</label>
                   <Field
                     name="orientation"
                     component={Dropdown}
@@ -655,14 +517,14 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.orientation.enum.map(x => ({
                       value: x,
-                      label: _(`orientation-${x}`)
+                      label: i18n.t(`orientation-${x}`)
                     }))}
                   />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Defog')}</label>
+                  <label>{i18n.t('Defog')}</label>
                   <Field
                     name="defoggingEnabled"
                     component={Dropdown}
@@ -670,17 +532,17 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={[{
                       value: 'true',
-                      label: _('On')
+                      label: i18n.t('On')
                     }, {
                       value: 'false',
-                      label: _('Off')
+                      label: i18n.t('Off')
                     }]}
                   />
                 </div>
               </div>
               <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center">
-                  <label>{_('Lighting Compensation Frequency (Hz)')}</label>
+                  <label>{i18n.t('Lighting Compensation Frequency (Hz)')}</label>
                   <Field
                     name="refreshRate"
                     component={Dropdown}
@@ -688,7 +550,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={videoSettingsSchema.refreshRate.enum.map(x => ({
                       value: x,
-                      label: _(`refresh-rate-${x}`)
+                      label: i18n.t(`refresh-rate-${x}`)
                     }))}
                   />
                 </div>
@@ -705,7 +567,7 @@ module.exports = class VideoSetting extends React.PureComponent {
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler()}
           >
-            {_('Reset to Default Settings')}
+            {i18n.t('Reset to Default Settings')}
           </button>
         </div>
       </Form>

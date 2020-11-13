@@ -4,12 +4,12 @@ import {getRouter} from 'capybara-router';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';
-import _ from '../../languages';
 import api from '../apis/web-api';
 import CustomNotifyModal from './custom-notify-modal';
 import CustomTooltip from './tooltip';
 import notify from '../notify';
 import utils from '../utils';
+import i18n from '../../i18n';
 
 class SearchMember extends React.PureComponent {
   static propTypes = {
@@ -100,8 +100,8 @@ class SearchMember extends React.PureComponent {
         picture: convertedPicture
       }).then(() =>
         notify.showSuccessNotification({
-          title: _('Setting Success'),
-          message: _('Added Photo to {0} Successfully!', [member.name])
+          title: i18n.t('Setting Success'),
+          message: i18n.t('Photo Has Been Added to {{0}}', {0: member.name})
         }))
         .then(getRouter().reload)
         .finally(() => this.hideApiProcessModal())
@@ -130,19 +130,26 @@ class SearchMember extends React.PureComponent {
           }}
         >
           <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying)} className="d-flex justify-content-between align-items-center">
-            <Modal.Title as="h5">{_('Add Photo To Member')}</Modal.Title>
+            <Modal.Title as="h5">{i18n.t('Add to an Existing Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="d-flex flex-row justify-content-between align-items-end mb-4 px-3">
               <div className="d-flex flex-row align-items-end">
                 <div className="event-photo">
-                  <img
-                    src={eventPictureUrl}
+                  <div
                     className={classNames(
-                      'rounded-circle',
+                      'rounded-circle thumbnail-wrapper',
                       {'failed-check': verifyStatus === false && !isVerifying && errorMessage}
                     )}
-                  />
+                    style={{
+                      width: '88px',
+                      height: '88px'
+                    }}
+                  >
+                    <div className="rounded-circle overflow-hidden circle-crop">
+                      <div className="thumbnail" style={{backgroundImage: `url('${eventPictureUrl}')`}}/>
+                    </div>
+                  </div>
                   <div className={classNames('loading-dots', {'d-none': !isVerifying})}>
                     <div className="spinner">
                       <div className="double-bounce1"/>
@@ -153,7 +160,7 @@ class SearchMember extends React.PureComponent {
                 { errorMessage && (
                   <p className="text-size-14 mb-1 text-danger validate-error-message">
                     <i className="fas fa-exclamation-triangle mr-1"/>
-                    {`${_(errorMessage)}`}
+                    {`${i18n.t(errorMessage)}`}
                   </p>
                 )}
               </div>
@@ -166,7 +173,7 @@ class SearchMember extends React.PureComponent {
                     className="px-0"
                     style={{width: '200px'}}
                   >
-                    <Field name="keyword" className="form-control" type="search" placeholder={_('Enter Keywords')}/>
+                    <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('Enter Keywords')}/>
                   </div>
                   <div className="px-0 ml-3">
                     <button
@@ -175,7 +182,7 @@ class SearchMember extends React.PureComponent {
                       // allow search during photo verification
                       disabled={isApiProcessing && !isVerifying}
                     >
-                      <i className="fas fa-search fa-fw"/> {_('Search')}
+                      <i className="fas fa-search fa-fw"/> {i18n.t('Search')}
                     </button>
                   </div>
                 </Form>
@@ -191,9 +198,9 @@ class SearchMember extends React.PureComponent {
               <table className="table custom-style mb-4" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
-                    <th style={{width: '40%'}}>{_('User Picture')}</th>
-                    <th style={{width: '40%'}}>{_('Name')}</th>
-                    <th style={{width: '20%'}}>{_('Actions')}</th>
+                    <th style={{width: '40%'}}>{i18n.t('User Picture')}</th>
+                    <th style={{width: '40%'}}>{i18n.t('Name')}</th>
+                    <th style={{width: '20%'}}>{i18n.t('Actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -202,7 +209,7 @@ class SearchMember extends React.PureComponent {
                   {!members && !isFetching && (
                     <tr>
                       <td className="text-size-16 text-center pt-3" colSpan="10">
-                        <i className="fas fa-search fa-fw"/> {_('Enter Keyword For Search')}
+                        <i className="fas fa-search fa-fw"/> {i18n.t('Enter keywords in the input field to search for members.')}
                       </td>
                     </tr>
                   )}
@@ -211,7 +218,7 @@ class SearchMember extends React.PureComponent {
                   { members && !members.items.length && members.items.length === 0 && (
                     <tr>
                       <td className="text-size-16 text-center" colSpan="10">
-                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {_('Can\'t find any data.')}
+                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('Couldn\'t find any data.')}
                       </td>
                     </tr>
                   )}
@@ -245,12 +252,12 @@ class SearchMember extends React.PureComponent {
                         <td className={classNames('text-left group-btn', tdClass)}>
                           <CustomTooltip title={
                             isVerifying ?
-                              _('Verifying Photo') :
+                              i18n.t('Verifying Photo') :
                               verifyStatus ?
                                 (member.pictures.length >= 5 ?
-                                  _('Photo Limit Reached') :
-                                  _('Add to {0}', [member.name])) :
-                                _('Invalid Photo')
+                                  i18n.t('Photo Limit of Member Database Exceeded') :
+                                  i18n.t('Add to {{0}}', {0: member.name})) :
+                                i18n.t('Invalid Photo')
                           }
                           >
                             <div>
@@ -263,7 +270,7 @@ class SearchMember extends React.PureComponent {
                                   convertedPicture
                                 })}
                               >
-                                {_('Add')}
+                                {i18n.t('Add')}
                               </button>
                             </div>
                           </CustomTooltip>
@@ -306,7 +313,7 @@ class SearchMember extends React.PureComponent {
           modalType="process"
           backdrop="static"
           isShowModal={this.state.isShowApiProcessModal}
-          modalTitle={_('Updating Member')}
+          modalTitle={i18n.t('Updating Member')}
           onHide={this.hideApiProcessModal}
         />
       </>
@@ -325,105 +332,113 @@ class Pagination extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.maxGotoIndex = Math.ceil(this.props.total / this.props.size);
+    this.maxGotoIndex = Math.ceil(props.total / props.size);
   }
 
   state = {gotoIndex: 0};
 
-   onChangeGotoIndex = event => {
-     let validateValue = event.currentTarget.value;
-     if (Number(event.currentTarget.value)) {
-       validateValue = event.currentTarget.value >= this.maxGotoIndex ?
-         this.maxGotoIndex :
-         event.currentTarget.value;
-       validateValue = validateValue < 1 ? 1 : validateValue;
-       this.setState({gotoIndex: validateValue - 1});
-     }
-   }
+  onChangeGotoIndex = event => {
+    let validateValue = event.currentTarget.value;
+    if (Number(event.currentTarget.value)) {
+      validateValue = event.currentTarget.value >= this.maxGotoIndex ?
+        this.maxGotoIndex :
+        event.currentTarget.value;
+      validateValue = validateValue < 1 ? 1 : validateValue;
+      this.setState({gotoIndex: validateValue - 1});
+    }
+  }
 
-   onKeyPress = event => {
-     if (event.charCode === 13) {
-       this.props.onSearch(this.state.gotoIndex);
-     }
-   }
+  onKeyPress = event => {
+    if (event.charCode === 13) {
+      this.props.onSearch(this.state.gotoIndex);
+    }
+  }
 
-   render() {
-     const {index, size, total, itemQuantity, onSearch} = this.props;
+  render() {
+    const {index, size, total, itemQuantity, onSearch} = this.props;
 
-     const numbers = [];
-     const hasPrevious = index > 0;
-     const hasNext = total > (index + 1) * size;
-     const startItem = (index * size) + 1;
-     const endItem = startItem + itemQuantity - 1;
-     const {gotoIndex} = this.state;
-     for (let idx = index - 3; idx < index + 3; idx += 1) {
-       if (idx < 0 || idx >= this.maxGotoIndex) {
-         continue;
-       }
+    const numbers = [];
+    const hasPrevious = index > 0;
+    const hasNext = total > (index + 1) * size;
+    const startItem = (index * size) + 1;
+    const endItem = startItem + itemQuantity - 1;
+    const {gotoIndex} = this.state;
+    for (let idx = index - 3; idx < index + 3; idx += 1) {
+      if (idx < 0 || idx >= this.maxGotoIndex) {
+        continue;
+      }
 
-       numbers.push({
-         key: `pagination-${idx}`,
-         pageNumber: idx + 1,
-         onClick: () => onSearch(idx),
-         className: classNames('page-item', {disabled: idx === index})
-       });
-     }
+      numbers.push({
+        key: `pagination-${idx}`,
+        pageNumber: idx + 1,
+        onClick: () => onSearch(idx),
+        className: classNames('page-item', {disabled: idx === index})
+      });
+    }
 
-     return (
-       <div className="col-12">
-         <nav
-           className="d-flex justify-content-center align-items-center"
-           style={{
-             padding: '0px 2px',
-             height: '36px'
-           }}
-         >
-           <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-             {_('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
-           </p>
-           <ul className="pagination my-auto">
-             <li className={classNames('page-item', {disabled: !hasPrevious})}>
-               <a className="page-link prev" tabIndex={0} onClick={() => onSearch(index - 1)}>
+    return (
+      <div className="col-12">
+        <nav
+          className="d-flex justify-content-center align-items-center"
+          style={{
+            padding: '0px 2px',
+            height: '36px'
+          }}
+        >
+          <p className="text-size-14 text-muted mb-0 mr-auto invisible">
+            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+              0: startItem,
+              1: endItem,
+              2: total
+            })}
+          </p>
+          <ul className="pagination my-auto">
+            <li className={classNames('page-item', {disabled: !hasPrevious})}>
+              <a className="page-link prev" tabIndex={0} onClick={() => onSearch(index - 1)}>
                 &laquo;
-               </a>
-             </li>
-             {
-               numbers.map(number => (
-                 <li key={number.key} className={number.className}>
-                   <a className="page-link" tabIndex={0} onClick={number.onClick}>
-                     {number.pageNumber}
-                   </a>
-                 </li>
-               ))
-             }
-             <li className={classNames('page-item', {disabled: !hasNext})}>
-               <a className="page-link next" tabIndex={0} onClick={() => onSearch(index + 1)}>
+              </a>
+            </li>
+            {
+              numbers.map(number => (
+                <li key={number.key} className={number.className}>
+                  <a className="page-link" tabIndex={0} onClick={number.onClick}>
+                    {number.pageNumber}
+                  </a>
+                </li>
+              ))
+            }
+            <li className={classNames('page-item', {disabled: !hasNext})}>
+              <a className="page-link next" tabIndex={0} onClick={() => onSearch(index + 1)}>
                 &raquo;
-               </a>
-             </li>
-             <li className="page-item">
-               <input
-                 type="number"
-                 className="page-input"
-                 min={1}
-                 max={this.maxGotoIndex}
-                 onChange={this.onChangeGotoIndex}
-                 onKeyPress={this.onKeyPress}
-               />
-             </li>
-             <li className="page-item">
-               <a className="page-link go" tabIndex={0} onClick={() => onSearch(gotoIndex)}>
+              </a>
+            </li>
+            <li className="page-item">
+              <input
+                type="number"
+                className="page-input"
+                min={1}
+                max={this.maxGotoIndex}
+                onChange={this.onChangeGotoIndex}
+                onKeyPress={this.onKeyPress}
+              />
+            </li>
+            <li className="page-item">
+              <a className="page-link go" tabIndex={0} onClick={() => onSearch(gotoIndex)}>
                 Go
-               </a>
-             </li>
-           </ul>
-           <p className="text-size-14 text-muted mb-0 ml-auto">
-             {_('{0}-{1} items. Total: {2}', [startItem, endItem, total])}
-           </p>
-         </nav>
-       </div>
-     );
-   }
+              </a>
+            </li>
+          </ul>
+          <p className="text-size-14 text-muted mb-0 ml-auto">
+            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+              0: startItem,
+              1: endItem,
+              2: total
+            })}
+          </p>
+        </nav>
+      </div>
+    );
+  }
 }
 
 export default SearchMember;

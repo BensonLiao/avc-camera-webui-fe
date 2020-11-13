@@ -22,21 +22,6 @@ exports.logout = (req, res) => {
   res.status(204).send();
 };
 
-exports.changePasswordWithBirthday = (req, res) => {
-  /*
-  POST /api/account/_change-password
-   */
-  if (req.body.account === 'admin' && req.body.birthday === '19900101') {
-    res.json({
-      id: 'id',
-      account: 'admin',
-      permission: 'admin'
-    });
-  } else {
-    throw new errors.Http400();
-  }
-};
-
 exports.changeMyPassword = (req, res) => {
   /*
   PUT /api/me/password
@@ -48,6 +33,6 @@ exports.changeMyPassword = (req, res) => {
       permission: 'admin'
     });
   } else {
-    throw new errors.Http400('incorrect password.');
+    throw new errors.Http400('Incorrect Password');
   }
 };

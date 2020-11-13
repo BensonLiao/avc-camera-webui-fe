@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const React = require('react');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const i18n = require('../../../i18n').default;
 const Loading = require('../../../core/components/loading');
 
 module.exports = class Media extends Base {
@@ -28,42 +28,42 @@ module.exports = class Media extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{_('Video')}</h2>
+          <h2>{i18n.t('Video Settings')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/media/stream"
-              title={_('Stream Settings')}
+              title={i18n.t('Streams')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.stream'})}
             >
-              {_('Stream Settings')}
+              {i18n.t('Streams')}
             </Link>
             <Link
               to="/media/rtsp"
-              title={_('RTSP')}
+              title={i18n.t('RTSP')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.rtsp'})}
             >
               RTSP
             </Link>
             <Link
               to="/media/hdmi"
-              title={_('HDMI')}
+              title={i18n.t('HDMI')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.hdmi'})}
             >
               HDMI
             </Link>
             <Link
-              to="/media/word"
-              title={_('OSD')}
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.word'})}
+              to="/media/osd"
+              title={i18n.t('OSD')}
+              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.osd'})}
             >
-              {_('OSD')}
+              {i18n.t('OSD')}
             </Link>
             <Link
               to="/media/privacy-mask"
-              title={_('Privacy Mask')}
+              title={i18n.t('Privacy Mask')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.privacy-mask'})}
             >
-              {_('Privacy Mask')}
+              {i18n.t('Privacy Mask')}
             </Link>
           </nav>
         </div>

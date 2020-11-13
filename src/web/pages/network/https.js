@@ -5,14 +5,17 @@ const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const i18n = require('../../../i18n').default;
 const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
-const {DEFAULT_PORTS} = require('../../../core/constants');
+const {DEFAULT_PORTS, NODE_SERVER_RESTART_DELAY_MS} = require('../../../core/constants');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const CustomTooltip = require('../../../core/components/tooltip');
 const SelectField = require('../../../core/components/fields/select-field');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+const ProgressIndicator = require('../../../core/components/progress-indicator').default;
+
+const infoColor = getComputedStyle(document.documentElement).getPropertyValue('--info');
 
 module.exports = class HTTPS extends Base {
   static get propTypes() {
@@ -36,7 +39,7 @@ module.exports = class HTTPS extends Base {
   constructor(props) {
     super(props);
     this.state.isShowModal = false;
-    this.state.modalBody = _('Please Redirect Manually to the New Address');
+    this.state.modalBody = i18n.t('The website has been redirected to the new address');
   }
 
   hideModal = () => {
@@ -62,7 +65,7 @@ module.exports = class HTTPS extends Base {
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
       values === httpInfo.port) {
-      return _('The specified port is reserved by system or in use!');
+      return i18n.t('The specified port is reserved by system or in use!');
     }
 
     return utils.validatedPortCheck(values);
@@ -70,12 +73,38 @@ module.exports = class HTTPS extends Base {
 
   onSubmitForm = values => {
     progress.start();
+    // Set delay time and wait for nodejs restart complete
+    // Note. this is not a reliable solution cause the waiting time may vary from different environment
     api.system.updateHttpsSettings(values)
       .then(() => {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         this.setState({
           isShowModal: true,
-          modalBody: [`${_('Please Redirect Manually to the New Address')} :`, <a key="redirect" href={newAddress}>{newAddress}</a>]
+          modalBody: [
+            `${i18n.t('The website has been redirected to the new address')} :`,
+            <div key="redirect" className="d-flex">
+              <ProgressIndicator
+                className="ml-0"
+                status="start"
+              />
+              <span style={{color: infoColor}}>{newAddress}</span>
+            </div>
+          ]
+        }, () => {
+          setTimeout(() => {
+            this.setState({
+              modalBody: [
+                `${i18n.t('The website has been redirected to the new address')} :`,
+                <div key="redirect" className="d-flex">
+                  <ProgressIndicator
+                    className="ml-0"
+                    status="done"
+                  />
+                  <a href={newAddress}>{newAddress}</a>
+                </div>
+              ]
+            });
+          }, NODE_SERVER_RESTART_DELAY_MS);
         });
       })
       .finally(progress.done);
@@ -88,17 +117,17 @@ module.exports = class HTTPS extends Base {
     return (
       <Form className="card-body">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label>HTTPS</label>
+          <label>{i18n.t('Enable HTTPS')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-enable"/>
             <label className="custom-control-label" htmlFor="switch-enable">
-              <span>{_('ON')}</span>
-              <span>{_('OFF')}</span>
+              <span>{i18n.t('ON')}</span>
+              <span>{i18n.t('OFF')}</span>
             </label>
           </div>
         </div>
         <div className="form-group">
-          <label>{_('Port')}</label>
+          <label>{i18n.t('Port')}</label>
           <Field
             name="port"
             type="text"
@@ -110,12 +139,12 @@ module.exports = class HTTPS extends Base {
               <div className="invalid-feedback">{errors.port}</div>
             )
           }
-          <p className="text-size-14 text-muted mt-2">{_('1024 - 65535, except for 5555, 8080, 8554, 17300.')}</p>
+          <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8443')}</p>
         </div>
-        <SelectField labelName={_('Certificate')} name="certificateType">
-          <option value={CertificateType.selfSigned}>{_(`certificate-type-${CertificateType.selfSigned}`)}</option>
+        <SelectField labelName={i18n.t('Certificate')} name="certificateType">
+          <option value={CertificateType.selfSigned}>{i18n.t(`certificate-type-${CertificateType.selfSigned}`)}</option>
         </SelectField>
-        <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={_('Please Enable HTTPS')}>
+        <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={i18n.t('Please enable HTTPS first.')}>
           <div>
             <button
               disabled={
@@ -127,7 +156,7 @@ module.exports = class HTTPS extends Base {
               type="submit"
               style={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false ? {pointerEvents: 'none'} : {}}
             >
-              {_('Apply')}
+              {i18n.t('Apply')}
             </button>
           </div>
         </CustomTooltip>
@@ -135,7 +164,7 @@ module.exports = class HTTPS extends Base {
           isShowAllBtns={false}
           backdrop="static"
           isShowModal={isShowModal}
-          modalTitle={_('Success')}
+          modalTitle={i18n.t('Redirection Success')}
           modalBody={modalBody}
           onConfirm={this.hideModal}
           onHide={this.hideModal}
@@ -155,12 +184,12 @@ module.exports = class HTTPS extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('Internet/Network Settings'), 'HTTPS']}
+                path={[i18n.t('Internet & Network Settings'), i18n.t('HTTPS')]}
                 routes={['/network/settings']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <div className="card-header">HTTPS</div>
+                  <div className="card-header">{i18n.t('HTTPS')}</div>
                   <Formik
                     initialValues={httpsSettings}
                     validate={validator}

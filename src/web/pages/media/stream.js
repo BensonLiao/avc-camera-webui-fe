@@ -1,13 +1,14 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const i18n = require('../../../i18n').default;
 const StreamSetting = require('./stream-setting');
-const {default: BreadCrumb} = require('../../../core/components/fields/breadcrumb');
+const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
 
 module.exports = class Stream extends Base {
   static get propTypes() {
     return {
+      systemInformation: PropTypes.shape({sensorResolution: PropTypes.number.isRequired}).isRequired,
       streamSettings: PropTypes.shape({
         channelA: PropTypes.shape({
           codec: PropTypes.string.isRequired,
@@ -31,6 +32,7 @@ module.exports = class Stream extends Base {
   }
 
   render() {
+    const {streamSettings, systemInformation} = this.props;
     return (
       <div className="main-content left-menu-active">
         <section className="section-media">
@@ -38,12 +40,12 @@ module.exports = class Stream extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[_('Video'), _('Stream Settings')]}
+                path={[i18n.t('Video Settings'), i18n.t('Streams')]}
                 routes={['/media/stream']}
               />
               <div className="col-center">
                 <div className="card shadow">
-                  <StreamSetting streamSettings={this.props.streamSettings}/>
+                  <StreamSetting streamSettings={streamSettings} systemInformation={systemInformation}/>
                 </div>
               </div>
             </div>

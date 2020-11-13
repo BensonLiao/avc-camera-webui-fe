@@ -1,49 +1,49 @@
 const FastestFormikValidator = require('./fastest-formik-validator');
-const _ = require('../../languages');
+const i18n = require('../../i18n').default;
 
 const customValidator = new FastestFormikValidator({
   messages: {
-    required: _('validation-required'),
-    string: _('validation-string'),
-    stringEmpty: _('validation-stringEmpty'),
-    stringMin: _('validation-stringMin'),
-    stringMax: _('validation-stringMax'),
-    stringLength: _('validation-stringLength'),
-    stringPattern: _('validation-stringPattern'),
-    stringContains: _('validation-stringContains'),
-    stringEnum: _('validation-stringEnum'),
-    number: _('validation-number'),
-    numberMin: _('validation-numberMin'),
-    numberMax: _('validation-numberMax'),
-    numberEqual: _('validation-numberEqual'),
-    numberNotEqual: _('validation-numberNotEqual'),
-    numberInteger: _('validation-numberInteger'),
-    numberPositive: _('validation-numberPositive'),
-    numberNegative: _('validation-numberNegative'),
-    array: _('validation-array'),
-    arrayEmpty: _('validation-arrayEmpty'),
-    arrayMin: _('validation-arrayMin'),
-    arrayMax: _('validation-arrayMax'),
-    arrayLength: _('validation-arrayLength'),
-    arrayContains: _('validation-arrayContains'),
-    arrayEnum: _('validation-arrayEnum'),
-    boolean: _('validation-boolean'),
-    function: _('validation-function'),
-    date: _('validation-date'),
-    dateMin: _('validation-dateMin'),
-    dateMax: _('validation-dateMax'),
-    forbidden: _('validation-forbidden'),
-    email: _('validation-email'),
-    url: _('validation-url'),
-    confirmEqual: 'The confirm input of \'{field}\' must be matched! Actual: {actual}, Expected: {expected}',
+    required: i18n.t('validation-required'),
+    string: i18n.t('validation-string'), // deprecated
+    stringEmpty: i18n.t('validation-stringEmpty'), // deprecated
+    stringMin: i18n.t('validation-stringMin'),
+    stringMax: i18n.t('validation-stringMax'),
+    stringLength: i18n.t('validation-stringLength'), // deprecated
+    stringPattern: i18n.t('validation-stringPattern'),
+    stringContains: i18n.t('validation-stringContains'), // deprecated
+    stringEnum: i18n.t('validation-stringEnum'), // deprecated
+    number: i18n.t('validation-number'), // deprecated
+    numberMin: i18n.t('validation-numberMin'), // deprecated
+    numberMax: i18n.t('validation-numberMax'), // deprecated
+    numberEqual: i18n.t('validation-numberEqual'), // deprecated
+    numberNotEqual: i18n.t('validation-numberNotEqual'), // deprecated
+    numberInteger: i18n.t('validation-numberInteger'), // deprecated
+    numberPositive: i18n.t('validation-numberPositive'), // deprecated
+    numberNegative: i18n.t('validation-numberNegative'), // deprecated
+    array: i18n.t('validation-array'), // deprecated
+    arrayEmpty: i18n.t('validation-arrayEmpty'), // deprecated
+    arrayMin: i18n.t('validation-arrayMin'), // deprecated
+    arrayMax: i18n.t('validation-arrayMax'), // deprecated
+    arrayLength: i18n.t('validation-arrayLength'), // deprecated
+    arrayContains: i18n.t('validation-arrayContains'), // deprecated
+    arrayEnum: i18n.t('validation-arrayEnum'), // deprecated
+    boolean: i18n.t('validation-boolean'), // deprecated
+    function: i18n.t('validation-function'), // deprecated
+    date: i18n.t('validation-date'), // deprecated
+    dateMin: i18n.t('validation-dateMin'), // deprecated
+    dateMax: i18n.t('validation-dateMax'), // deprecated
+    forbidden: i18n.t('validation-forbidden'), // deprecated
+    email: i18n.t('validation-email'), // reserved
+    url: i18n.t('validation-url'), // deprecated
+    confirmEqual: 'The confirm input of \'{field}\' must be matched! Actual: {{actual}}, Expected: {{expected}}',
 
-    stringContainsLowerCaseLatter: _('validation-stringContainsLowerCaseLatter'),
-    stringContainsUpperCaseLatter: _('validation-stringContainsUpperCaseLatter'),
-    stringContainsNumber: _('validation-stringContainsNumber'),
-    stringAbortSpecialCharacters: _('validation-stringAbortSpecialCharacters'),
-    stringAcceptSpecialCharacters: _('validation-stringAcceptSpecialCharacters'),
-    birthday: _('validation-birthday'),
-    countryCode: _('validation-countryCode')
+    stringContainsLowerCaseLatter: i18n.t('validation-stringContainsLowerCaseLatter'),
+    stringContainsUpperCaseLatter: i18n.t('validation-stringContainsUpperCaseLatter'),
+    stringContainsNumber: i18n.t('validation-stringContainsNumber'),
+    stringAbortSpecialCharacters: i18n.t('validation-stringAbortSpecialCharacters'),
+    stringAcceptSpecialCharacters: i18n.t('validation-stringAcceptSpecialCharacters'),
+    birthday: i18n.t('validation-birthday'), // deprecated
+    countryCode: i18n.t('validation-countryCode') // reserved
   }
 });
 

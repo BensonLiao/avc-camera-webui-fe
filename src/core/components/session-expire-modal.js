@@ -1,5 +1,5 @@
 const React = require('react');
-const _ = require('../../languages');
+const i18n = require('../../i18n').default;
 const api = require('../apis/web-api');
 const notify = require('../notify');
 const store = require('../store');
@@ -10,7 +10,7 @@ const constants = require('../constants');
 module.exports = class SessionExpireModal extends React.PureComponent {
   state = {
     isShowModal: false,
-    modalBody: _('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN])
+    modalBody: i18n.t('Your session has expired. You will be redirected to the login page in {{0}} second(s).', {0: constants.REDIRECT_COUNTDOWN})
   }
 
   componentDidMount() {
@@ -21,12 +21,12 @@ module.exports = class SessionExpireModal extends React.PureComponent {
           this.setState(
             {
               isShowModal: true,
-              modalBody: _('Your session has expired, redirect in {0} seconds', [constants.REDIRECT_COUNTDOWN])
+              modalBody: i18n.t('Your session has expired. You will be redirected to the login page in {{0}} second(s).', {0: constants.REDIRECT_COUNTDOWN})
             },
             () => {
               let countdown = constants.REDIRECT_COUNTDOWN;
               this.countdownID = setInterval(() => {
-                this.setState({modalBody: _('Your session has expired, redirect in {0} seconds', [--countdown])});
+                this.setState({modalBody: i18n.t('Your session has expired. You will be redirected to the login page in {{0}} second(s).', {0: --countdown})});
               }, 1000);
               this.countdownTimerID = setTimeout(() => {
                 store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);
@@ -53,9 +53,9 @@ module.exports = class SessionExpireModal extends React.PureComponent {
         modalType="info"
         backdrop="static"
         isShowModal={isShowModal}
-        modalTitle={_('Session Expired')}
+        modalTitle={i18n.t('Session Expired')}
         modalBody={modalBody}
-        confirmBtnTitle={_('Resume Session')}
+        confirmBtnTitle={i18n.t('Renew Session')}
         onConfirm={() => {
           api.account.refresh()
             .then(() => {

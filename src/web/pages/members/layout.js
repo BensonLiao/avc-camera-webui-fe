@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const React = require('react');
 const {RouterView, Link, getRouter} = require('capybara-router');
 const Base = require('../shared/base');
-const _ = require('../../../languages');
+const i18n = require('../../../i18n').default;
 const Loading = require('../../../core/components/loading');
 
 module.exports = class Users extends Base {
@@ -20,7 +20,7 @@ module.exports = class Users extends Base {
       setTimeout(() => {
         router.go({
           name: 'web.users.members',
-          params: this.props.params
+          params: props.params
         });
       });
     }
@@ -34,27 +34,27 @@ module.exports = class Users extends Base {
           <div className="nav nav-tabs w-100">
             <Link
               to="/users/members"
-              title={_('Members')}
+              title={i18n.t('Members')}
               data-toggle="tab"
               className={classNames('nav-item nav-link', {active: this.state.currentRouteName.indexOf('web.users.members') === 0})}
             >
-              {_('Members')}
+              {i18n.t('Members')}
             </Link>
             <Link
               to="/users/accounts"
-              title={_('Accounts')}
+              title={i18n.t('Accounts')}
               data-toggle="tab"
               className={classNames('nav-item nav-link', {active: this.state.currentRouteName.indexOf('web.users.accounts') === 0})}
             >
-              {_('Accounts')}
+              {i18n.t('Accounts')}
             </Link>
             <Link
               to="/users/events"
-              title={_('Events')}
+              title={i18n.t('Events')}
               data-toggle="tab"
               className={classNames('nav-item nav-link', {active: this.state.currentRouteName === 'web.users.events'})}
             >
-              {_('Events')}
+              {i18n.t('Events')}
             </Link>
           </div>
         </nav>

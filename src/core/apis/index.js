@@ -37,39 +37,45 @@ module.exports = config => {
     expiresTimer.pause();
   }
 
-  return axios(config)
-    .catch(error => {
-      if (error.response && error.response.status === 401) {
-        store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);
-        location.href = '/login';
-        return new Promise(() => {}); // Lock the promise chain.
-      }
+  return new Promise((resolve, _) => {
+    setTimeout(() => {
+      resolve();
+    }, config.delay || 0);
+  }).then(() => {
+    return axios(config)
+      .catch(error => {
+        if (error.response && error.response.status === 401) {
+          store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);
+          location.href = '/login';
+          return new Promise(() => {}); // Lock the promise chain.
+        }
 
-      if (error.response) {
+        if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        console.error('Error on Response Error Status: ', error.response);
-        notify.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
-          message: error.response.status === 400 ? error.response.data.message || null : null
-        });
-      } else if (error.request) {
+          console.error('Error on Response Error Status: ', error.response);
+          notify.showErrorNotification({
+            title: `Error ${error.response.status}` || null,
+            message: error.response.status === 400 ? error.response.data.message || null : null
+          });
+        } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
-        console.error('Error on No Response Was Received: ', error.request);
-      } else {
+          console.error('Error on No Response Was Received: ', error.request);
+        } else {
         // Something happened in setting up the request that triggered an Error
-        console.error('Error on Setting up The Request: ', error.message);
-      }
+          console.error('Error on Setting up The Request: ', error.message);
+        }
 
-      throw error;
-    })
-    .finally(() => {
-      delete _pool[id];
-      _updateApiStatus();
-      if (expiresTimer && typeof expiresTimer.resetAndResume === 'function') {
-        expiresTimer.resetAndResume();
-      }
-    });
+        throw error;
+      })
+      .finally(() => {
+        delete _pool[id];
+        _updateApiStatus();
+        if (expiresTimer && typeof expiresTimer.resetAndResume === 'function') {
+          expiresTimer.resetAndResume();
+        }
+      });
+  });
 };

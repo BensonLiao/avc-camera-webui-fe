@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Tab} from 'react-bootstrap';
 import IOType from 'webserver-form-schema/constants/io-type';
-import _ from '../../../languages';
+import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
+import {useContextState} from '../../stateProvider';
 
-const IoInput = props => {
-  const {isApiProcessing, currentTab, isEnableIoIn, ioInSettings} = props;
-
+const IoInput = ({currentTab, ioInSettings}) => {
+  const {isApiProcessing} = useContextState();
   const onSubmitIOInSettingsForm = values => {
     progress.start();
     localStorage.setItem('currentTab', currentTab);
@@ -27,42 +27,43 @@ const IoInput = props => {
     >
       {({values}) => (
         <Tab.Content>
-          <Tab.Pane eventKey="tab-input">
+          <Tab.Pane eventKey="Input">
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{_('Input')}</label>
+                <label>{i18n.t('Enable Digital Input')}</label>
                 <div className="custom-control custom-switch">
-                  <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-input"/>
+                  <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-input"/>
                   <label className="custom-control-label" htmlFor="switch-input">
-                    <span>{_('ON')}</span>
-                    <span>{_('OFF')}</span>
+                    <span>{i18n.t('ON')}</span>
+                    <span>{i18n.t('OFF')}</span>
                   </label>
                 </div>
               </div>
-              <div className={classNames('form-group', isEnableIoIn ? '' : 'd-none')}>
-                <label>{_('Type')}</label>
+              <div className={classNames('form-group')}>
+                <label>{i18n.t('Normal State')}</label>
                 <div className="d-flex align-items-center">
                   <div className="form-check">
-                    <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-open" value={IOType.normallyOpen}/>
+                    <Field disabled={!values.isEnable} name="ioType" className="form-check-input" type="radio" id="input-input-normally-open" value={IOType.normallyOpen}/>
                     <label className="form-check-label" htmlFor="input-input-normally-open">
-                      {_('Normally Open')}
+                      {i18n.t('Normally Open')}
                     </label>
                   </div>
                   <div className="form-check ml-5">
-                    <Field name="ioType" className="form-check-input" type="radio" id="input-input-normally-closed" value={IOType.normallyClosed}/>
+                    <Field disabled={!values.isEnable} name="ioType" className="form-check-input" type="radio" id="input-input-normally-closed" value={IOType.normallyClosed}/>
                     <label className="form-check-label" htmlFor="input-input-normally-closed">
-                      {_('Normally Closed')}
+                      {i18n.t('Normally Closed')}
                     </label>
                   </div>
                 </div>
               </div>
               <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-                {_('Apply')}
+                {i18n.t('Apply')}
               </button>
             </Form>
           </Tab.Pane>
         </Tab.Content>
       )}
+
     </Formik>
   );
 };
@@ -72,9 +73,7 @@ IoInput.propTypes = {
     isEnable: PropTypes.bool.isRequired,
     ioType: PropTypes.oneOf(IOType.all()).isRequired
   }).isRequired,
-  isEnableIoIn: PropTypes.bool.isRequired,
-  currentTab: PropTypes.string.isRequired,
-  isApiProcessing: PropTypes.bool.isRequired
+  currentTab: PropTypes.string.isRequired
 };
 
 export default IoInput;
