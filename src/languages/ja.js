@@ -664,7 +664,7 @@ module.exports = {
       Activate: '有効',
       Activated: '有効にしました',
       'Activation Required': '無効',
-      'Activated By': '有効にした者',
+      'Activated by': '有効にした者',
       'Authentication Key': 'ライセンスキー',
       'Activated Functions': '有効になった機能',
       'Enable Status': 'ステータス',

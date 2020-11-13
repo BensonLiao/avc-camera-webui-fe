@@ -664,7 +664,7 @@ module.exports = {
       Activate: '啟用',
       Activated: '已啟用',
       'Activation Required': '未啟用',
-      'Activated By': '啟用者',
+      'Activated by': '啟用者',
       'Authentication Key': '啟用碼',
       'Activated Functions': '啟用功能',
       'Enable Status': '狀態',

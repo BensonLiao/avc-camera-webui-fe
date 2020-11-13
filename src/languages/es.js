@@ -664,7 +664,7 @@ module.exports = {
       Activate: 'Habilitar',
       Activated: 'activado',
       'Activation Required': 'No esta activado',
-      'Activated By': 'Activar',
+      'Activated by': 'Activada por',
       'Authentication Key': 'Habilitar código',
       'Activated Functions': 'funciónes activadas',
       'Enable Status': 'estado',

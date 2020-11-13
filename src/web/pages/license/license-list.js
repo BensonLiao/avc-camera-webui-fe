@@ -11,7 +11,7 @@ const LicenseList = ({authKeys}) => {
         <tr className="shadow">
           <th/>
           <th>{i18n.t('Time')}</th>
-          <th>{i18n.t('Activated By')}</th>
+          <th>{i18n.t('Activated by')}</th>
           <th>{i18n.t('Authentication Key')}</th>
           <th>{i18n.t('Activated Functions')}</th>
           <th>{i18n.t('Enable Status')}</th>
