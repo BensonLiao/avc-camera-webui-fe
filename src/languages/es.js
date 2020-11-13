@@ -222,7 +222,7 @@ module.exports = {
       'Free: {{0}}, Total: {{1}}': '{{0}} disponible total {{1}}',
       'Enable HDR': 'Habilitar HDR',
       Adjustments: 'Atributos',
-      Brightness: 'brillo',
+      Brightness: 'Brillo',
       Contrast: 'Contraste',
       Sharpness: 'Nitidez',
       Saturation: 'Saturación',
