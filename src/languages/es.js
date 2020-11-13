@@ -763,7 +763,7 @@ module.exports = {
       Reboot: 'Reiniciar',
       'Restore to Default Settings': 'Restaurar a la configuración original de fábrica',
       Reset: 'Borrar datos',
-      Resetting: 'Está reiniciando',
+      Resetting: 'Está restaurando',
       'Export System Settings': 'Exportar configuración del sistema',
       'Import System Settings': 'Importar configuración del sistema',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán',
