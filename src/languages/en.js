@@ -518,7 +518,6 @@ module.exports = {
       'Encryption Settings': 'Encryption Settings',
       Export: 'Export',
       Import: 'Import',
-      'Updating Member Database': 'Updating Member Database',
       'Database Encryption': 'Database Encryption',
       'Current Password': 'Current Password',
       'Enter your Current password': 'Enter your Current password',

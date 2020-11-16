@@ -518,7 +518,6 @@ module.exports = {
       'Encryption Settings': '暗号化設定',
       Export: 'エクスポート',
       Import: 'インポート',
-      'Updating Member Database': 'メンバーデータベースを更新します',
       'Database Encryption': 'データベース暗号化',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
