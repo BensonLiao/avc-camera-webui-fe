@@ -68,7 +68,7 @@ module.exports = {
       'validation-required': 'Este campo es obligatorio',
       'validation-string': 'Este campo debe ser una cadena',
       'validation-stringEmpty': 'Este campo es requerido',
-      'validation-stringMin': 'Debe ingresar más caracteres {expected}',
+      'validation-stringMin': 'Debe tener al menos {expected} caracteres o más',
       'validation-stringMax': 'Debe ingresar menos caracteres {expected}',
       'validation-stringLength': 'Debe ingresar los caracteres {expected}',
       'validation-stringPattern': 'Este campo contiene caracteres no válidos.',
