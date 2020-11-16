@@ -35,7 +35,7 @@ module.exports = {
       Home: 'Página de Inicio',
       Image: 'imagen',
       Video: 'Video',
-      Audio: 'sonido',
+      Audio: 'Audio',
       Notification: 'Anunciar',
       'User Management': 'usuarios',
       Analytics: 'Análisis',
@@ -230,8 +230,8 @@ module.exports = {
       'Select Focus Type': 'Seleccionar método de enfoque',
       'Full-Range Focus': 'Enfoque de rango completo',
       'Short-Range Focus': 'Enfoque a corto rango',
-      Focus: 'Foco',
-      Zoom: 'Enfocar',
+      Focus: 'Encofar',
+      Zoom: 'Zoom',
       'Auto Focus after Zoom': 'Enfoque automático al hacer zoom',
       Iris: 'Iris',
       'Shutter Speed': 'Velocidad de obturación',
@@ -358,7 +358,7 @@ module.exports = {
       'Bottom Right': 'Inferior derecha',
       'Text Overlay': 'Texto',
       // /media/osd / Constants / Size
-      'font-size-0': 'pequeña',
+      'font-size-0': 'pequeño',
       'font-size-1': 'medio',
       'font-size-2': 'Grande',
       // /media/osd / Constants / Text Overlay
@@ -379,7 +379,7 @@ module.exports = {
       'Up to 4 mask areas can be set.': 'Hasta 4 mascarillas',
 
       // /audio
-      'Audio Title': 'sonido',
+      'Audio Title': 'Audio',
       'Enable Audio Input': 'Habilitar entrada de voz',
       'Audio Quality': 'calidad',
       'Input Source': 'Fuente de entrada',
@@ -438,8 +438,8 @@ module.exports = {
       'Output {{0}}': 'Salida digital {{0}}',
       'Enable Digital Output {{0}}': 'Habilitar la salida digital {{0}}',
       Type: 'Tipo',
-      Normal: 'general',
-      Buffer: 'buffer',
+      Normal: 'General',
+      Buffer: 'Búfer',
       'Pulse Time (seconds)': 'Tiempo de búfer de señal (segundos)',
       'Delay Time (seconds)': 'Tiempo de intervalo de retardo (segundos)',
       'Enter seconds': 'Introduzca el número de segundos',

@@ -11,10 +11,11 @@
     "stylelint": "node_modules/stylelint/bin/stylelint.js '**/*.scss'",
     "ncu": "node_modules/npm-check-updates/bin/ncu",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "//cy:i": "if you haven't install cypress yet, run cy:i before run cy/cy:prod",
     "cy:i": "npm i --no-save cypress@5.5.0 cypress-react-selector@2.2.0",
-    "//": "if you haven't install cypress yet, run cy:i before run cy/cy:prod",
     "cy": "cypress open",
-    "cy:prod": "cypress open --config baseUrl=http://localhost,integrationFolder=tests/e2e/integration/prod"
+    "//cy:prod": "example: npm run cy:prod --ip=xxx.xxx.xxx.xxx, localhost if omit the option",
+    "cy:prod": "cypress open --config baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,7 @@
     "@babel/polyfill": "7.7.0",
     "@babel/preset-env": "7.7.1",
     "@babel/preset-react": "7.7.0",
-    "@benson.liao/react-content-editable": "3.3.0",
+    "@benson.liao/react-content-editable": "3.3.1",
     "@fortawesome/fontawesome-free": "5.11.2",
     "@vvo/tzdb": "5.5.2",
     "animate.css": "3.7.2",
