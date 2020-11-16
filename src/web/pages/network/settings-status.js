@@ -45,16 +45,14 @@ const SettingsStatus = ({
   return (
     <table className="w-100">
       <tbody>
-        {list.map((value, index) => {
-          return (
-            <tr key={value.name} className="border-bottom">
-              <th className={classNames('text-size-20 pl-4 text-muted', index === 0 ? 'pb-3' : 'py-3')}>{value.name}</th>
-              <th className={classNames('text-size-20 pr-4 text-primary text-right', index === 0 ? 'pb-3' : 'py-3')}>
-                {value.data}
-              </th>
-            </tr>
-          );
-        })}
+        {list.map((value, index) => (
+          <tr key={value.name} className="border-bottom">
+            <th className={classNames('text-size-20 pl-4 text-muted', index === 0 ? 'pb-3' : 'py-3')}>{value.name}</th>
+            <th className={classNames('text-size-20 pr-4 text-primary text-right', index === 0 ? 'pb-3' : 'py-3')}>
+              {value.data}
+            </th>
+          </tr>
+        ))}
       </tbody>
     </table>
   );

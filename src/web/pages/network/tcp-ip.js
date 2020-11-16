@@ -5,8 +5,12 @@ import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import i18n from '../../../i18n';
 import TCPIPDDNS from './tcp-ip-ddns';
 import TCPIPHTTP from './tcp-ip-http';
+import {useContextState} from '../../stateProvider';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const TCPIP = ({ddnsInfo, httpInfo, httpsSettings, rtspSettings}) => {
+  const {isApiProcessing} = useContextState();
+
   return (
     <div className="main-content left-menu-active">
       <div className="page-notification">
@@ -37,9 +41,11 @@ const TCPIP = ({ddnsInfo, httpInfo, httpsSettings, rtspSettings}) => {
                   </Nav>
                   <div className="card-body">
                     <TCPIPDDNS
+                      isApiProcessing={isApiProcessing}
                       ddnsInfo={ddnsInfo}
                     />
                     <TCPIPHTTP
+                      isApiProcessing={isApiProcessing}
                       httpInfo={httpInfo}
                       rtspSettings={rtspSettings}
                       httpsSettings={httpsSettings}
@@ -62,4 +68,4 @@ TCPIP.propTypes = {
   rtspSettings: TCPIPHTTP.propTypes.rtspSettings
 };
 
-export default TCPIP;
+export default withGlobalStatus(TCPIP);

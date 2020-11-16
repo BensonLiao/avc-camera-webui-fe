@@ -99,61 +99,59 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                   validate={utils.makeFormikValidator(httpsSettingsValidator)}
                   onSubmit={onSubmitForm}
                 >
-                  {({values, errors, touched}) => {
-                    return (
-                      <Form className="card-body">
-                        <div className="form-group d-flex justify-content-between align-items-center">
-                          <label>{i18n.t('Enable HTTPS')}</label>
-                          <div className="custom-control custom-switch">
-                            <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-enable"/>
-                            <label className="custom-control-label" htmlFor="switch-enable">
-                              <span>{i18n.t('ON')}</span>
-                              <span>{i18n.t('OFF')}</span>
-                            </label>
-                          </div>
+                  {({values, errors, touched}) => (
+                    <Form className="card-body">
+                      <div className="form-group d-flex justify-content-between align-items-center">
+                        <label>{i18n.t('Enable HTTPS')}</label>
+                        <div className="custom-control custom-switch">
+                          <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-enable"/>
+                          <label className="custom-control-label" htmlFor="switch-enable">
+                            <span>{i18n.t('ON')}</span>
+                            <span>{i18n.t('OFF')}</span>
+                          </label>
                         </div>
-                        <div className="form-group">
-                          <label>{i18n.t('Port')}</label>
-                          <Field
-                            name="port"
-                            type="text"
-                            validate={checkValidatePort}
-                            className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
-                          />
-                          <ErrorMessage component="div" name="port" className="invalid-feedback"/>
-                          <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8443')}</p>
-                        </div>
-                        <SelectField labelName={i18n.t('Certificate')} name="certificateType">
-                          <option value={CertificateType.selfSigned}>{i18n.t(`certificate-type-${CertificateType.selfSigned}`)}</option>
-                        </SelectField>
-                        <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={i18n.t('Please enable HTTPS first.')}>
-                          <div>
-                            <button
-                              disabled={
-                                isApiProcessing ||
+                      </div>
+                      <div className="form-group">
+                        <label>{i18n.t('Port')}</label>
+                        <Field
+                          name="port"
+                          type="text"
+                          validate={checkValidatePort}
+                          className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
+                        />
+                        <ErrorMessage component="div" name="port" className="invalid-feedback"/>
+                        <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8443')}</p>
+                      </div>
+                      <SelectField labelName={i18n.t('Certificate')} name="certificateType">
+                        <option value={CertificateType.selfSigned}>{i18n.t(`certificate-type-${CertificateType.selfSigned}`)}</option>
+                      </SelectField>
+                      <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={i18n.t('Please enable HTTPS first.')}>
+                        <div>
+                          <button
+                            disabled={
+                              isApiProcessing ||
                                 !utils.isObjectEmpty(errors) ||
                                 ((httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false)
-                              }
-                              className="btn btn-primary btn-block rounded-pill"
-                              type="submit"
-                              style={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false ? {pointerEvents: 'none'} : {}}
-                            >
-                              {i18n.t('Apply')}
-                            </button>
-                          </div>
-                        </CustomTooltip>
-                        <CustomNotifyModal
-                          isShowAllBtns={false}
-                          backdrop="static"
-                          isShowModal={isShowModal}
-                          modalTitle={i18n.t('Redirection Success')}
-                          modalBody={modalBody}
-                          onConfirm={hideModal}
-                          onHide={hideModal}
-                        />
-                      </Form>
-                    );
-                  }}
+                            }
+                            className="btn btn-primary btn-block rounded-pill"
+                            type="submit"
+                            style={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false ? {pointerEvents: 'none'} : {}}
+                          >
+                            {i18n.t('Apply')}
+                          </button>
+                        </div>
+                      </CustomTooltip>
+                      <CustomNotifyModal
+                        isShowAllBtns={false}
+                        backdrop="static"
+                        isShowModal={isShowModal}
+                        modalTitle={i18n.t('Redirection Success')}
+                        modalBody={modalBody}
+                        onConfirm={hideModal}
+                        onHide={hideModal}
+                      />
+                    </Form>
+                  )}
                 </Formik>
               </div>
             </div>

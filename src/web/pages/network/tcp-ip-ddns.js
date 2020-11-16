@@ -8,11 +8,8 @@ import api from '../../../core/apis/web-api';
 import i18n from '../../../i18n';
 import notify from '../../../core/notify';
 import SelectField from '../../../core/components/fields/select-field';
-import {useContextState} from '../../stateProvider';
-import withGlobalStatus from '../../withGlobalStatus';
 
-const TCPIPDDNS = withGlobalStatus(({ddnsInfo}) => {
-  const {isApiProcessing} = useContextState();
+const TCPIPDDNS = ({ddnsInfo, isApiProcessing}) => {
   const onSubmitDDNSForm = values => {
     progress.start();
     api.system.updateDDNSInfo(values)
@@ -98,7 +95,7 @@ const TCPIPDDNS = withGlobalStatus(({ddnsInfo}) => {
       )}
     </Formik>
   );
-});
+};
 
 TCPIPDDNS.propTypes = {
   ddnsInfo: PropTypes.shape({
@@ -109,7 +106,8 @@ TCPIPDDNS.propTypes = {
     ddnsPassword: PropTypes.string.isRequired,
     ddnsRefreshStatus: PropTypes.bool.isRequired,
     ddnsHostStatus: PropTypes.bool.isRequired
-  }).isRequired
+  }).isRequired,
+  isApiProcessing: PropTypes.bool.isRequired
 };
 
 export default TCPIPDDNS;
