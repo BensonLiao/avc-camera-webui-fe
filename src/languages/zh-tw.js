@@ -777,6 +777,7 @@ module.exports = {
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': '請參閱安裝說明執行初始設定',
       'Device settings have imported. Please log in again.': '匯入系統設定完成，請重新登入',
       'Importing Device Settings': '匯入系統設定',
+      'Device has reset. Please log in again.': '裝置已還原，請重新登入',
 
       // /system/upgrade
       'Upload Software': '上傳軟體',

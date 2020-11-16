@@ -777,6 +777,7 @@ module.exports = {
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.',
       'Device settings have imported. Please log in again.': 'Device settings have imported. Please log in again.',
       'Importing Device Settings': 'Importing Device Settings',
+      'Device has reset. Please log in again.': 'Device has reset. Please log in again.',
 
       // /system/upgrade
       'Upload Software': 'Upload Software',

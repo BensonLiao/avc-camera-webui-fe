@@ -777,6 +777,7 @@ module.exports = {
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'クイックインストールガイドを参照して初期設定を行って下さい',
       'Device settings have imported. Please log in again.': 'デバイス設定をインポート完了再ログインして下さい',
       'Importing Device Settings': 'デバイス設定をインポート中',
+      'Device has reset. Please log in again.': 'デバイスが初期化済再ログインして下さい',
 
       // /system/upgrade
       'Upload Software': 'ソフトウェアのアップロード',

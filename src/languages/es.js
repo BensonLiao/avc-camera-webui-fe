@@ -777,6 +777,7 @@ module.exports = {
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.',
       'Device settings have imported. Please log in again.': 'La Configuración del dispositivo ha sido importada. Por favor ingrese de nuevo',
       'Importing Device Settings': 'La configuración del dispositivo están importando',
+      'Device has reset. Please log in again.': 'El dispositivo se ha sido reiniciado. Por favor ingrese de nuevo.',
 
       // /system/upgrade
       'Upload Software': 'Cargar software',
