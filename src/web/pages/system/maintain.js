@@ -138,7 +138,7 @@ module.exports = class Maintain extends Base {
                       this.hideApiProcessModal();
                       this.setState({
                         isShowFinishModal: true,
-                        finishModalTitle: i18n.t('System Reset'),
+                        finishModalTitle: i18n.t('Reset Success'),
                         finishModalBody: i18n.t('Device has reset. Please log in again.')
                       });
                     })
