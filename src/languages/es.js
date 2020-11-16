@@ -39,7 +39,7 @@ module.exports = {
       Notification: 'Anunciar',
       'User Management': 'usuarios',
       Analytics: 'Análisis',
-      Network: 'red',
+      Network: 'Red',
       System: 'sistema',
       'SD Card': 'Tarjeta de memoria',
 
