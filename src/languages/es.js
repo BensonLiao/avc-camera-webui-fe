@@ -11,13 +11,13 @@ module.exports = {
       Loading: 'Cargando',
 
       // Component / Date Picker
-      Sun: 'Dom',
-      Mon: 'Lun',
+      Sun: 'dom',
+      Mon: 'lun',
       Tue: 'mar',
-      Wed: 'Mie',
-      Thu: 'Tú',
-      Fri: 'Vie',
-      Sat: 'Sáb',
+      Wed: 'mié',
+      Thu: 'jue',
+      Fri: 'vie',
+      Sat: 'sáb',
 
       // Component / API Processing Modal
       'Please wait': 'Por favor espera',
