@@ -106,9 +106,6 @@ module.exports = {
       'validation-countryCode': 'This field must be a valid country code.',
       'This name already exists in the system. Please use a different name.': 'This name already exists in the system. Please use a different name.',
       'The port number must not be empty.': 'The port number must not be empty.',
-      'Invalid email address.': 'Invalid email address.',
-      'The maximum number of recipients is 64.': 'The maximum number of recipients is 64.',
-      'Duplicate email address.': 'Duplicate email address.',
 
       // Component / CustomTooltip
       'Hide Password': 'Hide Password',
@@ -481,6 +478,9 @@ module.exports = {
       'Face Recognition Event on [{{0}}]': 'Face Recognition Event on [{{0}}]',
       'Motion Detection Event on [{{0}}]': 'Motion Detection Event on [{{0}}]',
       'Digital Input Event on [{{0}}]': 'Digital Input Event on [{{0}}]',
+      'Invalid email address.': 'Invalid email address.',
+      'The maximum number of recipients is 64.': 'The maximum number of recipients is 64.',
+      'Duplicate email address.': 'Duplicate email address.',
       // /notification/card (AVN)
       'Video Management System': 'Video Management System',
       // /notification/card / Constants / VMS (AVN)

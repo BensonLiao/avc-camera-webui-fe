@@ -106,9 +106,6 @@ module.exports = {
       'validation-countryCode': '国コードが間違っています',
       'This name already exists in the system. Please use a different name.': '名前が重複しました、他の名前に設定してください',
       'The port number must not be empty.': 'この項目の入力は必須です',
-      'Invalid email address.': '無効なメールアドレス',
-      'The maximum number of recipients is 64.': '最大受信者数：64',
-      'Duplicate email address.': '重複するメールアドレス',
 
       // Component / CustomTooltip
       'Hide Password': 'パスワードを非表示する',
@@ -481,6 +478,9 @@ module.exports = {
       'Face Recognition Event on [{{0}}]': '顔認証イベント [{{0}}]',
       'Motion Detection Event on [{{0}}]': '動体検知イベント [{{0}}]',
       'Digital Input Event on [{{0}}]': 'デジタル入力イベント [{{0}}]',
+      'Invalid email address.': '無効なメールアドレス',
+      'The maximum number of recipients is 64.': '最大受信者数：64',
+      'Duplicate email address.': '重複するメールアドレス',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)

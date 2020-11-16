@@ -106,9 +106,6 @@ module.exports = {
       'validation-countryCode': 'El código de país es incorrecto',
       'This name already exists in the system. Please use a different name.': 'Nombre duplicado, por favorutilice un nombre diferente',
       'The port number must not be empty.': 'El campo no debe estar vacío',
-      'Invalid email address.': 'La dirección de correo electrónico inválida',
-      'The maximum number of recipients is 64.': 'El número máximo de destinatarios es 64',
-      'Duplicate email address.': 'El correo electrónico esta duplicado',
 
       // Component / CustomTooltip
       'Hide Password': 'Contraseña oculta',
@@ -481,6 +478,9 @@ module.exports = {
       'Face Recognition Event on [{{0}}]': 'Evento de reconocimiento facial [{{0}}]',
       'Motion Detection Event on [{{0}}]': 'Evento de detección de movimiento [{{0}}]',
       'Digital Input Event on [{{0}}]': 'Evento de entrada digital [{{0}}]',
+      'Invalid email address.': 'La dirección de correo electrónico inválida',
+      'The maximum number of recipients is 64.': 'El número máximo de destinatarios es 64',
+      'Duplicate email address.': 'El correo electrónico esta duplicado',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)

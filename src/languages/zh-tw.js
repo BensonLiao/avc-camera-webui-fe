@@ -106,9 +106,6 @@ module.exports = {
       'validation-countryCode': '國家代碼錯誤',
       'This name already exists in the system. Please use a different name.': '名稱重複，請使用不同名稱',
       'The port number must not be empty.': '此欄位必需輸入',
-      'Invalid email address.': '不符合格式要求',
-      'The maximum number of recipients is 64.': 'The maximum number of recipients is 64.',
-      'Duplicate email address.': 'Duplicate email address.',
 
       // Component / CustomTooltip
       'Hide Password': '隱藏密碼',
@@ -481,6 +478,9 @@ module.exports = {
       'Face Recognition Event on [{{0}}]': '臉部辨識事件 [{{0}}]',
       'Motion Detection Event on [{{0}}]': '移動偵測事件 [{{0}}]',
       'Digital Input Event on [{{0}}]': '數位輸入事件 [{{0}}]',
+      'Invalid email address.': '不符合格式要求',
+      'The maximum number of recipients is 64.': 'The maximum number of recipients is 64.',
+      'Duplicate email address.': 'Duplicate email address.',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
