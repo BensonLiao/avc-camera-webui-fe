@@ -44,7 +44,7 @@ module.exports = {
       'SD Card': 'Tarjeta de memoria',
 
       // Component / App Bar
-      About: 'soporte',
+      About: 'Soporte',
       'Model Name': 'Nombre del dispositivo',
       Software: 'Versión del software',
       'Serial Number': 'Número de serie del dispositivo',
