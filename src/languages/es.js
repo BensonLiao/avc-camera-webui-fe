@@ -37,7 +37,7 @@ module.exports = {
       Video: 'Video',
       Audio: 'Audio',
       Notification: 'Anunciar',
-      'User Management': 'usuarios',
+      'User Management': 'Usuarios',
       Analytics: 'Análisis',
       Network: 'Red',
       System: 'sistema',
