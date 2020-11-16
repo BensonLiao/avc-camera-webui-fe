@@ -451,7 +451,7 @@ module.exports = {
       Others: 'Otros',
       'Unpin Card': 'Desanclar Pin Card',
       'Pin this card': 'Parte superior',
-      'Enter card title': 'Ingrese el nombre de la tarjeta de notificación',
+      'Enter card title': 'Introducir el titulo',
       'Email: On': 'Correo electrónico: Habilitado',
       'Output: On': 'Salida digital: Habilitado',
       'VMS: On': '影像管理系統(VMS): 開',
