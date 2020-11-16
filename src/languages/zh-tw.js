@@ -106,6 +106,9 @@ module.exports = {
       'validation-countryCode': '國家代碼錯誤',
       'This name already exists in the system. Please use a different name.': '名稱重複，請使用不同名稱',
       'The port number must not be empty.': '此欄位必需輸入',
+      'Invalid email address.': '不符合格式要求',
+      'The maximum number of recipients is 64.': 'The maximum number of recipients is 64.',
+      'Duplicate email address.': 'Duplicate email address.',
 
       // Component / CustomTooltip
       'Hide Password': '隱藏密碼',

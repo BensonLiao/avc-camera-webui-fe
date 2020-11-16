@@ -106,6 +106,9 @@ module.exports = {
       'validation-countryCode': 'El código de país es incorrecto',
       'This name already exists in the system. Please use a different name.': 'Nombre duplicado, por favorutilice un nombre diferente',
       'The port number must not be empty.': 'El campo no debe estar vacío',
+      'Invalid email address.': 'La dirección de correo electrónico inválida',
+      'The maximum number of recipients is 64.': 'El número máximo de destinatarios es 64',
+      'Duplicate email address.': 'El correo electrónico esta duplicado',
 
       // Component / CustomTooltip
       'Hide Password': 'Contraseña oculta',
