@@ -108,7 +108,7 @@ module.exports = {
       'The port number must not be empty.': 'El campo no debe estar vacío',
 
       // Component / CustomTooltip
-      'Hide Password': 'Contraseña oculta',
+      'Hide Password': 'Ocultar contraseña',
       'Show Password': 'mostrar contraseña',
       'Please select a file first.': 'Seleccione primero un archivo',
       // CustomTooltip / /notification/cards
