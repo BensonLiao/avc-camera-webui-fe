@@ -61,7 +61,7 @@ module.exports = {
       'Device Help': 'Ayuda para el uso del dispositivo',
       'Technical Support': 'Buzón de preguntas técnicas',
       'Product Information': 'Otras informaciones de producto',
-      'Sign Out': 'Desconectar',
+      'Sign Out': 'Cerrar sesión',
 
       // Compoenet / Input / Validations
       'These passwords didn\'t match.': 'Estas contraseñas no coinciden',
