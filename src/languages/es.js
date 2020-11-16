@@ -783,7 +783,7 @@ module.exports = {
       'Reset Success': 'Restablecer Existosa',
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.',
       'Device settings have imported. Please log in again.': 'La Configuración del dispositivo ha sido importada. Por favor ingrese de nuevo',
-      'Importing Device Settings': 'La configuración del dispositivo están  importando',
+      'Importing Device Settings': 'La configuración del dispositivo están importando',
 
       // /system/upgrade
       'Upload Software': 'Cargar software',
