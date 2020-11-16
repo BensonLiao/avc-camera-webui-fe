@@ -24,7 +24,7 @@ module.exports = {
 
       // Component / Session Expired Modal
       'Session Expired': 'Automáticamente Cerrar Sesión',
-      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': 'El tiempo de inactividad es demasiado largo, cierre sesión después de {{0}} segundos y redirija a la página de inicio de sesión.',
+      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': 'El tiemppo de inactividad es demasiado largo, se cerrará la sesión en {{0}} segundos y se le redirigirá a la página de inicio.',
       'Renew Session': 'Renovar Sesión',
 
       // Component / Switch component
