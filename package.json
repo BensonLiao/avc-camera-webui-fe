@@ -14,7 +14,7 @@
     "cy:i": "npm i --no-save cypress@5.5.0 cypress-react-selector@2.2.0",
     "//": "if you haven't install cypress yet, run cy:i before run cy/cy:prod",
     "cy": "cypress open",
-    "cy:prod": "cypress open --config baseUrl=http://localhost,integrationFolder=tests/e2e/integration/prod"
+    "cy:prod": "cypress open --config baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod"
   },
   "repository": {
     "type": "git",
