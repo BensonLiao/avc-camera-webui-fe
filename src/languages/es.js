@@ -518,7 +518,6 @@ module.exports = {
       'Encryption Settings': 'Configuración de cifrado',
       Export: 'Exportar',
       Import: 'Importar',
-      'Updating Member Database': 'Actualizar perfil de Usuarios',
       'Database Encryption': 'Cifrado de base de datos',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
