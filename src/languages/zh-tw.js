@@ -575,6 +575,7 @@ module.exports = {
       'N/A': '無',
       'Are you sure you want to close this window? All changes you have made will be lost.': '關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？',
       'Photo size should be less than 90 KB.': '照片大小不可以超過90 KB',
+      'No photo uploaded.': '必須上傳主照片',
       Save: '儲存',
       'Change Photo': '更換照片',
 

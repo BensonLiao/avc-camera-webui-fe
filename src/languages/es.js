@@ -575,6 +575,7 @@ module.exports = {
       'N/A': 'ninguno',
       'Are you sure you want to close this window? All changes you have made will be lost.': 'Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?',
       'Photo size should be less than 90 KB.': 'El tamaño de la foto no puede superar los 90KB',
+      'No photo uploaded.': 'Una foto es requirida',
       Save: 'Salvar',
       'Change Photo': 'Cambiar foto',
 
