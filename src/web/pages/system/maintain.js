@@ -190,7 +190,7 @@ module.exports = class Maintain extends Base {
                     this.setState({
                       isShowFinishModal: true,
                       finishModalTitle: i18n.t('Import System Settings'),
-                      finishModalBody: i18n.t('Device settings has imported. Please log in again.')
+                      finishModalBody: i18n.t('Device settings have imported. Please log in again.')
                     });
                   })
                   .catch(() => {

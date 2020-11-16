@@ -782,6 +782,7 @@ module.exports = {
       'The device has rebooted. Please log in again.': 'デバイスは再起動しましたため、再度ログインしてください',
       'Reset Success': '初期化完了',
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'クイックインストールガイドを参照して初期設定を行って下さい',
+      'Device settings have imported. Please log in again.': 'デバイス設定をインポート完了再ログインして下さい',
 
       // /system/upgrade
       'Upload Software': 'ソフトウェアのアップロード',

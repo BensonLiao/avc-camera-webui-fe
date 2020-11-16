@@ -782,6 +782,7 @@ module.exports = {
       'The device has rebooted. Please log in again.': 'El dispositivo se reinició, inicie la sesión nuevamente',
       'Reset Success': 'Restablecer Existosa',
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.',
+      'Device settings have imported. Please log in again.': 'La Configuración del dispositivo ha sido importada. Por favor ingrese de nuevo',
 
       // /system/upgrade
       'Upload Software': 'Cargar software',

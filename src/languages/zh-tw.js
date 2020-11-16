@@ -782,6 +782,7 @@ module.exports = {
       'The device has rebooted. Please log in again.': '裝置已重新啟動，請重新登入',
       'Reset Success': '重設成功',
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': '請參閱安裝說明執行初始設定',
+      'Device settings have imported. Please log in again.': '匯入系統設定完成，請重新登入',
 
       // /system/upgrade
       'Upload Software': '上傳軟體',
