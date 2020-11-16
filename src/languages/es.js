@@ -59,7 +59,7 @@ module.exports = {
 
       // Component / App Bar / Support
       'Device Help': 'Ayuda para el uso del dispositivo',
-      'Technical Support': 'Buzón de preguntas técnicas',
+      'Technical Support': 'Apoyo técnico',
       'Product Information': 'Otras informaciones de producto',
       'Sign Out': 'Cerrar sesión',
 
