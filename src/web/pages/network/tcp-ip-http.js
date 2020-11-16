@@ -7,6 +7,7 @@ import {Tab} from 'react-bootstrap';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import i18n from '../../../i18n';
+import httpSettingsValidator from '../../validations/network/http-settings-validator';
 import {DEFAULT_PORTS, NODE_SERVER_RESTART_DELAY_MS} from '../../../core/constants';
 import ProgressIndicator from '../../../core/components/progress-indicator';
 import utils from '../../../core/utils';
@@ -100,6 +101,7 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
     <>
       <Formik
         initialValues={httpInfo}
+        validate={utils.makeFormikValidator(httpSettingsValidator)}
         onSubmit={onSubmitHTTPForm}
       >
         {({values, errors, touched}) => (

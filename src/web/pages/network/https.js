@@ -10,6 +10,7 @@ import api from '../../../core/apis/web-api';
 import {DEFAULT_PORTS, NODE_SERVER_RESTART_DELAY_MS} from '../../../core/constants';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
+import httpsSettingsValidator from '../../validations/network/https-settings-validator';
 import SelectField from '../../../core/components/fields/select-field';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import ProgressIndicator from '../../../core/components/progress-indicator';
@@ -95,6 +96,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                 <div className="card-header">{i18n.t('HTTPS')}</div>
                 <Formik
                   initialValues={httpsSettings}
+                  validate={utils.makeFormikValidator(httpsSettingsValidator)}
                   onSubmit={onSubmitForm}
                 >
                   {({values, errors, touched}) => (
