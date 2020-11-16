@@ -768,6 +768,7 @@ module.exports = {
       'Restore to Default Settings': '設定を初期値に戻す',
       Reset: '初期化',
       Resetting: '初期化',
+      'System Reset': '初期化完了',
       'Export System Settings': 'システム設定ファイルをエクスポートする',
       'Import System Settings': 'システム設定ファイルをインポートする',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます',

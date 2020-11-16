@@ -768,6 +768,7 @@ module.exports = {
       'Restore to Default Settings': '還原成原廠設定',
       Reset: '清除資料',
       Resetting: '清除資料中',
+      'System Reset': '還原成原廠設定',
       'Export System Settings': '匯出系統設定值',
       'Import System Settings': '匯入系統設定值',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': '裝置將還原成原廠設定，所有資料和設定將會被清除',

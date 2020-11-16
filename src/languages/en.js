@@ -768,6 +768,7 @@ module.exports = {
       'Restore to Default Settings': 'Restore to Default Settings',
       Reset: 'Reset',
       Resetting: 'Resetting',
+      'System Reset': 'System Reset',
       'Export System Settings': 'Export System Settings',
       'Import System Settings': 'Import System Settings',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.',
