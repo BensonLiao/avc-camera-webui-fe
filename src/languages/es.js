@@ -23,7 +23,7 @@ module.exports = {
       'Please wait': 'Por favor espera',
 
       // Component / Session Expired Modal
-      'Session Expired': 'Automáticamente Cerrar Sesión',
+      'Session Expired': 'Cerrar sesión automáticamente',
       'Your session has expired. You will be redirected to the login page in {{0}} second(s).': 'El tiemppo de inactividad es demasiado largo, se cerrará la sesión en {{0}} segundos y se le redirigirá a la página de inicio.',
       'Renew Session': 'Renovar Sesión',
 
