@@ -11,13 +11,7 @@ module.exports = {
       Loading: 'Loading',
 
       // Component / Date Picker
-      Sun: 'Sun',
-      Mon: 'Mon',
-      Tue: 'Tue',
-      Wed: 'Wed',
-      Thu: 'Thu',
-      Fri: 'Fri',
-      Sat: 'Sat',
+      /* Follow date.js weekday min format */
 
       // Component / API Processing Modal
       'Please wait': 'Please wait',
