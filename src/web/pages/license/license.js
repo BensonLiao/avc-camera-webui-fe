@@ -91,7 +91,7 @@ const License = ({
               <Formik
                 initialValues={{authKey: ''}}
                 validateOnBlur={false}
-                validate={utils.makeFormikValidator(authKeyValidator)}
+                validate={authKeyValidator}
                 onSubmit={onSubmit}
               >
                 {({errors}) => {

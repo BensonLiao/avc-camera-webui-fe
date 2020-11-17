@@ -7,7 +7,6 @@ import SMTPPort from 'webserver-form-schema/constants/smtp-port';
 import i18n from '../../../i18n';
 import smtpAccountSettingsValidator from '../../validations/notifications/smtp-account-settings-validator';
 import Password from '../../../core/components/fields/password';
-import utils from '../../../core/utils';
 import PropTypes from 'prop-types';
 
 const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSettingsForm, setIsShowAccountModal}) => {
@@ -17,7 +16,7 @@ const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSetti
         <h5 className="modal-title">{i18n.t('SMTP Logon Settings')}</h5>
       </div>
       <Formik
-        validate={utils.makeFormikValidator(smtpAccountSettingsValidator)}
+        validate={smtpAccountSettingsValidator}
         initialValues={accountSettings}
         onSubmit={onSubmitAccountSettingsForm}
       >

@@ -98,7 +98,7 @@ const Group = ({group, groups, params}) => {
     >
       <Formik
         initialValues={initialValues}
-        validate={utils.makeFormikValidator(groupValidator)}
+        validate={groupValidator}
         onSubmit={onSubmitGroupForm}
       >
         {({errors, touched}) => {

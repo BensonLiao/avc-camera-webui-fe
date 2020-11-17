@@ -96,7 +96,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                 <div className="card-header">{i18n.t('HTTPS')}</div>
                 <Formik
                   initialValues={httpsSettings}
-                  validate={utils.makeFormikValidator(httpsSettingsValidator)}
+                  validate={httpsSettingsValidator}
                   onSubmit={onSubmitForm}
                 >
                   {({values, errors, touched}) => (

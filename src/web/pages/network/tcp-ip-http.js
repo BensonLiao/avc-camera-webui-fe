@@ -101,7 +101,7 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
     <>
       <Formik
         initialValues={httpInfo}
-        validate={utils.makeFormikValidator(httpSettingsValidator)}
+        validate={httpSettingsValidator}
         onSubmit={onSubmitHTTPForm}
       >
         {({values, errors, touched}) => (

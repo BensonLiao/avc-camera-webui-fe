@@ -13,7 +13,6 @@ import CustomTooltip from '../../../core/components/tooltip';
 import databaseEncryptionValidator from '../../validations/members/database-encryption-validator';
 import iconLock from '../../../resource/lock-24px.svg';
 import Password from '../../../core/components/fields/password';
-import utils from '../../../core/utils';
 import wrappedApi from '../../../core/apis';
 
 const MembersDatabase = ({isApiProcessing}) => {
@@ -172,7 +171,7 @@ const MembersDatabase = ({isApiProcessing}) => {
       >
         <Formik
           initialValues={databaseInitialValues}
-          validate={utils.makeFormikValidator(databaseEncryptionValidator, ['newPassword', 'confirmPassword'])}
+          validate={databaseEncryptionValidator}
           onSubmit={onSubmitDatabaseEncryptionForm}
         >
           {({errors, touched}) => (

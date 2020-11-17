@@ -4,7 +4,6 @@ import React from 'react';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import smtpSettingsValidator from '../../validations/notifications/smtp-settings-validator';
-import utils from '../../../core/utils';
 import {useContextState} from '../../stateProvider';
 import PropTypes from 'prop-types';
 import SMTPPort from 'webserver-form-schema/constants/smtp-port';
@@ -15,7 +14,7 @@ const SMTPSettings = ({smtpSettings, setIsShowAccountModal, onSubmitSMTPSettings
   return (
     <Formik
       initialValues={smtpSettings}
-      validate={utils.makeFormikValidator(smtpSettingsValidator)}
+      validate={smtpSettingsValidator}
       onSubmit={onSubmitSMTPSettingsForm}
     >
       {({values, errors, touched}) => {
