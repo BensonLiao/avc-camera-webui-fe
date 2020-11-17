@@ -10,7 +10,7 @@ import i18n from '../../../i18n';
 import notify from '../../../core/notify';
 import withGlobalStatus from '../../withGlobalStatus';
 import SMTPAccountSettings from './smtp-account-settings';
-import SMTPSMTPSettings from './smtp-smtp-settings';
+import SMTPSettings from './smtp-settings';
 
 const SMTP = ({smtpSettings}) => {
   const [isShowModal, setIsShowAccountModal] = useState(false);
@@ -56,7 +56,7 @@ const SMTP = ({smtpSettings}) => {
               routes={['/notification/smtp', '/notification/smtp']}
             />
             <div className="col-center">
-              <SMTPSMTPSettings
+              <SMTPSettings
                 smtpSettings={smtpSettings}
                 setIsShowAccountModal={setIsShowAccountModal}
                 onSubmitSMTPSettingsForm={onSubmitSMTPSettingsForm}

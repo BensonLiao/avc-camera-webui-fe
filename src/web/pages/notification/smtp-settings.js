@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import SMTPPort from 'webserver-form-schema/constants/smtp-port';
 import SMTPEncryptionType from 'webserver-form-schema/constants/smtp-encryption-type';
 
-const SMTPSMTPSettings = ({smtpSettings, setIsShowAccountModal, onSubmitSMTPSettingsForm}) => {
+const SMTPSettings = ({smtpSettings, setIsShowAccountModal, onSubmitSMTPSettingsForm}) => {
   const {isApiProcessing} = useContextState();
   return (
     <Formik
@@ -144,7 +144,7 @@ const SMTPSMTPSettings = ({smtpSettings, setIsShowAccountModal, onSubmitSMTPSett
   );
 };
 
-SMTPSMTPSettings.propTypes = {
+SMTPSettings.propTypes = {
   smtpSettings: PropTypes.shape({
     encryption: PropTypes.oneOf(SMTPEncryptionType.all()),
     host: PropTypes.string.isRequired,
@@ -161,4 +161,4 @@ SMTPSMTPSettings.propTypes = {
   setIsShowAccountModal: PropTypes.func.isRequired
 };
 
-export default SMTPSMTPSettings;
+export default SMTPSettings;
