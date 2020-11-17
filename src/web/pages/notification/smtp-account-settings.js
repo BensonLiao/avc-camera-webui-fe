@@ -50,22 +50,14 @@ const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSetti
                 <div className="form-group">
                   <label>{i18n.t('Port')}</label>
                   <div className="d-flex align-items-center">
-                    <div className="form-check">
-                      <Field name="port" className="form-check-input" type="radio" id="input-port-25" value={SMTPPort['25']}/>
-                      <label className="form-check-label" htmlFor="input-port-25">25</label>
-                    </div>
-                    <div className="form-check ml-5">
-                      <Field name="port" className="form-check-input" type="radio" id="input-port-465" value={SMTPPort['465']}/>
-                      <label className="form-check-label" htmlFor="input-port-465">465</label>
-                    </div>
-                    <div className="form-check ml-5">
-                      <Field name="port" className="form-check-input" type="radio" id="input-port-587" value={SMTPPort['587']}/>
-                      <label className="form-check-label" htmlFor="input-port-587">587</label>
-                    </div>
-                    <div className="form-check ml-5">
-                      <Field name="port" className="form-check-input" type="radio" id="input-port-2525" value={SMTPPort['2525']}/>
-                      <label className="form-check-label" htmlFor="input-port-2525">2525</label>
-                    </div>
+                    {
+                      ['25', '465', '587', '2525'].map((port, index) => (
+                        <div key={port} className={classNames('form-check', {'ml-5': index !== 0})}>
+                          <Field name="port" className="form-check-input" type="radio" id={`input-port-${port}`} value={SMTPPort[port]}/>
+                          <label className="form-check-label" htmlFor={`input-port-${port}`}>{port}</label>
+                        </div>
+                      ))
+                    }
                   </div>
                 </div>
                 <div className="form-group">
