@@ -306,32 +306,6 @@ exports.setDefaultLanguage = languageCode => {
   Cookies.set(window.config.cookies.language, languageCode, {expires: 30});
 };
 
-/**
- * Convert the fastest-validator validator for Formik.
- * @param {Function} validator
- * @param {Array<String>} passwordFields Make sure the confirm password and the password are equal.
- * @returns {Function} inner function `validator`.
- * @param {Object} values field value to be validate.
- * @returns {Object} validate results.
- */
-exports.makeFormikValidator = (validator, passwordFields) => values => {
-  const result = {};
-  const checkResult = validator(values);
-
-  if (passwordFields && values[passwordFields[0]] !== values[passwordFields[1]]) {
-    result[passwordFields[1]] = i18n.t('These passwords didn\'t match.');
-  }
-
-  if (checkResult === true) {
-    return result;
-  }
-
-  checkResult.forEach(item => {
-    result[item.field] = item.message;
-  });
-  return result;
-};
-
 exports.renderError = error => {
   getRouter().renderError(error);
   try {
@@ -342,9 +316,7 @@ exports.renderError = error => {
 };
 
 exports.validateStreamBitRate = () => values => {
-  let result;
-  result = validator.validate({bitRate: values}, {bitRate: StreamSettingsSchema.channelA.props.bitRate});
-  return (result === true ? '' : result[0].message);
+  return validator.validateField({bitRate: values}, {bitRate: StreamSettingsSchema.channelA.props.bitRate});
 };
 
 /**

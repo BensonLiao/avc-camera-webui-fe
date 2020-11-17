@@ -167,7 +167,7 @@ module.exports = class RTSP extends Base {
                   </div>
                   <Formik
                     initialValues={rtspSettings}
-                    validate={utils.makeFormikValidator(rtspSettingsValidator)}
+                    validate={rtspSettingsValidator}
                     onSubmit={this.onSubmitRTSPSettingsForm}
                   >
                     {this.rtspSettingsFormRender}

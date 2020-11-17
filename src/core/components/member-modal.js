@@ -835,7 +835,7 @@ module.exports = class Member extends React.PureComponent {
         <Formik
           enableReinitialize
           initialValues={this.generateInitialValue(member)}
-          validate={utils.makeFormikValidator(MemberValidator)}
+          validate={MemberValidator}
           onSubmit={this.onSubmitForm}
         >
           {this.formRender}

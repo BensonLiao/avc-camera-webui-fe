@@ -8,7 +8,6 @@ const UserPermission = require('webserver-form-schema/constants/user-permission'
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const Base = require('./shared/base');
 const i18n = require('../../i18n').default;
-const utils = require('../../core/utils');
 const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
 const {DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
@@ -202,7 +201,7 @@ module.exports = class Home extends Base {
                           <td className="align-top">
                             <Formik
                               initialValues={{deviceName: deviceName}}
-                              validate={utils.makeFormikValidator(deviceNameValidator)}
+                              validate={deviceNameValidator}
                               onSubmit={this.onSubmitDeviceNameForm}
                             >
                               {this.deviceNameFormRender}
