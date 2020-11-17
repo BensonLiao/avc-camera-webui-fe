@@ -63,18 +63,14 @@ const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSetti
                 <div className="form-group">
                   <label>{i18n.t('Encryption')}</label>
                   <div className="d-flex align-items-center">
-                    <div className="form-check">
-                      <Field name="encryption" className="form-check-input" type="radio" id="input-encryption-none" value={SMTPEncryptionType.none}/>
-                      <label className="form-check-label" htmlFor="input-encryption-none">{i18n.t('None')}</label>
-                    </div>
-                    <div className="form-check ml-5">
-                      <Field name="encryption" className="form-check-input" type="radio" id="input-encryption-ssl" value={SMTPEncryptionType.ssl}/>
-                      <label className="form-check-label" htmlFor="input-encryption-ssl">SSL</label>
-                    </div>
-                    <div className="form-check ml-5">
-                      <Field name="encryption" className="form-check-input" type="radio" id="input-encryption-tls" value={SMTPEncryptionType.tls}/>
-                      <label className="form-check-label" htmlFor="input-encryption-tls">TLS</label>
-                    </div>
+                    {
+                      ['none', 'ssl', 'tls'].map((type, index) => (
+                        <div key={type} className={classNames('form-check', {'ml-5': index !== 0})}>
+                          <Field name="encryption" className="form-check-input" type="radio" id={`input-encryption-${type}`} value={SMTPEncryptionType[type]}/>
+                          <label className="form-check-label" htmlFor={`input-encryption-${type}`}>{i18n.t(type)}</label>
+                        </div>
+                      ))
+                    }
                   </div>
                 </div>
               </div>
