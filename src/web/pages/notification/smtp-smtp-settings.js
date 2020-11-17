@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import SMTPPort from 'webserver-form-schema/constants/smtp-port';
 import SMTPEncryptionType from 'webserver-form-schema/constants/smtp-encryption-type';
 
-const SMTPSMTPSettings = ({smtpSettings, onShowAccountSettingsModal, onSubmitSMTPSettingsForm}) => {
+const SMTPSMTPSettings = ({smtpSettings, setIsShowAccountModal, onSubmitSMTPSettingsForm}) => {
   const {isApiProcessing} = useContextState();
   return (
     <Formik
@@ -70,7 +70,7 @@ const SMTPSMTPSettings = ({smtpSettings, onShowAccountSettingsModal, onSubmitSMT
                           className={classNames('mr-2', {'disable-link': !isEnableAuth})}
                           onClick={event => {
                             event.preventDefault();
-                            return isEnableAuth && onShowAccountSettingsModal();
+                            return isEnableAuth && setIsShowAccountModal(true);
                           }}
                         >
                           {i18n.t('Edit')}
@@ -158,7 +158,7 @@ SMTPSMTPSettings.propTypes = {
     isEnableAuth: PropTypes.bool.isRequired
   }).isRequired,
   onSubmitSMTPSettingsForm: PropTypes.func.isRequired,
-  onShowAccountSettingsModal: PropTypes.func.isRequired
+  setIsShowAccountModal: PropTypes.func.isRequired
 };
 
 export default SMTPSMTPSettings;

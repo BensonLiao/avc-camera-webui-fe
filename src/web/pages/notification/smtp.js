@@ -13,7 +13,7 @@ import SMTPAccountSettings from './smtp-account-settings';
 import SMTPSMTPSettings from './smtp-smtp-settings';
 
 const SMTP = ({smtpSettings}) => {
-  const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowModal, setIsShowAccountModal] = useState(false);
 
   const generateAccountSettingsInitialValues = settings => ({
     account: settings.account,
@@ -24,13 +24,9 @@ const SMTP = ({smtpSettings}) => {
 
   const [accountSettings, setAccountSettings] = useState(generateAccountSettingsInitialValues(smtpSettings));
 
-  const onShowAccountSettingsModal = () => setIsShowModal(true);
-
-  const onHideAccountSettingsModal = () => setIsShowModal(false);
-
   const onSubmitAccountSettingsForm = values => {
     setAccountSettings(values);
-    onHideAccountSettingsModal();
+    setIsShowAccountModal(false);
   };
 
   const onSubmitSMTPSettingsForm = values => {
@@ -62,7 +58,7 @@ const SMTP = ({smtpSettings}) => {
             <div className="col-center">
               <SMTPSMTPSettings
                 smtpSettings={smtpSettings}
-                onShowAccountSettingsModal={onShowAccountSettingsModal}
+                setIsShowAccountModal={setIsShowAccountModal}
                 onSubmitSMTPSettingsForm={onSubmitSMTPSettingsForm}
               />
             </div>
@@ -71,9 +67,8 @@ const SMTP = ({smtpSettings}) => {
         <SMTPAccountSettings
           isShowModal={isShowModal}
           accountSettings={accountSettings}
+          setIsShowAccountModal={setIsShowAccountModal}
           onSubmitAccountSettingsForm={onSubmitAccountSettingsForm}
-          onShowAccountSettingsModal={onShowAccountSettingsModal}
-          onHideAccountSettingsModal={onHideAccountSettingsModal}
         />
       </div>
     </div>

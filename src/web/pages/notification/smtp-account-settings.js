@@ -10,9 +10,9 @@ import Password from '../../../core/components/fields/password';
 import utils from '../../../core/utils';
 import PropTypes from 'prop-types';
 
-const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSettingsForm, onHideAccountSettingsModal}) => {
+const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSettingsForm, setIsShowAccountModal}) => {
   return (
-    <Modal autoFocus={false} show={isShowModal} onHide={onHideAccountSettingsModal}>
+    <Modal autoFocus={false} show={isShowModal} onHide={() => setIsShowAccountModal(false)}>
       <div className="modal-header">
         <h5 className="modal-title">{i18n.t('SMTP Logon Settings')}</h5>
       </div>
@@ -92,7 +92,7 @@ const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSetti
                     {i18n.t('Apply')}
                   </button>
                 </div>
-                <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={onHideAccountSettingsModal}>
+                <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={() => setIsShowAccountModal(false)}>
                   {i18n.t('Close')}
                 </button>
               </div>
@@ -106,7 +106,7 @@ const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSetti
 SMTPAccountSettings.propTypes = {
   accountSettings: PropTypes.shape({}).isRequired,
   isShowModal: PropTypes.bool.isRequired,
-  onHideAccountSettingsModal: PropTypes.func.isRequired,
+  setIsShowAccountModal: PropTypes.func.isRequired,
   onSubmitAccountSettingsForm: PropTypes.func.isRequired
 };
 
