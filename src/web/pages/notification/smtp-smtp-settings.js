@@ -12,25 +12,14 @@ import SMTPEncryptionType from 'webserver-form-schema/constants/smtp-encryption-
 
 const SMTPSMTPSettings = ({smtpSettings, onShowAccountSettingsModal, onSubmitSMTPSettingsForm}) => {
   const {isApiProcessing} = useContextState();
-
-  const generateSMTPSettingsInitialValues = settings => ({
-    host: settings.host,
-    senderName: settings.senderName,
-    senderEmail: settings.senderEmail,
-    interval: settings.interval,
-    isEnableLoginNotification: settings.isEnableLoginNotification,
-    isEnableAuth: settings.isEnableAuth
-  });
-
   return (
     <Formik
-      initialValues={generateSMTPSettingsInitialValues(smtpSettings)}
+      initialValues={smtpSettings}
       validate={utils.makeFormikValidator(smtpSettingsValidator)}
       onSubmit={onSubmitSMTPSettingsForm}
     >
       {({values, errors, touched}) => {
         const {isEnableAuth} = values;
-
         return (
           <Form className="card shadow">
             <div className="card-header">
