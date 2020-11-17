@@ -11,10 +11,11 @@
     "stylelint": "node_modules/stylelint/bin/stylelint.js '**/*.scss'",
     "ncu": "node_modules/npm-check-updates/bin/ncu",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "//cy:i": "if you haven't install cypress yet, run cy:i before run cy/cy:prod",
     "cy:i": "npm i --no-save cypress@5.5.0 cypress-react-selector@2.2.0",
-    "//": "if you haven't install cypress yet, run cy:i before run cy/cy:prod",
     "cy": "cypress open",
-    "cy:prod": "cypress open --config baseUrl=http://localhost,integrationFolder=tests/e2e/integration/prod"
+    "//cy:prod": "example: npm run cy:prod --ip=xxx.xxx.xxx.xxx, localhost if omit the option",
+    "cy:prod": "cypress open --config baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod"
   },
   "repository": {
     "type": "git",
@@ -90,7 +91,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#9707a9c05fee61f54dfc1fed31b90e0607fd6bb7"
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#ad5b68cc81fb485db558c1ded43bfa1f784a099a"
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",
