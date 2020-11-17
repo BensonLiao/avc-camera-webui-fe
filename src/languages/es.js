@@ -629,7 +629,7 @@ module.exports = {
       'Analytics Settings': 'Análisis inteligente',
       'Enable Facial Recognition': 'Habilitar reconocimiento facial',
       'Enable Anti-Image Spoof': 'Habilitar anti-disfraz de imagen',
-      'Level of Accuracy': 'éxito de identificación de Límite',
+      'Level of Accuracy': 'Nivel de exactitud',
       'Detection Zone': 'Área de activación',
       'Show/Hide Detection Zone': 'Mostrar o ocultar área',
       'The default is the whole live view screen.': 'El valor predeterminado es pantalla completa',
