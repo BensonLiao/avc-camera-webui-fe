@@ -61,15 +61,15 @@ const SMTP = ({smtpSettings}) => {
                 setIsShowAccountModal={setIsShowAccountModal}
                 onSubmitSMTPSettingsForm={onSubmitSMTPSettingsForm}
               />
+              <SMTPAccountSettings
+                isShowModal={isShowModal}
+                accountSettings={accountSettings}
+                setIsShowAccountModal={setIsShowAccountModal}
+                onSubmitAccountSettingsForm={onSubmitAccountSettingsForm}
+              />
             </div>
           </div>
         </div>
-        <SMTPAccountSettings
-          isShowModal={isShowModal}
-          accountSettings={accountSettings}
-          setIsShowAccountModal={setIsShowAccountModal}
-          onSubmitAccountSettingsForm={onSubmitAccountSettingsForm}
-        />
       </div>
     </div>
   );
