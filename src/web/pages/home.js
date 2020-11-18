@@ -4,13 +4,14 @@ const {getRouter} = require('capybara-router');
 const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
+const DeviceNameSchema = require('webserver-form-schema/device-name-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const Base = require('./shared/base');
 const i18n = require('../../i18n').default;
 const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
-const {DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
+const {SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
 const VolumeProgressBar = require('../../core/components/volume-progress-bar').default;
 const LiveView = require('../../core/components/live-view');
@@ -130,7 +131,7 @@ module.exports = class Home extends Base {
         <Field
           name="deviceName"
           type="text"
-          maxLength={DEVICE_NAME_CHAR_MAX}
+          maxLength={DeviceNameSchema.deviceName.max}
           className={classNames('form-control', {'is-invalid': errors.deviceName})}
           onBlur={this.onBlurDeviceNameForm}
         />
