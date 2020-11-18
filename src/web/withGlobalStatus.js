@@ -80,8 +80,14 @@ const withGlobalStatus = WrappedComponent => {
 
     render() {
       const isApiProcessing = store.get('$isApiProcessing');
+      const user = store.get('$user');
+
       return (
-        <StateProvider initialState={{isApiProcessing}}>
+        <StateProvider initialState={{
+          isApiProcessing,
+          user
+        }}
+        >
           <WrappedComponent
             {...{
               $listens: this.$listens,
