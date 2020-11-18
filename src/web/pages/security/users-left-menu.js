@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import {Link} from 'capybara-router';
-import iconUsers from '../../../resource/users-24px.svg';
+import React from 'react';
+import i18n from '../../../i18n';
 import iconUser from '../../../resource/user-24px.svg';
+import iconUsers from '../../../resource/users-24px.svg';
 import iconUserShield from '../../../resource/user-shield-24px.svg';
 import UserPermission from 'webserver-form-schema/constants/user-permission';
-import i18n from '../../../i18n';
 
 const UsersLeftMenu = ({permissionFilter, generateChangePermissionFilterHandler}) => {
   return (

@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import progress from 'nprogress';
+import React, {useState} from 'react';
 import {RouterView, Link, getRouter} from 'capybara-router';
 import UserPermission from 'webserver-form-schema/constants/user-permission';
-import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
+import i18n from '../../../i18n';
 import {useContextState} from '../../stateProvider';
 
 const UsersMainContent = ({isAddUserDisabled, users, params}) => {

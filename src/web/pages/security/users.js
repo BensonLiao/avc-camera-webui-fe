@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import React, {useState} from 'react';
 import UserPermission from 'webserver-form-schema/constants/user-permission';
 import {SECURITY_USERS_MAX} from '../../../core/constants';
-import withGlobalStatus from '../../withGlobalStatus';
 import UsersLeftMenu from './users-left-menu';
 import UsersMainContent from './users-main-content';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const Users = ({users: usersProp}) => {
   const [permissionFilter, setPermissionFilter] = useState('all');
