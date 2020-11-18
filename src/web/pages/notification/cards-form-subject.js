@@ -143,6 +143,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    name="senderSubject"
                    type="text"
                    className="form-control"
+                   maxLength={NotificationCardSchema.senderSubject.max}
                    placeholder={i18n.t('Specify the subject')}
                  />
                </div>
@@ -152,6 +153,7 @@ module.exports = class CardsFormSubject extends React.PureComponent {
                    name="senderContent"
                    type="text"
                    className="form-control"
+                   maxLength={NotificationCardSchema.senderContent.max}
                    placeholder={i18n.t('Add your message')}
                  />
                </div>
