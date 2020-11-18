@@ -124,14 +124,14 @@ module.exports = class Home extends Base {
     }
   };
 
-  deviceNameFormRender = ({errors, touched}) => {
+  deviceNameFormRender = ({errors}) => {
     return (
       <Form className="form-group">
         <Field
           name="deviceName"
           type="text"
           maxLength={DEVICE_NAME_CHAR_MAX}
-          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}
+          className={classNames('form-control', {'is-invalid': errors.deviceName})}
           onBlur={this.onBlurDeviceNameForm}
         />
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
