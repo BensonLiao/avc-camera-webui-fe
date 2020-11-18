@@ -1,29 +1,26 @@
-const React = require('react');
-const {getRouter} = require('capybara-router');
-const progress = require('nprogress');
-const logo = require('../../../resource/logo-avc-secondary.svg');
-const setupStep01 = require('../../../resource/setup-step-01.png');
-const i18n = require('../../../i18n').default;
+import React from 'react';
+import {getRouter} from 'capybara-router';
+import progress from 'nprogress';
+import logo from '../../../resource/logo-avc-secondary.svg';
+import setupStep01 from '../../../resource/setup-step-01.png';
+import i18n from '../../../i18n';
+import store from '../../../core/store';
+import utils from '../../../core/utils';
+import ProgressBar from './progress-bar';
+import withGlobalStatus from '../../withGlobalStatus';
+import {useContextState} from '../../stateProvider';
 
-const Base = require('../shared/base');
-const store = require('../../../core/store');
-const utils = require('../../../core/utils');
-const ProgressBar = require('./progress-bar').default;
+const SetupLanguage = () => {
+  const {isApiProcessing} = useContextState();
 
-module.exports = class SetupLanguage extends Base {
-  constructor(props) {
-    super(props);
-    this.state.languageCode = store.get('$setup').language;
-  }
-
-  onChangeLanguage = event => {
+  const onChangeLanguage = event => {
     event.preventDefault();
     progress.start();
     utils.setDefaultLanguage(event.target.value);
     location.reload();
-  }
+  };
 
-  onSubmit = event => {
+  const onSubmit = event => {
     event.preventDefault();
     const $setup = store.get('$setup');
     $setup.language = window.currentLanguageCode;
@@ -31,46 +28,46 @@ module.exports = class SetupLanguage extends Base {
     getRouter().go('/setup/account');
   };
 
-  render() {
-    return (
-      <div className="page-setup-language bg-secondary">
-        <div className="navbar primary">
-          { !window.isNoBrand &&
-          <img src={logo}/>}
-        </div>
-        <div className="container-fluid">
-          <div className="row justify-content-center">
-            <div className="col-card">
-              <form className="card shadow mb-5">
-                <div className="card-body">
-                  <ProgressBar
-                    hasPreviousPage={false}
-                    step={1}
-                    progressBarImage={setupStep01}
-                  />
-                  <div className="form-group">
-                    <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-                      <select name="language" value={window.currentLanguageCode} className="form-control border-0" onChange={this.onChangeLanguage}>
-                        {
-                          Object.keys(i18n.options.langCodesTitle).map(code => (
-                            <option key={code} value={code}>
-                              {i18n.options.langCodesTitle[code].title}
-                            </option>
-                          ))
-                        }
-                      </select>
-                    </div>
+  return (
+    <div className="page-setup-language bg-secondary">
+      <div className="navbar primary">
+        { !window.isNoBrand &&
+        <img src={logo}/>}
+      </div>
+      <div className="container-fluid">
+        <div className="row justify-content-center">
+          <div className="col-card">
+            <form className="card shadow mb-5">
+              <div className="card-body">
+                <ProgressBar
+                  hasPreviousPage={false}
+                  step={1}
+                  progressBarImage={setupStep01}
+                />
+                <div className="form-group">
+                  <div className="select-wrapper border rounded-pill overflow-hidden px-2">
+                    <select name="language" value={window.currentLanguageCode} className="form-control border-0" onChange={onChangeLanguage}>
+                      {
+                        Object.keys(i18n.options.langCodesTitle).map(code => (
+                          <option key={code} value={code}>
+                            {i18n.options.langCodesTitle[code].title}
+                          </option>
+                        ))
+                      }
+                    </select>
                   </div>
-
-                  <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill" onClick={this.onSubmit}>
-                    {i18n.t('Next')}
-                  </button>
                 </div>
-              </form>
-            </div>
+
+                <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill" onClick={onSubmit}>
+                  {i18n.t('Next')}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
+
+export default withGlobalStatus(SetupLanguage);
