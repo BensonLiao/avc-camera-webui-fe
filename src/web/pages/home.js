@@ -15,7 +15,6 @@ const {SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
 const VolumeProgressBar = require('../../core/components/volume-progress-bar').default;
 const LiveView = require('../../core/components/live-view');
-
 module.exports = class Home extends Base {
   static get propTypes() {
     return {
@@ -133,8 +132,13 @@ module.exports = class Home extends Base {
           type="text"
           maxLength={DeviceNameSchema.deviceName.max}
           className={classNames('form-control', {'is-invalid': errors.deviceName})}
-          onBlur={this.onBlurDeviceNameForm}
+          onBlur={errors.deviceName ? null : this.onBlurDeviceNameForm}
         />
+        {
+          errors.deviceName && (
+            <div className="invalid-feedback">{errors.deviceName}</div>
+          )
+        }
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
     );
