@@ -1,17 +1,17 @@
+import classNames from 'classnames';
+import {Formik, Form, Field} from 'formik';
+import {Link, getRouter} from 'capybara-router';
+import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import classNames from 'classnames';
-import {Link, getRouter} from 'capybara-router';
-import {Formik, Form, Field} from 'formik';
+import api from '../../../core/apis/web-api';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import CustomTooltip from '../../../core/components/tooltip';
 import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
 import {SD_STATUS_LIST} from '../../../core/constants';
-import CustomNotifyModal from '../../../core/components/custom-notify-modal';
-import CustomTooltip from '../../../core/components/tooltip';
-import VolumeProgressBar from '../../../core/components/volume-progress-bar';
 import {useContextState} from '../../stateProvider';
-import progress from 'nprogress';
-import api from '../../../core/apis/web-api';
+import VolumeProgressBar from '../../../core/components/volume-progress-bar';
 
 const SDCardSettings = ({
   systemInformation,

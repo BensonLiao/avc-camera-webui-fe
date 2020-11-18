@@ -1,8 +1,8 @@
 import React from 'react';
-import i18n from '../../../i18n';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
-import withGlobalStatus from '../../withGlobalStatus';
+import i18n from '../../../i18n';
 import SDCardSettings from './sd-card-settings';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const SDCard = ({systemInformation, smtpSettings}) => {
   return (
