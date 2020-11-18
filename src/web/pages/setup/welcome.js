@@ -1,9 +1,9 @@
-import React from 'react';
 import {Link} from 'capybara-router';
-import logo from '../../../resource/logo-avc-secondary.svg';
-import smileWinkSolid from '../../../resource/smile-wink-solid.svg';
+import React from 'react';
 import i18n from '../../../i18n';
+import logo from '../../../resource/logo-avc-secondary.svg';
 import Once from '../../../core/components/one-time-render';
+import smileWinkSolid from '../../../resource/smile-wink-solid.svg';
 
 const Welcome = () => {
   return (

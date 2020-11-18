@@ -1,14 +1,14 @@
-import React from 'react';
 import {getRouter} from 'capybara-router';
 import progress from 'nprogress';
-import logo from '../../../resource/logo-avc-secondary.svg';
-import setupStep01 from '../../../resource/setup-step-01.png';
+import React from 'react';
 import i18n from '../../../i18n';
-import store from '../../../core/store';
-import utils from '../../../core/utils';
+import logo from '../../../resource/logo-avc-secondary.svg';
 import ProgressBar from './progress-bar';
-import withGlobalStatus from '../../withGlobalStatus';
+import setupStep01 from '../../../resource/setup-step-01.png';
+import store from '../../../core/store';
 import {useContextState} from '../../stateProvider';
+import utils from '../../../core/utils';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const SetupLanguage = () => {
   const {isApiProcessing} = useContextState();

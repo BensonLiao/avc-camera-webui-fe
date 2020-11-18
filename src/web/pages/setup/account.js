@@ -1,20 +1,20 @@
 import classNames from 'classnames';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import progress from 'nprogress';
 import React from 'react';
-import {Formik, Form, Field, ErrorMessage} from 'formik';
-import UserSchema from 'webserver-form-schema/user-schema';
 import UserPermission from 'webserver-form-schema/constants/user-permission';
-import logo from '../../../resource/logo-avc-secondary.svg';
-import setupStep02 from '../../../resource/setup-step-02.png';
+import UserSchema from 'webserver-form-schema/user-schema';
 import api from '../../../core/apis/web-api';
 import i18n from '../../../i18n';
+import logo from '../../../resource/logo-avc-secondary.svg';
 import Password from '../../../core/components/fields/password';
-import store from '../../../core/store';
-import setupAccountValidator from '../../validations/setup/account-validator';
-import utils from '../../../core/utils';
 import ProgressBar from './progress-bar';
-import withGlobalStatus from '../../withGlobalStatus';
+import setupAccountValidator from '../../validations/setup/account-validator';
+import setupStep02 from '../../../resource/setup-step-02.png';
+import store from '../../../core/store';
 import {useContextState} from '../../stateProvider';
+import utils from '../../../core/utils';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const SetupAccount = () => {
   const {isApiProcessing} = useContextState();
