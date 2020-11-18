@@ -212,6 +212,18 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
               toggleIsTopHandler={toggleIsTopHandler}
               deleteCardHandler={deleteCardHandler}
             />
+            <CardsForm
+              groups={groups}
+              cardDetails={cardDetails}
+              modelName={modelName}
+              isApiProcessing={isApiProcessing}
+              isShowCardDetailsModal={isShowCardDetailsModal}
+              isTop={isTop}
+              toggleIsTop={toggleIsTop}
+              sanitizeInput={sanitizeInput}
+              onHideCardModal={onHideCardModal}
+              onSubmit={onSubmitCardForm}
+            />
             <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
               <CustomTooltip title={i18n.t('Add a New Notification Card')}>
                 <button
@@ -225,18 +237,6 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
               </CustomTooltip>
             </div>
           </div>
-          <CardsForm
-            groups={groups}
-            cardDetails={cardDetails}
-            modelName={modelName}
-            isApiProcessing={isApiProcessing}
-            isShowCardDetailsModal={isShowCardDetailsModal}
-            isTop={isTop}
-            toggleIsTop={toggleIsTop}
-            sanitizeInput={sanitizeInput}
-            onHideCardModal={onHideCardModal}
-            onSubmit={onSubmitCardForm}
-          />
         </div>
       </div>
     </>
