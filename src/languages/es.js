@@ -94,7 +94,8 @@ module.exports = {
       'validation-dateMin': 'Debe ser una fecha posterior a {expected}',
       'validation-dateMax': 'Debe ser una fecha anterior a {expected}',
       'validation-forbidden': 'Campo escondido',
-      'validation-email': 'Utilice el formato de correo electrónico correcto',
+      // same content as key `Invalid email address.` in /notification/cards
+      'validation-email': 'La dirección de correo electrónico inválida',
       'validation-url': 'Utilice el formato de URL correcto',
       'validation-birthday': 'Utilice el formato de cumpleaños correcto',
       'validation-countryCode': 'El código de país es incorrecto',

@@ -94,7 +94,8 @@ module.exports = {
       'validation-dateMin': 'This field must be greater than or equal to {expected}.',
       'validation-dateMax': 'This field must be less than or equal to {expected}.',
       'validation-forbidden': 'This field is inactive.',
-      'validation-email': 'This field must be a valid email.',
+      // same content as key `Invalid email address.` in /notification/cards
+      'validation-email': 'Invalid email address.',
       'validation-url': 'This field must be a valid URL.',
       'validation-birthday': 'This field must be a valid birthday.',
       'validation-countryCode': 'This field must be a valid country code.',

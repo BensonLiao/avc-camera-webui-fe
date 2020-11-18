@@ -94,7 +94,8 @@ module.exports = {
       'validation-dateMin': '{expected}以降の日付を入力してください',
       'validation-dateMax': '{expected}以前の日付を入力してください',
       'validation-forbidden': '項目を非表示する',
-      'validation-email': '正しいメールアドレスを入力してください',
+      // same content as key `Invalid email address.` in /notification/cards
+      'validation-email': '無効なメールアドレス',
       'validation-url': '正しいURLを入力してください,',
       'validation-birthday': '正しい生年月日を入力してください',
       'validation-countryCode': '国コードが間違っています',

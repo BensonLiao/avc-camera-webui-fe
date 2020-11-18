@@ -94,7 +94,8 @@ module.exports = {
       'validation-dateMin': '必須為{expected}以後的日期',
       'validation-dateMax': '必須為{expected}以前的日期',
       'validation-forbidden': '隱藏欄位',
-      'validation-email': '請使用正確的電子信箱格式',
+      // same content as key `Invalid email address.` in /notification/cards
+      'validation-email': '不符合格式要求',
       'validation-url': '請使用正確的網址格式',
       'validation-birthday': '請使用正確的生日格式',
       'validation-countryCode': '國家代碼錯誤',
@@ -473,8 +474,8 @@ module.exports = {
       'Motion Detection Event on [{{0}}]': '移動偵測事件 [{{0}}]',
       'Digital Input Event on [{{0}}]': '數位輸入事件 [{{0}}]',
       'Invalid email address.': '不符合格式要求',
-      'The maximum number of recipients is 64.': 'The maximum number of recipients is 64.',
-      'Duplicate email address.': 'Duplicate email address.',
+      'The maximum number of recipients is 64.': '已達數量限制',
+      'Duplicate email address.': '重複的電子郵件地址',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
