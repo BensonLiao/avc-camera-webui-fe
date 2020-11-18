@@ -94,7 +94,8 @@ module.exports = {
       'validation-dateMin': '必須為{expected}以後的日期',
       'validation-dateMax': '必須為{expected}以前的日期',
       'validation-forbidden': '隱藏欄位',
-      'validation-email': '請使用正確的電子信箱格式',
+      // same content as key `Invalid email address.` in /notification/cards
+      'validation-email': '不符合格式要求',
       'validation-url': '請使用正確的網址格式',
       'validation-birthday': '請使用正確的生日格式',
       'validation-countryCode': '國家代碼錯誤',
