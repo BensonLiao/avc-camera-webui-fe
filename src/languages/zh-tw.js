@@ -473,8 +473,8 @@ module.exports = {
       'Motion Detection Event on [{{0}}]': '移動偵測事件 [{{0}}]',
       'Digital Input Event on [{{0}}]': '數位輸入事件 [{{0}}]',
       'Invalid email address.': '不符合格式要求',
-      'The maximum number of recipients is 64.': 'The maximum number of recipients is 64.',
-      'Duplicate email address.': 'Duplicate email address.',
+      'The maximum number of recipients is 64.': '已達數量限制',
+      'Duplicate email address.': '重複的電子郵件地址',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
