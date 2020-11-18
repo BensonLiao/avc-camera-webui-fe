@@ -248,7 +248,6 @@ const MembersDatabase = ({isApiProcessing}) => {
         backdrop="static"
         isShowModal={isShowApiProcessModal}
         modalTitle={apiProcessModalTitle}
-        modalBody={i18n.t('Updating Member Database')}
         onHide={hideApiProcessModal}
       />
     </>

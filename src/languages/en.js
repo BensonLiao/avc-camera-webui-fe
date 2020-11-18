@@ -11,13 +11,7 @@ module.exports = {
       Loading: 'Loading',
 
       // Component / Date Picker
-      Sun: 'Sun',
-      Mon: 'Mon',
-      Tue: 'Tue',
-      Wed: 'Wed',
-      Thu: 'Thu',
-      Fri: 'Fri',
-      Sat: 'Sat',
+      /* Follow date.js weekday min format */
 
       // Component / API Processing Modal
       'Please wait': 'Please wait',
@@ -478,6 +472,9 @@ module.exports = {
       'Face Recognition Event on [{{0}}]': 'Face Recognition Event on [{{0}}]',
       'Motion Detection Event on [{{0}}]': 'Motion Detection Event on [{{0}}]',
       'Digital Input Event on [{{0}}]': 'Digital Input Event on [{{0}}]',
+      'Invalid email address.': 'Invalid email address.',
+      'The maximum number of recipients is 64.': 'The maximum number of recipients is 64.',
+      'Duplicate email address.': 'Duplicate email address.',
       // /notification/card (AVN)
       'Video Management System': 'Video Management System',
       // /notification/card / Constants / VMS (AVN)
@@ -515,7 +512,6 @@ module.exports = {
       'Encryption Settings': 'Encryption Settings',
       Export: 'Export',
       Import: 'Import',
-      'Updating Member Database': 'Updating Member Database',
       'Database Encryption': 'Database Encryption',
       'Current Password': 'Current Password',
       'Enter your Current password': 'Enter your Current password',
@@ -572,6 +568,7 @@ module.exports = {
       'N/A': 'N/A',
       'Are you sure you want to close this window? All changes you have made will be lost.': 'Are you sure you want to close this window? All changes you have made will be lost.',
       'Photo size should be less than 90 KB.': 'Photo size should be less than 90 KB.',
+      'No photo uploaded.': 'No photo uploaded.',
       Save: 'Save',
       'Change Photo': 'Change Photo',
 
@@ -664,7 +661,7 @@ module.exports = {
       Activate: 'Activate',
       Activated: 'Activated',
       'Activation Required': 'Activation Required',
-      'Activated By': 'Activated By',
+      'Activated by': 'Activated by',
       'Authentication Key': 'Authentication Key',
       'Activated Functions': 'Activated Functions',
       'Enable Status': 'Enable Status',
@@ -764,6 +761,7 @@ module.exports = {
       'Restore to Default Settings': 'Restore to Default Settings',
       Reset: 'Reset',
       Resetting: 'Resetting',
+      'System Reset': 'System Reset',
       'Export System Settings': 'Export System Settings',
       'Import System Settings': 'Import System Settings',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.',
@@ -777,6 +775,9 @@ module.exports = {
       'The device has rebooted. Please log in again.': 'The device has rebooted. Please log in again.',
       'Reset Success': 'Reset Success',
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.',
+      'Device settings have imported. Please log in again.': 'Device settings have imported. Please log in again.',
+      'Importing Device Settings': 'Importing Device Settings',
+      'Device has reset. Please log in again.': 'Device has reset. Please log in again.',
 
       // /system/upgrade
       'Upload Software': 'Upload Software',

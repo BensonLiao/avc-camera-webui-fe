@@ -6,7 +6,6 @@ const {Nav, Tab} = require('react-bootstrap');
 const Overlay = require('react-bootstrap/Overlay').default;
 const dayjs = require('dayjs');
 const utils = require('../../utils');
-const i18n = require('../../../i18n').default;
 
 const CLOCK_ITEM_HEIGHT = 40;
 
@@ -634,13 +633,13 @@ module.exports = class DatePicker extends React.PureComponent {
         <table>
           <thead>
             <tr>
-              <th>{i18n.t('Sun')}</th>
-              <th>{i18n.t('Mon')}</th>
-              <th>{i18n.t('Tue')}</th>
-              <th>{i18n.t('Wed')}</th>
-              <th>{i18n.t('Thu')}</th>
-              <th>{i18n.t('Fri')}</th>
-              <th>{i18n.t('Sat')}</th>
+              {
+                [0, 1, 2, 3, 4, 5, 6].map(weekday => {
+                  return (
+                    <th key={weekday}>{dayjs().day(weekday).format('dd').replace(/\.$/, '')}</th>
+                  );
+                })
+              }
             </tr>
           </thead>
           <tbody>
