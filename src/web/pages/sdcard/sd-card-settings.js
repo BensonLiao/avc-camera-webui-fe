@@ -26,7 +26,6 @@ const SDCardSettings = ({
 }) => {
   const [state, setState] = useState({
     sdEnabled: null,
-    file: null,
     showSelectModal: {
       isShowFormatModal: false,
       isShowUnmountModal: false,
