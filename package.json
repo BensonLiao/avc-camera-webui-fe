@@ -91,7 +91,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#0271961c032c16f85701ef379ea20083636aca36"
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#2f4d0a65f476c925b7b127698f4e90376d2cd933"
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",
