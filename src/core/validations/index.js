@@ -1,7 +1,7 @@
-const Validator = require('fastest-validator');
+const FastestFormikValidator = require('./fastest-formik-validator');
 const i18n = require('../../i18n').default;
 
-exports.validator = new Validator({
+const customValidator = new FastestFormikValidator({
   messages: {
     required: i18n.t('validation-required'),
     string: i18n.t('validation-string'), // deprecated
@@ -35,6 +35,7 @@ exports.validator = new Validator({
     forbidden: i18n.t('validation-forbidden'), // deprecated
     email: i18n.t('validation-email'), // reserved
     url: i18n.t('validation-url'), // deprecated
+    confirmEqual: i18n.t('These passwords didn\'t match.'),
 
     stringContainsLowerCaseLatter: i18n.t('validation-stringContainsLowerCaseLatter'),
     stringContainsUpperCaseLatter: i18n.t('validation-stringContainsUpperCaseLatter'),
@@ -45,3 +46,17 @@ exports.validator = new Validator({
     countryCode: i18n.t('validation-countryCode') // reserved
   }
 });
+
+customValidator.add('confirmEqual', (value, schema, currentFieldName, fullObjectValue) => {
+  if (!schema.field) {
+    throw Error(`type '${schema.type}' must specific a field to compare with.`);
+  }
+
+  if (value !== fullObjectValue[schema.field]) {
+    return this.validator.makeError('confirmEqual');
+  }
+
+  return true;
+});
+
+exports.validator = customValidator;

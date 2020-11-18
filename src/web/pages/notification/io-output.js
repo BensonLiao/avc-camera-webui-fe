@@ -11,7 +11,6 @@ import NotificationIOOutSchema from 'webserver-form-schema/notification-io-out-s
 import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import ioOutSettingsValidator from '../../validations/notifications/io-out-settings-validator';
-import utils from '../../../core/utils';
 import {useContextState} from '../../stateProvider';
 
 const IoOutput = ({currentTab, index, ioOutSettings}) => {
@@ -27,7 +26,7 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
   return (
     <Formik
       initialValues={ioOutSettings}
-      validate={utils.makeFormikValidator(ioOutSettingsValidator)}
+      validate={ioOutSettingsValidator}
       onSubmit={generateIOOutSettingsSubmitHandler(index)}
     >
       {({values, errors, touched}) => (

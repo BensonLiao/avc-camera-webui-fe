@@ -486,7 +486,7 @@ module.exports = class Member extends React.PureComponent {
     // Output error message if primary photo is missing
     if (!avatarList.Primary.avatarPreviewStyle.croppedImage) {
       const updateErrorMessage = update(this.state,
-        {avatarList: {Primary: {errorMessage: {$set: `${i18n.t('Photo is required')}`}}}});
+        {avatarList: {Primary: {errorMessage: {$set: `${i18n.t('No photo uploaded.')}`}}}});
       this.setState(updateErrorMessage);
       return;
     }
@@ -835,7 +835,7 @@ module.exports = class Member extends React.PureComponent {
         <Formik
           enableReinitialize
           initialValues={this.generateInitialValue(member)}
-          validate={utils.makeFormikValidator(MemberValidator)}
+          validate={MemberValidator}
           onSubmit={this.onSubmitForm}
         >
           {this.formRender}

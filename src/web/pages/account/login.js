@@ -82,7 +82,7 @@ const Login = () => {
           password: '',
           maxAge: '3600000'
         }}
-        validate={utils.makeFormikValidator(loginValidator)}
+        validate={loginValidator}
         onSubmit={onSubmitLoginForm}
       >
         {({errors, touched}) => (
@@ -112,7 +112,6 @@ const Login = () => {
                 />
                 <ErrorMessage component="div" name="password" className="invalid-feedback"/>
               </div>
-
               <button
                 disabled={isApiProcessing || !utils.isObjectEmpty(errors)}
                 type="submit"

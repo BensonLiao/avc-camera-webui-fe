@@ -45,14 +45,14 @@ module.exports = class CardsFormSubject extends React.PureComponent {
      const {values} = this.props;
      if (values.$email) {
        if (!PRECISE_EMAIL_PATTERN.test(values.$email)) {
-         return i18n.t('Invalid email address');
+         return i18n.t('Invalid email address.');
        }
 
        if (values.emails.length >= NotificationCardSchema.emails.max) {
-         return i18n.t('Number of receiver E-mails limit is 64');
+         return i18n.t('The maximum number of recipients is 64.');
        }
 
-       return utils.duplicateCheck(values.emails, values.$email, i18n.t('Duplicate E-mail found'));
+       return utils.duplicateCheck(values.emails, values.$email, i18n.t('Duplicate email address.'));
      }
    };
 

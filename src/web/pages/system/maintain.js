@@ -138,7 +138,7 @@ module.exports = class Maintain extends Base {
                       this.hideApiProcessModal();
                       this.setState({
                         isShowFinishModal: true,
-                        finishModalTitle: i18n.t('System Reset'),
+                        finishModalTitle: i18n.t('Reset Success'),
                         finishModalBody: i18n.t('Device has reset. Please log in again.')
                       });
                     })
@@ -168,7 +168,7 @@ module.exports = class Maintain extends Base {
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Importing device settings')
+      apiProcessModalTitle: i18n.t('Importing Device Settings')
     },
     () => {
       api.system.importDeviceSettings(file)
@@ -190,7 +190,7 @@ module.exports = class Maintain extends Base {
                     this.setState({
                       isShowFinishModal: true,
                       finishModalTitle: i18n.t('Import System Settings'),
-                      finishModalBody: i18n.t('Device settings has imported. Please log in again.')
+                      finishModalBody: i18n.t('Device settings have imported. Please log in again.')
                     });
                   })
                   .catch(() => {

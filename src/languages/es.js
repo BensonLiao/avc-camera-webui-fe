@@ -11,20 +11,14 @@ module.exports = {
       Loading: 'Cargando',
 
       // Component / Date Picker
-      Sun: 'Dom',
-      Mon: 'Lun',
-      Tue: 'mar',
-      Wed: 'Mie',
-      Thu: 'Tú',
-      Fri: 'Vie',
-      Sat: 'Sáb',
+      /* Follow date.js weekday min format */
 
       // Component / API Processing Modal
       'Please wait': 'Por favor espera',
 
       // Component / Session Expired Modal
-      'Session Expired': 'Automáticamente Cerrar Sesión',
-      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': 'El tiempo de inactividad es demasiado largo, cierre sesión después de {{0}} segundos y redirija a la página de inicio de sesión.',
+      'Session Expired': 'Cerrar sesión automáticamente',
+      'Your session has expired. You will be redirected to the login page in {{0}} second(s).': 'El tiemppo de inactividad es demasiado largo, se cerrará la sesión en {{0}} segundos y se le redirigirá a la página de inicio.',
       'Renew Session': 'Renovar Sesión',
 
       // Component / Switch component
@@ -37,14 +31,14 @@ module.exports = {
       Video: 'Video',
       Audio: 'Audio',
       Notification: 'Anunciar',
-      'User Management': 'usuarios',
+      'User Management': 'Usuarios',
       Analytics: 'Análisis',
-      Network: 'red',
+      Network: 'Red',
       System: 'sistema',
       'SD Card': 'Tarjeta de memoria',
 
       // Component / App Bar
-      About: 'soporte',
+      About: 'Soporte',
       'Model Name': 'Nombre del dispositivo',
       Software: 'Versión del software',
       'Serial Number': 'Número de serie del dispositivo',
@@ -59,16 +53,16 @@ module.exports = {
 
       // Component / App Bar / Support
       'Device Help': 'Ayuda para el uso del dispositivo',
-      'Technical Support': 'Buzón de preguntas técnicas',
+      'Technical Support': 'Apoyo técnico',
       'Product Information': 'Otras informaciones de producto',
-      'Sign Out': 'Desconectar',
+      'Sign Out': 'Cerrar sesión',
 
       // Compoenet / Input / Validations
       'These passwords didn\'t match.': 'Estas contraseñas no coinciden',
       'validation-required': 'Este campo es obligatorio',
       'validation-string': 'Este campo debe ser una cadena',
       'validation-stringEmpty': 'Este campo es requerido',
-      'validation-stringMin': 'Debe ingresar más caracteres {expected}',
+      'validation-stringMin': 'Debe tener al menos {expected} caracteres o más',
       'validation-stringMax': 'Debe ingresar menos caracteres {expected}',
       'validation-stringLength': 'Debe ingresar los caracteres {expected}',
       'validation-stringPattern': 'Este campo contiene caracteres no válidos.',
@@ -108,7 +102,7 @@ module.exports = {
       'The port number must not be empty.': 'El campo no debe estar vacío',
 
       // Component / CustomTooltip
-      'Hide Password': 'Contraseña oculta',
+      'Hide Password': 'Ocultar contraseña',
       'Show Password': 'mostrar contraseña',
       'Please select a file first.': 'Seleccione primero un archivo',
       // CustomTooltip / /notification/cards
@@ -181,7 +175,7 @@ module.exports = {
       'ACCOUNT LOGIN': 'Cuenta de Ingreso',
       'Enter your username': 'Por favor ingrese su número de cuenta',
       'Password Reset': '重置密碼',
-      'Enter your password': 'Por favor ingrese su número de cuenta',
+      'Enter your password': 'Por favor ingrese su contraseña',
 
       // /login-error
       'Incorrect Password': 'Contraseña incorrecta',
@@ -195,9 +189,9 @@ module.exports = {
       'Too Many Login Attempts!': 'Contraseña de cuenta de inicio de sesión incorrecta por más de 5 veces',
       'Please try again in 5 minutes.': 'Intente iniciar la sesión nuevamente en 5 minutos',
       'Tech Support Phone Number: +1 (818) 937-0700': '支援專線：+1 (818) 937-0700',
-      'Login locked': 'Bloquear inicio de sesión',
+      'Login locked': 'El inicio de sesión está bloqueado',
       'Forgot password?': '忘記密碼？',
-      '{{0}} Remaining': '{{0}} es necesario para iniciar sesión nuevamente',
+      '{{0}} Remaining': 'Iniciar sesión nuevamente en {{0}}',
       'Login Again': 'ingresar de nuevo',
 
       // Deprecated
@@ -222,10 +216,10 @@ module.exports = {
       'Free: {{0}}, Total: {{1}}': '{{0}} disponible total {{1}}',
       'Enable HDR': 'Habilitar HDR',
       Adjustments: 'Atributos',
-      Brightness: 'brillo',
+      Brightness: 'Brillo',
       Contrast: 'Contraste',
       Sharpness: 'Nitidez',
-      Saturation: 'saturación',
+      Saturation: 'Saturación',
       'Lens Control': 'Lente',
       'Select Focus Type': 'Seleccionar método de enfoque',
       'Full-Range Focus': 'Enfoque de rango completo',
@@ -332,7 +326,7 @@ module.exports = {
       '{{0}} - {{1}} Kbps': '{{0}} - {{1}} Kbps',
 
       // /media/rtsp
-      'Enable Audio over RTSP': 'Habilitar grabación de sonido para Stream',
+      'Enable Audio over RTSP': 'Habilitar grabación de audio para Stream',
       'Require Authentication': 'Habilitar autenticación de contraseña de la cuenta',
       'RTSP/TCP Port': 'Puerto RTSP/TCP',
       'Range: 1024-65535 Default: 8554': 'Rango: 1024-65535, preestablecido: 8554',
@@ -381,7 +375,7 @@ module.exports = {
       // /audio
       'Audio Title': 'Audio',
       'Enable Audio Input': 'Habilitar entrada de voz',
-      'Audio Quality': 'calidad',
+      'Audio Quality': 'Calidad',
       'Input Source': 'Fuente de entrada',
       'Internal Microphone': 'Internal Microphone',
       'External Microphone': 'Micrófono externo',
@@ -448,10 +442,10 @@ module.exports = {
       // /notification/cards
       'Notification Filters': 'Filtros',
       Pinned: 'Parte superior',
-      Others: 'otro',
+      Others: 'Otros',
       'Unpin Card': 'Desanclar Pin Card',
       'Pin this card': 'Parte superior',
-      'Enter card title': 'Ingrese el nombre de la tarjeta de notificación',
+      'Enter card title': 'Introducir el titulo',
       'Email: On': 'Correo electrónico: Habilitado',
       'Output: On': 'Salida digital: Habilitado',
       'VMS: On': '影像管理系統(VMS): 開',
@@ -478,6 +472,9 @@ module.exports = {
       'Face Recognition Event on [{{0}}]': 'Evento de reconocimiento facial [{{0}}]',
       'Motion Detection Event on [{{0}}]': 'Evento de detección de movimiento [{{0}}]',
       'Digital Input Event on [{{0}}]': 'Evento de entrada digital [{{0}}]',
+      'Invalid email address.': 'La dirección de correo electrónico inválida',
+      'The maximum number of recipients is 64.': 'El número máximo de destinatarios es 64',
+      'Duplicate email address.': 'El correo electrónico esta duplicado',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -495,7 +492,7 @@ module.exports = {
       'face-recognition-condition-0': 'Todos los tipos',
       'face-recognition-condition-1': 'éxito',
       'face-recognition-condition-2': 'desconocido',
-      'face-recognition-condition-3': 'Camuflaje de imagen',
+      'face-recognition-condition-3': 'Imagen Falso',
       // /notification/cards / Constants / Email Attachment
       'email-attachment-type-0': 'Captura de pantalla de la cara',
       'email-attachment-type-1': 'Captura de pantalla completa',
@@ -515,7 +512,6 @@ module.exports = {
       'Encryption Settings': 'Configuración de cifrado',
       Export: 'Exportar',
       Import: 'Importar',
-      'Updating Member Database': 'Actualizar perfil de Usuarios',
       'Database Encryption': 'Cifrado de base de datos',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
@@ -572,6 +568,7 @@ module.exports = {
       'N/A': 'ninguno',
       'Are you sure you want to close this window? All changes you have made will be lost.': 'Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?',
       'Photo size should be less than 90 KB.': 'El tamaño de la foto no puede superar los 90KB',
+      'No photo uploaded.': 'Una foto es requirida',
       Save: 'Salvar',
       'Change Photo': 'Cambiar foto',
 
@@ -598,15 +595,15 @@ module.exports = {
       Time: 'hora',
       Capture: 'Captura',
       Confidence: 'Confidence',
-      'Couldn\'t find any data.': 'Verifique que no haya datos coincidentes y busque nuevamente.,',
+      'Couldn\'t find any data.': 'Ningún dato encontrado, por favor revise de nuevo!',
       Filters: 'Filtros',
-      Clear: 'Claridad',
+      Clear: 'Borrar',
       'Start Date': 'fecha',
       'Start Time': 'hora',
       'Start Datetime': 'Hora de inicio',
       'End Date': 'fecha',
       'End Time': 'hora',
-      'End Datetime': 'Terminar el tiempo',
+      'End Datetime': 'Hora de fin',
       'Facial Recognition': 'Reconocimiento facial',
       'Age & Gender': 'Género y edad',
       'Human Detection': 'Detección humanoide',
@@ -622,7 +619,7 @@ module.exports = {
       // /users/events / Constants / Status
       'enroll-status-0': 'Camuflaje de imagen',
       'enroll-status-1': 'desconocido',
-      'enroll-status-2': 'éxito',
+      'enroll-status-2': 'Registrado',
       // /users/events / Constants / Confidence
       'confidence-0': 'bajo',
       'confidence-1': 'medio',
@@ -632,7 +629,7 @@ module.exports = {
       'Analytics Settings': 'Análisis inteligente',
       'Enable Facial Recognition': 'Habilitar reconocimiento facial',
       'Enable Anti-Image Spoof': 'Habilitar anti-disfraz de imagen',
-      'Level of Accuracy': 'éxito de identificación de Límite',
+      'Level of Accuracy': 'Nivel de exactitud',
       'Detection Zone': 'Área de activación',
       'Show/Hide Detection Zone': 'Mostrar o ocultar área',
       'The default is the whole live view screen.': 'El valor predeterminado es pantalla completa',
@@ -662,11 +659,11 @@ module.exports = {
       License: 'Autorización de análisis inteligente',
       'Enter your authentication key': 'Ingrese el código de activación',
       Activate: 'Habilitar',
-      Activated: 'activado',
-      'Activation Required': 'No esta activado',
-      'Activated By': 'Activar',
+      Activated: 'activada',
+      'Activation Required': 'no está activada',
+      'Activated by': 'Activada por',
       'Authentication Key': 'Habilitar código',
-      'Activated Functions': 'Activar función',
+      'Activated Functions': 'funciónes activadas',
       'Enable Status': 'estado',
       'Activated Success': 'Activación exitosa',
       '{{0}} authorized successfully!': '{{0}} se ha autorizado correctamente',
@@ -743,7 +740,7 @@ module.exports = {
       Administration: 'administración',
       'Date & Time': 'Fecha y hora',
       'Time Zone': 'Zona horaria',
-      'Date and Time of the Device': 'Tiempo de instalación',
+      'Date and Time of the Device': 'Hora del dispositivo',
       'Sync with Network Time Server (NTP)': 'Sincronizar con Network Time Server (NTP)',
       'Host Name or IP Address': 'Dirección del servidor',
       'Sync Time': 'Hora de actualización diaria',
@@ -762,8 +759,9 @@ module.exports = {
       'Are you sure you want to reboot the device?': '¿Estás seguro de que deseas reiniciar el dispositivo?',
       Reboot: 'Reiniciar',
       'Restore to Default Settings': 'Restaurar a la configuración original de fábrica',
-      Reset: 'Borrar datos',
-      Resetting: 'Borrar datos',
+      Reset: 'Restaurar',
+      Resetting: 'Está restaurando',
+      'System Reset': 'El reinicio del sistema',
       'Export System Settings': 'Exportar configuración del sistema',
       'Import System Settings': 'Importar configuración del sistema',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán',
@@ -777,6 +775,9 @@ module.exports = {
       'The device has rebooted. Please log in again.': 'El dispositivo se reinició, inicie la sesión nuevamente',
       'Reset Success': 'Restablecer Existosa',
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.',
+      'Device settings have imported. Please log in again.': 'La Configuración del dispositivo ha sido importada. Por favor ingrese de nuevo',
+      'Importing Device Settings': 'La configuración del dispositivo están importando',
+      'Device has reset. Please log in again.': 'El dispositivo se ha sido reiniciado. Por favor ingrese de nuevo.',
 
       // /system/upgrade
       'Upload Software': 'Cargar software',

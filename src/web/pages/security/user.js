@@ -229,10 +229,7 @@ module.exports = class User extends Base {
         </Modal.Header>
         <Formik
           initialValues={this.generateInitialValue(user)}
-          validate={utils.makeFormikValidator(
-            validator,
-            [user ? 'newPassword' : 'password', 'confirmPassword']
-          )}
+          validate={validator}
           onSubmit={this.onSubmitForm}
         >
           {this.formRender}

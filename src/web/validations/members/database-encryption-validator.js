@@ -9,5 +9,8 @@ module.exports = validator.compile({
     max: 32
   },
   newPassword: UserSchema.password,
-  confirmPassword: UserSchema.password
+  confirmPassword: {
+    type: 'confirmEqual',
+    field: 'newPassword'
+  }
 });

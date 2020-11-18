@@ -15,7 +15,6 @@ import notify from '../../../core/notify';
 import smtpAccountSettingsValidator from '../../validations/notifications/smtp-account-settings-validator';
 import smtpSettingsValidator from '../../validations/notifications/smtp-settings-validator';
 import Password from '../../../core/components/fields/password';
-import utils from '../../../core/utils';
 import withGlobalStatus from '../../withGlobalStatus';
 
 export default withGlobalStatus(
@@ -303,7 +302,7 @@ export default withGlobalStatus(
                 <div className="col-center">
                   <Formik
                     initialValues={this.generateSMTPSettingsInitialValues(smtpSettings)}
-                    validate={utils.makeFormikValidator(smtpSettingsValidator)}
+                    validate={smtpSettingsValidator}
                     onSubmit={this.onSubmitSMTPSettingsForm}
                   >
                     {this.smtpSettingsFormRender}
@@ -317,7 +316,7 @@ export default withGlobalStatus(
                 <h5 className="modal-title">{i18n.t('SMTP Logon Settings')}</h5>
               </div>
               <Formik
-                validate={utils.makeFormikValidator(smtpAccountSettingsValidator)}
+                validate={smtpAccountSettingsValidator}
                 initialValues={this.generateAccountSettingsInitialValues(accountSettings)}
                 onSubmit={this.onSubmitAccountSettingsForm}
               >
