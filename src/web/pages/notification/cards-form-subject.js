@@ -2,10 +2,11 @@ const classNames = require('classnames');
 const {Field} = require('formik');
 const PropTypes = require('prop-types');
 const React = require('react');
+const NotificationCardSchema = require('webserver-form-schema/notification-card-schema');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationEmailAttachmentType = require('webserver-form-schema/constants/notification-email-attachment-type');
 const NotificationEmailContentPosition = require('webserver-form-schema/constants/notification-email-content-position');
-const {NOTIFY_CARDS_EMAIL_MAX} = require('../../../core/constants');
+const {PRECISE_EMAIL_PATTERN} = require('../../../core/constants');
 const i18n = require('../../../i18n').default;
 const utils = require('../../../core/utils');
 const CustomTooltip = require('../../../core/components/tooltip');
@@ -43,16 +44,15 @@ module.exports = class CardsFormSubject extends React.PureComponent {
    validateEmail = () => {
      const {values} = this.props;
      if (values.$email) {
-       if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.$email)) {
+       if (!PRECISE_EMAIL_PATTERN.test(values.$email)) {
          return i18n.t('Invalid email address.');
        }
 
-       const emails = [...values.emails];
-       if (emails.length > NOTIFY_CARDS_EMAIL_MAX - 1) {
+       if (values.emails.length >= NotificationCardSchema.emails.max) {
          return i18n.t('The maximum number of recipients is 64.');
        }
 
-       return utils.duplicateCheck(emails, values.$email, i18n.t('Duplicate email address.'));
+       return utils.duplicateCheck(values.emails, values.$email, i18n.t('Duplicate email address.'));
      }
    };
 
