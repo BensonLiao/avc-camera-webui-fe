@@ -13,7 +13,7 @@ import SMTPAccountSettings from './smtp-account-settings';
 import SMTPSettings from './smtp-settings';
 
 const SMTP = ({smtpSettings}) => {
-  const [isShowModal, setIsShowAccountModal] = useState(false);
+  const [isShowAccountModal, setIsShowAccountModal] = useState(false);
 
   const generateAccountSettingsInitialValues = settings => ({
     account: settings.account,
@@ -62,7 +62,7 @@ const SMTP = ({smtpSettings}) => {
                 onSubmitSMTPSettingsForm={onSubmitSMTPSettingsForm}
               />
               <SMTPAccountSettings
-                isShowModal={isShowModal}
+                isShowModal={isShowAccountModal}
                 accountSettings={accountSettings}
                 setIsShowAccountModal={setIsShowAccountModal}
                 onSubmitAccountSettingsForm={onSubmitAccountSettingsForm}
