@@ -40,14 +40,6 @@ const Users = ({users: usersProp}) => {
   );
 };
 
-Users.propTypes = {
-  users: PropTypes.shape({
-    items: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      permission: PropTypes.string.isRequired,
-      account: PropTypes.string.isRequired
-    })).isRequired
-  }).isRequired
-};
+Users.propTypes = {users: PropTypes.shape({items: UsersMainContent.propTypes.users}).isRequired};
 
 export default withGlobalStatus(Users);
