@@ -126,5 +126,7 @@ module.exports = {
       return a.rawFormat.localeCompare(b.rawFormat);
     })
   )(),
-  VMS_CAMERA_LINK: 'cameralink'
+  VMS_CAMERA_LINK: 'cameralink',
+  PRECISE_EMAIL_PATTERN: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
 };
