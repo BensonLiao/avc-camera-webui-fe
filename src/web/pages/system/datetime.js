@@ -81,14 +81,6 @@ module.exports = class DateTime extends Base {
       isShowApiProcessModal: true,
       isShowModal: false
     }, () => {
-      if (formValues.syncTimeOption === SyncTimeOption.local) {
-        formValues.manualTime = new Date();
-        // Auto fill timezone when switching to `sync with your computer` for the first time
-        if (formValues.syncTimeOption !== syncTimeOption) {
-          formValues.ntpTimeZone = dayjs.tz.guess();
-        }
-      }
-
       if (isLanguageUpdate) {
         api.system.updateLanguage(formValues.language)
           .then(() => {
@@ -96,8 +88,14 @@ module.exports = class DateTime extends Base {
           })
           .finally(progress.done);
       } else {
+        if (formValues.syncTimeOption === SyncTimeOption.local) {
+          formValues.manualTime = new Date();
+          // Auto fill timezone when switching to `sync with your computer` for the first time
+          if (formValues.syncTimeOption !== syncTimeOption) {
+            formValues.ntpTimeZone = dayjs.tz.guess();
+          }
+        } else {
         // Set seconds to 0 to prevent timepicker issues
-        if (formValues.syncTimeOption !== SyncTimeOption.local) {
           formValues.manualTime.setSeconds(0);
         }
 
