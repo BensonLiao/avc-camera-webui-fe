@@ -96,7 +96,11 @@ module.exports = class DateTime extends Base {
           })
           .finally(progress.done);
       } else {
-        formValues.manualTime.setSeconds(0);
+        // Set seconds to 0 to prevent timepicker issues
+        if (formValues.syncTimeOption !== SyncTimeOption.local) {
+          formValues.manualTime.setSeconds(0);
+        }
+
         formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
         formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
         api.system.updateSystemDateTime(formValues)
