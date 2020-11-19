@@ -9,7 +9,6 @@ module.exports = {
   },
   MEMBERS_PAGE_GROUPS_MAX: 32,
   SECURITY_USERS_MAX: 20,
-  DEVICE_NAME_CHAR_MAX: 32,
   NOTIFY_CARDS_MAX: 256,
   NOTIFY_CARDS_EMAIL_MAX: 64,
   REDIRECT_COUNTDOWN: 5,
@@ -127,5 +126,7 @@ module.exports = {
       return a.rawFormat.localeCompare(b.rawFormat);
     })
   )(),
-  VMS_CAMERA_LINK: 'cameralink'
+  VMS_CAMERA_LINK: 'cameralink',
+  PRECISE_EMAIL_PATTERN: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
 };

@@ -11,13 +11,7 @@ module.exports = {
       Loading: 'ロードしています',
 
       // Component / Date Picker
-      Sun: '日',
-      Mon: '月',
-      Tue: '火',
-      Wed: '水',
-      Thu: '木',
-      Fri: '金',
-      Sat: '土',
+      /* Follow date.js weekday min format */
 
       // Component / API Processing Modal
       'Please wait': 'しばらくお待ちください',
@@ -100,7 +94,8 @@ module.exports = {
       'validation-dateMin': '{expected}以降の日付を入力してください',
       'validation-dateMax': '{expected}以前の日付を入力してください',
       'validation-forbidden': '項目を非表示する',
-      'validation-email': '正しいメールアドレスを入力してください',
+      // same content as key `Invalid email address.` in /notification/cards
+      'validation-email': '無効なメールアドレス',
       'validation-url': '正しいURLを入力してください,',
       'validation-birthday': '正しい生年月日を入力してください',
       'validation-countryCode': '国コードが間違っています',
@@ -480,6 +475,9 @@ module.exports = {
       'Face Recognition Event on [{{0}}]': '顔認証イベント [{{0}}]',
       'Motion Detection Event on [{{0}}]': '動体検知イベント [{{0}}]',
       'Digital Input Event on [{{0}}]': 'デジタル入力イベント [{{0}}]',
+      'Invalid email address.': '無効なメールアドレス',
+      'The maximum number of recipients is 64.': '最大受信者数：64',
+      'Duplicate email address.': '重複するメールアドレス',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -517,14 +515,13 @@ module.exports = {
       'Encryption Settings': '暗号化設定',
       Export: 'エクスポート',
       Import: 'インポート',
-      'Updating Member Database': 'メンバーデータベースを更新します',
       'Database Encryption': 'データベース暗号化',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
-      'Enter Keywords': 'キーワードを入力してください',
+      'Enter Keywords': 'キーワードを入力',
       Search: '検索',
       New: '追加',
-      'Add a New Member': '新規追加',
+      'Add a New Member': '新規メンバーを追加する',
       'Add a Member from Events': 'イベントから追加',
       'Edit Group: {{0}}': 'グループを編集する：{{0}}',
       'User Picture': '登録用写真',
@@ -574,6 +571,7 @@ module.exports = {
       'N/A': 'なし',
       'Are you sure you want to close this window? All changes you have made will be lost.': 'このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます',
       'Photo size should be less than 90 KB.': '写真サイズは90 KBを超えることができません',
+      'No photo uploaded.': '写真が必要',
       Save: '保存する',
       'Change Photo': '写真を変更する',
 
@@ -634,7 +632,7 @@ module.exports = {
       'Analytics Settings': '知能分析',
       'Enable Facial Recognition': '顔認証を有効します',
       'Enable Anti-Image Spoof': 'なりすまし防止機能を有効する',
-      'Level of Accuracy': '認証成功率',
+      'Level of Accuracy': '認証成功閾',
       'Detection Zone': '検知区域',
       'Show/Hide Detection Zone': '認証区域を表示/非表示にする',
       'The default is the whole live view screen.': 'デフォルトはフルスクリーン',
@@ -666,7 +664,7 @@ module.exports = {
       Activate: '有効',
       Activated: '有効にしました',
       'Activation Required': '無効',
-      'Activated By': '有効にした者',
+      'Activated by': '有効にした者',
       'Authentication Key': 'ライセンスキー',
       'Activated Functions': '有効になった機能',
       'Enable Status': 'ステータス',
@@ -766,6 +764,7 @@ module.exports = {
       'Restore to Default Settings': '設定を初期値に戻す',
       Reset: '初期化',
       Resetting: '初期化',
+      'System Reset': '初期化完了',
       'Export System Settings': 'システム設定ファイルをエクスポートする',
       'Import System Settings': 'システム設定ファイルをインポートする',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': 'デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます',
@@ -779,6 +778,9 @@ module.exports = {
       'The device has rebooted. Please log in again.': 'デバイスは再起動しましたため、再度ログインしてください',
       'Reset Success': '初期化完了',
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': 'クイックインストールガイドを参照して初期設定を行って下さい',
+      'Device settings have imported. Please log in again.': 'デバイス設定をインポート完了再ログインして下さい',
+      'Importing Device Settings': 'デバイス設定をインポート中',
+      'Device has reset. Please log in again.': 'デバイスが初期化済再ログインして下さい',
 
       // /system/upgrade
       'Upload Software': 'ソフトウェアのアップロード',
