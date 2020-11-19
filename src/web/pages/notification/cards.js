@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {getRouter} from 'capybara-router';
 import progress from 'nprogress';
 import sanitizeHtml from 'sanitize-html';
 import NotificationFaceRecognitionCondition from 'webserver-form-schema/constants/notification-face-recognition-condition';
@@ -55,15 +56,9 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
   const deleteCardHandler = cardId => event => {
     event.preventDefault();
     event.stopPropagation();
-    setCards(prevCards => {
-      const index = cards.findIndex(x => x.id === cardId);
-      if (index >= 0) {
-        prevCards.splice(index, 1);
-        return prevCards;
-      }
-    });
     progress.start();
     api.notification.deleteCard(cardId)
+      .then(getRouter().reload)
       .finally(progress.done);
   };
 
@@ -72,15 +67,9 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
     event.stopPropagation();
     const card = {...cards.find(x => x.id === cardId)};
     card.isTop = !card.isTop;
-    setCards(prevCards => {
-      const index = cards.findIndex(x => x.id === cardId);
-      if (index >= 0) {
-        prevCards.splice(index, 1, card);
-        return prevCards;
-      }
-    });
     progress.start();
     api.notification.updateCard(card)
+      .then(getRouter().reload)
       .finally(progress.done);
   };
 
