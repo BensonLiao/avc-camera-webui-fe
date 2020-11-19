@@ -39,7 +39,7 @@ const CardsForm = ({
   isApiProcessing,
   groups,
   isShowCardDetailsModal,
-  setIsShowCardDetailsModal,
+  hideCardFormModal,
   cardDetails,
   isTop,
   toggleIsTop,
@@ -153,14 +153,14 @@ const CardsForm = ({
 
       progress.start();
       api.notification.addCard(data)
-        .then(() => setIsShowCardDetailsModal(false))
+        .then(hideCardFormModal)
         .then(getRouter().reload)
         .finally(progress.done);
     } else {
       // Update the card.
       progress.start();
       api.notification.updateCard(data)
-        .then(() => setIsShowCardDetailsModal(false))
+        .then(hideCardFormModal)
         .then(getRouter().reload)
         .finally(progress.done);
     }
@@ -172,7 +172,7 @@ const CardsForm = ({
       show={isShowCardDetailsModal}
       className="notification-card"
       dialogClassName="modal-600"
-      onHide={() => setIsShowCardDetailsModal(false)}
+      onHide={hideCardFormModal}
     >
       <Formik
         initialValues={generateCardInitialValues(cardDetails)}
@@ -298,7 +298,7 @@ const CardsForm = ({
                 <button
                   type="button"
                   className="btn btn-info btn-block m-0 rounded-pill"
-                  onClick={() => setIsShowCardDetailsModal(false)}
+                  onClick={hideCardFormModal}
                 >
                   {i18n.t('Cancel')}
                 </button>
@@ -338,7 +338,7 @@ CardsForm.propTypes = {
   modelName: PropTypes.string.isRequired,
   isApiProcessing: PropTypes.bool.isRequired,
   isShowCardDetailsModal: PropTypes.bool.isRequired,
-  setIsShowCardDetailsModal: PropTypes.func.isRequired,
+  hideCardFormModal: PropTypes.func.isRequired,
   isTop: PropTypes.bool.isRequired,
   toggleIsTop: PropTypes.func.isRequired,
   cardLimitError: PropTypes.func.isRequired

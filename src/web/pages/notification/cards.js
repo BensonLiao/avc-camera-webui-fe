@@ -22,6 +22,10 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
 
   const [isShowCardDetailsModal, setIsShowCardDetailsModal] = useState(false);
 
+  const hideCardFormModal = () => {
+    setIsShowCardDetailsModal(false);
+  };
+
   const toggleIsTop = () => {
     setState(prevState => ({
       ...prevState,
@@ -107,7 +111,7 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
               toggleIsTop={toggleIsTop}
               cardLimitError={cardLimitError}
               isShowCardDetailsModal={isShowCardDetailsModal}
-              setIsShowCardDetailsModal={setIsShowCardDetailsModal}
+              hideCardFormModal={hideCardFormModal}
             />
             <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
               <CustomTooltip title={i18n.t('Add a New Notification Card')}>
