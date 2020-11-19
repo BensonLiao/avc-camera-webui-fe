@@ -28,9 +28,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
     redirectIP: false
   });
 
-  const {
-    isShowSelectModal, isUpdating, modalBody, modalTitle, isConfirmDisable, redirectIP, modalBackdrop, dhcpTestResult
-  } = state;
+  const {isShowSelectModal, isUpdating, modalBody, modalTitle, isConfirmDisable, redirectIP, modalBackdrop} = state;
 
   const showModal = selectedModal => {
     return setState(prevState => ({
@@ -71,7 +69,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
               [i18n.t('DHCP Testing Success'), `${i18n.t('IP Address')}: ${response.data.resultIP}`] :
               i18n.t('DHCP Testing Failed')
           }));
-          if (!dhcpTestResult) {
+          if (!response.data.success) {
             setFieldValue('ipAddress', '192.168.1.168');
           }
         }
