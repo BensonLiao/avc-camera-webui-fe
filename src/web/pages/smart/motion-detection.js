@@ -1,20 +1,20 @@
-import PropTypes from 'prop-types';
-import React, {useState, useRef} from 'react';
-import progress from 'nprogress';
 import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
 import {getRouter} from 'capybara-router';
+import progress from 'nprogress';
+import PropTypes from 'prop-types';
+import React, {useState, useRef} from 'react';
+import api from '../../../core/apis/web-api';
+import BreadCrumb from '../../../core/components/fields/breadcrumb';
+import i18n from '../../../i18n';
 import iconHotkeyBackspace from '../../../resource/hotkey-backspace-32px.svg';
 import iconHotkeyDeleted from '../../../resource/hotkey-delete-32px.svg';
 import iconCursor from '../../../resource/cursor-24px.svg';
 import MotionDetectionSettingsSchema from 'webserver-form-schema/motion-detection-settings-schema';
 import MaskArea from '../../../core/components/fields/mask-area';
 import Slider from '../../../core/components/fields/slider';
-import i18n from '../../../i18n';
-import api from '../../../core/apis/web-api';
-import BreadCrumb from '../../../core/components/fields/breadcrumb';
-import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {areas, isEnable}}) => {
   const {isApiProcessing} = useContextState();

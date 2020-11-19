@@ -1,19 +1,19 @@
 /* eslint-disable react/prop-types */
 import classNames from 'classnames';
+import ConfidenceLevel from 'webserver-form-schema/constants/face-recognition-confidence-level';
+import {Formik, Form, Field} from 'formik';
+import {getRouter} from 'capybara-router';
+import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {getRouter} from 'capybara-router';
-import {Formik, Form, Field} from 'formik';
-import progress from 'nprogress';
-import ConfidenceLevel from 'webserver-form-schema/constants/face-recognition-confidence-level';
-import MaskArea from '../../../core/components/fields/mask-area';
 import api from '../../../core/apis/web-api';
-import i18n from '../../../i18n';
+import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
-import BreadCrumb from '../../../core/components/fields/breadcrumb';
-import withGlobalStatus from '../../withGlobalStatus';
+import i18n from '../../../i18n';
+import MaskArea from '../../../core/components/fields/mask-area';
 import {useContextState} from '../../stateProvider';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const FaceRecognition = ({faceRecognitionSettings}) => {
   const {isApiProcessing} = useContextState();
