@@ -8,7 +8,12 @@ import iconUsers from '../../../resource/users-24px.svg';
 import iconUserShield from '../../../resource/user-shield-24px.svg';
 import UserPermission from 'webserver-form-schema/constants/user-permission';
 
-const UsersLeftMenu = ({permissionFilter, generateChangePermissionFilterHandler}) => {
+const UsersLeftMenu = ({permissionFilter, setPermissionFilter}) => {
+  const generateChangePermissionFilterHandler = permission => event => {
+    event.preventDefault();
+    setPermissionFilter(permission);
+  };
+
   return (
     <div className="left-menu fixed-top sub">
       <h2>{i18n.t('Accounts')}</h2>
@@ -55,7 +60,7 @@ const UsersLeftMenu = ({permissionFilter, generateChangePermissionFilterHandler}
 
 UsersLeftMenu.propTypes = {
   permissionFilter: PropTypes.string.isRequired,
-  generateChangePermissionFilterHandler: PropTypes.func.isRequired
+  setPermissionFilter: PropTypes.func.isRequired
 };
 
 export default UsersLeftMenu;

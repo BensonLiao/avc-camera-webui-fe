@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import progress from 'nprogress';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {RouterView, Link, getRouter} from 'capybara-router';
 import UserPermission from 'webserver-form-schema/constants/user-permission';
@@ -8,9 +8,10 @@ import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
+import {SECURITY_USERS_MAX} from '../../../core/constants';
 import {useContextState} from '../../stateProvider';
 
-const UsersMainContent = ({isAddUserDisabled, users, params}) => {
+const UsersMainContent = ({permissionFilter, usersProp, params}) => {
   const {isApiProcessing, user: {account}} = useContextState();
   const [isShowDeleteUserModal, setIsShowDeleteUserModal] = useState(false);
   const [deleteUserTarget, setDeleteUserTarget] = useState(null);
@@ -22,6 +23,15 @@ const UsersMainContent = ({isAddUserDisabled, users, params}) => {
       setDeleteUserTarget(user);
     };
   };
+
+  // superAdmin is the same as admin, viewer is the same as guest
+  const users = permissionFilter === 'all' ?
+    usersProp.items :
+    usersProp.items.filter(user => permissionFilter === UserPermission.root ?
+      user.permission.toString() === UserPermission.root || user.permission.toString() === UserPermission.superAdmin :
+      user.permission.toString() === permissionFilter || user.permission.toString() === UserPermission.viewer);
+
+  const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
 
   const confirmDeleteUser = event => {
     event.preventDefault();
@@ -140,12 +150,15 @@ const UsersMainContent = ({isAddUserDisabled, users, params}) => {
 };
 
 UsersMainContent.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    permission: PropTypes.string.isRequired,
-    account: PropTypes.string.isRequired
-  })).isRequired,
-  isAddUserDisabled: PropTypes.bool.isRequired,
+  usersProp: PropTypes.shape({
+    total: PropTypes.number.isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      permission: PropTypes.string.isRequired,
+      account: PropTypes.string.isRequired
+    })).isRequired
+  }).isRequired,
+  permissionFilter: PropTypes.string.isRequired,
   params: PropTypes.shape({})
 };
 
