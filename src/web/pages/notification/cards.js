@@ -13,14 +13,13 @@ import {useContextState} from '../../stateProvider';
 const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) => {
   const {isApiProcessing} = useContextState();
 
+  const [isShowCardDetailsModal, setIsShowCardDetailsModal] = useState(false);
+  const [cardTypeFilter, setcardTypeFilter] = useState('all');
   const [state, setState] = useState({
     cardDetails: null,
-    cardTypeFilter: 'all',
     isTop: false
   });
-  const {cardDetails, cardTypeFilter, isTop} = state;
-
-  const [isShowCardDetailsModal, setIsShowCardDetailsModal] = useState(false);
+  const {cardDetails, isTop} = state;
 
   const hideCardFormModal = () => {
     setIsShowCardDetailsModal(false);
@@ -43,10 +42,7 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
   const changeCardTypeFilter = cardType => {
     return event => {
       event.preventDefault();
-      setState(prevState => ({
-        ...prevState,
-        cardTypeFilter: cardType
-      }));
+      setcardTypeFilter(cardType);
     };
   };
 
