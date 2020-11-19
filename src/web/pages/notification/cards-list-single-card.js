@@ -1,12 +1,24 @@
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import {getRouter} from 'capybara-router';
+import progress from 'nprogress';
+import api from '../../../core/apis/web-api';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import outputIcon from '../../../resource/icon-output-40px.svg';
 import utils from '../../../core/utils';
 
-const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, deleteCardHandler, toggleIsTopHandler}) => {
+const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, toggleIsTopHandler}) => {
+  const deleteCardHandler = cardId => event => {
+    event.preventDefault();
+    event.stopPropagation();
+    progress.start();
+    api.notification.deleteCard(cardId)
+      .then(getRouter().reload)
+      .finally(progress.done);
+  };
+
   return (
     <>
       <div key={card.id} className="card shadow overflow-hidden" onClick={clickCardHandler(card.id)}>
@@ -135,7 +147,6 @@ CardsListSingleCard.propTypes = {
   }).isRequired,
   isApiProcessing: PropTypes.bool.isRequired,
   clickCardHandler: PropTypes.func.isRequired,
-  deleteCardHandler: PropTypes.func.isRequired,
   toggleIsTopHandler: PropTypes.func.isRequired
 };
 

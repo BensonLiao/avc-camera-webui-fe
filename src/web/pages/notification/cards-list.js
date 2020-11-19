@@ -6,7 +6,7 @@ import api from '../../../core/apis/web-api';
 import i18n from '../../../i18n';
 import CardsListSingleCard from './cards-list-single-card';
 
-const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHandler, deleteCardHandler}) => {
+const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHandler}) => {
   const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
   const topCards = filterCards.filter(x => x.isTop);
   const normalCards = filterCards.filter(x => !x.isTop);
@@ -38,7 +38,6 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
                   isApiProcessing={isApiProcessing}
                   clickCardHandler={clickCardHandler}
                   toggleIsTopHandler={toggleIsTopHandler}
-                  deleteCardHandler={deleteCardHandler}
                 />
               ))}
             </div>
@@ -56,7 +55,6 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
             isApiProcessing={isApiProcessing}
             clickCardHandler={clickCardHandler}
             toggleIsTopHandler={toggleIsTopHandler}
-            deleteCardHandler={deleteCardHandler}
           />
         ))}
       </div>
@@ -71,8 +69,7 @@ CardsList.propTypes = {
   groups: PropTypes.shape(CardsListSingleCard.propTypes.groups).isRequired,
   isApiProcessing: PropTypes.bool.isRequired,
   cardTypeFilter: PropTypes.string.isRequired,
-  clickCardHandler: PropTypes.func.isRequired,
-  deleteCardHandler: PropTypes.func.isRequired
+  clickCardHandler: PropTypes.func.isRequired
 };
 
 export default CardsList;

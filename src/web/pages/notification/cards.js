@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {getRouter} from 'capybara-router';
@@ -50,15 +49,6 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
         cardTypeFilter: cardType
       }));
     };
-  };
-
-  const deleteCardHandler = cardId => event => {
-    event.preventDefault();
-    event.stopPropagation();
-    progress.start();
-    api.notification.deleteCard(cardId)
-      .then(getRouter().reload)
-      .finally(progress.done);
   };
 
   const clickCardHandler = cardId => event => {
@@ -150,7 +140,6 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
               cardTypeFilter={cardTypeFilter}
               isApiProcessing={isApiProcessing}
               clickCardHandler={clickCardHandler}
-              deleteCardHandler={deleteCardHandler}
             />
             <CardsForm
               groups={groups}
