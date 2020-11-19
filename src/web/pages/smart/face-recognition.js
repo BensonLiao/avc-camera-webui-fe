@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import classNames from 'classnames';
 import ConfidenceLevel from 'webserver-form-schema/constants/face-recognition-confidence-level';
 import {Formik, Form, Field} from 'formik';
@@ -16,6 +15,7 @@ import {useContextState} from '../../stateProvider';
 import withGlobalStatus from '../../withGlobalStatus';
 
 const FaceRecognition = ({faceRecognitionSettings}) => {
+  console.log('FaceRecognition -> faceRecognitionSettings', faceRecognitionSettings);
   const {isApiProcessing} = useContextState();
 
   const [state, setState] = useState({
@@ -336,7 +336,9 @@ const FaceRecognition = ({faceRecognitionSettings}) => {
 
 FaceRecognition.propTypes = {
   faceRecognitionSettings: PropTypes.shape({
+    confidenceLevel: PropTypes.string.isRequired,
     isEnable: PropTypes.bool.isRequired,
+    isEnableSpoofing: PropTypes.bool.isRequired,
     isShowMember: PropTypes.bool.isRequired,
     isShowGroup: PropTypes.bool.isRequired,
     isShowUnknown: PropTypes.bool.isRequired,
