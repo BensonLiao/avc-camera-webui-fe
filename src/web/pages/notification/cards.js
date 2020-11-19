@@ -19,22 +19,14 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
   const {isApiProcessing} = useContextState();
 
   const [state, setState] = useState({
-    isShowCardDetailsModal: false,
     cardDetails: null,
     cardTypeFilter: 'all',
     isTop: false
   });
+  const {cardDetails, cardTypeFilter, isTop} = state;
 
+  const [isShowCardDetailsModal, setIsShowCardDetailsModal] = useState(false);
   const [cards, setCards] = useState(allCards.items);
-
-  const {isShowCardDetailsModal, cardDetails, cardTypeFilter, isTop} = state;
-
-  const onHideCardModal = () => {
-    setState(prevState => ({
-      ...prevState,
-      isShowCardDetailsModal: false
-    }));
-  };
 
   const toggleIsTop = () => {
     setState(prevState => ({
@@ -102,17 +94,17 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
 
       setState(prevState => ({
         ...prevState,
-        isShowCardDetailsModal: true,
         cardDetails: null,
         isTop: false
       }));
+      setIsShowCardDetailsModal(true);
     } else {
       setState(prevState => {
         const card = cards.find(x => x.id === cardId);
         if (card) {
+          setIsShowCardDetailsModal(true);
           return {
             ...prevState,
-            isShowCardDetailsModal: true,
             cardDetails: card,
             isTop: card.isTop
           };
@@ -152,10 +144,7 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
             prevState.push(response.data);
             return prevState;
           });
-          setState(prevState => ({
-            ...prevState,
-            isShowCardDetailsModal: false
-          }));
+          setIsShowCardDetailsModal(false);
         })
         .finally(progress.done);
     } else {
@@ -168,10 +157,7 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
             prevState.splice(index, 1, response.data);
             return prevState;
           });
-          setState(prevState => ({
-            ...prevState,
-            isShowCardDetailsModal: false
-          }));
+          setIsShowCardDetailsModal(false);
         })
         .finally(progress.done);
     }
@@ -210,7 +196,7 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
               isTop={isTop}
               toggleIsTop={toggleIsTop}
               sanitizeInput={sanitizeInput}
-              onHideCardModal={onHideCardModal}
+              onHideCardModal={() => setIsShowCardDetailsModal(false)}
               onSubmit={onSubmitCardForm}
             />
             <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
