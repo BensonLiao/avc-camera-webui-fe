@@ -1,75 +1,58 @@
-const PropTypes = require('prop-types');
-const React = require('react');
-const progress = require('nprogress');
-const classNames = require('classnames');
-const {Formik, Form, Field} = require('formik');
-const {getRouter} = require('capybara-router');
-const iconHotkeyBackspace = require('../../../resource/hotkey-backspace-32px.svg');
-const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');
-const iconCursor = require('../../../resource/cursor-24px.svg');
-const MotionDetectionSettingsSchema = require('webserver-form-schema/motion-detection-settings-schema');
-const MaskArea = require('../../../core/components/fields/mask-area');
-const Slider = require('../../../core/components/fields/slider');
-const Base = require('../shared/base');
-const i18n = require('../../../i18n').default;
-const api = require('../../../core/apis/web-api');
-const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+import PropTypes from 'prop-types';
+import React, {useState, useRef} from 'react';
+import progress from 'nprogress';
+import classNames from 'classnames';
+import {Formik, Form, Field} from 'formik';
+import {getRouter} from 'capybara-router';
+import iconHotkeyBackspace from '../../../resource/hotkey-backspace-32px.svg';
+import iconHotkeyDeleted from '../../../resource/hotkey-delete-32px.svg';
+import iconCursor from '../../../resource/cursor-24px.svg';
+import MotionDetectionSettingsSchema from 'webserver-form-schema/motion-detection-settings-schema';
+import MaskArea from '../../../core/components/fields/mask-area';
+import Slider from '../../../core/components/fields/slider';
+import i18n from '../../../i18n';
+import api from '../../../core/apis/web-api';
+import BreadCrumb from '../../../core/components/fields/breadcrumb';
+import withGlobalStatus from '../../withGlobalStatus';
+import {useContextState} from '../../stateProvider';
 
-module.exports = class MotionDetection extends Base {
-  static get propTypes() {
-    return {
-      motionDetectionSettings: PropTypes.shape({
-        isEnable: PropTypes.bool.isRequired,
-        sensibility: PropTypes.number.isRequired,
-        areas: PropTypes.arrayOf(PropTypes.shape({
-          x: PropTypes.number.isRequired,
-          y: PropTypes.number.isRequired,
-          width: PropTypes.number.isRequired,
-          height: PropTypes.number.isRequired
-        }).isRequired).isRequired
-      }).isRequired
-    };
-  }
+const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {areas, isEnable}}) => {
+  const {isApiProcessing} = useContextState();
+  const [maskAreaStates, setMaskAreaStates] = useState([
+    {isVisible: Boolean(areas[0]) && isEnable},
+    {isVisible: Boolean(areas[1]) && isEnable},
+    {isVisible: Boolean(areas[2]) && isEnable},
+    {isVisible: Boolean(areas[3]) && isEnable}
+  ]);
 
-  constructor(props) {
-    super(props);
-    this.videoWrapperRef = React.createRef();
-    this.maskAreaRefs = [React.createRef(), React.createRef(), React.createRef(), React.createRef()];
-    const {motionDetectionSettings: {areas, isEnable}} = props;
-    this.state.maskAreaStates = [
-      {isVisible: Boolean(areas[0]) && isEnable},
-      {isVisible: Boolean(areas[1]) && isEnable},
-      {isVisible: Boolean(areas[2]) && isEnable},
-      {isVisible: Boolean(areas[3]) && isEnable}
-    ];
-  }
+  const videoWrapperRef = useRef(null);
+  const maskAreaRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
 
-  generateInitialValues = settings => {
+  const generateInitialValues = settings => {
     return {...settings};
   };
 
-  generateDeleteMaskAreaHandler = index => event => {
+  const generateDeleteMaskAreaHandler = index => event => {
     // Delete if backspace or delete key is detected
     if (event.keyCode === 8 || event.keyCode === 46) {
-      this.setState(prevState => {
+      setMaskAreaStates(prevState => {
         const maskAreaStates = [...prevState.maskAreaStates];
         maskAreaStates[index].isVisible = false;
-        return {maskAreaStates};
+        return maskAreaStates;
       });
     }
-  }
+  };
 
-  generateVideoWrapperMouseDownHandler = form => event => {
-    const width = this.videoWrapperRef.current.offsetWidth;
-    const height = this.videoWrapperRef.current.offsetHeight;
-    const rect = this.videoWrapperRef.current.getBoundingClientRect();
+  const generateVideoWrapperMouseDownHandler = form => event => {
+    const width = videoWrapperRef.current.offsetWidth;
+    const height = videoWrapperRef.current.offsetHeight;
+    const rect = videoWrapperRef.current.getBoundingClientRect();
     const position = {
       x: Math.round((event.clientX - rect.left) / width * 100),
       y: Math.round((event.clientY - rect.top) / height * 100),
       width: 1,
       height: 1
     };
-    const maskAreaStates = [...this.state.maskAreaStates];
     const maskAreas = [...form.initialValues.areas];
     const mouseDownEvent = {...event};
 
@@ -84,7 +67,7 @@ module.exports = class MotionDetection extends Base {
             areas: maskAreas
           }
         });
-        this.setState({maskAreaStates});
+        setMaskAreaStates(maskAreaStates);
 
         setTimeout(() => {
           for (let maskAreaIndex = 0; maskAreaIndex < maskAreaStates.length; maskAreaIndex += 1) {
@@ -94,7 +77,7 @@ module.exports = class MotionDetection extends Base {
             }
           }
 
-          this.maskAreaRefs[index].current.dispatchEvent(
+          maskAreaRefs[index].current.dispatchEvent(
             new MouseEvent('mousedown', mouseDownEvent)
           );
         });
@@ -103,7 +86,7 @@ module.exports = class MotionDetection extends Base {
     }
   };
 
-  onSubmitMotionDetectionSettingsForm = values => {
+  const onSubmitMotionDetectionSettingsForm = values => {
     progress.start();
     api.smartFunction.updateMotionDetectionSettings({
       isEnable: values.isEnable,
@@ -111,7 +94,7 @@ module.exports = class MotionDetection extends Base {
       areas: (() => {
         const result = [];
 
-        this.state.maskAreaStates.forEach((state, index) => {
+        maskAreaStates.forEach((state, index) => {
           if (state.isVisible) {
             result.push(values.areas[index]);
           }
@@ -123,127 +106,137 @@ module.exports = class MotionDetection extends Base {
       .finally(progress.done);
   };
 
-  motionDetectionSettingsFormRender = form => {
-    const {$isApiProcessing, maskAreaStates} = this.state;
-    const {values} = form;
-    const maskAreaItems = [0, 1, 2, 3];
-
-    return (
-      <Form className="row">
-        <BreadCrumb
-          path={[i18n.t('Analytics Settings'), i18n.t('Motion Detection')]}
-          routes={['/analytic/face-recognition']}
-        />
-        <div className="col-7 pl-3 pr-0">
-          <div ref={this.videoWrapperRef} id="md-video-wrapper" className="video-wrapper">
-            <img
-              className="img-fluid"
-              draggable={false}
-              src="/api/snapshot"
-              onMouseDown={this.generateVideoWrapperMouseDownHandler(form)}
-            />
-            {
-              maskAreaItems.map(index => (
-                maskAreaStates[index].isVisible ? (
-                  <div key={index} className="draggable-wrapper" tabIndex={-1} onKeyDown={this.generateDeleteMaskAreaHandler(index)}>
-                    <Field
-                      rightBottomCornerRef={this.maskAreaRefs[index]}
-                      name={`areas.${index}`}
-                      component={MaskArea}
-                      text={i18n.t('Detection Zone')}
-                      className="bounding-primary"
-                      parentElementId="md-video-wrapper"
-                    />
-                  </div>
-                ) :
-                  <div key={index}/>
-              ))
-            }
-          </div>
-        </div>
-
-        <div className="col-5 pl-4 pr-0">
-          <div className="card shadow">
-            <div className="card-header">{i18n.t('Motion Detection')}</div>
-            <div className="card-body">
-              <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('Enable Motion Detection')}</label>
-                <div className="custom-control custom-switch">
-                  <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-motion-detection"/>
-                  <label className="custom-control-label" htmlFor="switch-motion-detection">
-                    <span>{i18n.t('ON')}</span>
-                    <span>{i18n.t('OFF')}</span>
-                  </label>
-                </div>
-              </div>
-              <div className="form-group mb-3">
-                <span className="form-text text-primary">{i18n.t('Create detection zones on the live view screen.')}</span>
-              </div>
-
-              <hr/>
-
-              <div className={classNames('form-group', values.isEnable ? '' : 'd-none')}>
-                <div className="d-flex justify-content-between align-items-center">
-                  <label>{i18n.t('Sensitivity')}</label>
-                  <span className="text-primary text-size-14">{values.sensibility}</span>
-                </div>
-                <Field
-                  disableStepper
-                  name="sensibility"
-                  component={Slider}
-                  step={1}
-                  min={MotionDetectionSettingsSchema.sensibility.min}
-                  max={MotionDetectionSettingsSchema.sensibility.max}
+  console.log('maskAreaStates', maskAreaStates);
+  console.log('maskAreaRefs', maskAreaRefs);
+  console.log('videoWrapperRef', videoWrapperRef);
+  return (
+    <div className="page-smart">
+      <div className="container-fluid">
+        <Formik
+          initialValues={generateInitialValues(motionDetectionSettings)}
+          onSubmit={onSubmitMotionDetectionSettingsForm}
+        >
+          {form => {
+            const {values} = form;
+            const maskAreaItems = [0, 1, 2, 3];
+            return (
+              <Form className="row">
+                <BreadCrumb
+                  path={[i18n.t('Analytics Settings'), i18n.t('Motion Detection')]}
+                  routes={['/analytic/face-recognition']}
                 />
-              </div>
-              <div className="form-group">
-                <div className="card-header l-24 light text-size-18">{i18n.t('Note Area')}</div>
-                <div className="card-body l-32 light px-3 py-3">
-                  <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('To set a zone:')}</span>
-                    <div className="d-flex align-items-center drag-icon">
-                      <img src={iconCursor}/>
-                      <span className="text-size-12">{i18n.t('Drag')}</span>
-                    </div>
-                  </div>
-                  <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('To erase a zone:')}</span>
-                    <div className="d-flex justify-content-end align-items-center flex-wrap">
-                      <img src={iconHotkeyBackspace}/>
-                      <span className="font-italic text-size-14 mx-2">{i18n.t('or')}</span>
-                      <img src={iconHotkeyDeleted}/>
-                    </div>
-                  </div>
-                  <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('Up to 4 detection zones can be set.')}</span>
+                <div className="col-7 pl-3 pr-0">
+                  <div ref={videoWrapperRef} id="md-video-wrapper" className="video-wrapper">
+                    <img
+                      className="img-fluid"
+                      draggable={false}
+                      src="/api/snapshot"
+                      onMouseDown={generateVideoWrapperMouseDownHandler(form)}
+                    />
+                    {
+                      maskAreaItems.map(index => (
+                        maskAreaStates[index].isVisible ? (
+                          <div key={index} className="draggable-wrapper" tabIndex={-1} onKeyDown={generateDeleteMaskAreaHandler(index)}>
+                            <Field
+                              rightBottomCornerRef={maskAreaRefs[index]}
+                              name={`areas.${index}`}
+                              component={MaskArea}
+                              text={i18n.t('Detection Zone')}
+                              className="bounding-primary"
+                              parentElementId="md-video-wrapper"
+                            />
+                          </div>
+                        ) :
+                          <div key={index}/>
+                      ))
+                    }
                   </div>
                 </div>
-              </div>
 
-              <button disabled={$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
-                {i18n.t('Apply')}
-              </button>
-            </div>
-          </div>
-        </div>
-      </Form>
-    );
-  };
+                <div className="col-5 pl-4 pr-0">
+                  <div className="card shadow">
+                    <div className="card-header">{i18n.t('Motion Detection')}</div>
+                    <div className="card-body">
+                      <div className="form-group d-flex justify-content-between align-items-center">
+                        <label className="mb-0">{i18n.t('Enable Motion Detection')}</label>
+                        <div className="custom-control custom-switch">
+                          <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-motion-detection"/>
+                          <label className="custom-control-label" htmlFor="switch-motion-detection">
+                            <span>{i18n.t('ON')}</span>
+                            <span>{i18n.t('OFF')}</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div className="form-group mb-3">
+                        <span className="form-text text-primary">{i18n.t('Create detection zones on the live view screen.')}</span>
+                      </div>
 
-  render() {
-    const {motionDetectionSettings} = this.props;
+                      <hr/>
 
-    return (
-      <div className="page-smart">
-        <div className="container-fluid">
-          <Formik
-            initialValues={this.generateInitialValues(motionDetectionSettings)}
-            onSubmit={this.onSubmitMotionDetectionSettingsForm}
-          >
-            {this.motionDetectionSettingsFormRender}
-          </Formik>
-        </div>
+                      <div className={classNames('form-group', values.isEnable ? '' : 'd-none')}>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <label>{i18n.t('Sensitivity')}</label>
+                          <span className="text-primary text-size-14">{values.sensibility}</span>
+                        </div>
+                        <Field
+                          disableStepper
+                          name="sensibility"
+                          component={Slider}
+                          step={1}
+                          min={MotionDetectionSettingsSchema.sensibility.min}
+                          max={MotionDetectionSettingsSchema.sensibility.max}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <div className="card-header l-24 light text-size-18">{i18n.t('Note Area')}</div>
+                        <div className="card-body l-32 light px-3 py-3">
+                          <div className="mb-2 d-flex justify-content-between align-items-center">
+                            <span className="font-italic text-size-14">•{i18n.t('To set a zone:')}</span>
+                            <div className="d-flex align-items-center drag-icon">
+                              <img src={iconCursor}/>
+                              <span className="text-size-12">{i18n.t('Drag')}</span>
+                            </div>
+                          </div>
+                          <div className="mb-2 d-flex justify-content-between align-items-center">
+                            <span className="font-italic text-size-14">•{i18n.t('To erase a zone:')}</span>
+                            <div className="d-flex justify-content-end align-items-center flex-wrap">
+                              <img src={iconHotkeyBackspace}/>
+                              <span className="font-italic text-size-14 mx-2">{i18n.t('or')}</span>
+                              <img src={iconHotkeyDeleted}/>
+                            </div>
+                          </div>
+                          <div className="mb-2 d-flex justify-content-between align-items-center">
+                            <span className="font-italic text-size-14">•{i18n.t('Up to 4 detection zones can be set.')}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button disabled={isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
+                        {i18n.t('Apply')}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
       </div>
-    );
-  }
+    </div>
+  );
 };
+
+MotionDetection.propTypes = {
+  motionDetectionSettings: PropTypes.shape({
+    isEnable: PropTypes.bool.isRequired,
+    sensibility: PropTypes.number.isRequired,
+    areas: PropTypes.arrayOf(PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired,
+      width: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired
+    }).isRequired).isRequired
+  }).isRequired
+};
+
+export default withGlobalStatus(MotionDetection);
