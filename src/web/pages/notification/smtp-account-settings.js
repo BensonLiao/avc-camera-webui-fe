@@ -91,7 +91,12 @@ const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSetti
 };
 
 SMTPAccountSettings.propTypes = {
-  accountSettings: PropTypes.shape({}).isRequired,
+  accountSettings: PropTypes.shape({
+    encryption: PropTypes.oneOf(SMTPEncryptionType.all()),
+    port: PropTypes.oneOf(SMTPPort.all()),
+    account: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired
+  }).isRequired,
   isShowModal: PropTypes.bool.isRequired,
   setIsShowAccountModal: PropTypes.func.isRequired,
   onSubmitAccountSettingsForm: PropTypes.func.isRequired
