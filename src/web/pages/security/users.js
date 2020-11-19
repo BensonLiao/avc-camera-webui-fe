@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import UsersLeftMenu from './users-left-menu';
+import UsersSidebar from './users-sidebar';
 import UsersMainContent from './users-main-content';
 import withGlobalStatus from '../../withGlobalStatus';
 
@@ -9,7 +9,7 @@ const Users = ({users: usersProp}) => {
   const [permissionFilter, setPermissionFilter] = useState('all');
   return (
     <>
-      <UsersLeftMenu
+      <UsersSidebar
         setPermissionFilter={setPermissionFilter}
         permissionFilter={permissionFilter}
       />
