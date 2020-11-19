@@ -39,13 +39,6 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
     });
   };
 
-  const changeCardTypeFilter = cardType => {
-    return event => {
-      event.preventDefault();
-      setcardTypeFilter(cardType);
-    };
-  };
-
   const clickCardHandler = cardId => event => {
     event.preventDefault();
     if (cardId == null) {
@@ -82,7 +75,7 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
           <div className="container-fluid">
             <CardsFilter
               cardTypeFilter={cardTypeFilter}
-              changeCardTypeFilter={changeCardTypeFilter}
+              setcardTypeFilter={setcardTypeFilter}
             />
           </div>
         </div>

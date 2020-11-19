@@ -4,12 +4,20 @@ import PropTypes from 'prop-types';
 import i18n from '../../../i18n';
 import NotificationCardType from 'webserver-form-schema/constants/notification-card-type';
 
-const CardsFilter = ({cardTypeFilter, changeCardTypeFilter}) => {
+const CardsFilter = ({cardTypeFilter, setcardTypeFilter}) => {
   const cardTypeCheck = {
     faceRecognition: cardTypeFilter === NotificationCardType.faceRecognition,
     motionDetection: cardTypeFilter === NotificationCardType.motionDetection,
     digitalInput: cardTypeFilter === NotificationCardType.digitalInput
   };
+
+  const changeCardTypeFilter = cardType => {
+    return event => {
+      event.preventDefault();
+      setcardTypeFilter(cardType);
+    };
+  };
+
   return (
     <div className="filter d-flex align-items-center text-nowrap mb-0">
       <label className="mb-0">{i18n.t('Notification Filters')}</label>
@@ -56,7 +64,7 @@ const CardsFilter = ({cardTypeFilter, changeCardTypeFilter}) => {
 
 CardsFilter.propTypes = {
   cardTypeFilter: PropTypes.string.isRequired,
-  changeCardTypeFilter: PropTypes.func.isRequired
+  setcardTypeFilter: PropTypes.func.isRequired
 };
 
 export default CardsFilter;
