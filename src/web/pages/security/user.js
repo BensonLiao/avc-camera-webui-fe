@@ -70,9 +70,7 @@ module.exports = class User extends Base {
     };
   };
 
-  hideModal = (reload = false) => {
-    getRouter().go({name: 'web.users.accounts'}, {reload});
-  };
+  hideModal = () => this.setState({isShowModal: false});
 
   onSubmitForm = values => {
     progress.start();
@@ -84,16 +82,12 @@ module.exports = class User extends Base {
       }
 
       api.user.updateUser(submitValues)
-        .then(() => {
-          this.hideModal(true);
-        })
+        .then(getRouter().go({name: 'web.users.accounts'}, {reload: true}))
         .finally(progress.done);
     } else {
       // Add a new user.
       api.user.addUser(values)
-        .then(() => {
-          this.hideModal(true);
-        })
+        .then(getRouter().go({name: 'web.users.accounts'}, {reload: true}))
         .finally(progress.done);
     }
   };
