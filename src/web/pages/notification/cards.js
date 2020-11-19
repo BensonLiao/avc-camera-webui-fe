@@ -14,22 +14,16 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
   const {isApiProcessing} = useContextState();
 
   const [isShowCardDetailsModal, setIsShowCardDetailsModal] = useState(false);
-  const [cardTypeFilter, setcardTypeFilter] = useState('all');
-  const [state, setState] = useState({
-    cardDetails: null,
-    isTop: false
-  });
-  const {cardDetails, isTop} = state;
+  const [cardTypeFilter, setCardTypeFilter] = useState('all');
+  const [cardDetails, setCardDetails] = useState(null);
+  const [isTop, setIsTop] = useState(false);
 
   const hideCardFormModal = () => {
     setIsShowCardDetailsModal(false);
   };
 
   const toggleIsTop = () => {
-    setState(prevState => ({
-      ...prevState,
-      isTop: !prevState.isTop
-    }));
+    setIsTop(prevState => (!prevState));
   };
 
   const cardLimitError = () => { // Over card limit 32
@@ -47,24 +41,16 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
         return;
       }
 
-      setState(prevState => ({
-        ...prevState,
-        cardDetails: null,
-        isTop: false
-      }));
+      setCardDetails(null);
+      setIsTop(false);
       setIsShowCardDetailsModal(true);
     } else {
-      setState(prevState => {
-        const card = cards.find(x => x.id === cardId);
-        if (card) {
-          setIsShowCardDetailsModal(true);
-          return {
-            ...prevState,
-            cardDetails: card,
-            isTop: card.isTop
-          };
-        }
-      });
+      const card = cards.find(x => x.id === cardId);
+      if (card) {
+        setIsShowCardDetailsModal(true);
+        setCardDetails(card);
+        setIsTop(card.isTop);
+      }
     }
   };
 
@@ -75,7 +61,7 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
           <div className="container-fluid">
             <CardsFilter
               cardTypeFilter={cardTypeFilter}
-              setcardTypeFilter={setcardTypeFilter}
+              setCardTypeFilter={setCardTypeFilter}
             />
           </div>
         </div>

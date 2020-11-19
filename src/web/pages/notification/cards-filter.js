@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import i18n from '../../../i18n';
 import NotificationCardType from 'webserver-form-schema/constants/notification-card-type';
 
-const CardsFilter = ({cardTypeFilter, setcardTypeFilter}) => {
+const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
   const cardTypeCheck = {
     faceRecognition: cardTypeFilter === NotificationCardType.faceRecognition,
     motionDetection: cardTypeFilter === NotificationCardType.motionDetection,
@@ -14,7 +14,7 @@ const CardsFilter = ({cardTypeFilter, setcardTypeFilter}) => {
   const changeCardTypeFilter = cardType => {
     return event => {
       event.preventDefault();
-      setcardTypeFilter(cardType);
+      setCardTypeFilter(cardType);
     };
   };
 
@@ -64,7 +64,7 @@ const CardsFilter = ({cardTypeFilter, setcardTypeFilter}) => {
 
 CardsFilter.propTypes = {
   cardTypeFilter: PropTypes.string.isRequired,
-  setcardTypeFilter: PropTypes.func.isRequired
+  setCardTypeFilter: PropTypes.func.isRequired
 };
 
 export default CardsFilter;
