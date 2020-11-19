@@ -12,6 +12,7 @@ import {useContextState} from '../../stateProvider';
 const MotionDetectionSettings = () => {
   const {isApiProcessing} = useContextState();
   const {values} = useFormikContext();
+
   return (
     <div className="col-5 pl-4 pr-0">
       <div className="card shadow">
