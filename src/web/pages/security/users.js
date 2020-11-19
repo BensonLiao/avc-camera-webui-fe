@@ -4,7 +4,7 @@ import UsersSidebar from './users-sidebar';
 import UsersMainContent from './users-main-content';
 import withGlobalStatus from '../../withGlobalStatus';
 
-const Users = ({users: usersProp}) => {
+const Users = ({users}) => {
   const [permissionFilter, setPermissionFilter] = useState('all');
   return (
     <>
@@ -13,13 +13,13 @@ const Users = ({users: usersProp}) => {
         permissionFilter={permissionFilter}
       />
       <UsersMainContent
-        usersProp={usersProp}
+        users={users}
         permissionFilter={permissionFilter}
       />
     </>
   );
 };
 
-Users.propTypes = {users: PropTypes.shape({items: UsersMainContent.propTypes.users}).isRequired};
+Users.propTypes = {users: PropTypes.shape(UsersMainContent.propTypes.users).isRequired};
 
 export default withGlobalStatus(Users);

@@ -11,7 +11,7 @@ import i18n from '../../../i18n';
 import {SECURITY_USERS_MAX} from '../../../core/constants';
 import {useContextState} from '../../stateProvider';
 
-const UsersMainContent = ({permissionFilter, usersProp, params}) => {
+const UsersMainContent = ({permissionFilter, users, params}) => {
   const {isApiProcessing, user: {account}} = useContextState();
   const [isShowDeleteUserModal, setIsShowDeleteUserModal] = useState(false);
   const [deleteUserTarget, setDeleteUserTarget] = useState(null);
@@ -25,13 +25,13 @@ const UsersMainContent = ({permissionFilter, usersProp, params}) => {
   };
 
   // superAdmin is the same as admin, viewer is the same as guest
-  const users = permissionFilter === 'all' ?
-    usersProp.items :
-    usersProp.items.filter(user => permissionFilter === UserPermission.root ?
+  const usersList = permissionFilter === 'all' ?
+    users.items :
+    users.items.filter(user => permissionFilter === UserPermission.root ?
       user.permission.toString() === UserPermission.root || user.permission.toString() === UserPermission.superAdmin :
       user.permission.toString() === permissionFilter || user.permission.toString() === UserPermission.viewer);
 
-  const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
+  const isAddUserDisabled = usersList.length >= SECURITY_USERS_MAX;
 
   const confirmDeleteUser = event => {
     event.preventDefault();
@@ -76,8 +76,8 @@ const UsersMainContent = ({permissionFilter, usersProp, params}) => {
                 </thead>
                 <tbody>
                   {
-                    users.map((user, index) => {
-                      const tdClass = classNames({'border-bottom': index >= users.length - 1});
+                    usersList.map((user, index) => {
+                      const tdClass = classNames({'border-bottom': index >= usersList.length - 1});
                       const isSuperAdmin = user.permission === UserPermission.superAdmin;
                       return (
                         <tr key={user.id}>
@@ -150,7 +150,7 @@ const UsersMainContent = ({permissionFilter, usersProp, params}) => {
 };
 
 UsersMainContent.propTypes = {
-  usersProp: PropTypes.shape({
+  users: PropTypes.shape({
     total: PropTypes.number.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
