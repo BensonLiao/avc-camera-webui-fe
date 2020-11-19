@@ -61,17 +61,6 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
       .finally(progress.done);
   };
 
-  const toggleIsTopHandler = cardId => event => {
-    event.preventDefault();
-    event.stopPropagation();
-    const card = {...cards.find(x => x.id === cardId)};
-    card.isTop = !card.isTop;
-    progress.start();
-    api.notification.updateCard(card)
-      .then(getRouter().reload)
-      .finally(progress.done);
-  };
-
   const clickCardHandler = cardId => event => {
     event.preventDefault();
     if (cardId == null) {
@@ -161,7 +150,6 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
               cardTypeFilter={cardTypeFilter}
               isApiProcessing={isApiProcessing}
               clickCardHandler={clickCardHandler}
-              toggleIsTopHandler={toggleIsTopHandler}
               deleteCardHandler={deleteCardHandler}
             />
             <CardsForm

@@ -1,12 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {getRouter} from 'capybara-router';
+import progress from 'nprogress';
+import api from '../../../core/apis/web-api';
 import i18n from '../../../i18n';
 import CardsListSingleCard from './cards-list-single-card';
 
-const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHandler, deleteCardHandler, toggleIsTopHandler}) => {
+const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHandler, deleteCardHandler}) => {
   const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
   const topCards = filterCards.filter(x => x.isTop);
   const normalCards = filterCards.filter(x => !x.isTop);
+
+  const toggleIsTopHandler = cardId => event => {
+    event.preventDefault();
+    event.stopPropagation();
+    const card = {...cards.find(x => x.id === cardId)};
+    card.isTop = !card.isTop;
+    progress.start();
+    api.notification.updateCard(card)
+      .then(getRouter().reload)
+      .finally(progress.done);
+  };
+
   return (
     <>
       {
@@ -57,8 +72,7 @@ CardsList.propTypes = {
   isApiProcessing: PropTypes.bool.isRequired,
   cardTypeFilter: PropTypes.string.isRequired,
   clickCardHandler: PropTypes.func.isRequired,
-  deleteCardHandler: PropTypes.func.isRequired,
-  toggleIsTopHandler: PropTypes.func.isRequired
+  deleteCardHandler: PropTypes.func.isRequired
 };
 
 export default CardsList;
