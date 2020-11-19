@@ -11,7 +11,7 @@ import i18n from '../../../i18n';
 import {SECURITY_USERS_MAX} from '../../../core/constants';
 import {useContextState} from '../../stateProvider';
 
-const UsersMainContent = ({permissionFilter, users, params}) => {
+const UsersMainContent = ({permissionFilter, users}) => {
   const {isApiProcessing, user: {account}} = useContextState();
   const [isShowDeleteUserModal, setIsShowDeleteUserModal] = useState(false);
   const [deleteUserTarget, setDeleteUserTarget] = useState(null);
@@ -51,10 +51,7 @@ const UsersMainContent = ({permissionFilter, users, params}) => {
           <div className="row">
             <div className="col-12 text-right mr-32px mb-4">
               <Link
-                to={{
-                  name: 'web.users.accounts.new-user',
-                  params: params
-                }}
+                to={{name: 'web.users.accounts.new-user'}}
                 tabIndex={(isAddUserDisabled ? -1 : null)}
                 className={classNames(
                   'btn btn-outline-primary rounded-pill px-3',
@@ -97,10 +94,7 @@ const UsersMainContent = ({permissionFilter, users, params}) => {
                               className="btn btn-link"
                               to={{
                                 name: 'web.users.accounts.details',
-                                params: {
-                                  ...params,
-                                  userId: user.id
-                                }
+                                params: {userId: user.id}
                               }}
                             >
                               <i className="fas fa-pen fa-lg fa-fw"/>
@@ -158,8 +152,7 @@ UsersMainContent.propTypes = {
       account: PropTypes.string.isRequired
     })).isRequired
   }).isRequired,
-  permissionFilter: PropTypes.string.isRequired,
-  params: PropTypes.shape({})
+  permissionFilter: PropTypes.string.isRequired
 };
 
 export default UsersMainContent;
