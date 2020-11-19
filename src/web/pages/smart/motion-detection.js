@@ -36,7 +36,7 @@ const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {are
     // Delete if backspace or delete key is detected
     if (event.keyCode === 8 || event.keyCode === 46) {
       setMaskAreaStates(prevState => {
-        const maskAreaStates = [...prevState.maskAreaStates];
+        const maskAreaStates = [...prevState];
         maskAreaStates[index].isVisible = false;
         return maskAreaStates;
       });
@@ -106,9 +106,6 @@ const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {are
       .finally(progress.done);
   };
 
-  console.log('maskAreaStates', maskAreaStates);
-  console.log('maskAreaRefs', maskAreaRefs);
-  console.log('videoWrapperRef', videoWrapperRef);
   return (
     <div className="page-smart">
       <div className="container-fluid">
