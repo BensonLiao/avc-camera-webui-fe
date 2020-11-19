@@ -1,11 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {getRouter} from 'capybara-router';
-import progress from 'nprogress';
-import sanitizeHtml from 'sanitize-html';
-import NotificationFaceRecognitionCondition from 'webserver-form-schema/constants/notification-face-recognition-condition';
 import i18n from '../../../i18n';
-import api from '../../../core/apis/web-api';
 import {NOTIFY_CARDS_MAX} from '../../../core/constants';
 import notify from '../../../core/notify';
 import CardsFilter from './cards-filter';
@@ -80,45 +75,6 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
     }
   };
 
-  const sanitizeInput = input => {
-    return sanitizeHtml(input, {
-      allowedTags: [],
-      allowedAttributes: {}
-    });
-  };
-
-  const onSubmitCardForm = values => {
-    const data = {
-      ...values,
-      isTop: isTop,
-      groups: values.faceRecognitionCondition === NotificationFaceRecognitionCondition.success ?
-        (values.$groups ? [values.$groups] : []) :
-        [],
-      title: sanitizeInput(values.title)
-    };
-
-    if (data.id == null) {
-      // Create a new card.
-      if (cards.length >= NOTIFY_CARDS_MAX) {
-        cardLimitError();
-        return;
-      }
-
-      progress.start();
-      api.notification.addCard(data)
-        .then(setIsShowCardDetailsModal(false))
-        .then(getRouter().reload)
-        .finally(progress.done);
-    } else {
-      // Update the card.
-      progress.start();
-      api.notification.updateCard(data)
-        .then(setIsShowCardDetailsModal(false))
-        .then(getRouter().reload)
-        .finally(progress.done);
-    }
-  };
-
   return (
     <>
       <div className="main-content left-menu-active  fixed-top-horizontal-scroll">
@@ -142,16 +98,16 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
               clickCardHandler={clickCardHandler}
             />
             <CardsForm
+              cards={cards}
               groups={groups}
               cardDetails={cardDetails}
               modelName={modelName}
               isApiProcessing={isApiProcessing}
-              isShowCardDetailsModal={isShowCardDetailsModal}
               isTop={isTop}
               toggleIsTop={toggleIsTop}
-              sanitizeInput={sanitizeInput}
-              onHideCardModal={() => setIsShowCardDetailsModal(false)}
-              onSubmit={onSubmitCardForm}
+              cardLimitError={cardLimitError}
+              isShowCardDetailsModal={isShowCardDetailsModal}
+              setIsShowCardDetailsModal={setIsShowCardDetailsModal}
             />
             <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
               <CustomTooltip title={i18n.t('Add a New Notification Card')}>

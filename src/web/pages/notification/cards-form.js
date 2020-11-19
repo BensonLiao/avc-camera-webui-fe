@@ -1,15 +1,20 @@
 
-import classNames from 'classnames';
-import {Formik, Form, Field} from 'formik';
-import Modal from 'react-bootstrap/Modal';
-import {Nav, Tab} from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import Modal from 'react-bootstrap/Modal';
+import classNames from 'classnames';
+import progress from 'nprogress';
+import {Formik, Form, Field} from 'formik';
+import {Nav, Tab} from 'react-bootstrap';
+import {getRouter} from 'capybara-router';
+import sanitizeHtml from 'sanitize-html';
 import NotificationCardSchema from 'webserver-form-schema/notification-card-schema';
 import NotificationCardType from 'webserver-form-schema/constants/notification-card-type';
 import NotificationEmailAttachmentType from 'webserver-form-schema/constants/notification-email-attachment-type';
 import NotificationFaceRecognitionCondition from 'webserver-form-schema/constants/notification-face-recognition-condition';
+import api from '../../../core/apis/web-api';
 import i18n from '../../../i18n';
+import {NOTIFY_CARDS_MAX} from '../../../core/constants';
 import CardsFormSchedule from './cards-form-schedule';
 import CardsFormRule from './cards-form-rule';
 import CardsFormSubject from './cards-form-subject';
@@ -34,12 +39,12 @@ const CardsForm = ({
   isApiProcessing,
   groups,
   isShowCardDetailsModal,
-  onSubmit,
+  setIsShowCardDetailsModal,
   cardDetails,
-  onHideCardModal,
   isTop,
   toggleIsTop,
-  sanitizeInput
+  cardLimitError,
+  cards
 }) => {
   const cardFormTitleRef = React.createRef();
   const defaultSubject = {
@@ -123,13 +128,51 @@ const CardsForm = ({
     }
   };
 
+  const sanitizeInput = input => {
+    return sanitizeHtml(input, {
+      allowedTags: [],
+      allowedAttributes: {}
+    });
+  };
+
+  const onSubmit = values => {
+    const data = {
+      ...values,
+      isTop: isTop,
+      groups: values.faceRecognitionCondition === NotificationFaceRecognitionCondition.success ?
+        (values.$groups ? [values.$groups] : []) :
+        [],
+      title: sanitizeInput(values.title)
+    };
+
+    if (data.id == null) {
+      // Create a new card.
+      if (cards.length >= NOTIFY_CARDS_MAX) {
+        return cardLimitError();
+      }
+
+      progress.start();
+      api.notification.addCard(data)
+        .then(() => setIsShowCardDetailsModal(false))
+        .then(getRouter().reload)
+        .finally(progress.done);
+    } else {
+      // Update the card.
+      progress.start();
+      api.notification.updateCard(data)
+        .then(() => setIsShowCardDetailsModal(false))
+        .then(getRouter().reload)
+        .finally(progress.done);
+    }
+  };
+
   return (
     <Modal
       autoFocus={false}
       show={isShowCardDetailsModal}
       className="notification-card"
       dialogClassName="modal-600"
-      onHide={onHideCardModal}
+      onHide={() => setIsShowCardDetailsModal(false)}
     >
       <Formik
         initialValues={generateCardInitialValues(cardDetails)}
@@ -255,7 +298,7 @@ const CardsForm = ({
                 <button
                   type="button"
                   className="btn btn-info btn-block m-0 rounded-pill"
-                  onClick={onHideCardModal}
+                  onClick={() => setIsShowCardDetailsModal(false)}
                 >
                   {i18n.t('Cancel')}
                 </button>
@@ -290,15 +333,15 @@ CardsForm.propTypes = {
     senderContent: PropTypes.string,
     emailContentPosition: PropTypes.string.isRequired
   }),
+  cards: PropTypes.array.isRequired,
   groups: PropTypes.shape(CardsFormRule.propTypes.groups.items).isRequired,
   modelName: PropTypes.string.isRequired,
   isApiProcessing: PropTypes.bool.isRequired,
   isShowCardDetailsModal: PropTypes.bool.isRequired,
+  setIsShowCardDetailsModal: PropTypes.func.isRequired,
   isTop: PropTypes.bool.isRequired,
   toggleIsTop: PropTypes.func.isRequired,
-  sanitizeInput: PropTypes.func.isRequired,
-  onHideCardModal: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  cardLimitError: PropTypes.func.isRequired
 };
 
 CardsForm.defaultProps = {cardDetails: null};
