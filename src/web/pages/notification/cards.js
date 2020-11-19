@@ -16,7 +16,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
 
-const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
+const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) => {
   const {isApiProcessing} = useContextState();
 
   const [state, setState] = useState({
@@ -27,7 +27,6 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
   const {cardDetails, cardTypeFilter, isTop} = state;
 
   const [isShowCardDetailsModal, setIsShowCardDetailsModal] = useState(false);
-  const [cards, setCards] = useState(allCards.items);
 
   const toggleIsTop = () => {
     setState(prevState => ({
@@ -128,26 +127,15 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
 
       progress.start();
       api.notification.addCard(data)
-        .then(response => {
-          setCards(prevState => {
-            prevState.push(response.data);
-            return prevState;
-          });
-          setIsShowCardDetailsModal(false);
-        })
+        .then(setIsShowCardDetailsModal(false))
+        .then(getRouter().reload)
         .finally(progress.done);
     } else {
       // Update the card.
       progress.start();
       api.notification.updateCard(data)
-        .then(response => {
-          setCards(prevState => {
-            const index = prevState.findIndex(x => x.id === data.id);
-            prevState.splice(index, 1, response.data);
-            return prevState;
-          });
-          setIsShowCardDetailsModal(false);
-        })
+        .then(setIsShowCardDetailsModal(false))
+        .then(getRouter().reload)
         .finally(progress.done);
     }
   };
