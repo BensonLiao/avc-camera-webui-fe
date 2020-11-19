@@ -19,14 +19,15 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
   const {isApiProcessing} = useContextState();
 
   const [state, setState] = useState({
-    cards: allCards.items,
     isShowCardDetailsModal: false,
     cardDetails: null,
     cardTypeFilter: 'all',
     isTop: false
   });
 
-  const {cards, isShowCardDetailsModal, cardDetails, cardTypeFilter, isTop} = state;
+  const [cards, setCards] = useState(allCards.items);
+
+  const {isShowCardDetailsModal, cardDetails, cardTypeFilter, isTop} = state;
 
   const onHideCardModal = () => {
     setState(prevState => ({
@@ -62,20 +63,15 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
   const deleteCardHandler = cardId => event => {
     event.preventDefault();
     event.stopPropagation();
+    setCards(prevCards => {
+      const index = cards.findIndex(x => x.id === cardId);
+      if (index >= 0) {
+        prevCards.splice(index, 1);
+        return prevCards;
+      }
+    });
     progress.start();
     api.notification.deleteCard(cardId)
-      .then(() => setState(prevState => {
-        const cards = [...prevState.cards];
-        const index = cards.findIndex(x => x.id === cardId);
-
-        if (index >= 0) {
-          cards.splice(index, 1);
-          return {
-            ...prevState,
-            cards
-          };
-        }
-      }))
       .finally(progress.done);
   };
 
@@ -84,20 +80,15 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
     event.stopPropagation();
     const card = {...cards.find(x => x.id === cardId)};
     card.isTop = !card.isTop;
+    setCards(prevCards => {
+      const index = cards.findIndex(x => x.id === cardId);
+      if (index >= 0) {
+        prevCards.splice(index, 1, card);
+        return prevCards;
+      }
+    });
     progress.start();
     api.notification.updateCard(card)
-      .then(response => setState(prevState => {
-        const cards = [...prevState.cards];
-        const index = cards.findIndex(x => x.id === cardId);
-
-        if (index >= 0) {
-          cards.splice(index, 1, response.data);
-          return {
-            ...prevState,
-            cards
-          };
-        }
-      }))
       .finally(progress.done);
   };
 
@@ -117,7 +108,7 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
       }));
     } else {
       setState(prevState => {
-        const card = prevState.cards.find(x => x.id === cardId);
+        const card = cards.find(x => x.id === cardId);
         if (card) {
           return {
             ...prevState,
@@ -157,15 +148,14 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
       progress.start();
       api.notification.addCard(data)
         .then(response => {
-          setState(prevState => {
-            const cards = [...prevState.cards];
-            cards.push(response.data);
-            return {
-              ...prevState,
-              cards,
-              isShowCardDetailsModal: false
-            };
+          setCards(prevState => {
+            prevState.push(response.data);
+            return prevState;
           });
+          setState(prevState => ({
+            ...prevState,
+            isShowCardDetailsModal: false
+          }));
         })
         .finally(progress.done);
     } else {
@@ -173,16 +163,15 @@ const Cards = ({groups, cards: allCards, systemInformation: {modelName}}) => {
       progress.start();
       api.notification.updateCard(data)
         .then(response => {
-          setState(prevState => {
-            const cards = [...prevState.cards];
-            const index = cards.findIndex(x => x.id === data.id);
-            cards.splice(index, 1, response.data);
-            return {
-              ...prevState,
-              cards,
-              isShowCardDetailsModal: false
-            };
+          setCards(prevState => {
+            const index = prevState.findIndex(x => x.id === data.id);
+            prevState.splice(index, 1, response.data);
+            return prevState;
           });
+          setState(prevState => ({
+            ...prevState,
+            isShowCardDetailsModal: false
+          }));
         })
         .finally(progress.done);
     }
