@@ -22,10 +22,6 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
     setIsShowCardDetailsModal(false);
   };
 
-  const toggleIsTop = () => {
-    setIsTop(prevState => (!prevState));
-  };
-
   const cardLimitError = () => { // Over card limit 32
     notify.showErrorNotification({
       title: i18n.t('Card Number Limit Exceeded'),
@@ -83,7 +79,7 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
               modelName={modelName}
               isApiProcessing={isApiProcessing}
               isTop={isTop}
-              toggleIsTop={toggleIsTop}
+              setIsTop={setIsTop}
               cardLimitError={cardLimitError}
               isShowCardDetailsModal={isShowCardDetailsModal}
               hideCardFormModal={hideCardFormModal}

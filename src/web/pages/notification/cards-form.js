@@ -42,7 +42,7 @@ const CardsForm = ({
   hideCardFormModal,
   cardDetails,
   isTop,
-  toggleIsTop,
+  setIsTop,
   cardLimitError,
   cards
 }) => {
@@ -126,6 +126,10 @@ const CardsForm = ({
       default:
         break;
     }
+  };
+
+  const toggleIsTop = () => {
+    setIsTop(prevState => (!prevState));
   };
 
   const sanitizeInput = input => {
@@ -340,7 +344,7 @@ CardsForm.propTypes = {
   isShowCardDetailsModal: PropTypes.bool.isRequired,
   hideCardFormModal: PropTypes.func.isRequired,
   isTop: PropTypes.bool.isRequired,
-  toggleIsTop: PropTypes.func.isRequired,
+  setIsTop: PropTypes.func.isRequired,
   cardLimitError: PropTypes.func.isRequired
 };
 
