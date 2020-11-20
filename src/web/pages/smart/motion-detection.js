@@ -23,16 +23,7 @@ const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {are
     api.smartFunction.updateMotionDetectionSettings({
       isEnable: values.isEnable,
       sensibility: values.sensibility,
-      areas: (() => {
-        const result = [];
-
-        maskAreaStates.forEach((state, index) => {
-          if (state.isVisible) {
-            result.push(values.areas[index]);
-          }
-        });
-        return result;
-      })()
+      areas: values.areas.filter((_, index) => maskAreaStates[index].isVisible)
     })
       .then(getRouter().reload)
       .finally(progress.done);
