@@ -11,7 +11,7 @@ import i18n from '../../../i18n';
 import {SECURITY_USERS_MAX} from '../../../core/constants';
 import {useContextState} from '../../stateProvider';
 
-const UsersMainContent = ({permissionFilter, users}) => {
+const UsersTable = ({permissionFilter, users}) => {
   const {isApiProcessing, user: {account}} = useContextState();
   const [isShowDeleteUserModal, setIsShowDeleteUserModal] = useState(false);
   const [deleteUserTarget, setDeleteUserTarget] = useState(null);
@@ -143,7 +143,7 @@ const UsersMainContent = ({permissionFilter, users}) => {
   );
 };
 
-UsersMainContent.propTypes = {
+UsersTable.propTypes = {
   users: PropTypes.shape({
     total: PropTypes.number.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
@@ -155,4 +155,4 @@ UsersMainContent.propTypes = {
   permissionFilter: PropTypes.string.isRequired
 };
 
-export default UsersMainContent;
+export default UsersTable;

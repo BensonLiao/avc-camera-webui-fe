@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import UsersSidebar from './users-sidebar';
-import UsersMainContent from './users-main-content';
+import UsersTable from './users-table';
 import withGlobalStatus from '../../withGlobalStatus';
 
 const Users = ({users}) => {
@@ -12,7 +12,7 @@ const Users = ({users}) => {
         setPermissionFilter={setPermissionFilter}
         permissionFilter={permissionFilter}
       />
-      <UsersMainContent
+      <UsersTable
         users={users}
         permissionFilter={permissionFilter}
       />
@@ -20,6 +20,6 @@ const Users = ({users}) => {
   );
 };
 
-Users.propTypes = {users: PropTypes.shape(UsersMainContent.propTypes.users).isRequired};
+Users.propTypes = {users: PropTypes.shape(UsersTable.propTypes.users).isRequired};
 
 export default withGlobalStatus(Users);
