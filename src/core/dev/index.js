@@ -471,10 +471,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onGet('/api/users').reply(config => {
     const data = db.get('users').value();
     delete data.birthday;
-    return mockResponseWithLog(config, [200, {
-      total: data.length,
-      items: data
-    }]);
+    return mockResponseWithLog(config, [200, {items: data}]);
   })
   .onGet(/api\/users\/\d+$/).reply(config => {
     const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
@@ -484,7 +481,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
     const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
     const currentItem = db.get('users').find({id: itemId}).value();
     const newItem = JSON.parse(config.data);
-    if (currentItem.password !== '' && currentItem.password !== newItem.password) {
+    if (currentItem.password !== '' && currentItem.password !== newItem.newPassword) {
       return mockResponseWithLog(config, [204, {messsage: 'Your current password is incorrect.'}]);
     }
 
