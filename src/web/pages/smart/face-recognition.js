@@ -37,13 +37,7 @@ const FaceRecognition = ({faceRecognitionSettings}) => {
         values.isShowUnknown !== faceRecognitionSettings.isShowUnknown ||
         values.isShowFake !== faceRecognitionSettings.isShowFake
       ) {
-        promises.push(api.smartFunction.updateFREnrollDisplaySetting({
-          ...values,
-          isShowMember: values.isShowMember,
-          isShowGroup: values.isShowGroup,
-          isShowUnknown: values.isShowUnknown,
-          isShowFake: values.isShowFake
-        }));
+        promises.push(api.smartFunction.updateFREnrollDisplaySetting(values));
       }
 
       if (
@@ -51,10 +45,7 @@ const FaceRecognition = ({faceRecognitionSettings}) => {
         values.isEnableFaceFrame !== faceRecognitionSettings.isEnableFaceFrame ||
         values.faceFrame !== faceRecognitionSettings.faceFrame
       ) {
-        promises.push(api.smartFunction.updateFRROI({
-          ...values,
-          triggerArea: values.triggerArea
-        }));
+        promises.push(api.smartFunction.updateFRROI(values));
       }
 
       return promises;
