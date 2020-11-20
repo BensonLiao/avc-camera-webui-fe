@@ -121,7 +121,6 @@ const UsersTable = ({permissionFilter, users}) => {
 
 UsersTable.propTypes = {
   users: PropTypes.shape({
-    total: PropTypes.number.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       permission: PropTypes.string.isRequired,
