@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import ConfidenceLevel from 'webserver-form-schema/constants/face-recognition-confidence-level';
-import {useFormikContext, Form, Field} from 'formik';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import {useFormikContext, Form, Field} from 'formik';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import {useContextState} from '../../stateProvider';
-import PropTypes from 'prop-types';
 
 const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) => {
   const {values, setFieldValue} = useFormikContext();

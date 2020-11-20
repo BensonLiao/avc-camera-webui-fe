@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
-import i18n from '../../../i18n';
-import withGlobalStatus from '../../withGlobalStatus';
 import FaceRecognitionSettings from './face-recognition-settings';
 import FaceRecognitionStream from './face-recognition-stream';
+import i18n from '../../../i18n';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const FaceRecognition = ({faceRecognitionSettings}) => {
   const [isShowDetectionZone, setIsShowDetectionZone] = useState(true);
