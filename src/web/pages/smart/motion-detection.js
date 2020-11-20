@@ -18,10 +18,6 @@ const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {are
     {isVisible: Boolean(areas[3]) && isEnable}
   ]);
 
-  const generateInitialValues = settings => {
-    return {...settings};
-  };
-
   const onSubmitMotionDetectionSettingsForm = values => {
     progress.start();
     api.smartFunction.updateMotionDetectionSettings({
@@ -46,7 +42,7 @@ const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {are
     <div className="page-smart">
       <div className="container-fluid">
         <Formik
-          initialValues={generateInitialValues(motionDetectionSettings)}
+          initialValues={motionDetectionSettings}
           onSubmit={onSubmitMotionDetectionSettingsForm}
         >
           <Form className="row">
