@@ -4,7 +4,7 @@ import i18n from '../../../i18n';
 import MaskArea from '../../../core/components/fields/mask-area';
 import PropTypes from 'prop-types';
 
-const FaceRecognitionStream = ({isShowDetectionZone}) => {
+const FaceRecognitionSnapshot = ({isShowDetectionZone}) => {
   const {values} = useFormikContext();
   return (
     <div className="col-7 pl-3 pr-0">
@@ -41,6 +41,6 @@ const FaceRecognitionStream = ({isShowDetectionZone}) => {
   );
 };
 
-FaceRecognitionStream.propTypes = {isShowDetectionZone: PropTypes.bool.isRequired};
+FaceRecognitionSnapshot.propTypes = {isShowDetectionZone: PropTypes.bool.isRequired};
 
-export default FaceRecognitionStream;
+export default FaceRecognitionSnapshot;

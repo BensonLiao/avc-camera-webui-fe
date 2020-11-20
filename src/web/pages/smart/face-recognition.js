@@ -6,7 +6,7 @@ import React, {useState} from 'react';
 import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import FaceRecognitionSettings from './face-recognition-settings';
-import FaceRecognitionStream from './face-recognition-stream';
+import FaceRecognitionSnapshot from './face-recognition-snapshot';
 import i18n from '../../../i18n';
 import withGlobalStatus from '../../withGlobalStatus';
 
@@ -78,7 +78,7 @@ const FaceRecognition = ({faceRecognitionSettings}) => {
             onSubmit={values => onSubmitFaceRecognitionSettingsForm(values, faceRecognitionSettings)}
           >
             <>
-              <FaceRecognitionStream
+              <FaceRecognitionSnapshot
                 isShowDetectionZone={isShowDetectionZone}
               />
               <FaceRecognitionSettings
