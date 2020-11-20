@@ -21,7 +21,6 @@ const utils = require('../../../core/utils');
 module.exports = class DateTime extends Base {
   static get propTypes() {
     return {
-      systemInformation: PropTypes.shape({languageCode: PropTypes.oneOf(i18n.options.supportedLangCodes).isRequired}).isRequired,
       systemDateTime: PropTypes.shape({
         deviceTime: PropTypes.number.isRequired,
         syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,
@@ -74,8 +73,7 @@ module.exports = class DateTime extends Base {
 
   onSubmit = values => {
     const formValues = {...values};
-    const {systemInformation: {languageCode}, systemDateTime: {syncTimeOption}} = this.props;
-    const isLanguageUpdate = languageCode !== formValues.language;
+    const {systemDateTime: {syncTimeOption}} = this.props;
     progress.start();
     this.setState({
       isShowApiProcessModal: true,
@@ -87,27 +85,21 @@ module.exports = class DateTime extends Base {
         if (formValues.syncTimeOption !== syncTimeOption) {
           formValues.ntpTimeZone = dayjs.tz.guess();
         }
+      } else {
+        // Set seconds to 0 to prevent timepicker issues
+        formValues.manualTime.setSeconds(0);
       }
 
-      if (isLanguageUpdate) {
-        api.system.updateLanguage(formValues.language)
-          .then(() => {
-            location.reload();
-          })
-          .finally(progress.done);
-      } else {
-        formValues.manualTime.setSeconds(0);
-        formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
-        formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
-        api.system.updateSystemDateTime(formValues)
-          .then(() => {
-            location.href = '/login';
-          })
-          .catch(() => {
-            this.hideApiProcessModal();
-          })
-          .finally(progress.done);
-      }
+      formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
+      formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
+      api.system.updateSystemDateTime(formValues)
+        .then(() => {
+          location.href = '/login';
+        })
+        .catch(() => {
+          this.hideApiProcessModal();
+        })
+        .finally(progress.done);
     });
   };
 
@@ -116,12 +108,6 @@ module.exports = class DateTime extends Base {
 
     return (
       <Form>
-        {/* Remove language in AVN version */}
-        <SelectField hide labelName={i18n.t('Language')} name="language">
-          <option value={window.navigator.userLanguage || window.navigator.language}>{i18n.t('Default')}</option>
-          <option value={i18n.options.supportedLangCodes[0]}>{i18n.t('English')}</option>
-          <option value={i18n.options.supportedLangCodes[1]}>{i18n.t('Traditional Chinese')}</option>
-        </SelectField>
         <div
           className="cursor-pointer"
         >
@@ -308,7 +294,7 @@ module.exports = class DateTime extends Base {
   };
 
   render() {
-    const {systemDateTime, systemDateTime: {ntpUpdateTime, ntpTimeZone, deviceTime}, systemInformation: {languageCode}} = this.props;
+    const {systemDateTime, systemDateTime: {ntpUpdateTime, ntpTimeZone, deviceTime}} = this.props;
     return (
       <div className="main-content left-menu-active">
         <div className="page-system">
@@ -337,8 +323,7 @@ module.exports = class DateTime extends Base {
                         ...systemDateTime,
                         ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime).getTime(),
                         manualTime: systemDateTime.manualTime ?
-                          new Date(systemDateTime.manualTime) : new Date(),
-                        language: languageCode
+                          new Date(systemDateTime.manualTime) : new Date()
                       }}
                       onSubmit={this.onSubmit}
                     >
