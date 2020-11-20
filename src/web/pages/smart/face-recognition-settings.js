@@ -12,15 +12,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
   const {values, setFieldValue} = useFormikContext();
   const {isApiProcessing} = useContextState();
   const [isShowModal, setIsShowModal] = useState(false);
-
   const hideModal = () => setIsShowModal(false);
-
-  const confirmEnableSpoof = isEnableSpoofing => {
-    if (!isEnableSpoofing) {
-      setIsShowModal(true);
-    }
-  };
-
   return (
     <div className="col-5 pl-4 pr-0">
       <div className="card shadow">
@@ -59,7 +51,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                           style={values.isEnable ? {} : {pointerEvents: 'none'}}
                           className="custom-control-input"
                           id="switch-face-recognition-spoofing"
-                          onClick={() => confirmEnableSpoof(values.isEnableSpoofing)}
+                          onClick={() => values.isEnableSpoofing || setIsShowModal(true)}
                         />
                         <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
                           <span>{i18n.t('ON')}</span>
