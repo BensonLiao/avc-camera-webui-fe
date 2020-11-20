@@ -25,8 +25,8 @@ const UsersTable = ({permissionFilter, users}) => {
 
   // superAdmin is the same as admin, viewer is the same as guest
   const usersList = permissionFilter === 'all' ?
-    users.items :
-    users.items.filter(user => permissionFilter === UserPermission.root ?
+    users :
+    users.filter(user => permissionFilter === UserPermission.root ?
       user.permission.toString() === UserPermission.root || user.permission.toString() === UserPermission.superAdmin :
       user.permission.toString() === permissionFilter || user.permission.toString() === UserPermission.viewer);
 
@@ -120,13 +120,11 @@ const UsersTable = ({permissionFilter, users}) => {
 };
 
 UsersTable.propTypes = {
-  users: PropTypes.shape({
-    items: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      permission: PropTypes.string.isRequired,
-      account: PropTypes.string.isRequired
-    })).isRequired
-  }).isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    permission: PropTypes.string.isRequired,
+    account: PropTypes.string.isRequired
+  })).isRequired,
   permissionFilter: PropTypes.string.isRequired
 };
 
