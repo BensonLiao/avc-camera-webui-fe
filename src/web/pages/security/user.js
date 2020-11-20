@@ -72,6 +72,12 @@ module.exports = class User extends Base {
 
   hideModal = () => this.setState({isShowModal: false});
 
+  callApi = (apiType, values = '') => {
+    api.user[apiType](values)
+      .then(getRouter().go({name: 'web.users.accounts'}, {reload: true}))
+      .finally(progress.done);
+  };
+
   onSubmitForm = values => {
     progress.start();
     if (this.props.user) {
@@ -81,14 +87,10 @@ module.exports = class User extends Base {
         submitValues.permission = UserPermission.viewer;
       }
 
-      api.user.updateUser(submitValues)
-        .then(getRouter().go({name: 'web.users.accounts'}, {reload: true}))
-        .finally(progress.done);
+      this.callApi('updateUser', submitValues);
     } else {
       // Add a new user.
-      api.user.addUser(values)
-        .then(getRouter().go({name: 'web.users.accounts'}, {reload: true}))
-        .finally(progress.done);
+      this.callApi('addUser', values);
     }
   };
 
