@@ -4,7 +4,7 @@ import i18n from '../../../i18n';
 import MaskArea from '../../../core/components/fields/mask-area';
 import PropTypes from 'prop-types';
 
-const MotionDetectionSnapshot = ({maskAreaStates, setMaskAreaStates}) => {
+const MotionDetectionMask = ({maskAreaStates, setMaskAreaStates}) => {
   const videoWrapperRef = useRef(null);
   const maskAreaRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const maskAreaItems = [0, 1, 2, 3];
@@ -95,9 +95,9 @@ const MotionDetectionSnapshot = ({maskAreaStates, setMaskAreaStates}) => {
   );
 };
 
-MotionDetectionSnapshot.propTypes = {
+MotionDetectionMask.propTypes = {
   maskAreaStates: PropTypes.array.isRequired,
   setMaskAreaStates: PropTypes.func.isRequired
 };
 
-export default MotionDetectionSnapshot;
+export default MotionDetectionMask;

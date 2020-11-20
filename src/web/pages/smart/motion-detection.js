@@ -7,7 +7,7 @@ import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import i18n from '../../../i18n';
 import withGlobalStatus from '../../withGlobalStatus';
-import MotionDetectionSnapshot from './motion-detection-snapshot';
+import MotionDetectionMask from './motion-detection-mask';
 import MotionDetectionSettings from './motion-detection-settings';
 
 const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {areas, isEnable}}) => {
@@ -41,7 +41,7 @@ const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {are
               path={[i18n.t('Analytics Settings'), i18n.t('Motion Detection')]}
               routes={['/analytic/face-recognition']}
             />
-            <MotionDetectionSnapshot
+            <MotionDetectionMask
               setMaskAreaStates={setMaskAreaStates}
               maskAreaStates={maskAreaStates}
             />
