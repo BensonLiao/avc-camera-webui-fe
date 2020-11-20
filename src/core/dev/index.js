@@ -471,10 +471,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onGet('/api/users').reply(config => {
     const data = db.get('users').value();
     delete data.birthday;
-    return mockResponseWithLog(config, [200, {
-      total: data.length,
-      items: data
-    }]);
+    return mockResponseWithLog(config, [200, {items: data}]);
   })
   .onGet(/api\/users\/\d+$/).reply(config => {
     const itemId = parseInt(config.url.replace('/api/users/', ''), 10);
