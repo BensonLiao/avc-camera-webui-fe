@@ -32,7 +32,6 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
               <Field
                 name="isEnable"
                 type="checkbox"
-                checked={values.isEnable}
                 className="custom-control-input"
                 id="switch-face-recognition"
               />
@@ -56,7 +55,6 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                         <Field
                           name="isEnableSpoofing"
                           type="checkbox"
-                          checked={values.isEnableSpoofing}
                           disabled={!values.isEnable}
                           style={values.isEnable ? {} : {pointerEvents: 'none'}}
                           className="custom-control-input"
@@ -136,7 +134,6 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
               <Field
                 name="isEnableFaceFrame"
                 type="checkbox"
-                checked={values.isEnableFaceFrame}
                 className="custom-control-input"
                 id="switch-face-size"
               />
@@ -154,7 +151,6 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
             <div className="form-check mb-3">
               <Field
                 name="isShowMember"
-                checked={values.isShowMember}
                 className="form-check-input"
                 type="checkbox"
                 id="input-show-all"
@@ -164,7 +160,6 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
             <div className="form-check mb-3">
               <Field
                 name="isShowGroup"
-                checked={values.isShowGroup}
                 className="form-check-input"
                 type="checkbox"
                 id="input-show-register-group"
@@ -174,7 +169,6 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
             <div className="form-check mb-3">
               <Field
                 name="isShowUnknown"
-                checked={values.isShowUnknown}
                 className="form-check-input"
                 type="checkbox"
                 id="input-show-unknown-personal"
@@ -184,7 +178,6 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
             <div className="form-check">
               <Field
                 name="isShowFake"
-                checked={values.isShowFake}
                 className="form-check-input"
                 type="checkbox"
                 id="input-show-fake"
