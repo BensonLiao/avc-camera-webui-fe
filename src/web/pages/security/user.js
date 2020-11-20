@@ -110,21 +110,17 @@ module.exports = class User extends Base {
     const {$isApiProcessing} = this.state;
     const isSuperAdmin = user && (user.permission === UserPermission.superAdmin);
     const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
-    const permissionList = UserPermission.all().reduce((permissionList, permission) => {
-      if (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) {
-        permissionList.push(
-          <option key={permission} value={permission}>
-            {i18n.t(`permission-${permission}`)}
-          </option>);
-      }
-
-      return permissionList;
-    }, []);
     return (
       <Form>
         <div className="modal-body">
           <SelectField readOnly={isSuperAdmin} labelName={i18n.t('Permission')} name="permission" wrapperClassName="px-2">
-            {permissionList}
+            {UserPermission.all().map(permission => {
+              return (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) && (
+                <option key={permission} value={permission}>
+                  {i18n.t(`permission-${permission}`)}
+                </option>
+              );
+            })}
           </SelectField>
           <div className="form-group">
             <label>{i18n.t('Username')}</label>

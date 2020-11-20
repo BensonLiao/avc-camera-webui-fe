@@ -11,7 +11,6 @@ import UsersTable from './users-table';
 const Users = ({users: {items: users}}) => {
   const [permissionFilter, setPermissionFilter] = useState('all');
   const isAddUserDisabled = users.length >= SECURITY_USERS_MAX;
-  console.log('Users -> users', users);
   return (
     <>
       <UsersSidebar
