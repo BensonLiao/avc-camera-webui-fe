@@ -13,7 +13,7 @@ import withGlobalStatus from '../../withGlobalStatus';
 const FaceRecognition = ({faceRecognitionSettings}) => {
   const [isShowDetectionZone, setIsShowDetectionZone] = useState(true);
 
-  const onSubmitFaceRecognitionSettingsForm = (values, faceRecognitionSettings) => {
+  const onSubmitFaceRecognitionSettingsForm = values => {
     progress.start();
 
     const createPromises = () => {
@@ -75,7 +75,7 @@ const FaceRecognition = ({faceRecognitionSettings}) => {
           />
           <Formik
             initialValues={faceRecognitionSettings}
-            onSubmit={values => onSubmitFaceRecognitionSettingsForm(values, faceRecognitionSettings)}
+            onSubmit={onSubmitFaceRecognitionSettingsForm}
           >
             <>
               <FaceRecognitionSnapshot
