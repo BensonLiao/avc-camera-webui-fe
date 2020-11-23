@@ -24,6 +24,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+import 'cypress-file-upload'; // cypress-file-upload extends Cypress' cy command.
 const COMMAND_DELAY = Cypress.env('COMMAND_DELAY') || 0;
 if (COMMAND_DELAY > 0) {
   for (const command of ['visit', 'click', 'trigger', 'type', 'clear', 'reload', 'contains']) {
