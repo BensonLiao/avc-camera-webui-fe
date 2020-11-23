@@ -90,9 +90,9 @@ describe('notification card page route back test', () => {
         }
 
         if (index === routes.length - 1) {
-          for (let i = routes.length - 1; i >= 0; i--) {
+          for (let i = routes.length - 1; i > 0; i--) {
             route.validation(i);
-
+            cy.wait(2000);
             cy.go('back');
           }
         }
