@@ -1,4 +1,5 @@
 {
+  "projectId": "ve7ika",
   "baseUrl": "http://localhost:8002",
   "integrationFolder": "tests/e2e/integration/dev",
   "screenshotsFolder": "tests/e2e/screenshots",
