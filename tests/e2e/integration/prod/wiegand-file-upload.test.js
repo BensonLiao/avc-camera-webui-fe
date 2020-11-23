@@ -18,30 +18,30 @@ describe('login to weigand first then access web ui to do some action', () => {
   };
 
   const routeUri = [
-    '/media/stream',
-    '/media/rtsp',
-    '/media/hdmi',
-    '/media/osd',
-    '/media/privacy-mask',
-    '/audio',
-    '/notification/smtp',
-    '/notification/io',
-    '/notification/cards',
-    '/users/members',
-    '/users/accounts',
-    '/users/events',
-    '/analytic/face-recognition',
-    '/analytic/motion-detection',
-    '/analytic/license',
-    '/network/settings',
-    '/network/tcp-ip',
-    '/network/https',
-    '/system/datetime',
-    '/system/maintain',
-    '/system/upgrade',
-    '/system/log',
-    '/system/information',
-    '/sd-card'
+    '/media/stream'
+    // '/media/rtsp',
+    // '/media/hdmi',
+    // '/media/osd',
+    // '/media/privacy-mask',
+    // '/audio',
+    // '/notification/smtp',
+    // '/notification/io',
+    // '/notification/cards',
+    // '/users/members',
+    // '/users/accounts',
+    // '/users/events',
+    // '/analytic/face-recognition',
+    // '/analytic/motion-detection',
+    // '/analytic/license',
+    // '/network/settings',
+    // '/network/tcp-ip',
+    // '/network/https',
+    // '/system/datetime',
+    // '/system/maintain',
+    // '/system/upgrade',
+    // '/system/log',
+    // '/system/information',
+    // '/sd-card'
   ];
 
   const validatePath = index => {
@@ -91,6 +91,7 @@ describe('login to weigand first then access web ui to do some action', () => {
       .type('test')
       .get('.member-modal .btn-primary')
       .click();
+    cy.wait(10000);
   });
 });
 
