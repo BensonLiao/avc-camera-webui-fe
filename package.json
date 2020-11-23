@@ -17,6 +17,7 @@
     "//cy:prod": "example: npm run cy:prod --ip=xxx.xxx.xxx.xxx, localhost if omit the option",
     "cy:prod": "cypress open --config baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod",
     "//cy:rec": "if you want to run the recorder, you need to start cypress runner first.",
+    "//cy:rec2": "example: npm run cy:prod --ip=xxx.xxx.xxx.xxx, then run on another terminal: npm run cy:rec --ip=xxx.xxx.xxx.xxx",
     "cy:rec": "cypress run --record --key eb99afdd-6f51-4258-a6c8-c3c04712e9e3 --config video=true,baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod"
   },
   "repository": {
