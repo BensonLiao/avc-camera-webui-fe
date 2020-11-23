@@ -665,7 +665,7 @@ module.exports = {
       'Activated by': 'Activated by',
       'Authentication Key': 'Authentication Key',
       'Activated Functions': 'Activated Functions',
-      'Enable Status': 'Enable Status',
+      'Enable Status': 'Status',
       'Activated Success': 'Activated Success',
       '{{0}} authorized successfully!': '{{0}} authorized successfully!',
       'Activation Failed': 'Activation Failed',
