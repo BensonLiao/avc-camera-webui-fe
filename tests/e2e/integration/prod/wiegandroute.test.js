@@ -3,7 +3,7 @@ describe('notification card page route back test', () => {
   const account = 'admin';
   const password = 'Fae12345-';
   let wiegandPort = 4663;
-
+  let firstRunThrough = true;
   // Functions for login and validation
   const validatePath = index => {
     cy.location('pathname', {timeout: 10000}).should('eq', routes[index].route);
@@ -17,10 +17,13 @@ describe('notification card page route back test', () => {
   };
 
   const avLogin = () => {
-    cy.get('input[name="account"]').type(account);
-    cy.get('input[name="password"]').type(password);
-    cy.get('button[type="submit"]').click();
-    cy.wait(2000);
+    if (firstRunThrough) {
+      cy.get('input[name="account"]').type(account);
+      cy.get('input[name="password"]').type(password);
+      cy.get('button[type="submit"]').click();
+      cy.wait(2000);
+      firstRunThrough = false;
+    }
   };
 
   // Times to repeat entire process
@@ -36,7 +39,7 @@ describe('notification card page route back test', () => {
   };
 
   const avLoginObj = {
-    route: '/login',
+    route: '/',
     action: () => {
       avLogin();
     },
@@ -53,38 +56,26 @@ describe('notification card page route back test', () => {
   const avUserRegisterObj = {
     route: '/users/accounts',
     action: () => {
-    //   cy.wait(2000);
-      cy.get('#root > div.main-content.left-menu-active.sub > div > div.container-fluid > div > div.col-12.text-right.mr-32px.mb-4 > a').click();
+      cy.wait(2000);
+    },
+    validation: index => validatePath(index)
+  };
+
+  const avUserRegisterNewObj = {
+    route: '/users/accounts/new',
+    action: () => {
       cy.get('input[name="account"]').type('tester');
       cy.get('input[name="password"]').type(password);
       cy.get('input[name="confirmPassword"]').type(password);
       cy.get('button').contains('New').click();
-      cy.wait(10000);
+      cy.wait(15000);
       cy.get('tbody > tr:last-child > td.text-left.group-btn.border-bottom > span > button > i').click();
       cy.wait(1000);
       cy.get('button').contains('Confirm').click();
-      cy.wait(10000);
+      cy.wait(15000);
     },
-    validation: index => {
-      validatePath(index);
-    }
+    validation: index => validatePath(index)
   };
-
-  //   const avUserRegisterNewObj = {
-  //     route: '/users/accounts/new',
-  //     action: () => {
-  //       cy.get('input[name="account"]').type('tester');
-  //       cy.get('input[name="password"]').type(password);
-  //       cy.get('input[name="confirmPassword"]').type(password);
-  //       cy.get('button').contains('New').click();
-  //       cy.wait(10000);
-  //       cy.get('tbody > tr:last-child > td.text-left.group-btn.border-bottom > span > button > i').click();
-  //       cy.wait(1000);
-  //       cy.get('button').contains('Confirm').click();
-  //       cy.wait(10000);
-  //     },
-  //     validation: index => validatePath(index)
-  //   };
 
   const accountsAddAndRemoveObj = {
     route: '/notification/cards',
@@ -123,7 +114,8 @@ describe('notification card page route back test', () => {
     });
   });
   routes.push(avUserRegisterObj);
-  //   routes.push(avUserRegisterNewObj);
+  routes.push(avUserRegisterNewObj);
+  routes.push(avUserRegisterObj);
   routes.push(accountsAddAndRemoveObj);
   routes.push(wiegandLoginAndEditObj);
 
