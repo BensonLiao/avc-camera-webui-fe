@@ -346,7 +346,7 @@ module.exports = {
       Size: '文字大小',
       Color: '顏色',
       Position: '位置',
-      'Click the arrow on the live view screen.': '請在預覽窗格中點選箭頭',
+      'Click one of the arrows on the live view screen.': '請在預覽窗格中點選箭頭',
       'Left Top': '左上',
       'Right Top': '右上',
       'Bottom Left': '左下',
