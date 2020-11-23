@@ -7,7 +7,7 @@ describe('notification card page route back test', () => {
     cy.login(account, password);
   });
 
-  const repeatTimes = 10;
+  const repeatTimes = 100;
   it(`go to notification card page then go back to previous url, test ${repeatTimes} times`, () => {
     cy.visit('/notification/smtp');
     for (let i = 0; i < repeatTimes; i++) {
