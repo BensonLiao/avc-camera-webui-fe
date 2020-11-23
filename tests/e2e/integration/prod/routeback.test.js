@@ -77,9 +77,7 @@ describe('notification card page route back test', () => {
   };
 
   const validatePath = index => {
-    cy.location().should(loc => {
-      expect(loc.pathname).to.eq(routes[index].route);
-    });
+    cy.location('pathname', {timeout: 10000}).should('eq', routes[index].route);
   };
 
   it(`go to each route and validate navigated, run action per route, go back to first route, repeat ${repeatTimes} times`, () => {
