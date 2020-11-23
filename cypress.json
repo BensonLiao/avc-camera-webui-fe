@@ -6,6 +6,7 @@
   "videosFolder": "tests/e2e/videos",
   "pluginsFile": false,
   "video": false,
+  "videoUploadOnPasses": false,
   "viewportWidth": 2000,
   "viewportHeight": 1320,
   "env": {
