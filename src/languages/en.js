@@ -346,7 +346,7 @@ module.exports = {
       Size: 'Size',
       Color: 'Color',
       Position: 'Position',
-      'Click the arrow on the live view screen.': 'Click the arrow on the live view screen.',
+      'Click one of the arrows on the live view screen.': 'Click one of the arrows on the live view screen.',
       'Left Top': 'Left Top',
       'Right Top': 'Right Top',
       'Bottom Left': 'Bottom Left',

@@ -346,7 +346,7 @@ module.exports = {
       Size: 'tamaño de fuente',
       Color: 'color',
       Position: 'posición',
-      'Click the arrow on the live view screen.': 'Clic flecha en panel de vista previa',
+      'Click one of the arrows on the live view screen.': 'Clic flecha en panel de vista previa',
       'Left Top': 'arriba a la izquierda',
       'Right Top': 'Superior derecha',
       'Bottom Left': 'Abajo a la izquierda',

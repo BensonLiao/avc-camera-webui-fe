@@ -346,7 +346,7 @@ module.exports = {
       Size: '文字サイズ',
       Color: 'カラー',
       Position: '表示位置',
-      'Click the arrow on the live view screen.': 'プレビュー画面中の青印をクリックして下さい',
+      'Click one of the arrows on the live view screen.': 'プレビュー画面中の青印をクリックして下さい',
       'Left Top': '左上',
       'Right Top': '右上',
       'Bottom Left': '左下',
