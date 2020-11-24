@@ -27,7 +27,7 @@ describe('notification card page route back test', () => {
   };
 
   // Times to repeat entire process
-  const repeatTimes = 10;
+  const repeatTimes = 250;
 
   // Objs are objects containing route and action and validation
   const wiegandLoginObj = {
@@ -65,10 +65,10 @@ describe('notification card page route back test', () => {
     action: () => {
       cy.get('#photo-wrapper input')
         .attachFile('avc_member.jpeg')
-        .wait(2000)
+        .wait(5000)
         .get('.edit-modal .btn-primary')
         .click()
-        .wait(2000)
+        .wait(5000)
         .get('.member-modal input[name="name"]')
         .type('Hin Guy')
         .get('.member-modal .btn-primary')
