@@ -87,11 +87,10 @@ const waitForReboot = () => {
 
 const renderWeb = () => {
   // Setup routers
-  router.listen('ChangeStart', (action, toState, fromState, cancel) => {
+  router.listen('ChangeStart', (action, toState, fromState, next) => {
     progress.start();
     if (window.error) {
       // Backend need we render the error page.
-      cancel();
       setTimeout(() => {
         progress.done();
         router.renderError(window.error);
@@ -123,7 +122,6 @@ const renderWeb = () => {
       'web.home'
     ];
     if (!$user && allowAnonymousRoutes.indexOf(toState.name) < 0) {
-      cancel();
       Cookies.set(window.config.cookies.redirect, JSON.stringify(toState));
       setTimeout(() => {
         router.go('/login', {replace: true});
@@ -136,12 +134,14 @@ const renderWeb = () => {
       allowAnonymousRoutes.indexOf(toState.name) < 0 &&
       allowGuestRoutes.indexOf(toState.name) < 0
     ) {
-      cancel();
       Cookies.set(window.config.cookies.redirect, JSON.stringify(toState));
       setTimeout(() => {
         router.go('/', {replace: true});
       });
     }
+
+    // we must call next on ChangeStart listener
+    next();
   });
   router.listen('ChangeSuccess', (action, toState, fromState) => {
     progress.done();

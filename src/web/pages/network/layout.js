@@ -12,7 +12,7 @@ module.exports = class Network extends Base {
 
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
-      router.listen('ChangeStart', (action, toState) => {
+      router.listen('ChangeSuccess', (action, toState) => {
         this.setState({currentRouteName: toState.name});
       })
     );

@@ -18,7 +18,7 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
   const {isApiProcessing} = useContextState();
   const currentRoute = getRouter().findRouteByName('web.users.members');
 
-  const hrefTemplate = getRouter().generateUri(
+  const hrefTemplate = currentRoute.generateUri(
     currentRoute,
     {
       ...params,

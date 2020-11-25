@@ -19,7 +19,7 @@ export default withGlobalStatus(
     constructor(props) {
       super(props);
       props.$listens.push(
-        router.listen('ChangeStart', (action, toState) => {
+        router.listen('ChangeSuccess', (action, toState) => {
           this.setState({currentRouteName: toState.name});
         })
       );

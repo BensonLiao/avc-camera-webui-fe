@@ -41,7 +41,7 @@ module.exports = class User extends Base {
     this.state.isShowModal = true;
     this.state.usersName = props.users.items.map(user => user.account);
     this.$listens.push(
-      router.listen('ChangeStart', (action, toState) => {
+      router.listen('ChangeSuccess', (action, toState) => {
         const isShowModal = [
           'web.users.accounts.new-user',
           'web.users.accounts.details'

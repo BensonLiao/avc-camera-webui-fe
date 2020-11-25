@@ -26,7 +26,7 @@ module.exports = class Member extends Base {
 
     this.state.isShowModal = true;
     this.$listens.push(
-      getRouter().listen('ChangeStart', (action, toState) => {
+      getRouter().listen('ChangeSuccess', (action, toState) => {
         const isShowModal = [
           'web.users.members.new-member',
           'web.users.members.details'

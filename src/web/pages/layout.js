@@ -46,7 +46,7 @@ module.exports = class Layout extends Base {
     const router = getRouter();
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
-      router.listen('ChangeStart', (action, toState) => {
+      router.listen('ChangeSuccess', (action, toState) => {
         this.setState({currentRouteName: toState.name});
       })
     );
