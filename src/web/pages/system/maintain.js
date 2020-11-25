@@ -1,24 +1,28 @@
-const download = require('downloadjs');
-const React = require('react');
-const progress = require('nprogress');
-const {Formik, Form, Field} = require('formik');
-const Base = require('../shared/base');
-const i18n = require('../../../i18n').default;
-const api = require('../../../core/apis/web-api');
-const utils = require('../../../core/utils');
-const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
-const CustomTooltip = require('../../../core/components/tooltip');
-const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+import download from 'downloadjs';
+import React from 'react';
+import progress from 'nprogress';
+import {Formik, Form, Field} from 'formik';
+import Base from '/shared/base';
+import i18n from '/i18n';
+import api from '/core/apis/web-api';
+import utils from '/core/utils';
+import CustomNotifyModal from '/core/components/custom-notify-modal';
+import CustomTooltip from '/core/components/tooltip';
+import BreadCrumb from '/core/components/fields/breadcrumb';
+import {useContextState} from '../../stateProvider';
+import withGlobalStatus from '../../withGlobalStatus';
 
-module.exports = class Maintain extends Base {
+const Maintain = () => {
   constructor(props) {
     super(props);
     this.state.file = null;
     this.state.isShowApiProcessModal = false;
     this.state.apiProcessModalTitle = '';
+
     this.state.isShowFinishModal = false;
     this.state.finishModalTitle = i18n.t('Process finished');
     this.state.finishModalBody = '';
+    
     this.state.onConfirm = () => {
       location.href = '/';
     };
@@ -384,3 +388,5 @@ module.exports = class Maintain extends Base {
     );
   }
 };
+
+export default withGlobalStatus(Maintain);
