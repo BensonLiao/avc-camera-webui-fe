@@ -608,7 +608,7 @@ module.exports = {
       'Facial Recognition': 'Reconocimiento facial',
       'Age & Gender': 'Género y edad',
       'Human Detection': 'Detección humanoide',
-      Similarity: 'Semejanza',
+      Similarity: 'Similaridad',
       'Recognition Result': 'resultado',
       'Add to an Existing Member': 'Agregar a Usuario Existente',
       'Enter keywords in the input field to search for members.': 'Ingrese palabras clave en el campo de entrada para buscar usuarios.',
