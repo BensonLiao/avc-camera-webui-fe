@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
 import {Link} from 'capybara-router';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
@@ -10,6 +10,13 @@ import {SD_STATUS_LIST} from '../../../core/constants';
 import SDCardOperation from './sd-card-operation';
 import VolumeProgressBar from '../../../core/components/volume-progress-bar';
 import withGlobalStatus from '../../withGlobalStatus';
+
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import FormikEffect from '../../../core/components/formik-effect';
+import progress from 'nprogress';
+import api from '../../../core/apis/web-api';
+import {getRouter} from 'capybara-router';
+import {useContextState} from '../../stateProvider';
 
 const SDCard = ({
   systemInformation,
@@ -21,6 +28,76 @@ const SDCard = ({
     sdFormat
   }, smtpSettings: {isEnableAuth}
 }) => {
+  const {isApiProcessing} = useContextState();
+  const [state, setState] = useState({
+    showSelectModal: {
+      isShowFormatModal: false,
+      isShowUnmountModal: false,
+      isShowDisableModal: false
+    }
+  });
+  const {showSelectModal: {isShowFormatModal, isShowUnmountModal, isShowDisableModal}} = state;
+
+  const callApi = (apiFunction, value = '') => {
+    progress.start();
+    api.system[apiFunction](value)
+      .then(getRouter().reload)
+      .finally(progress.done);
+  };
+
+  const onChangeSdCardSetting = ({nextValues, prevValues}) => {
+    if (prevValues.sdEnabled && !nextValues.sdEnabled) {
+      return setState(prevState => ({
+        ...prevState,
+        showSelectModal: {
+          ...prevState.showSelectModal,
+          isShowDisableModal: true
+        }
+      }));
+    }
+
+    if (!prevValues.sdEnabled && nextValues.sdEnabled) {
+      return callApi('enableSD', {sdEnabled: nextValues.sdEnabled});
+    }
+
+    if (`${prevValues.sdAlertEnabled}` !== `${nextValues.sdAlertEnabled}`) {
+      return callApi('sdCardAlert', {sdAlertEnabled: nextValues.sdAlertEnabled});
+    }
+  };
+
+  const sdcardModalRender = mode => {
+    const modalType = {
+      format: {
+        showModal: isShowFormatModal,
+        modalOnSubmit: () => callApi('formatSDCard'),
+        modalTitle: i18n.t('Format'),
+        modalBody: i18n.t('Are you sure you want to format the Micro SD card?')
+      },
+      unmount: {
+        showModal: isShowUnmountModal,
+        modalOnSubmit: () => callApi('unmountSDCard'),
+        modalTitle: i18n.t('Unmount'),
+        modalBody: i18n.t('Are you sure you want to unmount the Micro SD card?')
+      },
+      disable: {
+        showModal: isShowDisableModal,
+        modalOnSubmit: () => callApi('enableSD', {sdEnabled: false}),
+        modalTitle: i18n.t('Disabling SD Card'),
+        modalBody: i18n.t('Event photos will not be available after the SD card is disabled. Are you sure you want to continue?')
+      }
+    };
+    return (
+      <CustomNotifyModal
+        isShowModal={modalType[mode].showModal}
+        modalTitle={modalType[mode].modalTitle}
+        modalBody={modalType[mode].modalBody}
+        isConfirmDisable={isApiProcessing}
+        onHide={getRouter().reload} // Reload to reset SD card switch button state
+        onConfirm={modalType[mode].modalOnSubmit}
+      />
+    );
+  };
+
   return (
     <div className="main-content">
       <div className="section-media">
@@ -37,6 +114,7 @@ const SDCard = ({
                   initialValues={systemInformation}
                 >
                   <Form className="card-body sdcard">
+                    <FormikEffect onChange={onChangeSdCardSetting}/>
                     <div className="form-group d-flex justify-content-between align-items-center">
                       <label className="mb-0">{i18n.t('Enable SD Card')}</label>
                       <div className="custom-control custom-switch">
@@ -56,7 +134,12 @@ const SDCard = ({
                     <SDCardOperation
                       sdEnabled={sdEnabled}
                       sdStatus={sdStatus}
+                      callApi={callApi}
+                      setState={setState}
                     />
+                    {sdcardModalRender('format')}
+                    {sdcardModalRender('unmount')}
+                    {sdcardModalRender('disable')}
                     <div className="form-group">
                       <div className="card">
                         <div className="card-body">
