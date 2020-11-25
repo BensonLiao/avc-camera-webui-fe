@@ -36,7 +36,7 @@ const Maintain = () => {
     reset: false
   });
 
-  const [onConfirm, setOnConfirm] = useState(() => {
+  const [onConfirm, setOnConfirm] = useState(() => () => {
     location.href = '/';
   });
 
@@ -57,14 +57,14 @@ const Maintain = () => {
   const showModal = selectedModal => event => {
     event.preventDefault();
     setIsShowSelectModal(prevState => ({
-      ...prevState.isShowSelectModal,
+      ...prevState,
       [selectedModal]: true
     }));
   };
 
   const hideModal = selectedModal => _ => {
     setIsShowSelectModal(prevState => ({
-      ...prevState.isShowSelectModal,
+      ...prevState,
       [selectedModal]: false
     }));
   };
@@ -80,7 +80,7 @@ const Maintain = () => {
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Rebooting')
     });
-    hideModal('reboot');
+    hideModal('reboot')();
 
     api.system.deviceReboot()
       .then(() => new Promise(resolve => {
@@ -118,7 +118,7 @@ const Maintain = () => {
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Resetting')
     });
-    hideModal('reset');
+    hideModal('reset')();
 
     api.system.deviceReset(resetIP)
       .then(() => {
@@ -134,7 +134,7 @@ const Maintain = () => {
                 finishModalTitle: i18n.t('Reset Success'),
                 finishModalBody: i18n.t('Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.')
               });
-              setOnConfirm(hideFinishModal);
+              setOnConfirm(() => hideFinishModal);
             } else {
               // Keep modal and update the title.
               setApiProcessModal(prevState => ({
