@@ -1,10 +1,12 @@
+import {getRouter} from 'capybara-router';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import {useContextState} from '../../stateProvider';
 
-const SDCardOperation = ({sdEnabled, sdStatus, callApi, sdcardModalRender}) => {
+const SDCardOperation = ({sdEnabled, sdStatus, callApi}) => {
   const {isApiProcessing} = useContextState();
   const [isShowConfirmModal, setIsShowConfirmModal] = useState({
     isShowFormatModal: false,
@@ -52,18 +54,22 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, sdcardModalRender}) => {
                 </button>
               </span>
             </CustomTooltip>
-            {sdcardModalRender({
-              showModal: isShowFormatModal,
-              modalOnSubmit: {api: 'formatSDCard'},
-              modalTitle: i18n.t('Format'),
-              modalBody: i18n.t('Are you sure you want to format the Micro SD card?')
-            })}
-            {sdcardModalRender({
-              showModal: isShowUnmountModal,
-              modalOnSubmit: {api: 'unmountSDCard'},
-              modalTitle: i18n.t('Unmount'),
-              modalBody: i18n.t('Are you sure you want to unmount the Micro SD card?')
-            })}
+            <CustomNotifyModal
+              isShowModal={isShowFormatModal}
+              modalTitle={i18n.t('Format')}
+              modalBody={i18n.t('Are you sure you want to format the Micro SD card?')}
+              isConfirmDisable={isApiProcessing}
+              onHide={getRouter().reload} // Reload to reset SD card switch button state
+              onConfirm={() => callApi('formatSDCard')}
+            />
+            <CustomNotifyModal
+              isShowModal={isShowUnmountModal}
+              modalTitle={i18n.t('Unmount')}
+              modalBody={i18n.t('Are you sure you want to unmount the Micro SD card?')}
+              isConfirmDisable={isApiProcessing}
+              onHide={getRouter().reload} // Reload to reset SD card switch button state
+              onConfirm={() => callApi('unmountSDCard')}
+            />
           </div>
         </div>
       </div>
@@ -75,8 +81,7 @@ SDCardOperation.propTypes = {
   // eslint-disable-next-line react/boolean-prop-naming
   sdEnabled: PropTypes.bool.isRequired,
   sdStatus: PropTypes.number.isRequired,
-  callApi: PropTypes.func.isRequired,
-  sdcardModalRender: PropTypes.func.isRequired
+  callApi: PropTypes.func.isRequired
 };
 
 export default SDCardOperation;

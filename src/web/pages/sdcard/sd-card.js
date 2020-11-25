@@ -1,22 +1,21 @@
 import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
 import {Link} from 'capybara-router';
+import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
+import FormikEffect from '../../../core/components/formik-effect';
+import {getRouter} from 'capybara-router';
 import i18n from '../../../i18n';
 import {SD_STATUS_LIST} from '../../../core/constants';
 import SDCardOperation from './sd-card-operation';
+import {useContextState} from '../../stateProvider';
 import VolumeProgressBar from '../../../core/components/volume-progress-bar';
 import withGlobalStatus from '../../withGlobalStatus';
-
-import CustomNotifyModal from '../../../core/components/custom-notify-modal';
-import FormikEffect from '../../../core/components/formik-effect';
-import progress from 'nprogress';
-import api from '../../../core/apis/web-api';
-import {getRouter} from 'capybara-router';
-import {useContextState} from '../../stateProvider';
 
 const SDCard = ({
   systemInformation,
@@ -52,19 +51,6 @@ const SDCard = ({
     }
   };
 
-  const sdcardModalRender = ({showModal = false, modalTitle = '', modalBody = '', modalOnSubmit: {api = '', value = ''}}) => {
-    return (
-      <CustomNotifyModal
-        isShowModal={showModal}
-        modalTitle={modalTitle}
-        modalBody={modalBody}
-        isConfirmDisable={isApiProcessing}
-        onHide={getRouter().reload} // Reload to reset SD card switch button state
-        onConfirm={() => callApi(api, value)}
-      />
-    );
-  };
-
   return (
     <div className="main-content">
       <div className="section-media">
@@ -98,22 +84,19 @@ const SDCard = ({
                         </label>
                       </div>
                     </div>
+                    <CustomNotifyModal
+                      isShowModal={isShowDisableModal}
+                      modalTitle={i18n.t('Disabling SD Card')}
+                      modalBody={i18n.t('Event photos will not be available after the SD card is disabled. Are you sure you want to continue?')}
+                      isConfirmDisable={isApiProcessing}
+                      onHide={getRouter().reload} // Reload to reset SD card switch button state
+                      onConfirm={() => callApi('enableSD', {sdEnabled: false})}
+                    />
                     <SDCardOperation
                       sdEnabled={sdEnabled}
                       sdStatus={sdStatus}
                       callApi={callApi}
-                      sdcardModalRender={sdcardModalRender}
                     />
-                    {sdcardModalRender({
-                      showModal: isShowDisableModal,
-                      modalOnSubmit: {
-                        api: 'enableSD',
-                        value: {sdEnabled: false}
-                      },
-                      modalTitle: i18n.t('Disabling SD Card'),
-                      modalBody: i18n.t('Event photos will not be available after the SD card is disabled. Are you sure you want to continue?')
-                    })}
-
                     <div className="form-group">
                       <div className="card">
                         <div className="card-body">
