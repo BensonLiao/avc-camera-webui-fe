@@ -1,8 +1,7 @@
 import download from 'downloadjs';
-import React from 'react';
+import React, {useState} from 'react';
 import progress from 'nprogress';
 import {Formik, Form, Field} from 'formik';
-import Base from '/shared/base';
 import i18n from '/i18n';
 import api from '/core/apis/web-api';
 import utils from '/core/utils';
@@ -13,160 +12,170 @@ import {useContextState} from '../../stateProvider';
 import withGlobalStatus from '../../withGlobalStatus';
 
 const Maintain = () => {
-  constructor(props) {
-    super(props);
-    this.state.file = null;
-    this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = '';
+  const {isApiProcessing} = useContextState();
 
-    this.state.isShowFinishModal = false;
-    this.state.finishModalTitle = i18n.t('Process finished');
-    this.state.finishModalBody = '';
-    
-    this.state.isShowSelectModal = {
-      reboot: false,
-      reset: false
-    };
-  }
+  const [file, setFile] = useState(null);
 
-  hideApiProcessModal = () => {
-    this.setState({isShowApiProcessModal: false});
+  const [apiProcessModal, setApiProcessModal] = useState({
+    isShowApiProcessModal: false,
+    apiProcessModalTitle: ''
+  });
+
+  const {isShowApiProcessModal, apiProcessModalTitle} = apiProcessModal;
+
+  const [finishModal, setFinishModal] = useState({
+    isShowFinishModal: false,
+    finishModalTitle: i18n.t('Process finished'),
+    finishModalBody: ''
+  });
+
+  const {isShowFinishModal, finishModalTitle, finishModalBody} = finishModal;
+
+  const [isShowSelectModal, setIsShowSelectModal] = useState({
+    reboot: false,
+    reset: false
+  });
+
+  const [onConfirm, setOnConfirm] = useState(() => {
+    location.href = '/';
+  });
+
+  const hideApiProcessModal = () => {
+    setApiProcessModal(prevState => ({
+      ...prevState,
+      isShowApiProcessModal: false
+    }));
   };
 
-  hideFinishModal = () => {
-    this.setState({isShowFinishModal: false});
+  const hideFinishModal = () => {
+    setFinishModal(prevState => ({
+      ...prevState,
+      isShowFinishModal: false
+    }));
   };
 
-  showModal = selectedModal => event => {
+  const showModal = selectedModal => event => {
     event.preventDefault();
-    return this.setState(prevState => ({
-      isShowSelectModal: {
-        ...prevState.isShowSelectModal,
-        [selectedModal]: true
-      }
+    setIsShowSelectModal(prevState => ({
+      ...prevState.isShowSelectModal,
+      [selectedModal]: true
     }));
   };
 
-  hideModal = selectedModal => _ => {
-    return this.setState(prevState => ({
-      isShowSelectModal: {
-        ...prevState.isShowSelectModal,
-        [selectedModal]: false
-      }
+  const hideModal = selectedModal => _ => {
+    setIsShowSelectModal(prevState => ({
+      ...prevState.isShowSelectModal,
+      [selectedModal]: false
     }));
   };
 
-  onChangeFile = event => {
-    this.setState({file: event.target.files[0]});
+  const onChangeFile = event => {
+    setFile(event.target.files[0]);
   };
 
-  onSubmitDeviceReboot = () => {
+  const onSubmitDeviceReboot = () => {
     progress.start();
-    this.setState(prevState => ({
-      isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Rebooting'),
-      isShowSelectModal: {
-        ...prevState.isShowSelectModal,
-        reboot: false
-      }
-    }), () => {
-      api.system.deviceReboot()
-        .then(() => new Promise(resolve => {
-          utils.pingToCheckShutdown(resolve, 1000);
-        }))
-        .then(() => {
-          // Check the server was start up, if success then startup was failed and retry.
-          const test = () => {
-            api.ping('app')
-              .then(() => {
-                progress.done();
-                this.hideApiProcessModal();
-                this.setState({
-                  isShowFinishModal: true,
-                  finishModalTitle: i18n.t('System Reboot'),
-                  finishModalBody: i18n.t('The device has rebooted. Please log in again.')
-                });
-              })
-              .catch(() => {
-                setTimeout(test, 1000);
-              });
-          };
 
-          test();
-        })
-        .catch(() => {
-          progress.done();
-          this.hideApiProcessModal();
-        });
+    setApiProcessModal({
+      isShowApiProcessModal: true,
+      apiProcessModalTitle: i18n.t('Rebooting')
     });
-  };
+    hideModal('reboot');
 
-  onSubmitDeviceReset = ({resetIP}) => {
-    progress.start();
-    this.setState(prevState => ({
-      isShowApiProcessModal: true,
-      isShowSelectModal: {
-        ...prevState.isShowSelectModal,
-        reset: false
-      },
-      apiProcessModalTitle: i18n.t('Resetting')
-    }),
-    () => {
-      api.system.deviceReset(resetIP)
-        .then(() => {
-          new Promise(resolve => {
-            utils.pingToCheckShutdown(resolve, 1000);
-          })
+    api.system.deviceReboot()
+      .then(() => new Promise(resolve => {
+        utils.pingToCheckShutdown(resolve, 1000);
+      }))
+      .then(() => {
+        // Check the server was start up, if success then startup was failed and retry.
+        const test = () => {
+          api.ping('app')
             .then(() => {
-              if (resetIP) {
-                progress.done();
-                this.hideApiProcessModal();
-                this.setState({
-                  isShowFinishModal: true,
-                  finishModalTitle: i18n.t('Reset Success'),
-                  finishModalBody: i18n.t('Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.'),
-                  onConfirm: this.hideFinishModal
-                });
-              } else {
-                // Keep modal and update the title.
-                this.setState({apiProcessModalTitle: i18n.t('Rebooting')});
-                // Check the server was start up, if success then startup was failed and retry.
-                const test = () => {
-                  api.ping('app')
-                    .then(() => {
-                      progress.done();
-                      this.hideApiProcessModal();
-                      this.setState({
-                        isShowFinishModal: true,
-                        finishModalTitle: i18n.t('Reset Success'),
-                        finishModalBody: i18n.t('Device has reset. Please log in again.')
-                      });
-                    })
-                    .catch(() => {
-                      setTimeout(test, 1000);
-                    });
-                };
-
-                test();
-              }
+              progress.done();
+              hideApiProcessModal();
+              setFinishModal({
+                isShowFinishModal: true,
+                finishModalTitle: i18n.t('System Reboot'),
+                finishModalBody: i18n.t('The device has rebooted. Please log in again.')
+              });
+            })
+            .catch(() => {
+              setTimeout(test, 1000);
             });
-        })
-        .catch(() => {
-          progress.done();
-          this.hideApiProcessModal();
-        });
-    });
+        };
+
+        test();
+      })
+      .catch(() => {
+        progress.done();
+        hideApiProcessModal();
+      });
   };
 
-  onClickExportDeviceSettings = event => {
+  const onSubmitDeviceReset = ({resetIP}) => {
+    progress.start();
+    setApiProcessModal({
+      isShowApiProcessModal: true,
+      apiProcessModalTitle: i18n.t('Resetting')
+    });
+    hideModal('reset');
+
+    api.system.deviceReset(resetIP)
+      .then(() => {
+        new Promise(resolve => {
+          utils.pingToCheckShutdown(resolve, 1000);
+        })
+          .then(() => {
+            if (resetIP) {
+              progress.done();
+              hideApiProcessModal();
+              setFinishModal({
+                isShowFinishModal: true,
+                finishModalTitle: i18n.t('Reset Success'),
+                finishModalBody: i18n.t('Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.')
+              });
+              setOnConfirm(hideFinishModal);
+            } else {
+              // Keep modal and update the title.
+              setApiProcessModal(prevState => ({
+                ...prevState,
+                apiProcessModalTitle: i18n.t('Rebooting')
+              }));
+              // Check the server was start up, if success then startup was failed and retry.
+              const test = () => {
+                api.ping('app')
+                  .then(() => {
+                    progress.done();
+                    hideApiProcessModal();
+                    setFinishModal({
+                      isShowFinishModal: true,
+                      finishModalTitle: i18n.t('Reset Success'),
+                      finishModalBody: i18n.t('Device has reset. Please log in again.')
+                    });
+                  })
+                  .catch(() => {
+                    setTimeout(test, 1000);
+                  });
+              };
+
+              test();
+            }
+          });
+      })
+      .catch(() => {
+        progress.done();
+        hideApiProcessModal();
+      });
+  };
+
+  const onClickExportDeviceSettings = event => {
     event.preventDefault();
     download('/api/system/device_settings.zip');
   };
 
-  onSubmitImportDeviceSettings = () => {
-    const {file} = this.state;
+  const onSubmitImportDeviceSettings = () => {
     progress.start();
-    this.setState({
+    setApiProcessModal({
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Importing Device Settings')
     },
@@ -180,14 +189,17 @@ const Maintain = () => {
             }))
             .then(() => {
               // Keep modal and update the title.
-              this.setState({apiProcessModalTitle: i18n.t('Rebooting')});
+              setApiProcessModal(prevState => ({
+                ...prevState,
+                apiProcessModalTitle: i18n.t('Rebooting')
+              }));
               // Check the server was start up, if success then startup was failed and retry.
               const test = () => {
                 api.ping('app')
                   .then(() => {
                     progress.done();
-                    this.hideApiProcessModal();
-                    this.setState({
+                    hideApiProcessModal();
+                    setFinishModal({
                       isShowFinishModal: true,
                       finishModalTitle: i18n.t('Import System Settings'),
                       finishModalBody: i18n.t('Device settings have imported. Please log in again.')
@@ -202,17 +214,17 @@ const Maintain = () => {
             })
             .catch(() => {
               progress.done();
-              this.hideApiProcessModal();
+              hideApiProcessModal();
             });
         })
         .catch(() => {
           progress.done();
-          this.hideApiProcessModal();
+          hideApiProcessModal();
         });
     });
   };
 
-  deviceResetFormRender = ({values}) => {
+  const deviceResetFormRender = ({values}) => {
     return (
       <Form>
         <div className="form-group">
@@ -227,7 +239,7 @@ const Maintain = () => {
             </CustomTooltip>
           </div>
           <CustomNotifyModal
-            isShowModal={this.state.isShowSelectModal.reset}
+            isShowModal={isShowSelectModal.reset}
             modalTitle={values.resetIP ? i18n.t('Restore All Settings') : i18n.t('Restore to Default Settings')}
             modalBody={values.resetIP ?
               i18n.t('The system will revert to factory default settings. All data and configurations you have saved will be overwritten.') :
@@ -238,17 +250,17 @@ const Maintain = () => {
                 i18n.t('• RTSP settings'),
                 i18n.t('• Internet & Network settings'),
                 i18n.t('• Data on the SD Card')]}
-            isConfirmDisable={this.state.$isApiProcessing}
-            onHide={this.hideModal('reset')}
+            isConfirmDisable={isApiProcessing}
+            onHide={hideModal('reset')}
             onConfirm={() => {
-              this.onSubmitDeviceReset(values);
+              onSubmitDeviceReset(values);
             }}
           />
           <div>
             <button
               className="btn btn-outline-primary rounded-pill px-5"
               type="button"
-              onClick={this.showModal('reset')}
+              onClick={showModal('reset')}
             >
               {i18n.t('Reset')}
             </button>
@@ -258,16 +270,14 @@ const Maintain = () => {
     );
   };
 
-  importDeviceSettingsFormRender = () => {
-    const {$isApiProcessing, file} = this.state;
-
+  const importDeviceSettingsFormRender = () => {
     return (
       <div className="form-group">
         <label className="mb-0">{i18n.t('Import System Settings')}</label>
         <small className="form-text text-muted my-2">{i18n.t('Only ZIP file format is supported')}</small>
         <div>
           <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
-            <input type="file" className="d-none" accept="application/zip" onChange={this.onChangeFile}/>
+            <input type="file" className="d-none" accept="application/zip" onChange={onChangeFile}/>
             {i18n.t('Select File')}
           </label>
           {
@@ -280,11 +290,11 @@ const Maintain = () => {
           <CustomTooltip show={!file} title={i18n.t('Please select a file first.')}>
             <span>
               <button
-                disabled={$isApiProcessing || !file}
+                disabled={isApiProcessing || !file}
                 className="btn btn-outline-primary rounded-pill px-5"
                 type="button"
                 style={file ? {} : {pointerEvents: 'none'}}
-                onClick={this.onSubmitImportDeviceSettings}
+                onClick={onSubmitImportDeviceSettings}
               >
                 {i18n.t('Import')}
               </button>
@@ -295,94 +305,82 @@ const Maintain = () => {
     );
   };
 
-  render() {
-    const {
-      $isApiProcessing,
-      isShowSelectModal,
-      isShowApiProcessModal,
-      apiProcessModalTitle,
-      isShowFinishModal,
-      finishModalTitle,
-      finishModalBody,
-      onConfirm
-    } = this.state;
-    return (
-      <div className="main-content left-menu-active">
-        <div className="page-system">
-          <div className="container-fluid">
-            <div className="row">
-              <BreadCrumb
-                path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Device Maintenance')]}
-                routes={['/system/datetime', '/system/datetime']}
-              />
-              <CustomNotifyModal
-                modalType="process"
-                backdrop="static"
-                isShowModal={isShowApiProcessModal}
-                modalTitle={apiProcessModalTitle}
-                onHide={this.hideApiProcessModal}
-              />
-              <CustomNotifyModal
-                modalType="info"
-                isShowModal={isShowFinishModal}
-                modalTitle={finishModalTitle}
-                modalBody={finishModalBody}
-                onHide={this.hideFinishModal}
-                onConfirm={()=>{location.href = '/'}}
-              />
+  return (
+    <div className="main-content left-menu-active">
+      <div className="page-system">
+        <div className="container-fluid">
+          <div className="row">
+            <BreadCrumb
+              path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Device Maintenance')]}
+              routes={['/system/datetime', '/system/datetime']}
+            />
+            <CustomNotifyModal
+              modalType="process"
+              backdrop="static"
+              isShowModal={isShowApiProcessModal}
+              modalTitle={apiProcessModalTitle}
+              onHide={hideApiProcessModal}
+            />
+            <CustomNotifyModal
+              modalType="info"
+              isShowModal={isShowFinishModal}
+              modalTitle={finishModalTitle}
+              modalBody={finishModalBody}
+              onHide={hideFinishModal}
+              onConfirm={onConfirm}
+            />
 
-              <div className="col-center">
-                <div className="card shadow">
-                  <div className="card-header">{i18n.t('Device Maintenance')}</div>
-                  <div className="card-body">
-                    <div className="form-group">
-                      <label>{i18n.t('System Reboot')}</label>
-                      <div>
-                        <button
-                          className="btn btn-outline-primary rounded-pill px-5"
-                          type="button"
-                          onClick={this.showModal('reboot')}
-                        >
-                          {i18n.t('Reboot')}
-                        </button>
-                      </div>
+            <div className="col-center">
+              <div className="card shadow">
+                <div className="card-header">{i18n.t('Device Maintenance')}</div>
+                <div className="card-body">
+                  <div className="form-group">
+                    <label>{i18n.t('System Reboot')}</label>
+                    <div>
+                      <button
+                        className="btn btn-outline-primary rounded-pill px-5"
+                        type="button"
+                        onClick={showModal('reboot')}
+                      >
+                        {i18n.t('Reboot')}
+                      </button>
                     </div>
-                    <CustomNotifyModal
-                      isShowModal={isShowSelectModal.reboot}
-                      modalTitle={i18n.t('System Reboot')}
-                      modalBody={i18n.t('Are you sure you want to reboot the device?')}
-                      isConfirmDisable={$isApiProcessing}
-                      onHide={this.hideModal('reboot')}
-                      onConfirm={this.onSubmitDeviceReboot}
-                    />
-                    <Formik
-                      initialValues={{resetIP: false}}
-                      onSubmit={this.onSubmitDeviceReset}
-                    >
-                      {this.deviceResetFormRender}
-                    </Formik>
-                    <div className="form-group">
-                      <label>{i18n.t('Export System Settings')}</label>
-                      <div>
-                        <button
-                          className="btn btn-outline-primary rounded-pill px-5"
-                          type="button"
-                          onClick={this.onClickExportDeviceSettings}
-                        >
-                          {i18n.t('Export')}
-                        </button>
-                      </div>
-                    </div>
-                    {this.importDeviceSettingsFormRender()}
                   </div>
+                  <CustomNotifyModal
+                    isShowModal={isShowSelectModal.reboot}
+                    modalTitle={i18n.t('System Reboot')}
+                    modalBody={i18n.t('Are you sure you want to reboot the device?')}
+                    isConfirmDisable={isApiProcessing}
+                    onHide={hideModal('reboot')}
+                    onConfirm={onSubmitDeviceReboot}
+                  />
+                  <Formik
+                    initialValues={{resetIP: false}}
+                    onSubmit={onSubmitDeviceReset}
+                  >
+                    {deviceResetFormRender}
+                  </Formik>
+                  <div className="form-group">
+                    <label>{i18n.t('Export System Settings')}</label>
+                    <div>
+                      <button
+                        className="btn btn-outline-primary rounded-pill px-5"
+                        type="button"
+                        onClick={onClickExportDeviceSettings}
+                      >
+                        {i18n.t('Export')}
+                      </button>
+                    </div>
+                  </div>
+                  {importDeviceSettingsFormRender()}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default withGlobalStatus(Maintain);
