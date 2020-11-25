@@ -34,7 +34,7 @@ module.exports = {
       'User Management': 'Usuarios',
       Analytics: 'Análisis',
       Network: 'Red',
-      System: 'sistema',
+      System: 'Sistema',
       'SD Card': 'Tarjeta de memoria',
 
       // Component / App Bar
