@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import {useContextState} from '../../stateProvider';
 
-const SDCardOperation = ({sdEnabled, sdStatus, callApi, setState}) => {
+const SDCardOperation = ({sdEnabled, sdStatus, callApi, sdcardModalRender}) => {
   const {isApiProcessing} = useContextState();
+  const [state, setState] = useState({
+    showSelectModal: {
+      isShowFormatModal: false,
+      isShowUnmountModal: false
+    }
+  });
+  const {showSelectModal: {isShowFormatModal, isShowUnmountModal}} = state;
 
   const showModal = selectedModal => event => {
     event.preventDefault();
@@ -50,6 +57,18 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, setState}) => {
                 </button>
               </span>
             </CustomTooltip>
+            {sdcardModalRender({
+              showModal: isShowFormatModal,
+              modalOnSubmit: () => callApi('formatSDCard'),
+              modalTitle: i18n.t('Format'),
+              modalBody: i18n.t('Are you sure you want to format the Micro SD card?')
+            })}
+            {sdcardModalRender({
+              showModal: isShowUnmountModal,
+              modalOnSubmit: () => callApi('unmountSDCard'),
+              modalTitle: i18n.t('Unmount'),
+              modalBody: i18n.t('Are you sure you want to unmount the Micro SD card?')
+            })}
           </div>
         </div>
       </div>
@@ -62,7 +81,7 @@ SDCardOperation.propTypes = {
   sdEnabled: PropTypes.bool.isRequired,
   sdStatus: PropTypes.number.isRequired,
   callApi: PropTypes.func.isRequired,
-  setState: PropTypes.func.isRequired
+  sdcardModalRender: PropTypes.func.isRequired
 };
 
 export default SDCardOperation;
