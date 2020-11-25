@@ -23,10 +23,6 @@ const Maintain = () => {
     this.state.finishModalTitle = i18n.t('Process finished');
     this.state.finishModalBody = '';
     
-    this.state.onConfirm = () => {
-      location.href = '/';
-    };
-
     this.state.isShowSelectModal = {
       reboot: false,
       reset: false
@@ -332,7 +328,7 @@ const Maintain = () => {
                 modalTitle={finishModalTitle}
                 modalBody={finishModalBody}
                 onHide={this.hideFinishModal}
-                onConfirm={onConfirm}
+                onConfirm={()=>{location.href = '/'}}
               />
 
               <div className="col-center">
