@@ -30,7 +30,7 @@ module.exports = {
       Image: 'imagen',
       Video: 'Video',
       Audio: 'Audio',
-      Notification: 'Anunciar',
+      Notification: 'Notificación',
       'User Management': 'Usuarios',
       Analytics: 'Análisis',
       Network: 'Red',
