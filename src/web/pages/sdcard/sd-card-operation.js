@@ -6,22 +6,17 @@ import {useContextState} from '../../stateProvider';
 
 const SDCardOperation = ({sdEnabled, sdStatus, callApi, sdcardModalRender}) => {
   const {isApiProcessing} = useContextState();
-  const [state, setState] = useState({
-    showSelectModal: {
-      isShowFormatModal: false,
-      isShowUnmountModal: false
-    }
+  const [isShowConfirmModal, setIsShowConfirmModal] = useState({
+    isShowFormatModal: false,
+    isShowUnmountModal: false
   });
-  const {showSelectModal: {isShowFormatModal, isShowUnmountModal}} = state;
+  const {isShowFormatModal, isShowUnmountModal} = isShowConfirmModal;
 
   const showModal = selectedModal => event => {
     event.preventDefault();
-    return setState(prevState => ({
+    return setIsShowConfirmModal(prevState => ({
       ...prevState,
-      showSelectModal: {
-        ...prevState.showSelectModal,
-        [selectedModal]: true
-      }
+      [selectedModal]: true
     }));
   };
 
