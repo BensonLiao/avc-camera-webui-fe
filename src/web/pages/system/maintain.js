@@ -2,12 +2,12 @@ import download from 'downloadjs';
 import React, {useState} from 'react';
 import progress from 'nprogress';
 import {Formik, Form, Field} from 'formik';
-import i18n from '/i18n';
-import api from '/core/apis/web-api';
-import utils from '/core/utils';
-import CustomNotifyModal from '/core/components/custom-notify-modal';
-import CustomTooltip from '/core/components/tooltip';
-import BreadCrumb from '/core/components/fields/breadcrumb';
+import i18n from '../../../i18n';
+import api from '../../../core/apis/web-api';
+import utils from '../../../core/utils';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import CustomTooltip from '../../../core/components/tooltip';
+import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import {useContextState} from '../../stateProvider';
 import withGlobalStatus from '../../withGlobalStatus';
 
