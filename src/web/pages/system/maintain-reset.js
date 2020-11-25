@@ -1,7 +1,7 @@
 import {Formik, Form, Field} from 'formik';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import api from '../../../core/apis/web-api';
 import CustomTooltip from '../../../core/components/tooltip';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
@@ -10,16 +10,14 @@ import {useContextState} from '../../stateProvider';
 import utils from '../../../core/utils';
 
 const MaintainReset = ({
-  showConfirmModal,
-  hideConfirmModal,
   setOnConfirm,
   hideFinishModal,
   setFinishModal,
   setApiProcessModal,
-  hideApiProcessModal,
-  isShowSelectModal
+  hideApiProcessModal
 }) => {
   const {isApiProcessing} = useContextState();
+  const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
 
   const onSubmitDeviceReset = ({resetIP}) => {
     progress.start();
@@ -27,7 +25,7 @@ const MaintainReset = ({
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Resetting')
     });
-    hideConfirmModal('reset')();
+    setIsShowConfirmModal(false);
 
     api.system.deviceReset(resetIP)
       .then(() => {
@@ -96,7 +94,7 @@ const MaintainReset = ({
               </CustomTooltip>
             </div>
             <CustomNotifyModal
-              isShowModal={isShowSelectModal.reset}
+              isShowModal={isShowConfirmModal}
               modalTitle={values.resetIP ? i18n.t('Restore All Settings') : i18n.t('Restore to Default Settings')}
               modalBody={values.resetIP ?
                 i18n.t('The system will revert to factory default settings. All data and configurations you have saved will be overwritten.') :
@@ -108,7 +106,7 @@ const MaintainReset = ({
                   i18n.t('• Internet & Network settings'),
                   i18n.t('• Data on the SD Card')]}
               isConfirmDisable={isApiProcessing}
-              onHide={hideConfirmModal('reset')}
+              onHide={() => setIsShowConfirmModal(false)}
               onConfirm={() => {
                 onSubmitDeviceReset(values);
               }}
@@ -117,7 +115,7 @@ const MaintainReset = ({
               <button
                 className="btn btn-outline-primary rounded-pill px-5"
                 type="button"
-                onClick={showConfirmModal('reset')}
+                onClick={() => setIsShowConfirmModal(true)}
               >
                 {i18n.t('Reset')}
               </button>
@@ -130,14 +128,11 @@ const MaintainReset = ({
 };
 
 MaintainReset.propTypes = {
-  showConfirmModal: PropTypes.func.isRequired,
-  hideConfirmModal: PropTypes.func.isRequired,
   setOnConfirm: PropTypes.func.isRequired,
   hideFinishModal: PropTypes.func.isRequired,
   setFinishModal: PropTypes.func.isRequired,
   setApiProcessModal: PropTypes.func.isRequired,
-  hideApiProcessModal: PropTypes.func.isRequired,
-  isShowSelectModal: PropTypes.object.isRequired
+  hideApiProcessModal: PropTypes.func.isRequired
 };
 
 export default MaintainReset;

@@ -1,21 +1,19 @@
-import React from 'react';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
-import i18n from '../../../i18n';
-import {useContextState} from '../../stateProvider';
+import React, {useState} from 'react';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import i18n from '../../../i18n';
+import {useContextState} from '../../stateProvider';
 import utils from '../../../core/utils';
 
 const MaintainReboot = ({
-  showConfirmModal,
-  hideConfirmModal,
   setFinishModal,
   setApiProcessModal,
-  hideApiProcessModal,
-  isShowSelectModal
+  hideApiProcessModal
 }) => {
   const {isApiProcessing} = useContextState();
+  const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
 
   const onSubmitDeviceReboot = () => {
     progress.start();
@@ -24,7 +22,7 @@ const MaintainReboot = ({
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Rebooting')
     });
-    hideConfirmModal('reboot')();
+    setIsShowConfirmModal(false);
 
     api.system.deviceReboot()
       .then(() => new Promise(resolve => {
@@ -64,18 +62,18 @@ const MaintainReboot = ({
           <button
             className="btn btn-outline-primary rounded-pill px-5"
             type="button"
-            onClick={showConfirmModal('reboot')}
+            onClick={() => setIsShowConfirmModal(true)}
           >
             {i18n.t('Reboot')}
           </button>
         </div>
       </div>
       <CustomNotifyModal
-        isShowModal={isShowSelectModal.reboot}
+        isShowModal={isShowConfirmModal}
         modalTitle={i18n.t('System Reboot')}
         modalBody={i18n.t('Are you sure you want to reboot the device?')}
         isConfirmDisable={isApiProcessing}
-        onHide={hideConfirmModal('reboot')}
+        onHide={() => setIsShowConfirmModal(false)}
         onConfirm={onSubmitDeviceReboot}
       />
     </>
@@ -83,12 +81,9 @@ const MaintainReboot = ({
 };
 
 MaintainReboot.propTypes = {
-  showConfirmModal: PropTypes.func.isRequired,
-  hideConfirmModal: PropTypes.func.isRequired,
   setFinishModal: PropTypes.func.isRequired,
   setApiProcessModal: PropTypes.func.isRequired,
-  hideApiProcessModal: PropTypes.func.isRequired,
-  isShowSelectModal: PropTypes.object.isRequired
+  hideApiProcessModal: PropTypes.func.isRequired
 };
 
 export default MaintainReboot;

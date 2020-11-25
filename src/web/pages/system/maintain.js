@@ -23,11 +23,6 @@ const Maintain = () => {
 
   const {isShowFinishModal, finishModalTitle, finishModalBody} = finishModal;
 
-  const [isShowSelectModal, setIsShowSelectModal] = useState({
-    reboot: false,
-    reset: false
-  });
-
   const [onConfirm, setOnConfirm] = useState(() => () => {
     location.href = '/';
   });
@@ -43,21 +38,6 @@ const Maintain = () => {
     setFinishModal(prevState => ({
       ...prevState,
       isShowFinishModal: false
-    }));
-  };
-
-  const showConfirmModal = selectedModal => event => {
-    event.preventDefault();
-    setIsShowSelectModal(prevState => ({
-      ...prevState,
-      [selectedModal]: true
-    }));
-  };
-
-  const hideConfirmModal = selectedModal => _ => {
-    setIsShowSelectModal(prevState => ({
-      ...prevState,
-      [selectedModal]: false
     }));
   };
 
@@ -91,22 +71,16 @@ const Maintain = () => {
                 <div className="card-body">
 
                   <MaintainReboot
-                    showConfirmModal={showConfirmModal}
-                    hideConfirmModal={hideConfirmModal}
                     setFinishModal={setFinishModal}
                     setApiProcessModal={setApiProcessModal}
                     hideApiProcessModal={hideApiProcessModal}
-                    isShowSelectModal={isShowSelectModal}
                   />
                   <MaintainReset
-                    showConfirmModal={showConfirmModal}
-                    hideConfirmModal={hideConfirmModal}
                     setOnConfirm={setOnConfirm}
                     hideFinishModal={hideFinishModal}
                     setFinishModal={setFinishModal}
                     setApiProcessModal={setApiProcessModal}
                     hideApiProcessModal={hideApiProcessModal}
-                    isShowSelectModal={isShowSelectModal}
                   />
                   <MaintainImportExport
                     setApiProcessModal={setApiProcessModal}
