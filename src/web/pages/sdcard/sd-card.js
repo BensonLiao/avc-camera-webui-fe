@@ -52,7 +52,7 @@ const SDCard = ({
     }
   };
 
-  const sdcardModalRender = ({showModal = false, modalTitle = '', modalBody = '', modalOnSubmit = null}) => {
+  const sdcardModalRender = ({showModal = false, modalTitle = '', modalBody = '', modalOnSubmit: {api = '', value = ''}}) => {
     return (
       <CustomNotifyModal
         isShowModal={showModal}
@@ -60,7 +60,7 @@ const SDCard = ({
         modalBody={modalBody}
         isConfirmDisable={isApiProcessing}
         onHide={getRouter().reload} // Reload to reset SD card switch button state
-        onConfirm={modalOnSubmit}
+        onConfirm={() => callApi(api, value)}
       />
     );
   };
@@ -106,7 +106,10 @@ const SDCard = ({
                     />
                     {sdcardModalRender({
                       showModal: isShowDisableModal,
-                      modalOnSubmit: () => callApi('enableSD', {sdEnabled: false}),
+                      modalOnSubmit: {
+                        api: 'enableSD',
+                        value: {sdEnabled: false}
+                      },
                       modalTitle: i18n.t('Disabling SD Card'),
                       modalBody: i18n.t('Event photos will not be available after the SD card is disabled. Are you sure you want to continue?')
                     })}

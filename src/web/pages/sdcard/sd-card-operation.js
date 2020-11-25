@@ -59,13 +59,13 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, sdcardModalRender}) => {
             </CustomTooltip>
             {sdcardModalRender({
               showModal: isShowFormatModal,
-              modalOnSubmit: () => callApi('formatSDCard'),
+              modalOnSubmit: {api: 'formatSDCard'},
               modalTitle: i18n.t('Format'),
               modalBody: i18n.t('Are you sure you want to format the Micro SD card?')
             })}
             {sdcardModalRender({
               showModal: isShowUnmountModal,
-              modalOnSubmit: () => callApi('unmountSDCard'),
+              modalOnSubmit: {api: 'unmountSDCard'},
               modalTitle: i18n.t('Unmount'),
               modalBody: i18n.t('Are you sure you want to unmount the Micro SD card?')
             })}
