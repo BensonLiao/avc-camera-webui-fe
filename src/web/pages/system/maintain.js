@@ -178,50 +178,48 @@ const Maintain = () => {
     setApiProcessModal({
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Importing Device Settings')
-    },
-    () => {
-      api.system.importDeviceSettings(file)
-        .then(() => {
-          api.system.deviceReboot()
-            .then(() => new Promise(resolve => {
-              // Check the server was shut down, if success then shutdown was failed and retry.
-              utils.pingToCheckShutdown(resolve, 1000);
-            }))
-            .then(() => {
-              // Keep modal and update the title.
-              setApiProcessModal(prevState => ({
-                ...prevState,
-                apiProcessModalTitle: i18n.t('Rebooting')
-              }));
-              // Check the server was start up, if success then startup was failed and retry.
-              const test = () => {
-                api.ping('app')
-                  .then(() => {
-                    progress.done();
-                    hideApiProcessModal();
-                    setFinishModal({
-                      isShowFinishModal: true,
-                      finishModalTitle: i18n.t('Import System Settings'),
-                      finishModalBody: i18n.t('Device settings have imported. Please log in again.')
-                    });
-                  })
-                  .catch(() => {
-                    setTimeout(test, 1000);
-                  });
-              };
-
-              test();
-            })
-            .catch(() => {
-              progress.done();
-              hideApiProcessModal();
-            });
-        })
-        .catch(() => {
-          progress.done();
-          hideApiProcessModal();
-        });
     });
+    api.system.importDeviceSettings(file)
+      .then(() => {
+        api.system.deviceReboot()
+          .then(() => new Promise(resolve => {
+            // Check the server was shut down, if success then shutdown was failed and retry.
+            utils.pingToCheckShutdown(resolve, 1000);
+          }))
+          .then(() => {
+            // Keep modal and update the title.
+            setApiProcessModal(prevState => ({
+              ...prevState,
+              apiProcessModalTitle: i18n.t('Rebooting')
+            }));
+            // Check the server was start up, if success then startup was failed and retry.
+            const test = () => {
+              api.ping('app')
+                .then(() => {
+                  progress.done();
+                  hideApiProcessModal();
+                  setFinishModal({
+                    isShowFinishModal: true,
+                    finishModalTitle: i18n.t('Import System Settings'),
+                    finishModalBody: i18n.t('Device settings have imported. Please log in again.')
+                  });
+                })
+                .catch(() => {
+                  setTimeout(test, 1000);
+                });
+            };
+
+            test();
+          })
+          .catch(() => {
+            progress.done();
+            hideApiProcessModal();
+          });
+      })
+      .catch(() => {
+        progress.done();
+        hideApiProcessModal();
+      });
   };
 
   const deviceResetFormRender = ({values}) => {
