@@ -70,7 +70,7 @@ module.exports = {
       'validation-stringContainsLowerCaseLatter': 'Debe contener letras minúsculas en inglés',
       'validation-stringContainsUpperCaseLatter': 'Debe contener letras mayúsculas en inglés',
       'validation-stringContainsNumber': 'Debe contener números',
-      'validation-stringAbortSpecialCharacters': 'Deshabilitar los símbolos de ancho completo o medio ancho: # % & ` " \\ / < > y espacio',
+      'validation-stringAbortSpecialCharacters': 'No utilice los símbolos de ancho completo o medio ancho: # % & ` " \\ / < > y espacio',
       'validation-stringAcceptSpecialCharacters': 'Debe contener símbolos',
       'validation-stringEnum': 'No cumple con los requisitos de contenido',
       'validation-number': 'Tiene que ser un número',
