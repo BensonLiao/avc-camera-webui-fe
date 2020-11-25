@@ -54,7 +54,7 @@ const Maintain = () => {
     }));
   };
 
-  const showModal = selectedModal => event => {
+  const showConfirmModal = selectedModal => event => {
     event.preventDefault();
     setIsShowSelectModal(prevState => ({
       ...prevState,
@@ -62,7 +62,7 @@ const Maintain = () => {
     }));
   };
 
-  const hideModal = selectedModal => _ => {
+  const hideConfirmModal = selectedModal => _ => {
     setIsShowSelectModal(prevState => ({
       ...prevState,
       [selectedModal]: false
@@ -80,7 +80,7 @@ const Maintain = () => {
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Rebooting')
     });
-    hideModal('reboot')();
+    hideConfirmModal('reboot')();
 
     api.system.deviceReboot()
       .then(() => new Promise(resolve => {
@@ -118,7 +118,7 @@ const Maintain = () => {
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('Resetting')
     });
-    hideModal('reset')();
+    hideConfirmModal('reset')();
 
     api.system.deviceReset(resetIP)
       .then(() => {
@@ -249,7 +249,7 @@ const Maintain = () => {
                 i18n.t('• Internet & Network settings'),
                 i18n.t('• Data on the SD Card')]}
             isConfirmDisable={isApiProcessing}
-            onHide={hideModal('reset')}
+            onHide={hideConfirmModal('reset')}
             onConfirm={() => {
               onSubmitDeviceReset(values);
             }}
@@ -258,7 +258,7 @@ const Maintain = () => {
             <button
               className="btn btn-outline-primary rounded-pill px-5"
               type="button"
-              onClick={showModal('reset')}
+              onClick={showConfirmModal('reset')}
             >
               {i18n.t('Reset')}
             </button>
@@ -338,7 +338,7 @@ const Maintain = () => {
                       <button
                         className="btn btn-outline-primary rounded-pill px-5"
                         type="button"
-                        onClick={showModal('reboot')}
+                        onClick={showConfirmModal('reboot')}
                       >
                         {i18n.t('Reboot')}
                       </button>
@@ -349,7 +349,7 @@ const Maintain = () => {
                     modalTitle={i18n.t('System Reboot')}
                     modalBody={i18n.t('Are you sure you want to reboot the device?')}
                     isConfirmDisable={isApiProcessing}
-                    onHide={hideModal('reboot')}
+                    onHide={hideConfirmModal('reboot')}
                     onConfirm={onSubmitDeviceReboot}
                   />
                   <Formik
