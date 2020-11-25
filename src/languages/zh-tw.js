@@ -53,7 +53,7 @@ module.exports = {
 
       // Component / App Bar / Support
       'Device Help': '裝置使用幫助',
-      'Technical Support': '裝置使用幫助',
+      'Technical Support': '技術問題信箱',
       'Product Information': '其他產品資訊',
       'Sign Out': '登出',
 
