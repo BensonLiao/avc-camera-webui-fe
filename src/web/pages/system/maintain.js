@@ -1,18 +1,13 @@
-import progress from 'nprogress';
 import React, {useState} from 'react';
-import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import i18n from '../../../i18n';
-import {useContextState} from '../../stateProvider';
-import utils from '../../../core/utils';
 import withGlobalStatus from '../../withGlobalStatus';
 import MaintainImportExport from './maintain-import-export';
 import MaintainReset from './maintain-reset';
+import MaintainReboot from './maintain-reboot';
 
 const Maintain = () => {
-  const {isApiProcessing} = useContextState();
-
   const [apiProcessModal, setApiProcessModal] = useState({
     isShowApiProcessModal: false,
     apiProcessModalTitle: ''
@@ -66,45 +61,6 @@ const Maintain = () => {
     }));
   };
 
-  const onSubmitDeviceReboot = () => {
-    progress.start();
-
-    setApiProcessModal({
-      isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Rebooting')
-    });
-    hideConfirmModal('reboot')();
-
-    api.system.deviceReboot()
-      .then(() => new Promise(resolve => {
-        utils.pingToCheckShutdown(resolve, 1000);
-      }))
-      .then(() => {
-        // Check the server was start up, if success then startup was failed and retry.
-        const test = () => {
-          api.ping('app')
-            .then(() => {
-              progress.done();
-              hideApiProcessModal();
-              setFinishModal({
-                isShowFinishModal: true,
-                finishModalTitle: i18n.t('System Reboot'),
-                finishModalBody: i18n.t('The device has rebooted. Please log in again.')
-              });
-            })
-            .catch(() => {
-              setTimeout(test, 1000);
-            });
-        };
-
-        test();
-      })
-      .catch(() => {
-        progress.done();
-        hideApiProcessModal();
-      });
-  };
-
   return (
     <div className="main-content left-menu-active">
       <div className="page-system">
@@ -129,30 +85,18 @@ const Maintain = () => {
               onHide={hideFinishModal}
               onConfirm={onConfirm}
             />
-
             <div className="col-center">
               <div className="card shadow">
                 <div className="card-header">{i18n.t('Device Maintenance')}</div>
                 <div className="card-body">
-                  <div className="form-group">
-                    <label>{i18n.t('System Reboot')}</label>
-                    <div>
-                      <button
-                        className="btn btn-outline-primary rounded-pill px-5"
-                        type="button"
-                        onClick={showConfirmModal('reboot')}
-                      >
-                        {i18n.t('Reboot')}
-                      </button>
-                    </div>
-                  </div>
-                  <CustomNotifyModal
-                    isShowModal={isShowSelectModal.reboot}
-                    modalTitle={i18n.t('System Reboot')}
-                    modalBody={i18n.t('Are you sure you want to reboot the device?')}
-                    isConfirmDisable={isApiProcessing}
-                    onHide={hideConfirmModal('reboot')}
-                    onConfirm={onSubmitDeviceReboot}
+
+                  <MaintainReboot
+                    showConfirmModal={showConfirmModal}
+                    hideConfirmModal={hideConfirmModal}
+                    setFinishModal={setFinishModal}
+                    setApiProcessModal={setApiProcessModal}
+                    hideApiProcessModal={hideApiProcessModal}
+                    isShowSelectModal={isShowSelectModal}
                   />
                   <MaintainReset
                     showConfirmModal={showConfirmModal}
@@ -169,6 +113,7 @@ const Maintain = () => {
                     hideApiProcessModal={hideApiProcessModal}
                     setFinishModal={setFinishModal}
                   />
+
                 </div>
               </div>
             </div>
