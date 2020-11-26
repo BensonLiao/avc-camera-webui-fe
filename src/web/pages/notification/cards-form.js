@@ -1,25 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Modal from 'react-bootstrap/Modal';
 import classNames from 'classnames';
-import progress from 'nprogress';
 import {Formik, Form, Field} from 'formik';
-import {Nav, Tab} from 'react-bootstrap';
 import {getRouter} from 'capybara-router';
-import sanitizeHtml from 'sanitize-html';
+import Modal from 'react-bootstrap/Modal';
+import {Nav, Tab} from 'react-bootstrap';
 import NotificationCardSchema from 'webserver-form-schema/notification-card-schema';
 import NotificationCardType from 'webserver-form-schema/constants/notification-card-type';
 import NotificationEmailAttachmentType from 'webserver-form-schema/constants/notification-email-attachment-type';
 import NotificationFaceRecognitionCondition from 'webserver-form-schema/constants/notification-face-recognition-condition';
+import progress from 'nprogress';
+import PropTypes from 'prop-types';
+import React from 'react';
+import sanitizeHtml from 'sanitize-html';
 import api from '../../../core/apis/web-api';
-import i18n from '../../../i18n';
-import {NOTIFY_CARDS_MAX} from '../../../core/constants';
 import CardsFormSchedule from './cards-form-schedule';
 import CardsFormRule from './cards-form-rule';
 import CardsFormSubject from './cards-form-subject';
+import ContentEditable from '@benson.liao/react-content-editable';
 import CustomTooltip from '../../../core/components/tooltip';
 import FormikEffect from '../../../core/components/formik-effect';
-import ContentEditable from '@benson.liao/react-content-editable';
+import i18n from '../../../i18n';
+import {NOTIFY_CARDS_MAX} from '../../../core/constants';
 
 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
 const CustomNormalWrapper = (
@@ -34,7 +34,6 @@ const CustomNormalWrapper = (
 );
 
 const CardsForm = ({
-  modelName,
   isApiProcessing,
   groups,
   isShowCardDetailsModal,
@@ -43,7 +42,8 @@ const CardsForm = ({
   isTop,
   setIsTop,
   cardLimitError,
-  cards
+  cards,
+  modelName
 }) => {
   const defaultSubject = {
     faceRecognition: `${i18n.t('Face Recognition Event on [{{0}}]', {0: modelName})}`,
