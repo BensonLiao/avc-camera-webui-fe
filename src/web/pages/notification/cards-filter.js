@@ -68,4 +68,3 @@ CardsFilter.propTypes = {
 };
 
 export default CardsFilter;
-
