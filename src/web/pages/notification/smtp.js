@@ -1,6 +1,5 @@
 import {getRouter} from 'capybara-router';
 import progress from 'nprogress';
-import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import SMTPEncryptionType from 'webserver-form-schema/constants/smtp-encryption-type';
 import SMTPPort from 'webserver-form-schema/constants/smtp-port';
@@ -75,19 +74,6 @@ const SMTP = ({smtpSettings}) => {
   );
 };
 
-SMTP.propTypes = {
-  smtpSettings: PropTypes.shape({
-    encryption: PropTypes.oneOf(SMTPEncryptionType.all()),
-    host: PropTypes.string.isRequired,
-    port: PropTypes.oneOf(SMTPPort.all()),
-    account: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    senderName: PropTypes.string.isRequired,
-    senderEmail: PropTypes.string.isRequired,
-    interval: PropTypes.string.isRequired,
-    isEnableLoginNotification: PropTypes.bool.isRequired,
-    isEnableAuth: PropTypes.bool.isRequired
-  }).isRequired
-};
+SMTP.propTypes = {smtpSettings: SMTPSettings.propTypes.smtpSettings};
 
 export default withGlobalStatus(SMTP);
