@@ -23,9 +23,7 @@ const Maintain = () => {
 
   const {isShowFinishModal, finishModalTitle, finishModalBody} = finishModal;
 
-  const [onConfirm, setOnConfirm] = useState(() => () => {
-    location.href = '/';
-  });
+  const [onConfirm, setOnConfirm] = useState(() => {});
 
   const hideApiProcessModal = () => {
     setApiProcessModal(prevState => ({

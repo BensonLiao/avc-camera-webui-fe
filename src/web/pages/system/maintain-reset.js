@@ -59,6 +59,9 @@ const MaintainReset = ({
                       finishModalTitle: i18n.t('Reset Success'),
                       finishModalBody: i18n.t('Device has reset. Please log in again.')
                     });
+                    setOnConfirm(() => () => {
+                      location.href = '/';
+                    });
                   })
                   .catch(() => {
                     setTimeout(test, 1000);
