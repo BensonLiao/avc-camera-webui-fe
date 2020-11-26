@@ -46,7 +46,6 @@ const CardsForm = ({
   cardLimitError,
   cards
 }) => {
-  const cardFormTitleRef = React.createRef();
   const defaultSubject = {
     faceRecognition: `${i18n.t('Face Recognition Event on [{{0}}]', {0: modelName})}`,
     motionDetection: `${i18n.t('Motion Detection Event on [{{0}}]', {0: modelName})}`,
@@ -206,7 +205,6 @@ const CardsForm = ({
                   </CustomTooltip>
                   <ContentEditable
                     ellipseOnBlur
-                    innerRef={cardFormTitleRef}
                     tag="p"
                     width="240px"
                     maxLength={NotificationCardSchema.title.max}
