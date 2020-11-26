@@ -12,7 +12,6 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
   const normalCards = filterCards.filter(x => !x.isTop);
 
   const toggleIsTopHandler = cardId => event => {
-    event.preventDefault();
     event.stopPropagation();
     const card = {...cards.find(x => x.id === cardId)};
     card.isTop = !card.isTop;

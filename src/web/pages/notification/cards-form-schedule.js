@@ -35,8 +35,7 @@ const CardsFormSchedule = ({values, setFieldValue}) => {
     isShowEndDatePicker: false
   }));
 
-  const onClickAddTimePeriod = event => {
-    event.preventDefault();
+  const onClickAddTimePeriod = () => {
     const timePeriods = [...values.timePeriods];
     timePeriods.push({
       id: Math.random().toString(36).substr(2),

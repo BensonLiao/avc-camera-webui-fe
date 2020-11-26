@@ -20,71 +20,70 @@ const SMTPAccountSettings = ({accountSettings, isShowModal, setIsShowAccountModa
         initialValues={accountSettings}
         onSubmit={onSubmitAccountSettingsForm}
       >
-        {({errors, touched}) =>
-          (
-            <Form>
-              <div className="modal-body">
-                <div className="form-group">
-                  <label>{i18n.t('Account')}</label>
-                  <Field
-                    name="account"
-                    type="text"
-                    className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
-                    placeholder={i18n.t('Enter your account')}
-                  />
-                  <ErrorMessage component="div" name="account" className="invalid-feedback"/>
-                </div>
-                <div className="form-group has-feedback">
-                  <label>{i18n.t('Password')}</label>
-                  <Field
-                    name="password"
-                    component={Password}
-                    inputProps={{
-                      className: classNames('form-control', {'is-invalid': errors.password && touched.password}),
-                      placeholder: i18n.t('Enter your password')
-                    }}
-                  />
-                  <ErrorMessage component="div" name="password" className="invalid-feedback"/>
-                </div>
-                <div className="form-group">
-                  <label>{i18n.t('Port')}</label>
-                  <div className="d-flex align-items-center">
-                    {
-                      ['25', '465', '587', '2525'].map((port, index) => (
-                        <div key={port} className={classNames('form-check', {'ml-5': index !== 0})}>
-                          <Field name="port" className="form-check-input" type="radio" id={`input-port-${port}`} value={SMTPPort[port]}/>
-                          <label className="form-check-label" htmlFor={`input-port-${port}`}>{port}</label>
-                        </div>
-                      ))
-                    }
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label>{i18n.t('Encryption')}</label>
-                  <div className="d-flex align-items-center">
-                    {
-                      ['none', 'ssl', 'tls'].map((type, index) => (
-                        <div key={type} className={classNames('form-check', {'ml-5': index !== 0})}>
-                          <Field name="encryption" className="form-check-input" type="radio" id={`input-encryption-${type}`} value={SMTPEncryptionType[type]}/>
-                          <label className="form-check-label" htmlFor={`input-encryption-${type}`}>{i18n.t(type)}</label>
-                        </div>
-                      ))
-                    }
-                  </div>
+        {({errors, touched}) => (
+          <Form>
+            <div className="modal-body">
+              <div className="form-group">
+                <label>{i18n.t('Account')}</label>
+                <Field
+                  name="account"
+                  type="text"
+                  className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
+                  placeholder={i18n.t('Enter your account')}
+                />
+                <ErrorMessage component="div" name="account" className="invalid-feedback"/>
+              </div>
+              <div className="form-group has-feedback">
+                <label>{i18n.t('Password')}</label>
+                <Field
+                  name="password"
+                  component={Password}
+                  inputProps={{
+                    className: classNames('form-control', {'is-invalid': errors.password && touched.password}),
+                    placeholder: i18n.t('Enter your password')
+                  }}
+                />
+                <ErrorMessage component="div" name="password" className="invalid-feedback"/>
+              </div>
+              <div className="form-group">
+                <label>{i18n.t('Port')}</label>
+                <div className="d-flex align-items-center">
+                  {
+                    ['25', '465', '587', '2525'].map((port, index) => (
+                      <div key={port} className={classNames('form-check', {'ml-5': index !== 0})}>
+                        <Field name="port" className="form-check-input" type="radio" id={`input-port-${port}`} value={SMTPPort[port]}/>
+                        <label className="form-check-label" htmlFor={`input-port-${port}`}>{port}</label>
+                      </div>
+                    ))
+                  }
                 </div>
               </div>
-              <div className="modal-footer flex-column">
-                <div className="form-group w-100 mx-0">
-                  <button type="submit" className="btn btn-primary btn-block rounded-pill">
-                    {i18n.t('Apply')}
-                  </button>
+              <div className="form-group">
+                <label>{i18n.t('Encryption')}</label>
+                <div className="d-flex align-items-center">
+                  {
+                    ['none', 'ssl', 'tls'].map((type, index) => (
+                      <div key={type} className={classNames('form-check', {'ml-5': index !== 0})}>
+                        <Field name="encryption" className="form-check-input" type="radio" id={`input-encryption-${type}`} value={SMTPEncryptionType[type]}/>
+                        <label className="form-check-label" htmlFor={`input-encryption-${type}`}>{i18n.t(type)}</label>
+                      </div>
+                    ))
+                  }
                 </div>
-                <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={() => setIsShowAccountModal(false)}>
-                  {i18n.t('Close')}
+              </div>
+            </div>
+            <div className="modal-footer flex-column">
+              <div className="form-group w-100 mx-0">
+                <button type="submit" className="btn btn-primary btn-block rounded-pill">
+                  {i18n.t('Apply')}
                 </button>
               </div>
-            </Form>
-          )}
+              <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={() => setIsShowAccountModal(false)}>
+                {i18n.t('Close')}
+              </button>
+            </div>
+          </Form>
+        )}
       </Formik>
     </Modal>
   );

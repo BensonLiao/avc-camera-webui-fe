@@ -13,8 +13,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import SelectField from '../../../core/components/fields/select-field';
 
 const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched}) => {
-  const onClickAddEmail = event => {
-    event.preventDefault();
+  const onClickAddEmail = () => {
     validateField('$email').then(value => {
       if (!value) {
         const emails = [...values.emails];

@@ -11,11 +11,8 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
     digitalInput: cardTypeFilter === NotificationCardType.digitalInput
   };
 
-  const changeCardTypeFilter = cardType => {
-    return event => {
-      event.preventDefault();
-      setCardTypeFilter(cardType);
-    };
+  const changeCardTypeFilter = cardType => _ => {
+    setCardTypeFilter(cardType);
   };
 
   return (

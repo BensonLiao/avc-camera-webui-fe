@@ -11,7 +11,6 @@ import utils from '../../../core/utils';
 
 const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, toggleIsTopHandler}) => {
   const deleteCardHandler = cardId => event => {
-    event.preventDefault();
     event.stopPropagation();
     progress.start();
     api.notification.deleteCard(cardId)
