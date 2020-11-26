@@ -1,15 +1,15 @@
 import classNames from 'classnames';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import React from 'react';
 import Modal from 'react-bootstrap/Modal';
+import React from 'react';
 import SMTPEncryptionType from 'webserver-form-schema/constants/smtp-encryption-type';
 import SMTPPort from 'webserver-form-schema/constants/smtp-port';
 import i18n from '../../../i18n';
-import smtpAccountSettingsValidator from '../../validations/notifications/smtp-account-settings-validator';
 import Password from '../../../core/components/fields/password';
 import PropTypes from 'prop-types';
+import smtpAccountSettingsValidator from '../../validations/notifications/smtp-account-settings-validator';
 
-const SMTPAccountSettings = ({isShowModal, accountSettings, onSubmitAccountSettingsForm, setIsShowAccountModal}) => {
+const SMTPAccountSettings = ({accountSettings, isShowModal, setIsShowAccountModal, onSubmitAccountSettingsForm}) => {
   return (
     <Modal autoFocus={false} show={isShowModal} onHide={() => setIsShowAccountModal(false)}>
       <div className="modal-header">
