@@ -11,6 +11,8 @@ dist/
 # test scripts
 __tests__/*.js
 coverage/
+tests/e2e/screenshots/
+tests/e2e/videos/
 
 # WebStorm
 .idea

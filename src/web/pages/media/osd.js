@@ -153,7 +153,7 @@ module.exports = class OSD extends Base {
                               })
                             }
                           </div>
-                          <small className="mt-0 form-text text-muted">{i18n.t('Click the arrow on the live view screen.')}</small>
+                          <small className="mt-0 form-text text-muted">{i18n.t('Click one of the arrows on the live view screen.')}</small>
                         </div>
                         <SelectField labelName={i18n.t('Text Overlay')} name="type">
                           {OSDType.all().map(type => (

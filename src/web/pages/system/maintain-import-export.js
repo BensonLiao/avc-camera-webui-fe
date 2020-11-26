@@ -30,7 +30,7 @@ const MaintainImportExport = ({
     progress.start();
     setApiProcessModal({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Importing Device Settings')
+      apiProcessModalTitle: i18n.t('Import System Settings')
     });
     api.system.importDeviceSettings(file)
       .then(() => {

@@ -19,7 +19,7 @@ import utils from '../../../core/utils';
 import {useContextState} from '../../stateProvider';
 import withGlobalStatus from '../../withGlobalStatus';
 
-const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTime, ntpTimeZone, deviceTime}, systemInformation: {languageCode}}) => {
+const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTime, ntpTimeZone, deviceTime}}) => {
   const {isApiProcessing} = useContextState();
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [showApiProcessModal, setShowApiProcessModal] = useState({
@@ -56,7 +56,6 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
 
   const onSubmit = values => {
     const formValues = {...values};
-    const isLanguageUpdate = languageCode !== formValues.language;
     progress.start();
     setShowApiProcessModal(prevState => ({
       ...prevState,
@@ -69,27 +68,21 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
       if (formValues.syncTimeOption !== syncTimeOption) {
         formValues.ntpTimeZone = dayjs.tz.guess();
       }
+    } else {
+    // Set seconds to 0 to prevent timepicker issues
+      formValues.manualTime.setSeconds(0);
     }
 
-    if (isLanguageUpdate) {
-      api.system.updateLanguage(formValues.language)
-        .then(() => {
-          location.reload();
-        })
-        .finally(progress.done);
-    } else {
-      formValues.manualTime.setSeconds(0);
-      formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
-      formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
-      api.system.updateSystemDateTime(formValues)
-        .then(() => {
-          location.href = '/login';
-        })
-        .catch(() => {
-          hideApiProcessModal();
-        })
-        .finally(progress.done);
-    }
+    formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
+    formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
+    api.system.updateSystemDateTime(formValues)
+      .then(() => {
+        location.href = '/login';
+      })
+      .catch(() => {
+        hideApiProcessModal();
+      })
+      .finally(progress.done);
   };
 
   return (
@@ -120,20 +113,13 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                       ...systemDateTime,
                       ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime).getTime(),
                       manualTime: systemDateTime.manualTime ?
-                        new Date(systemDateTime.manualTime) : new Date(),
-                      language: languageCode
+                        new Date(systemDateTime.manualTime) : new Date()
                     }}
                     onSubmit={onSubmit}
                   >
                     {({values}) => {
                       return (
                         <Form>
-                          {/* Remove language in AVN version */}
-                          <SelectField hide labelName={i18n.t('Language')} name="language">
-                            <option value={window.navigator.userLanguage || window.navigator.language}>{i18n.t('Default')}</option>
-                            <option value={i18n.options.supportedLangCodes[0]}>{i18n.t('English')}</option>
-                            <option value={i18n.options.supportedLangCodes[1]}>{i18n.t('Traditional Chinese')}</option>
-                          </SelectField>
                           <div
                             className="cursor-pointer"
                           >
@@ -337,7 +323,6 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
 };
 
 DateTime.propTypes = {
-  systemInformation: PropTypes.shape({languageCode: PropTypes.oneOf(i18n.options.supportedLangCodes).isRequired}).isRequired,
   systemDateTime: PropTypes.shape({
     deviceTime: PropTypes.number.isRequired,
     syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,

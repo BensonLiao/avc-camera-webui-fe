@@ -53,7 +53,7 @@ module.exports = {
 
       // Component / App Bar / Support
       'Device Help': '裝置使用幫助',
-      'Technical Support': '裝置使用幫助',
+      'Technical Support': '技術問題信箱',
       'Product Information': '其他產品資訊',
       'Sign Out': '登出',
 
@@ -346,7 +346,7 @@ module.exports = {
       Size: '文字大小',
       Color: '顏色',
       Position: '位置',
-      'Click the arrow on the live view screen.': '請在預覽窗格中點選箭頭',
+      'Click one of the arrows on the live view screen.': '請在預覽窗格中點選箭頭',
       'Left Top': '左上',
       'Right Top': '右上',
       'Bottom Left': '左下',
@@ -407,7 +407,9 @@ module.exports = {
       'Enter your account': '請輸入您的帳號',
       Port: '連接埠',
       Encryption: '加密方式',
-      None: '無',
+      none: '無',
+      ssl: 'SSL',
+      tls: 'TLS',
       'Enable Device Login Notification': '開啟裝置登入通報',
       'Sender Information': '寄件人資訊',
       'Enter sender\'s name': '輸入寄件人名稱',
