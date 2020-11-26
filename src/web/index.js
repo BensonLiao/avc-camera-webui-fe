@@ -181,7 +181,10 @@ const renderWeb = () => {
       }
     }
   });
-  router.listen('ChangeError', progress.done);
+  router.listen('ChangeError', err => {
+    console.error('Router change error: ', err);
+    progress.done();
+  });
   router.start();
 
   ReactDOM.render(
