@@ -11,9 +11,7 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
     digitalInput: cardTypeFilter === NotificationCardType.digitalInput
   };
 
-  const changeCardTypeFilter = cardType => _ => {
-    setCardTypeFilter(cardType);
-  };
+  const changeCardTypeFilter = cardType => _ => setCardTypeFilter(cardType);
 
   return (
     <div className="filter d-flex align-items-center text-nowrap mb-0">
