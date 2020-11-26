@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {getRouter} from 'capybara-router';
 import progress from 'nprogress';
+import PropTypes from 'prop-types';
+import React from 'react';
 import api from '../../../core/apis/web-api';
-import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
+import i18n from '../../../i18n';
 import outputIcon from '../../../resource/icon-output-40px.svg';
 import utils from '../../../core/utils';
 
