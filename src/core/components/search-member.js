@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 import React from 'react';

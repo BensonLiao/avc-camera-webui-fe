@@ -1,5 +1,5 @@
 const classNames = require('classnames');
-const {Link, RouterView, getRouter} = require('capybara-router');
+const {Link, RouterView, getRouter} = require('@benson.liao/capybara-router');
 const React = require('react');
 const Base = require('../shared/base');
 const Loading = require('../../../core/components/loading');

@@ -1,5 +1,5 @@
 const React = require('react');
-const {Link} = require('capybara-router');
+const {Link} = require('@benson.liao/capybara-router');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const smileWinkSolid = require('../../../resource/smile-wink-solid.svg');
 const i18n = require('../../../i18n').default;

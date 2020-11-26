@@ -1,4 +1,4 @@
-import {Link, RouterView, getRouter} from 'capybara-router';
+import {Link, RouterView, getRouter} from '@benson.liao/capybara-router';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';

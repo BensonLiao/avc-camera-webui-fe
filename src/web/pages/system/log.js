@@ -1,5 +1,5 @@
 const React = require('react');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const progress = require('nprogress');
 const Base = require('../shared/base');
 const i18n = require('../../../i18n').default;

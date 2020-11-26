@@ -1,6 +1,6 @@
 const PropTypes = require('prop-types');
 const React = require('react');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
 

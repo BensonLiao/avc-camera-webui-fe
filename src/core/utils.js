@@ -1,5 +1,5 @@
 const Cookies = require('js-cookie');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const dayjs = require('dayjs');
 const i18n = require('../i18n').default;
 

@@ -1,6 +1,6 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');

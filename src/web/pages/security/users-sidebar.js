@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import {Link} from 'capybara-router';
+import {Link} from '@benson.liao/capybara-router';
 import React from 'react';
 import i18n from '../../../i18n';
 import iconUser from '../../../resource/user-24px.svg';

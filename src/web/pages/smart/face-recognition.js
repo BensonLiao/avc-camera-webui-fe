@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const {Formik, Form, Field} = require('formik');
 const progress = require('nprogress');
 const ConfidenceLevel = require('webserver-form-schema/constants/face-recognition-confidence-level');

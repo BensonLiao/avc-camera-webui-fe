@@ -3,7 +3,7 @@ import React from 'react';
 import progress from 'nprogress';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import Cookies from 'js-cookie';
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import i18n from '../../../i18n';
 import Password from '../../../core/components/fields/password';
 import UserSchema from 'webserver-form-schema/user-schema';

@@ -1,4 +1,4 @@
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import classNames from 'classnames';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import progress from 'nprogress';

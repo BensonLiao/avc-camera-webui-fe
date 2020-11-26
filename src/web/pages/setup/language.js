@@ -1,5 +1,5 @@
 const React = require('react');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const progress = require('nprogress');
 const logo = require('../../../resource/logo-avc-secondary.svg');
 const setupStep01 = require('../../../resource/setup-step-01.png');

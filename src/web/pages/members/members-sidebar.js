@@ -5,7 +5,7 @@ import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
 import MembersDatabase from './members-sidebar-database';
-import {Link} from 'capybara-router';
+import {Link} from '@benson.liao/capybara-router';
 
 const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteGroupHandler}) => {
   const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;

@@ -12,7 +12,7 @@ require('jquery/dist/jquery');
 require('bootstrap/dist/js/bootstrap.bundle');
 
 const Cookies = require('js-cookie');
-const {RouterView} = require('capybara-router');
+const {RouterView} = require('@benson.liao/capybara-router');
 const progress = require('nprogress');
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc'); // dependent on utc plugin

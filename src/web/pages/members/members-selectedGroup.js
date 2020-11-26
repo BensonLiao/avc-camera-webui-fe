@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import iconDescription from '../../../resource/description-20px.svg';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
-import {Link} from 'capybara-router';
+import {Link} from '@benson.liao/capybara-router';
 
 const MembersSelectedGroup = ({selectedGroup, params}) => {
   return (

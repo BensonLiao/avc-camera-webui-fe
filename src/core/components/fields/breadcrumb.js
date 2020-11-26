@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Link} from 'capybara-router';
+import {Link} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 
