@@ -145,9 +145,11 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onGet('/api/notification/cards').reply(config => mockResponseWithLog(config, [200, {items: db.get('notificationCards').value()}]))
   .onPost('/api/notification/cards').reply(config => {
     const cards = db.get('notificationCards').value();
+    const data = JSON.parse(config.data);
     const card = {
       id: (cards.sort((a, b) => b.id - a.id)[0] || {id: 0}).id + 1,
-      ...JSON.parse(config.data)
+      ...data,
+      emailContentPosition: `${data.emailContentPosition}`
     };
     cards.push(card);
     db.get('notificationCards').assign(cards).write();
