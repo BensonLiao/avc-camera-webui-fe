@@ -10,17 +10,13 @@ import CustomTooltip from '../../../core/components/tooltip';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
 
-const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) => {
+const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) => {
   const {isApiProcessing} = useContextState();
 
   const [isShowCardDetailsModal, setIsShowCardDetailsModal] = useState(false);
   const [cardTypeFilter, setCardTypeFilter] = useState('all');
   const [cardDetails, setCardDetails] = useState(null);
   const [isTop, setIsTop] = useState(false);
-
-  const hideCardFormModal = () => {
-    setIsShowCardDetailsModal(false);
-  };
 
   const cardLimitError = () => { // Over card limit 32
     notify.showErrorNotification({
@@ -82,7 +78,7 @@ const Cards = ({groups, cards: {items: cards}, systemInformation: {modelName}}) 
               setIsTop={setIsTop}
               cardLimitError={cardLimitError}
               isShowCardDetailsModal={isShowCardDetailsModal}
-              hideCardFormModal={hideCardFormModal}
+              hideCardFormModal={() => setIsShowCardDetailsModal(false)}
             />
             <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
               <CustomTooltip title={i18n.t('Add a New Notification Card')}>
