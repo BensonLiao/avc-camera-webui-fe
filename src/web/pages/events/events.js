@@ -110,8 +110,7 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
     }));
   };
 
-  const hrefTemplate = getRouter().generateUri(
-    currentRoute,
+  const hrefTemplate = currentRoute.generateUri(
     {
       ...params,
       index: undefined

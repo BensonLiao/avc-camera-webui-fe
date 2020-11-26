@@ -19,7 +19,6 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
   const currentRoute = getRouter().findRouteByName('web.users.members');
 
   const hrefTemplate = currentRoute.generateUri(
-    currentRoute,
     {
       ...params,
       index: undefined
