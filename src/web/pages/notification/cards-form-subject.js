@@ -63,7 +63,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
         <div className="card">
           <div className="card-body">
             <div className="form-group d-flex justify-content-between align-items-center">
-              <label className="mb-0">{i18n.t('Output {{0}}', {0: '1'})}</label>
+              <label className="mb-0">{i18n.t('Output 1')}</label>
               <div className="custom-control custom-switch">
                 <Field name="isEnableGPIO1" type="checkbox" className="custom-control-input" id="switch-notification-target-output-1"/>
                 <label className="custom-control-label" htmlFor="switch-notification-target-output-1">
@@ -73,7 +73,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
               </div>
             </div>
             <div className="d-flex justify-content-between align-items-center">
-              <label className="mb-0">{i18n.t('Output {{0}}', {0: '2'})}</label>
+              <label className="mb-0">{i18n.t('Output 2')}</label>
               <div className="custom-control custom-switch">
                 <Field name="isEnableGPIO2" type="checkbox" className="custom-control-input" id="switch-notification-target-output-2"/>
                 <label className="custom-control-label" htmlFor="switch-notification-target-output-2">
