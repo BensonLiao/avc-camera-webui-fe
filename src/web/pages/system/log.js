@@ -11,17 +11,8 @@ import BreadCrumb from '../../../core/components/fields/breadcrumb';
 
 const Log = () => {
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
-  const [progressModal, setProgressModal] = useState({
-    isShowProgressModal: false,
-    progressModalTitle: i18n.t('Downloading System Log File'),
-    progressStatus: 'start',
-    progressPercentage: 0
-  });
-
-  const hideProgressModal = () => setProgressModal(prevState => ({
-    ...prevState,
-    isShowProgressModal: false
-  }));
+  const [isShowProgressModal, setIsShowProgressModal] = useState(false);
+  const [progressPercentage, setProgressPercentage] = useState(0);
 
   const onClickClearLog = event => {
     event.preventDefault();
@@ -34,21 +25,15 @@ const Log = () => {
   const onClickDownloadLog = event => {
     event.preventDefault();
     progress.start();
-    setProgressModal(prevState => ({
-      ...prevState,
-      isShowProgressModal: true,
-      progressPercentage: 0
-    }));
+    setIsShowProgressModal(true);
+    setProgressPercentage(0);
     wrappedApi({
       method: 'get',
       url: '/api/system/systeminfo/log.zip',
       responseType: 'blob',
       onDownloadProgress: progressEvent => {
         // Do whatever you want with the native progress event
-        setProgressModal(prevState => ({
-          ...prevState,
-          progressPercentage: Math.round((progressEvent.loaded / progressEvent.total) * 100)
-        }));
+        setProgressPercentage(Math.round((progressEvent.loaded / progressEvent.total) * 100));
       }
     })
       .then(response => {
@@ -56,7 +41,7 @@ const Log = () => {
       })
       .finally(() => {
         progress.done();
-        hideProgressModal();
+        setIsShowProgressModal(false);
       });
   };
 
@@ -100,17 +85,17 @@ const Log = () => {
                       <CustomNotifyModal
                         modalType="process"
                         backdrop="static"
-                        isShowModal={progressModal.isShowProgressModal}
-                        modalTitle={progressModal.progressModalTitle}
+                        isShowModal={isShowProgressModal}
+                        modalTitle={i18n.t('Downloading System Log File')}
                         modalBody={[
                           <StageProgress
                             key={i18n.t('stage 1')}
                             title={i18n.t('Download progress')}
-                            progressStatus={progressModal.progressStatus}
-                            progressPercentage={progressModal.progressPercentage}
+                            progressStatus="start"
+                            progressPercentage={progressPercentage}
                           />
                         ]}
-                        onHide={hideProgressModal}
+                        onHide={() => setIsShowProgressModal(false)}
                       />
                     </div>
                   </div>
