@@ -56,77 +56,71 @@ const SetupAccount = () => {
               validate={setupAccountValidator}
               onSubmit={onSubmitSetupForm}
             >
-              {({errors, touched}) => {
-                const classTable = {
-                  account: classNames(
-                    'form-control', {'is-invalid': errors.account && touched.account}
-                  ),
-                  password: classNames(
-                    'form-control', {'is-invalid': errors.password && touched.password}
-                  ),
-                  confirmPassword: classNames(
-                    'form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}
-                  )
-                };
-                return (
-                  <Form className="card shadow mb-5">
-                    <div className="card-body">
-                      <ProgressBar
-                        step={2}
-                        progressBarImage={setupStep02}
-                      />
+              {({errors, touched}) => (
+                <Form className="card shadow mb-5">
+                  <div className="card-body">
+                    <ProgressBar
+                      step={2}
+                      progressBarImage={setupStep02}
+                    />
 
-                      <div className="form-group">
-                        <label>{i18n.t('Permission')}</label>
-                        <div className="select-wrapper border rounded-pill overflow-hidden px-2">
-                          <Field component="select" name="permission" className="form-control border-0">
-                            <option value={UserPermission.root}>{i18n.t(`permission-${UserPermission.root}`)}</option>
-                          </Field>
-                        </div>
+                    <div className="form-group">
+                      <label>{i18n.t('Permission')}</label>
+                      <div className="select-wrapper border rounded-pill overflow-hidden px-2">
+                        <Field component="select" name="permission" className="form-control border-0">
+                          <option value={UserPermission.root}>{i18n.t(`permission-${UserPermission.root}`)}</option>
+                        </Field>
                       </div>
-                      <div className="form-group">
-                        <label>{i18n.t('Account')}</label>
-                        <Field autoFocus name="account" maxLength={UserSchema.account.max} type="text" className={classTable.account} placeholder={i18n.t('Enter a name for this account')}/>
-                        <ErrorMessage component="div" name="account" className="invalid-feedback"/>
-                        <small className="text-info">
-                          {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space')}
-                        </small>
-                      </div>
-                      <div className="form-group has-feedback">
-                        <label>{i18n.t('Password')}</label>
-                        <Field
-                          name="password"
-                          component={Password}
-                          inputProps={{
-                            placeholder: i18n.t('Enter a password'),
-                            className: classTable.password
-                          }}
-                        />
-                        <ErrorMessage component="div" name="password" className="invalid-feedback"/>
-                        <small className="text-info">
-                          {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
-                        </small>
-                      </div>
-                      <div className="form-group has-feedback">
-                        <label>{i18n.t('Confirm Password')}</label>
-                        <Field
-                          name="confirmPassword"
-                          component={Password}
-                          inputProps={{
-                            placeholder: i18n.t('Enter the password again'),
-                            className: classTable.confirmPassword
-                          }}
-                        />
-                        <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
-                      </div>
-
-                      <button disabled={isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill">
-                        {i18n.t('Done')}
-                      </button>
                     </div>
-                  </Form>
-                );
-              }}
+                    <div className="form-group">
+                      <label>{i18n.t('Account')}</label>
+                      <Field
+                        autoFocus
+                        name="account"
+                        maxLength={UserSchema.account.max}
+                        type="text"
+                        className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
+                        placeholder={i18n.t('Enter a name for this account')}
+                      />
+                      <ErrorMessage component="div" name="account" className="invalid-feedback"/>
+                      <small className="text-info">
+                        {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space')}
+                      </small>
+                    </div>
+                    <div className="form-group has-feedback">
+                      <label>{i18n.t('Password')}</label>
+                      <Field
+                        name="password"
+                        component={Password}
+                        inputProps={{
+                          placeholder: i18n.t('Enter a password'),
+                          className: classNames('form-control', {'is-invalid': errors.password && touched.password})
+                        }}
+                      />
+                      <ErrorMessage component="div" name="password" className="invalid-feedback"/>
+                      <small className="text-info">
+                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                      </small>
+                    </div>
+                    <div className="form-group has-feedback">
+                      <label>{i18n.t('Confirm Password')}</label>
+                      <Field
+                        name="confirmPassword"
+                        component={Password}
+                        inputProps={{
+                          placeholder: i18n.t('Enter the password again'),
+                          className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
+                        }}
+                      />
+                      <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
+                    </div>
+
+                    <button disabled={isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill">
+                      {i18n.t('Done')}
+                    </button>
+                  </div>
+                </Form>
+              )}
             </Formik>
           </div>
         </div>
