@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import {getRouter} from 'capybara-router';
 import progress from 'nprogress';
+import PropTypes from 'prop-types';
+import React from 'react';
 import api from '../../../core/apis/web-api';
-import i18n from '../../../i18n';
 import CardsListSingleCard from './cards-list-single-card';
+import i18n from '../../../i18n';
 
 const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHandler}) => {
   const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
