@@ -1,16 +1,17 @@
 import classNames from 'classnames';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
+import PropTypes from 'prop-types';
 import React from 'react';
+import SMTPEncryptionType from 'webserver-form-schema/constants/smtp-encryption-type';
+import SMTPPort from 'webserver-form-schema/constants/smtp-port';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import smtpSettingsValidator from '../../validations/notifications/smtp-settings-validator';
 import {useContextState} from '../../stateProvider';
-import PropTypes from 'prop-types';
-import SMTPPort from 'webserver-form-schema/constants/smtp-port';
-import SMTPEncryptionType from 'webserver-form-schema/constants/smtp-encryption-type';
 
-const SMTPSettings = ({smtpSettings, setIsShowAccountModal, onSubmitSMTPSettingsForm}) => {
+const SMTPSettings = ({smtpSettings, onSubmitSMTPSettingsForm, setIsShowAccountModal}) => {
   const {isApiProcessing} = useContextState();
+
   return (
     <Formik
       initialValues={smtpSettings}
