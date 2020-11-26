@@ -4,17 +4,17 @@ const {getRouter} = require('capybara-router');
 const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
+const DeviceNameSchema = require('webserver-form-schema/device-name-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const Base = require('./shared/base');
 const i18n = require('../../i18n').default;
 const api = require('../../core/apis/web-api');
 const deviceNameValidator = require('../validations/system/device-name-validator');
-const {DEVICE_NAME_CHAR_MAX, SD_STATUS_LIST} = require('../../core/constants');
+const {SD_STATUS_LIST} = require('../../core/constants');
 const VideoSetting = require('../../core/components/video-setting');
 const VolumeProgressBar = require('../../core/components/volume-progress-bar').default;
 const LiveView = require('../../core/components/live-view');
-
 module.exports = class Home extends Base {
   static get propTypes() {
     return {
@@ -124,16 +124,21 @@ module.exports = class Home extends Base {
     }
   };
 
-  deviceNameFormRender = ({errors, touched}) => {
+  deviceNameFormRender = ({errors}) => {
     return (
       <Form className="form-group">
         <Field
           name="deviceName"
           type="text"
-          maxLength={DEVICE_NAME_CHAR_MAX}
-          className={classNames('form-control', {'is-invalid': errors.deviceName && touched.deviceName})}
-          onBlur={this.onBlurDeviceNameForm}
+          maxLength={DeviceNameSchema.deviceName.max}
+          className={classNames('form-control', {'is-invalid': errors.deviceName})}
+          onBlur={errors.deviceName ? null : this.onBlurDeviceNameForm}
         />
+        {
+          errors.deviceName && (
+            <div className="invalid-feedback">{errors.deviceName}</div>
+          )
+        }
         <button disabled={this.state.$isApiProcessing} className="d-none" type="submit"/>
       </Form>
     );

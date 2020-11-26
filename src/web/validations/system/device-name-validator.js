@@ -1,11 +1,4 @@
 const {validator} = require('../../../core/validations');
+const DeviceNameSchema = require('webserver-form-schema/device-name-schema');
 
-module.exports = validator.compile({
-  deviceName: {
-    optional: false,
-    type: 'string',
-    empty: false,
-    min: 1,
-    max: 32
-  }
-});
+module.exports = validator.compile(DeviceNameSchema);

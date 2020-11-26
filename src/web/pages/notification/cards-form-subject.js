@@ -2,10 +2,11 @@ import classNames from 'classnames';
 import {Field} from 'formik';
 import PropTypes from 'prop-types';
 import React from 'react';
+import NotificationCardSchema from 'webserver-form-schema/notification-card-schema';
 import NotificationCardType from 'webserver-form-schema/constants/notification-card-type';
 import NotificationEmailAttachmentType from 'webserver-form-schema/constants/notification-email-attachment-type';
 import NotificationEmailContentPosition from 'webserver-form-schema/constants/notification-email-content-position';
-import {NOTIFY_CARDS_EMAIL_MAX} from '../../../core/constants';
+import {PRECISE_EMAIL_PATTERN} from '../../../core/constants';
 import i18n from '../../../i18n';
 import utils from '../../../core/utils';
 import CustomTooltip from '../../../core/components/tooltip';
@@ -26,16 +27,15 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
 
   const validateEmail = () => {
     if (values.$email) {
-      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.$email)) {
-        return i18n.t('Invalid email address');
+      if (!PRECISE_EMAIL_PATTERN.test(values.$email)) {
+        return i18n.t('Invalid email address.');
       }
 
-      const emails = [...values.emails];
-      if (emails.length > NOTIFY_CARDS_EMAIL_MAX - 1) {
-        return i18n.t('Number of receiver E-mails limit is 64');
+      if (values.emails.length >= NotificationCardSchema.emails.max) {
+        return i18n.t('The maximum number of recipients is 64.');
       }
 
-      return utils.duplicateCheck(emails, values.$email, i18n.t('Duplicate E-mail found'));
+      return utils.duplicateCheck(values.emails, values.$email, i18n.t('Duplicate email address.'));
     }
   };
 
@@ -123,6 +123,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
                 name="senderSubject"
                 type="text"
                 className="form-control"
+                maxLength={NotificationCardSchema.senderContent.max}
                 placeholder={i18n.t('Specify the subject')}
               />
             </div>
@@ -132,6 +133,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
                 name="senderContent"
                 type="text"
                 className="form-control"
+                maxLength={NotificationCardSchema.senderContent.max}
                 placeholder={i18n.t('Add your message')}
               />
             </div>

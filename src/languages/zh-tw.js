@@ -11,13 +11,7 @@ module.exports = {
       Loading: '載入中',
 
       // Component / Date Picker
-      Sun: '日',
-      Mon: '一',
-      Tue: '二',
-      Wed: '三',
-      Thu: '四',
-      Fri: '五',
-      Sat: '六',
+      /* Follow date.js weekday min format */
 
       // Component / API Processing Modal
       'Please wait': '請稍候',
@@ -100,7 +94,8 @@ module.exports = {
       'validation-dateMin': '必須為{expected}以後的日期',
       'validation-dateMax': '必須為{expected}以前的日期',
       'validation-forbidden': '隱藏欄位',
-      'validation-email': '請使用正確的電子信箱格式',
+      // same content as key `Invalid email address.` in /notification/cards
+      'validation-email': '不符合格式要求',
       'validation-url': '請使用正確的網址格式',
       'validation-birthday': '請使用正確的生日格式',
       'validation-countryCode': '國家代碼錯誤',
@@ -231,7 +226,7 @@ module.exports = {
       'Full-Range Focus': '全範圍對焦',
       'Short-Range Focus': '短距離對焦',
       Focus: '對焦',
-      Zoom: '焦距',
+      Zoom: '縮放',
       'Auto Focus after Zoom': '縮放時自動對焦',
       Iris: '光圈',
       'Shutter Speed': '快門速度',
@@ -480,6 +475,9 @@ module.exports = {
       'Face Recognition Event on [{{0}}]': '臉部辨識事件 [{{0}}]',
       'Motion Detection Event on [{{0}}]': '移動偵測事件 [{{0}}]',
       'Digital Input Event on [{{0}}]': '數位輸入事件 [{{0}}]',
+      'Invalid email address.': '不符合格式要求',
+      'The maximum number of recipients is 64.': '已達數量限制',
+      'Duplicate email address.': '重複的電子郵件地址',
       // /notification/card (AVN)
       'Video Management System': '影像管理系統(VMS)',
       // /notification/card / Constants / VMS (AVN)
@@ -517,7 +515,6 @@ module.exports = {
       'Encryption Settings': '加密設定',
       Export: '匯出',
       Import: '匯入',
-      'Updating Member Database': '更新成員資料',
       'Database Encryption': '資料庫加密',
       'Current Password': '舊密碼',
       'Enter your Current password': '請輸入您的舊密碼',
@@ -574,6 +571,7 @@ module.exports = {
       'N/A': '無',
       'Are you sure you want to close this window? All changes you have made will be lost.': '關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？',
       'Photo size should be less than 90 KB.': '照片大小不可以超過90 KB',
+      'No photo uploaded.': '必須上傳主照片',
       Save: '儲存',
       'Change Photo': '更換照片',
 
@@ -646,7 +644,7 @@ module.exports = {
       'Display Unknown': '辨識結果：未知',
       'Display Image Spoof': '辨識結果：圖像偽裝',
       'Facial Recognition is disabled.': '臉部辨識已關閉',
-      'analytic.face-recognition.modal.spoofing': '您確定要開啟Alpha版防止圖像偽裝嗎? 圖像偽裝是一個Alpha版的功能, 判定成圖像偽裝的人臉不會被辯識, 我們會在之後的軟體更新優化並完善此功能',
+      'analytic.face-recognition.modal.spoofing': '您確定要開啟Alpha版防止圖像偽裝嗎？圖像偽裝是一個Alpha版的功能，判定成圖像偽裝的人臉不會被辯識，我們會在之後的軟體更新優化並完善此功能',
       // /analytic/face-recognition / Constants / Level of Accuracy
       'confidence-level-0': '低',
       'confidence-level-1': '中',
@@ -666,7 +664,7 @@ module.exports = {
       Activate: '啟用',
       Activated: '已啟用',
       'Activation Required': '未啟用',
-      'Activated By': '啟用者',
+      'Activated by': '啟用者',
       'Authentication Key': '啟用碼',
       'Activated Functions': '啟用功能',
       'Enable Status': '狀態',
@@ -766,6 +764,7 @@ module.exports = {
       'Restore to Default Settings': '還原成原廠設定',
       Reset: '清除資料',
       Resetting: '清除資料中',
+      'System Reset': '還原成原廠設定',
       'Export System Settings': '匯出系統設定值',
       'Import System Settings': '匯入系統設定值',
       'The system will revert to factory default settings. All data and configurations you have saved will be overwritten.': '裝置將還原成原廠設定，所有資料和設定將會被清除',
@@ -779,6 +778,9 @@ module.exports = {
       'The device has rebooted. Please log in again.': '裝置已重新啟動，請重新登入',
       'Reset Success': '重設成功',
       'Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.': '請參閱安裝說明執行初始設定',
+      'Device settings have imported. Please log in again.': '匯入系統設定完成，請重新登入',
+      'Importing Device Settings': '匯入系統設定',
+      'Device has reset. Please log in again.': '裝置已還原，請重新登入',
 
       // /system/upgrade
       'Upload Software': '上傳軟體',
