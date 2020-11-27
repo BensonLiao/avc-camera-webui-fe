@@ -11,83 +11,52 @@ import constants from '../../../core/constants';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
-const isRunTest = false; // Set as `true` to run test on submit
+const isRunTest = true; // Set as `true` to run test on submit
 const isMockUpgradeError = false; // Set as `true` to mock upgrade firmware error, only works if `isRunTest` is `true`
 
 const Upgrade = () => {
   const {isApiProcessing} = useContextState();
-  const [state, setState] = useState({
-    file: null,
-    isShowApiProcessModal: false,
-    apiProcessModalTitle: i18n.t('Uploading Software'),
-    apiProcessModalBody: i18n.t('※ Please do not close your browser during the upgrade.'),
-    progressStatus: {
-      uploadFirmware: 'initial',
-      upgradeFirmware: 'initial',
-      deviceShutdown: 'initial',
-      deviceRestart: 'initial'
-    },
-    progressPercentage: {
-      uploadFirmware: 0,
-      upgradeFirmware: 0
-    }
+  const [file, setFile] = useState(null);
+  const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
+  const [apiProcessModalTitle, setApiProcessModalTitle] = useState(i18n.t('Uploading Software'));
+  const [apiProcessModalBody, setApiProcessModalBody] = useState(i18n.t('※ Please do not close your browser during the upgrade.'));
+  const [progressPercentage, setProgressPercentage] = useState({
+    uploadFirmware: 0,
+    upgradeFirmware: 0
   });
-  const {file, isShowApiProcessModal, progressStatus, progressPercentage, apiProcessModalBody, apiProcessModalTitle} = state;
+  const [progressStatus, setProgressStatus] = useState({
+    uploadFirmware: 'initial',
+    upgradeFirmware: 'initial',
+    deviceShutdown: 'initial',
+    deviceRestart: 'initial'
+  });
 
   const updateProgress = (stage, progress) => {
-    setState(prevState => ({
+    setProgressPercentage(prevState => ({
       ...prevState,
-      progressPercentage: {
-        ...prevState.progressPercentage,
-        [stage]: progress
-      }
+      [stage]: progress
     }));
   };
 
   const updateProgressStatus = (stage, progressStatus) => {
-    setState(prevState => ({
+    setProgressStatus(prevState => ({
       ...prevState,
-      progressStatus: {
-        ...prevState.progressStatus,
-        [stage]: progressStatus
-      }
+      [stage]: progressStatus
     }));
   };
 
-  const hideApiProcessModal = () => {
-    setState(prevState => ({
-      ...prevState,
-      isShowApiProcessModal: false
-    }));
-  };
-
-  const onChangeFile = event => {
-    setState(prevState => ({
-      ...prevState,
-      file: event.target.files[0]
-    }));
-  };
+  const onChangeFile = event => setFile(event.target.files[0]);
 
   const onSubmitForm = () => {
     progress.start();
-    setState(prevState => ({
-      ...prevState,
-      isShowApiProcessModal: true,
-      progressStatus: {
-        uploadFirmware: 'start',
-        upgradeFirmware: 'initial',
-        deviceShutdown: 'initial',
-        deviceRestart: 'initial'
-      }
-    }));
+    setApiProcessModalTitle(i18n.t('Uploading Software'));
+    setIsShowApiProcessModal(true);
+    updateProgressStatus('uploadFirmware', 'start');
     api.system.uploadFirmware(file, updateProgress)
       .then(response => new Promise(resolve => {
         updateProgressStatus('uploadFirmware', 'done');
         updateProgressStatus('upgradeFirmware', 'start');
-        setState(prevState => ({
-          ...prevState,
-          apiProcessModalTitle: i18n.t('Installing Software')
-        }));
+        setApiProcessModalTitle(i18n.t('Installing Software'));
         const upgrade = init => {
           api.system.upgradeFirmware(init ? response.data.filename : null)
             .then(response => {
@@ -96,10 +65,7 @@ const Upgrade = () => {
                 updateProgressStatus('upgradeFirmware', 'done');
                 updateProgressStatus('deviceShutdown', 'start');
                 // Keep modal and update the title and body.
-                setState(prevState => ({
-                  ...prevState,
-                  apiProcessModalTitle: i18n.t('Shutting Down')
-                }));
+                setApiProcessModalTitle(i18n.t('Shutting Down'));
                 utils.pingToCheckShutdown(resolve, 1000);
               } else {
                 updateProgress('upgradeFirmware', response.data.updateProgress);
@@ -120,26 +86,17 @@ const Upgrade = () => {
         // Keep modal and update the title and body.
         updateProgressStatus('deviceShutdown', 'done');
         updateProgressStatus('deviceRestart', 'start');
-        setState(prevState => ({
-          ...prevState,
-          apiProcessModalTitle: i18n.t('Restarting')
-        }));
+        setApiProcessModalTitle(i18n.t('Restarting'));
         // Check the server was startup, if success then startup was failed and retry.
         const test = () => {
           api.ping('app')
             .then(response => {
               console.log('ping app response(userinitiated)', response);
               updateProgressStatus('deviceRestart', 'done');
-              setState(prevState => ({
-                ...prevState,
-                apiProcessModalTitle: i18n.t('Software Upgrade Success')
-              }));
+              setApiProcessModalTitle(i18n.t('Software Upgrade Success'));
               let countdown = constants.REDIRECT_COUNTDOWN;
               const countdownID = setInterval(() => {
-                setState(prevState => ({
-                  ...prevState,
-                  apiProcessModalBody: i18n.t('Redirect to the login page in {{0}} seconds', {0: --countdown})
-                }));
+                setApiProcessModalBody(i18n.t('Redirect to the login page in {{0}} seconds', {0: --countdown}));
               }, 1000);
               setTimeout(() => {
                 clearInterval(countdownID);
@@ -163,17 +120,9 @@ const Upgrade = () => {
   const testScript = () => {
     let count = 0;
     new Promise(resolve => {
-      setState(prevState => ({
-        ...prevState,
-        isShowApiProcessModal: true,
-        apiProcessModalTitle: i18n.t('Uploading Software'),
-        progressStatus: {
-          uploadFirmware: 'start',
-          upgradeFirmware: 'initial',
-          deviceShutdown: 'initial',
-          deviceRestart: 'initial'
-        }
-      }));
+      setApiProcessModalTitle(i18n.t('Uploading Software'));
+      setIsShowApiProcessModal(true);
+      updateProgressStatus('uploadFirmware', 'start');
       let interval = setInterval(() => {
         updateProgress('uploadFirmware', count);
         if (++count === 101) {
@@ -186,10 +135,7 @@ const Upgrade = () => {
     })
       .then(() => new Promise((resolve, reject) => {
         count = 0;
-        setState(prevState => ({
-          ...prevState,
-          apiProcessModalTitle: i18n.t('Installing Software')
-        }));
+        setApiProcessModalTitle(i18n.t('Installing Software'));
         let interval2 = setInterval(() => {
           updateProgress('upgradeFirmware', count);
           // Progress fail test
@@ -212,10 +158,7 @@ const Upgrade = () => {
         return new Promise(() => {});
       })
       .then(() => new Promise(resolve => {
-        setState(prevState => ({
-          ...prevState,
-          apiProcessModalTitle: i18n.t('Shutting Down')
-        }));
+        setApiProcessModalTitle(i18n.t('Shutting Down'));
         setTimeout(() => {
           updateProgressStatus('deviceRestart', 'start');
           resolve();
@@ -223,26 +166,17 @@ const Upgrade = () => {
       }))
       .then(() => new Promise(resolve => {
         updateProgressStatus('deviceShutdown', 'done');
-        setState(prevState => ({
-          ...prevState,
-          apiProcessModalTitle: i18n.t('Restarting')
-        }));
+        setApiProcessModalTitle(i18n.t('Restarting'));
         setTimeout(() => {
           updateProgressStatus('deviceRestart', 'done');
           resolve();
         }, 10 * 1000);
       }))
       .then(() => {
-        setState(prevState => ({
-          ...prevState,
-          apiProcessModalTitle: i18n.t('Software Upgrade Success')
-        }));
+        setApiProcessModalTitle(i18n.t('Software Upgrade Success'));
         let countdown = constants.REDIRECT_COUNTDOWN;
         const countdownID = setInterval(() => {
-          setState(prevState => ({
-            ...prevState,
-            apiProcessModalBody: i18n.t('Redirect to the login page in {{0}} seconds', {0: --countdown})
-          }));
+          setApiProcessModalBody(i18n.t('Redirect to the login page in {{0}} seconds', {0: --countdown}));
         }, 1000);
         setTimeout(() => {
           clearInterval(countdownID);
@@ -301,51 +235,49 @@ const Upgrade = () => {
                   progressStatus={progressStatus.deviceRestart}
                 />
               ]}
-              onHide={hideApiProcessModal}
+              onHide={() => setIsShowApiProcessModal(false)}
             />
 
             <div className="col-center">
               <div className="card shadow">
                 <div className="card-header">{i18n.t('Software Upgrade')}</div>
                 <Formik initialValues={{}} onSubmit={isRunTest ? testScript : onSubmitForm}>
-                  {() => (
-                    <Form className="card-body">
-                      <div className="form-group">
-                        <label className="mb-0">{i18n.t('Import File')}</label>
-                        <small className="form-text text-muted my-2">
-                          {i18n.t('Only ZIP file format is supported')}
-                        </small>
-                        <div>
-                          <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
-                            <input
-                              disabled={isShowApiProcessModal || isApiProcessing}
-                              type="file"
-                              className="d-none"
-                              accept="application/zip"
-                              onChange={onChangeFile}
-                            />{i18n.t('Select File')}
-                          </label>
-                          {
-                            file ?
-                              <span className="text-size-14 text-muted ml-3">{i18n.t(file.name)}</span> :
-                              <span className="text-size-14 text-muted ml-3">{i18n.t('No file selected.')}</span>
-                          }
-                        </div>
+                  <Form className="card-body">
+                    <div className="form-group">
+                      <label className="mb-0">{i18n.t('Import File')}</label>
+                      <small className="form-text text-muted my-2">
+                        {i18n.t('Only ZIP file format is supported')}
+                      </small>
+                      <div>
+                        <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
+                          <input
+                            disabled={isShowApiProcessModal || isApiProcessing}
+                            type="file"
+                            className="d-none"
+                            accept="application/zip"
+                            onChange={onChangeFile}
+                          />{i18n.t('Select File')}
+                        </label>
+                        {
+                          file ?
+                            <span className="text-size-14 text-muted ml-3">{i18n.t(file.name)}</span> :
+                            <span className="text-size-14 text-muted ml-3">{i18n.t('No file selected.')}</span>
+                        }
                       </div>
-                      <CustomTooltip show={!file} title={i18n.t('Please select a file first.')}>
-                        <div>
-                          <button
-                            disabled={(isShowApiProcessModal || isApiProcessing || !file) && !isRunTest}
-                            className="btn btn-primary btn-block rounded-pill"
-                            type="submit"
-                            style={file || isRunTest ? {} : {pointerEvents: 'none'}}
-                          >
-                            {i18n.t(isRunTest ? 'Run Test' : 'Software Upgrade')}
-                          </button>
-                        </div>
-                      </CustomTooltip>
-                    </Form>
-                  )}
+                    </div>
+                    <CustomTooltip show={!file} title={i18n.t('Please select a file first.')}>
+                      <div>
+                        <button
+                          disabled={(isShowApiProcessModal || isApiProcessing || !file) && !isRunTest}
+                          className="btn btn-primary btn-block rounded-pill"
+                          type="submit"
+                          style={file || isRunTest ? {} : {pointerEvents: 'none'}}
+                        >
+                          {i18n.t(isRunTest ? 'Run Test' : 'Software Upgrade')}
+                        </button>
+                      </div>
+                    </CustomTooltip>
+                  </Form>
                 </Formik>
               </div>
             </div>
