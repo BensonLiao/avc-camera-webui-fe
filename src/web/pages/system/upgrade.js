@@ -11,7 +11,7 @@ import constants from '../../../core/constants';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
-const isRunTest = true; // Set as `true` to run test on submit
+const isRunTest = false; // Set as `true` to run test on submit
 const isMockUpgradeError = false; // Set as `true` to mock upgrade firmware error, only works if `isRunTest` is `true`
 
 const Upgrade = () => {
