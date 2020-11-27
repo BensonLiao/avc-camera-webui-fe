@@ -470,6 +470,7 @@ module.exports = {
     /**
      * @returns {Promise<response>}
      * @response 200 {Object}
+     * - resultIP {String}
      * - success {Number}
      */
     testDHCP: () => api({

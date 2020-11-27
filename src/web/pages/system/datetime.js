@@ -19,95 +19,70 @@ import utils from '../../../core/utils';
 import {useContextState} from '../../stateProvider';
 import withGlobalStatus from '../../withGlobalStatus';
 
-const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTime, ntpTimeZone, deviceTime}, systemInformation: {languageCode}}) => {
+const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTime, ntpTimeZone, deviceTime}}) => {
   const {isApiProcessing} = useContextState();
-  const [state, setState] = useState({
-    showDateTimePicker: {
-      ntpUpdateTime: false,
-      manualTime: false
-    },
-    isShowModal: false,
+  const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
+  const [showApiProcessModal, setShowApiProcessModal] = useState({
     isShowApiProcessModal: false,
     apiProcessModalTitle: i18n.t('Updating Date & Time')
   });
 
-  const {showDateTimePicker, isShowModal, isShowApiProcessModal, apiProcessModalTitle} = state;
+  const [showDateTimePicker, setShowDateTimePicker] = useState({
+    ntpUpdateTime: false,
+    manualTime: false
+  });
 
   const hideApiProcessModal = () => {
-    setState(prevState => ({
+    setShowApiProcessModal(prevState => ({
       ...prevState,
       isShowApiProcessModal: false
     }));
   };
 
-  const showModal = () => {
-    setState(prevState => ({
-      ...prevState,
-      isShowModal: true
-    }));
-  };
-
-  const hideModal = () => {
-    setState(prevState => ({
-      ...prevState,
-      isShowModal: false
-    }));
-  };
-
   const toggleDateTimePicker = name => event => {
     event.preventDefault();
-    return setState(prevState => ({
+    return setShowDateTimePicker(prevState => ({
       ...prevState,
-      showDateTimePicker: {
-        ...prevState.showDateTimePicker,
-        [name]: !prevState.showDateTimePicker[name]
-      }
+      [name]: !prevState[name]
     }));
   };
 
   const onHideDateTimePicker = name => _ => {
-    return setState(prevState => ({
+    return setShowDateTimePicker(prevState => ({
       ...prevState,
-      showDateTimePicker: {[name]: false}
+      [name]: false
     }));
   };
 
   const onSubmit = values => {
     const formValues = {...values};
-    const isLanguageUpdate = languageCode !== formValues.language;
     progress.start();
-    setState(prevState => ({
+    setShowApiProcessModal(prevState => ({
       ...prevState,
-      isShowApiProcessModal: true,
-      isShowModal: false
+      isShowApiProcessModal: true
     }));
+    setIsShowConfirmModal(false);
     if (formValues.syncTimeOption === SyncTimeOption.local) {
       formValues.manualTime = new Date();
       // Auto fill timezone when switching to `sync with your computer` for the first time
       if (formValues.syncTimeOption !== syncTimeOption) {
         formValues.ntpTimeZone = dayjs.tz.guess();
       }
+    } else {
+    // Set seconds to 0 to prevent timepicker issues
+      formValues.manualTime.setSeconds(0);
     }
 
-    if (isLanguageUpdate) {
-      api.system.updateLanguage(formValues.language)
-        .then(() => {
-          location.reload();
-        })
-        .finally(progress.done);
-    } else {
-      formValues.manualTime.setSeconds(0);
-      formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
-      formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
-      api.system.updateSystemDateTime(formValues)
-        .then(() => {
-          location.href = '/login';
-        })
-        .catch(() => {
-          hideApiProcessModal();
-        })
-        .finally(progress.done);
-    }
+    formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
+    formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
+    api.system.updateSystemDateTime(formValues)
+      .then(() => {
+        location.href = '/login';
+      })
+      .catch(() => {
+        hideApiProcessModal();
+      })
+      .finally(progress.done);
   };
 
   return (
@@ -138,20 +113,13 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                       ...systemDateTime,
                       ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime).getTime(),
                       manualTime: systemDateTime.manualTime ?
-                        new Date(systemDateTime.manualTime) : new Date(),
-                      language: languageCode
+                        new Date(systemDateTime.manualTime) : new Date()
                     }}
                     onSubmit={onSubmit}
                   >
                     {({values}) => {
                       return (
                         <Form>
-                          {/* Remove language in AVN version */}
-                          <SelectField hide labelName={i18n.t('Language')} name="language">
-                            <option value={window.navigator.userLanguage || window.navigator.language}>{i18n.t('Default')}</option>
-                            <option value={i18n.options.supportedLangCodes[0]}>{i18n.t('English')}</option>
-                            <option value={i18n.options.supportedLangCodes[1]}>{i18n.t('Traditional Chinese')}</option>
-                          </SelectField>
                           <div
                             className="cursor-pointer"
                           >
@@ -319,16 +287,16 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                           <button
                             className="btn btn-block btn-primary rounded-pill"
                             type="button"
-                            onClick={showModal}
+                            onClick={() => setIsShowConfirmModal(true)}
                           >
                             {i18n.t('Apply')}
                           </button>
                           <CustomNotifyModal
-                            isShowModal={isShowModal}
+                            isShowModal={isShowConfirmModal}
                             modalTitle={i18n.t('Date & Time')}
                             modalBody={i18n.t('Updating date and time requires you to log in again. Are you sure you want to continue?')}
                             isConfirmDisable={isApiProcessing}
-                            onHide={hideModal}
+                            onHide={() => setIsShowConfirmModal(false)}
                             onConfirm={() => {
                               onSubmit(values);
                             }}
@@ -345,8 +313,8 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
         <CustomNotifyModal
           modalType="process"
           backdrop="static"
-          isShowModal={isShowApiProcessModal}
-          modalTitle={apiProcessModalTitle}
+          isShowModal={showApiProcessModal.isShowApiProcessModal}
+          modalTitle={showApiProcessModal.apiProcessModalTitle}
           onHide={hideApiProcessModal}
         />
       </div>
@@ -355,7 +323,6 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
 };
 
 DateTime.propTypes = {
-  systemInformation: PropTypes.shape({languageCode: PropTypes.oneOf(i18n.options.supportedLangCodes).isRequired}).isRequired,
   systemDateTime: PropTypes.shape({
     deviceTime: PropTypes.number.isRequired,
     syncTimeOption: PropTypes.oneOf(SyncTimeOption.all()).isRequired,

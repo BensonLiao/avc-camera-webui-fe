@@ -70,8 +70,12 @@ module.exports = class User extends Base {
     };
   };
 
-  hideModal = (reload = false) => {
-    getRouter().go({name: 'web.users.accounts'}, {reload});
+  hideModal = (reload = false) => getRouter().go({name: 'web.users.accounts'}, {reload});
+
+  callApi = (apiType, values = '') => {
+    api.user[apiType](values)
+      .then(this.hideModal(true))
+      .finally(progress.done);
   };
 
   onSubmitForm = values => {
@@ -83,18 +87,10 @@ module.exports = class User extends Base {
         submitValues.permission = UserPermission.viewer;
       }
 
-      api.user.updateUser(submitValues)
-        .then(() => {
-          this.hideModal(true);
-        })
-        .finally(progress.done);
+      this.callApi('updateUser', submitValues);
     } else {
       // Add a new user.
-      api.user.addUser(values)
-        .then(() => {
-          this.hideModal(true);
-        })
-        .finally(progress.done);
+      this.callApi('addUser', values);
     }
   };
 
@@ -111,117 +107,12 @@ module.exports = class User extends Base {
     );
   }
 
-  formRender = ({errors, touched}) => {
-    const {users: {items}, user} = this.props;
-    const {$isApiProcessing} = this.state;
-    const isSuperAdmin = user && (user.permission === UserPermission.superAdmin);
-    const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
-    const permissionList = UserPermission.all().reduce((permissionList, permission) => {
-      if (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) {
-        permissionList.push(
-          <option key={permission} value={permission}>
-            {i18n.t(`permission-${permission}`)}
-          </option>);
-      }
-
-      return permissionList;
-    }, []);
-    return (
-      <Form>
-        <div className="modal-body">
-          <SelectField readOnly={isSuperAdmin} labelName={i18n.t('Permission')} name="permission" wrapperClassName="px-2">
-            {permissionList}
-          </SelectField>
-          <div className="form-group">
-            <label>{i18n.t('Username')}</label>
-            <Field
-              name="account"
-              type="text"
-              placeholder={i18n.t('Enter a name for this account')}
-              disabled={isSuperAdmin}
-              maxLength={UserSchema.account.max}
-              validate={this.checkDuplicate}
-              className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
-            />
-            <ErrorMessage component="div" name="account" className="invalid-feedback"/>
-          </div>
-          { !user && (
-            <div className="form-group has-feedback">
-              <label>{i18n.t('Password')}</label>
-              <Field
-                name="password"
-                component={Password}
-                inputProps={{
-                  placeholder: i18n.t('Enter a password'),
-                  className: classNames('form-control', {'is-invalid': errors.password && touched.password})
-                }}
-              />
-              <small className="text-info">
-                {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
-              </small>
-              <ErrorMessage component="div" name="password" className="invalid-feedback"/>
-            </div>
-          )}
-          {
-            user && (
-              <div className="form-group has-feedback">
-                <label>{i18n.t('New Password')}</label>
-                <Field
-                  name="newPassword"
-                  component={Password}
-                  inputProps={{
-                    placeholder: i18n.t('Enter a new password'),
-                    className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
-                  }}
-                />
-                <small className="text-info">
-                  {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
-                </small>
-                <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
-              </div>
-            )
-          }
-          <div className="form-group has-feedback">
-            <label>{i18n.t(user ? 'Confirm New Password' : 'Confirm Password')}</label>
-            <Field
-              name="confirmPassword"
-              component={Password}
-              inputProps={{
-                placeholder: i18n.t(user ? 'Enter the new password again' : 'Enter the password again'),
-                className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
-              }}
-            />
-            <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
-          </div>
-        </div>
-        <div className="modal-footer flex-column">
-          <div className="form-group w-100 mx-0">
-            <button
-              disabled={$isApiProcessing || isAddUserDisabled}
-              type="submit"
-              className="btn btn-primary btn-block rounded-pill"
-            >
-              {user ? i18n.t('Confirm') : i18n.t('New')}
-            </button>
-          </div>
-          <button
-            disabled={$isApiProcessing}
-            className="btn btn-info btn-block m-0 rounded-pill"
-            type="button"
-            onClick={this.hideModal}
-          >
-            {i18n.t('Close')}
-          </button>
-        </div>
-      </Form>
-    );
-  };
-
   render() {
-    const {user} = this.props;
+    const {user, users: {items}} = this.props;
     const {$isApiProcessing, isShowModal} = this.state;
     const validator = user ? UserValidator : NewUserValidator;
-
+    const isSuperAdmin = user && (user.permission === UserPermission.superAdmin);
+    const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
     return (
       <Modal autoFocus={false} show={isShowModal} backdrop={$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
@@ -232,7 +123,101 @@ module.exports = class User extends Base {
           validate={validator}
           onSubmit={this.onSubmitForm}
         >
-          {this.formRender}
+          {({errors, touched}) => (
+            <Form>
+              <div className="modal-body">
+                <SelectField readOnly={isSuperAdmin} labelName={i18n.t('Permission')} name="permission" wrapperClassName="px-2">
+                  {UserPermission.all().map(permission => {
+                    return (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) && (
+                      <option key={permission} value={permission}>
+                        {i18n.t(`permission-${permission}`)}
+                      </option>
+                    );
+                  })}
+                </SelectField>
+                <div className="form-group">
+                  <label>{i18n.t('Username')}</label>
+                  <Field
+                    name="account"
+                    type="text"
+                    placeholder={i18n.t('Enter a name for this account')}
+                    disabled={isSuperAdmin}
+                    maxLength={UserSchema.account.max}
+                    validate={this.checkDuplicate}
+                    className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
+                  />
+                  <ErrorMessage component="div" name="account" className="invalid-feedback"/>
+                </div>
+                { !user && (
+                  <div className="form-group has-feedback">
+                    <label>{i18n.t('Password')}</label>
+                    <Field
+                      name="password"
+                      component={Password}
+                      inputProps={{
+                        placeholder: i18n.t('Enter a password'),
+                        className: classNames('form-control', {'is-invalid': errors.password && touched.password})
+                      }}
+                    />
+                    <small className="text-info">
+                      {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                    </small>
+                    <ErrorMessage component="div" name="password" className="invalid-feedback"/>
+                  </div>
+                )}
+                {
+                  user && (
+                    <div className="form-group has-feedback">
+                      <label>{i18n.t('New Password')}</label>
+                      <Field
+                        name="newPassword"
+                        component={Password}
+                        inputProps={{
+                          placeholder: i18n.t('Enter a new password'),
+                          className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
+                        }}
+                      />
+                      <small className="text-info">
+                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                      </small>
+                      <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
+                    </div>
+                  )
+                }
+                <div className="form-group has-feedback">
+                  <label>{i18n.t(user ? 'Confirm New Password' : 'Confirm Password')}</label>
+                  <Field
+                    name="confirmPassword"
+                    component={Password}
+                    inputProps={{
+                      placeholder: i18n.t(user ? 'Enter the new password again' : 'Enter the password again'),
+                      className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
+                    }}
+                  />
+                  <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
+                </div>
+              </div>
+              <div className="modal-footer flex-column">
+                <div className="form-group w-100 mx-0">
+                  <button
+                    disabled={$isApiProcessing || isAddUserDisabled}
+                    type="submit"
+                    className="btn btn-primary btn-block rounded-pill"
+                  >
+                    {user ? i18n.t('Confirm') : i18n.t('New')}
+                  </button>
+                </div>
+                <button
+                  disabled={$isApiProcessing}
+                  className="btn btn-info btn-block m-0 rounded-pill"
+                  type="button"
+                  onClick={this.hideModal}
+                >
+                  {i18n.t('Close')}
+                </button>
+              </div>
+            </Form>
+          )}
         </Formik>
       </Modal>
     );
