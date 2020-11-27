@@ -288,6 +288,4 @@ const Upgrade = () => {
   );
 };
 
-Upgrade.propTypes = {};
-
 export default withGlobalStatus(Upgrade);
