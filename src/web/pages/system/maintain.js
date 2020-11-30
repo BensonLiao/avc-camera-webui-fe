@@ -82,6 +82,7 @@ const Maintain = () => {
                     hideApiProcessModal={hideApiProcessModal}
                   />
                   <MaintainImportExport
+                    setOnConfirm={setOnConfirm}
                     setApiProcessModal={setApiProcessModal}
                     hideApiProcessModal={hideApiProcessModal}
                     setFinishModal={setFinishModal}
