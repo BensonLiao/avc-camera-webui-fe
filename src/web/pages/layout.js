@@ -2,9 +2,9 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const React = require('react');
 const progress = require('nprogress');
-const {RouterView} = require('capybara-router');
+const {RouterView} = require('@benson.liao/capybara-router');
 const Base = require('./shared/base');
-const {Link, getRouter} = require('capybara-router');
+const {Link, getRouter} = require('@benson.liao/capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Loading = require('../../core/components/loading');
@@ -46,7 +46,7 @@ module.exports = class Layout extends Base {
     const router = getRouter();
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
-      router.listen('ChangeStart', (action, toState) => {
+      router.listen('ChangeSuccess', (action, toState) => {
         this.setState({currentRouteName: toState.name});
       })
     );

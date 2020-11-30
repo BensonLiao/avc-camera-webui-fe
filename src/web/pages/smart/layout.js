@@ -1,6 +1,6 @@
 const classNames = require('classnames');
 const React = require('react');
-const {RouterView, Link, getRouter} = require('capybara-router');
+const {RouterView, Link, getRouter} = require('@benson.liao/capybara-router');
 const Loading = require('../../../core/components/loading');
 const i18n = require('../../../i18n').default;
 const Base = require('../shared/base');
@@ -12,7 +12,7 @@ module.exports = class Smart extends Base {
 
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
-      router.listen('ChangeStart', (action, toState) => {
+      router.listen('ChangeSuccess', (action, toState) => {
         this.setState({currentRouteName: toState.name});
       })
     );

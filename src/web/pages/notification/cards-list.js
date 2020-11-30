@@ -1,4 +1,4 @@
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React from 'react';

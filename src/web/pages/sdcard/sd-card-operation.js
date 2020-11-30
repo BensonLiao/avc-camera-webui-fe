@@ -1,4 +1,4 @@
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';

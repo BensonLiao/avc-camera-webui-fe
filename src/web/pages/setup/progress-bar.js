@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'capybara-router';
+import {Link} from '@benson.liao/capybara-router';
 import i18n from '../../../i18n';
 
 const ProgressBar = ({step, hasPreviousPage, progressBarImage}) => {

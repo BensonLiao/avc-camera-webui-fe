@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';

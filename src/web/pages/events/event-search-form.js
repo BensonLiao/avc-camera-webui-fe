@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import {Formik, Form, Field} from 'formik';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';

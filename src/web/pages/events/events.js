@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import Similarity from 'webserver-form-schema/constants/event-filters/similarity';
 import RecognitionType from 'webserver-form-schema/constants/event-filters/recognition-type';
 import i18n from '../../../i18n';
@@ -110,8 +110,7 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
     }));
   };
 
-  const hrefTemplate = getRouter().generateUri(
-    currentRoute,
+  const hrefTemplate = currentRoute.generateUri(
     {
       ...params,
       index: undefined

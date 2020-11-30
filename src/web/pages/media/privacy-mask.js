@@ -1,7 +1,7 @@
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const {Formik, Form, Field} = require('formik');
 const iconHotkeyBackspace = require('../../../resource/hotkey-backspace-32px.svg');
 const iconHotkeyDeleted = require('../../../resource/hotkey-delete-32px.svg');

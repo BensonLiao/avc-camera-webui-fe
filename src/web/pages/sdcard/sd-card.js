@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
-import {Link} from 'capybara-router';
+import {Link} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
@@ -9,7 +9,7 @@ import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
 import FormikEffect from '../../../core/components/formik-effect';
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import i18n from '../../../i18n';
 import {SD_STATUS_LIST} from '../../../core/constants';
 import SDCardOperation from './sd-card-operation';

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {Link, getRouter} from 'capybara-router';
+import {Link, getRouter} from '@benson.liao/capybara-router';
 import UserPermission from 'webserver-form-schema/constants/user-permission';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';

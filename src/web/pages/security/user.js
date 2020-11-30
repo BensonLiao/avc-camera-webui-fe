@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
@@ -41,7 +41,7 @@ module.exports = class User extends Base {
     this.state.isShowModal = true;
     this.state.usersName = props.users.items.map(user => user.account);
     this.$listens.push(
-      router.listen('ChangeStart', (action, toState) => {
+      router.listen('ChangeSuccess', (action, toState) => {
         const isShowModal = [
           'web.users.accounts.new-user',
           'web.users.accounts.details'

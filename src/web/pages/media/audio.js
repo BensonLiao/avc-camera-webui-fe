@@ -1,6 +1,6 @@
 const PropTypes = require('prop-types');
 const React = require('react');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
 const AudioInputQuality = require('webserver-form-schema/constants/audio-input-quality');
