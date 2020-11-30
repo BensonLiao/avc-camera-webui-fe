@@ -416,7 +416,7 @@ module.exports = {
       'Enter sender\'s email': '差出人のメールアドレスを入力してください',
       'Notification Interval (seconds)': '通報間隔 (秒)',
       'Specify notification interval': '秒数を入力してください',
-      '5-1,800 Seconds': '5-1800 秒',
+      '5 - 1,800 Seconds': '5 - 1800 秒',
       'Email Setting Success': 'メールアドレス設定に成功しました',
       'Mail Setting Failed': 'メールアドレス設定に失敗しました',
       'Sending Test Email': 'テストメールは発送されました',

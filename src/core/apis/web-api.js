@@ -946,7 +946,6 @@ module.exports = {
       method: 'get',
       url: '/api/video/focusposition'
     })
-
   },
   smartFunction: {
     /**
