@@ -154,4 +154,3 @@ TCPIPHTTP.propTypes = {
 };
 
 export default TCPIPHTTP;
-

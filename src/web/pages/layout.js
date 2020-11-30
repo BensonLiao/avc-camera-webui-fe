@@ -348,13 +348,13 @@ module.exports = class Layout extends Base {
         >
           <div
             className="modal-header"
-            onMouseEnter={this.onAboutModalHover(`           Model Name:
+            onMouseEnter={this.onAboutModalHover(`           ${i18n.t('Model Name')}:
             ${systemInformation.modelName}
-            Software:
+            ${i18n.t('Software')}:
             ${systemInformation.firmware}
-            Serial Number:
+            ${i18n.t('Serial Number')}:
             ${systemInformation.serialNumber}
-            MAC Address:
+            ${i18n.t('MAC Address')}:
             ${networkSettings.mac}`)}
             onMouseLeave={this.onAboutModalHoverOut}
           >

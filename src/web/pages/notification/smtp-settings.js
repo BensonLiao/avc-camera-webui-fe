@@ -131,7 +131,7 @@ const SMTPSettings = ({smtpSettings, onSubmitSMTPSettingsForm, setIsShowAccountM
                   placeholder={i18n.t('Specify notification interval')}
                 />
                 <ErrorMessage component="div" name="interval" className="invalid-feedback"/>
-                <small className="form-text text-muted">{i18n.t('5-1,800 Seconds')}</small>
+                <small className="form-text text-muted">{i18n.t('5 - 1,800 Seconds')}</small>
               </div>
               <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
                 {i18n.t('Apply')}

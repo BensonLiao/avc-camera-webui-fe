@@ -416,7 +416,7 @@ module.exports = {
       'Enter sender\'s email': 'Ingrese la dirección de correo electrónico del remitente',
       'Notification Interval (seconds)': 'Intervalo de notificación (segundos)',
       'Specify notification interval': 'Ingrese el número de segundos',
-      '5-1,800 Seconds': '5-1800 segundos',
+      '5 - 1,800 Seconds': '5 - 1800 segundos',
       'Email Setting Success': 'éxito la configuración del correo electrónico',
       'Mail Setting Failed': 'Falló la configuración del correo electrónico',
       'Sending Test Email': 'Ha enviado un correo de prueba',

@@ -124,7 +124,7 @@ module.exports = class OSD extends Base {
                               )}
                               onClick={() => setFieldValue('color', OSDColor.black)}
                             >
-                                &nbsp;
+                              &nbsp;
                             </button>
                               &nbsp;
                             <button
@@ -135,7 +135,7 @@ module.exports = class OSD extends Base {
                               )}
                               onClick={() => setFieldValue('color', OSDColor.white)}
                             >
-                                &nbsp;
+                              &nbsp;
                             </button>
                           </div>
                         </div>

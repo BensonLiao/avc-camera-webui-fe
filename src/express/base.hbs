@@ -10,7 +10,6 @@
       }).join(''));
     }
     window.currentLanguageCode = '{{ languageCode }}';
-    //window.currentLanguageCode = 'zh-tw';
     window.config = JSON.parse(base64DecodeUnicode('{{ archive config }}'));
     window.user = JSON.parse(base64DecodeUnicode('{{ archive user }}'));
     window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));

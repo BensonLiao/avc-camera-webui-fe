@@ -20,12 +20,12 @@ const Login = () => {
   const {isApiProcessing} = useContextState();
 
   /**
-  * Handler on user submit the login form.
-  * @param {Object} values
-  * @property {String} account
-  * @property {String} password
-  * @returns {void}
-  */
+   * Handler on user submit the login form.
+   * @param {Object} values
+   * @property {String} account
+   * @property {String} password
+   * @returns {void}
+   */
   const onSubmitLoginForm = values => {
     progress.start();
     api.account.login(values)

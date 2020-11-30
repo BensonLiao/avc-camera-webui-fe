@@ -416,7 +416,7 @@ module.exports = {
       'Enter sender\'s email': '輸入寄件人電子郵件',
       'Notification Interval (seconds)': '通報間隔 (秒)',
       'Specify notification interval': '輸入秒數',
-      '5-1,800 Seconds': '5-1800 秒',
+      '5 - 1,800 Seconds': '5 - 1800 秒',
       'Email Setting Success': '電子郵件設定成功',
       'Mail Setting Failed': '電子郵件設定失敗',
       'Sending Test Email': '測試郵件已寄出',
