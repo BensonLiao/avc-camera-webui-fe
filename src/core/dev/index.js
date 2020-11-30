@@ -79,7 +79,7 @@ mockAxios
     let {count} = db.get('ping').value();
     // Count is to simulate process has finished pinging 'web' 5 times
     if (count >= 5) {
-      return setDelay(mockResponseWithLog(config, [200]), restartTimeLength);
+      return setDelay(mockResponseWithLog(config, [200]), restartTimeLength * 1000);
     }
 
     return mockResponseWithLog(config, [200]);
@@ -175,7 +175,7 @@ mockAxios
     const progress = db.get('upgrade').value();
 
     // Respond with finished status if upgrade finished
-    if (progress.upgradeProgress === stepsToFinish) {
+    if (progress.upgradeProgress === stepsToFinish || progress.upgradeProgress > 100) {
       db.get('upgrade').assign({upgradeProgress: 0}).write();
       return mockResponseWithLog(config, [200, {
         updateStatus: 2,
