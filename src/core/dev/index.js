@@ -187,7 +187,7 @@ mockAxios
     db.get('upgrade').assign({upgradeProgress: ++progress.upgradeProgress}).write();
     return mockResponseWithLog(config, [200, {
       updateStatus: 0,
-      upgradeProgress: Math.round((progress.upgradeProgress - 1) * 100 / stepsToFinish)
+      updateProgress: Math.round((progress.upgradeProgress - 1) * 100 / stepsToFinish)
     }]);
   })
   .onPut('/api/system/device-name').reply(config => mockResponseWithLog(config, [200, db.get('system').assign(JSON.parse(config.data)).write()]))
