@@ -8,6 +8,7 @@ import {useContextState} from '../../stateProvider';
 import utils from '../../../core/utils';
 
 const MaintainReboot = ({
+  setOnConfirm,
   setFinishModal,
   setApiProcessModal,
   hideApiProcessModal
@@ -39,6 +40,9 @@ const MaintainReboot = ({
                 isShowFinishModal: true,
                 finishModalTitle: i18n.t('System Reboot'),
                 finishModalBody: i18n.t('The device has rebooted. Please log in again.')
+              });
+              setOnConfirm(() => () => {
+                location.href = '/';
               });
             })
             .catch(() => {
@@ -81,6 +85,7 @@ const MaintainReboot = ({
 };
 
 MaintainReboot.propTypes = {
+  setOnConfirm: PropTypes.func.isRequired,
   setFinishModal: PropTypes.func.isRequired,
   setApiProcessModal: PropTypes.func.isRequired,
   hideApiProcessModal: PropTypes.func.isRequired

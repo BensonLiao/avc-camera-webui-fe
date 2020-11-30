@@ -69,6 +69,7 @@ const Maintain = () => {
                 <div className="card-body">
 
                   <MaintainReboot
+                    setOnConfirm={setOnConfirm}
                     setFinishModal={setFinishModal}
                     setApiProcessModal={setApiProcessModal}
                     hideApiProcessModal={hideApiProcessModal}
