@@ -778,6 +778,11 @@ module.exports = {
         isEnableFaceRecognitionKey: true,
         isEnableAgeGenderKey: false,
         isEnableHumanoidDetectionKey: false
+      },
+      upgrade: {upgradeProgress: 0},
+      ping: {
+        lastPinged: new Date(),
+        count: 0
       }
     }).write();
     return db;
