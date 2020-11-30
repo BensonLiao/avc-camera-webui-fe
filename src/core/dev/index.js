@@ -42,8 +42,48 @@ const setDelay = (func, delay) => {
 const mockDB = require('./db');
 const db = mockDB.init();
 const mockAxios = new MockAdapter(axios);
-mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(config, [config.params.mock ? 500 : 200]), 10))
-  .onGet('/api/ping/app').reply(config => setDelay(mockResponseWithLog(config, [200])), 3000)
+
+mockAxios
+  .onGet('/api/ping/web').reply(config => {
+    // Condition to mock server restart (unreachable) is determined by if two pings are within 1100 ms of each other
+    // All device restart ping checks are set to 1000 ms interval
+    let ping = db.get('ping').value();
+    if (new Date() - new Date(ping.lastPinged) > 1100) {
+      db.get('ping').assign({
+        count: 0,
+        lastPinged: new Date()
+      }).write();
+      return mockResponseWithLog(config, [config.params.mock ? 500 : 200]);
+    }
+
+    db.get('ping').assign({
+      lastPinged: new Date(),
+      count: ++ping.count
+    }).write();
+    // Simulate pinging web 5 times until server is unreachable (mock restarting)
+    if (ping.count >= 5) {
+      db.get('ping').assign({
+        ...ping,
+        lastPinged: new Date()
+      }).write();
+      return;
+    }
+
+    // Return OK response if ping is not used for device restart check
+    return mockResponseWithLog(config, [config.params.mock ? 500 : 200]);
+  })
+  .onGet('/api/ping/app').reply(config => {
+    // Length of time for mock restarting device (seconds)
+    const restartTimeLength = 4;
+
+    let {count} = db.get('ping').value();
+    // Count is to simulate process has finished pinging 'web' 5 times
+    if (count >= 5) {
+      return setDelay(mockResponseWithLog(config, [200]), restartTimeLength);
+    }
+
+    return mockResponseWithLog(config, [200]);
+  })
   .onGet('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').value()]))
   .onPut('/api/system/adbconfig').reply(config => mockResponseWithLog(config, [200, db.get('adbConfig').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/video/settings').reply(config => mockResponseWithLog(config, [200, db.get('video').value()]))
@@ -66,7 +106,7 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onPost('/api/system/network/testdhcp').reply(config => {
     const result = mockResponseWithLog(config, [200, {
       success: 1,
-      resultIP: '19.168.88.99'
+      resultIP: '192.168.88.99'
     }]);
     return setDelay(result, 1000);
   })
@@ -106,6 +146,50 @@ mockAxios.onGet('/api/ping/web').reply(config => setDelay(mockResponseWithLog(co
   .onPost('/api/system/reboot').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000))
   .onPost('/api/system/resetdefault').reply(config => mockResponseWithLog(config, [204, {}]))
   .onPost('/api/system/importsettings').reply(config => mockResponseWithLog(config, [204, {}]))
+  .onPost('/api/system/firmware').reply(config => {
+    return new Promise(resolve => {
+      // Length of time for mocking uploading firmware (seconds)
+      const timeToFinish = 3;
+
+      let count = 0;
+      // Set progress bar indicator
+      let interval = setInterval(() => {
+        config.onUploadProgress({
+          loaded: count,
+          total: 100
+        });
+        if (++count === 101) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, Math.round(timeToFinish * 10));
+    })
+      .then(() => {
+        return mockResponseWithLog(config, [204, {}]);
+      });
+  })
+  .onPost('/api/system/firmware/upgrade').reply(config => {
+    // Number of steps to 100% upgrade
+    const stepsToFinish = 3;
+
+    const progress = db.get('upgrade').value();
+
+    // Respond with finished status if upgrade finished
+    if (progress.upgradeProgress === stepsToFinish) {
+      db.get('upgrade').assign({upgradeProgress: 0}).write();
+      return mockResponseWithLog(config, [200, {
+        updateStatus: 2,
+        upgradeProgress: 100
+      }]);
+    }
+
+    // Respond with upgrade progress percentage
+    db.get('upgrade').assign({upgradeProgress: ++progress.upgradeProgress}).write();
+    return mockResponseWithLog(config, [200, {
+      updateStatus: 0,
+      upgradeProgress: Math.round((progress.upgradeProgress - 1) * 100 / stepsToFinish)
+    }]);
+  })
   .onPut('/api/system/device-name').reply(config => mockResponseWithLog(config, [200, db.get('system').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/system/systeminfo/log.zip').reply(config => mockResponseWithLog(config, [200, new Blob()]))
   .onPost('/api/system/systeminfo/clearLog').reply(config => mockResponseWithLog(config, [204, {}]))
