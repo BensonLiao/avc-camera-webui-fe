@@ -17,6 +17,20 @@ const CustomNotifyModal = require('../../../core/components/custom-notify-modal'
 const DateTimePicker = require('../../../core/components/fields/datetime-picker');
 const SelectField = require('../../../core/components/fields/select-field');
 const utils = require('../../../core/utils');
+console.log('TIMEZONE_LIST', TIMEZONE_LIST);
+const data = require('cldr-dates-full/main/zh-Hant/timeZoneNames.json');
+TIMEZONE_LIST.map(tz => {
+  const i18nKey = tz.alternativeName
+    .replace(/( Time|St. )/g, '')
+    .replace(/( &? ?|-)/g, '_');
+  const i18nValue = data.main['zh-Hant'].dates.timeZoneNames.metazone[i18nKey];
+  if (!i18nValue) {
+    console.log('tz.alternativeName', tz.alternativeName);
+    console.log('i18nKey', i18nKey);
+  }
+
+  return i18nKey;
+});
 
 module.exports = class DateTime extends Base {
   static get propTypes() {
