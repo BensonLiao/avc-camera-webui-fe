@@ -11,8 +11,6 @@ import constants from '../../../core/constants';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
-const isRunTest = false; // Set as `true` to run test on submit
-const isMockUpgradeError = false; // Set as `true` to mock upgrade firmware error, only works if `isRunTest` is `true`
 
 const Upgrade = () => {
   const {isApiProcessing} = useContextState();
@@ -116,75 +114,6 @@ const Upgrade = () => {
       });
   };
 
-  // Test Script for FOTA process
-  const testScript = () => {
-    let count = 0;
-    new Promise(resolve => {
-      setApiProcessModalTitle(i18n.t('Uploading Software'));
-      setIsShowApiProcessModal(true);
-      updateProgressStatus('uploadFirmware', 'start');
-      let interval = setInterval(() => {
-        updateProgress('uploadFirmware', count);
-        if (++count === 101) {
-          clearInterval(interval);
-          updateProgressStatus('uploadFirmware', 'done');
-          updateProgressStatus('upgradeFirmware', 'start');
-          resolve();
-        }
-      }, 50);
-    })
-      .then(() => new Promise((resolve, reject) => {
-        count = 0;
-        setApiProcessModalTitle(i18n.t('Installing Software'));
-        let interval2 = setInterval(() => {
-          updateProgress('upgradeFirmware', count);
-          // Progress fail test
-          if (isMockUpgradeError && count === 55) {
-            clearInterval(interval2);
-            reject();
-          }
-
-          if (++count === 101) {
-            clearInterval(interval2);
-            updateProgressStatus('upgradeFirmware', 'done');
-            updateProgressStatus('deviceShutdown', 'start');
-            resolve();
-          }
-        }, 100);
-      }))
-      .catch(() => {
-        updateProgressStatus('upgradeFirmware', 'fail');
-        require('../../../core//notify').showErrorNotification({message: 'upgrade firmware fail'});
-        return new Promise(() => {});
-      })
-      .then(() => new Promise(resolve => {
-        setApiProcessModalTitle(i18n.t('Shutting Down'));
-        setTimeout(() => {
-          updateProgressStatus('deviceRestart', 'start');
-          resolve();
-        }, 5 * 1000);
-      }))
-      .then(() => new Promise(resolve => {
-        updateProgressStatus('deviceShutdown', 'done');
-        setApiProcessModalTitle(i18n.t('Restarting'));
-        setTimeout(() => {
-          updateProgressStatus('deviceRestart', 'done');
-          resolve();
-        }, 10 * 1000);
-      }))
-      .then(() => {
-        setApiProcessModalTitle(i18n.t('Software Upgrade Success'));
-        let countdown = constants.REDIRECT_COUNTDOWN;
-        const countdownID = setInterval(() => {
-          setApiProcessModalBody(i18n.t('Redirect to the login page in {{0}} seconds', {0: --countdown}));
-        }, 1000);
-        setTimeout(() => {
-          clearInterval(countdownID);
-          location.href = '/login';
-        }, constants.REDIRECT_COUNTDOWN * 1000);
-      });
-  };
-
   const isLoading = Object.values(progressStatus).some(status => status !== 'done');
   const stageModalBackdrop = Object.values(progressStatus).some(status => status === 'fail') || 'static';
 
@@ -241,7 +170,7 @@ const Upgrade = () => {
             <div className="col-center">
               <div className="card shadow">
                 <div className="card-header">{i18n.t('Software Upgrade')}</div>
-                <Formik initialValues={{}} onSubmit={isRunTest ? testScript : onSubmitForm}>
+                <Formik initialValues={{}} onSubmit={onSubmitForm}>
                   <Form className="card-body">
                     <div className="form-group">
                       <label className="mb-0">{i18n.t('Import File')}</label>
@@ -268,12 +197,12 @@ const Upgrade = () => {
                     <CustomTooltip show={!file} title={i18n.t('Please select a file first.')}>
                       <div>
                         <button
-                          disabled={(isShowApiProcessModal || isApiProcessing || !file) && !isRunTest}
+                          disabled={(isShowApiProcessModal || isApiProcessing || !file)}
                           className="btn btn-primary btn-block rounded-pill"
                           type="submit"
-                          style={file || isRunTest ? {} : {pointerEvents: 'none'}}
+                          style={file ? {} : {pointerEvents: 'none'}}
                         >
-                          {i18n.t(isRunTest ? 'Run Test' : 'Software Upgrade')}
+                          {i18n.t('Software Upgrade')}
                         </button>
                       </div>
                     </CustomTooltip>
