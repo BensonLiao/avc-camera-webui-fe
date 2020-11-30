@@ -89,7 +89,7 @@ const Log = () => {
                         modalTitle={i18n.t('Downloading System Log File')}
                         modalBody={[
                           <StageProgress
-                            key={i18n.t('stage 1')}
+                            key="stage 1"
                             title={i18n.t('Download progress')}
                             progressStatus="start"
                             progressPercentage={progressPercentage}
