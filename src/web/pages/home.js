@@ -131,7 +131,7 @@ module.exports = class Home extends Base {
           name="deviceName"
           type="text"
           maxLength={DeviceNameSchema.deviceName.max}
-          className={classNames('form-control', {'is-invalid': errors.deviceName})}
+          className={classNames('form-control', {'is-invalid pr-12px': errors.deviceName})}
           onBlur={errors.deviceName ? null : this.onBlurDeviceNameForm}
         />
         {

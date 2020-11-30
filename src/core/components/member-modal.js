@@ -255,7 +255,11 @@ module.exports = class Member extends React.PureComponent {
             avatarPreviewStyle:
             {
               croppedImage:
-              {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}
+              {
+                $set: this.cropper.getCroppedCanvas() ?
+                  this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE) :
+                  null
+              }
             }
           }
         }
@@ -280,7 +284,11 @@ module.exports = class Member extends React.PureComponent {
                 scale: {$set: cropperData.scaleX},
                 rotate: {$set: cropperData.rotate}
               },
-              croppedImage: {$set: this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE)}
+              croppedImage: {
+                $set: this.cropper.getCroppedCanvas() ?
+                  this.cropper.getCroppedCanvas().toDataURL(MEMBER_PHOTO_MIME_TYPE) :
+                  null
+              }
             }
           }
         }
