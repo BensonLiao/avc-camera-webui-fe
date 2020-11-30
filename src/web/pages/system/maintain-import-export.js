@@ -9,7 +9,6 @@ import {useContextState} from '../../stateProvider';
 import utils from '../../../core/utils';
 
 const MaintainImportExport = ({
-  setOnConfirm,
   setApiProcessModal,
   hideApiProcessModal,
   setFinishModal
@@ -56,9 +55,6 @@ const MaintainImportExport = ({
                     isShowFinishModal: true,
                     finishModalTitle: i18n.t('Import System Settings'),
                     finishModalBody: i18n.t('Device settings have imported. Please log in again.')
-                  });
-                  setOnConfirm(() => () => {
-                    location.href = '/';
                   });
                 })
                 .catch(() => {
@@ -128,7 +124,6 @@ const MaintainImportExport = ({
 };
 
 MaintainImportExport.propTypes = {
-  setOnConfirm: PropTypes.func.isRequired,
   setApiProcessModal: PropTypes.func.isRequired,
   hideApiProcessModal: PropTypes.func.isRequired,
   setFinishModal: PropTypes.func.isRequired
