@@ -39,7 +39,7 @@ ProgressIndicator.propTypes = {
   className: PropTypes.string,
   isDetermined: PropTypes.bool,
   percentage: PropTypes.number,
-  status: PropTypes.oneOf(['start', 'done', 'fail'])
+  status: PropTypes.oneOf(['start', 'done', 'fail', 'initial'])
 };
 
 ProgressIndicator.defaultProps = {

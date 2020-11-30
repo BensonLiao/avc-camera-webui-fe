@@ -143,7 +143,7 @@ mockAxios
     return (mockResponseWithLog(config, [200, db.get('system').assign(data).write()]));
   })
   .onPut('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').assign(JSON.parse(config.data)).write()]))
-  .onPost('/api/system/reboot').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000))
+  .onPost('/api/system/reboot').reply(config => mockResponseWithLog(config, [204, {}]))
   .onPost('/api/system/resetdefault').reply(config => mockResponseWithLog(config, [204, {}]))
   .onPost('/api/system/importsettings').reply(config => mockResponseWithLog(config, [204, {}]))
   .onPost('/api/system/firmware').reply(config => {
