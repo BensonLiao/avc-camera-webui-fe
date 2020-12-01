@@ -3,6 +3,8 @@
     "login": {},
     "home": {
         "deviceName": "Device Name",
+        "Device Status": "Status",
+        "authenticationRequired": "Authentication Required",
         "analytics": "Analytics",
         "sdcard": "SD Card",
         "facialRecognition": "Facial Recognition: ",
@@ -37,6 +39,7 @@
         "rotation": "Rotation",
         "defog": "Defog",
         "lightingCompensation": "Lighting Compensation Frequency (Hz)",
+        "autoFocus": "Auto Focus",
         "resetDefault": "Reset to Default Settings",
         "constants": {
             "Auto": "Auto",
@@ -92,7 +95,9 @@
         "tooltip": {},
         "toast": {},
         "volumeBar": {
-            "sdStorageStatus": "Free: {{0}}, Total: {{1}}"
+            "sdStorageStatus": "Free: {{0}}, Total: {{1}}",
+            "free": "Free: {{0}}",
+            "used": "Used: {{0}}"
         },
         "switch": {
             "on": "ON",

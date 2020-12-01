@@ -12,7 +12,7 @@ const VolumeProgressBar = ({total, usage, percentageToHideText}) => {
     <>
       <p>
         {
-          i18n.t('Free: {{0}}, Total: {{1}}', {
+          i18n.t('common.volumeBar.sdStorageStatus', {
             0: filesize(freeDiskVolume),
             1: filesize(total)
           })
@@ -23,13 +23,13 @@ const VolumeProgressBar = ({total, usage, percentageToHideText}) => {
           isNaN(usedDiskPercentage) ?
             <div className="progress-bar"/> : (
               <>
-                <CustomTooltip title={i18n.t('Used: {{0}}', {0: filesize(usage)})}>
+                <CustomTooltip title={i18n.t('common.volumeBar.used', {0: filesize(usage)})}>
                   <div className="progress-bar" style={{width: `${usedDiskPercentage}%`}}>
                     {usedDiskPercentage > percentageToHideText ? `${usedDiskPercentage}%` : ''}
                   </div>
                 </CustomTooltip>
                 {usedDiskPercentage && (
-                  <CustomTooltip title={i18n.t('Free: {{0}}', {0: filesize(freeDiskVolume)})}>
+                  <CustomTooltip title={i18n.t('common.volumeBar.free', {0: filesize(freeDiskVolume)})}>
 
                     <div
                       className="progress-bar"
