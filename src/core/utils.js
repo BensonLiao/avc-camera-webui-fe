@@ -433,6 +433,7 @@ exports.convertPictureURL = (
   img.src = imgSrc;
 });
 
+// ** Deprecated **
 exports.capitalizeObjKeyValuePairs = obj => {
   return Object.keys(obj)
     .filter(key => typeof obj[key] === 'string')

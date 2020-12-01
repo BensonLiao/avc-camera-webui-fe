@@ -42,10 +42,12 @@
         "autoFocus": "Auto Focus",
         "resetDefault": "Reset to Default Settings",
         "constants": {
-            "Auto": "Auto",
-            "On": "On",
-            "Off": "Off",
-            "Max": "Max",
+            "ir-control-0": "Auto",
+            "ir-control-1": "On",
+            "ir-control-2": "Off",
+            "on": "On",
+            "off": "Off",
+            "max": "Max",
             "aperture-0": "Auto",
             "aperture-1": "Max",
             "shutter-speed-0": "Auto",
@@ -99,11 +101,10 @@
             "free": "Free: {{0}}",
             "used": "Used: {{0}}"
         },
-        "switch": {
+        "button": {
             "on": "ON",
             "off": "OFF"
         },
-        "button": {},
         "modal": {
             "sessionExpire": {},
             "apiProcessing": {}

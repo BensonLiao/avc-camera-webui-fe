@@ -219,8 +219,8 @@ module.exports = class VideoSetting extends React.PureComponent {
                     disabled={disableInput}
                   />
                   <label className="custom-control-label" htmlFor="switch-hdr-enabled">
-                    <span>{i18n.t('common.switch.on')}</span>
-                    <span>{i18n.t('common.switch.off')}</span>
+                    <span>{i18n.t('common.button.on')}</span>
+                    <span>{i18n.t('common.button.off')}</span>
                   </label>
                 </div>
               </div>
@@ -426,10 +426,10 @@ module.exports = class VideoSetting extends React.PureComponent {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={utils.capitalizeObjKeyValuePairs(IREnableType).map(
+                    items={IREnableType.all().map(
                       x => ({
-                        value: x.value,
-                        label: i18n.t(`videoSetting.constants.${x.key}`)
+                        value: x,
+                        label: i18n.t(`videoSetting.constants.ir-control-${x}`)
                       })
                     )}
                   />
@@ -532,10 +532,10 @@ module.exports = class VideoSetting extends React.PureComponent {
                     menuClassName="dropdown-menu-right"
                     items={[{
                       value: 'true',
-                      label: i18n.t('common.switch.on')
+                      label: i18n.t('videoSetting.constants.on')
                     }, {
                       value: 'false',
-                      label: i18n.t('common.switch.off')
+                      label: i18n.t('videoSetting.constants.off')
                     }]}
                   />
                 </div>
