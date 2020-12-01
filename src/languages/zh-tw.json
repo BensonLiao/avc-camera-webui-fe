@@ -1,0 +1,36 @@
+{
+    "setup": {},
+    "login": {},
+    "home": {},
+    "video": {},
+    "audio": {},
+    "notification": {},
+    "userManagement": {},
+    "analytics": {},
+    "network": {},
+    "system": {},
+    "sdcard": {},
+    "error": {},
+
+    "validation": {},
+    "navigation": {
+        "sidebar":{
+
+        },
+        "appbar":{
+            
+        }
+    },
+
+    "common": {
+        "tooltip": {},
+        "toast": {},
+        "volumeBar": {},
+        "switch": {},
+        "button": {},
+        "modal": {
+            "sessionExpire": {},
+            "apiProcessing": {}
+        }
+    }
+}

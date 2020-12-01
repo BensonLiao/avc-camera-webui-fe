@@ -1,12 +1,13 @@
 import i18n from 'i18next';
 import {initReactI18next} from 'react-i18next';
 const SUPPORTED_LANGUAGE_CODES = require('webserver-form-schema/constants/i18n-supported-code');
-const currentLanguageResource = require(`../languages/${window.currentLanguageCode}`);
+const currentLanguageResource = require(`../languages/${window.currentLanguageCode}.json`);
 
+const resource = {[window.currentLanguageCode]: {translation: currentLanguageResource}};
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
-    resources: currentLanguageResource,
+    resources: resource,
     lng: window.currentLanguageCode,
     fallbackLng: 'en',
     lowerCaseLng: true, // all lowercase for third-part library / frontend / backend consistency
