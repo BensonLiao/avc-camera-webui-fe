@@ -1,7 +1,84 @@
 {
     "setup": {},
     "login": {},
-    "home": {},
+    "home": {
+        "deviceName": "Nombre del dispositivo",
+        "Device Status": "Estado del dispositivo",
+        "authenticationRequired": "No esta activado",
+        "analytics": "Análisis",
+        "sdcard": "Tarjeta de memoria",
+        "facialRecognition": "Reconocimiento facial: ",
+        "ageGender: ": "Género y edad: ",
+        "humanDetection: ": "Detección humanoide: "
+    },
+    "videoSetting": {
+        "image": "imagen",
+        "enableHDR": "Habilitar HDR",
+        "adjustments": "Atributos",
+        "brightness": "Brillo",
+        "contrast": "Contraste",
+        "sharpness": "Nitidez",
+        "saturation": "Saturación",
+        "lensControl": "Lente",
+        "selectFocusType": "Seleccionar método de enfoque",
+        "fullRangeFocus": "Enfoque de rango completo",
+        "shortRangeFocus": "Enfoque a corto rango",
+        "focus": "Encofar",
+        "zoom": "Zoom",
+        "autoFocusAfterZoom": "Enfoque automático al hacer zoom",
+        "iris": "Iris",
+        "shutterSpeed": "Velocidad de obturación",
+        "advanced": "Avanzado",
+        "whiteBalance": "Balance de blancos",
+        "colorTemperature": "Temperatura del color",
+        "iRControl": "Luz infrarroja",
+        "level": "Nivel",
+        "dayNight": "Modo día/noche",
+        "sensitivity": "Sensibilidad",
+        "dayMode": "Modo día",
+        "rotation": "Dirección de la imagen",
+        "defog": "Desempañar",
+        "lightingCompensation": "Frecuencia de actualización",
+        "autoFocus": "Foco automático",
+        "resetDefault": "Restaurar a lo preajuste",
+        "constants": {
+            "ir-control-0": "automático",
+            "ir-control-1": "Habilitar",
+            "ir-control-2": "cerrar",
+            "on": "Habilitar",
+            "off": "cerrar",
+            "max": "máximo",
+            "aperture-0": "automático",
+            "aperture-1": "máximo",
+            "shutter-speed-0": "automático",
+            "shutter-speed-1": "1/30",
+            "shutter-speed-2": "1/50",
+            "shutter-speed-3": "1/60",
+            "shutter-speed-4": "1/100",
+            "shutter-speed-5": "1/125",
+            "shutter-speed-6": "1/500",
+            "shutter-speed-7": "1/1,000",
+            "shutter-speed-8": "1/2,000",
+            "shutter-speed-9": "1/4,000",
+            "shutter-speed-10": "1/8,000",
+            "white-balance-0": "automático",
+            "white-balance-1": "al aire libre",
+            "white-balance-2": "Lámpara fluorescente",
+            "white-balance-3": "Lampara incandescente",
+            "white-balance-4": "Ajuste manual",
+            "daynight-mode-0": "automático",
+            "daynight-mode-1": "color",
+            "daynight-mode-2": "blanco y negro",
+            "daynight-mode-3": "Período de tiempo especificado",
+            "orientation-0": "normal",
+            "orientation-1": "Volteo vertical",
+            "orientation-2": "volteo horizontal",
+            "orientation-3": "Giro de 180 grados",
+            "refresh-rate-0": "automático",
+            "refresh-rate-1": "50Hz",
+            "refresh-rate-2": "60Hz"
+        }
+    },
     "video": {},
     "audio": {},
     "notification": {},
@@ -11,23 +88,23 @@
     "system": {},
     "sdcard": {},
     "error": {},
-
     "validation": {},
     "navigation": {
-        "sidebar":{
-
-        },
-        "appbar":{
-            
-        }
+        "sidebar": {},
+        "appbar": {}
     },
-
     "common": {
         "tooltip": {},
         "toast": {},
-        "volumeBar": {},
-        "switch": {},
-        "button": {},
+        "volumeBar": {
+            "sdStorageStatus": "{{0}} disponible total {{1}}",
+            "free": "{{0}} está disponible",
+            "used": "{{0}} se ha utilizado"
+        },
+        "button": {
+            "on": "ON",
+            "off": "OFF"
+        },
         "modal": {
             "sessionExpire": {},
             "apiProcessing": {}

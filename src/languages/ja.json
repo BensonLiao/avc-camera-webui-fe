@@ -1,7 +1,84 @@
 {
     "setup": {},
     "login": {},
-    "home": {},
+    "home": {
+        "deviceName": "デバイス名",
+        "Device Status": "ステータス",
+        "authenticationRequired": "無効",
+        "analytics": "映像分析",
+        "sdcard": "SDカード",
+        "facialRecognition": "顔認証 : ",
+        "ageGender: ": "性別年齢推定 : ",
+        "humanDetection: ": "人体検知 : "
+    },
+    "videoSetting": {
+        "image": "画像設定",
+        "enableHDR": "HDRを有効にする",
+        "adjustments": "属性",
+        "brightness": "明るさ",
+        "contrast": "コントラスト",
+        "sharpness": "シャープネス",
+        "saturation": "飽和",
+        "lensControl": "レンズ",
+        "selectFocusType": "選擇對焦方式",
+        "fullRangeFocus": "全範囲フォーカス",
+        "shortRangeFocus": "短距離フォーカス",
+        "focus": "フォーカス",
+        "zoom": "ズーム",
+        "autoFocusAfterZoom": "ズーム調整するとき、自動フォーカスする",
+        "iris": "Iris",
+        "shutterSpeed": "シャッタースピード",
+        "advanced": "高度な設定",
+        "whiteBalance": "ホワイトバランス",
+        "colorTemperature": "色温度",
+        "iRControl": "IR制御",
+        "level": "レベル",
+        "dayNight": "デイナイト機能",
+        "sensitivity": "感度",
+        "dayMode": "デイモード",
+        "rotation": "映像方向",
+        "defog": "霧補正",
+        "lightingCompensation": "更新周波数(Hz)",
+        "autoFocus": "自動フォーカス",
+        "resetDefault": "デフォルト設定へ戻る",
+        "constants": {
+            "ir-control-0": "自動",
+            "ir-control-1": "有効",
+            "ir-control-2": "無効",
+            "on": "有効",
+            "off": "無効",
+            "max": "最大",
+            "aperture-0": "自動",
+            "aperture-1": "最大",
+            "shutter-speed-0": "自動",
+            "shutter-speed-1": "1/30",
+            "shutter-speed-2": "1/50",
+            "shutter-speed-3": "1/60",
+            "shutter-speed-4": "1/100",
+            "shutter-speed-5": "1/125",
+            "shutter-speed-6": "1/500",
+            "shutter-speed-7": "1/1,000",
+            "shutter-speed-8": "1/2,000",
+            "shutter-speed-9": "1/4,000",
+            "shutter-speed-10": "1/8,000",
+            "white-balance-0": "自動",
+            "white-balance-1": "室外",
+            "white-balance-2": "蛍光灯",
+            "white-balance-3": "白熱灯",
+            "white-balance-4": "手動調整",
+            "daynight-mode-0": "自動",
+            "daynight-mode-1": "カラー",
+            "daynight-mode-2": "モノクロ",
+            "daynight-mode-3": "時間帯を指定する",
+            "orientation-0": "正常",
+            "orientation-1": "垂直回転",
+            "orientation-2": "水平回転",
+            "orientation-3": "180 度回転",
+            "refresh-rate-0": "自動",
+            "refresh-rate-1": "50Hz",
+            "refresh-rate-2": "60Hz"
+        }
+    },
     "video": {},
     "audio": {},
     "notification": {},
@@ -11,23 +88,23 @@
     "system": {},
     "sdcard": {},
     "error": {},
-
     "validation": {},
     "navigation": {
-        "sidebar":{
-
-        },
-        "appbar":{
-            
-        }
+        "sidebar": {},
+        "appbar": {}
     },
-
     "common": {
         "tooltip": {},
         "toast": {},
-        "volumeBar": {},
-        "switch": {},
-        "button": {},
+        "volumeBar": {
+            "sdStorageStatus": "{{0}} 使用可能 (合計 {{1}})",
+            "free": "{{0}} 使用可能",
+            "used": "{{0}} 使用されています"
+        },
+        "button": {
+            "on": "ON",
+            "off": "OFF"
+        },
         "modal": {
             "sessionExpire": {},
             "apiProcessing": {}

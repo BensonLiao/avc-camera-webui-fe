@@ -1,7 +1,84 @@
 {
     "setup": {},
     "login": {},
-    "home": {},
+    "home": {
+        "deviceName": "裝置名稱",
+        "Device Status": "裝置狀態",
+        "authenticationRequired": "未啟用",
+        "analytics": "影像分析",
+        "sdcard": "記憶卡",
+        "facialRecognition": "臉部辨識：",
+        "ageGender: ": "性別年齡：",
+        "humanDetection: ": "人形偵測："
+    },
+    "videoSetting": {
+        "image": "圖像",
+        "enableHDR": "開啟HDR",
+        "adjustments": "屬性",
+        "brightness": "亮度",
+        "contrast": "對比",
+        "sharpness": "銳利度",
+        "saturation": "飽和度",
+        "lensControl": "鏡頭",
+        "selectFocusType": "選擇對焦方式",
+        "fullRangeFocus": "全範圍對焦",
+        "shortRangeFocus": "短距離對焦",
+        "focus": "對焦",
+        "zoom": "縮放",
+        "autoFocusAfterZoom": "縮放時自動對焦",
+        "iris": "光圈",
+        "shutterSpeed": "快門速度",
+        "advanced": "進階",
+        "whiteBalance": "白平衡",
+        "colorTemperature": "色溫",
+        "iRControl": "紅外線燈",
+        "level": "強度",
+        "dayNight": "日間/夜間模式",
+        "sensitivity": "靈敏度",
+        "dayMode": "日間模式",
+        "rotation": "旋轉",
+        "defog": "除霧",
+        "lightingCompensation": "電源頻率",
+        "autoFocus": "自動對焦",
+        "resetDefault": "恢復預設值",
+        "constants": {
+            "ir-control-0": "自動",
+            "ir-control-1": "開",
+            "ir-control-2": "關",
+            "on": "開",
+            "off": "關",
+            "max": "最大",
+            "aperture-0": "自動",
+            "aperture-1": "最大",
+            "shutter-speed-0": "自動",
+            "shutter-speed-1": "1/30",
+            "shutter-speed-2": "1/50",
+            "shutter-speed-3": "1/60",
+            "shutter-speed-4": "1/100",
+            "shutter-speed-5": "1/125",
+            "shutter-speed-6": "1/500",
+            "shutter-speed-7": "1/1,000",
+            "shutter-speed-8": "1/2,000",
+            "shutter-speed-9": "1/4,000",
+            "shutter-speed-10": "1/8,000",
+            "white-balance-0": "自動",
+            "white-balance-1": "戶外",
+            "white-balance-2": "螢光燈",
+            "white-balance-3": "白熾燈",
+            "white-balance-4": "手動調整",
+            "daynight-mode-0": "自動",
+            "daynight-mode-1": "彩色",
+            "daynight-mode-2": "黑白",
+            "daynight-mode-3": "手動調整",
+            "orientation-0": "正常",
+            "orientation-1": "垂直翻轉",
+            "orientation-2": "水平翻轉",
+            "orientation-3": "180 度翻轉",
+            "refresh-rate-0": "自動",
+            "refresh-rate-1": "50Hz",
+            "refresh-rate-2": "60Hz"
+        }
+    },
     "video": {},
     "audio": {},
     "notification": {},
@@ -11,23 +88,23 @@
     "system": {},
     "sdcard": {},
     "error": {},
-
     "validation": {},
     "navigation": {
-        "sidebar":{
-
-        },
-        "appbar":{
-            
-        }
+        "sidebar": {},
+        "appbar": {}
     },
-
     "common": {
         "tooltip": {},
         "toast": {},
-        "volumeBar": {},
-        "switch": {},
-        "button": {},
+        "volumeBar": {
+            "sdStorageStatus": "{{0}} 可用 (共 {{1}})",
+            "free": "{{0}} 可用",
+            "used": "{{0}} 已使用"
+        },
+        "button": {
+            "on": "開啟",
+            "off": "關閉"
+        },
         "modal": {
             "sessionExpire": {},
             "apiProcessing": {}
