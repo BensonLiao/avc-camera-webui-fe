@@ -196,9 +196,9 @@ module.exports = class Home extends Base {
                     <table>
                       <thead>
                         <tr>
-                          <th>{i18n.t('Device Name')}</th>
-                          <th>{i18n.t('Analytics')}</th>
-                          <th>{i18n.t('SD Card')}</th>
+                          <th>{i18n.t('home.deviceName')}</th>
+                          <th>{i18n.t('home.analytics')}</th>
+                          <th>{i18n.t('home.sdcard')}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -214,14 +214,14 @@ module.exports = class Home extends Base {
                           </td>
                           <td className="align-top">
                             <div>
-                              <span>{i18n.t('Facial Recognition: ')}</span>
+                              <span>{i18n.t('home.facialRecognition')}</span>
                               <span className={classTable.faceRecognitionState}>
                                 {i18n.t(`${isEnableFaceRecognitionKey ? faceRecognitionStatus.isEnable ? 'On' : 'Off' : 'Authentication Required'}`)}
                               </span>
                             </div>
                             {isEnableAgeGenderKey && (
                               <div>
-                                <span>{i18n.t('Age & Gender: ')}</span>
+                                <span>{i18n.t('home.ageGender')}</span>
                                 <span className={classTable.ageGenderState}>
                                   {i18n.t(`${isEnableAgeGenderKey ? 'On' : 'Off'}`)}
                                 </span>
@@ -229,7 +229,7 @@ module.exports = class Home extends Base {
                             )}
                             {isEnableHumanoidDetectionKey && (
                               <div>
-                                <span>{i18n.t('Human Detection: ')}</span>
+                                <span>{i18n.t('home.humanDetection')}</span>
                                 <span className={classTable.humanoidDetectionState}>
                                   {i18n.t(`${isEnableHumanoidDetectionKey ? 'On' : 'Off'}`)}
                                 </span>
