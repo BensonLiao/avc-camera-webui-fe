@@ -15,7 +15,7 @@ const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteG
         <h2>{i18n.t('Members')}</h2>
         <nav className="nav flex-column">
           <Link
-            to="/users/members"
+            to={{name: 'web.users.members'}}
             title={i18n.t('All Members')}
             className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
               {active: !params.group},
