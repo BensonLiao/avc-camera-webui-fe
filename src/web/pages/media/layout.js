@@ -24,7 +24,6 @@ module.exports = class Media extends Base {
   }
 
   render() {
-    console.log('Media -> SystemModelName.MD2', SystemModelName.MD2);
     const {systemInformation: {modelName}} = this.props;
     return (
       <>
