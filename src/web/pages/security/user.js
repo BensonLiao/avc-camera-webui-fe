@@ -148,6 +148,9 @@ module.exports = class User extends Base {
                     className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
                   />
                   <ErrorMessage component="div" name="account" className="invalid-feedback"/>
+                  <small className="text-info">
+                    {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space')}
+                  </small>
                 </div>
                 { !user && (
                   <div className="form-group has-feedback">
@@ -161,7 +164,7 @@ module.exports = class User extends Base {
                       }}
                     />
                     <small className="text-info">
-                      {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                      {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
                     </small>
                     <ErrorMessage component="div" name="password" className="invalid-feedback"/>
                   </div>
@@ -179,7 +182,7 @@ module.exports = class User extends Base {
                         }}
                       />
                       <small className="text-info">
-                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
                       </small>
                       <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
                     </div>
