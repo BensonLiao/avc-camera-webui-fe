@@ -21,7 +21,7 @@ const Group = ({group, groups, params}) => {
     groupsName: groups.items.map(group => group.name)
   });
   const {isApiProcessing} = useContextState();
-  const isGroup = Object.keys(group).length;
+  const isGroupExist = Object.keys(group).length;
   const {groupsName, isShowModal} = state;
 
   const hideModal = () => {
@@ -45,7 +45,7 @@ const Group = ({group, groups, params}) => {
    */
   const onSubmitGroupForm = values => {
     progress.start();
-    if (isGroup) {
+    if (isGroupExist) {
       // Update group.
       submitGroupAPI('updateGroup', values);
     } else {
@@ -66,7 +66,7 @@ const Group = ({group, groups, params}) => {
 
   const checkDuplicate = groupName => {
     // Perform check when creating a new group or editing a group and name has changed
-    if (!isGroup || (isGroup && group.name !== groupName)) {
+    if (!isGroupExist || (isGroupExist && group.name !== groupName)) {
       return utils.duplicateCheck(
         groupsName,
         groupName,
@@ -76,7 +76,7 @@ const Group = ({group, groups, params}) => {
   };
 
   let initialValues;
-  if (isGroup) {
+  if (isGroupExist) {
     initialValues = {
       id: group.id,
       name: group.name || '',
@@ -102,12 +102,12 @@ const Group = ({group, groups, params}) => {
         onSubmit={onSubmitGroupForm}
       >
         {({errors, touched}) => {
-          const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX && !isGroup;
+          const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX && !isGroupExist;
 
           return (
             <Form>
               <div className="modal-header">
-                <h5 className="modal-title">{isGroup ? i18n.t('Edit Group') : i18n.t('Create a Group')}</h5>
+                <h5 className="modal-title">{isGroupExist ? i18n.t('Edit Group') : i18n.t('Create a Group')}</h5>
               </div>
               <div className="modal-body">
                 <div className="form-group">
