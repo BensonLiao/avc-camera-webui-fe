@@ -73,7 +73,7 @@ const SetupAccount = () => {
                       </div>
                     </div>
                     <div className="form-group">
-                      <label>{i18n.t('Account')}</label>
+                      <label>{i18n.t('Username')}</label>
                       <Field
                         autoFocus
                         name="account"
