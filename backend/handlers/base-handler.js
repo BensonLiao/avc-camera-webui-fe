@@ -4,9 +4,11 @@ exports.baseView = (req, res) => {
   /*
   [web] GET /.*
    */
+
+  const setupLanguage = req.headers.cookie.replace('lang=', '');
   res.render('index', {
     htmlLang: 'en',
-    languageCode: cache.get('language') || 'en',
+    languageCode: cache.get('language') || setupLanguage || 'en',
     loadingText: 'Loading',
     user: {
       id: 1,
