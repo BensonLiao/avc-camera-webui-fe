@@ -21,7 +21,6 @@ const Group = ({group, groups, params}) => {
     groupsName: groups.items.map(group => group.name)
   });
   const {isApiProcessing} = useContextState();
-  const isGroupExist = Object.keys(group).length;
   const {groupsName, isShowModal} = state;
 
   const hideModal = () => {
@@ -45,7 +44,7 @@ const Group = ({group, groups, params}) => {
    */
   const onSubmitGroupForm = values => {
     progress.start();
-    if (isGroupExist) {
+    if (group) {
       // Update group.
       submitGroupAPI('updateGroup', values);
     } else {
@@ -66,7 +65,7 @@ const Group = ({group, groups, params}) => {
 
   const checkDuplicate = groupName => {
     // Perform check when creating a new group or editing a group and name has changed
-    if (!isGroupExist || (isGroupExist && group.name !== groupName)) {
+    if (!group || (group && group.name !== groupName)) {
       return utils.duplicateCheck(
         groupsName,
         groupName,
@@ -76,7 +75,7 @@ const Group = ({group, groups, params}) => {
   };
 
   let initialValues;
-  if (isGroupExist) {
+  if (group) {
     initialValues = {
       id: group.id,
       name: group.name || '',
@@ -102,12 +101,12 @@ const Group = ({group, groups, params}) => {
         onSubmit={onSubmitGroupForm}
       >
         {({errors, touched}) => {
-          const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX && !isGroupExist;
+          const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX && !group;
 
           return (
             <Form>
               <div className="modal-header">
-                <h5 className="modal-title">{isGroupExist ? i18n.t('Edit Group') : i18n.t('Create a Group')}</h5>
+                <h5 className="modal-title">{group ? i18n.t('Edit Group') : i18n.t('Create a Group')}</h5>
               </div>
               <div className="modal-body">
                 <div className="form-group">
@@ -183,8 +182,8 @@ Group.propTypes = {
 };
 
 Group.defaultProps = {
-  groups: {},
-  group: {}
+  groups: null,
+  group: null
 };
 
 export default withGlobalStatus(Group);
