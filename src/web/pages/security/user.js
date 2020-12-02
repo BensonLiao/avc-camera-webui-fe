@@ -148,6 +148,9 @@ module.exports = class User extends Base {
                     className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
                   />
                   <ErrorMessage component="div" name="account" className="invalid-feedback"/>
+                  <small className="text-info">
+                    {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space')}
+                  </small>
                 </div>
                 { !user && (
                   <div className="form-group has-feedback">
