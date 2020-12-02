@@ -9,7 +9,6 @@ module.exports = class Media extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
-
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
       router.listen('ChangeSuccess', (action, toState) => {
@@ -24,6 +23,7 @@ module.exports = class Media extends Base {
   }
 
   render() {
+    const {systemInformation: {modelName}} = this.props;
     return (
       <>
         {/* Left menu */}
@@ -44,13 +44,15 @@ module.exports = class Media extends Base {
             >
               RTSP
             </Link>
-            <Link
-              to="/media/hdmi"
-              title={i18n.t('HDMI')}
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.hdmi'})}
-            >
-              HDMI
-            </Link>
+            {modelName === 'MD2' && (
+              <Link
+                to="/media/hdmi"
+                title={i18n.t('HDMI')}
+                className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.hdmi'})}
+              >
+                HDMI
+              </Link>
+            )}
             <Link
               to="/media/osd"
               title={i18n.t('OSD')}
