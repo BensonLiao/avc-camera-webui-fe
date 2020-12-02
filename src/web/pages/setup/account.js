@@ -73,7 +73,7 @@ const SetupAccount = () => {
                       </div>
                     </div>
                     <div className="form-group">
-                      <label>{i18n.t('Account')}</label>
+                      <label>{i18n.t('Username')}</label>
                       <Field
                         autoFocus
                         name="account"
@@ -84,7 +84,7 @@ const SetupAccount = () => {
                       />
                       <ErrorMessage component="div" name="account" className="invalid-feedback"/>
                       <small className="text-info">
-                        {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space')}
+                        {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space')}
                       </small>
                     </div>
                     <div className="form-group has-feedback">
@@ -99,7 +99,7 @@ const SetupAccount = () => {
                       />
                       <ErrorMessage component="div" name="password" className="invalid-feedback"/>
                       <small className="text-info">
-                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
                       </small>
                     </div>
                     <div className="form-group has-feedback">
