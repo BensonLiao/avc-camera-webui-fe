@@ -143,7 +143,7 @@ module.exports = {
       Permission: 'Permiso',
       Password: 'Contraseña',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space': '8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space': '1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio',
       Done: 'terminado',
       // /setup/account / Constants / Permission
       'permission-0': 'administrador',

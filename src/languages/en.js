@@ -143,7 +143,7 @@ module.exports = {
       Permission: 'Permission',
       Password: 'Password',
       '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space': '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space',
-      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space',
+      '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space': '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space',
       Done: 'Done',
       // /setup/account / Constants / Permission
       'permission-0': 'Admin',

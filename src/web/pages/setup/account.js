@@ -84,7 +84,7 @@ const SetupAccount = () => {
                       />
                       <ErrorMessage component="div" name="account" className="invalid-feedback"/>
                       <small className="text-info">
-                        {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space')}
+                        {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space')}
                       </small>
                     </div>
                     <div className="form-group has-feedback">
