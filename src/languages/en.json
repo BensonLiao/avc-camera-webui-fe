@@ -11,7 +11,7 @@
         },
         "account": {
             "permission": "Permission",
-            "account": "Account",
+            "account": "Username",
             "accountPlaceholder": "Enter a name for this account",
             "password": "Password",
             "passwordPlaceholder": "Enter a password",
