@@ -103,7 +103,7 @@ module.exports = class User extends Base {
     return utils.duplicateCheck(
       nameList || this.state.usersName,
       values,
-      i18n.t('This name already exists in the system. Please use a different name.')
+      i18n.t('validation.duplicateName')
     );
   }
 

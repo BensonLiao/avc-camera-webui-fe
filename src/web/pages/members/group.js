@@ -70,7 +70,7 @@ const Group = ({group, groups, params}) => {
       return utils.duplicateCheck(
         groupsName,
         groupName,
-        i18n.t('This name already exists in the system. Please use a different name.')
+        i18n.t('validation.duplicateName')
       );
     }
   };
