@@ -99,7 +99,7 @@ const SetupAccount = () => {
                       />
                       <ErrorMessage component="div" name="password" className="invalid-feedback"/>
                       <small className="text-info">
-                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
                       </small>
                     </div>
                     <div className="form-group has-feedback">

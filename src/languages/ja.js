@@ -142,7 +142,7 @@ module.exports = {
       'Enter a name for this account': 'アカウント名を入力してください',
       Permission: '権限',
       Password: 'パスワード',
-      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space': '文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` " \\ /< >とスペースを使用できません',
+      '8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space': '文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` " \\ /< >とスペースを使用できません',
       '1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, <, > and space': '文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません',
       Done: '完了しました',
       // /setup/account / Constants / Permission

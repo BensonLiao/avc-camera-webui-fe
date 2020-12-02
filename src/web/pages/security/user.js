@@ -161,7 +161,7 @@ module.exports = class User extends Base {
                       }}
                     />
                     <small className="text-info">
-                      {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                      {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
                     </small>
                     <ErrorMessage component="div" name="password" className="invalid-feedback"/>
                   </div>
@@ -179,7 +179,7 @@ module.exports = class User extends Base {
                         }}
                       />
                       <small className="text-info">
-                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
                       </small>
                       <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
                     </div>
