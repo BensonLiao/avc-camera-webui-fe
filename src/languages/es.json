@@ -1,5 +1,34 @@
 {
-    "setup": {},
+    "setup": {
+        "welcome": {
+            "welcome": "Bienvenido",
+            "welcomeText1": "Para que tengas una mejor experiencia",
+            "welcomeText2": "presione continuar para iniciar la configuración inicial",
+            "continue": "Continuar"
+        },
+        "language": {
+            "next": "Próximo"
+        },
+        "account": {
+            "permission": "Permiso",
+            "account": "Cuenta",
+            "accountPlaceholder": "Ingrese el nombre de la cuenta",
+            "password": "Contraseña",
+            "passwordPlaceholder": "introducir la contraseña",
+            "accountHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
+            "passwordHelper": "8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
+            "confirmPassword": "Confirmar contraseña",
+            "confirmPasswordPlaceholder": "Ingrese la contraseña nuevamente",
+            "done": "terminado",
+            "constants": {
+                "permission-0": "administrador"
+            }
+        },
+        "progressBar": {
+            "language": "Elija un idioma",
+            "setupAccount": "número de cuenta"
+        }
+    },
     "login": {},
     "home": {
         "deviceName": "Nombre del dispositivo",
@@ -89,7 +118,7 @@
     "sdcard": {},
     "error": {},
     "validation": {
-        "These passwords didn't match.": "Estas contraseñas no coinciden",
+        "confirmEqual": "Estas contraseñas no coinciden",
         "required": "Este campo es obligatorio",
         "string": "Este campo debe ser una cadena",
         "stringEmpty": "Este campo es requerido",
@@ -143,6 +172,10 @@
             "sdStorageStatus": "{{0}} disponible total {{1}}",
             "free": "{{0}} está disponible",
             "used": "{{0}} se ha utilizado"
+        },
+        "password": {
+            "hidePassword": "Ocultar contraseña",
+            "showPassword": "mostrar contraseña"
         },
         "button": {
             "on": "ON",

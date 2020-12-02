@@ -1,5 +1,34 @@
 {
-    "setup": {},
+    "setup": {
+        "welcome": {
+            "welcome": "ようこそ",
+            "welcomeText1": "よりいい使用体験のために、",
+            "welcomeText2": "[続行]をクリックして、初期設定を完了してください",
+            "continue": "続行"
+        },
+        "language": {
+            "next": "次へ"
+        },
+        "account": {
+            "permission": "権限",
+            "account": "アカウント",
+            "accountPlaceholder": "アカウント名を入力してください",
+            "password": "パスワード",
+            "passwordPlaceholder": "パスワードを入力してください",
+            "accountHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
+            "passwordHelper": "文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ /< >とスペースを使用できません",
+            "confirmPassword": "パスワードを確認する",
+            "confirmPasswordPlaceholder": "パスワードを再度入力してください",
+            "done": "完了しました",
+            "constants": {
+                "permission-0": "管理者"
+            }
+        },
+        "progressBar": {
+            "language": "言語を選択する",
+            "setupAccount": "アカウント初期設定"
+        }
+    },
     "login": {},
     "home": {
         "deviceName": "デバイス名",
@@ -89,7 +118,7 @@
     "sdcard": {},
     "error": {},
     "validation": {
-        "These passwords didn't match.": "パスワードが一致しません",
+        "confirmEqual": "パスワードが一致しません",
         "required": "この項目は入力必須です",
         "string": "文字列である必要があります",
         "stringEmpty": "入力は必須です",
@@ -143,6 +172,10 @@
             "sdStorageStatus": "{{0}} 使用可能 (合計 {{1}})",
             "free": "{{0}} 使用可能",
             "used": "{{0}} 使用されています"
+        },
+        "password": {
+            "hidePassword": "パスワードを非表示する",
+            "showPassword": "パスワードを表示する"
         },
         "button": {
             "on": "ON",

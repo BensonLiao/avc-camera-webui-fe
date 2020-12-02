@@ -65,50 +65,50 @@ const SetupAccount = () => {
                     />
 
                     <div className="form-group">
-                      <label>{i18n.t('Permission')}</label>
+                      <label>{i18n.t('setup.account.permission')}</label>
                       <div className="select-wrapper border rounded-pill overflow-hidden px-2">
                         <Field component="select" name="permission" className="form-control border-0">
-                          <option value={UserPermission.root}>{i18n.t(`permission-${UserPermission.root}`)}</option>
+                          <option value={UserPermission.root}>{i18n.t(`setup.account.constants.permission-${UserPermission.root}`)}</option>
                         </Field>
                       </div>
                     </div>
                     <div className="form-group">
-                      <label>{i18n.t('Username')}</label>
+                      <label>{i18n.t('setup.account.account')}</label>
                       <Field
                         autoFocus
                         name="account"
                         maxLength={UserSchema.account.max}
                         type="text"
                         className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
-                        placeholder={i18n.t('Enter a name for this account')}
+                        placeholder={i18n.t('setup.account.accountPlaceholder')}
                       />
                       <ErrorMessage component="div" name="account" className="invalid-feedback"/>
                       <small className="text-info">
-                        {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space')}
+                        {i18n.t('setup.account.accountHelper')}
                       </small>
                     </div>
                     <div className="form-group has-feedback">
-                      <label>{i18n.t('Password')}</label>
+                      <label>{i18n.t('setup.account.password')}</label>
                       <Field
                         name="password"
                         component={Password}
                         inputProps={{
-                          placeholder: i18n.t('Enter a password'),
+                          placeholder: i18n.t('setup.account.passwordPlaceholder'),
                           className: classNames('form-control', {'is-invalid': errors.password && touched.password})
                         }}
                       />
                       <ErrorMessage component="div" name="password" className="invalid-feedback"/>
                       <small className="text-info">
-                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
+                        {i18n.t('setup.account.accountHelper')}
                       </small>
                     </div>
                     <div className="form-group has-feedback">
-                      <label>{i18n.t('Confirm Password')}</label>
+                      <label>{i18n.t('setup.account.confirmPassword')}</label>
                       <Field
                         name="confirmPassword"
                         component={Password}
                         inputProps={{
-                          placeholder: i18n.t('Enter the password again'),
+                          placeholder: i18n.t('setup.account.confirmPasswordPlaceholder'),
                           className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
                         }}
                       />
@@ -116,7 +116,7 @@ const SetupAccount = () => {
                     </div>
 
                     <button disabled={isApiProcessing || !utils.isObjectEmpty(errors)} type="submit" className="btn btn-primary btn-block rounded-pill">
-                      {i18n.t('Done')}
+                      {i18n.t('setup.account.done')}
                     </button>
                   </div>
                 </Form>

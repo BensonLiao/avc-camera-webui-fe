@@ -35,7 +35,7 @@ const customValidator = new FastestFormikValidator({
     forbidden: i18n.t('validation.forbidden'), // deprecated
     email: i18n.t('validation.email'), // reserved
     url: i18n.t('validation.url'), // deprecated
-    confirmEqual: i18n.t('These passwords didn\'t match.'),
+    confirmEqual: i18n.t('validation.confirmEqual'),
 
     stringContainsLowerCaseLatter: i18n.t('validation.stringContainsLowerCaseLatter'),
     stringContainsUpperCaseLatter: i18n.t('validation.stringContainsUpperCaseLatter'),

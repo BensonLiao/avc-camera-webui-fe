@@ -1,5 +1,34 @@
 {
-    "setup": {},
+    "setup": {
+        "welcome": {
+            "welcome": "Welcome",
+            "welcomeText1": "For a better experience,",
+            "welcomeText2": "Please click Continue to complete the initial setup!",
+            "continue": "Continue"
+        },
+        "language": {
+            "next": "Next"
+        },
+        "account": {
+            "permission": "Permission",
+            "account": "Account",
+            "accountPlaceholder": "Enter a name for this account",
+            "password": "Password",
+            "passwordPlaceholder": "Enter a password",
+            "accountHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
+            "passwordHelper": "8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, \", \\, /, <, > and space",
+            "confirmPassword": "Confirm Password",
+            "confirmPasswordPlaceholder": "Enter the password again",
+            "done": "Done",
+            "constants": {
+                "permission-0": "Admin"
+            }
+        },
+        "progressBar": {
+            "language": "Langauge",
+            "setupAccount": "Setup Account"
+        }
+    },
     "login": {},
     "home": {
         "deviceName": "Device Name",
@@ -89,7 +118,7 @@
     "sdcard": {},
     "error": {},
     "validation": {
-        "These passwords didn't match.": "These passwords didn't match.",
+        "confirmEqual": "These passwords didn't match.",
         "required": "This field is required.",
         "string": "This field must be a string.",
         "stringEmpty": "This field is required.",
@@ -143,6 +172,10 @@
             "sdStorageStatus": "Free: {{0}}, Total: {{1}}",
             "free": "Free: {{0}}",
             "used": "Used: {{0}}"
+        },
+        "password": {
+            "hidePassword": "Hide Password",
+            "showPassword": "Show Password"
         },
         "button": {
             "on": "ON",

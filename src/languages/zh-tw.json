@@ -1,5 +1,34 @@
 {
-    "setup": {},
+    "setup": {
+        "welcome": {
+            "welcome": "歡迎",
+            "welcomeText1": "為了使您有更好的體驗，",
+            "welcomeText2": "按繼續開始初始設定",
+            "continue": "繼續"
+        },
+        "language": {
+            "next": "下一步"
+        },
+        "account": {
+            "permission": "權限",
+            "account": "帳號",
+            "accountPlaceholder": "輸入帳號名稱",
+            "password": "密碼",
+            "passwordPlaceholder": "輸入密碼",
+            "accountHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
+            "passwordHelper": "8 - 16個字: 必須包含英文大寫和小寫字元, 數字和符號, 但符號不能為 # % & ` “ \\ / < > 和空白",
+            "confirmPassword": "確認密碼",
+            "confirmPasswordPlaceholder": "再次輸入密碼",
+            "done": "完成",
+            "constants": {
+                "permission-0": "管理者"
+            }
+        },
+        "progressBar": {
+            "language": "選擇語言",
+            "setupAccount": "初始帳號設定"
+        }
+    },
     "login": {},
     "home": {
         "deviceName": "裝置名稱",
@@ -89,7 +118,7 @@
     "sdcard": {},
     "error": {},
     "validation": {
-        "These passwords didn't match.": "兩次密碼不一致",
+        "confirmEqual": "兩次密碼不一致",
         "required": "必須輸入",
         "string": "必須是字串",
         "stringEmpty": "必須輸入",
@@ -143,6 +172,10 @@
             "sdStorageStatus": "{{0}} 可用 (共 {{1}})",
             "free": "{{0}} 可用",
             "used": "{{0}} 已使用"
+        },
+        "password": {
+            "hidePassword": "隱藏密碼",
+            "showPassword": "顯示密碼"
         },
         "button": {
             "on": "開啟",
