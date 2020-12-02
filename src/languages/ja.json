@@ -29,7 +29,31 @@
             "setupAccount": "アカウント初期設定"
         }
     },
-    "login": {},
+    "login": {
+        "title": "アカウントログイン",
+        "username": "ユーザー名",
+        "usernamePlaceholder": "アカウントを入力してください",
+        "password": "パスワード",
+        "passwordPlaceholder": "パスワードを入力してください",
+        "login": "ログイン",
+        "lock": {
+            "lockText": "アカウントやパスワードの入力間違い回数は５回以上に達しました",
+            "tryAgain": "5分後再度ログインを試みてください",
+            "loginLocked": "ログインがロックされました",
+            "forgotPassword": "パスワードを忘れましたか?",
+            "remaining": "ログインするため {{0}} が必要です",
+            "loginAgain": "再度ログインする"
+        },
+        "error": {
+            "incorrectPassword": "パスワードが間違っています",
+            "attemptsRemaining": "リトライ可能回数は残り {{0}} 回...",
+            "loginAgain": "再度ログインする",
+            "expires1": "10 分後期限切れ",
+            "expires2": "30 分後期限切れ",
+            "expires3": "1 時間後期限切れ",
+            "expires4": "12 時間後期限切れ"
+        }
+    },
     "home": {
         "deviceName": "デバイス名",
         "Device Status": "ステータス",

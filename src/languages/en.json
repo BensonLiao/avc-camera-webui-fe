@@ -29,7 +29,31 @@
             "setupAccount": "Setup Account"
         }
     },
-    "login": {},
+    "login": {
+        "title": "ACCOUNT LOGIN",
+        "username": "Username",
+        "usernamePlaceholder": "Enter your username",
+        "password": "Password",
+        "passwordPlaceholder": "Enter your password",
+        "login": "Login",
+        "lock": {
+            "lockText": "Too Many Login Attempts!",
+            "tryAgain": "Please try again in 5 minutes.",
+            "loginLocked": "Login locked",
+            "forgotPassword": "Forgot password?",
+            "remaining": "{{0}} Remaining",
+            "loginAgain": "Login Again"
+        },
+        "error": {
+            "incorrectPassword": "Incorrect Password",
+            "attemptsRemaining": "You have {{0}} attempt(s) remaining...",
+            "loginAgain": "Login Again",
+            "expires1": "Expires in 10 minutes",
+            "expires2": "Expires in 30 minutes",
+            "expires3": "Expires in 1 hour",
+            "expires4": "Expires in 12 hours"
+        }
+    },
     "home": {
         "deviceName": "Device Name",
         "Device Status": "Status",

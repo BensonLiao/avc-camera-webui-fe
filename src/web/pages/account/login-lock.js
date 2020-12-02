@@ -38,10 +38,10 @@ const LoginLock = ({params}) => {
           <Once>
             <div style={{margin: '5rem 0'}}>
               <p className="font-weight-bold m-0">
-                {i18n.t('Too Many Login Attempts!')}
+                {i18n.t('login.lock.lockText')}
               </p>
               <p>
-                {i18n.t('Please try again in 5 minutes.')}
+                {i18n.t('login.lock.tryAgain')}
               </p>
             </div>
           </Once>
@@ -49,12 +49,12 @@ const LoginLock = ({params}) => {
           {
             disableLoginLink ? (
               <a href="#disabled" className="btn btn-primary btn-block rounded-pill mt-4 disabled">
-                {i18n.t('{{0}} Remaining', {0: formatedLoginLockTime})}
+                {i18n.t('login.lock.remaining', {0: formatedLoginLockTime})}
               </a>
             ) : (
               <Once>
                 <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-4">
-                  {i18n.t('Login Again')}
+                  {i18n.t('login.lock.loginAgain')}
                 </Link>
               </Once>
             )

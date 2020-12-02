@@ -29,7 +29,31 @@
             "setupAccount": "número de cuenta"
         }
     },
-    "login": {},
+    "login": {
+        "title": "Cuenta de Ingreso",
+        "username": "Nombre",
+        "usernamePlaceholder": "Por favor ingrese su número de cuenta",
+        "password": "Contraseña",
+        "passwordPlaceholder": "Por favor ingrese su contraseña",
+        "login": "Registrarse",
+        "lock": {
+            "lockText": "Contraseña de cuenta de inicio de sesión incorrecta por más de 5 veces",
+            "tryAgain": "Intente iniciar la sesión nuevamente en 5 minutos",
+            "loginLocked": "El inicio de sesión está bloqueado",
+            "forgotPassword": "Forgot password?",
+            "remaining": "Iniciar sesión nuevamente en {{0}}",
+            "loginAgain": "ingresar de nuevo"
+        },
+        "error": {
+            "incorrectPassword": "Contraseña incorrecta",
+            "attemptsRemaining": "Aún puedes intentarlo {{0}} veces...",
+            "loginAgain": "ingresar de nuevo",
+            "expires1": "Expira en 10 minutos",
+            "expires2": "Expira en 30 minutos",
+            "expires3": "Expira en 1 hora",
+            "expires4": "Expira en 12 horas"
+        }
+    },
     "home": {
         "deviceName": "Nombre del dispositivo",
         "Device Status": "Estado del dispositivo",

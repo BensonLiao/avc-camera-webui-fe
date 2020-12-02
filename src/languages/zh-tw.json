@@ -29,7 +29,31 @@
             "setupAccount": "初始帳號設定"
         }
     },
-    "login": {},
+    "login": {
+        "title": "帳號登入",
+        "username": "名稱",
+        "usernamePlaceholder": "請輸入您的帳號",
+        "password": "密碼",
+        "passwordPlaceholder": "請輸入您的密碼",
+        "login": "登入",
+        "lock": {
+            "lockText": "登入帳號密碼錯誤5次以上",
+            "tryAgain": "請5分鐘後再嘗試登入",
+            "loginLocked": "鎖定登入",
+            "forgotPassword": "忘記密碼？",
+            "remaining": "還需 {{0}} 才能再次登入",
+            "loginAgain": "重新登入"
+        },
+        "error": {
+            "incorrectPassword": "密碼輸入錯誤",
+            "attemptsRemaining": "您尚可嘗試 {{0}} 次...",
+            "loginAgain": "重新登入",
+            "expires1": "10 分鐘後過期",
+            "expires2": "30 分鐘後過期",
+            "expires3": "1 小時後過期",
+            "expires4": "12 小時後過期"
+        }
+    },
     "home": {
         "deviceName": "裝置名稱",
         "Device Status": "裝置狀態",
