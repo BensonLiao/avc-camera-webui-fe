@@ -182,8 +182,14 @@
             "off": "OFF"
         },
         "modal": {
-            "sessionExpire": {},
-            "apiProcessing": {}
+            "pleaseWait": "Please wait",
+            "confirm": "Confirm",
+            "cancel": "Cancel",
+            "sessionExpire": {
+                "sessionExpired": "Session Expired",
+                "expireCountdown": "Your session has expired. You will be redirected to the login page in {{0}} second(s).",
+                "renewSession": "Renew Session"
+            }
         }
     }
 }

@@ -182,8 +182,14 @@
             "off": "關閉"
         },
         "modal": {
-            "sessionExpire": {},
-            "apiProcessing": {}
+            "pleaseWait": "請稍候",
+            "confirm": "確定",
+            "cancel": "取消",
+            "sessionExpire": {
+                "sessionExpired": "自動登出",
+                "expireCountdown": "閒置時間過長，{{0}} 秒後登出並重新導向登入頁面",
+                "renewSession": "未閒置"
+            }
         }
     }
 }
