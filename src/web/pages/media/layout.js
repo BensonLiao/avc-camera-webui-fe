@@ -1,6 +1,7 @@
 const classNames = require('classnames');
 const React = require('react');
 const {RouterView, Link, getRouter} = require('@benson.liao/capybara-router');
+const SystemModelName = require('webserver-form-schema/constants/system-model-name');
 const Base = require('../shared/base');
 const i18n = require('../../../i18n').default;
 const Loading = require('../../../core/components/loading');
@@ -44,7 +45,7 @@ module.exports = class Media extends Base {
             >
               RTSP
             </Link>
-            {modelName === 'MD2' && (
+            {modelName === SystemModelName.MD2 && (
               <Link
                 to="/media/hdmi"
                 title={i18n.t('HDMI')}
