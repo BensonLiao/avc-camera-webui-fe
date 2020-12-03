@@ -221,14 +221,16 @@
             }
         },
         "privacyMask": {
-            "Enable Privacy Mask": "Enable Privacy Mask",
-            "Create mask areas on the preview window.": "Create mask areas on the preview window.",
-            "Mask Area": "Mask Area",
-            "Note Area": "Note Area",
-            "Drag": "Drag",
-            "To set a mask:": "To set a mask:",
-            "To erase a mask:": "To erase a mask:",
-            "Up to 4 mask areas can be set.": "Up to 4 mask areas can be set."
+            "maskArea": "Mask Area",
+            "privacyMask": "Privacy Mask",
+            "enable": "Enable Privacy Mask",
+            "maskHelper": "Create mask areas on the preview window.",
+            "note": "Note Area",
+            "drag": "Drag",
+            "noteText1": "To set a mask:",
+            "noteText2": "To erase a mask:",
+            "or": "or",
+            "noteText3": "Up to 4 mask areas can be set."
         }
     },
     "audio": {},
