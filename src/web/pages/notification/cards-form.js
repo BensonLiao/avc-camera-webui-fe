@@ -155,14 +155,12 @@ const CardsForm = ({
 
       progress.start();
       api.notification.addCard(data)
-        .then(hideCardFormModal)
         .then(getRouter().reload)
         .finally(progress.done);
     } else {
       // Update the card.
       progress.start();
       api.notification.updateCard(data)
-        .then(hideCardFormModal)
         .then(getRouter().reload)
         .finally(progress.done);
     }

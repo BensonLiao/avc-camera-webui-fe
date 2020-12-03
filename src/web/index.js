@@ -25,6 +25,7 @@ const ReactNotification = require('react-notifications-component').default;
 const SimpleCrypto = require('simple-crypto-js').default;
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const CertificateType = require('webserver-form-schema/constants/certificate-type');
+const SystemModelName = require('webserver-form-schema/constants/system-model-name');
 const router = require('./router');
 const store = require('../core/store');
 const Loading = require('../core/components/loading');
@@ -85,6 +86,16 @@ const waitForReboot = () => {
   ReactDOM.render(<Loading/>, document.getElementById('root'));
 };
 
+// Remove Media/HDMI Route if camera model is not MD2
+const removeHDMIRoute = async () => {
+  const systemInformation = await api.system.getInformation();
+  if (systemInformation.data.modelName !== SystemModelName.md2) {
+    router.routes = router.routes.filter(route => route.name !== 'web.media.hdmi');
+  }
+};
+
+removeHDMIRoute();
+
 const renderWeb = () => {
   // Setup routers
   router.listen('ChangeStart', (action, toState, fromState, next) => {
@@ -126,6 +137,7 @@ const renderWeb = () => {
       setTimeout(() => {
         router.go('/login', {replace: true});
       });
+      return;
     }
 
     if (
@@ -138,6 +150,7 @@ const renderWeb = () => {
       setTimeout(() => {
         router.go('/', {replace: true});
       });
+      return;
     }
 
     // we must call next on ChangeStart listener
