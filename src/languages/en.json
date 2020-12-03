@@ -180,13 +180,14 @@
             }
         },
         "rtsp": {
-            "Enable Audio over RTSP": "Enable Audio over RTSP",
-            "Require Authentication": "Require Authentication",
-            "RTSP/TCP Port": "RTSP/TCP Port",
-            "Range: 1024-65535 Default: 8554": "Range: 1024-65535 Default: 8554",
-            "RTSP/UDP Port": "RTSP/UDP Port",
-            "Range: 1024-65535 Default: 17300": "Range: 1024-65535 Default: 17300",
-            "Maximum Number of Concurrent Connections": "Maximum Number of Concurrent Connections"
+            "title": "RTSP",
+            "enableAudio": "Enable Audio over RTSP",
+            "requireAuthentication": "Require Authentication",
+            "rtspTcpPort": "RTSP/TCP Port",
+            "rtspUdpPort": "RTSP/UDP Port",
+            "tcpRange": "Range: 1024-65535 Default: 8554",
+            "udpRange": "Range: 1024-65535 Default: 17300",
+            "maxConnections": "Maximum Number of Concurrent Connections"
         },
         "hdmi": {
             "HDMI": "HDMI",
