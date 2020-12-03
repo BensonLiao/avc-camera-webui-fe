@@ -3,19 +3,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../../i18n';
 
-const SettingsStatus = ({
-  networkSettings: {
-    networkInterface, ipType, mac, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway
-  }
-}) => {
+const SettingsStatus = ({networkSettings: {ipType, mac, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}}) => {
   const list = [
     {
-      name: i18n.t('Interface'),
-      data: i18n.t(networkInterface === '0' ? 'Wired' : 'Wifi')
-    },
-    {
       name: i18n.t('IP Assignment'),
-      data: i18n.t(ipType === '0' ? 'Static' : 'Dynamic')
+      data: i18n.t(ipType === '0' ? i18n.t('Static') : i18n.t('Dynamic'))
     },
     {
       name: i18n.t('MAC Address'),

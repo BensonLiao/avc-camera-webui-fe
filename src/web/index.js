@@ -126,6 +126,7 @@ const renderWeb = () => {
       setTimeout(() => {
         router.go('/login', {replace: true});
       });
+      return;
     }
 
     if (
@@ -138,6 +139,7 @@ const renderWeb = () => {
       setTimeout(() => {
         router.go('/', {replace: true});
       });
+      return;
     }
 
     // we must call next on ChangeStart listener
