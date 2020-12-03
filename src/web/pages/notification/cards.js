@@ -83,6 +83,7 @@ const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) 
             <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
               <CustomTooltip title={i18n.t('Add a New Notification Card')}>
                 <button
+                  disabled={isApiProcessing}
                   className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"
                   type="button"
                   style={{pointerEvents: 'auto'}}
