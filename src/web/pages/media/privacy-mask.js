@@ -123,7 +123,7 @@ module.exports = class PrivacyMask extends Base {
       <Form className="row">
         <BreadCrumb
           className="px-0"
-          path={[i18n.t('Video Settings'), i18n.t('Privacy Mask')]}
+          path={[i18n.t('video.breadcrumb.videoSettings'), i18n.t('video.breadcrumb.privacyMask')]}
           routes={['/media/stream']}
         />
         <div className="col-7 px-0">

@@ -96,7 +96,7 @@ module.exports = class HDMI extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('Video Settings'), i18n.t('HDMI')]}
+                path={[i18n.t('video.breadcrumb.videoSettings'), i18n.t('video.breadcrumb.hdmi')]}
                 routes={['/media/stream']}
               />
               <div className="col-center">

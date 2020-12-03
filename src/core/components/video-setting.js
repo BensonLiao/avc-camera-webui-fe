@@ -567,7 +567,7 @@ module.exports = class VideoSetting extends React.PureComponent {
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={this.generateClickResetButtonHandler()}
           >
-            {i18n.t('videoSetting.resetDefault')}
+            {i18n.t('common.button.resetDefault')}
           </button>
         </div>
       </Form>

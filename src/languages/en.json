@@ -93,7 +93,6 @@
         "defog": "Defog",
         "lightingCompensation": "Lighting Compensation Frequency (Hz)",
         "autoFocus": "Auto Focus",
-        "resetDefault": "Reset to Default Settings",
         "constants": {
             "ir-control-0": "Auto",
             "ir-control-1": "On",
@@ -132,7 +131,102 @@
             "refresh-rate-2": "60Hz"
         }
     },
-    "video": {},
+    "video": {
+        "breadcrumb": {
+            "videoSettings": "Video Settings",
+            "streams": "Streams",
+            "rtsp": "RTSP",
+            "hdmi": "HDMI",
+            "osd": "OSD",
+            "privacyMask": "Privacy Mask"
+        },
+        "stream": {
+            "settings": "Settings",
+            "streams": "Streams",
+            "stream1": "Stream 01",
+            "stream2": "Stream 02",
+            "codec": "Codec",
+            "resolution": "Resolution",
+            "fps": "Frame Rate (FPS)",
+            "bandwidth": "Bandwidth Management",
+            "quality": "Quality",
+            "auto": "Auto",
+            "gop": "GOP",
+            "Are you sure you want to update stream settings?": "Are you sure you want to update stream settings?",
+            "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?": "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?",
+            "modal": {
+                "apiProcessingModalTitle": "Updating Stream Settings"
+            },
+            "constants": {
+                "stream-resolution-0": "3840*2160 (16:9)",
+                "stream-resolution-1": "2560*1440 (16:9)",
+                "stream-resolution-2": "1920*1080 (16:9)",
+                "stream-resolution-3": "1280*720 (16:9)",
+                "stream-resolution-4": "640*360 (16:9)",
+                "stream-resolution-5": "2560*1920 (4:3)",
+                "stream-resolution-6": "2048*1536 (4:3)",
+                "stream-resolution-7": "1600*1200 (4:3)",
+                "stream-resolution-8": "1280*960 (4:3)",
+                "stream-resolution-9": "1024*768 (4:3)",
+                "stream-resolution-10": "640*480 (4:3)",
+                "stream-resolution-11": "320*240 (4:3)",
+                "stream-bandwidth-management-0": "Maximum Bitrate",
+                "stream-bandwidth-management-1": "Variable Bitrate",
+                "stream-bandwidth-management-2": "Constant Bitrate",
+                "quality-30": "Low",
+                "quality-50": "Medium",
+                "quality-80": "High",
+                "bitRateRange": "{{0}} - {{1}} Kbps"
+            }
+        },
+        "rtsp": {
+            "Enable Audio over RTSP": "Enable Audio over RTSP",
+            "Require Authentication": "Require Authentication",
+            "RTSP/TCP Port": "RTSP/TCP Port",
+            "Range: 1024-65535 Default: 8554": "Range: 1024-65535 Default: 8554",
+            "RTSP/UDP Port": "RTSP/UDP Port",
+            "Range: 1024-65535 Default: 17300": "Range: 1024-65535 Default: 17300",
+            "Maximum Number of Concurrent Connections": "Maximum Number of Concurrent Connections"
+        },
+        "hdmi": {
+            "HDMI": "HDMI",
+            "HDMI Title": "HDMI",
+            "Updating HDMI settings": "Updating HDMI settings",
+            "Are you sure you want to update HDMI settings?": "Are you sure you want to update HDMI settings?"
+        },
+        "osd": {
+            "Enable On-Screen Display": "Enable On-Screen Display",
+            "Size": "Size",
+            "Color": "Color",
+            "Position": "Position",
+            "Click one of the arrows on the live view screen.": "Click one of the arrows on the live view screen.",
+            "Left Top": "Left Top",
+            "Right Top": "Right Top",
+            "Bottom Left": "Bottom Left",
+            "Bottom Right": "Bottom Right",
+            "Text Overlay": "Text Overlay",
+            "constants": {
+                "font-size-0": "Small",
+                "font-size-1": "Medium",
+                "font-size-2": "Large",
+                "osd-type-0": "Time",
+                "osd-type-1": "Camera Name",
+                "osd-type-2": "Camera Name and Time",
+                "osd-type-3": "Custom",
+                "Enter custom text": "Enter custom text"
+            }
+        },
+        "privacyMask": {
+            "Enable Privacy Mask": "Enable Privacy Mask",
+            "Create mask areas on the preview window.": "Create mask areas on the preview window.",
+            "Mask Area": "Mask Area",
+            "Note Area": "Note Area",
+            "Drag": "Drag",
+            "To set a mask:": "To set a mask:",
+            "To erase a mask:": "To erase a mask:",
+            "Up to 4 mask areas can be set.": "Up to 4 mask areas can be set."
+        }
+    },
     "audio": {},
     "notification": {},
     "userManagement": {},
@@ -203,7 +297,9 @@
         },
         "button": {
             "on": "ON",
-            "off": "OFF"
+            "off": "OFF",
+            "apply": "Apply",
+            "resetDefault": "Reset to Default Settings"
         },
         "modal": {
             "pleaseWait": "Please wait",

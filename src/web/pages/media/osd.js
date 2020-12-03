@@ -54,7 +54,7 @@ module.exports = class OSD extends Base {
                 <Form className="row">
                   <BreadCrumb
                     className="px-0"
-                    path={[i18n.t('Video Settings'), i18n.t('OSD')]}
+                    path={[i18n.t('video.breadcrumb.videoSettings'), i18n.t('video.breadcrumb.osd')]}
                     routes={['/media/stream']}
                   />
                   <div className="col-7 px-0">

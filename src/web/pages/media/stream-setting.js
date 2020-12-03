@@ -33,7 +33,7 @@ module.exports = class StreamSetting extends Base {
     super(props);
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = i18n.t('Updating Stream Settings');
+    this.state.apiProcessModalTitle = i18n.t('video.stream.modal.apiProcessingModalTitle');
     this.state.hasResolutionRatioChanged = false;
     this.state.channelOptions = this.processRenderOptions(props.streamSettings);
     // Enum to test for changing resolution aspect ratio
@@ -73,7 +73,7 @@ module.exports = class StreamSetting extends Base {
                        )
           )
           .map(x => ({
-            label: i18n.t(`stream-resolution-${x}`),
+            label: i18n.t(`video.stream.constants.stream-resolution-${x}`),
             value: x
           })),
         frameRate: (() => {
@@ -90,7 +90,7 @@ module.exports = class StreamSetting extends Base {
           return result;
         })(),
         bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-          label: i18n.t(`stream-bandwidth-management-${x}`),
+          label: i18n.t(`video.stream.constants.stream-bandwidth-management-${x}`),
           value: x
         })),
         gov: StreamGOV.all().map(x => ({
@@ -133,7 +133,7 @@ module.exports = class StreamSetting extends Base {
           }
 
           return options.map(x => ({
-            label: i18n.t(`stream-resolution-${x}`),
+            label: i18n.t(`video.stream.constants.stream-resolution-${x}`),
             value: x
           }));
         })(),
@@ -167,7 +167,7 @@ module.exports = class StreamSetting extends Base {
           return result;
         })(),
         bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-          label: i18n.t(`stream-bandwidth-management-${x}`),
+          label: i18n.t(`video.stream.constants.stream-bandwidth-management-${x}`),
           value: x
         })),
         gov: StreamGOV.all().map(x => ({
@@ -175,7 +175,7 @@ module.exports = class StreamSetting extends Base {
           value: x
         })),
         quality: StreamQuality.all().map(x => ({
-          label: i18n.t(`quality-${x}`),
+          label: i18n.t(`video.stream.constants.quality-${x}`),
           value: x
         }))
       }
@@ -323,7 +323,7 @@ module.exports = class StreamSetting extends Base {
     return (
       <>
         <SelectField
-          labelName={i18n.t('Codec')}
+          labelName={i18n.t('video.stream.codec')}
           readOnly={homePage}
           name={`${fieldNamePrefix}.codec`}
           onChange={event => this.onUpdateCodecField(event, fieldNamePrefix, allValues, setFieldValue)}
@@ -333,7 +333,7 @@ module.exports = class StreamSetting extends Base {
           ))}
         </SelectField>
         <SelectField
-          labelName={i18n.t('Resolution')}
+          labelName={i18n.t('video.stream.resolution')}
           readOnly={homePage}
           name={`${fieldNamePrefix}.resolution`}
           onChange={event => this.onUpdateResField(event, fieldNamePrefix, allValues, setFieldValue)}
@@ -342,13 +342,13 @@ module.exports = class StreamSetting extends Base {
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </SelectField>
-        <SelectField labelName={i18n.t('Frame Rate (FPS)')} name={`${fieldNamePrefix}.frameRate`}>
+        <SelectField labelName={i18n.t('video.stream.fps')} name={`${fieldNamePrefix}.frameRate`}>
           {options.frameRate.map(option => (
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </SelectField>
         {values.codec === StreamCodec.mjpeg && (
-          <SelectField labelName={i18n.t('Quality')} name={`${fieldNamePrefix}.quality`}>
+          <SelectField labelName={i18n.t('video.stream.quality')} name={`${fieldNamePrefix}.quality`}>
             {options.quality.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
@@ -356,7 +356,7 @@ module.exports = class StreamSetting extends Base {
         )}
         {values.codec !== StreamCodec.mjpeg && (
           <div className="form-group">
-            <label>{i18n.t('Bandwidth Management')}</label>
+            <label>{i18n.t('video.stream.bandwidth')}</label>
             <div className="input-group">
               <div className="input-group-prepend">
                 <Field
@@ -384,7 +384,7 @@ module.exports = class StreamSetting extends Base {
                 readOnly
                 type="text"
                 className={classNames('form-control dynamic', {show: values.bandwidthManagement === StreamBandwidthManagement.vbr})}
-                placeholder={i18n.t('Auto')}
+                placeholder={i18n.t('video.stream.auto')}
               />
               <Field
                 type="text"
@@ -396,7 +396,7 @@ module.exports = class StreamSetting extends Base {
               </div>
             </div>
             <small className="text-info mb-3">
-              {i18n.t('{{0}} - {{1}} Kbps', {
+              {i18n.t('video.stream.constants.bitRateRange', {
                 0: StreamSettingsSchema.channelA.props.bitRate.min,
                 1: StreamSettingsSchema.channelA.props.bitRate.max
               })}
@@ -410,7 +410,7 @@ module.exports = class StreamSetting extends Base {
         )}
         {values.codec !== StreamCodec.mjpeg && (
         /* GOP is same as GOV */
-          <SelectField hide={homePage} readOnly={homePage} labelName={i18n.t('GOP')} name={`${fieldNamePrefix}.gov`}>
+          <SelectField hide={homePage} readOnly={homePage} labelName={i18n.t('video.stream.gop')} name={`${fieldNamePrefix}.gov`}>
             {options.gov.map(option => (
               <option key={option.value} value={option.value}>{option.label}</option>
             ))}
@@ -447,7 +447,7 @@ module.exports = class StreamSetting extends Base {
               (errors.channelB && !(values.channelB.bandwidthManagement === StreamBandwidthManagement.vbr))}
             onClick={this.showModal}
           >
-            {i18n.t('Apply')}
+            {i18n.t('common.button.apply')}
           </button>
         </div>
         <button
@@ -456,11 +456,11 @@ module.exports = class StreamSetting extends Base {
           disabled={this.state.$isApiProcessing}
           onClick={this.onClickResetButton}
         >
-          {i18n.t('Reset to Default Settings')}
+          {i18n.t('common.button.resetDefault')}
         </button>
         <CustomNotifyModal
           isShowModal={isShowModal}
-          modalTitle={i18n.t('Streams')}
+          modalTitle={i18n.t('video.stream.streams')}
           modalBody={this.state.hasResolutionRatioChanged ?
             i18n.t('Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?') :
             i18n.t('Are you sure you want to update stream settings?')}
@@ -479,7 +479,7 @@ module.exports = class StreamSetting extends Base {
     return (
       <>
         <div className={classNames('card-header', (homePage && 'd-flex align-items-center justify-content-between rounded-0'))}>
-          {i18n.t('Streams')}
+          {i18n.t('video.stream.streams')}
           {
             homePage && (
               <button
@@ -488,7 +488,7 @@ module.exports = class StreamSetting extends Base {
                 disabled={this.state.$isApiProcessing}
                 onClick={this.onClickResetButton}
               >
-                {i18n.t('Reset to Default Settings')}
+                {i18n.t('common.button.resetDefault')}
               </button>
             )
           }
@@ -497,12 +497,12 @@ module.exports = class StreamSetting extends Base {
           <Nav>
             <Nav.Item>
               <Nav.Link eventKey="tab-channel-a">
-                {i18n.t('Stream 01')}
+                {i18n.t('video.stream.stream1')}
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link eventKey="tab-channel-b">
-                {i18n.t('Stream 02')}
+                {i18n.t('video.stream.stream2')}
               </Nav.Link>
             </Nav.Item>
           </Nav>
