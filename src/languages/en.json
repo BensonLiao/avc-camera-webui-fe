@@ -190,10 +190,12 @@
             "maxConnections": "Maximum Number of Concurrent Connections"
         },
         "hdmi": {
-            "HDMI": "HDMI",
-            "HDMI Title": "HDMI",
-            "Updating HDMI settings": "Updating HDMI settings",
-            "Are you sure you want to update HDMI settings?": "Are you sure you want to update HDMI settings?"
+            "hdmi": "HDMI",
+            "fps": "Frame Rate (FPS)",
+            "modal": {
+                "apiProcessingModalTitle": "Updating HDMI settings",
+                "confirmText": "Are you sure you want to update HDMI settings?"
+            }
         },
         "osd": {
             "Enable On-Screen Display": "Enable On-Screen Display",

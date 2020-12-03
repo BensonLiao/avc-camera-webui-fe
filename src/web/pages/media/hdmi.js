@@ -29,7 +29,7 @@ module.exports = class HDMI extends Base {
     super(props);
     this.state.isShowModal = false;
     this.state.isShowApiProcessModal = false;
-    this.state.apiProcessModalTitle = i18n.t('Updating HDMI settings');
+    this.state.apiProcessModalTitle = i18n.t('video.hdmi.modal.apiProcessingModalTitle');
     this.frameRate = ((() => {
       const result = [];
       for (let index = HDMISettingsSchema.frameRate.min; index <= HDMISettingsSchema.frameRate.max; index += 1) {
@@ -51,7 +51,7 @@ module.exports = class HDMI extends Base {
                      )
         )
         .map(x => ({
-          label: i18n.t(`stream-resolution-${x}`),
+          label: i18n.t(`video.stream.constants.stream-resolution-${x}`),
           value: x
         }));
   }
@@ -102,7 +102,7 @@ module.exports = class HDMI extends Base {
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">
-                    {i18n.t('HDMI Title')}
+                    {i18n.t('video.hdmi.hdmi')}
                   </div>
                   <Formik
                     initialValues={hdmiSettings}
@@ -112,13 +112,13 @@ module.exports = class HDMI extends Base {
                       <Form className="card-body">
                         <SelectField
                           readOnly
-                          labelName={i18n.t('Resolution')}
+                          labelName={i18n.t('video.stream.resolution')}
                           name="resolution"
                         >
                           <option value={this.resolution[2].value}>{this.resolution[2].label}</option>
                           ))
                         </SelectField>
-                        <SelectField labelName={i18n.t('Frame Rate (FPS)')} name="frameRate">
+                        <SelectField labelName={i18n.t('video.stream.fps')} name="frameRate">
                           {this.frameRate.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                           ))}
@@ -133,8 +133,8 @@ module.exports = class HDMI extends Base {
                         </button>
                         <CustomNotifyModal
                           isShowModal={isShowModal}
-                          modalTitle={i18n.t('HDMI')}
-                          modalBody={i18n.t('Are you sure you want to update HDMI settings?')}
+                          modalTitle={i18n.t('video.hdmi.hdmi')}
+                          modalBody={i18n.t('video.hdmi.modal.confirmText')}
                           isConfirmDisable={$isApiProcessing}
                           onHide={this.hideModal}
                           onConfirm={() => {
