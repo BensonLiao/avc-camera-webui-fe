@@ -134,7 +134,7 @@ const SMTPSettings = ({smtpSettings, onSubmitSMTPSettingsForm, setIsShowAccountM
                 <small className="form-text text-muted">{i18n.t('5 - 1,800 Seconds')}</small>
               </div>
               <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-                {i18n.t('Apply')}
+                {i18n.t('common.button.apply')}
               </button>
             </div>
           </Form>

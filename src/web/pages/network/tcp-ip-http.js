@@ -121,7 +121,7 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
                   <ErrorMessage component="div" name="port" className="invalid-feedback"/>
                   <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8080')}</p>
                 </div>
-                <button type="submit" className="btn btn-primary btn-block rounded-pill">{i18n.t('Apply')}</button>
+                <button type="submit" className="btn btn-primary btn-block rounded-pill">{i18n.t('common.button.apply')}</button>
               </Form>
             </Tab.Pane>
           </Tab.Content>

@@ -129,7 +129,7 @@ module.exports = class HDMI extends Base {
                           className="btn btn-block btn-primary rounded-pill mt-5"
                           onClick={this.showModal}
                         >
-                          {i18n.t('Apply')}
+                          {i18n.t('common.button.apply')}
                         </button>
                         <CustomNotifyModal
                           isShowModal={isShowModal}

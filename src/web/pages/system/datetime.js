@@ -289,7 +289,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                             type="button"
                             onClick={() => setIsShowConfirmModal(true)}
                           >
-                            {i18n.t('Apply')}
+                            {i18n.t('common.button.apply')}
                           </button>
                           <CustomNotifyModal
                             isShowModal={isShowConfirmModal}

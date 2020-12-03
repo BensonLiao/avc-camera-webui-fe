@@ -137,7 +137,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                             type="submit"
                             style={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false ? {pointerEvents: 'none'} : {}}
                           >
-                            {i18n.t('Apply')}
+                            {i18n.t('common.button.apply')}
                           </button>
                         </div>
                       </CustomTooltip>

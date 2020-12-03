@@ -73,7 +73,7 @@ const MotionDetectionSettings = () => {
           </div>
 
           <button disabled={isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill">
-            {i18n.t('Apply')}
+            {i18n.t('common.button.apply')}
           </button>
         </div>
       </div>

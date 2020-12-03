@@ -142,7 +142,7 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
                 </div>
               </div>
               <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-                {i18n.t('Apply')}
+                {i18n.t('common.button.apply')}
               </button>
             </Form>
           </Tab.Pane>

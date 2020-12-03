@@ -87,7 +87,7 @@ const TCPIPDDNS = ({ddnsInfo, isApiProcessing}) => {
                 type="submit"
                 className="btn btn-primary btn-block rounded-pill"
                 disabled={isApiProcessing}
-              >{i18n.t('Apply')}
+              >{i18n.t('common.button.apply')}
               </button>
             </Form>
           </Tab.Pane>

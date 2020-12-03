@@ -49,7 +49,7 @@ module.exports = class Audio extends Base {
           <option value={AudioInputSource.lineIn}>{i18n.t('External Microphone')}</option>
         </SelectField>
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-          {i18n.t('Apply')}
+          {i18n.t('common.button.apply')}
         </button>
       </Form>
     );

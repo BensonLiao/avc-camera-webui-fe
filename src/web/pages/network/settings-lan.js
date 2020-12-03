@@ -208,7 +208,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                       showModal('applyConfirm');
                     }}
                   >
-                    {i18n.t('Apply')}
+                    {i18n.t('common.button.apply')}
                   </button>
                 </div>
               </CustomTooltip>

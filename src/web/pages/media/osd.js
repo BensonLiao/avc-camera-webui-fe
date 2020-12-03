@@ -170,7 +170,7 @@ module.exports = class OSD extends Base {
                           />
                         </div>
                         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-                          {i18n.t('Apply')}
+                          {i18n.t('common.button.apply')}
                         </button>
                       </div>
                     </div>

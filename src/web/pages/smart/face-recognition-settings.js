@@ -179,7 +179,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
           </div>
 
           <button disabled={isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-            {i18n.t('Apply')}
+            {i18n.t('common.button.apply')}
           </button>
         </Form>
       </div>

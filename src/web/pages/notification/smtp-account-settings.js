@@ -75,7 +75,7 @@ const SMTPAccountSettings = ({accountSettings, isShowModal, setIsShowAccountModa
             <div className="modal-footer flex-column">
               <div className="form-group w-100 mx-0">
                 <button type="submit" className="btn btn-primary btn-block rounded-pill">
-                  {i18n.t('Apply')}
+                  {i18n.t('common.button.apply')}
                 </button>
               </div>
               <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={() => setIsShowAccountModal(false)}>
