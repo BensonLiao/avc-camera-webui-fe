@@ -244,7 +244,7 @@ module.exports = {
         deviceStatus: 1,
         sensorResolution: 1,
         serialNumber: '181000723',
-        modelName: 'AV02CLD-100',
+        modelName: 'MD2',
         firmware: '35110.4',
         sdEnabled: false,
         sdStatus: 0,
