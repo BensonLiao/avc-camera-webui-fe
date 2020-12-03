@@ -87,14 +87,16 @@ const waitForReboot = () => {
 };
 
 // Remove Media/HDMI Route if camera model is not MD2
-const removeHDMIRoute = async () => {
+(async () => {
+  if (!window.user) {
+    return;
+  }
+
   const systemInformation = await api.system.getInformation();
   if (systemInformation.data.modelName !== SystemModelName.md2) {
     router.routes = router.routes.filter(route => route.name !== 'web.media.hdmi');
   }
-};
-
-removeHDMIRoute();
+})();
 
 const renderWeb = () => {
   // Setup routers
