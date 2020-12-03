@@ -30,7 +30,7 @@
         }
     },
     "login": {
-        "rtsp": "帳號登入",
+        "title": "帳號登入",
         "username": "名稱",
         "usernamePlaceholder": "請輸入您的帳號",
         "password": "密碼",
