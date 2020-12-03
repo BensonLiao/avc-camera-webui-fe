@@ -152,10 +152,10 @@
             "quality": "Quality",
             "auto": "Auto",
             "gop": "GOP",
-            "Are you sure you want to update stream settings?": "Are you sure you want to update stream settings?",
-            "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?": "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?",
             "modal": {
-                "apiProcessingModalTitle": "Updating Stream Settings"
+                "apiProcessingModalTitle": "Updating Stream Settings",
+                "confirmUpdate": "Are you sure you want to update stream settings?",
+                "confirmRatioChange": "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?"
             },
             "constants": {
                 "stream-resolution-0": "3840*2160 (16:9)",

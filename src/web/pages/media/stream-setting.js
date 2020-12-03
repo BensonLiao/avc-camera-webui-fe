@@ -462,8 +462,8 @@ module.exports = class StreamSetting extends Base {
           isShowModal={isShowModal}
           modalTitle={i18n.t('video.stream.streams')}
           modalBody={this.state.hasResolutionRatioChanged ?
-            i18n.t('Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?') :
-            i18n.t('Are you sure you want to update stream settings?')}
+            i18n.t('video.stream.modal.confirmRatioChange') :
+            i18n.t('video.stream.modal.confirmUpdate')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
           onConfirm={() => {
