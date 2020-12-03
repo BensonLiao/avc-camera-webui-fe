@@ -235,7 +235,18 @@
             "noteText3": "マスクは最大四ヶ所まで設定可能です"
         }
     },
-    "audio": {},
+    "audio": {
+        "title": "オーディオ設定",
+        "enable": "オーディオ入力を有効にする",
+        "quality": "オーディオ品質",
+        "inputSource": "入力ソース",
+        "internalMicrophone": "內建式麥克風",
+        "externalMicrophone": "外付けマイク",
+        "constants":{
+            "audio-quality-0": "G.711, 8kHz, 64kbps, Mono",
+            "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+        }
+    },
     "notification": {},
     "userManagement": {},
     "analytics": {},

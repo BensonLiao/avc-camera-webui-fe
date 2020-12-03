@@ -235,7 +235,18 @@
             "noteText3": "最多4個遮罩"
         }
     },
-    "audio": {},
+    "audio": {
+        "title": "聲音",
+        "enable": "開啟聲音輸入",
+        "quality": "品質",
+        "inputSource": "輸入來源",
+        "internalMicrophone": "內建式麥克風",
+        "externalMicrophone": "外接麥克風",
+        "constants":{
+            "audio-quality-0": "G.711, 8kHz, 64kbps, 單聲道",
+            "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+        }
+    },
     "notification": {},
     "userManagement": {},
     "analytics": {},

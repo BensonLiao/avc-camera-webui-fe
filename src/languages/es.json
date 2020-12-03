@@ -235,7 +235,18 @@
             "noteText3": "Hasta 4 mascarillas"
         }
     },
-    "audio": {},
+    "audio": {
+        "title": "Audio",
+        "enable": "Habilitar entrada de voz",
+        "quality": "Calidad",
+        "inputSource": "Fuente de entrada",
+        "internalMicrophone": "Internal Microphone",
+        "externalMicrophone": "Micrófono externo",
+        "constants":{
+            "audio-quality-0": "G.711, 8kHz, 64kbps, Mono",
+            "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+        }
+    },
     "notification": {},
     "userManagement": {},
     "analytics": {},
