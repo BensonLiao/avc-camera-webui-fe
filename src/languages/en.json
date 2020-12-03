@@ -277,7 +277,8 @@
         "birthday": "This field must be a valid birthday.",
         "countryCode": "This field must be a valid country code.",
         "duplicateName": "This name already exists in the system. Please use a different name.",
-        "portEmpty": "The port number must not be empty."
+        "portEmpty": "The port number must not be empty.",
+        "portReserved": "The specified port is reserved by system or in use!"
     },
     "navigation": {
         "sidebar": {},

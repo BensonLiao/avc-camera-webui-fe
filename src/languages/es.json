@@ -183,7 +183,8 @@
         "birthday": "Utilice el formato de cumpleaños correcto",
         "countryCode": "El código de país es incorrecto",
         "duplicateName": "Nombre duplicado, por favorutilice un nombre diferente",
-        "portEmpty": "El campo no debe estar vacío"
+        "portEmpty": "El campo no debe estar vacío",
+        "portReserved": "Este puerto está reservado o en uso para el sistema"
     },
     "navigation": {
         "sidebar": {},

@@ -41,7 +41,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
       values === httpInfo.port) {
-      return i18n.t('The specified port is reserved by system or in use!');
+      return i18n.t('validation.portReserved');
     }
 
     return utils.validatedPortCheck(values);

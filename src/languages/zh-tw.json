@@ -183,7 +183,8 @@
         "birthday": "請使用正確的生日格式",
         "countryCode": "國家代碼錯誤",
         "duplicateName": "名稱重複，請使用不同名稱",
-        "portEmpty": "此欄位必需輸入"
+        "portEmpty": "此欄位必需輸入",
+        "portReserved": "此連接埠為系統預留或使用中"
     },
     "navigation": {
         "sidebar": {},

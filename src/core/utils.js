@@ -507,7 +507,7 @@ exports.validatedPortCheck = (value, error) => {
     (Number(value) < PORT_NUMBER_MIN) ||
     (Number(value) > PORT_NUMBER_MAX) ||
     RESTRICTED_PORTS.some(val => val === value);
-  let errorMsg = error || i18n.t('The specified port is reserved by system or in use!');
+  let errorMsg = error || i18n.t('validation.portReserved');
   if (value === '') {
     errorMsg = i18n.t('validation.portEmpty');
     return errorMsg;

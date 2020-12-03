@@ -50,7 +50,7 @@ module.exports = class RTSP extends Base {
       values === httpInfo.port ||
       values === httpInfo.port2 ||
       values === httpsSettings.port) {
-      return i18n.t('The specified port is reserved by system or in use!');
+      return i18n.t('validation.portReserved');
     }
 
     return utils.validatedPortCheck(values);
