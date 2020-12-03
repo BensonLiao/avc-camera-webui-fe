@@ -45,8 +45,8 @@ const TCPIPDDNS = ({ddnsInfo, isApiProcessing}) => {
                 <div className="custom-control custom-switch">
                   <Field name="isEnableDDNS" type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
                   <label className="custom-control-label" htmlFor="switch-ddns-enable">
-                    <span>{i18n.t('ON')}</span>
-                    <span>{i18n.t('OFF')}</span>
+                    <span>{i18n.t('common.button.on')}</span>
+                    <span>{i18n.t('common.button.off')}</span>
                   </label>
                 </div>
               </div>

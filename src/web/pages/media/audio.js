@@ -37,8 +37,8 @@ module.exports = class Audio extends Base {
           <div className="custom-control custom-switch">
             <Field name="isEnableInput" checked={values.isEnableInput} type="checkbox" className="custom-control-input" id="switch-sound"/>
             <label className="custom-control-label" htmlFor="switch-sound">
-              <span>{i18n.t('ON')}</span>
-              <span>{i18n.t('OFF')}</span>
+              <span>{i18n.t('common.button.on')}</span>
+              <span>{i18n.t('common.button.off')}</span>
             </label>
           </div>
         </div>

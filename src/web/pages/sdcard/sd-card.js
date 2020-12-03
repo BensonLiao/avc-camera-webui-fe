@@ -79,8 +79,8 @@ const SDCard = ({
                           disabled={sdStatus}
                         />
                         <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
-                          <span>{i18n.t('ON')}</span>
-                          <span>{i18n.t('OFF')}</span>
+                          <span>{i18n.t('common.button.on')}</span>
+                          <span>{i18n.t('common.button.off')}</span>
                         </label>
                       </div>
                     </div>
@@ -120,8 +120,8 @@ const SDCard = ({
                                   id="switch-output"
                                 />
                                 <label className="custom-control-label" htmlFor="switch-output">
-                                  <span>{i18n.t('ON')}</span>
-                                  <span>{i18n.t('OFF')}</span>
+                                  <span>{i18n.t('common.button.on')}</span>
+                                  <span>{i18n.t('common.button.off')}</span>
                                 </label>
                               </div>
                             </CustomTooltip>

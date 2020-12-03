@@ -37,8 +37,8 @@ const SMTPSettings = ({smtpSettings, onSubmitSMTPSettingsForm, setIsShowAccountM
                     id="switch-auth"
                   />
                   <label className="custom-control-label" htmlFor="switch-auth">
-                    <span>{i18n.t('ON')}</span>
-                    <span>{i18n.t('OFF')}</span>
+                    <span>{i18n.t('common.button.on')}</span>
+                    <span>{i18n.t('common.button.off')}</span>
                   </label>
                 </div>
               </div>
@@ -91,8 +91,8 @@ const SMTPSettings = ({smtpSettings, onSubmitSMTPSettingsForm, setIsShowAccountM
                           id="switch-login-notification"
                         />
                         <label className="custom-control-label" htmlFor="switch-login-notification">
-                          <span>{i18n.t('ON')}</span>
-                          <span>{i18n.t('OFF')}</span>
+                          <span>{i18n.t('common.button.on')}</span>
+                          <span>{i18n.t('common.button.off')}</span>
                         </label>
                       </div>
                     </CustomTooltip>

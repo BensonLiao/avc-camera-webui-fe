@@ -53,8 +53,8 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
         <div className="custom-control custom-switch">
           <Field name="isEnableGPIO" type="checkbox" className="custom-control-input" id="switch-notification-target-io"/>
           <label className="custom-control-label" htmlFor="switch-notification-target-io">
-            <span>{i18n.t('ON')}</span>
-            <span>{i18n.t('OFF')}</span>
+            <span>{i18n.t('common.button.on')}</span>
+            <span>{i18n.t('common.button.off')}</span>
           </label>
         </div>
       </div>
@@ -66,8 +66,8 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
               <div className="custom-control custom-switch">
                 <Field name="isEnableGPIO1" type="checkbox" className="custom-control-input" id="switch-notification-target-output-1"/>
                 <label className="custom-control-label" htmlFor="switch-notification-target-output-1">
-                  <span>{i18n.t('ON')}</span>
-                  <span>{i18n.t('OFF')}</span>
+                  <span>{i18n.t('common.button.on')}</span>
+                  <span>{i18n.t('common.button.off')}</span>
                 </label>
               </div>
             </div>
@@ -76,8 +76,8 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
               <div className="custom-control custom-switch">
                 <Field name="isEnableGPIO2" type="checkbox" className="custom-control-input" id="switch-notification-target-output-2"/>
                 <label className="custom-control-label" htmlFor="switch-notification-target-output-2">
-                  <span>{i18n.t('ON')}</span>
-                  <span>{i18n.t('OFF')}</span>
+                  <span>{i18n.t('common.button.on')}</span>
+                  <span>{i18n.t('common.button.off')}</span>
                 </label>
               </div>
             </div>
@@ -91,8 +91,8 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
         <div className="custom-control custom-switch">
           <Field name="isEnableEmail" type="checkbox" className="custom-control-input" id="switch-notification-target-mail"/>
           <label className="custom-control-label" htmlFor="switch-notification-target-mail">
-            <span>{i18n.t('ON')}</span>
-            <span>{i18n.t('OFF')}</span>
+            <span>{i18n.t('common.button.on')}</span>
+            <span>{i18n.t('common.button.off')}</span>
           </label>
         </div>
       </div>

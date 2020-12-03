@@ -38,8 +38,8 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
                   <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
-                    <span>{i18n.t('ON')}</span>
-                    <span>{i18n.t('OFF')}</span>
+                    <span>{i18n.t('common.button.on')}</span>
+                    <span>{i18n.t('common.button.off')}</span>
                   </label>
                 </div>
               </div>

@@ -18,8 +18,8 @@ const CardsFormRule = ({faceRecognitionCondition, isEnableFaceRecognition, group
             id="switch-notification-face-recognition"
           />
           <label className="custom-control-label" htmlFor="switch-notification-face-recognition">
-            <span>{i18n.t('ON')}</span>
-            <span>{i18n.t('OFF')}</span>
+            <span>{i18n.t('common.button.on')}</span>
+            <span>{i18n.t('common.button.off')}</span>
           </label>
         </div>
       </div>

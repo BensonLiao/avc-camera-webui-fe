@@ -28,8 +28,8 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                 id="switch-face-recognition"
               />
               <label className="custom-control-label" htmlFor="switch-face-recognition">
-                <span>{i18n.t('ON')}</span>
-                <span>{i18n.t('OFF')}</span>
+                <span>{i18n.t('common.button.on')}</span>
+                <span>{i18n.t('common.button.off')}</span>
               </label>
             </div>
           </div>
@@ -54,8 +54,8 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                           onClick={() => values.isEnableSpoofing || setIsShowModal(true)}
                         />
                         <label className="custom-control-label" htmlFor="switch-face-recognition-spoofing">
-                          <span>{i18n.t('ON')}</span>
-                          <span>{i18n.t('OFF')}</span>
+                          <span>{i18n.t('common.button.on')}</span>
+                          <span>{i18n.t('common.button.off')}</span>
                         </label>
                       </span>
                     </CustomTooltip>
@@ -130,8 +130,8 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                 id="switch-face-size"
               />
               <label className="custom-control-label" htmlFor="switch-face-size">
-                <span>{i18n.t('ON')}</span>
-                <span>{i18n.t('OFF')}</span>
+                <span>{i18n.t('common.button.on')}</span>
+                <span>{i18n.t('common.button.off')}</span>
               </label>
             </div>
           </div>

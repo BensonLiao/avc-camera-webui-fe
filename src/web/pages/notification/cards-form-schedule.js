@@ -63,8 +63,8 @@ const CardsFormSchedule = ({values, setFieldValue}) => {
         <div className="custom-control custom-switch">
           <Field name="isEnableTime" checked={values.isEnableTime} type="checkbox" className="custom-control-input" id="switch-notification-time"/>
           <label className="custom-control-label" htmlFor="switch-notification-time">
-            <span>{i18n.t('ON')}</span>
-            <span>{i18n.t('OFF')}</span>
+            <span>{i18n.t('common.button.on')}</span>
+            <span>{i18n.t('common.button.off')}</span>
           </label>
         </div>
       </div>
