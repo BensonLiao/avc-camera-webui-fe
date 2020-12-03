@@ -81,7 +81,7 @@ module.exports = class OSD extends Base {
                   </div>
                   <div className="col-5 pl-4 pr-0">
                     <div className="card shadow">
-                      <div className="card-header">{i18n.t('video.osd.osd')}</div>
+                      <div className="card-header">{i18n.t('video.osd.title')}</div>
                       <div className="card-body">
                         <div className="form-group d-flex justify-content-between align-items-center">
                           <label className="mb-0">{i18n.t('video.osd.enable')}</label>

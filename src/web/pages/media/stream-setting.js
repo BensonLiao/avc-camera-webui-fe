@@ -479,7 +479,7 @@ module.exports = class StreamSetting extends Base {
     return (
       <>
         <div className={classNames('card-header', (homePage && 'd-flex align-items-center justify-content-between rounded-0'))}>
-          {i18n.t('video.stream.streams')}
+          {i18n.t('video.stream.title')}
           {
             homePage && (
               <button

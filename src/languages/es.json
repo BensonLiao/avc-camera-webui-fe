@@ -93,7 +93,6 @@
         "defog": "Desempañar",
         "lightingCompensation": "Frecuencia de actualización",
         "autoFocus": "Foco automático",
-        "resetDefault": "Restaurar a lo preajuste",
         "constants": {
             "ir-control-0": "automático",
             "ir-control-1": "Habilitar",
@@ -132,7 +131,110 @@
             "refresh-rate-2": "60Hz"
         }
     },
-    "video": {},
+    "video": {
+        "breadcrumb": {
+            "videoSettings": "Video",
+            "streams": "Stream",
+            "rtsp": "RTSP",
+            "hdmi": "HDMI",
+            "osd": "Mapa de texto",
+            "privacyMask": "Máscara de privacidad"
+        },
+        "stream": {
+            "settings": "Settings",
+            "title": "Stream",
+            "streams": "Stream",
+            "stream1": "Stream 01",
+            "stream2": "Stream 02",
+            "codec": "Codificación de imágenes",
+            "resolution": "Resolución",
+            "fps": "Cuadros por segundo",
+            "bandwidth": "Gestión de la tasa de bits",
+            "quality": "Calidad",
+            "auto": "automático",
+            "gop": "GOP",
+            "modal": {
+                "apiProcessingModalTitle": "Actualización de la configuración de Stream",
+                "confirmUpdate": "¿Está seguro de que desea cambiar la configuración de Stream?",
+                "confirmRatioChange": " Si cambia la relación de aspecto de la resolución de la Stream 1, también se cambiará la configuración de la Stream 2. ¿Confirmar para continuar?"
+            },
+            "constants": {
+                "stream-resolution-0": "3840*2160 (16:9)",
+                "stream-resolution-1": "2560*1440 (16:9)",
+                "stream-resolution-2": "1920*1080 (16:9)",
+                "stream-resolution-3": "1280*720 (16:9)",
+                "stream-resolution-4": "640*360 (16:9)",
+                "stream-resolution-5": "2560*1920 (4:3)",
+                "stream-resolution-6": "2048*1536 (4:3)",
+                "stream-resolution-7": "1600*1200 (4:3)",
+                "stream-resolution-8": "1280*960 (4:3)",
+                "stream-resolution-9": "1024*768 (4:3)",
+                "stream-resolution-10": "640*480 (4:3)",
+                "stream-resolution-11": "320*240 (4:3)",
+                "stream-bandwidth-management-0": "Tasa de bits máxima",
+                "stream-bandwidth-management-1": "Tasa de bits variable",
+                "stream-bandwidth-management-2": "Tasa de bits fija",
+                "quality-30": "bajo",
+                "quality-50": "medio",
+                "quality-80": "alto",
+                "bitRateRange": "{{0}} - {{1}} Kbps"
+            }
+        },
+        "rtsp": {
+            "title": "RTSP",
+            "enableAudio": "Habilitar grabación de audio para Stream",
+            "requireAuthentication": "Habilitar autenticación de contraseña de la cuenta",
+            "rtspTcpPort": "Puerto RTSP/TCP",
+            "rtspUdpPort": "Puerto RTSP/UDP",
+            "tcpRange": "Rango: 1024-65535, preestablecido: 8554",
+            "udpRange": "Rango: 1024-65535, preestablecido: 17300",
+            "maxConnections": "Número máximo de conexiones simultáneas"
+        },
+        "hdmi": {
+            "title": "HDMI",
+            "hdmi": "HDMI",
+            "fps": "Cuadros por segundo",
+            "modal": {
+                "apiProcessingModalTitle": "Actualizar la configuración de HDMI",
+                "confirmText": "¿Está seguro de que desea cambiar la configuración de HDMI?"
+            }
+        },
+        "osd": {
+            "title": "Mapa de texto",
+            "enable": "Habilitar mapa de texto",
+            "size": "tamaño de fuente",
+            "color": "color",
+            "position": "posición",
+            "positionHelper": "Clic flecha en panel de vista previa",
+            "leftTop": "arriba a la izquierda",
+            "rightTop": "Superior derecha",
+            "leftBottom": "Abajo a la izquierda",
+            "rightBottom": "Inferior derecha",
+            "overlay": "Texto",
+            "constants": {
+                "font-size-0": "pequeño",
+                "font-size-1": "medio",
+                "font-size-2": "Grande",
+                "osd-type-0": "hora",
+                "osd-type-1": "Nombre del dispositivo",
+                "osd-type-2": "Nombre y hora del dispositivo",
+                "osd-type-3": "Texto personalizado",
+                "enterCustomText": "Ingresar texto personalizado"
+            }
+        },
+        "privacyMask": {
+            "maskArea": "Área de máscara",
+            "title": "Máscara de privacidad",
+            "enable": "Habilitar máscara de privacidad",
+            "maskHelper": "Agregue una máscara de privacidad en el panel de vista previa",
+            "note": "Descripción",
+            "drag": "Arrastrar",
+            "noteText1": "Agregar máscara:",
+            "noteText2": "Borrar máscara:",
+            "or": "or",
+            "noteText3": "Hasta 4 mascarillas"
+        }
+    },
     "audio": {},
     "notification": {},
     "userManagement": {},
@@ -204,7 +306,9 @@
         },
         "button": {
             "on": "ON",
-            "off": "OFF"
+            "off": "OFF",
+            "apply": "Apply",
+            "resetDefault": "Restaurar a lo preajuste"
         },
         "modal": {
             "pleaseWait": "Por favor espera",

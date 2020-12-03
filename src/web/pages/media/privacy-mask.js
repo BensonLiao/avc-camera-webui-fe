@@ -156,7 +156,7 @@ module.exports = class PrivacyMask extends Base {
 
         <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
-            <div className="card-header">{i18n.t('video.privacyMask.privacyMask')}</div>
+            <div className="card-header">{i18n.t('video.privacyMask.title')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
                 <label className="mb-0">{i18n.t('video.privacyMask.enable')}</label>

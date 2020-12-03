@@ -93,7 +93,6 @@
         "defog": "霧補正",
         "lightingCompensation": "更新周波数(Hz)",
         "autoFocus": "自動フォーカス",
-        "resetDefault": "デフォルト設定へ戻る",
         "constants": {
             "ir-control-0": "自動",
             "ir-control-1": "有効",
@@ -132,7 +131,110 @@
             "refresh-rate-2": "60Hz"
         }
     },
-    "video": {},
+    "video": {
+        "breadcrumb": {
+            "videoSettings": "ビデオ設定",
+            "streams": "ストリーム",
+            "rtsp": "RTSP",
+            "hdmi": "HDMI",
+            "osd": "OSD",
+            "privacyMask": "プライバシーマスク"
+        },
+        "stream": {
+            "settings": "設定",
+            "title": "ストリーム",
+            "streams": "ストリーム",
+            "stream1": "ストリーム 01",
+            "stream2": "ストリーム 02",
+            "codec": "コーデック",
+            "resolution": "解像度",
+            "fps": "フレームレート (FPS)",
+            "bandwidth": "ビットレート制御",
+            "quality": "品質",
+            "auto": "自動",
+            "gop": "GOP",
+            "modal": {
+                "apiProcessingModalTitle": "ストリーム設定の更新",
+                "confirmUpdate": "ストリーム設定を変更しますか？",
+                "confirmRatioChange": "ストリーム1のアスペクト比を変更すると、ストリーム2の設定も更新されます。続行してもよろしいですか？"
+            },
+            "constants": {
+                "stream-resolution-0": "3840*2160 (16:9)",
+                "stream-resolution-1": "2560*1440 (16:9)",
+                "stream-resolution-2": "1920*1080 (16:9)",
+                "stream-resolution-3": "1280*720 (16:9)",
+                "stream-resolution-4": "640*360 (16:9)",
+                "stream-resolution-5": "2560*1920 (4:3)",
+                "stream-resolution-6": "2048*1536 (4:3)",
+                "stream-resolution-7": "1600*1200 (4:3)",
+                "stream-resolution-8": "1280*960 (4:3)",
+                "stream-resolution-9": "1024*768 (4:3)",
+                "stream-resolution-10": "640*480 (4:3)",
+                "stream-resolution-11": "320*240 (4:3)",
+                "stream-bandwidth-management-0": "最大ビットレート",
+                "stream-bandwidth-management-1": "可変ビットレート",
+                "stream-bandwidth-management-2": "固定ビットレート",
+                "quality-30": "低",
+                "quality-50": "中",
+                "quality-80": "高",
+                "bitRateRange": "{{0}} - {{1}} Kbps"
+            }
+        },
+        "rtsp": {
+            "title": "RTSP",
+            "enableAudio": "RTSPでのオーディオ出力を有効にする",
+            "requireAuthentication": "アカウント認証を有効にする",
+            "rtspTcpPort": "RTSP/TCPポート",
+            "rtspUdpPort": "RTSP/UDPポート",
+            "tcpRange": "入力範囲：1024-65535 デフォルト：8554",
+            "udpRange": "入力範囲：1024-65535 デフォルト：17300",
+            "maxConnections": "最大同時接続クライアント数"
+        },
+        "hdmi": {
+            "title": "HDMI設定",
+            "hdmi": "HDMI",
+            "fps": "フレームレート (FPS)",
+            "modal": {
+                "apiProcessingModalTitle": "HDMI設定を更新する",
+                "confirmText": "HDMI設定を変更しますか？"
+            }
+        },
+        "osd": {
+            "title": "OSD",
+            "enable": "OSDを有効にする",
+            "size": "文字サイズ",
+            "color": "カラー",
+            "position": "表示位置",
+            "positionHelper": "プレビュー画面中の青印をクリックして下さい",
+            "leftTop": "左上",
+            "rightTop": "右上",
+            "leftBottom": "左下",
+            "rightBottom": "右下",
+            "overlay": "テキスト",
+            "constants": {
+                "font-size-0": "小",
+                "font-size-1": "中",
+                "font-size-2": "大",
+                "osd-type-0": "時間",
+                "osd-type-1": "デバイス名",
+                "osd-type-2": "デバイス名と時間",
+                "osd-type-3": "カスタム",
+                "enterCustomText": "カスタム内容を入力します"
+            }
+        },
+        "privacyMask": {
+            "maskArea": "マスクエリア",
+            "privacyMask": "プライバシーマスク",
+            "enable": "プライバシーマスクを有効にする",
+            "maskHelper": "プレビューウィンドにマスクを追加してください",
+            "note": "説明",
+            "drag": "ドラッグ",
+            "noteText1": "マスクを追加する",
+            "noteText2": "マスクを削除する",
+            "or": "or",
+            "noteText3": "マスクは最大四ヶ所まで設定可能です"
+        }
+    },
     "audio": {},
     "notification": {},
     "userManagement": {},
@@ -204,7 +306,9 @@
         },
         "button": {
             "on": "ON",
-            "off": "OFF"
+            "off": "OFF",
+            "apply": "Apply",
+            "resetDefault": "デフォルト設定へ戻る"
         },
         "modal": {
             "pleaseWait": "しばらくお待ちください",

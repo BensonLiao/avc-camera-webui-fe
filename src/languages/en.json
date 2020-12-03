@@ -142,6 +142,7 @@
         },
         "stream": {
             "settings": "Settings",
+            "title": "Streams",
             "streams": "Streams",
             "stream1": "Stream 01",
             "stream2": "Stream 02",
@@ -190,6 +191,7 @@
             "maxConnections": "Maximum Number of Concurrent Connections"
         },
         "hdmi": {
+            "title": "HDMI",
             "hdmi": "HDMI",
             "fps": "Frame Rate (FPS)",
             "modal": {
@@ -198,7 +200,7 @@
             }
         },
         "osd": {
-            "osd": "OSD",
+            "title": "OSD",
             "enable": "Enable On-Screen Display",
             "size": "Size",
             "color": "Color",
