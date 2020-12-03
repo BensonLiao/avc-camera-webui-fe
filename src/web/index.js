@@ -86,6 +86,18 @@ const waitForReboot = () => {
   ReactDOM.render(<Loading/>, document.getElementById('root'));
 };
 
+// Remove Media/HDMI Route if camera model is not MD2
+(async () => {
+  if (!window.user) {
+    return;
+  }
+
+  const systemInformation = await api.system.getInformation();
+  if (systemInformation.data.modelName !== SystemModelName.md2) {
+    router.routes = router.routes.filter(route => route.name !== 'web.media.hdmi');
+  }
+})();
+
 const renderWeb = () => {
   // Setup routers
   router.listen('ChangeStart', (action, toState, fromState, next) => {
@@ -108,20 +120,6 @@ const renderWeb = () => {
     // }
 
     const $user = store.get('$user');
-
-    // Remove Media/HDMI Route if camera model is not MD2
-    const removeHDMIRoute = async () => {
-      if (!$user) {
-        return;
-      }
-
-      const systemInformation = await api.system.getInformation();
-      if (systemInformation.data.modelName !== SystemModelName.md2) {
-        router.routes = router.routes.filter(route => route.name !== 'web.media.hdmi');
-      }
-    };
-
-    removeHDMIRoute();
 
     const allowAnonymousRoutes = [
       'setup-https',
