@@ -8,18 +8,19 @@ import SyncTimeOption from 'webserver-form-schema/constants/system-sync-time';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import utils from '../../../core/utils';
-import wrappedApi from '../../../core/apis';
+import axios from 'axios';
 
 const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMemberHandler, remainingPictureCount}) => {
   const generateEnlargePhotoHandler = eventPhotoUrl => {
-    wrappedApi({
+    axios({
       method: 'get',
       url: eventPhotoUrl,
       responseType: 'blob'
     })
       .then(response => {
         window.open(window.URL.createObjectURL(response.data), '_blank', 'rel=noopener noreferrer');
-      });
+      })
+      .catch(_ => {});
   };
 
   const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
