@@ -198,16 +198,17 @@
             }
         },
         "osd": {
-            "Enable On-Screen Display": "Enable On-Screen Display",
-            "Size": "Size",
-            "Color": "Color",
-            "Position": "Position",
-            "Click one of the arrows on the live view screen.": "Click one of the arrows on the live view screen.",
-            "Left Top": "Left Top",
-            "Right Top": "Right Top",
-            "Bottom Left": "Bottom Left",
-            "Bottom Right": "Bottom Right",
-            "Text Overlay": "Text Overlay",
+            "osd": "OSD",
+            "enable": "Enable On-Screen Display",
+            "size": "Size",
+            "color": "Color",
+            "position": "Position",
+            "positionHelper": "Click one of the arrows on the live view screen.",
+            "leftTop": "Left Top",
+            "rightTop": "Right Top",
+            "leftBottom": "Bottom Left",
+            "rightBottom": "Bottom Right",
+            "overlay": "Text Overlay",
             "constants": {
                 "font-size-0": "Small",
                 "font-size-1": "Medium",
@@ -216,7 +217,7 @@
                 "osd-type-1": "Camera Name",
                 "osd-type-2": "Camera Name and Time",
                 "osd-type-3": "Custom",
-                "Enter custom text": "Enter custom text"
+                "enterCustomText": "Enter custom text"
             }
         },
         "privacyMask": {

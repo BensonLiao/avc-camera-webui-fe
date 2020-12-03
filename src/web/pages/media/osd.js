@@ -81,20 +81,20 @@ module.exports = class OSD extends Base {
                   </div>
                   <div className="col-5 pl-4 pr-0">
                     <div className="card shadow">
-                      <div className="card-header">{i18n.t('OSD')}</div>
+                      <div className="card-header">{i18n.t('video.osd.osd')}</div>
                       <div className="card-body">
                         <div className="form-group d-flex justify-content-between align-items-center">
-                          <label className="mb-0">{i18n.t('Enable On-Screen Display')}</label>
+                          <label className="mb-0">{i18n.t('video.osd.enable')}</label>
                           <div className="custom-control custom-switch">
                             <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                             <label className="custom-control-label" htmlFor="switch-function">
-                              <span>{i18n.t('ON')}</span>
-                              <span>{i18n.t('OFF')}</span>
+                              <span>{i18n.t('common.button.on')}</span>
+                              <span>{i18n.t('common.button.off')}</span>
                             </label>
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-between align-items-center">
-                          <label className="mb-0">{i18n.t('Size')}</label>
+                          <label className="mb-0">{i18n.t('video.osd.size')}</label>
                           <div className="btn-group">
                             {
                               OSDFontSize.all().map(size => (
@@ -107,14 +107,14 @@ module.exports = class OSD extends Base {
                                   )}
                                   onClick={() => setFieldValue('fontSize', size)}
                                 >
-                                  {i18n.t(`font-size-${size}`)}
+                                  {i18n.t(`video.osd.constants.font-size-${size}`)}
                                 </button>
                               ))
                             }
                           </div>
                         </div>
                         <div className="form-group d-flex justify-content-between align-items-center">
-                          <label className="mb-0">{i18n.t('Color')}</label>
+                          <label className="mb-0">{i18n.t('video.osd.color')}</label>
                           <div>
                             <button
                               type="button"
@@ -141,30 +141,27 @@ module.exports = class OSD extends Base {
                         </div>
                         <div className="form-group">
                           <div className="form-group d-flex justify-content-between align-items-center mb-0">
-                            <label className="mb-0">{i18n.t('Position')}</label>
+                            <label className="mb-0">{i18n.t('video.osd.position')}</label>
                             {
-                              [{leftTop: 'Left Top'}, {rightTop: 'Right Top'}, {leftBottom: 'Bottom Left'}, {rightBottom: 'Bottom Right'}].map(direction => {
-                                const [key, value] = Object.entries(direction)[0];
-                                return (
-                                  values.position === OSDPosition[key] && (
-                                    <p key={value} className="text-primary mb-0">{i18n.t(value)}</p>
-                                  )
-                                );
-                              })
+                              ['leftTop', 'rightTop', 'leftBottom', 'rightBottom'].map(direction => (
+                                values.position === OSDPosition[direction] && (
+                                  <p key={direction} className="text-primary mb-0">{i18n.t(`video.osd.${direction}`)}</p>
+                                )
+                              ))
                             }
                           </div>
-                          <small className="mt-0 form-text text-muted">{i18n.t('Click one of the arrows on the live view screen.')}</small>
+                          <small className="mt-0 form-text text-muted">{i18n.t('video.osd.positionHelper')}</small>
                         </div>
-                        <SelectField labelName={i18n.t('Text Overlay')} name="type">
+                        <SelectField labelName={i18n.t('video.osd.overlay')} name="type">
                           {OSDType.all().map(type => (
-                            <option key={type} value={type}>{i18n.t(`osd-type-${type}`)}</option>
+                            <option key={type} value={type}>{i18n.t(`video.osd.constants.osd-type-${type}`)}</option>
                           ))}
                         </SelectField>
                         <div className={classNames('form-group', {'d-none': values.type !== OSDType.custom})}>
                           <Field
                             name="customText"
                             type="text"
-                            placeholder={i18n.t('Enter custom text')}
+                            placeholder={i18n.t('video.osd.enterCustomText')}
                             maxLength={OSDSettingsSchema.customText.max}
                             className="form-control"
                           />
