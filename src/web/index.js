@@ -120,7 +120,6 @@ const renderWeb = () => {
     // }
 
     const $user = store.get('$user');
-
     const allowAnonymousRoutes = [
       'setup-https',
       'setup-account',
