@@ -211,47 +211,47 @@ module.exports = class Layout extends Base {
       <>
         { isAdmin && (
           <div className="left-navigation fixed-top">
-            <CustomTooltip title={i18n.t('Home')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.home')}>
               <Link className={classTable.home} to="/" onClick={this.onClickLink}>
                 <img src={iconHome}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Video')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.video')}>
               <Link className={classTable.media} to="/media/stream" onClick={this.onClickLink}>
                 <img src={iconMedia}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Audio')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.audio')}>
               <Link className={classTable.audio} to="/audio" onClick={this.onClickLink}>
                 <img src={iconAudio}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Notification')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.notification')}>
               <Link className={classTable.notification} to="/notification/smtp" onClick={this.onClickLink}>
                 <img src={iconNotification}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('User Management')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.userManagement')}>
               <Link className={classTable.users} to="/users/members" onClick={this.onClickLink}>
                 <img src={iconUserManagement}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Analytics')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.analytics')}>
               <Link className={classTable.smart} to="/analytic/face-recognition" onClick={this.onClickLink}>
                 <img src={iconAnalytic}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Network')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.network')}>
               <Link className={classTable.network} to="/network/settings" onClick={this.onClickLink}>
                 <img src={iconNetwork}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('System')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.system')}>
               <Link className={classTable.system} to="/system/datetime" onClick={this.onClickLink}>
                 <img src={iconSystem}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('SD Card')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.sdCard')}>
               <Link className={classTable.sdCard} to="/sd-card" onClick={this.onClickLink}>
                 <img src={iconSDCard}/>
               </Link>

@@ -300,7 +300,56 @@
         "portReserved": "Este puerto está reservado o en uso para el sistema"
     },
     "navigation": {
-        "sidebar": {},
+        "sidebar": {
+            "videoSettings": "Video",
+            "streams": "Stream",
+            "rtsp": "RTSP",
+            "hdmi": "HDMI",
+            "osd": "Mapa de texto",
+            "privacyMask": "Máscara de privacidad",
+
+            "notificationSettings": "Anunciar",
+            "notificationMethod": "Método de notificación",
+            "email": "correo electrónico",
+            "io": "Entrada y salida digital",
+            "smartNotification": "Notificación inteligente",
+
+            "members": "miembro",
+            "accounts": "cuentas",
+            "events": "eventos",
+
+            "analyticsSettings": "Análisis inteligente",
+            "facialRecognition": "Reconocimiento facial",
+            "motionDetection": "Detección de movimiento",
+            "license": "Autorización de análisis inteligente",
+
+            "internetNetworkSettings": "Configuración de Internet y red",
+            "network": "Red",
+            "tcpip": "TCP/IP",
+            "https": "HTTPS",
+
+            "system": "Sistema",
+            "administration": "administración",
+            "dateTime": "Fecha y hora",
+            "deviceMaintenance": "mantenimiento",
+            "softwareUpgrade": "Actualización de software",
+            "status": "estado",
+            "systemLog": "Registro del sistema",
+            "information": "Información del dispositivo",
+
+            "tooltip": {
+                "home": "Página de Inicio",
+                "image": "imagen",
+                "video": "Video",
+                "audio": "Audio",
+                "notification": "Notificación",
+                "userManagement": "Usuarios",
+                "analytics": "Análisis",
+                "network": "Red",
+                "system": "Sistema",
+                "sdCard": "Tarjeta de memoria"
+            }
+        },
         "appbar": {}
     },
     "common": {

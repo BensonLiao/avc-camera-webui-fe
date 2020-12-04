@@ -30,28 +30,28 @@ module.exports = class Smart extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{i18n.t('Analytics Settings')}</h2>
+          <h2>{i18n.t('navigation.sidebar.analyticsSettings')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/analytic/face-recognition"
-              title={i18n.t('Facial Recognition')}
+              title={i18n.t('navigation.sidebar.facialRecognition')}
               className={classNames('nav-link', {active: currentRouteName === 'web.smart.face-recognition'})}
             >
-              {i18n.t('Facial Recognition')}
+              {i18n.t('navigation.sidebar.facialRecognition')}
             </Link>
             <Link
               to="/analytic/motion-detection"
-              title={i18n.t('Motion Detection')}
+              title={i18n.t('navigation.sidebar.motionDetection')}
               className={classNames('nav-link', {active: currentRouteName === 'web.smart.motion-detection'})}
             >
-              {i18n.t('Motion Detection')}
+              {i18n.t('navigation.sidebar.motionDetection')}
             </Link>
             <Link
               to="/analytic/license"
-              title={i18n.t('License')}
+              title={i18n.t('navigation.sidebar.license')}
               className={classNames('nav-link', {active: currentRouteName === 'web.smart.license'})}
             >
-              {i18n.t('License')}
+              {i18n.t('navigation.sidebar.license')}
             </Link>
           </nav>
         </div>
