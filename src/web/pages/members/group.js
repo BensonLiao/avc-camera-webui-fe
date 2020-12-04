@@ -21,7 +21,6 @@ const Group = ({group, groups, params}) => {
     groupsName: groups.items.map(group => group.name)
   });
   const {isApiProcessing} = useContextState();
-
   const {groupsName, isShowModal} = state;
 
   const hideModal = () => {
@@ -183,8 +182,8 @@ Group.propTypes = {
 };
 
 Group.defaultProps = {
-  groups: {},
-  group: {}
+  groups: null,
+  group: null
 };
 
 export default withGlobalStatus(Group);
