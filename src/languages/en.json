@@ -315,43 +315,39 @@
             "timeRange": "{{0}}-{{1}} Seconds"
         },
         "cards": {
-            "Notification Filters": "Filters",
-            "Pinned": "Pinned",
-            "Others": "Others",
-            "Unpin Card": "Unpin this card",
-            "Pin this card": "Pin this card",
-            "Enter card title": "Enter card title",
-            "Email: On": "Email: On",
-            "Output: On": "Output: On",
-            "VMS: On": "VMS: On",
-            "Schedule": "Schedule",
-            "Enable Schedule": "Enable Schedule",
-            "Rule": "Rule",
-            "Group": "Group",
-            "Condition": "Condition",
-            "Method": "Method",
-            "Everyone": "Everyone",
-            "Email Attachment": "Email Attachment",
-            "Receiver": "Receiver",
-            "Enter email address": "Enter email address",
-            "Add a New Notification Card": "Add a New Notification Card",
-            "Notify by Recognition Result": "Notify by Recognition Result",
-            "Add": "Add",
-            "Cancel": "Cancel",
-            "Cannot create more than {{0}} cards": "Cannot create more than {{0}} cards",
-            "Subject :": "Subject :",
-            "Content :": "Content :",
-            "Specify the subject": "Specify the subject",
-            "Add your message": "Add your message",
-            "Content Placement": "Content Placement",
-            "Face Recognition Event on [{{0}}]": "Face Recognition Event on [{{0}}]",
-            "Motion Detection Event on [{{0}}]": "Motion Detection Event on [{{0}}]",
-            "Digital Input Event on [{{0}}]": "Digital Input Event on [{{0}}]",
-            "Invalid email address.": "Invalid email address.",
-            "The maximum number of recipients is 64.": "The maximum number of recipients is 64.",
-            "Duplicate email address.": "Duplicate email address.",
+            "filters": "Filters",
+            "pinned": "Pinned",
+            "others": "Others",
+            "analytics": "Analytics",
+            "defaultCardTitle": "Enter card title",
+            "rule": "Rule",
+            "schedule": "Schedule",
+            "method": "Method",
+
+            "enableSchedule": "Enable Schedule",
+            "enableNotifyResult": "Notify by Recognition Result",
+            "condition": "Condition",
+            "group": "Group",
+            "everyone": "Everyone",
+
+            "io": "I/O",
+            "output1": "Output 1",
+            "output2": "Output 2",
+            "email": "Email",
+            "emailAttachment": "Email Attachment",
+            "subject": "Subject :",
+            "subjectPlaceholder": "Specify the subject",
+            "defaultSubjectFR": "Face Recognition Event on [{{0}}]",
+            "defaultSubjectMD": "Motion Detection Event on [{{0}}]",
+            "defaultSubjectDI": "Digital Input Event on [{{0}}]",
+            "content": "Content :",
+            "contentPlaceholder": "Add your message",
+            "contentPlacement": "Content Placement",
+            "receiver": "Receiver",
+            "receiverPlaceholder": "Enter email address",
+
             "constants": {
-                "Video Management System": "Video Management System",
+                "videoManagementSystem": "Video Management System",
                 "notification-vms-event-0": "Video Motion Detection Event",
                 "notification-vms-event-1": "Analytic Event",
                 "notification-card-filter-all": "All",
@@ -372,9 +368,19 @@
                 "email-content-position-1": "End"
             },
             "tooltip": {
-                "Please enter start and end time.": "Please enter start and end time.",
-                "The maximum number of allowed schedules is 5.": "The maximum number of allowed schedules is 5.",
-                "Please enter an email address.": "Please enter an email address."
+                "unpin": "Unpin this card",
+                "pin": "Pin this card",
+                "addNewCard": "Add a New Notification Card",
+                "iconEmail": "Email: On",
+                "iconOutput": "Output: On",
+                "iconVMS": "VMS: On",
+                "enterDatetime": "Please enter start and end time.",
+                "maxSchedules": "The maximum number of allowed schedules is 5.",
+                "disabledReceiverButton": "Please enter an email address."
+            },
+            "toast": {
+                "limitExceeded": "Card Number Limit Exceeded",
+                "limitExceededBody": "Cannot create more than {{0}} cards"
             }
         }
     },
@@ -427,7 +433,9 @@
         "countryCode": "This field must be a valid country code.",
         "duplicateName": "This name already exists in the system. Please use a different name.",
         "portEmpty": "The port number must not be empty.",
-        "portReserved": "The specified port is reserved by system or in use!"
+        "portReserved": "The specified port is reserved by system or in use!",
+        "maxRecipient": "The maximum number of recipients is 64.",
+        "duplicateEmail": "Duplicate email address."
     },
     "navigation": {
         "sidebar": {
@@ -437,22 +445,27 @@
             "hdmi": "HDMI",
             "osd": "OSD",
             "privacyMask": "Privacy Mask",
+
             "notificationSettings": "Notification Settings",
             "notificationMethod": "Notification Method",
             "email": "Email",
             "io": "I/O",
             "smartNotification": "Smart Notification",
+
             "members": "Members",
             "accounts": "Accounts",
             "events": "Events",
+
             "analyticsSettings": "Analytics Settings",
             "facialRecognition": "Facial Recognition",
             "motionDetection": "Motion Detection",
             "license": "License",
+
             "internetNetworkSettings": "Internet & Network Settings",
             "network": "Network",
             "tcpip": "TCP/IP",
             "https": "HTTPS",
+
             "system": "System",
             "administration": "Administration",
             "dateTime": "Date & Time",
@@ -461,6 +474,7 @@
             "status": "Status",
             "systemLog": "System Log",
             "information": "Information",
+            
             "tooltip": {
                 "home": "Home",
                 "image": "Image",
@@ -488,6 +502,14 @@
             "hidePassword": "Hide Password",
             "showPassword": "Show Password"
         },
+        "dateTimePicker": {
+            "startDate": "Date",
+            "startTime": "Time",
+            "startDatetime": "Start Time",
+            "endDate": "Date",
+            "endTime": "Time",
+            "endDatetime": "End Time"
+        },
         "button": {
             "on": "ON",
             "off": "OFF",
@@ -497,7 +519,8 @@
             "confirm": "Confirm",
             "cancel": "Cancel",
             "new": "New",
-            "create": "Create"
+            "create": "Create",
+            "add": "Add"
         },
         "modal": {
             "pleaseWait": "Please wait",

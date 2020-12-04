@@ -367,6 +367,14 @@
             "hidePassword": "Ocultar contraseña",
             "showPassword": "mostrar contraseña"
         },
+        "dateTimePicker": {
+            "startDate": "fecha",
+            "startTime": "hora",
+            "startDatetime": "Hora de inicio",
+            "endDate": "fecha",
+            "endTime": "hora",
+            "endDatetime": "Hora de fin"
+        },
         "button": {
             "on": "ON",
             "off": "OFF",
@@ -376,7 +384,8 @@
             "confirm": "Confirmar",
             "cancel": "Cancelar",
             "new": "Nuevo",
-            "create": "Nuevo"
+            "create": "Nuevo",
+            "add": "Añadir"
         },
         "modal": {
             "pleaseWait": "Por favor espera",

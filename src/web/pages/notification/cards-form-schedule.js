@@ -59,7 +59,7 @@ const CardsFormSchedule = ({values, setFieldValue}) => {
     <>
       {/* face-recognition */}
       <div className="form-group d-flex justify-content-between align-items-center">
-        <label className="mb-0">{i18n.t('Enable Schedule')}</label>
+        <label className="mb-0">{i18n.t('notification.cards.enableSchedule')}</label>
         <div className="custom-control custom-switch">
           <Field name="isEnableTime" checked={values.isEnableTime} type="checkbox" className="custom-control-input" id="switch-notification-time"/>
           <label className="custom-control-label" htmlFor="switch-notification-time">
@@ -74,14 +74,14 @@ const CardsFormSchedule = ({values, setFieldValue}) => {
             <Field
               name="$start"
               component={DateTimePicker}
-              dateTabText={i18n.t('Start Date')}
-              timeTabText={i18n.t('Start Time')}
+              dateTabText={i18n.t('common.dateTimePicker.startDate')}
+              timeTabText={i18n.t('common.dateTimePicker.startTime')}
               inputProps={{
                 className: classNames(
                   'btn start-date px-4',
                   {active: isShowStartDatePicker}
                 ),
-                placeholder: i18n.t('Start Datetime'),
+                placeholder: i18n.t('common.dateTimePicker.startDatetime'),
                 style: {whiteSpace: 'nowrap'}
               }}
               endDateFieldName="$end"
@@ -92,14 +92,14 @@ const CardsFormSchedule = ({values, setFieldValue}) => {
             <Field
               name="$end"
               component={DateTimePicker}
-              dateTabText={i18n.t('End Date')}
-              timeTabText={i18n.t('End Time')}
+              dateTabText={i18n.t('common.dateTimePicker.endDate')}
+              timeTabText={i18n.t('common.dateTimePicker.endTime')}
               inputProps={{
                 className: classNames(
                   'btn end-date px-4',
                   {active: isShowEndDatePicker}
                 ),
-                placeholder: i18n.t('End Datetime'),
+                placeholder: i18n.t('common.dateTimePicker.endDatetime'),
                 style: {whiteSpace: 'nowrap'}
               }}
               startDateFieldName="$start"
@@ -113,7 +113,7 @@ const CardsFormSchedule = ({values, setFieldValue}) => {
             return (
               <CustomTooltip
                 show={statusCheck}
-                title={values.timePeriods.length >= 5 ? i18n.t('The maximum number of allowed schedules is 5.') : i18n.t('Please enter start and end time.')}
+                title={values.timePeriods.length >= 5 ? i18n.t('notification.cards.tooltip.maxSchedules') : i18n.t('notification.cards.tooltip.enterDatetime')}
               >
                 <div className="col-auto my-1">
                   <button

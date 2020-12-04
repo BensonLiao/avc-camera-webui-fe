@@ -361,6 +361,14 @@
             "hidePassword": "隱藏密碼",
             "showPassword": "顯示密碼"
         },
+        "dateTimePicker": {
+            "startDate": "日期",
+            "startTime": "時刻",
+            "startDatetime": "起始時間",
+            "endDate": "日期",
+            "endTime": "時刻",
+            "endDatetime": "終止時間"
+        },
         "button": {
             "on": "開啟",
             "off": "關閉",
@@ -370,7 +378,8 @@
             "confirm": "確定",
             "cancel": "取消",
             "new": "新增",
-            "create": "新增"
+            "create": "新增",
+            "add": "新增"
         },
         "modal": {
             "pleaseWait": "請稍候",

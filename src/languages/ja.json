@@ -361,6 +361,14 @@
             "hidePassword": "パスワードを非表示する",
             "showPassword": "パスワードを表示する"
         },
+        "dateTimePicker": {
+            "startDate": "日付",
+            "startTime": "時間",
+            "startDatetime": "開始時間",
+            "endDate": "日付",
+            "endTime": "時間",
+            "endDatetime": "終了時間"
+        },
         "button": {
             "on": "ON",
             "off": "OFF",
@@ -370,7 +378,8 @@
             "confirm": "確認",
             "cancel": "キャンセル",
             "new": "追加",
-            "create": "追加"
+            "create": "追加",
+            "add": "追加"
         },
         "modal": {
             "pleaseWait": "しばらくお待ちください",

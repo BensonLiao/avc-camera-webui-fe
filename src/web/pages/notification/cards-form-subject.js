@@ -27,14 +27,14 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
   const validateEmail = () => {
     if (values.$email) {
       if (!PRECISE_EMAIL_PATTERN.test(values.$email)) {
-        return i18n.t('Invalid email address.');
+        return i18n.t('validation.email');
       }
 
       if (values.emails.length >= NotificationCardSchema.emails.max) {
-        return i18n.t('The maximum number of recipients is 64.');
+        return i18n.t('validation.maxRecipient');
       }
 
-      return utils.duplicateCheck(values.emails, values.$email, i18n.t('Duplicate email address.'));
+      return utils.duplicateCheck(values.emails, values.$email, i18n.t('validation.duplicateEmail'));
     }
   };
 
@@ -49,7 +49,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
     <>
       {/* I/O Notification */}
       <div className="form-group d-flex justify-content-between align-items-center">
-        <label className="mb-0">{i18n.t('I/O')}</label>
+        <label className="mb-0">{i18n.t('notification.cards.io')}</label>
         <div className="custom-control custom-switch">
           <Field name="isEnableGPIO" type="checkbox" className="custom-control-input" id="switch-notification-target-io"/>
           <label className="custom-control-label" htmlFor="switch-notification-target-io">
@@ -62,7 +62,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
         <div className="card">
           <div className="card-body">
             <div className="form-group d-flex justify-content-between align-items-center">
-              <label className="mb-0">{i18n.t('Output 1')}</label>
+              <label className="mb-0">{i18n.t('notification.cards.output1')}</label>
               <div className="custom-control custom-switch">
                 <Field name="isEnableGPIO1" type="checkbox" className="custom-control-input" id="switch-notification-target-output-1"/>
                 <label className="custom-control-label" htmlFor="switch-notification-target-output-1">
@@ -72,7 +72,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
               </div>
             </div>
             <div className="d-flex justify-content-between align-items-center">
-              <label className="mb-0">{i18n.t('Output 2')}</label>
+              <label className="mb-0">{i18n.t('notification.cards.output2')}</label>
               <div className="custom-control custom-switch">
                 <Field name="isEnableGPIO2" type="checkbox" className="custom-control-input" id="switch-notification-target-output-2"/>
                 <label className="custom-control-label" htmlFor="switch-notification-target-output-2">
@@ -87,7 +87,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
       <hr/>
       {/* E-mail Notification */}
       <div className="form-group d-flex justify-content-between align-items-center">
-        <label className="mb-0">{i18n.t('Email')}</label>
+        <label className="mb-0">{i18n.t('notification.cards.email')}</label>
         <div className="custom-control custom-switch">
           <Field name="isEnableEmail" type="checkbox" className="custom-control-input" id="switch-notification-target-mail"/>
           <label className="custom-control-label" htmlFor="switch-notification-target-mail">
@@ -101,7 +101,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
           <div className="card-body">
             <SelectField
               hide={values.type === NotificationCardType.digitalInput}
-              labelName={i18n.t('Email Attachment')}
+              labelName={i18n.t('notification.cards.emailAttachment')}
               labelClassName="text-size-16 mb-3"
               name="emailAttachmentType"
             >
@@ -110,35 +110,35 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
                   <option
                     key={attachmentType}
                     value={attachmentType}
-                  >{i18n.t(`email-attachment-type-${attachmentType}`)}
+                  >{i18n.t(`notification.cards.constants.email-attachment-type-${attachmentType}`)}
                   </option>
                 )
               ))}
             </SelectField>
             <hr className={classNames({'d-none': values.type === NotificationCardType.digitalInput})}/>
             <div className="form-group mb-4">
-              <label className="text-size-16">{i18n.t('Subject :')}</label>
+              <label className="text-size-16">{i18n.t('notification.cards.subject')}</label>
               <Field
                 name="senderSubject"
                 type="text"
                 className="form-control"
                 maxLength={NotificationCardSchema.senderContent.max}
-                placeholder={i18n.t('Specify the subject')}
+                placeholder={i18n.t('notification.cards.subjectPlaceholder')}
               />
             </div>
             <div className="form-group mb-4">
-              <label className="text-size-16">{i18n.t('Content :')}</label>
+              <label className="text-size-16">{i18n.t('notification.cards.content')}</label>
               <Field
                 name="senderContent"
                 type="text"
                 className="form-control"
                 maxLength={NotificationCardSchema.senderContent.max}
-                placeholder={i18n.t('Add your message')}
+                placeholder={i18n.t('notification.cards.contentPlaceholder')}
               />
             </div>
             <div className="form-group mb-4">
               <SelectField
-                labelName={i18n.t('Content Placement')}
+                labelName={i18n.t('notification.cards.contentPlacement')}
                 labelClassName="text-size-16"
                 name="emailContentPosition"
               >
@@ -146,13 +146,13 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
                   <option
                     key={position}
                     value={position}
-                  >{i18n.t(`email-content-position-${position}`)}
+                  >{i18n.t(`notification.cards.constants.email-content-position-${position}`)}
                   </option>
                 ))}
               </SelectField>
             </div>
             <div className="form-group mb-3">
-              <label className="text-size-16 mb-0">{i18n.t('Receiver')} :</label>
+              <label className="text-size-16 mb-0">{i18n.t('notification.cards.receiver')} :</label>
               <div className="form-row">
                 <div className="col-auto my-1">
                   <div className="input-group">
@@ -169,11 +169,11 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
                       type="text"
                       className={classNames('form-control', 'notification-email', {'is-invalid': errors.$email && touched.$email})}
                       validate={validateEmail}
-                      placeholder={i18n.t('Enter email address')}
+                      placeholder={i18n.t('notification.cards.receiverPlaceholder')}
                     />
                   </div>
                 </div>
-                <CustomTooltip show={!values.$email} title={i18n.t('Please enter an email address.')}>
+                <CustomTooltip show={!values.$email} title={i18n.t('notification.cards.disabledReceiverButton')}>
                   <div className="col-auto my-1">
                     <button
                       disabled={!values.$email}
