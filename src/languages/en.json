@@ -236,6 +236,9 @@
         }
     },
     "audio": {
+        "breadcrumb":{
+            "audio": "Audio"
+        },
         "title": "Audio",
         "enable": "Enable Audio Input",
         "quality": "Audio Quality",

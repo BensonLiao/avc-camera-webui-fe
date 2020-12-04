@@ -65,7 +65,7 @@ module.exports = class Audio extends Base {
             <div className="row justify-content-center">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('audio.title')]}
+                path={[i18n.t('audio.breadcrumb.audio')]}
               />
               <div className="col-center">
                 <div className="card shadow">

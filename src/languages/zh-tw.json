@@ -236,6 +236,9 @@
         }
     },
     "audio": {
+        "breadcrumb":{
+            "audio": "聲音"
+        },
         "title": "聲音",
         "enable": "開啟聲音輸入",
         "quality": "品質",
