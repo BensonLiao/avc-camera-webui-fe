@@ -300,7 +300,9 @@
         "countryCode": "El código de país es incorrecto",
         "duplicateName": "Nombre duplicado, por favorutilice un nombre diferente",
         "portEmpty": "El campo no debe estar vacío",
-        "portReserved": "Este puerto está reservado o en uso para el sistema"
+        "portReserved": "Este puerto está reservado o en uso para el sistema",
+        "maxRecipient": "El número máximo de destinatarios es 64",
+        "duplicateEmail": "El correo electrónico esta duplicado"
     },
     "navigation": {
         "sidebar": {
