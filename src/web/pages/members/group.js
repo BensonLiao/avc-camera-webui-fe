@@ -155,7 +155,7 @@ const Group = ({group, groups, params}) => {
                   className="btn btn-info btn-block m-0 rounded-pill"
                   onClick={hideModal}
                 >
-                  {i18n.t('Close')}
+                  {i18n.t('common.button.close')}
                 </button>
               </div>
             </Form>

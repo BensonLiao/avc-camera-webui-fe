@@ -234,7 +234,7 @@ const MembersDatabase = ({isApiProcessing}) => {
                   className="btn btn-info btn-block m-0 rounded-pill"
                   onClick={hideDatabaseModal}
                 >
-                  {i18n.t('Close')}
+                  {i18n.t('common.button.close')}
                 </button>
               </div>
             </Form>

@@ -79,7 +79,7 @@ const SMTPAccountSettings = ({accountSettings, isShowModal, setIsShowAccountModa
                 </button>
               </div>
               <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={() => setIsShowAccountModal(false)}>
-                {i18n.t('Close')}
+                {i18n.t('common.button.close')}
               </button>
             </div>
           </Form>

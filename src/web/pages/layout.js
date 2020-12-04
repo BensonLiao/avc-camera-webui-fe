@@ -379,7 +379,7 @@ module.exports = class Layout extends Base {
               className="btn btn-info btn-block m-0 rounded-pill"
               onClick={this.hideAboutModal}
             >
-              {i18n.t('Close')}
+              {i18n.t('common.button.close')}
             </button>
           </div>
         </Modal>

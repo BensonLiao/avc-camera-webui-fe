@@ -217,7 +217,7 @@ module.exports = class User extends Base {
                   type="button"
                   onClick={this.hideModal}
                 >
-                  {i18n.t('Close')}
+                  {i18n.t('common.button.close')}
                 </button>
               </div>
             </Form>

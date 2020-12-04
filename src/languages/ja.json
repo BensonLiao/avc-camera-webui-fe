@@ -365,7 +365,8 @@
             "on": "ON",
             "off": "OFF",
             "apply": "Apply",
-            "resetDefault": "デフォルト設定へ戻る"
+            "resetDefault": "デフォルト設定へ戻る",
+            "close": "閉じる"
         },
         "modal": {
             "pleaseWait": "しばらくお待ちください",

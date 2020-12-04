@@ -365,7 +365,8 @@
             "on": "ON",
             "off": "OFF",
             "apply": "Apply",
-            "resetDefault": "Reset to Default Settings"
+            "resetDefault": "Reset to Default Settings",
+            "close": "Close"
         },
         "modal": {
             "pleaseWait": "Please wait",

@@ -365,7 +365,8 @@
             "on": "開啟",
             "off": "關閉",
             "apply": "Apply",
-            "resetDefault": "恢復預設值"
+            "resetDefault": "恢復預設值",
+            "close": "關閉"
         },
         "modal": {
             "pleaseWait": "請稍候",

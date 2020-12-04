@@ -723,7 +723,7 @@ module.exports = class Member extends React.PureComponent {
             type="button"
             onClick={isFormTouched || preEditState || isApiProcessing ? this.onShowConfirmModal : onHide}
           >
-            {i18n.t('Close')}
+            {i18n.t('common.button.close')}
           </button>
         </div>
         {/* Close modal confirmation */}
