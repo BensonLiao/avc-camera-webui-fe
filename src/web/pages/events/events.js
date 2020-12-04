@@ -1,3 +1,4 @@
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {getRouter} from '@benson.liao/capybara-router';
@@ -55,13 +56,16 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
    */
   const generateMemberAddHandler = defaultPictureUrl => event => {
     event.preventDefault();
-    setState(prevState => ({
-      ...prevState,
-      isShowMemberModal: true,
-      currentMember: null,
-      eventPictureUrl: defaultPictureUrl,
-      updateMemberModal: !prevState.updateMemberModal
-    }));
+    testEventSnapshotLink(defaultPictureUrl)
+      .then(() => setState(prevState => ({
+        ...prevState,
+        isShowMemberModal: true,
+        currentMember: null,
+        eventPictureUrl: defaultPictureUrl,
+        updateMemberModal: !prevState.updateMemberModal
+      }))
+        // if Event URL is invalid
+      ).catch(_ => {});
   };
 
   /**
@@ -72,13 +76,24 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
    */
   const generateMemberModifyHandler = (memberName, defaultPictureUrl) => event => {
     event.preventDefault();
-    setState(prevState => ({
-      ...prevState,
-      isShowSearchMemberModal: true,
-      currentMemberName: memberName,
-      eventPictureUrl: defaultPictureUrl
-    }));
+    testEventSnapshotLink(defaultPictureUrl)
+      .then(() => setState(prevState => ({
+        ...prevState,
+        isShowSearchMemberModal: true,
+        currentMemberName: memberName,
+        eventPictureUrl: defaultPictureUrl
+      }))
+        // if Event URL is invalid
+      ).catch(_ => {});
   };
+
+  const testEventSnapshotLink = defaultPictureUrl => new Promise(resolve => (
+    resolve(axios({
+      method: 'get',
+      url: defaultPictureUrl,
+      responseType: 'blob',
+      timeout: 5 * 1000
+    }))));
 
   const onSubmittedMemberForm = () => {
     setState(prevState => ({

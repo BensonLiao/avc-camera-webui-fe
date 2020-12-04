@@ -34,7 +34,8 @@ class SearchMember extends React.PureComponent {
     verifyStatus: false,
     errorMessage: null,
     // base64 of event photo
-    convertedPicture: null
+    convertedPicture: null,
+    photoNotFound: false
   }
 
   generateInitialValues = memberName => ({keyword: memberName || ''})
@@ -84,6 +85,13 @@ class SearchMember extends React.PureComponent {
             })
           )
           .finally(() => this.setState({isVerifying: false}))
+      ).catch(() => {
+        // If event URL is invalid
+        this.setState({
+          isVerifying: false,
+          photoNotFound: true
+        });
+      }
       )
     );
 
@@ -110,7 +118,7 @@ class SearchMember extends React.PureComponent {
 
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
-    const {members, isFetching, isVerifying, verifyStatus, errorMessage, convertedPicture} = this.state;
+    const {members, isFetching, isVerifying, verifyStatus, errorMessage, convertedPicture, photoNotFound} = this.state;
     return (
       <>
         <Modal
@@ -124,12 +132,13 @@ class SearchMember extends React.PureComponent {
             this.setState({
               members: null,
               isVerifying: false,
-              errorMessage: null
+              errorMessage: null,
+              photoNotFound: false
             });
             onHide();
           }}
         >
-          <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying)} className="d-flex justify-content-between align-items-center">
+          <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying || photoNotFound)} className="d-flex justify-content-between align-items-center">
             <Modal.Title as="h5">{i18n.t('Add to an Existing Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
