@@ -25,20 +25,20 @@ const IO = ({ioInSettings, ioOutASettings, ioOutBSettings}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('Notification Settings'), i18n.t('Notification Method'), i18n.t('Input & Output')]}
+              path={[i18n.t('notification.breadcrumb.notificationSettings'), i18n.t('notification.breadcrumb.notificationMethod'), i18n.t('Input & Output')]}
               routes={['/notification/smtp', '/notification/smtp']}
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('Input & Output')}</div>
+                <div className="card-header">{i18n.t('notification.io.title')}</div>
                 <Tab.Container activeKey={currentTab}>
                   <Nav onSelect={setTab}>
-                    {['Input', 'Output 1', 'Output 2'].map(ioType => (
+                    {['Input', 'Output1', 'Output2'].map(ioType => (
                       <Nav.Item key={ioType}>
                         <Nav.Link
                           eventKey={ioType}
                         >
-                          {i18n.t(ioType)}
+                          {i18n.t(`notification.io.tab${ioType}`)}
                         </Nav.Link>
                       </Nav.Item>
                     ))}

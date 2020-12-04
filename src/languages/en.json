@@ -236,7 +236,7 @@
         }
     },
     "audio": {
-        "breadcrumb":{
+        "breadcrumb": {
             "audio": "Audio"
         },
         "title": "Audio",
@@ -245,12 +245,139 @@
         "inputSource": "Input Source",
         "internalMicrophone": "Internal Microphone",
         "externalMicrophone": "External Microphone",
-        "constants":{
+        "constants": {
             "audio-quality-0": "G.711, 8kHz, 64kbps, Mono",
             "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
         }
     },
-    "notification": {},
+    "notification": {
+        "breadcrumb": {
+            "notificationSettings": "Notification Settings",
+            "notificationMethod": "Notification Method",
+            "email": "Email",
+            "io": "Input & Output"
+        },
+        "smtp": {
+            "title": "Email",
+            "enableEmail": "Enable Outgoing Email",
+            "serverAddress": "SMTP Server Address",
+            "serverAddressPlaceholder": "Enter server address",
+            "logonSettings": "SMTP Logon Settings",
+            "logonSettingsHelper": "Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.",
+            "edit": "Edit",
+            "enableLoginNotification": "Enable Device Login Notification",
+            "senderName": "Sender Information",
+            "senderNamePlaceholder": "Enter sender's name",
+            "senderEmail": "Email",
+            "senderEmailPlaceholder": "Enter sender's email",
+            "interval": "Notification Interval (seconds)",
+            "intervalPlaceholder": "Specify notification interval",
+            "intervalRange": "5 - 1,800 Seconds",
+            "modal": {
+                "title": "SMTP Logon Settings",
+                "account": "Account",
+                "accountPlaceholder": "Enter your account",
+                "password": "Password",
+                "passwordPlaceholder": "Enter your password",
+                "port": "Port",
+                "encryption": "Encryption",
+                "none": "None",
+                "ssl": "SSL",
+                "tls": "TLS"
+            },
+            "toast": {
+                "emailSettingSuccess": "Email Setting Success",
+                "mailSettingFailed": "Mail Setting Failed",
+                "sendingTestEmail": "Sending Test Email",
+                "disablingOutgoingEmail": "Disabling Outgoing Email"
+            },
+            "tooltip": {
+                "disabledEditButton": "Please enable Outgoing Email first."
+            }
+        },
+        "io": {
+            "title": "Input & Output",
+            "tabInput": "Input",
+            "tabOutput1": "Output 1",
+            "tabOutput2": "Output 2",
+            "enableDigitalInput": "Enable Digital Input",
+            "enableDigitalOutput": "Enable Digital Output {{0}}",
+            "normalState": "Normal State",
+            "closed": "Normally Closed",
+            "open": "Normally Open",
+            "type": "Type",
+            "normal": "Normal",
+            "buffer": "Buffer",
+            "pulseTime": "Pulse Time (seconds)",
+            "pulsePlaceholder": "Enter seconds",
+            "delayTime": "Delay Time (seconds)",
+            "delayPlaceholder": "Enter seconds",
+            "timeRange": "{{0}}-{{1}} Seconds"
+        },
+        "cards": {
+            "Notification Filters": "Filters",
+            "Pinned": "Pinned",
+            "Others": "Others",
+            "Unpin Card": "Unpin this card",
+            "Pin this card": "Pin this card",
+            "Enter card title": "Enter card title",
+            "Email: On": "Email: On",
+            "Output: On": "Output: On",
+            "VMS: On": "VMS: On",
+            "Schedule": "Schedule",
+            "Enable Schedule": "Enable Schedule",
+            "Rule": "Rule",
+            "Group": "Group",
+            "Condition": "Condition",
+            "Method": "Method",
+            "Everyone": "Everyone",
+            "Email Attachment": "Email Attachment",
+            "Receiver": "Receiver",
+            "Enter email address": "Enter email address",
+            "Add a New Notification Card": "Add a New Notification Card",
+            "Notify by Recognition Result": "Notify by Recognition Result",
+            "Add": "Add",
+            "Cancel": "Cancel",
+            "Cannot create more than {{0}} cards": "Cannot create more than {{0}} cards",
+            "Subject :": "Subject :",
+            "Content :": "Content :",
+            "Specify the subject": "Specify the subject",
+            "Add your message": "Add your message",
+            "Content Placement": "Content Placement",
+            "Face Recognition Event on [{{0}}]": "Face Recognition Event on [{{0}}]",
+            "Motion Detection Event on [{{0}}]": "Motion Detection Event on [{{0}}]",
+            "Digital Input Event on [{{0}}]": "Digital Input Event on [{{0}}]",
+            "Invalid email address.": "Invalid email address.",
+            "The maximum number of recipients is 64.": "The maximum number of recipients is 64.",
+            "Duplicate email address.": "Duplicate email address.",
+            "constants": {
+                "Video Management System": "Video Management System",
+                "notification-vms-event-0": "Video Motion Detection Event",
+                "notification-vms-event-1": "Analytic Event",
+                "notification-card-filter-all": "All",
+                "notification-card-0": "Facial Recognition",
+                "notification-card-1": "Age Gender",
+                "notification-card-2": "Humanoid Detection",
+                "notification-card-3": "Motion Detection",
+                "notification-card-4": "Tamper Alarm",
+                "notification-card-5": "Digital Input",
+                "face-recognition-condition-0": "Always",
+                "face-recognition-condition-1": "Success",
+                "face-recognition-condition-2": "Unknown",
+                "face-recognition-condition-3": "Image Spoof",
+                "email-attachment-type-0": "Face Thumbnail",
+                "email-attachment-type-1": "Screenshot",
+                "email-attachment-type-2": "None",
+                "email-content-position-0": "Beginning",
+                "email-content-position-1": "End"
+            },
+            "tooltip": {
+                "Please enter start and end time.": "Please enter start and end time.",
+                "The maximum number of allowed schedules is 5.": "The maximum number of allowed schedules is 5.",
+                "Please enter an email address.": "Please enter an email address."
+            }
+        }
+    },
     "userManagement": {},
     "analytics": {},
     "network": {},

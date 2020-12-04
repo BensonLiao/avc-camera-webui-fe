@@ -36,8 +36,8 @@ const SMTP = ({smtpSettings}) => {
     })
       .then(response => {
         notify.showSuccessNotification({
-          title: i18n.t('Email Setting Success'),
-          message: i18n.t(response.data.isTestMailSent ? 'Sending Test Email' : 'Disabling Outgoing Email')
+          title: i18n.t('notification.smtp.toast.emailSettingSuccess'),
+          message: i18n.t(response.data.isTestMailSent ? 'notification.smtp.toast.sendingTestEmail' : 'notification.smtp.toast.disablingOutgoingEmail')
         });
       })
       .then(getRouter().reload)
@@ -51,7 +51,7 @@ const SMTP = ({smtpSettings}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('Notification Settings'), i18n.t('Notification Method'), i18n.t('Email')]}
+              path={[i18n.t('notification.breadcrumb.notificationSettings'), i18n.t('notification.breadcrumb.notificationMethod'), i18n.t('notification.breadcrumb.email')]}
               routes={['/notification/smtp', '/notification/smtp']}
             />
             <div className="col-center">

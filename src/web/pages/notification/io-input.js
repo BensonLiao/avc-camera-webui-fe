@@ -30,7 +30,7 @@ const IoInput = ({currentTab, ioInSettings}) => {
           <Tab.Pane eventKey="Input">
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{i18n.t('Enable Digital Input')}</label>
+                <label>{i18n.t('notification.io.enableDigitalInput')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-input"/>
                   <label className="custom-control-label" htmlFor="switch-input">
@@ -40,18 +40,18 @@ const IoInput = ({currentTab, ioInSettings}) => {
                 </div>
               </div>
               <div className={classNames('form-group')}>
-                <label>{i18n.t('Normal State')}</label>
+                <label>{i18n.t('notification.io.normalState')}</label>
                 <div className="d-flex align-items-center">
                   <div className="form-check">
                     <Field disabled={!values.isEnable} name="ioType" className="form-check-input" type="radio" id="input-input-normally-open" value={IOType.normallyOpen}/>
                     <label className="form-check-label" htmlFor="input-input-normally-open">
-                      {i18n.t('Normally Open')}
+                      {i18n.t('notification.io.open')}
                     </label>
                   </div>
                   <div className="form-check ml-5">
                     <Field disabled={!values.isEnable} name="ioType" className="form-check-input" type="radio" id="input-input-normally-closed" value={IOType.normallyClosed}/>
                     <label className="form-check-label" htmlFor="input-input-normally-closed">
-                      {i18n.t('Normally Closed')}
+                      {i18n.t('notification.io.closed')}
                     </label>
                   </div>
                 </div>

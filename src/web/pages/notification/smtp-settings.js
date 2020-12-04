@@ -23,11 +23,11 @@ const SMTPSettings = ({smtpSettings, onSubmitSMTPSettingsForm, setIsShowAccountM
         return (
           <Form className="card shadow">
             <div className="card-header">
-              {i18n.t('Email')}
+              {i18n.t('notification.smtp.title')}
             </div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{i18n.t('Enable Outgoing Email')}</label>
+                <label>{i18n.t('notification.smtp.enableEmail')}</label>
                 <div className="custom-control custom-switch">
                   <Field
                     name="isEnableAuth"
@@ -45,26 +45,26 @@ const SMTPSettings = ({smtpSettings, onSubmitSMTPSettingsForm, setIsShowAccountM
               <div className="card mb-3">
                 <div className="card-body">
                   <div className="form-group">
-                    <label>{i18n.t('SMTP Server Address')}</label>
+                    <label>{i18n.t('notification.smtp.serverAddress')}</label>
                     <Field
                       autoFocus
                       disabled={!isEnableAuth}
                       name="host"
                       type="text"
                       className={classNames('form-control', {'is-invalid': errors.host && touched.host})}
-                      placeholder={i18n.t('Enter server address')}
+                      placeholder={i18n.t('notification.smtp.serverAddressPlaceholder')}
                     />
                     <ErrorMessage component="div" name="host" className="invalid-feedback"/>
                   </div>
                   <div className="form-group d-flex justify-content-between align-items-center">
                     <div>
-                      <label className="mb-0 mr-2">{i18n.t('SMTP Logon Settings')}</label>
-                      <CustomTooltip title={i18n.t('Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.')}>
+                      <label className="mb-0 mr-2">{i18n.t('notification.smtp.logonSettings')}</label>
+                      <CustomTooltip title={i18n.t('notification.smtp.logonSettingsHelper')}>
                         <i className="fas fa-question-circle helper-text text-primary"/>
                       </CustomTooltip>
                     </div>
                     <div>
-                      <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable Outgoing Email first.')}>
+                      <CustomTooltip show={!isEnableAuth} title={i18n.t('notification.smtp.tooltip.disabledEditButton')}>
                         <a
                           href="#"
                           className={classNames('mr-2', {'disable-link': !isEnableAuth})}
@@ -73,14 +73,14 @@ const SMTPSettings = ({smtpSettings, onSubmitSMTPSettingsForm, setIsShowAccountM
                             return isEnableAuth && setIsShowAccountModal(true);
                           }}
                         >
-                          {i18n.t('Edit')}
+                          {i18n.t('notification.smtp.edit')}
                         </a>
                       </CustomTooltip>
                     </div>
                   </div>
                   <div className="mb-0 form-group d-flex justify-content-between align-items-center">
-                    <label>{i18n.t('Enable Device Login Notification')}</label>
-                    <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable Outgoing Email first.')}>
+                    <label>{i18n.t('notification.smtp.enableLoginNotification')}</label>
+                    <CustomTooltip show={!isEnableAuth} title={i18n.t('notification.smtp.tooltip.disabledEditButton')}>
                       <div className="custom-control custom-switch">
                         <Field
                           disabled={!isEnableAuth}
@@ -100,38 +100,38 @@ const SMTPSettings = ({smtpSettings, onSubmitSMTPSettingsForm, setIsShowAccountM
                 </div>
               </div>
               <div className="form-group">
-                <label>{i18n.t('Sender Information')}</label>
+                <label>{i18n.t('notification.smtp.senderName')}</label>
                 <Field
                   disabled={!isEnableAuth}
                   name="senderName"
                   type="text"
                   className={classNames('form-control', {'is-invalid': errors.senderName && touched.senderName})}
-                  placeholder={i18n.t('Enter sender\'s name')}
+                  placeholder={i18n.t('notification.smtp.senderNamePlaceholder')}
                 />
                 <ErrorMessage component="div" name="senderName" className="invalid-feedback"/>
               </div>
               <div className="form-group">
-                <label>{i18n.t('Email')}</label>
+                <label>{i18n.t('notification.smtp.senderEmail')}</label>
                 <Field
                   disabled={!isEnableAuth}
                   name="senderEmail"
                   type="text"
                   className={classNames('form-control', {'is-invalid': errors.senderEmail && touched.senderEmail})}
-                  placeholder={i18n.t('Enter sender\'s email')}
+                  placeholder={i18n.t('notification.smtp.senderEmailPlaceholder')}
                 />
                 <ErrorMessage component="div" name="senderEmail" className="invalid-feedback"/>
               </div>
               <div className="form-group">
-                <label>{i18n.t('Notification Interval (seconds)')}</label>
+                <label>{i18n.t('notification.smtp.interval')}</label>
                 <Field
                   disabled={!isEnableAuth}
                   name="interval"
                   type="text"
                   className={classNames('form-control', {'is-invalid': errors.interval && touched.interval})}
-                  placeholder={i18n.t('Specify notification interval')}
+                  placeholder={i18n.t('notification.smtp.intervalPlaceholder')}
                 />
                 <ErrorMessage component="div" name="interval" className="invalid-feedback"/>
-                <small className="form-text text-muted">{i18n.t('5 - 1,800 Seconds')}</small>
+                <small className="form-text text-muted">{i18n.t('notification.smtp.intervalRange')}</small>
               </div>
               <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
                 {i18n.t('common.button.apply')}

@@ -364,7 +364,7 @@
         "button": {
             "on": "開啟",
             "off": "關閉",
-            "apply": "Apply",
+            "apply": "套用",
             "resetDefault": "恢復預設值",
             "close": "關閉"
         },

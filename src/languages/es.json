@@ -370,7 +370,7 @@
         "button": {
             "on": "ON",
             "off": "OFF",
-            "apply": "Apply",
+            "apply": "Aplicar",
             "resetDefault": "Restaurar a lo preajuste",
             "close": "Cerrar"
         },

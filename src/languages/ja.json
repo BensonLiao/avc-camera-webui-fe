@@ -364,7 +364,7 @@
         "button": {
             "on": "ON",
             "off": "OFF",
-            "apply": "Apply",
+            "apply": "適用",
             "resetDefault": "デフォルト設定へ戻る",
             "close": "閉じる"
         },
