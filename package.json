@@ -12,7 +12,7 @@
     "ncu": "node_modules/npm-check-updates/bin/ncu",
     "test": "echo \"Error: no test specified\" && exit 1",
     "//cy:i": "if you haven't install cypress yet, run cy:i before run cy/cy:prod",
-    "cy:i": "npm i --no-save cypress@5.5.0 cypress-react-selector@2.2.0",
+    "cy:i": "npm i --no-save cypress@5.5.0 cypress-react-selector@2.2.0 cypress-file-upload@4.1.1",
     "cy": "cypress open",
     "//cy:prod": "example: npm run cy:prod --ip=xxx.xxx.xxx.xxx, localhost if omit the option",
     "cy:prod": "cypress open --config baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod",
@@ -34,6 +34,7 @@
     "@babel/polyfill": "7.7.0",
     "@babel/preset-env": "7.7.1",
     "@babel/preset-react": "7.7.0",
+    "@benson.liao/capybara-router": "2.2.7",
     "@benson.liao/react-content-editable": "3.3.1",
     "@fortawesome/fontawesome-free": "5.11.2",
     "@vvo/tzdb": "5.5.2",
@@ -44,7 +45,6 @@
     "blueimp-load-image": "5.14.0",
     "bootstrap": "4.3.1",
     "bootstrap-slider": "10.6.2",
-    "capybara-router": "1.3.8",
     "classnames": "2.2.6",
     "cldr-dates-full": "^37.0.0",
     "compression-webpack-plugin": "3.0.0",
@@ -63,7 +63,7 @@
     "grunt-contrib-watch": "1.1.0",
     "grunt-ect": "0.1.2",
     "grunt-parallel": "0.5.1",
-    "history": "4.10.1",
+    "history": "5.0.0",
     "i18next": "19.8.2",
     "imagemin-webpack-plugin": "2.4.2",
     "immutability-helper": "3.1.1",
@@ -95,7 +95,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#6104265161be64fd93d756c416550e911d734a7b"
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#eb9f71dbbfa62fc70a4b197e7100833db0a95810"
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",

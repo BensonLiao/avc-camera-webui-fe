@@ -1,7 +1,7 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
-const {Link, getRouter} = require('capybara-router');
+const {Link, getRouter} = require('@benson.liao/capybara-router');
 const i18n = require('../../i18n').default;
 
 module.exports = class Pagination extends React.PureComponent {

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {RouterView, Link} from 'capybara-router';
+import {RouterView, Link} from '@benson.liao/capybara-router';
 import i18n from '../../../i18n';
 import {SECURITY_USERS_MAX} from '../../../core/constants';
 import withGlobalStatus from '../../withGlobalStatus';

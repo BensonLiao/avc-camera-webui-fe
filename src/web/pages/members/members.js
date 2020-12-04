@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import progress from 'nprogress';
-import {RouterView, Link, getRouter} from 'capybara-router';
+import {RouterView, Link, getRouter} from '@benson.liao/capybara-router';
 import Pagination from '../../../core/components/pagination';
 import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
@@ -18,8 +18,7 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
   const {isApiProcessing} = useContextState();
   const currentRoute = getRouter().findRouteByName('web.users.members');
 
-  const hrefTemplate = getRouter().generateUri(
-    currentRoute,
+  const hrefTemplate = currentRoute.generateUri(
     {
       ...params,
       index: undefined

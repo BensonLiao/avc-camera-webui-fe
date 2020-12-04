@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import iconDescription from '../../../resource/description-20px.svg';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
-import {Link} from 'capybara-router';
+import {Link} from '@benson.liao/capybara-router';
 
 const MembersSelectedGroup = ({selectedGroup, params}) => {
   return (
     selectedGroup && (
-      <div className="col-12 mb-4">
-        <i className="far fa-folder fa-fw fa-lg text-primary"/>
+      <div className="col-12 mb-4 d-flex align-items-center">
+        <i className="far fa-folder text-size-20 text-primary"/>
         <span className="text-size-16 text-muted ml-3">
           {selectedGroup.name}
         </span>
@@ -19,7 +19,7 @@ const MembersSelectedGroup = ({selectedGroup, params}) => {
           selectedGroup.note && selectedGroup.note.length > 0 && (
             <CustomTooltip title={selectedGroup.note}>
               <div
-                className="text-size-14 text-muted ml-2"
+                className="text-size-14 text-muted ml-3"
                 style={{
                   display: 'inline-block',
                   lineHeight: 'initial',

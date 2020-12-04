@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import {Formik, Form, Field} from 'formik';
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import Modal from 'react-bootstrap/Modal';
 import {Nav, Tab} from 'react-bootstrap';
 import NotificationCardSchema from 'webserver-form-schema/notification-card-schema';
@@ -155,14 +155,12 @@ const CardsForm = ({
 
       progress.start();
       api.notification.addCard(data)
-        .then(hideCardFormModal)
         .then(getRouter().reload)
         .finally(progress.done);
     } else {
       // Update the card.
       progress.start();
       api.notification.updateCard(data)
-        .then(hideCardFormModal)
         .then(getRouter().reload)
         .finally(progress.done);
     }

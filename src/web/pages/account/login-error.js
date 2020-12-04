@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'capybara-router';
+import {Link} from '@benson.liao/capybara-router';
 import i18n from '../../../i18n';
 import Once from '../../../core/components/one-time-render';
 import AccountContainer from './account-container';

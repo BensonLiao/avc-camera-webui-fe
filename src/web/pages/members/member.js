@@ -1,6 +1,6 @@
 const PropTypes = require('prop-types');
 const React = require('react');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const Base = require('../shared/base');
 const MemberModal = require('../../../core/components/member-modal');
 
@@ -26,7 +26,7 @@ module.exports = class Member extends Base {
 
     this.state.isShowModal = true;
     this.$listens.push(
-      getRouter().listen('ChangeStart', (action, toState) => {
+      getRouter().listen('ChangeSuccess', (action, toState) => {
         const isShowModal = [
           'web.users.members.new-member',
           'web.users.members.details'

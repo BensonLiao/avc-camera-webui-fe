@@ -2,7 +2,7 @@ const React = require('react');
 const {Nav, Tab} = require('react-bootstrap');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const progress = require('nprogress');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
 const Base = require('../shared/base');
@@ -396,7 +396,7 @@ module.exports = class StreamSetting extends Base {
               </div>
             </div>
             <small className="text-info mb-3">
-              {i18n.t('{{0}}-{{1}} Kbps', {
+              {i18n.t('{{0}} - {{1}} Kbps', {
                 0: StreamSettingsSchema.channelA.props.bitRate.min,
                 1: StreamSettingsSchema.channelA.props.bitRate.max
               })}
@@ -438,7 +438,7 @@ module.exports = class StreamSetting extends Base {
           </Tab.Pane>
         </Tab.Content>
 
-        <div className="form-group mb-0 mt-5">
+        <div className="form-group mt-5 mb-0">
           <button
             type="button"
             className="btn btn-block btn-primary rounded-pill"

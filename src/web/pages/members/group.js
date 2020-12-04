@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import GroupSchema from 'webserver-form-schema/group-schema';
 import utils from '../../../core/utils';
@@ -21,7 +21,6 @@ const Group = ({group, groups, params}) => {
     groupsName: groups.items.map(group => group.name)
   });
   const {isApiProcessing} = useContextState();
-
   const {groupsName, isShowModal} = state;
 
   const hideModal = () => {
@@ -183,8 +182,8 @@ Group.propTypes = {
 };
 
 Group.defaultProps = {
-  groups: {},
-  group: {}
+  groups: null,
+  group: null
 };
 
 export default withGlobalStatus(Group);

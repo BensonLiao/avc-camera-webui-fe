@@ -3,7 +3,7 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const progress = require('nprogress');
 const {Formik, Form, Field, ErrorMessage} = require('formik');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const Modal = require('react-bootstrap/Modal').default;
 const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
@@ -41,7 +41,7 @@ module.exports = class User extends Base {
     this.state.isShowModal = true;
     this.state.usersName = props.users.items.map(user => user.account);
     this.$listens.push(
-      router.listen('ChangeStart', (action, toState) => {
+      router.listen('ChangeSuccess', (action, toState) => {
         const isShowModal = [
           'web.users.accounts.new-user',
           'web.users.accounts.details'
@@ -113,6 +113,7 @@ module.exports = class User extends Base {
     const validator = user ? UserValidator : NewUserValidator;
     const isSuperAdmin = user && (user.permission === UserPermission.superAdmin);
     const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
+
     return (
       <Modal autoFocus={false} show={isShowModal} backdrop={$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
@@ -147,6 +148,9 @@ module.exports = class User extends Base {
                     className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
                   />
                   <ErrorMessage component="div" name="account" className="invalid-feedback"/>
+                  <small className="text-info">
+                    {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space')}
+                  </small>
                 </div>
                 { !user && (
                   <div className="form-group has-feedback">
@@ -160,7 +164,7 @@ module.exports = class User extends Base {
                       }}
                     />
                     <small className="text-info">
-                      {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                      {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
                     </small>
                     <ErrorMessage component="div" name="password" className="invalid-feedback"/>
                   </div>
@@ -178,7 +182,7 @@ module.exports = class User extends Base {
                         }}
                       />
                       <small className="text-info">
-                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                        {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
                       </small>
                       <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
                     </div>

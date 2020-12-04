@@ -1,4 +1,4 @@
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import React from 'react';
 import i18n from '../../../i18n';

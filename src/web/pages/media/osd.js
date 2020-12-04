@@ -2,7 +2,7 @@ const classNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const {Formik, Form, Field} = require('formik');
 const OSDFontSize = require('webserver-form-schema/constants/osd-font-size');
 const OSDColor = require('webserver-form-schema/constants/osd-color');
@@ -124,7 +124,7 @@ module.exports = class OSD extends Base {
                               )}
                               onClick={() => setFieldValue('color', OSDColor.black)}
                             >
-                                &nbsp;
+                              &nbsp;
                             </button>
                               &nbsp;
                             <button
@@ -135,7 +135,7 @@ module.exports = class OSD extends Base {
                               )}
                               onClick={() => setFieldValue('color', OSDColor.white)}
                             >
-                                &nbsp;
+                              &nbsp;
                             </button>
                           </div>
                         </div>

@@ -1,4 +1,4 @@
-const {Router} = require('capybara-router');
+const {Router} = require('@benson.liao/capybara-router');
 const history = require('history');
 const i18n = require('../i18n').default;
 

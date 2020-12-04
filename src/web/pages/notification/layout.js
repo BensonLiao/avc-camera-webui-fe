@@ -1,4 +1,4 @@
-import {Link, RouterView, getRouter} from 'capybara-router';
+import {Link, RouterView, getRouter} from '@benson.liao/capybara-router';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -19,7 +19,7 @@ export default withGlobalStatus(
     constructor(props) {
       super(props);
       props.$listens.push(
-        router.listen('ChangeStart', (action, toState) => {
+        router.listen('ChangeSuccess', (action, toState) => {
           this.setState({currentRouteName: toState.name});
         })
       );

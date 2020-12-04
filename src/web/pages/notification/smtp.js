@@ -1,4 +1,4 @@
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import React, {useState} from 'react';
 import SMTPEncryptionType from 'webserver-form-schema/constants/smtp-encryption-type';

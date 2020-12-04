@@ -1,6 +1,6 @@
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
-const {getRouter} = require('capybara-router');
+const {getRouter} = require('@benson.liao/capybara-router');
 const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
@@ -164,7 +164,7 @@ module.exports = class Home extends Base {
         isEnableHumanoidDetectionKey
       }, systemDateTime, videoSettings, faceRecognitionStatus
     } = this.props;
-    const {$user, deviceName} = this.state;
+    const {$user, deviceName, $isApiProcessing, $updateFocalLengthField} = this.state;
     const isAdmin = $user.permission === UserPermission.root || $user.permission === UserPermission.superAdmin;
     const classTable = {
       faceRecognitionState: classNames({
@@ -257,8 +257,8 @@ module.exports = class Home extends Base {
                     <VideoSetting
                       videoSettings={videoSettings}
                       systemDateTime={systemDateTime}
-                      isApiProcessing={this.state.$isApiProcessing}
-                      updateFocalLengthField={this.state.$updateFocalLengthField}
+                      isApiProcessing={$isApiProcessing}
+                      updateFocalLengthField={$updateFocalLengthField}
                     />
                   </div>
                 </div>

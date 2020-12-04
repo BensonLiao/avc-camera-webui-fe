@@ -1,6 +1,7 @@
 const classNames = require('classnames');
 const React = require('react');
-const {RouterView, Link, getRouter} = require('capybara-router');
+const {RouterView, Link, getRouter} = require('@benson.liao/capybara-router');
+const SystemModelName = require('webserver-form-schema/constants/system-model-name');
 const Base = require('../shared/base');
 const i18n = require('../../../i18n').default;
 const Loading = require('../../../core/components/loading');
@@ -9,10 +10,9 @@ module.exports = class Media extends Base {
   constructor(props) {
     super(props);
     const router = getRouter();
-
     this.state.currentRouteName = router.currentRoute.name;
     this.$listens.push(
-      router.listen('ChangeStart', (action, toState) => {
+      router.listen('ChangeSuccess', (action, toState) => {
         this.setState({currentRouteName: toState.name});
       })
     );
@@ -24,6 +24,7 @@ module.exports = class Media extends Base {
   }
 
   render() {
+    const {systemInformation: {modelName}} = this.props;
     return (
       <>
         {/* Left menu */}
@@ -44,13 +45,15 @@ module.exports = class Media extends Base {
             >
               RTSP
             </Link>
-            <Link
-              to="/media/hdmi"
-              title={i18n.t('HDMI')}
-              className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.hdmi'})}
-            >
-              HDMI
-            </Link>
+            {modelName === SystemModelName.md2 && (
+              <Link
+                to="/media/hdmi"
+                title={i18n.t('HDMI')}
+                className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.hdmi'})}
+              >
+                HDMI
+              </Link>
+            )}
             <Link
               to="/media/osd"
               title={i18n.t('OSD')}

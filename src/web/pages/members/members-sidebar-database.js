@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import download from 'downloadjs';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import {getRouter} from 'capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 import Modal from 'react-bootstrap/Modal';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
@@ -206,7 +206,7 @@ const MembersDatabase = ({isApiProcessing}) => {
                     }}
                   />
                   <small className="form-text text-muted">
-                    {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, <, > and space')}
+                    {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
                   </small>
                   <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
                 </div>
