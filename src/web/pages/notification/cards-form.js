@@ -291,7 +291,7 @@ const CardsForm = ({
                     type="submit"
                     className="btn btn-primary btn-block rounded-pill"
                   >
-                    {cardDetails ? i18n.t('Confirm') : i18n.t('Add')}
+                    {cardDetails ? i18n.t('common.button.confirm') : i18n.t('common.button.add')}
                   </button>
                 </div>
                 <button
@@ -299,7 +299,7 @@ const CardsForm = ({
                   className="btn btn-info btn-block m-0 rounded-pill"
                   onClick={hideCardFormModal}
                 >
-                  {i18n.t('Cancel')}
+                  {i18n.t('common.button.cancel')}
                 </button>
               </div>
             </Form>

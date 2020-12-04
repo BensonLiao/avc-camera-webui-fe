@@ -366,12 +366,14 @@
             "off": "OFF",
             "apply": "適用",
             "resetDefault": "デフォルト設定へ戻る",
-            "close": "閉じる"
+            "close": "閉じる",
+            "confirm": "確認",
+            "cancel": "キャンセル",
+            "new": "追加",
+            "create": "追加"
         },
         "modal": {
             "pleaseWait": "しばらくお待ちください",
-            "confirm": "確認",
-            "cancel": "キャンセル",
             "sessionExpire": {
                 "sessionExpired": "自動ログアウト",
                 "expireCountdown": "セッションの有効期間が切れています、{{0}} 秒後でログイン画面にリダイレクトします",

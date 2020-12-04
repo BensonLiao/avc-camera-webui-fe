@@ -145,7 +145,7 @@ const Group = ({group, groups, params}) => {
                       className="btn btn-primary btn-block rounded-pill"
                       style={isAddGroupDisabled ? {pointerEvents: 'none'} : {}}
                     >
-                      {group ? i18n.t('Confirm') : i18n.t('Create')}
+                      {group ? i18n.t('common.button.confirm') : i18n.t('common.button.create')}
                     </button>
                   </div>
                 </CustomTooltip>

@@ -493,12 +493,14 @@
             "off": "OFF",
             "apply": "Apply",
             "resetDefault": "Reset to Default Settings",
-            "close": "Close"
+            "close": "Close",
+            "confirm": "Confirm",
+            "cancel": "Cancel",
+            "new": "New",
+            "create": "Create"
         },
         "modal": {
             "pleaseWait": "Please wait",
-            "confirm": "Confirm",
-            "cancel": "Cancel",
             "sessionExpire": {
                 "sessionExpired": "Session Expired",
                 "expireCountdown": "Your session has expired. You will be redirected to the login page in {{0}} second(s).",

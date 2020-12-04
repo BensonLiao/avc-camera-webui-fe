@@ -366,7 +366,11 @@
             "off": "關閉",
             "apply": "套用",
             "resetDefault": "恢復預設值",
-            "close": "關閉"
+            "close": "關閉",
+            "confirm": "確定",
+            "cancel": "取消",
+            "new": "新增",
+            "create": "新增"
         },
         "modal": {
             "pleaseWait": "請稍候",

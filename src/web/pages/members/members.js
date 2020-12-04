@@ -192,7 +192,7 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
                       style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
                       data-toggle="dropdown"
                     >
-                      <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('New')}
+                      <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('common.button.new')}
                     </button>
                     <div className="dropdown-menu dropdown-menu-right shadow">
                       <Link

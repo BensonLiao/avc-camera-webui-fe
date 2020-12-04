@@ -715,7 +715,7 @@ module.exports = class Member extends React.PureComponent {
                 });
               }}
             >
-              {member ? i18n.t('Confirm') : i18n.t('New')}
+              {member ? i18n.t('common.button.confirm') : i18n.t('common.button.new')}
             </button>
           </div>
           <button

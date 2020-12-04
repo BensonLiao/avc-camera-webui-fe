@@ -270,7 +270,7 @@ class SearchMember extends React.PureComponent {
                                   convertedPicture
                                 })}
                               >
-                                {i18n.t('Add')}
+                                {i18n.t('common.button.add')}
                               </button>
                             </div>
                           </CustomTooltip>

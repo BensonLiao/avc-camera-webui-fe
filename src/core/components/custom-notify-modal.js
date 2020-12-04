@@ -32,7 +32,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
       // Default is for processing modal only. All other modals should have a body message
       modalBody: i18n.t('common.modal.pleaseWait'),
       modalType: 'default',
-      confirmBtnTitle: i18n.t('common.modal.confirm'),
+      confirmBtnTitle: i18n.t('common.button.confirm'),
       onConfirm: null,
       isConfirmDisable: false,
       backdrop: true,
@@ -105,7 +105,7 @@ module.exports = class CustomNotifyModal extends React.PureComponent {
                 className="btn btn-info btn-block rounded-pill"
                 onClick={onHide}
               >
-                {i18n.t('common.modal.cancel')}
+                {i18n.t('common.button.cancel')}
               </button>
             )}
           </Modal.Footer>

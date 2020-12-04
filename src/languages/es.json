@@ -372,12 +372,14 @@
             "off": "OFF",
             "apply": "Aplicar",
             "resetDefault": "Restaurar a lo preajuste",
-            "close": "Cerrar"
+            "close": "Cerrar",
+            "confirm": "Confirmar",
+            "cancel": "Cancelar",
+            "new": "Nuevo",
+            "create": "Nuevo"
         },
         "modal": {
             "pleaseWait": "Por favor espera",
-            "confirm": "Confirmar",
-            "cancel": "Cancelar",
             "sessionExpire": {
                 "sessionExpired": "Cerrar sesión automáticamente",
                 "expireCountdown": "El tiemppo de inactividad es demasiado largo, se cerrará la sesión en {{0}} segundos y se le redirigirá a la página de inicio.",

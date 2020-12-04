@@ -208,7 +208,7 @@ module.exports = class User extends Base {
                     type="submit"
                     className="btn btn-primary btn-block rounded-pill"
                   >
-                    {user ? i18n.t('Confirm') : i18n.t('New')}
+                    {user ? i18n.t('common.button.confirm') : i18n.t('common.button.new')}
                   </button>
                 </div>
                 <button

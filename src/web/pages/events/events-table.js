@@ -201,7 +201,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                               pointerEvents: isOverPhotoLimit ? 'none' : 'auto'
                             }}
                           >
-                            {i18n.t('Add')}
+                            {i18n.t('common.button.add')}
                           </button>
                           <div className="dropdown-menu dropdown-menu-right shadow">
                             <a

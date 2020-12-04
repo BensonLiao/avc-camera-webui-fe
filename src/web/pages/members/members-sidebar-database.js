@@ -226,7 +226,7 @@ const MembersDatabase = ({isApiProcessing}) => {
               <div className="modal-footer flex-column">
                 <div className="form-group w-100 mx-0">
                   <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
-                    {i18n.t('Confirm')}
+                    {i18n.t('common.button.confirm')}
                   </button>
                 </div>
                 <button
