@@ -40,6 +40,10 @@ if (COMMAND_DELAY > 0) {
   }
 }
 
+Cypress.Commands.add('getBySel', (selector, ...args) => {
+  return cy.get(`[data-test=${selector}]`, ...args);
+});
+
 Cypress.Commands.add('login', (account, password) => {
   Cypress.log({
     name: 'login',

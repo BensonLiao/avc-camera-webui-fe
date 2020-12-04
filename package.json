@@ -14,6 +14,7 @@
     "//cy:i": "if you haven't install cypress yet, run cy:i before run cy/cy:prod",
     "cy:i": "npm i --no-save cypress@5.5.0 cypress-react-selector@2.2.0 cypress-file-upload@4.1.1",
     "cy": "cypress open",
+    "cy:prod-full": "cypress open --config baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod/full-run",
     "//cy:prod": "example: npm run cy:prod --ip=xxx.xxx.xxx.xxx, localhost if omit the option",
     "cy:prod": "cypress open --config baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod",
     "//cy:rec": "if you want to run the recorder, you need to start cypress runner first.",
