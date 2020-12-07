@@ -173,7 +173,7 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
                     />
                   </div>
                 </div>
-                <CustomTooltip show={!values.$email} title={i18n.t('notification.cards.disabledReceiverButton')}>
+                <CustomTooltip show={!values.$email} title={i18n.t('notification.cards.tooltip.disabledReceiverButton')}>
                   <div className="col-auto my-1">
                     <button
                       disabled={!values.$email}
