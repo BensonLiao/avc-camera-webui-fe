@@ -92,13 +92,14 @@ const Login = () => {
               <div className="form-group">
                 <label>{i18n.t('Username')}</label>
                 <Field
+                  data-test="username"
                   name="account"
                   type="text"
                   maxLength={UserSchema.account.max}
                   placeholder={i18n.t('Enter your username')}
                   className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
                 />
-                <ErrorMessage component="div" name="account" className="invalid-feedback"/>
+                <ErrorMessage data-test="username-validate" component="div" name="account" className="invalid-feedback"/>
               </div>
               <div className="form-group has-feedback">
                 <label>{i18n.t('Password')}</label>
@@ -106,13 +107,15 @@ const Login = () => {
                   name="password"
                   component={Password}
                   inputProps={{
+                    'data-test': 'password',
                     placeholder: i18n.t('Enter your password'),
                     className: classNames('form-control', {'is-invalid': errors.password && touched.password})
                   }}
                 />
-                <ErrorMessage component="div" name="password" className="invalid-feedback"/>
+                <ErrorMessage data-test="password-validate" component="div" name="password" className="invalid-feedback"/>
               </div>
               <button
+                data-test="submit"
                 disabled={isApiProcessing || !utils.isObjectEmpty(errors)}
                 type="submit"
                 className="btn btn-primary btn-block rounded-pill mt-5"

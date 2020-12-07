@@ -74,6 +74,7 @@ context('Assertions', () => {
           // https://on.cypress.io/$
           // return an array of texts from all of the p's
           // @ts-ignore TS6133 unused variable
+          // eslint-disable-next-line max-nested-callbacks
           const texts = $p.map((i, el) => Cypress.$(el).text());
 
           // jquery map returns jquery object
