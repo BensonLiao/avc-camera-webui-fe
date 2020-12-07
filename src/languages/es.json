@@ -1,401 +1,395 @@
 {
-    "setup": {
-        "welcome": {
-            "welcome": "Bienvenido",
-            "welcomeText1": "Para que tengas una mejor experiencia",
-            "welcomeText2": "presione continuar para iniciar la configuración inicial",
-            "continue": "Continuar"
-        },
-        "language": {
-            "next": "Próximo"
-        },
-        "account": {
-            "permission": "Permiso",
-            "account": "Cuenta",
-            "accountPlaceholder": "Ingrese el nombre de la cuenta",
-            "password": "Contraseña",
-            "passwordPlaceholder": "introducir la contraseña",
-            "accountHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
-            "passwordHelper": "8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
-            "confirmPassword": "Confirmar contraseña",
-            "confirmPasswordPlaceholder": "Ingrese la contraseña nuevamente",
-            "done": "terminado",
-            "constants": {
-                "permission-0": "administrador"
-            }
-        },
-        "progressBar": {
-            "language": "Elija un idioma",
-            "setupAccount": "número de cuenta"
-        }
+  "setup": {
+    "welcome": {
+      "welcome": "Bienvenido",
+      "welcomeText1": "Para que tengas una mejor experiencia",
+      "welcomeText2": "presione continuar para iniciar la configuración inicial",
+      "continue": "Continuar"
     },
-    "login": {
-        "title": "Cuenta de Ingreso",
-        "username": "Nombre",
-        "usernamePlaceholder": "Por favor ingrese su número de cuenta",
-        "password": "Contraseña",
-        "passwordPlaceholder": "Por favor ingrese su contraseña",
-        "login": "Registrarse",
-        "lock": {
-            "lockText": "Contraseña de cuenta de inicio de sesión incorrecta por más de 5 veces",
-            "tryAgain": "Intente iniciar la sesión nuevamente en 5 minutos",
-            "loginLocked": "El inicio de sesión está bloqueado",
-            "forgotPassword": "Forgot password?",
-            "remaining": "Iniciar sesión nuevamente en {{0}}",
-            "loginAgain": "ingresar de nuevo"
-        },
-        "error": {
-            "incorrectPassword": "Contraseña incorrecta",
-            "attemptsRemaining": "Aún puedes intentarlo {{0}} veces...",
-            "loginAgain": "ingresar de nuevo",
-            "expires1": "Expira en 10 minutos",
-            "expires2": "Expira en 30 minutos",
-            "expires3": "Expira en 1 hora",
-            "expires4": "Expira en 12 horas"
-        }
+    "language": {
+      "next": "Próximo"
     },
-    "home": {
-        "deviceName": "Nombre del dispositivo",
-        "Device Status": "Estado del dispositivo",
-        "authenticationRequired": "No esta activado",
-        "analytics": "Análisis",
-        "sdcard": "Tarjeta de memoria",
-        "facialRecognition": "Reconocimiento facial: ",
-        "ageGender: ": "Género y edad: ",
-        "humanDetection: ": "Detección humanoide: "
+    "account": {
+      "permission": "Permiso",
+      "account": "Cuenta",
+      "accountPlaceholder": "Ingrese el nombre de la cuenta",
+      "password": "Contraseña",
+      "passwordPlaceholder": "introducir la contraseña",
+      "accountHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
+      "passwordHelper": "8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Ingrese la contraseña nuevamente",
+      "done": "terminado",
+      "constants": {
+        "permission-0": "administrador"
+      }
     },
-    "videoSetting": {
-        "image": "imagen",
-        "enableHDR": "Habilitar HDR",
-        "adjustments": "Atributos",
-        "brightness": "Brillo",
-        "contrast": "Contraste",
-        "sharpness": "Nitidez",
-        "saturation": "Saturación",
-        "lensControl": "Lente",
-        "selectFocusType": "Seleccionar método de enfoque",
-        "fullRangeFocus": "Enfoque de rango completo",
-        "shortRangeFocus": "Enfoque a corto rango",
-        "focus": "Encofar",
-        "zoom": "Zoom",
-        "autoFocusAfterZoom": "Enfoque automático al hacer zoom",
-        "iris": "Iris",
-        "shutterSpeed": "Velocidad de obturación",
-        "advanced": "Avanzado",
-        "whiteBalance": "Balance de blancos",
-        "colorTemperature": "Temperatura del color",
-        "iRControl": "Luz infrarroja",
-        "level": "Nivel",
-        "dayNight": "Modo día/noche",
-        "sensitivity": "Sensibilidad",
-        "dayMode": "Modo día",
-        "rotation": "Dirección de la imagen",
-        "defog": "Desempañar",
-        "lightingCompensation": "Frecuencia de actualización",
-        "autoFocus": "Foco automático",
-        "constants": {
-            "ir-control-0": "automático",
-            "ir-control-1": "Habilitar",
-            "ir-control-2": "cerrar",
-            "on": "Habilitar",
-            "off": "cerrar",
-            "max": "máximo",
-            "aperture-0": "automático",
-            "aperture-1": "máximo",
-            "shutter-speed-0": "automático",
-            "shutter-speed-1": "1/30",
-            "shutter-speed-2": "1/50",
-            "shutter-speed-3": "1/60",
-            "shutter-speed-4": "1/100",
-            "shutter-speed-5": "1/125",
-            "shutter-speed-6": "1/500",
-            "shutter-speed-7": "1/1,000",
-            "shutter-speed-8": "1/2,000",
-            "shutter-speed-9": "1/4,000",
-            "shutter-speed-10": "1/8,000",
-            "white-balance-0": "automático",
-            "white-balance-1": "al aire libre",
-            "white-balance-2": "Lámpara fluorescente",
-            "white-balance-3": "Lampara incandescente",
-            "white-balance-4": "Ajuste manual",
-            "daynight-mode-0": "automático",
-            "daynight-mode-1": "color",
-            "daynight-mode-2": "blanco y negro",
-            "daynight-mode-3": "Período de tiempo especificado",
-            "orientation-0": "normal",
-            "orientation-1": "Volteo vertical",
-            "orientation-2": "volteo horizontal",
-            "orientation-3": "Giro de 180 grados",
-            "refresh-rate-0": "automático",
-            "refresh-rate-1": "50Hz",
-            "refresh-rate-2": "60Hz"
-        }
-    },
-    "video": {
-        "breadcrumb": {
-            "videoSettings": "Video",
-            "streams": "Stream",
-            "rtsp": "RTSP",
-            "hdmi": "HDMI",
-            "osd": "Mapa de texto",
-            "privacyMask": "Máscara de privacidad"
-        },
-        "stream": {
-            "settings": "Settings",
-            "title": "Stream",
-            "streams": "Stream",
-            "stream1": "Stream 01",
-            "stream2": "Stream 02",
-            "codec": "Codificación de imágenes",
-            "resolution": "Resolución",
-            "fps": "Cuadros por segundo",
-            "bandwidth": "Gestión de la tasa de bits",
-            "quality": "Calidad",
-            "auto": "automático",
-            "gop": "GOP",
-            "modal": {
-                "apiProcessingModalTitle": "Actualización de la configuración de Stream",
-                "confirmUpdate": "¿Está seguro de que desea cambiar la configuración de Stream?",
-                "confirmRatioChange": " Si cambia la relación de aspecto de la resolución de la Stream 1, también se cambiará la configuración de la Stream 2. ¿Confirmar para continuar?"
-            },
-            "constants": {
-                "stream-resolution-0": "3840*2160 (16:9)",
-                "stream-resolution-1": "2560*1440 (16:9)",
-                "stream-resolution-2": "1920*1080 (16:9)",
-                "stream-resolution-3": "1280*720 (16:9)",
-                "stream-resolution-4": "640*360 (16:9)",
-                "stream-resolution-5": "2560*1920 (4:3)",
-                "stream-resolution-6": "2048*1536 (4:3)",
-                "stream-resolution-7": "1600*1200 (4:3)",
-                "stream-resolution-8": "1280*960 (4:3)",
-                "stream-resolution-9": "1024*768 (4:3)",
-                "stream-resolution-10": "640*480 (4:3)",
-                "stream-resolution-11": "320*240 (4:3)",
-                "stream-bandwidth-management-0": "Tasa de bits máxima",
-                "stream-bandwidth-management-1": "Tasa de bits variable",
-                "stream-bandwidth-management-2": "Tasa de bits fija",
-                "quality-30": "bajo",
-                "quality-50": "medio",
-                "quality-80": "alto",
-                "bitRateRange": "{{0}} - {{1}} Kbps"
-            }
-        },
-        "rtsp": {
-            "title": "RTSP",
-            "enableAudio": "Habilitar grabación de audio para Stream",
-            "requireAuthentication": "Habilitar autenticación de contraseña de la cuenta",
-            "rtspTcpPort": "Puerto RTSP/TCP",
-            "rtspUdpPort": "Puerto RTSP/UDP",
-            "tcpRange": "Rango: 1024-65535, preestablecido: 8554",
-            "udpRange": "Rango: 1024-65535, preestablecido: 17300",
-            "maxConnections": "Número máximo de conexiones simultáneas"
-        },
-        "hdmi": {
-            "title": "HDMI",
-            "hdmi": "HDMI",
-            "fps": "Cuadros por segundo",
-            "modal": {
-                "apiProcessingModalTitle": "Actualizar la configuración de HDMI",
-                "confirmText": "¿Está seguro de que desea cambiar la configuración de HDMI?"
-            }
-        },
-        "osd": {
-            "title": "Mapa de texto",
-            "enable": "Habilitar mapa de texto",
-            "size": "tamaño de fuente",
-            "color": "color",
-            "position": "posición",
-            "positionHelper": "Clic flecha en panel de vista previa",
-            "leftTop": "arriba a la izquierda",
-            "rightTop": "Superior derecha",
-            "leftBottom": "Abajo a la izquierda",
-            "rightBottom": "Inferior derecha",
-            "overlay": "Texto",
-            "constants": {
-                "font-size-0": "pequeño",
-                "font-size-1": "medio",
-                "font-size-2": "Grande",
-                "osd-type-0": "hora",
-                "osd-type-1": "Nombre del dispositivo",
-                "osd-type-2": "Nombre y hora del dispositivo",
-                "osd-type-3": "Texto personalizado",
-                "enterCustomText": "Ingresar texto personalizado"
-            }
-        },
-        "privacyMask": {
-            "maskArea": "Área de máscara",
-            "title": "Máscara de privacidad",
-            "enable": "Habilitar máscara de privacidad",
-            "maskHelper": "Agregue una máscara de privacidad en el panel de vista previa",
-            "note": "Descripción",
-            "drag": "Arrastrar",
-            "noteText1": "Agregar máscara:",
-            "noteText2": "Borrar máscara:",
-            "or": "or",
-            "noteText3": "Hasta 4 mascarillas"
-        }
-    },
-    "audio": {
-        "breadcrumb":{
-            "audio": "Audio"
-        },
-        "title": "Audio",
-        "enable": "Habilitar entrada de voz",
-        "quality": "Calidad",
-        "inputSource": "Fuente de entrada",
-        "internalMicrophone": "Internal Microphone",
-        "externalMicrophone": "Micrófono externo",
-        "constants":{
-            "audio-quality-0": "G.711, 8kHz, 64kbps, Mono",
-            "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
-        }
-    },
-    "notification": {},
-    "userManagement": {},
-    "analytics": {},
-    "network": {},
-    "system": {},
-    "sdcard": {},
-    "error": {},
-    "validation": {
-        "confirmEqual": "Estas contraseñas no coinciden",
-        "required": "Este campo es obligatorio",
-        "string": "Este campo debe ser una cadena",
-        "stringEmpty": "Este campo es requerido",
-        "stringMin": "Debe tener al menos {expected} caracteres o más",
-        "stringMax": "Debe tener un máximo de {expected} carácteres.",
-        "stringLength": "Debe ingresar los caracteres {expected}",
-        "stringPattern": "Este campo contiene caracteres no válidos.",
-        "stringContains": "Debe contener texto {expected}",
-        "stringContainsLowerCaseLatter": "Debe contener letras minúsculas en inglés",
-        "stringContainsUpperCaseLatter": "Debe contener letras mayúsculas en inglés",
-        "stringContainsNumber": "Debe contener números",
-        "stringAbortSpecialCharacters": "No utilice los símbolos de ancho completo o medio ancho: # % & ` \" \\ / < > y espacio",
-        "stringAcceptSpecialCharacters": "Debe contener símbolos",
-        "stringEnum": "No cumple con los requisitos de contenido",
-        "number": "Tiene que ser un número",
-        "numberMin": "Debe ser un número superior a {expected}",
-        "numberMax": "Debe ser un número inferior a {expected}",
-        "numberEqual": "Debe ser un número igual a {expected}",
-        "numberNotEqual": "No ingrese un número igual a {expected}",
-        "numberInteger": "Debe ser un entero",
-        "numberPositive": "Debe ser positivo",
-        "numberNegative": "Debe ser negativo",
-        "array": "Debe ser una matriz",
-        "arrayEmpty": "Matriz no puede estar vacía",
-        "arrayMin": "Este campo contiene al menos {expected} elementos",
-        "arrayMax": "Este campo contiene como máximo {expected} elementos",
-        "arrayLength": "Deben ser elementos {expected}",
-        "arrayContains": "Debe contener elementos {expected}",
-        "arrayEnum": "Usó un artículo que no está permitido {expected}",
-        "boolean": "Debe ser booleano",
-        "function": "Debe ser una función",
-        "date": "Debe ser una fecha",
-        "dateMin": "Debe ser una fecha posterior a {expected}",
-        "dateMax": "Debe ser una fecha anterior a {expected}",
-        "forbidden": "Campo escondido",
-        "email": "La dirección de correo electrónico inválida",
-        "url": "Utilice el formato de URL correcto",
-        "birthday": "Utilice el formato de cumpleaños correcto",
-        "countryCode": "El código de país es incorrecto",
-        "duplicateName": "Nombre duplicado, por favorutilice un nombre diferente",
-        "portEmpty": "El campo no debe estar vacío",
-        "portReserved": "Este puerto está reservado o en uso para el sistema",
-        "maxRecipient": "El número máximo de destinatarios es 64",
-        "duplicateEmail": "El correo electrónico esta duplicado"
-    },
-    "navigation": {
-        "sidebar": {
-            "videoSettings": "Video",
-            "streams": "Stream",
-            "rtsp": "RTSP",
-            "hdmi": "HDMI",
-            "osd": "Mapa de texto",
-            "privacyMask": "Máscara de privacidad",
-
-            "notificationSettings": "Anunciar",
-            "notificationMethod": "Método de notificación",
-            "email": "correo electrónico",
-            "io": "Entrada y salida digital",
-            "smartNotification": "Notificación inteligente",
-
-            "members": "miembro",
-            "accounts": "cuentas",
-            "events": "eventos",
-
-            "analyticsSettings": "Análisis inteligente",
-            "facialRecognition": "Reconocimiento facial",
-            "motionDetection": "Detección de movimiento",
-            "license": "Autorización de análisis inteligente",
-
-            "internetNetworkSettings": "Configuración de Internet y red",
-            "network": "Red",
-            "tcpip": "TCP/IP",
-            "https": "HTTPS",
-
-            "system": "Sistema",
-            "administration": "administración",
-            "dateTime": "Fecha y hora",
-            "deviceMaintenance": "mantenimiento",
-            "softwareUpgrade": "Actualización de software",
-            "status": "estado",
-            "systemLog": "Registro del sistema",
-            "information": "Información del dispositivo",
-
-            "tooltip": {
-                "home": "Página de Inicio",
-                "image": "imagen",
-                "video": "Video",
-                "audio": "Audio",
-                "notification": "Notificación",
-                "userManagement": "Usuarios",
-                "analytics": "Análisis",
-                "network": "Red",
-                "system": "Sistema",
-                "sdCard": "Tarjeta de memoria"
-            }
-        },
-        "appbar": {}
-    },
-    "common": {
-        "tooltip": {},
-        "toast": {},
-        "volumeBar": {
-            "sdStorageStatus": "{{0}} disponible total {{1}}",
-            "free": "{{0}} está disponible",
-            "used": "{{0}} se ha utilizado"
-        },
-        "password": {
-            "hidePassword": "Ocultar contraseña",
-            "showPassword": "mostrar contraseña"
-        },
-        "dateTimePicker": {
-            "startDate": "fecha",
-            "startTime": "hora",
-            "startDatetime": "Hora de inicio",
-            "endDate": "fecha",
-            "endTime": "hora",
-            "endDatetime": "Hora de fin"
-        },
-        "button": {
-            "on": "ON",
-            "off": "OFF",
-            "apply": "Aplicar",
-            "resetDefault": "Restaurar a lo preajuste",
-            "close": "Cerrar",
-            "confirm": "Confirmar",
-            "cancel": "Cancelar",
-            "new": "Nuevo",
-            "create": "Nuevo",
-            "add": "Añadir"
-        },
-        "modal": {
-            "pleaseWait": "Por favor espera",
-            "sessionExpire": {
-                "sessionExpired": "Cerrar sesión automáticamente",
-                "expireCountdown": "El tiemppo de inactividad es demasiado largo, se cerrará la sesión en {{0}} segundos y se le redirigirá a la página de inicio.",
-                "renewSession": "Renovar Sesión"
-            }
-        }
+    "progressBar": {
+      "language": "Elija un idioma",
+      "setupAccount": "número de cuenta"
     }
+  },
+  "login": {
+    "title": "Cuenta de Ingreso",
+    "username": "Nombre",
+    "usernamePlaceholder": "Por favor ingrese su número de cuenta",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Por favor ingrese su contraseña",
+    "login": "Registrarse",
+    "lock": {
+      "lockText": "Contraseña de cuenta de inicio de sesión incorrecta por más de 5 veces",
+      "tryAgain": "Intente iniciar la sesión nuevamente en 5 minutos",
+      "loginLocked": "El inicio de sesión está bloqueado",
+      "forgotPassword": "Forgot password?",
+      "remaining": "Iniciar sesión nuevamente en {{0}}",
+      "loginAgain": "ingresar de nuevo"
+    },
+    "error": {
+      "incorrectPassword": "Contraseña incorrecta",
+      "attemptsRemaining": "Aún puedes intentarlo {{0}} veces...",
+      "loginAgain": "ingresar de nuevo",
+      "expires1": "Expira en 10 minutos",
+      "expires2": "Expira en 30 minutos",
+      "expires3": "Expira en 1 hora",
+      "expires4": "Expira en 12 horas"
+    }
+  },
+  "home": {
+    "deviceName": "Nombre del dispositivo",
+    "Device Status": "Estado del dispositivo",
+    "authenticationRequired": "No esta activado",
+    "analytics": "Análisis",
+    "sdcard": "Tarjeta de memoria",
+    "facialRecognition": "Reconocimiento facial: ",
+    "ageGender: ": "Género y edad: ",
+    "humanDetection: ": "Detección humanoide: "
+  },
+  "videoSetting": {
+    "image": "imagen",
+    "enableHDR": "Habilitar HDR",
+    "adjustments": "Atributos",
+    "brightness": "Brillo",
+    "contrast": "Contraste",
+    "sharpness": "Nitidez",
+    "saturation": "Saturación",
+    "lensControl": "Lente",
+    "selectFocusType": "Seleccionar método de enfoque",
+    "fullRangeFocus": "Enfoque de rango completo",
+    "shortRangeFocus": "Enfoque a corto rango",
+    "focus": "Encofar",
+    "zoom": "Zoom",
+    "autoFocusAfterZoom": "Enfoque automático al hacer zoom",
+    "iris": "Iris",
+    "shutterSpeed": "Velocidad de obturación",
+    "advanced": "Avanzado",
+    "whiteBalance": "Balance de blancos",
+    "colorTemperature": "Temperatura del color",
+    "iRControl": "Luz infrarroja",
+    "level": "Nivel",
+    "dayNight": "Modo día/noche",
+    "sensitivity": "Sensibilidad",
+    "dayMode": "Modo día",
+    "rotation": "Dirección de la imagen",
+    "defog": "Desempañar",
+    "lightingCompensation": "Frecuencia de actualización",
+    "autoFocus": "Foco automático",
+    "constants": {
+      "ir-control-0": "automático",
+      "ir-control-1": "Habilitar",
+      "ir-control-2": "cerrar",
+      "on": "Habilitar",
+      "off": "cerrar",
+      "max": "máximo",
+      "aperture-0": "automático",
+      "aperture-1": "máximo",
+      "shutter-speed-0": "automático",
+      "shutter-speed-1": "1/30",
+      "shutter-speed-2": "1/50",
+      "shutter-speed-3": "1/60",
+      "shutter-speed-4": "1/100",
+      "shutter-speed-5": "1/125",
+      "shutter-speed-6": "1/500",
+      "shutter-speed-7": "1/1,000",
+      "shutter-speed-8": "1/2,000",
+      "shutter-speed-9": "1/4,000",
+      "shutter-speed-10": "1/8,000",
+      "white-balance-0": "automático",
+      "white-balance-1": "al aire libre",
+      "white-balance-2": "Lámpara fluorescente",
+      "white-balance-3": "Lampara incandescente",
+      "white-balance-4": "Ajuste manual",
+      "daynight-mode-0": "automático",
+      "daynight-mode-1": "color",
+      "daynight-mode-2": "blanco y negro",
+      "daynight-mode-3": "Período de tiempo especificado",
+      "orientation-0": "normal",
+      "orientation-1": "Volteo vertical",
+      "orientation-2": "volteo horizontal",
+      "orientation-3": "Giro de 180 grados",
+      "refresh-rate-0": "automático",
+      "refresh-rate-1": "50Hz",
+      "refresh-rate-2": "60Hz"
+    }
+  },
+  "video": {
+    "breadcrumb": {
+      "videoSettings": "Video",
+      "streams": "Stream",
+      "rtsp": "RTSP",
+      "hdmi": "HDMI",
+      "osd": "Mapa de texto",
+      "privacyMask": "Máscara de privacidad"
+    },
+    "stream": {
+      "settings": "Settings",
+      "title": "Stream",
+      "streams": "Stream",
+      "stream1": "Stream 01",
+      "stream2": "Stream 02",
+      "codec": "Codificación de imágenes",
+      "resolution": "Resolución",
+      "fps": "Cuadros por segundo",
+      "bandwidth": "Gestión de la tasa de bits",
+      "quality": "Calidad",
+      "auto": "automático",
+      "gop": "GOP",
+      "modal": {
+        "apiProcessingModalTitle": "Actualización de la configuración de Stream",
+        "confirmUpdate": "¿Está seguro de que desea cambiar la configuración de Stream?",
+        "confirmRatioChange": " Si cambia la relación de aspecto de la resolución de la Stream 1, también se cambiará la configuración de la Stream 2. ¿Confirmar para continuar?"
+      },
+      "constants": {
+        "stream-resolution-0": "3840*2160 (16:9)",
+        "stream-resolution-1": "2560*1440 (16:9)",
+        "stream-resolution-2": "1920*1080 (16:9)",
+        "stream-resolution-3": "1280*720 (16:9)",
+        "stream-resolution-4": "640*360 (16:9)",
+        "stream-resolution-5": "2560*1920 (4:3)",
+        "stream-resolution-6": "2048*1536 (4:3)",
+        "stream-resolution-7": "1600*1200 (4:3)",
+        "stream-resolution-8": "1280*960 (4:3)",
+        "stream-resolution-9": "1024*768 (4:3)",
+        "stream-resolution-10": "640*480 (4:3)",
+        "stream-resolution-11": "320*240 (4:3)",
+        "stream-bandwidth-management-0": "Tasa de bits máxima",
+        "stream-bandwidth-management-1": "Tasa de bits variable",
+        "stream-bandwidth-management-2": "Tasa de bits fija",
+        "quality-30": "bajo",
+        "quality-50": "medio",
+        "quality-80": "alto",
+        "bitRateRange": "{{0}} - {{1}} Kbps"
+      }
+    },
+    "rtsp": {
+      "title": "RTSP",
+      "enableAudio": "Habilitar grabación de audio para Stream",
+      "requireAuthentication": "Habilitar autenticación de contraseña de la cuenta",
+      "rtspTcpPort": "Puerto RTSP/TCP",
+      "rtspUdpPort": "Puerto RTSP/UDP",
+      "tcpRange": "Rango: 1024-65535, preestablecido: 8554",
+      "udpRange": "Rango: 1024-65535, preestablecido: 17300",
+      "maxConnections": "Número máximo de conexiones simultáneas"
+    },
+    "hdmi": {
+      "title": "HDMI",
+      "hdmi": "HDMI",
+      "fps": "Cuadros por segundo",
+      "modal": {
+        "apiProcessingModalTitle": "Actualizar la configuración de HDMI",
+        "confirmText": "¿Está seguro de que desea cambiar la configuración de HDMI?"
+      }
+    },
+    "osd": {
+      "title": "Mapa de texto",
+      "enable": "Habilitar mapa de texto",
+      "size": "tamaño de fuente",
+      "color": "color",
+      "position": "posición",
+      "positionHelper": "Clic flecha en panel de vista previa",
+      "leftTop": "arriba a la izquierda",
+      "rightTop": "Superior derecha",
+      "leftBottom": "Abajo a la izquierda",
+      "rightBottom": "Inferior derecha",
+      "overlay": "Texto",
+      "constants": {
+        "font-size-0": "pequeño",
+        "font-size-1": "medio",
+        "font-size-2": "Grande",
+        "osd-type-0": "hora",
+        "osd-type-1": "Nombre del dispositivo",
+        "osd-type-2": "Nombre y hora del dispositivo",
+        "osd-type-3": "Texto personalizado",
+        "enterCustomText": "Ingresar texto personalizado"
+      }
+    },
+    "privacyMask": {
+      "maskArea": "Área de máscara",
+      "title": "Máscara de privacidad",
+      "enable": "Habilitar máscara de privacidad",
+      "maskHelper": "Agregue una máscara de privacidad en el panel de vista previa",
+      "note": "Descripción",
+      "drag": "Arrastrar",
+      "noteText1": "Agregar máscara:",
+      "noteText2": "Borrar máscara:",
+      "or": "or",
+      "noteText3": "Hasta 4 mascarillas"
+    }
+  },
+  "audio": {
+    "breadcrumb": {
+      "audio": "Audio"
+    },
+    "title": "Audio",
+    "enable": "Habilitar entrada de voz",
+    "quality": "Calidad",
+    "inputSource": "Fuente de entrada",
+    "internalMicrophone": "Internal Microphone",
+    "externalMicrophone": "Micrófono externo",
+    "constants": {
+      "audio-quality-0": "G.711, 8kHz, 64kbps, Mono",
+      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+    }
+  },
+  "notification": {},
+  "userManagement": {},
+  "analytics": {},
+  "network": {},
+  "system": {},
+  "sdcard": {},
+  "error": {},
+  "validation": {
+    "confirmEqual": "Estas contraseñas no coinciden",
+    "required": "Este campo es obligatorio",
+    "string": "Este campo debe ser una cadena",
+    "stringEmpty": "Este campo es requerido",
+    "stringMin": "Debe tener al menos {expected} caracteres o más",
+    "stringMax": "Debe tener un máximo de {expected} carácteres.",
+    "stringLength": "Debe ingresar los caracteres {expected}",
+    "stringPattern": "Este campo contiene caracteres no válidos.",
+    "stringContains": "Debe contener texto {expected}",
+    "stringContainsLowerCaseLatter": "Debe contener letras minúsculas en inglés",
+    "stringContainsUpperCaseLatter": "Debe contener letras mayúsculas en inglés",
+    "stringContainsNumber": "Debe contener números",
+    "stringAbortSpecialCharacters": "No utilice los símbolos de ancho completo o medio ancho: # % & ` \" \\ / < > y espacio",
+    "stringAcceptSpecialCharacters": "Debe contener símbolos",
+    "stringEnum": "No cumple con los requisitos de contenido",
+    "number": "Tiene que ser un número",
+    "numberMin": "Debe ser un número superior a {expected}",
+    "numberMax": "Debe ser un número inferior a {expected}",
+    "numberEqual": "Debe ser un número igual a {expected}",
+    "numberNotEqual": "No ingrese un número igual a {expected}",
+    "numberInteger": "Debe ser un entero",
+    "numberPositive": "Debe ser positivo",
+    "numberNegative": "Debe ser negativo",
+    "array": "Debe ser una matriz",
+    "arrayEmpty": "Matriz no puede estar vacía",
+    "arrayMin": "Este campo contiene al menos {expected} elementos",
+    "arrayMax": "Este campo contiene como máximo {expected} elementos",
+    "arrayLength": "Deben ser elementos {expected}",
+    "arrayContains": "Debe contener elementos {expected}",
+    "arrayEnum": "Usó un artículo que no está permitido {expected}",
+    "boolean": "Debe ser booleano",
+    "function": "Debe ser una función",
+    "date": "Debe ser una fecha",
+    "dateMin": "Debe ser una fecha posterior a {expected}",
+    "dateMax": "Debe ser una fecha anterior a {expected}",
+    "forbidden": "Campo escondido",
+    "email": "La dirección de correo electrónico inválida",
+    "url": "Utilice el formato de URL correcto",
+    "birthday": "Utilice el formato de cumpleaños correcto",
+    "countryCode": "El código de país es incorrecto",
+    "duplicateName": "Nombre duplicado, por favorutilice un nombre diferente",
+    "portEmpty": "El campo no debe estar vacío",
+    "portReserved": "Este puerto está reservado o en uso para el sistema",
+    "maxRecipient": "El número máximo de destinatarios es 64",
+    "duplicateEmail": "El correo electrónico esta duplicado"
+  },
+  "navigation": {
+    "sidebar": {
+      "videoSettings": "Video",
+      "streams": "Stream",
+      "rtsp": "RTSP",
+      "hdmi": "HDMI",
+      "osd": "Mapa de texto",
+      "privacyMask": "Máscara de privacidad",
+      "notificationSettings": "Anunciar",
+      "notificationMethod": "Método de notificación",
+      "email": "correo electrónico",
+      "io": "Entrada y salida digital",
+      "smartNotification": "Notificación inteligente",
+      "members": "miembro",
+      "accounts": "cuentas",
+      "events": "eventos",
+      "analyticsSettings": "Análisis inteligente",
+      "facialRecognition": "Reconocimiento facial",
+      "motionDetection": "Detección de movimiento",
+      "license": "Autorización de análisis inteligente",
+      "internetNetworkSettings": "Configuración de Internet y red",
+      "network": "Red",
+      "tcpip": "TCP/IP",
+      "https": "HTTPS",
+      "system": "Sistema",
+      "administration": "administración",
+      "dateTime": "Fecha y hora",
+      "deviceMaintenance": "mantenimiento",
+      "softwareUpgrade": "Actualización de software",
+      "status": "estado",
+      "systemLog": "Registro del sistema",
+      "information": "Información del dispositivo",
+      "tooltip": {
+        "home": "Página de Inicio",
+        "image": "imagen",
+        "video": "Video",
+        "audio": "Audio",
+        "notification": "Notificación",
+        "userManagement": "Usuarios",
+        "analytics": "Análisis",
+        "network": "Red",
+        "system": "Sistema",
+        "sdCard": "Tarjeta de memoria"
+      }
+    },
+    "appbar": {}
+  },
+  "common": {
+    "tooltip": {},
+    "toast": {},
+    "volumeBar": {
+      "sdStorageStatus": "{{0}} disponible total {{1}}",
+      "free": "{{0}} está disponible",
+      "used": "{{0}} se ha utilizado"
+    },
+    "password": {
+      "hidePassword": "Ocultar contraseña",
+      "showPassword": "mostrar contraseña"
+    },
+    "dateTimePicker": {
+      "startDate": "fecha",
+      "startTime": "hora",
+      "startDatetime": "Hora de inicio",
+      "endDate": "fecha",
+      "endTime": "hora",
+      "endDatetime": "Hora de fin"
+    },
+    "button": {
+      "on": "ON",
+      "off": "OFF",
+      "apply": "Aplicar",
+      "resetDefault": "Restaurar a lo preajuste",
+      "close": "Cerrar",
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "new": "Nuevo",
+      "create": "Nuevo",
+      "add": "Añadir"
+    },
+    "modal": {
+      "pleaseWait": "Por favor espera",
+      "sessionExpire": {
+        "sessionExpired": "Cerrar sesión automáticamente",
+        "expireCountdown": "El tiemppo de inactividad es demasiado largo, se cerrará la sesión en {{0}} segundos y se le redirigirá a la página de inicio.",
+        "renewSession": "Renovar Sesión"
+      }
+    }
+  }
 }
