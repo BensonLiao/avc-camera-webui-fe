@@ -12,7 +12,7 @@
     "ncu": "node_modules/npm-check-updates/bin/ncu",
     "test": "echo \"Error: no test specified\" && exit 1",
     "//cy:i": "if you haven't install cypress yet, run cy:i before run cy",
-    "cy:i": "npm i --no-save cypress@5.5.0 cypress-react-selector@2.2.0 cypress-file-upload@4.1.1",
+    "cy:i": "npm i --no-save cypress@6.0.1 cypress-react-selector@2.2.0 cypress-file-upload@4.1.1",
     "//cy": "example: npm run cy --ip=xxx.xxx.xxx.xxx, localhost if omit the option",
     "cy": "cypress open --config baseUrl=http://${npm_config_ip-localhost}",
     "cy:local": "cypress open",
