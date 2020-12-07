@@ -259,7 +259,6 @@ module.exports = class StreamSetting extends Base {
     }
 
     if (fieldNamePrefix === 'channelB') {
-      this.setState({hasResolutionRatioChanged: true});
       formValues.channelB.codec = newCodecValue;
       this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
         formValues.channelB.resolution = this.state.channelOptions.chB.resolution[0].value;
