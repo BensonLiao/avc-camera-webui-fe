@@ -6,5 +6,9 @@ describe('license page test', () => {
     // login before each test
     cy.login(account, password);
   });
+
+  it('should arrive at homepage', () => {
+    cy.visit('/');
+  });
 });
 

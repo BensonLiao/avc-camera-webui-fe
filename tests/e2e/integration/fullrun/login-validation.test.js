@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 describe('/login page validation test', () => {
   const account = 'admin';
-  const password = 'wrongPassword';
+  const password = 'Fae12345-';
 
   it('check if username and password fields have error validation, and hidden on input', () => {
     cy.visit('/login')
@@ -13,13 +13,20 @@ describe('/login page validation test', () => {
       .should('be.visible');
 
     cy.get('[data-test="username"]').as('usernameField')
+      .type(' ')
+      .get('@usernameError')
+      .should('have.text', 'This field cannot contain these symbols: #, %, &, `, ", \\, /, <, >, and space.')
+      .get('@usernameField')
+      .clear()
       .type(account)
       .get('@usernameError')
       .should('not.be.visible')
       .get('[data-test="password"]').as('passwordField')
       .type(password)
       .get('@passwordError')
-      .should('not.be.visible');
+      .should('not.be.visible')
+      .get('@loginBtn')
+      .click();
   });
 });
 
