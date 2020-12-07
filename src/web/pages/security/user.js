@@ -154,12 +154,12 @@ module.exports = class User extends Base {
                 </div>
                 { !user && (
                   <div className="form-group has-feedback">
-                    <label>{i18n.t('Password')}</label>
+                    <label>{i18n.t('common.password.password')}</label>
                     <Field
                       name="password"
                       component={Password}
                       inputProps={{
-                        placeholder: i18n.t('Enter a password'),
+                        placeholder: i18n.t('common.password.passwordPlaceholder'),
                         className: classNames('form-control', {'is-invalid': errors.password && touched.password})
                       }}
                     />
@@ -172,12 +172,12 @@ module.exports = class User extends Base {
                 {
                   user && (
                     <div className="form-group has-feedback">
-                      <label>{i18n.t('New Password')}</label>
+                      <label>{i18n.t('common.password.newPassword')}</label>
                       <Field
                         name="newPassword"
                         component={Password}
                         inputProps={{
-                          placeholder: i18n.t('Enter a new password'),
+                          placeholder: i18n.t('common.password.newPasswordPlaceholder'),
                           className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword})
                         }}
                       />
@@ -189,12 +189,12 @@ module.exports = class User extends Base {
                   )
                 }
                 <div className="form-group has-feedback">
-                  <label>{i18n.t(user ? 'Confirm New Password' : 'Confirm Password')}</label>
+                  <label>{i18n.t(user ? 'common.password.confirmNewPassword' : 'common.password.confirmPassword')}</label>
                   <Field
                     name="confirmPassword"
                     component={Password}
                     inputProps={{
-                      placeholder: i18n.t(user ? 'Enter the new password again' : 'Enter the password again'),
+                      placeholder: i18n.t(user ? 'common.password.confirmNewPasswordPlaceholder' : 'common.password.confirmPasswordPlaceholder'),
                       className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
                     }}
                   />

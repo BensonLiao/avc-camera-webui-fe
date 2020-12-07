@@ -13,11 +13,7 @@
       "permission": "Permiso",
       "account": "Cuenta",
       "accountPlaceholder": "Ingrese el nombre de la cuenta",
-      "password": "Contraseña",
-      "passwordPlaceholder": "introducir la contraseña",
       "accountHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
-      "confirmPassword": "Confirmar contraseña",
-      "confirmPasswordPlaceholder": "Ingrese la contraseña nuevamente",
       "done": "terminado",
       "constants": {
         "permission-0": "administrador"
@@ -491,7 +487,15 @@
     "password": {
       "hidePassword": "Ocultar contraseña",
       "showPassword": "mostrar contraseña",
-      "passwordHelper": "8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio"
+      "passwordHelper": "8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
+      "password": "Contraseña",
+      "passwordPlaceholder": "introducir la contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Ingrese la contraseña nuevamente",
+      "newPassword": "nueva contraseña",
+      "newPasswordPlaceholder": "Introduzca una nueva contraseña",
+      "confirmNewPassword": "Confirmar Nueva Contraseña",
+      "confirmNewPasswordPlaceholder": "Ingrese la nueva contraseña nuevamente"
     },
     "dateTimePicker": {
       "startDate": "fecha",

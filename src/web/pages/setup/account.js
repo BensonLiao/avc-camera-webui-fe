@@ -88,12 +88,12 @@ const SetupAccount = () => {
                       </small>
                     </div>
                     <div className="form-group has-feedback">
-                      <label>{i18n.t('setup.account.password')}</label>
+                      <label>{i18n.t('common.password.password')}</label>
                       <Field
                         name="password"
                         component={Password}
                         inputProps={{
-                          placeholder: i18n.t('setup.account.passwordPlaceholder'),
+                          placeholder: i18n.t('common.password.passwordPlaceholder'),
                           className: classNames('form-control', {'is-invalid': errors.password && touched.password})
                         }}
                       />
@@ -103,12 +103,12 @@ const SetupAccount = () => {
                       </small>
                     </div>
                     <div className="form-group has-feedback">
-                      <label>{i18n.t('setup.account.confirmPassword')}</label>
+                      <label>{i18n.t('common.password.confirmPassword')}</label>
                       <Field
                         name="confirmPassword"
                         component={Password}
                         inputProps={{
-                          placeholder: i18n.t('setup.account.confirmPasswordPlaceholder'),
+                          placeholder: i18n.t('common.password.confirmPasswordPlaceholder'),
                           className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword})
                         }}
                       />

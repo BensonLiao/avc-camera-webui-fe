@@ -13,11 +13,7 @@
       "permission": "權限",
       "account": "帳號",
       "accountPlaceholder": "輸入帳號名稱",
-      "password": "密碼",
-      "passwordPlaceholder": "輸入密碼",
       "accountHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
-      "confirmPassword": "確認密碼",
-      "confirmPasswordPlaceholder": "再次輸入密碼",
       "done": "完成",
       "constants": {
         "permission-0": "管理者"
@@ -491,7 +487,15 @@
     "password": {
       "hidePassword": "隱藏密碼",
       "showPassword": "顯示密碼",
-      "passwordHelper": "8 - 16個字: 必須包含英文大寫和小寫字元, 數字和符號, 但符號不能為 # % & ` “ \\ / < > 和空白"
+      "passwordHelper": "8 - 16個字: 必須包含英文大寫和小寫字元, 數字和符號, 但符號不能為 # % & ` “ \\ / < > 和空白",
+      "password": "密碼",
+      "passwordPlaceholder": "輸入密碼",
+      "confirmPassword": "確認密碼",
+      "confirmPasswordPlaceholder": "再次輸入密碼",
+      "newPassword": "新密碼",
+      "newPasswordPlaceholder": "輸入新密碼",
+      "confirmNewPassword": "確認新密碼",
+      "confirmNewPasswordPlaceholder": "再次輸入新密碼"
     },
     "dateTimePicker": {
       "startDate": "日期",

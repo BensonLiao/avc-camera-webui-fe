@@ -181,7 +181,7 @@ const MembersDatabase = ({isApiProcessing}) => {
               </div>
               <div className="modal-body">
                 <div className="form-group has-feedback">
-                  <label>{i18n.t('Password')}</label>
+                  <label>{i18n.t('common.password.password')}</label>
                   <Field
                     name="password"
                     component={Password}
@@ -196,13 +196,13 @@ const MembersDatabase = ({isApiProcessing}) => {
                   <ErrorMessage component="div" name="password" className="invalid-feedback"/>
                 </div>
                 <div className="form-group has-feedback">
-                  <label>{i18n.t('New Password')}</label>
+                  <label>{i18n.t('common.password.newPassword')}</label>
                   <Field
                     name="newPassword"
                     component={Password}
                     inputProps={{
                       className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
-                      placeholder: i18n.t('Enter a new password')
+                      placeholder: i18n.t('common.password.newPasswordPlaceholder')
                     }}
                   />
                   <small className="form-text text-muted">
@@ -211,13 +211,13 @@ const MembersDatabase = ({isApiProcessing}) => {
                   <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
                 </div>
                 <div className="form-group has-feedback">
-                  <label>{i18n.t('Confirm New Password')}</label>
+                  <label>{i18n.t('common.password.confirmNewPassword')}</label>
                   <Field
                     name="confirmPassword"
                     component={Password}
                     inputProps={{
                       className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                      placeholder: i18n.t('Enter the new password again')
+                      placeholder: i18n.t('common.password.confirmNewPasswordPlaceholder')
                     }}
                   />
                   <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
