@@ -501,12 +501,10 @@
       "stats": "{{0}}-{{1}} registros. Total: {{2}}"
     },
     "dateTimePicker": {
-      "startDate": "fecha",
-      "startTime": "hora",
-      "startDatetime": "Hora de inicio",
-      "endDate": "fecha",
-      "endTime": "hora",
-      "endDatetime": "Hora de fin"
+      "date": "fecha",
+      "time": "hora",
+      "startTime": "Hora de inicio",
+      "endTime": "Hora de fin"
     },
     "button": {
       "on": "ON",

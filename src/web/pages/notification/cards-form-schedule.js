@@ -74,14 +74,14 @@ const CardsFormSchedule = ({values, setFieldValue}) => {
             <Field
               name="$start"
               component={DateTimePicker}
-              dateTabText={i18n.t('common.dateTimePicker.startDate')}
-              timeTabText={i18n.t('common.dateTimePicker.startTime')}
+              dateTabText={i18n.t('common.dateTimePicker.date')}
+              timeTabText={i18n.t('common.dateTimePicker.time')}
               inputProps={{
                 className: classNames(
                   'btn start-date px-4',
                   {active: isShowStartDatePicker}
                 ),
-                placeholder: i18n.t('common.dateTimePicker.startDatetime'),
+                placeholder: i18n.t('common.dateTimePicker.startTime'),
                 style: {whiteSpace: 'nowrap'}
               }}
               endDateFieldName="$end"
@@ -92,14 +92,14 @@ const CardsFormSchedule = ({values, setFieldValue}) => {
             <Field
               name="$end"
               component={DateTimePicker}
-              dateTabText={i18n.t('common.dateTimePicker.endDate')}
-              timeTabText={i18n.t('common.dateTimePicker.endTime')}
+              dateTabText={i18n.t('common.dateTimePicker.date')}
+              timeTabText={i18n.t('common.dateTimePicker.time')}
               inputProps={{
                 className: classNames(
                   'btn end-date px-4',
                   {active: isShowEndDatePicker}
                 ),
-                placeholder: i18n.t('common.dateTimePicker.endDatetime'),
+                placeholder: i18n.t('common.dateTimePicker.endTime'),
                 style: {whiteSpace: 'nowrap'}
               }}
               startDateFieldName="$start"

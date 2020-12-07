@@ -501,12 +501,10 @@
       "stats": "{{0}}-{{1}}個データ、合計: {{2}}"
     },
     "dateTimePicker": {
-      "startDate": "日付",
-      "startTime": "時間",
-      "startDatetime": "開始時間",
-      "endDate": "日付",
-      "endTime": "時間",
-      "endDatetime": "終了時間"
+      "date": "日付",
+      "time": "時間",
+      "startTime": "開始時間",
+      "endTime": "終了時間"
     },
     "button": {
       "on": "ON",

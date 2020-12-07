@@ -648,12 +648,10 @@
       "stats": "{{0}}-{{1}} items. Total: {{2}}"
     },
     "dateTimePicker": {
-      "startDate": "Date",
-      "startTime": "Time",
-      "startDatetime": "Start Time",
-      "endDate": "Date",
-      "endTime": "Time",
-      "endDatetime": "End Time"
+      "date": "Date",
+      "time": "Time",
+      "startTime": "Start Time",
+      "endTime": "End Time"
     },
     "button": {
       "on": "ON",
