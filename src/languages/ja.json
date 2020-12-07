@@ -16,7 +16,6 @@
       "password": "パスワード",
       "passwordPlaceholder": "パスワードを入力してください",
       "accountHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
-      "passwordHelper": "文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ /< >とスペースを使用できません",
       "confirmPassword": "パスワードを確認する",
       "confirmPasswordPlaceholder": "パスワードを再度入力してください",
       "done": "完了しました",
@@ -491,7 +490,8 @@
     },
     "password": {
       "hidePassword": "パスワードを非表示する",
-      "showPassword": "パスワードを表示する"
+      "showPassword": "パスワードを表示する",
+      "passwordHelper": "文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ /< >とスペースを使用できません"
     },
     "dateTimePicker": {
       "startDate": "日付",

@@ -99,7 +99,7 @@ const SetupAccount = () => {
                       />
                       <ErrorMessage component="div" name="password" className="invalid-feedback"/>
                       <small className="text-info">
-                        {i18n.t('setup.account.accountHelper')}
+                        {i18n.t('common.password.passwordHelper')}
                       </small>
                     </div>
                     <div className="form-group has-feedback">

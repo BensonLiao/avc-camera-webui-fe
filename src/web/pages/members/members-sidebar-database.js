@@ -206,7 +206,7 @@ const MembersDatabase = ({isApiProcessing}) => {
                     }}
                   />
                   <small className="form-text text-muted">
-                    {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
+                    {i18n.t('common.password.passwordHelper')}
                   </small>
                   <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
                 </div>

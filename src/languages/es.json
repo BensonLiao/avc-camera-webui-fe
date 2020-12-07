@@ -16,7 +16,6 @@
       "password": "Contraseña",
       "passwordPlaceholder": "introducir la contraseña",
       "accountHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
-      "passwordHelper": "8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
       "confirmPassword": "Confirmar contraseña",
       "confirmPasswordPlaceholder": "Ingrese la contraseña nuevamente",
       "done": "terminado",
@@ -491,7 +490,8 @@
     },
     "password": {
       "hidePassword": "Ocultar contraseña",
-      "showPassword": "mostrar contraseña"
+      "showPassword": "mostrar contraseña",
+      "passwordHelper": "8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio"
     },
     "dateTimePicker": {
       "startDate": "fecha",

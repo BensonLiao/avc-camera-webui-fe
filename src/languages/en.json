@@ -16,7 +16,6 @@
       "password": "Password",
       "passwordPlaceholder": "Enter a password",
       "accountHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
-      "passwordHelper": "8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, \", \\, /, <, > and space",
       "confirmPassword": "Confirm Password",
       "confirmPasswordPlaceholder": "Enter the password again",
       "done": "Done",
@@ -491,7 +490,8 @@
     },
     "password": {
       "hidePassword": "Hide Password",
-      "showPassword": "Show Password"
+      "showPassword": "Show Password",
+      "passwordHelper": "8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, \", \\, /, <, > and space"
     },
     "dateTimePicker": {
       "startDate": "Date",
