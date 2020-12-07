@@ -224,7 +224,7 @@
     },
     "privacyMask": {
       "maskArea": "Mask Area",
-      "privacyMask": "Privacy Mask",
+      "title": "Privacy Mask",
       "enable": "Enable Privacy Mask",
       "maskHelper": "Create mask areas on the preview window.",
       "note": "Note Area",

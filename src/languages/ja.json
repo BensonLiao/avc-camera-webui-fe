@@ -224,7 +224,7 @@
     },
     "privacyMask": {
       "maskArea": "マスクエリア",
-      "privacyMask": "プライバシーマスク",
+      "title": "プライバシーマスク",
       "enable": "プライバシーマスクを有効にする",
       "maskHelper": "プレビューウィンドにマスクを追加してください",
       "note": "説明",
