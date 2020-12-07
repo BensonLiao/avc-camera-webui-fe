@@ -35,7 +35,7 @@ const MembersSelectedGroup = ({selectedGroup, params}) => {
             </CustomTooltip>
           )
         }
-        <CustomTooltip title={i18n.t('Edit Group: {{0}}', {0: selectedGroup.name})}>
+        <CustomTooltip title={i18n.t('userManagement.members.tooltip.editGroupWithName', {0: selectedGroup.name})}>
           <Link
             className="ml-32px"
             to={{

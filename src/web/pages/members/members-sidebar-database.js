@@ -62,7 +62,7 @@ const MembersDatabase = ({isApiProcessing}) => {
     setState(prevState => ({
       ...prevState,
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Exporting Member Database')
+      apiProcessModalTitle: i18n.t('userManagement.members.modal.database.exportApiProcessModalTitle')
     }));
     wrappedApi({
       method: 'get',
@@ -101,7 +101,7 @@ const MembersDatabase = ({isApiProcessing}) => {
     setState(prevState => ({
       ...prevState,
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Importing Member Database')
+      apiProcessModalTitle: i18n.t('userManagement.members.modal.database.importApiProcessModalTitle')
     }));
     api.member.uploadDatabaseFile(file)
       .then(() => {
@@ -134,8 +134,8 @@ const MembersDatabase = ({isApiProcessing}) => {
   return (
     <>
       <div className="sub-title py-2 px-4">
-        <h3>{i18n.t('Database')}</h3>
-        <CustomTooltip title={i18n.t('Encryption Settings')}>
+        <h3>{i18n.t('userManagement.members.database')}</h3>
+        <CustomTooltip title={i18n.t('userManagement.members.tooltip.encryptionSettings')}>
           <button className="btn btn-link p-0" type="button" onClick={showDatabaseModal}>
             <img src={iconLock}/>
           </button>
@@ -149,7 +149,7 @@ const MembersDatabase = ({isApiProcessing}) => {
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={onClickExportDatabase}
           >
-            {i18n.t('Export')}
+            {i18n.t('userManagement.members.export')}
           </button>
         </div>
         <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}>
@@ -159,7 +159,7 @@ const MembersDatabase = ({isApiProcessing}) => {
             accept="application/zip"
             onClick={onClickImportButton}
             onChange={onChangeDatabaseFile}
-          />{i18n.t('Import')}
+          />{i18n.t('userManagement.members.import')}
         </label>
       </div>
 
@@ -177,7 +177,7 @@ const MembersDatabase = ({isApiProcessing}) => {
           {({errors, touched}) => (
             <Form className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">{i18n.t('Database Encryption')}</h5>
+                <h5 className="modal-title">{i18n.t('userManagement.members.modal.database.title')}</h5>
               </div>
               <div className="modal-body">
                 <div className="form-group has-feedback">
