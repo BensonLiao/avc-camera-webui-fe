@@ -20,7 +20,7 @@
     window.user = JSON.parse(base64DecodeUnicode('{{ archive user }}'));
     window.currentLanguageCode = '{{ languageCode }}';
     window.cameraName = JSON.parse(base64DecodeUnicode('{{ archive cameraName }}'));
-    window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ archive skuID }}')) === 'NoBrand';
+    window.isNoBrand = JSON.parse(base64DecodeUnicode('{{ archive skuID }}')) === 'nobrand';
     window.error = JSON.parse(base64DecodeUnicode('{{ archive error }}'));
     var isDebug = '{{ isDebug }}';
     // Append css resource

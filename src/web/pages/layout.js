@@ -122,7 +122,7 @@ module.exports = class Layout extends Base {
             'web.media.stream',
             'web.media.rtsp',
             'web.media.hdmi',
-            'web.media.word',
+            'web.media.osd',
             'web.media.privacy-mask'
           ].indexOf(currentRouteName) >= 0,
           'd-flex justify-content-center align-items-center': isAdmin,
