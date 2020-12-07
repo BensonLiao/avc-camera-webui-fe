@@ -497,6 +497,9 @@
       "confirmNewPassword": "確認新密碼",
       "confirmNewPasswordPlaceholder": "再次輸入新密碼"
     },
+    "pagination": {
+      "stats": "{{0}}-{{1}} 筆資料，總計：{{2}}"
+    },
     "dateTimePicker": {
       "startDate": "日期",
       "startTime": "時刻",

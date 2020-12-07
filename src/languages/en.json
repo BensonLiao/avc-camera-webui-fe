@@ -497,6 +497,9 @@
       "confirmNewPassword": "Confirm New Password",
       "confirmNewPasswordPlaceholder": "Enter the new password again"
     },
+    "pagination": {
+      "stats": "{{0}}-{{1}} items. Total: {{2}}"
+    },
     "dateTimePicker": {
       "startDate": "Date",
       "startTime": "Time",

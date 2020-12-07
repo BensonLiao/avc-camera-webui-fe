@@ -82,7 +82,7 @@ module.exports = class Pagination extends React.PureComponent {
           }}
         >
           <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+            {i18n.t('common.pagination.stats', {
               0: startItem,
               1: endItem,
               2: total
@@ -134,7 +134,7 @@ module.exports = class Pagination extends React.PureComponent {
             </li>
           </ul>
           <p className="text-size-14 text-muted mb-0 ml-auto">
-            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+            {i18n.t('common.pagination.stats', {
               0: startItem,
               1: endItem,
               2: total

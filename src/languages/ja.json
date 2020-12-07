@@ -497,6 +497,9 @@
       "confirmNewPassword": "新しいパスワードを確認してください",
       "confirmNewPasswordPlaceholder": "新しいパスワードを再度入力してください"
     },
+    "pagination": {
+      "stats": "{{0}}-{{1}}個データ、合計: {{2}}"
+    },
     "dateTimePicker": {
       "startDate": "日付",
       "startTime": "時間",
