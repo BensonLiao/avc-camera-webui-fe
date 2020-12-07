@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 /* eslint-disable no-undef */
 describe('license page test', () => {
   const account = 'admin';
@@ -19,8 +20,20 @@ describe('license page test', () => {
     cy.visit('/users/members')
       .wait('@getMembers')
       .wait('@getGroups');
-    cy.fixture('groups.json').then(group => {
-      console.log(group);
+    cy.fixture('groups.json').then($group => {
+      cy.fixture('members.json').then($members => {
+        const groupMembers = $members.items.filter(member => member.groupId === $group.items[0].id);
+        console.log('🚀 ~ file: members-filter.test.js ~ line 26 ~ cy.fixture ~ groupMembers', groupMembers);
+        // cy.intercept({
+        //   method: 'GET',
+        //   url: `/api/members?group=${$group.items[0].id}`
+        // }, {
+        //   index: 0,
+        //   items: groupMembers,
+        //   size: 10,
+        //   total: 7
+        // }).as(`get${$group.items[0].name}`);
+      });
     });
   });
 });
