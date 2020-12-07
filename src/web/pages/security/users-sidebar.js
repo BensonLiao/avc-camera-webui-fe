@@ -16,23 +16,23 @@ const UsersLeftMenu = ({permissionFilter, setPermissionFilter}) => {
 
   return (
     <div className="left-menu fixed-top sub">
-      <h2>{i18n.t('Accounts')}</h2>
+      <h2>{i18n.t('userManagement.accounts.title')}</h2>
       <nav className="nav flex-column">
         <Link
           to="/users/accounts"
-          title={i18n.t('All Accounts')}
+          title={i18n.t('userManagement.accounts.allAccounts')}
           className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
             {active: permissionFilter === 'all'},
             {'bg-light': permissionFilter === 'all'}
           )}
         >
-          <img className="pl-2 pr-4" src={iconUsers}/>{i18n.t('All Accounts')}
+          <img className="pl-2 pr-4" src={iconUsers}/>{i18n.t('userManagement.accounts.allAccounts')}
         </Link>
       </nav>
       <hr/>
       <div className="groups">
         <div className="sub-title py-1 px-4">
-          <h3>{i18n.t('Permission')}</h3>
+          <h3>{i18n.t('userManagement.accounts.permission')}</h3>
         </div>
         {[UserPermission.root, UserPermission.guest].map(type => (
           <div
@@ -49,7 +49,7 @@ const UsersLeftMenu = ({permissionFilter, setPermissionFilter}) => {
               onClick={generateChangePermissionFilterHandler(type)}
             >
               <img src={type === UserPermission.root ? iconUserShield : iconUser}/>
-              <span className="text-truncate text-size-14 pl-4">{i18n.t(`permission-${type}`)}</span>
+              <span className="text-truncate text-size-14 pl-4">{i18n.t(`userManagement.accounts.constants.permission-${type}`)}</span>
             </a>
           </div>
         ))}

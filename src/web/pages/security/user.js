@@ -117,7 +117,7 @@ module.exports = class User extends Base {
     return (
       <Modal autoFocus={false} show={isShowModal} backdrop={$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{user ? i18n.t('Modify User') : i18n.t('New User')}</Modal.Title>
+          <Modal.Title as="h5">{user ? i18n.t('userManagement.accounts.modal.titleModifyUser') : i18n.t('userManagement.accounts.modal.titleNewUser')}</Modal.Title>
         </Modal.Header>
         <Formik
           initialValues={this.generateInitialValue(user)}
@@ -127,21 +127,21 @@ module.exports = class User extends Base {
           {({errors, touched}) => (
             <Form>
               <div className="modal-body">
-                <SelectField readOnly={isSuperAdmin} labelName={i18n.t('Permission')} name="permission" wrapperClassName="px-2">
+                <SelectField readOnly={isSuperAdmin} labelName={i18n.t('userManagement.accounts.permission')} name="permission" wrapperClassName="px-2">
                   {UserPermission.all().map(permission => {
                     return (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) && (
                       <option key={permission} value={permission}>
-                        {i18n.t(`permission-${permission}`)}
+                        {i18n.t(`userManagement.accounts.constants.permission-${permission}`)}
                       </option>
                     );
                   })}
                 </SelectField>
                 <div className="form-group">
-                  <label>{i18n.t('Username')}</label>
+                  <label>{i18n.t('userManagement.accounts.username')}</label>
                   <Field
                     name="account"
                     type="text"
-                    placeholder={i18n.t('Enter a name for this account')}
+                    placeholder={i18n.t('userManagement.accounts.modal.usernamePlaceholder')}
                     disabled={isSuperAdmin}
                     maxLength={UserSchema.account.max}
                     validate={this.checkDuplicate}
@@ -149,7 +149,7 @@ module.exports = class User extends Base {
                   />
                   <ErrorMessage component="div" name="account" className="invalid-feedback"/>
                   <small className="text-info">
-                    {i18n.t('1-32 characters: letters, numbers and symbols excluding #, %, &, `, ", \\, /, <, > and space')}
+                    {i18n.t('userManagement.accounts.modal.usernameHelper')}
                   </small>
                 </div>
                 { !user && (

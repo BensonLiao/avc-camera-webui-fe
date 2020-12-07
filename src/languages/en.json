@@ -461,24 +461,29 @@
       }
     },
     "accounts": {
-      "Accounts": "Accounts",
-      "All Accounts": "All Accounts",
-      "Username": "Username",
-      "New User": "New User",
-      "Modify User": "Modify User",
-      "Enter a password": "Enter a password",
-      "Enter a new password": "Enter a new password",
-      "New Password": "New Password",
-      "Confirm New Password": "Confirm New Password",
-      "Confirm Password": "Confirm Password",
-      "Enter the new password again": "Enter the new password again",
-      "Enter the password again": "Enter the password again",
-      "Delete Account": "Delete Account",
-      "Are you sure you want to delete account {{0}}?": "Are you sure you want to delete account {{0}}?",
-      "modal": {},
+      "title": "Accounts",
+      "allAccounts": "All Accounts",
+      "permission": "Permission",
+      "username": "Username",
+      "actions": "Actions",
+      "constants":{
+        "permission-0": "Admin",
+        "permission-1": "Viewer",
+        "permission-2": "Viewer",
+        "permission-99": "Admin"
+      },
+      "modal": {
+        "confirmDeleteTitle": "Delete Account",
+        "confirmDeleteText": "Are you sure you want to delete account {{0}}?",
+        "titleNewUser": "New User",
+        "titleModifyUser": "Modify User",
+      "usernamePlaceholder": "Enter a name for this account",
+      "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space"
+
+      },
       "tooltip": {
-        "This Account is Protected": "This Account is Protected",
-        "This account cannot be deleted because it is currently logged in to the device.": "This account cannot be deleted because it is currently logged in to the device."
+        "deleteAccountError1": "This account cannot be deleted because it is currently logged in to the device.",
+        "This Account is Protected": "This Account is Protected"
       }
     },
     "events": {
