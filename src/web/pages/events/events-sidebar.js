@@ -24,11 +24,11 @@ const EventsSidebar = ({
 
   return (
     <div className="left-menu fixed-top sub shadow-sm">
-      <h2>{i18n.t('Events')}</h2>
+      <h2>{i18n.t('userManagement.events.title')}</h2>
       <div className="filter-wrapper">
         <div className="header d-flex justify-content-between align-items-center  text-size-12">
-          <span>{i18n.t('Filters')}</span>
-          <a className="text-primary font-weight-bold" href="#" onClick={onClickClearFilters}>{i18n.t('Clear')}</a>
+          <span>{i18n.t('userManagement.events.filters')}</span>
+          <a className="text-primary font-weight-bold" href="#" onClick={onClickClearFilters}>{i18n.t('userManagement.events.clear')}</a>
         </div>
         {/* Facial Filter */}
         {/* AVN only have facial */}
@@ -37,14 +37,14 @@ const EventsSidebar = ({
             {
               isEnableFaceRecognitionKey ? (
                 <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                  <span>{i18n.t('Facial Recognition')}</span>
+                  <span>{i18n.t('userManagement.events.facialRecognition')}</span>
                   {/* Remove arrow until more smart functions are available */}
                   {/* <i className="fas fa-chevron-up"/> */}
                 </a>
               ) : (
                 <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                  <span>{i18n.t('Facial Recognition')}</span>
-                  <span className="badge badge-danger badge-pill">{i18n.t('Activation Required')}</span>
+                  <span>{i18n.t('userManagement.events.FacialRecognition')}</span>
+                  <span className="badge badge-danger badge-pill">{i18n.t('userManagement.events.activationRequired')}</span>
                   <i className="fas fa-chevron-down"/>
                 </a>
               )
@@ -70,13 +70,13 @@ const EventsSidebar = ({
                   }}
                   className="text-decoration-none d-flex justify-content-between align-items-center"
                 >
-                  <span>{i18n.t('Age & Gender')}</span>
+                  <span>{i18n.t('userManagement.events.ageGender')}</span>
                   <i className="fas fa-chevron-down"/>
                 </Link>
               ) : (
                 <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                  <span>{i18n.t('Age & Gender')}</span>
-                  <span className="badge badge-danger badge-pill">{i18n.t('Activation Required')}</span>
+                  <span>{i18n.t('userManagement.events.ageGender')}</span>
+                  <span className="badge badge-danger badge-pill">{i18n.t('userManagement.events.activationRequired')}</span>
                   <i className="fas fa-chevron-down"/>
                 </a>
               )
@@ -95,13 +95,13 @@ const EventsSidebar = ({
                   }}
                   className="text-decoration-none d-flex justify-content-between align-items-center"
                 >
-                  <span>{i18n.t('Human Detection')}</span>
+                  <span>{i18n.t('userManagement.events.humanDetection')}</span>
                   <i className="fas fa-chevron-down"/>
                 </Link>
               ) : (
                 <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                  <span>{i18n.t('Human Detection')}</span>
-                  <span className="badge badge-danger badge-pill">{i18n.t('Activation Required')}</span>
+                  <span>{i18n.t('userManagement.events.humanDetection')}</span>
+                  <span className="badge badge-danger badge-pill">{i18n.t('userManagement.events.activationRequired')}</span>
                   <i className="fas fa-chevron-down"/>
                 </a>
               )

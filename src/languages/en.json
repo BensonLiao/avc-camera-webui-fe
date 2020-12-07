@@ -466,7 +466,7 @@
       "permission": "Permission",
       "username": "Username",
       "actions": "Actions",
-      "constants":{
+      "constants": {
         "permission-0": "Admin",
         "permission-1": "Viewer",
         "permission-2": "Viewer",
@@ -477,9 +477,8 @@
         "confirmDeleteText": "Are you sure you want to delete account {{0}}?",
         "titleNewUser": "New User",
         "titleModifyUser": "Modify User",
-      "usernamePlaceholder": "Enter a name for this account",
-      "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space"
-
+        "usernamePlaceholder": "Enter a name for this account",
+        "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space"
       },
       "tooltip": {
         "deleteAccountError1": "This account cannot be deleted because it is currently logged in to the device.",
@@ -487,33 +486,31 @@
       }
     },
     "events": {
+      "total": "Total",
+      "title": "Events",
+      "filters": "Filters",
+      "clear": "Clear",
+      "facialRecognition": "Facial Recognition",
+      "ageGender": "Age & Gender",
+      "humanDetection": "Human Detection",
+      "activationRequired": "Activation Required",
+      "similarity": "Similarity",
+      "status": "Status",
+      "search": "Search",
+      "searchPlaceholder": "Enter Keywords",
+      "time": "Time",
+      "capture": "Capture",
+      "userPicture": "User Picture",
+      "name": "Name",
+      "group": "Group",
+      "organization": "Organization",
+      "note": "Note",
+      "actions": "Actions",
+      "noData": "Couldn't find any data.",
+      "addNewMember": "Add a New Member",
+      "addExistingMember": "Add to an Existing Member",
       "Unknown": "Unknown",
-      "Events": "Events",
-      "Total": "Total",
-      "Time": "Time",
-      "Capture": "Capture",
       "Confidence": "Confidence",
-      "Couldn't find any data.": "Couldn't find any data.",
-      "Filters": "Filters",
-      "Clear": "Clear",
-      "Start Date": "Date",
-      "Start Time": "Time",
-      "Start Datetime": "Start Time",
-      "End Date": "Date",
-      "End Time": "Time",
-      "End Datetime": "End Time",
-      "Facial Recognition": "Facial Recognition",
-      "Age & Gender": "Age & Gender",
-      "Human Detection": "Human Detection",
-      "Similarity": "Similarity",
-      "Recognition Result": "Status",
-      "Add to an Existing Member": "Add to an Existing Member",
-      "Enter keywords in the input field to search for members.": "Enter keywords in the input field to search for members.",
-      "Add to {{0}}": "Add to {{0}}",
-      "Verifying Photo": "Verifying Photo",
-      "Invalid Photo": "Invalid Photo",
-      "Updating Member": "Updating Member",
-      "Photo Has Been Added to {{0}}": "Photo Has Been Added to {{0}}",
       "constants": {
         "enroll-status-0": "Image Spoof",
         "enroll-status-1": "Unknown",
@@ -521,6 +518,21 @@
         "confidence-0": "Low",
         "confidence-1": "Medium",
         "confidence-2": "High"
+      },
+      "modal": {
+        "initialMessage": "Enter keywords in the input field to search for members.",
+        "verifyingPhoto": "Verifying Photo",
+        "apiProcessingModalTitle": "Updating Member"
+      },
+      "tooltip": {
+        "photoLimitExceeded": "Photo Limit of Member Database Exceeded",
+        "addWithName": "Add to {{0}}",
+        "invalidPhoto": "Invalid Photo",
+        "Updating Member": "Updating Member"
+      },
+      "toast": {
+        "settingSuccess": "Setting Success",
+        "settingSuccessBody": "Photo Has Been Added to {{0}}"
       }
     }
   },

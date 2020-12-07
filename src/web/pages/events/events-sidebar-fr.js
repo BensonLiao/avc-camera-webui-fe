@@ -74,7 +74,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
   return (
 
     <div className="card-body">
-      <span>{i18n.t('Similarity')}</span>
+      <span>{i18n.t('userManagement.events.similarity')}</span>
       <div className="checkbox-group mt-3 pl-2">
         {similarityRender.map(item => (
           <div key={item.id} className="form-check mb-3">
@@ -87,12 +87,12 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('confidence', item.confidence)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {i18n.t(`confidence-${item.confidence}`)}
+              {i18n.t(`userManagement.events.constants.confidence-${item.confidence}`)}
             </label>
           </div>
         ))}
       </div>
-      <span>{i18n.t('Recognition Result')}</span>
+      <span>{i18n.t('userManagement.events.status')}</span>
       <div className="checkbox-group mt-3 mb-2 pl-2">
         {recognitionTypeRender.map((item, idx) => (
           <div key={item.id} className={classNames('form-check', {'mb-3': idx < recognitionTypeRender.length - 1})}>
@@ -105,7 +105,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('enrollStatus', item.status)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {i18n.t(`enroll-status-${item.status}`)}
+              {i18n.t(`userManagement.events.constants.enroll-status-${item.status}`)}
             </label>
           </div>
         ))}

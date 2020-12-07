@@ -111,11 +111,11 @@ const EventsSearchForm = ({params, isApiProcessing, currentRouteName}) => {
         </div>
         <div className="form-row mt-4">
           <div className="col-auto px-0">
-            <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('Enter Keywords')}/>
+            <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('userManagement.events.searchPlaceholder')}/>
           </div>
           <div className="col-auto px-0 ml-3">
             <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
-              <i className="fas fa-search fa-fw"/> {i18n.t('Search')}
+              <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.search')}
             </button>
           </div>
         </div>
