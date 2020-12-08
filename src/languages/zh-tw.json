@@ -790,9 +790,31 @@
         "sdCard": "記憶卡"
       }
     },
-    "appbar": {}
+    "appbar": {
+      "signOut": "登出",
+      "about": {
+        "about": "關於",
+        "modelName": "裝置名稱",
+        "software": "軟體版本",
+        "serialNumber": "裝置序號",
+        "macAddress": "實體位址"
+      },
+      "support": {
+        "support": "支援",
+        "deviceHelp": "裝置使用幫助",
+        "technicalSupport": "技術問題信箱",
+        "productInformation": "其他產品資訊"
+      },
+      "constants": {
+        "permission-0": "管理者",
+        "permission-1": "來賓",
+        "permission-2": "訪客",
+        "permission-99": "管理者"
+      }
+    }
   },
   "common": {
+    "loading": "載入中",
     "tooltip": {},
     "toast": {},
     "volumeBar": {

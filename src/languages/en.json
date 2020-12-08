@@ -790,9 +790,38 @@
         "sdCard": "SD Card"
       }
     },
-    "appbar": {}
+    "appbar": {
+      "signOut": "Sign Out",
+      "about": {
+        "about": "About",
+        "modelName": "Model Name",
+        "software": "Software",
+        "serialNumber": "Serial Number",
+        "macAddress": "MAC Address"
+      },
+      "support": {
+        "support": "Support",
+        "deviceHelp": "Device Help",
+        "technicalSupport": "Technical Support",
+        "productInformation": "Product Information",
+        "Online Support Request": "Online Support Request",
+        "Firmware Downloads": "Firmware Downloads",
+        "Software Downloads": "Software Downloads",
+        "Downloads": "Downloads",
+        "Product Selector": "Product Selector",
+        "Technical Updates": "Technical Updates",
+        "Resources": "Resources"
+      },
+      "constants":{
+        "permission-0": "Admin",
+        "permission-1": "Viewer",
+        "permission-2": "Viewer",
+        "permission-99": "Admin"
+      }
+    }
   },
   "common": {
+    "loading": "Loading",
     "tooltip": {},
     "toast": {},
     "volumeBar": {

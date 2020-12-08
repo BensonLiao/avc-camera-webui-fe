@@ -790,9 +790,31 @@
         "sdCard": "Tarjeta de memoria"
       }
     },
-    "appbar": {}
+    "appbar": {
+      "signOut": "Cerrar sesión",
+      "about": {
+        "about": "Soporte",
+        "modelName": "Nombre del dispositivo",
+        "software": "Versión del software",
+        "serialNumber": "Número de serie del dispositivo",
+        "macAddress": "Dirección física"
+      },
+      "support": {
+        "support": "apoyo",
+        "deviceHelp": "Ayuda para el uso del dispositivo",
+        "technicalSupport": "Apoyo técnico",
+        "productInformation": "Otras informaciones de producto"
+      },
+      "constants": {
+        "permission-0": "administrador",
+        "permission-1": "Invitado",
+        "permission-2": "Invitado",
+        "permission-99": "administrador"
+      }
+    }
   },
   "common": {
+    "loading": "Cargando",
     "tooltip": {},
     "toast": {},
     "volumeBar": {

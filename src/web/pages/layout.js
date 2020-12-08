@@ -305,15 +305,15 @@ module.exports = class Layout extends Base {
                     <i className="fas fa-question-circle text-size-20 mr-0 fa-fw"/>
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    <h6 className="dropdown-header">{i18n.t('Support')}</h6>
+                    <h6 className="dropdown-header">{i18n.t('navigation.appbar.support.support')}</h6>
                     <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
-                      {i18n.t('Device Help')}
+                      {i18n.t('navigation.appbar.support.deviceHelp')}
                     </a>
                     <a className="dropdown-item" href="mailto:support@androvideo.com">
-                      {i18n.t('Technical Support')}
+                      {i18n.t('navigation.appbar.support.technicalSupport')}
                     </a>
                     <a className="dropdown-item" href="http://androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
-                      {i18n.t('Product Information')}
+                      {i18n.t('navigation.appbar.support.productInformation')}
                     </a>
                   </div>
                 </div>
@@ -326,12 +326,12 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h5 className="dropdown-header text-primary">
-                      {i18n.t(`permission-${$user.permission}`)}
+                      {i18n.t(`navigation.appbar.constants.permission-${$user.permission}`)}
                     </h5>
                     <span className="dropdown-item-text font-weight-bold">{$user.account}</span>
                     <div className="dropdown-divider"/>
                     <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>
-                      {i18n.t('Sign Out')}
+                      {i18n.t('navigation.appbar.signOut')}
                     </a>
                   </div>
                 </div>
@@ -348,29 +348,29 @@ module.exports = class Layout extends Base {
         >
           <div
             className="modal-header"
-            onMouseEnter={this.onAboutModalHover(`           ${i18n.t('Model Name')}:
+            onMouseEnter={this.onAboutModalHover(`           ${i18n.t('navigation.appbar.about.modelName')}:
             ${systemInformation.modelName}
-            ${i18n.t('Software')}:
+            ${i18n.t('navigation.appbar.about.software')}:
             ${systemInformation.firmware}
-            ${i18n.t('Serial Number')}:
+            ${i18n.t('navigation.appbar.about.serialNumber')}:
             ${systemInformation.serialNumber}
-            ${i18n.t('MAC Address')}:
+            ${i18n.t('navigation.appbar.about.macAddress')}:
             ${networkSettings.mac}`)}
             onMouseLeave={this.onAboutModalHoverOut}
           >
-            <h5 className="modal-title">{i18n.t('About')}</h5>
+            <h5 className="modal-title">{i18n.t('navigation.appbar.about.about')}</h5>
           </div>
           <div
             ref={this.modelNameRef}
             className="modal-body"
           >
-            <div className="text-info mt-2">{i18n.t('Model Name')} :</div>
+            <div className="text-info mt-2">{i18n.t('navigation.appbar.about.modelName')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.modelName}</div>
-            <div className="text-info mt-3">{i18n.t('Software')} :</div>
+            <div className="text-info mt-3">{i18n.t('navigation.appbar.about.software')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.firmware}</div>
-            <div className="text-info mt-3">{i18n.t('Serial Number')} :</div>
+            <div className="text-info mt-3">{i18n.t('navigation.appbar.about.serialNumber')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.serialNumber}</div>
-            <div className="text-info mt-3">{i18n.t('MAC Address')} :</div>
+            <div className="text-info mt-3">{i18n.t('navigation.appbar.about.macAddress')} :</div>
             <div className="text-primary font-weight-bold">{networkSettings.mac}</div>
           </div>
           <div className="modal-footer flex-column">

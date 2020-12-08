@@ -790,9 +790,31 @@
         "sdCard": "SDカード"
       }
     },
-    "appbar": {}
+    "appbar": {
+      "signOut": "ログアウト",
+      "about": {
+        "about": "情報",
+        "modelName": "デバイス名",
+        "software": "ソフトウェアバージョン",
+        "serialNumber": "デバイスシリアル番号",
+        "macAddress": "MACアドレス"
+      },
+      "support": {
+        "support": "サポート",
+        "deviceHelp": "ヘルプ",
+        "technicalSupport": "テクニカルサポート",
+        "productInformation": "その他の製品情報"
+      },
+      "constants": {
+        "permission-0": "管理者",
+        "permission-1": "ゲスト",
+        "permission-2": "訪客",
+        "permission-99": "管理者"
+      }
+    }
   },
   "common": {
+    "loading": "ロードしています",
     "tooltip": {},
     "toast": {},
     "volumeBar": {
