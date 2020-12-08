@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 /* eslint-disable no-undef */
 describe('license page test', () => {
   const account = 'admin';
@@ -18,14 +19,20 @@ describe('license page test', () => {
       .wait('@getGroups').then(res => {
         const groups = res.response.body;
         console.log('groups', groups);
-        const id = groups.items[2].id;
+        const groupId = groups.items[2].id;
         cy.server()
-          .route('GET', `/api/members?group=${id}`, 'fixture:membersMysticArts.json')
+          .route('GET', `/api/members?group=${groupId}`, 'fixture:membersMysticArts.json')
           .as('getMembersMysticArts');
-        cy.get(`a.w-100[href="#${id}"]`).click().wait('@getMembersMysticArts');
+        cy.get(`a.w-100[href="#${groupId}"]`).click().wait('@getMembersMysticArts');
         cy.wait('@getMembers').then(res => {
           const members = res.response.body;
           console.log(members);
+          let mysticArtsMembers = [];
+          members.items.forEach(member => {
+            if (member.groupId === groupId) {
+              mysticArtsMembers.push(member);
+            }
+          });
         });
       });
   });
