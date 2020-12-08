@@ -23,17 +23,23 @@ describe('license page test', () => {
         cy.server()
           .route('GET', `/api/members?group=${groupId}`, 'fixture:membersMysticArts.json')
           .as('getMembersMysticArts');
-        cy.get(`a.w-100[href="#${groupId}"]`).click().wait('@getMembersMysticArts');
-        cy.wait('@getMembers').then(res => {
-          const members = res.response.body;
-          console.log(members);
-          let mysticArtsMembers = [];
-          members.items.forEach(member => {
-            if (member.groupId === groupId) {
-              mysticArtsMembers.push(member);
-            }
+        cy.get(`a.w-100[href="#${groupId}"]`)
+          .click()
+          .wait('@getMembersMysticArts').then(_ => {
+            cy.wait('@getMembers').then(res => {
+              const members = res.response.body;
+              console.log(members);
+              let mysticArtsMembers = [];
+              members.items.forEach(member => {
+                if (member.groupId === groupId) {
+                  mysticArtsMembers.push(member);
+                }
+              });
+              cy.wait(4000);
+
+              cy.get('[data-test="member-name"]').should('have.text', `${mysticArtsMembers[0].name}`);
+            });
           });
-        });
       });
   });
 });
