@@ -531,7 +531,80 @@
       }
     }
   },
-  "analytics": {},
+  "analytics": {
+    "breadcrumb": {
+      "analyticsSettings": "智慧分析",
+      "facialRecognition": "臉部辨識",
+      "motionDetection": "移動偵測",
+      "license": "智慧分析授權"
+    },
+    "facialRecognition": {
+      "title": "臉部辨識",
+      "enableFR": "開啟臉部辨識",
+      "enableSpoof": "開啟防止圖片偽裝",
+      "accuracyLevel": "辨識成功閥值",
+      "detectionZone": "觸發區域",
+      "detectionZoneHelper": "預設為全畫面",
+      "enableDetectionSize": "開啟最小辨識尺寸",
+      "liveViewDisplay": "即時影像顯示",
+      "displayName": "成員名稱",
+      "displayGroup": "成員群組",
+      "displayUnknown": "辨識結果：未知",
+      "displaySpoof": "辨識結果：圖像偽裝",
+      "minDetectionSize": "最小臉部尺寸",
+      "constants": {
+        "confidence-level-0": "低",
+        "confidence-level-1": "中",
+        "confidence-level-2": "高"
+      },
+      "modal": {
+        "spoofText": "您確定要開啟Alpha版防止圖像偽裝嗎？圖像偽裝是一個Alpha版的功能，判定成圖像偽裝的人臉不會被辯識，我們會在之後的軟體更新優化並完善此功能"
+      },
+      "tooltips": {
+        "frDisabled": "臉部辨識已關閉",
+        "detectionZoneToggle": "顯示或隱藏區域"
+      }
+    },
+    "motionDetection": {
+      "title": "移動偵測",
+      "enableMD": "開啟移動偵測",
+      "mdHelper": "請在預覽窗格新增觸發區域",
+      "sensitivity": "靈敏度",
+      "noteArea": "遮罩區域",
+      "note1": "新增區域",
+      "drag": "拖曳",
+      "note2": "刪除區域",
+      "or": "or",
+      "note3": "最多4個區域",
+      "detectionZone": "觸發區域"
+    },
+    "license": {
+      "title": "智慧分析授權",
+      "facialRecognition": "臉部辨識",
+      "ageGender": "性別年齡",
+      "humanDetection": "人形偵測",
+      "keyPlaceholder": "請輸入啟用碼",
+      "activate": "啟用",
+      "activated": "已啟用",
+      "activationRequired": "未啟用",
+      "time": "時間",
+      "activatedBy": "啟用者",
+      "authenticationKey": "啟用碼",
+      "activatedFunctions": "啟用功能",
+      "enableStatus": "狀態",
+      "Authorization failed!": "Authorization failed!",
+      "constants": {
+        "key-thirtyThousand": "臉部辨識 30k",
+        "key-threeThousand": "臉部辨識 3k"
+      },
+      "toast": {
+        "titleActivationSuccess": "啟用成功",
+        "activationSuccessBody": "{{0}} 啟用成功",
+        "titleActivationFailed": "啟用失敗",
+        "keyRegisteredBody": "重複輸入啟用碼"
+      }
+    }
+  },
   "network": {},
   "system": {},
   "sdcard": {},

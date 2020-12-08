@@ -531,7 +531,80 @@
       }
     }
   },
-  "analytics": {},
+  "analytics": {
+    "breadcrumb": {
+      "analyticsSettings": "Análisis inteligente",
+      "facialRecognition": "Reconocimiento facial",
+      "motionDetection": "Detección de movimiento",
+      "license": "Autorización de análisis inteligente"
+    },
+    "facialRecognition": {
+      "title": "Reconocimiento facial",
+      "enableFR": "Habilitar reconocimiento facial",
+      "enableSpoof": "Habilitar anti-disfraz de imagen",
+      "accuracyLevel": "Nivel de exactitud",
+      "detectionZone": "Área de activación",
+      "detectionZoneHelper": "El valor predeterminado es pantalla completa",
+      "enableDetectionSize": "Habilitar tamaño de la cara",
+      "liveViewDisplay": "Visualización de imagen en vivo",
+      "displayName": "Nombre de miembro",
+      "displayGroup": "Grupo de miembro",
+      "displayUnknown": "desconocido",
+      "displaySpoof": "Camuflaje de imagen",
+      "minDetectionSize": "Tamaño mínimo de la cara",
+      "constants": {
+        "confidence-level-0": "bajo",
+        "confidence-level-1": "medio",
+        "confidence-level-2": "alto"
+      },
+      "modal": {
+        "spoofText": "¿Está seguro de que desea habilitar la versión Alfa de la suplantación de imágenes? Es una versión Alpha. No se reconocerán los rostros que se consideren falsos. Optimizaremos y mejoraremos esta función en futuras actualizaciones de software."
+      },
+      "tooltips": {
+        "frDisabled": "Reconocimiento facial está desactivado.",
+        "detectionZoneToggle": "Mostrar o ocultar área"
+      }
+    },
+    "motionDetection": {
+      "title": "Detección de movimiento",
+      "enableMD": "Habilitar detección de movimiento",
+      "mdHelper": "Agregue un área de activación en el panel de vista previa",
+      "sensitivity": "Sensibilidad",
+      "noteArea": "Descripción",
+      "note1": "Añadir Área:",
+      "drag": "Arrastrar",
+      "note2": "Borrar Área",
+      "or": "or",
+      "note3": "Hasta 4 áreas",
+      "detectionZone": "Área de activación"
+    },
+    "license": {
+      "title": "Autorización de análisis inteligente",
+      "facialRecognition": "Reconocimiento facial",
+      "ageGender": "Género y edad",
+      "humanDetection": "Detección humanoide",
+      "keyPlaceholder": "Ingrese el código de activación",
+      "activate": "Habilitar",
+      "activated": "activada",
+      "activationRequired": "no está activada",
+      "time": "hora",
+      "activatedBy": "Activada por",
+      "authenticationKey": "Habilitar código",
+      "activatedFunctions": "funciónes activadas",
+      "enableStatus": "estado",
+      "Authorization failed!": "Authorization failed!",
+      "constants": {
+        "key-thirtyThousand": "Reconocimiento facial 30k",
+        "key-threeThousand": "Reconocimiento facial 3k"
+      },
+      "toast": {
+        "titleActivationSuccess": "Activación exitosa",
+        "activationSuccessBody": "{{0}} se ha autorizado correctamente",
+        "titleActivationFailed": "Activación fallida",
+        "keyRegisteredBody": "Repita el código de activación"
+      }
+    }
+  },
   "network": {},
   "system": {},
   "sdcard": {},

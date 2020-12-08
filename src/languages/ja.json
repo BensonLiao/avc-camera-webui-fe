@@ -531,7 +531,80 @@
       }
     }
   },
-  "analytics": {},
+  "analytics": {
+    "breadcrumb": {
+      "analyticsSettings": "知能分析",
+      "facialRecognition": "顔認証",
+      "motionDetection": "動作検知",
+      "license": "映像分析ライセンス"
+    },
+    "facialRecognition": {
+      "title": "顔認証",
+      "enableFR": "顔認証を有効します",
+      "enableSpoof": "なりすまし防止機能を有効する",
+      "accuracyLevel": "認証成功閾",
+      "detectionZone": "検知区域",
+      "detectionZoneHelper": "デフォルトはフルスクリーン",
+      "enableDetectionSize": "顔検知サイズフィルターを有効します",
+      "liveViewDisplay": "ライブ画面表示",
+      "displayName": "メンバー名",
+      "displayGroup": "メンバーグループ",
+      "displayUnknown": "未登録者",
+      "displaySpoof": "なりすまし防止",
+      "minDetectionSize": "最小検知顔サイズ",
+      "constants": {
+        "confidence-level-0": "低",
+        "confidence-level-1": "中",
+        "confidence-level-2": "高"
+      },
+      "modal": {
+        "spoofText": "アルファ版の画像スプーフィングを有効にしてもよろしいですか？ アルファ版です。 画像のなりすましと判断された顔は認識されません。 今後のソフトウェアアップデートで、この機能を最適化および改善する予定です"
+      },
+      "tooltips": {
+        "frDisabled": "顔認証を無効になっています",
+        "detectionZoneToggle": "認証区域を表示/非表示にする"
+      }
+    },
+    "motionDetection": {
+      "title": "動作検知",
+      "enableMD": "動作検知を有効します",
+      "mdHelper": "プレビューウィンドに検知エリアを追加してください",
+      "sensitivity": "感度",
+      "noteArea": "説明",
+      "note1": "エリアを追加する",
+      "drag": "ドラッグ",
+      "note2": "エリアを削除する",
+      "or": "or",
+      "note3": "検知エリアは最大四ヶ所まで設定可能です",
+      "detectionZone": "検知区域"
+    },
+    "license": {
+      "title": "映像分析ライセンス",
+      "facialRecognition": "顔認証",
+      "ageGender": "性別年齢推定",
+      "humanDetection": "人体検知",
+      "keyPlaceholder": "ライセンスキーを入力してください",
+      "activate": "有効",
+      "activated": "有効にしました",
+      "activationRequired": "無効",
+      "time": "時間",
+      "activatedBy": "有効にした者",
+      "authenticationKey": "ライセンスキー",
+      "activatedFunctions": "有効になった機能",
+      "enableStatus": "ステータス",
+      "Authorization failed!": "Authorization failed!",
+      "constants": {
+        "key-thirtyThousand": "顔認証 30k",
+        "key-threeThousand": "顔認証 3k"
+      },
+      "toast": {
+        "titleActivationSuccess": "アクティベーションが成功しました",
+        "activationSuccessBody": "{{0}} 許可されました",
+        "titleActivationFailed": "アクティベーションに失敗しました",
+        "keyRegisteredBody": "ライセンスキーが使われています"
+      }
+    }
+  },
   "network": {},
   "system": {},
   "sdcard": {},
