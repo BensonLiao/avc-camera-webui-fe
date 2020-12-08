@@ -560,7 +560,7 @@
       "modal": {
         "spoofText": "¿Está seguro de que desea habilitar la versión Alfa de la suplantación de imágenes? Es una versión Alpha. No se reconocerán los rostros que se consideren falsos. Optimizaremos y mejoraremos esta función en futuras actualizaciones de software."
       },
-      "tooltips": {
+      "tooltip": {
         "frDisabled": "Reconocimiento facial está desactivado.",
         "detectionZoneToggle": "Mostrar o ocultar área"
       }

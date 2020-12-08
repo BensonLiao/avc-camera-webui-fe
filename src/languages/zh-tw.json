@@ -560,7 +560,7 @@
       "modal": {
         "spoofText": "您確定要開啟Alpha版防止圖像偽裝嗎？圖像偽裝是一個Alpha版的功能，判定成圖像偽裝的人臉不會被辯識，我們會在之後的軟體更新優化並完善此功能"
       },
-      "tooltips": {
+      "tooltip": {
         "frDisabled": "臉部辨識已關閉",
         "detectionZoneToggle": "顯示或隱藏區域"
       }
