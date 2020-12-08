@@ -531,7 +531,69 @@
       }
     }
   },
-  "analytics": {},
+  "analytics": {
+    "breadcrumb": {
+      "analyticsSettings": "Analytics Settings",
+      "facialRecognition": "Facial Recognition",
+      "motionDetection": "Motion Detection",
+      "license": "License"
+    },
+    "fr": {
+      "title": "Facial Recognition",
+      "enableFR": "Enable Facial Recognition",
+      "enableSpoof": "Enable Anti-Image Spoof",
+      "accuracyLevel": "Level of Accuracy",
+      "detectionZone": "Detection Zone",
+      "detectionZoneHelper": "The default is the whole live view screen.",
+      "enableDetectionSize": "Enable Facial Detection Size",
+      "liveViewDisplay": "Live View Display",
+      "displayName": "Name",
+      "displayGroup": "Group",
+      "displayUnknown": "Unknown",
+      "displaySpoof": "Display Image Spoof",
+      "minDetectionSize": "Min. Facial Detection Size",
+      "constants": {
+        "confidence-level-0": "Low",
+        "confidence-level-1": "Medium",
+        "confidence-level-2": "High"
+      },
+      "modal":{
+        "spoofText": "Are you sure you want to enable the Alpha version of image spoofing? It is an Alpha version. Faces judged to be image spoof will not be recognized. We will optimize and improve this feature in future software updates."
+      },
+      "tooltips":{
+        "frDisabled": "Facial Recognition is disabled.",
+        "detectionZoneToggle": "Show/Hide Detection Zone"
+      }
+    },
+    "md": {
+      "Enable Motion Detection": "Enable Motion Detection",
+      "Motion Detection": "Motion Detection",
+      "Create detection zones on the live view screen.": "Create detection zones on the live view screen.",
+      "To set a zone:": "To set a zone:",
+      "To erase a zone:": "To erase a zone:",
+      "Up to 4 detection zones can be set.": "Up to 4 detection zones can be set."
+    },
+    "license": {
+      "License": "License",
+      "Enter your authentication key": "Enter your authentication key",
+      "Activate": "Activate",
+      "Activated": "Activated",
+      "Activation Required": "Activation Required",
+      "Activated by": "Activated by",
+      "Authentication Key": "Authentication Key",
+      "Activated Functions": "Activated Functions",
+      "Enable Status": "Status",
+      "Activated Success": "Activated Success",
+      "{{0}} authorized successfully!": "{{0}} authorized successfully!",
+      "Activation Failed": "Activation Failed",
+      "Authorization failed!": "Authorization failed!",
+      "Key Already Registered": "Key Already Registered",
+      "constants": {
+        "face-recognition-key-thirtyThousand": "Face Recognition 30k",
+        "face-recognition-key-threeThousand": "Face Recognition 3k"
+      }
+    }
+  },
   "network": {},
   "system": {},
   "sdcard": {},

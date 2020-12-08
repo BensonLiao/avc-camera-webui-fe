@@ -61,7 +61,7 @@ const FaceRecognition = ({faceRecognitionSettings}) => {
       <div className="container-fluid">
         <div className="row">
           <BreadCrumb
-            path={[i18n.t('Analytics Settings'), i18n.t('Facial Recognition')]}
+            path={[i18n.t('analytics.breadcrumb.analyticsSettings'), i18n.t('analytics.breadcrumb.facialRecognition')]}
             routes={['/analytic/face-recognition']}
           />
           <Formik

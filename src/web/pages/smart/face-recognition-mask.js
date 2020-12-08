@@ -16,7 +16,7 @@ const FaceRecognitionMask = ({isShowDetectionZone}) => {
               <Field
                 name="triggerArea"
                 component={MaskArea}
-                text={i18n.t('Detection Zone')}
+                text={i18n.t('analytics.fr.detectionZone')}
                 className="bounding-black"
                 parentElementId="fr-video-wrapper"
               />
@@ -29,7 +29,7 @@ const FaceRecognitionMask = ({isShowDetectionZone}) => {
               <Field
                 name="faceFrame"
                 component={MaskArea}
-                text={i18n.t('Min. Facial Detection Size')}
+                text={i18n.t('analytics.fr.minDetectionSize')}
                 className="bounding-primary"
                 parentElementId="fr-video-wrapper"
               />

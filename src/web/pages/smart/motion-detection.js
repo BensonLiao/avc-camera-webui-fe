@@ -38,7 +38,7 @@ const MotionDetection = ({motionDetectionSettings, motionDetectionSettings: {are
         >
           <Form className="row">
             <BreadCrumb
-              path={[i18n.t('Analytics Settings'), i18n.t('Motion Detection')]}
+              path={[i18n.t('analytics.breadcrumb.analyticsSettings'), i18n.t('analytics.breadcrumb.motionDetection')]}
               routes={['/analytic/face-recognition']}
             />
             <MotionDetectionMask
