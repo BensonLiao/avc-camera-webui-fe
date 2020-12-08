@@ -560,7 +560,7 @@
       "modal": {
         "spoofText": "Are you sure you want to enable the Alpha version of image spoofing? It is an Alpha version. Faces judged to be image spoof will not be recognized. We will optimize and improve this feature in future software updates."
       },
-      "tooltips": {
+      "tooltip": {
         "frDisabled": "Facial Recognition is disabled.",
         "detectionZoneToggle": "Show/Hide Detection Zone"
       }

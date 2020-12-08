@@ -42,7 +42,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                     <span className="badge badge-outline">Alpha</span>
                   </span>
                   <div className="custom-control custom-switch">
-                    <CustomTooltip show={!values.isEnable} title={i18n.t('analytics.facialRecognition.tooltips.frDisabled')}>
+                    <CustomTooltip show={!values.isEnable} title={i18n.t('analytics.facialRecognition.tooltip.frDisabled')}>
                       <span style={values.isEnable ? {} : {cursor: 'not-allowed'}}>
                         <Field
                           name="isEnableSpoofing"
@@ -73,7 +73,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
                   <label className="mb-0">{i18n.t('analytics.facialRecognition.accuracyLevel')}</label>
-                  <CustomTooltip show={!values.isEnable} title={i18n.t('analytics.facialRecognition.tooltips.frDisabled')}>
+                  <CustomTooltip show={!values.isEnable} title={i18n.t('analytics.facialRecognition.tooltip.frDisabled')}>
                     <div className="btn-group" style={values.isEnable ? {} : {cursor: 'not-allowed'}}>
                       {ConfidenceLevel.all().map(confidenceLevel => (
                         <button
@@ -107,7 +107,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                   <i className="fas fa-question-circle helper-text text-primary"/>
                 </CustomTooltip>
               </div>
-              <CustomTooltip title={i18n.t('analytics.facialRecognition.tooltips.detectionZoneToggle')}>
+              <CustomTooltip title={i18n.t('analytics.facialRecognition.tooltip.detectionZoneToggle')}>
                 <div className="custom-control custom-switch">
                   <a
                     className="form-control-feedback text-muted"
