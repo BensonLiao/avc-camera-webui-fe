@@ -644,7 +644,12 @@
       "disabledNotificationButton": "Please enable Outgoing Email first."
     }
   },
-  "error": {},
+  "error": {
+    "error": "Error",
+    "notFound": "Not Found",
+    "internalServerError": "Internal Server Error",
+    "backToHome": "Back to Home"
+  },
   "validation": {
     "confirmEqual": "These passwords didn't match.",
     "required": "This field is required.",

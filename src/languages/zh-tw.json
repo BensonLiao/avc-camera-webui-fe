@@ -644,7 +644,12 @@
       "disabledNotificationButton": "必須設定電子郵件"
     }
   },
-  "error": {},
+  "error": {
+    "error": "Error",
+    "notFound": "此網頁不存在",
+    "internalServerError": "內部伺服器問題",
+    "backToHome": "回首頁"
+  },
   "validation": {
     "confirmEqual": "兩次密碼不一致",
     "required": "必須輸入",

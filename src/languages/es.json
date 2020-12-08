@@ -644,7 +644,12 @@
       "disabledNotificationButton": "El correo electrónico debe estar configurado."
     }
   },
-  "error": {},
+  "error": {
+    "error": "Error",
+    "notFound": "Lo siento, esta página no existe",
+    "internalServerError": "Problema interno del servidor",
+    "backToHome": "Volver a la página de inicio"
+  },
   "validation": {
     "confirmEqual": "Estas contraseñas no coinciden",
     "required": "Este campo es obligatorio",

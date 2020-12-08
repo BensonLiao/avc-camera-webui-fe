@@ -644,7 +644,12 @@
       "disabledNotificationButton": "メールアドレスを設定するのは必須です"
     }
   },
-  "error": {},
+  "error": {
+    "error": "Error",
+    "notFound": "このページは表示できません",
+    "internalServerError": "サーバー内部エラー",
+    "backToHome": "ホームページへ戻る"
+  },
   "validation": {
     "confirmEqual": "パスワードが一致しません",
     "required": "この項目は入力必須です",
