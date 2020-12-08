@@ -557,10 +557,10 @@
         "confidence-level-1": "Medium",
         "confidence-level-2": "High"
       },
-      "modal":{
+      "modal": {
         "spoofText": "Are you sure you want to enable the Alpha version of image spoofing? It is an Alpha version. Faces judged to be image spoof will not be recognized. We will optimize and improve this feature in future software updates."
       },
-      "tooltips":{
+      "tooltips": {
         "frDisabled": "Facial Recognition is disabled.",
         "detectionZoneToggle": "Show/Hide Detection Zone"
       }
@@ -579,23 +579,29 @@
       "detectionZone": "Detection Zone"
     },
     "license": {
-      "License": "License",
-      "Enter your authentication key": "Enter your authentication key",
-      "Activate": "Activate",
-      "Activated": "Activated",
-      "Activation Required": "Activation Required",
-      "Activated by": "Activated by",
-      "Authentication Key": "Authentication Key",
-      "Activated Functions": "Activated Functions",
-      "Enable Status": "Status",
-      "Activated Success": "Activated Success",
-      "{{0}} authorized successfully!": "{{0}} authorized successfully!",
-      "Activation Failed": "Activation Failed",
+      "title": "License",
+      "facialRecognition": "Facial Recognition",
+      "ageGender": "Age & Gender",
+      "humanDetection": "Human Detection",
+      "keyPlaceholder": "Enter your authentication key",
+      "activate": "Activate",
+      "activated": "Activated",
+      "activationRequired": "Activation Required",
+      "time": "Time",
+      "activatedBy": "Activated by",
+      "authenticationKey": "Authentication Key",
+      "activatedFunctions": "Activated Functions",
+      "enableStatus": "Status",
       "Authorization failed!": "Authorization failed!",
-      "Key Already Registered": "Key Already Registered",
       "constants": {
-        "face-recognition-key-thirtyThousand": "Face Recognition 30k",
-        "face-recognition-key-threeThousand": "Face Recognition 3k"
+        "key-thirtyThousand": "Face Recognition 30k",
+        "key-threeThousand": "Face Recognition 3k"
+      },
+      "toast": {
+        "titleActivationSuccess": "Activated Success",
+        "activationSuccessBody": "{{0}} authorized successfully!",
+        "titleActivationFailed": "Activation Failed",
+        "keyRegisteredBody": "Key Already Registered"
       }
     }
   },

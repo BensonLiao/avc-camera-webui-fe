@@ -10,11 +10,11 @@ const LicenseList = ({authKeys}) => {
       <thead>
         <tr className="shadow">
           <th/>
-          <th>{i18n.t('Time')}</th>
-          <th>{i18n.t('Activated by')}</th>
-          <th>{i18n.t('Authentication Key')}</th>
-          <th>{i18n.t('Activated Functions')}</th>
-          <th>{i18n.t('Enable Status')}</th>
+          <th>{i18n.t('analytics.license.time')}</th>
+          <th>{i18n.t('analytics.license.activatedBy')}</th>
+          <th>{i18n.t('analytics.license.authenticationKey')}</th>
+          <th>{i18n.t('analytics.license.activatedFunctions')}</th>
+          <th>{i18n.t('analytics.license.enableStatus')}</th>
         </tr>
       </thead>
       <tbody>
@@ -27,17 +27,17 @@ const LicenseList = ({authKeys}) => {
             <td>
               {authKey.isEnableFaceRecognitionKey !== '0' && (
                 <span className="badge badge-primary badge-pill">
-                  {i18n.t(`face-recognition-key-${authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]}`)}
+                  {i18n.t(`analytics.license.constants.key-${authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]}`)}
                 </span>
               )}
               {authKey.isEnableAgeGenderKey && (
                 <span className="badge badge-primary badge-pill">
-                  {i18n.t('Age & Gender')}
+                  {i18n.t('analytics.license.ageGender')}
                 </span>
               )}
               {authKey.isEnableHumanoidDetectionKey && (
                 <span className="badge badge-primary badge-pill">
-                  {i18n.t('Human Detection')}
+                  {i18n.t('analytics.license.humanDetection')}
                 </span>
               )}
             </td>

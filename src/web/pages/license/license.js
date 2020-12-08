@@ -41,8 +41,8 @@ const License = ({
     const check = utils.duplicateCheck(keyList, authKey);
     if (check) {
       notify.showErrorNotification({
-        title: i18n.t('Activation Failed'),
-        message: i18n.t('Key Already Registered')
+        title: i18n.t('analytics.license.toast.titleActivationFailed'),
+        message: i18n.t('analytics.license.toast.keyRegisteredBody')
       });
     }
 
@@ -51,20 +51,20 @@ const License = ({
       api.authKey.addAuthKey(authKey)
         .then(response => {
           notify.showSuccessNotification({
-            title: i18n.t('Activated Success'),
-            message: i18n.t('{{0}} authorized successfully!', {
+            title: i18n.t('analytics.license.toast.titleActivationSuccess'),
+            message: i18n.t('analytics.license.toast.activationSuccessBody', {
               0: (() => {
                 const result = [];
                 if (response.data.isEnableFaceRecognitionKey) {
-                  result.push(i18n.t('Facial Recognition'));
+                  result.push(i18n.t('analytics.license.facialRecognition'));
                 }
 
                 if (response.data.isEnableAgeGenderKey) {
-                  result.push(i18n.t('Age & Gender'));
+                  result.push(i18n.t('analytics.license.ageGender'));
                 }
 
                 if (response.data.isEnableHumanoidDetectionKey) {
-                  result.push(i18n.t('Human Detection'));
+                  result.push(i18n.t('analytics.license.humanDetection'));
                 }
 
                 return result.join(', ');
@@ -87,7 +87,7 @@ const License = ({
               routes={['/analytic/face-recognition']}
             />
             <div className="col-12">
-              <h3 className="mb-4">{i18n.t('License')}</h3>
+              <h3 className="mb-4">{i18n.t('analytics.license.title')}</h3>
               <Formik
                 initialValues={{authKey: ''}}
                 validateOnBlur={false}
@@ -104,7 +104,7 @@ const License = ({
                             name="authKey"
                             type="text"
                             maxLength={AuthKeySchema.authKey.max}
-                            placeholder={i18n.t('Enter your authentication key')}
+                            placeholder={i18n.t('analytics.license.keyPlaceholder')}
                             style={{width: '312px'}}
                           />
                         </div>
@@ -114,7 +114,7 @@ const License = ({
                             type="submit"
                             disabled={isApiProcessing}
                           >
-                            {i18n.t('Activate')}
+                            {i18n.t('analytics.license.activate')}
                           </button>
                         </div>
                       </div>
@@ -138,19 +138,19 @@ const License = ({
             <div className="col-12">
               <div className="status d-flex">
                 <LicenseStatus
-                  licenseName={i18n.t('Facial Recognition')}
+                  licenseName={i18n.t('analytics.license.facialRecognition')}
                   isEnabled={isEnableFaceRecognitionKey}
                   licenseEnableImg={iconFaceRecognitionEnable}
                   licenseDisableImg={iconFaceRecognitionDisable}
                 />
                 <LicenseStatus
-                  licenseName={i18n.t('Age & Gender')}
+                  licenseName={i18n.t('analytics.license.ageGender')}
                   isEnabled={isEnableAgeGenderKey}
                   licenseEnableImg={iconAgeGenderEnable}
                   licenseDisableImg={iconAgeGenderDisable}
                 />
                 <LicenseStatus
-                  licenseName={i18n.t('Human Detection')}
+                  licenseName={i18n.t('analytics.license.humanDetection')}
                   isEnabled={isEnableHumanoidDetectionKey}
                   licenseEnableImg={iconHumanoidDetectionEnable}
                   licenseDisableImg={iconHumanoidDetectionDisable}
