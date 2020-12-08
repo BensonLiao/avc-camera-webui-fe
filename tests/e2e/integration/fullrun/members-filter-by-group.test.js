@@ -8,25 +8,29 @@ describe('license page test', () => {
   });
 
   it('should arrive at members page, checks to see if members can be filtered by group', () => {
-    cy.server()
-      .route('GET', '/api/members', 'fixture:members.json').as('getMembers')
-      .route('GET', '/api/groups', 'fixture:groups.json').as('getGroups');
-    // using deprecated cy.route due to this issue: *unable to override with new route*
-    // https://github.com/cypress-io/cypress/issues/9302
+    cy.intercept({
+      method: 'GET',
+      url: '/api/members'
+    }, {fixture: 'members.json'}).as('getMembers');
+    cy.intercept({
+      method: 'GET',
+      url: '/api/groups'
+    }, {fixture: 'groups.json'}).as('getGroups');
 
     cy.visit('/users/members')
+      .wait('@getMembers').then(res => {
+        const members = res.response.body;
+        console.log(members);
+      })
       .wait('@getGroups').then(res => {
         const groups = res.response.body;
         console.log('groups', groups);
         const id = groups.items[2].id;
-        cy.server()
-          .route('GET', `/api/members?group=${id}`, 'fixture:membersMysticArts.json')
-          .as('getMembersMysticArts');
+        cy.intercept({
+          method: 'GET',
+          url: `/api/members?group=${id}`
+        }, {fixture: 'membersMysticArts.json'}).as('getMembersMysticArts');
         cy.get(`a.w-100[href="#${id}"]`).click().wait('@getMembersMysticArts');
-        cy.wait('@getMembers').then(res => {
-          const members = res.response.body;
-          console.log(members);
-        });
       });
   });
 });
