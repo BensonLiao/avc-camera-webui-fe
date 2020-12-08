@@ -12,29 +12,15 @@ describe('license page test', () => {
     cy.intercept({
       method: 'GET',
       url: '/api/members'
-    }, {fixture: 'members.json'}).as('getMembers');
+    }).as('getMembers');
     cy.intercept({
       method: 'GET',
       url: '/api/groups'
-    }, {fixture: 'groups.json'}).as('getGroups');
+    }).as('getGroups');
+
     cy.visit('/users/members')
       .wait('@getMembers')
       .wait('@getGroups');
-    cy.fixture('groups.json').then($group => {
-      cy.fixture('members.json').then($members => {
-        const groupMembers = $members.items.filter(member => member.groupId === $group.items[0].id);
-        console.log('🚀 ~ file: members-filter.test.js ~ line 26 ~ cy.fixture ~ groupMembers', groupMembers);
-        // cy.intercept({
-        //   method: 'GET',
-        //   url: `/api/members?group=${$group.items[0].id}`
-        // }, {
-        //   index: 0,
-        //   items: groupMembers,
-        //   size: 10,
-        //   total: 7
-        // }).as(`get${$group.items[0].name}`);
-      });
-    });
   });
 });
 
