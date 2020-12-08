@@ -607,7 +607,43 @@
   },
   "network": {},
   "system": {},
-  "sdcard": {},
+  "sdCard": {
+    "breadcrumb": {
+      "sdCard": "Tarjeta de memoria"
+    },
+    "title": "Tarjeta de memoria",
+    "enable": "Habilitar tarjeta SD",
+    "operation": "Operación",
+    "format": "formato",
+    "mount": "Montar",
+    "unmount": "Desinstalar",
+    "errorNotification": "Notificación de anormalidad",
+    "notificationSet": "Conjunto de correo electrónico",
+    "enableOutgoingEmail": "Configurar correo electrónico",
+    "filesystem": "Formato del sistema de archivos",
+    "status": "estado",
+    "storageSpace": "Espacio de almacenamiento",
+    "Unrecognized": "Unrecognized",
+    "constants": {
+      "Functioning": "normal",
+      "Unmounted": "No montado",
+      "Empty Slot": "No hay tarjeta insertada",
+      "Nonfunctioning": "Anormal",
+      "Read-only Access": "Solo lectura",
+      "Unknown Error": "error desconocido",
+      "UNKNOWN STATUS": "UNKNOWN STATUS"
+    },
+    "modal": {
+      "titleDisable": "Borrar la tarjeta de memoria",
+      "disableText": "¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento.",
+      "disabledFormatButton": "Estás a punto de formatear la tarjeta Micro SD. ¿Quieres continuar?",
+      "disabledUnmountButton": "Estás a punto de retirar la tarjeta Micro SD. ¿Quieres continuar?"
+    },
+    "tooltip": {
+      "disabledOperationButton": "Primero apague la función de la tarjeta SD",
+      "disabledNotificationButton": "El correo electrónico debe estar configurado."
+    }
+  },
   "error": {},
   "validation": {
     "confirmEqual": "Estas contraseñas no coinciden",

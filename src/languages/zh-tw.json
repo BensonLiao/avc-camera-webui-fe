@@ -607,7 +607,43 @@
   },
   "network": {},
   "system": {},
-  "sdcard": {},
+  "sdCard": {
+    "breadcrumb": {
+      "sdCard": "記憶卡"
+    },
+    "title": "記憶卡",
+    "enable": "開啟記憶卡",
+    "operation": "操作",
+    "format": "格式化",
+    "mount": "掛載",
+    "unmount": "卸載",
+    "errorNotification": "異常通報",
+    "notificationSet": "已設定電子郵件",
+    "enableOutgoingEmail": "設定電子郵件",
+    "filesystem": "檔案系統格式",
+    "status": "狀態",
+    "storageSpace": "儲存空間",
+    "Unrecognized": "Unrecognized",
+    "constants": {
+      "Functioning": "正常",
+      "Unmounted": "未掛載",
+      "Empty Slot": "未插卡",
+      "Nonfunctioning": "不正常",
+      "Read-only Access": "唯獨",
+      "Unknown Error": "未知錯誤",
+      "UNKNOWN STATUS": "UNKNOWN STATUS"
+    },
+    "modal": {
+      "titleDisable": "關閉記憶卡",
+      "disableText": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存",
+      "disabledFormatButton": "您即將格式化 Micro SD 卡，確認是否繼續？",
+      "disabledUnmountButton": "您即將卸除 Micro SD 卡，確認是否繼續？"
+    },
+    "tooltip": {
+      "disabledOperationButton": "請先關閉記憶卡功能",
+      "disabledNotificationButton": "必須設定電子郵件"
+    }
+  },
   "error": {},
   "validation": {
     "confirmEqual": "兩次密碼不一致",

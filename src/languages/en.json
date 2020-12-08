@@ -623,8 +623,6 @@
     "filesystem": "Filesystem",
     "status": "Status",
     "storageSpace": "Storage Space",
-
-    "Off Line Record": "Off Line Record",
     "Unrecognized": "Unrecognized",
     "constants": {
       "Functioning": "Functioning",
@@ -635,15 +633,14 @@
       "Unknown Error": "Unknown Error",
       "UNKNOWN STATUS": "UNKNOWN STATUS"
     },
-    "modal":{
+    "modal": {
       "titleDisable": "Disabling SD Card",
-    "disableText": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?",
-    "disabledFormatButton": "Are you sure you want to format the Micro SD card?",
-    "disabledUnmountButton": "Are you sure you want to unmount the Micro SD card?"
-
+      "disableText": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?",
+      "disabledFormatButton": "Are you sure you want to format the Micro SD card?",
+      "disabledUnmountButton": "Are you sure you want to unmount the Micro SD card?"
     },
     "tooltip": {
-      "disabledOperationButton":"Please disable the SD card first.",
+      "disabledOperationButton": "Please disable the SD card first.",
       "disabledNotificationButton": "Please enable Outgoing Email first."
     }
   },

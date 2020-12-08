@@ -607,7 +607,43 @@
   },
   "network": {},
   "system": {},
-  "sdcard": {},
+  "sdCard": {
+    "breadcrumb": {
+      "sdCard": "SDカード"
+    },
+    "title": "SDカード",
+    "enable": "SDカードを有効にする",
+    "operation": "操作",
+    "format": "フォーマット",
+    "mount": "マウント",
+    "unmount": "マウントを解除",
+    "errorNotification": "異常通知",
+    "notificationSet": "メールアドレスが設定されました",
+    "enableOutgoingEmail": "メールアドレスを設定する",
+    "filesystem": "ファイルシステム",
+    "status": "ステータス",
+    "storageSpace": "ストレージ容量",
+    "Unrecognized": "Unrecognized",
+    "constants": {
+      "Functioning": "正常",
+      "Unmounted": "マウントされていません",
+      "Empty Slot": "カードが挿入されていません",
+      "Nonfunctioning": "異常",
+      "Read-only Access": "読み取り専用",
+      "Unknown Error": "不明なエラー",
+      "UNKNOWN STATUS": "UNKNOWN STATUS"
+    },
+    "modal": {
+      "titleDisable": "SDカードを取り外します",
+      "disableText": "SDカードを取り外しますか？イベントによるキャプチャが保存されません",
+      "disabledFormatButton": "Micro SDカードをフォーマットしてもよろしいですか？",
+      "disabledUnmountButton": "Micro SDカードをア取り外してよろしいですか？"
+    },
+    "tooltip": {
+      "disabledOperationButton": "先にSDカードの機能を無効にしてください",
+      "disabledNotificationButton": "メールアドレスを設定するのは必須です"
+    }
+  },
   "error": {},
   "validation": {
     "confirmEqual": "パスワードが一致しません",
