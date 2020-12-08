@@ -16,10 +16,10 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
   return (
     <div className="col-5 pl-4 pr-0">
       <div className="card shadow">
-        <div className="card-header">{i18n.t('analytics.fr.title')}</div>
+        <div className="card-header">{i18n.t('analytics.facialRecognition.title')}</div>
         <Form className="card-body">
           <div className="form-group d-flex justify-content-between align-items-center">
-            <label className="mb-0">{i18n.t('analytics.fr.enableFR')}</label>
+            <label className="mb-0">{i18n.t('analytics.facialRecognition.enableFR')}</label>
             <div className="custom-control custom-switch">
               <Field
                 name="isEnable"
@@ -38,11 +38,11 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
               <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <span>
-                    <label className="mb-0 mr-2">{i18n.t('analytics.fr.enableSpoof')}</label>
+                    <label className="mb-0 mr-2">{i18n.t('analytics.facialRecognition.enableSpoof')}</label>
                     <span className="badge badge-outline">Alpha</span>
                   </span>
                   <div className="custom-control custom-switch">
-                    <CustomTooltip show={!values.isEnable} title={i18n.t('analytics.fr.tooltips.frDisabled')}>
+                    <CustomTooltip show={!values.isEnable} title={i18n.t('analytics.facialRecognition.tooltips.frDisabled')}>
                       <span style={values.isEnable ? {} : {cursor: 'not-allowed'}}>
                         <Field
                           name="isEnableSpoofing"
@@ -61,8 +61,8 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                     </CustomTooltip>
                     <CustomNotifyModal
                       isShowModal={isShowModal}
-                      modalTitle={i18n.t('analytics.fr.enableSpoof')}
-                      modalBody={i18n.t('analytics.fr.modal.spoofText')}
+                      modalTitle={i18n.t('analytics.facialRecognition.enableSpoof')}
+                      modalBody={i18n.t('analytics.facialRecognition.modal.spoofText')}
                       onHide={() => {
                         hideModal();
                         setFieldValue('isEnableSpoofing', false);
@@ -72,8 +72,8 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                   </div>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                  <label className="mb-0">{i18n.t('analytics.fr.accuracyLevel')}</label>
-                  <CustomTooltip show={!values.isEnable} title={i18n.t('analytics.fr.tooltips.frDisabled')}>
+                  <label className="mb-0">{i18n.t('analytics.facialRecognition.accuracyLevel')}</label>
+                  <CustomTooltip show={!values.isEnable} title={i18n.t('analytics.facialRecognition.tooltips.frDisabled')}>
                     <div className="btn-group" style={values.isEnable ? {} : {cursor: 'not-allowed'}}>
                       {ConfidenceLevel.all().map(confidenceLevel => (
                         <button
@@ -87,7 +87,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                           style={values.isEnable ? {} : {pointerEvents: 'none'}}
                           onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
                         >
-                          {i18n.t(`analytics.fr.constants.confidence-level-${confidenceLevel}`)}
+                          {i18n.t(`analytics.facialRecognition.constants.confidence-level-${confidenceLevel}`)}
                         </button>
                       ))}
                     </div>
@@ -102,12 +102,12 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
           <div className="form-group">
             <div className="d-flex justify-content-between align-items-center">
               <div className="d-flex align-items-center">
-                <label className="mb-0 mr-2">{i18n.t('analytics.fr.detectionZone')}</label>
-                <CustomTooltip title={i18n.t('analytics.fr.detectionZoneHelper')}>
+                <label className="mb-0 mr-2">{i18n.t('analytics.facialRecognition.detectionZone')}</label>
+                <CustomTooltip title={i18n.t('analytics.facialRecognition.detectionZoneHelper')}>
                   <i className="fas fa-question-circle helper-text text-primary"/>
                 </CustomTooltip>
               </div>
-              <CustomTooltip title={i18n.t('analytics.fr.tooltips.detectionZoneToggle')}>
+              <CustomTooltip title={i18n.t('analytics.facialRecognition.tooltips.detectionZoneToggle')}>
                 <div className="custom-control custom-switch">
                   <a
                     className="form-control-feedback text-muted"
@@ -121,7 +121,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
             </div>
           </div>
           <div className="form-group d-flex justify-content-between align-items-center">
-            <label className="mb-0">{i18n.t('analytics.fr.enableDetectionSize')}</label>
+            <label className="mb-0">{i18n.t('analytics.facialRecognition.enableDetectionSize')}</label>
             <div className="custom-control custom-switch">
               <Field
                 name="isEnableFaceFrame"
@@ -139,7 +139,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
           <hr/>
 
           <div className="form-group">
-            <label className="mb-3">{i18n.t('analytics.fr.liveViewDisplay')}</label>
+            <label className="mb-3">{i18n.t('analytics.facialRecognition.liveViewDisplay')}</label>
             <div className="form-check mb-3">
               <Field
                 name="isShowMember"
@@ -147,7 +147,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                 type="checkbox"
                 id="input-show-all"
               />
-              <label className="form-check-label" htmlFor="input-show-all">{i18n.t('analytics.fr.displayName')}</label>
+              <label className="form-check-label" htmlFor="input-show-all">{i18n.t('analytics.facialRecognition.displayName')}</label>
             </div>
             <div className="form-check mb-3">
               <Field
@@ -156,7 +156,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                 type="checkbox"
                 id="input-show-register-group"
               />
-              <label className="form-check-label" htmlFor="input-show-register-group">{i18n.t('analytics.fr.displayGroup')}</label>
+              <label className="form-check-label" htmlFor="input-show-register-group">{i18n.t('analytics.facialRecognition.displayGroup')}</label>
             </div>
             <div className="form-check mb-3">
               <Field
@@ -165,7 +165,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                 type="checkbox"
                 id="input-show-unknown-personal"
               />
-              <label className="form-check-label" htmlFor="input-show-unknown-personal">{i18n.t('analytics.fr.displayUnknown')}</label>
+              <label className="form-check-label" htmlFor="input-show-unknown-personal">{i18n.t('analytics.facialRecognition.displayUnknown')}</label>
             </div>
             <div className="form-check">
               <Field
@@ -174,7 +174,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                 type="checkbox"
                 id="input-show-fake"
               />
-              <label className="form-check-label" htmlFor="input-show-fake">{i18n.t('analytics.fr.displaySpoof')}</label>
+              <label className="form-check-label" htmlFor="input-show-fake">{i18n.t('analytics.facialRecognition.displaySpoof')}</label>
             </div>
           </div>
 

@@ -538,7 +538,7 @@
       "motionDetection": "Motion Detection",
       "license": "License"
     },
-    "fr": {
+    "facialRecognition": {
       "title": "Facial Recognition",
       "enableFR": "Enable Facial Recognition",
       "enableSpoof": "Enable Anti-Image Spoof",
@@ -565,7 +565,7 @@
         "detectionZoneToggle": "Show/Hide Detection Zone"
       }
     },
-    "md": {
+    "motionDetection": {
       "title": "Motion Detection",
       "enableMD": "Enable Motion Detection",
       "mdHelper": "Create detection zones on the live view screen.",

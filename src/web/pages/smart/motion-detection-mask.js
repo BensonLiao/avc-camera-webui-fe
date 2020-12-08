@@ -81,7 +81,7 @@ const MotionDetectionMask = ({maskAreaStates, setMaskAreaStates}) => {
                   rightBottomCornerRef={maskAreaRefs[index]}
                   name={`areas.${index}`}
                   component={MaskArea}
-                  text={i18n.t('analytics.md.detectionZone')}
+                  text={i18n.t('analytics.motionDetection.detectionZone')}
                   className="bounding-primary"
                   parentElementId="md-video-wrapper"
                 />

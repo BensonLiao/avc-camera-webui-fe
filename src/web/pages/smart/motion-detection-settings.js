@@ -16,10 +16,10 @@ const MotionDetectionSettings = () => {
   return (
     <div className="col-5 pl-4 pr-0">
       <div className="card shadow">
-        <div className="card-header">{i18n.t('analytics.md.title')}</div>
+        <div className="card-header">{i18n.t('analytics.motionDetection.title')}</div>
         <div className="card-body">
           <div className="form-group d-flex justify-content-between align-items-center">
-            <label className="mb-0">{i18n.t('analytics.md.enableMD')}</label>
+            <label className="mb-0">{i18n.t('analytics.motionDetection.enableMD')}</label>
             <div className="custom-control custom-switch">
               <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-motion-detection"/>
               <label className="custom-control-label" htmlFor="switch-motion-detection">
@@ -29,14 +29,14 @@ const MotionDetectionSettings = () => {
             </div>
           </div>
           <div className="form-group mb-3">
-            <span className="form-text text-primary">{i18n.t('analytics.md.mdHelper')}</span>
+            <span className="form-text text-primary">{i18n.t('analytics.motionDetection.mdHelper')}</span>
           </div>
 
           <hr/>
 
           <div className={classNames('form-group', values.isEnable ? '' : 'd-none')}>
             <div className="d-flex justify-content-between align-items-center">
-              <label>{i18n.t('analytics.md.sensitivity')}</label>
+              <label>{i18n.t('analytics.motionDetection.sensitivity')}</label>
               <span className="text-primary text-size-14">{values.sensibility}</span>
             </div>
             <Field
@@ -49,25 +49,25 @@ const MotionDetectionSettings = () => {
             />
           </div>
           <div className="form-group">
-            <div className="card-header l-24 light text-size-18">{i18n.t('analytics.md.noteArea')}</div>
+            <div className="card-header l-24 light text-size-18">{i18n.t('analytics.motionDetection.noteArea')}</div>
             <div className="card-body l-32 light px-3 py-3">
               <div className="mb-2 d-flex justify-content-between align-items-center">
-                <span className="font-italic text-size-14">•{i18n.t('analytics.md.note1')}</span>
+                <span className="font-italic text-size-14">•{i18n.t('analytics.motionDetection.note1')}</span>
                 <div className="d-flex align-items-center drag-icon">
                   <img src={iconCursor}/>
-                  <span className="text-size-12">{i18n.t('analytics.md.drag')}</span>
+                  <span className="text-size-12">{i18n.t('analytics.motionDetection.drag')}</span>
                 </div>
               </div>
               <div className="mb-2 d-flex justify-content-between align-items-center">
-                <span className="font-italic text-size-14">•{i18n.t('analytics.md.note2')}</span>
+                <span className="font-italic text-size-14">•{i18n.t('analytics.motionDetection.note2')}</span>
                 <div className="d-flex justify-content-end align-items-center flex-wrap">
                   <img src={iconHotkeyBackspace}/>
-                  <span className="font-italic text-size-14 mx-2">{i18n.t('analytics.md.or')}</span>
+                  <span className="font-italic text-size-14 mx-2">{i18n.t('analytics.motionDetection.or')}</span>
                   <img src={iconHotkeyDeleted}/>
                 </div>
               </div>
               <div className="mb-2 d-flex justify-content-between align-items-center">
-                <span className="font-italic text-size-14">•{i18n.t('analytics.md.note3')}</span>
+                <span className="font-italic text-size-14">•{i18n.t('analytics.motionDetection.note3')}</span>
               </div>
             </div>
           </div>
