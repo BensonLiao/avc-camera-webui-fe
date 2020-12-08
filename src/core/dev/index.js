@@ -627,7 +627,7 @@ mockAxios
     }
 
     const enabledFunctions = {
-      isEnableFaceRecognitionKey: true,
+      isEnableFaceRecognitionKey: '1',
       isEnableAgeGenderKey: false,
       isEnableHumanoidDetectionKey: false
     };
