@@ -376,7 +376,161 @@
       }
     }
   },
-  "userManagement": {},
+  "userManagement": {
+    "members": {
+      "search": "buscar",
+      "searchPlaceholder": "Ingrese palabras claves",
+      "addNewMember": "Añadir miembro",
+      "addMemberFromEvent": "Agregar de evento",
+      "title": "miembro",
+      "allMembers": "Lista de Verificación",
+      "groups": "Grupo",
+      "database": "Base de Datos",
+      "export": "Exportar",
+      "import": "Importar",
+      "userPicture": "Registrar foto",
+      "name": "nombre",
+      "organization": "organización",
+      "group": "Grupo",
+      "note": "Observaciones",
+      "notePlaceholder": "Ingrese nota",
+      "noteHelper": "Extension máxima: 256 caracteres",
+      "actions": "Operar",
+      "noData": "Ningún dato encontrado, por favor revise de nuevo!",
+      "delete": "Borrar",
+      "Upload Image": "Cargar fotos",
+      "Please upload your face photo.": "Please upload your face photo.",
+      "modal": {
+        "group": {
+          "titleEditGroup": "Editar grupo",
+          "titleCreateGroup": "Añadir grupo",
+          "namePlaceholder": "Ingrese el nombre del grupo",
+          "nameHelper": "Extension máxima: 32 caracteres",
+          "confirmDeleteTitle": "Borrar grupo",
+          "confirmDeleteText": "¿Está seguro de que desea borrar el grupo {{0}} ?",
+          "Modify Group": "Editar grupo"
+        },
+        "database": {
+          "title": "Cifrado de base de datos",
+          "importApiProcessModalTitle": "Importar base de datos de Usuarios",
+          "exportApiProcessModalTitle": "Exportar base de datos de Usuarios"
+        },
+        "member": {
+          "confirmDeleteTitle": "Borrar miembro",
+          "confirmDeleteText": "¿Está seguro de que desea borrar el usuario {{0}} ?",
+          "titleNewMember": "Nuevo miembro",
+          "titleEditMember": "Editar miembro",
+          "primary": "Foto principal",
+          "photo1": "Foto 1",
+          "photo2": "Foto 2",
+          "photo3": "Foto 3",
+          "photo4": "Foto 4",
+          "namePlaceholder": "Ingrese el nombre del miembro",
+          "organizationPlaceholder": "Ingrese el nombre de la organización",
+          "organizationHelper": "Extension máxima: 32 caracteres",
+          "n/a": "ninguno",
+          "photoEditor": "editar",
+          "photoHelper": "Arraste para ajustar las fotos",
+          "save": "Salvar",
+          "changePhoto": "Cambiar foto",
+          "confirmCloseText": "Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?",
+          "errorNoPhoto": "Una foto es requirida",
+          "errorPhotoSizeLimit": "El tamaño de la foto no puede superar los 90KB",
+          "Showing No Face": "No hay rostro en la foto",
+          "Poor Photo Quality": "Mala calidad de la foto",
+          "Limitation of Yaw Angle is 30 Degrees": "El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha",
+          "Limitation of Pitch Angle is 20 Degrees": "El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha",
+          "More Than One Face in the Photo": "Más de 1 rostro en la foto"
+        }
+      },
+      "tooltip": {
+        "createGroup": "Añadir grupo",
+        "groupLimitExceeded": "Límite de cantidad alcanzado",
+        "encryptionSettings": "Configuración de cifrado",
+        "deleteGroupWithName": "Borrar grupo: {{0}}",
+        "editGroupWithName": "Editar grupo: {{0}}",
+        "editMemberWithName": "Editar miembro: {{0}}",
+        "deleteMemberWithName": "Borrar miembro: {{0}}",
+        "photoLimitExceeded": "Límite de cantidad alcanzado",
+        "uploadPrimaryFirst": "Sube la foto principal primero"
+      }
+    },
+    "accounts": {
+      "title": "cuentas",
+      "allAccounts": "Lista de cuentas",
+      "permission": "Permiso",
+      "username": "Nombre",
+      "actions": "Operar",
+      "constants": {
+        "permission-0": "administrador",
+        "permission-1": "Invitado",
+        "permission-2": "Invitado",
+        "permission-99": "administrador"
+      },
+      "modal": {
+        "confirmDeleteTitle": "Borrar cuenta",
+        "confirmDeleteText": "¿Está seguro de que desea borrar la cuenta {{0}} ?",
+        "titleNewUser": "Nuevo Usuario",
+        "titleModifyUser": "Editar cuenta",
+        "usernamePlaceholder": "Ingrese el nombre de la cuenta",
+        "usernameHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio"
+      },
+      "tooltip": {
+        "deleteAccountError1": "No se puede borrar la cuenta en uso",
+        "This Account is Protected": "This Account is Protected"
+      }
+    },
+    "events": {
+      "total": "Datos",
+      "title": "eventos",
+      "filters": "Filtros",
+      "clear": "Borrar",
+      "facialRecognition": "Reconocimiento facial",
+      "ageGender": "Género y edad",
+      "humanDetection": "Detección humanoide",
+      "activationRequired": "no está activada",
+      "similarity": "Similaridad",
+      "status": "resultado",
+      "search": "buscar",
+      "searchPlaceholder": "Ingrese palabras claves",
+      "time": "hora",
+      "capture": "Captura",
+      "userPicture": "Registrar foto",
+      "name": "nombre",
+      "organization": "organización",
+      "group": "Grupo",
+      "note": "Observaciones",
+      "actions": "Operar",
+      "noData": "Ningún dato encontrado, por favor revise de nuevo!",
+      "addNewMember": "Añadir miembro",
+      "addExistingMember": "Agregar a Usuario Existente",
+      "Unknown": "desconocido",
+      "Confidence": "Confidence",
+      "constants": {
+        "enroll-status-0": "Camuflaje de imagen",
+        "enroll-status-1": "desconocido",
+        "enroll-status-2": "Registrado",
+        "confidence-0": "bajo",
+        "confidence-1": "medio",
+        "confidence-2": "alto"
+      },
+      "modal": {
+        "initialMessage": "Ingrese palabras clave en el campo de entrada para buscar usuarios.",
+        "verifyingPhoto": "Verificación de fotos",
+        "apiProcessingModalTitle": "Actualización de Usuario"
+      },
+      "tooltip": {
+        "photoLimitExceeded": "Límite de cantidad alcanzado",
+        "addWithName": "Agregar a {{0}}",
+        "invalidPhoto": "Foto inválida",
+        "Updating Member": "Actualización de Usuario"
+      },
+      "toast": {
+        "settingSuccess": "Configuración Exitosa",
+        "settingSuccessBody": "¡Se agregaron fotos a {{0}} correctamente!"
+      }
+    }
+  },
   "analytics": {},
   "network": {},
   "system": {},

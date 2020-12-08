@@ -398,8 +398,8 @@
       "actions": "Actions",
       "noData": "Couldn't find any data.",
       "delete": "Delete",
-      "Please upload your face photo.": "Please upload your face photo.",
       "Upload Image": "Upload Image",
+      "Please upload your face photo.": "Please upload your face photo.",
       "modal": {
         "group": {
           "titleEditGroup": "Edit Group",
@@ -412,10 +412,6 @@
         },
         "database": {
           "title": "Database Encryption",
-          "password": "Password",
-          "newPassword": "New Password",
-          "passwordPlaceholder": "Enter a new password",
-          "passwordHelper": "8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, \", \\, /, <, > and space",
           "importApiProcessModalTitle": "Importing Member Database",
           "exportApiProcessModalTitle": "Exporting Member Database"
         },
@@ -432,7 +428,6 @@
           "namePlaceholder": "Enter a name for this member",
           "organizationPlaceholder": "Enter an organization for this member",
           "organizationHelper": "Maximum length: 32 characters",
-          "notePlaceholder": "Enter a note",
           "n/a": "N/A",
           "photoEditor": "Photo Editor",
           "photoHelper": "Drag the image to position it correctly.",

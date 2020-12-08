@@ -376,7 +376,161 @@
       }
     }
   },
-  "userManagement": {},
+  "userManagement": {
+    "members": {
+      "search": "検索",
+      "searchPlaceholder": "キーワードを入力",
+      "addNewMember": "新規メンバーを追加する",
+      "addMemberFromEvent": "イベントから追加",
+      "title": "メンバー",
+      "allMembers": "全メンバー表示",
+      "groups": "グループ",
+      "database": "データベースファイル",
+      "export": "エクスポート",
+      "import": "インポート",
+      "userPicture": "登録用写真",
+      "name": "名称",
+      "organization": "組織",
+      "group": "グループ",
+      "note": "備考",
+      "notePlaceholder": "備考を入力してください",
+      "noteHelper": "最大256文字まで入力可能です",
+      "actions": "操作",
+      "noData": "一致するデータが見つかりません再検索して下さい",
+      "delete": "削除",
+      "Upload Image": "写真をアップロードする",
+      "Please upload your face photo.": "Please upload your face photo.",
+      "modal": {
+        "group": {
+          "titleEditGroup": "グループを編集する",
+          "titleCreateGroup": "グループを追加する",
+          "namePlaceholder": "グループ名を入力してください",
+          "nameHelper": "最大32文字まで入力可能です",
+          "confirmDeleteTitle": "グループを削除する",
+          "confirmDeleteText": "グループ {{0}} を削除しますか？",
+          "Modify Group": "グループを編集する"
+        },
+        "database": {
+          "title": "データベース暗号化",
+          "importApiProcessModalTitle": "メンバーデータベースをインポートします",
+          "exportApiProcessModalTitle": "メンバーデータベースをエクスポートします"
+        },
+        "member": {
+          "confirmDeleteTitle": "メンバーを削除する",
+          "confirmDeleteText": "メンバー {{0}} を削除しますか？",
+          "titleNewMember": "メンバーを追加する",
+          "titleEditMember": "メンバーを編集する",
+          "primary": "メイン写真",
+          "photo1": "写真 1",
+          "photo2": "写真 2",
+          "photo3": "写真 3",
+          "photo4": "写真 4",
+          "namePlaceholder": "メンバー名を入力してください",
+          "organizationPlaceholder": "組織名を入力してください",
+          "organizationHelper": "最大32文字まで入力可能です",
+          "n/a": "なし",
+          "photoEditor": "写真編集",
+          "photoHelper": "写真をドラッグして調整してください",
+          "save": "保存する",
+          "changePhoto": "写真を変更する",
+          "confirmCloseText": "このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます",
+          "errorNoPhoto": "写真が必要",
+          "errorPhotoSizeLimit": "写真サイズは90 KBを超えることができません",
+          "Showing No Face": "写真には顔が存在していません",
+          "Poor Photo Quality": "写真の品質が足りません",
+          "Limitation of Yaw Angle is 30 Degrees": "顔の角度は上下20度や左右30度を超えています",
+          "Limitation of Pitch Angle is 20 Degrees": "顔の角度は上下20度や左右30度を超えています",
+          "More Than One Face in the Photo": "写真には顔が一個以上存在しています"
+        }
+      },
+      "tooltip": {
+        "createGroup": "グループを追加する",
+        "groupLimitExceeded": "グループ数の上限に達しました",
+        "encryptionSettings": "暗号化設定",
+        "deleteGroupWithName": "グループを削除する：{{0}}",
+        "editGroupWithName": "グループを編集する：{{0}}",
+        "editMemberWithName": "メンバーを編集する：{{0}}",
+        "deleteMemberWithName": "メンバーを削除する：{{0}}",
+        "photoLimitExceeded": "写真数の上限に達しました",
+        "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい"
+      }
+    },
+    "accounts": {
+      "title": "アカウント",
+      "allAccounts": "全アカウント表示",
+      "permission": "権限",
+      "username": "ユーザー名",
+      "actions": "操作",
+      "constants": {
+        "permission-0": "管理者",
+        "permission-1": "ゲスト",
+        "permission-2": "訪客",
+        "permission-99": "管理者"
+      },
+      "modal": {
+        "confirmDeleteTitle": "アカウントを削除する",
+        "confirmDeleteText": "アカウント {{0}} を削除しますか？",
+        "titleNewUser": "新規ユーザー",
+        "titleModifyUser": "アカウントを編集する",
+        "usernamePlaceholder": "アカウント名を入力してください",
+        "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません"
+      },
+      "tooltip": {
+        "deleteAccountError1": "使用中のアカウントを削除することができません",
+        "This Account is Protected": "This Account is Protected"
+      }
+    },
+    "events": {
+      "total": "合計データ数",
+      "title": "イベント",
+      "filters": "フィルター条件",
+      "clear": "クリア",
+      "facialRecognition": "顔認証",
+      "ageGender": "性別年齢推定",
+      "humanDetection": "人体検知",
+      "activationRequired": "無効",
+      "similarity": "相似性",
+      "status": "認証結果",
+      "search": "検索",
+      "searchPlaceholder": "キーワードを入力",
+      "time": "時間",
+      "capture": "キャプチャー",
+      "userPicture": "登録用写真",
+      "name": "名称",
+      "organization": "組織",
+      "group": "グループ",
+      "note": "備考",
+      "actions": "操作",
+      "noData": "一致するデータが見つかりません再検索して下さい",
+      "addNewMember": "新規メンバーを追加する",
+      "addExistingMember": "既存のメンバーに追加",
+      "Unknown": "未知",
+      "Confidence": "相似度",
+      "constants": {
+        "enroll-status-0": "なりすまし防止",
+        "enroll-status-1": "未登録者",
+        "enroll-status-2": "登録者",
+        "confidence-0": "低",
+        "confidence-1": "中",
+        "confidence-2": "高"
+      },
+      "modal": {
+        "initialMessage": "入力フィールドにキーワードを入力して、メンバーを検索します",
+        "verifyingPhoto": "写真検証中",
+        "apiProcessingModalTitle": "メンバー更新"
+      },
+      "tooltip": {
+        "photoLimitExceeded": "写真数の上限に達しました",
+        "addWithName": "{{0}} に追加",
+        "invalidPhoto": "無効な写真",
+        "Updating Member": "メンバー更新"
+      },
+      "toast": {
+        "settingSuccess": "設定が成功しました ",
+        "settingSuccessBody": "写真が {{0}} に追加されました"
+      }
+    }
+  },
   "analytics": {},
   "network": {},
   "system": {},

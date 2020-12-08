@@ -376,7 +376,161 @@
       }
     }
   },
-  "userManagement": {},
+  "userManagement": {
+    "members": {
+      "search": "搜尋",
+      "searchPlaceholder": "輸入關鍵字",
+      "addNewMember": "新增成員",
+      "addMemberFromEvent": "從事件新增",
+      "title": "成員",
+      "allMembers": "清單",
+      "groups": "群組",
+      "database": "資料庫檔案",
+      "export": "匯出",
+      "import": "匯入",
+      "userPicture": "註冊照片",
+      "name": "名稱",
+      "organization": "備註",
+      "group": "群組",
+      "note": "組織",
+      "notePlaceholder": "輸入備註",
+      "noteHelper": "最多256個字",
+      "actions": "操作",
+      "noData": "沒有符合的資料, 請重新設置條件",
+      "delete": "刪除",
+      "Upload Image": "上傳照片",
+      "Please upload your face photo.": "Please upload your face photo.",
+      "modal": {
+        "group": {
+          "titleEditGroup": "編輯群組",
+          "titleCreateGroup": "新增群組",
+          "namePlaceholder": "輸入群組名稱",
+          "nameHelper": "最多32個字",
+          "confirmDeleteTitle": "刪除群組",
+          "confirmDeleteText": "您確定要刪除群組 {{0}} 嗎？",
+          "Modify Group": "編輯群組"
+        },
+        "database": {
+          "title": "資料庫加密",
+          "importApiProcessModalTitle": "匯入成員資料庫",
+          "exportApiProcessModalTitle": "匯出成員資料庫"
+        },
+        "member": {
+          "confirmDeleteTitle": "刪除成員",
+          "confirmDeleteText": "您確定要刪除成員 {{0}} 嗎？",
+          "titleNewMember": "新增成員",
+          "titleEditMember": "編輯成員",
+          "primary": "主照片",
+          "photo1": "照片1",
+          "photo2": "照片2",
+          "photo3": "照片3",
+          "photo4": "照片4",
+          "namePlaceholder": "輸入成員名稱",
+          "organizationPlaceholder": "輸入組織名稱",
+          "organizationHelper": "最多32個字",
+          "n/a": "無",
+          "photoEditor": "編輯",
+          "photoHelper": "拖曳調整照片",
+          "save": "儲存",
+          "changePhoto": "更換照片",
+          "confirmCloseText": "關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？",
+          "errorNoPhoto": "必須上傳主照片",
+          "errorPhotoSizeLimit": "照片大小不可以超過90 KB",
+          "Showing No Face": "照片中沒有人臉",
+          "Poor Photo Quality": "照片品質不佳",
+          "Limitation of Yaw Angle is 30 Degrees": "人臉角度超過上下20度或左右30度",
+          "Limitation of Pitch Angle is 20 Degrees": "人臉角度超過上下20度或左右30度",
+          "More Than One Face in the Photo": "照片中超過1張人臉"
+        }
+      },
+      "tooltip": {
+        "createGroup": "新增群組",
+        "groupLimitExceeded": "已達數量限制",
+        "encryptionSettings": "加密設定",
+        "deleteGroupWithName": "刪除群組: {{0}}",
+        "editGroupWithName": "編輯群組: {{0}}",
+        "editMemberWithName": "編輯成員: {{0}}",
+        "deleteMemberWithName": "刪除成員: {{0}}",
+        "photoLimitExceeded": "已達數量限制",
+        "uploadPrimaryFirst": "請先上傳主照片"
+      }
+    },
+    "accounts": {
+      "title": "帳號",
+      "allAccounts": "帳號清單",
+      "permission": "權限",
+      "username": "名稱",
+      "actions": "操作",
+      "constants": {
+        "permission-0": "管理者",
+        "permission-1": "來賓",
+        "permission-2": "訪客",
+        "permission-99": "管理者"
+      },
+      "modal": {
+        "confirmDeleteTitle": "刪除帳號",
+        "confirmDeleteText": "您確定要刪除帳號 {{0}} 嗎？",
+        "titleNewUser": "創建使用者",
+        "titleModifyUser": "編輯帳號",
+        "usernamePlaceholder": "輸入帳號名稱",
+        "usernameHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白"
+      },
+      "tooltip": {
+        "deleteAccountError1": "無法刪除正在使用的帳號",
+        "This Account is Protected": "This Account is Protected"
+      }
+    },
+    "events": {
+      "total": "筆資料",
+      "title": "事件",
+      "filters": "篩選條件",
+      "clear": "清除條件",
+      "facialRecognition": "臉部辨識",
+      "ageGender": "性別年齡",
+      "humanDetection": "人形偵測",
+      "activationRequired": "未啟用",
+      "similarity": "相似度",
+      "status": "結果",
+      "search": "搜尋",
+      "searchPlaceholder": "輸入關鍵字",
+      "time": "時間",
+      "capture": "臉部截圖",
+      "userPicture": "註冊照片",
+      "name": "名稱",
+      "organization": "備註",
+      "group": "群組",
+      "note": "組織",
+      "actions": "操作",
+      "noData": "沒有符合的資料, 請重新設置條件",
+      "addNewMember": "新增成員",
+      "addExistingMember": "新增至現有成員",
+      "Unknown": "未知",
+      "Confidence": "相似度",
+      "constants": {
+        "enroll-status-0": "圖像偽裝",
+        "enroll-status-1": "未知",
+        "enroll-status-2": "成功",
+        "confidence-0": "低",
+        "confidence-1": "中",
+        "confidence-2": "高"
+      },
+      "modal": {
+        "initialMessage": "請輸入關鍵字以便搜尋",
+        "verifyingPhoto": "照片驗證中",
+        "apiProcessingModalTitle": "更新成員"
+      },
+      "tooltip": {
+        "photoLimitExceeded": "已達數量限制",
+        "addWithName": "新增至 {{0}}",
+        "invalidPhoto": "照片不合格",
+        "Updating Member": "更新成員"
+      },
+      "toast": {
+        "settingSuccess": "設定成功",
+        "settingSuccessBody": "新增照片至 {{0}} 成功!"
+      }
+    }
+  },
   "analytics": {},
   "network": {},
   "system": {},
