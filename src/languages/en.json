@@ -566,12 +566,17 @@
       }
     },
     "md": {
-      "Enable Motion Detection": "Enable Motion Detection",
-      "Motion Detection": "Motion Detection",
-      "Create detection zones on the live view screen.": "Create detection zones on the live view screen.",
-      "To set a zone:": "To set a zone:",
-      "To erase a zone:": "To erase a zone:",
-      "Up to 4 detection zones can be set.": "Up to 4 detection zones can be set."
+      "title": "Motion Detection",
+      "enableMD": "Enable Motion Detection",
+      "mdHelper": "Create detection zones on the live view screen.",
+      "sensitivity": "Sensitivity",
+      "noteArea": "Note Area",
+      "note1": "To set a zone:",
+      "drag": "Drag",
+      "note2": "To erase a zone:",
+      "or": "or",
+      "note3": "Up to 4 detection zones can be set.",
+      "detectionZone": "Detection Zone"
     },
     "license": {
       "License": "License",
