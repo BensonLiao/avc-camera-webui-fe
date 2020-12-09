@@ -58,7 +58,7 @@ const SDCard = ({
           <div className="row justify-content-center">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('sdCard.breadcrumb.sdCard')]}
+              path={[i18n.t('navigation.sidebar.sdCard')]}
             />
             <div className="col-center">
               <div className="card shadow">

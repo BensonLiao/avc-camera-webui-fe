@@ -126,14 +126,6 @@
     }
   },
   "video": {
-    "breadcrumb": {
-      "videoSettings": "影像",
-      "streams": "串流",
-      "rtsp": "RTSP",
-      "hdmi": "HDMI",
-      "osd": "文字貼圖",
-      "privacyMask": "隱私遮罩"
-    },
     "stream": {
       "title": "串流",
       "streams": "串流",
@@ -229,9 +221,6 @@
     }
   },
   "audio": {
-    "breadcrumb": {
-      "audio": "聲音"
-    },
     "title": "聲音",
     "enable": "開啟聲音輸入",
     "quality": "品質",
@@ -244,12 +233,6 @@
     }
   },
   "notification": {
-    "breadcrumb": {
-      "notificationSettings": "通報",
-      "notificationMethod": "通報方式",
-      "io": "數位輸出及輸入",
-      "email": "電子郵件"
-    },
     "smtp": {
       "edit": "編輯",
       "enableEmail": "開啟電子郵件傳輸",
@@ -525,12 +508,6 @@
     }
   },
   "analytics": {
-    "breadcrumb": {
-      "analyticsSettings": "智慧分析",
-      "facialRecognition": "臉部辨識",
-      "motionDetection": "移動偵測",
-      "license": "智慧分析授權"
-    },
     "facialRecognition": {
       "title": "臉部辨識",
       "enableFR": "開啟臉部辨識",
@@ -598,12 +575,6 @@
     }
   },
   "network": {
-    "breadcrumb": {
-      "internetNetworkSettings": "網路設定",
-      "network": "網路",
-      "tcpip": "TCP/IP",
-      "https": "安全傳輸方式"
-    },
     "network": {
       "title": "網路",
       "ipAddressing": "LAN 組態",
@@ -685,9 +656,6 @@
   },
   "system": {},
   "sdCard": {
-    "breadcrumb": {
-      "sdCard": "記憶卡"
-    },
     "title": "記憶卡",
     "enable": "開啟記憶卡",
     "operation": "操作",
@@ -829,10 +797,12 @@
       "hdmi": "HDMI",
       "osd": "文字貼圖",
       "privacyMask": "隱私遮罩",
+      "audio": "聲音",
       "notificationSettings": "通報",
       "notificationMethod": "通報方式",
       "email": "電子郵件",
       "io": "數位輸出及輸入",
+      "inputAndOutput": "數位輸出及輸入",
       "smartNotification": "智慧通知",
       "members": "成員",
       "accounts": "帳號",
@@ -853,6 +823,7 @@
       "status": "狀態",
       "systemLog": "系統紀錄",
       "information": "裝置資訊",
+      "sdCard": "記憶卡",
       "tooltip": {
         "home": "首頁",
         "image": "圖像",

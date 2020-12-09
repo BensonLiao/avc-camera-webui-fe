@@ -157,7 +157,7 @@ module.exports = class RTSP extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('video.breadcrumb.videoSettings'), i18n.t('video.breadcrumb.rtsp')]}
+                path={[i18n.t('navigation.sidebar.videoSettings'), i18n.t('navigation.sidebar.rtsp')]}
                 routes={['/media/stream']}
               />
               <div className="col-center">

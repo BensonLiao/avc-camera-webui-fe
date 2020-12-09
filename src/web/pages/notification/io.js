@@ -25,7 +25,7 @@ const IO = ({ioInSettings, ioOutASettings, ioOutBSettings}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('notification.breadcrumb.notificationSettings'), i18n.t('notification.breadcrumb.notificationMethod'), i18n.t('Input & Output')]}
+              path={[i18n.t('navigation.sidebar.notificationSettings'), i18n.t('navigation.sidebar.notificationMethod'), i18n.t('navigation.sidebar.inputAndOutput')]}
               routes={['/notification/smtp', '/notification/smtp']}
             />
             <div className="col-center">

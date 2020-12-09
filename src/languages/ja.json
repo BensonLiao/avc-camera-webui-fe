@@ -126,14 +126,6 @@
     }
   },
   "video": {
-    "breadcrumb": {
-      "videoSettings": "ビデオ設定",
-      "streams": "ストリーム",
-      "rtsp": "RTSP",
-      "hdmi": "HDMI",
-      "osd": "OSD",
-      "privacyMask": "プライバシーマスク"
-    },
     "stream": {
       "title": "ストリーム",
       "streams": "ストリーム",
@@ -229,9 +221,6 @@
     }
   },
   "audio": {
-    "breadcrumb": {
-      "audio": "オーディオ設定"
-    },
     "title": "オーディオ設定",
     "enable": "オーディオ入力を有効にする",
     "quality": "オーディオ品質",
@@ -244,12 +233,6 @@
     }
   },
   "notification": {
-    "breadcrumb": {
-      "notificationSettings": "通知設定",
-      "notificationMethod": "通知方法",
-      "io": "デジタル入力および出力",
-      "email": "メール"
-    },
     "smtp": {
       "edit": "編集",
       "enableEmail": "メール送信を有効にします",
@@ -525,12 +508,6 @@
     }
   },
   "analytics": {
-    "breadcrumb": {
-      "analyticsSettings": "知能分析",
-      "facialRecognition": "顔認証",
-      "motionDetection": "動作検知",
-      "license": "映像分析ライセンス"
-    },
     "facialRecognition": {
       "title": "顔認証",
       "enableFR": "顔認証を有効します",
@@ -598,12 +575,6 @@
     }
   },
   "network": {
-    "breadcrumb": {
-      "internetNetworkSettings": "インターネット/ネットワーク設定",
-      "network": "ネットワーク",
-      "tcpip": "TCP/IP",
-      "https": "HTTPS"
-    },
     "network": {
       "title": "ネットワーク",
       "ipAddressing": "IP設定",
@@ -685,9 +656,6 @@
   },
   "system": {},
   "sdCard": {
-    "breadcrumb": {
-      "sdCard": "SDカード"
-    },
     "title": "SDカード",
     "enable": "SDカードを有効にする",
     "operation": "操作",
@@ -829,10 +797,12 @@
       "hdmi": "HDMI",
       "osd": "OSD",
       "privacyMask": "プライバシーマスク",
+      "audio": "オーディオ設定",
       "notificationSettings": "通知設定",
       "notificationMethod": "通知方法",
       "email": "メール",
       "io": "デジタル入力および出力",
+      "inputAndOutput": "デジタル入力および出力",
       "smartNotification": "スマート通知",
       "members": "メンバー",
       "accounts": "アカウント",
@@ -845,7 +815,7 @@
       "network": "ネットワーク",
       "tcpip": "TCP/IP",
       "https": "HTTPS",
-      "system": "システム",
+      "system": "システム設定",
       "administration": "管理",
       "dateTime": "日付と時間",
       "deviceMaintenance": "メンテナンス",
@@ -853,6 +823,7 @@
       "status": "ステータス",
       "systemLog": "システムログ",
       "information": "デバイス情報",
+      "sdCard": "SDカード",
       "tooltip": {
         "home": "ホームページ",
         "image": "画像設定",

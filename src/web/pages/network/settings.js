@@ -18,7 +18,7 @@ const NetworkSettings = ({networkSettings}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('network.breadcrumb.internetNetworkSettings'), i18n.t('network.breadcrumb.network')]}
+              path={[i18n.t('navigation.sidebar.internetNetworkSettings'), i18n.t('navigation.sidebar.network')]}
               routes={['/network/settings']}
             />
             <div className="col-center">

@@ -88,7 +88,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('network.breadcrumb.internetNetworkSettings'), i18n.t('network.breadcrumb.https')]}
+              path={[i18n.t('navigation.sidebar.internetNetworkSettings'), i18n.t('navigation.sidebar.https')]}
               routes={['/network/settings']}
             />
             <div className="col-center">

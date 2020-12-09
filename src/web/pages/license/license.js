@@ -83,7 +83,7 @@ const License = ({
         <div className="container-fluid">
           <div className="row">
             <BreadCrumb
-              path={[i18n.t('analytics.breadcrumb.analyticsSettings'), i18n.t('analytics.breadcrumb.license')]}
+              path={[i18n.t('navigation.sidebar.analyticsSettings'), i18n.t('navigation.sidebar.license')]}
               routes={['/analytic/face-recognition']}
             />
             <div className="col-12">

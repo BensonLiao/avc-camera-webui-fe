@@ -40,7 +40,7 @@ module.exports = class Stream extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('video.breadcrumb.videoSettings'), i18n.t('video.breadcrumb.streams')]}
+                path={[i18n.t('navigation.sidebar.videoSettings'), i18n.t('navigation.sidebar.streams')]}
                 routes={['/media/stream']}
               />
               <div className="col-center">

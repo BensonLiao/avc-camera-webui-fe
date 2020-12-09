@@ -51,7 +51,7 @@ const SMTP = ({smtpSettings}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('notification.breadcrumb.notificationSettings'), i18n.t('notification.breadcrumb.notificationMethod'), i18n.t('notification.breadcrumb.email')]}
+              path={[i18n.t('navigation.sidebar.notificationSettings'), i18n.t('navigation.sidebar.notificationMethod'), i18n.t('navigation.sidebar.email')]}
               routes={['/notification/smtp', '/notification/smtp']}
             />
             <div className="col-center">

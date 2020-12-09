@@ -18,7 +18,7 @@ const TCPIP = ({ddnsInfo, httpInfo, httpsSettings, rtspSettings}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('network.breadcrumb.internetNetworkSettings'), i18n.t('network.breadcrumb.tcpip')]}
+              path={[i18n.t('navigation.sidebar.internetNetworkSettings'), i18n.t('navigation.sidebar.tcpip')]}
               routes={['/network/settings']}
             />
             <div className="col-center">

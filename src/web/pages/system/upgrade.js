@@ -124,7 +124,7 @@ const Upgrade = () => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Software Upgrade')]}
+              path={[i18n.t('navigation.sidebar.system'), i18n.t('navigation.sidebar.administration'), i18n.t('navigation.sidebar.softwareUpgrade')]}
               routes={['/system/datetime', '/system/datetime']}
             />
             <CustomNotifyModal

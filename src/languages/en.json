@@ -128,14 +128,6 @@
     }
   },
   "video": {
-    "breadcrumb": {
-      "videoSettings": "Video Settings",
-      "streams": "Streams",
-      "rtsp": "RTSP",
-      "hdmi": "HDMI",
-      "osd": "OSD",
-      "privacyMask": "Privacy Mask"
-    },
     "stream": {
       "settings.avn": "Settings",
       "title": "Streams",
@@ -232,9 +224,6 @@
     }
   },
   "audio": {
-    "breadcrumb": {
-      "audio": "Audio"
-    },
     "title": "Audio",
     "enable": "Enable Audio Input",
     "quality": "Audio Quality",
@@ -247,12 +236,6 @@
     }
   },
   "notification": {
-    "breadcrumb": {
-      "notificationSettings": "Notification Settings",
-      "notificationMethod": "Notification Method",
-      "email": "Email",
-      "io": "Input & Output"
-    },
     "smtp": {
       "title": "Email",
       "enableEmail": "Enable Outgoing Email",
@@ -533,12 +516,6 @@
     }
   },
   "analytics": {
-    "breadcrumb": {
-      "analyticsSettings": "Analytics Settings",
-      "facialRecognition": "Facial Recognition",
-      "motionDetection": "Motion Detection",
-      "license": "License"
-    },
     "facialRecognition": {
       "title": "Facial Recognition",
       "enableFR": "Enable Facial Recognition",
@@ -607,12 +584,6 @@
     }
   },
   "network": {
-    "breadcrumb": {
-      "internetNetworkSettings": "Internet & Network Settings",
-      "network": "Network",
-      "tcpip": "TCP/IP",
-      "https": "HTTPS"
-    },
     "network": {
       "title": "Network",
       "ipAddressing": "IP Addressing",
@@ -694,9 +665,6 @@
   },
   "system": {},
   "sdCard": {
-    "breadcrumb": {
-      "sdCard": "SD Card"
-    },
     "title": "SD Card",
     "enable": "Enable SD Card",
     "operation": "Operation",
@@ -839,10 +807,12 @@
       "hdmi": "HDMI",
       "osd": "OSD",
       "privacyMask": "Privacy Mask",
+      "audio": "Audio",
       "notificationSettings": "Notification Settings",
       "notificationMethod": "Notification Method",
       "email": "Email",
       "io": "I/O",
+      "inputAndOutput": "Input & Output",
       "smartNotification": "Smart Notification",
       "members": "Members",
       "accounts": "Accounts",
@@ -855,7 +825,7 @@
       "network": "Network",
       "tcpip": "TCP/IP",
       "https": "HTTPS",
-      "system": "System",
+      "system": "System Settings",
       "administration": "Administration",
       "dateTime": "Date & Time",
       "deviceMaintenance": "Device Maintenance",
@@ -863,6 +833,7 @@
       "status": "Status",
       "systemLog": "System Log",
       "information": "Information",
+      "sdCard": "SD Card",
       "tooltip": {
         "home": "Home",
         "image": "Image",

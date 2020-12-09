@@ -126,14 +126,6 @@
     }
   },
   "video": {
-    "breadcrumb": {
-      "videoSettings": "Video",
-      "streams": "Stream",
-      "rtsp": "RTSP",
-      "hdmi": "HDMI",
-      "osd": "Mapa de texto",
-      "privacyMask": "Máscara de privacidad"
-    },
     "stream": {
       "title": "Stream",
       "streams": "Stream",
@@ -229,9 +221,6 @@
     }
   },
   "audio": {
-    "breadcrumb": {
-      "audio": "Audio"
-    },
     "title": "Audio",
     "enable": "Habilitar entrada de voz",
     "quality": "Calidad",
@@ -244,12 +233,6 @@
     }
   },
   "notification": {
-    "breadcrumb": {
-      "notificationSettings": "Anunciar",
-      "notificationMethod": "Método de notificación",
-      "io": "Entrada y salida digital",
-      "email": "correo electrónico"
-    },
     "smtp": {
       "edit": "editar",
       "enableEmail": "Habilitar transmisión de correo electrónico",
@@ -525,12 +508,6 @@
     }
   },
   "analytics": {
-    "breadcrumb": {
-      "analyticsSettings": "Análisis inteligente",
-      "facialRecognition": "Reconocimiento facial",
-      "motionDetection": "Detección de movimiento",
-      "license": "Autorización de análisis inteligente"
-    },
     "facialRecognition": {
       "title": "Reconocimiento facial",
       "enableFR": "Habilitar reconocimiento facial",
@@ -598,12 +575,6 @@
     }
   },
   "network": {
-    "breadcrumb": {
-      "internetNetworkSettings": "Configuración de Internet y red",
-      "network": "Red",
-      "tcpip": "TCP/IP",
-      "https": "HTTPS"
-    },
     "network": {
       "title": "Red",
       "ipAddressing": "Red de área local",
@@ -685,9 +656,6 @@
   },
   "system": {},
   "sdCard": {
-    "breadcrumb": {
-      "sdCard": "Tarjeta de memoria"
-    },
     "title": "Tarjeta de memoria",
     "enable": "Habilitar tarjeta SD",
     "operation": "Operación",
@@ -829,10 +797,12 @@
       "hdmi": "HDMI",
       "osd": "Mapa de texto",
       "privacyMask": "Máscara de privacidad",
+      "audio": "Audio",
       "notificationSettings": "Anunciar",
       "notificationMethod": "Método de notificación",
       "email": "correo electrónico",
       "io": "Entrada y salida digital",
+      "inputAndOutput": "Entrada y salida digital",
       "smartNotification": "Notificación inteligente",
       "members": "miembro",
       "accounts": "cuentas",
@@ -853,6 +823,7 @@
       "status": "estado",
       "systemLog": "Registro del sistema",
       "information": "Información del dispositivo",
+      "sdCard": "Tarjeta de memoria",
       "tooltip": {
         "home": "Página de Inicio",
         "image": "imagen",
