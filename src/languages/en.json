@@ -672,7 +672,23 @@
       }
     },
     "https": {
-      "Please enable HTTPS first.": "Please enable HTTPS first."
+      "title": "HTTPS",
+      "enableHTTPS": "Enable HTTPS",
+      "port": "Port",
+      "portHelper": "Range: 1024-65535 Default: 8443",
+      "certificate": "Certificate",
+      "constants":{
+        "certificate-type-0": "{{0}} Self-signed",
+        "certificate-type-1": "Upload Certificate",
+        "certificate-type-2": "Generate Certificate on This Device"
+      },
+      "modal":{
+        "redirectionSuccess": "Redirection Success",
+        "redirectionText": "The website has been redirected to the new address"
+      },
+      "tooltip":{
+        "disabledButton": "Please enable HTTPS first."
+      }
     }
   },
   "system": {},
