@@ -239,9 +239,10 @@ module.exports = class StreamSetting extends Base {
     const newCodecValue = event.target.value;
     // Logic for channel A CODEC change
     if (fieldNamePrefix === 'channelA') {
-      // set channelA codec value
+      // set channelA codec value for UI
       setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
       // set formValues channel A codec value
+      // must set this codec value because Formik does not get newest value right after setting field value.
       formValues.channelA.codec = newCodecValue;
       // setState with processRenderOptions to get new FPS/resolution options for channel A
       this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
