@@ -233,33 +233,51 @@ module.exports = class StreamSetting extends Base {
   // Logic for Codec field change
   onUpdateCodecField = (event, fieldNamePrefix, allValues, setFieldValue) => {
     event.persist();
+    // formValues is values of channel A and channel B in Formik
     const formValues = JSON.parse(JSON.stringify(allValues));
+    // newCodecValue is the new codec value
     const newCodecValue = event.target.value;
+    // Logic for channel A CODEC change
     if (fieldNamePrefix === 'channelA') {
+      // set channelA codec value for UI
       setFieldValue(`${fieldNamePrefix}.codec`, newCodecValue);
+      // set formValues channel A codec value
+      // must set this codec value because Formik does not get newest value right after setting field value.
       formValues.channelA.codec = newCodecValue;
+      // setState with processRenderOptions to get new FPS/resolution options for channel A
       this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
         const {frameRate: frameRateA, resolution} = this.state.channelOptions.chA;
         setFieldValue(`${fieldNamePrefix}.frameRate`, this.lastIndexValue(frameRateA));
         setFieldValue(`${fieldNamePrefix}.resolution`, resolution[0].value);
       });
+      // prev value of resolution comes from Formik's values
       const prev = Number(allValues.channelA.resolution);
+      // current value of resolution comes from state, after using processRenderOptions to generate up to date values
       const current = Number(this.state.channelOptions.chA.resolution[0].value);
+      // hasResolutionChanged uses prev and current resolution to check if resolution ratio has changed from 16:9 to 4:3 or vice versa
       if (this.hasResolutionChanged(prev, current)) {
+        // if resolution ratio has changed, set state to true for updated modal warning
         this.setState({hasResolutionRatioChanged: true});
+        // set Formik codec value for channel A to new value
         formValues.channelA.codec = newCodecValue;
+        // set Formik channel A resolution to current values generated options
         formValues.channelA.resolution = this.state.channelOptions.chA.resolution[0].value;
+        // set Formik channel B resolution to current values generated options
         formValues.channelB.resolution = this.state.channelOptions.chB.resolution[0].value;
+        // set state with processRenderOptions with newly set values, to generate updated options for framerate and resolution
         this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
+          // set channelB to updated options
           const {frameRate: frameRateB, resolution} = this.state.channelOptions.chB;
+          // set channel B resolution to highest resolution
           setFieldValue('channelB.resolution', resolution[0].value);
+          // set channel B frameRate to highest FPS in option
           setFieldValue('channelB.frameRate', this.lastIndexValue(frameRateB));
         });
       }
     }
 
+    // Logic for channel B CODEC change
     if (fieldNamePrefix === 'channelB') {
-      this.setState({hasResolutionRatioChanged: true});
       formValues.channelB.codec = newCodecValue;
       this.setState({channelOptions: this.processRenderOptions(formValues)}, () => {
         formValues.channelB.resolution = this.state.channelOptions.chB.resolution[0].value;
