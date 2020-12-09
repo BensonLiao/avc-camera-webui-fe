@@ -101,9 +101,9 @@ const removeHDMIPage = async () => {
 
   // call projectId for noBrand, modelName for generic
   if (window.isNoBrand) {
-    removePageFromRouter('projectId');
+    await removePageFromRouter('projectId');
   } else {
-    removePageFromRouter('modelName');
+    await removePageFromRouter('modelName');
   }
 };
 
