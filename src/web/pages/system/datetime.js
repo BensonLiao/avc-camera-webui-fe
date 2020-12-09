@@ -91,7 +91,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
         <div className="container-fluid">
           <div className="row">
             <BreadCrumb
-              path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Date & Time')]}
+              path={[i18n.t('System Settings'), i18n.t('Administration'), i18n.t('Date & Time')]}
               routes={['/system/datetime', '/system/datetime']}
             />
             <div className="col-center">

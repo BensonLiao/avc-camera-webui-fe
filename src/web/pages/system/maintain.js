@@ -47,7 +47,7 @@ const Maintain = () => {
         <div className="container-fluid">
           <div className="row">
             <BreadCrumb
-              path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Device Maintenance')]}
+              path={[i18n.t('System Settings'), i18n.t('Administration'), i18n.t('Device Maintenance')]}
               routes={['/system/datetime', '/system/datetime']}
             />
             <CustomNotifyModal
