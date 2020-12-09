@@ -57,22 +57,22 @@ const Log = () => {
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('System Log')}</div>
+                <div className="card-header">{i18n.t('system.systemLog.title')}</div>
                 <div className="card-body">
                   <div className="form-group">
-                    <label className="mb-0 my-3">{i18n.t('System Log File')}</label>
+                    <label className="mb-0 my-3">{i18n.t('system.systemLog.systemLogFile')}</label>
                     <div>
                       <button
                         className="btn btn-outline-primary rounded-pill px-5"
                         type="button"
                         onClick={() => setIsShowConfirmModal(true)}
-                      >{i18n.t('Delete logs')}
+                      >{i18n.t('system.systemLog.deleteLogs')}
                       </button>
                       <CustomNotifyModal
                         modalType="default"
                         isShowModal={isShowConfirmModal}
-                        modalTitle={i18n.t('Delete System Log File')}
-                        modalBody={i18n.t('Are you sure you want to delete system logs?')}
+                        modalTitle={i18n.t('system.systemLog.modal.confirmDeleteTitle')}
+                        modalBody={i18n.t('system.systemLog.modal.confirmDeleteBody')}
                         onHide={() => setIsShowConfirmModal(false)}
                         onConfirm={onClickClearLog}
                       />
@@ -80,17 +80,17 @@ const Log = () => {
                         className="btn btn-outline-primary rounded-pill px-5 ml-3"
                         type="button"
                         onClick={onClickDownloadLog}
-                      >{i18n.t('Download')}
+                      >{i18n.t('system.systemLog.download')}
                       </button>
                       <CustomNotifyModal
                         modalType="process"
                         backdrop="static"
                         isShowModal={isShowProgressModal}
-                        modalTitle={i18n.t('Downloading System Log File')}
+                        modalTitle={i18n.t('system.systemLog.modal.apiProcessModalTitle')}
                         modalBody={[
                           <StageProgress
                             key="stage 1"
-                            title={i18n.t('Download progress')}
+                            title={i18n.t('system.systemLog.modal.downloadingBody')}
                             progressStatus="start"
                             progressPercentage={progressPercentage}
                           />
