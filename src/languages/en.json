@@ -711,7 +711,33 @@
         "disabledButton": "Please select a file first."
       }
     },
-    "softwareUpgrade": {},
+    "softwareUpgrade": {
+      "title": "Software Upgrade",
+      "importFile": "Import File",
+      "importHelper": "Only ZIP file format is supported",
+      "selectFile": "Select File",
+      "noFileSelected": "No file selected.",
+      "modal": {
+        "apiProcessModalTitleUploading": "Uploading Software",
+        "apiProcessModalTitleInstalling": "Installing Software",
+        "apiProcessModalTitleShutDown": "Shutting Down",
+        "apiProcessModalTitleRestarting": "Restarting",
+        "uploadingBody": "※ Please do not close your browser during the upgrade.",
+        "uploadSoftware": "Upload Software",
+        "installSoftware": "Install Software",
+        "shutDown": "Shut Down",
+        "restart": "Restart",
+        "stage1": "Stage 1",
+        "stage2": "Stage 2",
+        "stage3": "Stage 3",
+        "stage4": "Stage 4",
+        "upgradeSuccess": "Software Upgrade Success",
+        "upgradeSuccessBody": "Redirect to the login page in {{0}} seconds"
+      },
+      "tooltip": {
+        "disabledButton": "Please select a file first."
+      }
+    },
     "systemLog": {},
     "information": {}
   },

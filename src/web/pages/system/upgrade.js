@@ -16,8 +16,8 @@ const Upgrade = () => {
   const {isApiProcessing} = useContextState();
   const [file, setFile] = useState(null);
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
-  const [apiProcessModalTitle, setApiProcessModalTitle] = useState(i18n.t('Uploading Software'));
-  const [apiProcessModalBody, setApiProcessModalBody] = useState(i18n.t('※ Please do not close your browser during the upgrade.'));
+  const [apiProcessModalTitle, setApiProcessModalTitle] = useState('');
+  const [apiProcessModalBody, setApiProcessModalBody] = useState(i18n.t('system.softwareUpgrade.modal.uploadingBody'));
   const [progressPercentage, setProgressPercentage] = useState({
     uploadFirmware: 0,
     upgradeFirmware: 0
@@ -47,14 +47,14 @@ const Upgrade = () => {
 
   const onSubmitForm = () => {
     progress.start();
-    setApiProcessModalTitle(i18n.t('Uploading Software'));
+    setApiProcessModalTitle(i18n.t('system.softwareUpgrade.modal.apiProcessModalTitleUploading'));
     setIsShowApiProcessModal(true);
     updateProgressStatus('uploadFirmware', 'start');
     api.system.uploadFirmware(file, updateProgress)
       .then(response => new Promise(resolve => {
         updateProgressStatus('uploadFirmware', 'done');
         updateProgressStatus('upgradeFirmware', 'start');
-        setApiProcessModalTitle(i18n.t('Installing Software'));
+        setApiProcessModalTitle(i18n.t('system.softwareUpgrade.modal.apiProcessModalTitleInstalling'));
         const upgrade = init => {
           api.system.upgradeFirmware(init ? response.data.filename : null)
             .then(response => {
@@ -63,7 +63,7 @@ const Upgrade = () => {
                 updateProgressStatus('upgradeFirmware', 'done');
                 updateProgressStatus('deviceShutdown', 'start');
                 // Keep modal and update the title and body.
-                setApiProcessModalTitle(i18n.t('Shutting Down'));
+                setApiProcessModalTitle(i18n.t('system.softwareUpgrade.modal.apiProcessModalTitleShutDown'));
                 utils.pingToCheckShutdown(resolve, 1000);
               } else {
                 updateProgress('upgradeFirmware', response.data.updateProgress);
@@ -84,17 +84,17 @@ const Upgrade = () => {
         // Keep modal and update the title and body.
         updateProgressStatus('deviceShutdown', 'done');
         updateProgressStatus('deviceRestart', 'start');
-        setApiProcessModalTitle(i18n.t('Restarting'));
+        setApiProcessModalTitle(i18n.t('system.softwareUpgrade.modal.apiProcessModalTitleRestarting'));
         // Check the server was startup, if success then startup was failed and retry.
         const test = () => {
           api.ping('app')
             .then(response => {
               console.log('ping app response(userinitiated)', response);
               updateProgressStatus('deviceRestart', 'done');
-              setApiProcessModalTitle(i18n.t('Software Upgrade Success'));
+              setApiProcessModalTitle(i18n.t('system.softwareUpgrade.modal.upgradeSuccess'));
               let countdown = constants.REDIRECT_COUNTDOWN;
               const countdownID = setInterval(() => {
-                setApiProcessModalBody(i18n.t('Redirect to the login page in {{0}} seconds', {0: --countdown}));
+                setApiProcessModalBody(i18n.t('system.softwareUpgrade.modal.upgradeSuccessBody', {0: --countdown}));
               }, 1000);
               setTimeout(() => {
                 clearInterval(countdownID);
@@ -139,28 +139,28 @@ const Upgrade = () => {
                 </div>,
                 <StageProgress
                   key="stage 1"
-                  stage={i18n.t('Stage 01')}
-                  title={i18n.t('Upload Software')}
+                  stage={i18n.t('system.softwareUpgrade.modal.stage1')}
+                  title={i18n.t('system.softwareUpgrade.modal.uploadSoftware')}
                   progressStatus={progressStatus.uploadFirmware}
                   progressPercentage={progressPercentage.uploadFirmware}
                 />,
                 <StageProgress
                   key="stage 2"
-                  stage={i18n.t('Stage 02')}
-                  title={i18n.t('Install Software')}
+                  stage={i18n.t('system.softwareUpgrade.modal.stage2')}
+                  title={i18n.t('system.softwareUpgrade.modal.installSoftware')}
                   progressStatus={progressStatus.upgradeFirmware}
                   progressPercentage={progressPercentage.upgradeFirmware}
                 />,
                 <StageProgress
                   key="stage 3"
-                  stage={i18n.t('Stage 03')}
-                  title={i18n.t('Shut Down')}
+                  stage={i18n.t('system.softwareUpgrade.modal.stage3')}
+                  title={i18n.t('system.softwareUpgrade.modal.shutDown')}
                   progressStatus={progressStatus.deviceShutdown}
                 />,
                 <StageProgress
                   key="stage 4"
-                  stage={i18n.t('Stage 04')}
-                  title={i18n.t('Restart')}
+                  stage={i18n.t('system.softwareUpgrade.modal.stage4')}
+                  title={i18n.t('system.softwareUpgrade.modal.restart')}
                   progressStatus={progressStatus.deviceRestart}
                 />
               ]}
@@ -169,13 +169,13 @@ const Upgrade = () => {
 
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('Software Upgrade')}</div>
+                <div className="card-header">{i18n.t('system.softwareUpgrade.title')}</div>
                 <Formik initialValues={{}} onSubmit={onSubmitForm}>
                   <Form className="card-body">
                     <div className="form-group">
-                      <label className="mb-0">{i18n.t('Import File')}</label>
+                      <label className="mb-0">{i18n.t('system.softwareUpgrade.importFile')}</label>
                       <small className="form-text text-muted my-2">
-                        {i18n.t('Only ZIP file format is supported')}
+                        {i18n.t('system.softwareUpgrade.importHelper')}
                       </small>
                       <div>
                         <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
@@ -185,16 +185,16 @@ const Upgrade = () => {
                             className="d-none"
                             accept="application/zip"
                             onChange={onChangeFile}
-                          />{i18n.t('Select File')}
+                          />{i18n.t('system.softwareUpgrade.selectFile')}
                         </label>
                         {
                           file ?
-                            <span className="text-size-14 text-muted ml-3">{i18n.t(file.name)}</span> :
-                            <span className="text-size-14 text-muted ml-3">{i18n.t('No file selected.')}</span>
+                            <span className="text-size-14 text-muted ml-3">{file.name}</span> :
+                            <span className="text-size-14 text-muted ml-3">{i18n.t('system.softwareUpgrade.noFileSelected')}</span>
                         }
                       </div>
                     </div>
-                    <CustomTooltip show={!file} title={i18n.t('Please select a file first.')}>
+                    <CustomTooltip show={!file} title={i18n.t('system.softwareUpgrade.tooltip.disabledButton')}>
                       <div>
                         <button
                           disabled={(isShowApiProcessModal || isApiProcessing || !file)}
@@ -202,7 +202,7 @@ const Upgrade = () => {
                           type="submit"
                           style={file ? {} : {pointerEvents: 'none'}}
                         >
-                          {i18n.t('Software Upgrade')}
+                          {i18n.t('system.softwareUpgrade.title')}
                         </button>
                       </div>
                     </CustomTooltip>
