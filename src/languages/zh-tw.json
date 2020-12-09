@@ -597,7 +597,92 @@
       }
     }
   },
-  "network": {},
+  "network": {
+    "breadcrumb": {
+      "internetNetworkSettings": "網路設定",
+      "network": "網路",
+      "tcpip": "TCP/IP",
+      "https": "安全傳輸方式"
+    },
+    "network": {
+      "title": "網路",
+      "ipAddressing": "LAN 組態",
+      "networkStatus": "網路狀態",
+      "ipAssignment": "IP 取得方式",
+      "static": "Static",
+      "dynamic": "Dynamic",
+      "macAddress": "實體位址",
+      "ipAddress": "IP 位址",
+      "subnetMask": "子網路遮罩",
+      "routerGateway": "路由器/閘道",
+      "primaryDNS": "主要 DNS",
+      "secondaryDNS": "次要 DNS",
+      "dhcp": "DHCP",
+      "testDHCP": "測試DHCP",
+      "fixedIPAddress": "固定IP位址",
+      "secondaryDNSOptional": "次要 DNS",
+      "ipAddressPlaceholder": "請輸入固定IP位址",
+      "subnetMaskPlaceholder": "請輸入子網路遮罩",
+      "routerGatewayPlaceholder": "請輸入路由器/閘道",
+      "primaryDNSPlaceholder": "請輸入主要DNS",
+      "secondaryDNSPlaceholder": "請輸入次要DNS",
+      "modal": {
+        "confirmText": "您確定要更改網路設定嗎？",
+        "testingSuccess": "DHCP 測試成功",
+        "testingFailed": "DHCP 測試失敗",
+        "redirectionSuccess": "重新導向",
+        "redirectionText": "請利用下列網址重新登入"
+      },
+      "tooltips": {
+        "noChanges": "沒有設定被更改"
+      }
+    },
+    "tcpip": {
+      "title": "TCP/IP",
+      "ddns": "DDNS",
+      "http": "HTTP",
+      "enableDDNS": "開啟 DDNS 服務",
+      "serviceProvider": "服務提供者",
+      "hostName": "主機名稱",
+      "hostNamePlaceholder": "輸入 DDNS 主機名稱",
+      "account": "帳號",
+      "accountPlaceholder": "輸入 DDNS 使用者名稱",
+      "passwordPlaceholder": "輸入 DDNS 密碼",
+      "secondaryHTTPPort": "HTTP 次要連接埠",
+      "portHelper": "範圍：1024-65535，預設：8080",
+      "modal":{
+        "apiProcessModalTitle": "更新HTTP設定",
+        "redirectionSuccess": "重新導向",
+        "redirectionText": "請利用下列網址重新登入"
+      },
+      "toast": {
+        "settingSuccess": "設定成功",
+        "successText": "DDNS 設定成功！",
+        "settingFailed": "設定失敗",
+        "failedText": "DDNS 設定失敗！"
+      }
+    },
+    "https": {
+      "title": "安全傳輸方式",
+      "enableHTTPS": "開啟HTTPS服務",
+      "port": "連接埠",
+      "portHelper": "範圍：1024-65535，預設：8443",
+      "certificate": "憑證",
+      "constants":{
+        "manufacturer": "製造商",
+        "certificate-type-0": "{{0}} 自簽憑證",
+        "certificate-type-1": "上傳您的憑證",
+        "certificate-type-2": "在此裝置上產生憑證"
+      },
+      "modal":{
+        "redirectionSuccess": "重新導向",
+        "redirectionText": "請利用下列網址重新登入"
+      },
+      "tooltip":{
+        "disabledButton": "請先開啟 HTTPS 功能"
+      }
+    }
+  },
   "system": {},
   "sdCard": {
     "breadcrumb": {
@@ -756,7 +841,7 @@
       "facialRecognition": "臉部辨識",
       "motionDetection": "移動偵測",
       "license": "智慧分析授權",
-      "internetNetworkSettings": "網路",
+      "internetNetworkSettings": "網路設定",
       "network": "網路",
       "tcpip": "TCP/IP",
       "https": "安全傳輸方式",

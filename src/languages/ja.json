@@ -597,7 +597,92 @@
       }
     }
   },
-  "network": {},
+  "network": {
+    "breadcrumb": {
+      "internetNetworkSettings": "インターネット/ネットワーク設定",
+      "network": "ネットワーク",
+      "tcpip": "TCP/IP",
+      "https": "HTTPS"
+    },
+    "network": {
+      "title": "ネットワーク",
+      "ipAddressing": "IP設定",
+      "networkStatus": "ネットワークステータス",
+      "ipAssignment": "IP 取得方式",
+      "static": "Static",
+      "dynamic": "Dynamic",
+      "macAddress": "MACアドレス",
+      "ipAddress": "IPアドレス",
+      "subnetMask": "サブネットマスク",
+      "routerGateway": "ルーター/ゲートウェイ",
+      "primaryDNS": "プライマリーDNS",
+      "secondaryDNS": "セカンダリーDNS",
+      "dhcp": "DHCP",
+      "testDHCP": "DHCPをテストする",
+      "fixedIPAddress": "固定IPアドレス",
+      "secondaryDNSOptional": "セカンダリーDNS (選択)",
+      "ipAddressPlaceholder": "固定IPアドレスを入力してください",
+      "subnetMaskPlaceholder": "サブネットマスクを入力してください",
+      "routerGatewayPlaceholder": "ゲートウェイを入力してください",
+      "primaryDNSPlaceholder": "プライマリーDNSを入力してください",
+      "secondaryDNSPlaceholder": "セカンダリーDNSを入力してください",
+      "modal": {
+        "confirmText": "ネットワーク設定を更新してもよろしいですか？",
+        "testingSuccess": "DHCPテストに成功しました",
+        "testingFailed": "DHCPテストに失敗しました",
+        "redirectionSuccess": "再ダイレクト",
+        "redirectionText": "下記のURLへアクセスして再度ログインしてください"
+      },
+      "tooltips": {
+        "noChanges": "変更がありません"
+      }
+    },
+    "tcpip": {
+      "title": "TCP/IP",
+      "ddns": "DDNS",
+      "http": "HTTP",
+      "enableDDNS": "DDNSサービスを有効にする",
+      "serviceProvider": "サービスプロバイダー",
+      "hostName": "ホスト名",
+      "hostNamePlaceholder": "DDNSホスト名を入力してください",
+      "account": "アカウント",
+      "accountPlaceholder": "DDNSユーザー名を入力してください",
+      "passwordPlaceholder": "DDNSパスワードを入力してください",
+      "secondaryHTTPPort": "HTTPセカンダリーポート",
+      "portHelper": "入力範囲：1024-65535 デフォルト：8080",
+      "modal":{
+        "apiProcessModalTitle": "HTTP設定を更新する",
+        "redirectionSuccess": "再ダイレクト",
+        "redirectionText": "下記のURLへアクセスして再度ログインしてください"
+      },
+      "toast": {
+        "settingSuccess": "設定が成功しました",
+        "successText": "DDNS 設定が成功しました",
+        "settingFailed": "設定が失敗しました",
+        "failedText": "DDNS 設定が失敗しました"
+      }
+    },
+    "https": {
+      "title": "HTTPS",
+      "enableHTTPS": "HTTPSサービスを有効にする",
+      "port": "ポート",
+      "portHelper": "入力範囲：1024-65535 デフォルト：8443",
+      "certificate": "署名証明書",
+      "constants":{
+        "manufacturer": "メーカー",
+        "certificate-type-0": "{{0}} 自己署名証明書",
+        "certificate-type-1": "署名証明書をアップロードする",
+        "certificate-type-2": "本デバイスの署名証明書を生成する"
+      },
+      "modal":{
+        "redirectionSuccess": "再ダイレクト",
+        "redirectionText": "下記のURLへアクセスして再度ログインしてください"
+      },
+      "tooltip":{
+        "disabledButton": "先にHTTPS機能を有効にしてください"
+      }
+    }
+  },
   "system": {},
   "sdCard": {
     "breadcrumb": {

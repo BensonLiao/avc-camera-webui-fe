@@ -597,7 +597,92 @@
       }
     }
   },
-  "network": {},
+  "network": {
+    "breadcrumb": {
+      "internetNetworkSettings": "Configuración de Internet y red",
+      "network": "Red",
+      "tcpip": "TCP/IP",
+      "https": "HTTPS"
+    },
+    "network": {
+      "title": "Red",
+      "ipAddressing": "Red de área local",
+      "networkStatus": "Estado de la red",
+      "ipAssignment": "Método de adquisición de IP",
+      "static": "Static",
+      "dynamic": "Dynamic",
+      "macAddress": "Dirección física",
+      "ipAddress": "Dirección IP",
+      "subnetMask": "Máscara de subred",
+      "routerGateway": "Enrutador/Puerta de enlace",
+      "primaryDNS": "DNS primario",
+      "secondaryDNS": "DNS secundario",
+      "dhcp": "DHCP",
+      "testDHCP": "Probar DHCP",
+      "fixedIPAddress": "Dirección IP fija",
+      "secondaryDNSOptional": "DNS secundario (opcional)",
+      "ipAddressPlaceholder": "Introduzca una dirección IP fija",
+      "subnetMaskPlaceholder": "Máscara de subred",
+      "routerGatewayPlaceholder": "Enrutador/Puerta de enlace",
+      "primaryDNSPlaceholder": "Ingrese DNS Primario",
+      "secondaryDNSPlaceholder": "Ingrese DNS Secundario",
+      "modal": {
+        "confirmText": "¿Está seguro de que desea cambiar la configuración de red?",
+        "testingSuccess": "Prueba DHCP exitosa",
+        "testingFailed": "Prueba DHCP falló",
+        "redirectionSuccess": "redirección",
+        "redirectionText": "Vuelva a iniciar sesión con la siguiente URL"
+      },
+      "tooltips": {
+        "noChanges": "No se ha cambiado ninguna configuración"
+      }
+    },
+    "tcpip": {
+      "title": "TCP/IP",
+      "ddns": "DDNS",
+      "http": "HTTP",
+      "enableDDNS": "Habilitar servicio DDNS",
+      "serviceProvider": "proveedor de servicio",
+      "hostName": "Nombre de host",
+      "hostNamePlaceholder": "Ingrese el nombre de host DDNS",
+      "account": "Cuenta",
+      "accountPlaceholder": "Ingrese el nombre de usuario de DDNS",
+      "passwordPlaceholder": "Ingrese la contraseña de DDNS",
+      "secondaryHTTPPort": "Puerto secundario HTTP",
+      "portHelper": "Rango: 1024-65535, preestablecido: 8080",
+      "modal":{
+        "apiProcessModalTitle": "Actualizar la configuración HTTP",
+        "redirectionSuccess": "redirección",
+        "redirectionText": "Vuelva a iniciar sesión con la siguiente URL"
+      },
+      "toast": {
+        "settingSuccess": "Configuración Exitosa",
+        "successText": "¡configuración de DDNS exitosa!",
+        "settingFailed": "Configuración fallida",
+        "failedText": "¡configuración de DDNS fallida！"
+      }
+    },
+    "https": {
+      "title": "HTTPS",
+      "enableHTTPS": "Habilitar servicio HTTPS",
+      "port": "Port",
+      "portHelper": "Rango: 1024-65535, preestablecido: 8443",
+      "certificate": "Certificate",
+      "constants":{
+        "manufacturer": "Fabricante",
+        "certificate-type-0": "{{0}} Certificado autofirmado",
+        "certificate-type-1": "Upload Certificate",
+        "certificate-type-2": "Generate Certificate on This Device"
+      },
+      "modal":{
+        "redirectionSuccess": "redirección",
+        "redirectionText": "Vuelva a iniciar sesión con la siguiente URL"
+      },
+      "tooltip":{
+        "disabledButton": "Habilite primero la función HTTPS"
+      }
+    }
+  },
   "system": {},
   "sdCard": {
     "breadcrumb": {
