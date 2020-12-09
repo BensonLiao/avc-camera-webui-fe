@@ -670,17 +670,47 @@
       "deviceDateTime": "Date and Time of the Device",
       "syncNTP": "Sync with Network Time Server (NTP)",
       "ntpHost": "Host Name or IP Address",
-      "hostPlaceholder":"Enter Your IP Address",
+      "hostPlaceholder": "Enter Your IP Address",
       "syncTime": "Sync Time",
       "syncInterval": "Sync Interval (minutes)",
       "syncWithComputer": "Sync with Your Computer",
       "setManually": "Set the Date & Time Manually",
-      "modal":{
+      "modal": {
         "apiProcessModalTitle": "Updating Date & Time",
         "confirmText": "Updating date and time requires you to log in again. Are you sure you want to continue?"
       }
     },
-    "deviceMaintenance": {},
+    "deviceMaintenance": {
+      "title": "Device Maintenance",
+      "systemReboot": "System Reboot",
+      "reboot": "Reboot",
+      "restoreDefaultSettings": "Restore to Default Settings",
+      "restoreAllSettings": "Restore All Settings",
+      "reset": "Reset",
+      "exportSystemSettings": "Export System Settings",
+      "importSystemSettings": "Import System Settings",
+      "export": "Export",
+      "import": "Import",
+      "importHelper": "Only ZIP file format is supported",
+      "selectFile": "Select File",
+      "noFileSelected": "No file selected.",
+      "modal": {
+        "apiProcessModalTitleRebooting": "Rebooting",
+        "apiProcessModalTitleResetting": "Resetting",
+        "confirmRebootBody": "Are you sure you want to reboot the device?",
+        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following :\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card",
+        "confirmResetAllSettingsBody": "The system will revert to factory default settings. All data and configurations you have saved will be overwritten.",
+        "rebootSuccessBody": "The device has rebooted. Please log in again.",
+        "resetSuccess": "Reset Success",
+        "resetAllSettingsSuccessBody": "Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.",
+        "resetDefaultSettingsSuccessBody": "Device has reset. Please log in again.",
+        "importSuccessBody": "Device settings have imported. Please log in again."
+      },
+      "tooltip": {
+        "restoreAllSettingsHelper": "Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.",
+        "disabledButton": "Please select a file first."
+      }
+    },
     "softwareUpgrade": {},
     "systemLog": {},
     "information": {}

@@ -17,7 +17,7 @@ const Maintain = () => {
 
   const [finishModal, setFinishModal] = useState({
     isShowFinishModal: false,
-    finishModalTitle: i18n.t('Process finished'),
+    finishModalTitle: '',
     finishModalBody: ''
   });
 
@@ -67,7 +67,7 @@ const Maintain = () => {
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('Device Maintenance')}</div>
+                <div className="card-header">{i18n.t('system.deviceMaintenance.title')}</div>
                 <div className="card-body">
 
                   <MaintainReboot
