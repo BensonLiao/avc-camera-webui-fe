@@ -34,7 +34,7 @@ const Group = ({group, groups, params}) => {
     getRouter().go({
       name: 'web.users.members',
       params: params
-    });
+    }, {reload: true});
   };
 
   /**
