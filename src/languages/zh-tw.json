@@ -889,7 +889,8 @@
       "date": "日期",
       "time": "時刻",
       "startTime": "起始時間",
-      "endTime": "終止時間"
+      "endTime": "終止時間",
+      "manualDateTime": "Manual DateTime"
     },
     "button": {
       "on": "開啟",

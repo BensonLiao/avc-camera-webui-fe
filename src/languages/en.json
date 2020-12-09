@@ -663,7 +663,28 @@
       }
     }
   },
-  "system": {},
+  "system": {
+    "dateTime": {
+      "title": "Date & Time",
+      "timeZone": "Time Zone",
+      "deviceDateTime": "Date and Time of the Device",
+      "syncNTP": "Sync with Network Time Server (NTP)",
+      "ntpHost": "Host Name or IP Address",
+      "hostPlaceholder":"Enter Your IP Address",
+      "syncTime": "Sync Time",
+      "syncInterval": "Sync Interval (minutes)",
+      "syncWithComputer": "Sync with Your Computer",
+      "setManually": "Set the Date & Time Manually",
+      "modal":{
+        "apiProcessModalTitle": "Updating Date & Time",
+        "confirmText": "Updating date and time requires you to log in again. Are you sure you want to continue?"
+      }
+    },
+    "deviceMaintenance": {},
+    "softwareUpgrade": {},
+    "systemLog": {},
+    "information": {}
+  },
   "sdCard": {
     "title": "SD Card",
     "enable": "Enable SD Card",
@@ -906,7 +927,8 @@
       "date": "Date",
       "time": "Time",
       "startTime": "Start Time",
-      "endTime": "End Time"
+      "endTime": "End Time",
+      "manualDateTime": "Manual DateTime"
     },
     "button": {
       "on": "ON",

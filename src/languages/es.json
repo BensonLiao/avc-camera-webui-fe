@@ -889,7 +889,8 @@
       "date": "fecha",
       "time": "hora",
       "startTime": "Hora de inicio",
-      "endTime": "Hora de fin"
+      "endTime": "Hora de fin",
+      "manualDateTime": "Manual DateTime"
     },
     "button": {
       "on": "ON",
