@@ -16,13 +16,13 @@ const TCPIPDDNS = ({ddnsInfo, isApiProcessing}) => {
       .then(response => {
         if (response.data.ddnsHostStatus) {
           notify.showSuccessNotification({
-            title: i18n.t('Setting Success'),
-            message: i18n.t('DDNS Setting Success')
+            title: i18n.t('network.tcpip.toast.settingSuccess'),
+            message: i18n.t('network.tcpip.toast.successText')
           });
         } else {
           notify.showErrorNotification({
-            title: i18n.t('Setting Failed'),
-            message: i18n.t('DDNS Setting Failed')
+            title: i18n.t('network.tcpip.toast.settingFailed'),
+            message: i18n.t('network.tcpip.toast.failedText')
           });
         }
 
@@ -41,7 +41,7 @@ const TCPIPDDNS = ({ddnsInfo, isApiProcessing}) => {
           <Tab.Pane eventKey="tab-ddns">
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('Enable DDNS')}</label>
+                <label className="mb-0">{i18n.t('network.tcpip.enableDDNS')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnableDDNS" type="checkbox" className="custom-control-input" id="switch-ddns-enable"/>
                   <label className="custom-control-label" htmlFor="switch-ddns-enable">
@@ -50,36 +50,36 @@ const TCPIPDDNS = ({ddnsInfo, isApiProcessing}) => {
                   </label>
                 </div>
               </div>
-              <SelectField labelName={i18n.t('Service Provider')} name="ddnsProvider">
+              <SelectField labelName={i18n.t('network.tcpip.serviceProvider')} name="ddnsProvider">
                 <option value="dyn-dns">DynDNS.org</option>
               </SelectField>
               <div className="form-group">
-                <label>{i18n.t('Host Name')}</label>
+                <label>{i18n.t('network.tcpip.hostName')}</label>
                 <Field
                   className="form-control"
                   type="text"
                   name="ddnsHost"
-                  placeholder={i18n.t('Enter DDNS host name.')}
+                  placeholder={i18n.t('network.tcpip.hostNamePlaceholder')}
                   disabled={!values.isEnableDDNS}
                 />
               </div>
               <div className="form-group">
-                <label>{i18n.t('Account')}</label>
+                <label>{i18n.t('network.tcpip.account')}</label>
                 <Field
                   className="form-control"
                   type="text"
                   name="ddnsAccount"
-                  placeholder={i18n.t('Enter DDNS username.')}
+                  placeholder={i18n.t('network.tcpip.accountPlaceholder')}
                   disabled={!values.isEnableDDNS}
                 />
               </div>
               <div className="form-group">
-                <label>{i18n.t('Password')}</label>
+                <label>{i18n.t('common.password.password')}</label>
                 <Field
                   className="form-control"
                   type="text"
                   name="ddnsPassword"
-                  placeholder={i18n.t('Enter DDNS password.')}
+                  placeholder={i18n.t('network.tcpip.passwordPlaceholder')}
                   disabled={!values.isEnableDDNS}
                 />
               </div>

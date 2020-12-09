@@ -646,7 +646,31 @@
         "noChanges": "No changes were made."
       }
     },
-    "tcpip": {},
+    "tcpip": {
+      "title": "TCP/IP",
+      "ddns": "DDNS",
+      "http": "HTTP",
+      "enableDDNS": "Enable DDNS",
+      "serviceProvider": "Service Provider",
+      "hostName": "Host Name",
+      "hostNamePlaceholder": "Enter DDNS host name.",
+      "account": "Account",
+      "accountPlaceholder": "Enter DDNS username.",
+      "passwordPlaceholder": "Enter DDNS password.",
+      "secondaryHTTPPort": "Secondary HTTP Port",
+      "portHelper": "Range: 1024-65535 Default: 8080",
+      "modal":{
+        "apiProcessModalTitle": "Updating HTTP Settings",
+        "redirectionSuccess": "Redirection Success",
+        "redirectionText": "The website has been redirected to the new address"
+      },
+      "toast": {
+        "settingSuccess": "Setting Success",
+        "successText": "DDNS Setting Success",
+        "settingFailed": "Setting Failed",
+        "failedText": "DDNS Setting Failed"
+      }
+    },
     "https": {
       "Please enable HTTPS first.": "Please enable HTTPS first."
     }
