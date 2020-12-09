@@ -650,7 +650,7 @@
       "passwordPlaceholder": "DDNSパスワードを入力してください",
       "secondaryHTTPPort": "HTTPセカンダリーポート",
       "portHelper": "入力範囲：1024-65535 デフォルト：8080",
-      "modal":{
+      "modal": {
         "apiProcessModalTitle": "HTTP設定を更新する",
         "redirectionSuccess": "再ダイレクト",
         "redirectionText": "下記のURLへアクセスして再度ログインしてください"
@@ -668,17 +668,17 @@
       "port": "ポート",
       "portHelper": "入力範囲：1024-65535 デフォルト：8443",
       "certificate": "署名証明書",
-      "constants":{
+      "constants": {
         "manufacturer": "メーカー",
         "certificate-type-0": "{{0}} 自己署名証明書",
         "certificate-type-1": "署名証明書をアップロードする",
         "certificate-type-2": "本デバイスの署名証明書を生成する"
       },
-      "modal":{
+      "modal": {
         "redirectionSuccess": "再ダイレクト",
         "redirectionText": "下記のURLへアクセスして再度ログインしてください"
       },
-      "tooltip":{
+      "tooltip": {
         "disabledButton": "先にHTTPS機能を有効にしてください"
       }
     }

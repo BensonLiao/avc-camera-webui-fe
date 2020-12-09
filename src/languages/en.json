@@ -659,7 +659,7 @@
       "passwordPlaceholder": "Enter DDNS password.",
       "secondaryHTTPPort": "Secondary HTTP Port",
       "portHelper": "Range: 1024-65535 Default: 8080",
-      "modal":{
+      "modal": {
         "apiProcessModalTitle": "Updating HTTP Settings",
         "redirectionSuccess": "Redirection Success",
         "redirectionText": "The website has been redirected to the new address"
@@ -677,17 +677,17 @@
       "port": "Port",
       "portHelper": "Range: 1024-65535 Default: 8443",
       "certificate": "Certificate",
-      "constants":{
+      "constants": {
         "manufacturer": "Manufacturer",
         "certificate-type-0": "{{0}} Self-signed",
         "certificate-type-1": "Upload Certificate",
         "certificate-type-2": "Generate Certificate on This Device"
       },
-      "modal":{
+      "modal": {
         "redirectionSuccess": "Redirection Success",
         "redirectionText": "The website has been redirected to the new address"
       },
-      "tooltip":{
+      "tooltip": {
         "disabledButton": "Please enable HTTPS first."
       }
     }

@@ -650,7 +650,7 @@
       "passwordPlaceholder": "輸入 DDNS 密碼",
       "secondaryHTTPPort": "HTTP 次要連接埠",
       "portHelper": "範圍：1024-65535，預設：8080",
-      "modal":{
+      "modal": {
         "apiProcessModalTitle": "更新HTTP設定",
         "redirectionSuccess": "重新導向",
         "redirectionText": "請利用下列網址重新登入"
@@ -668,17 +668,17 @@
       "port": "連接埠",
       "portHelper": "範圍：1024-65535，預設：8443",
       "certificate": "憑證",
-      "constants":{
+      "constants": {
         "manufacturer": "製造商",
         "certificate-type-0": "{{0}} 自簽憑證",
         "certificate-type-1": "上傳您的憑證",
         "certificate-type-2": "在此裝置上產生憑證"
       },
-      "modal":{
+      "modal": {
         "redirectionSuccess": "重新導向",
         "redirectionText": "請利用下列網址重新登入"
       },
-      "tooltip":{
+      "tooltip": {
         "disabledButton": "請先開啟 HTTPS 功能"
       }
     }

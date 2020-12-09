@@ -650,7 +650,7 @@
       "passwordPlaceholder": "Ingrese la contraseña de DDNS",
       "secondaryHTTPPort": "Puerto secundario HTTP",
       "portHelper": "Rango: 1024-65535, preestablecido: 8080",
-      "modal":{
+      "modal": {
         "apiProcessModalTitle": "Actualizar la configuración HTTP",
         "redirectionSuccess": "redirección",
         "redirectionText": "Vuelva a iniciar sesión con la siguiente URL"
@@ -668,17 +668,17 @@
       "port": "Port",
       "portHelper": "Rango: 1024-65535, preestablecido: 8443",
       "certificate": "Certificate",
-      "constants":{
+      "constants": {
         "manufacturer": "Fabricante",
         "certificate-type-0": "{{0}} Certificado autofirmado",
         "certificate-type-1": "Upload Certificate",
         "certificate-type-2": "Generate Certificate on This Device"
       },
-      "modal":{
+      "modal": {
         "redirectionSuccess": "redirección",
         "redirectionText": "Vuelva a iniciar sesión con la siguiente URL"
       },
-      "tooltip":{
+      "tooltip": {
         "disabledButton": "Habilite primero la función HTTPS"
       }
     }
