@@ -606,7 +606,51 @@
       }
     }
   },
-  "network": {},
+  "network": {
+    "breadcrumb": {
+      "internetNetworkSettings": "Internet & Network Settings",
+      "network": "Network",
+      "tcpip": "TCP/IP",
+      "https": "HTTPS"
+    },
+    "network": {
+      "title": "Network",
+      "ipAddressing": "IP Addressing",
+      "networkStatus": "Network Status",
+      "ipAssignment": "IP Assignment",
+      "static": "Static",
+      "dynamic": "Dynamic",
+      "macAddress": "MAC Address",
+      "ipAddress": "IP Address",
+      "subnetMask": "Subnet Mask",
+      "routerGateway": "Router/Gateway",
+      "primaryDNS": "Primary DNS",
+      "secondaryDNS": "Secondary DNS",
+      "dhcp": "DHCP",
+      "testDHCP": "Test DHCP",
+      "fixedIPAddress": "Fixed IP Address",
+      "secondaryDNSOptional": "Secondary DNS (Optional)",
+      "ipAddressPlaceholder": "Enter a fixed IP address",
+      "subnetMaskPlaceholder": "Enter Subnet Mask",
+      "routerGatewayPlaceholder": "Enter Router/Gateway",
+      "primaryDNSPlaceholder": "Enter a primary DNS",
+      "secondaryDNSPlaceholder": "Enter a secondary DNS",
+      "modal": {
+        "confirmText": "Are you sure you want to update network settings?",
+        "testingSuccess": "DHCP Testing Success",
+        "testingFailed": "DHCP Testing Failed",
+        "redirectionSuccess": "Redirection Success",
+        "redirectionText": "The website has been redirected to the new address"
+      },
+      "tooltips": {
+        "noChanges": "No changes were made."
+      }
+    },
+    "tcpip": {},
+    "https": {
+      "Please enable HTTPS first.": "Please enable HTTPS first."
+    }
+  },
   "system": {},
   "sdCard": {
     "breadcrumb": {
@@ -813,7 +857,7 @@
         "technicalUpdates.avn": "Technical Updates",
         "resources.avn": "Resources"
       },
-      "constants":{
+      "constants": {
         "permission-0": "Admin",
         "permission-1": "Viewer",
         "permission-2": "Viewer",
