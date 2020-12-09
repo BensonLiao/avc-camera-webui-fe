@@ -25,7 +25,6 @@ describe('license page test', () => {
       .wait('@getGroups').then(res => {
         const groups = res.response.body;
         console.log('groups', groups);
-        // const id = groups.items[2].id;
       });
   });
 });
