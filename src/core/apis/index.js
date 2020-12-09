@@ -40,7 +40,7 @@ module.exports = config => {
   return new Promise((resolve, _) => {
     setTimeout(() => {
       resolve();
-    }, config.delay || 0);
+    }, config.delay || 1000);
   }).then(() => {
     return axios(config)
       .catch(error => {
