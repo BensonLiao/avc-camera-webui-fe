@@ -52,7 +52,7 @@ const Log = () => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('System'), i18n.t('Status'), i18n.t('System Log')]}
+              path={[i18n.t('System Settings'), i18n.t('Status'), i18n.t('System Log')]}
               routes={['/system/datetime', '/system/log']}
             />
             <div className="col-center">

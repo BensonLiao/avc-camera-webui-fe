@@ -30,7 +30,7 @@ module.exports = class System extends Base {
     return (
       <>
         <div className="left-menu fixed-top">
-          <h2>{i18n.t('System')}</h2>
+          <h2>{i18n.t('System Settings')}</h2>
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-setting-menu">
               <a
