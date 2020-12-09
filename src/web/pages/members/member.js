@@ -56,7 +56,7 @@ module.exports = class Member extends Base {
     getRouter().go({
       name: 'web.users.members',
       params: this.props.params
-    }, {reload: true});
+    });
   };
 
   render() {

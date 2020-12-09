@@ -70,11 +70,11 @@ module.exports = class User extends Base {
     };
   };
 
-  hideModal = () => getRouter().go({name: 'web.users.accounts'}, {reload: true});
+  hideModal = (reload = false) => getRouter().go({name: 'web.users.accounts'}, {reload});
 
   callApi = (apiType, values = '') => {
     api.user[apiType](values)
-      .then(this.hideModal)
+      .then(this.hideModal(true))
       .finally(progress.done);
   };
 
