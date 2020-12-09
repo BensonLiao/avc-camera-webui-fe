@@ -191,7 +191,28 @@ mockAxios
     }]);
   })
   .onPut('/api/system/device-name').reply(config => mockResponseWithLog(config, [200, db.get('system').assign(JSON.parse(config.data)).write()]))
-  .onGet('/api/system/systeminfo/log.zip').reply(config => mockResponseWithLog(config, [200, new Blob()]))
+  .onGet('/api/system/systeminfo/log.zip').reply(config => {
+    return new Promise(resolve => {
+      // Length of time for mocking uploading firmware (seconds)
+      const timeToFinish = 3;
+
+      let count = 0;
+      // Set progress bar indicator
+      let interval = setInterval(() => {
+        config.onDownloadProgress({
+          loaded: count,
+          total: 100
+        });
+        if (++count === 101) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, Math.round(timeToFinish * 10));
+    })
+      .then(() => {
+        return mockResponseWithLog(config, [200, new Blob()]);
+      });
+  })
   .onPost('/api/system/systeminfo/clearLog').reply(config => mockResponseWithLog(config, [204, {}]))
   .onGet('/api/multimedia/stream/settings').reply(config => mockResponseWithLog(config, [200, db.get('stream').value()]))
   .onPut('/api/multimedia/stream/settings').reply(config => mockResponseWithLog(config, [200, db.get('stream').assign(JSON.parse(config.data)).write()]))
