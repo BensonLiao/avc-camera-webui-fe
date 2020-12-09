@@ -60,7 +60,7 @@
     "humanDetection: ": "人形偵測："
   },
   "videoSetting": {
-    "image": "圖像",
+    "title": "圖像",
     "enableHDR": "開啟HDR",
     "adjustments": "屬性",
     "brightness": "亮度",
@@ -87,7 +87,6 @@
     "rotation": "旋轉",
     "defog": "除霧",
     "lightingCompensation": "電源頻率",
-    "autoFocus": "自動對焦",
     "constants": {
       "ir-control-0": "自動",
       "ir-control-1": "開",
@@ -136,7 +135,6 @@
       "privacyMask": "隱私遮罩"
     },
     "stream": {
-      "settings": "設定",
       "title": "串流",
       "streams": "串流",
       "stream1": "串流 01",
@@ -398,8 +396,6 @@
       "actions": "操作",
       "noData": "沒有符合的資料, 請重新設置條件",
       "delete": "刪除",
-      "Upload Image": "上傳照片",
-      "Please upload your face photo.": "Please upload your face photo.",
       "modal": {
         "group": {
           "titleEditGroup": "編輯群組",
@@ -476,8 +472,7 @@
         "usernameHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白"
       },
       "tooltip": {
-        "deleteAccountError1": "無法刪除正在使用的帳號",
-        "This Account is Protected": "This Account is Protected"
+        "deleteAccountError1": "無法刪除正在使用的帳號"
       }
     },
     "events": {
@@ -504,8 +499,6 @@
       "noData": "沒有符合的資料, 請重新設置條件",
       "addNewMember": "新增成員",
       "addExistingMember": "新增至現有成員",
-      "Unknown": "未知",
-      "Confidence": "相似度",
       "constants": {
         "enroll-status-0": "圖像偽裝",
         "enroll-status-1": "未知",
@@ -592,7 +585,6 @@
       "authenticationKey": "啟用碼",
       "activatedFunctions": "啟用功能",
       "enableStatus": "狀態",
-      "Authorization failed!": "Authorization failed!",
       "constants": {
         "key-thirtyThousand": "臉部辨識 30k",
         "key-threeThousand": "臉部辨識 3k"
@@ -623,7 +615,6 @@
     "filesystem": "檔案系統格式",
     "status": "狀態",
     "storageSpace": "儲存空間",
-    "Unrecognized": "Unrecognized",
     "constants": {
       "Functioning": "正常",
       "Unmounted": "未掛載",

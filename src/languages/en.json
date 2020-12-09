@@ -37,7 +37,8 @@
       "loginLocked": "Login locked",
       "forgotPassword": "Forgot password?",
       "remaining": "{{0}} Remaining",
-      "loginAgain": "Login Again"
+      "loginAgain": "Login Again",
+      "supportDetails.avn": "Tech Support Phone Number: +1 (818) 937-0700"
     },
     "error": {
       "incorrectPassword": "Incorrect Password",
@@ -60,7 +61,7 @@
     "humanDetection: ": "Human Detection: "
   },
   "videoSetting": {
-    "image": "Image",
+    "title": "Image",
     "enableHDR": "Enable HDR",
     "adjustments": "Adjustments",
     "brightness": "Brightness",
@@ -87,7 +88,7 @@
     "rotation": "Rotation",
     "defog": "Defog",
     "lightingCompensation": "Lighting Compensation Frequency (Hz)",
-    "autoFocus": "Auto Focus",
+    "autoFocus.avn": "Auto Focus",
     "constants": {
       "ir-control-0": "Auto",
       "ir-control-1": "On",
@@ -136,7 +137,7 @@
       "privacyMask": "Privacy Mask"
     },
     "stream": {
-      "settings": "Settings",
+      "settings.avn": "Settings",
       "title": "Streams",
       "streams": "Streams",
       "stream1": "Stream 01",
@@ -339,7 +340,7 @@
       "receiver": "Receiver",
       "receiverPlaceholder": "Enter email address",
       "constants": {
-        "videoManagementSystem": "Video Management System",
+        "videoManagementSystem.avn": "Video Management System",
         "notification-vms-event-0": "Video Motion Detection Event",
         "notification-vms-event-1": "Analytic Event",
         "notification-card-filter-all": "All",
@@ -398,8 +399,8 @@
       "actions": "Actions",
       "noData": "Couldn't find any data.",
       "delete": "Delete",
-      "Upload Image": "Upload Image",
-      "Please upload your face photo.": "Please upload your face photo.",
+      "uploadImage.avn": "Upload Image",
+      "pleaseUploadPhoto.avn": "Please upload your face photo.",
       "modal": {
         "group": {
           "titleEditGroup": "Edit Group",
@@ -477,7 +478,7 @@
       },
       "tooltip": {
         "deleteAccountError1": "This account cannot be deleted because it is currently logged in to the device.",
-        "This Account is Protected": "This Account is Protected"
+        "accountProtected.avn": "This Account is Protected"
       }
     },
     "events": {
@@ -504,8 +505,8 @@
       "noData": "Couldn't find any data.",
       "addNewMember": "Add a New Member",
       "addExistingMember": "Add to an Existing Member",
-      "Unknown": "Unknown",
-      "Confidence": "Confidence",
+      "unknown.avn": "Unknown",
+      "confidence.avn": "Confidence",
       "constants": {
         "enroll-status-0": "Image Spoof",
         "enroll-status-1": "Unknown",
@@ -592,7 +593,7 @@
       "authenticationKey": "Authentication Key",
       "activatedFunctions": "Activated Functions",
       "enableStatus": "Status",
-      "Authorization failed!": "Authorization failed!",
+      "authorizationFailed.avn": "Authorization failed!",
       "constants": {
         "key-thirtyThousand": "Face Recognition 30k",
         "key-threeThousand": "Face Recognition 3k"
@@ -623,7 +624,7 @@
     "filesystem": "Filesystem",
     "status": "Status",
     "storageSpace": "Storage Space",
-    "Unrecognized": "Unrecognized",
+    "unrecognized.avn": "Unrecognized",
     "constants": {
       "Functioning": "Functioning",
       "Unmounted": "Unmounted",
@@ -804,13 +805,13 @@
         "deviceHelp": "Device Help",
         "technicalSupport": "Technical Support",
         "productInformation": "Product Information",
-        "Online Support Request": "Online Support Request",
-        "Firmware Downloads": "Firmware Downloads",
-        "Software Downloads": "Software Downloads",
-        "Downloads": "Downloads",
-        "Product Selector": "Product Selector",
-        "Technical Updates": "Technical Updates",
-        "Resources": "Resources"
+        "onlineSupportRequest.avn": "Online Support Request",
+        "firmwareDownloads.avn": "Firmware Downloads",
+        "softwareDownloads.avn": "Software Downloads",
+        "downloads.avn": "Downloads",
+        "productSelector.avn": "Product Selector",
+        "technicalUpdates.avn": "Technical Updates",
+        "resources.avn": "Resources"
       },
       "constants":{
         "permission-0": "Admin",

@@ -201,7 +201,7 @@ module.exports = class VideoSetting extends React.PureComponent {
     return (
       <Form className="card shadow">
         <FormikEffect onChange={this.onChangeVideoSettings}/>
-        <div className="card-header">{i18n.t('videoSetting.image')}</div>
+        <div className="card-header">{i18n.t('videoSetting.title')}</div>
         <div className="accordion" id="accordion-video-properties">
           {/* HDR */}
           <hr className="my-0"/>

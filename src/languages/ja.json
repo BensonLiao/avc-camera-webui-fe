@@ -60,7 +60,7 @@
     "humanDetection: ": "人体検知 : "
   },
   "videoSetting": {
-    "image": "画像設定",
+    "title": "画像設定",
     "enableHDR": "HDRを有効にする",
     "adjustments": "属性",
     "brightness": "明るさ",
@@ -87,7 +87,6 @@
     "rotation": "映像方向",
     "defog": "霧補正",
     "lightingCompensation": "更新周波数(Hz)",
-    "autoFocus": "自動フォーカス",
     "constants": {
       "ir-control-0": "自動",
       "ir-control-1": "有効",
@@ -136,7 +135,6 @@
       "privacyMask": "プライバシーマスク"
     },
     "stream": {
-      "settings": "設定",
       "title": "ストリーム",
       "streams": "ストリーム",
       "stream1": "ストリーム 01",
@@ -398,8 +396,6 @@
       "actions": "操作",
       "noData": "一致するデータが見つかりません再検索して下さい",
       "delete": "削除",
-      "Upload Image": "写真をアップロードする",
-      "Please upload your face photo.": "Please upload your face photo.",
       "modal": {
         "group": {
           "titleEditGroup": "グループを編集する",
@@ -476,8 +472,7 @@
         "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません"
       },
       "tooltip": {
-        "deleteAccountError1": "使用中のアカウントを削除することができません",
-        "This Account is Protected": "This Account is Protected"
+        "deleteAccountError1": "使用中のアカウントを削除することができません"
       }
     },
     "events": {
@@ -504,8 +499,6 @@
       "noData": "一致するデータが見つかりません再検索して下さい",
       "addNewMember": "新規メンバーを追加する",
       "addExistingMember": "既存のメンバーに追加",
-      "Unknown": "未知",
-      "Confidence": "相似度",
       "constants": {
         "enroll-status-0": "なりすまし防止",
         "enroll-status-1": "未登録者",
@@ -592,7 +585,6 @@
       "authenticationKey": "ライセンスキー",
       "activatedFunctions": "有効になった機能",
       "enableStatus": "ステータス",
-      "Authorization failed!": "Authorization failed!",
       "constants": {
         "key-thirtyThousand": "顔認証 30k",
         "key-threeThousand": "顔認証 3k"
@@ -623,7 +615,6 @@
     "filesystem": "ファイルシステム",
     "status": "ステータス",
     "storageSpace": "ストレージ容量",
-    "Unrecognized": "Unrecognized",
     "constants": {
       "Functioning": "正常",
       "Unmounted": "マウントされていません",

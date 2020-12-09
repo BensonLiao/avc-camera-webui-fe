@@ -60,7 +60,7 @@
     "humanDetection: ": "Detección humanoide: "
   },
   "videoSetting": {
-    "image": "imagen",
+    "title": "imagen",
     "enableHDR": "Habilitar HDR",
     "adjustments": "Atributos",
     "brightness": "Brillo",
@@ -87,7 +87,6 @@
     "rotation": "Dirección de la imagen",
     "defog": "Desempañar",
     "lightingCompensation": "Frecuencia de actualización",
-    "autoFocus": "Foco automático",
     "constants": {
       "ir-control-0": "automático",
       "ir-control-1": "Habilitar",
@@ -136,7 +135,6 @@
       "privacyMask": "Máscara de privacidad"
     },
     "stream": {
-      "settings": "Settings",
       "title": "Stream",
       "streams": "Stream",
       "stream1": "Stream 01",
@@ -398,8 +396,6 @@
       "actions": "Operar",
       "noData": "Ningún dato encontrado, por favor revise de nuevo!",
       "delete": "Borrar",
-      "Upload Image": "Cargar fotos",
-      "Please upload your face photo.": "Please upload your face photo.",
       "modal": {
         "group": {
           "titleEditGroup": "Editar grupo",
@@ -476,8 +472,7 @@
         "usernameHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio"
       },
       "tooltip": {
-        "deleteAccountError1": "No se puede borrar la cuenta en uso",
-        "This Account is Protected": "This Account is Protected"
+        "deleteAccountError1": "No se puede borrar la cuenta en uso"
       }
     },
     "events": {
@@ -504,8 +499,6 @@
       "noData": "Ningún dato encontrado, por favor revise de nuevo!",
       "addNewMember": "Añadir miembro",
       "addExistingMember": "Agregar a Usuario Existente",
-      "Unknown": "desconocido",
-      "Confidence": "Confidence",
       "constants": {
         "enroll-status-0": "Camuflaje de imagen",
         "enroll-status-1": "desconocido",
@@ -592,7 +585,6 @@
       "authenticationKey": "Habilitar código",
       "activatedFunctions": "funciónes activadas",
       "enableStatus": "estado",
-      "Authorization failed!": "Authorization failed!",
       "constants": {
         "key-thirtyThousand": "Reconocimiento facial 30k",
         "key-threeThousand": "Reconocimiento facial 3k"
@@ -623,7 +615,6 @@
     "filesystem": "Formato del sistema de archivos",
     "status": "estado",
     "storageSpace": "Espacio de almacenamiento",
-    "Unrecognized": "Unrecognized",
     "constants": {
       "Functioning": "normal",
       "Unmounted": "No montado",
