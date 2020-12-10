@@ -99,6 +99,7 @@
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",
     "body-parser": "1.19.0",
+    "cookie-parser": "1.4.4",
     "copy-webpack-plugin": "5.0.0",
     "eslint": "7.13.0",
     "eslint-config-xo": "0.27.2",
