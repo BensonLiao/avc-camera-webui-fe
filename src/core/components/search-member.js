@@ -58,10 +58,12 @@ class SearchMember extends React.PureComponent {
         sort: null,
         size: 6
       })
-        .then(response => this.setState({
-          isFetching: false,
-          members: response.data
-        }))
+        .then(response =>
+          this.setState({
+            isFetching: false,
+            members: response.data
+          })
+        )
     );
   };
 
@@ -112,7 +114,8 @@ class SearchMember extends React.PureComponent {
           notify.showSuccessNotification({
             title: i18n.t('Setting Success'),
             message: i18n.t('Photo Has Been Added to {{0}}', {0: member.name})
-          }))
+          })
+        )
         .then(getRouter().reload)
         .finally(() => this.hideApiProcessModal())
     );
