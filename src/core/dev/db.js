@@ -245,6 +245,7 @@ module.exports = {
         sensorResolution: 1,
         serialNumber: '181000723',
         modelName: 'MD2',
+        projectId: 'MD2',
         firmware: '35110.4',
         sdEnabled: false,
         sdStatus: 0,
