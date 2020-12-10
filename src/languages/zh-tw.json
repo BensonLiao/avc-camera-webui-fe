@@ -322,7 +322,6 @@
       "receiver": "收件人",
       "receiverPlaceholder": "輸入電子郵件地址",
       "constants": {
-        "videoManagementSystem": "影像管理系統(VMS)",
         "notification-vms-event-0": "影像移動偵測事件",
         "notification-vms-event-1": "智慧分析事件",
         "notification-card-filter-all": "所有通報",
@@ -717,9 +716,6 @@
         "stage4": "階段 4",
         "upgradeSuccess": "軟體升級成功",
         "upgradeSuccessBody": "於 {{0}} 秒後重新導向至登入頁面"
-      },
-      "tooltip": {
-        "disabledButton": "請先選擇一個檔案"
       }
     },
     "systemLog": {

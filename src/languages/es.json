@@ -322,7 +322,6 @@
       "receiver": "Receptor",
       "receiverPlaceholder": "Introducir la dirección de correo electrónico",
       "constants": {
-        "videoManagementSystem": "Video Management System",
         "notification-vms-event-0": "Video Motion Detection Event",
         "notification-vms-event-1": "Analytic Event",
         "notification-card-filter-all": "Todas las notificaciones",

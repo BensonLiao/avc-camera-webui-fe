@@ -322,7 +322,6 @@
       "receiver": "受信者",
       "receiverPlaceholder": "メールアドレスを入力してください",
       "constants": {
-        "videoManagementSystem": "影像管理系統(VMS)",
         "notification-vms-event-0": "影像移動偵測事件",
         "notification-vms-event-1": "智慧分析事件",
         "notification-card-filter-all": "全て",
@@ -695,8 +694,7 @@
         "importSuccessBody": "デバイス設定をインポート完了再ログインして下さい"
       },
       "tooltip": {
-        "restoreAllSettingsHelper": "本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります",
-        "disabledButton": "ファイルを選択してください"
+        "restoreAllSettingsHelper": "本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります"
       }
     },
     "softwareUpgrade": {
