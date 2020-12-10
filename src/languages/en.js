@@ -733,6 +733,7 @@ module.exports = {
       'certificate-type-2': 'Generate Certificate on This Device',
 
       // /system
+      'System Settings': 'System Settings',
       'Software Upgrade': 'Software Upgrade',
       'Import File': 'Import File',
       'Only ZIP file format is supported': 'Only ZIP file format is supported',

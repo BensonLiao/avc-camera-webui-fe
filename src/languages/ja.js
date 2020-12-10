@@ -733,6 +733,7 @@ module.exports = {
       'certificate-type-2': '本デバイスの署名証明書を生成する',
 
       // /system
+      'System Settings': 'システム設定',
       'Software Upgrade': 'ソフトウェアアップグレード',
       'Import File': '設定ファイルをインポートする',
       'Only ZIP file format is supported': '.zipファイルのみサポートしています',

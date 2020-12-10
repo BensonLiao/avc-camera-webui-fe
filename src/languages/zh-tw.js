@@ -733,6 +733,7 @@ module.exports = {
       'certificate-type-2': '在此裝置上產生憑證',
 
       // /system
+      'System Settings': '系統',
       'Software Upgrade': '軟體更新',
       'Import File': '軟體檔案',
       'Only ZIP file format is supported': '僅支援 .zip 檔案格式',
