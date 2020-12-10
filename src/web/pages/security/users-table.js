@@ -110,7 +110,7 @@ const UsersTable = ({permissionFilter, users}) => {
       <CustomNotifyModal
         isShowModal={isShowDeleteUserModal}
         modalTitle={i18n.t('userManagement.accounts.modal.confirmDeleteTitle')}
-        modalBody={i18n.t('userManagement.accounts.modal.confirmDeleteText', {0: deleteUserTarget && deleteUserTarget.account})}
+        modalBody={i18n.t('userManagement.accounts.modal.confirmDeleteBody', {0: deleteUserTarget && deleteUserTarget.account})}
         isConfirmDisable={isApiProcessing}
         onHide={() => setIsShowDeleteUserModal(false)}
         onConfirm={confirmDeleteUser}

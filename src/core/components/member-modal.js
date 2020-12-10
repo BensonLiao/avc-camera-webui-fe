@@ -730,8 +730,8 @@ module.exports = class Member extends React.PureComponent {
         <CustomNotifyModal
           backdrop="static"
           isShowModal={isShowConfirmModal}
-          modalTitle={member ? i18n.t('userManagement.members.modal.member.titleEditMember') : i18n.t('userManagement.members.modal.member.titleNewMember')}
-          modalBody={i18n.t('userManagement.members.modal.member.confirmCloseText')}
+          modalTitle={member ? i18n.t('userManagement.members.modal.member.editMemberTitle') : i18n.t('userManagement.members.modal.member.newMemberTitle')}
+          modalBody={i18n.t('userManagement.members.modal.member.confirmCloseBody')}
           onHide={this.onHideConfirmModal}
           onConfirm={() => {
             this.onHideConfirmModal();
@@ -838,7 +838,7 @@ module.exports = class Member extends React.PureComponent {
         onHide={isApiProcessing || isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{member ? i18n.t('userManagement.members.modal.member.titleEditMember') : i18n.t('userManagement.members.modal.member.titleNewMember')}</Modal.Title>
+          <Modal.Title as="h5">{member ? i18n.t('userManagement.members.modal.member.editMemberTitle') : i18n.t('userManagement.members.modal.member.newMemberTitle')}</Modal.Title>
         </Modal.Header>
         <Formik
           enableReinitialize

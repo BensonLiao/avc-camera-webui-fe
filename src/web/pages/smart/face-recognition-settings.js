@@ -62,7 +62,7 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                     <CustomNotifyModal
                       isShowModal={isShowModal}
                       modalTitle={i18n.t('analytics.facialRecognition.enableSpoof')}
-                      modalBody={i18n.t('analytics.facialRecognition.modal.spoofText')}
+                      modalBody={i18n.t('analytics.facialRecognition.modal.spoofBody')}
                       onHide={() => {
                         hideModal();
                         setFieldValue('isEnableSpoofing', false);

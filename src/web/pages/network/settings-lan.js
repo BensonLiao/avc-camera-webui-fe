@@ -94,10 +94,10 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
             info: true
           },
           modalBackdrop: 'static',
-          modalTitle: i18n.t('network.network.modal.redirectionSuccess'),
+          modalTitle: i18n.t('network.common.modal.redirectionSuccess'),
           redirectIP: true,
           modalBody: [
-            `${i18n.t('network.network.modal.redirectionText')} :`,
+            `${i18n.t('network.common.modal.redirectionBody')} :`,
             <div key="redirect" className="d-flex">
               <ProgressIndicator
                 className="ml-0"
@@ -112,7 +112,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
             ...prevState,
             isUpdating: false,
             modalBody: [
-              `${i18n.t('network.network.modal.redirectionText')} :`,
+              `${i18n.t('network.common.modal.redirectionBody')} :`,
               <div key="redirect" className="d-flex">
                 <ProgressIndicator
                   className="ml-0"
@@ -216,7 +216,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                 backdrop="static"
                 isShowModal={isShowSelectModal.applyConfirm}
                 modalTitle={i18n.t('network.network.title')}
-                modalBody={i18n.t('network.network.modal.confirmText')}
+                modalBody={i18n.t('network.network.modal.confirmUpdateBody')}
                 isConfirmDisable={isApiProcessing || isUpdating}
                 onHide={hideModal('applyConfirm')}
                 onConfirm={() => {

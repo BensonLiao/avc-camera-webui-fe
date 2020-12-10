@@ -175,7 +175,7 @@ const Upgrade = () => {
                     <div className="form-group">
                       <label className="mb-0">{i18n.t('system.softwareUpgrade.importFile')}</label>
                       <small className="form-text text-muted my-2">
-                        {i18n.t('system.softwareUpgrade.importHelper')}
+                        {i18n.t('system.common.importHelper')}
                       </small>
                       <div>
                         <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
@@ -185,16 +185,16 @@ const Upgrade = () => {
                             className="d-none"
                             accept="application/zip"
                             onChange={onChangeFile}
-                          />{i18n.t('system.softwareUpgrade.selectFile')}
+                          />{i18n.t('system.common.selectFile')}
                         </label>
                         {
                           file ?
                             <span className="text-size-14 text-muted ml-3">{file.name}</span> :
-                            <span className="text-size-14 text-muted ml-3">{i18n.t('system.softwareUpgrade.noFileSelected')}</span>
+                            <span className="text-size-14 text-muted ml-3">{i18n.t('system.common.noFileSelected')}</span>
                         }
                       </div>
                     </div>
-                    <CustomTooltip show={!file} title={i18n.t('system.softwareUpgrade.tooltip.disabledButton')}>
+                    <CustomTooltip show={!file} title={i18n.t('system.common.tooltip.disabledButton')}>
                       <div>
                         <button
                           disabled={(isShowApiProcessModal || isApiProcessing || !file)}

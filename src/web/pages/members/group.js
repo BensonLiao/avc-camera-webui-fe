@@ -106,7 +106,7 @@ const Group = ({group, groups, params}) => {
           return (
             <Form>
               <div className="modal-header">
-                <h5 className="modal-title">{group ? i18n.t('userManagement.members.modal.group.titleEditGroup') : i18n.t('userManagement.members.modal.group.titleCreateGroup')}</h5>
+                <h5 className="modal-title">{group ? i18n.t('userManagement.members.modal.group.editGroupTitle') : i18n.t('userManagement.members.modal.group.createGroupTitle')}</h5>
               </div>
               <div className="modal-body">
                 <div className="form-group">

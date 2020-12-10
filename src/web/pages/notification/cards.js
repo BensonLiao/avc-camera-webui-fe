@@ -20,7 +20,7 @@ const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) 
 
   const cardLimitError = () => { // Over card limit 32
     notify.showErrorNotification({
-      title: i18n.t('notification.cards.toast.limitExceeded'),
+      title: i18n.t('notification.cards.toast.limitExceededTitle'),
       message: i18n.t('notification.cards.toast.limitExceededBody', {0: NOTIFY_CARDS_MAX})
     });
   };

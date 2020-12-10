@@ -62,9 +62,9 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
         const newAddress = `http://${location.hostname}:${values.port}`;
         setState(prevState => ({
           ...prevState,
-          apiProcessModalTitle: i18n.t('network.tcpip.modal.redirectionSuccess'),
+          apiProcessModalTitle: i18n.t('network.common.modal.redirectionSuccess'),
           modalBody: [
-            `${i18n.t('network.tcpip.modal.redirectionText')} :`,
+            `${i18n.t('network.common.modal.redirectionBody')} :`,
             <div key="redirect" className="d-flex">
               <ProgressIndicator
                 className="ml-0"
@@ -78,7 +78,7 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
           setState(prevState => ({
             ...prevState,
             modalBody: [
-              `${i18n.t('network.tcpip.modal.redirectionText')} :`,
+              `${i18n.t('network.common.modal.redirectionBody')} :`,
               <div key="redirect" className="d-flex">
                 <ProgressIndicator
                   className="ml-0"

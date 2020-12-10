@@ -480,8 +480,8 @@ module.exports = class StreamSetting extends Base {
           isShowModal={isShowModal}
           modalTitle={i18n.t('video.stream.streams')}
           modalBody={this.state.hasResolutionRatioChanged ?
-            i18n.t('video.stream.modal.confirmRatioChange') :
-            i18n.t('video.stream.modal.confirmUpdate')}
+            i18n.t('video.stream.modal.confirmRatioChangeBody') :
+            i18n.t('video.stream.modal.confirmUpdateBody')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
           onConfirm={() => {

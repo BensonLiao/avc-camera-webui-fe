@@ -142,8 +142,8 @@
       "gop": "GOP",
       "modal": {
         "apiProcessingModalTitle": "ストリーム設定の更新",
-        "confirmUpdate": "ストリーム設定を変更しますか？",
-        "confirmRatioChange": "ストリーム1のアスペクト比を変更すると、ストリーム2の設定も更新されます。続行してもよろしいですか？"
+        "confirmUpdateBody": "ストリーム設定を変更しますか？",
+        "confirmRatioChangeBody": "ストリーム1のアスペクト比を変更すると、ストリーム2の設定も更新されます。続行してもよろしいですか？"
       },
       "constants": {
         "stream-resolution-0": "3840*2160 (16:9)",
@@ -183,7 +183,7 @@
       "fps": "フレームレート (FPS)",
       "modal": {
         "apiProcessingModalTitle": "HDMI設定を更新する",
-        "confirmText": "HDMI設定を変更しますか？"
+        "confirmUpdateBody": "HDMI設定を変更しますか？"
       }
     },
     "osd": {
@@ -354,7 +354,7 @@
         "disabledReceiverButton": "メールアドレスを入力してください"
       },
       "toast": {
-        "limitExceeded": "通知カード数の上限に達しました",
+        "limitExceededTitle": "通知カード数の上限に達しました",
         "limitExceededBody": "カードを {{0}} 以上に追加することができません"
       }
     }
@@ -383,13 +383,13 @@
       "delete": "削除",
       "modal": {
         "group": {
-          "titleEditGroup": "グループを編集する",
-          "titleCreateGroup": "グループを追加する",
+          "editGroupTitle": "グループを編集する",
+          "createGroupTitle": "グループを追加する",
           "namePlaceholder": "グループ名を入力してください",
           "nameHelper": "最大32文字まで入力可能です",
           "confirmDeleteTitle": "グループを削除する",
-          "confirmDeleteText": "グループ {{0}} を削除しますか？",
-          "Modify Group": "グループを編集する"
+          "confirmDeleteBody": "グループ {{0}} を削除しますか？",
+          "editGroupTitle.avn": "グループを編集する"
         },
         "database": {
           "title": "データベース暗号化",
@@ -398,9 +398,9 @@
         },
         "member": {
           "confirmDeleteTitle": "メンバーを削除する",
-          "confirmDeleteText": "メンバー {{0}} を削除しますか？",
-          "titleNewMember": "メンバーを追加する",
-          "titleEditMember": "メンバーを編集する",
+          "confirmDeleteBody": "メンバー {{0}} を削除しますか？",
+          "newMemberTitle": "メンバーを追加する",
+          "editMemberTitle": "メンバーを編集する",
           "primary": "メイン写真",
           "photo1": "写真 1",
           "photo2": "写真 2",
@@ -414,7 +414,7 @@
           "photoHelper": "写真をドラッグして調整してください",
           "save": "保存する",
           "changePhoto": "写真を変更する",
-          "confirmCloseText": "このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます",
+          "confirmCloseBody": "このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます",
           "errorNoPhoto": "写真が必要",
           "errorPhotoSizeLimit": "写真サイズは90 KBを超えることができません",
           "Showing No Face": "写真には顔が存在していません",
@@ -450,9 +450,9 @@
       },
       "modal": {
         "confirmDeleteTitle": "アカウントを削除する",
-        "confirmDeleteText": "アカウント {{0}} を削除しますか？",
-        "titleNewUser": "新規ユーザー",
-        "titleModifyUser": "アカウントを編集する",
+        "confirmDeleteBody": "アカウント {{0}} を削除しますか？",
+        "newUserTitle": "新規ユーザー",
+        "ModifyUserTitle": "アカウントを編集する",
         "usernamePlaceholder": "アカウント名を入力してください",
         "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません"
       },
@@ -504,7 +504,7 @@
         "Updating Member": "メンバー更新"
       },
       "toast": {
-        "settingSuccess": "設定が成功しました ",
+        "settingSuccessTitle": "設定が成功しました ",
         "settingSuccessBody": "写真が {{0}} に追加されました"
       }
     }
@@ -530,7 +530,7 @@
         "confidence-level-2": "高"
       },
       "modal": {
-        "spoofText": "アルファ版の画像スプーフィングを有効にしてもよろしいですか？ アルファ版です。 画像のなりすましと判断された顔は認識されません。 今後のソフトウェアアップデートで、この機能を最適化および改善する予定です"
+        "spoofBody": "アルファ版の画像スプーフィングを有効にしてもよろしいですか？ アルファ版です。 画像のなりすましと判断された顔は認識されません。 今後のソフトウェアアップデートで、この機能を最適化および改善する予定です"
       },
       "tooltip": {
         "frDisabled": "顔認証を無効になっています",
@@ -569,9 +569,9 @@
         "key-threeThousand": "顔認証 3k"
       },
       "toast": {
-        "titleActivationSuccess": "アクティベーションが成功しました",
+        "activationSuccessTitle": "アクティベーションが成功しました",
         "activationSuccessBody": "{{0}} 許可されました",
-        "titleActivationFailed": "アクティベーションに失敗しました",
+        "activationFailedTitle": "アクティベーションに失敗しました",
         "keyRegisteredBody": "ライセンスキーが使われています"
       }
     }
@@ -600,11 +600,9 @@
       "primaryDNSPlaceholder": "プライマリーDNSを入力してください",
       "secondaryDNSPlaceholder": "セカンダリーDNSを入力してください",
       "modal": {
-        "confirmText": "ネットワーク設定を更新してもよろしいですか？",
+        "confirmUpdateBody": "ネットワーク設定を更新してもよろしいですか？",
         "testingSuccess": "DHCPテストに成功しました",
-        "testingFailed": "DHCPテストに失敗しました",
-        "redirectionSuccess": "再ダイレクト",
-        "redirectionText": "下記のURLへアクセスして再度ログインしてください"
+        "testingFailed": "DHCPテストに失敗しました"
       },
       "tooltips": {
         "noChanges": "変更がありません"
@@ -624,12 +622,10 @@
       "secondaryHTTPPort": "HTTPセカンダリーポート",
       "portHelper": "入力範囲：1024-65535 デフォルト：8080",
       "modal": {
-        "apiProcessModalTitle": "HTTP設定を更新する",
-        "redirectionSuccess": "再ダイレクト",
-        "redirectionText": "下記のURLへアクセスして再度ログインしてください"
+        "apiProcessModalTitle": "HTTP設定を更新する"
       },
       "toast": {
-        "settingSuccess": "設定が成功しました",
+        "settingSuccessTitle": "設定が成功しました",
         "successText": "DDNS 設定が成功しました",
         "settingFailed": "設定が失敗しました",
         "failedText": "DDNS 設定が失敗しました"
@@ -647,12 +643,14 @@
         "certificate-type-1": "署名証明書をアップロードする",
         "certificate-type-2": "本デバイスの署名証明書を生成する"
       },
-      "modal": {
-        "redirectionSuccess": "再ダイレクト",
-        "redirectionText": "下記のURLへアクセスして再度ログインしてください"
-      },
       "tooltip": {
         "disabledButton": "先にHTTPS機能を有効にしてください"
+      }
+    },
+    "common": {
+      "modal": {
+        "redirectionSuccess": "再ダイレクト",
+        "redirectionBody": "下記のURLへアクセスして再度ログインしてください"
       }
     }
   },
@@ -670,7 +668,7 @@
       "setManually": "手動設定",
       "modal": {
         "apiProcessModalTitle": "日付＆時刻を更新",
-        "confirmText": "デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります"
+        "confirmUpdateBody": "デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります"
       }
     },
     "deviceMaintenance": {
@@ -684,9 +682,6 @@
       "importSystemSettings": "システム設定ファイルをインポートする",
       "export": "エクスポート",
       "import": "インポート",
-      "importHelper": "zipファイルのみサポートしています",
-      "selectFile": "ファイルを選択する",
-      "noFileSelected": "選択されたファイルがありません",
       "modal": {
         "apiProcessModalTitleRebooting": "デバイス再起動しています",
         "apiProcessModalTitleResetting": "初期化",
@@ -707,9 +702,6 @@
     "softwareUpgrade": {
       "title": "ソフトウェアアップグレード",
       "importFile": "設定ファイルをインポートする",
-      "importHelper": "zipファイルのみサポートしています",
-      "selectFile": "ファイルを選択する",
-      "noFileSelected": "選択されたファイルがありません",
       "modal": {
         "apiProcessModalTitleUploading": "ソフトウェアをアップロードしています",
         "apiProcessModalTitleInstalling": "ソフトウェアをインストールしています",
@@ -726,9 +718,6 @@
         "stage4": "ステージ4",
         "upgradeSuccess": "ソフトウェアアップグレードは成功しました",
         "upgradeSuccessBody": "{{0}} 秒後に再度ログインページへリダイレクトします"
-      },
-      "tooltip": {
-        "disabledButton": "ファイルを選択してください"
       }
     },
     "systemLog": {
@@ -748,6 +737,14 @@
       "software": "ソフトウェアバージョン",
       "serialNumber": "S/N 碼",
       "macAddress": "MACアドレス"
+    },
+    "common": {
+      "importHelper": "zipファイルのみサポートしています",
+      "selectFile": "ファイルを選択する",
+      "noFileSelected": "選択されたファイルがありません",
+      "tooltip": {
+        "disabledButton": "ファイルを選択してください"
+      }
     }
   },
   "sdCard": {

@@ -56,14 +56,14 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
         hideModal: hideModal(mode),
         modalOnSubmit: confirmDeleteGroup,
         modalTitle: i18n.t('userManagement.members.modal.group.confirmDeleteTitle'),
-        modalBody: i18n.t('userManagement.members.modal.group.confirmDeleteText', {0: deleteGroupTarget && deleteGroupTarget.name})
+        modalBody: i18n.t('userManagement.members.modal.group.confirmDeleteBody', {0: deleteGroupTarget && deleteGroupTarget.name})
       },
       deleteMember: {
         showModal: isShowModal,
         hideModal: hideModal(mode),
         modalOnSubmit: confirmDeleteMember,
         modalTitle: i18n.t('userManagement.members.modal.member.confirmDeleteTitle'),
-        modalBody: i18n.t('userManagement.members.modal.member.confirmDeleteText', {0: deleteMemberTarget && deleteMemberTarget.name})
+        modalBody: i18n.t('userManagement.members.modal.member.confirmDeleteBody', {0: deleteMemberTarget && deleteMemberTarget.name})
       }
     };
     return (

@@ -16,7 +16,7 @@ const TCPIPDDNS = ({ddnsInfo, isApiProcessing}) => {
       .then(response => {
         if (response.data.ddnsHostStatus) {
           notify.showSuccessNotification({
-            title: i18n.t('network.tcpip.toast.settingSuccess'),
+            title: i18n.t('network.tcpip.toast.settingSuccessTitle'),
             message: i18n.t('network.tcpip.toast.successText')
           });
         } else {

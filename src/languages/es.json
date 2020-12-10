@@ -142,8 +142,8 @@
       "gop": "GOP",
       "modal": {
         "apiProcessingModalTitle": "Actualización de la configuración de Stream",
-        "confirmUpdate": "¿Está seguro de que desea cambiar la configuración de Stream?",
-        "confirmRatioChange": " Si cambia la relación de aspecto de la resolución de la Stream 1, también se cambiará la configuración de la Stream 2. ¿Confirmar para continuar?"
+        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de Stream?",
+        "confirmRatioChangeBody": " Si cambia la relación de aspecto de la resolución de la Stream 1, también se cambiará la configuración de la Stream 2. ¿Confirmar para continuar?"
       },
       "constants": {
         "stream-resolution-0": "3840*2160 (16:9)",
@@ -183,7 +183,7 @@
       "fps": "Cuadros por segundo",
       "modal": {
         "apiProcessingModalTitle": "Actualizar la configuración de HDMI",
-        "confirmText": "¿Está seguro de que desea cambiar la configuración de HDMI?"
+        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de HDMI?"
       }
     },
     "osd": {
@@ -354,7 +354,7 @@
         "disabledReceiverButton": "Ingrese la dirección de correo electrónico"
       },
       "toast": {
-        "limitExceeded": "Límite de número de tarjetas excedido",
+        "limitExceededTitle": "Límite de número de tarjetas excedido",
         "limitExceededBody": "No se pueden crear más de {{0}} tarjetas"
       }
     }
@@ -383,13 +383,13 @@
       "delete": "Borrar",
       "modal": {
         "group": {
-          "titleEditGroup": "Editar grupo",
-          "titleCreateGroup": "Añadir grupo",
+          "editGroupTitle": "Editar grupo",
+          "createGroupTitle": "Añadir grupo",
           "namePlaceholder": "Ingrese el nombre del grupo",
           "nameHelper": "Extension máxima: 32 caracteres",
           "confirmDeleteTitle": "Borrar grupo",
-          "confirmDeleteText": "¿Está seguro de que desea borrar el grupo {{0}} ?",
-          "Modify Group": "Editar grupo"
+          "confirmDeleteBody": "¿Está seguro de que desea borrar el grupo {{0}} ?",
+          "editGroupTitle.avn": "Editar grupo"
         },
         "database": {
           "title": "Cifrado de base de datos",
@@ -398,9 +398,9 @@
         },
         "member": {
           "confirmDeleteTitle": "Borrar miembro",
-          "confirmDeleteText": "¿Está seguro de que desea borrar el usuario {{0}} ?",
-          "titleNewMember": "Nuevo miembro",
-          "titleEditMember": "Editar miembro",
+          "confirmDeleteBody": "¿Está seguro de que desea borrar el usuario {{0}} ?",
+          "newMemberTitle": "Nuevo miembro",
+          "editMemberTitle": "Editar miembro",
           "primary": "Foto principal",
           "photo1": "Foto 1",
           "photo2": "Foto 2",
@@ -414,7 +414,7 @@
           "photoHelper": "Arraste para ajustar las fotos",
           "save": "Salvar",
           "changePhoto": "Cambiar foto",
-          "confirmCloseText": "Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?",
+          "confirmCloseBody": "Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?",
           "errorNoPhoto": "Una foto es requirida",
           "errorPhotoSizeLimit": "El tamaño de la foto no puede superar los 90KB",
           "Showing No Face": "No hay rostro en la foto",
@@ -450,9 +450,9 @@
       },
       "modal": {
         "confirmDeleteTitle": "Borrar cuenta",
-        "confirmDeleteText": "¿Está seguro de que desea borrar la cuenta {{0}} ?",
-        "titleNewUser": "Nuevo Usuario",
-        "titleModifyUser": "Editar cuenta",
+        "confirmDeleteBody": "¿Está seguro de que desea borrar la cuenta {{0}} ?",
+        "newUserTitle": "Nuevo Usuario",
+        "ModifyUserTitle": "Editar cuenta",
         "usernamePlaceholder": "Ingrese el nombre de la cuenta",
         "usernameHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio"
       },
@@ -504,7 +504,7 @@
         "Updating Member": "Actualización de Usuario"
       },
       "toast": {
-        "settingSuccess": "Configuración Exitosa",
+        "settingSuccessTitle": "Configuración Exitosa",
         "settingSuccessBody": "¡Se agregaron fotos a {{0}} correctamente!"
       }
     }
@@ -530,7 +530,7 @@
         "confidence-level-2": "alto"
       },
       "modal": {
-        "spoofText": "¿Está seguro de que desea habilitar la versión Alfa de la suplantación de imágenes? Es una versión Alpha. No se reconocerán los rostros que se consideren falsos. Optimizaremos y mejoraremos esta función en futuras actualizaciones de software."
+        "spoofBody": "¿Está seguro de que desea habilitar la versión Alfa de la suplantación de imágenes? Es una versión Alpha. No se reconocerán los rostros que se consideren falsos. Optimizaremos y mejoraremos esta función en futuras actualizaciones de software."
       },
       "tooltip": {
         "frDisabled": "Reconocimiento facial está desactivado.",
@@ -569,9 +569,9 @@
         "key-threeThousand": "Reconocimiento facial 3k"
       },
       "toast": {
-        "titleActivationSuccess": "Activación exitosa",
+        "activationSuccessTitle": "Activación exitosa",
         "activationSuccessBody": "{{0}} se ha autorizado correctamente",
-        "titleActivationFailed": "Activación fallida",
+        "activationFailedTitle": "Activación fallida",
         "keyRegisteredBody": "Repita el código de activación"
       }
     }
@@ -600,11 +600,9 @@
       "primaryDNSPlaceholder": "Ingrese DNS Primario",
       "secondaryDNSPlaceholder": "Ingrese DNS Secundario",
       "modal": {
-        "confirmText": "¿Está seguro de que desea cambiar la configuración de red?",
+        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de red?",
         "testingSuccess": "Prueba DHCP exitosa",
-        "testingFailed": "Prueba DHCP falló",
-        "redirectionSuccess": "redirección",
-        "redirectionText": "Vuelva a iniciar sesión con la siguiente URL"
+        "testingFailed": "Prueba DHCP falló"
       },
       "tooltips": {
         "noChanges": "No se ha cambiado ninguna configuración"
@@ -624,12 +622,10 @@
       "secondaryHTTPPort": "Puerto secundario HTTP",
       "portHelper": "Rango: 1024-65535, preestablecido: 8080",
       "modal": {
-        "apiProcessModalTitle": "Actualizar la configuración HTTP",
-        "redirectionSuccess": "redirección",
-        "redirectionText": "Vuelva a iniciar sesión con la siguiente URL"
+        "apiProcessModalTitle": "Actualizar la configuración HTTP"
       },
       "toast": {
-        "settingSuccess": "Configuración Exitosa",
+        "settingSuccessTitle": "Configuración Exitosa",
         "successText": "¡configuración de DDNS exitosa!",
         "settingFailed": "Configuración fallida",
         "failedText": "¡configuración de DDNS fallida！"
@@ -647,12 +643,14 @@
         "certificate-type-1": "Upload Certificate",
         "certificate-type-2": "Generate Certificate on This Device"
       },
-      "modal": {
-        "redirectionSuccess": "redirección",
-        "redirectionText": "Vuelva a iniciar sesión con la siguiente URL"
-      },
       "tooltip": {
         "disabledButton": "Habilite primero la función HTTPS"
+      }
+    },
+    "common": {
+      "modal": {
+        "redirectionSuccess": "redirección",
+        "redirectionBody": "Vuelva a iniciar sesión con la siguiente URL"
       }
     }
   },
@@ -670,7 +668,7 @@
       "setManually": "Ajuste manual",
       "modal": {
         "apiProcessModalTitle": "Actualización de Fecha y Hora",
-        "confirmText": "¿Estás seguro de que deseas cambiar la hora del dispositivo? Debes iniciar sesión nuevamente para cambiar la hora del dispositivo"
+        "confirmUpdateBody": "¿Estás seguro de que deseas cambiar la hora del dispositivo? Debes iniciar sesión nuevamente para cambiar la hora del dispositivo"
       }
     },
     "deviceMaintenance": {
@@ -684,9 +682,6 @@
       "importSystemSettings": "Importar configuración del sistema",
       "export": "Exportar",
       "import": "Importar",
-      "importHelper": "Solo admite formato de archivo .zip",
-      "selectFile": "Seleccionar Archivo",
-      "noFileSelected": "Ningún archivo seleccionado",
       "modal": {
         "apiProcessModalTitleRebooting": "Reinicio del dispositivo",
         "apiProcessModalTitleResetting": "Está restaurando",
@@ -700,16 +695,12 @@
         "importSuccessBody": "La Configuración del dispositivo ha sido importada. Por favor ingrese de nuevo"
       },
       "tooltip": {
-        "restoreAllSettingsHelper": "Al marcar este elemento, se borrarán y restaurarán miembros y grupos, cuentas del sistema, zoom y enfoque, RTSP, red, aplicaciones, datos almacenados en la tarjeta de memoria ... etc., todos los datos y configuraciones",
-        "disabledButton": "Seleccione primero un archivo"
+        "restoreAllSettingsHelper": "Al marcar este elemento, se borrarán y restaurarán miembros y grupos, cuentas del sistema, zoom y enfoque, RTSP, red, aplicaciones, datos almacenados en la tarjeta de memoria ... etc., todos los datos y configuraciones"
       }
     },
     "softwareUpgrade": {
       "title": "Actualización de software",
       "importFile": "Importar perfil",
-      "importHelper": "Solo admite formato de archivo .zip",
-      "selectFile": "Seleccionar Archivo",
-      "noFileSelected": "Ningún archivo seleccionado",
       "modal": {
         "apiProcessModalTitleUploading": "Carga de software",
         "apiProcessModalTitleInstalling": "Instalación de software",
@@ -726,9 +717,6 @@
         "stage4": "Nivel 4",
         "upgradeSuccess": "Actualización de software con éxito",
         "upgradeSuccessBody": "Redirigir a la página de inicio de sesión en {{0}} segundos"
-      },
-      "tooltip": {
-        "disabledButton": "Seleccione primero un archivo"
       }
     },
     "systemLog": {
@@ -748,6 +736,14 @@
       "software": "Versión del software",
       "serialNumber": "S/N Code",
       "macAddress": "Dirección física"
+    },
+    "common": {
+      "importHelper": "Solo admite formato de archivo .zip",
+      "selectFile": "Seleccionar Archivo",
+      "noFileSelected": "Ningún archivo seleccionado",
+      "tooltip": {
+        "disabledButton": "Seleccione primero un archivo"
+      }
     }
   },
   "sdCard": {

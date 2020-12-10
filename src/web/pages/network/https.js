@@ -56,7 +56,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         setIsShowModal(true);
         setModalBody([
-          `${i18n.t('network.https.modal.redirectionText')} :`,
+          `${i18n.t('network.common.modal.redirectionBody')} :`,
           <div key="redirect" className="d-flex">
             <ProgressIndicator
               className="ml-0"
@@ -67,7 +67,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
         ]);
         setTimeout(() => {
           setModalBody([
-            `${i18n.t('network.https.modal.redirectionText')} :`,
+            `${i18n.t('network.common.modal.redirectionBody')} :`,
             <div key="redirect" className="d-flex">
               <ProgressIndicator
                 className="ml-0"
@@ -150,7 +150,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                         isShowAllBtns={false}
                         backdrop="static"
                         isShowModal={isShowModal}
-                        modalTitle={i18n.t('network.https.modal.redirectionSuccess')}
+                        modalTitle={i18n.t('network.common.modal.redirectionSuccess')}
                         modalBody={modalBody}
                         onConfirm={hideModal}
                         onHide={hideModal}

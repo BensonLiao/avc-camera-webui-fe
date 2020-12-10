@@ -134,7 +134,7 @@ module.exports = class HDMI extends Base {
                         <CustomNotifyModal
                           isShowModal={isShowModal}
                           modalTitle={i18n.t('video.hdmi.hdmi')}
-                          modalBody={i18n.t('video.hdmi.modal.confirmText')}
+                          modalBody={i18n.t('video.hdmi.modal.confirmUpdateBody')}
                           isConfirmDisable={$isApiProcessing}
                           onHide={this.hideModal}
                           onConfirm={() => {

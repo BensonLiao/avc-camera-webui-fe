@@ -100,7 +100,7 @@ class SearchMember extends React.PureComponent {
         picture: convertedPicture
       }).then(() =>
         notify.showSuccessNotification({
-          title: i18n.t('userManagement.events.toast.settingSuccess'),
+          title: i18n.t('userManagement.events.toast.settingSuccessTitle'),
           message: i18n.t('userManagement.events.toast.settingSuccessBody', {0: member.name})
         }))
         .then(getRouter().reload)

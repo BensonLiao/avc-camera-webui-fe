@@ -142,8 +142,8 @@
       "gop": "GOP",
       "modal": {
         "apiProcessingModalTitle": "更新串流設定",
-        "confirmUpdate": "您確定要更改串流設定嗎？",
-        "confirmRatioChange": "改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？"
+        "confirmUpdateBody": "您確定要更改串流設定嗎？",
+        "confirmRatioChangeBody": "改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？"
       },
       "constants": {
         "stream-resolution-0": "3840*2160 (16:9)",
@@ -183,7 +183,7 @@
       "fps": "每秒幀數",
       "modal": {
         "apiProcessingModalTitle": "更新HDMI設定",
-        "confirmText": "您確定要更改 HDMI 設定嗎?"
+        "confirmUpdateBody": "您確定要更改 HDMI 設定嗎?"
       }
     },
     "osd": {
@@ -354,7 +354,7 @@
         "disabledReceiverButton": "請輸入電子郵件地址"
       },
       "toast": {
-        "limitExceeded": "已達數量限制",
+        "limitExceededTitle": "已達數量限制",
         "limitExceededBody": "無法新增超過 {{0}} 張卡"
       }
     }
@@ -383,13 +383,13 @@
       "delete": "刪除",
       "modal": {
         "group": {
-          "titleEditGroup": "編輯群組",
-          "titleCreateGroup": "新增群組",
+          "editGroupTitle": "編輯群組",
+          "createGroupTitle": "新增群組",
           "namePlaceholder": "輸入群組名稱",
           "nameHelper": "最多32個字",
           "confirmDeleteTitle": "刪除群組",
-          "confirmDeleteText": "您確定要刪除群組 {{0}} 嗎？",
-          "Modify Group": "編輯群組"
+          "confirmDeleteBody": "您確定要刪除群組 {{0}} 嗎？",
+          "editGroupTitle.avn": "編輯群組"
         },
         "database": {
           "title": "資料庫加密",
@@ -398,9 +398,9 @@
         },
         "member": {
           "confirmDeleteTitle": "刪除成員",
-          "confirmDeleteText": "您確定要刪除成員 {{0}} 嗎？",
-          "titleNewMember": "新增成員",
-          "titleEditMember": "編輯成員",
+          "confirmDeleteBody": "您確定要刪除成員 {{0}} 嗎？",
+          "newMemberTitle": "新增成員",
+          "editMemberTitle": "編輯成員",
           "primary": "主照片",
           "photo1": "照片1",
           "photo2": "照片2",
@@ -414,7 +414,7 @@
           "photoHelper": "拖曳調整照片",
           "save": "儲存",
           "changePhoto": "更換照片",
-          "confirmCloseText": "關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？",
+          "confirmCloseBody": "關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？",
           "errorNoPhoto": "必須上傳主照片",
           "errorPhotoSizeLimit": "照片大小不可以超過90 KB",
           "Showing No Face": "照片中沒有人臉",
@@ -450,9 +450,9 @@
       },
       "modal": {
         "confirmDeleteTitle": "刪除帳號",
-        "confirmDeleteText": "您確定要刪除帳號 {{0}} 嗎？",
-        "titleNewUser": "創建使用者",
-        "titleModifyUser": "編輯帳號",
+        "confirmDeleteBody": "您確定要刪除帳號 {{0}} 嗎？",
+        "newUserTitle": "創建使用者",
+        "ModifyUserTitle": "編輯帳號",
         "usernamePlaceholder": "輸入帳號名稱",
         "usernameHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白"
       },
@@ -504,7 +504,7 @@
         "Updating Member": "更新成員"
       },
       "toast": {
-        "settingSuccess": "設定成功",
+        "settingSuccessTitle": "設定成功",
         "settingSuccessBody": "新增照片至 {{0}} 成功!"
       }
     }
@@ -530,7 +530,7 @@
         "confidence-level-2": "高"
       },
       "modal": {
-        "spoofText": "您確定要開啟Alpha版防止圖像偽裝嗎？圖像偽裝是一個Alpha版的功能，判定成圖像偽裝的人臉不會被辯識，我們會在之後的軟體更新優化並完善此功能"
+        "spoofBody": "您確定要開啟Alpha版防止圖像偽裝嗎？圖像偽裝是一個Alpha版的功能，判定成圖像偽裝的人臉不會被辯識，我們會在之後的軟體更新優化並完善此功能"
       },
       "tooltip": {
         "frDisabled": "臉部辨識已關閉",
@@ -569,9 +569,9 @@
         "key-threeThousand": "臉部辨識 3k"
       },
       "toast": {
-        "titleActivationSuccess": "啟用成功",
+        "activationSuccessTitle": "啟用成功",
         "activationSuccessBody": "{{0}} 啟用成功",
-        "titleActivationFailed": "啟用失敗",
+        "activationFailedTitle": "啟用失敗",
         "keyRegisteredBody": "重複輸入啟用碼"
       }
     }
@@ -600,11 +600,9 @@
       "primaryDNSPlaceholder": "請輸入主要DNS",
       "secondaryDNSPlaceholder": "請輸入次要DNS",
       "modal": {
-        "confirmText": "您確定要更改網路設定嗎？",
+        "confirmUpdateBody": "您確定要更改網路設定嗎？",
         "testingSuccess": "DHCP 測試成功",
-        "testingFailed": "DHCP 測試失敗",
-        "redirectionSuccess": "重新導向",
-        "redirectionText": "請利用下列網址重新登入"
+        "testingFailed": "DHCP 測試失敗"
       },
       "tooltips": {
         "noChanges": "沒有設定被更改"
@@ -624,12 +622,10 @@
       "secondaryHTTPPort": "HTTP 次要連接埠",
       "portHelper": "範圍：1024-65535，預設：8080",
       "modal": {
-        "apiProcessModalTitle": "更新HTTP設定",
-        "redirectionSuccess": "重新導向",
-        "redirectionText": "請利用下列網址重新登入"
+        "apiProcessModalTitle": "更新HTTP設定"
       },
       "toast": {
-        "settingSuccess": "設定成功",
+        "settingSuccessTitle": "設定成功",
         "successText": "DDNS 設定成功！",
         "settingFailed": "設定失敗",
         "failedText": "DDNS 設定失敗！"
@@ -647,12 +643,14 @@
         "certificate-type-1": "上傳您的憑證",
         "certificate-type-2": "在此裝置上產生憑證"
       },
-      "modal": {
-        "redirectionSuccess": "重新導向",
-        "redirectionText": "請利用下列網址重新登入"
-      },
       "tooltip": {
         "disabledButton": "請先開啟 HTTPS 功能"
+      }
+    },
+    "common": {
+      "modal": {
+        "redirectionSuccess": "重新導向",
+        "redirectionBody": "請利用下列網址重新登入"
       }
     }
   },
@@ -670,7 +668,7 @@
       "setManually": "手動調整",
       "modal": {
         "apiProcessModalTitle": "更新日期與時間",
-        "confirmText": "您確定要更裝置時間嗎? 更改裝置時間必須重新登入"
+        "confirmUpdateBody": "您確定要更裝置時間嗎? 更改裝置時間必須重新登入"
       }
     },
     "deviceMaintenance": {
@@ -684,9 +682,6 @@
       "importSystemSettings": "匯入系統設定值",
       "export": "匯出",
       "import": "匯入",
-      "importHelper": "僅支援 .zip 檔案格式",
-      "selectFile": "選擇檔案",
-      "noFileSelected": "未選擇任何檔案",
       "modal": {
         "apiProcessModalTitleRebooting": "重新啟動裝置中",
         "apiProcessModalTitleResetting": "清除資料中",
@@ -700,16 +695,12 @@
         "importSuccessBody": "匯入系統設定完成，請重新登入"
       },
       "tooltip": {
-        "restoreAllSettingsHelper": "勾選此項目會清除並還原成員及群組、系統帳號、縮放及對焦、RTSP、網路、應用程式、儲存在記憶卡的資料...等，所有資料和設定",
-        "disabledButton": "請先選擇一個檔案"
+        "restoreAllSettingsHelper": "勾選此項目會清除並還原成員及群組、系統帳號、縮放及對焦、RTSP、網路、應用程式、儲存在記憶卡的資料...等，所有資料和設定"
       }
     },
     "softwareUpgrade": {
       "title": "軟體更新",
       "importFile": "軟體檔案",
-      "importHelper": "僅支援 .zip 檔案格式",
-      "selectFile": "選擇檔案",
-      "noFileSelected": "未選擇任何檔案",
       "modal": {
         "apiProcessModalTitleUploading": "軟體上傳中",
         "apiProcessModalTitleInstalling": "軟體安裝中",
@@ -748,6 +739,14 @@
       "software": "軟體版本",
       "serialNumber": "S/N 碼",
       "macAddress": "實體位址"
+    },
+    "common": {
+      "importHelper": "僅支援 .zip 檔案格式",
+      "selectFile": "選擇檔案",
+      "noFileSelected": "未選擇任何檔案",
+      "tooltip": {
+        "disabledButton": "請先選擇一個檔案"
+      }
     }
   },
   "sdCard": {

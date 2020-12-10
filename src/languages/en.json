@@ -145,8 +145,8 @@
       "gop": "GOP",
       "modal": {
         "apiProcessingModalTitle": "Updating Stream Settings",
-        "confirmUpdate": "Are you sure you want to update stream settings?",
-        "confirmRatioChange": "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?"
+        "confirmUpdateBody": "Are you sure you want to update stream settings?",
+        "confirmRatioChangeBody": "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?"
       },
       "constants": {
         "stream-resolution-0": "3840*2160 (16:9)",
@@ -186,7 +186,7 @@
       "fps": "Frame Rate (FPS)",
       "modal": {
         "apiProcessingModalTitle": "Updating HDMI settings",
-        "confirmText": "Are you sure you want to update HDMI settings?"
+        "confirmUpdateBody": "Are you sure you want to update HDMI settings?"
       }
     },
     "osd": {
@@ -357,7 +357,7 @@
         "disabledReceiverButton": "Please enter an email address."
       },
       "toast": {
-        "limitExceeded": "Card Number Limit Exceeded",
+        "limitExceededTitle": "Card Number Limit Exceeded",
         "limitExceededBody": "Cannot create more than {{0}} cards"
       }
     }
@@ -388,13 +388,13 @@
       "pleaseUploadPhoto.avn": "Please upload your face photo.",
       "modal": {
         "group": {
-          "titleEditGroup": "Edit Group",
-          "titleCreateGroup": "Create a Group",
+          "editGroupTitle": "Edit Group",
+          "createGroupTitle": "Create a Group",
           "namePlaceholder": "Enter a name for this group",
           "nameHelper": "Maximum length: 32 characters",
           "confirmDeleteTitle": "Delete Group",
-          "confirmDeleteText": "Are you sure you want to delete group {{0}}?",
-          "Modify Group": "Modify Group"
+          "confirmDeleteBody": "Are you sure you want to delete group {{0}}?",
+          "editGroupTitle.avn": "Modify Group"
         },
         "database": {
           "title": "Database Encryption",
@@ -403,9 +403,9 @@
         },
         "member": {
           "confirmDeleteTitle": "Delete Member",
-          "confirmDeleteText": "Are you sure you want to delete member {{0}}?",
-          "titleNewMember": "New Member",
-          "titleEditMember": "Edit Member",
+          "confirmDeleteBody": "Are you sure you want to delete member {{0}}?",
+          "newMemberTitle": "New Member",
+          "editMemberTitle": "Edit Member",
           "primary": "Primary",
           "photo1": "Photo 1",
           "photo2": "Photo 2",
@@ -419,7 +419,7 @@
           "photoHelper": "Drag the image to position it correctly.",
           "save": "Save",
           "changePhoto": "Change Photo",
-          "confirmCloseText": "Are you sure you want to close this window? All changes you have made will be lost.",
+          "confirmCloseBody": "Are you sure you want to close this window? All changes you have made will be lost.",
           "errorNoPhoto": "No photo uploaded.",
           "errorPhotoSizeLimit": "Photo size should be less than 90 KB.",
           "Showing No Face": "Showing No Face",
@@ -455,9 +455,9 @@
       },
       "modal": {
         "confirmDeleteTitle": "Delete Account",
-        "confirmDeleteText": "Are you sure you want to delete account {{0}}?",
-        "titleNewUser": "New User",
-        "titleModifyUser": "Modify User",
+        "confirmDeleteBody": "Are you sure you want to delete account {{0}}?",
+        "newUserTitle": "New User",
+        "ModifyUserTitle": "Modify User",
         "usernamePlaceholder": "Enter a name for this account",
         "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space"
       },
@@ -512,7 +512,7 @@
         "Updating Member": "Updating Member"
       },
       "toast": {
-        "settingSuccess": "Setting Success",
+        "settingSuccessTitle": "Setting Success",
         "settingSuccessBody": "Photo Has Been Added to {{0}}"
       }
     }
@@ -538,7 +538,7 @@
         "confidence-level-2": "High"
       },
       "modal": {
-        "spoofText": "Are you sure you want to enable the Alpha version of image spoofing? It is an Alpha version. Faces judged to be image spoof will not be recognized. We will optimize and improve this feature in future software updates."
+        "spoofBody": "Are you sure you want to enable the Alpha version of image spoofing? It is an Alpha version. Faces judged to be image spoof will not be recognized. We will optimize and improve this feature in future software updates."
       },
       "tooltip": {
         "frDisabled": "Facial Recognition is disabled.",
@@ -578,9 +578,9 @@
         "key-threeThousand": "Face Recognition 3k"
       },
       "toast": {
-        "titleActivationSuccess": "Activated Success",
+        "activationSuccessTitle": "Activated Success",
         "activationSuccessBody": "{{0}} authorized successfully!",
-        "titleActivationFailed": "Activation Failed",
+        "activationFailedTitle": "Activation Failed",
         "keyRegisteredBody": "Key Already Registered"
       }
     }
@@ -609,11 +609,9 @@
       "primaryDNSPlaceholder": "Enter a primary DNS",
       "secondaryDNSPlaceholder": "Enter a secondary DNS",
       "modal": {
-        "confirmText": "Are you sure you want to update network settings?",
+        "confirmUpdateBody": "Are you sure you want to update network settings?",
         "testingSuccess": "DHCP Testing Success",
-        "testingFailed": "DHCP Testing Failed",
-        "redirectionSuccess": "Redirection Success",
-        "redirectionText": "The website has been redirected to the new address"
+        "testingFailed": "DHCP Testing Failed"
       },
       "tooltips": {
         "noChanges": "No changes were made."
@@ -633,12 +631,10 @@
       "secondaryHTTPPort": "Secondary HTTP Port",
       "portHelper": "Range: 1024-65535 Default: 8080",
       "modal": {
-        "apiProcessModalTitle": "Updating HTTP Settings",
-        "redirectionSuccess": "Redirection Success",
-        "redirectionText": "The website has been redirected to the new address"
+        "apiProcessModalTitle": "Updating HTTP Settings"
       },
       "toast": {
-        "settingSuccess": "Setting Success",
+        "settingSuccessTitle": "Setting Success",
         "successText": "DDNS Setting Success",
         "settingFailed": "Setting Failed",
         "failedText": "DDNS Setting Failed"
@@ -656,12 +652,14 @@
         "certificate-type-1": "Upload Certificate",
         "certificate-type-2": "Generate Certificate on This Device"
       },
-      "modal": {
-        "redirectionSuccess": "Redirection Success",
-        "redirectionText": "The website has been redirected to the new address"
-      },
       "tooltip": {
         "disabledButton": "Please enable HTTPS first."
+      }
+    },
+    "common": {
+      "modal": {
+        "redirectionSuccess": "Redirection Success",
+        "redirectionBody": "The website has been redirected to the new address"
       }
     }
   },
@@ -679,7 +677,7 @@
       "setManually": "Set the Date & Time Manually",
       "modal": {
         "apiProcessModalTitle": "Updating Date & Time",
-        "confirmText": "Updating date and time requires you to log in again. Are you sure you want to continue?"
+        "confirmUpdateBody": "Updating date and time requires you to log in again. Are you sure you want to continue?"
       }
     },
     "deviceMaintenance": {
@@ -693,9 +691,6 @@
       "importSystemSettings": "Import System Settings",
       "export": "Export",
       "import": "Import",
-      "importHelper": "Only ZIP file format is supported",
-      "selectFile": "Select File",
-      "noFileSelected": "No file selected.",
       "modal": {
         "apiProcessModalTitleRebooting": "Rebooting",
         "apiProcessModalTitleResetting": "Resetting",
@@ -709,16 +704,12 @@
         "importSuccessBody": "Device settings have imported. Please log in again."
       },
       "tooltip": {
-        "restoreAllSettingsHelper": "Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.",
-        "disabledButton": "Please select a file first."
+        "restoreAllSettingsHelper": "Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card."
       }
     },
     "softwareUpgrade": {
       "title": "Software Upgrade",
       "importFile": "Import File",
-      "importHelper": "Only ZIP file format is supported",
-      "selectFile": "Select File",
-      "noFileSelected": "No file selected.",
       "modal": {
         "apiProcessModalTitleUploading": "Uploading Software",
         "apiProcessModalTitleInstalling": "Installing Software",
@@ -735,9 +726,6 @@
         "stage4": "Stage 4",
         "upgradeSuccess": "Software Upgrade Success",
         "upgradeSuccessBody": "Redirect to the login page in {{0}} seconds"
-      },
-      "tooltip": {
-        "disabledButton": "Please select a file first."
       }
     },
     "systemLog": {
@@ -758,6 +746,14 @@
       "serialNumber": "S/N Code",
       "macAddress": "MAC Address",
       "buildVersion.avn": "Build Version"
+    },
+    "common": {
+      "importHelper": "Only ZIP file format is supported",
+      "selectFile": "Select File",
+      "noFileSelected": "No file selected.",
+      "tooltip": {
+        "disabledButton": "Please select a file first."
+      }
     }
   },
   "sdCard": {

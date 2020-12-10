@@ -294,7 +294,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                           <CustomNotifyModal
                             isShowModal={isShowConfirmModal}
                             modalTitle={i18n.t('system.dateTime.title')}
-                            modalBody={i18n.t('system.dateTime.modal.confirmText')}
+                            modalBody={i18n.t('system.dateTime.modal.confirmUpdateBody')}
                             isConfirmDisable={isApiProcessing}
                             onHide={() => setIsShowConfirmModal(false)}
                             onConfirm={() => {

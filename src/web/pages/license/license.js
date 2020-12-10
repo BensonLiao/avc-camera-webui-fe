@@ -41,7 +41,7 @@ const License = ({
     const check = utils.duplicateCheck(keyList, authKey);
     if (check) {
       notify.showErrorNotification({
-        title: i18n.t('analytics.license.toast.titleActivationFailed'),
+        title: i18n.t('analytics.license.toast.activationFailedTitle'),
         message: i18n.t('analytics.license.toast.keyRegisteredBody')
       });
     }
@@ -51,7 +51,7 @@ const License = ({
       api.authKey.addAuthKey(authKey)
         .then(response => {
           notify.showSuccessNotification({
-            title: i18n.t('analytics.license.toast.titleActivationSuccess'),
+            title: i18n.t('analytics.license.toast.activationSuccessTitle'),
             message: i18n.t('analytics.license.toast.activationSuccessBody', {
               0: (() => {
                 const result = [];
