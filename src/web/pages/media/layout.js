@@ -24,7 +24,7 @@ module.exports = class Media extends Base {
   }
 
   render() {
-    const {systemInformation: {modelName}} = this.props;
+    const {systemInformation: {projectId}} = this.props;
     return (
       <>
         {/* Left menu */}
@@ -45,7 +45,7 @@ module.exports = class Media extends Base {
             >
               RTSP
             </Link>
-            {modelName === SystemModelName.md2 && (
+            {projectId === SystemModelName.md2 && (
               <Link
                 to="/media/hdmi"
                 title={i18n.t('HDMI')}

@@ -182,6 +182,7 @@ module.exports = {
      * - serialNumber {string}
      * - modelName {string}
      * - firmware {string}
+     * - projectId {string}
      */
     getInformation: () => api({
       method: 'get',
