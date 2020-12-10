@@ -70,29 +70,30 @@ class SearchMember extends React.PureComponent {
       isVerifying: true,
       verifyStatus: false
     }, () =>
-      utils.convertPictureURL(photo).then(data =>
-        api.member.validatePicture(data)
-          .then(() =>
-            this.setState({
-              verifyStatus: true,
-              convertedPicture: data
-            })
-          )
-          .catch(error =>
-            this.setState({
-              verifyStatus: false,
-              errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
-            })
-          )
-          .finally(() => this.setState({isVerifying: false}))
-      ).catch(() => {
-        // If event URL is invalid
-        this.setState({
-          isVerifying: false,
-          photoNotFound: true
-        });
-      }
-      )
+      utils.convertPictureURL(photo)
+        .then(data =>
+          api.member.validatePicture(data)
+            .then(() =>
+              this.setState({
+                verifyStatus: true,
+                convertedPicture: data
+              })
+            )
+            .catch(error =>
+              this.setState({
+                verifyStatus: false,
+                errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+              })
+            )
+            .finally(() => this.setState({isVerifying: false}))
+        )
+        .catch(() =>
+          // If event URL is invalid
+          this.setState({
+            isVerifying: false,
+            photoNotFound: true
+          })
+        )
     );
 
   addToMember = ({member, convertedPicture}) => {
@@ -106,11 +107,12 @@ class SearchMember extends React.PureComponent {
       api.member.addPhoto({
         id: member.id,
         picture: convertedPicture
-      }).then(() =>
-        notify.showSuccessNotification({
-          title: i18n.t('Setting Success'),
-          message: i18n.t('Photo Has Been Added to {{0}}', {0: member.name})
-        }))
+      })
+        .then(() =>
+          notify.showSuccessNotification({
+            title: i18n.t('Setting Success'),
+            message: i18n.t('Photo Has Been Added to {{0}}', {0: member.name})
+          }))
         .then(getRouter().reload)
         .finally(() => this.hideApiProcessModal())
     );

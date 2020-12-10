@@ -57,15 +57,17 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
   const generateMemberAddHandler = defaultPictureUrl => event => {
     event.preventDefault();
     testEventSnapshotLink(defaultPictureUrl)
-      .then(() => setState(prevState => ({
-        ...prevState,
-        isShowMemberModal: true,
-        currentMember: null,
-        eventPictureUrl: defaultPictureUrl,
-        updateMemberModal: !prevState.updateMemberModal
-      }))
-        // if Event URL is invalid
-      ).catch(_ => {});
+      .then(() =>
+        setState(prevState => ({
+          ...prevState,
+          isShowMemberModal: true,
+          currentMember: null,
+          eventPictureUrl: defaultPictureUrl,
+          updateMemberModal: !prevState.updateMemberModal
+        }))
+      )
+      // if Event URL is invalid
+      .catch(_ => {});
   };
 
   /**
@@ -77,14 +79,16 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
   const generateMemberModifyHandler = (memberName, defaultPictureUrl) => event => {
     event.preventDefault();
     testEventSnapshotLink(defaultPictureUrl)
-      .then(() => setState(prevState => ({
-        ...prevState,
-        isShowSearchMemberModal: true,
-        currentMemberName: memberName,
-        eventPictureUrl: defaultPictureUrl
-      }))
-        // if Event URL is invalid
-      ).catch(_ => {});
+      .then(() =>
+        setState(prevState => ({
+          ...prevState,
+          isShowSearchMemberModal: true,
+          currentMemberName: memberName,
+          eventPictureUrl: defaultPictureUrl
+        }))
+      )
+      // if Event URL is invalid
+      .catch(_ => {});
   };
 
   const testEventSnapshotLink = defaultPictureUrl => new Promise(resolve => (
