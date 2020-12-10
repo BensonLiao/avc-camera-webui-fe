@@ -698,7 +698,7 @@
         "apiProcessModalTitleRebooting": "Rebooting",
         "apiProcessModalTitleResetting": "Resetting",
         "confirmRebootBody": "Are you sure you want to reboot the device?",
-        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following :\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card",
+        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following:\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card",
         "confirmResetAllSettingsBody": "The system will revert to factory default settings. All data and configurations you have saved will be overwritten.",
         "rebootSuccessBody": "The device has rebooted. Please log in again.",
         "resetSuccess": "Reset Success",

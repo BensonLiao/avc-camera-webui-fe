@@ -654,7 +654,100 @@
       }
     }
   },
-  "system": {},
+  "system": {
+    "dateTime": {
+      "title": "日付と時間",
+      "timeZone": "タイムゾーン",
+      "deviceDateTime": "デバイス時間",
+      "syncNTP": "ネットワークタイムサーバー (NTP)と同期する",
+      "ntpHost": "サーバーアドレス",
+      "hostPlaceholder": "Enter Your IP Address",
+      "syncTime": "時間同期",
+      "syncInterval": "更新頻度 (分)",
+      "syncWithComputer": "コンピューターと同期する",
+      "setManually": "手動設定",
+      "modal": {
+        "apiProcessModalTitle": "日付＆時刻を更新",
+        "confirmText": "デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります"
+      }
+    },
+    "deviceMaintenance": {
+      "title": "メンテナンス",
+      "systemReboot": "デバイスを再起動する",
+      "reboot": "再起動する",
+      "restoreDefaultSettings": "設定を初期値に戻す",
+      "restoreAllSettings": "設定を初期値に戻す",
+      "reset": "初期化",
+      "exportSystemSettings": "システム設定ファイルをエクスポートする",
+      "importSystemSettings": "システム設定ファイルをインポートする",
+      "export": "エクスポート",
+      "import": "インポート",
+      "importHelper": "zipファイルのみサポートしています",
+      "selectFile": "ファイルを選択する",
+      "noFileSelected": "選択されたファイルがありません",
+      "modal": {
+        "apiProcessModalTitleRebooting": "デバイス再起動しています",
+        "apiProcessModalTitleResetting": "初期化",
+        "confirmRebootBody": "デバイスを再起動しますか？",
+        "confirmRestoreDefaultSettingsBody": "デバイスは出荷時の初期設定に戻り、下記の項目を除き、すべてのデータと設定は削除されます:\n\n• メンバーリストとグループデータ \n• アカウント設定 \n• フォーカスとズーム設定 \n• RTSP設定 \n• インターネット/ネットワーク設定 \n• SDカード内のデータ",
+        "confirmResetAllSettingsBody": "デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます",
+        "rebootSuccessBody": "デバイスは再起動しましたため、再度ログインしてください",
+        "resetSuccess": "初期化完了",
+        "resetAllSettingsSuccessBody": "クイックインストールガイドを参照して初期設定を行って下さい",
+        "resetDefaultSettingsSuccessBody": "デバイスが初期化済再ログインして下さい",
+        "importSuccessBody": "デバイス設定をインポート完了再ログインして下さい"
+      },
+      "tooltip": {
+        "restoreAllSettingsHelper": "本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります",
+        "disabledButton": "ファイルを選択してください"
+      }
+    },
+    "softwareUpgrade": {
+      "title": "ソフトウェアアップグレード",
+      "importFile": "設定ファイルをインポートする",
+      "importHelper": "zipファイルのみサポートしています",
+      "selectFile": "ファイルを選択する",
+      "noFileSelected": "選択されたファイルがありません",
+      "modal": {
+        "apiProcessModalTitleUploading": "ソフトウェアをアップロードしています",
+        "apiProcessModalTitleInstalling": "ソフトウェアをインストールしています",
+        "apiProcessModalTitleShutDown": "デバイスをシャットダウンしています",
+        "apiProcessModalTitleRestarting": "デバイスを再起動しています",
+        "uploadingBody": "※ アップグレード中にはブラウザを閉じないでください",
+        "uploadSoftware": "ソフトウェアのアップロード",
+        "installSoftware": "ソフトウェアのインストール",
+        "shutDown": "デバイスをシャットダウンする",
+        "restart": "デバイスを再起動する",
+        "stage1": "ステージ1",
+        "stage2": "ステージ2",
+        "stage3": "ステージ3",
+        "stage4": "ステージ4",
+        "upgradeSuccess": "ソフトウェアアップグレードは成功しました",
+        "upgradeSuccessBody": "{{0}} 秒後に再度ログインページへリダイレクトします"
+      },
+      "tooltip": {
+        "disabledButton": "ファイルを選択してください"
+      }
+    },
+    "systemLog": {
+      "title": "システムログ",
+      "systemLogFile": "システムログファイル",
+      "deleteLogs": "削除",
+      "download": "ダウンロード",
+      "modal": {
+        "confirmDeleteTitle": "システムログファイルを削除する",
+        "confirmDeleteBody": "システムログファイルを削除しますか？",
+        "apiProcessModalTitle": "システムログをダウンロード",
+        "downloadingBody": "ダウンロードの進行状況"
+      }
+    },
+    "information": {
+      "title": "デバイス情報",
+      "software": "ソフトウェアバージョン",
+      "serialNumber": "S/N 碼",
+      "macAddress": "MACアドレス"
+    }
+  },
   "sdCard": {
     "title": "SDカード",
     "enable": "SDカードを有効にする",

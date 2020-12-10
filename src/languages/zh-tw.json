@@ -654,7 +654,100 @@
       }
     }
   },
-  "system": {},
+  "system": {
+    "dateTime": {
+      "title": "日期與時刻",
+      "timeZone": "時區",
+      "deviceDateTime": "裝置時間",
+      "syncNTP": "與網路時間伺服器 (NTP) 同步",
+      "ntpHost": "伺服器位址",
+      "hostPlaceholder": "Enter Your IP Address",
+      "syncTime": "每日更新時刻",
+      "syncInterval": "更新頻率 (分)",
+      "syncWithComputer": "與您的電腦同步",
+      "setManually": "手動調整",
+      "modal": {
+        "apiProcessModalTitle": "更新日期與時間",
+        "confirmText": "您確定要更裝置時間嗎? 更改裝置時間必須重新登入"
+      }
+    },
+    "deviceMaintenance": {
+      "title": "維護",
+      "systemReboot": "重新啟動裝置",
+      "reboot": "重新啟動",
+      "restoreDefaultSettings": "還原成原廠設定",
+      "restoreAllSettings": "還原所有設定",
+      "reset": "清除資料",
+      "exportSystemSettings": "匯出系統設定值",
+      "importSystemSettings": "匯入系統設定值",
+      "export": "匯出",
+      "import": "匯入",
+      "importHelper": "僅支援 .zip 檔案格式",
+      "selectFile": "選擇檔案",
+      "noFileSelected": "未選擇任何檔案",
+      "modal": {
+        "apiProcessModalTitleRebooting": "重新啟動裝置中",
+        "apiProcessModalTitleResetting": "清除資料中",
+        "confirmRebootBody": "您確定要重新啟動裝置嗎？",
+        "confirmRestoreDefaultSettingsBody": "裝置將還原成原廠設定，除了下列項目，其他所有的資料和設定將會被清除:\n\n• 成員清單和成員群組資料 \n• 帳號資料 \n• 對焦及縮放設定 \n• RTSP設定 \n• 網路設定 \n• 記憶卡儲存資料",
+        "confirmResetAllSettingsBody": "裝置將還原成原廠設定，所有資料和設定將會被清除",
+        "rebootSuccessBody": "裝置已重新啟動，請重新登入",
+        "resetSuccess": "重設成功",
+        "resetAllSettingsSuccessBody": "請參閱安裝說明執行初始設定",
+        "resetDefaultSettingsSuccessBody": "裝置已還原，請重新登入",
+        "importSuccessBody": "匯入系統設定完成，請重新登入"
+      },
+      "tooltip": {
+        "restoreAllSettingsHelper": "勾選此項目會清除並還原成員及群組、系統帳號、縮放及對焦、RTSP、網路、應用程式、儲存在記憶卡的資料...等，所有資料和設定",
+        "disabledButton": "請先選擇一個檔案"
+      }
+    },
+    "softwareUpgrade": {
+      "title": "軟體更新",
+      "importFile": "軟體檔案",
+      "importHelper": "僅支援 .zip 檔案格式",
+      "selectFile": "選擇檔案",
+      "noFileSelected": "未選擇任何檔案",
+      "modal": {
+        "apiProcessModalTitleUploading": "軟體上傳中",
+        "apiProcessModalTitleInstalling": "軟體安裝中",
+        "apiProcessModalTitleShutDown": "裝置關閉中",
+        "apiProcessModalTitleRestarting": "裝置重新啟動中",
+        "uploadingBody": "※ 升級時請勿關閉瀏覽器",
+        "uploadSoftware": "上傳軟體",
+        "installSoftware": "安裝軟體",
+        "shutDown": "關閉裝置",
+        "restart": "重新啟動裝置",
+        "stage1": "階段 1",
+        "stage2": "階段 2",
+        "stage3": "階段 3",
+        "stage4": "階段 4",
+        "upgradeSuccess": "軟體升級成功",
+        "upgradeSuccessBody": "於 {{0}} 秒後重新導向至登入頁面"
+      },
+      "tooltip": {
+        "disabledButton": "請先選擇一個檔案"
+      }
+    },
+    "systemLog": {
+      "title": "系統紀錄",
+      "systemLogFile": "系統紀錄檔案",
+      "deleteLogs": "刪除",
+      "download": "下載",
+      "modal": {
+        "confirmDeleteTitle": "刪除系統紀錄檔案",
+        "confirmDeleteBody": "您確定要刪除系統紀錄檔案嗎？",
+        "apiProcessModalTitle": "下載系統紀錄檔案",
+        "downloadingBody": "下載進度"
+      }
+    },
+    "information": {
+      "title": "裝置資訊",
+      "software": "軟體版本",
+      "serialNumber": "S/N 碼",
+      "macAddress": "實體位址"
+    }
+  },
   "sdCard": {
     "title": "記憶卡",
     "enable": "開啟記憶卡",

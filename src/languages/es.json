@@ -654,7 +654,100 @@
       }
     }
   },
-  "system": {},
+  "system": {
+    "dateTime": {
+      "title": "Fecha y hora",
+      "timeZone": "Zona horaria",
+      "deviceDateTime": "Hora del dispositivo",
+      "syncNTP": "Sincronizar con Network Time Server (NTP)",
+      "ntpHost": "Dirección del servidor",
+      "hostPlaceholder": "Enter Your IP Address",
+      "syncTime": "Hora de actualización diaria",
+      "syncInterval": "Frecuencia de actualización (minutos)",
+      "syncWithComputer": " Sincronizar con su computadora",
+      "setManually": "Ajuste manual",
+      "modal": {
+        "apiProcessModalTitle": "Actualización de Fecha y Hora",
+        "confirmText": "¿Estás seguro de que deseas cambiar la hora del dispositivo? Debes iniciar sesión nuevamente para cambiar la hora del dispositivo"
+      }
+    },
+    "deviceMaintenance": {
+      "title": "mantenimiento",
+      "systemReboot": "Reiniciar el dispositivo",
+      "reboot": "Reiniciar",
+      "restoreDefaultSettings": "Restaurar a la configuración original de fábrica",
+      "restoreAllSettings": "Restaurar todas las config",
+      "reset": "Restaurar",
+      "exportSystemSettings": "Exportar configuración del sistema",
+      "importSystemSettings": "Importar configuración del sistema",
+      "export": "Exportar",
+      "import": "Importar",
+      "importHelper": "Solo admite formato de archivo .zip",
+      "selectFile": "Seleccionar Archivo",
+      "noFileSelected": "Ningún archivo seleccionado",
+      "modal": {
+        "apiProcessModalTitleRebooting": "Reinicio del dispositivo",
+        "apiProcessModalTitleResetting": "Está restaurando",
+        "confirmRebootBody": "¿Estás seguro de que deseas reiniciar el dispositivo?",
+        "confirmRestoreDefaultSettingsBody": "El dispositivo se restaurará a la configuración original de fábrica, excepto por los siguientes elementos, todos los demás datos y configuraciones se borrarán:\n\n• Lista de miembros e información del grupo de miembros \n• Información de la cuenta \n• Configuración de enfoque y zoom \n• Configuración de RTSP \n• Configuración de la red \n• Tarjeta de memoria para almacenar datos",
+        "confirmResetAllSettingsBody": "El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán",
+        "rebootSuccessBody": "El dispositivo se reinició, inicie la sesión nuevamente",
+        "resetSuccess": "Restablecer Existosa",
+        "resetAllSettingsSuccessBody": "Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.",
+        "resetDefaultSettingsSuccessBody": "El dispositivo se ha sido reiniciado. Por favor ingrese de nuevo.",
+        "importSuccessBody": "La Configuración del dispositivo ha sido importada. Por favor ingrese de nuevo"
+      },
+      "tooltip": {
+        "restoreAllSettingsHelper": "Al marcar este elemento, se borrarán y restaurarán miembros y grupos, cuentas del sistema, zoom y enfoque, RTSP, red, aplicaciones, datos almacenados en la tarjeta de memoria ... etc., todos los datos y configuraciones",
+        "disabledButton": "Seleccione primero un archivo"
+      }
+    },
+    "softwareUpgrade": {
+      "title": "Actualización de software",
+      "importFile": "Importar perfil",
+      "importHelper": "Solo admite formato de archivo .zip",
+      "selectFile": "Seleccionar Archivo",
+      "noFileSelected": "Ningún archivo seleccionado",
+      "modal": {
+        "apiProcessModalTitleUploading": "Carga de software",
+        "apiProcessModalTitleInstalling": "Instalación de software",
+        "apiProcessModalTitleShutDown": "El dispositivo se está borrando",
+        "apiProcessModalTitleRestarting": "Reinicio del dispositivo",
+        "uploadingBody": "※ No cierre el navegador al actualizar",
+        "uploadSoftware": "Cargar software",
+        "installSoftware": "Instalar software",
+        "shutDown": "Apaga el dispositivo",
+        "restart": "Reiniciar el dipositivo",
+        "stage1": "Nivel 1",
+        "stage2": "Nivel 2",
+        "stage3": "Nivel 3",
+        "stage4": "Nivel 4",
+        "upgradeSuccess": "Actualización de software con éxito",
+        "upgradeSuccessBody": "Redirigir a la página de inicio de sesión en {{0}} segundos"
+      },
+      "tooltip": {
+        "disabledButton": "Seleccione primero un archivo"
+      }
+    },
+    "systemLog": {
+      "title": "Registro del sistema",
+      "systemLogFile": "Archivo de registro del sistema",
+      "deleteLogs": "Borrar",
+      "download": "descargar",
+      "modal": {
+        "confirmDeleteTitle": "Borrar archivo de registro del sistema",
+        "confirmDeleteBody": "¿Está seguro de que desea borrar el archivo de registro del sistema?",
+        "apiProcessModalTitle": "Descargar el archivo de registro del sistema",
+        "downloadingBody": "Progreso de Descarga"
+      }
+    },
+    "information": {
+      "title": "Información del dispositivo",
+      "software": "Versión del software",
+      "serialNumber": "S/N Code",
+      "macAddress": "Dirección física"
+    }
+  },
   "sdCard": {
     "title": "Tarjeta de memoria",
     "enable": "Habilitar tarjeta SD",
