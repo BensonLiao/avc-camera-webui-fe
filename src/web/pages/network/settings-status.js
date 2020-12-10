@@ -7,7 +7,7 @@ const SettingsStatus = ({networkSettings: {ipType, mac, ipAddress, primaryDNS, s
   const list = [
     {
       name: i18n.t('network.network.ipAssignment'),
-      data: i18n.t(ipType === '0' ? i18n.t('network.network.static') : i18n.t('network.network.dynamic'))
+      data: i18n.t(ipType === '0' ? 'network.network.static' : 'network.network.dynamic')
     },
     {
       name: i18n.t('network.network.macAddress'),

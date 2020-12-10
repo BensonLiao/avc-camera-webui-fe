@@ -58,7 +58,9 @@
     "sdcard": "SD Card",
     "facialRecognition": "Facial Recognition: ",
     "ageGender: ": "Age & Gender: ",
-    "humanDetection: ": "Human Detection: "
+    "humanDetection: ": "Human Detection: ",
+    "on": "On",
+    "off": "Off"
   },
   "videoSetting": {
     "title": "Image",
@@ -779,7 +781,7 @@
       "Nonfunctioning": "Nonfunctioning",
       "Read-only Access": "Read-only Access",
       "Unknown Error": "Unknown Error",
-      "UNKNOWN STATUS": "UNKNOWN STATUS"
+      "unknownStatus": "UNKNOWN STATUS"
     },
     "modal": {
       "titleDisable": "Disabling SD Card",

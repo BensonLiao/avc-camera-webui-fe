@@ -57,7 +57,9 @@
     "sdcard": "記憶卡",
     "facialRecognition": "臉部辨識：",
     "ageGender: ": "性別年齡：",
-    "humanDetection: ": "人形偵測："
+    "humanDetection: ": "人形偵測：",
+    "on": "開",
+    "off": "關"
   },
   "videoSetting": {
     "title": "圖像",
@@ -768,7 +770,7 @@
       "Nonfunctioning": "不正常",
       "Read-only Access": "唯獨",
       "Unknown Error": "未知錯誤",
-      "UNKNOWN STATUS": "UNKNOWN STATUS"
+      "unknownStatus": "UNKNOWN STATUS"
     },
     "modal": {
       "titleDisable": "關閉記憶卡",

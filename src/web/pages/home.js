@@ -216,14 +216,14 @@ module.exports = class Home extends Base {
                             <div>
                               <span>{i18n.t('home.facialRecognition')}</span>
                               <span className={classTable.faceRecognitionState}>
-                                {i18n.t(`${isEnableFaceRecognitionKey ? faceRecognitionStatus.isEnable ? 'On' : 'Off' : 'Authentication Required'}`)}
+                                {i18n.t(`home.${isEnableFaceRecognitionKey ? faceRecognitionStatus.isEnable ? 'on' : 'off' : 'Authentication Required'}`)}
                               </span>
                             </div>
                             {isEnableAgeGenderKey && (
                               <div>
                                 <span>{i18n.t('home.ageGender')}</span>
                                 <span className={classTable.ageGenderState}>
-                                  {i18n.t(`${isEnableAgeGenderKey ? 'On' : 'Off'}`)}
+                                  {i18n.t(`home.${isEnableAgeGenderKey ? 'on' : 'off'}`)}
                                 </span>
                               </div>
                             )}
@@ -231,7 +231,7 @@ module.exports = class Home extends Base {
                               <div>
                                 <span>{i18n.t('home.humanDetection')}</span>
                                 <span className={classTable.humanoidDetectionState}>
-                                  {i18n.t(`${isEnableHumanoidDetectionKey ? 'On' : 'Off'}`)}
+                                  {i18n.t(`home.${isEnableHumanoidDetectionKey ? 'on' : 'off'}`)}
                                 </span>
                               </div>
                             )}
@@ -243,7 +243,7 @@ module.exports = class Home extends Base {
                             />
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? 'd-none' : '')}>
-                            <label>{i18n.t(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}</label>
+                            <label>{i18n.t(`sdCard.constants.${SD_STATUS_LIST[sdStatus] || 'unknownStatus'}`)}</label>
                           </td>
                         </tr>
                       </tbody>

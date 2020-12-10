@@ -57,7 +57,9 @@
     "sdcard": "SDカード",
     "facialRecognition": "顔認証 : ",
     "ageGender: ": "性別年齢推定 : ",
-    "humanDetection: ": "人体検知 : "
+    "humanDetection: ": "人体検知 : ",
+    "on": "有効",
+    "off": "無効"
   },
   "videoSetting": {
     "title": "画像設定",
@@ -768,7 +770,7 @@
       "Nonfunctioning": "異常",
       "Read-only Access": "読み取り専用",
       "Unknown Error": "不明なエラー",
-      "UNKNOWN STATUS": "UNKNOWN STATUS"
+      "unknownStatus": "UNKNOWN STATUS"
     },
     "modal": {
       "titleDisable": "SDカードを取り外します",

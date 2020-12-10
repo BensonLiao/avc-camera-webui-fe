@@ -57,7 +57,9 @@
     "sdcard": "Tarjeta de memoria",
     "facialRecognition": "Reconocimiento facial: ",
     "ageGender: ": "Género y edad: ",
-    "humanDetection: ": "Detección humanoide: "
+    "humanDetection: ": "Detección humanoide: ",
+    "on": "Habilitar",
+    "off": "cerrar"
   },
   "videoSetting": {
     "title": "imagen",
@@ -768,7 +770,7 @@
       "Nonfunctioning": "Anormal",
       "Read-only Access": "Solo lectura",
       "Unknown Error": "error desconocido",
-      "UNKNOWN STATUS": "UNKNOWN STATUS"
+      "unknownStatus": "UNKNOWN STATUS"
     },
     "modal": {
       "titleDisable": "Borrar la tarjeta de memoria",
