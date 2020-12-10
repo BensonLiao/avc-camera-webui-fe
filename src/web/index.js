@@ -92,18 +92,9 @@ const removeHDMIPage = async () => {
     return;
   }
 
-  const removePageFromRouter = async informationType => {
-    const systemInformation = await api.system.getInformation();
-    if (systemInformation.data[informationType] !== SystemModelName.md2) {
-      router.routes = router.routes.filter(route => route.name !== 'web.media.hdmi');
-    }
-  };
-
-  // call projectId for noBrand, modelName for generic
-  if (window.isNoBrand) {
-    await removePageFromRouter('projectId');
-  } else {
-    await removePageFromRouter('modelName');
+  const systemInformation = await api.system.getInformation();
+  if (systemInformation.data.projectId !== SystemModelName.md2) {
+    router.routes = router.routes.filter(route => route.name !== 'web.media.hdmi');
   }
 };
 
