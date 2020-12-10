@@ -626,9 +626,9 @@
       },
       "toast": {
         "settingSuccessTitle": "設定成功",
-        "successText": "DDNS 設定成功！",
+        "successBody": "DDNS 設定成功！",
         "settingFailed": "設定失敗",
-        "failedText": "DDNS 設定失敗！"
+        "failedBody": "DDNS 設定失敗！"
       }
     },
     "https": {
@@ -772,8 +772,8 @@
       "unknownStatus": "UNKNOWN STATUS"
     },
     "modal": {
-      "titleDisable": "關閉記憶卡",
-      "disableText": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存",
+      "disableTitle": "關閉記憶卡",
+      "disableBody": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存",
       "disabledFormatButton": "您即將格式化 Micro SD 卡，確認是否繼續？",
       "disabledUnmountButton": "您即將卸除 Micro SD 卡，確認是否繼續？"
     },

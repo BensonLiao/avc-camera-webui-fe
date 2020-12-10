@@ -86,8 +86,8 @@ const SDCard = ({
                     </div>
                     <CustomNotifyModal
                       isShowModal={isShowDisableModal}
-                      modalTitle={i18n.t('sdCard.modal.titleDisable')}
-                      modalBody={i18n.t('sdCard.modal.disableText')}
+                      modalTitle={i18n.t('sdCard.modal.disableTitle')}
+                      modalBody={i18n.t('sdCard.modal.disableBody')}
                       isConfirmDisable={isApiProcessing}
                       onHide={getRouter().reload} // Reload to reset SD card switch button state
                       onConfirm={() => callApi('enableSD', {sdEnabled: false})}

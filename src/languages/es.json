@@ -626,9 +626,9 @@
       },
       "toast": {
         "settingSuccessTitle": "Configuración Exitosa",
-        "successText": "¡configuración de DDNS exitosa!",
+        "successBody": "¡configuración de DDNS exitosa!",
         "settingFailed": "Configuración fallida",
-        "failedText": "¡configuración de DDNS fallida！"
+        "failedBody": "¡configuración de DDNS fallida！"
       }
     },
     "https": {
@@ -769,8 +769,8 @@
       "unknownStatus": "UNKNOWN STATUS"
     },
     "modal": {
-      "titleDisable": "Borrar la tarjeta de memoria",
-      "disableText": "¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento.",
+      "disableTitle": "Borrar la tarjeta de memoria",
+      "disableBody": "¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento.",
       "disabledFormatButton": "Estás a punto de formatear la tarjeta Micro SD. ¿Quieres continuar?",
       "disabledUnmountButton": "Estás a punto de retirar la tarjeta Micro SD. ¿Quieres continuar?"
     },

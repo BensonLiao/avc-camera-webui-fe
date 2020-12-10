@@ -626,9 +626,9 @@
       },
       "toast": {
         "settingSuccessTitle": "設定が成功しました",
-        "successText": "DDNS 設定が成功しました",
+        "successBody": "DDNS 設定が成功しました",
         "settingFailed": "設定が失敗しました",
-        "failedText": "DDNS 設定が失敗しました"
+        "failedBody": "DDNS 設定が失敗しました"
       }
     },
     "https": {
@@ -770,8 +770,8 @@
       "unknownStatus": "UNKNOWN STATUS"
     },
     "modal": {
-      "titleDisable": "SDカードを取り外します",
-      "disableText": "SDカードを取り外しますか？イベントによるキャプチャが保存されません",
+      "disableTitle": "SDカードを取り外します",
+      "disableBody": "SDカードを取り外しますか？イベントによるキャプチャが保存されません",
       "disabledFormatButton": "Micro SDカードをフォーマットしてもよろしいですか？",
       "disabledUnmountButton": "Micro SDカードをア取り外してよろしいですか？"
     },

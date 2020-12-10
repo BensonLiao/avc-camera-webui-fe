@@ -635,9 +635,9 @@
       },
       "toast": {
         "settingSuccessTitle": "Setting Success",
-        "successText": "DDNS Setting Success",
+        "successBody": "DDNS Setting Success",
         "settingFailed": "Setting Failed",
-        "failedText": "DDNS Setting Failed"
+        "failedBody": "DDNS Setting Failed"
       }
     },
     "https": {
@@ -780,8 +780,8 @@
       "unknownStatus": "UNKNOWN STATUS"
     },
     "modal": {
-      "titleDisable": "Disabling SD Card",
-      "disableText": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?",
+      "disableTitle": "Disabling SD Card",
+      "disableBody": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?",
       "disabledFormatButton": "Are you sure you want to format the Micro SD card?",
       "disabledUnmountButton": "Are you sure you want to unmount the Micro SD card?"
     },

@@ -17,12 +17,12 @@ const TCPIPDDNS = ({ddnsInfo, isApiProcessing}) => {
         if (response.data.ddnsHostStatus) {
           notify.showSuccessNotification({
             title: i18n.t('network.tcpip.toast.settingSuccessTitle'),
-            message: i18n.t('network.tcpip.toast.successText')
+            message: i18n.t('network.tcpip.toast.successBody')
           });
         } else {
           notify.showErrorNotification({
             title: i18n.t('network.tcpip.toast.settingFailed'),
-            message: i18n.t('network.tcpip.toast.failedText')
+            message: i18n.t('network.tcpip.toast.failedBody')
           });
         }
 
