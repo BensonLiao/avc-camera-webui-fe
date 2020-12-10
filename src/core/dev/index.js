@@ -60,8 +60,8 @@ mockAxios
       lastPinged: new Date(),
       count: ++ping.count
     }).write();
-    // Simulate pinging web 5 times until server is unreachable (mock restarting)
-    if (ping.count >= 5) {
+    // Simulate pinging web x times until server is unreachable (mock restarting)
+    if (ping.count >= 2) {
       db.get('ping').assign({
         ...ping,
         lastPinged: new Date()
@@ -74,11 +74,11 @@ mockAxios
   })
   .onGet('/api/ping/app').reply(config => {
     // Length of time for mock restarting device (seconds)
-    const restartTimeLength = 4;
+    const restartTimeLength = 2;
 
     let {count} = db.get('ping').value();
-    // Count is to simulate process has finished pinging 'web' 5 times
-    if (count >= 5) {
+    // Count is to simulate process has finished pinging 'web' x times
+    if (count >= 2) {
       return setDelay(mockResponseWithLog(config, [200]), restartTimeLength * 1000);
     }
 
@@ -96,11 +96,11 @@ mockAxios
     return setDelay(mockResponseWithLog(config, [200, db.get('video').assign(data).write()]), 1000);
   })
   .onPost('/api/video/settings/_reset').reply(config => mockResponseWithLog(config, [200, db.get('video').assign(db.get('videoDefault').value()).write()]))
-  .onPost('/api/video/settings/_auto-focus').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000)) // The real api is delay 45s.
+  .onPost('/api/video/settings/_auto-focus').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000))
   .onPost('/api/system/_setup').reply(config => mockResponseWithLog(config, [200, {}]))
   .onGet('/api/system/information').reply(config => mockResponseWithLog(config, [200, db.get('system').value()]))
   .onGet('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').value()]))
-  .onPut('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/system/datetime').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('systemDateTime').assign(JSON.parse(config.data)).write()]), 1000))
   .onGet('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').value()]))
   .onPut('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/network/testdhcp').reply(config => {
@@ -149,7 +149,7 @@ mockAxios
   .onPost('/api/system/firmware').reply(config => {
     return new Promise(resolve => {
       // Length of time for mocking uploading firmware (seconds)
-      const timeToFinish = 3;
+      const timeToFinish = 2;
 
       let count = 0;
       // Set progress bar indicator
@@ -194,7 +194,7 @@ mockAxios
   .onGet('/api/system/systeminfo/log.zip').reply(config => {
     return new Promise(resolve => {
       // Length of time for mocking uploading firmware (seconds)
-      const timeToFinish = 3;
+      const timeToFinish = 2;
 
       let count = 0;
       // Set progress bar indicator
@@ -215,11 +215,11 @@ mockAxios
   })
   .onPost('/api/system/systeminfo/clearLog').reply(config => mockResponseWithLog(config, [204, {}]))
   .onGet('/api/multimedia/stream/settings').reply(config => mockResponseWithLog(config, [200, db.get('stream').value()]))
-  .onPut('/api/multimedia/stream/settings').reply(config => mockResponseWithLog(config, [200, db.get('stream').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/multimedia/stream/settings').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('stream').assign(JSON.parse(config.data)).write()]), 1000))
   .onPost('/api/multimedia/stream/settings/_reset').reply(config => mockResponseWithLog(config, [200, db.get('stream').assign(db.get('streamDefault').value()).write()]))
   .onGet('/api/multimedia/audio/settings').reply(config => mockResponseWithLog(config, [200, db.get('audioSettings').value()]))
   .onGet('/api/multimedia/hdmi/settings').reply(config => mockResponseWithLog(config, [200, db.get('hdmiSettings').value()]))
-  .onPut('/api/multimedia/hdmi/settings').reply(config => mockResponseWithLog(config, [200, db.get('hdmiSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/multimedia/hdmi/settings').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('hdmiSettings').assign(JSON.parse(config.data)).write()]), 1000))
   .onPut('/api/multimedia/audio/settings').reply(config => mockResponseWithLog(config, [200, db.get('audioSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/multimedia/rtsp/settings').reply(config => mockResponseWithLog(config, [200, db.get('rtspSettings').value()]))
   .onPut('/api/multimedia/rtsp/settings').reply(config => mockResponseWithLog(config, [200, db.get('rtspSettings').assign(JSON.parse(config.data)).write()]))
