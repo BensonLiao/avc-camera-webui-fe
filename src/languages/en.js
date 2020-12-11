@@ -703,6 +703,8 @@ module.exports = {
       'Enter Router/Gateway': 'Enter Router/Gateway',
       'Enter a primary DNS': 'Enter a primary DNS',
       'Enter a secondary DNS': 'Enter a secondary DNS',
+      Dynamic: 'Dynamic',
+      Static: 'Static',
 
       // /network/tcp-ip
       'Enable DDNS': 'Enable DDNS',

@@ -693,7 +693,7 @@ module.exports = {
       'Primary DNS': '主要 DNS',
       'Secondary DNS (Optional)': '次要 DNS',
       Interface: '連接方式',
-      'IP Assignment': 'IP 取得方式',
+      'IP Assignment': '取得IP位址',
       'Secondary DNS': '次要 DNS',
       'No changes were made.': '沒有設定被更改',
       'Please enable HTTPS first.': '請先開啟 HTTPS 功能',
@@ -703,6 +703,8 @@ module.exports = {
       'Enter Router/Gateway': '請輸入路由器/閘道',
       'Enter a primary DNS': '請輸入主要DNS',
       'Enter a secondary DNS': '請輸入次要DNS',
+      Dynamic: '動態IP位址',
+      Static: '固定IP位址',
 
       // /network/tcp-ip
       'Enable DDNS': '開啟 DDNS 服務',
