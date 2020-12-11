@@ -758,6 +758,7 @@
     "filesystem": "Formato del sistema de archivos",
     "status": "estado",
     "storageSpace": "Espacio de almacenamiento",
+    "unrecognized": "No reconocido",
     "constants": {
       "Functioning": "normal",
       "Unmounted": "No montado",

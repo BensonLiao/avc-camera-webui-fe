@@ -758,6 +758,7 @@
     "filesystem": "ファイルシステム",
     "status": "ステータス",
     "storageSpace": "ストレージ容量",
+    "unrecognized": "不明なファイルシステム",
     "constants": {
       "Functioning": "正常",
       "Unmounted": "マウントされていません",

@@ -160,7 +160,7 @@ class SearchMember extends React.PureComponent {
                 { errorMessage && (
                   <p className="text-size-14 mb-1 text-danger validate-error-message">
                     <i className="fas fa-exclamation-triangle mr-1"/>
-                    {`${i18n.t(`userManagement.members.moda.member.${errorMessage}`)}`}
+                    {`${i18n.t(`userManagement.members.modal.member.${errorMessage}`)}`}
                   </p>
                 )}
               </div>

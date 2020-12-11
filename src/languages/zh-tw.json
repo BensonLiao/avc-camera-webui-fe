@@ -758,6 +758,7 @@
     "filesystem": "檔案系統格式",
     "status": "狀態",
     "storageSpace": "儲存空間",
+    "unrecognized": "無法識別",
     "constants": {
       "Functioning": "正常",
       "Unmounted": "未掛載",

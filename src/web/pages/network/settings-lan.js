@@ -197,7 +197,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
               {renderField(i18n.t('network.network.routerGateway'), 'gateway', i18n.t('network.network.routerGatewayPlaceholder'))}
               {renderField(i18n.t('network.network.primaryDNS'), 'primaryDNS', i18n.t('network.network.primaryDNSPlaceholder'))}
               {renderField(i18n.t('network.network.secondaryDNSOptional'), 'secondaryDNS', i18n.t('network.network.secondaryDNSPlaceholder'))}
-              <CustomTooltip show={JSON.stringify(networkSettings) === JSON.stringify(values)} title={i18n.t('network.network.tooltips.noChanges')}>
+              <CustomTooltip show={JSON.stringify(networkSettings) === JSON.stringify(values)} title={i18n.t('network.network.tooltip.noChanges')}>
                 <div>
                   <button
                     type="button"

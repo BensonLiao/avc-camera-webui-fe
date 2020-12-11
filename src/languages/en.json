@@ -769,7 +769,7 @@
     "filesystem": "Filesystem",
     "status": "Status",
     "storageSpace": "Storage Space",
-    "unrecognized.avn": "Unrecognized",
+    "unrecognized": "Unrecognized",
     "constants": {
       "Functioning": "Functioning",
       "Unmounted": "Unmounted",
