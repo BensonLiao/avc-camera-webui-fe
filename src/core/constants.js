@@ -1,4 +1,5 @@
-const data = require('cldr-dates-full/main/zh-Hant/timeZoneNames.json');
+const cldrLangCode = window.currentLanguageCode === 'zh-tw' ? 'zh-Hant' : window.currentLanguageCode || 'en';
+const cldrTimeZoneData = require(`cldr-dates-full/main/${cldrLangCode}/timeZoneNames.json`);
 module.exports = {
   store: {
     CHANGE: 'STORE_CHANGE_',
@@ -246,7 +247,7 @@ module.exports = {
           break;
       }
 
-      const i18nZoneName = data.main['zh-Hant'].dates.timeZoneNames.metazone[zoneAltNameKey];
+      const i18nZoneName = cldrTimeZoneData.main[cldrLangCode].dates.timeZoneNames.metazone[zoneAltNameKey];
 
       const tzNameZone = zone.name.substring(0, zone.name.indexOf('/'));
       let tzNameCountry = zone.name.substring(zone.name.lastIndexOf('/') + 1, zone.name.length);
@@ -279,7 +280,7 @@ module.exports = {
           break;
       }
 
-      const i18nCityName = data.main['zh-Hant'].dates.timeZoneNames.zone[tzNameZone][tzNameCountry].exemplarCity;
+      const i18nCityName = cldrTimeZoneData.main[cldrLangCode].dates.timeZoneNames.zone[tzNameZone][tzNameCountry].exemplarCity;
 
       const utcOffsetLabel = zone.rawFormat.substring(0, zone.rawFormat.indexOf(' '));
       return {
