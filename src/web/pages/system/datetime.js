@@ -20,19 +20,55 @@ import {useContextState} from '../../stateProvider';
 import withGlobalStatus from '../../withGlobalStatus';
 import data from 'cldr-dates-full/main/zh-Hant/timeZoneNames.json';
 const missList = [];
+const metaList = Object.keys(data.main['zh-Hant'].dates.timeZoneNames.metazone);
+console.log('data.main[\'zh-Hant\'].dates.timeZoneNames.zone', data.main['zh-Hant'].dates.timeZoneNames.zone);
 TIMEZONE_LIST.map(tz => {
+  // Sync between @vvo/tzdb and cldr's data
   const i18nKey = tz.alternativeName
     .replace(/( Time|St. )/g, '')
     .replace(/( &? ?|-)/g, '_');
   const i18nValue = data.main['zh-Hant'].dates.timeZoneNames.metazone[i18nKey];
-  if (!i18nValue && !missList.includes(tz.alternativeName)) {
+
+  if (!metaList.includes(i18nKey) && !missList.includes(tz.alternativeName)) {
     missList.push(tz.alternativeName);
   }
 
+  const tzNameZone = tz.name.substring(0, tz.name.indexOf('/'));
+  let tzNameCountry = tz.name.substring(tz.name.lastIndexOf('/') + 1, tz.name.length);
+  switch (tzNameCountry) {
+    case 'Atikokan':
+      tzNameCountry = 'Coral_Harbour';
+      break;
+    case 'Faroe':
+      tzNameCountry = 'Faeroe';
+      break;
+    case 'Asmara':
+      tzNameCountry = 'Asmera';
+      break;
+    case 'Kolkata':
+      tzNameCountry = 'Calcutta';
+      break;
+    case 'Kathmandu':
+      tzNameCountry = 'Katmandu';
+      break;
+    case 'Yangon':
+      tzNameCountry = 'Rangoon';
+      break;
+    case 'Ho_Chi_Minh':
+      tzNameCountry = 'Saigon';
+      break;
+    case 'Chuuk':
+      tzNameCountry = 'Truk';
+      break;
+    default:
+      break;
+  }
+
+  const i18nCity = data.main['zh-Hant'].dates.timeZoneNames.zone[tzNameZone][tzNameCountry];
+  tz.label = tz.label.substring(0, tz.label.indexOf('- ') + 2) + i18nCity.exemplarCity;
+
   return i18nKey;
 });
-
-console.log('missList', missList);
 
 const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTime, ntpTimeZone, deviceTime}}) => {
   const {isApiProcessing} = useContextState();
