@@ -101,7 +101,8 @@ mockAxios
     data.mockFocalProcessFinished = false;
 
     // If process terminated, reset values
-    if (new Date() - new Date(data.mocklastRefreshed) > 1200 && data.mockFocalProcessTime !== 0) {
+    if ((new Date() - new Date(data.mocklastRefreshed) > 1200 && data.mockFocalProcessTime !== 0) ||
+     (data.mockFocalProcessTime < 0 && data.mockFocalProcessFinished === false)) {
       data = {
         ...data,
         mocklastRefreshed: Date.now(),
