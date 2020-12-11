@@ -249,38 +249,38 @@ module.exports = {
 
       const i18nZoneName = cldrTimeZoneData.main[cldrLangCode].dates.timeZoneNames.metazone[zoneAltNameKey];
 
-      const tzNameZone = zone.name.substring(0, zone.name.indexOf('/'));
-      let tzNameCountry = zone.name.substring(zone.name.lastIndexOf('/') + 1, zone.name.length);
-      switch (tzNameCountry) {
+      const tzContinent = zone.name.substring(0, zone.name.indexOf('/'));
+      let tzCountry = zone.name.substring(zone.name.lastIndexOf('/') + 1, zone.name.length);
+      switch (tzCountry) {
         case 'Atikokan':
-          tzNameCountry = 'Coral_Harbour';
+          tzCountry = 'Coral_Harbour';
           break;
         case 'Faroe':
-          tzNameCountry = 'Faeroe';
+          tzCountry = 'Faeroe';
           break;
         case 'Asmara':
-          tzNameCountry = 'Asmera';
+          tzCountry = 'Asmera';
           break;
         case 'Kolkata':
-          tzNameCountry = 'Calcutta';
+          tzCountry = 'Calcutta';
           break;
         case 'Kathmandu':
-          tzNameCountry = 'Katmandu';
+          tzCountry = 'Katmandu';
           break;
         case 'Yangon':
-          tzNameCountry = 'Rangoon';
+          tzCountry = 'Rangoon';
           break;
         case 'Ho_Chi_Minh':
-          tzNameCountry = 'Saigon';
+          tzCountry = 'Saigon';
           break;
         case 'Chuuk':
-          tzNameCountry = 'Truk';
+          tzCountry = 'Truk';
           break;
         default:
           break;
       }
 
-      const i18nCityName = cldrTimeZoneData.main[cldrLangCode].dates.timeZoneNames.zone[tzNameZone][tzNameCountry].exemplarCity;
+      const i18nCityName = cldrTimeZoneData.main[cldrLangCode].dates.timeZoneNames.zone[tzContinent][tzCountry].exemplarCity;
 
       const utcOffsetLabel = zone.rawFormat.substring(0, zone.rawFormat.indexOf(' '));
       return {
