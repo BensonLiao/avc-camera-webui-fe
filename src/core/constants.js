@@ -1,7 +1,4 @@
 const data = require('cldr-dates-full/main/zh-Hant/timeZoneNames.json');
-const missList = [];
-const metaList = Object.keys(data.main['zh-Hant'].dates.timeZoneNames.metazone);
-console.log('data.main[\'zh-Hant\'].dates.timeZoneNames.zone', data.main['zh-Hant'].dates.timeZoneNames.zone);
 module.exports = {
   store: {
     CHANGE: 'STORE_CHANGE_',
@@ -118,14 +115,138 @@ module.exports = {
     .getTimeZones()
     .map(zone => {
       // Sync between @vvo/tzdb and cldr's data
-      const i18nKey = zone.alternativeName
+      let zoneAltNameKey = zone.alternativeName
         .replace(/( Time|St. )/g, '')
-        .replace(/( &? ?|-)/g, '_');
-      const i18nValue = data.main['zh-Hant'].dates.timeZoneNames.metazone[i18nKey];
+        .replace(/( &? ?|-)/g, '_')
+        .replace(/(_Island)s?/, '')
+        .replace(/(Line)/, 'Line_Islands')
+        .replace(/(Gilbert)/, 'Gilbert_Islands')
+        .replace(/(Marshall)/, 'Marshall_Islands')
+        .replace(/(Phoenix)/, 'Phoenix_Islands');
 
-      if (!metaList.includes(i18nKey) && !missList.includes(zone.alternativeName)) {
-        missList.push(zone.alternativeName);
+      switch (zoneAltNameKey) {
+        case 'Mountain':
+          zoneAltNameKey = 'America_Mountain';
+          break;
+        case 'Central':
+          zoneAltNameKey = 'America_Central';
+          break;
+        case 'Eastern':
+          zoneAltNameKey = 'America_Eastern';
+          break;
+        case 'Pacific':
+          zoneAltNameKey = 'America_Pacific';
+          break;
+        case 'Mexican_Pacific':
+          zoneAltNameKey = 'Mexico_Pacific';
+          break;
+        case 'West_Greenland':
+          zoneAltNameKey = 'Greenland_Western';
+          break;
+        case 'East_Greenland':
+          zoneAltNameKey = 'Greenland_Eastern';
+          break;
+        case 'Greenwich_Mean':
+          zoneAltNameKey = 'GMT';
+          break;
+        case 'Western_European':
+          zoneAltNameKey = 'Europe_Western';
+          break;
+        case 'Central_European':
+          zoneAltNameKey = 'Europe_Central';
+          break;
+        case 'Eastern_European':
+          zoneAltNameKey = 'Europe_Eastern';
+          break;
+        case 'West_Africa':
+          zoneAltNameKey = 'Africa_Western';
+          break;
+        case 'Central_Africa':
+          zoneAltNameKey = 'Africa_Central';
+          break;
+        case 'South_Africa':
+          zoneAltNameKey = 'Africa_Southern';
+          break;
+        case 'East_Africa':
+          zoneAltNameKey = 'Africa_Eastern';
+          break;
+        case 'Western_Indonesia':
+          zoneAltNameKey = 'Indonesia_Western';
+          break;
+        case 'Central_Indonesia':
+          zoneAltNameKey = 'Indonesia_Central';
+          break;
+        case 'Eastern_Indonesia':
+          zoneAltNameKey = 'Indonesia_Eastern';
+          break;
+        case 'Australian_Western':
+          zoneAltNameKey = 'Australia_Western';
+          break;
+        case 'Australian_Central':
+          zoneAltNameKey = 'Australia_Central';
+          break;
+        case 'Australian_Eastern':
+          zoneAltNameKey = 'Australia_Eastern';
+          break;
+        case 'Australian_Central_Western':
+          zoneAltNameKey = 'Australia_CentralWestern';
+          break;
+        case 'French_Southern_Antarctic':
+          zoneAltNameKey = 'French_Southern';
+          break;
+        case 'West_Kazakhstan':
+          zoneAltNameKey = 'Kazakhstan_Western';
+          break;
+        case 'East_Kazakhstan':
+          zoneAltNameKey = 'Kazakhstan_Eastern';
+          break;
+        case 'Fernando_de_Noronha':
+          zoneAltNameKey = 'Noronha';
+          break;
+        case 'Turkey':
+          zoneAltNameKey = 'Turkey'; // cldr has no data
+          break;
+        case 'Réunion':
+          zoneAltNameKey = 'Reunion';
+          break;
+        case 'Kyrgyzstan':
+          zoneAltNameKey = 'Kyrgystan';
+          break;
+        case 'Brunei_Darussalam':
+          zoneAltNameKey = 'Brunei';
+          break;
+        case 'Philippine':
+          zoneAltNameKey = 'Philippines';
+          break;
+        case 'Ulaanbaatar':
+          zoneAltNameKey = 'Mongolia';
+          break;
+        case 'Korean':
+          zoneAltNameKey = 'Korea';
+          break;
+        case 'Chuuk':
+          zoneAltNameKey = 'Truk';
+          break;
+        case 'Dumont_d’Urville':
+          zoneAltNameKey = 'DumontDUrville';
+          break;
+        case 'Bougainville':
+          zoneAltNameKey = 'Bougainville'; // cldr has no data
+          break;
+        case 'Gilbert':
+          zoneAltNameKey = 'Kazakhstan_Eastern';
+          break;
+        case 'Petropavlovsk_Kamchatski':
+          zoneAltNameKey = 'Kamchatka';
+          break;
+        case 'Wallis_Futuna':
+          zoneAltNameKey = 'Wallis';
+          break;
+        default:
+          break;
       }
+
+      const i18nZoneName = data.main['zh-Hant'].dates.timeZoneNames.metazone[zoneAltNameKey];
 
       const tzNameZone = zone.name.substring(0, zone.name.indexOf('/'));
       let tzNameCountry = zone.name.substring(zone.name.lastIndexOf('/') + 1, zone.name.length);
@@ -158,11 +279,12 @@ module.exports = {
           break;
       }
 
-      const i18nCity = data.main['zh-Hant'].dates.timeZoneNames.zone[tzNameZone][tzNameCountry];
-      zone.rawFormat = zone.rawFormat.substring(0, zone.rawFormat.indexOf('- ') + 2) + i18nCity.exemplarCity;
+      const i18nCityName = data.main['zh-Hant'].dates.timeZoneNames.zone[tzNameZone][tzNameCountry].exemplarCity;
+
+      const utcOffsetLabel = zone.rawFormat.substring(0, zone.rawFormat.indexOf(' '));
       return {
         ...zone,
-        label: `UTC${zone.rawFormat}`
+        label: `UTC${utcOffsetLabel} ${i18nZoneName ? i18nZoneName.long.standard : zone.alternativeName} - ${i18nCityName}`
       };
     })
     .sort((a, b) => {
