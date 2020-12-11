@@ -2,6 +2,8 @@ const axios = require('axios');
 const constants = require('../constants');
 const store = require('../store');
 const notify = require('../notify');
+const i18n = require('../../i18n').default;
+
 try {
   // This module will be ignored when `env.disablemockserver` is true.
   // Go to webpack.config.js find "webpack.IgnorePlugin".
@@ -56,7 +58,7 @@ module.exports = config => {
           console.error('Error on Response Error Status: ', error.response);
           notify.showErrorNotification({
             title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? error.response.data.message || null : null
+            message: error.response.status === 400 ? i18n.t(`common.toast.${error.response.data.message}`) || null : null
           });
         } else if (error.request) {
         // The request was made but no response was received
