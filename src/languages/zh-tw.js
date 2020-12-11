@@ -693,7 +693,7 @@ module.exports = {
       'Primary DNS': '主要 DNS',
       'Secondary DNS (Optional)': '次要 DNS',
       Interface: '連接方式',
-      'IP Assignment': '取得IP位址',
+      'IP Assignment': 'IP 取得方式',
       'Secondary DNS': '次要 DNS',
       'No changes were made.': '沒有設定被更改',
       'Please enable HTTPS first.': '請先開啟 HTTPS 功能',
