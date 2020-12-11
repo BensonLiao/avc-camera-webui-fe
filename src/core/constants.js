@@ -1,3 +1,7 @@
+const data = require('cldr-dates-full/main/zh-Hant/timeZoneNames.json');
+const missList = [];
+const metaList = Object.keys(data.main['zh-Hant'].dates.timeZoneNames.metazone);
+console.log('data.main[\'zh-Hant\'].dates.timeZoneNames.zone', data.main['zh-Hant'].dates.timeZoneNames.zone);
 module.exports = {
   store: {
     CHANGE: 'STORE_CHANGE_',
@@ -113,6 +117,49 @@ module.exports = {
   TIMEZONE_LIST: (() => require('@vvo/tzdb')
     .getTimeZones()
     .map(zone => {
+      // Sync between @vvo/tzdb and cldr's data
+      const i18nKey = zone.alternativeName
+        .replace(/( Time|St. )/g, '')
+        .replace(/( &? ?|-)/g, '_');
+      const i18nValue = data.main['zh-Hant'].dates.timeZoneNames.metazone[i18nKey];
+
+      if (!metaList.includes(i18nKey) && !missList.includes(zone.alternativeName)) {
+        missList.push(zone.alternativeName);
+      }
+
+      const tzNameZone = zone.name.substring(0, zone.name.indexOf('/'));
+      let tzNameCountry = zone.name.substring(zone.name.lastIndexOf('/') + 1, zone.name.length);
+      switch (tzNameCountry) {
+        case 'Atikokan':
+          tzNameCountry = 'Coral_Harbour';
+          break;
+        case 'Faroe':
+          tzNameCountry = 'Faeroe';
+          break;
+        case 'Asmara':
+          tzNameCountry = 'Asmera';
+          break;
+        case 'Kolkata':
+          tzNameCountry = 'Calcutta';
+          break;
+        case 'Kathmandu':
+          tzNameCountry = 'Katmandu';
+          break;
+        case 'Yangon':
+          tzNameCountry = 'Rangoon';
+          break;
+        case 'Ho_Chi_Minh':
+          tzNameCountry = 'Saigon';
+          break;
+        case 'Chuuk':
+          tzNameCountry = 'Truk';
+          break;
+        default:
+          break;
+      }
+
+      const i18nCity = data.main['zh-Hant'].dates.timeZoneNames.zone[tzNameZone][tzNameCountry];
+      zone.rawFormat = zone.rawFormat.substring(0, zone.rawFormat.indexOf('- ') + 2) + i18nCity.exemplarCity;
       return {
         ...zone,
         label: `UTC${zone.rawFormat}`
