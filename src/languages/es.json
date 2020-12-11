@@ -603,7 +603,7 @@
         "testingSuccess": "Prueba DHCP exitosa",
         "testingFailed": "Prueba DHCP falló"
       },
-      "tooltips": {
+      "tooltip": {
         "noChanges": "No se ha cambiado ninguna configuración"
       }
     },

@@ -613,7 +613,7 @@
         "testingSuccess": "DHCP Testing Success",
         "testingFailed": "DHCP Testing Failed"
       },
-      "tooltips": {
+      "tooltip": {
         "noChanges": "No changes were made."
       }
     },

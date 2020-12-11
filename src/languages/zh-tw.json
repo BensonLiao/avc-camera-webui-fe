@@ -603,7 +603,7 @@
         "testingSuccess": "DHCP 測試成功",
         "testingFailed": "DHCP 測試失敗"
       },
-      "tooltips": {
+      "tooltip": {
         "noChanges": "沒有設定被更改"
       }
     },
