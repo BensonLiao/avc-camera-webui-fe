@@ -46,7 +46,7 @@
     "bootstrap": "4.3.1",
     "bootstrap-slider": "10.6.2",
     "classnames": "2.2.6",
-    "cldr-dates-full": "^37.0.0",
+    "cldr-dates-full": "38.0.0",
     "compression-webpack-plugin": "3.0.0",
     "config": "3.2.4",
     "cropperjs": "1.5.7",
