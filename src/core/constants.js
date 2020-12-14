@@ -205,7 +205,8 @@ module.exports = {
           zoneAltNameKey = 'Noronha';
           break;
         case 'Turkey':
-          zoneAltNameKey = 'Turkey'; // cldr has no data
+          // cldr has no data and we label it as empty name like MacOS (Win10 doesn't even have this option)
+          zone.alternativeName = '';
           break;
         case 'Réunion':
           zoneAltNameKey = 'Reunion';
@@ -232,7 +233,8 @@ module.exports = {
           zoneAltNameKey = 'DumontDUrville';
           break;
         case 'Bougainville':
-          zoneAltNameKey = 'Bougainville'; // cldr has no data
+          // cldr has no data and we label it as empty name like MacOS (Win10 doesn't even have this option)
+          zone.alternativeName = '';
           break;
         case 'Gilbert':
           zoneAltNameKey = 'Kazakhstan_Eastern';
@@ -280,12 +282,14 @@ module.exports = {
           break;
       }
 
-      const i18nCityName = cldrTimeZoneData.main[cldrLangCode].dates.timeZoneNames.zone[tzContinent][tzCountry].exemplarCity;
+      const i18nZoneNameLabel = i18nZoneName ? i18nZoneName.long.standard + ' - ' : zone.alternativeName;
+
+      const i18nCityNameLabel = cldrTimeZoneData.main[cldrLangCode].dates.timeZoneNames.zone[tzContinent][tzCountry].exemplarCity;
 
       const utcOffsetLabel = zone.rawFormat.substring(0, zone.rawFormat.indexOf(' '));
       return {
         ...zone,
-        label: `UTC${utcOffsetLabel} ${i18nZoneName ? i18nZoneName.long.standard : zone.alternativeName} - ${i18nCityName}`
+        label: `UTC${utcOffsetLabel} ${i18nZoneNameLabel}${i18nCityNameLabel}`
       };
     })
     .sort((a, b) => {
