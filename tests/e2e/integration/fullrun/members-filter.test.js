@@ -21,8 +21,7 @@ describe('license page test', () => {
         const groups = res.response.body;
         const groupId = groups.items[2].id;
         cy.get('[data-test="member-name"]').as('allMembers');
-        cy.server()
-          .route('GET', `/api/members?group=${groupId}`, 'fixture:membersMysticArts.json')
+        cy.route('GET', `/api/members?group=${groupId}`, 'fixture:membersMysticArts.json')
           .as('getMembersMysticArts');
         cy.get(`a.w-100[href="#${groupId}"]`)
           .click()
@@ -47,13 +46,11 @@ describe('license page test', () => {
     // https://github.com/cypress-io/cypress/issues/9302
 
     cy.visit('/users/members')
-      .wait('@getMembers')
-      .wait('@getGroups').then(res => {
-        const groups = res.response.body;
+      .wait(['@getMembers', '@getGroups']).then(res => {
+        const groups = res[1].response.body;
         const groupId = groups.items[3].id;
         cy.get('[data-test="member-name"]').as('allMembers');
-        cy.server()
-          .route('GET', `/api/members?group=${groupId}`, 'fixture:membersAsgard.json')
+        cy.route('GET', `/api/members?group=${groupId}`, 'fixture:membersAsgard.json')
           .as('getMembersAsgard');
         cy.get(`a.w-100[href="#${groupId}"]`)
           .click()
