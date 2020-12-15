@@ -1,3 +1,5 @@
+const cldrLangCode = window.currentLanguageCode === 'zh-tw' ? 'zh-Hant' : window.currentLanguageCode || 'en';
+const cldrTimeZoneData = require(`cldr-dates-full/main/${cldrLangCode}/timeZoneNames.json`);
 module.exports = {
   store: {
     CHANGE: 'STORE_CHANGE_',
@@ -113,9 +115,181 @@ module.exports = {
   TIMEZONE_LIST: (() => require('@vvo/tzdb')
     .getTimeZones()
     .map(zone => {
+      // Sync between @vvo/tzdb and cldr's data
+      let zoneAltNameKey = zone.alternativeName
+        .replace(/( Time|St. )/g, '')
+        .replace(/( &? ?|-)/g, '_')
+        .replace(/(_Island)s?/, '')
+        .replace(/(Line)/, 'Line_Islands')
+        .replace(/(Gilbert)/, 'Gilbert_Islands')
+        .replace(/(Marshall)/, 'Marshall_Islands')
+        .replace(/(Phoenix)/, 'Phoenix_Islands');
+
+      switch (zoneAltNameKey) {
+        case 'Mountain':
+          zoneAltNameKey = 'America_Mountain';
+          break;
+        case 'Central':
+          zoneAltNameKey = 'America_Central';
+          break;
+        case 'Eastern':
+          zoneAltNameKey = 'America_Eastern';
+          break;
+        case 'Pacific':
+          zoneAltNameKey = 'America_Pacific';
+          break;
+        case 'Mexican_Pacific':
+          zoneAltNameKey = 'Mexico_Pacific';
+          break;
+        case 'West_Greenland':
+          zoneAltNameKey = 'Greenland_Western';
+          break;
+        case 'East_Greenland':
+          zoneAltNameKey = 'Greenland_Eastern';
+          break;
+        case 'Greenwich_Mean':
+          zoneAltNameKey = 'GMT';
+          break;
+        case 'Western_European':
+          zoneAltNameKey = 'Europe_Western';
+          break;
+        case 'Central_European':
+          zoneAltNameKey = 'Europe_Central';
+          break;
+        case 'Eastern_European':
+          zoneAltNameKey = 'Europe_Eastern';
+          break;
+        case 'West_Africa':
+          zoneAltNameKey = 'Africa_Western';
+          break;
+        case 'Central_Africa':
+          zoneAltNameKey = 'Africa_Central';
+          break;
+        case 'South_Africa':
+          zoneAltNameKey = 'Africa_Southern';
+          break;
+        case 'East_Africa':
+          zoneAltNameKey = 'Africa_Eastern';
+          break;
+        case 'Western_Indonesia':
+          zoneAltNameKey = 'Indonesia_Western';
+          break;
+        case 'Central_Indonesia':
+          zoneAltNameKey = 'Indonesia_Central';
+          break;
+        case 'Eastern_Indonesia':
+          zoneAltNameKey = 'Indonesia_Eastern';
+          break;
+        case 'Australian_Western':
+          zoneAltNameKey = 'Australia_Western';
+          break;
+        case 'Australian_Central':
+          zoneAltNameKey = 'Australia_Central';
+          break;
+        case 'Australian_Eastern':
+          zoneAltNameKey = 'Australia_Eastern';
+          break;
+        case 'Australian_Central_Western':
+          zoneAltNameKey = 'Australia_CentralWestern';
+          break;
+        case 'French_Southern_Antarctic':
+          zoneAltNameKey = 'French_Southern';
+          break;
+        case 'West_Kazakhstan':
+          zoneAltNameKey = 'Kazakhstan_Western';
+          break;
+        case 'East_Kazakhstan':
+          zoneAltNameKey = 'Kazakhstan_Eastern';
+          break;
+        case 'Fernando_de_Noronha':
+          zoneAltNameKey = 'Noronha';
+          break;
+        case 'Turkey':
+          // cldr has no data and we label it as empty name like MacOS (Win10 doesn't even have this option)
+          zone.alternativeName = '';
+          break;
+        case 'Réunion':
+          zoneAltNameKey = 'Reunion';
+          break;
+        case 'Kyrgyzstan':
+          zoneAltNameKey = 'Kyrgystan';
+          break;
+        case 'Brunei_Darussalam':
+          zoneAltNameKey = 'Brunei';
+          break;
+        case 'Philippine':
+          zoneAltNameKey = 'Philippines';
+          break;
+        case 'Ulaanbaatar':
+          zoneAltNameKey = 'Mongolia';
+          break;
+        case 'Korean':
+          zoneAltNameKey = 'Korea';
+          break;
+        case 'Chuuk':
+          zoneAltNameKey = 'Truk';
+          break;
+        case 'Dumont_d’Urville':
+          zoneAltNameKey = 'DumontDUrville';
+          break;
+        case 'Bougainville':
+          // cldr has no data and we label it as empty name like MacOS (Win10 doesn't even have this option)
+          zone.alternativeName = '';
+          break;
+        case 'Gilbert':
+          zoneAltNameKey = 'Kazakhstan_Eastern';
+          break;
+        case 'Petropavlovsk_Kamchatski':
+          zoneAltNameKey = 'Kamchatka';
+          break;
+        case 'Wallis_Futuna':
+          zoneAltNameKey = 'Wallis';
+          break;
+        default:
+          break;
+      }
+
+      const i18nZoneName = cldrTimeZoneData.main[cldrLangCode].dates.timeZoneNames.metazone[zoneAltNameKey];
+
+      const tzContinent = zone.name.substring(0, zone.name.indexOf('/'));
+      let tzCountry = zone.name.substring(zone.name.lastIndexOf('/') + 1, zone.name.length);
+      switch (tzCountry) {
+        case 'Atikokan':
+          tzCountry = 'Coral_Harbour';
+          break;
+        case 'Faroe':
+          tzCountry = 'Faeroe';
+          break;
+        case 'Asmara':
+          tzCountry = 'Asmera';
+          break;
+        case 'Kolkata':
+          tzCountry = 'Calcutta';
+          break;
+        case 'Kathmandu':
+          tzCountry = 'Katmandu';
+          break;
+        case 'Yangon':
+          tzCountry = 'Rangoon';
+          break;
+        case 'Ho_Chi_Minh':
+          tzCountry = 'Saigon';
+          break;
+        case 'Chuuk':
+          tzCountry = 'Truk';
+          break;
+        default:
+          break;
+      }
+
+      const i18nZoneNameLabel = i18nZoneName ? i18nZoneName.long.standard + ' - ' : zone.alternativeName;
+
+      const i18nCityNameLabel = cldrTimeZoneData.main[cldrLangCode].dates.timeZoneNames.zone[tzContinent][tzCountry].exemplarCity;
+
+      const utcOffsetLabel = zone.rawFormat.substring(0, zone.rawFormat.indexOf(' '));
       return {
         ...zone,
-        label: `UTC${zone.rawFormat}`
+        label: `UTC${utcOffsetLabel} ${i18nZoneNameLabel}${i18nCityNameLabel}`
       };
     })
     .sort((a, b) => {
