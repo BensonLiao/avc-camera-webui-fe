@@ -21,7 +21,7 @@ module.exports = {
           <div><i className="fas fa-check-circle fa-lg text-success"/></div>
           <div className="d-flex flex-column ml-3">
             <div><strong>{i18n.t(title || 'Setting Success')}</strong></div>
-            <div className="text-muted">{i18n.t(message || 'Server Process Success')}</div>
+            <div className="text-muted">{i18n.t(message || 'Server Process Success', message)}</div>
           </div>
         </div>
       )
@@ -46,7 +46,7 @@ module.exports = {
           <div><i className="fas fa-times-circle fa-lg text-danger"/></div>
           <div className="d-flex flex-column ml-3">
             <div><strong>{i18n.t(title || 'Error')}</strong></div>
-            <div className="text-muted">{i18n.t(message || 'error.internalServerError')}</div>
+            <div className="text-muted">{i18n.t(message || 'error.internalServerError', message)}</div>
           </div>
         </div>
       )

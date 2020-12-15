@@ -58,7 +58,7 @@ module.exports = config => {
           console.error('Error on Response Error Status: ', error.response);
           notify.showErrorNotification({
             title: `Error ${error.response.status}` || null,
-            message: error.response.status === 400 ? i18n.t(`common.toast.${error.response.data.message}`) || null : null
+            message: error.response.status === 400 ? i18n.t(`common.toast.${error.response.data.message}`, error.response.data.message) || null : null
           });
         } else if (error.request) {
         // The request was made but no response was received

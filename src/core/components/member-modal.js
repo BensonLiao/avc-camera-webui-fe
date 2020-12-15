@@ -645,7 +645,7 @@ module.exports = class Member extends React.PureComponent {
             return (
               <p key={item[0]} className={classNames('text-size-14 mb-1', 'text-danger')}>
                 <i className="fas fa-exclamation-triangle mr-1"/>
-                {`${i18n.t(`userManagement.members.modal.member.${item[0]}`)}: ${i18n.t(`userManagement.members.modal.member.${item[1].errorMessage}`)}`}
+                {`${i18n.t(`userManagement.members.modal.member.${item[0]}`)}: ${i18n.t(`userManagement.members.modal.member.${item[1].errorMessage}`, item[1].errorMessage)}`}
               </p>
             );
           })}
