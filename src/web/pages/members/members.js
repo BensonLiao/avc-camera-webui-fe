@@ -11,10 +11,11 @@ import MembersSearchForm from './members-search-form';
 import MembersSidebar from './members-sidebar';
 import MembersTable from './members-table';
 import MembersSelectedGroup from './members-selectedGroup';
+import CameraSync from './members-cameraSync';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
 
-const Members = ({groups, members, params, remainingPictureCount}) => {
+const Members = ({groups, members, params, remainingPictureCount, cameraSync}) => {
   const {isApiProcessing} = useContextState();
   const currentRoute = getRouter().findRouteByName('web.users.members');
 
@@ -33,6 +34,7 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
       deleteMember: false
     }
   });
+  const [camSync, setCamSync] = useState(true);
 
   const {deleteGroupTarget, deleteMemberTarget} = state;
   const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
@@ -171,65 +173,77 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
         groups={groups}
         filterHandler={generateChangeFilterHandler}
         deleteGroupHandler={generateShowDeleteGroupModalHandler}
+        setCamSync={setCamSync}
       />
       {/* Main content */}
       <div className="main-content left-menu-active sub">
         <div className="page-members bg-white">
           <div className="container-fluid">
-            <div className="row">
-              <div className="col-12 d-flex justify-content-between align-items-center mb-4">
-                <MembersSearchForm
-                  isApiProcessing={isApiProcessing}
-                  currentRouteName={currentRoute.name}
+            { camSync ? (
+              <div className="row">
+                <div className="col-12">
+                  <CameraSync
+                    cameraSync={cameraSync}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="row">
+                <div className="col-12 d-flex justify-content-between align-items-center mb-4">
+                  <MembersSearchForm
+                    isApiProcessing={isApiProcessing}
+                    currentRouteName={currentRoute.name}
+                    params={params}
+                  />
+                  <CustomTooltip show={isOverPhotoLimit} title={i18n.t('userManagement.members.tooltip.photoLimitExceeded')}>
+                    <div className="dropdown">
+                      <button
+                        className="btn border-primary text-primary rounded-pill dropdown-toggle"
+                        type="button"
+                        disabled={isOverPhotoLimit}
+                        style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
+                        data-toggle="dropdown"
+                      >
+                        <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('common.button.new')}
+                      </button>
+                      <div className="dropdown-menu dropdown-menu-right shadow">
+                        <Link
+                          className="dropdown-item"
+                          to={{
+                            name: 'web.users.members.new-member',
+                            params: params
+                          }}
+                        >
+                          {i18n.t('userManagement.members.addNewMember')}
+                        </Link>
+                        <Link className="dropdown-item" to="/users/events">{i18n.t('userManagement.members.addMemberFromEvent')}</Link>
+                      </div>
+                    </div>
+                  </CustomTooltip>
+                </div>
+                <MembersSelectedGroup
+                  selectedGroup={groups.items.find(x => x.id === params.group)}
                   params={params}
                 />
-                <CustomTooltip show={isOverPhotoLimit} title={i18n.t('userManagement.members.tooltip.photoLimitExceeded')}>
-                  <div className="dropdown">
-                    <button
-                      className="btn border-primary text-primary rounded-pill dropdown-toggle"
-                      type="button"
-                      disabled={isOverPhotoLimit}
-                      style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
-                      data-toggle="dropdown"
-                    >
-                      <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('common.button.new')}
-                    </button>
-                    <div className="dropdown-menu dropdown-menu-right shadow">
-                      <Link
-                        className="dropdown-item"
-                        to={{
-                          name: 'web.users.members.new-member',
-                          params: params
-                        }}
-                      >
-                        {i18n.t('userManagement.members.addNewMember')}
-                      </Link>
-                      <Link className="dropdown-item" to="/users/events">{i18n.t('userManagement.members.addMemberFromEvent')}</Link>
-                    </div>
-                  </div>
-                </CustomTooltip>
+                <MembersTable
+                  params={params}
+                  members={members}
+                  groups={groups}
+                  filterHandler={generateChangeFilterHandler}
+                  deleteMemberModal={generateShowDeleteMemberModalHandler}
+                />
+                <Pagination
+                  index={members.index}
+                  size={members.size}
+                  total={members.total}
+                  itemQuantity={members.items.length}
+                  hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
+                    `${hrefTemplate}&index=` :
+                    `${hrefTemplate}?index=`}
+                />
               </div>
-              <MembersSelectedGroup
-                selectedGroup={groups.items.find(x => x.id === params.group)}
-                params={params}
-              />
-              <MembersTable
-                params={params}
-                members={members}
-                groups={groups}
-                filterHandler={generateChangeFilterHandler}
-                deleteMemberModal={generateShowDeleteMemberModalHandler}
-              />
-              <Pagination
-                index={members.index}
-                size={members.size}
-                total={members.total}
-                itemQuantity={members.items.length}
-                hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
-                  `${hrefTemplate}&index=` :
-                  `${hrefTemplate}?index=`}
-              />
-            </div>
+            )}
+
           </div>
           <RouterView/>
         </div>
@@ -246,7 +260,8 @@ Members.propTypes = {
   params: PropTypes.shape({group: PropTypes.string}).isRequired,
   groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
   members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
-  remainingPictureCount: PropTypes.number.isRequired
+  remainingPictureCount: PropTypes.number.isRequired,
+  cameraSync: PropTypes.any
 };
 
 export default withGlobalStatus(Members);

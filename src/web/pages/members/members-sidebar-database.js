@@ -15,7 +15,7 @@ import iconLock from '../../../resource/lock-24px.svg';
 import Password from '../../../core/components/fields/password';
 import wrappedApi from '../../../core/apis';
 
-const MembersDatabase = ({isApiProcessing}) => {
+const MembersDatabase = ({isApiProcessing, setCamSync}) => {
   const [state, setState] = useState({
     isShowDatabaseModal: false,
     databaseInitialValues: null,
@@ -152,15 +152,26 @@ const MembersDatabase = ({isApiProcessing}) => {
             {i18n.t('userManagement.members.export')}
           </button>
         </div>
-        <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}>
-          <input
-            type="file"
-            className="d-none"
-            accept="application/zip"
-            onClick={onClickImportButton}
-            onChange={onChangeDatabaseFile}
-          />{i18n.t('userManagement.members.import')}
-        </label>
+        <div className="form-group">
+          <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}>
+            <input
+              type="file"
+              className="d-none"
+              accept="application/zip"
+              onClick={onClickImportButton}
+              onChange={onChangeDatabaseFile}
+            />{i18n.t('userManagement.members.import')}
+          </label>
+        </div>
+        <div className="form-group">
+          <button
+            type="button"
+            className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}
+            onClick={() => setCamSync(true)}
+          >
+            {i18n.t('userManagement.members.cameraSync')}
+          </button>
+        </div>
       </div>
 
       {/* Database encryption */}
@@ -254,6 +265,9 @@ const MembersDatabase = ({isApiProcessing}) => {
   );
 };
 
-MembersDatabase.propTypes = {isApiProcessing: PropTypes.bool.isRequired};
+MembersDatabase.propTypes = {
+  isApiProcessing: PropTypes.bool.isRequired,
+  setCamSync: PropTypes.func.isRequired
+};
 
 export default MembersDatabase;

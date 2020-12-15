@@ -7,7 +7,7 @@ import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
 import MembersDatabase from './members-sidebar-database';
 import {Link} from '@benson.liao/capybara-router';
 
-const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteGroupHandler}) => {
+const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteGroupHandler, setCamSync}) => {
   const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
   return (
     <>
@@ -77,6 +77,7 @@ const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteG
           <hr/>
           <MembersDatabase
             isApiProcessing={isApiProcessing}
+            setCamSync={setCamSync}
           />
         </div>
       </div>
@@ -88,6 +89,7 @@ MembersSidebar.propTypes = {
   isApiProcessing: PropTypes.bool.isRequired,
   filterHandler: PropTypes.func.isRequired,
   deleteGroupHandler: PropTypes.func.isRequired,
+  setCamSync: PropTypes.func.isRequired,
   params: PropTypes.shape({group: PropTypes.string}).isRequired,
   groups: PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.shape({
