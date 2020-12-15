@@ -531,6 +531,38 @@ module.exports = {
       }],
       groups: memberGroups,
       members,
+      cameraSync: [
+        {
+          id: uuidv4(),
+          ip: '192.168.0.1',
+          deviceName: 'Camera 1',
+          account: 'admin'
+        },
+        {
+          id: uuidv4(),
+          ip: '192.168.0.2',
+          deviceName: 'Camera 2',
+          account: 'Jay'
+        },
+        {
+          id: uuidv4(),
+          ip: '192.168.0.3',
+          deviceName: 'Camera 3',
+          account: 'King George VI'
+        },
+        {
+          id: uuidv4(),
+          ip: '192.168.0.4',
+          deviceName: 'Camera 4',
+          account: 'Dr. Strange'
+        },
+        {
+          id: uuidv4(),
+          ip: '192.168.0.5',
+          deviceName: 'Camera 5',
+          account: 'Iron Man'
+        }
+      ],
       faceEvents: [
         {
           id: uuidv4(),

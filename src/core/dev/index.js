@@ -673,6 +673,26 @@ mockAxios
   .onGet('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPut('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPost('/api/members/database').reply(config => setDelay(mockResponseWithLog(config, [204]), 2000))
+  .onGet('/api/members/camera-sync').reply(config => mockResponseWithLog(config, [200, db.get('cameraSync').value()]))
+  .onPut('/api/members/camera-sync').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('cameraSync').find({id: newItem.id}).assign(newItem).write()]);
+  })
+  .onPost('/api/members/camera-sync').reply(config => {
+    const item = JSON.parse(config.data);
+    const newItem = {
+      id: uuidv4(),
+      ip: item.ip,
+      // randomly generated device ID
+      deviceName: `MD2 [${Math.random().toString(36).substring(7)},]`,
+      account: item.account
+    };
+    return mockResponseWithLog(config, [200, db.get('cameraSync').push(newItem).write()]);
+  })
+  .onDelete('/api/members/camera-sync').reply(config => {
+    db.get('cameraSync').remove({id: config.data}).write();
+    return mockResponseWithLog(config, [204, {}]);
+  })
   .onGet('/api/face-recognition/settings').reply(config => {
     const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
     // get with converMapping to percentage util function (mocking real server)
