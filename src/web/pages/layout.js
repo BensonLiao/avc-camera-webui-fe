@@ -108,7 +108,7 @@ module.exports = class Layout extends Base {
 
   downloadManual = e => {
     e.preventDefault();
-    download('/api/system/systeminfo/manual.pdf');
+    download('/support/user-manual');
   }
 
   render() {
