@@ -169,7 +169,7 @@ const MembersDatabase = ({isApiProcessing, setCamSync}) => {
             className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}
             onClick={() => setCamSync(true)}
           >
-            {i18n.t('userManagement.members.cameraSync')}
+            {i18n.t('demo.userManagement.members.cameraSync')}
           </button>
         </div>
       </div>

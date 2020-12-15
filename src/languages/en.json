@@ -1052,5 +1052,24 @@
         "renewSession": "Renew Session"
       }
     }
+  },
+  "demo": {
+    "userManagement": {
+      "members": {
+        "cameraSync": "Camera Sync",
+        "syncCameras": "Synchronize",
+        "select": "Select",
+        "ip": "Device IP",
+        "deviceName": "Device Name",
+        "addDevice": "Add New Device",
+        "modal": {
+          "cameraSync": {
+            "modifyCameraTitle": "Edit Camera Details",
+            "newCameraTitle": "Add New Camera",
+            "ipPlaceholder": "Enter device IP"
+          }
+        }
+      }
+    }
   }
 }

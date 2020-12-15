@@ -24,14 +24,14 @@ const CameraSync = ({cameraSync}) => {
     <div>
       <div className="col-12 mb-4">
         <button className="btn btn-outline-primary rounded-pill px-3 ml-3" type="submit">
-          {i18n.t('userManagement.members.syncCameras')}
+          {i18n.t('demo.userManagement.members.syncCameras')}
         </button>
         <button
           type="button"
           className="btn btn-outline-primary rounded-pill float-right"
           onClick={showModal}
         >
-          {i18n.t('userManagement.members.addDevice')}
+          {i18n.t('demo.userManagement.members.addDevice')}
         </button>
 
         <CameraSyncAddDevice
@@ -45,13 +45,13 @@ const CameraSync = ({cameraSync}) => {
         <table className="table custom-style">
           <thead>
             <tr className="shadow">
-              <th className="text-center" style={{width: '10%'}}>{i18n.t('userManagement.members.select')}</th>
+              <th className="text-center" style={{width: '10%'}}>{i18n.t('demo.userManagement.members.select')}</th>
               <th style={{width: '30%'}}>
-                {i18n.t('userManagement.members.ip')}
+                {i18n.t('demo.userManagement.members.ip')}
                 <i className="fas fa-fw text-muted ml-3"/>
               </th>
               <th style={{width: '35%'}}>
-                {i18n.t('userManagement.members.deviceName')}
+                {i18n.t('demo.userManagement.members.deviceName')}
                 <i className="fas fa-fw text-muted ml-3"/>
               </th>
               <th style={{width: '15%'}}>{i18n.t('userManagement.members.actions')}</th>
