@@ -1,5 +1,6 @@
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
+const download = require('downloadjs');
 const React = require('react');
 const progress = require('nprogress');
 const {RouterView} = require('@benson.liao/capybara-router');
@@ -25,6 +26,7 @@ const i18n = require('../../i18n').default;
 const constants = require('../../core/constants');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
+const wrappedApi = require('../../core/apis');
 
 module.exports = class Layout extends Base {
   static get propTypes() {
@@ -103,6 +105,18 @@ module.exports = class Layout extends Base {
 
   onAboutModalHoverOut = () => {
     clearTimeout(this.countdownTimerID);
+  }
+
+  downloadManual = e => {
+    e.preventDefault();
+    wrappedApi({
+      method: 'get',
+      url: '/api/support/user-manual',
+      responseType: 'blob'
+    })
+      .then(response => {
+        download(response.data, 'manual.pdf');
+      });
   }
 
   render() {
@@ -306,15 +320,23 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h6 className="dropdown-header">{i18n.t('navigation.appbar.support.support')}</h6>
-                    <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
-                      {i18n.t('navigation.appbar.support.deviceHelp')}
-                    </a>
-                    <a className="dropdown-item" href="mailto:support@androvideo.com">
-                      {i18n.t('navigation.appbar.support.technicalSupport')}
-                    </a>
-                    <a className="dropdown-item" href="http://androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
-                      {i18n.t('navigation.appbar.support.productInformation')}
-                    </a>
+                    {window.isNoBrand ? (
+                      <a className="dropdown-item" href="" onClick={this.downloadManual}>
+                        {i18n.t('navigation.appbar.support.deviceHelp')}
+                      </a>
+                    ) : (
+                      <>
+                        <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
+                          {i18n.t('navigation.appbar.support.deviceHelp')}
+                        </a>
+                        <a className="dropdown-item" href="mailto:support@androvideo.com">
+                          {i18n.t('navigation.appbar.support.technicalSupport')}
+                        </a>
+                        <a className="dropdown-item" href="http://androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
+                          {i18n.t('navigation.appbar.support.productInformation')}
+                        </a>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
