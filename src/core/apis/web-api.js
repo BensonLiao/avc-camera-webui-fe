@@ -1367,6 +1367,54 @@ module.exports = {
         formData.set('file', file);
         return formData;
       })()
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    getCameraSync: () => api({
+      method: 'get',
+      url: '/api/members/camera-sync'
+    }),
+    /**
+     * @param {String} ip - Device IP
+     * @param {String} username - Device login username
+     * @param {String} password - Device login password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    addCamera: ({ip, account, password}) => api({
+      method: 'post',
+      url: '/api/members/camera-sync',
+      data: {
+        ip,
+        account,
+        password
+      }
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    editCamera: ({id, ip, account, password}) => api({
+      method: 'put',
+      url: '/api/members/camera-sync',
+      data: {
+        id,
+        ip,
+        account,
+        password
+      }
+    }),
+    /**
+     * @param {String} id
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    deleteCamera: id => api({
+      method: 'delete',
+      url: '/api/members/camera-sync',
+      data: id
     })
   },
   multimedia: {
