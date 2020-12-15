@@ -703,6 +703,8 @@ module.exports = {
       'Enter Router/Gateway': 'ルーター/ゲートウェイを入力してください',
       'Enter a primary DNS': 'プライマリーDNSを入力してください',
       'Enter a secondary DNS': 'セカンダリーDNSを入力してください',
+      Dynamic: '動的IPアドレス',
+      Static: '固定IPアドレス',
 
       // /network/tcp-ip
       'Enable DDNS': 'DDNSサービスを有効にする',
