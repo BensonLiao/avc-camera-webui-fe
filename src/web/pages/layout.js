@@ -26,6 +26,7 @@ const i18n = require('../../i18n').default;
 const constants = require('../../core/constants');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
+const wrappedApi = require('../../core/apis');
 
 module.exports = class Layout extends Base {
   static get propTypes() {
@@ -108,7 +109,14 @@ module.exports = class Layout extends Base {
 
   downloadManual = e => {
     e.preventDefault();
-    download('/support/user-manual');
+    wrappedApi({
+      method: 'get',
+      url: '/api/support/user-manual',
+      responseType: 'blob'
+    })
+      .then(response => {
+        download(response.data, 'manual.pdf');
+      });
   }
 
   render() {
