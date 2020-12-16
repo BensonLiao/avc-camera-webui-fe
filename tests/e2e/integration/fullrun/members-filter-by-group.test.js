@@ -7,8 +7,7 @@ describe('license page test', () => {
     // login before each test
     cy.login(account, password);
   });
-
-  it('should arrive at members page, then check if there are groups', () => {
+  it('should arrive at members page, check if each group has corresponding members', () => {
     cy.intercept({
       method: 'GET',
       url: '/api/members'
@@ -20,31 +19,42 @@ describe('license page test', () => {
 
     cy.visit('/users/members')
       .wait(['@getMembers', '@getGroups']).then(res => {
-        const membersInGroup = [];
+        // members that have a group
+        const membersWithGroup = [];
+        // group Ids with members in them
+        const groupIds = [];
+
         const members = res[0].response.body;
         const groups = res[1].response.body;
-        if (groups && groups.items.length) {
+        if (groups && groups.items.length && members && members.items.length) {
           groups.items.forEach(group => {
             members.items.forEach(member => {
               if (member.groupId === group.id) {
                 member.groupName = group.name;
-                membersInGroup.push(member);
+                membersWithGroup.push(member);
               }
             });
           });
-          cy.server()
-            .route('GET', `/api/members?group=${membersInGroup[0].groupId}`)
-            .as('getFirstGroupsMember');
-          cy.get(`a.w-100[href="#${membersInGroup[0].groupId}"]`)
-            .click()
-            .wait('@getFirstGroupsMember').then(res => {
-              res.response.body.items.forEach(member => {
-                cy.wait(3000);
-                console.log(member);
-              });
+          groups.items.forEach(group => {
+            const member = membersWithGroup.find(m => m.groupId === group.id);
+            if (member) {
+              groupIds.push(member.groupId);
+            }
+          });
+
+          for (let i = 0; i < groupIds.length; i++) {
+            // current group to verify
+            let currentGroupId = groupIds[i];
+            cy.visit(`/users/members?group=${currentGroupId}`);
+            cy.get('[data-test="member-name"]', {timeout: 20000}).then($el => {
+              const membersInCurrGroup = membersWithGroup.filter(member => member.groupId === currentGroupId);
+              for (let i = 0; i < membersInCurrGroup.length; i++) {
+                cy.wrap($el[i]).should('have.text', membersInCurrGroup[i].name);
+              }
             });
+          }
         } else {
-          console.log(members);
+          cy.contains('Groups or Members is empty').should('not.exist');
         }
       });
   });
