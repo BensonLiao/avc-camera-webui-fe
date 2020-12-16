@@ -600,8 +600,7 @@
       "secondaryDNSPlaceholder": "Ingrese DNS Secundario",
       "modal": {
         "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de red?",
-        "testingSuccess": "Prueba DHCP exitosa",
-        "testingFailed": "Prueba DHCP falló"
+        "testingSuccess": "Prueba DHCP exitosa"
       },
       "tooltip": {
         "noChanges": "No se ha cambiado ninguna configuración"
@@ -984,7 +983,8 @@
       "Non-existent Photo": "Miniatura de Cara inexistente",
       "Invalid Key": "Activación fallida, código de activación incorrecto",
       "Duplicate Key": "Activación fallida, código de activación repetido",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros",
+      "DHCP Test Failed": "Prueba DHCP falló"
     },
     "volumeBar": {
       "sdStorageStatus": "{{0}} disponible total {{1}}",

@@ -600,8 +600,7 @@
       "secondaryDNSPlaceholder": "請輸入次要DNS",
       "modal": {
         "confirmUpdateBody": "您確定要更改網路設定嗎？",
-        "testingSuccess": "DHCP 測試成功",
-        "testingFailed": "DHCP 測試失敗"
+        "testingSuccess": "DHCP 測試成功"
       },
       "tooltip": {
         "noChanges": "沒有設定被更改"
@@ -984,7 +983,8 @@
       "Non-existent Photo": "事件截圖不存在",
       "Invalid Key": "啟用失敗，錯誤的啟動碼",
       "Duplicate Key": "啟用失敗，重複的啟動碼",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人",
+      "DHCP Test Failed": "DHCP 測試失敗"
     },
     "volumeBar": {
       "sdStorageStatus": "{{0}} 可用 (共 {{1}})",

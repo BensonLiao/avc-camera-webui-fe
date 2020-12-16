@@ -600,8 +600,7 @@
       "secondaryDNSPlaceholder": "セカンダリーDNSを入力してください",
       "modal": {
         "confirmUpdateBody": "ネットワーク設定を更新してもよろしいですか？",
-        "testingSuccess": "DHCPテストに成功しました",
-        "testingFailed": "DHCPテストに失敗しました"
+        "testingSuccess": "DHCPテストに成功しました"
       },
       "tooltip": {
         "noChanges": "変更がありません"
@@ -984,7 +983,8 @@
       "Non-existent Photo": "存在しない顔ショット",
       "Invalid Key": "無効なライセンスキー",
       "Duplicate Key": "アクティベーションに失敗しました。ライセンスキーが重複してます",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません",
+      "DHCP Test Failed": "DHCPテストに失敗しました"
     },
     "volumeBar": {
       "sdStorageStatus": "{{0}} 使用可能 (合計 {{1}})",
