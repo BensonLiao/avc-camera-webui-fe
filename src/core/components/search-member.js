@@ -34,7 +34,8 @@ class SearchMember extends React.PureComponent {
     verifyStatus: false,
     errorMessage: null,
     // base64 of event photo
-    convertedPicture: null
+    convertedPicture: null,
+    photoNotFound: false
   }
 
   generateInitialValues = memberName => ({keyword: memberName || ''})
@@ -57,10 +58,12 @@ class SearchMember extends React.PureComponent {
         sort: null,
         size: 6
       })
-        .then(response => this.setState({
-          isFetching: false,
-          members: response.data
-        }))
+        .then(response =>
+          this.setState({
+            isFetching: false,
+            members: response.data
+          })
+        )
     );
   };
 
@@ -69,22 +72,30 @@ class SearchMember extends React.PureComponent {
       isVerifying: true,
       verifyStatus: false
     }, () =>
-      utils.convertPictureURL(photo).then(data =>
-        api.member.validatePicture(data)
-          .then(() =>
-            this.setState({
-              verifyStatus: true,
-              convertedPicture: data
-            })
-          )
-          .catch(error =>
-            this.setState({
-              verifyStatus: false,
-              errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
-            })
-          )
-          .finally(() => this.setState({isVerifying: false}))
-      )
+      utils.convertPictureURL(photo)
+        .then(data =>
+          api.member.validatePicture(data)
+            .then(() =>
+              this.setState({
+                verifyStatus: true,
+                convertedPicture: data
+              })
+            )
+            .catch(error =>
+              this.setState({
+                verifyStatus: false,
+                errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+              })
+            )
+            .finally(() => this.setState({isVerifying: false}))
+        )
+        .catch(() =>
+          // If event URL is invalid
+          this.setState({
+            isVerifying: false,
+            photoNotFound: true
+          })
+        )
     );
 
   addToMember = ({member, convertedPicture}) => {
@@ -98,11 +109,13 @@ class SearchMember extends React.PureComponent {
       api.member.addPhoto({
         id: member.id,
         picture: convertedPicture
-      }).then(() =>
-        notify.showSuccessNotification({
-          title: i18n.t('Setting Success'),
-          message: i18n.t('Photo Has Been Added to {{0}}', {0: member.name})
-        }))
+      })
+        .then(() =>
+          notify.showSuccessNotification({
+            title: i18n.t('Setting Success'),
+            message: i18n.t('Photo Has Been Added to {{0}}', {0: member.name})
+          })
+        )
         .then(getRouter().reload)
         .finally(() => this.hideApiProcessModal())
     );
@@ -110,7 +123,7 @@ class SearchMember extends React.PureComponent {
 
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
-    const {members, isFetching, isVerifying, verifyStatus, errorMessage, convertedPicture} = this.state;
+    const {members, isFetching, isVerifying, verifyStatus, errorMessage, convertedPicture, photoNotFound} = this.state;
     return (
       <>
         <Modal
@@ -124,12 +137,13 @@ class SearchMember extends React.PureComponent {
             this.setState({
               members: null,
               isVerifying: false,
-              errorMessage: null
+              errorMessage: null,
+              photoNotFound: false
             });
             onHide();
           }}
         >
-          <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying)} className="d-flex justify-content-between align-items-center">
+          <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying || photoNotFound)} className="d-flex justify-content-between align-items-center">
             <Modal.Title as="h5">{i18n.t('Add to an Existing Member')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
