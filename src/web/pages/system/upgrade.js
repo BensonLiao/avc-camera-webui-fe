@@ -48,6 +48,12 @@ const Upgrade = () => {
   const onSubmitForm = () => {
     progress.start();
     setApiProcessModalTitle(i18n.t('system.softwareUpgrade.modal.apiProcessModalTitleUploading'));
+    setProgressStatus({
+      uploadFirmware: 'initial',
+      upgradeFirmware: 'initial',
+      deviceShutdown: 'initial',
+      deviceRestart: 'initial'
+    });
     setIsShowApiProcessModal(true);
     updateProgressStatus('uploadFirmware', 'start');
     api.system.uploadFirmware(file, updateProgress)
