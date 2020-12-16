@@ -685,13 +685,14 @@ mockAxios
       ip: item.ip,
       port: item.port,
       // randomly generated device ID
-      deviceName: `MD2 [${Math.random().toString(36).substring(7)},]`,
+      deviceName: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
       account: item.account
     };
     return mockResponseWithLog(config, [200, db.get('cameraSync').push(newItem).write()]);
   })
   .onDelete('/api/members/camera-sync').reply(config => {
-    db.get('cameraSync').remove({id: config.data}).write();
+    const devices = JSON.parse(config.data);
+    devices.forEach(deviceID => db.get('cameraSync').remove({id: deviceID}).write());
     return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/face-recognition/settings').reply(config => {

@@ -5,6 +5,7 @@ import i18n from '../../../i18n';
 import CameraSyncAddDevice from './members-cameraSync-add';
 import api from '../../../core/apis/web-api';
 import {Formik, Form, Field} from 'formik';
+import {isArray} from '../../../core/utils';
 
 const CameraSync = ({cameraSync}) => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -23,8 +24,17 @@ const CameraSync = ({cameraSync}) => {
     setIsShowModal(false);
   };
 
-  const deleteCameraHandler = id => _ => {
-    api.member.deleteCamera(id);
+  const deleteCameraHandler = list => _ => {
+    if (isArray(list)) {
+      const itemsToDelete = list.filter(device => device.isChecked)
+        .reduce((arr, item) => {
+          arr.push(item.id);
+          return arr;
+        }, []);
+      api.member.deleteCamera(itemsToDelete);
+    } else {
+      api.member.deleteCamera([list]);
+    }
   };
 
   const editCameraHandler = camera => _ => {
@@ -33,7 +43,9 @@ const CameraSync = ({cameraSync}) => {
   };
 
   const sync = values => {
-    console.log(values);
+    const checked = values.filter(device => device.isChecked);
+    // Sync api
+    console.log(checked);
   };
 
   const selectAllHandler = form => _ => {
@@ -60,10 +72,10 @@ const CameraSync = ({cameraSync}) => {
           return (
             <Form className="card-body">
               <div className="col-12 mb-4">
-                <button className="btn btn-outline-danger rounded-pill px-3 ml-3" type="button">
+                <button className="btn btn-outline-danger rounded-pill px-4 ml-4" type="button" onClick={deleteCameraHandler(form.values)}>
                   {i18n.t('demo.userManagement.members.delete')}
                 </button>
-                <button className="btn btn-outline-success rounded-pill px-3 ml-5" type="submit">
+                <button className="btn btn-outline-success rounded-pill px-4 ml-5" type="submit">
                   {i18n.t('demo.userManagement.members.syncCameras')}
                 </button>
                 <button
@@ -84,10 +96,17 @@ const CameraSync = ({cameraSync}) => {
                 <table className="table custom-style">
                   <thead>
                     <tr className="shadow">
-                      <th className="text-center" style={{width: '10%'}}>
+                      <th
+                        className="text-center"
+                        style={{
+                          width: '10%',
+                          position: 'relative'
+                        }}
+                      >
                         <input
                           id="selectAll"
                           type="checkbox"
+                          indeterminate="true"
                           checked={isSelectAll}
                           style={{
                             width: '16px',
