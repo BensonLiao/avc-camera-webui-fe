@@ -457,7 +457,7 @@
         "confirmDeleteTitle": "Delete Account",
         "confirmDeleteBody": "Are you sure you want to delete account {{0}}?",
         "newUserTitle": "New User",
-        "ModifyUserTitle": "Modify User",
+        "modifyUserTitle": "Modify User",
         "usernamePlaceholder": "Enter a name for this account",
         "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space"
       },

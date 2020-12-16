@@ -451,7 +451,7 @@
         "confirmDeleteTitle": "Borrar cuenta",
         "confirmDeleteBody": "¿Está seguro de que desea borrar la cuenta {{0}} ?",
         "newUserTitle": "Nuevo Usuario",
-        "ModifyUserTitle": "Editar cuenta",
+        "modifyUserTitle": "Editar cuenta",
         "usernamePlaceholder": "Ingrese el nombre de la cuenta",
         "usernameHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio"
       },
