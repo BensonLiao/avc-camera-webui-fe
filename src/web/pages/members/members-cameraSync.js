@@ -9,6 +9,7 @@ import {Formik, Form, Field} from 'formik';
 const CameraSync = ({cameraSync}) => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [camera, setCamera] = useState(null);
+  const [isSelectAll, setIsSelectAll] = useState(false);
 
   const cameraList = cameraSync.map(device => ({
     ...device,
@@ -35,10 +36,16 @@ const CameraSync = ({cameraSync}) => {
     console.log(values);
   };
 
-  const generateInitalValues = form => _ => {
+  const selectAllHandler = form => _ => {
+    let checkboxState = false;
+    if (!isSelectAll) {
+      checkboxState = true;
+    }
+
     form.values.forEach((device, index) => {
-      form.setFieldValue(`${index}.isChecked`, true);
+      form.setFieldValue(`${index}.isChecked`, checkboxState);
     });
+    setIsSelectAll(prevState => (!prevState));
   };
 
   return (
@@ -53,9 +60,6 @@ const CameraSync = ({cameraSync}) => {
           return (
             <Form className="card-body">
               <div className="col-12 mb-4">
-                <button className="btn btn-outline-primary rounded-pill px-3 ml-3" type="button" onClick={generateInitalValues(form)}>
-                  {i18n.t('demo.userManagement.members.selectAll')}
-                </button>
                 <button className="btn btn-outline-danger rounded-pill px-3 ml-3" type="button">
                   {i18n.t('demo.userManagement.members.delete')}
                 </button>
@@ -80,7 +84,28 @@ const CameraSync = ({cameraSync}) => {
                 <table className="table custom-style">
                   <thead>
                     <tr className="shadow">
-                      <th className="text-center" style={{width: '10%'}}>{i18n.t('demo.userManagement.members.select')}</th>
+                      <th className="text-center" style={{width: '10%'}}>
+                        <input
+                          id="selectAll"
+                          type="checkbox"
+                          checked={isSelectAll}
+                          style={{
+                            width: '16px',
+                            height: '16px'
+                          }}
+                          onChange={selectAllHandler(form)}
+                        />
+                        <label
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            left: 0,
+                            top: 0,
+                            position: 'absolute'
+                          }}
+                          htmlFor="selectAll"
+                        />
+                      </th>
                       <th style={{width: '30%'}}>
                         {i18n.t('demo.userManagement.members.ip')}
                         <i className="fas fa-fw text-muted ml-3"/>
@@ -116,7 +141,6 @@ const CameraSync = ({cameraSync}) => {
                                   width: '16px',
                                   height: '16px'
                                 }}
-
                               />
                               <label
                                 style={{
