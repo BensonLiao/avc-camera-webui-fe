@@ -11,6 +11,11 @@ const CameraSync = ({cameraSync}) => {
 
   const showModal = () => setIsShowModal(true);
 
+  const hideModal = () => {
+    setCamera(null);
+    setIsShowModal(false);
+  };
+
   const deleteCameraHandler = id => _ => {
     api.member.deleteCamera(id);
   };
@@ -37,7 +42,7 @@ const CameraSync = ({cameraSync}) => {
         <CameraSyncAddDevice
           camera={camera}
           isShowModal={isShowModal}
-          setIsShowModal={setIsShowModal}
+          hideModal={hideModal}
         />
       </div>
 
@@ -71,14 +76,14 @@ const CameraSync = ({cameraSync}) => {
             {
               cameraSync.map(camera => {
                 return (
-                  <tr key={camera.ip}>
+                  <tr key={camera.id}>
                     <td className="text-center">
                       <input type="checkbox"/>
                     </td>
                     <td>
                       <CustomTooltip placement="top-start" title={camera.ip}>
                         <div>
-                          {camera.ip}
+                          {camera.ip + ':' + camera.port}
                         </div>
                       </CustomTooltip>
                     </td>

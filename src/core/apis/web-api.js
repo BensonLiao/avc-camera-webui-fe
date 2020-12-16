@@ -1378,36 +1378,44 @@ module.exports = {
     }),
     /**
      * @param {String} ip - Device IP
+     * @param {String} port - Device port
      * @param {String} username - Device login username
      * @param {String} password - Device login password
      * @returns {Promise<response>}
      * @response 200 {Object}
      */
-    addCamera: ({ip, account, password}) => api({
+    addCamera: ({ip, port, account, password}) => api({
       method: 'post',
       url: '/api/members/camera-sync',
       data: {
         ip,
-        account,
-        password
-      }
-    }),
-    /**
-     * @returns {Promise<response>}
-     * @response 200 {Object}
-     */
-    editCamera: ({id, ip, account, password}) => api({
-      method: 'put',
-      url: '/api/members/camera-sync',
-      data: {
-        id,
-        ip,
+        port,
         account,
         password
       }
     }),
     /**
      * @param {String} id
+     * @param {String} ip - Device IP
+     * @param {String} port - Device port
+     * @param {String} username - Device login username
+     * @param {String} password - Device login password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    editCamera: ({id, ip, port, account, password}) => api({
+      method: 'put',
+      url: '/api/members/camera-sync',
+      data: {
+        id,
+        ip,
+        port,
+        account,
+        password
+      }
+    }),
+    /**
+     * @param {Array} id - Array of objects of ids' to be deleted
      * @returns {Promise<response>}
      * @response 200 {Object}
      */

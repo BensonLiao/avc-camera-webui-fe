@@ -8,21 +8,25 @@ import api from '../../../core/apis/web-api';
 import Password from '../../../core/components/fields/password';
 import {useContextState} from '../../stateProvider';
 
-const CameraSyncAddDevice = ({camera, isShowModal, setIsShowModal}) => {
+const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
   const {isApiProcessing} = useContextState();
 
   const onSubmitForm = values => {
-    if (camera) {
-      return api.member.editCamera(values)
-        .then(() => setIsShowModal(false));
+    if (!values.port) {
+      values.port = 8080;
     }
 
-    api.member.addCamera(values)
-      .then(() => setIsShowModal(false));
+    if (camera) {
+      api.member.editCamera(values)
+        .then(hideModal);
+    } else {
+      api.member.addCamera(values)
+        .then(hideModal);
+    }
   };
 
   return (
-    <Modal autoFocus={false} show={isShowModal} backdrop={isApiProcessing ? 'static' : true} onHide={() => setIsShowModal(false)}>
+    <Modal autoFocus={false} show={isShowModal} backdrop={isApiProcessing ? 'static' : true} onHide={hideModal}>
       <Modal.Header className="d-flex justify-content-between align-items-center">
         <Modal.Title as="h5">
           {camera ?
@@ -33,6 +37,7 @@ const CameraSyncAddDevice = ({camera, isShowModal, setIsShowModal}) => {
       <Formik
         initialValues={camera || {
           ip: '',
+          port: '',
           account: '',
           password: ''
         }}
@@ -50,6 +55,16 @@ const CameraSyncAddDevice = ({camera, isShowModal, setIsShowModal}) => {
                   className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
                 />
                 <ErrorMessage component="div" name="ip" className="invalid-feedback"/>
+              </div>
+              <div className="form-group">
+                <label>{i18n.t('demo.userManagement.members.modal.cameraSync.port')}</label>
+                <Field
+                  name="port"
+                  type="text"
+                  placeholder={i18n.t('demo.userManagement.members.modal.cameraSync.portPlaceholder')}
+                  className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
+                />
+                <ErrorMessage component="div" name="port" className="invalid-feedback"/>
               </div>
               <div className="form-group">
                 <label>{i18n.t('userManagement.accounts.username')}</label>
@@ -88,9 +103,7 @@ const CameraSyncAddDevice = ({camera, isShowModal, setIsShowModal}) => {
                 disabled={isApiProcessing}
                 className="btn btn-info btn-block m-0 rounded-pill"
                 type="button"
-                onClick={() => {
-                  setIsShowModal(false);
-                }}
+                onClick={hideModal}
               >
                 {i18n.t('common.button.close')}
               </button>
@@ -105,7 +118,7 @@ const CameraSyncAddDevice = ({camera, isShowModal, setIsShowModal}) => {
 CameraSyncAddDevice.propTypes = {
   camera: PropTypes.object,
   isShowModal: PropTypes.bool.isRequired,
-  setIsShowModal: PropTypes.func.isRequired
+  hideModal: PropTypes.func.isRequired
 };
 
 export default CameraSyncAddDevice;

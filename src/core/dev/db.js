@@ -535,30 +535,35 @@ module.exports = {
         {
           id: uuidv4(),
           ip: '192.168.0.1',
+          port: '8080',
           deviceName: 'Camera 1',
           account: 'admin'
         },
         {
           id: uuidv4(),
           ip: '192.168.0.2',
+          port: '8080',
           deviceName: 'Camera 2',
           account: 'Jay'
         },
         {
           id: uuidv4(),
           ip: '192.168.0.3',
+          port: '8080',
           deviceName: 'Camera 3',
           account: 'King George VI'
         },
         {
           id: uuidv4(),
           ip: '192.168.0.4',
+          port: '8080',
           deviceName: 'Camera 4',
           account: 'Dr. Strange'
         },
         {
           id: uuidv4(),
           ip: '192.168.0.5',
+          port: '8080',
           deviceName: 'Camera 5',
           account: 'Iron Man'
         }

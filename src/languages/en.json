@@ -1066,7 +1066,9 @@
           "cameraSync": {
             "modifyCameraTitle": "Edit Camera Details",
             "newCameraTitle": "Add New Camera",
-            "ipPlaceholder": "Enter device IP"
+            "ipPlaceholder": "Enter device IP",
+            "port": "Port",
+            "portPlaceholder": "Enter device port"
           }
         }
       }

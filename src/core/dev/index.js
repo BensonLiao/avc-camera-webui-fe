@@ -683,6 +683,7 @@ mockAxios
     const newItem = {
       id: uuidv4(),
       ip: item.ip,
+      port: item.port,
       // randomly generated device ID
       deviceName: `MD2 [${Math.random().toString(36).substring(7)},]`,
       account: item.account
