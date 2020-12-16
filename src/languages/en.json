@@ -1062,6 +1062,8 @@
         "ip": "Device IP",
         "deviceName": "Device Name",
         "addDevice": "Add New Device",
+        "selectAll": "Select All",
+        "delete": "Delete",
         "modal": {
           "cameraSync": {
             "modifyCameraTitle": "Edit Camera Details",
