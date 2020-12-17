@@ -68,19 +68,28 @@ const CameraSync = ({cameraSync}) => {
         onSubmit={sync}
       >
         {form => {
-          console.log('rerender');
+          const disableButton = !form.values.some(device => device.isChecked);
           return (
             <Form className="card-body">
-              <div className="col-12 mb-4">
-                <button className="btn btn-outline-danger rounded-pill px-4 ml-4" type="button" onClick={deleteCameraHandler(form.values)}>
-                  {i18n.t('demo.userManagement.members.delete')}
-                </button>
-                <button className="btn btn-outline-success rounded-pill px-4 ml-5" type="submit">
+              <div className="col-12">
+                <button
+                  className="btn btn-primary rounded-pill px-4"
+                  type="submit"
+                  disabled={disableButton}
+                >
                   {i18n.t('demo.userManagement.members.syncCameras')}
                 </button>
                 <button
+                  className="btn btn-outline-primary rounded-pill px-4 ml-3"
                   type="button"
-                  className="btn btn-outline-primary rounded-pill float-right"
+                  disabled={disableButton}
+                  onClick={deleteCameraHandler(form.values)}
+                >
+                  {i18n.t('demo.userManagement.members.delete')}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline-primary rounded-pill ml-3"
                   onClick={showModal}
                 >
                   {i18n.t('demo.userManagement.members.addDevice')}
@@ -92,7 +101,7 @@ const CameraSync = ({cameraSync}) => {
                   hideModal={hideModal}
                 />
               </div>
-              <div className="col-12 mb-5 table-responsive">
+              <div className="col-12 pt-4 mb-5 table-responsive">
                 <table className="table custom-style">
                   <thead>
                     <tr className="shadow">
