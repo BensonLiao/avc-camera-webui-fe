@@ -735,14 +735,6 @@
       "software": "ソフトウェアバージョン",
       "serialNumber": "S/N 碼",
       "macAddress": "MACアドレス"
-    },
-    "common": {
-      "importHelper": "zipファイルのみサポートしています",
-      "selectFile": "ファイルを選択する",
-      "noFileSelected": "選択されたファイルがありません",
-      "tooltip": {
-        "disabledButton": "ファイルを選択してください"
-      }
     }
   },
   "sdCard": {
@@ -1013,6 +1005,14 @@
       "startTime": "開始時間",
       "endTime": "終了時間",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "zipファイルのみサポートしています",
+      "selectFile": "ファイルを選択する",
+      "noFileSelected": "選択されたファイルがありません",
+      "tooltip": {
+        "disabledButton": "ファイルを選択してください"
+      }
     },
     "button": {
       "on": "ON",

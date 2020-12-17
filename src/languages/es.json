@@ -735,14 +735,6 @@
       "software": "Versión del software",
       "serialNumber": "S/N Code",
       "macAddress": "Dirección física"
-    },
-    "common": {
-      "importHelper": "Solo admite formato de archivo .zip",
-      "selectFile": "Seleccionar Archivo",
-      "noFileSelected": "Ningún archivo seleccionado",
-      "tooltip": {
-        "disabledButton": "Seleccione primero un archivo"
-      }
     }
   },
   "sdCard": {
@@ -1013,6 +1005,14 @@
       "startTime": "Hora de inicio",
       "endTime": "Hora de fin",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "Solo admite formato de archivo .zip",
+      "selectFile": "Seleccionar Archivo",
+      "noFileSelected": "Ningún archivo seleccionado",
+      "tooltip": {
+        "disabledButton": "Seleccione primero un archivo"
+      }
     },
     "button": {
       "on": "ON",

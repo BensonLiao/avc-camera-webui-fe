@@ -735,14 +735,6 @@
       "software": "軟體版本",
       "serialNumber": "S/N 碼",
       "macAddress": "實體位址"
-    },
-    "common": {
-      "importHelper": "僅支援 .zip 檔案格式",
-      "selectFile": "選擇檔案",
-      "noFileSelected": "未選擇任何檔案",
-      "tooltip": {
-        "disabledButton": "請先選擇一個檔案"
-      }
     }
   },
   "sdCard": {
@@ -1013,6 +1005,14 @@
       "startTime": "起始時間",
       "endTime": "終止時間",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "僅支援 .zip 檔案格式",
+      "selectFile": "選擇檔案",
+      "noFileSelected": "未選擇任何檔案",
+      "tooltip": {
+        "disabledButton": "請先選擇一個檔案"
+      }
     },
     "button": {
       "on": "開啟",

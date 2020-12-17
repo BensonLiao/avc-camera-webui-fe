@@ -1043,6 +1043,14 @@
       "create": "Create",
       "add": "Add"
     },
+    "fileHandler": {
+      "importHelper": "Only ZIP file format is supported",
+      "selectFile": "Select File",
+      "noFileSelected": "No file selected.",
+      "tooltip": {
+        "disabledButton": "Please select a file first."
+      }
+    },
     "modal": {
       "pleaseWait": "Please wait",
       "sessionExpire": {
