@@ -585,3 +585,22 @@ module.exports.pingToCheckStartupAndReload = (interval, type = 'app') => {
   test();
 };
 
+/**
+ * Split array of data into an array of arrays by page size.
+ * @param {array} data - The input data.
+ * @param {number} size - Number of data per page to show. default is `10`
+ * @returns {array} - Pagination data.
+ */
+module.exports.getPaginatedData = (data, size = 10) => {
+  if (!this.isArray(data)) {
+    throw new Error('the input data must be an array.');
+  }
+
+  const pageData = [];
+  for (let i = 0; i < data.length / size; i++) {
+    pageData.push(data.slice(i * size, (i + 1) * size));
+  }
+
+  return pageData;
+};
+
