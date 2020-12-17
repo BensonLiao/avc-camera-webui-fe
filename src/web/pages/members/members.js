@@ -38,7 +38,7 @@ const Members = ({groups, members, params, remainingPictureCount, cameraSync}) =
   });
 
   // State used to switch pages between 'members', 'database' and 'sync'
-  const [page, setPage] = useState('database');
+  const [page, setPage] = useState('members');
 
   const {deleteGroupTarget, deleteMemberTarget} = state;
   const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;

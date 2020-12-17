@@ -1075,11 +1075,12 @@
         "addDevice": "Add New Device",
         "selectAll": "Select All",
         "remove": "Remove",
+        "noDevice": "Please click the 'Add' first to add a new device to your list",
         "modal": {
           "cameraSync": {
             "modifyCameraTitle": "Edit Camera Details",
             "newCameraTitle": "Add New Camera",
-            "ipPlaceholder": "Enter device IP",
+            "hostPlaceholder": "Enter device IP",
             "port": "Port",
             "portPlaceholder": "Enter device port"
           }

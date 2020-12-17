@@ -47,11 +47,11 @@ const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
           <Form>
             <div className="modal-body">
               <div className="form-group">
-                <label>{i18n.t('demo.userManagement.members.ip')}</label>
+                <label>{i18n.t('demo.userManagement.members.host')}</label>
                 <Field
                   name="ip"
                   type="text"
-                  placeholder={i18n.t('demo.userManagement.members.modal.cameraSync.ipPlaceholder')}
+                  placeholder={i18n.t('demo.userManagement.members.modal.cameraSync.hostPlaceholder')}
                   className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
                 />
                 <ErrorMessage component="div" name="ip" className="invalid-feedback"/>

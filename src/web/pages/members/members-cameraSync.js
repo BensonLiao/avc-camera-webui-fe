@@ -7,6 +7,7 @@ import api from '../../../core/apis/web-api';
 import {Formik, Form, Field} from 'formik';
 import {isArray} from '../../../core/utils';
 import FormikEffect from '../../../core/components/formik-effect';
+import noDevice from '../../../resource/noDevice.png';
 
 const CameraSync = ({cameraSync}) => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -159,9 +160,12 @@ const CameraSync = ({cameraSync}) => {
                     {
                       /* Empty Search Message */
                       !cameraSync.length && (
-                        <tr>
+                        <tr className="disable-highlight">
                           <td className="text-size-20 text-center" colSpan="10">
-                            <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('userManagement.members.noData')}
+                            <div className="d-flex flex-column align-items-center mt-5">
+                              <img src={noDevice}/>
+                              <div className="mt-5 text-center text-wrap" style={{width: '300px'}}>{i18n.t('demo.userManagement.members.noDevice')}</div>
+                            </div>
                           </td>
                         </tr>
                       )
