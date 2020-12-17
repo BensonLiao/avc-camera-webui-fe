@@ -102,7 +102,7 @@ nav.navbar.fixed-top {
 
   &.sub {
     padding-top: $top-navigation-height + $top-sub-navigation-height;
-    background-color: #fafafa;
+    background-color: $secondary-10;
     color: $secondary-500;
   }
 

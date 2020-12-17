@@ -241,14 +241,14 @@ const Members = ({groups, members, params, remainingPictureCount, cameraSync}) =
                 </>
               )}
               { page === 'database' && (
-                <div className="col-12">
+                <div className="col-12 database">
                   <MembersDatabase
                     isApiProcessing={isApiProcessing}
                   />
                 </div>
               )}
               { page === 'sync' && (
-                <div className="col-12">
+                <div className="col-12 sync">
                   <CameraSync
                     cameraSync={cameraSync}
                   />

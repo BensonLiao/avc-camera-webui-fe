@@ -102,24 +102,9 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
               )}
               onClick={switchPage('sync')}
             >
-              <div style={{
-                position: 'relative',
-                display: 'inline'
-              }}
-              >
+              <div className="sidebar-database">
                 <i className="fas fa-database pl-2 pr-4"/>
-                <i
-                  className="fas fa-sync"
-                  style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '33%',
-                    fontSize: '14px',
-                    backgroundColor: '#fafafa',
-                    padding: '1px',
-                    borderRadius: '3px'
-                  }}
-                />
+                <i className="fas fa-sync"/>
               </div>
               {i18n.t('demo.userManagement.members.synchronize')}
             </a>
