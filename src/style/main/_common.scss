@@ -591,6 +591,8 @@ body {
 
   thead {
     text-transform: uppercase;
+    position: relative;
+    z-index: 2;
 
     > tr {
       border-radius: 8px;
@@ -623,6 +625,10 @@ body {
       td {
         border: none;
       }
+    }
+
+    &:hover {
+      background-color: $secondary-10;
     }
 
     > td {
