@@ -109,33 +109,17 @@ const CameraSync = ({cameraSync}) => {
                   <thead>
                     <tr className="shadow">
                       <th
-                        className="text-center"
-                        style={{
-                          width: '10%',
-                          position: 'relative'
-                        }}
+                        className="text-center th-checkbox"
+                        style={{width: '10%'}}
                       >
                         <input
                           id="selectAll"
                           type="checkbox"
                           indeterminate="true"
                           checked={isSelectAll}
-                          style={{
-                            width: '16px',
-                            height: '16px'
-                          }}
                           onChange={selectAllHandler(form)}
                         />
-                        <label
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            left: 0,
-                            top: 0,
-                            position: 'absolute'
-                          }}
-                          htmlFor="selectAll"
-                        />
+                        <label htmlFor="selectAll"/>
                       </th>
                       <th style={{width: '30%'}}>
                         {i18n.t('demo.userManagement.members.host')}
@@ -163,26 +147,13 @@ const CameraSync = ({cameraSync}) => {
                       cameraList.map((camera, index) => {
                         return (
                           <tr key={camera.id}>
-                            <td style={{position: 'relative'}} className="text-center">
+                            <td className="text-center td-checkbox">
                               <Field
                                 name={`${index}.isChecked`}
                                 id={camera.id}
                                 type="checkbox"
-                                style={{
-                                  width: '16px',
-                                  height: '16px'
-                                }}
                               />
-                              <label
-                                style={{
-                                  width: '100%',
-                                  height: '100%',
-                                  left: 0,
-                                  top: 0,
-                                  position: 'absolute'
-                                }}
-                                htmlFor={camera.id}
-                              />
+                              <label htmlFor={camera.id}/>
                             </td>
                             <td>
                               <CustomTooltip placement="top-start" title={camera.ip}>

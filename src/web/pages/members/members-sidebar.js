@@ -85,7 +85,7 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
           <nav className="nav flex-column">
             <a
               href=""
-              className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
+              className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
                 {active: page === 'database'},
                 {'bg-light': page === 'database'}
               )}
@@ -96,7 +96,7 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
             </a>
             <a
               href=""
-              className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
+              className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
                 {active: page === 'sync'},
                 {'bg-light': page === 'sync'}
               )}
