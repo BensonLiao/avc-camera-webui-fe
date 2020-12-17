@@ -1,6 +1,6 @@
 /* eslint-disable max-nested-callbacks */
 /* eslint-disable no-undef */
-describe('license page test', () => {
+describe('member/group correspondence test', () => {
   const account = 'admin';
   const password = 'Fae12345-';
   beforeEach(() => {
@@ -26,6 +26,7 @@ describe('license page test', () => {
 
         const members = res[0].response.body;
         const groups = res[1].response.body;
+        // make sure groups and members are not empty
         if (groups && groups.items.length && members && members.items.length) {
           groups.items.forEach(group => {
             members.items.forEach(member => {
@@ -42,6 +43,7 @@ describe('license page test', () => {
             }
           });
 
+          // repeat validation for each group
           for (let i = 0; i < groupIds.length; i++) {
             // current group to verify
             let currentGroupId = groupIds[i];
