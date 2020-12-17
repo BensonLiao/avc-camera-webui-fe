@@ -139,7 +139,7 @@ const MembersDatabase = ({isApiProcessing}) => {
         <div className="card-header">{i18n.t('demo.userManagement.members.databaseSettings')}</div>
         <div className="card-body">
           <div className="form-group d-flex justify-content-between align-items-center">
-            <label className="mb-3">{i18n.t('demo.userManagement.members.encryptionSettings')}</label>
+            <label className="my-3">{i18n.t('demo.userManagement.members.encryptionSettings')}</label>
             <a href="#" onClick={showDatabaseModal}>{i18n.t('demo.userManagement.members.edit')}</a>
           </div>
           <div className="form-group">

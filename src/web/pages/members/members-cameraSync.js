@@ -47,7 +47,7 @@ const CameraSync = ({cameraSync}) => {
   const sync = values => {
     const checked = values.filter(device => device.isChecked);
     // Sync api
-    console.log(checked);
+    console.log(JSON.stringify(checked, null, 2));
   };
 
   const selectAllHandler = form => _ => {
@@ -77,6 +77,7 @@ const CameraSync = ({cameraSync}) => {
     } else {
       // No checkboxes has been selected
       checkboxRef.current.indeterminate = false;
+      setIsSelectAll(false);
     }
   };
 
