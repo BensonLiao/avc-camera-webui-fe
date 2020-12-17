@@ -7,7 +7,7 @@ describe('member/group correspondence test', () => {
     // login before each test
     cy.login(account, password);
   });
-  it('should arrive at members page, check if each group has corresponding members', () => {
+  it('should arrive at members page, check if each group has corresponding members on first page', () => {
     cy.intercept({
       method: 'GET',
       url: '/api/members'
