@@ -1059,11 +1059,11 @@
         "cameraSync": "Camera Sync",
         "syncCameras": "Synchronize",
         "select": "Select",
-        "ip": "Device IP",
+        "host": "Host",
         "deviceName": "Device Name",
         "addDevice": "Add New Device",
         "selectAll": "Select All",
-        "delete": "Delete",
+        "remove": "Remove",
         "modal": {
           "cameraSync": {
             "modifyCameraTitle": "Edit Camera Details",

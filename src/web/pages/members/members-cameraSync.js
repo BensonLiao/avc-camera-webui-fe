@@ -77,22 +77,25 @@ const CameraSync = ({cameraSync}) => {
                   type="submit"
                   disabled={disableButton}
                 >
+                  <i className="fas fa-exchange-alt fa-fw mr-1"/>
                   {i18n.t('demo.userManagement.members.syncCameras')}
                 </button>
                 <button
-                  className="btn btn-outline-primary rounded-pill px-4 ml-3"
+                  className="btn btn-outline-primary rounded-pill ml-3"
                   type="button"
                   disabled={disableButton}
                   onClick={deleteCameraHandler(form.values)}
                 >
-                  {i18n.t('demo.userManagement.members.delete')}
+                  <i className="far fa-trash-alt fa-lg fa-fw mr-1"/>
+                  {i18n.t('demo.userManagement.members.remove')}
                 </button>
                 <button
                   type="button"
                   className="btn btn-outline-primary rounded-pill ml-3"
                   onClick={showModal}
                 >
-                  {i18n.t('demo.userManagement.members.addDevice')}
+                  <i className="fas fa-plus fa-fw mr-1"/>
+                  {i18n.t('common.button.add')}
                 </button>
 
                 <CameraSyncAddDevice
@@ -135,7 +138,7 @@ const CameraSync = ({cameraSync}) => {
                         />
                       </th>
                       <th style={{width: '30%'}}>
-                        {i18n.t('demo.userManagement.members.ip')}
+                        {i18n.t('demo.userManagement.members.host')}
                         <i className="fas fa-fw text-muted ml-3"/>
                       </th>
                       <th style={{width: '35%'}}>
