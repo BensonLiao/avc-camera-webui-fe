@@ -15,7 +15,7 @@ import iconLock from '../../../resource/lock-24px.svg';
 import Password from '../../../core/components/fields/password';
 import wrappedApi from '../../../core/apis';
 
-const MembersDatabase = ({isApiProcessing, setCamSync}) => {
+const MembersDatabase = ({isApiProcessing}) => {
   const [state, setState] = useState({
     isShowDatabaseModal: false,
     databaseInitialValues: null,
@@ -163,15 +163,6 @@ const MembersDatabase = ({isApiProcessing, setCamSync}) => {
             />{i18n.t('userManagement.members.import')}
           </label>
         </div>
-        <div className="form-group">
-          <button
-            type="button"
-            className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}
-            onClick={() => setCamSync(true)}
-          >
-            {i18n.t('demo.userManagement.members.cameraSync')}
-          </button>
-        </div>
       </div>
 
       {/* Database encryption */}
@@ -265,9 +256,6 @@ const MembersDatabase = ({isApiProcessing, setCamSync}) => {
   );
 };
 
-MembersDatabase.propTypes = {
-  isApiProcessing: PropTypes.bool.isRequired,
-  setCamSync: PropTypes.func.isRequired
-};
+MembersDatabase.propTypes = {isApiProcessing: PropTypes.bool.isRequired};
 
 export default MembersDatabase;

@@ -1056,8 +1056,8 @@
   "demo": {
     "userManagement": {
       "members": {
-        "cameraSync": "Camera Sync",
-        "syncCameras": "Synchronize",
+        "synchronize": "Synchronize",
+        "databaseSettings": "Database Settings",
         "select": "Select",
         "host": "Host",
         "deviceName": "Device Name",

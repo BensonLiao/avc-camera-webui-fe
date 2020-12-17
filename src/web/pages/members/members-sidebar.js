@@ -4,11 +4,15 @@ import React from 'react';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
-import MembersDatabase from './members-sidebar-database';
 import {Link} from '@benson.liao/capybara-router';
 
-const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteGroupHandler, setCamSync}) => {
+const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setPage}) => {
   const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
+  const switchPage = page => e => {
+    e.preventDefault();
+    setPage(page);
+  };
+
   return (
     <>
       <div className="left-menu fixed-top sub">
@@ -75,10 +79,31 @@ const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteG
             ))
           }
           <hr/>
-          <MembersDatabase
-            isApiProcessing={isApiProcessing}
-            setCamSync={setCamSync}
-          />
+          <div className="sub-title py-3 px-4">
+            <h3>{i18n.t('userManagement.members.database')}</h3>
+          </div>
+          <nav className="nav flex-column">
+            <a
+              href=""
+              className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
+                {active: true},
+                {'bg-light': true}
+              )}
+              onClick={switchPage('database')}
+            >
+              <i className="fas fa-cog pl-2 pr-4"/>{i18n.t('demo.userManagement.members.databaseSettings')}
+            </a>
+            <a
+              href=""
+              className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
+                {active: true},
+                {'bg-light': true}
+              )}
+              onClick={switchPage('sync')}
+            >
+              <i className="fas fa-database pl-2 pr-4"/>{i18n.t('demo.userManagement.members.synchronize')}
+            </a>
+          </nav>
         </div>
       </div>
     </>
@@ -86,10 +111,9 @@ const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteG
 };
 
 MembersSidebar.propTypes = {
-  isApiProcessing: PropTypes.bool.isRequired,
   filterHandler: PropTypes.func.isRequired,
   deleteGroupHandler: PropTypes.func.isRequired,
-  setCamSync: PropTypes.func.isRequired,
+  setPage: PropTypes.func.isRequired,
   params: PropTypes.shape({group: PropTypes.string}).isRequired,
   groups: PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.shape({

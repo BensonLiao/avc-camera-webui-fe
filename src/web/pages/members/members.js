@@ -7,6 +7,7 @@ import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import CustomTooltip from '../../../core/components/tooltip';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import MembersDatabase from './members-database';
 import MembersSearchForm from './members-search-form';
 import MembersSidebar from './members-sidebar';
 import MembersTable from './members-table';
@@ -34,7 +35,9 @@ const Members = ({groups, members, params, remainingPictureCount, cameraSync}) =
       deleteMember: false
     }
   });
-  const [camSync, setCamSync] = useState(true);
+
+  // State used to switch pages between 'members', 'database' and 'sync'
+  const [page, setPage] = useState('members');
 
   const {deleteGroupTarget, deleteMemberTarget} = state;
   const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
@@ -168,26 +171,17 @@ const Members = ({groups, members, params, remainingPictureCount, cameraSync}) =
     <>
       {/* Left menu */}
       <MembersSidebar
-        isApiProcessing={isApiProcessing}
         params={params}
         groups={groups}
         filterHandler={generateChangeFilterHandler}
         deleteGroupHandler={generateShowDeleteGroupModalHandler}
-        setCamSync={setCamSync}
+        setPage={setPage}
       />
       {/* Main content */}
       <div className="main-content left-menu-active sub">
         <div className="page-members bg-white">
           <div className="container-fluid">
-            { camSync ? (
-              <div className="row">
-                <div className="col-12">
-                  <CameraSync
-                    cameraSync={cameraSync}
-                  />
-                </div>
-              </div>
-            ) : (
+            { page === 'members' && (
               <div className="row">
                 <div className="col-12 d-flex justify-content-between align-items-center mb-4">
                   <MembersSearchForm
@@ -243,7 +237,24 @@ const Members = ({groups, members, params, remainingPictureCount, cameraSync}) =
                 />
               </div>
             )}
-
+            { page === 'database' && (
+              <div className="row">
+                <div className="col-12">
+                  <MembersDatabase
+                    isApiProcessing={isApiProcessing}
+                  />
+                </div>
+              </div>
+            )}
+            { page === 'sync' && (
+              <div className="row">
+                <div className="col-12">
+                  <CameraSync
+                    cameraSync={cameraSync}
+                  />
+                </div>
+              </div>
+            )}
           </div>
           <RouterView/>
         </div>

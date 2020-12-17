@@ -73,12 +73,12 @@ const CameraSync = ({cameraSync}) => {
             <Form className="card-body">
               <div className="col-12">
                 <button
-                  className="btn btn-primary rounded-pill px-4"
+                  className="btn btn-primary rounded-pill"
                   type="submit"
                   disabled={disableButton}
                 >
-                  <i className="fas fa-exchange-alt fa-fw mr-1"/>
-                  {i18n.t('demo.userManagement.members.syncCameras')}
+                  <i className="fas fa-exchange-alt fa-fw mr-2"/>
+                  {i18n.t('demo.userManagement.members.synchronize')}
                 </button>
                 <button
                   className="btn btn-outline-primary rounded-pill ml-3"
@@ -86,7 +86,7 @@ const CameraSync = ({cameraSync}) => {
                   disabled={disableButton}
                   onClick={deleteCameraHandler(form.values)}
                 >
-                  <i className="far fa-trash-alt fa-lg fa-fw mr-1"/>
+                  <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
                   {i18n.t('demo.userManagement.members.remove')}
                 </button>
                 <button
@@ -94,7 +94,7 @@ const CameraSync = ({cameraSync}) => {
                   className="btn btn-outline-primary rounded-pill ml-3"
                   onClick={showModal}
                 >
-                  <i className="fas fa-plus fa-fw mr-1"/>
+                  <i className="fas fa-plus fa-fw mr-2"/>
                   {i18n.t('common.button.add')}
                 </button>
 
