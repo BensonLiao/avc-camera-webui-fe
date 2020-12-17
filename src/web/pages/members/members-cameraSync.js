@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
@@ -6,11 +6,13 @@ import CameraSyncAddDevice from './members-cameraSync-add';
 import api from '../../../core/apis/web-api';
 import {Formik, Form, Field} from 'formik';
 import {isArray} from '../../../core/utils';
+import FormikEffect from '../../../core/components/formik-effect';
 
 const CameraSync = ({cameraSync}) => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [camera, setCamera] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
+  const checkboxRef = useRef(null);
 
   const cameraList = cameraSync.map(device => ({
     ...device,
@@ -60,6 +62,24 @@ const CameraSync = ({cameraSync}) => {
     setIsSelectAll(prevState => (!prevState));
   };
 
+  const onChangeCardForm = ({nextValues}) => {
+    // Condition check for indeterminate state for table header checkbox
+    // Check if any checkboxes has been selected
+    if (nextValues.some(device => device.isChecked)) {
+      // Check if all checkboxes has been selected
+      if (nextValues.some(device => !device.isChecked)) {
+        checkboxRef.current.indeterminate = true;
+      } else {
+        // All checkboxes selected manually
+        checkboxRef.current.indeterminate = false;
+        setIsSelectAll(true);
+      }
+    } else {
+      // No checkboxes has been selected
+      checkboxRef.current.indeterminate = false;
+    }
+  };
+
   return (
     <div>
       <Formik
@@ -71,6 +91,7 @@ const CameraSync = ({cameraSync}) => {
           const disableButton = !form.values.some(device => device.isChecked);
           return (
             <Form className="card-body">
+              <FormikEffect onChange={onChangeCardForm}/>
               <div className="col-12">
                 <button
                   className="btn btn-primary rounded-pill"
@@ -113,6 +134,7 @@ const CameraSync = ({cameraSync}) => {
                         style={{width: '10%'}}
                       >
                         <input
+                          ref={checkboxRef}
                           id="selectAll"
                           type="checkbox"
                           indeterminate="true"
