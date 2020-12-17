@@ -6,7 +6,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
 import {Link} from '@benson.liao/capybara-router';
 
-const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setPage}) => {
+const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setPage, page}) => {
   const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
   const switchPage = page => e => {
     e.preventDefault();
@@ -22,8 +22,8 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
             to="/users/members"
             title={i18n.t('userManagement.members.allMembers')}
             className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
-              {active: !params.group},
-              {'bg-light': !params.group}
+              {active: !params.group && page === 'members'},
+              {'bg-light': !params.group && page === 'members'}
             )}
           >
             <i className="fas fa-user-friends pl-2 pr-4"/>{i18n.t('userManagement.members.allMembers')}
@@ -86,8 +86,8 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
             <a
               href=""
               className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
-                {active: true},
-                {'bg-light': true}
+                {active: page === 'database'},
+                {'bg-light': page === 'database'}
               )}
               onClick={switchPage('database')}
             >
@@ -96,8 +96,8 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
             <a
               href=""
               className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
-                {active: true},
-                {'bg-light': true}
+                {active: page === 'sync'},
+                {'bg-light': page === 'sync'}
               )}
               onClick={switchPage('sync')}
             >
@@ -114,6 +114,7 @@ MembersSidebar.propTypes = {
   filterHandler: PropTypes.func.isRequired,
   deleteGroupHandler: PropTypes.func.isRequired,
   setPage: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired,
   params: PropTypes.shape({group: PropTypes.string}).isRequired,
   groups: PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.shape({

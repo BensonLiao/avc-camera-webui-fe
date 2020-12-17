@@ -173,6 +173,7 @@ const Members = ({groups, members, params, remainingPictureCount, cameraSync}) =
       <MembersSidebar
         params={params}
         groups={groups}
+        page={page}
         filterHandler={generateChangeFilterHandler}
         deleteGroupHandler={generateShowDeleteGroupModalHandler}
         setPage={setPage}
