@@ -120,7 +120,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
           {
             /* The empty view */
             !events.items.length && (
-              <tr>
+              <tr className="disable-highlight">
                 <td className="text-size-20 text-center" colSpan="10">
                   <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('userManagement.events.noData')}
                 </td>

@@ -207,7 +207,7 @@ class SearchMember extends React.PureComponent {
 
                   {/* Inital message  */}
                   {!members && !isFetching && (
-                    <tr>
+                    <tr className="disable-highlight">
                       <td className="text-size-16 text-center pt-3" colSpan="10">
                         <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.modal.initialMessage')}
                       </td>
@@ -216,7 +216,7 @@ class SearchMember extends React.PureComponent {
 
                   {/* Empty search message */}
                   { members && !members.items.length && members.items.length === 0 && (
-                    <tr>
+                    <tr className="disable-highlight">
                       <td className="text-size-16 text-center" colSpan="10">
                         <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('userManagement.events.modal.noData')}
                       </td>
