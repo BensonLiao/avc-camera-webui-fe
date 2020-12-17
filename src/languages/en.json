@@ -432,7 +432,6 @@
       "tooltip": {
         "createGroup": "Create a Group",
         "groupLimitExceeded": "Group number limit exceeded.",
-        "encryptionSettings": "Encryption Settings",
         "deleteGroupWithName": "Delete Group: {{0}}",
         "editGroupWithName": "Edit Group: {{0}}",
         "editMemberWithName": "Edit Member: {{0}}",
@@ -1058,6 +1057,10 @@
       "members": {
         "synchronize": "Synchronize",
         "databaseSettings": "Database Settings",
+        "encryptionSettings": "Encryption Settings",
+        "edit": "Edit",
+        "exportDB": "Export Database",
+        "importDB": "Import Database",
         "select": "Select",
         "host": "Host",
         "deviceName": "Device Name",
