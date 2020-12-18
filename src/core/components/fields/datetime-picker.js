@@ -10,7 +10,7 @@ const utils = require('../../utils');
 const CLOCK_ITEM_HEIGHT = 40;
 const isOneOfDateTime = props => {
   if (!props.dateTabText && !props.timeTabText) {
-    return new Error('At least one of dateTabText or timeTabText prop must be provided');
+    return new Error('At least dateTabText or timeTabText prop must be provided');
   }
 };
 
