@@ -94,24 +94,34 @@ const CameraSync = ({cameraSync}) => {
           return (
             <Form className="card-body">
               <FormikEffect onChange={onChangeCardForm}/>
-              <div className="col-12">
-                <button
-                  className="btn btn-primary rounded-pill"
-                  type="submit"
-                  disabled={disableButton}
-                >
-                  <i className="fas fa-exchange-alt fa-fw mr-2"/>
-                  {i18n.t('demo.userManagement.members.synchronize')}
-                </button>
-                <button
-                  className="btn btn-outline-primary rounded-pill ml-3"
-                  type="button"
-                  disabled={disableButton}
-                  onClick={deleteCameraHandler(form.values)}
-                >
-                  <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
-                  {i18n.t('demo.userManagement.members.remove')}
-                </button>
+              <div className="col-12 d-inline-flex">
+                <CustomTooltip placement="auto" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
+                  <div>
+                    <button
+                      className="btn btn-primary rounded-pill"
+                      type="submit"
+                      disabled={disableButton}
+                      style={{pointerEvents: disableButton ? 'none' : 'auto'}}
+                    >
+                      <i className="fas fa-exchange-alt fa-fw mr-2"/>
+                      {i18n.t('demo.userManagement.members.synchronize')}
+                    </button>
+                  </div>
+                </CustomTooltip>
+                <CustomTooltip placement="top" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
+                  <div className="ml-3">
+                    <button
+                      className="btn btn-outline-primary rounded-pill"
+                      type="button"
+                      disabled={disableButton}
+                      style={{pointerEvents: disableButton ? 'none' : 'auto'}}
+                      onClick={deleteCameraHandler(form.values)}
+                    >
+                      <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
+                      {i18n.t('demo.userManagement.members.remove')}
+                    </button>
+                  </div>
+                </CustomTooltip>
                 <button
                   type="button"
                   className="btn btn-outline-primary rounded-pill ml-3"
