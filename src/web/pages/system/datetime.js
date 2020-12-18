@@ -268,7 +268,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                   name="manualTime"
                                   component={DateTimePicker}
                                   dateTabText={i18n.t('Manual Date')}
-                                  timeTabText={i18n.t('Manual Time')}
+                                  // timeTabText={i18n.t('Manual Time')}
                                   inputProps={{
                                     className: classNames(
                                       'btn date px-4',
