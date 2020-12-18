@@ -29,6 +29,11 @@ const CameraSync = ({cameraSync}) => {
     setIsShowModal(false);
   };
 
+  /**
+   * Condition check for indeterminate state for table header checkbox
+   * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
+   * @returns {void}
+   */
   const deleteCameraHandler = list => _ => {
     if (isArray(list)) {
       const itemsToDelete = list.filter(device => device.isChecked)
@@ -36,12 +41,19 @@ const CameraSync = ({cameraSync}) => {
           arr.push(item.id);
           return arr;
         }, []);
+      // Delete multiple devices
       api.member.deleteCamera(itemsToDelete);
     } else {
+      // Delete single device
       api.member.deleteCamera([list]);
     }
   };
 
+  /**
+   * Edit selected device
+   * @param {Object} camera - individual device data
+   * @returns {void}
+   */
   const editCameraHandler = camera => _ => {
     setCamera(camera);
     setIsShowModal(true);
@@ -53,6 +65,11 @@ const CameraSync = ({cameraSync}) => {
     console.log(JSON.stringify(checked, null, 2));
   };
 
+  /**
+   * Select or un-select all checkboxes on current page
+   * @param {Object} form - Formik form object
+   * @returns {void}
+   */
   const selectAllHandler = form => _ => {
     let checkboxState = false;
     if (!isSelectAll) {
@@ -65,15 +82,28 @@ const CameraSync = ({cameraSync}) => {
     setIsSelectAll(prevState => (!prevState));
   };
 
+  /**
+   * Update `Select All` checkbox based on page navigated to
+   */
   useEffect(() => {
     const values = formRef.current.values;
     selectAllCheckboxState(values);
   }, [page, selectAllCheckboxState]);
 
+  /**
+   * Update `Select All` checkbox based on any checkbox update
+   * @param {Object} values - Form next values
+   * @returns {void}
+   */
   const onChangeCardForm = ({nextValues}) => {
     selectAllCheckboxState(nextValues);
   };
 
+  /**
+   * Determine condition for table header checkbox indeterminate, check or unchecked state
+   * @param {Object} values - Form values
+   * @returns {void}
+   */
   const selectAllCheckboxState = useCallback(values => {
     // Check if any checkboxes has been selected
     if (values[page].some(device => device.isChecked)) {

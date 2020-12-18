@@ -12,6 +12,11 @@ import {getRouter} from '@benson.liao/capybara-router';
 const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
   const {isApiProcessing} = useContextState();
 
+  /**
+   * Submit new or edit device info
+   * @param {Object} values - Device information
+   * @returns {void}
+   */
   const onSubmitForm = values => {
     if (!values.port) {
       values.port = 8080;
