@@ -593,7 +593,11 @@ module.exports.pingToCheckStartupAndReload = (interval, type = 'app') => {
  */
 module.exports.getPaginatedData = (data, size = 10) => {
   if (!this.isArray(data)) {
-    throw new Error('the input data must be an array.');
+    throw new Error('The input data must be an array.');
+  }
+
+  if (!Number(size) && Number(size) < 1) {
+    throw new Error('The page size must be a positive number.');
   }
 
   const pageData = [];
