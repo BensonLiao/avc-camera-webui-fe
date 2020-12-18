@@ -29,7 +29,7 @@ module.exports = class Pagination extends React.PureComponent {
 
   onChangeGotoIndex = event => {
     let validateValue = event.currentTarget.value;
-    if (Number(event.currentTarget.value)) {
+    if (!isNaN(validateValue)) {
       validateValue = event.currentTarget.value >= this.maxGotoIndex ?
         this.maxGotoIndex :
         event.currentTarget.value;
