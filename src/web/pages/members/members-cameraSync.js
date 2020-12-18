@@ -183,7 +183,7 @@ const CameraSync = ({cameraSync}) => {
                     {
                       cameraList.map((camera, index) => {
                         return (
-                          <tr key={camera.id} style={{backgroundColor: form.values[index].isChecked && '#fafafa'}}>
+                          <tr key={camera.id} style={{backgroundColor: form.values[index] && form.values[index].isChecked && '#fafafa'}}>
                             <td className="text-center td-checkbox">
                               <Field
                                 name={`${index}.isChecked`}

@@ -7,6 +7,7 @@ import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import Password from '../../../core/components/fields/password';
 import {useContextState} from '../../stateProvider';
+import {getRouter} from '@benson.liao/capybara-router';
 
 const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
   const {isApiProcessing} = useContextState();
@@ -18,10 +19,12 @@ const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
 
     if (camera) {
       api.member.editCamera(values)
-        .then(hideModal);
+        .then(hideModal)
+        .then(getRouter().reload());
     } else {
       api.member.addCamera(values)
-        .then(hideModal);
+        .then(hideModal)
+        .then(getRouter().reload());
     }
   };
 
