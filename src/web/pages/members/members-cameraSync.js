@@ -1,25 +1,25 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import CameraSyncAddDevice from './members-cameraSync-add';
 import api from '../../../core/apis/web-api';
 import {Formik, Form, Field} from 'formik';
-import {isArray} from '../../../core/utils';
+import {getPaginatedData, isArray} from '../../../core/utils';
 import FormikEffect from '../../../core/components/formik-effect';
 import noDevice from '../../../resource/noDevice.png';
+import Pagination from '../../../core/components/pagination';
 
 const CameraSync = ({cameraSync}) => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [camera, setCamera] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
-  const checkboxRef = useRef(null);
+  const [page, setPage] = useState(0);
 
-  const cameraList = cameraSync.map(device => ({
+  const cameraList = getPaginatedData(cameraSync.map(device => ({
     ...device,
     isChecked: false
-  }));
-
+  })), 5);
   const showModal = () => setIsShowModal(true);
 
   const hideModal = () => {
@@ -46,7 +46,7 @@ const CameraSync = ({cameraSync}) => {
   };
 
   const sync = values => {
-    const checked = values.filter(device => device.isChecked);
+    const checked = values.flat().filter(device => device.isChecked);
     // Sync api
     console.log(JSON.stringify(checked, null, 2));
   };
@@ -57,8 +57,8 @@ const CameraSync = ({cameraSync}) => {
       checkboxState = true;
     }
 
-    form.values.forEach((device, index) => {
-      form.setFieldValue(`${index}.isChecked`, checkboxState);
+    form.values[page].forEach((_, index) => {
+      form.setFieldValue(`${page}.${index}.isChecked`, checkboxState);
     });
     setIsSelectAll(prevState => (!prevState));
   };
@@ -90,7 +90,7 @@ const CameraSync = ({cameraSync}) => {
         onSubmit={sync}
       >
         {form => {
-          const disableButton = !form.values.some(device => device.isChecked);
+          const disableButton = !form.values.flat().some(device => device.isChecked);
           return (
             <Form className="card-body">
               <FormikEffect onChange={onChangeCardForm}/>
@@ -181,12 +181,12 @@ const CameraSync = ({cameraSync}) => {
                       )
                     }
                     {
-                      cameraList.map((camera, index) => {
+                      cameraList[page].map((camera, index) => {
                         return (
-                          <tr key={camera.id} style={{backgroundColor: form.values[index] && form.values[index].isChecked && '#fafafa'}}>
+                          <tr key={camera.id} style={{backgroundColor: form.values[page][index] && form.values[page][index].isChecked && '#fafafa'}}>
                             <td className="text-center td-checkbox">
                               <Field
-                                name={`${index}.isChecked`}
+                                name={`${page}.${index}.isChecked`}
                                 id={camera.id}
                                 type="checkbox"
                               />
@@ -229,6 +229,15 @@ const CameraSync = ({cameraSync}) => {
                   </tbody>
                 </table>
               </div>
+              <Pagination
+                name="page"
+                index={page}
+                size={5}
+                total={cameraList.flat().length}
+                currentPageItemQuantity={cameraList[page].length}
+                hrefTemplate=""
+                setPageIndexState={setPage}
+              />
             </Form>
           );
         }}
