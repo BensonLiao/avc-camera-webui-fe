@@ -15,6 +15,8 @@ const CameraSync = ({cameraSync}) => {
   const [camera, setCamera] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
+  const checkboxRef = useRef();
+  const formRef = useRef();
 
   const cameraList = getPaginatedData(cameraSync.map(device => ({
     ...device,
@@ -63,12 +65,22 @@ const CameraSync = ({cameraSync}) => {
     setIsSelectAll(prevState => (!prevState));
   };
 
+  useEffect(() => {
+    const values = formRef.current.values;
+    selectAllCheckboxState(values);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
   const onChangeCardForm = ({nextValues}) => {
+    selectAllCheckboxState(nextValues);
+  };
+
+  const selectAllCheckboxState = values => {
     // Condition check for indeterminate state for table header checkbox
     // Check if any checkboxes has been selected
-    if (nextValues.some(device => device.isChecked)) {
+    if (values[page].some(device => device.isChecked)) {
       // Check if all checkboxes has been selected
-      if (nextValues.some(device => !device.isChecked)) {
+      if (values[page].some(device => !device.isChecked)) {
         checkboxRef.current.indeterminate = true;
       } else {
         // All checkboxes selected manually
@@ -85,7 +97,7 @@ const CameraSync = ({cameraSync}) => {
   return (
     <div>
       <Formik
-        enableReinitialize
+        innerRef={formRef}
         initialValues={cameraList}
         onSubmit={sync}
       >
