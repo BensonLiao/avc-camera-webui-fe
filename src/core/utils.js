@@ -601,7 +601,7 @@ module.exports.getPaginatedData = (data, size = 10) => {
   }
 
   if (size < 1) {
-    throw new TypeError('The page size must be a positive number.');
+    throw new RangeError('The page size must be a positive number.');
   }
 
   const pageData = [];
