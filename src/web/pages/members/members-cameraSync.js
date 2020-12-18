@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
@@ -68,15 +68,13 @@ const CameraSync = ({cameraSync}) => {
   useEffect(() => {
     const values = formRef.current.values;
     selectAllCheckboxState(values);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, selectAllCheckboxState]);
 
   const onChangeCardForm = ({nextValues}) => {
     selectAllCheckboxState(nextValues);
   };
 
-  const selectAllCheckboxState = values => {
-    // Condition check for indeterminate state for table header checkbox
+  const selectAllCheckboxState = useCallback(values => {
     // Check if any checkboxes has been selected
     if (values[page].some(device => device.isChecked)) {
       // Check if all checkboxes has been selected
@@ -92,7 +90,7 @@ const CameraSync = ({cameraSync}) => {
       checkboxRef.current.indeterminate = false;
       setIsSelectAll(false);
     }
-  };
+  }, [page]);
 
   return (
     <div>
