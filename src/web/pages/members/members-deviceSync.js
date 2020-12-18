@@ -1,5 +1,6 @@
 import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
+import {getRouter} from '@benson.liao/capybara-router';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import DeviceSyncAddDevice from './members-deviceSync-add';
@@ -36,16 +37,18 @@ const DeviceSync = ({deviceSync}) => {
    */
   const deleteDeviceHandler = list => _ => {
     if (isArray(list)) {
-      const itemsToDelete = list.filter(device => device.isChecked)
+      const itemsToDelete = list.flat().filter(device => device.isChecked)
         .reduce((arr, item) => {
           arr.push(item.id);
           return arr;
         }, []);
       // Delete multiple devices
-      api.member.deleteDevice(itemsToDelete);
+      api.member.deleteDevice(itemsToDelete)
+        .then(getRouter().reload());
     } else {
       // Delete single device
-      api.member.deleteDevice([list]);
+      api.member.deleteDevice([list])
+        .then(getRouter().reload());
     }
   };
 
