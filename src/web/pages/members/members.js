@@ -224,7 +224,7 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
                 index={members.index}
                 size={members.size}
                 total={members.total}
-                itemQuantity={members.items.length}
+                currentPageItemQuantity={members.items.length}
                 hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
                   `${hrefTemplate}&index=` :
                   `${hrefTemplate}?index=`}
