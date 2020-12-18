@@ -265,7 +265,7 @@ module.exports = new Router({
         groups: () => api.group.getGroups().then(response => response.data),
         members: params => api.member.getMembers(params).then(response => response.data),
         remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data),
-        cameraSync: () => api.member.getCameraSync().then(response => response.data)
+        deviceSync: () => api.member.getDevice().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-members" */

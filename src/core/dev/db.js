@@ -531,7 +531,7 @@ module.exports = {
       }],
       groups: memberGroups,
       members,
-      cameraSync: Array.from({length: 20}, (_, i) => (
+      deviceSync: Array.from({length: 20}, (_, i) => (
         {
           id: uuidv4(),
           ip: `192.168.0.${i + 1}`,

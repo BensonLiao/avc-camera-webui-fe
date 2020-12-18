@@ -9,7 +9,7 @@ import Password from '../../../core/components/fields/password';
 import {useContextState} from '../../stateProvider';
 import {getRouter} from '@benson.liao/capybara-router';
 
-const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
+const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
   const {isApiProcessing} = useContextState();
 
   /**
@@ -22,12 +22,12 @@ const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
       values.port = 8080;
     }
 
-    if (camera) {
-      api.member.editCamera(values)
+    if (device) {
+      api.member.editDevice(values)
         .then(hideModal)
         .then(getRouter().reload());
     } else {
-      api.member.addCamera(values)
+      api.member.addDevice(values)
         .then(hideModal)
         .then(getRouter().reload());
     }
@@ -37,13 +37,13 @@ const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
     <Modal autoFocus={false} show={isShowModal} backdrop={isApiProcessing ? 'static' : true} onHide={hideModal}>
       <Modal.Header className="d-flex justify-content-between align-items-center">
         <Modal.Title as="h5">
-          {camera ?
-            i18n.t('demo.userManagement.members.modal.cameraSync.modifyCameraTitle') :
-            i18n.t('demo.userManagement.members.modal.cameraSync.newCameraTitle')}
+          {device ?
+            i18n.t('demo.userManagement.members.modal.deviceSync.modifyDeviceTitle') :
+            i18n.t('demo.userManagement.members.modal.deviceSync.newDeviceTitle')}
         </Modal.Title>
       </Modal.Header>
       <Formik
-        initialValues={camera || {
+        initialValues={device || {
           ip: '',
           port: '',
           account: '',
@@ -59,17 +59,17 @@ const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
                 <Field
                   name="ip"
                   type="text"
-                  placeholder={i18n.t('demo.userManagement.members.modal.cameraSync.hostPlaceholder')}
+                  placeholder={i18n.t('demo.userManagement.members.modal.deviceSync.hostPlaceholder')}
                   className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
                 />
                 <ErrorMessage component="div" name="ip" className="invalid-feedback"/>
               </div>
               <div className="form-group">
-                <label>{i18n.t('demo.userManagement.members.modal.cameraSync.port')}</label>
+                <label>{i18n.t('demo.userManagement.members.modal.deviceSync.port')}</label>
                 <Field
                   name="port"
                   type="text"
-                  placeholder={i18n.t('demo.userManagement.members.modal.cameraSync.portPlaceholder')}
+                  placeholder={i18n.t('demo.userManagement.members.modal.deviceSync.portPlaceholder')}
                   className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
                 />
                 <ErrorMessage component="div" name="port" className="invalid-feedback"/>
@@ -104,7 +104,7 @@ const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
                   type="submit"
                   className="btn btn-primary btn-block rounded-pill"
                 >
-                  {camera ? i18n.t('common.button.confirm') : i18n.t('common.button.new')}
+                  {device ? i18n.t('common.button.confirm') : i18n.t('common.button.new')}
                 </button>
               </div>
               <button
@@ -123,11 +123,11 @@ const CameraSyncAddDevice = ({camera, isShowModal, hideModal}) => {
   );
 };
 
-CameraSyncAddDevice.propTypes = {
-  camera: PropTypes.object,
+DeviceSyncAddDevice.propTypes = {
+  device: PropTypes.object,
   isShowModal: PropTypes.bool.isRequired,
   hideModal: PropTypes.func.isRequired
 };
 
-export default CameraSyncAddDevice;
+export default DeviceSyncAddDevice;
 

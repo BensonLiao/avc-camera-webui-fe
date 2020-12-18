@@ -1372,9 +1372,9 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      */
-    getCameraSync: () => api({
+    getDevice: () => api({
       method: 'get',
-      url: '/api/members/camera-sync'
+      url: '/api/members/device-sync'
     }),
     /**
      * @param {String} ip - Device IP
@@ -1384,9 +1384,9 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      */
-    addCamera: ({ip, port, account, password}) => api({
+    addDevice: ({ip, port, account, password}) => api({
       method: 'post',
-      url: '/api/members/camera-sync',
+      url: '/api/members/device-sync',
       data: {
         ip,
         port,
@@ -1403,9 +1403,9 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      */
-    editCamera: ({id, ip, port, account, password}) => api({
+    editDevice: ({id, ip, port, account, password}) => api({
       method: 'put',
-      url: '/api/members/camera-sync',
+      url: '/api/members/device-sync',
       data: {
         id,
         ip,
@@ -1419,9 +1419,9 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      */
-    deleteCamera: id => api({
+    deleteDevice: id => api({
       method: 'delete',
-      url: '/api/members/camera-sync',
+      url: '/api/members/device-sync',
       data: id
     })
   },

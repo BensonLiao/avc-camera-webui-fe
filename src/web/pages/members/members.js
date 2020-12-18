@@ -13,11 +13,11 @@ import MembersSearchForm from './members-search-form';
 import MembersSidebar from './members-sidebar';
 import MembersTable from './members-table';
 import MembersSelectedGroup from './members-selectedGroup';
-import CameraSync from './members-cameraSync';
+import DeviceSync from './members-deviceSync';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
 
-const Members = ({groups, members, params, remainingPictureCount, cameraSync}) => {
+const Members = ({groups, members, params, remainingPictureCount, deviceSync}) => {
   const {isApiProcessing} = useContextState();
   const currentRoute = getRouter().findRouteByName('web.users.members');
 
@@ -249,8 +249,8 @@ const Members = ({groups, members, params, remainingPictureCount, cameraSync}) =
               )}
               { page === 'sync' && (
                 <div className="col-12 sync">
-                  <CameraSync
-                    cameraSync={cameraSync}
+                  <DeviceSync
+                    deviceSync={deviceSync}
                   />
                 </div>
               )}
@@ -272,7 +272,7 @@ Members.propTypes = {
   groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
   members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
   remainingPictureCount: PropTypes.number.isRequired,
-  cameraSync: PropTypes.any
+  deviceSync: PropTypes.any
 };
 
 export default withGlobalStatus(Members);

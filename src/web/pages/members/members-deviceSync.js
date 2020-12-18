@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
-import CameraSyncAddDevice from './members-cameraSync-add';
+import DeviceSyncAddDevice from './members-deviceSync-add';
 import api from '../../../core/apis/web-api';
 import {Formik, Form, Field} from 'formik';
 import {getPaginatedData, isArray} from '../../../core/utils';
@@ -10,22 +10,22 @@ import FormikEffect from '../../../core/components/formik-effect';
 import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
 
-const CameraSync = ({cameraSync}) => {
+const DeviceSync = ({deviceSync}) => {
   const [isShowModal, setIsShowModal] = useState(false);
-  const [camera, setCamera] = useState(null);
+  const [device, setDevice] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
-  const checkboxRef = useRef();
+  const selectAllRef = useRef();
   const formRef = useRef();
 
-  const cameraList = getPaginatedData(cameraSync.map(device => ({
+  const deviceList = getPaginatedData(deviceSync.map(device => ({
     ...device,
     isChecked: false
   })), 5);
   const showModal = () => setIsShowModal(true);
 
   const hideModal = () => {
-    setCamera(null);
+    setDevice(null);
     setIsShowModal(false);
   };
 
@@ -34,7 +34,7 @@ const CameraSync = ({cameraSync}) => {
    * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
    * @returns {void}
    */
-  const deleteCameraHandler = list => _ => {
+  const deleteDeviceHandler = list => _ => {
     if (isArray(list)) {
       const itemsToDelete = list.filter(device => device.isChecked)
         .reduce((arr, item) => {
@@ -42,20 +42,20 @@ const CameraSync = ({cameraSync}) => {
           return arr;
         }, []);
       // Delete multiple devices
-      api.member.deleteCamera(itemsToDelete);
+      api.member.deleteDevice(itemsToDelete);
     } else {
       // Delete single device
-      api.member.deleteCamera([list]);
+      api.member.deleteDevice([list]);
     }
   };
 
   /**
    * Edit selected device
-   * @param {Object} camera - individual device data
+   * @param {Object} device - individual device data
    * @returns {void}
    */
-  const editCameraHandler = camera => _ => {
-    setCamera(camera);
+  const editDeviceHandler = device => _ => {
+    setDevice(device);
     setIsShowModal(true);
   };
 
@@ -109,15 +109,15 @@ const CameraSync = ({cameraSync}) => {
     if (values[page].some(device => device.isChecked)) {
       // Check if all checkboxes has been selected
       if (values[page].some(device => !device.isChecked)) {
-        checkboxRef.current.indeterminate = true;
+        selectAllRef.current.indeterminate = true;
       } else {
         // All checkboxes selected manually
-        checkboxRef.current.indeterminate = false;
+        selectAllRef.current.indeterminate = false;
         setIsSelectAll(true);
       }
     } else {
       // No checkboxes has been selected
-      checkboxRef.current.indeterminate = false;
+      selectAllRef.current.indeterminate = false;
       setIsSelectAll(false);
     }
   }, [page]);
@@ -126,7 +126,7 @@ const CameraSync = ({cameraSync}) => {
     <div>
       <Formik
         innerRef={formRef}
-        initialValues={cameraList}
+        initialValues={deviceList}
         onSubmit={sync}
       >
         {form => {
@@ -155,7 +155,7 @@ const CameraSync = ({cameraSync}) => {
                       type="button"
                       disabled={disableButton}
                       style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                      onClick={deleteCameraHandler(form.values)}
+                      onClick={deleteDeviceHandler(form.values)}
                     >
                       <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
                       {i18n.t('demo.userManagement.members.remove')}
@@ -171,8 +171,8 @@ const CameraSync = ({cameraSync}) => {
                   {i18n.t('common.button.add')}
                 </button>
 
-                <CameraSyncAddDevice
-                  camera={camera}
+                <DeviceSyncAddDevice
+                  device={device}
                   isShowModal={isShowModal}
                   hideModal={hideModal}
                 />
@@ -186,7 +186,7 @@ const CameraSync = ({cameraSync}) => {
                         style={{width: '10%'}}
                       >
                         <input
-                          ref={checkboxRef}
+                          ref={selectAllRef}
                           id="selectAll"
                           type="checkbox"
                           indeterminate="true"
@@ -209,7 +209,7 @@ const CameraSync = ({cameraSync}) => {
                   <tbody>
                     {
                       /* Empty Search Message */
-                      !cameraSync.length && (
+                      !deviceSync.length && (
                         <tr className="disable-highlight">
                           <td className="text-size-20 text-center" colSpan="10">
                             <div className="d-flex flex-column align-items-center mt-5">
@@ -221,28 +221,28 @@ const CameraSync = ({cameraSync}) => {
                       )
                     }
                     {
-                      cameraList[page].map((camera, index) => {
+                      deviceList[page].map((device, index) => {
                         return (
-                          <tr key={camera.id} style={{backgroundColor: form.values[page][index] && form.values[page][index].isChecked && '#fafafa'}}>
+                          <tr key={device.id} style={{backgroundColor: form.values[page][index] && form.values[page][index].isChecked && '#e5f5ff'}}>
                             <td className="text-center td-checkbox">
                               <Field
                                 name={`${page}.${index}.isChecked`}
-                                id={camera.id}
+                                id={device.id}
                                 type="checkbox"
                               />
-                              <label htmlFor={camera.id}/>
+                              <label htmlFor={device.id}/>
                             </td>
                             <td>
-                              <CustomTooltip placement="top-start" title={camera.ip}>
+                              <CustomTooltip placement="top-start" title={device.ip}>
                                 <div>
-                                  {camera.ip + ':' + camera.port}
+                                  {device.ip + ':' + device.port}
                                 </div>
                               </CustomTooltip>
                             </td>
                             <td>
-                              <CustomTooltip placement="top-start" title={camera.deviceName}>
+                              <CustomTooltip placement="top-start" title={device.deviceName}>
                                 <div>
-                                  {camera.deviceName}
+                                  {device.deviceName}
                                 </div>
                               </CustomTooltip>
                             </td>
@@ -250,14 +250,14 @@ const CameraSync = ({cameraSync}) => {
                               <button
                                 className="btn btn-link"
                                 type="button"
-                                onClick={editCameraHandler(camera)}
+                                onClick={editDeviceHandler(device)}
                               >
                                 <i className="fas fa-pen fa-lg fa-fw"/>
                               </button>
                               <button
                                 className="btn btn-link"
                                 type="button"
-                                onClick={deleteCameraHandler(camera.id)}
+                                onClick={deleteDeviceHandler(device.id)}
                               >
                                 <i className="far fa-trash-alt fa-lg fa-fw"/>
                               </button>
@@ -273,8 +273,8 @@ const CameraSync = ({cameraSync}) => {
                 name="page"
                 index={page}
                 size={5}
-                total={cameraList.flat().length}
-                currentPageItemQuantity={cameraList[page].length}
+                total={deviceList.flat().length}
+                currentPageItemQuantity={deviceList[page].length}
                 hrefTemplate=""
                 setPageIndexState={setPage}
               />
@@ -286,7 +286,7 @@ const CameraSync = ({cameraSync}) => {
   );
 };
 
-CameraSync.propTypes = {cameraSync: PropTypes.array.isRequired};
+DeviceSync.propTypes = {deviceSync: PropTypes.array.isRequired};
 
-export default CameraSync;
+export default DeviceSync;
 

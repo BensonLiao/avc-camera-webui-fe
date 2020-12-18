@@ -673,12 +673,12 @@ mockAxios
   .onGet('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPut('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPost('/api/members/database').reply(config => setDelay(mockResponseWithLog(config, [204]), 2000))
-  .onGet('/api/members/camera-sync').reply(config => mockResponseWithLog(config, [200, db.get('cameraSync').value()]))
-  .onPut('/api/members/camera-sync').reply(config => {
+  .onGet('/api/members/device-sync').reply(config => mockResponseWithLog(config, [200, db.get('deviceSync').value()]))
+  .onPut('/api/members/device-sync').reply(config => {
     const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('cameraSync').find({id: newItem.id}).assign(newItem).write()]);
+    return mockResponseWithLog(config, [200, db.get('deviceSync').find({id: newItem.id}).assign(newItem).write()]);
   })
-  .onPost('/api/members/camera-sync').reply(config => {
+  .onPost('/api/members/device-sync').reply(config => {
     const item = JSON.parse(config.data);
     const newItem = {
       id: uuidv4(),
@@ -688,11 +688,11 @@ mockAxios
       deviceName: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
       account: item.account
     };
-    return mockResponseWithLog(config, [200, db.get('cameraSync').push(newItem).write()]);
+    return mockResponseWithLog(config, [200, db.get('deviceSync').push(newItem).write()]);
   })
-  .onDelete('/api/members/camera-sync').reply(config => {
+  .onDelete('/api/members/device-sync').reply(config => {
     const devices = JSON.parse(config.data);
-    devices.forEach(deviceID => db.get('cameraSync').remove({id: deviceID}).write());
+    devices.forEach(deviceID => db.get('deviceSync').remove({id: deviceID}).write());
     return mockResponseWithLog(config, [204, {}]);
   })
   .onGet('/api/face-recognition/settings').reply(config => {
