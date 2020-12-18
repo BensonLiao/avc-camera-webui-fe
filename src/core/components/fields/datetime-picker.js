@@ -8,14 +8,19 @@ const dayjs = require('dayjs');
 const utils = require('../../utils');
 
 const CLOCK_ITEM_HEIGHT = 40;
+const isOneOfDateTime = props => {
+  if (!props.dateTabText && !props.timeTabText) {
+    return new Error('At least one of dateTabText or timeTabText prop must be provided');
+  }
+};
 
 module.exports = class DatePicker extends React.PureComponent {
   static get propTypes() {
     return {
       inputProps: PropTypes.object,
       isShowRepeatSwitch: PropTypes.bool,
-      dateTabText: PropTypes.string,
-      timeTabText: PropTypes.string.isRequired,
+      dateTabText: isOneOfDateTime,
+      timeTabText: isOneOfDateTime,
       timeFormat: PropTypes.string,
       field: PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -38,6 +43,7 @@ module.exports = class DatePicker extends React.PureComponent {
       inputProps: {},
       isShowRepeatSwitch: false,
       dateTabText: undefined,
+      timeTabText: undefined,
       timeFormat: 'HH:mm',
       isShowPicker: false,
       startDateFieldName: '',
