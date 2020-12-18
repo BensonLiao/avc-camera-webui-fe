@@ -10,7 +10,7 @@ module.exports = class Pagination extends React.PureComponent {
       index: PropTypes.number.isRequired,
       size: PropTypes.number.isRequired,
       total: PropTypes.number.isRequired,
-      itemQuantity: PropTypes.number.isRequired,
+      currentPageItemQuantity: PropTypes.number.isRequired,
       hrefTemplate: PropTypes.string.isRequired,
       setPageIndexState: PropTypes.func
     };
@@ -70,7 +70,7 @@ module.exports = class Pagination extends React.PureComponent {
       index,
       size,
       total,
-      itemQuantity,
+      currentPageItemQuantity,
       hrefTemplate,
       setPageIndexState
     } = this.props;
@@ -82,7 +82,7 @@ module.exports = class Pagination extends React.PureComponent {
     const hasPrevious = index > 0;
     const hasNext = total > (index + 1) * size;
     const startItem = (index * size) + 1;
-    const endItem = startItem + itemQuantity - 1;
+    const endItem = startItem + currentPageItemQuantity - 1;
     const {gotoIndex} = this.state;
 
     for (let idx = index - 3; idx < index + 3; idx += 1) {

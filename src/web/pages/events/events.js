@@ -158,7 +158,7 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
                 index={faceEvents.index}
                 size={faceEvents.size}
                 total={faceEvents.total}
-                itemQuantity={faceEvents.items.length}
+                currentPageItemQuantity={faceEvents.items.length}
                 hrefTemplate={hrefTemplate.indexOf('?') >= 0 ? `${hrefTemplate}&index=` : `${hrefTemplate}?index=`}
               />
             </div>

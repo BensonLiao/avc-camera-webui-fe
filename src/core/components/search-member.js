@@ -301,7 +301,7 @@ class SearchMember extends React.PureComponent {
                 index={members.index}
                 size={members.size}
                 total={members.total}
-                itemQuantity={members.items.length}
+                currentPageItemQuantity={members.items.length}
                 onSearch={this.onSearch}
               />
             )}
@@ -326,7 +326,7 @@ class Pagination extends React.PureComponent {
     index: PropTypes.number.isRequired,
     size: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
-    itemQuantity: PropTypes.number.isRequired,
+    currentPageItemQuantity: PropTypes.number.isRequired,
     onSearch: PropTypes.func.isRequired
   }
 
@@ -355,13 +355,13 @@ class Pagination extends React.PureComponent {
   }
 
   render() {
-    const {index, size, total, itemQuantity, onSearch} = this.props;
+    const {index, size, total, currentPageItemQuantity, onSearch} = this.props;
 
     const numbers = [];
     const hasPrevious = index > 0;
     const hasNext = total > (index + 1) * size;
     const startItem = (index * size) + 1;
-    const endItem = startItem + itemQuantity - 1;
+    const endItem = startItem + currentPageItemQuantity - 1;
     const {gotoIndex} = this.state;
     for (let idx = index - 3; idx < index + 3; idx += 1) {
       if (idx < 0 || idx >= this.maxGotoIndex) {
