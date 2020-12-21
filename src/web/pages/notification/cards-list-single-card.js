@@ -71,7 +71,7 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
                   return (
                     <tr key={key}>
                       <th>{index === 0 ? i18n.t('Schedule') : ''}</th>
-                      <td>{`${utils.formatDate(utils.subtractTimezoneOffset(new Date(timePeriod.start)).toISOString())} - ${utils.formatDate(utils.subtractTimezoneOffset(new Date(timePeriod.end)).toISOString())}`}</td>
+                      <td>{`${utils.formatDate(utils.subtractTimezoneOffset(new Date(timePeriod.start)))} - ${utils.formatDate(utils.subtractTimezoneOffset(new Date(timePeriod.end)))}`}</td>
                     </tr>
                   );
                 })
