@@ -73,7 +73,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
       formValues.manualTime.setSeconds(0);
     }
 
-    formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
+    formValues.manualTime = new Date(dayjs.tz(utils.addTimezoneOffset(formValues.manualTime).toISOString(), ntpTimeZone)).getTime();
     formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
     api.system.updateSystemDateTime(formValues)
       .then(() => {
