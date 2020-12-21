@@ -20,6 +20,7 @@ module.exports = class DatePicker extends React.PureComponent {
       inputProps: PropTypes.object,
       isShowRepeatSwitch: PropTypes.bool,
       dateTabText: isOneOfDateTime,
+      dateFormat: PropTypes.string,
       timeTabText: isOneOfDateTime,
       timeFormat: PropTypes.string,
       field: PropTypes.shape({
@@ -43,6 +44,7 @@ module.exports = class DatePicker extends React.PureComponent {
       inputProps: {},
       isShowRepeatSwitch: false,
       dateTabText: undefined,
+      dateFormat: 'MM/DD/YYYY',
       timeTabText: undefined,
       timeFormat: 'HH:mm',
       isShowPicker: false,
@@ -822,7 +824,9 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   render() {
-    const {inputProps, field, isShowPicker, onClickInput, onHide, dateTabText, timeFormat} = this.props;
+    const {
+      inputProps, field, isShowPicker, onClickInput, onHide, dateTabText, dateFormat, timeTabText, timeFormat
+    } = this.props;
     return (
       <>
         <button
@@ -833,7 +837,8 @@ module.exports = class DatePicker extends React.PureComponent {
         >
           {utils.formatDate(
             field.value,
-            dateTabText ? {} : {format: timeFormat}
+            dateTabText && timeTabText ? {} :
+              dateTabText ? {format: dateFormat} : {format: timeFormat}
           ) || inputProps.placeholder}
         </button>
         <Overlay
