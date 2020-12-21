@@ -79,30 +79,37 @@ module.exports = class DatePicker extends React.PureComponent {
 
   componentDidMount() {
     const {field, dateTabText} = this.props;
-    this.setTabKey('tab-datepicker-time');
-    if (dateTabText) {
-      this.setTabKey('tab-datepicker-date');
-    }
-
-    if (field.value && utils.isDate(field.value)) {
-      this.setState({displayDate: new Date(field.value)}, () => {
-        this.state.displayDate.setDate(1);
-        if (this.state.displayDate.getHours() >= 12) {
-          this.setState({currentMeridiem: 'PM'});
-        }
-      });
-    } else {
-      this.setState({displayDate: new Date()}, () => {
-        this.state.displayDate.setDate(1);
-        if (this.state.displayDate.getHours() >= 12) {
-          this.setState({currentMeridiem: 'PM'});
-        }
-      });
-    }
+    this.setTabKey(dateTabText ? 'tab-datepicker-date' : 'tab-datepicker-time', () => {
+      if (field.value && utils.isDate(field.value)) {
+        this.setState({displayDate: new Date(field.value)}, () => {
+          this.state.displayDate.setDate(1);
+          if (this.state.displayDate.getHours() >= 12) {
+            this.setState({currentMeridiem: 'PM'});
+          }
+        });
+      } else {
+        this.setState({displayDate: new Date()}, () => {
+          this.state.displayDate.setDate(1);
+          if (this.state.displayDate.getHours() >= 12) {
+            this.setState({currentMeridiem: 'PM'});
+          }
+        });
+      }
+    });
   }
 
-  setTabKey = key => {
-    this.setState({tabKey: key});
+  /**
+   * Set the current tab state.
+   * @param {string} key - The tab key. either be `tab-datepicker-date` or `tab-datepicker-time`
+   * @param {function|null} callback The function to execure after state update. default is `null`
+   * @returns {void}
+   */
+  setTabKey = (key, callback = null) => {
+    if (typeof callback === 'function') {
+      this.setState({tabKey: key}, callback);
+    } else {
+      this.setState({tabKey: key});
+    }
   }
 
   /**
