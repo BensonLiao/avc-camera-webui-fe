@@ -569,6 +569,33 @@ module.exports = class DatePicker extends React.PureComponent {
     }
   };
 
+  /**
+   * The clock items onClick handler, to scroll to position that user clicks.
+   * @param {string} clockUnit - The unit of clock item, could be `hour`, `minute` or `meridiem`. default is `hour`
+   * @param {number} itemIndex - The clock item index in the ui.
+   * @return {void}
+   */
+  onClickClockItem = ({clockUnit = 'hour', itemIndex = 0}) => {
+    const scrollPos = itemIndex * CLOCK_ITEM_HEIGHT;
+    switch (clockUnit) {
+      default:
+        this.clockData.tuneHoursScrollTimeout = setTimeout(() => {
+          $(this.clockData.hoursRef.current).animate({scrollTop: scrollPos}, 200);
+        }, 300);
+        break;
+      case 'minute':
+        this.clockData.tuneMinutesScrollTimeout = setTimeout(() => {
+          $(this.clockData.minutesRef.current).animate({scrollTop: scrollPos}, 200);
+        }, 300);
+        break;
+      case 'meridiem':
+        this.clockData.tuneMeridiemItemsScrollTimeout = setTimeout(() => {
+          $(this.clockData.meridiemItemsRef.current).animate({scrollTop: scrollPos}, 200);
+        }, 300);
+        break;
+    }
+  };
+
   generateClickDateHandler = date => event => {
     event.preventDefault();
     if (this.props.timeTabText) {
@@ -722,7 +749,11 @@ module.exports = class DatePicker extends React.PureComponent {
             {
               hours.map((hour, index) => {
                 return (
-                  <a key={hour || `none-${index}`} className={classNames('item', {disabled: this.isInvalidHour(hour)})}>
+                  <a
+                    key={hour || `none-${index}`}
+                    className={classNames('item', {disabled: this.isInvalidHour(hour)})}
+                    onClick={() => this.onClickClockItem({itemIndex: index - 2})}
+                  >
                     {hour == null ? '' : `${hour}`.padStart(2, '0')}
                   </a>
                 );
@@ -736,7 +767,14 @@ module.exports = class DatePicker extends React.PureComponent {
             {
               minutes.map((minute, index) => {
                 return (
-                  <a key={minute || `none-${index}`} className={classNames('item', {disabled: this.isInvalidMinute(minute)})}>
+                  <a
+                    key={minute || `none-${index}`}
+                    className={classNames('item', {disabled: this.isInvalidMinute(minute)})}
+                    onClick={() => this.onClickClockItem({
+                      clockUnit: 'minute',
+                      itemIndex: index - 2
+                    })}
+                  >
                     {minute == null ? '' : `${minute}`.padStart(2, '0')}
                   </a>
                 );
@@ -750,7 +788,14 @@ module.exports = class DatePicker extends React.PureComponent {
             {
               meridiemItems.map((meridiem, index) => {
                 return (
-                  <a key={meridiem || `none-${index}`} className={classNames('item', {disabled: this.isInvalidMeridiem(meridiem)})}>
+                  <a
+                    key={meridiem || `none-${index}`}
+                    className={classNames('item', {disabled: this.isInvalidMeridiem(meridiem)})}
+                    onClick={() => this.onClickClockItem({
+                      clockUnit: 'meridiem',
+                      itemIndex: index - 2
+                    })}
+                  >
                     {meridiem || ''}
                   </a>
                 );
