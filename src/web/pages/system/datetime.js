@@ -54,6 +54,12 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
     }));
   };
 
+  // convert Date to UTC without changing time
+  const convertDateToUTC = date => {
+    const withTimeZone = dayjs(date).utc(true).valueOf();
+    return withTimeZone;
+  };
+
   const onSubmit = values => {
     const formValues = {...values};
     progress.start();
@@ -73,8 +79,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
       formValues.manualTime.setSeconds(0);
     }
 
-    console.log(formValues.manualTime);
-    formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
+    formValues.manualTime = convertDateToUTC(formValues.manualTime);
     formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
     api.system.updateSystemDateTime(formValues)
       .then(() => {
@@ -114,7 +119,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                       ...systemDateTime,
                       ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime).getTime(),
                       manualTime: systemDateTime.manualTime ?
-                        new Date(utils.subtractTimezoneOffset(systemDateTime.manualTime).getTime()) : new Date()
+                        new Date(systemDateTime.manualTime) : new Date()
                     }}
                     onSubmit={onSubmit}
                   >
