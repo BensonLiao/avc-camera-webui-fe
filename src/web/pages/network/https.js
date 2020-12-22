@@ -129,7 +129,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                       </SelectField>
                       <CustomTooltip
                         show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false}
-                        title={i18n.t('network.https.disabledButton.')}
+                        title={i18n.t('network.https.tooltip.disabledButton')}
                       >
                         <div>
                           <button
