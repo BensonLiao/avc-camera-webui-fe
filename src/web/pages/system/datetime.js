@@ -32,8 +32,6 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
     manualTime: false
   });
 
-  console.log(dayjs(deviceTime).tz(ntpTimeZone));
-
   const hideApiProcessModal = () => {
     setShowApiProcessModal(prevState => ({
       ...prevState,
@@ -75,7 +73,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
       formValues.manualTime.setSeconds(0);
     }
 
-    formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
+    formValues.manualTime = new Date(formValues.manualTime).getTime();
     formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
     api.system.updateSystemDateTime(formValues)
       .then(() => {
@@ -105,7 +103,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                       <div className="form-group d-flex justify-content-between align-items-center mb-0">
                         <label className="mb-0">{i18n.t('Date and Time of the Device')}</label>
                         <label className="text-primary mb-0">
-                          <Clock ticking date={deviceTime} timezone={ntpTimeZone} format="YYYY-MM-DD, hh:mm:ss A Z"/>
+                          <Clock ticking date={syncTimeOption === SyncTimeOption.manual ? utils.addTimezoneOffset(deviceTime).getTime() : deviceTime} timezone={ntpTimeZone} format="YYYY-MM-DD, hh:mm:ss A Z"/>
                         </label>
                       </div>
                     </div>
@@ -115,7 +113,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                       ...systemDateTime,
                       ntpUpdateTime: utils.subtractTimezoneOffset(ntpUpdateTime).getTime(),
                       manualTime: systemDateTime.manualTime ?
-                        new Date(systemDateTime.manualTime) : new Date()
+                        utils.addTimezoneOffset(deviceTime).getTime() : new Date()
                     }}
                     onSubmit={onSubmit}
                   >
