@@ -32,6 +32,8 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
     manualTime: false
   });
 
+  console.log(dayjs(deviceTime).tz(ntpTimeZone));
+
   const hideApiProcessModal = () => {
     setShowApiProcessModal(prevState => ({
       ...prevState,
@@ -73,7 +75,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
       formValues.manualTime.setSeconds(0);
     }
 
-    formValues.manualTime = new Date(dayjs.tz(utils.addTimezoneOffset(formValues.manualTime).toISOString(), ntpTimeZone)).getTime();
+    formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
     formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
     api.system.updateSystemDateTime(formValues)
       .then(() => {
