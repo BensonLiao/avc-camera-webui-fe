@@ -75,7 +75,6 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
 
     console.log(formValues.manualTime);
     formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
-    console.log(formValues.manualTime);
     formValues.ntpUpdateTime = utils.addTimezoneOffset(formValues.ntpUpdateTime).getTime();
     api.system.updateSystemDateTime(formValues)
       .then(() => {
@@ -105,7 +104,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                       <div className="form-group d-flex justify-content-between align-items-center mb-0">
                         <label className="mb-0">{i18n.t('Date and Time of the Device')}</label>
                         <label className="text-primary mb-0">
-                          <Clock ticking date={SyncTimeOption.manual === syncTimeOption ? new Date(utils.addTimezoneOffset(deviceTime).getTime()).getTime() : deviceTime} timezone={ntpTimeZone} format="YYYY-MM-DD, hh:mm:ss A Z"/>
+                          <Clock ticking date={deviceTime} timezone={ntpTimeZone} format="YYYY-MM-DD, hh:mm:ss A Z"/>
                         </label>
                       </div>
                     </div>
