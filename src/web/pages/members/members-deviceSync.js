@@ -18,7 +18,6 @@ const DeviceSync = ({deviceSync}) => {
   const [page, setPage] = useState(0);
   const selectAllRef = useRef();
   const formRef = useRef();
-
   const deviceList = getPaginatedData(deviceSync.map(device => ({
     ...device,
     isChecked: false
@@ -229,7 +228,10 @@ const DeviceSync = ({deviceSync}) => {
                     {
                       deviceList[page].map((device, index) => {
                         return (
-                          <tr key={device.id} style={{backgroundColor: form.values[page][index] && form.values[page][index].isChecked && '#e5f5ff'}}>
+                          <tr
+                            key={device.id}
+                            style={{backgroundColor: form.values[page][index] && form.values[page][index].isChecked && '#f5fbff'}}
+                          >
                             <td className="text-center td-checkbox">
                               <Field
                                 name={`${page}.${index}.isChecked`}
