@@ -20,6 +20,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
 import {NOTIFY_CARDS_MAX} from '../../../core/constants';
+import utils from '../../../core/utils';
 
 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
 const CustomNormalWrapper = (
@@ -61,10 +62,7 @@ const CardsForm = ({
         isEnableTime: card.isEnableTime,
         $start: null,
         $end: null,
-        timePeriods: card.timePeriods.map(x => ({
-          ...x,
-          id: Math.random().toString(36).substr(2)
-        })),
+        timePeriods: card.timePeriods,
         $groups: card.groups.length > 0 ? card.groups[0] : '',
         faceRecognitionCondition: card.faceRecognitionCondition,
         isEnableGPIO: card.isEnableGPIO,
@@ -140,6 +138,11 @@ const CardsForm = ({
   const onSubmit = values => {
     const data = {
       ...values,
+      timePeriods: values.timePeriods.map(timePeriod => ({
+        ...timePeriod,
+        start: utils.addTimezoneOffset(new Date(timePeriod.start)).toISOString(),
+        end: utils.addTimezoneOffset(new Date(timePeriod.end)).toISOString()
+      })),
       isTop: isTop,
       groups: values.faceRecognitionCondition === NotificationFaceRecognitionCondition.success ?
         (values.$groups ? [values.$groups] : []) :
