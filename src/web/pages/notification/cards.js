@@ -9,6 +9,7 @@ import CardsList from './cards-list';
 import CustomTooltip from '../../../core/components/tooltip';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
+import utils from '../../../core/utils';
 
 const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) => {
   const {isApiProcessing} = useContextState();
@@ -45,6 +46,16 @@ const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) 
       }
     }
   };
+
+  cards = cards.map(card => ({
+    ...card,
+    timePeriods: card.timePeriods.map(timePeriod => ({
+      ...timePeriod,
+      start: utils.subtractTimezoneOffset(new Date(timePeriod.start)).toISOString(),
+      end: utils.subtractTimezoneOffset(new Date(timePeriod.end)).toISOString(),
+      id: Math.random().toString(36).substr(2)
+    }))
+  }));
 
   return (
     <>
