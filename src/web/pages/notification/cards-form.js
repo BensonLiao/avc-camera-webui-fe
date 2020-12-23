@@ -143,13 +143,11 @@ const CardsForm = ({
   const onSubmit = values => {
     const data = {
       ...values,
-      timePeriods: values.timePeriods.map(timePeriod => {
-        const start = utils.addTimezoneOffset(new Date(timePeriod.start)).toISOString();
-        const end = utils.addTimezoneOffset(new Date(timePeriod.end)).toISOString();
-        timePeriod.start = start;
-        timePeriod.end = end;
-        return timePeriod;
-      }),
+      timePeriods: values.timePeriods.map(timePeriod => ({
+        ...timePeriod,
+        start: utils.addTimezoneOffset(new Date(timePeriod.start)).toISOString(),
+        end: utils.addTimezoneOffset(new Date(timePeriod.end)).toISOString()
+      })),
       isTop: isTop,
       groups: values.faceRecognitionCondition === NotificationFaceRecognitionCondition.success ?
         (values.$groups ? [values.$groups] : []) :
