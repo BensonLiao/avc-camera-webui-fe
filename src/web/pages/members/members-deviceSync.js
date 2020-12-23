@@ -10,6 +10,7 @@ import {getPaginatedData, isArray} from '../../../core/utils';
 import FormikEffect from '../../../core/components/formik-effect';
 import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
+import classNames from 'classnames';
 
 const DeviceSync = ({deviceSync}) => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -101,7 +102,9 @@ const DeviceSync = ({deviceSync}) => {
    * @returns {void}
    */
   const onChangeCardForm = ({nextValues}) => {
-    selectAllCheckboxState(nextValues);
+    if (deviceSync.length) {
+      selectAllCheckboxState(nextValues);
+    }
   };
 
   /**
@@ -111,7 +114,7 @@ const DeviceSync = ({deviceSync}) => {
    */
   const selectAllCheckboxState = useCallback(values => {
     // Check if any checkboxes has been selected
-    if (values[page].some(device => device.isChecked)) {
+    if (values[page] && values[page].some(device => device.isChecked)) {
       // Check if all checkboxes has been selected
       if (values[page].some(device => !device.isChecked)) {
         selectAllRef.current.indeterminate = true;
@@ -226,7 +229,7 @@ const DeviceSync = ({deviceSync}) => {
                       )
                     }
                     {
-                      deviceList[page].map((device, index) => {
+                      deviceList[page] && deviceList[page].map((device, index) => {
                         return (
                           <tr
                             key={device.id}
@@ -282,7 +285,7 @@ const DeviceSync = ({deviceSync}) => {
                 index={page}
                 size={5}
                 total={deviceList.flat().length}
-                currentPageItemQuantity={deviceList[page].length}
+                currentPageItemQuantity={deviceSync.length && deviceList[page].length}
                 hrefTemplate=""
                 setPageIndexState={setPage}
               />
