@@ -266,10 +266,9 @@ module.exports = class DatePicker extends React.PureComponent {
 
   setDateValue = (date = new Date(), {skipTime} = {}) => {
     const {field, form} = this.props;
-
+    date.setMilliseconds(0);
+    date.setSeconds(0);
     if (skipTime && field.value) {
-      date.setMilliseconds(field.value.getMilliseconds());
-      date.setSeconds(field.value.getSeconds());
       date.setMinutes(field.value.getMinutes());
       date.setHours(field.value.getHours());
     }
