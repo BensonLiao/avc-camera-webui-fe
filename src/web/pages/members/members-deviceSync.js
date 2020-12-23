@@ -89,8 +89,11 @@ const DeviceSync = ({deviceSync}) => {
    * Update `Select All` checkbox based on page navigated to
    */
   useEffect(() => {
-    const values = formRef.current.values;
-    selectAllCheckboxState(values);
+    // Crash prevention fallback if React is less than v2.2.0, innerRef only exists after v2.2.0
+    if (formRef.current) {
+      const values = formRef.current.values;
+      selectAllCheckboxState(values);
+    }
   }, [page, selectAllCheckboxState]);
 
   /**
