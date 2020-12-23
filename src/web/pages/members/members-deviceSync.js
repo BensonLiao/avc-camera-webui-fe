@@ -230,7 +230,7 @@ const DeviceSync = ({deviceSync}) => {
                         return (
                           <tr
                             key={device.id}
-                            style={{backgroundColor: form.values[page][index] && form.values[page][index].isChecked && '#f5fbff'}}
+                            className={classNames({checked: form.values[page][index] && form.values[page][index].isChecked})}
                           >
                             <td className="text-center td-checkbox">
                               <Field
