@@ -5,6 +5,7 @@ import React from 'react';
 import i18n from '../../../i18n';
 import Similarity from 'webserver-form-schema/constants/event-filters/similarity';
 import RecognitionType from 'webserver-form-schema/constants/event-filters/recognition-type';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
   /**
@@ -89,7 +90,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
             <label className="form-check-label" htmlFor={item.id}>
               {(() => {
                 switch (item.confidence) {
-                  default: return;
+                  default: return <ErrorDisplay/>;
                   case Similarity.low:
                     return i18n.t('userManagement.events.constants.confidence-0');
                   case Similarity.medium:
@@ -117,7 +118,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
             <label className="form-check-label" htmlFor={item.id}>
               {(() => {
                 switch (item.status) {
-                  default: return;
+                  default: return <ErrorDisplay/>;
                   case RecognitionType.fake:
                     return i18n.t('userManagement.events.constants.enroll-status-0');
                   case RecognitionType.unknown:
