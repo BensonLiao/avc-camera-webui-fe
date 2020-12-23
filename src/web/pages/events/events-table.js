@@ -1,3 +1,4 @@
+import axios from 'axios';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -8,7 +9,6 @@ import SyncTimeOption from 'webserver-form-schema/constants/system-sync-time';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import utils from '../../../core/utils';
-import axios from 'axios';
 
 const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMemberHandler, remainingPictureCount}) => {
   const generateEnlargePhotoHandler = eventPhotoUrl => {
