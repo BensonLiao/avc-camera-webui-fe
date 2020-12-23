@@ -68,9 +68,6 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
       if (formValues.syncTimeOption !== syncTimeOption) {
         formValues.ntpTimeZone = dayjs.tz.guess();
       }
-    } else {
-    // Set seconds to 0 to prevent timepicker issues
-      formValues.manualTime.setSeconds(0);
     }
 
     formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
