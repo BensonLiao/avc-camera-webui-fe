@@ -79,9 +79,12 @@ const DeviceSync = ({deviceSync}) => {
       checkboxState = true;
     }
 
-    form.values[page].forEach((_, index) => {
-      form.setFieldValue(`${page}.${index}.isChecked`, checkboxState);
-    });
+    if (form.values[page]) {
+      form.values[page].forEach((_, index) => {
+        form.setFieldValue(`${page}.${index}.isChecked`, checkboxState);
+      });
+    }
+
     setIsSelectAll(prevState => (!prevState));
   };
 
@@ -222,7 +225,7 @@ const DeviceSync = ({deviceSync}) => {
                           return (
                             <tr
                               key={device.id}
-                              className={classNames({checked: form.values[page][index] && form.values[page][index].isChecked})}
+                              className={classNames({checked: form.values[page] && form.values[page][index] && form.values[page][index].isChecked})}
                             >
                               <td className="text-center td-checkbox">
                                 <Field
