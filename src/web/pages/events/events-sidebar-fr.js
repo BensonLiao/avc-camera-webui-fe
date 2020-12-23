@@ -87,7 +87,17 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('confidence', item.confidence)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {i18n.t(`userManagement.events.constants.confidence-${item.confidence}`)}
+              {(() => {
+                switch (item.confidence) {
+                  default: return;
+                  case Similarity.low:
+                    return i18n.t('userManagement.events.constants.confidence-0');
+                  case Similarity.medium:
+                    return i18n.t('userManagement.events.constants.confidence-1');
+                  case Similarity.high:
+                    return i18n.t('userManagement.events.constants.confidence-2');
+                }
+              })()}
             </label>
           </div>
         ))}
@@ -105,7 +115,17 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('enrollStatus', item.status)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {i18n.t(`userManagement.events.constants.enroll-status-${item.status}`)}
+              {(() => {
+                switch (item.status) {
+                  default: return;
+                  case RecognitionType.fake:
+                    return i18n.t('userManagement.events.constants.enroll-status-0');
+                  case RecognitionType.unknown:
+                    return i18n.t('userManagement.events.constants.enroll-status-1');
+                  case RecognitionType.registered:
+                    return i18n.t('userManagement.events.constants.enroll-status-2');
+                }
+              })()}
             </label>
           </div>
         ))}
