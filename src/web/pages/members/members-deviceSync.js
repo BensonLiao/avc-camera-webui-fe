@@ -217,7 +217,55 @@ const DeviceSync = ({deviceSync}) => {
                   <tbody>
                     {
                       /* Empty Search Message */
-                      !deviceSync.length && (
+                      deviceSync.length ? (
+                        deviceList[page].map((device, index) => {
+                          return (
+                            <tr
+                              key={device.id}
+                              className={classNames({checked: form.values[page][index] && form.values[page][index].isChecked})}
+                            >
+                              <td className="text-center td-checkbox">
+                                <Field
+                                  name={`${page}.${index}.isChecked`}
+                                  id={device.id}
+                                  type="checkbox"
+                                />
+                                <label htmlFor={device.id}/>
+                              </td>
+                              <td>
+                                <CustomTooltip placement="top-start" title={device.ip}>
+                                  <div>
+                                    {device.ip + ':' + device.port}
+                                  </div>
+                                </CustomTooltip>
+                              </td>
+                              <td>
+                                <CustomTooltip placement="top-start" title={device.deviceName}>
+                                  <div>
+                                    {device.deviceName}
+                                  </div>
+                                </CustomTooltip>
+                              </td>
+                              <td className="text-left group-btn">
+                                <button
+                                  className="btn btn-link"
+                                  type="button"
+                                  onClick={editDeviceHandler(device)}
+                                >
+                                  <i className="fas fa-pen fa-lg fa-fw"/>
+                                </button>
+                                <button
+                                  className="btn btn-link"
+                                  type="button"
+                                  onClick={deleteDeviceHandler(device.id)}
+                                >
+                                  <i className="far fa-trash-alt fa-lg fa-fw"/>
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })
+                      ) : (
                         <tr className="disable-highlight">
                           <td className="text-size-20 text-center" colSpan="10">
                             <div className="d-flex flex-column align-items-center mt-5">
@@ -227,55 +275,6 @@ const DeviceSync = ({deviceSync}) => {
                           </td>
                         </tr>
                       )
-                    }
-                    {
-                      deviceList[page] && deviceList[page].map((device, index) => {
-                        return (
-                          <tr
-                            key={device.id}
-                            className={classNames({checked: form.values[page][index] && form.values[page][index].isChecked})}
-                          >
-                            <td className="text-center td-checkbox">
-                              <Field
-                                name={`${page}.${index}.isChecked`}
-                                id={device.id}
-                                type="checkbox"
-                              />
-                              <label htmlFor={device.id}/>
-                            </td>
-                            <td>
-                              <CustomTooltip placement="top-start" title={device.ip}>
-                                <div>
-                                  {device.ip + ':' + device.port}
-                                </div>
-                              </CustomTooltip>
-                            </td>
-                            <td>
-                              <CustomTooltip placement="top-start" title={device.deviceName}>
-                                <div>
-                                  {device.deviceName}
-                                </div>
-                              </CustomTooltip>
-                            </td>
-                            <td className="text-left group-btn">
-                              <button
-                                className="btn btn-link"
-                                type="button"
-                                onClick={editDeviceHandler(device)}
-                              >
-                                <i className="fas fa-pen fa-lg fa-fw"/>
-                              </button>
-                              <button
-                                className="btn btn-link"
-                                type="button"
-                                onClick={deleteDeviceHandler(device.id)}
-                              >
-                                <i className="far fa-trash-alt fa-lg fa-fw"/>
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })
                     }
                   </tbody>
                 </table>
