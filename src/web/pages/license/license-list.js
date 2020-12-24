@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../../i18n';
 import utils from '../../../core/utils';
-import authKeyFaceRecognitionType from 'webserver-form-schema/constants/auth-key-fr';
+import AuthKeyFaceRecognitionType from 'webserver-form-schema/constants/auth-key-fr';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const LicenseList = ({authKeys}) => {
   return (
@@ -25,9 +26,17 @@ const LicenseList = ({authKeys}) => {
             <td>{authKey.user.name}</td>
             <td>{authKey.authKey}</td>
             <td>
-              {authKey.isEnableFaceRecognitionKey !== '0' && (
+              {authKey.isEnableFaceRecognitionKey !== `${AuthKeyFaceRecognitionType.all().indexOf('inactive')}` && (
                 <span className="badge badge-primary badge-pill">
-                  {i18n.t(`analytics.license.constants.key-${authKeyFaceRecognitionType[authKey.isEnableFaceRecognitionKey]}`)}
+                  {(() => {
+                    switch (authKey.isEnableFaceRecognitionKey) {
+                      default: return <ErrorDisplay/>;
+                      case `${AuthKeyFaceRecognitionType.all().indexOf('thirtyThousand')}`:
+                        return i18n.t('analytics.license.constants.key-thirtyThousand');
+                      case `${AuthKeyFaceRecognitionType.all().indexOf('threeThousand')}`:
+                        return i18n.t('analytics.license.constants.key-threeThousand');
+                    }
+                  })()}
                 </span>
               )}
               {authKey.isEnableAgeGenderKey && (
