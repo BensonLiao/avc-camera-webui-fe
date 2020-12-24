@@ -19,6 +19,7 @@ import ContentEditable from '@benson.liao/react-content-editable';
 import CustomTooltip from '../../../core/components/tooltip';
 import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
+import utils from '../../../core/utils';
 import {NOTIFY_CARDS_MAX} from '../../../core/constants';
 
 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
@@ -218,10 +219,12 @@ const CardsForm = ({
                   <Field name="type" component="select" className="form-control border-0">
                     {
                       NotificationCardType.all().filter(type => (
-                        type === '0' || type === '3' || type === '5'
+                        type === NotificationCardType.faceRecognition ||
+                        type === NotificationCardType.motionDetection ||
+                        type === NotificationCardType.digitalInput
                       )).map(
                         type => {
-                          return <option key={type} value={type}>{i18n.t(`notification.cards.constants.notification-card-${type}`)}</option>;
+                          return <option key={type} value={type}>{utils.getNotificationCardTypeI18N(type)}</option>;
                         }
                       )
                     }

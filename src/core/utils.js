@@ -10,6 +10,7 @@ const RecognitionType = require('webserver-form-schema/constants/event-filters/r
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
+const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const THREE = require('three');
 const OrbitControls = require('three/examples/jsm/controls/OrbitControls').OrbitControls;
@@ -716,6 +717,31 @@ module.exports.getEventRecognitionTypeI18N = (recognitionType, defaultValue = ''
       return i18n.t('userManagement.events.constants.enroll-status-1');
     case RecognitionType.registered:
       return i18n.t('userManagement.events.constants.enroll-status-2');
+  }
+};
+
+/**
+ * Get the i18n message of notification card type.
+ * @param {string} notificationCardType - The notification card type,
+ * it can be `faceRecognition`, `ageGender`, `humanoidDetection`, `tamperAlarm` or `digitalInput`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getNotificationCardTypeI18N = (notificationCardType, defaultValue = '') => {
+  switch (notificationCardType) {
+    default: return defaultValue;
+    case NotificationCardType.faceRecognition:
+      return i18n.t('notification.cards.constants.notification-card-0');
+    case NotificationCardType.ageGender:
+      return i18n.t('notification.cards.constants.notification-card-1');
+    case NotificationCardType.humanoidDetection:
+      return i18n.t('notification.cards.constants.notification-card-2');
+    case NotificationCardType.motionDetection:
+      return i18n.t('notification.cards.constants.notification-card-3');
+    case NotificationCardType.tamperAlarm:
+      return i18n.t('notification.cards.constants.notification-card-4');
+    case NotificationCardType.digitalInput:
+      return i18n.t('notification.cards.constants.notification-card-5');
   }
 };
 
