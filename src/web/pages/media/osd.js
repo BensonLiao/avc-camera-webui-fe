@@ -182,19 +182,20 @@ module.exports = class OSD extends Base {
                         </div>
                         <SelectField labelName={i18n.t('video.osd.overlay')} name="type">
                           {OSDType.all().map(type => (
-                            <option key={type} value={type}>{(() => {
-                              switch (type) {
-                                default: return <ErrorDisplay/>;
-                                case OSDType.time:
-                                  return i18n.t('video.osd.constants.osd-type-0');
-                                case OSDType.cameraName:
-                                  return i18n.t('video.osd.constants.osd-type-1');
-                                case OSDType.cameraNameAndTime:
-                                  return i18n.t('video.osd.constants.osd-type-2');
-                                case OSDType.custom:
-                                  return i18n.t('video.osd.constants.osd-type-3');
-                              }
-                            })()}
+                            <option key={type} value={type}>
+                              {(() => {
+                                switch (type) {
+                                  default: return <ErrorDisplay/>;
+                                  case OSDType.time:
+                                    return i18n.t('video.osd.constants.osd-type-0');
+                                  case OSDType.cameraName:
+                                    return i18n.t('video.osd.constants.osd-type-1');
+                                  case OSDType.cameraNameAndTime:
+                                    return i18n.t('video.osd.constants.osd-type-2');
+                                  case OSDType.custom:
+                                    return i18n.t('video.osd.constants.osd-type-3');
+                                }
+                              })()}
                             </option>
                           ))}
                         </SelectField>

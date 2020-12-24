@@ -19,6 +19,7 @@ const iconNetwork = require('../../resource/left-navigation-network.svg');
 const iconSystem = require('../../resource/left-navigation-system.svg');
 const iconSDCard = require('../../resource/left-navigation-sd-card.svg');
 const logo = require('../../resource/logo-avc.svg');
+const ErrorDisplay = require('../../core/components/error-display');
 const CustomTooltip = require('../../core/components/tooltip');
 const SessionExpireModal = require('../../core/components/session-expire-modal');
 const api = require('../../core/apis/web-api');
@@ -348,7 +349,18 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h5 className="dropdown-header text-primary">
-                      {i18n.t(`navigation.appbar.constants.permission-${$user.permission}`)}
+                      {(() => {
+                        switch ($user.permission) {
+                          default: return <ErrorDisplay/>;
+                          case UserPermission.root:
+                          case UserPermission.superAdmin:
+                            return i18n.t('navigation.appbar.constants.permission-0');
+                          case UserPermission.guest:
+                            return i18n.t('navigation.appbar.constants.permission-1');
+                          case UserPermission.viewer:
+                            return i18n.t('navigation.appbar.constants.permission-2');
+                        }
+                      })()}
                     </h5>
                     <span className="dropdown-item-text font-weight-bold">{$user.account}</span>
                     <div className="dropdown-divider"/>
