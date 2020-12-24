@@ -19,6 +19,93 @@ const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const Dropdown = require('../../../core/components/fields/dropdown');
 const SelectField = require('../../../core/components/fields/select-field');
+const getStreamResolutionOption = x => {
+  switch (x) {
+    default: return {};
+    case StreamResolution[0]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-0')
+      };
+    case StreamResolution[1]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-1')
+      };
+    case StreamResolution[2]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-2')
+      };
+    case StreamResolution[3]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-3')
+      };
+    case StreamResolution[4]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-4')
+      };
+    case StreamResolution[5]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-5')
+      };
+    case StreamResolution[6]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-6')
+      };
+    case StreamResolution[7]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-7')
+      };
+    case StreamResolution[8]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-8')
+      };
+    case StreamResolution[9]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-9')
+      };
+    case StreamResolution[10]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-10')
+      };
+    case StreamResolution[11]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-11')
+      };
+  }
+};
+
+const getBandwidthManagementOption = x => {
+  switch (x) {
+    default: return {};
+    case StreamBandwidthManagement.mbr:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-bandwidth-management-0')
+      };
+    case StreamBandwidthManagement.vbr:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-bandwidth-management-1')
+      };
+    case StreamBandwidthManagement.cbr:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-bandwidth-management-2')
+      };
+  }
+};
+
 module.exports = class StreamSetting extends Base {
   static get propTypes() {
     // Make form ui for home page or not
@@ -72,10 +159,7 @@ module.exports = class StreamSetting extends Base {
                         (Number(x) === 0 || Number(x) === 5 || Number(x) === 6)
                        )
           )
-          .map(x => ({
-            label: i18n.t(`video.stream.constants.stream-resolution-${x}`),
-            value: x
-          })),
+          .map(x => getStreamResolutionOption(x)),
         frameRate: (() => {
           const result = [];
           for (let index = StreamSettingsSchema.channelA.props.frameRate.min;
@@ -89,10 +173,7 @@ module.exports = class StreamSetting extends Base {
 
           return result;
         })(),
-        bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-          label: i18n.t(`video.stream.constants.stream-bandwidth-management-${x}`),
-          value: x
-        })),
+        bandwidthManagement: StreamBandwidthManagement.all().map(x => getBandwidthManagementOption(x)),
         gov: StreamGOV.all().map(x => ({
           label: x,
           value: x
@@ -132,10 +213,7 @@ module.exports = class StreamSetting extends Base {
             }
           }
 
-          return options.map(x => ({
-            label: i18n.t(`video.stream.constants.stream-resolution-${x}`),
-            value: x
-          }));
+          return options.map(x => getStreamResolutionOption(x));
         })(),
         frameRate: (() => {
           const result = [];
@@ -166,18 +244,31 @@ module.exports = class StreamSetting extends Base {
 
           return result;
         })(),
-        bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-          label: i18n.t(`video.stream.constants.stream-bandwidth-management-${x}`),
-          value: x
-        })),
+        bandwidthManagement: StreamBandwidthManagement.all().map(x => getBandwidthManagementOption(x)),
         gov: StreamGOV.all().map(x => ({
           label: x,
           value: x
         })),
-        quality: StreamQuality.all().map(x => ({
-          label: i18n.t(`video.stream.constants.quality-${x}`),
-          value: x
-        }))
+        quality: StreamQuality.all().map(x => {
+          switch (x) {
+            default: return {};
+            case StreamQuality[0]:
+              return {
+                value: x,
+                label: i18n.t('video.stream.constants.quality-80')
+              };
+            case StreamQuality[1]:
+              return {
+                value: x,
+                label: i18n.t('video.stream.constants.quality-50')
+              };
+            case StreamQuality[2]:
+              return {
+                value: x,
+                label: i18n.t('video.stream.constants.quality-30')
+              };
+          }
+        })
       }
     };
   }
