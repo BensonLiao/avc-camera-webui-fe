@@ -1224,3 +1224,17 @@ $stage-spacer: 32px;
     }
   }
 }
+
+button.btn-primary {
+  transition: opacity ease 0.2s;
+}
+
+input.form-control {
+  transition: background-color ease 0.2s;
+}
+
+a.nav-link,
+a.page-link,
+.group-item {
+  transition: background-color ease 0.2s;
+}
