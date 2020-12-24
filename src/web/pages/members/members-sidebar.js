@@ -29,7 +29,11 @@ const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteG
         <div className="groups">
           <div className="sub-title py-1 px-4">
             <h3>{i18n.t('userManagement.members.groups')}</h3>
-            <CustomTooltip title={isAddGroupDisabled ? i18n.t('userManagement.members.tooltip.groupLimitExceeded.') : i18n.t('userManagement.members.tooltip.createGroup')}>
+            <CustomTooltip
+              title={i18n.t(isAddGroupDisabled ?
+                'userManagement.members.tooltip.groupLimitExceeded.' :
+                'userManagement.members.tooltip.createGroup')}
+            >
               <span>
                 <Link
                   to={{
