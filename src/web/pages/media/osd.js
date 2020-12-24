@@ -14,6 +14,7 @@ const i18n = require('../../../i18n').default;
 const api = require('../../../core/apis/web-api');
 const SelectField = require('../../../core/components/fields/select-field');
 const BreadCrumb = require('../../../core/components/fields/breadcrumb').default;
+const ErrorDisplay = require('../../../core/components/error-display').default;
 
 module.exports = class OSD extends Base {
   static get propTypes() {
@@ -61,7 +62,12 @@ module.exports = class OSD extends Base {
                     <div className="video-wrapper">
                       <img className="img-fluid" draggable={false} src="/api/snapshot"/>
                       {
-                        [{leftTop: 'top-left'}, {rightTop: 'top-right'}, {leftBottom: 'bottom-left'}, {rightBottom: 'bottom-right'}].map(direction => {
+                        [
+                          {leftTop: 'top-left'},
+                          {rightTop: 'top-right'},
+                          {leftBottom: 'bottom-left'},
+                          {rightBottom: 'bottom-right'}
+                        ].map(direction => {
                           const [key, value] = Object.entries(direction)[0];
                           return (
                             values.position !== OSDPosition[key] && (
@@ -107,7 +113,17 @@ module.exports = class OSD extends Base {
                                   )}
                                   onClick={() => setFieldValue('fontSize', size)}
                                 >
-                                  {i18n.t(`video.osd.constants.font-size-${size}`)}
+                                  {(() => {
+                                    switch (size) {
+                                      default: return <ErrorDisplay/>;
+                                      case OSDFontSize.small:
+                                        return i18n.t('video.osd.constants.font-size-0');
+                                      case OSDFontSize.medium:
+                                        return i18n.t('video.osd.constants.font-size-1');
+                                      case OSDFontSize.large:
+                                        return i18n.t('video.osd.constants.font-size-2');
+                                    }
+                                  })()}
                                 </button>
                               ))
                             }
@@ -143,9 +159,21 @@ module.exports = class OSD extends Base {
                           <div className="form-group d-flex justify-content-between align-items-center mb-0">
                             <label className="mb-0">{i18n.t('video.osd.position')}</label>
                             {
-                              ['leftTop', 'rightTop', 'leftBottom', 'rightBottom'].map(direction => (
-                                values.position === OSDPosition[direction] && (
-                                  <p key={direction} className="text-primary mb-0">{i18n.t(`video.osd.${direction}`)}</p>
+                              [{
+                                name: 'leftTop',
+                                i18nMessage: i18n.t('video.osd.leftTop')
+                              }, {
+                                name: 'rightTop',
+                                i18nMessage: i18n.t('video.osd.rightTop')
+                              }, {
+                                name: 'leftBottom',
+                                i18nMessage: i18n.t('video.osd.leftBottom')
+                              }, {
+                                name: 'rightBottom',
+                                i18nMessage: i18n.t('video.osd.rightBottom')
+                              }].map(direction => (
+                                values.position === OSDPosition[direction.name] && (
+                                  <p key={direction.name} className="text-primary mb-0">{direction.i18nMessage}</p>
                                 )
                               ))
                             }
@@ -154,7 +182,20 @@ module.exports = class OSD extends Base {
                         </div>
                         <SelectField labelName={i18n.t('video.osd.overlay')} name="type">
                           {OSDType.all().map(type => (
-                            <option key={type} value={type}>{i18n.t(`video.osd.constants.osd-type-${type}`)}</option>
+                            <option key={type} value={type}>{(() => {
+                              switch (type) {
+                                default: return <ErrorDisplay/>;
+                                case OSDType.time:
+                                  return i18n.t('video.osd.constants.osd-type-0');
+                                case OSDType.cameraName:
+                                  return i18n.t('video.osd.constants.osd-type-1');
+                                case OSDType.cameraNameAndTime:
+                                  return i18n.t('video.osd.constants.osd-type-2');
+                                case OSDType.custom:
+                                  return i18n.t('video.osd.constants.osd-type-3');
+                              }
+                            })()}
+                            </option>
                           ))}
                         </SelectField>
                         <div className={classNames('form-group', {'d-none': values.type !== OSDType.custom})}>
