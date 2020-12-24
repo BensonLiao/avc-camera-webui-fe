@@ -8,6 +8,7 @@ import api from '../../../core/apis/web-api';
 import Password from '../../../core/components/fields/password';
 import {useContextState} from '../../stateProvider';
 import {getRouter} from '@benson.liao/capybara-router';
+import deviceSyncValidator from '../../validations/members/device-sync-validator';
 
 const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
   const {isApiProcessing} = useContextState();
@@ -51,13 +52,14 @@ const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
           account: '',
           password: ''
         }}
+        validate={deviceSyncValidator}
         onSubmit={onSubmitForm}
       >
         {({errors, touched}) => (
           <Form>
             <div className="modal-body">
-              <div className="form-group row">
-                <div className="col-8">
+              <div className="row">
+                <div className="form-group col-8">
                   <label>{i18n.t('demo.userManagement.members.host')}</label>
                   <Field
                     name="ip"
@@ -67,13 +69,13 @@ const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
                   />
                   <ErrorMessage component="div" name="ip" className="invalid-feedback"/>
                 </div>
-                <div className="col-4">
+                <div className="form-group col-4">
                   <label>{i18n.t('demo.userManagement.members.modal.deviceSync.port')}</label>
                   <Field
                     name="port"
                     type="text"
                     placeholder={i18n.t('demo.userManagement.members.modal.deviceSync.portPlaceholder')}
-                    className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
+                    className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
                   />
                   <ErrorMessage component="div" name="port" className="invalid-feedback"/>
                 </div>

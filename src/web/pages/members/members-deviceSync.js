@@ -146,7 +146,7 @@ const DeviceSync = ({deviceSync}) => {
           return (
             <Form className="card-body">
               <FormikEffect onChange={onChangeCardForm}/>
-              <div className="col-12 d-inline-flex">
+              <div className="col-12 d-inline-flex justify-content-between">
                 <CustomTooltip placement="auto" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
                   <div>
                     <button
@@ -160,29 +160,30 @@ const DeviceSync = ({deviceSync}) => {
                     </button>
                   </div>
                 </CustomTooltip>
-                <CustomTooltip placement="top" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
-                  <div className="ml-3">
-                    <button
-                      className="btn btn-outline-primary rounded-pill"
-                      type="button"
-                      disabled={disableButton}
-                      style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                      onClick={deleteDeviceHandler(form.values)}
-                    >
-                      <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
-                      {i18n.t('demo.userManagement.members.remove')}
-                    </button>
-                  </div>
-                </CustomTooltip>
-                <button
-                  type="button"
-                  className="btn btn-outline-primary rounded-pill ml-3"
-                  onClick={showModal}
-                >
-                  <i className="fas fa-plus fa-fw mr-2"/>
-                  {i18n.t('common.button.add')}
-                </button>
-
+                <div className="d-inline-flex">
+                  <CustomTooltip placement="top" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
+                    <div className="ml-3">
+                      <button
+                        className="btn btn-outline-primary rounded-pill"
+                        type="button"
+                        disabled={disableButton}
+                        style={{pointerEvents: disableButton ? 'none' : 'auto'}}
+                        onClick={deleteDeviceHandler(form.values)}
+                      >
+                        <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
+                        {i18n.t('demo.userManagement.members.remove')}
+                      </button>
+                    </div>
+                  </CustomTooltip>
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary rounded-pill ml-3"
+                    onClick={showModal}
+                  >
+                    <i className="fas fa-plus fa-fw mr-2"/>
+                    {i18n.t('common.button.add')}
+                  </button>
+                </div>
                 <DeviceSyncAddDevice
                   device={device}
                   isShowModal={isShowModal}
