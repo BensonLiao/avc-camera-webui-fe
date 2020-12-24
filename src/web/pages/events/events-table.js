@@ -9,6 +9,7 @@ import SyncTimeOption from 'webserver-form-schema/constants/system-sync-time';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import utils from '../../../core/utils';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMemberHandler, remainingPictureCount}) => {
   const generateEnlargePhotoHandler = eventPhotoUrl => {
@@ -167,7 +168,9 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                     </td>
                   ))}
                   <td>
-                    {event.confidences && event.recognitionType !== RecognitionType.fake ? i18n.t(`userManagement.events.constants.confidence-${event.confidences.similarity}`) : '-'}
+                    {event.confidences && event.recognitionType !== RecognitionType.fake ?
+                      utils.getEventConfidenceI18N(event.confidences.similarity, <ErrorDisplay/>) :
+                      '-'}
                   </td>
                   <td>
                     <CustomTooltip title={event.confidences ? event.confidences.score || '' : ''}>
@@ -177,7 +180,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                         {'badge-warning': event.recognitionType === RecognitionType.fake}
                       )}
                       >
-                        {i18n.t(`userManagement.events.constants.enroll-status-${event.recognitionType}`)}
+                        {utils.getEventRecognitionTypeI18N(event.recognitionType, <ErrorDisplay/>)}
                       </span>
                     </CustomTooltip>
                   </td>

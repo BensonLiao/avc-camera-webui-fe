@@ -5,6 +5,8 @@ const i18n = require('../i18n').default;
 const api = require('../core/apis/web-api');
 const {validator} = require('../core/validations');
 const {MEMBER_PHOTO_MIME_TYPE, RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const THREE = require('three');
@@ -603,5 +605,41 @@ module.exports.getAccountPermissonI18N = (permission, defaultValue = '') => {
       return i18n.t('userManagement.accounts.constants.permission-1');
     case UserPermission.viewer:
       return i18n.t('userManagement.accounts.constants.permission-2');
+  }
+};
+
+/**
+ * Get the i18n message of event confidence.
+ * @param {string} confidence - The event confidence, it can be `low`, `medium` or `high`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getEventConfidenceI18N = (confidence, defaultValue = '') => {
+  switch (confidence) {
+    default: return defaultValue;
+    case Similarity.low:
+      return i18n.t('userManagement.events.constants.confidence-0');
+    case Similarity.medium:
+      return i18n.t('userManagement.events.constants.confidence-1');
+    case Similarity.high:
+      return i18n.t('userManagement.events.constants.confidence-2');
+  }
+};
+
+/**
+ * Get the i18n message of event recognition type.
+ * @param {string} recognitionType - The event recognition type, it can be `registerd`, `unknown` or `fake`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getEventRecognitionTypeI18N = (recognitionType, defaultValue = '') => {
+  switch (recognitionType) {
+    default: return defaultValue;
+    case RecognitionType.fake:
+      return i18n.t('userManagement.events.constants.enroll-status-0');
+    case RecognitionType.unknown:
+      return i18n.t('userManagement.events.constants.enroll-status-1');
+    case RecognitionType.registered:
+      return i18n.t('userManagement.events.constants.enroll-status-2');
   }
 };

@@ -3,6 +3,7 @@ import {getRouter} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../../i18n';
+import utils from '../../../core/utils';
 import Similarity from 'webserver-form-schema/constants/event-filters/similarity';
 import RecognitionType from 'webserver-form-schema/constants/event-filters/recognition-type';
 import ErrorDisplay from '../../../core/components/error-display';
@@ -88,17 +89,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('confidence', item.confidence)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {(() => {
-                switch (item.confidence) {
-                  default: return <ErrorDisplay/>;
-                  case Similarity.low:
-                    return i18n.t('userManagement.events.constants.confidence-0');
-                  case Similarity.medium:
-                    return i18n.t('userManagement.events.constants.confidence-1');
-                  case Similarity.high:
-                    return i18n.t('userManagement.events.constants.confidence-2');
-                }
-              })()}
+              {utils.getEventConfidenceI18N(item.confidence, <ErrorDisplay/>)}
             </label>
           </div>
         ))}
@@ -116,17 +107,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('enrollStatus', item.status)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {(() => {
-                switch (item.status) {
-                  default: return <ErrorDisplay/>;
-                  case RecognitionType.fake:
-                    return i18n.t('userManagement.events.constants.enroll-status-0');
-                  case RecognitionType.unknown:
-                    return i18n.t('userManagement.events.constants.enroll-status-1');
-                  case RecognitionType.registered:
-                    return i18n.t('userManagement.events.constants.enroll-status-2');
-                }
-              })()}
+              {utils.getEventRecognitionTypeI18N(item.status, <ErrorDisplay/>)}
             </label>
           </div>
         ))}
