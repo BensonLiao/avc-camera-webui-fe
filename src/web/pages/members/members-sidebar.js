@@ -5,12 +5,15 @@ import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
 import {Link} from '@benson.liao/capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 
 const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setPage, page}) => {
   const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
   const switchPage = page => e => {
     e.preventDefault();
     setPage(page);
+    localStorage.setItem('currentPage', page);
+    getRouter().go({name: 'web.users.members'});
   };
 
   return (
