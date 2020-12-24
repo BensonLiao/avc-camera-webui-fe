@@ -23,7 +23,11 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
       <div key={card.id} className="card shadow overflow-hidden" onClick={isApiProcessing ? () => {} : clickCardHandler(card.id)}>
         <div className="card-title d-flex justify-content-between align-items-center">
           <div className="title text-truncate">
-            <CustomTooltip title={card.isTop ? i18n.t('notification.cards.tooltip.unpin') : i18n.t('notification.cards.tooltip.pin')}>
+            <CustomTooltip
+              title={i18n.t(card.isTop ?
+                'notification.cards.tooltip.unpin' :
+                'notification.cards.tooltip.pin')}
+            >
               <button
                 disabled={isApiProcessing}
                 type="button"
