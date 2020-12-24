@@ -8,6 +8,7 @@ const HDMISettingsSchema = require('webserver-form-schema/hdmi-settings-schema')
 const SensorResolution = require('webserver-form-schema/constants/sensor-resolution');
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const i18n = require('../../../i18n').default;
+const utils = require('../../../core/utils');
 const api = require('../../../core/apis/web-api');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const SelectField = require('../../../core/components/fields/select-field');
@@ -50,10 +51,7 @@ module.exports = class HDMI extends Base {
                         (Number(x) === 0 || Number(x) === 5 || Number(x) === 6)
                      )
         )
-        .map(x => ({
-          label: i18n.t(`video.stream.constants.stream-resolution-${x}`),
-          value: x
-        }));
+        .map(x => utils.getStreamResolutionOption(x));
   }
 
   showModal = () => {

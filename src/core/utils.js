@@ -7,6 +7,7 @@ const {validator} = require('../core/validations');
 const {MEMBER_PHOTO_MIME_TYPE, RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
+const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const THREE = require('three');
@@ -587,6 +588,79 @@ module.exports.pingToCheckStartupAndReload = (interval, type = 'app') => {
   };
 
   test();
+};
+
+/**
+ * Get the stream resolution option with i18n translation, for custom dropdown or `<select>` element to render.
+ * @param {string} x - The value of specific stream resolution.
+ * @returns {object}
+ * - value {any}
+ * - label {string}
+ */
+module.exports.getStreamResolutionOption = x => {
+  switch (x) {
+    default: return {};
+    case StreamResolution[0]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-0')
+      };
+    case StreamResolution[1]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-1')
+      };
+    case StreamResolution[2]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-2')
+      };
+    case StreamResolution[3]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-3')
+      };
+    case StreamResolution[4]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-4')
+      };
+    case StreamResolution[5]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-5')
+      };
+    case StreamResolution[6]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-6')
+      };
+    case StreamResolution[7]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-7')
+      };
+    case StreamResolution[8]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-8')
+      };
+    case StreamResolution[9]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-9')
+      };
+    case StreamResolution[10]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-10')
+      };
+    case StreamResolution[11]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-11')
+      };
+  }
 };
 
 /**
