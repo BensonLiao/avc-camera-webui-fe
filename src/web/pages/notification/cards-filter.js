@@ -32,7 +32,8 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
         )}
         type="button"
         onClick={changeCardTypeFilter(NotificationCardType.faceRecognition)}
-      >{i18n.t(`notification.cards.constants.notification-card-${NotificationCardType.faceRecognition}`)}
+      >
+        {i18n.t('notification.cards.constants.notification-card-0')}
       </button>
       <button
         className={classNames(
@@ -41,7 +42,8 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
         )}
         type="button"
         onClick={changeCardTypeFilter(NotificationCardType.motionDetection)}
-      >{i18n.t(`notification.cards.constants.notification-card-${NotificationCardType.motionDetection}`)}
+      >
+        {i18n.t('notification.cards.constants.notification-card-3')}
       </button>
       <button
         className={classNames(
@@ -50,7 +52,8 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
         )}
         type="button"
         onClick={changeCardTypeFilter(NotificationCardType.digitalInput)}
-      >{i18n.t(`notification.cards.constants.notification-card-${NotificationCardType.digitalInput}`)}
+      >
+        {i18n.t('notification.cards.constants.notification-card-5')}
       </button>
     </div>
 
