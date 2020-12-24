@@ -457,7 +457,7 @@ module.exports = class Member extends React.PureComponent {
                 avatarList: {
                   [avatarToEdit]: {
                     verifyStatus: {$set: false},
-                    errorMessage: {$set: `${i18n.t('userManagement.members.modal.member.errorPhotoSizeLimit')}`}
+                    errorMessage: {$set: i18n.t('userManagement.members.modal.member.errorPhotoSizeLimit')}
                   }
                 }
               });
@@ -633,9 +633,9 @@ module.exports = class Member extends React.PureComponent {
                           // Display upload area for new photo
                           <CustomTooltip
                             show={((photoKey !== 'primary') && !primaryBackground) || isOverPhotoLimit}
-                            title={isOverPhotoLimit ?
-                              i18n.t('userManagement.members.tooltip.photoLimitExceeded') :
-                              i18n.t('userManagement.members.tooltip.uploadPrimaryFirst')}
+                            title={i18n.t(isOverPhotoLimit ?
+                              'userManagement.members.tooltip.photoLimitExceeded' :
+                              'userManagement.members.tooltip.uploadPrimaryFirst')}
                           >
                             <label className="btn">
                               <i className="fas fa-plus"/>
@@ -734,7 +734,7 @@ module.exports = class Member extends React.PureComponent {
                 });
               }}
             >
-              {member ? i18n.t('common.button.confirm') : i18n.t('common.button.new')}
+              {i18n.t(member ? 'common.button.confirm' : 'common.button.new')}
             </button>
           </div>
           <button
@@ -749,9 +749,9 @@ module.exports = class Member extends React.PureComponent {
         <CustomNotifyModal
           backdrop="static"
           isShowModal={isShowConfirmModal}
-          modalTitle={member ?
-            i18n.t('userManagement.members.modal.member.editMemberTitle') :
-            i18n.t('userManagement.members.modal.member.newMemberTitle')}
+          modalTitle={i18n.t(member ?
+            'userManagement.members.modal.member.editMemberTitle' :
+            'userManagement.members.modal.member.newMemberTitle')}
           modalBody={i18n.t('userManagement.members.modal.member.confirmCloseBody')}
           onHide={this.onHideConfirmModal}
           onConfirm={() => {
@@ -859,9 +859,9 @@ module.exports = class Member extends React.PureComponent {
         onHide={isApiProcessing || isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{member ?
-            i18n.t('userManagement.members.modal.member.editMemberTitle') :
-            i18n.t('userManagement.members.modal.member.newMemberTitle')}
+          <Modal.Title as="h5">{i18n.t(member ?
+            'userManagement.members.modal.member.editMemberTitle' :
+            'userManagement.members.modal.member.newMemberTitle')}
           </Modal.Title>
         </Modal.Header>
         <Formik
