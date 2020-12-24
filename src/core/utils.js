@@ -10,6 +10,7 @@ const RecognitionType = require('webserver-form-schema/constants/event-filters/r
 const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
+const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const THREE = require('three');
 const OrbitControls = require('three/examples/jsm/controls/OrbitControls').OrbitControls;
 const helvetikerRegular = require('./helvetiker_regular').default;
@@ -715,5 +716,25 @@ module.exports.getEventRecognitionTypeI18N = (recognitionType, defaultValue = ''
       return i18n.t('userManagement.events.constants.enroll-status-1');
     case RecognitionType.registered:
       return i18n.t('userManagement.events.constants.enroll-status-2');
+  }
+};
+
+/**
+ * Get the i18n message of notification face recognition condition.
+ * @param {string} recognitionType - The face recognition condition, it can be `always`, `success`, `unknown` or `fake`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getNotificationFRConditionI18N = (recognitionType, defaultValue = '') => {
+  switch (recognitionType) {
+    default: return defaultValue;
+    case NotificationFaceRecognitionCondition.always:
+      return i18n.t('notification.cards.constants.face-recognition-condition-0');
+    case NotificationFaceRecognitionCondition.success:
+      return i18n.t('notification.cards.constants.face-recognition-condition-1');
+    case NotificationFaceRecognitionCondition.unknown:
+      return i18n.t('notification.cards.constants.face-recognition-condition-2');
+    case NotificationFaceRecognitionCondition.fake:
+      return i18n.t('notification.cards.constants.face-recognition-condition-3');
   }
 };
