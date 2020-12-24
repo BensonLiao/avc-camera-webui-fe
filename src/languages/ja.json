@@ -14,10 +14,7 @@
       "account": "アカウント",
       "accountPlaceholder": "アカウント名を入力してください",
       "accountHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
-      "done": "完了しました",
-      "constants": {
-        "permission-0": "管理者"
-      }
+      "done": "完了しました"
     },
     "progressBar": {
       "language": "言語を選択する",
@@ -941,12 +938,6 @@
         "deviceHelp": "ヘルプ",
         "technicalSupport": "テクニカルサポート",
         "productInformation": "その他の製品情報"
-      },
-      "constants": {
-        "permission-0": "管理者",
-        "permission-1": "ゲスト",
-        "permission-2": "訪客",
-        "permission-99": "管理者"
       }
     }
   },

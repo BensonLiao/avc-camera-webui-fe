@@ -14,10 +14,7 @@
       "account": "帳號",
       "accountPlaceholder": "輸入帳號名稱",
       "accountHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
-      "done": "完成",
-      "constants": {
-        "permission-0": "管理者"
-      }
+      "done": "完成"
     },
     "progressBar": {
       "language": "選擇語言",
@@ -941,12 +938,6 @@
         "deviceHelp": "裝置使用幫助",
         "technicalSupport": "技術問題信箱",
         "productInformation": "其他產品資訊"
-      },
-      "constants": {
-        "permission-0": "管理者",
-        "permission-1": "來賓",
-        "permission-2": "訪客",
-        "permission-99": "管理者"
       }
     }
   },

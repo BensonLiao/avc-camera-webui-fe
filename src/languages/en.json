@@ -14,10 +14,7 @@
       "account": "Username",
       "accountPlaceholder": "Enter a name for this account",
       "accountHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
-      "done": "Done",
-      "constants": {
-        "permission-0": "Admin"
-      }
+      "done": "Done"
     },
     "progressBar": {
       "language": "Langauge",
@@ -959,12 +956,6 @@
         "productSelector.avn": "Product Selector",
         "technicalUpdates.avn": "Technical Updates",
         "resources.avn": "Resources"
-      },
-      "constants": {
-        "permission-0": "Admin",
-        "permission-1": "Viewer",
-        "permission-2": "Viewer",
-        "permission-99": "Admin"
       }
     }
   },

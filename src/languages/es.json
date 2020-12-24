@@ -14,10 +14,7 @@
       "account": "Cuenta",
       "accountPlaceholder": "Ingrese el nombre de la cuenta",
       "accountHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
-      "done": "terminado",
-      "constants": {
-        "permission-0": "administrador"
-      }
+      "done": "terminado"
     },
     "progressBar": {
       "language": "Elija un idioma",
@@ -941,12 +938,6 @@
         "deviceHelp": "Ayuda para el uso del dispositivo",
         "technicalSupport": "Apoyo técnico",
         "productInformation": "Otras informaciones de producto"
-      },
-      "constants": {
-        "permission-0": "administrador",
-        "permission-1": "Invitado",
-        "permission-2": "Invitado",
-        "permission-99": "administrador"
       }
     }
   },
