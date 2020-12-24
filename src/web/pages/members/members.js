@@ -38,7 +38,7 @@ const Members = ({groups, members, params, remainingPictureCount, deviceSync}) =
   });
 
   // State used to switch pages between 'members', 'database' and 'sync'
-  const [page, setPage] = useState(localStorage.getItem('currentPage') || 'members');
+  const [page, setPage] = useState(localStorage.getItem('currentPage') || 'sync');
 
   useEffect(() => {
     localStorage.removeItem('currentPage');

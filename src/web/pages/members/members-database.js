@@ -91,10 +91,6 @@ const MembersDatabase = ({isApiProcessing}) => {
       });
   };
 
-  // const onClickImportButton = event => {
-  //   event.target.value = null;
-  // };
-
   const importDatabaseFile = () => {
     if (!file || isApiProcessing) {
       return;

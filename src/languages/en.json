@@ -1072,6 +1072,7 @@
         "select": "Select",
         "host": "Host",
         "deviceName": "Device Name",
+        "status": "Status",
         "addDevice": "Add New Device",
         "selectAll": "Select All",
         "remove": "Remove",
