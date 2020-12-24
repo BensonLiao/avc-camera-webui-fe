@@ -36,6 +36,7 @@ const DeviceSync = ({deviceSync}) => {
    * @returns {void}
    */
   const deleteDeviceHandler = list => _ => {
+    localStorage.setItem('currentPage', 'sync');
     if (isArray(list)) {
       const itemsToDelete = list.flat().filter(device => device.isChecked)
         .reduce((arr, item) => {

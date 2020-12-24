@@ -22,6 +22,8 @@ const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
       values.port = 8080;
     }
 
+    localStorage.setItem('currentPage', 'sync');
+
     if (device) {
       api.member.editDevice(values)
         .then(hideModal)

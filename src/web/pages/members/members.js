@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import progress from 'nprogress';
 import {RouterView, Link, getRouter} from '@benson.liao/capybara-router';
 import Pagination from '../../../core/components/pagination';
@@ -38,7 +38,11 @@ const Members = ({groups, members, params, remainingPictureCount, deviceSync}) =
   });
 
   // State used to switch pages between 'members', 'database' and 'sync'
-  const [page, setPage] = useState('members');
+  const [page, setPage] = useState(localStorage.getItem('currentPage') || 'members');
+
+  useEffect(() => {
+    localStorage.removeItem('currentPage');
+  }, []);
 
   const {deleteGroupTarget, deleteMemberTarget} = state;
   const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
