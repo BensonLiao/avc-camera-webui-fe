@@ -193,11 +193,9 @@ const Upgrade = () => {
                             onChange={onChangeFile}
                           />{i18n.t('system.common.selectFile')}
                         </label>
-                        {
-                          file ?
-                            <span className="text-size-14 text-muted ml-3">{file.name}</span> :
-                            <span className="text-size-14 text-muted ml-3">{i18n.t('system.common.noFileSelected')}</span>
-                        }
+                        <span className="text-size-14 text-muted ml-3">
+                          {file ? file.name : i18n.t('system.common.noFileSelected')}
+                        </span>
                       </div>
                     </div>
                     <CustomTooltip show={!file} title={i18n.t('system.common.tooltip.disabledButton')}>
