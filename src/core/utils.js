@@ -6,6 +6,7 @@ const api = require('../core/apis/web-api');
 const {validator} = require('../core/validations');
 const {MEMBER_PHOTO_MIME_TYPE, RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
+const UserPermission = require('webserver-form-schema/constants/user-permission');
 const THREE = require('three');
 const OrbitControls = require('three/examples/jsm/controls/OrbitControls').OrbitControls;
 const helvetikerRegular = require('./helvetiker_regular').default;
@@ -586,3 +587,21 @@ module.exports.pingToCheckStartupAndReload = (interval, type = 'app') => {
   test();
 };
 
+/**
+ * Get the i18n message of account permission type.
+ * @param {string} permission - The account permission type, it can be `root`, `guest`, `viewer` or `superAdmin`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getAccountPermissonI18N = (permission, defaultValue = '') => {
+  switch (permission) {
+    default: return defaultValue;
+    case UserPermission.root:
+    case UserPermission.superAdmin:
+      return i18n.t('userManagement.accounts.constants.permission-0');
+    case UserPermission.guest:
+      return i18n.t('userManagement.accounts.constants.permission-1');
+    case UserPermission.viewer:
+      return i18n.t('userManagement.accounts.constants.permission-2');
+  }
+};

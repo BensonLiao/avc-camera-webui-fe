@@ -115,9 +115,17 @@ module.exports = class User extends Base {
     const isAddUserDisabled = items.length >= SECURITY_USERS_MAX && !user;
 
     return (
-      <Modal autoFocus={false} show={isShowModal} backdrop={$isApiProcessing ? 'static' : true} onHide={this.hideModal}>
+      <Modal
+        autoFocus={false}
+        show={isShowModal}
+        backdrop={$isApiProcessing ? 'static' : true}
+        onHide={this.hideModal}
+      >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{user ? i18n.t('userManagement.accounts.modal.modifyUserTitle') : i18n.t('userManagement.accounts.modal.newUserTitle')}</Modal.Title>
+          <Modal.Title as="h5">{i18n.t(user ?
+            'userManagement.accounts.modal.modifyUserTitle' :
+            'userManagement.accounts.modal.newUserTitle')}
+          </Modal.Title>
         </Modal.Header>
         <Formik
           initialValues={this.generateInitialValue(user)}
@@ -127,11 +135,16 @@ module.exports = class User extends Base {
           {({errors, touched}) => (
             <Form>
               <div className="modal-body">
-                <SelectField readOnly={isSuperAdmin} labelName={i18n.t('userManagement.accounts.permission')} name="permission" wrapperClassName="px-2">
+                <SelectField
+                  readOnly={isSuperAdmin}
+                  labelName={i18n.t('userManagement.accounts.permission')}
+                  name="permission"
+                  wrapperClassName="px-2"
+                >
                   {UserPermission.all().map(permission => {
                     return (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) && (
                       <option key={permission} value={permission}>
-                        {i18n.t(`userManagement.accounts.constants.permission-${permission}`)}
+                        {utils.getAccountPermissonI18N(permission)}
                       </option>
                     );
                   })}
@@ -208,7 +221,7 @@ module.exports = class User extends Base {
                     type="submit"
                     className="btn btn-primary btn-block rounded-pill"
                   >
-                    {user ? i18n.t('common.button.confirm') : i18n.t('common.button.new')}
+                    {i18n.t(user ? 'common.button.confirm' : 'common.button.new')}
                   </button>
                 </div>
                 <button
