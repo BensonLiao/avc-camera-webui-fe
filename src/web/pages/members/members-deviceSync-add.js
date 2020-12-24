@@ -56,25 +56,27 @@ const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
         {({errors, touched}) => (
           <Form>
             <div className="modal-body">
-              <div className="form-group">
-                <label>{i18n.t('demo.userManagement.members.host')}</label>
-                <Field
-                  name="ip"
-                  type="text"
-                  placeholder={i18n.t('demo.userManagement.members.modal.deviceSync.hostPlaceholder')}
-                  className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
-                />
-                <ErrorMessage component="div" name="ip" className="invalid-feedback"/>
-              </div>
-              <div className="form-group">
-                <label>{i18n.t('demo.userManagement.members.modal.deviceSync.port')}</label>
-                <Field
-                  name="port"
-                  type="text"
-                  placeholder={i18n.t('demo.userManagement.members.modal.deviceSync.portPlaceholder')}
-                  className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
-                />
-                <ErrorMessage component="div" name="port" className="invalid-feedback"/>
+              <div className="form-group row">
+                <div className="col-8">
+                  <label>{i18n.t('demo.userManagement.members.host')}</label>
+                  <Field
+                    name="ip"
+                    type="text"
+                    placeholder={i18n.t('demo.userManagement.members.modal.deviceSync.hostPlaceholder')}
+                    className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
+                  />
+                  <ErrorMessage component="div" name="ip" className="invalid-feedback"/>
+                </div>
+                <div className="col-4">
+                  <label>{i18n.t('demo.userManagement.members.modal.deviceSync.port')}</label>
+                  <Field
+                    name="port"
+                    type="text"
+                    placeholder={i18n.t('demo.userManagement.members.modal.deviceSync.portPlaceholder')}
+                    className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
+                  />
+                  <ErrorMessage component="div" name="port" className="invalid-feedback"/>
+                </div>
               </div>
               <div className="form-group">
                 <label>{i18n.t('userManagement.accounts.username')}</label>

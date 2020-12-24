@@ -1082,7 +1082,11 @@
             "newDeviceTitle": "Add New Device",
             "hostPlaceholder": "Enter device IP",
             "port": "Port",
-            "portPlaceholder": "Enter device port"
+            "portPlaceholder": "Ex. 8080"
+          },
+          "database": {
+            "successTitle": "Setting Success",
+            "successBody": "New settings applied"
           }
         },
         "tooltip": {

@@ -13,6 +13,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import databaseEncryptionValidator from '../../validations/members/database-encryption-validator';
 import Password from '../../../core/components/fields/password';
 import wrappedApi from '../../../core/apis';
+import notify from '../../../core/notify';
 
 const MembersDatabase = ({isApiProcessing}) => {
   const [state, setState] = useState({
@@ -129,6 +130,10 @@ const MembersDatabase = ({isApiProcessing}) => {
           ...prevState,
           isShowDatabaseModal: false
         }));
+        notify.showSuccessNotification({
+          title: i18n.t('demo.userManagement.members.modal.database.successTitle'),
+          message: i18n.t('demo.userManagement.members.modal.database.successBody')
+        });
       })
       .finally(progress.done);
   };
@@ -138,12 +143,21 @@ const MembersDatabase = ({isApiProcessing}) => {
       <div className="card shadow">
         <div className="card-header">{i18n.t('demo.userManagement.members.databaseSettings')}</div>
         <div className="card-body">
-          <div className="form-group d-flex justify-content-between align-items-center">
-            <label className="my-3">{i18n.t('demo.userManagement.members.encryptionSettings')}</label>
-            <a href="#" onClick={showDatabaseModal}>{i18n.t('demo.userManagement.members.edit')}</a>
+          <div className="form-group">
+            <label>{i18n.t('demo.userManagement.members.encryptionSettings')}</label>
+            <div>
+              <button
+                disabled={isApiProcessing}
+                type="button"
+                className="btn btn-outline-primary rounded-pill px-5"
+                onClick={showDatabaseModal}
+              >
+                {i18n.t('demo.userManagement.members.edit')}
+              </button>
+            </div>
           </div>
           <div className="form-group">
-            <label className="mb-3">{i18n.t('demo.userManagement.members.exportDB')}</label>
+            <label>{i18n.t('demo.userManagement.members.exportDB')}</label>
             <div>
               <button
                 disabled={isApiProcessing}
