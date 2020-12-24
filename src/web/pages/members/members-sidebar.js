@@ -18,7 +18,7 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
 
   return (
     <>
-      <div className="left-menu fixed-top sub">
+      <div className="left-menu fixed-top sub shadow-sm">
         <h2>{i18n.t('userManagement.members.title')}</h2>
         <nav className="nav flex-column">
           <Link

@@ -15,7 +15,7 @@ const UsersLeftMenu = ({permissionFilter, setPermissionFilter}) => {
   };
 
   return (
-    <div className="left-menu fixed-top sub">
+    <div className="left-menu fixed-top sub shadow-sm">
       <h2>{i18n.t('userManagement.accounts.title')}</h2>
       <nav className="nav flex-column">
         <Link

@@ -185,7 +185,7 @@ const Members = ({groups, members, params, remainingPictureCount, deviceSync}) =
       />
       {/* Main content */}
       <div className="main-content left-menu-active sub">
-        <div className={classNames('page-members', page === 'database' ? 'bg-color' : 'bg-white')}>
+        <div className={classNames('page-members', page === 'database' ? 'bg-gray' : 'bg-white')}>
           <div className="container-fluid">
             <div className="row">
               { page === 'members' && (

@@ -676,7 +676,7 @@ body {
     padding-left: 32px;
     padding-right: 32px;
     color: #666;
-    border-bottom: 1px #dee2e6 solid;
+    border-bottom: 1px $border solid;
     max-width: 15rem;
 
     div {
@@ -756,7 +756,7 @@ $chips-sum-extra-width: 50px;
       height: 100%;
       width: 58px;
       margin: 0 12px;
-      border: 1px solid #dee2e6;
+      border: 1px solid $border;
       text-align: center;
     }
   }
