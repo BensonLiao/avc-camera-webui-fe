@@ -216,16 +216,16 @@ module.exports = class Home extends Base {
                             <div>
                               <span>{i18n.t('home.facialRecognition')}</span>
                               <span className={classTable.faceRecognitionState}>
-                                {isEnableFaceRecognitionKey ?
-                                  faceRecognitionStatus.isEnable ? i18n.t('home.on') : i18n.t('home.off') :
-                                  i18n.t('home.Authentication Required')}
+                                {i18n.t(isEnableFaceRecognitionKey ?
+                                  faceRecognitionStatus.isEnable ? 'home.on' : 'home.off' :
+                                  'home.Authentication Required')}
                               </span>
                             </div>
                             {isEnableAgeGenderKey && (
                               <div>
                                 <span>{i18n.t('home.ageGender')}</span>
                                 <span className={classTable.ageGenderState}>
-                                  {isEnableAgeGenderKey ? i18n.t('home.on') : i18n.t('home.off')}
+                                  {i18n.t(isEnableAgeGenderKey ? 'home.on' : 'home.off')}
                                 </span>
                               </div>
                             )}
@@ -233,7 +233,7 @@ module.exports = class Home extends Base {
                               <div>
                                 <span>{i18n.t('home.humanDetection')}</span>
                                 <span className={classTable.humanoidDetectionState}>
-                                  {isEnableHumanoidDetectionKey ? i18n.t('home.on') : i18n.t('home.off')}
+                                  {i18n.t(isEnableHumanoidDetectionKey ? 'home.on' : 'home.off')}
                                 </span>
                               </div>
                             )}
