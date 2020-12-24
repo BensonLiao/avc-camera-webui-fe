@@ -1083,7 +1083,9 @@
             "newDeviceTitle": "Add New Device",
             "hostPlaceholder": "Enter device IP",
             "port": "Port",
-            "portPlaceholder": "Ex. 8080"
+            "portPlaceholder": "Ex. 8080",
+            "addDeviceApiProcessingModal": "Adding Device",
+            "editDeviceApiProcessingModal": "Updating Device"
           },
           "database": {
             "successTitle": "Setting Success",
