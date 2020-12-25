@@ -21,7 +21,6 @@ import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
 import utils from '../../../core/utils';
 import {NOTIFY_CARDS_MAX} from '../../../core/constants';
-import utils from '../../../core/utils';
 
 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
 const CustomNormalWrapper = (
