@@ -284,7 +284,11 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                                 </CustomTooltip>
                               </td>
                               <td>
-                                <div/>
+                                <div>
+                                  { device.connectionStatus ?
+                                    <i className="fas fa-link fa-fw mr-2"/> :
+                                    <i className="fas fa-unlink fa-fw mr-2"/>}
+                                </div>
                               </td>
                               <td className="text-left group-btn">
                                 <button
