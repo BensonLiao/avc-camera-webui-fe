@@ -1,0 +1,164 @@
+{
+  "login": {
+    "lock": {
+      "loginLocked": "ログインがロックされました",
+      "forgotPassword": "パスワードを忘れましたか?"
+    },
+    "error": {
+      "expires1": "10 分後期限切れ",
+      "expires2": "30 分後期限切れ",
+      "expires3": "1 時間後期限切れ",
+      "expires4": "12 時間後期限切れ"
+    }
+  },
+  "home": {
+    "Device Status": "ステータス",
+    "authenticationRequired": "無効",
+    "ageGender: ": "性別年齢推定 : ",
+    "humanDetection: ": "人体検知 : ",
+    "on": "有効",
+    "off": "無効"
+  },
+  "videoSetting": {
+    "constants": {
+      "max": "最大"
+    }
+  },
+  "video": {
+    "stream": {
+      "modal": {
+        "confirmUpdateBody": "ストリーム設定を変更しますか？",
+        "confirmRatioChangeBody": "ストリーム1のアスペクト比を変更すると、ストリーム2の設定も更新されます。続行してもよろしいですか？"
+      }
+    },
+    "hdmi": {
+      "fps": "フレームレート (FPS)"
+    },
+    "osd": {
+      "constants": {
+        "enterCustomText": "カスタム内容を入力します"
+      }
+    }
+  },
+  "audio": {
+    "internalMicrophone": "內建式麥克風",
+    "constants": {
+      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+    }
+  },
+  "notification": {
+    "smtp": {
+      "toast": {
+        "disablingOutgoingEmail": "SMTP送信を無効しました",
+        "mailSettingFailed": "メールアドレス設定に失敗しました",
+        "sendingTestEmail": "テストメールは発送されました"
+      }
+    },
+    "cards": {
+      "condition": "條件",
+      "constants": {
+        "notification-vms-event-0": "影像移動偵測事件",
+        "notification-vms-event-1": "智慧分析事件"
+      },
+      "tooltip": {
+        "unpin": "固定解除",
+        "pin": "固定",
+        "iconVMS": "VMS: On",
+        "enterDatetime": "開始および終了日および時間を選択してください",
+        "maxSchedules": "最大スケジュール数は5です"
+      }
+    }
+  },
+  "userManagement": {
+    "members": {
+      "modal": {
+        "group": {
+          "editGroupTitle": "グループを編集する",
+          "createGroupTitle": "グループを追加する",
+          "editGroupTitle.avn": "グループを編集する"
+        },
+        "member": {
+          "newMemberTitle": "メンバーを追加する",
+          "editMemberTitle": "メンバーを編集する"
+        }
+      },
+      "tooltip": {
+        "createGroup": "グループを追加する",
+        "groupLimitExceeded": "グループ数の上限に達しました",
+        "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい"
+      }
+    },
+    "accounts": {
+      "constants": {
+        "permission-99": "管理者"
+      },
+      "modal": {
+        "newUserTitle": "新規ユーザー",
+        "modifyUserTitle": "アカウントを編集する"
+      }
+    },
+    "events": {
+      "tooltip": {
+        "invalidPhoto": "無効な写真",
+        "Updating Member": "メンバー更新"
+      }
+    }
+  },
+  "analytics": {
+    "license": {
+      "activated": "有効にしました",
+      "activationRequired": "無効"
+    }
+  },
+  "network": {
+    "network": {
+      "static": "固定IPアドレス",
+      "dynamic": "動的IPアドレス"
+    },
+    "https": {
+      "constants": {
+        "manufacturer": "メーカー",
+        "certificate-type-1": "署名証明書をアップロードする",
+        "certificate-type-2": "本デバイスの署名証明書を生成する"
+      }
+    }
+  },
+  "system": {
+    "deviceMaintenance": {
+      "modal": {
+        "confirmRestoreDefaultSettingsBody": "デバイスは出荷時の初期設定に戻り、下記の項目を除き、すべてのデータと設定は削除されます:\n\n• メンバーリストとグループデータ \n• アカウント設定 \n• フォーカスとズーム設定 \n• RTSP設定 \n• インターネット/ネットワーク設定 \n• SDカード内のデータ",
+        "confirmResetAllSettingsBody": "デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます"
+      }
+    }
+  },
+  "sdCard": {
+    "mount": "マウント"
+  },
+  "error": {
+    "notFound": "このページは表示できません"
+  },
+  "documentTitle": {
+    "image": "画像設定",
+    "video": "映像",
+    "analytics": "映像分析",
+    "notificationSettings": "通知設定",
+    "notificationMethod": "通知方法",
+    "administration": "管理",
+    "status": "ステータス"
+  },
+  "navigation": {
+    "sidebar": {
+      "tooltip": {
+        "image": "画像設定"
+      }
+    }
+  },
+  "common": {
+    "toast": {
+      "DHCP Test Failed": "DHCPテストに失敗しました"
+    },
+    "button": {
+      "create": "追加"
+    }
+  }
+}

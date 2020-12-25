@@ -489,7 +489,11 @@ module.exports = class Member extends React.PureComponent {
                         [avatarToEdit]: {
                           verifyStatus: {$set: false},
                           isVerifying: {$set: false},
-                          errorMessage: {$set: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')}
+                          errorMessage: {
+                            $set: utils.getApiErrorMessageI18N(
+                              error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+                            )
+                          }
                         }
                       }
                     });
@@ -510,7 +514,7 @@ module.exports = class Member extends React.PureComponent {
     // Output error message if primary photo is missing
     if (!avatarList.primary.avatarPreviewStyle.croppedImage) {
       const updateErrorMessage = update(this.state,
-        {avatarList: {primary: {errorMessage: {$set: 'errorNoPhoto'}}}});
+        {avatarList: {primary: {errorMessage: {$set: i18n.t('userManagement.members.modal.member.errorNoPhoto')}}}});
       this.setState(updateErrorMessage);
       return;
     }
@@ -664,7 +668,7 @@ module.exports = class Member extends React.PureComponent {
             return (
               <p key={item[0]} className={classNames('text-size-14 mb-1', 'text-danger')}>
                 <i className="fas fa-exclamation-triangle mr-1"/>
-                {`${i18n.t(`userManagement.members.modal.member.${item[0]}`)}: ${i18n.t(`userManagement.members.modal.member.${item[1].errorMessage}`, item[1].errorMessage)}`}
+                {`${item[1].i18nMessage}: ${item[1].errorMessage}`}
               </p>
             );
           })}
