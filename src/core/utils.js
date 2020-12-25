@@ -768,7 +768,7 @@ module.exports.getNotificationFRConditionI18N = (recognitionType, defaultValue =
 /**
  * Get the i18n message of api error.
  * @param {string} errorMessage - The api error message.
- * @returns {string|object|Element}
+ * @returns {string}
  */
 module.exports.getApiErrorMessageI18N = errorMessage => {
   switch (errorMessage) {
