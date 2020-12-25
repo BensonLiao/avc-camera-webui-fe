@@ -23,10 +23,16 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const selectAllRef = useRef();
   const formRef = useRef();
-  const deviceList = getPaginatedData(devices.map(device => ({
-    ...device,
-    isChecked: false
-  })), 5);
+
+  const generatePaginatedDeviceList = devices => {
+    return getPaginatedData(devices.map(device => ({
+      ...device,
+      isChecked: false
+    })), 5);
+  };
+
+  const [deviceList, setDeviceList] = useState(generatePaginatedDeviceList(devices));
+
   const showDeviceModal = () => setIsShowDeviceModal(true);
 
   const showConfirmModal = () => setIsShowConfirmModal(true);
