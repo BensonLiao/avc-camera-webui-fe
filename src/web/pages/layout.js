@@ -215,7 +215,7 @@ module.exports = class Layout extends Base {
       sdCard: classNames(
         'btn',
         {
-          active: currentRouteName === 'web.sd-card',
+          active: currentRouteName.indexOf('web.sd-card') === 0,
           'd-flex justify-content-center align-items-center': isAdmin,
           'd-none': !isAdmin
         }
@@ -267,7 +267,7 @@ module.exports = class Layout extends Base {
               </Link>
             </CustomTooltip>
             <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.sdCard')}>
-              <Link className={classTable.sdCard} to="/sd-card" onClick={this.onClickLink}>
+              <Link className={classTable.sdCard} to="/sd-card/settings" onClick={this.onClickLink}>
                 <img src={iconSDCard}/>
               </Link>
             </CustomTooltip>
