@@ -1,62 +1,232 @@
 {
-  "setup": {
-    "welcome": {
-      "welcome": "歡迎",
-      "welcomeText1": "為了使您有更好的體驗，",
-      "welcomeText2": "按繼續開始初始設定",
-      "continue": "繼續"
+  "common": {
+    "modal": {
+      "pleaseWait": "請稍候",
+      "sessionExpire": {
+        "sessionExpired": "自動登出",
+        "expireCountdown": "閒置時間過長，{{0}} 秒後登出並重新導向登入頁面",
+        "renewSession": "未閒置"
+      }
     },
-    "language": {
-      "next": "下一步"
+    "button": {
+      "confirm": "確定",
+      "cancel": "取消",
+      "close": "關閉",
+      "add": "新增",
+      "on": "開啟",
+      "off": "關閉",
+      "resetDefault": "恢復預設值",
+      "apply": "套用",
+      "new": "新增"
     },
-    "account": {
+    "password": {
+      "hidePassword": "隱藏密碼",
+      "showPassword": "顯示密碼",
+      "password": "密碼",
+      "newPassword": "新密碼",
+      "newPasswordPlaceholder": "輸入新密碼",
+      "passwordHelper": "8 - 16個字: 必須包含英文大寫和小寫字元, 數字和符號, 但符號不能為 # % & ` “ \\ / < > 和空白",
+      "confirmNewPassword": "確認新密碼",
+      "confirmNewPasswordPlaceholder": "再次輸入新密碼",
+      "passwordPlaceholder": "輸入密碼",
+      "confirmPassword": "確認密碼",
+      "confirmPasswordPlaceholder": "再次輸入密碼"
+    },
+    "loading": "載入中",
+    "pagination": {
+      "stats": "{{0}}-{{1}} 筆資料，總計：{{2}}"
+    },
+    "volumeBar": {
+      "sdStorageStatus": "{{0}} 可用 (共 {{1}})",
+      "used": "{{0}} 已使用",
+      "free": "{{0}} 可用"
+    },
+    "toast": {
+      "Duplicate Member Names": "名稱重複，請使用不同名稱",
+      "Login Failed": "帳號或密碼錯誤",
+      "Empty Member Database": "匯入錯誤的資料庫檔案",
+      "Unable to reset a forgotten password": "",
+      "Unable to reset a password": "",
+      "Card Number Limit Exceeded": "已達數量限制",
+      "Non-existent Card": "記憶卡異常，無法正常操作",
+      "Database Size Limit (3 GB) Exceeded": "已達儲存限制",
+      "Invalid Member Photo": "",
+      "Unable to Process the Request (invalid token)": "",
+      "Group Number Limit Exceeded": "已達數量限制",
+      "Incorrect Password": "",
+      "Wrong Password for Database File": "資料庫解壓縮密碼錯誤",
+      "Wrong File Format": "檔案格式錯誤",
+      "Corrupted Zip File": "檔案毀損",
+      "Photo Limit of Member Database Exceeded": "已達數量限制",
+      "Photo Size Limit Exceeded": "",
+      "Invalid or Absent Photo": "",
+      "Non-existent Group": "成員群組不存在",
+      "Non-existent Member": "成員名稱不存在",
+      "Maximum Field Length Exceeded": "",
+      "Duplicate Member Name": "名稱重複，請使用不同名稱",
+      "Duplicate Card Name": "名稱重複，請使用不同名稱",
+      "VMS Reserved Port": "",
+      "Software Upgrade Failed": "軟體更新失敗",
+      "Unable to Complete the Format": "記憶卡格式化失敗",
+      "Empty SMTP Server Address": "必須輸入外送伺服器位址",
+      "Empty SMTP Account": "必須輸入帳號和密碼",
+      "Empty SMTP Account Password": "必須輸入帳號和密碼",
+      "Empty Sender Email": "必須輸入寄件人資訊",
+      "Outgoing Email being Disabled": "",
+      "Absent or Unmounted SD Card": "記憶卡異常,無法正常操作",
+      "Maximum Photo Number Exceeded": "",
+      "Showing No Face": "照片中沒有人臉",
+      "Poor Photo Quality": "照片品質不佳",
+      "Limitation of Yaw Angle is 30 Degrees": "人臉角度超過上下20度或左右30度",
+      "Limitation of Pitch Angle is 20 Degrees": "人臉角度超過上下20度或左右30度",
+      "More Than One Face in the Photo": "照片中超過1張人臉",
+      "Non-existent Photo": "事件截圖不存在",
+      "Invalid Key": "啟用失敗，錯誤的啟動碼",
+      "Duplicate Key": "啟用失敗，重複的啟動碼",
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人"
+    },
+    "dateTimePicker": {
+      "date": "日期",
+      "time": "時刻",
+      "startTime": "起始時間",
+      "endTime": "終止時間",
+      "manualDateTime": "Manual DateTime"
+    }
+  },
+  "userManagement": {
+    "members": {
+      "modal": {
+        "member": {
+          "primary": "主照片",
+          "photo1": "照片1",
+          "photo2": "照片2",
+          "photo3": "照片3",
+          "photo4": "照片4",
+          "errorPhotoSizeLimit": "照片大小不可以超過90 KB",
+          "errorNoPhoto": "必須上傳主照片",
+          "namePlaceholder": "輸入成員名稱",
+          "organizationPlaceholder": "輸入組織名稱",
+          "organizationHelper": "最多32個字",
+          "n/a": "無",
+          "confirmCloseBody": "關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？",
+          "photoEditor": "編輯",
+          "photoHelper": "拖曳調整照片",
+          "changePhoto": "更換照片",
+          "save": "儲存",
+          "confirmDeleteTitle": "刪除成員",
+          "confirmDeleteBody": "您確定要刪除成員 {{0}} 嗎？"
+        },
+        "group": {
+          "namePlaceholder": "輸入群組名稱",
+          "nameHelper": "最多32個字",
+          "groupLimitExceeded": "",
+          "confirmDeleteTitle": "刪除群組",
+          "confirmDeleteBody": "您確定要刪除群組 {{0}} 嗎？"
+        },
+        "database": {
+          "exportApiProcessModalTitle": "匯出成員資料庫",
+          "importApiProcessModalTitle": "匯入成員資料庫",
+          "title": "資料庫加密"
+        }
+      },
+      "name": "名稱",
+      "organization": "備註",
+      "group": "群組",
+      "note": "組織",
+      "notePlaceholder": "輸入備註",
+      "noteHelper": "最多256個字",
+      "delete": "刪除",
+      "searchPlaceholder": "輸入關鍵字",
+      "search": "搜尋",
+      "tooltip": {
+        "editGroupWithName": "編輯群組: {{0}}",
+        "encryptionSettings": "加密設定",
+        "deleteGroupWithName": "刪除群組: {{0}}",
+        "editMemberWithName": "編輯成員: {{0}}",
+        "deleteMemberWithName": "刪除成員: {{0}}",
+        "photoLimitExceeded": "已達數量限制"
+      },
+      "database": "資料庫檔案",
+      "export": "匯出",
+      "import": "匯入",
+      "title": "成員",
+      "allMembers": "清單",
+      "groups": "群組",
+      "userPicture": "註冊照片",
+      "actions": "操作",
+      "noData": "沒有符合的資料, 請重新設置條件",
+      "addNewMember": "新增成員",
+      "addMemberFromEvent": "從事件新增"
+    },
+    "events": {
+      "toast": {
+        "settingSuccessTitle": "設定成功",
+        "settingSuccessBody": "新增照片至 {{0}} 成功!"
+      },
+      "addExistingMember": "新增至現有成員",
+      "searchPlaceholder": "輸入關鍵字",
+      "search": "搜尋",
+      "userPicture": "註冊照片",
+      "name": "名稱",
+      "actions": "操作",
+      "modal": {
+        "initialMessage": "請輸入關鍵字以便搜尋",
+        "verifyingPhoto": "照片驗證中",
+        "apiProcessingModalTitle": "更新成員"
+      },
+      "noData": "沒有符合的資料, 請重新設置條件",
+      "tooltip": {
+        "photoLimitExceeded": "已達數量限制",
+        "addWithName": "新增至 {{0}}",
+        "Invalid Photo": ""
+      },
+      "constants": {
+        "confidence-0": "低",
+        "confidence-1": "中",
+        "confidence-2": "高",
+        "enroll-status-0": "圖像偽裝",
+        "enroll-status-1": "未知",
+        "enroll-status-2": "成功"
+      },
+      "similarity": "相似度",
+      "status": "結果",
+      "title": "事件",
+      "filters": "篩選條件",
+      "clear": "清除條件",
+      "facialRecognition": "臉部辨識",
+      "FacialRecognition": "",
+      "activationRequired": "未啟用",
+      "ageGender": "性別年齡",
+      "humanDetection": "人形偵測",
+      "time": "時間",
+      "capture": "臉部截圖",
+      "group": "群組",
+      "organization": "備註",
+      "note": "組織",
+      "addNewMember": "新增成員",
+      "total": "筆資料"
+    },
+    "accounts": {
+      "constants": {
+        "permission-0": "管理者",
+        "permission-1": "來賓",
+        "permission-2": "訪客"
+      },
       "permission": "權限",
-      "account": "帳號",
-      "accountPlaceholder": "輸入帳號名稱",
-      "accountHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
-      "done": "完成"
-    },
-    "progressBar": {
-      "language": "選擇語言",
-      "setupAccount": "初始帳號設定"
+      "username": "名稱",
+      "modal": {
+        "usernamePlaceholder": "輸入帳號名稱",
+        "usernameHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
+        "confirmDeleteTitle": "刪除帳號",
+        "confirmDeleteBody": "您確定要刪除帳號 {{0}} 嗎？"
+      },
+      "title": "帳號",
+      "allAccounts": "帳號清單",
+      "actions": "操作",
+      "tooltip": {
+        "deleteAccountError1": "無法刪除正在使用的帳號"
+      }
     }
-  },
-  "login": {
-    "title": "帳號登入",
-    "username": "名稱",
-    "usernamePlaceholder": "請輸入您的帳號",
-    "password": "密碼",
-    "passwordPlaceholder": "請輸入您的密碼",
-    "login": "登入",
-    "lock": {
-      "lockText": "登入帳號密碼錯誤5次以上",
-      "tryAgain": "請5分鐘後再嘗試登入",
-      "loginLocked": "鎖定登入",
-      "forgotPassword": "忘記密碼？",
-      "remaining": "還需 {{0}} 才能再次登入",
-      "loginAgain": "重新登入"
-    },
-    "error": {
-      "incorrectPassword": "密碼輸入錯誤",
-      "attemptsRemaining": "您尚可嘗試 {{0}} 次...",
-      "loginAgain": "重新登入",
-      "expires1": "10 分鐘後過期",
-      "expires2": "30 分鐘後過期",
-      "expires3": "1 小時後過期",
-      "expires4": "12 小時後過期"
-    }
-  },
-  "home": {
-    "deviceName": "裝置名稱",
-    "Device Status": "裝置狀態",
-    "authenticationRequired": "未啟用",
-    "analytics": "影像分析",
-    "sdcard": "記憶卡",
-    "facialRecognition": "臉部辨識：",
-    "ageGender: ": "性別年齡：",
-    "humanDetection: ": "人形偵測：",
-    "on": "開",
-    "off": "關"
   },
   "videoSetting": {
     "title": "圖像",
@@ -67,32 +237,14 @@
     "sharpness": "銳利度",
     "saturation": "飽和度",
     "lensControl": "鏡頭",
-    "selectFocusType": "選擇對焦方式",
     "fullRangeFocus": "全範圍對焦",
     "shortRangeFocus": "短距離對焦",
+    "selectFocusType": "選擇對焦方式",
     "focus": "對焦",
     "zoom": "縮放",
     "autoFocusAfterZoom": "縮放時自動對焦",
     "iris": "光圈",
-    "shutterSpeed": "快門速度",
-    "advanced": "進階",
-    "whiteBalance": "白平衡",
-    "colorTemperature": "色溫",
-    "iRControl": "紅外線燈",
-    "level": "強度",
-    "dayNight": "日間/夜間模式",
-    "sensitivity": "靈敏度",
-    "dayMode": "日間模式",
-    "rotation": "旋轉",
-    "defog": "除霧",
-    "lightingCompensation": "電源頻率",
     "constants": {
-      "ir-control-0": "自動",
-      "ir-control-1": "開",
-      "ir-control-2": "關",
-      "on": "開",
-      "off": "關",
-      "max": "最大",
       "aperture-0": "自動",
       "aperture-1": "最大",
       "shutter-speed-0": "自動",
@@ -111,6 +263,9 @@
       "white-balance-2": "螢光燈",
       "white-balance-3": "白熾燈",
       "white-balance-4": "手動調整",
+      "ir-control-0": "自動",
+      "ir-control-1": "開",
+      "ir-control-2": "關",
       "daynight-mode-0": "自動",
       "daynight-mode-1": "彩色",
       "daynight-mode-2": "黑白",
@@ -119,29 +274,107 @@
       "orientation-1": "垂直翻轉",
       "orientation-2": "水平翻轉",
       "orientation-3": "180 度翻轉",
+      "on": "開",
+      "off": "關",
       "refresh-rate-0": "自動",
       "refresh-rate-1": "50Hz",
       "refresh-rate-2": "60Hz"
-    }
+    },
+    "shutterSpeed": "快門速度",
+    "advanced": "進階",
+    "whiteBalance": "白平衡",
+    "colorTemperature": "色溫",
+    "iRControl": "紅外線燈",
+    "level": "強度",
+    "dayNight": "日間/夜間模式",
+    "sensitivity": "靈敏度",
+    "dayMode": "日間模式",
+    "rotation": "旋轉",
+    "defog": "除霧",
+    "lightingCompensation": "電源頻率"
+  },
+  "sdCard": {
+    "constants": {
+      "Functioning": "正常",
+      "Unmounted": "未掛載",
+      "Empty Slot": "未插卡",
+      "Nonfunctioning": "不正常",
+      "Read-only Access": "唯獨",
+      "Unknown Error": "未知錯誤",
+      "unknownStatus": "UNKNOWN STATUS"
+    },
+    "operation": "操作",
+    "tooltip": {
+      "disabledOperationButton": "請先關閉記憶卡功能",
+      "disabledNotificationButton": "必須設定電子郵件"
+    },
+    "format": "格式化",
+    "modal": {
+      "disabledFormatButton": "您即將格式化 Micro SD 卡，確認是否繼續？",
+      "disabledUnmountButton": "您即將卸除 Micro SD 卡，確認是否繼續？",
+      "disableTitle": "關閉記憶卡",
+      "disableBody": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存"
+    },
+    "unmount": "卸載",
+    "title": "記憶卡",
+    "enable": "開啟記憶卡",
+    "errorNotification": "異常通報",
+    "notificationSet": "已設定電子郵件",
+    "enableOutgoingEmail": "設定電子郵件",
+    "status": "狀態",
+    "filesystem": "檔案系統格式",
+    "unrecognized": "無法識別",
+    "storageSpace": "儲存空間"
+  },
+  "validation": {
+    "portReserved": "此連接埠為系統預留或使用中",
+    "portEmpty": "此欄位必需輸入",
+    "required": "必須輸入",
+    "string": "必須是字串",
+    "stringEmpty": "必須輸入",
+    "stringMin": "必須輸入{expected}個以上的字",
+    "stringMax": "必須輸入{expected}個以下的字",
+    "stringLength": "必須輸入{expected}個字",
+    "stringPattern": "不符合格式要求",
+    "stringContains": "必須包含{expected}的文字",
+    "stringEnum": "不符合內容要求",
+    "number": "必須為數字",
+    "numberMin": "必須為{expected}以上的數字",
+    "numberMax": "必須為{expected}以下的數字",
+    "numberEqual": "必須為等於{expected}的數字",
+    "numberNotEqual": "不可輸入等於{expected}的數字",
+    "numberInteger": "必須為整數",
+    "numberPositive": "必須為正數",
+    "numberNegative": "必須為負數",
+    "array": "必須為陣列",
+    "arrayEmpty": "不可為空陣列",
+    "arrayMin": "此欄位最少包含 {expected} 個項目",
+    "arrayMax": "此欄位最多包含 {expected} 個項目",
+    "arrayLength": "必須為 {expected} 個項目",
+    "arrayContains": "必須包含 {expected} 個項目",
+    "arrayEnum": "使用了不允許的項目{expected}",
+    "boolean": "必須為布林值",
+    "function": "必須為函數",
+    "date": "必須為日期",
+    "dateMin": "必須為{expected}以後的日期",
+    "dateMax": "必須為{expected}以前的日期",
+    "forbidden": "隱藏欄位",
+    "email": "不符合格式要求",
+    "url": "請使用正確的網址格式",
+    "confirmEqual": "兩次密碼不一致",
+    "stringContainsLowerCaseLatter": "必須包含小寫英文字母",
+    "stringContainsUpperCaseLatter": "必須包含大寫英文字母",
+    "stringContainsNumber": "必須包含數字",
+    "stringAbortSpecialCharacters": "禁用全形或半形符號: # % & ` “ \\ / < > 和空白",
+    "stringAcceptSpecialCharacters": "必須包含符號",
+    "birthday": "請使用正確的生日格式",
+    "countryCode": "國家代碼錯誤",
+    "duplicateName": "名稱重複，請使用不同名稱",
+    "maxRecipient": "已達數量限制",
+    "duplicateEmail": "重複的電子郵件地址"
   },
   "video": {
     "stream": {
-      "title": "串流",
-      "streams": "串流",
-      "stream1": "串流 01",
-      "stream2": "串流 02",
-      "codec": "影像編碼",
-      "resolution": "解析度",
-      "fps": "每秒幀數",
-      "bandwidth": "位元率管理",
-      "quality": "位元率管理",
-      "auto": "自動",
-      "gop": "GOP",
-      "modal": {
-        "apiProcessingModalTitle": "更新串流設定",
-        "confirmUpdateBody": "您確定要更改串流設定嗎？",
-        "confirmRatioChangeBody": "改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？"
-      },
       "constants": {
         "stream-resolution-0": "3840*2160 (16:9)",
         "stream-resolution-1": "2560*1440 (16:9)",
@@ -158,43 +391,38 @@
         "stream-bandwidth-management-0": "最大位元速率",
         "stream-bandwidth-management-1": "可變位元速率",
         "stream-bandwidth-management-2": "固定位元速率",
-        "quality-30": "低",
-        "quality-50": "中",
         "quality-80": "高",
+        "quality-50": "中",
+        "quality-30": "低",
         "bitRateRange": "{{0}} - {{1}} Kbps"
-      }
-    },
-    "rtsp": {
-      "title": "RTSP",
-      "enableAudio": "開啟將聲音紀錄至串流",
-      "requireAuthentication": "開啟帳號密碼認證",
-      "rtspTcpPort": "RTSP/TCP 連接埠",
-      "rtspUdpPort": "RTSP/UDP 連接埠",
-      "tcpRange": "範圍：1024-65535，預設：8554",
-      "udpRange": "範圍：1024-65535，預設：17300",
-      "maxConnections": "同時最大連接數"
+      },
+      "resolution": "解析度",
+      "fps": "每秒幀數",
+      "modal": {
+        "apiProcessingModalTitle": "更新串流設定"
+      },
+      "codec": "影像編碼",
+      "quality": "位元率管理",
+      "bandwidth": "位元率管理",
+      "auto": "自動",
+      "gop": "GOP",
+      "streams": "串流",
+      "title": "串流",
+      "stream1": "串流 01",
+      "stream2": "串流 02"
     },
     "hdmi": {
-      "title": "HDMI",
-      "hdmi": "HDMI",
-      "fps": "每秒幀數",
       "modal": {
         "apiProcessingModalTitle": "更新HDMI設定",
         "confirmUpdateBody": "您確定要更改 HDMI 設定嗎?"
-      }
+      },
+      "title": "HDMI",
+      "hdmi": "HDMI"
     },
     "osd": {
       "title": "OSD",
       "enable": "開啟文字貼圖",
       "size": "文字大小",
-      "color": "顏色",
-      "position": "位置",
-      "positionHelper": "請在預覽窗格中點選箭頭",
-      "leftTop": "左上",
-      "rightTop": "右上",
-      "leftBottom": "左下",
-      "rightBottom": "右下",
-      "overlay": "內容",
       "constants": {
         "font-size-0": "小",
         "font-size-1": "中",
@@ -202,9 +430,17 @@
         "osd-type-0": "時間",
         "osd-type-1": "裝置名稱",
         "osd-type-2": "裝置名稱和時間",
-        "osd-type-3": "自訂文字",
-        "enterCustomText": "輸入自訂文字"
-      }
+        "osd-type-3": "自訂文字"
+      },
+      "color": "顏色",
+      "position": "位置",
+      "leftTop": "左上",
+      "rightTop": "右上",
+      "leftBottom": "左下",
+      "rightBottom": "右下",
+      "positionHelper": "請在預覽窗格中點選箭頭",
+      "overlay": "內容",
+      "enterCustomText": ""
     },
     "privacyMask": {
       "maskArea": "遮罩區域",
@@ -212,116 +448,26 @@
       "enable": "開啟隱私遮罩",
       "maskHelper": "請在預覽窗格新增隱私遮罩",
       "note": "說明",
-      "drag": "拖曳",
       "noteText1": "新增遮罩",
+      "drag": "拖曳",
       "noteText2": "刪除遮罩",
       "or": "or",
       "noteText3": "最多4個遮罩"
-    }
-  },
-  "audio": {
-    "title": "聲音",
-    "enable": "開啟聲音輸入",
-    "quality": "品質",
-    "inputSource": "輸入來源",
-    "internalMicrophone": "內建式麥克風",
-    "externalMicrophone": "外接麥克風",
-    "constants": {
-      "audio-quality-0": "G.711, 8kHz, 64kbps, 單聲道",
-      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+    },
+    "rtsp": {
+      "enableAudio": "開啟將聲音紀錄至串流",
+      "requireAuthentication": "開啟帳號密碼認證",
+      "rtspTcpPort": "RTSP/TCP 連接埠",
+      "tcpRange": "範圍：1024-65535，預設：8554",
+      "rtspUdpPort": "RTSP/UDP 連接埠",
+      "udpRange": "範圍：1024-65535，預設：17300",
+      "maxConnections": "同時最大連接數",
+      "title": "RTSP"
     }
   },
   "notification": {
-    "smtp": {
-      "edit": "編輯",
-      "enableEmail": "開啟電子郵件傳輸",
-      "enableLoginNotification": "開啟裝置登入通報",
-      "interval": "通報間隔 (秒)",
-      "intervalPlaceholder": "輸入秒數",
-      "intervalRange": "5 - 1800 秒",
-      "logonSettings": "外送伺服器登入設定",
-      "logonSettingsHelper": "有些網路郵件供應商為了提高安全性， 可能會需要應用程式密碼，例如Google和Yahoo奇摩電子信箱帳號。請依照您郵件供應商的指示產生並使用應用程式密碼。",
-      "senderEmailPlaceholder": "輸入寄件人電子郵件",
-      "senderName": "寄件人資訊",
-      "senderNamePlaceholder": "輸入寄件人名稱",
-      "serverAddress": "外送伺服器位址",
-      "serverAddressPlaceholder": "輸入伺服器位址",
-      "title": "電子郵件",
-      "senderEmail": "電子郵件",
-      "modal": {
-        "accountPlaceholder": "請輸入您的帳號",
-        "encryption": "加密方式",
-        "none": "無",
-        "port": "連接埠",
-        "ssl": "SSL",
-        "tls": "TLS",
-        "title": "外送伺服器登入設定",
-        "passwordPlaceholder": "請輸入您的密碼",
-        "password": "密碼",
-        "account": "帳號"
-      },
-      "toast": {
-        "disablingOutgoingEmail": "設定成功",
-        "emailSettingSuccess": "電子郵件設定成功",
-        "mailSettingFailed": "電子郵件設定失敗",
-        "sendingTestEmail": "測試郵件已寄出"
-      },
-      "tooltip": {
-        "disabledEditButton": "必須設定電子郵件"
-      }
-    },
-    "io": {
-      "title": "數位輸出及輸入",
-      "tabInput": "數位輸入",
-      "tabOutput1": "數位輸出 1",
-      "tabOutput2": "數位輸出 2",
-      "enableDigitalInput": "開啟數位輸入",
-      "enableDigitalOutput": "開啟數位輸出 {{0}}",
-      "normalState": "平常狀態",
-      "closed": "常關",
-      "open": "常開",
-      "type": "輸出類型",
-      "normal": "一般",
-      "buffer": "緩衝",
-      "pulseTime": "訊號緩衝時間 (秒)",
-      "pulsePlaceholder": "請輸入秒數",
-      "delayTime": "延後間隔時間 (秒)",
-      "delayPlaceholder": "請輸入秒數",
-      "timeRange": "{{0}}-{{1}} 秒"
-    },
     "cards": {
-      "filters": "篩選通報卡",
-      "pinned": "置頂",
-      "others": "其他",
-      "analytics": "影像分析",
-      "defaultCardTitle": "輸入通報卡名稱",
-      "rule": "規則",
-      "schedule": "排程",
-      "method": "通報方式",
-      "enableSchedule": "開啟排程",
-      "enableNotifyResult": "依據辨識結果通報",
-      "condition": "條件",
-      "group": "群組",
-      "everyone": "所有人，不限定群組",
-      "io": "數位輸出及輸入",
-      "output1": "數位輸出 1",
-      "output2": "數位輸出 2",
-      "email": "電子郵件",
-      "emailAttachment": "附件檔案",
-      "subject": "主旨 :",
-      "subjectPlaceholder": "輸入主旨",
-      "defaultSubjectFR": "臉部辨識事件 [{{0}}]",
-      "defaultSubjectMD": "移動偵測事件 [{{0}}]",
-      "defaultSubjectDI": "數位輸入事件 [{{0}}]",
-      "content": "內文 :",
-      "contentPlaceholder": "輸入內文",
-      "contentPlacement": "內文位置",
-      "receiver": "收件人",
-      "receiverPlaceholder": "輸入電子郵件地址",
       "constants": {
-        "notification-vms-event-0": "影像移動偵測事件",
-        "notification-vms-event-1": "智慧分析事件",
-        "notification-card-filter-all": "所有通報",
         "notification-card-0": "臉部辨識",
         "notification-card-1": "性別年齡",
         "notification-card-2": "人形偵測",
@@ -332,229 +478,199 @@
         "face-recognition-condition-1": "成功",
         "face-recognition-condition-2": "未知",
         "face-recognition-condition-3": "圖像偽裝",
+        "notification-card-filter-all": "所有通報",
         "email-attachment-type-0": "臉部截圖",
         "email-attachment-type-1": "全畫面截圖",
         "email-attachment-type-2": "無",
         "email-content-position-0": "置於開頭",
         "email-content-position-1": "置於結尾"
       },
+      "filters": "篩選通報卡",
+      "enableNotifyResult": "依據辨識結果通報",
+      "group": "群組",
+      "everyone": "所有人，不限定群組",
+      "enableSchedule": "開啟排程",
+      "io": "數位輸出及輸入",
+      "output1": "數位輸出 1",
+      "output2": "數位輸出 2",
+      "email": "電子郵件",
+      "emailAttachment": "附件檔案",
+      "subject": "主旨 :",
+      "subjectPlaceholder": "輸入主旨",
+      "content": "內文 :",
+      "contentPlaceholder": "輸入內文",
+      "contentPlacement": "內文位置",
+      "receiver": "收件人",
+      "receiverPlaceholder": "輸入電子郵件地址",
       "tooltip": {
-        "unpin": "解除置頂",
-        "pin": "置頂",
-        "addNewCard": "增加通報卡",
+        "disabledReceiverButton": "請輸入電子郵件地址",
         "iconEmail": "電子郵件: 開啟",
         "iconOutput": "數位輸出: 開啟",
-        "iconVMS": "影像管理系統(VMS): 開",
-        "enterDatetime": "必須選擇起始和終止日期時間",
-        "maxSchedules": "已達數量限制",
-        "disabledReceiverButton": "請輸入電子郵件地址"
+        "addNewCard": "增加通報卡"
       },
+      "defaultSubjectFR": "臉部辨識事件 [{{0}}]",
+      "defaultSubjectMD": "移動偵測事件 [{{0}}]",
+      "defaultSubjectDI": "數位輸入事件 [{{0}}]",
+      "defaultCardTitle": "輸入通報卡名稱",
+      "schedule": "排程",
+      "rule": "規則",
+      "method": "通報方式",
+      "analytics": "影像分析",
+      "pinned": "置頂",
+      "others": "其他",
       "toast": {
         "limitExceededTitle": "已達數量限制",
         "limitExceededBody": "無法新增超過 {{0}} 張卡"
       }
+    },
+    "io": {
+      "enableDigitalInput": "開啟數位輸入",
+      "normalState": "平常狀態",
+      "open": "常開",
+      "closed": "常關",
+      "enableDigitalOutput": "開啟數位輸出 {{0}}",
+      "type": "輸出類型",
+      "normal": "一般",
+      "buffer": "緩衝",
+      "pulseTime": "訊號緩衝時間 (秒)",
+      "pulsePlaceholder": "請輸入秒數",
+      "timeRange": "{{0}}-{{1}} 秒",
+      "delayTime": "延後間隔時間 (秒)",
+      "delayPlaceholder": "請輸入秒數",
+      "title": "數位輸出及輸入",
+      "tabInput": "數位輸入",
+      "tabOutput1": "數位輸出 1",
+      "tabOutput2": "數位輸出 2"
+    },
+    "smtp": {
+      "modal": {
+        "title": "外送伺服器登入設定",
+        "account": "帳號",
+        "accountPlaceholder": "請輸入您的帳號",
+        "password": "密碼",
+        "passwordPlaceholder": "請輸入您的密碼",
+        "port": "連接埠",
+        "encryption": "加密方式",
+        "none": "無",
+        "ssl": "SSL",
+        "tls": "TLS"
+      },
+      "title": "電子郵件",
+      "enableEmail": "開啟電子郵件傳輸",
+      "serverAddress": "外送伺服器位址",
+      "serverAddressPlaceholder": "輸入伺服器位址",
+      "logonSettings": "外送伺服器登入設定",
+      "logonSettingsHelper": "有些網路郵件供應商為了提高安全性， 可能會需要應用程式密碼，例如Google和Yahoo奇摩電子信箱帳號。請依照您郵件供應商的指示產生並使用應用程式密碼。",
+      "tooltip": {
+        "disabledEditButton": "必須設定電子郵件"
+      },
+      "edit": "編輯",
+      "enableLoginNotification": "開啟裝置登入通報",
+      "senderName": "寄件人資訊",
+      "senderNamePlaceholder": "輸入寄件人名稱",
+      "senderEmail": "電子郵件",
+      "senderEmailPlaceholder": "輸入寄件人電子郵件",
+      "interval": "通報間隔 (秒)",
+      "intervalPlaceholder": "輸入秒數",
+      "intervalRange": "5 - 1800 秒",
+      "toast": {
+        "emailSettingSuccess": "電子郵件設定成功"
+      }
     }
   },
-  "userManagement": {
-    "members": {
-      "search": "搜尋",
-      "searchPlaceholder": "輸入關鍵字",
-      "addNewMember": "新增成員",
-      "addMemberFromEvent": "從事件新增",
-      "title": "成員",
-      "allMembers": "清單",
-      "groups": "群組",
-      "database": "資料庫檔案",
-      "export": "匯出",
-      "import": "匯入",
-      "userPicture": "註冊照片",
-      "name": "名稱",
-      "organization": "備註",
-      "group": "群組",
-      "note": "組織",
-      "notePlaceholder": "輸入備註",
-      "noteHelper": "最多256個字",
-      "actions": "操作",
-      "noData": "沒有符合的資料, 請重新設置條件",
-      "delete": "刪除",
-      "modal": {
-        "group": {
-          "editGroupTitle": "編輯群組",
-          "createGroupTitle": "新增群組",
-          "namePlaceholder": "輸入群組名稱",
-          "nameHelper": "最多32個字",
-          "confirmDeleteTitle": "刪除群組",
-          "confirmDeleteBody": "您確定要刪除群組 {{0}} 嗎？",
-          "editGroupTitle.avn": "編輯群組"
-        },
-        "database": {
-          "title": "資料庫加密",
-          "importApiProcessModalTitle": "匯入成員資料庫",
-          "exportApiProcessModalTitle": "匯出成員資料庫"
-        },
-        "member": {
-          "confirmDeleteTitle": "刪除成員",
-          "confirmDeleteBody": "您確定要刪除成員 {{0}} 嗎？",
-          "newMemberTitle": "新增成員",
-          "editMemberTitle": "編輯成員",
-          "primary": "主照片",
-          "photo1": "照片1",
-          "photo2": "照片2",
-          "photo3": "照片3",
-          "photo4": "照片4",
-          "namePlaceholder": "輸入成員名稱",
-          "organizationPlaceholder": "輸入組織名稱",
-          "organizationHelper": "最多32個字",
-          "n/a": "無",
-          "photoEditor": "編輯",
-          "photoHelper": "拖曳調整照片",
-          "save": "儲存",
-          "changePhoto": "更換照片",
-          "confirmCloseBody": "關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？",
-          "errorNoPhoto": "必須上傳主照片",
-          "errorPhotoSizeLimit": "照片大小不可以超過90 KB",
-          "Showing No Face": "照片中沒有人臉",
-          "Poor Photo Quality": "照片品質不佳",
-          "Limitation of Yaw Angle is 30 Degrees": "人臉角度超過上下20度或左右30度",
-          "Limitation of Pitch Angle is 20 Degrees": "人臉角度超過上下20度或左右30度",
-          "More Than One Face in the Photo": "照片中超過1張人臉"
-        }
-      },
-      "tooltip": {
-        "createGroup": "新增群組",
-        "groupLimitExceeded": "已達數量限制",
-        "encryptionSettings": "加密設定",
-        "deleteGroupWithName": "刪除群組: {{0}}",
-        "editGroupWithName": "編輯群組: {{0}}",
-        "editMemberWithName": "編輯成員: {{0}}",
-        "deleteMemberWithName": "刪除成員: {{0}}",
-        "photoLimitExceeded": "已達數量限制",
-        "uploadPrimaryFirst": "請先上傳主照片"
-      }
+  "login": {
+    "error": {
+      "incorrectPassword": "密碼輸入錯誤",
+      "attemptsRemaining": "您尚可嘗試 {{0}} 次...",
+      "loginAgain": "重新登入"
     },
-    "accounts": {
-      "title": "帳號",
-      "allAccounts": "帳號清單",
-      "permission": "權限",
-      "username": "名稱",
-      "actions": "操作",
-      "constants": {
-        "permission-0": "管理者",
-        "permission-1": "來賓",
-        "permission-2": "訪客",
-        "permission-99": "管理者"
-      },
-      "modal": {
-        "confirmDeleteTitle": "刪除帳號",
-        "confirmDeleteBody": "您確定要刪除帳號 {{0}} 嗎？",
-        "newUserTitle": "創建使用者",
-        "modifyUserTitle": "編輯帳號",
-        "usernamePlaceholder": "輸入帳號名稱",
-        "usernameHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白"
-      },
-      "tooltip": {
-        "deleteAccountError1": "無法刪除正在使用的帳號"
-      }
+    "lock": {
+      "lockText": "登入帳號密碼錯誤5次以上",
+      "tryAgain": "請5分鐘後再嘗試登入",
+      "remaining": "還需 {{0}} 才能再次登入",
+      "loginAgain": "重新登入"
     },
-    "events": {
-      "total": "筆資料",
-      "title": "事件",
-      "filters": "篩選條件",
-      "clear": "清除條件",
+    "title": "帳號登入",
+    "username": "名稱",
+    "usernamePlaceholder": "請輸入您的帳號",
+    "password": "密碼",
+    "passwordPlaceholder": "請輸入您的密碼",
+    "login": "登入"
+  },
+  "home": {
+    "deviceName": "裝置名稱",
+    "analytics": "影像分析",
+    "sdcard": "記憶卡",
+    "facialRecognition": "臉部辨識：",
+    "ageGender": "",
+    "humanDetection": ""
+  },
+  "navigation": {
+    "sidebar": {
+      "tooltip": {
+        "home": "首頁",
+        "video": "影像",
+        "audio": "聲音",
+        "notification": "通報",
+        "userManagement": "人員",
+        "analytics": "影像分析",
+        "network": "網路",
+        "system": "系統",
+        "sdCard": "記憶卡"
+      },
+      "analyticsSettings": "智慧分析",
+      "license": "智慧分析授權",
+      "audio": "聲音",
+      "videoSettings": "影像",
+      "hdmi": "HDMI",
+      "streams": "串流",
+      "rtsp": "RTSP",
+      "osd": "文字貼圖",
+      "privacyMask": "隱私遮罩",
+      "members": "成員",
+      "accounts": "帳號",
+      "events": "事件",
+      "internetNetworkSettings": "網路設定",
+      "https": "安全傳輸方式",
+      "network": "網路",
+      "tcpip": "TCP/IP",
+      "notificationSettings": "通報",
+      "notificationMethod": "通報方式",
+      "inputAndOutput": "數位輸出及輸入",
+      "email": "電子郵件",
+      "io": "數位輸出及輸入",
+      "smartNotification": "智慧通知",
+      "sdCard": "記憶卡",
       "facialRecognition": "臉部辨識",
-      "ageGender": "性別年齡",
-      "humanDetection": "人形偵測",
-      "activationRequired": "未啟用",
-      "similarity": "相似度",
-      "status": "結果",
-      "search": "搜尋",
-      "searchPlaceholder": "輸入關鍵字",
-      "time": "時間",
-      "capture": "臉部截圖",
-      "userPicture": "註冊照片",
-      "name": "名稱",
-      "organization": "備註",
-      "group": "群組",
-      "note": "組織",
-      "actions": "操作",
-      "noData": "沒有符合的資料, 請重新設置條件",
-      "addNewMember": "新增成員",
-      "addExistingMember": "新增至現有成員",
-      "constants": {
-        "enroll-status-0": "圖像偽裝",
-        "enroll-status-1": "未知",
-        "enroll-status-2": "成功",
-        "confidence-0": "低",
-        "confidence-1": "中",
-        "confidence-2": "高"
+      "motionDetection": "移動偵測",
+      "system": "系統",
+      "administration": "管理",
+      "dateTime": "日期與時刻",
+      "status": "狀態",
+      "information": "裝置資訊",
+      "deviceMaintenance": "維護",
+      "softwareUpgrade": "軟體更新",
+      "systemLog": "系統紀錄"
+    },
+    "appbar": {
+      "support": {
+        "support": "支援",
+        "deviceHelp": "裝置使用幫助",
+        "technicalSupport": "技術問題信箱",
+        "productInformation": "其他產品資訊"
       },
-      "modal": {
-        "initialMessage": "請輸入關鍵字以便搜尋",
-        "verifyingPhoto": "照片驗證中",
-        "apiProcessingModalTitle": "更新成員"
-      },
-      "tooltip": {
-        "photoLimitExceeded": "已達數量限制",
-        "addWithName": "新增至 {{0}}",
-        "invalidPhoto": "照片不合格",
-        "Updating Member": "更新成員"
-      },
-      "toast": {
-        "settingSuccessTitle": "設定成功",
-        "settingSuccessBody": "新增照片至 {{0}} 成功!"
+      "signOut": "登出",
+      "about": {
+        "modelName": "裝置名稱",
+        "software": "軟體版本",
+        "serialNumber": "裝置序號",
+        "macAddress": "實體位址",
+        "about": "關於"
       }
     }
   },
   "analytics": {
-    "facialRecognition": {
-      "title": "臉部辨識",
-      "enableFR": "開啟臉部辨識",
-      "enableSpoof": "開啟防止圖片偽裝",
-      "accuracyLevel": "辨識成功閥值",
-      "detectionZone": "觸發區域",
-      "detectionZoneHelper": "預設為全畫面",
-      "enableDetectionSize": "開啟最小辨識尺寸",
-      "liveViewDisplay": "即時影像顯示",
-      "displayName": "成員名稱",
-      "displayGroup": "成員群組",
-      "displayUnknown": "辨識結果：未知",
-      "displaySpoof": "辨識結果：圖像偽裝",
-      "minDetectionSize": "最小臉部尺寸",
-      "constants": {
-        "confidence-level-0": "低",
-        "confidence-level-1": "中",
-        "confidence-level-2": "高"
-      },
-      "modal": {
-        "spoofBody": "您確定要開啟Alpha版防止圖像偽裝嗎？圖像偽裝是一個Alpha版的功能，判定成圖像偽裝的人臉不會被辯識，我們會在之後的軟體更新優化並完善此功能"
-      },
-      "tooltip": {
-        "frDisabled": "臉部辨識已關閉",
-        "detectionZoneToggle": "顯示或隱藏區域"
-      }
-    },
-    "motionDetection": {
-      "title": "移動偵測",
-      "enableMD": "開啟移動偵測",
-      "mdHelper": "請在預覽窗格新增觸發區域",
-      "sensitivity": "靈敏度",
-      "noteArea": "遮罩區域",
-      "note1": "新增區域",
-      "drag": "拖曳",
-      "note2": "刪除區域",
-      "or": "or",
-      "note3": "最多4個區域",
-      "detectionZone": "觸發區域"
-    },
     "license": {
-      "title": "智慧分析授權",
-      "facialRecognition": "臉部辨識",
-      "ageGender": "性別年齡",
-      "humanDetection": "人形偵測",
-      "keyPlaceholder": "請輸入啟用碼",
-      "activate": "啟用",
-      "activated": "已啟用",
-      "activationRequired": "未啟用",
       "time": "時間",
       "activatedBy": "啟用者",
       "authenticationKey": "啟用碼",
@@ -564,66 +680,75 @@
         "key-thirtyThousand": "臉部辨識 30k",
         "key-threeThousand": "臉部辨識 3k"
       },
+      "ageGender": "性別年齡",
+      "humanDetection": "人形偵測",
       "toast": {
-        "activationSuccessTitle": "啟用成功",
-        "activationSuccessBody": "{{0}} 啟用成功",
         "activationFailedTitle": "啟用失敗",
-        "keyRegisteredBody": "重複輸入啟用碼"
-      }
+        "keyRegisteredBody": "重複輸入啟用碼",
+        "activationSuccessTitle": "啟用成功",
+        "activationSuccessBody": "{{0}} 啟用成功"
+      },
+      "title": "智慧分析授權",
+      "keyPlaceholder": "請輸入啟用碼",
+      "activate": "啟用",
+      "facialRecognition": "臉部辨識"
+    },
+    "facialRecognition": {
+      "detectionZone": "觸發區域",
+      "minDetectionSize": "最小臉部尺寸",
+      "title": "臉部辨識",
+      "enableFR": "開啟臉部辨識",
+      "enableSpoof": "開啟防止圖片偽裝",
+      "tooltip": {
+        "frDisabled": "臉部辨識已關閉",
+        "detectionZoneToggle": "顯示或隱藏區域"
+      },
+      "modal": {
+        "spoofBody": "您確定要開啟Alpha版防止圖像偽裝嗎？圖像偽裝是一個Alpha版的功能，判定成圖像偽裝的人臉不會被辯識，我們會在之後的軟體更新優化並完善此功能"
+      },
+      "accuracyLevel": "辨識成功閥值",
+      "constants": {
+        "confidence-level-0": "低",
+        "confidence-level-1": "中",
+        "confidence-level-2": "高"
+      },
+      "detectionZoneHelper": "預設為全畫面",
+      "enableDetectionSize": "開啟最小辨識尺寸",
+      "liveViewDisplay": "即時影像顯示",
+      "displayName": "成員名稱",
+      "displayGroup": "成員群組",
+      "displayUnknown": "辨識結果：未知",
+      "displaySpoof": "辨識結果：圖像偽裝"
+    },
+    "motionDetection": {
+      "detectionZone": "觸發區域",
+      "title": "移動偵測",
+      "enableMD": "開啟移動偵測",
+      "mdHelper": "請在預覽窗格新增觸發區域",
+      "sensitivity": "靈敏度",
+      "noteArea": "遮罩區域",
+      "note1": "新增區域",
+      "drag": "拖曳",
+      "note2": "刪除區域",
+      "or": "or",
+      "note3": "最多4個區域"
     }
   },
-  "network": {
-    "network": {
-      "title": "網路",
-      "ipAddressing": "LAN 組態",
-      "networkStatus": "網路狀態",
-      "ipAssignment": "IP 取得方式",
-      "static": "固定IP位址",
-      "dynamic": "動態IP位址",
-      "macAddress": "實體位址",
-      "ipAddress": "IP 位址",
-      "subnetMask": "子網路遮罩",
-      "routerGateway": "路由器/閘道",
-      "primaryDNS": "主要 DNS",
-      "secondaryDNS": "次要 DNS",
-      "dhcp": "DHCP",
-      "testDHCP": "測試DHCP",
-      "fixedIPAddress": "固定IP位址",
-      "secondaryDNSOptional": "次要 DNS",
-      "ipAddressPlaceholder": "請輸入固定IP位址",
-      "subnetMaskPlaceholder": "請輸入子網路遮罩",
-      "routerGatewayPlaceholder": "請輸入路由器/閘道",
-      "primaryDNSPlaceholder": "請輸入主要DNS",
-      "secondaryDNSPlaceholder": "請輸入次要DNS",
-      "modal": {
-        "confirmUpdateBody": "您確定要更改網路設定嗎？",
-        "testingSuccess": "DHCP 測試成功"
-      },
-      "tooltip": {
-        "noChanges": "沒有設定被更改"
-      }
+  "audio": {
+    "enable": "開啟聲音輸入",
+    "quality": "品質",
+    "constants": {
+      "audio-quality-0": "G.711, 8kHz, 64kbps, 單聲道"
     },
-    "tcpip": {
-      "title": "TCP/IP",
-      "ddns": "DDNS",
-      "http": "HTTP",
-      "enableDDNS": "開啟 DDNS 服務",
-      "serviceProvider": "服務提供者",
-      "hostName": "主機名稱",
-      "hostNamePlaceholder": "輸入 DDNS 主機名稱",
-      "account": "帳號",
-      "accountPlaceholder": "輸入 DDNS 使用者名稱",
-      "passwordPlaceholder": "輸入 DDNS 密碼",
-      "secondaryHTTPPort": "HTTP 次要連接埠",
-      "portHelper": "範圍：1024-65535，預設：8080",
+    "inputSource": "輸入來源",
+    "externalMicrophone": "外接麥克風",
+    "title": "聲音"
+  },
+  "network": {
+    "common": {
       "modal": {
-        "apiProcessModalTitle": "更新HTTP設定"
-      },
-      "toast": {
-        "settingSuccessTitle": "設定成功",
-        "successBody": "DDNS 設定成功！",
-        "settingFailed": "設定失敗",
-        "failedBody": "DDNS 設定失敗！"
+        "redirectionBody": "請利用下列網址重新登入",
+        "redirectionSuccess": "重新導向"
       }
     },
     "https": {
@@ -633,97 +758,124 @@
       "portHelper": "範圍：1024-65535，預設：8443",
       "certificate": "憑證",
       "constants": {
-        "manufacturer": "製造商",
-        "certificate-type-0": "{{0}} 自簽憑證",
-        "certificate-type-1": "上傳您的憑證",
-        "certificate-type-2": "在此裝置上產生憑證"
+        "certificate-type-0": "{{0}} 自簽憑證"
       },
       "tooltip": {
         "disabledButton": "請先開啟 HTTPS 功能"
       }
     },
-    "common": {
+    "network": {
+      "testDHCP": "測試DHCP",
       "modal": {
-        "redirectionSuccess": "重新導向",
-        "redirectionBody": "請利用下列網址重新登入"
-      }
+        "testingSuccess": "DHCP 測試成功",
+        "confirmUpdateBody": "您確定要更改網路設定嗎？"
+      },
+      "ipAddress": "IP 位址",
+      "dhcp": "DHCP",
+      "fixedIPAddress": "固定IP位址",
+      "ipAddressPlaceholder": "請輸入固定IP位址",
+      "subnetMask": "子網路遮罩",
+      "subnetMaskPlaceholder": "請輸入子網路遮罩",
+      "routerGateway": "路由器/閘道",
+      "routerGatewayPlaceholder": "請輸入路由器/閘道",
+      "primaryDNS": "主要 DNS",
+      "primaryDNSPlaceholder": "請輸入主要DNS",
+      "secondaryDNSOptional": "次要 DNS",
+      "secondaryDNSPlaceholder": "請輸入次要DNS",
+      "tooltip": {
+        "noChanges": "沒有設定被更改"
+      },
+      "title": "網路",
+      "ipAssignment": "IP 取得方式",
+      "macAddress": "實體位址",
+      "secondaryDNS": "次要 DNS",
+      "ipAddressing": "LAN 組態",
+      "networkStatus": "網路狀態"
+    },
+    "tcpip": {
+      "toast": {
+        "settingSuccessTitle": "設定成功",
+        "successBody": "DDNS 設定成功！",
+        "settingFailed": "設定失敗",
+        "failedBody": "DDNS 設定失敗！"
+      },
+      "enableDDNS": "開啟 DDNS 服務",
+      "serviceProvider": "服務提供者",
+      "hostName": "主機名稱",
+      "hostNamePlaceholder": "輸入 DDNS 主機名稱",
+      "account": "帳號",
+      "accountPlaceholder": "輸入 DDNS 使用者名稱",
+      "passwordPlaceholder": "輸入 DDNS 密碼",
+      "modal": {
+        "apiProcessModalTitle": "更新HTTP設定"
+      },
+      "secondaryHTTPPort": "HTTP 次要連接埠",
+      "portHelper": "範圍：1024-65535，預設：8080",
+      "title": "TCP/IP",
+      "ddns": "DDNS",
+      "http": "HTTP"
+    }
+  },
+  "error": {
+    "internalServerError": "內部伺服器問題",
+    "error": "Error",
+    "backToHome": "回首頁"
+  },
+  "setup": {
+    "account": {
+      "permission": "權限",
+      "account": "帳號",
+      "accountPlaceholder": "輸入帳號名稱",
+      "accountHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
+      "done": "完成"
+    },
+    "language": {
+      "next": "下一步"
+    },
+    "progressBar": {
+      "language": "選擇語言",
+      "setupAccount": "初始帳號設定"
+    },
+    "welcome": {
+      "welcome": "歡迎",
+      "welcomeText1": "為了使您有更好的體驗，",
+      "welcomeText2": "按繼續開始初始設定",
+      "continue": "繼續"
     }
   },
   "system": {
     "dateTime": {
+      "modal": {
+        "apiProcessModalTitle": "更新日期與時間",
+        "confirmUpdateBody": "您確定要更裝置時間嗎? 更改裝置時間必須重新登入"
+      },
       "title": "日期與時刻",
-      "timeZone": "時區",
       "deviceDateTime": "裝置時間",
+      "timeZone": "時區",
       "syncNTP": "與網路時間伺服器 (NTP) 同步",
       "ntpHost": "伺服器位址",
       "hostPlaceholder": "Enter Your IP Address",
       "syncTime": "每日更新時刻",
       "syncInterval": "更新頻率 (分)",
       "syncWithComputer": "與您的電腦同步",
-      "setManually": "手動調整",
-      "modal": {
-        "apiProcessModalTitle": "更新日期與時間",
-        "confirmUpdateBody": "您確定要更裝置時間嗎? 更改裝置時間必須重新登入"
-      }
+      "setManually": "手動調整"
     },
-    "deviceMaintenance": {
-      "title": "維護",
-      "systemReboot": "重新啟動裝置",
-      "reboot": "重新啟動",
-      "restoreDefaultSettings": "還原成原廠設定",
-      "restoreAllSettings": "還原所有設定",
-      "reset": "清除資料",
-      "exportSystemSettings": "匯出系統設定值",
-      "importSystemSettings": "匯入系統設定值",
-      "export": "匯出",
-      "import": "匯入",
-      "modal": {
-        "apiProcessModalTitleRebooting": "重新啟動裝置中",
-        "apiProcessModalTitleResetting": "清除資料中",
-        "confirmRebootBody": "您確定要重新啟動裝置嗎？",
-        "confirmRestoreDefaultSettingsBody": "裝置將還原成原廠設定，除了下列項目，其他所有的資料和設定將會被清除:\n\n• 成員清單和成員群組資料 \n• 帳號資料 \n• 對焦及縮放設定 \n• RTSP設定 \n• 網路設定 \n• 記憶卡儲存資料",
-        "confirmResetAllSettingsBody": "裝置將還原成原廠設定，所有資料和設定將會被清除",
-        "rebootSuccessBody": "裝置已重新啟動，請重新登入",
-        "resetSuccess": "重設成功",
-        "resetAllSettingsSuccessBody": "請參閱安裝說明執行初始設定",
-        "resetDefaultSettingsSuccessBody": "裝置已還原，請重新登入",
-        "importSuccessBody": "匯入系統設定完成，請重新登入"
-      },
-      "tooltip": {
-        "restoreAllSettingsHelper": "勾選此項目會清除並還原成員及群組、系統帳號、縮放及對焦、RTSP、網路、應用程式、儲存在記憶卡的資料...等，所有資料和設定"
-      }
-    },
-    "softwareUpgrade": {
-      "title": "軟體更新",
-      "importFile": "軟體檔案",
-      "modal": {
-        "apiProcessModalTitleUploading": "軟體上傳中",
-        "apiProcessModalTitleInstalling": "軟體安裝中",
-        "apiProcessModalTitleShutDown": "裝置關閉中",
-        "apiProcessModalTitleRestarting": "裝置重新啟動中",
-        "uploadingBody": "※ 升級時請勿關閉瀏覽器",
-        "uploadSoftware": "上傳軟體",
-        "installSoftware": "安裝軟體",
-        "shutDown": "關閉裝置",
-        "restart": "重新啟動裝置",
-        "stage1": "階段 1",
-        "stage2": "階段 2",
-        "stage3": "階段 3",
-        "stage4": "階段 4",
-        "upgradeSuccess": "軟體升級成功",
-        "upgradeSuccessBody": "於 {{0}} 秒後重新導向至登入頁面"
-      }
+    "information": {
+      "software": "軟體版本",
+      "serialNumber": "S/N 碼",
+      "macAddress": "實體位址",
+      "title": "裝置資訊"
     },
     "systemLog": {
       "title": "系統紀錄",
       "systemLogFile": "系統紀錄檔案",
       "deleteLogs": "刪除",
-      "download": "下載",
       "modal": {
         "confirmDeleteTitle": "刪除系統紀錄檔案",
         "confirmDeleteBody": "您確定要刪除系統紀錄檔案嗎？",
         "apiProcessModalTitle": "下載系統紀錄檔案",
         "downloadingBody": "下載進度"
+<<<<<<< HEAD
       }
     },
     "information": {
@@ -755,118 +907,107 @@
       "Read-only Access": "唯獨",
       "Unknown Error": "未知錯誤",
       "unknownStatus": "UNKNOWN STATUS"
+=======
+      },
+      "download": "下載"
     },
-    "modal": {
-      "disableTitle": "關閉記憶卡",
-      "disableBody": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存",
-      "disabledFormatButton": "您即將格式化 Micro SD 卡，確認是否繼續？",
-      "disabledUnmountButton": "您即將卸除 Micro SD 卡，確認是否繼續？"
+    "deviceMaintenance": {
+      "importSystemSettings": "匯入系統設定值",
+      "modal": {
+        "apiProcessModalTitleRebooting": "重新啟動裝置中",
+        "importSuccessBody": "匯入系統設定完成，請重新登入",
+        "rebootSuccessBody": "裝置已重新啟動，請重新登入",
+        "confirmRebootBody": "您確定要重新啟動裝置嗎？",
+        "apiProcessModalTitleResetting": "清除資料中",
+        "resetSuccess": "重設成功",
+        "resetAllSettingsSuccessBody": "請參閱安裝說明執行初始設定",
+        "resetDefaultSettingsSuccessBody": "裝置已還原，請重新登入"
+      },
+      "exportSystemSettings": "匯出系統設定值",
+      "export": "匯出",
+      "import": "匯入",
+      "systemReboot": "重新啟動裝置",
+      "reboot": "重新啟動",
+      "restoreDefaultSettings": "還原成原廠設定",
+      "restoreAllSettings": "還原所有設定",
+      "tooltip": {
+        "restoreAllSettingsHelper": "勾選此項目會清除並還原成員及群組、系統帳號、縮放及對焦、RTSP、網路、應用程式、儲存在記憶卡的資料...等，所有資料和設定"
+      },
+      "reset": "清除資料",
+      "title": "維護"
+>>>>>>> master
     },
-    "tooltip": {
-      "disabledOperationButton": "請先關閉記憶卡功能",
-      "disabledNotificationButton": "必須設定電子郵件"
+    "common": {
+      "importHelper": "僅支援 .zip 檔案格式",
+      "selectFile": "選擇檔案",
+      "noFileSelected": "未選擇任何檔案",
+      "tooltip": {
+        "disabledButton": "請先選擇一個檔案"
+      }
+    },
+    "softwareUpgrade": {
+      "modal": {
+        "uploadingBody": "※ 升級時請勿關閉瀏覽器",
+        "apiProcessModalTitleUploading": "軟體上傳中",
+        "apiProcessModalTitleInstalling": "軟體安裝中",
+        "apiProcessModalTitleShutDown": "裝置關閉中",
+        "apiProcessModalTitleRestarting": "裝置重新啟動中",
+        "upgradeSuccess": "軟體升級成功",
+        "upgradeSuccessBody": "於 {{0}} 秒後重新導向至登入頁面",
+        "stage1": "階段 1",
+        "uploadSoftware": "上傳軟體",
+        "stage2": "階段 2",
+        "installSoftware": "安裝軟體",
+        "stage3": "階段 3",
+        "shutDown": "關閉裝置",
+        "stage4": "階段 4",
+        "restart": "重新啟動裝置"
+      },
+      "title": "軟體更新",
+      "importFile": "軟體檔案"
     }
-  },
-  "error": {
-    "error": "Error",
-    "notFound": "此網頁不存在",
-    "internalServerError": "內部伺服器問題",
-    "backToHome": "回首頁"
-  },
-  "validation": {
-    "confirmEqual": "兩次密碼不一致",
-    "required": "必須輸入",
-    "string": "必須是字串",
-    "stringEmpty": "必須輸入",
-    "stringMin": "必須輸入{expected}個以上的字",
-    "stringMax": "必須輸入{expected}個以下的字",
-    "stringLength": "必須輸入{expected}個字",
-    "stringPattern": "不符合格式要求",
-    "stringContains": "必須包含{expected}的文字",
-    "stringContainsLowerCaseLatter": "必須包含小寫英文字母",
-    "stringContainsUpperCaseLatter": "必須包含大寫英文字母",
-    "stringContainsNumber": "必須包含數字",
-    "stringAbortSpecialCharacters": "禁用全形或半形符號: # % & ` “ \\ / < > 和空白",
-    "stringAcceptSpecialCharacters": "必須包含符號",
-    "stringEnum": "不符合內容要求",
-    "number": "必須為數字",
-    "numberMin": "必須為{expected}以上的數字",
-    "numberMax": "必須為{expected}以下的數字",
-    "numberEqual": "必須為等於{expected}的數字",
-    "numberNotEqual": "不可輸入等於{expected}的數字",
-    "numberInteger": "必須為整數",
-    "numberPositive": "必須為正數",
-    "numberNegative": "必須為負數",
-    "array": "必須為陣列",
-    "arrayEmpty": "不可為空陣列",
-    "arrayMin": "此欄位最少包含 {expected} 個項目",
-    "arrayMax": "此欄位最多包含 {expected} 個項目",
-    "arrayLength": "必須為 {expected} 個項目",
-    "arrayContains": "必須包含 {expected} 個項目",
-    "arrayEnum": "使用了不允許的項目{expected}",
-    "boolean": "必須為布林值",
-    "function": "必須為函數",
-    "date": "必須為日期",
-    "dateMin": "必須為{expected}以後的日期",
-    "dateMax": "必須為{expected}以前的日期",
-    "forbidden": "隱藏欄位",
-    "email": "不符合格式要求",
-    "url": "請使用正確的網址格式",
-    "birthday": "請使用正確的生日格式",
-    "countryCode": "國家代碼錯誤",
-    "duplicateName": "名稱重複，請使用不同名稱",
-    "portEmpty": "此欄位必需輸入",
-    "portReserved": "此連接埠為系統預留或使用中",
-    "maxRecipient": "已達數量限制",
-    "duplicateEmail": "重複的電子郵件地址"
   },
   "documentTitle": {
     "home": "首頁",
-    "image": "圖像",
-    "video": "影像",
-    "audio": "聲音",
-    "notification": "通報",
-    "userManagement": "人員",
-    "analytics": "影像分析",
-    "network": "網路",
-    "system": "系統",
-    "sdCard": "記憶卡",
     "videoSettings": "影像",
     "streams": "串流",
+    "privacyMask": "隱私遮罩",
     "rtsp": "RTSP",
     "hdmi": "HDMI",
     "osd": "文字貼圖",
-    "privacyMask": "隱私遮罩",
-    "notificationSettings": "通報",
-    "notificationMethod": "通報方式",
+    "audio": "聲音",
+    "notification": "通報",
     "email": "電子郵件",
     "io": "數位輸出及輸入",
     "smartNotification": "智慧通知",
-    "members": "成員",
-    "accounts": "帳號",
-    "events": "事件",
     "analyticsSettings": "智慧分析",
     "facialRecognition": "臉部辨識",
     "motionDetection": "移動偵測",
     "license": "智慧分析授權",
+    "userManagement": "人員",
+    "members": "成員",
+    "newMember": "新增成員",
+    "accounts": "帳號",
+    "newUser": "創建使用者",
+    "events": "事件",
+    "network": "網路",
     "internetNetworkSettings": "網路",
     "tcpip": "TCP/IP",
     "https": "安全傳輸方式",
-    "administration": "管理",
+    "system": "系統",
     "dateTime": "日期與時刻",
-    "deviceMaintenance": "維護",
     "softwareUpgrade": "軟體更新",
-    "status": "狀態",
+    "deviceMaintenance": "維護",
+    "sdCard": "記憶卡",
     "systemLog": "系統紀錄",
     "information": "裝置資訊",
-    "newMember": "新增成員",
-    "newUser": "創建使用者",
     "welcome": "歡迎",
     "language": "選擇語言",
     "setupAccount": "初始帳號設定",
     "login": "登入",
     "loginError": "Login Error",
     "loginLocked": "鎖定登入"
+<<<<<<< HEAD
   },
   "navigation": {
     "sidebar": {
@@ -1025,5 +1166,7 @@
         "renewSession": "未閒置"
       }
     }
+=======
+>>>>>>> master
   }
 }

@@ -84,7 +84,9 @@ class SearchMember extends React.PureComponent {
             .catch(error =>
               this.setState({
                 verifyStatus: false,
-                errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+                errorMessage: utils.getApiErrorMessageI18N(
+                  error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+                )
               })
             )
             .finally(() => this.setState({isVerifying: false}))
@@ -171,10 +173,10 @@ class SearchMember extends React.PureComponent {
                     </div>
                   </div>
                 </div>
-                { errorMessage && (
+                {errorMessage && (
                   <p className="text-size-14 mb-1 text-danger validate-error-message">
                     <i className="fas fa-exclamation-triangle mr-1"/>
-                    {`${i18n.t(`userManagement.members.modal.member.${errorMessage}`, errorMessage)}`}
+                    {errorMessage}
                   </p>
                 )}
               </div>
