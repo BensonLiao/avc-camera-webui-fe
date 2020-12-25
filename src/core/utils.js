@@ -192,6 +192,19 @@ exports.formatDate = (date, {withSecond, withoutTime, format} = {}) => {
 };
 
 /**
+ * Use addTimezoneOffset when submitting card timePeriods to api
+ * @param {Object} card - single card object
+ * @returns {Object} - altered time periods card
+ */
+exports.parseCardTimePeriods = card => {
+  return card.timePeriods.map(timePeriod => ({
+    ...timePeriod,
+    start: this.addTimezoneOffset(new Date(timePeriod.start)).toISOString(),
+    end: this.addTimezoneOffset(new Date(timePeriod.end)).toISOString()
+  }));
+};
+
+/**
  * Get time with offset.
  * this is used to normalise the UTC time from server
  * @param {Date} time - e.g. 9/21 11:00am GMT+8

@@ -18,11 +18,7 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
     card.isTop = !card.isTop;
     const data = {
       ...card,
-      timePeriods: card.timePeriods.map(timePeriod => ({
-        ...timePeriod,
-        start: utils.addTimezoneOffset(new Date(timePeriod.start)).toISOString(),
-        end: utils.addTimezoneOffset(new Date(timePeriod.end)).toISOString()
-      }))
+      timePeriods: utils.parseCardTimePeriods(card)
     };
     progress.start();
     api.notification.updateCard(data)
