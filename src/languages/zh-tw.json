@@ -91,6 +91,14 @@
       "startTime": "起始時間",
       "endTime": "終止時間",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "僅支援 .zip 檔案格式",
+      "selectFile": "選擇檔案",
+      "noFileSelected": "未選擇任何檔案",
+      "tooltip": {
+        "disabledButton": "請先選擇一個檔案"
+      }
     }
   },
   "userManagement": {
@@ -136,24 +144,23 @@
       "notePlaceholder": "輸入備註",
       "noteHelper": "最多256個字",
       "delete": "刪除",
+      "export": "匯出",
+      "import": "匯入",
+      "actions": "操作",
       "searchPlaceholder": "輸入關鍵字",
       "search": "搜尋",
       "tooltip": {
         "editGroupWithName": "編輯群組: {{0}}",
-        "encryptionSettings": "加密設定",
         "deleteGroupWithName": "刪除群組: {{0}}",
         "editMemberWithName": "編輯成員: {{0}}",
         "deleteMemberWithName": "刪除成員: {{0}}",
         "photoLimitExceeded": "已達數量限制"
       },
-      "database": "資料庫檔案",
-      "export": "匯出",
-      "import": "匯入",
       "title": "成員",
       "allMembers": "清單",
       "groups": "群組",
+      "database": "資料庫檔案",
       "userPicture": "註冊照片",
-      "actions": "操作",
       "noData": "沒有符合的資料, 請重新設置條件",
       "addNewMember": "新增成員",
       "addMemberFromEvent": "從事件新增"
@@ -212,7 +219,6 @@
         "permission-1": "來賓",
         "permission-2": "訪客"
       },
-      "permission": "權限",
       "username": "名稱",
       "modal": {
         "usernamePlaceholder": "輸入帳號名稱",
@@ -220,6 +226,7 @@
         "confirmDeleteTitle": "刪除帳號",
         "confirmDeleteBody": "您確定要刪除帳號 {{0}} 嗎？"
       },
+      "permission": "權限",
       "title": "帳號",
       "allAccounts": "帳號清單",
       "actions": "操作",
@@ -744,6 +751,46 @@
     "externalMicrophone": "外接麥克風",
     "title": "聲音"
   },
+  "demo": {
+    "userManagement": {
+      "members": {
+        "modal": {
+          "database": {
+            "successTitle": "",
+            "successBody": ""
+          },
+          "deviceSync": {
+            "modifyDeviceTitle": "",
+            "newDeviceTitle": "",
+            "hostPlaceholder": "",
+            "port": "",
+            "portPlaceholder": "",
+            "addDeviceApiProcessingModal": "",
+            "editDeviceApiProcessingModal": "",
+            "confirmDeleteTitle": "",
+            "confirmDeleteBody": "",
+            "deleteDeviceApiProcessingModal": ""
+          }
+        },
+        "databaseSettings": "",
+        "encryptionSettings": "",
+        "edit": "",
+        "exportDB": "",
+        "importDB": "",
+        "host": "",
+        "tooltip": {
+          "noDevice": "",
+          "connected": "",
+          "notConnected": ""
+        },
+        "synchronize": "",
+        "remove": "",
+        "deviceName": "",
+        "status": "",
+        "noDevice": ""
+      }
+    }
+  },
   "network": {
     "common": {
       "modal": {
@@ -902,14 +949,6 @@
       },
       "reset": "清除資料",
       "title": "維護"
-    },
-    "common": {
-      "importHelper": "僅支援 .zip 檔案格式",
-      "selectFile": "選擇檔案",
-      "noFileSelected": "未選擇任何檔案",
-      "tooltip": {
-        "disabledButton": "請先選擇一個檔案"
-      }
     },
     "softwareUpgrade": {
       "modal": {

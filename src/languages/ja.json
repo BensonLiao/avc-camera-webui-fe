@@ -91,6 +91,14 @@
       "startTime": "開始時間",
       "endTime": "終了時間",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "zipファイルのみサポートしています",
+      "selectFile": "ファイルを選択する",
+      "noFileSelected": "選択されたファイルがありません",
+      "tooltip": {
+        "disabledButton": "ファイルを選択してください"
+      }
     }
   },
   "userManagement": {
@@ -136,24 +144,23 @@
       "notePlaceholder": "備考を入力してください",
       "noteHelper": "最大256文字まで入力可能です",
       "delete": "削除",
+      "export": "エクスポート",
+      "import": "インポート",
+      "actions": "操作",
       "searchPlaceholder": "キーワードを入力",
       "search": "検索",
       "tooltip": {
         "editGroupWithName": "グループを編集する：{{0}}",
-        "encryptionSettings": "暗号化設定",
         "deleteGroupWithName": "グループを削除する：{{0}}",
         "editMemberWithName": "メンバーを編集する：{{0}}",
         "deleteMemberWithName": "メンバーを削除する：{{0}}",
         "photoLimitExceeded": "写真数の上限に達しました"
       },
-      "database": "データベースファイル",
-      "export": "エクスポート",
-      "import": "インポート",
       "title": "メンバー",
       "allMembers": "全メンバー表示",
       "groups": "グループ",
+      "database": "データベースファイル",
       "userPicture": "登録用写真",
-      "actions": "操作",
       "noData": "一致するデータが見つかりません再検索して下さい",
       "addNewMember": "新規メンバーを追加する",
       "addMemberFromEvent": "イベントから追加"
@@ -212,7 +219,6 @@
         "permission-1": "ゲスト",
         "permission-2": "訪客"
       },
-      "permission": "権限",
       "username": "ユーザー名",
       "modal": {
         "usernamePlaceholder": "アカウント名を入力してください",
@@ -220,6 +226,7 @@
         "confirmDeleteTitle": "アカウントを削除する",
         "confirmDeleteBody": "アカウント {{0}} を削除しますか？"
       },
+      "permission": "権限",
       "title": "アカウント",
       "allAccounts": "全アカウント表示",
       "actions": "操作",
@@ -744,6 +751,46 @@
     "externalMicrophone": "外付けマイク",
     "title": "オーディオ設定"
   },
+  "demo": {
+    "userManagement": {
+      "members": {
+        "modal": {
+          "database": {
+            "successTitle": "",
+            "successBody": ""
+          },
+          "deviceSync": {
+            "modifyDeviceTitle": "",
+            "newDeviceTitle": "",
+            "hostPlaceholder": "",
+            "port": "",
+            "portPlaceholder": "",
+            "addDeviceApiProcessingModal": "",
+            "editDeviceApiProcessingModal": "",
+            "confirmDeleteTitle": "",
+            "confirmDeleteBody": "",
+            "deleteDeviceApiProcessingModal": ""
+          }
+        },
+        "databaseSettings": "",
+        "encryptionSettings": "",
+        "edit": "",
+        "exportDB": "",
+        "importDB": "",
+        "host": "",
+        "tooltip": {
+          "noDevice": "",
+          "connected": "",
+          "notConnected": ""
+        },
+        "synchronize": "",
+        "remove": "",
+        "deviceName": "",
+        "status": "",
+        "noDevice": ""
+      }
+    }
+  },
   "network": {
     "common": {
       "modal": {
@@ -902,14 +949,6 @@
       },
       "reset": "初期化",
       "title": "メンテナンス"
-    },
-    "common": {
-      "importHelper": "zipファイルのみサポートしています",
-      "selectFile": "ファイルを選択する",
-      "noFileSelected": "選択されたファイルがありません",
-      "tooltip": {
-        "disabledButton": "ファイルを選択してください"
-      }
     },
     "softwareUpgrade": {
       "modal": {

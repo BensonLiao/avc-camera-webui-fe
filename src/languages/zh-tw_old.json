@@ -85,7 +85,8 @@
       "tooltip": {
         "createGroup": "新增群組",
         "groupLimitExceeded": "已達數量限制",
-        "uploadPrimaryFirst": "請先上傳主照片"
+        "uploadPrimaryFirst": "請先上傳主照片",
+        "encryptionSettings": "加密設定"
       }
     },
     "accounts": {

@@ -91,6 +91,14 @@
       "startTime": "Hora de inicio",
       "endTime": "Hora de fin",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "Solo admite formato de archivo .zip",
+      "selectFile": "Seleccionar Archivo",
+      "noFileSelected": "Ningún archivo seleccionado",
+      "tooltip": {
+        "disabledButton": "Seleccione primero un archivo"
+      }
     }
   },
   "userManagement": {
@@ -136,24 +144,23 @@
       "notePlaceholder": "Ingrese nota",
       "noteHelper": "Extension máxima: 256 caracteres",
       "delete": "Borrar",
+      "export": "Exportar",
+      "import": "Importar",
+      "actions": "Operar",
       "searchPlaceholder": "Ingrese palabras claves",
       "search": "buscar",
       "tooltip": {
         "editGroupWithName": "Editar grupo: {{0}}",
-        "encryptionSettings": "Configuración de cifrado",
         "deleteGroupWithName": "Borrar grupo: {{0}}",
         "editMemberWithName": "Editar miembro: {{0}}",
         "deleteMemberWithName": "Borrar miembro: {{0}}",
         "photoLimitExceeded": "Límite de cantidad alcanzado"
       },
-      "database": "Base de Datos",
-      "export": "Exportar",
-      "import": "Importar",
       "title": "miembro",
       "allMembers": "Lista de Verificación",
       "groups": "Grupo",
+      "database": "Base de Datos",
       "userPicture": "Registrar foto",
-      "actions": "Operar",
       "noData": "Ningún dato encontrado, por favor revise de nuevo!",
       "addNewMember": "Añadir miembro",
       "addMemberFromEvent": "Agregar de evento"
@@ -212,7 +219,6 @@
         "permission-1": "Invitado",
         "permission-2": "Invitado"
       },
-      "permission": "Permiso",
       "username": "Nombre",
       "modal": {
         "usernamePlaceholder": "Ingrese el nombre de la cuenta",
@@ -220,6 +226,7 @@
         "confirmDeleteTitle": "Borrar cuenta",
         "confirmDeleteBody": "¿Está seguro de que desea borrar la cuenta {{0}} ?"
       },
+      "permission": "Permiso",
       "title": "cuentas",
       "allAccounts": "Lista de cuentas",
       "actions": "Operar",
@@ -744,6 +751,46 @@
     "externalMicrophone": "Micrófono externo",
     "title": "Audio"
   },
+  "demo": {
+    "userManagement": {
+      "members": {
+        "modal": {
+          "database": {
+            "successTitle": "",
+            "successBody": ""
+          },
+          "deviceSync": {
+            "modifyDeviceTitle": "",
+            "newDeviceTitle": "",
+            "hostPlaceholder": "",
+            "port": "",
+            "portPlaceholder": "",
+            "addDeviceApiProcessingModal": "",
+            "editDeviceApiProcessingModal": "",
+            "confirmDeleteTitle": "",
+            "confirmDeleteBody": "",
+            "deleteDeviceApiProcessingModal": ""
+          }
+        },
+        "databaseSettings": "",
+        "encryptionSettings": "",
+        "edit": "",
+        "exportDB": "",
+        "importDB": "",
+        "host": "",
+        "tooltip": {
+          "noDevice": "",
+          "connected": "",
+          "notConnected": ""
+        },
+        "synchronize": "",
+        "remove": "",
+        "deviceName": "",
+        "status": "",
+        "noDevice": ""
+      }
+    }
+  },
   "network": {
     "common": {
       "modal": {
@@ -902,14 +949,6 @@
       },
       "reset": "Restaurar",
       "title": "mantenimiento"
-    },
-    "common": {
-      "importHelper": "Solo admite formato de archivo .zip",
-      "selectFile": "Seleccionar Archivo",
-      "noFileSelected": "Ningún archivo seleccionado",
-      "tooltip": {
-        "disabledButton": "Seleccione primero un archivo"
-      }
     },
     "softwareUpgrade": {
       "modal": {

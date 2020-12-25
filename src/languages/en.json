@@ -91,6 +91,14 @@
       "startTime": "Start Time",
       "endTime": "End Time",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "Only ZIP file format is supported",
+      "selectFile": "Select File",
+      "noFileSelected": "No file selected.",
+      "tooltip": {
+        "disabledButton": "Please select a file first."
+      }
     }
   },
   "userManagement": {
@@ -136,24 +144,23 @@
       "notePlaceholder": "Enter a note",
       "noteHelper": "Maximum length: 256 characters",
       "delete": "Delete",
+      "export": "Export",
+      "import": "Import",
+      "actions": "Actions",
       "searchPlaceholder": "Enter Keywords",
       "search": "Search",
       "tooltip": {
         "editGroupWithName": "Edit Group: {{0}}",
-        "encryptionSettings": "Encryption Settings",
         "deleteGroupWithName": "Delete Group: {{0}}",
         "editMemberWithName": "Edit Member: {{0}}",
         "deleteMemberWithName": "Delete Member: {{0}}",
         "photoLimitExceeded": "Photo Limit of Member Database Exceeded"
       },
-      "database": "Database",
-      "export": "Export",
-      "import": "Import",
       "title": "Members",
       "allMembers": "All Members",
       "groups": "Groups",
+      "database": "Database",
       "userPicture": "User Picture",
-      "actions": "Actions",
       "noData": "Couldn't find any data.",
       "addNewMember": "Add a New Member",
       "addMemberFromEvent": "Add a Member from Events"
@@ -212,7 +219,6 @@
         "permission-1": "Viewer",
         "permission-2": "Viewer"
       },
-      "permission": "Permission",
       "username": "Username",
       "modal": {
         "usernamePlaceholder": "Enter a name for this account",
@@ -220,6 +226,7 @@
         "confirmDeleteTitle": "Delete Account",
         "confirmDeleteBody": "Are you sure you want to delete account {{0}}?"
       },
+      "permission": "Permission",
       "title": "Accounts",
       "allAccounts": "All Accounts",
       "actions": "Actions",
@@ -744,6 +751,46 @@
     "externalMicrophone": "External Microphone",
     "title": "Audio"
   },
+  "demo": {
+    "userManagement": {
+      "members": {
+        "modal": {
+          "database": {
+            "successTitle": "Setting Success",
+            "successBody": "New settings applied"
+          },
+          "deviceSync": {
+            "modifyDeviceTitle": "Edit Device Details",
+            "newDeviceTitle": "Add New Device",
+            "hostPlaceholder": "Enter device IP",
+            "port": "Port",
+            "portPlaceholder": "Ex. 8080",
+            "addDeviceApiProcessingModal": "Adding Device",
+            "editDeviceApiProcessingModal": "Updating Device",
+            "confirmDeleteTitle": "Delete Device",
+            "confirmDeleteBody": "Are you sure you want to delete device?",
+            "deleteDeviceApiProcessingModal": "Deleting Device"
+          }
+        },
+        "databaseSettings": "Database Settings",
+        "encryptionSettings": "Encryption Settings",
+        "edit": "Edit",
+        "exportDB": "Export Database",
+        "importDB": "Import Database",
+        "host": "Host",
+        "tooltip": {
+          "noDevice": "Select a Device",
+          "connected": "Connected",
+          "notConnected": "Not Connected"
+        },
+        "synchronize": "Synchronize",
+        "remove": "Remove",
+        "deviceName": "Device Name",
+        "status": "Status",
+        "noDevice": "Please click the 'Add' first to add a new device to your list"
+      }
+    }
+  },
   "network": {
     "common": {
       "modal": {
@@ -902,14 +949,6 @@
       },
       "reset": "Reset",
       "title": "Device Maintenance"
-    },
-    "common": {
-      "importHelper": "Only ZIP file format is supported",
-      "selectFile": "Select File",
-      "noFileSelected": "No file selected.",
-      "tooltip": {
-        "disabledButton": "Please select a file first."
-      }
     },
     "softwareUpgrade": {
       "modal": {
