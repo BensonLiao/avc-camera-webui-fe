@@ -24,53 +24,51 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi}) => {
 
   return (
     <div className="form-group">
-      <div className="card">
-        <div className="card-body">
-          <label>{i18n.t('sdCard.operation')}</label>
-          <div>
-            <CustomTooltip show={sdEnabled} title={i18n.t('sdCard.tooltip.disabledOperationButton')}>
-              <span style={sdEnabled || sdStatus ? {cursor: 'not-allowed'} : {}}>
-                <button
-                  className="btn btn-outline-primary rounded-pill px-5 mr-3"
-                  type="button"
-                  disabled={sdEnabled || sdStatus}
-                  style={sdEnabled || sdStatus ? {pointerEvents: 'none'} : {}}
-                  onClick={showModal('isShowFormatModal')}
-                >
-                  {i18n.t('sdCard.format')}
-                </button>
-              </span>
-            </CustomTooltip>
-            <CustomTooltip show={sdEnabled} title={i18n.t('sdCard.tooltip.disabledOperationButton')}>
-              <span style={sdEnabled ? {cursor: 'not-allowed'} : {}}>
-                <button
-                  className="btn btn-outline-primary rounded-pill px-5"
-                  type="button"
-                  disabled={sdEnabled || isApiProcessing}
-                  style={sdEnabled ? {pointerEvents: 'none'} : {}}
-                  onClick={sdStatus ? () => (callApi('mountSDCard')) : showModal('isShowUnmountModal')}
-                >
-                  {i18n.t(sdStatus ? 'sdCard.mount' : 'sdCard.unmount')}
-                </button>
-              </span>
-            </CustomTooltip>
-            <CustomNotifyModal
-              isShowModal={isShowFormatModal}
-              modalTitle={i18n.t('sdCard.format')}
-              modalBody={i18n.t('sdCard.modal.disabledFormatButton')}
-              isConfirmDisable={isApiProcessing}
-              onHide={getRouter().reload} // Reload to reset SD card switch button state
-              onConfirm={() => callApi('formatSDCard')}
-            />
-            <CustomNotifyModal
-              isShowModal={isShowUnmountModal}
-              modalTitle={i18n.t('sdCard.unmount')}
-              modalBody={i18n.t('sdCard.modal.disabledUnmountButton')}
-              isConfirmDisable={isApiProcessing}
-              onHide={getRouter().reload} // Reload to reset SD card switch button state
-              onConfirm={() => callApi('unmountSDCard')}
-            />
-          </div>
+      <label>{i18n.t('sdCard.operation')}</label>
+      <div className="card-body p-2">
+        <div>
+          <CustomTooltip show={sdEnabled} title={i18n.t('sdCard.tooltip.disabledOperationButton')}>
+            <span style={sdEnabled || sdStatus ? {cursor: 'not-allowed'} : {}}>
+              <button
+                className="btn btn-outline-primary rounded-pill px-5 mr-3"
+                type="button"
+                disabled={sdEnabled || sdStatus}
+                style={sdEnabled || sdStatus ? {pointerEvents: 'none'} : {}}
+                onClick={showModal('isShowFormatModal')}
+              >
+                {i18n.t('sdCard.format')}
+              </button>
+            </span>
+          </CustomTooltip>
+          <CustomTooltip show={sdEnabled} title={i18n.t('sdCard.tooltip.disabledOperationButton')}>
+            <span style={sdEnabled ? {cursor: 'not-allowed'} : {}}>
+              <button
+                className="btn btn-outline-primary rounded-pill px-5"
+                type="button"
+                disabled={sdEnabled || isApiProcessing}
+                style={sdEnabled ? {pointerEvents: 'none'} : {}}
+                onClick={sdStatus ? () => (callApi('mountSDCard')) : showModal('isShowUnmountModal')}
+              >
+                {i18n.t(sdStatus ? 'sdCard.mount' : 'sdCard.unmount')}
+              </button>
+            </span>
+          </CustomTooltip>
+          <CustomNotifyModal
+            isShowModal={isShowFormatModal}
+            modalTitle={i18n.t('sdCard.format')}
+            modalBody={i18n.t('sdCard.modal.disabledFormatButton')}
+            isConfirmDisable={isApiProcessing}
+            onHide={getRouter().reload} // Reload to reset SD card switch button state
+            onConfirm={() => callApi('formatSDCard')}
+          />
+          <CustomNotifyModal
+            isShowModal={isShowUnmountModal}
+            modalTitle={i18n.t('sdCard.unmount')}
+            modalBody={i18n.t('sdCard.modal.disabledUnmountButton')}
+            isConfirmDisable={isApiProcessing}
+            onHide={getRouter().reload} // Reload to reset SD card switch button state
+            onConfirm={() => callApi('unmountSDCard')}
+          />
         </div>
       </div>
     </div>

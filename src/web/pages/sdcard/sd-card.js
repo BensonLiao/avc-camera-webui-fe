@@ -4,6 +4,7 @@ import {Link} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
+import {Nav, Tab} from 'react-bootstrap';
 import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
@@ -67,100 +68,127 @@ const SDCard = ({
                 <Formik
                   initialValues={systemInformation}
                 >
-                  <Form className="card-body sdcard">
-                    <FormikEffect onChange={onChangeSdCardSetting}/>
-                    <div className="form-group d-flex justify-content-between align-items-center">
-                      <label className="mb-0">{i18n.t('sdCard.enable')}</label>
-                      <div className="custom-control custom-switch">
-                        <Field
-                          name="sdEnabled"
-                          type="checkbox"
-                          className="custom-control-input"
-                          id="switch-sound"
-                          disabled={sdStatus}
-                        />
-                        <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
-                          <span>{i18n.t('common.button.on')}</span>
-                          <span>{i18n.t('common.button.off')}</span>
-                        </label>
+                  <Form>
+                    <div className="card-body sdcard">
+                      <FormikEffect onChange={onChangeSdCardSetting}/>
+                      <div className="form-group d-flex justify-content-between align-items-center">
+                        <label className="mb-0">{i18n.t('sdCard.enable')}</label>
+                        <div className="custom-control custom-switch">
+                          <Field
+                            name="sdEnabled"
+                            type="checkbox"
+                            className="custom-control-input"
+                            id="switch-sound"
+                            disabled={sdStatus}
+                          />
+                          <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
+                            <span>{i18n.t('common.button.on')}</span>
+                            <span>{i18n.t('common.button.off')}</span>
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                    <CustomNotifyModal
-                      isShowModal={isShowDisableModal}
-                      modalTitle={i18n.t('sdCard.modal.disableTitle')}
-                      modalBody={i18n.t('sdCard.modal.disableBody')}
-                      isConfirmDisable={isApiProcessing}
-                      onHide={getRouter().reload} // Reload to reset SD card switch button state
-                      onConfirm={() => callApi('enableSD', {sdEnabled: false})}
-                    />
-                    <SDCardOperation
-                      sdEnabled={sdEnabled}
-                      sdStatus={sdStatus}
-                      callApi={callApi}
-                    />
-                    <div className="form-group">
-                      <div className="card">
-                        <div className="card-body">
-                          <div className="form-group align-items-center mb-0">
-                            <label className="mb-0 mr-3">{i18n.t('sdCard.errorNotification')}</label>
-                            <span>
-                              {
-                                isEnableAuth ?
-                                  <a className="text-success">{i18n.t('sdCard.notificationSet')}</a> :
-                                  <Link className="text-danger" to="/notification/smtp">{i18n.t('sdCard.enableOutgoingEmail')}</Link>
-                              }
-                            </span>
-                            <CustomTooltip show={!isEnableAuth} title={i18n.t('sdCard.tooltip.disabledNotificationButton')}>
-                              <div className="custom-control custom-switch float-right">
-                                <Field
-                                  disabled={!isEnableAuth}
-                                  name="sdAlertEnabled"
-                                  type="checkbox"
-                                  style={isEnableAuth ? {} : {pointerEvents: 'none'}}
-                                  className="custom-control-input"
-                                  id="switch-output"
-                                />
-                                <label className="custom-control-label" htmlFor="switch-output">
-                                  <span>{i18n.t('common.button.on')}</span>
-                                  <span>{i18n.t('common.button.off')}</span>
-                                </label>
-                              </div>
-                            </CustomTooltip>
+                      <div className="form-group px-3">
+                        <div className="d-flex justify-content-between align-items-center mb-0">
+                          <label className="mb-o">{i18n.t('sdCard.status')}</label>
+                          <label className="mb-o text-primary">
+                            {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.constants.unknownStatus')}
+                          </label>
+                        </div>
+                        <hr/>
+                        <div className="d-flex justify-content-between align-items-center mb-0">
+                          <label className="mb-o">{i18n.t('sdCard.filesystem')}</label>
+                          <label className="mb-o text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.unrecognized') : sdFormat}</label>
+                        </div>
+                        <hr/>
+                      </div>
+                      <div className={classNames('form-group', sdStatus ? 'd-none' : '')}>
+                        <div className="card">
+                          <div className="card-header sd-card-round">
+                            {i18n.t('sdCard.storageSpace')}
+                          </div>
+                          <div className="card-body">
+                            <div className="form-group mb-0">
+                              <label className="mb-3">{i18n.t('sdCard.title')}</label>
+                              <VolumeProgressBar
+                                total={sdTotal}
+                                usage={sdUsage}
+                                percentageToHideText={4}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
+                      <CustomNotifyModal
+                        isShowModal={isShowDisableModal}
+                        modalTitle={i18n.t('sdCard.modal.disableTitle')}
+                        modalBody={i18n.t('sdCard.modal.disableBody')}
+                        isConfirmDisable={isApiProcessing}
+                        onHide={getRouter().reload} // Reload to reset SD card switch button state
+                        onConfirm={() => callApi('enableSD', {sdEnabled: false})}
+                      />
                     </div>
-                    <div className="form-group px-3">
-                      <div className="d-flex justify-content-between align-items-center mb-0">
-                        <label className="mb-o">{i18n.t('sdCard.status')}</label>
-                        <label className="mb-o text-primary">
-                          {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.constants.unknownStatus')}
-                        </label>
-                      </div>
-                      <hr/>
-                      <div className="d-flex justify-content-between align-items-center mb-0">
-                        <label className="mb-o">{i18n.t('sdCard.filesystem')}</label>
-                        <label className="mb-o text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.unrecognized') : sdFormat}</label>
-                      </div>
-                      <hr/>
-                    </div>
-                    <div className={classNames('form-group', sdStatus ? 'd-none' : '')}>
-                      <div className="card">
-                        <div className="card-header sd-card-round">
-                          {i18n.t('sdCard.storageSpace')}
-                        </div>
-                        <div className="card-body">
-                          <div className="form-group mb-0">
-                            <label className="mb-3">{i18n.t('sdCard.title')}</label>
-                            <VolumeProgressBar
-                              total={sdTotal}
-                              usage={sdUsage}
-                              percentageToHideText={4}
+                    <Tab.Container defaultActiveKey="tab-sdcard-operation">
+                      <Nav>
+                        <Nav.Item>
+                          <Nav.Link
+                            eventKey="tab-sdcard-operation"
+                          >
+                            {i18n.t('sdCard.operation')}
+                          </Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                          <Nav.Link
+                            eventKey="tab-sdcard-recording"
+                          >
+                            {i18n.t('sdCard.recording')}
+                          </Nav.Link>
+                        </Nav.Item>
+                      </Nav>
+                      <div className="card-body">
+                        <Tab.Content>
+                          <Tab.Pane eventKey="tab-sdcard-operation">
+                            <SDCardOperation
+                              sdEnabled={sdEnabled}
+                              sdStatus={sdStatus}
+                              callApi={callApi}
                             />
-                          </div>
-                        </div>
+                            <div className="form-group">
+                              <label>{i18n.t('sdCard.errorNotification')}</label>
+                              <div className="card">
+                                <div className="card-body">
+                                  <div className="form-group align-items-center mb-0">
+                                    <label className="mb-0 mr-3">{i18n.t('sdCard.errorNotification')}</label>
+                                    <span>
+                                      {
+                                        isEnableAuth ?
+                                          <a className="text-success">{i18n.t('sdCard.notificationSet')}</a> :
+                                          <Link className="text-danger" to="/notification/smtp">{i18n.t('sdCard.enableOutgoingEmail')}</Link>
+                                      }
+                                    </span>
+                                    <CustomTooltip show={!isEnableAuth} title={i18n.t('sdCard.tooltip.disabledNotificationButton')}>
+                                      <div className="custom-control custom-switch float-right">
+                                        <Field
+                                          disabled={!isEnableAuth}
+                                          name="sdAlertEnabled"
+                                          type="checkbox"
+                                          style={isEnableAuth ? {} : {pointerEvents: 'none'}}
+                                          className="custom-control-input"
+                                          id="switch-output"
+                                        />
+                                        <label className="custom-control-label" htmlFor="switch-output">
+                                          <span>{i18n.t('common.button.on')}</span>
+                                          <span>{i18n.t('common.button.off')}</span>
+                                        </label>
+                                      </div>
+                                    </CustomTooltip>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </Tab.Pane>
+                        </Tab.Content>
                       </div>
-                    </div>
+                    </Tab.Container>
                   </Form>
                 </Formik>
               </div>

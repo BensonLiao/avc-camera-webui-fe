@@ -755,6 +755,7 @@
     "title": "SD Card Settings",
     "enable": "Enable SD Card",
     "operation": "Operation",
+    "recording": "Recording",
     "format": "Format",
     "mount": "Mount",
     "unmount": "Unmount",
