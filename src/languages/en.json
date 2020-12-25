@@ -754,6 +754,7 @@
   "sdCard": {
     "title": "SD Card Settings",
     "enable": "Enable SD Card",
+    "enableRecording": "Enable Recording",
     "operation": "Operation",
     "recording": "Recording",
     "format": "Format",

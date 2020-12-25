@@ -187,6 +187,34 @@ const SDCard = ({
                             </div>
                           </Tab.Pane>
                         </Tab.Content>
+                        <Tab.Content>
+                          <Tab.Pane eventKey="tab-sdcard-recording">
+                            <div className="form-group d-flex justify-content-between align-items-center">
+                              <label className="mb-0">{i18n.t('sdCard.enableRecording')}</label>
+                              <div className="custom-control custom-switch">
+                                <Field
+                                  name="sdRecordingEnabled"
+                                  type="checkbox"
+                                  className="custom-control-input"
+                                  id="switch-recording"
+                                />
+                                <label className={classNames('custom-control-label', {'custom-control-label-disabled': false})} htmlFor="switch-recording">
+                                  <span>{i18n.t('common.button.on')}</span>
+                                  <span>{i18n.t('common.button.off')}</span>
+                                </label>
+                              </div>
+                            </div>
+                            <div className="card">
+                              <div className="card-body">
+                                <Formik>
+                                  <Form>
+                                    hi
+                                  </Form>
+                                </Formik>
+                              </div>
+                            </div>
+                          </Tab.Pane>
+                        </Tab.Content>
                       </div>
                     </Tab.Container>
                   </Form>
