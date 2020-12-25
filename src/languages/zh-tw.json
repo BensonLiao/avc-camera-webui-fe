@@ -412,12 +412,7 @@
           "changePhoto": "更換照片",
           "confirmCloseBody": "關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？",
           "errorNoPhoto": "必須上傳主照片",
-          "errorPhotoSizeLimit": "照片大小不可以超過90 KB",
-          "Showing No Face": "照片中沒有人臉",
-          "Poor Photo Quality": "照片品質不佳",
-          "Limitation of Yaw Angle is 30 Degrees": "人臉角度超過上下20度或左右30度",
-          "Limitation of Pitch Angle is 20 Degrees": "人臉角度超過上下20度或左右30度",
-          "More Than One Face in the Photo": "照片中超過1張人臉"
+          "errorPhotoSizeLimit": "照片大小不可以超過90 KB"
         }
       },
       "tooltip": {

@@ -1,0 +1,977 @@
+{
+  "analytics": {
+    "facialRecognition": {
+      "accuracyLevel": "",
+      "constants": {
+        "confidence-level-0": "",
+        "confidence-level-1": "",
+        "confidence-level-2": ""
+      },
+      "detectionZone": "",
+      "detectionZoneHelper": "",
+      "displayGroup": "",
+      "displayName": "",
+      "displaySpoof": "",
+      "displayUnknown": "",
+      "enableDetectionSize": "",
+      "enableFR": "",
+      "enableSpoof": "",
+      "liveViewDisplay": "",
+      "minDetectionSize": "",
+      "modal": {
+        "spoofBody": ""
+      },
+      "title": "",
+      "tooltip": {
+        "detectionZoneToggle": "",
+        "frDisabled": ""
+      }
+    },
+    "license": {
+      "activate": "",
+      "activatedBy": "",
+      "activatedFunctions": "",
+      "ageGender": "",
+      "authenticationKey": "",
+      "constants": {
+        "key-thirtyThousand": "",
+        "key-threeThousand": ""
+      },
+      "enableStatus": "",
+      "facialRecognition": "",
+      "humanDetection": "",
+      "keyPlaceholder": "",
+      "time": "",
+      "title": "",
+      "toast": {
+        "activationFailedTitle": "",
+        "activationSuccessBody": "",
+        "activationSuccessTitle": "",
+        "keyRegisteredBody": ""
+      }
+    },
+    "motionDetection": {
+      "detectionZone": "",
+      "drag": "",
+      "enableMD": "",
+      "mdHelper": "",
+      "note1": "",
+      "note2": "",
+      "note3": "",
+      "noteArea": "",
+      "or": "",
+      "sensitivity": "",
+      "title": ""
+    }
+  },
+  "audio": {
+    "constants": {
+      "audio-quality-0": ""
+    },
+    "enable": "",
+    "externalMicrophone": "",
+    "inputSource": "",
+    "quality": "",
+    "title": ""
+  },
+  "common": {
+    "button": {
+      "add": "",
+      "apply": "",
+      "cancel": "",
+      "close": "",
+      "confirm": "",
+      "new": "",
+      "off": "",
+      "on": "",
+      "resetDefault": ""
+    },
+    "dateTimePicker": {
+      "date": "",
+      "endTime": "",
+      "manualDateTime": "",
+      "startTime": "",
+      "time": ""
+    },
+    "loading": "",
+    "modal": {
+      "pleaseWait": "",
+      "sessionExpire": {
+        "expireCountdown": "",
+        "renewSession": "",
+        "sessionExpired": ""
+      }
+    },
+    "pagination": {
+      "stats": ""
+    },
+    "password": {
+      "confirmNewPassword": "",
+      "confirmNewPasswordPlaceholder": "",
+      "confirmPassword": "",
+      "confirmPasswordPlaceholder": "",
+      "hidePassword": "",
+      "newPassword": "",
+      "newPasswordPlaceholder": "",
+      "password": "",
+      "passwordHelper": "",
+      "passwordPlaceholder": "",
+      "showPassword": ""
+    },
+    "toast": {
+      "Absent or Unmounted SD Card": "",
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "",
+      "Card Number Limit Exceeded": "",
+      "Corrupted Zip File": "",
+      "Database Size Limit (3 GB) Exceeded": "",
+      "Duplicate Card Name": "",
+      "Duplicate Key": "",
+      "Duplicate Member Name": "",
+      "Duplicate Member Names": "",
+      "Empty Member Database": "",
+      "Empty Sender Email": "",
+      "Empty SMTP Account": "",
+      "Empty SMTP Account Password": "",
+      "Empty SMTP Server Address": "",
+      "Group Number Limit Exceeded": "",
+      "Incorrect Password": "",
+      "Invalid Key": "",
+      "Invalid Member Photo": "",
+      "Invalid or Absent Photo": "",
+      "Limitation of Pitch Angle is 20 Degrees": "",
+      "Limitation of Yaw Angle is 30 Degrees": "",
+      "Login Failed": "",
+      "Maximum Field Length Exceeded": "",
+      "Maximum Photo Number Exceeded": "",
+      "More Than One Face in the Photo": "",
+      "Non-existent Card": "",
+      "Non-existent Group": "",
+      "Non-existent Member": "",
+      "Non-existent Photo": "",
+      "Outgoing Email being Disabled": "",
+      "Photo Limit of Member Database Exceeded": "",
+      "Photo Size Limit Exceeded": "",
+      "Poor Photo Quality": "",
+      "Showing No Face": "",
+      "Software Upgrade Failed": "",
+      "Unable to Complete the Format": "",
+      "Unable to Process the Request (invalid token)": "",
+      "Unable to reset a forgotten password": "",
+      "Unable to reset a password": "",
+      "VMS Reserved Port": "",
+      "Wrong File Format": "",
+      "Wrong Password for Database File": ""
+    },
+    "volumeBar": {
+      "free": "",
+      "sdStorageStatus": "",
+      "used": ""
+    }
+  },
+  "documentTitle": {
+    "accounts": "",
+    "analyticsSettings": "",
+    "audio": "",
+    "dateTime": "",
+    "deviceMaintenance": "",
+    "email": "",
+    "events": "",
+    "facialRecognition": "",
+    "hdmi": "",
+    "home": "",
+    "https": "",
+    "information": "",
+    "internetNetworkSettings": "",
+    "io": "",
+    "language": "",
+    "license": "",
+    "login": "",
+    "loginError": "",
+    "loginLocked": "",
+    "members": "",
+    "motionDetection": "",
+    "network": "",
+    "newMember": "",
+    "newUser": "",
+    "notification": "",
+    "osd": "",
+    "privacyMask": "",
+    "rtsp": "",
+    "sdCard": "",
+    "setupAccount": "",
+    "smartNotification": "",
+    "softwareUpgrade": "",
+    "streams": "",
+    "system": "",
+    "systemLog": "",
+    "tcpip": "",
+    "userManagement": "",
+    "videoSettings": "",
+    "welcome": ""
+  },
+  "error": {
+    "backToHome": "",
+    "error": "",
+    "internalServerError": ""
+  },
+  "home": {
+    "ageGender": "",
+    "analytics": "",
+    "deviceName": "",
+    "facialRecognition": "",
+    "humanDetection": "",
+    "sdcard": ""
+  },
+  "login": {
+    "error": {
+      "attemptsRemaining": "",
+      "incorrectPassword": "",
+      "loginAgain": ""
+    },
+    "lock": {
+      "lockText": "",
+      "loginAgain": "",
+      "remaining": "",
+      "tryAgain": ""
+    },
+    "login": "",
+    "password": "",
+    "passwordPlaceholder": "",
+    "title": "",
+    "username": "",
+    "usernamePlaceholder": ""
+  },
+  "navigation": {
+    "appbar": {
+      "about": {
+        "about": "",
+        "macAddress": "",
+        "modelName": "",
+        "serialNumber": "",
+        "software": ""
+      },
+      "signOut": "",
+      "support": {
+        "deviceHelp": "",
+        "productInformation": "",
+        "support": "",
+        "technicalSupport": ""
+      }
+    },
+    "sidebar": {
+      "accounts": "",
+      "administration": "",
+      "analyticsSettings": "",
+      "audio": "",
+      "dateTime": "",
+      "deviceMaintenance": "",
+      "email": "",
+      "events": "",
+      "facialRecognition": "",
+      "hdmi": "",
+      "https": "",
+      "information": "",
+      "inputAndOutput": "",
+      "internetNetworkSettings": "",
+      "io": "",
+      "license": "",
+      "members": "",
+      "motionDetection": "",
+      "network": "",
+      "notificationMethod": "",
+      "notificationSettings": "",
+      "osd": "",
+      "privacyMask": "",
+      "rtsp": "",
+      "sdCard": "",
+      "smartNotification": "",
+      "softwareUpgrade": "",
+      "status": "",
+      "streams": "",
+      "system": "",
+      "systemLog": "",
+      "tcpip": "",
+      "tooltip": {
+        "analytics": "",
+        "audio": "",
+        "home": "",
+        "network": "",
+        "notification": "",
+        "sdCard": "",
+        "system": "",
+        "userManagement": "",
+        "video": ""
+      },
+      "videoSettings": ""
+    }
+  },
+  "network": {
+    "common": {
+      "modal": {
+        "redirectionBody": "",
+        "redirectionSuccess": ""
+      }
+    },
+    "https": {
+      "certificate": "",
+      "constants": {
+        "certificate-type-0": ""
+      },
+      "enableHTTPS": "",
+      "port": "",
+      "portHelper": "",
+      "title": "",
+      "tooltip": {
+        "disabledButton": ""
+      }
+    },
+    "network": {
+      "dhcp": "",
+      "fixedIPAddress": "",
+      "ipAddress": "",
+      "ipAddressing": "",
+      "ipAddressPlaceholder": "",
+      "ipAssignment": "",
+      "macAddress": "",
+      "modal": {
+        "confirmUpdateBody": "",
+        "testingSuccess": ""
+      },
+      "networkStatus": "",
+      "primaryDNS": "",
+      "primaryDNSPlaceholder": "",
+      "routerGateway": "",
+      "routerGatewayPlaceholder": "",
+      "secondaryDNS": "",
+      "secondaryDNSOptional": "",
+      "secondaryDNSPlaceholder": "",
+      "subnetMask": "",
+      "subnetMaskPlaceholder": "",
+      "testDHCP": "",
+      "title": "",
+      "tooltip": {
+        "noChanges": ""
+      }
+    },
+    "tcpip": {
+      "account": "",
+      "accountPlaceholder": "",
+      "ddns": "",
+      "enableDDNS": "",
+      "hostName": "",
+      "hostNamePlaceholder": "",
+      "http": "",
+      "modal": {
+        "apiProcessModalTitle": ""
+      },
+      "passwordPlaceholder": "",
+      "portHelper": "",
+      "secondaryHTTPPort": "",
+      "serviceProvider": "",
+      "title": "",
+      "toast": {
+        "failedBody": "",
+        "settingFailed": "",
+        "settingSuccessTitle": "",
+        "successBody": ""
+      }
+    }
+  },
+  "notification": {
+    "cards": {
+      "analytics": "",
+      "constants": {
+        "email-attachment-type-0": "",
+        "email-attachment-type-1": "",
+        "email-attachment-type-2": "",
+        "email-content-position-0": "",
+        "email-content-position-1": "",
+        "face-recognition-condition-0": "",
+        "face-recognition-condition-1": "",
+        "face-recognition-condition-2": "",
+        "face-recognition-condition-3": "",
+        "notification-card-0": "",
+        "notification-card-1": "",
+        "notification-card-2": "",
+        "notification-card-3": "",
+        "notification-card-4": "",
+        "notification-card-5": "",
+        "notification-card-filter-all": ""
+      },
+      "content": "",
+      "contentPlaceholder": "",
+      "contentPlacement": "",
+      "defaultCardTitle": "",
+      "defaultSubjectDI": "",
+      "defaultSubjectFR": "",
+      "defaultSubjectMD": "",
+      "email": "",
+      "emailAttachment": "",
+      "enableNotifyResult": "",
+      "enableSchedule": "",
+      "everyone": "",
+      "filters": "",
+      "group": "",
+      "io": "",
+      "method": "",
+      "others": "",
+      "output1": "",
+      "output2": "",
+      "pinned": "",
+      "receiver": "",
+      "receiverPlaceholder": "",
+      "rule": "",
+      "schedule": "",
+      "subject": "",
+      "subjectPlaceholder": "",
+      "toast": {
+        "limitExceededBody": "",
+        "limitExceededTitle": ""
+      },
+      "tooltip": {
+        "addNewCard": "",
+        "disabledReceiverButton": "",
+        "iconEmail": "",
+        "iconOutput": ""
+      }
+    },
+    "io": {
+      "buffer": "",
+      "closed": "",
+      "delayPlaceholder": "",
+      "delayTime": "",
+      "enableDigitalInput": "",
+      "enableDigitalOutput": "",
+      "normal": "",
+      "normalState": "",
+      "open": "",
+      "pulsePlaceholder": "",
+      "pulseTime": "",
+      "tabInput": "",
+      "tabOutput1": "",
+      "tabOutput2": "",
+      "timeRange": "",
+      "title": "",
+      "type": ""
+    },
+    "smtp": {
+      "edit": "",
+      "enableEmail": "",
+      "enableLoginNotification": "",
+      "interval": "",
+      "intervalPlaceholder": "",
+      "intervalRange": "",
+      "logonSettings": "",
+      "logonSettingsHelper": "",
+      "modal": {
+        "account": "",
+        "accountPlaceholder": "",
+        "encryption": "",
+        "none": "",
+        "password": "",
+        "passwordPlaceholder": "",
+        "port": "",
+        "ssl": "",
+        "title": "",
+        "tls": ""
+      },
+      "senderEmail": "",
+      "senderEmailPlaceholder": "",
+      "senderName": "",
+      "senderNamePlaceholder": "",
+      "serverAddress": "",
+      "serverAddressPlaceholder": "",
+      "title": "",
+      "toast": {
+        "emailSettingSuccess": ""
+      },
+      "tooltip": {
+        "disabledEditButton": ""
+      }
+    }
+  },
+  "sdCard": {
+    "constants": {
+      "Empty Slot": "",
+      "Functioning": "",
+      "Nonfunctioning": "",
+      "Read-only Access": "",
+      "Unknown Error": "",
+      "unknownStatus": "",
+      "Unmounted": ""
+    },
+    "enable": "",
+    "enableOutgoingEmail": "",
+    "errorNotification": "",
+    "filesystem": "",
+    "format": "",
+    "modal": {
+      "disableBody": "",
+      "disabledFormatButton": "",
+      "disabledUnmountButton": "",
+      "disableTitle": ""
+    },
+    "notificationSet": "",
+    "operation": "",
+    "status": "",
+    "storageSpace": "",
+    "title": "",
+    "tooltip": {
+      "disabledNotificationButton": "",
+      "disabledOperationButton": ""
+    },
+    "unmount": "",
+    "unrecognized": ""
+  },
+  "setup": {
+    "account": {
+      "account": "",
+      "accountHelper": "",
+      "accountPlaceholder": "",
+      "done": "",
+      "permission": ""
+    },
+    "language": {
+      "next": ""
+    },
+    "progressBar": {
+      "language": "",
+      "setupAccount": ""
+    },
+    "welcome": {
+      "continue": "",
+      "welcome": "",
+      "welcomeText1": "",
+      "welcomeText2": ""
+    }
+  },
+  "system": {
+    "common": {
+      "importHelper": "",
+      "noFileSelected": "",
+      "selectFile": "",
+      "tooltip": {
+        "disabledButton": ""
+      }
+    },
+    "dateTime": {
+      "deviceDateTime": "",
+      "hostPlaceholder": "",
+      "modal": {
+        "apiProcessModalTitle": "",
+        "confirmUpdateBody": ""
+      },
+      "ntpHost": "",
+      "setManually": "",
+      "syncInterval": "",
+      "syncNTP": "",
+      "syncTime": "",
+      "syncWithComputer": "",
+      "timeZone": "",
+      "title": ""
+    },
+    "deviceMaintenance": {
+      "export": "",
+      "exportSystemSettings": "",
+      "import": "",
+      "importSystemSettings": "",
+      "modal": {
+        "apiProcessModalTitleRebooting": "",
+        "apiProcessModalTitleResetting": "",
+        "confirmRebootBody": "",
+        "importSuccessBody": "",
+        "rebootSuccessBody": "",
+        "resetAllSettingsSuccessBody": "",
+        "resetDefaultSettingsSuccessBody": "",
+        "resetSuccess": ""
+      },
+      "reboot": "",
+      "reset": "",
+      "restoreAllSettings": "",
+      "restoreDefaultSettings": "",
+      "systemReboot": "",
+      "title": "",
+      "tooltip": {
+        "restoreAllSettingsHelper": ""
+      }
+    },
+    "information": {
+      "macAddress": "",
+      "serialNumber": "",
+      "software": "",
+      "title": ""
+    },
+    "softwareUpgrade": {
+      "importFile": "",
+      "modal": {
+        "apiProcessModalTitleInstalling": "",
+        "apiProcessModalTitleRestarting": "",
+        "apiProcessModalTitleShutDown": "",
+        "apiProcessModalTitleUploading": "",
+        "installSoftware": "",
+        "restart": "",
+        "shutDown": "",
+        "stage1": "",
+        "stage2": "",
+        "stage3": "",
+        "stage4": "",
+        "upgradeSuccess": "",
+        "upgradeSuccessBody": "",
+        "uploadingBody": "",
+        "uploadSoftware": ""
+      },
+      "title": ""
+    },
+    "systemLog": {
+      "deleteLogs": "",
+      "download": "",
+      "modal": {
+        "apiProcessModalTitle": "",
+        "confirmDeleteBody": "",
+        "confirmDeleteTitle": "",
+        "downloadingBody": ""
+      },
+      "systemLogFile": "",
+      "title": ""
+    }
+  },
+  "userManagement": {
+    "accounts": {
+      "actions": "",
+      "allAccounts": "",
+      "constants": {
+        "permission-0": "",
+        "permission-1": "",
+        "permission-2": ""
+      },
+      "modal": {
+        "confirmDeleteBody": "",
+        "confirmDeleteTitle": "",
+        "usernameHelper": "",
+        "usernamePlaceholder": ""
+      },
+      "permission": "",
+      "title": "",
+      "tooltip": {
+        "deleteAccountError1": ""
+      },
+      "username": ""
+    },
+    "events": {
+      "actions": "",
+      "activationRequired": "",
+      "addExistingMember": "",
+      "addNewMember": "",
+      "ageGender": "",
+      "capture": "",
+      "clear": "",
+      "constants": {
+        "confidence-0": "",
+        "confidence-1": "",
+        "confidence-2": "",
+        "enroll-status-0": "",
+        "enroll-status-1": "",
+        "enroll-status-2": ""
+      },
+      "facialRecognition": "",
+      "FacialRecognition": "",
+      "filters": "",
+      "group": "",
+      "humanDetection": "",
+      "modal": {
+        "apiProcessingModalTitle": "",
+        "initialMessage": "",
+        "verifyingPhoto": ""
+      },
+      "name": "",
+      "noData": "",
+      "note": "",
+      "organization": "",
+      "search": "",
+      "searchPlaceholder": "",
+      "similarity": "",
+      "status": "",
+      "time": "",
+      "title": "",
+      "toast": {
+        "settingSuccessBody": "",
+        "settingSuccessTitle": ""
+      },
+      "tooltip": {
+        "addWithName": "",
+        "Invalid Photo": "",
+        "photoLimitExceeded": ""
+      },
+      "total": "",
+      "userPicture": ""
+    },
+    "members": {
+      "actions": "",
+      "addMemberFromEvent": "",
+      "addNewMember": "",
+      "allMembers": "",
+      "database": "",
+      "delete": "",
+      "export": "",
+      "group": "",
+      "groups": "",
+      "import": "",
+      "modal": {
+        "database": {
+          "exportApiProcessModalTitle": "",
+          "importApiProcessModalTitle": "",
+          "title": ""
+        },
+        "group": {
+          "confirmDeleteBody": "",
+          "confirmDeleteTitle": "",
+          "groupLimitExceeded": "",
+          "nameHelper": "",
+          "namePlaceholder": ""
+        },
+        "member": {
+          "changePhoto": "",
+          "confirmCloseBody": "",
+          "confirmDeleteBody": "",
+          "confirmDeleteTitle": "",
+          "errorNoPhoto": "",
+          "errorPhotoSizeLimit": "",
+          "n/a": "",
+          "namePlaceholder": "",
+          "organizationHelper": "",
+          "organizationPlaceholder": "",
+          "photo1": "",
+          "photo2": "",
+          "photo3": "",
+          "photo4": "",
+          "photoEditor": "",
+          "photoHelper": "",
+          "primary": "",
+          "save": ""
+        }
+      },
+      "name": "",
+      "noData": "",
+      "note": "",
+      "noteHelper": "",
+      "notePlaceholder": "",
+      "organization": "",
+      "search": "",
+      "searchPlaceholder": "",
+      "title": "",
+      "tooltip": {
+        "deleteGroupWithName": "",
+        "deleteMemberWithName": "",
+        "editGroupWithName": "",
+        "editMemberWithName": "",
+        "encryptionSettings": "",
+        "photoLimitExceeded": ""
+      },
+      "userPicture": ""
+    }
+  },
+  "validation": {
+    "array": "",
+    "arrayContains": "",
+    "arrayEmpty": "",
+    "arrayEnum": "",
+    "arrayLength": "",
+    "arrayMax": "",
+    "arrayMin": "",
+    "birthday": "",
+    "boolean": "",
+    "confirmEqual": "",
+    "countryCode": "",
+    "date": "",
+    "dateMax": "",
+    "dateMin": "",
+    "duplicateEmail": "",
+    "duplicateName": "",
+    "email": "",
+    "forbidden": "",
+    "function": "",
+    "maxRecipient": "",
+    "number": "",
+    "numberEqual": "",
+    "numberInteger": "",
+    "numberMax": "",
+    "numberMin": "",
+    "numberNegative": "",
+    "numberNotEqual": "",
+    "numberPositive": "",
+    "portEmpty": "",
+    "portReserved": "",
+    "required": "",
+    "string": "",
+    "stringAbortSpecialCharacters": "",
+    "stringAcceptSpecialCharacters": "",
+    "stringContains": "",
+    "stringContainsLowerCaseLatter": "",
+    "stringContainsNumber": "",
+    "stringContainsUpperCaseLatter": "",
+    "stringEmpty": "",
+    "stringEnum": "",
+    "stringLength": "",
+    "stringMax": "",
+    "stringMin": "",
+    "stringPattern": "",
+    "url": ""
+  },
+  "video": {
+    "hdmi": {
+      "hdmi": "",
+      "modal": {
+        "apiProcessingModalTitle": "",
+        "confirmUpdateBody": ""
+      },
+      "title": ""
+    },
+    "osd": {
+      "color": "",
+      "constants": {
+        "font-size-0": "",
+        "font-size-1": "",
+        "font-size-2": "",
+        "osd-type-0": "",
+        "osd-type-1": "",
+        "osd-type-2": "",
+        "osd-type-3": ""
+      },
+      "enable": "",
+      "enterCustomText": "",
+      "leftBottom": "",
+      "leftTop": "",
+      "overlay": "",
+      "position": "",
+      "positionHelper": "",
+      "rightBottom": "",
+      "rightTop": "",
+      "size": "",
+      "title": ""
+    },
+    "privacyMask": {
+      "drag": "",
+      "enable": "",
+      "maskArea": "",
+      "maskHelper": "",
+      "note": "",
+      "noteText1": "",
+      "noteText2": "",
+      "noteText3": "",
+      "or": "",
+      "title": ""
+    },
+    "rtsp": {
+      "enableAudio": "",
+      "maxConnections": "",
+      "requireAuthentication": "",
+      "rtspTcpPort": "",
+      "rtspUdpPort": "",
+      "tcpRange": "",
+      "title": "",
+      "udpRange": ""
+    },
+    "stream": {
+      "auto": "",
+      "bandwidth": "",
+      "codec": "",
+      "constants": {
+        "bitRateRange": "",
+        "quality-30": "",
+        "quality-50": "",
+        "quality-80": "",
+        "stream-bandwidth-management-0": "",
+        "stream-bandwidth-management-1": "",
+        "stream-bandwidth-management-2": "",
+        "stream-resolution-0": "",
+        "stream-resolution-1": "",
+        "stream-resolution-10": "",
+        "stream-resolution-11": "",
+        "stream-resolution-2": "",
+        "stream-resolution-3": "",
+        "stream-resolution-4": "",
+        "stream-resolution-5": "",
+        "stream-resolution-6": "",
+        "stream-resolution-7": "",
+        "stream-resolution-8": "",
+        "stream-resolution-9": ""
+      },
+      "fps": "",
+      "gop": "",
+      "modal": {
+        "apiProcessingModalTitle": ""
+      },
+      "quality": "",
+      "resolution": "",
+      "stream1": "",
+      "stream2": "",
+      "streams": "",
+      "title": ""
+    }
+  },
+  "videoSetting": {
+    "adjustments": "",
+    "advanced": "",
+    "autoFocusAfterZoom": "",
+    "brightness": "",
+    "colorTemperature": "",
+    "constants": {
+      "aperture-0": "",
+      "aperture-1": "",
+      "daynight-mode-0": "",
+      "daynight-mode-1": "",
+      "daynight-mode-2": "",
+      "daynight-mode-3": "",
+      "ir-control-0": "",
+      "ir-control-1": "",
+      "ir-control-2": "",
+      "off": "",
+      "on": "",
+      "orientation-0": "",
+      "orientation-1": "",
+      "orientation-2": "",
+      "orientation-3": "",
+      "refresh-rate-0": "",
+      "refresh-rate-1": "",
+      "refresh-rate-2": "",
+      "shutter-speed-0": "",
+      "shutter-speed-1": "",
+      "shutter-speed-10": "",
+      "shutter-speed-2": "",
+      "shutter-speed-3": "",
+      "shutter-speed-4": "",
+      "shutter-speed-5": "",
+      "shutter-speed-6": "",
+      "shutter-speed-7": "",
+      "shutter-speed-8": "",
+      "shutter-speed-9": "",
+      "white-balance-0": "",
+      "white-balance-1": "",
+      "white-balance-2": "",
+      "white-balance-3": "",
+      "white-balance-4": ""
+    },
+    "contrast": "",
+    "dayMode": "",
+    "dayNight": "",
+    "defog": "",
+    "enableHDR": "",
+    "focus": "",
+    "fullRangeFocus": "",
+    "iRControl": "",
+    "iris": "",
+    "lensControl": "",
+    "level": "",
+    "lightingCompensation": "",
+    "rotation": "",
+    "saturation": "",
+    "selectFocusType": "",
+    "sensitivity": "",
+    "sharpness": "",
+    "shortRangeFocus": "",
+    "shutterSpeed": "",
+    "title": "",
+    "whiteBalance": "",
+    "zoom": ""
+  }
+}

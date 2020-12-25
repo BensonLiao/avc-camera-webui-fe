@@ -412,12 +412,7 @@
           "changePhoto": "Cambiar foto",
           "confirmCloseBody": "Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?",
           "errorNoPhoto": "Una foto es requirida",
-          "errorPhotoSizeLimit": "El tamaño de la foto no puede superar los 90KB",
-          "Showing No Face": "No hay rostro en la foto",
-          "Poor Photo Quality": "Mala calidad de la foto",
-          "Limitation of Yaw Angle is 30 Degrees": "El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha",
-          "Limitation of Pitch Angle is 20 Degrees": "El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha",
-          "More Than One Face in the Photo": "Más de 1 rostro en la foto"
+          "errorPhotoSizeLimit": "El tamaño de la foto no puede superar los 90KB"
         }
       },
       "tooltip": {

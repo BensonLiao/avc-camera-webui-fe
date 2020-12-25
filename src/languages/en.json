@@ -418,12 +418,7 @@
           "changePhoto": "Change Photo",
           "confirmCloseBody": "Are you sure you want to close this window? All changes you have made will be lost.",
           "errorNoPhoto": "No photo uploaded.",
-          "errorPhotoSizeLimit": "Photo size should be less than 90 KB.",
-          "Showing No Face": "Showing No Face",
-          "Poor Photo Quality": "Poor Photo Quality",
-          "Limitation of Yaw Angle is 30 Degrees": "Limitation of Yaw Angle is 30 Degrees",
-          "Limitation of Pitch Angle is 20 Degrees": "Limitation of Pitch Angle is 20 Degrees",
-          "More Than One Face in the Photo": "More Than One Face in the Photo"
+          "errorPhotoSizeLimit": "Photo size should be less than 90 KB."
         }
       },
       "tooltip": {

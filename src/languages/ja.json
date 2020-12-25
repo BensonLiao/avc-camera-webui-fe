@@ -412,12 +412,7 @@
           "changePhoto": "写真を変更する",
           "confirmCloseBody": "このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます",
           "errorNoPhoto": "写真が必要",
-          "errorPhotoSizeLimit": "写真サイズは90 KBを超えることができません",
-          "Showing No Face": "写真には顔が存在していません",
-          "Poor Photo Quality": "写真の品質が足りません",
-          "Limitation of Yaw Angle is 30 Degrees": "顔の角度は上下20度や左右30度を超えています",
-          "Limitation of Pitch Angle is 20 Degrees": "顔の角度は上下20度や左右30度を超えています",
-          "More Than One Face in the Photo": "写真には顔が一個以上存在しています"
+          "errorPhotoSizeLimit": "写真サイズは90 KBを超えることができません"
         }
       },
       "tooltip": {
