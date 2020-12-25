@@ -1,0 +1,190 @@
+{
+  "login": {
+    "lock": {
+      "loginLocked": "Login locked",
+      "forgotPassword": "Forgot password?",
+      "supportDetails.avn": "Tech Support Phone Number: +1 (818) 937-0700"
+    },
+    "error": {
+      "expires1": "Expires in 10 minutes",
+      "expires2": "Expires in 30 minutes",
+      "expires3": "Expires in 1 hour",
+      "expires4": "Expires in 12 hours"
+    }
+  },
+  "home": {
+    "Device Status": "Status",
+    "authenticationRequired": "Authentication Required",
+    "ageGender: ": "Age & Gender: ",
+    "humanDetection: ": "Human Detection: ",
+    "on": "On",
+    "off": "Off"
+  },
+  "videoSetting": {
+    "autoFocus.avn": "Auto Focus",
+    "constants": {
+      "max": "Max"
+    }
+  },
+  "video": {
+    "stream": {
+      "settings.avn": "Settings",
+      "modal": {
+        "confirmUpdateBody": "Are you sure you want to update stream settings?",
+        "confirmRatioChangeBody": "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?"
+      }
+    },
+    "hdmi": {
+      "fps": "Frame Rate (FPS)"
+    },
+    "osd": {
+      "constants": {
+        "enterCustomText": "Enter custom text"
+      }
+    }
+  },
+  "audio": {
+    "internalMicrophone": "Internal Microphone",
+    "constants": {
+      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+    }
+  },
+  "notification": {
+    "smtp": {
+      "toast": {
+        "mailSettingFailed": "Mail Setting Failed",
+        "sendingTestEmail": "Sending Test Email",
+        "disablingOutgoingEmail": "Disabling Outgoing Email"
+      }
+    },
+    "cards": {
+      "condition": "Condition",
+      "constants": {
+        "videoManagementSystem.avn": "Video Management System",
+        "notification-vms-event-0": "Video Motion Detection Event",
+        "notification-vms-event-1": "Analytic Event"
+      },
+      "tooltip": {
+        "unpin": "Unpin this card",
+        "pin": "Pin this card",
+        "iconVMS": "VMS: On",
+        "enterDatetime": "Please enter start and end time.",
+        "maxSchedules": "The maximum number of allowed schedules is 5."
+      }
+    }
+  },
+  "userManagement": {
+    "members": {
+      "uploadImage.avn": "Upload Image",
+      "pleaseUploadPhoto.avn": "Please upload your face photo.",
+      "modal": {
+        "group": {
+          "editGroupTitle": "Edit Group",
+          "createGroupTitle": "Create a Group",
+          "editGroupTitle.avn": "Modify Group"
+        },
+        "member": {
+          "newMemberTitle": "New Member",
+          "editMemberTitle": "Edit Member"
+        }
+      },
+      "tooltip": {
+        "createGroup": "Create a Group",
+        "groupLimitExceeded": "Group number limit exceeded.",
+        "uploadPrimaryFirst": "Upload the Primary Photo First"
+      }
+    },
+    "accounts": {
+      "constants": {
+        "permission-99": "Admin"
+      },
+      "modal": {
+        "newUserTitle": "New User",
+        "modifyUserTitle": "Modify User"
+      },
+      "tooltip": {
+        "accountProtected.avn": "This Account is Protected"
+      }
+    },
+    "events": {
+      "unknown.avn": "Unknown",
+      "confidence.avn": "Confidence",
+      "tooltip": {
+        "invalidPhoto": "Invalid Photo",
+        "Updating Member": "Updating Member"
+      }
+    }
+  },
+  "analytics": {
+    "license": {
+      "activated": "Activated",
+      "activationRequired": "Activation Required",
+      "authorizationFailed.avn": "Authorization failed!"
+    }
+  },
+  "network": {
+    "network": {
+      "static": "Static",
+      "dynamic": "Dynamic"
+    },
+    "https": {
+      "constants": {
+        "manufacturer": "Manufacturer",
+        "certificate-type-1": "Upload Certificate",
+        "certificate-type-2": "Generate Certificate on This Device"
+      }
+    }
+  },
+  "system": {
+    "deviceMaintenance": {
+      "modal": {
+        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following:\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card",
+        "confirmResetAllSettingsBody": "The system will revert to factory default settings. All data and configurations you have saved will be overwritten."
+      }
+    },
+    "information": {
+      "buildVersion.avn": "Build Version"
+    }
+  },
+  "sdCard": {
+    "mount": "Mount"
+  },
+  "error": {
+    "notFound": "Not Found"
+  },
+  "documentTitle": {
+    "image": "Image",
+    "video": "Video",
+    "analytics": "Analytics",
+    "notificationSettings": "Notification Settings",
+    "notificationMethod": "Notification Method",
+    "administration": "Administration",
+    "status": "Status"
+  },
+  "navigation": {
+    "sidebar": {
+      "tooltip": {
+        "image": "Image"
+      }
+    },
+    "appbar": {
+      "support": {
+        "onlineSupportRequest.avn": "Online Support Request",
+        "firmwareDownloads.avn": "Firmware Downloads",
+        "softwareDownloads.avn": "Software Downloads",
+        "downloads.avn": "Downloads",
+        "productSelector.avn": "Product Selector",
+        "technicalUpdates.avn": "Technical Updates",
+        "resources.avn": "Resources"
+      }
+    }
+  },
+  "common": {
+    "toast": {
+      "DHCP Test Failed": "DHCP Testing Failed"
+    },
+    "button": {
+      "create": "Create"
+    }
+  }
+}

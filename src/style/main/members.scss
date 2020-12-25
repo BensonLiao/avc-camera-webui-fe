@@ -29,6 +29,16 @@
       }
     }
   }
+
+  .sync {
+    .fa-link {
+      color: #007bff;
+    }
+
+    .fa-unlink {
+      color: $secondary-300;
+    }
+  }
 }
 
 .users-nav {

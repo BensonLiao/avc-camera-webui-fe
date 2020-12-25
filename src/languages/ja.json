@@ -1,62 +1,239 @@
 {
-  "setup": {
-    "welcome": {
-      "welcome": "ようこそ",
-      "welcomeText1": "よりいい使用体験のために、",
-      "welcomeText2": "[続行]をクリックして、初期設定を完了してください",
-      "continue": "続行"
+  "common": {
+    "modal": {
+      "pleaseWait": "しばらくお待ちください",
+      "sessionExpire": {
+        "sessionExpired": "自動ログアウト",
+        "expireCountdown": "セッションの有効期間が切れています、{{0}} 秒後でログイン画面にリダイレクトします",
+        "renewSession": "セッション更新"
+      }
     },
-    "language": {
-      "next": "次へ"
+    "button": {
+      "confirm": "確認",
+      "cancel": "キャンセル",
+      "close": "閉じる",
+      "add": "追加",
+      "on": "ON",
+      "off": "OFF",
+      "resetDefault": "デフォルト設定へ戻る",
+      "apply": "適用",
+      "new": "追加"
     },
-    "account": {
+    "password": {
+      "hidePassword": "パスワードを非表示する",
+      "showPassword": "パスワードを表示する",
+      "password": "パスワード",
+      "newPassword": "新しいパスワード",
+      "newPasswordPlaceholder": "新しいパスワードを入力してください",
+      "passwordHelper": "文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ /< >とスペースを使用できません",
+      "confirmNewPassword": "新しいパスワードを確認してください",
+      "confirmNewPasswordPlaceholder": "新しいパスワードを再度入力してください",
+      "passwordPlaceholder": "パスワードを入力してください",
+      "confirmPassword": "パスワードを確認する",
+      "confirmPasswordPlaceholder": "パスワードを再度入力してください"
+    },
+    "loading": "ロードしています",
+    "pagination": {
+      "stats": "{{0}}-{{1}}個データ、合計: {{2}}"
+    },
+    "volumeBar": {
+      "sdStorageStatus": "{{0}} 使用可能 (合計 {{1}})",
+      "used": "{{0}} 使用されています",
+      "free": "{{0}} 使用可能"
+    },
+    "toast": {
+      "Duplicate Member Names": "名称が重複しています。別の名称をご使用ください",
+      "Login Failed": "アカウントまたはパスワードが間違っています",
+      "Empty Member Database": "間違ったデータベースファイルがインポートされています",
+      "Unable to reset a forgotten password": "",
+      "Unable to reset a password": "",
+      "Card Number Limit Exceeded": "通知カード数の上限に達しました",
+      "Non-existent Card": "通知カードが存在していません",
+      "Database Size Limit (3 GB) Exceeded": "メンバー保存容量の上限に達しました",
+      "Invalid Member Photo": "",
+      "Unable to Process the Request (invalid token)": "",
+      "Group Number Limit Exceeded": "グループ数の上限に達しました",
+      "Incorrect Password": "",
+      "Wrong Password for Database File": "データベースファイル解凍パスワードが間違っています",
+      "Wrong File Format": "ファイルの形式が間違っています",
+      "Corrupted Zip File": "ファイルが破損しています",
+      "Photo Limit of Member Database Exceeded": "写真数の上限に達しました",
+      "Photo Size Limit Exceeded": "",
+      "Invalid or Absent Photo": "",
+      "Non-existent Group": "グループが存在していません",
+      "Non-existent Member": "メンバーが存在していません",
+      "Maximum Field Length Exceeded": "",
+      "Duplicate Member Name": "メンバー名が重複しています。別の名称をご使用ください",
+      "Duplicate Card Name": "通知カード名が重複しています。別の名称をご使用ください",
+      "VMS Reserved Port": "",
+      "Software Upgrade Failed": "ソフトウェア更新失敗",
+      "Unable to Complete the Format": "SDカードのフォーマットが失敗しました",
+      "Empty SMTP Server Address": "SMTPサーバーアドレスを入力してください",
+      "Empty SMTP Account": "SMTPアカウントを入力してください",
+      "Empty SMTP Account Password": "SMTPパスワードを入力してください",
+      "Empty Sender Email": "差出人情報を入力してください",
+      "Outgoing Email being Disabled": "",
+      "Absent or Unmounted SD Card": "SDカードが挿入されていません",
+      "Maximum Photo Number Exceeded": "",
+      "Showing No Face": "写真には顔が存在していません",
+      "Poor Photo Quality": "写真の品質が足りません",
+      "Limitation of Yaw Angle is 30 Degrees": "顔の角度は上下20度や左右30度を超えています",
+      "Limitation of Pitch Angle is 20 Degrees": "顔の角度は上下20度や左右30度を超えています",
+      "More Than One Face in the Photo": "写真には顔が一個以上存在しています",
+      "Non-existent Photo": "存在しない顔ショット",
+      "Invalid Key": "無効なライセンスキー",
+      "Duplicate Key": "アクティベーションに失敗しました。ライセンスキーが重複してます",
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません"
+    },
+    "dateTimePicker": {
+      "date": "日付",
+      "time": "時間",
+      "startTime": "開始時間",
+      "endTime": "終了時間",
+      "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "zipファイルのみサポートしています",
+      "selectFile": "ファイルを選択する",
+      "noFileSelected": "選択されたファイルがありません",
+      "tooltip": {
+        "disabledButton": "ファイルを選択してください"
+      }
+    }
+  },
+  "userManagement": {
+    "members": {
+      "modal": {
+        "member": {
+          "primary": "メイン写真",
+          "photo1": "写真 1",
+          "photo2": "写真 2",
+          "photo3": "写真 3",
+          "photo4": "写真 4",
+          "errorPhotoSizeLimit": "写真サイズは90 KBを超えることができません",
+          "errorNoPhoto": "写真が必要",
+          "namePlaceholder": "メンバー名を入力してください",
+          "organizationPlaceholder": "組織名を入力してください",
+          "organizationHelper": "最大32文字まで入力可能です",
+          "n/a": "なし",
+          "confirmCloseBody": "このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます",
+          "photoEditor": "写真編集",
+          "photoHelper": "写真をドラッグして調整してください",
+          "changePhoto": "写真を変更する",
+          "save": "保存する",
+          "confirmDeleteTitle": "メンバーを削除する",
+          "confirmDeleteBody": "メンバー {{0}} を削除しますか？"
+        },
+        "group": {
+          "namePlaceholder": "グループ名を入力してください",
+          "nameHelper": "最大32文字まで入力可能です",
+          "groupLimitExceeded": "",
+          "confirmDeleteTitle": "グループを削除する",
+          "confirmDeleteBody": "グループ {{0}} を削除しますか？"
+        },
+        "database": {
+          "exportApiProcessModalTitle": "メンバーデータベースをエクスポートします",
+          "importApiProcessModalTitle": "メンバーデータベースをインポートします",
+          "title": "データベース暗号化"
+        }
+      },
+      "name": "名称",
+      "organization": "組織",
+      "group": "グループ",
+      "note": "備考",
+      "notePlaceholder": "備考を入力してください",
+      "noteHelper": "最大256文字まで入力可能です",
+      "delete": "削除",
+      "export": "エクスポート",
+      "import": "インポート",
+      "actions": "操作",
+      "searchPlaceholder": "キーワードを入力",
+      "search": "検索",
+      "tooltip": {
+        "editGroupWithName": "グループを編集する：{{0}}",
+        "deleteGroupWithName": "グループを削除する：{{0}}",
+        "editMemberWithName": "メンバーを編集する：{{0}}",
+        "deleteMemberWithName": "メンバーを削除する：{{0}}",
+        "photoLimitExceeded": "写真数の上限に達しました"
+      },
+      "title": "メンバー",
+      "allMembers": "全メンバー表示",
+      "groups": "グループ",
+      "database": "データベースファイル",
+      "userPicture": "登録用写真",
+      "noData": "一致するデータが見つかりません再検索して下さい",
+      "addNewMember": "新規メンバーを追加する",
+      "addMemberFromEvent": "イベントから追加"
+    },
+    "events": {
+      "toast": {
+        "settingSuccessTitle": "設定が成功しました ",
+        "settingSuccessBody": "写真が {{0}} に追加されました"
+      },
+      "addExistingMember": "既存のメンバーに追加",
+      "searchPlaceholder": "キーワードを入力",
+      "search": "検索",
+      "userPicture": "登録用写真",
+      "name": "名称",
+      "actions": "操作",
+      "modal": {
+        "initialMessage": "入力フィールドにキーワードを入力して、メンバーを検索します",
+        "verifyingPhoto": "写真検証中",
+        "apiProcessingModalTitle": "メンバー更新"
+      },
+      "noData": "一致するデータが見つかりません再検索して下さい",
+      "tooltip": {
+        "photoLimitExceeded": "写真数の上限に達しました",
+        "addWithName": "{{0}} に追加",
+        "Invalid Photo": ""
+      },
+      "constants": {
+        "confidence-0": "低",
+        "confidence-1": "中",
+        "confidence-2": "高",
+        "enroll-status-0": "なりすまし防止",
+        "enroll-status-1": "未登録者",
+        "enroll-status-2": "登録者"
+      },
+      "similarity": "相似性",
+      "status": "認証結果",
+      "title": "イベント",
+      "filters": "フィルター条件",
+      "clear": "クリア",
+      "facialRecognition": "顔認証",
+      "FacialRecognition": "",
+      "activationRequired": "無効",
+      "ageGender": "性別年齢推定",
+      "humanDetection": "人体検知",
+      "time": "時間",
+      "capture": "キャプチャー",
+      "group": "グループ",
+      "organization": "組織",
+      "note": "備考",
+      "addNewMember": "新規メンバーを追加する",
+      "total": "合計データ数"
+    },
+    "accounts": {
+      "constants": {
+        "permission-0": "管理者",
+        "permission-1": "ゲスト",
+        "permission-2": "訪客"
+      },
+      "username": "ユーザー名",
+      "modal": {
+        "usernamePlaceholder": "アカウント名を入力してください",
+        "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
+        "confirmDeleteTitle": "アカウントを削除する",
+        "confirmDeleteBody": "アカウント {{0}} を削除しますか？"
+      },
       "permission": "権限",
-      "account": "アカウント",
-      "accountPlaceholder": "アカウント名を入力してください",
-      "accountHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
-      "done": "完了しました"
-    },
-    "progressBar": {
-      "language": "言語を選択する",
-      "setupAccount": "アカウント初期設定"
+      "title": "アカウント",
+      "allAccounts": "全アカウント表示",
+      "actions": "操作",
+      "tooltip": {
+        "deleteAccountError1": "使用中のアカウントを削除することができません"
+      }
     }
-  },
-  "login": {
-    "title": "アカウントログイン",
-    "username": "ユーザー名",
-    "usernamePlaceholder": "アカウントを入力してください",
-    "password": "パスワード",
-    "passwordPlaceholder": "パスワードを入力してください",
-    "login": "ログイン",
-    "lock": {
-      "lockText": "アカウントやパスワードの入力間違い回数は５回以上に達しました",
-      "tryAgain": "5分後再度ログインを試みてください",
-      "loginLocked": "ログインがロックされました",
-      "forgotPassword": "パスワードを忘れましたか?",
-      "remaining": "ログインするため {{0}} が必要です",
-      "loginAgain": "再度ログインする"
-    },
-    "error": {
-      "incorrectPassword": "パスワードが間違っています",
-      "attemptsRemaining": "リトライ可能回数は残り {{0}} 回...",
-      "loginAgain": "再度ログインする",
-      "expires1": "10 分後期限切れ",
-      "expires2": "30 分後期限切れ",
-      "expires3": "1 時間後期限切れ",
-      "expires4": "12 時間後期限切れ"
-    }
-  },
-  "home": {
-    "deviceName": "デバイス名",
-    "Device Status": "ステータス",
-    "authenticationRequired": "無効",
-    "analytics": "映像分析",
-    "sdcard": "SDカード",
-    "facialRecognition": "顔認証 : ",
-    "ageGender: ": "性別年齢推定 : ",
-    "humanDetection: ": "人体検知 : ",
-    "on": "有効",
-    "off": "無効"
   },
   "videoSetting": {
     "title": "画像設定",
@@ -67,32 +244,14 @@
     "sharpness": "シャープネス",
     "saturation": "飽和",
     "lensControl": "レンズ",
-    "selectFocusType": "選擇對焦方式",
     "fullRangeFocus": "全範囲フォーカス",
     "shortRangeFocus": "短距離フォーカス",
+    "selectFocusType": "選擇對焦方式",
     "focus": "フォーカス",
     "zoom": "ズーム",
     "autoFocusAfterZoom": "ズーム調整するとき、自動フォーカスする",
     "iris": "Iris",
-    "shutterSpeed": "シャッタースピード",
-    "advanced": "高度な設定",
-    "whiteBalance": "ホワイトバランス",
-    "colorTemperature": "色温度",
-    "iRControl": "IR制御",
-    "level": "レベル",
-    "dayNight": "デイナイト機能",
-    "sensitivity": "感度",
-    "dayMode": "デイモード",
-    "rotation": "映像方向",
-    "defog": "霧補正",
-    "lightingCompensation": "更新周波数(Hz)",
     "constants": {
-      "ir-control-0": "自動",
-      "ir-control-1": "有効",
-      "ir-control-2": "無効",
-      "on": "有効",
-      "off": "無効",
-      "max": "最大",
       "aperture-0": "自動",
       "aperture-1": "最大",
       "shutter-speed-0": "自動",
@@ -111,6 +270,9 @@
       "white-balance-2": "蛍光灯",
       "white-balance-3": "白熱灯",
       "white-balance-4": "手動調整",
+      "ir-control-0": "自動",
+      "ir-control-1": "有効",
+      "ir-control-2": "無効",
       "daynight-mode-0": "自動",
       "daynight-mode-1": "カラー",
       "daynight-mode-2": "モノクロ",
@@ -119,634 +281,26 @@
       "orientation-1": "垂直回転",
       "orientation-2": "水平回転",
       "orientation-3": "180 度回転",
+      "on": "有効",
+      "off": "無効",
       "refresh-rate-0": "自動",
       "refresh-rate-1": "50Hz",
       "refresh-rate-2": "60Hz"
-    }
-  },
-  "video": {
-    "stream": {
-      "title": "ストリーム",
-      "streams": "ストリーム",
-      "stream1": "ストリーム 01",
-      "stream2": "ストリーム 02",
-      "codec": "コーデック",
-      "resolution": "解像度",
-      "fps": "フレームレート (FPS)",
-      "bandwidth": "ビットレート制御",
-      "quality": "品質",
-      "auto": "自動",
-      "gop": "GOP",
-      "modal": {
-        "apiProcessingModalTitle": "ストリーム設定の更新",
-        "confirmUpdateBody": "ストリーム設定を変更しますか？",
-        "confirmRatioChangeBody": "ストリーム1のアスペクト比を変更すると、ストリーム2の設定も更新されます。続行してもよろしいですか？"
-      },
-      "constants": {
-        "stream-resolution-0": "3840*2160 (16:9)",
-        "stream-resolution-1": "2560*1440 (16:9)",
-        "stream-resolution-2": "1920*1080 (16:9)",
-        "stream-resolution-3": "1280*720 (16:9)",
-        "stream-resolution-4": "640*360 (16:9)",
-        "stream-resolution-5": "2560*1920 (4:3)",
-        "stream-resolution-6": "2048*1536 (4:3)",
-        "stream-resolution-7": "1600*1200 (4:3)",
-        "stream-resolution-8": "1280*960 (4:3)",
-        "stream-resolution-9": "1024*768 (4:3)",
-        "stream-resolution-10": "640*480 (4:3)",
-        "stream-resolution-11": "320*240 (4:3)",
-        "stream-bandwidth-management-0": "最大ビットレート",
-        "stream-bandwidth-management-1": "可変ビットレート",
-        "stream-bandwidth-management-2": "固定ビットレート",
-        "quality-30": "低",
-        "quality-50": "中",
-        "quality-80": "高",
-        "bitRateRange": "{{0}} - {{1}} Kbps"
-      }
     },
-    "rtsp": {
-      "title": "RTSP",
-      "enableAudio": "RTSPでのオーディオ出力を有効にする",
-      "requireAuthentication": "アカウント認証を有効にする",
-      "rtspTcpPort": "RTSP/TCPポート",
-      "rtspUdpPort": "RTSP/UDPポート",
-      "tcpRange": "入力範囲：1024-65535 デフォルト：8554",
-      "udpRange": "入力範囲：1024-65535 デフォルト：17300",
-      "maxConnections": "最大同時接続クライアント数"
-    },
-    "hdmi": {
-      "title": "HDMI設定",
-      "hdmi": "HDMI",
-      "fps": "フレームレート (FPS)",
-      "modal": {
-        "apiProcessingModalTitle": "HDMI設定を更新する",
-        "confirmUpdateBody": "HDMI設定を変更しますか？"
-      }
-    },
-    "osd": {
-      "title": "OSD",
-      "enable": "OSDを有効にする",
-      "size": "文字サイズ",
-      "color": "カラー",
-      "position": "表示位置",
-      "positionHelper": "プレビュー画面中の青印をクリックして下さい",
-      "leftTop": "左上",
-      "rightTop": "右上",
-      "leftBottom": "左下",
-      "rightBottom": "右下",
-      "overlay": "テキスト",
-      "constants": {
-        "font-size-0": "小",
-        "font-size-1": "中",
-        "font-size-2": "大",
-        "osd-type-0": "時間",
-        "osd-type-1": "デバイス名",
-        "osd-type-2": "デバイス名と時間",
-        "osd-type-3": "カスタム",
-        "enterCustomText": "カスタム内容を入力します"
-      }
-    },
-    "privacyMask": {
-      "maskArea": "マスクエリア",
-      "title": "プライバシーマスク",
-      "enable": "プライバシーマスクを有効にする",
-      "maskHelper": "プレビューウィンドにマスクを追加してください",
-      "note": "説明",
-      "drag": "ドラッグ",
-      "noteText1": "マスクを追加する",
-      "noteText2": "マスクを削除する",
-      "or": "or",
-      "noteText3": "マスクは最大四ヶ所まで設定可能です"
-    }
-  },
-  "audio": {
-    "title": "オーディオ設定",
-    "enable": "オーディオ入力を有効にする",
-    "quality": "オーディオ品質",
-    "inputSource": "入力ソース",
-    "internalMicrophone": "內建式麥克風",
-    "externalMicrophone": "外付けマイク",
-    "constants": {
-      "audio-quality-0": "G.711, 8kHz, 64kbps, Mono",
-      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
-    }
-  },
-  "notification": {
-    "smtp": {
-      "edit": "編集",
-      "enableEmail": "メール送信を有効にします",
-      "enableLoginNotification": "カメラログイン通知を有効にする",
-      "interval": "通報間隔 (秒)",
-      "intervalPlaceholder": "秒数を入力してください",
-      "intervalRange": "5 - 1800 秒",
-      "logonSettings": "SMTPサーバーログイン設定",
-      "logonSettingsHelper": "ウェブメールプロバイダーのセキュリティー性向上対策により、アプリケーションのパスワード（例：GoogleまたはYahooのメールアカウントとパスワード）が要求される場合があります。プロバイダーの指示に従ってアプリケーションのパスワードの生成と使用を行ってください。",
-      "senderEmailPlaceholder": "差出人のメールアドレスを入力してください",
-      "senderName": "差出人情報",
-      "senderNamePlaceholder": "差出人名を入力してください",
-      "serverAddress": "SMTPサーバーアドレス",
-      "serverAddressPlaceholder": "サーバーアドレスを入力してください",
-      "title": "メール設定",
-      "senderEmail": "メール",
-      "modal": {
-        "accountPlaceholder": "アカウントを入力してください",
-        "encryption": "暗号化方式",
-        "none": "なし",
-        "port": "ポート",
-        "ssl": "SSL",
-        "tls": "TLS",
-        "title": "SMTPサーバーログイン設定",
-        "passwordPlaceholder": "パスワードを入力してください",
-        "password": "パスワード",
-        "account": "アカウント"
-      },
-      "toast": {
-        "disablingOutgoingEmail": "SMTP送信を無効しました",
-        "emailSettingSuccess": "メールアドレス設定に成功しました",
-        "mailSettingFailed": "メールアドレス設定に失敗しました",
-        "sendingTestEmail": "テストメールは発送されました"
-      },
-      "tooltip": {
-        "disabledEditButton": "メールアドレスを設定するのは必須です"
-      }
-    },
-    "io": {
-      "title": "デジタル入力および出力",
-      "tabInput": "デジタル入力",
-      "tabOutput1": "デジタル出力 1",
-      "tabOutput2": "デジタル出力 2",
-      "enableDigitalInput": "デジタル入力を有効にする",
-      "enableDigitalOutput": "デジタル出力 {{0}} を有効にする",
-      "normalState": "一般状態",
-      "closed": "常時閉",
-      "open": "常時開",
-      "type": "出力タイプ",
-      "normal": "一般",
-      "buffer": "バッファ",
-      "pulseTime": "パルス時間 (秒)",
-      "pulsePlaceholder": "秒数を入力してください",
-      "delayTime": "間隔時間 (秒)",
-      "delayPlaceholder": "秒数を入力してください",
-      "timeRange": "{{0}}-{{1}} 秒"
-    },
-    "cards": {
-      "filters": "フィルター",
-      "pinned": "トップに移動する",
-      "others": "その他",
-      "analytics": "映像分析",
-      "defaultCardTitle": "通知カード名称を入力してください",
-      "rule": "ルール",
-      "schedule": "スケジュール",
-      "method": "通知方式",
-      "enableSchedule": "スケジュール管理を有効にする",
-      "enableNotifyResult": "認証結果に応じて通知する",
-      "condition": "條件",
-      "group": "グループ",
-      "everyone": "すべてのユーザー、グループ限定しない",
-      "io": "デジタル入力および出力",
-      "output1": "デジタル出力 1",
-      "output2": "デジタル出力 2",
-      "email": "メール",
-      "emailAttachment": "添付ファイル",
-      "subject": "件名：",
-      "subjectPlaceholder": "件名を指定してください",
-      "defaultSubjectFR": "顔認証イベント [{{0}}]",
-      "defaultSubjectMD": "動体検知イベント [{{0}}]",
-      "defaultSubjectDI": "デジタル入力イベント [{{0}}]",
-      "content": "内容：",
-      "contentPlaceholder": "メッセージを追加する",
-      "contentPlacement": "内容の位置",
-      "receiver": "受信者",
-      "receiverPlaceholder": "メールアドレスを入力してください",
-      "constants": {
-        "notification-vms-event-0": "影像移動偵測事件",
-        "notification-vms-event-1": "智慧分析事件",
-        "notification-card-filter-all": "全て",
-        "notification-card-0": "顔認証",
-        "notification-card-1": "性別年齢推定",
-        "notification-card-2": "人体検知",
-        "notification-card-3": "動作検知",
-        "notification-card-4": "破壊アラーム",
-        "notification-card-5": "デジタル入力",
-        "face-recognition-condition-0": "すべて",
-        "face-recognition-condition-1": "成功",
-        "face-recognition-condition-2": "未登録者",
-        "face-recognition-condition-3": "なりすまし防止",
-        "email-attachment-type-0": "顔ショット",
-        "email-attachment-type-1": "スクリーンショット",
-        "email-attachment-type-2": "なし",
-        "email-content-position-0": "最初に置く",
-        "email-content-position-1": "最後に置く"
-      },
-      "tooltip": {
-        "unpin": "固定解除",
-        "pin": "固定",
-        "addNewCard": "通知カードを追加する",
-        "iconEmail": "メール: 有効",
-        "iconOutput": "出力: 有効",
-        "iconVMS": "VMS: On",
-        "enterDatetime": "開始および終了日および時間を選択してください",
-        "maxSchedules": "最大スケジュール数は5です",
-        "disabledReceiverButton": "メールアドレスを入力してください"
-      },
-      "toast": {
-        "limitExceededTitle": "通知カード数の上限に達しました",
-        "limitExceededBody": "カードを {{0}} 以上に追加することができません"
-      }
-    }
-  },
-  "userManagement": {
-    "members": {
-      "search": "検索",
-      "searchPlaceholder": "キーワードを入力",
-      "addNewMember": "新規メンバーを追加する",
-      "addMemberFromEvent": "イベントから追加",
-      "title": "メンバー",
-      "allMembers": "全メンバー表示",
-      "groups": "グループ",
-      "database": "データベースファイル",
-      "export": "エクスポート",
-      "import": "インポート",
-      "userPicture": "登録用写真",
-      "name": "名称",
-      "organization": "組織",
-      "group": "グループ",
-      "note": "備考",
-      "notePlaceholder": "備考を入力してください",
-      "noteHelper": "最大256文字まで入力可能です",
-      "actions": "操作",
-      "noData": "一致するデータが見つかりません再検索して下さい",
-      "delete": "削除",
-      "modal": {
-        "group": {
-          "editGroupTitle": "グループを編集する",
-          "createGroupTitle": "グループを追加する",
-          "namePlaceholder": "グループ名を入力してください",
-          "nameHelper": "最大32文字まで入力可能です",
-          "confirmDeleteTitle": "グループを削除する",
-          "confirmDeleteBody": "グループ {{0}} を削除しますか？",
-          "editGroupTitle.avn": "グループを編集する"
-        },
-        "database": {
-          "title": "データベース暗号化",
-          "importApiProcessModalTitle": "メンバーデータベースをインポートします",
-          "exportApiProcessModalTitle": "メンバーデータベースをエクスポートします"
-        },
-        "member": {
-          "confirmDeleteTitle": "メンバーを削除する",
-          "confirmDeleteBody": "メンバー {{0}} を削除しますか？",
-          "newMemberTitle": "メンバーを追加する",
-          "editMemberTitle": "メンバーを編集する",
-          "primary": "メイン写真",
-          "photo1": "写真 1",
-          "photo2": "写真 2",
-          "photo3": "写真 3",
-          "photo4": "写真 4",
-          "namePlaceholder": "メンバー名を入力してください",
-          "organizationPlaceholder": "組織名を入力してください",
-          "organizationHelper": "最大32文字まで入力可能です",
-          "n/a": "なし",
-          "photoEditor": "写真編集",
-          "photoHelper": "写真をドラッグして調整してください",
-          "save": "保存する",
-          "changePhoto": "写真を変更する",
-          "confirmCloseBody": "このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます",
-          "errorNoPhoto": "写真が必要",
-          "errorPhotoSizeLimit": "写真サイズは90 KBを超えることができません",
-          "Showing No Face": "写真には顔が存在していません",
-          "Poor Photo Quality": "写真の品質が足りません",
-          "Limitation of Yaw Angle is 30 Degrees": "顔の角度は上下20度や左右30度を超えています",
-          "Limitation of Pitch Angle is 20 Degrees": "顔の角度は上下20度や左右30度を超えています",
-          "More Than One Face in the Photo": "写真には顔が一個以上存在しています"
-        }
-      },
-      "tooltip": {
-        "createGroup": "グループを追加する",
-        "groupLimitExceeded": "グループ数の上限に達しました",
-        "encryptionSettings": "暗号化設定",
-        "deleteGroupWithName": "グループを削除する：{{0}}",
-        "editGroupWithName": "グループを編集する：{{0}}",
-        "editMemberWithName": "メンバーを編集する：{{0}}",
-        "deleteMemberWithName": "メンバーを削除する：{{0}}",
-        "photoLimitExceeded": "写真数の上限に達しました",
-        "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい"
-      }
-    },
-    "accounts": {
-      "title": "アカウント",
-      "allAccounts": "全アカウント表示",
-      "permission": "権限",
-      "username": "ユーザー名",
-      "actions": "操作",
-      "constants": {
-        "permission-0": "管理者",
-        "permission-1": "ゲスト",
-        "permission-2": "訪客",
-        "permission-99": "管理者"
-      },
-      "modal": {
-        "confirmDeleteTitle": "アカウントを削除する",
-        "confirmDeleteBody": "アカウント {{0}} を削除しますか？",
-        "newUserTitle": "新規ユーザー",
-        "modifyUserTitle": "アカウントを編集する",
-        "usernamePlaceholder": "アカウント名を入力してください",
-        "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません"
-      },
-      "tooltip": {
-        "deleteAccountError1": "使用中のアカウントを削除することができません"
-      }
-    },
-    "events": {
-      "total": "合計データ数",
-      "title": "イベント",
-      "filters": "フィルター条件",
-      "clear": "クリア",
-      "facialRecognition": "顔認証",
-      "ageGender": "性別年齢推定",
-      "humanDetection": "人体検知",
-      "activationRequired": "無効",
-      "similarity": "相似性",
-      "status": "認証結果",
-      "search": "検索",
-      "searchPlaceholder": "キーワードを入力",
-      "time": "時間",
-      "capture": "キャプチャー",
-      "userPicture": "登録用写真",
-      "name": "名称",
-      "organization": "組織",
-      "group": "グループ",
-      "note": "備考",
-      "actions": "操作",
-      "noData": "一致するデータが見つかりません再検索して下さい",
-      "addNewMember": "新規メンバーを追加する",
-      "addExistingMember": "既存のメンバーに追加",
-      "constants": {
-        "enroll-status-0": "なりすまし防止",
-        "enroll-status-1": "未登録者",
-        "enroll-status-2": "登録者",
-        "confidence-0": "低",
-        "confidence-1": "中",
-        "confidence-2": "高"
-      },
-      "modal": {
-        "initialMessage": "入力フィールドにキーワードを入力して、メンバーを検索します",
-        "verifyingPhoto": "写真検証中",
-        "apiProcessingModalTitle": "メンバー更新"
-      },
-      "tooltip": {
-        "photoLimitExceeded": "写真数の上限に達しました",
-        "addWithName": "{{0}} に追加",
-        "invalidPhoto": "無効な写真",
-        "Updating Member": "メンバー更新"
-      },
-      "toast": {
-        "settingSuccessTitle": "設定が成功しました ",
-        "settingSuccessBody": "写真が {{0}} に追加されました"
-      }
-    }
-  },
-  "analytics": {
-    "facialRecognition": {
-      "title": "顔認証",
-      "enableFR": "顔認証を有効します",
-      "enableSpoof": "なりすまし防止機能を有効する",
-      "accuracyLevel": "認証成功閾",
-      "detectionZone": "検知区域",
-      "detectionZoneHelper": "デフォルトはフルスクリーン",
-      "enableDetectionSize": "顔検知サイズフィルターを有効します",
-      "liveViewDisplay": "ライブ画面表示",
-      "displayName": "メンバー名",
-      "displayGroup": "メンバーグループ",
-      "displayUnknown": "未登録者",
-      "displaySpoof": "なりすまし防止",
-      "minDetectionSize": "最小検知顔サイズ",
-      "constants": {
-        "confidence-level-0": "低",
-        "confidence-level-1": "中",
-        "confidence-level-2": "高"
-      },
-      "modal": {
-        "spoofBody": "アルファ版の画像スプーフィングを有効にしてもよろしいですか？ アルファ版です。 画像のなりすましと判断された顔は認識されません。 今後のソフトウェアアップデートで、この機能を最適化および改善する予定です"
-      },
-      "tooltip": {
-        "frDisabled": "顔認証を無効になっています",
-        "detectionZoneToggle": "認証区域を表示/非表示にする"
-      }
-    },
-    "motionDetection": {
-      "title": "動作検知",
-      "enableMD": "動作検知を有効します",
-      "mdHelper": "プレビューウィンドに検知エリアを追加してください",
-      "sensitivity": "感度",
-      "noteArea": "説明",
-      "note1": "エリアを追加する",
-      "drag": "ドラッグ",
-      "note2": "エリアを削除する",
-      "or": "or",
-      "note3": "検知エリアは最大四ヶ所まで設定可能です",
-      "detectionZone": "検知区域"
-    },
-    "license": {
-      "title": "映像分析ライセンス",
-      "facialRecognition": "顔認証",
-      "ageGender": "性別年齢推定",
-      "humanDetection": "人体検知",
-      "keyPlaceholder": "ライセンスキーを入力してください",
-      "activate": "有効",
-      "activated": "有効にしました",
-      "activationRequired": "無効",
-      "time": "時間",
-      "activatedBy": "有効にした者",
-      "authenticationKey": "ライセンスキー",
-      "activatedFunctions": "有効になった機能",
-      "enableStatus": "ステータス",
-      "constants": {
-        "key-thirtyThousand": "顔認証 30k",
-        "key-threeThousand": "顔認証 3k"
-      },
-      "toast": {
-        "activationSuccessTitle": "アクティベーションが成功しました",
-        "activationSuccessBody": "{{0}} 許可されました",
-        "activationFailedTitle": "アクティベーションに失敗しました",
-        "keyRegisteredBody": "ライセンスキーが使われています"
-      }
-    }
-  },
-  "network": {
-    "network": {
-      "title": "ネットワーク",
-      "ipAddressing": "IP設定",
-      "networkStatus": "ネットワークステータス",
-      "ipAssignment": "IP 取得方式",
-      "static": "固定IPアドレス",
-      "dynamic": "動的IPアドレス",
-      "macAddress": "MACアドレス",
-      "ipAddress": "IPアドレス",
-      "subnetMask": "サブネットマスク",
-      "routerGateway": "ルーター/ゲートウェイ",
-      "primaryDNS": "プライマリーDNS",
-      "secondaryDNS": "セカンダリーDNS",
-      "dhcp": "DHCP",
-      "testDHCP": "DHCPをテストする",
-      "fixedIPAddress": "固定IPアドレス",
-      "secondaryDNSOptional": "セカンダリーDNS (選択)",
-      "ipAddressPlaceholder": "固定IPアドレスを入力してください",
-      "subnetMaskPlaceholder": "サブネットマスクを入力してください",
-      "routerGatewayPlaceholder": "ゲートウェイを入力してください",
-      "primaryDNSPlaceholder": "プライマリーDNSを入力してください",
-      "secondaryDNSPlaceholder": "セカンダリーDNSを入力してください",
-      "modal": {
-        "confirmUpdateBody": "ネットワーク設定を更新してもよろしいですか？",
-        "testingSuccess": "DHCPテストに成功しました"
-      },
-      "tooltip": {
-        "noChanges": "変更がありません"
-      }
-    },
-    "tcpip": {
-      "title": "TCP/IP",
-      "ddns": "DDNS",
-      "http": "HTTP",
-      "enableDDNS": "DDNSサービスを有効にする",
-      "serviceProvider": "サービスプロバイダー",
-      "hostName": "ホスト名",
-      "hostNamePlaceholder": "DDNSホスト名を入力してください",
-      "account": "アカウント",
-      "accountPlaceholder": "DDNSユーザー名を入力してください",
-      "passwordPlaceholder": "DDNSパスワードを入力してください",
-      "secondaryHTTPPort": "HTTPセカンダリーポート",
-      "portHelper": "入力範囲：1024-65535 デフォルト：8080",
-      "modal": {
-        "apiProcessModalTitle": "HTTP設定を更新する"
-      },
-      "toast": {
-        "settingSuccessTitle": "設定が成功しました",
-        "successBody": "DDNS 設定が成功しました",
-        "settingFailed": "設定が失敗しました",
-        "failedBody": "DDNS 設定が失敗しました"
-      }
-    },
-    "https": {
-      "title": "HTTPS",
-      "enableHTTPS": "HTTPSサービスを有効にする",
-      "port": "ポート",
-      "portHelper": "入力範囲：1024-65535 デフォルト：8443",
-      "certificate": "署名証明書",
-      "constants": {
-        "manufacturer": "メーカー",
-        "certificate-type-0": "{{0}} 自己署名証明書",
-        "certificate-type-1": "署名証明書をアップロードする",
-        "certificate-type-2": "本デバイスの署名証明書を生成する"
-      },
-      "tooltip": {
-        "disabledButton": "先にHTTPS機能を有効にしてください"
-      }
-    },
-    "common": {
-      "modal": {
-        "redirectionSuccess": "再ダイレクト",
-        "redirectionBody": "下記のURLへアクセスして再度ログインしてください"
-      }
-    }
-  },
-  "system": {
-    "dateTime": {
-      "title": "日付と時間",
-      "timeZone": "タイムゾーン",
-      "deviceDateTime": "デバイス時間",
-      "syncNTP": "ネットワークタイムサーバー (NTP)と同期する",
-      "ntpHost": "サーバーアドレス",
-      "hostPlaceholder": "Enter Your IP Address",
-      "syncTime": "時間同期",
-      "syncInterval": "更新頻度 (分)",
-      "syncWithComputer": "コンピューターと同期する",
-      "setManually": "手動設定",
-      "modal": {
-        "apiProcessModalTitle": "日付＆時刻を更新",
-        "confirmUpdateBody": "デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります"
-      }
-    },
-    "deviceMaintenance": {
-      "title": "メンテナンス",
-      "systemReboot": "デバイスを再起動する",
-      "reboot": "再起動する",
-      "restoreDefaultSettings": "設定を初期値に戻す",
-      "restoreAllSettings": "設定を初期値に戻す",
-      "reset": "初期化",
-      "exportSystemSettings": "システム設定ファイルをエクスポートする",
-      "importSystemSettings": "システム設定ファイルをインポートする",
-      "export": "エクスポート",
-      "import": "インポート",
-      "modal": {
-        "apiProcessModalTitleRebooting": "デバイス再起動しています",
-        "apiProcessModalTitleResetting": "初期化",
-        "confirmRebootBody": "デバイスを再起動しますか？",
-        "confirmRestoreDefaultSettingsBody": "デバイスは出荷時の初期設定に戻り、下記の項目を除き、すべてのデータと設定は削除されます:\n\n• メンバーリストとグループデータ \n• アカウント設定 \n• フォーカスとズーム設定 \n• RTSP設定 \n• インターネット/ネットワーク設定 \n• SDカード内のデータ",
-        "confirmResetAllSettingsBody": "デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます",
-        "rebootSuccessBody": "デバイスは再起動しましたため、再度ログインしてください",
-        "resetSuccess": "初期化完了",
-        "resetAllSettingsSuccessBody": "クイックインストールガイドを参照して初期設定を行って下さい",
-        "resetDefaultSettingsSuccessBody": "デバイスが初期化済再ログインして下さい",
-        "importSuccessBody": "デバイス設定をインポート完了再ログインして下さい"
-      },
-      "tooltip": {
-        "restoreAllSettingsHelper": "本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります"
-      }
-    },
-    "softwareUpgrade": {
-      "title": "ソフトウェアアップグレード",
-      "importFile": "設定ファイルをインポートする",
-      "modal": {
-        "apiProcessModalTitleUploading": "ソフトウェアをアップロードしています",
-        "apiProcessModalTitleInstalling": "ソフトウェアをインストールしています",
-        "apiProcessModalTitleShutDown": "デバイスをシャットダウンしています",
-        "apiProcessModalTitleRestarting": "デバイスを再起動しています",
-        "uploadingBody": "※ アップグレード中にはブラウザを閉じないでください",
-        "uploadSoftware": "ソフトウェアのアップロード",
-        "installSoftware": "ソフトウェアのインストール",
-        "shutDown": "デバイスをシャットダウンする",
-        "restart": "デバイスを再起動する",
-        "stage1": "ステージ1",
-        "stage2": "ステージ2",
-        "stage3": "ステージ3",
-        "stage4": "ステージ4",
-        "upgradeSuccess": "ソフトウェアアップグレードは成功しました",
-        "upgradeSuccessBody": "{{0}} 秒後に再度ログインページへリダイレクトします"
-      }
-    },
-    "systemLog": {
-      "title": "システムログ",
-      "systemLogFile": "システムログファイル",
-      "deleteLogs": "削除",
-      "download": "ダウンロード",
-      "modal": {
-        "confirmDeleteTitle": "システムログファイルを削除する",
-        "confirmDeleteBody": "システムログファイルを削除しますか？",
-        "apiProcessModalTitle": "システムログをダウンロード",
-        "downloadingBody": "ダウンロードの進行状況"
-      }
-    },
-    "information": {
-      "title": "デバイス情報",
-      "software": "ソフトウェアバージョン",
-      "serialNumber": "S/N 碼",
-      "macAddress": "MACアドレス"
-    }
+    "shutterSpeed": "シャッタースピード",
+    "advanced": "高度な設定",
+    "whiteBalance": "ホワイトバランス",
+    "colorTemperature": "色温度",
+    "iRControl": "IR制御",
+    "level": "レベル",
+    "dayNight": "デイナイト機能",
+    "sensitivity": "感度",
+    "dayMode": "デイモード",
+    "rotation": "映像方向",
+    "defog": "霧補正",
+    "lightingCompensation": "更新周波数(Hz)"
   },
   "sdCard": {
-    "title": "SDカード",
-    "enable": "SDカードを有効にする",
-    "operation": "操作",
-    "format": "フォーマット",
-    "mount": "マウント",
-    "unmount": "マウントを解除",
-    "errorNotification": "異常通知",
-    "notificationSet": "メールアドレスが設定されました",
-    "enableOutgoingEmail": "メールアドレスを設定する",
-    "filesystem": "ファイルシステム",
-    "status": "ステータス",
-    "storageSpace": "ストレージ容量",
-    "unrecognized": "不明なファイルシステム",
     "constants": {
       "Functioning": "正常",
       "Unmounted": "マウントされていません",
@@ -756,25 +310,32 @@
       "Unknown Error": "不明なエラー",
       "unknownStatus": "UNKNOWN STATUS"
     },
-    "modal": {
-      "disableTitle": "SDカードを取り外します",
-      "disableBody": "SDカードを取り外しますか？イベントによるキャプチャが保存されません",
-      "disabledFormatButton": "Micro SDカードをフォーマットしてもよろしいですか？",
-      "disabledUnmountButton": "Micro SDカードをア取り外してよろしいですか？"
-    },
+    "operation": "操作",
     "tooltip": {
       "disabledOperationButton": "先にSDカードの機能を無効にしてください",
       "disabledNotificationButton": "メールアドレスを設定するのは必須です"
-    }
-  },
-  "error": {
-    "error": "Error",
-    "notFound": "このページは表示できません",
-    "internalServerError": "サーバー内部エラー",
-    "backToHome": "ホームページへ戻る"
+    },
+    "format": "フォーマット",
+    "modal": {
+      "disabledFormatButton": "Micro SDカードをフォーマットしてもよろしいですか？",
+      "disabledUnmountButton": "Micro SDカードをア取り外してよろしいですか？",
+      "disableTitle": "SDカードを取り外します",
+      "disableBody": "SDカードを取り外しますか？イベントによるキャプチャが保存されません"
+    },
+    "unmount": "マウントを解除",
+    "title": "SDカード",
+    "enable": "SDカードを有効にする",
+    "errorNotification": "異常通知",
+    "notificationSet": "メールアドレスが設定されました",
+    "enableOutgoingEmail": "メールアドレスを設定する",
+    "status": "ステータス",
+    "filesystem": "ファイルシステム",
+    "unrecognized": "不明なファイルシステム",
+    "storageSpace": "ストレージ容量"
   },
   "validation": {
-    "confirmEqual": "パスワードが一致しません",
+    "portReserved": "本ポートはシステム予備用または使用されています",
+    "portEmpty": "この項目の入力は必須です",
     "required": "この項目は入力必須です",
     "string": "文字列である必要があります",
     "stringEmpty": "入力は必須です",
@@ -783,11 +344,6 @@
     "stringLength": "{expected}文字を入力する必要があります",
     "stringPattern": "無効な文字が含まれています",
     "stringContains": "{expected}の文字を含む必要があります",
-    "stringContainsLowerCaseLatter": "小文字のアルファベットの入力は必須です",
-    "stringContainsUpperCaseLatter": "大文字のアルファベットの入力は必須です",
-    "stringContainsNumber": "数字の入力は必須です",
-    "stringAbortSpecialCharacters": "この項目は次の符号を使用できません: #, %, &, `, \", \\, /, <, >, とスペース",
-    "stringAcceptSpecialCharacters": "符号の入力は必須です",
     "stringEnum": "不符内容のルールに不一致です合內容要求",
     "number": "数字を入力してください",
     "numberMin": "{expected}文字以上の数字を入力する必要があります",
@@ -812,100 +368,254 @@
     "forbidden": "項目を非表示する",
     "email": "無効なメールアドレス",
     "url": "正しいURLを入力してください,",
+    "confirmEqual": "パスワードが一致しません",
+    "stringContainsLowerCaseLatter": "小文字のアルファベットの入力は必須です",
+    "stringContainsUpperCaseLatter": "大文字のアルファベットの入力は必須です",
+    "stringContainsNumber": "数字の入力は必須です",
+    "stringAbortSpecialCharacters": "この項目は次の符号を使用できません: #, %, &, `, \", \\, /, <, >, とスペース",
+    "stringAcceptSpecialCharacters": "符号の入力は必須です",
     "birthday": "正しい生年月日を入力してください",
     "countryCode": "国コードが間違っています",
     "duplicateName": "名前が重複しました、他の名前に設定してください",
-    "portEmpty": "この項目の入力は必須です",
-    "portReserved": "本ポートはシステム予備用または使用されています",
     "maxRecipient": "最大受信者数：64",
     "duplicateEmail": "重複するメールアドレス"
   },
-  "documentTitle": {
-    "home": "ホームページ",
-    "image": "画像設定",
-    "video": "映像",
-    "audio": "オーディオ",
-    "notification": "通知",
-    "userManagement": "ユーザー管理",
+  "video": {
+    "stream": {
+      "constants": {
+        "stream-resolution-0": "3840*2160 (16:9)",
+        "stream-resolution-1": "2560*1440 (16:9)",
+        "stream-resolution-2": "1920*1080 (16:9)",
+        "stream-resolution-3": "1280*720 (16:9)",
+        "stream-resolution-4": "640*360 (16:9)",
+        "stream-resolution-5": "2560*1920 (4:3)",
+        "stream-resolution-6": "2048*1536 (4:3)",
+        "stream-resolution-7": "1600*1200 (4:3)",
+        "stream-resolution-8": "1280*960 (4:3)",
+        "stream-resolution-9": "1024*768 (4:3)",
+        "stream-resolution-10": "640*480 (4:3)",
+        "stream-resolution-11": "320*240 (4:3)",
+        "stream-bandwidth-management-0": "最大ビットレート",
+        "stream-bandwidth-management-1": "可変ビットレート",
+        "stream-bandwidth-management-2": "固定ビットレート",
+        "quality-80": "高",
+        "quality-50": "中",
+        "quality-30": "低",
+        "bitRateRange": "{{0}} - {{1}} Kbps"
+      },
+      "resolution": "解像度",
+      "fps": "フレームレート (FPS)",
+      "modal": {
+        "apiProcessingModalTitle": "ストリーム設定の更新"
+      },
+      "codec": "コーデック",
+      "quality": "品質",
+      "bandwidth": "ビットレート制御",
+      "auto": "自動",
+      "gop": "GOP",
+      "streams": "ストリーム",
+      "title": "ストリーム",
+      "stream1": "ストリーム 01",
+      "stream2": "ストリーム 02"
+    },
+    "hdmi": {
+      "modal": {
+        "apiProcessingModalTitle": "HDMI設定を更新する",
+        "confirmUpdateBody": "HDMI設定を変更しますか？"
+      },
+      "title": "HDMI設定",
+      "hdmi": "HDMI"
+    },
+    "osd": {
+      "title": "OSD",
+      "enable": "OSDを有効にする",
+      "size": "文字サイズ",
+      "constants": {
+        "font-size-0": "小",
+        "font-size-1": "中",
+        "font-size-2": "大",
+        "osd-type-0": "時間",
+        "osd-type-1": "デバイス名",
+        "osd-type-2": "デバイス名と時間",
+        "osd-type-3": "カスタム"
+      },
+      "color": "カラー",
+      "position": "表示位置",
+      "leftTop": "左上",
+      "rightTop": "右上",
+      "leftBottom": "左下",
+      "rightBottom": "右下",
+      "positionHelper": "プレビュー画面中の青印をクリックして下さい",
+      "overlay": "テキスト",
+      "enterCustomText": ""
+    },
+    "privacyMask": {
+      "maskArea": "マスクエリア",
+      "title": "プライバシーマスク",
+      "enable": "プライバシーマスクを有効にする",
+      "maskHelper": "プレビューウィンドにマスクを追加してください",
+      "note": "説明",
+      "noteText1": "マスクを追加する",
+      "drag": "ドラッグ",
+      "noteText2": "マスクを削除する",
+      "or": "or",
+      "noteText3": "マスクは最大四ヶ所まで設定可能です"
+    },
+    "rtsp": {
+      "enableAudio": "RTSPでのオーディオ出力を有効にする",
+      "requireAuthentication": "アカウント認証を有効にする",
+      "rtspTcpPort": "RTSP/TCPポート",
+      "tcpRange": "入力範囲：1024-65535 デフォルト：8554",
+      "rtspUdpPort": "RTSP/UDPポート",
+      "udpRange": "入力範囲：1024-65535 デフォルト：17300",
+      "maxConnections": "最大同時接続クライアント数",
+      "title": "RTSP"
+    }
+  },
+  "notification": {
+    "cards": {
+      "constants": {
+        "notification-card-0": "顔認証",
+        "notification-card-1": "性別年齢推定",
+        "notification-card-2": "人体検知",
+        "notification-card-3": "動作検知",
+        "notification-card-4": "破壊アラーム",
+        "notification-card-5": "デジタル入力",
+        "face-recognition-condition-0": "すべて",
+        "face-recognition-condition-1": "成功",
+        "face-recognition-condition-2": "未登録者",
+        "face-recognition-condition-3": "なりすまし防止",
+        "notification-card-filter-all": "全て",
+        "email-attachment-type-0": "顔ショット",
+        "email-attachment-type-1": "スクリーンショット",
+        "email-attachment-type-2": "なし",
+        "email-content-position-0": "最初に置く",
+        "email-content-position-1": "最後に置く"
+      },
+      "filters": "フィルター",
+      "enableNotifyResult": "認証結果に応じて通知する",
+      "group": "グループ",
+      "everyone": "すべてのユーザー、グループ限定しない",
+      "enableSchedule": "スケジュール管理を有効にする",
+      "io": "デジタル入力および出力",
+      "output1": "デジタル出力 1",
+      "output2": "デジタル出力 2",
+      "email": "メール",
+      "emailAttachment": "添付ファイル",
+      "subject": "件名：",
+      "subjectPlaceholder": "件名を指定してください",
+      "content": "内容：",
+      "contentPlaceholder": "メッセージを追加する",
+      "contentPlacement": "内容の位置",
+      "receiver": "受信者",
+      "receiverPlaceholder": "メールアドレスを入力してください",
+      "tooltip": {
+        "disabledReceiverButton": "メールアドレスを入力してください",
+        "iconEmail": "メール: 有効",
+        "iconOutput": "出力: 有効",
+        "addNewCard": "通知カードを追加する"
+      },
+      "defaultSubjectFR": "顔認証イベント [{{0}}]",
+      "defaultSubjectMD": "動体検知イベント [{{0}}]",
+      "defaultSubjectDI": "デジタル入力イベント [{{0}}]",
+      "defaultCardTitle": "通知カード名称を入力してください",
+      "schedule": "スケジュール",
+      "rule": "ルール",
+      "method": "通知方式",
+      "analytics": "映像分析",
+      "pinned": "トップに移動する",
+      "others": "その他",
+      "toast": {
+        "limitExceededTitle": "通知カード数の上限に達しました",
+        "limitExceededBody": "カードを {{0}} 以上に追加することができません"
+      }
+    },
+    "io": {
+      "enableDigitalInput": "デジタル入力を有効にする",
+      "normalState": "一般状態",
+      "open": "常時開",
+      "closed": "常時閉",
+      "enableDigitalOutput": "デジタル出力 {{0}} を有効にする",
+      "type": "出力タイプ",
+      "normal": "一般",
+      "buffer": "バッファ",
+      "pulseTime": "パルス時間 (秒)",
+      "pulsePlaceholder": "秒数を入力してください",
+      "timeRange": "{{0}}-{{1}} 秒",
+      "delayTime": "間隔時間 (秒)",
+      "delayPlaceholder": "秒数を入力してください",
+      "title": "デジタル入力および出力",
+      "tabInput": "デジタル入力",
+      "tabOutput1": "デジタル出力 1",
+      "tabOutput2": "デジタル出力 2"
+    },
+    "smtp": {
+      "modal": {
+        "title": "SMTPサーバーログイン設定",
+        "account": "アカウント",
+        "accountPlaceholder": "アカウントを入力してください",
+        "password": "パスワード",
+        "passwordPlaceholder": "パスワードを入力してください",
+        "port": "ポート",
+        "encryption": "暗号化方式",
+        "none": "なし",
+        "ssl": "SSL",
+        "tls": "TLS"
+      },
+      "title": "メール設定",
+      "enableEmail": "メール送信を有効にします",
+      "serverAddress": "SMTPサーバーアドレス",
+      "serverAddressPlaceholder": "サーバーアドレスを入力してください",
+      "logonSettings": "SMTPサーバーログイン設定",
+      "logonSettingsHelper": "ウェブメールプロバイダーのセキュリティー性向上対策により、アプリケーションのパスワード（例：GoogleまたはYahooのメールアカウントとパスワード）が要求される場合があります。プロバイダーの指示に従ってアプリケーションのパスワードの生成と使用を行ってください。",
+      "tooltip": {
+        "disabledEditButton": "メールアドレスを設定するのは必須です"
+      },
+      "edit": "編集",
+      "enableLoginNotification": "カメラログイン通知を有効にする",
+      "senderName": "差出人情報",
+      "senderNamePlaceholder": "差出人名を入力してください",
+      "senderEmail": "メール",
+      "senderEmailPlaceholder": "差出人のメールアドレスを入力してください",
+      "interval": "通報間隔 (秒)",
+      "intervalPlaceholder": "秒数を入力してください",
+      "intervalRange": "5 - 1800 秒",
+      "toast": {
+        "emailSettingSuccess": "メールアドレス設定に成功しました"
+      }
+    }
+  },
+  "login": {
+    "error": {
+      "incorrectPassword": "パスワードが間違っています",
+      "attemptsRemaining": "リトライ可能回数は残り {{0}} 回...",
+      "loginAgain": "再度ログインする"
+    },
+    "lock": {
+      "lockText": "アカウントやパスワードの入力間違い回数は５回以上に達しました",
+      "tryAgain": "5分後再度ログインを試みてください",
+      "remaining": "ログインするため {{0}} が必要です",
+      "loginAgain": "再度ログインする"
+    },
+    "title": "アカウントログイン",
+    "username": "ユーザー名",
+    "usernamePlaceholder": "アカウントを入力してください",
+    "password": "パスワード",
+    "passwordPlaceholder": "パスワードを入力してください",
+    "login": "ログイン"
+  },
+  "home": {
+    "deviceName": "デバイス名",
     "analytics": "映像分析",
-    "network": "ネットワーク",
-    "system": "システム",
-    "sdCard": "SDカード",
-    "videoSettings": "ビデオ設定",
-    "streams": "ストリーム",
-    "rtsp": "RTSP",
-    "hdmi": "HDMI",
-    "osd": "OSD",
-    "privacyMask": "プライバシーマスク",
-    "notificationSettings": "通知設定",
-    "notificationMethod": "通知方法",
-    "email": "メール",
-    "io": "デジタル入力および出力",
-    "smartNotification": "スマート通知",
-    "members": "メンバー",
-    "accounts": "アカウント",
-    "events": "イベント",
-    "analyticsSettings": "知能分析",
-    "facialRecognition": "顔認証",
-    "motionDetection": "動作検知",
-    "license": "映像分析ライセンス",
-    "internetNetworkSettings": "インターネット/ネットワーク設定",
-    "tcpip": "TCP/IP",
-    "https": "HTTPS",
-    "administration": "管理",
-    "dateTime": "日付と時間",
-    "deviceMaintenance": "メンテナンス",
-    "softwareUpgrade": "ソフトウェアアップグレード",
-    "status": "ステータス",
-    "systemLog": "システムログ",
-    "information": "デバイス情報",
-    "newMember": "メンバーを追加する",
-    "newUser": "新規ユーザー",
-    "welcome": "ようこそ",
-    "language": "言語を選択する",
-    "setupAccount": "アカウント初期設定",
-    "login": "ログイン",
-    "loginError": "Login Error",
-    "loginLocked": "ログインがロックされました"
+    "sdcard": "SDカード",
+    "facialRecognition": "顔認証 : ",
+    "ageGender": "",
+    "humanDetection": ""
   },
   "navigation": {
     "sidebar": {
-      "videoSettings": "ビデオ設定",
-      "streams": "ストリーム",
-      "rtsp": "RTSP",
-      "hdmi": "HDMI",
-      "osd": "OSD",
-      "privacyMask": "プライバシーマスク",
-      "audio": "オーディオ設定",
-      "notificationSettings": "通知設定",
-      "notificationMethod": "通知方法",
-      "email": "メール",
-      "io": "デジタル入力および出力",
-      "inputAndOutput": "デジタル入力および出力",
-      "smartNotification": "スマート通知",
-      "members": "メンバー",
-      "accounts": "アカウント",
-      "events": "イベント",
-      "analyticsSettings": "知能分析",
-      "facialRecognition": "顔認証",
-      "motionDetection": "動作検知",
-      "license": "映像分析ライセンス",
-      "internetNetworkSettings": "インターネット/ネットワーク設定",
-      "network": "ネットワーク",
-      "tcpip": "TCP/IP",
-      "https": "HTTPS",
-      "system": "システム設定",
-      "administration": "管理",
-      "dateTime": "日付と時間",
-      "deviceMaintenance": "メンテナンス",
-      "softwareUpgrade": "ソフトウェアアップグレード",
-      "status": "ステータス",
-      "systemLog": "システムログ",
-      "information": "デバイス情報",
-      "sdCard": "SDカード",
       "tooltip": {
         "home": "ホームページ",
-        "image": "画像設定",
         "video": "映像",
         "audio": "オーディオ",
         "notification": "通知",
@@ -914,116 +624,393 @@
         "network": "ネットワーク",
         "system": "システム",
         "sdCard": "SDカード"
-      }
+      },
+      "analyticsSettings": "知能分析",
+      "license": "映像分析ライセンス",
+      "audio": "オーディオ設定",
+      "videoSettings": "ビデオ設定",
+      "hdmi": "HDMI",
+      "streams": "ストリーム",
+      "rtsp": "RTSP",
+      "osd": "OSD",
+      "privacyMask": "プライバシーマスク",
+      "members": "メンバー",
+      "accounts": "アカウント",
+      "events": "イベント",
+      "internetNetworkSettings": "インターネット/ネットワーク設定",
+      "https": "HTTPS",
+      "network": "ネットワーク",
+      "tcpip": "TCP/IP",
+      "notificationSettings": "通知設定",
+      "notificationMethod": "通知方法",
+      "inputAndOutput": "デジタル入力および出力",
+      "email": "メール",
+      "io": "デジタル入力および出力",
+      "smartNotification": "スマート通知",
+      "sdCard": "SDカード",
+      "facialRecognition": "顔認証",
+      "motionDetection": "動作検知",
+      "system": "システム設定",
+      "administration": "管理",
+      "dateTime": "日付と時間",
+      "status": "ステータス",
+      "information": "デバイス情報",
+      "deviceMaintenance": "メンテナンス",
+      "softwareUpgrade": "ソフトウェアアップグレード",
+      "systemLog": "システムログ"
     },
     "appbar": {
-      "signOut": "ログアウト",
-      "about": {
-        "about": "情報",
-        "modelName": "デバイス名",
-        "software": "ソフトウェアバージョン",
-        "serialNumber": "デバイスシリアル番号",
-        "macAddress": "MACアドレス"
-      },
       "support": {
         "support": "サポート",
         "deviceHelp": "ヘルプ",
         "technicalSupport": "テクニカルサポート",
         "productInformation": "その他の製品情報"
+      },
+      "signOut": "ログアウト",
+      "about": {
+        "modelName": "デバイス名",
+        "software": "ソフトウェアバージョン",
+        "serialNumber": "デバイスシリアル番号",
+        "macAddress": "MACアドレス",
+        "about": "情報"
       }
     }
   },
-  "common": {
-    "loading": "ロードしています",
-    "toast": {
-      "Duplicate Member Names": "名称が重複しています。別の名称をご使用ください",
-      "Login Failed": "アカウントまたはパスワードが間違っています",
-      "Empty Member Database": "間違ったデータベースファイルがインポートされています",
-      "Card Number Limit Exceeded": "通知カード数の上限に達しました",
-      "Non-existent Card": "通知カードが存在していません",
-      "Database Size Limit (3 GB) Exceeded": "メンバー保存容量の上限に達しました",
-      "Group Number Limit Exceeded": "グループ数の上限に達しました",
-      "Wrong Password for Database File": "データベースファイル解凍パスワードが間違っています",
-      "Wrong File Format": "ファイルの形式が間違っています",
-      "Corrupted Zip File": "ファイルが破損しています",
-      "Photo Limit of Member Database Exceeded": "写真数の上限に達しました",
-      "Non-existent Group": "グループが存在していません",
-      "Non-existent Member": "メンバーが存在していません",
-      "Duplicate Member Name": "メンバー名が重複しています。別の名称をご使用ください",
-      "Duplicate Card Name": "通知カード名が重複しています。別の名称をご使用ください",
-      "Software Upgrade Failed": "ソフトウェア更新失敗",
-      "Unable to Complete the Format": "SDカードのフォーマットが失敗しました",
-      "Empty SMTP Server Address": "SMTPサーバーアドレスを入力してください",
-      "Empty SMTP Account": "SMTPアカウントを入力してください",
-      "Empty SMTP Account Password": "SMTPパスワードを入力してください",
-      "Empty Sender Email": "差出人情報を入力してください",
-      "Absent or Unmounted SD Card": "SDカードが挿入されていません",
-      "Showing No Face": "写真には顔が存在していません",
-      "Poor Photo Quality": "写真の品質が足りません",
-      "Limitation of Yaw Angle is 30 Degrees": "顔の角度は上下20度や左右30度を超えています",
-      "Limitation of Pitch Angle is 20 Degrees": "顔の角度は上下20度や左右30度を超えています",
-      "More Than One Face in the Photo": "写真には顔が一個以上存在しています",
-      "Non-existent Photo": "存在しない顔ショット",
-      "Invalid Key": "無効なライセンスキー",
-      "Duplicate Key": "アクティベーションに失敗しました。ライセンスキーが重複してます",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません",
-      "DHCP Test Failed": "DHCPテストに失敗しました"
-    },
-    "volumeBar": {
-      "sdStorageStatus": "{{0}} 使用可能 (合計 {{1}})",
-      "free": "{{0}} 使用可能",
-      "used": "{{0}} 使用されています"
-    },
-    "password": {
-      "hidePassword": "パスワードを非表示する",
-      "showPassword": "パスワードを表示する",
-      "passwordHelper": "文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ /< >とスペースを使用できません",
-      "password": "パスワード",
-      "passwordPlaceholder": "パスワードを入力してください",
-      "confirmPassword": "パスワードを確認する",
-      "confirmPasswordPlaceholder": "パスワードを再度入力してください",
-      "newPassword": "新しいパスワード",
-      "newPasswordPlaceholder": "新しいパスワードを入力してください",
-      "confirmNewPassword": "新しいパスワードを確認してください",
-      "confirmNewPasswordPlaceholder": "新しいパスワードを再度入力してください"
-    },
-    "pagination": {
-      "stats": "{{0}}-{{1}}個データ、合計: {{2}}"
-    },
-    "dateTimePicker": {
-      "date": "日付",
+  "analytics": {
+    "license": {
       "time": "時間",
-      "startTime": "開始時間",
-      "endTime": "終了時間",
-      "manualDateTime": "Manual DateTime"
+      "activatedBy": "有効にした者",
+      "authenticationKey": "ライセンスキー",
+      "activatedFunctions": "有効になった機能",
+      "enableStatus": "ステータス",
+      "constants": {
+        "key-thirtyThousand": "顔認証 30k",
+        "key-threeThousand": "顔認証 3k"
+      },
+      "ageGender": "性別年齢推定",
+      "humanDetection": "人体検知",
+      "toast": {
+        "activationFailedTitle": "アクティベーションに失敗しました",
+        "keyRegisteredBody": "ライセンスキーが使われています",
+        "activationSuccessTitle": "アクティベーションが成功しました",
+        "activationSuccessBody": "{{0}} 許可されました"
+      },
+      "title": "映像分析ライセンス",
+      "keyPlaceholder": "ライセンスキーを入力してください",
+      "activate": "有効",
+      "facialRecognition": "顔認証"
     },
-    "fileHandler": {
-      "importHelper": "zipファイルのみサポートしています",
-      "selectFile": "ファイルを選択する",
-      "noFileSelected": "選択されたファイルがありません",
+    "facialRecognition": {
+      "detectionZone": "検知区域",
+      "minDetectionSize": "最小検知顔サイズ",
+      "title": "顔認証",
+      "enableFR": "顔認証を有効します",
+      "enableSpoof": "なりすまし防止機能を有効する",
       "tooltip": {
-        "disabledButton": "ファイルを選択してください"
-      }
+        "frDisabled": "顔認証を無効になっています",
+        "detectionZoneToggle": "認証区域を表示/非表示にする"
+      },
+      "modal": {
+        "spoofBody": "アルファ版の画像スプーフィングを有効にしてもよろしいですか？ アルファ版です。 画像のなりすましと判断された顔は認識されません。 今後のソフトウェアアップデートで、この機能を最適化および改善する予定です"
+      },
+      "accuracyLevel": "認証成功閾",
+      "constants": {
+        "confidence-level-0": "低",
+        "confidence-level-1": "中",
+        "confidence-level-2": "高"
+      },
+      "detectionZoneHelper": "デフォルトはフルスクリーン",
+      "enableDetectionSize": "顔検知サイズフィルターを有効します",
+      "liveViewDisplay": "ライブ画面表示",
+      "displayName": "メンバー名",
+      "displayGroup": "メンバーグループ",
+      "displayUnknown": "未登録者",
+      "displaySpoof": "なりすまし防止"
     },
-    "button": {
-      "on": "ON",
-      "off": "OFF",
-      "apply": "適用",
-      "resetDefault": "デフォルト設定へ戻る",
-      "close": "閉じる",
-      "confirm": "確認",
-      "cancel": "キャンセル",
-      "new": "追加",
-      "create": "追加",
-      "add": "追加"
+    "motionDetection": {
+      "detectionZone": "検知区域",
+      "title": "動作検知",
+      "enableMD": "動作検知を有効します",
+      "mdHelper": "プレビューウィンドに検知エリアを追加してください",
+      "sensitivity": "感度",
+      "noteArea": "説明",
+      "note1": "エリアを追加する",
+      "drag": "ドラッグ",
+      "note2": "エリアを削除する",
+      "or": "or",
+      "note3": "検知エリアは最大四ヶ所まで設定可能です"
+    }
+  },
+  "audio": {
+    "enable": "オーディオ入力を有効にする",
+    "quality": "オーディオ品質",
+    "constants": {
+      "audio-quality-0": "G.711, 8kHz, 64kbps, Mono"
     },
-    "modal": {
-      "pleaseWait": "しばらくお待ちください",
-      "sessionExpire": {
-        "sessionExpired": "自動ログアウト",
-        "expireCountdown": "セッションの有効期間が切れています、{{0}} 秒後でログイン画面にリダイレクトします",
-        "renewSession": "セッション更新"
+    "inputSource": "入力ソース",
+    "externalMicrophone": "外付けマイク",
+    "title": "オーディオ設定"
+  },
+  "demo": {
+    "userManagement": {
+      "members": {
+        "modal": {
+          "database": {
+            "successTitle": "",
+            "successBody": ""
+          },
+          "deviceSync": {
+            "modifyDeviceTitle": "",
+            "newDeviceTitle": "",
+            "hostPlaceholder": "",
+            "port": "",
+            "portPlaceholder": "",
+            "addDeviceApiProcessingModal": "",
+            "editDeviceApiProcessingModal": "",
+            "confirmDeleteTitle": "",
+            "confirmDeleteBody": "",
+            "deleteDeviceApiProcessingModal": ""
+          }
+        },
+        "databaseSettings": "",
+        "encryptionSettings": "",
+        "edit": "",
+        "exportDB": "",
+        "importDB": "",
+        "host": "",
+        "tooltip": {
+          "noDevice": "",
+          "connected": "",
+          "notConnected": ""
+        },
+        "synchronize": "",
+        "remove": "",
+        "deviceName": "",
+        "status": "",
+        "noDevice": ""
       }
     }
+  },
+  "network": {
+    "common": {
+      "modal": {
+        "redirectionBody": "下記のURLへアクセスして再度ログインしてください",
+        "redirectionSuccess": "再ダイレクト"
+      }
+    },
+    "https": {
+      "title": "HTTPS",
+      "enableHTTPS": "HTTPSサービスを有効にする",
+      "port": "ポート",
+      "portHelper": "入力範囲：1024-65535 デフォルト：8443",
+      "certificate": "署名証明書",
+      "constants": {
+        "certificate-type-0": "{{0}} 自己署名証明書"
+      },
+      "tooltip": {
+        "disabledButton": "先にHTTPS機能を有効にしてください"
+      }
+    },
+    "network": {
+      "testDHCP": "DHCPをテストする",
+      "modal": {
+        "testingSuccess": "DHCPテストに成功しました",
+        "confirmUpdateBody": "ネットワーク設定を更新してもよろしいですか？"
+      },
+      "ipAddress": "IPアドレス",
+      "dhcp": "DHCP",
+      "fixedIPAddress": "固定IPアドレス",
+      "ipAddressPlaceholder": "固定IPアドレスを入力してください",
+      "subnetMask": "サブネットマスク",
+      "subnetMaskPlaceholder": "サブネットマスクを入力してください",
+      "routerGateway": "ルーター/ゲートウェイ",
+      "routerGatewayPlaceholder": "ゲートウェイを入力してください",
+      "primaryDNS": "プライマリーDNS",
+      "primaryDNSPlaceholder": "プライマリーDNSを入力してください",
+      "secondaryDNSOptional": "セカンダリーDNS (選択)",
+      "secondaryDNSPlaceholder": "セカンダリーDNSを入力してください",
+      "tooltip": {
+        "noChanges": "変更がありません"
+      },
+      "title": "ネットワーク",
+      "ipAssignment": "IP 取得方式",
+      "macAddress": "MACアドレス",
+      "secondaryDNS": "セカンダリーDNS",
+      "ipAddressing": "IP設定",
+      "networkStatus": "ネットワークステータス"
+    },
+    "tcpip": {
+      "toast": {
+        "settingSuccessTitle": "設定が成功しました",
+        "successBody": "DDNS 設定が成功しました",
+        "settingFailed": "設定が失敗しました",
+        "failedBody": "DDNS 設定が失敗しました"
+      },
+      "enableDDNS": "DDNSサービスを有効にする",
+      "serviceProvider": "サービスプロバイダー",
+      "hostName": "ホスト名",
+      "hostNamePlaceholder": "DDNSホスト名を入力してください",
+      "account": "アカウント",
+      "accountPlaceholder": "DDNSユーザー名を入力してください",
+      "passwordPlaceholder": "DDNSパスワードを入力してください",
+      "modal": {
+        "apiProcessModalTitle": "HTTP設定を更新する"
+      },
+      "secondaryHTTPPort": "HTTPセカンダリーポート",
+      "portHelper": "入力範囲：1024-65535 デフォルト：8080",
+      "title": "TCP/IP",
+      "ddns": "DDNS",
+      "http": "HTTP"
+    }
+  },
+  "error": {
+    "internalServerError": "サーバー内部エラー",
+    "error": "Error",
+    "backToHome": "ホームページへ戻る"
+  },
+  "setup": {
+    "account": {
+      "permission": "権限",
+      "account": "アカウント",
+      "accountPlaceholder": "アカウント名を入力してください",
+      "accountHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
+      "done": "完了しました"
+    },
+    "language": {
+      "next": "次へ"
+    },
+    "progressBar": {
+      "language": "言語を選択する",
+      "setupAccount": "アカウント初期設定"
+    },
+    "welcome": {
+      "welcome": "ようこそ",
+      "welcomeText1": "よりいい使用体験のために、",
+      "welcomeText2": "[続行]をクリックして、初期設定を完了してください",
+      "continue": "続行"
+    }
+  },
+  "system": {
+    "dateTime": {
+      "modal": {
+        "apiProcessModalTitle": "日付＆時刻を更新",
+        "confirmUpdateBody": "デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります"
+      },
+      "title": "日付と時間",
+      "deviceDateTime": "デバイス時間",
+      "timeZone": "タイムゾーン",
+      "syncNTP": "ネットワークタイムサーバー (NTP)と同期する",
+      "ntpHost": "サーバーアドレス",
+      "hostPlaceholder": "Enter Your IP Address",
+      "syncTime": "時間同期",
+      "syncInterval": "更新頻度 (分)",
+      "syncWithComputer": "コンピューターと同期する",
+      "setManually": "手動設定"
+    },
+    "information": {
+      "software": "ソフトウェアバージョン",
+      "serialNumber": "S/N 碼",
+      "macAddress": "MACアドレス",
+      "title": "デバイス情報"
+    },
+    "systemLog": {
+      "title": "システムログ",
+      "systemLogFile": "システムログファイル",
+      "deleteLogs": "削除",
+      "modal": {
+        "confirmDeleteTitle": "システムログファイルを削除する",
+        "confirmDeleteBody": "システムログファイルを削除しますか？",
+        "apiProcessModalTitle": "システムログをダウンロード",
+        "downloadingBody": "ダウンロードの進行状況"
+      },
+      "download": "ダウンロード"
+    },
+    "deviceMaintenance": {
+      "importSystemSettings": "システム設定ファイルをインポートする",
+      "modal": {
+        "apiProcessModalTitleRebooting": "デバイス再起動しています",
+        "importSuccessBody": "デバイス設定をインポート完了再ログインして下さい",
+        "rebootSuccessBody": "デバイスは再起動しましたため、再度ログインしてください",
+        "confirmRebootBody": "デバイスを再起動しますか？",
+        "apiProcessModalTitleResetting": "初期化",
+        "resetSuccess": "初期化完了",
+        "resetAllSettingsSuccessBody": "クイックインストールガイドを参照して初期設定を行って下さい",
+        "resetDefaultSettingsSuccessBody": "デバイスが初期化済再ログインして下さい"
+      },
+      "exportSystemSettings": "システム設定ファイルをエクスポートする",
+      "export": "エクスポート",
+      "import": "インポート",
+      "systemReboot": "デバイスを再起動する",
+      "reboot": "再起動する",
+      "restoreDefaultSettings": "設定を初期値に戻す",
+      "restoreAllSettings": "設定を初期値に戻す",
+      "tooltip": {
+        "restoreAllSettingsHelper": "本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります"
+      },
+      "reset": "初期化",
+      "title": "メンテナンス"
+    },
+    "softwareUpgrade": {
+      "modal": {
+        "uploadingBody": "※ アップグレード中にはブラウザを閉じないでください",
+        "apiProcessModalTitleUploading": "ソフトウェアをアップロードしています",
+        "apiProcessModalTitleInstalling": "ソフトウェアをインストールしています",
+        "apiProcessModalTitleShutDown": "デバイスをシャットダウンしています",
+        "apiProcessModalTitleRestarting": "デバイスを再起動しています",
+        "upgradeSuccess": "ソフトウェアアップグレードは成功しました",
+        "upgradeSuccessBody": "{{0}} 秒後に再度ログインページへリダイレクトします",
+        "stage1": "ステージ1",
+        "uploadSoftware": "ソフトウェアのアップロード",
+        "stage2": "ステージ2",
+        "installSoftware": "ソフトウェアのインストール",
+        "stage3": "ステージ3",
+        "shutDown": "デバイスをシャットダウンする",
+        "stage4": "ステージ4",
+        "restart": "デバイスを再起動する"
+      },
+      "title": "ソフトウェアアップグレード",
+      "importFile": "設定ファイルをインポートする"
+    }
+  },
+  "documentTitle": {
+    "home": "ホームページ",
+    "videoSettings": "ビデオ設定",
+    "streams": "ストリーム",
+    "privacyMask": "プライバシーマスク",
+    "rtsp": "RTSP",
+    "hdmi": "HDMI",
+    "osd": "OSD",
+    "audio": "オーディオ",
+    "notification": "通知",
+    "email": "メール",
+    "io": "デジタル入力および出力",
+    "smartNotification": "スマート通知",
+    "analyticsSettings": "知能分析",
+    "facialRecognition": "顔認証",
+    "motionDetection": "動作検知",
+    "license": "映像分析ライセンス",
+    "userManagement": "ユーザー管理",
+    "members": "メンバー",
+    "newMember": "メンバーを追加する",
+    "accounts": "アカウント",
+    "newUser": "新規ユーザー",
+    "events": "イベント",
+    "network": "ネットワーク",
+    "internetNetworkSettings": "インターネット/ネットワーク設定",
+    "tcpip": "TCP/IP",
+    "https": "HTTPS",
+    "system": "システム",
+    "dateTime": "日付と時間",
+    "softwareUpgrade": "ソフトウェアアップグレード",
+    "deviceMaintenance": "メンテナンス",
+    "sdCard": "SDカード",
+    "systemLog": "システムログ",
+    "information": "デバイス情報",
+    "welcome": "ようこそ",
+    "language": "言語を選択する",
+    "setupAccount": "アカウント初期設定",
+    "login": "ログイン",
+    "loginError": "Login Error",
+    "loginLocked": "ログインがロックされました"
   }
 }

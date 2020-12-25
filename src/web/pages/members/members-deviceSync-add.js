@@ -138,9 +138,9 @@ const DeviceSyncAddDevice = ({device, isShowDeviceModal, hideDeviceModal}) => {
         modalType="process"
         backdrop="static"
         isShowModal={isShowApiProcessModal}
-        modalTitle={i18n.t(device ?
-          'demo.userManagement.members.modal.deviceSync.addDeviceApiProcessingModal' :
-          'demo.userManagement.members.modal.deviceSync.editDeviceApiProcessingModal')}
+        modalTitle={device ?
+          i18n.t('demo.userManagement.members.modal.deviceSync.addDeviceApiProcessingModal') :
+          i18n.t('demo.userManagement.members.modal.deviceSync.editDeviceApiProcessingModal')}
         onHide={hideApiProcessModal}
       />
     </>

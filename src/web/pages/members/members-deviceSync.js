@@ -13,7 +13,7 @@ import Pagination from '../../../core/components/pagination';
 import classNames from 'classnames';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 
-const DeviceSync = ({deviceSync}) => {
+const DeviceSync = ({deviceSync: {devices, sync}}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [device, setDevice] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
@@ -23,10 +23,17 @@ const DeviceSync = ({deviceSync}) => {
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const selectAllRef = useRef();
   const formRef = useRef();
-  const deviceList = getPaginatedData(deviceSync.map(device => ({
-    ...device,
-    isChecked: false
-  })), 5);
+
+  const generatePaginatedDeviceList = devices => {
+    return getPaginatedData(devices.map(device => ({
+      ...device,
+      isChecked: false
+    })), 5);
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const [deviceList, setDeviceList] = useState(generatePaginatedDeviceList(devices));
+
   const showDeviceModal = () => setIsShowDeviceModal(true);
 
   const showConfirmModal = () => setIsShowConfirmModal(true);
@@ -82,10 +89,12 @@ const DeviceSync = ({deviceSync}) => {
     setIsShowDeviceModal(true);
   };
 
-  const sync = values => {
+  const syncDB = values => {
     const checked = values.flat().filter(device => device.isChecked);
     // Sync api
     console.log(JSON.stringify(checked, null, 2));
+    getRouter().reload();
+    api.member.syncDB({sync: sync ? 0 : 1});
   };
 
   /**
@@ -125,7 +134,7 @@ const DeviceSync = ({deviceSync}) => {
    * @returns {void}
    */
   const onChangeCardForm = ({nextValues}) => {
-    if (deviceSync.length) {
+    if (devices.length) {
       selectAllCheckboxState(nextValues);
     }
   };
@@ -158,7 +167,7 @@ const DeviceSync = ({deviceSync}) => {
       <Formik
         innerRef={formRef}
         initialValues={deviceList}
-        onSubmit={sync}
+        onSubmit={syncDB}
       >
         {form => {
           const disableButton = !form.values.flat().some(device => device.isChecked);
@@ -166,19 +175,29 @@ const DeviceSync = ({deviceSync}) => {
             <Form className="card-body">
               <FormikEffect onChange={onChangeCardForm}/>
               <div className="col-12 d-inline-flex justify-content-between">
-                <CustomTooltip placement="auto" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
-                  <div>
-                    <button
-                      className="btn btn-primary rounded-pill"
-                      type="submit"
-                      disabled={disableButton}
-                      style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                    >
-                      <i className="fas fa-exchange-alt fa-fw mr-2"/>
-                      {i18n.t('demo.userManagement.members.synchronize')}
-                    </button>
-                  </div>
-                </CustomTooltip>
+
+                {sync ? (
+                  <button
+                    className="btn btn-primary rounded-pill"
+                    type="submit"
+                  >
+                    <i className="fas fa-exchange-alt fa-fw mr-2"/>syncing
+                  </button>
+                ) : (
+                  <CustomTooltip placement="auto" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
+                    <div>
+                      <button
+                        className="btn btn-primary rounded-pill"
+                        type="submit"
+                        disabled={disableButton}
+                        style={{pointerEvents: disableButton ? 'none' : 'auto'}}
+                      >
+                        <i className="fas fa-exchange-alt fa-fw mr-2"/>
+                        {i18n.t('demo.userManagement.members.synchronize')}
+                      </button>
+                    </div>
+                  </CustomTooltip>
+                )}
                 <div className="d-inline-flex">
                   <CustomTooltip placement="top" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
                     <div className="ml-3">
@@ -227,15 +246,15 @@ const DeviceSync = ({deviceSync}) => {
                         />
                         <label htmlFor="selectAll"/>
                       </th>
-                      <th style={{width: '25%'}}>{i18n.t('demo.userManagement.members.host')}</th>
-                      <th style={{width: '30%'}}>{i18n.t('demo.userManagement.members.deviceName')}</th>
-                      <th style={{width: '20%'}}>{i18n.t('demo.userManagement.members.status')}</th>
+                      <th style={{width: '15%'}}>{i18n.t('demo.userManagement.members.host')}</th>
+                      <th style={{width: '35%'}}>{i18n.t('demo.userManagement.members.deviceName')}</th>
+                      <th style={{width: '25%'}}>{i18n.t('demo.userManagement.members.status')}</th>
                       <th style={{width: '15%'}}>{i18n.t('userManagement.members.actions')}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {
-                      deviceSync.length ? (
+                      devices.length ? (
                         deviceList[page] && deviceList[page].map((device, index) => {
                           return (
                             <tr
@@ -265,7 +284,23 @@ const DeviceSync = ({deviceSync}) => {
                                 </CustomTooltip>
                               </td>
                               <td>
-                                <div/>
+                                <div>
+                                  { device.lastUpdateTime ? (
+                                    <CustomTooltip placement="top-start" title={`${new Date(device.lastUpdateTime)}`}>
+                                      <span>{`${new Date(device.lastUpdateTime)}`}</span>
+                                    </CustomTooltip>
+                                  ) : (
+                                    device.connectionStatus ? (
+                                      <CustomTooltip title={i18n.t('demo.userManagement.members.tooltip.connected')}>
+                                        <i className="fas fa-link fa-fw"/>
+                                      </CustomTooltip>
+                                    ) : (
+                                      <CustomTooltip title={i18n.t('demo.userManagement.members.tooltip.notConnected')}>
+                                        <i className="fas fa-unlink fa-fw"/>
+                                      </CustomTooltip>
+                                    )
+                                  )}
+                                </div>
                               </td>
                               <td className="text-left group-btn">
                                 <button
@@ -335,7 +370,12 @@ const DeviceSync = ({deviceSync}) => {
   );
 };
 
-DeviceSync.propTypes = {deviceSync: PropTypes.array.isRequired};
+DeviceSync.propTypes = {
+  deviceSync: PropTypes.shape({
+    devices: PropTypes.array.isRequired,
+    sync: PropTypes.number.isRequired
+  }).isRequired
+};
 
 export default DeviceSync;
 
