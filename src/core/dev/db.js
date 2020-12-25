@@ -531,15 +531,18 @@ module.exports = {
       }],
       groups: memberGroups,
       members,
-      deviceSync: Array.from({length: 20}, (_, i) => (
-        {
-          id: uuidv4(),
-          ip: `192.168.0.${i + 1}`,
-          port: '8080',
-          deviceName: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
-          account: 'admin'
-        }
-      )),
+      deviceSync: {
+        devices: Array.from({length: 20}, (_, i) => (
+          {
+            id: uuidv4(),
+            ip: `192.168.0.${i + 1}`,
+            port: '8080',
+            deviceName: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
+            account: 'admin'
+          }
+        )),
+        sync: 0
+      },
       faceEvents: [
         {
           id: uuidv4(),

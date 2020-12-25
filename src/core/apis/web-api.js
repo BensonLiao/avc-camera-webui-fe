@@ -1423,6 +1423,11 @@ module.exports = {
       method: 'delete',
       url: '/api/members/device-sync',
       data: id
+    }),
+    syncDB: ({sync}) => api({
+      method: 'post',
+      url: '/api/members/sync-db',
+      data: {sync}
     })
   },
   multimedia: {
