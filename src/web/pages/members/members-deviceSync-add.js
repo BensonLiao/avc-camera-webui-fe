@@ -48,8 +48,8 @@ const DeviceSyncAddDevice = ({device, isShowDeviceModal, hideDeviceModal}) => {
         <Modal.Header className="d-flex justify-content-between align-items-center">
           <Modal.Title as="h5">
             {device ?
-              i18n.t('demo.userManagement.members.modal.deviceSync.modifyDeviceTitle') :
-              i18n.t('demo.userManagement.members.modal.deviceSync.newDeviceTitle')}
+              i18n.t('userManagement.members.modal.deviceSync.modifyDeviceTitle') :
+              i18n.t('userManagement.members.modal.deviceSync.newDeviceTitle')}
           </Modal.Title>
         </Modal.Header>
         <Formik
@@ -67,21 +67,21 @@ const DeviceSyncAddDevice = ({device, isShowDeviceModal, hideDeviceModal}) => {
               <div className="modal-body">
                 <div className="row">
                   <div className="form-group col-8">
-                    <label>{i18n.t('demo.userManagement.members.host')}</label>
+                    <label>{i18n.t('userManagement.members.host')}</label>
                     <Field
                       name="ip"
                       type="text"
-                      placeholder={i18n.t('demo.userManagement.members.modal.deviceSync.hostPlaceholder')}
+                      placeholder={i18n.t('userManagement.members.modal.deviceSync.hostPlaceholder')}
                       className={classNames('form-control', {'is-invalid': errors.ip && touched.ip})}
                     />
                     <ErrorMessage component="div" name="ip" className="invalid-feedback"/>
                   </div>
                   <div className="form-group col-4">
-                    <label>{i18n.t('demo.userManagement.members.modal.deviceSync.port')}</label>
+                    <label>{i18n.t('userManagement.members.modal.deviceSync.port')}</label>
                     <Field
                       name="port"
                       type="text"
-                      placeholder={i18n.t('demo.userManagement.members.modal.deviceSync.portPlaceholder')}
+                      placeholder={i18n.t('userManagement.members.modal.deviceSync.portPlaceholder')}
                       className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
                     />
                     <ErrorMessage component="div" name="port" className="invalid-feedback"/>
@@ -139,8 +139,8 @@ const DeviceSyncAddDevice = ({device, isShowDeviceModal, hideDeviceModal}) => {
         backdrop="static"
         isShowModal={isShowApiProcessModal}
         modalTitle={device ?
-          i18n.t('demo.userManagement.members.modal.deviceSync.addDeviceApiProcessingModal') :
-          i18n.t('demo.userManagement.members.modal.deviceSync.editDeviceApiProcessingModal')}
+          i18n.t('userManagement.members.modal.deviceSync.addDeviceApiProcessingModal') :
+          i18n.t('userManagement.members.modal.deviceSync.editDeviceApiProcessingModal')}
         onHide={hideApiProcessModal}
       />
     </>

@@ -134,7 +134,21 @@
         "database": {
           "exportApiProcessModalTitle": "Exportar base de datos de Usuarios",
           "importApiProcessModalTitle": "Importar base de datos de Usuarios",
+          "successTitle": "",
+          "successBody": "",
           "title": "Cifrado de base de datos"
+        },
+        "deviceSync": {
+          "modifyDeviceTitle": "",
+          "newDeviceTitle": "",
+          "hostPlaceholder": "",
+          "port": "",
+          "portPlaceholder": "",
+          "addDeviceApiProcessingModal": "",
+          "editDeviceApiProcessingModal": "",
+          "confirmDeleteTitle": "",
+          "confirmDeleteBody": "",
+          "deleteDeviceApiProcessingModal": ""
         }
       },
       "name": "nombre",
@@ -144,18 +158,32 @@
       "notePlaceholder": "Ingrese nota",
       "noteHelper": "Extension máxima: 256 caracteres",
       "delete": "Borrar",
+      "databaseSettings": "",
+      "encryptionSettings": "",
+      "edit": "",
+      "exportDB": "",
       "export": "Exportar",
+      "importDB": "",
       "import": "Importar",
-      "actions": "Operar",
-      "searchPlaceholder": "Ingrese palabras claves",
-      "search": "buscar",
+      "host": "",
       "tooltip": {
+        "noDevice": "",
+        "connected": "",
+        "notConnected": "",
         "editGroupWithName": "Editar grupo: {{0}}",
         "deleteGroupWithName": "Borrar grupo: {{0}}",
         "editMemberWithName": "Editar miembro: {{0}}",
         "deleteMemberWithName": "Borrar miembro: {{0}}",
         "photoLimitExceeded": "Límite de cantidad alcanzado"
       },
+      "synchronize": "",
+      "remove": "",
+      "deviceName": "",
+      "status": "",
+      "actions": "Operar",
+      "noDevice": "",
+      "searchPlaceholder": "Ingrese palabras claves",
+      "search": "buscar",
       "title": "miembro",
       "allMembers": "Lista de Verificación",
       "groups": "Grupo",
@@ -750,46 +778,6 @@
     "inputSource": "Fuente de entrada",
     "externalMicrophone": "Micrófono externo",
     "title": "Audio"
-  },
-  "demo": {
-    "userManagement": {
-      "members": {
-        "modal": {
-          "database": {
-            "successTitle": "",
-            "successBody": ""
-          },
-          "deviceSync": {
-            "modifyDeviceTitle": "",
-            "newDeviceTitle": "",
-            "hostPlaceholder": "",
-            "port": "",
-            "portPlaceholder": "",
-            "addDeviceApiProcessingModal": "",
-            "editDeviceApiProcessingModal": "",
-            "confirmDeleteTitle": "",
-            "confirmDeleteBody": "",
-            "deleteDeviceApiProcessingModal": ""
-          }
-        },
-        "databaseSettings": "",
-        "encryptionSettings": "",
-        "edit": "",
-        "exportDB": "",
-        "importDB": "",
-        "host": "",
-        "tooltip": {
-          "noDevice": "",
-          "connected": "",
-          "notConnected": ""
-        },
-        "synchronize": "",
-        "remove": "",
-        "deviceName": "",
-        "status": "",
-        "noDevice": ""
-      }
-    }
   },
   "network": {
     "common": {

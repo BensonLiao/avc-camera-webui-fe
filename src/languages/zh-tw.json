@@ -134,7 +134,21 @@
         "database": {
           "exportApiProcessModalTitle": "匯出成員資料庫",
           "importApiProcessModalTitle": "匯入成員資料庫",
+          "successTitle": "",
+          "successBody": "",
           "title": "資料庫加密"
+        },
+        "deviceSync": {
+          "modifyDeviceTitle": "",
+          "newDeviceTitle": "",
+          "hostPlaceholder": "",
+          "port": "",
+          "portPlaceholder": "",
+          "addDeviceApiProcessingModal": "",
+          "editDeviceApiProcessingModal": "",
+          "confirmDeleteTitle": "",
+          "confirmDeleteBody": "",
+          "deleteDeviceApiProcessingModal": ""
         }
       },
       "name": "名稱",
@@ -144,18 +158,32 @@
       "notePlaceholder": "輸入備註",
       "noteHelper": "最多256個字",
       "delete": "刪除",
+      "databaseSettings": "",
+      "encryptionSettings": "",
+      "edit": "",
+      "exportDB": "",
       "export": "匯出",
+      "importDB": "",
       "import": "匯入",
-      "actions": "操作",
-      "searchPlaceholder": "輸入關鍵字",
-      "search": "搜尋",
+      "host": "",
       "tooltip": {
+        "noDevice": "",
+        "connected": "",
+        "notConnected": "",
         "editGroupWithName": "編輯群組: {{0}}",
         "deleteGroupWithName": "刪除群組: {{0}}",
         "editMemberWithName": "編輯成員: {{0}}",
         "deleteMemberWithName": "刪除成員: {{0}}",
         "photoLimitExceeded": "已達數量限制"
       },
+      "synchronize": "",
+      "remove": "",
+      "deviceName": "",
+      "status": "",
+      "actions": "操作",
+      "noDevice": "",
+      "searchPlaceholder": "輸入關鍵字",
+      "search": "搜尋",
       "title": "成員",
       "allMembers": "清單",
       "groups": "群組",
@@ -750,46 +778,6 @@
     "inputSource": "輸入來源",
     "externalMicrophone": "外接麥克風",
     "title": "聲音"
-  },
-  "demo": {
-    "userManagement": {
-      "members": {
-        "modal": {
-          "database": {
-            "successTitle": "",
-            "successBody": ""
-          },
-          "deviceSync": {
-            "modifyDeviceTitle": "",
-            "newDeviceTitle": "",
-            "hostPlaceholder": "",
-            "port": "",
-            "portPlaceholder": "",
-            "addDeviceApiProcessingModal": "",
-            "editDeviceApiProcessingModal": "",
-            "confirmDeleteTitle": "",
-            "confirmDeleteBody": "",
-            "deleteDeviceApiProcessingModal": ""
-          }
-        },
-        "databaseSettings": "",
-        "encryptionSettings": "",
-        "edit": "",
-        "exportDB": "",
-        "importDB": "",
-        "host": "",
-        "tooltip": {
-          "noDevice": "",
-          "connected": "",
-          "notConnected": ""
-        },
-        "synchronize": "",
-        "remove": "",
-        "deviceName": "",
-        "status": "",
-        "noDevice": ""
-      }
-    }
   },
   "network": {
     "common": {
