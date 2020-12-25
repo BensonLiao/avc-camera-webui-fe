@@ -1,62 +1,232 @@
 {
-  "setup": {
-    "welcome": {
-      "welcome": "Bienvenido",
-      "welcomeText1": "Para que tengas una mejor experiencia",
-      "welcomeText2": "presione continuar para iniciar la configuración inicial",
-      "continue": "Continuar"
+  "common": {
+    "modal": {
+      "pleaseWait": "Por favor espera",
+      "sessionExpire": {
+        "sessionExpired": "Cerrar sesión automáticamente",
+        "expireCountdown": "El tiemppo de inactividad es demasiado largo, se cerrará la sesión en {{0}} segundos y se le redirigirá a la página de inicio.",
+        "renewSession": "Renovar Sesión"
+      }
     },
-    "language": {
-      "next": "Próximo"
+    "button": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "close": "Cerrar",
+      "add": "Añadir",
+      "on": "ON",
+      "off": "OFF",
+      "resetDefault": "Restaurar a lo preajuste",
+      "apply": "Aplicar",
+      "new": "Nuevo"
     },
-    "account": {
+    "password": {
+      "hidePassword": "Ocultar contraseña",
+      "showPassword": "mostrar contraseña",
+      "password": "Contraseña",
+      "newPassword": "nueva contraseña",
+      "newPasswordPlaceholder": "Introduzca una nueva contraseña",
+      "passwordHelper": "8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
+      "confirmNewPassword": "Confirmar Nueva Contraseña",
+      "confirmNewPasswordPlaceholder": "Ingrese la nueva contraseña nuevamente",
+      "passwordPlaceholder": "introducir la contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "confirmPasswordPlaceholder": "Ingrese la contraseña nuevamente"
+    },
+    "loading": "Cargando",
+    "pagination": {
+      "stats": "{{0}}-{{1}} registros. Total: {{2}}"
+    },
+    "volumeBar": {
+      "sdStorageStatus": "{{0}} disponible total {{1}}",
+      "used": "{{0}} se ha utilizado",
+      "free": "{{0}} está disponible"
+    },
+    "toast": {
+      "Duplicate Member Names": "Nombre duplicado, utilice un nombre diferente",
+      "Login Failed": "cuenta o contraseña incorrecta",
+      "Empty Member Database": "Importar el archivo de base de datos incorrecto",
+      "Unable to reset a forgotten password": "",
+      "Unable to reset a password": "",
+      "Card Number Limit Exceeded": "Límite de número de tarjetas excedido",
+      "Non-existent Card": "Tarjeta inexistente",
+      "Database Size Limit (3 GB) Exceeded": "Alcanzó el límite de almacenamiento",
+      "Invalid Member Photo": "",
+      "Unable to Process the Request (invalid token)": "",
+      "Group Number Limit Exceeded": "Límite de grupo alcanzado",
+      "Incorrect Password": "",
+      "Wrong Password for Database File": "Corrupción de archivos",
+      "Wrong File Format": "Error de formato de archivo",
+      "Corrupted Zip File": "Corrupción de archivos",
+      "Photo Limit of Member Database Exceeded": "Límite de cantidad alcanzado",
+      "Photo Size Limit Exceeded": "",
+      "Invalid or Absent Photo": "",
+      "Non-existent Group": "El grupo de miembros no existe",
+      "Non-existent Member": "El grupo de miembros no existe",
+      "Maximum Field Length Exceeded": "",
+      "Duplicate Member Name": "Nombre duplicado, utilice un nombre diferente",
+      "Duplicate Card Name": "Nombre duplicado, utilice un nombre diferente",
+      "VMS Reserved Port": "",
+      "Software Upgrade Failed": "Error en la actualización de software",
+      "Unable to Complete the Format": "Error al formatear la tarjeta de memoria",
+      "Empty SMTP Server Address": "Dirección de servidor SMTP vacía",
+      "Empty SMTP Account": "Debe ingresar cuenta y contraseña",
+      "Empty SMTP Account Password": "Debe ingresar cuenta y contraseña",
+      "Empty Sender Email": "Debe ingresar la información del remitente",
+      "Outgoing Email being Disabled": "",
+      "Absent or Unmounted SD Card": "La tarjeta de memoria es anormal y no puede funcionar normalmente",
+      "Maximum Photo Number Exceeded": "",
+      "Showing No Face": "No hay rostro en la foto",
+      "Poor Photo Quality": "Mala calidad de la foto",
+      "Limitation of Yaw Angle is 30 Degrees": "El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha",
+      "Limitation of Pitch Angle is 20 Degrees": "El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha",
+      "More Than One Face in the Photo": "Más de 1 rostro en la foto",
+      "Non-existent Photo": "Miniatura de Cara inexistente",
+      "Invalid Key": "Activación fallida, código de activación incorrecto",
+      "Duplicate Key": "Activación fallida, código de activación repetido",
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros"
+    },
+    "dateTimePicker": {
+      "date": "fecha",
+      "time": "hora",
+      "startTime": "Hora de inicio",
+      "endTime": "Hora de fin",
+      "manualDateTime": "Manual DateTime"
+    }
+  },
+  "userManagement": {
+    "members": {
+      "modal": {
+        "member": {
+          "primary": "Foto principal",
+          "photo1": "Foto 1",
+          "photo2": "Foto 2",
+          "photo3": "Foto 3",
+          "photo4": "Foto 4",
+          "errorPhotoSizeLimit": "El tamaño de la foto no puede superar los 90KB",
+          "errorNoPhoto": "Una foto es requirida",
+          "namePlaceholder": "Ingrese el nombre del miembro",
+          "organizationPlaceholder": "Ingrese el nombre de la organización",
+          "organizationHelper": "Extension máxima: 32 caracteres",
+          "n/a": "ninguno",
+          "confirmCloseBody": "Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?",
+          "photoEditor": "editar",
+          "photoHelper": "Arraste para ajustar las fotos",
+          "changePhoto": "Cambiar foto",
+          "save": "Salvar",
+          "confirmDeleteTitle": "Borrar miembro",
+          "confirmDeleteBody": "¿Está seguro de que desea borrar el usuario {{0}} ?"
+        },
+        "group": {
+          "namePlaceholder": "Ingrese el nombre del grupo",
+          "nameHelper": "Extension máxima: 32 caracteres",
+          "groupLimitExceeded": "",
+          "confirmDeleteTitle": "Borrar grupo",
+          "confirmDeleteBody": "¿Está seguro de que desea borrar el grupo {{0}} ?"
+        },
+        "database": {
+          "exportApiProcessModalTitle": "Exportar base de datos de Usuarios",
+          "importApiProcessModalTitle": "Importar base de datos de Usuarios",
+          "title": "Cifrado de base de datos"
+        }
+      },
+      "name": "nombre",
+      "organization": "organización",
+      "group": "Grupo",
+      "note": "Observaciones",
+      "notePlaceholder": "Ingrese nota",
+      "noteHelper": "Extension máxima: 256 caracteres",
+      "delete": "Borrar",
+      "searchPlaceholder": "Ingrese palabras claves",
+      "search": "buscar",
+      "tooltip": {
+        "editGroupWithName": "Editar grupo: {{0}}",
+        "encryptionSettings": "Configuración de cifrado",
+        "deleteGroupWithName": "Borrar grupo: {{0}}",
+        "editMemberWithName": "Editar miembro: {{0}}",
+        "deleteMemberWithName": "Borrar miembro: {{0}}",
+        "photoLimitExceeded": "Límite de cantidad alcanzado"
+      },
+      "database": "Base de Datos",
+      "export": "Exportar",
+      "import": "Importar",
+      "title": "miembro",
+      "allMembers": "Lista de Verificación",
+      "groups": "Grupo",
+      "userPicture": "Registrar foto",
+      "actions": "Operar",
+      "noData": "Ningún dato encontrado, por favor revise de nuevo!",
+      "addNewMember": "Añadir miembro",
+      "addMemberFromEvent": "Agregar de evento"
+    },
+    "events": {
+      "toast": {
+        "settingSuccessTitle": "Configuración Exitosa",
+        "settingSuccessBody": "¡Se agregaron fotos a {{0}} correctamente!"
+      },
+      "addExistingMember": "Agregar a Usuario Existente",
+      "searchPlaceholder": "Ingrese palabras claves",
+      "search": "buscar",
+      "userPicture": "Registrar foto",
+      "name": "nombre",
+      "actions": "Operar",
+      "modal": {
+        "initialMessage": "Ingrese palabras clave en el campo de entrada para buscar usuarios.",
+        "verifyingPhoto": "Verificación de fotos",
+        "apiProcessingModalTitle": "Actualización de Usuario"
+      },
+      "noData": "Ningún dato encontrado, por favor revise de nuevo!",
+      "tooltip": {
+        "photoLimitExceeded": "Límite de cantidad alcanzado",
+        "addWithName": "Agregar a {{0}}",
+        "Invalid Photo": ""
+      },
+      "constants": {
+        "confidence-0": "bajo",
+        "confidence-1": "medio",
+        "confidence-2": "alto",
+        "enroll-status-0": "Camuflaje de imagen",
+        "enroll-status-1": "desconocido",
+        "enroll-status-2": "Registrado"
+      },
+      "similarity": "Similaridad",
+      "status": "resultado",
+      "title": "eventos",
+      "filters": "Filtros",
+      "clear": "Borrar",
+      "facialRecognition": "Reconocimiento facial",
+      "FacialRecognition": "",
+      "activationRequired": "no está activada",
+      "ageGender": "Género y edad",
+      "humanDetection": "Detección humanoide",
+      "time": "hora",
+      "capture": "Captura",
+      "group": "Grupo",
+      "organization": "organización",
+      "note": "Observaciones",
+      "addNewMember": "Añadir miembro",
+      "total": "Datos"
+    },
+    "accounts": {
+      "constants": {
+        "permission-0": "administrador",
+        "permission-1": "Invitado",
+        "permission-2": "Invitado"
+      },
       "permission": "Permiso",
-      "account": "Cuenta",
-      "accountPlaceholder": "Ingrese el nombre de la cuenta",
-      "accountHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
-      "done": "terminado"
-    },
-    "progressBar": {
-      "language": "Elija un idioma",
-      "setupAccount": "número de cuenta"
+      "username": "Nombre",
+      "modal": {
+        "usernamePlaceholder": "Ingrese el nombre de la cuenta",
+        "usernameHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
+        "confirmDeleteTitle": "Borrar cuenta",
+        "confirmDeleteBody": "¿Está seguro de que desea borrar la cuenta {{0}} ?"
+      },
+      "title": "cuentas",
+      "allAccounts": "Lista de cuentas",
+      "actions": "Operar",
+      "tooltip": {
+        "deleteAccountError1": "No se puede borrar la cuenta en uso"
+      }
     }
-  },
-  "login": {
-    "title": "Cuenta de Ingreso",
-    "username": "Nombre",
-    "usernamePlaceholder": "Por favor ingrese su número de cuenta",
-    "password": "Contraseña",
-    "passwordPlaceholder": "Por favor ingrese su contraseña",
-    "login": "Registrarse",
-    "lock": {
-      "lockText": "Contraseña de cuenta de inicio de sesión incorrecta por más de 5 veces",
-      "tryAgain": "Intente iniciar la sesión nuevamente en 5 minutos",
-      "loginLocked": "El inicio de sesión está bloqueado",
-      "forgotPassword": "Forgot password?",
-      "remaining": "Iniciar sesión nuevamente en {{0}}",
-      "loginAgain": "ingresar de nuevo"
-    },
-    "error": {
-      "incorrectPassword": "Contraseña incorrecta",
-      "attemptsRemaining": "Aún puedes intentarlo {{0}} veces...",
-      "loginAgain": "ingresar de nuevo",
-      "expires1": "Expira en 10 minutos",
-      "expires2": "Expira en 30 minutos",
-      "expires3": "Expira en 1 hora",
-      "expires4": "Expira en 12 horas"
-    }
-  },
-  "home": {
-    "deviceName": "Nombre del dispositivo",
-    "Device Status": "Estado del dispositivo",
-    "authenticationRequired": "No esta activado",
-    "analytics": "Análisis",
-    "sdcard": "Tarjeta de memoria",
-    "facialRecognition": "Reconocimiento facial: ",
-    "ageGender: ": "Género y edad: ",
-    "humanDetection: ": "Detección humanoide: ",
-    "on": "Habilitar",
-    "off": "cerrar"
   },
   "videoSetting": {
     "title": "imagen",
@@ -67,32 +237,14 @@
     "sharpness": "Nitidez",
     "saturation": "Saturación",
     "lensControl": "Lente",
-    "selectFocusType": "Seleccionar método de enfoque",
     "fullRangeFocus": "Enfoque de rango completo",
     "shortRangeFocus": "Enfoque a corto rango",
+    "selectFocusType": "Seleccionar método de enfoque",
     "focus": "Encofar",
     "zoom": "Zoom",
     "autoFocusAfterZoom": "Enfoque automático al hacer zoom",
     "iris": "Iris",
-    "shutterSpeed": "Velocidad de obturación",
-    "advanced": "Avanzado",
-    "whiteBalance": "Balance de blancos",
-    "colorTemperature": "Temperatura del color",
-    "iRControl": "Luz infrarroja",
-    "level": "Nivel",
-    "dayNight": "Modo día/noche",
-    "sensitivity": "Sensibilidad",
-    "dayMode": "Modo día",
-    "rotation": "Dirección de la imagen",
-    "defog": "Desempañar",
-    "lightingCompensation": "Frecuencia de actualización",
     "constants": {
-      "ir-control-0": "automático",
-      "ir-control-1": "Habilitar",
-      "ir-control-2": "cerrar",
-      "on": "Habilitar",
-      "off": "cerrar",
-      "max": "máximo",
       "aperture-0": "automático",
       "aperture-1": "máximo",
       "shutter-speed-0": "automático",
@@ -111,6 +263,9 @@
       "white-balance-2": "Lámpara fluorescente",
       "white-balance-3": "Lampara incandescente",
       "white-balance-4": "Ajuste manual",
+      "ir-control-0": "automático",
+      "ir-control-1": "Habilitar",
+      "ir-control-2": "cerrar",
       "daynight-mode-0": "automático",
       "daynight-mode-1": "color",
       "daynight-mode-2": "blanco y negro",
@@ -119,637 +274,26 @@
       "orientation-1": "Volteo vertical",
       "orientation-2": "volteo horizontal",
       "orientation-3": "Giro de 180 grados",
+      "on": "Habilitar",
+      "off": "cerrar",
       "refresh-rate-0": "automático",
       "refresh-rate-1": "50Hz",
       "refresh-rate-2": "60Hz"
-    }
-  },
-  "video": {
-    "stream": {
-      "title": "Stream",
-      "streams": "Stream",
-      "stream1": "Stream 01",
-      "stream2": "Stream 02",
-      "codec": "Codificación de imágenes",
-      "resolution": "Resolución",
-      "fps": "Cuadros por segundo",
-      "bandwidth": "Gestión de la tasa de bits",
-      "quality": "Calidad",
-      "auto": "automático",
-      "gop": "GOP",
-      "modal": {
-        "apiProcessingModalTitle": "Actualización de la configuración de Stream",
-        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de Stream?",
-        "confirmRatioChangeBody": " Si cambia la relación de aspecto de la resolución de la Stream 1, también se cambiará la configuración de la Stream 2. ¿Confirmar para continuar?"
-      },
-      "constants": {
-        "stream-resolution-0": "3840*2160 (16:9)",
-        "stream-resolution-1": "2560*1440 (16:9)",
-        "stream-resolution-2": "1920*1080 (16:9)",
-        "stream-resolution-3": "1280*720 (16:9)",
-        "stream-resolution-4": "640*360 (16:9)",
-        "stream-resolution-5": "2560*1920 (4:3)",
-        "stream-resolution-6": "2048*1536 (4:3)",
-        "stream-resolution-7": "1600*1200 (4:3)",
-        "stream-resolution-8": "1280*960 (4:3)",
-        "stream-resolution-9": "1024*768 (4:3)",
-        "stream-resolution-10": "640*480 (4:3)",
-        "stream-resolution-11": "320*240 (4:3)",
-        "stream-bandwidth-management-0": "Tasa de bits máxima",
-        "stream-bandwidth-management-1": "Tasa de bits variable",
-        "stream-bandwidth-management-2": "Tasa de bits fija",
-        "quality-30": "bajo",
-        "quality-50": "medio",
-        "quality-80": "alto",
-        "bitRateRange": "{{0}} - {{1}} Kbps"
-      }
     },
-    "rtsp": {
-      "title": "RTSP",
-      "enableAudio": "Habilitar grabación de audio para Stream",
-      "requireAuthentication": "Habilitar autenticación de contraseña de la cuenta",
-      "rtspTcpPort": "Puerto RTSP/TCP",
-      "rtspUdpPort": "Puerto RTSP/UDP",
-      "tcpRange": "Rango: 1024-65535, preestablecido: 8554",
-      "udpRange": "Rango: 1024-65535, preestablecido: 17300",
-      "maxConnections": "Número máximo de conexiones simultáneas"
-    },
-    "hdmi": {
-      "title": "HDMI",
-      "hdmi": "HDMI",
-      "fps": "Cuadros por segundo",
-      "modal": {
-        "apiProcessingModalTitle": "Actualizar la configuración de HDMI",
-        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de HDMI?"
-      }
-    },
-    "osd": {
-      "title": "Mapa de texto",
-      "enable": "Habilitar mapa de texto",
-      "size": "tamaño de fuente",
-      "color": "color",
-      "position": "posición",
-      "positionHelper": "Clic flecha en panel de vista previa",
-      "leftTop": "arriba a la izquierda",
-      "rightTop": "Superior derecha",
-      "leftBottom": "Abajo a la izquierda",
-      "rightBottom": "Inferior derecha",
-      "overlay": "Texto",
-      "constants": {
-        "font-size-0": "pequeño",
-        "font-size-1": "medio",
-        "font-size-2": "Grande",
-        "osd-type-0": "hora",
-        "osd-type-1": "Nombre del dispositivo",
-        "osd-type-2": "Nombre y hora del dispositivo",
-        "osd-type-3": "Texto personalizado",
-        "enterCustomText": "Ingresar texto personalizado"
-      }
-    },
-    "privacyMask": {
-      "maskArea": "Área de máscara",
-      "title": "Máscara de privacidad",
-      "enable": "Habilitar máscara de privacidad",
-      "maskHelper": "Agregue una máscara de privacidad en el panel de vista previa",
-      "note": "Descripción",
-      "drag": "Arrastrar",
-      "noteText1": "Agregar máscara:",
-      "noteText2": "Borrar máscara:",
-      "or": "or",
-      "noteText3": "Hasta 4 mascarillas"
-    }
-  },
-  "audio": {
-    "title": "Audio",
-    "enable": "Habilitar entrada de voz",
-    "quality": "Calidad",
-    "inputSource": "Fuente de entrada",
-    "internalMicrophone": "Internal Microphone",
-    "externalMicrophone": "Micrófono externo",
-    "constants": {
-      "audio-quality-0": "G.711, 8kHz, 64kbps, Mono",
-      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
-    }
-  },
-  "notification": {
-    "smtp": {
-      "edit": "editar",
-      "enableEmail": "Habilitar transmisión de correo electrónico",
-      "enableLoginNotification": "Habilitar notificación de inicio de sesión de cámara",
-      "interval": "Intervalo de notificación (segundos)",
-      "intervalPlaceholder": "Ingrese el número de segundos",
-      "intervalRange": "5 - 1800 segundos",
-      "logonSettings": "Configuración de inicio de sesión del servidor SMTP",
-      "logonSettingsHelper": "Algunos proveedores de correo de Internet pueden requerir contraseñas de aplicaciones para mejorar la seguridad, como las cuentas de correo electrónico de Google y Yahoo. Favor siga las instrucciones de su proveedor de correo electrónico para generar y utilizar una contraseña de aplicación.",
-      "senderEmailPlaceholder": "Ingrese la dirección de correo electrónico del remitente",
-      "senderName": "Información del remitente",
-      "senderNamePlaceholder": "Ingrese el nombre del remitente",
-      "serverAddress": "Dirección del servidor SMTP",
-      "serverAddressPlaceholder": "Dirección del servidor de entrada",
-      "title": "correo electrónico",
-      "senderEmail": "correo electrónico",
-      "modal": {
-        "accountPlaceholder": "Por favor ingrese su número de cuenta",
-        "encryption": "Cifrado",
-        "none": "ninguno",
-        "port": "Puerto",
-        "ssl": "SSL",
-        "tls": "TLS",
-        "title": "Configuración de inicio de sesión del servidor SMTP",
-        "passwordPlaceholder": "Por favor ingrese su contraseña",
-        "password": "Contraseña",
-        "account": "Cuenta"
-      },
-      "toast": {
-        "disablingOutgoingEmail": "Desactivar la transmisión de correo electrónico",
-        "emailSettingSuccess": "éxito la configuración del correo electrónico",
-        "mailSettingFailed": "Falló la configuración del correo electrónico",
-        "sendingTestEmail": "Ha enviado un correo de prueba"
-      },
-      "tooltip": {
-        "disabledEditButton": "El correo electrónico debe estar configurado."
-      }
-    },
-    "io": {
-      "title": "Entrada y salida digital",
-      "tabInput": "Entrada digital",
-      "tabOutput1": "Salida digital 1",
-      "tabOutput2": "Salida digital 2",
-      "enableDigitalInput": "Habilitar la entrada digital",
-      "enableDigitalOutput": "Habilitar la salida digital {{0}}",
-      "normalState": "Estado normal",
-      "closed": "Normalmente cerrado",
-      "open": "Normalmente abierto",
-      "type": "Tipo",
-      "normal": "General",
-      "buffer": "Búfer",
-      "pulseTime": "Tiempo de búfer de señal (segundos)",
-      "pulsePlaceholder": "Introduzca el número de segundos",
-      "delayTime": "Tiempo de intervalo de retardo (segundos)",
-      "delayPlaceholder": "Introduzca el número de segundos",
-      "timeRange": "{{0}}-{{1}} segundos"
-    },
-    "cards": {
-      "filters": "Filtros",
-      "pinned": "Parte superior",
-      "others": "Otros",
-      "analytics": "Análisis",
-      "defaultCardTitle": "Introducir el titulo",
-      "rule": "regla",
-      "schedule": "calendario",
-      "method": "Método de notificación",
-      "enableSchedule": "Habilitar horario",
-      "enableNotifyResult": "Anuncio basado en el resultado de la identificación",
-      "condition": "Condition",
-      "group": "Grupo",
-      "everyone": "Todos, grupo ilimitado",
-      "io": "Entrada y salida digital",
-      "output1": "Salida digital 1",
-      "output2": "Salida digital 2",
-      "email": "correo electrónico",
-      "emailAttachment": "Adjunto de correo electrónico",
-      "subject": "Tema :",
-      "subjectPlaceholder": "Ingrese Tema",
-      "defaultSubjectFR": "Evento de reconocimiento facial [{{0}}]",
-      "defaultSubjectMD": "Evento de detección de movimiento [{{0}}]",
-      "defaultSubjectDI": "Evento de entrada digital [{{0}}]",
-      "content": "Texto :",
-      "contentPlaceholder": "Ingrese Texto",
-      "contentPlacement": "Posición del texto",
-      "receiver": "Receptor",
-      "receiverPlaceholder": "Introducir la dirección de correo electrónico",
-      "constants": {
-        "notification-vms-event-0": "Video Motion Detection Event",
-        "notification-vms-event-1": "Analytic Event",
-        "notification-card-filter-all": "Todas las notificaciones",
-        "notification-card-0": "Reconocimiento facial",
-        "notification-card-1": "Género y edad",
-        "notification-card-2": "Detección humanoide",
-        "notification-card-3": "Detección de movimiento",
-        "notification-card-4": "Alarma de manipulación",
-        "notification-card-5": "Entrada digital",
-        "face-recognition-condition-0": "Todos los tipos",
-        "face-recognition-condition-1": "éxito",
-        "face-recognition-condition-2": "desconocido",
-        "face-recognition-condition-3": "Imagen Falso",
-        "email-attachment-type-0": "Captura de pantalla de la cara",
-        "email-attachment-type-1": "Captura de pantalla completa",
-        "email-attachment-type-2": "ninguno",
-        "email-content-position-0": "Poner al principio",
-        "email-content-position-1": "Poner al final"
-      },
-      "tooltip": {
-        "unpin": "Desanclar Pin Card",
-        "pin": "Parte superior",
-        "addNewCard": "Añadir tarjeta de notificación",
-        "iconEmail": "Correo electrónico: Habilitado",
-        "iconOutput": "Salida digital: Habilitado",
-        "iconVMS": "VMS: On",
-        "enterDatetime": "Debe elegir la fecha y hora de inicio y finalización",
-        "maxSchedules": "Límite de cantidad alcanzado",
-        "disabledReceiverButton": "Ingrese la dirección de correo electrónico"
-      },
-      "toast": {
-        "limitExceededTitle": "Límite de número de tarjetas excedido",
-        "limitExceededBody": "No se pueden crear más de {{0}} tarjetas"
-      }
-    }
-  },
-  "userManagement": {
-    "members": {
-      "search": "buscar",
-      "searchPlaceholder": "Ingrese palabras claves",
-      "addNewMember": "Añadir miembro",
-      "addMemberFromEvent": "Agregar de evento",
-      "title": "miembro",
-      "allMembers": "Lista de Verificación",
-      "groups": "Grupo",
-      "database": "Base de Datos",
-      "export": "Exportar",
-      "import": "Importar",
-      "userPicture": "Registrar foto",
-      "name": "nombre",
-      "organization": "organización",
-      "group": "Grupo",
-      "note": "Observaciones",
-      "notePlaceholder": "Ingrese nota",
-      "noteHelper": "Extension máxima: 256 caracteres",
-      "actions": "Operar",
-      "noData": "Ningún dato encontrado, por favor revise de nuevo!",
-      "delete": "Borrar",
-      "modal": {
-        "group": {
-          "editGroupTitle": "Editar grupo",
-          "createGroupTitle": "Añadir grupo",
-          "namePlaceholder": "Ingrese el nombre del grupo",
-          "nameHelper": "Extension máxima: 32 caracteres",
-          "confirmDeleteTitle": "Borrar grupo",
-          "confirmDeleteBody": "¿Está seguro de que desea borrar el grupo {{0}} ?",
-          "editGroupTitle.avn": "Editar grupo"
-        },
-        "database": {
-          "title": "Cifrado de base de datos",
-          "importApiProcessModalTitle": "Importar base de datos de Usuarios",
-          "exportApiProcessModalTitle": "Exportar base de datos de Usuarios"
-        },
-        "member": {
-          "confirmDeleteTitle": "Borrar miembro",
-          "confirmDeleteBody": "¿Está seguro de que desea borrar el usuario {{0}} ?",
-          "newMemberTitle": "Nuevo miembro",
-          "editMemberTitle": "Editar miembro",
-          "primary": "Foto principal",
-          "photo1": "Foto 1",
-          "photo2": "Foto 2",
-          "photo3": "Foto 3",
-          "photo4": "Foto 4",
-          "namePlaceholder": "Ingrese el nombre del miembro",
-          "organizationPlaceholder": "Ingrese el nombre de la organización",
-          "organizationHelper": "Extension máxima: 32 caracteres",
-          "n/a": "ninguno",
-          "photoEditor": "editar",
-          "photoHelper": "Arraste para ajustar las fotos",
-          "save": "Salvar",
-          "changePhoto": "Cambiar foto",
-          "confirmCloseBody": "Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?",
-          "errorNoPhoto": "Una foto es requirida",
-          "errorPhotoSizeLimit": "El tamaño de la foto no puede superar los 90KB"
-        }
-      },
-      "tooltip": {
-        "createGroup": "Añadir grupo",
-        "groupLimitExceeded": "Límite de cantidad alcanzado",
-        "encryptionSettings": "Configuración de cifrado",
-        "deleteGroupWithName": "Borrar grupo: {{0}}",
-        "editGroupWithName": "Editar grupo: {{0}}",
-        "editMemberWithName": "Editar miembro: {{0}}",
-        "deleteMemberWithName": "Borrar miembro: {{0}}",
-        "photoLimitExceeded": "Límite de cantidad alcanzado",
-        "uploadPrimaryFirst": "Sube la foto principal primero"
-      }
-    },
-    "accounts": {
-      "title": "cuentas",
-      "allAccounts": "Lista de cuentas",
-      "permission": "Permiso",
-      "username": "Nombre",
-      "actions": "Operar",
-      "constants": {
-        "permission-0": "administrador",
-        "permission-1": "Invitado",
-        "permission-2": "Invitado",
-        "permission-99": "administrador"
-      },
-      "modal": {
-        "confirmDeleteTitle": "Borrar cuenta",
-        "confirmDeleteBody": "¿Está seguro de que desea borrar la cuenta {{0}} ?",
-        "newUserTitle": "Nuevo Usuario",
-        "modifyUserTitle": "Editar cuenta",
-        "usernamePlaceholder": "Ingrese el nombre de la cuenta",
-        "usernameHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio"
-      },
-      "tooltip": {
-        "deleteAccountError1": "No se puede borrar la cuenta en uso"
-      }
-    },
-    "events": {
-      "total": "Datos",
-      "title": "eventos",
-      "filters": "Filtros",
-      "clear": "Borrar",
-      "facialRecognition": "Reconocimiento facial",
-      "ageGender": "Género y edad",
-      "humanDetection": "Detección humanoide",
-      "activationRequired": "no está activada",
-      "similarity": "Similaridad",
-      "status": "resultado",
-      "search": "buscar",
-      "searchPlaceholder": "Ingrese palabras claves",
-      "time": "hora",
-      "capture": "Captura",
-      "userPicture": "Registrar foto",
-      "name": "nombre",
-      "organization": "organización",
-      "group": "Grupo",
-      "note": "Observaciones",
-      "actions": "Operar",
-      "noData": "Ningún dato encontrado, por favor revise de nuevo!",
-      "addNewMember": "Añadir miembro",
-      "addExistingMember": "Agregar a Usuario Existente",
-      "constants": {
-        "enroll-status-0": "Camuflaje de imagen",
-        "enroll-status-1": "desconocido",
-        "enroll-status-2": "Registrado",
-        "confidence-0": "bajo",
-        "confidence-1": "medio",
-        "confidence-2": "alto"
-      },
-      "modal": {
-        "initialMessage": "Ingrese palabras clave en el campo de entrada para buscar usuarios.",
-        "verifyingPhoto": "Verificación de fotos",
-        "apiProcessingModalTitle": "Actualización de Usuario"
-      },
-      "tooltip": {
-        "photoLimitExceeded": "Límite de cantidad alcanzado",
-        "addWithName": "Agregar a {{0}}",
-        "invalidPhoto": "Foto inválida",
-        "Updating Member": "Actualización de Usuario"
-      },
-      "toast": {
-        "settingSuccessTitle": "Configuración Exitosa",
-        "settingSuccessBody": "¡Se agregaron fotos a {{0}} correctamente!"
-      }
-    }
-  },
-  "analytics": {
-    "facialRecognition": {
-      "title": "Reconocimiento facial",
-      "enableFR": "Habilitar reconocimiento facial",
-      "enableSpoof": "Habilitar anti-disfraz de imagen",
-      "accuracyLevel": "Nivel de exactitud",
-      "detectionZone": "Área de activación",
-      "detectionZoneHelper": "El valor predeterminado es pantalla completa",
-      "enableDetectionSize": "Habilitar tamaño de la cara",
-      "liveViewDisplay": "Visualización de imagen en vivo",
-      "displayName": "Nombre de miembro",
-      "displayGroup": "Grupo de miembro",
-      "displayUnknown": "desconocido",
-      "displaySpoof": "Camuflaje de imagen",
-      "minDetectionSize": "Tamaño mínimo de la cara",
-      "constants": {
-        "confidence-level-0": "bajo",
-        "confidence-level-1": "medio",
-        "confidence-level-2": "alto"
-      },
-      "modal": {
-        "spoofBody": "¿Está seguro de que desea habilitar la versión Alfa de la suplantación de imágenes? Es una versión Alpha. No se reconocerán los rostros que se consideren falsos. Optimizaremos y mejoraremos esta función en futuras actualizaciones de software."
-      },
-      "tooltip": {
-        "frDisabled": "Reconocimiento facial está desactivado.",
-        "detectionZoneToggle": "Mostrar o ocultar área"
-      }
-    },
-    "motionDetection": {
-      "title": "Detección de movimiento",
-      "enableMD": "Habilitar detección de movimiento",
-      "mdHelper": "Agregue un área de activación en el panel de vista previa",
-      "sensitivity": "Sensibilidad",
-      "noteArea": "Descripción",
-      "note1": "Añadir Área:",
-      "drag": "Arrastrar",
-      "note2": "Borrar Área",
-      "or": "or",
-      "note3": "Hasta 4 áreas",
-      "detectionZone": "Área de activación"
-    },
-    "license": {
-      "title": "Autorización de análisis inteligente",
-      "facialRecognition": "Reconocimiento facial",
-      "ageGender": "Género y edad",
-      "humanDetection": "Detección humanoide",
-      "keyPlaceholder": "Ingrese el código de activación",
-      "activate": "Habilitar",
-      "activated": "activada",
-      "activationRequired": "no está activada",
-      "time": "hora",
-      "activatedBy": "Activada por",
-      "authenticationKey": "Habilitar código",
-      "activatedFunctions": "funciónes activadas",
-      "enableStatus": "estado",
-      "constants": {
-        "key-thirtyThousand": "Reconocimiento facial 30k",
-        "key-threeThousand": "Reconocimiento facial 3k"
-      },
-      "toast": {
-        "activationSuccessTitle": "Activación exitosa",
-        "activationSuccessBody": "{{0}} se ha autorizado correctamente",
-        "activationFailedTitle": "Activación fallida",
-        "keyRegisteredBody": "Repita el código de activación"
-      }
-    }
-  },
-  "network": {
-    "network": {
-      "title": "Red",
-      "ipAddressing": "Red de área local",
-      "networkStatus": "Estado de la red",
-      "ipAssignment": "Método de adquisición de IP",
-      "static": "Dirección IP estática",
-      "dynamic": "Dirección IP dinámica",
-      "macAddress": "Dirección física",
-      "ipAddress": "Dirección IP",
-      "subnetMask": "Máscara de subred",
-      "routerGateway": "Enrutador/Puerta de enlace",
-      "primaryDNS": "DNS primario",
-      "secondaryDNS": "DNS secundario",
-      "dhcp": "DHCP",
-      "testDHCP": "Probar DHCP",
-      "fixedIPAddress": "Dirección IP fija",
-      "secondaryDNSOptional": "DNS secundario (opcional)",
-      "ipAddressPlaceholder": "Introduzca una dirección IP fija",
-      "subnetMaskPlaceholder": "Máscara de subred",
-      "routerGatewayPlaceholder": "Enrutador/Puerta de enlace",
-      "primaryDNSPlaceholder": "Ingrese DNS Primario",
-      "secondaryDNSPlaceholder": "Ingrese DNS Secundario",
-      "modal": {
-        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de red?",
-        "testingSuccess": "Prueba DHCP exitosa"
-      },
-      "tooltip": {
-        "noChanges": "No se ha cambiado ninguna configuración"
-      }
-    },
-    "tcpip": {
-      "title": "TCP/IP",
-      "ddns": "DDNS",
-      "http": "HTTP",
-      "enableDDNS": "Habilitar servicio DDNS",
-      "serviceProvider": "proveedor de servicio",
-      "hostName": "Nombre de host",
-      "hostNamePlaceholder": "Ingrese el nombre de host DDNS",
-      "account": "Cuenta",
-      "accountPlaceholder": "Ingrese el nombre de usuario de DDNS",
-      "passwordPlaceholder": "Ingrese la contraseña de DDNS",
-      "secondaryHTTPPort": "Puerto secundario HTTP",
-      "portHelper": "Rango: 1024-65535, preestablecido: 8080",
-      "modal": {
-        "apiProcessModalTitle": "Actualizar la configuración HTTP"
-      },
-      "toast": {
-        "settingSuccessTitle": "Configuración Exitosa",
-        "successBody": "¡configuración de DDNS exitosa!",
-        "settingFailed": "Configuración fallida",
-        "failedBody": "¡configuración de DDNS fallida！"
-      }
-    },
-    "https": {
-      "title": "HTTPS",
-      "enableHTTPS": "Habilitar servicio HTTPS",
-      "port": "Port",
-      "portHelper": "Rango: 1024-65535, preestablecido: 8443",
-      "certificate": "Certificate",
-      "constants": {
-        "manufacturer": "Fabricante",
-        "certificate-type-0": "{{0}} Certificado autofirmado",
-        "certificate-type-1": "Upload Certificate",
-        "certificate-type-2": "Generate Certificate on This Device"
-      },
-      "tooltip": {
-        "disabledButton": "Habilite primero la función HTTPS"
-      }
-    },
-    "common": {
-      "modal": {
-        "redirectionSuccess": "redirección",
-        "redirectionBody": "Vuelva a iniciar sesión con la siguiente URL"
-      }
-    }
-  },
-  "system": {
-    "dateTime": {
-      "title": "Fecha y hora",
-      "timeZone": "Zona horaria",
-      "deviceDateTime": "Hora del dispositivo",
-      "syncNTP": "Sincronizar con Network Time Server (NTP)",
-      "ntpHost": "Dirección del servidor",
-      "hostPlaceholder": "Enter Your IP Address",
-      "syncTime": "Hora de actualización diaria",
-      "syncInterval": "Frecuencia de actualización (minutos)",
-      "syncWithComputer": " Sincronizar con su computadora",
-      "setManually": "Ajuste manual",
-      "modal": {
-        "apiProcessModalTitle": "Actualización de Fecha y Hora",
-        "confirmUpdateBody": "¿Estás seguro de que deseas cambiar la hora del dispositivo? Debes iniciar sesión nuevamente para cambiar la hora del dispositivo"
-      }
-    },
-    "deviceMaintenance": {
-      "title": "mantenimiento",
-      "systemReboot": "Reiniciar el dispositivo",
-      "reboot": "Reiniciar",
-      "restoreDefaultSettings": "Restaurar a la configuración original de fábrica",
-      "restoreAllSettings": "Restaurar todas las config",
-      "reset": "Restaurar",
-      "exportSystemSettings": "Exportar configuración del sistema",
-      "importSystemSettings": "Importar configuración del sistema",
-      "export": "Exportar",
-      "import": "Importar",
-      "modal": {
-        "apiProcessModalTitleRebooting": "Reinicio del dispositivo",
-        "apiProcessModalTitleResetting": "Está restaurando",
-        "confirmRebootBody": "¿Estás seguro de que deseas reiniciar el dispositivo?",
-        "confirmRestoreDefaultSettingsBody": "El dispositivo se restaurará a la configuración original de fábrica, excepto por los siguientes elementos, todos los demás datos y configuraciones se borrarán:\n\n• Lista de miembros e información del grupo de miembros \n• Información de la cuenta \n• Configuración de enfoque y zoom \n• Configuración de RTSP \n• Configuración de la red \n• Tarjeta de memoria para almacenar datos",
-        "confirmResetAllSettingsBody": "El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán",
-        "rebootSuccessBody": "El dispositivo se reinició, inicie la sesión nuevamente",
-        "resetSuccess": "Restablecer Existosa",
-        "resetAllSettingsSuccessBody": "Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.",
-        "resetDefaultSettingsSuccessBody": "El dispositivo se ha sido reiniciado. Por favor ingrese de nuevo.",
-        "importSuccessBody": "La Configuración del dispositivo ha sido importada. Por favor ingrese de nuevo"
-      },
-      "tooltip": {
-        "restoreAllSettingsHelper": "Al marcar este elemento, se borrarán y restaurarán miembros y grupos, cuentas del sistema, zoom y enfoque, RTSP, red, aplicaciones, datos almacenados en la tarjeta de memoria ... etc., todos los datos y configuraciones"
-      }
-    },
-    "softwareUpgrade": {
-      "title": "Actualización de software",
-      "importFile": "Importar perfil",
-      "modal": {
-        "apiProcessModalTitleUploading": "Carga de software",
-        "apiProcessModalTitleInstalling": "Instalación de software",
-        "apiProcessModalTitleShutDown": "El dispositivo se está borrando",
-        "apiProcessModalTitleRestarting": "Reinicio del dispositivo",
-        "uploadingBody": "※ No cierre el navegador al actualizar",
-        "uploadSoftware": "Cargar software",
-        "installSoftware": "Instalar software",
-        "shutDown": "Apaga el dispositivo",
-        "restart": "Reiniciar el dipositivo",
-        "stage1": "Nivel 1",
-        "stage2": "Nivel 2",
-        "stage3": "Nivel 3",
-        "stage4": "Nivel 4",
-        "upgradeSuccess": "Actualización de software con éxito",
-        "upgradeSuccessBody": "Redirigir a la página de inicio de sesión en {{0}} segundos"
-      }
-    },
-    "systemLog": {
-      "title": "Registro del sistema",
-      "systemLogFile": "Archivo de registro del sistema",
-      "deleteLogs": "Borrar",
-      "download": "descargar",
-      "modal": {
-        "confirmDeleteTitle": "Borrar archivo de registro del sistema",
-        "confirmDeleteBody": "¿Está seguro de que desea borrar el archivo de registro del sistema?",
-        "apiProcessModalTitle": "Descargar el archivo de registro del sistema",
-        "downloadingBody": "Progreso de Descarga"
-      }
-    },
-    "information": {
-      "title": "Información del dispositivo",
-      "software": "Versión del software",
-      "serialNumber": "S/N Code",
-      "macAddress": "Dirección física"
-    },
-    "common": {
-      "importHelper": "Solo admite formato de archivo .zip",
-      "selectFile": "Seleccionar Archivo",
-      "noFileSelected": "Ningún archivo seleccionado",
-      "tooltip": {
-        "disabledButton": "Seleccione primero un archivo"
-      }
-    }
+    "shutterSpeed": "Velocidad de obturación",
+    "advanced": "Avanzado",
+    "whiteBalance": "Balance de blancos",
+    "colorTemperature": "Temperatura del color",
+    "iRControl": "Luz infrarroja",
+    "level": "Nivel",
+    "dayNight": "Modo día/noche",
+    "sensitivity": "Sensibilidad",
+    "dayMode": "Modo día",
+    "rotation": "Dirección de la imagen",
+    "defog": "Desempañar",
+    "lightingCompensation": "Frecuencia de actualización"
   },
   "sdCard": {
-    "title": "Tarjeta de memoria",
-    "enable": "Habilitar tarjeta SD",
-    "operation": "Operación",
-    "format": "formato",
-    "mount": "Montar",
-    "unmount": "Desinstalar",
-    "errorNotification": "Notificación de anormalidad",
-    "notificationSet": "Conjunto de correo electrónico",
-    "enableOutgoingEmail": "Configurar correo electrónico",
-    "filesystem": "Formato del sistema de archivos",
-    "status": "estado",
-    "storageSpace": "Espacio de almacenamiento",
-    "unrecognized": "No reconocido",
     "constants": {
       "Functioning": "normal",
       "Unmounted": "No montado",
@@ -759,25 +303,32 @@
       "Unknown Error": "error desconocido",
       "unknownStatus": "UNKNOWN STATUS"
     },
-    "modal": {
-      "disableTitle": "Borrar la tarjeta de memoria",
-      "disableBody": "¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento.",
-      "disabledFormatButton": "Estás a punto de formatear la tarjeta Micro SD. ¿Quieres continuar?",
-      "disabledUnmountButton": "Estás a punto de retirar la tarjeta Micro SD. ¿Quieres continuar?"
-    },
+    "operation": "Operación",
     "tooltip": {
       "disabledOperationButton": "Primero apague la función de la tarjeta SD",
       "disabledNotificationButton": "El correo electrónico debe estar configurado."
-    }
-  },
-  "error": {
-    "error": "Error",
-    "notFound": "Lo siento, esta página no existe",
-    "internalServerError": "Problema interno del servidor",
-    "backToHome": "Volver a la página de inicio"
+    },
+    "format": "formato",
+    "modal": {
+      "disabledFormatButton": "Estás a punto de formatear la tarjeta Micro SD. ¿Quieres continuar?",
+      "disabledUnmountButton": "Estás a punto de retirar la tarjeta Micro SD. ¿Quieres continuar?",
+      "disableTitle": "Borrar la tarjeta de memoria",
+      "disableBody": "¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento."
+    },
+    "unmount": "Desinstalar",
+    "title": "Tarjeta de memoria",
+    "enable": "Habilitar tarjeta SD",
+    "errorNotification": "Notificación de anormalidad",
+    "notificationSet": "Conjunto de correo electrónico",
+    "enableOutgoingEmail": "Configurar correo electrónico",
+    "status": "estado",
+    "filesystem": "Formato del sistema de archivos",
+    "unrecognized": "No reconocido",
+    "storageSpace": "Espacio de almacenamiento"
   },
   "validation": {
-    "confirmEqual": "Estas contraseñas no coinciden",
+    "portReserved": "Este puerto está reservado o en uso para el sistema",
+    "portEmpty": "El campo no debe estar vacío",
     "required": "Este campo es obligatorio",
     "string": "Este campo debe ser una cadena",
     "stringEmpty": "Este campo es requerido",
@@ -786,11 +337,6 @@
     "stringLength": "Debe ingresar los caracteres {expected}",
     "stringPattern": "Este campo contiene caracteres no válidos.",
     "stringContains": "Debe contener texto {expected}",
-    "stringContainsLowerCaseLatter": "Debe contener letras minúsculas en inglés",
-    "stringContainsUpperCaseLatter": "Debe contener letras mayúsculas en inglés",
-    "stringContainsNumber": "Debe contener números",
-    "stringAbortSpecialCharacters": "No utilice los símbolos de ancho completo o medio ancho: # % & ` \" \\ / < > y espacio",
-    "stringAcceptSpecialCharacters": "Debe contener símbolos",
     "stringEnum": "No cumple con los requisitos de contenido",
     "number": "Tiene que ser un número",
     "numberMin": "Debe ser un número superior a {expected}",
@@ -815,100 +361,254 @@
     "forbidden": "Campo escondido",
     "email": "La dirección de correo electrónico inválida",
     "url": "Utilice el formato de URL correcto",
+    "confirmEqual": "Estas contraseñas no coinciden",
+    "stringContainsLowerCaseLatter": "Debe contener letras minúsculas en inglés",
+    "stringContainsUpperCaseLatter": "Debe contener letras mayúsculas en inglés",
+    "stringContainsNumber": "Debe contener números",
+    "stringAbortSpecialCharacters": "No utilice los símbolos de ancho completo o medio ancho: # % & ` \" \\ / < > y espacio",
+    "stringAcceptSpecialCharacters": "Debe contener símbolos",
     "birthday": "Utilice el formato de cumpleaños correcto",
     "countryCode": "El código de país es incorrecto",
     "duplicateName": "Nombre duplicado, por favorutilice un nombre diferente",
-    "portEmpty": "El campo no debe estar vacío",
-    "portReserved": "Este puerto está reservado o en uso para el sistema",
     "maxRecipient": "El número máximo de destinatarios es 64",
     "duplicateEmail": "El correo electrónico esta duplicado"
   },
-  "documentTitle": {
-    "home": "Página de Inicio",
-    "image": "imagen",
-    "video": "Video",
-    "audio": "Audio",
-    "notification": "Notificación",
-    "userManagement": "Usuarios",
+  "video": {
+    "stream": {
+      "constants": {
+        "stream-resolution-0": "3840*2160 (16:9)",
+        "stream-resolution-1": "2560*1440 (16:9)",
+        "stream-resolution-2": "1920*1080 (16:9)",
+        "stream-resolution-3": "1280*720 (16:9)",
+        "stream-resolution-4": "640*360 (16:9)",
+        "stream-resolution-5": "2560*1920 (4:3)",
+        "stream-resolution-6": "2048*1536 (4:3)",
+        "stream-resolution-7": "1600*1200 (4:3)",
+        "stream-resolution-8": "1280*960 (4:3)",
+        "stream-resolution-9": "1024*768 (4:3)",
+        "stream-resolution-10": "640*480 (4:3)",
+        "stream-resolution-11": "320*240 (4:3)",
+        "stream-bandwidth-management-0": "Tasa de bits máxima",
+        "stream-bandwidth-management-1": "Tasa de bits variable",
+        "stream-bandwidth-management-2": "Tasa de bits fija",
+        "quality-80": "alto",
+        "quality-50": "medio",
+        "quality-30": "bajo",
+        "bitRateRange": "{{0}} - {{1}} Kbps"
+      },
+      "resolution": "Resolución",
+      "fps": "Cuadros por segundo",
+      "modal": {
+        "apiProcessingModalTitle": "Actualización de la configuración de Stream"
+      },
+      "codec": "Codificación de imágenes",
+      "quality": "Calidad",
+      "bandwidth": "Gestión de la tasa de bits",
+      "auto": "automático",
+      "gop": "GOP",
+      "streams": "Stream",
+      "title": "Stream",
+      "stream1": "Stream 01",
+      "stream2": "Stream 02"
+    },
+    "hdmi": {
+      "modal": {
+        "apiProcessingModalTitle": "Actualizar la configuración de HDMI",
+        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de HDMI?"
+      },
+      "title": "HDMI",
+      "hdmi": "HDMI"
+    },
+    "osd": {
+      "title": "Mapa de texto",
+      "enable": "Habilitar mapa de texto",
+      "size": "tamaño de fuente",
+      "constants": {
+        "font-size-0": "pequeño",
+        "font-size-1": "medio",
+        "font-size-2": "Grande",
+        "osd-type-0": "hora",
+        "osd-type-1": "Nombre del dispositivo",
+        "osd-type-2": "Nombre y hora del dispositivo",
+        "osd-type-3": "Texto personalizado"
+      },
+      "color": "color",
+      "position": "posición",
+      "leftTop": "arriba a la izquierda",
+      "rightTop": "Superior derecha",
+      "leftBottom": "Abajo a la izquierda",
+      "rightBottom": "Inferior derecha",
+      "positionHelper": "Clic flecha en panel de vista previa",
+      "overlay": "Texto",
+      "enterCustomText": ""
+    },
+    "privacyMask": {
+      "maskArea": "Área de máscara",
+      "title": "Máscara de privacidad",
+      "enable": "Habilitar máscara de privacidad",
+      "maskHelper": "Agregue una máscara de privacidad en el panel de vista previa",
+      "note": "Descripción",
+      "noteText1": "Agregar máscara:",
+      "drag": "Arrastrar",
+      "noteText2": "Borrar máscara:",
+      "or": "or",
+      "noteText3": "Hasta 4 mascarillas"
+    },
+    "rtsp": {
+      "enableAudio": "Habilitar grabación de audio para Stream",
+      "requireAuthentication": "Habilitar autenticación de contraseña de la cuenta",
+      "rtspTcpPort": "Puerto RTSP/TCP",
+      "tcpRange": "Rango: 1024-65535, preestablecido: 8554",
+      "rtspUdpPort": "Puerto RTSP/UDP",
+      "udpRange": "Rango: 1024-65535, preestablecido: 17300",
+      "maxConnections": "Número máximo de conexiones simultáneas",
+      "title": "RTSP"
+    }
+  },
+  "notification": {
+    "cards": {
+      "constants": {
+        "notification-card-0": "Reconocimiento facial",
+        "notification-card-1": "Género y edad",
+        "notification-card-2": "Detección humanoide",
+        "notification-card-3": "Detección de movimiento",
+        "notification-card-4": "Alarma de manipulación",
+        "notification-card-5": "Entrada digital",
+        "face-recognition-condition-0": "Todos los tipos",
+        "face-recognition-condition-1": "éxito",
+        "face-recognition-condition-2": "desconocido",
+        "face-recognition-condition-3": "Imagen Falso",
+        "notification-card-filter-all": "Todas las notificaciones",
+        "email-attachment-type-0": "Captura de pantalla de la cara",
+        "email-attachment-type-1": "Captura de pantalla completa",
+        "email-attachment-type-2": "ninguno",
+        "email-content-position-0": "Poner al principio",
+        "email-content-position-1": "Poner al final"
+      },
+      "filters": "Filtros",
+      "enableNotifyResult": "Anuncio basado en el resultado de la identificación",
+      "group": "Grupo",
+      "everyone": "Todos, grupo ilimitado",
+      "enableSchedule": "Habilitar horario",
+      "io": "Entrada y salida digital",
+      "output1": "Salida digital 1",
+      "output2": "Salida digital 2",
+      "email": "correo electrónico",
+      "emailAttachment": "Adjunto de correo electrónico",
+      "subject": "Tema :",
+      "subjectPlaceholder": "Ingrese Tema",
+      "content": "Texto :",
+      "contentPlaceholder": "Ingrese Texto",
+      "contentPlacement": "Posición del texto",
+      "receiver": "Receptor",
+      "receiverPlaceholder": "Introducir la dirección de correo electrónico",
+      "tooltip": {
+        "disabledReceiverButton": "Ingrese la dirección de correo electrónico",
+        "iconEmail": "Correo electrónico: Habilitado",
+        "iconOutput": "Salida digital: Habilitado",
+        "addNewCard": "Añadir tarjeta de notificación"
+      },
+      "defaultSubjectFR": "Evento de reconocimiento facial [{{0}}]",
+      "defaultSubjectMD": "Evento de detección de movimiento [{{0}}]",
+      "defaultSubjectDI": "Evento de entrada digital [{{0}}]",
+      "defaultCardTitle": "Introducir el titulo",
+      "schedule": "calendario",
+      "rule": "regla",
+      "method": "Método de notificación",
+      "analytics": "Análisis",
+      "pinned": "Parte superior",
+      "others": "Otros",
+      "toast": {
+        "limitExceededTitle": "Límite de número de tarjetas excedido",
+        "limitExceededBody": "No se pueden crear más de {{0}} tarjetas"
+      }
+    },
+    "io": {
+      "enableDigitalInput": "Habilitar la entrada digital",
+      "normalState": "Estado normal",
+      "open": "Normalmente abierto",
+      "closed": "Normalmente cerrado",
+      "enableDigitalOutput": "Habilitar la salida digital {{0}}",
+      "type": "Tipo",
+      "normal": "General",
+      "buffer": "Búfer",
+      "pulseTime": "Tiempo de búfer de señal (segundos)",
+      "pulsePlaceholder": "Introduzca el número de segundos",
+      "timeRange": "{{0}}-{{1}} segundos",
+      "delayTime": "Tiempo de intervalo de retardo (segundos)",
+      "delayPlaceholder": "Introduzca el número de segundos",
+      "title": "Entrada y salida digital",
+      "tabInput": "Entrada digital",
+      "tabOutput1": "Salida digital 1",
+      "tabOutput2": "Salida digital 2"
+    },
+    "smtp": {
+      "modal": {
+        "title": "Configuración de inicio de sesión del servidor SMTP",
+        "account": "Cuenta",
+        "accountPlaceholder": "Por favor ingrese su número de cuenta",
+        "password": "Contraseña",
+        "passwordPlaceholder": "Por favor ingrese su contraseña",
+        "port": "Puerto",
+        "encryption": "Cifrado",
+        "none": "ninguno",
+        "ssl": "SSL",
+        "tls": "TLS"
+      },
+      "title": "correo electrónico",
+      "enableEmail": "Habilitar transmisión de correo electrónico",
+      "serverAddress": "Dirección del servidor SMTP",
+      "serverAddressPlaceholder": "Dirección del servidor de entrada",
+      "logonSettings": "Configuración de inicio de sesión del servidor SMTP",
+      "logonSettingsHelper": "Algunos proveedores de correo de Internet pueden requerir contraseñas de aplicaciones para mejorar la seguridad, como las cuentas de correo electrónico de Google y Yahoo. Favor siga las instrucciones de su proveedor de correo electrónico para generar y utilizar una contraseña de aplicación.",
+      "tooltip": {
+        "disabledEditButton": "El correo electrónico debe estar configurado."
+      },
+      "edit": "editar",
+      "enableLoginNotification": "Habilitar notificación de inicio de sesión de cámara",
+      "senderName": "Información del remitente",
+      "senderNamePlaceholder": "Ingrese el nombre del remitente",
+      "senderEmail": "correo electrónico",
+      "senderEmailPlaceholder": "Ingrese la dirección de correo electrónico del remitente",
+      "interval": "Intervalo de notificación (segundos)",
+      "intervalPlaceholder": "Ingrese el número de segundos",
+      "intervalRange": "5 - 1800 segundos",
+      "toast": {
+        "emailSettingSuccess": "éxito la configuración del correo electrónico"
+      }
+    }
+  },
+  "login": {
+    "error": {
+      "incorrectPassword": "Contraseña incorrecta",
+      "attemptsRemaining": "Aún puedes intentarlo {{0}} veces...",
+      "loginAgain": "ingresar de nuevo"
+    },
+    "lock": {
+      "lockText": "Contraseña de cuenta de inicio de sesión incorrecta por más de 5 veces",
+      "tryAgain": "Intente iniciar la sesión nuevamente en 5 minutos",
+      "remaining": "Iniciar sesión nuevamente en {{0}}",
+      "loginAgain": "ingresar de nuevo"
+    },
+    "title": "Cuenta de Ingreso",
+    "username": "Nombre",
+    "usernamePlaceholder": "Por favor ingrese su número de cuenta",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Por favor ingrese su contraseña",
+    "login": "Registrarse"
+  },
+  "home": {
+    "deviceName": "Nombre del dispositivo",
     "analytics": "Análisis",
-    "network": "Red",
-    "system": "Sistema",
-    "sdCard": "Tarjeta de memoria",
-    "videoSettings": "Video",
-    "streams": "Stream",
-    "rtsp": "RTSP",
-    "hdmi": "HDMI",
-    "osd": "Mapa de texto",
-    "privacyMask": "Máscara de privacidad",
-    "notificationSettings": "Anunciar",
-    "notificationMethod": "Método de notificación",
-    "email": "correo electrónico",
-    "io": "Entrada y salida digital",
-    "smartNotification": "Notificación inteligente",
-    "members": "miembro",
-    "accounts": "cuentas",
-    "events": "eventos",
-    "analyticsSettings": "Análisis inteligente",
-    "facialRecognition": "Reconocimiento facial",
-    "motionDetection": "Detección de movimiento",
-    "license": "Autorización de análisis inteligente",
-    "internetNetworkSettings": "Configuración de Internet y red",
-    "tcpip": "TCP/IP",
-    "https": "HTTPS",
-    "administration": "administración",
-    "dateTime": "Fecha y hora",
-    "deviceMaintenance": "mantenimiento",
-    "softwareUpgrade": "Actualización de software",
-    "status": "estado",
-    "systemLog": "Registro del sistema",
-    "information": "Información del dispositivo",
-    "newMember": "Nuevo miembro",
-    "newUser": "Nuevo Usuario",
-    "welcome": "Bienvenido",
-    "language": "Elija un idioma",
-    "setupAccount": "número de cuenta",
-    "login": "Registrarse",
-    "loginError": "Login Error",
-    "loginLocked": "El inicio de sesión está bloqueado"
+    "sdcard": "Tarjeta de memoria",
+    "facialRecognition": "Reconocimiento facial: ",
+    "ageGender": "",
+    "humanDetection": ""
   },
   "navigation": {
     "sidebar": {
-      "videoSettings": "Video",
-      "streams": "Stream",
-      "rtsp": "RTSP",
-      "hdmi": "HDMI",
-      "osd": "Mapa de texto",
-      "privacyMask": "Máscara de privacidad",
-      "audio": "Audio",
-      "notificationSettings": "Anunciar",
-      "notificationMethod": "Método de notificación",
-      "email": "correo electrónico",
-      "io": "Entrada y salida digital",
-      "inputAndOutput": "Entrada y salida digital",
-      "smartNotification": "Notificación inteligente",
-      "members": "miembro",
-      "accounts": "cuentas",
-      "events": "eventos",
-      "analyticsSettings": "Análisis inteligente",
-      "facialRecognition": "Reconocimiento facial",
-      "motionDetection": "Detección de movimiento",
-      "license": "Autorización de análisis inteligente",
-      "internetNetworkSettings": "Configuración de Internet y red",
-      "network": "Red",
-      "tcpip": "TCP/IP",
-      "https": "HTTPS",
-      "system": "Sistema",
-      "administration": "administración",
-      "dateTime": "Fecha y hora",
-      "deviceMaintenance": "mantenimiento",
-      "softwareUpgrade": "Actualización de software",
-      "status": "estado",
-      "systemLog": "Registro del sistema",
-      "information": "Información del dispositivo",
-      "sdCard": "Tarjeta de memoria",
       "tooltip": {
         "home": "Página de Inicio",
-        "image": "imagen",
         "video": "Video",
         "audio": "Audio",
         "notification": "Notificación",
@@ -917,108 +617,361 @@
         "network": "Red",
         "system": "Sistema",
         "sdCard": "Tarjeta de memoria"
-      }
+      },
+      "analyticsSettings": "Análisis inteligente",
+      "license": "Autorización de análisis inteligente",
+      "audio": "Audio",
+      "videoSettings": "Video",
+      "hdmi": "HDMI",
+      "streams": "Stream",
+      "rtsp": "RTSP",
+      "osd": "Mapa de texto",
+      "privacyMask": "Máscara de privacidad",
+      "members": "miembro",
+      "accounts": "cuentas",
+      "events": "eventos",
+      "internetNetworkSettings": "Configuración de Internet y red",
+      "https": "HTTPS",
+      "network": "Red",
+      "tcpip": "TCP/IP",
+      "notificationSettings": "Anunciar",
+      "notificationMethod": "Método de notificación",
+      "inputAndOutput": "Entrada y salida digital",
+      "email": "correo electrónico",
+      "io": "Entrada y salida digital",
+      "smartNotification": "Notificación inteligente",
+      "sdCard": "Tarjeta de memoria",
+      "facialRecognition": "Reconocimiento facial",
+      "motionDetection": "Detección de movimiento",
+      "system": "Sistema",
+      "administration": "administración",
+      "dateTime": "Fecha y hora",
+      "status": "estado",
+      "information": "Información del dispositivo",
+      "deviceMaintenance": "mantenimiento",
+      "softwareUpgrade": "Actualización de software",
+      "systemLog": "Registro del sistema"
     },
     "appbar": {
-      "signOut": "Cerrar sesión",
-      "about": {
-        "about": "Soporte",
-        "modelName": "Nombre del dispositivo",
-        "software": "Versión del software",
-        "serialNumber": "Número de serie del dispositivo",
-        "macAddress": "Dirección física"
-      },
       "support": {
         "support": "apoyo",
         "deviceHelp": "Ayuda para el uso del dispositivo",
         "technicalSupport": "Apoyo técnico",
         "productInformation": "Otras informaciones de producto"
+      },
+      "signOut": "Cerrar sesión",
+      "about": {
+        "modelName": "Nombre del dispositivo",
+        "software": "Versión del software",
+        "serialNumber": "Número de serie del dispositivo",
+        "macAddress": "Dirección física",
+        "about": "Soporte"
       }
     }
   },
-  "common": {
-    "loading": "Cargando",
-    "toast": {
-      "Duplicate Member Names": "Nombre duplicado, utilice un nombre diferente",
-      "Login Failed": "cuenta o contraseña incorrecta",
-      "Empty Member Database": "Importar el archivo de base de datos incorrecto",
-      "Card Number Limit Exceeded": "Límite de número de tarjetas excedido",
-      "Non-existent Card": "Tarjeta inexistente",
-      "Database Size Limit (3 GB) Exceeded": "Alcanzó el límite de almacenamiento",
-      "Group Number Limit Exceeded": "Límite de grupo alcanzado",
-      "Wrong Password for Database File": "Corrupción de archivos",
-      "Wrong File Format": "Error de formato de archivo",
-      "Corrupted Zip File": "Corrupción de archivos",
-      "Photo Limit of Member Database Exceeded": "Límite de cantidad alcanzado",
-      "Non-existent Group": "El grupo de miembros no existe",
-      "Non-existent Member": "El grupo de miembros no existe",
-      "Duplicate Member Name": "Nombre duplicado, utilice un nombre diferente",
-      "Duplicate Card Name": "Nombre duplicado, utilice un nombre diferente",
-      "Software Upgrade Failed": "Error en la actualización de software",
-      "Unable to Complete the Format": "Error al formatear la tarjeta de memoria",
-      "Empty SMTP Server Address": "Dirección de servidor SMTP vacía",
-      "Empty SMTP Account": "Debe ingresar cuenta y contraseña",
-      "Empty SMTP Account Password": "Debe ingresar cuenta y contraseña",
-      "Empty Sender Email": "Debe ingresar la información del remitente",
-      "Absent or Unmounted SD Card": "La tarjeta de memoria es anormal y no puede funcionar normalmente",
-      "Showing No Face": "No hay rostro en la foto",
-      "Poor Photo Quality": "Mala calidad de la foto",
-      "Limitation of Yaw Angle is 30 Degrees": "El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha",
-      "Limitation of Pitch Angle is 20 Degrees": "El ángulo de la cara supera los 20 grados hacia arriba y abajo o los 30 grados hacia la izquierda y derecha",
-      "More Than One Face in the Photo": "Más de 1 rostro en la foto",
-      "Non-existent Photo": "Miniatura de Cara inexistente",
-      "Invalid Key": "Activación fallida, código de activación incorrecto",
-      "Duplicate Key": "Activación fallida, código de activación repetido",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros",
-      "DHCP Test Failed": "Prueba DHCP falló"
-    },
-    "volumeBar": {
-      "sdStorageStatus": "{{0}} disponible total {{1}}",
-      "free": "{{0}} está disponible",
-      "used": "{{0}} se ha utilizado"
-    },
-    "password": {
-      "hidePassword": "Ocultar contraseña",
-      "showPassword": "mostrar contraseña",
-      "passwordHelper": "8-16 caracteres: deben contener letras mayúsculas y minúsculas, números y símbolos en inglés, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
-      "password": "Contraseña",
-      "passwordPlaceholder": "introducir la contraseña",
-      "confirmPassword": "Confirmar contraseña",
-      "confirmPasswordPlaceholder": "Ingrese la contraseña nuevamente",
-      "newPassword": "nueva contraseña",
-      "newPasswordPlaceholder": "Introduzca una nueva contraseña",
-      "confirmNewPassword": "Confirmar Nueva Contraseña",
-      "confirmNewPasswordPlaceholder": "Ingrese la nueva contraseña nuevamente"
-    },
-    "pagination": {
-      "stats": "{{0}}-{{1}} registros. Total: {{2}}"
-    },
-    "dateTimePicker": {
-      "date": "fecha",
+  "analytics": {
+    "license": {
       "time": "hora",
-      "startTime": "Hora de inicio",
-      "endTime": "Hora de fin",
-      "manualDateTime": "Manual DateTime"
+      "activatedBy": "Activada por",
+      "authenticationKey": "Habilitar código",
+      "activatedFunctions": "funciónes activadas",
+      "enableStatus": "estado",
+      "constants": {
+        "key-thirtyThousand": "Reconocimiento facial 30k",
+        "key-threeThousand": "Reconocimiento facial 3k"
+      },
+      "ageGender": "Género y edad",
+      "humanDetection": "Detección humanoide",
+      "toast": {
+        "activationFailedTitle": "Activación fallida",
+        "keyRegisteredBody": "Repita el código de activación",
+        "activationSuccessTitle": "Activación exitosa",
+        "activationSuccessBody": "{{0}} se ha autorizado correctamente"
+      },
+      "title": "Autorización de análisis inteligente",
+      "keyPlaceholder": "Ingrese el código de activación",
+      "activate": "Habilitar",
+      "facialRecognition": "Reconocimiento facial"
     },
-    "button": {
-      "on": "ON",
-      "off": "OFF",
-      "apply": "Aplicar",
-      "resetDefault": "Restaurar a lo preajuste",
-      "close": "Cerrar",
-      "confirm": "Confirmar",
-      "cancel": "Cancelar",
-      "new": "Nuevo",
-      "create": "Nuevo",
-      "add": "Añadir"
+    "facialRecognition": {
+      "detectionZone": "Área de activación",
+      "minDetectionSize": "Tamaño mínimo de la cara",
+      "title": "Reconocimiento facial",
+      "enableFR": "Habilitar reconocimiento facial",
+      "enableSpoof": "Habilitar anti-disfraz de imagen",
+      "tooltip": {
+        "frDisabled": "Reconocimiento facial está desactivado.",
+        "detectionZoneToggle": "Mostrar o ocultar área"
+      },
+      "modal": {
+        "spoofBody": "¿Está seguro de que desea habilitar la versión Alfa de la suplantación de imágenes? Es una versión Alpha. No se reconocerán los rostros que se consideren falsos. Optimizaremos y mejoraremos esta función en futuras actualizaciones de software."
+      },
+      "accuracyLevel": "Nivel de exactitud",
+      "constants": {
+        "confidence-level-0": "bajo",
+        "confidence-level-1": "medio",
+        "confidence-level-2": "alto"
+      },
+      "detectionZoneHelper": "El valor predeterminado es pantalla completa",
+      "enableDetectionSize": "Habilitar tamaño de la cara",
+      "liveViewDisplay": "Visualización de imagen en vivo",
+      "displayName": "Nombre de miembro",
+      "displayGroup": "Grupo de miembro",
+      "displayUnknown": "desconocido",
+      "displaySpoof": "Camuflaje de imagen"
     },
-    "modal": {
-      "pleaseWait": "Por favor espera",
-      "sessionExpire": {
-        "sessionExpired": "Cerrar sesión automáticamente",
-        "expireCountdown": "El tiemppo de inactividad es demasiado largo, se cerrará la sesión en {{0}} segundos y se le redirigirá a la página de inicio.",
-        "renewSession": "Renovar Sesión"
-      }
+    "motionDetection": {
+      "detectionZone": "Área de activación",
+      "title": "Detección de movimiento",
+      "enableMD": "Habilitar detección de movimiento",
+      "mdHelper": "Agregue un área de activación en el panel de vista previa",
+      "sensitivity": "Sensibilidad",
+      "noteArea": "Descripción",
+      "note1": "Añadir Área:",
+      "drag": "Arrastrar",
+      "note2": "Borrar Área",
+      "or": "or",
+      "note3": "Hasta 4 áreas"
     }
+  },
+  "audio": {
+    "enable": "Habilitar entrada de voz",
+    "quality": "Calidad",
+    "constants": {
+      "audio-quality-0": "G.711, 8kHz, 64kbps, Mono"
+    },
+    "inputSource": "Fuente de entrada",
+    "externalMicrophone": "Micrófono externo",
+    "title": "Audio"
+  },
+  "network": {
+    "common": {
+      "modal": {
+        "redirectionBody": "Vuelva a iniciar sesión con la siguiente URL",
+        "redirectionSuccess": "redirección"
+      }
+    },
+    "https": {
+      "title": "HTTPS",
+      "enableHTTPS": "Habilitar servicio HTTPS",
+      "port": "Port",
+      "portHelper": "Rango: 1024-65535, preestablecido: 8443",
+      "certificate": "Certificate",
+      "constants": {
+        "certificate-type-0": "{{0}} Certificado autofirmado"
+      },
+      "tooltip": {
+        "disabledButton": "Habilite primero la función HTTPS"
+      }
+    },
+    "network": {
+      "testDHCP": "Probar DHCP",
+      "modal": {
+        "testingSuccess": "Prueba DHCP exitosa",
+        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de red?"
+      },
+      "ipAddress": "Dirección IP",
+      "dhcp": "DHCP",
+      "fixedIPAddress": "Dirección IP fija",
+      "ipAddressPlaceholder": "Introduzca una dirección IP fija",
+      "subnetMask": "Máscara de subred",
+      "subnetMaskPlaceholder": "Máscara de subred",
+      "routerGateway": "Enrutador/Puerta de enlace",
+      "routerGatewayPlaceholder": "Enrutador/Puerta de enlace",
+      "primaryDNS": "DNS primario",
+      "primaryDNSPlaceholder": "Ingrese DNS Primario",
+      "secondaryDNSOptional": "DNS secundario (opcional)",
+      "secondaryDNSPlaceholder": "Ingrese DNS Secundario",
+      "tooltip": {
+        "noChanges": "No se ha cambiado ninguna configuración"
+      },
+      "title": "Red",
+      "ipAssignment": "Método de adquisición de IP",
+      "macAddress": "Dirección física",
+      "secondaryDNS": "DNS secundario",
+      "ipAddressing": "Red de área local",
+      "networkStatus": "Estado de la red"
+    },
+    "tcpip": {
+      "toast": {
+        "settingSuccessTitle": "Configuración Exitosa",
+        "successBody": "¡configuración de DDNS exitosa!",
+        "settingFailed": "Configuración fallida",
+        "failedBody": "¡configuración de DDNS fallida！"
+      },
+      "enableDDNS": "Habilitar servicio DDNS",
+      "serviceProvider": "proveedor de servicio",
+      "hostName": "Nombre de host",
+      "hostNamePlaceholder": "Ingrese el nombre de host DDNS",
+      "account": "Cuenta",
+      "accountPlaceholder": "Ingrese el nombre de usuario de DDNS",
+      "passwordPlaceholder": "Ingrese la contraseña de DDNS",
+      "modal": {
+        "apiProcessModalTitle": "Actualizar la configuración HTTP"
+      },
+      "secondaryHTTPPort": "Puerto secundario HTTP",
+      "portHelper": "Rango: 1024-65535, preestablecido: 8080",
+      "title": "TCP/IP",
+      "ddns": "DDNS",
+      "http": "HTTP"
+    }
+  },
+  "error": {
+    "internalServerError": "Problema interno del servidor",
+    "error": "Error",
+    "backToHome": "Volver a la página de inicio"
+  },
+  "setup": {
+    "account": {
+      "permission": "Permiso",
+      "account": "Cuenta",
+      "accountPlaceholder": "Ingrese el nombre de la cuenta",
+      "accountHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
+      "done": "terminado"
+    },
+    "language": {
+      "next": "Próximo"
+    },
+    "progressBar": {
+      "language": "Elija un idioma",
+      "setupAccount": "número de cuenta"
+    },
+    "welcome": {
+      "welcome": "Bienvenido",
+      "welcomeText1": "Para que tengas una mejor experiencia",
+      "welcomeText2": "presione continuar para iniciar la configuración inicial",
+      "continue": "Continuar"
+    }
+  },
+  "system": {
+    "dateTime": {
+      "modal": {
+        "apiProcessModalTitle": "Actualización de Fecha y Hora",
+        "confirmUpdateBody": "¿Estás seguro de que deseas cambiar la hora del dispositivo? Debes iniciar sesión nuevamente para cambiar la hora del dispositivo"
+      },
+      "title": "Fecha y hora",
+      "deviceDateTime": "Hora del dispositivo",
+      "timeZone": "Zona horaria",
+      "syncNTP": "Sincronizar con Network Time Server (NTP)",
+      "ntpHost": "Dirección del servidor",
+      "hostPlaceholder": "Enter Your IP Address",
+      "syncTime": "Hora de actualización diaria",
+      "syncInterval": "Frecuencia de actualización (minutos)",
+      "syncWithComputer": " Sincronizar con su computadora",
+      "setManually": "Ajuste manual"
+    },
+    "information": {
+      "software": "Versión del software",
+      "serialNumber": "S/N Code",
+      "macAddress": "Dirección física",
+      "title": "Información del dispositivo"
+    },
+    "systemLog": {
+      "title": "Registro del sistema",
+      "systemLogFile": "Archivo de registro del sistema",
+      "deleteLogs": "Borrar",
+      "modal": {
+        "confirmDeleteTitle": "Borrar archivo de registro del sistema",
+        "confirmDeleteBody": "¿Está seguro de que desea borrar el archivo de registro del sistema?",
+        "apiProcessModalTitle": "Descargar el archivo de registro del sistema",
+        "downloadingBody": "Progreso de Descarga"
+      },
+      "download": "descargar"
+    },
+    "deviceMaintenance": {
+      "importSystemSettings": "Importar configuración del sistema",
+      "modal": {
+        "apiProcessModalTitleRebooting": "Reinicio del dispositivo",
+        "importSuccessBody": "La Configuración del dispositivo ha sido importada. Por favor ingrese de nuevo",
+        "rebootSuccessBody": "El dispositivo se reinició, inicie la sesión nuevamente",
+        "confirmRebootBody": "¿Estás seguro de que deseas reiniciar el dispositivo?",
+        "apiProcessModalTitleResetting": "Está restaurando",
+        "resetSuccess": "Restablecer Existosa",
+        "resetAllSettingsSuccessBody": "Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.",
+        "resetDefaultSettingsSuccessBody": "El dispositivo se ha sido reiniciado. Por favor ingrese de nuevo."
+      },
+      "exportSystemSettings": "Exportar configuración del sistema",
+      "export": "Exportar",
+      "import": "Importar",
+      "systemReboot": "Reiniciar el dispositivo",
+      "reboot": "Reiniciar",
+      "restoreDefaultSettings": "Restaurar a la configuración original de fábrica",
+      "restoreAllSettings": "Restaurar todas las config",
+      "tooltip": {
+        "restoreAllSettingsHelper": "Al marcar este elemento, se borrarán y restaurarán miembros y grupos, cuentas del sistema, zoom y enfoque, RTSP, red, aplicaciones, datos almacenados en la tarjeta de memoria ... etc., todos los datos y configuraciones"
+      },
+      "reset": "Restaurar",
+      "title": "mantenimiento"
+    },
+    "common": {
+      "importHelper": "Solo admite formato de archivo .zip",
+      "selectFile": "Seleccionar Archivo",
+      "noFileSelected": "Ningún archivo seleccionado",
+      "tooltip": {
+        "disabledButton": "Seleccione primero un archivo"
+      }
+    },
+    "softwareUpgrade": {
+      "modal": {
+        "uploadingBody": "※ No cierre el navegador al actualizar",
+        "apiProcessModalTitleUploading": "Carga de software",
+        "apiProcessModalTitleInstalling": "Instalación de software",
+        "apiProcessModalTitleShutDown": "El dispositivo se está borrando",
+        "apiProcessModalTitleRestarting": "Reinicio del dispositivo",
+        "upgradeSuccess": "Actualización de software con éxito",
+        "upgradeSuccessBody": "Redirigir a la página de inicio de sesión en {{0}} segundos",
+        "stage1": "Nivel 1",
+        "uploadSoftware": "Cargar software",
+        "stage2": "Nivel 2",
+        "installSoftware": "Instalar software",
+        "stage3": "Nivel 3",
+        "shutDown": "Apaga el dispositivo",
+        "stage4": "Nivel 4",
+        "restart": "Reiniciar el dipositivo"
+      },
+      "title": "Actualización de software",
+      "importFile": "Importar perfil"
+    }
+  },
+  "documentTitle": {
+    "home": "Página de Inicio",
+    "videoSettings": "Video",
+    "streams": "Stream",
+    "privacyMask": "Máscara de privacidad",
+    "rtsp": "RTSP",
+    "hdmi": "HDMI",
+    "osd": "Mapa de texto",
+    "audio": "Audio",
+    "notification": "Notificación",
+    "email": "correo electrónico",
+    "io": "Entrada y salida digital",
+    "smartNotification": "Notificación inteligente",
+    "analyticsSettings": "Análisis inteligente",
+    "facialRecognition": "Reconocimiento facial",
+    "motionDetection": "Detección de movimiento",
+    "license": "Autorización de análisis inteligente",
+    "userManagement": "Usuarios",
+    "members": "miembro",
+    "newMember": "Nuevo miembro",
+    "accounts": "cuentas",
+    "newUser": "Nuevo Usuario",
+    "events": "eventos",
+    "network": "Red",
+    "internetNetworkSettings": "Configuración de Internet y red",
+    "tcpip": "TCP/IP",
+    "https": "HTTPS",
+    "system": "Sistema",
+    "dateTime": "Fecha y hora",
+    "softwareUpgrade": "Actualización de software",
+    "deviceMaintenance": "mantenimiento",
+    "sdCard": "Tarjeta de memoria",
+    "systemLog": "Registro del sistema",
+    "information": "Información del dispositivo",
+    "welcome": "Bienvenido",
+    "language": "Elija un idioma",
+    "setupAccount": "número de cuenta",
+    "login": "Registrarse",
+    "loginError": "Login Error",
+    "loginLocked": "El inicio de sesión está bloqueado"
   }
 }
