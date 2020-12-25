@@ -539,7 +539,8 @@ module.exports = {
             port: '8080',
             deviceName: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
             account: 'admin',
-            connectionStatus: Math.random() * 7 > 1 ? 1 : 0 // Generate failed connection with 70% chance
+            connectionStatus: Math.random() * 7 > 1 ? 1 : 0, // Generate failed connection with 70% chance
+            lastUpdateTime: Math.random() * 9 > 1 ? 0 : 1608888327067
           }
         )),
         sync: 0

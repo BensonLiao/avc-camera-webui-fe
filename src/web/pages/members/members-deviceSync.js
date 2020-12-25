@@ -246,9 +246,9 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                         />
                         <label htmlFor="selectAll"/>
                       </th>
-                      <th style={{width: '25%'}}>{i18n.t('demo.userManagement.members.host')}</th>
-                      <th style={{width: '30%'}}>{i18n.t('demo.userManagement.members.deviceName')}</th>
-                      <th style={{width: '20%'}}>{i18n.t('demo.userManagement.members.status')}</th>
+                      <th style={{width: '15%'}}>{i18n.t('demo.userManagement.members.host')}</th>
+                      <th style={{width: '35%'}}>{i18n.t('demo.userManagement.members.deviceName')}</th>
+                      <th style={{width: '25%'}}>{i18n.t('demo.userManagement.members.status')}</th>
                       <th style={{width: '15%'}}>{i18n.t('userManagement.members.actions')}</th>
                     </tr>
                   </thead>
@@ -285,9 +285,21 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                               </td>
                               <td>
                                 <div>
-                                  { device.connectionStatus ?
-                                    <i className="fas fa-link fa-fw mr-2"/> :
-                                    <i className="fas fa-unlink fa-fw mr-2"/>}
+                                  { device.lastUpdateTime ? (
+                                    <CustomTooltip placement="top-start" title={`${new Date(device.lastUpdateTime)}`}>
+                                      <span>{`${new Date(device.lastUpdateTime)}`}</span>
+                                    </CustomTooltip>
+                                  ) : (
+                                    device.connectionStatus ? (
+                                      <CustomTooltip title={i18n.t('demo.userManagement.members.tooltip.connected')}>
+                                        <i className="fas fa-link fa-fw"/>
+                                      </CustomTooltip>
+                                    ) : (
+                                      <CustomTooltip title={i18n.t('demo.userManagement.members.tooltip.notConnected')}>
+                                        <i className="fas fa-unlink fa-fw"/>
+                                      </CustomTooltip>
+                                    )
+                                  )}
                                 </div>
                               </td>
                               <td className="text-left group-btn">
