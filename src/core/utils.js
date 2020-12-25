@@ -764,3 +764,109 @@ module.exports.getNotificationFRConditionI18N = (recognitionType, defaultValue =
       return i18n.t('notification.cards.constants.face-recognition-condition-3');
   }
 };
+
+/**
+ * Get the i18n message of api error.
+ * @param {number} errorCode - The api error code.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getApiErrorMessageI18N = (errorCode, defaultValue = '') => {
+  switch (errorCode) {
+    default: return defaultValue;
+    case 9001:
+      return i18n.t('common.toast.Duplicate Member Names');
+    case 9002:
+      return i18n.t('common.toast.Login Failed');
+    case 9003:
+      return i18n.t('common.toast.Empty Member Database');
+    case 9004:
+      return i18n.t('common.toast.Unable to reset a forgotten password');
+    case 9005:
+      return i18n.t('common.toast.Unable to reset a password');
+    case 9007:
+      return i18n.t('common.toast.Card Number Limit Exceeded');
+    case 9008:
+      return i18n.t('common.toast.Non-existent Card');
+    case 9009:
+      return i18n.t('common.toast.Database Size Limit (3 GB) Exceeded');
+    case 9010:
+      return i18n.t('common.toast.Invalid Member Photo');
+    case 9011:
+      return i18n.t('common.toast.Unable to Process the Request (invalid token).');
+    case 9012:
+      return i18n.t('common.toast.Group Number Limit Exceeded');
+    case 9013:
+      return i18n.t('common.toast.Incorrect Password');
+    case 9014:
+      return i18n.t('common.toast.Wrong Password for Database File');
+    case 9015:
+      return i18n.t('common.toast.Wrong File Format');
+    case 9016:
+      return i18n.t('common.toast.Corrupted Zip File');
+    case 9017:
+      return i18n.t('common.toast.Photo Limit of Member Database Exceeded');
+    case 9018:
+      return i18n.t('common.toast.Photo Size Limit Exceeded');
+    case 9019:
+      return i18n.t('common.toast.Invalid or Absent Photo');
+    case 9020:
+      return i18n.t('common.toast.Non-existent Group');
+    case 9021:
+      return i18n.t('common.toast.Non-existent Member');
+    case 9022:
+      return i18n.t('common.toast.Maximum Field Length Exceeded');
+    case 9023:
+      return i18n.t('common.toast.Maximum Field Length Exceeded');
+    case 9024:
+      return i18n.t('common.toast.Maximum Field Length Exceeded');
+    case 9025:
+      return i18n.t('common.toast.Duplicate Member Name');
+    case 9026:
+      return i18n.t('common.toast.Duplicate Card Name');
+    case 9027:
+      return i18n.t('common.toast.VMS Reserved Port');
+    case 9028:
+      return i18n.t('common.toast.Software Upgrade Failed');
+    case 9029:
+      return i18n.t('common.toast.Unable to Complete the Format');
+    case 9030:
+      return i18n.t('common.toast.Empty SMTP Server Address');
+    case 9031:
+      return i18n.t('common.toast.Empty SMTP Account');
+    case 9032:
+      return i18n.t('common.toast.Empty SMTP Account Password');
+    case 9033:
+      return i18n.t('common.toast.Empty Sender Email');
+    case 9034:
+      return i18n.t('common.toast.Outgoing Email being Disabled');
+    case 9035:
+      return i18n.t('common.toast.Absent or Unmounted SD Card');
+    case 9036:
+      return i18n.t('common.toast.Maximum Field Length Exceeded');
+    case 9037:
+      return i18n.t('common.toast.Maximum Field Length Exceeded');
+    case 9038:
+      return i18n.t('common.toast.Maximum Field Length Exceeded');
+    case 9039:
+      return i18n.t('common.toast.Maximum Photo Number Exceeded');
+    case 9040:
+      return i18n.t('common.toast.Showing No Face');
+    case 9041:
+      return i18n.t('common.toast.Poor Photo Quality');
+    case 9042:
+      return i18n.t('common.toast.Limitation of Yaw Angle is 30 Degrees');
+    case 9043:
+      return i18n.t('common.toast.Limitation of Pitch Angle is 20 Degrees');
+    case 9044:
+      return i18n.t('common.toast.More Than One Face in the Photo');
+    case 9045:
+      return i18n.t('common.toast.Non-existent Photo');
+    case 9046:
+      return i18n.t('common.toast.Invalid Key');
+    case 9047:
+      return i18n.t('common.toast.Duplicate Key');
+    case 9048:
+      return i18n.t('common.toast.Cannot Support Database Downgrade from 30,000 to 3000 People');
+  }
+};
