@@ -59,7 +59,7 @@ module.exports = config => {
           notify.showErrorNotification({
             title: `Error ${error.response.status}` || null,
             message: error.response.status === 400 ?
-              utils.getApiErrorMessageI18N(error.response.data.extra, error.response.data.message || null) :
+              utils.getApiErrorMessageI18N(error.response.data.message || null) :
               null
           });
         } else if (error.request) {
