@@ -52,13 +52,14 @@ const SDCard = ({
   };
 
   return (
-    <div className="main-content">
+    <div className="main-content left-menu-active">
       <div className="section-media">
         <div className="container-fluid">
           <div className="row justify-content-center">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('navigation.sidebar.sdCard')]}
+              path={[i18n.t('navigation.sidebar.sdCardSettings'), i18n.t('navigation.sidebar.basic')]}
+              routes={['/sd-card/settings']}
             />
             <div className="col-center">
               <div className="card shadow">

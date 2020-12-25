@@ -752,7 +752,7 @@
     }
   },
   "sdCard": {
-    "title": "SD Card",
+    "title": "SD Card Settings",
     "enable": "Enable SD Card",
     "operation": "Operation",
     "format": "Format",
@@ -868,6 +868,7 @@
     "motionDetection": "Motion Detection",
     "license": "License",
     "internetNetworkSettings": "Internet & Network Settings",
+    "sdCardSettings": "SD Card Settings",
     "tcpip": "TCP/IP",
     "https": "HTTPS",
     "administration": "Administration",
@@ -920,6 +921,9 @@
       "status": "Status",
       "systemLog": "System Log",
       "information": "Information",
+      "sdCardSettings": "SD Card Settings",
+      "basic": "Basic",
+      "storage": "Storage",
       "sdCard": "SD Card",
       "tooltip": {
         "home": "Home",
