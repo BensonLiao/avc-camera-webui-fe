@@ -1085,7 +1085,10 @@
             "port": "Port",
             "portPlaceholder": "Ex. 8080",
             "addDeviceApiProcessingModal": "Adding Device",
-            "editDeviceApiProcessingModal": "Updating Device"
+            "editDeviceApiProcessingModal": "Updating Device",
+            "confirmDeleteTitle": "Delete Device",
+            "confirmDeleteBody": "Are you sure you want to delete device?",
+            "deleteDeviceApiProcessingModal": "Deleting Device"
           },
           "database": {
             "successTitle": "Setting Success",

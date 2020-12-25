@@ -11,7 +11,7 @@ import {getRouter} from '@benson.liao/capybara-router';
 import deviceSyncValidator from '../../validations/members/device-sync-validator';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 
-const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
+const DeviceSyncAddDevice = ({device, isShowDeviceModal, hideDeviceModal}) => {
   const {isApiProcessing} = useContextState();
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
 
@@ -29,7 +29,7 @@ const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
 
     localStorage.setItem('currentPage', 'sync');
     setIsShowApiProcessModal(true);
-    hideModal();
+    hideDeviceModal();
 
     if (device) {
       api.member.editDevice(values)
@@ -44,7 +44,7 @@ const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
 
   return (
     <>
-      <Modal autoFocus={false} show={isShowModal} backdrop={isApiProcessing ? 'static' : true} onHide={hideModal}>
+      <Modal autoFocus={false} show={isShowDeviceModal} backdrop={isApiProcessing ? 'static' : true} onHide={hideDeviceModal}>
         <Modal.Header className="d-flex justify-content-between align-items-center">
           <Modal.Title as="h5">
             {device ?
@@ -124,7 +124,7 @@ const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
                   disabled={isApiProcessing}
                   className="btn btn-info btn-block m-0 rounded-pill"
                   type="button"
-                  onClick={hideModal}
+                  onClick={hideDeviceModal}
                 >
                   {i18n.t('common.button.close')}
                 </button>
@@ -149,8 +149,8 @@ const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
 
 DeviceSyncAddDevice.propTypes = {
   device: PropTypes.object,
-  isShowModal: PropTypes.bool.isRequired,
-  hideModal: PropTypes.func.isRequired
+  isShowDeviceModal: PropTypes.bool.isRequired,
+  hideDeviceModal: PropTypes.func.isRequired
 };
 
 export default DeviceSyncAddDevice;

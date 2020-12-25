@@ -11,12 +11,16 @@ import FormikEffect from '../../../core/components/formik-effect';
 import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
 import classNames from 'classnames';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 
 const DeviceSync = ({deviceSync}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [device, setDevice] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
+  const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
+  const [deleteDeviceID, setDeleteDeviceID] = useState();
+  const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const selectAllRef = useRef();
   const formRef = useRef();
   const deviceList = getPaginatedData(deviceSync.map(device => ({
@@ -25,17 +29,25 @@ const DeviceSync = ({deviceSync}) => {
   })), 5);
   const showDeviceModal = () => setIsShowDeviceModal(true);
 
+  const showConfirmModal = () => setIsShowConfirmModal(true);
+
   const hideDeviceModal = () => {
     setDevice(null);
     setIsShowDeviceModal(false);
   };
 
+  const hideConfirmModal = () => setIsShowConfirmModal(false);
+
+  const hideApiProcessModal = () => setIsShowApiProcessModal(false);
+
   /**
-   * Condition check for indeterminate state for table header checkbox
+   * Delete selected device
    * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
    * @returns {void}
    */
-  const deleteDeviceHandler = list => _ => {
+  const deleteDevice = list => _ => {
+    hideConfirmModal();
+    setIsShowApiProcessModal(true);
     localStorage.setItem('currentPage', 'sync');
     if (isArray(list)) {
       const itemsToDelete = list.flat().filter(device => device.isChecked)
@@ -45,12 +57,19 @@ const DeviceSync = ({deviceSync}) => {
         }, []);
       // Delete multiple devices
       api.member.deleteDevice(itemsToDelete)
-        .then(getRouter().reload);
+        .then(getRouter().reload)
+        .finally(hideApiProcessModal);
     } else {
       // Delete single device
       api.member.deleteDevice([list])
-        .then(getRouter().reload);
+        .then(getRouter().reload)
+        .finally(hideApiProcessModal);
     }
+  };
+
+  const confirmDelete = (deviceID = null) => _ => {
+    showConfirmModal(true);
+    setDeleteDeviceID(deviceID);
   };
 
   /**
@@ -168,7 +187,7 @@ const DeviceSync = ({deviceSync}) => {
                         type="button"
                         disabled={disableButton}
                         style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                        onClick={deleteDeviceHandler(form.values)}
+                        onClick={confirmDelete()}
                       >
                         <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
                         {i18n.t('demo.userManagement.members.remove')}
@@ -259,7 +278,7 @@ const DeviceSync = ({deviceSync}) => {
                                 <button
                                   className="btn btn-link"
                                   type="button"
-                                  onClick={deleteDeviceHandler(device.id)}
+                                  onClick={confirmDelete(device.id)}
                                 >
                                   <i className="far fa-trash-alt fa-lg fa-fw"/>
                                 </button>
@@ -287,14 +306,31 @@ const DeviceSync = ({deviceSync}) => {
                 index={page}
                 size={5}
                 total={deviceList.flat().length}
-                currentPageItemQuantity={deviceList[page] && deviceList[page].length}
+                currentPageItemQuantity={deviceList[page] ? deviceList[page].length : 0}
                 hrefTemplate=""
                 setPageIndexState={setPage}
+              />
+              {/* Delete confirmation */}
+              <CustomNotifyModal
+                backdrop="static"
+                isShowModal={isShowConfirmModal}
+                modalTitle={i18n.t('demo.userManagement.members.modal.deviceSync.confirmDeleteTitle')}
+                modalBody={i18n.t('demo.userManagement.members.modal.deviceSync.confirmDeleteBody')}
+                onHide={hideConfirmModal}
+                onConfirm={deleteDevice(deleteDeviceID ? deleteDeviceID : form.values)}
               />
             </Form>
           );
         }}
       </Formik>
+      {/* API processing modal */}
+      <CustomNotifyModal
+        modalType="process"
+        backdrop="static"
+        isShowModal={isShowApiProcessModal}
+        modalTitle={i18n.t('demo.userManagement.members.modal.deviceSync.deleteDeviceApiProcessingModal')}
+        onHide={hideApiProcessModal}
+      />
     </div>
   );
 };
