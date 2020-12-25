@@ -676,7 +676,7 @@ mockAxios
   .onGet('/api/members/device-sync').reply(config => mockResponseWithLog(config, [200, db.get('deviceSync').value()]))
   .onPut('/api/members/device-sync').reply(config => {
     const newItem = JSON.parse(config.data);
-    return mockResponseWithLog(config, [200, db.get('deviceSync').find({id: newItem.id}).assign(newItem).write()]);
+    return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync').find({id: newItem.id}).assign(newItem).write()]), 500);
   })
   .onPost('/api/members/device-sync').reply(config => {
     const item = JSON.parse(config.data);
@@ -688,12 +688,12 @@ mockAxios
       deviceName: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
       account: item.account
     };
-    return mockResponseWithLog(config, [200, db.get('deviceSync').push(newItem).write()]);
+    return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync').push(newItem).write()]), 500);
   })
   .onDelete('/api/members/device-sync').reply(config => {
     const devices = JSON.parse(config.data);
     devices.forEach(deviceID => db.get('deviceSync').remove({id: deviceID}).write());
-    return mockResponseWithLog(config, [204, {}]);
+    return setDelay(mockResponseWithLog(config, [204, {}]), 500);
   })
   .onGet('/api/face-recognition/settings').reply(config => {
     const faceRecognitionSettings = db.get('faceRecognitionSettings').value();

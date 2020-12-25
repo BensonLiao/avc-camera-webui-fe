@@ -13,7 +13,7 @@ import Pagination from '../../../core/components/pagination';
 import classNames from 'classnames';
 
 const DeviceSync = ({deviceSync}) => {
-  const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [device, setDevice] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
@@ -23,11 +23,11 @@ const DeviceSync = ({deviceSync}) => {
     ...device,
     isChecked: false
   })), 5);
-  const showModal = () => setIsShowModal(true);
+  const showDeviceModal = () => setIsShowDeviceModal(true);
 
-  const hideModal = () => {
+  const hideDeviceModal = () => {
     setDevice(null);
-    setIsShowModal(false);
+    setIsShowDeviceModal(false);
   };
 
   /**
@@ -45,11 +45,11 @@ const DeviceSync = ({deviceSync}) => {
         }, []);
       // Delete multiple devices
       api.member.deleteDevice(itemsToDelete)
-        .then(getRouter().reload());
+        .then(getRouter().reload);
     } else {
       // Delete single device
       api.member.deleteDevice([list])
-        .then(getRouter().reload());
+        .then(getRouter().reload);
     }
   };
 
@@ -60,7 +60,7 @@ const DeviceSync = ({deviceSync}) => {
    */
   const editDeviceHandler = device => _ => {
     setDevice(device);
-    setIsShowModal(true);
+    setIsShowDeviceModal(true);
   };
 
   const sync = values => {
@@ -178,7 +178,7 @@ const DeviceSync = ({deviceSync}) => {
                   <button
                     type="button"
                     className="btn btn-outline-primary rounded-pill ml-3"
-                    onClick={showModal}
+                    onClick={showDeviceModal}
                   >
                     <i className="fas fa-plus fa-fw mr-2"/>
                     {i18n.t('common.button.add')}
@@ -186,8 +186,8 @@ const DeviceSync = ({deviceSync}) => {
                 </div>
                 <DeviceSyncAddDevice
                   device={device}
-                  isShowModal={isShowModal}
-                  hideModal={hideModal}
+                  isShowDeviceModal={isShowDeviceModal}
+                  hideDeviceModal={hideDeviceModal}
                 />
               </div>
               <div className="col-12 pt-4 mb-5 table-responsive">
@@ -216,9 +216,8 @@ const DeviceSync = ({deviceSync}) => {
                   </thead>
                   <tbody>
                     {
-                      /* Empty Search Message */
                       deviceSync.length ? (
-                        deviceList[page].map((device, index) => {
+                        deviceList[page] && deviceList[page].map((device, index) => {
                           return (
                             <tr
                               key={device.id}
@@ -269,6 +268,7 @@ const DeviceSync = ({deviceSync}) => {
                           );
                         })
                       ) : (
+                      /* No Device */
                         <tr className="disable-highlight">
                           <td className="text-size-20 text-center" colSpan="10">
                             <div className="d-flex flex-column align-items-center mt-5">
@@ -287,7 +287,7 @@ const DeviceSync = ({deviceSync}) => {
                 index={page}
                 size={5}
                 total={deviceList.flat().length}
-                currentPageItemQuantity={deviceSync.length && deviceList[page].length}
+                currentPageItemQuantity={deviceList[page] && deviceList[page].length}
                 hrefTemplate=""
                 setPageIndexState={setPage}
               />

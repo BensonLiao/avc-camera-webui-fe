@@ -28,15 +28,17 @@ const DeviceSyncAddDevice = ({device, isShowModal, hideModal}) => {
     }
 
     localStorage.setItem('currentPage', 'sync');
+    setIsShowApiProcessModal(true);
+    hideModal();
 
     if (device) {
       api.member.editDevice(values)
-        .then(hideModal)
-        .then(getRouter().reload());
+        .then(getRouter().reload)
+        .finally(hideApiProcessModal);
     } else {
       api.member.addDevice(values)
-        .then(hideModal)
-        .then(getRouter().reload());
+        .then(getRouter().reload)
+        .finally(hideApiProcessModal);
     }
   };
 
