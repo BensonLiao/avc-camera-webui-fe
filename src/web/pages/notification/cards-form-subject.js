@@ -106,11 +106,23 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
               name="emailAttachmentType"
             >
               {NotificationEmailAttachmentType.all().map(attachmentType => (
-                !(values.type === NotificationCardType.motionDetection && attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
+                !(values.type === NotificationCardType.motionDetection &&
+                  attachmentType === NotificationEmailAttachmentType.faceThumbnail) && (
                   <option
                     key={attachmentType}
                     value={attachmentType}
-                  >{i18n.t(`notification.cards.constants.email-attachment-type-${attachmentType}`)}
+                  >
+                    {(() => {
+                      switch (attachmentType) {
+                        default: return '';
+                        case NotificationEmailAttachmentType.faceThumbnail:
+                          return i18n.t('notification.cards.constants.email-attachment-type-0');
+                        case NotificationEmailAttachmentType.screenshot:
+                          return i18n.t('notification.cards.constants.email-attachment-type-1');
+                        case NotificationEmailAttachmentType.none:
+                          return i18n.t('notification.cards.constants.email-attachment-type-2');
+                      }
+                    })()}
                   </option>
                 )
               ))}
@@ -146,7 +158,16 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
                   <option
                     key={position}
                     value={position}
-                  >{i18n.t(`notification.cards.constants.email-content-position-${position}`)}
+                  >
+                    {(() => {
+                      switch (position) {
+                        default: return '';
+                        case NotificationEmailContentPosition.emailHead:
+                          return i18n.t('notification.cards.constants.email-content-position-0');
+                        case NotificationEmailContentPosition.emailTail:
+                          return i18n.t('notification.cards.constants.email-content-position-1');
+                      }
+                    })()}
                   </option>
                 ))}
               </SelectField>
