@@ -106,7 +106,11 @@ const Group = ({group, groups, params}) => {
           return (
             <Form>
               <div className="modal-header">
-                <h5 className="modal-title">{group ? i18n.t('userManagement.members.modal.group.editGroupTitle') : i18n.t('userManagement.members.modal.group.createGroupTitle')}</h5>
+                <h5 className="modal-title">
+                  {i18n.t(group ?
+                    'userManagement.members.modal.group.editGroupTitle' :
+                    'userManagement.members.modal.group.createGroupTitle')}
+                </h5>
               </div>
               <div className="modal-body">
                 <div className="form-group">
@@ -144,7 +148,7 @@ const Group = ({group, groups, params}) => {
                       className="btn btn-primary btn-block rounded-pill"
                       style={isAddGroupDisabled ? {pointerEvents: 'none'} : {}}
                     >
-                      {group ? i18n.t('common.button.confirm') : i18n.t('common.button.create')}
+                      {i18n.t(group ? 'common.button.confirm' : 'common.button.create')}
                     </button>
                   </div>
                 </CustomTooltip>

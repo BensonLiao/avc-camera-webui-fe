@@ -43,7 +43,7 @@ module.exports = class Audio extends Base {
           </div>
         </div>
         <SelectField readOnly labelName={i18n.t('audio.quality')} name="inputQuality">
-          <option value={AudioInputQuality.low}>{i18n.t(`audio.constants.audio-quality-${AudioInputQuality.low}`)}</option>
+          <option value={AudioInputQuality.low}>{i18n.t('audio.constants.audio-quality-0')}</option>
         </SelectField>
         <SelectField readOnly labelName={i18n.t('audio.inputSource')} name="inputQuality">
           <option value={AudioInputSource.lineIn}>{i18n.t('audio.externalMicrophone')}</option>

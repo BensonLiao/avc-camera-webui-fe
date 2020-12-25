@@ -14,10 +14,7 @@
       "account": "アカウント",
       "accountPlaceholder": "アカウント名を入力してください",
       "accountHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
-      "done": "完了しました",
-      "constants": {
-        "permission-0": "管理者"
-      }
+      "done": "完了しました"
     },
     "progressBar": {
       "language": "言語を選択する",
@@ -451,7 +448,7 @@
         "confirmDeleteTitle": "アカウントを削除する",
         "confirmDeleteBody": "アカウント {{0}} を削除しますか？",
         "newUserTitle": "新規ユーザー",
-        "ModifyUserTitle": "アカウントを編集する",
+        "modifyUserTitle": "アカウントを編集する",
         "usernamePlaceholder": "アカウント名を入力してください",
         "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません"
       },
@@ -600,8 +597,7 @@
       "secondaryDNSPlaceholder": "セカンダリーDNSを入力してください",
       "modal": {
         "confirmUpdateBody": "ネットワーク設定を更新してもよろしいですか？",
-        "testingSuccess": "DHCPテストに成功しました",
-        "testingFailed": "DHCPテストに失敗しました"
+        "testingSuccess": "DHCPテストに成功しました"
       },
       "tooltip": {
         "noChanges": "変更がありません"
@@ -777,6 +773,53 @@
     "internalServerError": "サーバー内部エラー",
     "backToHome": "ホームページへ戻る"
   },
+  "validation": {
+    "confirmEqual": "パスワードが一致しません",
+    "required": "この項目は入力必須です",
+    "string": "文字列である必要があります",
+    "stringEmpty": "入力は必須です",
+    "stringMin": "{expected}文字以上を入力する必要があります",
+    "stringMax": "{expected}文字以下を入力する必要があります",
+    "stringLength": "{expected}文字を入力する必要があります",
+    "stringPattern": "無効な文字が含まれています",
+    "stringContains": "{expected}の文字を含む必要があります",
+    "stringContainsLowerCaseLatter": "小文字のアルファベットの入力は必須です",
+    "stringContainsUpperCaseLatter": "大文字のアルファベットの入力は必須です",
+    "stringContainsNumber": "数字の入力は必須です",
+    "stringAbortSpecialCharacters": "この項目は次の符号を使用できません: #, %, &, `, \", \\, /, <, >, とスペース",
+    "stringAcceptSpecialCharacters": "符号の入力は必須です",
+    "stringEnum": "不符内容のルールに不一致です合內容要求",
+    "number": "数字を入力してください",
+    "numberMin": "{expected}文字以上の数字を入力する必要があります",
+    "numberMax": "{expected}文字以下の数字を入力する必要があります",
+    "numberEqual": "{expected}文字の数字を入力する必要があります",
+    "numberNotEqual": "{expected}と同じ数字を入力することができません",
+    "numberInteger": "整数を入力してください",
+    "numberPositive": "正数を入力してください",
+    "numberNegative": "負数を入力してください",
+    "array": "アレイを入力してください",
+    "arrayEmpty": "アレイは空白にすることができません",
+    "arrayMin": "この項目は最小 {expected} を入力してください",
+    "arrayMax": "この項目は最大 {expected} を入力してください",
+    "arrayLength": "項目数は {expected}が必要です",
+    "arrayContains": "項目は {expected} 個が必須です",
+    "arrayEnum": "使用できない{expected}項目が使用されています",
+    "boolean": "ブール値を入力してください",
+    "function": "関数を入力してください",
+    "date": "日付を入力してください",
+    "dateMin": "{expected}以降の日付を入力してください",
+    "dateMax": "{expected}以前の日付を入力してください",
+    "forbidden": "項目を非表示する",
+    "email": "無効なメールアドレス",
+    "url": "正しいURLを入力してください,",
+    "birthday": "正しい生年月日を入力してください",
+    "countryCode": "国コードが間違っています",
+    "duplicateName": "名前が重複しました、他の名前に設定してください",
+    "portEmpty": "この項目の入力は必須です",
+    "portReserved": "本ポートはシステム予備用または使用されています",
+    "maxRecipient": "最大受信者数：64",
+    "duplicateEmail": "重複するメールアドレス"
+  },
   "documentTitle": {
     "home": "ホームページ",
     "image": "画像設定",
@@ -824,53 +867,6 @@
     "login": "ログイン",
     "loginError": "Login Error",
     "loginLocked": "ログインがロックされました"
-  },
-  "validation": {
-    "confirmEqual": "パスワードが一致しません",
-    "required": "この項目は入力必須です",
-    "string": "文字列である必要があります",
-    "stringEmpty": "入力は必須です",
-    "stringMin": "{expected}文字以上を入力する必要があります",
-    "stringMax": "{expected}文字以下を入力する必要があります",
-    "stringLength": "{expected}文字を入力する必要があります",
-    "stringPattern": "無効な文字が含まれています",
-    "stringContains": "{expected}の文字を含む必要があります",
-    "stringContainsLowerCaseLatter": "小文字のアルファベットの入力は必須です",
-    "stringContainsUpperCaseLatter": "大文字のアルファベットの入力は必須です",
-    "stringContainsNumber": "数字の入力は必須です",
-    "stringAbortSpecialCharacters": "この項目は次の符号を使用できません: #, %, &, `, \", \\, /, <, >, とスペース",
-    "stringAcceptSpecialCharacters": "符号の入力は必須です",
-    "stringEnum": "不符内容のルールに不一致です合內容要求",
-    "number": "数字を入力してください",
-    "numberMin": "{expected}文字以上の数字を入力する必要があります",
-    "numberMax": "{expected}文字以下の数字を入力する必要があります",
-    "numberEqual": "{expected}文字の数字を入力する必要があります",
-    "numberNotEqual": "{expected}と同じ数字を入力することができません",
-    "numberInteger": "整数を入力してください",
-    "numberPositive": "正数を入力してください",
-    "numberNegative": "負数を入力してください",
-    "array": "アレイを入力してください",
-    "arrayEmpty": "アレイは空白にすることができません",
-    "arrayMin": "この項目は最小 {expected} を入力してください",
-    "arrayMax": "この項目は最大 {expected} を入力してください",
-    "arrayLength": "項目数は {expected}が必要です",
-    "arrayContains": "項目は {expected} 個が必須です",
-    "arrayEnum": "使用できない{expected}項目が使用されています",
-    "boolean": "ブール値を入力してください",
-    "function": "関数を入力してください",
-    "date": "日付を入力してください",
-    "dateMin": "{expected}以降の日付を入力してください",
-    "dateMax": "{expected}以前の日付を入力してください",
-    "forbidden": "項目を非表示する",
-    "email": "無効なメールアドレス",
-    "url": "正しいURLを入力してください,",
-    "birthday": "正しい生年月日を入力してください",
-    "countryCode": "国コードが間違っています",
-    "duplicateName": "名前が重複しました、他の名前に設定してください",
-    "portEmpty": "この項目の入力は必須です",
-    "portReserved": "本ポートはシステム予備用または使用されています",
-    "maxRecipient": "最大受信者数：64",
-    "duplicateEmail": "重複するメールアドレス"
   },
   "navigation": {
     "sidebar": {
@@ -934,12 +930,6 @@
         "deviceHelp": "ヘルプ",
         "technicalSupport": "テクニカルサポート",
         "productInformation": "その他の製品情報"
-      },
-      "constants": {
-        "permission-0": "管理者",
-        "permission-1": "ゲスト",
-        "permission-2": "訪客",
-        "permission-99": "管理者"
       }
     }
   },
@@ -976,7 +966,8 @@
       "Non-existent Photo": "存在しない顔ショット",
       "Invalid Key": "無効なライセンスキー",
       "Duplicate Key": "アクティベーションに失敗しました。ライセンスキーが重複してます",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません",
+      "DHCP Test Failed": "DHCPテストに失敗しました"
     },
     "volumeBar": {
       "sdStorageStatus": "{{0}} 使用可能 (合計 {{1}})",

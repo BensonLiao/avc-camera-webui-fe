@@ -5,6 +5,7 @@ import React, {useState} from 'react';
 import {useFormikContext, Form, Field} from 'formik';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
+import ErrorDisplay from '../../../core/components/error-display';
 import i18n from '../../../i18n';
 import {useContextState} from '../../stateProvider';
 
@@ -87,7 +88,17 @@ const FaceRecognitionSettings = ({setIsShowDetectionZone, isShowDetectionZone}) 
                           style={values.isEnable ? {} : {pointerEvents: 'none'}}
                           onClick={() => setFieldValue('confidenceLevel', confidenceLevel)}
                         >
-                          {i18n.t(`analytics.facialRecognition.constants.confidence-level-${confidenceLevel}`)}
+                          {(() => {
+                            switch (confidenceLevel) {
+                              default: return <ErrorDisplay/>;
+                              case ConfidenceLevel.low:
+                                return i18n.t('analytics.facialRecognition.constants.confidence-level-0');
+                              case ConfidenceLevel.medium:
+                                return i18n.t('analytics.facialRecognition.constants.confidence-level-1');
+                              case ConfidenceLevel.high:
+                                return i18n.t('analytics.facialRecognition.constants.confidence-level-2');
+                            }
+                          })()}
                         </button>
                       ))}
                     </div>

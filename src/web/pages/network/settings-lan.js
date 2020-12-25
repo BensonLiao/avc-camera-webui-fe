@@ -67,7 +67,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
             modalTitle: i18n.t('network.network.testDHCP'),
             modalBody: response.data.success ?
               [i18n.t('network.network.modal.testingSuccess'), `${i18n.t('network.network.ipAddress')}: ${response.data.resultIP}`] :
-              i18n.t('network.network.modal.testingFailed')
+              i18n.t('error.internalServerError')
           }));
           if (!response.data.success) {
             setFieldValue('ipAddress', '192.168.1.168');

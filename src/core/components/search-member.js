@@ -232,7 +232,7 @@ class SearchMember extends React.PureComponent {
                   { members && !members.items.length && members.items.length === 0 && (
                     <tr className="disable-highlight">
                       <td className="text-size-16 text-center" colSpan="10">
-                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('userManagement.events.modal.noData')}
+                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('userManagement.events.noData')}
                       </td>
                     </tr>
                   )}

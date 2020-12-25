@@ -14,10 +14,7 @@
       "account": "帳號",
       "accountPlaceholder": "輸入帳號名稱",
       "accountHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
-      "done": "完成",
-      "constants": {
-        "permission-0": "管理者"
-      }
+      "done": "完成"
     },
     "progressBar": {
       "language": "選擇語言",
@@ -451,7 +448,7 @@
         "confirmDeleteTitle": "刪除帳號",
         "confirmDeleteBody": "您確定要刪除帳號 {{0}} 嗎？",
         "newUserTitle": "創建使用者",
-        "ModifyUserTitle": "編輯帳號",
+        "modifyUserTitle": "編輯帳號",
         "usernamePlaceholder": "輸入帳號名稱",
         "usernameHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白"
       },
@@ -600,8 +597,7 @@
       "secondaryDNSPlaceholder": "請輸入次要DNS",
       "modal": {
         "confirmUpdateBody": "您確定要更改網路設定嗎？",
-        "testingSuccess": "DHCP 測試成功",
-        "testingFailed": "DHCP 測試失敗"
+        "testingSuccess": "DHCP 測試成功"
       },
       "tooltip": {
         "noChanges": "沒有設定被更改"
@@ -777,6 +773,53 @@
     "internalServerError": "內部伺服器問題",
     "backToHome": "回首頁"
   },
+  "validation": {
+    "confirmEqual": "兩次密碼不一致",
+    "required": "必須輸入",
+    "string": "必須是字串",
+    "stringEmpty": "必須輸入",
+    "stringMin": "必須輸入{expected}個以上的字",
+    "stringMax": "必須輸入{expected}個以下的字",
+    "stringLength": "必須輸入{expected}個字",
+    "stringPattern": "不符合格式要求",
+    "stringContains": "必須包含{expected}的文字",
+    "stringContainsLowerCaseLatter": "必須包含小寫英文字母",
+    "stringContainsUpperCaseLatter": "必須包含大寫英文字母",
+    "stringContainsNumber": "必須包含數字",
+    "stringAbortSpecialCharacters": "禁用全形或半形符號: # % & ` “ \\ / < > 和空白",
+    "stringAcceptSpecialCharacters": "必須包含符號",
+    "stringEnum": "不符合內容要求",
+    "number": "必須為數字",
+    "numberMin": "必須為{expected}以上的數字",
+    "numberMax": "必須為{expected}以下的數字",
+    "numberEqual": "必須為等於{expected}的數字",
+    "numberNotEqual": "不可輸入等於{expected}的數字",
+    "numberInteger": "必須為整數",
+    "numberPositive": "必須為正數",
+    "numberNegative": "必須為負數",
+    "array": "必須為陣列",
+    "arrayEmpty": "不可為空陣列",
+    "arrayMin": "此欄位最少包含 {expected} 個項目",
+    "arrayMax": "此欄位最多包含 {expected} 個項目",
+    "arrayLength": "必須為 {expected} 個項目",
+    "arrayContains": "必須包含 {expected} 個項目",
+    "arrayEnum": "使用了不允許的項目{expected}",
+    "boolean": "必須為布林值",
+    "function": "必須為函數",
+    "date": "必須為日期",
+    "dateMin": "必須為{expected}以後的日期",
+    "dateMax": "必須為{expected}以前的日期",
+    "forbidden": "隱藏欄位",
+    "email": "不符合格式要求",
+    "url": "請使用正確的網址格式",
+    "birthday": "請使用正確的生日格式",
+    "countryCode": "國家代碼錯誤",
+    "duplicateName": "名稱重複，請使用不同名稱",
+    "portEmpty": "此欄位必需輸入",
+    "portReserved": "此連接埠為系統預留或使用中",
+    "maxRecipient": "已達數量限制",
+    "duplicateEmail": "重複的電子郵件地址"
+  },
   "documentTitle": {
     "home": "首頁",
     "image": "圖像",
@@ -824,53 +867,6 @@
     "login": "登入",
     "loginError": "Login Error",
     "loginLocked": "鎖定登入"
-  },
-  "validation": {
-    "confirmEqual": "兩次密碼不一致",
-    "required": "必須輸入",
-    "string": "必須是字串",
-    "stringEmpty": "必須輸入",
-    "stringMin": "必須輸入{expected}個以上的字",
-    "stringMax": "必須輸入{expected}個以下的字",
-    "stringLength": "必須輸入{expected}個字",
-    "stringPattern": "不符合格式要求",
-    "stringContains": "必須包含{expected}的文字",
-    "stringContainsLowerCaseLatter": "必須包含小寫英文字母",
-    "stringContainsUpperCaseLatter": "必須包含大寫英文字母",
-    "stringContainsNumber": "必須包含數字",
-    "stringAbortSpecialCharacters": "禁用全形或半形符號: # % & ` “ \\ / < > 和空白",
-    "stringAcceptSpecialCharacters": "必須包含符號",
-    "stringEnum": "不符合內容要求",
-    "number": "必須為數字",
-    "numberMin": "必須為{expected}以上的數字",
-    "numberMax": "必須為{expected}以下的數字",
-    "numberEqual": "必須為等於{expected}的數字",
-    "numberNotEqual": "不可輸入等於{expected}的數字",
-    "numberInteger": "必須為整數",
-    "numberPositive": "必須為正數",
-    "numberNegative": "必須為負數",
-    "array": "必須為陣列",
-    "arrayEmpty": "不可為空陣列",
-    "arrayMin": "此欄位最少包含 {expected} 個項目",
-    "arrayMax": "此欄位最多包含 {expected} 個項目",
-    "arrayLength": "必須為 {expected} 個項目",
-    "arrayContains": "必須包含 {expected} 個項目",
-    "arrayEnum": "使用了不允許的項目{expected}",
-    "boolean": "必須為布林值",
-    "function": "必須為函數",
-    "date": "必須為日期",
-    "dateMin": "必須為{expected}以後的日期",
-    "dateMax": "必須為{expected}以前的日期",
-    "forbidden": "隱藏欄位",
-    "email": "不符合格式要求",
-    "url": "請使用正確的網址格式",
-    "birthday": "請使用正確的生日格式",
-    "countryCode": "國家代碼錯誤",
-    "duplicateName": "名稱重複，請使用不同名稱",
-    "portEmpty": "此欄位必需輸入",
-    "portReserved": "此連接埠為系統預留或使用中",
-    "maxRecipient": "已達數量限制",
-    "duplicateEmail": "重複的電子郵件地址"
   },
   "navigation": {
     "sidebar": {
@@ -934,12 +930,6 @@
         "deviceHelp": "裝置使用幫助",
         "technicalSupport": "技術問題信箱",
         "productInformation": "其他產品資訊"
-      },
-      "constants": {
-        "permission-0": "管理者",
-        "permission-1": "來賓",
-        "permission-2": "訪客",
-        "permission-99": "管理者"
       }
     }
   },
@@ -976,7 +966,8 @@
       "Non-existent Photo": "事件截圖不存在",
       "Invalid Key": "啟用失敗，錯誤的啟動碼",
       "Duplicate Key": "啟用失敗，重複的啟動碼",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人",
+      "DHCP Test Failed": "DHCP 測試失敗"
     },
     "volumeBar": {
       "sdStorageStatus": "{{0}} 可用 (共 {{1}})",

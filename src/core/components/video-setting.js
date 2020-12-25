@@ -2,10 +2,14 @@ const PropTypes = require('prop-types');
 const React = require('react');
 const progress = require('nprogress');
 const {Formik, Form, Field} = require('formik');
+const ApertureType = require('webserver-form-schema/constants/aperture-type');
 const IREnableType = require('webserver-form-schema/constants/ir-enable-type');
 const FocusType = require('webserver-form-schema/constants/focus-type');
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
 const DaynightType = require('webserver-form-schema/constants/daynight-type');
+const RefreshRate = require('webserver-form-schema/constants/refresh-rate');
+const ShutterSpeed = require('webserver-form-schema/constants/shutter-speed');
+const OrientationType = require('webserver-form-schema/constants/orientation-type');
 const videoSettingsSchema = require('webserver-form-schema/video-settings-schema');
 const videoFocusSettingsSchema = require('webserver-form-schema/video-focus-settings-schema');
 const i18n = require('../../i18n').default;
@@ -238,19 +242,31 @@ module.exports = class VideoSetting extends React.PureComponent {
 
             <div id="lightness" className="collapse show" data-parent="#accordion-video-properties">
               {
-                ['brightness', 'contrast', 'sharpness', 'saturation'].map(imageControls => (
-                  <div key={imageControls} className="form-group">
+                [{
+                  name: 'brightness',
+                  i18nMessage: i18n.t('videoSetting.brightness')
+                }, {
+                  name: 'contrast',
+                  i18nMessage: i18n.t('videoSetting.contrast')
+                }, {
+                  name: 'sharpness',
+                  i18nMessage: i18n.t('videoSetting.sharpness')
+                }, {
+                  name: 'saturation',
+                  i18nMessage: i18n.t('videoSetting.saturation')
+                }].map(imageControls => (
+                  <div key={imageControls.name} className="form-group">
                     <div className="d-flex justify-content-between align-items-center">
-                      <label>{i18n.t(`videoSetting.${imageControls}`)}</label>
-                      <span className="text-primary text-size-14">{values[imageControls]}</span>
+                      <label>{imageControls.i18nMessage}</label>
+                      <span className="text-primary text-size-14">{values[imageControls.name]}</span>
                     </div>
                     <Field
                       updateFieldOnStop
-                      name={imageControls}
+                      name={imageControls.name}
                       component={Slider}
                       step={1}
-                      min={videoSettingsSchema[imageControls].min}
-                      max={videoSettingsSchema[imageControls].max}
+                      min={videoSettingsSchema[imageControls.name].min}
+                      max={videoSettingsSchema[imageControls.name].max}
                     />
                   </div>
                 ))
@@ -272,7 +288,7 @@ module.exports = class VideoSetting extends React.PureComponent {
                   className="btn btn-outline-primary text-nowrap"
                   onClick={this.generateClickAutoFocusButtonHandler(form)}
                 >
-                  {i18n.t(`videoSetting.${values.focusType === FocusType.fullRange ? 'fullRangeFocus' : 'shortRangeFocus'}`)}
+                  {values.focusType === FocusType.fullRange ? i18n.t('videoSetting.fullRangeFocus') : i18n.t('videoSetting.shortRangeFocus')}
                 </button>
                 <button
                   type="button"
@@ -350,10 +366,21 @@ module.exports = class VideoSetting extends React.PureComponent {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.aperture.enum.map(x => ({
-                      value: x,
-                      label: i18n.t(`videoSetting.constants.aperture-${x}`)
-                    }))}
+                    items={videoSettingsSchema.aperture.enum.map(x => {
+                      switch (x) {
+                        default: return {};
+                        case ApertureType.auto:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.aperture-0')
+                          };
+                        case ApertureType.max:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.aperture-1')
+                          };
+                      }
+                    })}
                   />
                 </div>
               </div>
@@ -365,10 +392,66 @@ module.exports = class VideoSetting extends React.PureComponent {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.shutterSpeed.enum.map(x => ({
-                      value: x,
-                      label: i18n.t(`videoSetting.constants.shutter-speed-${x}`)
-                    }))}
+                    items={videoSettingsSchema.shutterSpeed.enum.map(x => {
+                      switch (x) {
+                        default: return {};
+                        case ShutterSpeed.auto:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-0')
+                          };
+                        case ShutterSpeed['1/30']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-1')
+                          };
+                        case ShutterSpeed['1/50']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-2')
+                          };
+                        case ShutterSpeed['1/60']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-3')
+                          };
+                        case ShutterSpeed['1/100']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-4')
+                          };
+                        case ShutterSpeed['1/125']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-5')
+                          };
+                        case ShutterSpeed['1/500']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-6')
+                          };
+                        case ShutterSpeed['1/1000']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-7')
+                          };
+                        case ShutterSpeed['1/2000']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-8')
+                          };
+                        case ShutterSpeed['1/4000']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-9')
+                          };
+                        case ShutterSpeed['1/8000']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.shutter-speed-10')
+                          };
+                      }
+                    })}
                   />
                 </div>
               </div>
@@ -393,10 +476,36 @@ module.exports = class VideoSetting extends React.PureComponent {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => ({
-                      value: x,
-                      label: i18n.t(`videoSetting.constants.white-balance-${x}`)
-                    }))}
+                    items={videoSettingsSchema.whiteblanceMode.enum.map(x => {
+                      switch (x) {
+                        default: return {};
+                        case WhiteBalanceType.auto:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.white-balance-0')
+                          };
+                        case WhiteBalanceType.outdoor:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.white-balance-1')
+                          };
+                        case WhiteBalanceType.fluorescent:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.white-balance-2')
+                          };
+                        case WhiteBalanceType.incandescent:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.white-balance-3')
+                          };
+                        case WhiteBalanceType.manual:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.white-balance-4')
+                          };
+                      }
+                    })}
                   />
                 </div>
                 {
@@ -426,12 +535,26 @@ module.exports = class VideoSetting extends React.PureComponent {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={IREnableType.all().map(
-                      x => ({
-                        value: x,
-                        label: i18n.t(`videoSetting.constants.ir-control-${x}`)
-                      })
-                    )}
+                    items={IREnableType.all().map(x => {
+                      switch (x) {
+                        default: return {};
+                        case IREnableType.auto:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.ir-control-0')
+                          };
+                        case IREnableType.on:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.ir-control-1')
+                          };
+                        case IREnableType.off:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.ir-control-2')
+                          };
+                      }
+                    })}
                   />
                 </div>
                 {
@@ -462,10 +585,31 @@ module.exports = class VideoSetting extends React.PureComponent {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.daynightMode.enum.map(x => ({
-                      value: x,
-                      label: i18n.t(`videoSetting.constants.daynight-mode-${x}`)
-                    }))}
+                    items={videoSettingsSchema.daynightMode.enum.map(x => {
+                      switch (x) {
+                        default: return {};
+                        case DaynightType.auto:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.daynight-mode-0')
+                          };
+                        case DaynightType.color:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.daynight-mode-1')
+                          };
+                        case DaynightType.blackAndWhite:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.daynight-mode-2')
+                          };
+                        case DaynightType.manual:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.daynight-mode-3')
+                          };
+                      }
+                    })}
                   />
                 </div>
                 {
@@ -515,10 +659,31 @@ module.exports = class VideoSetting extends React.PureComponent {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.orientation.enum.map(x => ({
-                      value: x,
-                      label: i18n.t(`videoSetting.constants.orientation-${x}`)
-                    }))}
+                    items={videoSettingsSchema.orientation.enum.map(x => {
+                      switch (x) {
+                        default: return {};
+                        case OrientationType.normal:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.orientation-0')
+                          };
+                        case OrientationType.verticalFlip:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.orientation-1')
+                          };
+                        case OrientationType.horizontalFlip:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.orientation-2')
+                          };
+                        case OrientationType['180DegreeFlip']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.orientation-3')
+                          };
+                      }
+                    })}
                   />
                 </div>
               </div>
@@ -548,10 +713,26 @@ module.exports = class VideoSetting extends React.PureComponent {
                     component={Dropdown}
                     buttonClassName="btn-link text-primary border-0 p-0"
                     menuClassName="dropdown-menu-right"
-                    items={videoSettingsSchema.refreshRate.enum.map(x => ({
-                      value: x,
-                      label: i18n.t(`videoSetting.constants.refresh-rate-${x}`)
-                    }))}
+                    items={videoSettingsSchema.refreshRate.enum.map(x => {
+                      switch (x) {
+                        default: return {};
+                        case RefreshRate.auto:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.refresh-rate-0')
+                          };
+                        case RefreshRate['50Hz']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.refresh-rate-1')
+                          };
+                        case RefreshRate['60Hz']:
+                          return {
+                            value: x,
+                            label: i18n.t('videoSetting.constants.refresh-rate-2')
+                          };
+                      }
+                    })}
                   />
                 </div>
               </div>

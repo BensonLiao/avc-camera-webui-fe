@@ -19,6 +19,28 @@ const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const Dropdown = require('../../../core/components/fields/dropdown');
 const SelectField = require('../../../core/components/fields/select-field');
+
+const getBandwidthManagementOption = x => {
+  switch (x) {
+    default: return {};
+    case StreamBandwidthManagement.mbr:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-bandwidth-management-0')
+      };
+    case StreamBandwidthManagement.vbr:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-bandwidth-management-1')
+      };
+    case StreamBandwidthManagement.cbr:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-bandwidth-management-2')
+      };
+  }
+};
+
 module.exports = class StreamSetting extends Base {
   static get propTypes() {
     // Make form ui for home page or not
@@ -72,10 +94,7 @@ module.exports = class StreamSetting extends Base {
                         (Number(x) === 0 || Number(x) === 5 || Number(x) === 6)
                        )
           )
-          .map(x => ({
-            label: i18n.t(`video.stream.constants.stream-resolution-${x}`),
-            value: x
-          })),
+          .map(x => utils.getStreamResolutionOption(x)),
         frameRate: (() => {
           const result = [];
           for (let index = StreamSettingsSchema.channelA.props.frameRate.min;
@@ -89,10 +108,7 @@ module.exports = class StreamSetting extends Base {
 
           return result;
         })(),
-        bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-          label: i18n.t(`video.stream.constants.stream-bandwidth-management-${x}`),
-          value: x
-        })),
+        bandwidthManagement: StreamBandwidthManagement.all().map(x => getBandwidthManagementOption(x)),
         gov: StreamGOV.all().map(x => ({
           label: x,
           value: x
@@ -132,10 +148,7 @@ module.exports = class StreamSetting extends Base {
             }
           }
 
-          return options.map(x => ({
-            label: i18n.t(`video.stream.constants.stream-resolution-${x}`),
-            value: x
-          }));
+          return options.map(x => utils.getStreamResolutionOption(x));
         })(),
         frameRate: (() => {
           const result = [];
@@ -166,18 +179,31 @@ module.exports = class StreamSetting extends Base {
 
           return result;
         })(),
-        bandwidthManagement: StreamBandwidthManagement.all().map(x => ({
-          label: i18n.t(`video.stream.constants.stream-bandwidth-management-${x}`),
-          value: x
-        })),
+        bandwidthManagement: StreamBandwidthManagement.all().map(x => getBandwidthManagementOption(x)),
         gov: StreamGOV.all().map(x => ({
           label: x,
           value: x
         })),
-        quality: StreamQuality.all().map(x => ({
-          label: i18n.t(`video.stream.constants.quality-${x}`),
-          value: x
-        }))
+        quality: StreamQuality.all().map(x => {
+          switch (x) {
+            default: return {};
+            case StreamQuality[0]:
+              return {
+                value: x,
+                label: i18n.t('video.stream.constants.quality-80')
+              };
+            case StreamQuality[1]:
+              return {
+                value: x,
+                label: i18n.t('video.stream.constants.quality-50')
+              };
+            case StreamQuality[2]:
+              return {
+                value: x,
+                label: i18n.t('video.stream.constants.quality-30')
+              };
+          }
+        })
       }
     };
   }
@@ -479,9 +505,9 @@ module.exports = class StreamSetting extends Base {
         <CustomNotifyModal
           isShowModal={isShowModal}
           modalTitle={i18n.t('video.stream.streams')}
-          modalBody={this.state.hasResolutionRatioChanged ?
-            i18n.t('video.stream.modal.confirmRatioChangeBody') :
-            i18n.t('video.stream.modal.confirmUpdateBody')}
+          modalBody={i18n.t(this.state.hasResolutionRatioChanged ?
+            'video.stream.modal.confirmRatioChangeBody' :
+            'video.stream.modal.confirmUpdateBody')}
           isConfirmDisable={$isApiProcessing}
           onHide={this.hideModal}
           onConfirm={() => {

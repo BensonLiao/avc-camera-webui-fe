@@ -3,8 +3,10 @@ import {getRouter} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../../i18n';
+import utils from '../../../core/utils';
 import Similarity from 'webserver-form-schema/constants/event-filters/similarity';
 import RecognitionType from 'webserver-form-schema/constants/event-filters/recognition-type';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
   /**
@@ -87,7 +89,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('confidence', item.confidence)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {i18n.t(`userManagement.events.constants.confidence-${item.confidence}`)}
+              {utils.getEventConfidenceI18N(item.confidence, <ErrorDisplay/>)}
             </label>
           </div>
         ))}
@@ -105,7 +107,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('enrollStatus', item.status)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {i18n.t(`userManagement.events.constants.enroll-status-${item.status}`)}
+              {utils.getEventRecognitionTypeI18N(item.status, <ErrorDisplay/>)}
             </label>
           </div>
         ))}

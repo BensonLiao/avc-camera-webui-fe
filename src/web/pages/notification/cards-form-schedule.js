@@ -113,7 +113,9 @@ const CardsFormSchedule = ({values, setFieldValue}) => {
             return (
               <CustomTooltip
                 show={statusCheck}
-                title={values.timePeriods.length >= 5 ? i18n.t('notification.cards.tooltip.maxSchedules') : i18n.t('notification.cards.tooltip.enterDatetime')}
+                title={i18n.t(values.timePeriods.length >= 5 ?
+                  'notification.cards.tooltip.maxSchedules' :
+                  'notification.cards.tooltip.enterDatetime')}
               >
                 <div className="col-auto my-1">
                   <button

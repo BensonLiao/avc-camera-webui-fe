@@ -5,7 +5,13 @@ const i18n = require('../i18n').default;
 const api = require('../core/apis/web-api');
 const {validator} = require('../core/validations');
 const {MEMBER_PHOTO_MIME_TYPE, RESTRICTED_PORTS, PORT_NUMBER_MIN, PORT_NUMBER_MAX} = require('../core/constants');
+const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
+const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
+const StreamResolution = require('webserver-form-schema/constants/stream-resolution');
 const StreamSettingsSchema = require('webserver-form-schema/stream-settings-schema');
+const UserPermission = require('webserver-form-schema/constants/user-permission');
+const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
+const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
 const THREE = require('three');
 const OrbitControls = require('three/examples/jsm/controls/OrbitControls').OrbitControls;
 const helvetikerRegular = require('./helvetiker_regular').default;
@@ -626,3 +632,175 @@ module.exports.getPaginatedData = (data, size = 10) => {
   return pageData;
 };
 
+/**
+ * Get the stream resolution option with i18n translation, for custom dropdown or `<select>` element to render.
+ * @param {string} x - The value of specific stream resolution.
+ * @returns {object}
+ * - value {any}
+ * - label {string}
+ */
+module.exports.getStreamResolutionOption = x => {
+  switch (x) {
+    default: return {};
+    case StreamResolution[0]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-0')
+      };
+    case StreamResolution[1]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-1')
+      };
+    case StreamResolution[2]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-2')
+      };
+    case StreamResolution[3]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-3')
+      };
+    case StreamResolution[4]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-4')
+      };
+    case StreamResolution[5]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-5')
+      };
+    case StreamResolution[6]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-6')
+      };
+    case StreamResolution[7]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-7')
+      };
+    case StreamResolution[8]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-8')
+      };
+    case StreamResolution[9]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-9')
+      };
+    case StreamResolution[10]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-10')
+      };
+    case StreamResolution[11]:
+      return {
+        value: x,
+        label: i18n.t('video.stream.constants.stream-resolution-11')
+      };
+  }
+};
+
+/**
+ * Get the i18n message of account permission type.
+ * @param {string} permission - The account permission type, it can be `root`, `guest`, `viewer` or `superAdmin`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getAccountPermissonI18N = (permission, defaultValue = '') => {
+  switch (permission) {
+    default: return defaultValue;
+    case UserPermission.root:
+    case UserPermission.superAdmin:
+      return i18n.t('userManagement.accounts.constants.permission-0');
+    case UserPermission.guest:
+      return i18n.t('userManagement.accounts.constants.permission-1');
+    case UserPermission.viewer:
+      return i18n.t('userManagement.accounts.constants.permission-2');
+  }
+};
+
+/**
+ * Get the i18n message of event confidence.
+ * @param {string} confidence - The event confidence, it can be `low`, `medium` or `high`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getEventConfidenceI18N = (confidence, defaultValue = '') => {
+  switch (confidence) {
+    default: return defaultValue;
+    case Similarity.low:
+      return i18n.t('userManagement.events.constants.confidence-0');
+    case Similarity.medium:
+      return i18n.t('userManagement.events.constants.confidence-1');
+    case Similarity.high:
+      return i18n.t('userManagement.events.constants.confidence-2');
+  }
+};
+
+/**
+ * Get the i18n message of event recognition type.
+ * @param {string} recognitionType - The event recognition type, it can be `registerd`, `unknown` or `fake`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getEventRecognitionTypeI18N = (recognitionType, defaultValue = '') => {
+  switch (recognitionType) {
+    default: return defaultValue;
+    case RecognitionType.fake:
+      return i18n.t('userManagement.events.constants.enroll-status-0');
+    case RecognitionType.unknown:
+      return i18n.t('userManagement.events.constants.enroll-status-1');
+    case RecognitionType.registered:
+      return i18n.t('userManagement.events.constants.enroll-status-2');
+  }
+};
+
+/**
+ * Get the i18n message of notification card type.
+ * @param {string} notificationCardType - The notification card type,
+ * it can be `faceRecognition`, `ageGender`, `humanoidDetection`, `tamperAlarm` or `digitalInput`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getNotificationCardTypeI18N = (notificationCardType, defaultValue = '') => {
+  switch (notificationCardType) {
+    default: return defaultValue;
+    case NotificationCardType.faceRecognition:
+      return i18n.t('notification.cards.constants.notification-card-0');
+    case NotificationCardType.ageGender:
+      return i18n.t('notification.cards.constants.notification-card-1');
+    case NotificationCardType.humanoidDetection:
+      return i18n.t('notification.cards.constants.notification-card-2');
+    case NotificationCardType.motionDetection:
+      return i18n.t('notification.cards.constants.notification-card-3');
+    case NotificationCardType.tamperAlarm:
+      return i18n.t('notification.cards.constants.notification-card-4');
+    case NotificationCardType.digitalInput:
+      return i18n.t('notification.cards.constants.notification-card-5');
+  }
+};
+
+/**
+ * Get the i18n message of notification face recognition condition.
+ * @param {string} recognitionType - The face recognition condition, it can be `always`, `success`, `unknown` or `fake`.
+ * @param {string|object|Element} defaultValue - What to returns when there's no match case, default is ``.
+ * @returns {string|object|Element}
+ */
+module.exports.getNotificationFRConditionI18N = (recognitionType, defaultValue = '') => {
+  switch (recognitionType) {
+    default: return defaultValue;
+    case NotificationFaceRecognitionCondition.always:
+      return i18n.t('notification.cards.constants.face-recognition-condition-0');
+    case NotificationFaceRecognitionCondition.success:
+      return i18n.t('notification.cards.constants.face-recognition-condition-1');
+    case NotificationFaceRecognitionCondition.unknown:
+      return i18n.t('notification.cards.constants.face-recognition-condition-2');
+    case NotificationFaceRecognitionCondition.fake:
+      return i18n.t('notification.cards.constants.face-recognition-condition-3');
+  }
+};

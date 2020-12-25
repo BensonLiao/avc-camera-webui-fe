@@ -14,10 +14,7 @@
       "account": "Username",
       "accountPlaceholder": "Enter a name for this account",
       "accountHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
-      "done": "Done",
-      "constants": {
-        "permission-0": "Admin"
-      }
+      "done": "Done"
     },
     "progressBar": {
       "language": "Langauge",
@@ -456,7 +453,7 @@
         "confirmDeleteTitle": "Delete Account",
         "confirmDeleteBody": "Are you sure you want to delete account {{0}}?",
         "newUserTitle": "New User",
-        "ModifyUserTitle": "Modify User",
+        "modifyUserTitle": "Modify User",
         "usernamePlaceholder": "Enter a name for this account",
         "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space"
       },
@@ -609,8 +606,7 @@
       "secondaryDNSPlaceholder": "Enter a secondary DNS",
       "modal": {
         "confirmUpdateBody": "Are you sure you want to update network settings?",
-        "testingSuccess": "DHCP Testing Success",
-        "testingFailed": "DHCP Testing Failed"
+        "testingSuccess": "DHCP Testing Success"
       },
       "tooltip": {
         "noChanges": "No changes were made."
@@ -959,12 +955,6 @@
         "productSelector.avn": "Product Selector",
         "technicalUpdates.avn": "Technical Updates",
         "resources.avn": "Resources"
-      },
-      "constants": {
-        "permission-0": "Admin",
-        "permission-1": "Viewer",
-        "permission-2": "Viewer",
-        "permission-99": "Admin"
       }
     }
   },
@@ -1001,7 +991,8 @@
       "Non-existent Photo": "Non-existent Face Thumbnail",
       "Invalid Key": "Invalid Key",
       "Duplicate Key": "Duplicate Key",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Cannot Support Database Downgrade from 30,000 to 3000 People"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Cannot Support Database Downgrade from 30,000 to 3000 People",
+      "DHCP Test Failed": "DHCP Testing Failed"
     },
     "volumeBar": {
       "sdStorageStatus": "Free: {{0}}, Total: {{1}}",

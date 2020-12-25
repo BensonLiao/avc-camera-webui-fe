@@ -47,9 +47,9 @@ const CardsForm = ({
   modelName
 }) => {
   const defaultSubject = {
-    faceRecognition: `${i18n.t('notification.cards.defaultSubjectFR', {0: modelName})}`,
-    motionDetection: `${i18n.t('notification.cards.defaultSubjectMD', {0: modelName})}`,
-    digitalInput: `${i18n.t('notification.cards.defaultSubjectDI', {0: modelName})}`
+    faceRecognition: i18n.t('notification.cards.defaultSubjectFR', {0: modelName}),
+    motionDetection: i18n.t('notification.cards.defaultSubjectMD', {0: modelName}),
+    digitalInput: i18n.t('notification.cards.defaultSubjectDI', {0: modelName})
   };
 
   const generateCardInitialValues = card => {
@@ -97,7 +97,7 @@ const CardsForm = ({
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
-      senderSubject: `${i18n.t('notification.cards.defaultSubjectFR', {0: modelName})}`,
+      senderSubject: i18n.t('notification.cards.defaultSubjectFR', {0: modelName}),
       senderContent: '',
       emailContentPosition: 0,
       isEnableFaceRecognition: false,
@@ -190,7 +190,11 @@ const CardsForm = ({
               <FormikEffect onChange={onChangeCardForm}/>
               <div className="modal-body d-flex justify-content-between align-content-center pb-2">
                 <div className="d-flex align-content-center">
-                  <CustomTooltip title={isTop ? i18n.t('notification.cards.tooltip.unpin') : i18n.t('notification.cards.tooltip.pin')}>
+                  <CustomTooltip
+                    title={i18n.t(isTop ?
+                      'notification.cards.tooltip.unpin' :
+                      'notification.cards.tooltip.pin')}
+                  >
                     <button
                       type="button"
                       className={classNames('btn btn-star rounded-pill', {'btn-secondary': !isTop})}
@@ -213,10 +217,12 @@ const CardsForm = ({
                   <Field name="type" component="select" className="form-control border-0">
                     {
                       NotificationCardType.all().filter(type => (
-                        type === '0' || type === '3' || type === '5'
+                        type === NotificationCardType.faceRecognition ||
+                        type === NotificationCardType.motionDetection ||
+                        type === NotificationCardType.digitalInput
                       )).map(
                         type => {
-                          return <option key={type} value={type}>{i18n.t(`notification.cards.constants.notification-card-${type}`)}</option>;
+                          return <option key={type} value={type}>{utils.getNotificationCardTypeI18N(type)}</option>;
                         }
                       )
                     }
@@ -290,7 +296,9 @@ const CardsForm = ({
                     type="submit"
                     className="btn btn-primary btn-block rounded-pill"
                   >
-                    {cardDetails ? i18n.t('common.button.confirm') : i18n.t('common.button.add')}
+                    {i18n.t(cardDetails ?
+                      'common.button.confirm' :
+                      'common.button.add')}
                   </button>
                 </div>
                 <button

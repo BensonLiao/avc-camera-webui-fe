@@ -132,7 +132,8 @@ const SDCard = ({
                     <div className="form-group px-3">
                       <div className="d-flex justify-content-between align-items-center mb-0">
                         <label className="mb-o">{i18n.t('sdCard.status')}</label>
-                        <label className="mb-o text-primary">{i18n.t(`sdCard.constants.${SD_STATUS_LIST[sdStatus] || 'unknownStatus'}`)}
+                        <label className="mb-o text-primary">
+                          {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.constants.unknownStatus')}
                         </label>
                       </div>
                       <hr/>

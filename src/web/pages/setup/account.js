@@ -68,7 +68,9 @@ const SetupAccount = () => {
                       <label>{i18n.t('setup.account.permission')}</label>
                       <div className="select-wrapper border rounded-pill overflow-hidden px-2">
                         <Field component="select" name="permission" className="form-control border-0">
-                          <option value={UserPermission.root}>{i18n.t(`setup.account.constants.permission-${UserPermission.root}`)}</option>
+                          <option value={UserPermission.root}>
+                            {i18n.t('userManagement.accounts.constants.permission-0')}
+                          </option>
                         </Field>
                       </div>
                     </div>

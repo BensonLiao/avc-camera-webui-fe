@@ -97,11 +97,9 @@ const MaintainImportExport = ({
             <input type="file" className="d-none" accept="application/zip" onChange={onChangeFile}/>
             {i18n.t('common.fileHandler.selectFile')}
           </label>
-          {
-            file ?
-              <span className="text-size-14 text-muted ml-3">{i18n.t(file.name)}</span> :
-              <span className="text-size-14 text-muted ml-3">{i18n.t('common.fileHandler.noFileSelected')}</span>
-          }
+          <span className="text-size-14 text-muted ml-3">
+            {file ? file.name : i18n.t('common.fileHandler.noFileSelected')}
+          </span>
         </div>
         <div>
           <CustomTooltip show={!file} title={i18n.t('common.fileHandler.tooltip.disabledButton')}>

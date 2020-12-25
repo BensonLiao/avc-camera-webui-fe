@@ -95,10 +95,12 @@ const MaintainReset = ({
             </div>
             <CustomNotifyModal
               isShowModal={isShowConfirmModal}
-              modalTitle={values.resetIP ? i18n.t('system.deviceMaintenance.restoreAllSettings') : i18n.t('system.deviceMaintenance.restoreDefaultSettings')}
-              modalBody={values.resetIP ?
-                i18n.t('system.deviceMaintenance.modal.confirmResetAllSettingsBody') :
-                i18n.t('system.deviceMaintenance.modal.confirmRestoreDefaultSettingsBody')}
+              modalTitle={i18n.t(values.resetIP ?
+                'system.deviceMaintenance.restoreAllSettings' :
+                'system.deviceMaintenance.restoreDefaultSettings')}
+              modalBody={i18n.t(values.resetIP ?
+                'system.deviceMaintenance.modal.confirmResetAllSettingsBody' :
+                'system.deviceMaintenance.modal.confirmRestoreDefaultSettingsBody')}
               isConfirmDisable={isApiProcessing}
               onHide={() => setIsShowConfirmModal(false)}
               onConfirm={() => {

@@ -50,7 +50,7 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi}) => {
                   style={sdEnabled ? {pointerEvents: 'none'} : {}}
                   onClick={sdStatus ? () => (callApi('mountSDCard')) : showModal('isShowUnmountModal')}
                 >
-                  {sdStatus ? i18n.t('sdCard.mount') : i18n.t('sdCard.unmount')}
+                  {i18n.t(sdStatus ? 'sdCard.mount' : 'sdCard.unmount')}
                 </button>
               </span>
             </CustomTooltip>

@@ -8,6 +8,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import outputIcon from '../../../resource/icon-output-40px.svg';
 import utils from '../../../core/utils';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, toggleIsTopHandler}) => {
   const deleteCardHandler = cardId => event => {
@@ -23,7 +24,11 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
       <div key={card.id} className="card shadow overflow-hidden" onClick={isApiProcessing ? () => {} : clickCardHandler(card.id)}>
         <div className="card-title d-flex justify-content-between align-items-center">
           <div className="title text-truncate">
-            <CustomTooltip title={card.isTop ? i18n.t('notification.cards.tooltip.unpin') : i18n.t('notification.cards.tooltip.pin')}>
+            <CustomTooltip
+              title={i18n.t(card.isTop ?
+                'notification.cards.tooltip.unpin' :
+                'notification.cards.tooltip.pin')}
+            >
               <button
                 disabled={isApiProcessing}
                 type="button"
@@ -62,7 +67,7 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
             <tbody>
               <tr>
                 <th>{i18n.t('notification.cards.analytics')}</th>
-                <td>{i18n.t(`notification.cards.constants.notification-card-${card.type}`)}</td>
+                <td>{utils.getNotificationCardTypeI18N(card.type, <ErrorDisplay/>)}</td>
               </tr>
               {
                 card.timePeriods.map((timePeriod, index) => {
@@ -78,7 +83,7 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
               }
               <tr>
                 <th>{i18n.t('notification.cards.rule')}</th>
-                <td>{i18n.t(`notification.cards.constants.face-recognition-condition-${card.faceRecognitionCondition}`)}</td>
+                <td>{utils.getNotificationFRConditionI18N(card.faceRecognitionCondition, <ErrorDisplay/>)}</td>
               </tr>
             </tbody>
           </table>

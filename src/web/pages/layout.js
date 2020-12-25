@@ -27,6 +27,7 @@ const constants = require('../../core/constants');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
 const wrappedApi = require('../../core/apis');
+const {default: ErrorDisplay} = require('../../core/components/error-display');
 
 module.exports = class Layout extends Base {
   static get propTypes() {
@@ -348,7 +349,7 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h5 className="dropdown-header text-primary">
-                      {i18n.t(`navigation.appbar.constants.permission-${$user.permission}`)}
+                      {utils.getAccountPermissonI18N($user.permission, <ErrorDisplay/>)}
                     </h5>
                     <span className="dropdown-item-text font-weight-bold">{$user.account}</span>
                     <div className="dropdown-divider"/>

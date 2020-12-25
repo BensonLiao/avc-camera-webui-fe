@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {Link} from '@benson.liao/capybara-router';
 import React from 'react';
 import i18n from '../../../i18n';
+import utils from '../../../core/utils';
+import ErrorDisplay from '../../../core/components/error-display';
 import iconUser from '../../../resource/user-24px.svg';
 import iconUsers from '../../../resource/users-24px.svg';
 import iconUserShield from '../../../resource/user-shield-24px.svg';
@@ -49,7 +51,9 @@ const UsersLeftMenu = ({permissionFilter, setPermissionFilter}) => {
               onClick={generateChangePermissionFilterHandler(type)}
             >
               <img src={type === UserPermission.root ? iconUserShield : iconUser}/>
-              <span className="text-truncate text-size-14 pl-4">{i18n.t(`userManagement.accounts.constants.permission-${type}`)}</span>
+              <span className="text-truncate text-size-14 pl-4">
+                {utils.getAccountPermissonI18N(type, <ErrorDisplay/>)}
+              </span>
             </a>
           </div>
         ))}
