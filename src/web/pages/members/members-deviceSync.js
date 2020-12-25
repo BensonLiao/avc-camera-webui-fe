@@ -31,6 +31,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
     })), 5);
   };
 
+  // eslint-disable-next-line no-unused-vars
   const [deviceList, setDeviceList] = useState(generatePaginatedDeviceList(devices));
 
   const showDeviceModal = () => setIsShowDeviceModal(true);
@@ -180,8 +181,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                     className="btn btn-primary rounded-pill"
                     type="submit"
                   >
-                    <i className="fas fa-exchange-alt fa-fw mr-2"/>
-                    {i18n.t('syncing')}
+                    <i className="fas fa-exchange-alt fa-fw mr-2"/>syncing
                   </button>
                 ) : (
                   <CustomTooltip placement="auto" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
