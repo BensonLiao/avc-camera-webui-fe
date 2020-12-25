@@ -33,12 +33,21 @@ const IO = ({ioInSettings, ioOutASettings, ioOutBSettings}) => {
                 <div className="card-header">{i18n.t('notification.io.title')}</div>
                 <Tab.Container activeKey={currentTab}>
                   <Nav onSelect={setTab}>
-                    {['Input', 'Output1', 'Output2'].map(ioType => (
-                      <Nav.Item key={ioType}>
+                    {[{
+                      name: 'Input',
+                      i18nMessage: i18n.t('notification.io.tabInput')
+                    }, {
+                      name: 'Output1',
+                      i18nMessage: i18n.t('notification.io.tabOutput1')
+                    }, {
+                      name: 'Output2',
+                      i18nMessage: i18n.t('notification.io.tabOutput2')
+                    }].map(ioType => (
+                      <Nav.Item key={ioType.name}>
                         <Nav.Link
-                          eventKey={ioType}
+                          eventKey={ioType.name}
                         >
-                          {i18n.t(`notification.io.tab${ioType}`)}
+                          {ioType.i18nMessage}
                         </Nav.Link>
                       </Nav.Item>
                     ))}
