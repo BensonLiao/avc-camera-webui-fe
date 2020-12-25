@@ -99,7 +99,7 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
               onClick={switchPage('database')}
             >
               <i className="fas fa-cog pl-2 pr-4"/>
-              {i18n.t('demo.userManagement.members.databaseSettings')}
+              {i18n.t('userManagement.members.databaseSettings')}
             </a>
             <a
               href=""
@@ -113,7 +113,7 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
                 <i className="fas fa-database pl-2 pr-4"/>
                 <i className="fas fa-sync"/>
               </div>
-              {i18n.t('demo.userManagement.members.synchronize')}
+              {i18n.t('userManagement.members.synchronize')}
             </a>
           </nav>
         </div>

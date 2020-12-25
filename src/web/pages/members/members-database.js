@@ -127,8 +127,8 @@ const MembersDatabase = ({isApiProcessing}) => {
           isShowDatabaseModal: false
         }));
         notify.showSuccessNotification({
-          title: i18n.t('demo.userManagement.members.modal.database.successTitle'),
-          message: i18n.t('demo.userManagement.members.modal.database.successBody')
+          title: i18n.t('userManagement.members.modal.database.successTitle'),
+          message: i18n.t('userManagement.members.modal.database.successBody')
         });
       })
       .finally(progress.done);
@@ -137,10 +137,10 @@ const MembersDatabase = ({isApiProcessing}) => {
   return (
     <div className="col-center">
       <div className="card shadow">
-        <div className="card-header">{i18n.t('demo.userManagement.members.databaseSettings')}</div>
+        <div className="card-header">{i18n.t('userManagement.members.databaseSettings')}</div>
         <div className="card-body">
           <div className="form-group">
-            <label>{i18n.t('demo.userManagement.members.encryptionSettings')}</label>
+            <label>{i18n.t('userManagement.members.encryptionSettings')}</label>
             <div>
               <button
                 disabled={isApiProcessing}
@@ -148,12 +148,12 @@ const MembersDatabase = ({isApiProcessing}) => {
                 className="btn btn-outline-primary rounded-pill px-5"
                 onClick={showDatabaseModal}
               >
-                {i18n.t('demo.userManagement.members.edit')}
+                {i18n.t('userManagement.members.edit')}
               </button>
             </div>
           </div>
           <div className="form-group">
-            <label>{i18n.t('demo.userManagement.members.exportDB')}</label>
+            <label>{i18n.t('userManagement.members.exportDB')}</label>
             <div>
               <button
                 disabled={isApiProcessing}
@@ -167,7 +167,7 @@ const MembersDatabase = ({isApiProcessing}) => {
           </div>
 
           <div className="form-group">
-            <label className="mb-0">{i18n.t('demo.userManagement.members.importDB')}</label>
+            <label className="mb-0">{i18n.t('userManagement.members.importDB')}</label>
             <small className="form-text text-muted my-2">{i18n.t('common.fileHandler.importHelper')}</small>
             <div>
               <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">

@@ -134,7 +134,21 @@
         "database": {
           "exportApiProcessModalTitle": "Exporting Member Database",
           "importApiProcessModalTitle": "Importing Member Database",
+          "successTitle": "Setting Success",
+          "successBody": "New settings applied",
           "title": "Database Encryption"
+        },
+        "deviceSync": {
+          "modifyDeviceTitle": "Edit Device Details",
+          "newDeviceTitle": "Add New Device",
+          "hostPlaceholder": "Enter device IP",
+          "port": "Port",
+          "portPlaceholder": "Ex. 8080",
+          "addDeviceApiProcessingModal": "Adding Device",
+          "editDeviceApiProcessingModal": "Updating Device",
+          "confirmDeleteTitle": "Delete Device",
+          "confirmDeleteBody": "Are you sure you want to delete device?",
+          "deleteDeviceApiProcessingModal": "Deleting Device"
         }
       },
       "name": "Name",
@@ -144,18 +158,32 @@
       "notePlaceholder": "Enter a note",
       "noteHelper": "Maximum length: 256 characters",
       "delete": "Delete",
+      "databaseSettings": "Database Settings",
+      "encryptionSettings": "Encryption Settings",
+      "edit": "Edit",
+      "exportDB": "Export Database",
       "export": "Export",
+      "importDB": "Import Database",
       "import": "Import",
-      "actions": "Actions",
-      "searchPlaceholder": "Enter Keywords",
-      "search": "Search",
+      "host": "Host",
       "tooltip": {
+        "noDevice": "Select a Device",
+        "connected": "Connected",
+        "notConnected": "Not Connected",
         "editGroupWithName": "Edit Group: {{0}}",
         "deleteGroupWithName": "Delete Group: {{0}}",
         "editMemberWithName": "Edit Member: {{0}}",
         "deleteMemberWithName": "Delete Member: {{0}}",
         "photoLimitExceeded": "Photo Limit of Member Database Exceeded"
       },
+      "synchronize": "Synchronize",
+      "remove": "Remove",
+      "deviceName": "Device Name",
+      "status": "Status",
+      "actions": "Actions",
+      "noDevice": "Please click the 'Add' first to add a new device to your list",
+      "searchPlaceholder": "Enter Keywords",
+      "search": "Search",
       "title": "Members",
       "allMembers": "All Members",
       "groups": "Groups",
@@ -750,46 +778,6 @@
     "inputSource": "Input Source",
     "externalMicrophone": "External Microphone",
     "title": "Audio"
-  },
-  "demo": {
-    "userManagement": {
-      "members": {
-        "modal": {
-          "database": {
-            "successTitle": "Setting Success",
-            "successBody": "New settings applied"
-          },
-          "deviceSync": {
-            "modifyDeviceTitle": "Edit Device Details",
-            "newDeviceTitle": "Add New Device",
-            "hostPlaceholder": "Enter device IP",
-            "port": "Port",
-            "portPlaceholder": "Ex. 8080",
-            "addDeviceApiProcessingModal": "Adding Device",
-            "editDeviceApiProcessingModal": "Updating Device",
-            "confirmDeleteTitle": "Delete Device",
-            "confirmDeleteBody": "Are you sure you want to delete device?",
-            "deleteDeviceApiProcessingModal": "Deleting Device"
-          }
-        },
-        "databaseSettings": "Database Settings",
-        "encryptionSettings": "Encryption Settings",
-        "edit": "Edit",
-        "exportDB": "Export Database",
-        "importDB": "Import Database",
-        "host": "Host",
-        "tooltip": {
-          "noDevice": "Select a Device",
-          "connected": "Connected",
-          "notConnected": "Not Connected"
-        },
-        "synchronize": "Synchronize",
-        "remove": "Remove",
-        "deviceName": "Device Name",
-        "status": "Status",
-        "noDevice": "Please click the 'Add' first to add a new device to your list"
-      }
-    }
   },
   "network": {
     "common": {

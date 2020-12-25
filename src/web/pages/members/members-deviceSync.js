@@ -184,7 +184,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                     <i className="fas fa-exchange-alt fa-fw mr-2"/>syncing
                   </button>
                 ) : (
-                  <CustomTooltip placement="auto" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
+                  <CustomTooltip placement="auto" show={disableButton} title={i18n.t('userManagement.members.tooltip.noDevice')}>
                     <div>
                       <button
                         className="btn btn-primary rounded-pill"
@@ -193,13 +193,13 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                         style={{pointerEvents: disableButton ? 'none' : 'auto'}}
                       >
                         <i className="fas fa-exchange-alt fa-fw mr-2"/>
-                        {i18n.t('demo.userManagement.members.synchronize')}
+                        {i18n.t('userManagement.members.synchronize')}
                       </button>
                     </div>
                   </CustomTooltip>
                 )}
                 <div className="d-inline-flex">
-                  <CustomTooltip placement="top" show={disableButton} title={i18n.t('demo.userManagement.members.tooltip.noDevice')}>
+                  <CustomTooltip placement="top" show={disableButton} title={i18n.t('userManagement.members.tooltip.noDevice')}>
                     <div className="ml-3">
                       <button
                         className="btn btn-outline-primary rounded-pill"
@@ -209,7 +209,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                         onClick={confirmDelete()}
                       >
                         <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
-                        {i18n.t('demo.userManagement.members.remove')}
+                        {i18n.t('userManagement.members.remove')}
                       </button>
                     </div>
                   </CustomTooltip>
@@ -246,9 +246,9 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                         />
                         <label htmlFor="selectAll"/>
                       </th>
-                      <th style={{width: '15%'}}>{i18n.t('demo.userManagement.members.host')}</th>
-                      <th style={{width: '35%'}}>{i18n.t('demo.userManagement.members.deviceName')}</th>
-                      <th style={{width: '25%'}}>{i18n.t('demo.userManagement.members.status')}</th>
+                      <th style={{width: '15%'}}>{i18n.t('userManagement.members.host')}</th>
+                      <th style={{width: '35%'}}>{i18n.t('userManagement.members.deviceName')}</th>
+                      <th style={{width: '25%'}}>{i18n.t('userManagement.members.status')}</th>
                       <th style={{width: '15%'}}>{i18n.t('userManagement.members.actions')}</th>
                     </tr>
                   </thead>
@@ -291,11 +291,11 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                                     </CustomTooltip>
                                   ) : (
                                     device.connectionStatus ? (
-                                      <CustomTooltip title={i18n.t('demo.userManagement.members.tooltip.connected')}>
+                                      <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
                                         <i className="fas fa-link fa-fw"/>
                                       </CustomTooltip>
                                     ) : (
-                                      <CustomTooltip title={i18n.t('demo.userManagement.members.tooltip.notConnected')}>
+                                      <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
                                         <i className="fas fa-unlink fa-fw"/>
                                       </CustomTooltip>
                                     )
@@ -327,7 +327,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                           <td className="text-size-20 text-center" colSpan="10">
                             <div className="d-flex flex-column align-items-center mt-5">
                               <img src={noDevice}/>
-                              <div className="mt-5 text-center text-wrap" style={{width: '300px'}}>{i18n.t('demo.userManagement.members.noDevice')}</div>
+                              <div className="mt-5 text-center text-wrap" style={{width: '300px'}}>{i18n.t('userManagement.members.noDevice')}</div>
                             </div>
                           </td>
                         </tr>
@@ -349,8 +349,8 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
               <CustomNotifyModal
                 backdrop="static"
                 isShowModal={isShowConfirmModal}
-                modalTitle={i18n.t('demo.userManagement.members.modal.deviceSync.confirmDeleteTitle')}
-                modalBody={i18n.t('demo.userManagement.members.modal.deviceSync.confirmDeleteBody')}
+                modalTitle={i18n.t('userManagement.members.modal.deviceSync.confirmDeleteTitle')}
+                modalBody={i18n.t('userManagement.members.modal.deviceSync.confirmDeleteBody')}
                 onHide={hideConfirmModal}
                 onConfirm={deleteDevice(deleteDeviceID ? deleteDeviceID : form.values)}
               />
@@ -363,7 +363,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
         modalType="process"
         backdrop="static"
         isShowModal={isShowApiProcessModal}
-        modalTitle={i18n.t('demo.userManagement.members.modal.deviceSync.deleteDeviceApiProcessingModal')}
+        modalTitle={i18n.t('userManagement.members.modal.deviceSync.deleteDeviceApiProcessingModal')}
         onHide={hideApiProcessModal}
       />
     </div>
