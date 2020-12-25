@@ -207,6 +207,11 @@ nav.navbar.fixed-top {
     .actions {
       padding: 0 32px;
     }
+
+    .group-item.active,
+    .nav-link.active {
+      color: $primary-500;
+    }
   }
 
   .filter-wrapper {
