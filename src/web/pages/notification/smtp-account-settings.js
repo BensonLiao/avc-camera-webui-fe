@@ -62,10 +62,27 @@ const SMTPAccountSettings = ({accountSettings, isShowModal, setIsShowAccountModa
                 <label>{i18n.t('notification.smtp.modal.encryption')}</label>
                 <div className="d-flex align-items-center">
                   {
-                    ['none', 'ssl', 'tls'].map((type, index) => (
-                      <div key={type} className={classNames('form-check', {'ml-5': index !== 0})}>
-                        <Field name="encryption" className="form-check-input" type="radio" id={`input-encryption-${type}`} value={SMTPEncryptionType[type]}/>
-                        <label className="form-check-label" htmlFor={`input-encryption-${type}`}>{i18n.t(`notification.smtp.modal.${type}`)}</label>
+                    [{
+                      name: 'none',
+                      i18nMessage: i18n.t('notification.smtp.modal.none')
+                    }, {
+                      name: 'ssl',
+                      i18nMessage: i18n.t('notification.smtp.modal.ssl')
+                    }, {
+                      name: 'tls',
+                      i18nMessage: i18n.t('notification.smtp.modal.tls')
+                    }].map((type, index) => (
+                      <div key={type.name} className={classNames('form-check', {'ml-5': index !== 0})}>
+                        <Field
+                          name="encryption"
+                          className="form-check-input"
+                          type="radio"
+                          id={`input-encryption-${type.name}`}
+                          value={SMTPEncryptionType[type.name]}
+                        />
+                        <label className="form-check-label" htmlFor={`input-encryption-${type.name}`}>
+                          {type.i18nMessage}
+                        </label>
                       </div>
                     ))
                   }
