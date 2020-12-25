@@ -606,6 +606,33 @@ module.exports.pingToCheckStartupAndReload = (interval, type = 'app') => {
 };
 
 /**
+ * Split array of data into an array of arrays by page size.
+ * @param {array} data - The input data.
+ * @param {number} size - Number of data per page to show. default is `10`
+ * @returns {array} - Pagination data.
+ */
+module.exports.getPaginatedData = (data, size = 10) => {
+  if (!this.isArray(data)) {
+    throw new TypeError('The input data must be an array.');
+  }
+
+  if (isNaN(size)) {
+    throw new TypeError('The page size must be a number.');
+  }
+
+  if (size < 1) {
+    throw new RangeError('The page size must be a positive number.');
+  }
+
+  const pageData = [];
+  for (let i = 0; i < data.length / size; i++) {
+    pageData.push(data.slice(i * size, (i + 1) * size));
+  }
+
+  return pageData;
+};
+
+/**
  * Get the stream resolution option with i18n translation, for custom dropdown or `<select>` element to render.
  * @param {string} x - The value of specific stream resolution.
  * @returns {object}

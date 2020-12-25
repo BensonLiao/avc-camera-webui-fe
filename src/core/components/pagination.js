@@ -10,9 +10,14 @@ module.exports = class Pagination extends React.PureComponent {
       index: PropTypes.number.isRequired,
       size: PropTypes.number.isRequired,
       total: PropTypes.number.isRequired,
-      itemQuantity: PropTypes.number.isRequired,
-      hrefTemplate: PropTypes.string.isRequired
+      currentPageItemQuantity: PropTypes.number.isRequired,
+      hrefTemplate: PropTypes.string.isRequired,
+      setPageIndexState: PropTypes.func
     };
+  }
+
+  static get defaultProps() {
+    return {setPageIndexState: null};
   }
 
   constructor(props) {
@@ -24,7 +29,7 @@ module.exports = class Pagination extends React.PureComponent {
 
   onChangeGotoIndex = event => {
     let validateValue = event.currentTarget.value;
-    if (Number(event.currentTarget.value)) {
+    if (!isNaN(validateValue)) {
       validateValue = event.currentTarget.value >= this.maxGotoIndex ?
         this.maxGotoIndex :
         event.currentTarget.value;
@@ -35,8 +40,28 @@ module.exports = class Pagination extends React.PureComponent {
 
   onKeyPress = event => {
     if (event.charCode === 13) {
+      const {hrefTemplate, setPageIndexState} = this.props;
       const {gotoIndex} = this.state;
-      getRouter().go(this.props.hrefTemplate + gotoIndex);
+      if (typeof setPageIndexState === 'function') {
+        setPageIndexState(gotoIndex);
+      } else {
+        getRouter().go(hrefTemplate + gotoIndex);
+      }
+    }
+  }
+
+  // Override default onClick in Capybara-Router.
+  onClickLink = pageIndex => event => {
+    event.preventDefault();
+    if (event.metaKey) {
+      return;
+    }
+
+    const {setPageIndexState} = this.props;
+    if (typeof setPageIndexState === 'function') {
+      setPageIndexState(pageIndex);
+    } else {
+      getRouter().go(event.target.href);
     }
   }
 
@@ -45,8 +70,9 @@ module.exports = class Pagination extends React.PureComponent {
       index,
       size,
       total,
-      itemQuantity,
-      hrefTemplate
+      currentPageItemQuantity,
+      hrefTemplate,
+      setPageIndexState
     } = this.props;
     if (total === 0) {
       return <></>;
@@ -56,7 +82,7 @@ module.exports = class Pagination extends React.PureComponent {
     const hasPrevious = index > 0;
     const hasNext = total > (index + 1) * size;
     const startItem = (index * size) + 1;
-    const endItem = startItem + itemQuantity - 1;
+    const endItem = startItem + currentPageItemQuantity - 1;
     const {gotoIndex} = this.state;
 
     for (let idx = index - 3; idx < index + 3; idx += 1) {
@@ -67,7 +93,7 @@ module.exports = class Pagination extends React.PureComponent {
       numbers.push({
         key: `pagination-${idx}`,
         pageNumber: idx + 1,
-        href: hrefTemplate + idx,
+        href: typeof setPageIndexState === 'function' ? '' : hrefTemplate + idx,
         className: classNames('page-item', {disabled: idx === index})
       });
     }
@@ -91,8 +117,9 @@ module.exports = class Pagination extends React.PureComponent {
           <ul className="pagination my-auto">
             <li className={classNames('page-item', {disabled: !hasPrevious})}>
               <Link
-                to={hasPrevious ? hrefTemplate + (index - 1) : ''}
+                to={hasPrevious && typeof setPageIndexState !== 'function' ? hrefTemplate + (index - 1) : ''}
                 className="page-link prev"
+                onClick={this.onClickLink(index - 1)}
               >
                 &laquo;
               </Link>
@@ -100,7 +127,11 @@ module.exports = class Pagination extends React.PureComponent {
             {
               numbers.map(number => (
                 <li key={number.key} className={number.className}>
-                  <Link to={number.href} className="page-link">
+                  <Link
+                    to={number.href}
+                    className="page-link"
+                    onClick={this.onClickLink(number.pageNumber - 1)}
+                  >
                     {number.pageNumber}
                   </Link>
                 </li>
@@ -108,8 +139,9 @@ module.exports = class Pagination extends React.PureComponent {
             }
             <li className={classNames('page-item', {disabled: !hasNext})}>
               <Link
-                to={hasNext ? hrefTemplate + (index + 1) : ''}
+                to={hasNext && typeof setPageIndexState !== 'function' ? hrefTemplate + (index + 1) : ''}
                 className="page-link next"
+                onClick={this.onClickLink(index + 1)}
               >
                 &raquo;
               </Link>
@@ -126,8 +158,9 @@ module.exports = class Pagination extends React.PureComponent {
             </li>
             <li className="page-item">
               <Link
-                to={hrefTemplate + gotoIndex}
+                to={typeof setPageIndexState === 'function' ? hrefTemplate : hrefTemplate + gotoIndex}
                 className="page-link go"
+                onClick={this.onClickLink(gotoIndex)}
               >
                 Go
               </Link>
