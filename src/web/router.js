@@ -499,7 +499,11 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
       },
-      resolve: {smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)},
+      resolve: {
+        smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data),
+        sdRecordingSettings: () => api.system.getSDRecordingSettings().then(response => response.data),
+        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */
         './pages/sdcard/sd-card'

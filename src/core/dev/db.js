@@ -259,8 +259,15 @@ module.exports = {
         sdStatus: 0,
         sdFormat: 'FAT32',
         sdTotal: 10000000,
-        sdUsage: 3200000,
-        sdAlertEnabled: false
+        sdUsage: 3200000
+      },
+      sdRecordingSettings: {
+        sdRecordingStatus: 0,
+        sdRecordingEnabled: true,
+        sdRecordingStream: 0,
+        sdRecordingType: 0,
+        sdRecordingDuration: 0,
+        sdRecordingLimit: true
       },
       systemDateTime: {
         deviceTime: new Date().getTime(),
