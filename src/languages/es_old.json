@@ -1,0 +1,164 @@
+{
+  "login": {
+    "lock": {
+      "loginLocked": "El inicio de sesión está bloqueado",
+      "forgotPassword": "Forgot password?"
+    },
+    "error": {
+      "expires1": "Expira en 10 minutos",
+      "expires2": "Expira en 30 minutos",
+      "expires3": "Expira en 1 hora",
+      "expires4": "Expira en 12 horas"
+    }
+  },
+  "home": {
+    "Device Status": "Estado del dispositivo",
+    "authenticationRequired": "No esta activado",
+    "ageGender: ": "Género y edad: ",
+    "humanDetection: ": "Detección humanoide: ",
+    "on": "Habilitar",
+    "off": "cerrar"
+  },
+  "videoSetting": {
+    "constants": {
+      "max": "máximo"
+    }
+  },
+  "video": {
+    "stream": {
+      "modal": {
+        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de Stream?",
+        "confirmRatioChangeBody": " Si cambia la relación de aspecto de la resolución de la Stream 1, también se cambiará la configuración de la Stream 2. ¿Confirmar para continuar?"
+      }
+    },
+    "hdmi": {
+      "fps": "Cuadros por segundo"
+    },
+    "osd": {
+      "constants": {
+        "enterCustomText": "Ingresar texto personalizado"
+      }
+    }
+  },
+  "audio": {
+    "internalMicrophone": "Internal Microphone",
+    "constants": {
+      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+    }
+  },
+  "notification": {
+    "smtp": {
+      "toast": {
+        "disablingOutgoingEmail": "Desactivar la transmisión de correo electrónico",
+        "mailSettingFailed": "Falló la configuración del correo electrónico",
+        "sendingTestEmail": "Ha enviado un correo de prueba"
+      }
+    },
+    "cards": {
+      "condition": "Condition",
+      "constants": {
+        "notification-vms-event-0": "Video Motion Detection Event",
+        "notification-vms-event-1": "Analytic Event"
+      },
+      "tooltip": {
+        "unpin": "Desanclar Pin Card",
+        "pin": "Parte superior",
+        "iconVMS": "VMS: On",
+        "enterDatetime": "Debe elegir la fecha y hora de inicio y finalización",
+        "maxSchedules": "Límite de cantidad alcanzado"
+      }
+    }
+  },
+  "userManagement": {
+    "members": {
+      "modal": {
+        "group": {
+          "editGroupTitle": "Editar grupo",
+          "createGroupTitle": "Añadir grupo",
+          "editGroupTitle.avn": "Editar grupo"
+        },
+        "member": {
+          "newMemberTitle": "Nuevo miembro",
+          "editMemberTitle": "Editar miembro"
+        }
+      },
+      "tooltip": {
+        "createGroup": "Añadir grupo",
+        "groupLimitExceeded": "Límite de cantidad alcanzado",
+        "uploadPrimaryFirst": "Sube la foto principal primero"
+      }
+    },
+    "accounts": {
+      "constants": {
+        "permission-99": "administrador"
+      },
+      "modal": {
+        "newUserTitle": "Nuevo Usuario",
+        "modifyUserTitle": "Editar cuenta"
+      }
+    },
+    "events": {
+      "tooltip": {
+        "invalidPhoto": "Foto inválida",
+        "Updating Member": "Actualización de Usuario"
+      }
+    }
+  },
+  "analytics": {
+    "license": {
+      "activated": "activada",
+      "activationRequired": "no está activada"
+    }
+  },
+  "network": {
+    "network": {
+      "static": "Dirección IP estática",
+      "dynamic": "Dirección IP dinámica"
+    },
+    "https": {
+      "constants": {
+        "manufacturer": "Fabricante",
+        "certificate-type-1": "Upload Certificate",
+        "certificate-type-2": "Generate Certificate on This Device"
+      }
+    }
+  },
+  "system": {
+    "deviceMaintenance": {
+      "modal": {
+        "confirmRestoreDefaultSettingsBody": "El dispositivo se restaurará a la configuración original de fábrica, excepto por los siguientes elementos, todos los demás datos y configuraciones se borrarán:\n\n• Lista de miembros e información del grupo de miembros \n• Información de la cuenta \n• Configuración de enfoque y zoom \n• Configuración de RTSP \n• Configuración de la red \n• Tarjeta de memoria para almacenar datos",
+        "confirmResetAllSettingsBody": "El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán"
+      }
+    }
+  },
+  "sdCard": {
+    "mount": "Montar"
+  },
+  "error": {
+    "notFound": "Lo siento, esta página no existe"
+  },
+  "documentTitle": {
+    "image": "imagen",
+    "video": "Video",
+    "analytics": "Análisis",
+    "notificationSettings": "Anunciar",
+    "notificationMethod": "Método de notificación",
+    "administration": "administración",
+    "status": "estado"
+  },
+  "navigation": {
+    "sidebar": {
+      "tooltip": {
+        "image": "imagen"
+      }
+    }
+  },
+  "common": {
+    "toast": {
+      "DHCP Test Failed": "Prueba DHCP falló"
+    },
+    "button": {
+      "create": "Nuevo"
+    }
+  }
+}

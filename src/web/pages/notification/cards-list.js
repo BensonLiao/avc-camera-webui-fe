@@ -31,7 +31,7 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
       {
         topCards.length > 0 && (
           <>
-            <h3 className="mb-2">{i18n.t('Pinned')}</h3>
+            <h3 className="mb-2">{i18n.t('notification.cards.pinned')}</h3>
             <hr className="my-1"/>
             <div className="card-container">
               {topCards.map(card => (
@@ -48,7 +48,7 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
           </>
         )
       }
-      <h3 className="mb-2">{i18n.t('Others')}</h3>
+      <h3 className="mb-2">{i18n.t('notification.cards.others')}</h3>
       <hr className="my-1"/>
       <div className="card-container mb-4">
         {normalCards.map(card => (

@@ -27,6 +27,7 @@ const constants = require('../../core/constants');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
 const wrappedApi = require('../../core/apis');
+const {default: ErrorDisplay} = require('../../core/components/error-display');
 
 module.exports = class Layout extends Base {
   static get propTypes() {
@@ -225,47 +226,47 @@ module.exports = class Layout extends Base {
       <>
         { isAdmin && (
           <div className="left-navigation fixed-top">
-            <CustomTooltip title={i18n.t('Home')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.home')}>
               <Link className={classTable.home} to="/" onClick={this.onClickLink}>
                 <img src={iconHome}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Video')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.video')}>
               <Link className={classTable.media} to="/media/stream" onClick={this.onClickLink}>
                 <img src={iconMedia}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Audio')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.audio')}>
               <Link className={classTable.audio} to="/audio" onClick={this.onClickLink}>
                 <img src={iconAudio}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Notification')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.notification')}>
               <Link className={classTable.notification} to="/notification/smtp" onClick={this.onClickLink}>
                 <img src={iconNotification}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('User Management')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.userManagement')}>
               <Link className={classTable.users} to="/users/members" onClick={this.onClickLink}>
                 <img src={iconUserManagement}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Analytics')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.analytics')}>
               <Link className={classTable.smart} to="/analytic/face-recognition" onClick={this.onClickLink}>
                 <img src={iconAnalytic}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('Network')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.network')}>
               <Link className={classTable.network} to="/network/settings" onClick={this.onClickLink}>
                 <img src={iconNetwork}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('System')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.system')}>
               <Link className={classTable.system} to="/system/datetime" onClick={this.onClickLink}>
                 <img src={iconSystem}/>
               </Link>
             </CustomTooltip>
-            <CustomTooltip title={i18n.t('SD Card')}>
+            <CustomTooltip title={i18n.t('navigation.sidebar.tooltip.sdCard')}>
               <Link className={classTable.sdCard} to="/sd-card" onClick={this.onClickLink}>
                 <img src={iconSDCard}/>
               </Link>
@@ -319,21 +320,21 @@ module.exports = class Layout extends Base {
                     <i className="fas fa-question-circle text-size-20 mr-0 fa-fw"/>
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
-                    <h6 className="dropdown-header">{i18n.t('Support')}</h6>
+                    <h6 className="dropdown-header">{i18n.t('navigation.appbar.support.support')}</h6>
                     {window.isNoBrand ? (
                       <a className="dropdown-item" href="" onClick={this.downloadManual}>
-                        {i18n.t('Device Help')}
+                        {i18n.t('navigation.appbar.support.deviceHelp')}
                       </a>
                     ) : (
                       <>
                         <a className="dropdown-item" href="http://androvideo.com/download.aspx" target="_blank" rel="noopener noreferrer">
-                          {i18n.t('Device Help')}
+                          {i18n.t('navigation.appbar.support.deviceHelp')}
                         </a>
                         <a className="dropdown-item" href="mailto:support@androvideo.com">
-                          {i18n.t('Technical Support')}
+                          {i18n.t('navigation.appbar.support.technicalSupport')}
                         </a>
                         <a className="dropdown-item" href="http://androvideo.com/products.aspx" target="_blank" rel="noopener noreferrer">
-                          {i18n.t('Product Information')}
+                          {i18n.t('navigation.appbar.support.productInformation')}
                         </a>
                       </>
                     )}
@@ -348,12 +349,12 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h5 className="dropdown-header text-primary">
-                      {i18n.t(`permission-${$user.permission}`)}
+                      {utils.getAccountPermissonI18N($user.permission, <ErrorDisplay/>)}
                     </h5>
                     <span className="dropdown-item-text font-weight-bold">{$user.account}</span>
                     <div className="dropdown-divider"/>
                     <a className="dropdown-item" href="#logout" onClick={this.onClickLogout}>
-                      {i18n.t('Sign Out')}
+                      {i18n.t('navigation.appbar.signOut')}
                     </a>
                   </div>
                 </div>
@@ -370,29 +371,29 @@ module.exports = class Layout extends Base {
         >
           <div
             className="modal-header"
-            onMouseEnter={this.onAboutModalHover(`           ${i18n.t('Model Name')}:
+            onMouseEnter={this.onAboutModalHover(`           ${i18n.t('navigation.appbar.about.modelName')}:
             ${systemInformation.modelName}
-            ${i18n.t('Software')}:
+            ${i18n.t('navigation.appbar.about.software')}:
             ${systemInformation.firmware}
-            ${i18n.t('Serial Number')}:
+            ${i18n.t('navigation.appbar.about.serialNumber')}:
             ${systemInformation.serialNumber}
-            ${i18n.t('MAC Address')}:
+            ${i18n.t('navigation.appbar.about.macAddress')}:
             ${networkSettings.mac}`)}
             onMouseLeave={this.onAboutModalHoverOut}
           >
-            <h5 className="modal-title">{i18n.t('About')}</h5>
+            <h5 className="modal-title">{i18n.t('navigation.appbar.about.about')}</h5>
           </div>
           <div
             ref={this.modelNameRef}
             className="modal-body"
           >
-            <div className="text-info mt-2">{i18n.t('Model Name')} :</div>
+            <div className="text-info mt-2">{i18n.t('navigation.appbar.about.modelName')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.modelName}</div>
-            <div className="text-info mt-3">{i18n.t('Software')} :</div>
+            <div className="text-info mt-3">{i18n.t('navigation.appbar.about.software')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.firmware}</div>
-            <div className="text-info mt-3">{i18n.t('Serial Number')} :</div>
+            <div className="text-info mt-3">{i18n.t('navigation.appbar.about.serialNumber')} :</div>
             <div className="text-primary font-weight-bold">{systemInformation.serialNumber}</div>
-            <div className="text-info mt-3">{i18n.t('MAC Address')} :</div>
+            <div className="text-info mt-3">{i18n.t('navigation.appbar.about.macAddress')} :</div>
             <div className="text-primary font-weight-bold">{networkSettings.mac}</div>
           </div>
           <div className="modal-footer flex-column">
@@ -401,7 +402,7 @@ module.exports = class Layout extends Base {
               className="btn btn-info btn-block m-0 rounded-pill"
               onClick={this.hideAboutModal}
             >
-              {i18n.t('Close')}
+              {i18n.t('common.button.close')}
             </button>
           </div>
         </Modal>

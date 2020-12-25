@@ -30,7 +30,7 @@ const Users = ({users: {items: users}}) => {
                     {disabled: isAddUserDisabled}
                   )}
                 >
-                  <i className="fas fa-plus fa-fw"/> {i18n.t('New')}
+                  <i className="fas fa-plus fa-fw"/> {i18n.t('common.button.new')}
                 </Link>
               </div>
               <UsersTable

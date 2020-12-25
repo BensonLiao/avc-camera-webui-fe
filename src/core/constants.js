@@ -1,5 +1,6 @@
 const cldrLangCode = window.currentLanguageCode === 'zh-tw' ? 'zh-Hant' : window.currentLanguageCode || 'en';
 const cldrTimeZoneData = require(`cldr-dates-full/main/${cldrLangCode}/timeZoneNames.json`);
+const i18n = require('../i18n').default;
 module.exports = {
   store: {
     CHANGE: 'STORE_CHANGE_',
@@ -100,17 +101,17 @@ module.exports = {
   },
   SD_STATUS_LIST: [ // Order is important!
     // 0 - MOUNTED: 外部儲存體存在且可以進行讀取與寫入
-    'Functioning',
+    i18n.t('sdCard.constants.Functioning'),
     // 1 - UNMOUNTED: 外部儲存體存在但未被掛載
-    'Unmounted',
+    i18n.t('sdCard.constants.Unmounted'),
     // 2 - SDCARDNOTEXIST: 外部儲存體不存在
-    'Empty Slot',
+    i18n.t('sdCard.constants.Empty Slot'),
     // 3 - ABNORMAL: 外部儲存體異常
-    'Nonfunctioning',
+    i18n.t('sdCard.constants.Nonfunctioning'),
     // 4 - READONLY: 外部儲存體存在但只能進行讀取
-    'Read-only Access',
+    i18n.t('sdCard.constants.Read-only Access'),
     // 5 - UNKNOWN: Unknown storage state, such as when a path isn't backed by known storage media.
-    'Unknown Error'
+    i18n.t('sdCard.constants.Unknown Error')
   ],
   TIMEZONE_LIST: (() => require('@vvo/tzdb')
     .getTimeZones()

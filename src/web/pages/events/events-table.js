@@ -9,6 +9,7 @@ import SyncTimeOption from 'webserver-form-schema/constants/system-sync-time';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import utils from '../../../core/utils';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMemberHandler, remainingPictureCount}) => {
   const generateEnlargePhotoHandler = eventPhotoUrl => {
@@ -31,15 +32,15 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
       icon: classNames(defaultIconClass,
         {'fa-caret-down': (params.sort || '-time') === '-time'},
         {'fa-caret-up': params.sort === 'time'}),
-      title: i18n.t('Time'),
+      title: i18n.t('userManagement.events.time'),
       width: {width: '14%'}
     },
     {
-      title: i18n.t('Capture'),
+      title: i18n.t('userManagement.events.capture'),
       width: {width: '10%'}
     },
     {
-      title: i18n.t('User Picture'),
+      title: i18n.t('userManagement.events.userPicture'),
       width: {width: '10%'}
     },
     {
@@ -47,7 +48,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
       icon: classNames(defaultIconClass,
         {'fa-caret-down': params.sort === '-name'},
         {'fa-caret-up': params.sort === 'name'}),
-      title: i18n.t('Name'),
+      title: i18n.t('userManagement.events.name'),
       width: {width: '10%'}
     },
     {
@@ -55,7 +56,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
       icon: classNames(defaultIconClass,
         {'fa-caret-down': params.sort === '-group'},
         {'fa-caret-up': params.sort === 'group'}),
-      title: i18n.t('Group'),
+      title: i18n.t('userManagement.events.group'),
       width: {width: '8%'}
     },
     {
@@ -63,7 +64,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
       icon: classNames(defaultIconClass,
         {'fa-caret-down': params.sort === '-organization'},
         {'fa-caret-up': params.sort === 'organization'}),
-      title: i18n.t('Organization'),
+      title: i18n.t('userManagement.events.organization'),
       width: {width: '14%'}
     },
     {
@@ -71,7 +72,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
       icon: classNames(defaultIconClass,
         {'fa-caret-down': params.sort === '-confidence'},
         {'fa-caret-up': params.sort === 'confidence'}),
-      title: i18n.t('Similarity'),
+      title: i18n.t('userManagement.events.similarity'),
       width: {width: '10%'}
     },
     {
@@ -79,15 +80,15 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
       icon: classNames(defaultIconClass,
         {'fa-caret-down': params.sort === '-recognitionResult'},
         {'fa-caret-up': params.sort === 'recognitionResult'}),
-      title: i18n.t('Recognition Result'),
+      title: i18n.t('userManagement.events.status'),
       width: {width: '8%'}
     },
     {
-      title: i18n.t('Note'),
+      title: i18n.t('userManagement.events.note'),
       width: {width: '10%'}
     },
     {
-      title: i18n.t('Actions'),
+      title: i18n.t('userManagement.events.actions'),
       width: {width: '6%'}
     }
   ];
@@ -122,7 +123,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
             !events.items.length && (
               <tr>
                 <td className="text-size-20 text-center" colSpan="10">
-                  <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('Couldn\'t find any data.')}
+                  <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('userManagement.events.noData')}
                 </td>
               </tr>
             )
@@ -167,7 +168,9 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                     </td>
                   ))}
                   <td>
-                    {event.confidences && event.recognitionType !== RecognitionType.fake ? i18n.t(`confidence-${event.confidences.similarity}`) : '-'}
+                    {event.confidences && event.recognitionType !== RecognitionType.fake ?
+                      utils.getEventConfidenceI18N(event.confidences.similarity, <ErrorDisplay/>) :
+                      '-'}
                   </td>
                   <td>
                     <CustomTooltip title={event.confidences ? event.confidences.score || '' : ''}>
@@ -177,7 +180,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                         {'badge-warning': event.recognitionType === RecognitionType.fake}
                       )}
                       >
-                        {i18n.t(`enroll-status-${event.recognitionType}`)}
+                        {utils.getEventRecognitionTypeI18N(event.recognitionType, <ErrorDisplay/>)}
                       </span>
                     </CustomTooltip>
                   </td>
@@ -190,7 +193,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                   </td>
                   <td>
                     {event.recognitionType === RecognitionType.fake ? '-' : (
-                      <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit of Member Database Exceeded')}>
+                      <CustomTooltip show={isOverPhotoLimit} title={i18n.t('userManagement.events.tooltip.photoLimitExceeded')}>
                         <div className="d-flex justify-content-center">
                           <button
                             disabled={isOverPhotoLimit}
@@ -202,18 +205,18 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                               pointerEvents: isOverPhotoLimit ? 'none' : 'auto'
                             }}
                           >
-                            {i18n.t('Add')}
+                            {i18n.t('common.button.add')}
                           </button>
                           <div className="dropdown-menu dropdown-menu-right shadow">
                             <a
                               className="dropdown-item px-3"
                               onClick={addMemberHandler(event.pictureThumbUrl)}
-                            >{i18n.t('Add a New Member')}
+                            >{i18n.t('userManagement.events.addNewMember')}
                             </a>
                             <a
                               className="dropdown-item px-3"
                               onClick={modifyMemberHandler(event.member && event.member.name, event.pictureThumbUrl)}
-                            >{i18n.t('Add to an Existing Member')}
+                            >{i18n.t('userManagement.events.addExistingMember')}
                             </a>
                           </div>
                         </div>

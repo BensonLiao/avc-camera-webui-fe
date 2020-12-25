@@ -29,28 +29,28 @@ module.exports = class Network extends Base {
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{i18n.t('Internet & Network Settings')}</h2>
+          <h2>{i18n.t('navigation.sidebar.internetNetworkSettings')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/network/settings"
-              title="Network Settings"
+              title={i18n.t('navigation.sidebar.network')}
               className={classNames('nav-link', {active: currentRouteName === 'web.network.settings'})}
             >
-              {i18n.t('Network')}
+              {i18n.t('navigation.sidebar.network')}
             </Link>
             <Link
               to="/network/tcp-ip"
-              title="TCP/IP"
+              title={i18n.t('navigation.sidebar.tcpip')}
               className={classNames('nav-link', {active: currentRouteName === 'web.network.tcp-ip'})}
             >
-              TCP/IP
+              {i18n.t('navigation.sidebar.tcpip')}
             </Link>
             <Link
               to="/network/https"
-              title="HTTPS"
+              title={i18n.t('navigation.sidebar.https')}
               className={classNames('nav-link', {active: currentRouteName === 'web.network.https'})}
             >
-              {i18n.t('HTTPS')}
+              {i18n.t('navigation.sidebar.https')}
             </Link>
           </nav>
         </div>

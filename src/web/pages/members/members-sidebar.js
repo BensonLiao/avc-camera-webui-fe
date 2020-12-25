@@ -12,24 +12,28 @@ const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteG
   return (
     <>
       <div className="left-menu fixed-top sub">
-        <h2>{i18n.t('Members')}</h2>
+        <h2>{i18n.t('userManagement.members.title')}</h2>
         <nav className="nav flex-column">
           <Link
             to="/users/members"
-            title={i18n.t('All Members')}
+            title={i18n.t('userManagement.members.allMembers')}
             className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
               {active: !params.group},
               {'bg-light': !params.group}
             )}
           >
-            <i className="fas fa-user-friends pl-2 pr-4"/>{i18n.t('All Members')}
+            <i className="fas fa-user-friends pl-2 pr-4"/>{i18n.t('userManagement.members.allMembers')}
           </Link>
         </nav>
         <hr/>
         <div className="groups">
           <div className="sub-title py-1 px-4">
-            <h3>{i18n.t('Groups')}</h3>
-            <CustomTooltip title={isAddGroupDisabled ? i18n.t('Group number limit exceeded.') : i18n.t('Create a Group')}>
+            <h3>{i18n.t('userManagement.members.groups')}</h3>
+            <CustomTooltip
+              title={i18n.t(isAddGroupDisabled ?
+                'userManagement.members.tooltip.groupLimitExceeded.' :
+                'userManagement.members.tooltip.createGroup')}
+            >
               <span>
                 <Link
                   to={{
@@ -62,7 +66,7 @@ const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteG
                   <i className="far fa-folder text-size-20"/>
                   <span className="text-truncate text-size-14 pl-3">{group.name}</span>
                 </a>
-                <CustomTooltip title={i18n.t('Delete Group: {{0}}', {0: group.name})}>
+                <CustomTooltip title={i18n.t('userManagement.members.tooltip.deleteGroupWithName', {0: group.name})}>
                   <button
                     className="btn btn-link btn-delete text-info"
                     type="button"

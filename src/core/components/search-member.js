@@ -84,7 +84,9 @@ class SearchMember extends React.PureComponent {
             .catch(error =>
               this.setState({
                 verifyStatus: false,
-                errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+                errorMessage: utils.getApiErrorMessageI18N(
+                  error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+                )
               })
             )
             .finally(() => this.setState({isVerifying: false}))
@@ -112,8 +114,8 @@ class SearchMember extends React.PureComponent {
       })
         .then(() =>
           notify.showSuccessNotification({
-            title: i18n.t('Setting Success'),
-            message: i18n.t('Photo Has Been Added to {{0}}', {0: member.name})
+            title: i18n.t('userManagement.events.toast.settingSuccessTitle'),
+            message: i18n.t('userManagement.events.toast.settingSuccessBody', {0: member.name})
           })
         )
         .then(getRouter().reload)
@@ -144,7 +146,8 @@ class SearchMember extends React.PureComponent {
           }}
         >
           <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying || photoNotFound)} className="d-flex justify-content-between align-items-center">
-            <Modal.Title as="h5">{i18n.t('Add to an Existing Member')}</Modal.Title>
+            <Modal.Title as="h5">{i18n.t('userManagement.events.addExistingMember')}</Modal.Title>
+
           </Modal.Header>
           <Modal.Body>
             <div className="d-flex flex-row justify-content-between align-items-end mb-4 px-3">
@@ -171,10 +174,10 @@ class SearchMember extends React.PureComponent {
                     </div>
                   </div>
                 </div>
-                { errorMessage && (
+                {errorMessage && (
                   <p className="text-size-14 mb-1 text-danger validate-error-message">
                     <i className="fas fa-exclamation-triangle mr-1"/>
-                    {`${i18n.t(errorMessage)}`}
+                    {errorMessage}
                   </p>
                 )}
               </div>
@@ -187,7 +190,7 @@ class SearchMember extends React.PureComponent {
                     className="px-0"
                     style={{width: '200px'}}
                   >
-                    <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('Enter Keywords')}/>
+                    <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('userManagement.events.searchPlaceholder')}/>
                   </div>
                   <div className="px-0 ml-3">
                     <button
@@ -196,7 +199,7 @@ class SearchMember extends React.PureComponent {
                       // allow search during photo verification
                       disabled={isApiProcessing && !isVerifying}
                     >
-                      <i className="fas fa-search fa-fw"/> {i18n.t('Search')}
+                      <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.search')}
                     </button>
                   </div>
                 </Form>
@@ -212,9 +215,9 @@ class SearchMember extends React.PureComponent {
               <table className="table custom-style mb-4" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
-                    <th style={{width: '40%'}}>{i18n.t('User Picture')}</th>
-                    <th style={{width: '40%'}}>{i18n.t('Name')}</th>
-                    <th style={{width: '20%'}}>{i18n.t('Actions')}</th>
+                    <th style={{width: '40%'}}>{i18n.t('userManagement.events.userPicture')}</th>
+                    <th style={{width: '40%'}}>{i18n.t('userManagement.events.name')}</th>
+                    <th style={{width: '20%'}}>{i18n.t('userManagement.events.actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -223,7 +226,7 @@ class SearchMember extends React.PureComponent {
                   {!members && !isFetching && (
                     <tr>
                       <td className="text-size-16 text-center pt-3" colSpan="10">
-                        <i className="fas fa-search fa-fw"/> {i18n.t('Enter keywords in the input field to search for members.')}
+                        <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.modal.initialMessage')}
                       </td>
                     </tr>
                   )}
@@ -232,7 +235,7 @@ class SearchMember extends React.PureComponent {
                   { members && !members.items.length && members.items.length === 0 && (
                     <tr>
                       <td className="text-size-16 text-center" colSpan="10">
-                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('Couldn\'t find any data.')}
+                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('userManagement.events.noData')}
                       </td>
                     </tr>
                   )}
@@ -266,12 +269,12 @@ class SearchMember extends React.PureComponent {
                         <td className={classNames('text-left group-btn', tdClass)}>
                           <CustomTooltip title={
                             isVerifying ?
-                              i18n.t('Verifying Photo') :
+                              i18n.t('userManagement.events.modal.verifyingPhoto') :
                               verifyStatus ?
                                 (member.pictures.length >= 5 ?
-                                  i18n.t('Photo Limit of Member Database Exceeded') :
-                                  i18n.t('Add to {{0}}', {0: member.name})) :
-                                i18n.t('Invalid Photo')
+                                  i18n.t('userManagement.events.tooltip.photoLimitExceeded') :
+                                  i18n.t('userManagement.events.tooltip.addWithName', {0: member.name})) :
+                                i18n.t('userManagement.events.tooltip.Invalid Photo')
                           }
                           >
                             <div>
@@ -284,7 +287,7 @@ class SearchMember extends React.PureComponent {
                                   convertedPicture
                                 })}
                               >
-                                {i18n.t('Add')}
+                                {i18n.t('common.button.add')}
                               </button>
                             </div>
                           </CustomTooltip>
@@ -327,7 +330,7 @@ class SearchMember extends React.PureComponent {
           modalType="process"
           backdrop="static"
           isShowModal={this.state.isShowApiProcessModal}
-          modalTitle={i18n.t('Updating Member')}
+          modalTitle={i18n.t('userManagement.events.modal.apiProcessingModalTitle')}
           onHide={this.hideApiProcessModal}
         />
       </>
@@ -400,7 +403,7 @@ class Pagination extends React.PureComponent {
           }}
         >
           <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+            {i18n.t('common.pagination.stats', {
               0: startItem,
               1: endItem,
               2: total
@@ -443,7 +446,7 @@ class Pagination extends React.PureComponent {
             </li>
           </ul>
           <p className="text-size-14 text-muted mb-0 ml-auto">
-            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+            {i18n.t('common.pagination.stats', {
               0: startItem,
               1: endItem,
               2: total

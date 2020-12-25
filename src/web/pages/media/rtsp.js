@@ -50,7 +50,7 @@ module.exports = class RTSP extends Base {
       values === httpInfo.port ||
       values === httpInfo.port2 ||
       values === httpsSettings.port) {
-      return i18n.t('The specified port is reserved by system or in use!');
+      return i18n.t('validation.portReserved');
     }
 
     return utils.validatedPortCheck(values);
@@ -67,7 +67,7 @@ module.exports = class RTSP extends Base {
     return (
       <Form className="card-body">
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{i18n.t('Enable Audio over RTSP')}</label>
+          <label className="mb-0">{i18n.t('video.rtsp.enableAudio')}</label>
           <div className="custom-control custom-switch">
             <Field
               name="isEnableAudioToStream"
@@ -77,23 +77,23 @@ module.exports = class RTSP extends Base {
               id="switch-voice-to-stream"
             />
             <label className="custom-control-label" htmlFor="switch-voice-to-stream">
-              <span>{i18n.t('ON')}</span>
-              <span>{i18n.t('OFF')}</span>
+              <span>{i18n.t('common.button.on')}</span>
+              <span>{i18n.t('common.button.off')}</span>
             </label>
           </div>
         </div>
         <div className="form-group d-flex justify-content-between align-items-center">
-          <label className="mb-0">{i18n.t('Require Authentication')}</label>
+          <label className="mb-0">{i18n.t('video.rtsp.requireAuthentication')}</label>
           <div className="custom-control custom-switch">
             <Field name="isEnablePassword" checked={values.isEnablePassword} type="checkbox" className="custom-control-input" id="switch-auth"/>
             <label className="custom-control-label" htmlFor="switch-auth">
-              <span>{i18n.t('ON')}</span>
-              <span>{i18n.t('OFF')}</span>
+              <span>{i18n.t('common.button.on')}</span>
+              <span>{i18n.t('common.button.off')}</span>
             </label>
           </div>
         </div>
-        <div className="form-group">
-          <label>{i18n.t('RTSP/TCP Port')}</label>
+        <div className="form-group ">
+          <label>{i18n.t('video.rtsp.rtspTcpPort')}</label>
           <Field
             autoFocus
             name="tcpPort"
@@ -107,10 +107,10 @@ module.exports = class RTSP extends Base {
               <div className="invalid-feedback">{errors.tcpPort}</div>
             )
           }
-          <span className="form-text text-muted">{i18n.t('Range: 1024-65535 Default: 8554')}</span>
+          <span className="form-text text-muted">{i18n.t('video.rtsp.tcpRange')}</span>
         </div>
         <div className="form-group">
-          <label>{i18n.t('RTSP/UDP Port')}</label>
+          <label>{i18n.t('video.rtsp.rtspUdpPort')}</label>
           <Field
             name="udpPort"
             type="text"
@@ -123,10 +123,10 @@ module.exports = class RTSP extends Base {
               <div className="invalid-feedback">{errors.udpPort}</div>
             )
           }
-          <span className="form-text text-muted">{i18n.t('Range: 1024-65535 Default: 17300')}</span>
+          <span className="form-text text-muted">{i18n.t('video.rtsp.udpRange')}</span>
         </div>
         <div className="form-group">
-          <label>{i18n.t('Maximum Number of Concurrent Connections')}</label>
+          <label>{i18n.t('video.rtsp.maxConnections')}</label>
           <Field
             name="connectionLimit"
             type="text"
@@ -141,7 +141,7 @@ module.exports = class RTSP extends Base {
           <span className="form-text text-muted">1 - 8</span>
         </div>
         <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-          {i18n.t('Apply')}
+          {i18n.t('common.button.apply')}
         </button>
       </Form>
     );
@@ -157,13 +157,13 @@ module.exports = class RTSP extends Base {
             <div className="row">
               <BreadCrumb
                 className="px-0"
-                path={[i18n.t('Video Settings'), i18n.t('RTSP')]}
+                path={[i18n.t('navigation.sidebar.videoSettings'), i18n.t('navigation.sidebar.rtsp')]}
                 routes={['/media/stream']}
               />
               <div className="col-center">
                 <div className="card shadow">
                   <div className="card-header">
-                    {i18n.t('RTSP')}
+                    {i18n.t('video.rtsp.title')}
                   </div>
                   <Formik
                     initialValues={rtspSettings}

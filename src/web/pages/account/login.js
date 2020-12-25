@@ -88,25 +88,25 @@ const Login = () => {
         {({errors, touched}) => (
           <Form className="card shadow mb-5">
             <div className="card-body">
-              <AccountTitle title={i18n.t('ACCOUNT LOGIN')}/>
+              <AccountTitle title={i18n.t('login.title')}/>
               <div className="form-group">
-                <label>{i18n.t('Username')}</label>
+                <label>{i18n.t('login.username')}</label>
                 <Field
                   name="account"
                   type="text"
                   maxLength={UserSchema.account.max}
-                  placeholder={i18n.t('Enter your username')}
+                  placeholder={i18n.t('login.usernamePlaceholder')}
                   className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
                 />
                 <ErrorMessage component="div" name="account" className="invalid-feedback"/>
               </div>
               <div className="form-group has-feedback">
-                <label>{i18n.t('Password')}</label>
+                <label>{i18n.t('login.password')}</label>
                 <Field
                   name="password"
                   component={Password}
                   inputProps={{
-                    placeholder: i18n.t('Enter your password'),
+                    placeholder: i18n.t('login.passwordPlaceholder'),
                     className: classNames('form-control', {'is-invalid': errors.password && touched.password})
                   }}
                 />
@@ -117,7 +117,7 @@ const Login = () => {
                 type="submit"
                 className="btn btn-primary btn-block rounded-pill mt-5"
               >
-                {i18n.t('Login')}
+                {i18n.t('login.login')}
               </button>
             </div>
           </Form>

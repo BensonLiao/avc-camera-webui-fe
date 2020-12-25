@@ -14,14 +14,14 @@ const LoginError = ({params: {loginFailedRemainingTimes}}) => {
           <Once>
             <div className="text-center" style={{margin: '8rem 0'}}>
               <p className="text-dark font-weight-bold m-0">
-                {i18n.t('Incorrect Password')}
+                {i18n.t('login.error.incorrectPassword')}
               </p>
               <p className="text-dark">
-                {i18n.t('You have {{0}} attempt(s) remaining...', {0: loginFailedRemainingTimes})}
+                {i18n.t('login.error.attemptsRemaining', {0: loginFailedRemainingTimes})}
               </p>
             </div>
             <Link to="/login" className="btn btn-primary btn-block rounded-pill mt-5">
-              {i18n.t('Login Again')}
+              {i18n.t('login.error.loginAgain')}
             </Link>
           </Once>
         </div>

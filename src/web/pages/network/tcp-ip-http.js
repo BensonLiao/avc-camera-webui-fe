@@ -17,8 +17,8 @@ const infoColor = getComputedStyle(document.documentElement).getPropertyValue('-
 const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => {
   const [state, setState] = useState({
     isShowApiProcessModal: false,
-    apiProcessModalTitle: i18n.t('Updating HTTP Settings'),
-    modalBody: i18n.t('Please wait')
+    apiProcessModalTitle: i18n.t('network.tcpip.modal.apiProcessModalTitle'),
+    modalBody: undefined
   });
   const {apiProcessModalTitle, isShowApiProcessModal, modalBody} = state;
 
@@ -45,7 +45,7 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
       values === httpsSettings.port) {
-      return i18n.t('The specified port is reserved by system or in use!');
+      return i18n.t('validation.portReserved');
     }
 
     return utils.validatedPortCheck(values);
@@ -62,9 +62,9 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
         const newAddress = `http://${location.hostname}:${values.port}`;
         setState(prevState => ({
           ...prevState,
-          apiProcessModalTitle: i18n.t('Redirection Success'),
+          apiProcessModalTitle: i18n.t('network.common.modal.redirectionSuccess'),
           modalBody: [
-            `${i18n.t('The website has been redirected to the new address')} :`,
+            `${i18n.t('network.common.modal.redirectionBody')} :`,
             <div key="redirect" className="d-flex">
               <ProgressIndicator
                 className="ml-0"
@@ -78,7 +78,7 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
           setState(prevState => ({
             ...prevState,
             modalBody: [
-              `${i18n.t('The website has been redirected to the new address')} :`,
+              `${i18n.t('network.common.modal.redirectionBody')} :`,
               <div key="redirect" className="d-flex">
                 <ProgressIndicator
                   className="ml-0"
@@ -109,19 +109,19 @@ const TCPIPHTTP = ({httpInfo, rtspSettings, httpsSettings, isApiProcessing}) => 
             <Tab.Pane eventKey="tab-http">
               <Form>
                 <div className="form-group mb-5">
-                  <label>{i18n.t('Secondary HTTP Port')}</label>
+                  <label>{i18n.t('network.tcpip.secondaryHTTPPort')}</label>
                   <Field
                     name="port"
                     className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
                     type="text"
                     validate={checkValidatePort}
-                    placeholder={i18n.t('8080')}
+                    placeholder={8080}
                     value={values.port}
                   />
                   <ErrorMessage component="div" name="port" className="invalid-feedback"/>
-                  <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8080')}</p>
+                  <p className="text-size-14 text-muted mt-2">{i18n.t('network.tcpip.portHelper')}</p>
                 </div>
-                <button type="submit" className="btn btn-primary btn-block rounded-pill">{i18n.t('Apply')}</button>
+                <button type="submit" className="btn btn-primary btn-block rounded-pill">{i18n.t('common.button.apply')}</button>
               </Form>
             </Tab.Pane>
           </Tab.Content>

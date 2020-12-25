@@ -21,8 +21,8 @@ const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) 
 
   const cardLimitError = () => { // Over card limit 32
     notify.showErrorNotification({
-      title: i18n.t('Card Number Limit Exceeded'),
-      message: i18n.t('Cannot create more than {{0}} cards', {0: NOTIFY_CARDS_MAX})
+      title: i18n.t('notification.cards.toast.limitExceededTitle'),
+      message: i18n.t('notification.cards.toast.limitExceededBody', {0: NOTIFY_CARDS_MAX})
     });
   };
 
@@ -92,7 +92,7 @@ const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) 
               hideCardFormModal={() => setIsShowCardDetailsModal(false)}
             />
             <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
-              <CustomTooltip title={i18n.t('Add a New Notification Card')}>
+              <CustomTooltip title={i18n.t('notification.cards.tooltip.addNewCard')}>
                 <button
                   disabled={isApiProcessing}
                   className="btn btn-outline-primary btn-lg bg-white text-primary border-0 rounded-circle shadow"

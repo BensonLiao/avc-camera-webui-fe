@@ -15,7 +15,7 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
 
   return (
     <div className="filter d-flex align-items-center text-nowrap mb-0">
-      <label className="mb-0">{i18n.t('Notification Filters')}</label>
+      <label className="mb-0">{i18n.t('notification.cards.filters')}</label>
       <button
         className={classNames(
           'btn rounded-pill chips-outline shadow-sm ml-4',
@@ -23,7 +23,7 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
         )}
         type="button"
         onClick={changeCardTypeFilter('all')}
-      >{i18n.t('notification-card-filter-all')}
+      >{i18n.t('notification.cards.constants.notification-card-filter-all')}
       </button>
       <button
         className={classNames(
@@ -32,7 +32,8 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
         )}
         type="button"
         onClick={changeCardTypeFilter(NotificationCardType.faceRecognition)}
-      >{i18n.t(`notification-card-${NotificationCardType.faceRecognition}`)}
+      >
+        {i18n.t('notification.cards.constants.notification-card-0')}
       </button>
       <button
         className={classNames(
@@ -41,7 +42,8 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
         )}
         type="button"
         onClick={changeCardTypeFilter(NotificationCardType.motionDetection)}
-      >{i18n.t(`notification-card-${NotificationCardType.motionDetection}`)}
+      >
+        {i18n.t('notification.cards.constants.notification-card-3')}
       </button>
       <button
         className={classNames(
@@ -50,7 +52,8 @@ const CardsFilter = ({cardTypeFilter, setCardTypeFilter}) => {
         )}
         type="button"
         onClick={changeCardTypeFilter(NotificationCardType.digitalInput)}
-      >{i18n.t(`notification-card-${NotificationCardType.digitalInput}`)}
+      >
+        {i18n.t('notification.cards.constants.notification-card-5')}
       </button>
     </div>
 

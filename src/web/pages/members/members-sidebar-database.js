@@ -62,7 +62,7 @@ const MembersDatabase = ({isApiProcessing}) => {
     setState(prevState => ({
       ...prevState,
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Exporting Member Database')
+      apiProcessModalTitle: i18n.t('userManagement.members.modal.database.exportApiProcessModalTitle')
     }));
     wrappedApi({
       method: 'get',
@@ -101,7 +101,7 @@ const MembersDatabase = ({isApiProcessing}) => {
     setState(prevState => ({
       ...prevState,
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Importing Member Database')
+      apiProcessModalTitle: i18n.t('userManagement.members.modal.database.importApiProcessModalTitle')
     }));
     api.member.uploadDatabaseFile(file)
       .then(() => {
@@ -134,8 +134,8 @@ const MembersDatabase = ({isApiProcessing}) => {
   return (
     <>
       <div className="sub-title py-2 px-4">
-        <h3>{i18n.t('Database')}</h3>
-        <CustomTooltip title={i18n.t('Encryption Settings')}>
+        <h3>{i18n.t('userManagement.members.database')}</h3>
+        <CustomTooltip title={i18n.t('userManagement.members.tooltip.encryptionSettings')}>
           <button className="btn btn-link p-0" type="button" onClick={showDatabaseModal}>
             <img src={iconLock}/>
           </button>
@@ -149,7 +149,7 @@ const MembersDatabase = ({isApiProcessing}) => {
             className="btn btn-outline-primary btn-block rounded-pill"
             onClick={onClickExportDatabase}
           >
-            {i18n.t('Export')}
+            {i18n.t('userManagement.members.export')}
           </button>
         </div>
         <label className={classNames('btn btn-outline-primary btn-block rounded-pill font-weight-bold', {disabled: isApiProcessing})}>
@@ -159,7 +159,7 @@ const MembersDatabase = ({isApiProcessing}) => {
             accept="application/zip"
             onClick={onClickImportButton}
             onChange={onChangeDatabaseFile}
-          />{i18n.t('Import')}
+          />{i18n.t('userManagement.members.import')}
         </label>
       </div>
 
@@ -177,11 +177,11 @@ const MembersDatabase = ({isApiProcessing}) => {
           {({errors, touched}) => (
             <Form className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">{i18n.t('Database Encryption')}</h5>
+                <h5 className="modal-title">{i18n.t('userManagement.members.modal.database.title')}</h5>
               </div>
               <div className="modal-body">
                 <div className="form-group has-feedback">
-                  <label>{i18n.t('Password')}</label>
+                  <label>{i18n.t('common.password.password')}</label>
                   <Field
                     name="password"
                     component={Password}
@@ -196,28 +196,28 @@ const MembersDatabase = ({isApiProcessing}) => {
                   <ErrorMessage component="div" name="password" className="invalid-feedback"/>
                 </div>
                 <div className="form-group has-feedback">
-                  <label>{i18n.t('New Password')}</label>
+                  <label>{i18n.t('common.password.newPassword')}</label>
                   <Field
                     name="newPassword"
                     component={Password}
                     inputProps={{
                       className: classNames('form-control', {'is-invalid': errors.newPassword && touched.newPassword}),
-                      placeholder: i18n.t('Enter a new password')
+                      placeholder: i18n.t('common.password.newPasswordPlaceholder')
                     }}
                   />
                   <small className="form-text text-muted">
-                    {i18n.t('8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, ", \\, /, <, > and space')}
+                    {i18n.t('common.password.passwordHelper')}
                   </small>
                   <ErrorMessage component="div" name="newPassword" className="invalid-feedback"/>
                 </div>
                 <div className="form-group has-feedback">
-                  <label>{i18n.t('Confirm New Password')}</label>
+                  <label>{i18n.t('common.password.confirmNewPassword')}</label>
                   <Field
                     name="confirmPassword"
                     component={Password}
                     inputProps={{
                       className: classNames('form-control', {'is-invalid': errors.confirmPassword && touched.confirmPassword}),
-                      placeholder: i18n.t('Enter the new password again')
+                      placeholder: i18n.t('common.password.confirmNewPasswordPlaceholder')
                     }}
                   />
                   <ErrorMessage component="div" name="confirmPassword" className="invalid-feedback"/>
@@ -226,7 +226,7 @@ const MembersDatabase = ({isApiProcessing}) => {
               <div className="modal-footer flex-column">
                 <div className="form-group w-100 mx-0">
                   <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill">
-                    {i18n.t('Confirm')}
+                    {i18n.t('common.button.confirm')}
                   </button>
                 </div>
                 <button
@@ -234,7 +234,7 @@ const MembersDatabase = ({isApiProcessing}) => {
                   className="btn btn-info btn-block m-0 rounded-pill"
                   onClick={hideDatabaseModal}
                 >
-                  {i18n.t('Close')}
+                  {i18n.t('common.button.close')}
                 </button>
               </div>
             </Form>
