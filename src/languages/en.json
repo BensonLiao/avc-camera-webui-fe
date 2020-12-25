@@ -1,0 +1,977 @@
+{
+  "common": {
+    "modal": {
+      "pleaseWait": "Please wait",
+      "sessionExpire": {
+        "sessionExpired": "Session Expired",
+        "expireCountdown": "Your session has expired. You will be redirected to the login page in {{0}} second(s).",
+        "renewSession": "Renew Session"
+      }
+    },
+    "button": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "close": "Close",
+      "add": "Add",
+      "on": "ON",
+      "off": "OFF",
+      "resetDefault": "Reset to Default Settings",
+      "apply": "Apply",
+      "new": "New"
+    },
+    "password": {
+      "hidePassword": "Hide Password",
+      "showPassword": "Show Password",
+      "password": "Password",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter a new password",
+      "passwordHelper": "8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, \", \\, /, <, > and space",
+      "confirmNewPassword": "Confirm New Password",
+      "confirmNewPasswordPlaceholder": "Enter the new password again",
+      "passwordPlaceholder": "Enter a password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Enter the password again"
+    },
+    "loading": "Loading",
+    "pagination": {
+      "stats": "{{0}}-{{1}} items. Total: {{2}}"
+    },
+    "volumeBar": {
+      "sdStorageStatus": "Free: {{0}}, Total: {{1}}",
+      "used": "Used: {{0}}",
+      "free": "Free: {{0}}"
+    },
+    "toast": {
+      "Duplicate Member Names": "Duplicate Member Names",
+      "Login Failed": "Login Failed",
+      "Empty Member Database": "Empty Member Database",
+      "Unable to reset a forgotten password": "",
+      "Unable to reset a password": "",
+      "Card Number Limit Exceeded": "Card Number Limit Exceeded",
+      "Non-existent Card": "Non-existent Card",
+      "Database Size Limit (3 GB) Exceeded": "Database Size Limit (3 GB) Exceeded",
+      "Invalid Member Photo": "",
+      "Unable to Process the Request (invalid token)": "",
+      "Group Number Limit Exceeded": "Group Number Limit Exceeded",
+      "Incorrect Password": "",
+      "Wrong Password for Database File": "Wrong Password for Database File",
+      "Wrong File Format": "Wrong File Format",
+      "Corrupted Zip File": "Corrupted Zip File",
+      "Photo Limit of Member Database Exceeded": "Photo Limit of Member Database Exceeded",
+      "Photo Size Limit Exceeded": "",
+      "Invalid or Absent Photo": "",
+      "Non-existent Group": "Non-existent Group",
+      "Non-existent Member": "Non-existent Member",
+      "Maximum Field Length Exceeded": "",
+      "Duplicate Member Name": "Duplicate Member Name",
+      "Duplicate Card Name": "Duplicate Card Name",
+      "VMS Reserved Port": "",
+      "Software Upgrade Failed": "Software Upgrade Failed",
+      "Unable to Complete the Format": "Unable to Complete the Format",
+      "Empty SMTP Server Address": "Empty SMTP Server Address",
+      "Empty SMTP Account": "Empty SMTP Account",
+      "Empty SMTP Account Password": "Empty SMTP Account Password",
+      "Empty Sender Email": "Empty Sender Email",
+      "Outgoing Email being Disabled": "",
+      "Absent or Unmounted SD Card": "Absent or Unmounted SD Card",
+      "Maximum Photo Number Exceeded": "",
+      "Showing No Face": "Showing No Face",
+      "Poor Photo Quality": "Poor Photo Quality",
+      "Limitation of Yaw Angle is 30 Degrees": "Limitation of Yaw Angle is 30 Degrees",
+      "Limitation of Pitch Angle is 20 Degrees": "Limitation of Pitch Angle is 20 Degrees",
+      "More Than One Face in the Photo": "More Than One Face in the Photo",
+      "Non-existent Photo": "Non-existent Face Thumbnail",
+      "Invalid Key": "Invalid Key",
+      "Duplicate Key": "Duplicate Key",
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Cannot Support Database Downgrade from 30,000 to 3000 People"
+    },
+    "dateTimePicker": {
+      "date": "Date",
+      "time": "Time",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "manualDateTime": "Manual DateTime"
+    }
+  },
+  "userManagement": {
+    "members": {
+      "modal": {
+        "member": {
+          "primary": "Primary",
+          "photo1": "Photo 1",
+          "photo2": "Photo 2",
+          "photo3": "Photo 3",
+          "photo4": "Photo 4",
+          "errorPhotoSizeLimit": "Photo size should be less than 90 KB.",
+          "errorNoPhoto": "No photo uploaded.",
+          "namePlaceholder": "Enter a name for this member",
+          "organizationPlaceholder": "Enter an organization for this member",
+          "organizationHelper": "Maximum length: 32 characters",
+          "n/a": "N/A",
+          "confirmCloseBody": "Are you sure you want to close this window? All changes you have made will be lost.",
+          "photoEditor": "Photo Editor",
+          "photoHelper": "Drag the image to position it correctly.",
+          "changePhoto": "Change Photo",
+          "save": "Save",
+          "confirmDeleteTitle": "Delete Member",
+          "confirmDeleteBody": "Are you sure you want to delete member {{0}}?"
+        },
+        "group": {
+          "namePlaceholder": "Enter a name for this group",
+          "nameHelper": "Maximum length: 32 characters",
+          "groupLimitExceeded": "",
+          "confirmDeleteTitle": "Delete Group",
+          "confirmDeleteBody": "Are you sure you want to delete group {{0}}?"
+        },
+        "database": {
+          "exportApiProcessModalTitle": "Exporting Member Database",
+          "importApiProcessModalTitle": "Importing Member Database",
+          "title": "Database Encryption"
+        }
+      },
+      "name": "Name",
+      "organization": "Organization",
+      "group": "Group",
+      "note": "Note",
+      "notePlaceholder": "Enter a note",
+      "noteHelper": "Maximum length: 256 characters",
+      "delete": "Delete",
+      "searchPlaceholder": "Enter Keywords",
+      "search": "Search",
+      "tooltip": {
+        "editGroupWithName": "Edit Group: {{0}}",
+        "encryptionSettings": "Encryption Settings",
+        "deleteGroupWithName": "Delete Group: {{0}}",
+        "editMemberWithName": "Edit Member: {{0}}",
+        "deleteMemberWithName": "Delete Member: {{0}}",
+        "photoLimitExceeded": "Photo Limit of Member Database Exceeded"
+      },
+      "database": "Database",
+      "export": "Export",
+      "import": "Import",
+      "title": "Members",
+      "allMembers": "All Members",
+      "groups": "Groups",
+      "userPicture": "User Picture",
+      "actions": "Actions",
+      "noData": "Couldn't find any data.",
+      "addNewMember": "Add a New Member",
+      "addMemberFromEvent": "Add a Member from Events"
+    },
+    "events": {
+      "toast": {
+        "settingSuccessTitle": "Setting Success",
+        "settingSuccessBody": "Photo Has Been Added to {{0}}"
+      },
+      "addExistingMember": "Add to an Existing Member",
+      "searchPlaceholder": "Enter Keywords",
+      "search": "Search",
+      "userPicture": "User Picture",
+      "name": "Name",
+      "actions": "Actions",
+      "modal": {
+        "initialMessage": "Enter keywords in the input field to search for members.",
+        "verifyingPhoto": "Verifying Photo",
+        "apiProcessingModalTitle": "Updating Member"
+      },
+      "noData": "Couldn't find any data.",
+      "tooltip": {
+        "photoLimitExceeded": "Photo Limit of Member Database Exceeded",
+        "addWithName": "Add to {{0}}",
+        "Invalid Photo": ""
+      },
+      "constants": {
+        "confidence-0": "Low",
+        "confidence-1": "Medium",
+        "confidence-2": "High",
+        "enroll-status-0": "Image Spoof",
+        "enroll-status-1": "Unknown",
+        "enroll-status-2": "Registered"
+      },
+      "similarity": "Similarity",
+      "status": "Status",
+      "title": "Events",
+      "filters": "Filters",
+      "clear": "Clear",
+      "facialRecognition": "Facial Recognition",
+      "FacialRecognition": "",
+      "activationRequired": "Activation Required",
+      "ageGender": "Age & Gender",
+      "humanDetection": "Human Detection",
+      "time": "Time",
+      "capture": "Capture",
+      "group": "Group",
+      "organization": "Organization",
+      "note": "Note",
+      "addNewMember": "Add a New Member",
+      "total": "Total"
+    },
+    "accounts": {
+      "constants": {
+        "permission-0": "Admin",
+        "permission-1": "Viewer",
+        "permission-2": "Viewer"
+      },
+      "permission": "Permission",
+      "username": "Username",
+      "modal": {
+        "usernamePlaceholder": "Enter a name for this account",
+        "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
+        "confirmDeleteTitle": "Delete Account",
+        "confirmDeleteBody": "Are you sure you want to delete account {{0}}?"
+      },
+      "title": "Accounts",
+      "allAccounts": "All Accounts",
+      "actions": "Actions",
+      "tooltip": {
+        "deleteAccountError1": "This account cannot be deleted because it is currently logged in to the device."
+      }
+    }
+  },
+  "videoSetting": {
+    "title": "Image",
+    "enableHDR": "Enable HDR",
+    "adjustments": "Adjustments",
+    "brightness": "Brightness",
+    "contrast": "Contrast",
+    "sharpness": "Sharpness",
+    "saturation": "Saturation",
+    "lensControl": "Lens Control",
+    "fullRangeFocus": "Full-Range Focus",
+    "shortRangeFocus": "Short-Range Focus",
+    "selectFocusType": "Select Focus Type",
+    "focus": "Focus",
+    "zoom": "Zoom",
+    "autoFocusAfterZoom": "Auto Focus after Zoom",
+    "iris": "Iris",
+    "constants": {
+      "aperture-0": "Auto",
+      "aperture-1": "Max",
+      "shutter-speed-0": "Auto",
+      "shutter-speed-1": "1/30",
+      "shutter-speed-2": "1/50",
+      "shutter-speed-3": "1/60",
+      "shutter-speed-4": "1/100",
+      "shutter-speed-5": "1/125",
+      "shutter-speed-6": "1/500",
+      "shutter-speed-7": "1/1,000",
+      "shutter-speed-8": "1/2,000",
+      "shutter-speed-9": "1/4,000",
+      "shutter-speed-10": "1/8,000",
+      "white-balance-0": "Auto",
+      "white-balance-1": "Outdoor",
+      "white-balance-2": "Fluorescent",
+      "white-balance-3": "Incandescent",
+      "white-balance-4": "Manual",
+      "ir-control-0": "Auto",
+      "ir-control-1": "On",
+      "ir-control-2": "Off",
+      "daynight-mode-0": "Auto",
+      "daynight-mode-1": "Day Mode",
+      "daynight-mode-2": "Night Mode",
+      "daynight-mode-3": "Manual",
+      "orientation-0": "0°",
+      "orientation-1": "Flip Vertical",
+      "orientation-2": "Flip Horizontal",
+      "orientation-3": "180°",
+      "on": "On",
+      "off": "Off",
+      "refresh-rate-0": "Auto",
+      "refresh-rate-1": "50Hz",
+      "refresh-rate-2": "60Hz"
+    },
+    "shutterSpeed": "Shutter Speed",
+    "advanced": "Advanced",
+    "whiteBalance": "White Balance",
+    "colorTemperature": "Color Temperature",
+    "iRControl": "IR Control",
+    "level": "Level",
+    "dayNight": "Day/Night",
+    "sensitivity": "Sensitivity",
+    "dayMode": "Day Mode",
+    "rotation": "Rotation",
+    "defog": "Defog",
+    "lightingCompensation": "Lighting Compensation Frequency (Hz)"
+  },
+  "sdCard": {
+    "constants": {
+      "Functioning": "Functioning",
+      "Unmounted": "Unmounted",
+      "Empty Slot": "Empty Slot",
+      "Nonfunctioning": "Nonfunctioning",
+      "Read-only Access": "Read-only Access",
+      "Unknown Error": "Unknown Error",
+      "unknownStatus": "UNKNOWN STATUS"
+    },
+    "operation": "Operation",
+    "tooltip": {
+      "disabledOperationButton": "Please disable the SD card first.",
+      "disabledNotificationButton": "Please enable Outgoing Email first."
+    },
+    "format": "Format",
+    "modal": {
+      "disabledFormatButton": "Are you sure you want to format the Micro SD card?",
+      "disabledUnmountButton": "Are you sure you want to unmount the Micro SD card?",
+      "disableTitle": "Disabling SD Card",
+      "disableBody": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?"
+    },
+    "unmount": "Unmount",
+    "title": "SD Card",
+    "enable": "Enable SD Card",
+    "errorNotification": "Error Notification",
+    "notificationSet": "Email Notification Set",
+    "enableOutgoingEmail": "Enable Outgoing Email",
+    "status": "Status",
+    "filesystem": "Filesystem",
+    "unrecognized": "Unrecognized",
+    "storageSpace": "Storage Space"
+  },
+  "validation": {
+    "portReserved": "The specified port is reserved by system or in use!",
+    "portEmpty": "The port number must not be empty.",
+    "required": "This field is required.",
+    "string": "This field must be a string.",
+    "stringEmpty": "This field is required.",
+    "stringMin": "This field must be at least {expected} characters long.",
+    "stringMax": "This field must be at most {expected} characters long.",
+    "stringLength": "This field must be {expected} characters long.",
+    "stringPattern": "This field contains invalid characters.",
+    "stringContains": "This field must contain the {expected} text.",
+    "stringEnum": "This field does not match any of the allowed values.",
+    "number": "This field must be a number.",
+    "numberMin": "This field must be greater than or equal to {expected}.",
+    "numberMax": "This field must be less than or equal to {expected}.",
+    "numberEqual": "This field must be equal to {expected}.",
+    "numberNotEqual": "This field can't be equal to {expected}.",
+    "numberInteger": "This field must be an integer.",
+    "numberPositive": "This field must be a positive number.",
+    "numberNegative": "This field must be a negative number.",
+    "array": "This field must be an array.",
+    "arrayEmpty": "This field must not be an empty array.",
+    "arrayMin": "This field must contain at least {expected} items.",
+    "arrayMax": "This field must contain less than or equal to {expected} items.",
+    "arrayLength": "This field must contain {expected} items.",
+    "arrayContains": "This field must contain the {expected} item.",
+    "arrayEnum": "This field value {expected} does not match any of the allowed values.",
+    "boolean": "This field must be a boolean.",
+    "function": "This field must be a function.",
+    "date": "This field must be a date.",
+    "dateMin": "This field must be greater than or equal to {expected}.",
+    "dateMax": "This field must be less than or equal to {expected}.",
+    "forbidden": "This field is inactive.",
+    "email": "Invalid email address.",
+    "url": "This field must be a valid URL.",
+    "confirmEqual": "These passwords didn't match.",
+    "stringContainsLowerCaseLatter": "This field must contain at least one lowercase letter.",
+    "stringContainsUpperCaseLatter": "This field must contain at least one uppercase letter.",
+    "stringContainsNumber": "This field must contain at least one number.",
+    "stringAbortSpecialCharacters": "This field cannot contain these symbols: #, %, &, `, \", \\, <, >, and space.",
+    "stringAcceptSpecialCharacters": "This field must contain at least one symbol.",
+    "birthday": "This field must be a valid birthday.",
+    "countryCode": "This field must be a valid country code.",
+    "duplicateName": "This name already exists in the system. Please use a different name.",
+    "maxRecipient": "The maximum number of recipients is 64.",
+    "duplicateEmail": "Duplicate email address."
+  },
+  "video": {
+    "stream": {
+      "constants": {
+        "stream-resolution-0": "3840*2160 (16:9)",
+        "stream-resolution-1": "2560*1440 (16:9)",
+        "stream-resolution-2": "1920*1080 (16:9)",
+        "stream-resolution-3": "1280*720 (16:9)",
+        "stream-resolution-4": "640*360 (16:9)",
+        "stream-resolution-5": "2560*1920 (4:3)",
+        "stream-resolution-6": "2048*1536 (4:3)",
+        "stream-resolution-7": "1600*1200 (4:3)",
+        "stream-resolution-8": "1280*960 (4:3)",
+        "stream-resolution-9": "1024*768 (4:3)",
+        "stream-resolution-10": "640*480 (4:3)",
+        "stream-resolution-11": "320*240 (4:3)",
+        "stream-bandwidth-management-0": "Maximum Bitrate",
+        "stream-bandwidth-management-1": "Variable Bitrate",
+        "stream-bandwidth-management-2": "Constant Bitrate",
+        "quality-80": "High",
+        "quality-50": "Medium",
+        "quality-30": "Low",
+        "bitRateRange": "{{0}} - {{1}} Kbps"
+      },
+      "resolution": "Resolution",
+      "fps": "Frame Rate (FPS)",
+      "modal": {
+        "apiProcessingModalTitle": "Updating Stream Settings"
+      },
+      "codec": "Codec",
+      "quality": "Quality",
+      "bandwidth": "Bandwidth Management",
+      "auto": "Auto",
+      "gop": "GOP",
+      "streams": "Streams",
+      "title": "Streams",
+      "stream1": "Stream 01",
+      "stream2": "Stream 02"
+    },
+    "hdmi": {
+      "modal": {
+        "apiProcessingModalTitle": "Updating HDMI settings",
+        "confirmUpdateBody": "Are you sure you want to update HDMI settings?"
+      },
+      "title": "HDMI",
+      "hdmi": "HDMI"
+    },
+    "osd": {
+      "title": "OSD",
+      "enable": "Enable On-Screen Display",
+      "size": "Size",
+      "constants": {
+        "font-size-0": "Small",
+        "font-size-1": "Medium",
+        "font-size-2": "Large",
+        "osd-type-0": "Time",
+        "osd-type-1": "Camera Name",
+        "osd-type-2": "Camera Name and Time",
+        "osd-type-3": "Custom"
+      },
+      "color": "Color",
+      "position": "Position",
+      "leftTop": "Top Left",
+      "rightTop": "Top Right",
+      "leftBottom": "Bottom Left",
+      "rightBottom": "Bottom Right",
+      "positionHelper": "Click one of the arrows on the live view screen.",
+      "overlay": "Text Overlay",
+      "enterCustomText": ""
+    },
+    "privacyMask": {
+      "maskArea": "Mask Area",
+      "title": "Privacy Mask",
+      "enable": "Enable Privacy Mask",
+      "maskHelper": "Create mask areas on the preview window.",
+      "note": "Note Area",
+      "noteText1": "To set a mask:",
+      "drag": "Drag",
+      "noteText2": "To erase a mask:",
+      "or": "or",
+      "noteText3": "Up to 4 mask areas can be set."
+    },
+    "rtsp": {
+      "enableAudio": "Enable Audio over RTSP",
+      "requireAuthentication": "Require Authentication",
+      "rtspTcpPort": "RTSP/TCP Port",
+      "tcpRange": "Range: 1024-65535 Default: 8554",
+      "rtspUdpPort": "RTSP/UDP Port",
+      "udpRange": "Range: 1024-65535 Default: 17300",
+      "maxConnections": "Maximum Number of Concurrent Connections",
+      "title": "RTSP"
+    }
+  },
+  "notification": {
+    "cards": {
+      "constants": {
+        "notification-card-0": "Facial Recognition",
+        "notification-card-1": "Age Gender",
+        "notification-card-2": "Humanoid Detection",
+        "notification-card-3": "Motion Detection",
+        "notification-card-4": "Tamper Alarm",
+        "notification-card-5": "Digital Input",
+        "face-recognition-condition-0": "Always",
+        "face-recognition-condition-1": "Success",
+        "face-recognition-condition-2": "Unknown",
+        "face-recognition-condition-3": "Image Spoof",
+        "notification-card-filter-all": "All",
+        "email-attachment-type-0": "Face Thumbnail",
+        "email-attachment-type-1": "Screenshot",
+        "email-attachment-type-2": "None",
+        "email-content-position-0": "Beginning",
+        "email-content-position-1": "End"
+      },
+      "filters": "Filters",
+      "enableNotifyResult": "Notify by Recognition Result",
+      "group": "Group",
+      "everyone": "Everyone",
+      "enableSchedule": "Enable Schedule",
+      "io": "I/O",
+      "output1": "Output 1",
+      "output2": "Output 2",
+      "email": "Email",
+      "emailAttachment": "Email Attachment",
+      "subject": "Subject :",
+      "subjectPlaceholder": "Specify the subject",
+      "content": "Content :",
+      "contentPlaceholder": "Add your message",
+      "contentPlacement": "Content Placement",
+      "receiver": "Receiver",
+      "receiverPlaceholder": "Enter email address",
+      "tooltip": {
+        "disabledReceiverButton": "Please enter an email address.",
+        "iconEmail": "Email: On",
+        "iconOutput": "Output: On",
+        "addNewCard": "Add a New Notification Card"
+      },
+      "defaultSubjectFR": "Face Recognition Event on [{{0}}]",
+      "defaultSubjectMD": "Motion Detection Event on [{{0}}]",
+      "defaultSubjectDI": "Digital Input Event on [{{0}}]",
+      "defaultCardTitle": "Enter card title",
+      "schedule": "Schedule",
+      "rule": "Rule",
+      "method": "Method",
+      "analytics": "Analytics",
+      "pinned": "Pinned",
+      "others": "Others",
+      "toast": {
+        "limitExceededTitle": "Card Number Limit Exceeded",
+        "limitExceededBody": "Cannot create more than {{0}} cards"
+      }
+    },
+    "io": {
+      "enableDigitalInput": "Enable Digital Input",
+      "normalState": "Normal State",
+      "open": "Normally Open",
+      "closed": "Normally Closed",
+      "enableDigitalOutput": "Enable Digital Output {{0}}",
+      "type": "Type",
+      "normal": "Normal",
+      "buffer": "Buffer",
+      "pulseTime": "Pulse Time (seconds)",
+      "pulsePlaceholder": "Enter seconds",
+      "timeRange": "{{0}}-{{1}} Seconds",
+      "delayTime": "Delay Time (seconds)",
+      "delayPlaceholder": "Enter seconds",
+      "title": "Input & Output",
+      "tabInput": "Input",
+      "tabOutput1": "Output 1",
+      "tabOutput2": "Output 2"
+    },
+    "smtp": {
+      "modal": {
+        "title": "SMTP Logon Settings",
+        "account": "Account",
+        "accountPlaceholder": "Enter your account",
+        "password": "Password",
+        "passwordPlaceholder": "Enter your password",
+        "port": "Port",
+        "encryption": "Encryption",
+        "none": "None",
+        "ssl": "SSL",
+        "tls": "TLS"
+      },
+      "title": "Email",
+      "enableEmail": "Enable Outgoing Email",
+      "serverAddress": "SMTP Server Address",
+      "serverAddressPlaceholder": "Enter server address",
+      "logonSettings": "SMTP Logon Settings",
+      "logonSettingsHelper": "Some webmail providers may require app passwords for enhanced security, for example, Google and Yahoo Mail accounts. Please follow your webmail provider’s instructions to generate and use an app password.",
+      "tooltip": {
+        "disabledEditButton": "Please enable Outgoing Email first."
+      },
+      "edit": "Edit",
+      "enableLoginNotification": "Enable Device Login Notification",
+      "senderName": "Sender Information",
+      "senderNamePlaceholder": "Enter sender's name",
+      "senderEmail": "Email",
+      "senderEmailPlaceholder": "Enter sender's email",
+      "interval": "Notification Interval (seconds)",
+      "intervalPlaceholder": "Specify notification interval",
+      "intervalRange": "5 - 1,800 Seconds",
+      "toast": {
+        "emailSettingSuccess": "Email Setting Success"
+      }
+    }
+  },
+  "login": {
+    "error": {
+      "incorrectPassword": "Incorrect Password",
+      "attemptsRemaining": "You have {{0}} attempt(s) remaining...",
+      "loginAgain": "Login Again"
+    },
+    "lock": {
+      "lockText": "Too Many Login Attempts!",
+      "tryAgain": "Please try again in 5 minutes.",
+      "remaining": "{{0}} Remaining",
+      "loginAgain": "Login Again"
+    },
+    "title": "ACCOUNT LOGIN",
+    "username": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "login": "Login"
+  },
+  "home": {
+    "deviceName": "Device Name",
+    "analytics": "Analytics",
+    "sdcard": "SD Card",
+    "facialRecognition": "Facial Recognition: ",
+    "ageGender": "",
+    "humanDetection": ""
+  },
+  "navigation": {
+    "sidebar": {
+      "tooltip": {
+        "home": "Home",
+        "video": "Video",
+        "audio": "Audio",
+        "notification": "Notification",
+        "userManagement": "User Management",
+        "analytics": "Analytics",
+        "network": "Network",
+        "system": "System",
+        "sdCard": "SD Card"
+      },
+      "analyticsSettings": "Analytics Settings",
+      "license": "License",
+      "audio": "Audio",
+      "videoSettings": "Video Settings",
+      "hdmi": "HDMI",
+      "streams": "Streams",
+      "rtsp": "RTSP",
+      "osd": "OSD",
+      "privacyMask": "Privacy Mask",
+      "members": "Members",
+      "accounts": "Accounts",
+      "events": "Events",
+      "internetNetworkSettings": "Internet & Network Settings",
+      "https": "HTTPS",
+      "network": "Network",
+      "tcpip": "TCP/IP",
+      "notificationSettings": "Notification Settings",
+      "notificationMethod": "Notification Method",
+      "inputAndOutput": "Input & Output",
+      "email": "Email",
+      "io": "I/O",
+      "smartNotification": "Smart Notification",
+      "sdCard": "SD Card",
+      "facialRecognition": "Facial Recognition",
+      "motionDetection": "Motion Detection",
+      "system": "System Settings",
+      "administration": "Administration",
+      "dateTime": "Date & Time",
+      "status": "Status",
+      "information": "Information",
+      "deviceMaintenance": "Device Maintenance",
+      "softwareUpgrade": "Software Upgrade",
+      "systemLog": "System Log"
+    },
+    "appbar": {
+      "support": {
+        "support": "Support",
+        "deviceHelp": "Device Help",
+        "technicalSupport": "Technical Support",
+        "productInformation": "Product Information"
+      },
+      "signOut": "Sign Out",
+      "about": {
+        "modelName": "Model Name",
+        "software": "Software",
+        "serialNumber": "Serial Number",
+        "macAddress": "MAC Address",
+        "about": "About"
+      }
+    }
+  },
+  "analytics": {
+    "license": {
+      "time": "Time",
+      "activatedBy": "Activated by",
+      "authenticationKey": "Authentication Key",
+      "activatedFunctions": "Activated Functions",
+      "enableStatus": "Status",
+      "constants": {
+        "key-thirtyThousand": "Face Recognition 30k",
+        "key-threeThousand": "Face Recognition 3k"
+      },
+      "ageGender": "Age & Gender",
+      "humanDetection": "Human Detection",
+      "toast": {
+        "activationFailedTitle": "Activation Failed",
+        "keyRegisteredBody": "Key Already Registered",
+        "activationSuccessTitle": "Activated Success",
+        "activationSuccessBody": "{{0}} authorized successfully!"
+      },
+      "title": "License",
+      "keyPlaceholder": "Enter your authentication key",
+      "activate": "Activate",
+      "facialRecognition": "Facial Recognition"
+    },
+    "facialRecognition": {
+      "detectionZone": "Detection Zone",
+      "minDetectionSize": "Min. Facial Detection Size",
+      "title": "Facial Recognition",
+      "enableFR": "Enable Facial Recognition",
+      "enableSpoof": "Enable Anti-Image Spoof",
+      "tooltip": {
+        "frDisabled": "Facial Recognition is disabled.",
+        "detectionZoneToggle": "Show/Hide Detection Zone"
+      },
+      "modal": {
+        "spoofBody": "Are you sure you want to enable the Alpha version of image spoofing? It is an Alpha version. Faces judged to be image spoof will not be recognized. We will optimize and improve this feature in future software updates."
+      },
+      "accuracyLevel": "Level of Accuracy",
+      "constants": {
+        "confidence-level-0": "Low",
+        "confidence-level-1": "Medium",
+        "confidence-level-2": "High"
+      },
+      "detectionZoneHelper": "The default is the whole live view screen.",
+      "enableDetectionSize": "Enable Facial Detection Size",
+      "liveViewDisplay": "Live View Display",
+      "displayName": "Name",
+      "displayGroup": "Group",
+      "displayUnknown": "Unknown",
+      "displaySpoof": "Display Image Spoof"
+    },
+    "motionDetection": {
+      "detectionZone": "Detection Zone",
+      "title": "Motion Detection",
+      "enableMD": "Enable Motion Detection",
+      "mdHelper": "Create detection zones on the live view screen.",
+      "sensitivity": "Sensitivity",
+      "noteArea": "Note Area",
+      "note1": "To set a zone:",
+      "drag": "Drag",
+      "note2": "To erase a zone:",
+      "or": "or",
+      "note3": "Up to 4 detection zones can be set."
+    }
+  },
+  "audio": {
+    "enable": "Enable Audio Input",
+    "quality": "Audio Quality",
+    "constants": {
+      "audio-quality-0": "G.711, 8kHz, 64kbps, Mono"
+    },
+    "inputSource": "Input Source",
+    "externalMicrophone": "External Microphone",
+    "title": "Audio"
+  },
+  "network": {
+    "common": {
+      "modal": {
+        "redirectionBody": "The website has been redirected to the new address",
+        "redirectionSuccess": "Redirection Success"
+      }
+    },
+    "https": {
+      "title": "HTTPS",
+      "enableHTTPS": "Enable HTTPS",
+      "port": "Port",
+      "portHelper": "Range: 1024-65535 Default: 8443",
+      "certificate": "Certificate",
+      "constants": {
+        "certificate-type-0": "{{0}} Self-signed"
+      },
+      "tooltip": {
+        "disabledButton": "Please enable HTTPS first."
+      }
+    },
+    "network": {
+      "testDHCP": "Test DHCP",
+      "modal": {
+        "testingSuccess": "DHCP Testing Success",
+        "confirmUpdateBody": "Are you sure you want to update network settings?"
+      },
+      "ipAddress": "IP Address",
+      "dhcp": "DHCP",
+      "fixedIPAddress": "Fixed IP Address",
+      "ipAddressPlaceholder": "Enter a fixed IP address",
+      "subnetMask": "Subnet Mask",
+      "subnetMaskPlaceholder": "Enter Subnet Mask",
+      "routerGateway": "Router/Gateway",
+      "routerGatewayPlaceholder": "Enter Router/Gateway",
+      "primaryDNS": "Primary DNS",
+      "primaryDNSPlaceholder": "Enter a primary DNS",
+      "secondaryDNSOptional": "Secondary DNS (Optional)",
+      "secondaryDNSPlaceholder": "Enter a secondary DNS",
+      "tooltip": {
+        "noChanges": "No changes were made."
+      },
+      "title": "Network",
+      "ipAssignment": "IP Assignment",
+      "macAddress": "MAC Address",
+      "secondaryDNS": "Secondary DNS",
+      "ipAddressing": "IP Addressing",
+      "networkStatus": "Network Status"
+    },
+    "tcpip": {
+      "toast": {
+        "settingSuccessTitle": "Setting Success",
+        "successBody": "DDNS Setting Success",
+        "settingFailed": "Setting Failed",
+        "failedBody": "DDNS Setting Failed"
+      },
+      "enableDDNS": "Enable DDNS",
+      "serviceProvider": "Service Provider",
+      "hostName": "Host Name",
+      "hostNamePlaceholder": "Enter DDNS host name.",
+      "account": "Account",
+      "accountPlaceholder": "Enter DDNS username.",
+      "passwordPlaceholder": "Enter DDNS password.",
+      "modal": {
+        "apiProcessModalTitle": "Updating HTTP Settings"
+      },
+      "secondaryHTTPPort": "Secondary HTTP Port",
+      "portHelper": "Range: 1024-65535 Default: 8080",
+      "title": "TCP/IP",
+      "ddns": "DDNS",
+      "http": "HTTP"
+    }
+  },
+  "error": {
+    "internalServerError": "Internal Server Error",
+    "error": "Error",
+    "backToHome": "Back to Home"
+  },
+  "setup": {
+    "account": {
+      "permission": "Permission",
+      "account": "Username",
+      "accountPlaceholder": "Enter a name for this account",
+      "accountHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
+      "done": "Done"
+    },
+    "language": {
+      "next": "Next"
+    },
+    "progressBar": {
+      "language": "Langauge",
+      "setupAccount": "Setup Account"
+    },
+    "welcome": {
+      "welcome": "Welcome",
+      "welcomeText1": "For a better experience,",
+      "welcomeText2": "Please click Continue to complete the initial setup!",
+      "continue": "Continue"
+    }
+  },
+  "system": {
+    "dateTime": {
+      "modal": {
+        "apiProcessModalTitle": "Updating Date & Time",
+        "confirmUpdateBody": "Updating date and time requires you to log in again. Are you sure you want to continue?"
+      },
+      "title": "Date & Time",
+      "deviceDateTime": "Date and Time of the Device",
+      "timeZone": "Time Zone",
+      "syncNTP": "Sync with Network Time Server (NTP)",
+      "ntpHost": "Host Name or IP Address",
+      "hostPlaceholder": "Enter Your IP Address",
+      "syncTime": "Sync Time",
+      "syncInterval": "Sync Interval (minutes)",
+      "syncWithComputer": "Sync with Your Computer",
+      "setManually": "Set the Date & Time Manually"
+    },
+    "information": {
+      "software": "Software",
+      "serialNumber": "S/N Code",
+      "macAddress": "MAC Address",
+      "title": "Information"
+    },
+    "systemLog": {
+      "title": "System Log",
+      "systemLogFile": "System Log File",
+      "deleteLogs": "Delete logs",
+      "modal": {
+        "confirmDeleteTitle": "Delete System Log File",
+        "confirmDeleteBody": "Are you sure you want to delete system logs?",
+        "apiProcessModalTitle": "Downloading System Log File",
+        "downloadingBody": "Download progress"
+      },
+      "download": "Download"
+    },
+    "deviceMaintenance": {
+      "importSystemSettings": "Import System Settings",
+      "modal": {
+        "apiProcessModalTitleRebooting": "Rebooting",
+        "importSuccessBody": "Device settings have imported. Please log in again.",
+        "rebootSuccessBody": "The device has rebooted. Please log in again.",
+        "confirmRebootBody": "Are you sure you want to reboot the device?",
+        "apiProcessModalTitleResetting": "Resetting",
+        "resetSuccess": "Reset Success",
+        "resetAllSettingsSuccessBody": "Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.",
+        "resetDefaultSettingsSuccessBody": "Device has reset. Please log in again."
+      },
+      "exportSystemSettings": "Export System Settings",
+      "export": "Export",
+      "import": "Import",
+      "systemReboot": "System Reboot",
+      "reboot": "Reboot",
+      "restoreDefaultSettings": "Restore to Default Settings",
+      "restoreAllSettings": "Restore All Settings",
+      "tooltip": {
+        "restoreAllSettingsHelper": "Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card."
+      },
+      "reset": "Reset",
+      "title": "Device Maintenance"
+    },
+    "common": {
+      "importHelper": "Only ZIP file format is supported",
+      "selectFile": "Select File",
+      "noFileSelected": "No file selected.",
+      "tooltip": {
+        "disabledButton": "Please select a file first."
+      }
+    },
+    "softwareUpgrade": {
+      "modal": {
+        "uploadingBody": "※ Please do not close your browser during the upgrade.",
+        "apiProcessModalTitleUploading": "Uploading Software",
+        "apiProcessModalTitleInstalling": "Installing Software",
+        "apiProcessModalTitleShutDown": "Shutting Down",
+        "apiProcessModalTitleRestarting": "Restarting",
+        "upgradeSuccess": "Software Upgrade Success",
+        "upgradeSuccessBody": "Redirect to the login page in {{0}} seconds",
+        "stage1": "Stage 1",
+        "uploadSoftware": "Upload Software",
+        "stage2": "Stage 2",
+        "installSoftware": "Install Software",
+        "stage3": "Stage 3",
+        "shutDown": "Shut Down",
+        "stage4": "Stage 4",
+        "restart": "Restart"
+      },
+      "title": "Software Upgrade",
+      "importFile": "Import File"
+    }
+  },
+  "documentTitle": {
+    "home": "Home",
+    "videoSettings": "Video Settings",
+    "streams": "Streams",
+    "privacyMask": "Privacy Mask",
+    "rtsp": "RTSP",
+    "hdmi": "HDMI",
+    "osd": "OSD",
+    "audio": "Audio",
+    "notification": "Notification",
+    "email": "Email",
+    "io": "I/O",
+    "smartNotification": "Smart Notification",
+    "analyticsSettings": "Analytics Settings",
+    "facialRecognition": "Facial Recognition",
+    "motionDetection": "Motion Detection",
+    "license": "License",
+    "userManagement": "User Management",
+    "members": "Members",
+    "newMember": "New Member",
+    "accounts": "Accounts",
+    "newUser": "New User",
+    "events": "Events",
+    "network": "Network",
+    "internetNetworkSettings": "Internet & Network Settings",
+    "tcpip": "TCP/IP",
+    "https": "HTTPS",
+    "system": "System",
+    "dateTime": "Date & Time",
+    "softwareUpgrade": "Software Upgrade",
+    "deviceMaintenance": "Device Maintenance",
+    "sdCard": "SD Card",
+    "systemLog": "System Log",
+    "information": "Information",
+    "welcome": "Welcome",
+    "language": "Language",
+    "setupAccount": "Setup Account",
+    "login": "Login",
+    "loginError": "Login Error",
+    "loginLocked": "Login Locked"
+  }
+}

@@ -55,15 +55,15 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
         showModal: isShowModal,
         hideModal: hideModal(mode),
         modalOnSubmit: confirmDeleteGroup,
-        modalTitle: i18n.t('Delete Group'),
-        modalBody: i18n.t('Are you sure you want to delete group {{0}}?', {0: deleteGroupTarget && deleteGroupTarget.name})
+        modalTitle: i18n.t('userManagement.members.modal.group.confirmDeleteTitle'),
+        modalBody: i18n.t('userManagement.members.modal.group.confirmDeleteBody', {0: deleteGroupTarget && deleteGroupTarget.name})
       },
       deleteMember: {
         showModal: isShowModal,
         hideModal: hideModal(mode),
         modalOnSubmit: confirmDeleteMember,
-        modalTitle: i18n.t('Delete Member'),
-        modalBody: i18n.t('Are you sure you want to delete member {{0}}?', {0: deleteMemberTarget && deleteMemberTarget.name})
+        modalTitle: i18n.t('userManagement.members.modal.member.confirmDeleteTitle'),
+        modalBody: i18n.t('userManagement.members.modal.member.confirmDeleteBody', {0: deleteMemberTarget && deleteMemberTarget.name})
       }
     };
     return (
@@ -183,7 +183,7 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
                   currentRouteName={currentRoute.name}
                   params={params}
                 />
-                <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit of Member Database Exceeded')}>
+                <CustomTooltip show={isOverPhotoLimit} title={i18n.t('userManagement.members.tooltip.photoLimitExceeded')}>
                   <div className="dropdown">
                     <button
                       className="btn border-primary text-primary rounded-pill dropdown-toggle"
@@ -192,7 +192,7 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
                       style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
                       data-toggle="dropdown"
                     >
-                      <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('New')}
+                      <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('common.button.new')}
                     </button>
                     <div className="dropdown-menu dropdown-menu-right shadow">
                       <Link
@@ -202,9 +202,9 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
                           params: params
                         }}
                       >
-                        {i18n.t('Add a New Member')}
+                        {i18n.t('userManagement.members.addNewMember')}
                       </Link>
-                      <Link className="dropdown-item" to="/users/events">{i18n.t('Add a Member from Events')}</Link>
+                      <Link className="dropdown-item" to="/users/events">{i18n.t('userManagement.members.addMemberFromEvent')}</Link>
                     </div>
                   </div>
                 </CustomTooltip>

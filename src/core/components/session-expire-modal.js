@@ -10,7 +10,7 @@ const constants = require('../constants');
 module.exports = class SessionExpireModal extends React.PureComponent {
   state = {
     isShowModal: false,
-    modalBody: i18n.t('Your session has expired. You will be redirected to the login page in {{0}} second(s).', {0: constants.REDIRECT_COUNTDOWN})
+    countDown: constants.REDIRECT_COUNTDOWN
   }
 
   componentDidMount() {
@@ -18,16 +18,10 @@ module.exports = class SessionExpireModal extends React.PureComponent {
     if (expires) {
       const expiresTimer = new Timer(
         () => {
-          this.setState(
-            {
-              isShowModal: true,
-              modalBody: i18n.t('Your session has expired. You will be redirected to the login page in {{0}} second(s).', {0: constants.REDIRECT_COUNTDOWN})
-            },
+          this.setState({isShowModal: true},
             () => {
               let countdown = constants.REDIRECT_COUNTDOWN;
-              this.countdownID = setInterval(() => {
-                this.setState({modalBody: i18n.t('Your session has expired. You will be redirected to the login page in {{0}} second(s).', {0: --countdown})});
-              }, 1000);
+              this.countdownID = setInterval(() => this.setState({countDown: --countdown}), 1000);
               this.countdownTimerID = setTimeout(() => {
                 store.set(constants.store.IS_NOT_CALL_UNLOAD_ALERT, true);
                 clearInterval(this.countdownID);
@@ -47,15 +41,15 @@ module.exports = class SessionExpireModal extends React.PureComponent {
   }
 
   render() {
-    const {isShowModal, modalBody} = this.state;
+    const {isShowModal, countDown} = this.state;
     return (
       <CustomNotifyModal
         modalType="info"
         backdrop="static"
         isShowModal={isShowModal}
-        modalTitle={i18n.t('Session Expired')}
-        modalBody={modalBody}
-        confirmBtnTitle={i18n.t('Renew Session')}
+        modalTitle={i18n.t('common.modal.sessionExpire.sessionExpired')}
+        modalBody={i18n.t('common.modal.sessionExpire.expireCountdown', {0: countDown})}
+        confirmBtnTitle={i18n.t('common.modal.sessionExpire.renewSession')}
         onConfirm={() => {
           api.account.refresh()
             .then(() => {

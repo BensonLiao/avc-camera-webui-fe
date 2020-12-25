@@ -23,7 +23,7 @@ const MaintainReset = ({
     progress.start();
     setApiProcessModal({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Resetting')
+      apiProcessModalTitle: i18n.t('system.deviceMaintenance.modal.apiProcessModalTitleResetting')
     });
     setIsShowConfirmModal(false);
 
@@ -38,15 +38,15 @@ const MaintainReset = ({
               hideApiProcessModal();
               setFinishModal({
                 isShowFinishModal: true,
-                finishModalTitle: i18n.t('Reset Success'),
-                finishModalBody: i18n.t('Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.')
+                finishModalTitle: i18n.t('system.deviceMaintenance.modal.resetSuccess'),
+                finishModalBody: i18n.t('system.deviceMaintenance.modal.resetAllSettingsSuccessBody')
               });
               setOnConfirm(() => hideFinishModal);
             } else {
               // Keep modal and update the title.
               setApiProcessModal(prevState => ({
                 ...prevState,
-                apiProcessModalTitle: i18n.t('Rebooting')
+                apiProcessModalTitle: i18n.t('system.deviceMaintenance.modal.apiProcessModalTitleRebooting')
               }));
               // Check the server was start up, if success then startup was failed and retry.
               const test = () => {
@@ -56,8 +56,8 @@ const MaintainReset = ({
                     hideApiProcessModal();
                     setFinishModal({
                       isShowFinishModal: true,
-                      finishModalTitle: i18n.t('Reset Success'),
-                      finishModalBody: i18n.t('Device has reset. Please log in again.')
+                      finishModalTitle: i18n.t('system.deviceMaintenance.modal.resetSuccess'),
+                      finishModalBody: i18n.t('system.deviceMaintenance.modal.resetDefaultSettingsSuccessBody')
                     });
                   })
                   .catch(() => {
@@ -83,28 +83,24 @@ const MaintainReset = ({
       {({values}) => (
         <Form>
           <div className="form-group">
-            <label>{i18n.t('Restore to Default Settings')}</label>
+            <label>{i18n.t('system.deviceMaintenance.restoreDefaultSettings')}</label>
             <div className="form-check mb-2">
               <Field type="checkbox" name="resetIP" className="form-check-input" id="input-checkbox-reset-all"/>
               <label className="form-check-label mr-2" htmlFor="input-checkbox-reset-all">
-                {i18n.t('Restore All Settings')}
+                {i18n.t('system.deviceMaintenance.restoreAllSettings')}
               </label>
-              <CustomTooltip title={i18n.t('Check this option to overwrite these settings: Members and Groups, System Accounts, Focus and Zoom of Image settings, RTSP settings, Internet & Network settings, app settings and data on the SD Card.')}>
+              <CustomTooltip title={i18n.t('system.deviceMaintenance.tooltip.restoreAllSettingsHelper')}>
                 <i className="fas fa-question-circle helper-text text-primary"/>
               </CustomTooltip>
             </div>
             <CustomNotifyModal
               isShowModal={isShowConfirmModal}
-              modalTitle={values.resetIP ? i18n.t('Restore All Settings') : i18n.t('Restore to Default Settings')}
-              modalBody={values.resetIP ?
-                i18n.t('The system will revert to factory default settings. All data and configurations you have saved will be overwritten.') :
-                [`${i18n.t('The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following')} :`,
-                  i18n.t('• Members and Groups'),
-                  i18n.t('• System Accounts'),
-                  i18n.t('• Focus and Zoom of Image settings'),
-                  i18n.t('• RTSP settings'),
-                  i18n.t('• Internet & Network settings'),
-                  i18n.t('• Data on the SD Card')]}
+              modalTitle={i18n.t(values.resetIP ?
+                'system.deviceMaintenance.restoreAllSettings' :
+                'system.deviceMaintenance.restoreDefaultSettings')}
+              modalBody={i18n.t(values.resetIP ?
+                'system.deviceMaintenance.modal.confirmResetAllSettingsBody' :
+                'system.deviceMaintenance.modal.confirmRestoreDefaultSettingsBody')}
               isConfirmDisable={isApiProcessing}
               onHide={() => setIsShowConfirmModal(false)}
               onConfirm={() => {
@@ -117,7 +113,7 @@ const MaintainReset = ({
                 type="button"
                 onClick={() => setIsShowConfirmModal(true)}
               >
-                {i18n.t('Reset')}
+                {i18n.t('system.deviceMaintenance.reset')}
               </button>
             </div>
           </div>

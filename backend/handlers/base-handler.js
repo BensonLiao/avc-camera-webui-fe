@@ -4,9 +4,10 @@ exports.baseView = (req, res) => {
   /*
   [web] GET /.*
    */
+  const setupLanguage = req.cookies[req.app.locals.config.cookies.language];
   res.render('index', {
     htmlLang: 'en',
-    languageCode: cache.get('language') || 'en',
+    languageCode: cache.get('language') || setupLanguage || 'en',
     loadingText: 'Loading',
     user: {
       id: 1,

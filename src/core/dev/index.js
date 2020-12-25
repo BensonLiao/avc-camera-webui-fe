@@ -45,10 +45,10 @@ const mockAxios = new MockAdapter(axios);
 
 mockAxios
   .onGet('/api/ping/web').reply(config => {
-    // Condition to mock server restart (unreachable) is determined by if two pings are within 1100 ms of each other
+    // Condition to mock server restart (unreachable) is determined by if two pings are within 1200 ms of each other
     // All device restart ping checks are set to 1000 ms interval
     let ping = db.get('ping').value();
-    if (new Date() - new Date(ping.lastPinged) > 1100) {
+    if (new Date() - new Date(ping.lastPinged) > 1200) {
       db.get('ping').assign({
         count: 0,
         lastPinged: new Date()
@@ -60,8 +60,8 @@ mockAxios
       lastPinged: new Date(),
       count: ++ping.count
     }).write();
-    // Simulate pinging web 5 times until server is unreachable (mock restarting)
-    if (ping.count >= 5) {
+    // Simulate pinging web x times until server is unreachable (mock restarting)
+    if (ping.count >= 2) {
       db.get('ping').assign({
         ...ping,
         lastPinged: new Date()
@@ -74,11 +74,11 @@ mockAxios
   })
   .onGet('/api/ping/app').reply(config => {
     // Length of time for mock restarting device (seconds)
-    const restartTimeLength = 4;
+    const restartTimeLength = 2;
 
     let {count} = db.get('ping').value();
-    // Count is to simulate process has finished pinging 'web' 5 times
-    if (count >= 5) {
+    // Count is to simulate process has finished pinging 'web' x times
+    if (count >= 2) {
       return setDelay(mockResponseWithLog(config, [200]), restartTimeLength * 1000);
     }
 
@@ -95,12 +95,73 @@ mockAxios
     };
     return setDelay(mockResponseWithLog(config, [200, db.get('video').assign(data).write()]), 1000);
   })
+  .onGet('/api/video/focusposition').reply(config => {
+    let data = db.get('video').value();
+
+    data.mockFocalProcessFinished = false;
+
+    // If process terminated, reset values
+    if ((new Date() - new Date(data.mocklastRefreshed) > 1200 && data.mockFocalProcessTime !== 0) ||
+     (data.mockFocalProcessTime < 0 && data.mockFocalProcessFinished === false)) {
+      data = {
+        ...data,
+        mocklastRefreshed: Date.now(),
+        mockFocalProcessFinished: true,
+        mockFocalProcessTime: 0,
+        mockOriginalFocalLength: data.focalLength
+      };
+    }
+
+    // Send same focal length again to trigger VideoSetting matchFocalLength terminate condition
+    if (data.mockFocalProcessFinished && data.mockFocalProcessTime < 0) {
+      data.mockFocalProcessTime = ++data.mockFocalProcessTime;
+    }
+
+    if (!data.mockFocalProcessFinished && data.mockFocalProcessTime >= 0) {
+      // ** Variables
+      // Time function
+      let time = data.mockFocalProcessTime;
+      // Max amplitude, also starting value
+      const maxOscillatingFocalLength = 100;
+      // The larger the value, the quicker it reaches final focal length
+      const dampingCoefficient = 0.5;
+      // Period of sine wave, the larger the value, the smaller the wave period, i.e. higher frequency
+      const angularFrequency = 5;
+
+      // ** Function
+      // Damping oscillating function to mimick oscillating focus position
+      const dampingOscillatingFunction = ((maxOscillatingFocalLength * (Math.E ** (-dampingCoefficient * time))) / Math.cos(angularFrequency * time));
+
+      // Calculate mock focal length with oscillating difference
+      const mockFocalLength = Math.round(data.mockOriginalFocalLength + dampingOscillatingFunction);
+      data = {
+        ...data,
+        mockFocalProcessTime: ++time,
+        focalLength: mockFocalLength,
+        mocklastRefreshed: Date.now()
+      };
+
+      // Mock focus finished
+      if (Math.abs(Math.round(data.mockOriginalFocalLength - mockFocalLength)) < 5 && data.mockFocalProcessTime >= 0) {
+        data = {
+          ...data,
+          mockFocalProcessFinished: true,
+          mockFocalProcessTime: -1,
+          focalLength: mockFocalLength,
+          mockOriginalFocalLength: mockFocalLength
+        };
+      }
+    }
+
+    db.get('video').assign(data).write();
+    return mockResponseWithLog(config, [200, data]);
+  })
   .onPost('/api/video/settings/_reset').reply(config => mockResponseWithLog(config, [200, db.get('video').assign(db.get('videoDefault').value()).write()]))
-  .onPost('/api/video/settings/_auto-focus').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 3000)) // The real api is delay 45s.
+  .onPost('/api/video/settings/_auto-focus').reply(config => setDelay(mockResponseWithLog(config, [204, {}]), 1000))
   .onPost('/api/system/_setup').reply(config => mockResponseWithLog(config, [200, {}]))
   .onGet('/api/system/information').reply(config => mockResponseWithLog(config, [200, db.get('system').value()]))
   .onGet('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').value()]))
-  .onPut('/api/system/datetime').reply(config => mockResponseWithLog(config, [200, db.get('systemDateTime').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/system/datetime').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('systemDateTime').assign(JSON.parse(config.data)).write()]), 1000))
   .onGet('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').value()]))
   .onPut('/api/system/network').reply(config => mockResponseWithLog(config, [200, db.get('networkSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/network/testdhcp').reply(config => {
@@ -149,7 +210,7 @@ mockAxios
   .onPost('/api/system/firmware').reply(config => {
     return new Promise(resolve => {
       // Length of time for mocking uploading firmware (seconds)
-      const timeToFinish = 3;
+      const timeToFinish = 2;
 
       let count = 0;
       // Set progress bar indicator
@@ -191,14 +252,35 @@ mockAxios
     }]);
   })
   .onPut('/api/system/device-name').reply(config => mockResponseWithLog(config, [200, db.get('system').assign(JSON.parse(config.data)).write()]))
-  .onGet('/api/system/systeminfo/log.zip').reply(config => mockResponseWithLog(config, [200, new Blob()]))
+  .onGet('/api/system/systeminfo/log.zip').reply(config => {
+    return new Promise(resolve => {
+      // Length of time for mocking uploading firmware (seconds)
+      const timeToFinish = 2;
+
+      let count = 0;
+      // Set progress bar indicator
+      let interval = setInterval(() => {
+        config.onDownloadProgress({
+          loaded: count,
+          total: 100
+        });
+        if (++count === 101) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, Math.round(timeToFinish * 10));
+    })
+      .then(() => {
+        return mockResponseWithLog(config, [200, new Blob()]);
+      });
+  })
   .onPost('/api/system/systeminfo/clearLog').reply(config => mockResponseWithLog(config, [204, {}]))
   .onGet('/api/multimedia/stream/settings').reply(config => mockResponseWithLog(config, [200, db.get('stream').value()]))
-  .onPut('/api/multimedia/stream/settings').reply(config => mockResponseWithLog(config, [200, db.get('stream').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/multimedia/stream/settings').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('stream').assign(JSON.parse(config.data)).write()]), 1000))
   .onPost('/api/multimedia/stream/settings/_reset').reply(config => mockResponseWithLog(config, [200, db.get('stream').assign(db.get('streamDefault').value()).write()]))
   .onGet('/api/multimedia/audio/settings').reply(config => mockResponseWithLog(config, [200, db.get('audioSettings').value()]))
   .onGet('/api/multimedia/hdmi/settings').reply(config => mockResponseWithLog(config, [200, db.get('hdmiSettings').value()]))
-  .onPut('/api/multimedia/hdmi/settings').reply(config => mockResponseWithLog(config, [200, db.get('hdmiSettings').assign(JSON.parse(config.data)).write()]))
+  .onPut('/api/multimedia/hdmi/settings').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('hdmiSettings').assign(JSON.parse(config.data)).write()]), 1000))
   .onPut('/api/multimedia/audio/settings').reply(config => mockResponseWithLog(config, [200, db.get('audioSettings').assign(JSON.parse(config.data)).write()]))
   .onGet('/api/multimedia/rtsp/settings').reply(config => mockResponseWithLog(config, [200, db.get('rtspSettings').value()]))
   .onPut('/api/multimedia/rtsp/settings').reply(config => mockResponseWithLog(config, [200, db.get('rtspSettings').assign(JSON.parse(config.data)).write()]))
@@ -627,7 +709,7 @@ mockAxios
     }
 
     const enabledFunctions = {
-      isEnableFaceRecognitionKey: true,
+      isEnableFaceRecognitionKey: '1',
       isEnableAgeGenderKey: false,
       isEnableHumanoidDetectionKey: false
     };

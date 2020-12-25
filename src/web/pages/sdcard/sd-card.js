@@ -58,18 +58,18 @@ const SDCard = ({
           <div className="row justify-content-center">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('SD Card')]}
+              path={[i18n.t('navigation.sidebar.sdCard')]}
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('SD Card')}</div>
+                <div className="card-header">{i18n.t('sdCard.title')}</div>
                 <Formik
                   initialValues={systemInformation}
                 >
                   <Form className="card-body sdcard">
                     <FormikEffect onChange={onChangeSdCardSetting}/>
                     <div className="form-group d-flex justify-content-between align-items-center">
-                      <label className="mb-0">{i18n.t('Enable SD Card')}</label>
+                      <label className="mb-0">{i18n.t('sdCard.enable')}</label>
                       <div className="custom-control custom-switch">
                         <Field
                           name="sdEnabled"
@@ -79,15 +79,15 @@ const SDCard = ({
                           disabled={sdStatus}
                         />
                         <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
-                          <span>{i18n.t('ON')}</span>
-                          <span>{i18n.t('OFF')}</span>
+                          <span>{i18n.t('common.button.on')}</span>
+                          <span>{i18n.t('common.button.off')}</span>
                         </label>
                       </div>
                     </div>
                     <CustomNotifyModal
                       isShowModal={isShowDisableModal}
-                      modalTitle={i18n.t('Disabling SD Card')}
-                      modalBody={i18n.t('Event photos will not be available after the SD card is disabled. Are you sure you want to continue?')}
+                      modalTitle={i18n.t('sdCard.modal.disableTitle')}
+                      modalBody={i18n.t('sdCard.modal.disableBody')}
                       isConfirmDisable={isApiProcessing}
                       onHide={getRouter().reload} // Reload to reset SD card switch button state
                       onConfirm={() => callApi('enableSD', {sdEnabled: false})}
@@ -101,15 +101,15 @@ const SDCard = ({
                       <div className="card">
                         <div className="card-body">
                           <div className="form-group align-items-center mb-0">
-                            <label className="mb-0 mr-3">{i18n.t('Error Notification')}</label>
+                            <label className="mb-0 mr-3">{i18n.t('sdCard.errorNotification')}</label>
                             <span>
                               {
                                 isEnableAuth ?
-                                  <a className="text-success">{i18n.t('Email Notification Set')}</a> :
-                                  <Link className="text-danger" to="/notification/smtp">{i18n.t('SD Card Enable Outgoing Email')}</Link>
+                                  <a className="text-success">{i18n.t('sdCard.notificationSet')}</a> :
+                                  <Link className="text-danger" to="/notification/smtp">{i18n.t('sdCard.enableOutgoingEmail')}</Link>
                               }
                             </span>
-                            <CustomTooltip show={!isEnableAuth} title={i18n.t('Please enable Outgoing Email first.')}>
+                            <CustomTooltip show={!isEnableAuth} title={i18n.t('sdCard.tooltip.disabledNotificationButton')}>
                               <div className="custom-control custom-switch float-right">
                                 <Field
                                   disabled={!isEnableAuth}
@@ -120,8 +120,8 @@ const SDCard = ({
                                   id="switch-output"
                                 />
                                 <label className="custom-control-label" htmlFor="switch-output">
-                                  <span>{i18n.t('ON')}</span>
-                                  <span>{i18n.t('OFF')}</span>
+                                  <span>{i18n.t('common.button.on')}</span>
+                                  <span>{i18n.t('common.button.off')}</span>
                                 </label>
                               </div>
                             </CustomTooltip>
@@ -131,25 +131,26 @@ const SDCard = ({
                     </div>
                     <div className="form-group px-3">
                       <div className="d-flex justify-content-between align-items-center mb-0">
-                        <label className="mb-o">{i18n.t('Status')}</label>
-                        <label className="mb-o text-primary">{i18n.t(SD_STATUS_LIST[sdStatus] || 'UNKNOWN STATUS')}
+                        <label className="mb-o">{i18n.t('sdCard.status')}</label>
+                        <label className="mb-o text-primary">
+                          {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.constants.unknownStatus')}
                         </label>
                       </div>
                       <hr/>
                       <div className="d-flex justify-content-between align-items-center mb-0">
-                        <label className="mb-o">{i18n.t('Filesystem')}</label>
-                        <label className="mb-o text-primary">{i18n.t(sdFormat)}</label>
+                        <label className="mb-o">{i18n.t('sdCard.filesystem')}</label>
+                        <label className="mb-o text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.unrecognized') : sdFormat}</label>
                       </div>
                       <hr/>
                     </div>
                     <div className={classNames('form-group', sdStatus ? 'd-none' : '')}>
                       <div className="card">
                         <div className="card-header sd-card-round">
-                          {i18n.t('Storage Space')}
+                          {i18n.t('sdCard.storageSpace')}
                         </div>
                         <div className="card-body">
                           <div className="form-group mb-0">
-                            <label className="mb-3">{i18n.t('SD Card')}</label>
+                            <label className="mb-3">{i18n.t('sdCard.title')}</label>
                             <VolumeProgressBar
                               total={sdTotal}
                               usage={sdUsage}

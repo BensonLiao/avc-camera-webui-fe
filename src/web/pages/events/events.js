@@ -153,7 +153,7 @@ const Events = ({params, authStatus, groups, faceEvents, systemDateTime, remaini
                 <div className="card quantity-wrapper float-right">
                   <div className="card-body">
                     <div className="quantity">{utils.formatNumber(faceEvents.total)}</div>
-                    <div className="description">{i18n.t('Total')}</div>
+                    <div className="description">{i18n.t('userManagement.events.total')}</div>
                   </div>
                 </div>
                 <EventsSearchForm

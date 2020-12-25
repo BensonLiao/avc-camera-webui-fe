@@ -64,10 +64,10 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
             },
             dhcpTestResult: response.data.success,
             dhcpTestIp: response.data.resultIP,
-            modalTitle: i18n.t('Test DHCP'),
+            modalTitle: i18n.t('network.network.testDHCP'),
             modalBody: response.data.success ?
-              [i18n.t('DHCP Testing Success'), `${i18n.t('IP Address')}: ${response.data.resultIP}`] :
-              i18n.t('DHCP Testing Failed')
+              [i18n.t('network.network.modal.testingSuccess'), `${i18n.t('network.network.ipAddress')}: ${response.data.resultIP}`] :
+              i18n.t('error.internalServerError')
           }));
           if (!response.data.success) {
             setFieldValue('ipAddress', '192.168.1.168');
@@ -94,10 +94,10 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
             info: true
           },
           modalBackdrop: 'static',
-          modalTitle: i18n.t('Redirection Success'),
+          modalTitle: i18n.t('network.common.modal.redirectionSuccess'),
           redirectIP: true,
           modalBody: [
-            `${i18n.t('The website has been redirected to the new address')} :`,
+            `${i18n.t('network.common.modal.redirectionBody')} :`,
             <div key="redirect" className="d-flex">
               <ProgressIndicator
                 className="ml-0"
@@ -112,7 +112,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
             ...prevState,
             isUpdating: false,
             modalBody: [
-              `${i18n.t('The website has been redirected to the new address')} :`,
+              `${i18n.t('network.common.modal.redirectionBody')} :`,
               <div key="redirect" className="d-flex">
                 <ProgressIndicator
                   className="ml-0"
@@ -162,7 +162,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                     className="form-check-label"
                     htmlFor={`network-ip-type-${NetworkIPType.dynamic}`}
                   >
-                    {i18n.t('DHCP')}
+                    {i18n.t('network.network.dhcp')}
                   </label>
                 </div>
                 <button
@@ -172,7 +172,7 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                   disabled={isApiProcessing}
                   onClick={onClickTestDHCPButton(setFieldValue)}
                 >
-                  {i18n.t('Test DHCP')}
+                  {i18n.t('network.network.testDHCP')}
                 </button>
               </div>
               <div className="form-group">
@@ -188,16 +188,16 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                     className="form-check-label"
                     htmlFor={`network-ip-type-${NetworkIPType.fixed}`}
                   >
-                    {i18n.t('Fixed IP Address')}
+                    {i18n.t('network.network.fixedIPAddress')}
                   </label>
                 </div>
               </div>
-              {renderField(i18n.t('IP Address'), 'ipAddress', i18n.t('Enter a fixed IP address'))}
-              {renderField(i18n.t('Subnet Mask'), 'subnetMask', i18n.t('Enter Subnet Mask'))}
-              {renderField(i18n.t('Router/Gateway'), 'gateway', i18n.t('Enter Router/Gateway'))}
-              {renderField(i18n.t('Primary DNS'), 'primaryDNS', i18n.t('Enter a primary DNS'))}
-              {renderField(i18n.t('Secondary DNS (Optional)'), 'secondaryDNS', i18n.t('Enter a secondary DNS'))}
-              <CustomTooltip show={JSON.stringify(networkSettings) === JSON.stringify(values)} title={i18n.t('No changes were made.')}>
+              {renderField(i18n.t('network.network.ipAddress'), 'ipAddress', i18n.t('network.network.ipAddressPlaceholder'))}
+              {renderField(i18n.t('network.network.subnetMask'), 'subnetMask', i18n.t('network.network.subnetMaskPlaceholder'))}
+              {renderField(i18n.t('network.network.routerGateway'), 'gateway', i18n.t('network.network.routerGatewayPlaceholder'))}
+              {renderField(i18n.t('network.network.primaryDNS'), 'primaryDNS', i18n.t('network.network.primaryDNSPlaceholder'))}
+              {renderField(i18n.t('network.network.secondaryDNSOptional'), 'secondaryDNS', i18n.t('network.network.secondaryDNSPlaceholder'))}
+              <CustomTooltip show={JSON.stringify(networkSettings) === JSON.stringify(values)} title={i18n.t('network.network.tooltip.noChanges')}>
                 <div>
                   <button
                     type="button"
@@ -208,15 +208,15 @@ const SettingsLan = ({networkSettings, isApiProcessing}) => {
                       showModal('applyConfirm');
                     }}
                   >
-                    {i18n.t('Apply')}
+                    {i18n.t('common.button.apply')}
                   </button>
                 </div>
               </CustomTooltip>
               <CustomNotifyModal
                 backdrop="static"
                 isShowModal={isShowSelectModal.applyConfirm}
-                modalTitle={i18n.t('Network')}
-                modalBody={i18n.t('Are you sure you want to update network settings?')}
+                modalTitle={i18n.t('network.network.title')}
+                modalBody={i18n.t('network.network.modal.confirmUpdateBody')}
                 isConfirmDisable={isApiProcessing || isUpdating}
                 onHide={hideModal('applyConfirm')}
                 onConfirm={() => {

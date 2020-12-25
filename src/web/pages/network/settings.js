@@ -18,26 +18,26 @@ const NetworkSettings = ({networkSettings}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('Internet & Network Settings'), i18n.t('Network')]}
+              path={[i18n.t('navigation.sidebar.internetNetworkSettings'), i18n.t('navigation.sidebar.network')]}
               routes={['/network/settings']}
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('Network')}</div>
+                <div className="card-header">{i18n.t('network.network.title')}</div>
                 <Tab.Container defaultActiveKey="tab-local-network">
                   <Nav>
                     <Nav.Item>
                       <Nav.Link
                         eventKey="tab-local-network"
                       >
-                        {i18n.t('IP Addressing')}
+                        {i18n.t('network.network.ipAddressing')}
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
                         eventKey="tab-network-status"
                       >
-                        {i18n.t('Network Status')}
+                        {i18n.t('network.network.networkStatus')}
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>

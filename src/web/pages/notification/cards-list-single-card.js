@@ -8,6 +8,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import outputIcon from '../../../resource/icon-output-40px.svg';
 import utils from '../../../core/utils';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, toggleIsTopHandler}) => {
   const deleteCardHandler = cardId => event => {
@@ -23,7 +24,11 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
       <div key={card.id} className="card shadow overflow-hidden" onClick={isApiProcessing ? () => {} : clickCardHandler(card.id)}>
         <div className="card-title d-flex justify-content-between align-items-center">
           <div className="title text-truncate">
-            <CustomTooltip title={card.isTop ? i18n.t('Unpin Card') : i18n.t('Pin this card')}>
+            <CustomTooltip
+              title={i18n.t(card.isTop ?
+                'notification.cards.tooltip.unpin' :
+                'notification.cards.tooltip.pin')}
+            >
               <button
                 disabled={isApiProcessing}
                 type="button"
@@ -39,7 +44,7 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
           <div className="icons d-flex justify-content-end">
             {
               card.isEnableEmail && (
-                <CustomTooltip title={i18n.t('Email: On')}>
+                <CustomTooltip title={i18n.t('notification.cards.tooltip.iconEmail')}>
                   <div className="icon rounded-pill d-flex justify-content-center align-items-center">
                     <i className="fas fa-envelope fa-fw fa-lg"/>
                   </div>
@@ -48,7 +53,7 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
             }
             {
               card.isEnableGPIO && (
-                <CustomTooltip title={i18n.t('Output: On')}>
+                <CustomTooltip title={i18n.t('notification.cards.tooltip.iconOutput')}>
                   <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
                     <img src={outputIcon}/>
                   </div>
@@ -61,8 +66,8 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
           <table>
             <tbody>
               <tr>
-                <th>{i18n.t('Analytics')}</th>
-                <td>{i18n.t(`notification-card-${card.type}`)}</td>
+                <th>{i18n.t('notification.cards.analytics')}</th>
+                <td>{utils.getNotificationCardTypeI18N(card.type, <ErrorDisplay/>)}</td>
               </tr>
               {
                 card.timePeriods.map((timePeriod, index) => {
@@ -70,15 +75,15 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
 
                   return (
                     <tr key={key}>
-                      <th>{index === 0 ? i18n.t('Schedule') : ''}</th>
+                      <th>{index === 0 ? i18n.t('notification.cards.schedule') : ''}</th>
                       <td>{`${utils.formatDate(timePeriod.start)} - ${utils.formatDate(timePeriod.end)}`}</td>
                     </tr>
                   );
                 })
               }
               <tr>
-                <th>{i18n.t('Rule')}</th>
-                <td>{i18n.t(`face-recognition-condition-${card.faceRecognitionCondition}`)}</td>
+                <th>{i18n.t('notification.cards.rule')}</th>
+                <td>{utils.getNotificationFRConditionI18N(card.faceRecognitionCondition, <ErrorDisplay/>)}</td>
               </tr>
             </tbody>
           </table>

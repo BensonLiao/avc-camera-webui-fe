@@ -7,15 +7,15 @@ import BreadCrumb from '../../../core/components/fields/breadcrumb';
 const Information = ({networkSettings: {mac}, systemInformation: {firmware, serialNumber}}) => {
   const list = [
     {
-      name: i18n.t('Software'),
+      name: i18n.t('system.information.software'),
       data: firmware
     },
     {
-      name: i18n.t('Serial Number'),
+      name: i18n.t('system.information.serialNumber'),
       data: serialNumber
     },
     {
-      name: i18n.t('MAC Address'),
+      name: i18n.t('system.information.macAddress'),
       data: mac
     }
   ];
@@ -26,12 +26,12 @@ const Information = ({networkSettings: {mac}, systemInformation: {firmware, seri
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('System Settings'), i18n.t('Status'), i18n.t('Information')]}
+              path={[i18n.t('navigation.sidebar.system'), i18n.t('navigation.sidebar.status'), i18n.t('navigation.sidebar.information')]}
               routes={['/system/datetime', '/system/log']}
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('Information')}</div>
+                <div className="card-header">{i18n.t('system.information.title')}</div>
                 <div className="card-body">
                   <table className="w-100">
                     <tbody>

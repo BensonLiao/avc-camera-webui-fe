@@ -78,13 +78,28 @@ module.exports = class Member extends React.PureComponent {
     this.state.isShowConfirmModal = false;
     this.state.isFormTouched = false;
     this.state.preEditState = null;
-    this.state.avatarToEdit = 'Primary';
+    this.state.avatarToEdit = 'primary';
     this.editWrapperSize = 300; // px
     this.listWrapperSize = 88; // px
     // Initialise avatarList state object
-    const nameList = ['Primary', 'Photo 1', 'Photo 2', 'Photo 3', 'Photo 4'];
-    this.state.avatarList = Object.assign({}, ...nameList.map((item, index) => ({
-      [item]: {
+    this.nameList = [{
+      name: 'primary',
+      i18n: i18n.t('userManagement.members.modal.member.primary')
+    }, {
+      name: 'photo1',
+      i18n: i18n.t('userManagement.members.modal.member.photo1')
+    }, {
+      name: 'photo2',
+      i18n: i18n.t('userManagement.members.modal.member.photo2')
+    }, {
+      name: 'photo3',
+      i18n: i18n.t('userManagement.members.modal.member.photo3')
+    }, {
+      name: 'photo4',
+      i18n: i18n.t('userManagement.members.modal.member.photo4')
+    }];
+    this.state.avatarList = Object.assign({}, ...this.nameList.map((item, index) => ({
+      [item.name]: {
         avatarPreviewStyle: {
           cropper: {
             scale: 1,
@@ -112,6 +127,7 @@ module.exports = class Member extends React.PureComponent {
         avatarFile: null,
         verifyStatus: null,
         isVerifying: false,
+        i18nMessage: item.i18n,
         errorMessage: null
       }
     })));
@@ -441,7 +457,7 @@ module.exports = class Member extends React.PureComponent {
                 avatarList: {
                   [avatarToEdit]: {
                     verifyStatus: {$set: false},
-                    errorMessage: {$set: `${i18n.t('Photo size should be less than 90 KB.')}`}
+                    errorMessage: {$set: i18n.t('userManagement.members.modal.member.errorPhotoSizeLimit')}
                   }
                 }
               });
@@ -473,7 +489,11 @@ module.exports = class Member extends React.PureComponent {
                         [avatarToEdit]: {
                           verifyStatus: {$set: false},
                           isVerifying: {$set: false},
-                          errorMessage: {$set: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')}
+                          errorMessage: {
+                            $set: utils.getApiErrorMessageI18N(
+                              error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+                            )
+                          }
                         }
                       }
                     });
@@ -492,9 +512,9 @@ module.exports = class Member extends React.PureComponent {
     const avatarListArray = Object.values(avatarList);
 
     // Output error message if primary photo is missing
-    if (!avatarList.Primary.avatarPreviewStyle.croppedImage) {
+    if (!avatarList.primary.avatarPreviewStyle.croppedImage) {
       const updateErrorMessage = update(this.state,
-        {avatarList: {Primary: {errorMessage: {$set: `${i18n.t('No photo uploaded.')}`}}}});
+        {avatarList: {primary: {errorMessage: {$set: i18n.t('userManagement.members.modal.member.errorNoPhoto')}}}});
       this.setState(updateErrorMessage);
       return;
     }
@@ -548,7 +568,7 @@ module.exports = class Member extends React.PureComponent {
       preEditState,
       remainingPictureQuota
     } = this.state;
-    const {croppedImage: primaryBackground} = this.state.avatarList.Primary.avatarPreviewStyle;
+    const {croppedImage: primaryBackground} = this.state.avatarList.primary.avatarPreviewStyle;
     const errorMessages = Object.entries(avatarList).filter(item => Boolean(item[1].errorMessage));
     const isOverPhotoLimit = remainingPictureQuota <= 0 && remainingPictureQuota !== null;
     return (
@@ -561,7 +581,8 @@ module.exports = class Member extends React.PureComponent {
                 const {
                   verifyStatus,
                   isVerifying,
-                  avatarPreviewStyle: {croppedImage}
+                  avatarPreviewStyle: {croppedImage},
+                  i18nMessage
                 } = avatar;
                 return (
                   <div key={photoKey} className={classNames('individual-item d-flex flex-column')}>
@@ -572,7 +593,7 @@ module.exports = class Member extends React.PureComponent {
                         {'has-background': croppedImage},
                         {
                           // Allow upload if it is Primary or Primary photo exists
-                          available: ((photoKey === 'Primary') || primaryBackground) &&
+                          available: ((photoKey === 'primary') || primaryBackground) &&
                           // Allow upload if remaining picture quota is not at limit based on FR license type
                                      (croppedImage || remainingPictureQuota > 0 || remainingPictureQuota === null)
                         },
@@ -615,13 +636,15 @@ module.exports = class Member extends React.PureComponent {
                         ) : (
                           // Display upload area for new photo
                           <CustomTooltip
-                            show={((photoKey !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
-                            title={isOverPhotoLimit ? i18n.t('Photo Limit of Member Database Exceeded') : i18n.t('Upload the Primary Photo First')}
+                            show={((photoKey !== 'primary') && !primaryBackground) || isOverPhotoLimit}
+                            title={i18n.t(isOverPhotoLimit ?
+                              'userManagement.members.tooltip.photoLimitExceeded' :
+                              'userManagement.members.tooltip.uploadPrimaryFirst')}
                           >
                             <label className="btn">
                               <i className="fas fa-plus"/>
                               <input
-                                disabled={((photoKey !== 'Primary') && !primaryBackground) || isOverPhotoLimit}
+                                disabled={((photoKey !== 'primary') && !primaryBackground) || isOverPhotoLimit}
                                 className="d-none"
                                 type="file"
                                 accept="image/png,image/jpeg"
@@ -633,7 +656,7 @@ module.exports = class Member extends React.PureComponent {
                         )}
                     </div>
                     <span>
-                      {i18n.t(photoKey)}
+                      {i18nMessage}
                     </span>
                   </div>
                 );
@@ -645,52 +668,52 @@ module.exports = class Member extends React.PureComponent {
             return (
               <p key={item[0]} className={classNames('text-size-14 mb-1', 'text-danger')}>
                 <i className="fas fa-exclamation-triangle mr-1"/>
-                {`${i18n.t(item[0])}: ${i18n.t(item[1].errorMessage)}`}
+                {`${item[1].i18nMessage}: ${item[1].errorMessage}`}
               </p>
             );
           })}
 
           <hr/>
           <div className="form-group">
-            <label>{i18n.t('Name')}</label>
+            <label>{i18n.t('userManagement.members.name')}</label>
             <Field
               name="name"
               type="text"
-              placeholder={i18n.t('Enter a name for this member')}
+              placeholder={i18n.t('userManagement.members.modal.member.namePlaceholder')}
               maxLength={MemberSchema.name.max}
               className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
             />
             <ErrorMessage component="div" name="name" className="invalid-feedback"/>
           </div>
           <div className="form-group">
-            <label>{i18n.t('Organization')}</label>
+            <label>{i18n.t('userManagement.members.organization')}</label>
             <Field
               name="organization"
               type="text"
-              placeholder={i18n.t('Enter an organization for this member')}
+              placeholder={i18n.t('userManagement.members.modal.member.organizationPlaceholder')}
               maxLength={MemberSchema.organization.max}
               className={classNames('form-control', {'is-invalid': errors.organization && touched.organization})}
             />
             <ErrorMessage component="div" name="organization" className="invalid-feedback"/>
-            <small className="form-text text-muted">{i18n.t('Maximum length: 32 characters')}</small>
+            <small className="form-text text-muted">{i18n.t('userManagement.members.modal.member.organizationHelper')}</small>
           </div>
-          <SelectField labelName={i18n.t('Group')} wrapperClassName="px-2" name="group">
-            <option value="">{i18n.t('N/A')}</option>
+          <SelectField labelName={i18n.t('userManagement.members.group')} wrapperClassName="px-2" name="group">
+            <option value="">{i18n.t('userManagement.members.modal.member.n/a')}</option>
             {groups.items.map(group => (
               <option key={group.id} value={group.id}>{group.name}</option>
             ))}
           </SelectField>
           <div className="form-group">
-            <label>{i18n.t('Note')}</label>
+            <label>{i18n.t('userManagement.members.note')}</label>
             <Field
               name="note"
               type="text"
-              placeholder={i18n.t('Enter a note')}
+              placeholder={i18n.t('userManagement.members.notePlaceholder')}
               maxLength={MemberSchema.note.max}
               className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
             />
             <ErrorMessage component="div" name="note" className="invalid-feedback"/>
-            <small className="form-text text-muted">{i18n.t('Maximum length: 256 characters')}</small>
+            <small className="form-text text-muted">{i18n.t('userManagement.members.noteHelper')}</small>
           </div>
         </div>
         <div className="modal-footer flex-column">
@@ -715,7 +738,7 @@ module.exports = class Member extends React.PureComponent {
                 });
               }}
             >
-              {member ? i18n.t('Confirm') : i18n.t('New')}
+              {i18n.t(member ? 'common.button.confirm' : 'common.button.new')}
             </button>
           </div>
           <button
@@ -723,15 +746,17 @@ module.exports = class Member extends React.PureComponent {
             type="button"
             onClick={isFormTouched || preEditState || isApiProcessing ? this.onShowConfirmModal : onHide}
           >
-            {i18n.t('Close')}
+            {i18n.t('common.button.close')}
           </button>
         </div>
         {/* Close modal confirmation */}
         <CustomNotifyModal
           backdrop="static"
           isShowModal={isShowConfirmModal}
-          modalTitle={member ? i18n.t('Edit Member') : i18n.t('New Member')}
-          modalBody={i18n.t('Are you sure you want to close this window? All changes you have made will be lost.')}
+          modalTitle={i18n.t(member ?
+            'userManagement.members.modal.member.editMemberTitle' :
+            'userManagement.members.modal.member.newMemberTitle')}
+          modalBody={i18n.t('userManagement.members.modal.member.confirmCloseBody')}
           onHide={this.onHideConfirmModal}
           onConfirm={() => {
             this.onHideConfirmModal();
@@ -747,7 +772,7 @@ module.exports = class Member extends React.PureComponent {
           onHide={this.onHideEditModalAndRevertChanges}
         >
           <Modal.Header closeButton className="d-flex justify-content-between align-items-center">
-            <Modal.Title as="h5">{i18n.t('Photo Editor')}</Modal.Title>
+            <Modal.Title as="h5">{i18n.t('userManagement.members.modal.member.photoEditor')}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -777,7 +802,7 @@ module.exports = class Member extends React.PureComponent {
                 />
               </label>
               <p className="text-center mb-1">
-                {i18n.t('Drag the image to position it correctly.')}
+                {i18n.t('userManagement.members.modal.member.photoHelper')}
               </p>
               <div className="d-flex justify-content-center align-items-center">
                 <button className="btn btn-link text-muted" type="button" onClick={this.generateRotatePictureHandler(false)}>
@@ -805,18 +830,18 @@ module.exports = class Member extends React.PureComponent {
           </Modal.Body>
           <Modal.Footer>
             {/* Hide delete button if it is Primary photo */}
-            { avatarToEdit !== 'Primary' && (
+            { avatarToEdit !== 'primary' && (
               <button className="btn btn-danger btn-block rounded-pill my-0" type="button" onClick={this.onDeleteAvatar}>
-                {i18n.t('Delete')}
+                {i18n.t('userManagement.members.delete')}
               </button>
             )}
             <div>
               <label className="btn btn-outline-primary btn-block rounded-pill my-0 mr-2">
                 <input className="d-none" type="file" accept="image/png,image/jpeg" onChange={this.onChangeAvatar(avatarToEdit)}/>
-                {i18n.t('Change Photo')}
+                {i18n.t('userManagement.members.modal.member.changePhoto')}
               </label>
               <button className="btn btn-primary btn-block rounded-pill my-0" type="button" onClick={this.verifyPhoto}>
-                {i18n.t('Save')}
+                {i18n.t('userManagement.members.modal.member.save')}
               </button>
             </div>
           </Modal.Footer>
@@ -838,7 +863,10 @@ module.exports = class Member extends React.PureComponent {
         onHide={isApiProcessing || isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{member ? i18n.t('Edit Member') : i18n.t('New Member')}</Modal.Title>
+          <Modal.Title as="h5">{i18n.t(member ?
+            'userManagement.members.modal.member.editMemberTitle' :
+            'userManagement.members.modal.member.newMemberTitle')}
+          </Modal.Title>
         </Modal.Header>
         <Formik
           enableReinitialize

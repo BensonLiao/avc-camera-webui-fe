@@ -13,7 +13,7 @@ const SMTPAccountSettings = ({accountSettings, isShowModal, setIsShowAccountModa
   return (
     <Modal autoFocus={false} show={isShowModal} onHide={() => setIsShowAccountModal(false)}>
       <div className="modal-header">
-        <h5 className="modal-title">{i18n.t('SMTP Logon Settings')}</h5>
+        <h5 className="modal-title">{i18n.t('notification.smtp.modal.title')}</h5>
       </div>
       <Formik
         validate={smtpAccountSettingsValidator}
@@ -24,29 +24,29 @@ const SMTPAccountSettings = ({accountSettings, isShowModal, setIsShowAccountModa
           <Form>
             <div className="modal-body">
               <div className="form-group">
-                <label>{i18n.t('Account')}</label>
+                <label>{i18n.t('notification.smtp.modal.account')}</label>
                 <Field
                   name="account"
                   type="text"
                   className={classNames('form-control', {'is-invalid': errors.account && touched.account})}
-                  placeholder={i18n.t('Enter your account')}
+                  placeholder={i18n.t('notification.smtp.modal.accountPlaceholder')}
                 />
                 <ErrorMessage component="div" name="account" className="invalid-feedback"/>
               </div>
               <div className="form-group has-feedback">
-                <label>{i18n.t('Password')}</label>
+                <label>{i18n.t('notification.smtp.modal.password')}</label>
                 <Field
                   name="password"
                   component={Password}
                   inputProps={{
                     className: classNames('form-control', {'is-invalid': errors.password && touched.password}),
-                    placeholder: i18n.t('Enter your password')
+                    placeholder: i18n.t('notification.smtp.modal.passwordPlaceholder')
                   }}
                 />
                 <ErrorMessage component="div" name="password" className="invalid-feedback"/>
               </div>
               <div className="form-group">
-                <label>{i18n.t('Port')}</label>
+                <label>{i18n.t('notification.smtp.modal.port')}</label>
                 <div className="d-flex align-items-center">
                   {
                     ['25', '465', '587', '2525'].map((port, index) => (
@@ -59,13 +59,30 @@ const SMTPAccountSettings = ({accountSettings, isShowModal, setIsShowAccountModa
                 </div>
               </div>
               <div className="form-group">
-                <label>{i18n.t('Encryption')}</label>
+                <label>{i18n.t('notification.smtp.modal.encryption')}</label>
                 <div className="d-flex align-items-center">
                   {
-                    ['none', 'ssl', 'tls'].map((type, index) => (
-                      <div key={type} className={classNames('form-check', {'ml-5': index !== 0})}>
-                        <Field name="encryption" className="form-check-input" type="radio" id={`input-encryption-${type}`} value={SMTPEncryptionType[type]}/>
-                        <label className="form-check-label" htmlFor={`input-encryption-${type}`}>{i18n.t(type)}</label>
+                    [{
+                      name: 'none',
+                      i18nMessage: i18n.t('notification.smtp.modal.none')
+                    }, {
+                      name: 'ssl',
+                      i18nMessage: i18n.t('notification.smtp.modal.ssl')
+                    }, {
+                      name: 'tls',
+                      i18nMessage: i18n.t('notification.smtp.modal.tls')
+                    }].map((type, index) => (
+                      <div key={type.name} className={classNames('form-check', {'ml-5': index !== 0})}>
+                        <Field
+                          name="encryption"
+                          className="form-check-input"
+                          type="radio"
+                          id={`input-encryption-${type.name}`}
+                          value={SMTPEncryptionType[type.name]}
+                        />
+                        <label className="form-check-label" htmlFor={`input-encryption-${type.name}`}>
+                          {type.i18nMessage}
+                        </label>
                       </div>
                     ))
                   }
@@ -75,11 +92,11 @@ const SMTPAccountSettings = ({accountSettings, isShowModal, setIsShowAccountModa
             <div className="modal-footer flex-column">
               <div className="form-group w-100 mx-0">
                 <button type="submit" className="btn btn-primary btn-block rounded-pill">
-                  {i18n.t('Apply')}
+                  {i18n.t('common.button.apply')}
                 </button>
               </div>
               <button type="button" className="btn btn-info btn-block m-0 rounded-pill" onClick={() => setIsShowAccountModal(false)}>
-                {i18n.t('Close')}
+                {i18n.t('common.button.close')}
               </button>
             </div>
           </Form>
