@@ -5,6 +5,7 @@ import React from 'react';
 import api from '../../../core/apis/web-api';
 import CardsListSingleCard from './cards-list-single-card';
 import i18n from '../../../i18n';
+import utils from '../../../core/utils';
 
 const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHandler}) => {
   const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
@@ -15,8 +16,12 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
     event.stopPropagation();
     const card = {...cards.find(x => x.id === cardId)};
     card.isTop = !card.isTop;
+    const data = {
+      ...card,
+      timePeriods: utils.parseCardTimePeriods(card)
+    };
     progress.start();
-    api.notification.updateCard(card)
+    api.notification.updateCard(data)
       .then(getRouter().reload)
       .finally(progress.done);
   };
