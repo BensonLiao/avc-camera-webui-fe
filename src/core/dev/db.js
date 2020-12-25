@@ -259,7 +259,8 @@ module.exports = {
         sdStatus: 0,
         sdFormat: 'FAT32',
         sdTotal: 10000000,
-        sdUsage: 3200000
+        sdUsage: 3200000,
+        sdAlertEnabled: false
       },
       sdRecordingSettings: {
         sdRecordingStatus: 0,
