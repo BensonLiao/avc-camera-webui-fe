@@ -185,6 +185,7 @@
       "status": "",
       "actions": "操作",
       "done": "",
+      "lastUpdated": "",
       "noDevice": "",
       "searchPlaceholder": "キーワードを入力",
       "search": "検索",

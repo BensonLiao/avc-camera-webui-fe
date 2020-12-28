@@ -185,6 +185,7 @@
       "status": "",
       "actions": "Operar",
       "done": "",
+      "lastUpdated": "",
       "noDevice": "",
       "searchPlaceholder": "Ingrese palabras claves",
       "search": "buscar",

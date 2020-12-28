@@ -185,6 +185,7 @@
       "status": "Status",
       "actions": "Actions",
       "done": "Done",
+      "lastUpdated": "Last Updated",
       "noDevice": "Please click the 'Add' first to add a new device to your list",
       "searchPlaceholder": "Enter Keywords",
       "search": "Search",

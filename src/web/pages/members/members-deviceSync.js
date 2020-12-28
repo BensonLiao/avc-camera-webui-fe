@@ -9,7 +9,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import DeviceSyncAddDevice from './members-deviceSync-add';
 import FormikEffect from '../../../core/components/formik-effect';
 import {Formik, Form, Field} from 'formik';
-import {getPaginatedData, isArray} from '../../../core/utils';
+import {formatDate, getPaginatedData, isArray} from '../../../core/utils';
 import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
 import ProgressIndicator from '../../../core/components/progress-indicator';
@@ -32,7 +32,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
     return getPaginatedData(devices.map(device => ({
       ...device,
       isChecked: false
-    })), 5);
+    })), 10);
   };
 
   const [deviceList, setDeviceList] = useState(generatePaginatedDeviceList(devices));
@@ -317,8 +317,8 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
                         <label htmlFor="selectAll"/>
                       </th>
                       <th style={{width: '15%'}}>{i18n.t('userManagement.members.host')}</th>
-                      <th style={{width: '35%'}}>{i18n.t('userManagement.members.deviceName')}</th>
-                      <th style={{width: '25%'}}>{i18n.t('userManagement.members.status')}</th>
+                      <th style={{width: '30%'}}>{i18n.t('userManagement.members.deviceName')}</th>
+                      <th style={{width: '30%'}}>{i18n.t('userManagement.members.status')}</th>
                       <th style={{width: '15%'}}>{i18n.t('userManagement.members.actions')}</th>
                     </tr>
                   </thead>
@@ -366,12 +366,18 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
                                         <span>{i18n.t('userManagement.members.syncing')}</span>
                                       </div>
                                     ) : (
-                                      <span>{i18n.t('userManagement.members.done')}</span>
+                                      <div className="d-flex align-items-center">
+                                        <i className="fas fa-lg fa-check-circle fa-fw mr-2"/>
+                                        <span>{i18n.t('userManagement.members.done')}</span>
+                                      </div>
                                     )
                                   ) : (
                                     device.lastUpdateTime ? (
-                                      <CustomTooltip placement="top-start" title={`${new Date(device.lastUpdateTime)}`}>
-                                        <span>{`${new Date(device.lastUpdateTime)}`}</span>
+                                      <CustomTooltip title={formatDate(device.lastUpdateTime)}>
+                                        <span>
+                                          <i className="fas fa-lg fa-check-circle fa-fw mr-2"/>
+                                          {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
+                                        </span>
                                       </CustomTooltip>
                                     ) : (
                                       device.connectionStatus ? (
