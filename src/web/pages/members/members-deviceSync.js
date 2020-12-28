@@ -239,13 +239,15 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
             <Form className="card-body">
               <FormikEffect onChange={onChangeCardForm}/>
               <div className="col-12 d-inline-flex justify-content-between">
-                <div className="row">
+                <div className="d-inline-flex">
                   {syncStatus ? (
                     <button
+                      disabled
                       className="btn btn-primary rounded-pill"
-                      type="submit"
+                      type="button"
                     >
-                      <i className="fas fa-exchange-alt fa-fw mr-2"/>{i18n.t('userManagement.members.syncing')}
+                      <i className="fas fa-spin fa-sync-alt fa-fw mr-2"/>
+                      {i18n.t('userManagement.members.syncing')}
                     </button>
                   ) : (
                     <CustomTooltip placement="auto" show={noneSelectedDisableButton || invalidSelection} title={invalidSelection ? i18n.t('userManagement.members.tooltip.invalidSelection') : i18n.t('userManagement.members.tooltip.noDevice')}>
