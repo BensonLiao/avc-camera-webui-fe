@@ -184,6 +184,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
    * @returns {void}
    */
   const syncDB = values => {
+    localStorage.setItem('currentPage', 'sync');
     const checked = values.flat().filter(device => device.isChecked)
       .reduce((arr, item) => {
         arr.push(item.id);
@@ -209,6 +210,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
       .then(devices => {
         // Stop pinging if status is 0 or 1 (Not yet started or syncing)
         if (!devices.some(device => device.syncStatus === 0 || device.syncStatus === 1)) {
+          localStorage.setItem('currentPage', 'sync');
           clearInterval(syncID);
           getRouter().reload();
         }
