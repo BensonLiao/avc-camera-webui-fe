@@ -18,6 +18,11 @@ import {useContextState} from '../../stateProvider';
 import VolumeProgressBar from '../../../core/components/volume-progress-bar';
 import withGlobalStatus from '../../withGlobalStatus';
 import SelectField from '../../../core/components/fields/select-field';
+import SDCardRecordingDuration from 'webserver-form-schema/constants/sdcard-recording-duration';
+import SDCardRecordingType from 'webserver-form-schema/constants/sdcard-recording-type';
+import SDCardRecordingStream from 'webserver-form-schema/constants/sdcard-recording-stream';
+import SDCardRecordingLimit from 'webserver-form-schema/constants/sdcard-recording-limit';
+import utils from '../../../core/utils';
 
 const SDCard = ({
   systemInformation,
@@ -53,6 +58,16 @@ const SDCard = ({
     }
   };
 
+  const processOptions = () => {
+    return {
+      type: SDCardRecordingType.all().map(x => utils.getSDCardRecordingType(x)),
+      stream: SDCardRecordingStream.all().map(x => utils.getSDCardRecordingStream(x)),
+      limit: SDCardRecordingLimit.all().map(x => utils.getSDCardRecordingLimit(x))
+    };
+  };
+
+  const options = processOptions();
+
   const onSubmit = values => {
     const formValues = {
       sdRecordingStatus: values.sdRecordingStatus,
@@ -66,43 +81,6 @@ const SDCard = ({
     api.system.updateSDCardRecordingSettings(formValues)
       .then(getRouter().reload)
       .finally(progress.done);
-  };
-
-  const mockSchema = {
-    type: [{
-      label: 'Disconnection',
-      value: 0
-    }, {
-      label: 'Event recording',
-      value: 1
-    }, {
-      label: 'Continuous recording',
-      value: 2
-    }],
-    stream: [{
-      label: 'Stream 1',
-      value: 0
-    }, {
-      label: 'Stream 2',
-      value: 1
-    }],
-    duration: [{
-      label: 'Until storage limitation',
-      value: 0
-    }, {
-      label: '1 minute',
-      value: 1
-    }, {
-      label: '60 minutes',
-      value: 60
-    }],
-    limit: [{
-      label: 'Delete oldest recording',
-      value: true
-    }, {
-      label: 'Stop recording',
-      value: false
-    }]
   };
 
   return (
@@ -265,12 +243,12 @@ const SDCard = ({
                               <div className="card-body">
                                 <div className="form-group px-3">
                                   <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingType')} name="sdRecordingType">
-                                    {mockSchema.type.map(type => (
+                                    {options.type.map(type => (
                                       <option key={type.value} value={type.value}>{type.label}</option>
                                     ))}
                                   </SelectField>
                                   <SelectField row wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingResolution')} name="sdRecordingStream">
-                                    {mockSchema.stream.map(stream => (
+                                    {options.stream.map(stream => (
                                       <option key={stream.value} value={stream.value}>{stream.label}</option>
                                     ))}
                                   </SelectField>
@@ -281,12 +259,12 @@ const SDCard = ({
                                     <option key="h264" value="h264">H264</option>
                                   </SelectField>
                                   <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingDuration')} name="sdRecordingDuration">
-                                    {mockSchema.duration.map(duration => (
-                                      <option key={duration.value} value={duration.value}>{duration.label}</option>
+                                    {SDCardRecordingDuration.all().map(duration => (
+                                      <option key={duration} value={duration}>{duration === '0' ? i18n.t('sdCard.basic.constants.storageToFull') : duration}</option>
                                     ))}
                                   </SelectField>
                                   <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingLimit')} name="sdRecordingLimit">
-                                    {mockSchema.limit.map(limit => (
+                                    {options.limit.map(limit => (
                                       <option key={limit.value} value={limit.value}>{limit.label}</option>
                                     ))}
                                   </SelectField>

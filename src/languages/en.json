@@ -337,13 +337,21 @@
         "Nonfunctioning": "Nonfunctioning",
         "Read-only Access": "Read-only Access",
         "Unknown Error": "Unknown Error",
-        "unknownStatus": "UNKNOWN STATUS"
+        "unknownStatus": "UNKNOWN STATUS",
+        "storageToFull": "Storage to full",
+        "sdcard-recording-type-0": "Failover recording",
+        "sdcard-recording-type-1": "Event recording",
+        "sdcard-recording-type-2": "Continuous recording",
+        "sdcard-recording-stream-0": "Stream 1",
+        "sdcard-recording-stream-1": "Stream 2",
+        "sdcard-recording-limit-true": "Override oldest recording",
+        "sdcard-recording-limit-false": "Stop recording"
       },
       "recording": "Recording",
       "enableRecording": "Enable Recording",
       "recordingType":"Type",
       "recordingResolution":"Resolution",
-      "recordingDuration":"Recording time",
+      "recordingDuration":"Recording time (Mins)",
       "recordingLimit":"When storage is full",
       "operation": "Operation",
       "tooltip": {

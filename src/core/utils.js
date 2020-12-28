@@ -12,6 +12,9 @@ const StreamSettingsSchema = require('webserver-form-schema/stream-settings-sche
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const NotificationCardType = require('webserver-form-schema/constants/notification-card-type');
 const NotificationFaceRecognitionCondition = require('webserver-form-schema/constants/notification-face-recognition-condition');
+const SDCardRecordingType = require('webserver-form-schema/constants/sdcard-recording-type');
+const SDCardRecordingStream = require('webserver-form-schema/constants/sdcard-recording-stream');
+const SDCardRecordingLimit = require('webserver-form-schema/constants/sdcard-recording-limit');
 const THREE = require('three');
 const OrbitControls = require('three/examples/jsm/controls/OrbitControls').OrbitControls;
 const helvetikerRegular = require('./helvetiker_regular').default;
@@ -630,6 +633,80 @@ module.exports.getPaginatedData = (data, size = 10) => {
   }
 
   return pageData;
+};
+
+/**
+ *
+ * @param {string} x - The value of the specific sd card recording type
+ * @returns {object}
+ * - value {any}
+ * - label {string}
+ */
+module.exports.getSDCardRecordingType = x => {
+  switch (x) {
+    default: return {};
+    case SDCardRecordingType.disconnection:
+      return {
+        value: x,
+        label: i18n.t('sdCard.basic.constants.sdcard-recording-type-0')
+      };
+    case SDCardRecordingType.event:
+      return {
+        value: x,
+        label: i18n.t('sdCard.basic.constants.sdcard-recording-type-1')
+      };
+    case SDCardRecordingType.continuous:
+      return {
+        value: x,
+        label: i18n.t('sdCard.basic.constants.sdcard-recording-type-2')
+      };
+  }
+};
+
+/**
+ *
+ * @param {string} x - The value of the specific sd card recording stream
+ * @returns {object}
+ * - value {any}
+ * - label {string}
+ */
+module.exports.getSDCardRecordingStream = x => {
+  switch (x) {
+    default: return {};
+    case SDCardRecordingStream[1]:
+      return {
+        value: x,
+        label: i18n.t('sdCard.basic.constants.sdcard-recording-stream-0')
+      };
+    case SDCardRecordingStream[2]:
+      return {
+        value: x,
+        label: i18n.t('sdCard.basic.constants.sdcard-recording-stream-1')
+      };
+  }
+};
+
+/**
+ *
+ * @param {string} x - The value of the specific sd card recording Limit
+ * @returns {object}
+ * - value {any}
+ * - label {string}
+ */
+module.exports.getSDCardRecordingLimit = x => {
+  switch (x) {
+    default: return {};
+    case SDCardRecordingLimit.override:
+      return {
+        value: x,
+        label: i18n.t('sdCard.basic.constants.sdcard-recording-limit-true')
+      };
+    case SDCardRecordingLimit.stop:
+      return {
+        value: x,
+        label: i18n.t('sdCard.basic.constants.sdcard-recording-limit-false')
+      };
+  }
 };
 
 /**
