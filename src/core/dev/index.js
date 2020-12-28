@@ -681,16 +681,15 @@ mockAxios
   .onPost('/api/members/device-sync').reply(config => {
     const list = db.get('deviceSync.devices').value();
     const item = JSON.parse(config.data);
-    const connectionStatus = Math.random() * 5 > 1 ? 1 : 0;
     const newItem = {
       id: list[list.length - 1].id + 1,
       ip: item.ip,
-      port: item.port,
+      port: Number(item.port),
       // randomly generated device ID
-      deviceName: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
+      name: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
       account: item.account,
-      connectionStatus: connectionStatus, // Generate failed connection with 50% chance
-      lastUpdateTime: connectionStatus && (Math.random() * 2 > 1) ? 1608888327067 : 0,
+      connectionStatus: Math.random() * 5 > 1 ? 1 : 0, // Generate failed connection with 50% chance
+      lastUpdateTime: 0,
       syncStatus: 0
     };
     return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').push(newItem).write()]), 500);
