@@ -50,98 +50,6 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
 
   const hideApiProcessModal = () => setIsShowApiProcessModal(false);
 
-  // Check if DB sync process is in progress
-  useEffect(() => {
-    let syncID;
-    // Ping sync api to get latest device sync status and update device list
-    const refreshList = () => api.member.syncDB()
-      .then(syncStatus => {
-        syncStatus.data.devices.forEach(syncDevice => {
-          const index = devices.findIndex(device => device.id === syncDevice.id);
-          devices[index] = syncDevice;
-        });
-        setDeviceList(generatePaginatedDeviceList(devices));
-        return syncStatus.data.devices;
-      })
-      .then(devices => {
-        // Stop pinging if status is 0 or 1 (Not yet started or syncing)
-        if (!devices.some(device => device.deviceSyncStatus === 0 || device.deviceSyncStatus === 1)) {
-          clearInterval(syncID);
-          getRouter().reload();
-        }
-      });
-
-    if (sync) {
-      refreshList();
-      syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
-    }
-  }, [devices, sync]);
-
-  /**
-   * Delete selected device
-   * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
-   * @returns {void}
-   */
-  const deleteDevice = list => _ => {
-    hideConfirmModal();
-    setIsShowApiProcessModal(true);
-    localStorage.setItem('currentPage', 'sync');
-    if (isArray(list)) {
-      const itemsToDelete = list.flat().filter(device => device.isChecked)
-        .reduce((arr, item) => {
-          arr.push(item.id);
-          return arr;
-        }, []);
-      // Delete multiple devices
-      api.member.deleteDevice(itemsToDelete)
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
-    } else {
-      // Delete single device
-      api.member.deleteDevice([list])
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
-    }
-  };
-
-  /**
-   * Show delete confirm modal for selected device
-   * @param {number} deviceID
-   * @returns {void}
-   */
-  const confirmDelete = (deviceID = null) => _ => {
-    showConfirmModal(true);
-    setDeleteDeviceID(deviceID);
-  };
-
-  /**
-   * Edit selected device
-   * @param {Object} device - individual device data
-   * @returns {void}
-   */
-  const editDeviceHandler = device => _ => {
-    setDevice(device);
-    setIsShowDeviceModal(true);
-  };
-
-  /**
-   * Sync selected Databases
-   * @param {Object} values - form values
-   * @returns {void}
-   */
-  const syncDB = values => {
-    console.log('starting DB sync');
-    const checked = values.flat().filter(device => device.isChecked)
-      .reduce((arr, item) => {
-        arr.push(item.id);
-        return arr;
-      }, []);
-    // Sync api
-    console.log(JSON.stringify(checked, null, 2));
-    getRouter().reload();
-    api.member.syncDB(checked);
-  };
-
   /**
    * Select or un-select all checkboxes on current page
    * @param {Object} form - Formik form object
@@ -222,6 +130,98 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
       });
     });
   };
+
+  /**
+   * Edit selected device
+   * @param {Object} device - individual device data
+   * @returns {void}
+   */
+  const editDeviceHandler = device => _ => {
+    setDevice(device);
+    setIsShowDeviceModal(true);
+  };
+
+  /**
+   * Delete selected device
+   * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
+   * @returns {void}
+   */
+  const deleteDevice = list => _ => {
+    hideConfirmModal();
+    setIsShowApiProcessModal(true);
+    localStorage.setItem('currentPage', 'sync');
+    if (isArray(list)) {
+      const itemsToDelete = list.flat().filter(device => device.isChecked)
+        .reduce((arr, item) => {
+          arr.push(item.id);
+          return arr;
+        }, []);
+      // Delete multiple devices
+      api.member.deleteDevice(itemsToDelete)
+        .then(getRouter().reload)
+        .finally(hideApiProcessModal);
+    } else {
+      // Delete single device
+      api.member.deleteDevice([list])
+        .then(getRouter().reload)
+        .finally(hideApiProcessModal);
+    }
+  };
+
+  /**
+   * Show delete confirm modal for selected device
+   * @param {number} deviceID
+   * @returns {void}
+   */
+  const confirmDelete = (deviceID = null) => _ => {
+    showConfirmModal(true);
+    setDeleteDeviceID(deviceID);
+  };
+
+  /**
+   * Sync selected Databases
+   * @param {Object} values - form values
+   * @returns {void}
+   */
+  const syncDB = values => {
+    console.log('starting DB sync');
+    const checked = values.flat().filter(device => device.isChecked)
+      .reduce((arr, item) => {
+        arr.push(item.id);
+        return arr;
+      }, []);
+    // Sync api
+    console.log(JSON.stringify(checked, null, 2));
+    getRouter().reload();
+    api.member.syncDB(checked);
+  };
+
+  // Check if DB sync process is in progress
+  useEffect(() => {
+    let syncID;
+    // Ping sync api to get latest device sync status and update device list
+    const refreshList = () => api.member.syncDB()
+      .then(syncStatus => {
+        syncStatus.data.devices.forEach(syncDevice => {
+          const index = devices.findIndex(device => device.id === syncDevice.id);
+          devices[index] = syncDevice;
+        });
+        setDeviceList(generatePaginatedDeviceList(devices));
+        return syncStatus.data.devices;
+      })
+      .then(devices => {
+        // Stop pinging if status is 0 or 1 (Not yet started or syncing)
+        if (!devices.some(device => device.deviceSyncStatus === 0 || device.deviceSyncStatus === 1)) {
+          clearInterval(syncID);
+          getRouter().reload();
+        }
+      });
+
+    if (sync) {
+      refreshList();
+      syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
+    }
+  }, [devices, sync]);
 
   return (
     <div>
