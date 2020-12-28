@@ -1,17 +1,17 @@
+import classNames from 'classnames';
+import {getRouter} from '@benson.liao/capybara-router';
 import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
-import {getRouter} from '@benson.liao/capybara-router';
-import CustomTooltip from '../../../core/components/tooltip';
-import i18n from '../../../i18n';
-import DeviceSyncAddDevice from './members-deviceSync-add';
 import api from '../../../core/apis/web-api';
+import i18n from '../../../i18n';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import CustomTooltip from '../../../core/components/tooltip';
+import DeviceSyncAddDevice from './members-deviceSync-add';
+import FormikEffect from '../../../core/components/formik-effect';
 import {Formik, Form, Field} from 'formik';
 import {getPaginatedData, isArray} from '../../../core/utils';
-import FormikEffect from '../../../core/components/formik-effect';
 import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
-import classNames from 'classnames';
-import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import ProgressIndicator from '../../../core/components/progress-indicator';
 
 // Sync API ping frequency, in seconds

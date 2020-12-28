@@ -14,8 +14,8 @@ import MembersSidebar from './members-sidebar';
 import MembersTable from './members-table';
 import MembersSelectedGroup from './members-selectedGroup';
 import DeviceSync from './members-deviceSync';
-import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
+import withGlobalStatus from '../../withGlobalStatus';
 
 const Members = ({groups, members, params, remainingPictureCount, deviceSync}) => {
   const {isApiProcessing} = useContextState();

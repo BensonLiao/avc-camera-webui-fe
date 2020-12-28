@@ -1,5 +1,5 @@
-import {Link} from '@benson.liao/capybara-router';
 import classNames from 'classnames';
+import {Link} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import CustomTooltip from '../../../core/components/tooltip';

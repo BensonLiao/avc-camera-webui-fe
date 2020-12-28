@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
+import {getRouter} from '@benson.liao/capybara-router';
 import Modal from 'react-bootstrap/Modal';
-import i18n from '../../../i18n';
+import PropTypes from 'prop-types';
+import React, {useState} from 'react';
 import api from '../../../core/apis/web-api';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import deviceSyncValidator from '../../validations/members/device-sync-validator';
+import i18n from '../../../i18n';
 import Password from '../../../core/components/fields/password';
 import {useContextState} from '../../stateProvider';
-import {getRouter} from '@benson.liao/capybara-router';
-import deviceSyncValidator from '../../validations/members/device-sync-validator';
-import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 
 const DeviceSyncAddDevice = ({device, isShowDeviceModal, hideDeviceModal}) => {
   const {isApiProcessing} = useContextState();
