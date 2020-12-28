@@ -166,6 +166,7 @@
       "importDB": "",
       "import": "匯入",
       "host": "",
+      "syncing": "",
       "tooltip": {
         "invalidSelection": "",
         "noDevice": "",
@@ -178,6 +179,7 @@
         "photoLimitExceeded": "已達數量限制"
       },
       "synchronize": "",
+      "removeUnlinked": "",
       "remove": "",
       "deviceName": "",
       "status": "",

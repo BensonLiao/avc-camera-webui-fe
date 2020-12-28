@@ -166,6 +166,7 @@
       "importDB": "",
       "import": "インポート",
       "host": "",
+      "syncing": "",
       "tooltip": {
         "invalidSelection": "",
         "noDevice": "",
@@ -178,6 +179,7 @@
         "photoLimitExceeded": "写真数の上限に達しました"
       },
       "synchronize": "",
+      "removeUnlinked": "",
       "remove": "",
       "deviceName": "",
       "status": "",

@@ -166,6 +166,7 @@
       "importDB": "",
       "import": "Importar",
       "host": "",
+      "syncing": "",
       "tooltip": {
         "invalidSelection": "",
         "noDevice": "",
@@ -178,6 +179,7 @@
         "photoLimitExceeded": "Límite de cantidad alcanzado"
       },
       "synchronize": "",
+      "removeUnlinked": "",
       "remove": "",
       "deviceName": "",
       "status": "",

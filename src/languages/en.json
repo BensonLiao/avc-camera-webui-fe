@@ -166,6 +166,7 @@
       "importDB": "Import Database",
       "import": "Import",
       "host": "Host",
+      "syncing": "Syncing",
       "tooltip": {
         "invalidSelection": "Un-linked Device Selected",
         "noDevice": "Select a Device",
@@ -178,6 +179,7 @@
         "photoLimitExceeded": "Photo Limit of Member Database Exceeded"
       },
       "synchronize": "Synchronize",
+      "removeUnlinked": "Remove unlinked device(s)",
       "remove": "Remove",
       "deviceName": "Device Name",
       "status": "Status",

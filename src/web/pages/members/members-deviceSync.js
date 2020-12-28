@@ -186,6 +186,22 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
     }
   }, [page]);
 
+  /**
+   * Remove checked unlinked devices
+   * @param {Object} form
+   * @returns {void}
+   */
+  const removeUnlinkedDevices = form => event => {
+    event.preventDefault();
+    form.values.forEach((page, pageIndex) => {
+      page.forEach((device, deviceIndex) => {
+        if (device.isChecked && !device.connectionStatus) {
+          form.setFieldValue(`${pageIndex}.${deviceIndex}.isChecked`, false);
+        }
+      });
+    });
+  };
+
   return (
     <div>
       <Formik
@@ -194,35 +210,40 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
         onSubmit={syncDB}
       >
         {form => {
-          const noneSelectedDisableButton = !form.values.flat().some(device => device.isChecked);
-          const invalidSelection = form.values.flat().some(device => device.isChecked && !device.connectionStatus);
+          const flattenedFormValues = form.values.flat();
+          const noneSelectedDisableButton = !flattenedFormValues.some(device => device.isChecked);
+          const invalidSelection = flattenedFormValues.some(device => device.isChecked && !device.connectionStatus);
           return (
             <Form className="card-body">
               <FormikEffect onChange={onChangeCardForm}/>
               <div className="col-12 d-inline-flex justify-content-between">
-
-                {sync ? (
-                  <button
-                    className="btn btn-primary rounded-pill"
-                    type="submit"
-                  >
-                    <i className="fas fa-exchange-alt fa-fw mr-2"/>syncing
-                  </button>
-                ) : (
-                  <CustomTooltip placement="auto" show={noneSelectedDisableButton || invalidSelection} title={invalidSelection ? i18n.t('userManagement.members.tooltip.invalidSelection') : i18n.t('userManagement.members.tooltip.noDevice')}>
-                    <div>
-                      <button
-                        className="btn btn-primary rounded-pill"
-                        type="submit"
-                        disabled={noneSelectedDisableButton || invalidSelection}
-                        style={{pointerEvents: noneSelectedDisableButton || invalidSelection ? 'none' : 'auto'}}
-                      >
-                        <i className="fas fa-exchange-alt fa-fw mr-2"/>
-                        {i18n.t('userManagement.members.synchronize')}
-                      </button>
-                    </div>
-                  </CustomTooltip>
-                )}
+                <div className="row">
+                  {sync ? (
+                    <button
+                      className="btn btn-primary rounded-pill"
+                      type="submit"
+                    >
+                      <i className="fas fa-exchange-alt fa-fw mr-2"/>{i18n.t('userManagement.members.syncing')}
+                    </button>
+                  ) : (
+                    <CustomTooltip placement="auto" show={noneSelectedDisableButton || invalidSelection} title={invalidSelection ? i18n.t('userManagement.members.tooltip.invalidSelection') : i18n.t('userManagement.members.tooltip.noDevice')}>
+                      <div>
+                        <button
+                          className="btn btn-primary rounded-pill"
+                          type="submit"
+                          disabled={noneSelectedDisableButton || invalidSelection}
+                          style={{pointerEvents: noneSelectedDisableButton || invalidSelection ? 'none' : 'auto'}}
+                        >
+                          <i className="fas fa-exchange-alt fa-fw mr-2"/>
+                          {i18n.t('userManagement.members.synchronize')}
+                        </button>
+                      </div>
+                    </CustomTooltip>
+                  )}
+                  {invalidSelection && (
+                    <a href="#" className="ml-4 d-flex align-items-center" onClick={removeUnlinkedDevices(form)}>{i18n.t('userManagement.members.removeUnlinked')}</a>
+                  )}
+                </div>
                 <div className="d-inline-flex">
                   <CustomTooltip placement="top" show={noneSelectedDisableButton} title={i18n.t('userManagement.members.tooltip.noDevice')}>
                     <div className="ml-3">

@@ -720,8 +720,6 @@ mockAxios
         }));
       syncProcess.devices = itemsSyncing;
       db.get('deviceSyncProcess').assign(syncProcess).write();
-      console.log('🚀 ~ file: index.js ~ line 724 ~ .onPost ~ itemsToSync', itemsSyncing);
-      console.log('🚀 ~ file: index.js ~ line 730 ~ .onPost ~ syncProcess', syncProcess);
       return setDelay(mockResponseWithLog(config, [200, itemsSyncing]), 500);
     }
 

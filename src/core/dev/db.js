@@ -541,7 +541,7 @@ module.exports = {
             deviceName: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
             account: 'admin',
             connectionStatus: connectionStatus, // Generate failed connection with 50% chance
-            lastUpdateTime: !connectionStatus && (Math.random() * 6 > 1) ? 0 : 1608888327067
+            lastUpdateTime: connectionStatus && (Math.random() * 2 > 1) ? 1608888327067 : 0
           };
         }),
         sync: 0
