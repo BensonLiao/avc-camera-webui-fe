@@ -218,6 +218,8 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
       refreshList();
       syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
     }
+
+    return () => clearInterval(syncID);
   }, [devices, syncStatus]);
 
   return (
