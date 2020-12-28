@@ -277,11 +277,6 @@ const SDCard = ({
                                       <option key={duration.value} value={duration.value}>{duration.label}</option>
                                     ))}
                                   </SelectField>
-                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.recordingEnabled')} name="sdRecordingEnabled">
-                                    {mockSchema.enabled.map(enabled => (
-                                      <option key={enabled.value} value={enabled.value}>{enabled.label}</option>
-                                    ))}
-                                  </SelectField>
                                   <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.recordingStatus')} name="sdRecordingStatus">
                                     {mockSchema.status.map(status => (
                                       <option key={status.value} value={status.value}>{status.label}</option>

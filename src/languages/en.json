@@ -338,6 +338,13 @@
       "Unknown Error": "Unknown Error",
       "unknownStatus": "UNKNOWN STATUS"
     },
+    "recording": "Recording",
+    "enableRecording": "Enable Recording",
+    "recordingType":"Type",
+    "recordingResolution":"Resolution",
+    "recordingDuration":"Recording time",
+    "recordingStatus":"Recording status",
+    "recordingLimit":"When storage is full",
     "operation": "Operation",
     "tooltip": {
       "disabledOperationButton": "Please disable the SD card first.",
@@ -685,7 +692,10 @@
       "information": "Information",
       "deviceMaintenance": "Device Maintenance",
       "softwareUpgrade": "Software Upgrade",
-      "systemLog": "System Log"
+      "systemLog": "System Log",
+      "sdCardSettings": "SD Card Settings",
+      "basic": "Basic",
+      "storage": "Storage"
     },
     "appbar": {
       "support": {
