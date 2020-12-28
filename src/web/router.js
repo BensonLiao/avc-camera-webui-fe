@@ -517,7 +517,7 @@ module.exports = new Router({
         document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
       },
       resolve: {
-        files: () => api.system.getSDCardStorageFiles({date: dayjs().format('YYYY-MM-DD')}).then(response => response.data),
+        files: () => api.system.getSDCardStorageFiles(dayjs().format('YYYY-MM-DD')).then(response => response.data),
         dateList: () => api.system.getSDCardStorageDateList().then(response => response.data)
       },
       loadComponent: () => import(

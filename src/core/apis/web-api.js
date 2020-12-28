@@ -440,7 +440,8 @@ module.exports = {
       url: '/api/system/systeminfo/sdcard/mount'
     }),
     /**
-     * @param {String} date - Filter files by date.
+     * @param {String} date - Filter files by date, format is `YYYY-MM-DD`
+     * @param {String} folder - what folder to find files, default is `/storage/sdcard1/Android/data/com.avc.service.rtsp/files`.
      * @returns {Promise<Response>}
      * @response 204 {Array<Object>}
      * - [].id {Number}
@@ -449,19 +450,24 @@ module.exports = {
      * - [].path {String}
      * - [].type {String}
      */
-    getSDCardStorageFiles: ({date}) => api({
-      method: 'get',
+    getSDCardStorageFiles: (date, folder = '/sdcard/test/') => api({
+      method: 'post',
       url: '/api/system/systeminfo/sdcard-storage',
-      data: {date}
+      data: {
+        folder,
+        date
+      }
     }),
     /**
      * e.g. ['2020-12-20', '2020-12-22', '2020-12-23']
+     * @param {String} folder - what folder to find files.
      * @returns {Promise<Response>}
      * @response 204 {Array<String>}
      */
-    getSDCardStorageDateList: () => api({
-      method: 'get',
-      url: '/api/system/systeminfo/sdcard-storage/date-list'
+    getSDCardStorageDateList: (folder = '/sdcard/test/') => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard-storage/date-list',
+      data: {folder}
     }),
     /**
      * Clears system log
