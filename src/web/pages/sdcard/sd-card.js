@@ -64,13 +64,6 @@ const SDCard = ({
       label: 'continuous recording',
       value: 2
     }],
-    enabled: [{
-      label: 'enabled',
-      value: true
-    }, {
-      label: 'disabled',
-      value: false
-    }],
     stream: [{
       label: 'stream 1',
       value: 0
