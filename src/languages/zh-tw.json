@@ -184,6 +184,7 @@
       "deviceName": "",
       "status": "",
       "actions": "操作",
+      "done": "",
       "noDevice": "",
       "searchPlaceholder": "輸入關鍵字",
       "search": "搜尋",

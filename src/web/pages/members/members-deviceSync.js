@@ -50,21 +50,30 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
 
   // Check if DB sync process is in progress
   useEffect(() => {
+    let syncID;
+    // Ping sync api to get latest device sync status and update device list
+    const refreshList = () => api.member.syncDB()
+      .then(syncStatus => {
+        syncStatus.data.devices.forEach(syncDevice => {
+          const index = devices.findIndex(device => device.id === syncDevice.id);
+          devices[index] = syncDevice;
+        });
+        setDeviceList(generatePaginatedDeviceList(devices));
+        return syncStatus.data.devices;
+      })
+      .then(devices => {
+        // Stop pinging if status is 0 or 1
+        if (!devices.some(device => device.deviceSyncStatus === 0 || device.deviceSyncStatus === 1)) {
+          clearInterval(syncID);
+          getRouter().reload();
+        }
+      });
+
     if (sync) {
       refreshList();
-      setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
+      syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
     }
-  }, [refreshList, sync]);
-
-  // Ping sync api to get latest device sync status and update device list
-  const refreshList = useCallback(() => api.member.syncDB()
-    .then(syncStatus => {
-      syncStatus.data.devices.forEach(syncDevice => {
-        const index = devices.findIndex(device => device.id === syncDevice.id);
-        devices[index] = syncDevice;
-      });
-      setDeviceList(generatePaginatedDeviceList(devices));
-    }), [devices]);
+  }, [devices, sync]);
 
   /**
    * Delete selected device
@@ -332,7 +341,11 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                               <td>
                                 <div>
                                   { device.deviceSyncStatus ? (
-                                    <span>Syncing</span>
+                                    device.deviceSyncStatus === 1 ? (
+                                      <span>{i18n.t('userManagement.members.syncing')}</span>
+                                    ) : (
+                                      <span>{i18n.t('userManagement.members.done')}</span>
+                                    )
                                   ) : (
                                     device.lastUpdateTime ? (
                                       <CustomTooltip placement="top-start" title={`${new Date(device.lastUpdateTime)}`}>

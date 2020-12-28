@@ -184,6 +184,7 @@
       "deviceName": "",
       "status": "",
       "actions": "Operar",
+      "done": "",
       "noDevice": "",
       "searchPlaceholder": "Ingrese palabras claves",
       "search": "buscar",

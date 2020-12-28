@@ -723,6 +723,17 @@ mockAxios
       return setDelay(mockResponseWithLog(config, [200, itemsSyncing]), 500);
     }
 
+    const processingDevice = syncProcess.devices.find(device => device.deviceSyncStatus === 1);
+    if (processingDevice) {
+      syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].deviceSyncStatus = 2;
+    } else {
+      db.get('deviceSync').assign({sync: 0}).write();
+      db.get('deviceSyncProcess').assign({
+        devices: [],
+        sourceStatus: 0
+      }).write();
+    }
+
     return setDelay(mockResponseWithLog(config, [200, syncProcess]), 500);
   })
   .onGet('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]))
