@@ -440,6 +440,30 @@ module.exports = {
       url: '/api/system/systeminfo/sdcard/mount'
     }),
     /**
+     * @param {String} date - Filter files by date.
+     * @returns {Promise<Response>}
+     * @response 204 {Array<Object>}
+     * - [].id {Number}
+     * - [].bytes {Number}
+     * - [].name {String}
+     * - [].path {String}
+     * - [].type {String}
+     */
+    getSDCardStorageFiles: ({date}) => api({
+      method: 'get',
+      url: '/api/system/systeminfo/sdcard-storage',
+      data: {date}
+    }),
+    /**
+     * e.g. ['2020-12-20', '2020-12-22', '2020-12-23']
+     * @returns {Promise<Response>}
+     * @response 204 {Array<String>}
+     */
+    getSDCardStorageDateList: () => api({
+      method: 'get',
+      url: '/api/system/systeminfo/sdcard-storage/date-list'
+    }),
+    /**
      * Clears system log
      * @returns {Promise<Response>}
      * @response 204

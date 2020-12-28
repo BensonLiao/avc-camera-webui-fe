@@ -1,4 +1,5 @@
 const {Router} = require('@benson.liao/capybara-router');
+const dayjs = require('dayjs');
 const history = require('history');
 const i18n = require('../i18n').default;
 
@@ -515,7 +516,10 @@ module.exports = new Router({
       onEnter: () => {
         document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
       },
-      resolve: {},
+      resolve: {
+        files: () => api.system.getSDCardStorageFiles({date: dayjs().format('YYYY-MM-DD')}).then(response => response.data),
+        dateList: () => api.system.getSDCardStorageDateList().then(response => response.data)
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */
         './pages/sdcard/sd-card-storage'
