@@ -17,6 +17,7 @@ import SDCardOperation from './sd-card-operation';
 import {useContextState} from '../../stateProvider';
 import VolumeProgressBar from '../../../core/components/volume-progress-bar';
 import withGlobalStatus from '../../withGlobalStatus';
+import SelectField from '../../../core/components/fields/select-field';
 
 const SDCard = ({
   systemInformation,
@@ -50,6 +51,57 @@ const SDCard = ({
     if (`${prevValues.sdAlertEnabled}` !== `${nextValues.sdAlertEnabled}`) {
       return callApi('sdCardAlert', {sdAlertEnabled: nextValues.sdAlertEnabled});
     }
+  };
+
+  const mockSchema = {
+    type: [{
+      label: 'disconnection',
+      value: 0
+    }, {
+      label: 'event recording',
+      value: 1
+    }, {
+      label: 'continuous recording',
+      value: 2
+    }],
+    status: [{
+      label: 'not recording',
+      value: 0
+    }, {
+      label: 'recording',
+      value: 1
+    }],
+    enabled: [{
+      label: 'enabled',
+      value: true
+    }, {
+      label: 'disabled',
+      value: false
+    }],
+    stream: [{
+      label: 'stream 1',
+      value: 0
+    }, {
+      label: 'stream 2',
+      value: 1
+    }],
+    duration: [{
+      label: 'until storage limitation',
+      value: 0
+    }, {
+      label: '1 minute',
+      value: 1
+    }, {
+      label: '60 minutes',
+      value: 60
+    }],
+    limit: [{
+      label: 'delete oldest recording',
+      value: true
+    }, {
+      label: 'stop recording',
+      value: false
+    }]
   };
 
   return (
@@ -209,7 +261,38 @@ const SDCard = ({
                             </div>
                             <div className="card">
                               <div className="card-body">
-                                <h1>hi</h1>
+                                <div className="form-group px-3">
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.type')} name="sdRecordingType">
+                                    {mockSchema.type.map(type => (
+                                      <option key={type.value} value={type.value}>{type.label}</option>
+                                    ))}
+                                  </SelectField>
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.resolution')} name="sdRecordingStream">
+                                    {mockSchema.stream.map(stream => (
+                                      <option key={stream.value} value={stream.value}>{stream.label}</option>
+                                    ))}
+                                  </SelectField>
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.duration')} name="sdRecordingDuration">
+                                    {mockSchema.duration.map(duration => (
+                                      <option key={duration.value} value={duration.value}>{duration.label}</option>
+                                    ))}
+                                  </SelectField>
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.enabled')} name="sdRecordingEnabled">
+                                    {mockSchema.enabled.map(enabled => (
+                                      <option key={enabled.value} value={enabled.value}>{enabled.label}</option>
+                                    ))}
+                                  </SelectField>
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.recordingStatus')} name="sdRecordingStatus">
+                                    {mockSchema.status.map(status => (
+                                      <option key={status.value} value={status.value}>{status.label}</option>
+                                    ))}
+                                  </SelectField>
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.limit')} name="sdRecordingLimit">
+                                    {mockSchema.limit.map(limit => (
+                                      <option key={limit.value} value={limit.value}>{limit.label}</option>
+                                    ))}
+                                  </SelectField>
+                                </div>
                               </div>
                             </div>
                           </Tab.Pane>
