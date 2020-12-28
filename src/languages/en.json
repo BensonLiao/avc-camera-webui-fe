@@ -167,6 +167,7 @@
       "import": "Import",
       "host": "Host",
       "tooltip": {
+        "invalidSelection": "Un-linked Device Selected",
         "noDevice": "Select a Device",
         "connected": "Connected",
         "notConnected": "Not Connected",

@@ -167,6 +167,7 @@
       "import": "Importar",
       "host": "",
       "tooltip": {
+        "invalidSelection": "",
         "noDevice": "",
         "connected": "",
         "notConnected": "",

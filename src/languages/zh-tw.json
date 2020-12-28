@@ -167,6 +167,7 @@
       "import": "匯入",
       "host": "",
       "tooltip": {
+        "invalidSelection": "",
         "noDevice": "",
         "connected": "",
         "notConnected": "",
