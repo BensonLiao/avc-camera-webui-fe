@@ -12,6 +12,7 @@ import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
 import classNames from 'classnames';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import ProgressIndicator from '../../../core/components/progress-indicator';
 
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
@@ -353,7 +354,14 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                                 <div>
                                   { device.deviceSyncStatus ? (
                                     device.deviceSyncStatus === 1 ? (
-                                      <span>{i18n.t('userManagement.members.syncing')}</span>
+                                      <div className="d-flex align-items-center">
+                                        <ProgressIndicator
+                                          isDetermined={false}
+                                          status="start"
+                                          className="ml-0"
+                                        />
+                                        <span>{i18n.t('userManagement.members.syncing')}</span>
+                                      </div>
                                     ) : (
                                       <span>{i18n.t('userManagement.members.done')}</span>
                                     )
