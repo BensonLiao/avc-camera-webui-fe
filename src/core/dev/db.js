@@ -535,16 +535,17 @@ module.exports = {
         devices: Array.from({length: 20}, (_, i) => {
           const connectionStatus = Math.random() * 5 > 1 ? 1 : 0;
           return {
-            id: uuidv4(),
+            id: i,
             ip: `192.168.0.${i + 1}`,
-            port: '8080',
-            deviceName: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
+            port: 8080,
+            name: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
             account: 'admin',
             connectionStatus: connectionStatus, // Generate failed connection with 50% chance
-            lastUpdateTime: connectionStatus && (Math.random() * 2 > 1) ? 1608888327067 : 0
+            lastUpdateTime: connectionStatus && (Math.random() * 2 > 1) ? 1608888327067 : 0,
+            syncStatus: 0
           };
         }),
-        sync: 0
+        sourceStatus: 0
       },
       deviceSyncProcess: {
         devices: [],

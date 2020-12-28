@@ -679,9 +679,10 @@ mockAxios
     return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').find({id: newItem.id}).assign(newItem).write()]), 500);
   })
   .onPost('/api/members/device-sync').reply(config => {
+    const list = db.get('deviceSync.devices').value();
     const item = JSON.parse(config.data);
     const newItem = {
-      id: uuidv4(),
+      id: list[list.length - 1].id + 1,
       ip: item.ip,
       port: item.port,
       // randomly generated device ID
@@ -716,16 +717,16 @@ mockAxios
       const itemsSyncing = devices.filter(device => devicesToSync.includes(device.id))
         .map(device => ({
           ...device,
-          deviceSyncStatus: 1
+          syncStatus: 1
         }));
       syncProcess.devices = itemsSyncing;
       db.get('deviceSyncProcess').assign(syncProcess).write();
       return setDelay(mockResponseWithLog(config, [200, itemsSyncing]), 500);
     }
 
-    const processingDevice = syncProcess.devices.find(device => device.deviceSyncStatus === 1);
+    const processingDevice = syncProcess.devices.find(device => device.syncStatus === 1);
     if (processingDevice) {
-      syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].deviceSyncStatus = 2;
+      syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].syncStatus = 2;
     } else {
       db.get('deviceSync').assign({sync: 0}).write();
       db.get('deviceSyncProcess').assign({

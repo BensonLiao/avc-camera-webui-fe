@@ -17,7 +17,7 @@ import ProgressIndicator from '../../../core/components/progress-indicator';
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
 
-const DeviceSync = ({deviceSync: {devices, sync}}) => {
+const DeviceSync = ({deviceSync: {devices, sourceStatus}}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [device, setDevice] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
@@ -211,17 +211,17 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
       })
       .then(devices => {
         // Stop pinging if status is 0 or 1 (Not yet started or syncing)
-        if (!devices.some(device => device.deviceSyncStatus === 0 || device.deviceSyncStatus === 1)) {
+        if (!devices.some(device => device.syncStatus === 0 || device.syncStatus === 1)) {
           clearInterval(syncID);
           getRouter().reload();
         }
       });
 
-    if (sync) {
+    if (sourceStatus) {
       refreshList();
       syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
     }
-  }, [devices, sync]);
+  }, [devices, sourceStatus]);
 
   return (
     <div>
@@ -239,7 +239,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
               <FormikEffect onChange={onChangeCardForm}/>
               <div className="col-12 d-inline-flex justify-content-between">
                 <div className="row">
-                  {sync ? (
+                  {sourceStatus ? (
                     <button
                       className="btn btn-primary rounded-pill"
                       type="submit"
@@ -344,16 +344,16 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                                 </CustomTooltip>
                               </td>
                               <td>
-                                <CustomTooltip placement="top-start" title={device.deviceName}>
+                                <CustomTooltip placement="top-start" title={device.name}>
                                   <div>
-                                    {device.deviceName}
+                                    {device.name}
                                   </div>
                                 </CustomTooltip>
                               </td>
                               <td>
                                 <div>
-                                  { device.deviceSyncStatus ? (
-                                    device.deviceSyncStatus === 1 ? (
+                                  { device.syncStatus ? (
+                                    device.syncStatus === 1 ? (
                                       <div className="d-flex align-items-center">
                                         <ProgressIndicator
                                           isDetermined={false}
@@ -454,8 +454,17 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
 
 DeviceSync.propTypes = {
   deviceSync: PropTypes.shape({
-    devices: PropTypes.array.isRequired,
-    sync: PropTypes.number.isRequired
+    devices: PropTypes.arrayOf(PropTypes.shape({
+      account: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      ip: PropTypes.string.isRequired,
+      port: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      connectionStatus: PropTypes.number.isRequired,
+      lastUpdateTime: PropTypes.number.isRequired,
+      syncStatus: PropTypes.number.isRequired
+    })),
+    sourceStatus: PropTypes.number.isRequired
   }).isRequired
 };
 
