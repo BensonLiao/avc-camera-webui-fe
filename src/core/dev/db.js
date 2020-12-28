@@ -532,18 +532,23 @@ module.exports = {
       groups: memberGroups,
       members,
       deviceSync: {
-        devices: Array.from({length: 20}, (_, i) => (
-          {
+        devices: Array.from({length: 20}, (_, i) => {
+          const connectionStatus = Math.random() * 5 > 1 ? 1 : 0;
+          return {
             id: uuidv4(),
             ip: `192.168.0.${i + 1}`,
             port: '8080',
             deviceName: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
             account: 'admin',
-            connectionStatus: Math.random() * 7 > 1 ? 1 : 0, // Generate failed connection with 70% chance
-            lastUpdateTime: Math.random() * 9 > 1 ? 0 : 1608888327067
-          }
-        )),
+            connectionStatus: connectionStatus, // Generate failed connection with 50% chance
+            lastUpdateTime: !connectionStatus && (Math.random() * 6 > 1) ? 0 : 1608888327067
+          };
+        }),
         sync: 0
+      },
+      deviceSyncProcess: {
+        devices: [],
+        sourceStatus: 0
       },
       faceEvents: [
         {

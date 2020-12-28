@@ -705,8 +705,27 @@ mockAxios
     }]);
   })
   .onPost('/api/members/sync-db').reply(config => {
-    db.get('deviceSync').assign(JSON.parse(config.data)).write();
-    return setDelay(mockResponseWithLog(config, [200, {}]), 500);
+    const {devices, sync} = db.get('deviceSync').value();
+    const devicesToSync = JSON.parse(config.data);
+    let syncProcess = db.get('deviceSyncProcess').value();
+
+    // Start sync process
+    if (!sync) {
+      // Set sync process indicator on
+      db.get('deviceSync').assign({sync: 1}).write();
+      const itemsSyncing = devices.filter(device => devicesToSync.includes(device.id))
+        .map(device => ({
+          ...device,
+          deviceSyncStatus: 1
+        }));
+      syncProcess.devices = itemsSyncing;
+      db.get('deviceSyncProcess').assign(syncProcess).write();
+      console.log('🚀 ~ file: index.js ~ line 724 ~ .onPost ~ itemsToSync', itemsSyncing);
+      console.log('🚀 ~ file: index.js ~ line 730 ~ .onPost ~ syncProcess', syncProcess);
+      return setDelay(mockResponseWithLog(config, [200, itemsSyncing]), 500);
+    }
+
+    return setDelay(mockResponseWithLog(config, [200, syncProcess]), 500);
   })
   .onGet('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]))
   .onPut('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))

@@ -1424,10 +1424,10 @@ module.exports = {
       url: '/api/members/device-sync',
       data: id
     }),
-    syncDB: ({sync}) => api({
+    syncDB: (devices = {}) => api({
       method: 'post',
       url: '/api/members/sync-db',
-      data: {sync}
+      data: devices
     })
   },
   multimedia: {
