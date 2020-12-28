@@ -13,7 +13,8 @@ import Pagination from '../../../core/components/pagination';
 import classNames from 'classnames';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 
-const REFRESH_LIST_INTERVAL = 5; // Seconds
+// Sync API ping frequency, in seconds
+const REFRESH_LIST_INTERVAL = 5;
 
 const DeviceSync = ({deviceSync: {devices, sync}}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
@@ -62,7 +63,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
         return syncStatus.data.devices;
       })
       .then(devices => {
-        // Stop pinging if status is 0 or 1
+        // Stop pinging if status is 0 or 1 (Not yet started or syncing)
         if (!devices.some(device => device.deviceSyncStatus === 0 || device.deviceSyncStatus === 1)) {
           clearInterval(syncID);
           getRouter().reload();
@@ -102,6 +103,11 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
     }
   };
 
+  /**
+   * Show delete confirm modal for selected device
+   * @param {number} deviceID
+   * @returns {void}
+   */
   const confirmDelete = (deviceID = null) => _ => {
     showConfirmModal(true);
     setDeleteDeviceID(deviceID);
@@ -117,6 +123,11 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
     setIsShowDeviceModal(true);
   };
 
+  /**
+   * Sync selected Databases
+   * @param {Object} values - form values
+   * @returns {void}
+   */
   const syncDB = values => {
     console.log('starting DB sync');
     const checked = values.flat().filter(device => device.isChecked)
