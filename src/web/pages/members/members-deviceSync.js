@@ -184,14 +184,11 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
    * @returns {void}
    */
   const syncDB = values => {
-    console.log('starting DB sync');
     const checked = values.flat().filter(device => device.isChecked)
       .reduce((arr, item) => {
         arr.push(item.id);
         return arr;
       }, []);
-    // Sync api
-    console.log(JSON.stringify(checked, null, 2));
     getRouter().reload();
     api.member.syncDB(checked);
   };

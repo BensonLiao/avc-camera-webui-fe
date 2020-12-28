@@ -696,24 +696,15 @@ mockAxios
     devices.forEach(deviceID => db.get('deviceSync.devices').remove({id: deviceID}).write());
     return setDelay(mockResponseWithLog(config, [204, {}]), 500);
   })
-  .onGet('/api/face-recognition/settings').reply(config => {
-    const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
-    // get with converMapping to percentage util function (mocking real server)
-    const triggerArea = utils.convertMappingToPercentage(faceRecognitionSettings.triggerArea);
-    return mockResponseWithLog(config, [200, {
-      ...faceRecognitionSettings,
-      triggerArea: triggerArea
-    }]);
-  })
   .onPost('/api/members/sync-db').reply(config => {
-    const {devices, sync} = db.get('deviceSync').value();
+    const {devices, syncStatus} = db.get('deviceSync').value();
     const devicesToSync = JSON.parse(config.data);
     let syncProcess = db.get('deviceSyncProcess').value();
 
     // Start sync process
-    if (!sync) {
+    if (!syncStatus) {
       // Set sync process indicator on
-      db.get('deviceSync').assign({sync: 1}).write();
+      db.get('deviceSync').assign({syncStatus: 1}).write();
       const itemsSyncing = devices.filter(device => devicesToSync.includes(device.id))
         .map(device => ({
           ...device,
@@ -728,7 +719,7 @@ mockAxios
     if (processingDevice) {
       syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].syncStatus = 2;
     } else {
-      db.get('deviceSync').assign({sync: 0}).write();
+      db.get('deviceSync').assign({syncStatus: 0}).write();
       db.get('deviceSyncProcess').assign({
         devices: [],
         sourceStatus: 0
@@ -736,6 +727,15 @@ mockAxios
     }
 
     return setDelay(mockResponseWithLog(config, [200, syncProcess]), 500);
+  })
+  .onGet('/api/face-recognition/settings').reply(config => {
+    const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
+    // get with converMapping to percentage util function (mocking real server)
+    const triggerArea = utils.convertMappingToPercentage(faceRecognitionSettings.triggerArea);
+    return mockResponseWithLog(config, [200, {
+      ...faceRecognitionSettings,
+      triggerArea: triggerArea
+    }]);
   })
   .onGet('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]))
   .onPut('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
