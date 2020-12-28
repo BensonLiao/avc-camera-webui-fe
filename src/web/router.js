@@ -518,7 +518,7 @@ module.exports = new Router({
       resolve: {},
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */
-        './pages/sdcard/storage'
+        './pages/sdcard/sd-card-storage'
       )
     },
     {
