@@ -501,7 +501,7 @@ module.exports = new Router({
       },
       resolve: {
         smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data),
-        sdRecordingSettings: () => api.system.getSDRecordingSettings().then(response => response.data),
+        sdCardRecordingSettings: () => api.system.getSDCardRecordingSettings().then(response => response.data),
         streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
       },
       loadComponent: () => import(

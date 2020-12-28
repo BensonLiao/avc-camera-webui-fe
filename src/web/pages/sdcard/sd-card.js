@@ -26,11 +26,11 @@ const SDCard = ({
     sdStatus,
     sdEnabled,
     sdFormat
-  }, smtpSettings: {isEnableAuth}
+  }, smtpSettings: {isEnableAuth},
+  sdCardRecordingSettings
 }) => {
   const {isApiProcessing} = useContextState();
   const [isShowDisableModal, setIsShowDisableModal] = useState(false);
-
   const callApi = (apiFunction, value = '') => {
     progress.start();
     api.system[apiFunction](value)
@@ -66,7 +66,10 @@ const SDCard = ({
               <div className="card shadow">
                 <div className="card-header">{i18n.t('sdCard.title')}</div>
                 <Formik
-                  initialValues={systemInformation}
+                  initialValues={{
+                    ...systemInformation,
+                    ...sdCardRecordingSettings
+                  }}
                 >
                   <Form>
                     <div className="card-body sdcard">
@@ -206,11 +209,7 @@ const SDCard = ({
                             </div>
                             <div className="card">
                               <div className="card-body">
-                                <Formik>
-                                  <Form>
-                                    hi
-                                  </Form>
-                                </Formik>
+                                <h1>hi</h1>
                               </div>
                             </div>
                           </Tab.Pane>
@@ -237,7 +236,8 @@ SDCard.propTypes = {
     sdUsage: PropTypes.number.isRequired,
     sdAlertEnabled: PropTypes.bool.isRequired
   }).isRequired,
-  smtpSettings: PropTypes.shape({isEnableAuth: PropTypes.bool.isRequired}).isRequired
+  smtpSettings: PropTypes.shape({isEnableAuth: PropTypes.bool.isRequired}).isRequired,
+  sdCardRecordingSettings: PropTypes.shape().isRequired
 };
 
 export default withGlobalStatus(SDCard);

@@ -395,11 +395,11 @@ module.exports = {
      * - sdRecordingDuration {Number} // 0: till the storage limitation, or 1-60 minute recording
      * - sdRecordingLimit {Boolean} // true: gonna delete oldest recording file, or false: just stop recording if no enough space for new file
      */
-    getSDRecordingSettings: () => api({
+    getSDCardRecordingSettings: () => api({
       method: 'get',
       url: '/api/system/systeminfo/sdcard-recording'
     }),
-    updateSDRecordingSettings: () => api({
+    updateSDCardRecordingSettings: () => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard-recording'
     }),
