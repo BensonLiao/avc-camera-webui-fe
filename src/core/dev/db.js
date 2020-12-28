@@ -545,7 +545,7 @@ module.exports = {
             syncStatus: 0
           };
         }),
-        sourceStatus: 0
+        syncStatus: 0
       },
       deviceSyncProcess: {
         devices: [],

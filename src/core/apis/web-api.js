@@ -1383,6 +1383,16 @@ module.exports = {
      * @param {String} password - Device login password
      * @returns {Promise<response>}
      * @response 200 {Object}
+     * - syncStatus {Number} - Master device sync status
+     * - devices {Array}
+     * - - account: {String}
+     * - - id: {Number}
+     * - - ip: {String}
+     * - - port: {Number}
+     * - - name: {String}
+     * - - connectionStatus: {Number} - Is the device linked or unlinked
+     * - - lastUpdateTime: {Number} - Latest successful sync time
+     * - - syncStatus: {Number} - Slave device sync status
      */
     addDevice: ({ip, port, account, password}) => api({
       method: 'post',
@@ -1415,7 +1425,7 @@ module.exports = {
       }
     }),
     /**
-     * @param {Array} id - Array of objects of ids' to be deleted
+     * @param {Array} id - Array of objects of device ids' to be deleted
      * @returns {Promise<response>}
      * @response 200 {Object}
      */
@@ -1424,6 +1434,11 @@ module.exports = {
       url: '/api/members/device-sync',
       data: id
     }),
+    /**
+     * @param {Array} devices - Array of objects of device ids' to be synced
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
     syncDB: (devices = {}) => api({
       method: 'post',
       url: '/api/members/sync-db',

@@ -17,7 +17,7 @@ import ProgressIndicator from '../../../core/components/progress-indicator';
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
 
-const DeviceSync = ({deviceSync: {devices, sourceStatus}}) => {
+const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [device, setDevice] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
@@ -217,11 +217,11 @@ const DeviceSync = ({deviceSync: {devices, sourceStatus}}) => {
         }
       });
 
-    if (sourceStatus) {
+    if (syncStatus) {
       refreshList();
       syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
     }
-  }, [devices, sourceStatus]);
+  }, [devices, syncStatus]);
 
   return (
     <div>
@@ -239,7 +239,7 @@ const DeviceSync = ({deviceSync: {devices, sourceStatus}}) => {
               <FormikEffect onChange={onChangeCardForm}/>
               <div className="col-12 d-inline-flex justify-content-between">
                 <div className="row">
-                  {sourceStatus ? (
+                  {syncStatus ? (
                     <button
                       className="btn btn-primary rounded-pill"
                       type="submit"
@@ -464,7 +464,7 @@ DeviceSync.propTypes = {
       lastUpdateTime: PropTypes.number.isRequired,
       syncStatus: PropTypes.number.isRequired
     })),
-    sourceStatus: PropTypes.number.isRequired
+    syncStatus: PropTypes.number.isRequired
   }).isRequired
 };
 
