@@ -64,13 +64,6 @@ const SDCard = ({
       label: 'continuous recording',
       value: 2
     }],
-    status: [{
-      label: 'not recording',
-      value: 0
-    }, {
-      label: 'recording',
-      value: 1
-    }],
     enabled: [{
       label: 'enabled',
       value: true
@@ -116,7 +109,7 @@ const SDCard = ({
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('sdCard.title')}</div>
+                <div className="card-header">{i18n.t('sdCard.basic.title')}</div>
                 <Formik
                   initialValues={{
                     ...systemInformation,
@@ -127,7 +120,7 @@ const SDCard = ({
                     <div className="card-body sdcard">
                       <FormikEffect onChange={onChangeSdCardSetting}/>
                       <div className="form-group d-flex justify-content-between align-items-center">
-                        <label className="mb-0">{i18n.t('sdCard.enable')}</label>
+                        <label className="mb-0">{i18n.t('sdCard.basic.enable')}</label>
                         <div className="custom-control custom-switch">
                           <Field
                             name="sdEnabled"
@@ -144,26 +137,26 @@ const SDCard = ({
                       </div>
                       <div className="form-group px-3">
                         <div className="d-flex justify-content-between align-items-center mb-0">
-                          <label className="mb-o">{i18n.t('sdCard.status')}</label>
+                          <label className="mb-o">{i18n.t('sdCard.basic.status')}</label>
                           <label className="mb-o text-primary">
-                            {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.constants.unknownStatus')}
+                            {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}
                           </label>
                         </div>
                         <hr/>
                         <div className="d-flex justify-content-between align-items-center mb-0">
-                          <label className="mb-o">{i18n.t('sdCard.filesystem')}</label>
-                          <label className="mb-o text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.unrecognized') : sdFormat}</label>
+                          <label className="mb-o">{i18n.t('sdCard.basic.filesystem')}</label>
+                          <label className="mb-o text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.basic.unrecognized') : sdFormat}</label>
                         </div>
                         <hr/>
                       </div>
                       <div className={classNames('form-group', sdStatus ? 'd-none' : '')}>
                         <div className="card">
                           <div className="card-header sd-card-round">
-                            {i18n.t('sdCard.storageSpace')}
+                            {i18n.t('sdCard.basic.storageSpace')}
                           </div>
                           <div className="card-body">
                             <div className="form-group mb-0">
-                              <label className="mb-3">{i18n.t('sdCard.title')}</label>
+                              <label className="mb-3">{i18n.t('sdCard.basic.title')}</label>
                               <VolumeProgressBar
                                 total={sdTotal}
                                 usage={sdUsage}
@@ -188,14 +181,14 @@ const SDCard = ({
                           <Nav.Link
                             eventKey="tab-sdcard-operation"
                           >
-                            {i18n.t('sdCard.operation')}
+                            {i18n.t('sdCard.basic.operation')}
                           </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                           <Nav.Link
                             eventKey="tab-sdcard-recording"
                           >
-                            {i18n.t('sdCard.recording')}
+                            {i18n.t('sdCard.basic.recording')}
                           </Nav.Link>
                         </Nav.Item>
                       </Nav>
@@ -208,16 +201,16 @@ const SDCard = ({
                               callApi={callApi}
                             />
                             <div className="form-group">
-                              <label>{i18n.t('sdCard.errorNotification')}</label>
+                              <label>{i18n.t('sdCard.basic.errorNotification')}</label>
                               <div className="card">
                                 <div className="card-body">
                                   <div className="form-group align-items-center mb-0">
-                                    <label className="mb-0 mr-3">{i18n.t('sdCard.errorNotification')}</label>
+                                    <label className="mb-0 mr-3">{i18n.t('sdCard.basic.errorNotification')}</label>
                                     <span>
                                       {
                                         isEnableAuth ?
-                                          <a className="text-success">{i18n.t('sdCard.notificationSet')}</a> :
-                                          <Link className="text-danger" to="/notification/smtp">{i18n.t('sdCard.enableOutgoingEmail')}</Link>
+                                          <a className="text-success">{i18n.t('sdCard.basic.notificationSet')}</a> :
+                                          <Link className="text-danger" to="/notification/smtp">{i18n.t('sdCard.basic.enableOutgoingEmail')}</Link>
                                       }
                                     </span>
                                     <CustomTooltip show={!isEnableAuth} title={i18n.t('sdCard.tooltip.disabledNotificationButton')}>
@@ -245,7 +238,7 @@ const SDCard = ({
                         <Tab.Content>
                           <Tab.Pane eventKey="tab-sdcard-recording">
                             <div className="form-group d-flex justify-content-between align-items-center">
-                              <label className="mb-0">{i18n.t('sdCard.enableRecording')}</label>
+                              <label className="mb-0">{i18n.t('sdCard.basic.enableRecording')}</label>
                               <div className="custom-control custom-switch">
                                 <Field
                                   name="sdRecordingEnabled"
@@ -262,27 +255,22 @@ const SDCard = ({
                             <div className="card">
                               <div className="card-body">
                                 <div className="form-group px-3">
-                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.recordingType')} name="sdRecordingType">
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingType')} name="sdRecordingType">
                                     {mockSchema.type.map(type => (
                                       <option key={type.value} value={type.value}>{type.label}</option>
                                     ))}
                                   </SelectField>
-                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.recordingResolution')} name="sdRecordingStream">
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingResolution')} name="sdRecordingStream">
                                     {mockSchema.stream.map(stream => (
                                       <option key={stream.value} value={stream.value}>{stream.label}</option>
                                     ))}
                                   </SelectField>
-                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.recordingDuration')} name="sdRecordingDuration">
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingDuration')} name="sdRecordingDuration">
                                     {mockSchema.duration.map(duration => (
                                       <option key={duration.value} value={duration.value}>{duration.label}</option>
                                     ))}
                                   </SelectField>
-                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.recordingStatus')} name="sdRecordingStatus">
-                                    {mockSchema.status.map(status => (
-                                      <option key={status.value} value={status.value}>{status.label}</option>
-                                    ))}
-                                  </SelectField>
-                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.recordingLimit')} name="sdRecordingLimit">
+                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingLimit')} name="sdRecordingLimit">
                                     {mockSchema.limit.map(limit => (
                                       <option key={limit.value} value={limit.value}>{limit.label}</option>
                                     ))}

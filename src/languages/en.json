@@ -329,44 +329,45 @@
     "lightingCompensation": "Lighting Compensation Frequency (Hz)"
   },
   "sdCard": {
-    "constants": {
-      "Functioning": "Functioning",
-      "Unmounted": "Unmounted",
-      "Empty Slot": "Empty Slot",
-      "Nonfunctioning": "Nonfunctioning",
-      "Read-only Access": "Read-only Access",
-      "Unknown Error": "Unknown Error",
-      "unknownStatus": "UNKNOWN STATUS"
+    "basic": {
+      "constants": {
+        "Functioning": "Functioning",
+        "Unmounted": "Unmounted",
+        "Empty Slot": "Empty Slot",
+        "Nonfunctioning": "Nonfunctioning",
+        "Read-only Access": "Read-only Access",
+        "Unknown Error": "Unknown Error",
+        "unknownStatus": "UNKNOWN STATUS"
+      },
+      "recording": "Recording",
+      "enableRecording": "Enable Recording",
+      "recordingType":"Type",
+      "recordingResolution":"Resolution",
+      "recordingDuration":"Recording time",
+      "recordingLimit":"When storage is full",
+      "operation": "Operation",
+      "tooltip": {
+        "disabledOperationButton": "Please disable the SD card first.",
+        "disabledNotificationButton": "Please enable Outgoing Email first."
+      },
+      "format": "Format",
+      "unmount": "Unmount",
+      "title": "SD Card",
+      "enable": "Enable SD Card",
+      "errorNotification": "Error Notification",
+      "notificationSet": "Email Notification Set",
+      "enableOutgoingEmail": "Enable Outgoing Email",
+      "status": "Status",
+      "filesystem": "Filesystem",
+      "unrecognized": "Unrecognized",
+      "storageSpace": "Storage Space"
     },
-    "recording": "Recording",
-    "enableRecording": "Enable Recording",
-    "recordingType":"Type",
-    "recordingResolution":"Resolution",
-    "recordingDuration":"Recording time",
-    "recordingStatus":"Recording status",
-    "recordingLimit":"When storage is full",
-    "operation": "Operation",
-    "tooltip": {
-      "disabledOperationButton": "Please disable the SD card first.",
-      "disabledNotificationButton": "Please enable Outgoing Email first."
-    },
-    "format": "Format",
     "modal": {
       "disabledFormatButton": "Are you sure you want to format the Micro SD card?",
       "disabledUnmountButton": "Are you sure you want to unmount the Micro SD card?",
       "disableTitle": "Disabling SD Card",
       "disableBody": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?"
-    },
-    "unmount": "Unmount",
-    "title": "SD Card",
-    "enable": "Enable SD Card",
-    "errorNotification": "Error Notification",
-    "notificationSet": "Email Notification Set",
-    "enableOutgoingEmail": "Enable Outgoing Email",
-    "status": "Status",
-    "filesystem": "Filesystem",
-    "unrecognized": "Unrecognized",
-    "storageSpace": "Storage Space"
+    }
   },
   "validation": {
     "portReserved": "The specified port is reserved by system or in use!",
