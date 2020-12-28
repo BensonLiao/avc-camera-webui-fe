@@ -390,7 +390,7 @@ module.exports = {
      * @response 204
      * - sdRecordingStatus {Number} // 0 not recording, 1 recording
      * - sdRecordingEnabled {Boolean} // true enabled, false not enabled
-     * - sdRecordingStream {Number} // stream 1 or stream 2
+     * - sdRecordingStream {Number} // stream 1 == 1 or stream 2 === 2
      * - sdRecordingType {Number} // 0: disconnection, 1: event recording, or 2: continuously recording
      * - sdRecordingDuration {Number} // 0: till the storage limitation, or 1-60 minute recording
      * - sdRecordingLimit {Boolean} // true: gonna delete oldest recording file, or false: just stop recording if no enough space for new file
@@ -399,9 +399,19 @@ module.exports = {
       method: 'get',
       url: '/api/system/systeminfo/sdcard-recording'
     }),
-    updateSDCardRecordingSettings: () => api({
+    updateSDCardRecordingSettings: (
+      {sdRecordingStatus, sdRecordingDuration, sdRecordingEnabled, sdRecordingLimit, sdRecordingStream, sdRecordingType}
+    ) => api({
       method: 'post',
-      url: '/api/system/systeminfo/sdcard-recording'
+      url: '/api/system/systeminfo/sdcard-recording',
+      data: {
+        sdRecordingStatus,
+        sdRecordingDuration,
+        sdRecordingEnabled,
+        sdRecordingLimit,
+        sdRecordingStream,
+        sdRecordingType
+      }
     }),
     /**
      * @returns {Promise<Response>}

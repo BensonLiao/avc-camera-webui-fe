@@ -53,26 +53,41 @@ const SDCard = ({
     }
   };
 
+  const onSubmit = values => {
+    const formValues = {
+      sdRecordingStatus: values.sdRecordingStatus,
+      sdRecordingDuration: values.sdRecordingDuration,
+      sdRecordingEnabled: values.sdRecordingEnabled,
+      sdRecordingLimit: values.sdRecordingLimit,
+      sdRecordingStream: values.sdRecordingStream,
+      sdRecordingType: values.sdRecordingType
+    };
+    progress.start();
+    api.system.updateSDCardRecordingSettings(formValues)
+      .then(getRouter().reload)
+      .finally(progress.done);
+  };
+
   const mockSchema = {
     type: [{
-      label: 'disconnection',
+      label: 'Disconnection',
       value: 0
     }, {
-      label: 'event recording',
+      label: 'Event recording',
       value: 1
     }, {
-      label: 'continuous recording',
+      label: 'Continuous recording',
       value: 2
     }],
     stream: [{
-      label: 'stream 1',
+      label: 'Stream 1',
       value: 0
     }, {
-      label: 'stream 2',
+      label: 'Stream 2',
       value: 1
     }],
     duration: [{
-      label: 'until storage limitation',
+      label: 'Until storage limitation',
       value: 0
     }, {
       label: '1 minute',
@@ -82,10 +97,10 @@ const SDCard = ({
       value: 60
     }],
     limit: [{
-      label: 'delete oldest recording',
+      label: 'Delete oldest recording',
       value: true
     }, {
-      label: 'stop recording',
+      label: 'Stop recording',
       value: false
     }]
   };
@@ -108,6 +123,7 @@ const SDCard = ({
                     ...systemInformation,
                     ...sdCardRecordingSettings
                   }}
+                  onSubmit={onSubmit}
                 >
                   <Form>
                     <div className="card-body sdcard">
@@ -245,7 +261,7 @@ const SDCard = ({
                                 </label>
                               </div>
                             </div>
-                            <div className="card">
+                            <div className="card mb-4">
                               <div className="card-body">
                                 <div className="form-group px-3">
                                   <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingType')} name="sdRecordingType">
@@ -253,10 +269,16 @@ const SDCard = ({
                                       <option key={type.value} value={type.value}>{type.label}</option>
                                     ))}
                                   </SelectField>
-                                  <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingResolution')} name="sdRecordingStream">
+                                  <SelectField row wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingResolution')} name="sdRecordingStream">
                                     {mockSchema.stream.map(stream => (
                                       <option key={stream.value} value={stream.value}>{stream.label}</option>
                                     ))}
+                                  </SelectField>
+                                  <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('Resolution FPS')} name="frameRate">
+                                    <option key={30} value={30}>30</option>
+                                  </SelectField>
+                                  <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('Resolution Codec')} name="codec">
+                                    <option key="h264" value="h264">H264</option>
                                   </SelectField>
                                   <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingDuration')} name="sdRecordingDuration">
                                     {mockSchema.duration.map(duration => (
@@ -271,6 +293,12 @@ const SDCard = ({
                                 </div>
                               </div>
                             </div>
+                            <button
+                              className="btn btn-block btn-primary rounded-pill"
+                              type="submit"
+                            >
+                              {i18n.t('common.button.apply')}
+                            </button>
                           </Tab.Pane>
                         </Tab.Content>
                       </div>
