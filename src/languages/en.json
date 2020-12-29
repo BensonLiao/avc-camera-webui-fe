@@ -83,7 +83,11 @@
       "Non-existent Photo": "Non-existent Face Thumbnail",
       "Invalid Key": "Invalid Key",
       "Duplicate Key": "Duplicate Key",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Cannot Support Database Downgrade from 30,000 to 3000 People"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Cannot Support Database Downgrade from 30,000 to 3000 People",
+      "DEVICE_CONNECTION_FAIL": "Device Connection Failed",
+      "DEVICE_LOGIN_FAIL": "Device Login Failed",
+      "DUPLICATE_DEVICE_IP": "Duplicate Device IP",
+      "INVALID_DEVICE_ID": "Invalid Device ID"
     },
     "dateTimePicker": {
       "date": "Date",

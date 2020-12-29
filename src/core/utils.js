@@ -897,5 +897,13 @@ module.exports.getApiErrorMessageI18N = errorMessage => {
       return i18n.t('common.toast.Duplicate Key');
     case 'Cannot Support Database Downgrade from 30,000 to 3000 People':
       return i18n.t('common.toast.Cannot Support Database Downgrade from 30,000 to 3000 People');
+    case 'DEVICE_CONNECTION_FAIL':
+      return i18n.t('common.toast.DEVICE_CONNECTION_FAIL');
+    case 'DEVICE_LOGIN_FAIL':
+      return i18n.t('common.toast.DEVICE_LOGIN_FAIL');
+    case 'DUPLICATE_DEVICE_IP':
+      return i18n.t('common.toast.DUPLICATE_DEVICE_IP');
+    case 'INVALID_DEVICE_ID':
+      return i18n.t('common.toast.INVALID_DEVICE_ID');
   }
 };

@@ -83,7 +83,11 @@
       "Non-existent Photo": "Miniatura de Cara inexistente",
       "Invalid Key": "Activación fallida, código de activación incorrecto",
       "Duplicate Key": "Activación fallida, código de activación repetido",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros",
+      "DEVICE_CONNECTION_FAIL": "",
+      "DEVICE_LOGIN_FAIL": "",
+      "DUPLICATE_DEVICE_IP": "",
+      "INVALID_DEVICE_ID": ""
     },
     "dateTimePicker": {
       "date": "fecha",

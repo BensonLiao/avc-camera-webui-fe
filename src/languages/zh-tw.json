@@ -83,7 +83,11 @@
       "Non-existent Photo": "事件截圖不存在",
       "Invalid Key": "啟用失敗，錯誤的啟動碼",
       "Duplicate Key": "啟用失敗，重複的啟動碼",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "啟用失敗，不支援臉部辨識成員上限從30,000人下降到3,000人",
+      "DEVICE_CONNECTION_FAIL": "",
+      "DEVICE_LOGIN_FAIL": "",
+      "DUPLICATE_DEVICE_IP": "",
+      "INVALID_DEVICE_ID": ""
     },
     "dateTimePicker": {
       "date": "日期",
