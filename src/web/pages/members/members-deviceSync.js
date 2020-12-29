@@ -359,13 +359,13 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                                         <ProgressIndicator
                                           isDetermined={false}
                                           status="start"
-                                          className="ml-0"
+                                          className="ml-0 mr-2"
                                         />
                                         <span>{i18n.t('userManagement.members.syncing')}</span>
                                       </div>
                                     ) : (
                                       <div className="d-flex align-items-center">
-                                        <i className="fas fa-lg fa-check-circle fa-fw mr-2"/>
+                                        <i className="fas fa-lg fa-check-circle mr-2"/>
                                         <span>{i18n.t('userManagement.members.done')}</span>
                                       </div>
                                     )
@@ -373,18 +373,18 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                                     device.lastUpdateTime ? (
                                       <CustomTooltip title={formatDate(device.lastUpdateTime)}>
                                         <span>
-                                          <i className="fas fa-lg fa-check-circle fa-fw mr-2"/>
+                                          <i className="fas fa-lg fa-check-circle mr-2"/>
                                           {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
                                         </span>
                                       </CustomTooltip>
                                     ) : (
                                       device.connectionStatus ? (
                                         <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
-                                          <i className="fas fa-link fa-fw"/>
+                                          <i className="fas fa-lg fa-link fa-fw"/>
                                         </CustomTooltip>
                                       ) : (
                                         <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
-                                          <i className="fas fa-unlink fa-fw"/>
+                                          <i className="fas fa-lg fa-unlink"/>
                                         </CustomTooltip>
                                       )
                                     )

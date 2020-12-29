@@ -42,6 +42,16 @@
     .fa-check-circle {
       color: $success;
     }
+
+    .loading-spinners {
+      width: 1.3333em;
+      height: 1.3333em;
+
+      .spinner {
+        width: 1.3333em;
+        height: 1.3333em;
+      }
+    }
   }
 }
 
