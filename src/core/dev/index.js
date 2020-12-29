@@ -696,7 +696,7 @@ mockAxios
   })
   .onDelete('/api/members/device-sync').reply(config => {
     const devices = JSON.parse(config.data);
-    devices.forEach(deviceID => db.get('deviceSync.devices').remove({id: deviceID}).write());
+    devices.devices.forEach(deviceID => db.get('deviceSync.devices').remove({id: deviceID}).write());
     return setDelay(mockResponseWithLog(config, [204, {}]), 500);
   })
   .onPost('/api/members/sync-db').reply(config => {

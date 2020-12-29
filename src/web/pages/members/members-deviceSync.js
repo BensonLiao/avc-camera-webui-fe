@@ -150,22 +150,16 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
     hideConfirmModal();
     setIsShowApiProcessModal(true);
     localStorage.setItem('currentPage', 'sync');
-    if (isArray(list)) {
-      const itemsToDelete = list.flat().filter(device => device.isChecked)
-        .reduce((arr, item) => {
-          arr.push(item.id);
-          return arr;
-        }, []);
-      // Delete multiple devices
-      api.member.deleteDevice(itemsToDelete)
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
-    } else {
-      // Delete single device
-      api.member.deleteDevice([list])
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
-    }
+    const isListArray = isArray(list);
+    const itemsToDelete = () => list.flat().filter(device => device.isChecked)
+      .reduce((arr, item) => {
+        arr.push(item.id);
+        return arr;
+      }, []);
+
+    api.member.deleteDevice({devices: isListArray ? itemsToDelete() : [list]})
+      .then(getRouter().reload)
+      .finally(hideApiProcessModal);
   };
 
   /**
