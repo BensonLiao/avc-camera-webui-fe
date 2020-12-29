@@ -16,6 +16,7 @@ import ProgressIndicator from '../../../core/components/progress-indicator';
 
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
+const ITEMS_PER_PAGE = 10;
 
 const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
@@ -32,7 +33,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
     return getPaginatedData(devices.map(device => ({
       ...device,
       isChecked: false
-    })), 10);
+    })), ITEMS_PER_PAGE);
   };
 
   const [deviceList, setDeviceList] = useState(generatePaginatedDeviceList(devices));
@@ -427,7 +428,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
               <Pagination
                 name="page"
                 index={page}
-                size={5}
+                size={ITEMS_PER_PAGE}
                 total={deviceList.flat().length}
                 currentPageItemQuantity={deviceList[page] ? deviceList[page].length : 0}
                 hrefTemplate=""
