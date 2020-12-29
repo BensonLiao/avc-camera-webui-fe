@@ -91,12 +91,12 @@ const SDCard = ({
 
   const onSubmit = values => {
     const formValues = {
-      sdRecordingStatus: Number(values.sdRecordingStatus),
-      sdRecordingDuration: Number(values.sdRecordingDuration),
+      sdRecordingStatus: values.sdRecordingStatus,
+      sdRecordingDuration: values.sdRecordingDuration,
       sdRecordingEnabled: values.sdRecordingEnabled,
       sdRecordingLimit: values.sdRecordingLimit,
-      sdRecordingStream: Number(values.sdRecordingStream),
-      sdRecordingType: Number(values.sdRecordingType)
+      sdRecordingStream: values.sdRecordingStream,
+      sdRecordingType: values.sdRecordingType
     };
     progress.start();
     api.system.updateSDCardRecordingSettings(formValues)
