@@ -701,7 +701,7 @@ mockAxios
   })
   .onPost('/api/members/sync-db').reply(config => {
     const {devices, syncStatus} = db.get('deviceSync').value();
-    const devicesToSync = JSON.parse(config.data);
+    const devicesToSync = JSON.parse(config.data).devices;
     let syncProcess = db.get('deviceSyncProcess').value();
 
     // Start sync process
