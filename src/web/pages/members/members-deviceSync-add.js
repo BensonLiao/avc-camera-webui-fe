@@ -33,12 +33,16 @@ const DeviceSyncAddDevice = ({device, isShowDeviceModal, hideDeviceModal}) => {
 
     if (device) {
       api.member.editDevice(values)
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
+        .finally(() => {
+          hideApiProcessModal();
+          getRouter().reload();
+        });
     } else {
       api.member.addDevice(values)
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
+        .finally(() => {
+          hideApiProcessModal();
+          getRouter().reload();
+        });
     }
   };
 
