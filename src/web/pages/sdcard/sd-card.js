@@ -119,8 +119,8 @@ const SDCard = ({
                 <div className="card-header">{i18n.t('sdCard.basic.title')}</div>
                 <Formik
                   initialValues={{
-                    frameRate: streamSettings[sdCardRecordingSettings.sdRecordingStream === '1' ? 'channelA' : 'channelB'].frameRate,
-                    codec: streamSettings[sdCardRecordingSettings.sdRecordingStream === '1' ? 'channelA' : 'channelB'].codec,
+                    frameRate: streamSettings[sdCardRecordingSettings.sdRecordingStream === 1 ? 'channelA' : 'channelB'].frameRate,
+                    codec: streamSettings[sdCardRecordingSettings.sdRecordingStream === 1 ? 'channelA' : 'channelB'].codec,
                     ...systemInformation,
                     ...sdCardRecordingSettings
                   }}
@@ -167,7 +167,6 @@ const SDCard = ({
                             </div>
                             <div className="card-body">
                               <div className="form-group mb-0">
-                                <label className="mb-3">{i18n.t('sdCard.basic.title')}</label>
                                 <VolumeProgressBar
                                   total={sdTotal}
                                   usage={sdUsage}

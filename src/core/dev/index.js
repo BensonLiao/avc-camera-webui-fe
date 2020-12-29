@@ -178,9 +178,15 @@ mockAxios
   .onGet('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').value()]))
   .onGet('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').value()]))
   .onPost('/api/system/systeminfo/sdcard-recording').reply(config => {
+    const info = JSON.parse(config.data);
     const data = {
       ...db.get('sdCardRecordingSettings').value(),
-      ...JSON.parse(config.data)
+      ...info,
+      sdRecordingDuration: Number(info.sdRecordingDuration),
+      sdRecordingLimit: info.sdRecordingLimit === 'true',
+      sdRecordingStatus: Number(info.sdRecordingStatus),
+      sdRecordingStream: Number(info.sdRecordingStream),
+      sdRecordingType: Number(info.sdRecordingType)
     };
     return mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').assign(data).write()]);
   })
