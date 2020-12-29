@@ -1,18 +1,22 @@
 
 import classNames from 'classnames';
+import dayjs from 'dayjs';
 import {Formik, Form, Field} from 'formik';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import i18n from '../../../i18n';
+import api from '../../../core/apis/web-api';
 import DateTimePicker from '../../../core/components/fields/datetime-picker';
-import utils from '../../../core/utils';
+import withGlobalStatus from '../../withGlobalStatus';
+import {useContextState} from '../../stateProvider';
 
-const SDCardStorageSearchForm = ({params, isApiProcessing}) => {
+const SDCardStorageSearchForm = ({generatePaginatedCheckList, updateSearchResult}) => {
+  const {isApiProcessing} = useContextState();
   const [state, setState] = useState({isShowStartDatePicker: false});
 
   const {isShowStartDatePicker} = state;
 
-  const searchFromInitialValues = {start: params.start ? utils.subtractTimezoneOffset(new Date(params.start)) : null};
+  const formInitialValues = {date: new Date()};
 
   const toggleStartDatePicker = () => setState(prevState => ({isShowStartDatePicker: !prevState.isShowStartDatePicker}));
 
@@ -23,24 +27,26 @@ const SDCardStorageSearchForm = ({params, isApiProcessing}) => {
 
   /**
    * Handler on user submit the search form.
-   * @param {String} start
-   * @param {String} end
+   * @param {String} date
    * @returns {void}
    */
-  const onSubmitSearchForm = ({start}) => {
-    console.log('start', start);
+  const onSubmitSearchForm = ({date}) => {
+    api.system.getSDCardStorageFiles(dayjs(date).format('YYYY-MM-DD'))
+      .then(response => {
+        updateSearchResult(generatePaginatedCheckList(response.data));
+      });
   };
 
   return (
     <Formik
-      initialValues={searchFromInitialValues}
+      initialValues={formInitialValues}
       onSubmit={onSubmitSearchForm}
     >
       <Form>
         <div className="d-inline-flex">
           <div className="form-row datepicker-wrapper">
             <Field
-              name="start"
+              name="date"
               component={DateTimePicker}
               dateTabText={i18n.t('common.dateTimePicker.date')}
               dateFormat="YYYY-MM-DD"
@@ -68,8 +74,8 @@ const SDCardStorageSearchForm = ({params, isApiProcessing}) => {
 };
 
 SDCardStorageSearchForm.propTypes = {
-  params: PropTypes.shape({start: PropTypes.any}).isRequired,
-  isApiProcessing: PropTypes.bool.isRequired
+  generatePaginatedCheckList: PropTypes.func.isRequired,
+  updateSearchResult: PropTypes.func.isRequired
 };
 
-export default SDCardStorageSearchForm;
+export default withGlobalStatus(SDCardStorageSearchForm);

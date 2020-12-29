@@ -178,9 +178,10 @@ mockAxios
   .onGet('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').value()]))
   .onGet('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdRecordingSettings').value()]))
   .onPost('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdRecordingSettings').assign(JSON.parse(config.data)).write()]))
-  .onPost('/api/system/systeminfo/sdcard-storage').reply(config =>
-    mockResponseWithLog(config, [200, db.get('sdCardStorage.files').value()])
-  )
+  .onPost('/api/system/systeminfo/sdcard-storage').reply(config => {
+    const {date: searchDate} = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('sdCardStorage.files').filter({date: searchDate}).value()]);
+  })
   .onPost('/api/system/systeminfo/sdcard-storage/date-list').reply(config =>
     mockResponseWithLog(config, [200, db.get('sdCardStorage.filesDateList').value()])
   )

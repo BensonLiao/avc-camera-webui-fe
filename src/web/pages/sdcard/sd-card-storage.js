@@ -16,7 +16,6 @@ import SDCardStorageSearchForm from './sd-card-storage-search-form';
 
 const SDCardStorage = ({files, dateList}) => {
   console.log('dateList', dateList);
-  console.log('files', files);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
@@ -32,8 +31,7 @@ const SDCardStorage = ({files, dateList}) => {
     })), 5);
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const [paginatedCheckList, setPaginatedCheckList] = useState(generatePaginatedCheckList(files));
+  const [paginatedCheckList] = useState(generatePaginatedCheckList(files));
 
   const showConfirmModal = () => setIsShowConfirmModal(true);
 
@@ -77,7 +75,6 @@ const SDCardStorage = ({files, dateList}) => {
     const checked = values.flat().filter(device => device.isChecked);
     // Sync api
     console.log(JSON.stringify(checked, null, 2));
-    getRouter().reload();
   };
 
   /**
@@ -167,8 +164,8 @@ const SDCardStorage = ({files, dateList}) => {
                     <FormikEffect onChange={onChangeCardForm}/>
                     <div className="col-12 d-flex justify-content-between align-items-center mb-4">
                       <SDCardStorageSearchForm
-                        params={{start: new Date()}}
-                        isApiProcessing={false}
+                        generatePaginatedCheckList={generatePaginatedCheckList}
+                        updateSearchResult={values => form.setValues(values)}
                       />
                       <div className="float-right d-inline-flex">
                         <CustomTooltip placement="top" show={disableButton} title={i18n.t('userManagement.members.tooltip.noDevice')}>
@@ -227,8 +224,8 @@ const SDCardStorage = ({files, dateList}) => {
                         </thead>
                         <tbody>
                           {
-                            files.length ? (
-                              paginatedCheckList[page] && paginatedCheckList[page].map((pageData, index) => {
+                            form.values.length && form.values[page].length ? (
+                              form.values[page] && form.values[page].map((pageData, index) => {
                                 return (
                                   <tr
                                     key={pageData.id}
@@ -302,8 +299,8 @@ const SDCardStorage = ({files, dateList}) => {
                       name="page"
                       index={page}
                       size={5}
-                      total={paginatedCheckList.flat().length}
-                      currentPageItemQuantity={paginatedCheckList[page] ? paginatedCheckList[page].length : 0}
+                      total={form.values.flat().length}
+                      currentPageItemQuantity={form.values[page] ? form.values[page].length : 0}
                       hrefTemplate=""
                       setPageIndexState={setPage}
                     />
