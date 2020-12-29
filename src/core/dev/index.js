@@ -207,7 +207,7 @@ mockAxios
         return mockResponseWithLog(config, [200, new Blob()]);
       });
   })
-  .onPost('/api/system/systeminfo/sdcard-storage/delete').reply(config => {
+  .onDelete('/api/system/systeminfo/sdcard-storage/delete').reply(config => {
     const {files} = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('sdCardStorage.files').remove(file => files.indexOf(file.path) > -1).write()]);
   })
