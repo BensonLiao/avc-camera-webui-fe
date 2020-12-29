@@ -477,7 +477,7 @@ module.exports = {
      * - status
      */
     deleteSDCardStorageFiles: files => api({
-      method: 'post',
+      method: 'delete',
       url: '/api/system/systeminfo/sdcard-storage/delete',
       data: {files}
     }),
