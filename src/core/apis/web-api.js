@@ -1415,9 +1415,8 @@ module.exports = {
      */
     editDevice: ({id, ip, port, account, password}) => api({
       method: 'put',
-      url: '/api/members/device-sync',
+      url: `/api/members/device-sync/${id}`,
       data: {
-        id,
         ip,
         port,
         account,
