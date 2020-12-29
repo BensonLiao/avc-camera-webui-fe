@@ -683,11 +683,10 @@ mockAxios
     const list = db.get('deviceSync.devices').value();
     const item = JSON.parse(config.data);
     const newItem = {
-      id: list[list.length - 1].id + 1,
+      id: list.length === 0 ? 1 : list[list.length - 1].id + 1,
       ip: item.ip,
       port: Number(item.port),
-      // randomly generated device ID
-      name: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
+      name: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`, // Randomly generated device name
       account: item.account,
       connectionStatus: Math.random() * 5 > 1 ? 1 : 0, // Generate failed connection with 50% chance
       lastUpdateTime: 0,
