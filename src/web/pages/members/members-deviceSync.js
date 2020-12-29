@@ -151,13 +151,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
     setIsShowApiProcessModal(true);
     localStorage.setItem('currentPage', 'sync');
     const isListArray = isArray(list);
-    const itemsToDelete = () => list.flat().filter(device => device.isChecked)
-      .reduce((arr, item) => {
-        arr.push(item.id);
-        return arr;
-      }, []);
-
-    api.member.deleteDevice({devices: isListArray ? itemsToDelete() : [list]})
+    api.member.deleteDevice({devices: isListArray ? checkedItemsToArray(list) : [list]})
       .then(getRouter().reload)
       .finally(hideApiProcessModal);
   };
@@ -173,19 +167,26 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
   };
 
   /**
+   * Return array of selected items from given list
+   * @param {Object} list - Formik form values
+   * @returns {Array}
+   */
+  const checkedItemsToArray = list => list.flat().filter(device => device.isChecked)
+    .reduce((arr, item) => {
+      arr.push(item.id);
+      return arr;
+    }, []);
+
+  /**
    * Sync selected Databases
-   * @param {Object} values - form values
+   * @param {Object} list - form values
    * @returns {void}
    */
-  const syncDB = values => {
+  const syncDB = list => {
     localStorage.setItem('currentPage', 'sync');
-    const checked = values.flat().filter(device => device.isChecked)
-      .reduce((arr, item) => {
-        arr.push(item.id);
-        return arr;
-      }, []);
+    const checkedDevices = checkedItemsToArray(list);
     getRouter().reload();
-    api.member.syncDB(checked);
+    api.member.syncDB({devices: checkedDevices});
   };
 
   // Check if DB sync process is in progress
