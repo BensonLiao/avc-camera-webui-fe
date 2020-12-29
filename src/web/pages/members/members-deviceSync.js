@@ -212,7 +212,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
         }
       });
 
-    if (syncStatus) {
+    if (syncStatus !== 0 || syncStatus !== 8) {
       refreshList();
       syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
     }
