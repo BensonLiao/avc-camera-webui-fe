@@ -84,6 +84,7 @@ module.exports = class Pagination extends React.PureComponent {
     const startItem = (index * size) + 1;
     const endItem = startItem + currentPageItemQuantity - 1;
     const {gotoIndex} = this.state;
+    this.maxGotoIndex = Math.ceil(total / size);
 
     for (let idx = index - 3; idx < index + 3; idx += 1) {
       if (idx < 0 || idx >= this.maxGotoIndex) {
