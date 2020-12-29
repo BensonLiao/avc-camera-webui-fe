@@ -1,9 +1,11 @@
 import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {getRouter} from '@benson.liao/capybara-router';
-import CustomTooltip from '../../../core/components/tooltip';
+import download from 'downloadjs';
+import progress from 'nprogress';
 import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
+import wrappedApi from '../../../core/apis';
 import {Formik, Form, Field} from 'formik';
 import {getPaginatedData, isArray} from '../../../core/utils';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
@@ -12,6 +14,8 @@ import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
 import classNames from 'classnames';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import CustomTooltip from '../../../core/components/tooltip';
+import StageProgress from '../../../core/components/stage-progress';
 import SDCardStorageSearchForm from './sd-card-storage-search-form';
 
 const SDCardStorage = ({files, dateList}) => {
@@ -19,8 +23,10 @@ const SDCardStorage = ({files, dateList}) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
-  const [deleteDeviceID, setDeleteDeviceID] = useState();
+  const [deleteFile, setDeleteFile] = useState();
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
+  const [isShowProgressModal, setIsShowProgressModal] = useState(false);
+  const [progressPercentage, setProgressPercentage] = useState(0);
   const selectAllRef = useRef();
   const formRef = useRef();
 
@@ -30,6 +36,10 @@ const SDCardStorage = ({files, dateList}) => {
       isChecked: false
     })), 5);
   };
+
+  const getFinalSelectedList = list => isArray(list) ?
+    list.flat().filter(value => value.isChecked).map(value => value.path) :
+    [list];
 
   const [paginatedCheckList] = useState(generatePaginatedCheckList(files));
 
@@ -44,37 +54,40 @@ const SDCardStorage = ({files, dateList}) => {
    * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
    * @returns {void}
    */
-  const deleteDevice = list => _ => {
+  const deleteFiles = list => _ => {
     hideConfirmModal();
     setIsShowApiProcessModal(true);
-    localStorage.setItem('currentPage', 'sync');
-    if (isArray(list)) {
-      const itemsToDelete = list.flat().filter(device => device.isChecked)
-        .reduce((arr, item) => {
-          arr.push(item.id);
-          return arr;
-        }, []);
-      // Delete multiple devices
-      api.member.deleteDevice(itemsToDelete)
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
-    } else {
-      // Delete single device
-      api.member.deleteDevice([list])
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
-    }
+    api.system.deleteSDCardStorageFiles(getFinalSelectedList(list))
+      .then(getRouter().reload)
+      .finally(hideApiProcessModal);
   };
 
-  const confirmDelete = (deviceID = null) => _ => {
+  const confirmDelete = (filePath = null) => _ => {
     showConfirmModal(true);
-    setDeleteDeviceID(deviceID);
+    setDeleteFile(filePath);
   };
 
-  const syncDB = values => {
-    const checked = values.flat().filter(device => device.isChecked);
-    // Sync api
-    console.log(JSON.stringify(checked, null, 2));
+  const downloadFiles = list => {
+    progress.start();
+    setIsShowProgressModal(true);
+    setProgressPercentage(0);
+    wrappedApi({
+      method: 'get',
+      url: '/api/system/systeminfo/sdcard-storage/download',
+      responseType: 'blob',
+      data: {files: getFinalSelectedList(list)},
+      onDownloadProgress: progressEvent => {
+        // Do whatever you want with the native progress event
+        setProgressPercentage(Math.round((progressEvent.loaded / progressEvent.total) * 100));
+      }
+    })
+      .then(response => {
+        download(response.data, 'sdcard_files');
+      })
+      .finally(() => {
+        progress.done();
+        setIsShowProgressModal(false);
+      });
   };
 
   /**
@@ -155,7 +168,6 @@ const SDCardStorage = ({files, dateList}) => {
             <Formik
               innerRef={formRef}
               initialValues={paginatedCheckList}
-              onSubmit={syncDB}
             >
               {form => {
                 const disableButton = !form.values.flat().some(value => value.isChecked);
@@ -189,7 +201,7 @@ const SDCardStorage = ({files, dateList}) => {
                               type="button"
                               disabled={disableButton}
                               style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                              onClick={confirmDelete()}
+                              onClick={() => downloadFiles(form.values)}
                             >
                               <i className="fas fa-download mr-2"/>
                               {i18n.t('sdCard.storage.button.download')}
@@ -266,13 +278,14 @@ const SDCardStorage = ({files, dateList}) => {
                                       <button
                                         className="btn btn-link"
                                         type="button"
+                                        onClick={() => downloadFiles(pageData.path)}
                                       >
                                         <i className="fas fa-download"/>
                                       </button>
                                       <button
                                         className="btn btn-link"
                                         type="button"
-                                        onClick={confirmDelete(pageData.id)}
+                                        onClick={confirmDelete(pageData.path)}
                                       >
                                         <i className="far fa-trash-alt fa-lg fa-fw"/>
                                       </button>
@@ -311,7 +324,7 @@ const SDCardStorage = ({files, dateList}) => {
                       modalTitle={i18n.t('userManagement.members.modal.SDCardStorage.confirmDeleteTitle')}
                       modalBody={i18n.t('userManagement.members.modal.SDCardStorage.confirmDeleteBody')}
                       onHide={hideConfirmModal}
-                      onConfirm={deleteDevice(deleteDeviceID ? deleteDeviceID : form.values)}
+                      onConfirm={deleteFiles(deleteFile ? deleteFile : form.values)}
                     />
                   </Form>
                 );
@@ -324,6 +337,22 @@ const SDCardStorage = ({files, dateList}) => {
               isShowModal={isShowApiProcessModal}
               modalTitle={i18n.t('userManagement.members.modal.SDCardStorage.deleteDeviceApiProcessingModal')}
               onHide={hideApiProcessModal}
+            />
+            {/* download progress modal */}
+            <CustomNotifyModal
+              modalType="process"
+              backdrop="static"
+              isShowModal={isShowProgressModal}
+              modalTitle={i18n.t('system.systemLog.modal.apiProcessModalTitle')}
+              modalBody={[
+                <StageProgress
+                  key="stage 1"
+                  title={i18n.t('system.systemLog.modal.downloadingBody')}
+                  progressStatus="start"
+                  progressPercentage={progressPercentage}
+                />
+              ]}
+              onHide={() => setIsShowProgressModal(false)}
             />
           </div>
         </div>
