@@ -204,8 +204,8 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
         return syncStatus.data.devices;
       })
       .then(devices => {
-        // Stop pinging if status is 0 or 1 (Not yet started or syncing)
-        if (!devices.some(device => device.syncStatus === 0 || device.syncStatus === 1)) {
+        // Stop pinging if status is 0 or 1 (Not yet started or syncing) -AND- master device sync status is 8 (all finished, regardless or errors)
+        if (!devices.some(device => device.syncStatus === 0 || device.syncStatus === 1) && syncStatus === 8) {
           localStorage.setItem('currentPage', 'sync');
           clearInterval(syncID);
           getRouter().reload();
@@ -380,7 +380,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                                     ) : (
                                       device.connectionStatus ? (
                                         <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
-                                          <i className="fas fa-lg fa-link fa-fw"/>
+                                          <i className="fas fa-lg fa-link"/>
                                         </CustomTooltip>
                                       ) : (
                                         <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
