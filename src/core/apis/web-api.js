@@ -1438,7 +1438,7 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      */
-    syncDB: (devices = {}) => api({
+    syncDB: (devices = {devices: []}) => api({
       method: 'post',
       url: '/api/members/sync-db',
       data: devices
