@@ -688,21 +688,57 @@ mockAxios
     return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').find({id: newItem.id}).assign(newItem).write()]), 500);
   })
   .onPost('/api/members/device-sync').reply(config => {
+    const list = db.get('deviceSync.devices').value();
     const item = JSON.parse(config.data);
     const newItem = {
-      id: uuidv4(),
+      id: list[list.length - 1].id + 1,
       ip: item.ip,
-      port: item.port,
+      port: Number(item.port),
       // randomly generated device ID
-      deviceName: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
-      account: item.account
+      name: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
+      account: item.account,
+      connectionStatus: Math.random() * 5 > 1 ? 1 : 0, // Generate failed connection with 50% chance
+      lastUpdateTime: 0,
+      syncStatus: 0
     };
     return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').push(newItem).write()]), 500);
   })
   .onDelete('/api/members/device-sync').reply(config => {
     const devices = JSON.parse(config.data);
-    devices.forEach(deviceID => db.get('deviceSync.devices').remove({id: deviceID}).write());
+    devices.devices.forEach(deviceID => db.get('deviceSync.devices').remove({id: deviceID}).write());
     return setDelay(mockResponseWithLog(config, [204, {}]), 500);
+  })
+  .onPost('/api/members/sync-db').reply(config => {
+    const {devices, syncStatus} = db.get('deviceSync').value();
+    const devicesToSync = JSON.parse(config.data).devices;
+    let syncProcess = db.get('deviceSyncProcess').value();
+
+    // Start sync process
+    if (!syncStatus) {
+      // Set sync process indicator on
+      db.get('deviceSync').assign({syncStatus: 1}).write();
+      const itemsSyncing = devices.filter(device => devicesToSync.includes(device.id))
+        .map(device => ({
+          ...device,
+          syncStatus: 1
+        }));
+      syncProcess.devices = itemsSyncing;
+      db.get('deviceSyncProcess').assign(syncProcess).write();
+      return setDelay(mockResponseWithLog(config, [200, itemsSyncing]), 500);
+    }
+
+    const processingDevice = syncProcess.devices.find(device => device.syncStatus === 1);
+    if (processingDevice) {
+      syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].syncStatus = 2;
+    } else {
+      db.get('deviceSync').assign({syncStatus: 0}).write();
+      db.get('deviceSyncProcess').assign({
+        devices: [],
+        sourceStatus: 0
+      }).write();
+    }
+
+    return setDelay(mockResponseWithLog(config, [200, syncProcess]), 500);
   })
   .onGet('/api/face-recognition/settings').reply(config => {
     const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
@@ -712,10 +748,6 @@ mockAxios
       ...faceRecognitionSettings,
       triggerArea: triggerArea
     }]);
-  })
-  .onPost('/api/members/sync-db').reply(config => {
-    db.get('deviceSync').assign(JSON.parse(config.data)).write();
-    return setDelay(mockResponseWithLog(config, [200, {}]), 500);
   })
   .onGet('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]))
   .onPut('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))

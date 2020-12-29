@@ -83,7 +83,11 @@
       "Non-existent Photo": "存在しない顔ショット",
       "Invalid Key": "無効なライセンスキー",
       "Duplicate Key": "アクティベーションに失敗しました。ライセンスキーが重複してます",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません",
+      "DEVICE_CONNECTION_FAIL": "",
+      "DEVICE_LOGIN_FAIL": "",
+      "DUPLICATE_DEVICE_IP": "",
+      "INVALID_DEVICE_ID": ""
     },
     "dateTimePicker": {
       "date": "日付",
@@ -166,7 +170,9 @@
       "importDB": "",
       "import": "インポート",
       "host": "",
+      "syncing": "",
       "tooltip": {
+        "invalidSelection": "",
         "noDevice": "",
         "connected": "",
         "notConnected": "",
@@ -177,10 +183,13 @@
         "photoLimitExceeded": "写真数の上限に達しました"
       },
       "synchronize": "",
+      "removeUnlinked": "",
       "remove": "",
       "deviceName": "",
       "status": "",
       "actions": "操作",
+      "done": "",
+      "lastUpdated": "",
       "noDevice": "",
       "searchPlaceholder": "キーワードを入力",
       "search": "検索",
@@ -405,6 +414,8 @@
     "birthday": "正しい生年月日を入力してください",
     "countryCode": "国コードが間違っています",
     "duplicateName": "名前が重複しました、他の名前に設定してください",
+    "identicalIP": "",
+    "duplicateIP": "",
     "maxRecipient": "最大受信者数：64",
     "duplicateEmail": "重複するメールアドレス"
   },

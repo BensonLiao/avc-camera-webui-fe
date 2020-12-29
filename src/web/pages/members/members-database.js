@@ -11,9 +11,9 @@ import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
 import databaseEncryptionValidator from '../../validations/members/database-encryption-validator';
+import notify from '../../../core/notify';
 import Password from '../../../core/components/fields/password';
 import wrappedApi from '../../../core/apis';
-import notify from '../../../core/notify';
 
 const MembersDatabase = ({isApiProcessing}) => {
   const [state, setState] = useState({
