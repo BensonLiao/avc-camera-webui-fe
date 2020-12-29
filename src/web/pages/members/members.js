@@ -17,7 +17,7 @@ import DeviceSync from './members-deviceSync';
 import {useContextState} from '../../stateProvider';
 import withGlobalStatus from '../../withGlobalStatus';
 
-const Members = ({groups, members, params, remainingPictureCount, deviceSync}) => {
+const Members = ({groups, members, params, remainingPictureCount, deviceSync, networkSettings: {ipAddress}}) => {
   const {isApiProcessing} = useContextState();
   const currentRoute = getRouter().findRouteByName('web.users.members');
 
@@ -255,6 +255,7 @@ const Members = ({groups, members, params, remainingPictureCount, deviceSync}) =
                 <div className="col-12 sync">
                   <DeviceSync
                     deviceSync={deviceSync}
+                    ipAddress={ipAddress}
                   />
                 </div>
               )}
@@ -276,7 +277,8 @@ Members.propTypes = {
   groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
   members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
   remainingPictureCount: PropTypes.number.isRequired,
-  deviceSync: PropTypes.any
+  deviceSync: PropTypes.any,
+  networkSettings: PropTypes.shape({ipAddress: PropTypes.string.isRequired}).isRequired
 };
 
 export default withGlobalStatus(Members);

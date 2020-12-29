@@ -17,7 +17,7 @@ import ProgressIndicator from '../../../core/components/progress-indicator';
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
 
-const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
+const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [device, setDevice] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
@@ -289,6 +289,8 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}}) => {
                 </div>
                 <DeviceSyncAddDevice
                   device={device}
+                  devices={devices}
+                  ipAddress={ipAddress}
                   isShowDeviceModal={isShowDeviceModal}
                   hideDeviceModal={hideDeviceModal}
                 />
@@ -469,7 +471,8 @@ DeviceSync.propTypes = {
       syncStatus: PropTypes.number.isRequired
     })),
     syncStatus: PropTypes.number.isRequired
-  }).isRequired
+  }).isRequired,
+  ipAddress: PropTypes.string.isRequired
 };
 
 export default DeviceSync;

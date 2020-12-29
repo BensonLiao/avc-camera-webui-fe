@@ -414,6 +414,8 @@
     "birthday": "正しい生年月日を入力してください",
     "countryCode": "国コードが間違っています",
     "duplicateName": "名前が重複しました、他の名前に設定してください",
+    "identicalIP": "",
+    "duplicateIP": "",
     "maxRecipient": "最大受信者数：64",
     "duplicateEmail": "重複するメールアドレス"
   },

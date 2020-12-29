@@ -414,6 +414,8 @@
     "birthday": "請使用正確的生日格式",
     "countryCode": "國家代碼錯誤",
     "duplicateName": "名稱重複，請使用不同名稱",
+    "identicalIP": "",
+    "duplicateIP": "",
     "maxRecipient": "已達數量限制",
     "duplicateEmail": "重複的電子郵件地址"
   },

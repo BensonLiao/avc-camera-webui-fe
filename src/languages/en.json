@@ -414,6 +414,8 @@
     "birthday": "This field must be a valid birthday.",
     "countryCode": "This field must be a valid country code.",
     "duplicateName": "This name already exists in the system. Please use a different name.",
+    "identicalIP": "Same IP as current device",
+    "duplicateIP": "Duplicate device IP",
     "maxRecipient": "The maximum number of recipients is 64.",
     "duplicateEmail": "Duplicate email address."
   },

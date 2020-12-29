@@ -414,6 +414,8 @@
     "birthday": "Utilice el formato de cumpleaños correcto",
     "countryCode": "El código de país es incorrecto",
     "duplicateName": "Nombre duplicado, por favorutilice un nombre diferente",
+    "identicalIP": "",
+    "duplicateIP": "",
     "maxRecipient": "El número máximo de destinatarios es 64",
     "duplicateEmail": "El correo electrónico esta duplicado"
   },
