@@ -353,7 +353,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                               </td>
                               <td>
                                 <div>
-                                  { device.syncStatus ? (
+                                  { device.syncStatus && syncStatus === 1 ? (
                                     device.syncStatus === 1 ? (
                                       <div className="d-flex align-items-center">
                                         <ProgressIndicator
