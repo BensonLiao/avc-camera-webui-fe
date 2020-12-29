@@ -17,8 +17,19 @@
 }
 
 // volume-progress-bar.js
+.volume-progress-bar-round {
+  display: flex;
+  flex-direction: column;
+}
+
+.sdcard-main {
+  width: 73%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 $bg-color: #34495e;
-$default-size: 1em;
+$default-size: 6rem;
 $label-font-size: $default-size / 4;
 $label-font-size-redo: $default-size * 4;
 
@@ -74,27 +85,14 @@ $label-font-size-redo: $default-size * 4;
     }
   }
 
-  .label {
-    background: $bg-color;
-    border-radius: 50%;
-    bottom: $label-font-size-redo / 10;
+  .img {
+    background: none;
     color: #ecf0f1;
     cursor: default;
     display: block;
-    font-size: $label-font-size;
-    left: $label-font-size-redo / 10;
-    line-height: $label-font-size-redo * .70;
+    left: 2.05rem;
     position: absolute;
-    right: $label-font-size-redo / 10;
-    text-align: center;
-    top: $label-font-size-redo / 10;
-
-    .smaller {
-      color: #bdc3c7;
-      font-size: .45em;
-      padding-bottom: 20px;
-      vertical-align: super;
-    }
+    top: 2.05rem;
   }
 
   .shadow {
@@ -120,4 +118,3 @@ $label-font-size-redo: $default-size * 4;
     }
   }
 }
-

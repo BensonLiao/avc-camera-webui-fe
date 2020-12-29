@@ -128,62 +128,53 @@ const SDCard = ({
                 >
                   {({values, setFieldValue}) => (
                     <Form>
-                      <div className="card-body sdcard">
+                      <div className="card-body sdcard d-flex" style={{justifyContent: 'space-between'}}>
                         <FormikEffect onChange={onChangeSdCardSetting}/>
-                        <div className="form-group d-flex justify-content-between align-items-center">
-                          <label className="mb-0">{i18n.t('sdCard.basic.enable')}</label>
-                          <div className="custom-control custom-switch">
-                            <Field
-                              name="sdEnabled"
-                              type="checkbox"
-                              className="custom-control-input"
-                              id="switch-sound"
-                              disabled={sdStatus}
-                            />
-                            <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
-                              <span>{i18n.t('common.button.on')}</span>
-                              <span>{i18n.t('common.button.off')}</span>
-                            </label>
-                          </div>
-                        </div>
-                        <div className="form-group px-3">
-                          <div className="d-flex justify-content-between align-items-center mb-0">
-                            <label className="mb-o">{i18n.t('sdCard.basic.status')}</label>
-                            <label className="mb-o text-primary">
-                              {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}
-                            </label>
-                          </div>
-                          <hr/>
-                          <div className="d-flex justify-content-between align-items-center mb-0">
-                            <label className="mb-o">{i18n.t('sdCard.basic.filesystem')}</label>
-                            <label className="mb-o text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.basic.unrecognized') : sdFormat}</label>
-                          </div>
-                          <hr/>
-                        </div>
-                        <div className={classNames('form-group', sdStatus ? 'd-none' : '')}>
-                          <div className="card">
-                            <div className="card-header sd-card-round">
-                              {i18n.t('sdCard.basic.storageSpace')}
-                            </div>
-                            <div className="card-body">
-                              <div className="form-group mb-0">
-                                <VolumeProgressBar
-                                  total={sdTotal}
-                                  usage={sdUsage}
-                                  percentageToHideText={4}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <CustomNotifyModal
-                          isShowModal={isShowDisableModal}
-                          modalTitle={i18n.t('sdCard.modal.disableTitle')}
-                          modalBody={i18n.t('sdCard.modal.disableBody')}
-                          isConfirmDisable={isApiProcessing}
-                          onHide={getRouter().reload} // Reload to reset SD card switch button state
-                          onConfirm={() => callApi('enableSD', {sdEnabled: false})}
+                        <VolumeProgressBar
+                          isRoundProgressBar
+                          total={sdTotal}
+                          usage={sdUsage}
+                          percentageToHideText={4}
                         />
+                        <div className="sdcard-main">
+                          <div className="form-group d-flex justify-content-between align-items-center">
+                            <label className="mb-0">{i18n.t('sdCard.basic.enable')}</label>
+                            <div className="custom-control custom-switch">
+                              <Field
+                                name="sdEnabled"
+                                type="checkbox"
+                                className="custom-control-input"
+                                id="switch-sound"
+                                disabled={sdStatus}
+                              />
+                              <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
+                                <span>{i18n.t('common.button.on')}</span>
+                                <span>{i18n.t('common.button.off')}</span>
+                              </label>
+                            </div>
+                          </div>
+                          <hr/>
+                          <div className="form-group">
+                            <div className="d-flex justify-content-between align-items-center mb-0">
+                              <label className="mb-o">{i18n.t('sdCard.basic.status')}</label>
+                              <label className="mb-o text-primary">
+                                {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}
+                              </label>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center mb-0">
+                              <label className="mb-o">{i18n.t('sdCard.basic.filesystem')}</label>
+                              <label className="mb-o text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.basic.unrecognized') : sdFormat}</label>
+                            </div>
+                          </div>
+                          <CustomNotifyModal
+                            isShowModal={isShowDisableModal}
+                            modalTitle={i18n.t('sdCard.modal.disableTitle')}
+                            modalBody={i18n.t('sdCard.modal.disableBody')}
+                            isConfirmDisable={isApiProcessing}
+                            onHide={getRouter().reload} // Reload to reset SD card switch button state
+                            onConfirm={() => callApi('enableSD', {sdEnabled: false})}
+                          />
+                        </div>
                       </div>
                       <Tab.Container defaultActiveKey="tab-sdcard-operation">
                         <Nav>

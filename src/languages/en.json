@@ -39,7 +39,8 @@
     "volumeBar": {
       "sdStorageStatus": "Free: {{0}}, Total: {{1}}",
       "used": "Used: {{0}}",
-      "free": "Free: {{0}}"
+      "free": "Free: {{0}}",
+      "total": "Total: {{0}}"
     },
     "toast": {
       "Duplicate Member Names": "Duplicate Member Names",
