@@ -1425,14 +1425,14 @@ module.exports = {
       }
     }),
     /**
-     * @param {Array} id - Array of objects of device ids' to be deleted
+     * @param {Array} devices - Array of objects of device ids' to be deleted
      * @returns {Promise<response>}
      * @response 200 {Object}
      */
-    deleteDevice: id => api({
+    deleteDevice: devices => api({
       method: 'delete',
       url: '/api/members/device-sync',
-      data: id
+      data: devices
     }),
     /**
      * @param {Array} devices - Array of objects of device ids' to be synced
