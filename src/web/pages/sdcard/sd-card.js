@@ -61,8 +61,8 @@ const SDCard = ({
 
   const processOptions = () => {
     return {
-      type: SDCardRecordingType.all().map(x => utils.getSDCardRecordingType(x)),
-      stream: SDCardRecordingStream.all().map(x => {
+      type: SDCardRecordingType.all().filter(x => x !== '1').map(x => utils.getSDCardRecordingType(x)),
+      stream: SDCardRecordingStream.all().filter(x => x !== '2').map(x => {
         const {value, label} = utils.getSDCardRecordingStream(x);
         let channel = x === '1' ? 'channelA' : 'channelB';
         return {
@@ -119,8 +119,8 @@ const SDCard = ({
                 <div className="card-header">{i18n.t('sdCard.basic.title')}</div>
                 <Formik
                   initialValues={{
-                    frameRate: streamSettings[sdCardRecordingSettings.sdRecordingStream === 1 ? 'channelA' : 'channelB'].frameRate,
-                    codec: streamSettings[sdCardRecordingSettings.sdRecordingStream === 1 ? 'channelA' : 'channelB'].codec,
+                    frameRate: streamSettings[sdCardRecordingSettings.sdRecordingStream === '1' ? 'channelA' : 'channelB'].frameRate,
+                    codec: streamSettings[sdCardRecordingSettings.sdRecordingStream === '1' ? 'channelA' : 'channelB'].codec,
                     ...systemInformation,
                     ...sdCardRecordingSettings
                   }}
