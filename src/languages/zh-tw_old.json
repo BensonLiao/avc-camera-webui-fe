@@ -77,10 +77,6 @@
     "accounts": {
       "constants": {
         "permission-99": "管理者"
-      },
-      "modal": {
-        "newUserTitle": "創建使用者",
-        "modifyUserTitle": "編輯帳號"
       }
     },
     "events": {

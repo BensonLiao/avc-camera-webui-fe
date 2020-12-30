@@ -280,6 +280,8 @@
       "username": "Nombre",
       "modal": {
         "usernamePlaceholder": "Ingrese el nombre de la cuenta",
+        "modifyUserTitle": "Editar cuenta",
+        "newUserTitle": "Nuevo Usuario",
         "usernameHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
         "confirmDeleteTitle": "Borrar cuenta",
         "confirmDeleteBody": "¿Está seguro de que desea borrar la cuenta {{0}} ?"

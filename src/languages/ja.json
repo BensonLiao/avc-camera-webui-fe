@@ -280,6 +280,8 @@
       "username": "ユーザー名",
       "modal": {
         "usernamePlaceholder": "アカウント名を入力してください",
+        "modifyUserTitle": "アカウントを編集する",
+        "newUserTitle": "新規ユーザー",
         "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
         "confirmDeleteTitle": "アカウントを削除する",
         "confirmDeleteBody": "アカウント {{0}} を削除しますか？"

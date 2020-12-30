@@ -280,6 +280,8 @@
       "username": "Username",
       "modal": {
         "usernamePlaceholder": "Enter a name for this account",
+        "modifyUserTitle": "Modify User",
+        "newUserTitle": "New User",
         "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
         "confirmDeleteTitle": "Delete Account",
         "confirmDeleteBody": "Are you sure you want to delete account {{0}}?"

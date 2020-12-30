@@ -280,6 +280,8 @@
       "username": "名稱",
       "modal": {
         "usernamePlaceholder": "輸入帳號名稱",
+        "modifyUserTitle": "編輯帳號",
+        "newUserTitle": "創建使用者",
         "usernameHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
         "confirmDeleteTitle": "刪除帳號",
         "confirmDeleteBody": "您確定要刪除帳號 {{0}} 嗎？"

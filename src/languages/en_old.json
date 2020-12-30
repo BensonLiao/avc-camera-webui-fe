@@ -83,10 +83,6 @@
       "constants": {
         "permission-99": "Admin"
       },
-      "modal": {
-        "newUserTitle": "New User",
-        "modifyUserTitle": "Modify User"
-      },
       "tooltip": {
         "accountProtected.avn": "This Account is Protected"
       }

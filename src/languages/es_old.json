@@ -76,10 +76,6 @@
     "accounts": {
       "constants": {
         "permission-99": "administrador"
-      },
-      "modal": {
-        "newUserTitle": "Nuevo Usuario",
-        "modifyUserTitle": "Editar cuenta"
       }
     },
     "events": {
