@@ -22,6 +22,7 @@ import SDCardRecordingDuration from 'webserver-form-schema/constants/sdcard-reco
 import SDCardRecordingType from 'webserver-form-schema/constants/sdcard-recording-type';
 import SDCardRecordingStream from 'webserver-form-schema/constants/sdcard-recording-stream';
 import SDCardRecordingLimit from 'webserver-form-schema/constants/sdcard-recording-limit';
+import SDCardRecordingStatus from 'webserver-form-schema/constants/sdcard-recording-status';
 import utils from '../../../core/utils';
 
 const SDCard = ({
@@ -128,7 +129,7 @@ const SDCard = ({
                 >
                   {({values, setFieldValue}) => (
                     <Form>
-                      <div className="card-body sdcard d-flex" style={{justifyContent: 'space-between'}}>
+                      <div className="card-body sdcard d-flex">
                         <FormikEffect onChange={onChangeSdCardSetting}/>
                         <VolumeProgressBar
                           isRoundProgressBar
@@ -136,7 +137,7 @@ const SDCard = ({
                           usage={sdUsage}
                           percentageToHideText={4}
                         />
-                        <div className="sdcard-main">
+                        <div className="d-flex justify-content-end flex-column col-9">
                           <div className="form-group d-flex justify-content-between align-items-center">
                             <label className="mb-0">{i18n.t('sdCard.basic.enable')}</label>
                             <div className="custom-control custom-switch">
@@ -158,7 +159,7 @@ const SDCard = ({
                             <div className="d-flex justify-content-between align-items-center mb-0">
                               <label className="mb-o">{i18n.t('sdCard.basic.status')}</label>
                               <label className="mb-o text-primary">
-                                {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}
+                                {sdCardRecordingSettings.sdRecordingStatus === Number(SDCardRecordingStatus.on) ? i18n.t('sdCard.basic.recording') : SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}
                               </label>
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-0">
