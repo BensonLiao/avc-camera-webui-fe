@@ -400,6 +400,29 @@
       "disabledUnmountButton": "Micro SDカードをア取り外してよろしいですか？",
       "disableTitle": "SDカードを取り外します",
       "disableBody": "SDカードを取り外しますか？イベントによるキャプチャが保存されません"
+    },
+    "storage": {
+      "tooltip": {
+        "noFile": ""
+      },
+      "button": {
+        "remove": "",
+        "download": ""
+      },
+      "files": {
+        "date": "",
+        "name": "",
+        "size": "",
+        "actions": ""
+      },
+      "noFile": "",
+      "modal": {
+        "confirmDeleteTitle": "",
+        "confirmDeleteBody": "",
+        "deleteFileApiProcessing": "",
+        "downloadingTitle": "",
+        "downloadingBody": ""
+      }
     }
   },
   "validation": {
@@ -1037,6 +1060,7 @@
     "softwareUpgrade": "ソフトウェアアップグレード",
     "deviceMaintenance": "メンテナンス",
     "sdCardSettings": "",
+    "sdCardStorage": "",
     "systemLog": "システムログ",
     "information": "デバイス情報",
     "welcome": "ようこそ",

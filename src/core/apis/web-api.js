@@ -450,6 +450,48 @@ module.exports = {
       url: '/api/system/systeminfo/sdcard/mount'
     }),
     /**
+     * @param {String} date - Filter files by date, format is `YYYY-MM-DD`
+     * @param {String} folder - what folder to find files, default is `/storage/sdcard1/Android/data/com.avc.service.rtsp/files`.
+     * @returns {Promise<Response>}
+     * @response 200 {Array<Object>}
+     * - [].id {Number}
+     * - [].bytes {Number}
+     * - [].name {String}
+     * - [].path {String}
+     * - [].type {String}
+     */
+    getSDCardStorageFiles: (date, folder = '/sdcard/test/') => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard-storage',
+      data: {
+        folder,
+        date
+      }
+    }),
+    /**
+     * e.g. ['2020-12-20', '2020-12-22', '2020-12-23']
+     * @param {String} folder - what folder to find files.
+     * @returns {Promise<Response>}
+     * @response 200 {Array<String>}
+     */
+    getSDCardStorageDateList: (folder = '/sdcard/test/') => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard-storage/date-list',
+      data: {folder}
+    }),
+    /**
+     * e.g. `files`: ["/sdcard/test/file1.txt", "/sdcard/test/file2.txt", "/sdcard/test/folder1/file2.txt"]
+     * @param {Array<String>} files - what files to delete.
+     * @returns {Promise<Response>}
+     * @response 200 {Object}
+     * - status
+     */
+    deleteSDCardStorageFiles: files => api({
+      method: 'delete',
+      url: '/api/system/systeminfo/sdcard-storage/delete',
+      data: {files}
+    }),
+    /**
      * Clears system log
      * @returns {Promise<Response>}
      * @response 204

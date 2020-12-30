@@ -400,6 +400,29 @@
       "disabledUnmountButton": "Estás a punto de retirar la tarjeta Micro SD. ¿Quieres continuar?",
       "disableTitle": "Borrar la tarjeta de memoria",
       "disableBody": "¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento."
+    },
+    "storage": {
+      "tooltip": {
+        "noFile": ""
+      },
+      "button": {
+        "remove": "",
+        "download": ""
+      },
+      "files": {
+        "date": "",
+        "name": "",
+        "size": "",
+        "actions": ""
+      },
+      "noFile": "",
+      "modal": {
+        "confirmDeleteTitle": "",
+        "confirmDeleteBody": "",
+        "deleteFileApiProcessing": "",
+        "downloadingTitle": "",
+        "downloadingBody": ""
+      }
     }
   },
   "validation": {
@@ -1037,6 +1060,7 @@
     "softwareUpgrade": "Actualización de software",
     "deviceMaintenance": "mantenimiento",
     "sdCardSettings": "",
+    "sdCardStorage": "",
     "systemLog": "Registro del sistema",
     "information": "Información del dispositivo",
     "welcome": "Bienvenido",

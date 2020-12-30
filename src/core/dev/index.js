@@ -176,6 +176,41 @@ mockAxios
   .onGet('/api/system/network/tcpip/http').reply(config => mockResponseWithLog(config, [200, db.get('httpSettings').value()]))
   .onPut('/api/system/network/tcpip/http').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('httpSettings').assign(JSON.parse(config.data)).write()]), 2000))
   .onGet('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').value()]))
+  .onGet('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdRecordingSettings').value()]))
+  .onPost('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdRecordingSettings').assign(JSON.parse(config.data)).write()]))
+  .onPost('/api/system/systeminfo/sdcard-storage').reply(config => {
+    const {date: searchDate} = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('sdCardStorage.files').filter({date: searchDate}).value()]);
+  })
+  .onPost('/api/system/systeminfo/sdcard-storage/date-list').reply(config =>
+    mockResponseWithLog(config, [200, db.get('sdCardStorage.filesDateList').value()])
+  )
+  .onPost('/api/system/systeminfo/sdcard-storage/download').reply(config => {
+    return new Promise(resolve => {
+      // Length of time for mocking uploading firmware (seconds)
+      const timeToFinish = 2;
+
+      let count = 0;
+      // Set progress bar indicator
+      let interval = setInterval(() => {
+        config.onDownloadProgress({
+          loaded: count,
+          total: 100
+        });
+        if (++count === 101) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, Math.round(timeToFinish * 10));
+    })
+      .then(() => {
+        return mockResponseWithLog(config, [200, new Blob()]);
+      });
+  })
+  .onDelete('/api/system/systeminfo/sdcard-storage/delete').reply(config => {
+    const {files} = JSON.parse(config.data);
+    return mockResponseWithLog(config, [200, db.get('sdCardStorage.files').remove(file => files.indexOf(file.path) > -1).write()]);
+  })
   .onGet('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').value()]))
   .onPost('/api/system/systeminfo/sdcard-recording').reply(config => {
     const info = JSON.parse(config.data);

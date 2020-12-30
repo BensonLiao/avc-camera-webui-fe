@@ -400,6 +400,29 @@
       "disabledUnmountButton": "Are you sure you want to unmount the Micro SD card?",
       "disableTitle": "Disabling SD Card",
       "disableBody": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?"
+    },
+    "storage": {
+      "tooltip": {
+        "noFile": "Select a File"
+      },
+      "button": {
+        "remove": "Delete",
+        "download": "Download"
+      },
+      "files": {
+        "date": "Date",
+        "name": "File Name",
+        "size": "File Size",
+        "actions": "Actions"
+      },
+      "noFile": "There is no file in here.",
+      "modal": {
+        "confirmDeleteTitle": "Delete File",
+        "confirmDeleteBody": "Are you sure you want to delete file?",
+        "deleteFileApiProcessing": "Deleting File",
+        "downloadingTitle": "Downloading SD Card Files",
+        "downloadingBody": "Download progress"
+      }
     }
   },
   "validation": {
@@ -1037,6 +1060,7 @@
     "softwareUpgrade": "Software Upgrade",
     "deviceMaintenance": "Device Maintenance",
     "sdCardSettings": "SD Card Settings",
+    "sdCardStorage": "Storage",
     "systemLog": "System Log",
     "information": "Information",
     "welcome": "Welcome",

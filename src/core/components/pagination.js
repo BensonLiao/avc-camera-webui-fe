@@ -4,7 +4,7 @@ const React = require('react');
 const {Link, getRouter} = require('@benson.liao/capybara-router');
 const i18n = require('../../i18n').default;
 
-module.exports = class Pagination extends React.PureComponent {
+module.exports = class Pagination extends React.Component {
   static get propTypes() {
     return {
       index: PropTypes.number.isRequired,
