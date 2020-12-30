@@ -689,7 +689,9 @@
       "intervalPlaceholder": "Specify notification interval",
       "intervalRange": "5 - 1,800 Seconds",
       "toast": {
-        "emailSettingSuccess": "Email Setting Success"
+        "emailSettingSuccess": "Email Setting Success",
+        "sendingTestEmail": "Sending Test Email",
+        "disablingOutgoingEmail": "Disabling Outgoing Email"
       }
     }
   },

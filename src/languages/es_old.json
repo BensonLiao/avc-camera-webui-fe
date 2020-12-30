@@ -46,9 +46,7 @@
   "notification": {
     "smtp": {
       "toast": {
-        "disablingOutgoingEmail": "Desactivar la transmisión de correo electrónico",
-        "mailSettingFailed": "Falló la configuración del correo electrónico",
-        "sendingTestEmail": "Ha enviado un correo de prueba"
+        "mailSettingFailed": "Falló la configuración del correo electrónico"
       }
     },
     "cards": {

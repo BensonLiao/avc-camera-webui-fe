@@ -46,9 +46,7 @@
   "notification": {
     "smtp": {
       "toast": {
-        "disablingOutgoingEmail": "設定成功",
-        "mailSettingFailed": "電子郵件設定失敗",
-        "sendingTestEmail": "測試郵件已寄出"
+        "mailSettingFailed": "電子郵件設定失敗"
       }
     },
     "cards": {

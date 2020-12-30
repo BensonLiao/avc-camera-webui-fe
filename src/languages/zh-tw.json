@@ -689,7 +689,9 @@
       "intervalPlaceholder": "輸入秒數",
       "intervalRange": "5 - 1800 秒",
       "toast": {
-        "emailSettingSuccess": "電子郵件設定成功"
+        "emailSettingSuccess": "電子郵件設定成功",
+        "sendingTestEmail": "測試郵件已寄出",
+        "disablingOutgoingEmail": "設定成功"
       }
     }
   },

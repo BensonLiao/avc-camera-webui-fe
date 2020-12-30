@@ -49,9 +49,7 @@
   "notification": {
     "smtp": {
       "toast": {
-        "mailSettingFailed": "Mail Setting Failed",
-        "sendingTestEmail": "Sending Test Email",
-        "disablingOutgoingEmail": "Disabling Outgoing Email"
+        "mailSettingFailed": "Mail Setting Failed"
       }
     },
     "cards": {

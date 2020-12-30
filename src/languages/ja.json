@@ -689,7 +689,9 @@
       "intervalPlaceholder": "秒数を入力してください",
       "intervalRange": "5 - 1800 秒",
       "toast": {
-        "emailSettingSuccess": "メールアドレス設定に成功しました"
+        "emailSettingSuccess": "メールアドレス設定に成功しました",
+        "sendingTestEmail": "テストメールは発送されました",
+        "disablingOutgoingEmail": "SMTP送信を無効しました"
       }
     }
   },

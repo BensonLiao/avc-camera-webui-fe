@@ -46,9 +46,7 @@
   "notification": {
     "smtp": {
       "toast": {
-        "disablingOutgoingEmail": "SMTP送信を無効しました",
-        "mailSettingFailed": "メールアドレス設定に失敗しました",
-        "sendingTestEmail": "テストメールは発送されました"
+        "mailSettingFailed": "メールアドレス設定に失敗しました"
       }
     },
     "cards": {
