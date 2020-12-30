@@ -109,9 +109,6 @@
       }
     }
   },
-  "error": {
-    "notFound": "此網頁不存在"
-  },
   "documentTitle": {
     "image": "圖像",
     "video": "影像",

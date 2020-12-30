@@ -108,9 +108,6 @@
       }
     }
   },
-  "error": {
-    "notFound": "Lo siento, esta página no existe"
-  },
   "documentTitle": {
     "image": "imagen",
     "video": "Video",

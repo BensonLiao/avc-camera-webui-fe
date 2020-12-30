@@ -945,6 +945,7 @@
   "error": {
     "internalServerError": "サーバー内部エラー",
     "error": "Error",
+    "notFound": "このページは表示できません",
     "backToHome": "ホームページへ戻る"
   },
   "setup": {

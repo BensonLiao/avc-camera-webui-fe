@@ -945,6 +945,7 @@
   "error": {
     "internalServerError": "Internal Server Error",
     "error": "Error",
+    "notFound": "Not Found",
     "backToHome": "Back to Home"
   },
   "setup": {

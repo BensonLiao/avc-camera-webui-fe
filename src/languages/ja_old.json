@@ -109,9 +109,6 @@
       }
     }
   },
-  "error": {
-    "notFound": "このページは表示できません"
-  },
   "documentTitle": {
     "image": "画像設定",
     "video": "映像",

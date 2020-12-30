@@ -945,6 +945,7 @@
   "error": {
     "internalServerError": "內部伺服器問題",
     "error": "Error",
+    "notFound": "此網頁不存在",
     "backToHome": "回首頁"
   },
   "setup": {

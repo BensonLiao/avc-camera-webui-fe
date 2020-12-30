@@ -945,6 +945,7 @@
   "error": {
     "internalServerError": "Problema interno del servidor",
     "error": "Error",
+    "notFound": "Lo siento, esta página no existe",
     "backToHome": "Volver a la página de inicio"
   },
   "setup": {

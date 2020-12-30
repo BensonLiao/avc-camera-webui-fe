@@ -123,9 +123,6 @@
       "buildVersion.avn": "Build Version"
     }
   },
-  "error": {
-    "notFound": "Not Found"
-  },
   "documentTitle": {
     "image": "Image",
     "video": "Video",
