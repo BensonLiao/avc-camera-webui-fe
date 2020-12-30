@@ -37,9 +37,10 @@
       "stats": "{{0}}-{{1}}個データ、合計: {{2}}"
     },
     "volumeBar": {
+      "free": "{{0}} 使用可能",
+      "total": "",
       "sdStorageStatus": "{{0}} 使用可能 (合計 {{1}})",
-      "used": "{{0}} 使用されています",
-      "free": "{{0}} 使用可能"
+      "used": "{{0}} 使用されています"
     },
     "toast": {
       "Duplicate Member Names": "名称が重複しています。別の名称をご使用ください",
@@ -329,37 +330,59 @@
     "lightingCompensation": "更新周波数(Hz)"
   },
   "sdCard": {
+    "basic": {
+      "constants": {
+        "Functioning": "",
+        "Unmounted": "",
+        "Empty Slot": "",
+        "Nonfunctioning": "",
+        "Read-only Access": "",
+        "Unknown Error": "",
+        "sdcard-recording-type-0": "",
+        "sdcard-recording-type-1": "",
+        "sdcard-recording-type-2": "",
+        "sdcard-recording-stream-0": "",
+        "sdcard-recording-stream-1": "",
+        "sdcard-recording-limit-true": "",
+        "sdcard-recording-limit-false": "",
+        "unknownStatus": "",
+        "storageToFull": ""
+      },
+      "operation": "",
+      "format": "",
+      "mount": "",
+      "unmount": "",
+      "title": "",
+      "enable": "",
+      "status": "",
+      "filesystem": "",
+      "unrecognized": "",
+      "recording": "",
+      "errorNotification": "",
+      "notificationSet": "",
+      "enableOutgoingEmail": "",
+      "emailNotification": "",
+      "enableRecording": "",
+      "recordingType": "",
+      "recordingResolution": "",
+      "fps": "",
+      "codec": "",
+      "recordingDuration": "",
+      "recordingLimit": ""
+    },
     "constants": {
-      "Functioning": "正常",
-      "Unmounted": "マウントされていません",
-      "Empty Slot": "カードが挿入されていません",
-      "Nonfunctioning": "異常",
-      "Read-only Access": "読み取り専用",
-      "Unknown Error": "不明なエラー",
       "unknownStatus": "UNKNOWN STATUS"
     },
-    "operation": "操作",
     "tooltip": {
       "disabledOperationButton": "先にSDカードの機能を無効にしてください",
       "disabledNotificationButton": "メールアドレスを設定するのは必須です"
     },
-    "format": "フォーマット",
     "modal": {
       "disabledFormatButton": "Micro SDカードをフォーマットしてもよろしいですか？",
       "disabledUnmountButton": "Micro SDカードをア取り外してよろしいですか？",
       "disableTitle": "SDカードを取り外します",
       "disableBody": "SDカードを取り外しますか？イベントによるキャプチャが保存されません"
-    },
-    "unmount": "マウントを解除",
-    "title": "SDカード",
-    "enable": "SDカードを有効にする",
-    "errorNotification": "異常通知",
-    "notificationSet": "メールアドレスが設定されました",
-    "enableOutgoingEmail": "メールアドレスを設定する",
-    "status": "ステータス",
-    "filesystem": "ファイルシステム",
-    "unrecognized": "不明なファイルシステム",
-    "storageSpace": "ストレージ容量"
+    }
   },
   "validation": {
     "portReserved": "本ポートはシステム予備用または使用されています",
@@ -675,7 +698,9 @@
       "email": "メール",
       "io": "デジタル入力および出力",
       "smartNotification": "スマート通知",
-      "sdCard": "SDカード",
+      "sdCardSettings": "",
+      "basic": "",
+      "storage": "",
       "facialRecognition": "顔認証",
       "motionDetection": "動作検知",
       "system": "システム設定",
@@ -991,7 +1016,7 @@
     "dateTime": "日付と時間",
     "softwareUpgrade": "ソフトウェアアップグレード",
     "deviceMaintenance": "メンテナンス",
-    "sdCard": "SDカード",
+    "sdCardSettings": "",
     "systemLog": "システムログ",
     "information": "デバイス情報",
     "welcome": "ようこそ",

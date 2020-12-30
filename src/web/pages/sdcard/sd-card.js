@@ -278,10 +278,10 @@ const SDCard = ({
                                         </option>
                                       ))}
                                     </SelectField>
-                                    <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('Resolution FPS')} name="frameRate">
+                                    <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.fps')} name="frameRate">
                                       <option>{values.frameRate}</option>
                                     </SelectField>
-                                    <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('Resolution Codec')} name="codec">
+                                    <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.codec')} name="codec">
                                       <option>{values.codec}</option>
                                     </SelectField>
                                     <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingDuration')} name="sdRecordingDuration">
