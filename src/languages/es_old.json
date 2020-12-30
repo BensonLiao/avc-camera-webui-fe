@@ -73,10 +73,6 @@
           "editGroupTitle": "Editar grupo",
           "createGroupTitle": "Añadir grupo",
           "editGroupTitle.avn": "Editar grupo"
-        },
-        "member": {
-          "newMemberTitle": "Nuevo miembro",
-          "editMemberTitle": "Editar miembro"
         }
       },
       "tooltip": {

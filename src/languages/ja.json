@@ -11,13 +11,13 @@
     "button": {
       "confirm": "確認",
       "cancel": "キャンセル",
+      "new": "追加",
       "close": "閉じる",
       "add": "追加",
       "on": "ON",
       "off": "OFF",
       "resetDefault": "デフォルト設定へ戻る",
-      "apply": "適用",
-      "new": "追加"
+      "apply": "適用"
     },
     "password": {
       "hidePassword": "パスワードを非表示する",
@@ -121,6 +121,8 @@
           "organizationPlaceholder": "組織名を入力してください",
           "organizationHelper": "最大32文字まで入力可能です",
           "n/a": "なし",
+          "editMemberTitle": "メンバーを編集する",
+          "newMemberTitle": "メンバーを追加する",
           "confirmCloseBody": "このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます",
           "photoEditor": "写真編集",
           "photoHelper": "写真をドラッグして調整してください",

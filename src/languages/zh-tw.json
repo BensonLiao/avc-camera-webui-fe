@@ -11,13 +11,13 @@
     "button": {
       "confirm": "確定",
       "cancel": "取消",
+      "new": "新增",
       "close": "關閉",
       "add": "新增",
       "on": "開啟",
       "off": "關閉",
       "resetDefault": "恢復預設值",
-      "apply": "套用",
-      "new": "新增"
+      "apply": "套用"
     },
     "password": {
       "hidePassword": "隱藏密碼",
@@ -121,6 +121,8 @@
           "organizationPlaceholder": "輸入組織名稱",
           "organizationHelper": "最多32個字",
           "n/a": "無",
+          "editMemberTitle": "編輯成員",
+          "newMemberTitle": "新增成員",
           "confirmCloseBody": "關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？",
           "photoEditor": "編輯",
           "photoHelper": "拖曳調整照片",

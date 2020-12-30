@@ -11,13 +11,13 @@
     "button": {
       "confirm": "Confirm",
       "cancel": "Cancel",
+      "new": "New",
       "close": "Close",
       "add": "Add",
       "on": "ON",
       "off": "OFF",
       "resetDefault": "Reset to Default Settings",
-      "apply": "Apply",
-      "new": "New"
+      "apply": "Apply"
     },
     "password": {
       "hidePassword": "Hide Password",
@@ -121,6 +121,8 @@
           "organizationPlaceholder": "Enter an organization for this member",
           "organizationHelper": "Maximum length: 32 characters",
           "n/a": "N/A",
+          "editMemberTitle": "Edit Member",
+          "newMemberTitle": "New Member",
           "confirmCloseBody": "Are you sure you want to close this window? All changes you have made will be lost.",
           "photoEditor": "Photo Editor",
           "photoHelper": "Drag the image to position it correctly.",

@@ -11,13 +11,13 @@
     "button": {
       "confirm": "Confirmar",
       "cancel": "Cancelar",
+      "new": "Nuevo",
       "close": "Cerrar",
       "add": "Añadir",
       "on": "ON",
       "off": "OFF",
       "resetDefault": "Restaurar a lo preajuste",
-      "apply": "Aplicar",
-      "new": "Nuevo"
+      "apply": "Aplicar"
     },
     "password": {
       "hidePassword": "Ocultar contraseña",
@@ -121,6 +121,8 @@
           "organizationPlaceholder": "Ingrese el nombre de la organización",
           "organizationHelper": "Extension máxima: 32 caracteres",
           "n/a": "ninguno",
+          "editMemberTitle": "Editar miembro",
+          "newMemberTitle": "Nuevo miembro",
           "confirmCloseBody": "Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?",
           "photoEditor": "editar",
           "photoHelper": "Arraste para ajustar las fotos",

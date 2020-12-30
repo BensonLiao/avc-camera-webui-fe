@@ -79,10 +79,6 @@
           "editGroupTitle": "Edit Group",
           "createGroupTitle": "Create a Group",
           "editGroupTitle.avn": "Modify Group"
-        },
-        "member": {
-          "newMemberTitle": "New Member",
-          "editMemberTitle": "Edit Member"
         }
       },
       "tooltip": {

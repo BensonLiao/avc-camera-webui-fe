@@ -73,10 +73,6 @@
           "editGroupTitle": "グループを編集する",
           "createGroupTitle": "グループを追加する",
           "editGroupTitle.avn": "グループを編集する"
-        },
-        "member": {
-          "newMemberTitle": "メンバーを追加する",
-          "editMemberTitle": "メンバーを編集する"
         }
       },
       "tooltip": {

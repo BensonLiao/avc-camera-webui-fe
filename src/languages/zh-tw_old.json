@@ -73,10 +73,6 @@
           "editGroupTitle": "編輯群組",
           "createGroupTitle": "新增群組",
           "editGroupTitle.avn": "編輯群組"
-        },
-        "member": {
-          "newMemberTitle": "新增成員",
-          "editMemberTitle": "編輯成員"
         }
       },
       "tooltip": {
