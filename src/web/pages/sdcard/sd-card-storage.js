@@ -13,6 +13,7 @@ import FormikEffect from '../../../core/components/formik-effect';
 import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
 import classNames from 'classnames';
+import {SDCARD_STORAGE_DATE_FORMAT} from '../../../core/constants';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
 import StageProgress from '../../../core/components/stage-progress';
@@ -257,7 +258,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                                     <td>
                                       <CustomTooltip placement="top-start" title={pageData.ip}>
                                         <div>
-                                          2020-20-11
+                                          {currentDate.format(SDCARD_STORAGE_DATE_FORMAT.DISPLAY)}
                                         </div>
                                       </CustomTooltip>
                                     </td>

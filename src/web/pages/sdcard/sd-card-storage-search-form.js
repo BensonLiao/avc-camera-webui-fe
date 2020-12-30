@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
+import {SDCARD_STORAGE_DATE_FORMAT} from '../../../core/constants';
 import DateTimePicker from '../../../core/components/fields/datetime-picker';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
@@ -31,7 +32,7 @@ const SDCardStorageSearchForm = ({generatePaginatedCheckList, initialSearchCondi
    * @returns {void}
    */
   const onSubmitSearchForm = ({date}) => {
-    api.system.getSDCardStorageFiles(dayjs(date).format('YYYY-MM-DD'))
+    api.system.getSDCardStorageFiles(dayjs(date).format(SDCARD_STORAGE_DATE_FORMAT.API))
       .then(response => {
         updateSearchResult(generatePaginatedCheckList(response.data));
       });
@@ -49,7 +50,7 @@ const SDCardStorageSearchForm = ({generatePaginatedCheckList, initialSearchCondi
               name="date"
               component={DateTimePicker}
               dateTabText={i18n.t('common.dateTimePicker.date')}
-              dateFormat="YYYY-MM-DD"
+              dateFormat={SDCARD_STORAGE_DATE_FORMAT.DISPLAY}
               inputProps={{
                 className: classNames('btn border date px-4 btn-date-time', {active: isShowStartDatePicker}),
                 placeholder: i18n.t('common.dateTimePicker.startTime'),
