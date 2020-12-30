@@ -84,7 +84,11 @@
       "Non-existent Photo": "Non-existent Face Thumbnail",
       "Invalid Key": "Invalid Key",
       "Duplicate Key": "Duplicate Key",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Cannot Support Database Downgrade from 30,000 to 3000 People"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Cannot Support Database Downgrade from 30,000 to 3000 People",
+      "DEVICE_CONNECTION_FAIL": "Device Connection Failed",
+      "DEVICE_LOGIN_FAIL": "Device Login Failed",
+      "DUPLICATE_DEVICE_IP": "Duplicate Device IP",
+      "INVALID_DEVICE_ID": "Invalid Device ID"
     },
     "dateTimePicker": {
       "date": "Date",
@@ -166,11 +170,24 @@
       "export": "Export",
       "importDB": "Import Database",
       "import": "Import",
+      "toast": {
+        "connectSuccessTitle": "Connection Successful",
+        "connectSuccessBody": "Device Successfully Connected",
+        "connectFailTitle": "Connection Failed",
+        "connectFailBody": "Device Connection Failed",
+        "syncSuccessTitle": "Synchronize Success",
+        "syncSuccessBody": "Syncing Device Succeeded"
+      },
       "host": "Host",
+      "syncing": "Syncing",
+      "done": "Done",
+      "failed": "Failed",
+      "lastUpdated": "Last Updated",
       "tooltip": {
-        "noDevice": "Select a Device",
         "connected": "Connected",
         "notConnected": "Not Connected",
+        "invalidSelection": "Un-linked Device Selected",
+        "noDevice": "Select a Device",
         "editGroupWithName": "Edit Group: {{0}}",
         "deleteGroupWithName": "Delete Group: {{0}}",
         "editMemberWithName": "Edit Member: {{0}}",
@@ -178,6 +195,7 @@
         "photoLimitExceeded": "Photo Limit of Member Database Exceeded"
       },
       "synchronize": "Synchronize",
+      "removeUnlinked": "Remove unlinked device(s)",
       "remove": "Remove",
       "deviceName": "Device Name",
       "status": "Status",
@@ -428,6 +446,8 @@
     "birthday": "This field must be a valid birthday.",
     "countryCode": "This field must be a valid country code.",
     "duplicateName": "This name already exists in the system. Please use a different name.",
+    "identicalIP": "Same IP as current device",
+    "duplicateIP": "Duplicate device IP",
     "maxRecipient": "The maximum number of recipients is 64.",
     "duplicateEmail": "Duplicate email address."
   },

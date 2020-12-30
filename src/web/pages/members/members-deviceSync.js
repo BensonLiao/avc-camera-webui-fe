@@ -1,19 +1,29 @@
+import classNames from 'classnames';
+import {getRouter} from '@benson.liao/capybara-router';
 import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
-import {getRouter} from '@benson.liao/capybara-router';
-import CustomTooltip from '../../../core/components/tooltip';
-import i18n from '../../../i18n';
-import DeviceSyncAddDevice from './members-deviceSync-add';
 import api from '../../../core/apis/web-api';
-import {Formik, Form, Field} from 'formik';
-import {getPaginatedData, isArray} from '../../../core/utils';
-import FormikEffect from '../../../core/components/formik-effect';
-import noDevice from '../../../resource/noDevice.png';
-import Pagination from '../../../core/components/pagination';
-import classNames from 'classnames';
+import i18n from '../../../i18n';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import CustomTooltip from '../../../core/components/tooltip';
+import DeviceSyncAddDevice from './members-deviceSync-add';
+import FormikEffect from '../../../core/components/formik-effect';
+import {Formik, Form, Field} from 'formik';
+import {formatDate, getPaginatedData, isArray} from '../../../core/utils';
+import noDevice from '../../../resource/noDevice.png';
+import notify from '../../../core/notify';
+import Pagination from '../../../core/components/pagination';
+import ProgressIndicator from '../../../core/components/progress-indicator';
+import ConnectionStatusSchema from 'webserver-form-schema/constants/members-device-connection-status';
+import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
+import MasterSyncStatusSchema from 'webserver-form-schema/constants/members-master-sync-status';
+import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
 
-const DeviceSync = ({deviceSync: {devices, sync}}) => {
+// Sync API ping frequency, in seconds
+const REFRESH_LIST_INTERVAL = 5;
+const ITEMS_PER_PAGE = 10;
+
+const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [device, setDevice] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
@@ -28,10 +38,9 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
     return getPaginatedData(devices.map(device => ({
       ...device,
       isChecked: false
-    })), 5);
+    })), ITEMS_PER_PAGE);
   };
 
-  // eslint-disable-next-line no-unused-vars
   const [deviceList, setDeviceList] = useState(generatePaginatedDeviceList(devices));
 
   const showDeviceModal = () => setIsShowDeviceModal(true);
@@ -46,56 +55,6 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
   const hideConfirmModal = () => setIsShowConfirmModal(false);
 
   const hideApiProcessModal = () => setIsShowApiProcessModal(false);
-
-  /**
-   * Delete selected device
-   * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
-   * @returns {void}
-   */
-  const deleteDevice = list => _ => {
-    hideConfirmModal();
-    setIsShowApiProcessModal(true);
-    localStorage.setItem('currentPage', 'sync');
-    if (isArray(list)) {
-      const itemsToDelete = list.flat().filter(device => device.isChecked)
-        .reduce((arr, item) => {
-          arr.push(item.id);
-          return arr;
-        }, []);
-      // Delete multiple devices
-      api.member.deleteDevice(itemsToDelete)
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
-    } else {
-      // Delete single device
-      api.member.deleteDevice([list])
-        .then(getRouter().reload)
-        .finally(hideApiProcessModal);
-    }
-  };
-
-  const confirmDelete = (deviceID = null) => _ => {
-    showConfirmModal(true);
-    setDeleteDeviceID(deviceID);
-  };
-
-  /**
-   * Edit selected device
-   * @param {Object} device - individual device data
-   * @returns {void}
-   */
-  const editDeviceHandler = device => _ => {
-    setDevice(device);
-    setIsShowDeviceModal(true);
-  };
-
-  const syncDB = values => {
-    const checked = values.flat().filter(device => device.isChecked);
-    // Sync api
-    console.log(JSON.stringify(checked, null, 2));
-    getRouter().reload();
-    api.member.syncDB({sync: sync ? 0 : 1});
-  };
 
   /**
    * Select or un-select all checkboxes on current page
@@ -130,7 +89,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
 
   /**
    * Update `Select All` checkbox based on any checkbox update
-   * @param {Object} values - Form next values
+   * @param {Object} nextValues - Form next values
    * @returns {void}
    */
   const onChangeCardForm = ({nextValues}) => {
@@ -147,11 +106,11 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
   const selectAllCheckboxState = useCallback(values => {
     // Check if any checkboxes has been selected
     if (values[page] && values[page].some(device => device.isChecked)) {
-      // Check if all checkboxes has been selected
       if (values[page].some(device => !device.isChecked)) {
+        // Some checkboxes are selected, set to indetermindate state
         selectAllRef.current.indeterminate = true;
       } else {
-        // All checkboxes selected manually
+        // Manually selected all checkboxes
         selectAllRef.current.indeterminate = false;
         setIsSelectAll(true);
       }
@@ -162,6 +121,198 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
     }
   }, [page]);
 
+  /**
+   * Remove checked unlinked devices
+   * @param {Object} form
+   * @returns {void}
+   */
+  const removeUnlinkedDevices = form => event => {
+    event.preventDefault();
+    form.values.forEach((page, pageIndex) => {
+      page.forEach((device, deviceIndex) => {
+        if (device.isChecked && !device.connectionStatus) {
+          form.setFieldValue(`${pageIndex}.${deviceIndex}.isChecked`, false);
+        }
+      });
+    });
+  };
+
+  /**
+   * Edit selected device
+   * @param {Object} device - individual device data
+   * @returns {void}
+   */
+  const editDeviceHandler = device => _ => {
+    setDevice(device);
+    setIsShowDeviceModal(true);
+  };
+
+  /**
+   * Delete selected device
+   * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
+   * @returns {void}
+   */
+  const deleteDevice = list => _ => {
+    hideConfirmModal();
+    setIsShowApiProcessModal(true);
+    localStorage.setItem('currentPage', 'sync');
+    const isListArray = isArray(list);
+    api.member.deleteDevice({devices: isListArray ? checkedItemsToArray(list) : [list]})
+      .then(getRouter().reload)
+      .finally(hideApiProcessModal);
+  };
+
+  /**
+   * Show delete confirm modal for selected device
+   * @param {number} deviceID
+   * @returns {void}
+   */
+  const confirmDelete = (deviceID = null) => _ => {
+    showConfirmModal(true);
+    setDeleteDeviceID(deviceID);
+  };
+
+  /**
+   * Return array of selected items from given list
+   * @param {Object} list - Formik form values
+   * @returns {Array}
+   */
+  const checkedItemsToArray = list => list.flat().filter(device => device.isChecked)
+    .reduce((arr, item) => {
+      arr.push(item.id);
+      return arr;
+    }, []);
+
+  /**
+   * Sync selected Databases
+   * @param {Object} list - form values
+   * @returns {void}
+   */
+  const syncDB = list => {
+    localStorage.setItem('currentPage', 'sync');
+    const checkedDevices = checkedItemsToArray(list);
+    getRouter().reload();
+    api.member.syncDB({devices: checkedDevices});
+  };
+
+  // Check if DB sync process is in progress
+  useEffect(() => {
+    let syncID;
+    // Ping sync api to get latest device sync status and update device list
+    const refreshList = () => api.member.syncDB()
+      .then(syncStatus => {
+        syncStatus.data.devices.forEach(syncDevice => {
+          const index = devices.findIndex(device => device.id === syncDevice.id);
+          devices[index] = syncDevice;
+        });
+        setDeviceList(generatePaginatedDeviceList(devices));
+        return syncStatus.data;
+      })
+      .then(({devices, sourceStatus}) => {
+        // Stop pinging if status is not 0 or 1 (Not yet started or syncing) -AND- master device sync status is 8 (all finished, regardless or errors)
+        if (!devices.some(device =>
+          device.syncStatus === DeviceSyncStatusSchema.syncNotStarted ||
+           device.syncStatus === DeviceSyncStatusSchema.syncOngoing
+        ) && sourceStatus === SourceStatusSchema.importFinish) {
+          localStorage.setItem('currentPage', 'sync');
+          notify.showSuccessNotification({
+            title: i18n.t('userManagement.members.toast.syncSuccessTitle'),
+            message: i18n.t('userManagement.members.toast.syncSuccessBody')
+          });
+          clearInterval(syncID);
+          getRouter().reload();
+        }
+      });
+
+    if (syncStatus) {
+      refreshList();
+      syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
+    }
+
+    return () => clearInterval(syncID);
+  }, [devices, syncStatus]);
+
+  /**
+   * Conditional render for device status
+   * @param {Object} device
+   * @returns {JSX}
+   */
+  const renderStatus = device => {
+    // Check if sync is ongoing
+    if (device.syncStatus && syncStatus === MasterSyncStatusSchema.syncOngoing) {
+      switch (device.syncStatus) {
+        default: return;
+        case DeviceSyncStatusSchema.syncOngoing:
+          // Ongoing sync
+          return (
+            <div className="d-flex align-items-center">
+              <ProgressIndicator
+                isDetermined={false}
+                status="start"
+                className="ml-0 mr-2"
+              />
+              <span>{i18n.t('userManagement.members.syncing')}</span>
+            </div>
+          );
+        case DeviceSyncStatusSchema.syncFinished:
+          // Sync finished
+          return (
+            <div className="d-flex align-items-center">
+              <i className="fas fa-lg fa-check-circle mr-2"/>
+              <span>{i18n.t('userManagement.members.done')}</span>
+            </div>
+          );
+        case DeviceSyncStatusSchema.syncAbnormal:
+          // Sync failed
+          return (
+            <div className="d-flex align-items-center">
+              <i className="fas fa-lg fa-times-circle mr-2"/>
+              <span>{i18n.t('userManagement.members.failed')}</span>
+            </div>
+          );
+      }
+    } else {
+      // Show failed if last update failed
+      if (device.syncStatus === DeviceSyncStatusSchema.syncAbnormal) {
+        return (
+          <div className="d-flex align-items-center">
+            <i className="fas fa-lg fa-times-circle mr-2"/>
+            <span>{i18n.t('userManagement.members.failed')}</span>
+          </div>
+        );
+      }
+
+      // Display last synced time if lastUpdateTime is not 0
+      if (device.lastUpdateTime) {
+        return (
+          <CustomTooltip title={formatDate(device.lastUpdateTime)}>
+            <span>
+              <i className="fas fa-lg fa-check-circle mr-2"/>
+              {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
+            </span>
+          </CustomTooltip>
+        );
+      }
+
+      // Device has not been synced at all - show if initial device linking was successful
+      switch (device.connectionStatus) {
+        default: return;
+        case ConnectionStatusSchema.connectionSuccess:
+          return (
+            <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
+              <i className="fas fa-lg fa-link"/>
+            </CustomTooltip>
+          );
+        case ConnectionStatusSchema.connectionFail:
+          return (
+            <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
+              <i className="fas fa-lg fa-unlink"/>
+            </CustomTooltip>
+          );
+      }
+    }
+  };
+
   return (
     <div>
       <Formik
@@ -170,42 +321,50 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
         onSubmit={syncDB}
       >
         {form => {
-          const disableButton = !form.values.flat().some(device => device.isChecked);
+          const flattenedFormValues = form.values.flat();
+          const noneSelectedDisableButton = !flattenedFormValues.some(device => device.isChecked);
+          const invalidSelection = flattenedFormValues.some(device => device.isChecked && !device.connectionStatus);
           return (
             <Form className="card-body">
               <FormikEffect onChange={onChangeCardForm}/>
               <div className="col-12 d-inline-flex justify-content-between">
-
-                {sync ? (
-                  <button
-                    className="btn btn-primary rounded-pill"
-                    type="submit"
-                  >
-                    <i className="fas fa-exchange-alt fa-fw mr-2"/>syncing
-                  </button>
-                ) : (
-                  <CustomTooltip placement="auto" show={disableButton} title={i18n.t('userManagement.members.tooltip.noDevice')}>
-                    <div>
-                      <button
-                        className="btn btn-primary rounded-pill"
-                        type="submit"
-                        disabled={disableButton}
-                        style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                      >
-                        <i className="fas fa-exchange-alt fa-fw mr-2"/>
-                        {i18n.t('userManagement.members.synchronize')}
-                      </button>
-                    </div>
-                  </CustomTooltip>
-                )}
                 <div className="d-inline-flex">
-                  <CustomTooltip placement="top" show={disableButton} title={i18n.t('userManagement.members.tooltip.noDevice')}>
+                  {syncStatus ? (
+                    <button
+                      disabled
+                      className="btn btn-primary rounded-pill"
+                      type="button"
+                    >
+                      <i className="fas fa-spin fa-sync-alt fa-fw mr-2"/>
+                      {i18n.t('userManagement.members.syncing')}
+                    </button>
+                  ) : (
+                    <CustomTooltip placement="auto" show={noneSelectedDisableButton || invalidSelection} title={invalidSelection ? i18n.t('userManagement.members.tooltip.invalidSelection') : i18n.t('userManagement.members.tooltip.noDevice')}>
+                      <div>
+                        <button
+                          className="btn btn-primary rounded-pill"
+                          type="submit"
+                          disabled={noneSelectedDisableButton || invalidSelection}
+                          style={{pointerEvents: noneSelectedDisableButton || invalidSelection ? 'none' : 'auto'}}
+                        >
+                          <i className="fas fa-exchange-alt fa-fw mr-2"/>
+                          {i18n.t('userManagement.members.synchronize')}
+                        </button>
+                      </div>
+                    </CustomTooltip>
+                  )}
+                  {invalidSelection && (
+                    <a href="#" className="ml-4 d-flex align-items-center" onClick={removeUnlinkedDevices(form)}>{i18n.t('userManagement.members.removeUnlinked')}</a>
+                  )}
+                </div>
+                <div className="d-inline-flex">
+                  <CustomTooltip placement="top" show={noneSelectedDisableButton} title={i18n.t('userManagement.members.tooltip.noDevice')}>
                     <div className="ml-3">
                       <button
                         className="btn btn-outline-primary rounded-pill"
                         type="button"
-                        disabled={disableButton}
-                        style={{pointerEvents: disableButton ? 'none' : 'auto'}}
+                        disabled={noneSelectedDisableButton}
+                        style={{pointerEvents: noneSelectedDisableButton ? 'none' : 'auto'}}
                         onClick={confirmDelete()}
                       >
                         <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
@@ -224,6 +383,8 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                 </div>
                 <DeviceSyncAddDevice
                   device={device}
+                  devices={devices}
+                  ipAddress={ipAddress}
                   isShowDeviceModal={isShowDeviceModal}
                   hideDeviceModal={hideDeviceModal}
                 />
@@ -247,8 +408,8 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                         <label htmlFor="selectAll"/>
                       </th>
                       <th style={{width: '15%'}}>{i18n.t('userManagement.members.host')}</th>
-                      <th style={{width: '35%'}}>{i18n.t('userManagement.members.deviceName')}</th>
-                      <th style={{width: '25%'}}>{i18n.t('userManagement.members.status')}</th>
+                      <th style={{width: '30%'}}>{i18n.t('userManagement.members.deviceName')}</th>
+                      <th style={{width: '30%'}}>{i18n.t('userManagement.members.status')}</th>
                       <th style={{width: '15%'}}>{i18n.t('userManagement.members.actions')}</th>
                     </tr>
                   </thead>
@@ -277,46 +438,38 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
                                 </CustomTooltip>
                               </td>
                               <td>
-                                <CustomTooltip placement="top-start" title={device.deviceName}>
+                                <CustomTooltip placement="top-start" title={device.name}>
                                   <div>
-                                    {device.deviceName}
+                                    {device.name}
                                   </div>
                                 </CustomTooltip>
                               </td>
                               <td>
                                 <div>
-                                  { device.lastUpdateTime ? (
-                                    <CustomTooltip placement="top-start" title={`${new Date(device.lastUpdateTime)}`}>
-                                      <span>{`${new Date(device.lastUpdateTime)}`}</span>
-                                    </CustomTooltip>
-                                  ) : (
-                                    device.connectionStatus ? (
-                                      <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
-                                        <i className="fas fa-link fa-fw"/>
-                                      </CustomTooltip>
-                                    ) : (
-                                      <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
-                                        <i className="fas fa-unlink fa-fw"/>
-                                      </CustomTooltip>
-                                    )
-                                  )}
+                                  {renderStatus(device)}
                                 </div>
                               </td>
                               <td className="text-left group-btn">
-                                <button
-                                  className="btn btn-link"
-                                  type="button"
-                                  onClick={editDeviceHandler(device)}
-                                >
-                                  <i className="fas fa-pen fa-lg fa-fw"/>
-                                </button>
-                                <button
-                                  className="btn btn-link"
-                                  type="button"
-                                  onClick={confirmDelete(device.id)}
-                                >
-                                  <i className="far fa-trash-alt fa-lg fa-fw"/>
-                                </button>
+                                {syncStatus ? (
+                                  <i className="fas fa-lg fa-ban"/>
+                                ) : (
+                                  <>
+                                    <button
+                                      className="btn btn-link"
+                                      type="button"
+                                      onClick={editDeviceHandler(device)}
+                                    >
+                                      <i className="fas fa-pen fa-lg fa-fw"/>
+                                    </button>
+                                    <button
+                                      className="btn btn-link"
+                                      type="button"
+                                      onClick={confirmDelete(device.id)}
+                                    >
+                                      <i className="far fa-trash-alt fa-lg fa-fw"/>
+                                    </button>
+                                  </>
+                                )}
                               </td>
                             </tr>
                           );
@@ -339,7 +492,7 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
               <Pagination
                 name="page"
                 index={page}
-                size={5}
+                size={ITEMS_PER_PAGE}
                 total={deviceList.flat().length}
                 currentPageItemQuantity={deviceList[page] ? deviceList[page].length : 0}
                 hrefTemplate=""
@@ -372,9 +525,19 @@ const DeviceSync = ({deviceSync: {devices, sync}}) => {
 
 DeviceSync.propTypes = {
   deviceSync: PropTypes.shape({
-    devices: PropTypes.array.isRequired,
-    sync: PropTypes.number.isRequired
-  }).isRequired
+    devices: PropTypes.arrayOf(PropTypes.shape({
+      account: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      ip: PropTypes.string.isRequired,
+      port: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      connectionStatus: PropTypes.number.isRequired,
+      lastUpdateTime: PropTypes.number.isRequired,
+      syncStatus: PropTypes.number.isRequired
+    })),
+    syncStatus: PropTypes.number.isRequired
+  }).isRequired,
+  ipAddress: PropTypes.string.isRequired
 };
 
 export default DeviceSync;

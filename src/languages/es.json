@@ -84,7 +84,11 @@
       "Non-existent Photo": "Miniatura de Cara inexistente",
       "Invalid Key": "Activación fallida, código de activación incorrecto",
       "Duplicate Key": "Activación fallida, código de activación repetido",
-      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros"
+      "Cannot Support Database Downgrade from 30,000 to 3000 People": "Sin capacidad en base de datos, reducir de 30.000 a 3.000 miembros",
+      "DEVICE_CONNECTION_FAIL": "",
+      "DEVICE_LOGIN_FAIL": "",
+      "DUPLICATE_DEVICE_IP": "",
+      "INVALID_DEVICE_ID": ""
     },
     "dateTimePicker": {
       "date": "fecha",
@@ -166,11 +170,24 @@
       "export": "Exportar",
       "importDB": "",
       "import": "Importar",
+      "toast": {
+        "connectSuccessTitle": "",
+        "connectSuccessBody": "",
+        "connectFailTitle": "",
+        "connectFailBody": "",
+        "syncSuccessTitle": "",
+        "syncSuccessBody": ""
+      },
       "host": "",
+      "syncing": "",
+      "done": "",
+      "failed": "",
+      "lastUpdated": "",
       "tooltip": {
-        "noDevice": "",
         "connected": "",
         "notConnected": "",
+        "invalidSelection": "",
+        "noDevice": "",
         "editGroupWithName": "Editar grupo: {{0}}",
         "deleteGroupWithName": "Borrar grupo: {{0}}",
         "editMemberWithName": "Editar miembro: {{0}}",
@@ -178,6 +195,7 @@
         "photoLimitExceeded": "Límite de cantidad alcanzado"
       },
       "synchronize": "",
+      "removeUnlinked": "",
       "remove": "",
       "deviceName": "",
       "status": "",
@@ -428,6 +446,8 @@
     "birthday": "Utilice el formato de cumpleaños correcto",
     "countryCode": "El código de país es incorrecto",
     "duplicateName": "Nombre duplicado, por favorutilice un nombre diferente",
+    "identicalIP": "",
+    "duplicateIP": "",
     "maxRecipient": "El número máximo de destinatarios es 64",
     "duplicateEmail": "El correo electrónico esta duplicado"
   },
