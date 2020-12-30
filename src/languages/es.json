@@ -17,7 +17,8 @@
       "on": "ON",
       "off": "OFF",
       "resetDefault": "Restaurar a lo preajuste",
-      "apply": "Aplicar"
+      "apply": "Aplicar",
+      "create": "Nuevo"
     },
     "password": {
       "hidePassword": "Ocultar contraseña",
@@ -132,6 +133,8 @@
           "confirmDeleteBody": "¿Está seguro de que desea borrar el usuario {{0}} ?"
         },
         "group": {
+          "editGroupTitle": "Editar grupo",
+          "createGroupTitle": "Añadir grupo",
           "namePlaceholder": "Ingrese el nombre del grupo",
           "nameHelper": "Extension máxima: 32 caracteres",
           "groupLimitExceeded": "",

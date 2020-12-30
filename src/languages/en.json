@@ -17,7 +17,8 @@
       "on": "ON",
       "off": "OFF",
       "resetDefault": "Reset to Default Settings",
-      "apply": "Apply"
+      "apply": "Apply",
+      "create": "Create"
     },
     "password": {
       "hidePassword": "Hide Password",
@@ -132,6 +133,8 @@
           "confirmDeleteBody": "Are you sure you want to delete member {{0}}?"
         },
         "group": {
+          "editGroupTitle": "Edit Group",
+          "createGroupTitle": "Create a Group",
           "namePlaceholder": "Enter a name for this group",
           "nameHelper": "Maximum length: 32 characters",
           "groupLimitExceeded": "",

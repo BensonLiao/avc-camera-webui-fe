@@ -70,8 +70,6 @@
     "members": {
       "modal": {
         "group": {
-          "editGroupTitle": "Editar grupo",
-          "createGroupTitle": "Añadir grupo",
           "editGroupTitle.avn": "Editar grupo"
         }
       },
@@ -148,9 +146,6 @@
   "common": {
     "toast": {
       "DHCP Test Failed": "Prueba DHCP falló"
-    },
-    "button": {
-      "create": "Nuevo"
     }
   }
 }

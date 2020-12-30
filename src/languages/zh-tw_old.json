@@ -70,8 +70,6 @@
     "members": {
       "modal": {
         "group": {
-          "editGroupTitle": "編輯群組",
-          "createGroupTitle": "新增群組",
           "editGroupTitle.avn": "編輯群組"
         }
       },
@@ -149,9 +147,6 @@
   "common": {
     "toast": {
       "DHCP Test Failed": "DHCP 測試失敗"
-    },
-    "button": {
-      "create": "新增"
     }
   }
 }

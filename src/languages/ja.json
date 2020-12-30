@@ -17,7 +17,8 @@
       "on": "ON",
       "off": "OFF",
       "resetDefault": "デフォルト設定へ戻る",
-      "apply": "適用"
+      "apply": "適用",
+      "create": "追加"
     },
     "password": {
       "hidePassword": "パスワードを非表示する",
@@ -132,6 +133,8 @@
           "confirmDeleteBody": "メンバー {{0}} を削除しますか？"
         },
         "group": {
+          "editGroupTitle": "グループを編集する",
+          "createGroupTitle": "グループを追加する",
           "namePlaceholder": "グループ名を入力してください",
           "nameHelper": "最大32文字まで入力可能です",
           "groupLimitExceeded": "",

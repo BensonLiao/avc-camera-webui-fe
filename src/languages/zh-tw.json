@@ -17,7 +17,8 @@
       "on": "開啟",
       "off": "關閉",
       "resetDefault": "恢復預設值",
-      "apply": "套用"
+      "apply": "套用",
+      "create": "新增"
     },
     "password": {
       "hidePassword": "隱藏密碼",
@@ -132,6 +133,8 @@
           "confirmDeleteBody": "您確定要刪除成員 {{0}} 嗎？"
         },
         "group": {
+          "editGroupTitle": "編輯群組",
+          "createGroupTitle": "新增群組",
           "namePlaceholder": "輸入群組名稱",
           "nameHelper": "最多32個字",
           "groupLimitExceeded": "",

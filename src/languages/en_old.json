@@ -76,8 +76,6 @@
       "pleaseUploadPhoto.avn": "Please upload your face photo.",
       "modal": {
         "group": {
-          "editGroupTitle": "Edit Group",
-          "createGroupTitle": "Create a Group",
           "editGroupTitle.avn": "Modify Group"
         }
       },
@@ -172,9 +170,6 @@
   "common": {
     "toast": {
       "DHCP Test Failed": "DHCP Testing Failed"
-    },
-    "button": {
-      "create": "Create"
     }
   }
 }
