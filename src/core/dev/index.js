@@ -720,7 +720,12 @@ mockAxios
 
     const processingDevice = syncProcess.devices.find(device => device.syncStatus === 1);
     if (processingDevice) {
-      syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].syncStatus = 2;
+      // 50% chance to fail
+      if (Math.random() * 2 > 1) {
+        syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].syncStatus = 2;
+      } else {
+        syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].syncStatus = 3;
+      }
     } else {
       db.get('deviceSync').assign({syncStatus: 0}).write();
       db.get('deviceSyncProcess').assign({

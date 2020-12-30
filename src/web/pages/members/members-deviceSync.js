@@ -11,6 +11,7 @@ import FormikEffect from '../../../core/components/formik-effect';
 import {Formik, Form, Field} from 'formik';
 import {formatDate, getPaginatedData, isArray} from '../../../core/utils';
 import noDevice from '../../../resource/noDevice.png';
+import notify from '../../../core/notify';
 import Pagination from '../../../core/components/pagination';
 import ProgressIndicator from '../../../core/components/progress-indicator';
 import ConnectionStatusSchema from 'webserver-form-schema/constants/members-device-connection-status';
@@ -214,6 +215,10 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
            device.syncStatus === DeviceSyncStatusSchema.syncOngoing
         ) && sourceStatus === SourceStatusSchema.importFinish) {
           localStorage.setItem('currentPage', 'sync');
+          notify.showSuccessNotification({
+            title: i18n.t('userManagement.members.toast.syncSuccessTitle'),
+            message: i18n.t('userManagement.members.toast.syncSuccessBody')
+          });
           clearInterval(syncID);
           getRouter().reload();
         }
@@ -250,6 +255,14 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
             <div className="d-flex align-items-center">
               <i className="fas fa-lg fa-check-circle mr-2"/>
               <span>{i18n.t('userManagement.members.done')}</span>
+            </div>
+          );
+        case DeviceSyncStatusSchema.syncAbnormal:
+          // Sync failed
+          return (
+            <div className="d-flex align-items-center">
+              <i className="fas fa-lg fa-times-circle mr-2"/>
+              <span>{i18n.t('userManagement.members.failed')}</span>
             </div>
           );
       }
