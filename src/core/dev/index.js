@@ -211,6 +211,20 @@ mockAxios
     const {files} = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('sdCardStorage.files').remove(file => files.indexOf(file.path) > -1).write()]);
   })
+  .onGet('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').value()]))
+  .onPost('/api/system/systeminfo/sdcard-recording').reply(config => {
+    const info = JSON.parse(config.data);
+    const data = {
+      ...db.get('sdCardRecordingSettings').value(),
+      ...info,
+      sdRecordingDuration: Number(info.sdRecordingDuration),
+      sdRecordingLimit: info.sdRecordingLimit === 'true',
+      sdRecordingStatus: Number(info.sdRecordingStatus),
+      sdRecordingStream: Number(info.sdRecordingStream),
+      sdRecordingType: Number(info.sdRecordingType)
+    };
+    return mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').assign(data).write()]);
+  })
   .onPost('/api/system/systeminfo/sdcard').reply(config => {
     const data = {
       ...db.get('system').value(),

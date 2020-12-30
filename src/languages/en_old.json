@@ -146,9 +146,6 @@
       "buildVersion.avn": "Build Version"
     }
   },
-  "sdCard": {
-    "mount": "Mount"
-  },
   "error": {
     "notFound": "Not Found"
   },

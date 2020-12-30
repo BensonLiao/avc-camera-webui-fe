@@ -37,9 +37,10 @@
       "stats": "{{0}}-{{1}} 筆資料，總計：{{2}}"
     },
     "volumeBar": {
+      "free": "{{0}} 可用",
+      "total": "",
       "sdStorageStatus": "{{0}} 可用 (共 {{1}})",
-      "used": "{{0}} 已使用",
-      "free": "{{0}} 可用"
+      "used": "{{0}} 已使用"
     },
     "toast": {
       "Duplicate Member Names": "名稱重複，請使用不同名稱",
@@ -343,37 +344,59 @@
     "lightingCompensation": "電源頻率"
   },
   "sdCard": {
+    "basic": {
+      "constants": {
+        "Functioning": "",
+        "Unmounted": "",
+        "Empty Slot": "",
+        "Nonfunctioning": "",
+        "Read-only Access": "",
+        "Unknown Error": "",
+        "sdcard-recording-type-0": "",
+        "sdcard-recording-type-1": "",
+        "sdcard-recording-type-2": "",
+        "sdcard-recording-stream-0": "",
+        "sdcard-recording-stream-1": "",
+        "sdcard-recording-limit-true": "",
+        "sdcard-recording-limit-false": "",
+        "unknownStatus": "",
+        "storageToFull": ""
+      },
+      "operation": "",
+      "format": "",
+      "mount": "",
+      "unmount": "",
+      "title": "",
+      "enable": "",
+      "status": "",
+      "filesystem": "",
+      "unrecognized": "",
+      "recording": "",
+      "errorNotification": "",
+      "notificationSet": "",
+      "enableOutgoingEmail": "",
+      "emailNotification": "",
+      "enableRecording": "",
+      "recordingType": "",
+      "recordingResolution": "",
+      "fps": "",
+      "codec": "",
+      "recordingDuration": "",
+      "recordingLimit": ""
+    },
     "constants": {
-      "Functioning": "正常",
-      "Unmounted": "未掛載",
-      "Empty Slot": "未插卡",
-      "Nonfunctioning": "不正常",
-      "Read-only Access": "唯獨",
-      "Unknown Error": "未知錯誤",
       "unknownStatus": "UNKNOWN STATUS"
     },
-    "operation": "操作",
     "tooltip": {
       "disabledOperationButton": "請先關閉記憶卡功能",
       "disabledNotificationButton": "必須設定電子郵件"
     },
-    "format": "格式化",
     "modal": {
       "disabledFormatButton": "您即將格式化 Micro SD 卡，確認是否繼續？",
       "disabledUnmountButton": "您即將卸除 Micro SD 卡，確認是否繼續？",
       "disableTitle": "關閉記憶卡",
       "disableBody": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存"
-    },
-    "unmount": "卸載",
-    "title": "記憶卡",
-    "enable": "開啟記憶卡",
-    "errorNotification": "異常通報",
-    "notificationSet": "已設定電子郵件",
-    "enableOutgoingEmail": "設定電子郵件",
-    "status": "狀態",
-    "filesystem": "檔案系統格式",
-    "unrecognized": "無法識別",
-    "storageSpace": "儲存空間"
+    }
   },
   "validation": {
     "portReserved": "此連接埠為系統預留或使用中",
@@ -691,7 +714,9 @@
       "email": "電子郵件",
       "io": "數位輸出及輸入",
       "smartNotification": "智慧通知",
-      "sdCard": "記憶卡",
+      "sdCardSettings": "",
+      "basic": "",
+      "storage": "",
       "facialRecognition": "臉部辨識",
       "motionDetection": "移動偵測",
       "system": "系統",
@@ -1007,7 +1032,7 @@
     "dateTime": "日期與時刻",
     "softwareUpgrade": "軟體更新",
     "deviceMaintenance": "維護",
-    "sdCard": "記憶卡",
+    "sdCardSettings": "",
     "systemLog": "系統紀錄",
     "information": "裝置資訊",
     "welcome": "歡迎",

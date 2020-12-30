@@ -37,9 +37,10 @@
       "stats": "{{0}}-{{1}} registros. Total: {{2}}"
     },
     "volumeBar": {
+      "free": "{{0}} está disponible",
+      "total": "",
       "sdStorageStatus": "{{0}} disponible total {{1}}",
-      "used": "{{0}} se ha utilizado",
-      "free": "{{0}} está disponible"
+      "used": "{{0}} se ha utilizado"
     },
     "toast": {
       "Duplicate Member Names": "Nombre duplicado, utilice un nombre diferente",
@@ -343,37 +344,59 @@
     "lightingCompensation": "Frecuencia de actualización"
   },
   "sdCard": {
+    "basic": {
+      "constants": {
+        "Functioning": "",
+        "Unmounted": "",
+        "Empty Slot": "",
+        "Nonfunctioning": "",
+        "Read-only Access": "",
+        "Unknown Error": "",
+        "sdcard-recording-type-0": "",
+        "sdcard-recording-type-1": "",
+        "sdcard-recording-type-2": "",
+        "sdcard-recording-stream-0": "",
+        "sdcard-recording-stream-1": "",
+        "sdcard-recording-limit-true": "",
+        "sdcard-recording-limit-false": "",
+        "unknownStatus": "",
+        "storageToFull": ""
+      },
+      "operation": "",
+      "format": "",
+      "mount": "",
+      "unmount": "",
+      "title": "",
+      "enable": "",
+      "status": "",
+      "filesystem": "",
+      "unrecognized": "",
+      "recording": "",
+      "errorNotification": "",
+      "notificationSet": "",
+      "enableOutgoingEmail": "",
+      "emailNotification": "",
+      "enableRecording": "",
+      "recordingType": "",
+      "recordingResolution": "",
+      "fps": "",
+      "codec": "",
+      "recordingDuration": "",
+      "recordingLimit": ""
+    },
     "constants": {
-      "Functioning": "normal",
-      "Unmounted": "No montado",
-      "Empty Slot": "No hay tarjeta insertada",
-      "Nonfunctioning": "Anormal",
-      "Read-only Access": "Solo lectura",
-      "Unknown Error": "error desconocido",
       "unknownStatus": "UNKNOWN STATUS"
     },
-    "operation": "Operación",
     "tooltip": {
       "disabledOperationButton": "Primero apague la función de la tarjeta SD",
       "disabledNotificationButton": "El correo electrónico debe estar configurado."
     },
-    "format": "formato",
     "modal": {
       "disabledFormatButton": "Estás a punto de formatear la tarjeta Micro SD. ¿Quieres continuar?",
       "disabledUnmountButton": "Estás a punto de retirar la tarjeta Micro SD. ¿Quieres continuar?",
       "disableTitle": "Borrar la tarjeta de memoria",
       "disableBody": "¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento."
-    },
-    "unmount": "Desinstalar",
-    "title": "Tarjeta de memoria",
-    "enable": "Habilitar tarjeta SD",
-    "errorNotification": "Notificación de anormalidad",
-    "notificationSet": "Conjunto de correo electrónico",
-    "enableOutgoingEmail": "Configurar correo electrónico",
-    "status": "estado",
-    "filesystem": "Formato del sistema de archivos",
-    "unrecognized": "No reconocido",
-    "storageSpace": "Espacio de almacenamiento"
+    }
   },
   "validation": {
     "portReserved": "Este puerto está reservado o en uso para el sistema",
@@ -691,7 +714,9 @@
       "email": "correo electrónico",
       "io": "Entrada y salida digital",
       "smartNotification": "Notificación inteligente",
-      "sdCard": "Tarjeta de memoria",
+      "sdCardSettings": "",
+      "basic": "",
+      "storage": "",
       "facialRecognition": "Reconocimiento facial",
       "motionDetection": "Detección de movimiento",
       "system": "Sistema",
@@ -1007,7 +1032,7 @@
     "dateTime": "Fecha y hora",
     "softwareUpgrade": "Actualización de software",
     "deviceMaintenance": "mantenimiento",
-    "sdCard": "Tarjeta de memoria",
+    "sdCardSettings": "",
     "systemLog": "Registro del sistema",
     "information": "Información del dispositivo",
     "welcome": "Bienvenido",

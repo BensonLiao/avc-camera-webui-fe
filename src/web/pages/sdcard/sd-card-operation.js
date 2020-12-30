@@ -24,7 +24,7 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi}) => {
 
   return (
     <div className="form-group">
-      <label>{i18n.t('sdCard.operation')}</label>
+      <label>{i18n.t('sdCard.basic.operation')}</label>
       <div className="card-body p-2">
         <div>
           <CustomTooltip show={sdEnabled} title={i18n.t('sdCard.tooltip.disabledOperationButton')}>
@@ -36,7 +36,7 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi}) => {
                 style={sdEnabled || sdStatus ? {pointerEvents: 'none'} : {}}
                 onClick={showModal('isShowFormatModal')}
               >
-                {i18n.t('sdCard.format')}
+                {i18n.t('sdCard.basic.format')}
               </button>
             </span>
           </CustomTooltip>
@@ -49,13 +49,13 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi}) => {
                 style={sdEnabled ? {pointerEvents: 'none'} : {}}
                 onClick={sdStatus ? () => (callApi('mountSDCard')) : showModal('isShowUnmountModal')}
               >
-                {i18n.t(sdStatus ? 'sdCard.mount' : 'sdCard.unmount')}
+                {sdStatus ? i18n.t('sdCard.basic.mount') : i18n.t('sdCard.basic.unmount')}
               </button>
             </span>
           </CustomTooltip>
           <CustomNotifyModal
             isShowModal={isShowFormatModal}
-            modalTitle={i18n.t('sdCard.format')}
+            modalTitle={i18n.t('sdCard.basic.format')}
             modalBody={i18n.t('sdCard.modal.disabledFormatButton')}
             isConfirmDisable={isApiProcessing}
             onHide={getRouter().reload} // Reload to reset SD card switch button state
@@ -63,7 +63,7 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi}) => {
           />
           <CustomNotifyModal
             isShowModal={isShowUnmountModal}
-            modalTitle={i18n.t('sdCard.unmount')}
+            modalTitle={i18n.t('sdCard.basic.unmount')}
             modalBody={i18n.t('sdCard.modal.disabledUnmountButton')}
             isConfirmDisable={isApiProcessing}
             onHide={getRouter().reload} // Reload to reset SD card switch button state

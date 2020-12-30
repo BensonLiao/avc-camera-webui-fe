@@ -262,10 +262,10 @@ module.exports = {
         sdUsage: 3200000,
         sdAlertEnabled: false
       },
-      sdRecordingSettings: {
+      sdCardRecordingSettings: {
         sdRecordingStatus: 0,
         sdRecordingEnabled: true,
-        sdRecordingStream: 0,
+        sdRecordingStream: 1,
         sdRecordingType: 0,
         sdRecordingDuration: 0,
         sdRecordingLimit: true
@@ -333,8 +333,8 @@ module.exports = {
         },
         channelB: {
           codec: StreamCodec.h264,
-          resolution: StreamResolution['0'],
-          frameRate: '30',
+          resolution: StreamResolution['1'],
+          frameRate: '29',
           bandwidthManagement: StreamBandwidthManagement.vbr,
           maximumBitrate: '4096',
           constantBitrate: '4096',
@@ -351,9 +351,9 @@ module.exports = {
           gov: StreamGOV['60']
         },
         channelB: {
-          codec: StreamCodec.h264,
-          resolution: StreamResolution['0'],
-          frameRate: '30',
+          codec: StreamCodec.mjpeg,
+          resolution: StreamResolution['1'],
+          frameRate: '29',
           bandwidthManagement: StreamBandwidthManagement.mbr,
           bitRate: '4096',
           gov: StreamGOV['60'],
