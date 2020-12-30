@@ -201,18 +201,18 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
           devices[index] = syncDevice;
         });
         setDeviceList(generatePaginatedDeviceList(devices));
-        return syncStatus.data.devices;
+        return syncStatus.data;
       })
-      .then(devices => {
+      .then(({devices, sourceStatus}) => {
         // Stop pinging if status is 0 or 1 (Not yet started or syncing) -AND- master device sync status is 8 (all finished, regardless or errors)
-        if (!devices.some(device => device.syncStatus === 0 || device.syncStatus === 1) && syncStatus === 8) {
+        if (!devices.some(device => device.syncStatus === 0 || device.syncStatus === 1) && sourceStatus === 8) {
           localStorage.setItem('currentPage', 'sync');
           clearInterval(syncID);
           getRouter().reload();
         }
       });
 
-    if (syncStatus !== 0 || syncStatus !== 8) {
+    if (syncStatus) {
       refreshList();
       syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
     }
@@ -392,20 +392,26 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                                 </div>
                               </td>
                               <td className="text-left group-btn">
-                                <button
-                                  className="btn btn-link"
-                                  type="button"
-                                  onClick={editDeviceHandler(device)}
-                                >
-                                  <i className="fas fa-pen fa-lg fa-fw"/>
-                                </button>
-                                <button
-                                  className="btn btn-link"
-                                  type="button"
-                                  onClick={confirmDelete(device.id)}
-                                >
-                                  <i className="far fa-trash-alt fa-lg fa-fw"/>
-                                </button>
+                                {syncStatus ? (
+                                  <i className="fas fa-lg fa-ban"/>
+                                ) : (
+                                  <>
+                                    <button
+                                      className="btn btn-link"
+                                      type="button"
+                                      onClick={editDeviceHandler(device)}
+                                    >
+                                      <i className="fas fa-pen fa-lg fa-fw"/>
+                                    </button>
+                                    <button
+                                      className="btn btn-link"
+                                      type="button"
+                                      onClick={confirmDelete(device.id)}
+                                    >
+                                      <i className="far fa-trash-alt fa-lg fa-fw"/>
+                                    </button>
+                                  </>
+                                )}
                               </td>
                             </tr>
                           );

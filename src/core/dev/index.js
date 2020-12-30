@@ -703,10 +703,10 @@ mockAxios
     const {devices, syncStatus} = db.get('deviceSync').value();
     const devicesToSync = JSON.parse(config.data).devices;
     let syncProcess = db.get('deviceSyncProcess').value();
-
     // Start sync process
     if (!syncStatus) {
       // Set sync process indicator on
+      syncProcess.sourceStatus = 1;
       db.get('deviceSync').assign({syncStatus: 1}).write();
       const itemsSyncing = devices.filter(device => devicesToSync.includes(device.id))
         .map(device => ({
@@ -725,7 +725,7 @@ mockAxios
       db.get('deviceSync').assign({syncStatus: 0}).write();
       db.get('deviceSyncProcess').assign({
         devices: [],
-        sourceStatus: 0
+        sourceStatus: 8
       }).write();
     }
 
