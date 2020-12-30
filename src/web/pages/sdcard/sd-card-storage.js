@@ -240,7 +240,7 @@ const SDCardStorage = ({files, dateList}) => {
                               form.values[page] && form.values[page].map((pageData, index) => {
                                 return (
                                   <tr
-                                    key={pageData.id}
+                                    key={pageData.path}
                                     className={classNames(
                                       {checked: form.values[page] && form.values[page][index] && form.values[page][index].isChecked}
                                     )}
@@ -248,10 +248,10 @@ const SDCardStorage = ({files, dateList}) => {
                                     <td className="text-center td-checkbox">
                                       <Field
                                         name={`${page}.${index}.isChecked`}
-                                        id={pageData.id}
+                                        id={pageData.path}
                                         type="checkbox"
                                       />
-                                      <label htmlFor={pageData.id}/>
+                                      <label htmlFor={pageData.path}/>
                                     </td>
                                     <td>
                                       <CustomTooltip placement="top-start" title={pageData.ip}>
