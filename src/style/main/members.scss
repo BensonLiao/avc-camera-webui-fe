@@ -42,6 +42,24 @@
     .fa-check-circle {
       color: $success;
     }
+
+    .fa-ban {
+      color: $error;
+    }
+
+    .fa-times-circle {
+      color: $error;
+    }
+
+    .loading-spinners {
+      width: 1.3333em;
+      height: 1.3333em;
+
+      .spinner {
+        width: 1.3333em;
+        height: 1.3333em;
+      }
+    }
   }
 }
 

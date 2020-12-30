@@ -709,19 +709,19 @@ mockAxios
   .onPut('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPost('/api/members/database').reply(config => setDelay(mockResponseWithLog(config, [204]), 2000))
   .onGet('/api/members/device-sync').reply(config => mockResponseWithLog(config, [200, db.get('deviceSync').value()]))
-  .onPut('/api/members/device-sync').reply(config => {
+  .onPut(/api\/members\/device-sync\/[0-9]+$/).reply(config => {
+    const deviceID = config.url.replace('/api/members/device-sync/', '');
     const newItem = JSON.parse(config.data);
-    return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').find({id: newItem.id}).assign(newItem).write()]), 500);
+    return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').find({id: deviceID}).assign(newItem).write()]), 500);
   })
   .onPost('/api/members/device-sync').reply(config => {
     const list = db.get('deviceSync.devices').value();
     const item = JSON.parse(config.data);
     const newItem = {
-      id: list[list.length - 1].id + 1,
+      id: list.length === 0 ? 1 : list[list.length - 1].id + 1,
       ip: item.ip,
       port: Number(item.port),
-      // randomly generated device ID
-      name: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
+      name: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`, // Randomly generated device name
       account: item.account,
       connectionStatus: Math.random() * 5 > 1 ? 1 : 0, // Generate failed connection with 50% chance
       lastUpdateTime: 0,
@@ -738,10 +738,12 @@ mockAxios
     const {devices, syncStatus} = db.get('deviceSync').value();
     const devicesToSync = JSON.parse(config.data).devices;
     let syncProcess = db.get('deviceSyncProcess').value();
-
     // Start sync process
     if (!syncStatus) {
       // Set sync process indicator on
+      syncProcess.sourceStatus = 1;
+      // Record time for this sync's lastUpdateTime
+      syncProcess.lastUpdateTime = new Date().getTime();
       db.get('deviceSync').assign({syncStatus: 1}).write();
       const itemsSyncing = devices.filter(device => devicesToSync.includes(device.id))
         .map(device => ({
@@ -755,12 +757,23 @@ mockAxios
 
     const processingDevice = syncProcess.devices.find(device => device.syncStatus === 1);
     if (processingDevice) {
-      syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].syncStatus = 2;
+      const deviceIndex = syncProcess.devices.indexOf(processingDevice);
+      // 20% chance to fail
+      if (Math.random() * 5 > 1) {
+        syncProcess.devices[deviceIndex].syncStatus = 2;
+        // Update lastUpdateTime for successful device
+        syncProcess.devices[deviceIndex].lastUpdateTime = syncProcess.lastUpdateTime;
+      } else {
+        syncProcess.devices[deviceIndex].syncStatus = 3;
+      }
+
+      db.get('deviceSync.devices').find({id: syncProcess.devices[deviceIndex].id}).assign(syncProcess.devices[deviceIndex]).write();
     } else {
+      // Finish Syncing
       db.get('deviceSync').assign({syncStatus: 0}).write();
       db.get('deviceSyncProcess').assign({
         devices: [],
-        sourceStatus: 0
+        sourceStatus: 8
       }).write();
     }
 

@@ -61,7 +61,7 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
       return i18n.t('validation.identicalIP');
     }
 
-    return duplicateCheck(ipList, value, i18n.t('validation.duplicateIP'));
+    return duplicateCheck(device ? ipList.filter(d => d !== device.ip) : ipList, value, i18n.t('validation.duplicateIP'));
   };
 
   return (

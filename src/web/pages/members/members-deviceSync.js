@@ -11,11 +11,17 @@ import FormikEffect from '../../../core/components/formik-effect';
 import {Formik, Form, Field} from 'formik';
 import {formatDate, getPaginatedData, isArray} from '../../../core/utils';
 import noDevice from '../../../resource/noDevice.png';
+import notify from '../../../core/notify';
 import Pagination from '../../../core/components/pagination';
 import ProgressIndicator from '../../../core/components/progress-indicator';
+import ConnectionStatusSchema from 'webserver-form-schema/constants/members-device-connection-status';
+import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
+import MasterSyncStatusSchema from 'webserver-form-schema/constants/members-master-sync-status';
+import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
 
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
+const ITEMS_PER_PAGE = 10;
 
 const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
@@ -32,7 +38,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
     return getPaginatedData(devices.map(device => ({
       ...device,
       isChecked: false
-    })), 10);
+    })), ITEMS_PER_PAGE);
   };
 
   const [deviceList, setDeviceList] = useState(generatePaginatedDeviceList(devices));
@@ -83,7 +89,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
 
   /**
    * Update `Select All` checkbox based on any checkbox update
-   * @param {Object} values - Form next values
+   * @param {Object} nextValues - Form next values
    * @returns {void}
    */
   const onChangeCardForm = ({nextValues}) => {
@@ -200,12 +206,19 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
           devices[index] = syncDevice;
         });
         setDeviceList(generatePaginatedDeviceList(devices));
-        return syncStatus.data.devices;
+        return syncStatus.data;
       })
-      .then(devices => {
-        // Stop pinging if status is 0 or 1 (Not yet started or syncing)
-        if (!devices.some(device => device.syncStatus === 0 || device.syncStatus === 1)) {
+      .then(({devices, sourceStatus}) => {
+        // Stop pinging if status is not 0 or 1 (Not yet started or syncing) -AND- master device sync status is 8 (all finished, regardless or errors)
+        if (!devices.some(device =>
+          device.syncStatus === DeviceSyncStatusSchema.syncNotStarted ||
+           device.syncStatus === DeviceSyncStatusSchema.syncOngoing
+        ) && sourceStatus === SourceStatusSchema.importFinish) {
           localStorage.setItem('currentPage', 'sync');
+          notify.showSuccessNotification({
+            title: i18n.t('userManagement.members.toast.syncSuccessTitle'),
+            message: i18n.t('userManagement.members.toast.syncSuccessBody')
+          });
           clearInterval(syncID);
           getRouter().reload();
         }
@@ -218,6 +231,87 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
 
     return () => clearInterval(syncID);
   }, [devices, syncStatus]);
+
+  /**
+   * Conditional render for device status
+   * @param {Object} device
+   * @returns {JSX}
+   */
+  const renderStatus = device => {
+    // Check if sync is ongoing
+    if (device.syncStatus && syncStatus === MasterSyncStatusSchema.syncOngoing) {
+      switch (device.syncStatus) {
+        default: return;
+        case DeviceSyncStatusSchema.syncOngoing:
+          // Ongoing sync
+          return (
+            <div className="d-flex align-items-center">
+              <ProgressIndicator
+                isDetermined={false}
+                status="start"
+                className="ml-0 mr-2"
+              />
+              <span>{i18n.t('userManagement.members.syncing')}</span>
+            </div>
+          );
+        case DeviceSyncStatusSchema.syncFinished:
+          // Sync finished
+          return (
+            <div className="d-flex align-items-center">
+              <i className="fas fa-lg fa-check-circle mr-2"/>
+              <span>{i18n.t('userManagement.members.done')}</span>
+            </div>
+          );
+        case DeviceSyncStatusSchema.syncAbnormal:
+          // Sync failed
+          return (
+            <div className="d-flex align-items-center">
+              <i className="fas fa-lg fa-times-circle mr-2"/>
+              <span>{i18n.t('userManagement.members.failed')}</span>
+            </div>
+          );
+      }
+    } else {
+      // Show failed if last update failed
+      if (device.syncStatus === DeviceSyncStatusSchema.syncAbnormal) {
+        return (
+          <div className="d-flex align-items-center">
+            <i className="fas fa-lg fa-times-circle mr-2"/>
+            <span>{i18n.t('userManagement.members.failed')}</span>
+          </div>
+        );
+      }
+
+      // Display last synced time if lastUpdateTime is not 0
+      if (device.lastUpdateTime) {
+        return (
+          <CustomTooltip title={formatDate(device.lastUpdateTime)}>
+            <span>
+              <i className="fas fa-lg fa-check-circle mr-2"/>
+              {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
+            </span>
+          </CustomTooltip>
+        );
+      }
+
+      // Device has not been synced at all - show if initial device linking was successful
+      switch (device.connectionStatus) {
+        default: return;
+        case ConnectionStatusSchema.connectionSuccess:
+          return (
+            <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
+              <i className="fas fa-lg fa-link"/>
+            </CustomTooltip>
+          );
+        case ConnectionStatusSchema.connectionFail:
+          return (
+            <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
+              <i className="fas fa-lg fa-unlink"/>
+            </CustomTooltip>
+          );
+      }
+    }
+  };
 
   return (
     <div>
@@ -352,59 +446,30 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                               </td>
                               <td>
                                 <div>
-                                  { device.syncStatus ? (
-                                    device.syncStatus === 1 ? (
-                                      <div className="d-flex align-items-center">
-                                        <ProgressIndicator
-                                          isDetermined={false}
-                                          status="start"
-                                          className="ml-0"
-                                        />
-                                        <span>{i18n.t('userManagement.members.syncing')}</span>
-                                      </div>
-                                    ) : (
-                                      <div className="d-flex align-items-center">
-                                        <i className="fas fa-lg fa-check-circle fa-fw mr-2"/>
-                                        <span>{i18n.t('userManagement.members.done')}</span>
-                                      </div>
-                                    )
-                                  ) : (
-                                    device.lastUpdateTime ? (
-                                      <CustomTooltip title={formatDate(device.lastUpdateTime)}>
-                                        <span>
-                                          <i className="fas fa-lg fa-check-circle fa-fw mr-2"/>
-                                          {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
-                                        </span>
-                                      </CustomTooltip>
-                                    ) : (
-                                      device.connectionStatus ? (
-                                        <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
-                                          <i className="fas fa-link fa-fw"/>
-                                        </CustomTooltip>
-                                      ) : (
-                                        <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
-                                          <i className="fas fa-unlink fa-fw"/>
-                                        </CustomTooltip>
-                                      )
-                                    )
-                                  )}
+                                  {renderStatus(device)}
                                 </div>
                               </td>
                               <td className="text-left group-btn">
-                                <button
-                                  className="btn btn-link"
-                                  type="button"
-                                  onClick={editDeviceHandler(device)}
-                                >
-                                  <i className="fas fa-pen fa-lg fa-fw"/>
-                                </button>
-                                <button
-                                  className="btn btn-link"
-                                  type="button"
-                                  onClick={confirmDelete(device.id)}
-                                >
-                                  <i className="far fa-trash-alt fa-lg fa-fw"/>
-                                </button>
+                                {syncStatus ? (
+                                  <i className="fas fa-lg fa-ban"/>
+                                ) : (
+                                  <>
+                                    <button
+                                      className="btn btn-link"
+                                      type="button"
+                                      onClick={editDeviceHandler(device)}
+                                    >
+                                      <i className="fas fa-pen fa-lg fa-fw"/>
+                                    </button>
+                                    <button
+                                      className="btn btn-link"
+                                      type="button"
+                                      onClick={confirmDelete(device.id)}
+                                    >
+                                      <i className="far fa-trash-alt fa-lg fa-fw"/>
+                                    </button>
+                                  </>
+                                )}
                               </td>
                             </tr>
                           );
@@ -427,7 +492,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
               <Pagination
                 name="page"
                 index={page}
-                size={5}
+                size={ITEMS_PER_PAGE}
                 total={deviceList.flat().length}
                 currentPageItemQuantity={deviceList[page] ? deviceList[page].length : 0}
                 hrefTemplate=""

@@ -1475,9 +1475,8 @@ module.exports = {
      */
     editDevice: ({id, ip, port, account, password}) => api({
       method: 'put',
-      url: '/api/members/device-sync',
+      url: `/api/members/device-sync/${id}`,
       data: {
-        id,
         ip,
         port,
         account,
@@ -1499,7 +1498,7 @@ module.exports = {
      * @returns {Promise<response>}
      * @response 200 {Object}
      */
-    syncDB: (devices = {}) => api({
+    syncDB: (devices = {devices: []}) => api({
       method: 'post',
       url: '/api/members/sync-db',
       data: devices
