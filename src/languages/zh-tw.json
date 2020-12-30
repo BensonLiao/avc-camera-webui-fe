@@ -396,6 +396,29 @@
       "disabledUnmountButton": "您即將卸除 Micro SD 卡，確認是否繼續？",
       "disableTitle": "關閉記憶卡",
       "disableBody": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存"
+    },
+    "storage": {
+      "tooltip": {
+        "noFile": ""
+      },
+      "button": {
+        "remove": "",
+        "download": ""
+      },
+      "files": {
+        "date": "",
+        "name": "",
+        "size": "",
+        "actions": ""
+      },
+      "noFile": "",
+      "modal": {
+        "confirmDeleteTitle": "",
+        "confirmDeleteBody": "",
+        "deleteFileApiProcessing": "",
+        "downloadingTitle": "",
+        "downloadingBody": ""
+      }
     }
   },
   "validation": {
@@ -1033,6 +1056,7 @@
     "softwareUpgrade": "軟體更新",
     "deviceMaintenance": "維護",
     "sdCardSettings": "",
+    "sdCardStorage": "",
     "systemLog": "系統紀錄",
     "information": "裝置資訊",
     "welcome": "歡迎",
