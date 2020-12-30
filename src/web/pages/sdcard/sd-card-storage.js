@@ -20,6 +20,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import StageProgress from '../../../core/components/stage-progress';
 import SDCardStorageSearchForm from './sd-card-storage-search-form';
 import dayjs from 'dayjs';
+const ITEMS_PER_PAGE = 10;
 
 const SDCardStorage = ({storage: {files, date}, dateList}) => {
   console.log('dateList', dateList);
@@ -38,7 +39,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
     return getPaginatedData(files.map(file => ({
       ...file,
       isChecked: false
-    })), 5);
+    })), ITEMS_PER_PAGE);
   };
 
   const getFinalSelectedList = list => isArray(list) ?
@@ -317,7 +318,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                     <Pagination
                       name="page"
                       index={page}
-                      size={5}
+                      size={ITEMS_PER_PAGE}
                       total={form.values.flat().length}
                       currentPageItemQuantity={form.values[page] ? form.values[page].length : 0}
                       hrefTemplate=""
