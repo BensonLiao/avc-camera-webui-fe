@@ -18,7 +18,7 @@ const VolumeProgressBar = ({total, usage, percentageToHideText, isRoundProgressB
           <div className="left-side half-circle"/>
           <div className="right-side half-circle"/>
         </div>
-        <div className="shadow"/>
+        <div className="shadow-pie"/>
       </div>
       <div className="card rounded-0 p-2">
         <p className="mb-0 text-center">
