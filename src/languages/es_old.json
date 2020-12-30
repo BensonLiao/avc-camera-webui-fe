@@ -131,32 +131,6 @@
       }
     }
   },
-  "sdCard": {
-    "mount": "Montar",
-    "constants": {
-      "Functioning": "normal",
-      "Unmounted": "No montado",
-      "Empty Slot": "No hay tarjeta insertada",
-      "Nonfunctioning": "Anormal",
-      "Read-only Access": "Solo lectura",
-      "Unknown Error": "error desconocido"
-    },
-    "operation": "Operación",
-    "format": "formato",
-    "unmount": "Desinstalar",
-    "title": "Tarjeta de memoria",
-    "enable": "Habilitar tarjeta SD",
-    "errorNotification": "Notificación de anormalidad",
-    "notificationSet": "Conjunto de correo electrónico",
-    "enableOutgoingEmail": "Configurar correo electrónico",
-    "status": "estado",
-    "filesystem": "Formato del sistema de archivos",
-    "unrecognized": "No reconocido",
-    "storageSpace": "Espacio de almacenamiento",
-    "basic": {
-      "resolution": ""
-    }
-  },
   "error": {
     "notFound": "Lo siento, esta página no existe"
   },
@@ -185,7 +159,5 @@
     "button": {
       "create": "Nuevo"
     }
-  },
-  "Resolution FPS": "",
-  "Resolution Codec": ""
+  }
 }
