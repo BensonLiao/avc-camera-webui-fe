@@ -213,10 +213,6 @@
       "addMemberFromEvent": "Add a Member from Events"
     },
     "events": {
-      "popover": {
-        "title": "Event Search Tip",
-        "content": "Use ' ' or ',' as a logical AND operator between keywords."
-      },
       "toast": {
         "settingSuccessTitle": "Setting Success",
         "settingSuccessBody": "Photo Has Been Added to {{0}}"
@@ -245,6 +241,10 @@
         "enroll-status-0": "Image Spoof",
         "enroll-status-1": "Unknown",
         "enroll-status-2": "Registered"
+      },
+      "popover": {
+        "title": "Event Search Tip",
+        "content": "Use ' ' or ',' as a logical AND operator between keywords."
       },
       "similarity": "Similarity",
       "status": "Status",
@@ -441,7 +441,6 @@
     "stringPattern": "This field contains invalid characters.",
     "stringContains": "This field must contain the {expected} text.",
     "stringEnum": "This field does not match any of the allowed values.",
-    "maxOperators": "Up to 4 keywords can be used in one search.",
     "number": "This field must be a number.",
     "numberMin": "This field must be greater than or equal to {expected}.",
     "numberMax": "This field must be less than or equal to {expected}.",
@@ -466,6 +465,7 @@
     "email": "Invalid email address.",
     "url": "This field must be a valid URL.",
     "confirmEqual": "These passwords didn't match.",
+    "maxOperators": "Up to 4 keywords can be used in one search.",
     "stringContainsLowerCaseLatter": "This field must contain at least one lowercase letter.",
     "stringContainsUpperCaseLatter": "This field must contain at least one uppercase letter.",
     "stringContainsNumber": "This field must contain at least one number.",

@@ -242,6 +242,10 @@
         "enroll-status-1": "desconocido",
         "enroll-status-2": "Registrado"
       },
+      "popover": {
+        "title": "",
+        "content": ""
+      },
       "similarity": "Similaridad",
       "status": "resultado",
       "title": "eventos",
@@ -461,6 +465,7 @@
     "email": "La dirección de correo electrónico inválida",
     "url": "Utilice el formato de URL correcto",
     "confirmEqual": "Estas contraseñas no coinciden",
+    "maxOperators": "",
     "stringContainsLowerCaseLatter": "Debe contener letras minúsculas en inglés",
     "stringContainsUpperCaseLatter": "Debe contener letras mayúsculas en inglés",
     "stringContainsNumber": "Debe contener números",
