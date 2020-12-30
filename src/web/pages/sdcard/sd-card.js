@@ -129,7 +129,7 @@ const SDCard = ({
                 >
                   {({values, setFieldValue}) => (
                     <Form>
-                      <div className="card-body sdcard d-flex">
+                      <div className="card-body sdcard row">
                         <FormikEffect onChange={onChangeSdCardSetting}/>
                         <VolumeProgressBar
                           isRoundProgressBar
