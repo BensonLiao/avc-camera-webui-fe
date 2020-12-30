@@ -29,7 +29,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const [isShowProgressModal, setIsShowProgressModal] = useState(false);
   const [progressPercentage, setProgressPercentage] = useState(0);
-  const [currentDate] = useState(date);
+  const [currentDate, setCurrentDate] = useState(date);
   const selectAllRef = useRef();
   const formRef = useRef();
 
@@ -179,6 +179,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                       <SDCardStorageSearchForm
                         generatePaginatedCheckList={generatePaginatedCheckList}
                         initialSearchCondition={{date: currentDate}}
+                        setCurrentDate={setCurrentDate}
                         updateSearchResult={values => form.setValues(values)}
                       />
                       <div className="float-right d-inline-flex">
