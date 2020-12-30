@@ -169,11 +169,15 @@
       "export": "Exportar",
       "importDB": "",
       "import": "Importar",
-      "host": "",
       "toast": {
+        "connectSuccessTitle": "",
+        "connectSuccessBody": "",
+        "connectFailTitle": "",
+        "connectFailBody": "",
         "syncSuccessTitle": "",
         "syncSuccessBody": ""
       },
+      "host": "",
       "syncing": "",
       "done": "",
       "failed": "",

@@ -169,11 +169,15 @@
       "export": "Export",
       "importDB": "Import Database",
       "import": "Import",
-      "host": "Host",
       "toast": {
+        "connectSuccessTitle": "Connection Successful",
+        "connectSuccessBody": "Device Successfully Connected",
+        "connectFailTitle": "Connection Failed",
+        "connectFailBody": "Device Connection Failed",
         "syncSuccessTitle": "Synchronize Success",
         "syncSuccessBody": "Syncing Device Succeeded"
       },
+      "host": "Host",
       "syncing": "Syncing",
       "done": "Done",
       "failed": "Failed",
