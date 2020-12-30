@@ -184,7 +184,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                         updateSearchResult={values => form.setValues(values)}
                       />
                       <div className="float-right d-inline-flex">
-                        <CustomTooltip placement="top" show={disableButton} title={i18n.t('userManagement.members.tooltip.noDevice')}>
+                        <CustomTooltip placement="top" show={disableButton} title={i18n.t('sdCard.storage.tooltip.noFile')}>
                           <div className="ml-3">
                             <button
                               className="btn btn-outline-primary rounded-pill"
@@ -194,11 +194,11 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                               onClick={confirmDelete()}
                             >
                               <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
-                              {i18n.t('userManagement.members.remove')}
+                              {i18n.t('sdCard.storage.button.remove')}
                             </button>
                           </div>
                         </CustomTooltip>
-                        <CustomTooltip placement="top" show={disableButton} title={i18n.t('userManagement.members.tooltip.noDevice')}>
+                        <CustomTooltip placement="top" show={disableButton} title={i18n.t('sdCard.storage.tooltip.noFile')}>
                           <div className="ml-3">
                             <button
                               className="btn btn-outline-primary rounded-pill"
@@ -304,7 +304,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                                   <div className="d-flex flex-column align-items-center mt-5">
                                     <img src={noFile}/>
                                     <div className="mt-5 text-center text-wrap" style={{width: '300px'}}>
-                                      {i18n.t('userManagement.members.noDevice')}
+                                      {i18n.t('sdCard.storage.noFile')}
                                     </div>
                                   </div>
                                 </td>
@@ -327,8 +327,8 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                     <CustomNotifyModal
                       backdrop="static"
                       isShowModal={isShowConfirmModal}
-                      modalTitle={i18n.t('userManagement.members.modal.SDCardStorage.confirmDeleteTitle')}
-                      modalBody={i18n.t('userManagement.members.modal.SDCardStorage.confirmDeleteBody')}
+                      modalTitle={i18n.t('sdCard.storage.modal.confirmDeleteTitle')}
+                      modalBody={i18n.t('sdCard.storage.modal.confirmDeleteBody')}
                       onHide={hideConfirmModal}
                       onConfirm={deleteFiles(fileToDelete ? fileToDelete : form.values)}
                     />
@@ -341,7 +341,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
               modalType="process"
               backdrop="static"
               isShowModal={isShowApiProcessModal}
-              modalTitle={i18n.t('userManagement.members.modal.SDCardStorage.deleteDeviceApiProcessingModal')}
+              modalTitle={i18n.t('sdCard.storage.modal.deleteFileApiProcessing')}
               onHide={hideApiProcessModal}
             />
             {/* download progress modal */}
@@ -349,11 +349,11 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
               modalType="process"
               backdrop="static"
               isShowModal={isShowProgressModal}
-              modalTitle={i18n.t('system.systemLog.modal.apiProcessModalTitle')}
+              modalTitle={i18n.t('sdCard.storage.modal.downloadingTitle')}
               modalBody={[
                 <StageProgress
                   key="stage 1"
-                  title={i18n.t('system.systemLog.modal.downloadingBody')}
+                  title={i18n.t('sdCard.storage.modal.downloadingBody')}
                   progressStatus="start"
                   progressPercentage={progressPercentage}
                 />
