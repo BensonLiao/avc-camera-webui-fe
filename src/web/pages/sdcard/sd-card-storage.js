@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {getRouter} from '@benson.liao/capybara-router';
 import download from 'downloadjs';
+import filesize from 'filesize';
 import progress from 'nprogress';
 import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
@@ -273,7 +274,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                                     <td>
                                       <CustomTooltip placement="top-start" title={pageData.bytes}>
                                         <div>
-                                          {pageData.bytes}
+                                          {filesize(pageData.bytes)}
                                         </div>
                                       </CustomTooltip>
                                     </td>
