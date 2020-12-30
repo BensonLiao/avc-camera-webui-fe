@@ -113,12 +113,6 @@
     }
   },
   "system": {
-    "deviceMaintenance": {
-      "modal": {
-        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following:\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card",
-        "confirmResetAllSettingsBody": "The system will revert to factory default settings. All data and configurations you have saved will be overwritten."
-      }
-    },
     "information": {
       "buildVersion.avn": "Build Version"
     }

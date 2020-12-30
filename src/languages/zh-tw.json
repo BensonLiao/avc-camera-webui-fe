@@ -1015,7 +1015,9 @@
         "apiProcessModalTitleResetting": "清除資料中",
         "resetSuccess": "重設成功",
         "resetAllSettingsSuccessBody": "請參閱安裝說明執行初始設定",
-        "resetDefaultSettingsSuccessBody": "裝置已還原，請重新登入"
+        "resetDefaultSettingsSuccessBody": "裝置已還原，請重新登入",
+        "confirmResetAllSettingsBody": "裝置將還原成原廠設定，所有資料和設定將會被清除",
+        "confirmRestoreDefaultSettingsBody": "裝置將還原成原廠設定，除了下列項目，其他所有的資料和設定將會被清除:\n\n• 成員清單和成員群組資料 \n• 帳號資料 \n• 對焦及縮放設定 \n• RTSP設定 \n• 網路設定 \n• 記憶卡儲存資料"
       },
       "exportSystemSettings": "匯出系統設定值",
       "export": "匯出",

@@ -101,14 +101,6 @@
       }
     }
   },
-  "system": {
-    "deviceMaintenance": {
-      "modal": {
-        "confirmRestoreDefaultSettingsBody": "裝置將還原成原廠設定，除了下列項目，其他所有的資料和設定將會被清除:\n\n• 成員清單和成員群組資料 \n• 帳號資料 \n• 對焦及縮放設定 \n• RTSP設定 \n• 網路設定 \n• 記憶卡儲存資料",
-        "confirmResetAllSettingsBody": "裝置將還原成原廠設定，所有資料和設定將會被清除"
-      }
-    }
-  },
   "documentTitle": {
     "image": "圖像",
     "video": "影像",

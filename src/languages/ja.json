@@ -1015,7 +1015,9 @@
         "apiProcessModalTitleResetting": "初期化",
         "resetSuccess": "初期化完了",
         "resetAllSettingsSuccessBody": "クイックインストールガイドを参照して初期設定を行って下さい",
-        "resetDefaultSettingsSuccessBody": "デバイスが初期化済再ログインして下さい"
+        "resetDefaultSettingsSuccessBody": "デバイスが初期化済再ログインして下さい",
+        "confirmResetAllSettingsBody": "デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます",
+        "confirmRestoreDefaultSettingsBody": "デバイスは出荷時の初期設定に戻り、下記の項目を除き、すべてのデータと設定は削除されます:\n\n• メンバーリストとグループデータ \n• アカウント設定 \n• フォーカスとズーム設定 \n• RTSP設定 \n• インターネット/ネットワーク設定 \n• SDカード内のデータ"
       },
       "exportSystemSettings": "システム設定ファイルをエクスポートする",
       "export": "エクスポート",

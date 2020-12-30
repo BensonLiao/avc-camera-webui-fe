@@ -100,14 +100,6 @@
       }
     }
   },
-  "system": {
-    "deviceMaintenance": {
-      "modal": {
-        "confirmRestoreDefaultSettingsBody": "El dispositivo se restaurará a la configuración original de fábrica, excepto por los siguientes elementos, todos los demás datos y configuraciones se borrarán:\n\n• Lista de miembros e información del grupo de miembros \n• Información de la cuenta \n• Configuración de enfoque y zoom \n• Configuración de RTSP \n• Configuración de la red \n• Tarjeta de memoria para almacenar datos",
-        "confirmResetAllSettingsBody": "El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán"
-      }
-    }
-  },
   "documentTitle": {
     "image": "imagen",
     "video": "Video",

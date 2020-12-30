@@ -1015,7 +1015,9 @@
         "apiProcessModalTitleResetting": "Está restaurando",
         "resetSuccess": "Restablecer Existosa",
         "resetAllSettingsSuccessBody": "Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.",
-        "resetDefaultSettingsSuccessBody": "El dispositivo se ha sido reiniciado. Por favor ingrese de nuevo."
+        "resetDefaultSettingsSuccessBody": "El dispositivo se ha sido reiniciado. Por favor ingrese de nuevo.",
+        "confirmResetAllSettingsBody": "El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán",
+        "confirmRestoreDefaultSettingsBody": "El dispositivo se restaurará a la configuración original de fábrica, excepto por los siguientes elementos, todos los demás datos y configuraciones se borrarán:\n\n• Lista de miembros e información del grupo de miembros \n• Información de la cuenta \n• Configuración de enfoque y zoom \n• Configuración de RTSP \n• Configuración de la red \n• Tarjeta de memoria para almacenar datos"
       },
       "exportSystemSettings": "Exportar configuración del sistema",
       "export": "Exportar",

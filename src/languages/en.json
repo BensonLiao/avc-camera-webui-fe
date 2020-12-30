@@ -1015,7 +1015,9 @@
         "apiProcessModalTitleResetting": "Resetting",
         "resetSuccess": "Reset Success",
         "resetAllSettingsSuccessBody": "Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.",
-        "resetDefaultSettingsSuccessBody": "Device has reset. Please log in again."
+        "resetDefaultSettingsSuccessBody": "Device has reset. Please log in again.",
+        "confirmResetAllSettingsBody": "The system will revert to factory default settings. All data and configurations you have saved will be overwritten.",
+        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following:\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card"
       },
       "exportSystemSettings": "Export System Settings",
       "export": "Export",
