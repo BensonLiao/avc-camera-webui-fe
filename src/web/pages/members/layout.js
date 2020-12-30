@@ -36,15 +36,17 @@ module.exports = class Users extends Base {
               to="/users/members"
               title={i18n.t('navigation.sidebar.members')}
               data-toggle="tab"
-              className={classNames('nav-item nav-link', {active: this.state.currentRouteName.indexOf('web.users.members') === 0})}
+              className={classNames('nav-item nav-link mr-4', {active: this.state.currentRouteName.indexOf('web.users.members') === 0})}
             >
-              {i18n.t('navigation.sidebar.members')}
+              <span>
+                {i18n.t('navigation.sidebar.members')}
+              </span>
             </Link>
             <Link
               to="/users/accounts"
               title={i18n.t('navigation.sidebar.accounts')}
               data-toggle="tab"
-              className={classNames('nav-item nav-link', {active: this.state.currentRouteName.indexOf('web.users.accounts') === 0})}
+              className={classNames('nav-item nav-link mx-4', {active: this.state.currentRouteName.indexOf('web.users.accounts') === 0})}
             >
               {i18n.t('navigation.sidebar.accounts')}
             </Link>
@@ -52,7 +54,7 @@ module.exports = class Users extends Base {
               to="/users/events"
               title={i18n.t('navigation.sidebar.events')}
               data-toggle="tab"
-              className={classNames('nav-item nav-link', {active: this.state.currentRouteName === 'web.users.events'})}
+              className={classNames('nav-item nav-link mx-4', {active: this.state.currentRouteName === 'web.users.events'})}
             >
               {i18n.t('navigation.sidebar.events')}
             </Link>

@@ -37,9 +37,10 @@
       "stats": "{{0}}-{{1}} items. Total: {{2}}"
     },
     "volumeBar": {
+      "free": "Free: {{0}}",
+      "total": "Total: {{0}}",
       "sdStorageStatus": "Free: {{0}}, Total: {{1}}",
-      "used": "Used: {{0}}",
-      "free": "Free: {{0}}"
+      "used": "Used: {{0}}"
     },
     "toast": {
       "Duplicate Member Names": "Duplicate Member Names",
@@ -91,6 +92,14 @@
       "startTime": "Start Time",
       "endTime": "End Time",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "Only ZIP file format is supported",
+      "selectFile": "Select File",
+      "noFileSelected": "No file selected.",
+      "tooltip": {
+        "disabledButton": "Please select a file first."
+      }
     }
   },
   "userManagement": {
@@ -126,7 +135,21 @@
         "database": {
           "exportApiProcessModalTitle": "Exporting Member Database",
           "importApiProcessModalTitle": "Importing Member Database",
+          "successTitle": "Setting Success",
+          "successBody": "New settings applied",
           "title": "Database Encryption"
+        },
+        "deviceSync": {
+          "modifyDeviceTitle": "Edit Device Details",
+          "newDeviceTitle": "Add New Device",
+          "hostPlaceholder": "Enter device IP",
+          "port": "Port",
+          "portPlaceholder": "Ex. 8080",
+          "addDeviceApiProcessingModal": "Adding Device",
+          "editDeviceApiProcessingModal": "Updating Device",
+          "confirmDeleteTitle": "Delete Device",
+          "confirmDeleteBody": "Are you sure you want to delete device?",
+          "deleteDeviceApiProcessingModal": "Deleting Device"
         }
       },
       "name": "Name",
@@ -136,24 +159,37 @@
       "notePlaceholder": "Enter a note",
       "noteHelper": "Maximum length: 256 characters",
       "delete": "Delete",
-      "searchPlaceholder": "Enter Keywords",
-      "search": "Search",
+      "databaseSettings": "Database Settings",
+      "encryptionSettings": "Encryption Settings",
+      "edit": "Edit",
+      "exportDB": "Export Database",
+      "export": "Export",
+      "importDB": "Import Database",
+      "import": "Import",
+      "host": "Host",
       "tooltip": {
+        "noDevice": "Select a Device",
+        "connected": "Connected",
+        "notConnected": "Not Connected",
         "editGroupWithName": "Edit Group: {{0}}",
-        "encryptionSettings": "Encryption Settings",
         "deleteGroupWithName": "Delete Group: {{0}}",
         "editMemberWithName": "Edit Member: {{0}}",
         "deleteMemberWithName": "Delete Member: {{0}}",
         "photoLimitExceeded": "Photo Limit of Member Database Exceeded"
       },
-      "database": "Database",
-      "export": "Export",
-      "import": "Import",
+      "synchronize": "Synchronize",
+      "remove": "Remove",
+      "deviceName": "Device Name",
+      "status": "Status",
+      "actions": "Actions",
+      "noDevice": "Please click the 'Add' first to add a new device to your list",
+      "searchPlaceholder": "Enter Keywords",
+      "search": "Search",
       "title": "Members",
       "allMembers": "All Members",
       "groups": "Groups",
+      "database": "Database",
       "userPicture": "User Picture",
-      "actions": "Actions",
       "noData": "Couldn't find any data.",
       "addNewMember": "Add a New Member",
       "addMemberFromEvent": "Add a Member from Events"
@@ -212,7 +248,6 @@
         "permission-1": "Viewer",
         "permission-2": "Viewer"
       },
-      "permission": "Permission",
       "username": "Username",
       "modal": {
         "usernamePlaceholder": "Enter a name for this account",
@@ -220,6 +255,7 @@
         "confirmDeleteTitle": "Delete Account",
         "confirmDeleteBody": "Are you sure you want to delete account {{0}}?"
       },
+      "permission": "Permission",
       "title": "Accounts",
       "allAccounts": "All Accounts",
       "actions": "Actions",
@@ -294,37 +330,59 @@
     "lightingCompensation": "Lighting Compensation Frequency (Hz)"
   },
   "sdCard": {
-    "constants": {
-      "Functioning": "Functioning",
-      "Unmounted": "Unmounted",
-      "Empty Slot": "Empty Slot",
-      "Nonfunctioning": "Nonfunctioning",
-      "Read-only Access": "Read-only Access",
-      "Unknown Error": "Unknown Error",
-      "unknownStatus": "UNKNOWN STATUS"
+    "basic": {
+      "constants": {
+        "Functioning": "Functioning",
+        "Unmounted": "Unmounted",
+        "Empty Slot": "Empty Slot",
+        "Nonfunctioning": "Nonfunctioning",
+        "Read-only Access": "Read-only Access",
+        "Unknown Error": "Unknown Error",
+        "sdcard-recording-type-0": "Failover recording",
+        "sdcard-recording-type-1": "Event recording",
+        "sdcard-recording-type-2": "Continuous recording",
+        "sdcard-recording-stream-0": "Stream 1",
+        "sdcard-recording-stream-1": "Stream 2",
+        "sdcard-recording-limit-true": "Override oldest recording",
+        "sdcard-recording-limit-false": "Stop recording",
+        "unknownStatus": "UNKNOWN STATUS",
+        "storageToFull": "Storage to full"
+      },
+      "operation": "Operation",
+      "format": "Format",
+      "mount": "Mount",
+      "unmount": "Unmount",
+      "title": "SD Card",
+      "enable": "Enable SD Card",
+      "status": "Status",
+      "filesystem": "Filesystem",
+      "unrecognized": "Unrecognized",
+      "recording": "Recording",
+      "errorNotification": "Error Notification",
+      "notificationSet": "Email Notification Set",
+      "enableOutgoingEmail": "Enable Outgoing Email",
+      "emailNotification": "Email Notification",
+      "enableRecording": "Enable Recording",
+      "recordingType": "Type",
+      "recordingResolution": "Resolution",
+      "fps": "Resolution frame rate",
+      "codec": "Resolution codec",
+      "recordingDuration": "Recording time (Mins)",
+      "recordingLimit": "When storage is full"
     },
-    "operation": "Operation",
+    "constants": {
+      "unknownStatus": ""
+    },
     "tooltip": {
       "disabledOperationButton": "Please disable the SD card first.",
       "disabledNotificationButton": "Please enable Outgoing Email first."
     },
-    "format": "Format",
     "modal": {
       "disabledFormatButton": "Are you sure you want to format the Micro SD card?",
       "disabledUnmountButton": "Are you sure you want to unmount the Micro SD card?",
       "disableTitle": "Disabling SD Card",
       "disableBody": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?"
-    },
-    "unmount": "Unmount",
-    "title": "SD Card",
-    "enable": "Enable SD Card",
-    "errorNotification": "Error Notification",
-    "notificationSet": "Email Notification Set",
-    "enableOutgoingEmail": "Enable Outgoing Email",
-    "status": "Status",
-    "filesystem": "Filesystem",
-    "unrecognized": "Unrecognized",
-    "storageSpace": "Storage Space"
+    }
   },
   "validation": {
     "portReserved": "The specified port is reserved by system or in use!",
@@ -640,7 +698,9 @@
       "email": "Email",
       "io": "I/O",
       "smartNotification": "Smart Notification",
-      "sdCard": "SD Card",
+      "sdCardSettings": "SD Card Settings",
+      "basic": "Basic",
+      "storage": "Storage",
       "facialRecognition": "Facial Recognition",
       "motionDetection": "Motion Detection",
       "system": "System Settings",
@@ -903,14 +963,6 @@
       "reset": "Reset",
       "title": "Device Maintenance"
     },
-    "common": {
-      "importHelper": "Only ZIP file format is supported",
-      "selectFile": "Select File",
-      "noFileSelected": "No file selected.",
-      "tooltip": {
-        "disabledButton": "Please select a file first."
-      }
-    },
     "softwareUpgrade": {
       "modal": {
         "uploadingBody": "※ Please do not close your browser during the upgrade.",
@@ -964,7 +1016,7 @@
     "dateTime": "Date & Time",
     "softwareUpgrade": "Software Upgrade",
     "deviceMaintenance": "Device Maintenance",
-    "sdCard": "SD Card",
+    "sdCardSettings": "SD Card Settings",
     "systemLog": "System Log",
     "information": "Information",
     "welcome": "Welcome",

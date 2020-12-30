@@ -262,6 +262,14 @@ module.exports = {
         sdUsage: 3200000,
         sdAlertEnabled: false
       },
+      sdCardRecordingSettings: {
+        sdRecordingStatus: 0,
+        sdRecordingEnabled: true,
+        sdRecordingStream: 1,
+        sdRecordingType: 0,
+        sdRecordingDuration: 0,
+        sdRecordingLimit: true
+      },
       systemDateTime: {
         deviceTime: new Date().getTime(),
         ntpTimeZone: 'Asia/Taipei',
@@ -309,8 +317,8 @@ module.exports = {
         },
         channelB: {
           codec: StreamCodec.h264,
-          resolution: StreamResolution['0'],
-          frameRate: '30',
+          resolution: StreamResolution['1'],
+          frameRate: '29',
           bandwidthManagement: StreamBandwidthManagement.vbr,
           maximumBitrate: '4096',
           constantBitrate: '4096',
@@ -327,9 +335,9 @@ module.exports = {
           gov: StreamGOV['60']
         },
         channelB: {
-          codec: StreamCodec.h264,
-          resolution: StreamResolution['0'],
-          frameRate: '30',
+          codec: StreamCodec.mjpeg,
+          resolution: StreamResolution['1'],
+          frameRate: '29',
           bandwidthManagement: StreamBandwidthManagement.mbr,
           bitRate: '4096',
           gov: StreamGOV['60'],
@@ -531,6 +539,20 @@ module.exports = {
       }],
       groups: memberGroups,
       members,
+      deviceSync: {
+        devices: Array.from({length: 20}, (_, i) => (
+          {
+            id: uuidv4(),
+            ip: `192.168.0.${i + 1}`,
+            port: '8080',
+            deviceName: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
+            account: 'admin',
+            connectionStatus: Math.random() * 7 > 1 ? 1 : 0, // Generate failed connection with 70% chance
+            lastUpdateTime: Math.random() * 9 > 1 ? 0 : 1608888327067
+          }
+        )),
+        sync: 0
+      },
       faceEvents: [
         {
           id: uuidv4(),

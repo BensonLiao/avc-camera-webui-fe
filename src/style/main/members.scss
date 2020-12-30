@@ -29,6 +29,40 @@
       }
     }
   }
+
+  .sync {
+    .fa-link {
+      color: #007bff;
+    }
+
+    .fa-unlink {
+      color: $secondary-300;
+    }
+  }
+}
+
+.users-nav {
+  .sidebar-database {
+    position: relative;
+    display: inline;
+
+    .fa-sync {
+      position: absolute;
+      top: 50%;
+      left: 33%;
+      font-size: 12px;
+      background-color: $secondary-10;
+      padding: 1px;
+      border-radius: 3px;
+    }
+  }
+
+  &.active.bg-light,
+  &:hover {
+    .fa-sync {
+      background-color: $secondary-100;
+    }
+  }
 }
 
 .member-modal {

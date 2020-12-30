@@ -37,9 +37,10 @@
       "stats": "{{0}}-{{1}} 筆資料，總計：{{2}}"
     },
     "volumeBar": {
+      "free": "{{0}} 可用",
+      "total": "",
       "sdStorageStatus": "{{0}} 可用 (共 {{1}})",
-      "used": "{{0}} 已使用",
-      "free": "{{0}} 可用"
+      "used": "{{0}} 已使用"
     },
     "toast": {
       "Duplicate Member Names": "名稱重複，請使用不同名稱",
@@ -91,6 +92,14 @@
       "startTime": "起始時間",
       "endTime": "終止時間",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "僅支援 .zip 檔案格式",
+      "selectFile": "選擇檔案",
+      "noFileSelected": "未選擇任何檔案",
+      "tooltip": {
+        "disabledButton": "請先選擇一個檔案"
+      }
     }
   },
   "userManagement": {
@@ -126,7 +135,21 @@
         "database": {
           "exportApiProcessModalTitle": "匯出成員資料庫",
           "importApiProcessModalTitle": "匯入成員資料庫",
+          "successTitle": "",
+          "successBody": "",
           "title": "資料庫加密"
+        },
+        "deviceSync": {
+          "modifyDeviceTitle": "",
+          "newDeviceTitle": "",
+          "hostPlaceholder": "",
+          "port": "",
+          "portPlaceholder": "",
+          "addDeviceApiProcessingModal": "",
+          "editDeviceApiProcessingModal": "",
+          "confirmDeleteTitle": "",
+          "confirmDeleteBody": "",
+          "deleteDeviceApiProcessingModal": ""
         }
       },
       "name": "名稱",
@@ -136,24 +159,37 @@
       "notePlaceholder": "輸入備註",
       "noteHelper": "最多256個字",
       "delete": "刪除",
-      "searchPlaceholder": "輸入關鍵字",
-      "search": "搜尋",
+      "databaseSettings": "",
+      "encryptionSettings": "",
+      "edit": "",
+      "exportDB": "",
+      "export": "匯出",
+      "importDB": "",
+      "import": "匯入",
+      "host": "",
       "tooltip": {
+        "noDevice": "",
+        "connected": "",
+        "notConnected": "",
         "editGroupWithName": "編輯群組: {{0}}",
-        "encryptionSettings": "加密設定",
         "deleteGroupWithName": "刪除群組: {{0}}",
         "editMemberWithName": "編輯成員: {{0}}",
         "deleteMemberWithName": "刪除成員: {{0}}",
         "photoLimitExceeded": "已達數量限制"
       },
-      "database": "資料庫檔案",
-      "export": "匯出",
-      "import": "匯入",
+      "synchronize": "",
+      "remove": "",
+      "deviceName": "",
+      "status": "",
+      "actions": "操作",
+      "noDevice": "",
+      "searchPlaceholder": "輸入關鍵字",
+      "search": "搜尋",
       "title": "成員",
       "allMembers": "清單",
       "groups": "群組",
+      "database": "資料庫檔案",
       "userPicture": "註冊照片",
-      "actions": "操作",
       "noData": "沒有符合的資料, 請重新設置條件",
       "addNewMember": "新增成員",
       "addMemberFromEvent": "從事件新增"
@@ -212,7 +248,6 @@
         "permission-1": "來賓",
         "permission-2": "訪客"
       },
-      "permission": "權限",
       "username": "名稱",
       "modal": {
         "usernamePlaceholder": "輸入帳號名稱",
@@ -220,6 +255,7 @@
         "confirmDeleteTitle": "刪除帳號",
         "confirmDeleteBody": "您確定要刪除帳號 {{0}} 嗎？"
       },
+      "permission": "權限",
       "title": "帳號",
       "allAccounts": "帳號清單",
       "actions": "操作",
@@ -294,37 +330,59 @@
     "lightingCompensation": "電源頻率"
   },
   "sdCard": {
+    "basic": {
+      "constants": {
+        "Functioning": "",
+        "Unmounted": "",
+        "Empty Slot": "",
+        "Nonfunctioning": "",
+        "Read-only Access": "",
+        "Unknown Error": "",
+        "sdcard-recording-type-0": "",
+        "sdcard-recording-type-1": "",
+        "sdcard-recording-type-2": "",
+        "sdcard-recording-stream-0": "",
+        "sdcard-recording-stream-1": "",
+        "sdcard-recording-limit-true": "",
+        "sdcard-recording-limit-false": "",
+        "unknownStatus": "",
+        "storageToFull": ""
+      },
+      "operation": "",
+      "format": "",
+      "mount": "",
+      "unmount": "",
+      "title": "",
+      "enable": "",
+      "status": "",
+      "filesystem": "",
+      "unrecognized": "",
+      "recording": "",
+      "errorNotification": "",
+      "notificationSet": "",
+      "enableOutgoingEmail": "",
+      "emailNotification": "",
+      "enableRecording": "",
+      "recordingType": "",
+      "recordingResolution": "",
+      "fps": "",
+      "codec": "",
+      "recordingDuration": "",
+      "recordingLimit": ""
+    },
     "constants": {
-      "Functioning": "正常",
-      "Unmounted": "未掛載",
-      "Empty Slot": "未插卡",
-      "Nonfunctioning": "不正常",
-      "Read-only Access": "唯獨",
-      "Unknown Error": "未知錯誤",
       "unknownStatus": "UNKNOWN STATUS"
     },
-    "operation": "操作",
     "tooltip": {
       "disabledOperationButton": "請先關閉記憶卡功能",
       "disabledNotificationButton": "必須設定電子郵件"
     },
-    "format": "格式化",
     "modal": {
       "disabledFormatButton": "您即將格式化 Micro SD 卡，確認是否繼續？",
       "disabledUnmountButton": "您即將卸除 Micro SD 卡，確認是否繼續？",
       "disableTitle": "關閉記憶卡",
       "disableBody": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存"
-    },
-    "unmount": "卸載",
-    "title": "記憶卡",
-    "enable": "開啟記憶卡",
-    "errorNotification": "異常通報",
-    "notificationSet": "已設定電子郵件",
-    "enableOutgoingEmail": "設定電子郵件",
-    "status": "狀態",
-    "filesystem": "檔案系統格式",
-    "unrecognized": "無法識別",
-    "storageSpace": "儲存空間"
+    }
   },
   "validation": {
     "portReserved": "此連接埠為系統預留或使用中",
@@ -640,7 +698,9 @@
       "email": "電子郵件",
       "io": "數位輸出及輸入",
       "smartNotification": "智慧通知",
-      "sdCard": "記憶卡",
+      "sdCardSettings": "",
+      "basic": "",
+      "storage": "",
       "facialRecognition": "臉部辨識",
       "motionDetection": "移動偵測",
       "system": "系統",
@@ -903,14 +963,6 @@
       "reset": "清除資料",
       "title": "維護"
     },
-    "common": {
-      "importHelper": "僅支援 .zip 檔案格式",
-      "selectFile": "選擇檔案",
-      "noFileSelected": "未選擇任何檔案",
-      "tooltip": {
-        "disabledButton": "請先選擇一個檔案"
-      }
-    },
     "softwareUpgrade": {
       "modal": {
         "uploadingBody": "※ 升級時請勿關閉瀏覽器",
@@ -964,7 +1016,7 @@
     "dateTime": "日期與時刻",
     "softwareUpgrade": "軟體更新",
     "deviceMaintenance": "維護",
-    "sdCard": "記憶卡",
+    "sdCardSettings": "",
     "systemLog": "系統紀錄",
     "information": "裝置資訊",
     "welcome": "歡迎",

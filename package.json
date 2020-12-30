@@ -58,7 +58,7 @@
     "fastest-validator": "0.6.19",
     "file-loader": "4.2.0",
     "filesize": "6.0.1",
-    "formik": "2.0.4",
+    "formik": "2.2.6",
     "grunt": "1.0.4",
     "grunt-contrib-clean": "2.0.0",
     "grunt-contrib-watch": "1.1.0",
@@ -97,7 +97,7 @@
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.9.0",
-    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#eb9f71dbbfa62fc70a4b197e7100833db0a95810"
+    "webserver-form-schema": "git+http://gitlab+deploy-token-3:4K7jMuLUNyb5EdwhkLkX@192.168.100.137/cloud/webserver-form-schema.git#521722c59ed732c98fd3a0ee42215e59fdf5bf1b"
   },
   "devDependencies": {
     "axios-mock-adapter": "1.17.0",

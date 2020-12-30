@@ -4,22 +4,29 @@ import React from 'react';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
 import {MEMBERS_PAGE_GROUPS_MAX} from '../../../core/constants';
-import MembersDatabase from './members-sidebar-database';
 import {Link} from '@benson.liao/capybara-router';
+import {getRouter} from '@benson.liao/capybara-router';
 
-const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteGroupHandler}) => {
+const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setPage, page}) => {
   const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX;
+  const switchPage = page => e => {
+    e.preventDefault();
+    setPage(page);
+    localStorage.setItem('currentPage', page);
+    getRouter().go({name: 'web.users.members'});
+  };
+
   return (
     <>
-      <div className="left-menu fixed-top sub">
+      <div className="left-menu fixed-top sub shadow-sm">
         <h2>{i18n.t('userManagement.members.title')}</h2>
         <nav className="nav flex-column">
           <Link
             to="/users/members"
             title={i18n.t('userManagement.members.allMembers')}
             className={classNames('nav-link text-size-16 py-1 px-3 users-nav',
-              {active: !params.group},
-              {'bg-light': !params.group}
+              {active: !params.group && page === 'members'},
+              {'bg-light': !params.group && page === 'members'}
             )}
           >
             <i className="fas fa-user-friends pl-2 pr-4"/>{i18n.t('userManagement.members.allMembers')}
@@ -79,9 +86,36 @@ const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteG
             ))
           }
           <hr/>
-          <MembersDatabase
-            isApiProcessing={isApiProcessing}
-          />
+          <div className="sub-title py-3 px-4">
+            <h3>{i18n.t('userManagement.members.database')}</h3>
+          </div>
+          <nav className="nav flex-column">
+            <a
+              href=""
+              className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
+                {active: page === 'database'},
+                {'bg-light': page === 'database'}
+              )}
+              onClick={switchPage('database')}
+            >
+              <i className="fas fa-cog pl-2 pr-4"/>
+              {i18n.t('userManagement.members.databaseSettings')}
+            </a>
+            <a
+              href=""
+              className={classNames('nav-link text-size-14 py-2 px-3 users-nav',
+                {active: page === 'sync'},
+                {'bg-light': page === 'sync'}
+              )}
+              onClick={switchPage('sync')}
+            >
+              <div className="sidebar-database">
+                <i className="fas fa-database pl-2 pr-4"/>
+                <i className="fas fa-sync"/>
+              </div>
+              {i18n.t('userManagement.members.synchronize')}
+            </a>
+          </nav>
         </div>
       </div>
     </>
@@ -89,9 +123,10 @@ const MembersSidebar = ({isApiProcessing, params, groups, filterHandler, deleteG
 };
 
 MembersSidebar.propTypes = {
-  isApiProcessing: PropTypes.bool.isRequired,
   filterHandler: PropTypes.func.isRequired,
   deleteGroupHandler: PropTypes.func.isRequired,
+  setPage: PropTypes.func.isRequired,
+  page: PropTypes.string.isRequired,
   params: PropTypes.shape({group: PropTypes.string}).isRequired,
   groups: PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.shape({

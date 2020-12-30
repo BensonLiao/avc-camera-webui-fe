@@ -85,7 +85,8 @@
       "tooltip": {
         "createGroup": "新增群組",
         "groupLimitExceeded": "已達數量限制",
-        "uploadPrimaryFirst": "請先上傳主照片"
+        "uploadPrimaryFirst": "請先上傳主照片",
+        "encryptionSettings": "加密設定"
       }
     },
     "accounts": {
@@ -132,7 +133,30 @@
     }
   },
   "sdCard": {
-    "mount": "掛載"
+    "mount": "掛載",
+    "constants": {
+      "Functioning": "正常",
+      "Unmounted": "未掛載",
+      "Empty Slot": "未插卡",
+      "Nonfunctioning": "不正常",
+      "Read-only Access": "唯獨",
+      "Unknown Error": "未知錯誤"
+    },
+    "operation": "操作",
+    "format": "格式化",
+    "unmount": "卸載",
+    "title": "記憶卡",
+    "enable": "開啟記憶卡",
+    "errorNotification": "異常通報",
+    "notificationSet": "已設定電子郵件",
+    "enableOutgoingEmail": "設定電子郵件",
+    "status": "狀態",
+    "filesystem": "檔案系統格式",
+    "unrecognized": "無法識別",
+    "storageSpace": "儲存空間",
+    "basic": {
+      "resolution": ""
+    }
   },
   "error": {
     "notFound": "此網頁不存在"
@@ -144,13 +168,15 @@
     "notificationSettings": "通報",
     "notificationMethod": "通報方式",
     "administration": "管理",
-    "status": "狀態"
+    "status": "狀態",
+    "sdCard": "記憶卡"
   },
   "navigation": {
     "sidebar": {
       "tooltip": {
         "image": "圖像"
-      }
+      },
+      "sdCard": "記憶卡"
     }
   },
   "common": {
@@ -160,5 +186,7 @@
     "button": {
       "create": "新增"
     }
-  }
+  },
+  "Resolution FPS": "",
+  "Resolution Codec": ""
 }

@@ -37,9 +37,10 @@
       "stats": "{{0}}-{{1}} registros. Total: {{2}}"
     },
     "volumeBar": {
+      "free": "{{0}} está disponible",
+      "total": "",
       "sdStorageStatus": "{{0}} disponible total {{1}}",
-      "used": "{{0}} se ha utilizado",
-      "free": "{{0}} está disponible"
+      "used": "{{0}} se ha utilizado"
     },
     "toast": {
       "Duplicate Member Names": "Nombre duplicado, utilice un nombre diferente",
@@ -91,6 +92,14 @@
       "startTime": "Hora de inicio",
       "endTime": "Hora de fin",
       "manualDateTime": "Manual DateTime"
+    },
+    "fileHandler": {
+      "importHelper": "Solo admite formato de archivo .zip",
+      "selectFile": "Seleccionar Archivo",
+      "noFileSelected": "Ningún archivo seleccionado",
+      "tooltip": {
+        "disabledButton": "Seleccione primero un archivo"
+      }
     }
   },
   "userManagement": {
@@ -126,7 +135,21 @@
         "database": {
           "exportApiProcessModalTitle": "Exportar base de datos de Usuarios",
           "importApiProcessModalTitle": "Importar base de datos de Usuarios",
+          "successTitle": "",
+          "successBody": "",
           "title": "Cifrado de base de datos"
+        },
+        "deviceSync": {
+          "modifyDeviceTitle": "",
+          "newDeviceTitle": "",
+          "hostPlaceholder": "",
+          "port": "",
+          "portPlaceholder": "",
+          "addDeviceApiProcessingModal": "",
+          "editDeviceApiProcessingModal": "",
+          "confirmDeleteTitle": "",
+          "confirmDeleteBody": "",
+          "deleteDeviceApiProcessingModal": ""
         }
       },
       "name": "nombre",
@@ -136,24 +159,37 @@
       "notePlaceholder": "Ingrese nota",
       "noteHelper": "Extension máxima: 256 caracteres",
       "delete": "Borrar",
-      "searchPlaceholder": "Ingrese palabras claves",
-      "search": "buscar",
+      "databaseSettings": "",
+      "encryptionSettings": "",
+      "edit": "",
+      "exportDB": "",
+      "export": "Exportar",
+      "importDB": "",
+      "import": "Importar",
+      "host": "",
       "tooltip": {
+        "noDevice": "",
+        "connected": "",
+        "notConnected": "",
         "editGroupWithName": "Editar grupo: {{0}}",
-        "encryptionSettings": "Configuración de cifrado",
         "deleteGroupWithName": "Borrar grupo: {{0}}",
         "editMemberWithName": "Editar miembro: {{0}}",
         "deleteMemberWithName": "Borrar miembro: {{0}}",
         "photoLimitExceeded": "Límite de cantidad alcanzado"
       },
-      "database": "Base de Datos",
-      "export": "Exportar",
-      "import": "Importar",
+      "synchronize": "",
+      "remove": "",
+      "deviceName": "",
+      "status": "",
+      "actions": "Operar",
+      "noDevice": "",
+      "searchPlaceholder": "Ingrese palabras claves",
+      "search": "buscar",
       "title": "miembro",
       "allMembers": "Lista de Verificación",
       "groups": "Grupo",
+      "database": "Base de Datos",
       "userPicture": "Registrar foto",
-      "actions": "Operar",
       "noData": "Ningún dato encontrado, por favor revise de nuevo!",
       "addNewMember": "Añadir miembro",
       "addMemberFromEvent": "Agregar de evento"
@@ -212,7 +248,6 @@
         "permission-1": "Invitado",
         "permission-2": "Invitado"
       },
-      "permission": "Permiso",
       "username": "Nombre",
       "modal": {
         "usernamePlaceholder": "Ingrese el nombre de la cuenta",
@@ -220,6 +255,7 @@
         "confirmDeleteTitle": "Borrar cuenta",
         "confirmDeleteBody": "¿Está seguro de que desea borrar la cuenta {{0}} ?"
       },
+      "permission": "Permiso",
       "title": "cuentas",
       "allAccounts": "Lista de cuentas",
       "actions": "Operar",
@@ -294,37 +330,59 @@
     "lightingCompensation": "Frecuencia de actualización"
   },
   "sdCard": {
+    "basic": {
+      "constants": {
+        "Functioning": "",
+        "Unmounted": "",
+        "Empty Slot": "",
+        "Nonfunctioning": "",
+        "Read-only Access": "",
+        "Unknown Error": "",
+        "sdcard-recording-type-0": "",
+        "sdcard-recording-type-1": "",
+        "sdcard-recording-type-2": "",
+        "sdcard-recording-stream-0": "",
+        "sdcard-recording-stream-1": "",
+        "sdcard-recording-limit-true": "",
+        "sdcard-recording-limit-false": "",
+        "unknownStatus": "",
+        "storageToFull": ""
+      },
+      "operation": "",
+      "format": "",
+      "mount": "",
+      "unmount": "",
+      "title": "",
+      "enable": "",
+      "status": "",
+      "filesystem": "",
+      "unrecognized": "",
+      "recording": "",
+      "errorNotification": "",
+      "notificationSet": "",
+      "enableOutgoingEmail": "",
+      "emailNotification": "",
+      "enableRecording": "",
+      "recordingType": "",
+      "recordingResolution": "",
+      "fps": "",
+      "codec": "",
+      "recordingDuration": "",
+      "recordingLimit": ""
+    },
     "constants": {
-      "Functioning": "normal",
-      "Unmounted": "No montado",
-      "Empty Slot": "No hay tarjeta insertada",
-      "Nonfunctioning": "Anormal",
-      "Read-only Access": "Solo lectura",
-      "Unknown Error": "error desconocido",
       "unknownStatus": "UNKNOWN STATUS"
     },
-    "operation": "Operación",
     "tooltip": {
       "disabledOperationButton": "Primero apague la función de la tarjeta SD",
       "disabledNotificationButton": "El correo electrónico debe estar configurado."
     },
-    "format": "formato",
     "modal": {
       "disabledFormatButton": "Estás a punto de formatear la tarjeta Micro SD. ¿Quieres continuar?",
       "disabledUnmountButton": "Estás a punto de retirar la tarjeta Micro SD. ¿Quieres continuar?",
       "disableTitle": "Borrar la tarjeta de memoria",
       "disableBody": "¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento."
-    },
-    "unmount": "Desinstalar",
-    "title": "Tarjeta de memoria",
-    "enable": "Habilitar tarjeta SD",
-    "errorNotification": "Notificación de anormalidad",
-    "notificationSet": "Conjunto de correo electrónico",
-    "enableOutgoingEmail": "Configurar correo electrónico",
-    "status": "estado",
-    "filesystem": "Formato del sistema de archivos",
-    "unrecognized": "No reconocido",
-    "storageSpace": "Espacio de almacenamiento"
+    }
   },
   "validation": {
     "portReserved": "Este puerto está reservado o en uso para el sistema",
@@ -640,7 +698,9 @@
       "email": "correo electrónico",
       "io": "Entrada y salida digital",
       "smartNotification": "Notificación inteligente",
-      "sdCard": "Tarjeta de memoria",
+      "sdCardSettings": "",
+      "basic": "",
+      "storage": "",
       "facialRecognition": "Reconocimiento facial",
       "motionDetection": "Detección de movimiento",
       "system": "Sistema",
@@ -903,14 +963,6 @@
       "reset": "Restaurar",
       "title": "mantenimiento"
     },
-    "common": {
-      "importHelper": "Solo admite formato de archivo .zip",
-      "selectFile": "Seleccionar Archivo",
-      "noFileSelected": "Ningún archivo seleccionado",
-      "tooltip": {
-        "disabledButton": "Seleccione primero un archivo"
-      }
-    },
     "softwareUpgrade": {
       "modal": {
         "uploadingBody": "※ No cierre el navegador al actualizar",
@@ -964,7 +1016,7 @@
     "dateTime": "Fecha y hora",
     "softwareUpgrade": "Actualización de software",
     "deviceMaintenance": "mantenimiento",
-    "sdCard": "Tarjeta de memoria",
+    "sdCardSettings": "",
     "systemLog": "Registro del sistema",
     "information": "Información del dispositivo",
     "welcome": "Bienvenido",

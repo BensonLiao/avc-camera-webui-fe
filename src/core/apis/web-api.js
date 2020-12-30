@@ -388,6 +388,34 @@ module.exports = {
     /**
      * @returns {Promise<Response>}
      * @response 204
+     * - sdRecordingStatus {Number} // 0 not recording, 1 recording
+     * - sdRecordingEnabled {Boolean} // true enabled, false not enabled
+     * - sdRecordingStream {Number} // stream 1 == 1 or stream 2 === 2
+     * - sdRecordingType {Number} // 0: disconnection, 1: event recording, or 2: continuously recording
+     * - sdRecordingDuration {Number} // 0: till the storage limitation, or 1-60 minute recording
+     * - sdRecordingLimit {Boolean} // true: gonna delete oldest recording file, or false: just stop recording if no enough space for new file
+     */
+    getSDCardRecordingSettings: () => api({
+      method: 'get',
+      url: '/api/system/systeminfo/sdcard-recording'
+    }),
+    updateSDCardRecordingSettings: (
+      {sdRecordingStatus, sdRecordingDuration, sdRecordingEnabled, sdRecordingLimit, sdRecordingStream, sdRecordingType}
+    ) => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard-recording',
+      data: {
+        sdRecordingStatus,
+        sdRecordingDuration,
+        sdRecordingEnabled,
+        sdRecordingLimit,
+        sdRecordingStream,
+        sdRecordingType
+      }
+    }),
+    /**
+     * @returns {Promise<Response>}
+     * @response 204
      * - sdEnabled {boolean}
      * - sdAlertEnabled {boolean}
      * - sdFormat {string}
@@ -1367,6 +1395,67 @@ module.exports = {
         formData.set('file', file);
         return formData;
       })()
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    getDevice: () => api({
+      method: 'get',
+      url: '/api/members/device-sync'
+    }),
+    /**
+     * @param {String} ip - Device IP
+     * @param {String} port - Device port
+     * @param {String} username - Device login username
+     * @param {String} password - Device login password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    addDevice: ({ip, port, account, password}) => api({
+      method: 'post',
+      url: '/api/members/device-sync',
+      data: {
+        ip,
+        port,
+        account,
+        password
+      }
+    }),
+    /**
+     * @param {String} id
+     * @param {String} ip - Device IP
+     * @param {String} port - Device port
+     * @param {String} username - Device login username
+     * @param {String} password - Device login password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    editDevice: ({id, ip, port, account, password}) => api({
+      method: 'put',
+      url: '/api/members/device-sync',
+      data: {
+        id,
+        ip,
+        port,
+        account,
+        password
+      }
+    }),
+    /**
+     * @param {Array} id - Array of objects of ids' to be deleted
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    deleteDevice: id => api({
+      method: 'delete',
+      url: '/api/members/device-sync',
+      data: id
+    }),
+    syncDB: ({sync}) => api({
+      method: 'post',
+      url: '/api/members/sync-db',
+      data: {sync}
     })
   },
   multimedia: {

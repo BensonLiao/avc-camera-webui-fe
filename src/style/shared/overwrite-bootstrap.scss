@@ -542,3 +542,10 @@ div[role="tablist"].nav,
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: $secondary-400 !important;
 }
+
+.active {
+  &.bg-light:focus,
+  &.bg-light:hover {
+    background-color: $secondary-100 !important;
+  }
+}

@@ -264,7 +264,8 @@ module.exports = new Router({
       resolve: {
         groups: () => api.group.getGroups().then(response => response.data),
         members: params => api.member.getMembers(params).then(response => response.data),
-        remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data)
+        remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data),
+        deviceSync: () => api.member.getDevice().then(response => response.data)
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-members" */
@@ -485,12 +486,39 @@ module.exports = new Router({
       name: 'web.sd-card',
       uri: '/sd-card',
       onEnter: () => {
-        document.title = `${i18n.t('documentTitle.sdCard')} - ${_title}`;
+        document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
       },
-      resolve: {smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)},
+      loadComponent: () => import(
+        /* webpackChunkName: "page-sdcard" */
+        './pages/sdcard/layout'
+      )
+    },
+    {
+      name: 'web.sd-card.settings',
+      uri: '/settings',
+      onEnter: () => {
+        document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
+      },
+      resolve: {
+        smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data),
+        sdCardRecordingSettings: () => api.system.getSDCardRecordingSettings().then(response => response.data),
+        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */
         './pages/sdcard/sd-card'
+      )
+    },
+    {
+      name: 'web.sd-card.storage',
+      uri: '/storage',
+      onEnter: () => {
+        document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
+      },
+      resolve: {},
+      loadComponent: () => import(
+        /* webpackChunkName: "page-sd-card" */
+        './pages/sdcard/storage'
       )
     },
     {

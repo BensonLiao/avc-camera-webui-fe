@@ -91,18 +91,18 @@ const MaintainImportExport = ({
       </div>
       <div className="form-group">
         <label className="mb-0">{i18n.t('system.deviceMaintenance.importSystemSettings')}</label>
-        <small className="form-text text-muted my-2">{i18n.t('system.common.importHelper')}</small>
+        <small className="form-text text-muted my-2">{i18n.t('common.fileHandler.importHelper')}</small>
         <div>
           <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
             <input type="file" className="d-none" accept="application/zip" onChange={onChangeFile}/>
-            {i18n.t('system.common.selectFile')}
+            {i18n.t('common.fileHandler.selectFile')}
           </label>
           <span className="text-size-14 text-muted ml-3">
-            {file ? file.name : i18n.t('system.common.noFileSelected')}
+            {file ? file.name : i18n.t('common.fileHandler.noFileSelected')}
           </span>
         </div>
         <div>
-          <CustomTooltip show={!file} title={i18n.t('system.common.tooltip.disabledButton')}>
+          <CustomTooltip show={!file} title={i18n.t('common.fileHandler.tooltip.disabledButton')}>
             <span>
               <button
                 disabled={isApiProcessing || !file}

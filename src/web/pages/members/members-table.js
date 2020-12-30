@@ -75,7 +75,7 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
           {
             /* Empty Search Message */
             !members.items.length && (
-              <tr>
+              <tr className="disable-highlight">
                 <td className="text-size-20 text-center" colSpan="10">
                   <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('userManagement.members.noData')}
                 </td>

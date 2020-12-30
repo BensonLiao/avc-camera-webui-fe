@@ -176,6 +176,20 @@ mockAxios
   .onGet('/api/system/network/tcpip/http').reply(config => mockResponseWithLog(config, [200, db.get('httpSettings').value()]))
   .onPut('/api/system/network/tcpip/http').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('httpSettings').assign(JSON.parse(config.data)).write()]), 2000))
   .onGet('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').value()]))
+  .onGet('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').value()]))
+  .onPost('/api/system/systeminfo/sdcard-recording').reply(config => {
+    const info = JSON.parse(config.data);
+    const data = {
+      ...db.get('sdCardRecordingSettings').value(),
+      ...info,
+      sdRecordingDuration: Number(info.sdRecordingDuration),
+      sdRecordingLimit: info.sdRecordingLimit === 'true',
+      sdRecordingStatus: Number(info.sdRecordingStatus),
+      sdRecordingStream: Number(info.sdRecordingStream),
+      sdRecordingType: Number(info.sdRecordingType)
+    };
+    return mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').assign(data).write()]);
+  })
   .onPost('/api/system/systeminfo/sdcard').reply(config => {
     const data = {
       ...db.get('system').value(),
@@ -673,6 +687,28 @@ mockAxios
   .onGet('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPut('/api/members/database-encryption-settings').reply(config => mockResponseWithLog(config, [200, {password: '0000'}]))
   .onPost('/api/members/database').reply(config => setDelay(mockResponseWithLog(config, [204]), 2000))
+  .onGet('/api/members/device-sync').reply(config => mockResponseWithLog(config, [200, db.get('deviceSync').value()]))
+  .onPut('/api/members/device-sync').reply(config => {
+    const newItem = JSON.parse(config.data);
+    return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').find({id: newItem.id}).assign(newItem).write()]), 500);
+  })
+  .onPost('/api/members/device-sync').reply(config => {
+    const item = JSON.parse(config.data);
+    const newItem = {
+      id: uuidv4(),
+      ip: item.ip,
+      port: item.port,
+      // randomly generated device ID
+      deviceName: `MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
+      account: item.account
+    };
+    return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').push(newItem).write()]), 500);
+  })
+  .onDelete('/api/members/device-sync').reply(config => {
+    const devices = JSON.parse(config.data);
+    devices.forEach(deviceID => db.get('deviceSync.devices').remove({id: deviceID}).write());
+    return setDelay(mockResponseWithLog(config, [204, {}]), 500);
+  })
   .onGet('/api/face-recognition/settings').reply(config => {
     const faceRecognitionSettings = db.get('faceRecognitionSettings').value();
     // get with converMapping to percentage util function (mocking real server)
@@ -681,6 +717,10 @@ mockAxios
       ...faceRecognitionSettings,
       triggerArea: triggerArea
     }]);
+  })
+  .onPost('/api/members/sync-db').reply(config => {
+    db.get('deviceSync').assign(JSON.parse(config.data)).write();
+    return setDelay(mockResponseWithLog(config, [200, {}]), 500);
   })
   .onGet('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionStatus').value()]))
   .onPut('/api/face-recognition/fr').reply(config => mockResponseWithLog(config, [200, db.get('faceRecognitionSettings').assign(JSON.parse(config.data)).write()]))
