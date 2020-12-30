@@ -1238,3 +1238,8 @@ a.page-link,
 .group-item {
   transition: background-color ease 0.2s;
 }
+
+// Expand to 15rem for search bars
+input[type="search"].search-bar-expand:focus {
+  width: 15rem;
+}

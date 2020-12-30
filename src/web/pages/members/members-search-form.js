@@ -23,7 +23,7 @@ const MembersSearchForm = ({isApiProcessing, currentRouteName, params}) => {
     >
       <Form className="form-row">
         <div className="col-auto">
-          <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('userManagement.members.searchPlaceholder')}/>
+          <Field name="keyword" className="form-control search-bar-expand" type="search" placeholder={i18n.t('userManagement.members.searchPlaceholder')}/>
         </div>
         <div className="col-auto">
           <button

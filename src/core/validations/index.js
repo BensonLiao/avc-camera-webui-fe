@@ -36,6 +36,7 @@ const customValidator = new FastestFormikValidator({
     email: i18n.t('validation.email'), // reserved
     url: i18n.t('validation.url'), // deprecated
     confirmEqual: i18n.t('validation.confirmEqual'),
+    maxOperators: i18n.t('validation.maxOperators'),
 
     stringContainsLowerCaseLatter: i18n.t('validation.stringContainsLowerCaseLatter'),
     stringContainsUpperCaseLatter: i18n.t('validation.stringContainsUpperCaseLatter'),
