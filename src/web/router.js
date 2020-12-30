@@ -486,12 +486,39 @@ module.exports = new Router({
       name: 'web.sd-card',
       uri: '/sd-card',
       onEnter: () => {
-        document.title = `${i18n.t('documentTitle.sdCard')} - ${_title}`;
+        document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
       },
-      resolve: {smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data)},
+      loadComponent: () => import(
+        /* webpackChunkName: "page-sdcard" */
+        './pages/sdcard/layout'
+      )
+    },
+    {
+      name: 'web.sd-card.settings',
+      uri: '/settings',
+      onEnter: () => {
+        document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
+      },
+      resolve: {
+        smtpSettings: () => api.notification.getSMTPSettings().then(response => response.data),
+        sdCardRecordingSettings: () => api.system.getSDCardRecordingSettings().then(response => response.data),
+        streamSettings: () => api.multimedia.getStreamSettings().then(response => response.data)
+      },
       loadComponent: () => import(
         /* webpackChunkName: "page-sd-card" */
         './pages/sdcard/sd-card'
+      )
+    },
+    {
+      name: 'web.sd-card.storage',
+      uri: '/storage',
+      onEnter: () => {
+        document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
+      },
+      resolve: {},
+      loadComponent: () => import(
+        /* webpackChunkName: "page-sd-card" */
+        './pages/sdcard/storage'
       )
     },
     {

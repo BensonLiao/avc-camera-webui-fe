@@ -133,7 +133,30 @@
     }
   },
   "sdCard": {
-    "mount": "マウント"
+    "mount": "マウント",
+    "constants": {
+      "Functioning": "正常",
+      "Unmounted": "マウントされていません",
+      "Empty Slot": "カードが挿入されていません",
+      "Nonfunctioning": "異常",
+      "Read-only Access": "読み取り専用",
+      "Unknown Error": "不明なエラー"
+    },
+    "operation": "操作",
+    "format": "フォーマット",
+    "unmount": "マウントを解除",
+    "title": "SDカード",
+    "enable": "SDカードを有効にする",
+    "errorNotification": "異常通知",
+    "notificationSet": "メールアドレスが設定されました",
+    "enableOutgoingEmail": "メールアドレスを設定する",
+    "status": "ステータス",
+    "filesystem": "ファイルシステム",
+    "unrecognized": "不明なファイルシステム",
+    "storageSpace": "ストレージ容量",
+    "basic": {
+      "resolution": ""
+    }
   },
   "error": {
     "notFound": "このページは表示できません"
@@ -145,13 +168,15 @@
     "notificationSettings": "通知設定",
     "notificationMethod": "通知方法",
     "administration": "管理",
-    "status": "ステータス"
+    "status": "ステータス",
+    "sdCard": "SDカード"
   },
   "navigation": {
     "sidebar": {
       "tooltip": {
         "image": "画像設定"
-      }
+      },
+      "sdCard": "SDカード"
     }
   },
   "common": {
@@ -161,5 +186,7 @@
     "button": {
       "create": "追加"
     }
-  }
+  },
+  "Resolution FPS": "",
+  "Resolution Codec": ""
 }

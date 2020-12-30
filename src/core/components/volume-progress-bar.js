@@ -3,12 +3,33 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../i18n';
 import CustomTooltip from './tooltip';
+import SDCardIcon from '../../resource/sd-card.svg';
 
-const VolumeProgressBar = ({total, usage, percentageToHideText}) => {
+const VolumeProgressBar = ({total, usage, percentageToHideText, isRoundProgressBar}) => {
   const usedDiskPercentage = Math.ceil((usage / total) * 100);
   const freeDiskPercentage = 100 - usedDiskPercentage;
   const freeDiskVolume = total - usage;
-  return (
+
+  return isRoundProgressBar ? (
+    <div className="d-flex flex-column col-3">
+      <div className={`pie-wrapper progress-${usedDiskPercentage} style-2`}>
+        <img src={SDCardIcon} className="img"/>
+        <div className="pie">
+          <div className="left-side half-circle"/>
+          <div className="right-side half-circle"/>
+        </div>
+        <div className="shadow-pie"/>
+      </div>
+      <div className="card rounded-0 p-2">
+        <p className="mb-0 text-center">
+          {i18n.t('common.volumeBar.free', {0: filesize(freeDiskVolume)})}
+        </p>
+        <p className="mb-0 text-center">
+          {i18n.t('common.volumeBar.total', {0: filesize(total)})}
+        </p>
+      </div>
+    </div>
+  ) : (
     <>
       <p>
         {
@@ -54,7 +75,8 @@ const VolumeProgressBar = ({total, usage, percentageToHideText}) => {
 VolumeProgressBar.propTypes = {
   total: PropTypes.number.isRequired,
   usage: PropTypes.number.isRequired,
-  percentageToHideText: PropTypes.number
+  percentageToHideText: PropTypes.number,
+  isRoundProgressBar: PropTypes.bool
 };
 
 VolumeProgressBar.defaultProps = {percentageToHideText: 8};
