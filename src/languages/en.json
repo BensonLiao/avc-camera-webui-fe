@@ -361,6 +361,7 @@
       "title": "SD Card",
       "enable": "Enable SD Card",
       "errorNotification": "Error Notification",
+      "emailNotification": "Email Notification",
       "notificationSet": "Email Notification Set",
       "enableOutgoingEmail": "Enable Outgoing Email",
       "status": "Status",

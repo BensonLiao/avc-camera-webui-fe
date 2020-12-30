@@ -158,9 +158,9 @@ const SDCard = ({
                           <div className="form-group">
                             <div className="d-flex justify-content-between align-items-center mb-0">
                               <label className="mb-o">{i18n.t('sdCard.basic.status')}</label>
-                              <label className="mb-o text-primary">
-                                {sdCardRecordingSettings.sdRecordingStatus === Number(SDCardRecordingStatus.on) ? i18n.t('sdCard.basic.recording') : SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}
-                              </label>
+                              {sdCardRecordingSettings.sdRecordingStatus === Number(SDCardRecordingStatus.on) ? (
+                                <label className="mb-o text-danger"/>
+                              ) : <label className="mb-o text-primary">{SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}</label>}
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-0">
                               <label className="mb-o">{i18n.t('sdCard.basic.filesystem')}</label>
@@ -203,18 +203,20 @@ const SDCard = ({
                                 callApi={callApi}
                               />
                               <div className="form-group">
-                                <label>{i18n.t('sdCard.basic.errorNotification')}</label>
+                                <div className="row d-flex justify-content-between ml-0 mr-0 mb-1">
+                                  <label>{i18n.t('sdCard.basic.errorNotification')}</label>
+                                  <span>
+                                    {
+                                      isEnableAuth ?
+                                        <a className="text-success">{i18n.t('sdCard.basic.notificationSet')}</a> :
+                                        <Link className="text-danger" to="/notification/smtp">{i18n.t('sdCard.basic.enableOutgoingEmail')}</Link>
+                                    }
+                                  </span>
+                                </div>
                                 <div className="card">
                                   <div className="card-body">
                                     <div className="form-group align-items-center mb-0">
-                                      <label className="mb-0 mr-3">{i18n.t('sdCard.basic.errorNotification')}</label>
-                                      <span>
-                                        {
-                                          isEnableAuth ?
-                                            <a className="text-success">{i18n.t('sdCard.basic.notificationSet')}</a> :
-                                            <Link className="text-danger" to="/notification/smtp">{i18n.t('sdCard.basic.enableOutgoingEmail')}</Link>
-                                        }
-                                      </span>
+                                      <label className="mb-0 mr-3">{i18n.t('sdCard.basic.emailNotification')}</label>
                                       <CustomTooltip show={!isEnableAuth} title={i18n.t('sdCard.tooltip.disabledNotificationButton')}>
                                         <div className="custom-control custom-switch float-right">
                                           <Field
