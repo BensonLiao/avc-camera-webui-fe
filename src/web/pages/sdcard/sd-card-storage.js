@@ -128,8 +128,8 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
    * @param {Object} values - Form next values
    * @returns {void}
    */
-  const onChangeCardForm = ({nextValues}) => {
-    if (files.length) {
+  const onChangeTableForm = ({nextValues}) => {
+    if (nextValues.length && nextValues.length > 0) {
       selectAllCheckboxState(nextValues);
     }
   };
@@ -175,7 +175,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                 const disableButton = !form.values.flat().some(value => value.isChecked);
                 return (
                   <Form className="card-body">
-                    <FormikEffect onChange={onChangeCardForm}/>
+                    <FormikEffect onChange={onChangeTableForm}/>
                     <div className="col-12 d-flex justify-content-between align-items-center mb-4">
                       <SDCardStorageSearchForm
                         generatePaginatedCheckList={generatePaginatedCheckList}
