@@ -194,6 +194,8 @@
         "invalidSelection": "",
         "noDevice": "",
         "editGroupWithName": "グループを編集する：{{0}}",
+        "groupLimitExceeded": "グループ数の上限に達しました",
+        "createGroup": "グループを追加する",
         "deleteGroupWithName": "グループを削除する：{{0}}",
         "editMemberWithName": "メンバーを編集する：{{0}}",
         "deleteMemberWithName": "メンバーを削除する：{{0}}",

@@ -194,6 +194,8 @@
         "invalidSelection": "",
         "noDevice": "",
         "editGroupWithName": "編輯群組: {{0}}",
+        "groupLimitExceeded": "已達數量限制",
+        "createGroup": "新增群組",
         "deleteGroupWithName": "刪除群組: {{0}}",
         "editMemberWithName": "編輯成員: {{0}}",
         "deleteMemberWithName": "刪除成員: {{0}}",

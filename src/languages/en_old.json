@@ -80,8 +80,6 @@
         }
       },
       "tooltip": {
-        "createGroup": "Create a Group",
-        "groupLimitExceeded": "Group number limit exceeded.",
         "uploadPrimaryFirst": "Upload the Primary Photo First"
       }
     },

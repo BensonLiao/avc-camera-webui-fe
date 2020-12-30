@@ -194,6 +194,8 @@
         "invalidSelection": "",
         "noDevice": "",
         "editGroupWithName": "Editar grupo: {{0}}",
+        "groupLimitExceeded": "Límite de cantidad alcanzado",
+        "createGroup": "Añadir grupo",
         "deleteGroupWithName": "Borrar grupo: {{0}}",
         "editMemberWithName": "Editar miembro: {{0}}",
         "deleteMemberWithName": "Borrar miembro: {{0}}",

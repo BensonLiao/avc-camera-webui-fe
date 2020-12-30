@@ -74,8 +74,6 @@
         }
       },
       "tooltip": {
-        "createGroup": "グループを追加する",
-        "groupLimitExceeded": "グループ数の上限に達しました",
         "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい",
         "encryptionSettings": "暗号化設定"
       }

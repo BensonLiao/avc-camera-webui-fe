@@ -74,8 +74,6 @@
         }
       },
       "tooltip": {
-        "createGroup": "Añadir grupo",
-        "groupLimitExceeded": "Límite de cantidad alcanzado",
         "uploadPrimaryFirst": "Sube la foto principal primero"
       }
     },

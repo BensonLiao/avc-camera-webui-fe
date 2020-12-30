@@ -194,6 +194,8 @@
         "invalidSelection": "Un-linked Device Selected",
         "noDevice": "Select a Device",
         "editGroupWithName": "Edit Group: {{0}}",
+        "groupLimitExceeded": "Group number limit exceeded.",
+        "createGroup": "Create a Group",
         "deleteGroupWithName": "Delete Group: {{0}}",
         "editMemberWithName": "Edit Member: {{0}}",
         "deleteMemberWithName": "Delete Member: {{0}}",
