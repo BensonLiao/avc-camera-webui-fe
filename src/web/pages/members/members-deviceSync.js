@@ -13,6 +13,10 @@ import {formatDate, getPaginatedData, isArray} from '../../../core/utils';
 import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
 import ProgressIndicator from '../../../core/components/progress-indicator';
+// import ConnectionStatusSchema from 'webserver-form-schema/constants/members-device-connection-status';
+import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
+import MasterSyncStatusSchema from 'webserver-form-schema/constants/members-master-sync-status';
+// import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
 
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
@@ -220,6 +224,55 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
     return () => clearInterval(syncID);
   }, [devices, syncStatus]);
 
+  const renderStatus = device => {
+    if (device.syncStatus && syncStatus === MasterSyncStatusSchema.syncOngoing) {
+      switch (device.syncStatus) {
+        default: return;
+        case DeviceSyncStatusSchema.syncOngoing:
+          return (
+            <div className="d-flex align-items-center">
+              <ProgressIndicator
+                isDetermined={false}
+                status="start"
+                className="ml-0 mr-2"
+              />
+              <span>{i18n.t('userManagement.members.syncing')}</span>
+            </div>
+          );
+        case DeviceSyncStatusSchema.syncFinished:
+          return (
+            <div className="d-flex align-items-center">
+              <i className="fas fa-lg fa-check-circle mr-2"/>
+              <span>{i18n.t('userManagement.members.done')}</span>
+            </div>
+          );
+      }
+    } else {
+      if (device.lastUpdateTime) {
+        return (
+          <CustomTooltip title={formatDate(device.lastUpdateTime)}>
+            <span>
+              <i className="fas fa-lg fa-check-circle mr-2"/>
+              {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
+            </span>
+          </CustomTooltip>
+        );
+      }
+
+      return (
+        device.connectionStatus ? (
+          <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
+            <i className="fas fa-lg fa-link"/>
+          </CustomTooltip>
+        ) : (
+          <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
+            <i className="fas fa-lg fa-unlink"/>
+          </CustomTooltip>
+        )
+      );
+    }
+  };
+
   return (
     <div>
       <Formik
@@ -353,42 +406,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                               </td>
                               <td>
                                 <div>
-                                  { device.syncStatus && syncStatus === 1 ? (
-                                    device.syncStatus === 1 ? (
-                                      <div className="d-flex align-items-center">
-                                        <ProgressIndicator
-                                          isDetermined={false}
-                                          status="start"
-                                          className="ml-0 mr-2"
-                                        />
-                                        <span>{i18n.t('userManagement.members.syncing')}</span>
-                                      </div>
-                                    ) : (
-                                      <div className="d-flex align-items-center">
-                                        <i className="fas fa-lg fa-check-circle mr-2"/>
-                                        <span>{i18n.t('userManagement.members.done')}</span>
-                                      </div>
-                                    )
-                                  ) : (
-                                    device.lastUpdateTime ? (
-                                      <CustomTooltip title={formatDate(device.lastUpdateTime)}>
-                                        <span>
-                                          <i className="fas fa-lg fa-check-circle mr-2"/>
-                                          {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
-                                        </span>
-                                      </CustomTooltip>
-                                    ) : (
-                                      device.connectionStatus ? (
-                                        <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
-                                          <i className="fas fa-lg fa-link"/>
-                                        </CustomTooltip>
-                                      ) : (
-                                        <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
-                                          <i className="fas fa-lg fa-unlink"/>
-                                        </CustomTooltip>
-                                      )
-                                    )
-                                  )}
+                                  {renderStatus(device)}
                                 </div>
                               </td>
                               <td className="text-left group-btn">
