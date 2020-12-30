@@ -10,13 +10,13 @@ import DateTimePicker from '../../../core/components/fields/datetime-picker';
 import withGlobalStatus from '../../withGlobalStatus';
 import {useContextState} from '../../stateProvider';
 
-const SDCardStorageSearchForm = ({generatePaginatedCheckList, updateSearchResult}) => {
+const SDCardStorageSearchForm = ({generatePaginatedCheckList, initialSearchCondition, updateSearchResult}) => {
   const {isApiProcessing} = useContextState();
   const [state, setState] = useState({isShowStartDatePicker: false});
 
   const {isShowStartDatePicker} = state;
 
-  const formInitialValues = {date: new Date()};
+  const formInitialValues = {date: new Date(initialSearchCondition.date)};
 
   const toggleStartDatePicker = () => setState(prevState => ({isShowStartDatePicker: !prevState.isShowStartDatePicker}));
 
@@ -75,6 +75,7 @@ const SDCardStorageSearchForm = ({generatePaginatedCheckList, updateSearchResult
 
 SDCardStorageSearchForm.propTypes = {
   generatePaginatedCheckList: PropTypes.func.isRequired,
+  initialSearchCondition: PropTypes.shape({date: PropTypes.instanceOf(Date, dayjs).isRequired}).isRequired,
   updateSearchResult: PropTypes.func.isRequired
 };
 

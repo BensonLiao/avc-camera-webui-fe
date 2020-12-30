@@ -514,10 +514,19 @@ module.exports = new Router({
       name: 'web.sd-card.storage',
       uri: '/storage',
       onEnter: () => {
-        document.title = `${i18n.t('documentTitle.sdCardSettings')} - ${_title}`;
+        document.title = `${i18n.t('documentTitle.sdCardStorage')} - ${_title}`;
       },
       resolve: {
-        files: () => api.system.getSDCardStorageFiles(dayjs().format('YYYY-MM-DD')).then(response => response.data),
+        storage: () => {
+          const date = dayjs();
+          return api.system.getSDCardStorageFiles(date.format('YYYY-MM-DD'))
+            .then(response => {
+              return {
+                files: response.data,
+                date
+              };
+            });
+        },
         dateList: () => api.system.getSDCardStorageDateList().then(response => response.data)
       },
       loadComponent: () => import(

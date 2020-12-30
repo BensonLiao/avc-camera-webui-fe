@@ -17,8 +17,9 @@ import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
 import StageProgress from '../../../core/components/stage-progress';
 import SDCardStorageSearchForm from './sd-card-storage-search-form';
+import dayjs from 'dayjs';
 
-const SDCardStorage = ({files, dateList}) => {
+const SDCardStorage = ({storage: {files, date}, dateList}) => {
   console.log('dateList', dateList);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
@@ -27,6 +28,7 @@ const SDCardStorage = ({files, dateList}) => {
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const [isShowProgressModal, setIsShowProgressModal] = useState(false);
   const [progressPercentage, setProgressPercentage] = useState(0);
+  const [currentDate] = useState(date);
   const selectAllRef = useRef();
   const formRef = useRef();
 
@@ -175,6 +177,7 @@ const SDCardStorage = ({files, dateList}) => {
                     <div className="col-12 d-flex justify-content-between align-items-center mb-4">
                       <SDCardStorageSearchForm
                         generatePaginatedCheckList={generatePaginatedCheckList}
+                        initialSearchCondition={{date: currentDate}}
                         updateSearchResult={values => form.setValues(values)}
                       />
                       <div className="float-right d-inline-flex">
@@ -360,13 +363,16 @@ const SDCardStorage = ({files, dateList}) => {
 };
 
 SDCardStorage.propTypes = {
-  files: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    bytes: PropTypes.number,
-    name: PropTypes.string,
-    path: PropTypes.string,
-    type: PropTypes.string
-  })).isRequired,
+  storage: PropTypes.shape({
+    files: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      bytes: PropTypes.number,
+      name: PropTypes.string,
+      path: PropTypes.string,
+      type: PropTypes.string
+    })).isRequired,
+    date: PropTypes.instanceOf(Date, dayjs).isRequired
+  }),
   dateList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
