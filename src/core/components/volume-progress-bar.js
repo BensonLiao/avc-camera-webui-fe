@@ -12,7 +12,7 @@ const VolumeProgressBar = ({total, usage, percentageToHideText, isRoundProgressB
 
   return isRoundProgressBar ? (
     <div className="volume-progress-bar-round ">
-      <div className="pie-wrapper progress-45 style-2">
+      <div className={`pie-wrapper progress-${usedDiskPercentage} style-2`}>
         <img src={SDCardIcon} className="img"/>
         <div className="pie">
           <div className="left-side half-circle"/>
