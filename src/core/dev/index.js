@@ -707,6 +707,8 @@ mockAxios
     if (!syncStatus) {
       // Set sync process indicator on
       syncProcess.sourceStatus = 1;
+      // Record time for this sync's lastUpdateTime
+      syncProcess.lastUpdateTime = new Date().getTime();
       db.get('deviceSync').assign({syncStatus: 1}).write();
       const itemsSyncing = devices.filter(device => devicesToSync.includes(device.id))
         .map(device => ({
@@ -720,13 +722,19 @@ mockAxios
 
     const processingDevice = syncProcess.devices.find(device => device.syncStatus === 1);
     if (processingDevice) {
-      // 50% chance to fail
-      if (Math.random() * 2 > 1) {
-        syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].syncStatus = 2;
+      const deviceIndex = syncProcess.devices.indexOf(processingDevice);
+      // 20% chance to fail
+      if (Math.random() * 5 > 1) {
+        syncProcess.devices[deviceIndex].syncStatus = 2;
+        // Update lastUpdateTime for successful device
+        syncProcess.devices[deviceIndex].lastUpdateTime = syncProcess.lastUpdateTime;
       } else {
-        syncProcess.devices[syncProcess.devices.indexOf(processingDevice)].syncStatus = 3;
+        syncProcess.devices[deviceIndex].syncStatus = 3;
       }
+
+      db.get('deviceSync.devices').find({id: syncProcess.devices[deviceIndex].id}).assign(syncProcess.devices[deviceIndex]).write();
     } else {
+      // Finish Syncing
       db.get('deviceSync').assign({syncStatus: 0}).write();
       db.get('deviceSyncProcess').assign({
         devices: [],

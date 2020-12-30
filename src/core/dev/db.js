@@ -549,7 +549,8 @@ module.exports = {
       },
       deviceSyncProcess: {
         devices: [],
-        sourceStatus: 0
+        sourceStatus: 0,
+        lastUpdateTime: 0
       },
       faceEvents: [
         {
