@@ -10,7 +10,7 @@ import {Formik, Form, Field} from 'formik';
 import {getPaginatedData, isArray} from '../../../core/utils';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import FormikEffect from '../../../core/components/formik-effect';
-import noDevice from '../../../resource/noDevice.png';
+import noFile from '../../../resource/noFile.png';
 import Pagination from '../../../core/components/pagination';
 import classNames from 'classnames';
 import {SDCARD_STORAGE_DATE_FORMAT} from '../../../core/constants';
@@ -158,7 +158,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
 
   return (
     <div className="main-content left-menu-active">
-      <div className="section-media">
+      <div className="section-media bg-white">
         <div className="container-fluid">
           <div className="row">
             <BreadCrumb
@@ -297,12 +297,14 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                                 );
                               })
                             ) : (
-                              /* No Device */
+                              /* No File */
                               <tr className="disable-highlight">
                                 <td className="text-size-20 text-center" colSpan="10">
                                   <div className="d-flex flex-column align-items-center mt-5">
-                                    <img src={noDevice}/>
-                                    <div className="mt-5 text-center text-wrap" style={{width: '300px'}}>{i18n.t('userManagement.members.noDevice')}</div>
+                                    <img src={noFile}/>
+                                    <div className="mt-5 text-center text-wrap" style={{width: '300px'}}>
+                                      {i18n.t('userManagement.members.noDevice')}
+                                    </div>
                                   </div>
                                 </td>
                               </tr>
