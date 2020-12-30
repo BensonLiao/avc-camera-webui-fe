@@ -23,6 +23,10 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
 
   const hideApiProcessModal = () => setIsShowApiProcessModal(false);
 
+  /**
+   * Show device successfully connected toast modal
+   * @returns {void}
+   */
   const showSuccessMessage = () => {
     notify.showSuccessNotification({
       title: i18n.t('userManagement.members.toast.connectSuccessTitle'),
@@ -30,6 +34,10 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
     });
   };
 
+  /**
+   * Show device connection failed toast modal
+   * @returns {void}
+   */
   const showFailMessage = () => {
     notify.showErrorNotification({
       title: i18n.t('userManagement.members.toast.connectFailTitle'),

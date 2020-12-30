@@ -106,11 +106,11 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   const selectAllCheckboxState = useCallback(values => {
     // Check if any checkboxes has been selected
     if (values[page] && values[page].some(device => device.isChecked)) {
-      // Check if all checkboxes has been selected
       if (values[page].some(device => !device.isChecked)) {
+        // Some checkboxes are selected, set to indetermindate state
         selectAllRef.current.indeterminate = true;
       } else {
-        // All checkboxes selected manually
+        // Manually selected all checkboxes
         selectAllRef.current.indeterminate = false;
         setIsSelectAll(true);
       }
