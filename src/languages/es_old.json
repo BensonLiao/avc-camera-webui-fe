@@ -100,10 +100,6 @@
     }
   },
   "network": {
-    "network": {
-      "static": "Dirección IP estática",
-      "dynamic": "Dirección IP dinámica"
-    },
     "https": {
       "constants": {
         "manufacturer": "Fabricante",

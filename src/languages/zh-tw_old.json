@@ -101,10 +101,6 @@
     }
   },
   "network": {
-    "network": {
-      "static": "固定IP位址",
-      "dynamic": "動態IP位址"
-    },
     "https": {
       "constants": {
         "manufacturer": "製造商",

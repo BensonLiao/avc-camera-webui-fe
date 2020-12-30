@@ -905,6 +905,8 @@
       },
       "title": "Red",
       "ipAssignment": "Método de adquisición de IP",
+      "static": "Dirección IP estática",
+      "dynamic": "Dirección IP dinámica",
       "macAddress": "Dirección física",
       "secondaryDNS": "DNS secundario",
       "ipAddressing": "Red de área local",

@@ -112,10 +112,6 @@
     }
   },
   "network": {
-    "network": {
-      "static": "Static",
-      "dynamic": "Dynamic"
-    },
     "https": {
       "constants": {
         "manufacturer": "Manufacturer",

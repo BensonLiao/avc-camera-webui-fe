@@ -905,6 +905,8 @@
       },
       "title": "Network",
       "ipAssignment": "IP Assignment",
+      "static": "Static",
+      "dynamic": "Dynamic",
       "macAddress": "MAC Address",
       "secondaryDNS": "Secondary DNS",
       "ipAddressing": "IP Addressing",

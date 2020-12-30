@@ -905,6 +905,8 @@
       },
       "title": "網路",
       "ipAssignment": "IP 取得方式",
+      "static": "固定IP位址",
+      "dynamic": "動態IP位址",
       "macAddress": "實體位址",
       "secondaryDNS": "次要 DNS",
       "ipAddressing": "LAN 組態",

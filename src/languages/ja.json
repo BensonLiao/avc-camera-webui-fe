@@ -905,6 +905,8 @@
       },
       "title": "ネットワーク",
       "ipAssignment": "IP 取得方式",
+      "static": "固定IPアドレス",
+      "dynamic": "動的IPアドレス",
       "macAddress": "MACアドレス",
       "secondaryDNS": "セカンダリーDNS",
       "ipAddressing": "IP設定",
