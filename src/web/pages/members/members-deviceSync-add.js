@@ -31,7 +31,7 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
   };
 
   const showFailMessage = () => {
-    notify.showSuccessNotification({
+    notify.showErrorNotification({
       title: i18n.t('userManagement.members.toast.connectFailTitle'),
       message: i18n.t('userManagement.members.toast.connectFailBody')
     });
