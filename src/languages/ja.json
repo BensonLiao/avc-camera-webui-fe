@@ -242,6 +242,10 @@
         "enroll-status-1": "未登録者",
         "enroll-status-2": "登録者"
       },
+      "popover": {
+        "title": "",
+        "content": ""
+      },
       "similarity": "相似性",
       "status": "認証結果",
       "title": "イベント",
@@ -461,6 +465,7 @@
     "email": "無効なメールアドレス",
     "url": "正しいURLを入力してください,",
     "confirmEqual": "パスワードが一致しません",
+    "maxOperators": "",
     "stringContainsLowerCaseLatter": "小文字のアルファベットの入力は必須です",
     "stringContainsUpperCaseLatter": "大文字のアルファベットの入力は必須です",
     "stringContainsNumber": "数字の入力は必須です",

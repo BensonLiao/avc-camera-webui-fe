@@ -242,6 +242,10 @@
         "enroll-status-1": "Unknown",
         "enroll-status-2": "Registered"
       },
+      "popover": {
+        "title": "Event Search Tip",
+        "content": "Use ' ' or ',' as a logical AND operator between keywords."
+      },
       "similarity": "Similarity",
       "status": "Status",
       "title": "Events",
@@ -461,6 +465,7 @@
     "email": "Invalid email address.",
     "url": "This field must be a valid URL.",
     "confirmEqual": "These passwords didn't match.",
+    "maxOperators": "Up to 4 keywords can be used in one search.",
     "stringContainsLowerCaseLatter": "This field must contain at least one lowercase letter.",
     "stringContainsUpperCaseLatter": "This field must contain at least one uppercase letter.",
     "stringContainsNumber": "This field must contain at least one number.",
