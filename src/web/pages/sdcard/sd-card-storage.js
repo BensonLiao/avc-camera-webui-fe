@@ -41,8 +41,6 @@ const SDCardStorage = ({files, dateList}) => {
     list.flat().filter(value => value.isChecked).map(value => value.path) :
     [list];
 
-  const [paginatedCheckList] = useState(generatePaginatedCheckList(files));
-
   const showConfirmModal = () => setIsShowConfirmModal(true);
 
   const hideConfirmModal = () => setIsShowConfirmModal(false);
@@ -167,7 +165,7 @@ const SDCardStorage = ({files, dateList}) => {
             />
             <Formik
               innerRef={formRef}
-              initialValues={paginatedCheckList}
+              initialValues={generatePaginatedCheckList(files)}
             >
               {form => {
                 const disableButton = !form.values.flat().some(value => value.isChecked);
