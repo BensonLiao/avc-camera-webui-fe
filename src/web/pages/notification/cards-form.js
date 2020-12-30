@@ -191,9 +191,9 @@ const CardsForm = ({
               <div className="modal-body d-flex justify-content-between align-content-center pb-2">
                 <div className="d-flex align-content-center">
                   <CustomTooltip
-                    title={i18n.t(isTop ?
-                      'notification.cards.tooltip.unpin' :
-                      'notification.cards.tooltip.pin')}
+                    title={isTop ?
+                      i18n.t('notification.cards.tooltip.unpin') :
+                      i18n.t('notification.cards.tooltip.pin')}
                   >
                     <button
                       type="button"
@@ -296,9 +296,9 @@ const CardsForm = ({
                     type="submit"
                     className="btn btn-primary btn-block rounded-pill"
                   >
-                    {i18n.t(cardDetails ?
-                      'common.button.confirm' :
-                      'common.button.add')}
+                    {cardDetails ?
+                      i18n.t('common.button.confirm') :
+                      i18n.t('common.button.add')}
                   </button>
                 </div>
                 <button

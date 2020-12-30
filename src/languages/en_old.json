@@ -62,8 +62,6 @@
         "notification-vms-event-1": "Analytic Event"
       },
       "tooltip": {
-        "unpin": "Unpin this card",
-        "pin": "Pin this card",
         "iconVMS": "VMS: On",
         "enterDatetime": "Please enter start and end time.",
         "maxSchedules": "The maximum number of allowed schedules is 5."

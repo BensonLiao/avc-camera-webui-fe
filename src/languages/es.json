@@ -617,6 +617,8 @@
       "receiverPlaceholder": "Introducir la dirección de correo electrónico",
       "tooltip": {
         "disabledReceiverButton": "Ingrese la dirección de correo electrónico",
+        "unpin": "Desanclar Pin Card",
+        "pin": "Parte superior",
         "iconEmail": "Correo electrónico: Habilitado",
         "iconOutput": "Salida digital: Habilitado",
         "addNewCard": "Añadir tarjeta de notificación"

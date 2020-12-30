@@ -58,8 +58,6 @@
         "notification-vms-event-1": "智慧分析事件"
       },
       "tooltip": {
-        "unpin": "固定解除",
-        "pin": "固定",
         "iconVMS": "VMS: On",
         "enterDatetime": "開始および終了日および時間を選択してください",
         "maxSchedules": "最大スケジュール数は5です"

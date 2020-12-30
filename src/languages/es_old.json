@@ -58,8 +58,6 @@
         "notification-vms-event-1": "Analytic Event"
       },
       "tooltip": {
-        "unpin": "Desanclar Pin Card",
-        "pin": "Parte superior",
         "iconVMS": "VMS: On",
         "enterDatetime": "Debe elegir la fecha y hora de inicio y finalización",
         "maxSchedules": "Límite de cantidad alcanzado"

@@ -58,8 +58,6 @@
         "notification-vms-event-1": "智慧分析事件"
       },
       "tooltip": {
-        "unpin": "解除置頂",
-        "pin": "置頂",
         "iconVMS": "影像管理系統(VMS): 開",
         "enterDatetime": "必須選擇起始和終止日期時間",
         "maxSchedules": "已達數量限制"
