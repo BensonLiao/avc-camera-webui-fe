@@ -170,11 +170,15 @@
       "export": "匯出",
       "importDB": "",
       "import": "匯入",
-      "host": "",
       "toast": {
+        "connectSuccessTitle": "",
+        "connectSuccessBody": "",
+        "connectFailTitle": "",
+        "connectFailBody": "",
         "syncSuccessTitle": "",
         "syncSuccessBody": ""
       },
+      "host": "",
       "syncing": "",
       "done": "",
       "failed": "",

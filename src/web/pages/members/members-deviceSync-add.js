@@ -9,6 +9,7 @@ import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import deviceSyncValidator from '../../validations/members/device-sync-validator';
 import {duplicateCheck} from '../../../core/utils';
 import i18n from '../../../i18n';
+import notify from '../../../core/notify';
 import Password from '../../../core/components/fields/password';
 import {useContextState} from '../../stateProvider';
 
@@ -21,6 +22,28 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
   }, []);
 
   const hideApiProcessModal = () => setIsShowApiProcessModal(false);
+
+  /**
+   * Show device successfully connected toast modal
+   * @returns {void}
+   */
+  const showSuccessMessage = () => {
+    notify.showSuccessNotification({
+      title: i18n.t('userManagement.members.toast.connectSuccessTitle'),
+      message: i18n.t('userManagement.members.toast.connectSuccessBody')
+    });
+  };
+
+  /**
+   * Show device connection failed toast modal
+   * @returns {void}
+   */
+  const showFailMessage = () => {
+    notify.showErrorNotification({
+      title: i18n.t('userManagement.members.toast.connectFailTitle'),
+      message: i18n.t('userManagement.members.toast.connectFailBody')
+    });
+  };
 
   /**
    * Submit new or edit device info
@@ -38,12 +61,16 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
 
     if (device) {
       api.member.editDevice(values)
+        .then(showSuccessMessage)
+        .catch(showFailMessage)
         .finally(() => {
           hideApiProcessModal();
           getRouter().reload();
         });
     } else {
       api.member.addDevice(values)
+        .then(showSuccessMessage)
+        .catch(showFailMessage)
         .finally(() => {
           hideApiProcessModal();
           getRouter().reload();
