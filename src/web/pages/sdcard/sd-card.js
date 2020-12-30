@@ -3,7 +3,7 @@ import {Formik, Form, Field} from 'formik';
 import {Link} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Nav, Tab} from 'react-bootstrap';
 import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
@@ -39,6 +39,16 @@ const SDCard = ({
 }) => {
   const {isApiProcessing} = useContextState();
   const [isShowDisableModal, setIsShowDisableModal] = useState(false);
+  const [currentTab, setCurrentTab] = useState(localStorage.getItem('sdCurrentTab') || 'tab-sdcard-operation');
+
+  useEffect(() => {
+    localStorage.removeItem('sdCurrentTab');
+  }, []);
+
+  const setTab = event => {
+    setCurrentTab(event);
+  };
+
   const callApi = (apiFunction, value = '') => {
     progress.start();
     api.system[apiFunction](value)
@@ -91,6 +101,7 @@ const SDCard = ({
   };
 
   const onSubmit = values => {
+    localStorage.setItem('sdCurrentTab', currentTab);
     const formValues = {
       sdRecordingStatus: values.sdRecordingStatus,
       sdRecordingDuration: values.sdRecordingDuration,
@@ -177,8 +188,8 @@ const SDCard = ({
                           />
                         </div>
                       </div>
-                      <Tab.Container defaultActiveKey="tab-sdcard-operation">
-                        <Nav>
+                      <Tab.Container activeKey={currentTab}>
+                        <Nav onSelect={setTab}>
                           <Nav.Item>
                             <Nav.Link
                               eventKey="tab-sdcard-operation"
