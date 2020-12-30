@@ -89,7 +89,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
 
   /**
    * Update `Select All` checkbox based on any checkbox update
-   * @param {Object} values - Form next values
+   * @param {Object} nextValues - Form next values
    * @returns {void}
    */
   const onChangeCardForm = ({nextValues}) => {
@@ -232,6 +232,11 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
     return () => clearInterval(syncID);
   }, [devices, syncStatus]);
 
+  /**
+   * Conditional render for device status
+   * @param {Object} device
+   * @returns {JSX}
+   */
   const renderStatus = device => {
     // Check if sync is ongoing
     if (device.syncStatus && syncStatus === MasterSyncStatusSchema.syncOngoing) {
@@ -267,7 +272,17 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
           );
       }
     } else {
-      // Check if device has been synced at all, and display last synced time
+      // Show failed if last update failed
+      if (device.syncStatus === DeviceSyncStatusSchema.syncAbnormal) {
+        return (
+          <div className="d-flex align-items-center">
+            <i className="fas fa-lg fa-times-circle mr-2"/>
+            <span>{i18n.t('userManagement.members.failed')}</span>
+          </div>
+        );
+      }
+
+      // Display last synced time if lastUpdateTime is not 0
       if (device.lastUpdateTime) {
         return (
           <CustomTooltip title={formatDate(device.lastUpdateTime)}>
