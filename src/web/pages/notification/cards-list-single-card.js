@@ -25,9 +25,9 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
         <div className="card-title d-flex justify-content-between align-items-center">
           <div className="title text-truncate">
             <CustomTooltip
-              title={i18n.t(card.isTop ?
-                'notification.cards.tooltip.unpin' :
-                'notification.cards.tooltip.pin')}
+              title={card.isTop ?
+                i18n.t('notification.cards.tooltip.unpin') :
+                i18n.t('notification.cards.tooltip.pin')}
             >
               <button
                 disabled={isApiProcessing}

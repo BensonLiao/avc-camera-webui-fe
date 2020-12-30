@@ -37,9 +37,9 @@ const SMTP = ({smtpSettings}) => {
       .then(response => {
         notify.showSuccessNotification({
           title: i18n.t('notification.smtp.toast.emailSettingSuccess'),
-          message: i18n.t(response.data.isTestMailSent ?
-            'notification.smtp.toast.sendingTestEmail' :
-            'notification.smtp.toast.disablingOutgoingEmail')
+          message: response.data.isTestMailSent ?
+            i18n.t('notification.smtp.toast.sendingTestEmail') :
+            i18n.t('notification.smtp.toast.disablingOutgoingEmail')
         });
       })
       .then(getRouter().reload)

@@ -11,13 +11,14 @@
     "button": {
       "confirm": "Confirm",
       "cancel": "Cancel",
+      "new": "New",
       "close": "Close",
       "add": "Add",
       "on": "ON",
       "off": "OFF",
       "resetDefault": "Reset to Default Settings",
       "apply": "Apply",
-      "new": "New"
+      "create": "Create"
     },
     "password": {
       "hidePassword": "Hide Password",
@@ -121,6 +122,8 @@
           "organizationPlaceholder": "Enter an organization for this member",
           "organizationHelper": "Maximum length: 32 characters",
           "n/a": "N/A",
+          "editMemberTitle": "Edit Member",
+          "newMemberTitle": "New Member",
           "confirmCloseBody": "Are you sure you want to close this window? All changes you have made will be lost.",
           "photoEditor": "Photo Editor",
           "photoHelper": "Drag the image to position it correctly.",
@@ -130,6 +133,8 @@
           "confirmDeleteBody": "Are you sure you want to delete member {{0}}?"
         },
         "group": {
+          "editGroupTitle": "Edit Group",
+          "createGroupTitle": "Create a Group",
           "namePlaceholder": "Enter a name for this group",
           "nameHelper": "Maximum length: 32 characters",
           "groupLimitExceeded": "",
@@ -189,6 +194,8 @@
         "invalidSelection": "Un-linked Device Selected",
         "noDevice": "Select a Device",
         "editGroupWithName": "Edit Group: {{0}}",
+        "groupLimitExceeded": "Group number limit exceeded.",
+        "createGroup": "Create a Group",
         "deleteGroupWithName": "Delete Group: {{0}}",
         "editMemberWithName": "Edit Member: {{0}}",
         "deleteMemberWithName": "Delete Member: {{0}}",
@@ -273,6 +280,8 @@
       "username": "Username",
       "modal": {
         "usernamePlaceholder": "Enter a name for this account",
+        "modifyUserTitle": "Modify User",
+        "newUserTitle": "New User",
         "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
         "confirmDeleteTitle": "Delete Account",
         "confirmDeleteBody": "Are you sure you want to delete account {{0}}?"
@@ -610,6 +619,8 @@
       "receiverPlaceholder": "Enter email address",
       "tooltip": {
         "disabledReceiverButton": "Please enter an email address.",
+        "unpin": "Unpin this card",
+        "pin": "Pin this card",
         "iconEmail": "Email: On",
         "iconOutput": "Output: On",
         "addNewCard": "Add a New Notification Card"
@@ -680,7 +691,9 @@
       "intervalPlaceholder": "Specify notification interval",
       "intervalRange": "5 - 1,800 Seconds",
       "toast": {
-        "emailSettingSuccess": "Email Setting Success"
+        "emailSettingSuccess": "Email Setting Success",
+        "sendingTestEmail": "Sending Test Email",
+        "disablingOutgoingEmail": "Disabling Outgoing Email"
       }
     }
   },
@@ -708,6 +721,9 @@
     "analytics": "Analytics",
     "sdcard": "SD Card",
     "facialRecognition": "Facial Recognition: ",
+    "on": "On",
+    "off": "Off",
+    "authenticationRequired": "Authentication Required",
     "ageGender": "",
     "humanDetection": ""
   },
@@ -895,6 +911,8 @@
       },
       "title": "Network",
       "ipAssignment": "IP Assignment",
+      "static": "Static",
+      "dynamic": "Dynamic",
       "macAddress": "MAC Address",
       "secondaryDNS": "Secondary DNS",
       "ipAddressing": "IP Addressing",
@@ -927,6 +945,7 @@
   "error": {
     "internalServerError": "Internal Server Error",
     "error": "Error",
+    "notFound": "Not Found",
     "backToHome": "Back to Home"
   },
   "setup": {
@@ -996,7 +1015,9 @@
         "apiProcessModalTitleResetting": "Resetting",
         "resetSuccess": "Reset Success",
         "resetAllSettingsSuccessBody": "Please go through the Initial Setup procedure. Refer to the Quick Installation Guide for instructions.",
-        "resetDefaultSettingsSuccessBody": "Device has reset. Please log in again."
+        "resetDefaultSettingsSuccessBody": "Device has reset. Please log in again.",
+        "confirmResetAllSettingsBody": "The system will revert to factory default settings. All data and configurations you have saved will be overwritten.",
+        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following:\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card"
       },
       "exportSystemSettings": "Export System Settings",
       "export": "Export",

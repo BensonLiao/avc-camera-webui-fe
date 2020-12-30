@@ -13,11 +13,8 @@
   },
   "home": {
     "Device Status": "裝置狀態",
-    "authenticationRequired": "未啟用",
     "ageGender: ": "性別年齡：",
-    "humanDetection: ": "人形偵測：",
-    "on": "開",
-    "off": "關"
+    "humanDetection: ": "人形偵測："
   },
   "videoSetting": {
     "constants": {
@@ -49,9 +46,7 @@
   "notification": {
     "smtp": {
       "toast": {
-        "disablingOutgoingEmail": "設定成功",
-        "mailSettingFailed": "電子郵件設定失敗",
-        "sendingTestEmail": "測試郵件已寄出"
+        "mailSettingFailed": "電子郵件設定失敗"
       }
     },
     "cards": {
@@ -61,8 +56,6 @@
         "notification-vms-event-1": "智慧分析事件"
       },
       "tooltip": {
-        "unpin": "解除置頂",
-        "pin": "置頂",
         "iconVMS": "影像管理系統(VMS): 開",
         "enterDatetime": "必須選擇起始和終止日期時間",
         "maxSchedules": "已達數量限制"
@@ -73,18 +66,10 @@
     "members": {
       "modal": {
         "group": {
-          "editGroupTitle": "編輯群組",
-          "createGroupTitle": "新增群組",
           "editGroupTitle.avn": "編輯群組"
-        },
-        "member": {
-          "newMemberTitle": "新增成員",
-          "editMemberTitle": "編輯成員"
         }
       },
       "tooltip": {
-        "createGroup": "新增群組",
-        "groupLimitExceeded": "已達數量限制",
         "uploadPrimaryFirst": "請先上傳主照片",
         "encryptionSettings": "加密設定"
       }
@@ -92,10 +77,6 @@
     "accounts": {
       "constants": {
         "permission-99": "管理者"
-      },
-      "modal": {
-        "newUserTitle": "創建使用者",
-        "modifyUserTitle": "編輯帳號"
       }
     },
     "events": {
@@ -112,10 +93,6 @@
     }
   },
   "network": {
-    "network": {
-      "static": "固定IP位址",
-      "dynamic": "動態IP位址"
-    },
     "https": {
       "constants": {
         "manufacturer": "製造商",
@@ -123,17 +100,6 @@
         "certificate-type-2": "在此裝置上產生憑證"
       }
     }
-  },
-  "system": {
-    "deviceMaintenance": {
-      "modal": {
-        "confirmRestoreDefaultSettingsBody": "裝置將還原成原廠設定，除了下列項目，其他所有的資料和設定將會被清除:\n\n• 成員清單和成員群組資料 \n• 帳號資料 \n• 對焦及縮放設定 \n• RTSP設定 \n• 網路設定 \n• 記憶卡儲存資料",
-        "confirmResetAllSettingsBody": "裝置將還原成原廠設定，所有資料和設定將會被清除"
-      }
-    }
-  },
-  "error": {
-    "notFound": "此網頁不存在"
   },
   "documentTitle": {
     "image": "圖像",
@@ -156,9 +122,6 @@
   "common": {
     "toast": {
       "DHCP Test Failed": "DHCP 測試失敗"
-    },
-    "button": {
-      "create": "新增"
     }
   }
 }

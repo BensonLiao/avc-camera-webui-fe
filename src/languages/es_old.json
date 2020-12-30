@@ -13,11 +13,8 @@
   },
   "home": {
     "Device Status": "Estado del dispositivo",
-    "authenticationRequired": "No esta activado",
     "ageGender: ": "Género y edad: ",
-    "humanDetection: ": "Detección humanoide: ",
-    "on": "Habilitar",
-    "off": "cerrar"
+    "humanDetection: ": "Detección humanoide: "
   },
   "videoSetting": {
     "constants": {
@@ -49,9 +46,7 @@
   "notification": {
     "smtp": {
       "toast": {
-        "disablingOutgoingEmail": "Desactivar la transmisión de correo electrónico",
-        "mailSettingFailed": "Falló la configuración del correo electrónico",
-        "sendingTestEmail": "Ha enviado un correo de prueba"
+        "mailSettingFailed": "Falló la configuración del correo electrónico"
       }
     },
     "cards": {
@@ -61,8 +56,6 @@
         "notification-vms-event-1": "Analytic Event"
       },
       "tooltip": {
-        "unpin": "Desanclar Pin Card",
-        "pin": "Parte superior",
         "iconVMS": "VMS: On",
         "enterDatetime": "Debe elegir la fecha y hora de inicio y finalización",
         "maxSchedules": "Límite de cantidad alcanzado"
@@ -73,28 +66,16 @@
     "members": {
       "modal": {
         "group": {
-          "editGroupTitle": "Editar grupo",
-          "createGroupTitle": "Añadir grupo",
           "editGroupTitle.avn": "Editar grupo"
-        },
-        "member": {
-          "newMemberTitle": "Nuevo miembro",
-          "editMemberTitle": "Editar miembro"
         }
       },
       "tooltip": {
-        "createGroup": "Añadir grupo",
-        "groupLimitExceeded": "Límite de cantidad alcanzado",
         "uploadPrimaryFirst": "Sube la foto principal primero"
       }
     },
     "accounts": {
       "constants": {
         "permission-99": "administrador"
-      },
-      "modal": {
-        "newUserTitle": "Nuevo Usuario",
-        "modifyUserTitle": "Editar cuenta"
       }
     },
     "events": {
@@ -111,10 +92,6 @@
     }
   },
   "network": {
-    "network": {
-      "static": "Dirección IP estática",
-      "dynamic": "Dirección IP dinámica"
-    },
     "https": {
       "constants": {
         "manufacturer": "Fabricante",
@@ -122,17 +99,6 @@
         "certificate-type-2": "Generate Certificate on This Device"
       }
     }
-  },
-  "system": {
-    "deviceMaintenance": {
-      "modal": {
-        "confirmRestoreDefaultSettingsBody": "El dispositivo se restaurará a la configuración original de fábrica, excepto por los siguientes elementos, todos los demás datos y configuraciones se borrarán:\n\n• Lista de miembros e información del grupo de miembros \n• Información de la cuenta \n• Configuración de enfoque y zoom \n• Configuración de RTSP \n• Configuración de la red \n• Tarjeta de memoria para almacenar datos",
-        "confirmResetAllSettingsBody": "El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán"
-      }
-    }
-  },
-  "error": {
-    "notFound": "Lo siento, esta página no existe"
   },
   "documentTitle": {
     "image": "imagen",
@@ -155,9 +121,6 @@
   "common": {
     "toast": {
       "DHCP Test Failed": "Prueba DHCP falló"
-    },
-    "button": {
-      "create": "Nuevo"
     }
   }
 }

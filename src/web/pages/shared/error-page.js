@@ -9,7 +9,7 @@ import i18n from '../../../i18n';
 const ErrorPage = ({error: {status}}) => {
   document.title = `${i18n.t('error.error')} - ${window.cameraName} Web-Manager`;
   // We need the following line because backend error data are different from i18n key for now
-  const messageTitle = i18n.t(status === 404 ? 'error.notFound' : 'error.internalServerError');
+  const messageTitle = status === 404 ? i18n.t('error.notFound') : i18n.t('error.internalServerError');
   return (
     <div className="error-page">
       <img className="mw-100" src={status === 404 ? bgCode404 : bgCode500}/>

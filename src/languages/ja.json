@@ -11,13 +11,14 @@
     "button": {
       "confirm": "確認",
       "cancel": "キャンセル",
+      "new": "追加",
       "close": "閉じる",
       "add": "追加",
       "on": "ON",
       "off": "OFF",
       "resetDefault": "デフォルト設定へ戻る",
       "apply": "適用",
-      "new": "追加"
+      "create": "追加"
     },
     "password": {
       "hidePassword": "パスワードを非表示する",
@@ -121,6 +122,8 @@
           "organizationPlaceholder": "組織名を入力してください",
           "organizationHelper": "最大32文字まで入力可能です",
           "n/a": "なし",
+          "editMemberTitle": "メンバーを編集する",
+          "newMemberTitle": "メンバーを追加する",
           "confirmCloseBody": "このウィンドウを閉じてもよろしいですか？行った変更はすべて失われます",
           "photoEditor": "写真編集",
           "photoHelper": "写真をドラッグして調整してください",
@@ -130,6 +133,8 @@
           "confirmDeleteBody": "メンバー {{0}} を削除しますか？"
         },
         "group": {
+          "editGroupTitle": "グループを編集する",
+          "createGroupTitle": "グループを追加する",
           "namePlaceholder": "グループ名を入力してください",
           "nameHelper": "最大32文字まで入力可能です",
           "groupLimitExceeded": "",
@@ -189,6 +194,8 @@
         "invalidSelection": "",
         "noDevice": "",
         "editGroupWithName": "グループを編集する：{{0}}",
+        "groupLimitExceeded": "グループ数の上限に達しました",
+        "createGroup": "グループを追加する",
         "deleteGroupWithName": "グループを削除する：{{0}}",
         "editMemberWithName": "メンバーを編集する：{{0}}",
         "deleteMemberWithName": "メンバーを削除する：{{0}}",
@@ -273,6 +280,8 @@
       "username": "ユーザー名",
       "modal": {
         "usernamePlaceholder": "アカウント名を入力してください",
+        "modifyUserTitle": "アカウントを編集する",
+        "newUserTitle": "新規ユーザー",
         "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
         "confirmDeleteTitle": "アカウントを削除する",
         "confirmDeleteBody": "アカウント {{0}} を削除しますか？"
@@ -610,6 +619,8 @@
       "receiverPlaceholder": "メールアドレスを入力してください",
       "tooltip": {
         "disabledReceiverButton": "メールアドレスを入力してください",
+        "unpin": "固定解除",
+        "pin": "固定",
         "iconEmail": "メール: 有効",
         "iconOutput": "出力: 有効",
         "addNewCard": "通知カードを追加する"
@@ -680,7 +691,9 @@
       "intervalPlaceholder": "秒数を入力してください",
       "intervalRange": "5 - 1800 秒",
       "toast": {
-        "emailSettingSuccess": "メールアドレス設定に成功しました"
+        "emailSettingSuccess": "メールアドレス設定に成功しました",
+        "sendingTestEmail": "テストメールは発送されました",
+        "disablingOutgoingEmail": "SMTP送信を無効しました"
       }
     }
   },
@@ -708,6 +721,9 @@
     "analytics": "映像分析",
     "sdcard": "SDカード",
     "facialRecognition": "顔認証 : ",
+    "on": "有効",
+    "off": "無効",
+    "authenticationRequired": "無効",
     "ageGender": "",
     "humanDetection": ""
   },
@@ -895,6 +911,8 @@
       },
       "title": "ネットワーク",
       "ipAssignment": "IP 取得方式",
+      "static": "固定IPアドレス",
+      "dynamic": "動的IPアドレス",
       "macAddress": "MACアドレス",
       "secondaryDNS": "セカンダリーDNS",
       "ipAddressing": "IP設定",
@@ -927,6 +945,7 @@
   "error": {
     "internalServerError": "サーバー内部エラー",
     "error": "Error",
+    "notFound": "このページは表示できません",
     "backToHome": "ホームページへ戻る"
   },
   "setup": {
@@ -996,7 +1015,9 @@
         "apiProcessModalTitleResetting": "初期化",
         "resetSuccess": "初期化完了",
         "resetAllSettingsSuccessBody": "クイックインストールガイドを参照して初期設定を行って下さい",
-        "resetDefaultSettingsSuccessBody": "デバイスが初期化済再ログインして下さい"
+        "resetDefaultSettingsSuccessBody": "デバイスが初期化済再ログインして下さい",
+        "confirmResetAllSettingsBody": "デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます",
+        "confirmRestoreDefaultSettingsBody": "デバイスは出荷時の初期設定に戻り、下記の項目を除き、すべてのデータと設定は削除されます:\n\n• メンバーリストとグループデータ \n• アカウント設定 \n• フォーカスとズーム設定 \n• RTSP設定 \n• インターネット/ネットワーク設定 \n• SDカード内のデータ"
       },
       "exportSystemSettings": "システム設定ファイルをエクスポートする",
       "export": "エクスポート",

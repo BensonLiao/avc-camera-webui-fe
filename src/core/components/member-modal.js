@@ -738,7 +738,7 @@ module.exports = class Member extends React.PureComponent {
                 });
               }}
             >
-              {i18n.t(member ? 'common.button.confirm' : 'common.button.new')}
+              {member ? i18n.t('common.button.confirm') : i18n.t('common.button.new')}
             </button>
           </div>
           <button
@@ -753,9 +753,9 @@ module.exports = class Member extends React.PureComponent {
         <CustomNotifyModal
           backdrop="static"
           isShowModal={isShowConfirmModal}
-          modalTitle={i18n.t(member ?
-            'userManagement.members.modal.member.editMemberTitle' :
-            'userManagement.members.modal.member.newMemberTitle')}
+          modalTitle={member ?
+            i18n.t('userManagement.members.modal.member.editMemberTitle') :
+            i18n.t('userManagement.members.modal.member.newMemberTitle')}
           modalBody={i18n.t('userManagement.members.modal.member.confirmCloseBody')}
           onHide={this.onHideConfirmModal}
           onConfirm={() => {
@@ -863,9 +863,9 @@ module.exports = class Member extends React.PureComponent {
         onHide={isApiProcessing || isFormTouched || preEditState ? this.onShowConfirmModal : onHide}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{i18n.t(member ?
-            'userManagement.members.modal.member.editMemberTitle' :
-            'userManagement.members.modal.member.newMemberTitle')}
+          <Modal.Title as="h5">{member ?
+            i18n.t('userManagement.members.modal.member.editMemberTitle') :
+            i18n.t('userManagement.members.modal.member.newMemberTitle')}
           </Modal.Title>
         </Modal.Header>
         <Formik

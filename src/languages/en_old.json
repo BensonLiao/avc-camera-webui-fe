@@ -14,11 +14,8 @@
   },
   "home": {
     "Device Status": "Status",
-    "authenticationRequired": "Authentication Required",
     "ageGender: ": "Age & Gender: ",
-    "humanDetection: ": "Human Detection: ",
-    "on": "On",
-    "off": "Off"
+    "humanDetection: ": "Human Detection: "
   },
   "videoSetting": {
     "autoFocus.avn": "Auto Focus",
@@ -52,9 +49,7 @@
   "notification": {
     "smtp": {
       "toast": {
-        "mailSettingFailed": "Mail Setting Failed",
-        "sendingTestEmail": "Sending Test Email",
-        "disablingOutgoingEmail": "Disabling Outgoing Email"
+        "mailSettingFailed": "Mail Setting Failed"
       }
     },
     "cards": {
@@ -65,8 +60,6 @@
         "notification-vms-event-1": "Analytic Event"
       },
       "tooltip": {
-        "unpin": "Unpin this card",
-        "pin": "Pin this card",
         "iconVMS": "VMS: On",
         "enterDatetime": "Please enter start and end time.",
         "maxSchedules": "The maximum number of allowed schedules is 5."
@@ -79,28 +72,16 @@
       "pleaseUploadPhoto.avn": "Please upload your face photo.",
       "modal": {
         "group": {
-          "editGroupTitle": "Edit Group",
-          "createGroupTitle": "Create a Group",
           "editGroupTitle.avn": "Modify Group"
-        },
-        "member": {
-          "newMemberTitle": "New Member",
-          "editMemberTitle": "Edit Member"
         }
       },
       "tooltip": {
-        "createGroup": "Create a Group",
-        "groupLimitExceeded": "Group number limit exceeded.",
         "uploadPrimaryFirst": "Upload the Primary Photo First"
       }
     },
     "accounts": {
       "constants": {
         "permission-99": "Admin"
-      },
-      "modal": {
-        "newUserTitle": "New User",
-        "modifyUserTitle": "Modify User"
       },
       "tooltip": {
         "accountProtected.avn": "This Account is Protected"
@@ -123,10 +104,6 @@
     }
   },
   "network": {
-    "network": {
-      "static": "Static",
-      "dynamic": "Dynamic"
-    },
     "https": {
       "constants": {
         "manufacturer": "Manufacturer",
@@ -136,18 +113,9 @@
     }
   },
   "system": {
-    "deviceMaintenance": {
-      "modal": {
-        "confirmRestoreDefaultSettingsBody": "The system will reset the device. All configurations will be overwritten and settings will revert back to default, except the following:\n\n• Members and Groups \n• System Accounts \n• Focus and Zoom of Image settings \n• RTSP settings \n• Internet & Network settings \n• Data on the SD Card",
-        "confirmResetAllSettingsBody": "The system will revert to factory default settings. All data and configurations you have saved will be overwritten."
-      }
-    },
     "information": {
       "buildVersion.avn": "Build Version"
     }
-  },
-  "error": {
-    "notFound": "Not Found"
   },
   "documentTitle": {
     "image": "Image",
@@ -179,9 +147,6 @@
   "common": {
     "toast": {
       "DHCP Test Failed": "DHCP Testing Failed"
-    },
-    "button": {
-      "create": "Create"
     }
   }
 }

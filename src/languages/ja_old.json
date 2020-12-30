@@ -13,11 +13,8 @@
   },
   "home": {
     "Device Status": "ステータス",
-    "authenticationRequired": "無効",
     "ageGender: ": "性別年齢推定 : ",
-    "humanDetection: ": "人体検知 : ",
-    "on": "有効",
-    "off": "無効"
+    "humanDetection: ": "人体検知 : "
   },
   "videoSetting": {
     "constants": {
@@ -49,9 +46,7 @@
   "notification": {
     "smtp": {
       "toast": {
-        "disablingOutgoingEmail": "SMTP送信を無効しました",
-        "mailSettingFailed": "メールアドレス設定に失敗しました",
-        "sendingTestEmail": "テストメールは発送されました"
+        "mailSettingFailed": "メールアドレス設定に失敗しました"
       }
     },
     "cards": {
@@ -61,8 +56,6 @@
         "notification-vms-event-1": "智慧分析事件"
       },
       "tooltip": {
-        "unpin": "固定解除",
-        "pin": "固定",
         "iconVMS": "VMS: On",
         "enterDatetime": "開始および終了日および時間を選択してください",
         "maxSchedules": "最大スケジュール数は5です"
@@ -73,18 +66,10 @@
     "members": {
       "modal": {
         "group": {
-          "editGroupTitle": "グループを編集する",
-          "createGroupTitle": "グループを追加する",
           "editGroupTitle.avn": "グループを編集する"
-        },
-        "member": {
-          "newMemberTitle": "メンバーを追加する",
-          "editMemberTitle": "メンバーを編集する"
         }
       },
       "tooltip": {
-        "createGroup": "グループを追加する",
-        "groupLimitExceeded": "グループ数の上限に達しました",
         "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい",
         "encryptionSettings": "暗号化設定"
       }
@@ -92,10 +77,6 @@
     "accounts": {
       "constants": {
         "permission-99": "管理者"
-      },
-      "modal": {
-        "newUserTitle": "新規ユーザー",
-        "modifyUserTitle": "アカウントを編集する"
       }
     },
     "events": {
@@ -112,10 +93,6 @@
     }
   },
   "network": {
-    "network": {
-      "static": "固定IPアドレス",
-      "dynamic": "動的IPアドレス"
-    },
     "https": {
       "constants": {
         "manufacturer": "メーカー",
@@ -123,17 +100,6 @@
         "certificate-type-2": "本デバイスの署名証明書を生成する"
       }
     }
-  },
-  "system": {
-    "deviceMaintenance": {
-      "modal": {
-        "confirmRestoreDefaultSettingsBody": "デバイスは出荷時の初期設定に戻り、下記の項目を除き、すべてのデータと設定は削除されます:\n\n• メンバーリストとグループデータ \n• アカウント設定 \n• フォーカスとズーム設定 \n• RTSP設定 \n• インターネット/ネットワーク設定 \n• SDカード内のデータ",
-        "confirmResetAllSettingsBody": "デバイスは出荷時の初期設定に戻り、すべてのデータと設定が削除されます"
-      }
-    }
-  },
-  "error": {
-    "notFound": "このページは表示できません"
   },
   "documentTitle": {
     "image": "画像設定",
@@ -156,9 +122,6 @@
   "common": {
     "toast": {
       "DHCP Test Failed": "DHCPテストに失敗しました"
-    },
-    "button": {
-      "create": "追加"
     }
   }
 }

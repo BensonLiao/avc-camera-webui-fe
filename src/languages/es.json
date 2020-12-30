@@ -11,13 +11,14 @@
     "button": {
       "confirm": "Confirmar",
       "cancel": "Cancelar",
+      "new": "Nuevo",
       "close": "Cerrar",
       "add": "Añadir",
       "on": "ON",
       "off": "OFF",
       "resetDefault": "Restaurar a lo preajuste",
       "apply": "Aplicar",
-      "new": "Nuevo"
+      "create": "Nuevo"
     },
     "password": {
       "hidePassword": "Ocultar contraseña",
@@ -121,6 +122,8 @@
           "organizationPlaceholder": "Ingrese el nombre de la organización",
           "organizationHelper": "Extension máxima: 32 caracteres",
           "n/a": "ninguno",
+          "editMemberTitle": "Editar miembro",
+          "newMemberTitle": "Nuevo miembro",
           "confirmCloseBody": "Si cierras esta ventana, se perderán todos los datos modificados. ¿Estás seguro de que quieres salir?",
           "photoEditor": "editar",
           "photoHelper": "Arraste para ajustar las fotos",
@@ -130,6 +133,8 @@
           "confirmDeleteBody": "¿Está seguro de que desea borrar el usuario {{0}} ?"
         },
         "group": {
+          "editGroupTitle": "Editar grupo",
+          "createGroupTitle": "Añadir grupo",
           "namePlaceholder": "Ingrese el nombre del grupo",
           "nameHelper": "Extension máxima: 32 caracteres",
           "groupLimitExceeded": "",
@@ -189,6 +194,8 @@
         "invalidSelection": "",
         "noDevice": "",
         "editGroupWithName": "Editar grupo: {{0}}",
+        "groupLimitExceeded": "Límite de cantidad alcanzado",
+        "createGroup": "Añadir grupo",
         "deleteGroupWithName": "Borrar grupo: {{0}}",
         "editMemberWithName": "Editar miembro: {{0}}",
         "deleteMemberWithName": "Borrar miembro: {{0}}",
@@ -273,6 +280,8 @@
       "username": "Nombre",
       "modal": {
         "usernamePlaceholder": "Ingrese el nombre de la cuenta",
+        "modifyUserTitle": "Editar cuenta",
+        "newUserTitle": "Nuevo Usuario",
         "usernameHelper": "1-32 caracteres: pueden contener letras, números y símbolos, pero los símbolos no pueden ser # % & ` “ \\ / < > y espacio",
         "confirmDeleteTitle": "Borrar cuenta",
         "confirmDeleteBody": "¿Está seguro de que desea borrar la cuenta {{0}} ?"
@@ -610,6 +619,8 @@
       "receiverPlaceholder": "Introducir la dirección de correo electrónico",
       "tooltip": {
         "disabledReceiverButton": "Ingrese la dirección de correo electrónico",
+        "unpin": "Desanclar Pin Card",
+        "pin": "Parte superior",
         "iconEmail": "Correo electrónico: Habilitado",
         "iconOutput": "Salida digital: Habilitado",
         "addNewCard": "Añadir tarjeta de notificación"
@@ -680,7 +691,9 @@
       "intervalPlaceholder": "Ingrese el número de segundos",
       "intervalRange": "5 - 1800 segundos",
       "toast": {
-        "emailSettingSuccess": "éxito la configuración del correo electrónico"
+        "emailSettingSuccess": "éxito la configuración del correo electrónico",
+        "sendingTestEmail": "Ha enviado un correo de prueba",
+        "disablingOutgoingEmail": "Desactivar la transmisión de correo electrónico"
       }
     }
   },
@@ -708,6 +721,9 @@
     "analytics": "Análisis",
     "sdcard": "Tarjeta de memoria",
     "facialRecognition": "Reconocimiento facial: ",
+    "on": "Habilitar",
+    "off": "cerrar",
+    "authenticationRequired": "No esta activado",
     "ageGender": "",
     "humanDetection": ""
   },
@@ -895,6 +911,8 @@
       },
       "title": "Red",
       "ipAssignment": "Método de adquisición de IP",
+      "static": "Dirección IP estática",
+      "dynamic": "Dirección IP dinámica",
       "macAddress": "Dirección física",
       "secondaryDNS": "DNS secundario",
       "ipAddressing": "Red de área local",
@@ -927,6 +945,7 @@
   "error": {
     "internalServerError": "Problema interno del servidor",
     "error": "Error",
+    "notFound": "Lo siento, esta página no existe",
     "backToHome": "Volver a la página de inicio"
   },
   "setup": {
@@ -996,7 +1015,9 @@
         "apiProcessModalTitleResetting": "Está restaurando",
         "resetSuccess": "Restablecer Existosa",
         "resetAllSettingsSuccessBody": "Siga el procedimiento de configuración inicial. Consulte la Guía de instalación rápida para obtener instrucciones.",
-        "resetDefaultSettingsSuccessBody": "El dispositivo se ha sido reiniciado. Por favor ingrese de nuevo."
+        "resetDefaultSettingsSuccessBody": "El dispositivo se ha sido reiniciado. Por favor ingrese de nuevo.",
+        "confirmResetAllSettingsBody": "El dispositivo se restaurará a su configuración original de fábrica y todos los datos y configuraciones se borrarán",
+        "confirmRestoreDefaultSettingsBody": "El dispositivo se restaurará a la configuración original de fábrica, excepto por los siguientes elementos, todos los demás datos y configuraciones se borrarán:\n\n• Lista de miembros e información del grupo de miembros \n• Información de la cuenta \n• Configuración de enfoque y zoom \n• Configuración de RTSP \n• Configuración de la red \n• Tarjeta de memoria para almacenar datos"
       },
       "exportSystemSettings": "Exportar configuración del sistema",
       "export": "Exportar",

@@ -122,9 +122,9 @@ module.exports = class User extends Base {
         onHide={this.hideModal}
       >
         <Modal.Header className="d-flex justify-content-between align-items-center">
-          <Modal.Title as="h5">{i18n.t(user ?
-            'userManagement.accounts.modal.modifyUserTitle' :
-            'userManagement.accounts.modal.newUserTitle')}
+          <Modal.Title as="h5">{user ?
+            i18n.t('userManagement.accounts.modal.modifyUserTitle') :
+            i18n.t('userManagement.accounts.modal.newUserTitle')}
           </Modal.Title>
         </Modal.Header>
         <Formik
@@ -202,7 +202,7 @@ module.exports = class User extends Base {
                   )
                 }
                 <div className="form-group has-feedback">
-                  <label>{i18n.t(user ? 'common.password.confirmNewPassword' : 'common.password.confirmPassword')}</label>
+                  <label>{user ? i18n.t('common.password.confirmNewPassword') : i18n.t('common.password.confirmPassword')}</label>
                   <Field
                     name="confirmPassword"
                     component={Password}
@@ -221,7 +221,7 @@ module.exports = class User extends Base {
                     type="submit"
                     className="btn btn-primary btn-block rounded-pill"
                   >
-                    {i18n.t(user ? 'common.button.confirm' : 'common.button.new')}
+                    {user ? i18n.t('common.button.confirm') : i18n.t('common.button.new')}
                   </button>
                 </div>
                 <button

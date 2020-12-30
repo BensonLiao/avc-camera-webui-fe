@@ -11,13 +11,14 @@
     "button": {
       "confirm": "確定",
       "cancel": "取消",
+      "new": "新增",
       "close": "關閉",
       "add": "新增",
       "on": "開啟",
       "off": "關閉",
       "resetDefault": "恢復預設值",
       "apply": "套用",
-      "new": "新增"
+      "create": "新增"
     },
     "password": {
       "hidePassword": "隱藏密碼",
@@ -121,6 +122,8 @@
           "organizationPlaceholder": "輸入組織名稱",
           "organizationHelper": "最多32個字",
           "n/a": "無",
+          "editMemberTitle": "編輯成員",
+          "newMemberTitle": "新增成員",
           "confirmCloseBody": "關閉此視窗將不會儲存任何修改的資料，確認要離開嗎？",
           "photoEditor": "編輯",
           "photoHelper": "拖曳調整照片",
@@ -130,6 +133,8 @@
           "confirmDeleteBody": "您確定要刪除成員 {{0}} 嗎？"
         },
         "group": {
+          "editGroupTitle": "編輯群組",
+          "createGroupTitle": "新增群組",
           "namePlaceholder": "輸入群組名稱",
           "nameHelper": "最多32個字",
           "groupLimitExceeded": "",
@@ -189,6 +194,8 @@
         "invalidSelection": "",
         "noDevice": "",
         "editGroupWithName": "編輯群組: {{0}}",
+        "groupLimitExceeded": "已達數量限制",
+        "createGroup": "新增群組",
         "deleteGroupWithName": "刪除群組: {{0}}",
         "editMemberWithName": "編輯成員: {{0}}",
         "deleteMemberWithName": "刪除成員: {{0}}",
@@ -273,6 +280,8 @@
       "username": "名稱",
       "modal": {
         "usernamePlaceholder": "輸入帳號名稱",
+        "modifyUserTitle": "編輯帳號",
+        "newUserTitle": "創建使用者",
         "usernameHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
         "confirmDeleteTitle": "刪除帳號",
         "confirmDeleteBody": "您確定要刪除帳號 {{0}} 嗎？"
@@ -610,6 +619,8 @@
       "receiverPlaceholder": "輸入電子郵件地址",
       "tooltip": {
         "disabledReceiverButton": "請輸入電子郵件地址",
+        "unpin": "解除置頂",
+        "pin": "置頂",
         "iconEmail": "電子郵件: 開啟",
         "iconOutput": "數位輸出: 開啟",
         "addNewCard": "增加通報卡"
@@ -680,7 +691,9 @@
       "intervalPlaceholder": "輸入秒數",
       "intervalRange": "5 - 1800 秒",
       "toast": {
-        "emailSettingSuccess": "電子郵件設定成功"
+        "emailSettingSuccess": "電子郵件設定成功",
+        "sendingTestEmail": "測試郵件已寄出",
+        "disablingOutgoingEmail": "設定成功"
       }
     }
   },
@@ -708,6 +721,9 @@
     "analytics": "影像分析",
     "sdcard": "記憶卡",
     "facialRecognition": "臉部辨識：",
+    "on": "開",
+    "off": "關",
+    "authenticationRequired": "未啟用",
     "ageGender": "",
     "humanDetection": ""
   },
@@ -895,6 +911,8 @@
       },
       "title": "網路",
       "ipAssignment": "IP 取得方式",
+      "static": "固定IP位址",
+      "dynamic": "動態IP位址",
       "macAddress": "實體位址",
       "secondaryDNS": "次要 DNS",
       "ipAddressing": "LAN 組態",
@@ -927,6 +945,7 @@
   "error": {
     "internalServerError": "內部伺服器問題",
     "error": "Error",
+    "notFound": "此網頁不存在",
     "backToHome": "回首頁"
   },
   "setup": {
@@ -996,7 +1015,9 @@
         "apiProcessModalTitleResetting": "清除資料中",
         "resetSuccess": "重設成功",
         "resetAllSettingsSuccessBody": "請參閱安裝說明執行初始設定",
-        "resetDefaultSettingsSuccessBody": "裝置已還原，請重新登入"
+        "resetDefaultSettingsSuccessBody": "裝置已還原，請重新登入",
+        "confirmResetAllSettingsBody": "裝置將還原成原廠設定，所有資料和設定將會被清除",
+        "confirmRestoreDefaultSettingsBody": "裝置將還原成原廠設定，除了下列項目，其他所有的資料和設定將會被清除:\n\n• 成員清單和成員群組資料 \n• 帳號資料 \n• 對焦及縮放設定 \n• RTSP設定 \n• 網路設定 \n• 記憶卡儲存資料"
       },
       "exportSystemSettings": "匯出系統設定值",
       "export": "匯出",
