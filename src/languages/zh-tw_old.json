@@ -13,11 +13,8 @@
   },
   "home": {
     "Device Status": "裝置狀態",
-    "authenticationRequired": "未啟用",
     "ageGender: ": "性別年齡：",
-    "humanDetection: ": "人形偵測：",
-    "on": "開",
-    "off": "關"
+    "humanDetection: ": "人形偵測："
   },
   "videoSetting": {
     "constants": {

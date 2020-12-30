@@ -13,11 +13,8 @@
   },
   "home": {
     "Device Status": "Estado del dispositivo",
-    "authenticationRequired": "No esta activado",
     "ageGender: ": "Género y edad: ",
-    "humanDetection: ": "Detección humanoide: ",
-    "on": "Habilitar",
-    "off": "cerrar"
+    "humanDetection: ": "Detección humanoide: "
   },
   "videoSetting": {
     "constants": {

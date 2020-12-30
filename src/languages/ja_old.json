@@ -13,11 +13,8 @@
   },
   "home": {
     "Device Status": "ステータス",
-    "authenticationRequired": "無効",
     "ageGender: ": "性別年齢推定 : ",
-    "humanDetection: ": "人体検知 : ",
-    "on": "有効",
-    "off": "無効"
+    "humanDetection: ": "人体検知 : "
   },
   "videoSetting": {
     "constants": {

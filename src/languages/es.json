@@ -708,6 +708,9 @@
     "analytics": "Análisis",
     "sdcard": "Tarjeta de memoria",
     "facialRecognition": "Reconocimiento facial: ",
+    "on": "Habilitar",
+    "off": "cerrar",
+    "authenticationRequired": "No esta activado",
     "ageGender": "",
     "humanDetection": ""
   },

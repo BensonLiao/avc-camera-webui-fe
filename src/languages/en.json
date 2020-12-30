@@ -708,6 +708,9 @@
     "analytics": "Analytics",
     "sdcard": "SD Card",
     "facialRecognition": "Facial Recognition: ",
+    "on": "On",
+    "off": "Off",
+    "authenticationRequired": "Authentication Required",
     "ageGender": "",
     "humanDetection": ""
   },

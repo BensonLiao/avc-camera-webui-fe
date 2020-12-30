@@ -14,11 +14,8 @@
   },
   "home": {
     "Device Status": "Status",
-    "authenticationRequired": "Authentication Required",
     "ageGender: ": "Age & Gender: ",
-    "humanDetection: ": "Human Detection: ",
-    "on": "On",
-    "off": "Off"
+    "humanDetection: ": "Human Detection: "
   },
   "videoSetting": {
     "autoFocus.avn": "Auto Focus",

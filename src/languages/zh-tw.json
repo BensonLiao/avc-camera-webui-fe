@@ -708,6 +708,9 @@
     "analytics": "影像分析",
     "sdcard": "記憶卡",
     "facialRecognition": "臉部辨識：",
+    "on": "開",
+    "off": "關",
+    "authenticationRequired": "未啟用",
     "ageGender": "",
     "humanDetection": ""
   },
