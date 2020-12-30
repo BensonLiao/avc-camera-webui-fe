@@ -26,7 +26,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
-  const [deleteFile, setDeleteFile] = useState();
+  const [filesToDelete, setFilesToDelete] = useState();
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const [isShowProgressModal, setIsShowProgressModal] = useState(false);
   const [progressPercentage, setProgressPercentage] = useState(0);
@@ -52,8 +52,8 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
   const hideApiProcessModal = () => setIsShowApiProcessModal(false);
 
   /**
-   * Delete selected device
-   * @param {Array | String} list - Single device ID or a list to filter for devices selected to be deleted
+   * Delete selected file
+   * @param {Array | String} list - Single or multilple files to be deleted
    * @returns {void}
    */
   const deleteFiles = list => _ => {
@@ -66,7 +66,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
 
   const confirmDelete = (filePath = null) => _ => {
     showConfirmModal(true);
-    setDeleteFile(filePath);
+    setFilesToDelete(filePath);
   };
 
   const downloadFiles = list => {
@@ -330,7 +330,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                       modalTitle={i18n.t('userManagement.members.modal.SDCardStorage.confirmDeleteTitle')}
                       modalBody={i18n.t('userManagement.members.modal.SDCardStorage.confirmDeleteBody')}
                       onHide={hideConfirmModal}
-                      onConfirm={deleteFiles(deleteFile ? deleteFile : form.values)}
+                      onConfirm={deleteFiles(filesToDelete ? filesToDelete : form.values)}
                     />
                   </Form>
                 );
