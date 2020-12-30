@@ -13,10 +13,10 @@ import {formatDate, getPaginatedData, isArray} from '../../../core/utils';
 import noDevice from '../../../resource/noDevice.png';
 import Pagination from '../../../core/components/pagination';
 import ProgressIndicator from '../../../core/components/progress-indicator';
-// import ConnectionStatusSchema from 'webserver-form-schema/constants/members-device-connection-status';
+import ConnectionStatusSchema from 'webserver-form-schema/constants/members-device-connection-status';
 import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
 import MasterSyncStatusSchema from 'webserver-form-schema/constants/members-master-sync-status';
-// import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
+import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
 
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
@@ -208,8 +208,11 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
         return syncStatus.data;
       })
       .then(({devices, sourceStatus}) => {
-        // Stop pinging if status is 0 or 1 (Not yet started or syncing) -AND- master device sync status is 8 (all finished, regardless or errors)
-        if (!devices.some(device => device.syncStatus === 0 || device.syncStatus === 1) && sourceStatus === 8) {
+        // Stop pinging if status is not 0 or 1 (Not yet started or syncing) -AND- master device sync status is 8 (all finished, regardless or errors)
+        if (!devices.some(device =>
+          device.syncStatus === DeviceSyncStatusSchema.syncNotStarted ||
+           device.syncStatus === DeviceSyncStatusSchema.syncOngoing
+        ) && sourceStatus === SourceStatusSchema.importFinish) {
           localStorage.setItem('currentPage', 'sync');
           clearInterval(syncID);
           getRouter().reload();
@@ -225,10 +228,12 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   }, [devices, syncStatus]);
 
   const renderStatus = device => {
+    // Check if sync is ongoing
     if (device.syncStatus && syncStatus === MasterSyncStatusSchema.syncOngoing) {
       switch (device.syncStatus) {
         default: return;
         case DeviceSyncStatusSchema.syncOngoing:
+          // Ongoing sync
           return (
             <div className="d-flex align-items-center">
               <ProgressIndicator
@@ -240,6 +245,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
             </div>
           );
         case DeviceSyncStatusSchema.syncFinished:
+          // Sync finished
           return (
             <div className="d-flex align-items-center">
               <i className="fas fa-lg fa-check-circle mr-2"/>
@@ -248,6 +254,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
           );
       }
     } else {
+      // Check if device has been synced at all, and display last synced time
       if (device.lastUpdateTime) {
         return (
           <CustomTooltip title={formatDate(device.lastUpdateTime)}>
@@ -259,17 +266,22 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
         );
       }
 
-      return (
-        device.connectionStatus ? (
-          <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
-            <i className="fas fa-lg fa-link"/>
-          </CustomTooltip>
-        ) : (
-          <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
-            <i className="fas fa-lg fa-unlink"/>
-          </CustomTooltip>
-        )
-      );
+      // Device has not been synced at all - show if initial device linking was successful
+      switch (device.connectionStatus) {
+        default: return;
+        case ConnectionStatusSchema.connectionSuccess:
+          return (
+            <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
+              <i className="fas fa-lg fa-link"/>
+            </CustomTooltip>
+          );
+        case ConnectionStatusSchema.connectionFail:
+          return (
+            <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
+              <i className="fas fa-lg fa-unlink"/>
+            </CustomTooltip>
+          );
+      }
     }
   };
 
