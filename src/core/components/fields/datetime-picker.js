@@ -25,12 +25,21 @@ module.exports = class DatePicker extends React.PureComponent {
       timeFormat: PropTypes.string,
       field: PropTypes.shape({
         name: PropTypes.string.isRequired,
-        value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string, PropTypes.number])
+        value: PropTypes.oneOfType([
+          PropTypes.instanceOf(Date),
+          PropTypes.instanceOf(dayjs),
+          PropTypes.string,
+          PropTypes.number
+        ])
       }).isRequired,
       form: PropTypes.shape({
         setFieldValue: PropTypes.func.isRequired,
         values: PropTypes.object.isRequired
       }).isRequired,
+      availableDates: PropTypes.arrayOf(PropTypes.oneOfType([
+        PropTypes.instanceOf(Date),
+        PropTypes.instanceOf(dayjs)
+      ])),
       startDateFieldName: PropTypes.string,
       endDateFieldName: PropTypes.string,
       isShowPicker: PropTypes.bool,
@@ -48,6 +57,7 @@ module.exports = class DatePicker extends React.PureComponent {
       timeTabText: undefined,
       timeFormat: 'HH:mm',
       isShowPicker: false,
+      availableDates: undefined,
       startDateFieldName: '',
       endDateFieldName: ''
     };

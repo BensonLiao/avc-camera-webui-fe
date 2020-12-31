@@ -14,9 +14,11 @@ import {useContextState} from '../../stateProvider';
 const SDCardStorageSearchForm = ({
   generatePaginatedCheckList,
   initialSearchCondition,
+  availableDates,
   setCurrentDate,
   updateSearchResult
 }) => {
+  console.log('availableDates', availableDates);
   const {isApiProcessing} = useContextState();
   const [state, setState] = useState({isShowStartDatePicker: false});
 
@@ -88,6 +90,7 @@ SDCardStorageSearchForm.propTypes = {
       PropTypes.instanceOf(dayjs)
     ]).isRequired
   }).isRequired,
+  availableDates: PropTypes.arrayOf(PropTypes.string),
   setCurrentDate: PropTypes.func.isRequired,
   updateSearchResult: PropTypes.func.isRequired
 };

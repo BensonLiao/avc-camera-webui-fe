@@ -22,8 +22,7 @@ import SDCardStorageSearchForm from './sd-card-storage-search-form';
 import dayjs from 'dayjs';
 const ITEMS_PER_PAGE = 10;
 
-const SDCardStorage = ({storage: {files, date}, dateList}) => {
-  console.log('dateList', dateList);
+const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
@@ -181,6 +180,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                       <SDCardStorageSearchForm
                         generatePaginatedCheckList={generatePaginatedCheckList}
                         initialSearchCondition={{date: currentDate}}
+                        availableDates={availableDates}
                         setCurrentDate={setCurrentDate}
                         updateSearchResult={values => form.setValues(values)}
                       />
