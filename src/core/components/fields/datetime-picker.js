@@ -715,9 +715,11 @@ module.exports = class DatePicker extends React.PureComponent {
                         } else if (endDate) {
                           isDateDisabled = dayjs(item.date).isAfter(dayjs(endDate), 'date');
                         } else if (availableDates) {
-                          isDateDisabled = availableDates.every(date => dayjs(date).date() !== dayjs(item.date).date()) ||
-                            availableDates.every(date => dayjs(date).month() !== dayjs(item.date).month()) ||
-                            availableDates.every(date => dayjs(date).year() !== dayjs(item.date).year());
+                          isDateDisabled = !availableDates.some(date => {
+                            return dayjs(date).date() === dayjs(item.date).date() &&
+                              dayjs(date).month() === dayjs(item.date).month() &&
+                              dayjs(date).year() === dayjs(item.date).year();
+                          });
                         }
 
                         if (item.isDisplayMonth && !isDateDisabled) {

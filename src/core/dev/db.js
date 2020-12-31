@@ -284,7 +284,7 @@ module.exports = {
             }
           );
         }),
-        filesDateList: ['2020-12-20', '2020-12-22', '2020-12-23']
+        filesDateList: ['2020-12-20', '2020-12-22', '2020-12-23', '2021-01-01']
       },
       systemDateTime: {
         deviceTime: new Date().getTime(),
