@@ -246,7 +246,7 @@ module.exports = class Home extends Base {
                           </td>
                           <td className={classNames('align-top', sdStatus === 0 ? 'd-none' : '')}>
                             <label>
-                              {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.constants.unknownStatus')}
+                              {SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}
                             </label>
                           </td>
                         </tr>

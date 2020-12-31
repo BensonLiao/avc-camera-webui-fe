@@ -43,7 +43,7 @@ const EventsSidebar = ({
                 </a>
               ) : (
                 <a className="text-decoration-none d-flex justify-content-between align-items-center">
-                  <span>{i18n.t('userManagement.events.FacialRecognition')}</span>
+                  <span>{i18n.t('userManagement.events.facialRecognition')}</span>
                   <span className="badge badge-danger badge-pill">{i18n.t('userManagement.events.activationRequired')}</span>
                   <i className="fas fa-chevron-down"/>
                 </a>

@@ -140,7 +140,7 @@ const Group = ({group, groups, params}) => {
                 </div>
               </div>
               <div className="modal-footer flex-column">
-                <CustomTooltip show={isAddGroupDisabled} title={i18n.t('userManagement.members.modal.group.groupLimitExceeded')}>
+                <CustomTooltip show={isAddGroupDisabled} title={i18n.t('userManagement.members.tooltip.groupLimitExceeded')}>
                   <div className="form-group w-100 mx-0">
                     <button
                       disabled={isApiProcessing || isAddGroupDisabled}
