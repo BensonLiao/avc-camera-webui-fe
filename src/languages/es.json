@@ -89,7 +89,8 @@
       "DEVICE_CONNECTION_FAIL": "",
       "DEVICE_LOGIN_FAIL": "",
       "DUPLICATE_DEVICE_IP": "",
-      "INVALID_DEVICE_ID": ""
+      "INVALID_DEVICE_ID": "",
+      "DHCP Test Failed": "Prueba DHCP falló"
     },
     "dateTimePicker": {
       "date": "fecha",
@@ -161,6 +162,20 @@
           "deleteDeviceApiProcessingModal": ""
         }
       },
+      "tooltip": {
+        "photoLimitExceeded": "Límite de cantidad alcanzado",
+        "uploadPrimaryFirst": "Sube la foto principal primero",
+        "connected": "",
+        "notConnected": "",
+        "invalidSelection": "",
+        "noDevice": "",
+        "editGroupWithName": "Editar grupo: {{0}}",
+        "groupLimitExceeded": "Límite de cantidad alcanzado",
+        "createGroup": "Añadir grupo",
+        "deleteGroupWithName": "Borrar grupo: {{0}}",
+        "editMemberWithName": "Editar miembro: {{0}}",
+        "deleteMemberWithName": "Borrar miembro: {{0}}"
+      },
       "name": "nombre",
       "organization": "organización",
       "group": "Grupo",
@@ -188,19 +203,6 @@
       "done": "",
       "failed": "",
       "lastUpdated": "",
-      "tooltip": {
-        "connected": "",
-        "notConnected": "",
-        "invalidSelection": "",
-        "noDevice": "",
-        "editGroupWithName": "Editar grupo: {{0}}",
-        "groupLimitExceeded": "Límite de cantidad alcanzado",
-        "createGroup": "Añadir grupo",
-        "deleteGroupWithName": "Borrar grupo: {{0}}",
-        "editMemberWithName": "Editar miembro: {{0}}",
-        "deleteMemberWithName": "Borrar miembro: {{0}}",
-        "photoLimitExceeded": "Límite de cantidad alcanzado"
-      },
       "synchronize": "",
       "removeUnlinked": "",
       "remove": "",
@@ -239,7 +241,7 @@
       "tooltip": {
         "photoLimitExceeded": "Límite de cantidad alcanzado",
         "addWithName": "Agregar a {{0}}",
-        "Invalid Photo": ""
+        "invalidPhoto": "Foto inválida"
       },
       "constants": {
         "confidence-0": "bajo",
@@ -514,7 +516,9 @@
       "resolution": "Resolución",
       "fps": "Cuadros por segundo",
       "modal": {
-        "apiProcessingModalTitle": "Actualización de la configuración de Stream"
+        "apiProcessingModalTitle": "Actualización de la configuración de Stream",
+        "confirmRatioChangeBody": " Si cambia la relación de aspecto de la resolución de la Stream 1, también se cambiará la configuración de la Stream 2. ¿Confirmar para continuar?",
+        "confirmUpdateBody": "¿Está seguro de que desea cambiar la configuración de Stream?"
       },
       "codec": "Codificación de imágenes",
       "quality": "Calidad",
@@ -555,7 +559,7 @@
       "rightBottom": "Inferior derecha",
       "positionHelper": "Clic flecha en panel de vista previa",
       "overlay": "Texto",
-      "enterCustomText": ""
+      "enterCustomTextPlaceholder": "Ingresar texto personalizado"
     },
     "privacyMask": {
       "maskArea": "Área de máscara",
@@ -605,6 +609,16 @@
       "group": "Grupo",
       "everyone": "Todos, grupo ilimitado",
       "enableSchedule": "Habilitar horario",
+      "tooltip": {
+        "maxSchedules": "Límite de cantidad alcanzado",
+        "enterDatetime": "Debe elegir la fecha y hora de inicio y finalización",
+        "disabledReceiverButton": "Ingrese la dirección de correo electrónico",
+        "unpin": "Desanclar Pin Card",
+        "pin": "Parte superior",
+        "iconEmail": "Correo electrónico: Habilitado",
+        "iconOutput": "Salida digital: Habilitado",
+        "addNewCard": "Añadir tarjeta de notificación"
+      },
       "io": "Entrada y salida digital",
       "output1": "Salida digital 1",
       "output2": "Salida digital 2",
@@ -617,14 +631,6 @@
       "contentPlacement": "Posición del texto",
       "receiver": "Receptor",
       "receiverPlaceholder": "Introducir la dirección de correo electrónico",
-      "tooltip": {
-        "disabledReceiverButton": "Ingrese la dirección de correo electrónico",
-        "unpin": "Desanclar Pin Card",
-        "pin": "Parte superior",
-        "iconEmail": "Correo electrónico: Habilitado",
-        "iconOutput": "Salida digital: Habilitado",
-        "addNewCard": "Añadir tarjeta de notificación"
-      },
       "defaultSubjectFR": "Evento de reconocimiento facial [{{0}}]",
       "defaultSubjectMD": "Evento de detección de movimiento [{{0}}]",
       "defaultSubjectDI": "Evento de entrada digital [{{0}}]",
@@ -724,8 +730,8 @@
     "on": "Habilitar",
     "off": "cerrar",
     "authenticationRequired": "No esta activado",
-    "ageGender": "",
-    "humanDetection": ""
+    "ageGender": "Género y edad: ",
+    "humanDetection": "Detección humanoide: "
   },
   "navigation": {
     "sidebar": {
@@ -762,7 +768,7 @@
       "email": "correo electrónico",
       "io": "Entrada y salida digital",
       "smartNotification": "Notificación inteligente",
-      "sdCardSettings": "",
+      "sdCardSettings": "Tarjeta de memoria",
       "basic": "",
       "storage": "",
       "facialRecognition": "Reconocimiento facial",
@@ -806,6 +812,8 @@
       },
       "ageGender": "Género y edad",
       "humanDetection": "Detección humanoide",
+      "activated": "activada",
+      "activationRequired": "no está activada",
       "toast": {
         "activationFailedTitle": "Activación fallida",
         "keyRegisteredBody": "Repita el código de activación",

@@ -637,9 +637,9 @@ module.exports = class Member extends React.PureComponent {
                           // Display upload area for new photo
                           <CustomTooltip
                             show={((photoKey !== 'primary') && !primaryBackground) || isOverPhotoLimit}
-                            title={i18n.t(isOverPhotoLimit ?
-                              'userManagement.members.tooltip.photoLimitExceeded' :
-                              'userManagement.members.tooltip.uploadPrimaryFirst')}
+                            title={isOverPhotoLimit ?
+                              i18n.t('userManagement.members.tooltip.photoLimitExceeded') :
+                              i18n.t('userManagement.members.tooltip.uploadPrimaryFirst')}
                           >
                             <label className="btn">
                               <i className="fas fa-plus"/>

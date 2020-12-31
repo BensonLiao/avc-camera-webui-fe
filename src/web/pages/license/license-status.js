@@ -29,7 +29,7 @@ const LicenseStatus = ({licenseName, isEnabled, licenseEnableImg, licenseDisable
             'fas mr-1',
             isEnabled ? 'fa-check-circle' : 'fa-minus-circle')}
           />
-          {i18n.t(isEnabled ? 'analytics.license.activated' : 'analytics.license.activationRequired')}
+          {isEnabled ? i18n.t('analytics.license.activated') : i18n.t('analytics.license.activationRequired')}
         </span>
       </div>
     </div>

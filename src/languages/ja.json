@@ -89,7 +89,8 @@
       "DEVICE_CONNECTION_FAIL": "",
       "DEVICE_LOGIN_FAIL": "",
       "DUPLICATE_DEVICE_IP": "",
-      "INVALID_DEVICE_ID": ""
+      "INVALID_DEVICE_ID": "",
+      "DHCP Test Failed": "DHCPテストに失敗しました"
     },
     "dateTimePicker": {
       "date": "日付",
@@ -161,6 +162,20 @@
           "deleteDeviceApiProcessingModal": ""
         }
       },
+      "tooltip": {
+        "photoLimitExceeded": "写真数の上限に達しました",
+        "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい",
+        "connected": "",
+        "notConnected": "",
+        "invalidSelection": "",
+        "noDevice": "",
+        "editGroupWithName": "グループを編集する：{{0}}",
+        "groupLimitExceeded": "グループ数の上限に達しました",
+        "createGroup": "グループを追加する",
+        "deleteGroupWithName": "グループを削除する：{{0}}",
+        "editMemberWithName": "メンバーを編集する：{{0}}",
+        "deleteMemberWithName": "メンバーを削除する：{{0}}"
+      },
       "name": "名称",
       "organization": "組織",
       "group": "グループ",
@@ -188,19 +203,6 @@
       "done": "",
       "failed": "",
       "lastUpdated": "",
-      "tooltip": {
-        "connected": "",
-        "notConnected": "",
-        "invalidSelection": "",
-        "noDevice": "",
-        "editGroupWithName": "グループを編集する：{{0}}",
-        "groupLimitExceeded": "グループ数の上限に達しました",
-        "createGroup": "グループを追加する",
-        "deleteGroupWithName": "グループを削除する：{{0}}",
-        "editMemberWithName": "メンバーを編集する：{{0}}",
-        "deleteMemberWithName": "メンバーを削除する：{{0}}",
-        "photoLimitExceeded": "写真数の上限に達しました"
-      },
       "synchronize": "",
       "removeUnlinked": "",
       "remove": "",
@@ -239,7 +241,7 @@
       "tooltip": {
         "photoLimitExceeded": "写真数の上限に達しました",
         "addWithName": "{{0}} に追加",
-        "Invalid Photo": ""
+        "invalidPhoto": "無効な写真"
       },
       "constants": {
         "confidence-0": "低",
@@ -514,7 +516,9 @@
       "resolution": "解像度",
       "fps": "フレームレート (FPS)",
       "modal": {
-        "apiProcessingModalTitle": "ストリーム設定の更新"
+        "apiProcessingModalTitle": "ストリーム設定の更新",
+        "confirmRatioChangeBody": "ストリーム1のアスペクト比を変更すると、ストリーム2の設定も更新されます。続行してもよろしいですか？",
+        "confirmUpdateBody": "ストリーム設定を変更しますか？"
       },
       "codec": "コーデック",
       "quality": "品質",
@@ -555,7 +559,7 @@
       "rightBottom": "右下",
       "positionHelper": "プレビュー画面中の青印をクリックして下さい",
       "overlay": "テキスト",
-      "enterCustomText": ""
+      "enterCustomTextPlaceholder": "カスタム内容を入力します"
     },
     "privacyMask": {
       "maskArea": "マスクエリア",
@@ -605,6 +609,16 @@
       "group": "グループ",
       "everyone": "すべてのユーザー、グループ限定しない",
       "enableSchedule": "スケジュール管理を有効にする",
+      "tooltip": {
+        "maxSchedules": "最大スケジュール数は5です",
+        "enterDatetime": "開始および終了日および時間を選択してください",
+        "disabledReceiverButton": "メールアドレスを入力してください",
+        "unpin": "固定解除",
+        "pin": "固定",
+        "iconEmail": "メール: 有効",
+        "iconOutput": "出力: 有効",
+        "addNewCard": "通知カードを追加する"
+      },
       "io": "デジタル入力および出力",
       "output1": "デジタル出力 1",
       "output2": "デジタル出力 2",
@@ -617,14 +631,6 @@
       "contentPlacement": "内容の位置",
       "receiver": "受信者",
       "receiverPlaceholder": "メールアドレスを入力してください",
-      "tooltip": {
-        "disabledReceiverButton": "メールアドレスを入力してください",
-        "unpin": "固定解除",
-        "pin": "固定",
-        "iconEmail": "メール: 有効",
-        "iconOutput": "出力: 有効",
-        "addNewCard": "通知カードを追加する"
-      },
       "defaultSubjectFR": "顔認証イベント [{{0}}]",
       "defaultSubjectMD": "動体検知イベント [{{0}}]",
       "defaultSubjectDI": "デジタル入力イベント [{{0}}]",
@@ -724,8 +730,8 @@
     "on": "有効",
     "off": "無効",
     "authenticationRequired": "無効",
-    "ageGender": "",
-    "humanDetection": ""
+    "ageGender": "性別年齢推定 : ",
+    "humanDetection": "人体検知 : "
   },
   "navigation": {
     "sidebar": {
@@ -762,7 +768,7 @@
       "email": "メール",
       "io": "デジタル入力および出力",
       "smartNotification": "スマート通知",
-      "sdCardSettings": "",
+      "sdCardSettings": "SDカード",
       "basic": "",
       "storage": "",
       "facialRecognition": "顔認証",
@@ -806,6 +812,8 @@
       },
       "ageGender": "性別年齢推定",
       "humanDetection": "人体検知",
+      "activated": "有効にしました",
+      "activationRequired": "無効",
       "toast": {
         "activationFailedTitle": "アクティベーションに失敗しました",
         "keyRegisteredBody": "ライセンスキーが使われています",

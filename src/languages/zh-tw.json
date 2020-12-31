@@ -89,7 +89,8 @@
       "DEVICE_CONNECTION_FAIL": "",
       "DEVICE_LOGIN_FAIL": "",
       "DUPLICATE_DEVICE_IP": "",
-      "INVALID_DEVICE_ID": ""
+      "INVALID_DEVICE_ID": "",
+      "DHCP Test Failed": "DHCP 測試失敗"
     },
     "dateTimePicker": {
       "date": "日期",
@@ -161,6 +162,20 @@
           "deleteDeviceApiProcessingModal": ""
         }
       },
+      "tooltip": {
+        "photoLimitExceeded": "已達數量限制",
+        "uploadPrimaryFirst": "請先上傳主照片",
+        "connected": "",
+        "notConnected": "",
+        "invalidSelection": "",
+        "noDevice": "",
+        "editGroupWithName": "編輯群組: {{0}}",
+        "groupLimitExceeded": "已達數量限制",
+        "createGroup": "新增群組",
+        "deleteGroupWithName": "刪除群組: {{0}}",
+        "editMemberWithName": "編輯成員: {{0}}",
+        "deleteMemberWithName": "刪除成員: {{0}}"
+      },
       "name": "名稱",
       "organization": "備註",
       "group": "群組",
@@ -188,19 +203,6 @@
       "done": "",
       "failed": "",
       "lastUpdated": "",
-      "tooltip": {
-        "connected": "",
-        "notConnected": "",
-        "invalidSelection": "",
-        "noDevice": "",
-        "editGroupWithName": "編輯群組: {{0}}",
-        "groupLimitExceeded": "已達數量限制",
-        "createGroup": "新增群組",
-        "deleteGroupWithName": "刪除群組: {{0}}",
-        "editMemberWithName": "編輯成員: {{0}}",
-        "deleteMemberWithName": "刪除成員: {{0}}",
-        "photoLimitExceeded": "已達數量限制"
-      },
       "synchronize": "",
       "removeUnlinked": "",
       "remove": "",
@@ -239,7 +241,7 @@
       "tooltip": {
         "photoLimitExceeded": "已達數量限制",
         "addWithName": "新增至 {{0}}",
-        "Invalid Photo": ""
+        "invalidPhoto": "照片不合格"
       },
       "constants": {
         "confidence-0": "低",
@@ -514,7 +516,9 @@
       "resolution": "解析度",
       "fps": "每秒幀數",
       "modal": {
-        "apiProcessingModalTitle": "更新串流設定"
+        "apiProcessingModalTitle": "更新串流設定",
+        "confirmRatioChangeBody": "改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？",
+        "confirmUpdateBody": "您確定要更改串流設定嗎？"
       },
       "codec": "影像編碼",
       "quality": "位元率管理",
@@ -555,7 +559,7 @@
       "rightBottom": "右下",
       "positionHelper": "請在預覽窗格中點選箭頭",
       "overlay": "內容",
-      "enterCustomText": ""
+      "enterCustomTextPlaceholder": "輸入自訂文字"
     },
     "privacyMask": {
       "maskArea": "遮罩區域",
@@ -605,6 +609,16 @@
       "group": "群組",
       "everyone": "所有人，不限定群組",
       "enableSchedule": "開啟排程",
+      "tooltip": {
+        "maxSchedules": "已達數量限制",
+        "enterDatetime": "必須選擇起始和終止日期時間",
+        "disabledReceiverButton": "請輸入電子郵件地址",
+        "unpin": "解除置頂",
+        "pin": "置頂",
+        "iconEmail": "電子郵件: 開啟",
+        "iconOutput": "數位輸出: 開啟",
+        "addNewCard": "增加通報卡"
+      },
       "io": "數位輸出及輸入",
       "output1": "數位輸出 1",
       "output2": "數位輸出 2",
@@ -617,14 +631,6 @@
       "contentPlacement": "內文位置",
       "receiver": "收件人",
       "receiverPlaceholder": "輸入電子郵件地址",
-      "tooltip": {
-        "disabledReceiverButton": "請輸入電子郵件地址",
-        "unpin": "解除置頂",
-        "pin": "置頂",
-        "iconEmail": "電子郵件: 開啟",
-        "iconOutput": "數位輸出: 開啟",
-        "addNewCard": "增加通報卡"
-      },
       "defaultSubjectFR": "臉部辨識事件 [{{0}}]",
       "defaultSubjectMD": "移動偵測事件 [{{0}}]",
       "defaultSubjectDI": "數位輸入事件 [{{0}}]",
@@ -724,8 +730,8 @@
     "on": "開",
     "off": "關",
     "authenticationRequired": "未啟用",
-    "ageGender": "",
-    "humanDetection": ""
+    "ageGender": "性別年齡：",
+    "humanDetection": "人形偵測："
   },
   "navigation": {
     "sidebar": {
@@ -762,7 +768,7 @@
       "email": "電子郵件",
       "io": "數位輸出及輸入",
       "smartNotification": "智慧通知",
-      "sdCardSettings": "",
+      "sdCardSettings": "記憶卡",
       "basic": "",
       "storage": "",
       "facialRecognition": "臉部辨識",
@@ -806,6 +812,8 @@
       },
       "ageGender": "性別年齡",
       "humanDetection": "人形偵測",
+      "activated": "已啟用",
+      "activationRequired": "未啟用",
       "toast": {
         "activationFailedTitle": "啟用失敗",
         "keyRegisteredBody": "重複輸入啟用碼",

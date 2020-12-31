@@ -1,126 +1,31 @@
 {
   "login": {
-    "lock": {
-      "loginLocked": "鎖定登入",
-      "forgotPassword": "忘記密碼？"
-    },
     "error": {
-      "expires1": "10 分鐘後過期",
-      "expires2": "30 分鐘後過期",
-      "expires3": "1 小時後過期",
-      "expires4": "12 小時後過期"
-    }
-  },
-  "home": {
-    "Device Status": "裝置狀態",
-    "ageGender: ": "性別年齡：",
-    "humanDetection: ": "人形偵測："
-  },
-  "videoSetting": {
-    "constants": {
-      "max": "最大"
-    }
-  },
-  "video": {
-    "stream": {
-      "modal": {
-        "confirmUpdateBody": "您確定要更改串流設定嗎？",
-        "confirmRatioChangeBody": "改變串流1解析度的畫面比例會造成串流2的設定被改變，請確認是否繼續？"
-      }
-    },
-    "hdmi": {
-      "fps": "每秒幀數"
-    },
-    "osd": {
-      "constants": {
-        "enterCustomText": "輸入自訂文字"
-      }
+      "expires1.reserved": "10 分鐘後過期",
+      "expires2.reserved": "30 分鐘後過期",
+      "expires3.reserved": "1 小時後過期",
+      "expires4.reserved": "12 小時後過期"
     }
   },
   "audio": {
-    "internalMicrophone": "內建式麥克風",
+    "internalMicrophone.reserved": "內建式麥克風",
     "constants": {
-      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+      "audio-quality-1.reserved": "AAC, 16kHz, 96kbps, Mono"
     }
   },
   "notification": {
     "smtp": {
       "toast": {
-        "mailSettingFailed": "電子郵件設定失敗"
+        "mailSettingFailed.reserved": "電子郵件設定失敗"
       }
-    },
-    "cards": {
-      "condition": "條件",
-      "constants": {
-        "notification-vms-event-0": "影像移動偵測事件",
-        "notification-vms-event-1": "智慧分析事件"
-      },
-      "tooltip": {
-        "iconVMS": "影像管理系統(VMS): 開",
-        "enterDatetime": "必須選擇起始和終止日期時間",
-        "maxSchedules": "已達數量限制"
-      }
-    }
-  },
-  "userManagement": {
-    "members": {
-      "modal": {
-        "group": {
-          "editGroupTitle.avn": "編輯群組"
-        }
-      },
-      "tooltip": {
-        "uploadPrimaryFirst": "請先上傳主照片",
-        "encryptionSettings": "加密設定"
-      }
-    },
-    "accounts": {
-      "constants": {
-        "permission-99": "管理者"
-      }
-    },
-    "events": {
-      "tooltip": {
-        "invalidPhoto": "照片不合格",
-        "Updating Member": "更新成員"
-      }
-    }
-  },
-  "analytics": {
-    "license": {
-      "activated": "已啟用",
-      "activationRequired": "未啟用"
     }
   },
   "network": {
     "https": {
       "constants": {
-        "certificate-type-1": "上傳您的憑證",
-        "certificate-type-2": "在此裝置上產生憑證"
+        "certificate-type-1.reserve": "上傳您的憑證",
+        "certificate-type-2.reserve": "在此裝置上產生憑證"
       }
-    }
-  },
-  "documentTitle": {
-    "image": "圖像",
-    "video": "影像",
-    "analytics": "影像分析",
-    "notificationSettings": "通報",
-    "notificationMethod": "通報方式",
-    "administration": "管理",
-    "status": "狀態",
-    "sdCard": "記憶卡"
-  },
-  "navigation": {
-    "sidebar": {
-      "tooltip": {
-        "image": "圖像"
-      },
-      "sdCard": "記憶卡"
-    }
-  },
-  "common": {
-    "toast": {
-      "DHCP Test Failed": "DHCP 測試失敗"
     }
   }
 }
