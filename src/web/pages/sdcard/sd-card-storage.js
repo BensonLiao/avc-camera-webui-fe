@@ -192,10 +192,10 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                               type="button"
                               disabled={disableButton}
                               style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                              onClick={confirmDelete()}
+                              onClick={() => downloadFiles(form.values)}
                             >
-                              <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
-                              {i18n.t('sdCard.storage.button.remove')}
+                              <i className="fas fa-download mr-2"/>
+                              {i18n.t('sdCard.storage.button.download')}
                             </button>
                           </div>
                         </CustomTooltip>
@@ -206,10 +206,10 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                               type="button"
                               disabled={disableButton}
                               style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                              onClick={() => downloadFiles(form.values)}
+                              onClick={confirmDelete()}
                             >
-                              <i className="fas fa-download mr-2"/>
-                              {i18n.t('sdCard.storage.button.download')}
+                              <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
+                              {i18n.t('sdCard.storage.button.remove')}
                             </button>
                           </div>
                         </CustomTooltip>
