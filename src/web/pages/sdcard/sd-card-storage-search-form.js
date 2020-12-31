@@ -18,7 +18,6 @@ const SDCardStorageSearchForm = ({
   setCurrentDate,
   updateSearchResult
 }) => {
-  console.log('availableDates', availableDates);
   const {isApiProcessing} = useContextState();
   const [state, setState] = useState({isShowStartDatePicker: false});
 
@@ -64,6 +63,7 @@ const SDCardStorageSearchForm = ({
                 placeholder: i18n.t('common.dateTimePicker.startTime'),
                 style: {whiteSpace: 'nowrap'}
               }}
+              availableDates={availableDates}
               isShowPicker={isShowStartDatePicker}
               onClickInput={toggleStartDatePicker}
               onHide={onHideStartDatePicker}

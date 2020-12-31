@@ -36,10 +36,7 @@ module.exports = class DatePicker extends React.PureComponent {
         setFieldValue: PropTypes.func.isRequired,
         values: PropTypes.object.isRequired
       }).isRequired,
-      availableDates: PropTypes.arrayOf(PropTypes.oneOfType([
-        PropTypes.instanceOf(Date),
-        PropTypes.instanceOf(dayjs)
-      ])),
+      availableDates: PropTypes.arrayOf(PropTypes.string),
       startDateFieldName: PropTypes.string,
       endDateFieldName: PropTypes.string,
       isShowPicker: PropTypes.bool,
@@ -624,6 +621,7 @@ module.exports = class DatePicker extends React.PureComponent {
     const {
       field,
       form: {values},
+      availableDates,
       endDateFieldName,
       startDateFieldName
     } = this.props;
@@ -716,6 +714,10 @@ module.exports = class DatePicker extends React.PureComponent {
                           isDateDisabled = dayjs(item.date).isBefore(dayjs(startDate), 'date');
                         } else if (endDate) {
                           isDateDisabled = dayjs(item.date).isAfter(dayjs(endDate), 'date');
+                        } else if (availableDates) {
+                          isDateDisabled = availableDates.every(date => dayjs(date).date() !== dayjs(item.date).date()) ||
+                            availableDates.every(date => dayjs(date).month() !== dayjs(item.date).month()) ||
+                            availableDates.every(date => dayjs(date).year() !== dayjs(item.date).year());
                         }
 
                         if (item.isDisplayMonth && !isDateDisabled) {
