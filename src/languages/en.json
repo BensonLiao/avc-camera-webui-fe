@@ -138,7 +138,6 @@
           "createGroupTitle": "Create a Group",
           "namePlaceholder": "Enter a name for this group",
           "nameHelper": "Maximum length: 32 characters",
-          "groupLimitExceeded": "",
           "confirmDeleteTitle": "Delete Group",
           "confirmDeleteBody": "Are you sure you want to delete group {{0}}?"
         },
@@ -165,12 +164,12 @@
       "tooltip": {
         "photoLimitExceeded": "Photo Limit of Member Database Exceeded",
         "uploadPrimaryFirst": "Upload the Primary Photo First",
+        "groupLimitExceeded": "Group number limit exceeded.",
         "connected": "Connected",
         "notConnected": "Not Connected",
         "invalidSelection": "Un-linked Device Selected",
         "noDevice": "Select a Device",
         "editGroupWithName": "Edit Group: {{0}}",
-        "groupLimitExceeded": "Group number limit exceeded.",
         "createGroup": "Create a Group",
         "deleteGroupWithName": "Delete Group: {{0}}",
         "editMemberWithName": "Edit Member: {{0}}",
@@ -261,7 +260,6 @@
       "filters": "Filters",
       "clear": "Clear",
       "facialRecognition": "Facial Recognition",
-      "FacialRecognition": "",
       "activationRequired": "Activation Required",
       "ageGender": "Age & Gender",
       "humanDetection": "Human Detection",
@@ -402,9 +400,6 @@
       "codec": "Resolution codec",
       "recordingDuration": "Recording time (Mins)",
       "recordingLimit": "When storage is full"
-    },
-    "constants": {
-      "unknownStatus": ""
     },
     "tooltip": {
       "disabledOperationButton": "Please disable the SD card first.",
