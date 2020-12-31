@@ -460,7 +460,7 @@ module.exports = {
      * - [].path {String}
      * - [].type {String}
      */
-    getSDCardStorageFiles: (date, folder = '/sdcard/test/') => api({
+    getSDCardStorageFiles: (date, folder) => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard-storage',
       data: {
@@ -474,7 +474,7 @@ module.exports = {
      * @returns {Promise<Response>}
      * @response 200 {Array<String>}
      */
-    getSDCardStorageDateList: (folder = '/sdcard/test/') => api({
+    getSDCardStorageDateList: folder => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard-storage/date-list',
       data: {folder}
