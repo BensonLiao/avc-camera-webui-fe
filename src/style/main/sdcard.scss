@@ -16,6 +16,24 @@
   }
 }
 
+.dot-sd {
+  margin-bottom: 0.5rem;
+  margin-right: 0.2rem;
+  height: 0.5rem;
+  width: 0.5rem;
+  background-color: #FF0000;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.sd-fr-codec {
+  background-color: #f0f0f0;
+  padding: 24px;
+  border-radius: 8px;
+  width: 104%;
+  margin-bottom: 24px;
+}
+
 // volume-progress-bar.js
 $default-size-sd: 6rem;
 $label-font-size-sd: $default-size-sd / 4;

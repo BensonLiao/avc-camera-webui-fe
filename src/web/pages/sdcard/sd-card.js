@@ -170,7 +170,10 @@ const SDCard = ({
                             <div className="d-flex justify-content-between align-items-center mb-0">
                               <label className="mb-o">{i18n.t('sdCard.basic.status')}</label>
                               {sdCardRecordingSettings.sdRecordingStatus === Number(SDCardRecordingStatus.on) ? (
-                                <label className="mb-o text-danger"/>
+                                <div className="d-flex justify-content-center align-items-center">
+                                  <div className="dot-sd"/>
+                                  <label className="mb-o text-danger">{i18n.t('sdCard.basic.recording')}</label>
+                                </div>
                               ) : <label className="mb-o text-primary">{SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}</label>}
                             </div>
                             <div className="d-flex justify-content-between align-items-center mb-0">
@@ -289,12 +292,14 @@ const SDCard = ({
                                         </option>
                                       ))}
                                     </SelectField>
-                                    <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.fps')} name="frameRate">
-                                      <option>{values.frameRate}</option>
-                                    </SelectField>
-                                    <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.codec')} name="codec">
-                                      <option>{values.codec}</option>
-                                    </SelectField>
+                                    <div className="sd-fr-codec">
+                                      <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.fps')} name="frameRate">
+                                        <option>{values.frameRate}</option>
+                                      </SelectField>
+                                      <SelectField row readOnly formClassName="mb-0" wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.codec')} name="codec">
+                                        <option>{values.codec}</option>
+                                      </SelectField>
+                                    </div>
                                     <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingDuration')} name="sdRecordingDuration">
                                       {SDCardRecordingDuration.all().map(duration => (
                                         <option key={duration} value={duration}>{duration === '0' ? i18n.t('sdCard.basic.constants.storageToFull') : duration}</option>

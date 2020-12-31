@@ -263,7 +263,7 @@ module.exports = {
         sdAlertEnabled: false
       },
       sdCardRecordingSettings: {
-        sdRecordingStatus: 0,
+        sdRecordingStatus: 1,
         sdRecordingEnabled: true,
         sdRecordingStream: 1,
         sdRecordingType: 0,
