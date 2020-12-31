@@ -1,127 +1,31 @@
 {
   "login": {
-    "lock": {
-      "loginLocked": "ログインがロックされました",
-      "forgotPassword": "パスワードを忘れましたか?"
-    },
     "error": {
-      "expires1": "10 分後期限切れ",
-      "expires2": "30 分後期限切れ",
-      "expires3": "1 時間後期限切れ",
-      "expires4": "12 時間後期限切れ"
-    }
-  },
-  "home": {
-    "Device Status": "ステータス",
-    "ageGender: ": "性別年齢推定 : ",
-    "humanDetection: ": "人体検知 : "
-  },
-  "videoSetting": {
-    "constants": {
-      "max": "最大"
-    }
-  },
-  "video": {
-    "stream": {
-      "modal": {
-        "confirmUpdateBody": "ストリーム設定を変更しますか？",
-        "confirmRatioChangeBody": "ストリーム1のアスペクト比を変更すると、ストリーム2の設定も更新されます。続行してもよろしいですか？"
-      }
-    },
-    "hdmi": {
-      "fps": "フレームレート (FPS)"
-    },
-    "osd": {
-      "constants": {
-        "enterCustomText": "カスタム内容を入力します"
-      }
+      "expires1.reserved": "10 分後期限切れ",
+      "expires2.reserved": "30 分後期限切れ",
+      "expires3.reserved": "1 時間後期限切れ",
+      "expires4.reserved": "12 時間後期限切れ"
     }
   },
   "audio": {
-    "internalMicrophone": "內建式麥克風",
+    "internalMicrophone.reserved": "內建式麥克風",
     "constants": {
-      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+      "audio-quality-1.reserved": "AAC, 16kHz, 96kbps, Mono"
     }
   },
   "notification": {
     "smtp": {
       "toast": {
-        "mailSettingFailed": "メールアドレス設定に失敗しました"
+        "mailSettingFailed.reserved": "メールアドレス設定に失敗しました"
       }
-    },
-    "cards": {
-      "condition": "條件",
-      "constants": {
-        "notification-vms-event-0": "影像移動偵測事件",
-        "notification-vms-event-1": "智慧分析事件"
-      },
-      "tooltip": {
-        "iconVMS": "VMS: On",
-        "enterDatetime": "開始および終了日および時間を選択してください",
-        "maxSchedules": "最大スケジュール数は5です"
-      }
-    }
-  },
-  "userManagement": {
-    "members": {
-      "modal": {
-        "group": {
-          "editGroupTitle.avn": "グループを編集する"
-        }
-      },
-      "tooltip": {
-        "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい",
-        "encryptionSettings": "暗号化設定"
-      }
-    },
-    "accounts": {
-      "constants": {
-        "permission-99": "管理者"
-      }
-    },
-    "events": {
-      "tooltip": {
-        "invalidPhoto": "無効な写真",
-        "Updating Member": "メンバー更新"
-      }
-    }
-  },
-  "analytics": {
-    "license": {
-      "activated": "有効にしました",
-      "activationRequired": "無効"
     }
   },
   "network": {
     "https": {
       "constants": {
-        "manufacturer": "メーカー",
-        "certificate-type-1": "署名証明書をアップロードする",
-        "certificate-type-2": "本デバイスの署名証明書を生成する"
+        "certificate-type-1.reserve": "署名証明書をアップロードする",
+        "certificate-type-2.reserve": "本デバイスの署名証明書を生成する"
       }
-    }
-  },
-  "documentTitle": {
-    "image": "画像設定",
-    "video": "映像",
-    "analytics": "映像分析",
-    "notificationSettings": "通知設定",
-    "notificationMethod": "通知方法",
-    "administration": "管理",
-    "status": "ステータス",
-    "sdCard": "SDカード"
-  },
-  "navigation": {
-    "sidebar": {
-      "tooltip": {
-        "image": "画像設定"
-      },
-      "sdCard": "SDカード"
-    }
-  },
-  "common": {
-    "toast": {
-      "DHCP Test Failed": "DHCPテストに失敗しました"
     }
   }
 }

@@ -124,9 +124,10 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                       </div>
                       <SelectField labelName={i18n.t('network.https.certificate')} name="certificateType">
                         <option value={CertificateType.selfSigned}>
-                          {i18n.t(
-                            'network.https.constants.certificate-type-0',
-                            {0: window.isNoBrand ? i18n.t('network.https.constants.manufacturer') : 'AndroVideo'})}
+                          {(() => {
+                            const certificateI18n = window.isNoBrand ? i18n.t('network.https.constants.manufacturer') : 'AndroVideo';
+                            return i18n.t('network.https.constants.certificate-type-0', {0: certificateI18n});
+                          })()}
                         </option>
                       </SelectField>
                       <CustomTooltip

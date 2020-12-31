@@ -982,5 +982,7 @@ module.exports.getApiErrorMessageI18N = errorMessage => {
       return i18n.t('common.toast.DUPLICATE_DEVICE_IP');
     case 'INVALID_DEVICE_ID':
       return i18n.t('common.toast.INVALID_DEVICE_ID');
+    case 'DHCP Testing Failed':
+      return i18n.t('common.toast.DHCP Test Failed');
   }
 };

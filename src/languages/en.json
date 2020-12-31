@@ -89,7 +89,8 @@
       "DEVICE_CONNECTION_FAIL": "Device Connection Failed",
       "DEVICE_LOGIN_FAIL": "Device Login Failed",
       "DUPLICATE_DEVICE_IP": "Duplicate Device IP",
-      "INVALID_DEVICE_ID": "Invalid Device ID"
+      "INVALID_DEVICE_ID": "Invalid Device ID",
+      "DHCP Test Failed": "DHCP Testing Failed"
     },
     "dateTimePicker": {
       "date": "Date",
@@ -161,6 +162,20 @@
           "deleteDeviceApiProcessingModal": "Deleting Device"
         }
       },
+      "tooltip": {
+        "photoLimitExceeded": "Photo Limit of Member Database Exceeded",
+        "uploadPrimaryFirst": "Upload the Primary Photo First",
+        "connected": "Connected",
+        "notConnected": "Not Connected",
+        "invalidSelection": "Un-linked Device Selected",
+        "noDevice": "Select a Device",
+        "editGroupWithName": "Edit Group: {{0}}",
+        "groupLimitExceeded": "Group number limit exceeded.",
+        "createGroup": "Create a Group",
+        "deleteGroupWithName": "Delete Group: {{0}}",
+        "editMemberWithName": "Edit Member: {{0}}",
+        "deleteMemberWithName": "Delete Member: {{0}}"
+      },
       "name": "Name",
       "organization": "Organization",
       "group": "Group",
@@ -188,19 +203,6 @@
       "done": "Done",
       "failed": "Failed",
       "lastUpdated": "Last Updated",
-      "tooltip": {
-        "connected": "Connected",
-        "notConnected": "Not Connected",
-        "invalidSelection": "Un-linked Device Selected",
-        "noDevice": "Select a Device",
-        "editGroupWithName": "Edit Group: {{0}}",
-        "groupLimitExceeded": "Group number limit exceeded.",
-        "createGroup": "Create a Group",
-        "deleteGroupWithName": "Delete Group: {{0}}",
-        "editMemberWithName": "Edit Member: {{0}}",
-        "deleteMemberWithName": "Delete Member: {{0}}",
-        "photoLimitExceeded": "Photo Limit of Member Database Exceeded"
-      },
       "synchronize": "Synchronize",
       "removeUnlinked": "Remove unlinked device(s)",
       "remove": "Remove",
@@ -239,7 +241,7 @@
       "tooltip": {
         "photoLimitExceeded": "Photo Limit of Member Database Exceeded",
         "addWithName": "Add to {{0}}",
-        "Invalid Photo": ""
+        "invalidPhoto": "Invalid Photo"
       },
       "constants": {
         "confidence-0": "Low",
@@ -514,7 +516,9 @@
       "resolution": "Resolution",
       "fps": "Frame Rate (FPS)",
       "modal": {
-        "apiProcessingModalTitle": "Updating Stream Settings"
+        "apiProcessingModalTitle": "Updating Stream Settings",
+        "confirmRatioChangeBody": "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?",
+        "confirmUpdateBody": "Are you sure you want to update stream settings?"
       },
       "codec": "Codec",
       "quality": "Quality",
@@ -555,7 +559,7 @@
       "rightBottom": "Bottom Right",
       "positionHelper": "Click one of the arrows on the live view screen.",
       "overlay": "Text Overlay",
-      "enterCustomText": ""
+      "enterCustomTextPlaceholder": "Enter custom text"
     },
     "privacyMask": {
       "maskArea": "Mask Area",
@@ -605,6 +609,16 @@
       "group": "Group",
       "everyone": "Everyone",
       "enableSchedule": "Enable Schedule",
+      "tooltip": {
+        "maxSchedules": "The maximum number of allowed schedules is 5.",
+        "enterDatetime": "Please enter start and end time.",
+        "disabledReceiverButton": "Please enter an email address.",
+        "unpin": "Unpin this card",
+        "pin": "Pin this card",
+        "iconEmail": "Email: On",
+        "iconOutput": "Output: On",
+        "addNewCard": "Add a New Notification Card"
+      },
       "io": "I/O",
       "output1": "Output 1",
       "output2": "Output 2",
@@ -617,14 +631,6 @@
       "contentPlacement": "Content Placement",
       "receiver": "Receiver",
       "receiverPlaceholder": "Enter email address",
-      "tooltip": {
-        "disabledReceiverButton": "Please enter an email address.",
-        "unpin": "Unpin this card",
-        "pin": "Pin this card",
-        "iconEmail": "Email: On",
-        "iconOutput": "Output: On",
-        "addNewCard": "Add a New Notification Card"
-      },
       "defaultSubjectFR": "Face Recognition Event on [{{0}}]",
       "defaultSubjectMD": "Motion Detection Event on [{{0}}]",
       "defaultSubjectDI": "Digital Input Event on [{{0}}]",
@@ -724,8 +730,8 @@
     "on": "On",
     "off": "Off",
     "authenticationRequired": "Authentication Required",
-    "ageGender": "",
-    "humanDetection": ""
+    "ageGender": "Age & Gender: ",
+    "humanDetection": "Human Detection: "
   },
   "navigation": {
     "sidebar": {
@@ -806,6 +812,8 @@
       },
       "ageGender": "Age & Gender",
       "humanDetection": "Human Detection",
+      "activated": "Activated",
+      "activationRequired": "Activation Required",
       "toast": {
         "activationFailedTitle": "Activation Failed",
         "keyRegisteredBody": "Key Already Registered",
@@ -882,6 +890,7 @@
       "portHelper": "Range: 1024-65535 Default: 8443",
       "certificate": "Certificate",
       "constants": {
+        "manufacturer": "Manufacturer",
         "certificate-type-0": "{{0}} Self-signed"
       },
       "tooltip": {

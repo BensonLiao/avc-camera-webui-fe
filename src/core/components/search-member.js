@@ -273,7 +273,7 @@ class SearchMember extends React.PureComponent {
                                 (member.pictures.length >= 5 ?
                                   i18n.t('userManagement.events.tooltip.photoLimitExceeded') :
                                   i18n.t('userManagement.events.tooltip.addWithName', {0: member.name})) :
-                                i18n.t('userManagement.events.tooltip.Invalid Photo')
+                                i18n.t('userManagement.events.tooltip.invalidPhoto')
                           }
                           >
                             <div>

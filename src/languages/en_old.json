@@ -1,68 +1,43 @@
 {
   "login": {
     "lock": {
-      "loginLocked": "Login locked",
-      "forgotPassword": "Forgot password?",
       "supportDetails.avn": "Tech Support Phone Number: +1 (818) 937-0700"
     },
     "error": {
-      "expires1": "Expires in 10 minutes",
-      "expires2": "Expires in 30 minutes",
-      "expires3": "Expires in 1 hour",
-      "expires4": "Expires in 12 hours"
+      "expires1.reserved": "Expires in 10 minutes",
+      "expires2.reserved": "Expires in 30 minutes",
+      "expires3.reserved": "Expires in 1 hour",
+      "expires4.reserved": "Expires in 12 hours"
     }
-  },
-  "home": {
-    "Device Status": "Status",
-    "ageGender: ": "Age & Gender: ",
-    "humanDetection: ": "Human Detection: "
   },
   "videoSetting": {
-    "autoFocus.avn": "Auto Focus",
-    "constants": {
-      "max": "Max"
-    }
+    "autoFocus.avn": "Auto Focus"
   },
   "video": {
     "stream": {
-      "settings.avn": "Settings",
-      "modal": {
-        "confirmUpdateBody": "Are you sure you want to update stream settings?",
-        "confirmRatioChangeBody": "Changing the aspect ratio of Stream 1 will also update Stream 2 settings. Are you sure you want to continue?"
-      }
-    },
-    "hdmi": {
-      "fps": "Frame Rate (FPS)"
-    },
-    "osd": {
-      "constants": {
-        "enterCustomText": "Enter custom text"
-      }
+      "settings.avn": "Settings"
     }
   },
   "audio": {
-    "internalMicrophone": "Internal Microphone",
+    "internalMicrophone.reserved": "Internal Microphone",
     "constants": {
-      "audio-quality-1": "AAC, 16kHz, 96kbps, Mono"
+      "audio-quality-1.reserved": "AAC, 16kHz, 96kbps, Mono"
     }
   },
   "notification": {
     "smtp": {
       "toast": {
-        "mailSettingFailed": "Mail Setting Failed"
+        "mailSettingFailed.reserved": "Mail Setting Failed"
       }
     },
     "cards": {
-      "condition": "Condition",
       "constants": {
         "videoManagementSystem.avn": "Video Management System",
-        "notification-vms-event-0": "Video Motion Detection Event",
-        "notification-vms-event-1": "Analytic Event"
+        "notification-vms-event-0.avn": "Video Motion Detection Event",
+        "notification-vms-event-1.avn": "Analytic Event"
       },
       "tooltip": {
-        "iconVMS": "VMS: On",
-        "enterDatetime": "Please enter start and end time.",
-        "maxSchedules": "The maximum number of allowed schedules is 5."
+        "iconVMS.avn": "VMS: On"
       }
     }
   },
@@ -74,41 +49,28 @@
         "group": {
           "editGroupTitle.avn": "Modify Group"
         }
-      },
-      "tooltip": {
-        "uploadPrimaryFirst": "Upload the Primary Photo First"
       }
     },
     "accounts": {
-      "constants": {
-        "permission-99": "Admin"
-      },
       "tooltip": {
         "accountProtected.avn": "This Account is Protected"
       }
     },
     "events": {
       "unknown.avn": "Unknown",
-      "confidence.avn": "Confidence",
-      "tooltip": {
-        "invalidPhoto": "Invalid Photo",
-        "Updating Member": "Updating Member"
-      }
+      "confidence.avn": "Confidence"
     }
   },
   "analytics": {
     "license": {
-      "activated": "Activated",
-      "activationRequired": "Activation Required",
       "authorizationFailed.avn": "Authorization failed!"
     }
   },
   "network": {
     "https": {
       "constants": {
-        "manufacturer": "Manufacturer",
-        "certificate-type-1": "Upload Certificate",
-        "certificate-type-2": "Generate Certificate on This Device"
+        "certificate-type-1.reserve": "Upload Certificate",
+        "certificate-type-2.reserve": "Generate Certificate on This Device"
       }
     }
   },
@@ -118,18 +80,16 @@
     }
   },
   "documentTitle": {
-    "image": "Image",
-    "video": "Video",
-    "analytics": "Analytics",
-    "notificationSettings": "Notification Settings",
-    "notificationMethod": "Notification Method",
-    "administration": "Administration",
-    "status": "Status"
+    "image.avn": "Image",
+    "video.avn": "Video",
+    "analytics.avn": "Analytics",
+    "notificationSettings.avn": "Notification Settings",
+    "notificationMethod.avn": "Notification Method"
   },
   "navigation": {
     "sidebar": {
       "tooltip": {
-        "image": "Image"
+        "image.avn": "Image"
       }
     },
     "appbar": {
@@ -142,11 +102,6 @@
         "technicalUpdates.avn": "Technical Updates",
         "resources.avn": "Resources"
       }
-    }
-  },
-  "common": {
-    "toast": {
-      "DHCP Test Failed": "DHCP Testing Failed"
     }
   }
 }

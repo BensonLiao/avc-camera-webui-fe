@@ -203,7 +203,7 @@ module.exports = class OSD extends Base {
                           <Field
                             name="customText"
                             type="text"
-                            placeholder={i18n.t('video.osd.enterCustomText')}
+                            placeholder={i18n.t('video.osd.enterCustomTextPlaceholder')}
                             maxLength={OSDSettingsSchema.customText.max}
                             className="form-control"
                           />
