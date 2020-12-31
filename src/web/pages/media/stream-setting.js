@@ -15,6 +15,7 @@ const StreamBandwidthManagement = require('webserver-form-schema/constants/strea
 const StreamGOV = require('webserver-form-schema/constants/stream-gov');
 const StreamQuality = require('webserver-form-schema/constants/stream-quality');
 const i18n = require('../../../i18n').default;
+const i18nUtils = require('../../../i18n/utils');
 const utils = require('../../../core/utils');
 const CustomNotifyModal = require('../../../core/components/custom-notify-modal');
 const Dropdown = require('../../../core/components/fields/dropdown');
@@ -94,7 +95,7 @@ module.exports = class StreamSetting extends Base {
                         (Number(x) === 0 || Number(x) === 5 || Number(x) === 6)
                        )
           )
-          .map(x => utils.getStreamResolutionOption(x)),
+          .map(x => i18nUtils.getStreamResolutionOption(x)),
         frameRate: (() => {
           const result = [];
           for (let index = StreamSettingsSchema.channelA.props.frameRate.min;
@@ -148,7 +149,7 @@ module.exports = class StreamSetting extends Base {
             }
           }
 
-          return options.map(x => utils.getStreamResolutionOption(x));
+          return options.map(x => i18nUtils.getStreamResolutionOption(x));
         })(),
         frameRate: (() => {
           const result = [];

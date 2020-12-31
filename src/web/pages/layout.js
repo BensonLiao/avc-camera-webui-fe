@@ -23,6 +23,7 @@ const CustomTooltip = require('../../core/components/tooltip');
 const SessionExpireModal = require('../../core/components/session-expire-modal');
 const api = require('../../core/apis/web-api');
 const i18n = require('../../i18n').default;
+const i18nUtils = require('../../i18n/utils');
 const constants = require('../../core/constants');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
@@ -349,7 +350,7 @@ module.exports = class Layout extends Base {
                   </button>
                   <div className="dropdown-menu dropdown-menu-right">
                     <h5 className="dropdown-header text-primary">
-                      {utils.getAccountPermissonI18N($user.permission, <ErrorDisplay/>)}
+                      {i18nUtils.getAccountPermissonI18N($user.permission, <ErrorDisplay/>)}
                     </h5>
                     <span className="dropdown-item-text font-weight-bold">{$user.account}</span>
                     <div className="dropdown-divider"/>

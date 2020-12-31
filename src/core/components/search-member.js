@@ -10,6 +10,7 @@ import CustomTooltip from './tooltip';
 import notify from '../notify';
 import utils from '../utils';
 import i18n from '../../i18n';
+import i18nUtils from '../../i18n/utils';
 
 class SearchMember extends React.PureComponent {
   static propTypes = {
@@ -84,7 +85,7 @@ class SearchMember extends React.PureComponent {
             .catch(error =>
               this.setState({
                 verifyStatus: false,
-                errorMessage: utils.getApiErrorMessageI18N(
+                errorMessage: i18nUtils.getApiErrorMessageI18N(
                   error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
                 )
               })

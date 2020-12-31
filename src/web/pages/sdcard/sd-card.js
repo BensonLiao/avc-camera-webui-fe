@@ -23,7 +23,7 @@ import SDCardRecordingType from 'webserver-form-schema/constants/sdcard-recordin
 import SDCardRecordingStream from 'webserver-form-schema/constants/sdcard-recording-stream';
 import SDCardRecordingLimit from 'webserver-form-schema/constants/sdcard-recording-limit';
 import SDCardRecordingStatus from 'webserver-form-schema/constants/sdcard-recording-status';
-import utils from '../../../core/utils';
+import i18nUtils from '../../../i18n/utils';
 
 const SDCard = ({
   systemInformation,
@@ -73,16 +73,16 @@ const SDCard = ({
 
   const processOptions = () => {
     return {
-      type: SDCardRecordingType.all().filter(x => x !== '1').map(x => utils.getSDCardRecordingType(x)),
+      type: SDCardRecordingType.all().filter(x => x !== '1').map(x => i18nUtils.getSDCardRecordingType(x)),
       stream: SDCardRecordingStream.all().filter(x => x !== '2').map(x => {
-        const {value, label} = utils.getSDCardRecordingStream(x);
+        const {value, label} = i18nUtils.getSDCardRecordingStream(x);
         let channel = x === '1' ? 'channelA' : 'channelB';
         return {
           value,
-          label: label + ' ' + utils.getStreamResolutionOption(streamSettings[channel].resolution).label
+          label: label + ' ' + i18nUtils.getStreamResolutionOption(streamSettings[channel].resolution).label
         };
       }),
-      limit: SDCardRecordingLimit.all().map(x => utils.getSDCardRecordingLimit(x))
+      limit: SDCardRecordingLimit.all().map(x => i18nUtils.getSDCardRecordingLimit(x))
     };
   };
 

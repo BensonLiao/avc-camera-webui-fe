@@ -19,6 +19,7 @@ import ContentEditable from '@benson.liao/react-content-editable';
 import CustomTooltip from '../../../core/components/tooltip';
 import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
+import i18nUtils from '../../../i18n/utils';
 import {NOTIFY_CARDS_MAX} from '../../../core/constants';
 import utils from '../../../core/utils';
 
@@ -222,7 +223,7 @@ const CardsForm = ({
                         type === NotificationCardType.digitalInput
                       )).map(
                         type => {
-                          return <option key={type} value={type}>{utils.getNotificationCardTypeI18N(type)}</option>;
+                          return <option key={type} value={type}>{i18nUtils.getNotificationCardTypeI18N(type)}</option>;
                         }
                       )
                     }

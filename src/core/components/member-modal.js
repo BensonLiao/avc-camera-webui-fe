@@ -13,6 +13,7 @@ const avatarMask = require('../../resource/avatar-mask.png');
 const SelectField = require('./fields/select-field');
 const Slider = require('./fields/slider');
 const i18n = require('../../i18n').default;
+const i18nUtils = require('../../i18n/utils');
 const MemberValidator = require('../../web/validations/members/member-validator');
 const {
   MEMBER_PHOTO_MIME_TYPE,
@@ -490,7 +491,7 @@ module.exports = class Member extends React.PureComponent {
                           verifyStatus: {$set: false},
                           isVerifying: {$set: false},
                           errorMessage: {
-                            $set: utils.getApiErrorMessageI18N(
+                            $set: i18nUtils.getApiErrorMessageI18N(
                               error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
                             )
                           }

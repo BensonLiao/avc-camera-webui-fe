@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import NotificationFaceRecognitionCondition from 'webserver-form-schema/constants/notification-face-recognition-condition';
 import i18n from '../../../i18n';
-import utils from '../../../core/utils';
+import i18nUtils from '../../../i18n/utils';
 import ErrorDisplay from '../../../core/components/error-display';
 
 const CardsFormRule = ({faceRecognitionCondition, isEnableFaceRecognition, groups}) => {
@@ -37,7 +37,7 @@ const CardsFormRule = ({faceRecognitionCondition, isEnableFaceRecognition, group
                 value={condition}
               />
               <label className="form-check-label" htmlFor={`input-notification-face-recognition-${condition}`}>
-                {utils.getNotificationFRConditionI18N(condition, <ErrorDisplay/>)}
+                {i18nUtils.getNotificationFRConditionI18N(condition, <ErrorDisplay/>)}
               </label>
             </div>
           ))
