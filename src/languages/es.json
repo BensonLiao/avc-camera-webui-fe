@@ -697,7 +697,9 @@
       "intervalPlaceholder": "Ingrese el número de segundos",
       "intervalRange": "5 - 1800 segundos",
       "toast": {
-        "emailSettingSuccess": "Éxito la configuración del correo electrónico"
+        "emailSettingSuccess": "Éxito la configuración del correo electrónico",
+        "sendingTestEmail": "Ha enviado un correo de prueba",
+        "disablingOutgoingEmail": "Desactivar la transmisión de correo electrónico"
       }
     }
   },
