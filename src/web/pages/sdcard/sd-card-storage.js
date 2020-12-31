@@ -259,11 +259,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                                       <label htmlFor={pageData.path}/>
                                     </td>
                                     <td>
-                                      <CustomTooltip placement="top-start" title={pageData.ip}>
-                                        <div>
-                                          {currentDate.format(SDCARD_STORAGE_DATE_FORMAT.DISPLAY)}
-                                        </div>
-                                      </CustomTooltip>
+                                      {currentDate.format(SDCARD_STORAGE_DATE_FORMAT.DISPLAY)}
                                     </td>
                                     <td>
                                       <CustomTooltip placement="top-start" title={pageData.name}>
@@ -273,11 +269,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                                       </CustomTooltip>
                                     </td>
                                     <td>
-                                      <CustomTooltip placement="top-start" title={pageData.bytes}>
-                                        <div>
-                                          {filesize(pageData.bytes)}
-                                        </div>
-                                      </CustomTooltip>
+                                      {filesize(pageData.bytes)}
                                     </td>
                                     <td className="text-left group-btn">
                                       <button
