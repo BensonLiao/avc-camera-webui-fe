@@ -4,30 +4,30 @@
       "pleaseWait": "しばらくお待ちください",
       "sessionExpire": {
         "sessionExpired": "自動ログアウト",
-        "expireCountdown": "セッションの有効期間が切れています、{{0}} 秒後でログイン画面にリダイレクトします",
-        "renewSession": "セッション更新"
+        "expireCountdown": "特定の操作が一定時間行われなかっため、N秒後にセッションを切断してログイン画面に遷移します。",
+        "renewSession": "セッション継続"
       }
     },
     "button": {
       "confirm": "確認",
       "cancel": "キャンセル",
-      "new": "追加",
+      "new": "新規",
       "close": "閉じる",
       "add": "追加",
       "on": "ON",
       "off": "OFF",
-      "resetDefault": "デフォルト設定へ戻る",
+      "resetDefault": "リセットしてデフォルト設定へ戻す",
       "apply": "適用",
       "create": "追加"
     },
     "password": {
-      "hidePassword": "パスワードを非表示する",
+      "hidePassword": "パスワードを非表示にする",
       "showPassword": "パスワードを表示する",
       "password": "パスワード",
       "newPassword": "新しいパスワード",
       "newPasswordPlaceholder": "新しいパスワードを入力してください",
-      "passwordHelper": "文字数8-16：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ /< >とスペースを使用できません",
-      "confirmNewPassword": "新しいパスワードを確認してください",
+      "passwordHelper": "文字数8-16：半角英大文字、英小文字、数字、記号を混在してください。但し記号には# % & ` “ \\ /< >とスペースを使用できません",
+      "confirmNewPassword": "新しいパスワード (確認用)",
       "confirmNewPasswordPlaceholder": "新しいパスワードを再度入力してください",
       "passwordPlaceholder": "パスワードを入力してください",
       "confirmPassword": "パスワードを確認する",
@@ -82,7 +82,7 @@
       "Limitation of Yaw Angle is 30 Degrees": "顔の角度は上下20度や左右30度を超えています",
       "Limitation of Pitch Angle is 20 Degrees": "顔の角度は上下20度や左右30度を超えています",
       "More Than One Face in the Photo": "写真には顔が一個以上存在しています",
-      "Non-existent Photo": "存在しない顔ショット",
+      "Non-existent Photo": "存在しない顔画像サムネイル",
       "Invalid Key": "無効なライセンスキー",
       "Duplicate Key": "アクティベーションに失敗しました。ライセンスキーが重複してます",
       "Cannot Support Database Downgrade from 30,000 to 3000 People": "顔認証メンバー上限を30,000人から3,000人に下げることに対応していません",
@@ -94,9 +94,9 @@
     },
     "dateTimePicker": {
       "date": "日付",
-      "time": "時間",
-      "startTime": "開始時間",
-      "endTime": "終了時間",
+      "time": "時刻",
+      "startTime": "開始日時",
+      "endTime": "終了日時",
       "manualDateTime": "Manual DateTime"
     },
     "fileHandler": {
@@ -119,7 +119,7 @@
           "photo4": "写真 4",
           "errorPhotoSizeLimit": "写真サイズは90 KBを超えることができません",
           "errorNoPhoto": "写真が必要",
-          "namePlaceholder": "メンバー名を入力してください",
+          "namePlaceholder": "メンバーの名前を入力してください",
           "organizationPlaceholder": "組織名を入力してください",
           "organizationHelper": "最大32文字まで入力可能です",
           "n/a": "なし",
@@ -176,7 +176,7 @@
         "editMemberWithName": "メンバーを編集する：{{0}}",
         "deleteMemberWithName": "メンバーを削除する：{{0}}"
       },
-      "name": "名称",
+      "name": "名前",
       "organization": "組織",
       "group": "グループ",
       "note": "備考",
@@ -216,10 +216,10 @@
       "allMembers": "全メンバー表示",
       "groups": "グループ",
       "database": "データベースファイル",
-      "userPicture": "登録用写真",
-      "noData": "一致するデータが見つかりません再検索して下さい",
-      "addNewMember": "新規メンバーを追加する",
-      "addMemberFromEvent": "イベントから追加"
+      "userPicture": "登録写真",
+      "noData": "一致するデータがみつかりません。再検索してください。",
+      "addNewMember": "メンバーの新規追加",
+      "addMemberFromEvent": "イベントからメンバーを追加"
     },
     "events": {
       "toast": {
@@ -229,15 +229,15 @@
       "addExistingMember": "既存のメンバーに追加",
       "searchPlaceholder": "キーワードを入力",
       "search": "検索",
-      "userPicture": "登録用写真",
-      "name": "名称",
+      "userPicture": "登録写真",
+      "name": "名前",
       "actions": "操作",
       "modal": {
         "initialMessage": "入力フィールドにキーワードを入力して、メンバーを検索します",
         "verifyingPhoto": "写真検証中",
         "apiProcessingModalTitle": "メンバー更新"
       },
-      "noData": "一致するデータが見つかりません再検索して下さい",
+      "noData": "一致するデータがみつかりません。再検索してください。",
       "tooltip": {
         "photoLimitExceeded": "写真数の上限に達しました",
         "addWithName": "{{0}} に追加",
@@ -247,7 +247,7 @@
         "confidence-0": "低",
         "confidence-1": "中",
         "confidence-2": "高",
-        "enroll-status-0": "なりすまし防止",
+        "enroll-status-0": "なりすまし",
         "enroll-status-1": "未登録者",
         "enroll-status-2": "登録者"
       },
@@ -265,13 +265,13 @@
       "activationRequired": "無効",
       "ageGender": "性別年齢推定",
       "humanDetection": "人体検知",
-      "time": "時間",
+      "time": "日時",
       "capture": "キャプチャー",
       "group": "グループ",
       "organization": "組織",
       "note": "備考",
-      "addNewMember": "新規メンバーを追加する",
-      "total": "合計データ数"
+      "addNewMember": "メンバーの新規追加",
+      "total": "合計イベント数"
     },
     "accounts": {
       "constants": {
@@ -284,7 +284,7 @@
         "usernamePlaceholder": "アカウント名を入力してください",
         "modifyUserTitle": "アカウントを編集する",
         "newUserTitle": "新規ユーザー",
-        "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
+        "usernameHelper": "文字数1-32：大文字、小文字のアルファベット、数字、記号を混在するのは必須です。但し記号は# % & ` “ \\ / < >とスペースを使用できません",
         "confirmDeleteTitle": "アカウントを削除する",
         "confirmDeleteBody": "アカウント {{0}} を削除しますか？"
       },
@@ -300,19 +300,19 @@
   "videoSetting": {
     "title": "画像設定",
     "enableHDR": "HDRを有効にする",
-    "adjustments": "属性",
+    "adjustments": "画像調整",
     "brightness": "明るさ",
     "contrast": "コントラスト",
     "sharpness": "シャープネス",
-    "saturation": "飽和",
-    "lensControl": "レンズ",
-    "fullRangeFocus": "全範囲フォーカス",
-    "shortRangeFocus": "短距離フォーカス",
+    "saturation": "彩度",
+    "lensControl": "レンズ調節",
+    "fullRangeFocus": "フルレンジ",
+    "shortRangeFocus": "ショートレンジ",
     "selectFocusType": "選擇對焦方式",
     "focus": "フォーカス",
     "zoom": "ズーム",
     "autoFocusAfterZoom": "ズーム調整するとき、自動フォーカスする",
-    "iris": "Iris",
+    "iris": "アイリス",
     "constants": {
       "aperture-0": "自動",
       "aperture-1": "最大",
@@ -328,22 +328,22 @@
       "shutter-speed-9": "1/4,000",
       "shutter-speed-10": "1/8,000",
       "white-balance-0": "自動",
-      "white-balance-1": "室外",
-      "white-balance-2": "蛍光灯",
-      "white-balance-3": "白熱灯",
+      "white-balance-1": "屋外",
+      "white-balance-2": "蛍光照明",
+      "white-balance-3": "白熱照明",
       "white-balance-4": "手動調整",
       "ir-control-0": "自動",
-      "ir-control-1": "有効",
-      "ir-control-2": "無効",
+      "ir-control-1": "On",
+      "ir-control-2": "Off",
       "daynight-mode-0": "自動",
-      "daynight-mode-1": "カラー",
-      "daynight-mode-2": "モノクロ",
-      "daynight-mode-3": "時間帯を指定する",
-      "orientation-0": "正常",
-      "orientation-1": "垂直回転",
-      "orientation-2": "水平回転",
+      "daynight-mode-1": "昼間モード",
+      "daynight-mode-2": "夜間モード",
+      "daynight-mode-3": "時間帯を設定する",
+      "orientation-0": "標準",
+      "orientation-1": "上下反転",
+      "orientation-2": "左右反転",
       "orientation-3": "180 度回転",
-      "on": "有効",
+      "on": "On",
       "off": "無効",
       "refresh-rate-0": "自動",
       "refresh-rate-1": "50Hz",
@@ -353,14 +353,14 @@
     "advanced": "高度な設定",
     "whiteBalance": "ホワイトバランス",
     "colorTemperature": "色温度",
-    "iRControl": "IR制御",
+    "iRControl": "IR設定",
     "level": "レベル",
     "dayNight": "デイナイト機能",
     "sensitivity": "感度",
-    "dayMode": "デイモード",
+    "dayMode": "昼間モード",
     "rotation": "映像方向",
-    "defog": "霧補正",
-    "lightingCompensation": "更新周波数(Hz)"
+    "defog": "フォグ緩和",
+    "lightingCompensation": "電源周波数 (Hz)"
   },
   "sdCard": {
     "basic": {
@@ -411,8 +411,8 @@
       "disabledNotificationButton": "メールアドレスを設定するのは必須です"
     },
     "modal": {
-      "disabledFormatButton": "Micro SDカードをフォーマットしてもよろしいですか？",
-      "disabledUnmountButton": "Micro SDカードをア取り外してよろしいですか？",
+      "disabledFormatButton": "SDカードをフォーマットしてもよろしいですか？",
+      "disabledUnmountButton": "SDカードをア取り外してよろしいですか？",
       "disableTitle": "SDカードを取り外します",
       "disableBody": "SDカードを取り外しますか？イベントによるキャプチャが保存されません"
     },
@@ -480,7 +480,7 @@
     "stringContainsLowerCaseLatter": "小文字のアルファベットの入力は必須です",
     "stringContainsUpperCaseLatter": "大文字のアルファベットの入力は必須です",
     "stringContainsNumber": "数字の入力は必須です",
-    "stringAbortSpecialCharacters": "この項目は次の符号を使用できません: #, %, &, `, \", \\, /, <, >, とスペース",
+    "stringAbortSpecialCharacters": "この項目は次の記号を使用できません：#, %, &, `, \", \\, /, <, >, とスペース",
     "stringAcceptSpecialCharacters": "符号の入力は必須です",
     "birthday": "正しい生年月日を入力してください",
     "countryCode": "国コードが間違っています",
@@ -539,17 +539,17 @@
       "hdmi": "HDMI"
     },
     "osd": {
-      "title": "OSD",
+      "title": "OSD (オンスクリーン表示)",
       "enable": "OSDを有効にする",
       "size": "文字サイズ",
       "constants": {
         "font-size-0": "小",
         "font-size-1": "中",
         "font-size-2": "大",
-        "osd-type-0": "時間",
+        "osd-type-0": "時刻",
         "osd-type-1": "デバイス名",
-        "osd-type-2": "デバイス名と時間",
-        "osd-type-3": "カスタム"
+        "osd-type-2": "デバイス名と時刻",
+        "osd-type-3": "任意の文字列"
       },
       "color": "カラー",
       "position": "表示位置",
@@ -557,19 +557,19 @@
       "rightTop": "右上",
       "leftBottom": "左下",
       "rightBottom": "右下",
-      "positionHelper": "プレビュー画面中の青印をクリックして下さい",
-      "overlay": "テキスト",
-      "enterCustomTextPlaceholder": "カスタム内容を入力します"
+      "positionHelper": "プレビュー画面中の青矢印をクリックしてください",
+      "overlay": "オーバーレイする情報",
+      "enterCustomText": "表示する文字列を入力してください"
     },
     "privacyMask": {
       "maskArea": "マスクエリア",
       "title": "プライバシーマスク",
       "enable": "プライバシーマスクを有効にする",
-      "maskHelper": "プレビューウィンドにマスクを追加してください",
-      "note": "説明",
-      "noteText1": "マスクを追加する",
+      "maskHelper": "プレビュー画面にマスク領域を追加してください",
+      "note": "操作について",
+      "noteText1": "マスク領域を追加する",
       "drag": "ドラッグ",
-      "noteText2": "マスクを削除する",
+      "noteText2": "マスク領域を削除する",
       "or": "or",
       "noteText3": "マスクは最大四ヶ所まで設定可能です"
     },
@@ -590,25 +590,25 @@
         "notification-card-0": "顔認証",
         "notification-card-1": "性別年齢推定",
         "notification-card-2": "人体検知",
-        "notification-card-3": "動作検知",
+        "notification-card-3": "動体検知",
         "notification-card-4": "破壊アラーム",
         "notification-card-5": "デジタル入力",
         "face-recognition-condition-0": "すべて",
-        "face-recognition-condition-1": "成功",
+        "face-recognition-condition-1": "認証成功",
         "face-recognition-condition-2": "未登録者",
-        "face-recognition-condition-3": "なりすまし防止",
+        "face-recognition-condition-3": "なりすまし",
         "notification-card-filter-all": "全て",
-        "email-attachment-type-0": "顔ショット",
+        "email-attachment-type-0": "顔画像サムネイル",
         "email-attachment-type-1": "スクリーンショット",
         "email-attachment-type-2": "なし",
-        "email-content-position-0": "最初に置く",
-        "email-content-position-1": "最後に置く"
+        "email-content-position-0": "本文の最初に置く",
+        "email-content-position-1": "本文の最後に置く"
       },
       "filters": "フィルター",
       "enableNotifyResult": "認証結果に応じて通知する",
       "group": "グループ",
       "everyone": "すべてのユーザー、グループ限定しない",
-      "enableSchedule": "スケジュール管理を有効にする",
+      "enableSchedule": "スケジュールを有効にする",
       "tooltip": {
         "maxSchedules": "最大スケジュール数は5です",
         "enterDatetime": "開始および終了日および時間を選択してください",
@@ -626,9 +626,9 @@
       "emailAttachment": "添付ファイル",
       "subject": "件名：",
       "subjectPlaceholder": "件名を指定してください",
-      "content": "内容：",
+      "content": "本文 (追加メッセージ)：",
       "contentPlaceholder": "メッセージを追加する",
-      "contentPlacement": "内容の位置",
+      "contentPlacement": "追加メッセージの位置",
       "receiver": "受信者",
       "receiverPlaceholder": "メールアドレスを入力してください",
       "defaultSubjectFR": "顔認証イベント [{{0}}]",
@@ -638,7 +638,7 @@
       "schedule": "スケジュール",
       "rule": "ルール",
       "method": "通知方式",
-      "analytics": "映像分析",
+      "analytics": "映像処理",
       "pinned": "トップに移動する",
       "others": "その他",
       "toast": {
@@ -648,19 +648,19 @@
     },
     "io": {
       "enableDigitalInput": "デジタル入力を有効にする",
-      "normalState": "一般状態",
-      "open": "常時開",
-      "closed": "常時閉",
+      "normalState": "通常の状態",
+      "open": "N/O (ノーマリーオープン)",
+      "closed": "N/C (ノーマリークローズ)",
       "enableDigitalOutput": "デジタル出力 {{0}} を有効にする",
       "type": "出力タイプ",
-      "normal": "一般",
+      "normal": "ノーマル",
       "buffer": "バッファ",
       "pulseTime": "パルス時間 (秒)",
       "pulsePlaceholder": "秒数を入力してください",
       "timeRange": "{{0}}-{{1}} 秒",
-      "delayTime": "間隔時間 (秒)",
+      "delayTime": "出力間隔 (秒)",
       "delayPlaceholder": "秒数を入力してください",
-      "title": "デジタル入力および出力",
+      "title": "デジタル入力およびデジタル出力",
       "tabInput": "デジタル入力",
       "tabOutput1": "デジタル出力 1",
       "tabOutput2": "デジタル出力 2"
@@ -683,23 +683,21 @@
       "serverAddress": "SMTPサーバーアドレス",
       "serverAddressPlaceholder": "サーバーアドレスを入力してください",
       "logonSettings": "SMTPサーバーログイン設定",
-      "logonSettingsHelper": "ウェブメールプロバイダーのセキュリティー性向上対策により、アプリケーションのパスワード（例：GoogleまたはYahooのメールアカウントとパスワード）が要求される場合があります。プロバイダーの指示に従ってアプリケーションのパスワードの生成と使用を行ってください。",
+      "logonSettingsHelper": "ウェブメールプロバイダーのセキュリティ対策のため、アプリケーションのパスワード (例：GoogleまたはYahooのメールアカウントとパスワード) が要求される場合があります。プロバイダーの指示に従ってアプリケーションのパスワードを生成し使用してください。",
       "tooltip": {
         "disabledEditButton": "メールアドレスを設定するのは必須です"
       },
       "edit": "編集",
       "enableLoginNotification": "カメラログイン通知を有効にする",
-      "senderName": "差出人情報",
-      "senderNamePlaceholder": "差出人名を入力してください",
-      "senderEmail": "メール",
+      "senderName": "差出人名",
+      "senderNamePlaceholder": "差出人の名前を入力してください",
+      "senderEmail": "差出人メールアドレス",
       "senderEmailPlaceholder": "差出人のメールアドレスを入力してください",
-      "interval": "通報間隔 (秒)",
+      "interval": "通知間隔 (秒)",
       "intervalPlaceholder": "秒数を入力してください",
       "intervalRange": "5 - 1800 秒",
       "toast": {
-        "emailSettingSuccess": "メールアドレス設定に成功しました",
-        "sendingTestEmail": "テストメールは発送されました",
-        "disablingOutgoingEmail": "SMTP送信を無効しました"
+        "emailSettingSuccess": "メールアドレス設定に成功しました"
       }
     }
   },
@@ -717,14 +715,14 @@
     },
     "title": "アカウントログイン",
     "username": "ユーザー名",
-    "usernamePlaceholder": "アカウントを入力してください",
+    "usernamePlaceholder": "ユーザー名を入力してください",
     "password": "パスワード",
     "passwordPlaceholder": "パスワードを入力してください",
     "login": "ログイン"
   },
   "home": {
     "deviceName": "デバイス名",
-    "analytics": "映像分析",
+    "analytics": "映像処理",
     "sdcard": "SDカード",
     "facialRecognition": "顔認証 : ",
     "on": "有効",
@@ -736,18 +734,18 @@
   "navigation": {
     "sidebar": {
       "tooltip": {
-        "home": "ホームページ",
-        "video": "映像",
+        "home": "ホーム",
+        "video": "ビデオ",
         "audio": "オーディオ",
         "notification": "通知",
         "userManagement": "ユーザー管理",
-        "analytics": "映像分析",
+        "analytics": "映像処理",
         "network": "ネットワーク",
         "system": "システム",
         "sdCard": "SDカード"
       },
-      "analyticsSettings": "知能分析",
-      "license": "映像分析ライセンス",
+      "analyticsSettings": "映像処理",
+      "license": "映像処理ライセンス",
       "audio": "オーディオ設定",
       "videoSettings": "ビデオ設定",
       "hdmi": "HDMI",
@@ -764,22 +762,22 @@
       "tcpip": "TCP/IP",
       "notificationSettings": "通知設定",
       "notificationMethod": "通知方法",
-      "inputAndOutput": "デジタル入力および出力",
+      "inputAndOutput": "デジタル入力およびデジタル出力",
       "email": "メール",
-      "io": "デジタル入力および出力",
+      "io": "I/O",
       "smartNotification": "スマート通知",
       "sdCardSettings": "SDカード",
       "basic": "",
       "storage": "",
       "facialRecognition": "顔認証",
-      "motionDetection": "動作検知",
+      "motionDetection": "動体検知",
       "system": "システム設定",
       "administration": "管理",
-      "dateTime": "日付と時間",
+      "dateTime": "日付と時刻",
       "status": "ステータス",
       "information": "デバイス情報",
       "deviceMaintenance": "メンテナンス",
-      "softwareUpgrade": "ソフトウェアアップグレード",
+      "softwareUpgrade": "アップグレード",
       "systemLog": "システムログ"
     },
     "appbar": {
@@ -791,17 +789,17 @@
       },
       "signOut": "ログアウト",
       "about": {
-        "modelName": "デバイス名",
+        "modelName": "モデル名",
         "software": "ソフトウェアバージョン",
-        "serialNumber": "デバイスシリアル番号",
+        "serialNumber": "シリアル番号",
         "macAddress": "MACアドレス",
-        "about": "情報"
+        "about": "デバイス情報"
       }
     }
   },
   "analytics": {
     "license": {
-      "time": "時間",
+      "time": "日時",
       "activatedBy": "有効にした者",
       "authenticationKey": "ライセンスキー",
       "activatedFunctions": "有効になった機能",
@@ -820,50 +818,50 @@
         "activationSuccessTitle": "アクティベーションが成功しました",
         "activationSuccessBody": "{{0}} 許可されました"
       },
-      "title": "映像分析ライセンス",
+      "title": "映像処理ライセンス",
       "keyPlaceholder": "ライセンスキーを入力してください",
-      "activate": "有効",
+      "activate": "有効化",
       "facialRecognition": "顔認証"
     },
     "facialRecognition": {
-      "detectionZone": "検知区域",
+      "detectionZone": "検知領域",
       "minDetectionSize": "最小検知顔サイズ",
       "title": "顔認証",
-      "enableFR": "顔認証を有効します",
-      "enableSpoof": "なりすまし防止機能を有効する",
+      "enableFR": "顔認証を有効にする",
+      "enableSpoof": "なりすまし防止機能を有効にする",
       "tooltip": {
         "frDisabled": "顔認証を無効になっています",
-        "detectionZoneToggle": "認証区域を表示/非表示にする"
+        "detectionZoneToggle": "検知領域を表示する/非表示にする"
       },
       "modal": {
         "spoofBody": "アルファ版の画像スプーフィングを有効にしてもよろしいですか？ アルファ版です。 画像のなりすましと判断された顔は認識されません。 今後のソフトウェアアップデートで、この機能を最適化および改善する予定です"
       },
-      "accuracyLevel": "認証成功閾",
+      "accuracyLevel": "認証レベル",
       "constants": {
         "confidence-level-0": "低",
         "confidence-level-1": "中",
         "confidence-level-2": "高"
       },
-      "detectionZoneHelper": "デフォルトはフルスクリーン",
-      "enableDetectionSize": "顔検知サイズフィルターを有効します",
+      "detectionZoneHelper": "デフォルトは画面全体",
+      "enableDetectionSize": "最小検知顔サイズフィルターを有効にする",
       "liveViewDisplay": "ライブ画面表示",
       "displayName": "メンバー名",
-      "displayGroup": "メンバーグループ",
+      "displayGroup": "グループ",
       "displayUnknown": "未登録者",
-      "displaySpoof": "なりすまし防止"
+      "displaySpoof": "なりすまし"
     },
     "motionDetection": {
-      "detectionZone": "検知区域",
-      "title": "動作検知",
-      "enableMD": "動作検知を有効します",
-      "mdHelper": "プレビューウィンドに検知エリアを追加してください",
+      "detectionZone": "検知領域",
+      "title": "動体検知",
+      "enableMD": "動体検知を有効にする",
+      "mdHelper": "プレビュー画面に検知領域を追加してください",
       "sensitivity": "感度",
-      "noteArea": "説明",
-      "note1": "エリアを追加する",
+      "noteArea": "操作について",
+      "note1": "検知領域を追加する",
       "drag": "ドラッグ",
-      "note2": "エリアを削除する",
+      "note2": "検知領域を削除する",
       "or": "or",
-      "note3": "検知エリアは最大四ヶ所まで設定可能です"
+      "note3": "検知領域は最大四ヶ所まで設定可能です"
     }
   },
   "audio": {
@@ -888,7 +886,7 @@
       "enableHTTPS": "HTTPSサービスを有効にする",
       "port": "ポート",
       "portHelper": "入力範囲：1024-65535 デフォルト：8443",
-      "certificate": "署名証明書",
+      "certificate": "デジタル証明書",
       "constants": {
         "manufacturer": "メーカー",
         "certificate-type-0": "{{0}} 自己署名証明書"
@@ -913,7 +911,7 @@
       "routerGatewayPlaceholder": "ゲートウェイを入力してください",
       "primaryDNS": "プライマリーDNS",
       "primaryDNSPlaceholder": "プライマリーDNSを入力してください",
-      "secondaryDNSOptional": "セカンダリーDNS (選択)",
+      "secondaryDNSOptional": "セカンダリーDNS (任意)",
       "secondaryDNSPlaceholder": "セカンダリーDNSを入力してください",
       "tooltip": {
         "noChanges": "変更がありません"
@@ -938,7 +936,7 @@
       "serviceProvider": "サービスプロバイダー",
       "hostName": "ホスト名",
       "hostNamePlaceholder": "DDNSホスト名を入力してください",
-      "account": "アカウント",
+      "account": "ユーザー名",
       "accountPlaceholder": "DDNSユーザー名を入力してください",
       "passwordPlaceholder": "DDNSパスワードを入力してください",
       "modal": {
@@ -960,9 +958,9 @@
   "setup": {
     "account": {
       "permission": "権限",
-      "account": "アカウント",
+      "account": "ユーザー名",
       "accountPlaceholder": "アカウント名を入力してください",
-      "accountHelper": "文字数1-32：大文字、小文字のアルファベット、数字、符号を混在するのは必須です。但し符号は# % & ` “ \\ / < >とスペースを使用できません",
+      "accountHelper": "文字数1-32：大文字、小文字のアルファベット、数字、記号を混在するのは必須です。但し記号は# % & ` “ \\ / < >とスペースを使用できません",
       "done": "完了しました"
     },
     "language": {
@@ -982,17 +980,17 @@
   "system": {
     "dateTime": {
       "modal": {
-        "apiProcessModalTitle": "日付＆時刻を更新",
+        "apiProcessModalTitle": "日付と時刻を更新",
         "confirmUpdateBody": "デバイス時刻を変更しますか？時刻を変更するためには再度ログインする必要があります"
       },
-      "title": "日付と時間",
-      "deviceDateTime": "デバイス時間",
+      "title": "日付と時刻",
+      "deviceDateTime": "デバイスの日付と時刻",
       "timeZone": "タイムゾーン",
-      "syncNTP": "ネットワークタイムサーバー (NTP)と同期する",
+      "syncNTP": "ネットワークタイムサーバーと同期する (NTP)",
       "ntpHost": "サーバーアドレス",
-      "hostPlaceholder": "Enter Your IP Address",
-      "syncTime": "時間同期",
-      "syncInterval": "更新頻度 (分)",
+      "hostPlaceholder": "NTPサーバーアドレスを入力します",
+      "syncTime": "同期する時刻",
+      "syncInterval": "同期する頻度 (分)",
       "syncWithComputer": "コンピューターと同期する",
       "setManually": "手動設定"
     },
@@ -1036,7 +1034,7 @@
       "restoreDefaultSettings": "設定を初期値に戻す",
       "restoreAllSettings": "設定を初期値に戻す",
       "tooltip": {
-        "restoreAllSettingsHelper": "本項目をチェックすると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります"
+        "restoreAllSettingsHelper": "初期化すると、メンバー、グループ、システムアカウント、フォーカスおよびズーム設定、RTSP設定、ネットワーク、app設定、SDカードのデータなどすべてのデータと設定を削除し、出荷時の設定に戻ります"
       },
       "reset": "初期化",
       "title": "メンテナンス"
@@ -1064,7 +1062,7 @@
     }
   },
   "documentTitle": {
-    "home": "ホームページ",
+    "home": "ホーム",
     "videoSettings": "ビデオ設定",
     "streams": "ストリーム",
     "privacyMask": "プライバシーマスク",
@@ -1074,12 +1072,12 @@
     "audio": "オーディオ",
     "notification": "通知",
     "email": "メール",
-    "io": "デジタル入力および出力",
+    "io": "I/O",
     "smartNotification": "スマート通知",
-    "analyticsSettings": "知能分析",
+    "analyticsSettings": "映像処理",
     "facialRecognition": "顔認証",
-    "motionDetection": "動作検知",
-    "license": "映像分析ライセンス",
+    "motionDetection": "動体検知",
+    "license": "映像処理ライセンス",
     "userManagement": "ユーザー管理",
     "members": "メンバー",
     "newMember": "メンバーを追加する",
@@ -1091,8 +1089,8 @@
     "tcpip": "TCP/IP",
     "https": "HTTPS",
     "system": "システム",
-    "dateTime": "日付と時間",
-    "softwareUpgrade": "ソフトウェアアップグレード",
+    "dateTime": "日付と時刻",
+    "softwareUpgrade": "アップグレード",
     "deviceMaintenance": "メンテナンス",
     "sdCardSettings": "",
     "sdCardStorage": "",

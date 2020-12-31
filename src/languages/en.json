@@ -26,7 +26,7 @@
       "password": "Password",
       "newPassword": "New Password",
       "newPasswordPlaceholder": "Enter a new password",
-      "passwordHelper": "8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, \", \\, /, <, > and space",
+      "passwordHelper": "8-16 characters: at least one uppercase and lowercase letter, number, and symbol excluding #, %, &, `, \", \\, /, <, >, and space",
       "confirmNewPassword": "Confirm New Password",
       "confirmNewPasswordPlaceholder": "Enter the new password again",
       "passwordPlaceholder": "Enter a password",
@@ -210,7 +210,7 @@
       "status": "Status",
       "actions": "Actions",
       "noDevice": "Please click the 'Add' first to add a new device to your list",
-      "searchPlaceholder": "Enter Keywords",
+      "searchPlaceholder": "Enter keywords",
       "search": "Search",
       "title": "Members",
       "allMembers": "All Members",
@@ -227,7 +227,7 @@
         "settingSuccessBody": "Photo Has Been Added to {{0}}"
       },
       "addExistingMember": "Add to an Existing Member",
-      "searchPlaceholder": "Enter Keywords",
+      "searchPlaceholder": "Enter keywords",
       "search": "Search",
       "userPicture": "User Picture",
       "name": "Name",
@@ -282,9 +282,7 @@
       "username": "Username",
       "modal": {
         "usernamePlaceholder": "Enter a name for this account",
-        "modifyUserTitle": "Modify User",
-        "newUserTitle": "New User",
-        "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
+        "usernameHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, >, and space",
         "confirmDeleteTitle": "Delete Account",
         "confirmDeleteBody": "Are you sure you want to delete account {{0}}?"
       },
@@ -411,8 +409,8 @@
       "disabledNotificationButton": "Please enable Outgoing Email first."
     },
     "modal": {
-      "disabledFormatButton": "Are you sure you want to format the Micro SD card?",
-      "disabledUnmountButton": "Are you sure you want to unmount the Micro SD card?",
+      "disabledFormatButton": "Are you sure you want to format the SD card?",
+      "disabledUnmountButton": "Are you sure you want to unmount the SD card?",
       "disableTitle": "Disabling SD Card",
       "disableBody": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?"
     },
@@ -480,7 +478,7 @@
     "stringContainsLowerCaseLatter": "This field must contain at least one lowercase letter.",
     "stringContainsUpperCaseLatter": "This field must contain at least one uppercase letter.",
     "stringContainsNumber": "This field must contain at least one number.",
-    "stringAbortSpecialCharacters": "This field cannot contain these symbols: #, %, &, `, \", \\, <, >, and space.",
+    "stringAbortSpecialCharacters": "This field cannot contain these symbols: #, %, &, `, \", \\, /, <, >, and space.",
     "stringAcceptSpecialCharacters": "This field must contain at least one symbol.",
     "birthday": "This field must be a valid birthday.",
     "countryCode": "This field must be a valid country code.",
@@ -565,8 +563,8 @@
       "maskArea": "Mask Area",
       "title": "Privacy Mask",
       "enable": "Enable Privacy Mask",
-      "maskHelper": "Create mask areas on the preview window.",
-      "note": "Note Area",
+      "maskHelper": "Create mask areas on the live view screen.",
+      "note": "Note",
       "noteText1": "To set a mask:",
       "drag": "Drag",
       "noteText2": "To erase a mask:",
@@ -589,7 +587,7 @@
       "constants": {
         "notification-card-0": "Facial Recognition",
         "notification-card-1": "Age Gender",
-        "notification-card-2": "Humanoid Detection",
+        "notification-card-2": "Human Detection",
         "notification-card-3": "Motion Detection",
         "notification-card-4": "Tamper Alarm",
         "notification-card-5": "Digital Input",
@@ -763,7 +761,7 @@
       "network": "Network",
       "tcpip": "TCP/IP",
       "notificationSettings": "Notification Settings",
-      "notificationMethod": "Notification Method",
+      "notificationMethod": "Method",
       "inputAndOutput": "Input & Output",
       "email": "Email",
       "io": "I/O",
@@ -778,8 +776,8 @@
       "dateTime": "Date & Time",
       "status": "Status",
       "information": "Information",
-      "deviceMaintenance": "Device Maintenance",
-      "softwareUpgrade": "Software Upgrade",
+      "deviceMaintenance": "Maintenance",
+      "softwareUpgrade": "Upgrade",
       "systemLog": "System Log"
     },
     "appbar": {
@@ -858,7 +856,7 @@
       "enableMD": "Enable Motion Detection",
       "mdHelper": "Create detection zones on the live view screen.",
       "sensitivity": "Sensitivity",
-      "noteArea": "Note Area",
+      "noteArea": "Note ",
       "note1": "To set a zone:",
       "drag": "Drag",
       "note2": "To erase a zone:",
@@ -908,9 +906,9 @@
       "fixedIPAddress": "Fixed IP Address",
       "ipAddressPlaceholder": "Enter a fixed IP address",
       "subnetMask": "Subnet Mask",
-      "subnetMaskPlaceholder": "Enter Subnet Mask",
+      "subnetMaskPlaceholder": "Enter subnet mask",
       "routerGateway": "Router/Gateway",
-      "routerGatewayPlaceholder": "Enter Router/Gateway",
+      "routerGatewayPlaceholder": "Enter router/gateway",
       "primaryDNS": "Primary DNS",
       "primaryDNSPlaceholder": "Enter a primary DNS",
       "secondaryDNSOptional": "Secondary DNS (Optional)",
@@ -937,10 +935,10 @@
       "enableDDNS": "Enable DDNS",
       "serviceProvider": "Service Provider",
       "hostName": "Host Name",
-      "hostNamePlaceholder": "Enter DDNS host name.",
+      "hostNamePlaceholder": "Enter DDNS host name",
       "account": "Account",
-      "accountPlaceholder": "Enter DDNS username.",
-      "passwordPlaceholder": "Enter DDNS password.",
+      "accountPlaceholder": "Enter DDNS username",
+      "passwordPlaceholder": "Enter DDNS password",
       "modal": {
         "apiProcessModalTitle": "Updating HTTP Settings"
       },
@@ -962,7 +960,7 @@
       "permission": "Permission",
       "account": "Username",
       "accountPlaceholder": "Enter a name for this account",
-      "accountHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, > and space",
+      "accountHelper": "1-32 characters: letters, numbers and symbols excluding #, %, &, `, \", \\, /, <, >, and space",
       "done": "Done"
     },
     "language": {
@@ -970,7 +968,7 @@
     },
     "progressBar": {
       "language": "Langauge",
-      "setupAccount": "Setup Account"
+      "setupAccount": "Account Setup "
     },
     "welcome": {
       "welcome": "Welcome",
@@ -990,7 +988,7 @@
       "timeZone": "Time Zone",
       "syncNTP": "Sync with Network Time Server (NTP)",
       "ntpHost": "Host Name or IP Address",
-      "hostPlaceholder": "Enter Your IP Address",
+      "hostPlaceholder": "Enter NTP server address",
       "syncTime": "Sync Time",
       "syncInterval": "Sync Interval (minutes)",
       "syncWithComputer": "Sync with Your Computer",
@@ -1092,15 +1090,15 @@
     "https": "HTTPS",
     "system": "System",
     "dateTime": "Date & Time",
-    "softwareUpgrade": "Software Upgrade",
-    "deviceMaintenance": "Device Maintenance",
+    "softwareUpgrade": "Upgrade",
+    "deviceMaintenance": "Maintenance",
     "sdCardSettings": "SD Card Settings",
     "sdCardStorage": "Storage",
     "systemLog": "System Log",
     "information": "Information",
     "welcome": "Welcome",
     "language": "Language",
-    "setupAccount": "Setup Account",
+    "setupAccount": "Account Setup ",
     "login": "Login",
     "loginError": "Login Error",
     "loginLocked": "Login Locked"

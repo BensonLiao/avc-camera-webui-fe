@@ -26,7 +26,7 @@
       "password": "密碼",
       "newPassword": "新密碼",
       "newPasswordPlaceholder": "輸入新密碼",
-      "passwordHelper": "8 - 16個字: 必須包含英文大寫和小寫字元, 數字和符號, 但符號不能為 # % & ` “ \\ / < > 和空白",
+      "passwordHelper": "8 - 16個字：必須包含英文大寫和小寫字元, 數字和符號, 但符號不能為 # % & ` “ \\ / < > 和空白",
       "confirmNewPassword": "確認新密碼",
       "confirmNewPasswordPlaceholder": "再次輸入新密碼",
       "passwordPlaceholder": "輸入密碼",
@@ -411,8 +411,8 @@
       "disabledNotificationButton": "必須設定電子郵件"
     },
     "modal": {
-      "disabledFormatButton": "您即將格式化 Micro SD 卡，確認是否繼續？",
-      "disabledUnmountButton": "您即將卸除 Micro SD 卡，確認是否繼續？",
+      "disabledFormatButton": "您即將格式化SD卡，確認是否繼續？",
+      "disabledUnmountButton": "您即將卸除SD卡，確認是否繼續？",
       "disableTitle": "關閉記憶卡",
       "disableBody": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存"
     },
@@ -480,7 +480,7 @@
     "stringContainsLowerCaseLatter": "必須包含小寫英文字母",
     "stringContainsUpperCaseLatter": "必須包含大寫英文字母",
     "stringContainsNumber": "必須包含數字",
-    "stringAbortSpecialCharacters": "禁用全形或半形符號: # % & ` “ \\ / < > 和空白",
+    "stringAbortSpecialCharacters": "禁用全形或半形符號：# % & ` “ \\ / < > 和空白",
     "stringAcceptSpecialCharacters": "必須包含符號",
     "birthday": "請使用正確的生日格式",
     "countryCode": "國家代碼錯誤",
@@ -960,7 +960,7 @@
   "setup": {
     "account": {
       "permission": "權限",
-      "account": "帳號",
+      "account": "名稱",
       "accountPlaceholder": "輸入帳號名稱",
       "accountHelper": "1-32個字：可包含字母、數字以及符號，但符號不能為 # % & ` “ \\ / < >跟空白",
       "done": "完成"
@@ -990,7 +990,7 @@
       "timeZone": "時區",
       "syncNTP": "與網路時間伺服器 (NTP) 同步",
       "ntpHost": "伺服器位址",
-      "hostPlaceholder": "Enter Your IP Address",
+      "hostPlaceholder": "輸入NTP伺服器位址",
       "syncTime": "每日更新時刻",
       "syncInterval": "更新頻率 (分)",
       "syncWithComputer": "與您的電腦同步",
