@@ -6,6 +6,7 @@ import React from 'react';
 import api from '../../../core/apis/web-api';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
+import i18nUtils from '../../../i18n/utils';
 import outputIcon from '../../../resource/icon-output-40px.svg';
 import utils from '../../../core/utils';
 import ErrorDisplay from '../../../core/components/error-display';
@@ -67,7 +68,7 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
             <tbody>
               <tr>
                 <th>{i18n.t('notification.cards.analytics')}</th>
-                <td>{utils.getNotificationCardTypeI18N(card.type, <ErrorDisplay/>)}</td>
+                <td>{i18nUtils.getNotificationCardTypeI18N(card.type, <ErrorDisplay/>)}</td>
               </tr>
               {
                 card.timePeriods.map((timePeriod, index) => {
@@ -83,7 +84,7 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
               }
               <tr>
                 <th>{i18n.t('notification.cards.rule')}</th>
-                <td>{utils.getNotificationFRConditionI18N(card.faceRecognitionCondition, <ErrorDisplay/>)}</td>
+                <td>{i18nUtils.getNotificationFRConditionI18N(card.faceRecognitionCondition, <ErrorDisplay/>)}</td>
               </tr>
             </tbody>
           </table>

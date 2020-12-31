@@ -2,7 +2,7 @@ const axios = require('axios');
 const constants = require('../constants');
 const store = require('../store');
 const notify = require('../notify');
-const utils = require('../utils');
+const i18nUtils = require('../../i18n/utils');
 
 try {
   // This module will be ignored when `env.disablemockserver` is true.
@@ -59,7 +59,7 @@ module.exports = config => {
           notify.showErrorNotification({
             title: `Error ${error.response.status}` || null,
             message: error.response.status === 400 ?
-              utils.getApiErrorMessageI18N(error.response.data.message || null) :
+              i18nUtils.getApiErrorMessageI18N(error.response.data.message || null) :
               null
           });
         } else if (error.request) {

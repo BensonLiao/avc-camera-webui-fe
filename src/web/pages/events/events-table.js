@@ -7,6 +7,7 @@ import RecognitionType from 'webserver-form-schema/constants/event-filters/recog
 import NTPTimeZoneList from 'webserver-form-schema/constants/system-sync-time-ntp-timezone-list';
 import SyncTimeOption from 'webserver-form-schema/constants/system-sync-time';
 import i18n from '../../../i18n';
+import i18nUtils from '../../../i18n/utils';
 import CustomTooltip from '../../../core/components/tooltip';
 import utils from '../../../core/utils';
 import ErrorDisplay from '../../../core/components/error-display';
@@ -169,7 +170,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                   ))}
                   <td>
                     {event.confidences && event.recognitionType !== RecognitionType.fake ?
-                      utils.getEventConfidenceI18N(event.confidences.similarity, <ErrorDisplay/>) :
+                      i18nUtils.getEventConfidenceI18N(event.confidences.similarity, <ErrorDisplay/>) :
                       '-'}
                   </td>
                   <td>
@@ -180,7 +181,7 @@ const EventsTable = ({params, events, filterHandler, addMemberHandler, modifyMem
                         {'badge-warning': event.recognitionType === RecognitionType.fake}
                       )}
                       >
-                        {utils.getEventRecognitionTypeI18N(event.recognitionType, <ErrorDisplay/>)}
+                        {i18nUtils.getEventRecognitionTypeI18N(event.recognitionType, <ErrorDisplay/>)}
                       </span>
                     </CustomTooltip>
                   </td>

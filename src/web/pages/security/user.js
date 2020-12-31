@@ -9,6 +9,7 @@ const UserSchema = require('webserver-form-schema/user-schema');
 const UserPermission = require('webserver-form-schema/constants/user-permission');
 const Base = require('../shared/base');
 const i18n = require('../../../i18n').default;
+const i18nUtils = require('../../../i18n/utils');
 const UserValidator = require('../../validations/users/user-validator');
 const NewUserValidator = require('../../validations/users/new-user-validator');
 const utils = require('../../../core/utils');
@@ -144,7 +145,7 @@ module.exports = class User extends Base {
                   {UserPermission.all().map(permission => {
                     return (permission !== UserPermission.superAdmin && permission !== UserPermission.viewer) && (
                       <option key={permission} value={permission}>
-                        {utils.getAccountPermissonI18N(permission)}
+                        {i18nUtils.getAccountPermissonI18N(permission)}
                       </option>
                     );
                   })}

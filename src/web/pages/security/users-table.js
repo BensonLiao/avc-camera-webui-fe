@@ -7,7 +7,7 @@ import UserPermission from 'webserver-form-schema/constants/user-permission';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
-import utils from '../../../core/utils';
+import i18nUtils from '../../../i18n/utils';
 import i18n from '../../../i18n';
 import {useContextState} from '../../stateProvider';
 import ErrorDisplay from '../../../core/components/error-display';
@@ -68,7 +68,7 @@ const UsersTable = ({permissionFilter, users}) => {
                           (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest'
                         )}
                       >
-                        {utils.getAccountPermissonI18N(user.permission, <ErrorDisplay/>)}
+                        {i18nUtils.getAccountPermissonI18N(user.permission, <ErrorDisplay/>)}
                       </span>
                     </td>
                     <td className={tdClass}>{user.account}</td>
