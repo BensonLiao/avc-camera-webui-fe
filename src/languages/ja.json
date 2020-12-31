@@ -882,6 +882,7 @@
       "portHelper": "入力範囲：1024-65535 デフォルト：8443",
       "certificate": "署名証明書",
       "constants": {
+        "manufacturer": "メーカー",
         "certificate-type-0": "{{0}} 自己署名証明書"
       },
       "tooltip": {

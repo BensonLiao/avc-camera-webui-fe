@@ -882,6 +882,7 @@
       "portHelper": "Rango: 1024-65535, preestablecido: 8443",
       "certificate": "Certificate",
       "constants": {
+        "manufacturer": "Fabricante",
         "certificate-type-0": "{{0}} Certificado autofirmado"
       },
       "tooltip": {

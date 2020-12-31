@@ -882,6 +882,7 @@
       "portHelper": "Range: 1024-65535 Default: 8443",
       "certificate": "Certificate",
       "constants": {
+        "manufacturer": "Manufacturer",
         "certificate-type-0": "{{0}} Self-signed"
       },
       "tooltip": {

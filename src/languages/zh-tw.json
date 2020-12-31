@@ -882,6 +882,7 @@
       "portHelper": "範圍：1024-65535，預設：8443",
       "certificate": "憑證",
       "constants": {
+        "manufacturer": "製造商",
         "certificate-type-0": "{{0}} 自簽憑證"
       },
       "tooltip": {

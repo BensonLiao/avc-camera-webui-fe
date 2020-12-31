@@ -95,7 +95,6 @@
   "network": {
     "https": {
       "constants": {
-        "manufacturer": "メーカー",
         "certificate-type-1": "署名証明書をアップロードする",
         "certificate-type-2": "本デバイスの署名証明書を生成する"
       }

@@ -106,7 +106,6 @@
   "network": {
     "https": {
       "constants": {
-        "manufacturer": "Manufacturer",
         "certificate-type-1": "Upload Certificate",
         "certificate-type-2": "Generate Certificate on This Device"
       }
