@@ -22,8 +22,7 @@ import SDCardStorageSearchForm from './sd-card-storage-search-form';
 import dayjs from 'dayjs';
 const ITEMS_PER_PAGE = 10;
 
-const SDCardStorage = ({storage: {files, date}, dateList}) => {
-  console.log('dateList', dateList);
+const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [page, setPage] = useState(0);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
@@ -159,8 +158,8 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
   }, [page]);
 
   return (
-    <div className="main-content left-menu-active">
-      <div className="section-media bg-white">
+    <div className="main-content left-menu-active bg-white">
+      <div className="section-media">
         <div className="container-fluid">
           <div className="row">
             <BreadCrumb
@@ -181,6 +180,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                       <SDCardStorageSearchForm
                         generatePaginatedCheckList={generatePaginatedCheckList}
                         initialSearchCondition={{date: currentDate}}
+                        availableDates={availableDates}
                         setCurrentDate={setCurrentDate}
                         updateSearchResult={values => form.setValues(values)}
                       />
@@ -192,10 +192,10 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                               type="button"
                               disabled={disableButton}
                               style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                              onClick={confirmDelete()}
+                              onClick={() => downloadFiles(form.values)}
                             >
-                              <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
-                              {i18n.t('sdCard.storage.button.remove')}
+                              <i className="fas fa-download mr-2"/>
+                              {i18n.t('sdCard.storage.button.download')}
                             </button>
                           </div>
                         </CustomTooltip>
@@ -206,10 +206,10 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                               type="button"
                               disabled={disableButton}
                               style={{pointerEvents: disableButton ? 'none' : 'auto'}}
-                              onClick={() => downloadFiles(form.values)}
+                              onClick={confirmDelete()}
                             >
-                              <i className="fas fa-download mr-2"/>
-                              {i18n.t('sdCard.storage.button.download')}
+                              <i className="far fa-trash-alt fa-lg fa-fw mr-2"/>
+                              {i18n.t('sdCard.storage.button.remove')}
                             </button>
                           </div>
                         </CustomTooltip>
@@ -259,11 +259,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                                       <label htmlFor={pageData.path}/>
                                     </td>
                                     <td>
-                                      <CustomTooltip placement="top-start" title={pageData.ip}>
-                                        <div>
-                                          {currentDate.format(SDCARD_STORAGE_DATE_FORMAT.DISPLAY)}
-                                        </div>
-                                      </CustomTooltip>
+                                      {currentDate.format(SDCARD_STORAGE_DATE_FORMAT.DISPLAY)}
                                     </td>
                                     <td>
                                       <CustomTooltip placement="top-start" title={pageData.name}>
@@ -273,11 +269,7 @@ const SDCardStorage = ({storage: {files, date}, dateList}) => {
                                       </CustomTooltip>
                                     </td>
                                     <td>
-                                      <CustomTooltip placement="top-start" title={pageData.bytes}>
-                                        <div>
-                                          {filesize(pageData.bytes)}
-                                        </div>
-                                      </CustomTooltip>
+                                      {filesize(pageData.bytes)}
                                     </td>
                                     <td className="text-left group-btn">
                                       <button
@@ -377,7 +369,10 @@ SDCardStorage.propTypes = {
       path: PropTypes.string,
       type: PropTypes.string
     })).isRequired,
-    date: PropTypes.instanceOf(Date, dayjs).isRequired
+    date: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.instanceOf(dayjs)
+    ]).isRequired
   }),
   dateList: PropTypes.arrayOf(PropTypes.string).isRequired
 };

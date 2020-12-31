@@ -14,6 +14,7 @@ import {useContextState} from '../../stateProvider';
 const SDCardStorageSearchForm = ({
   generatePaginatedCheckList,
   initialSearchCondition,
+  availableDates,
   setCurrentDate,
   updateSearchResult
 }) => {
@@ -62,6 +63,7 @@ const SDCardStorageSearchForm = ({
                 placeholder: i18n.t('common.dateTimePicker.startTime'),
                 style: {whiteSpace: 'nowrap'}
               }}
+              availableDates={availableDates}
               isShowPicker={isShowStartDatePicker}
               onClickInput={toggleStartDatePicker}
               onHide={onHideStartDatePicker}
@@ -82,7 +84,13 @@ const SDCardStorageSearchForm = ({
 
 SDCardStorageSearchForm.propTypes = {
   generatePaginatedCheckList: PropTypes.func.isRequired,
-  initialSearchCondition: PropTypes.shape({date: PropTypes.instanceOf(Date, dayjs).isRequired}).isRequired,
+  initialSearchCondition: PropTypes.shape({
+    date: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.instanceOf(dayjs)
+    ]).isRequired
+  }).isRequired,
+  availableDates: PropTypes.arrayOf(PropTypes.string),
   setCurrentDate: PropTypes.func.isRequired,
   updateSearchResult: PropTypes.func.isRequired
 };

@@ -25,12 +25,18 @@ module.exports = class DatePicker extends React.PureComponent {
       timeFormat: PropTypes.string,
       field: PropTypes.shape({
         name: PropTypes.string.isRequired,
-        value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string, PropTypes.number])
+        value: PropTypes.oneOfType([
+          PropTypes.instanceOf(Date),
+          PropTypes.instanceOf(dayjs),
+          PropTypes.string,
+          PropTypes.number
+        ])
       }).isRequired,
       form: PropTypes.shape({
         setFieldValue: PropTypes.func.isRequired,
         values: PropTypes.object.isRequired
       }).isRequired,
+      availableDates: PropTypes.arrayOf(PropTypes.string),
       startDateFieldName: PropTypes.string,
       endDateFieldName: PropTypes.string,
       isShowPicker: PropTypes.bool,
@@ -48,6 +54,7 @@ module.exports = class DatePicker extends React.PureComponent {
       timeTabText: undefined,
       timeFormat: 'HH:mm',
       isShowPicker: false,
+      availableDates: undefined,
       startDateFieldName: '',
       endDateFieldName: ''
     };
@@ -614,6 +621,7 @@ module.exports = class DatePicker extends React.PureComponent {
     const {
       field,
       form: {values},
+      availableDates,
       endDateFieldName,
       startDateFieldName
     } = this.props;
@@ -706,6 +714,12 @@ module.exports = class DatePicker extends React.PureComponent {
                           isDateDisabled = dayjs(item.date).isBefore(dayjs(startDate), 'date');
                         } else if (endDate) {
                           isDateDisabled = dayjs(item.date).isAfter(dayjs(endDate), 'date');
+                        } else if (availableDates) {
+                          isDateDisabled = !availableDates.some(date => {
+                            return dayjs(date).date() === dayjs(item.date).date() &&
+                              dayjs(date).month() === dayjs(item.date).month() &&
+                              dayjs(date).year() === dayjs(item.date).year();
+                          });
                         }
 
                         if (item.isDisplayMonth && !isDateDisabled) {
