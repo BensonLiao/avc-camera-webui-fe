@@ -82,7 +82,12 @@ const SDCardStorageSearchForm = ({
 
 SDCardStorageSearchForm.propTypes = {
   generatePaginatedCheckList: PropTypes.func.isRequired,
-  initialSearchCondition: PropTypes.shape({date: PropTypes.instanceOf(Date, dayjs).isRequired}).isRequired,
+  initialSearchCondition: PropTypes.shape({
+    date: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.instanceOf(dayjs)
+    ]).isRequired
+  }).isRequired,
   setCurrentDate: PropTypes.func.isRequired,
   updateSearchResult: PropTypes.func.isRequired
 };

@@ -377,7 +377,10 @@ SDCardStorage.propTypes = {
       path: PropTypes.string,
       type: PropTypes.string
     })).isRequired,
-    date: PropTypes.instanceOf(Date, dayjs).isRequired
+    date: PropTypes.oneOfType([
+      PropTypes.instanceOf(Date),
+      PropTypes.instanceOf(dayjs)
+    ]).isRequired
   }),
   dateList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
