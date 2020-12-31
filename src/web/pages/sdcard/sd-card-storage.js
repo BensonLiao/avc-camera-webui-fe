@@ -158,8 +158,8 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
   }, [page]);
 
   return (
-    <div className="main-content left-menu-active">
-      <div className="section-media bg-white">
+    <div className="main-content left-menu-active bg-white">
+      <div className="section-media">
         <div className="container-fluid">
           <div className="row">
             <BreadCrumb
