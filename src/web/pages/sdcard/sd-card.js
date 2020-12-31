@@ -50,6 +50,7 @@ const SDCard = ({
   };
 
   const callApi = (apiFunction, value = '') => {
+    localStorage.setItem('sdCurrentTab', currentTab);
     progress.start();
     api.system[apiFunction](value)
       .then(getRouter().reload)
