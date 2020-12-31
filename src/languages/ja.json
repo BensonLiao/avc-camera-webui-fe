@@ -18,7 +18,7 @@
       "off": "OFF",
       "resetDefault": "リセットしてデフォルト設定へ戻す",
       "apply": "適用",
-      "create": "追加"
+      "create": "新規"
     },
     "password": {
       "hidePassword": "パスワードを非表示にする",
