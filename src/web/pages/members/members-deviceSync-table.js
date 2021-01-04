@@ -4,14 +4,10 @@ import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
-import {formatDate} from '../../../core/utils';
 import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
 import noDevice from '../../../resource/noDevice.png';
-import ProgressIndicator from '../../../core/components/progress-indicator';
-import ConnectionStatusSchema from 'webserver-form-schema/constants/members-device-connection-status';
-import MasterSyncStatusSchema from 'webserver-form-schema/constants/members-master-sync-status';
-import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
+import DeviceSyncTableStatus from './members-deviceSync-table-status';
 
 const DeviceSyncTable = ({
   devices,
@@ -95,87 +91,6 @@ const DeviceSyncTable = ({
     }
   }, [page]);
 
-  /**
-   * Conditional render for device status
-   * @param {Object} device
-   * @returns {JSX}
-   */
-  const renderStatus = device => {
-    // Check if sync is ongoing
-    if (device.syncStatus && syncStatus === MasterSyncStatusSchema.syncOngoing) {
-      switch (device.syncStatus) {
-        default: return;
-        case DeviceSyncStatusSchema.syncOngoing:
-          // Ongoing sync
-          return (
-            <div className="d-flex align-items-center">
-              <ProgressIndicator
-                isDetermined={false}
-                status="start"
-                className="ml-0 mr-2"
-              />
-              <span>{i18n.t('userManagement.members.syncing')}</span>
-            </div>
-          );
-        case DeviceSyncStatusSchema.syncFinished:
-          // Sync finished
-          return (
-            <div className="d-flex align-items-center">
-              <i className="fas fa-lg fa-check-circle mr-2"/>
-              <span>{i18n.t('userManagement.members.done')}</span>
-            </div>
-          );
-        case DeviceSyncStatusSchema.syncAbnormal:
-          // Sync failed
-          return (
-            <div className="d-flex align-items-center">
-              <i className="fas fa-lg fa-times-circle mr-2"/>
-              <span>{i18n.t('userManagement.members.failed')}</span>
-            </div>
-          );
-      }
-    } else {
-      // Show failed if last update failed
-      if (device.syncStatus === DeviceSyncStatusSchema.syncAbnormal) {
-        return (
-          <div className="d-flex align-items-center">
-            <i className="fas fa-lg fa-times-circle mr-2"/>
-            <span>{i18n.t('userManagement.members.failed')}</span>
-          </div>
-        );
-      }
-
-      // Display last synced time if lastUpdateTime is not 0
-      if (device.lastUpdateTime) {
-        return (
-          <CustomTooltip title={formatDate(device.lastUpdateTime)}>
-            <span>
-              <i className="fas fa-lg fa-check-circle mr-2"/>
-              {i18n.t('userManagement.members.lastUpdated') + ': ' + formatDate(device.lastUpdateTime)}
-            </span>
-          </CustomTooltip>
-        );
-      }
-
-      // Device has not been synced at all - show if initial device linking was successful
-      switch (device.connectionStatus) {
-        default: return;
-        case ConnectionStatusSchema.connectionSuccess:
-          return (
-            <CustomTooltip title={i18n.t('userManagement.members.tooltip.connected')}>
-              <i className="fas fa-lg fa-link"/>
-            </CustomTooltip>
-          );
-        case ConnectionStatusSchema.connectionFail:
-          return (
-            <CustomTooltip title={i18n.t('userManagement.members.tooltip.notConnected')}>
-              <i className="fas fa-lg fa-unlink"/>
-            </CustomTooltip>
-          );
-      }
-    }
-  };
-
   return (
     <>
       <div className="col-12 pt-4 mb-5 table-responsive">
@@ -236,7 +151,10 @@ const DeviceSyncTable = ({
                       </td>
                       <td>
                         <div>
-                          {renderStatus(device)}
+                          <DeviceSyncTableStatus
+                            device={device}
+                            syncStatus={syncStatus}
+                          />
                         </div>
                       </td>
                       <td className="text-left group-btn">
