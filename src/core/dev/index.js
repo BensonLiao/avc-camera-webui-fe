@@ -724,9 +724,12 @@ mockAxios
   .onPost('/api/members/database').reply(config => setDelay(mockResponseWithLog(config, [204]), 2000))
   .onGet('/api/members/device-sync').reply(config => mockResponseWithLog(config, [200, db.get('deviceSync').value()]))
   .onPut(/api\/members\/device-sync\/[0-9]+$/).reply(config => {
-    const deviceID = config.url.replace('/api/members/device-sync/', '');
-    const newItem = JSON.parse(config.data);
-    return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').find({id: deviceID}).assign(newItem).write()]), 500);
+    const deviceID = Number(config.url.replace('/api/members/device-sync/', ''));
+    const {password, ...deviceData} = JSON.parse(config.data);
+    return setDelay(mockResponseWithLog(config, [200, db.get('deviceSync.devices').find({id: deviceID}).assign({
+      ...deviceData,
+      port: Number(deviceData.port)
+    }).write()]), 500);
   })
   .onPost('/api/members/device-sync').reply(config => {
     const list = db.get('deviceSync.devices').value();
