@@ -35,6 +35,7 @@ const SDCard = ({
   const [currentTab, setCurrentTab] = useState(localStorage.getItem('sdCurrentTab') || 'tab-sdcard-operation');
 
   useEffect(() => {
+    // clear current tab so when user navigates back it doesn't stay as other tab
     localStorage.removeItem('sdCurrentTab');
   }, []);
 
@@ -43,6 +44,7 @@ const SDCard = ({
   };
 
   const callApi = (apiFunction, value = '') => {
+    // remember current tab to prevent jumping back to initial tab on reload
     localStorage.setItem('sdCurrentTab', currentTab);
     progress.start();
     api.system[apiFunction](value)
