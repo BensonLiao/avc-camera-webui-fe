@@ -243,11 +243,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                 formRef={formRef}
                 page={page}
                 confirmDelete={confirmDelete}
-                isShowConfirmModal={isShowConfirmModal}
-                hideConfirmModal={hideConfirmModal}
                 editDeviceHandler={editDeviceHandler}
-                deleteDevice={deleteDevice}
-                deleteDeviceID={deleteDeviceID}
               />
               <Pagination
                 name="page"
@@ -257,6 +253,15 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                 currentPageItemQuantity={deviceList[page] ? deviceList[page].length : 0}
                 hrefTemplate=""
                 setPageIndexState={setPage}
+              />
+              {/* Delete confirmation */}
+              <CustomNotifyModal
+                backdrop="static"
+                isShowModal={isShowConfirmModal}
+                modalTitle={i18n.t('userManagement.members.modal.deviceSync.confirmDeleteTitle')}
+                modalBody={i18n.t('userManagement.members.modal.deviceSync.confirmDeleteBody')}
+                onHide={hideConfirmModal}
+                onConfirm={deleteDevice(deleteDeviceID ? deleteDeviceID : form.values)}
               />
             </Form>
           );

@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import {Field} from 'formik';
 import React, {useState, useRef, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
-import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
 import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
@@ -17,11 +16,7 @@ const DeviceSyncTable = ({
   formRef,
   page,
   confirmDelete,
-  isShowConfirmModal,
-  hideConfirmModal,
-  editDeviceHandler,
-  deleteDevice,
-  deleteDeviceID
+  editDeviceHandler
 }) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const selectAllRef = useRef();
@@ -197,15 +192,6 @@ const DeviceSyncTable = ({
           </tbody>
         </table>
       </div>
-      {/* Delete confirmation */}
-      <CustomNotifyModal
-        backdrop="static"
-        isShowModal={isShowConfirmModal}
-        modalTitle={i18n.t('userManagement.members.modal.deviceSync.confirmDeleteTitle')}
-        modalBody={i18n.t('userManagement.members.modal.deviceSync.confirmDeleteBody')}
-        onHide={hideConfirmModal}
-        onConfirm={deleteDevice(deleteDeviceID ? deleteDeviceID : form.values)}
-      />
     </>
   );
 };
@@ -218,11 +204,7 @@ DeviceSyncTable.propTypes = {
   formRef: PropTypes.object.isRequired,
   page: PropTypes.number.isRequired,
   confirmDelete: PropTypes.func.isRequired,
-  isShowConfirmModal: PropTypes.bool.isRequired,
-  hideConfirmModal: PropTypes.func.isRequired,
-  editDeviceHandler: PropTypes.func.isRequired,
-  deleteDevice: PropTypes.func.isRequired,
-  deleteDeviceID: PropTypes.func
+  editDeviceHandler: PropTypes.func.isRequired
 };
 
 export default DeviceSyncTable;
