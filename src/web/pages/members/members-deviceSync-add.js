@@ -102,12 +102,20 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
           </Modal.Title>
         </Modal.Header>
         <Formik
-          initialValues={device || {
-            ip: '',
-            port: '',
-            account: '',
-            password: ''
-          }}
+          initialValues={device ?
+            (
+              {
+                ...device,
+                password: ''
+              }
+            ) : (
+              {
+                ip: '',
+                port: '',
+                account: '',
+                password: ''
+              }
+            )}
           validate={deviceSyncValidator}
           onSubmit={onSubmitForm}
         >
