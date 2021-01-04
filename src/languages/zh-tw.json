@@ -202,13 +202,13 @@
       "done": "",
       "failed": "",
       "lastUpdated": "",
-      "synchronize": "",
-      "removeUnlinked": "",
-      "remove": "",
       "deviceName": "",
       "status": "",
       "actions": "操作",
       "noDevice": "",
+      "synchronize": "",
+      "removeUnlinked": "",
+      "remove": "",
       "searchPlaceholder": "輸入關鍵字",
       "search": "搜尋",
       "title": "成員",
@@ -386,9 +386,9 @@
       "title": "記憶卡",
       "enable": "開啟記憶卡",
       "status": "狀態",
+      "recording": "",
       "filesystem": "檔案系統格式",
       "unrecognized": "無法識別",
-      "recording": "",
       "errorNotification": "異常通報",
       "notificationSet": "已設定電子郵件",
       "enableOutgoingEmail": "設定電子郵件",
@@ -416,8 +416,8 @@
         "noFile": ""
       },
       "button": {
-        "remove": "",
-        "download": ""
+        "download": "",
+        "remove": ""
       },
       "files": {
         "date": "",

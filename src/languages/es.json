@@ -202,13 +202,13 @@
       "done": "",
       "failed": "",
       "lastUpdated": "",
-      "synchronize": "",
-      "removeUnlinked": "",
-      "remove": "",
       "deviceName": "",
       "status": "",
       "actions": "Operar",
       "noDevice": "",
+      "synchronize": "",
+      "removeUnlinked": "",
+      "remove": "",
       "searchPlaceholder": "Ingrese palabras claves",
       "search": "buscar",
       "title": "miembro",
@@ -386,9 +386,9 @@
       "title": "Tarjeta de memoria",
       "enable": "Habilitar tarjeta SD",
       "status": "estado",
+      "recording": "",
       "filesystem": "Formato del sistema de archivos",
       "unrecognized": "No reconocido",
-      "recording": "",
       "errorNotification": "Notificación de anormalidad",
       "notificationSet": "Conjunto de correo electrónico",
       "enableOutgoingEmail": "Configurar correo electrónico",
@@ -416,8 +416,8 @@
         "noFile": ""
       },
       "button": {
-        "remove": "",
-        "download": ""
+        "download": "",
+        "remove": ""
       },
       "files": {
         "date": "",
