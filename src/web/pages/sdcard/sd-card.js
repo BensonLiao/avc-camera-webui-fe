@@ -224,24 +224,7 @@ SDCard.propTypes = {
     sdRecordingStream: PropTypes.number.isRequired,
     sdRecordingType: PropTypes.number.isRequired
   }).isRequired,
-  streamSettings: PropTypes.shape({
-    channelA: PropTypes.shape({
-      bandwidthManagement: PropTypes.string.isRequired,
-      bitRate: PropTypes.string.isRequired,
-      codec: PropTypes.string.isRequired,
-      frameRate: PropTypes.string.isRequired,
-      gov: PropTypes.string.isRequired,
-      resolution: PropTypes.string.isRequired
-    }),
-    channelB: PropTypes.shape({
-      bandwidthManagement: PropTypes.string.isRequired,
-      bitRate: PropTypes.string.isRequired,
-      codec: PropTypes.string.isRequired,
-      frameRate: PropTypes.string.isRequired,
-      gov: PropTypes.string.isRequired,
-      resolution: PropTypes.string.isRequired
-    })
-  }).isRequired
+  streamSettings: SDCardRecording.propTypes.streamSettings
 };
 
 export default withGlobalStatus(SDCard);
