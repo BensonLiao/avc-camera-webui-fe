@@ -14,7 +14,7 @@ const DeviceSyncTable = ({
   syncStatus,
   form,
   formRef,
-  page,
+  pageNumber,
   confirmDelete,
   editDeviceHandler
 }) => {
@@ -32,9 +32,9 @@ const DeviceSyncTable = ({
       checkboxState = true;
     }
 
-    if (form.values[page]) {
-      form.values[page].forEach((_, index) => {
-        form.setFieldValue(`${page}.${index}.isChecked`, checkboxState);
+    if (form.values[pageNumber]) {
+      form.values[pageNumber].forEach((_, index) => {
+        form.setFieldValue(`${pageNumber}.${index}.isChecked`, checkboxState);
       });
     }
 
@@ -50,7 +50,7 @@ const DeviceSyncTable = ({
       const values = formRef.current.values;
       selectAllCheckboxState(values);
     }
-  }, [formRef, page, selectAllCheckboxState]);
+  }, [formRef, pageNumber, selectAllCheckboxState]);
 
   /**
    * Update `Select All` checkbox based on any checkbox update
@@ -70,8 +70,8 @@ const DeviceSyncTable = ({
    */
   const selectAllCheckboxState = useCallback(values => {
     // Check if any checkboxes has been selected
-    if (values[page] && values[page].some(device => device.isChecked)) {
-      if (values[page].some(device => !device.isChecked)) {
+    if (values[pageNumber] && values[pageNumber].some(device => device.isChecked)) {
+      if (values[pageNumber].some(device => !device.isChecked)) {
         // Some checkboxes are selected, set to indetermindate state
         selectAllRef.current.indeterminate = true;
       } else {
@@ -84,7 +84,7 @@ const DeviceSyncTable = ({
       selectAllRef.current.indeterminate = false;
       setIsSelectAll(false);
     }
-  }, [page]);
+  }, [pageNumber]);
 
   return (
     <>
@@ -116,15 +116,19 @@ const DeviceSyncTable = ({
           <tbody>
             {
               devices.length ? (
-                deviceList[page] && deviceList[page].map((device, index) => {
+                deviceList[pageNumber] && deviceList[pageNumber].map((device, index) => {
                   return (
                     <tr
                       key={device.id}
-                      className={classNames({checked: form.values[page] && form.values[page][index] && form.values[page][index].isChecked})}
+                      className={classNames({
+                        checked: form.values[pageNumber] &&
+                        form.values[pageNumber][index] &&
+                        form.values[pageNumber][index].isChecked
+                      })}
                     >
                       <td className="text-center td-checkbox">
                         <Field
-                          name={`${page}.${index}.isChecked`}
+                          name={`${pageNumber}.${index}.isChecked`}
                           id={device.id}
                           type="checkbox"
                         />
@@ -202,7 +206,7 @@ DeviceSyncTable.propTypes = {
   deviceList: PropTypes.array.isRequired,
   form: PropTypes.object.isRequired,
   formRef: PropTypes.object.isRequired,
-  page: PropTypes.number.isRequired,
+  pageNumber: PropTypes.number.isRequired,
   confirmDelete: PropTypes.func.isRequired,
   editDeviceHandler: PropTypes.func.isRequired
 };

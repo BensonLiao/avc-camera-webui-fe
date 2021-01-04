@@ -19,12 +19,12 @@ const REFRESH_LIST_INTERVAL = 5;
 const ITEMS_PER_PAGE = 10;
 
 const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
-  const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [device, setDevice] = useState(null);
-  const [page, setPage] = useState(0);
+  const [deleteDeviceID, setDeleteDeviceID] = useState();
+  const [pageNumber, setPageNumber] = useState(0);
+  const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
-  const [deleteDeviceID, setDeleteDeviceID] = useState();
   const formRef = useRef();
 
   const generatePaginatedDeviceList = devices => {
@@ -37,8 +37,6 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   const [deviceList, setDeviceList] = useState(generatePaginatedDeviceList(devices));
 
   const showDeviceModal = () => setIsShowDeviceModal(true);
-
-  const showConfirmModal = () => setIsShowConfirmModal(true);
 
   const hideDeviceModal = () => {
     setDevice(null);
@@ -65,7 +63,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
    * @returns {void}
    */
   const confirmDelete = (deviceID = null) => _ => {
-    showConfirmModal(true);
+    setIsShowConfirmModal(true);
     setDeleteDeviceID(deviceID);
   };
 
@@ -241,18 +239,18 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                 syncStatus={syncStatus}
                 form={form}
                 formRef={formRef}
-                page={page}
+                pageNumber={pageNumber}
                 confirmDelete={confirmDelete}
                 editDeviceHandler={editDeviceHandler}
               />
               <Pagination
                 name="page"
-                index={page}
+                index={pageNumber}
                 size={ITEMS_PER_PAGE}
                 total={deviceList.flat().length}
-                currentPageItemQuantity={deviceList[page] ? deviceList[page].length : 0}
+                currentPageItemQuantity={deviceList[pageNumber] ? deviceList[pageNumber].length : 0}
                 hrefTemplate=""
-                setPageIndexState={setPage}
+                setPageIndexState={setPageNumber}
               />
               {/* Delete confirmation */}
               <CustomNotifyModal
