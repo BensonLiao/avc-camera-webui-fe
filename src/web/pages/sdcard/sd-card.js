@@ -346,8 +346,32 @@ SDCard.propTypes = {
     sdAlertEnabled: PropTypes.bool.isRequired
   }).isRequired,
   smtpSettings: PropTypes.shape({isEnableAuth: PropTypes.bool.isRequired}).isRequired,
-  sdCardRecordingSettings: PropTypes.shape().isRequired,
-  streamSettings: PropTypes.shape().isRequired
+  sdCardRecordingSettings: PropTypes.shape({
+    sdRecordingDuration: PropTypes.number.isRequired,
+    sdRecordingEnabled: PropTypes.bool.isRequired,
+    sdRecordingLimit: PropTypes.bool.isRequired,
+    sdRecordingStatus: PropTypes.number.isRequired,
+    sdRecordingStream: PropTypes.number.isRequired,
+    sdRecordingType: PropTypes.number.isRequired
+  }).isRequired,
+  streamSettings: PropTypes.shape({
+    channelA: PropTypes.shape({
+      bandwidthManagement: PropTypes.string.isRequired,
+      bitRate: PropTypes.string.isRequired,
+      codec: PropTypes.string.isRequired,
+      frameRate: PropTypes.string.isRequired,
+      gov: PropTypes.string.isRequired,
+      resolution: PropTypes.string.isRequired
+    }),
+    channelB: PropTypes.shape({
+      bandwidthManagement: PropTypes.string.isRequired,
+      bitRate: PropTypes.string.isRequired,
+      codec: PropTypes.string.isRequired,
+      frameRate: PropTypes.string.isRequired,
+      gov: PropTypes.string.isRequired,
+      resolution: PropTypes.string.isRequired
+    })
+  }).isRequired
 };
 
 export default withGlobalStatus(SDCard);
