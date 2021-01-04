@@ -197,9 +197,9 @@ const DeviceSyncTable = ({
 };
 
 DeviceSyncTable.propTypes = {
-  devices: PropTypes.array.isRequired,
+  devices: PropTypes.arrayOf(PropTypes.shape(DeviceSyncTableStatus.propTypes.device)),
+  syncStatus: DeviceSyncTableStatus.propTypes.syncStatus,
   deviceList: PropTypes.array.isRequired,
-  syncStatus: PropTypes.number.isRequired,
   form: PropTypes.object.isRequired,
   formRef: PropTypes.object.isRequired,
   page: PropTypes.number.isRequired,

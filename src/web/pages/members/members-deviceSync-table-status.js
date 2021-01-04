@@ -14,7 +14,7 @@ import MasterSyncStatusSchema from 'webserver-form-schema/constants/members-mast
  * @param {number} syncStatus
  * @returns {JSX} - Device status
  */
-const deviceSyncTableStatus = ({device, syncStatus}) => {
+const DeviceSyncTableStatus = ({device, syncStatus}) => {
   // Check if sync is ongoing
   if (device.syncStatus && syncStatus === MasterSyncStatusSchema.syncOngoing) {
     switch (device.syncStatus) {
@@ -90,10 +90,19 @@ const deviceSyncTableStatus = ({device, syncStatus}) => {
   }
 };
 
-deviceSyncTableStatus.propTypes = {
-  device: PropTypes.object.isRequired,
+DeviceSyncTableStatus.propTypes = {
+  device: PropTypes.shape({
+    account: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    ip: PropTypes.string.isRequired,
+    port: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    connectionStatus: PropTypes.number.isRequired,
+    lastUpdateTime: PropTypes.number.isRequired,
+    syncStatus: PropTypes.number.isRequired
+  }).isRequired,
   syncStatus: PropTypes.number.isRequired
 };
 
-export default deviceSyncTableStatus;
+export default DeviceSyncTableStatus;
 

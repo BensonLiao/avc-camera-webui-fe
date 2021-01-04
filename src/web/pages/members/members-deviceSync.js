@@ -281,17 +281,8 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
 
 DeviceSync.propTypes = {
   deviceSync: PropTypes.shape({
-    devices: PropTypes.arrayOf(PropTypes.shape({
-      account: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      ip: PropTypes.string.isRequired,
-      port: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      connectionStatus: PropTypes.number.isRequired,
-      lastUpdateTime: PropTypes.number.isRequired,
-      syncStatus: PropTypes.number.isRequired
-    })),
-    syncStatus: PropTypes.number.isRequired
+    devices: DeviceSyncTable.propTypes.devices.isRequired,
+    syncStatus: DeviceSyncTable.propTypes.syncStatus.isRequired
   }).isRequired,
   ipAddress: PropTypes.string.isRequired
 };
