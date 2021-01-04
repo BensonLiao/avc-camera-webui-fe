@@ -14,6 +14,7 @@ import classNames from 'classnames';
 const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
   const processOptions = () => {
     return {
+      // filter is temporary, REMOVE when ready
       type: SDCardRecordingType.all().filter(x => x !== '1').map(x => i18nUtils.getSDCardRecordingType(x)),
       stream: SDCardRecordingStream.all().filter(x => x !== '2').map(x => {
         const {value, label} = i18nUtils.getSDCardRecordingStream(x);
@@ -29,7 +30,7 @@ const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
 
   const options = processOptions();
 
-  const currentStreamSettings = (setFieldValue, event) => {
+  const getCurrentStreamSettings = (setFieldValue, event) => {
     setFieldValue('sdRecordingStream', event.target.value);
     if (event.target.value === SDCardRecordingStream[1]) {
       setFieldValue('frameRate', streamSettings.channelA.frameRate);
@@ -74,7 +75,7 @@ const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
                 labelClassName="col-form-label col-sm-4"
                 labelName={i18n.t('sdCard.basic.recordingResolution')}
                 name="sdRecordingStream"
-                onChange={event => currentStreamSettings(setFieldValue, event)}
+                onChange={event => getCurrentStreamSettings(setFieldValue, event)}
               >
                 {options.stream.map(stream => (
                   <option key={stream.value} value={stream.value}>
@@ -83,19 +84,46 @@ const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
                 ))}
               </SelectField>
               <div className="sd-fr-codec">
-                <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.fps')} name="frameRate">
+                <SelectField
+                  row
+                  readOnly
+                  wrapperClassName="col-sm-8 mb-0"
+                  labelClassName="col-form-label col-sm-4"
+                  labelName={i18n.t('sdCard.basic.fps')}
+                  name="frameRate"
+                >
                   <option>{values.frameRate}</option>
                 </SelectField>
-                <SelectField row readOnly formClassName="mb-0" wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.codec')} name="codec">
+                <SelectField
+                  row
+                  readOnly
+                  formClassName="mb-0"
+                  wrapperClassName="col-sm-8 mb-0"
+                  labelClassName="col-form-label col-sm-4"
+                  labelName={i18n.t('sdCard.basic.codec')}
+                  name="codec"
+                >
                   <option>{values.codec}</option>
                 </SelectField>
               </div>
-              <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingDuration')} name="sdRecordingDuration">
+              <SelectField
+                row
+                wrapperClassName="col-sm-8"
+                labelClassName="col-form-label col-sm-4"
+                labelName={i18n.t('sdCard.basic.recordingDuration')}
+                name="sdRecordingDuration"
+              >
                 {SDCardRecordingDuration.all().map(duration => (
                   <option key={duration} value={duration}>{duration === '0' ? i18n.t('sdCard.basic.constants.storageToFull') : duration}</option>
                 ))}
               </SelectField>
-              <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingLimit')} name="sdRecordingLimit">
+              <SelectField
+                row
+                wrapperClassName="col-sm-8"
+                labelClassName="col-form-label col-sm-4"
+                labelName={i18n.t('sdCard.basic.recordingLimit')}
+                name="sdRecordingLimit"
+              >
                 {options.limit.map(limit => (
                   <option key={limit.value} value={limit.value}>{limit.label}</option>
                 ))}
