@@ -227,4 +227,4 @@ SDCard.propTypes = {
   streamSettings: SDCardRecording.propTypes.streamSettings
 };
 
-export default withGlobalStatus(SDCard);
+export default React.memo(withGlobalStatus(SDCard));
