@@ -46,6 +46,28 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
   };
 
   /**
+   * Generate initial form data for Formik
+   * @returns {Object} Device data
+   */
+  const generateInitialValue = () => {
+    // Edit device
+    if (device) {
+      return {
+        ...device,
+        password: ''
+      };
+    }
+
+    // Add new device
+    return {
+      ip: '',
+      port: '',
+      account: '',
+      password: ''
+    };
+  };
+
+  /**
    * Submit new or edit device info
    * @param {Object} values - Device information
    * @returns {void}
@@ -102,20 +124,7 @@ const DeviceSyncAddDevice = ({device, devices, ipAddress, isShowDeviceModal, hid
           </Modal.Title>
         </Modal.Header>
         <Formik
-          initialValues={device ?
-            (
-              {
-                ...device,
-                password: ''
-              }
-            ) : (
-              {
-                ip: '',
-                port: '',
-                account: '',
-                password: ''
-              }
-            )}
+          initialValues={generateInitialValue()}
           validate={deviceSyncValidator}
           onSubmit={onSubmitForm}
         >
