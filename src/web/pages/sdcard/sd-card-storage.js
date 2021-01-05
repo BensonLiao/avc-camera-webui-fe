@@ -98,14 +98,9 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
    * @returns {void}
    */
   const selectAllHandler = form => _ => {
-    let checkboxState = false;
-    if (!isSelectAll) {
-      checkboxState = true;
-    }
-
     if (form.values[page]) {
       form.values[page].forEach((_, index) => {
-        form.setFieldValue(`${page}.${index}.isChecked`, checkboxState);
+        form.setFieldValue(`${page}.${index}.isChecked`, !isSelectAll);
       });
     }
 
@@ -125,7 +120,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
 
   /**
    * Update `Select All` checkbox based on any checkbox update
-   * @param {Object} values - Form next values
+   * @param {Object} nextValues - Form next values
    * @returns {void}
    */
   const onChangeTableForm = ({nextValues}) => {
@@ -144,6 +139,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
     if (values[page] && values[page].some(device => device.isChecked)) {
       // Check if all checkboxes has been selected
       if (values[page].some(device => !device.isChecked)) {
+        // Some checkboxes are selected, set to indetermindate state
         selectAllRef.current.indeterminate = true;
       } else {
         // All checkboxes selected manually

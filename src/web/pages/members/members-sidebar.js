@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {getRouter, Link} from '@benson.liao/capybara-router';
+import {Link} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../../i18n';
@@ -11,8 +11,6 @@ const MembersSidebar = ({params, groups, filterHandler, deleteGroupHandler, setP
   const switchPage = page => e => {
     e.preventDefault();
     setPage(page);
-    localStorage.setItem('currentPage', page);
-    getRouter().go({name: 'web.users.members'});
   };
 
   return (
