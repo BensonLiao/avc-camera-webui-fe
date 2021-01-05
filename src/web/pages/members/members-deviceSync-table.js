@@ -27,14 +27,9 @@ const DeviceSyncTable = ({
    * @returns {void}
    */
   const selectAllHandler = form => _ => {
-    let checkboxState = false;
-    if (!isSelectAll) {
-      checkboxState = true;
-    }
-
     if (form.values[pageNumber]) {
       form.values[pageNumber].forEach((_, index) => {
-        form.setFieldValue(`${pageNumber}.${index}.isChecked`, checkboxState);
+        form.setFieldValue(`${pageNumber}.${index}.isChecked`, !isSelectAll);
       });
     }
 
@@ -58,7 +53,7 @@ const DeviceSyncTable = ({
    * @returns {void}
    */
   const onChangeCardForm = ({nextValues}) => {
-    if (devices.length) {
+    if (nextValues.length && nextValues.length > 0) {
       selectAllCheckboxState(nextValues);
     }
   };
@@ -71,6 +66,7 @@ const DeviceSyncTable = ({
   const selectAllCheckboxState = useCallback(values => {
     // Check if any checkboxes has been selected
     if (values[pageNumber] && values[pageNumber].some(device => device.isChecked)) {
+      // Check if all checkboxes has been selected
       if (values[pageNumber].some(device => !device.isChecked)) {
         // Some checkboxes are selected, set to indetermindate state
         selectAllRef.current.indeterminate = true;
