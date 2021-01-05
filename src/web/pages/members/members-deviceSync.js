@@ -151,7 +151,6 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
       });
 
     if (syncStatus) {
-      refreshList();
       syncID = setInterval(refreshList, REFRESH_LIST_INTERVAL * 1000);
     }
 
