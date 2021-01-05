@@ -202,13 +202,13 @@
       "done": "",
       "failed": "",
       "lastUpdated": "",
-      "synchronize": "",
-      "removeUnlinked": "",
-      "remove": "",
       "deviceName": "",
       "status": "",
       "actions": "操作",
       "noDevice": "",
+      "synchronize": "",
+      "removeUnlinked": "",
+      "remove": "",
       "searchPlaceholder": "キーワードを入力",
       "search": "検索",
       "title": "メンバー",
@@ -386,9 +386,9 @@
       "title": "SDカード",
       "enable": "SDカードを有効にする",
       "status": "ステータス",
+      "recording": "",
       "filesystem": "ファイルシステム",
       "unrecognized": "不明なファイルシステム",
-      "recording": "",
       "errorNotification": "異常通知",
       "notificationSet": "メールアドレスが設定されました",
       "enableOutgoingEmail": "メールアドレスを設定する",
@@ -416,8 +416,8 @@
         "noFile": ""
       },
       "button": {
-        "remove": "",
-        "download": ""
+        "download": "",
+        "remove": ""
       },
       "files": {
         "date": "",

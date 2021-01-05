@@ -559,7 +559,7 @@ module.exports = {
         devices: Array.from({length: 20}, (_, i) => {
           const connectionStatus = Math.random() * 5 > 1 ? 1 : 0;
           return {
-            id: i,
+            id: i + 1,
             ip: `192.168.0.${i + 1}`,
             port: 8080,
             name: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,

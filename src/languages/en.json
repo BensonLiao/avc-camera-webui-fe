@@ -202,13 +202,13 @@
       "done": "Done",
       "failed": "Failed",
       "lastUpdated": "Last Updated",
-      "synchronize": "Synchronize",
-      "removeUnlinked": "Remove unlinked device(s)",
-      "remove": "Remove",
       "deviceName": "Device Name",
       "status": "Status",
       "actions": "Actions",
       "noDevice": "Please click the 'Add' first to add a new device to your list",
+      "synchronize": "Synchronize",
+      "removeUnlinked": "Remove unlinked device(s)",
+      "remove": "Remove",
       "searchPlaceholder": "Enter keywords",
       "search": "Search",
       "title": "Members",
@@ -386,9 +386,9 @@
       "title": "SD Card",
       "enable": "Enable SD Card",
       "status": "Status",
+      "recording": "Recording",
       "filesystem": "Filesystem",
       "unrecognized": "Unrecognized",
-      "recording": "Recording",
       "errorNotification": "Error Notification",
       "notificationSet": "Email Notification Set",
       "enableOutgoingEmail": "Enable Outgoing Email",
@@ -416,8 +416,8 @@
         "noFile": "Select a File"
       },
       "button": {
-        "remove": "Delete",
-        "download": "Download"
+        "download": "Download",
+        "remove": "Delete"
       },
       "files": {
         "date": "Date",
