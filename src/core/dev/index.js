@@ -21,9 +21,6 @@ const setDelay = (func, delay) => {
   });
 };
 
-// Global delay for api mock reponse
-const delayResponse = 0;
-
 /**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
  * @param {Object} req XHR request instance,
@@ -39,12 +36,19 @@ const mockResponseWithLog = (req, res) => {
   console.log('request config:', req);
   console.log('response: [status, data, headers]', res);
   console.groupEnd();
-  return res;
+  return new Promise((resolve, reject) => {
+    console.log('req.delay', req.delay);
+    if (req.timeout < req.delay) {
+      reject(new Error('ECONNABORTED'));
+    }
+
+    resolve(res);
+  });
 };
 
 const mockDB = require('./db');
 const db = mockDB.init();
-const mockAxios = new MockAdapter(axios, {delayResponse});
+const mockAxios = new MockAdapter(axios);
 
 mockAxios
   .onGet('/api/ping/web').reply(config => {

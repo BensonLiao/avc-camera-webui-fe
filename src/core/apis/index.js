@@ -40,12 +40,9 @@ module.exports = config => {
   }
 
   return new Promise((resolve, _) => {
-    const randomDelay = Math.round(Math.random() * 3000);
-    console.log('randomDelay', randomDelay);
     setTimeout(() => {
       resolve();
     }, config.delay || 0);
-    config.timeout = 2000;
   }).then(() => {
     return axios(config)
       .catch(error => {
