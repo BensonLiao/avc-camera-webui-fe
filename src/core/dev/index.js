@@ -5,6 +5,25 @@ const Similarity = require('webserver-form-schema/constants/event-filters/simila
 const RecognitionType = require('webserver-form-schema/constants/event-filters/recognition-type');
 const utils = require('./utils');
 
+const isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
+
+/**
+ * Delay a function for a determined time to simulate server process time
+ * @param {function} func - function to exeute and return
+ * @param {number} delay - in ms
+ * @return {Promise}
+ */
+const setDelay = (func, delay) => {
+  return new Promise((resolve, _) => {
+    setTimeout(() => {
+      resolve(func);
+    }, delay);
+  });
+};
+
+// Global delay for api mock reponse
+const delayResponse = 0;
+
 /**
  * Log mock XHR like axios with console.groupCollapsed() and return mock response.
  * @param {Object} req XHR request instance,
@@ -23,25 +42,9 @@ const mockResponseWithLog = (req, res) => {
   return res;
 };
 
-const isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
-
-/**
- * Delay a function for a determined time to simulate server process time
- * @param {function} func - function to exeute and return
- * @param {number} delay - in ms
- * @return {Promise}
- */
-const setDelay = (func, delay) => {
-  return new Promise((resolve, _) => {
-    setTimeout(() => {
-      resolve(func);
-    }, delay);
-  });
-};
-
 const mockDB = require('./db');
 const db = mockDB.init();
-const mockAxios = new MockAdapter(axios, {delayResponse: 0});
+const mockAxios = new MockAdapter(axios, {delayResponse});
 
 mockAxios
   .onGet('/api/ping/web').reply(config => {
