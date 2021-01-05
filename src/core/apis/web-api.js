@@ -263,10 +263,9 @@ module.exports = {
      * @param {string} certificateType
      * @param {string} certificate
      * @param {string} privateKey
-     * @param {number} delayMs The delaying time in milliseconds before response, default is `0`.
      * @returns {Promise<response>}
      */
-    updateHttpsSettings: ({isEnable, port, certificateType, certificate, privateKey}, {delayMs} = {delayMs: 0}) => api({
+    updateHttpsSettings: ({isEnable, port, certificateType, certificate, privateKey}) => api({
       method: 'put',
       url: '/api/system/https',
       data: {
@@ -275,8 +274,7 @@ module.exports = {
         certificateType,
         certificate,
         privateKey
-      },
-      delay: delayMs
+      }
     }),
     /**
      * @param {String} deviceName
