@@ -383,12 +383,6 @@
       "format": "フォーマット",
       "mount": "マウント",
       "unmount": "マウントを解除",
-      "title": "SDカード",
-      "enable": "SDカードを有効にする",
-      "status": "ステータス",
-      "recording": "",
-      "filesystem": "ファイルシステム",
-      "unrecognized": "不明なファイルシステム",
       "errorNotification": "異常通知",
       "notificationSet": "メールアドレスが設定されました",
       "enableOutgoingEmail": "メールアドレスを設定する",
@@ -399,7 +393,13 @@
       "fps": "",
       "codec": "",
       "recordingDuration": "",
-      "recordingLimit": ""
+      "recordingLimit": "",
+      "title": "SDカード",
+      "enable": "SDカードを有効にする",
+      "status": "ステータス",
+      "recording": "",
+      "filesystem": "ファイルシステム",
+      "unrecognized": "不明なファイルシステム"
     },
     "tooltip": {
       "disabledOperationButton": "先にSDカードの機能を無効にしてください",

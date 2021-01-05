@@ -383,12 +383,6 @@
       "format": "formato",
       "mount": "Montar",
       "unmount": "Desinstalar",
-      "title": "Tarjeta de memoria",
-      "enable": "Habilitar tarjeta SD",
-      "status": "estado",
-      "recording": "",
-      "filesystem": "Formato del sistema de archivos",
-      "unrecognized": "No reconocido",
       "errorNotification": "Notificación de anormalidad",
       "notificationSet": "Conjunto de correo electrónico",
       "enableOutgoingEmail": "Configurar correo electrónico",
@@ -399,7 +393,13 @@
       "fps": "",
       "codec": "",
       "recordingDuration": "",
-      "recordingLimit": ""
+      "recordingLimit": "",
+      "title": "Tarjeta de memoria",
+      "enable": "Habilitar tarjeta SD",
+      "status": "estado",
+      "recording": "",
+      "filesystem": "Formato del sistema de archivos",
+      "unrecognized": "No reconocido"
     },
     "tooltip": {
       "disabledOperationButton": "Primero apague la función de la tarjeta SD",
