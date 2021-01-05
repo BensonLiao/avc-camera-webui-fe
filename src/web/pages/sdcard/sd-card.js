@@ -85,6 +85,8 @@ const SDCard = ({
       .finally(progress.done);
   };
 
+  console.log('Render!');
+
   return (
     <div className="main-content left-menu-active">
       <div className="section-media">
