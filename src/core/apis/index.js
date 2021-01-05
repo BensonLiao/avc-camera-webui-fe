@@ -39,9 +39,11 @@ module.exports = config => {
     expiresTimer.pause();
   }
 
+  // You can pass global custom config like so:
+  // config.delay = Math.round(Math.random() * 1000);
+  // config.timeout = 2000;
+
   return new Promise((resolve, _) => {
-    // config.delay = Math.round(Math.random() * 1000);
-    // config.timeout = 2000;
     setTimeout(() => {
       resolve();
     }, config.delay || 0);
