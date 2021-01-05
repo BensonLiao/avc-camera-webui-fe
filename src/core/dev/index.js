@@ -41,7 +41,7 @@ const setDelay = (func, delay) => {
 
 const mockDB = require('./db');
 const db = mockDB.init();
-const mockAxios = new MockAdapter(axios);
+const mockAxios = new MockAdapter(axios, {delayResponse: 0});
 
 mockAxios
   .onGet('/api/ping/web').reply(config => {
