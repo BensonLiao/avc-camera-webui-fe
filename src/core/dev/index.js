@@ -37,7 +37,6 @@ const mockResponseWithLog = (req, res) => {
   console.log('response: [status, data, headers]', res);
   console.groupEnd();
   return new Promise((resolve, reject) => {
-    console.log('req.delay', req.delay);
     if (req.timeout < req.delay) {
       reject(new Error('ECONNABORTED'));
     }

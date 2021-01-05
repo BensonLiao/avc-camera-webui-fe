@@ -40,6 +40,8 @@ module.exports = config => {
   }
 
   return new Promise((resolve, _) => {
+    // config.delay = Math.round(Math.random() * 1000);
+    // config.timeout = 2000;
     setTimeout(() => {
       resolve();
     }, config.delay || 0);
