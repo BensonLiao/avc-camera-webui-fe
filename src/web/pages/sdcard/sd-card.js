@@ -85,8 +85,6 @@ const SDCard = ({
       .finally(progress.done);
   };
 
-  console.log('Render!');
-
   return (
     <div className="main-content left-menu-active">
       <div className="section-media">
@@ -229,4 +227,4 @@ SDCard.propTypes = {
   streamSettings: SDCardRecording.propTypes.streamSettings
 };
 
-export default React.memo(withGlobalStatus(SDCard));
+export default withGlobalStatus(SDCard);

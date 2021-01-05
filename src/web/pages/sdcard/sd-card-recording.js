@@ -12,7 +12,7 @@ import {Tab} from 'react-bootstrap';
 import classNames from 'classnames';
 
 const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
-  const processOptions = () => {
+  const processOptions = (() => {
     return {
       // filter is temporary, REMOVE when ready
       type: SDCardRecordingType.all().filter(x => x !== '1').map(x => i18nUtils.getSDCardRecordingType(x)),
@@ -26,9 +26,7 @@ const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
       }),
       limit: SDCardRecordingLimit.all().map(x => i18nUtils.getSDCardRecordingLimit(x))
     };
-  };
-
-  const options = processOptions();
+  })();
 
   const getCurrentStreamSettings = (setFieldValue, event) => {
     setFieldValue('sdRecordingStream', event.target.value);
@@ -65,7 +63,7 @@ const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
           <div className="card-body">
             <div className="form-group px-3">
               <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingType')} name="sdRecordingType">
-                {options.type.map(type => (
+                {processOptions.type.map(type => (
                   <option key={type.value} value={type.value}>{type.label}</option>
                 ))}
               </SelectField>
@@ -77,7 +75,7 @@ const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
                 name="sdRecordingStream"
                 onChange={event => getCurrentStreamSettings(setFieldValue, event)}
               >
-                {options.stream.map(stream => (
+                {processOptions.stream.map(stream => (
                   <option key={stream.value} value={stream.value}>
                     {stream.label}
                   </option>
@@ -124,7 +122,7 @@ const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
                 labelName={i18n.t('sdCard.basic.recordingLimit')}
                 name="sdRecordingLimit"
               >
-                {options.limit.map(limit => (
+                {processOptions.limit.map(limit => (
                   <option key={limit.value} value={limit.value}>{limit.label}</option>
                 ))}
               </SelectField>
