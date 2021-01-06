@@ -56,7 +56,7 @@ module.exports = config => {
         // that falls out of the range of 2xx
         console.error('Error on Response Error Status: ', error.response);
         notify.showErrorNotification({
-          title: `Error ${error.response.status}` || null,
+          title: `Error ${error.response.status} Test` || null,
           message: error.response.status === 400 ?
             i18nUtils.getApiErrorMessageI18N(error.response.data.message || null) :
             null
