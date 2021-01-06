@@ -14,14 +14,14 @@ const DeviceSyncTable = ({
   deviceList,
   syncStatus,
   form,
-  formRef,
+  formikRef,
   pageNumber,
   confirmDelete,
   editDeviceHandler
 }) => {
   return (
     <TableWithCheckBox
-      formRef={formRef}
+      formikRef={formikRef}
       pageNumber={pageNumber}
     >
       <thead>
@@ -117,7 +117,7 @@ DeviceSyncTable.propTypes = {
   syncStatus: DeviceSyncTableStatus.propTypes.syncStatus,
   deviceList: PropTypes.array.isRequired,
   form: PropTypes.object.isRequired,
-  formRef: PropTypes.object.isRequired,
+  formikRef: PropTypes.object.isRequired,
   pageNumber: PropTypes.number.isRequired,
   confirmDelete: PropTypes.func.isRequired,
   editDeviceHandler: PropTypes.func.isRequired

@@ -32,7 +32,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
   const [isShowProgressModal, setIsShowProgressModal] = useState(false);
   const [progressPercentage, setProgressPercentage] = useState(0);
   const [currentDate, setCurrentDate] = useState(date);
-  const formRef = useRef();
+  const formikRef = useRef();
 
   const generatePaginatedCheckList = files => {
     return getPaginatedData(files.map(file => ({
@@ -103,7 +103,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
               routes={['/sd-card/settings']}
             />
             <Formik
-              innerRef={formRef}
+              innerRef={formikRef}
               initialValues={generatePaginatedCheckList(files)}
             >
               {form => {
@@ -150,7 +150,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                       </div>
                     </div>
                     <TableWithCheckBox
-                      formRef={formRef}
+                      formikRef={formikRef}
                       pageNumber={pageNumber}
                     >
                       <thead>

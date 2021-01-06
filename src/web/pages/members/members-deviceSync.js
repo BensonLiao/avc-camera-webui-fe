@@ -25,7 +25,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
-  const formRef = useRef();
+  const formikRef = useRef();
 
   const generatePaginatedDeviceList = devices => {
     return getPaginatedData(devices.map(device => ({
@@ -160,7 +160,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   return (
     <div>
       <Formik
-        innerRef={formRef}
+        innerRef={formikRef}
         initialValues={deviceList}
         onSubmit={syncDB}
       >
@@ -237,7 +237,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                 deviceList={deviceList}
                 syncStatus={syncStatus}
                 form={form}
-                formRef={formRef}
+                formikRef={formikRef}
                 pageNumber={pageNumber}
                 confirmDelete={confirmDelete}
                 editDeviceHandler={editDeviceHandler}

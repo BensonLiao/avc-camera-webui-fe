@@ -4,7 +4,15 @@ import FormikEffect from './formik-effect';
 
 export const CheckboxFunctionContext = createContext();
 
-const TableWithCheckBox = ({formRef, pageNumber, children}) => {
+/**
+ * Component rendering checkbox in table header
+ * @typedef {object} Props
+ * @prop {Number} formikRef - Ref of Formik form (Formik innerRef)
+ * @prop {Number} pageNumber - Current page number
+ * @prop {JSX} children - Table head and body
+ * @returns {component}
+ */
+const TableWithCheckBox = ({formikRef, pageNumber, children}) => {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const selectAllRef = useRef();
 
@@ -28,11 +36,11 @@ const TableWithCheckBox = ({formRef, pageNumber, children}) => {
      */
   useEffect(() => {
     // Crash prevention fallback if React is less than v2.2.0, innerRef only exists after v2.2.0
-    if (formRef.current) {
-      const values = formRef.current.values;
+    if (formikRef.current) {
+      const values = formikRef.current.values;
       selectAllCheckboxState(values);
     }
-  }, [formRef, selectAllCheckboxState]);
+  }, [formikRef, selectAllCheckboxState]);
 
   /**
      * Update `Select All` checkbox based on any checkbox update
@@ -88,7 +96,7 @@ const TableWithCheckBox = ({formRef, pageNumber, children}) => {
 };
 
 TableWithCheckBox.propTypes = {
-  formRef: PropTypes.object.isRequired,
+  formikRef: PropTypes.object.isRequired,
   pageNumber: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired
 };
