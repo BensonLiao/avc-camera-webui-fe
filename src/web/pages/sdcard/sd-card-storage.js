@@ -25,7 +25,7 @@ import dayjs from 'dayjs';
 const ITEMS_PER_PAGE = 10;
 
 const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
-  const [page, setPage] = useState(0);
+  const [pageNumber, setPage] = useState(0);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [fileToDelete, setFileToDelete] = useState();
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
@@ -151,7 +151,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                     </div>
                     <TableWithCheckBox
                       formRef={formRef}
-                      pageNumber={page}
+                      pageNumber={pageNumber}
                     >
                       <thead>
                         <tr className="shadow">
@@ -164,16 +164,20 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                       </thead>
                       <tbody>
                         {
-                          form.values.length && form.values[page].length ? (
-                            form.values[page] && form.values[page].map((pageData, index) => {
+                          form.values.length && form.values[pageNumber].length ? (
+                            form.values[pageNumber] && form.values[pageNumber].map((pageData, index) => {
                               return (
                                 <tr
                                   key={pageData.path}
                                   className={classNames(
-                                    {checked: form.values[page] && form.values[page][index] && form.values[page][index].isChecked}
+                                    {
+                                      checked: form.values[pageNumber] &&
+                                        form.values[pageNumber][index] &&
+                                        form.values[pageNumber][index].isChecked
+                                    }
                                   )}
                                 >
-                                  <CheckboxBody id={pageData.path} pageNumber={page} index={index}/>
+                                  <CheckboxBody id={pageData.path} pageNumber={pageNumber} index={index}/>
                                   <td>
                                     {currentDate.format(SDCARD_STORAGE_DATE_FORMAT.DISPLAY)}
                                   </td>
@@ -225,10 +229,10 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
 
                     <Pagination
                       name="page"
-                      index={page}
+                      index={pageNumber}
                       size={ITEMS_PER_PAGE}
                       total={form.values.flat().length}
-                      currentPageItemQuantity={form.values[page] ? form.values[page].length : 0}
+                      currentPageItemQuantity={form.values[pageNumber] ? form.values[pageNumber].length : 0}
                       hrefTemplate=""
                       setPageIndexState={setPage}
                     />

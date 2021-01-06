@@ -42,8 +42,8 @@ const DeviceSyncTable = ({
                   key={device.id}
                   className={classNames({
                     checked: form.values[pageNumber] &&
-                        form.values[pageNumber][index] &&
-                        form.values[pageNumber][index].isChecked
+                      form.values[pageNumber][index] &&
+                      form.values[pageNumber][index].isChecked
                   })}
                 >
                   <CheckboxBody id={device.id} pageNumber={pageNumber} index={index}/>
