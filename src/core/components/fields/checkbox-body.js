@@ -24,7 +24,7 @@ const CheckboxBody = ({id, pageNumber, index}) => {
 };
 
 CheckboxBody.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   pageNumber: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired
 };
