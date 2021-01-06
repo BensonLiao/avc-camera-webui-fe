@@ -374,8 +374,8 @@
         "sdcard-recording-type-2": "Continuous recording",
         "sdcard-recording-stream-0": "Stream 1",
         "sdcard-recording-stream-1": "Stream 2",
-        "sdcard-recording-limit-true": "Override oldest recording",
-        "sdcard-recording-limit-false": "Stop recording",
+        "sdcard-recording-limit-0": "Stop recording",
+        "sdcard-recording-limit-1": "Override oldest recording",
         "unknownStatus": "UNKNOWN STATUS",
         "storageToFull": "Storage to full"
       },

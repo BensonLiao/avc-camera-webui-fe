@@ -374,8 +374,8 @@
         "sdcard-recording-type-2": "",
         "sdcard-recording-stream-0": "",
         "sdcard-recording-stream-1": "",
-        "sdcard-recording-limit-true": "",
-        "sdcard-recording-limit-false": "",
+        "sdcard-recording-limit-0": "",
+        "sdcard-recording-limit-1": "",
         "unknownStatus": "UNKNOWN STATUS",
         "storageToFull": ""
       },

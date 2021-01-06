@@ -393,7 +393,7 @@ module.exports = {
      * - sdRecordingStream {Number} // stream 1 == 1 or stream 2 === 2
      * - sdRecordingType {Number} // 0: disconnection, 1: event recording, or 2: continuously recording
      * - sdRecordingDuration {Number} // 0: till the storage limitation, or 1-60 minute recording
-     * - sdRecordingLimit {Boolean} // true: gonna delete oldest recording file, or false: just stop recording if no enough space for new file
+     * - sdRecordingLimit {Number} // 1: gonna delete oldest recording file, or 0: just stop recording if no enough space for new file
      */
     getSDCardRecordingSettings: () => api({
       method: 'get',
