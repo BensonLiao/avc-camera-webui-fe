@@ -383,12 +383,6 @@
       "format": "格式化",
       "mount": "掛載",
       "unmount": "卸載",
-      "title": "記憶卡",
-      "enable": "開啟記憶卡",
-      "status": "狀態",
-      "recording": "",
-      "filesystem": "檔案系統格式",
-      "unrecognized": "無法識別",
       "errorNotification": "異常通報",
       "notificationSet": "已設定電子郵件",
       "enableOutgoingEmail": "設定電子郵件",
@@ -399,7 +393,13 @@
       "fps": "",
       "codec": "",
       "recordingDuration": "",
-      "recordingLimit": ""
+      "recordingLimit": "",
+      "title": "記憶卡",
+      "enable": "開啟記憶卡",
+      "status": "狀態",
+      "recording": "",
+      "filesystem": "檔案系統格式",
+      "unrecognized": "無法識別"
     },
     "tooltip": {
       "disabledOperationButton": "請先關閉記憶卡功能",

@@ -176,8 +176,6 @@ mockAxios
   .onGet('/api/system/network/tcpip/http').reply(config => mockResponseWithLog(config, [200, db.get('httpSettings').value()]))
   .onPut('/api/system/network/tcpip/http').reply(config => setDelay(mockResponseWithLog(config, [200, db.get('httpSettings').assign(JSON.parse(config.data)).write()]), 2000))
   .onGet('/api/system/https').reply(config => mockResponseWithLog(config, [200, db.get('httpsSettings').value()]))
-  .onGet('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdRecordingSettings').value()]))
-  .onPost('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdRecordingSettings').assign(JSON.parse(config.data)).write()]))
   .onPost('/api/system/systeminfo/sdcard-storage').reply(config => {
     const {date: searchDate} = JSON.parse(config.data);
     return mockResponseWithLog(config, [200, db.get('sdCardStorage.files').filter({date: searchDate}).value()]);
@@ -213,22 +211,41 @@ mockAxios
   })
   .onGet('/api/system/systeminfo/sdcard-recording').reply(config => mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').value()]))
   .onPost('/api/system/systeminfo/sdcard-recording').reply(config => {
-    const info = JSON.parse(config.data);
+    const configData = JSON.parse(config.data);
     const data = {
-      ...db.get('sdCardRecordingSettings').value(),
-      ...info,
-      sdRecordingDuration: Number(info.sdRecordingDuration),
-      sdRecordingLimit: info.sdRecordingLimit === 'true',
-      sdRecordingStatus: Number(info.sdRecordingStatus),
-      sdRecordingStream: Number(info.sdRecordingStream),
-      sdRecordingType: Number(info.sdRecordingType)
+      ...configData,
+      sdRecordingEnabled: configData.sdRecordingEnabled,
+      sdRecordingDuration: Number(configData.sdRecordingDuration),
+      sdRecordingLimit: configData.sdRecordingLimit === 'true',
+      sdRecordingStatus: Number(configData.sdRecordingStatus),
+      sdRecordingStream: Number(configData.sdRecordingStream),
+      sdRecordingType: Number(configData.sdRecordingType)
     };
+    if (data.sdRecordingEnabled === false || data.sdRecordingType === 0) {
+      data.sdRecordingStatus = 0;
+    } else if (data.sdRecordingType === 2) {
+      data.sdRecordingStatus = 1;
+    }
+
     return mockResponseWithLog(config, [200, db.get('sdCardRecordingSettings').assign(data).write()]);
   })
   .onPost('/api/system/systeminfo/sdcard').reply(config => {
+    const sdCardSettings = JSON.parse(config.data);
+    const sdCardRecordingSettings = db.get('sdCardRecordingSettings').value();
+
+    if (sdCardSettings.sdEnabled === false) {
+      sdCardRecordingSettings.sdRecordingStatus = 0;
+      db.get('sdCardRecordingSettings').assign(sdCardRecordingSettings).write();
+    }
+
+    if (sdCardSettings.sdEnabled && sdCardRecordingSettings.sdRecordingEnabled && sdCardRecordingSettings.sdRecordingType === 2) {
+      sdCardRecordingSettings.sdRecordingStatus = 1;
+      db.get('sdCardRecordingSettings').assign(sdCardRecordingSettings).write();
+    }
+
     const data = {
       ...db.get('system').value(),
-      ...JSON.parse(config.data)
+      ...sdCardSettings
     };
     return mockResponseWithLog(config, [200, db.get('system').assign(data).write()]);
   })

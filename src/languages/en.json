@@ -383,12 +383,6 @@
       "format": "Format",
       "mount": "Mount",
       "unmount": "Unmount",
-      "title": "SD Card",
-      "enable": "Enable SD Card",
-      "status": "Status",
-      "recording": "Recording",
-      "filesystem": "Filesystem",
-      "unrecognized": "Unrecognized",
       "errorNotification": "Error Notification",
       "notificationSet": "Email Notification Set",
       "enableOutgoingEmail": "Enable Outgoing Email",
@@ -399,7 +393,13 @@
       "fps": "Resolution frame rate",
       "codec": "Resolution codec",
       "recordingDuration": "Recording time (Mins)",
-      "recordingLimit": "When storage is full"
+      "recordingLimit": "When storage is full",
+      "title": "SD Card",
+      "enable": "Enable SD Card",
+      "status": "Status",
+      "recording": "Recording",
+      "filesystem": "Filesystem",
+      "unrecognized": "Unrecognized"
     },
     "tooltip": {
       "disabledOperationButton": "Please disable the SD card first.",
