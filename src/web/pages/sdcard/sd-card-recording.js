@@ -1,15 +1,15 @@
+import classNames from 'classnames';
+import {Field} from 'formik';
 import React from 'react';
-import SelectField from '../../../core/components/fields/select-field';
+import {Tab} from 'react-bootstrap';
 import SDCardRecordingDuration from 'webserver-form-schema/constants/sdcard-recording-duration';
 import SDCardRecordingType from 'webserver-form-schema/constants/sdcard-recording-type';
 import SDCardRecordingStream from 'webserver-form-schema/constants/sdcard-recording-stream';
 import SDCardRecordingLimit from 'webserver-form-schema/constants/sdcard-recording-limit';
+import i18n from '../../../i18n';
 import i18nUtils from '../../../i18n/utils';
 import PropTypes from 'prop-types';
-import i18n from '../../../i18n';
-import {Field} from 'formik';
-import {Tab} from 'react-bootstrap';
-import classNames from 'classnames';
+import SelectField from '../../../core/components/fields/select-field';
 
 const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
   const processOptions = (() => {

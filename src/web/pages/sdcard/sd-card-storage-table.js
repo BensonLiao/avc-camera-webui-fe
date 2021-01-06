@@ -7,8 +7,8 @@ import CheckboxHeader from '../../../core/components/fields/checkbox-header';
 import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import noFile from '../../../resource/noFile.png';
-import TableWithCheckBox from '../../../core/components/checkbox-table';
 import {SDCARD_STORAGE_DATE_FORMAT} from '../../../core/constants';
+import TableWithCheckBox from '../../../core/components/checkbox-table';
 
 const SDCardStorageTable = ({
   currentDate,

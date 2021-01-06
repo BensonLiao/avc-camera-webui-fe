@@ -2,6 +2,8 @@ import {Formik, Form} from 'formik';
 import {getRouter} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
+import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
+import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
@@ -11,8 +13,6 @@ import {getPaginatedData, isArray} from '../../../core/utils';
 import i18n from '../../../i18n';
 import notify from '../../../core/notify';
 import Pagination from '../../../core/components/pagination';
-import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
-import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
 
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
