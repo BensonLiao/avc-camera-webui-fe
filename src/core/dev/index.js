@@ -216,7 +216,7 @@ mockAxios
       ...configData,
       sdRecordingEnabled: configData.sdRecordingEnabled,
       sdRecordingDuration: Number(configData.sdRecordingDuration),
-      sdRecordingLimit: configData.sdRecordingLimit === 'true',
+      sdRecordingLimit: Number(configData.sdRecordingLimit),
       sdRecordingStatus: Number(configData.sdRecordingStatus),
       sdRecordingStream: Number(configData.sdRecordingStream),
       sdRecordingType: Number(configData.sdRecordingType)
