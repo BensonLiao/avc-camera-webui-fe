@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {useContextCheckbox} from '../table-with-checkbox';
+import {useContextCheckbox} from '../checkbox-table';
 
 const CheckboxHeader = ({formikForm}) => {
   const {selectAllRef, isSelectAll, selectAllHandler} = useContextCheckbox();

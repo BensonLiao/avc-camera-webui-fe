@@ -5,7 +5,7 @@ import CustomTooltip from '../../../core/components/tooltip';
 import i18n from '../../../i18n';
 import noDevice from '../../../resource/noDevice.png';
 import DeviceSyncTableStatus from './members-deviceSync-table-status';
-import TableWithCheckBox from '../../../core/components/table-with-checkbox';
+import TableWithCheckBox from '../../../core/components/checkbox-table';
 import CheckboxHeader from '../../../core/components/fields/checkbox-header';
 import CheckboxBody from '../../../core/components/fields/checkbox-body';
 
