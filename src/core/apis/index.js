@@ -27,10 +27,14 @@ const _updateApiStatus = () => {
 };
 
 /**
+ * @param {Number} timeout - The axios request timeout, default is `axios.defaults.timeout`.
+ * And it's `0` as of v0.21.1, you can override by re-assign `axios.defaults.timeout`.
+ * @see https://github.com/axios/axios/blob/master/lib/defaults.js#L28
+ * @param {Number} delay - The axios request delay, default is `0`.
  * @param {Object} config - The axios request config.
  * @returns {Promise<AxiosResponse<any>>}
  */
-module.exports = config => {
+module.exports = (timeout = axios.defaults.timeout, delay = 0) => config => {
   const id = Math.random().toString(36).substr(2);
   _pool[id] = config;
   _updateApiStatus();
@@ -39,9 +43,16 @@ module.exports = config => {
     expiresTimer.pause();
   }
 
-  // You can pass global custom config like so:
-  // config.delay = Math.round(Math.random() * 1000);
-  // config.timeout = 2000;
+  if (isNaN(timeout)) {
+    throw new TypeError('The request timeout must be a number.');
+  }
+
+  if (isNaN(delay)) {
+    throw new TypeError('The request delay must be a number.');
+  }
+
+  config.delay = delay;
+  config.timeout = timeout === 0 ? config.timeout : timeout;
 
   return axios(config)
     .catch(error => {
@@ -56,7 +67,7 @@ module.exports = config => {
         // that falls out of the range of 2xx
         console.error('Error on Response Error Status: ', error.response);
         notify.showErrorNotification({
-          title: `Error ${error.response.status} Test` || null,
+          title: `Error ${error.response.status}` || null,
           message: error.response.status === 400 ?
             i18nUtils.getApiErrorMessageI18N(error.response.data.message || null) :
             null
