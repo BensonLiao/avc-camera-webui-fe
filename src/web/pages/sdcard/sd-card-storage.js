@@ -1,27 +1,22 @@
-import React, {useState, useRef} from 'react';
-import PropTypes from 'prop-types';
-import {getRouter} from '@benson.liao/capybara-router';
+import dayjs from 'dayjs';
 import download from 'downloadjs';
-import filesize from 'filesize';
-import progress from 'nprogress';
-import i18n from '../../../i18n';
-import api from '../../../core/apis/web-api';
-import wrappedApi from '../../../core/apis';
 import {Formik, Form} from 'formik';
-import {getPaginatedData, isArray} from '../../../core/utils';
+import {getRouter} from '@benson.liao/capybara-router';
+import progress from 'nprogress';
+import PropTypes from 'prop-types';
+import React, {useState, useRef} from 'react';
+import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
-import noFile from '../../../resource/noFile.png';
-import Pagination from '../../../core/components/pagination';
-import classNames from 'classnames';
-import {SDCARD_STORAGE_DATE_FORMAT} from '../../../core/constants';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
-import StageProgress from '../../../core/components/stage-progress';
-import TableWithCheckBox from '../../../core/components/checkbox-table';
-import CheckboxBody from '../../../core/components/fields/checkbox-body';
-import CheckboxHeader from '../../../core/components/fields/checkbox-header';
+import i18n from '../../../i18n';
+import {getPaginatedData, isArray} from '../../../core/utils';
+import Pagination from '../../../core/components/pagination';
 import SDCardStorageSearchForm from './sd-card-storage-search-form';
-import dayjs from 'dayjs';
+import SDCardStorageTable from './sd-card-storage-table';
+import StageProgress from '../../../core/components/stage-progress';
+import wrappedApi from '../../../core/apis';
+
 const ITEMS_PER_PAGE = 10;
 
 const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
@@ -149,84 +144,14 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                         </CustomTooltip>
                       </div>
                     </div>
-                    <TableWithCheckBox
+                    <SDCardStorageTable
+                      form={form}
                       formikRef={formikRef}
                       pageNumber={pageNumber}
-                    >
-                      <thead>
-                        <tr className="shadow">
-                          <CheckboxHeader formikForm={form}/>
-                          <th style={{width: '15%'}}>{i18n.t('sdCard.storage.files.date')}</th>
-                          <th style={{width: '25%'}}>{i18n.t('sdCard.storage.files.name')}</th>
-                          <th style={{width: '25%'}}>{i18n.t('sdCard.storage.files.size')}</th>
-                          <th style={{width: '15%'}}>{i18n.t('sdCard.storage.files.actions')}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
-                          form.values.length && form.values[pageNumber].length ? (
-                            form.values[pageNumber] && form.values[pageNumber].map((pageData, index) => {
-                              return (
-                                <tr
-                                  key={pageData.path}
-                                  className={classNames(
-                                    {
-                                      checked: form.values[pageNumber] &&
-                                        form.values[pageNumber][index] &&
-                                        form.values[pageNumber][index].isChecked
-                                    }
-                                  )}
-                                >
-                                  <CheckboxBody id={pageData.path} pageNumber={pageNumber} index={index}/>
-                                  <td>
-                                    {currentDate.format(SDCARD_STORAGE_DATE_FORMAT.DISPLAY)}
-                                  </td>
-                                  <td>
-                                    <CustomTooltip placement="top-start" title={pageData.name}>
-                                      <div>
-                                        {pageData.name}
-                                      </div>
-                                    </CustomTooltip>
-                                  </td>
-                                  <td>
-                                    {filesize(pageData.bytes)}
-                                  </td>
-                                  <td className="text-left group-btn">
-                                    <button
-                                      className="btn btn-link"
-                                      type="button"
-                                      onClick={() => downloadFiles(pageData.path)}
-                                    >
-                                      <i className="fas fa-download"/>
-                                    </button>
-                                    <button
-                                      className="btn btn-link"
-                                      type="button"
-                                      onClick={confirmDelete(pageData.path)}
-                                    >
-                                      <i className="far fa-trash-alt fa-lg fa-fw"/>
-                                    </button>
-                                  </td>
-                                </tr>
-                              );
-                            })
-                          ) : (
-                          /* No File */
-                            <tr className="disable-highlight">
-                              <td className="text-size-20 text-center" colSpan="10">
-                                <div className="d-flex flex-column align-items-center mt-5">
-                                  <img src={noFile}/>
-                                  <div className="mt-5 text-center text-wrap" style={{width: '300px'}}>
-                                    {i18n.t('sdCard.storage.noFile')}
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                          )
-                        }
-                      </tbody>
-                    </TableWithCheckBox>
-
+                      currentDate={currentDate}
+                      confirmDelete={confirmDelete}
+                      downloadFiles={downloadFiles}
+                    />
                     <Pagination
                       name="page"
                       index={pageNumber}
