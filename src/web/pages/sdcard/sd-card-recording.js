@@ -11,7 +11,7 @@ import {Field} from 'formik';
 import {Tab} from 'react-bootstrap';
 import classNames from 'classnames';
 
-const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
+const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
   const processOptions = (() => {
     return {
       // filter is temporary, REMOVE when ready
@@ -90,7 +90,7 @@ const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
                   labelName={i18n.t('sdCard.basic.fps')}
                   name="frameRate"
                 >
-                  <option>{values.frameRate}</option>
+                  <option>{formValues.frameRate}</option>
                 </SelectField>
                 <SelectField
                   row
@@ -101,7 +101,7 @@ const SDCardRecording = ({streamSettings, values, setFieldValue}) => {
                   labelName={i18n.t('sdCard.basic.codec')}
                   name="codec"
                 >
-                  <option>{values.codec}</option>
+                  <option>{formValues.codec}</option>
                 </SelectField>
               </div>
               <SelectField
@@ -159,7 +159,7 @@ SDCardRecording.propTypes = {
       resolution: PropTypes.string.isRequired
     })
   }).isRequired,
-  values: PropTypes.shape().isRequired,
+  formValues: PropTypes.object.isRequired,
   setFieldValue: PropTypes.func.isRequired
 };
 

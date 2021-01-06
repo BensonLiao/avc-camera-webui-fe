@@ -189,7 +189,7 @@ const SDCard = ({
                           />
                           <SDCardRecording
                             streamSettings={streamSettings}
-                            values={values}
+                            formValues={values}
                             setFieldValue={setFieldValue}
                           />
                         </div>
