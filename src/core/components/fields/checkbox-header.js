@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {useContextCheckbox} from '../checkbox-table';
 
-const CheckboxHeader = ({formikForm}) => {
+const CheckboxHeader = ({formikForm, width = '10%'}) => {
   const {selectAllRef, isSelectAll, selectAllHandler} = useContextCheckbox();
   return (
     <th
       className="text-center th-checkbox"
-      style={{width: '10%'}}
+      style={{width}}
     >
       <input
         ref={selectAllRef}
