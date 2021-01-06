@@ -27,7 +27,7 @@ const Log = () => {
     progress.start();
     setIsShowProgressModal(true);
     setProgressPercentage(0);
-    wrappedApi({
+    wrappedApi()({
       method: 'get',
       url: '/api/system/systeminfo/log.zip',
       responseType: 'blob',

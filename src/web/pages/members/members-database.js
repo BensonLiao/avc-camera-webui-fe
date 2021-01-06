@@ -69,7 +69,7 @@ const MembersDatabase = ({isApiProcessing}) => {
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('userManagement.members.modal.database.exportApiProcessModalTitle')
     }));
-    wrappedApi({
+    wrappedApi()({
       method: 'get',
       url: '/api/members/database.zip',
       timeout: 3 * 60 * 1000,

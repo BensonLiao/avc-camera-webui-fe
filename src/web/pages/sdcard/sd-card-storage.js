@@ -73,7 +73,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
     progress.start();
     setIsShowProgressModal(true);
     setProgressPercentage(0);
-    wrappedApi({
+    wrappedApi()({
       method: 'post',
       url: '/api/system/systeminfo/sdcard-storage/download',
       responseType: 'blob',

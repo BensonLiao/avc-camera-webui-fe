@@ -111,7 +111,7 @@ module.exports = class Layout extends Base {
 
   downloadManual = e => {
     e.preventDefault();
-    wrappedApi({
+    wrappedApi()({
       method: 'get',
       url: '/api/support/user-manual',
       responseType: 'blob'
