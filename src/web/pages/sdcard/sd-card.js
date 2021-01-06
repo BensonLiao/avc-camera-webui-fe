@@ -1,14 +1,15 @@
 import classNames from 'classnames';
+import {getRouter} from '@benson.liao/capybara-router';
 import {Formik, Form, Field} from 'formik';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
 import {Nav, Tab} from 'react-bootstrap';
+import SDCardRecordingStatus from 'webserver-form-schema/constants/sdcard-recording-status';
 import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import FormikEffect from '../../../core/components/formik-effect';
-import {getRouter} from '@benson.liao/capybara-router';
 import i18n from '../../../i18n';
 import {SD_STATUS_LIST} from '../../../core/constants';
 import SDCardOperation from './sd-card-operation';
@@ -16,7 +17,6 @@ import SDCardRecording from './sd-card-recording';
 import {useContextState} from '../../stateProvider';
 import VolumeProgressBar from '../../../core/components/volume-progress-bar';
 import withGlobalStatus from '../../withGlobalStatus';
-import SDCardRecordingStatus from 'webserver-form-schema/constants/sdcard-recording-status';
 
 const SDCard = ({
   systemInformation,
