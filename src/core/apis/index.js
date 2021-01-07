@@ -27,14 +27,25 @@ const _updateApiStatus = () => {
 };
 
 /**
- * @param {Number} timeout - The axios request timeout, default is `axios.defaults.timeout`.
+ * @param {Object} myConfig - The custom axios request config, default value are described as follows.
+ * @property {Number} myConfig.timeout - The axios request timeout, default is `axios.defaults.timeout`.
  * And it's `0` as of v0.21.1, you can override by re-assign `axios.defaults.timeout`.
  * @see https://github.com/axios/axios/blob/master/lib/defaults.js#L28
- * @param {Number} delay - The axios request delay, default is `0`.
+ * @property {Number} myConfig.delay - The axios request delay, default is `0`.
+ * @property {Boolean} myConfig.randomDelay - Generate a random axios request delay based on timeout, default is `false`.
+ * We now provide the timeout rate of 50%, e.g. timeout = 1000, delay will be range from 0 to 2000.
  * @param {Object} config - The axios request config.
  * @returns {Function<Promise<AxiosResponse<any>>>}
  */
-module.exports = (timeout = axios.defaults.timeout, delay = 0) => config => {
+module.exports = ({
+  timeout = axios.defaults.timeout,
+  delay = 0,
+  randomDelay = false
+} = {
+  timeout: axios.defaults.timeout,
+  delay: 0,
+  randomDelay: false
+}) => config => {
   const id = Math.random().toString(36).substr(2);
   _pool[id] = config;
   _updateApiStatus();
@@ -51,8 +62,8 @@ module.exports = (timeout = axios.defaults.timeout, delay = 0) => config => {
     throw new TypeError('The request delay must be a number.');
   }
 
-  config.delay = delay;
   config.timeout = timeout === 0 ? config.timeout : timeout;
+  config.delay = randomDelay ? Math.round(Math.random() * config.timeout * 2) : delay;
 
   return axios(config)
     .catch(error => {
