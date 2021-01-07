@@ -32,7 +32,7 @@ const _updateApiStatus = () => {
  * @see https://github.com/axios/axios/blob/master/lib/defaults.js#L28
  * @param {Number} delay - The axios request delay, default is `0`.
  * @param {Object} config - The axios request config.
- * @returns {Promise<AxiosResponse<any>>}
+ * @returns {Function<Promise<AxiosResponse<any>>>}
  */
 module.exports = (timeout = axios.defaults.timeout, delay = 0) => config => {
   const id = Math.random().toString(36).substr(2);
