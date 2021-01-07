@@ -149,11 +149,11 @@
           "title": "データベース暗号化"
         },
         "deviceSync": {
-          "modifyDeviceTitle": "",
-          "newDeviceTitle": "",
+          "modifyDeviceTitle": "編集装置",
+          "newDeviceTitle": "新しいデバイス",
           "hostPlaceholder": "",
-          "port": "",
-          "portPlaceholder": "",
+          "port": "ポート",
+          "portPlaceholder": "例えば8080",
           "addDeviceApiProcessingModal": "",
           "editDeviceApiProcessingModal": "",
           "confirmDeleteTitle": "",
@@ -165,10 +165,10 @@
         "photoLimitExceeded": "写真数の上限に達しました",
         "uploadPrimaryFirst": "最初はメイン写真をアップロードして下さい",
         "groupLimitExceeded": "グループ数の上限に達しました",
-        "connected": "",
-        "notConnected": "",
+        "connected": "接続済み",
+        "notConnected": "接続されていません",
         "invalidSelection": "",
-        "noDevice": "",
+        "noDevice": "デバイスを選択します",
         "editGroupWithName": "グループを編集する：{{0}}",
         "createGroup": "グループを追加する",
         "deleteGroupWithName": "グループを削除する：{{0}}",
@@ -182,12 +182,12 @@
       "notePlaceholder": "備考を入力してください",
       "noteHelper": "最大256文字まで入力可能です",
       "delete": "削除",
-      "databaseSettings": "",
-      "encryptionSettings": "",
-      "edit": "",
-      "exportDB": "",
+      "databaseSettings": "データベース設定",
+      "encryptionSettings": "暗号化設定",
+      "edit": "編集",
+      "exportDB": "データベースのエクスポート",
       "export": "エクスポート",
-      "importDB": "",
+      "importDB": "データベースのインポート",
       "import": "インポート",
       "toast": {
         "connectSuccessTitle": "",
@@ -197,18 +197,18 @@
         "syncSuccessTitle": "",
         "syncSuccessBody": ""
       },
-      "host": "",
+      "host": "ホスト",
       "syncing": "",
       "done": "",
       "failed": "",
       "lastUpdated": "",
-      "deviceName": "",
-      "status": "",
+      "deviceName": "デバイス名",
+      "status": "ステータス",
       "actions": "操作",
       "noDevice": "",
       "synchronize": "",
-      "removeUnlinked": "",
-      "remove": "",
+      "removeUnlinked": "リンクされていないデバイスを削除します",
+      "remove": "削除する",
       "searchPlaceholder": "キーワードを入力",
       "search": "検索",
       "title": "メンバー",
@@ -252,7 +252,7 @@
       },
       "popover": {
         "title": "",
-        "content": ""
+        "content": "キーワード間の論理AND演算子として ' 'または ','を使用します。"
       },
       "similarity": "相似性",
       "status": "認証結果",
@@ -296,7 +296,7 @@
     }
   },
   "videoSetting": {
-    "title": "画像設定",
+    "title": "画像",
     "enableHDR": "HDRを有効にする",
     "adjustments": "画像調整",
     "brightness": "明るさ",
@@ -369,15 +369,15 @@
         "Nonfunctioning": "異常",
         "Read-only Access": "読み取り専用",
         "Unknown Error": "不明なエラー",
-        "sdcard-recording-type-0": "",
+        "sdcard-recording-type-0": "バックアップビデオ",
         "sdcard-recording-type-1": "",
-        "sdcard-recording-type-2": "",
+        "sdcard-recording-type-2": "連続録音",
         "sdcard-recording-stream-0": "",
         "sdcard-recording-stream-1": "",
-        "sdcard-recording-limit-true": "",
-        "sdcard-recording-limit-false": "",
+        "sdcard-recording-limit-true": "回転を開始します",
+        "sdcard-recording-limit-false": "録音を停止します",
         "unknownStatus": "UNKNOWN STATUS",
-        "storageToFull": ""
+        "storageToFull": "利用可能なすべてのスペース"
       },
       "operation": "操作",
       "format": "フォーマット",
@@ -387,17 +387,17 @@
       "notificationSet": "メールアドレスが設定されました",
       "enableOutgoingEmail": "メールアドレスを設定する",
       "emailNotification": "",
-      "enableRecording": "",
-      "recordingType": "",
-      "recordingResolution": "",
-      "fps": "",
-      "codec": "",
-      "recordingDuration": "",
-      "recordingLimit": "",
+      "enableRecording": "録音を有効にする",
+      "recordingType": "いつ録音を開始するか",
+      "recordingResolution": "解像度",
+      "fps": "フレームレート",
+      "codec": "コーデック",
+      "recordingDuration": "録音時間の長さ (分)",
+      "recordingLimit": "ストレージがいっぱいになったとき",
       "title": "SDカード",
       "enable": "SDカードを有効にする",
       "status": "ステータス",
-      "recording": "",
+      "recording": "ビデオ",
       "filesystem": "ファイルシステム",
       "unrecognized": "不明なファイルシステム"
     },
@@ -413,19 +413,19 @@
     },
     "storage": {
       "tooltip": {
-        "noFile": ""
+        "noFile": "ファイルを選択します"
       },
       "button": {
-        "download": "",
-        "remove": ""
+        "download": "ダウンロード",
+        "remove": "削除"
       },
       "files": {
-        "date": "",
-        "name": "",
-        "size": "",
-        "actions": ""
+        "date": "日付",
+        "name": "ファイル名",
+        "size": "ファイルサイズ",
+        "actions": "操作"
       },
-      "noFile": "",
+      "noFile": "ファイルがない",
       "modal": {
         "confirmDeleteTitle": "",
         "confirmDeleteBody": "",
@@ -471,7 +471,7 @@
     "email": "無効なメールアドレス",
     "url": "正しいURLを入力してください,",
     "confirmEqual": "パスワードが一致しません",
-    "maxOperators": "",
+    "maxOperators": "1回の検索で最大4つのキーワードを使用できます",
     "stringContainsLowerCaseLatter": "小文字のアルファベットの入力は必須です",
     "stringContainsUpperCaseLatter": "大文字のアルファベットの入力は必須です",
     "stringContainsNumber": "数字の入力は必須です",
@@ -530,7 +530,7 @@
         "apiProcessingModalTitle": "HDMI設定を更新する",
         "confirmUpdateBody": "HDMI設定を変更しますか？"
       },
-      "title": "HDMI設定",
+      "title": "HDMI",
       "hdmi": "HDMI"
     },
     "osd": {
@@ -673,7 +673,7 @@
         "ssl": "SSL",
         "tls": "TLS"
       },
-      "title": "メール設定",
+      "title": "メール",
       "enableEmail": "メール送信を有効にします",
       "serverAddress": "SMTPサーバーアドレス",
       "serverAddressPlaceholder": "サーバーアドレスを入力してください",
@@ -741,9 +741,9 @@
         "system": "システム",
         "sdCard": "SDカード"
       },
-      "analyticsSettings": "映像処理",
+      "analyticsSettings": "映像処理設定",
       "license": "映像処理ライセンス",
-      "audio": "オーディオ設定",
+      "audio": "オーディオ",
       "videoSettings": "ビデオ設定",
       "hdmi": "HDMI",
       "streams": "ストリーム",
@@ -763,9 +763,9 @@
       "email": "メール",
       "io": "I/O",
       "smartNotification": "スマート通知",
-      "sdCardSettings": "SDカード",
-      "basic": "",
-      "storage": "",
+      "sdCardSettings": "SDカード設定",
+      "basic": "基本",
+      "storage": "ストレージ",
       "facialRecognition": "顔認証",
       "motionDetection": "動体検知",
       "system": "システム設定",
@@ -831,7 +831,7 @@
         "detectionZoneToggle": "検知領域を表示する/非表示にする"
       },
       "modal": {
-        "spoofBody": "アルファ版の画像スプーフィングを有効にしてもよろしいですか？ アルファ版です。 画像のなりすましと判断された顔は認識されません。 今後のソフトウェアアップデートで、この機能を最適化および改善する予定です"
+        "spoofBody": "なりすまし防止のα版を有効にしてもよろしいですか？これは開発中機能で、 なりすましと判断された顔は認識されません。\n今後のソフトウェアアップデートでこの機能を最適化および改善する予定です。"
       },
       "accuracyLevel": "認証レベル",
       "constants": {
@@ -1089,8 +1089,8 @@
     "dateTime": "日付と時刻",
     "softwareUpgrade": "アップグレード",
     "deviceMaintenance": "メンテナンス",
-    "sdCardSettings": "",
-    "sdCardStorage": "",
+    "sdCardSettings": "SDカード設定",
+    "sdCardStorage": "ストレージ",
     "systemLog": "システムログ",
     "information": "デバイス情報",
     "welcome": "ようこそ",
