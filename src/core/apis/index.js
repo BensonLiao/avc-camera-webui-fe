@@ -67,7 +67,7 @@ module.exports = (timeout = axios.defaults.timeout, delay = 0) => config => {
         // that falls out of the range of 2xx
         console.error('Error on Response Error Status: ', error.response);
         notify.showErrorNotification({
-          title: `Error ${error.response.status} Test` || null,
+          title: `Error ${error.response.status}` || null,
           message: error.response.status === 400 ?
             i18nUtils.getApiErrorMessageI18N(error.response.data.message || null) :
             null
