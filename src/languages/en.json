@@ -38,8 +38,8 @@
       "stats": "{{0}}-{{1}} items. Total: {{2}}"
     },
     "volumeBar": {
-      "free": "Free: {{0}}",
-      "total": "Total: {{0}}",
+      "free": "Free:",
+      "total": "Total:",
       "sdStorageStatus": "Free: {{0}}, Total: {{1}}",
       "used": "Used: {{0}}"
     },

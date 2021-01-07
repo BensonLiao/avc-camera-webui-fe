@@ -11,8 +11,8 @@ const VolumeProgressBar = ({total, usage, percentageToHideText, isRoundProgressB
   const freeDiskVolume = total - usage;
 
   return isRoundProgressBar ? (
-    <div className="d-flex flex-column col-3">
-      <div className={`pie-wrapper-sd progress-${usedDiskPercentage} style-2`}>
+    <div className="d-flex flex-column col-4">
+      <div className={`pie-wrapper-sd align-self-center progress-${usedDiskPercentage} style-2`}>
         <img src={SDCardIcon} className="img"/>
         <div className="pie">
           <div className="left-side half-circle"/>
@@ -20,13 +20,23 @@ const VolumeProgressBar = ({total, usage, percentageToHideText, isRoundProgressB
         </div>
         <div className="shadow-pie"/>
       </div>
-      <div className="card rounded-0 p-2">
-        <p className="mb-0 text-center">
-          {i18n.t('common.volumeBar.free', {0: filesize(freeDiskVolume)})}
-        </p>
-        <p className="mb-0 text-center">
-          {i18n.t('common.volumeBar.total', {0: filesize(total)})}
-        </p>
+      <div className="card form-group rounded-0 p-2">
+        <div>
+          <label className="mb-0 col-sm-6">
+            {i18n.t('common.volumeBar.free')}
+          </label>
+          <label className="mb-0 text-primary col-sm-6">
+            {`${filesize(freeDiskVolume)}`}
+          </label>
+        </div>
+        <div>
+          <label className="mb-0 col-sm-6">
+            {i18n.t('common.volumeBar.total')}
+          </label>
+          <label className="mb-0 text-primary col-sm-6">
+            {`${filesize(total)}`}
+          </label>
+        </div>
       </div>
     </div>
   ) : (
