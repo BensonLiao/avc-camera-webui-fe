@@ -1,19 +1,19 @@
 import classNames from 'classnames';
+import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
-import progress from 'nprogress';
 import {RouterView, Link, getRouter} from '@benson.liao/capybara-router';
-import Pagination from '../../../core/components/pagination';
-import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import CustomTooltip from '../../../core/components/tooltip';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import DeviceSync from './members-deviceSync';
+import i18n from '../../../i18n';
 import MembersDatabase from './members-database';
 import MembersSearchForm from './members-search-form';
 import MembersSidebar from './members-sidebar';
 import MembersTable from './members-table';
 import MembersSelectedGroup from './members-selectedGroup';
-import DeviceSync from './members-deviceSync';
+import Pagination from '../../../core/components/pagination';
 import {useContextState} from '../../stateProvider';
 import withGlobalStatus from '../../withGlobalStatus';
 

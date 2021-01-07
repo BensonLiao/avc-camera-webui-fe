@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import ConnectionStatusSchema from 'webserver-form-schema/constants/members-device-connection-status';
+import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
+import MasterSyncStatusSchema from 'webserver-form-schema/constants/members-master-sync-status';
 import CustomTooltip from '../../../core/components/tooltip';
 import {formatDate} from '../../../core/utils';
 import i18n from '../../../i18n';
 import ProgressIndicator from '../../../core/components/progress-indicator';
-import ConnectionStatusSchema from 'webserver-form-schema/constants/members-device-connection-status';
-import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
-import MasterSyncStatusSchema from 'webserver-form-schema/constants/members-master-sync-status';
 
 /**
  * Conditional render for device status
