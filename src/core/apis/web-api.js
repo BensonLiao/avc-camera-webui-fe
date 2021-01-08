@@ -1,5 +1,4 @@
-const customApiWrapper = require('./index.js');
-const api = customApiWrapper();
+const api = require('./index.js').withApiWrapper();
 
 module.exports = {
   /**

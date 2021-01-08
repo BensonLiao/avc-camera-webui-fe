@@ -27,7 +27,7 @@ const i18nUtils = require('../../i18n/utils');
 const constants = require('../../core/constants');
 const store = require('../../core/store');
 const utils = require('../../core/utils');
-const wrappedApi = require('../../core/apis');
+const {withApiWrapper} = require('../../core/apis');
 const {default: ErrorDisplay} = require('../../core/components/error-display');
 
 module.exports = class Layout extends Base {
@@ -111,7 +111,7 @@ module.exports = class Layout extends Base {
 
   downloadManual = e => {
     e.preventDefault();
-    wrappedApi()({
+    withApiWrapper()({
       method: 'get',
       url: '/api/support/user-manual',
       responseType: 'blob'

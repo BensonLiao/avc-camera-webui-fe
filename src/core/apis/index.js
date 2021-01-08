@@ -37,7 +37,7 @@ const _updateApiStatus = () => {
  * @param {Object} config - The axios request config.
  * @returns {Function<Promise<AxiosResponse<any>>>}
  */
-module.exports = ({
+module.exports.withApiWrapper = ({
   timeout = axios.defaults.timeout,
   delay = 0,
   randomDelay = false

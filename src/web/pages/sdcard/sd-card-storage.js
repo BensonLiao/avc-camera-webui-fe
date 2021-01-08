@@ -6,7 +6,7 @@ import filesize from 'filesize';
 import progress from 'nprogress';
 import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
-import wrappedApi from '../../../core/apis';
+import {withApiWrapper} from '../../../core/apis';
 import {Formik, Form, Field} from 'formik';
 import {getPaginatedData, isArray} from '../../../core/utils';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
@@ -73,7 +73,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
     progress.start();
     setIsShowProgressModal(true);
     setProgressPercentage(0);
-    wrappedApi()({
+    withApiWrapper()({
       method: 'post',
       url: '/api/system/systeminfo/sdcard-storage/download',
       responseType: 'blob',
