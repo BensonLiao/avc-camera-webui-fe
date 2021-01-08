@@ -266,7 +266,29 @@ module.exports = new Router({
         groups: () => api.group.getGroups().then(response => response.data),
         members: params => api.member.getMembers(params).then(response => response.data),
         remainingPictureCount: () => api.member.remainingPictureCount().then(response => response.data),
-        deviceSync: () => api.member.getDevice().then(response => response.data)
+        deviceSync: () => api.member.getDevice().then(async response => {
+          // Check if sync process is ongoing
+          if (response.data.syncStatus) {
+            // Update device list with newest devices status
+            // This is to prevent 'flashing' of device status after loading page
+            let res = await api.member.syncDB();
+            const devices = response.data.devices.map(device => {
+              const index = res.data.devices.findIndex(syncDevice => syncDevice.id === device.id);
+              if (index >= 0) {
+                return res.data.devices[index];
+              }
+
+              return device;
+            });
+            return {
+              devices,
+              syncStatus: response.data.syncStatus
+            };
+          }
+
+          // Return original data
+          return response.data;
+        })
       },
       loadComponent: () => import(
         /* webpackChunkName: "page-members" */

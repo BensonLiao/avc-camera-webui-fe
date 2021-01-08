@@ -16,7 +16,8 @@ i18n
     nsSeparator: false, // disable separator ':'
     interpolation: {escapeValue: false}, // react already safes from xss
     supportedLangCodes: Object.keys(SUPPORTED_LANGUAGE_CODES), // we don't use `supportedLngs` option cause it inject unwanted `cimode`
-    langCodesTitle: SUPPORTED_LANGUAGE_CODES // for UI display
+    langCodesTitle: SUPPORTED_LANGUAGE_CODES, // for UI display
+    returnEmptyString: false // Disallow empty strings; show key for empty strings instead
   });
 
 export default i18n;

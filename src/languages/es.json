@@ -100,7 +100,7 @@
       "manualDateTime": "Manual DateTime"
     },
     "fileHandler": {
-      "importHelper": "Solo admite formato de archivo .zip",
+      "importHelper": "Solo admite formato de archivo ZIP.",
       "selectFile": "Seleccionar Archivo",
       "noFileSelected": "Ningún archivo seleccionado",
       "tooltip": {
@@ -149,11 +149,11 @@
           "title": "Cifrado de base de datos"
         },
         "deviceSync": {
-          "modifyDeviceTitle": "",
-          "newDeviceTitle": "",
+          "modifyDeviceTitle": "Editar dispositivo",
+          "newDeviceTitle": "Nuevo dispositivo",
           "hostPlaceholder": "",
-          "port": "",
-          "portPlaceholder": "",
+          "port": "Puerto ",
+          "portPlaceholder": "p.ej. 8080",
           "addDeviceApiProcessingModal": "",
           "editDeviceApiProcessingModal": "",
           "confirmDeleteTitle": "",
@@ -165,10 +165,10 @@
         "photoLimitExceeded": "Límite de cantidad alcanzado",
         "uploadPrimaryFirst": "Sube la foto principal primero",
         "groupLimitExceeded": "Límite de cantidad alcanzado",
-        "connected": "",
-        "notConnected": "",
+        "connected": "Conectado",
+        "notConnected": "No conectado",
         "invalidSelection": "",
-        "noDevice": "",
+        "noDevice": "Seleccione un dispositivo",
         "editGroupWithName": "Editar grupo: {{0}}",
         "createGroup": "Añadir grupo",
         "deleteGroupWithName": "Borrar grupo: {{0}}",
@@ -182,12 +182,12 @@
       "notePlaceholder": "Ingrese nota",
       "noteHelper": "Extension máxima: 256 caracteres",
       "delete": "Borrar",
-      "databaseSettings": "",
-      "encryptionSettings": "",
-      "edit": "",
-      "exportDB": "",
+      "databaseSettings": "Configuración de la base de datos",
+      "encryptionSettings": "Configuración de cifrado",
+      "edit": "Editar",
+      "exportDB": "Exportación de base de datos",
       "export": "Exportar",
-      "importDB": "",
+      "importDB": "Importación de base de datos",
       "import": "Importar",
       "toast": {
         "connectSuccessTitle": "",
@@ -197,18 +197,18 @@
         "syncSuccessTitle": "",
         "syncSuccessBody": ""
       },
-      "host": "",
+      "host": "Host",
       "syncing": "",
       "done": "",
       "failed": "",
       "lastUpdated": "",
-      "synchronize": "",
-      "removeUnlinked": "",
-      "remove": "",
-      "deviceName": "",
-      "status": "",
+      "deviceName": "Nombre del dispositivo",
+      "status": "Estado",
       "actions": "Operar",
       "noDevice": "",
+      "synchronize": "",
+      "removeUnlinked": "Eliminar Dispositivos Desconectados",
+      "remove": "Eliminar",
       "searchPlaceholder": "Ingrese palabras claves",
       "search": "buscar",
       "title": "miembro",
@@ -252,7 +252,7 @@
       },
       "popover": {
         "title": "",
-        "content": ""
+        "content": "Utilice ' ' o ',' como operador lógico Y entre palabras clave."
       },
       "similarity": "Similaridad",
       "status": "resultado",
@@ -369,37 +369,37 @@
         "Nonfunctioning": "Anormal",
         "Read-only Access": "Solo lectura",
         "Unknown Error": "error desconocido",
-        "sdcard-recording-type-0": "",
+        "sdcard-recording-type-0": "Video de respaldo",
         "sdcard-recording-type-1": "",
-        "sdcard-recording-type-2": "",
+        "sdcard-recording-type-2": "Grabación continua",
         "sdcard-recording-stream-0": "",
         "sdcard-recording-stream-1": "",
-        "sdcard-recording-limit-true": "",
-        "sdcard-recording-limit-false": "",
+        "sdcard-recording-limit-true": "Iniciar rotación",
+        "sdcard-recording-limit-false": "Para de grabar",
         "unknownStatus": "UNKNOWN STATUS",
-        "storageToFull": ""
+        "storageToFull": "Todo el espacio disponible"
       },
       "operation": "Operación",
       "format": "formato",
       "mount": "Montar",
       "unmount": "Desinstalar",
-      "title": "Tarjeta de memoria",
-      "enable": "Habilitar tarjeta SD",
-      "status": "estado",
-      "filesystem": "Formato del sistema de archivos",
-      "unrecognized": "No reconocido",
-      "recording": "",
       "errorNotification": "Notificación de anormalidad",
       "notificationSet": "Conjunto de correo electrónico",
       "enableOutgoingEmail": "Configurar correo electrónico",
       "emailNotification": "",
-      "enableRecording": "",
-      "recordingType": "",
-      "recordingResolution": "",
-      "fps": "",
-      "codec": "",
-      "recordingDuration": "",
-      "recordingLimit": ""
+      "enableRecording": "Habilitar grabación",
+      "recordingType": "Cuándo comenzar a grabar",
+      "recordingResolution": "Resolución",
+      "fps": "Cuadros por segundo",
+      "codec": "Codificación de imágenes",
+      "recordingDuration": "Duración de la grabación (minutos)",
+      "recordingLimit": "Cuando el almacenamiento está lleno",
+      "title": "Tarjeta de memoria",
+      "enable": "Habilitar tarjeta SD",
+      "status": "Estado",
+      "recording": "Grabación",
+      "filesystem": "Formato del sistema de archivos",
+      "unrecognized": "No reconocido"
     },
     "tooltip": {
       "disabledOperationButton": "Primero apague la función de la tarjeta SD",
@@ -413,19 +413,19 @@
     },
     "storage": {
       "tooltip": {
-        "noFile": ""
+        "noFile": "Seleccione un archivo"
       },
       "button": {
-        "remove": "",
-        "download": ""
+        "download": "Descargar",
+        "remove": "Borrar"
       },
       "files": {
-        "date": "",
-        "name": "",
-        "size": "",
-        "actions": ""
+        "date": "FECHA",
+        "name": "NOMBRE DEL ARCHIVO",
+        "size": "TAMAÑO DEL ARCHIVO",
+        "actions": "Operar"
       },
-      "noFile": "",
+      "noFile": "No hay archivos disponibles",
       "modal": {
         "confirmDeleteTitle": "",
         "confirmDeleteBody": "",
@@ -471,7 +471,7 @@
     "email": "La dirección de correo electrónico inválida",
     "url": "Utilice el formato de URL correcto",
     "confirmEqual": "Estas contraseñas no coinciden",
-    "maxOperators": "",
+    "maxOperators": "Se pueden utilizar hasta 4 palabras clave en una búsqueda.",
     "stringContainsLowerCaseLatter": "Debe contener letras minúsculas en inglés",
     "stringContainsUpperCaseLatter": "Debe contener letras mayúsculas en inglés",
     "stringContainsNumber": "Debe contener números",
@@ -764,8 +764,8 @@
       "io": "E/S digital",
       "smartNotification": "Notificación inteligente",
       "sdCardSettings": "Tarjeta de memoria",
-      "basic": "",
-      "storage": "",
+      "basic": "Básico",
+      "storage": "Almacenamiento",
       "facialRecognition": "Reconocimiento facial",
       "motionDetection": "Detección de movimiento",
       "system": "Sistema",
@@ -831,7 +831,7 @@
         "detectionZoneToggle": "Mostrar o ocultar área"
       },
       "modal": {
-        "spoofBody": "¿Está seguro de que desea habilitar la versión Alfa de la suplantación de imágenes? Es una versión Alpha. No se reconocerán los rostros que se consideren falsos. Optimizaremos y mejoraremos esta función en futuras actualizaciones de software."
+        "spoofBody": "¿Está seguro de que desea habilitar la versión Alpha de Anti-Image Spoof? Anti-Image Spoof Alpha no realizará el reconocimiento facial una vez que se detecte un rostro como una imagen de rostro falso. Continuaremos mejorando esta función a través de futuras actualizaciones de software."
       },
       "accuracyLevel": "Nivel de exactitud",
       "constants": {
@@ -1089,8 +1089,8 @@
     "dateTime": "Fecha y hora",
     "softwareUpgrade": "Actualización",
     "deviceMaintenance": "Mantenimiento",
-    "sdCardSettings": "",
-    "sdCardStorage": "",
+    "sdCardSettings": "Tarjeta de memoria",
+    "sdCardStorage": "Almacenamiento",
     "systemLog": "Registro del sistema",
     "information": "Información del dispositivo",
     "welcome": "Bienvenido",

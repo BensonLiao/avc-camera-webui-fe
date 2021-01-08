@@ -101,7 +101,7 @@ const withGlobalStatus = WrappedComponent => {
     }
   }
 
-  return WithGlobalStatusHOC;
+  return React.memo(WithGlobalStatusHOC);
 };
 
 export default withGlobalStatus;

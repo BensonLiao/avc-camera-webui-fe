@@ -263,12 +263,12 @@ module.exports = {
         sdAlertEnabled: false
       },
       sdCardRecordingSettings: {
-        sdRecordingStatus: 1,
+        sdRecordingStatus: 0,
         sdRecordingEnabled: true,
         sdRecordingStream: 1,
         sdRecordingType: 0,
         sdRecordingDuration: 0,
-        sdRecordingLimit: true
+        sdRecordingLimit: false
       },
       sdCardStorage: {
         files: Array.from({length: 30}, (_, i) => {
@@ -280,11 +280,11 @@ module.exports = {
               path: `/sdcard/test/folder1/file${i}.txt`,
               type: 'file',
               // Add a date field to mock backend filter
-              date: `2020-12-${i <= 5 ? '20' : Math.floor(Math.random() * 23)}`
+              date: `2021-01-${i <= 5 ? '20' : Math.floor(Math.random() * 23)}`
             }
           );
         }),
-        filesDateList: ['2020-12-20', '2020-12-22', '2020-12-23', '2021-01-01']
+        filesDateList: ['2021-01-20', '2021-01-22', '2021-01-23', '2021-02-01']
       },
       systemDateTime: {
         deviceTime: new Date().getTime(),
@@ -559,7 +559,7 @@ module.exports = {
         devices: Array.from({length: 20}, (_, i) => {
           const connectionStatus = Math.random() * 5 > 1 ? 1 : 0;
           return {
-            id: i,
+            id: i + 1,
             ip: `192.168.0.${i + 1}`,
             port: 8080,
             name: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,

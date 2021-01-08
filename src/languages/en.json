@@ -100,7 +100,7 @@
       "manualDateTime": "Manual DateTime"
     },
     "fileHandler": {
-      "importHelper": "Only ZIP file format is supported",
+      "importHelper": "Only ZIP file format is supported.",
       "selectFile": "Select File",
       "noFileSelected": "No file selected.",
       "tooltip": {
@@ -149,11 +149,11 @@
           "title": "Database Encryption"
         },
         "deviceSync": {
-          "modifyDeviceTitle": "Edit Device Details",
-          "newDeviceTitle": "Add New Device",
+          "modifyDeviceTitle": "Edit Device",
+          "newDeviceTitle": "New Device",
           "hostPlaceholder": "Enter device IP",
           "port": "Port",
-          "portPlaceholder": "Ex. 8080",
+          "portPlaceholder": "e.g. 8080",
           "addDeviceApiProcessingModal": "Adding Device",
           "editDeviceApiProcessingModal": "Updating Device",
           "confirmDeleteTitle": "Delete Device",
@@ -166,9 +166,9 @@
         "uploadPrimaryFirst": "Upload the Primary Photo First",
         "groupLimitExceeded": "Group number limit exceeded.",
         "connected": "Connected",
-        "notConnected": "Not Connected",
+        "notConnected": "Disconnected",
         "invalidSelection": "Un-linked Device Selected",
-        "noDevice": "Select a Device",
+        "noDevice": "Select a device",
         "editGroupWithName": "Edit Group: {{0}}",
         "createGroup": "Create a Group",
         "deleteGroupWithName": "Delete Group: {{0}}",
@@ -185,30 +185,30 @@
       "databaseSettings": "Database Settings",
       "encryptionSettings": "Encryption Settings",
       "edit": "Edit",
-      "exportDB": "Export Database",
+      "exportDB": "Database Export ",
       "export": "Export",
-      "importDB": "Import Database",
+      "importDB": "Database Import ",
       "import": "Import",
       "toast": {
-        "connectSuccessTitle": "Connection Successful",
-        "connectSuccessBody": "Device Successfully Connected",
+        "connectSuccessTitle": "Connection Success",
+        "connectSuccessBody": "Device Connected Successfully",
         "connectFailTitle": "Connection Failed",
-        "connectFailBody": "Device Connection Failed",
-        "syncSuccessTitle": "Synchronize Success",
-        "syncSuccessBody": "Syncing Device Succeeded"
+        "connectFailBody": "Unable to Connect the Device",
+        "syncSuccessTitle": "Synchronization Success",
+        "syncSuccessBody": "Device Synced Successfully"
       },
       "host": "Host",
       "syncing": "Syncing",
       "done": "Done",
       "failed": "Failed",
       "lastUpdated": "Last Updated",
-      "synchronize": "Synchronize",
-      "removeUnlinked": "Remove unlinked device(s)",
-      "remove": "Remove",
       "deviceName": "Device Name",
       "status": "Status",
       "actions": "Actions",
       "noDevice": "Please click the 'Add' first to add a new device to your list",
+      "synchronize": "Synchronize",
+      "removeUnlinked": "Remove Disconnected Devices",
+      "remove": "Remove",
       "searchPlaceholder": "Enter keywords",
       "search": "Search",
       "title": "Members",
@@ -223,7 +223,7 @@
     "events": {
       "toast": {
         "settingSuccessTitle": "Setting Success",
-        "settingSuccessBody": "Photo Has Been Added to {{0}}"
+        "settingSuccessBody": "Photo Added to {{0}}"
       },
       "addExistingMember": "Add to an Existing Member",
       "searchPlaceholder": "Enter keywords",
@@ -374,32 +374,32 @@
         "sdcard-recording-type-2": "Continuous recording",
         "sdcard-recording-stream-0": "Stream 1",
         "sdcard-recording-stream-1": "Stream 2",
-        "sdcard-recording-limit-true": "Override oldest recording",
+        "sdcard-recording-limit-true": "Start Rotation",
         "sdcard-recording-limit-false": "Stop recording",
         "unknownStatus": "UNKNOWN STATUS",
-        "storageToFull": "Storage to full"
+        "storageToFull": "All Available Space"
       },
       "operation": "Operation",
       "format": "Format",
       "mount": "Mount",
       "unmount": "Unmount",
-      "title": "SD Card",
-      "enable": "Enable SD Card",
-      "status": "Status",
-      "filesystem": "Filesystem",
-      "unrecognized": "Unrecognized",
-      "recording": "Recording",
       "errorNotification": "Error Notification",
       "notificationSet": "Email Notification Set",
       "enableOutgoingEmail": "Enable Outgoing Email",
       "emailNotification": "Email Notification",
       "enableRecording": "Enable Recording",
-      "recordingType": "Type",
+      "recordingType": "When to Start Recording",
       "recordingResolution": "Resolution",
-      "fps": "Resolution frame rate",
-      "codec": "Resolution codec",
-      "recordingDuration": "Recording time (Mins)",
-      "recordingLimit": "When storage is full"
+      "fps": "Frame Rate",
+      "codec": "Codec",
+      "recordingDuration": "Recording Duration (minutes)",
+      "recordingLimit": "When storage is full",
+      "title": "SD Card",
+      "enable": "Enable SD Card",
+      "status": "Status",
+      "recording": "Recording",
+      "filesystem": "Filesystem",
+      "unrecognized": "Unrecognized"
     },
     "tooltip": {
       "disabledOperationButton": "Please disable the SD card first.",
@@ -413,19 +413,19 @@
     },
     "storage": {
       "tooltip": {
-        "noFile": "Select a File"
+        "noFile": "Select a file"
       },
       "button": {
-        "remove": "Delete",
-        "download": "Download"
+        "download": "Download",
+        "remove": "Delete"
       },
       "files": {
-        "date": "Date",
-        "name": "File Name",
-        "size": "File Size",
+        "date": "DATE",
+        "name": "FILE NAME",
+        "size": "FILE SIZE",
         "actions": "Actions"
       },
-      "noFile": "There is no file in here.",
+      "noFile": "No files available",
       "modal": {
         "confirmDeleteTitle": "Delete File",
         "confirmDeleteBody": "Are you sure you want to delete file?",
@@ -694,7 +694,7 @@
       "toast": {
         "emailSettingSuccess": "Email Setting Success",
         "sendingTestEmail": "Sending Test Email",
-        "disablingOutgoingEmail": "Disabling Outgoing Email"
+        "disablingOutgoingEmail": "Outgoing Email Disabled"
       }
     }
   },
@@ -831,7 +831,7 @@
         "detectionZoneToggle": "Show/Hide Detection Zone"
       },
       "modal": {
-        "spoofBody": "Are you sure you want to enable the Alpha version of image spoofing? It is an Alpha version. Faces judged to be image spoof will not be recognized. We will optimize and improve this feature in future software updates."
+        "spoofBody": "Are you sure you want to enable the Alpha version of Anti-Image Spoof? The Anti-Image Spoof Alpha will not perform Facial Recognition once a face is detected as a spoofing face image. We will continue improving this function through future software updates."
       },
       "accuracyLevel": "Level of Accuracy",
       "constants": {

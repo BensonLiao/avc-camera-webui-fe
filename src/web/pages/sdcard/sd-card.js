@@ -1,29 +1,22 @@
 import classNames from 'classnames';
+import {getRouter} from '@benson.liao/capybara-router';
 import {Formik, Form, Field} from 'formik';
-import {Link} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState, useEffect} from 'react';
 import {Nav, Tab} from 'react-bootstrap';
+import SDCardRecordingStatus from 'webserver-form-schema/constants/sdcard-recording-status';
 import api from '../../../core/apis/web-api';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
-import CustomTooltip from '../../../core/components/tooltip';
 import FormikEffect from '../../../core/components/formik-effect';
-import {getRouter} from '@benson.liao/capybara-router';
 import i18n from '../../../i18n';
 import {SD_STATUS_LIST} from '../../../core/constants';
 import SDCardOperation from './sd-card-operation';
+import SDCardRecording from './sd-card-recording';
 import {useContextState} from '../../stateProvider';
 import VolumeProgressBar from '../../../core/components/volume-progress-bar';
 import withGlobalStatus from '../../withGlobalStatus';
-import SelectField from '../../../core/components/fields/select-field';
-import SDCardRecordingDuration from 'webserver-form-schema/constants/sdcard-recording-duration';
-import SDCardRecordingType from 'webserver-form-schema/constants/sdcard-recording-type';
-import SDCardRecordingStream from 'webserver-form-schema/constants/sdcard-recording-stream';
-import SDCardRecordingLimit from 'webserver-form-schema/constants/sdcard-recording-limit';
-import SDCardRecordingStatus from 'webserver-form-schema/constants/sdcard-recording-status';
-import i18nUtils from '../../../i18n/utils';
 
 const SDCard = ({
   systemInformation,
@@ -42,6 +35,7 @@ const SDCard = ({
   const [currentTab, setCurrentTab] = useState(localStorage.getItem('sdCurrentTab') || 'tab-sdcard-operation');
 
   useEffect(() => {
+    // clear current tab so when user navigates back it doesn't stay as other tab
     localStorage.removeItem('sdCurrentTab');
   }, []);
 
@@ -50,6 +44,7 @@ const SDCard = ({
   };
 
   const callApi = (apiFunction, value = '') => {
+    // remember current tab to prevent jumping back to initial tab on reload
     localStorage.setItem('sdCurrentTab', currentTab);
     progress.start();
     api.system[apiFunction](value)
@@ -71,38 +66,11 @@ const SDCard = ({
     }
   };
 
-  const processOptions = () => {
-    return {
-      type: SDCardRecordingType.all().filter(x => x !== '1').map(x => i18nUtils.getSDCardRecordingType(x)),
-      stream: SDCardRecordingStream.all().filter(x => x !== '2').map(x => {
-        const {value, label} = i18nUtils.getSDCardRecordingStream(x);
-        let channel = x === '1' ? 'channelA' : 'channelB';
-        return {
-          value,
-          label: label + ' ' + i18nUtils.getStreamResolutionOption(streamSettings[channel].resolution).label
-        };
-      }),
-      limit: SDCardRecordingLimit.all().map(x => i18nUtils.getSDCardRecordingLimit(x))
-    };
-  };
-
-  const options = processOptions();
-
-  const currentStreamSettings = (setFieldValue, event) => {
-    setFieldValue('sdRecordingStream', event.target.value);
-    if (event.target.value === SDCardRecordingStream[1]) {
-      setFieldValue('frameRate', streamSettings.channelA.frameRate);
-      setFieldValue('codec', streamSettings.channelA.codec);
-    }
-
-    if (event.target.value === SDCardRecordingStream[2]) {
-      setFieldValue('frameRate', streamSettings.channelB.frameRate);
-      setFieldValue('codec', streamSettings.channelB.codec);
-    }
-  };
-
   const onSubmit = values => {
+    // remember current tab to prevent jumping back to initial tab on reload
     localStorage.setItem('sdCurrentTab', currentTab);
+
+    // values contains more than we need, thus we have to map it out one by one
     const formValues = {
       sdRecordingStatus: values.sdRecordingStatus,
       sdRecordingDuration: values.sdRecordingDuration,
@@ -187,7 +155,10 @@ const SDCard = ({
                             modalTitle={i18n.t('sdCard.modal.disableTitle')}
                             modalBody={i18n.t('sdCard.modal.disableBody')}
                             isConfirmDisable={isApiProcessing}
-                            onHide={getRouter().reload} // Reload to reset SD card switch button state
+                            onHide={() => {
+                              localStorage.setItem('sdCurrentTab', currentTab);
+                              getRouter().reload();
+                            }} // Reload to reset SD card switch button state
                             onConfirm={() => callApi('enableSD', {sdEnabled: false})}
                           />
                         </div>
@@ -210,118 +181,17 @@ const SDCard = ({
                           </Nav.Item>
                         </Nav>
                         <div className="card-body">
-                          <Tab.Content>
-                            <Tab.Pane eventKey="tab-sdcard-operation">
-                              <SDCardOperation
-                                sdEnabled={sdEnabled}
-                                sdStatus={sdStatus}
-                                callApi={callApi}
-                              />
-                              <div className="form-group">
-                                <div className="row d-flex justify-content-between ml-0 mr-0 mb-1">
-                                  <label>{i18n.t('sdCard.basic.errorNotification')}</label>
-                                  <span>
-                                    {
-                                      isEnableAuth ?
-                                        <a className="text-success">{i18n.t('sdCard.basic.notificationSet')}</a> :
-                                        <Link className="text-danger" to="/notification/smtp">{i18n.t('sdCard.basic.enableOutgoingEmail')}</Link>
-                                    }
-                                  </span>
-                                </div>
-                                <div className="card">
-                                  <div className="card-body">
-                                    <div className="form-group align-items-center mb-0">
-                                      <label className="mb-0 mr-3">{i18n.t('sdCard.basic.emailNotification')}</label>
-                                      <CustomTooltip show={!isEnableAuth} title={i18n.t('sdCard.tooltip.disabledNotificationButton')}>
-                                        <div className="custom-control custom-switch float-right">
-                                          <Field
-                                            disabled={!isEnableAuth}
-                                            name="sdAlertEnabled"
-                                            type="checkbox"
-                                            style={isEnableAuth ? {} : {pointerEvents: 'none'}}
-                                            className="custom-control-input"
-                                            id="switch-output"
-                                          />
-                                          <label className="custom-control-label" htmlFor="switch-output">
-                                            <span>{i18n.t('common.button.on')}</span>
-                                            <span>{i18n.t('common.button.off')}</span>
-                                          </label>
-                                        </div>
-                                      </CustomTooltip>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </Tab.Pane>
-                          </Tab.Content>
-                          <Tab.Content>
-                            <Tab.Pane eventKey="tab-sdcard-recording">
-                              <div className="form-group d-flex justify-content-between align-items-center">
-                                <label className="mb-0">{i18n.t('sdCard.basic.enableRecording')}</label>
-                                <div className="custom-control custom-switch">
-                                  <Field
-                                    name="sdRecordingEnabled"
-                                    type="checkbox"
-                                    className="custom-control-input"
-                                    id="switch-recording"
-                                  />
-                                  <label className={classNames('custom-control-label', {'custom-control-label-disabled': false})} htmlFor="switch-recording">
-                                    <span>{i18n.t('common.button.on')}</span>
-                                    <span>{i18n.t('common.button.off')}</span>
-                                  </label>
-                                </div>
-                              </div>
-                              <div className="card mb-4">
-                                <div className="card-body">
-                                  <div className="form-group px-3">
-                                    <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingType')} name="sdRecordingType">
-                                      {options.type.map(type => (
-                                        <option key={type.value} value={type.value}>{type.label}</option>
-                                      ))}
-                                    </SelectField>
-                                    <SelectField
-                                      row
-                                      wrapperClassName="col-sm-8 mb-0"
-                                      labelClassName="col-form-label col-sm-4"
-                                      labelName={i18n.t('sdCard.basic.recordingResolution')}
-                                      name="sdRecordingStream"
-                                      onChange={event => currentStreamSettings(setFieldValue, event)}
-                                    >
-                                      {options.stream.map(stream => (
-                                        <option key={stream.value} value={stream.value}>
-                                          {stream.label}
-                                        </option>
-                                      ))}
-                                    </SelectField>
-                                    <div className="sd-fr-codec">
-                                      <SelectField row readOnly wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.fps')} name="frameRate">
-                                        <option>{values.frameRate}</option>
-                                      </SelectField>
-                                      <SelectField row readOnly formClassName="mb-0" wrapperClassName="col-sm-8 mb-0" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.codec')} name="codec">
-                                        <option>{values.codec}</option>
-                                      </SelectField>
-                                    </div>
-                                    <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingDuration')} name="sdRecordingDuration">
-                                      {SDCardRecordingDuration.all().map(duration => (
-                                        <option key={duration} value={duration}>{duration === '0' ? i18n.t('sdCard.basic.constants.storageToFull') : duration}</option>
-                                      ))}
-                                    </SelectField>
-                                    <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingLimit')} name="sdRecordingLimit">
-                                      {options.limit.map(limit => (
-                                        <option key={limit.value} value={limit.value}>{limit.label}</option>
-                                      ))}
-                                    </SelectField>
-                                  </div>
-                                </div>
-                              </div>
-                              <button
-                                className="btn btn-block btn-primary rounded-pill"
-                                type="submit"
-                              >
-                                {i18n.t('common.button.apply')}
-                              </button>
-                            </Tab.Pane>
-                          </Tab.Content>
+                          <SDCardOperation
+                            isEnableAuth={isEnableAuth}
+                            sdEnabled={sdEnabled}
+                            sdStatus={sdStatus}
+                            callApi={callApi}
+                          />
+                          <SDCardRecording
+                            streamSettings={streamSettings}
+                            formValues={values}
+                            setFieldValue={setFieldValue}
+                          />
                         </div>
                       </Tab.Container>
                     </Form>
@@ -346,8 +216,15 @@ SDCard.propTypes = {
     sdAlertEnabled: PropTypes.bool.isRequired
   }).isRequired,
   smtpSettings: PropTypes.shape({isEnableAuth: PropTypes.bool.isRequired}).isRequired,
-  sdCardRecordingSettings: PropTypes.shape().isRequired,
-  streamSettings: PropTypes.shape().isRequired
+  sdCardRecordingSettings: PropTypes.shape({
+    sdRecordingDuration: PropTypes.number.isRequired,
+    sdRecordingEnabled: PropTypes.bool.isRequired,
+    sdRecordingLimit: PropTypes.bool.isRequired,
+    sdRecordingStatus: PropTypes.number.isRequired,
+    sdRecordingStream: PropTypes.number.isRequired,
+    sdRecordingType: PropTypes.number.isRequired
+  }).isRequired,
+  streamSettings: SDCardRecording.propTypes.streamSettings
 };
 
 export default withGlobalStatus(SDCard);
