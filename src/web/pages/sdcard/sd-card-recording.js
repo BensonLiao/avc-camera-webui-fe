@@ -11,6 +11,9 @@ import i18nUtils from '../../../i18n/utils';
 import PropTypes from 'prop-types';
 import SelectField from '../../../core/components/fields/select-field';
 
+const wrapperClassName = 'col-sm-6';
+const labelClassName = 'col-form-label col-sm-6';
+
 const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
   const processOptions = (() => {
     return {
@@ -27,9 +30,6 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
       limit: SDCardRecordingLimit.all().map(x => i18nUtils.getSDCardRecordingLimit(x))
     };
   })();
-
-  const wrapperClassName = 'col-sm-6';
-  const labelClassName = 'col-form-label col-sm-6';
 
   const getCurrentStreamSettings = (setFieldValue, event) => {
     setFieldValue('sdRecordingStream', event.target.value);
