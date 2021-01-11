@@ -77,7 +77,8 @@ const SDCard = ({
       sdRecordingEnabled: values.sdRecordingEnabled,
       sdRecordingLimit: values.sdRecordingLimit,
       sdRecordingStream: values.sdRecordingStream,
-      sdRecordingType: values.sdRecordingType
+      sdRecordingType: values.sdRecordingType,
+      sdPrerecordingDuration: values.sdPrerecordingDuration
     };
     progress.start();
     api.system.updateSDCardRecordingSettings(formValues)
