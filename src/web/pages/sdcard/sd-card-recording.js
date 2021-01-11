@@ -17,7 +17,6 @@ const wrapperClassName = 'col-sm-6';
 const labelClassName = 'col-form-label col-sm-6';
 
 const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
-  console.log('🚀 ~ file: sd-card-recording.js ~ line 19 ~ SDCardRecording ~ formValues', formValues);
   const processOptions = (() => {
     return {
       // filter is temporary, REMOVE when ready
