@@ -1,0 +1,31 @@
+{
+  "login": {
+    "error": {
+      "expires1.reserved": "10 分後期限切れ",
+      "expires2.reserved": "30 分後期限切れ",
+      "expires3.reserved": "1 時間後期限切れ",
+      "expires4.reserved": "12 時間後期限切れ"
+    }
+  },
+  "audio": {
+    "internalMicrophone.reserved": "內建式麥克風",
+    "constants": {
+      "audio-quality-1.reserved": "AAC, 16kHz, 96kbps, Mono"
+    }
+  },
+  "notification": {
+    "smtp": {
+      "toast": {
+        "mailSettingFailed.reserved": "メールアドレス設定に失敗しました"
+      }
+    }
+  },
+  "network": {
+    "https": {
+      "constants": {
+        "certificate-type-1.reserve": "署名証明書をアップロードする",
+        "certificate-type-2.reserve": "本デバイスの署名証明書を生成する"
+      }
+    }
+  }
+}

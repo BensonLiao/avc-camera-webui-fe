@@ -24,7 +24,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [showApiProcessModal, setShowApiProcessModal] = useState({
     isShowApiProcessModal: false,
-    apiProcessModalTitle: i18n.t('Updating Date & Time')
+    apiProcessModalTitle: i18n.t('system.dateTime.modal.apiProcessModalTitle')
   });
 
   const [showDateTimePicker, setShowDateTimePicker] = useState({
@@ -68,9 +68,6 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
       if (formValues.syncTimeOption !== syncTimeOption) {
         formValues.ntpTimeZone = dayjs.tz.guess();
       }
-    } else {
-    // Set seconds to 0 to prevent timepicker issues
-      formValues.manualTime.setSeconds(0);
     }
 
     formValues.manualTime = utils.addTimezoneOffset(formValues.manualTime).getTime();
@@ -91,17 +88,17 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
         <div className="container-fluid">
           <div className="row">
             <BreadCrumb
-              path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Date & Time')]}
+              path={[i18n.t('navigation.sidebar.system'), i18n.t('navigation.sidebar.administration'), i18n.t('navigation.sidebar.dateTime')]}
               routes={['/system/datetime', '/system/datetime']}
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('Date & Time')}</div>
+                <div className="card-header">{i18n.t('system.dateTime.title')}</div>
                 <div className="card-body">
                   <div className="card form-group">
                     <div className="card-body">
                       <div className="form-group d-flex justify-content-between align-items-center mb-0">
-                        <label className="mb-0">{i18n.t('Date and Time of the Device')}</label>
+                        <label className="mb-0">{i18n.t('system.dateTime.deviceDateTime')}</label>
                         <label className="text-primary mb-0">
                           <Clock ticking date={deviceTime} timezone={ntpTimeZone} format="YYYY-MM-DD, hh:mm:ss A Z"/>
                         </label>
@@ -124,7 +121,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                             className="cursor-pointer"
                           >
                             <SelectField
-                              labelName={i18n.t('Time Zone')}
+                              labelName={i18n.t('system.dateTime.timeZone')}
                               name="ntpTimeZone"
                             >
                               {TIMEZONE_LIST.map(zone => {
@@ -147,19 +144,19 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                 className="form-check-label text-size-16"
                                 htmlFor={`system-date-sync-option-${SyncTimeOption.ntp}`}
                               >
-                                {i18n.t('Sync with Network Time Server (NTP)')}
+                                {i18n.t('system.dateTime.syncNTP')}
                               </label>
                             </div>
                             <div className="card mb-4">
                               <div className="card-body">
                                 <div>
                                   <div className="d-flex form-group align-items-center">
-                                    <div className="text-size-14 text-nowrap mr-3">{`${i18n.t('Host Name or IP Address')} :`}</div>
+                                    <div className="text-size-14 text-nowrap mr-3">{`${i18n.t('system.dateTime.ntpHost')} :`}</div>
                                     <Field
                                       className="form-control flex-grow-1"
                                       type="text"
                                       name="ntpIP"
-                                      placeholder={i18n.t('Enter Your IP Address')}
+                                      placeholder={i18n.t('system.dateTime.hostPlaceholder')}
                                     />
                                   </div>
                                   <hr className="my-4"/>
@@ -176,20 +173,20 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                         className={classNames('form-check-label')}
                                         htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTime}`}
                                       >
-                                        {`${i18n.t('Sync Time')} :`}
+                                        {`${i18n.t('system.dateTime.syncTime')} :`}
                                       </label>
                                     </div>
                                     <div className="form-row datepicker-wrapper">
                                       <Field
                                         name="ntpUpdateTime"
                                         component={DateTimePicker}
-                                        timeTabText={i18n.t('Sync Time')}
+                                        timeTabText={i18n.t('system.dateTime.syncTime')}
                                         inputProps={{
                                           className: classNames(
                                             'btn border date px-4 btn-date-time',
                                             {active: showDateTimePicker.ntpUpdateTime}
                                           ),
-                                          placeholder: i18n.t('Sync Time'),
+                                          placeholder: i18n.t('system.dateTime.syncTime'),
                                           style: {whiteSpace: 'nowrap'}
                                         }}
                                         isShowPicker={showDateTimePicker.ntpUpdateTime}
@@ -212,7 +209,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                         className={classNames('form-check-label mr-3')}
                                         htmlFor={`system-date-sync-time-option-${NTPTimeOption.updateTimeRate}`}
                                       >
-                                        {`${i18n.t('Sync Interval (minutes)')} :`}
+                                        {`${i18n.t('system.dateTime.syncInterval')} :`}
                                       </label>
                                     </div>
                                     <div className={classNames('select-wrapper rounded-pill overflow-hidden')}>
@@ -244,7 +241,7 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                 className="form-check-label text-size-16"
                                 htmlFor={`system-date-sync-option-${SyncTimeOption.local}`}
                               >
-                                {i18n.t('Sync with Your Computer')}
+                                {i18n.t('system.dateTime.syncWithComputer')}
                               </label>
                             </div>
                             <div className="d-flex align-items-center">
@@ -260,21 +257,21 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                                   className="form-check-label text-size-16"
                                   htmlFor={`system-date-sync-option-${SyncTimeOption.manual}`}
                                 >
-                                  {`${i18n.t('Set the Date & Time Manually')} :`}
+                                  {`${i18n.t('system.dateTime.setManually')} :`}
                                 </label>
                               </div>
                               <div className="form-row datepicker-wrapper">
                                 <Field
                                   name="manualTime"
                                   component={DateTimePicker}
-                                  dateTabText={i18n.t('Manual Date')}
-                                  timeTabText={i18n.t('Manual Time')}
+                                  dateTabText={i18n.t('common.dateTimePicker.date')}
+                                  timeTabText={i18n.t('common.dateTimePicker.time')}
                                   inputProps={{
                                     className: classNames(
                                       'btn date px-4',
                                       {active: showDateTimePicker.manualTime && values.syncTimeOption === SyncTimeOption.manual}
                                     ),
-                                    placeholder: i18n.t('Manual DateTime'),
+                                    placeholder: i18n.t('common.dateTimePicker.manualDateTime'),
                                     style: {whiteSpace: 'nowrap'}
                                   }}
                                   isShowPicker={showDateTimePicker.manualTime}
@@ -289,12 +286,12 @@ const DateTime = ({systemDateTime, systemDateTime: {syncTimeOption, ntpUpdateTim
                             type="button"
                             onClick={() => setIsShowConfirmModal(true)}
                           >
-                            {i18n.t('Apply')}
+                            {i18n.t('common.button.apply')}
                           </button>
                           <CustomNotifyModal
                             isShowModal={isShowConfirmModal}
-                            modalTitle={i18n.t('Date & Time')}
-                            modalBody={i18n.t('Updating date and time requires you to log in again. Are you sure you want to continue?')}
+                            modalTitle={i18n.t('system.dateTime.title')}
+                            modalBody={i18n.t('system.dateTime.modal.confirmUpdateBody')}
                             isConfirmDisable={isApiProcessing}
                             onHide={() => setIsShowConfirmModal(false)}
                             onConfirm={() => {

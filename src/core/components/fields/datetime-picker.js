@@ -8,23 +8,35 @@ const dayjs = require('dayjs');
 const utils = require('../../utils');
 
 const CLOCK_ITEM_HEIGHT = 40;
+const isOneOfDateTime = props => {
+  if (!props.dateTabText && !props.timeTabText) {
+    return new Error('At least dateTabText or timeTabText prop must be provided');
+  }
+};
 
 module.exports = class DatePicker extends React.PureComponent {
   static get propTypes() {
     return {
       inputProps: PropTypes.object,
       isShowRepeatSwitch: PropTypes.bool,
-      dateTabText: PropTypes.string,
-      timeTabText: PropTypes.string.isRequired,
+      dateTabText: isOneOfDateTime,
+      dateFormat: PropTypes.string,
+      timeTabText: isOneOfDateTime,
       timeFormat: PropTypes.string,
       field: PropTypes.shape({
         name: PropTypes.string.isRequired,
-        value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string, PropTypes.number])
+        value: PropTypes.oneOfType([
+          PropTypes.instanceOf(Date),
+          PropTypes.instanceOf(dayjs),
+          PropTypes.string,
+          PropTypes.number
+        ])
       }).isRequired,
       form: PropTypes.shape({
         setFieldValue: PropTypes.func.isRequired,
         values: PropTypes.object.isRequired
       }).isRequired,
+      availableDates: PropTypes.arrayOf(PropTypes.string),
       startDateFieldName: PropTypes.string,
       endDateFieldName: PropTypes.string,
       isShowPicker: PropTypes.bool,
@@ -38,8 +50,11 @@ module.exports = class DatePicker extends React.PureComponent {
       inputProps: {},
       isShowRepeatSwitch: false,
       dateTabText: undefined,
+      dateFormat: 'MM/DD/YYYY',
+      timeTabText: undefined,
       timeFormat: 'HH:mm',
       isShowPicker: false,
+      availableDates: undefined,
       startDateFieldName: '',
       endDateFieldName: ''
     };
@@ -71,30 +86,37 @@ module.exports = class DatePicker extends React.PureComponent {
 
   componentDidMount() {
     const {field, dateTabText} = this.props;
-    this.setTabKey('tab-datepicker-time');
-    if (dateTabText) {
-      this.setTabKey('tab-datepicker-date');
-    }
-
-    if (field.value && utils.isDate(field.value)) {
-      this.setState({displayDate: new Date(field.value)}, () => {
-        this.state.displayDate.setDate(1);
-        if (this.state.displayDate.getHours() >= 12) {
-          this.setState({currentMeridiem: 'PM'});
-        }
-      });
-    } else {
-      this.setState({displayDate: new Date()}, () => {
-        this.state.displayDate.setDate(1);
-        if (this.state.displayDate.getHours() >= 12) {
-          this.setState({currentMeridiem: 'PM'});
-        }
-      });
-    }
+    this.setTabKey(dateTabText ? 'tab-datepicker-date' : 'tab-datepicker-time', () => {
+      if (field.value && utils.isDate(field.value)) {
+        this.setState({displayDate: new Date(field.value)}, () => {
+          this.state.displayDate.setDate(1);
+          if (this.state.displayDate.getHours() >= 12) {
+            this.setState({currentMeridiem: 'PM'});
+          }
+        });
+      } else {
+        this.setState({displayDate: new Date()}, () => {
+          this.state.displayDate.setDate(1);
+          if (this.state.displayDate.getHours() >= 12) {
+            this.setState({currentMeridiem: 'PM'});
+          }
+        });
+      }
+    });
   }
 
-  setTabKey = key => {
-    this.setState({tabKey: key});
+  /**
+   * Set the current tab state.
+   * @param {string} key - The tab key. either be `tab-datepicker-date` or `tab-datepicker-time`
+   * @param {function|null} callback The function to execure after state update. default is `null`
+   * @returns {void}
+   */
+  setTabKey = (key, callback = null) => {
+    if (typeof callback === 'function') {
+      this.setState({tabKey: key}, callback);
+    } else {
+      this.setState({tabKey: key});
+    }
   }
 
   /**
@@ -224,12 +246,36 @@ module.exports = class DatePicker extends React.PureComponent {
     return false;
   };
 
+  checkAndUpdateValue = date => {
+    const {
+      field,
+      form: {values},
+      endDateFieldName,
+      startDateFieldName,
+      dateTabText
+    } = this.props;
+    const {
+      [startDateFieldName]: startDate,
+      [endDateFieldName]: endDate
+    } = values;
+    const isDate = utils.isDate(date);
+    if (dateTabText) {
+      let clockDatetime = isDate ? date : (field.value ? field.value : new Date());
+      if (startDate && dayjs(startDate).isAfter(clockDatetime)) {
+        clockDatetime = dayjs(startDate);
+      } else if (endDate && dayjs(endDate).isBefore(clockDatetime)) {
+        clockDatetime = dayjs(endDate);
+      }
+
+      this.setDateValue(new Date(clockDatetime), {skipTime: isDate});
+    }
+  }
+
   setDateValue = (date = new Date(), {skipTime} = {}) => {
     const {field, form} = this.props;
-
+    date.setMilliseconds(0);
+    date.setSeconds(0);
     if (skipTime && field.value) {
-      date.setMilliseconds(field.value.getMilliseconds());
-      date.setSeconds(field.value.getSeconds());
       date.setMinutes(field.value.getMinutes());
       date.setHours(field.value.getHours());
     }
@@ -302,27 +348,8 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   onSwitchToClock = date => {
-    const {
-      field,
-      form: {values},
-      endDateFieldName,
-      startDateFieldName, dateTabText
-    } = this.props;
-    const {
-      [startDateFieldName]: startDate,
-      [endDateFieldName]: endDate
-    } = values;
-    const isDate = utils.isDate(date);
-    if (this.props.dateTabText) {
-      let clockDatetime = isDate ? date : (field.value ? field.value : new Date());
-      if (startDate && dayjs(startDate).isAfter(clockDatetime)) {
-        clockDatetime = dayjs(startDate);
-      } else if (endDate && dayjs(endDate).isBefore(clockDatetime)) {
-        clockDatetime = dayjs(endDate);
-      }
-
-      this.setDateValue(new Date(clockDatetime), {skipTime: isDate});
-    }
+    const {dateTabText} = this.props;
+    this.checkAndUpdateValue(date);
 
     setTimeout(() => {
       const isHourDisabled = this.isInvalidHour(this.clockData.currentHourItem);
@@ -548,10 +575,41 @@ module.exports = class DatePicker extends React.PureComponent {
     }
   };
 
+  /**
+   * The clock items onClick handler, to scroll to position that user clicks.
+   * @param {string} clockUnit - The unit of clock item, could be `hour`, `minute` or `meridiem`. default is `hour`
+   * @param {number} itemIndex - The clock item index in the ui.
+   * @return {void}
+   */
+  onClickClockItem = ({clockUnit = 'hour', itemIndex = 0}) => {
+    const scrollPos = itemIndex * CLOCK_ITEM_HEIGHT;
+    switch (clockUnit) {
+      default:
+        this.clockData.tuneHoursScrollTimeout = setTimeout(() => {
+          $(this.clockData.hoursRef.current).animate({scrollTop: scrollPos}, 200);
+        }, 300);
+        break;
+      case 'minute':
+        this.clockData.tuneMinutesScrollTimeout = setTimeout(() => {
+          $(this.clockData.minutesRef.current).animate({scrollTop: scrollPos}, 200);
+        }, 300);
+        break;
+      case 'meridiem':
+        this.clockData.tuneMeridiemItemsScrollTimeout = setTimeout(() => {
+          $(this.clockData.meridiemItemsRef.current).animate({scrollTop: scrollPos}, 200);
+        }, 300);
+        break;
+    }
+  };
+
   generateClickDateHandler = date => event => {
     event.preventDefault();
-    this.setTabKey('tab-datepicker-time');
-    this.onSwitchToClock(date);
+    if (this.props.timeTabText) {
+      this.setTabKey('tab-datepicker-time');
+      this.onSwitchToClock(date);
+    } else {
+      this.checkAndUpdateValue(date);
+    }
   };
 
   generateChangeDisplayMonthHandler = date => event => {
@@ -563,6 +621,7 @@ module.exports = class DatePicker extends React.PureComponent {
     const {
       field,
       form: {values},
+      availableDates,
       endDateFieldName,
       startDateFieldName
     } = this.props;
@@ -655,6 +714,12 @@ module.exports = class DatePicker extends React.PureComponent {
                           isDateDisabled = dayjs(item.date).isBefore(dayjs(startDate), 'date');
                         } else if (endDate) {
                           isDateDisabled = dayjs(item.date).isAfter(dayjs(endDate), 'date');
+                        } else if (availableDates) {
+                          isDateDisabled = !availableDates.some(date => {
+                            return dayjs(date).date() === dayjs(item.date).date() &&
+                              dayjs(date).month() === dayjs(item.date).month() &&
+                              dayjs(date).year() === dayjs(item.date).year();
+                          });
                         }
 
                         if (item.isDisplayMonth && !isDateDisabled) {
@@ -697,7 +762,11 @@ module.exports = class DatePicker extends React.PureComponent {
             {
               hours.map((hour, index) => {
                 return (
-                  <a key={hour || `none-${index}`} className={classNames('item', {disabled: this.isInvalidHour(hour)})}>
+                  <a
+                    key={hour || `none-${index}`}
+                    className={classNames('item', {disabled: this.isInvalidHour(hour)})}
+                    onClick={() => this.onClickClockItem({itemIndex: index - 2})}
+                  >
                     {hour == null ? '' : `${hour}`.padStart(2, '0')}
                   </a>
                 );
@@ -711,7 +780,14 @@ module.exports = class DatePicker extends React.PureComponent {
             {
               minutes.map((minute, index) => {
                 return (
-                  <a key={minute || `none-${index}`} className={classNames('item', {disabled: this.isInvalidMinute(minute)})}>
+                  <a
+                    key={minute || `none-${index}`}
+                    className={classNames('item', {disabled: this.isInvalidMinute(minute)})}
+                    onClick={() => this.onClickClockItem({
+                      clockUnit: 'minute',
+                      itemIndex: index - 2
+                    })}
+                  >
                     {minute == null ? '' : `${minute}`.padStart(2, '0')}
                   </a>
                 );
@@ -725,7 +801,14 @@ module.exports = class DatePicker extends React.PureComponent {
             {
               meridiemItems.map((meridiem, index) => {
                 return (
-                  <a key={meridiem || `none-${index}`} className={classNames('item', {disabled: this.isInvalidMeridiem(meridiem)})}>
+                  <a
+                    key={meridiem || `none-${index}`}
+                    className={classNames('item', {disabled: this.isInvalidMeridiem(meridiem)})}
+                    onClick={() => this.onClickClockItem({
+                      clockUnit: 'meridiem',
+                      itemIndex: index - 2
+                    })}
+                  >
                     {meridiem || ''}
                   </a>
                 );
@@ -765,15 +848,17 @@ module.exports = class DatePicker extends React.PureComponent {
                   </Nav.Link>
                 </Nav.Item>
               )}
-              <Nav.Item className="flex-fill">
-                <Nav.Link
-                  className="text-center mr-0"
-                  eventKey="tab-datepicker-time"
-                  onClick={dateTabText ? this.onSwitchToClock : onClickInput}
-                >
-                  {timeTabText}
-                </Nav.Link>
-              </Nav.Item>
+              {timeTabText && (
+                <Nav.Item className="flex-fill">
+                  <Nav.Link
+                    className="text-center mr-0"
+                    eventKey="tab-datepicker-time"
+                    onClick={dateTabText ? this.onSwitchToClock : onClickInput}
+                  >
+                    {timeTabText}
+                  </Nav.Link>
+                </Nav.Item>
+              )}
             </Nav>
             <Tab.Content>
               <Tab.Pane eventKey="tab-datepicker-date">
@@ -804,7 +889,9 @@ module.exports = class DatePicker extends React.PureComponent {
   };
 
   render() {
-    const {inputProps, field, isShowPicker, onClickInput, onHide, dateTabText, timeFormat} = this.props;
+    const {
+      inputProps, field, isShowPicker, onClickInput, onHide, dateTabText, dateFormat, timeTabText, timeFormat
+    } = this.props;
     return (
       <>
         <button
@@ -815,7 +902,8 @@ module.exports = class DatePicker extends React.PureComponent {
         >
           {utils.formatDate(
             field.value,
-            dateTabText ? {} : {format: timeFormat}
+            dateTabText && timeTabText ? {} :
+              dateTabText ? {format: dateFormat} : {format: timeFormat}
           ) || inputProps.placeholder}
         </button>
         <Overlay

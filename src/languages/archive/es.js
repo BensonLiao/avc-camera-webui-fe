@@ -703,6 +703,8 @@ module.exports = {
       'Enter Router/Gateway': 'Enrutador/Puerta de enlace',
       'Enter a primary DNS': 'Ingrese DNS Primario',
       'Enter a secondary DNS': 'Ingrese DNS Secundario',
+      Dynamic: 'Dirección IP dinámica',
+      Static: 'Dirección IP estática',
 
       // /network/tcp-ip
       'Enable DDNS': 'Habilitar servicio DDNS',
@@ -733,6 +735,7 @@ module.exports = {
       'certificate-type-2': '在此裝置上產生憑證',
 
       // /system
+      'System Settings': 'Sistema',
       'Software Upgrade': 'Actualización de software',
       'Import File': 'Importar perfil',
       'Only ZIP file format is supported': 'Solo admite formato de archivo .zip',

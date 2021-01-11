@@ -1,5 +1,5 @@
-import {Link} from '@benson.liao/capybara-router';
 import classNames from 'classnames';
+import {Link} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import CustomTooltip from '../../../core/components/tooltip';
@@ -54,30 +54,30 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
       <table className="table custom-style">
         <thead>
           <tr className="shadow">
-            <th className="text-center" style={{width: '20%'}}>{i18n.t('User Picture')}</th>
+            <th className="text-center" style={{width: '20%'}}>{i18n.t('userManagement.members.userPicture')}</th>
             <th style={{width: '15%'}}>
-              <a href="#name" onClick={sort.name.handler}>{i18n.t('Name')}</a>
+              <a href="#name" onClick={sort.name.handler}>{i18n.t('userManagement.members.name')}</a>
               <i className={sort.name.icon}/>
             </th>
             <th style={{width: '15%'}}>
-              <a href="#organization" onClick={sort.organization.handler}>{i18n.t('Organization')}</a>
+              <a href="#organization" onClick={sort.organization.handler}>{i18n.t('userManagement.members.organization')}</a>
               <i className={sort.organization.icon}/>
             </th>
             <th style={{width: '15%'}}>
-              <a href="#group" onClick={sort.group.handler}>{i18n.t('Group')}</a>
+              <a href="#group" onClick={sort.group.handler}>{i18n.t('userManagement.members.group')}</a>
               <i className={sort.group.icon}/>
             </th>
-            <th style={{width: '20%'}}>{i18n.t('Note')}</th>
-            <th style={{width: '15%'}}>{i18n.t('Actions')}</th>
+            <th style={{width: '20%'}}>{i18n.t('userManagement.members.note')}</th>
+            <th style={{width: '15%'}}>{i18n.t('userManagement.members.actions')}</th>
           </tr>
         </thead>
         <tbody>
           {
             /* Empty Search Message */
             !members.items.length && (
-              <tr>
+              <tr className="disable-highlight">
                 <td className="text-size-20 text-center" colSpan="10">
-                  <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('Couldn\'t find any data.')}
+                  <i className="fas fa-frown-open fa-fw text-dark"/> {i18n.t('userManagement.members.noData')}
                 </td>
               </tr>
             )
@@ -98,7 +98,7 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
                   {tableItems((groups.items.find(x => x.id === member.groupId) || {}).name || '')}
                   {tableItems(member.note)}
                   <td className="text-left group-btn">
-                    <CustomTooltip title={i18n.t('Edit Member: {{0}}', {0: member.name})}>
+                    <CustomTooltip title={i18n.t('userManagement.members.tooltip.editMemberWithName', {0: member.name})}>
                       <Link
                         className="btn btn-link"
                         to={{
@@ -112,7 +112,7 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
                         <i className="fas fa-pen fa-lg fa-fw"/>
                       </Link>
                     </CustomTooltip>
-                    <CustomTooltip title={i18n.t('Delete Member: {{0}}', {0: member.name})}>
+                    <CustomTooltip title={i18n.t('userManagement.members.tooltip.deleteMemberWithName', {0: member.name})}>
                       <button
                         className="btn btn-link"
                         type="button"

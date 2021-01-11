@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import NotificationFaceRecognitionCondition from 'webserver-form-schema/constants/notification-face-recognition-condition';
 import i18n from '../../../i18n';
+import i18nUtils from '../../../i18n/utils';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const CardsFormRule = ({faceRecognitionCondition, isEnableFaceRecognition, groups}) => {
   return (
     <>
       <div className="form-group d-flex justify-content-between align-items-center">
-        <label className="mb-0">{i18n.t('Notify by Recognition Result')}</label>
+        <label className="mb-0">{i18n.t('notification.cards.enableNotifyResult')}</label>
         <div className="custom-control custom-switch">
           <Field
             name="isEnableFaceRecognition"
@@ -18,8 +20,8 @@ const CardsFormRule = ({faceRecognitionCondition, isEnableFaceRecognition, group
             id="switch-notification-face-recognition"
           />
           <label className="custom-control-label" htmlFor="switch-notification-face-recognition">
-            <span>{i18n.t('ON')}</span>
-            <span>{i18n.t('OFF')}</span>
+            <span>{i18n.t('common.button.on')}</span>
+            <span>{i18n.t('common.button.off')}</span>
           </label>
         </div>
       </div>
@@ -35,7 +37,7 @@ const CardsFormRule = ({faceRecognitionCondition, isEnableFaceRecognition, group
                 value={condition}
               />
               <label className="form-check-label" htmlFor={`input-notification-face-recognition-${condition}`}>
-                {i18n.t(`face-recognition-condition-${condition}`)}
+                {i18nUtils.getNotificationFRConditionI18N(condition, <ErrorDisplay/>)}
               </label>
             </div>
           ))
@@ -46,13 +48,13 @@ const CardsFormRule = ({faceRecognitionCondition, isEnableFaceRecognition, group
           <div className="card">
             <div className="card-body px-4 py-4">
               <div className="form-group">
-                <label className="text-size-16 mb-0">{i18n.t('Group')}</label>
+                <label className="text-size-16 mb-0">{i18n.t('notification.cards.group')}</label>
               </div>
               <div className="col-auto px-0">
                 <div className="select-wrapper border rounded-pill overflow-hidden d-flex align-items-center">
                   <i className="far fa-folder fa-sm"/>
                   <Field name="$groups" component="select" className="form-control border-0">
-                    <option value="">{i18n.t('Everyone')}</option>
+                    <option value="">{i18n.t('notification.cards.everyone')}</option>
                     {
                       groups.items.map(group => (
                         <option key={group.id} value={group.id}>{group.name}</option>

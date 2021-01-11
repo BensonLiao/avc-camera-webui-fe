@@ -703,6 +703,8 @@ module.exports = {
       'Enter Router/Gateway': 'Enter Router/Gateway',
       'Enter a primary DNS': 'Enter a primary DNS',
       'Enter a secondary DNS': 'Enter a secondary DNS',
+      Dynamic: 'Dynamic',
+      Static: 'Static',
 
       // /network/tcp-ip
       'Enable DDNS': 'Enable DDNS',
@@ -733,6 +735,7 @@ module.exports = {
       'certificate-type-2': 'Generate Certificate on This Device',
 
       // /system
+      'System Settings': 'System Settings',
       'Software Upgrade': 'Software Upgrade',
       'Import File': 'Import File',
       'Only ZIP file format is supported': 'Only ZIP file format is supported',

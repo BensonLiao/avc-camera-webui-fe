@@ -31,21 +31,21 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
     >
       {({values, errors, touched}) => (
         <Tab.Content>
-          <Tab.Pane eventKey={`Output ${index}`}>
+          <Tab.Pane eventKey={`Output${index}`}>
             <Form>
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label>{i18n.t('Enable Digital Output {{0}}', {0: index})}</label>
+                <label>{i18n.t('notification.io.enableDigitalOutput', {0: index})}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" type="checkbox" className="custom-control-input" id={`switch-output-${index}`}/>
                   <label className="custom-control-label" htmlFor={`switch-output-${index}`}>
-                    <span>{i18n.t('ON')}</span>
-                    <span>{i18n.t('OFF')}</span>
+                    <span>{i18n.t('common.button.on')}</span>
+                    <span>{i18n.t('common.button.off')}</span>
                   </label>
                 </div>
               </div>
               <div>
                 <div className="form-group">
-                  <label>{i18n.t('Normal State')}</label>
+                  <label>{i18n.t('notification.io.normalState')}</label>
                   <div className="d-flex align-items-center">
                     <div className="form-check">
                       <Field
@@ -56,7 +56,7 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
                         id={`input-output${index}-normally-open`}
                         value={IOType.normallyOpen}
                       />
-                      <label className="form-check-label" htmlFor={`input-output${index}-normally-open`}>{i18n.t('Normally Open')}</label>
+                      <label className="form-check-label" htmlFor={`input-output${index}-normally-open`}>{i18n.t('notification.io.open')}</label>
                     </div>
                     <div className="form-check ml-5">
                       <Field
@@ -67,12 +67,12 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
                         id={`input-output${index}-normally-closed`}
                         value={IOType.normallyClosed}
                       />
-                      <label className="form-check-label" htmlFor={`input-output${index}-normally-closed`}>{i18n.t('Normally Closed')}</label>
+                      <label className="form-check-label" htmlFor={`input-output${index}-normally-closed`}>{i18n.t('notification.io.closed')}</label>
                     </div>
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>{i18n.t('Type')}</label>
+                  <label>{i18n.t('notification.io.type')}</label>
                   <div className="d-flex align-items-center">
                     <div className="form-check">
                       <Field
@@ -83,7 +83,7 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
                         id={`input-output${index}-normal`}
                         value={GateType.normal}
                       />
-                      <label className="form-check-label" htmlFor={`input-output${index}-normal`}>{i18n.t('Normal')}</label>
+                      <label className="form-check-label" htmlFor={`input-output${index}-normal`}>{i18n.t('notification.io.normal')}</label>
                     </div>
                     <div className="form-check ml-5">
                       <Field
@@ -94,18 +94,18 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
                         id={`input-output${index}-debounce`}
                         value={GateType.buffer}
                       />
-                      <label className="form-check-label" htmlFor={`input-output${index}-debounce`}>{i18n.t('Buffer')}</label>
+                      <label className="form-check-label" htmlFor={`input-output${index}-debounce`}>{i18n.t('notification.io.buffer')}</label>
                     </div>
                   </div>
                 </div>
                 <div className="form-group">
-                  <label>{i18n.t('Pulse Time (seconds)')}</label>
+                  <label>{i18n.t('notification.io.pulseTime')}</label>
                   <Field
                     disabled={!values.isEnable}
                     name="pulse"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.pulse && touched.pulse})}
-                    placeholder={i18n.t('Enter seconds')}
+                    placeholder={i18n.t('notification.io.pulsePlaceholder')}
                   />
                   {
                     errors.pulse && touched.pulse && (
@@ -113,20 +113,20 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
                     )
                   }
                   <small className="form-text text-muted">
-                    {i18n.t('{{0}}-{{1}} Seconds', {
+                    {i18n.t('notification.io.timeRange', {
                       0: NotificationIOOutSchema.pulse.min,
                       1: NotificationIOOutSchema.pulse.max
                     })}
                   </small>
                 </div>
                 <div className="form-group">
-                  <label>{i18n.t('Delay Time (seconds)')}</label>
+                  <label>{i18n.t('notification.io.delayTime')}</label>
                   <Field
                     disabled={!values.isEnable}
                     name="delay"
                     type="text"
                     className={classNames('form-control', {'is-invalid': errors.delay && touched.delay})}
-                    placeholder={i18n.t('Enter seconds')}
+                    placeholder={i18n.t('notification.io.delayPlaceholder')}
                   />
                   {
                     errors.delay && touched.delay && (
@@ -134,7 +134,7 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
                     )
                   }
                   <small className="form-text text-muted">
-                    {i18n.t('{{0}}-{{1}} Seconds', {
+                    {i18n.t('notification.io.timeRange', {
                       0: NotificationIOOutSchema.delay.min,
                       1: NotificationIOOutSchema.delay.max
                     })}
@@ -142,7 +142,7 @@ const IoOutput = ({currentTab, index, ioOutSettings}) => {
                 </div>
               </div>
               <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill mt-5">
-                {i18n.t('Apply')}
+                {i18n.t('common.button.apply')}
               </button>
             </Form>
           </Tab.Pane>

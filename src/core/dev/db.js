@@ -208,6 +208,10 @@ module.exports = {
         sensitivity: 0,
         isAutoFocus: false,
         focalLength: 5,
+        mockFocalProcessTime: 0,
+        mockFocalProcessFinished: true,
+        mockOriginalFocalLength: 500,
+        mocklastRefreshed: 0,
         zoom: 1,
         irBrightness: 1,
         focusType: '0',
@@ -233,6 +237,10 @@ module.exports = {
         sensitivity: 0,
         isAutoFocus: false,
         focalLength: 5,
+        mockFocalProcessTime: 0,
+        mockFocalProcessFinished: true,
+        mockOriginalFocalLength: 500,
+        mocklastRefreshed: 0,
         zoom: 1,
         irBrightness: 1,
         focusType: '0',
@@ -245,6 +253,7 @@ module.exports = {
         sensorResolution: 1,
         serialNumber: '181000723',
         modelName: 'MD2',
+        projectId: 'MD2',
         firmware: '35110.4',
         sdEnabled: false,
         sdStatus: 0,
@@ -252,6 +261,30 @@ module.exports = {
         sdTotal: 10000000,
         sdUsage: 3200000,
         sdAlertEnabled: false
+      },
+      sdCardRecordingSettings: {
+        sdRecordingStatus: 0,
+        sdRecordingEnabled: true,
+        sdRecordingStream: 1,
+        sdRecordingType: 0,
+        sdRecordingDuration: 0,
+        sdRecordingLimit: false
+      },
+      sdCardStorage: {
+        files: Array.from({length: 30}, (_, i) => {
+          return (
+            {
+              id: uuidv4(),
+              bytes: Math.random() * 1024,
+              name: `file${i}.txt`,
+              path: `/sdcard/test/folder1/file${i}.txt`,
+              type: 'file',
+              // Add a date field to mock backend filter
+              date: `2021-01-${i <= 5 ? '20' : Math.floor(Math.random() * 23)}`
+            }
+          );
+        }),
+        filesDateList: ['2021-01-20', '2021-01-22', '2021-01-23', '2021-02-01']
       },
       systemDateTime: {
         deviceTime: new Date().getTime(),
@@ -300,8 +333,8 @@ module.exports = {
         },
         channelB: {
           codec: StreamCodec.h264,
-          resolution: StreamResolution['0'],
-          frameRate: '30',
+          resolution: StreamResolution['1'],
+          frameRate: '29',
           bandwidthManagement: StreamBandwidthManagement.vbr,
           maximumBitrate: '4096',
           constantBitrate: '4096',
@@ -318,9 +351,9 @@ module.exports = {
           gov: StreamGOV['60']
         },
         channelB: {
-          codec: StreamCodec.h264,
-          resolution: StreamResolution['0'],
-          frameRate: '30',
+          codec: StreamCodec.mjpeg,
+          resolution: StreamResolution['1'],
+          frameRate: '29',
           bandwidthManagement: StreamBandwidthManagement.mbr,
           bitRate: '4096',
           gov: StreamGOV['60'],
@@ -522,6 +555,27 @@ module.exports = {
       }],
       groups: memberGroups,
       members,
+      deviceSync: {
+        devices: Array.from({length: 20}, (_, i) => {
+          const connectionStatus = Math.random() * 5 > 1 ? 1 : 0;
+          return {
+            id: i + 1,
+            ip: `192.168.0.${i + 1}`,
+            port: 8080,
+            name: `${i + 1}: MD2 [${Math.random().toString(36).substring(7).toUpperCase()}]`,
+            account: 'admin',
+            connectionStatus: connectionStatus, // Generate failed connection with 50% chance
+            lastUpdateTime: connectionStatus && (Math.random() * 2 > 1) ? 1608888327067 : 0,
+            syncStatus: 0
+          };
+        }),
+        syncStatus: 0
+      },
+      deviceSyncProcess: {
+        devices: [],
+        sourceStatus: 0,
+        lastUpdateTime: 0
+      },
       faceEvents: [
         {
           id: uuidv4(),

@@ -1,0 +1,31 @@
+{
+  "login": {
+    "error": {
+      "expires1.reserved": "10 分鐘後過期",
+      "expires2.reserved": "30 分鐘後過期",
+      "expires3.reserved": "1 小時後過期",
+      "expires4.reserved": "12 小時後過期"
+    }
+  },
+  "audio": {
+    "internalMicrophone.reserved": "內建式麥克風",
+    "constants": {
+      "audio-quality-1.reserved": "AAC, 16kHz, 96kbps, Mono"
+    }
+  },
+  "notification": {
+    "smtp": {
+      "toast": {
+        "mailSettingFailed.reserved": "電子郵件設定失敗"
+      }
+    }
+  },
+  "network": {
+    "https": {
+      "constants": {
+        "certificate-type-1.reserve": "上傳您的憑證",
+        "certificate-type-2.reserve": "在此裝置上產生憑證"
+      }
+    }
+  }
+}

@@ -703,6 +703,8 @@ module.exports = {
       'Enter Router/Gateway': '請輸入路由器/閘道',
       'Enter a primary DNS': '請輸入主要DNS',
       'Enter a secondary DNS': '請輸入次要DNS',
+      Dynamic: '動態IP位址',
+      Static: '固定IP位址',
 
       // /network/tcp-ip
       'Enable DDNS': '開啟 DDNS 服務',
@@ -733,6 +735,7 @@ module.exports = {
       'certificate-type-2': '在此裝置上產生憑證',
 
       // /system
+      'System Settings': '系統',
       'Software Upgrade': '軟體更新',
       'Import File': '軟體檔案',
       'Only ZIP file format is supported': '僅支援 .zip 檔案格式',

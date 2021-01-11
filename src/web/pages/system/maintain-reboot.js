@@ -20,7 +20,7 @@ const MaintainReboot = ({
 
     setApiProcessModal({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Rebooting')
+      apiProcessModalTitle: i18n.t('system.deviceMaintenance.modal.apiProcessModalTitleRebooting')
     });
     setIsShowConfirmModal(false);
 
@@ -37,8 +37,8 @@ const MaintainReboot = ({
               hideApiProcessModal();
               setFinishModal({
                 isShowFinishModal: true,
-                finishModalTitle: i18n.t('System Reboot'),
-                finishModalBody: i18n.t('The device has rebooted. Please log in again.')
+                finishModalTitle: i18n.t('system.deviceMaintenance.systemReboot'),
+                finishModalBody: i18n.t('system.deviceMaintenance.modal.rebootSuccessBody')
               });
             })
             .catch(() => {
@@ -57,21 +57,21 @@ const MaintainReboot = ({
   return (
     <>
       <div className="form-group">
-        <label>{i18n.t('System Reboot')}</label>
+        <label>{i18n.t('system.deviceMaintenance.systemReboot')}</label>
         <div>
           <button
             className="btn btn-outline-primary rounded-pill px-5"
             type="button"
             onClick={() => setIsShowConfirmModal(true)}
           >
-            {i18n.t('Reboot')}
+            {i18n.t('system.deviceMaintenance.reboot')}
           </button>
         </div>
       </div>
       <CustomNotifyModal
         isShowModal={isShowConfirmModal}
-        modalTitle={i18n.t('System Reboot')}
-        modalBody={i18n.t('Are you sure you want to reboot the device?')}
+        modalTitle={i18n.t('system.deviceMaintenance.systemReboot')}
+        modalBody={i18n.t('system.deviceMaintenance.modal.confirmRebootBody')}
         isConfirmDisable={isApiProcessing}
         onHide={() => setIsShowConfirmModal(false)}
         onConfirm={onSubmitDeviceReboot}

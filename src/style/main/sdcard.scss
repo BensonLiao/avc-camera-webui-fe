@@ -15,3 +15,119 @@
     }
   }
 }
+
+.dot-sd {
+  margin-bottom: 0.5rem;
+  margin-right: 0.2rem;
+  height: 0.5rem;
+  width: 0.5rem;
+  background-color: #f00;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.sd-fr-codec {
+  background-color: #f0f0f0;
+  padding: 24px;
+  border-radius: 8px;
+  width: 104%;
+  margin-bottom: 24px;
+}
+
+// volume-progress-bar.js
+$default-size-sd: 6rem;
+$label-font-size-sd: $default-size-sd / 4;
+$label-font-size-sd-redo: $default-size-sd * 4;
+
+@mixin draw-progress($progress, $color) {
+  .pie {
+    .half-circle {
+      border-color: $color;
+    }
+
+    .left-side {
+      transform: rotate($progress * 3.6deg);
+    }
+
+    @if $progress <= 50 {
+      .right-side {
+        display: none;
+      }
+    }
+
+    @else {
+      clip: rect(auto, auto, auto, auto);
+
+      .right-side {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.pie-wrapper-sd {
+  @include size($default-size-sd, $default-size-sd);
+
+  float: left;
+  margin: 15px;
+  position: relative;
+
+  &:nth-child(3n + 1) {
+    clear: both;
+  }
+
+  .pie {
+    @include size(100%, 100%);
+
+    clip: rect(0, $default-size-sd, $default-size-sd, $default-size-sd / 2);
+    left: 0;
+    position: absolute;
+    top: 0;
+
+    .half-circle {
+      @include size(100%, 100%);
+
+      border: ($default-size-sd / 10) solid #3498db;
+      border-radius: 50%;
+      clip: rect(0, $default-size-sd / 2, $default-size-sd, 0);
+      left: 0;
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  .img {
+    background: none;
+    color: #ecf0f1;
+    cursor: default;
+    display: block;
+    left: 2.05rem;
+    position: absolute;
+    top: 2.05rem;
+  }
+
+  .shadow-pie {
+    @include size(100%, 100%);
+
+    border: $default-size-sd / 10 solid #bdc3c7;
+    border-radius: 50%;
+  }
+
+  &.style-2 {
+    .label {
+      background: none;
+      color: #7f8c8d;
+
+      .smaller {
+        color: #bdc3c7;
+      }
+    }
+  }
+
+  @for $i from 0 through 100 {
+
+    &.progress-#{$i} {
+      @include draw-progress($i, #3498db);
+    }
+  }
+}

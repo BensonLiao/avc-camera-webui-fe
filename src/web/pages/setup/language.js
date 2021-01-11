@@ -59,7 +59,7 @@ const SetupLanguage = () => {
                 </div>
 
                 <button disabled={isApiProcessing} type="submit" className="btn btn-primary btn-block rounded-pill" onClick={onSubmit}>
-                  {i18n.t('Next')}
+                  {i18n.t('setup.language.next')}
                 </button>
               </div>
             </form>

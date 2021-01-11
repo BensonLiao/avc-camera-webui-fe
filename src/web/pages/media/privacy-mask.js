@@ -123,7 +123,7 @@ module.exports = class PrivacyMask extends Base {
       <Form className="row">
         <BreadCrumb
           className="px-0"
-          path={[i18n.t('Video Settings'), i18n.t('Privacy Mask')]}
+          path={[i18n.t('navigation.sidebar.videoSettings'), i18n.t('navigation.sidebar.privacyMask')]}
           routes={['/media/stream']}
         />
         <div className="col-7 px-0">
@@ -142,7 +142,7 @@ module.exports = class PrivacyMask extends Base {
                       rightBottomCornerRef={this.maskAreaRefs[index]}
                       name={`maskAreas.${index}`}
                       component={MaskArea}
-                      text={i18n.t('Mask Area')}
+                      text={i18n.t('video.privacyMask.maskArea')}
                       className="bounding-primary"
                       parentElementId="pm-video-wrapper"
                     />
@@ -156,46 +156,46 @@ module.exports = class PrivacyMask extends Base {
 
         <div className="col-5 pl-4 pr-0">
           <div className="card shadow">
-            <div className="card-header">{i18n.t('Privacy Mask')}</div>
+            <div className="card-header">{i18n.t('video.privacyMask.title')}</div>
             <div className="card-body">
               <div className="form-group d-flex justify-content-between align-items-center">
-                <label className="mb-0">{i18n.t('Enable Privacy Mask')}</label>
+                <label className="mb-0">{i18n.t('video.privacyMask.enable')}</label>
                 <div className="custom-control custom-switch">
                   <Field name="isEnable" checked={values.isEnable} type="checkbox" className="custom-control-input" id="switch-function"/>
                   <label className="custom-control-label" htmlFor="switch-function">
-                    <span>{i18n.t('ON')}</span>
-                    <span>{i18n.t('OFF')}</span>
+                    <span>{i18n.t('common.button.on')}</span>
+                    <span>{i18n.t('common.button.off')}</span>
                   </label>
                 </div>
               </div>
               <div className="form-group mb-5">
-                <span className="form-text text-primary">{i18n.t('Create mask areas on the preview window.')}</span>
+                <span className="form-text text-primary">{i18n.t('video.privacyMask.maskHelper')}</span>
               </div>
               <div className="form-group">
-                <div className="card-header l-24 light text-size-18">{i18n.t('Note Area')}</div>
+                <div className="card-header l-24 light text-size-18">{i18n.t('video.privacyMask.note')}</div>
                 <div className="card-body l-32 light px-3 py-3">
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('To set a mask:')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('video.privacyMask.noteText1')}</span>
                     <div className="d-flex align-items-center drag-icon">
                       <img src={iconCursor}/>
-                      <span className="text-size-12">{i18n.t('Drag')}</span>
+                      <span className="text-size-12">{i18n.t('video.privacyMask.drag')}</span>
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('To erase a mask:')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('video.privacyMask.noteText2')}</span>
                     <div className="d-flex justify-content-end align-items-center flex-wrap">
                       <img src={iconHotkeyBackspace}/>
-                      <span className="font-italic text-size-14 mx-2">{i18n.t('or')}</span>
+                      <span className="font-italic text-size-14 mx-2">{i18n.t('video.privacyMask.or')}</span>
                       <img src={iconHotkeyDeleted}/>
                     </div>
                   </div>
                   <div className="mb-2 d-flex justify-content-between align-items-center">
-                    <span className="font-italic text-size-14">•{i18n.t('Up to 4 mask areas can be set.')}</span>
+                    <span className="font-italic text-size-14">•{i18n.t('video.privacyMask.noteText3')}</span>
                   </div>
                 </div>
               </div>
               <button disabled={this.state.$isApiProcessing} type="submit" className="btn btn-block btn-primary rounded-pill mt-5">
-                {i18n.t('Apply')}
+                {i18n.t('common.button.apply')}
               </button>
             </div>
           </div>

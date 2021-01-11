@@ -10,6 +10,7 @@ import CustomTooltip from './tooltip';
 import notify from '../notify';
 import utils from '../utils';
 import i18n from '../../i18n';
+import i18nUtils from '../../i18n/utils';
 
 class SearchMember extends React.PureComponent {
   static propTypes = {
@@ -34,7 +35,8 @@ class SearchMember extends React.PureComponent {
     verifyStatus: false,
     errorMessage: null,
     // base64 of event photo
-    convertedPicture: null
+    convertedPicture: null,
+    photoNotFound: false
   }
 
   generateInitialValues = memberName => ({keyword: memberName || ''})
@@ -57,10 +59,12 @@ class SearchMember extends React.PureComponent {
         sort: null,
         size: 6
       })
-        .then(response => this.setState({
-          isFetching: false,
-          members: response.data
-        }))
+        .then(response =>
+          this.setState({
+            isFetching: false,
+            members: response.data
+          })
+        )
     );
   };
 
@@ -69,22 +73,32 @@ class SearchMember extends React.PureComponent {
       isVerifying: true,
       verifyStatus: false
     }, () =>
-      utils.convertPictureURL(photo).then(data =>
-        api.member.validatePicture(data)
-          .then(() =>
-            this.setState({
-              verifyStatus: true,
-              convertedPicture: data
-            })
-          )
-          .catch(error =>
-            this.setState({
-              verifyStatus: false,
-              errorMessage: error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
-            })
-          )
-          .finally(() => this.setState({isVerifying: false}))
-      )
+      utils.convertPictureURL(photo)
+        .then(data =>
+          api.member.validatePicture(data)
+            .then(() =>
+              this.setState({
+                verifyStatus: true,
+                convertedPicture: data
+              })
+            )
+            .catch(error =>
+              this.setState({
+                verifyStatus: false,
+                errorMessage: i18nUtils.getApiErrorMessageI18N(
+                  error.response.data.message.replace('Error: ', '').replace('Http400: ', '')
+                )
+              })
+            )
+            .finally(() => this.setState({isVerifying: false}))
+        )
+        .catch(() =>
+          // If event URL is invalid
+          this.setState({
+            isVerifying: false,
+            photoNotFound: true
+          })
+        )
     );
 
   addToMember = ({member, convertedPicture}) => {
@@ -98,11 +112,13 @@ class SearchMember extends React.PureComponent {
       api.member.addPhoto({
         id: member.id,
         picture: convertedPicture
-      }).then(() =>
-        notify.showSuccessNotification({
-          title: i18n.t('Setting Success'),
-          message: i18n.t('Photo Has Been Added to {{0}}', {0: member.name})
-        }))
+      })
+        .then(() =>
+          notify.showSuccessNotification({
+            title: i18n.t('userManagement.events.toast.settingSuccessTitle'),
+            message: i18n.t('userManagement.events.toast.settingSuccessBody', {0: member.name})
+          })
+        )
         .then(getRouter().reload)
         .finally(() => this.hideApiProcessModal())
     );
@@ -110,7 +126,7 @@ class SearchMember extends React.PureComponent {
 
   render() {
     const {memberName, eventPictureUrl, isApiProcessing, isShowModal, onHide} = this.props;
-    const {members, isFetching, isVerifying, verifyStatus, errorMessage, convertedPicture} = this.state;
+    const {members, isFetching, isVerifying, verifyStatus, errorMessage, convertedPicture, photoNotFound} = this.state;
     return (
       <>
         <Modal
@@ -124,13 +140,14 @@ class SearchMember extends React.PureComponent {
             this.setState({
               members: null,
               isVerifying: false,
-              errorMessage: null
+              errorMessage: null,
+              photoNotFound: false
             });
             onHide();
           }}
         >
-          <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying)} className="d-flex justify-content-between align-items-center">
-            <Modal.Title as="h5">{i18n.t('Add to an Existing Member')}</Modal.Title>
+          <Modal.Header closeButton={!(isApiProcessing || isFetching || isVerifying || photoNotFound)} className="d-flex justify-content-between align-items-center">
+            <Modal.Title as="h5">{i18n.t('userManagement.events.addExistingMember')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="d-flex flex-row justify-content-between align-items-end mb-4 px-3">
@@ -157,10 +174,10 @@ class SearchMember extends React.PureComponent {
                     </div>
                   </div>
                 </div>
-                { errorMessage && (
+                {errorMessage && (
                   <p className="text-size-14 mb-1 text-danger validate-error-message">
                     <i className="fas fa-exclamation-triangle mr-1"/>
-                    {`${i18n.t(errorMessage)}`}
+                    {errorMessage}
                   </p>
                 )}
               </div>
@@ -173,7 +190,7 @@ class SearchMember extends React.PureComponent {
                     className="px-0"
                     style={{width: '200px'}}
                   >
-                    <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('Enter Keywords')}/>
+                    <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('userManagement.events.searchPlaceholder')}/>
                   </div>
                   <div className="px-0 ml-3">
                     <button
@@ -182,7 +199,7 @@ class SearchMember extends React.PureComponent {
                       // allow search during photo verification
                       disabled={isApiProcessing && !isVerifying}
                     >
-                      <i className="fas fa-search fa-fw"/> {i18n.t('Search')}
+                      <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.search')}
                     </button>
                   </div>
                 </Form>
@@ -198,27 +215,27 @@ class SearchMember extends React.PureComponent {
               <table className="table custom-style mb-4" style={{tableLayout: 'fixed'}}>
                 <thead>
                   <tr className="shadow">
-                    <th style={{width: '40%'}}>{i18n.t('User Picture')}</th>
-                    <th style={{width: '40%'}}>{i18n.t('Name')}</th>
-                    <th style={{width: '20%'}}>{i18n.t('Actions')}</th>
+                    <th style={{width: '40%'}}>{i18n.t('userManagement.events.userPicture')}</th>
+                    <th style={{width: '40%'}}>{i18n.t('userManagement.events.name')}</th>
+                    <th style={{width: '20%'}}>{i18n.t('userManagement.events.actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
 
                   {/* Inital message  */}
                   {!members && !isFetching && (
-                    <tr>
+                    <tr className="disable-highlight">
                       <td className="text-size-16 text-center pt-3" colSpan="10">
-                        <i className="fas fa-search fa-fw"/> {i18n.t('Enter keywords in the input field to search for members.')}
+                        <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.modal.initialMessage')}
                       </td>
                     </tr>
                   )}
 
                   {/* Empty search message */}
                   { members && !members.items.length && members.items.length === 0 && (
-                    <tr>
+                    <tr className="disable-highlight">
                       <td className="text-size-16 text-center" colSpan="10">
-                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('Couldn\'t find any data.')}
+                        <i className="fas fa-exclamation-triangle fa-fw text-dark"/> {i18n.t('userManagement.events.noData')}
                       </td>
                     </tr>
                   )}
@@ -252,12 +269,12 @@ class SearchMember extends React.PureComponent {
                         <td className={classNames('text-left group-btn', tdClass)}>
                           <CustomTooltip title={
                             isVerifying ?
-                              i18n.t('Verifying Photo') :
+                              i18n.t('userManagement.events.modal.verifyingPhoto') :
                               verifyStatus ?
                                 (member.pictures.length >= 5 ?
-                                  i18n.t('Photo Limit of Member Database Exceeded') :
-                                  i18n.t('Add to {{0}}', {0: member.name})) :
-                                i18n.t('Invalid Photo')
+                                  i18n.t('userManagement.events.tooltip.photoLimitExceeded') :
+                                  i18n.t('userManagement.events.tooltip.addWithName', {0: member.name})) :
+                                i18n.t('userManagement.events.tooltip.invalidPhoto')
                           }
                           >
                             <div>
@@ -270,7 +287,7 @@ class SearchMember extends React.PureComponent {
                                   convertedPicture
                                 })}
                               >
-                                {i18n.t('Add')}
+                                {i18n.t('common.button.add')}
                               </button>
                             </div>
                           </CustomTooltip>
@@ -301,7 +318,7 @@ class SearchMember extends React.PureComponent {
                 index={members.index}
                 size={members.size}
                 total={members.total}
-                itemQuantity={members.items.length}
+                currentPageItemQuantity={members.items.length}
                 onSearch={this.onSearch}
               />
             )}
@@ -313,7 +330,7 @@ class SearchMember extends React.PureComponent {
           modalType="process"
           backdrop="static"
           isShowModal={this.state.isShowApiProcessModal}
-          modalTitle={i18n.t('Updating Member')}
+          modalTitle={i18n.t('userManagement.events.modal.apiProcessingModalTitle')}
           onHide={this.hideApiProcessModal}
         />
       </>
@@ -326,7 +343,7 @@ class Pagination extends React.PureComponent {
     index: PropTypes.number.isRequired,
     size: PropTypes.number.isRequired,
     total: PropTypes.number.isRequired,
-    itemQuantity: PropTypes.number.isRequired,
+    currentPageItemQuantity: PropTypes.number.isRequired,
     onSearch: PropTypes.func.isRequired
   }
 
@@ -355,13 +372,13 @@ class Pagination extends React.PureComponent {
   }
 
   render() {
-    const {index, size, total, itemQuantity, onSearch} = this.props;
+    const {index, size, total, currentPageItemQuantity, onSearch} = this.props;
 
     const numbers = [];
     const hasPrevious = index > 0;
     const hasNext = total > (index + 1) * size;
     const startItem = (index * size) + 1;
-    const endItem = startItem + itemQuantity - 1;
+    const endItem = startItem + currentPageItemQuantity - 1;
     const {gotoIndex} = this.state;
     for (let idx = index - 3; idx < index + 3; idx += 1) {
       if (idx < 0 || idx >= this.maxGotoIndex) {
@@ -386,7 +403,7 @@ class Pagination extends React.PureComponent {
           }}
         >
           <p className="text-size-14 text-muted mb-0 mr-auto invisible">
-            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+            {i18n.t('common.pagination.stats', {
               0: startItem,
               1: endItem,
               2: total
@@ -429,7 +446,7 @@ class Pagination extends React.PureComponent {
             </li>
           </ul>
           <p className="text-size-14 text-muted mb-0 ml-auto">
-            {i18n.t('{{0}}-{{1}} items. Total: {{2}}', {
+            {i18n.t('common.pagination.stats', {
               0: startItem,
               1: endItem,
               2: total

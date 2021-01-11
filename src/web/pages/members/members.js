@@ -1,20 +1,23 @@
-import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import classNames from 'classnames';
 import progress from 'nprogress';
+import PropTypes from 'prop-types';
+import React, {useState, useEffect} from 'react';
 import {RouterView, Link, getRouter} from '@benson.liao/capybara-router';
-import Pagination from '../../../core/components/pagination';
-import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
 import CustomTooltip from '../../../core/components/tooltip';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
+import DeviceSync from './members-deviceSync';
+import i18n from '../../../i18n';
+import MembersDatabase from './members-database';
 import MembersSearchForm from './members-search-form';
 import MembersSidebar from './members-sidebar';
 import MembersTable from './members-table';
 import MembersSelectedGroup from './members-selectedGroup';
-import withGlobalStatus from '../../withGlobalStatus';
+import Pagination from '../../../core/components/pagination';
 import {useContextState} from '../../stateProvider';
+import withGlobalStatus from '../../withGlobalStatus';
 
-const Members = ({groups, members, params, remainingPictureCount}) => {
+const Members = ({groups, members, params, remainingPictureCount, deviceSync, networkSettings: {ipAddress}}) => {
   const {isApiProcessing} = useContextState();
   const currentRoute = getRouter().findRouteByName('web.users.members');
 
@@ -33,6 +36,13 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
       deleteMember: false
     }
   });
+
+  // State used to switch pages between 'members', 'database' and 'sync'
+  const [page, setPage] = useState(localStorage.getItem('currentPage') || 'members');
+
+  useEffect(() => {
+    localStorage.removeItem('currentPage');
+  }, []);
 
   const {deleteGroupTarget, deleteMemberTarget} = state;
   const isOverPhotoLimit = remainingPictureCount <= 0 && remainingPictureCount !== null;
@@ -55,15 +65,15 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
         showModal: isShowModal,
         hideModal: hideModal(mode),
         modalOnSubmit: confirmDeleteGroup,
-        modalTitle: i18n.t('Delete Group'),
-        modalBody: i18n.t('Are you sure you want to delete group {{0}}?', {0: deleteGroupTarget && deleteGroupTarget.name})
+        modalTitle: i18n.t('userManagement.members.modal.group.confirmDeleteTitle'),
+        modalBody: i18n.t('userManagement.members.modal.group.confirmDeleteBody', {0: deleteGroupTarget && deleteGroupTarget.name})
       },
       deleteMember: {
         showModal: isShowModal,
         hideModal: hideModal(mode),
         modalOnSubmit: confirmDeleteMember,
-        modalTitle: i18n.t('Delete Member'),
-        modalBody: i18n.t('Are you sure you want to delete member {{0}}?', {0: deleteMemberTarget && deleteMemberTarget.name})
+        modalTitle: i18n.t('userManagement.members.modal.member.confirmDeleteTitle'),
+        modalBody: i18n.t('userManagement.members.modal.member.confirmDeleteBody', {0: deleteMemberTarget && deleteMemberTarget.name})
       }
     };
     return (
@@ -166,69 +176,89 @@ const Members = ({groups, members, params, remainingPictureCount}) => {
     <>
       {/* Left menu */}
       <MembersSidebar
-        isApiProcessing={isApiProcessing}
         params={params}
         groups={groups}
+        page={page}
         filterHandler={generateChangeFilterHandler}
         deleteGroupHandler={generateShowDeleteGroupModalHandler}
+        setPage={setPage}
       />
       {/* Main content */}
       <div className="main-content left-menu-active sub">
-        <div className="page-members bg-white">
+        <div className={classNames('page-members', page === 'database' ? 'bg-gray' : 'bg-white')}>
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 d-flex justify-content-between align-items-center mb-4">
-                <MembersSearchForm
-                  isApiProcessing={isApiProcessing}
-                  currentRouteName={currentRoute.name}
-                  params={params}
-                />
-                <CustomTooltip show={isOverPhotoLimit} title={i18n.t('Photo Limit of Member Database Exceeded')}>
-                  <div className="dropdown">
-                    <button
-                      className="btn border-primary text-primary rounded-pill dropdown-toggle"
-                      type="button"
-                      disabled={isOverPhotoLimit}
-                      style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
-                      data-toggle="dropdown"
-                    >
-                      <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('New')}
-                    </button>
-                    <div className="dropdown-menu dropdown-menu-right shadow">
-                      <Link
-                        className="dropdown-item"
-                        to={{
-                          name: 'web.users.members.new-member',
-                          params: params
-                        }}
-                      >
-                        {i18n.t('Add a New Member')}
-                      </Link>
-                      <Link className="dropdown-item" to="/users/events">{i18n.t('Add a Member from Events')}</Link>
-                    </div>
+              { page === 'members' && (
+                <>
+                  <div className="col-12 d-flex justify-content-between align-items-center mb-4">
+                    <MembersSearchForm
+                      isApiProcessing={isApiProcessing}
+                      currentRouteName={currentRoute.name}
+                      params={params}
+                    />
+                    <CustomTooltip show={isOverPhotoLimit} title={i18n.t('userManagement.members.tooltip.photoLimitExceeded')}>
+                      <div className="dropdown">
+                        <button
+                          className="btn border-primary text-primary rounded-pill dropdown-toggle"
+                          type="button"
+                          disabled={isOverPhotoLimit}
+                          style={isOverPhotoLimit ? {pointerEvents: 'none'} : {}}
+                          data-toggle="dropdown"
+                        >
+                          <i className="fas fa-plus fa-fw text-primary"/>{i18n.t('common.button.new')}
+                        </button>
+                        <div className="dropdown-menu dropdown-menu-right shadow">
+                          <Link
+                            className="dropdown-item"
+                            to={{
+                              name: 'web.users.members.new-member',
+                              params: params
+                            }}
+                          >
+                            {i18n.t('userManagement.members.addNewMember')}
+                          </Link>
+                          <Link className="dropdown-item" to="/users/events">{i18n.t('userManagement.members.addMemberFromEvent')}</Link>
+                        </div>
+                      </div>
+                    </CustomTooltip>
                   </div>
-                </CustomTooltip>
-              </div>
-              <MembersSelectedGroup
-                selectedGroup={groups.items.find(x => x.id === params.group)}
-                params={params}
-              />
-              <MembersTable
-                params={params}
-                members={members}
-                groups={groups}
-                filterHandler={generateChangeFilterHandler}
-                deleteMemberModal={generateShowDeleteMemberModalHandler}
-              />
-              <Pagination
-                index={members.index}
-                size={members.size}
-                total={members.total}
-                itemQuantity={members.items.length}
-                hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
-                  `${hrefTemplate}&index=` :
-                  `${hrefTemplate}?index=`}
-              />
+                  <MembersSelectedGroup
+                    selectedGroup={groups.items.find(x => x.id === params.group)}
+                    params={params}
+                  />
+                  <MembersTable
+                    params={params}
+                    members={members}
+                    groups={groups}
+                    filterHandler={generateChangeFilterHandler}
+                    deleteMemberModal={generateShowDeleteMemberModalHandler}
+                  />
+                  <Pagination
+                    index={members.index}
+                    size={members.size}
+                    total={members.total}
+                    currentPageItemQuantity={members.items.length}
+                    hrefTemplate={hrefTemplate.indexOf('?') >= 0 ?
+                      `${hrefTemplate}&index=` :
+                      `${hrefTemplate}?index=`}
+                  />
+                </>
+              )}
+              { page === 'database' && (
+                <div className="col-12 database">
+                  <MembersDatabase
+                    isApiProcessing={isApiProcessing}
+                  />
+                </div>
+              )}
+              { page === 'sync' && (
+                <div className="col-12 sync">
+                  <DeviceSync
+                    deviceSync={deviceSync}
+                    ipAddress={ipAddress}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <RouterView/>
@@ -246,7 +276,9 @@ Members.propTypes = {
   params: PropTypes.shape({group: PropTypes.string}).isRequired,
   groups: PropTypes.shape(MembersTable.propTypes.groups).isRequired,
   members: PropTypes.shape(MembersTable.propTypes.members).isRequired,
-  remainingPictureCount: PropTypes.number.isRequired
+  remainingPictureCount: PropTypes.number.isRequired,
+  deviceSync: PropTypes.any,
+  networkSettings: PropTypes.shape({ipAddress: PropTypes.string.isRequired}).isRequired
 };
 
 export default withGlobalStatus(Members);

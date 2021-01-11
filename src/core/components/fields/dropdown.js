@@ -2,6 +2,7 @@ const classNames = require('classnames');
 const React = require('react');
 const PropTypes = require('prop-types');
 
+// Will refactor later to display error component when some of the items are null
 module.exports = class DropdownField extends React.Component {
   static get propTypes() {
     return {

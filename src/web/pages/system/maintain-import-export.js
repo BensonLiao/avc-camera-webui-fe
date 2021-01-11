@@ -30,7 +30,7 @@ const MaintainImportExport = ({
     progress.start();
     setApiProcessModal({
       isShowApiProcessModal: true,
-      apiProcessModalTitle: i18n.t('Import System Settings')
+      apiProcessModalTitle: i18n.t('system.deviceMaintenance.importSystemSettings')
     });
     api.system.importDeviceSettings(file)
       .then(() => {
@@ -43,7 +43,7 @@ const MaintainImportExport = ({
             // Keep modal and update the title.
             setApiProcessModal(prevState => ({
               ...prevState,
-              apiProcessModalTitle: i18n.t('Rebooting')
+              apiProcessModalTitle: i18n.t('system.deviceMaintenance.modal.apiProcessModalTitleRebooting')
             }));
             // Check the server was start up, if success then startup was failed and retry.
             const test = () => {
@@ -53,8 +53,8 @@ const MaintainImportExport = ({
                   hideApiProcessModal();
                   setFinishModal({
                     isShowFinishModal: true,
-                    finishModalTitle: i18n.t('Import System Settings'),
-                    finishModalBody: i18n.t('Device settings have imported. Please log in again.')
+                    finishModalTitle: i18n.t('system.deviceMaintenance.importSystemSettings'),
+                    finishModalBody: i18n.t('system.deviceMaintenance.modal.importSuccessBody')
                   });
                 })
                 .catch(() => {
@@ -78,33 +78,31 @@ const MaintainImportExport = ({
   return (
     <>
       <div className="form-group">
-        <label>{i18n.t('Export System Settings')}</label>
+        <label>{i18n.t('system.deviceMaintenance.exportSystemSettings')}</label>
         <div>
           <button
             className="btn btn-outline-primary rounded-pill px-5"
             type="button"
             onClick={onClickExportDeviceSettings}
           >
-            {i18n.t('Export')}
+            {i18n.t('system.deviceMaintenance.export')}
           </button>
         </div>
       </div>
       <div className="form-group">
-        <label className="mb-0">{i18n.t('Import System Settings')}</label>
-        <small className="form-text text-muted my-2">{i18n.t('Only ZIP file format is supported')}</small>
+        <label className="mb-0">{i18n.t('system.deviceMaintenance.importSystemSettings')}</label>
+        <small className="form-text text-muted my-2">{i18n.t('common.fileHandler.importHelper')}</small>
         <div>
           <label className="btn btn-outline-primary rounded-pill font-weight-bold px-5">
             <input type="file" className="d-none" accept="application/zip" onChange={onChangeFile}/>
-            {i18n.t('Select File')}
+            {i18n.t('common.fileHandler.selectFile')}
           </label>
-          {
-            file ?
-              <span className="text-size-14 text-muted ml-3">{i18n.t(file.name)}</span> :
-              <span className="text-size-14 text-muted ml-3">{i18n.t('No file selected.')}</span>
-          }
+          <span className="text-size-14 text-muted ml-3">
+            {file ? file.name : i18n.t('common.fileHandler.noFileSelected')}
+          </span>
         </div>
         <div>
-          <CustomTooltip show={!file} title={i18n.t('Please select a file first.')}>
+          <CustomTooltip show={!file} title={i18n.t('common.fileHandler.tooltip.disabledButton')}>
             <span>
               <button
                 disabled={isApiProcessing || !file}
@@ -113,7 +111,7 @@ const MaintainImportExport = ({
                 style={file ? {} : {pointerEvents: 'none'}}
                 onClick={onSubmitImportDeviceSettings}
               >
-                {i18n.t('Import')}
+                {i18n.t('system.deviceMaintenance.import')}
               </button>
             </span>
           </CustomTooltip>

@@ -1,10 +1,10 @@
 
+import {Link} from '@benson.liao/capybara-router';
 import React from 'react';
 import PropTypes from 'prop-types';
 import iconDescription from '../../../resource/description-20px.svg';
 import i18n from '../../../i18n';
 import CustomTooltip from '../../../core/components/tooltip';
-import {Link} from '@benson.liao/capybara-router';
 
 const MembersSelectedGroup = ({selectedGroup, params}) => {
   return (
@@ -35,7 +35,7 @@ const MembersSelectedGroup = ({selectedGroup, params}) => {
             </CustomTooltip>
           )
         }
-        <CustomTooltip title={i18n.t('Edit Group: {{0}}', {0: selectedGroup.name})}>
+        <CustomTooltip title={i18n.t('userManagement.members.tooltip.editGroupWithName', {0: selectedGroup.name})}>
           <Link
             className="ml-32px"
             to={{

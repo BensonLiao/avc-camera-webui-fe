@@ -22,7 +22,7 @@ const infoColor = getComputedStyle(document.documentElement).getPropertyValue('-
 const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
   const {isApiProcessing} = useContextState();
   const [isShowModal, setIsShowModal] = useState(false);
-  const [modalBody, setModalBody] = useState(i18n.t('The website has been redirected to the new address'));
+  const [modalBody, setModalBody] = useState('');
   const hideModal = () => setIsShowModal(false);
 
   const checkValidatePort = values => {
@@ -41,7 +41,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
       values === rtspSettings.tcpPort ||
       values === httpInfo.port2 ||
       values === httpInfo.port) {
-      return i18n.t('The specified port is reserved by system or in use!');
+      return i18n.t('validation.portReserved');
     }
 
     return utils.validatedPortCheck(values);
@@ -56,7 +56,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
         const newAddress = `${values.isEnable ? 'https' : 'http'}://${location.hostname}${values.isEnable ? `:${values.port}` : ''}`;
         setIsShowModal(true);
         setModalBody([
-          `${i18n.t('The website has been redirected to the new address')} :`,
+          `${i18n.t('network.common.modal.redirectionBody')} :`,
           <div key="redirect" className="d-flex">
             <ProgressIndicator
               className="ml-0"
@@ -67,7 +67,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
         ]);
         setTimeout(() => {
           setModalBody([
-            `${i18n.t('The website has been redirected to the new address')} :`,
+            `${i18n.t('network.common.modal.redirectionBody')} :`,
             <div key="redirect" className="d-flex">
               <ProgressIndicator
                 className="ml-0"
@@ -88,12 +88,12 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('Internet & Network Settings'), i18n.t('HTTPS')]}
+              path={[i18n.t('navigation.sidebar.internetNetworkSettings'), i18n.t('navigation.sidebar.https')]}
               routes={['/network/settings']}
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('HTTPS')}</div>
+                <div className="card-header">{i18n.t('network.https.title')}</div>
                 <Formik
                   initialValues={httpsSettings}
                   validate={httpsSettingsValidator}
@@ -102,17 +102,17 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                   {({values, errors, touched}) => (
                     <Form className="card-body">
                       <div className="form-group d-flex justify-content-between align-items-center">
-                        <label>{i18n.t('Enable HTTPS')}</label>
+                        <label>{i18n.t('network.https.enableHTTPS')}</label>
                         <div className="custom-control custom-switch">
                           <Field name="isEnable" type="checkbox" className="custom-control-input" id="switch-enable"/>
                           <label className="custom-control-label" htmlFor="switch-enable">
-                            <span>{i18n.t('ON')}</span>
-                            <span>{i18n.t('OFF')}</span>
+                            <span>{i18n.t('common.button.on')}</span>
+                            <span>{i18n.t('common.button.off')}</span>
                           </label>
                         </div>
                       </div>
                       <div className="form-group">
-                        <label>{i18n.t('Port')}</label>
+                        <label>{i18n.t('network.https.port')}</label>
                         <Field
                           name="port"
                           type="text"
@@ -120,12 +120,20 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                           className={classNames('form-control', {'is-invalid': errors.port && touched.port})}
                         />
                         <ErrorMessage component="div" name="port" className="invalid-feedback"/>
-                        <p className="text-size-14 text-muted mt-2">{i18n.t('Range: 1024-65535 Default: 8443')}</p>
+                        <p className="text-size-14 text-muted mt-2">{i18n.t('network.https.portHelper')}</p>
                       </div>
-                      <SelectField labelName={i18n.t('Certificate')} name="certificateType">
-                        <option value={CertificateType.selfSigned}>{i18n.t(`certificate-type-${CertificateType.selfSigned}`)}</option>
+                      <SelectField labelName={i18n.t('network.https.certificate')} name="certificateType">
+                        <option value={CertificateType.selfSigned}>
+                          {(() => {
+                            const certificateI18n = window.isNoBrand ? i18n.t('network.https.constants.manufacturer') : 'AndroVideo';
+                            return i18n.t('network.https.constants.certificate-type-0', {0: certificateI18n});
+                          })()}
+                        </option>
                       </SelectField>
-                      <CustomTooltip show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false} title={i18n.t('Please enable HTTPS first.')}>
+                      <CustomTooltip
+                        show={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false}
+                        title={i18n.t('network.https.tooltip.disabledButton')}
+                      >
                         <div>
                           <button
                             disabled={
@@ -137,7 +145,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                             type="submit"
                             style={(httpsSettings.isEnable === values.isEnable) && httpsSettings.isEnable === false ? {pointerEvents: 'none'} : {}}
                           >
-                            {i18n.t('Apply')}
+                            {i18n.t('common.button.apply')}
                           </button>
                         </div>
                       </CustomTooltip>
@@ -145,7 +153,7 @@ const HTTPS = ({httpsSettings, rtspSettings, httpInfo}) => {
                         isShowAllBtns={false}
                         backdrop="static"
                         isShowModal={isShowModal}
-                        modalTitle={i18n.t('Redirection Success')}
+                        modalTitle={i18n.t('network.common.modal.redirectionSuccess')}
                         modalBody={modalBody}
                         onConfirm={hideModal}
                         onHide={hideModal}

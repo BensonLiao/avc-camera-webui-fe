@@ -5,6 +5,7 @@ import React from 'react';
 import api from '../../../core/apis/web-api';
 import CardsListSingleCard from './cards-list-single-card';
 import i18n from '../../../i18n';
+import utils from '../../../core/utils';
 
 const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHandler}) => {
   const filterCards = cardTypeFilter === 'all' ? cards : cards.filter(x => x.type === cardTypeFilter);
@@ -15,8 +16,12 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
     event.stopPropagation();
     const card = {...cards.find(x => x.id === cardId)};
     card.isTop = !card.isTop;
+    const data = {
+      ...card,
+      timePeriods: utils.parseCardTimePeriods(card)
+    };
     progress.start();
-    api.notification.updateCard(card)
+    api.notification.updateCard(data)
       .then(getRouter().reload)
       .finally(progress.done);
   };
@@ -26,7 +31,7 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
       {
         topCards.length > 0 && (
           <>
-            <h3 className="mb-2">{i18n.t('Pinned')}</h3>
+            <h3 className="mb-2">{i18n.t('notification.cards.pinned')}</h3>
             <hr className="my-1"/>
             <div className="card-container">
               {topCards.map(card => (
@@ -43,7 +48,7 @@ const CardsList = ({cards, groups, cardTypeFilter, isApiProcessing, clickCardHan
           </>
         )
       }
-      <h3 className="mb-2">{i18n.t('Others')}</h3>
+      <h3 className="mb-2">{i18n.t('notification.cards.others')}</h3>
       <hr className="my-1"/>
       <div className="card-container mb-4">
         {normalCards.map(card => (

@@ -18,24 +18,24 @@ const TCPIP = ({ddnsInfo, httpInfo, httpsSettings, rtspSettings}) => {
           <div className="row">
             <BreadCrumb
               className="px-0"
-              path={[i18n.t('Internet & Network Settings'), i18n.t('TCP/IP')]}
+              path={[i18n.t('navigation.sidebar.internetNetworkSettings'), i18n.t('navigation.sidebar.tcpip')]}
               routes={['/network/settings']}
             />
             <div className="col-center">
               <div className="card shadow">
                 <div className="card-header">
-                  {i18n.t('TCP/IP')}
+                  {i18n.t('network.tcpip.title')}
                 </div>
                 <Tab.Container defaultActiveKey="tab-ddns">
                   <Nav>
                     <Nav.Item>
                       <Nav.Link eventKey="tab-ddns">
-                        {i18n.t('DDNS')}
+                        {i18n.t('network.tcpip.ddns')}
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link eventKey="tab-http">
-                        {i18n.t('HTTP')}
+                        {i18n.t('network.tcpip.http')}
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>

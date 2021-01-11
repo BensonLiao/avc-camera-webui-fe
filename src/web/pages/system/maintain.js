@@ -17,7 +17,7 @@ const Maintain = () => {
 
   const [finishModal, setFinishModal] = useState({
     isShowFinishModal: false,
-    finishModalTitle: i18n.t('Process finished'),
+    finishModalTitle: '',
     finishModalBody: ''
   });
 
@@ -47,7 +47,7 @@ const Maintain = () => {
         <div className="container-fluid">
           <div className="row">
             <BreadCrumb
-              path={[i18n.t('System'), i18n.t('Administration'), i18n.t('Device Maintenance')]}
+              path={[i18n.t('navigation.sidebar.system'), i18n.t('navigation.sidebar.administration'), i18n.t('navigation.sidebar.deviceMaintenance')]}
               routes={['/system/datetime', '/system/datetime']}
             />
             <CustomNotifyModal
@@ -67,7 +67,7 @@ const Maintain = () => {
             />
             <div className="col-center">
               <div className="card shadow">
-                <div className="card-header">{i18n.t('Device Maintenance')}</div>
+                <div className="card-header">{i18n.t('system.deviceMaintenance.title')}</div>
                 <div className="card-body">
 
                   <MaintainReboot

@@ -1,0 +1,23 @@
+{
+  "login": {
+    "error": {
+      "expires1.reserved": "Expira en 10 minutos",
+      "expires2.reserved": "Expira en 30 minutos",
+      "expires3.reserved": "Expira en 1 hora",
+      "expires4.reserved": "Expira en 12 horas"
+    }
+  },
+  "audio": {
+    "internalMicrophone.reserved": "Internal Microphone",
+    "constants": {
+      "audio-quality-1.reserved": "AAC, 16kHz, 96kbps, Mono"
+    }
+  },
+  "notification": {
+    "smtp": {
+      "toast": {
+        "mailSettingFailed.reserved": "Falló la configuración del correo electrónico"
+      }
+    }
+  }
+}

@@ -69,7 +69,7 @@ const Group = ({group, groups, params}) => {
       return utils.duplicateCheck(
         groupsName,
         groupName,
-        i18n.t('This name already exists in the system. Please use a different name.')
+        i18n.t('validation.duplicateName')
       );
     }
   };
@@ -102,41 +102,45 @@ const Group = ({group, groups, params}) => {
       >
         {({errors, touched}) => {
           const isAddGroupDisabled = groups.items.length >= MEMBERS_PAGE_GROUPS_MAX && !group;
-
+          console.log('test', group);
           return (
             <Form>
               <div className="modal-header">
-                <h5 className="modal-title">{group ? i18n.t('Edit Group') : i18n.t('Create a Group')}</h5>
+                <h5 className="modal-title">
+                  {group ?
+                    i18n.t('userManagement.members.modal.group.editGroupTitle') :
+                    i18n.t('userManagement.members.modal.group.createGroupTitle')}
+                </h5>
               </div>
               <div className="modal-body">
                 <div className="form-group">
-                  <label>{i18n.t('Name')}</label>
+                  <label>{i18n.t('userManagement.members.name')}</label>
                   <Field
                     name="name"
                     type="text"
-                    placeholder={i18n.t('Enter a name for this group')}
+                    placeholder={i18n.t('userManagement.members.modal.group.namePlaceholder')}
                     maxLength={GroupSchema.name.max}
                     validate={checkDuplicate}
                     className={classNames('form-control', {'is-invalid': errors.name && touched.name})}
                   />
                   <ErrorMessage component="div" name="name" className="invalid-feedback"/>
-                  <small className="form-text text-muted">{i18n.t('Maximum length: 32 characters')}</small>
+                  <small className="form-text text-muted">{i18n.t('userManagement.members.modal.group.nameHelper')}</small>
                 </div>
                 <div className="form-group">
-                  <label>{i18n.t('Note')}</label>
+                  <label>{i18n.t('userManagement.members.note')}</label>
                   <Field
                     name="note"
                     type="text"
-                    placeholder={i18n.t('Enter a note')}
+                    placeholder={i18n.t('userManagement.members.notePlaceholder')}
                     maxLength={GroupSchema.note.max}
                     className={classNames('form-control', {'is-invalid': errors.note && touched.note})}
                   />
                   <ErrorMessage component="div" name="note" className="invalid-feedback"/>
-                  <small className="form-text text-muted">{i18n.t('Maximum length: 256 characters')}</small>
+                  <small className="form-text text-muted">{i18n.t('userManagement.members.noteHelper')}</small>
                 </div>
               </div>
               <div className="modal-footer flex-column">
-                <CustomTooltip show={isAddGroupDisabled} title={i18n.t('Group number limit exceeded.')}>
+                <CustomTooltip show={isAddGroupDisabled} title={i18n.t('userManagement.members.tooltip.groupLimitExceeded')}>
                   <div className="form-group w-100 mx-0">
                     <button
                       disabled={isApiProcessing || isAddGroupDisabled}
@@ -144,7 +148,7 @@ const Group = ({group, groups, params}) => {
                       className="btn btn-primary btn-block rounded-pill"
                       style={isAddGroupDisabled ? {pointerEvents: 'none'} : {}}
                     >
-                      {group ? i18n.t('Confirm') : i18n.t('Create')}
+                      {group ? i18n.t('common.button.confirm') : i18n.t('common.button.create')}
                     </button>
                   </div>
                 </CustomTooltip>
@@ -154,7 +158,7 @@ const Group = ({group, groups, params}) => {
                   className="btn btn-info btn-block m-0 rounded-pill"
                   onClick={hideModal}
                 >
-                  {i18n.t('Close')}
+                  {i18n.t('common.button.close')}
                 </button>
               </div>
             </Form>

@@ -192,6 +192,19 @@ exports.formatDate = (date, {withSecond, withoutTime, format} = {}) => {
 };
 
 /**
+ * Use addTimezoneOffset when submitting card timePeriods to api
+ * @param {Object} card - single card object
+ * @returns {Object} - altered time periods card
+ */
+exports.parseCardTimePeriods = card => {
+  return card.timePeriods.map(timePeriod => ({
+    ...timePeriod,
+    start: this.addTimezoneOffset(new Date(timePeriod.start)).toISOString(),
+    end: this.addTimezoneOffset(new Date(timePeriod.end)).toISOString()
+  }));
+};
+
+/**
  * Get time with offset.
  * this is used to normalise the UTC time from server
  * @param {Date} time - e.g. 9/21 11:00am GMT+8
@@ -433,6 +446,7 @@ exports.convertPictureURL = (
   img.src = imgSrc;
 });
 
+// ** Deprecated **
 exports.capitalizeObjKeyValuePairs = obj => {
   return Object.keys(obj)
     .filter(key => typeof obj[key] === 'string')
@@ -506,9 +520,9 @@ exports.validatedPortCheck = (value, error) => {
     (Number(value) < PORT_NUMBER_MIN) ||
     (Number(value) > PORT_NUMBER_MAX) ||
     RESTRICTED_PORTS.some(val => val === value);
-  let errorMsg = error || i18n.t('The specified port is reserved by system or in use!');
+  let errorMsg = error || i18n.t('validation.portReserved');
   if (value === '') {
-    errorMsg = i18n.t('The port number must not be empty.');
+    errorMsg = i18n.t('validation.portEmpty');
     return errorMsg;
   }
 
@@ -552,6 +566,7 @@ module.exports.pingAndRedirectPage = url => {
  * @returns {object} - A Promise resolve object if shutdown is successful.
  */
 module.exports.pingToCheckShutdown = (resolve, interval, type = 'web') => {
+  console.log('api.ping', api.ping);
   const test = () => {
     api.ping(type)
       .then(() => {
@@ -585,3 +600,29 @@ module.exports.pingToCheckStartupAndReload = (interval, type = 'app') => {
   test();
 };
 
+/**
+ * Split array of data into an array of arrays by page size.
+ * @param {array} data - The input data.
+ * @param {number} size - Number of data per page to show. default is `10`
+ * @returns {array} - Pagination data.
+ */
+module.exports.getPaginatedData = (data, size = 10) => {
+  if (!this.isArray(data)) {
+    throw new TypeError('The input data must be an array.');
+  }
+
+  if (isNaN(size)) {
+    throw new TypeError('The page size must be a number.');
+  }
+
+  if (size < 1) {
+    throw new RangeError('The page size must be a positive number.');
+  }
+
+  const pageData = [];
+  for (let i = 0; i < data.length / size; i++) {
+    pageData.push(data.slice(i * size, (i + 1) * size));
+  }
+
+  return pageData;
+};

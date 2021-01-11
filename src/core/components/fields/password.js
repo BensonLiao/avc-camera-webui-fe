@@ -36,7 +36,7 @@ module.exports = class Password extends React.PureComponent {
           tabIndex={-1}
           onClick={this.onTogglePassword}
         >
-          <CustomTooltip title={isShowPassword ? i18n.t('Hide Password') : i18n.t('Show Password')}>
+          <CustomTooltip title={isShowPassword ? i18n.t('common.password.hidePassword') : i18n.t('common.password.showPassword')}>
             <i className={classNames('fas', isShowPassword ? 'fa-eye' : 'fa-eye-slash')}/>
           </CustomTooltip>
         </a>

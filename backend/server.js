@@ -4,6 +4,7 @@ const config = require('config');
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const handlebars = require('handlebars');
 const errors = require('./models/errors');
 const webRouter = require('./routers/web-router');
@@ -56,7 +57,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json({limit: '50mb'}));
-
+app.use(cookieParser()); // Setup req.cookies
 app.use(webRouter);
 
 // HTTP error handlers

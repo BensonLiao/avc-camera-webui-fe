@@ -16,7 +16,7 @@ module.exports = class Loading extends React.Component {
             <div className="bounce3"/>
           </div>
           <div className="description">
-            <p className="mt-4">{i18n.t('Loading')}</p>
+            <p className="mt-4">{i18n.t('common.loading')}</p>
           </div>
         </div>
       </div>

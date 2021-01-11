@@ -6,31 +6,31 @@ import i18n from '../../../i18n';
 const SettingsStatus = ({networkSettings: {ipType, mac, ipAddress, primaryDNS, secondaryDNS, subnetMask, gateway}}) => {
   const list = [
     {
-      name: i18n.t('IP Assignment'),
-      data: i18n.t(ipType === '0' ? i18n.t('Static') : i18n.t('Dynamic'))
+      name: i18n.t('network.network.ipAssignment'),
+      data: ipType === '0' ? i18n.t('network.network.static') : i18n.t('network.network.dynamic')
     },
     {
-      name: i18n.t('MAC Address'),
+      name: i18n.t('network.network.macAddress'),
       data: mac
     },
     {
-      name: i18n.t('IP Address'),
+      name: i18n.t('network.network.ipAddress'),
       data: ipAddress
     },
     {
-      name: i18n.t('Subnet Mask'),
+      name: i18n.t('network.network.subnetMask'),
       data: subnetMask
     },
     {
-      name: i18n.t('Router/Gateway'),
+      name: i18n.t('network.network.routerGateway'),
       data: gateway
     },
     {
-      name: i18n.t('Primary DNS'),
+      name: i18n.t('network.network.primaryDNS'),
       data: primaryDNS
     },
     {
-      name: i18n.t('Secondary DNS'),
+      name: i18n.t('network.network.secondaryDNS'),
       data: secondaryDNS
     }
   ];

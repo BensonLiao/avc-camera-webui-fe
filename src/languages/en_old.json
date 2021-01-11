@@ -1,0 +1,107 @@
+{
+  "login": {
+    "lock": {
+      "supportDetails.avn": "Tech Support Phone Number: +1 (818) 937-0700"
+    },
+    "error": {
+      "expires1.reserved": "Expires in 10 minutes",
+      "expires2.reserved": "Expires in 30 minutes",
+      "expires3.reserved": "Expires in 1 hour",
+      "expires4.reserved": "Expires in 12 hours"
+    }
+  },
+  "videoSetting": {
+    "autoFocus.avn": "Auto Focus"
+  },
+  "video": {
+    "stream": {
+      "settings.avn": "Settings"
+    }
+  },
+  "audio": {
+    "internalMicrophone.reserved": "Internal Microphone",
+    "constants": {
+      "audio-quality-1.reserved": "AAC, 16kHz, 96kbps, Mono"
+    }
+  },
+  "notification": {
+    "smtp": {
+      "toast": {
+        "mailSettingFailed.reserved": "Mail Setting Failed"
+      }
+    },
+    "cards": {
+      "constants": {
+        "videoManagementSystem.avn": "Video Management System",
+        "notification-vms-event-0.avn": "Video Motion Detection Event",
+        "notification-vms-event-1.avn": "Analytic Event"
+      },
+      "tooltip": {
+        "iconVMS.avn": "VMS: On"
+      }
+    }
+  },
+  "userManagement": {
+    "members": {
+      "uploadImage.avn": "Upload Image",
+      "pleaseUploadPhoto.avn": "Please upload your face photo.",
+      "modal": {
+        "group": {
+          "editGroupTitle.avn": "Modify Group"
+        }
+      }
+    },
+    "accounts": {
+      "tooltip": {
+        "accountProtected.avn": "This Account is Protected"
+      }
+    },
+    "events": {
+      "unknown.avn": "Unknown",
+      "confidence.avn": "Confidence"
+    }
+  },
+  "analytics": {
+    "license": {
+      "authorizationFailed.avn": "Authorization failed!"
+    }
+  },
+  "network": {
+    "https": {
+      "constants": {
+        "certificate-type-1.reserve": "Upload Certificate",
+        "certificate-type-2.reserve": "Generate Certificate on This Device"
+      }
+    }
+  },
+  "system": {
+    "information": {
+      "buildVersion.avn": "Build Version"
+    }
+  },
+  "documentTitle": {
+    "image.avn": "Image",
+    "video.avn": "Video",
+    "analytics.avn": "Analytics",
+    "notificationSettings.avn": "Notification Settings",
+    "notificationMethod.avn": "Notification Method"
+  },
+  "navigation": {
+    "sidebar": {
+      "tooltip": {
+        "image.avn": "Image"
+      }
+    },
+    "appbar": {
+      "support": {
+        "onlineSupportRequest.avn": "Online Support Request",
+        "firmwareDownloads.avn": "Firmware Downloads",
+        "softwareDownloads.avn": "Software Downloads",
+        "downloads.avn": "Downloads",
+        "productSelector.avn": "Product Selector",
+        "technicalUpdates.avn": "Technical Updates",
+        "resources.avn": "Resources"
+      }
+    }
+  }
+}

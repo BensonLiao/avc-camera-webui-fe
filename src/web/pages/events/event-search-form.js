@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import {getRouter} from '@benson.liao/capybara-router';
-import {Formik, Form, Field} from 'formik';
+import {Formik, Form, Field, ErrorMessage} from 'formik';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import NTPTimeZoneList from 'webserver-form-schema/constants/system-sync-time-ntp-timezone-list';
@@ -8,6 +8,8 @@ import SyncTimeOption from 'webserver-form-schema/constants/system-sync-time';
 import i18n from '../../../i18n';
 import DateTimePicker from '../../../core/components/fields/datetime-picker';
 import utils from '../../../core/utils';
+import keywordValidator from '../../validations/events/keyword-validator';
+import CustomPopover from '../../../core/components/popover';
 
 const EventsSearchForm = ({params, isApiProcessing, currentRouteName}) => {
   const [state, setState] = useState({
@@ -66,60 +68,85 @@ const EventsSearchForm = ({params, isApiProcessing, currentRouteName}) => {
   return (
     <Formik
       initialValues={searchFromInitialValues}
+      validate={keywordValidator}
       onSubmit={onSubmitSearchForm}
     >
-      <Form>
-        <div className="form-row datepicker-wrapper">
-          <div className="col-auto px-0 btn-group datepicker-group">
-            <Field
-              name="start"
-              component={DateTimePicker}
-              dateTabText={i18n.t('Start Date')}
-              timeTabText={i18n.t('Start Time')}
-              inputProps={{
-                className: classNames('btn start-date px-4', {active: isShowStartDatePicker}),
-                placeholder: i18n.t('Start Datetime'),
-                style: {
-                  whiteSpace: 'nowrap',
-                  boxShadow: 'none'
-                }
-              }}
-              endDateFieldName="end"
-              isShowPicker={isShowStartDatePicker}
-              onClickInput={toggleStartDatePicker}
-              onHide={onHideStartDatePicker}
-            />
-            <Field
-              name="end"
-              component={DateTimePicker}
-              dateTabText={i18n.t('End Date')}
-              timeTabText={i18n.t('End Time')}
-              inputProps={{
-                className: classNames('btn end-date px-4', {active: isShowEndDatePicker}),
-                placeholder: i18n.t('End Datetime'),
-                style: {
-                  whiteSpace: 'nowrap',
-                  boxShadow: 'none'
-                }
-              }}
-              startDateFieldName="start"
-              isShowPicker={isShowEndDatePicker}
-              onClickInput={toggleEndDatePicker}
-              onHide={onHideEndDatePicker}
-            />
-          </div>
-        </div>
-        <div className="form-row mt-4">
-          <div className="col-auto px-0">
-            <Field name="keyword" className="form-control" type="search" placeholder={i18n.t('Enter Keywords')}/>
-          </div>
-          <div className="col-auto px-0 ml-3">
-            <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={isApiProcessing}>
-              <i className="fas fa-search fa-fw"/> {i18n.t('Search')}
-            </button>
-          </div>
-        </div>
-      </Form>
+      {({errors, touched}) => {
+        return (
+          <Form>
+            <div className="form-row datepicker-wrapper">
+              <div className="col-auto px-0 btn-group datepicker-group">
+                <Field
+                  name="start"
+                  component={DateTimePicker}
+                  dateTabText={i18n.t('common.dateTimePicker.date')}
+                  timeTabText={i18n.t('common.dateTimePicker.time')}
+                  inputProps={{
+                    className: classNames('btn start-date px-4', {active: isShowStartDatePicker}),
+                    placeholder: i18n.t('common.dateTimePicker.startTime'),
+                    style: {
+                      whiteSpace: 'nowrap',
+                      boxShadow: 'none'
+                    }
+                  }}
+                  endDateFieldName="end"
+                  isShowPicker={isShowStartDatePicker}
+                  onClickInput={toggleStartDatePicker}
+                  onHide={onHideStartDatePicker}
+                />
+                <Field
+                  name="end"
+                  component={DateTimePicker}
+                  dateTabText={i18n.t('common.dateTimePicker.date')}
+                  timeTabText={i18n.t('common.dateTimePicker.time')}
+                  inputProps={{
+                    className: classNames('btn end-date px-4', {active: isShowEndDatePicker}),
+                    placeholder: i18n.t('common.dateTimePicker.endTime'),
+                    style: {
+                      whiteSpace: 'nowrap',
+                      boxShadow: 'none'
+                    }
+                  }}
+                  startDateFieldName="start"
+                  isShowPicker={isShowEndDatePicker}
+                  onClickInput={toggleEndDatePicker}
+                  onHide={onHideEndDatePicker}
+                />
+              </div>
+            </div>
+            <div className="form-row mt-4 align-items-center">
+              <div className="col-auto px-0">
+                <Field
+                  name="keyword"
+                  style={{paddingRight: '0.75rem'}}
+                  className={classNames('form-control search-bar-expand', {'is-invalid': errors.keyword && touched.keyword})}
+                  type="search"
+                  placeholder={i18n.t('userManagement.events.searchPlaceholder')}
+                />
+              </div>
+              <div className="col-auto px-0 ml-3">
+                <button className="btn btn-outline-primary rounded-pill px-3" type="submit" disabled={(errors.keyword && touched.keyword) || isApiProcessing}>
+                  <i className="fas fa-search fa-fw"/> {i18n.t('userManagement.events.search')}
+                </button>
+              </div>
+              <div className="ml-2 col-auto">
+                <CustomPopover
+                  title={i18n.t('userManagement.events.popover.title')}
+                  content={i18n.t('userManagement.events.popover.content')}
+                  placement="bottom-start"
+                >
+                  <i className="fas fa-question-circle helper-text text-primary"/>
+                </CustomPopover>
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="col-auto">
+                <ErrorMessage component="div" name="keyword" className="invalid-feedback d-block mt-2"/>
+              </div>
+            </div>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };

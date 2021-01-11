@@ -7,9 +7,9 @@ import bgCode500 from '../../../resource/bg-error-500-clip.png';
 import i18n from '../../../i18n';
 
 const ErrorPage = ({error: {status}}) => {
-  document.title = `${i18n.t('Error')} - ${window.cameraName} Web-Manager`;
+  document.title = `${i18n.t('error.error')} - ${window.cameraName} Web-Manager`;
   // We need the following line because backend error data are different from i18n key for now
-  const messageTitle = i18n.t(status === 404 ? 'Not Found' : 'Internal Server Error');
+  const messageTitle = status === 404 ? i18n.t('error.notFound') : i18n.t('error.internalServerError');
   return (
     <div className="error-page">
       <img className="mw-100" src={status === 404 ? bgCode404 : bgCode500}/>
@@ -29,7 +29,7 @@ const ErrorPage = ({error: {status}}) => {
               <h2 className="message-status mb-0">{status}</h2>
               <h3 className="message-title">{messageTitle}</h3>
               <a className="btn btn-primary text-light rounded-pill mt-5" href="/">
-                {i18n.t('Back to Home')}
+                {i18n.t('error.backToHome')}
               </a>
             </div>
           </div>

@@ -3,8 +3,10 @@ import {getRouter} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 import i18n from '../../../i18n';
+import i18nUtils from '../../../i18n/utils';
 import Similarity from 'webserver-form-schema/constants/event-filters/similarity';
 import RecognitionType from 'webserver-form-schema/constants/event-filters/recognition-type';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
   /**
@@ -74,7 +76,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
   return (
 
     <div className="card-body">
-      <span>{i18n.t('Similarity')}</span>
+      <span>{i18n.t('userManagement.events.similarity')}</span>
       <div className="checkbox-group mt-3 pl-2">
         {similarityRender.map(item => (
           <div key={item.id} className="form-check mb-3">
@@ -87,12 +89,12 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('confidence', item.confidence)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {i18n.t(`confidence-${item.confidence}`)}
+              {i18nUtils.getEventConfidenceI18N(item.confidence, <ErrorDisplay/>)}
             </label>
           </div>
         ))}
       </div>
-      <span>{i18n.t('Recognition Result')}</span>
+      <span>{i18n.t('userManagement.events.status')}</span>
       <div className="checkbox-group mt-3 mb-2 pl-2">
         {recognitionTypeRender.map((item, idx) => (
           <div key={item.id} className={classNames('form-check', {'mb-3': idx < recognitionTypeRender.length - 1})}>
@@ -105,7 +107,7 @@ const EventsSidebarFR = ({currentRouteName, params, isApiProcessing}) => {
               onChange={toggleFilterHandler('enrollStatus', item.status)}
             />
             <label className="form-check-label" htmlFor={item.id}>
-              {i18n.t(`enroll-status-${item.status}`)}
+              {i18nUtils.getEventRecognitionTypeI18N(item.status, <ErrorDisplay/>)}
             </label>
           </div>
         ))}

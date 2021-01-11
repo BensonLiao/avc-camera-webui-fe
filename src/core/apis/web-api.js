@@ -182,6 +182,7 @@ module.exports = {
      * - serialNumber {string}
      * - modelName {string}
      * - firmware {string}
+     * - projectId {string}
      */
     getInformation: () => api({
       method: 'get',
@@ -387,6 +388,34 @@ module.exports = {
     /**
      * @returns {Promise<Response>}
      * @response 204
+     * - sdRecordingStatus {Number} // 0 not recording, 1 recording
+     * - sdRecordingEnabled {Boolean} // true enabled, false not enabled
+     * - sdRecordingStream {Number} // stream 1 == 1 or stream 2 === 2
+     * - sdRecordingType {Number} // 0: disconnection, 1: event recording, or 2: continuously recording
+     * - sdRecordingDuration {Number} // 0: till the storage limitation, or 1-60 minute recording
+     * - sdRecordingLimit {Boolean} // true: gonna delete oldest recording file, or false: just stop recording if no enough space for new file
+     */
+    getSDCardRecordingSettings: () => api({
+      method: 'get',
+      url: '/api/system/systeminfo/sdcard-recording'
+    }),
+    updateSDCardRecordingSettings: (
+      {sdRecordingStatus, sdRecordingDuration, sdRecordingEnabled, sdRecordingLimit, sdRecordingStream, sdRecordingType}
+    ) => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard-recording',
+      data: {
+        sdRecordingStatus,
+        sdRecordingDuration,
+        sdRecordingEnabled,
+        sdRecordingLimit,
+        sdRecordingStream,
+        sdRecordingType
+      }
+    }),
+    /**
+     * @returns {Promise<Response>}
+     * @response 204
      * - sdEnabled {boolean}
      * - sdAlertEnabled {boolean}
      * - sdFormat {string}
@@ -419,6 +448,48 @@ module.exports = {
     mountSDCard: () => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard/mount'
+    }),
+    /**
+     * @param {String} date - Filter files by date, format is `YYYY-MM-DD`
+     * @param {String} folder - what folder to find files, default is `/storage/sdcard1/Android/data/com.avc.service.rtsp/files`.
+     * @returns {Promise<Response>}
+     * @response 200 {Array<Object>}
+     * - [].id {Number}
+     * - [].bytes {Number}
+     * - [].name {String}
+     * - [].path {String}
+     * - [].type {String}
+     */
+    getSDCardStorageFiles: (date, folder) => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard-storage',
+      data: {
+        folder,
+        date
+      }
+    }),
+    /**
+     * e.g. ['2020-12-20', '2020-12-22', '2020-12-23']
+     * @param {String} folder - what folder to find files.
+     * @returns {Promise<Response>}
+     * @response 200 {Array<String>}
+     */
+    getSDCardStorageDateList: folder => api({
+      method: 'post',
+      url: '/api/system/systeminfo/sdcard-storage/date-list',
+      data: {folder}
+    }),
+    /**
+     * e.g. `files`: ["/sdcard/test/file1.txt", "/sdcard/test/file2.txt", "/sdcard/test/folder1/file2.txt"]
+     * @param {Array<String>} files - what files to delete.
+     * @returns {Promise<Response>}
+     * @response 200 {Object}
+     * - status
+     */
+    deleteSDCardStorageFiles: files => api({
+      method: 'delete',
+      url: '/api/system/systeminfo/sdcard-storage/delete',
+      data: {files}
     }),
     /**
      * Clears system log
@@ -1366,6 +1437,81 @@ module.exports = {
         formData.set('file', file);
         return formData;
       })()
+    }),
+    /**
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    getDevice: () => api({
+      method: 'get',
+      url: '/api/members/device-sync'
+    }),
+    /**
+     * @param {String} ip - Device IP
+     * @param {String} port - Device port
+     * @param {String} username - Device login username
+     * @param {String} password - Device login password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     * - syncStatus {Number} - Master device sync status
+     * - devices {Array}
+     * - - account: {String}
+     * - - id: {Number}
+     * - - ip: {String}
+     * - - port: {Number}
+     * - - name: {String}
+     * - - connectionStatus: {Number} - Is the device linked or unlinked
+     * - - lastUpdateTime: {Number} - Latest successful sync time
+     * - - syncStatus: {Number} - Slave device sync status
+     */
+    addDevice: ({ip, port, account, password}) => api({
+      method: 'post',
+      url: '/api/members/device-sync',
+      data: {
+        ip,
+        port,
+        account,
+        password
+      }
+    }),
+    /**
+     * @param {String} id
+     * @param {String} ip - Device IP
+     * @param {String} port - Device port
+     * @param {String} username - Device login username
+     * @param {String} password - Device login password
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    editDevice: ({id, ip, port, account, password}) => api({
+      method: 'put',
+      url: `/api/members/device-sync/${id}`,
+      data: {
+        ip,
+        port,
+        account,
+        password
+      }
+    }),
+    /**
+     * @param {Array} devices - Array of objects of device ids' to be deleted
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    deleteDevice: devices => api({
+      method: 'delete',
+      url: '/api/members/device-sync',
+      data: devices
+    }),
+    /**
+     * @param {Array} devices - Array of objects of device ids' to be synced
+     * @returns {Promise<response>}
+     * @response 200 {Object}
+     */
+    syncDB: (devices = {devices: []}) => api({
+      method: 'post',
+      url: '/api/members/sync-db',
+      data: devices
     })
   },
   multimedia: {

@@ -24,49 +24,49 @@ module.exports = class Media extends Base {
   }
 
   render() {
-    const {systemInformation: {modelName}} = this.props;
+    const {systemInformation: {projectId}} = this.props;
     return (
       <>
         {/* Left menu */}
         <div className="left-menu fixed-top">
-          <h2>{i18n.t('Video Settings')}</h2>
+          <h2>{i18n.t('navigation.sidebar.videoSettings')}</h2>
           <nav className="nav flex-column">
             <Link
               to="/media/stream"
-              title={i18n.t('Streams')}
+              title={i18n.t('navigation.sidebar.streams')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.stream'})}
             >
-              {i18n.t('Streams')}
+              {i18n.t('navigation.sidebar.streams')}
             </Link>
             <Link
               to="/media/rtsp"
-              title={i18n.t('RTSP')}
+              title={i18n.t('navigation.sidebar.rtsp')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.rtsp'})}
             >
-              RTSP
+              {i18n.t('navigation.sidebar.rtsp')}
             </Link>
-            {modelName === SystemModelName.md2 && (
+            {projectId === SystemModelName.md2 && (
               <Link
                 to="/media/hdmi"
-                title={i18n.t('HDMI')}
+                title={i18n.t('navigation.sidebar.hdmi')}
                 className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.hdmi'})}
               >
-                HDMI
+                {i18n.t('navigation.sidebar.hdmi')}
               </Link>
             )}
             <Link
               to="/media/osd"
-              title={i18n.t('OSD')}
+              title={i18n.t('navigation.sidebar.osd')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.osd'})}
             >
-              {i18n.t('OSD')}
+              {i18n.t('navigation.sidebar.osd')}
             </Link>
             <Link
               to="/media/privacy-mask"
-              title={i18n.t('Privacy Mask')}
+              title={i18n.t('navigation.sidebar.privacyMask')}
               className={classNames('nav-link', {active: this.state.currentRouteName === 'web.media.privacy-mask'})}
             >
-              {i18n.t('Privacy Mask')}
+              {i18n.t('navigation.sidebar.privacyMask')}
             </Link>
           </nav>
         </div>

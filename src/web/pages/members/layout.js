@@ -34,27 +34,29 @@ module.exports = class Users extends Base {
           <div className="nav nav-tabs w-100">
             <Link
               to="/users/members"
-              title={i18n.t('Members')}
+              title={i18n.t('navigation.sidebar.members')}
               data-toggle="tab"
-              className={classNames('nav-item nav-link', {active: this.state.currentRouteName.indexOf('web.users.members') === 0})}
+              className={classNames('nav-item nav-link mr-4', {active: this.state.currentRouteName.indexOf('web.users.members') === 0})}
             >
-              {i18n.t('Members')}
+              <span>
+                {i18n.t('navigation.sidebar.members')}
+              </span>
             </Link>
             <Link
               to="/users/accounts"
-              title={i18n.t('Accounts')}
+              title={i18n.t('navigation.sidebar.accounts')}
               data-toggle="tab"
-              className={classNames('nav-item nav-link', {active: this.state.currentRouteName.indexOf('web.users.accounts') === 0})}
+              className={classNames('nav-item nav-link mx-4', {active: this.state.currentRouteName.indexOf('web.users.accounts') === 0})}
             >
-              {i18n.t('Accounts')}
+              {i18n.t('navigation.sidebar.accounts')}
             </Link>
             <Link
               to="/users/events"
-              title={i18n.t('Events')}
+              title={i18n.t('navigation.sidebar.events')}
               data-toggle="tab"
-              className={classNames('nav-item nav-link', {active: this.state.currentRouteName === 'web.users.events'})}
+              className={classNames('nav-item nav-link mx-4', {active: this.state.currentRouteName === 'web.users.events'})}
             >
-              {i18n.t('Events')}
+              {i18n.t('navigation.sidebar.events')}
             </Link>
           </div>
         </nav>

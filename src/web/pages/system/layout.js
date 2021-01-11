@@ -30,14 +30,14 @@ module.exports = class System extends Base {
     return (
       <>
         <div className="left-menu fixed-top">
-          <h2>{i18n.t('System')}</h2>
+          <h2>{i18n.t('navigation.sidebar.system')}</h2>
           <nav className="nav flex-column">
             <div className="accordion" id="accordion-setting-menu">
               <a
                 href="#"
                 data-toggle="collapse"
                 data-target="#basic-settings"
-                title={i18n.t('Administration')}
+                title={i18n.t('navigation.sidebar.administration')}
                 className={classNames(
                   'nav-link collapse d-flex justify-content-between align-items-center',
                   {
@@ -51,37 +51,37 @@ module.exports = class System extends Base {
                   {collapsed: !topSubNav}
                 )}
               >
-                <span className="text-truncate">{i18n.t('Administration')}</span>
+                <span className="text-truncate">{i18n.t('navigation.sidebar.administration')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-settings" className={classNames('collapse', {show: topSubNav})} data-parent="#accordion-setting-menu">
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.datetime'})}
                   to="/system/datetime"
-                  title={i18n.t('Date & Time')}
+                  title={i18n.t('navigation.sidebar.dateTime')}
                 >
-                  {i18n.t('Date & Time')}
+                  {i18n.t('navigation.sidebar.dateTime')}
                 </Link>
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.maintain'})}
                   to="/system/maintain"
-                  title={i18n.t('Device Maintenance')}
+                  title={i18n.t('navigation.sidebar.deviceMaintenance')}
                 >
-                  {i18n.t('Device Maintenance')}
+                  {i18n.t('navigation.sidebar.deviceMaintenance')}
                 </Link>
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.upgrade'})}
                   to="/system/upgrade"
-                  title={i18n.t('Software Upgrade')}
+                  title={i18n.t('navigation.sidebar.softwareUpgrade')}
                 >
-                  {i18n.t('Software Upgrade')}
+                  {i18n.t('navigation.sidebar.softwareUpgrade')}
                 </Link>
               </div>
               <a
                 href="#"
                 data-toggle="collapse"
                 data-target="#basic-information"
-                title={i18n.t('Status')}
+                title={i18n.t('navigation.sidebar.status')}
                 className={classNames(
                   'nav-link collapse d-flex justify-content-between align-items-center',
                   {
@@ -94,23 +94,23 @@ module.exports = class System extends Base {
                   {collapsed: !bottomSubNav}
                 )}
               >
-                <span className="text-truncate">{i18n.t('Status')}</span>
+                <span className="text-truncate">{i18n.t('navigation.sidebar.status')}</span>
                 <i className="fas fa-chevron-up"/>
               </a>
               <div id="basic-information" className={classNames('collapse', {show: bottomSubNav})} data-parent="#accordion-setting-menu">
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.log'})}
                   to="/system/log"
-                  title={i18n.t('System Log')}
+                  title={i18n.t('navigation.sidebar.systemLog')}
                 >
-                  {i18n.t('System Log')}
+                  {i18n.t('navigation.sidebar.systemLog')}
                 </Link>
                 <Link
                   className={classNames('nav-link', {active: currentRouteName === 'web.system.information'})}
                   to="/system/information"
-                  title={i18n.t('Status')}
+                  title={i18n.t('navigation.sidebar.status')}
                 >
-                  {i18n.t('Information')}
+                  {i18n.t('navigation.sidebar.information')}
                 </Link>
               </div>
             </div>

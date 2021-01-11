@@ -517,6 +517,7 @@ div[role="tablist"].nav,
 
   .modal-body {
     padding: 24px;
+    white-space: pre-line;
   }
 
   .modal-footer {
@@ -540,4 +541,11 @@ div[role="tablist"].nav,
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: $secondary-400 !important;
+}
+
+.active {
+  &.bg-light:focus,
+  &.bg-light:hover {
+    background-color: $secondary-100 !important;
+  }
 }

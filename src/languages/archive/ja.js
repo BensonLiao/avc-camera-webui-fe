@@ -703,6 +703,8 @@ module.exports = {
       'Enter Router/Gateway': 'ルーター/ゲートウェイを入力してください',
       'Enter a primary DNS': 'プライマリーDNSを入力してください',
       'Enter a secondary DNS': 'セカンダリーDNSを入力してください',
+      Dynamic: '動的IPアドレス',
+      Static: '固定IPアドレス',
 
       // /network/tcp-ip
       'Enable DDNS': 'DDNSサービスを有効にする',
@@ -733,6 +735,7 @@ module.exports = {
       'certificate-type-2': '本デバイスの署名証明書を生成する',
 
       // /system
+      'System Settings': 'システム設定',
       'Software Upgrade': 'ソフトウェアアップグレード',
       'Import File': '設定ファイルをインポートする',
       'Only ZIP file format is supported': '.zipファイルのみサポートしています',

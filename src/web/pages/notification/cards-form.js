@@ -19,7 +19,9 @@ import ContentEditable from '@benson.liao/react-content-editable';
 import CustomTooltip from '../../../core/components/tooltip';
 import FormikEffect from '../../../core/components/formik-effect';
 import i18n from '../../../i18n';
+import i18nUtils from '../../../i18n/utils';
 import {NOTIFY_CARDS_MAX} from '../../../core/constants';
+import utils from '../../../core/utils';
 
 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
 const CustomNormalWrapper = (
@@ -46,9 +48,9 @@ const CardsForm = ({
   modelName
 }) => {
   const defaultSubject = {
-    faceRecognition: `${i18n.t('Face Recognition Event on [{{0}}]', {0: modelName})}`,
-    motionDetection: `${i18n.t('Motion Detection Event on [{{0}}]', {0: modelName})}`,
-    digitalInput: `${i18n.t('Digital Input Event on [{{0}}]', {0: modelName})}`
+    faceRecognition: i18n.t('notification.cards.defaultSubjectFR', {0: modelName}),
+    motionDetection: i18n.t('notification.cards.defaultSubjectMD', {0: modelName}),
+    digitalInput: i18n.t('notification.cards.defaultSubjectDI', {0: modelName})
   };
 
   const generateCardInitialValues = card => {
@@ -61,10 +63,7 @@ const CardsForm = ({
         isEnableTime: card.isEnableTime,
         $start: null,
         $end: null,
-        timePeriods: card.timePeriods.map(x => ({
-          ...x,
-          id: Math.random().toString(36).substr(2)
-        })),
+        timePeriods: card.timePeriods,
         $groups: card.groups.length > 0 ? card.groups[0] : '',
         faceRecognitionCondition: card.faceRecognitionCondition,
         isEnableGPIO: card.isEnableGPIO,
@@ -84,7 +83,7 @@ const CardsForm = ({
 
     return {
       type: NotificationCardType.faceRecognition,
-      title: i18n.t('Enter card title'),
+      title: i18n.t('notification.cards.defaultCardTitle'),
       isTop: false,
       isEnableTime: false,
       $start: null,
@@ -99,7 +98,7 @@ const CardsForm = ({
       $email: '',
       emails: [],
       emailAttachmentType: NotificationEmailAttachmentType.faceThumbnail,
-      senderSubject: `${i18n.t('Face Recognition Event on [{{0}}]', {0: modelName})}`,
+      senderSubject: i18n.t('notification.cards.defaultSubjectFR', {0: modelName}),
       senderContent: '',
       emailContentPosition: 0,
       isEnableFaceRecognition: false,
@@ -140,6 +139,7 @@ const CardsForm = ({
   const onSubmit = values => {
     const data = {
       ...values,
+      timePeriods: utils.parseCardTimePeriods(values),
       isTop: isTop,
       groups: values.faceRecognitionCondition === NotificationFaceRecognitionCondition.success ?
         (values.$groups ? [values.$groups] : []) :
@@ -191,7 +191,11 @@ const CardsForm = ({
               <FormikEffect onChange={onChangeCardForm}/>
               <div className="modal-body d-flex justify-content-between align-content-center pb-2">
                 <div className="d-flex align-content-center">
-                  <CustomTooltip title={isTop ? i18n.t('Unpin Card') : i18n.t('Pin this card')}>
+                  <CustomTooltip
+                    title={isTop ?
+                      i18n.t('notification.cards.tooltip.unpin') :
+                      i18n.t('notification.cards.tooltip.pin')}
+                  >
                     <button
                       type="button"
                       className={classNames('btn btn-star rounded-pill', {'btn-secondary': !isTop})}
@@ -214,10 +218,12 @@ const CardsForm = ({
                   <Field name="type" component="select" className="form-control border-0">
                     {
                       NotificationCardType.all().filter(type => (
-                        type === '0' || type === '3' || type === '5'
+                        type === NotificationCardType.faceRecognition ||
+                        type === NotificationCardType.motionDetection ||
+                        type === NotificationCardType.digitalInput
                       )).map(
                         type => {
-                          return <option key={type} value={type}>{i18n.t(`notification-card-${type}`)}</option>;
+                          return <option key={type} value={type}>{i18nUtils.getNotificationCardTypeI18N(type)}</option>;
                         }
                       )
                     }
@@ -230,7 +236,7 @@ const CardsForm = ({
                     <Nav.Link
                       eventKey="tab-notification-time"
                     >
-                      {i18n.t('Schedule')}
+                      {i18n.t('notification.cards.schedule')}
                     </Nav.Link>
                   </Nav.Item>
                   {values.type === NotificationCardType.faceRecognition && (
@@ -238,7 +244,7 @@ const CardsForm = ({
                       <Nav.Link
                         eventKey="tab-notification-condition"
                       >
-                        {i18n.t('Rule')}
+                        {i18n.t('notification.cards.rule')}
                       </Nav.Link>
                     </Nav.Item>
                   )}
@@ -246,7 +252,7 @@ const CardsForm = ({
                     <Nav.Link
                       eventKey="tab-notification-target"
                     >
-                      {i18n.t('Method')}
+                      {i18n.t('notification.cards.method')}
                     </Nav.Link>
                   </Nav.Item>
                 </Nav>
@@ -291,7 +297,9 @@ const CardsForm = ({
                     type="submit"
                     className="btn btn-primary btn-block rounded-pill"
                   >
-                    {cardDetails ? i18n.t('Confirm') : i18n.t('Add')}
+                    {cardDetails ?
+                      i18n.t('common.button.confirm') :
+                      i18n.t('common.button.add')}
                   </button>
                 </div>
                 <button
@@ -299,7 +307,7 @@ const CardsForm = ({
                   className="btn btn-info btn-block m-0 rounded-pill"
                   onClick={hideCardFormModal}
                 >
-                  {i18n.t('Cancel')}
+                  {i18n.t('common.button.cancel')}
                 </button>
               </div>
             </Form>

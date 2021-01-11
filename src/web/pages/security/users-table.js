@@ -7,8 +7,10 @@ import UserPermission from 'webserver-form-schema/constants/user-permission';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
+import i18nUtils from '../../../i18n/utils';
 import i18n from '../../../i18n';
 import {useContextState} from '../../stateProvider';
+import ErrorDisplay from '../../../core/components/error-display';
 
 const UsersTable = ({permissionFilter, users}) => {
   const {isApiProcessing, user: {account}} = useContextState();
@@ -47,9 +49,9 @@ const UsersTable = ({permissionFilter, users}) => {
         <table className="table custom-style">
           <thead>
             <tr className="shadow">
-              <th style={{width: '33%'}}>{i18n.t('Permission')}</th>
-              <th style={{width: '34%'}}>{i18n.t('Username')}</th>
-              <th style={{width: '33%'}}>{i18n.t('Actions')}</th>
+              <th style={{width: '33%'}}>{i18n.t('userManagement.accounts.permission')}</th>
+              <th style={{width: '34%'}}>{i18n.t('userManagement.accounts.username')}</th>
+              <th style={{width: '33%'}}>{i18n.t('userManagement.accounts.actions')}</th>
             </tr>
           </thead>
           <tbody>
@@ -66,7 +68,7 @@ const UsersTable = ({permissionFilter, users}) => {
                           (user.permission === UserPermission.root || isSuperAdmin) ? 'badge-admin' : 'badge-guest'
                         )}
                       >
-                        {i18n.t(`permission-${user.permission}`)}
+                        {i18nUtils.getAccountPermissonI18N(user.permission, <ErrorDisplay/>)}
                       </span>
                     </td>
                     <td className={tdClass}>{user.account}</td>
@@ -83,7 +85,7 @@ const UsersTable = ({permissionFilter, users}) => {
                       { !isSuperAdmin && (
                         <CustomTooltip
                           show={user.account === account}
-                          title={i18n.t('This account cannot be deleted because it is currently logged in to the device.')}
+                          title={i18n.t('userManagement.accounts.tooltip.deleteAccountError1')}
                         >
                           <span>
                             <button
@@ -109,8 +111,8 @@ const UsersTable = ({permissionFilter, users}) => {
       {/* Delete user modal */}
       <CustomNotifyModal
         isShowModal={isShowDeleteUserModal}
-        modalTitle={i18n.t('Delete Account')}
-        modalBody={i18n.t('Are you sure you want to delete account {{0}}?', {0: deleteUserTarget && deleteUserTarget.account})}
+        modalTitle={i18n.t('userManagement.accounts.modal.confirmDeleteTitle')}
+        modalBody={i18n.t('userManagement.accounts.modal.confirmDeleteBody', {0: deleteUserTarget && deleteUserTarget.account})}
         isConfirmDisable={isApiProcessing}
         onHide={() => setIsShowDeleteUserModal(false)}
         onConfirm={confirmDeleteUser}
