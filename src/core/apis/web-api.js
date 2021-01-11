@@ -394,14 +394,14 @@ module.exports = {
      * - sdRecordingType {Number} // 0: disconnection, 1: event recording, or 2: continuously recording
      * - sdRecordingDuration {Number} // 0: till the storage limitation, or 1-60 minute recording
      * - sdRecordingLimit {Number} // 1: gonna delete oldest recording file, or 0: just stop recording if no enough space for new file
-     * - sdPrerecordingSeconds {Number} // from 0 to 10, each representing 1 second
+     * - sdPrerecordingDuration {Number} // from 0 to 10, each representing 1 second
      */
     getSDCardRecordingSettings: () => api({
       method: 'get',
       url: '/api/system/systeminfo/sdcard-recording'
     }),
     updateSDCardRecordingSettings: (
-      {sdRecordingStatus, sdRecordingDuration, sdRecordingEnabled, sdRecordingLimit, sdRecordingStream, sdRecordingType, sdPrerecordingSeconds}
+      {sdRecordingStatus, sdRecordingDuration, sdRecordingEnabled, sdRecordingLimit, sdRecordingStream, sdRecordingType, sdPrerecordingDuration}
     ) => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard-recording',
@@ -412,7 +412,7 @@ module.exports = {
         sdRecordingLimit,
         sdRecordingStream,
         sdRecordingType,
-        sdPrerecordingSeconds
+        sdPrerecordingDuration
       }
     }),
     /**

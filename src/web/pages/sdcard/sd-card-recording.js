@@ -6,6 +6,7 @@ import SDCardRecordingDuration from 'webserver-form-schema/constants/sdcard-reco
 import SDCardRecordingType from 'webserver-form-schema/constants/sdcard-recording-type';
 import SDCardRecordingStream from 'webserver-form-schema/constants/sdcard-recording-stream';
 import SDCardRecordingLimit from 'webserver-form-schema/constants/sdcard-recording-limit';
+import SDCardPrerecordingDuration from 'webserver-form-schema/constants/sdcard-prerecording-duration';
 import i18n from '../../../i18n';
 import i18nUtils from '../../../i18n/utils';
 import PropTypes from 'prop-types';
@@ -122,6 +123,17 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
               >
                 {SDCardRecordingDuration.all().map(duration => (
                   <option key={duration} value={duration}>{duration === '0' ? i18n.t('sdCard.basic.constants.storageToFull') : duration}</option>
+                ))}
+              </SelectField>
+              <SelectField
+                row
+                wrapperClassName={wrapperClassName}
+                labelClassName={labelClassName}
+                labelName={i18n.t('sdCard.basic.prerecordingDuration')}
+                name="sdPrerecordingDuration"
+              >
+                {SDCardPrerecordingDuration.all().map(duration => (
+                  <option key={duration} value={duration}>{duration}</option>
                 ))}
               </SelectField>
               <SelectField

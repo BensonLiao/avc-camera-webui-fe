@@ -219,10 +219,11 @@ SDCard.propTypes = {
   sdCardRecordingSettings: PropTypes.shape({
     sdRecordingDuration: PropTypes.number.isRequired,
     sdRecordingEnabled: PropTypes.bool.isRequired,
-    sdRecordingLimit: PropTypes.bool.isRequired,
+    sdRecordingLimit: PropTypes.number.isRequired,
     sdRecordingStatus: PropTypes.number.isRequired,
     sdRecordingStream: PropTypes.number.isRequired,
-    sdRecordingType: PropTypes.number.isRequired
+    sdRecordingType: PropTypes.number.isRequired,
+    sdPrerecordingDuration: PropTypes.number.isRequired
   }).isRequired,
   streamSettings: SDCardRecording.propTypes.streamSettings
 };

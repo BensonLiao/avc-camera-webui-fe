@@ -394,6 +394,7 @@
       "fps": "Cuadros por segundo",
       "codec": "Codificación de imágenes",
       "recordingDuration": "Duración de la grabación (minutos)",
+      "prerecordingDuration": "",
       "recordingLimit": "Cuando el almacenamiento está lleno",
       "title": "Tarjeta de memoria",
       "enable": "Habilitar tarjeta SD",

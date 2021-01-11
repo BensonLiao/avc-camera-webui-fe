@@ -220,7 +220,7 @@ mockAxios
       sdRecordingStatus: Number(configData.sdRecordingStatus),
       sdRecordingStream: Number(configData.sdRecordingStream),
       sdRecordingType: Number(configData.sdRecordingType),
-      sdPrerecordingSeconds: Number(configData.sdPrerecordingSeconds)
+      sdPrerecordingDuration: Number(configData.sdPrerecordingDuration)
     };
     if (data.sdRecordingEnabled === false || data.sdRecordingType === 0) {
       data.sdRecordingStatus = 0;

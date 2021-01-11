@@ -394,6 +394,7 @@
       "fps": "フレームレート",
       "codec": "コーデック",
       "recordingDuration": "録音時間の長さ (分)",
+      "prerecordingDuration": "",
       "recordingLimit": "ストレージがいっぱいになったとき",
       "title": "SDカード",
       "enable": "SDカードを有効にする",

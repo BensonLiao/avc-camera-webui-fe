@@ -394,6 +394,7 @@
       "fps": "Frame Rate",
       "codec": "Codec",
       "recordingDuration": "Recording Duration (minutes)",
+      "prerecordingDuration": "Retention Duration (seconds)",
       "recordingLimit": "When storage is full",
       "title": "SD Card",
       "enable": "Enable SD Card",
