@@ -6,6 +6,7 @@ import SDCardRecordingDuration from 'webserver-form-schema/constants/sdcard-reco
 import SDCardRecordingType from 'webserver-form-schema/constants/sdcard-recording-type';
 import SDCardRecordingStream from 'webserver-form-schema/constants/sdcard-recording-stream';
 import SDCardRecordingLimit from 'webserver-form-schema/constants/sdcard-recording-limit';
+import SDCardRecordingStatus from 'webserver-form-schema/constants/sdcard-recording-status';
 import SDCardPrerecordingDuration from 'webserver-form-schema/constants/sdcard-prerecording-duration';
 import i18n from '../../../i18n';
 import i18nUtils from '../../../i18n/utils';
@@ -16,6 +17,7 @@ const wrapperClassName = 'col-sm-6';
 const labelClassName = 'col-form-label col-sm-6';
 
 const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
+  console.log('🚀 ~ file: sd-card-recording.js ~ line 19 ~ SDCardRecording ~ formValues', formValues);
   const processOptions = (() => {
     return {
       // filter is temporary, REMOVE when ready
@@ -68,6 +70,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
             <div className="form-group pr-3">
               <SelectField
                 row
+                readOnly={formValues.sdRecordingStatus === Number(SDCardRecordingStatus.on) || formValues.sdRecordingEnabled === true}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingType')}
@@ -79,6 +82,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
               </SelectField>
               <SelectField
                 row
+                readOnly={formValues.sdRecordingStatus === Number(SDCardRecordingStatus.on) || formValues.sdRecordingEnabled === true}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingResolution')}
@@ -116,6 +120,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
               </div>
               <SelectField
                 row
+                readOnly={formValues.sdRecordingStatus === Number(SDCardRecordingStatus.on) || formValues.sdRecordingEnabled === true}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingDuration')}
@@ -127,6 +132,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
               </SelectField>
               <SelectField
                 row
+                readOnly={formValues.sdRecordingStatus === Number(SDCardRecordingStatus.on) || formValues.sdRecordingEnabled === true}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.prerecordingDuration')}
@@ -138,6 +144,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
               </SelectField>
               <SelectField
                 row
+                readOnly={formValues.sdRecordingStatus === Number(SDCardRecordingStatus.on) || formValues.sdRecordingEnabled === true}
                 wrapperClassName={wrapperClassName}
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingLimit')}
