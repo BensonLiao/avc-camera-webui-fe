@@ -12,14 +12,14 @@
     "ncu": "node_modules/npm-check-updates/bin/ncu",
     "i18n-gen": "node_modules/.bin/i18next -c ./i18next-parser.config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "//cy:i": "if you haven't install cypress yet, run cy:i before run cy/cy:prod",
-    "cy:i": "npm i --no-save cypress@5.5.0 cypress-react-selector@2.2.0 cypress-file-upload@4.1.1",
-    "cy": "cypress open",
-    "//cy:prod": "example: npm run cy:prod --ip=xxx.xxx.xxx.xxx, localhost if omit the option",
-    "cy:prod": "cypress open --config baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod",
+    "//cy:i": "if you haven't install cypress yet, run cy:i before run cy",
+    "cy:i": "npm i --no-save cypress@6.0.1 cypress-react-selector@2.2.0 cypress-file-upload@4.1.1",
+    "//cy": "example: npm run cy --ip=xxx.xxx.xxx.xxx, localhost if omit the option",
+    "cy": "cypress open --config baseUrl=http://${npm_config_ip-localhost}",
+    "cy:local": "cypress open",
     "//cy:rec": "if you want to run the recorder, you need to start cypress runner first.",
-    "//cy:rec2": "example: npm run cy:prod --ip=xxx.xxx.xxx.xxx, then run on another terminal: npm run cy:rec --ip=xxx.xxx.xxx.xxx",
-    "cy:rec": "cypress run --record --key eb99afdd-6f51-4258-a6c8-c3c04712e9e3 --config video=true,baseUrl=http://${npm_config_ip-localhost},integrationFolder=tests/e2e/integration/prod"
+    "//cy:rec2": "example: npm run cy --ip=xxx.xxx.xxx.xxx, then run on another terminal: npm run cy:rec --ip=xxx.xxx.xxx.xxx",
+    "cy:rec": "cypress run --record --key eb99afdd-6f51-4258-a6c8-c3c04712e9e3 --config video=true,baseUrl=http://${npm_config_ip-localhost}"
   },
   "repository": {
     "type": "git",

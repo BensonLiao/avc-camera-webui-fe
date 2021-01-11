@@ -39,8 +39,8 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
     }
   };
 
-  const tableItems = title => (
-    <td>
+  const tableItems = (title, testAttribute = '') => (
+    <td data-test={`${testAttribute}`}>
       <CustomTooltip placement="top-start" title={title}>
         <div>
           {title}
@@ -93,7 +93,7 @@ const MembersTable = ({params, members, groups, filterHandler, deleteMemberModal
                       </div>
                     </div>
                   </td>
-                  {tableItems(member.name)}
+                  {tableItems(member.name, 'member-name')}
                   {tableItems(member.organization)}
                   {tableItems((groups.items.find(x => x.id === member.groupId) || {}).name || '')}
                   {tableItems(member.note)}
