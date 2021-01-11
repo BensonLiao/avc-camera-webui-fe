@@ -268,7 +268,8 @@ module.exports = {
         sdRecordingStream: 1,
         sdRecordingType: 0,
         sdRecordingDuration: 0,
-        sdRecordingLimit: 0
+        sdRecordingLimit: 0,
+        sdPrerecordingSeconds: 4
       },
       sdCardStorage: {
         files: Array.from({length: 30}, (_, i) => {
