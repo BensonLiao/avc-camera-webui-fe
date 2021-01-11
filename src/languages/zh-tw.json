@@ -38,10 +38,11 @@
       "stats": "{{0}}-{{1}} 筆資料，總計：{{2}}"
     },
     "volumeBar": {
-      "free": "{{0}} 可用",
+      "freeSpace": "",
       "total": "",
       "sdStorageStatus": "{{0}} 可用 (共 {{1}})",
-      "used": "{{0}} 已使用"
+      "used": "{{0}} 已使用",
+      "free": "{{0}} 可用"
     },
     "toast": {
       "Duplicate Member Names": "名稱重複，請使用不同名稱",
@@ -412,13 +413,6 @@
       "disableBody": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存"
     },
     "storage": {
-      "tooltip": {
-        "noFile": "選擇檔案"
-      },
-      "button": {
-        "download": "下載",
-        "remove": " 刪除"
-      },
       "files": {
         "date": "日期",
         "name": "檔案名稱",
@@ -426,6 +420,13 @@
         "actions": " 操作"
       },
       "noFile": "沒有檔案",
+      "tooltip": {
+        "noFile": "選擇檔案"
+      },
+      "button": {
+        "download": "下載",
+        "remove": " 刪除"
+      },
       "modal": {
         "confirmDeleteTitle": "",
         "confirmDeleteBody": "",

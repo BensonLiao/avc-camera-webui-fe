@@ -21,19 +21,19 @@ const VolumeProgressBar = ({total, usage, percentageToHideText, isRoundProgressB
         <div className="shadow-pie"/>
       </div>
       <div className="card form-group rounded-0 p-2">
-        <div>
-          <label className="mb-0 col-sm-6">
-            {i18n.t('common.volumeBar.free')}
+        <div className="text-truncate" style={{whiteSpace: 'normal'}}>
+          <label className="m-0 p-0 col-7">
+            {i18n.t('common.volumeBar.freeSpace')}
           </label>
-          <label className="mb-0 text-primary col-sm-6">
+          <label className="m-0 p-0 text-primary col-5">
             {`${filesize(freeDiskVolume)}`}
           </label>
         </div>
-        <div>
-          <label className="mb-0 col-sm-6">
+        <div className="text-truncate" style={{whiteSpace: 'normal'}}>
+          <label className="mb-0 p-0 col-7">
             {i18n.t('common.volumeBar.total')}
           </label>
-          <label className="mb-0 text-primary col-sm-6">
+          <label className="mb-0 p-0 text-primary col-5">
             {`${filesize(total)}`}
           </label>
         </div>

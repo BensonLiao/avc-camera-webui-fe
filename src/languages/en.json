@@ -38,10 +38,11 @@
       "stats": "{{0}}-{{1}} items. Total: {{2}}"
     },
     "volumeBar": {
-      "free": "Free:",
+      "freeSpace": "Free:",
       "total": "Total:",
       "sdStorageStatus": "Free: {{0}}, Total: {{1}}",
-      "used": "Used: {{0}}"
+      "used": "Used: {{0}}",
+      "free": "Free: {{0}}"
     },
     "toast": {
       "Duplicate Member Names": "Duplicate Member Names",
@@ -412,13 +413,6 @@
       "disableBody": "Event photos will not be available after the SD card is disabled. Are you sure you want to continue?"
     },
     "storage": {
-      "tooltip": {
-        "noFile": "Select a file"
-      },
-      "button": {
-        "download": "Download",
-        "remove": "Delete"
-      },
       "files": {
         "date": "DATE",
         "name": "FILE NAME",
@@ -426,6 +420,13 @@
         "actions": "Actions"
       },
       "noFile": "No files available",
+      "tooltip": {
+        "noFile": "Select a file"
+      },
+      "button": {
+        "download": "Download",
+        "remove": "Delete"
+      },
       "modal": {
         "confirmDeleteTitle": "Delete File",
         "confirmDeleteBody": "Are you sure you want to delete file?",
