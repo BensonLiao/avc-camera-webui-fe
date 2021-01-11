@@ -1,38 +1,33 @@
-import React, {useState, useRef, useEffect, useCallback} from 'react';
-import PropTypes from 'prop-types';
-import {getRouter} from '@benson.liao/capybara-router';
+import dayjs from 'dayjs';
 import download from 'downloadjs';
-import filesize from 'filesize';
+import {Formik, Form} from 'formik';
+import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
-import i18n from '../../../i18n';
+import PropTypes from 'prop-types';
+import React, {useState, useRef} from 'react';
 import api from '../../../core/apis/web-api';
-import wrappedApi from '../../../core/apis';
-import {Formik, Form, Field} from 'formik';
-import {getPaginatedData, isArray} from '../../../core/utils';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
-import FormikEffect from '../../../core/components/formik-effect';
-import noFile from '../../../resource/noFile.png';
-import Pagination from '../../../core/components/pagination';
-import classNames from 'classnames';
-import {SDCARD_STORAGE_DATE_FORMAT} from '../../../core/constants';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
-import StageProgress from '../../../core/components/stage-progress';
+import i18n from '../../../i18n';
+import {getPaginatedData, isArray} from '../../../core/utils';
+import Pagination from '../../../core/components/pagination';
 import SDCardStorageSearchForm from './sd-card-storage-search-form';
-import dayjs from 'dayjs';
+import SDCardStorageTable from './sd-card-storage-table';
+import StageProgress from '../../../core/components/stage-progress';
+import wrappedApi from '../../../core/apis';
+
 const ITEMS_PER_PAGE = 10;
 
 const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
-  const [isSelectAll, setIsSelectAll] = useState(false);
-  const [page, setPage] = useState(0);
+  const [pageNumber, setPage] = useState(0);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [fileToDelete, setFileToDelete] = useState();
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
   const [isShowProgressModal, setIsShowProgressModal] = useState(false);
   const [progressPercentage, setProgressPercentage] = useState(0);
   const [currentDate, setCurrentDate] = useState(date);
-  const selectAllRef = useRef();
-  const formRef = useRef();
+  const formikRef = useRef();
 
   const generatePaginatedCheckList = files => {
     return getPaginatedData(files.map(file => ({
@@ -92,67 +87,6 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
       });
   };
 
-  /**
-   * Select or un-select all checkboxes on current page
-   * @param {Object} form - Formik form object
-   * @returns {void}
-   */
-  const selectAllHandler = form => _ => {
-    if (form.values[page]) {
-      form.values[page].forEach((_, index) => {
-        form.setFieldValue(`${page}.${index}.isChecked`, !isSelectAll);
-      });
-    }
-
-    setIsSelectAll(prevState => (!prevState));
-  };
-
-  /**
-   * Update `Select All` checkbox based on page navigated to
-   */
-  useEffect(() => {
-    // Crash prevention fallback if React is less than v2.2.0, innerRef only exists after v2.2.0
-    if (formRef.current) {
-      const values = formRef.current.values;
-      selectAllCheckboxState(values);
-    }
-  }, [page, selectAllCheckboxState]);
-
-  /**
-   * Update `Select All` checkbox based on any checkbox update
-   * @param {Object} nextValues - Form next values
-   * @returns {void}
-   */
-  const onChangeTableForm = ({nextValues}) => {
-    if (nextValues.length && nextValues.length > 0) {
-      selectAllCheckboxState(nextValues);
-    }
-  };
-
-  /**
-   * Determine condition for table header checkbox indeterminate, check or unchecked state
-   * @param {Object} values - Form values
-   * @returns {void}
-   */
-  const selectAllCheckboxState = useCallback(values => {
-    // Check if any checkboxes has been selected
-    if (values[page] && values[page].some(device => device.isChecked)) {
-      // Check if all checkboxes has been selected
-      if (values[page].some(device => !device.isChecked)) {
-        // Some checkboxes are selected, set to indetermindate state
-        selectAllRef.current.indeterminate = true;
-      } else {
-        // All checkboxes selected manually
-        selectAllRef.current.indeterminate = false;
-        setIsSelectAll(true);
-      }
-    } else {
-      // No checkboxes has been selected
-      selectAllRef.current.indeterminate = false;
-      setIsSelectAll(false);
-    }
-  }, [page]);
-
   return (
     <div className="main-content left-menu-active bg-white">
       <div className="section-media">
@@ -164,14 +98,13 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
               routes={['/sd-card/settings']}
             />
             <Formik
-              innerRef={formRef}
+              innerRef={formikRef}
               initialValues={generatePaginatedCheckList(files)}
             >
               {form => {
                 const disableButton = !form.values.flat().some(value => value.isChecked);
                 return (
                   <Form className="card-body">
-                    <FormikEffect onChange={onChangeTableForm}/>
                     <div className="col-12 d-flex justify-content-between align-items-center mb-4">
                       <SDCardStorageSearchForm
                         generatePaginatedCheckList={generatePaginatedCheckList}
@@ -211,104 +144,20 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
                         </CustomTooltip>
                       </div>
                     </div>
-                    <div className="col-12 pt-4 mb-5 table-responsive">
-                      <table className="table custom-style">
-                        <thead>
-                          <tr className="shadow">
-                            <th
-                              className="text-center th-checkbox"
-                              style={{width: '10%'}}
-                            >
-                              <input
-                                ref={selectAllRef}
-                                id="selectAll"
-                                type="checkbox"
-                                indeterminate="true"
-                                checked={isSelectAll}
-                                onChange={selectAllHandler(form)}
-                              />
-                              <label htmlFor="selectAll"/>
-                            </th>
-                            <th style={{width: '15%'}}>{i18n.t('sdCard.storage.files.date')}</th>
-                            <th style={{width: '25%'}}>{i18n.t('sdCard.storage.files.name')}</th>
-                            <th style={{width: '25%'}}>{i18n.t('sdCard.storage.files.size')}</th>
-                            <th style={{width: '15%'}}>{i18n.t('sdCard.storage.files.actions')}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {
-                            form.values.length && form.values[page].length ? (
-                              form.values[page] && form.values[page].map((pageData, index) => {
-                                return (
-                                  <tr
-                                    key={pageData.path}
-                                    className={classNames(
-                                      {checked: form.values[page] && form.values[page][index] && form.values[page][index].isChecked}
-                                    )}
-                                  >
-                                    <td className="text-center td-checkbox">
-                                      <Field
-                                        name={`${page}.${index}.isChecked`}
-                                        id={pageData.path}
-                                        type="checkbox"
-                                      />
-                                      <label htmlFor={pageData.path}/>
-                                    </td>
-                                    <td>
-                                      {currentDate.format(SDCARD_STORAGE_DATE_FORMAT.DISPLAY)}
-                                    </td>
-                                    <td>
-                                      <CustomTooltip placement="top-start" title={pageData.name}>
-                                        <div>
-                                          {pageData.name}
-                                        </div>
-                                      </CustomTooltip>
-                                    </td>
-                                    <td>
-                                      {filesize(pageData.bytes)}
-                                    </td>
-                                    <td className="text-left group-btn">
-                                      <button
-                                        className="btn btn-link"
-                                        type="button"
-                                        onClick={() => downloadFiles(pageData.path)}
-                                      >
-                                        <i className="fas fa-download"/>
-                                      </button>
-                                      <button
-                                        className="btn btn-link"
-                                        type="button"
-                                        onClick={confirmDelete(pageData.path)}
-                                      >
-                                        <i className="far fa-trash-alt fa-lg fa-fw"/>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                );
-                              })
-                            ) : (
-                              /* No File */
-                              <tr className="disable-highlight">
-                                <td className="text-size-20 text-center" colSpan="10">
-                                  <div className="d-flex flex-column align-items-center mt-5">
-                                    <img src={noFile}/>
-                                    <div className="mt-5 text-center text-wrap" style={{width: '300px'}}>
-                                      {i18n.t('sdCard.storage.noFile')}
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                            )
-                          }
-                        </tbody>
-                      </table>
-                    </div>
+                    <SDCardStorageTable
+                      form={form}
+                      formikRef={formikRef}
+                      pageNumber={pageNumber}
+                      currentDate={currentDate}
+                      confirmDelete={confirmDelete}
+                      downloadFiles={downloadFiles}
+                    />
                     <Pagination
                       name="page"
-                      index={page}
+                      index={pageNumber}
                       size={ITEMS_PER_PAGE}
                       total={form.values.flat().length}
-                      currentPageItemQuantity={form.values[page] ? form.values[page].length : 0}
+                      currentPageItemQuantity={form.values[pageNumber] ? form.values[pageNumber].length : 0}
                       hrefTemplate=""
                       setPageIndexState={setPage}
                     />

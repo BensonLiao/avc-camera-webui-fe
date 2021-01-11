@@ -38,10 +38,11 @@
       "stats": "{{0}}-{{1}} 筆資料，總計：{{2}}"
     },
     "volumeBar": {
-      "free": "{{0}} 可用",
+      "freeSpace": "",
       "total": "",
       "sdStorageStatus": "{{0}} 可用 (共 {{1}})",
-      "used": "{{0}} 已使用"
+      "used": "{{0}} 已使用",
+      "free": "{{0}} 可用"
     },
     "toast": {
       "Duplicate Member Names": "名稱重複，請使用不同名稱",
@@ -149,11 +150,11 @@
           "title": "資料庫加密"
         },
         "deviceSync": {
-          "modifyDeviceTitle": "",
-          "newDeviceTitle": "",
+          "modifyDeviceTitle": "編輯裝置",
+          "newDeviceTitle": " 新增裝置",
           "hostPlaceholder": "",
-          "port": "",
-          "portPlaceholder": "",
+          "port": "連接埠",
+          "portPlaceholder": "例如8080",
           "addDeviceApiProcessingModal": "",
           "editDeviceApiProcessingModal": "",
           "confirmDeleteTitle": "",
@@ -165,10 +166,10 @@
         "photoLimitExceeded": "已達數量限制",
         "uploadPrimaryFirst": "請先上傳主照片",
         "groupLimitExceeded": "已達數量限制",
-        "connected": "",
-        "notConnected": "",
+        "connected": "連線",
+        "notConnected": "未連線",
         "invalidSelection": "",
-        "noDevice": "",
+        "noDevice": "選擇裝置",
         "editGroupWithName": "編輯群組: {{0}}",
         "createGroup": "新增群組",
         "deleteGroupWithName": "刪除群組: {{0}}",
@@ -182,12 +183,12 @@
       "notePlaceholder": "輸入備註",
       "noteHelper": "最多256個字",
       "delete": "刪除",
-      "databaseSettings": "",
-      "encryptionSettings": "",
-      "edit": "",
-      "exportDB": "",
+      "databaseSettings": "資料庫設定",
+      "encryptionSettings": "加密設定",
+      "edit": "編輯",
+      "exportDB": "資料庫匯出",
       "export": "匯出",
-      "importDB": "",
+      "importDB": "資料庫匯入",
       "import": "匯入",
       "toast": {
         "connectSuccessTitle": "",
@@ -197,18 +198,18 @@
         "syncSuccessTitle": "",
         "syncSuccessBody": ""
       },
-      "host": "",
+      "host": "主機",
       "syncing": "",
       "done": "",
       "failed": "",
       "lastUpdated": "",
-      "deviceName": "",
-      "status": "",
+      "deviceName": "裝置名稱",
+      "status": "狀態",
       "actions": "操作",
       "noDevice": "",
       "synchronize": "",
-      "removeUnlinked": "",
-      "remove": "",
+      "removeUnlinked": "刪除未連線的裝置",
+      "remove": "移除",
       "searchPlaceholder": "輸入關鍵字",
       "search": "搜尋",
       "title": "成員",
@@ -252,7 +253,7 @@
       },
       "popover": {
         "title": "",
-        "content": ""
+        "content": "使用' '或','串聯關鍵字。"
       },
       "similarity": "相似度",
       "status": "結果",
@@ -369,15 +370,15 @@
         "Nonfunctioning": "不正常",
         "Read-only Access": "唯獨",
         "Unknown Error": "未知錯誤",
-        "sdcard-recording-type-0": "",
+        "sdcard-recording-type-0": "備援錄影",
         "sdcard-recording-type-1": "",
-        "sdcard-recording-type-2": "",
+        "sdcard-recording-type-2": "持續錄影",
         "sdcard-recording-stream-0": "",
         "sdcard-recording-stream-1": "",
-        "sdcard-recording-limit-0": "",
-        "sdcard-recording-limit-1": "",
+        "sdcard-recording-limit-0": "停止錄影",
+        "sdcard-recording-limit-1": "覆寫舊檔案",
         "unknownStatus": "UNKNOWN STATUS",
-        "storageToFull": ""
+        "storageToFull": "所有存儲空間"
       },
       "operation": "操作",
       "format": "格式化",
@@ -387,17 +388,17 @@
       "notificationSet": "已設定電子郵件",
       "enableOutgoingEmail": "設定電子郵件",
       "emailNotification": "",
-      "enableRecording": "",
-      "recordingType": "",
-      "recordingResolution": "",
-      "fps": "",
-      "codec": "",
-      "recordingDuration": "",
-      "recordingLimit": "",
+      "enableRecording": "開啟錄影",
+      "recordingType": "何時開始錄影",
+      "recordingResolution": " 解析度",
+      "fps": "每秒幀數",
+      "codec": "影像編碼",
+      "recordingDuration": "錄影時間 (分)",
+      "recordingLimit": "當存儲空間已滿時",
       "title": "記憶卡",
       "enable": "開啟記憶卡",
       "status": "狀態",
-      "recording": "",
+      "recording": "錄影",
       "filesystem": "檔案系統格式",
       "unrecognized": "無法識別"
     },
@@ -412,20 +413,20 @@
       "disableBody": "您確定要關閉記憶卡嗎? 事件截圖將不會被儲存"
     },
     "storage": {
+      "files": {
+        "date": "日期",
+        "name": "檔案名稱",
+        "size": "檔案大小",
+        "actions": " 操作"
+      },
+      "noFile": "沒有檔案",
       "tooltip": {
-        "noFile": ""
+        "noFile": "選擇檔案"
       },
       "button": {
-        "download": "",
-        "remove": ""
+        "download": "下載",
+        "remove": " 刪除"
       },
-      "files": {
-        "date": "",
-        "name": "",
-        "size": "",
-        "actions": ""
-      },
-      "noFile": "",
       "modal": {
         "confirmDeleteTitle": "",
         "confirmDeleteBody": "",
@@ -471,7 +472,7 @@
     "email": "不符合格式要求",
     "url": "請使用正確的網址格式",
     "confirmEqual": "兩次密碼不一致",
-    "maxOperators": "",
+    "maxOperators": "最多可使用4個關鍵字",
     "stringContainsLowerCaseLatter": "必須包含小寫英文字母",
     "stringContainsUpperCaseLatter": "必須包含大寫英文字母",
     "stringContainsNumber": "必須包含數字",
@@ -764,8 +765,8 @@
       "io": "數位輸出及輸入",
       "smartNotification": "智慧通報",
       "sdCardSettings": "記憶卡",
-      "basic": "",
-      "storage": "",
+      "basic": "基本",
+      "storage": "儲存",
       "facialRecognition": "臉部辨識",
       "motionDetection": "移動偵測",
       "system": "系統",
@@ -1089,8 +1090,8 @@
     "dateTime": "日期與時刻",
     "softwareUpgrade": "軟體更新",
     "deviceMaintenance": "維護",
-    "sdCardSettings": "",
-    "sdCardStorage": "",
+    "sdCardSettings": "記憶卡",
+    "sdCardStorage": "儲存",
     "systemLog": "系統紀錄",
     "information": "裝置資訊",
     "welcome": "歡迎",

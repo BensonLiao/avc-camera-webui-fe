@@ -2,6 +2,8 @@ import {Formik, Form} from 'formik';
 import {getRouter} from '@benson.liao/capybara-router';
 import PropTypes from 'prop-types';
 import React, {useState, useRef, useEffect} from 'react';
+import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
+import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
 import api from '../../../core/apis/web-api';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
@@ -11,8 +13,6 @@ import {getPaginatedData, isArray} from '../../../core/utils';
 import i18n from '../../../i18n';
 import notify from '../../../core/notify';
 import Pagination from '../../../core/components/pagination';
-import DeviceSyncStatusSchema from 'webserver-form-schema/constants/members-device-sync-status';
-import SourceStatusSchema from 'webserver-form-schema/constants/members-sync-source-status';
 
 // Sync API ping frequency, in seconds
 const REFRESH_LIST_INTERVAL = 5;
@@ -25,7 +25,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   const [isShowDeviceModal, setIsShowDeviceModal] = useState(false);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [isShowApiProcessModal, setIsShowApiProcessModal] = useState(false);
-  const formRef = useRef();
+  const formikRef = useRef();
 
   const generatePaginatedDeviceList = devices => {
     return getPaginatedData(devices.map(device => ({
@@ -160,7 +160,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
   return (
     <div>
       <Formik
-        innerRef={formRef}
+        innerRef={formikRef}
         initialValues={deviceList}
         onSubmit={syncDB}
       >
@@ -237,7 +237,7 @@ const DeviceSync = ({deviceSync: {devices, syncStatus}, ipAddress}) => {
                 deviceList={deviceList}
                 syncStatus={syncStatus}
                 form={form}
-                formRef={formRef}
+                formikRef={formikRef}
                 pageNumber={pageNumber}
                 confirmDelete={confirmDelete}
                 editDeviceHandler={editDeviceHandler}

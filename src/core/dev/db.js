@@ -281,11 +281,11 @@ module.exports = {
               path: `/sdcard/test/folder1/file${i}.txt`,
               type: 'file',
               // Add a date field to mock backend filter
-              date: `2020-12-${i <= 5 ? '20' : Math.floor(Math.random() * 23)}`
+              date: `2021-01-${i <= 5 ? '20' : Math.floor(Math.random() * 23)}`
             }
           );
         }),
-        filesDateList: ['2020-12-20', '2020-12-22', '2020-12-23', '2021-01-01']
+        filesDateList: ['2021-01-20', '2021-01-22', '2021-01-23', '2021-02-01']
       },
       systemDateTime: {
         deviceTime: new Date().getTime(),
