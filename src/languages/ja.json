@@ -38,10 +38,11 @@
       "stats": "{{0}}-{{1}}個データ、合計: {{2}}"
     },
     "volumeBar": {
-      "free": "{{0}} 使用可能",
+      "freeSpace": "",
       "total": "",
       "sdStorageStatus": "{{0}} 使用可能 (合計 {{1}})",
-      "used": "{{0}} 使用されています"
+      "used": "{{0}} 使用されています",
+      "free": "{{0}} 使用可能"
     },
     "toast": {
       "Duplicate Member Names": "名称が重複しています。別の名称をご使用ください",
@@ -412,13 +413,6 @@
       "disableBody": "SDカードを取り外しますか？イベントによるキャプチャが保存されません"
     },
     "storage": {
-      "tooltip": {
-        "noFile": "ファイルを選択します"
-      },
-      "button": {
-        "download": "ダウンロード",
-        "remove": "削除"
-      },
       "files": {
         "date": "日付",
         "name": "ファイル名",
@@ -426,6 +420,13 @@
         "actions": "操作"
       },
       "noFile": "ファイルがない",
+      "tooltip": {
+        "noFile": "ファイルを選択します"
+      },
+      "button": {
+        "download": "ダウンロード",
+        "remove": "削除"
+      },
       "modal": {
         "confirmDeleteTitle": "",
         "confirmDeleteBody": "",

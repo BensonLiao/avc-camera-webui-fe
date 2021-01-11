@@ -11,6 +11,9 @@ import i18nUtils from '../../../i18n/utils';
 import PropTypes from 'prop-types';
 import SelectField from '../../../core/components/fields/select-field';
 
+const wrapperClassName = 'col-sm-6';
+const labelClassName = 'col-form-label col-sm-6';
+
 const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
   const processOptions = (() => {
     return {
@@ -61,16 +64,22 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
         </div>
         <div className="card mb-4">
           <div className="card-body">
-            <div className="form-group px-3">
-              <SelectField row wrapperClassName="col-sm-8" labelClassName="col-form-label col-sm-4" labelName={i18n.t('sdCard.basic.recordingType')} name="sdRecordingType">
+            <div className="form-group pr-3">
+              <SelectField
+                row
+                wrapperClassName={wrapperClassName}
+                labelClassName={labelClassName}
+                labelName={i18n.t('sdCard.basic.recordingType')}
+                name="sdRecordingType"
+              >
                 {processOptions.type.map(type => (
                   <option key={type.value} value={type.value}>{type.label}</option>
                 ))}
               </SelectField>
               <SelectField
                 row
-                wrapperClassName="col-sm-8 mb-0"
-                labelClassName="col-form-label col-sm-4"
+                wrapperClassName={wrapperClassName}
+                labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingResolution')}
                 name="sdRecordingStream"
                 onChange={event => getCurrentStreamSettings(setFieldValue, event)}
@@ -85,8 +94,8 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
                 <SelectField
                   row
                   readOnly
-                  wrapperClassName="col-sm-8 mb-0"
-                  labelClassName="col-form-label col-sm-4"
+                  wrapperClassName={wrapperClassName}
+                  labelClassName={labelClassName}
                   labelName={i18n.t('sdCard.basic.fps')}
                   name="frameRate"
                 >
@@ -96,8 +105,8 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
                   row
                   readOnly
                   formClassName="mb-0"
-                  wrapperClassName="col-sm-8 mb-0"
-                  labelClassName="col-form-label col-sm-4"
+                  wrapperClassName={wrapperClassName}
+                  labelClassName={labelClassName}
                   labelName={i18n.t('sdCard.basic.codec')}
                   name="codec"
                 >
@@ -106,8 +115,8 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
               </div>
               <SelectField
                 row
-                wrapperClassName="col-sm-8"
-                labelClassName="col-form-label col-sm-4"
+                wrapperClassName={wrapperClassName}
+                labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingDuration')}
                 name="sdRecordingDuration"
               >
@@ -117,8 +126,8 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
               </SelectField>
               <SelectField
                 row
-                wrapperClassName="col-sm-8"
-                labelClassName="col-form-label col-sm-4"
+                wrapperClassName={wrapperClassName}
+                labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingLimit')}
                 name="sdRecordingLimit"
               >

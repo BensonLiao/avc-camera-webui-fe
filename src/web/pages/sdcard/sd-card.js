@@ -117,7 +117,7 @@ const SDCard = ({
                           usage={sdUsage}
                           percentageToHideText={4}
                         />
-                        <div className="d-flex justify-content-end flex-column col-9">
+                        <div className="d-flex justify-content-center flex-column col-8">
                           <div className="form-group d-flex justify-content-between align-items-center">
                             <label className="mb-0">{i18n.t('sdCard.basic.enable')}</label>
                             <div className="custom-control custom-switch">
@@ -136,18 +136,18 @@ const SDCard = ({
                           </div>
                           <hr/>
                           <div className="form-group">
-                            <div className="d-flex justify-content-between align-items-center mb-0">
-                              <label className="mb-o">{i18n.t('sdCard.basic.status')}</label>
+                            <div className="d-flex mb-0">
+                              <label className="mb-o pl-0 col-sm-5">{i18n.t('sdCard.basic.status')}</label>
                               {sdCardRecordingSettings.sdRecordingStatus === Number(SDCardRecordingStatus.on) ? (
-                                <div className="d-flex justify-content-center align-items-center">
+                                <div className="d-flex col-sm-7 align-items-center">
                                   <div className="dot-sd"/>
-                                  <label className="mb-o text-danger">{i18n.t('sdCard.basic.recording')}</label>
+                                  <label className="text-danger">{i18n.t('sdCard.basic.recording')}</label>
                                 </div>
-                              ) : <label className="mb-o text-primary">{SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}</label>}
+                              ) : <label className="mb-o col-sm-7 text-primary">{SD_STATUS_LIST[sdStatus] || i18n.t('sdCard.basic.constants.unknownStatus')}</label>}
                             </div>
-                            <div className="d-flex justify-content-between align-items-center mb-0">
-                              <label className="mb-o">{i18n.t('sdCard.basic.filesystem')}</label>
-                              <label className="mb-o text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.basic.unrecognized') : sdFormat}</label>
+                            <div className="mb-0">
+                              <label className="mb-o pl-0 col-sm-5">{i18n.t('sdCard.basic.filesystem')}</label>
+                              <label className="mb-o col-sm-7 text-primary">{sdFormat === 'Unrecognized' ? i18n.t('sdCard.basic.unrecognized') : sdFormat}</label>
                             </div>
                           </div>
                           <CustomNotifyModal

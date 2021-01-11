@@ -38,10 +38,11 @@
       "stats": "{{0}}-{{1}} registros. Total: {{2}}"
     },
     "volumeBar": {
-      "free": "{{0}} está disponible",
+      "freeSpace": "",
       "total": "",
       "sdStorageStatus": "{{0}} disponible total {{1}}",
-      "used": "{{0}} se ha utilizado"
+      "used": "{{0}} se ha utilizado",
+      "free": "{{0}} está disponible"
     },
     "toast": {
       "Duplicate Member Names": "Nombre duplicado, utilice un nombre diferente",
@@ -412,13 +413,6 @@
       "disableBody": "¿Está seguro de que desea cerrar la tarjeta de memoria? No se guardarán las capturas de pantalla del evento."
     },
     "storage": {
-      "tooltip": {
-        "noFile": "Seleccione un archivo"
-      },
-      "button": {
-        "download": "Descargar",
-        "remove": "Borrar"
-      },
       "files": {
         "date": "FECHA",
         "name": "NOMBRE DEL ARCHIVO",
@@ -426,6 +420,13 @@
         "actions": "Operar"
       },
       "noFile": "No hay archivos disponibles",
+      "tooltip": {
+        "noFile": "Seleccione un archivo"
+      },
+      "button": {
+        "download": "Descargar",
+        "remove": "Borrar"
+      },
       "modal": {
         "confirmDeleteTitle": "",
         "confirmDeleteBody": "",
