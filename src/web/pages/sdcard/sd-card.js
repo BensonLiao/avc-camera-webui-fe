@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import {getRouter} from '@benson.liao/capybara-router';
 import {Formik, Form, Field} from 'formik';
 import progress from 'nprogress';
@@ -127,9 +126,8 @@ const SDCard = ({
                                 type="checkbox"
                                 className="custom-control-input"
                                 id="switch-sound"
-                                disabled={sdStatus}
                               />
-                              <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
+                              <label className="custom-control-label" htmlFor="switch-sound">
                                 <span>{i18n.t('common.button.on')}</span>
                                 <span>{i18n.t('common.button.off')}</span>
                               </label>

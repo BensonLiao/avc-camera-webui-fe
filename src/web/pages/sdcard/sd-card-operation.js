@@ -32,12 +32,12 @@ const SDCardOperation = ({sdEnabled, sdStatus, callApi, isEnableAuth}) => {
           <div className="card-body p-2">
             <div>
               <CustomTooltip show={sdEnabled} title={i18n.t('sdCard.tooltip.disabledOperationButton')}>
-                <span style={sdEnabled || sdStatus ? {cursor: 'not-allowed'} : {}}>
+                <span style={sdEnabled ? {cursor: 'not-allowed'} : {}}>
                   <button
                     className="btn btn-outline-primary rounded-pill px-5 mr-3"
                     type="button"
-                    disabled={sdEnabled || sdStatus}
-                    style={sdEnabled || sdStatus ? {pointerEvents: 'none'} : {}}
+                    disabled={sdEnabled}
+                    style={sdEnabled ? {pointerEvents: 'none'} : {}}
                     onClick={showModal('isShowFormatModal')}
                   >
                     {i18n.t('sdCard.basic.format')}
