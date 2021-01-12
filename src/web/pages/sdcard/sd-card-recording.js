@@ -19,8 +19,8 @@ const labelClassName = 'col-form-label col-sm-6';
 const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
   const processOptions = (() => {
     return {
+      type: SDCardRecordingType.all().map(x => i18nUtils.getSDCardRecordingType(x)),
       // filter is temporary, REMOVE when ready
-      type: SDCardRecordingType.all().filter(x => x !== '1').map(x => i18nUtils.getSDCardRecordingType(x)),
       stream: SDCardRecordingStream.all().filter(x => x !== '2').map(x => {
         const {value, label} = i18nUtils.getSDCardRecordingStream(x);
         let channel = x === '1' ? 'channelA' : 'channelB';
