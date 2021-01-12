@@ -193,6 +193,7 @@ const SDCard = ({
                             streamSettings={streamSettings}
                             formValues={values}
                             setFieldValue={setFieldValue}
+                            onSubmit={onSubmit}
                           />
                         </div>
                       </Tab.Container>

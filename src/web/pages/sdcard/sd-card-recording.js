@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import {Field} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {Tab} from 'react-bootstrap';
 import SDCardRecordingDuration from 'webserver-form-schema/constants/sdcard-recording-duration';
 import SDCardRecordingType from 'webserver-form-schema/constants/sdcard-recording-type';
@@ -12,11 +12,14 @@ import i18n from '../../../i18n';
 import i18nUtils from '../../../i18n/utils';
 import PropTypes from 'prop-types';
 import SelectField from '../../../core/components/fields/select-field';
+import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 
 const wrapperClassName = 'col-sm-6';
 const labelClassName = 'col-form-label col-sm-6';
 
-const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecordingSettings}) => {
+const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecordingSettings, onSubmit}) => {
+  const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
+
   const processOptions = (() => {
     return {
       type: SDCardRecordingType.all().map(x => i18nUtils.getSDCardRecordingType(x)),
@@ -156,6 +159,17 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
             </div>
           </div>
         </div>
+        <CustomNotifyModal
+          isShowModal={isShowConfirmModal}
+          modalTitle={i18n.t('sdCard.basic.modal.recordingOnOffTitle')}
+          modalBody={formValues.sdRecordingEnabled ?
+            i18n.t('sdCard.basic.modal.recordingOnBody') :
+            i18n.t('sdCard.basic.modal.recordingOffBody')}
+          onHide={() => setIsShowConfirmModal(false)}
+          onConfirm={() => {
+            onSubmit(formValues);
+          }}
+        />
         <button
           className="btn btn-block btn-primary rounded-pill"
           disabled={JSON.stringify(sdCardRecordingSettings) ===
@@ -168,7 +182,8 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
               sdRecordingLimit: formValues.sdRecordingLimit,
               sdPrerecordingDuration: formValues.sdPrerecordingDuration
             })}
-          type="submit"
+          type="button"
+          onClick={() => setIsShowConfirmModal(true)}
         >
           {i18n.t('common.button.apply')}
         </button>
@@ -206,7 +221,8 @@ SDCardRecording.propTypes = {
     sdRecordingStream: PropTypes.number.isRequired,
     sdRecordingType: PropTypes.number.isRequired,
     sdPrerecordingDuration: PropTypes.number.isRequired
-  }).isRequired
+  }).isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default SDCardRecording;

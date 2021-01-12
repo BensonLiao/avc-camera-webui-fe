@@ -396,6 +396,11 @@
       "recordingDuration": "Recording Duration (minutes)",
       "prerecordingDuration": "Retention Duration (seconds)",
       "recordingLimit": "When storage is full",
+      "modal": {
+        "recordingOnOffTitle": "Restart Recording Functionality",
+        "recordingOnBody": "Are you sure you want to change SD card recording settings? This will restart SD card recording functionality according to your settings.",
+        "recordingOffBody": "Are you sure you want to turn off SD card recording? This will stop the current recording."
+      },
       "title": "SD Card",
       "enable": "Enable SD Card",
       "status": "Status",

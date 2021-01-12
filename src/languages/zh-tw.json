@@ -396,6 +396,11 @@
       "recordingDuration": "錄影時間 (分)",
       "prerecordingDuration": "",
       "recordingLimit": "當存儲空間已滿時",
+      "modal": {
+        "recordingOnOffTitle": "",
+        "recordingOnBody": "",
+        "recordingOffBody": ""
+      },
       "title": "記憶卡",
       "enable": "開啟記憶卡",
       "status": "狀態",

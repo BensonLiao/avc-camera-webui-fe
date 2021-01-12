@@ -396,6 +396,11 @@
       "recordingDuration": "Duración de la grabación (minutos)",
       "prerecordingDuration": "",
       "recordingLimit": "Cuando el almacenamiento está lleno",
+      "modal": {
+        "recordingOnOffTitle": "",
+        "recordingOnBody": "",
+        "recordingOffBody": ""
+      },
       "title": "Tarjeta de memoria",
       "enable": "Habilitar tarjeta SD",
       "status": "Estado",
