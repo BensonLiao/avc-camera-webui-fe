@@ -170,6 +170,12 @@
 }
 
 .modal.notification-card {
+  .modal-content {
+    .modal-body {
+      max-height: calc(100vh - 280px);
+      overflow: auto;
+    }
+  }
   .title {
     line-height: 40px;
     font-size: 20px;
