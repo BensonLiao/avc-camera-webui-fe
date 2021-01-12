@@ -613,6 +613,7 @@
         "unpin": "Desanclar Pin Card",
         "pin": "Parte superior",
         "iconEmail": "Correo electrónico: Habilitado",
+        "iconRecording": "",
         "iconOutput": "Salida digital: Habilitado",
         "addNewCard": "Añadir tarjeta de notificación"
       },

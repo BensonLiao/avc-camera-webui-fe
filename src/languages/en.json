@@ -613,6 +613,7 @@
         "unpin": "Unpin this card",
         "pin": "Pin this card",
         "iconEmail": "Email: On",
+        "iconRecording": "Recording: On",
         "iconOutput": "Output: On",
         "addNewCard": "Add a New Notification Card"
       },

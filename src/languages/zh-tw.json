@@ -613,6 +613,7 @@
         "unpin": "解除置頂",
         "pin": "置頂",
         "iconEmail": "電子郵件: 開啟",
+        "iconRecording": "",
         "iconOutput": "數位輸出: 開啟",
         "addNewCard": "增加通報卡"
       },

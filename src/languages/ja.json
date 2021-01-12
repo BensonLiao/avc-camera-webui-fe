@@ -613,6 +613,7 @@
         "unpin": "固定解除",
         "pin": "固定",
         "iconEmail": "メール: 有効",
+        "iconRecording": "",
         "iconOutput": "出力: 有効",
         "addNewCard": "通知カードを追加する"
       },
