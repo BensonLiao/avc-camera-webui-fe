@@ -619,6 +619,7 @@
       "io": "デジタル入力および出力",
       "output1": "デジタル出力 1",
       "output2": "デジタル出力 2",
+      "sdRecording": "",
       "email": "メール",
       "emailAttachment": "添付ファイル",
       "subject": "件名：",

@@ -753,6 +753,7 @@ module.exports = {
      * - isEnableApp {boolean}
      * - isEnableEmail {boolean}
      * - isEnableVMS {boolean}
+     * - isEnableSDCardRecording {Boolean}
      * - faceRecognitionVMSEvent {string}
      * - emails {Array<string>}
      * - emailAttachmentType {string}
@@ -779,6 +780,7 @@ module.exports = {
       isEnableApp,
       isEnableEmail,
       isEnableVMS,
+      isEnableSDCardRecording,
       faceRecognitionVMSEvent,
       emails,
       emailAttachmentType,
@@ -803,6 +805,7 @@ module.exports = {
         isEnableApp,
         isEnableEmail,
         isEnableVMS,
+        isEnableSDCardRecording,
         faceRecognitionVMSEvent,
         emails,
         emailAttachmentType,
@@ -827,6 +830,7 @@ module.exports = {
       isEnableApp,
       isEnableEmail,
       isEnableVMS,
+      isEnableSDCardRecording,
       faceRecognitionVMSEvent,
       emails,
       emailAttachmentType,
@@ -851,6 +855,7 @@ module.exports = {
         isEnableApp,
         isEnableEmail,
         isEnableVMS,
+        isEnableSDCardRecording,
         faceRecognitionVMSEvent,
         emails,
         emailAttachmentType,

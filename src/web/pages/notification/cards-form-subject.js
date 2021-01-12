@@ -85,6 +85,18 @@ const CardsFormSubject = ({setFieldValue, values, validateField, errors, touched
         </div>
       </div>
       <hr/>
+      {/* SD Event Recording Notification */}
+      <div className="form-group d-flex justify-content-between align-items-center">
+        <label className="mb-0">{i18n.t('notification.cards.sdRecording')}</label>
+        <div className="custom-control custom-switch">
+          <Field name="isEnableSDCardRecording" type="checkbox" className="custom-control-input" id="switch-notification-target-sdrecording"/>
+          <label className="custom-control-label" htmlFor="switch-notification-target-sdrecording">
+            <span>{i18n.t('common.button.on')}</span>
+            <span>{i18n.t('common.button.off')}</span>
+          </label>
+        </div>
+      </div>
+      <hr/>
       {/* E-mail Notification */}
       <div className="form-group d-flex justify-content-between align-items-center">
         <label className="mb-0">{i18n.t('notification.cards.email')}</label>

@@ -619,6 +619,7 @@
       "io": "數位輸出及輸入",
       "output1": "數位輸出 1",
       "output2": "數位輸出 2",
+      "sdRecording": "",
       "email": "電子郵件",
       "emailAttachment": "附件檔案",
       "subject": "主旨 :",

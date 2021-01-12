@@ -619,6 +619,7 @@
       "io": "Entrada y salida digital",
       "output1": "Salida digital 1",
       "output2": "Salida digital 2",
+      "sdRecording": "",
       "email": "Correo electrónico",
       "emailAttachment": "Adjunto de correo electrónico",
       "subject": "Tema :",
