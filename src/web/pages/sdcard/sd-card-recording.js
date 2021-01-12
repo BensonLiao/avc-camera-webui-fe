@@ -16,7 +16,7 @@ import SelectField from '../../../core/components/fields/select-field';
 const wrapperClassName = 'col-sm-6';
 const labelClassName = 'col-form-label col-sm-6';
 
-const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
+const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecordingSettings}) => {
   const processOptions = (() => {
     return {
       type: SDCardRecordingType.all().map(x => i18nUtils.getSDCardRecordingType(x)),
@@ -158,6 +158,16 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue}) => {
         </div>
         <button
           className="btn btn-block btn-primary rounded-pill"
+          disabled={JSON.stringify(sdCardRecordingSettings) ===
+            JSON.stringify({
+              sdRecordingStatus: formValues.sdRecordingStatus,
+              sdRecordingEnabled: formValues.sdRecordingEnabled,
+              sdRecordingStream: formValues.sdRecordingStream,
+              sdRecordingType: formValues.sdRecordingType,
+              sdRecordingDuration: formValues.sdRecordingDuration,
+              sdRecordingLimit: formValues.sdRecordingLimit,
+              sdPrerecordingDuration: formValues.sdPrerecordingDuration
+            })}
           type="submit"
         >
           {i18n.t('common.button.apply')}
@@ -187,7 +197,16 @@ SDCardRecording.propTypes = {
     })
   }).isRequired,
   formValues: PropTypes.object.isRequired,
-  setFieldValue: PropTypes.func.isRequired
+  setFieldValue: PropTypes.func.isRequired,
+  sdCardRecordingSettings: PropTypes.shape({
+    sdRecordingDuration: PropTypes.number.isRequired,
+    sdRecordingEnabled: PropTypes.bool.isRequired,
+    sdRecordingLimit: PropTypes.number.isRequired,
+    sdRecordingStatus: PropTypes.number.isRequired,
+    sdRecordingStream: PropTypes.number.isRequired,
+    sdRecordingType: PropTypes.number.isRequired,
+    sdPrerecordingDuration: PropTypes.number.isRequired
+  }).isRequired
 };
 
 export default SDCardRecording;

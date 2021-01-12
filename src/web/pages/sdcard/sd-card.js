@@ -189,6 +189,7 @@ const SDCard = ({
                             callApi={callApi}
                           />
                           <SDCardRecording
+                            sdCardRecordingSettings={sdCardRecordingSettings}
                             streamSettings={streamSettings}
                             formValues={values}
                             setFieldValue={setFieldValue}
@@ -217,15 +218,7 @@ SDCard.propTypes = {
     sdAlertEnabled: PropTypes.bool.isRequired
   }).isRequired,
   smtpSettings: PropTypes.shape({isEnableAuth: PropTypes.bool.isRequired}).isRequired,
-  sdCardRecordingSettings: PropTypes.shape({
-    sdRecordingDuration: PropTypes.number.isRequired,
-    sdRecordingEnabled: PropTypes.bool.isRequired,
-    sdRecordingLimit: PropTypes.number.isRequired,
-    sdRecordingStatus: PropTypes.number.isRequired,
-    sdRecordingStream: PropTypes.number.isRequired,
-    sdRecordingType: PropTypes.number.isRequired,
-    sdPrerecordingDuration: PropTypes.number.isRequired
-  }).isRequired,
+  sdCardRecordingSettings: SDCardRecording.propTypes.sdCardRecordingSettings,
   streamSettings: SDCardRecording.propTypes.streamSettings
 };
 
