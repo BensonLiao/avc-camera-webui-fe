@@ -57,7 +57,7 @@ const SDCard = ({
     }
 
     if (!prevValues.sdEnabled && nextValues.sdEnabled) {
-      onSubmit(nextValues);
+      onSubmit(nextValues, false);
       return callApi('enableSD', {sdEnabled: nextValues.sdEnabled});
     }
 
@@ -66,7 +66,8 @@ const SDCard = ({
     }
   };
 
-  const onSubmit = values => {
+  // reload should be false when called from onChangeSdCardSetting, to reduce unncessary api calls
+  const onSubmit = (values, reload = true) => {
     // remember current tab to prevent jumping back to initial tab on reload
     localStorage.setItem('sdCurrentTab', currentTab);
 
@@ -81,9 +82,13 @@ const SDCard = ({
       sdPrerecordingDuration: values.sdPrerecordingDuration
     };
     progress.start();
-    api.system.updateSDCardRecordingSettings(formValues)
-      .then(getRouter().reload)
-      .finally(progress.done);
+    if (reload) {
+      api.system.updateSDCardRecordingSettings(formValues)
+        .then(getRouter().reload)
+        .finally(progress.done);
+    } else {
+      api.system.updateSDCardRecordingSettings(formValues);
+    }
   };
 
   return (
