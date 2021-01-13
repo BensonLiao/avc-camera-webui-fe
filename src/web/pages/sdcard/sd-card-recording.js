@@ -35,6 +35,29 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
     };
   })();
 
+  // Set fields to default values for its matching recording type field
+  const onUpdateRecordingType = event => {
+    const recordingType = event.target.value;
+    event.persist();
+    setFieldValue('sdRecordingType', recordingType);
+    if (recordingType === SDCardRecordingType.disconnection) {
+      setFieldValue('sdRecordingStream', SDCardRecordingStream[1]);
+      setFieldValue('sdRecordingDuration', SDCardRecordingDuration[4]);
+      setFieldValue('sdPrerecordingDuration', SDCardPrerecordingDuration[4]);
+      setFieldValue('sdRecordingLimit', SDCardRecordingLimit.stop);
+    } else if (recordingType === SDCardRecordingType.event) {
+      setFieldValue('sdRecordingStream', SDCardRecordingStream[1]);
+      setFieldValue('sdRecordingDuration', SDCardRecordingDuration[4]);
+      setFieldValue('sdPrerecordingDuration', SDCardPrerecordingDuration[4]);
+      setFieldValue('sdRecordingLimit', SDCardRecordingLimit.override);
+    } else if (recordingType === SDCardRecordingType.continuous) {
+      setFieldValue('sdRecordingStream', SDCardRecordingStream[1]);
+      setFieldValue('sdRecordingDuration', SDCardRecordingDuration.max);
+      setFieldValue('sdPrerecordingDuration', SDCardPrerecordingDuration[0]);
+      setFieldValue('sdRecordingLimit', SDCardRecordingLimit.override);
+    }
+  };
+
   const getCurrentStreamSettings = (setFieldValue, event) => {
     setFieldValue('sdRecordingStream', event.target.value);
     if (event.target.value === SDCardRecordingStream[1]) {
@@ -76,6 +99,7 @@ const SDCardRecording = ({streamSettings, formValues, setFieldValue, sdCardRecor
                 labelClassName={labelClassName}
                 labelName={i18n.t('sdCard.basic.recordingType')}
                 name="sdRecordingType"
+                onChange={event => onUpdateRecordingType(event)}
               >
                 {processOptions.type.map(type => (
                   <option key={type.value} value={type.value}>{type.label}</option>
