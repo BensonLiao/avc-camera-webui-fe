@@ -57,6 +57,7 @@ const SDCard = ({
     }
 
     if (!prevValues.sdEnabled && nextValues.sdEnabled) {
+      onSubmit(nextValues);
       return callApi('enableSD', {sdEnabled: nextValues.sdEnabled});
     }
 
