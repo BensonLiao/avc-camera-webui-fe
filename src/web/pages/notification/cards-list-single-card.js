@@ -53,6 +53,15 @@ const CardsListSingleCard = ({card, groups, isApiProcessing, clickCardHandler, t
               )
             }
             {
+              card.isEnableSDCardRecording && (
+                <CustomTooltip title={i18n.t('notification.cards.tooltip.iconRecording')}>
+                  <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
+                    <i className="fas fa-video fa-fw fa-lg"/>
+                  </div>
+                </CustomTooltip>
+              )
+            }
+            {
               card.isEnableGPIO && (
                 <CustomTooltip title={i18n.t('notification.cards.tooltip.iconOutput')}>
                   <div className="icon rounded-pill d-flex justify-content-center align-items-center ml-2">
@@ -138,6 +147,7 @@ CardsListSingleCard.propTypes = {
     isEnableGPIO1: PropTypes.bool.isRequired,
     isEnableGPIO2: PropTypes.bool.isRequired,
     isEnableTime: PropTypes.bool.isRequired,
+    isEnableSDCardRecording: PropTypes.bool.isRequired,
     isTop: PropTypes.bool.isRequired,
     timePeriods: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,

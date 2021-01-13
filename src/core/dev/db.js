@@ -268,7 +268,8 @@ module.exports = {
         sdRecordingStream: 1,
         sdRecordingType: 0,
         sdRecordingDuration: 0,
-        sdRecordingLimit: false
+        sdRecordingLimit: 0,
+        sdPrerecordingDuration: 4
       },
       sdCardStorage: {
         files: Array.from({length: 30}, (_, i) => {
@@ -466,6 +467,7 @@ module.exports = {
         isEnableGPIO2: false,
         isEnableApp: false,
         isEnableEmail: false,
+        isEnableSDCardRecording: false,
         isEnableVMS: true,
         faceRecognitionVMSEvent: '0',
         emails: ['test@a.com'],
@@ -514,6 +516,7 @@ module.exports = {
         isEnableGPIO2: false,
         isEnableApp: false,
         isEnableEmail: true,
+        isEnableSDCardRecording: false,
         isEnableVMS: true,
         faceRecognitionVMSEvent: '0',
         emails: ['test1@b.com', 'test2@c.com'],
@@ -542,6 +545,7 @@ module.exports = {
         isEnableGPIO2: true,
         isEnableApp: false,
         isEnableEmail: true,
+        isEnableSDCardRecording: false,
         isEnableVMS: true,
         faceRecognitionVMSEvent: '0',
         emails: ['testd@abc.com'],

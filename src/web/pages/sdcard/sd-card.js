@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import {getRouter} from '@benson.liao/capybara-router';
 import {Formik, Form, Field} from 'formik';
 import progress from 'nprogress';
@@ -58,6 +57,7 @@ const SDCard = ({
     }
 
     if (!prevValues.sdEnabled && nextValues.sdEnabled) {
+      onSubmit(nextValues, false);
       return callApi('enableSD', {sdEnabled: nextValues.sdEnabled});
     }
 
@@ -66,7 +66,8 @@ const SDCard = ({
     }
   };
 
-  const onSubmit = values => {
+  // reload should be false when called from onChangeSdCardSetting, to reduce unncessary api calls
+  const onSubmit = (values, reload = true) => {
     // remember current tab to prevent jumping back to initial tab on reload
     localStorage.setItem('sdCurrentTab', currentTab);
 
@@ -77,12 +78,17 @@ const SDCard = ({
       sdRecordingEnabled: values.sdRecordingEnabled,
       sdRecordingLimit: values.sdRecordingLimit,
       sdRecordingStream: values.sdRecordingStream,
-      sdRecordingType: values.sdRecordingType
+      sdRecordingType: values.sdRecordingType,
+      sdPrerecordingDuration: values.sdPrerecordingDuration
     };
     progress.start();
-    api.system.updateSDCardRecordingSettings(formValues)
-      .then(getRouter().reload)
-      .finally(progress.done);
+    if (reload) {
+      api.system.updateSDCardRecordingSettings(formValues)
+        .then(getRouter().reload)
+        .finally(progress.done);
+    } else {
+      api.system.updateSDCardRecordingSettings(formValues);
+    }
   };
 
   return (
@@ -126,9 +132,8 @@ const SDCard = ({
                                 type="checkbox"
                                 className="custom-control-input"
                                 id="switch-sound"
-                                disabled={sdStatus}
                               />
-                              <label className={classNames('custom-control-label', {'custom-control-label-disabled': sdStatus})} htmlFor="switch-sound">
+                              <label className="custom-control-label" htmlFor="switch-sound">
                                 <span>{i18n.t('common.button.on')}</span>
                                 <span>{i18n.t('common.button.off')}</span>
                               </label>
@@ -188,9 +193,11 @@ const SDCard = ({
                             callApi={callApi}
                           />
                           <SDCardRecording
+                            sdCardRecordingSettings={sdCardRecordingSettings}
                             streamSettings={streamSettings}
                             formValues={values}
                             setFieldValue={setFieldValue}
+                            onSubmit={onSubmit}
                           />
                         </div>
                       </Tab.Container>
@@ -216,14 +223,7 @@ SDCard.propTypes = {
     sdAlertEnabled: PropTypes.bool.isRequired
   }).isRequired,
   smtpSettings: PropTypes.shape({isEnableAuth: PropTypes.bool.isRequired}).isRequired,
-  sdCardRecordingSettings: PropTypes.shape({
-    sdRecordingDuration: PropTypes.number.isRequired,
-    sdRecordingEnabled: PropTypes.bool.isRequired,
-    sdRecordingLimit: PropTypes.bool.isRequired,
-    sdRecordingStatus: PropTypes.number.isRequired,
-    sdRecordingStream: PropTypes.number.isRequired,
-    sdRecordingType: PropTypes.number.isRequired
-  }).isRequired,
+  sdCardRecordingSettings: SDCardRecording.propTypes.sdCardRecordingSettings,
   streamSettings: SDCardRecording.propTypes.streamSettings
 };
 

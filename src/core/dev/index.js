@@ -216,10 +216,11 @@ mockAxios
       ...configData,
       sdRecordingEnabled: configData.sdRecordingEnabled,
       sdRecordingDuration: Number(configData.sdRecordingDuration),
-      sdRecordingLimit: configData.sdRecordingLimit === 'true',
+      sdRecordingLimit: Number(configData.sdRecordingLimit),
       sdRecordingStatus: Number(configData.sdRecordingStatus),
       sdRecordingStream: Number(configData.sdRecordingStream),
-      sdRecordingType: Number(configData.sdRecordingType)
+      sdRecordingType: Number(configData.sdRecordingType),
+      sdPrerecordingDuration: Number(configData.sdPrerecordingDuration)
     };
     if (data.sdRecordingEnabled === false || data.sdRecordingType === 0) {
       data.sdRecordingStatus = 0;

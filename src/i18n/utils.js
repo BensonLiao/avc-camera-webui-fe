@@ -348,15 +348,15 @@ module.exports.getSDCardRecordingStream = x => {
 module.exports.getSDCardRecordingLimit = x => {
   switch (x) {
     default: return {};
-    case SDCardRecordingLimit.override:
-      return {
-        value: x,
-        label: i18n.t('sdCard.basic.constants.sdcard-recording-limit-true')
-      };
     case SDCardRecordingLimit.stop:
       return {
         value: x,
-        label: i18n.t('sdCard.basic.constants.sdcard-recording-limit-false')
+        label: i18n.t('sdCard.basic.constants.sdcard-recording-limit-0')
+      };
+    case SDCardRecordingLimit.override:
+      return {
+        value: x,
+        label: i18n.t('sdCard.basic.constants.sdcard-recording-limit-1')
       };
   }
 };

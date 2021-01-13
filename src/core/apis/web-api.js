@@ -393,14 +393,15 @@ module.exports = {
      * - sdRecordingStream {Number} // stream 1 == 1 or stream 2 === 2
      * - sdRecordingType {Number} // 0: disconnection, 1: event recording, or 2: continuously recording
      * - sdRecordingDuration {Number} // 0: till the storage limitation, or 1-60 minute recording
-     * - sdRecordingLimit {Boolean} // true: gonna delete oldest recording file, or false: just stop recording if no enough space for new file
+     * - sdRecordingLimit {Number} // 1: gonna delete oldest recording file, or 0: just stop recording if no enough space for new file
+     * - sdPrerecordingDuration {Number} // from 0 to 10, each representing 1 second
      */
     getSDCardRecordingSettings: () => api({
       method: 'get',
       url: '/api/system/systeminfo/sdcard-recording'
     }),
     updateSDCardRecordingSettings: (
-      {sdRecordingStatus, sdRecordingDuration, sdRecordingEnabled, sdRecordingLimit, sdRecordingStream, sdRecordingType}
+      {sdRecordingStatus, sdRecordingDuration, sdRecordingEnabled, sdRecordingLimit, sdRecordingStream, sdRecordingType, sdPrerecordingDuration}
     ) => api({
       method: 'post',
       url: '/api/system/systeminfo/sdcard-recording',
@@ -410,7 +411,8 @@ module.exports = {
         sdRecordingEnabled,
         sdRecordingLimit,
         sdRecordingStream,
-        sdRecordingType
+        sdRecordingType,
+        sdPrerecordingDuration
       }
     }),
     /**
@@ -751,6 +753,7 @@ module.exports = {
      * - isEnableApp {boolean}
      * - isEnableEmail {boolean}
      * - isEnableVMS {boolean}
+     * - isEnableSDCardRecording {Boolean}
      * - faceRecognitionVMSEvent {string}
      * - emails {Array<string>}
      * - emailAttachmentType {string}
@@ -777,6 +780,7 @@ module.exports = {
       isEnableApp,
       isEnableEmail,
       isEnableVMS,
+      isEnableSDCardRecording,
       faceRecognitionVMSEvent,
       emails,
       emailAttachmentType,
@@ -801,6 +805,7 @@ module.exports = {
         isEnableApp,
         isEnableEmail,
         isEnableVMS,
+        isEnableSDCardRecording,
         faceRecognitionVMSEvent,
         emails,
         emailAttachmentType,
@@ -825,6 +830,7 @@ module.exports = {
       isEnableApp,
       isEnableEmail,
       isEnableVMS,
+      isEnableSDCardRecording,
       faceRecognitionVMSEvent,
       emails,
       emailAttachmentType,
@@ -849,6 +855,7 @@ module.exports = {
         isEnableApp,
         isEnableEmail,
         isEnableVMS,
+        isEnableSDCardRecording,
         faceRecognitionVMSEvent,
         emails,
         emailAttachmentType,
