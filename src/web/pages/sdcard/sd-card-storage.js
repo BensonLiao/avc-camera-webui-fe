@@ -5,17 +5,17 @@ import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
 import React, {useState, useRef} from 'react';
+import {withApiWrapper} from '../../../core/apis';
 import api from '../../../core/apis/web-api';
+import i18n from '../../../i18n';
+import {getPaginatedData, isArray} from '../../../core/utils';
 import BreadCrumb from '../../../core/components/fields/breadcrumb';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import CustomTooltip from '../../../core/components/tooltip';
-import i18n from '../../../i18n';
-import {getPaginatedData, isArray} from '../../../core/utils';
 import Pagination from '../../../core/components/pagination';
 import SDCardStorageSearchForm from './sd-card-storage-search-form';
 import SDCardStorageTable from './sd-card-storage-table';
 import StageProgress from '../../../core/components/stage-progress';
-import wrappedApi from '../../../core/apis';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -68,7 +68,7 @@ const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
     progress.start();
     setIsShowProgressModal(true);
     setProgressPercentage(0);
-    wrappedApi({
+    withApiWrapper()({
       method: 'post',
       url: '/api/system/systeminfo/sdcard-storage/download',
       responseType: 'blob',

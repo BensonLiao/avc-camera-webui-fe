@@ -13,7 +13,7 @@ import databaseEncryptionValidator from '../../validations/members/database-encr
 import i18n from '../../../i18n';
 import notify from '../../../core/notify';
 import Password from '../../../core/components/fields/password';
-import wrappedApi from '../../../core/apis';
+import {withApiWrapper} from '../../../core/apis';
 
 const MembersDatabase = ({isApiProcessing}) => {
   const [state, setState] = useState({
@@ -69,7 +69,7 @@ const MembersDatabase = ({isApiProcessing}) => {
       isShowApiProcessModal: true,
       apiProcessModalTitle: i18n.t('userManagement.members.modal.database.exportApiProcessModalTitle')
     }));
-    wrappedApi({
+    withApiWrapper()({
       method: 'get',
       url: '/api/members/database.zip',
       timeout: 3 * 60 * 1000,

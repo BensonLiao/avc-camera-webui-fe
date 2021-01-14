@@ -3,7 +3,7 @@ import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import i18n from '../../../i18n';
 import api from '../../../core/apis/web-api';
-import wrappedApi from '../../../core/apis';
+import {withApiWrapper} from '../../../core/apis';
 import download from 'downloadjs';
 import CustomNotifyModal from '../../../core/components/custom-notify-modal';
 import StageProgress from '../../../core/components/stage-progress';
@@ -27,7 +27,7 @@ const Log = () => {
     progress.start();
     setIsShowProgressModal(true);
     setProgressPercentage(0);
-    wrappedApi({
+    withApiWrapper()({
       method: 'get',
       url: '/api/system/systeminfo/log.zip',
       responseType: 'blob',
