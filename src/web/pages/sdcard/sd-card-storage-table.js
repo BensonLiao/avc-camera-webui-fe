@@ -9,6 +9,7 @@ import i18n from '../../../i18n';
 import noFile from '../../../resource/noFile.png';
 import {SDCARD_STORAGE_DATE_FORMAT} from '../../../core/constants';
 import TableWithCheckBox from '../../../core/components/checkbox-table';
+import CheckboxTablePopoverAction from '../../../core/components/checkbox-table-popover-action';
 
 const SDCardStorageTable = ({
   currentDate,
@@ -22,6 +23,25 @@ const SDCardStorageTable = ({
     <TableWithCheckBox
       formikRef={formikRef}
       pageNumber={pageNumber}
+      popoverAction={(
+        <CheckboxTablePopoverAction
+          items={form.values.flat().filter(value => value.isChecked).length}
+          actions={[
+            {
+              id: 1,
+              icon: <i className="fas fa-download"/>,
+              text: i18n.t('common.tooltip.download'),
+              func: () => downloadFiles(formikRef.current.values)
+            },
+            {
+              id: 2,
+              icon: <i className="far fa-trash-alt"/>,
+              text: i18n.t('common.tooltip.delete'),
+              func: confirmDelete()
+            }
+          ]}
+        />
+      )}
     >
       <thead>
         <tr className="shadow">
@@ -67,14 +87,14 @@ const SDCardStorageTable = ({
                       type="button"
                       onClick={() => downloadFiles(pageData.path)}
                     >
-                      <i className="fas fa-download"/>
+                      <i className="fas fa-lg fa-fw fa-download"/>
                     </button>
                     <button
                       className="btn btn-link"
                       type="button"
                       onClick={confirmDelete(pageData.path)}
                     >
-                      <i className="far fa-trash-alt fa-lg fa-fw"/>
+                      <i className="far fa-lg fa-fw fa-trash-alt"/>
                     </button>
                   </td>
                 </tr>

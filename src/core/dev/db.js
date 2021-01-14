@@ -1,6 +1,7 @@
 const low = require('lowdb');
 const uuidv4 = require('uuid/v4');
 const LocalStorage = require('lowdb/adapters/LocalStorage');
+const dayjs = require('dayjs');
 const ShutterSpeed = require('webserver-form-schema/constants/shutter-speed');
 const WhiteBalanceType = require('webserver-form-schema/constants/white-balance-type');
 const ApertureType = require('webserver-form-schema/constants/aperture-type');
@@ -15,6 +16,7 @@ const RecognitionType = require('webserver-form-schema/constants/event-filters/r
 const Similarity = require('webserver-form-schema/constants/event-filters/similarity');
 const userPhotos = require('./photos/users/_photos');
 const eventPhotos = require('./photos/events/_photos');
+const {SDCARD_STORAGE_DATE_FORMAT} = require('../constants');
 const triggerAreaRawData = require('./trigger-area').default;
 
 const adapter = new LocalStorage('db');
@@ -40,6 +42,14 @@ const memberGroups = [
     name: 'Asgard',
     note: 'Home of Odin'
   }
+];
+
+const availableSDCardFilesDateList = [
+  dayjs().format(SDCARD_STORAGE_DATE_FORMAT.API),
+  dayjs().subtract(1, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API),
+  dayjs().subtract(2, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API),
+  dayjs().subtract(4, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API),
+  dayjs().subtract(5, 'd').format(SDCARD_STORAGE_DATE_FORMAT.API)
 ];
 
 const members = [
@@ -273,6 +283,7 @@ module.exports = {
       },
       sdCardStorage: {
         files: Array.from({length: 30}, (_, i) => {
+          const availableDate = availableSDCardFilesDateList[Math.floor(Math.random() * availableSDCardFilesDateList.length)];
           return (
             {
               id: uuidv4(),
@@ -281,11 +292,11 @@ module.exports = {
               path: `/sdcard/test/folder1/file${i}.txt`,
               type: 'file',
               // Add a date field to mock backend filter
-              date: `2021-01-${i <= 5 ? '20' : Math.floor(Math.random() * 23)}`
+              date: `${i <= 10 ? dayjs().format(SDCARD_STORAGE_DATE_FORMAT.API) : availableDate}`
             }
           );
         }),
-        filesDateList: ['2021-01-20', '2021-01-22', '2021-01-23', '2021-02-01']
+        filesDateList: availableSDCardFilesDateList
       },
       systemDateTime: {
         deviceTime: new Date().getTime(),

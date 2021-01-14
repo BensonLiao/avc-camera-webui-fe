@@ -28,7 +28,17 @@ $spacers: (
   // 16px -> 40px
   40px: ($spacer * 2.5),
   // 16px -> 56px
-  56px: ($spacer * 3.5)
+  56px: ($spacer * 3.5),
+  // 16px -> 64px
+  4x: ($spacer * 4),
+  // 16px -> 80px
+  5x: ($spacer * 5),
+  // 16px -> 96px
+  6x: ($spacer * 6),
+  // 16px -> 112px
+  7x: ($spacer * 7),
+  // 16px -> 128px
+  8x: ($spacer * 8)
 );
 
 $primary: $primary-500;

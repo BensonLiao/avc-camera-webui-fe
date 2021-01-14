@@ -1,5 +1,13 @@
 {
   "common": {
+    "table": {
+      "popover": {
+        "selected": "Selected"
+      },
+      "tooltip": {
+        "deselectall": "Deselect All"
+      }
+    },
     "modal": {
       "pleaseWait": "Please wait",
       "sessionExpire": {
@@ -107,6 +115,11 @@
       "tooltip": {
         "disabledButton": "Please select a file first."
       }
+    },
+    "tooltip": {
+      "download": "Download",
+      "delete": "Delete",
+      "more": "More"
     }
   },
   "userManagement": {

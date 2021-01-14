@@ -1,5 +1,13 @@
 {
   "common": {
+    "table": {
+      "popover": {
+        "selected": "選択済み"
+      },
+      "tooltip": {
+        "deselectall": "すべての選択を解除"
+      }
+    },
     "modal": {
       "pleaseWait": "しばらくお待ちください",
       "sessionExpire": {
@@ -107,6 +115,11 @@
       "tooltip": {
         "disabledButton": "ファイルを選択してください"
       }
+    },
+    "tooltip": {
+      "download": "ダウンロード",
+      "delete": "削除",
+      "more": "もっと"
     }
   },
   "userManagement": {

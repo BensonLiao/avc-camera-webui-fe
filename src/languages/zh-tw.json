@@ -1,5 +1,13 @@
 {
   "common": {
+    "table": {
+      "popover": {
+        "selected": "已選"
+      },
+      "tooltip": {
+        "deselectall": "全部取消選擇"
+      }
+    },
     "modal": {
       "pleaseWait": "請稍候",
       "sessionExpire": {
@@ -107,6 +115,11 @@
       "tooltip": {
         "disabledButton": "請先選擇一個檔案"
       }
+    },
+    "tooltip": {
+      "download": "下載",
+      "delete": "刪除",
+      "more": "更多"
     }
   },
   "userManagement": {

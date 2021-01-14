@@ -4,7 +4,7 @@ import {Formik, Form} from 'formik';
 import {getRouter} from '@benson.liao/capybara-router';
 import progress from 'nprogress';
 import PropTypes from 'prop-types';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {withApiWrapper} from '../../../core/apis';
 import api from '../../../core/apis/web-api';
 import i18n from '../../../i18n';
@@ -20,6 +20,16 @@ import StageProgress from '../../../core/components/stage-progress';
 const ITEMS_PER_PAGE = 10;
 
 const SDCardStorage = ({storage: {files, date}, dateList: availableDates}) => {
+  useEffect(() => {
+    if (window.isDebug === 'y') {
+      const {showSuccessNotification} = require('../../../core/notify');
+      showSuccessNotification({
+        title: 'Dev Note',
+        message: `The sd-card storage mock data are sync with computer time, 
+        update browser's local storage to see the latest data`
+      });
+    }
+  }, []);
   const [pageNumber, setPage] = useState(0);
   const [isShowConfirmModal, setIsShowConfirmModal] = useState(false);
   const [fileToDelete, setFileToDelete] = useState();

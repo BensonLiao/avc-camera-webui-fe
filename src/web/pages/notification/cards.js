@@ -91,7 +91,7 @@ const Cards = ({groups, systemInformation: {modelName}, cards: {items: cards}}) 
               isShowCardDetailsModal={isShowCardDetailsModal}
               hideCardFormModal={() => setIsShowCardDetailsModal(false)}
             />
-            <div className="fixed-actions-section fixed-bottom text-center pb-5" style={{pointerEvents: 'none'}}>
+            <div className="float-action-buttons show bottom center" style={{pointerEvents: 'none'}}>
               <CustomTooltip title={i18n.t('notification.cards.tooltip.addNewCard')}>
                 <button
                   disabled={isApiProcessing}
